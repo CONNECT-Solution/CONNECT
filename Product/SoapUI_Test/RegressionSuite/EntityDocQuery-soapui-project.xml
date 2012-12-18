@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <con:soapui-project abortOnError="false" name="EntityDocQuery" resourceRoot="${projectDir}" runType="SEQUENTIAL" soapui-version="4.5.1" activeEnvironment="Default" xmlns:con="http://eviware.com/soapui/config">
   <con:settings/>
-  <con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:entitydocquery}EntityDocQueryBindingSoap" definition="${ProjectDir}../ValidationSuite/target/wsdl/EntityDocQuery.wsdl" name="EntityDocQueryBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:entitydocquery}EntityDocQueryBindingSoap" definition="${projectDir}/../ValidationSuite/target/wsdl/EntityDocQuery.wsdl" name="EntityDocQueryBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <con:settings/>
     
     <con:endpoints>
@@ -19,45 +19,13 @@
       
       <con:testStep name="Copy uddiConnectionInfo" type="groovy">
         <con:settings/>
-        <con:config><script>import nhinc.FileUtils;
-def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
-def testCase = testRunner.getTestCase()
-def testSuite = testCase.getTestSuite()
-def project = testSuite.getProject()
-def projectPropFullFile = project.getPath()
-def projectPropPath = groovyUtils.projectPath
+        <con:config><script>def sourceDir = (new com.eviware.soapui.support.GroovyUtils(context)).projectPath;
 
-def sourceDir = projectPropPath;
-def sourceFile = "uddiConnectionInfo_FANOUT.xml";
-def destDir = System.env['NHINC_PROPERTIES_DIR'];
-def destFile = "uddiConnectionInfo.xml";
-
-log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
-
-FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);</script></con:config>
+nhinc.FileUtils.copyFile(sourceDir, "uddiConnectionInfo_FANOUT.xml", context.findProperty("GatewayPropDir"), "uddiConnectionInfo.xml", log);</script></con:config>
       </con:testStep>
       <con:testStep name="update config" type="groovy">
         <con:settings/>
-        <con:config>
-          <script>//def destConfigFileLocation = context.findProperty("NHINGatewayConfigDir");
-
-def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR']
-
-void UpdateProperty(String directory, String filename, String propertyKey, String propertyValue,context,log) {
-			  
-   log.info("begin UpdateProperty; directory='" + directory + "';filename='" + filename + "';key='" + propertyKey + "';value='" + propertyValue + "';");
-   File file = new File(directory,filename);
-   Properties properties = new Properties();
-   FileInputStream frPropFile = new FileInputStream(file);
-   properties.load(frPropFile);
-   properties.setProperty(propertyKey, propertyValue);
-   FileOutputStream fwPropFile = new FileOutputStream(file);
-   properties.store(fwPropFile, "**DO NOT CHECK IN** - written by groovy script FileUtils.groovy->UpdateProperty");
-   properties = null;
-}
-
-UpdateProperty(destConfigFileLocation,"gateway.properties","documentQueryQuerySelf","false",context,log);</script>
-        </con:config>
+        <con:config><script>nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'), "gateway.properties", "documentQueryQuerySelf", "false", log);</script></con:config>
       </con:testStep>
       <con:testStep name="Generate patient ID for Doc Query" type="groovy">
         <con:settings/>
@@ -110,19 +78,17 @@ context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;$
       </con:testStep>
       <con:testStep name="Set Connection Info" type="groovy">
         <con:settings/>
-        <con:config><script>import nhinc.FileUtils;
-def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
-def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
+        <con:config><script>def destConfigFileLocation = context.findProperty("GatewayPropDir");
 def Host2 = context.findProperty("Host2");
-def HCID2 = context.findProperty( "RemoteHCID1" );
+def HCID2 = context.findProperty("RemoteHCID1");
 def docQueryURL1 = "https://" + Host2 + ":8181/Gateway/DocumentQuery/2_0/NhinService/RespondingGateway_Query_Service/DocQuery";
 
 def Host3 = context.findProperty("Host3");
 def HCID3 = context.findProperty( "RemoteHCID2" );
 def docQueryURL2 = "https://" + Host3 + ":8181/Gateway/DocumentQuery/2_0/NhinService/RespondingGateway_Query_Service/DocQuery";
 
-FileUtils.CreateOrUpdateConnection("uddiConnectionInfo.xml",destConfigFileLocation, HCID2, "QueryForDocuments", docQueryURL1,"2.0", context, log)
-FileUtils.CreateOrUpdateConnection("uddiConnectionInfo.xml",destConfigFileLocation, HCID3, "QueryForDocuments", docQueryURL2,"2.0", context, log)</script></con:config>
+nhinc.FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml",destConfigFileLocation, HCID2, "QueryForDocuments", docQueryURL1,"3.0", log)
+nhinc.FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml",destConfigFileLocation, HCID3, "QueryForDocuments", docQueryURL2,"3.0", log)</script></con:config>
       </con:testStep>
       
       <con:testStep name="Document Query" type="request">
@@ -170,8 +136,6 @@ FileUtils.CreateOrUpdateConnection("uddiConnectionInfo.xml",destConfigFileLocati
                <urn3:zipCode>AddrZip</urn3:zipCode>
             </urn3:address>
             <urn3:dateOfBirth xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">06/04/1959 05:21:00</urn3:dateOfBirth>
-            <!--urn3:dateOfSignature xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">${#Project#sigDate}</urn3:dateOfSignature-->
-            <!--urn3:expirationDate xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">${#Project#expireDate}</urn3:expirationDate-->
             <urn3:explanationNonClaimantSignature xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">Electronic</urn3:explanationNonClaimantSignature>
             <urn3:haveSecondWitnessSignature xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">false</urn3:haveSecondWitnessSignature>
             <urn3:haveSignature xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">false</urn3:haveSignature>
@@ -209,7 +173,6 @@ FileUtils.CreateOrUpdateConnection("uddiConnectionInfo.xml",destConfigFileLocati
                   <urn3:originalText>phoneCode</urn3:originalText>
                </urn3:phoneNumberType>
             </urn3:phoneNumber>
-            <!--urn3:purposeOfDisclosure xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">TREATMENT</urn3:purposeOfDisclosure-->
             <urn3:secondWitnessAddress xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
                <urn3:addressType>
                   <urn3:code>AddrCode</urn3:code>
@@ -314,7 +277,6 @@ FileUtils.CreateOrUpdateConnection("uddiConnectionInfo.xml",destConfigFileLocati
                   <urn3:fullName>Kasrl S. Skagerberg</urn3:fullName>
                </urn3:personName>
                <urn3:userName>kskagerb</urn3:userName>
-               <urn3:role>Pharmacy</urn3:role>
                <urn3:org>
                   <urn3:description>${#Project#LocalHCDescription}</urn3:description>
                   <urn3:homeCommunityId>${#Project#LocalHCID}</urn3:homeCommunityId>
@@ -360,9 +322,6 @@ FileUtils.CreateOrUpdateConnection("uddiConnectionInfo.xml",destConfigFileLocati
                         <urn3:notBefore>2009-04-16T13:10:39.093Z</urn3:notBefore>
                         <urn3:notOnOrAfter>2009-12-31T12:00:00.000Z</urn3:notOnOrAfter>
                      </urn3:conditions>
-                     <!--urn3:contentReference>Claim-Ref-1234</urn3:contentReference-->
-                     <!--urn3:contentType>application/pdf</urn3:contentType-->
-                     <!--urn3:content>YWVvbGlhbQ==</urn3:content-->
                   </urn3:assertion>
                </urn3:evidence>
             </urn3:samlAuthzDecisionStatement>
@@ -405,19 +364,19 @@ count(//ns6:AdhocQueryResponse[1]/ns3:RegistryObjectList[1]/ns3:ExtrinsicObject)
       </con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2012-08-25T02:20:17Z</con:value>
+          <con:value>2012-12-13T01:44:19Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2012-08-25T02:30:17Z</con:value>
+          <con:value>2012-12-13T01:54:19Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>08/25/2012 02:20:17</con:value>
+          <con:value>12/13/2012 01:44:19</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2012-09-24T00:00:00Z</con:value>
+          <con:value>2013-01-12T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>FullPatientID</con:name>
@@ -432,46 +391,14 @@ count(//ns6:AdhocQueryResponse[1]/ns3:RegistryObjectList[1]/ns3:ExtrinsicObject)
       
       <con:testStep name="Copy uddiConnectionInfo" type="groovy">
         <con:settings/>
-        <con:config><script>import nhinc.FileUtils;
-def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
-def testCase = testRunner.getTestCase()
-def testSuite = testCase.getTestSuite()
-def project = testSuite.getProject()
-def projectPropFullFile = project.getPath()
-def projectPropPath = groovyUtils.projectPath
+        <con:config><script>def sourceDir = (new com.eviware.soapui.support.GroovyUtils(context)).projectPath;
 
-def sourceDir = projectPropPath;
-def sourceFile = "uddiConnectionInfo_FANOUT.xml";
-def destDir = System.env['NHINC_PROPERTIES_DIR'];
-def destFile = "uddiConnectionInfo.xml";
-
-log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
-
-FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);</script></con:config>
+nhinc.FileUtils.copyFile(sourceDir, "uddiConnectionInfo_FANOUT.xml", context.findProperty("GatewayPropDir"), "uddiConnectionInfo.xml", log);</script></con:config>
       </con:testStep>
       
       <con:testStep name="update config" type="groovy">
         <con:settings/>
-        <con:config>
-          <script>//def destConfigFileLocation = context.findProperty("NHINGatewayConfigDir");
-
-def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR']
-
-void UpdateProperty(String directory, String filename, String propertyKey, String propertyValue,context,log) {
-			  
-   log.info("begin UpdateProperty; directory='" + directory + "';filename='" + filename + "';key='" + propertyKey + "';value='" + propertyValue + "';");
-   File file = new File(directory,filename);
-   Properties properties = new Properties();
-   FileInputStream frPropFile = new FileInputStream(file);
-   properties.load(frPropFile);
-   properties.setProperty(propertyKey, propertyValue);
-   FileOutputStream fwPropFile = new FileOutputStream(file);
-   properties.store(fwPropFile, "**DO NOT CHECK IN** - written by groovy script FileUtils.groovy->UpdateProperty");
-   properties = null;
-}
-
-UpdateProperty(destConfigFileLocation,"gateway.properties","documentQueryQuerySelf","false",context,log);</script>
-        </con:config>
+        <con:config><script>nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'), "gateway.properties", "documentQueryQuerySelf", "false", log);</script></con:config>
       </con:testStep>
       <con:testStep name="Generate patient ID for Doc Query" type="groovy">
         <con:settings/>
@@ -526,9 +453,7 @@ context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;$
       
       <con:testStep name="Set Connection Info" type="groovy">
         <con:settings/>
-        <con:config><script>import nhinc.FileUtils;
-def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
-def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
+        <con:config><script>def destConfigFileLocation = context.findProperty("GatewayPropDir");
 def Host2 = context.findProperty("Host2");
 def HCID2 = context.findProperty( "RemoteHCID1" );
 def docQueryURL1 = "https://" + Host2 + ":8181/Gateway/DocumentQuery/2_0/NhinService/RespondingGateway_Query_Service/DocQuery";
@@ -537,8 +462,8 @@ def Host3 = context.findProperty("Host3");
 def HCID3 = context.findProperty( "RemoteHCID2" );
 def docQueryURL2 = "https://" + Host3 + ":8181/RespondingGateway_Query_Service/BadURL";
 
-FileUtils.CreateOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocation, HCID2, "QueryForDocuments", docQueryURL1, "2.0", context, log)
-FileUtils.CreateOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocation, HCID3, "QueryForDocuments", docQueryURL2, "2.0", context, log)</script></con:config>
+nhinc.FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocation, HCID2, "QueryForDocuments", docQueryURL1, "2.0", log)
+nhinc.FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocation, HCID3, "QueryForDocuments", docQueryURL2, "2.0", log)</script></con:config>
       </con:testStep>
       
       <con:testStep name="Document Query" type="request">
@@ -586,8 +511,6 @@ FileUtils.CreateOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocat
                <urn3:zipCode>AddrZip</urn3:zipCode>
             </urn3:address>
             <urn3:dateOfBirth xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">06/04/1959 05:21:00</urn3:dateOfBirth>
-            <!--urn3:dateOfSignature xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">${#Project#sigDate}</urn3:dateOfSignature-->
-            <!--urn3:expirationDate xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">${#Project#expireDate}</urn3:expirationDate-->
             <urn3:explanationNonClaimantSignature xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">Electronic</urn3:explanationNonClaimantSignature>
             <urn3:haveSecondWitnessSignature xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">false</urn3:haveSecondWitnessSignature>
             <urn3:haveSignature xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">false</urn3:haveSignature>
@@ -625,7 +548,6 @@ FileUtils.CreateOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocat
                   <urn3:originalText>phoneCode</urn3:originalText>
                </urn3:phoneNumberType>
             </urn3:phoneNumber>
-            <!--urn3:purposeOfDisclosure xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">TREATMENT</urn3:purposeOfDisclosure-->
             <urn3:secondWitnessAddress xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
                <urn3:addressType>
                   <urn3:code>AddrCode</urn3:code>
@@ -730,7 +652,6 @@ FileUtils.CreateOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocat
                   <urn3:fullName>Kasrl S. Skagerberg</urn3:fullName>
                </urn3:personName>
                <urn3:userName>kskagerb</urn3:userName>
-               <urn3:role>Pharmacy</urn3:role>
                <urn3:org>
                   <urn3:description>${#Project#LocalHCDescription}</urn3:description>
                   <urn3:homeCommunityId>${#Project#LocalHCID}</urn3:homeCommunityId>
@@ -776,9 +697,6 @@ FileUtils.CreateOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocat
                         <urn3:notBefore>2009-04-16T13:10:39.093Z</urn3:notBefore>
                         <urn3:notOnOrAfter>2009-12-31T12:00:00.000Z</urn3:notOnOrAfter>
                      </urn3:conditions>
-                     <!--urn3:contentReference>Claim-Ref-1234</urn3:contentReference-->
-                     <!--urn3:contentType>application/pdf</urn3:contentType-->
-                     <!--urn3:content>YWVvbGlhbQ==</urn3:content-->
                   </urn3:assertion>
                </urn3:evidence>
             </urn3:samlAuthzDecisionStatement>
@@ -829,19 +747,19 @@ count(//ns9:AdhocQueryResponse[1]/ns7:RegistryErrorList[1]/ns7:RegistryError)</p
       </con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2012-08-25T02:23:20Z</con:value>
+          <con:value>2012-12-13T01:44:19Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2012-08-25T02:33:20Z</con:value>
+          <con:value>2012-12-13T01:54:19Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>08/25/2012 02:23:20</con:value>
+          <con:value>12/13/2012 01:44:19</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2012-09-24T00:00:00Z</con:value>
+          <con:value>2013-01-12T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>FullPatientID</con:name>
@@ -856,46 +774,14 @@ count(//ns9:AdhocQueryResponse[1]/ns7:RegistryErrorList[1]/ns7:RegistryError)</p
       
       <con:testStep name="Copy uddiConnectionInfo" type="groovy">
         <con:settings/>
-        <con:config><script>import nhinc.FileUtils;
-def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
-def testCase = testRunner.getTestCase()
-def testSuite = testCase.getTestSuite()
-def project = testSuite.getProject()
-def projectPropFullFile = project.getPath()
-def projectPropPath = groovyUtils.projectPath
+        <con:config><script>def sourceDir = (new com.eviware.soapui.support.GroovyUtils(context)).projectPath;
 
-def sourceDir = projectPropPath;
-def sourceFile = "uddiConnectionInfo_FANOUT.xml";
-def destDir = System.env['NHINC_PROPERTIES_DIR'];
-def destFile = "uddiConnectionInfo.xml";
-
-log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
-
-FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);</script></con:config>
+nhinc.FileUtils.copyFile(sourceDir, "uddiConnectionInfo_FANOUT.xml", context.findProperty("GatewayPropDir"), "uddiConnectionInfo.xml", log);</script></con:config>
       </con:testStep>
       
       <con:testStep name="update config" type="groovy">
         <con:settings/>
-        <con:config>
-          <script>//def destConfigFileLocation = context.findProperty("NHINGatewayConfigDir");
-
-def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR']
-
-void UpdateProperty(String directory, String filename, String propertyKey, String propertyValue,context,log) {
-			  
-   log.info("begin UpdateProperty; directory='" + directory + "';filename='" + filename + "';key='" + propertyKey + "';value='" + propertyValue + "';");
-   File file = new File(directory,filename);
-   Properties properties = new Properties();
-   FileInputStream frPropFile = new FileInputStream(file);
-   properties.load(frPropFile);
-   properties.setProperty(propertyKey, propertyValue);
-   FileOutputStream fwPropFile = new FileOutputStream(file);
-   properties.store(fwPropFile, "**DO NOT CHECK IN** - written by groovy script FileUtils.groovy->UpdateProperty");
-   properties = null;
-}
-
-UpdateProperty(destConfigFileLocation,"gateway.properties","documentQueryQuerySelf","false",context,log);</script>
-        </con:config>
+        <con:config><script>nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'), "gateway.properties", "documentQueryQuerySelf", "false", log);</script></con:config>
       </con:testStep>
       <con:testStep name="Generate patient ID for Doc Query" type="groovy">
         <con:settings/>
@@ -947,14 +833,12 @@ context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;$
       
       <con:testStep name="Set Connection Info" type="groovy">
         <con:settings/>
-        <con:config><script>import nhinc.FileUtils;
-def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
-def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
+        <con:config><script>def destConfigFileLocation = context.findProperty("GatewayPropDir");
 def Host2 = context.findProperty("Host2");
 def HCID2 = context.findProperty( "RemoteHCID1" );
 def docQueryURL1 = "https://" + Host2 + ":8181/Gateway/DocumentQuery/2_0/NhinService/RespondingGateway_Query_Service/DocQuery";
 
-FileUtils.CreateOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocation, HCID2, "QueryForDocuments", docQueryURL1, "2.0", context, log)</script></con:config>
+nhinc.FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocation, HCID2, "QueryForDocuments", docQueryURL1, "2.0", log)</script></con:config>
       </con:testStep>
       
       <con:testStep name="Document Query" type="request">
@@ -1002,8 +886,6 @@ FileUtils.CreateOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocat
                <urn3:zipCode>AddrZip</urn3:zipCode>
             </urn3:address>
             <urn3:dateOfBirth xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">06/04/1959 05:21:00</urn3:dateOfBirth>
-            <!--urn3:dateOfSignature xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">${#Project#sigDate}</urn3:dateOfSignature-->
-            <!--urn3:expirationDate xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">${#Project#expireDate}</urn3:expirationDate-->
             <urn3:explanationNonClaimantSignature xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">Electronic</urn3:explanationNonClaimantSignature>
             <urn3:haveSecondWitnessSignature xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">false</urn3:haveSecondWitnessSignature>
             <urn3:haveSignature xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">false</urn3:haveSignature>
@@ -1041,7 +923,6 @@ FileUtils.CreateOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocat
                   <urn3:originalText>phoneCode</urn3:originalText>
                </urn3:phoneNumberType>
             </urn3:phoneNumber>
-            <!--urn3:purposeOfDisclosure xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">TREATMENT</urn3:purposeOfDisclosure-->
             <urn3:secondWitnessAddress xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
                <urn3:addressType>
                   <urn3:code>AddrCode</urn3:code>
@@ -1146,7 +1027,6 @@ FileUtils.CreateOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocat
                   <urn3:fullName>Kasrl S. Skagerberg</urn3:fullName>
                </urn3:personName>
                <urn3:userName>kskagerb</urn3:userName>
-               <urn3:role>Pharmacy</urn3:role>
                <urn3:org>
                   <urn3:description>${#Project#LocalHCDescription}</urn3:description>
                   <urn3:homeCommunityId>${#Project#LocalHCID}</urn3:homeCommunityId>
@@ -1192,9 +1072,6 @@ FileUtils.CreateOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocat
                         <urn3:notBefore>2009-04-16T13:10:39.093Z</urn3:notBefore>
                         <urn3:notOnOrAfter>2009-12-31T12:00:00.000Z</urn3:notOnOrAfter>
                      </urn3:conditions>
-                     <!--urn3:contentReference>Claim-Ref-1234</urn3:contentReference-->
-                     <!--urn3:contentType>application/pdf</urn3:contentType-->
-                     <!--urn3:content>YWVvbGlhbQ==</urn3:content-->
                   </urn3:assertion>
                </urn3:evidence>
             </urn3:samlAuthzDecisionStatement>
@@ -1230,19 +1107,19 @@ count(//ns6:AdhocQueryResponse[1]/ns3:RegistryObjectList[1]/ns3:ExtrinsicObject)
       </con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2012-08-25T02:24:24Z</con:value>
+          <con:value>2012-12-13T01:44:20Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2012-08-25T02:34:24Z</con:value>
+          <con:value>2012-12-13T01:54:20Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>08/25/2012 02:24:24</con:value>
+          <con:value>12/13/2012 01:44:20</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2012-09-24T00:00:00Z</con:value>
+          <con:value>2013-01-12T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>FullPatientID</con:name>
@@ -1257,46 +1134,14 @@ count(//ns6:AdhocQueryResponse[1]/ns3:RegistryObjectList[1]/ns3:ExtrinsicObject)
       
       <con:testStep name="Copy uddiConnectionInfo" type="groovy">
         <con:settings/>
-        <con:config><script>import nhinc.FileUtils;
-def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
-def testCase = testRunner.getTestCase()
-def testSuite = testCase.getTestSuite()
-def project = testSuite.getProject()
-def projectPropFullFile = project.getPath()
-def projectPropPath = groovyUtils.projectPath
+        <con:config><script>def sourceDir = (new com.eviware.soapui.support.GroovyUtils(context)).projectPath;
 
-def sourceDir = projectPropPath;
-def sourceFile = "uddiConnectionInfo_FANOUT.xml";
-def destDir = System.env['NHINC_PROPERTIES_DIR'];
-def destFile = "uddiConnectionInfo.xml";
-
-log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
-
-FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);</script></con:config>
+nhinc.FileUtils.copyFile(sourceDir, "uddiConnectionInfo_FANOUT.xml", context.findProperty("GatewayPropDir"), "uddiConnectionInfo.xml", log);</script></con:config>
       </con:testStep>
       
       <con:testStep name="update config" type="groovy">
         <con:settings/>
-        <con:config>
-          <script>//def destConfigFileLocation = context.findProperty("NHINGatewayConfigDir");
-
-def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR']
-
-void UpdateProperty(String directory, String filename, String propertyKey, String propertyValue,context,log) {
-			  
-   log.info("begin UpdateProperty; directory='" + directory + "';filename='" + filename + "';key='" + propertyKey + "';value='" + propertyValue + "';");
-   File file = new File(directory,filename);
-   Properties properties = new Properties();
-   FileInputStream frPropFile = new FileInputStream(file);
-   properties.load(frPropFile);
-   properties.setProperty(propertyKey, propertyValue);
-   FileOutputStream fwPropFile = new FileOutputStream(file);
-   properties.store(fwPropFile, "**DO NOT CHECK IN** - written by groovy script FileUtils.groovy->UpdateProperty");
-   properties = null;
-}
-
-UpdateProperty(destConfigFileLocation,"gateway.properties","documentQueryQuerySelf","false",context,log);</script>
-        </con:config>
+        <con:config><script>nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'), "gateway.properties", "documentQueryQuerySelf", "false", log);</script></con:config>
       </con:testStep>
       <con:testStep name="Generate patient ID for Doc Query" type="groovy">
         <con:settings/>
@@ -1350,9 +1195,7 @@ context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;$
       
       <con:testStep name="Set Connection Info" type="groovy">
         <con:settings/>
-        <con:config><script>import nhinc.FileUtils;
-def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
-def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
+        <con:config><script>def destConfigFileLocation = context.findProperty("GatewayPropDir");
 def Host2 = context.findProperty("Host2");
 def HCID2 = context.findProperty( "RemoteHCID1" );
 def docQueryURL1 = "https://" + Host2 + ":8181/Gateway/DocumentQuery/2_0/NhinService/RespondingGateway_Query_Service/DocQuery";
@@ -1361,8 +1204,8 @@ def Host3 = context.findProperty("Host3");
 def HCID3 = context.findProperty( "RemoteHCID2" );
 def docQueryURL2 = "https://" + Host2 + ":8181/Gateway/DocumentQuery/2_0/NhinService/RespondingGateway_Query_Service/DocQuery";
 
-FileUtils.CreateOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocation, HCID2, "QueryForDocuments", docQueryURL1, "2.0", context, log)
-FileUtils.CreateOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocation, HCID3, "QueryForDocuments", docQueryURL2, "2.0", context, log)</script></con:config>
+nhinc.FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocation, HCID2, "QueryForDocuments", docQueryURL1, "2.0", log)
+nhinc.FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocation, HCID3, "QueryForDocuments", docQueryURL2, "2.0", log)</script></con:config>
       </con:testStep>
       
       <con:testStep name="Document Query" type="request">
@@ -1410,8 +1253,6 @@ FileUtils.CreateOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocat
                <urn3:zipCode>AddrZip</urn3:zipCode>
             </urn3:address>
             <urn3:dateOfBirth xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">06/04/1959 05:21:00</urn3:dateOfBirth>
-            <!--urn3:dateOfSignature xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">${#Project#sigDate}</urn3:dateOfSignature-->
-            <!--urn3:expirationDate xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">${#Project#expireDate}</urn3:expirationDate-->
             <urn3:explanationNonClaimantSignature xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">Electronic</urn3:explanationNonClaimantSignature>
             <urn3:haveSecondWitnessSignature xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">false</urn3:haveSecondWitnessSignature>
             <urn3:haveSignature xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">false</urn3:haveSignature>
@@ -1449,7 +1290,6 @@ FileUtils.CreateOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocat
                   <urn3:originalText>phoneCode</urn3:originalText>
                </urn3:phoneNumberType>
             </urn3:phoneNumber>
-            <!--urn3:purposeOfDisclosure xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">TREATMENT</urn3:purposeOfDisclosure-->
             <urn3:secondWitnessAddress xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
                <urn3:addressType>
                   <urn3:code>AddrCode</urn3:code>
@@ -1554,7 +1394,6 @@ FileUtils.CreateOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocat
                   <urn3:fullName>Kasrl S. Skagerberg</urn3:fullName>
                </urn3:personName>
                <urn3:userName>kskagerb</urn3:userName>
-               <urn3:role>Pharmacy</urn3:role>
                <urn3:org>
                   <urn3:description>${#Project#LocalHCDescription}</urn3:description>
                   <urn3:homeCommunityId>${#Project#LocalHCID}</urn3:homeCommunityId>
@@ -1600,9 +1439,6 @@ FileUtils.CreateOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocat
                         <urn3:notBefore>2009-04-16T13:10:39.093Z</urn3:notBefore>
                         <urn3:notOnOrAfter>2009-12-31T12:00:00.000Z</urn3:notOnOrAfter>
                      </urn3:conditions>
-                     <!--urn3:contentReference>Claim-Ref-1234</urn3:contentReference-->
-                     <!--urn3:contentType>application/pdf</urn3:contentType-->
-                     <!--urn3:content>YWVvbGlhbQ==</urn3:content-->
                   </urn3:assertion>
                </urn3:evidence>
             </urn3:samlAuthzDecisionStatement>
@@ -1645,19 +1481,19 @@ count(//ns6:AdhocQueryResponse[1]/ns3:RegistryObjectList[1]/ns3:ExtrinsicObject)
       </con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2012-08-25T02:25:22Z</con:value>
+          <con:value>2012-12-13T01:44:21Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2012-08-25T02:35:22Z</con:value>
+          <con:value>2012-12-13T01:54:21Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>08/25/2012 02:25:22</con:value>
+          <con:value>12/13/2012 01:44:21</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2012-09-24T00:00:00Z</con:value>
+          <con:value>2013-01-12T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>FullPatientID</con:name>
@@ -1672,46 +1508,14 @@ count(//ns6:AdhocQueryResponse[1]/ns3:RegistryObjectList[1]/ns3:ExtrinsicObject)
       
       <con:testStep name="Copy uddiConnectionInfo" type="groovy">
         <con:settings/>
-        <con:config><script>import nhinc.FileUtils;
-def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
-def testCase = testRunner.getTestCase()
-def testSuite = testCase.getTestSuite()
-def project = testSuite.getProject()
-def projectPropFullFile = project.getPath()
-def projectPropPath = groovyUtils.projectPath
+        <con:config><script>def sourceDir = (new com.eviware.soapui.support.GroovyUtils(context)).projectPath;
 
-def sourceDir = projectPropPath;
-def sourceFile = "uddiConnectionInfo_FANOUT.xml";
-def destDir = System.env['NHINC_PROPERTIES_DIR'];
-def destFile = "uddiConnectionInfo.xml";
-
-log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
-
-FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);</script></con:config>
+nhinc.FileUtils.copyFile(sourceDir, "uddiConnectionInfo_FANOUT.xml", context.findProperty("GatewayPropDir"), "uddiConnectionInfo.xml", log);</script></con:config>
       </con:testStep>
       
       <con:testStep name="update config" type="groovy">
         <con:settings/>
-        <con:config>
-          <script>//def destConfigFileLocation = context.findProperty("NHINGatewayConfigDir");
-
-def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR']
-
-void UpdateProperty(String directory, String filename, String propertyKey, String propertyValue,context,log) {
-			  
-   log.info("begin UpdateProperty; directory='" + directory + "';filename='" + filename + "';key='" + propertyKey + "';value='" + propertyValue + "';");
-   File file = new File(directory,filename);
-   Properties properties = new Properties();
-   FileInputStream frPropFile = new FileInputStream(file);
-   properties.load(frPropFile);
-   properties.setProperty(propertyKey, propertyValue);
-   FileOutputStream fwPropFile = new FileOutputStream(file);
-   properties.store(fwPropFile, "**DO NOT CHECK IN** - written by groovy script FileUtils.groovy->UpdateProperty");
-   properties = null;
-}
-
-UpdateProperty(destConfigFileLocation,"gateway.properties","documentQueryQuerySelf","false",context,log);</script>
-        </con:config>
+        <con:config><script>nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'), "gateway.properties", "documentQueryQuerySelf", "false", log);</script></con:config>
       </con:testStep>
       <con:testStep name="Generate patient ID for Doc Query" type="groovy">
         <con:settings/>
@@ -1765,9 +1569,7 @@ context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;$
       
       <con:testStep name="Set Connection Info" type="groovy">
         <con:settings/>
-        <con:config><script>import nhinc.FileUtils;
-def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
-def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
+        <con:config><script>def destConfigFileLocation = context.findProperty("GatewayPropDir");
 def Host2 = context.findProperty("Host2");
 def HCID2 = context.findProperty( "RemoteHCID1" );
 def docQueryURL1 = "https://" + Host2 + ":8181/Gateway/DocumentQuery/2_0/NhinService/RespondingGateway_Query_Service/DocQuery";
@@ -1776,8 +1578,8 @@ def Host3 = context.findProperty("Host3");
 def HCID3 = context.findProperty( "RemoteHCID2" );
 def docQueryURL2 = "https://" + Host2 + ":8181/Gateway/DocumentQuery/2_0/NhinService/RespondingGateway_Query_Service/DocQuery";
 
-FileUtils.CreateOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocation, HCID2, "QueryForDocuments", docQueryURL1, "2.0", context, log)
-FileUtils.CreateOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocation, HCID3, "QueryForDocuments", docQueryURL2, "2.0", context, log)</script></con:config>
+nhinc.FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocation, HCID2, "QueryForDocuments", docQueryURL1, "2.0", log)
+nhinc.FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocation, HCID3, "QueryForDocuments", docQueryURL2, "2.0", log)</script></con:config>
       </con:testStep>
       
       <con:testStep name="Document Query" type="request">
@@ -1825,8 +1627,6 @@ FileUtils.CreateOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocat
                <urn3:zipCode>AddrZip</urn3:zipCode>
             </urn3:address>
             <urn3:dateOfBirth xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">06/04/1959 05:21:00</urn3:dateOfBirth>
-            <!--urn3:dateOfSignature xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">${#Project#sigDate}</urn3:dateOfSignature-->
-            <!--urn3:expirationDate xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">${#Project#expireDate}</urn3:expirationDate-->
             <urn3:explanationNonClaimantSignature xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">Electronic</urn3:explanationNonClaimantSignature>
             <urn3:haveSecondWitnessSignature xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">false</urn3:haveSecondWitnessSignature>
             <urn3:haveSignature xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">false</urn3:haveSignature>
@@ -1864,7 +1664,6 @@ FileUtils.CreateOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocat
                   <urn3:originalText>phoneCode</urn3:originalText>
                </urn3:phoneNumberType>
             </urn3:phoneNumber>
-            <!--urn3:purposeOfDisclosure xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">TREATMENT</urn3:purposeOfDisclosure-->
             <urn3:secondWitnessAddress xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
                <urn3:addressType>
                   <urn3:code>AddrCode</urn3:code>
@@ -1969,7 +1768,6 @@ FileUtils.CreateOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocat
                   <urn3:fullName>Kasrl S. Skagerberg</urn3:fullName>
                </urn3:personName>
                <urn3:userName>kskagerb</urn3:userName>
-               <urn3:role>Pharmacy</urn3:role>
                <urn3:org>
                   <urn3:description>${#Project#LocalHCDescription}</urn3:description>
                   <urn3:homeCommunityId>${#Project#LocalHCID}</urn3:homeCommunityId>
@@ -2015,9 +1813,6 @@ FileUtils.CreateOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocat
                         <urn3:notBefore>2009-04-16T13:10:39.093Z</urn3:notBefore>
                         <urn3:notOnOrAfter>2009-12-31T12:00:00.000Z</urn3:notOnOrAfter>
                      </urn3:conditions>
-                     <!--urn3:contentReference>Claim-Ref-1234</urn3:contentReference-->
-                     <!--urn3:contentType>application/pdf</urn3:contentType-->
-                     <!--urn3:content>YWVvbGlhbQ==</urn3:content-->
                   </urn3:assertion>
                </urn3:evidence>
             </urn3:samlAuthzDecisionStatement>
@@ -2060,19 +1855,19 @@ count(//ns6:AdhocQueryResponse[1]/ns3:RegistryObjectList[1]/ns3:ExtrinsicObject)
       </con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2012-08-25T02:26:25Z</con:value>
+          <con:value>2012-12-13T01:44:21Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2012-08-25T02:36:25Z</con:value>
+          <con:value>2012-12-13T01:54:21Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>08/25/2012 02:26:25</con:value>
+          <con:value>12/13/2012 01:44:21</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2012-09-24T00:00:00Z</con:value>
+          <con:value>2013-01-12T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>FullPatientID</con:name>
@@ -2082,14 +1877,7 @@ count(//ns6:AdhocQueryResponse[1]/ns3:RegistryObjectList[1]/ns3:ExtrinsicObject)
       <con:reportParameters/>
     <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);</con:tearDownScript></con:testCase>
     <con:properties/>
-    <con:setupScript>def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
-
-FileUtils.MoveFile(destConfigFileLocation,"uddiConnectionInfo.xml",destConfigFileLocation,"uddiConnectionInfo_BACKUP.xml",context,log);
-FileUtils.MoveFile(destConfigFileLocation,"uddiConnectionInfo_FANOUT.xml",destConfigFileLocation,"uddiConnectionInfo.xml",context,log);</con:setupScript><con:tearDownScript>def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
-
-FileUtils.MoveFile(destConfigFileLocation,"uddiConnectionInfo_BACKUP.xml",destConfigFileLocation,"uddiConnectionInfo.xml",context,log);
-FileUtils.DeleteFile(destConfigFileLocation,"uddiConnectionInfo_BACKUP.xml",context,log);
-</con:tearDownScript><con:reportParameters/>
+    <con:setupScript/><con:tearDownScript/><con:reportParameters/>
   </con:testSuite>
   <con:requirements/>
   <con:properties>
@@ -2121,7 +1909,7 @@ FileUtils.DeleteFile(destConfigFileLocation,"uddiConnectionInfo_BACKUP.xml",cont
     
     
     
-  <con:property><con:name>RemoteHCID1</con:name><con:value>2.2</con:value></con:property><con:property><con:name>RemoteHCID2</con:name><con:value>3.3</con:value></con:property><con:property><con:name>RemotePatientID1</con:name><con:value>D123401</con:value></con:property><con:property><con:name>RemotePatientID2</con:name><con:value>D123402</con:value></con:property><con:property><con:name>DQStableDocs</con:name><con:value>urn:uuid:7edca82f-054d-47f2-a032-9b2a5b5186c1</con:value></con:property><con:property><con:name>DQDynamicDocs</con:name><con:value>urn:uuid:34268e47-fdf5-41a6-ba33-82133c465248</con:value></con:property></con:properties>
+  <con:property><con:name>RemoteHCID1</con:name><con:value>2.2</con:value></con:property><con:property><con:name>RemoteHCID2</con:name><con:value>3.3</con:value></con:property><con:property><con:name>RemotePatientID1</con:name><con:value>D123401</con:value></con:property><con:property><con:name>RemotePatientID2</con:name><con:value>D123402</con:value></con:property><con:property><con:name>DQStableDocs</con:name><con:value>urn:uuid:7edca82f-054d-47f2-a032-9b2a5b5186c1</con:value></con:property><con:property><con:name>DQDynamicDocs</con:name><con:value>urn:uuid:34268e47-fdf5-41a6-ba33-82133c465248</con:value></con:property><con:property><con:name>GatewayPropDir</con:name><con:value>c:\glassfish3\glassfish\domains\domain1\config\nhin</con:value></con:property></con:properties>
   <con:afterLoadScript>def propertiesFilename = project.path[0..(project.path.size()-4)] + 'properties'
 def propertiesFile = new File(propertiesFilename)
 if (propertiesFile.exists()) {
@@ -2224,4 +2012,4 @@ com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext.metaClass.withSql = { d
     <con:parameters/>
   </con:reporting>
 
-</con:soapui-project>
+<con:sensitiveInformation/></con:soapui-project>

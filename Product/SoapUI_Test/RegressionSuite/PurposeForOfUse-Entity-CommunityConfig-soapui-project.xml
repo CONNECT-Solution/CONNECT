@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<con:soapui-project name="PurposeForOfUse_Entity_CommunityConfig" resourceRoot="${projectDir}" soapui-version="3.6" abortOnError="false" runType="SEQUENTIAL" xmlns:con="http://eviware.com/soapui/config">
+<con:soapui-project name="PurposeForOfUse_Entity_CommunityConfig" resourceRoot="${projectDir}" soapui-version="4.5.1" abortOnError="false" runType="SEQUENTIAL" activeEnvironment="Default" xmlns:con="http://eviware.com/soapui/config">
 	<con:settings/>
-	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:entitydocquery}EntityDocQueryBindingSoap" definition="${projectDir}/../../Production/Common/Interfaces/src/wsdl/EntityDocQuery.wsdl" name="EntityDocQueryBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:entitydocquery}EntityDocQueryBindingSoap" definition="${projectDir}/../ValidationSuite/target/wsdl/EntityDocQuery.wsdl" name="EntityDocQueryBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 		<con:settings/>
 
 		<con:endpoints>
@@ -11,7 +11,7 @@
 			<con:settings/>
 		</con:operation>
 	</con:interface>
-	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincentityxdr}EntityXDR_Binding" definition="${projectDir}/../../Production/Common/Interfaces/src/wsdl/EntityXDR.wsdl" name="EntityXDR_Binding" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincentityxdr}EntityXDR_Binding" definition="${projectDir}/../ValidationSuite/target/wsdl/EntityXDR.wsdl" name="EntityXDR_Binding" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 		<con:settings/>
 
 		<con:endpoints>
@@ -23,7 +23,7 @@
 
 		</con:operation>
 	</con:interface>
-	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:entitysubscriptionmanagement}EntityNotificationProducerBindingSoap" definition="${projectDir}/../../Production/Common/Interfaces/src/wsdl/EntitySubscriptionManagement.wsdl" name="EntityNotificationProducerBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:entitysubscriptionmanagement}EntityNotificationProducerBindingSoap" definition="${projectDir}/../ValidationSuite/target/wsdl/EntitySubscriptionManagement.wsdl" name="EntityNotificationProducerBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 		<con:settings/>
 
 		<con:endpoints>
@@ -39,7 +39,7 @@
 			<con:settings/>
 		</con:operation>
 	</con:interface>
-	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:entitydocretrieve}EntityDocRetrieveBindingSoap" definition="${projectDir}/../../Production/Common/Interfaces/src/wsdl/EntityDocRetrieve.wsdl" name="EntityDocRetrieveBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:entitydocretrieve}EntityDocRetrieveBindingSoap" definition="${projectDir}/../ValidationSuite/target/wsdl/EntityDocRetrieve.wsdl" name="EntityDocRetrieveBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 		<con:settings/>
 
 		<con:endpoints>
@@ -49,7 +49,7 @@
 			<con:settings/>
 		</con:operation>
 	</con:interface>
-	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:entitypatientdiscoveryasyncresp}EntityPatientDiscoveryAsyncRespBindingSoap" definition="${projectDir}/../../Production/Common/Interfaces/src/wsdl/EntityPatientDiscoveryAsyncResp.wsdl" name="EntityPatientDiscoveryAsyncRespBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:entitypatientdiscoveryasyncresp}EntityPatientDiscoveryAsyncRespBindingSoap" definition="${projectDir}/../ValidationSuite/target/wsdl/EntityPatientDiscoveryAsyncResp.wsdl" name="EntityPatientDiscoveryAsyncRespBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 		<con:settings/>
 
 		<con:endpoints>
@@ -60,7 +60,7 @@
 			<con:settings/>
 		</con:operation>
 	</con:interface>
-	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincentityxdr:async:response}EntityXDRAsyncResponse_Binding" definition="${projectDir}/../../Production/Common/Interfaces/src/wsdl/EntityXDRResponse.wsdl" name="EntityXDRAsyncResponse_Binding" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincentityxdr:async:response}EntityXDRAsyncResponse_Binding" definition="${projectDir}/../ValidationSuite/target/wsdl/EntityXDRResponse.wsdl" name="EntityXDRAsyncResponse_Binding" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 		<con:settings/>
 		<con:endpoints>
 			<con:endpoint>http://localhost:${HttpDefaultPort}/EntityService/EntityXDRAsyncResponse</con:endpoint>
@@ -70,7 +70,7 @@
 			<con:settings/>
 		</con:operation>
 	</con:interface>
-	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:entitypatientdiscovery}EntityPatientDiscoveryBindingSoap" definition="${projectDir}/../../Production/Common/Interfaces/src/wsdl/EntityPatientDiscovery.wsdl" name="EntityPatientDiscoveryBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:entitypatientdiscovery}EntityPatientDiscoveryBindingSoap" definition="${projectDir}/../ValidationSuite/target/wsdl/EntityPatientDiscovery.wsdl" name="EntityPatientDiscoveryBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 		<con:settings/>
 
 		<con:endpoints>
@@ -80,7 +80,7 @@
 			<con:settings/>
 		</con:operation>
 	</con:interface>
-	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:entitypatientdiscoveryasyncreq}EntityPatientDiscoveryAsyncReqBindingSoap" definition="${projectDir}/../../Production/Common/Interfaces/src/wsdl/EntityPatientDiscoveryAsyncReq.wsdl" name="EntityPatientDiscoveryAsyncReqBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:entitypatientdiscoveryasyncreq}EntityPatientDiscoveryAsyncReqBindingSoap" definition="${projectDir}/../ValidationSuite/target/wsdl/EntityPatientDiscoveryAsyncReq.wsdl" name="EntityPatientDiscoveryAsyncReqBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 		<con:settings/>
 
 		<con:endpoints>
@@ -91,7 +91,7 @@
 			<con:settings/>
 		</con:operation>
 	</con:interface>
-	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:entitysubscriptionmanagement}EntitySubscriptionManagerBindingSoap" definition="${projectDir}/../../Production/Common/Interfaces/src/wsdl/EntitySubscriptionManagement.wsdl" name="EntitySubscriptionManagerBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:entitysubscriptionmanagement}EntitySubscriptionManagerBindingSoap" definition="${projectDir}/../ValidationSuite/target/wsdl/EntitySubscriptionManagement.wsdl" name="EntitySubscriptionManagerBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 		<con:settings/>
 
 		<con:endpoints>
@@ -102,7 +102,7 @@
 			<con:settings/>
 		</con:operation>
 	</con:interface>
-	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincentityxdr:async:request}EntityXDRAsyncRequest_Binding" definition="${projectDir}/../../Production/Common/Interfaces/src/wsdl/EntityXDRRequest.wsdl" name="EntityXDRAsyncRequest_Binding" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincentityxdr:async:request}EntityXDRAsyncRequest_Binding" definition="${projectDir}/../ValidationSuite/target/wsdl/EntityXDRRequest.wsdl" name="EntityXDRAsyncRequest_Binding" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 		<con:settings/>
 
 		<con:endpoints>
@@ -116,7 +116,7 @@
 
 		</con:operation>
 	</con:interface>
-	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:entityadmindistribution}AdministrativeDistribution_Binding_Soap12" definition="${projectDir}/../../Production/Common/Interfaces/src/wsdl/EntityAdminDist_g1.wsdl" name="AdministrativeDistribution_Binding_Soap12_g1" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:entityadmindistribution}AdministrativeDistribution_Binding_Soap12" definition="${projectDir}/../ValidationSuite/target/wsdl/EntityAdminDist_g1.wsdl" name="AdministrativeDistribution_Binding_Soap12_g1" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 		<con:settings/>
 		<con:endpoints>
 			<con:endpoint>http://localhost:${HttpDefaultPort}/Gateway/AdminDistribution/2_0/AdministrativeDistribution_Service</con:endpoint>
@@ -125,7 +125,7 @@
 			<con:settings/>
 		</con:operation>
 	</con:interface>
-	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:entitynotificationconsumer}EntityNotificationConsumerBindingSoap" definition="${projectDir}/../../Production/Common/Interfaces/src/wsdl/EntityNotificationConsumer.wsdl" name="EntityNotificationConsumerBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:entitynotificationconsumer}EntityNotificationConsumerBindingSoap" definition="${projectDir}/../ValidationSuite/target/wsdl/EntityNotificationConsumer.wsdl" name="EntityNotificationConsumerBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 		<con:settings/>
 
 		<con:endpoints>
@@ -141,7 +141,7 @@
 			<con:settings/>
 		</con:operation>
 	</con:interface>
-	<con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="AdministrativeDistribution_Binding_Soap12_g0" type="wsdl" bindingName="{urn:gov:hhs:fha:nhinc:entityadmindistribution}AdministrativeDistribution_Binding_Soap12" soapVersion="1_2" anonymous="optional" definition="${projectDir}/../../Production/Common/Interfaces/src/wsdl/EntityAdminDist.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="AdministrativeDistribution_Binding_Soap12_g0" type="wsdl" bindingName="{urn:gov:hhs:fha:nhinc:entityadmindistribution}AdministrativeDistribution_Binding_Soap12" soapVersion="1_2" anonymous="optional" definition="${projectDir}/../ValidationSuite/target/wsdl/EntityAdminDist.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 		<con:settings/>
 		<con:endpoints>
 			<con:endpoint>http://localhost:${HttpDefaultPort}/Gateway/AdminDistribution/1_0/AdministrativeDistribution_Service</con:endpoint>
@@ -623,7 +623,7 @@ Because this is a g1 test suite, all spec versions are 2011. Messages to 2011 sp
 				<con:assertion name="Schema Compliance" type="Schema Compliance">
 					<con:configuration><definition/></con:configuration>
 				</con:assertion>
-				<con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+				<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
 				<con:jmsPropertyConfig/>
 				<con:wsaConfig action="urn:gov:hhs:fha:nhinc:nhincentityxdr:async:request:ProvideAndRegisterDocumentSet-bAsyncRequest_RequestMessage" generateMessageId="true" mustUnderstand="NONE" version="200508"/>
 				<con:wsrmConfig version="1.2"/>
@@ -1007,7 +1007,7 @@ Because this is a g1 test suite, all spec versions are 2011. Messages to 2011 sp
 				<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
 			</con:configuration>
 		</con:assertion>
-		<con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+		<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
 		<con:jmsPropertyConfig/>
 		<con:wsaConfig mustUnderstand="NONE" version="200508"/>
 		<con:wsrmConfig version="1.2"/>
@@ -1508,7 +1508,7 @@ Because this is a g1 test suite, all spec versions are 2011. Messages to 2011 sp
 				<definition/>
 			</con:configuration>
 		</con:assertion>
-		<con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+		<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
 		<con:jmsPropertyConfig/>
 		<con:wsaConfig action="{urn:gov:hhs:fha:nhinc:nhincentityxdr}ProvideAndRegisterDocumentSet-b" mustUnderstand="NONE" version="200508"/>
 		<con:wsrmConfig version="1.2"/>
@@ -1853,7 +1853,7 @@ Because this is a g1 test suite, all spec versions are 2011. Messages to 2011 sp
 				<definition/>
 			</con:configuration>
 		</con:assertion>
-		<con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+		<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
 		<con:jmsPropertyConfig/>
 		<con:wsaConfig action="urn:gov:hhs:fha:nhinc:entitypatientdiscoveryasyncreq:ProcessPatientDiscoveryAsyncReqAsyncRequest" addDefaultTo="true" messageID="uuid:6666666666.66666.666.66" mustUnderstand="NONE" version="200508"/>
 		<con:wsrmConfig version="1.2"/>
@@ -2130,10 +2130,6 @@ Because this is a g1 test suite, all spec versions are 2011. Messages to 2011 sp
 	<con:property>
 		<con:name>DOB</con:name>
 		<con:value>19800516</con:value>
-	</con:property>
-	<con:property>
-		<con:name>DateOfSignature</con:name>
-		<con:value>20080520</con:value>
 	</con:property>
 	<con:property>
 		<con:name>startDate</con:name>
@@ -2489,7 +2485,7 @@ Because this is a g1 test suite, all spec versions are 2011. Messages to 2011 sp
 				<definition/>
 			</con:configuration>
 		</con:assertion>
-		<con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+		<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
 		<con:jmsPropertyConfig/>
 		<con:wsaConfig mustUnderstand="NONE" version="200508"/>
 		<con:wsrmConfig version="1.2"/>
@@ -2771,10 +2767,6 @@ Because this is a g1 test suite, all spec versions are 2011. Messages to 2011 sp
 		<con:name>DOB</con:name>
 		<con:value>19800516</con:value>
 	</con:property>
-	<con:property>
-		<con:name>DateOfSignature</con:name>
-		<con:value>20080520>>>>>>> .r3844</con:value>
-</con:property>
 <con:property>
 	<con:name>startDate</con:name>
 	<con:value>2012-10-05T14:32:26Z</con:value>
@@ -3091,7 +3083,7 @@ Because this is a g1 test suite, all spec versions are 2011. Messages to 2011 sp
 			<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
 		</con:configuration>
 	</con:assertion>
-	<con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+	<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
 	<con:jmsPropertyConfig/>
 	<con:wsaConfig mustUnderstand="NONE" version="200508"/>
 	<con:wsrmConfig version="1.2"/>
@@ -3142,21 +3134,7 @@ Because this is a g1 test suite, all spec versions are 2011. Messages to 2011 sp
 	<con:testStep name="update config" type="groovy">
 		<con:settings/>
 		<con:config>
-			<script>def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR']
-
-void UpdateProperty(String directory, String filename, String propertyKey, String propertyValue,context,log) {
-	log.info("begin UpdateProperty; directory='" + directory + "';filename='" + filename + "';key='" + propertyKey + "';value='" + propertyValue + "';");
-	File file = new File(directory,filename);
-	Properties properties = new Properties();
-	FileInputStream frPropFile = new FileInputStream(file);
-	properties.load(frPropFile);
-	properties.setProperty(propertyKey, propertyValue);
-	FileOutputStream fwPropFile = new FileOutputStream(file);
-	properties.store(fwPropFile, "**DO NOT CHECK IN** - written by groovy script FileUtils.groovy->UpdateProperty");
-	properties = null;
-}
-
-UpdateProperty(destConfigFileLocation,"gateway.properties","documentQueryQuerySelf","false",context,log);</script>
+			<script>nhinc.FileUtils.updateProperty(context.findProperty("GatewayPropDir"),"gateway.properties","documentQueryQuerySelf","false", log);</script>
 	</con:config>
 </con:testStep>
 <con:testStep name="Clear Correlation Table &amp; Add Correlation" type="groovy">
@@ -3472,7 +3450,7 @@ UpdateProperty(destConfigFileLocation,"gateway.properties","documentQueryQuerySe
 				assert (documentID == msgDocID)</scriptText>
 		</con:configuration>
 	</con:assertion>
-	<con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+	<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
 	<con:jmsPropertyConfig/>
 	<con:wsaConfig mustUnderstand="NONE" version="200508"/>
 	<con:wsrmConfig version="1.2"/>
@@ -3797,7 +3775,7 @@ UpdateProperty(destConfigFileLocation,"gateway.properties","documentQueryQuerySe
 					assert (docData.size() != 0)</scriptText>
 			</con:configuration>
 		</con:assertion>
-		<con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+		<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
 		<con:jmsPropertyConfig/>
 		<con:wsaConfig action="urn:gov:hhs:fha:nhinc:entitydocretrieve/EntityDocRetrievePortType/RespondingGateway_CrossGatewayRetrieveRequest" mustUnderstand="NONE" version="200508"/>
 		<con:wsrmConfig version="1.2"/>
@@ -4187,7 +4165,7 @@ UpdateProperty(destConfigFileLocation,"gateway.properties","documentQueryQuerySe
       </urn:RespondingGateway_SendAlertMessage>
    </soap:Body>
 </soap:Envelope>]]></con:request>
-		<con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+		<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
 		<con:jmsPropertyConfig/>
 		<con:wsaConfig mustUnderstand="NONE" version="200508"/>
 		<con:wsrmConfig version="1.2"/>
@@ -4280,13 +4258,13 @@ UpdateProperty(destConfigFileLocation,"gateway.properties","documentQueryQuerySe
 	</con:property>
 	
 </con:properties>
-<con:setupScript>import nhinc.FileUtils;
-nhinc.FileUtils.backupConfiguration(log);
-nhinc.FileUtils.updateGatewayProperty("purposeForUseEnabled","true", log);
-nhinc.FileUtils.updateProperty(System.env['NHINC_PROPERTIES_DIR'], "purposeUse.properties", "2.2","true", log);
-nhinc.FileUtils.moveFile(context.expand(testSuite.project.resourceRoot), "uddiConnectionInfo_g1.xml", System.env['NHINC_PROPERTIES_DIR'], "uddiConnectionInfo.xml", log);
-nhinc.FileUtils.changeSpringConfig("PurposeUseProxyConfig.xml", "community", log);</con:setupScript>
-<con:tearDownScript>nhinc.FileUtils.restoreConfiguration(log);</con:tearDownScript>
+<con:setupScript>
+nhinc.FileUtils.backupConfiguration(context.expand(testSuite.project.getPropertyValue("GatewayPropDir")), log);
+nhinc.FileUtils.updateProperty(context.expand(testSuite.project.getPropertyValue("GatewayPropDir")), "gateway.properties", "purposeForUseEnabled", "true", log);
+nhinc.FileUtils.updateProperty(context.expand(testSuite.project.getPropertyValue("GatewayPropDir")), "purposeUse.properties", "2.2","true", log);
+nhinc.FileUtils.copyFile(context.expand(testSuite.project.resourceRoot), "uddiConnectionInfo_g1.xml", context.expand(testSuite.project.getPropertyValue("GatewayPropDir")), "uddiConnectionInfo.xml", log);
+nhinc.FileUtils.changeSpringConfig(context.expand(testSuite.project.getPropertyValue("GatewayPropDir")), "PurposeUseProxyConfig.xml", "community", "purposeuse", log);</con:setupScript>
+<con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.expand(testSuite.project.getPropertyValue("GatewayPropDir")), log);</con:tearDownScript>
 <con:reportParameters/>
 </con:testSuite>
 <con:testSuite name="Entity_g0_community_True_2.2true">
@@ -4767,7 +4745,7 @@ Because this is a g0 test suite, all spec versions are 2010. Messages to 2010 sp
 			<con:assertion type="Schema Compliance">
 				<con:configuration/>
 			</con:assertion>
-			<con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+			<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
 			<con:jmsPropertyConfig/>
 			<con:wsaConfig action="urn:gov:hhs:fha:nhinc:nhincentityxdr:async:request:ProvideAndRegisterDocumentSet-bAsyncRequest_RequestMessage" generateMessageId="true" mustUnderstand="NONE" version="200508"/>
 			<con:wsrmConfig version="1.2"/>
@@ -5137,7 +5115,7 @@ Because this is a g0 test suite, all spec versions are 2010. Messages to 2010 sp
 				<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
 			</con:configuration>
 		</con:assertion>
-		<con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+		<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
 		<con:jmsPropertyConfig/>
 		<con:wsaConfig mustUnderstand="NONE" version="200508"/>
 		<con:wsrmConfig version="1.2"/>
@@ -5641,7 +5619,7 @@ Because this is a g0 test suite, all spec versions are 2010. Messages to 2010 sp
 				<definition/>
 			</con:configuration>
 		</con:assertion>
-		<con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+		<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
 		<con:jmsPropertyConfig/>
 		<con:wsaConfig action="{urn:gov:hhs:fha:nhinc:nhincentityxdr}ProvideAndRegisterDocumentSet-b" mustUnderstand="NONE" version="200508"/>
 		<con:wsrmConfig version="1.2"/>
@@ -5988,7 +5966,7 @@ Because this is a g0 test suite, all spec versions are 2010. Messages to 2010 sp
 				<definition/>
 			</con:configuration>
 		</con:assertion>
-		<con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+		<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
 		<con:jmsPropertyConfig/>
 		<con:wsaConfig action="urn:gov:hhs:fha:nhinc:entitypatientdiscoveryasyncreq:ProcessPatientDiscoveryAsyncReqAsyncRequest" addDefaultTo="true" messageID="uuid:6666666666.66666.666.66" mustUnderstand="NONE" version="200508"/>
 		<con:wsrmConfig version="1.2"/>
@@ -6263,10 +6241,6 @@ Because this is a g0 test suite, all spec versions are 2010. Messages to 2010 sp
 	<con:property>
 		<con:name>DOB</con:name>
 		<con:value>19800516</con:value>
-	</con:property>
-	<con:property>
-		<con:name>DateOfSignature</con:name>
-		<con:value>20080520</con:value>
 	</con:property>
 	<con:property>
 		<con:name>startDate</con:name>
@@ -6623,7 +6597,7 @@ Because this is a g0 test suite, all spec versions are 2010. Messages to 2010 sp
 				<definition/>
 			</con:configuration>
 		</con:assertion>
-		<con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+		<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
 		<con:jmsPropertyConfig/>
 		<con:wsaConfig mustUnderstand="NONE" version="200508"/>
 		<con:wsrmConfig version="1.2"/>
@@ -6903,10 +6877,6 @@ Because this is a g0 test suite, all spec versions are 2010. Messages to 2010 sp
 		<con:name>DOB</con:name>
 		<con:value>19800516</con:value>
 	</con:property>
-	<con:property>
-		<con:name>DateOfSignature</con:name>
-		<con:value>20080520>>>>>>> .r3844</con:value>
-</con:property>
 <con:property>
 	<con:name>startDate</con:name>
 	<con:value>2012-10-04T20:46:50Z</con:value>
@@ -7223,7 +7193,7 @@ Because this is a g0 test suite, all spec versions are 2010. Messages to 2010 sp
 			<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
 		</con:configuration>
 	</con:assertion>
-	<con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+	<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
 	<con:jmsPropertyConfig/>
 	<con:wsaConfig mustUnderstand="NONE" version="200508"/>
 	<con:wsrmConfig version="1.2"/>
@@ -7272,21 +7242,7 @@ Because this is a g0 test suite, all spec versions are 2010. Messages to 2010 sp
 	<con:testStep name="update config" type="groovy">
 		<con:settings/>
 		<con:config>
-			<script>def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR']
-
-void UpdateProperty(String directory, String filename, String propertyKey, String propertyValue,context,log) {
-	log.info("begin UpdateProperty; directory='" + directory + "';filename='" + filename + "';key='" + propertyKey + "';value='" + propertyValue + "';");
-	File file = new File(directory,filename);
-	Properties properties = new Properties();
-	FileInputStream frPropFile = new FileInputStream(file);
-	properties.load(frPropFile);
-	properties.setProperty(propertyKey, propertyValue);
-	FileOutputStream fwPropFile = new FileOutputStream(file);
-	properties.store(fwPropFile, "**DO NOT CHECK IN** - written by groovy script FileUtils.groovy->UpdateProperty");
-	properties = null;
-}
-
-UpdateProperty(destConfigFileLocation,"gateway.properties","documentQueryQuerySelf","false",context,log);</script>
+			<script>nhinc.FileUtils.updateProperty(context.findProperty("GatewayPropDir"),"gateway.properties","documentQueryQuerySelf","false", log);</script>
 	</con:config>
 </con:testStep>
 <con:testStep name="Clear Correlation Table &amp; Add Correlation" type="groovy">
@@ -7602,7 +7558,7 @@ UpdateProperty(destConfigFileLocation,"gateway.properties","documentQueryQuerySe
 				assert (documentID == msgDocID)</scriptText>
 		</con:configuration>
 	</con:assertion>
-	<con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+	<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
 	<con:jmsPropertyConfig/>
 	<con:wsaConfig mustUnderstand="NONE" version="200508"/>
 	<con:wsrmConfig version="1.2"/>
@@ -7927,7 +7883,7 @@ UpdateProperty(destConfigFileLocation,"gateway.properties","documentQueryQuerySe
 					assert (docData.size() != 0)</scriptText>
 			</con:configuration>
 		</con:assertion>
-		<con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+		<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
 		<con:jmsPropertyConfig/>
 		<con:wsaConfig action="urn:gov:hhs:fha:nhinc:entitydocretrieve/EntityDocRetrievePortType/RespondingGateway_CrossGatewayRetrieveRequest" mustUnderstand="NONE" version="200508"/>
 		<con:wsrmConfig version="1.2"/>
@@ -7974,23 +7930,10 @@ UpdateProperty(destConfigFileLocation,"gateway.properties","documentQueryQuerySe
 	<con:testStep name="update config" type="groovy">
 		<con:settings/>
 		<con:config>
-			<script>def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR']
-
-void UpdateProperty(String directory, String filename, String propertyKey, String propertyValue,context,log) {
-	log.info("begin UpdateProperty; directory='" + directory + "';filename='" + filename + "';key='" + propertyKey + "';value='" + propertyValue + "';");
-	File file = new File(directory,filename);
-	Properties properties = new Properties();
-	FileInputStream frPropFile = new FileInputStream(file);
-	properties.load(frPropFile);
-	properties.setProperty(propertyKey, propertyValue);
-	FileOutputStream fwPropFile = new FileOutputStream(file);
-	properties.store(fwPropFile, "**DO NOT CHECK IN** - written by groovy script FileUtils.groovy->UpdateProperty");
-properties = null;
-}
-
-UpdateProperty(destConfigFileLocation,"gateway.properties","serviceSubscription","true",context,log);
-UpdateProperty(destConfigFileLocation,"gateway.properties","subscriptionPassthrough","false",context,log);
-UpdateProperty(destConfigFileLocation,"gateway.properties","hiem.AdapterSubscriptionMode","disabled",context,log);</script>
+			<script>def destConfigFileLocation = context.findProperty("GatewayPropDir");
+nhinc.FileUtils.updateProperty(destConfigFileLocation, "gateway.properties", "serviceSubscription", "true", log);
+nhinc.FileUtils.updateProperty(destConfigFileLocation, "gateway.properties", "subscriptionPassthrough", "false", log);
+nhinc.FileUtils.updateProperty(destConfigFileLocation, "gateway.properties", "hiem.AdapterSubscriptionMode", "disabled", log);</script>
 	</con:config>
 </con:testStep>
 <con:testStep name="Clear Subscription Table" type="groovy">
@@ -8263,7 +8206,7 @@ holder.namespaces["ns5"] = "urn:gov:hhs:fha:nhinc:common:subscriptionb2overridef
 assert holder["//ns4:SubscribeResponse[1]/ns4:SubscriptionReference[1]/ns3:ReferenceParameters[1]/ns5:SubscriptionId[1]"] != null</scriptText>
 		</con:configuration>
 	</con:assertion>
-	<con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+	<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
 	<con:jmsPropertyConfig/>
 	<con:wsaConfig action="urn:gov:hhs:fha:nhinc:entitysubscriptionmanagement/EntityNotificationProducerPortType/SubscribeDocumentRequest" mustUnderstand="NONE" version="200508"/>
 	<con:wsrmConfig version="1.2"/>
@@ -8316,24 +8259,10 @@ assert holder["//ns4:SubscribeResponse[1]/ns4:SubscriptionReference[1]/ns3:Refer
 	<con:testStep name="update config" type="groovy">
 		<con:settings/>
 		<con:config>
-			<script>def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR']
-
-				void UpdateProperty(String directory, String filename, String propertyKey, String propertyValue,context,log) {
-
-				log.info("begin UpdateProperty; directory='" + directory + "';filename='" + filename + "';key='" + propertyKey + "';value='" + propertyValue + "';");
-				File file = new File(directory,filename);
-				Properties properties = new Properties();
-				FileInputStream frPropFile = new FileInputStream(file);
-				properties.load(frPropFile);
-				properties.setProperty(propertyKey, propertyValue);
-				FileOutputStream fwPropFile = new FileOutputStream(file);
-				properties.store(fwPropFile, "**DO NOT CHECK IN** - written by groovy script FileUtils.groovy->UpdateProperty");
-			properties = null;
-			}
-
-			UpdateProperty(destConfigFileLocation,"gateway.properties","serviceSubscription","true",context,log);
-			UpdateProperty(destConfigFileLocation,"gateway.properties","subscriptionPassthrough","false",context,log);
-			UpdateProperty(destConfigFileLocation,"gateway.properties","hiem.AdapterSubscriptionMode","disabled",context,log);</script>
+			<script>def destConfigFileLocation = context.findProperty("GatewayPropDir");
+nhinc.FileUtils.updateProperty(destConfigFileLocation,"gateway.properties","serviceSubscription", "true", log);
+nhinc.FileUtils.updateProperty(destConfigFileLocation,"gateway.properties","subscriptionPassthrough", "false", log);
+nhinc.FileUtils.updateProperty(destConfigFileLocation,"gateway.properties","hiem.AdapterSubscriptionMode", "disabled", log);</script>
 	</con:config>
 </con:testStep>
 <con:testStep name="Clear Subscription Table" type="groovy">
@@ -8593,7 +8522,7 @@ assert holder["//ns4:SubscribeResponse[1]/ns4:SubscriptionReference[1]/ns3:Refer
 
 	<con:assertion name="Not SOAP Fault" type="SOAP Fault Assertion"/>
 	<con:assertion name="SOAP Response" type="SOAP Response"/>
-	<con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+	<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
 	<con:jmsPropertyConfig/>
 	<con:wsaConfig action="urn:gov:hhs:fha:nhinc:entitysubscriptionmanagement/EntityNotificationProducerPortType/SubscribeDocumentRequest" mustUnderstand="NONE" version="200508"/>
 	<con:wsrmConfig version="1.2"/>
@@ -8872,7 +8801,7 @@ context.testCase.testSuite.project.setPropertyValue( "NotifySubscriptionID", par
 		<con:configuration/>
 	</con:assertion>
 	<con:assertion type="SOAP Fault Assertion"/>
-	<con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+	<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
 	<con:jmsPropertyConfig/>
 	<con:wsaConfig mustUnderstand="NONE" version="200508"/>
 	<con:wsrmConfig version="1.2"/>
@@ -8920,28 +8849,10 @@ context.testCase.testSuite.project.setPropertyValue( "NotifySubscriptionID", par
 	<con:testStep name="update config" type="groovy">
 		<con:settings/>
 		<con:config>
-			<script>//def destConfigFileLocation = context.findProperty("NHINGatewayConfigDir");
-
-
-				def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR']
-
-				void UpdateProperty(String directory, String filename, String propertyKey, String propertyValue,context,log) {
-
-				log.info("begin UpdateProperty; directory='" + directory + "';filename='" + filename + "';key='" + propertyKey + "';value='" + propertyValue + "';");
-				File file = new File(directory,filename);
-				Properties properties = new Properties();
-				FileInputStream frPropFile = new FileInputStream(file);
-				properties.load(frPropFile);
-				properties.setProperty(propertyKey, propertyValue);
-				FileOutputStream fwPropFile = new FileOutputStream(file);
-				fwPropFile = new FileOutputStream(file);
-				properties.store(fwPropFile, "**DO NOT CHECK IN** - written by groovy script FileUtils.groovy->UpdateProperty");
-			properties = null;
-			}
-
-			UpdateProperty(destConfigFileLocation,"gateway.properties","serviceSubscription","true",context,log);
-			UpdateProperty(destConfigFileLocation,"gateway.properties","subscriptionPassthrough","false",context,log);
-			UpdateProperty(destConfigFileLocation,"gateway.properties","hiem.AdapterSubscriptionMode","disabled",context,log);</script>
+			<script>def destConfigFileLocation = context.findProperty("GatewayPropDir");
+nhinc.FileUtils.updateProperty(destConfigFileLocation, "gateway.properties", "serviceSubscription", "true", log);
+nhinc.FileUtils.updateProperty(destConfigFileLocation, "gateway.properties", "subscriptionPassthrough", "false", log);
+nhinc.FileUtils.updateProperty(destConfigFileLocation, "gateway.properties", "hiem.AdapterSubscriptionMode", "disabled", log);</script>
 	</con:config>
 </con:testStep>
 <con:testStep name="Clear Subscription Table" type="groovy">
@@ -9202,7 +9113,7 @@ context.testCase.testSuite.project.setPropertyValue( "NotifySubscriptionID", par
 </soap:Envelope>]]></con:request>
 	<con:assertion type="SOAP Response"/>
 	<con:assertion type="SOAP Fault Assertion"/>
-	<con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+	<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
 	<con:jmsPropertyConfig/>
 	<con:wsaConfig action="urn:gov:hhs:fha:nhinc:entitysubscriptionmanagement/EntityNotificationProducerPortType/SubscribeDocumentRequest" mustUnderstand="NONE" version="200508"/>
 	<con:wsrmConfig version="1.2"/>
@@ -9481,7 +9392,7 @@ context.testCase.testSuite.project.setPropertyValue( "UnSubscriptionID", subID )
 			<useRegEx>false</useRegEx>
 		</con:configuration>
 	</con:assertion>
-	<con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+	<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
 	<con:jmsPropertyConfig/>
 	<con:wsaConfig action="urn:gov:hhs:fha:nhinc:entitysubscriptionmanagement/EntitySubscriptionManagerPortType/UnsubscribeRequest" mustUnderstand="NONE" version="200508"/>
 	<con:wsrmConfig version="1.2"/>
@@ -9873,7 +9784,7 @@ context.testCase.testSuite.project.setPropertyValue( "UnSubscriptionID", subID )
       </urn:RespondingGateway_SendAlertMessage>
    </soap:Body>
 </soap:Envelope>]]></con:request>
-		<con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+		<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
 		<con:jmsPropertyConfig/>
 		<con:wsaConfig mustUnderstand="NONE" version="200508"/>
 		<con:wsrmConfig version="1.2"/>
@@ -9966,13 +9877,13 @@ context.testCase.testSuite.project.setPropertyValue( "UnSubscriptionID", subID )
 	</con:property>
 	
 </con:properties>
-<con:setupScript>import nhinc.FileUtils;
-nhinc.FileUtils.backupConfiguration(log);
-nhinc.FileUtils.updateGatewayProperty("purposeForUseEnabled","true", log);
-nhinc.FileUtils.updateProperty(System.env['NHINC_PROPERTIES_DIR'], "purposeUse.properties", "2.2","true", log);
-nhinc.FileUtils.moveFile(context.expand(testSuite.project.resourceRoot), "uddiConnectionInfo_g0.xml", System.env['NHINC_PROPERTIES_DIR'], "uddiConnectionInfo.xml", log);
-nhinc.FileUtils.changeSpringConfig("PurposeUseProxyConfig.xml", "community", log);</con:setupScript>
-<con:tearDownScript>nhinc.FileUtils.restoreConfiguration(log);</con:tearDownScript>
+<con:setupScript>
+nhinc.FileUtils.backupConfiguration(context.expand(testSuite.project.getPropertyValue("GatewayPropDir")), log);
+nhinc.FileUtils.updateProperty(context.expand(testSuite.project.getPropertyValue("GatewayPropDir")), "gateway.properties", "purposeForUseEnabled", "true", log);
+nhinc.FileUtils.updateProperty(context.expand(testSuite.project.getPropertyValue("GatewayPropDir")), "purposeUse.properties", "2.2","true", log);
+nhinc.FileUtils.copyFile(context.expand(testSuite.project.resourceRoot), "uddiConnectionInfo_g0.xml", context.expand(testSuite.project.getPropertyValue("GatewayPropDir")), "uddiConnectionInfo.xml", log);
+nhinc.FileUtils.changeSpringConfig(context.expand(testSuite.project.getPropertyValue("GatewayPropDir")), "PurposeUseProxyConfig.xml", "community", "purposeuse", log);</con:setupScript>
+<con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.expand(testSuite.project.getPropertyValue("GatewayPropDir")), log);</con:tearDownScript>
 <con:reportParameters/>
 </con:testSuite>
 <con:testSuite name="Entity_g1_community_False_2.2true">
@@ -10450,7 +10361,7 @@ Because this is a g1 test suite, all spec versions are 2011. Messages to 2011 sp
 					<definition/>
 				</con:configuration>
 			</con:assertion>
-			<con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+			<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
 			<con:jmsPropertyConfig/>
 			<con:wsaConfig action="urn:gov:hhs:fha:nhinc:nhincentityxdr:async:request:ProvideAndRegisterDocumentSet-bAsyncRequest_RequestMessage" generateMessageId="true" mustUnderstand="NONE" version="200508"/>
 			<con:wsrmConfig version="1.2"/>
@@ -10836,7 +10747,7 @@ Because this is a g1 test suite, all spec versions are 2011. Messages to 2011 sp
 				<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
 			</con:configuration>
 		</con:assertion>
-		<con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+		<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
 		<con:jmsPropertyConfig/>
 		<con:wsaConfig mustUnderstand="NONE" version="200508"/>
 		<con:wsrmConfig version="1.2"/>
@@ -11342,7 +11253,7 @@ Because this is a g1 test suite, all spec versions are 2011. Messages to 2011 sp
 				<definition/>
 			</con:configuration>
 		</con:assertion>
-		<con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+		<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
 		<con:jmsPropertyConfig/>
 		<con:wsaConfig action="{urn:gov:hhs:fha:nhinc:nhincentityxdr}ProvideAndRegisterDocumentSet-b" mustUnderstand="NONE" version="200508"/>
 		<con:wsrmConfig version="1.2"/>
@@ -11687,7 +11598,7 @@ Because this is a g1 test suite, all spec versions are 2011. Messages to 2011 sp
 				<definition/>
 			</con:configuration>
 		</con:assertion>
-		<con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+		<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
 		<con:jmsPropertyConfig/>
 		<con:wsaConfig action="urn:gov:hhs:fha:nhinc:entitypatientdiscoveryasyncreq:ProcessPatientDiscoveryAsyncReqAsyncRequest" addDefaultTo="true" messageID="uuid:6666666666.66666.666.66" mustUnderstand="NONE" version="200508"/>
 		<con:wsrmConfig version="1.2"/>
@@ -11964,10 +11875,6 @@ Because this is a g1 test suite, all spec versions are 2011. Messages to 2011 sp
 	<con:property>
 		<con:name>DOB</con:name>
 		<con:value>19800516</con:value>
-	</con:property>
-	<con:property>
-		<con:name>DateOfSignature</con:name>
-		<con:value>20080520</con:value>
 	</con:property>
 	<con:property>
 		<con:name>startDate</con:name>
@@ -12323,7 +12230,7 @@ Because this is a g1 test suite, all spec versions are 2011. Messages to 2011 sp
 				<definition/>
 			</con:configuration>
 		</con:assertion>
-		<con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+		<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
 		<con:jmsPropertyConfig/>
 		<con:wsaConfig mustUnderstand="NONE" version="200508"/>
 		<con:wsrmConfig version="1.2"/>
@@ -12605,10 +12512,6 @@ Because this is a g1 test suite, all spec versions are 2011. Messages to 2011 sp
 		<con:name>DOB</con:name>
 		<con:value>19800516</con:value>
 	</con:property>
-	<con:property>
-		<con:name>DateOfSignature</con:name>
-		<con:value>20080520>>>>>>> .r3844</con:value>
-</con:property>
 <con:property>
 	<con:name>startDate</con:name>
 	<con:value>2012-10-04T20:47:22Z</con:value>
@@ -12925,7 +12828,7 @@ Because this is a g1 test suite, all spec versions are 2011. Messages to 2011 sp
 			<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
 		</con:configuration>
 	</con:assertion>
-	<con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+	<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
 	<con:jmsPropertyConfig/>
 	<con:wsaConfig mustUnderstand="NONE" version="200508"/>
 	<con:wsrmConfig version="1.2"/>
@@ -12976,21 +12879,7 @@ Because this is a g1 test suite, all spec versions are 2011. Messages to 2011 sp
 	<con:testStep name="update config" type="groovy">
 		<con:settings/>
 		<con:config>
-			<script>def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR']
-
-void UpdateProperty(String directory, String filename, String propertyKey, String propertyValue,context,log) {
-	log.info("begin UpdateProperty; directory='" + directory + "';filename='" + filename + "';key='" + propertyKey + "';value='" + propertyValue + "';");
-	File file = new File(directory,filename);
-	Properties properties = new Properties();
-	FileInputStream frPropFile = new FileInputStream(file);
-	properties.load(frPropFile);
-	properties.setProperty(propertyKey, propertyValue);
-	FileOutputStream fwPropFile = new FileOutputStream(file);
-	properties.store(fwPropFile, "**DO NOT CHECK IN** - written by groovy script FileUtils.groovy->UpdateProperty");
-	properties = null;
-}
-
-UpdateProperty(destConfigFileLocation,"gateway.properties","documentQueryQuerySelf","false",context,log);</script>
+			<script>nhinc.FileUtils.updateProperty(context.findProperty("GatewayPropDir"),"gateway.properties","documentQueryQuerySelf","false", log);</script>
 	</con:config>
 </con:testStep>
 <con:testStep name="Clear Correlation Table &amp; Add Correlation" type="groovy">
@@ -13306,7 +13195,7 @@ UpdateProperty(destConfigFileLocation,"gateway.properties","documentQueryQuerySe
 				assert (documentID == msgDocID)</scriptText>
 		</con:configuration>
 	</con:assertion>
-	<con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+	<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
 	<con:jmsPropertyConfig/>
 	<con:wsaConfig mustUnderstand="NONE" version="200508"/>
 	<con:wsrmConfig version="1.2"/>
@@ -13631,7 +13520,7 @@ UpdateProperty(destConfigFileLocation,"gateway.properties","documentQueryQuerySe
 					assert (docData.size() != 0)</scriptText>
 			</con:configuration>
 		</con:assertion>
-		<con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+		<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
 		<con:jmsPropertyConfig/>
 		<con:wsaConfig action="urn:gov:hhs:fha:nhinc:entitydocretrieve/EntityDocRetrievePortType/RespondingGateway_CrossGatewayRetrieveRequest" mustUnderstand="NONE" version="200508"/>
 		<con:wsrmConfig version="1.2"/>
@@ -14021,7 +13910,7 @@ UpdateProperty(destConfigFileLocation,"gateway.properties","documentQueryQuerySe
       </urn:RespondingGateway_SendAlertMessage>
    </soap:Body>
 </soap:Envelope>]]></con:request>
-		<con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+		<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
 		<con:jmsPropertyConfig/>
 		<con:wsaConfig mustUnderstand="NONE" version="200508"/>
 		<con:wsrmConfig version="1.2"/>
@@ -14114,13 +14003,13 @@ UpdateProperty(destConfigFileLocation,"gateway.properties","documentQueryQuerySe
 	</con:property>
 	
 </con:properties>
-<con:setupScript>import nhinc.FileUtils;
-nhinc.FileUtils.backupConfiguration(log);
-nhinc.FileUtils.updateGatewayProperty("purposeForUseEnabled","false", log);
-nhinc.FileUtils.updateProperty(System.env['NHINC_PROPERTIES_DIR'], "purposeUse.properties", "2.2","true", log);
-nhinc.FileUtils.moveFile(context.expand(testSuite.project.resourceRoot), "uddiConnectionInfo_g1.xml", System.env['NHINC_PROPERTIES_DIR'], "uddiConnectionInfo.xml", log);
-nhinc.FileUtils.changeSpringConfig("PurposeUseProxyConfig.xml", "community", log);</con:setupScript>
-<con:tearDownScript>nhinc.FileUtils.restoreConfiguration(log);</con:tearDownScript>
+<con:setupScript>
+nhinc.FileUtils.backupConfiguration(context.expand(testSuite.project.getPropertyValue("GatewayPropDir")), log);
+nhinc.FileUtils.updateProperty(context.expand(testSuite.project.getPropertyValue("GatewayPropDir")), "gateway.properties", "purposeForUseEnabled", "false", log);
+nhinc.FileUtils.updateProperty(context.expand(testSuite.project.getPropertyValue("GatewayPropDir")), "purposeUse.properties", "2.2","true", log);
+nhinc.FileUtils.copyFile(context.expand(testSuite.project.resourceRoot), "uddiConnectionInfo_g1.xml", context.expand(testSuite.project.getPropertyValue("GatewayPropDir")), "uddiConnectionInfo.xml", log);
+nhinc.FileUtils.changeSpringConfig(context.expand(testSuite.project.getPropertyValue("GatewayPropDir")), "PurposeUseProxyConfig.xml", "community", "purposeuse", log);</con:setupScript>
+<con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.expand(testSuite.project.getPropertyValue("GatewayPropDir")), log);</con:tearDownScript>
 <con:reportParameters/>
 </con:testSuite>
 <con:testSuite name="Entity_g0_community_False_2.2true">
@@ -14601,7 +14490,7 @@ Because this is a g0 test suite, all spec versions are 2010. Messages to 2010 sp
 			<con:assertion type="Schema Compliance">
 				<con:configuration/>
 			</con:assertion>
-			<con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+			<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
 			<con:jmsPropertyConfig/>
 			<con:wsaConfig action="urn:gov:hhs:fha:nhinc:nhincentityxdr:async:request:ProvideAndRegisterDocumentSet-bAsyncRequest_RequestMessage" generateMessageId="true" mustUnderstand="NONE" version="200508"/>
 			<con:wsrmConfig version="1.2"/>
@@ -14971,7 +14860,7 @@ Because this is a g0 test suite, all spec versions are 2010. Messages to 2010 sp
 				<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
 			</con:configuration>
 		</con:assertion>
-		<con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+		<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
 		<con:jmsPropertyConfig/>
 		<con:wsaConfig mustUnderstand="NONE" version="200508"/>
 		<con:wsrmConfig version="1.2"/>
@@ -15475,7 +15364,7 @@ Because this is a g0 test suite, all spec versions are 2010. Messages to 2010 sp
 				<definition/>
 			</con:configuration>
 		</con:assertion>
-		<con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+		<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
 		<con:jmsPropertyConfig/>
 		<con:wsaConfig action="{urn:gov:hhs:fha:nhinc:nhincentityxdr}ProvideAndRegisterDocumentSet-b" mustUnderstand="NONE" version="200508"/>
 		<con:wsrmConfig version="1.2"/>
@@ -15822,7 +15711,7 @@ Because this is a g0 test suite, all spec versions are 2010. Messages to 2010 sp
 				<definition/>
 			</con:configuration>
 		</con:assertion>
-		<con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+		<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
 		<con:jmsPropertyConfig/>
 		<con:wsaConfig action="urn:gov:hhs:fha:nhinc:entitypatientdiscoveryasyncreq:ProcessPatientDiscoveryAsyncReqAsyncRequest" addDefaultTo="true" messageID="uuid:6666666666.66666.666.66" mustUnderstand="NONE" version="200508"/>
 		<con:wsrmConfig version="1.2"/>
@@ -16097,10 +15986,6 @@ Because this is a g0 test suite, all spec versions are 2010. Messages to 2010 sp
 	<con:property>
 		<con:name>DOB</con:name>
 		<con:value>19800516</con:value>
-	</con:property>
-	<con:property>
-		<con:name>DateOfSignature</con:name>
-		<con:value>20080520</con:value>
 	</con:property>
 	<con:property>
 		<con:name>startDate</con:name>
@@ -16457,7 +16342,7 @@ Because this is a g0 test suite, all spec versions are 2010. Messages to 2010 sp
 				<definition/>
 			</con:configuration>
 		</con:assertion>
-		<con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+		<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
 		<con:jmsPropertyConfig/>
 		<con:wsaConfig mustUnderstand="NONE" version="200508"/>
 		<con:wsrmConfig version="1.2"/>
@@ -16737,10 +16622,6 @@ Because this is a g0 test suite, all spec versions are 2010. Messages to 2010 sp
 		<con:name>DOB</con:name>
 		<con:value>19800516</con:value>
 	</con:property>
-	<con:property>
-		<con:name>DateOfSignature</con:name>
-		<con:value>20080520>>>>>>> .r3844</con:value>
-</con:property>
 <con:property>
 	<con:name>startDate</con:name>
 	<con:value>2012-10-04T20:47:49Z</con:value>
@@ -17057,7 +16938,7 @@ Because this is a g0 test suite, all spec versions are 2010. Messages to 2010 sp
 			<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
 		</con:configuration>
 	</con:assertion>
-	<con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+	<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
 	<con:jmsPropertyConfig/>
 	<con:wsaConfig mustUnderstand="NONE" version="200508"/>
 	<con:wsrmConfig version="1.2"/>
@@ -17106,21 +16987,7 @@ Because this is a g0 test suite, all spec versions are 2010. Messages to 2010 sp
 	<con:testStep name="update config" type="groovy">
 		<con:settings/>
 		<con:config>
-			<script>def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR']
-
-void UpdateProperty(String directory, String filename, String propertyKey, String propertyValue,context,log) {
-	log.info("begin UpdateProperty; directory='" + directory + "';filename='" + filename + "';key='" + propertyKey + "';value='" + propertyValue + "';");
-	File file = new File(directory,filename);
-	Properties properties = new Properties();
-	FileInputStream frPropFile = new FileInputStream(file);
-	properties.load(frPropFile);
-	properties.setProperty(propertyKey, propertyValue);
-	FileOutputStream fwPropFile = new FileOutputStream(file);
-	properties.store(fwPropFile, "**DO NOT CHECK IN** - written by groovy script FileUtils.groovy->UpdateProperty");
-	properties = null;
-}
-
-UpdateProperty(destConfigFileLocation,"gateway.properties","documentQueryQuerySelf","false",context,log);</script>
+			<script>nhinc.FileUtils.updateProperty(context.findProperty("GatewayPropDir"),"gateway.properties","documentQueryQuerySelf","false", log);</script>
 	</con:config>
 </con:testStep>
 <con:testStep name="Clear Correlation Table &amp; Add Correlation" type="groovy">
@@ -17436,7 +17303,7 @@ UpdateProperty(destConfigFileLocation,"gateway.properties","documentQueryQuerySe
 				assert (documentID == msgDocID)</scriptText>
 		</con:configuration>
 	</con:assertion>
-	<con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+	<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
 	<con:jmsPropertyConfig/>
 	<con:wsaConfig mustUnderstand="NONE" version="200508"/>
 	<con:wsrmConfig version="1.2"/>
@@ -17761,7 +17628,7 @@ UpdateProperty(destConfigFileLocation,"gateway.properties","documentQueryQuerySe
 					assert (docData.size() != 0)</scriptText>
 			</con:configuration>
 		</con:assertion>
-		<con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+		<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
 		<con:jmsPropertyConfig/>
 		<con:wsaConfig action="urn:gov:hhs:fha:nhinc:entitydocretrieve/EntityDocRetrievePortType/RespondingGateway_CrossGatewayRetrieveRequest" mustUnderstand="NONE" version="200508"/>
 		<con:wsrmConfig version="1.2"/>
@@ -17808,23 +17675,10 @@ UpdateProperty(destConfigFileLocation,"gateway.properties","documentQueryQuerySe
 	<con:testStep name="update config" type="groovy">
 		<con:settings/>
 		<con:config>
-			<script>def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR']
-
-void UpdateProperty(String directory, String filename, String propertyKey, String propertyValue,context,log) {
-	log.info("begin UpdateProperty; directory='" + directory + "';filename='" + filename + "';key='" + propertyKey + "';value='" + propertyValue + "';");
-	File file = new File(directory,filename);
-	Properties properties = new Properties();
-	FileInputStream frPropFile = new FileInputStream(file);
-	properties.load(frPropFile);
-	properties.setProperty(propertyKey, propertyValue);
-	FileOutputStream fwPropFile = new FileOutputStream(file);
-	properties.store(fwPropFile, "**DO NOT CHECK IN** - written by groovy script FileUtils.groovy->UpdateProperty");
-properties = null;
-}
-
-UpdateProperty(destConfigFileLocation,"gateway.properties","serviceSubscription","true",context,log);
-UpdateProperty(destConfigFileLocation,"gateway.properties","subscriptionPassthrough","false",context,log);
-UpdateProperty(destConfigFileLocation,"gateway.properties","hiem.AdapterSubscriptionMode","disabled",context,log);</script>
+			<script>def destConfigFileLocation = context.findProperty("GatewayPropDir");
+nhinc.FileUtils.updateProperty(destConfigFileLocation, "gateway.properties", "serviceSubscription", "true", log);
+nhinc.FileUtils.updateProperty(destConfigFileLocation, "gateway.properties", "subscriptionPassthrough", "false", log);
+nhinc.FileUtils.updateProperty(destConfigFileLocation, "gateway.properties", "hiem.AdapterSubscriptionMode", "disabled", log);</script>
 	</con:config>
 </con:testStep>
 <con:testStep name="Clear Subscription Table" type="groovy">
@@ -18097,7 +17951,7 @@ holder.namespaces["ns5"] = "urn:gov:hhs:fha:nhinc:common:subscriptionb2overridef
 assert holder["//ns4:SubscribeResponse[1]/ns4:SubscriptionReference[1]/ns3:ReferenceParameters[1]/ns5:SubscriptionId[1]"] != null</scriptText>
 		</con:configuration>
 	</con:assertion>
-	<con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+	<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
 	<con:jmsPropertyConfig/>
 	<con:wsaConfig action="urn:gov:hhs:fha:nhinc:entitysubscriptionmanagement/EntityNotificationProducerPortType/SubscribeDocumentRequest" mustUnderstand="NONE" version="200508"/>
 	<con:wsrmConfig version="1.2"/>
@@ -18150,24 +18004,10 @@ assert holder["//ns4:SubscribeResponse[1]/ns4:SubscriptionReference[1]/ns3:Refer
 	<con:testStep name="update config" type="groovy">
 		<con:settings/>
 		<con:config>
-			<script>def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR']
-
-				void UpdateProperty(String directory, String filename, String propertyKey, String propertyValue,context,log) {
-
-				log.info("begin UpdateProperty; directory='" + directory + "';filename='" + filename + "';key='" + propertyKey + "';value='" + propertyValue + "';");
-				File file = new File(directory,filename);
-				Properties properties = new Properties();
-				FileInputStream frPropFile = new FileInputStream(file);
-				properties.load(frPropFile);
-				properties.setProperty(propertyKey, propertyValue);
-				FileOutputStream fwPropFile = new FileOutputStream(file);
-				properties.store(fwPropFile, "**DO NOT CHECK IN** - written by groovy script FileUtils.groovy->UpdateProperty");
-			properties = null;
-			}
-
-			UpdateProperty(destConfigFileLocation,"gateway.properties","serviceSubscription","true",context,log);
-			UpdateProperty(destConfigFileLocation,"gateway.properties","subscriptionPassthrough","false",context,log);
-			UpdateProperty(destConfigFileLocation,"gateway.properties","hiem.AdapterSubscriptionMode","disabled",context,log);</script>
+			<script>def destConfigFileLocation = context.findProperty("GatewayPropDir");
+nhinc.FileUtils.updateProperty(destConfigFileLocation,"gateway.properties","serviceSubscription", "true", log);
+nhinc.FileUtils.updateProperty(destConfigFileLocation,"gateway.properties","subscriptionPassthrough", "false", log);
+nhinc.FileUtils.updateProperty(destConfigFileLocation,"gateway.properties","hiem.AdapterSubscriptionMode", "disabled", log);</script>
 	</con:config>
 </con:testStep>
 <con:testStep name="Clear Subscription Table" type="groovy">
@@ -18427,7 +18267,7 @@ assert holder["//ns4:SubscribeResponse[1]/ns4:SubscriptionReference[1]/ns3:Refer
 
 	<con:assertion name="Not SOAP Fault" type="SOAP Fault Assertion"/>
 	<con:assertion name="SOAP Response" type="SOAP Response"/>
-	<con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+	<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
 	<con:jmsPropertyConfig/>
 	<con:wsaConfig action="urn:gov:hhs:fha:nhinc:entitysubscriptionmanagement/EntityNotificationProducerPortType/SubscribeDocumentRequest" mustUnderstand="NONE" version="200508"/>
 	<con:wsrmConfig version="1.2"/>
@@ -18706,7 +18546,7 @@ context.testCase.testSuite.project.setPropertyValue( "NotifySubscriptionID", par
 		<con:configuration/>
 	</con:assertion>
 	<con:assertion type="SOAP Fault Assertion"/>
-	<con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+	<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
 	<con:jmsPropertyConfig/>
 	<con:wsaConfig mustUnderstand="NONE" version="200508"/>
 	<con:wsrmConfig version="1.2"/>
@@ -18754,28 +18594,10 @@ context.testCase.testSuite.project.setPropertyValue( "NotifySubscriptionID", par
 	<con:testStep name="update config" type="groovy">
 		<con:settings/>
 		<con:config>
-			<script>//def destConfigFileLocation = context.findProperty("NHINGatewayConfigDir");
-
-
-				def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR']
-
-				void UpdateProperty(String directory, String filename, String propertyKey, String propertyValue,context,log) {
-
-				log.info("begin UpdateProperty; directory='" + directory + "';filename='" + filename + "';key='" + propertyKey + "';value='" + propertyValue + "';");
-				File file = new File(directory,filename);
-				Properties properties = new Properties();
-				FileInputStream frPropFile = new FileInputStream(file);
-				properties.load(frPropFile);
-				properties.setProperty(propertyKey, propertyValue);
-				FileOutputStream fwPropFile = new FileOutputStream(file);
-				fwPropFile = new FileOutputStream(file);
-				properties.store(fwPropFile, "**DO NOT CHECK IN** - written by groovy script FileUtils.groovy->UpdateProperty");
-			properties = null;
-			}
-
-			UpdateProperty(destConfigFileLocation,"gateway.properties","serviceSubscription","true",context,log);
-			UpdateProperty(destConfigFileLocation,"gateway.properties","subscriptionPassthrough","false",context,log);
-			UpdateProperty(destConfigFileLocation,"gateway.properties","hiem.AdapterSubscriptionMode","disabled",context,log);</script>
+			<script>def destConfigFileLocation = context.findProperty("GatewayPropDir");
+nhinc.FileUtils.updateProperty(destConfigFileLocation, "gateway.properties", "serviceSubscription", "true", log);
+nhinc.FileUtils.updateProperty(destConfigFileLocation, "gateway.properties", "subscriptionPassthrough", "false", log);
+nhinc.FileUtils.updateProperty(destConfigFileLocation, "gateway.properties", "hiem.AdapterSubscriptionMode", "disabled", log);</script>
 	</con:config>
 </con:testStep>
 <con:testStep name="Clear Subscription Table" type="groovy">
@@ -19036,7 +18858,7 @@ context.testCase.testSuite.project.setPropertyValue( "NotifySubscriptionID", par
 </soap:Envelope>]]></con:request>
 	<con:assertion type="SOAP Response"/>
 	<con:assertion type="SOAP Fault Assertion"/>
-	<con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+	<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
 	<con:jmsPropertyConfig/>
 	<con:wsaConfig action="urn:gov:hhs:fha:nhinc:entitysubscriptionmanagement/EntityNotificationProducerPortType/SubscribeDocumentRequest" mustUnderstand="NONE" version="200508"/>
 	<con:wsrmConfig version="1.2"/>
@@ -19315,7 +19137,7 @@ context.testCase.testSuite.project.setPropertyValue( "UnSubscriptionID", subID )
 			<useRegEx>false</useRegEx>
 		</con:configuration>
 	</con:assertion>
-	<con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+	<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
 	<con:jmsPropertyConfig/>
 	<con:wsaConfig action="urn:gov:hhs:fha:nhinc:entitysubscriptionmanagement/EntitySubscriptionManagerPortType/UnsubscribeRequest" mustUnderstand="NONE" version="200508"/>
 	<con:wsrmConfig version="1.2"/>
@@ -19707,7 +19529,7 @@ context.testCase.testSuite.project.setPropertyValue( "UnSubscriptionID", subID )
       </urn:RespondingGateway_SendAlertMessage>
    </soap:Body>
 </soap:Envelope>]]></con:request>
-		<con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+		<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
 		<con:jmsPropertyConfig/>
 		<con:wsaConfig mustUnderstand="NONE" version="200508"/>
 		<con:wsrmConfig version="1.2"/>
@@ -19800,13 +19622,13 @@ context.testCase.testSuite.project.setPropertyValue( "UnSubscriptionID", subID )
 	</con:property>
 	
 </con:properties>
-<con:setupScript>import nhinc.FileUtils;
-nhinc.FileUtils.backupConfiguration(log);
-nhinc.FileUtils.updateGatewayProperty("purposeForUseEnabled","false", log);
-nhinc.FileUtils.updateProperty(System.env['NHINC_PROPERTIES_DIR'], "purposeUse.properties", "2.2","true", log);
-nhinc.FileUtils.moveFile(context.expand(testSuite.project.resourceRoot), "uddiConnectionInfo_g0.xml", System.env['NHINC_PROPERTIES_DIR'], "uddiConnectionInfo.xml", log);
-nhinc.FileUtils.changeSpringConfig("PurposeUseProxyConfig.xml", "community", log);</con:setupScript>
-<con:tearDownScript>nhinc.FileUtils.restoreConfiguration(log);</con:tearDownScript>
+<con:setupScript>
+nhinc.FileUtils.backupConfiguration(context.expand(testSuite.project.getPropertyValue("GatewayPropDir")), log);
+nhinc.FileUtils.updateProperty(context.expand(testSuite.project.getPropertyValue("GatewayPropDir")), "gateway.properties", "purposeForUseEnabled", "false", log);
+nhinc.FileUtils.updateProperty(context.expand(testSuite.project.getPropertyValue("GatewayPropDir")), "purposeUse.properties", "2.2","true", log);
+nhinc.FileUtils.copyFile(context.expand(testSuite.project.resourceRoot), "uddiConnectionInfo_g0.xml", context.expand(testSuite.project.getPropertyValue("GatewayPropDir")), "uddiConnectionInfo.xml", log);
+nhinc.FileUtils.changeSpringConfig(context.expand(testSuite.project.getPropertyValue("GatewayPropDir")), "PurposeUseProxyConfig.xml", "community", "purposeuse", log);</con:setupScript>
+<con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.expand(testSuite.project.getPropertyValue("GatewayPropDir")), log);</con:tearDownScript>
 <con:reportParameters/>
 </con:testSuite>
 <con:testSuite name="Entity_g1_community_True_2.2false">
@@ -20284,7 +20106,7 @@ Because this is a g1 test suite, all spec versions are 2011. Messages to 2011 sp
 					<definition/>
 				</con:configuration>
 			</con:assertion>
-			<con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+			<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
 			<con:jmsPropertyConfig/>
 			<con:wsaConfig action="urn:gov:hhs:fha:nhinc:nhincentityxdr:async:request:ProvideAndRegisterDocumentSet-bAsyncRequest_RequestMessage" generateMessageId="true" mustUnderstand="NONE" version="200508"/>
 			<con:wsrmConfig version="1.2"/>
@@ -20668,7 +20490,7 @@ Because this is a g1 test suite, all spec versions are 2011. Messages to 2011 sp
 				<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
 			</con:configuration>
 		</con:assertion>
-		<con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+		<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
 		<con:jmsPropertyConfig/>
 		<con:wsaConfig mustUnderstand="NONE" version="200508"/>
 		<con:wsrmConfig version="1.2"/>
@@ -21174,7 +20996,7 @@ Because this is a g1 test suite, all spec versions are 2011. Messages to 2011 sp
 				<definition/>
 			</con:configuration>
 		</con:assertion>
-		<con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+		<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
 		<con:jmsPropertyConfig/>
 		<con:wsaConfig action="{urn:gov:hhs:fha:nhinc:nhincentityxdr}ProvideAndRegisterDocumentSet-b" mustUnderstand="NONE" version="200508"/>
 		<con:wsrmConfig version="1.2"/>
@@ -21519,7 +21341,7 @@ Because this is a g1 test suite, all spec versions are 2011. Messages to 2011 sp
 				<definition/>
 			</con:configuration>
 		</con:assertion>
-		<con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+		<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
 		<con:jmsPropertyConfig/>
 		<con:wsaConfig action="urn:gov:hhs:fha:nhinc:entitypatientdiscoveryasyncreq:ProcessPatientDiscoveryAsyncReqAsyncRequest" addDefaultTo="true" messageID="uuid:6666666666.66666.666.66" mustUnderstand="NONE" version="200508"/>
 		<con:wsrmConfig version="1.2"/>
@@ -21796,10 +21618,6 @@ Because this is a g1 test suite, all spec versions are 2011. Messages to 2011 sp
 	<con:property>
 		<con:name>DOB</con:name>
 		<con:value>19800516</con:value>
-	</con:property>
-	<con:property>
-		<con:name>DateOfSignature</con:name>
-		<con:value>20080520</con:value>
 	</con:property>
 	<con:property>
 		<con:name>startDate</con:name>
@@ -22155,7 +21973,7 @@ Because this is a g1 test suite, all spec versions are 2011. Messages to 2011 sp
 				<definition/>
 			</con:configuration>
 		</con:assertion>
-		<con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+		<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
 		<con:jmsPropertyConfig/>
 		<con:wsaConfig mustUnderstand="NONE" version="200508"/>
 		<con:wsrmConfig version="1.2"/>
@@ -22437,10 +22255,6 @@ Because this is a g1 test suite, all spec versions are 2011. Messages to 2011 sp
 		<con:name>DOB</con:name>
 		<con:value>19800516</con:value>
 	</con:property>
-	<con:property>
-		<con:name>DateOfSignature</con:name>
-		<con:value>20080520>>>>>>> .r3844</con:value>
-</con:property>
 <con:property>
 	<con:name>startDate</con:name>
 	<con:value>2012-10-04T20:48:21Z</con:value>
@@ -22757,7 +22571,7 @@ Because this is a g1 test suite, all spec versions are 2011. Messages to 2011 sp
 			<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
 		</con:configuration>
 	</con:assertion>
-	<con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+	<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
 	<con:jmsPropertyConfig/>
 	<con:wsaConfig mustUnderstand="NONE" version="200508"/>
 	<con:wsrmConfig version="1.2"/>
@@ -22808,21 +22622,7 @@ Because this is a g1 test suite, all spec versions are 2011. Messages to 2011 sp
 	<con:testStep name="update config" type="groovy">
 		<con:settings/>
 		<con:config>
-			<script>def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR']
-
-void UpdateProperty(String directory, String filename, String propertyKey, String propertyValue,context,log) {
-	log.info("begin UpdateProperty; directory='" + directory + "';filename='" + filename + "';key='" + propertyKey + "';value='" + propertyValue + "';");
-	File file = new File(directory,filename);
-	Properties properties = new Properties();
-	FileInputStream frPropFile = new FileInputStream(file);
-	properties.load(frPropFile);
-	properties.setProperty(propertyKey, propertyValue);
-	FileOutputStream fwPropFile = new FileOutputStream(file);
-	properties.store(fwPropFile, "**DO NOT CHECK IN** - written by groovy script FileUtils.groovy->UpdateProperty");
-	properties = null;
-}
-
-UpdateProperty(destConfigFileLocation,"gateway.properties","documentQueryQuerySelf","false",context,log);</script>
+			<script>nhinc.FileUtils.updateProperty(context.findProperty("GatewayPropDir"),"gateway.properties","documentQueryQuerySelf","false", log);</script>
 	</con:config>
 </con:testStep>
 <con:testStep name="Clear Correlation Table &amp; Add Correlation" type="groovy">
@@ -23138,7 +22938,7 @@ UpdateProperty(destConfigFileLocation,"gateway.properties","documentQueryQuerySe
 				assert (documentID == msgDocID)</scriptText>
 		</con:configuration>
 	</con:assertion>
-	<con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+	<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
 	<con:jmsPropertyConfig/>
 	<con:wsaConfig mustUnderstand="NONE" version="200508"/>
 	<con:wsrmConfig version="1.2"/>
@@ -23463,7 +23263,7 @@ UpdateProperty(destConfigFileLocation,"gateway.properties","documentQueryQuerySe
 					assert (docData.size() != 0)</scriptText>
 			</con:configuration>
 		</con:assertion>
-		<con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+		<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
 		<con:jmsPropertyConfig/>
 		<con:wsaConfig action="urn:gov:hhs:fha:nhinc:entitydocretrieve/EntityDocRetrievePortType/RespondingGateway_CrossGatewayRetrieveRequest" mustUnderstand="NONE" version="200508"/>
 		<con:wsrmConfig version="1.2"/>
@@ -23853,7 +23653,7 @@ UpdateProperty(destConfigFileLocation,"gateway.properties","documentQueryQuerySe
       </urn:RespondingGateway_SendAlertMessage>
    </soap:Body>
 </soap:Envelope>]]></con:request>
-		<con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+		<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
 		<con:jmsPropertyConfig/>
 		<con:wsaConfig mustUnderstand="NONE" version="200508"/>
 		<con:wsrmConfig version="1.2"/>
@@ -23946,13 +23746,13 @@ UpdateProperty(destConfigFileLocation,"gateway.properties","documentQueryQuerySe
 	</con:property>
 	
 </con:properties>
-<con:setupScript>import nhinc.FileUtils;
-nhinc.FileUtils.backupConfiguration(log);
-nhinc.FileUtils.updateGatewayProperty("purposeForUseEnabled","true", log);
-//nhinc.FileUtils.updateProperty(System.env['NHINC_PROPERTIES_DIR'], "purposeUse.properties", "2.2","false", log);
-nhinc.FileUtils.moveFile(context.expand(testSuite.project.resourceRoot), "uddiConnectionInfo_g1.xml", System.env['NHINC_PROPERTIES_DIR'], "uddiConnectionInfo.xml", log);
-nhinc.FileUtils.changeSpringConfig("PurposeUseProxyConfig.xml", "community", log);</con:setupScript>
-<con:tearDownScript>nhinc.FileUtils.restoreConfiguration(log);</con:tearDownScript>
+<con:setupScript>
+nhinc.FileUtils.backupConfiguration(context.expand(testSuite.project.getPropertyValue("GatewayPropDir")), log);
+nhinc.FileUtils.updateProperty(context.expand(testSuite.project.getPropertyValue("GatewayPropDir")), "gateway.properties", "purposeForUseEnabled", "true", log);
+//nhinc.FileUtils.updateProperty(context.expand(testSuite.project.getPropertyValue("GatewayPropDir")), "purposeUse.properties", "2.2","false", log);
+nhinc.FileUtils.copyFile(context.expand(testSuite.project.resourceRoot), "uddiConnectionInfo_g1.xml", context.expand(testSuite.project.getPropertyValue("GatewayPropDir")), "uddiConnectionInfo.xml", log);
+nhinc.FileUtils.changeSpringConfig(context.expand(testSuite.project.getPropertyValue("GatewayPropDir")), "PurposeUseProxyConfig.xml", "community", "purposeuse", log);</con:setupScript>
+<con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.expand(testSuite.project.getPropertyValue("GatewayPropDir")), log);</con:tearDownScript>
 <con:reportParameters/>
 </con:testSuite>
 <con:testSuite name="Entity_g0_community_True_2.2false">
@@ -24433,7 +24233,7 @@ Because this is a g0 test suite, all spec versions are 2010. Messages to 2010 sp
 			<con:assertion type="Schema Compliance">
 				<con:configuration/>
 			</con:assertion>
-			<con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+			<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
 			<con:jmsPropertyConfig/>
 			<con:wsaConfig action="urn:gov:hhs:fha:nhinc:nhincentityxdr:async:request:ProvideAndRegisterDocumentSet-bAsyncRequest_RequestMessage" generateMessageId="true" mustUnderstand="NONE" version="200508"/>
 			<con:wsrmConfig version="1.2"/>
@@ -24803,7 +24603,7 @@ Because this is a g0 test suite, all spec versions are 2010. Messages to 2010 sp
 				<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
 			</con:configuration>
 		</con:assertion>
-		<con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+		<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
 		<con:jmsPropertyConfig/>
 		<con:wsaConfig mustUnderstand="NONE" version="200508"/>
 		<con:wsrmConfig version="1.2"/>
@@ -25307,7 +25107,7 @@ Because this is a g0 test suite, all spec versions are 2010. Messages to 2010 sp
 				<definition/>
 			</con:configuration>
 		</con:assertion>
-		<con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+		<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
 		<con:jmsPropertyConfig/>
 		<con:wsaConfig action="{urn:gov:hhs:fha:nhinc:nhincentityxdr}ProvideAndRegisterDocumentSet-b" mustUnderstand="NONE" version="200508"/>
 		<con:wsrmConfig version="1.2"/>
@@ -25654,7 +25454,7 @@ Because this is a g0 test suite, all spec versions are 2010. Messages to 2010 sp
 				<definition/>
 			</con:configuration>
 		</con:assertion>
-		<con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+		<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
 		<con:jmsPropertyConfig/>
 		<con:wsaConfig action="urn:gov:hhs:fha:nhinc:entitypatientdiscoveryasyncreq:ProcessPatientDiscoveryAsyncReqAsyncRequest" addDefaultTo="true" messageID="uuid:6666666666.66666.666.66" mustUnderstand="NONE" version="200508"/>
 		<con:wsrmConfig version="1.2"/>
@@ -25929,10 +25729,6 @@ Because this is a g0 test suite, all spec versions are 2010. Messages to 2010 sp
 	<con:property>
 		<con:name>DOB</con:name>
 		<con:value>19800516</con:value>
-	</con:property>
-	<con:property>
-		<con:name>DateOfSignature</con:name>
-		<con:value>20080520</con:value>
 	</con:property>
 	<con:property>
 		<con:name>startDate</con:name>
@@ -26289,7 +26085,7 @@ Because this is a g0 test suite, all spec versions are 2010. Messages to 2010 sp
 				<definition/>
 			</con:configuration>
 		</con:assertion>
-		<con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+		<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
 		<con:jmsPropertyConfig/>
 		<con:wsaConfig mustUnderstand="NONE" version="200508"/>
 		<con:wsrmConfig version="1.2"/>
@@ -26569,10 +26365,6 @@ Because this is a g0 test suite, all spec versions are 2010. Messages to 2010 sp
 		<con:name>DOB</con:name>
 		<con:value>19800516</con:value>
 	</con:property>
-	<con:property>
-		<con:name>DateOfSignature</con:name>
-		<con:value>20080520>>>>>>> .r3844</con:value>
-</con:property>
 <con:property>
 	<con:name>startDate</con:name>
 	<con:value>2012-10-04T20:48:48Z</con:value>
@@ -26889,7 +26681,7 @@ Because this is a g0 test suite, all spec versions are 2010. Messages to 2010 sp
 			<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
 		</con:configuration>
 	</con:assertion>
-	<con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+	<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
 	<con:jmsPropertyConfig/>
 	<con:wsaConfig mustUnderstand="NONE" version="200508"/>
 	<con:wsrmConfig version="1.2"/>
@@ -26938,21 +26730,7 @@ Because this is a g0 test suite, all spec versions are 2010. Messages to 2010 sp
 	<con:testStep name="update config" type="groovy">
 		<con:settings/>
 		<con:config>
-			<script>def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR']
-
-void UpdateProperty(String directory, String filename, String propertyKey, String propertyValue,context,log) {
-	log.info("begin UpdateProperty; directory='" + directory + "';filename='" + filename + "';key='" + propertyKey + "';value='" + propertyValue + "';");
-	File file = new File(directory,filename);
-	Properties properties = new Properties();
-	FileInputStream frPropFile = new FileInputStream(file);
-	properties.load(frPropFile);
-	properties.setProperty(propertyKey, propertyValue);
-	FileOutputStream fwPropFile = new FileOutputStream(file);
-	properties.store(fwPropFile, "**DO NOT CHECK IN** - written by groovy script FileUtils.groovy->UpdateProperty");
-	properties = null;
-}
-
-UpdateProperty(destConfigFileLocation,"gateway.properties","documentQueryQuerySelf","false",context,log);</script>
+			<script>nhinc.FileUtils.updateProperty(context.findProperty("GatewayPropDir"),"gateway.properties","documentQueryQuerySelf","false", log);</script>
 	</con:config>
 </con:testStep>
 <con:testStep name="Clear Correlation Table &amp; Add Correlation" type="groovy">
@@ -27268,7 +27046,7 @@ UpdateProperty(destConfigFileLocation,"gateway.properties","documentQueryQuerySe
 				assert (documentID == msgDocID)</scriptText>
 		</con:configuration>
 	</con:assertion>
-	<con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+	<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
 	<con:jmsPropertyConfig/>
 	<con:wsaConfig mustUnderstand="NONE" version="200508"/>
 	<con:wsrmConfig version="1.2"/>
@@ -27593,7 +27371,7 @@ UpdateProperty(destConfigFileLocation,"gateway.properties","documentQueryQuerySe
 					assert (docData.size() != 0)</scriptText>
 			</con:configuration>
 		</con:assertion>
-		<con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+		<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
 		<con:jmsPropertyConfig/>
 		<con:wsaConfig action="urn:gov:hhs:fha:nhinc:entitydocretrieve/EntityDocRetrievePortType/RespondingGateway_CrossGatewayRetrieveRequest" mustUnderstand="NONE" version="200508"/>
 		<con:wsrmConfig version="1.2"/>
@@ -27640,23 +27418,10 @@ UpdateProperty(destConfigFileLocation,"gateway.properties","documentQueryQuerySe
 	<con:testStep name="update config" type="groovy">
 		<con:settings/>
 		<con:config>
-			<script>def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR']
-
-void UpdateProperty(String directory, String filename, String propertyKey, String propertyValue,context,log) {
-	log.info("begin UpdateProperty; directory='" + directory + "';filename='" + filename + "';key='" + propertyKey + "';value='" + propertyValue + "';");
-	File file = new File(directory,filename);
-	Properties properties = new Properties();
-	FileInputStream frPropFile = new FileInputStream(file);
-	properties.load(frPropFile);
-	properties.setProperty(propertyKey, propertyValue);
-	FileOutputStream fwPropFile = new FileOutputStream(file);
-	properties.store(fwPropFile, "**DO NOT CHECK IN** - written by groovy script FileUtils.groovy->UpdateProperty");
-properties = null;
-}
-
-UpdateProperty(destConfigFileLocation,"gateway.properties","serviceSubscription","true",context,log);
-UpdateProperty(destConfigFileLocation,"gateway.properties","subscriptionPassthrough","false",context,log);
-UpdateProperty(destConfigFileLocation,"gateway.properties","hiem.AdapterSubscriptionMode","disabled",context,log);</script>
+			<script>def destConfigFileLocation = context.findProperty("GatewayPropDir");
+nhinc.FileUtils.updateProperty(destConfigFileLocation, "gateway.properties", "serviceSubscription", "true", log);
+nhinc.FileUtils.updateProperty(destConfigFileLocation, "gateway.properties", "subscriptionPassthrough", "false", log);
+nhinc.FileUtils.updateProperty(destConfigFileLocation, "gateway.properties", "hiem.AdapterSubscriptionMode", "disabled", log);</script>
 	</con:config>
 </con:testStep>
 <con:testStep name="Clear Subscription Table" type="groovy">
@@ -27929,7 +27694,7 @@ holder.namespaces["ns5"] = "urn:gov:hhs:fha:nhinc:common:subscriptionb2overridef
 assert holder["//ns4:SubscribeResponse[1]/ns4:SubscriptionReference[1]/ns3:ReferenceParameters[1]/ns5:SubscriptionId[1]"] != null</scriptText>
 		</con:configuration>
 	</con:assertion>
-	<con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+	<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
 	<con:jmsPropertyConfig/>
 	<con:wsaConfig action="urn:gov:hhs:fha:nhinc:entitysubscriptionmanagement/EntityNotificationProducerPortType/SubscribeDocumentRequest" mustUnderstand="NONE" version="200508"/>
 	<con:wsrmConfig version="1.2"/>
@@ -27982,24 +27747,10 @@ assert holder["//ns4:SubscribeResponse[1]/ns4:SubscriptionReference[1]/ns3:Refer
 	<con:testStep name="update config" type="groovy">
 		<con:settings/>
 		<con:config>
-			<script>def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR']
-
-				void UpdateProperty(String directory, String filename, String propertyKey, String propertyValue,context,log) {
-
-				log.info("begin UpdateProperty; directory='" + directory + "';filename='" + filename + "';key='" + propertyKey + "';value='" + propertyValue + "';");
-				File file = new File(directory,filename);
-				Properties properties = new Properties();
-				FileInputStream frPropFile = new FileInputStream(file);
-				properties.load(frPropFile);
-				properties.setProperty(propertyKey, propertyValue);
-				FileOutputStream fwPropFile = new FileOutputStream(file);
-				properties.store(fwPropFile, "**DO NOT CHECK IN** - written by groovy script FileUtils.groovy->UpdateProperty");
-			properties = null;
-			}
-
-			UpdateProperty(destConfigFileLocation,"gateway.properties","serviceSubscription","true",context,log);
-			UpdateProperty(destConfigFileLocation,"gateway.properties","subscriptionPassthrough","false",context,log);
-			UpdateProperty(destConfigFileLocation,"gateway.properties","hiem.AdapterSubscriptionMode","disabled",context,log);</script>
+			<script>def destConfigFileLocation = context.findProperty("GatewayPropDir");
+nhinc.FileUtils.updateProperty(destConfigFileLocation,"gateway.properties","serviceSubscription", "true", log);
+nhinc.FileUtils.updateProperty(destConfigFileLocation,"gateway.properties","subscriptionPassthrough", "false", log);
+nhinc.FileUtils.updateProperty(destConfigFileLocation,"gateway.properties","hiem.AdapterSubscriptionMode", "disabled", log);</script>
 	</con:config>
 </con:testStep>
 <con:testStep name="Clear Subscription Table" type="groovy">
@@ -28259,7 +28010,7 @@ assert holder["//ns4:SubscribeResponse[1]/ns4:SubscriptionReference[1]/ns3:Refer
 
 	<con:assertion name="Not SOAP Fault" type="SOAP Fault Assertion"/>
 	<con:assertion name="SOAP Response" type="SOAP Response"/>
-	<con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+	<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
 	<con:jmsPropertyConfig/>
 	<con:wsaConfig action="urn:gov:hhs:fha:nhinc:entitysubscriptionmanagement/EntityNotificationProducerPortType/SubscribeDocumentRequest" mustUnderstand="NONE" version="200508"/>
 	<con:wsrmConfig version="1.2"/>
@@ -28538,7 +28289,7 @@ context.testCase.testSuite.project.setPropertyValue( "NotifySubscriptionID", par
 		<con:configuration/>
 	</con:assertion>
 	<con:assertion type="SOAP Fault Assertion"/>
-	<con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+	<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
 	<con:jmsPropertyConfig/>
 	<con:wsaConfig mustUnderstand="NONE" version="200508"/>
 	<con:wsrmConfig version="1.2"/>
@@ -28586,28 +28337,10 @@ context.testCase.testSuite.project.setPropertyValue( "NotifySubscriptionID", par
 	<con:testStep name="update config" type="groovy">
 		<con:settings/>
 		<con:config>
-			<script>//def destConfigFileLocation = context.findProperty("NHINGatewayConfigDir");
-
-
-				def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR']
-
-				void UpdateProperty(String directory, String filename, String propertyKey, String propertyValue,context,log) {
-
-				log.info("begin UpdateProperty; directory='" + directory + "';filename='" + filename + "';key='" + propertyKey + "';value='" + propertyValue + "';");
-				File file = new File(directory,filename);
-				Properties properties = new Properties();
-				FileInputStream frPropFile = new FileInputStream(file);
-				properties.load(frPropFile);
-				properties.setProperty(propertyKey, propertyValue);
-				FileOutputStream fwPropFile = new FileOutputStream(file);
-				fwPropFile = new FileOutputStream(file);
-				properties.store(fwPropFile, "**DO NOT CHECK IN** - written by groovy script FileUtils.groovy->UpdateProperty");
-			properties = null;
-			}
-
-			UpdateProperty(destConfigFileLocation,"gateway.properties","serviceSubscription","true",context,log);
-			UpdateProperty(destConfigFileLocation,"gateway.properties","subscriptionPassthrough","false",context,log);
-			UpdateProperty(destConfigFileLocation,"gateway.properties","hiem.AdapterSubscriptionMode","disabled",context,log);</script>
+			<script>def destConfigFileLocation = context.findProperty("GatewayPropDir");
+nhinc.FileUtils.updateProperty(destConfigFileLocation, "gateway.properties", "serviceSubscription", "true", log);
+nhinc.FileUtils.updateProperty(destConfigFileLocation, "gateway.properties", "subscriptionPassthrough", "false", log);
+nhinc.FileUtils.updateProperty(destConfigFileLocation, "gateway.properties", "hiem.AdapterSubscriptionMode", "disabled", log);</script>
 	</con:config>
 </con:testStep>
 <con:testStep name="Clear Subscription Table" type="groovy">
@@ -28868,7 +28601,7 @@ context.testCase.testSuite.project.setPropertyValue( "NotifySubscriptionID", par
 </soap:Envelope>]]></con:request>
 	<con:assertion type="SOAP Response"/>
 	<con:assertion type="SOAP Fault Assertion"/>
-	<con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+	<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
 	<con:jmsPropertyConfig/>
 	<con:wsaConfig action="urn:gov:hhs:fha:nhinc:entitysubscriptionmanagement/EntityNotificationProducerPortType/SubscribeDocumentRequest" mustUnderstand="NONE" version="200508"/>
 	<con:wsrmConfig version="1.2"/>
@@ -29147,7 +28880,7 @@ context.testCase.testSuite.project.setPropertyValue( "UnSubscriptionID", subID )
 			<useRegEx>false</useRegEx>
 		</con:configuration>
 	</con:assertion>
-	<con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+	<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
 	<con:jmsPropertyConfig/>
 	<con:wsaConfig action="urn:gov:hhs:fha:nhinc:entitysubscriptionmanagement/EntitySubscriptionManagerPortType/UnsubscribeRequest" mustUnderstand="NONE" version="200508"/>
 	<con:wsrmConfig version="1.2"/>
@@ -29539,7 +29272,7 @@ context.testCase.testSuite.project.setPropertyValue( "UnSubscriptionID", subID )
       </urn:RespondingGateway_SendAlertMessage>
    </soap:Body>
 </soap:Envelope>]]></con:request>
-		<con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+		<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
 		<con:jmsPropertyConfig/>
 		<con:wsaConfig mustUnderstand="NONE" version="200508"/>
 		<con:wsrmConfig version="1.2"/>
@@ -29632,13 +29365,13 @@ context.testCase.testSuite.project.setPropertyValue( "UnSubscriptionID", subID )
 	</con:property>
 	
 </con:properties>
-<con:setupScript>import nhinc.FileUtils;
-nhinc.FileUtils.backupConfiguration(log);
-nhinc.FileUtils.updateGatewayProperty("purposeForUseEnabled","true", log);
-//nhinc.FileUtils.updateProperty(System.env['NHINC_PROPERTIES_DIR'], "purposeUse.properties", "2.2","false", log);
-nhinc.FileUtils.moveFile(context.expand(testSuite.project.resourceRoot), "uddiConnectionInfo_g0.xml", System.env['NHINC_PROPERTIES_DIR'], "uddiConnectionInfo.xml", log);
-nhinc.FileUtils.changeSpringConfig("PurposeUseProxyConfig.xml", "community", log);</con:setupScript>
-<con:tearDownScript>nhinc.FileUtils.restoreConfiguration(log);</con:tearDownScript>
+<con:setupScript>
+nhinc.FileUtils.backupConfiguration(context.expand(testSuite.project.getPropertyValue("GatewayPropDir")), log);
+nhinc.FileUtils.updateProperty(context.expand(testSuite.project.getPropertyValue("GatewayPropDir")), "gateway.properties", "purposeForUseEnabled", "true", log);
+//nhinc.FileUtils.updateProperty(context.expand(testSuite.project.getPropertyValue("GatewayPropDir")), "purposeUse.properties", "2.2","false", log);
+nhinc.FileUtils.copyFile(context.expand(testSuite.project.resourceRoot), "uddiConnectionInfo_g0.xml", context.expand(testSuite.project.getPropertyValue("GatewayPropDir")), "uddiConnectionInfo.xml", log);
+nhinc.FileUtils.changeSpringConfig(context.expand(testSuite.project.getPropertyValue("GatewayPropDir")), "PurposeUseProxyConfig.xml", "community", "purposeuse", log);</con:setupScript>
+<con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.expand(testSuite.project.getPropertyValue("GatewayPropDir")), log);</con:tearDownScript>
 <con:reportParameters/>
 </con:testSuite>
 <con:testSuite name="Entity_g1_community_False_2.2false">
@@ -30116,7 +29849,7 @@ Because this is a g1 test suite, all spec versions are 2011. Messages to 2011 sp
 					<definition/>
 				</con:configuration>
 			</con:assertion>
-			<con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+			<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
 			<con:jmsPropertyConfig/>
 			<con:wsaConfig action="urn:gov:hhs:fha:nhinc:nhincentityxdr:async:request:ProvideAndRegisterDocumentSet-bAsyncRequest_RequestMessage" generateMessageId="true" mustUnderstand="NONE" version="200508"/>
 			<con:wsrmConfig version="1.2"/>
@@ -30502,7 +30235,7 @@ Because this is a g1 test suite, all spec versions are 2011. Messages to 2011 sp
 				<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
 			</con:configuration>
 		</con:assertion>
-		<con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+		<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
 		<con:jmsPropertyConfig/>
 		<con:wsaConfig mustUnderstand="NONE" version="200508"/>
 		<con:wsrmConfig version="1.2"/>
@@ -31008,7 +30741,7 @@ Because this is a g1 test suite, all spec versions are 2011. Messages to 2011 sp
 				<definition/>
 			</con:configuration>
 		</con:assertion>
-		<con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+		<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
 		<con:jmsPropertyConfig/>
 		<con:wsaConfig action="{urn:gov:hhs:fha:nhinc:nhincentityxdr}ProvideAndRegisterDocumentSet-b" mustUnderstand="NONE" version="200508"/>
 		<con:wsrmConfig version="1.2"/>
@@ -31353,7 +31086,7 @@ Because this is a g1 test suite, all spec versions are 2011. Messages to 2011 sp
 				<definition/>
 			</con:configuration>
 		</con:assertion>
-		<con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+		<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
 		<con:jmsPropertyConfig/>
 		<con:wsaConfig action="urn:gov:hhs:fha:nhinc:entitypatientdiscoveryasyncreq:ProcessPatientDiscoveryAsyncReqAsyncRequest" addDefaultTo="true" messageID="uuid:6666666666.66666.666.66" mustUnderstand="NONE" version="200508"/>
 		<con:wsrmConfig version="1.2"/>
@@ -31630,10 +31363,6 @@ Because this is a g1 test suite, all spec versions are 2011. Messages to 2011 sp
 	<con:property>
 		<con:name>DOB</con:name>
 		<con:value>19800516</con:value>
-	</con:property>
-	<con:property>
-		<con:name>DateOfSignature</con:name>
-		<con:value>20080520</con:value>
 	</con:property>
 	<con:property>
 		<con:name>startDate</con:name>
@@ -31989,7 +31718,7 @@ Because this is a g1 test suite, all spec versions are 2011. Messages to 2011 sp
 				<definition/>
 			</con:configuration>
 		</con:assertion>
-		<con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+		<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
 		<con:jmsPropertyConfig/>
 		<con:wsaConfig mustUnderstand="NONE" version="200508"/>
 		<con:wsrmConfig version="1.2"/>
@@ -32271,10 +32000,6 @@ Because this is a g1 test suite, all spec versions are 2011. Messages to 2011 sp
 		<con:name>DOB</con:name>
 		<con:value>19800516</con:value>
 	</con:property>
-	<con:property>
-		<con:name>DateOfSignature</con:name>
-		<con:value>20080520>>>>>>> .r3844</con:value>
-</con:property>
 <con:property>
 	<con:name>startDate</con:name>
 	<con:value>2012-10-04T20:49:20Z</con:value>
@@ -32591,7 +32316,7 @@ Because this is a g1 test suite, all spec versions are 2011. Messages to 2011 sp
 			<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
 		</con:configuration>
 	</con:assertion>
-	<con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+	<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
 	<con:jmsPropertyConfig/>
 	<con:wsaConfig mustUnderstand="NONE" version="200508"/>
 	<con:wsrmConfig version="1.2"/>
@@ -32642,21 +32367,7 @@ Because this is a g1 test suite, all spec versions are 2011. Messages to 2011 sp
 	<con:testStep name="update config" type="groovy">
 		<con:settings/>
 		<con:config>
-			<script>def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR']
-
-void UpdateProperty(String directory, String filename, String propertyKey, String propertyValue,context,log) {
-	log.info("begin UpdateProperty; directory='" + directory + "';filename='" + filename + "';key='" + propertyKey + "';value='" + propertyValue + "';");
-	File file = new File(directory,filename);
-	Properties properties = new Properties();
-	FileInputStream frPropFile = new FileInputStream(file);
-	properties.load(frPropFile);
-	properties.setProperty(propertyKey, propertyValue);
-	FileOutputStream fwPropFile = new FileOutputStream(file);
-	properties.store(fwPropFile, "**DO NOT CHECK IN** - written by groovy script FileUtils.groovy->UpdateProperty");
-	properties = null;
-}
-
-UpdateProperty(destConfigFileLocation,"gateway.properties","documentQueryQuerySelf","false",context,log);</script>
+			<script>nhinc.FileUtils.updateProperty(context.findProperty("GatewayPropDir"),"gateway.properties","documentQueryQuerySelf","false", log);</script>
 	</con:config>
 </con:testStep>
 <con:testStep name="Clear Correlation Table &amp; Add Correlation" type="groovy">
@@ -32972,7 +32683,7 @@ UpdateProperty(destConfigFileLocation,"gateway.properties","documentQueryQuerySe
 				assert (documentID == msgDocID)</scriptText>
 		</con:configuration>
 	</con:assertion>
-	<con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+	<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
 	<con:jmsPropertyConfig/>
 	<con:wsaConfig mustUnderstand="NONE" version="200508"/>
 	<con:wsrmConfig version="1.2"/>
@@ -33297,7 +33008,7 @@ UpdateProperty(destConfigFileLocation,"gateway.properties","documentQueryQuerySe
 					assert (docData.size() != 0)</scriptText>
 			</con:configuration>
 		</con:assertion>
-		<con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+		<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
 		<con:jmsPropertyConfig/>
 		<con:wsaConfig action="urn:gov:hhs:fha:nhinc:entitydocretrieve/EntityDocRetrievePortType/RespondingGateway_CrossGatewayRetrieveRequest" mustUnderstand="NONE" version="200508"/>
 		<con:wsrmConfig version="1.2"/>
@@ -33687,7 +33398,7 @@ UpdateProperty(destConfigFileLocation,"gateway.properties","documentQueryQuerySe
       </urn:RespondingGateway_SendAlertMessage>
    </soap:Body>
 </soap:Envelope>]]></con:request>
-		<con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+		<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
 		<con:jmsPropertyConfig/>
 		<con:wsaConfig mustUnderstand="NONE" version="200508"/>
 		<con:wsrmConfig version="1.2"/>
@@ -33780,13 +33491,13 @@ UpdateProperty(destConfigFileLocation,"gateway.properties","documentQueryQuerySe
 	</con:property>
 	
 </con:properties>
-<con:setupScript>import nhinc.FileUtils;
-nhinc.FileUtils.backupConfiguration(log);
-nhinc.FileUtils.updateGatewayProperty("purposeForUseEnabled","false", log);
-//nhinc.FileUtils.updateProperty(System.env['NHINC_PROPERTIES_DIR'], "purposeUse.properties", "2.2","false", log);
-nhinc.FileUtils.moveFile(context.expand(testSuite.project.resourceRoot), "uddiConnectionInfo_g1.xml", System.env['NHINC_PROPERTIES_DIR'], "uddiConnectionInfo.xml", log);
-nhinc.FileUtils.changeSpringConfig("PurposeUseProxyConfig.xml", "community", log);</con:setupScript>
-<con:tearDownScript>nhinc.FileUtils.restoreConfiguration(log);</con:tearDownScript>
+<con:setupScript>
+nhinc.FileUtils.backupConfiguration(context.expand(testSuite.project.getPropertyValue("GatewayPropDir")), log);
+nhinc.FileUtils.updateProperty(context.expand(testSuite.project.getPropertyValue("GatewayPropDir")), "gateway.properties", "purposeForUseEnabled", "false", log);
+//nhinc.FileUtils.updateProperty(context.expand(testSuite.project.getPropertyValue("GatewayPropDir")), "purposeUse.properties", "2.2","false", log);
+nhinc.FileUtils.copyFile(context.expand(testSuite.project.resourceRoot), "uddiConnectionInfo_g1.xml", context.expand(testSuite.project.getPropertyValue("GatewayPropDir")), "uddiConnectionInfo.xml", log);
+nhinc.FileUtils.changeSpringConfig(context.expand(testSuite.project.getPropertyValue("GatewayPropDir")), "PurposeUseProxyConfig.xml", "community", "purposeuse", log);</con:setupScript>
+<con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.expand(testSuite.project.getPropertyValue("GatewayPropDir")), log);</con:tearDownScript>
 <con:reportParameters/>
 </con:testSuite>
 <con:testSuite name="Entity_g0_community_False_2.2false">
@@ -34267,7 +33978,7 @@ Because this is a g0 test suite, all spec versions are 2010. Messages to 2010 sp
 			<con:assertion type="Schema Compliance">
 				<con:configuration/>
 			</con:assertion>
-			<con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+			<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
 			<con:jmsPropertyConfig/>
 			<con:wsaConfig action="urn:gov:hhs:fha:nhinc:nhincentityxdr:async:request:ProvideAndRegisterDocumentSet-bAsyncRequest_RequestMessage" generateMessageId="true" mustUnderstand="NONE" version="200508"/>
 			<con:wsrmConfig version="1.2"/>
@@ -34637,7 +34348,7 @@ Because this is a g0 test suite, all spec versions are 2010. Messages to 2010 sp
 				<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
 			</con:configuration>
 		</con:assertion>
-		<con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+		<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
 		<con:jmsPropertyConfig/>
 		<con:wsaConfig mustUnderstand="NONE" version="200508"/>
 		<con:wsrmConfig version="1.2"/>
@@ -35141,7 +34852,7 @@ Because this is a g0 test suite, all spec versions are 2010. Messages to 2010 sp
 				<definition/>
 			</con:configuration>
 		</con:assertion>
-		<con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+		<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
 		<con:jmsPropertyConfig/>
 		<con:wsaConfig action="{urn:gov:hhs:fha:nhinc:nhincentityxdr}ProvideAndRegisterDocumentSet-b" mustUnderstand="NONE" version="200508"/>
 		<con:wsrmConfig version="1.2"/>
@@ -35488,7 +35199,7 @@ Because this is a g0 test suite, all spec versions are 2010. Messages to 2010 sp
 				<definition/>
 			</con:configuration>
 		</con:assertion>
-		<con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+		<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
 		<con:jmsPropertyConfig/>
 		<con:wsaConfig action="urn:gov:hhs:fha:nhinc:entitypatientdiscoveryasyncreq:ProcessPatientDiscoveryAsyncReqAsyncRequest" addDefaultTo="true" messageID="uuid:6666666666.66666.666.66" mustUnderstand="NONE" version="200508"/>
 		<con:wsrmConfig version="1.2"/>
@@ -35763,10 +35474,6 @@ Because this is a g0 test suite, all spec versions are 2010. Messages to 2010 sp
 	<con:property>
 		<con:name>DOB</con:name>
 		<con:value>19800516</con:value>
-	</con:property>
-	<con:property>
-		<con:name>DateOfSignature</con:name>
-		<con:value>20080520</con:value>
 	</con:property>
 	<con:property>
 		<con:name>startDate</con:name>
@@ -36123,7 +35830,7 @@ Because this is a g0 test suite, all spec versions are 2010. Messages to 2010 sp
 				<definition/>
 			</con:configuration>
 		</con:assertion>
-		<con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+		<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
 		<con:jmsPropertyConfig/>
 		<con:wsaConfig mustUnderstand="NONE" version="200508"/>
 		<con:wsrmConfig version="1.2"/>
@@ -36403,10 +36110,6 @@ Because this is a g0 test suite, all spec versions are 2010. Messages to 2010 sp
 		<con:name>DOB</con:name>
 		<con:value>19800516</con:value>
 	</con:property>
-	<con:property>
-		<con:name>DateOfSignature</con:name>
-		<con:value>20080520>>>>>>> .r3844</con:value>
-</con:property>
 <con:property>
 	<con:name>startDate</con:name>
 	<con:value>2012-10-04T20:49:48Z</con:value>
@@ -36723,7 +36426,7 @@ Because this is a g0 test suite, all spec versions are 2010. Messages to 2010 sp
 			<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
 		</con:configuration>
 	</con:assertion>
-	<con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+	<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
 	<con:jmsPropertyConfig/>
 	<con:wsaConfig mustUnderstand="NONE" version="200508"/>
 	<con:wsrmConfig version="1.2"/>
@@ -36772,21 +36475,7 @@ Because this is a g0 test suite, all spec versions are 2010. Messages to 2010 sp
 	<con:testStep name="update config" type="groovy">
 		<con:settings/>
 		<con:config>
-			<script>def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR']
-
-void UpdateProperty(String directory, String filename, String propertyKey, String propertyValue,context,log) {
-	log.info("begin UpdateProperty; directory='" + directory + "';filename='" + filename + "';key='" + propertyKey + "';value='" + propertyValue + "';");
-	File file = new File(directory,filename);
-	Properties properties = new Properties();
-	FileInputStream frPropFile = new FileInputStream(file);
-	properties.load(frPropFile);
-	properties.setProperty(propertyKey, propertyValue);
-	FileOutputStream fwPropFile = new FileOutputStream(file);
-	properties.store(fwPropFile, "**DO NOT CHECK IN** - written by groovy script FileUtils.groovy->UpdateProperty");
-	properties = null;
-}
-
-UpdateProperty(destConfigFileLocation,"gateway.properties","documentQueryQuerySelf","false",context,log);</script>
+			<script>nhinc.FileUtils.updateProperty(context.findProperty("GatewayPropDir"),"gateway.properties","documentQueryQuerySelf","false", log);</script>
 	</con:config>
 </con:testStep>
 <con:testStep name="Clear Correlation Table &amp; Add Correlation" type="groovy">
@@ -37102,7 +36791,7 @@ UpdateProperty(destConfigFileLocation,"gateway.properties","documentQueryQuerySe
 				assert (documentID == msgDocID)</scriptText>
 		</con:configuration>
 	</con:assertion>
-	<con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+	<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
 	<con:jmsPropertyConfig/>
 	<con:wsaConfig mustUnderstand="NONE" version="200508"/>
 	<con:wsrmConfig version="1.2"/>
@@ -37427,7 +37116,7 @@ UpdateProperty(destConfigFileLocation,"gateway.properties","documentQueryQuerySe
 					assert (docData.size() != 0)</scriptText>
 			</con:configuration>
 		</con:assertion>
-		<con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+		<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
 		<con:jmsPropertyConfig/>
 		<con:wsaConfig action="urn:gov:hhs:fha:nhinc:entitydocretrieve/EntityDocRetrievePortType/RespondingGateway_CrossGatewayRetrieveRequest" mustUnderstand="NONE" version="200508"/>
 		<con:wsrmConfig version="1.2"/>
@@ -37474,23 +37163,10 @@ UpdateProperty(destConfigFileLocation,"gateway.properties","documentQueryQuerySe
 	<con:testStep name="update config" type="groovy">
 		<con:settings/>
 		<con:config>
-			<script>def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR']
-
-void UpdateProperty(String directory, String filename, String propertyKey, String propertyValue,context,log) {
-	log.info("begin UpdateProperty; directory='" + directory + "';filename='" + filename + "';key='" + propertyKey + "';value='" + propertyValue + "';");
-	File file = new File(directory,filename);
-	Properties properties = new Properties();
-	FileInputStream frPropFile = new FileInputStream(file);
-	properties.load(frPropFile);
-	properties.setProperty(propertyKey, propertyValue);
-	FileOutputStream fwPropFile = new FileOutputStream(file);
-	properties.store(fwPropFile, "**DO NOT CHECK IN** - written by groovy script FileUtils.groovy->UpdateProperty");
-properties = null;
-}
-
-UpdateProperty(destConfigFileLocation,"gateway.properties","serviceSubscription","true",context,log);
-UpdateProperty(destConfigFileLocation,"gateway.properties","subscriptionPassthrough","false",context,log);
-UpdateProperty(destConfigFileLocation,"gateway.properties","hiem.AdapterSubscriptionMode","disabled",context,log);</script>
+			<script>def destConfigFileLocation = context.findProperty("GatewayPropDir");
+nhinc.FileUtils.updateProperty(destConfigFileLocation, "gateway.properties", "serviceSubscription", "true", log);
+nhinc.FileUtils.updateProperty(destConfigFileLocation, "gateway.properties", "subscriptionPassthrough", "false", log);
+nhinc.FileUtils.updateProperty(destConfigFileLocation, "gateway.properties", "hiem.AdapterSubscriptionMode", "disabled", log);</script>
 	</con:config>
 </con:testStep>
 <con:testStep name="Clear Subscription Table" type="groovy">
@@ -37763,7 +37439,7 @@ holder.namespaces["ns5"] = "urn:gov:hhs:fha:nhinc:common:subscriptionb2overridef
 assert holder["//ns4:SubscribeResponse[1]/ns4:SubscriptionReference[1]/ns3:ReferenceParameters[1]/ns5:SubscriptionId[1]"] != null</scriptText>
 		</con:configuration>
 	</con:assertion>
-	<con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+	<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
 	<con:jmsPropertyConfig/>
 	<con:wsaConfig action="urn:gov:hhs:fha:nhinc:entitysubscriptionmanagement/EntityNotificationProducerPortType/SubscribeDocumentRequest" mustUnderstand="NONE" version="200508"/>
 	<con:wsrmConfig version="1.2"/>
@@ -37816,24 +37492,10 @@ assert holder["//ns4:SubscribeResponse[1]/ns4:SubscriptionReference[1]/ns3:Refer
 	<con:testStep name="update config" type="groovy">
 		<con:settings/>
 		<con:config>
-			<script>def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR']
-
-				void UpdateProperty(String directory, String filename, String propertyKey, String propertyValue,context,log) {
-
-				log.info("begin UpdateProperty; directory='" + directory + "';filename='" + filename + "';key='" + propertyKey + "';value='" + propertyValue + "';");
-				File file = new File(directory,filename);
-				Properties properties = new Properties();
-				FileInputStream frPropFile = new FileInputStream(file);
-				properties.load(frPropFile);
-				properties.setProperty(propertyKey, propertyValue);
-				FileOutputStream fwPropFile = new FileOutputStream(file);
-				properties.store(fwPropFile, "**DO NOT CHECK IN** - written by groovy script FileUtils.groovy->UpdateProperty");
-			properties = null;
-			}
-
-			UpdateProperty(destConfigFileLocation,"gateway.properties","serviceSubscription","true",context,log);
-			UpdateProperty(destConfigFileLocation,"gateway.properties","subscriptionPassthrough","false",context,log);
-			UpdateProperty(destConfigFileLocation,"gateway.properties","hiem.AdapterSubscriptionMode","disabled",context,log);</script>
+			<script>def destConfigFileLocation = context.findProperty("GatewayPropDir");
+nhinc.FileUtils.updateProperty(destConfigFileLocation,"gateway.properties","serviceSubscription", "true", log);
+nhinc.FileUtils.updateProperty(destConfigFileLocation,"gateway.properties","subscriptionPassthrough", "false", log);
+nhinc.FileUtils.updateProperty(destConfigFileLocation,"gateway.properties","hiem.AdapterSubscriptionMode", "disabled", log);</script>
 	</con:config>
 </con:testStep>
 <con:testStep name="Clear Subscription Table" type="groovy">
@@ -38093,7 +37755,7 @@ assert holder["//ns4:SubscribeResponse[1]/ns4:SubscriptionReference[1]/ns3:Refer
 
 	<con:assertion name="Not SOAP Fault" type="SOAP Fault Assertion"/>
 	<con:assertion name="SOAP Response" type="SOAP Response"/>
-	<con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+	<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
 	<con:jmsPropertyConfig/>
 	<con:wsaConfig action="urn:gov:hhs:fha:nhinc:entitysubscriptionmanagement/EntityNotificationProducerPortType/SubscribeDocumentRequest" mustUnderstand="NONE" version="200508"/>
 	<con:wsrmConfig version="1.2"/>
@@ -38372,7 +38034,7 @@ context.testCase.testSuite.project.setPropertyValue( "NotifySubscriptionID", par
 		<con:configuration/>
 	</con:assertion>
 	<con:assertion type="SOAP Fault Assertion"/>
-	<con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+	<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
 	<con:jmsPropertyConfig/>
 	<con:wsaConfig mustUnderstand="NONE" version="200508"/>
 	<con:wsrmConfig version="1.2"/>
@@ -38420,28 +38082,10 @@ context.testCase.testSuite.project.setPropertyValue( "NotifySubscriptionID", par
 	<con:testStep name="update config" type="groovy">
 		<con:settings/>
 		<con:config>
-			<script>//def destConfigFileLocation = context.findProperty("NHINGatewayConfigDir");
-
-
-				def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR']
-
-				void UpdateProperty(String directory, String filename, String propertyKey, String propertyValue,context,log) {
-
-				log.info("begin UpdateProperty; directory='" + directory + "';filename='" + filename + "';key='" + propertyKey + "';value='" + propertyValue + "';");
-				File file = new File(directory,filename);
-				Properties properties = new Properties();
-				FileInputStream frPropFile = new FileInputStream(file);
-				properties.load(frPropFile);
-				properties.setProperty(propertyKey, propertyValue);
-				FileOutputStream fwPropFile = new FileOutputStream(file);
-				fwPropFile = new FileOutputStream(file);
-				properties.store(fwPropFile, "**DO NOT CHECK IN** - written by groovy script FileUtils.groovy->UpdateProperty");
-			properties = null;
-			}
-
-			UpdateProperty(destConfigFileLocation,"gateway.properties","serviceSubscription","true",context,log);
-			UpdateProperty(destConfigFileLocation,"gateway.properties","subscriptionPassthrough","false",context,log);
-			UpdateProperty(destConfigFileLocation,"gateway.properties","hiem.AdapterSubscriptionMode","disabled",context,log);</script>
+			<script>def destConfigFileLocation = context.findProperty("GatewayPropDir");
+nhinc.FileUtils.updateProperty(destConfigFileLocation, "gateway.properties", "serviceSubscription", "true", log);
+nhinc.FileUtils.updateProperty(destConfigFileLocation, "gateway.properties", "subscriptionPassthrough", "false", log);
+nhinc.FileUtils.updateProperty(destConfigFileLocation, "gateway.properties", "hiem.AdapterSubscriptionMode", "disabled", log);</script>
 	</con:config>
 </con:testStep>
 <con:testStep name="Clear Subscription Table" type="groovy">
@@ -38702,7 +38346,7 @@ context.testCase.testSuite.project.setPropertyValue( "NotifySubscriptionID", par
 </soap:Envelope>]]></con:request>
 	<con:assertion type="SOAP Response"/>
 	<con:assertion type="SOAP Fault Assertion"/>
-	<con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+	<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
 	<con:jmsPropertyConfig/>
 	<con:wsaConfig action="urn:gov:hhs:fha:nhinc:entitysubscriptionmanagement/EntityNotificationProducerPortType/SubscribeDocumentRequest" mustUnderstand="NONE" version="200508"/>
 	<con:wsrmConfig version="1.2"/>
@@ -38981,7 +38625,7 @@ context.testCase.testSuite.project.setPropertyValue( "UnSubscriptionID", subID )
 			<useRegEx>false</useRegEx>
 		</con:configuration>
 	</con:assertion>
-	<con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+	<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
 	<con:jmsPropertyConfig/>
 	<con:wsaConfig action="urn:gov:hhs:fha:nhinc:entitysubscriptionmanagement/EntitySubscriptionManagerPortType/UnsubscribeRequest" mustUnderstand="NONE" version="200508"/>
 	<con:wsrmConfig version="1.2"/>
@@ -39373,7 +39017,7 @@ context.testCase.testSuite.project.setPropertyValue( "UnSubscriptionID", subID )
       </urn:RespondingGateway_SendAlertMessage>
    </soap:Body>
 </soap:Envelope>]]></con:request>
-		<con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+		<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
 		<con:jmsPropertyConfig/>
 		<con:wsaConfig mustUnderstand="NONE" version="200508"/>
 		<con:wsrmConfig version="1.2"/>
@@ -39466,16 +39110,16 @@ context.testCase.testSuite.project.setPropertyValue( "UnSubscriptionID", subID )
 	</con:property>
 	
 </con:properties>
-<con:setupScript>import nhinc.FileUtils;
-nhinc.FileUtils.backupConfiguration(log);
-nhinc.FileUtils.updateGatewayProperty("purposeForUseEnabled","false", log);
-//nhinc.FileUtils.updateProperty(System.env['NHINC_PROPERTIES_DIR'], "purposeUse.properties", "2.2","false", log);
-nhinc.FileUtils.moveFile(context.expand(testSuite.project.resourceRoot), "uddiConnectionInfo_g0.xml", System.env['NHINC_PROPERTIES_DIR'], "uddiConnectionInfo.xml", log);
-nhinc.FileUtils.changeSpringConfig("PurposeUseProxyConfig.xml", "community", log);</con:setupScript>
-<con:tearDownScript>nhinc.FileUtils.restoreConfiguration(log);</con:tearDownScript>
+<con:setupScript>
+nhinc.FileUtils.backupConfiguration(context.expand(testSuite.project.getPropertyValue("GatewayPropDir")), log);
+nhinc.FileUtils.updateProperty(context.expand(testSuite.project.getPropertyValue("GatewayPropDir")), "gateway.properties", "purposeForUseEnabled", "false", log);
+//nhinc.FileUtils.updateProperty(context.expand(testSuite.project.getPropertyValue("GatewayPropDir")), "purposeUse.properties", "2.2","false", log);
+nhinc.FileUtils.copyFile(context.expand(testSuite.project.resourceRoot), "uddiConnectionInfo_g0.xml", context.expand(testSuite.project.getPropertyValue("GatewayPropDir")), "uddiConnectionInfo.xml", log);
+nhinc.FileUtils.changeSpringConfig(context.expand(testSuite.project.getPropertyValue("GatewayPropDir")), "PurposeUseProxyConfig.xml", "community", "purposeuse", log);</con:setupScript>
+<con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.expand(testSuite.project.getPropertyValue("GatewayPropDir")), log);</con:tearDownScript>
 <con:reportParameters/>
 </con:testSuite>
-<con:properties><con:property><con:name>AAMappingDB</con:name><con:value>assigningauthoritydb</con:value></con:property><con:property><con:name>AAMappingTable</con:name><con:value>aa_to_home_community_mapping</con:value></con:property><con:property><con:name>AsyncMsgDB</con:name><con:value>asyncmsgs</con:value></con:property><con:property><con:name>AsyncMsgTable</con:name><con:value>asyncmsgrepo</con:value></con:property><con:property><con:name>AuditRepoDB</con:name><con:value>auditrepo</con:value></con:property><con:property><con:name>AuditRepoTable</con:name><con:value>auditrepository</con:value></con:property><con:property><con:name>BirthTime</con:name><con:value>19630804</con:value></con:property><con:property><con:name>City</con:name><con:value>Melbourne</con:value></con:property><con:property><con:name>Country</con:name><con:value>US</con:value></con:property><con:property><con:name>DateOfSignature</con:name><con:value>20080520</con:value></con:property><con:property><con:name>DBHost</con:name><con:value>localhost</con:value></con:property><con:property><con:name>DBPass</con:name><con:value>nhincpass</con:value></con:property><con:property><con:name>DBPort</con:name><con:value>3306</con:value></con:property><con:property><con:name>DBUser</con:name><con:value>nhincuser</con:value></con:property><con:property><con:name>DeferredPatientDiscoveryReqMessageID</con:name><con:value>uuid:6666666666.66666.666.66</con:value></con:property><con:property><con:name>DOB</con:name><con:value>19800516</con:value></con:property><con:property><con:name>DQDocID</con:name><con:value>1.123401.55555</con:value></con:property><con:property><con:name>DQPatientID</con:name><con:value>D123401</con:value></con:property><con:property><con:name>DRDocID</con:name><con:value>1.123407.777777</con:value></con:property><con:property><con:name>DRRepoID</con:name><con:value>1</con:value></con:property><con:property><con:name>DynamicDQDocID</con:name><con:value>103.8.9284320.020.3590.75^1266324032288</con:value></con:property><con:property><con:name>ExpirationDate</con:name><con:value>20100520</con:value></con:property><con:property><con:name>FamilyName</con:name><con:value>Younger</con:value></con:property><con:property><con:name>Gender</con:name><con:value>M</con:value></con:property><con:property><con:name>GivenName</con:name><con:value>Gallow</con:value></con:property><con:property><con:name>LocalAA</con:name><con:value>1.1</con:value></con:property><con:property><con:name>LocalHCDescription</con:name><con:value>InternalTest1</con:value></con:property><con:property><con:name>LocalHCID</con:name><con:value>1.1</con:value></con:property><con:property><con:name>LocalPatientID</con:name><con:value>D123401</con:value></con:property><con:property><con:name>NotificationEndpoint</con:name><con:value>https://localhost:8181/Gateway/HIEM/2_0/NhinService/NotificationConsumerService/HiemNotify</con:value></con:property><con:property><con:name>NotifySubscriptionID</con:name><con:value>e71ca7dd-7f69-4206-bd78-40075d4be370</con:value></con:property><con:property><con:name>NotifySubscriptionManagerEndpointAddress</con:name><con:value>https://localhost:8181/Gateway/HIEM/2_0/NhinService/SubscriptionManagerService/HiemUnsubscribe</con:value></con:property><con:property><con:name>PatientCorrelationDB</con:name><con:value>patientcorrelationdb</con:value></con:property><con:property><con:name>PatientCorrelationTable</con:name><con:value>correlatedidentifiers</con:value></con:property><con:property><con:name>PurposeOfDisclosure</con:name><con:value>Mental</con:value></con:property><con:property><con:name>RemoteAA</con:name><con:value>2.2</con:value></con:property><con:property><con:name>RemoteHCDescription</con:name><con:value>InternalTest2</con:value></con:property><con:property><con:name>RemoteHCID</con:name><con:value>2.2</con:value></con:property><con:property><con:name>RemotePatientID</con:name><con:value>D123401</con:value></con:property><con:property><con:name>SSN</con:name><con:value>123456789</con:value></con:property><con:property><con:name>State</con:name><con:value>FL</con:value></con:property><con:property><con:name>StreetAddress</con:name><con:value>123 Johnson Rd</con:value></con:property><con:property><con:name>SubjectID</con:name><con:value>1111</con:value></con:property><con:property><con:name>SubscribePatientID</con:name><con:value>D123401</con:value></con:property><con:property><con:name>SubscriptionDB</con:name><con:value>subscriptionrepository</con:value></con:property><con:property><con:name>SubscriptionEndpoint</con:name><con:value>https://localhost:8181/Gateway/HIEM/2_0/NhinService/NotificationProducerService/HiemSubscription</con:value></con:property><con:property><con:name>SubscriptionManagerEndpointAddress</con:name><con:value>https://localhost:8181/Gateway/HIEM/2_0/NhinService/SubscriptionManagerService/HiemUnsubscribe</con:value></con:property><con:property><con:name>SubscriptionTable</con:name><con:value>subscription</con:value></con:property><con:property><con:name>UniquePatientId</con:name><con:value>1111^^^&amp;amp;1.1&amp;amp;ISO</con:value></con:property><con:property><con:name>UnSubscriptionID</con:name><con:value>72e372dd-a0f5-4647-9f7e-af3d88535b06</con:value></con:property><con:property><con:name>ZipCode</con:name><con:value>12345</con:value></con:property></con:properties>
+<con:properties><con:property><con:name>AAMappingDB</con:name><con:value>assigningauthoritydb</con:value></con:property><con:property><con:name>AAMappingTable</con:name><con:value>aa_to_home_community_mapping</con:value></con:property><con:property><con:name>AsyncMsgDB</con:name><con:value>asyncmsgs</con:value></con:property><con:property><con:name>AsyncMsgTable</con:name><con:value>asyncmsgrepo</con:value></con:property><con:property><con:name>AuditRepoDB</con:name><con:value>auditrepo</con:value></con:property><con:property><con:name>AuditRepoTable</con:name><con:value>auditrepository</con:value></con:property><con:property><con:name>BirthTime</con:name><con:value>19630804</con:value></con:property><con:property><con:name>City</con:name><con:value>Melbourne</con:value></con:property><con:property><con:name>Country</con:name><con:value>US</con:value></con:property><con:property><con:name>DBHost</con:name><con:value>localhost</con:value></con:property><con:property><con:name>DBPass</con:name><con:value>nhincpass</con:value></con:property><con:property><con:name>DBPort</con:name><con:value>3306</con:value></con:property><con:property><con:name>DBUser</con:name><con:value>nhincuser</con:value></con:property><con:property><con:name>DeferredPatientDiscoveryReqMessageID</con:name><con:value>uuid:6666666666.66666.666.66</con:value></con:property><con:property><con:name>DOB</con:name><con:value>19800516</con:value></con:property><con:property><con:name>DQDocID</con:name><con:value>1.123401.55555</con:value></con:property><con:property><con:name>DQPatientID</con:name><con:value>D123401</con:value></con:property><con:property><con:name>DRDocID</con:name><con:value>1.123407.777777</con:value></con:property><con:property><con:name>DRRepoID</con:name><con:value>1</con:value></con:property><con:property><con:name>DynamicDQDocID</con:name><con:value>103.8.9284320.020.3590.75^1266324032288</con:value></con:property><con:property><con:name>ExpirationDate</con:name><con:value>20100520</con:value></con:property><con:property><con:name>FamilyName</con:name><con:value>Younger</con:value></con:property><con:property><con:name>Gender</con:name><con:value>M</con:value></con:property><con:property><con:name>GivenName</con:name><con:value>Gallow</con:value></con:property><con:property><con:name>LocalAA</con:name><con:value>1.1</con:value></con:property><con:property><con:name>LocalHCDescription</con:name><con:value>InternalTest1</con:value></con:property><con:property><con:name>LocalHCID</con:name><con:value>1.1</con:value></con:property><con:property><con:name>LocalPatientID</con:name><con:value>D123401</con:value></con:property><con:property><con:name>NotificationEndpoint</con:name><con:value>https://localhost:8181/Gateway/HIEM/2_0/NhinService/NotificationConsumerService/HiemNotify</con:value></con:property><con:property><con:name>NotifySubscriptionID</con:name><con:value>e71ca7dd-7f69-4206-bd78-40075d4be370</con:value></con:property><con:property><con:name>NotifySubscriptionManagerEndpointAddress</con:name><con:value>https://localhost:8181/Gateway/HIEM/2_0/NhinService/SubscriptionManagerService/HiemUnsubscribe</con:value></con:property><con:property><con:name>PatientCorrelationDB</con:name><con:value>patientcorrelationdb</con:value></con:property><con:property><con:name>PatientCorrelationTable</con:name><con:value>correlatedidentifiers</con:value></con:property><con:property><con:name>PurposeOfDisclosure</con:name><con:value>Mental</con:value></con:property><con:property><con:name>RemoteAA</con:name><con:value>2.2</con:value></con:property><con:property><con:name>RemoteHCDescription</con:name><con:value>InternalTest2</con:value></con:property><con:property><con:name>RemoteHCID</con:name><con:value>2.2</con:value></con:property><con:property><con:name>RemotePatientID</con:name><con:value>D123401</con:value></con:property><con:property><con:name>SSN</con:name><con:value>123456789</con:value></con:property><con:property><con:name>State</con:name><con:value>FL</con:value></con:property><con:property><con:name>StreetAddress</con:name><con:value>123 Johnson Rd</con:value></con:property><con:property><con:name>SubjectID</con:name><con:value>1111</con:value></con:property><con:property><con:name>SubscribePatientID</con:name><con:value>D123401</con:value></con:property><con:property><con:name>SubscriptionDB</con:name><con:value>subscriptionrepository</con:value></con:property><con:property><con:name>SubscriptionEndpoint</con:name><con:value>https://localhost:8181/Gateway/HIEM/2_0/NhinService/NotificationProducerService/HiemSubscription</con:value></con:property><con:property><con:name>SubscriptionManagerEndpointAddress</con:name><con:value>https://localhost:8181/Gateway/HIEM/2_0/NhinService/SubscriptionManagerService/HiemUnsubscribe</con:value></con:property><con:property><con:name>SubscriptionTable</con:name><con:value>subscription</con:value></con:property><con:property><con:name>UniquePatientId</con:name><con:value>1111^^^&amp;amp;1.1&amp;amp;ISO</con:value></con:property><con:property><con:name>UnSubscriptionID</con:name><con:value>72e372dd-a0f5-4647-9f7e-af3d88535b06</con:value></con:property><con:property><con:name>ZipCode</con:name><con:value>12345</con:value></con:property><con:property><con:name>GatewayPropDir</con:name><con:value>c:\glassfish3\glassfish\domains\domain1\config\nhin</con:value></con:property></con:properties>
 <con:afterLoadScript>TimeZone.setDefault(TimeZone.getTimeZone("UTC"))
 def testRunListener = [
 afterRun: { testRunner, runContext -> },
@@ -39526,5 +39170,4 @@ sql.close()
 }
 }</con:afterLoadScript>
 <con:wssContainer/>
-<con:beforeRunScript>import nhinc.FileUtils;
-nhinc.FileUtils.restoreToMasterConfiguration(log);</con:beforeRunScript><con:afterRunScript/></con:soapui-project>
+<con:beforeRunScript/><con:afterRunScript/><con:sensitiveInformation/></con:soapui-project>

@@ -63,17 +63,6 @@ public class PassthroughOutboundDocQuery implements OutboundDocQuery {
     }
 
     /**
-     * Sets the executor services.  This method does not do anything as Passthrough does not support fan out.
-     * 
-     * @param regularExecutor
-     * @param largeJobExecutor
-     */
-    @Override
-    public void setExecutorService(ExecutorService regularExecutor, ExecutorService largeJobExecutor) {
-        // Do nothing.  Passthrough does not do fan out.
-    }
-
-    /**
      * This method sends a AdhocQueryRequest to the NwHIN to a single gateway.
      * 
      * @param request the AdhocQueryRequest message to be sent

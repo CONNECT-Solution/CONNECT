@@ -29,6 +29,8 @@ package gov.hhs.fha.nhinc.policyengine.adapter.pip;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.FineGrainedPolicyCriterionType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.PatientPreferencesType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.UserIdFormatType;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -644,7 +646,7 @@ public class XACMLCreator {
         // ------------------------
         ActionType oAction = createAction(XACMLConstants.MATCH_ID_URI_EQUAL,
                 XACMLConstants.ATTRIBUTE_VALUE_TYPE_ANYURI, XACMLConstants.ACTION_ID,
-                XACMLConstants.ATTRIBUTE_VALUE_RETRIEVE_DOCUMENT);
+                NhincConstants.DOC_RETRIEVE_WS_ADDRESS_ACTION);
         oActions.getAction().add(oAction);
 
         // Action for Doc Query

@@ -91,7 +91,7 @@ public class OutboundDocRetrieveAggregator_a0 implements NhinAggregator {
             }
 
         } else {
-            getLogger().error("This aggregator only aggregates to EntityDocRetrieveOrchestratableImpl_a0.");
+            getLogger().error("This aggregator only aggregates to OutboundDocRetrieveOrchestratable.");
         }
     }
     

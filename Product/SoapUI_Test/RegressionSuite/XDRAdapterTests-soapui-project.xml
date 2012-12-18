@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <con:soapui-project abortOnError="false" name="XDRAdapter-Tests" resourceRoot="${projectDir}" runType="SEQUENTIAL" soapui-version="4.5.1" activeEnvironment="Default" xmlns:con="http://eviware.com/soapui/config">
 	<con:settings/>
-	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincadapterxdr}AdapterXDR_Binding" definition="${ProjectDir}../ValidationSuite/target/wsdl/AdapterComponentXDR.wsdl" name="AdapterXDR_Binding" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincadapterxdr}AdapterXDR_Binding" definition="${projectDir}/../ValidationSuite/target/wsdl/AdapterComponentXDR.wsdl" name="AdapterXDR_Binding" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 		<con:settings/>
 		
 		<con:endpoints>
@@ -680,8 +680,6 @@
                <urn1:zipCode>12345</urn1:zipCode>
             </urn1:address>
             <urn1:dateOfBirth>19800516</urn1:dateOfBirth>
-            <!--urn1:dateOfSignature>20080520</urn1:dateOfSignature-->
-            <!--urn1:expirationDate>20100520</urn1:expirationDate-->
             <urn1:explanationNonClaimantSignature>NEEDED</urn1:explanationNonClaimantSignature>
             <urn1:haveSecondWitnessSignature>true</urn1:haveSecondWitnessSignature>
             <urn1:haveSignature>true</urn1:haveSignature>
@@ -710,7 +708,6 @@
                   <urn1:code>W</urn1:code>
                </urn1:phoneNumberType>
             </urn1:phoneNumber>
-            <!--urn1:purposeOfDisclosure>Mental</urn1:purposeOfDisclosure-->
             <urn1:secondWitnessAddress>
                <urn1:addressType>
                   <urn1:code>W</urn1:code>
@@ -784,7 +781,6 @@
                   <urn1:prefix>Mrs</urn1:prefix>
                </urn1:personName>
                <urn1:userName>wanderson</urn1:userName>
-               <!--urn1:role>nuse</urn1:role-->
                <urn1:org>
                   <urn1:description>Test HCID1</urn1:description>
                   <urn1:homeCommunityId>1.1</urn1:homeCommunityId>
@@ -850,11 +846,8 @@
                         <urn1:notOnOrAfter>notOnOrAfter</urn1:notOnOrAfter>
                      </urn1:conditions>
                      <!--Optional:-->
-                     <!--urn1:contentReference>contentReference</urn1:contentReference-->
                      <!--Optional:-->
-                     <!--urn1:contentType>contentType</urn1:contentType-->
                      <!--Optional:-->
-                     <!--urn1:content>cid:574777349023</urn1:content-->
                   </urn1:assertion>
                </urn1:evidence>
             </urn1:samlAuthzDecisionStatement>
@@ -1692,8 +1685,6 @@ FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
                <urn1:zipCode>12345</urn1:zipCode>
             </urn1:address>
             <urn1:dateOfBirth>19800516</urn1:dateOfBirth>
-            <!--urn1:dateOfSignature>20080520</urn1:dateOfSignature-->
-            <!--urn1:expirationDate>20100520</urn1:expirationDate-->
             <urn1:explanationNonClaimantSignature>NEEDED</urn1:explanationNonClaimantSignature>
             <urn1:haveSecondWitnessSignature>true</urn1:haveSecondWitnessSignature>
             <urn1:haveSignature>true</urn1:haveSignature>
@@ -1722,7 +1713,6 @@ FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
                   <urn1:code>W</urn1:code>
                </urn1:phoneNumberType>
             </urn1:phoneNumber>
-            <!--urn1:purposeOfDisclosure>Mental</urn1:purposeOfDisclosure-->
             <urn1:secondWitnessAddress>
                <urn1:addressType>
                   <urn1:code>W</urn1:code>
@@ -1796,7 +1786,6 @@ FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
                   <urn1:prefix>Mrs</urn1:prefix>
                </urn1:personName>
                <urn1:userName>wanderson</urn1:userName>
-               <!--urn1:role>nuse</urn1:role-->
                <urn1:org>
                   <urn1:description>Test HCID1</urn1:description>
                   <urn1:homeCommunityId>1.1</urn1:homeCommunityId>
@@ -1862,11 +1851,8 @@ FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
                         <urn1:notOnOrAfter>notOnOrAfter</urn1:notOnOrAfter>
                      </urn1:conditions>
                      <!--Optional:-->
-                     <!--urn1:contentReference>contentReference</urn1:contentReference-->
                      <!--Optional:-->
-                     <!--urn1:contentType>contentType</urn1:contentType-->
                      <!--Optional:-->
-                     <!--urn1:content>cid:574777349023</urn1:content-->
                   </urn1:assertion>
                </urn1:evidence>
             </urn1:samlAuthzDecisionStatement>
@@ -2756,8 +2742,6 @@ FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
                <urn1:zipCode>12345</urn1:zipCode>
             </urn1:address>
             <urn1:dateOfBirth>19800516</urn1:dateOfBirth>
-            <!--urn1:dateOfSignature>20080520</urn1:dateOfSignature-->
-            <!--urn1:expirationDate>20100520</urn1:expirationDate-->
             <urn1:explanationNonClaimantSignature>NEEDED</urn1:explanationNonClaimantSignature>
             <urn1:haveSecondWitnessSignature>true</urn1:haveSecondWitnessSignature>
             <urn1:haveSignature>true</urn1:haveSignature>
@@ -2786,7 +2770,6 @@ FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
                   <urn1:code>W</urn1:code>
                </urn1:phoneNumberType>
             </urn1:phoneNumber>
-            <!--urn1:purposeOfDisclosure>Mental</urn1:purposeOfDisclosure-->
             <urn1:secondWitnessAddress>
                <urn1:addressType>
                   <urn1:code>W</urn1:code>
@@ -2860,7 +2843,6 @@ FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
                   <urn1:prefix>Mrs</urn1:prefix>
                </urn1:personName>
                <urn1:userName>wanderson</urn1:userName>
-               <!--urn1:role>nuse</urn1:role-->
                <urn1:org>
                   <urn1:description>Test HCID1</urn1:description>
                   <urn1:homeCommunityId>1.1</urn1:homeCommunityId>
@@ -2926,11 +2908,8 @@ FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
                         <urn1:notOnOrAfter>notOnOrAfter</urn1:notOnOrAfter>
                      </urn1:conditions>
                      <!--Optional:-->
-                     <!--urn1:contentReference>contentReference</urn1:contentReference-->
                      <!--Optional:-->
-                     <!--urn1:contentType>contentType</urn1:contentType-->
                      <!--Optional:-->
-                     <!--urn1:content>cid:574777349023</urn1:content-->
                   </urn1:assertion>
                </urn1:evidence>
             </urn1:samlAuthzDecisionStatement>
@@ -3258,8 +3237,6 @@ FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
                <urn1:zipCode>12345</urn1:zipCode>
             </urn1:address>
             <urn1:dateOfBirth>19800516</urn1:dateOfBirth>
-            <!--urn1:dateOfSignature>20080520</urn1:dateOfSignature-->
-            <!--urn1:expirationDate>20100520</urn1:expirationDate-->
             <urn1:explanationNonClaimantSignature>NEEDED</urn1:explanationNonClaimantSignature>
             <urn1:haveSecondWitnessSignature>true</urn1:haveSecondWitnessSignature>
             <urn1:haveSignature>true</urn1:haveSignature>
@@ -3288,7 +3265,6 @@ FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
                   <urn1:code>W</urn1:code>
                </urn1:phoneNumberType>
             </urn1:phoneNumber>
-            <!--urn1:purposeOfDisclosure>Mental</urn1:purposeOfDisclosure-->
             <urn1:secondWitnessAddress>
                <urn1:addressType>
                   <urn1:code>W</urn1:code>
@@ -3362,7 +3338,6 @@ FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
                   <urn1:prefix>Mrs</urn1:prefix>
                </urn1:personName>
                <urn1:userName>wanderson</urn1:userName>
-               <!--urn1:role>nuse</urn1:role-->
                <urn1:org>
                   <urn1:description>Test HCID1</urn1:description>
                   <urn1:homeCommunityId>1.1</urn1:homeCommunityId>
@@ -3428,11 +3403,8 @@ FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
                         <urn1:notOnOrAfter>notOnOrAfter</urn1:notOnOrAfter>
                      </urn1:conditions>
                      <!--Optional:-->
-                     <!--urn1:contentReference>contentReference</urn1:contentReference-->
                      <!--Optional:-->
-                     <!--urn1:contentType>contentType</urn1:contentType-->
                      <!--Optional:-->
-                     <!--urn1:content>cid:574777349023</urn1:content-->
                   </urn1:assertion>
                </urn1:evidence>
             </urn1:samlAuthzDecisionStatement>
@@ -3550,8 +3522,6 @@ FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
                <urn1:zipCode>12345</urn1:zipCode>
             </urn1:address>
             <urn1:dateOfBirth>19800516</urn1:dateOfBirth>
-            <!--urn1:dateOfSignature>20080520</urn1:dateOfSignature-->
-            <!--urn1:expirationDate>20100520</urn1:expirationDate-->
             <urn1:explanationNonClaimantSignature>NEEDED</urn1:explanationNonClaimantSignature>
             <urn1:haveSecondWitnessSignature>true</urn1:haveSecondWitnessSignature>
             <urn1:haveSignature>true</urn1:haveSignature>
@@ -3580,7 +3550,6 @@ FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
                   <urn1:code>W</urn1:code>
                </urn1:phoneNumberType>
             </urn1:phoneNumber>
-            <!--urn1:purposeOfDisclosure>Mental</urn1:purposeOfDisclosure-->
             <urn1:secondWitnessAddress>
                <urn1:addressType>
                   <urn1:code>W</urn1:code>
@@ -3654,7 +3623,6 @@ FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
                   <urn1:prefix>Mrs</urn1:prefix>
                </urn1:personName>
                <urn1:userName>wanderson</urn1:userName>
-               <!--urn1:role>nuse</urn1:role-->
                <urn1:org>
                   <urn1:description>Test HCID1</urn1:description>
                   <urn1:homeCommunityId>1.1</urn1:homeCommunityId>
@@ -3720,11 +3688,8 @@ FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
                         <urn1:notOnOrAfter>notOnOrAfter</urn1:notOnOrAfter>
                      </urn1:conditions>
                      <!--Optional:-->
-                     <!--urn1:contentReference>contentReference</urn1:contentReference-->
                      <!--Optional:-->
-                     <!--urn1:contentType>contentType</urn1:contentType-->
                      <!--Optional:-->
-                     <!--urn1:content>cid:574777349023</urn1:content-->
                   </urn1:assertion>
                </urn1:evidence>
             </urn1:samlAuthzDecisionStatement>
@@ -4152,7 +4117,7 @@ FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
 			<con:name>UnknownPatientId</con:name>
 			<con:value>1111</con:value>
 		</con:property>
-	<con:property><con:name>GatewayPropDir</con:name><con:value>D:\glassfish3\glassfish\domains\domain1\config\nhin</con:value></con:property></con:properties>
+	<con:property><con:name>GatewayPropDir</con:name><con:value>c:\glassfish3\glassfish\domains\domain1\config\nhin</con:value></con:property></con:properties>
 	<con:afterLoadScript>def propertiesFile = new File(new File(project.path).parent, 'XDRAdapterTests-soapui-project.properties')
 if (propertiesFile.exists()) {
 	def props = new Properties()

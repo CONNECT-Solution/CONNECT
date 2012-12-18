@@ -32,8 +32,10 @@ import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import gov.hhs.fha.nhinc.aspect.NwhinInvocationEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
+import gov.hhs.fha.nhinc.docsubmission.aspect.DocSubmissionBaseEventDescriptionBuilder;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 
 /**
@@ -44,6 +46,10 @@ public class NhinDocSubmissionDeferredRequestProxyNoOpImpl implements NhinDocSub
     private static Log log = LogFactory.getLog(NhinDocSubmissionDeferredRequestProxyNoOpImpl.class);
 
 	@Override
+	@NwhinInvocationEvent(beforeBuilder = DocSubmissionBaseEventDescriptionBuilder.class,
+    afterReturningBuilder = DocSubmissionBaseEventDescriptionBuilder.class, 
+    serviceType = "Document Submission Deferred Request",
+    version = "")
 	public RegistryResponseType provideAndRegisterDocumentSetBRequest20(
 			ProvideAndRegisterDocumentSetRequestType request,
 			AssertionType assertion, NhinTargetSystemType targetSystem) {

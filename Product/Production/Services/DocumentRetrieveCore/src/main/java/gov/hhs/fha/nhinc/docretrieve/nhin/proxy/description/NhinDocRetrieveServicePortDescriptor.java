@@ -5,6 +5,7 @@ package gov.hhs.fha.nhinc.docretrieve.nhin.proxy.description;
 
 
 import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import ihe.iti.xds_b._2007.RespondingGatewayRetrievePortType;
 
 /**
@@ -17,7 +18,6 @@ public class NhinDocRetrieveServicePortDescriptor implements ServicePortDescript
     private static final String SERVICE_LOCAL_PART = "RespondingGateway_Retrieve_Service";
     private static final String PORT_LOCAL_PART = "RespondingGateway_Retrieve_Port_Soap";
     private static final String WSDL_FILE = "NhinDocRetrieve.wsdl";
-    private static final String WS_ADDRESSING_ACTION = "urn:ihe:iti:2007:CrossGatewayQuery";
 
     
     @Override
@@ -47,7 +47,7 @@ public class NhinDocRetrieveServicePortDescriptor implements ServicePortDescript
     
     @Override
     public String getWSAddressingAction(){
-        return WS_ADDRESSING_ACTION;
+        return NhincConstants.DOC_RETRIEVE_WS_ADDRESS_ACTION;
     }
     
 }

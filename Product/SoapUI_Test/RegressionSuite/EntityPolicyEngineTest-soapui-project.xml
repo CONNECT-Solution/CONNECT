@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <con:soapui-project abortOnError="false" name="EntityPolicyEngineTest" resourceRoot="${projectDir}" runType="SEQUENTIAL" soapui-version="4.5.1" activeEnvironment="Default" xmlns:con="http://eviware.com/soapui/config">
 	<con:settings/>
-	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:entitydocquery}EntityDocQueryBindingSoap" definition="${ProjectDir}../ValidationSuite/target/wsdl/EntityDocQuery.wsdl" name="EntityDocQueryBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:entitydocquery}EntityDocQueryBindingSoap" definition="${projectDir}/../ValidationSuite/target/wsdl/EntityDocQuery.wsdl" name="EntityDocQueryBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 		<con:settings/>
 		
 		<con:endpoints>
@@ -16,7 +16,7 @@
 		</con:operation>
 	</con:interface>
 	
-	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:entitydocretrieve}EntityDocRetrieveBindingSoap" definition="${ProjectDir}../ValidationSuite/target/wsdl/EntityDocRetrieve.wsdl" name="EntityDocRetrieveBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:entitydocretrieve}EntityDocRetrieveBindingSoap" definition="${projectDir}/../ValidationSuite/target/wsdl/EntityDocRetrieve.wsdl" name="EntityDocRetrieveBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 		<con:settings/>
 		
 		<con:endpoints>
@@ -28,7 +28,7 @@
 		</con:operation>
 	</con:interface>
 	
-	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:entitysubscriptionmanagement}EntitySubscriptionManagerBindingSoap" definition="${ProjectDir}../ValidationSuite/target/wsdl/EntitySubscriptionManagement.wsdl" name="EntitySubscriptionManagerBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:entitysubscriptionmanagement}EntitySubscriptionManagerBindingSoap" definition="${projectDir}/../ValidationSuite/target/wsdl/EntitySubscriptionManagement.wsdl" name="EntitySubscriptionManagerBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 		<con:settings/>
 		
 		<con:endpoints>
@@ -42,7 +42,7 @@
 			<con:settings/>
 		</con:operation>
 	</con:interface>
-	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:entitysubscriptionmanagement}EntityNotificationProducerBindingSoap" definition="${ProjectDir}../ValidationSuite/target/wsdl/EntitySubscriptionManagement.wsdl" name="EntityNotificationProducerBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:entitysubscriptionmanagement}EntityNotificationProducerBindingSoap" definition="${projectDir}/../ValidationSuite/target/wsdl/EntitySubscriptionManagement.wsdl" name="EntityNotificationProducerBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 		<con:settings/>
 		
 		<con:endpoints>
@@ -60,7 +60,7 @@
 			<con:settings/>
 		</con:operation>
 	</con:interface>
-	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:entitynotificationconsumer}EntityNotificationConsumerBindingSoap" definition="${ProjectDir}../ValidationSuite/target/wsdl/EntityNotificationConsumer.wsdl" name="EntityNotificationConsumerBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:entitynotificationconsumer}EntityNotificationConsumerBindingSoap" definition="${projectDir}/../ValidationSuite/target/wsdl/EntityNotificationConsumer.wsdl" name="EntityNotificationConsumerBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 		<con:settings/>
 		
 		<con:endpoints>
@@ -77,7 +77,7 @@
 			<con:settings/>
 		</con:operation>
 	</con:interface>
-	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:adapterpolicyengine}AdapterPolicyEngineBindingSoap" definition="${ProjectDir}../ValidationSuite/target/wsdl/AdapterPolicyEngine.wsdl" name="AdapterPolicyEngineBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:adapterpolicyengine}AdapterPolicyEngineBindingSoap" definition="${projectDir}/../ValidationSuite/target/wsdl/AdapterPolicyEngine.wsdl" name="AdapterPolicyEngineBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 		<con:settings/>
 		
 		<con:endpoints>
@@ -198,8 +198,6 @@ context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;$
                <urn3:zipCode>01010</urn3:zipCode>
             </urn3:address>
             <urn3:dateOfBirth>19800516</urn3:dateOfBirth>
-            <!--urn3:dateOfSignature>${#Project#sigDate}</urn3:dateOfSignature-->
-            <!--urn3:expirationDate>${#Project#expireDate}</urn3:expirationDate-->
             <urn3:explanationNonClaimantSignature>NEEDED</urn3:explanationNonClaimantSignature>
             <urn3:haveSecondWitnessSignature>true</urn3:haveSecondWitnessSignature>
             <urn3:haveSignature>true</urn3:haveSignature>
@@ -236,7 +234,6 @@ context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;$
                   <urn3:originalText>W</urn3:originalText>
                </urn3:phoneNumberType>
             </urn3:phoneNumber>
-            <!--urn3:purposeOfDisclosure>NEEDED FOR SSA</urn3:purposeOfDisclosure-->
             <urn3:secondWitnessAddress>
                <urn3:addressType>
                   <urn3:code>W</urn3:code>
@@ -338,7 +335,6 @@ context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;$
                   <urn3:secondNameOrInitials>ALAN</urn3:secondNameOrInitials>
                </urn3:personName>
                <urn3:userName>mfranklin</urn3:userName>
-               <!--urn3:role>Administrator</urn3:role-->
                <urn3:org>
                   <urn3:description>${#Project#LocalHCDescription}</urn3:description>
                   <urn3:homeCommunityId>${#Project#LocalHCID}</urn3:homeCommunityId>
@@ -434,19 +430,19 @@ declare namespace ns18='urn:gov:hhs:fha:nhinc:common:nhinccommonadapter';
 			<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2012-11-27T15:52:40Z</con:value>
+					<con:value>2012-12-13T02:28:28Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2012-11-27T16:02:40Z</con:value>
+					<con:value>2012-12-13T02:38:28Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>11/27/2012 15:52:40</con:value>
+					<con:value>12/13/2012 02:28:28</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2012-12-27T00:00:00Z</con:value>
+					<con:value>2013-01-12T00:00:00Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>FullPatientID</con:name>
@@ -511,8 +507,6 @@ nhinc.FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", destConfi
                <urn2:zipCode>01010</urn2:zipCode>
             </urn2:address>
             <urn2:dateOfBirth>19800516</urn2:dateOfBirth>
-            <!--urn2:dateOfSignature>${#Project#sigDate}</urn2:dateOfSignature-->
-            <!--urn2:expirationDate>${#Project#expireDate}</urn2:expirationDate-->
             <urn2:explanationNonClaimantSignature>NEEDED</urn2:explanationNonClaimantSignature>
             <urn2:haveSecondWitnessSignature>true</urn2:haveSecondWitnessSignature>
             <urn2:haveSignature>true</urn2:haveSignature>
@@ -539,7 +533,6 @@ nhinc.FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", destConfi
                   <urn2:code>W</urn2:code>
                </urn2:phoneNumberType>
             </urn2:phoneNumber>
-            <!--urn2:purposeOfDisclosure>NEEDED FOR VA</urn2:purposeOfDisclosure-->
             <urn2:secondWitnessAddress>
                <urn2:addressType>
                   <urn2:code>W</urn2:code>
@@ -606,7 +599,6 @@ nhinc.FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", destConfi
                   <urn2:secondNameOrInitials>ALAN</urn2:secondNameOrInitials>
                </urn2:personName>
                <urn2:userName>UID=mfranklin</urn2:userName>
-               <!--urn2:role>Administrator</urn2:role-->
                <urn2:org>
                   <urn2:description>${#Project#LocalHCDescription}</urn2:description>
                   <urn2:homeCommunityId>${#Project#LocalHCID}</urn2:homeCommunityId>
@@ -631,15 +623,15 @@ nhinc.FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", destConfi
                <urn2:originalText>Psychotherapy Notes</urn2:originalText>
             </urn2:purposeOfDisclosureCoded>
             <!--urn2:claimFormRef>Ref-Clm-123</urn2:claimFormRef-->
-            <urn2:claimFormRaw>YWVvbGlhbQ==</urn2:claimFormRaw>
+            <!--urn2:claimFormRaw>YWVvbGlhbQ==</urn2:claimFormRaw-->
          </urn:assertion>
-         <urn:nhinTargetSystem>
+         <!--urn:nhinTargetSystem>
             <urn2:homeCommunity>
                <urn2:description>${#Project#RemoteHCDescription}</urn2:description>
                <urn2:homeCommunityId>${#Project#RemoteHCID}</urn2:homeCommunityId>
                <urn2:name>${#Project#RemoteHCDescription}</urn2:name>
             </urn2:homeCommunity>
-         </urn:nhinTargetSystem>
+         </urn:nhinTargetSystem-->
       </urn:RespondingGateway_CrossGatewayRetrieveRequest>
    </soapenv:Body>
 </soapenv:Envelope>]]></con:request>
@@ -694,19 +686,19 @@ declare namespace ns18='urn:gov:hhs:fha:nhinc:common:nhinccommonadapter';
 			<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2012-11-27T15:52:42Z</con:value>
+					<con:value>2012-12-13T02:28:30Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2012-11-27T16:02:42Z</con:value>
+					<con:value>2012-12-13T02:38:30Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>11/27/2012 15:52:42</con:value>
+					<con:value>12/13/2012 02:28:30</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2012-12-27T00:00:00Z</con:value>
+					<con:value>2013-01-12T00:00:00Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>correctedRemoteHCID</con:name>
@@ -716,7 +708,7 @@ declare namespace ns18='urn:gov:hhs:fha:nhinc:common:nhinccommonadapter';
 			<con:reportParameters/>
 			<con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);</con:tearDownScript>
 		</con:testCase>
-		<con:testCase failOnError="true" failTestCaseOnErrors="true" id="f04a8efa-cd45-4c46-b877-2dda728935fc" keepSession="false" maxResults="0" name="Subscribe" searchProperties="true">
+		<con:testCase failOnError="true" failTestCaseOnErrors="true" id="f04a8efa-cd45-4c46-b877-2dda728935fc" keepSession="false" maxResults="0" name="Subscribe" searchProperties="true" disabled="true">
 			<con:settings/>
 			
 			
@@ -759,14 +751,12 @@ nhinc.FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", destConfi
 			</con:testStep>
 			<con:testStep name="Clear Subscription Table" type="groovy">
 				<con:settings/>
-				<con:config>
-					<script>context.withSql('SubscriptionDB') { sql -> 
+				<con:config><script>context.withSql('SubscriptionDB') { sql -> 
   sql.execute('delete from ' + context.findProperty('SubscriptionTable'))
 }
 
 
-					</script>
-				</con:config>
+					</script></con:config>
 			</con:testStep>
 			<con:testStep name="Subscribe" type="request">
 				<con:settings/>
@@ -806,8 +796,6 @@ nhinc.FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", destConfi
                <nccommon:zipCode>01010</nccommon:zipCode>
             </nccommon:address>
             <nccommon:dateOfBirth>19800516</nccommon:dateOfBirth>
-            <!--nccommon:dateOfSignature>${#Project#sigDate}</nccommon:dateOfSignature-->
-            <!--nccommon:expirationDate>${#Project#expireDate}</nccommon:expirationDate-->
             <nccommon:explanationNonClaimantSignature>NEEDED</nccommon:explanationNonClaimantSignature>
             <nccommon:haveSecondWitnessSignature>true</nccommon:haveSecondWitnessSignature>
             <nccommon:haveSignature>true</nccommon:haveSignature>
@@ -844,7 +832,6 @@ nhinc.FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", destConfi
                   <nccommon:originalText>W</nccommon:originalText>
                </nccommon:phoneNumberType>
             </nccommon:phoneNumber>
-            <!--nccommon:purposeOfDisclosure>NEEDED FOR SSA</nccommon:purposeOfDisclosure-->
             <nccommon:secondWitnessAddress>
                <nccommon:addressType>
                   <nccommon:code>W</nccommon:code>
@@ -946,7 +933,6 @@ nhinc.FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", destConfi
                   <nccommon:secondNameOrInitials>ALAN</nccommon:secondNameOrInitials>
                </nccommon:personName>
                <nccommon:userName>mfranklin</nccommon:userName>
-               <!--nccommon:role>Administrator</nccommon:role-->
                <nccommon:org>
                   <nccommon:description>${#Project#RemoteHCDescription}</nccommon:description>
                   <nccommon:homeCommunityId>${#Project#RemoteHCID}</nccommon:homeCommunityId>
@@ -1042,25 +1028,25 @@ declare namespace ns18='urn:gov:hhs:fha:nhinc:common:nhinccommonadapter';
 			<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2012-11-27T15:52:42Z</con:value>
+					<con:value>2012-12-13T02:26:16Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2012-11-27T16:02:42Z</con:value>
+					<con:value>2012-12-13T02:36:16Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>11/27/2012 15:52:42</con:value>
+					<con:value>12/13/2012 02:26:16</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2012-12-27T00:00:00Z</con:value>
+					<con:value>2013-01-12T00:00:00Z</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
 			<con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);</con:tearDownScript>
 		</con:testCase>
-		<con:testCase failOnError="true" failTestCaseOnErrors="true" id="5497726f-c0ef-44f6-9646-2455ea2515cf" keepSession="false" maxResults="0" name="Notify" searchProperties="true">
+		<con:testCase failOnError="true" failTestCaseOnErrors="true" id="5497726f-c0ef-44f6-9646-2455ea2515cf" keepSession="false" maxResults="0" name="Notify" searchProperties="true" disabled="true">
 			<con:settings/>
 			
 			<con:testStep name="ModifyInterrnalConnectionInfo" type="groovy">
@@ -1123,8 +1109,6 @@ nhinc.FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", destConfi
                <nccommon:zipCode>01010</nccommon:zipCode>
             </nccommon:address>
             <nccommon:dateOfBirth>19800516</nccommon:dateOfBirth>
-            <!--nccommon:dateOfSignature>${#Project#sigDate}</nccommon:dateOfSignature-->
-            <!--nccommon:expirationDate>${#Project#expireDate}</nccommon:expirationDate-->
             <nccommon:explanationNonClaimantSignature>NEEDED</nccommon:explanationNonClaimantSignature>
             <nccommon:haveSecondWitnessSignature>true</nccommon:haveSecondWitnessSignature>
             <nccommon:haveSignature>true</nccommon:haveSignature>
@@ -1161,7 +1145,6 @@ nhinc.FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", destConfi
                   <nccommon:originalText>W</nccommon:originalText>
                </nccommon:phoneNumberType>
             </nccommon:phoneNumber>
-            <!--nccommon:purposeOfDisclosure>NEEDED FOR SSA</nccommon:purposeOfDisclosure-->
             <nccommon:secondWitnessAddress>
                <nccommon:addressType>
                   <nccommon:code>W</nccommon:code>
@@ -1263,7 +1246,6 @@ nhinc.FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", destConfi
                   <nccommon:secondNameOrInitials>ALAN</nccommon:secondNameOrInitials>
                </nccommon:personName>
                <nccommon:userName>mfranklin</nccommon:userName>
-               <!--nccommon:role>Administrator</nccommon:role-->
                <nccommon:org>
                   <nccommon:description>${#Project#RemoteHCDescription}</nccommon:description>
                   <nccommon:homeCommunityId>${#Project#RemoteHCID}</nccommon:homeCommunityId>
@@ -1344,12 +1326,13 @@ declare namespace ns18='urn:gov:hhs:fha:nhinc:common:nhinccommonadapter';
 			<con:testStep name="get subscription ID" type="groovy">
 				<con:settings/>
 				<con:config><script>def subscriptionID = context.withSql('SubscriptionDB') {sql ->
+   def query = 'select subscriptionid from ' + context.findProperty('SubscriptionTable') + ' where Consumer = "nhin" and Producer = "gateway"';
+   log.info "QUERY: " + query;
   sql.firstRow('select subscriptionid from ' + context.findProperty('SubscriptionTable') + ' where Consumer = "nhin" and Producer = "gateway"').'subscriptionid'
 }
 
 context.testCase.setPropertyValue("NotifySubscriptionID", subscriptionID);
-log.info "SubscriptionID: " + subscriptionID;
-					</script></con:config>
+log.info "SubscriptionID: " + subscriptionID;				</script></con:config>
 			</con:testStep>
 			<con:testStep name="Count Subscriptions (>0)" type="groovy">
 				<con:settings/>
@@ -1409,8 +1392,6 @@ log.info "SubscriptionID: " + subscriptionID;
                <urn4:zipCode>AddrZip</urn4:zipCode>
             </urn4:address>
             <urn4:dateOfBirth>06/04/1959 05:21:00</urn4:dateOfBirth>
-            <!--urn4:dateOfSignature>${#Project#sigDate}</urn4:dateOfSignature-->
-            <!--urn4:expirationDate>${#Project#expireDate}</urn4:expirationDate-->
             <urn4:explanationNonClaimantSignature>Electronic</urn4:explanationNonClaimantSignature>
             <urn4:haveSecondWitnessSignature>false</urn4:haveSecondWitnessSignature>
             <urn4:haveSignature>false</urn4:haveSignature>
@@ -1448,7 +1429,6 @@ log.info "SubscriptionID: " + subscriptionID;
                   <urn4:originalText>phoneCode</urn4:originalText>
                </urn4:phoneNumberType>
             </urn4:phoneNumber>
-            <!--urn4:purposeOfDisclosure>TREATMENT</urn4:purposeOfDisclosure-->
             <urn4:secondWitnessAddress>
                <urn4:addressType>
                   <urn4:code>AddrCode</urn4:code>
@@ -1553,7 +1533,6 @@ log.info "SubscriptionID: " + subscriptionID;
                   <urn4:fullName>Kasrl S. Skagerberg</urn4:fullName>
                </urn4:personName>
                <urn4:userName>kskagerb</urn4:userName>
-               <!--urn4:role>Pharmacy</urn4:role-->
                <urn4:org>
                   <urn4:description>${#Project#LocalHCDescription}</urn4:description>
                   <urn4:homeCommunityId>${#Project#LocalHCID}</urn4:homeCommunityId>
@@ -1599,9 +1578,6 @@ log.info "SubscriptionID: " + subscriptionID;
                         <urn4:notBefore>2009-04-16T13:10:39.093Z</urn4:notBefore>
                         <urn4:notOnOrAfter>2009-12-31T12:00:00.000Z</urn4:notOnOrAfter>
                      </urn4:conditions>
-                     <!--urn4:contentReference>Claim-Ref-1234</urn4:contentReference-->
-                     <!--urn4:contentType>application/pdf</urn4:contentType-->
-                     <!--urn4:content>YWVvbGlhbQ==</urn4:content-->
                   </urn4:assertion>
                </urn4:evidence>
             </urn4:samlAuthzDecisionStatement>
@@ -1621,23 +1597,23 @@ log.info "SubscriptionID: " + subscriptionID;
 			</con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2012-11-27T15:52:43Z</con:value>
+					<con:value>2012-12-13T02:25:35Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2012-11-27T16:02:43Z</con:value>
+					<con:value>2012-12-13T02:35:35Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>11/27/2012 15:52:43</con:value>
+					<con:value>12/13/2012 02:25:35</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2012-12-27T00:00:00Z</con:value>
+					<con:value>2013-01-12T00:00:00Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>NotifySubscriptionID</con:name>
-					<con:value>5f18b9d5-2468-4899-9a95-31f995805433</con:value>
+					<con:value/>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
@@ -1650,7 +1626,7 @@ log.info "SubscriptionID: " + subscriptionID;
 	</con:testSuite>
 	<con:requirements/>
 	<con:properties>
-		<con:property><con:name>AAMappingDB</con:name><con:value>assigningauthoritydb</con:value></con:property><con:property><con:name>AAMappingTable</con:name><con:value>aa_to_home_community_mapping</con:value></con:property><con:property><con:name>AQPatientID</con:name><con:value>D123401</con:value></con:property><con:property><con:name>AQUserID</con:name><con:value>mfranklin</con:value></con:property><con:property><con:name>AuditDB</con:name><con:value>auditrepo</con:value></con:property><con:property><con:name>AuditTable</con:name><con:value>auditrepository</con:value></con:property>
+		<con:property><con:name>AAMappingDB</con:name><con:value>assigningauthoritydb</con:value></con:property><con:property><con:name>AAMappingTable</con:name><con:value>aa_to_home_community_mapping</con:value></con:property><con:property><con:name>AQPatientID</con:name><con:value>D123401</con:value></con:property><con:property><con:name>AQUserID</con:name><con:value>mfranklin</con:value></con:property>
 		
 		
 		
@@ -1659,46 +1635,46 @@ log.info "SubscriptionID: " + subscriptionID;
 		
 		
 		
-		<con:property><con:name>DBHost</con:name><con:value>localhost</con:value></con:property><con:property><con:name>DBPass</con:name><con:value>nhincpass</con:value></con:property>
+		<con:property><con:name>AuditDB</con:name><con:value>auditrepo</con:value></con:property><con:property><con:name>AuditTable</con:name><con:value>auditrepository</con:value></con:property><con:property><con:name>DBHost</con:name><con:value>localhost</con:value></con:property>
 		
 		
-		<con:property><con:name>DBPort</con:name><con:value>3306</con:value></con:property><con:property><con:name>DBUser</con:name><con:value>nhincuser</con:value></con:property><con:property><con:name>DQDocID</con:name><con:value>333333333</con:value></con:property>
-		
-		
-		
-		<con:property><con:name>DQPatientID</con:name><con:value>D123401</con:value></con:property><con:property><con:name>DRDocID</con:name><con:value>555555555</con:value></con:property><con:property><con:name>DRRepoID</con:name><con:value>1</con:value></con:property><con:property><con:name>Endpoint-AuditLogQuery</con:name><con:value>http://localhost:8080/CONNECTAdapter/EntityAuditQuery</con:value></con:property>
-		<con:property><con:name>Endpoint-DocQuery</con:name><con:value>http://localhost:8080/Gateway/DocumentQuery/2_0/EntityService/EntityDocQueryUnsecured</con:value></con:property><con:property><con:name>Endpoint-DocRetrieve</con:name><con:value>http://localhost:8080/Gateway/DocumentRetrieve/2_0/EntityService/EntityDocRetrieve</con:value></con:property><con:property><con:name>Endpoint-Notify</con:name><con:value>http://localhost:8080/Gateway/HIEM/2_0/EntityNotificationConsumer</con:value></con:property>
-		
-		<con:property><con:name>Endpoint-Reidentification</con:name><con:value>http://localhost:8080/CONNECTAdapter/EntitySubjectDiscovery</con:value></con:property><con:property><con:name>Endpoint-SubjectDiscovery</con:name><con:value>http://localhost:8080/CONNECTAdapter/EntitySubjectDiscovery</con:value></con:property>
-		<con:property><con:name>Endpoint-Subscribe</con:name><con:value>http://localhost:8080/Gateway/HIEM/2_0/EntityNotificationProducer</con:value></con:property><con:property><con:name>Endpoint-Unsubscribe</con:name><con:value>http://localhost:8080/Gateway/HIEM/2_0/EntitySubscriptionManager</con:value></con:property><con:property><con:name>LocalAA</con:name><con:value>1.1</con:value></con:property>
+		<con:property><con:name>DBPass</con:name><con:value>nhincpass</con:value></con:property><con:property><con:name>DBPort</con:name><con:value>3306</con:value></con:property><con:property><con:name>DBUser</con:name><con:value>nhincuser</con:value></con:property>
 		
 		
 		
+		<con:property><con:name>DQDocID</con:name><con:value>333333333</con:value></con:property><con:property><con:name>DQPatientID</con:name><con:value>D123401</con:value></con:property><con:property><con:name>DRDocID</con:name><con:value>555555555</con:value></con:property>
+		<con:property><con:name>DRRepoID</con:name><con:value>1</con:value></con:property><con:property><con:name>Endpoint-AuditLogQuery</con:name><con:value>http://localhost:8080/CONNECTAdapter/EntityAuditQuery</con:value></con:property><con:property><con:name>Endpoint-DocQuery</con:name><con:value>http://localhost:8080/Gateway/DocumentQuery/2_0/EntityService/EntityDocQueryUnsecured</con:value></con:property>
 		
-		
-		<con:property><con:name>LocalConfigDir</con:name><con:value>C:/SelfTest/EndToEndSelfTest</con:value></con:property><con:property><con:name>LocalHCDescription</con:name><con:value>InternalTest1</con:value></con:property><con:property><con:name>LocalHCID</con:name><con:value>1.1</con:value></con:property><con:property><con:name>LocalPatientID</con:name><con:value>D123401</con:value></con:property>
-		
-		
-		
-		<con:property><con:name>MockHost</con:name><con:value>localhost</con:value></con:property>
-		<con:property><con:name>MPIDir</con:name><con:value>C:/Sun/AppServer/domains/domain1/config</con:value></con:property><con:property><con:name>NHINGatewayConfigDir</con:name><con:value>C:/Sun/AppServer/domains/domain1/config/nhin</con:value></con:property><con:property><con:name>NHINGatewayHost</con:name><con:value>localhost</con:value></con:property>
-		
-		
-		<con:property><con:name>NotificationEndpoint</con:name><con:value>https://localhost:8181/Gateway/HIEM/2_0/NhinService/NotificationConsumerService/HiemNotify</con:value></con:property><con:property><con:name>NotifySubscriptionID</con:name><con:value>-f7c1a5d:1204e50e42e:-79eb</con:value></con:property><con:property><con:name>NotifySubscriptionManagerEndpointAddress</con:name><con:value>https://localhost:8181/CONNECTNhinServicesWeb/NhinService/SubscriptionManagerService/HiemUnsubscribe</con:value></con:property>
-		
-		
-		<con:property><con:name>PatientCorrelationDB</con:name><con:value>patientcorrelationdb</con:value></con:property><con:property><con:name>PatientCorrelationTable</con:name><con:value>correlatedidentifiers</con:value></con:property><con:property><con:name>PseudonymAA</con:name><con:value>ABC</con:value></con:property><con:property><con:name>PseudonymPatientID</con:name><con:value>PSEUDO001</con:value></con:property>
+		<con:property><con:name>Endpoint-DocRetrieve</con:name><con:value>http://localhost:8080/Gateway/DocumentRetrieve/2_0/EntityService/EntityDocRetrieve</con:value></con:property><con:property><con:name>Endpoint-Notify</con:name><con:value>http://localhost:8080/Gateway/HIEM/2_0/EntityNotificationConsumer</con:value></con:property><con:property><con:name>Endpoint-Reidentification</con:name><con:value>http://localhost:8080/CONNECTAdapter/EntitySubjectDiscovery</con:value></con:property>
+		<con:property><con:name>Endpoint-SubjectDiscovery</con:name><con:value>http://localhost:8080/CONNECTAdapter/EntitySubjectDiscovery</con:value></con:property><con:property><con:name>Endpoint-Subscribe</con:name><con:value>http://localhost:8080/Gateway/HIEM/2_0/EntityNotificationProducer</con:value></con:property><con:property><con:name>Endpoint-Unsubscribe</con:name><con:value>http://localhost:8080/Gateway/HIEM/2_0/EntitySubscriptionManager</con:value></con:property>
 		
 		
 		
 		
 		
-		<con:property><con:name>RealAA</con:name><con:value>1.1.1</con:value></con:property><con:property><con:name>RealPatientID</con:name><con:value>D1234010050</con:value></con:property><con:property><con:name>RemoteAA</con:name><con:value>2.2</con:value></con:property><con:property><con:name>RemoteHCDescription</con:name><con:value>InternalTest2</con:value></con:property><con:property><con:name>RemoteHCID</con:name><con:value>2.2</con:value></con:property><con:property><con:name>RemotePatientID</con:name><con:value>D123401</con:value></con:property><con:property><con:name>SubscribePatientID</con:name><con:value>D123401</con:value></con:property><con:property><con:name>SubscriptionDB</con:name><con:value>subscriptionrepository</con:value></con:property>
+		<con:property><con:name>GatewayPropDir</con:name><con:value>c:\glassfish3\glassfish\domains\domain1\config\nhin</con:value></con:property><con:property><con:name>LocalAA</con:name><con:value>1.1</con:value></con:property><con:property><con:name>LocalConfigDir</con:name><con:value>C:/SelfTest/EndToEndSelfTest</con:value></con:property>
+		
+		
+		
+		<con:property><con:name>LocalHCDescription</con:name><con:value>InternalTest1</con:value></con:property><con:property><con:name>LocalHCID</con:name><con:value>1.1</con:value></con:property><con:property><con:name>LocalPatientID</con:name><con:value>D123401</con:value></con:property>
+		<con:property><con:name>MockHost</con:name><con:value>localhost</con:value></con:property><con:property><con:name>MPIDir</con:name><con:value>C:/Sun/AppServer/domains/domain1/config</con:value></con:property><con:property><con:name>NHINGatewayConfigDir</con:name><con:value>C:/Sun/AppServer/domains/domain1/config/nhin</con:value></con:property>
 		
 		
 		
 		
-	<con:property><con:name>SubscriptionEndpoint</con:name><con:value>https://localhost:8181/Gateway/HIEM/2_0/NhinService/NotificationProducerService/HiemSubscription</con:value></con:property><con:property><con:name>SubscriptionManagerEndpointAddress</con:name><con:value>https://localhost:8181/CONNECTNhinServicesWeb/NhinService/SubscriptionManagerService/HiemUnsubscribe</con:value></con:property><con:property><con:name>SubscriptionTable</con:name><con:value>subscription</con:value></con:property><con:property><con:name>UnsubSubscriptionID</con:name><con:value>3e74139f-5271-4db1-98c0-88748fa3e4e3</con:value></con:property><con:property><con:name>GatewayPropDir</con:name><con:value>D:\glassfish3\glassfish\domains\domain1\config\nhin</con:value></con:property></con:properties>
+		
+		<con:property><con:name>NHINGatewayHost</con:name><con:value>localhost</con:value></con:property><con:property><con:name>NotificationEndpoint</con:name><con:value>https://localhost:8181/Gateway/HIEM/2_0/NhinService/NotificationConsumerService/HiemNotify</con:value></con:property><con:property><con:name>NotifySubscriptionID</con:name><con:value>-f7c1a5d:1204e50e42e:-79eb</con:value></con:property><con:property><con:name>NotifySubscriptionManagerEndpointAddress</con:name><con:value>https://localhost:8181/CONNECTNhinServicesWeb/NhinService/SubscriptionManagerService/HiemUnsubscribe</con:value></con:property><con:property><con:name>PatientCorrelationDB</con:name><con:value>patientcorrelationdb</con:value></con:property><con:property><con:name>PatientCorrelationTable</con:name><con:value>correlatedidentifiers</con:value></con:property><con:property><con:name>PseudonymAA</con:name><con:value>ABC</con:value></con:property>
+		
+		
+		
+		
+		
+		<con:property><con:name>PseudonymPatientID</con:name><con:value>PSEUDO001</con:value></con:property><con:property><con:name>RealAA</con:name><con:value>1.1.1</con:value></con:property><con:property><con:name>RealPatientID</con:name><con:value>D1234010050</con:value></con:property><con:property><con:name>RemoteAA</con:name><con:value>2.2</con:value></con:property><con:property><con:name>RemoteHCDescription</con:name><con:value>InternalTest2</con:value></con:property>
+		
+		
+		
+		
+	<con:property><con:name>RemoteHCID</con:name><con:value>2.2</con:value></con:property><con:property><con:name>RemotePatientID</con:name><con:value>D123401</con:value></con:property><con:property><con:name>SubscribePatientID</con:name><con:value>D123401</con:value></con:property><con:property><con:name>SubscriptionDB</con:name><con:value>subscriptionrepository</con:value></con:property><con:property><con:name>SubscriptionEndpoint</con:name><con:value>https://localhost:8181/Gateway/HIEM/2_0/NhinService/NotificationProducerService/HiemSubscription</con:value></con:property><con:property><con:name>SubscriptionManagerEndpointAddress</con:name><con:value>https://localhost:8181/CONNECTNhinServicesWeb/NhinService/SubscriptionManagerService/HiemUnsubscribe</con:value></con:property><con:property><con:name>SubscriptionTable</con:name><con:value>subscription</con:value></con:property><con:property><con:name>UnsubSubscriptionID</con:name><con:value>3e74139f-5271-4db1-98c0-88748fa3e4e3</con:value></con:property></con:properties>
 	<con:afterLoadScript>def propertiesFilename = project.path[0..(project.path.size()-4)] + 'properties'
 def propertiesFile = new File(propertiesFilename)
 if (propertiesFile.exists()) {

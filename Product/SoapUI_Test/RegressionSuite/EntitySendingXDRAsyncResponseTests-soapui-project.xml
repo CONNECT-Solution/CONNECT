@@ -32,7 +32,7 @@
   <con:entry key="Endpoint" value=""/>
 </xml-fragment>]]></con:setting>
   </con:settings>
-  <con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincproxyxdr:async:request}ProxyXDRAsyncRequest_Binding" definition="${ProjectDir}../ValidationSuite/target/wsdl/NhincProxyXDRRequest.wsdl" name="ProxyXDRAsyncRequest_Binding" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincproxyxdr:async:request}ProxyXDRAsyncRequest_Binding" definition="${projectDir}/../ValidationSuite/target/wsdl/NhincProxyXDRRequest.wsdl" name="ProxyXDRAsyncRequest_Binding" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <con:settings/>
     
     <con:endpoints>
@@ -47,7 +47,7 @@
       <con:settings/>
     </con:operation>
   </con:interface>
-  <con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:adapterpolicyengine}AdapterPolicyEngineBindingSoap" definition="${ProjectDir}../ValidationSuite/target/wsdl/AdapterPolicyEngine.wsdl" name="AdapterPolicyEngineBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:adapterpolicyengine}AdapterPolicyEngineBindingSoap" definition="${projectDir}/../ValidationSuite/target/wsdl/AdapterPolicyEngine.wsdl" name="AdapterPolicyEngineBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <con:settings/>
     
     <con:endpoints>
@@ -82,8 +82,6 @@
                <urn1:zipCode>?</urn1:zipCode>
             </urn1:address>
             <urn1:dateOfBirth>?</urn1:dateOfBirth>
-            <!--urn1:dateOfSignature>?</urn1:dateOfSignature-->
-            <!--urn1:expirationDate>?</urn1:expirationDate-->
             <urn1:explanationNonClaimantSignature>?</urn1:explanationNonClaimantSignature>
             <urn1:haveSecondWitnessSignature>?</urn1:haveSecondWitnessSignature>
             <urn1:haveSignature>?</urn1:haveSignature>
@@ -124,7 +122,6 @@
                   <urn1:translation/>
                </urn1:phoneNumberType>
             </urn1:phoneNumber>
-            <!--urn1:purposeOfDisclosure>?</urn1:purposeOfDisclosure-->
             <urn1:secondWitnessAddress>
                <urn1:addressType>
                   <urn1:code>?</urn1:code>
@@ -241,7 +238,6 @@
                   <urn1:secondNameOrInitials>?</urn1:secondNameOrInitials>
                </urn1:personName>
                <urn1:userName>?</urn1:userName>
-               <!--urn1:role>?</urn1:role-->
                <urn1:org>
                   <urn1:description>?</urn1:description>
                   <urn1:homeCommunityId>?</urn1:homeCommunityId>
@@ -355,7 +351,7 @@ def mockHost = context.findProperty("mockHost");
 def mockPEURL = "http://" + mockHost + ":1882/mockPE";
 def LocalHCID = context.findProperty( "LocalHCID" );
 
-FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", destConfigFileLocation, LocalHCID, "policyengineservice", mockPEURL, "LEVEL_a0", log)</script></con:config>
+FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", destConfigFileLocation, LocalHCID, "policyengineservice", mockPEURL, "LEVEL_a0", log);</script></con:config>
       </con:testStep>
       <con:testStep name="EntityXDRresponse - Request" type="request">
         <con:settings/>
@@ -389,8 +385,6 @@ FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", destConfigFileL
                <urn1:zipCode>12345</urn1:zipCode>
             </urn1:address>
             <urn1:dateOfBirth>19800516</urn1:dateOfBirth>
-            <!--urn1:dateOfSignature>20080520</urn1:dateOfSignature-->
-            <!--urn1:expirationDate>20100520</urn1:expirationDate-->
             <urn1:explanationNonClaimantSignature>NEEDED</urn1:explanationNonClaimantSignature>
             <urn1:haveSecondWitnessSignature>true</urn1:haveSecondWitnessSignature>
             <urn1:haveSignature>true</urn1:haveSignature>
@@ -419,7 +413,6 @@ FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", destConfigFileL
                   <urn1:code>W</urn1:code>
                </urn1:phoneNumberType>
             </urn1:phoneNumber>
-            <!--urn1:purposeOfDisclosure>Mental</urn1:purposeOfDisclosure-->
             <urn1:secondWitnessAddress>
                <urn1:addressType>
                   <urn1:code>W</urn1:code>
@@ -493,7 +486,6 @@ FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", destConfigFileL
                   <urn1:prefix>Mrs</urn1:prefix>
                </urn1:personName>
                <urn1:userName>wanderson</urn1:userName>
-               <!--urn1:role>nuse</urn1:role-->
                <urn1:org>
                   <urn1:description>Test HCID1</urn1:description>
                   <urn1:homeCommunityId>1.1</urn1:homeCommunityId>
@@ -567,11 +559,8 @@ FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", destConfigFileL
                         <urn1:notOnOrAfter>notOnOrAfter</urn1:notOnOrAfter>
                      </urn1:conditions>
                      <!--Optional:-->
-                     <!--urn1:contentReference>contentReference</urn1:contentReference-->
                      <!--Optional:-->
-                     <!--urn1:contentType>contentType</urn1:contentType-->
                      <!--Optional:-->
-                     <!--urn1:content>cid:574777349023</urn1:content-->
                   </urn1:assertion>
                </urn1:evidence>
             </urn1:samlAuthzDecisionStatement>
@@ -2118,19 +2107,19 @@ declare namespace adapter='urn:gov:hhs:fha:nhinc:common:nhinccommonadapter';
       <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2012-11-26T19:08:16Z</con:value>
+          <con:value>2012-11-28T15:02:49Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2012-11-26T21:13:16Z</con:value>
+          <con:value>2012-11-28T17:07:49Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>11/26/2012 19:08:16</con:value>
+          <con:value>11/28/2012 15:02:49</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2012-12-26T00:00:00Z</con:value>
+          <con:value>2012-12-28T00:00:00Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -2182,8 +2171,6 @@ FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", destConfigFileL
                <urn1:zipCode>12345</urn1:zipCode>
             </urn1:address>
             <urn1:dateOfBirth>19800516</urn1:dateOfBirth>
-            <!--urn1:dateOfSignature>20080520</urn1:dateOfSignature-->
-            <!--urn1:expirationDate>20100520</urn1:expirationDate-->
             <urn1:explanationNonClaimantSignature>NEEDED</urn1:explanationNonClaimantSignature>
             <urn1:haveSecondWitnessSignature>true</urn1:haveSecondWitnessSignature>
             <urn1:haveSignature>true</urn1:haveSignature>
@@ -2212,7 +2199,6 @@ FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", destConfigFileL
                   <urn1:code>W</urn1:code>
                </urn1:phoneNumberType>
             </urn1:phoneNumber>
-            <!--urn1:purposeOfDisclosure>Mental</urn1:purposeOfDisclosure-->
             <urn1:secondWitnessAddress>
                <urn1:addressType>
                   <urn1:code>W</urn1:code>
@@ -2286,7 +2272,6 @@ FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", destConfigFileL
                   <urn1:prefix>Mrs</urn1:prefix>
                </urn1:personName>
                <urn1:userName>wanderson</urn1:userName>
-               <!--urn1:role>nuse</urn1:role-->
                <urn1:org>
                   <urn1:description>Test HCID1</urn1:description>
                   <urn1:homeCommunityId>1.1</urn1:homeCommunityId>
@@ -2360,11 +2345,8 @@ FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", destConfigFileL
                         <urn1:notOnOrAfter>notOnOrAfter</urn1:notOnOrAfter>
                      </urn1:conditions>
                      <!--Optional:-->
-                     <!--urn1:contentReference>contentReference</urn1:contentReference-->
                      <!--Optional:-->
-                     <!--urn1:contentType>contentType</urn1:contentType-->
                      <!--Optional:-->
-                     <!--urn1:content>cid:574777349023</urn1:content-->
                   </urn1:assertion>
                </urn1:evidence>
             </urn1:samlAuthzDecisionStatement>
@@ -3911,19 +3893,19 @@ declare namespace adapter='urn:gov:hhs:fha:nhinc:common:nhinccommonadapter';
       <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2012-11-26T19:08:11Z</con:value>
+          <con:value>2012-11-28T15:04:02Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2012-11-26T21:13:11Z</con:value>
+          <con:value>2012-11-28T17:09:02Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>11/26/2012 19:08:11</con:value>
+          <con:value>11/28/2012 15:04:02</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2012-12-26T00:00:00Z</con:value>
+          <con:value>2012-12-28T00:00:00Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -4201,23 +4183,23 @@ context.testCase.setPropertyValue('FullPatientID', "${PatientID}^^^&amp;amp;${lo
 assert (count > 0);</script></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2012-11-26T19:08:05Z</con:value>
+          <con:value>2012-11-28T15:03:56Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2012-11-26T21:13:05Z</con:value>
+          <con:value>2012-11-28T17:08:56Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>11/26/2012 19:08:05</con:value>
+          <con:value>11/28/2012 15:03:56</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2012-12-26T00:00:00Z</con:value>
+          <con:value>2012-12-28T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>XDRUserId</con:name>
-          <con:value>XDR Request Inbound UserMon Nov 26 19:13:05 UTC 2012</con:value>
+          <con:value>XDR Request Inbound UserWed Nov 28 15:08:56 UTC 2012</con:value>
         </con:property>
         <con:property>
           <con:name>FullPatientID</con:name>
@@ -4291,7 +4273,7 @@ assert (count > 0);</script></con:config></con:testStep><con:setupScript>nhinc.F
       <con:name>Endpoint-EntityXDRResponse</con:name>
       <con:value>http://localhost:8080/Gateway/DocumentSubmission/1_1/EntityService/EntityDocSubmissionDeferredResponseUnsecured</con:value>
     </con:property>
-  <con:property><con:name>AuditTable</con:name><con:value>auditrepository</con:value></con:property><con:property><con:name>AuditDB</con:name><con:value>auditrepo</con:value></con:property><con:property><con:name>DBPort</con:name><con:value>3306</con:value></con:property><con:property><con:name>DBHost</con:name><con:value>localhost</con:value></con:property><con:property><con:name>DBUser</con:name><con:value>nhincuser</con:value></con:property><con:property><con:name>DBPass</con:name><con:value>nhincpass</con:value></con:property></con:properties>
+  <con:property><con:name>AuditTable</con:name><con:value>auditrepository</con:value></con:property><con:property><con:name>AuditDB</con:name><con:value>auditrepo</con:value></con:property><con:property><con:name>DBPort</con:name><con:value>3306</con:value></con:property><con:property><con:name>DBHost</con:name><con:value>localhost</con:value></con:property><con:property><con:name>DBUser</con:name><con:value>nhincuser</con:value></con:property><con:property><con:name>DBPass</con:name><con:value>nhincpass</con:value></con:property><con:property><con:name>GatewayPropDir</con:name><con:value>c:\glassfish3\glassfish\domains\domain1\config\nhin</con:value></con:property></con:properties>
   <con:afterLoadScript>def propertiesFile = new File(new File(project.path).parent, 'EntitySendingXDRAsyncResponseTests-soapui-project.properties')
 if (propertiesFile.exists()) {
 	def props = new Properties()

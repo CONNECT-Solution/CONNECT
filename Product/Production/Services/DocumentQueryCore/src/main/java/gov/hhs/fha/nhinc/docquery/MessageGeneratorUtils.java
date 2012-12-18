@@ -26,12 +26,9 @@
  */
 package gov.hhs.fha.nhinc.docquery;
 
-import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
-import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.gateway.aggregator.document.DocumentConstants;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
-import oasis.names.tc.ebxml_regrep.xsd.rim._3.RegistryObjectListType;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryError;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryErrorList;
 
@@ -39,7 +36,7 @@ import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryErrorList;
  * @author akong
  * 
  */
-public class MessageGeneratorUtils {
+public class MessageGeneratorUtils extends gov.hhs.fha.nhinc.util.MessageGeneratorUtils {
 
     private static MessageGeneratorUtils INSTANCE = new MessageGeneratorUtils();
 
@@ -54,17 +51,6 @@ public class MessageGeneratorUtils {
     public static MessageGeneratorUtils getInstance() {
         return INSTANCE;
     }
-
-    public NhinTargetSystemType convertFirstToNhinTargetSystemType(NhinTargetCommunitiesType targets) {
-        NhinTargetSystemType nhinTargetSystem = new NhinTargetSystemType();
-
-        if (targets != null && targets.getNhinTargetCommunity() != null && targets.getNhinTargetCommunity().size() > 0) {
-            nhinTargetSystem.setHomeCommunity(targets.getNhinTargetCommunity().get(0).getHomeCommunity());
-        }
-
-        return nhinTargetSystem;
-
-    }
     
     /**
      * Create a AdhocQueryResponse with severity set to error.
@@ -78,17 +64,26 @@ public class MessageGeneratorUtils {
         RegistryErrorList regErrList = new RegistryErrorList();
         regErrList.setHighestSeverity(NhincConstants.XDS_REGISTRY_ERROR_SEVERITY_ERROR);
 
-        RegistryError regErr = new RegistryError();
-        regErrList.getRegistryError().add(regErr);
-        regErr.setCodeContext(errorMsg);
-        regErr.setErrorCode(errorCode);
-        regErr.setSeverity(NhincConstants.XDS_REGISTRY_ERROR_SEVERITY_ERROR);
+        regErrList.getRegistryError().add(createRegistryError(errorMsg, errorCode));
 
         AdhocQueryResponse response = new AdhocQueryResponse();
         response.setRegistryErrorList(regErrList);
         response.setStatus(status);
 
         return response;
+    }
+
+    /**
+     * @param errorMsg
+     * @param errorCode
+     * @return
+     */
+    public RegistryError createRegistryError(String errorMsg, String errorCode) {
+        RegistryError regErr = new RegistryError();
+        regErr.setCodeContext(errorMsg);
+        regErr.setErrorCode(errorCode);
+        regErr.setSeverity(NhincConstants.XDS_REGISTRY_ERROR_SEVERITY_ERROR);
+        return regErr;
     }
 
     /**

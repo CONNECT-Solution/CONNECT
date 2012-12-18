@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<con:soapui-project name="PD sync entity" resourceRoot="" soapui-version="3.6" abortOnError="false" runType="SEQUENTIAL" xmlns:con="http://eviware.com/soapui/config"><con:settings/><con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:entitypatientdiscovery}EntityPatientDiscoveryBindingSoap" definition="C:\/glassfish-2.1.1\domains\domain1\config\nhin\wsdl\EntityPatientDiscovery.wsdl" name="EntityPatientDiscoveryBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<con:soapui-project name="PD sync entity" resourceRoot="" soapui-version="4.5.1" abortOnError="false" runType="SEQUENTIAL" activeEnvironment="Default" xmlns:con="http://eviware.com/soapui/config"><con:settings/><con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:entitypatientdiscovery}EntityPatientDiscoveryBindingSoap" definition="C:\/glassfish-2.1.1\domains\domain1\config\nhin\wsdl\EntityPatientDiscovery.wsdl" name="EntityPatientDiscoveryBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 		<con:settings/>
 
 		<con:endpoints>
@@ -119,8 +119,6 @@
                <urn1:zipCode>${#Project#ZipCode}</urn1:zipCode>
             </urn1:address>
             <urn1:dateOfBirth>${#Project#DOB}</urn1:dateOfBirth>
-            <!--urn1:dateOfSignature>${#Project#DateOfSignature}</urn1:dateOfSignature-->
-            <!--urn1:expirationDate>${#Project#ExpirationDate}</urn1:expirationDate-->
             <urn1:explanationNonClaimantSignature>NEEDED</urn1:explanationNonClaimantSignature>
             <urn1:haveSecondWitnessSignature>true</urn1:haveSecondWitnessSignature>
             <urn1:haveSignature>true</urn1:haveSignature>
@@ -149,7 +147,6 @@
                   <urn1:code>W</urn1:code>
                </urn1:phoneNumberType>
             </urn1:phoneNumber>
-            <!--urn1:purposeOfDisclosure>${#Project#PurposeOfDisclosure}</urn1:purposeOfDisclosure-->
             <urn1:secondWitnessAddress>
                <urn1:addressType>
                   <urn1:code>W</urn1:code>
@@ -222,7 +219,6 @@
                   <urn1:prefix>Mrs</urn1:prefix>
                </urn1:personName>
                <urn1:userName>wanderson</urn1:userName>
-               <!--urn1:role>nurse</urn1:role-->
                <urn1:org>
                   <urn1:description>${#Project#LocalHCDescription}</urn1:description>
                   <urn1:homeCommunityId>${#Project#LocalHCID}</urn1:homeCommunityId>
@@ -319,7 +315,7 @@
 			<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
 		</con:configuration>
 	</con:assertion>
-	<con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+	<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
 	<con:jmsPropertyConfig/>
 	<con:wsaConfig mustUnderstand="NONE" version="200508"/>
 	<con:wsrmConfig version="1.2"/>
@@ -455,8 +451,6 @@
                <urn1:zipCode>${#Project#ZipCode}</urn1:zipCode>
             </urn1:address>
             <urn1:dateOfBirth>${#Project#DOB}</urn1:dateOfBirth>
-            <!--urn1:dateOfSignature>${#Project#DateOfSignature}</urn1:dateOfSignature-->
-            <!--urn1:expirationDate>${#Project#ExpirationDate}</urn1:expirationDate-->
             <urn1:explanationNonClaimantSignature>NEEDED</urn1:explanationNonClaimantSignature>
             <urn1:haveSecondWitnessSignature>true</urn1:haveSecondWitnessSignature>
             <urn1:haveSignature>true</urn1:haveSignature>
@@ -485,7 +479,6 @@
                   <urn1:code>W</urn1:code>
                </urn1:phoneNumberType>
             </urn1:phoneNumber>
-            <!--urn1:purposeOfDisclosure>${#Project#PurposeOfDisclosure}</urn1:purposeOfDisclosure-->
             <urn1:secondWitnessAddress>
                <urn1:addressType>
                   <urn1:code>W</urn1:code>
@@ -558,7 +551,6 @@
                   <urn1:prefix>Mrs</urn1:prefix>
                </urn1:personName>
                <urn1:userName>wanderson</urn1:userName>
-               <!--urn1:role>nurse</urn1:role-->
                <urn1:org>
                   <urn1:description>${#Project#LocalHCDescription}</urn1:description>
                   <urn1:homeCommunityId>${#Project#LocalHCID}</urn1:homeCommunityId>
@@ -655,7 +647,7 @@
 			<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
 		</con:configuration>
 	</con:assertion>
-	<con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+	<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
 	<con:jmsPropertyConfig/>
 	<con:wsaConfig mustUnderstand="NONE" version="200508"/>
 	<con:wsrmConfig version="1.2"/>
@@ -791,8 +783,6 @@
                <urn1:zipCode>${#Project#ZipCode}</urn1:zipCode>
             </urn1:address>
             <urn1:dateOfBirth>${#Project#DOB}</urn1:dateOfBirth>
-            <!--urn1:dateOfSignature>${#Project#DateOfSignature}</urn1:dateOfSignature-->
-            <!--urn1:expirationDate>${#Project#ExpirationDate}</urn1:expirationDate-->
             <urn1:explanationNonClaimantSignature>NEEDED</urn1:explanationNonClaimantSignature>
             <urn1:haveSecondWitnessSignature>true</urn1:haveSecondWitnessSignature>
             <urn1:haveSignature>true</urn1:haveSignature>
@@ -821,7 +811,6 @@
                   <urn1:code>W</urn1:code>
                </urn1:phoneNumberType>
             </urn1:phoneNumber>
-            <!--urn1:purposeOfDisclosure>${#Project#PurposeOfDisclosure}</urn1:purposeOfDisclosure-->
             <urn1:secondWitnessAddress>
                <urn1:addressType>
                   <urn1:code>W</urn1:code>
@@ -894,7 +883,6 @@
                   <urn1:prefix>Mrs</urn1:prefix>
                </urn1:personName>
                <urn1:userName>wanderson</urn1:userName>
-               <!--urn1:role>nurse</urn1:role-->
                <urn1:org>
                   <urn1:description>${#Project#LocalHCDescription}</urn1:description>
                   <urn1:homeCommunityId>${#Project#LocalHCID}</urn1:homeCommunityId>
@@ -991,7 +979,7 @@
 			<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
 		</con:configuration>
 	</con:assertion>
-	<con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+	<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
 	<con:jmsPropertyConfig/>
 	<con:wsaConfig mustUnderstand="NONE" version="200508"/>
 	<con:wsrmConfig version="1.2"/>
@@ -1125,8 +1113,6 @@
                <urn1:zipCode>${#Project#ZipCode}</urn1:zipCode>
             </urn1:address>
             <urn1:dateOfBirth>${#Project#DOB}</urn1:dateOfBirth>
-            <!--urn1:dateOfSignature>${#Project#DateOfSignature}</urn1:dateOfSignature-->
-            <!--urn1:expirationDate>${#Project#ExpirationDate}</urn1:expirationDate-->
             <urn1:explanationNonClaimantSignature>NEEDED</urn1:explanationNonClaimantSignature>
             <urn1:haveSecondWitnessSignature>true</urn1:haveSecondWitnessSignature>
             <urn1:haveSignature>true</urn1:haveSignature>
@@ -1155,7 +1141,6 @@
                   <urn1:code>W</urn1:code>
                </urn1:phoneNumberType>
             </urn1:phoneNumber>
-            <!--urn1:purposeOfDisclosure>${#Project#PurposeOfDisclosure}</urn1:purposeOfDisclosure-->
             <urn1:secondWitnessAddress>
                <urn1:addressType>
                   <urn1:code>W</urn1:code>
@@ -1228,7 +1213,6 @@
                   <urn1:prefix>Mrs</urn1:prefix>
                </urn1:personName>
                <urn1:userName>wanderson</urn1:userName>
-               <!--urn1:role>nurse</urn1:role-->
                <urn1:org>
                   <urn1:description>${#Project#RemoteHCDescription}</urn1:description>
                   <urn1:homeCommunityId>${#Project#RemoteHCID}</urn1:homeCommunityId>
@@ -1334,7 +1318,7 @@ exists( //ns3:PRPA_IN201306UV02/ns3:controlActProcess)</path>
 						<ignoreComments>false</ignoreComments>
 					</con:configuration>
 				</con:assertion>
-				<con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+				<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
 				<con:jmsPropertyConfig/>
 				<con:wsaConfig mustUnderstand="NONE" version="200508"/>
 				<con:wsrmConfig version="1.2"/>

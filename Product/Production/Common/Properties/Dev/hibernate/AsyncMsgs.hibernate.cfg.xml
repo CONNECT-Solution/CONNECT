@@ -16,10 +16,13 @@
         <!-- Disable the second-level cache  -->
         <property name="cache.provider_class">org.hibernate.cache.NoCacheProvider</property>
 
-        <!-- Echo all executed SQL to stdout -->
-        <property name="show_sql">true</property>
-
         <property name="connection.datasource">jdbc/asyncmsgs_datasource</property>
+
+        <!-- We currently have the antlr classpath conflict described here:
+             http://thejavablog.wordpress.com/2010/12/02/classnotfoundexception-org-hibernate-hql-ast-hqltoken/
+             Switching to the classing translator so that our named query works.
+         -->
+        <property name="hibernate.query.factory_class">org.hibernate.hql.classic.ClassicQueryTranslatorFactory</property>
 
         <mapping resource="AsyncMsgs.hbm.xml"/>
 

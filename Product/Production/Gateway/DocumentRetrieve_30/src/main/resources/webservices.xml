@@ -23,6 +23,9 @@ http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd http://www.s
             <entry key="ws-security.callback-handler" value="gov.hhs.fha.nhinc.callback.cxf.CXFSAMLCallbackHandler" />
             <entry key="ws-security.signature.properties" value="keystore.properties" />
             <entry key="ws-security.encryption.properties" value="truststore.properties" />
+            <entry key="ws-security.saml2.validator">
+                <bean class="gov.hhs.fha.nhinc.callback.cxf.CONNECTSamlAssertionValidator" />
+            </entry>
             <entry key="mtom-enabled" value="true" />
         </jaxws:properties>
         <jaxws:inInterceptors>
@@ -38,8 +41,7 @@ http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd http://www.s
     
     <jaxws:endpoint xmlns:edr="urn:gov:hhs:fha:nhinc:entitydocretrieve" id="EntityDocRetrieveUnsecured_a1"
         address="/EntityService/EntityDocRetrieve" serviceName="edr:EntityDocRetrieve" endpointName="edr:EntityDocRetrievePortSoap"
-        implementorClass="gov.hhs.fha.nhinc.docretrieve._30.entity.EntityDocRetrieve" implementor="#entityDocRetrieveUnsecured"
-        wsdlLocation="classpath:/wsdl/EntityDocRetrieve.wsdl">
+        implementor="#entityDocRetrieveUnsecured" wsdlLocation="classpath:/wsdl/EntityDocRetrieve.wsdl">
         <jaxws:handlers>
             <ref bean="TransactionHandler"/>
         </jaxws:handlers>
@@ -50,8 +52,7 @@ http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd http://www.s
 
     <jaxws:endpoint xmlns:edrs="urn:gov:hhs:fha:nhinc:entitydocretrievesecured" id="EntityDocRetrieveSecured_a1"
         address="/EntityService/EntityDocRetrieveSecured" serviceName="edrs:EntityDocRetrieveSecured" endpointName="edrs:EntityDocRetrieveSecuredPortSoap"
-        implementorClass="gov.hhs.fha.nhinc.docretrieve._30.entity.EntityDocRetrieveSecured" implementor="#entityDocRetrieveSecured"
-        wsdlLocation="classpath:wsdl/EntityDocRetrieveSecured.wsdl">
+        implementor="#entityDocRetrieveSecured" wsdlLocation="classpath:wsdl/EntityDocRetrieveSecured.wsdl">
         <jaxws:properties>
             <entry key="ws-security.callback-handler" value="gov.hhs.fha.nhinc.callback.cxf.CXFSAMLCallbackHandler" />
             <entry key="ws-security.signature.properties" value="keystore.properties" />
@@ -66,35 +67,4 @@ http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd http://www.s
         </jaxws:handlers>
     </jaxws:endpoint>
 
-    <!-- MsgProxy/NhincProxy/Passthru services -->
-    
-    <jaxws:endpoint xmlns:mpdr="urn:gov:hhs:fha:nhinc:nhincproxydocretrieve" id="NhincProxyDocRetrieve_a1"
-        address="/NhincProxyDocRetrieveUnsecured" serviceName="mpdr:NhincProxyDocRetrieve" endpointName="mpdr:NhincProxyDocRetrievePortSoap"
-        implementorClass="gov.hhs.fha.nhinc.docretrieve._30.passthru.NhincProxyDocRetrieveUnsecured" implementor="#passthruDocRetrieveUnsecured"
-        wsdlLocation="classpath:/wsdl/NhincProxyDocRetrieve.wsdl">
-        <jaxws:handlers>
-            <ref bean="TransactionHandler"/>
-        </jaxws:handlers>
-        <jaxws:properties>          
-            <entry key="mtom-enabled" value="true" />
-        </jaxws:properties>
-    </jaxws:endpoint>
-
-    <jaxws:endpoint xmlns:mpdrs="urn:gov:hhs:fha:nhinc:nhincproxydocretrievesecured" id="NhincProxyDocRetrieveSecured_a1"
-        address="/EntityService/NhincProxyDocRetrieveSecured" serviceName="mpdrs:NhincProxyDocRetrieveSecured" endpointName="mpdrs:NhincProxyDocRetrieveSecuredPortSoap"
-        implementorClass="gov.hhs.fha.nhinc.docretrieve._30.passthru.NhincProxyDocRetrieveSecured" implementor="#passthruDocRetrieveSecured"
-        wsdlLocation="classpath:wsdl/NhincProxyDocRetrieveSecured.wsdl">
-        <jaxws:properties>
-            <entry key="ws-security.callback-handler" value="gov.hhs.fha.nhinc.callback.cxf.CXFSAMLCallbackHandler" />
-            <entry key="ws-security.signature.properties" value="keystore.properties" />
-            <entry key="ws-security.encryption.properties" value="truststore.properties" />
-            <entry key="mtom-enabled" value="true" />
-        </jaxws:properties>
-        <jaxws:inInterceptors>
-            <ref bean="securityInInterceptor" />
-        </jaxws:inInterceptors>
-        <jaxws:handlers>
-            <ref bean="TransactionHandler"/>
-        </jaxws:handlers>
-    </jaxws:endpoint>
 </beans>

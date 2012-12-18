@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <con:soapui-project abortOnError="false" name="Admin-Distribution" resourceRoot="${projectDir}" runType="SEQUENTIAL" soapui-version="4.5.1" activeEnvironment="Default" xmlns:con="http://eviware.com/soapui/config">
   <con:settings/>
-  <con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:entityadmindistribution}AdministrativeDistribution_Binding_Soap12" definition="${ProjectDir}../ValidationSuite/target/wsdl/EntityAdminDist.wsdl" name="AdministrativeDistribution_Binding_Soap12" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:entityadmindistribution}AdministrativeDistribution_Binding_Soap12" definition="${projectDir}/../ValidationSuite/target/wsdl/EntityAdminDist.wsdl" name="AdministrativeDistribution_Binding_Soap12" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <con:settings/>
     
     <con:endpoints>
@@ -13,7 +13,7 @@
     </con:operation>
   </con:interface>
   
-  <con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:adapterpolicyengine}AdapterPolicyEngineBindingSoap" definition="${ProjectDir}../ValidationSuite/target/wsdl/AdapterPolicyEngine.wsdl" name="AdapterPolicyEngineBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:adapterpolicyengine}AdapterPolicyEngineBindingSoap" definition="${projectDir}/../ValidationSuite/target/wsdl/AdapterPolicyEngine.wsdl" name="AdapterPolicyEngineBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <con:settings/>
     
     <con:endpoints>
@@ -24,7 +24,7 @@
       
     </con:operation>
   </con:interface>
-  <con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincadmindistribution}NhincAdminDist_Binding_Soap12" definition="${ProjectDir}../ValidationSuite/target/wsdl/NhincAdminDist.wsdl" name="NhincAdminDist_Binding_Soap12" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincadmindistribution}NhincAdminDist_Binding_Soap12" definition="../ValidationSuite/target/wsdl/NhinAdminDist.wsdl" name="NhincAdminDist_Binding_Soap12" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <con:settings/>
     
     <con:endpoints>
@@ -86,8 +86,6 @@ context.testCase.setPropertyValue('UserId',"${ADUserID}${nowDate}1");</script>
                <urn1:zipCode>AddrZip</urn1:zipCode>
             </urn1:address>
             <urn1:dateOfBirth>06/04/1959 05:21:00</urn1:dateOfBirth>
-            <!--urn1:dateOfSignature>${#Project#sigDate}</urn1:dateOfSignature-->
-            <!--urn1:expirationDate>${#Project#expireDate}</urn1:expirationDate-->
             <urn1:explanationNonClaimantSignature>Electronic</urn1:explanationNonClaimantSignature>
             <urn1:haveSecondWitnessSignature>false</urn1:haveSecondWitnessSignature>
             <urn1:haveSignature>false</urn1:haveSignature>
@@ -125,7 +123,6 @@ context.testCase.setPropertyValue('UserId',"${ADUserID}${nowDate}1");</script>
                   <urn1:originalText>phoneCode</urn1:originalText>
                </urn1:phoneNumberType>
             </urn1:phoneNumber>
-            <!--urn1:purposeOfDisclosure>TREATMENT</urn1:purposeOfDisclosure-->
             <urn1:secondWitnessAddress>
                <urn1:addressType>
                   <urn1:code>AddrCode</urn1:code>
@@ -231,7 +228,6 @@ context.testCase.setPropertyValue('UserId',"${ADUserID}${nowDate}1");</script>
                   <urn1:fullName>Kasrl S. Skagerberg</urn1:fullName>
                </urn1:personName>
                <urn1:userName>${#TestCase#UserId}</urn1:userName>
-               <!--urn1:role>Pharmacy</urn1:role-->
                <urn1:org>
                   <urn1:description>${#Project#LocalHCDescription}</urn1:description>
                   <urn1:homeCommunityId>${#Project#LocalHCID}</urn1:homeCommunityId>
@@ -411,7 +407,7 @@ context.testCase.setPropertyValue('UserId',"${ADUserID}${nowDate}1");</script>
             <con:wsrmConfig version="1.2"/>
           </con:request>
         </con:config>
-      </con:testStep><con:testStep name="Delay" type="delay"><con:settings/><con:config><delay>20000</delay></con:config></con:testStep><con:testStep name="verify audit events" type="groovy"><con:settings/><con:config><script>def count = context.withSql('AuditDB') { sql -> 
+      </con:testStep><con:testStep name="Delay" type="delay"><con:settings/><con:config><delay>1000</delay></con:config></con:testStep><con:testStep name="verify audit events" type="groovy"><con:settings/><con:config><script>def count = context.withSql('AuditDB') { sql -> 
 	sql.firstRow('select count(*) from ' + context.findProperty('AuditTable')).'count(*)'
 }
 //log.info "Count: " + count;
@@ -419,23 +415,23 @@ assert (count > 0);</script></con:config></con:testStep>
       <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2012-11-19T17:09:05Z</con:value>
+          <con:value>2012-11-27T18:10:56Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2012-11-19T17:19:05Z</con:value>
+          <con:value>2012-11-27T18:20:56Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>11/19/2012 17:09:05</con:value>
+          <con:value>11/27/2012 18:10:56</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2012-12-19T00:00:00Z</con:value>
+          <con:value>2012-12-27T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>UserId</con:name>
-          <con:value>admindistMon Nov 19 17:14:05 UTC 20121</con:value>
+          <con:value>admindistTue Nov 27 18:15:56 UTC 20121</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -488,8 +484,6 @@ context.testCase.setPropertyValue('UserId',"${ADUserID}${nowDate}1");</script>
                <urn1:zipCode>AddrZip</urn1:zipCode>
             </urn1:address>
             <urn1:dateOfBirth>06/04/1959 05:21:00</urn1:dateOfBirth>
-            <!--urn1:dateOfSignature>${#Project#sigDate}</urn1:dateOfSignature-->
-            <!--urn1:expirationDate>${#Project#expireDate}</urn1:expirationDate-->
             <urn1:explanationNonClaimantSignature>Electronic</urn1:explanationNonClaimantSignature>
             <urn1:haveSecondWitnessSignature>false</urn1:haveSecondWitnessSignature>
             <urn1:haveSignature>false</urn1:haveSignature>
@@ -527,7 +521,6 @@ context.testCase.setPropertyValue('UserId',"${ADUserID}${nowDate}1");</script>
                   <urn1:originalText>phoneCode</urn1:originalText>
                </urn1:phoneNumberType>
             </urn1:phoneNumber>
-            <!--urn1:purposeOfDisclosure>TREATMENT</urn1:purposeOfDisclosure-->
             <urn1:secondWitnessAddress>
                <urn1:addressType>
                   <urn1:code>AddrCode</urn1:code>
@@ -633,7 +626,6 @@ context.testCase.setPropertyValue('UserId',"${ADUserID}${nowDate}1");</script>
                   <urn1:fullName>Kasrl S. Skagerberg</urn1:fullName>
                </urn1:personName>
                <urn1:userName>${#TestCase#UserId}</urn1:userName>
-               <!--urn1:role>Pharmacy</urn1:role-->
                <urn1:org>
                   <urn1:description>${#Project#LocalHCDescription}</urn1:description>
                   <urn1:homeCommunityId>${#Project#LocalHCID}</urn1:homeCommunityId>
@@ -813,30 +805,30 @@ context.testCase.setPropertyValue('UserId',"${ADUserID}${nowDate}1");</script>
           </con:request>
         </con:config>
       </con:testStep>
-      <con:testStep name="Delay" type="delay"><con:settings/><con:config><delay>20000</delay></con:config></con:testStep><con:testStep name="verify audit events" type="groovy"><con:settings/><con:config><script>def count = context.withSql('AuditDB') { sql -> 
+      <con:testStep name="Delay" type="delay"><con:settings/><con:config><delay>1000</delay></con:config></con:testStep><con:testStep name="verify audit events" type="groovy"><con:settings/><con:config><script>def count = context.withSql('AuditDB') { sql -> 
 	sql.firstRow('select count(*) from ' + context.findProperty('AuditTable')).'count(*)'
 }
 //log.info "Count: " + count;
 assert (count > 0);</script></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2012-11-19T17:09:26Z</con:value>
+          <con:value>2012-11-27T18:11:16Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2012-11-19T17:19:26Z</con:value>
+          <con:value>2012-11-27T18:21:16Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>11/19/2012 17:09:26</con:value>
+          <con:value>11/27/2012 18:11:16</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2012-12-19T00:00:00Z</con:value>
+          <con:value>2012-12-27T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>UserId</con:name>
-          <con:value>admindistMon Nov 19 17:14:26 UTC 20121</con:value>
+          <con:value>admindistTue Nov 27 18:16:16 UTC 20121</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -889,8 +881,6 @@ context.testCase.setPropertyValue('UserId',"${ADUserID}${nowDate}1");</script>
                <urn1:zipCode>AddrZip</urn1:zipCode>
             </urn1:address>
             <urn1:dateOfBirth>06/04/1959 05:21:00</urn1:dateOfBirth>
-            <!--urn1:dateOfSignature>${#Project#sigDate}</urn1:dateOfSignature-->
-            <!--urn1:expirationDate>${#Project#expireDate}</urn1:expirationDate-->
             <urn1:explanationNonClaimantSignature>Electronic</urn1:explanationNonClaimantSignature>
             <urn1:haveSecondWitnessSignature>false</urn1:haveSecondWitnessSignature>
             <urn1:haveSignature>false</urn1:haveSignature>
@@ -928,7 +918,6 @@ context.testCase.setPropertyValue('UserId',"${ADUserID}${nowDate}1");</script>
                   <urn1:originalText>phoneCode</urn1:originalText>
                </urn1:phoneNumberType>
             </urn1:phoneNumber>
-            <!--urn1:purposeOfDisclosure>TREATMENT</urn1:purposeOfDisclosure-->
             <urn1:secondWitnessAddress>
                <urn1:addressType>
                   <urn1:code>AddrCode</urn1:code>
@@ -1034,7 +1023,6 @@ context.testCase.setPropertyValue('UserId',"${ADUserID}${nowDate}1");</script>
                   <urn1:fullName>Kasrl S. Skagerberg</urn1:fullName>
                </urn1:personName>
                <urn1:userName>${#TestCase#UserId}</urn1:userName>
-               <!--urn1:role>Pharmacy</urn1:role-->
                <urn1:org>
                   <urn1:description>${#Project#LocalHCDescription}</urn1:description>
                   <urn1:homeCommunityId>${#Project#LocalHCID}</urn1:homeCommunityId>
@@ -1225,30 +1213,30 @@ context.testCase.setPropertyValue('UserId',"${ADUserID}${nowDate}1");</script>
           </con:request>
         </con:config>
       </con:testStep>
-      <con:testStep name="Delay" type="delay"><con:settings/><con:config><delay>20000</delay></con:config></con:testStep><con:testStep name="verify audit events" type="groovy"><con:settings/><con:config><script>def count = context.withSql('AuditDB') { sql -> 
+      <con:testStep name="Delay" type="delay"><con:settings/><con:config><delay>1000</delay></con:config></con:testStep><con:testStep name="verify audit events" type="groovy"><con:settings/><con:config><script>def count = context.withSql('AuditDB') { sql -> 
 	sql.firstRow('select count(*) from ' + context.findProperty('AuditTable')).'count(*)'
 }
 //log.info "Count: " + count;
 assert (count > 0);</script></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2012-11-19T17:09:46Z</con:value>
+          <con:value>2012-11-27T18:11:36Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2012-11-19T17:19:46Z</con:value>
+          <con:value>2012-11-27T18:21:36Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>11/19/2012 17:09:46</con:value>
+          <con:value>11/27/2012 18:11:36</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2012-12-19T00:00:00Z</con:value>
+          <con:value>2012-12-27T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>UserId</con:name>
-          <con:value>admindistMon Nov 19 17:14:46 UTC 20121</con:value>
+          <con:value>admindistTue Nov 27 18:16:36 UTC 20121</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -1301,8 +1289,6 @@ context.testCase.setPropertyValue('UserId',"${ADUserID}${nowDate}1");</script>
                <urn1:zipCode>AddrZip</urn1:zipCode>
             </urn1:address>
             <urn1:dateOfBirth>06/04/1959 05:21:00</urn1:dateOfBirth>
-            <!--urn1:dateOfSignature>${#Project#sigDate}</urn1:dateOfSignature-->
-            <!--urn1:expirationDate>${#Project#expireDate}</urn1:expirationDate-->
             <urn1:explanationNonClaimantSignature>Electronic</urn1:explanationNonClaimantSignature>
             <urn1:haveSecondWitnessSignature>false</urn1:haveSecondWitnessSignature>
             <urn1:haveSignature>false</urn1:haveSignature>
@@ -1340,7 +1326,6 @@ context.testCase.setPropertyValue('UserId',"${ADUserID}${nowDate}1");</script>
                   <urn1:originalText>phoneCode</urn1:originalText>
                </urn1:phoneNumberType>
             </urn1:phoneNumber>
-            <!--urn1:purposeOfDisclosure>TREATMENT</urn1:purposeOfDisclosure-->
             <urn1:secondWitnessAddress>
                <urn1:addressType>
                   <urn1:code>AddrCode</urn1:code>
@@ -1446,7 +1431,6 @@ context.testCase.setPropertyValue('UserId',"${ADUserID}${nowDate}1");</script>
                   <urn1:fullName>Kasrl S. Skagerberg</urn1:fullName>
                </urn1:personName>
                <urn1:userName>${#TestCase#UserId}</urn1:userName>
-               <!--urn1:role>Pharmacy</urn1:role-->
                <urn1:org>
                   <urn1:description>${#Project#LocalHCDescription}</urn1:description>
                   <urn1:homeCommunityId>${#Project#LocalHCID}</urn1:homeCommunityId>
@@ -1666,30 +1650,30 @@ context.testCase.setPropertyValue('UserId',"${ADUserID}${nowDate}1");</script>
           </con:request>
         </con:config>
       </con:testStep>
-      <con:testStep name="Delay" type="delay"><con:settings/><con:config><delay>20000</delay></con:config></con:testStep><con:testStep name="verify audit events" type="groovy"><con:settings/><con:config><script>def count = context.withSql('AuditDB') { sql -> 
+      <con:testStep name="Delay" type="delay"><con:settings/><con:config><delay>1000</delay></con:config></con:testStep><con:testStep name="verify audit events" type="groovy"><con:settings/><con:config><script>def count = context.withSql('AuditDB') { sql -> 
 	sql.firstRow('select count(*) from ' + context.findProperty('AuditTable')).'count(*)'
 }
 //log.info "Count: " + count;
 assert (count > 0);</script></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2012-11-19T17:10:06Z</con:value>
+          <con:value>2012-11-27T18:11:56Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2012-11-19T17:20:06Z</con:value>
+          <con:value>2012-11-27T18:21:56Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>11/19/2012 17:10:06</con:value>
+          <con:value>11/27/2012 18:11:56</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2012-12-19T00:00:00Z</con:value>
+          <con:value>2012-12-27T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>UserId</con:name>
-          <con:value>admindistMon Nov 19 17:15:06 UTC 20121</con:value>
+          <con:value>admindistTue Nov 27 18:16:56 UTC 20121</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -1743,8 +1727,6 @@ context.testCase.setPropertyValue('UserId',"${ADUserID}${nowDate}1");</script>
                <urn1:zipCode>AddrZip</urn1:zipCode>
             </urn1:address>
             <urn1:dateOfBirth>06/04/1959 05:21:00</urn1:dateOfBirth>
-            <!--urn1:dateOfSignature>${#Project#sigDate}</urn1:dateOfSignature-->
-            <!--urn1:expirationDate>${#Project#expireDate}</urn1:expirationDate-->
             <urn1:explanationNonClaimantSignature>Electronic</urn1:explanationNonClaimantSignature>
             <urn1:haveSecondWitnessSignature>false</urn1:haveSecondWitnessSignature>
             <urn1:haveSignature>false</urn1:haveSignature>
@@ -1782,7 +1764,6 @@ context.testCase.setPropertyValue('UserId',"${ADUserID}${nowDate}1");</script>
                   <urn1:originalText>phoneCode</urn1:originalText>
                </urn1:phoneNumberType>
             </urn1:phoneNumber>
-            <!--urn1:purposeOfDisclosure>TREATMENT</urn1:purposeOfDisclosure-->
             <urn1:secondWitnessAddress>
                <urn1:addressType>
                   <urn1:code>AddrCode</urn1:code>
@@ -1888,7 +1869,6 @@ context.testCase.setPropertyValue('UserId',"${ADUserID}${nowDate}1");</script>
                   <urn1:fullName>Kasrl S. Skagerberg</urn1:fullName>
                </urn1:personName>
                <urn1:userName>${#TestCase#UserId}</urn1:userName>
-               <!--urn1:role>Pharmacy</urn1:role-->
                <urn1:org>
                   <urn1:description>${#Project#LocalHCDescription}</urn1:description>
                   <urn1:homeCommunityId>${#Project#LocalHCID}</urn1:homeCommunityId>
@@ -2027,30 +2007,30 @@ context.testCase.setPropertyValue('UserId',"${ADUserID}${nowDate}1");</script>
             <con:wsrmConfig version="1.2"/>
           </con:request>
         </con:config>
-      </con:testStep><con:testStep name="Delay" type="delay"><con:settings/><con:config><delay>20000</delay></con:config></con:testStep><con:testStep name="verify audit events" type="groovy"><con:settings/><con:config><script>def count = context.withSql('AuditDB') { sql -> 
+      </con:testStep><con:testStep name="Delay" type="delay"><con:settings/><con:config><delay>1000</delay></con:config></con:testStep><con:testStep name="verify audit events" type="groovy"><con:settings/><con:config><script>def count = context.withSql('AuditDB') { sql -> 
 	sql.firstRow('select count(*) from ' + context.findProperty('AuditTable')).'count(*)'
 }
 //log.info "Count: " + count;
 assert (count > 0);</script></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2012-11-19T17:10:26Z</con:value>
+          <con:value>2012-11-27T18:12:16Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2012-11-19T17:20:26Z</con:value>
+          <con:value>2012-11-27T18:22:16Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>11/19/2012 17:10:26</con:value>
+          <con:value>11/27/2012 18:12:16</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2012-12-19T00:00:00Z</con:value>
+          <con:value>2012-12-27T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>UserId</con:name>
-          <con:value>admindistMon Nov 19 17:15:26 UTC 20121</con:value>
+          <con:value>admindistTue Nov 27 18:17:17 UTC 20121</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -2104,8 +2084,6 @@ context.testCase.setPropertyValue('UserId',"${ADUserID}${nowDate}1");</script>
                <urn1:zipCode>AddrZip</urn1:zipCode>
             </urn1:address>
             <urn1:dateOfBirth>06/04/1959 05:21:00</urn1:dateOfBirth>
-            <!--urn1:dateOfSignature>${#Project#sigDate}</urn1:dateOfSignature-->
-            <!--urn1:expirationDate>${#Project#expireDate}</urn1:expirationDate-->
             <urn1:explanationNonClaimantSignature>Electronic</urn1:explanationNonClaimantSignature>
             <urn1:haveSecondWitnessSignature>false</urn1:haveSecondWitnessSignature>
             <urn1:haveSignature>false</urn1:haveSignature>
@@ -2143,7 +2121,6 @@ context.testCase.setPropertyValue('UserId',"${ADUserID}${nowDate}1");</script>
                   <urn1:originalText>phoneCode</urn1:originalText>
                </urn1:phoneNumberType>
             </urn1:phoneNumber>
-            <!--urn1:purposeOfDisclosure>TREATMENT</urn1:purposeOfDisclosure-->
             <urn1:secondWitnessAddress>
                <urn1:addressType>
                   <urn1:code>AddrCode</urn1:code>
@@ -2249,7 +2226,6 @@ context.testCase.setPropertyValue('UserId',"${ADUserID}${nowDate}1");</script>
                   <urn1:fullName>Kasrl S. Skagerberg</urn1:fullName>
                </urn1:personName>
                <urn1:userName>${#TestCase#UserId}</urn1:userName>
-               <!--urn1:role>Pharmacy</urn1:role-->
                <urn1:org>
                   <urn1:description>${#Project#LocalHCDescription}</urn1:description>
                   <urn1:homeCommunityId>${#Project#LocalHCID}</urn1:homeCommunityId>
@@ -2392,30 +2368,30 @@ context.testCase.setPropertyValue('UserId',"${ADUserID}${nowDate}1");</script>
             <con:wsrmConfig version="1.2"/>
           </con:request>
         </con:config>
-      </con:testStep><con:testStep name="Delay" type="delay"><con:settings/><con:config><delay>20000</delay></con:config></con:testStep><con:testStep name="verify audit events" type="groovy"><con:settings/><con:config><script>def count = context.withSql('AuditDB') { sql -> 
+      </con:testStep><con:testStep name="Delay" type="delay"><con:settings/><con:config><delay>1000</delay></con:config></con:testStep><con:testStep name="verify audit events" type="groovy"><con:settings/><con:config><script>def count = context.withSql('AuditDB') { sql -> 
 	sql.firstRow('select count(*) from ' + context.findProperty('AuditTable')).'count(*)'
 }
 //log.info "Count: " + count;
 assert (count > 0);</script></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2012-11-19T17:10:46Z</con:value>
+          <con:value>2012-12-17T02:20:48Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2012-11-19T17:20:46Z</con:value>
+          <con:value>2012-12-17T02:30:48Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>11/19/2012 17:10:46</con:value>
+          <con:value>12/17/2012 02:20:48</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2012-12-19T00:00:00Z</con:value>
+          <con:value>2013-01-16T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>UserId</con:name>
-          <con:value>admindistMon Nov 19 17:15:46 UTC 20121</con:value>
+          <con:value>admindistMon Dec 17 02:25:48 UTC 20121</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -2469,8 +2445,6 @@ context.testCase.setPropertyValue('UserId',"${ADUserID}${nowDate}1");</script>
                <urn1:zipCode>AddrZip</urn1:zipCode>
             </urn1:address>
             <urn1:dateOfBirth>06/04/1959 05:21:00</urn1:dateOfBirth>
-            <!--urn1:dateOfSignature>${#Project#sigDate}</urn1:dateOfSignature-->
-            <!--urn1:expirationDate>${#Project#expireDate}</urn1:expirationDate-->
             <urn1:explanationNonClaimantSignature>Electronic</urn1:explanationNonClaimantSignature>
             <urn1:haveSecondWitnessSignature>false</urn1:haveSecondWitnessSignature>
             <urn1:haveSignature>false</urn1:haveSignature>
@@ -2508,7 +2482,6 @@ context.testCase.setPropertyValue('UserId',"${ADUserID}${nowDate}1");</script>
                   <urn1:originalText>phoneCode</urn1:originalText>
                </urn1:phoneNumberType>
             </urn1:phoneNumber>
-            <!--urn1:purposeOfDisclosure>TREATMENT</urn1:purposeOfDisclosure-->
             <urn1:secondWitnessAddress>
                <urn1:addressType>
                   <urn1:code>AddrCode</urn1:code>
@@ -2614,7 +2587,6 @@ context.testCase.setPropertyValue('UserId',"${ADUserID}${nowDate}1");</script>
                   <urn1:fullName>Kasrl S. Skagerberg</urn1:fullName>
                </urn1:personName>
                <urn1:userName>${#TestCase#UserId}</urn1:userName>
-               <!--urn1:role>Pharmacy</urn1:role-->
                <urn1:org>
                   <urn1:description>${#Project#LocalHCDescription}</urn1:description>
                   <urn1:homeCommunityId>${#Project#LocalHCID}</urn1:homeCommunityId>
@@ -2801,23 +2773,23 @@ context.testCase.setPropertyValue('UserId',"${ADUserID}${nowDate}1");</script>
 assert (count > 0);</script></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2012-11-19T17:11:07Z</con:value>
+          <con:value>2012-11-27T18:12:57Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2012-11-19T17:21:07Z</con:value>
+          <con:value>2012-11-27T18:22:57Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>11/19/2012 17:11:07</con:value>
+          <con:value>11/27/2012 18:12:57</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2012-12-19T00:00:00Z</con:value>
+          <con:value>2012-12-27T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>UserId</con:name>
-          <con:value>admindistMon Nov 19 17:16:07 UTC 20121</con:value>
+          <con:value>admindistTue Nov 27 18:17:57 UTC 20121</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -2869,8 +2841,6 @@ FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", context.findPro
                <urn1:zipCode>AddrZip</urn1:zipCode>
             </urn1:address>
             <urn1:dateOfBirth>06/04/1959 05:21:00</urn1:dateOfBirth>
-            <!--urn1:dateOfSignature>${#Project#sigDate}</urn1:dateOfSignature-->
-            <!--urn1:expirationDate>${#Project#expireDate}</urn1:expirationDate-->
             <urn1:explanationNonClaimantSignature>Electronic</urn1:explanationNonClaimantSignature>
             <urn1:haveSecondWitnessSignature>false</urn1:haveSecondWitnessSignature>
             <urn1:haveSignature>false</urn1:haveSignature>
@@ -2908,7 +2878,6 @@ FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", context.findPro
                   <urn1:originalText>phoneCode</urn1:originalText>
                </urn1:phoneNumberType>
             </urn1:phoneNumber>
-            <!--urn1:purposeOfDisclosure>TREATMENT</urn1:purposeOfDisclosure-->
             <urn1:secondWitnessAddress>
                <urn1:addressType>
                   <urn1:code>AddrCode</urn1:code>
@@ -3014,7 +2983,6 @@ FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", context.findPro
                   <urn1:fullName>Kasrl S. Skagerberg</urn1:fullName>
                </urn1:personName>
                <urn1:userName>kkagerberg</urn1:userName>
-               <!--urn1:role>Pharmacy</urn1:role-->
                <urn1:org>
                   <urn1:description>${#Project#LocalHCDescription}</urn1:description>
                   <urn1:homeCommunityId>1.1</urn1:homeCommunityId>
@@ -4690,19 +4658,19 @@ declare namespace ns17='urn:gov:hhs:fha:nhinc:common:nhinccommonadapter';
       </con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2012-11-19T17:11:52Z</con:value>
+          <con:value>2012-11-27T18:30:45Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2012-11-19T17:21:52Z</con:value>
+          <con:value>2012-11-27T18:40:45Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>11/19/2012 17:11:52</con:value>
+          <con:value>11/27/2012 18:30:45</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2012-12-19T00:00:00Z</con:value>
+          <con:value>2012-12-27T00:00:00Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -4751,8 +4719,6 @@ FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", context.findPropert
                <urn1:zipCode>AddrZip</urn1:zipCode>
             </urn1:address>
             <urn1:dateOfBirth>06/04/1959 05:21:00</urn1:dateOfBirth>
-            <!--urn1:dateOfSignature>${#Project#sigDate}</urn1:dateOfSignature-->
-            <!--urn1:expirationDate>${#Project#expireDate}</urn1:expirationDate-->
             <urn1:explanationNonClaimantSignature>Electronic</urn1:explanationNonClaimantSignature>
             <urn1:haveSecondWitnessSignature>false</urn1:haveSecondWitnessSignature>
             <urn1:haveSignature>false</urn1:haveSignature>
@@ -4790,7 +4756,6 @@ FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", context.findPropert
                   <urn1:originalText>phoneCode</urn1:originalText>
                </urn1:phoneNumberType>
             </urn1:phoneNumber>
-            <!--urn1:purposeOfDisclosure>TREATMENT</urn1:purposeOfDisclosure-->
             <urn1:secondWitnessAddress>
                <urn1:addressType>
                   <urn1:code>AddrCode</urn1:code>
@@ -4896,7 +4861,6 @@ FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", context.findPropert
                   <urn1:fullName>Kasrl S. Skagerberg</urn1:fullName>
                </urn1:personName>
                <urn1:userName>${#TestCase#UserId}</urn1:userName>
-               <!--urn1:role>Pharmacy</urn1:role-->
                <urn1:org>
                   <urn1:description>${#Project#LocalHCDescription}</urn1:description>
                   <urn1:homeCommunityId>${#Project#LocalHCID}</urn1:homeCommunityId>
@@ -5080,24 +5044,24 @@ FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", context.findPropert
       <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2012-11-19T18:00:28Z</con:value>
+          <con:value>2012-11-27T18:13:45Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2012-11-19T18:10:28Z</con:value>
+          <con:value>2012-11-27T18:23:45Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>11/19/2012 18:00:28</con:value>
+          <con:value>11/27/2012 18:13:45</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2012-12-19T00:00:00Z</con:value>
+          <con:value>2012-12-27T00:00:00Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
     <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);</con:tearDownScript></con:testCase>
-    <con:testCase failOnError="true" failTestCaseOnErrors="true" id="e0c96169-f42c-4c42-b566-7950411603be" keepSession="false" maxResults="0" name="NhincProxyRequest with a Binary doc" searchProperties="true">
+    <con:testCase failOnError="true" failTestCaseOnErrors="true" id="e0c96169-f42c-4c42-b566-7950411603be" keepSession="false" maxResults="0" name="NhincProxyRequest with a Binary doc" searchProperties="true" disabled="true">
       <con:settings/>
       <con:testStep name="clear audit table" type="groovy"><con:settings/><con:config><script>context.withSql('AuditDB') { sql -> 
   sql.execute('delete from ' + context.findProperty('AuditTable'))
@@ -5123,7 +5087,7 @@ context.testCase.setPropertyValue('UserId',"${ADUserID}${nowDate}1");</script>
               <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
             </con:settings>
             <con:encoding>UTF-8</con:encoding>
-            <con:endpoint>${#Project#Endpoint-NhincProxyAdminDist}</con:endpoint>
+            <con:endpoint>${#Project#Endpoint-EntityAdminDist}</con:endpoint>
             <con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonproxy" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:urn2="urn:oasis:names:tc:emergency:EDXL:DE:1.0">
    <soap:Header/>
    <soap:Body projectName="Admin-Distribution" testCase="NhincProxyRequest with a Binary doc">
@@ -5519,35 +5483,35 @@ context.testCase.setPropertyValue('UserId',"${ADUserID}${nowDate}1");</script>
           </con:request>
         </con:config>
       </con:testStep>
-      <con:testStep name="Delay" type="delay"><con:settings/><con:config><delay>20000</delay></con:config></con:testStep><con:testStep name="verify audit events" type="groovy"><con:settings/><con:config><script>def count = context.withSql('AuditDB') { sql -> 
+      <con:testStep name="Delay" type="delay"><con:settings/><con:config><delay>1000</delay></con:config></con:testStep><con:testStep name="verify audit events" type="groovy"><con:settings/><con:config><script>def count = context.withSql('AuditDB') { sql -> 
 	sql.firstRow('select count(*) from ' + context.findProperty('AuditTable')).'count(*)'
 }
 //log.info "Count: " + count;
 assert (count > 0);</script></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2012-11-19T17:11:59Z</con:value>
+          <con:value>2012-12-17T02:21:02Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2012-11-19T17:21:59Z</con:value>
+          <con:value>2012-12-17T02:31:02Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>11/19/2012 17:11:59</con:value>
+          <con:value>12/17/2012 02:21:02</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2012-12-19T00:00:00Z</con:value>
+          <con:value>2013-01-16T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>UserId</con:name>
-          <con:value>admindistMon Nov 19 17:16:59 UTC 20121</con:value>
+          <con:value>admindistMon Dec 17 02:26:02 UTC 20121</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
     <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);</con:tearDownScript></con:testCase>
-    <con:testCase failOnError="true" failTestCaseOnErrors="true" id="e10c8690-4f9f-4c68-a67c-1e5f11a66eec" keepSession="false" maxResults="0" name="NhincProxyRequest with XML data" searchProperties="true">
+    <con:testCase failOnError="true" failTestCaseOnErrors="true" id="e10c8690-4f9f-4c68-a67c-1e5f11a66eec" keepSession="false" maxResults="0" name="NhincProxyRequest with XML data" searchProperties="true" disabled="true">
       <con:settings/>
       <con:testStep name="clear audit table" type="groovy"><con:settings/><con:config><script>context.withSql('AuditDB') { sql -> 
   sql.execute('delete from ' + context.findProperty('AuditTable'))
@@ -5574,7 +5538,7 @@ context.testCase.setPropertyValue('UserId',"${ADUserID}${nowDate}1");</script>
               <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
             </con:settings>
             <con:encoding>UTF-8</con:encoding>
-            <con:endpoint>${#Project#Endpoint-NhincProxyAdminDist}</con:endpoint>
+            <con:endpoint>${#Project#Endpoint-EntityAdminDist}</con:endpoint>
             <con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonproxy" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:urn2="urn:oasis:names:tc:emergency:EDXL:DE:1.0">
    <soap:Header/>
    <soap:Body projectName="Admin-Distribution" testCase="NhincProxyRequest with XML data">
@@ -5965,35 +5929,35 @@ context.testCase.setPropertyValue('UserId',"${ADUserID}${nowDate}1");</script>
             <con:wsrmConfig version="1.2"/>
           </con:request>
         </con:config>
-      </con:testStep><con:testStep name="Delay" type="delay"><con:settings/><con:config><delay>20000</delay></con:config></con:testStep><con:testStep name="verify audit events" type="groovy"><con:settings/><con:config><script>def count = context.withSql('AuditDB') { sql -> 
+      </con:testStep><con:testStep name="Delay" type="delay"><con:settings/><con:config><delay>1000</delay></con:config></con:testStep><con:testStep name="verify audit events" type="groovy"><con:settings/><con:config><script>def count = context.withSql('AuditDB') { sql -> 
 	sql.firstRow('select count(*) from ' + context.findProperty('AuditTable')).'count(*)'
 }
 //log.info "Count: " + count;
 assert (count > 0);</script></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2012-11-19T17:12:20Z</con:value>
+          <con:value>2012-12-17T01:54:18Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2012-11-19T17:22:20Z</con:value>
+          <con:value>2012-12-17T02:04:18Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>11/19/2012 17:12:20</con:value>
+          <con:value>12/17/2012 01:54:18</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2012-12-19T00:00:00Z</con:value>
+          <con:value>2013-01-16T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>UserId</con:name>
-          <con:value>admindistMon Nov 19 17:17:20 UTC 20121</con:value>
+          <con:value>admindistMon Dec 17 01:59:19 UTC 20121</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
     <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);</con:tearDownScript></con:testCase>
-    <con:testCase failOnError="true" failTestCaseOnErrors="true" id="ed85ad92-3732-424e-a5e6-dd6f3bdc24fe" keepSession="false" maxResults="0" name="NhincProxyRequest with multiple documents (multiple contentObjects)" searchProperties="true">
+    <con:testCase failOnError="true" failTestCaseOnErrors="true" id="ed85ad92-3732-424e-a5e6-dd6f3bdc24fe" keepSession="false" maxResults="0" name="NhincProxyRequest with multiple documents (multiple contentObjects)" searchProperties="true" disabled="true">
       <con:settings/>
       <con:testStep name="clear audit table" type="groovy"><con:settings/><con:config><script>context.withSql('AuditDB') { sql -> 
   sql.execute('delete from ' + context.findProperty('AuditTable'))
@@ -6020,7 +5984,7 @@ context.testCase.setPropertyValue('UserId',"${ADUserID}${nowDate}1");</script>
               <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
             </con:settings>
             <con:encoding>UTF-8</con:encoding>
-            <con:endpoint>${#Project#Endpoint-NhincProxyAdminDist}</con:endpoint>
+            <con:endpoint>${#Project#Endpoint-EntityAdminDist}</con:endpoint>
             <con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonproxy" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:urn2="urn:oasis:names:tc:emergency:EDXL:DE:1.0">
    <soap:Header/>
    <soap:Body projectName="Admin-Distribution" testCase="NhincProxyRequest with multiple documents (multiple contentObjects)">
@@ -6453,35 +6417,35 @@ context.testCase.setPropertyValue('UserId',"${ADUserID}${nowDate}1");</script>
             <con:wsrmConfig version="1.2"/>
           </con:request>
         </con:config>
-      </con:testStep><con:testStep name="Delay" type="delay"><con:settings/><con:config><delay>20000</delay></con:config></con:testStep><con:testStep name="verify audit events" type="groovy"><con:settings/><con:config><script>def count = context.withSql('AuditDB') { sql -> 
+      </con:testStep><con:testStep name="Delay" type="delay"><con:settings/><con:config><delay>1000</delay></con:config></con:testStep><con:testStep name="verify audit events" type="groovy"><con:settings/><con:config><script>def count = context.withSql('AuditDB') { sql -> 
 	sql.firstRow('select count(*) from ' + context.findProperty('AuditTable')).'count(*)'
 }
 //log.info "Count: " + count;
 assert (count > 0);</script></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2012-11-19T17:12:40Z</con:value>
+          <con:value>2012-12-17T01:54:20Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2012-11-19T17:22:40Z</con:value>
+          <con:value>2012-12-17T02:04:20Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>11/19/2012 17:12:40</con:value>
+          <con:value>12/17/2012 01:54:20</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2012-12-19T00:00:00Z</con:value>
+          <con:value>2013-01-16T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>UserId</con:name>
-          <con:value>admindistMon Nov 19 17:17:40 UTC 20121</con:value>
+          <con:value>admindistMon Dec 17 01:59:20 UTC 20121</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
     <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);</con:tearDownScript></con:testCase>
-    <con:testCase failOnError="true" failTestCaseOnErrors="true" id="9f036a35-2b5f-4432-8dbc-f91db0b4e861" keepSession="false" maxResults="0" name="NhincProxyRequest with multiple documents (XML and Binary)" searchProperties="true">
+    <con:testCase failOnError="true" failTestCaseOnErrors="true" id="9f036a35-2b5f-4432-8dbc-f91db0b4e861" keepSession="false" maxResults="0" name="NhincProxyRequest with multiple documents (XML and Binary)" searchProperties="true" disabled="true">
       <con:settings/>
       <con:testStep name="clear audit table" type="groovy"><con:settings/><con:config><script>context.withSql('AuditDB') { sql -> 
   sql.execute('delete from ' + context.findProperty('AuditTable'))
@@ -6508,7 +6472,7 @@ context.testCase.setPropertyValue('UserId',"${ADUserID}${nowDate}1");</script>
               <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
             </con:settings>
             <con:encoding>UTF-8</con:encoding>
-            <con:endpoint>${#Project#Endpoint-NhincProxyAdminDist}</con:endpoint>
+            <con:endpoint>${#Project#Endpoint-EntityAdminDist}</con:endpoint>
             <con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonproxy" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:urn2="urn:oasis:names:tc:emergency:EDXL:DE:1.0">
    <soap:Header/>
    <soap:Body projectName="Admin-Distribution" testCase="NhincProxyRequest with multiple documents (XML and Binary)">
@@ -6910,35 +6874,35 @@ context.testCase.setPropertyValue('UserId',"${ADUserID}${nowDate}1");</script>
             <con:wsrmConfig version="1.2"/>
           </con:request>
         </con:config>
-      </con:testStep><con:testStep name="Delay" type="delay"><con:settings/><con:config><delay>20000</delay></con:config></con:testStep><con:testStep name="verify audit events" type="groovy"><con:settings/><con:config><script>def count = context.withSql('AuditDB') { sql -> 
+      </con:testStep><con:testStep name="Delay" type="delay"><con:settings/><con:config><delay>1000</delay></con:config></con:testStep><con:testStep name="verify audit events" type="groovy"><con:settings/><con:config><script>def count = context.withSql('AuditDB') { sql -> 
 	sql.firstRow('select count(*) from ' + context.findProperty('AuditTable')).'count(*)'
 }
 //log.info "Count: " + count;
 assert (count > 0);</script></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2012-11-19T17:13:00Z</con:value>
+          <con:value>2012-12-17T01:54:22Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2012-11-19T17:23:00Z</con:value>
+          <con:value>2012-12-17T02:04:22Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>11/19/2012 17:13:00</con:value>
+          <con:value>12/17/2012 01:54:22</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2012-12-19T00:00:00Z</con:value>
+          <con:value>2013-01-16T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>UserId</con:name>
-          <con:value>admindistMon Nov 19 17:18:00 UTC 20121</con:value>
+          <con:value>admindistMon Dec 17 01:59:22 UTC 20121</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
     <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);</con:tearDownScript></con:testCase>
-    <con:testCase failOnError="true" failTestCaseOnErrors="true" id="73e8702c-7b4b-4eeb-8bba-dbcfc2ddb322" keepSession="false" maxResults="0" name="NhincProxyRequest without a ContentObject" searchProperties="true">
+    <con:testCase failOnError="true" failTestCaseOnErrors="true" id="73e8702c-7b4b-4eeb-8bba-dbcfc2ddb322" keepSession="false" maxResults="0" name="NhincProxyRequest without a ContentObject" searchProperties="true" disabled="true">
       <con:settings/>
       <con:testStep name="clear audit table" type="groovy"><con:settings/><con:config><script>context.withSql('AuditDB') { sql -> 
   sql.execute('delete from ' + context.findProperty('AuditTable'))
@@ -6965,7 +6929,7 @@ context.testCase.setPropertyValue('UserId',"${ADUserID}${nowDate}1");</script>
               <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
             </con:settings>
             <con:encoding>UTF-8</con:encoding>
-            <con:endpoint>${#Project#Endpoint-NhincProxyAdminDist}</con:endpoint>
+            <con:endpoint>${#Project#Endpoint-EntityAdminDist}</con:endpoint>
             <con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonproxy" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:urn2="urn:oasis:names:tc:emergency:EDXL:DE:1.0">
    <soap:Header/>
    <soap:Body projectName="Admin-Distribution" testCase="NhincProxyRequest without a ContentObject">
@@ -7317,35 +7281,35 @@ context.testCase.setPropertyValue('UserId',"${ADUserID}${nowDate}1");</script>
             <con:wsrmConfig version="1.2"/>
           </con:request>
         </con:config>
-      </con:testStep><con:testStep name="Delay" type="delay"><con:settings/><con:config><delay>20000</delay></con:config></con:testStep><con:testStep name="verify audit events" type="groovy"><con:settings/><con:config><script>def count = context.withSql('AuditDB') { sql -> 
+      </con:testStep><con:testStep name="Delay" type="delay"><con:settings/><con:config><delay>1000</delay></con:config></con:testStep><con:testStep name="verify audit events" type="groovy"><con:settings/><con:config><script>def count = context.withSql('AuditDB') { sql -> 
 	sql.firstRow('select count(*) from ' + context.findProperty('AuditTable')).'count(*)'
 }
 //log.info "Count: " + count;
 assert (count > 0);</script></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2012-11-19T17:13:21Z</con:value>
+          <con:value>2012-12-17T02:20:03Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2012-11-19T17:23:21Z</con:value>
+          <con:value>2012-12-17T02:30:03Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>11/19/2012 17:13:21</con:value>
+          <con:value>12/17/2012 02:20:03</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2012-12-19T00:00:00Z</con:value>
+          <con:value>2013-01-16T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>UserId</con:name>
-          <con:value>admindistMon Nov 19 17:18:21 UTC 20121</con:value>
+          <con:value>admindistMon Dec 17 02:25:03 UTC 20121</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
     <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);</con:tearDownScript></con:testCase>
-    <con:testCase failOnError="true" failTestCaseOnErrors="true" id="5361bf64-5349-4b98-8d4b-f414271422e0" keepSession="false" maxResults="0" name="NhincProxyRequest with an empty ContentObject" searchProperties="true">
+    <con:testCase failOnError="true" failTestCaseOnErrors="true" id="5361bf64-5349-4b98-8d4b-f414271422e0" keepSession="false" maxResults="0" name="NhincProxyRequest with an empty ContentObject" searchProperties="true" disabled="true">
       <con:settings/>
       <con:testStep name="clear audit table" type="groovy"><con:settings/><con:config><script>context.withSql('AuditDB') { sql -> 
   sql.execute('delete from ' + context.findProperty('AuditTable'))
@@ -7372,7 +7336,7 @@ context.testCase.setPropertyValue('UserId',"${ADUserID}${nowDate}1");</script>
               <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
             </con:settings>
             <con:encoding>UTF-8</con:encoding>
-            <con:endpoint>${#Project#Endpoint-NhincProxyAdminDist}</con:endpoint>
+            <con:endpoint>${#Project#Endpoint-EntityAdminDist}</con:endpoint>
             <con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonproxy" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:urn2="urn:oasis:names:tc:emergency:EDXL:DE:1.0">
    <soap:Header/>
    <soap:Body projectName="Admin-Distribution" testCase="NhincProxyRequest with an empty ContentObject">
@@ -7728,35 +7692,35 @@ context.testCase.setPropertyValue('UserId',"${ADUserID}${nowDate}1");</script>
             <con:wsrmConfig version="1.2"/>
           </con:request>
         </con:config>
-      </con:testStep><con:testStep name="Delay" type="delay"><con:settings/><con:config><delay>20000</delay></con:config></con:testStep><con:testStep name="verify audit events" type="groovy"><con:settings/><con:config><script>def count = context.withSql('AuditDB') { sql -> 
+      </con:testStep><con:testStep name="Delay" type="delay"><con:settings/><con:config><delay>1000</delay></con:config></con:testStep><con:testStep name="verify audit events" type="groovy"><con:settings/><con:config><script>def count = context.withSql('AuditDB') { sql -> 
 	sql.firstRow('select count(*) from ' + context.findProperty('AuditTable')).'count(*)'
 }
 //log.info "Count: " + count;
 assert (count > 0);</script></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2012-11-19T17:13:44Z</con:value>
+          <con:value>2012-12-17T02:19:56Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2012-11-19T17:23:44Z</con:value>
+          <con:value>2012-12-17T02:29:56Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>11/19/2012 17:13:44</con:value>
+          <con:value>12/17/2012 02:19:56</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2012-12-19T00:00:00Z</con:value>
+          <con:value>2013-01-16T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>UserId</con:name>
-          <con:value>admindistMon Nov 19 17:18:44 UTC 20121</con:value>
+          <con:value>admindistMon Dec 17 02:24:56 UTC 20121</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
     <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);</con:tearDownScript></con:testCase>
-    <con:testCase failOnError="true" failTestCaseOnErrors="true" id="d9e6e4ca-39fd-4d1e-ac8e-f6bb2ef5e63d" keepSession="false" maxResults="0" name="NhincProxyRequest - Policy engine deny" searchProperties="true">
+    <con:testCase failOnError="true" failTestCaseOnErrors="true" id="d9e6e4ca-39fd-4d1e-ac8e-f6bb2ef5e63d" keepSession="false" maxResults="0" name="NhincProxyRequest - Policy engine deny" searchProperties="true" disabled="true">
       <con:settings/>
       <con:testStep name="Set PolicyEngine Mock" type="groovy">
         <con:settings/>
@@ -7779,7 +7743,7 @@ FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", context.findPro
               <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
             </con:settings>
             <con:encoding>UTF-8</con:encoding>
-            <con:endpoint>${#Project#Endpoint-NhincProxyAdminDist}</con:endpoint>
+            <con:endpoint>${#Project#Endpoint-EntityAdminDist}</con:endpoint>
             <con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonproxy" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:urn2="urn:oasis:names:tc:emergency:EDXL:DE:1.0">
    <soap:Header/>
    <soap:Body projectName="Admin-Distribution" testCase="NhincProxyRequest with a Binary doc">
@@ -8176,7 +8140,7 @@ FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", context.findPro
       </con:testStep>
       <con:testStep name="Mock Policy Engine" type="mockresponse">
         <con:settings/>
-        <con:config startStep="send request" xsi:type="con:MockResponseStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+        <con:config startStep="Set PolicyEngine Mock" xsi:type="con:MockResponseStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
           <con:interface>AdapterPolicyEngineBindingSoap</con:interface>
           <con:operation>CheckPolicy</con:operation>
           <con:path>/mockPE</con:path>
@@ -9666,24 +9630,24 @@ declare namespace ns19='urn:gov:hhs:fha:nhinc:common:nhinccommonadapter';
       <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2012-11-19T18:00:41Z</con:value>
+          <con:value>2012-12-17T02:19:57Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2012-11-19T18:10:41Z</con:value>
+          <con:value>2012-12-17T02:29:57Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>11/19/2012 18:00:41</con:value>
+          <con:value>12/17/2012 02:19:57</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2012-12-19T00:00:00Z</con:value>
+          <con:value>2013-01-16T00:00:00Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
     <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);</con:tearDownScript></con:testCase>
-    <con:testCase failOnError="true" failTestCaseOnErrors="true" id="25050fb5-059d-4875-8ab5-337cd145f06d" keepSession="false" maxResults="0" name="NhincProxyRequest - 404 or 500 error" searchProperties="true">
+    <con:testCase failOnError="true" failTestCaseOnErrors="true" id="25050fb5-059d-4875-8ab5-337cd145f06d" keepSession="false" maxResults="0" name="NhincProxyRequest - 404 or 500 error" searchProperties="true" disabled="true">
       <con:settings/>
       <con:testStep name="Modify endpoint" type="groovy">
         <con:settings/>
@@ -9705,7 +9669,7 @@ FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", context.findPropert
               <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
             </con:settings>
             <con:encoding>UTF-8</con:encoding>
-            <con:endpoint>${#Project#Endpoint-NhincProxyAdminDist}</con:endpoint>
+            <con:endpoint>${#Project#Endpoint-EntityAdminDist}</con:endpoint>
             <con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonproxy" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:urn2="urn:oasis:names:tc:emergency:EDXL:DE:1.0">
    <soap:Header/>
    <soap:Body projectName="Admin-Distribution" testCase="NhincProxyRequest with a Binary doc">
@@ -10104,19 +10068,19 @@ FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", context.findPropert
       <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2012-11-19T18:00:36Z</con:value>
+          <con:value>2012-12-17T02:20:28Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2012-11-19T18:10:36Z</con:value>
+          <con:value>2012-12-17T02:30:28Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>11/19/2012 18:00:36</con:value>
+          <con:value>12/17/2012 02:20:28</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2012-12-19T00:00:00Z</con:value>
+          <con:value>2013-01-16T00:00:00Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -10145,7 +10109,7 @@ FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", context.findPropert
     
     
     
-  <con:property><con:name>LocalAA</con:name><con:value>1.1</con:value></con:property><con:property><con:name>LocalHCDescription</con:name><con:value>InternalTest1</con:value></con:property><con:property><con:name>LocalHCID</con:name><con:value>1.1</con:value></con:property><con:property><con:name>LocalPatientID</con:name><con:value>D123401</con:value></con:property><con:property><con:name>mockHost</con:name><con:value>localhost</con:value></con:property><con:property><con:name>RemoteAA</con:name><con:value>2.2</con:value></con:property><con:property><con:name>RemoteHCDescription</con:name><con:value>InternalTest2</con:value></con:property><con:property><con:name>RemoteHCID</con:name><con:value>2.2</con:value></con:property><con:property><con:name>RemotePatientID</con:name><con:value>D123401</con:value></con:property><con:property><con:name>GatewayPropDir</con:name><con:value>D:\glassfish3\glassfish\domains\domain1\config\nhin</con:value></con:property></con:properties>
+  <con:property><con:name>LocalAA</con:name><con:value>1.1</con:value></con:property><con:property><con:name>LocalHCDescription</con:name><con:value>InternalTest1</con:value></con:property><con:property><con:name>LocalHCID</con:name><con:value>1.1</con:value></con:property><con:property><con:name>LocalPatientID</con:name><con:value>D123401</con:value></con:property><con:property><con:name>mockHost</con:name><con:value>localhost</con:value></con:property><con:property><con:name>RemoteAA</con:name><con:value>2.2</con:value></con:property><con:property><con:name>RemoteHCDescription</con:name><con:value>InternalTest2</con:value></con:property><con:property><con:name>RemoteHCID</con:name><con:value>2.2</con:value></con:property><con:property><con:name>RemotePatientID</con:name><con:value>D123401</con:value></con:property><con:property><con:name>GatewayPropDir</con:name><con:value>c:\glassfish3\glassfish\domains\domain1\config\nhin</con:value></con:property></con:properties>
   <con:afterLoadScript>def propertiesFilename = project.path[0..(project.path.size()-4)] + 'properties'
 def propertiesFile = new File(propertiesFilename)
 if (propertiesFile.exists()) {

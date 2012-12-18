@@ -29,9 +29,16 @@ package gov.hhs.fha.nhinc.docsubmission.outbound.deferred.request;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+
+import java.lang.reflect.Method;
+
+import gov.hhs.fha.nhinc.aspect.OutboundProcessingEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
+import gov.hhs.fha.nhinc.common.nhinccommon.UrlInfoType;
 import gov.hhs.fha.nhinc.docsubmission.XDRAuditLogger;
+import gov.hhs.fha.nhinc.docsubmission.aspect.DocSubmissionArgTransformerBuilder;
+import gov.hhs.fha.nhinc.docsubmission.aspect.DocSubmissionBaseEventDescriptionBuilder;
 import gov.hhs.fha.nhinc.docsubmission.entity.deferred.request.OutboundDocSubmissionDeferredRequestDelegate;
 import gov.hhs.fha.nhinc.docsubmission.entity.deferred.request.OutboundDocSubmissionDeferredRequestOrchestratable;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
@@ -148,5 +155,19 @@ public class PassthroughOutboundDocSubmissionDeferredRequestTest {
                 return mockDelegate;
             }
         };
+    }
+    
+    @Test
+    public void hasOutboundProcessingEvent() throws Exception {
+        Class<PassthroughOutboundDocSubmissionDeferredRequest> clazz = PassthroughOutboundDocSubmissionDeferredRequest.class;
+        Method method = clazz.getMethod("provideAndRegisterDocumentSetBAsyncRequest", 
+                ProvideAndRegisterDocumentSetRequestType.class, AssertionType.class,  NhinTargetCommunitiesType.class,
+                UrlInfoType.class);
+        OutboundProcessingEvent annotation = method.getAnnotation(OutboundProcessingEvent.class);
+        assertNotNull(annotation);
+        assertEquals(DocSubmissionBaseEventDescriptionBuilder.class, annotation.beforeBuilder());
+        assertEquals(DocSubmissionArgTransformerBuilder.class, annotation.afterReturningBuilder());
+        assertEquals("Document Submission Deferred Request", annotation.serviceType());
+        assertEquals("", annotation.version());
     }
 }

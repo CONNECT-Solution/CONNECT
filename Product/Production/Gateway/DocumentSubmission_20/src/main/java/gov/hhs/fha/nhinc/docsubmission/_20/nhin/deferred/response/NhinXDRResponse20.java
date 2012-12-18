@@ -26,6 +26,11 @@
  */
 package gov.hhs.fha.nhinc.docsubmission._20.nhin.deferred.response;
 
+import gov.hhs.fha.nhinc.aspect.InboundMessageEvent;
+import gov.hhs.fha.nhinc.docsubmission.aspect.RegistryResponseTypeHolderBuilder;
+import gov.hhs.fha.nhinc.docsubmission.inbound.deferred.response.InboundDocSubmissionDeferredResponse;
+import gov.hhs.fha.nhinc.event.DefaultEventDescriptionBuilder;
+
 import javax.annotation.Resource;
 import javax.xml.ws.BindingType;
 import javax.xml.ws.WebServiceContext;
@@ -33,23 +38,17 @@ import javax.xml.ws.soap.Addressing;
 
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
-import gov.hhs.fha.nhinc.aspect.InboundMessageEvent;
-import gov.hhs.fha.nhinc.event.DefaultEventDescriptionBuilder;
-import gov.hhs.fha.nhinc.docsubmission.inbound.deferred.response.InboundDocSubmissionDeferredResponse;
-
-
 @BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
 @Addressing(enabled = true)
 public class NhinXDRResponse20 implements ihe.iti.xdr._2007.XDRDeferredResponse20PortType {
 
     private WebServiceContext context;
     private InboundDocSubmissionDeferredResponse inboundDocSubmissionResponse;
-    /** TO-DO Annoatation has to be changed for Request and Response Builder **/
+
     @Override
-    @InboundMessageEvent(beforeBuilder = DefaultEventDescriptionBuilder.class,
-    afterReturningBuilder = DefaultEventDescriptionBuilder.class, 
-    serviceType = "Document Submission Deferred Response",
-    version = "2.0")
+    @InboundMessageEvent(beforeBuilder = RegistryResponseTypeHolderBuilder.class,
+            afterReturningBuilder = DefaultEventDescriptionBuilder.class,
+            serviceType = "Document Submission Deferred Response", version = "2.0")
     public void provideAndRegisterDocumentSetBDeferredResponse(javax.xml.ws.Holder<RegistryResponseType> body) {
         body.value = new NhinDocSubmissionDeferredResponseImpl20(inboundDocSubmissionResponse)
                 .provideAndRegisterDocumentSetBResponse(body.value, context);

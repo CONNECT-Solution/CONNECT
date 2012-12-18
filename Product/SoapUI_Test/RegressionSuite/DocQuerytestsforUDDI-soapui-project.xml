@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <con:soapui-project abortOnError="false" name="DocQueryTestsForUDDI" resourceRoot="${projectDir}" runType="SEQUENTIAL" soapui-version="4.5.1" activeEnvironment="Default" xmlns:con="http://eviware.com/soapui/config">
   <con:description/><con:settings/>
-  <con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:entitydocquery}EntityDocQueryBindingSoap" definition="${ProjectDir}../ValidationSuite/target/wsdl/EntityDocQuery.wsdl" name="EntityDocQueryBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:entitydocquery}EntityDocQueryBindingSoap" definition="${projectDir}/../ValidationSuite/target/wsdl/EntityDocQuery.wsdl" name="EntityDocQueryBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <con:settings/>
     
     <con:endpoints>
@@ -16,17 +16,7 @@
       <con:settings/>
     </con:operation>
   </con:interface>
-  <con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincdocquery}NhincDocQueryPortTypeBinding" definition="${ProjectDir}../ValidationSuite/target/wsdl/NhincDocQuery.wsdl" name="NhincDocQueryPortTypeBinding" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-    <con:settings/>
-    
-    <con:endpoints>
-      <con:endpoint>http://localhost:${HttpDefaultPort}/CONNECTAdapter/NhincDocQuery</con:endpoint>
-      <con:endpoint>http://localhost:${HttpDefaultPort}/NhinConnect/NhincDocQuery</con:endpoint>
-    </con:endpoints>
-    <con:operation action="RespondingGateway_CrossGatewayQuery" anonymous="optional" bindingOperationName="RespondingGateway_CrossGatewayQuery" inputName="CrossGatewayQueryRequest" isOneWay="false" name="RespondingGateway_CrossGatewayQuery" outputName="CrossGatewayQueryResponse" receivesAttachments="false" sendsAttachments="false" type="Request-Response">
-      <con:settings/>
-    </con:operation>
-  </con:interface>
+  
   <con:testSuite name="DocQueryTestsForUDDI TestSuite">
     <con:settings/>
     <con:runType>SEQUENTIAL</con:runType>
@@ -51,7 +41,7 @@ def destFile = "uddiConnectionInfo.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
-FileUtils.moveFile(sourceDir, sourceFile, destDir, destFile, log);</script></con:config>
+FileUtils.copyFile(sourceDir, sourceFile, destDir, destFile, log);</script></con:config>
       </con:testStep>
       <con:testStep name="update config" type="groovy">
         <con:settings/>
@@ -165,8 +155,6 @@ context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;$
                <urn3:zipCode>AddrZip</urn3:zipCode>
             </urn3:address>
             <urn3:dateOfBirth xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">06/04/1959 05:21:00</urn3:dateOfBirth>
-            <!--urn3:dateOfSignature xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">${#Project#sigDate}</urn3:dateOfSignature-->
-            <!--urn3:expirationDate xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">${#Project#expireDate}</urn3:expirationDate-->
             <urn3:explanationNonClaimantSignature xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">Electronic</urn3:explanationNonClaimantSignature>
             <urn3:haveSecondWitnessSignature xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">false</urn3:haveSecondWitnessSignature>
             <urn3:haveSignature xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">false</urn3:haveSignature>
@@ -204,7 +192,6 @@ context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;$
                   <urn3:originalText>phoneCode</urn3:originalText>
                </urn3:phoneNumberType>
             </urn3:phoneNumber>
-            <!--urn3:purposeOfDisclosure xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">TREATMENT</urn3:purposeOfDisclosure-->
             <urn3:secondWitnessAddress xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
                <urn3:addressType>
                   <urn3:code>AddrCode</urn3:code>
@@ -309,7 +296,6 @@ context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;$
                   <urn3:fullName>Kasrl S. Skagerberg</urn3:fullName>
                </urn3:personName>
                <urn3:userName>kskagerb</urn3:userName>
-               <!--urn3:role>Pharmacy</urn3:role-->
                <urn3:org>
                   <urn3:description>${#Project#LocalHCDescription}</urn3:description>
                   <urn3:homeCommunityId>${#Project#LocalHCID}</urn3:homeCommunityId>
@@ -418,19 +404,19 @@ declare namespace ns15='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
       <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2012-11-27T15:54:19Z</con:value>
+          <con:value>2012-12-15T02:57:26Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2012-11-27T16:04:19Z</con:value>
+          <con:value>2012-12-15T03:07:26Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>11/27/2012 15:54:19</con:value>
+          <con:value>12/15/2012 02:57:26</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2012-12-27T00:00:00Z</con:value>
+          <con:value>2013-01-14T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>FullPatientID</con:name>
@@ -460,7 +446,7 @@ def destFile = "uddiConnectionInfo.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
-FileUtils.moveFile(sourceDir, sourceFile, destDir, destFile, log);</script></con:config>
+FileUtils.copyFile(sourceDir, sourceFile, destDir, destFile, log);</script></con:config>
       </con:testStep>
       <con:testStep name="update config" type="groovy">
         <con:settings/>
@@ -588,8 +574,6 @@ context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;$
                <urn3:zipCode>AddrZip</urn3:zipCode>
             </urn3:address>
             <urn3:dateOfBirth xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">06/04/1959 05:21:00</urn3:dateOfBirth>
-            <!--urn3:dateOfSignature xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">${#Project#sigDate}</urn3:dateOfSignature-->
-            <!--urn3:expirationDate xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">${#Project#expireDate}</urn3:expirationDate-->
             <urn3:explanationNonClaimantSignature xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">Electronic</urn3:explanationNonClaimantSignature>
             <urn3:haveSecondWitnessSignature xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">false</urn3:haveSecondWitnessSignature>
             <urn3:haveSignature xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">false</urn3:haveSignature>
@@ -627,7 +611,6 @@ context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;$
                   <urn3:originalText>phoneCode</urn3:originalText>
                </urn3:phoneNumberType>
             </urn3:phoneNumber>
-            <!--urn3:purposeOfDisclosure xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">TREATMENT</urn3:purposeOfDisclosure-->
             <urn3:secondWitnessAddress xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
                <urn3:addressType>
                   <urn3:code>AddrCode</urn3:code>
@@ -732,7 +715,6 @@ context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;$
                   <urn3:fullName>Kasrl S. Skagerberg</urn3:fullName>
                </urn3:personName>
                <urn3:userName>kskagerb</urn3:userName>
-               <!--urn3:role>Pharmacy</urn3:role-->
                <urn3:org>
                   <urn3:description>${#Project#LocalHCDescription}</urn3:description>
                   <urn3:homeCommunityId>${#Project#LocalHCID}</urn3:homeCommunityId>
@@ -790,7 +772,7 @@ context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;$
    </soapenv:Body>
 </soapenv:Envelope>]]></con:request>
             <con:assertion type="SOAP Response"/>
-            <con:assertion disabled="true" type="Schema Compliance">
+            <con:assertion type="Schema Compliance">
               <con:configuration/>
             </con:assertion>
             <con:assertion type="SOAP Fault Assertion"/>
@@ -803,12 +785,8 @@ context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;$
                 <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
               </con:configuration>
             </con:assertion>
-            <con:assertion disabled="true" type="Simple Contains">
-              <con:configuration>
-                <token>RegistryObjectList/</token>
-                <ignoreCase>false</ignoreCase>
-                <useRegEx>false</useRegEx>
-              </con:configuration>
+            <con:assertion type="Simple Contains">
+              <con:configuration><token>RegistryObjectList/</token><ignoreCase>false</ignoreCase><useRegEx>false</useRegEx></con:configuration>
             </con:assertion>
             <con:assertion type="XPath Match">
               <con:configuration><path>declare namespace ns16='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
@@ -826,19 +804,19 @@ declare namespace ns15='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
       <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2012-11-27T15:54:20Z</con:value>
+          <con:value>2012-12-15T02:57:27Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2012-11-27T16:04:20Z</con:value>
+          <con:value>2012-12-15T03:07:27Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>11/27/2012 15:54:20</con:value>
+          <con:value>12/15/2012 02:57:27</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2012-12-27T00:00:00Z</con:value>
+          <con:value>2013-01-14T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>FullPatientID</con:name>
@@ -868,7 +846,7 @@ def destFile = "uddiConnectionInfo.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
-FileUtils.moveFile(sourceDir, sourceFile, destDir, destFile, log);</script></con:config>
+FileUtils.copyFile(sourceDir, sourceFile, destDir, destFile, log);</script></con:config>
       </con:testStep>
       <con:testStep name="update config" type="groovy">
         <con:settings/>
@@ -982,8 +960,6 @@ context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;$
                <urn3:zipCode>AddrZip</urn3:zipCode>
             </urn3:address>
             <urn3:dateOfBirth xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">06/04/1959 05:21:00</urn3:dateOfBirth>
-            <!--urn3:dateOfSignature xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">${#Project#sigDate}</urn3:dateOfSignature-->
-            <!--urn3:expirationDate xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">${#Project#expireDate}</urn3:expirationDate-->
             <urn3:explanationNonClaimantSignature xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">Electronic</urn3:explanationNonClaimantSignature>
             <urn3:haveSecondWitnessSignature xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">false</urn3:haveSecondWitnessSignature>
             <urn3:haveSignature xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">false</urn3:haveSignature>
@@ -1021,7 +997,6 @@ context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;$
                   <urn3:originalText>phoneCode</urn3:originalText>
                </urn3:phoneNumberType>
             </urn3:phoneNumber>
-            <!--urn3:purposeOfDisclosure xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">TREATMENT</urn3:purposeOfDisclosure-->
             <urn3:secondWitnessAddress xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
                <urn3:addressType>
                   <urn3:code>AddrCode</urn3:code>
@@ -1126,7 +1101,6 @@ context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;$
                   <urn3:fullName>Kasrl S. Skagerberg</urn3:fullName>
                </urn3:personName>
                <urn3:userName>kskagerb</urn3:userName>
-               <!--urn3:role>Pharmacy</urn3:role-->
                <urn3:org>
                   <urn3:description>${#Project#LocalHCDescription}</urn3:description>
                   <urn3:homeCommunityId>${#Project#LocalHCID}</urn3:homeCommunityId>
@@ -1226,19 +1200,19 @@ declare namespace ns15='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
       <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2012-11-27T15:54:21Z</con:value>
+          <con:value>2012-12-15T02:57:28Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2012-11-27T16:04:21Z</con:value>
+          <con:value>2012-12-15T03:07:28Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>11/27/2012 15:54:21</con:value>
+          <con:value>12/15/2012 02:57:28</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2012-12-27T00:00:00Z</con:value>
+          <con:value>2013-01-14T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>FullPatientID</con:name>
@@ -1268,7 +1242,7 @@ def destFile = "uddiConnectionInfo.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
-FileUtils.moveFile(sourceDir, sourceFile, destDir, destFile, log);</script></con:config>
+FileUtils.copyFile(sourceDir, sourceFile, destDir, destFile, log);</script></con:config>
       </con:testStep>
       <con:testStep name="update config" type="groovy">
         <con:settings/>
@@ -1396,8 +1370,6 @@ context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;$
                <urn3:zipCode>AddrZip</urn3:zipCode>
             </urn3:address>
             <urn3:dateOfBirth xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">06/04/1959 05:21:00</urn3:dateOfBirth>
-            <!--urn3:dateOfSignature xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">${#Project#sigDate}</urn3:dateOfSignature-->
-            <!--urn3:expirationDate xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">${#Project#expireDate}</urn3:expirationDate-->
             <urn3:explanationNonClaimantSignature xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">Electronic</urn3:explanationNonClaimantSignature>
             <urn3:haveSecondWitnessSignature xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">false</urn3:haveSecondWitnessSignature>
             <urn3:haveSignature xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">false</urn3:haveSignature>
@@ -1435,7 +1407,6 @@ context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;$
                   <urn3:originalText>phoneCode</urn3:originalText>
                </urn3:phoneNumberType>
             </urn3:phoneNumber>
-            <!--urn3:purposeOfDisclosure xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">TREATMENT</urn3:purposeOfDisclosure-->
             <urn3:secondWitnessAddress xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
                <urn3:addressType>
                   <urn3:code>AddrCode</urn3:code>
@@ -1540,7 +1511,6 @@ context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;$
                   <urn3:fullName>Kasrl S. Skagerberg</urn3:fullName>
                </urn3:personName>
                <urn3:userName>kskagerb</urn3:userName>
-               <!--urn3:role>Pharmacy</urn3:role-->
                <urn3:org>
                   <urn3:description>${#Project#LocalHCDescription}</urn3:description>
                   <urn3:homeCommunityId>${#Project#LocalHCID}</urn3:homeCommunityId>
@@ -1651,19 +1621,19 @@ declare namespace ns15='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
       <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2012-11-27T15:54:21Z</con:value>
+          <con:value>2012-12-15T02:57:28Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2012-11-27T16:04:21Z</con:value>
+          <con:value>2012-12-15T03:07:28Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>11/27/2012 15:54:21</con:value>
+          <con:value>12/15/2012 02:57:28</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2012-12-27T00:00:00Z</con:value>
+          <con:value>2013-01-14T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>FullPatientID</con:name>
@@ -1693,7 +1663,7 @@ def destFile = "uddiConnectionInfo.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
-FileUtils.moveFile(sourceDir, sourceFile, destDir, destFile, log);</script></con:config>
+FileUtils.copyFile(sourceDir, sourceFile, destDir, destFile, log);</script></con:config>
       </con:testStep>
       <con:testStep name="update config - gateway.properties" type="groovy">
         <con:settings/>
@@ -1841,8 +1811,6 @@ FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocat
                <urn3:zipCode>AddrZip</urn3:zipCode>
             </urn3:address>
             <urn3:dateOfBirth xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">06/04/1959 05:21:00</urn3:dateOfBirth>
-            <!--urn3:dateOfSignature xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">${#Project#sigDate}</urn3:dateOfSignature-->
-            <!--urn3:expirationDate xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">${#Project#expireDate}</urn3:expirationDate-->
             <urn3:explanationNonClaimantSignature xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">Electronic</urn3:explanationNonClaimantSignature>
             <urn3:haveSecondWitnessSignature xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">false</urn3:haveSecondWitnessSignature>
             <urn3:haveSignature xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">false</urn3:haveSignature>
@@ -1880,7 +1848,6 @@ FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocat
                   <urn3:originalText>phoneCode</urn3:originalText>
                </urn3:phoneNumberType>
             </urn3:phoneNumber>
-            <!--urn3:purposeOfDisclosure xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">TREATMENT</urn3:purposeOfDisclosure-->
             <urn3:secondWitnessAddress xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
                <urn3:addressType>
                   <urn3:code>AddrCode</urn3:code>
@@ -1985,7 +1952,6 @@ FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocat
                   <urn3:fullName>Kasrl S. Skagerberg</urn3:fullName>
                </urn3:personName>
                <urn3:userName>kskagerb</urn3:userName>
-               <!--urn3:role>Pharmacy</urn3:role-->
                <urn3:org>
                   <urn3:description>${#Project#LocalHCDescription}</urn3:description>
                   <urn3:homeCommunityId>${#Project#LocalHCID}</urn3:homeCommunityId>
@@ -2094,19 +2060,19 @@ count(//ns6:AdhocQueryResponse[1]/ns3:RegistryObjectList[1]/ns3:ExtrinsicObject)
       <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2012-11-27T15:54:22Z</con:value>
+          <con:value>2012-12-15T02:57:30Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2012-11-27T16:04:22Z</con:value>
+          <con:value>2012-12-15T03:07:30Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>11/27/2012 15:54:22</con:value>
+          <con:value>12/15/2012 02:57:30</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2012-12-27T00:00:00Z</con:value>
+          <con:value>2013-01-14T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>FullPatientID</con:name>
@@ -2136,7 +2102,7 @@ def destFile = "uddiConnectionInfo.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
-FileUtils.moveFile(sourceDir, sourceFile, destDir, destFile, log);</script></con:config>
+FileUtils.copyFile(sourceDir, sourceFile, destDir, destFile, log);</script></con:config>
       </con:testStep>
       <con:testStep name="update config - gateway.properties" type="groovy">
         <con:settings/>
@@ -2156,7 +2122,7 @@ def destFile = "uddiConnectionInfo.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
-FileUtils.moveFile(sourceDir, sourceFile, destDir, destFile, log);</script></con:config>
+FileUtils.copyFile(sourceDir, sourceFile, destDir, destFile, log);</script></con:config>
       </con:testStep>
       <con:testStep name="Generate patient ID for Doc Query" type="groovy">
         <con:settings/>
@@ -2282,8 +2248,6 @@ FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocat
                <urn3:zipCode>AddrZip</urn3:zipCode>
             </urn3:address>
             <urn3:dateOfBirth xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">06/04/1959 05:21:00</urn3:dateOfBirth>
-            <!--urn3:dateOfSignature xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">${#Project#sigDate}</urn3:dateOfSignature-->
-            <!--urn3:expirationDate xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">${#Project#expireDate}</urn3:expirationDate-->
             <urn3:explanationNonClaimantSignature xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">Electronic</urn3:explanationNonClaimantSignature>
             <urn3:haveSecondWitnessSignature xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">false</urn3:haveSecondWitnessSignature>
             <urn3:haveSignature xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">false</urn3:haveSignature>
@@ -2321,7 +2285,6 @@ FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocat
                   <urn3:originalText>phoneCode</urn3:originalText>
                </urn3:phoneNumberType>
             </urn3:phoneNumber>
-            <!--urn3:purposeOfDisclosure xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">TREATMENT</urn3:purposeOfDisclosure-->
             <urn3:secondWitnessAddress xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
                <urn3:addressType>
                   <urn3:code>AddrCode</urn3:code>
@@ -2426,7 +2389,6 @@ FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocat
                   <urn3:fullName>Kasrl S. Skagerberg</urn3:fullName>
                </urn3:personName>
                <urn3:userName>kskagerb</urn3:userName>
-               <!--urn3:role>Pharmacy</urn3:role-->
                <urn3:org>
                   <urn3:description>${#Project#LocalHCDescription}</urn3:description>
                   <urn3:homeCommunityId>${#Project#LocalHCID}</urn3:homeCommunityId>
@@ -2552,19 +2514,19 @@ declare namespace ns8='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
       <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2012-11-27T15:55:26Z</con:value>
+          <con:value>2012-12-15T02:58:30Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2012-11-27T16:05:26Z</con:value>
+          <con:value>2012-12-15T03:08:30Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>11/27/2012 15:55:26</con:value>
+          <con:value>12/15/2012 02:58:30</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2012-12-27T00:00:00Z</con:value>
+          <con:value>2013-01-14T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>FullPatientID</con:name>
@@ -2594,7 +2556,7 @@ def destFile = "uddiConnectionInfo.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
-FileUtils.moveFile(sourceDir, sourceFile, destDir, destFile, log);</script></con:config>
+FileUtils.copyFile(sourceDir, sourceFile, destDir, destFile, log);</script></con:config>
       </con:testStep>
       <con:testStep name="update config" type="groovy">
         <con:settings/>
@@ -2708,8 +2670,6 @@ context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;$
                <urn3:zipCode>AddrZip</urn3:zipCode>
             </urn3:address>
             <urn3:dateOfBirth xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">06/04/1959 05:21:00</urn3:dateOfBirth>
-            <!--urn3:dateOfSignature xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">${#Project#sigDate}</urn3:dateOfSignature-->
-            <!--urn3:expirationDate xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">${#Project#expireDate}</urn3:expirationDate-->
             <urn3:explanationNonClaimantSignature xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">Electronic</urn3:explanationNonClaimantSignature>
             <urn3:haveSecondWitnessSignature xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">false</urn3:haveSecondWitnessSignature>
             <urn3:haveSignature xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">false</urn3:haveSignature>
@@ -2747,7 +2707,6 @@ context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;$
                   <urn3:originalText>phoneCode</urn3:originalText>
                </urn3:phoneNumberType>
             </urn3:phoneNumber>
-            <!--urn3:purposeOfDisclosure xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">TREATMENT</urn3:purposeOfDisclosure-->
             <urn3:secondWitnessAddress xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
                <urn3:addressType>
                   <urn3:code>AddrCode</urn3:code>
@@ -2852,7 +2811,6 @@ context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;$
                   <urn3:fullName>Kasrl S. Skagerberg</urn3:fullName>
                </urn3:personName>
                <urn3:userName>kskagerb</urn3:userName>
-               <!--urn3:role>Pharmacy</urn3:role-->
                <urn3:org>
                   <urn3:description>${#Project#LocalHCDescription}</urn3:description>
                   <urn3:homeCommunityId>${#Project#LocalHCID}</urn3:homeCommunityId>
@@ -2941,19 +2899,19 @@ context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;$
       <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2012-11-27T15:55:27Z</con:value>
+          <con:value>2012-12-15T02:58:30Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2012-11-27T16:05:27Z</con:value>
+          <con:value>2012-12-15T03:08:30Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>11/27/2012 15:55:27</con:value>
+          <con:value>12/15/2012 02:58:30</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2012-12-27T00:00:00Z</con:value>
+          <con:value>2013-01-14T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>FullPatientID</con:name>
@@ -2983,7 +2941,7 @@ def destFile = "uddiConnectionInfo.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
-FileUtils.moveFile(sourceDir, sourceFile, destDir, destFile, log);</script></con:config>
+FileUtils.copyFile(sourceDir, sourceFile, destDir, destFile, log);</script></con:config>
       </con:testStep>
       <con:testStep name="update config" type="groovy">
         <con:settings/>
@@ -3113,8 +3071,6 @@ context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;$
                <urn3:zipCode>AddrZip</urn3:zipCode>
             </urn3:address>
             <urn3:dateOfBirth xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">06/04/1959 05:21:00</urn3:dateOfBirth>
-            <!--urn3:dateOfSignature xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">${#Project#sigDate}</urn3:dateOfSignature-->
-            <!--urn3:expirationDate xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">${#Project#expireDate}</urn3:expirationDate-->
             <urn3:explanationNonClaimantSignature xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">Electronic</urn3:explanationNonClaimantSignature>
             <urn3:haveSecondWitnessSignature xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">false</urn3:haveSecondWitnessSignature>
             <urn3:haveSignature xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">false</urn3:haveSignature>
@@ -3152,7 +3108,6 @@ context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;$
                   <urn3:originalText>phoneCode</urn3:originalText>
                </urn3:phoneNumberType>
             </urn3:phoneNumber>
-            <!--urn3:purposeOfDisclosure xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">TREATMENT</urn3:purposeOfDisclosure-->
             <urn3:secondWitnessAddress xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
                <urn3:addressType>
                   <urn3:code>AddrCode</urn3:code>
@@ -3257,7 +3212,6 @@ context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;$
                   <urn3:fullName>Kasrl S. Skagerberg</urn3:fullName>
                </urn3:personName>
                <urn3:userName>kskagerb</urn3:userName>
-               <!--urn3:role>Pharmacy</urn3:role-->
                <urn3:org>
                   <urn3:description>${#Project#LocalHCDescription}</urn3:description>
                   <urn3:homeCommunityId>${#Project#LocalHCID}</urn3:homeCommunityId>
@@ -3341,19 +3295,19 @@ context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;$
       <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2012-11-27T15:55:28Z</con:value>
+          <con:value>2012-12-15T02:58:31Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2012-11-27T16:05:28Z</con:value>
+          <con:value>2012-12-15T03:08:31Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>11/27/2012 15:55:28</con:value>
+          <con:value>12/15/2012 02:58:31</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2012-12-27T00:00:00Z</con:value>
+          <con:value>2013-01-14T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>FullPatientID</con:name>
@@ -3403,7 +3357,7 @@ def destFile = "uddiConnectionInfo.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
-FileUtils.moveFile(sourceDir, sourceFile, destDir, destFile, log);</script></con:config>
+FileUtils.copyFile(sourceDir, sourceFile, destDir, destFile, log);</script></con:config>
       </con:testStep>
       <con:testStep name="Copy internalConnectionInfo" type="groovy">
         <con:settings/>
@@ -3422,7 +3376,7 @@ def destFile = "internalConnectionInfo.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
-FileUtils.moveFile(sourceDir, sourceFile, destDir, destFile, log);</script></con:config>
+FileUtils.copyFile(sourceDir, sourceFile, destDir, destFile, log);</script></con:config>
       </con:testStep>
       <con:testStep name="Generate patient ID for Doc Query" type="groovy">
         <con:settings/>
@@ -3563,8 +3517,6 @@ FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocat
                <urn3:zipCode>AddrZip</urn3:zipCode>
             </urn3:address>
             <urn3:dateOfBirth xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">06/04/1959 05:21:00</urn3:dateOfBirth>
-            <!--urn3:dateOfSignature xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">${#Project#sigDate}</urn3:dateOfSignature-->
-            <!--urn3:expirationDate xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">${#Project#expireDate}</urn3:expirationDate-->
             <urn3:explanationNonClaimantSignature xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">Electronic</urn3:explanationNonClaimantSignature>
             <urn3:haveSecondWitnessSignature xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">false</urn3:haveSecondWitnessSignature>
             <urn3:haveSignature xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">false</urn3:haveSignature>
@@ -3602,7 +3554,6 @@ FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocat
                   <urn3:originalText>phoneCode</urn3:originalText>
                </urn3:phoneNumberType>
             </urn3:phoneNumber>
-            <!--urn3:purposeOfDisclosure xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">TREATMENT</urn3:purposeOfDisclosure-->
             <urn3:secondWitnessAddress xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
                <urn3:addressType>
                   <urn3:code>AddrCode</urn3:code>
@@ -3707,7 +3658,6 @@ FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocat
                   <urn3:fullName>Kasrl S. Skagerberg</urn3:fullName>
                </urn3:personName>
                <urn3:userName>kskagerb</urn3:userName>
-               <!--urn3:role>Pharmacy</urn3:role-->
                <urn3:org>
                   <urn3:description>${#Project#LocalHCDescription}</urn3:description>
                   <urn3:homeCommunityId>${#Project#LocalHCID}</urn3:homeCommunityId>
@@ -3813,19 +3763,19 @@ count(//ns6:AdhocQueryResponse[1]/ns3:RegistryObjectList[1]/ns3:ExtrinsicObject)
       </con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2012-11-27T15:55:28Z</con:value>
+          <con:value>2012-12-15T02:58:32Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2012-11-27T16:05:28Z</con:value>
+          <con:value>2012-12-15T03:08:32Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>11/27/2012 15:55:28</con:value>
+          <con:value>12/15/2012 02:58:32</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2012-12-27T00:00:00Z</con:value>
+          <con:value>2013-01-14T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>FullPatientID</con:name>
@@ -3855,7 +3805,7 @@ def destFile = "uddiConnectionInfo.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
-FileUtils.moveFile(sourceDir, sourceFile, destDir, destFile, log);</script></con:config>
+FileUtils.copyFile(sourceDir, sourceFile, destDir, destFile, log);</script></con:config>
       </con:testStep>
       <con:testStep name="update config" type="groovy">
         <con:settings/>
@@ -3982,8 +3932,6 @@ FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocat
                <urn3:zipCode>AddrZip</urn3:zipCode>
             </urn3:address>
             <urn3:dateOfBirth xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">06/04/1959 05:21:00</urn3:dateOfBirth>
-            <!--urn3:dateOfSignature xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">${#Project#sigDate}</urn3:dateOfSignature-->
-            <!--urn3:expirationDate xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">${#Project#expireDate}</urn3:expirationDate-->
             <urn3:explanationNonClaimantSignature xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">Electronic</urn3:explanationNonClaimantSignature>
             <urn3:haveSecondWitnessSignature xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">false</urn3:haveSecondWitnessSignature>
             <urn3:haveSignature xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">false</urn3:haveSignature>
@@ -4021,7 +3969,6 @@ FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocat
                   <urn3:originalText>phoneCode</urn3:originalText>
                </urn3:phoneNumberType>
             </urn3:phoneNumber>
-            <!--urn3:purposeOfDisclosure xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">TREATMENT</urn3:purposeOfDisclosure-->
             <urn3:secondWitnessAddress xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
                <urn3:addressType>
                   <urn3:code>AddrCode</urn3:code>
@@ -4126,7 +4073,6 @@ FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocat
                   <urn3:fullName>Kasrl S. Skagerberg</urn3:fullName>
                </urn3:personName>
                <urn3:userName>kskagerb</urn3:userName>
-               <!--urn3:role>Pharmacy</urn3:role-->
                <urn3:org>
                   <urn3:description>${#Project#LocalHCDescription}</urn3:description>
                   <urn3:homeCommunityId>${#Project#LocalHCID}</urn3:homeCommunityId>
@@ -4210,19 +4156,19 @@ FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocat
       </con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2012-11-27T15:56:33Z</con:value>
+          <con:value>2012-12-15T02:58:35Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2012-11-27T16:06:33Z</con:value>
+          <con:value>2012-12-15T03:08:35Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>11/27/2012 15:56:33</con:value>
+          <con:value>12/15/2012 02:58:35</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2012-12-27T00:00:00Z</con:value>
+          <con:value>2013-01-14T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>FullPatientID</con:name>
@@ -4252,7 +4198,7 @@ def destFile = "uddiConnectionInfo.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
-FileUtils.moveFile(sourceDir, sourceFile, destDir, destFile, log);</script></con:config>
+FileUtils.copyFile(sourceDir, sourceFile, destDir, destFile, log);</script></con:config>
       </con:testStep>
       <con:testStep name="Copy InternalConfigurationInfo" type="groovy">
         <con:settings/>
@@ -4271,7 +4217,7 @@ def destFile = "internalConnectionInfo.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
-FileUtils.moveFile(sourceDir, sourceFile, destDir, destFile, log);</script></con:config>
+FileUtils.copyFile(sourceDir, sourceFile, destDir, destFile, log);</script></con:config>
       </con:testStep>
       <con:testStep name="update config" type="groovy">
         <con:settings/>
@@ -4385,8 +4331,6 @@ context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;$
                <urn3:zipCode>AddrZip</urn3:zipCode>
             </urn3:address>
             <urn3:dateOfBirth xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">06/04/1959 05:21:00</urn3:dateOfBirth>
-            <!--urn3:dateOfSignature xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">${#Project#sigDate}</urn3:dateOfSignature-->
-            <!--urn3:expirationDate xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">${#Project#expireDate}</urn3:expirationDate-->
             <urn3:explanationNonClaimantSignature xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">Electronic</urn3:explanationNonClaimantSignature>
             <urn3:haveSecondWitnessSignature xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">false</urn3:haveSecondWitnessSignature>
             <urn3:haveSignature xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">false</urn3:haveSignature>
@@ -4424,7 +4368,6 @@ context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;$
                   <urn3:originalText>phoneCode</urn3:originalText>
                </urn3:phoneNumberType>
             </urn3:phoneNumber>
-            <!--urn3:purposeOfDisclosure xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">TREATMENT</urn3:purposeOfDisclosure-->
             <urn3:secondWitnessAddress xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
                <urn3:addressType>
                   <urn3:code>AddrCode</urn3:code>
@@ -4529,7 +4472,6 @@ context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;$
                   <urn3:fullName>Kasrl S. Skagerberg</urn3:fullName>
                </urn3:personName>
                <urn3:userName>kskagerb</urn3:userName>
-               <!--urn3:role>Pharmacy</urn3:role-->
                <urn3:org>
                   <urn3:description>${#Project#LocalHCDescription}</urn3:description>
                   <urn3:homeCommunityId>${#Project#LocalHCID}</urn3:homeCommunityId>
@@ -4647,19 +4589,19 @@ declare namespace ns15='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
       <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2012-11-27T15:56:33Z</con:value>
+          <con:value>2012-12-15T02:58:35Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2012-11-27T16:06:33Z</con:value>
+          <con:value>2012-12-15T03:08:35Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>11/27/2012 15:56:33</con:value>
+          <con:value>12/15/2012 02:58:35</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2012-12-27T00:00:00Z</con:value>
+          <con:value>2013-01-14T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>FullPatientID</con:name>
@@ -4689,7 +4631,7 @@ def destFile = "uddiConnectionInfo.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
-FileUtils.moveFile(sourceDir, sourceFile, destDir, destFile, log);</script></con:config>
+FileUtils.copyFile(sourceDir, sourceFile, destDir, destFile, log);</script></con:config>
       </con:testStep>
       <con:testStep name="Copy InternalConfigurationInfo" type="groovy">
         <con:settings/>
@@ -4708,7 +4650,7 @@ def destFile = "internalConnectionInfo.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
-FileUtils.moveFile(sourceDir, sourceFile, destDir, destFile, log);</script></con:config>
+FileUtils.copyFile(sourceDir, sourceFile, destDir, destFile, log);</script></con:config>
       </con:testStep>
       <con:testStep name="update config" type="groovy">
         <con:settings/>
@@ -4836,8 +4778,6 @@ context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;$
                <urn3:zipCode>AddrZip</urn3:zipCode>
             </urn3:address>
             <urn3:dateOfBirth xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">06/04/1959 05:21:00</urn3:dateOfBirth>
-            <!--urn3:dateOfSignature xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">${#Project#sigDate}</urn3:dateOfSignature-->
-            <!--urn3:expirationDate xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">${#Project#expireDate}</urn3:expirationDate-->
             <urn3:explanationNonClaimantSignature xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">Electronic</urn3:explanationNonClaimantSignature>
             <urn3:haveSecondWitnessSignature xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">false</urn3:haveSecondWitnessSignature>
             <urn3:haveSignature xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">false</urn3:haveSignature>
@@ -4875,7 +4815,6 @@ context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;$
                   <urn3:originalText>phoneCode</urn3:originalText>
                </urn3:phoneNumberType>
             </urn3:phoneNumber>
-            <!--urn3:purposeOfDisclosure xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">TREATMENT</urn3:purposeOfDisclosure-->
             <urn3:secondWitnessAddress xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
                <urn3:addressType>
                   <urn3:code>AddrCode</urn3:code>
@@ -4980,7 +4919,6 @@ context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;$
                   <urn3:fullName>Kasrl S. Skagerberg</urn3:fullName>
                </urn3:personName>
                <urn3:userName>kskagerb</urn3:userName>
-               <!--urn3:role>Pharmacy</urn3:role-->
                <urn3:org>
                   <urn3:description>${#Project#LocalHCDescription}</urn3:description>
                   <urn3:homeCommunityId>${#Project#LocalHCID}</urn3:homeCommunityId>
@@ -5088,19 +5026,19 @@ declare namespace ns15='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
       <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2012-11-27T15:56:34Z</con:value>
+          <con:value>2012-12-15T02:58:36Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2012-11-27T16:06:34Z</con:value>
+          <con:value>2012-12-15T03:08:36Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>11/27/2012 15:56:34</con:value>
+          <con:value>12/15/2012 02:58:36</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2012-12-27T00:00:00Z</con:value>
+          <con:value>2013-01-14T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>FullPatientID</con:name>
@@ -5130,7 +5068,7 @@ def destFile = "uddiConnectionInfo.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
-FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);</script>
+FileUtils.copyFile(sourceDir, sourceFile, destDir, destFile, context, log);</script>
         </con:config>
       </con:testStep>
       <con:testStep name="Copy InternalConfigurationInfo" type="groovy">
@@ -5151,7 +5089,7 @@ def destFile = "internalConnectionInfo.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
-FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);</script>
+FileUtils.copyFile(sourceDir, sourceFile, destDir, destFile, context, log);</script>
         </con:config>
       </con:testStep>
       <con:testStep name="update config - gateway.properties" type="groovy">
@@ -5322,8 +5260,6 @@ FileUtils.CreateOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocat
                <urn3:zipCode>AddrZip</urn3:zipCode>
             </urn3:address>
             <urn3:dateOfBirth xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">06/04/1959 05:21:00</urn3:dateOfBirth>
-            <!--urn3:dateOfSignature xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">${#Project#sigDate}</urn3:dateOfSignature-->
-            <!--urn3:expirationDate xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">${#Project#expireDate}</urn3:expirationDate-->
             <urn3:explanationNonClaimantSignature xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">Electronic</urn3:explanationNonClaimantSignature>
             <urn3:haveSecondWitnessSignature xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">false</urn3:haveSecondWitnessSignature>
             <urn3:haveSignature xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">false</urn3:haveSignature>
@@ -5361,7 +5297,6 @@ FileUtils.CreateOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocat
                   <urn3:originalText>phoneCode</urn3:originalText>
                </urn3:phoneNumberType>
             </urn3:phoneNumber>
-            <!--urn3:purposeOfDisclosure xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">TREATMENT</urn3:purposeOfDisclosure-->
             <urn3:secondWitnessAddress xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
                <urn3:addressType>
                   <urn3:code>AddrCode</urn3:code>
@@ -5466,7 +5401,6 @@ FileUtils.CreateOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocat
                   <urn3:fullName>Kasrl S. Skagerberg</urn3:fullName>
                </urn3:personName>
                <urn3:userName>kskagerb</urn3:userName>
-               <!--urn3:role>Pharmacy</urn3:role-->
                <urn3:org>
                   <urn3:description>${#Project#LocalHCDescription}</urn3:description>
                   <urn3:homeCommunityId>${#Project#LocalHCID}</urn3:homeCommunityId>
@@ -5607,7 +5541,7 @@ def sourceDir = System.env['NHINC_PROPERTIES_DIR'] + "/master/";
 def sourceFile = "uddiConnectionInfo.xml";
 def destDir = System.env['NHINC_PROPERTIES_DIR'];
 def destFile = "uddiConnectionInfo.xml";
-//FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);</con:tearDownScript></con:testCase>
+//FileUtils.copyFile(sourceDir, sourceFile, destDir, destFile, context, log);</con:tearDownScript></con:testCase>
     <con:testCase failOnError="true" failTestCaseOnErrors="true" id="b673cce6-4e31-401e-8fb0-1b98f7e35455" keepSession="false" maxResults="0" name="State Alt Path - Region and associated HCID in target xml results in one response" searchProperties="true">
       <con:settings/>
       
@@ -5629,7 +5563,7 @@ def destFile = "uddiConnectionInfo.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
-FileUtils.moveFile(sourceDir, sourceFile, destDir, destFile, log);</script></con:config>
+FileUtils.copyFile(sourceDir, sourceFile, destDir, destFile, log);</script></con:config>
       </con:testStep>
       <con:testStep name="Copy InternalConfigurationInfo" type="groovy">
         <con:settings/>
@@ -5648,7 +5582,7 @@ def destFile = "internalConnectionInfo.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
-FileUtils.moveFile(sourceDir, sourceFile, destDir, destFile, log);</script></con:config>
+FileUtils.copyFile(sourceDir, sourceFile, destDir, destFile, log);</script></con:config>
       </con:testStep>
       <con:testStep name="update config - gateway.properties" type="groovy">
         <con:settings/>
@@ -5794,8 +5728,6 @@ FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocat
                <urn3:zipCode>AddrZip</urn3:zipCode>
             </urn3:address>
             <urn3:dateOfBirth xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">06/04/1959 05:21:00</urn3:dateOfBirth>
-            <!--urn3:dateOfSignature xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">${#Project#sigDate}</urn3:dateOfSignature-->
-            <!--urn3:expirationDate xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">${#Project#expireDate}</urn3:expirationDate-->
             <urn3:explanationNonClaimantSignature xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">Electronic</urn3:explanationNonClaimantSignature>
             <urn3:haveSecondWitnessSignature xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">false</urn3:haveSecondWitnessSignature>
             <urn3:haveSignature xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">false</urn3:haveSignature>
@@ -5833,7 +5765,6 @@ FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocat
                   <urn3:originalText>phoneCode</urn3:originalText>
                </urn3:phoneNumberType>
             </urn3:phoneNumber>
-            <!--urn3:purposeOfDisclosure xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">TREATMENT</urn3:purposeOfDisclosure-->
             <urn3:secondWitnessAddress xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
                <urn3:addressType>
                   <urn3:code>AddrCode</urn3:code>
@@ -5938,7 +5869,6 @@ FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocat
                   <urn3:fullName>Kasrl S. Skagerberg</urn3:fullName>
                </urn3:personName>
                <urn3:userName>kskagerb</urn3:userName>
-               <!--urn3:role>Pharmacy</urn3:role-->
                <urn3:org>
                   <urn3:description>${#Project#LocalHCDescription}</urn3:description>
                   <urn3:homeCommunityId>${#Project#LocalHCID}</urn3:homeCommunityId>
@@ -6051,19 +5981,19 @@ count(//ns6:AdhocQueryResponse[1]/ns3:RegistryObjectList[1]/ns3:ExtrinsicObject)
       <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2012-11-27T15:56:35Z</con:value>
+          <con:value>2012-12-15T02:58:36Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2012-11-27T16:06:35Z</con:value>
+          <con:value>2012-12-15T03:08:36Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>11/27/2012 15:56:35</con:value>
+          <con:value>12/15/2012 02:58:36</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2012-12-27T00:00:00Z</con:value>
+          <con:value>2013-01-14T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>FullPatientID</con:name>
@@ -6093,7 +6023,7 @@ def destFile = "uddiConnectionInfo.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
-FileUtils.moveFile(sourceDir, sourceFile, destDir, destFile, log);</script></con:config>
+FileUtils.copyFile(sourceDir, sourceFile, destDir, destFile, log);</script></con:config>
       </con:testStep>
       <con:testStep name="Copy InternalConfigurationInfo" type="groovy">
         <con:settings/>
@@ -6112,7 +6042,7 @@ def destFile = "internalConnectionInfo.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
-FileUtils.moveFile(sourceDir, sourceFile, destDir, destFile, log);</script></con:config>
+FileUtils.copyFile(sourceDir, sourceFile, destDir, destFile, log);</script></con:config>
       </con:testStep>
       <con:testStep name="update config - gateway.properties" type="groovy">
         <con:settings/>
@@ -6281,8 +6211,6 @@ FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocat
                <urn3:zipCode>AddrZip</urn3:zipCode>
             </urn3:address>
             <urn3:dateOfBirth xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">06/04/1959 05:21:00</urn3:dateOfBirth>
-            <!--urn3:dateOfSignature xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">${#Project#sigDate}</urn3:dateOfSignature-->
-            <!--urn3:expirationDate xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">${#Project#expireDate}</urn3:expirationDate-->
             <urn3:explanationNonClaimantSignature xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">Electronic</urn3:explanationNonClaimantSignature>
             <urn3:haveSecondWitnessSignature xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">false</urn3:haveSecondWitnessSignature>
             <urn3:haveSignature xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">false</urn3:haveSignature>
@@ -6320,7 +6248,6 @@ FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocat
                   <urn3:originalText>phoneCode</urn3:originalText>
                </urn3:phoneNumberType>
             </urn3:phoneNumber>
-            <!--urn3:purposeOfDisclosure xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">TREATMENT</urn3:purposeOfDisclosure-->
             <urn3:secondWitnessAddress xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
                <urn3:addressType>
                   <urn3:code>AddrCode</urn3:code>
@@ -6425,7 +6352,6 @@ FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocat
                   <urn3:fullName>Kasrl S. Skagerberg</urn3:fullName>
                </urn3:personName>
                <urn3:userName>kskagerb</urn3:userName>
-               <!--urn3:role>Pharmacy</urn3:role-->
                <urn3:org>
                   <urn3:description>${#Project#LocalHCDescription}</urn3:description>
                   <urn3:homeCommunityId>${#Project#LocalHCID}</urn3:homeCommunityId>
@@ -6545,19 +6471,19 @@ count(//ns6:AdhocQueryResponse[1]/ns3:RegistryObjectList[1]/ns3:ExtrinsicObject)
       <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2012-11-27T15:56:36Z</con:value>
+          <con:value>2012-12-15T02:58:37Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2012-11-27T16:06:36Z</con:value>
+          <con:value>2012-12-15T03:08:37Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>11/27/2012 15:56:36</con:value>
+          <con:value>12/15/2012 02:58:37</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2012-12-27T00:00:00Z</con:value>
+          <con:value>2013-01-14T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>FullPatientID</con:name>
@@ -6587,7 +6513,7 @@ def destFile = "uddiConnectionInfo.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
-FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);</script>
+FileUtils.copyFile(sourceDir, sourceFile, destDir, destFile, context, log);</script>
         </con:config>
       </con:testStep>
       <con:testStep name="update config - gateway.properties" type="groovy">
@@ -6732,8 +6658,6 @@ FileUtils.CreateOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocat
                <urn3:zipCode>AddrZip</urn3:zipCode>
             </urn3:address>
             <urn3:dateOfBirth xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">06/04/1959 05:21:00</urn3:dateOfBirth>
-            <!--urn3:dateOfSignature xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">${#Project#sigDate}</urn3:dateOfSignature-->
-            <!--urn3:expirationDate xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">${#Project#expireDate}</urn3:expirationDate-->
             <urn3:explanationNonClaimantSignature xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">Electronic</urn3:explanationNonClaimantSignature>
             <urn3:haveSecondWitnessSignature xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">false</urn3:haveSecondWitnessSignature>
             <urn3:haveSignature xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">false</urn3:haveSignature>
@@ -6771,7 +6695,6 @@ FileUtils.CreateOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocat
                   <urn3:originalText>phoneCode</urn3:originalText>
                </urn3:phoneNumberType>
             </urn3:phoneNumber>
-            <!--urn3:purposeOfDisclosure xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">TREATMENT</urn3:purposeOfDisclosure-->
             <urn3:secondWitnessAddress xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
                <urn3:addressType>
                   <urn3:code>AddrCode</urn3:code>
@@ -6876,7 +6799,6 @@ FileUtils.CreateOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocat
                   <urn3:fullName>Kasrl S. Skagerberg</urn3:fullName>
                </urn3:personName>
                <urn3:userName>kskagerb</urn3:userName>
-               <!--urn3:role>Pharmacy</urn3:role-->
                <urn3:org>
                   <urn3:description>${#Project#LocalHCDescription}</urn3:description>
                   <urn3:homeCommunityId>${#Project#LocalHCID}</urn3:homeCommunityId>
@@ -7000,7 +6922,7 @@ def sourceDir = System.env['NHINC_PROPERTIES_DIR'] + "/master/";
 def sourceFile = "uddiConnectionInfo.xml";
 def destDir = System.env['NHINC_PROPERTIES_DIR'];
 def destFile = "uddiConnectionInfo.xml";
-FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);</con:tearDownScript></con:testCase>
+FileUtils.copyFile(sourceDir, sourceFile, destDir, destFile, context, log);</con:tearDownScript></con:testCase>
     <con:testCase disabled="true" failOnError="true" failTestCaseOnErrors="true" id="5c44df01-4f70-48d3-8930-a31ac9100e8e" keepSession="false" maxResults="0" name="HCID Happy Path - Correlation for HCID IN UDDI file/target XML" searchProperties="true">
       <con:settings/>
       
@@ -7022,7 +6944,7 @@ def destFile = "uddiConnectionInfo.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
-FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);</script>
+FileUtils.copyFile(sourceDir, sourceFile, destDir, destFile, context, log);</script>
         </con:config>
       </con:testStep>
       <con:testStep name="update config - gateway.properties" type="groovy">
@@ -7167,8 +7089,6 @@ FileUtils.CreateOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocat
                <urn3:zipCode>AddrZip</urn3:zipCode>
             </urn3:address>
             <urn3:dateOfBirth xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">06/04/1959 05:21:00</urn3:dateOfBirth>
-            <!--urn3:dateOfSignature xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">${#Project#sigDate}</urn3:dateOfSignature-->
-            <!--urn3:expirationDate xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">${#Project#expireDate}</urn3:expirationDate-->
             <urn3:explanationNonClaimantSignature xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">Electronic</urn3:explanationNonClaimantSignature>
             <urn3:haveSecondWitnessSignature xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">false</urn3:haveSecondWitnessSignature>
             <urn3:haveSignature xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">false</urn3:haveSignature>
@@ -7206,7 +7126,6 @@ FileUtils.CreateOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocat
                   <urn3:originalText>phoneCode</urn3:originalText>
                </urn3:phoneNumberType>
             </urn3:phoneNumber>
-            <!--urn3:purposeOfDisclosure xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">TREATMENT</urn3:purposeOfDisclosure-->
             <urn3:secondWitnessAddress xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
                <urn3:addressType>
                   <urn3:code>AddrCode</urn3:code>
@@ -7311,7 +7230,6 @@ FileUtils.CreateOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocat
                   <urn3:fullName>Kasrl S. Skagerberg</urn3:fullName>
                </urn3:personName>
                <urn3:userName>kskagerb</urn3:userName>
-               <!--urn3:role>Pharmacy</urn3:role-->
                <urn3:org>
                   <urn3:description>${#Project#LocalHCDescription}</urn3:description>
                   <urn3:homeCommunityId>${#Project#LocalHCID}</urn3:homeCommunityId>
@@ -7451,7 +7369,7 @@ def sourceDir = System.env['NHINC_PROPERTIES_DIR'] + "/master/";
 def sourceFile = "uddiConnectionInfo.xml";
 def destDir = System.env['NHINC_PROPERTIES_DIR'];
 def destFile = "uddiConnectionInfo.xml";
-FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);</con:tearDownScript></con:testCase>
+FileUtils.copyFile(sourceDir, sourceFile, destDir, destFile, context, log);</con:tearDownScript></con:testCase>
     <con:testCase failOnError="true" failTestCaseOnErrors="true" id="7c286477-8a88-4aad-ab67-d6968f946de2" keepSession="false" maxResults="0" name="State Happy Path - Correlation for HCID not in UDDI file/target XML" searchProperties="true">
       <con:settings/>
       
@@ -7473,7 +7391,7 @@ def destFile = "uddiConnectionInfo.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
-FileUtils.moveFile(sourceDir, sourceFile, destDir, destFile, log);</script></con:config>
+FileUtils.copyFile(sourceDir, sourceFile, destDir, destFile, log);</script></con:config>
       </con:testStep>
       <con:testStep name="Copy internalConnectionInfo" type="groovy">
         <con:settings/>
@@ -7492,7 +7410,7 @@ def destFile = "internalConnectionInfo.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
-FileUtils.moveFile(sourceDir, sourceFile, destDir, destFile, log);</script></con:config>
+FileUtils.copyFile(sourceDir, sourceFile, destDir, destFile, log);</script></con:config>
       </con:testStep>
       <con:testStep name="update config" type="groovy">
         <con:settings/>
@@ -7636,8 +7554,6 @@ FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocat
                <urn3:zipCode>AddrZip</urn3:zipCode>
             </urn3:address>
             <urn3:dateOfBirth xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">06/04/1959 05:21:00</urn3:dateOfBirth>
-            <!--urn3:dateOfSignature xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">${#Project#sigDate}</urn3:dateOfSignature-->
-            <!--urn3:expirationDate xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">${#Project#expireDate}</urn3:expirationDate-->
             <urn3:explanationNonClaimantSignature xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">Electronic</urn3:explanationNonClaimantSignature>
             <urn3:haveSecondWitnessSignature xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">false</urn3:haveSecondWitnessSignature>
             <urn3:haveSignature xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">false</urn3:haveSignature>
@@ -7675,7 +7591,6 @@ FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocat
                   <urn3:originalText>phoneCode</urn3:originalText>
                </urn3:phoneNumberType>
             </urn3:phoneNumber>
-            <!--urn3:purposeOfDisclosure xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">TREATMENT</urn3:purposeOfDisclosure-->
             <urn3:secondWitnessAddress xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
                <urn3:addressType>
                   <urn3:code>AddrCode</urn3:code>
@@ -7780,7 +7695,6 @@ FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocat
                   <urn3:fullName>Kasrl S. Skagerberg</urn3:fullName>
                </urn3:personName>
                <urn3:userName>kskagerb</urn3:userName>
-               <!--urn3:role>Pharmacy</urn3:role-->
                <urn3:org>
                   <urn3:description>${#Project#LocalHCDescription}</urn3:description>
                   <urn3:homeCommunityId>${#Project#LocalHCID}</urn3:homeCommunityId>
@@ -7893,19 +7807,19 @@ declare namespace ns15='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
       </con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2012-11-27T15:57:13Z</con:value>
+          <con:value>2012-12-15T02:59:37Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2012-11-27T16:07:13Z</con:value>
+          <con:value>2012-12-15T03:09:37Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>11/27/2012 15:57:13</con:value>
+          <con:value>12/15/2012 02:59:37</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2012-12-27T00:00:00Z</con:value>
+          <con:value>2013-01-14T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>FullPatientID</con:name>
@@ -7987,7 +7901,7 @@ declare namespace ns15='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
     
     
     
-  <con:property><con:name>UDDIhcid1</con:name><con:value>4.4</con:value></con:property><con:property><con:name>UDDIhcid2</con:name><con:value>5.5</con:value></con:property><con:property><con:name>UDDIhcid3</con:name><con:value>6.6</con:value></con:property><con:property><con:name>UDDIhcid4</con:name><con:value>7.7</con:value></con:property><con:property><con:name>UnSubscriptionID</con:name><con:value>3e74139f-5271-4db1-98c0-88748fa3e4e3</con:value></con:property><con:property><con:name>UDDIhcid9</con:name><con:value>9.9</con:value></con:property><con:property><con:name>UDDIaa9</con:name><con:value>9.9</con:value></con:property><con:property><con:name>GatewayPropDir</con:name><con:value>D:\glassfish3\glassfish\domains\domain1\config\nhin</con:value></con:property></con:properties>
+  <con:property><con:name>UDDIhcid1</con:name><con:value>4.4</con:value></con:property><con:property><con:name>UDDIhcid2</con:name><con:value>5.5</con:value></con:property><con:property><con:name>UDDIhcid3</con:name><con:value>6.6</con:value></con:property><con:property><con:name>UDDIhcid4</con:name><con:value>7.7</con:value></con:property><con:property><con:name>UnSubscriptionID</con:name><con:value>3e74139f-5271-4db1-98c0-88748fa3e4e3</con:value></con:property><con:property><con:name>UDDIhcid9</con:name><con:value>9.9</con:value></con:property><con:property><con:name>UDDIaa9</con:name><con:value>9.9</con:value></con:property><con:property><con:name>GatewayPropDir</con:name><con:value>c:\glassfish3\glassfish\domains\domain1\config\nhin</con:value></con:property></con:properties>
   <con:afterLoadScript>def propertiesFile = new File(new File(project.path).parent, 'DocQueryTestsForUDDI-soapui-project.properties')
 if (propertiesFile.exists()) {
 	def props = new Properties()

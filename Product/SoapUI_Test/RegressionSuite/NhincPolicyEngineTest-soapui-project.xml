@@ -24,7 +24,7 @@
   <con:entry key="Add Settings" value="false"/>
 </xml-fragment>]]></con:setting>
 	</con:settings>
-	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincproxydocquery}NhincProxyDocQueryBindingSoap" definition="${ProjectDir}../ValidationSuite/target/wsdl/NhincProxyDocQuery.wsdl" name="NhincProxyDocQueryBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincproxydocquery}NhincProxyDocQueryBindingSoap" definition="${projectDir}/../ValidationSuite/target/wsdl/NhincProxyDocQuery.wsdl" name="NhincProxyDocQueryBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 		<con:settings/>
 		
 		<con:endpoints>
@@ -38,7 +38,7 @@
 			<con:settings/>
 		</con:operation>
 	</con:interface>
-	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincproxydocretrieve}NhincProxyDocRetrieveBindingSoap" definition="${ProjectDir}../ValidationSuite/target/wsdl/NhincProxyDocRetrieve.wsdl" name="NhincProxyDocRetrieveBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincproxydocretrieve}NhincProxyDocRetrieveBindingSoap" definition="${projectDir}/../ValidationSuite/target/wsdl/NhincProxyDocRetrieve.wsdl" name="NhincProxyDocRetrieveBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 		<con:settings/>
 		
 		<con:endpoints>
@@ -54,7 +54,7 @@
 	</con:interface>
 	
 	
-	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincproxynotificationconsumer}NhincProxyNotificationConsumerBindingSoap" definition="${ProjectDir}../ValidationSuite/target/wsdl/NhincProxyNotificationConsumer.wsdl" name="NhincProxyNotificationConsumerBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincproxynotificationconsumer}NhincProxyNotificationConsumerBindingSoap" definition="${projectDir}/../ValidationSuite/target/wsdl/NhincProxyNotificationConsumer.wsdl" name="NhincProxyNotificationConsumerBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 		<con:settings/>
 		
 		<con:endpoints>
@@ -68,7 +68,7 @@
 			<con:settings/>
 		</con:operation>
 	</con:interface>
-	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincproxysubscriptionmanagement}NhincProxyNotificationProducerBindingSoap" definition="${ProjectDir}../ValidationSuite/target/wsdl/NhincProxySubscriptionManagement.wsdl" name="NhincProxyNotificationProducerBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincproxysubscriptionmanagement}NhincProxyNotificationProducerBindingSoap" definition="${projectDir}/../ValidationSuite/target/wsdl/NhincProxySubscriptionManagement.wsdl" name="NhincProxyNotificationProducerBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 		<con:settings/>
 		
 		<con:endpoints>
@@ -85,7 +85,7 @@
 			<con:settings/>
 		</con:operation>
 	</con:interface>
-	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincproxysubscriptionmanagement}NhincProxySubscriptionManagerBindingSoap" definition="${ProjectDir}../ValidationSuite/target/wsdl/NhincProxySubscriptionManagement.wsdl" name="NhincProxySubscriptionManagerBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincproxysubscriptionmanagement}NhincProxySubscriptionManagerBindingSoap" definition="${projectDir}/../ValidationSuite/target/wsdl/NhincProxySubscriptionManagement.wsdl" name="NhincProxySubscriptionManagerBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 		<con:settings/>
 		
 		<con:endpoints>
@@ -99,7 +99,7 @@
 			<con:settings/>
 		</con:operation>
 	</con:interface>
-	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:adapternotificationconsumer}AdapterNotificationConsumerBindingSoap" definition="${ProjectDir}../ValidationSuite/target/wsdl/AdapterNotificationConsumer.wsdl" name="AdapterNotificationConsumerBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:adapternotificationconsumer}AdapterNotificationConsumerBindingSoap" definition="${projectDir}/../ValidationSuite/target/wsdl/AdapterNotificationConsumer.wsdl" name="AdapterNotificationConsumerBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 		<con:settings/>
 		
 		<con:endpoints>
@@ -115,7 +115,7 @@
 			<con:settings/>
 		</con:operation>
 	</con:interface>
-	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:entitysubscriptionmanagement}EntitySubscriptionManagerBindingSoap" definition="${ProjectDir}../ValidationSuite/target/wsdl/EntitySubscriptionManagement.wsdl" name="EntitySubscriptionManagerBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:entitysubscriptionmanagement}EntitySubscriptionManagerBindingSoap" definition="${projectDir}/../ValidationSuite/target/wsdl/EntitySubscriptionManagement.wsdl" name="EntitySubscriptionManagerBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 		<con:settings/>
 		
 		<con:endpoints>
@@ -127,7 +127,7 @@
 			<con:settings/>
 		</con:operation>
 	</con:interface>
-	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:adapterpolicyengine}AdapterPolicyEngineBindingSoap" definition="${ProjectDir}../ValidationSuite/target/wsdl/AdapterPolicyEngine.wsdl" name="AdapterPolicyEngineBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:adapterpolicyengine}AdapterPolicyEngineBindingSoap" definition="${projectDir}/../ValidationSuite/target/wsdl/AdapterPolicyEngine.wsdl" name="AdapterPolicyEngineBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 		<con:settings/>
 		
 		<con:endpoints>
@@ -144,12 +144,7 @@
 		
 		<con:testCase failOnError="true" failTestCaseOnErrors="true" id="5605bf46-c41c-47b3-897f-ce4a782917ef" keepSession="false" maxResults="0" name="Document Query" searchProperties="true">
 			<con:settings/>
-			<con:testStep name="Intialize Configurations" type="groovy">
-				<con:settings/>
-				<con:config><script>import nhinc.FileUtils;
-FileUtils.InitializeNHINCProperties(context, log);
-					</script></con:config>
-			</con:testStep>
+			
 			<con:testStep name="ModifyInterrnalConnectionInfo" type="groovy">
 				<con:settings/>
 				<con:config><script>import nhinc.FileUtils;
@@ -219,8 +214,6 @@ context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;$
                <urn3:zipCode>AddrZip</urn3:zipCode>
             </urn3:address>
             <urn3:dateOfBirth xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">06/04/1959 05:21:00</urn3:dateOfBirth>
-            <!--urn3:dateOfSignature xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">${#Project#sigDate}</urn3:dateOfSignature-->
-            <urn3:expirationDate xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">${#Project#expireDate}</urn3:expirationDate>
             <urn3:explanationNonClaimantSignature xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">Electronic</urn3:explanationNonClaimantSignature>
             <urn3:haveSecondWitnessSignature xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">false</urn3:haveSecondWitnessSignature>
             <urn3:haveSignature xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">false</urn3:haveSignature>
@@ -258,7 +251,6 @@ context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;$
                   <urn3:originalText>phoneCode</urn3:originalText>
                </urn3:phoneNumberType>
             </urn3:phoneNumber>
-            <!--urn3:purposeOfDisclosure xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">TREATMENT</urn3:purposeOfDisclosure-->
             <urn3:secondWitnessAddress xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
                <urn3:addressType>
                   <urn3:code>AddrCode</urn3:code>
@@ -363,7 +355,6 @@ context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;$
                   <urn3:fullName>Kasrl S. Skagerberg</urn3:fullName>
                </urn3:personName>
                <urn3:userName>kskagerb</urn3:userName>
-               <!--urn3:role>Pharmacy</urn3:role-->
                <urn3:org>
                   <urn3:description>${#Project#RemoteHCDescription}</urn3:description>
                   <urn3:homeCommunityId>${#Project#RemoteHCID}</urn3:homeCommunityId>
@@ -409,9 +400,6 @@ context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;$
                         <urn3:notBefore>2009-04-16T13:10:39.093Z</urn3:notBefore>
                         <urn3:notOnOrAfter>2009-12-31T12:00:00.000Z</urn3:notOnOrAfter>
                      </urn3:conditions>
-                     <!--urn3:contentReference>Claim-Ref-1234</urn3:contentReference-->
-                     <!--urn3:contentType>application/pdf</urn3:contentType-->
-                     <!--urn3:content>YWVvbGlhbQ==</urn3:content-->
                   </urn3:assertion>
                </urn3:evidence>
             </urn3:samlAuthzDecisionStatement>
@@ -502,19 +490,19 @@ declare namespace ns18='urn:gov:hhs:fha:nhinc:common:nhinccommonadapter';
 			<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2012-08-24T23:09:27Z</con:value>
+					<con:value>2012-11-28T20:31:50Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2012-08-24T23:19:27Z</con:value>
+					<con:value>2012-11-28T20:41:50Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>08/24/2012 23:09:27</con:value>
+					<con:value>11/28/2012 20:31:50</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2012-09-23T00:00:00Z</con:value>
+					<con:value>2012-12-28T00:00:00Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>FullPatientID</con:name>
@@ -526,12 +514,7 @@ declare namespace ns18='urn:gov:hhs:fha:nhinc:common:nhinccommonadapter';
 		</con:testCase>
 		<con:testCase failOnError="true" failTestCaseOnErrors="true" id="5c8330cc-e382-4dad-9c68-716bf8595ae1" keepSession="false" maxResults="0" name="Document Retrieve" searchProperties="true">
 			<con:settings/>
-			<con:testStep name="Intialize Configurations" type="groovy">
-				<con:settings/>
-				<con:config><script>import nhinc.FileUtils;
-FileUtils.InitializeNHINCProperties(context, log);
-					</script></con:config>
-			</con:testStep>
+			
 			<con:testStep name="ModifyInterrnalConnectionInfo" type="groovy">
 				<con:settings/>
 				<con:config><script>import nhinc.FileUtils;
@@ -592,8 +575,6 @@ FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", destConfigFileL
                <urn2:zipCode>AddrZip</urn2:zipCode>
             </urn2:address>
             <urn2:dateOfBirth xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">06/04/1959 05:21:00</urn2:dateOfBirth>
-            <!--urn2:dateOfSignature xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">${#Project#sigDate}</urn2:dateOfSignature-->
-            <!--urn2:expirationDate xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">${#Project#expireDate}</urn2:expirationDate-->
             <urn2:explanationNonClaimantSignature xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">Electronic</urn2:explanationNonClaimantSignature>
             <urn2:haveSecondWitnessSignature xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">false</urn2:haveSecondWitnessSignature>
             <urn2:haveSignature xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">false</urn2:haveSignature>
@@ -631,7 +612,6 @@ FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", destConfigFileL
                   <urn2:originalText>phoneCode</urn2:originalText>
                </urn2:phoneNumberType>
             </urn2:phoneNumber>
-            <!--urn2:purposeOfDisclosure xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">TREATMENT</urn2:purposeOfDisclosure-->
             <urn2:secondWitnessAddress xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
                <urn2:addressType>
                   <urn2:code>AddrCode</urn2:code>
@@ -736,7 +716,6 @@ FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", destConfigFileL
                   <urn2:fullName>Kasrl S. Skagerberg</urn2:fullName>
                </urn2:personName>
                <urn2:userName>kskagerb</urn2:userName>
-               <!--urn2:role>Pharmacy</urn2:role-->
                <urn2:org>
                   <urn2:description>${#Project#RemoteHCDescription}</urn2:description>
                   <urn2:homeCommunityId>${#Project#RemoteHCID}</urn2:homeCommunityId>
@@ -782,9 +761,6 @@ FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", destConfigFileL
                         <urn2:notBefore>2009-04-16T13:10:39.093Z</urn2:notBefore>
                         <urn2:notOnOrAfter>2009-12-31T12:00:00.000Z</urn2:notOnOrAfter>
                      </urn2:conditions>
-                     <!--urn2:contentReference>Claim-Ref-1234</urn2:contentReference-->
-                     <!--urn2:contentType>application/pdf</urn2:contentType-->
-                     <!--urn2:content>YWVvbGlhbQ==</urn2:content-->
                   </urn2:assertion>
                </urn2:evidence>
             </urn2:samlAuthzDecisionStatement>
@@ -864,19 +840,19 @@ declare namespace ns18='urn:gov:hhs:fha:nhinc:common:nhinccommonadapter';
 				</con:property>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2012-08-24T23:09:29Z</con:value>
+					<con:value>2012-11-28T20:32:34Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2012-08-24T23:19:29Z</con:value>
+					<con:value>2012-11-28T20:42:34Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>08/24/2012 23:09:29</con:value>
+					<con:value>11/28/2012 20:32:34</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2012-09-23T00:00:00Z</con:value>
+					<con:value>2012-12-28T00:00:00Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>CorrectedLocalHCID</con:name>
@@ -1392,8 +1368,6 @@ declare namespace urn1='urn:gov:hhs:fha:nhinc:common:nhinccommon';
                <nccommon:zipCode>AddrZip</nccommon:zipCode>
             </nccommon:address>
             <nccommon:dateOfBirth xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">06/04/1959 05:21:00</nccommon:dateOfBirth>
-            <!--nccommon:dateOfSignature xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">12/15/2009 03:19:32</nccommon:dateOfSignature-->
-            <!--nccommon:expirationDate xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">01/14/2010 03:24:32</nccommon:expirationDate-->
             <nccommon:explanationNonClaimantSignature xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">Electronic</nccommon:explanationNonClaimantSignature>
             <nccommon:haveSecondWitnessSignature xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">false</nccommon:haveSecondWitnessSignature>
             <nccommon:haveSignature xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">false</nccommon:haveSignature>
@@ -1431,7 +1405,6 @@ declare namespace urn1='urn:gov:hhs:fha:nhinc:common:nhinccommon';
                   <nccommon:originalText>phoneCode</nccommon:originalText>
                </nccommon:phoneNumberType>
             </nccommon:phoneNumber>
-            <!--nccommon:purposeOfDisclosure xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">TREATMENT</nccommon:purposeOfDisclosure-->
             <nccommon:secondWitnessAddress xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">
                <nccommon:addressType>
                   <nccommon:code>AddrCode</nccommon:code>
@@ -1536,7 +1509,6 @@ declare namespace urn1='urn:gov:hhs:fha:nhinc:common:nhinccommon';
                   <nccommon:fullName>Kasrl S. Skagerberg</nccommon:fullName>
                </nccommon:personName>
                <nccommon:userName>kskagerb</nccommon:userName>
-               <!--nccommon:role>Pharmacy</nccommon:role-->
                <nccommon:org>
                   <nccommon:description>Walgreens</nccommon:description>
                   <nccommon:homeCommunityId>2.2</nccommon:homeCommunityId>
@@ -1582,9 +1554,6 @@ declare namespace urn1='urn:gov:hhs:fha:nhinc:common:nhinccommon';
                         <nccommon:notBefore>2009-04-16T13:10:39.093Z</nccommon:notBefore>
                         <nccommon:notOnOrAfter>2009-12-31T12:00:00.000Z</nccommon:notOnOrAfter>
                      </nccommon:conditions>
-                     <!--nccommon:contentReference>Claim-Ref-1234</nccommon:contentReference-->
-                     <!--nccommon:contentType>application/pdf</nccommon:contentType-->
-                     <!--nccommon:content>YWVvbGlhbQ==</nccommon:content-->
                   </nccommon:assertion>
                </nccommon:evidence>
             </nccommon:samlAuthzDecisionStatement>
@@ -2282,8 +2251,6 @@ declare namespace urn1='urn:gov:hhs:fha:nhinc:common:nhinccommon';
                <nccommon:zipCode>AddrZip</nccommon:zipCode>
             </nccommon:address>
             <nccommon:dateOfBirth xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">06/04/1959 05:21:00</nccommon:dateOfBirth>
-            <!--nccommon:dateOfSignature xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">12/15/2009 03:19:38</nccommon:dateOfSignature-->
-            <!--nccommon:expirationDate xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">01/14/2010 03:24:38</nccommon:expirationDate-->
             <nccommon:explanationNonClaimantSignature xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">Electronic</nccommon:explanationNonClaimantSignature>
             <nccommon:haveSecondWitnessSignature xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">false</nccommon:haveSecondWitnessSignature>
             <nccommon:haveSignature xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">false</nccommon:haveSignature>
@@ -2321,7 +2288,6 @@ declare namespace urn1='urn:gov:hhs:fha:nhinc:common:nhinccommon';
                   <nccommon:originalText>phoneCode</nccommon:originalText>
                </nccommon:phoneNumberType>
             </nccommon:phoneNumber>
-            <!--nccommon:purposeOfDisclosure xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">TREATMENT</nccommon:purposeOfDisclosure-->
             <nccommon:secondWitnessAddress xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">
                <nccommon:addressType>
                   <nccommon:code>AddrCode</nccommon:code>
@@ -2426,7 +2392,6 @@ declare namespace urn1='urn:gov:hhs:fha:nhinc:common:nhinccommon';
                   <nccommon:fullName>Kasrl S. Skagerberg</nccommon:fullName>
                </nccommon:personName>
                <nccommon:userName>kskagerb</nccommon:userName>
-               <!--nccommon:role>Pharmacy</nccommon:role-->
                <nccommon:org>
                   <nccommon:description>InternalTest2</nccommon:description>
                   <nccommon:homeCommunityId>2.2</nccommon:homeCommunityId>
@@ -2472,9 +2437,6 @@ declare namespace urn1='urn:gov:hhs:fha:nhinc:common:nhinccommon';
                         <nccommon:notBefore>2009-04-16T13:10:39.093Z</nccommon:notBefore>
                         <nccommon:notOnOrAfter>2009-12-31T12:00:00.000Z</nccommon:notOnOrAfter>
                      </nccommon:conditions>
-                     <!--nccommon:contentReference>Claim-Ref-1234</nccommon:contentReference-->
-                     <!--nccommon:contentType>application/pdf</nccommon:contentType-->
-                     <!--nccommon:content>YWVvbGlhbQ==</nccommon:content-->
                   </nccommon:assertion>
                </nccommon:evidence>
             </nccommon:samlAuthzDecisionStatement>
@@ -3119,8 +3081,6 @@ declare namespace urn2='urn:gov:hhs:fha:nhinc:common:nhinccommon';
                <nccommon:zipCode>AddrZip</nccommon:zipCode>
             </nccommon:address>
             <nccommon:dateOfBirth xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">06/04/1959 05:21:00</nccommon:dateOfBirth>
-            <!--nccommon:dateOfSignature xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">12/15/2009 03:19:48</nccommon:dateOfSignature-->
-            <!--nccommon:expirationDate xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">01/14/2010 03:24:48</nccommon:expirationDate-->
             <nccommon:explanationNonClaimantSignature xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">Electronic</nccommon:explanationNonClaimantSignature>
             <nccommon:haveSecondWitnessSignature xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">false</nccommon:haveSecondWitnessSignature>
             <nccommon:haveSignature xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">false</nccommon:haveSignature>
@@ -3158,7 +3118,6 @@ declare namespace urn2='urn:gov:hhs:fha:nhinc:common:nhinccommon';
                   <nccommon:originalText>phoneCode</nccommon:originalText>
                </nccommon:phoneNumberType>
             </nccommon:phoneNumber>
-            <!--nccommon:purposeOfDisclosure xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">TREATMENT</nccommon:purposeOfDisclosure-->
             <nccommon:secondWitnessAddress xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">
                <nccommon:addressType>
                   <nccommon:code>AddrCode</nccommon:code>
@@ -3263,7 +3222,6 @@ declare namespace urn2='urn:gov:hhs:fha:nhinc:common:nhinccommon';
                   <nccommon:fullName>Kasrl S. Skagerberg</nccommon:fullName>
                </nccommon:personName>
                <nccommon:userName>kskagerb</nccommon:userName>
-               <!--nccommon:role>Pharmacy</nccommon:role-->
                <nccommon:org>
                   <nccommon:description>InternalTest2</nccommon:description>
                   <nccommon:homeCommunityId>2.2</nccommon:homeCommunityId>
@@ -3309,9 +3267,6 @@ declare namespace urn2='urn:gov:hhs:fha:nhinc:common:nhinccommon';
                         <nccommon:notBefore>2009-04-16T13:10:39.093Z</nccommon:notBefore>
                         <nccommon:notOnOrAfter>2009-12-31T12:00:00.000Z</nccommon:notOnOrAfter>
                      </nccommon:conditions>
-                     <!--nccommon:contentReference>Claim-Ref-1234</nccommon:contentReference-->
-                     <!--nccommon:contentType>application/pdf</nccommon:contentType-->
-                     <!--nccommon:content>YWVvbGlhbQ==</nccommon:content-->
                   </nccommon:assertion>
                </nccommon:evidence>
             </nccommon:samlAuthzDecisionStatement>
@@ -3633,7 +3588,7 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation, InitiatingHCID, "poli
 			<con:name>Endpoint-Notify</con:name>
 			<con:value>http://localhost:8080/CONNECTAdapter/NhincProxyNotificationConsumer</con:value>
 		</con:property>
-	</con:properties>
+	<con:property><con:name>GatewayPropDIr</con:name><con:value>c:\glassfish3\glassfish\domains\domain1\config\nhin</con:value></con:property></con:properties>
 	<con:afterLoadScript>def propertiesFilename = project.path[0..(project.path.size()-4)] + 'properties'
 def propertiesFile = new File(propertiesFilename)
 if (propertiesFile.exists()) {

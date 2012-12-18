@@ -66,7 +66,6 @@ public class OutboundDocRetrieveDelegateTest {
      */
     @Test
     public void testProcess() {
-        System.out.println("process");
         OutboundOrchestratable message = null;
         OutboundDocRetrieveDelegate instance = new OutboundDocRetrieveDelegate();
         instance.process(message);
@@ -77,14 +76,13 @@ public class OutboundDocRetrieveDelegateTest {
      */
     @Test
     public void testCreateErrorResponse() {
-        System.out.println("createErrorResponse");
-        OutboundDocRetrieveOrchestratableImpl message = null;
+        OutboundDocRetrieveOrchestratable message = null;
         String errorCode = "XDSDocumentUniqueIdError";
         OutboundDocRetrieveDelegate instance = new OutboundDocRetrieveDelegate();
         instance.createErrorResponse(message, errorCode);
         assertNull(message);
         
-        message = new OutboundDocRetrieveOrchestratableImpl(null, null, null, null, instance, null, null);
+        message = new OutboundStandardDocRetrieveOrchestratable(null, null, instance, null, null, null, null);
         instance.createErrorResponse(message, errorCode);
         assertEquals(message.getResponse().getRegistryResponse().getStatus(),
                 "urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Failure");

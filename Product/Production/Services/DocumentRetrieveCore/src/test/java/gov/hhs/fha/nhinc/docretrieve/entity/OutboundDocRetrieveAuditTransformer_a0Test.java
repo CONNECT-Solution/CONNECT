@@ -104,7 +104,7 @@ public class OutboundDocRetrieveAuditTransformer_a0Test {
     @Test
     public void testTransformRequest() {
         OutboundDocRetrieveOrchestratableFactory factory = new OutboundDocRetrieveOrchestratableFactory();
-        Orchestratable message = factory.getEntityDocRetrieveOrchestratableImpl_a0();
+        Orchestratable message = factory.createOutboundStandardDocRetrieveOrchestratable();
         OutboundDocRetrieveAuditTransformer_a0 instance = createOutboundDocRetrieveAuditTransformer_a0();
 
         mockingContext.checking(new Expectations() {
@@ -125,7 +125,7 @@ public class OutboundDocRetrieveAuditTransformer_a0Test {
     @Test
     public void testTransformResponse() {
         OutboundDocRetrieveOrchestratableFactory factory = new OutboundDocRetrieveOrchestratableFactory();
-        Orchestratable message = factory.getEntityDocRetrieveOrchestratableImpl_a0();
+        Orchestratable message = factory.createOutboundStandardDocRetrieveOrchestratable();
         OutboundDocRetrieveAuditTransformer_a0 instance = createOutboundDocRetrieveAuditTransformer_a0();
 
         mockingContext.checking(new Expectations() {

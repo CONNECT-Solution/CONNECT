@@ -27,35 +27,37 @@
 package gov.hhs.fha.nhinc.admindistribution.inbound;
 
 import gov.hhs.fha.nhinc.admindistribution.AdminDistributionAuditLogger;
-import gov.hhs.fha.nhinc.admindistribution.aspect.InboundProcessingEventDescriptionBuilder;
+import gov.hhs.fha.nhinc.admindistribution.aspect.EDXLDistributionEventDescriptionBuilder;
 import gov.hhs.fha.nhinc.aspect.InboundProcessingEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.event.DefaultEventDescriptionBuilder;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import oasis.names.tc.emergency.edxl.de._1.EDXLDistribution;
 
-
 public abstract class AbstractInboundAdminDistribution implements InboundAdminDistribution {
-    
+
     abstract void processAdminDistribution(EDXLDistribution body, AssertionType assertion);
-    
+
     protected AdminDistributionAuditLogger auditLogger = new AdminDistributionAuditLogger();
 
     /**
      * This method sends sendAlertMessage to agency/agencies.
      * 
-     * @param body - Emergency Message Distribution Element transaction message body.
-     * @param assertion - Assertion received.
+     * @param body
+     *            - Emergency Message Distribution Element transaction message body.
+     * @param assertion
+     *            - Assertion received.
      */
     @Override
-    @InboundProcessingEvent(serviceType = "Admin Distribution", version = "2.0",
-            afterReturningBuilder = InboundProcessingEventDescriptionBuilder.class,
-            beforeBuilder = InboundProcessingEventDescriptionBuilder.class)
-    public void sendAlertMessage(EDXLDistribution body, AssertionType assertion) {        
+    @InboundProcessingEvent(serviceType = "Admin Distribution", version = "",
+            afterReturningBuilder = DefaultEventDescriptionBuilder.class,
+            beforeBuilder = EDXLDistributionEventDescriptionBuilder.class)
+    public void sendAlertMessage(EDXLDistribution body, AssertionType assertion) {
         auditRequestFromNhin(body, assertion);
 
         processAdminDistribution(body, assertion);
     }
-    
+
     private void auditRequestFromNhin(EDXLDistribution body, AssertionType assertion) {
         auditLogger.auditNhinAdminDist(body, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION,
                 NhincConstants.AUDIT_LOG_NHIN_INTERFACE);

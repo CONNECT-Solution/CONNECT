@@ -70,7 +70,7 @@ public class VerifyMode implements ResponseMode {
         return processResponse(requestMsg, response, assertion);
     }
 
-    public PRPAIN201306UV02 processResponse(II localPatientId, PRPAIN201306UV02 response, AssertionType assertion) {
+    public PRPAIN201306UV02 processResponse(PRPAIN201306UV02 response, AssertionType assertion, II localPatientId) {
         log.debug("begin processResponse");
 
         PRPAIN201306UV02 result = response;

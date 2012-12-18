@@ -26,4 +26,9 @@
     <property column="othercommunityid" name="otherCommunityId" />
     <property column="errorcode" name="errorCode" />
   </class>
+
+  <!-- Half-open interval on purpose - this is what 'between' criteria do. -->
+  <query name="getPerfrepositoryRange">
+    <![CDATA[FROM Perfrepository pr WHERE pr.starttime >= :start AND pr.starttime < :stop]]>
+  </query>
 </hibernate-mapping>

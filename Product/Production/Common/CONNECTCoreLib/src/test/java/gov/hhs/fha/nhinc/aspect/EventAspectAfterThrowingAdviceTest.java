@@ -59,25 +59,22 @@ public class EventAspectAfterThrowingAdviceTest {
 
     @Parameters
     public static Collection<Object[]> data() {
-        Object[][] data = new Object[][] { { InboundMessageEvent.class }, 
-                  { InboundProcessingEvent.class },
-                { AdapterDelegationEvent.class },
-                { OutboundMessageEvent.class },
-                { OutboundProcessingEvent.class},
+        Object[][] data = new Object[][] { { InboundMessageEvent.class }, { InboundProcessingEvent.class },
+                { AdapterDelegationEvent.class }, { OutboundMessageEvent.class }, { OutboundProcessingEvent.class },
                 { NwhinInvocationEvent.class } };
         return Arrays.asList(data);
     }
 
     @Test
     public void verify() throws NoSuchMethodException, SecurityException {
-        Method method = clazz.getMethod("failEvent", JoinPoint.class);
+        Method method = clazz.getMethod("failEvent", JoinPoint.class, Throwable.class);
         assertNotNull("method exsist with correct parameters", method);
 
         AfterThrowing annotation = method.getAnnotation(AfterThrowing.class);
 
         assertNotNull(annotation);
 
-        String expression = annotation.value();
+        String expression = annotation.pointcut();
 
         assertTrue("does bind to '" + annotationClass.getCanonicalName() + "'",
                 expression.contains("@annotation(" + annotationClass.getCanonicalName() + ")"));

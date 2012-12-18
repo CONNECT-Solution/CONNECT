@@ -1,19 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <con:soapui-project abortOnError="false" name="NHINCPatientDiscoveryMAA" resourceRoot="${projectDir}" runType="SEQUENTIAL" soapui-version="4.5.1" activeEnvironment="Default" xmlns:con="http://eviware.com/soapui/config">
 	<con:settings/>
-	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincproxypatientdiscovery}NhincProxyPatientDiscoveryBinding" definition="${ProjectDir}../ValidationSuite/target/wsdl/NhincProxyPatientDiscovery.wsdl" name="NhincProxyPatientDiscoveryBinding" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-		<con:settings/>
-
-		
-		<con:endpoints>
-			<con:endpoint>${#Project#Endpoint-PatientDiscovery}</con:endpoint>
-			<con:endpoint>http://localhost:${HttpDefaultPort}/NhinConnect/NhincProxyPatientDiscovery</con:endpoint>
-		</con:endpoints>
-		<con:operation action="urn:Proxy_PRPA_IN201305UV" anonymous="optional" bindingOperationName="Proxy_PRPA_IN201305UV" inputName="Proxy_PRPA_IN201305UVProxyRequest" isOneWay="false" name="Proxy_PRPA_IN201305UV" outputName="Proxy_PRPA_IN201306UVProxyResponse" receivesAttachments="false" sendsAttachments="false" type="Request-Response">
-			<con:settings/>
-		</con:operation>
-	</con:interface>
-	<con:testSuite name="PatientDiscovery">
+	
+	<con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="EntityPatientDiscoveryBindingSoap" type="wsdl" bindingName="{urn:gov:hhs:fha:nhinc:entitypatientdiscovery}EntityPatientDiscoveryBindingSoap" soapVersion="1_2" anonymous="optional" definition="../ValidationSuite/target/wsdl/EntityPatientDiscovery.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:endpoints><con:endpoint>http://localhost:8080/Gateway/PatientDiscovery/1_0/EntityPatientDiscovery</con:endpoint></con:endpoints><con:operation isOneWay="false" action="urn:RespondingGateway_PRPA_IN201305UV02" name="RespondingGateway_PRPA_IN201305UV02" bindingOperationName="RespondingGateway_PRPA_IN201305UV02" type="Request-Response" outputName="RespondingGateway_PRPA_IN201306UV02Response" inputName="RespondingGateway_PRPA_IN201305UV02Request" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation></con:interface><con:testSuite name="PatientDiscovery">
 		<con:settings/>
 		<con:runType>SEQUENTIAL</con:runType>
 		<con:testCase failOnError="true" failTestCaseOnErrors="true" id="228cca2d-5c0c-4bde-8678-a9829aa19156" keepSession="false" maxResults="0" name="PatientDiscoveryMAA" searchProperties="true">
@@ -21,14 +10,14 @@
 			<con:testStep name="Patient Discovery MAA" type="request">
 				<con:settings/>
 				<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-					<con:interface>NhincProxyPatientDiscoveryBinding</con:interface>
-					<con:operation>Proxy_PRPA_IN201305UV</con:operation>
+					<con:interface>EntityPatientDiscoveryBindingSoap</con:interface>
+					<con:operation>RespondingGateway_PRPA_IN201305UV02</con:operation>
 					<con:request name="Patient Discovery MAA">
 						<con:settings>
 							<con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
 				</con:settings>
 				<con:encoding>UTF-8</con:encoding>
-				<con:endpoint>${#Project#Endpoint-PatientDiscovery}</con:endpoint>
+				<con:endpoint>http://localhost:8080/Gateway/PatientDiscovery/1_0/EntityPatientDiscovery</con:endpoint>
 				<con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:hl7-org:v3" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing">
    <soapenv:Header/>
    <soapenv:Body projectName="InternalSelfTest" testCase="Patient Discovery">
@@ -72,12 +61,12 @@
                   <urn:statusCode code="new"/>
                   <urn:responseModalityCode code="R"/>
                   <urn:responsePriorityCode code="I"/>
-         <!--         <urn:matchCriterionList>
+                  <!--<urn:matchCriterionList>
                      <urn:minimumDegreeMatch>
                         <urn:value value="100"/>
                         <urn:semanticsText representation="TXT">Match</urn:semanticsText>
                      </urn:minimumDegreeMatch>
-                  </urn:matchCriterionList> -->
+                  </urn:matchCriterionList>-->
                   <urn:parameterList>
                      <urn:livingSubjectAdministrativeGender>
                         <urn:value code="${#Project#Gender}"/>
@@ -114,8 +103,6 @@
                <urn1:zipCode>${#Project#ZipCode}</urn1:zipCode>
             </urn1:address>
             <urn1:dateOfBirth>${#Project#DOB}</urn1:dateOfBirth>
-            <!--urn1:dateOfSignature>${#Project#DateOfSignature}</urn1:dateOfSignature-->
-            <!--urn1:expirationDate>${#Project#ExpirationDate}</urn1:expirationDate-->
             <urn1:explanationNonClaimantSignature>NEEDED</urn1:explanationNonClaimantSignature>
             <urn1:haveSecondWitnessSignature>true</urn1:haveSecondWitnessSignature>
             <urn1:haveSignature>true</urn1:haveSignature>
@@ -144,7 +131,6 @@
                   <urn1:code>W</urn1:code>
                </urn1:phoneNumberType>
             </urn1:phoneNumber>
-            <!--urn1:purposeOfDisclosure>${#Project#PurposeOfDisclosure}</urn1:purposeOfDisclosure-->
             <urn1:secondWitnessAddress>
                <urn1:addressType>
                   <urn1:code>W</urn1:code>
@@ -217,7 +203,6 @@
                   <urn1:prefix>Mrs</urn1:prefix>
                </urn1:personName>
                <urn1:userName>wanderson</urn1:userName>
-               <!--urn1:role>nurse</urn1:role-->
                <urn1:org>
                   <urn1:description>${#Project#RemoteHCDescription}</urn1:description>
                   <urn1:homeCommunityId>${#Project#RemoteHCID}</urn1:homeCommunityId>
@@ -269,15 +254,16 @@
                </urn1:evidence>
             </urn1:samlAuthzDecisionStatement>
          </urn:assertion>
-         <urn:nhinTargetSystem>
-            <urn1:homeCommunity>
-               <urn1:description>${#Project#LocalHCDescription}</urn1:description>
-               <urn1:homeCommunityId>${#Project#LocalHCID}</urn1:homeCommunityId>
-               <urn1:name>${#Project#LocalHCDescription}</urn1:name>
-            </urn1:homeCommunity>
-         </urn:nhinTargetSystem>
+         <urn:NhinTargetCommunities>
+            <urn1:nhinTargetCommunity>
+               <urn1:homeCommunity>
+                  <urn1:description>${#Project#LocalHCDescription}</urn1:description>
+                  <urn1:homeCommunityId>${#Project#LocalHCID}</urn1:homeCommunityId>
+                  <urn1:name>${#Project#LocalHCDescription}</urn1:name>
+               </urn1:homeCommunity>
+            </urn1:nhinTargetCommunity>
+         </urn:NhinTargetCommunities>
       </urn:Proxy_PRPA_IN201305UVProxyRequest>
-      <urn:PIXConsumer_PRPA_IN201305UVProxyRequest/>
    </soapenv:Body>
 </soapenv:Envelope>]]></con:request>
 				<con:assertion type="SOAP Response"/>
@@ -331,7 +317,7 @@ exists( //ns3:PRPA_IN201306UV02/ns3:controlActProcess)</path>
 		</con:config>
 	</con:testStep>
 	<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);</con:tearDownScript>
-	<con:properties><con:property><con:name>startDate</con:name><con:value>2012-11-26T20:04:31Z</con:value></con:property><con:property><con:name>endDate</con:name><con:value>2012-11-26T20:14:31Z</con:value></con:property><con:property><con:name>sigDate</con:name><con:value>11/26/2012 20:04:31</con:value></con:property><con:property><con:name>expireDate</con:name><con:value>2012-12-26T00:00:00Z</con:value></con:property></con:properties>
+	<con:properties><con:property><con:name>startDate</con:name><con:value>2012-12-16T17:56:15Z</con:value></con:property><con:property><con:name>endDate</con:name><con:value>2012-12-16T18:06:15Z</con:value></con:property><con:property><con:name>sigDate</con:name><con:value>12/16/2012 17:56:15</con:value></con:property><con:property><con:name>expireDate</con:name><con:value>2013-01-15T00:00:00Z</con:value></con:property></con:properties>
 </con:testCase>
 <con:properties/>
 </con:testSuite>
@@ -346,7 +332,7 @@ exists( //ns3:PRPA_IN201306UV02/ns3:controlActProcess)</path>
 	
 	
 	
-	<con:property><con:name>BirthTime</con:name><con:value>20040315</con:value></con:property><con:property><con:name>City</con:name><con:value>Melbourne</con:value></con:property><con:property><con:name>Country</con:name><con:value>US</con:value></con:property><con:property><con:name>DateOfSignature</con:name><con:value>20080520</con:value></con:property>
+	<con:property><con:name>BirthTime</con:name><con:value>20040315</con:value></con:property><con:property><con:name>City</con:name><con:value>Melbourne</con:value></con:property><con:property><con:name>Country</con:name><con:value>US</con:value></con:property>
 	
 	
 	<con:property><con:name>DBHost</con:name><con:value>localhost</con:value></con:property><con:property><con:name>DBPass</con:name><con:value>nhincpass</con:value></con:property>
@@ -361,7 +347,7 @@ exists( //ns3:PRPA_IN201306UV02/ns3:controlActProcess)</path>
 	
 	
 	
-<con:property><con:name>LocalHCDescription</con:name><con:value>InternalTest1</con:value></con:property><con:property><con:name>LocalHCID</con:name><con:value>1.1</con:value></con:property><con:property><con:name>LocalPatientID</con:name><con:value>D123401</con:value></con:property><con:property><con:name>MockHost</con:name><con:value>localhost</con:value></con:property><con:property><con:name>NHINGatewayConfigDir</con:name><con:value>C:/Sun/AppServer/domains/domain1/config/nhin</con:value></con:property><con:property><con:name>NHINGatewayHost</con:name><con:value>localhost</con:value></con:property><con:property><con:name>PatientId</con:name><con:value>XDR Request1</con:value></con:property><con:property><con:name>PurposeOfDisclosure</con:name><con:value>Mental</con:value></con:property><con:property><con:name>RemoteAA</con:name><con:value>2.2</con:value></con:property><con:property><con:name>RemoteHCDescription</con:name><con:value>InternalTest2</con:value></con:property><con:property><con:name>RemoteHCID</con:name><con:value>2.2</con:value></con:property><con:property><con:name>RemotePatientID</con:name><con:value>D123401</con:value></con:property><con:property><con:name>SSN</con:name><con:value>123456789</con:value></con:property><con:property><con:name>State</con:name><con:value>FL</con:value></con:property><con:property><con:name>StreetAddress</con:name><con:value>123 Johnson Rd</con:value></con:property><con:property><con:name>SubjectID</con:name><con:value>1111</con:value></con:property><con:property><con:name>UniquePatientId</con:name><con:value>1111^^^&amp;amp;1.1&amp;amp;ISO</con:value></con:property><con:property><con:name>UserID</con:name><con:value>XDR Request Inbound User</con:value></con:property><con:property><con:name>ZipCode</con:name><con:value>12345</con:value></con:property></con:properties>
+<con:property><con:name>LocalHCDescription</con:name><con:value>InternalTest1</con:value></con:property><con:property><con:name>LocalHCID</con:name><con:value>1.1</con:value></con:property><con:property><con:name>LocalPatientID</con:name><con:value>D123401</con:value></con:property><con:property><con:name>MockHost</con:name><con:value>localhost</con:value></con:property><con:property><con:name>NHINGatewayConfigDir</con:name><con:value>C:/Sun/AppServer/domains/domain1/config/nhin</con:value></con:property><con:property><con:name>NHINGatewayHost</con:name><con:value>localhost</con:value></con:property><con:property><con:name>PatientId</con:name><con:value>XDR Request1</con:value></con:property><con:property><con:name>PurposeOfDisclosure</con:name><con:value>Mental</con:value></con:property><con:property><con:name>RemoteAA</con:name><con:value>2.2</con:value></con:property><con:property><con:name>RemoteHCDescription</con:name><con:value>InternalTest2</con:value></con:property><con:property><con:name>RemoteHCID</con:name><con:value>2.2</con:value></con:property><con:property><con:name>RemotePatientID</con:name><con:value>D123401</con:value></con:property><con:property><con:name>SSN</con:name><con:value>123456789</con:value></con:property><con:property><con:name>State</con:name><con:value>FL</con:value></con:property><con:property><con:name>StreetAddress</con:name><con:value>123 Johnson Rd</con:value></con:property><con:property><con:name>SubjectID</con:name><con:value>1111</con:value></con:property><con:property><con:name>UniquePatientId</con:name><con:value>1111^^^&amp;amp;1.1&amp;amp;ISO</con:value></con:property><con:property><con:name>UserID</con:name><con:value>XDR Request Inbound User</con:value></con:property><con:property><con:name>ZipCode</con:name><con:value>12345</con:value></con:property><con:property><con:name>GatewayPropDir</con:name><con:value>c:\glassfish3\glassfish\domains\domain1\config\nhin</con:value></con:property><con:property><con:name>DateOfSignature</con:name><con:value>20080520</con:value></con:property></con:properties>
 <con:afterLoadScript>def propertiesFile = new File(new File(project.path).parent, 'NHINCPatientDiscoveryMAA-soapui-project.properties')
 if (propertiesFile.exists()) {
 	def props = new Properties()

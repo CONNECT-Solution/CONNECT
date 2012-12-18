@@ -26,25 +26,20 @@
  */
 package gov.hhs.fha.nhinc.gateway.aggregator.dao;
 
+import gov.hhs.fha.nhinc.gateway.aggregator.AggregatorException;
+import gov.hhs.fha.nhinc.gateway.aggregator.model.AggTransaction;
+import gov.hhs.fha.nhinc.gateway.aggregator.persistence.HibernateUtil;
+
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import java.text.SimpleDateFormat;
-
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-
-import gov.hhs.fha.nhinc.gateway.aggregator.model.AggTransaction;
-
-import gov.hhs.fha.nhinc.gateway.aggregator.persistence.HibernateUtil;
-
-import gov.hhs.fha.nhinc.gateway.aggregator.AggregatorException;
-
-import java.util.ArrayList;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.Criteria;
-import org.hibernate.criterion.Expression;
 
 /**
  * This class is responsible for the persistence of data into the AGGREGATOR.AGG_TRANSACTION table and also for
@@ -65,7 +60,8 @@ public class AggTransactionDao {
      * This method saves the specified data into the AGGREGATOR.AGG_TRANSACTION and AGGREGATOR_AGG_MESSAGE_RESULTS
      * tables and if this is a new transaction, it will assign a new transaction ID..
      * 
-     * @param aggTransaction The data to be written to the table.
+     * @param aggTransaction
+     *            The data to be written to the table.
      */
     public void save(AggTransaction oAggTransaction) {
 
@@ -86,7 +82,8 @@ public class AggTransactionDao {
      * Delete a row in the AGGREGATOR.AGG_TRANSACTION table along with the corresponding entries in the
      * AGGREGATOR.AGG_MESSAGE_RESULTS table.
      * 
-     * @param document Document to delete
+     * @param document
+     *            Document to delete
      */
     public void delete(AggTransaction oAggTransaction) {
         String sTransactionId = null;
@@ -106,7 +103,8 @@ public class AggTransactionDao {
     /**
      * Retrieve a record by identifier (TransactionId)
      * 
-     * @param sTransactionId Transaction ID for the transaction being returned.
+     * @param sTransactionId
+     *            Transaction ID for the transaction being returned.
      * @return Retrieved transaction.
      */
     public AggTransaction findById(String sTransactionId) {
@@ -121,12 +119,14 @@ public class AggTransactionDao {
     /**
      * Retrieve records that are older than the specified date and time.
      * 
-     * @param dtDateTime The date in time in which we want to retrieve older records.
+     * @param dtDateTime
+     *            The date in time in which we want to retrieve older records.
      * @return The set of transactions that were retrieved.
-     * @throws AggregatorException This exception is thrown if there is an error message.
+     * @throws AggregatorException
+     *             This exception is thrown if there is an error message.
      */
     @SuppressWarnings("unchecked")
-    // Occurs because of olAggTransaction = oCriteria.list(); - but it is safe so suppress the warning
+    // Occurs because of olAggTransaction = query.list(); - but it is safe so suppress the warning
     public AggTransaction[] findOlderThan(Date dtDateTime) throws AggregatorException {
         List<AggTransaction> olAggTransaction = new ArrayList<AggTransaction>();
         SimpleDateFormat oFormat = new SimpleDateFormat("MM/dd/yyyy.HH:mm:ss");
@@ -150,9 +150,9 @@ public class AggTransactionDao {
             if (oSessionFactory != null) {
                 oSession = oSessionFactory.openSession();
                 if (oSession != null) {
-                    Criteria oCriteria = oSession.createCriteria(AggTransaction.class);
-                    oCriteria.add(Expression.le("transactionStartTime", dtDateTime));
-                    olAggTransaction = oCriteria.list();
+                    Query query = oSession.getNamedQuery("findOlderThan");
+                    query.setParameter("transactionStartTime", dtDateTime);
+                    olAggTransaction = query.list();
                 } else {
                     log.error("Failed to obtain a session from the sessionFactory " + "while calling findOlderThan("
                             + sDateTime + ").  ");

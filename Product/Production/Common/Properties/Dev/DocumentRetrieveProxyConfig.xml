@@ -120,30 +120,4 @@ http://www.springframework.org/schema/aop http://www.springframework.org/schema/
 		<meta key="default" value="true"/>
 	</bean> 
 	
-	
-	
-	<!-- Beans defined : passthru -->
-	
-	<alias alias="passthrudocretrieve" name="passthrudocretrievejava" />
-	
-	<!-- No-op Implementation -->
-	<bean lazy-init="true" class="gov.hhs.fha.nhinc.docretrieve.passthru.proxy.PassthruDocRetrieveProxyNoOpImpl" id="passthrudocretrievenoop" name="passthrudocretrievenoop"> 
-		<meta key="impltype" value="noop"/>
-	</bean> 
-
-	<!-- Java Implementation -->
-	<bean lazy-init="true" class="gov.hhs.fha.nhinc.docretrieve.passthru.proxy.PassthruDocRetrieveProxyJavaImpl" id="passthrudocretrievejava" name="passthrudocretrievejava"> 
-		<meta key="impltype" value="java"/>
-		<meta key="default" value="true"/>
-	</bean> 
-
-	<!-- Secured web service Implementation -->
-    <bean lazy-init="true" class="gov.hhs.fha.nhinc.docretrieve.passthru.proxy.PassthruDocRetrieveProxyWebServiceSecuredImpl" id="passthrudocretrievewssecured" name="passthrudocretrievewssecured"> 
-		<meta key="impltype" value="wssecured"/>
-	</bean> 
-
-	<!-- Unsecured web service Implementation -->
-	<bean lazy-init="true" class="gov.hhs.fha.nhinc.docretrieve.passthru.proxy.PassthruDocRetrieveProxyWebServiceUnsecuredImpl" id="passthrudocretrievewsunsecured" name="passthrudocretrievewsunsecured"> 
-		<meta key="impltype" value="wsunsecured"/>
-	</bean> 
 </beans>

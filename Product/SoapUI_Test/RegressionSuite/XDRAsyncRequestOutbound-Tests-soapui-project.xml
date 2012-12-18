@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <con:soapui-project abortOnError="false" name="XDRAsyncRequestOutboundTest" resourceRoot="${projectDir}" runType="SEQUENTIAL" soapui-version="4.5.1" activeEnvironment="Default" xmlns:con="http://eviware.com/soapui/config">
 	<con:settings/>
-	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincentityxdr:async:request}EntityXDRAsyncRequest_Binding" definition="${ProjectDir}../ValidationSuite/target/wsdl/EntityXDRRequest.wsdl" name="EntityXDRAsyncRequest_Binding" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincentityxdr:async:request}EntityXDRAsyncRequest_Binding" definition="${projectDir}/../ValidationSuite/target/wsdl/EntityXDRRequest.wsdl" name="EntityXDRAsyncRequest_Binding" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 		<con:settings/>
 		
 		<con:endpoints>
@@ -14,7 +14,7 @@
 			<con:settings/>
 		</con:operation>
 	</con:interface>
-	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincentityxdr:async:response}EntityXDRAsyncResponse_Binding" definition="${ProjectDir}../ValidationSuite/target/wsdl/EntityXDRResponse.wsdl" name="EntityXDRAsyncResponse_Binding" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincentityxdr:async:response}EntityXDRAsyncResponse_Binding" definition="${projectDir}/../ValidationSuite/target/wsdl/EntityXDRResponse.wsdl" name="EntityXDRAsyncResponse_Binding" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 		<con:settings/>
 		
 		<con:endpoints>
@@ -26,7 +26,7 @@
 			<con:settings/>
 		</con:operation>
 	</con:interface>
-	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincproxyxdr}ProxyXDR_Binding" definition="${ProjectDir}../ValidationSuite/target/wsdl/NhincProxyXDR.wsdl" name="ProxyXDR_Binding" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincproxyxdr}ProxyXDR_Binding" definition="${projectDir}/../ValidationSuite/target/wsdl/NhincProxyXDR.wsdl" name="ProxyXDR_Binding" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 		<con:settings/>
 		
 		<con:endpoints>
@@ -382,7 +382,7 @@
 			</con:call>
 		</con:operation>
 	</con:interface>
-	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:adapterpolicyengine}AdapterPolicyEngineBindingSoap" definition="${ProjectDir}../ValidationSuite/target/wsdl/AdapterPolicyEngine.wsdl" name="AdapterPolicyEngineBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:adapterpolicyengine}AdapterPolicyEngineBindingSoap" definition="${projectDir}/../ValidationSuite/target/wsdl/AdapterPolicyEngine.wsdl" name="AdapterPolicyEngineBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 		<con:settings/>
 		
 		<con:endpoints>
@@ -418,8 +418,6 @@
                <urn1:zipCode>?</urn1:zipCode>
             </urn1:address>
             <urn1:dateOfBirth>?</urn1:dateOfBirth>
-            <!--urn1:dateOfSignature>?</urn1:dateOfSignature-->
-            <!--urn1:expirationDate>?</urn1:expirationDate-->
             <urn1:explanationNonClaimantSignature>?</urn1:explanationNonClaimantSignature>
             <urn1:haveSecondWitnessSignature>?</urn1:haveSecondWitnessSignature>
             <urn1:haveSignature>?</urn1:haveSignature>
@@ -460,7 +458,6 @@
                   <urn1:translation/>
                </urn1:phoneNumberType>
             </urn1:phoneNumber>
-            <!--urn1:purposeOfDisclosure>?</urn1:purposeOfDisclosure-->
             <urn1:secondWitnessAddress>
                <urn1:addressType>
                   <urn1:code>?</urn1:code>
@@ -577,7 +574,6 @@
                   <urn1:secondNameOrInitials>?</urn1:secondNameOrInitials>
                </urn1:personName>
                <urn1:userName>?</urn1:userName>
-               <!--urn1:role>?</urn1:role-->
                <urn1:org>
                   <urn1:description>?</urn1:description>
                   <urn1:homeCommunityId>?</urn1:homeCommunityId>
@@ -3708,7 +3704,7 @@ assert (count > 0);</script></con:config></con:testStep><con:setupScript>nhinc.F
 		<con:property><con:name>RemotePatientID</con:name><con:value>D123401</con:value></con:property><con:property><con:name>TestHelperAA</con:name><con:value>3.3</con:value></con:property><con:property><con:name>TestHelperHCDescription</con:name><con:value>InternalTest3</con:value></con:property>
 		
 		
-	<con:property><con:name>TestHelperHCID</con:name><con:value>3.3</con:value></con:property><con:property><con:name>UserID</con:name><con:value>XDR Request Inbound User</con:value></con:property><con:property><con:name>AuditTable</con:name><con:value>auditrepository</con:value></con:property><con:property><con:name>AuditDB</con:name><con:value>auditrepo</con:value></con:property><con:property><con:name>GatewayPropDir</con:name><con:value>D:\glassfish3\glassfish\domains\domain1\config\nhin</con:value></con:property></con:properties>
+	<con:property><con:name>TestHelperHCID</con:name><con:value>3.3</con:value></con:property><con:property><con:name>UserID</con:name><con:value>XDR Request Inbound User</con:value></con:property><con:property><con:name>AuditTable</con:name><con:value>auditrepository</con:value></con:property><con:property><con:name>AuditDB</con:name><con:value>auditrepo</con:value></con:property><con:property><con:name>GatewayPropDir</con:name><con:value>c:\glassfish3\glassfish\domains\domain1\config\nhin</con:value></con:property></con:properties>
 	<con:afterLoadScript>def propertiesFile = new File(new File(project.path).parent, 'XDRAsyncRequestOutbound-Tests-soapui-project.properties')
 if (propertiesFile.exists()) {
 	def props = new Properties()

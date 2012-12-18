@@ -88,31 +88,5 @@ http://www.springframework.org/schema/aop http://www.springframework.org/schema/
 		<meta key="impltype" value="wssecured"/>
 		<meta key="default" value="true"/>
 	</bean>
-	
-	
-	
-	<!-- Beans defined : passthru -->
-	
-	<alias alias="passthrupatientdiscoverydeferredresp" name="passthrupatientdiscoverydeferredrespwsunsecured" />
-
-    <!-- No-op Implementation -->
-	<bean lazy-init="true" class="gov.hhs.fha.nhinc.patientdiscovery.passthru.deferred.response.proxy.PassthruPatientDiscoveryDeferredRespProxyNoOpImpl" id="passthrupatientdiscoverydeferredrespnoop" name="passthrupatientdiscoverydeferredrespnoop"> 
-		<meta key="impltype" value="noop"/>
-	</bean> 
-
-	<!-- Java Implementation -->
-	<bean lazy-init="true" class="gov.hhs.fha.nhinc.patientdiscovery.passthru.deferred.response.proxy.PassthruPatientDiscoveryDeferredRespProxyJavaImpl" id="passthrupatientdiscoverydeferredrespjava" name="passthrupatientdiscoverydeferredrespjava"> 
-		<meta key="impltype" value="java"/>
-		<meta key="default" value="true"/>
-	</bean> 
-
-	<!-- Secured web service Implementation -->
-    <bean lazy-init="true" class="gov.hhs.fha.nhinc.patientdiscovery.passthru.deferred.response.proxy.PassthruPatientDiscoveryDeferredRespProxyWebServiceSecuredImpl" id="passthrupatientdiscoverydeferredrespwssecured" name="passthrupatientdiscoverydeferredrespwssecured"> 
-		<meta key="impltype" value="wssecured"/>
-	</bean> 
-
-	<!-- Unsecured web service Implementation -->
-	<bean lazy-init="true" class="gov.hhs.fha.nhinc.patientdiscovery.passthru.deferred.response.proxy.PassthruPatientDiscoveryDeferredRespProxyWebServiceUnsecuredImpl" id="passthrupatientdiscoverydeferredrespwsunsecured" name="passthrupatientdiscoverydeferredrespwsunsecured"> 
-		<meta key="impltype" value="wsunsecured"/>
-	</bean> 
+		
 </beans>

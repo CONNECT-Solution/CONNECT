@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <con:soapui-project abortOnError="false" name="QueryByState" resourceRoot="${projectDir}" runType="SEQUENTIAL" soapui-version="4.5.1" activeEnvironment="Default" xmlns:con="http://eviware.com/soapui/config">
 	<con:settings/>
-	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhinccomponentconnectionmanager}NhincComponentConnectionManagerBindingSoap" definition="${ProjectDir}../ValidationSuite/target/wsdl/NhincComponentConnectionManager.wsdl" name="NhincComponentConnectionManagerBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhinccomponentconnectionmanager}NhincComponentConnectionManagerBindingSoap" definition="${projectDir}/../ValidationSuite/target/wsdl/NhincComponentConnectionManager.wsdl" name="NhincComponentConnectionManagerBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 		<con:settings/>
 		
 		<con:endpoints>
@@ -88,7 +88,7 @@ def destFile = "internalConnectionInfo.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
-FileUtils.moveFile(sourceDir, sourceFile, destDir, destFile, log);</script></con:config>
+FileUtils.copyFile(sourceDir, sourceFile, destDir, destFile, log);</script></con:config>
 			</con:testStep>
 			<con:testStep name="copy uddiConnectionInfo" type="groovy">
 				<con:settings/>
@@ -108,7 +108,7 @@ def destFile = "uddiConnectionInfo.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
-FileUtils.moveFile(sourceDir, sourceFile, destDir, destFile, log);				</script></con:config>
+FileUtils.copyFile(sourceDir, sourceFile, destDir, destFile, log);				</script></con:config>
 			</con:testStep>
 			<con:testStep name="Single HCID" type="request">
 				<con:settings/>
@@ -262,7 +262,7 @@ def destFile = "internalConnectionInfo.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
-FileUtils.moveFile(sourceDir, sourceFile, destDir, destFile, log);</script></con:config>
+FileUtils.copyFile(sourceDir, sourceFile, destDir, destFile, log);</script></con:config>
 			</con:testStep>
 			<con:testStep name="copy uddiConnectionInfo" type="groovy">
 				<con:settings/>
@@ -282,7 +282,7 @@ def destFile = "uddiConnectionInfo.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
-FileUtils.moveFile(sourceDir, sourceFile, destDir, destFile, log);</script></con:config>
+FileUtils.copyFile(sourceDir, sourceFile, destDir, destFile, log);</script></con:config>
 			</con:testStep>
 			<con:testStep name="Single Region" type="request">
 				<con:settings/>
@@ -450,7 +450,7 @@ def destFile = "internalConnectionInfo.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
-FileUtils.moveFile(sourceDir, sourceFile, destDir, destFile, log);</script></con:config>
+FileUtils.copyFile(sourceDir, sourceFile, destDir, destFile, log);</script></con:config>
 			</con:testStep>
 			<con:testStep name="copy uddiConnectionInfo" type="groovy">
 				<con:settings/>
@@ -470,7 +470,7 @@ def destFile = "uddiConnectionInfo.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
-FileUtils.moveFile(sourceDir, sourceFile, destDir, destFile, log);</script></con:config>
+FileUtils.copyFile(sourceDir, sourceFile, destDir, destFile, log);</script></con:config>
 			</con:testStep>
 			<con:testStep name="Region and associated HCID" type="request">
 				<con:settings/>
@@ -579,7 +579,7 @@ def destFile = "internalConnectionInfo.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
-FileUtils.moveFile(sourceDir, sourceFile, destDir, destFile, log);</script></con:config>
+FileUtils.copyFile(sourceDir, sourceFile, destDir, destFile, log);</script></con:config>
 			</con:testStep>
 			<con:testStep name="copy uddiConnectionInfo" type="groovy">
 				<con:settings/>
@@ -599,7 +599,7 @@ def destFile = "uddiConnectionInfo.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
-FileUtils.moveFile(sourceDir, sourceFile, destDir, destFile, log);</script></con:config>
+FileUtils.copyFile(sourceDir, sourceFile, destDir, destFile, log);</script></con:config>
 			</con:testStep>
 			<con:testStep name="Region and associating HCID" type="request">
 				<con:settings/>
@@ -726,7 +726,7 @@ def destFile = "internalConnectionInfo.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
-FileUtils.moveFile(sourceDir, sourceFile, destDir, destFile, log);</script></con:config>
+FileUtils.copyFile(sourceDir, sourceFile, destDir, destFile, log);</script></con:config>
 			</con:testStep>
 			<con:testStep name="copy uddiConnectionInfo" type="groovy">
 				<con:settings/>
@@ -746,7 +746,7 @@ def destFile = "uddiConnectionInfo.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
-FileUtils.moveFile(sourceDir, sourceFile, destDir, destFile, log);</script></con:config>
+FileUtils.copyFile(sourceDir, sourceFile, destDir, destFile, log);</script></con:config>
 			</con:testStep>
 			<con:testStep name="Single HCID" type="request">
 				<con:settings/>
@@ -858,7 +858,7 @@ def destFile = "internalConnectionInfo.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
-FileUtils.moveFile(sourceDir, sourceFile, destDir, destFile, log);</script></con:config>
+FileUtils.copyFile(sourceDir, sourceFile, destDir, destFile, log);</script></con:config>
 			</con:testStep>
 			<con:testStep name="copy uddiConnectionInfo" type="groovy">
 				<con:settings/>
@@ -878,7 +878,7 @@ def destFile = "uddiConnectionInfo.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
-FileUtils.moveFile(sourceDir, sourceFile, destDir, destFile, log);</script></con:config>
+FileUtils.copyFile(sourceDir, sourceFile, destDir, destFile, log);</script></con:config>
 			</con:testStep>
 			<con:testStep name="Single Region" type="request">
 				<con:settings/>
@@ -1001,7 +1001,7 @@ def destFile = "internalConnectionInfo.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
-FileUtils.moveFile(sourceDir, sourceFile, destDir, destFile, log);</script></con:config>
+FileUtils.copyFile(sourceDir, sourceFile, destDir, destFile, log);</script></con:config>
 			</con:testStep>
 			<con:testStep name="copy uddiConnectionInfo" type="groovy">
 				<con:settings/>
@@ -1021,7 +1021,7 @@ def destFile = "uddiConnectionInfo.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
-FileUtils.moveFile(sourceDir, sourceFile, destDir, destFile, log);</script></con:config>
+FileUtils.copyFile(sourceDir, sourceFile, destDir, destFile, log);</script></con:config>
 			</con:testStep>
 			<con:testStep name="Region and associated HCID" type="request">
 				<con:settings/>
@@ -1128,7 +1128,7 @@ def destFile = "internalConnectionInfo.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
-FileUtils.moveFile(sourceDir, sourceFile, destDir, destFile, log);</script></con:config>
+FileUtils.copyFile(sourceDir, sourceFile, destDir, destFile, log);</script></con:config>
 			</con:testStep>
 			<con:testStep name="copy uddiConnectionInfo" type="groovy">
 				<con:settings/>
@@ -1148,7 +1148,7 @@ def destFile = "uddiConnectionInfo.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
-FileUtils.moveFile(sourceDir, sourceFile, destDir, destFile, log);</script></con:config>
+FileUtils.copyFile(sourceDir, sourceFile, destDir, destFile, log);</script></con:config>
 			</con:testStep>
 			<con:testStep name="Region and associating HCID" type="request">
 				<con:settings/>
@@ -1273,7 +1273,7 @@ def destFile = "internalConnectionInfo.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
-FileUtils.moveFile(sourceDir, sourceFile, destDir, destFile, log);</script></con:config>
+FileUtils.copyFile(sourceDir, sourceFile, destDir, destFile, log);</script></con:config>
 			</con:testStep>
 			<con:testStep name="copy uddiConnectionInfo" type="groovy">
 				<con:settings/>
@@ -1293,7 +1293,7 @@ def destFile = "uddiConnectionInfo.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
-FileUtils.moveFile(sourceDir, sourceFile, destDir, destFile, log);</script></con:config>
+FileUtils.copyFile(sourceDir, sourceFile, destDir, destFile, log);</script></con:config>
 			</con:testStep>
 			<con:testStep name="Region in both UDDI anad ICI" type="request">
 				<con:settings/>
@@ -1414,7 +1414,7 @@ FileUtils.moveFile(sourceDir, sourceFile, destDir, destFile, log);</script></con
 			<con:name>NHINGatewayConfigDir</con:name>
 			<con:value>C:/Sun/AppServer/domains/domain1/config/nhin</con:value>
 		</con:property>
-	<con:property><con:name>GatewayPropDir</con:name><con:value>D:\glassfish3\glassfish\domains\domain1\config\nhin</con:value></con:property></con:properties>
+	<con:property><con:name>GatewayPropDir</con:name><con:value>c:\glassfish3\glassfish\domains\domain1\config\nhin</con:value></con:property></con:properties>
 	<con:afterLoadScript>def propertiesFile = new File(new File(project.path).parent, 'QueryByState-soapui-project.properties')
 if (propertiesFile.exists()) {
 	def props = new Properties()

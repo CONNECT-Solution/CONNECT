@@ -43,7 +43,7 @@ import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.docretrieve.aspect.RetrieveDocumentSetRequestTypeDescriptionBuilder;
 import gov.hhs.fha.nhinc.docretrieve.aspect.RetrieveDocumentSetResponseTypeDescriptionBuilder;
 import gov.hhs.fha.nhinc.docretrieve.inbound.DocRetrieve;
-import gov.hhs.fha.nhinc.docretrieve.inbound.DocRetrieveService;
+import gov.hhs.fha.nhinc.docretrieve.inbound.InboundDocRetrieve;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
 
 import org.junit.Test;
@@ -58,8 +58,8 @@ public class DocRetrieveTest {
     public void delegatesToService() {
         DocRetrieve docRetrieve = new DocRetrieve();
         RetrieveDocumentSetRequestType body = new RetrieveDocumentSetRequestType();
-        DocRetrieveService service = mock(DocRetrieveService.class);
-        docRetrieve.setService(service);
+        InboundDocRetrieve service = mock(InboundDocRetrieve.class);
+        docRetrieve.setInboundDocRetrieve(service);
         
         docRetrieve.respondingGatewayCrossGatewayRetrieve(body);
         
@@ -80,7 +80,7 @@ public class DocRetrieveTest {
     
     @Test
     public void hasInboundProcessingEventStandard() throws Exception {
-        Class<StandardDocRetrieve> clazz = StandardDocRetrieve.class;
+        Class<StandardInboundDocRetrieve> clazz = StandardInboundDocRetrieve.class;
         Method method = clazz.getMethod("respondingGatewayCrossGatewayRetrieve",
                 RetrieveDocumentSetRequestType.class, AssertionType.class);
         InboundProcessingEvent annotation = method.getAnnotation(InboundProcessingEvent.class);
@@ -93,7 +93,7 @@ public class DocRetrieveTest {
     
     @Test
     public void hasInboundProcessingEventPassthrough() throws Exception {
-        Class<PassThroughDocRetrieve> clazz = PassThroughDocRetrieve.class;
+        Class<PassthroughInboundDocRetrieve> clazz = PassthroughInboundDocRetrieve.class;
         Method method = clazz.getMethod("respondingGatewayCrossGatewayRetrieve",
                 RetrieveDocumentSetRequestType.class, AssertionType.class);
         InboundProcessingEvent annotation = method.getAnnotation(InboundProcessingEvent.class);

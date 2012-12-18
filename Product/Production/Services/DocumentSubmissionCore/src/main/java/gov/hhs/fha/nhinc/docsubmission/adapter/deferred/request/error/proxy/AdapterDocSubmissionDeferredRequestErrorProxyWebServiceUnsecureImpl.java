@@ -27,9 +27,12 @@
 package gov.hhs.fha.nhinc.docsubmission.adapter.deferred.request.error.proxy;
 
 import gov.hhs.fha.nhinc.adapterxdrrequesterror.AdapterXDRRequestErrorPortType;
+import gov.hhs.fha.nhinc.aspect.AdapterDelegationEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterProvideAndRegisterDocumentSetRequestErrorType;
 import gov.hhs.fha.nhinc.docsubmission.adapter.deferred.request.error.proxy.service.AdapterDocSubmissionDeferredRequestErrorServicePortDescriptor;
+import gov.hhs.fha.nhinc.docsubmission.aspect.DocSubmissionArgTransformerBuilder;
+import gov.hhs.fha.nhinc.docsubmission.aspect.DocSubmissionBaseEventDescriptionBuilder;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTCXFClientFactory;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTClient;
 import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
@@ -70,6 +73,10 @@ public class AdapterDocSubmissionDeferredRequestErrorProxyWebServiceUnsecureImpl
         return CONNECTCXFClientFactory.getInstance().getCONNECTClientUnsecured(portDescriptor, url, assertion);
     }
 
+    @AdapterDelegationEvent(beforeBuilder = DocSubmissionBaseEventDescriptionBuilder.class,
+            afterReturningBuilder = DocSubmissionArgTransformerBuilder.class, 
+            serviceType = "Document Submission Deferred Request",
+            version = "")
     public XDRAcknowledgementType provideAndRegisterDocumentSetBRequestError(
             ProvideAndRegisterDocumentSetRequestType request, String errorMessage, AssertionType assertion) {
         log.debug("Begin AdapterDocSubmissionDeferredRequestErrorProxyWebServiceUnsecureImpl.provideAndRegisterDocumentSetBRequestError");

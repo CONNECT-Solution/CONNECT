@@ -27,9 +27,12 @@
 package gov.hhs.fha.nhinc.docsubmission.adapter.deferred.response.proxy;
 
 import gov.hhs.fha.nhinc.adapterxdrresponse.AdapterXDRResponsePortType;
+import gov.hhs.fha.nhinc.aspect.AdapterDelegationEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterRegistryResponseType;
 import gov.hhs.fha.nhinc.docsubmission.adapter.deferred.response.proxy.service.AdapterDocSubmissionDeferredResponseUnsecuredServicePortDescriptor;
+import gov.hhs.fha.nhinc.docsubmission.aspect.DeferredResponseDescriptionBuilder;
+import gov.hhs.fha.nhinc.docsubmission.aspect.DocSubmissionArgTransformerBuilder;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTClient;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTClientFactory;
 import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
@@ -63,13 +66,16 @@ public class AdapterDocSubmissionDeferredResponseProxyWebServiceUnsecuredImpl im
     protected WebServiceProxyHelper createWebServiceProxyHelper() {
         return new WebServiceProxyHelper();
     }
-    
+
     protected CONNECTClient<AdapterXDRResponsePortType> getCONNECTClientUnsecured(
             ServicePortDescriptor<AdapterXDRResponsePortType> portDescriptor, String url, AssertionType assertion) {
-        
-        return CONNECTClientFactory.getInstance().getCONNECTClientUnsecured(portDescriptor, url, assertion);
-    } 
 
+        return CONNECTClientFactory.getInstance().getCONNECTClientUnsecured(portDescriptor, url, assertion);
+    }
+
+    @AdapterDelegationEvent(beforeBuilder = DeferredResponseDescriptionBuilder.class,
+            afterReturningBuilder = DocSubmissionArgTransformerBuilder.class,
+            serviceType = "Document Submission Deferred Response", version = "")
     public XDRAcknowledgementType provideAndRegisterDocumentSetBResponse(RegistryResponseType regResponse,
             AssertionType assertion) {
         log.debug("Begin AdapterDocSubmissionDeferredResponseProxyWebServiceUnsecuredImpl.provideAndRegisterDocumentSetBResponse");
@@ -88,7 +94,8 @@ public class AdapterDocSubmissionDeferredResponseProxyWebServiceUnsecuredImpl im
 
                 ServicePortDescriptor<AdapterXDRResponsePortType> portDescriptor = new AdapterDocSubmissionDeferredResponseUnsecuredServicePortDescriptor();
 
-                CONNECTClient<AdapterXDRResponsePortType> client = getCONNECTClientUnsecured(portDescriptor, url, assertion);
+                CONNECTClient<AdapterXDRResponsePortType> client = getCONNECTClientUnsecured(portDescriptor, url,
+                        assertion);
 
                 response = (XDRAcknowledgementType) client.invokePort(AdapterXDRResponsePortType.class,
                         "provideAndRegisterDocumentSetBResponse", wsRequest);

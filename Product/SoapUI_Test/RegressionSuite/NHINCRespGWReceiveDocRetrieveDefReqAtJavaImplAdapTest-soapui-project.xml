@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <con:soapui-project abortOnError="false" name="NHINCRespGWReceiveDocRetrieveDefReqAtJavaImplAdapTest" resourceRoot="${projectDir}" runType="SEQUENTIAL" soapui-version="4.5.1" activeEnvironment="Default" xmlns:con="http://eviware.com/soapui/config">
 	<con:settings/>
-	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincproxydocretrievedeferredrequest}NhincProxyDocRetrieveDeferredRequestBindingSoap" definition="${ProjectDir}../ValidationSuite/target/wsdl/NhincProxyDocRetrieveDeferredReq.wsdl" name="NhincProxyDocRetrieveDeferredRequestBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincproxydocretrievedeferredrequest}NhincProxyDocRetrieveDeferredRequestBindingSoap" definition="${projectDir}/../ValidationSuite/target/wsdl/NhincProxyDocRetrieveDeferredReq.wsdl" name="NhincProxyDocRetrieveDeferredRequestBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 		<con:settings/>
 		
 		<con:endpoints>
@@ -13,7 +13,7 @@
 			
 		</con:operation>
 	</con:interface>
-	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:adapterpolicyengine}AdapterPolicyEngineBindingSoap" definition="${ProjectDir}../ValidationSuite/target/wsdl/AdapterPolicyEngine.wsdl" name="AdapterPolicyEngineBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:adapterpolicyengine}AdapterPolicyEngineBindingSoap" definition="${projectDir}/../ValidationSuite/target/wsdl/AdapterPolicyEngine.wsdl" name="AdapterPolicyEngineBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 		<con:settings/>
 		
 		<con:endpoints>
@@ -25,7 +25,7 @@
 		</con:operation>
 	</con:interface>
 	
-	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:adapterdocretrievedeferredreqsecured}AdapterDocRetrieveDeferredRequestSecuredBindingSoap" definition="${ProjectDir}../ValidationSuite/target/wsdl/AdapterDocRetrieveDeferredReqSecured.wsdl" name="AdapterDocRetrieveDeferredRequestSecuredBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="200508" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:adapterdocretrievedeferredreqsecured}AdapterDocRetrieveDeferredRequestSecuredBindingSoap" definition="${projectDir}/../ValidationSuite/target/wsdl/AdapterDocRetrieveDeferredReqSecured.wsdl" name="AdapterDocRetrieveDeferredRequestSecuredBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="200508" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 		<con:settings/>
 		
 		<con:endpoints>
@@ -37,7 +37,7 @@
 			
 		</con:operation>
 	</con:interface>
-	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:adapterdocretrievedeferredrequesterror}AdapterDocRetrieveDeferredRequestErrorBinding" definition="${ProjectDir}../ValidationSuite/target/wsdl/AdapterDocRetrieveDeferredReqError.wsdl" name="AdapterDocRetrieveDeferredRequestErrorBinding" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:adapterdocretrievedeferredrequesterror}AdapterDocRetrieveDeferredRequestErrorBinding" definition="${projectDir}/../ValidationSuite/target/wsdl/AdapterDocRetrieveDeferredReqError.wsdl" name="AdapterDocRetrieveDeferredRequestErrorBinding" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 		<con:settings/>
 		
 		<con:endpoints>
@@ -48,7 +48,7 @@
 			
 		</con:operation>
 	</con:interface>
-	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:adapterdocretrievedeferredreq}AdapterDocRetrieveDeferredRequestBindingSoap" definition="${ProjectDir}../ValidationSuite/target/wsdl/AdapterDocRetrieveDeferredReq.wsdl" name="AdapterDocRetrieveDeferredRequestBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:adapterdocretrievedeferredreq}AdapterDocRetrieveDeferredRequestBindingSoap" definition="${projectDir}/../ValidationSuite/target/wsdl/AdapterDocRetrieveDeferredReq.wsdl" name="AdapterDocRetrieveDeferredRequestBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 		<con:settings/>
 		
 		<con:endpoints>
@@ -104,8 +104,6 @@
                <urn2:zipCode>AddrZip</urn2:zipCode>
             </urn2:address>
             <urn2:dateOfBirth xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">06/04/1959 05:21:00</urn2:dateOfBirth>
-            <!--urn2:dateOfSignature xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">${#Project#sigDate}</urn2:dateOfSignature-->
-            <!--urn2:expirationDate xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">${#Project#expireDate}</urn2:expirationDate-->
             <urn2:explanationNonClaimantSignature xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">Electronic</urn2:explanationNonClaimantSignature>
             <urn2:haveSecondWitnessSignature xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">false</urn2:haveSecondWitnessSignature>
             <urn2:haveSignature xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">false</urn2:haveSignature>
@@ -247,7 +245,6 @@
                   <urn2:fullName>Kasrl S. Skagerberg</urn2:fullName>
                </urn2:personName>
                <urn2:userName>kskagerb</urn2:userName>
-               <!--urn2:role>Pharmacy</urn2:role-->
                <urn2:org>
                   <urn2:description>${#Project#LocalHCDescription}</urn2:description>
                   <urn2:homeCommunityId>${#Project#LocalHCID}</urn2:homeCommunityId>
@@ -336,19 +333,19 @@
 			<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2012-11-26T22:12:36Z</con:value>
+					<con:value>2012-11-28T20:36:26Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2012-11-26T22:22:36Z</con:value>
+					<con:value>2012-11-28T20:46:26Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>11/26/2012 22:12:36</con:value>
+					<con:value>11/28/2012 20:36:26</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2012-12-26T00:00:00Z</con:value>
+					<con:value>2012-12-28T00:00:00Z</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
@@ -404,8 +401,6 @@
                <urn2:zipCode>AddrZip</urn2:zipCode>
             </urn2:address>
             <urn2:dateOfBirth xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">06/04/1959 05:21:00</urn2:dateOfBirth>
-            <!--urn2:dateOfSignature xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">${#Project#sigDate}</urn2:dateOfSignature-->
-            <!--urn2:expirationDate xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">${#Project#expireDate}</urn2:expirationDate-->
             <urn2:explanationNonClaimantSignature xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">Electronic</urn2:explanationNonClaimantSignature>
             <urn2:haveSecondWitnessSignature xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">false</urn2:haveSecondWitnessSignature>
             <urn2:haveSignature xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">false</urn2:haveSignature>
@@ -547,7 +542,6 @@
                   <urn2:fullName>Kasrl S. Skagerberg</urn2:fullName>
                </urn2:personName>
                <urn2:userName>kskagerb</urn2:userName>
-               <!--urn2:role>Pharmacy</urn2:role-->
                <urn2:org>
                   <urn2:description>${#Project#LocalHCDescription}</urn2:description>
                   <urn2:homeCommunityId>${#Project#LocalHCID}</urn2:homeCommunityId>
@@ -634,19 +628,19 @@
 			<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2012-11-26T22:21:54Z</con:value>
+					<con:value>2012-11-28T20:36:18Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2012-11-26T22:31:54Z</con:value>
+					<con:value>2012-11-28T20:46:18Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>11/26/2012 22:21:54</con:value>
+					<con:value>11/28/2012 20:36:18</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2012-12-26T00:00:00Z</con:value>
+					<con:value>2012-12-28T00:00:00Z</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
@@ -717,8 +711,6 @@ nhinc.FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", destConfi
                <urn2:zipCode>AddrZip</urn2:zipCode>
             </urn2:address>
             <urn2:dateOfBirth xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">06/04/1959 05:21:00</urn2:dateOfBirth>
-            <!--urn2:dateOfSignature xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">${#Project#sigDate}</urn2:dateOfSignature-->
-            <!--urn2:expirationDate xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">${#Project#expireDate}</urn2:expirationDate-->
             <urn2:explanationNonClaimantSignature xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">Electronic</urn2:explanationNonClaimantSignature>
             <urn2:haveSecondWitnessSignature xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">false</urn2:haveSecondWitnessSignature>
             <urn2:haveSignature xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">false</urn2:haveSignature>
@@ -860,7 +852,6 @@ nhinc.FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", destConfi
                   <urn2:fullName>Kasrl S. Skagerberg</urn2:fullName>
                </urn2:personName>
                <urn2:userName>kskagerb</urn2:userName>
-               <!--urn2:role>Pharmacy</urn2:role-->
                <urn2:org>
                   <urn2:description>${#Project#LocalHCDescription}</urn2:description>
                   <urn2:homeCommunityId>${#Project#LocalHCID}</urn2:homeCommunityId>
@@ -2429,19 +2420,19 @@ declare namespace ns9='urn:gov:hhs:fha:nhinc:common:nhinccommonadapter';
 			<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2012-11-26T22:20:34Z</con:value>
+					<con:value>2012-11-28T20:36:19Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2012-11-26T22:30:34Z</con:value>
+					<con:value>2012-11-28T20:46:19Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>11/26/2012 22:20:34</con:value>
+					<con:value>11/28/2012 20:36:19</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2012-12-26T00:00:00Z</con:value>
+					<con:value>2012-12-28T00:00:00Z</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
@@ -2517,8 +2508,6 @@ nhinc.FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", destConfi
                <urn2:zipCode>AddrZip</urn2:zipCode>
             </urn2:address>
             <urn2:dateOfBirth xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">06/04/1959 05:21:00</urn2:dateOfBirth>
-            <!--urn2:dateOfSignature xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">${#Project#sigDate}</urn2:dateOfSignature-->
-            <!--urn2:expirationDate xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">${#Project#expireDate}</urn2:expirationDate-->
             <urn2:explanationNonClaimantSignature xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">Electronic</urn2:explanationNonClaimantSignature>
             <urn2:haveSecondWitnessSignature xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">false</urn2:haveSecondWitnessSignature>
             <urn2:haveSignature xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">false</urn2:haveSignature>
@@ -2660,7 +2649,6 @@ nhinc.FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", destConfi
                   <urn2:fullName>Kasrl S. Skagerberg</urn2:fullName>
                </urn2:personName>
                <urn2:userName>kskagerb</urn2:userName>
-               <!--urn2:role>Pharmacy</urn2:role-->
                <urn2:org>
                   <urn2:description>${#Project#LocalHCDescription}</urn2:description>
                   <urn2:homeCommunityId>${#Project#LocalHCID}</urn2:homeCommunityId>
@@ -4229,19 +4217,19 @@ declare namespace ns9='urn:gov:hhs:fha:nhinc:common:nhinccommonadapter';
 			<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2012-11-26T22:18:36Z</con:value>
+					<con:value>2012-11-28T20:36:19Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2012-11-26T22:28:36Z</con:value>
+					<con:value>2012-11-28T20:46:19Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>11/26/2012 22:18:36</con:value>
+					<con:value>11/28/2012 20:36:19</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2012-12-26T00:00:00Z</con:value>
+					<con:value>2012-12-28T00:00:00Z</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
@@ -4296,8 +4284,6 @@ nhinc.FileUtils.updateProperty(destDir, 'gateway.properties', 'serviceDocumentRe
                <urn2:zipCode>AddrZip</urn2:zipCode>
             </urn2:address>
             <urn2:dateOfBirth xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">06/04/1959 05:21:00</urn2:dateOfBirth>
-            <!--urn2:dateOfSignature xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">${#Project#sigDate}</urn2:dateOfSignature-->
-            <!--urn2:expirationDate xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">${#Project#expireDate}</urn2:expirationDate-->
             <urn2:explanationNonClaimantSignature xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">Electronic</urn2:explanationNonClaimantSignature>
             <urn2:haveSecondWitnessSignature xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">false</urn2:haveSecondWitnessSignature>
             <urn2:haveSignature xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">false</urn2:haveSignature>
@@ -4439,7 +4425,6 @@ nhinc.FileUtils.updateProperty(destDir, 'gateway.properties', 'serviceDocumentRe
                   <urn2:fullName>Kasrl S. Skagerberg</urn2:fullName>
                </urn2:personName>
                <urn2:userName>kskagerb</urn2:userName>
-               <!--urn2:role>Pharmacy</urn2:role-->
                <urn2:org>
                   <urn2:description>${#Project#LocalHCDescription}</urn2:description>
                   <urn2:homeCommunityId>${#Project#LocalHCID}</urn2:homeCommunityId>
@@ -4526,19 +4511,19 @@ nhinc.FileUtils.updateProperty(destDir, 'gateway.properties', 'serviceDocumentRe
 			<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2012-11-26T22:16:51Z</con:value>
+					<con:value>2012-11-28T20:36:20Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2012-11-26T22:26:51Z</con:value>
+					<con:value>2012-11-28T20:46:20Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>11/26/2012 22:16:51</con:value>
+					<con:value>11/28/2012 20:36:20</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2012-12-26T00:00:00Z</con:value>
+					<con:value>2012-12-28T00:00:00Z</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
@@ -4622,8 +4607,6 @@ context.testCase.setPropertyValue('DocRetDefUserID',"${UserID}${nowDate}");</scr
                <urn2:zipCode>AddrZip</urn2:zipCode>
             </urn2:address>
             <urn2:dateOfBirth xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">06/04/1959 05:21:00</urn2:dateOfBirth>
-            <!--urn2:dateOfSignature xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">${#Project#sigDate}</urn2:dateOfSignature-->
-            <!--urn2:expirationDate xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">${#Project#expireDate}</urn2:expirationDate-->
             <urn2:explanationNonClaimantSignature xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">Electronic</urn2:explanationNonClaimantSignature>
             <urn2:haveSecondWitnessSignature xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">false</urn2:haveSecondWitnessSignature>
             <urn2:haveSignature xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">false</urn2:haveSignature>
@@ -4765,7 +4748,6 @@ context.testCase.setPropertyValue('DocRetDefUserID',"${UserID}${nowDate}");</scr
                   <urn2:fullName>Kasrl S. Skagerberg</urn2:fullName>
                </urn2:personName>
                <urn2:userName>${#TestCase#DocRetDefUserID}</urn2:userName>
-               <!--urn2:role>Pharmacy</urn2:role-->
                <urn2:org>
                   <urn2:description>${#Project#LocalHCDescription}</urn2:description>
                   <urn2:homeCommunityId>${#Project#LocalHCID}</urn2:homeCommunityId>
@@ -4848,19 +4830,19 @@ context.testCase.setPropertyValue('DocRetDefUserID',"${UserID}${nowDate}");</scr
 assert (count > 0);</script></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2012-11-26T22:15:55Z</con:value>
+					<con:value>2012-11-28T20:36:20Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2012-11-26T22:25:55Z</con:value>
+					<con:value>2012-11-28T20:46:20Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>11/26/2012 22:15:55</con:value>
+					<con:value>11/28/2012 20:36:20</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2012-12-26T00:00:00Z</con:value>
+					<con:value>2012-12-28T00:00:00Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>FullPatientID</con:name>
@@ -4868,7 +4850,7 @@ assert (count > 0);</script></con:config></con:testStep><con:setupScript>nhinc.F
 				</con:property>
 				<con:property>
 					<con:name>DocRetDefUserID</con:name>
-					<con:value>DocfRetrieveDefUserMon Nov 26 22:20:55 UTC 2012</con:value>
+					<con:value>DocfRetrieveDefUserWed Nov 28 20:41:20 UTC 2012</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
@@ -4947,7 +4929,7 @@ assert (count > 0);</script></con:config></con:testStep><con:setupScript>nhinc.F
 			<con:name>DocRetPatientID</con:name>
 			<con:value>D123401</con:value>
 		</con:property>
-	<con:property><con:name>AuditTable</con:name><con:value>auditrepository</con:value></con:property><con:property><con:name>AuditDB</con:name><con:value>auditrepo</con:value></con:property><con:property><con:name>DBPort</con:name><con:value>3306</con:value></con:property><con:property><con:name>DBHost</con:name><con:value>localhost</con:value></con:property><con:property><con:name>DBUser</con:name><con:value>nhincuser</con:value></con:property><con:property><con:name>DBPass</con:name><con:value>nhincpass</con:value></con:property></con:properties>
+	<con:property><con:name>AuditTable</con:name><con:value>auditrepository</con:value></con:property><con:property><con:name>AuditDB</con:name><con:value>auditrepo</con:value></con:property><con:property><con:name>DBPort</con:name><con:value>3306</con:value></con:property><con:property><con:name>DBHost</con:name><con:value>localhost</con:value></con:property><con:property><con:name>DBUser</con:name><con:value>nhincuser</con:value></con:property><con:property><con:name>DBPass</con:name><con:value>nhincpass</con:value></con:property><con:property><con:name>GatewayPropDir</con:name><con:value>c:\glassfish3\glassfish\domains\domain1\config\nhin</con:value></con:property></con:properties>
 	<con:afterLoadScript>def propertiesFilename = project.path[0..(project.path.size()-4)] + 'properties'
 def propertiesFile = new File(propertiesFilename)
 if (propertiesFile.exists()) {
@@ -5040,7 +5022,7 @@ def destFile = "DocumentRetrieveDeferredProxyConfig.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
-FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);</con:script>
+FileUtils.copyFile(sourceDir, sourceFile, destDir, destFile, context, log);</con:script>
 	</con:eventHandlers>
 	<con:eventHandlers name="TestRunListener.afterRun" type="TestRunListener.afterRun">
 		<con:script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
@@ -5057,6 +5039,6 @@ def destFile = "DocumentRetrieveDeferredProxyConfig.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
-FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);</con:script>
+FileUtils.copyFile(sourceDir, sourceFile, destDir, destFile, context, log);</con:script>
 	</con:eventHandlers>
 </con:soapui-project>

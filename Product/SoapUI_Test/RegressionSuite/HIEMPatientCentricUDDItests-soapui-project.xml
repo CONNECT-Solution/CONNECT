@@ -2,7 +2,7 @@
 <con:soapui-project abortOnError="false" name="HIEMPatientCentricUDDItests" resourceRoot="${projectDir}" runType="SEQUENTIAL" soapui-version="4.5.1" activeEnvironment="Default" xmlns:con="http://eviware.com/soapui/config">
 	<con:settings/>
 	
-	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincsubscription}NotificationProducerBinding" definition="${ProjectDir}../ValidationSuite/target/wsdl/NhincSubscription.wsdl" name="NotificationProducerBinding" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincsubscription}NotificationProducerBinding" definition="${projectDir}/../ValidationSuite/target/wsdl/NhincSubscription.wsdl" name="NotificationProducerBinding" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 		<con:settings/>
 		
 		<con:endpoints>
@@ -12,7 +12,7 @@
 			<con:settings/>
 		</con:operation>
 	</con:interface>
-	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:entitysubscriptionmanagement}EntityNotificationProducerBindingSoap" definition="${ProjectDir}../ValidationSuite/target/wsdl/EntitySubscriptionManagement.wsdl" name="EntityNotificationProducerBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:entitysubscriptionmanagement}EntityNotificationProducerBindingSoap" definition="${projectDir}/../ValidationSuite/target/wsdl/EntitySubscriptionManagement.wsdl" name="EntityNotificationProducerBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 		<con:settings/>
 		
 		<con:endpoints>
@@ -28,7 +28,7 @@
 			<con:settings/>
 		</con:operation>
 	</con:interface>
-	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:hiemsubscriptionrepositoryutil}HiemSubscriptionRepositoryUtilPortTypeBinding" definition="${ProjectDir}../ValidationSuite/target/wsdl/HiemSubscriptionRepositoryUtil.wsdl" name="HiemSubscriptionRepositoryUtilPortTypeBinding" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:hiemsubscriptionrepositoryutil}HiemSubscriptionRepositoryUtilPortTypeBinding" definition="${projectDir}/../ValidationSuite/target/wsdl/HiemSubscriptionRepositoryUtil.wsdl" name="HiemSubscriptionRepositoryUtilPortTypeBinding" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 		<con:settings/>
 		
 		<con:endpoints>
@@ -91,7 +91,7 @@ def destFile = "uddiConnectionInfo.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
-FileUtils.moveFile(sourceDir, sourceFile, context.findProperty("GatewayPropDir"), destFile, log);</script></con:config>
+FileUtils.copyFile(sourceDir, sourceFile, destDir, destFile, log);</script></con:config>
 			</con:testStep>
 			<con:testStep name="Copy hiemTopicConnection" type="groovy">
 				<con:settings/>
@@ -112,7 +112,7 @@ def destFile = "hiemTopicConfiguration.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
-FileUtils.moveFile(sourceDir, sourceFile, destDir, destFile, log);</script></con:config>
+FileUtils.copyFile(sourceDir, sourceFile, destDir, destFile, log);</script></con:config>
 			</con:testStep>
 			<con:testStep name="update config" type="groovy">
 				<con:settings/>
@@ -149,7 +149,7 @@ FileUtils.updateProperty(context.findProperty("GatewayPropDir"),"gateway.propert
 					<con:interface>EntityNotificationProducerBindingSoap</con:interface>
 					<con:operation>Subscribe</con:operation>
 					<con:request incomingWss="" name="Subscribe" outgoingWss="" wssPasswordType="">
-						<con:settings/>
+						<con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings>
 						<con:encoding>UTF-8</con:encoding>
 						<con:endpoint>${#Project#Endpoint-Subscribe}</con:endpoint>
 						<con:request><![CDATA[
@@ -189,8 +189,6 @@ FileUtils.updateProperty(context.findProperty("GatewayPropDir"),"gateway.propert
                <nccommon:zipCode>AddrZip</nccommon:zipCode>
             </nccommon:address>
             <nccommon:dateOfBirth xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">06/04/1959 05:21:00</nccommon:dateOfBirth>
-            <!--nccommon:dateOfSignature xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">${#Project#sigDate}</nccommon:dateOfSignature-->
-            <!--nccommon:expirationDate xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">${#Project#expDate}</nccommon:expirationDate-->
             <nccommon:explanationNonClaimantSignature xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">Electronic</nccommon:explanationNonClaimantSignature>
             <nccommon:haveSecondWitnessSignature xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">false</nccommon:haveSecondWitnessSignature>
             <nccommon:haveSignature xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">false</nccommon:haveSignature>
@@ -228,7 +226,6 @@ FileUtils.updateProperty(context.findProperty("GatewayPropDir"),"gateway.propert
                   <nccommon:originalText>phoneCode</nccommon:originalText>
                </nccommon:phoneNumberType>
             </nccommon:phoneNumber>
-            <!--nccommon:purposeOfDisclosure xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">TREATMENT</nccommon:purposeOfDisclosure-->
             <nccommon:secondWitnessAddress xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">
                <nccommon:addressType>
                   <nccommon:code>AddrCode</nccommon:code>
@@ -333,7 +330,6 @@ FileUtils.updateProperty(context.findProperty("GatewayPropDir"),"gateway.propert
                   <nccommon:fullName>Kasrl S. Skagerberg</nccommon:fullName>
                </nccommon:personName>
                <nccommon:userName>kskagerb</nccommon:userName>
-               <!--nccommon:role>Pharmacy</nccommon:role-->
                <nccommon:org>
                   <nccommon:description>${#Project#RemoteHCDescription}</nccommon:description>
                   <nccommon:homeCommunityId>${#Project#RemoteHCID}</nccommon:homeCommunityId>
@@ -408,23 +404,23 @@ FileUtils.updateProperty(context.findProperty("GatewayPropDir"),"gateway.propert
 			<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2012-11-27T15:29:21Z</con:value>
+					<con:value>2012-12-16T17:50:23Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2012-11-27T15:39:21Z</con:value>
+					<con:value>2012-12-16T18:00:23Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>11/27/2012 15:29:21</con:value>
+					<con:value>12/16/2012 17:50:23</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2012-12-27T00:00:00Z</con:value>
+					<con:value>2013-01-15T00:00:00Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>date</con:name>
-					<con:value>12/27/2012 00:00:00</con:value>
+					<con:value>01/15/2013 00:00:00</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
@@ -450,7 +446,7 @@ def destFile = "uddiConnectionInfo.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
-FileUtils.moveFile(sourceDir, sourceFile, context.findProperty("GatewayPropDir"), destFile, log);</script></con:config>
+FileUtils.copyFile(sourceDir, sourceFile, context.findProperty("GatewayPropDir"), destFile, log);</script></con:config>
 			</con:testStep>
 			<con:testStep name="Copy hiemTopicConnection" type="groovy">
 				<con:settings/>
@@ -471,7 +467,7 @@ def destFile = "hiemTopicConfiguration.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
-FileUtils.moveFile(sourceDir, sourceFile, destDir, destFile, log);</script></con:config>
+FileUtils.copyFile(sourceDir, sourceFile, destDir, destFile, log);</script></con:config>
 			</con:testStep>
 			<con:testStep name="update config" type="groovy">
 				<con:settings/>
@@ -564,8 +560,6 @@ nhinc.FileUtils.updateProperty(context.findProperty("GatewayPropDir"),"gateway.p
                <nccommon:zipCode>AddrZip</nccommon:zipCode>
             </nccommon:address>
             <nccommon:dateOfBirth xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">06/04/1959 05:21:00</nccommon:dateOfBirth>
-            <!--nccommon:dateOfSignature xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">${#Project#sigDate}</nccommon:dateOfSignature-->
-            <!--nccommon:expirationDate xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">${#Project#expDate}</nccommon:expirationDate-->
             <nccommon:explanationNonClaimantSignature xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">Electronic</nccommon:explanationNonClaimantSignature>
             <nccommon:haveSecondWitnessSignature xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">false</nccommon:haveSecondWitnessSignature>
             <nccommon:haveSignature xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">false</nccommon:haveSignature>
@@ -603,7 +597,6 @@ nhinc.FileUtils.updateProperty(context.findProperty("GatewayPropDir"),"gateway.p
                   <nccommon:originalText>phoneCode</nccommon:originalText>
                </nccommon:phoneNumberType>
             </nccommon:phoneNumber>
-            <!--nccommon:purposeOfDisclosure xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">TREATMENT</nccommon:purposeOfDisclosure-->
             <nccommon:secondWitnessAddress xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">
                <nccommon:addressType>
                   <nccommon:code>AddrCode</nccommon:code>
@@ -708,7 +701,6 @@ nhinc.FileUtils.updateProperty(context.findProperty("GatewayPropDir"),"gateway.p
                   <nccommon:fullName>Kasrl S. Skagerberg</nccommon:fullName>
                </nccommon:personName>
                <nccommon:userName>kskagerb</nccommon:userName>
-               <!--nccommon:role>Pharmacy</nccommon:role-->
                <nccommon:org>
                   <nccommon:description>${#Project#RemoteHCDescription}</nccommon:description>
                   <nccommon:homeCommunityId>${#Project#RemoteHCID}</nccommon:homeCommunityId>
@@ -783,23 +775,23 @@ nhinc.FileUtils.updateProperty(context.findProperty("GatewayPropDir"),"gateway.p
 			<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2012-11-27T15:29:22Z</con:value>
+					<con:value>2012-11-28T20:23:39Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2012-11-27T15:39:22Z</con:value>
+					<con:value>2012-11-28T20:33:39Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>11/27/2012 15:29:22</con:value>
+					<con:value>11/28/2012 20:23:39</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2012-12-27T00:00:00Z</con:value>
+					<con:value>2012-12-28T00:00:00Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>date</con:name>
-					<con:value>12/27/2012 00:00:00</con:value>
+					<con:value>12/28/2012 00:00:00</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
@@ -825,7 +817,7 @@ def destFile = "uddiConnectionInfo.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
-FileUtils.moveFile(sourceDir, sourceFile, context.findProperty("GatewayPropDir"), destFile, log);</script></con:config>
+FileUtils.copyFile(sourceDir, sourceFile, context.findProperty("GatewayPropDir"), destFile, log);</script></con:config>
 			</con:testStep>
 			<con:testStep name="Copy hiemTopicConnection" type="groovy">
 				<con:settings/>
@@ -846,7 +838,7 @@ def destFile = "hiemTopicConfiguration.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
-FileUtils.moveFile(sourceDir, sourceFile, destDir, destFile, log);</script></con:config>
+FileUtils.copyFile(sourceDir, sourceFile, destDir, destFile, log);</script></con:config>
 			</con:testStep>
 			<con:testStep name="update config" type="groovy">
 				<con:settings/>
@@ -971,8 +963,6 @@ nhinc.FileUtils.updateProperty(context.findProperty("GatewayPropDir"),"gateway.p
                <nccommon:zipCode>AddrZip</nccommon:zipCode>
             </nccommon:address>
             <nccommon:dateOfBirth xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">06/04/1959 05:21:00</nccommon:dateOfBirth>
-            <!--nccommon:dateOfSignature xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">${#Project#sigDate}</nccommon:dateOfSignature-->
-            <!--nccommon:expirationDate xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">${#Project#expDate}</nccommon:expirationDate-->
             <nccommon:explanationNonClaimantSignature xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">Electronic</nccommon:explanationNonClaimantSignature>
             <nccommon:haveSecondWitnessSignature xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">false</nccommon:haveSecondWitnessSignature>
             <nccommon:haveSignature xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">false</nccommon:haveSignature>
@@ -1010,7 +1000,6 @@ nhinc.FileUtils.updateProperty(context.findProperty("GatewayPropDir"),"gateway.p
                   <nccommon:originalText>phoneCode</nccommon:originalText>
                </nccommon:phoneNumberType>
             </nccommon:phoneNumber>
-            <!--nccommon:purposeOfDisclosure xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">TREATMENT</nccommon:purposeOfDisclosure-->
             <nccommon:secondWitnessAddress xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">
                <nccommon:addressType>
                   <nccommon:code>AddrCode</nccommon:code>
@@ -1115,7 +1104,6 @@ nhinc.FileUtils.updateProperty(context.findProperty("GatewayPropDir"),"gateway.p
                   <nccommon:fullName>Kasrl S. Skagerberg</nccommon:fullName>
                </nccommon:personName>
                <nccommon:userName>kskagerb</nccommon:userName>
-               <!--nccommon:role>Pharmacy</nccommon:role-->
                <nccommon:org>
                   <nccommon:description>${#Project#RemoteHCDescription}</nccommon:description>
                   <nccommon:homeCommunityId>${#Project#RemoteHCID}</nccommon:homeCommunityId>
@@ -1190,23 +1178,23 @@ nhinc.FileUtils.updateProperty(context.findProperty("GatewayPropDir"),"gateway.p
 			<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2012-11-27T15:29:22Z</con:value>
+					<con:value>2012-11-28T20:23:40Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2012-11-27T15:39:22Z</con:value>
+					<con:value>2012-11-28T20:33:40Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>11/27/2012 15:29:22</con:value>
+					<con:value>11/28/2012 20:23:40</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2012-12-27T00:00:00Z</con:value>
+					<con:value>2012-12-28T00:00:00Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>date</con:name>
-					<con:value>12/27/2012 00:00:00</con:value>
+					<con:value>12/28/2012 00:00:00</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
@@ -1232,7 +1220,7 @@ def destFile = "uddiConnectionInfo.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
-FileUtils.moveFile(sourceDir, sourceFile, context.findProperty("GatewayPropDir"), destFile, log);</script></con:config>
+FileUtils.copyFile(sourceDir, sourceFile, context.findProperty("GatewayPropDir"), destFile, log);</script></con:config>
 			</con:testStep>
 			<con:testStep name="Copy hiemTopicConnection" type="groovy">
 				<con:settings/>
@@ -1253,7 +1241,7 @@ def destFile = "hiemTopicConfiguration.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
-FileUtils.moveFile(sourceDir, sourceFile, destDir, destFile, log);</script></con:config>
+FileUtils.copyFile(sourceDir, sourceFile, destDir, destFile, log);</script></con:config>
 			</con:testStep>
 			<con:testStep name="update config" type="groovy">
 				<con:settings/>
@@ -1329,8 +1317,6 @@ nhinc.FileUtils.updateProperty(context.findProperty("GatewayPropDir"),"gateway.p
                <nccommon:zipCode>AddrZip</nccommon:zipCode>
             </nccommon:address>
             <nccommon:dateOfBirth xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">06/04/1959 05:21:00</nccommon:dateOfBirth>
-            <!--nccommon:dateOfSignature xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">${#Project#sigDate}</nccommon:dateOfSignature-->
-            <!--nccommon:expirationDate xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">${#Project#expDate}</nccommon:expirationDate-->
             <nccommon:explanationNonClaimantSignature xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">Electronic</nccommon:explanationNonClaimantSignature>
             <nccommon:haveSecondWitnessSignature xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">false</nccommon:haveSecondWitnessSignature>
             <nccommon:haveSignature xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">false</nccommon:haveSignature>
@@ -1368,7 +1354,6 @@ nhinc.FileUtils.updateProperty(context.findProperty("GatewayPropDir"),"gateway.p
                   <nccommon:originalText>phoneCode</nccommon:originalText>
                </nccommon:phoneNumberType>
             </nccommon:phoneNumber>
-            <!--nccommon:purposeOfDisclosure xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">TREATMENT</nccommon:purposeOfDisclosure-->
             <nccommon:secondWitnessAddress xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">
                <nccommon:addressType>
                   <nccommon:code>AddrCode</nccommon:code>
@@ -1473,7 +1458,6 @@ nhinc.FileUtils.updateProperty(context.findProperty("GatewayPropDir"),"gateway.p
                   <nccommon:fullName>Kasrl S. Skagerberg</nccommon:fullName>
                </nccommon:personName>
                <nccommon:userName>kskagerb</nccommon:userName>
-               <!--nccommon:role>Pharmacy</nccommon:role-->
                <nccommon:org>
                   <nccommon:description>${#Project#RemoteHCDescription}</nccommon:description>
                   <nccommon:homeCommunityId>${#Project#RemoteHCID}</nccommon:homeCommunityId>
@@ -1566,23 +1550,23 @@ nhinc.FileUtils.updateProperty(context.findProperty("GatewayPropDir"),"gateway.p
 			<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2012-11-27T15:29:23Z</con:value>
+					<con:value>2012-11-28T20:23:40Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2012-11-27T15:39:23Z</con:value>
+					<con:value>2012-11-28T20:33:40Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>11/27/2012 15:29:23</con:value>
+					<con:value>11/28/2012 20:23:40</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2012-12-27T00:00:00Z</con:value>
+					<con:value>2012-12-28T00:00:00Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>date</con:name>
-					<con:value>12/27/2012 00:00:00</con:value>
+					<con:value>12/28/2012 00:00:00</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
@@ -1608,7 +1592,7 @@ def destFile = "uddiConnectionInfo.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
-FileUtils.moveFile(sourceDir, sourceFile, context.findProperty("GatewayPropDir"), destFile, log);</script></con:config>
+FileUtils.copyFile(sourceDir, sourceFile, context.findProperty("GatewayPropDir"), destFile, log);</script></con:config>
 			</con:testStep>
 			<con:testStep name="Copy hiemTopicConnection" type="groovy">
 				<con:settings/>
@@ -1629,7 +1613,7 @@ def destFile = "hiemTopicConfiguration.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
-FileUtils.moveFile(sourceDir, sourceFile, destDir, destFile, log);</script></con:config>
+FileUtils.copyFile(sourceDir, sourceFile, destDir, destFile, log);</script></con:config>
 			</con:testStep>
 			<con:testStep name="update config" type="groovy">
 				<con:settings/>
@@ -1754,8 +1738,6 @@ nhinc.FileUtils.updateProperty(context.findProperty("GatewayPropDir"),"gateway.p
                <nccommon:zipCode>AddrZip</nccommon:zipCode>
             </nccommon:address>
             <nccommon:dateOfBirth xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">06/04/1959 05:21:00</nccommon:dateOfBirth>
-            <!--nccommon:dateOfSignature xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">${#Project#sigDate}</nccommon:dateOfSignature-->
-            <!--nccommon:expirationDate xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">${#Project#expDate}</nccommon:expirationDate-->
             <nccommon:explanationNonClaimantSignature xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">Electronic</nccommon:explanationNonClaimantSignature>
             <nccommon:haveSecondWitnessSignature xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">false</nccommon:haveSecondWitnessSignature>
             <nccommon:haveSignature xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">false</nccommon:haveSignature>
@@ -1793,7 +1775,6 @@ nhinc.FileUtils.updateProperty(context.findProperty("GatewayPropDir"),"gateway.p
                   <nccommon:originalText>phoneCode</nccommon:originalText>
                </nccommon:phoneNumberType>
             </nccommon:phoneNumber>
-            <!--nccommon:purposeOfDisclosure xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">TREATMENT</nccommon:purposeOfDisclosure-->
             <nccommon:secondWitnessAddress xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">
                <nccommon:addressType>
                   <nccommon:code>AddrCode</nccommon:code>
@@ -1898,7 +1879,6 @@ nhinc.FileUtils.updateProperty(context.findProperty("GatewayPropDir"),"gateway.p
                   <nccommon:fullName>Kasrl S. Skagerberg</nccommon:fullName>
                </nccommon:personName>
                <nccommon:userName>kskagerb</nccommon:userName>
-               <!--nccommon:role>Pharmacy</nccommon:role-->
                <nccommon:org>
                   <nccommon:description>${#Project#RemoteHCDescription}</nccommon:description>
                   <nccommon:homeCommunityId>${#Project#RemoteHCID}</nccommon:homeCommunityId>
@@ -1991,23 +1971,23 @@ nhinc.FileUtils.updateProperty(context.findProperty("GatewayPropDir"),"gateway.p
 			<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2012-11-27T15:29:27Z</con:value>
+					<con:value>2012-11-28T20:23:44Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2012-11-27T15:39:27Z</con:value>
+					<con:value>2012-11-28T20:33:44Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>11/27/2012 15:29:27</con:value>
+					<con:value>11/28/2012 20:23:44</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2012-12-27T00:00:00Z</con:value>
+					<con:value>2012-12-28T00:00:00Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>date</con:name>
-					<con:value>12/27/2012 00:00:00</con:value>
+					<con:value>12/28/2012 00:00:00</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
@@ -2033,7 +2013,7 @@ def destFile = "uddiConnectionInfo.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
-FileUtils.moveFile(sourceDir, sourceFile, context.findProperty("GatewayPropDir"), destFile, log);</script></con:config>
+FileUtils.copyFile(sourceDir, sourceFile, context.findProperty("GatewayPropDir"), destFile, log);</script></con:config>
 			</con:testStep>
 			<con:testStep name="Copy hiemTopicConnection" type="groovy">
 				<con:settings/>
@@ -2054,7 +2034,7 @@ def destFile = "hiemTopicConfiguration.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
-FileUtils.moveFile(sourceDir, sourceFile, destDir, destFile, log);</script></con:config>
+FileUtils.copyFile(sourceDir, sourceFile, destDir, destFile, log);</script></con:config>
 			</con:testStep>
 			<con:testStep name="update config" type="groovy">
 				<con:settings/>
@@ -2147,8 +2127,6 @@ nhinc.FileUtils.updateProperty(context.findProperty("GatewayPropDir"),"gateway.p
                <nccommon:zipCode>AddrZip</nccommon:zipCode>
             </nccommon:address>
             <nccommon:dateOfBirth xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">06/04/1959 05:21:00</nccommon:dateOfBirth>
-            <!--nccommon:dateOfSignature xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">${#Project#sigDate}</nccommon:dateOfSignature-->
-            <!--nccommon:expirationDate xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">${#Project#expDate}</nccommon:expirationDate-->
             <nccommon:explanationNonClaimantSignature xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">Electronic</nccommon:explanationNonClaimantSignature>
             <nccommon:haveSecondWitnessSignature xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">false</nccommon:haveSecondWitnessSignature>
             <nccommon:haveSignature xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">false</nccommon:haveSignature>
@@ -2186,7 +2164,6 @@ nhinc.FileUtils.updateProperty(context.findProperty("GatewayPropDir"),"gateway.p
                   <nccommon:originalText>phoneCode</nccommon:originalText>
                </nccommon:phoneNumberType>
             </nccommon:phoneNumber>
-            <!--nccommon:purposeOfDisclosure xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">TREATMENT</nccommon:purposeOfDisclosure-->
             <nccommon:secondWitnessAddress xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">
                <nccommon:addressType>
                   <nccommon:code>AddrCode</nccommon:code>
@@ -2291,7 +2268,6 @@ nhinc.FileUtils.updateProperty(context.findProperty("GatewayPropDir"),"gateway.p
                   <nccommon:fullName>Kasrl S. Skagerberg</nccommon:fullName>
                </nccommon:personName>
                <nccommon:userName>kskagerb</nccommon:userName>
-               <!--nccommon:role>Pharmacy</nccommon:role-->
                <nccommon:org>
                   <nccommon:description>${#Project#RemoteHCDescription}</nccommon:description>
                   <nccommon:homeCommunityId>${#Project#RemoteHCID}</nccommon:homeCommunityId>
@@ -2384,23 +2360,23 @@ nhinc.FileUtils.updateProperty(context.findProperty("GatewayPropDir"),"gateway.p
 			<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2012-11-27T15:29:31Z</con:value>
+					<con:value>2012-11-28T20:23:47Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2012-11-27T15:39:31Z</con:value>
+					<con:value>2012-11-28T20:33:47Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>11/27/2012 15:29:31</con:value>
+					<con:value>11/28/2012 20:23:47</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2012-12-27T00:00:00Z</con:value>
+					<con:value>2012-12-28T00:00:00Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>date</con:name>
-					<con:value>12/27/2012 00:00:00</con:value>
+					<con:value>12/28/2012 00:00:00</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
@@ -2426,7 +2402,7 @@ def destFile = "uddiConnectionInfo.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
-FileUtils.moveFile(sourceDir, sourceFile, context.findProperty("GatewayPropDir"), destFile, log);</script></con:config>
+FileUtils.copyFile(sourceDir, sourceFile, context.findProperty("GatewayPropDir"), destFile, log);</script></con:config>
 			</con:testStep>
 			<con:testStep name="Copy hiemTopicConnection" type="groovy">
 				<con:settings/>
@@ -2447,7 +2423,7 @@ def destFile = "hiemTopicConfiguration.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
-FileUtils.moveFile(sourceDir, sourceFile, destDir, destFile, log);</script></con:config>
+FileUtils.copyFile(sourceDir, sourceFile, destDir, destFile, log);</script></con:config>
 			</con:testStep>
 			<con:testStep name="update config" type="groovy">
 				<con:settings/>
@@ -2575,8 +2551,6 @@ sql.executeUpdate(insertSql, [2, localAA, localPatientID, uddiVA3, remotePatient
                <nccommon:zipCode>AddrZip</nccommon:zipCode>
             </nccommon:address>
             <nccommon:dateOfBirth xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">06/04/1959 05:21:00</nccommon:dateOfBirth>
-            <!--nccommon:dateOfSignature xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">${#Project#sigDate}</nccommon:dateOfSignature-->
-            <!--nccommon:expirationDate xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">${#Project#expDate}</nccommon:expirationDate-->
             <nccommon:explanationNonClaimantSignature xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">Electronic</nccommon:explanationNonClaimantSignature>
             <nccommon:haveSecondWitnessSignature xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">false</nccommon:haveSecondWitnessSignature>
             <nccommon:haveSignature xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">false</nccommon:haveSignature>
@@ -2614,7 +2588,6 @@ sql.executeUpdate(insertSql, [2, localAA, localPatientID, uddiVA3, remotePatient
                   <nccommon:originalText>phoneCode</nccommon:originalText>
                </nccommon:phoneNumberType>
             </nccommon:phoneNumber>
-            <!--nccommon:purposeOfDisclosure xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">TREATMENT</nccommon:purposeOfDisclosure-->
             <nccommon:secondWitnessAddress xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">
                <nccommon:addressType>
                   <nccommon:code>AddrCode</nccommon:code>
@@ -2719,7 +2692,6 @@ sql.executeUpdate(insertSql, [2, localAA, localPatientID, uddiVA3, remotePatient
                   <nccommon:fullName>Kasrl S. Skagerberg</nccommon:fullName>
                </nccommon:personName>
                <nccommon:userName>kskagerb</nccommon:userName>
-               <!--nccommon:role>Pharmacy</nccommon:role-->
                <nccommon:org>
                   <nccommon:description>${#Project#RemoteHCDescription}</nccommon:description>
                   <nccommon:homeCommunityId>${#Project#RemoteHCID}</nccommon:homeCommunityId>
@@ -2812,23 +2784,23 @@ sql.executeUpdate(insertSql, [2, localAA, localPatientID, uddiVA3, remotePatient
 			<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2012-11-27T15:29:36Z</con:value>
+					<con:value>2012-11-28T20:23:50Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2012-11-27T15:39:36Z</con:value>
+					<con:value>2012-11-28T20:33:50Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>11/27/2012 15:29:36</con:value>
+					<con:value>11/28/2012 20:23:50</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2012-12-27T00:00:00Z</con:value>
+					<con:value>2012-12-28T00:00:00Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>date</con:name>
-					<con:value>12/27/2012 00:00:00</con:value>
+					<con:value>12/28/2012 00:00:00</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
@@ -2854,7 +2826,7 @@ def destFile = "uddiConnectionInfo.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
-FileUtils.moveFile(sourceDir, sourceFile, context.findProperty("GatewayPropDir"), destFile, log);</script></con:config>
+FileUtils.copyFile(sourceDir, sourceFile, context.findProperty("GatewayPropDir"), destFile, log);</script></con:config>
 			</con:testStep>
 			<con:testStep name="Copy hiemTopicConnection" type="groovy">
 				<con:settings/>
@@ -2875,7 +2847,7 @@ def destFile = "hiemTopicConfiguration.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
-FileUtils.moveFile(sourceDir, sourceFile, destDir, destFile, log);</script></con:config>
+FileUtils.copyFile(sourceDir, sourceFile, destDir, destFile, log);</script></con:config>
 			</con:testStep>
 			<con:testStep name="update config" type="groovy">
 				<con:settings/>
@@ -2970,8 +2942,6 @@ sql.executeUpdate(insertSql, [1, localAA, localPatientID, uddiVA1, remotePatient
                <nccommon:zipCode>AddrZip</nccommon:zipCode>
             </nccommon:address>
             <nccommon:dateOfBirth xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">06/04/1959 05:21:00</nccommon:dateOfBirth>
-            <!--nccommon:dateOfSignature xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">${#Project#sigDate}</nccommon:dateOfSignature-->
-            <!--nccommon:expirationDate xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">${#Project#expDate}</nccommon:expirationDate-->
             <nccommon:explanationNonClaimantSignature xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">Electronic</nccommon:explanationNonClaimantSignature>
             <nccommon:haveSecondWitnessSignature xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">false</nccommon:haveSecondWitnessSignature>
             <nccommon:haveSignature xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">false</nccommon:haveSignature>
@@ -3009,7 +2979,6 @@ sql.executeUpdate(insertSql, [1, localAA, localPatientID, uddiVA1, remotePatient
                   <nccommon:originalText>phoneCode</nccommon:originalText>
                </nccommon:phoneNumberType>
             </nccommon:phoneNumber>
-            <!--nccommon:purposeOfDisclosure xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">TREATMENT</nccommon:purposeOfDisclosure-->
             <nccommon:secondWitnessAddress xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">
                <nccommon:addressType>
                   <nccommon:code>AddrCode</nccommon:code>
@@ -3114,7 +3083,6 @@ sql.executeUpdate(insertSql, [1, localAA, localPatientID, uddiVA1, remotePatient
                   <nccommon:fullName>Kasrl S. Skagerberg</nccommon:fullName>
                </nccommon:personName>
                <nccommon:userName>kskagerb</nccommon:userName>
-               <!--nccommon:role>Pharmacy</nccommon:role-->
                <nccommon:org>
                   <nccommon:description>${#Project#RemoteHCDescription}</nccommon:description>
                   <nccommon:homeCommunityId>${#Project#RemoteHCID}</nccommon:homeCommunityId>
@@ -3198,23 +3166,23 @@ sql.executeUpdate(insertSql, [1, localAA, localPatientID, uddiVA1, remotePatient
 			<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2012-11-27T15:29:41Z</con:value>
+					<con:value>2012-11-28T20:23:53Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2012-11-27T15:39:41Z</con:value>
+					<con:value>2012-11-28T20:33:53Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>11/27/2012 15:29:41</con:value>
+					<con:value>11/28/2012 20:23:53</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2012-12-27T00:00:00Z</con:value>
+					<con:value>2012-12-28T00:00:00Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>date</con:name>
-					<con:value>12/27/2012 00:00:00</con:value>
+					<con:value>12/28/2012 00:00:00</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
@@ -3240,7 +3208,7 @@ def destFile = "uddiConnectionInfo.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
-FileUtils.moveFile(sourceDir, sourceFile, context.findProperty("GatewayPropDir"), destFile, log);</script></con:config>
+FileUtils.copyFile(sourceDir, sourceFile, context.findProperty("GatewayPropDir"), destFile, log);</script></con:config>
 			</con:testStep>
 			<con:testStep name="Copy hiemTopicConnection" type="groovy">
 				<con:settings/>
@@ -3261,7 +3229,7 @@ def destFile = "hiemTopicConfiguration.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
-FileUtils.moveFile(sourceDir, sourceFile, destDir, destFile, log);</script></con:config>
+FileUtils.copyFile(sourceDir, sourceFile, destDir, destFile, log);</script></con:config>
 			</con:testStep>
 			<con:testStep name="update config" type="groovy">
 				<con:settings/>
@@ -3337,8 +3305,6 @@ nhinc.FileUtils.updateProperty(context.findProperty("GatewayPropDir"),"gateway.p
                <nccommon:zipCode>AddrZip</nccommon:zipCode>
             </nccommon:address>
             <nccommon:dateOfBirth xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">06/04/1959 05:21:00</nccommon:dateOfBirth>
-            <!--nccommon:dateOfSignature xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">${#Project#sigDate}</nccommon:dateOfSignature-->
-            <!--nccommon:expirationDate xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">${#Project#expDate}</nccommon:expirationDate-->
             <nccommon:explanationNonClaimantSignature xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">Electronic</nccommon:explanationNonClaimantSignature>
             <nccommon:haveSecondWitnessSignature xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">false</nccommon:haveSecondWitnessSignature>
             <nccommon:haveSignature xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">false</nccommon:haveSignature>
@@ -3376,7 +3342,6 @@ nhinc.FileUtils.updateProperty(context.findProperty("GatewayPropDir"),"gateway.p
                   <nccommon:originalText>phoneCode</nccommon:originalText>
                </nccommon:phoneNumberType>
             </nccommon:phoneNumber>
-            <!--nccommon:purposeOfDisclosure xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">TREATMENT</nccommon:purposeOfDisclosure-->
             <nccommon:secondWitnessAddress xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">
                <nccommon:addressType>
                   <nccommon:code>AddrCode</nccommon:code>
@@ -3481,7 +3446,6 @@ nhinc.FileUtils.updateProperty(context.findProperty("GatewayPropDir"),"gateway.p
                   <nccommon:fullName>Kasrl S. Skagerberg</nccommon:fullName>
                </nccommon:personName>
                <nccommon:userName>kskagerb</nccommon:userName>
-               <!--nccommon:role>Pharmacy</nccommon:role-->
                <nccommon:org>
                   <nccommon:description>${#Project#RemoteHCDescription}</nccommon:description>
                   <nccommon:homeCommunityId>${#Project#RemoteHCID}</nccommon:homeCommunityId>
@@ -3565,23 +3529,23 @@ nhinc.FileUtils.updateProperty(context.findProperty("GatewayPropDir"),"gateway.p
 			<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2012-11-27T15:29:44Z</con:value>
+					<con:value>2012-11-28T20:23:55Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2012-11-27T15:39:44Z</con:value>
+					<con:value>2012-11-28T20:33:55Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>11/27/2012 15:29:44</con:value>
+					<con:value>11/28/2012 20:23:55</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2012-12-27T00:00:00Z</con:value>
+					<con:value>2012-12-28T00:00:00Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>date</con:name>
-					<con:value>12/27/2012 00:00:00</con:value>
+					<con:value>12/28/2012 00:00:00</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
@@ -3607,7 +3571,7 @@ def destFile = "uddiConnectionInfo.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
-FileUtils.moveFile(sourceDir, sourceFile, context.findProperty("GatewayPropDir"), destFile, log);</script></con:config>
+FileUtils.copyFile(sourceDir, sourceFile, context.findProperty("GatewayPropDir"), destFile, log);</script></con:config>
 			</con:testStep>
 			<con:testStep name="Copy hiemTopicConnection" type="groovy">
 				<con:settings/>
@@ -3628,7 +3592,7 @@ def destFile = "hiemTopicConfiguration.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
-FileUtils.moveFile(sourceDir, sourceFile, destDir, destFile, log);</script></con:config>
+FileUtils.copyFile(sourceDir, sourceFile, destDir, destFile, log);</script></con:config>
 			</con:testStep>
 			<con:testStep name="update config" type="groovy">
 				<con:settings/>
@@ -3720,8 +3684,6 @@ nhinc.FileUtils.updateProperty(context.findProperty("GatewayPropDir"),"gateway.p
                <nccommon:zipCode>AddrZip</nccommon:zipCode>
             </nccommon:address>
             <nccommon:dateOfBirth xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">06/04/1959 05:21:00</nccommon:dateOfBirth>
-            <!--nccommon:dateOfSignature xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">${#Project#sigDate}</nccommon:dateOfSignature-->
-            <!--nccommon:expirationDate xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">${#Project#expDate}</nccommon:expirationDate-->
             <nccommon:explanationNonClaimantSignature xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">Electronic</nccommon:explanationNonClaimantSignature>
             <nccommon:haveSecondWitnessSignature xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">false</nccommon:haveSecondWitnessSignature>
             <nccommon:haveSignature xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">false</nccommon:haveSignature>
@@ -3759,7 +3721,6 @@ nhinc.FileUtils.updateProperty(context.findProperty("GatewayPropDir"),"gateway.p
                   <nccommon:originalText>phoneCode</nccommon:originalText>
                </nccommon:phoneNumberType>
             </nccommon:phoneNumber>
-            <!--nccommon:purposeOfDisclosure xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">TREATMENT</nccommon:purposeOfDisclosure-->
             <nccommon:secondWitnessAddress xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">
                <nccommon:addressType>
                   <nccommon:code>AddrCode</nccommon:code>
@@ -3864,7 +3825,6 @@ nhinc.FileUtils.updateProperty(context.findProperty("GatewayPropDir"),"gateway.p
                   <nccommon:fullName>Kasrl S. Skagerberg</nccommon:fullName>
                </nccommon:personName>
                <nccommon:userName>kskagerb</nccommon:userName>
-               <!--nccommon:role>Pharmacy</nccommon:role-->
                <nccommon:org>
                   <nccommon:description>${#Project#RemoteHCDescription}</nccommon:description>
                   <nccommon:homeCommunityId>${#Project#RemoteHCID}</nccommon:homeCommunityId>
@@ -3957,23 +3917,23 @@ nhinc.FileUtils.updateProperty(context.findProperty("GatewayPropDir"),"gateway.p
 			<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2012-11-27T15:29:45Z</con:value>
+					<con:value>2012-11-28T20:23:56Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2012-11-27T15:39:45Z</con:value>
+					<con:value>2012-11-28T20:33:56Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>11/27/2012 15:29:45</con:value>
+					<con:value>11/28/2012 20:23:56</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2012-12-27T00:00:00Z</con:value>
+					<con:value>2012-12-28T00:00:00Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>date</con:name>
-					<con:value>12/27/2012 00:00:00</con:value>
+					<con:value>12/28/2012 00:00:00</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
@@ -3999,7 +3959,7 @@ def destFile = "uddiConnectionInfo.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
-FileUtils.moveFile(sourceDir, sourceFile, context.findProperty("GatewayPropDir"), destFile, log);</script></con:config>
+FileUtils.copyFile(sourceDir, sourceFile, context.findProperty("GatewayPropDir"), destFile, log);</script></con:config>
 			</con:testStep>
 			<con:testStep name="Copy hiemTopicConnection" type="groovy">
 				<con:settings/>
@@ -4020,7 +3980,7 @@ def destFile = "hiemTopicConfiguration.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
-FileUtils.moveFile(sourceDir, sourceFile, destDir, destFile, log);</script></con:config>
+FileUtils.copyFile(sourceDir, sourceFile, destDir, destFile, log);</script></con:config>
 			</con:testStep>
 			<con:testStep name="update config" type="groovy">
 				<con:settings/>
@@ -4096,8 +4056,6 @@ nhinc.FileUtils.updateProperty(context.findProperty("GatewayPropDir"),"gateway.p
                <nccommon:zipCode>AddrZip</nccommon:zipCode>
             </nccommon:address>
             <nccommon:dateOfBirth xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">06/04/1959 05:21:00</nccommon:dateOfBirth>
-            <!--nccommon:dateOfSignature xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">${#Project#sigDate}</nccommon:dateOfSignature-->
-            <!--nccommon:expirationDate xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">${#Project#expDate}</nccommon:expirationDate-->
             <nccommon:explanationNonClaimantSignature xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">Electronic</nccommon:explanationNonClaimantSignature>
             <nccommon:haveSecondWitnessSignature xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">false</nccommon:haveSecondWitnessSignature>
             <nccommon:haveSignature xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">false</nccommon:haveSignature>
@@ -4135,7 +4093,6 @@ nhinc.FileUtils.updateProperty(context.findProperty("GatewayPropDir"),"gateway.p
                   <nccommon:originalText>phoneCode</nccommon:originalText>
                </nccommon:phoneNumberType>
             </nccommon:phoneNumber>
-            <!--nccommon:purposeOfDisclosure xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">TREATMENT</nccommon:purposeOfDisclosure-->
             <nccommon:secondWitnessAddress xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">
                <nccommon:addressType>
                   <nccommon:code>AddrCode</nccommon:code>
@@ -4240,7 +4197,6 @@ nhinc.FileUtils.updateProperty(context.findProperty("GatewayPropDir"),"gateway.p
                   <nccommon:fullName>Kasrl S. Skagerberg</nccommon:fullName>
                </nccommon:personName>
                <nccommon:userName>kskagerb</nccommon:userName>
-               <!--nccommon:role>Pharmacy</nccommon:role-->
                <nccommon:org>
                   <nccommon:description>${#Project#RemoteHCDescription}</nccommon:description>
                   <nccommon:homeCommunityId>${#Project#RemoteHCID}</nccommon:homeCommunityId>
@@ -4335,23 +4291,23 @@ nhinc.FileUtils.updateProperty(context.findProperty("GatewayPropDir"),"gateway.p
 			<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2012-11-27T15:29:49Z</con:value>
+					<con:value>2012-11-28T20:24:00Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2012-11-27T15:39:49Z</con:value>
+					<con:value>2012-11-28T20:34:00Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>11/27/2012 15:29:49</con:value>
+					<con:value>11/28/2012 20:24:00</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2012-12-27T00:00:00Z</con:value>
+					<con:value>2012-12-28T00:00:00Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>date</con:name>
-					<con:value>12/27/2012 00:00:00</con:value>
+					<con:value>12/28/2012 00:00:00</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
@@ -4377,7 +4333,7 @@ def destFile = "uddiConnectionInfo.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
-FileUtils.moveFile(sourceDir, sourceFile, context.findProperty("GatewayPropDir"), destFile, log);</script></con:config>
+FileUtils.copyFile(sourceDir, sourceFile, context.findProperty("GatewayPropDir"), destFile, log);</script></con:config>
 			</con:testStep>
 			<con:testStep name="Copy hiemTopicConnection" type="groovy">
 				<con:settings/>
@@ -4398,7 +4354,7 @@ def destFile = "hiemTopicConfiguration.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
-FileUtils.moveFile(sourceDir, sourceFile, destDir, destFile, log);</script></con:config>
+FileUtils.copyFile(sourceDir, sourceFile, destDir, destFile, log);</script></con:config>
 			</con:testStep>
 			<con:testStep name="update config" type="groovy">
 				<con:settings/>
@@ -4490,8 +4446,6 @@ nhinc.FileUtils.updateProperty(context.findProperty("GatewayPropDir"),"gateway.p
                <nccommon:zipCode>AddrZip</nccommon:zipCode>
             </nccommon:address>
             <nccommon:dateOfBirth xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">06/04/1959 05:21:00</nccommon:dateOfBirth>
-            <!--nccommon:dateOfSignature xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">${#Project#sigDate}</nccommon:dateOfSignature-->
-            <!--nccommon:expirationDate xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">${#Project#expDate}</nccommon:expirationDate-->
             <nccommon:explanationNonClaimantSignature xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">Electronic</nccommon:explanationNonClaimantSignature>
             <nccommon:haveSecondWitnessSignature xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">false</nccommon:haveSecondWitnessSignature>
             <nccommon:haveSignature xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">false</nccommon:haveSignature>
@@ -4529,7 +4483,6 @@ nhinc.FileUtils.updateProperty(context.findProperty("GatewayPropDir"),"gateway.p
                   <nccommon:originalText>phoneCode</nccommon:originalText>
                </nccommon:phoneNumberType>
             </nccommon:phoneNumber>
-            <!--nccommon:purposeOfDisclosure xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">TREATMENT</nccommon:purposeOfDisclosure-->
             <nccommon:secondWitnessAddress xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">
                <nccommon:addressType>
                   <nccommon:code>AddrCode</nccommon:code>
@@ -4634,7 +4587,6 @@ nhinc.FileUtils.updateProperty(context.findProperty("GatewayPropDir"),"gateway.p
                   <nccommon:fullName>Kasrl S. Skagerberg</nccommon:fullName>
                </nccommon:personName>
                <nccommon:userName>kskagerb</nccommon:userName>
-               <!--nccommon:role>Pharmacy</nccommon:role-->
                <nccommon:org>
                   <nccommon:description>${#Project#RemoteHCDescription}</nccommon:description>
                   <nccommon:homeCommunityId>${#Project#RemoteHCID}</nccommon:homeCommunityId>
@@ -4729,23 +4681,23 @@ nhinc.FileUtils.updateProperty(context.findProperty("GatewayPropDir"),"gateway.p
 			<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2012-11-27T15:29:52Z</con:value>
+					<con:value>2012-11-28T20:24:01Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2012-11-27T15:39:52Z</con:value>
+					<con:value>2012-11-28T20:34:01Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>11/27/2012 15:29:52</con:value>
+					<con:value>11/28/2012 20:24:01</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2012-12-27T00:00:00Z</con:value>
+					<con:value>2012-12-28T00:00:00Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>date</con:name>
-					<con:value>12/27/2012 00:00:00</con:value>
+					<con:value>12/28/2012 00:00:00</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
@@ -4771,7 +4723,7 @@ def destFile = "uddiConnectionInfo.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
-FileUtils.moveFile(sourceDir, sourceFile, context.findProperty("GatewayPropDir"), destFile, log);</script></con:config>
+FileUtils.copyFile(sourceDir, sourceFile, context.findProperty("GatewayPropDir"), destFile, log);</script></con:config>
 			</con:testStep>
 			<con:testStep name="Copy hiemTopicConnection" type="groovy">
 				<con:settings/>
@@ -4792,7 +4744,7 @@ def destFile = "hiemTopicConfiguration.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
-FileUtils.moveFile(sourceDir, sourceFile, destDir, destFile, log);</script></con:config>
+FileUtils.copyFile(sourceDir, sourceFile, destDir, destFile, log);</script></con:config>
 			</con:testStep>
 			<con:testStep name="update config" type="groovy">
 				<con:settings/>
@@ -4930,8 +4882,6 @@ context.withSql('PatientCorrelationDB') { sql ->
                <nccommon:zipCode>AddrZip</nccommon:zipCode>
             </nccommon:address>
             <nccommon:dateOfBirth xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">06/04/1959 05:21:00</nccommon:dateOfBirth>
-            <!--nccommon:dateOfSignature xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">${#Project#sigDate}</nccommon:dateOfSignature-->
-            <!--nccommon:expirationDate xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">${#Project#expDate}</nccommon:expirationDate-->
             <nccommon:explanationNonClaimantSignature xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">Electronic</nccommon:explanationNonClaimantSignature>
             <nccommon:haveSecondWitnessSignature xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">false</nccommon:haveSecondWitnessSignature>
             <nccommon:haveSignature xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">false</nccommon:haveSignature>
@@ -4969,7 +4919,6 @@ context.withSql('PatientCorrelationDB') { sql ->
                   <nccommon:originalText>phoneCode</nccommon:originalText>
                </nccommon:phoneNumberType>
             </nccommon:phoneNumber>
-            <!--nccommon:purposeOfDisclosure xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">TREATMENT</nccommon:purposeOfDisclosure-->
             <nccommon:secondWitnessAddress xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">
                <nccommon:addressType>
                   <nccommon:code>AddrCode</nccommon:code>
@@ -5074,7 +5023,6 @@ context.withSql('PatientCorrelationDB') { sql ->
                   <nccommon:fullName>Kasrl S. Skagerberg</nccommon:fullName>
                </nccommon:personName>
                <nccommon:userName>kskagerb</nccommon:userName>
-               <!--nccommon:role>Pharmacy</nccommon:role-->
                <nccommon:org>
                   <nccommon:description>${#Project#RemoteHCDescription}</nccommon:description>
                   <nccommon:homeCommunityId>${#Project#RemoteHCID}</nccommon:homeCommunityId>
@@ -5174,23 +5122,23 @@ FileUtils.InitializeNHINCProperties(context, log);
 			<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2012-11-27T15:29:54Z</con:value>
+					<con:value>2012-11-28T20:24:03Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2012-11-27T15:39:54Z</con:value>
+					<con:value>2012-11-28T20:34:03Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>11/27/2012 15:29:54</con:value>
+					<con:value>11/28/2012 20:24:03</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2012-12-27T00:00:00Z</con:value>
+					<con:value>2012-12-28T00:00:00Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>date</con:name>
-					<con:value>12/27/2012 00:00:00</con:value>
+					<con:value>12/28/2012 00:00:00</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
@@ -5216,7 +5164,7 @@ def destFile = "uddiConnectionInfo.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
-FileUtils.moveFile(sourceDir, sourceFile, context.findProperty("GatewayPropDir"), destFile, log);</script></con:config>
+FileUtils.copyFile(sourceDir, sourceFile, context.findProperty("GatewayPropDir"), destFile, log);</script></con:config>
 			</con:testStep>
 			<con:testStep name="Copy hiemTopicConnection" type="groovy">
 				<con:settings/>
@@ -5237,7 +5185,7 @@ def destFile = "hiemTopicConfiguration.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
-FileUtils.moveFile(sourceDir, sourceFile, destDir, destFile, log);</script></con:config>
+FileUtils.copyFile(sourceDir, sourceFile, destDir, destFile, log);</script></con:config>
 			</con:testStep>
 			<con:testStep name="update config" type="groovy">
 				<con:settings/>
@@ -5313,8 +5261,6 @@ nhinc.FileUtils.updateProperty(context.findProperty("GatewayPropDir"),"gateway.p
                <nccommon:zipCode>AddrZip</nccommon:zipCode>
             </nccommon:address>
             <nccommon:dateOfBirth xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">06/04/1959 05:21:00</nccommon:dateOfBirth>
-            <!--nccommon:dateOfSignature xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">${#Project#sigDate}</nccommon:dateOfSignature-->
-            <!--nccommon:expirationDate xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">${#Project#expDate}</nccommon:expirationDate-->
             <nccommon:explanationNonClaimantSignature xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">Electronic</nccommon:explanationNonClaimantSignature>
             <nccommon:haveSecondWitnessSignature xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">false</nccommon:haveSecondWitnessSignature>
             <nccommon:haveSignature xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">false</nccommon:haveSignature>
@@ -5352,7 +5298,6 @@ nhinc.FileUtils.updateProperty(context.findProperty("GatewayPropDir"),"gateway.p
                   <nccommon:originalText>phoneCode</nccommon:originalText>
                </nccommon:phoneNumberType>
             </nccommon:phoneNumber>
-            <!--nccommon:purposeOfDisclosure xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">TREATMENT</nccommon:purposeOfDisclosure-->
             <nccommon:secondWitnessAddress xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">
                <nccommon:addressType>
                   <nccommon:code>AddrCode</nccommon:code>
@@ -5457,7 +5402,6 @@ nhinc.FileUtils.updateProperty(context.findProperty("GatewayPropDir"),"gateway.p
                   <nccommon:fullName>Kasrl S. Skagerberg</nccommon:fullName>
                </nccommon:personName>
                <nccommon:userName>kskagerb</nccommon:userName>
-               <!--nccommon:role>Pharmacy</nccommon:role-->
                <nccommon:org>
                   <nccommon:description>${#Project#RemoteHCDescription}</nccommon:description>
                   <nccommon:homeCommunityId>${#Project#RemoteHCID}</nccommon:homeCommunityId>
@@ -5555,23 +5499,23 @@ FileUtils.InitializeNHINCProperties(context, log);
 			<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2012-11-27T15:29:57Z</con:value>
+					<con:value>2012-11-28T20:24:04Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2012-11-27T15:39:57Z</con:value>
+					<con:value>2012-11-28T20:34:04Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>11/27/2012 15:29:57</con:value>
+					<con:value>11/28/2012 20:24:04</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2012-12-27T00:00:00Z</con:value>
+					<con:value>2012-12-28T00:00:00Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>date</con:name>
-					<con:value>12/27/2012 00:00:00</con:value>
+					<con:value>12/28/2012 00:00:00</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
@@ -5597,7 +5541,7 @@ def destFile = "uddiConnectionInfo.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
-FileUtils.moveFile(sourceDir, sourceFile, context.findProperty("GatewayPropDir"), destFile, log);</script></con:config>
+FileUtils.copyFile(sourceDir, sourceFile, context.findProperty("GatewayPropDir"), destFile, log);</script></con:config>
 			</con:testStep>
 			<con:testStep name="Copy hiemTopicConnection" type="groovy">
 				<con:settings/>
@@ -5618,7 +5562,7 @@ def destFile = "hiemTopicConfiguration.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
-FileUtils.moveFile(sourceDir, sourceFile, destDir, destFile, log);</script></con:config>
+FileUtils.copyFile(sourceDir, sourceFile, destDir, destFile, log);</script></con:config>
 			</con:testStep>
 			<con:testStep name="update config" type="groovy">
 				<con:settings/>
@@ -5710,8 +5654,6 @@ nhinc.FileUtils.updateProperty(context.findProperty("GatewayPropDir"),"gateway.p
                <nccommon:zipCode>AddrZip</nccommon:zipCode>
             </nccommon:address>
             <nccommon:dateOfBirth xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">06/04/1959 05:21:00</nccommon:dateOfBirth>
-            <!--nccommon:dateOfSignature xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">${#Project#sigDate}</nccommon:dateOfSignature-->
-            <!--nccommon:expirationDate xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">${#Project#expDate}</nccommon:expirationDate-->
             <nccommon:explanationNonClaimantSignature xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">Electronic</nccommon:explanationNonClaimantSignature>
             <nccommon:haveSecondWitnessSignature xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">false</nccommon:haveSecondWitnessSignature>
             <nccommon:haveSignature xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">false</nccommon:haveSignature>
@@ -5749,7 +5691,6 @@ nhinc.FileUtils.updateProperty(context.findProperty("GatewayPropDir"),"gateway.p
                   <nccommon:originalText>phoneCode</nccommon:originalText>
                </nccommon:phoneNumberType>
             </nccommon:phoneNumber>
-            <!--nccommon:purposeOfDisclosure xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">TREATMENT</nccommon:purposeOfDisclosure-->
             <nccommon:secondWitnessAddress xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">
                <nccommon:addressType>
                   <nccommon:code>AddrCode</nccommon:code>
@@ -5854,7 +5795,6 @@ nhinc.FileUtils.updateProperty(context.findProperty("GatewayPropDir"),"gateway.p
                   <nccommon:fullName>Kasrl S. Skagerberg</nccommon:fullName>
                </nccommon:personName>
                <nccommon:userName>kskagerb</nccommon:userName>
-               <!--nccommon:role>Pharmacy</nccommon:role-->
                <nccommon:org>
                   <nccommon:description>${#Project#RemoteHCDescription}</nccommon:description>
                   <nccommon:homeCommunityId>${#Project#RemoteHCID}</nccommon:homeCommunityId>
@@ -5947,23 +5887,23 @@ nhinc.FileUtils.updateProperty(context.findProperty("GatewayPropDir"),"gateway.p
 			<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2012-11-27T15:48:32Z</con:value>
+					<con:value>2012-11-28T20:24:06Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2012-11-27T15:58:32Z</con:value>
+					<con:value>2012-11-28T20:34:06Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>11/27/2012 15:48:32</con:value>
+					<con:value>11/28/2012 20:24:06</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2012-12-27T00:00:00Z</con:value>
+					<con:value>2012-12-28T00:00:00Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>date</con:name>
-					<con:value>12/27/2012 00:00:00</con:value>
+					<con:value>12/28/2012 00:00:00</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
@@ -5989,7 +5929,7 @@ def destFile = "uddiConnectionInfo.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
-FileUtils.moveFile(sourceDir, sourceFile, context.findProperty("GatewayPropDir"), destFile, log);</script></con:config>
+FileUtils.copyFile(sourceDir, sourceFile, context.findProperty("GatewayPropDir"), destFile, log);</script></con:config>
 			</con:testStep>
 			<con:testStep name="Copy hiemTopicConnection" type="groovy">
 				<con:settings/>
@@ -6010,7 +5950,7 @@ def destFile = "hiemTopicConfiguration.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
-FileUtils.moveFile(sourceDir, sourceFile, destDir, destFile, log);</script></con:config>
+FileUtils.copyFile(sourceDir, sourceFile, destDir, destFile, log);</script></con:config>
 			</con:testStep>
 			<con:testStep name="update config" type="groovy">
 				<con:settings/>
@@ -6148,8 +6088,6 @@ context.withSql('PatientCorrelationDB') { sql ->
                <nccommon:zipCode>AddrZip</nccommon:zipCode>
             </nccommon:address>
             <nccommon:dateOfBirth xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">06/04/1959 05:21:00</nccommon:dateOfBirth>
-            <!--nccommon:dateOfSignature xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">${#Project#sigDate}</nccommon:dateOfSignature-->
-            <!--nccommon:expirationDate xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">${#Project#expDate}</nccommon:expirationDate-->
             <nccommon:explanationNonClaimantSignature xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">Electronic</nccommon:explanationNonClaimantSignature>
             <nccommon:haveSecondWitnessSignature xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">false</nccommon:haveSecondWitnessSignature>
             <nccommon:haveSignature xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">false</nccommon:haveSignature>
@@ -6187,7 +6125,6 @@ context.withSql('PatientCorrelationDB') { sql ->
                   <nccommon:originalText>phoneCode</nccommon:originalText>
                </nccommon:phoneNumberType>
             </nccommon:phoneNumber>
-            <!--nccommon:purposeOfDisclosure xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">TREATMENT</nccommon:purposeOfDisclosure-->
             <nccommon:secondWitnessAddress xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">
                <nccommon:addressType>
                   <nccommon:code>AddrCode</nccommon:code>
@@ -6292,7 +6229,6 @@ context.withSql('PatientCorrelationDB') { sql ->
                   <nccommon:fullName>Kasrl S. Skagerberg</nccommon:fullName>
                </nccommon:personName>
                <nccommon:userName>kskagerb</nccommon:userName>
-               <!--nccommon:role>Pharmacy</nccommon:role-->
                <nccommon:org>
                   <nccommon:description>${#Project#RemoteHCDescription}</nccommon:description>
                   <nccommon:homeCommunityId>${#Project#RemoteHCID}</nccommon:homeCommunityId>
@@ -6385,23 +6321,23 @@ context.withSql('PatientCorrelationDB') { sql ->
 			<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2012-11-27T15:30:04Z</con:value>
+					<con:value>2012-11-28T20:24:08Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2012-11-27T15:40:04Z</con:value>
+					<con:value>2012-11-28T20:34:08Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>11/27/2012 15:30:04</con:value>
+					<con:value>11/28/2012 20:24:08</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2012-12-27T00:00:00Z</con:value>
+					<con:value>2012-12-28T00:00:00Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>date</con:name>
-					<con:value>12/27/2012 00:00:00</con:value>
+					<con:value>12/28/2012 00:00:00</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
@@ -6427,7 +6363,7 @@ def destFile = "uddiConnectionInfo.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
-FileUtils.moveFile(sourceDir, sourceFile, context.findProperty("GatewayPropDir"), destFile, log);</script></con:config>
+FileUtils.copyFile(sourceDir, sourceFile, context.findProperty("GatewayPropDir"), destFile, log);</script></con:config>
 			</con:testStep>
 			<con:testStep name="Copy hiemTopicConnection" type="groovy">
 				<con:settings/>
@@ -6448,7 +6384,7 @@ def destFile = "hiemTopicConfiguration.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
-FileUtils.moveFile(sourceDir, sourceFile, destDir, destFile, log);</script></con:config>
+FileUtils.copyFile(sourceDir, sourceFile, destDir, destFile, log);</script></con:config>
 			</con:testStep>
 			<con:testStep name="update config" type="groovy">
 				<con:settings/>
@@ -6573,8 +6509,6 @@ nhinc.FileUtils.updateProperty(context.findProperty("GatewayPropDir"),"gateway.p
                <nccommon:zipCode>AddrZip</nccommon:zipCode>
             </nccommon:address>
             <nccommon:dateOfBirth xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">06/04/1959 05:21:00</nccommon:dateOfBirth>
-            <!--nccommon:dateOfSignature xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">${#Project#sigDate}</nccommon:dateOfSignature-->
-            <!--nccommon:expirationDate xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">${#Project#expDate}</nccommon:expirationDate-->
             <nccommon:explanationNonClaimantSignature xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">Electronic</nccommon:explanationNonClaimantSignature>
             <nccommon:haveSecondWitnessSignature xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">false</nccommon:haveSecondWitnessSignature>
             <nccommon:haveSignature xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">false</nccommon:haveSignature>
@@ -6612,7 +6546,6 @@ nhinc.FileUtils.updateProperty(context.findProperty("GatewayPropDir"),"gateway.p
                   <nccommon:originalText>phoneCode</nccommon:originalText>
                </nccommon:phoneNumberType>
             </nccommon:phoneNumber>
-            <!--nccommon:purposeOfDisclosure xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">TREATMENT</nccommon:purposeOfDisclosure-->
             <nccommon:secondWitnessAddress xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">
                <nccommon:addressType>
                   <nccommon:code>AddrCode</nccommon:code>
@@ -6717,7 +6650,6 @@ nhinc.FileUtils.updateProperty(context.findProperty("GatewayPropDir"),"gateway.p
                   <nccommon:fullName>Kasrl S. Skagerberg</nccommon:fullName>
                </nccommon:personName>
                <nccommon:userName>kskagerb</nccommon:userName>
-               <!--nccommon:role>Pharmacy</nccommon:role-->
                <nccommon:org>
                   <nccommon:description>${#Project#RemoteHCDescription}</nccommon:description>
                   <nccommon:homeCommunityId>${#Project#RemoteHCID}</nccommon:homeCommunityId>
@@ -6810,23 +6742,23 @@ nhinc.FileUtils.updateProperty(context.findProperty("GatewayPropDir"),"gateway.p
 			<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2012-11-27T15:30:08Z</con:value>
+					<con:value>2012-11-28T20:24:11Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2012-11-27T15:40:08Z</con:value>
+					<con:value>2012-11-28T20:34:11Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>11/27/2012 15:30:08</con:value>
+					<con:value>11/28/2012 20:24:11</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2012-12-27T00:00:00Z</con:value>
+					<con:value>2012-12-28T00:00:00Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>date</con:name>
-					<con:value>12/27/2012 00:00:00</con:value>
+					<con:value>12/28/2012 00:00:00</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
@@ -6852,7 +6784,7 @@ def destFile = "uddiConnectionInfo.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
-FileUtils.moveFile(sourceDir, sourceFile, context.findProperty("GatewayPropDir"), destFile, log);</script></con:config>
+FileUtils.copyFile(sourceDir, sourceFile, context.findProperty("GatewayPropDir"), destFile, log);</script></con:config>
 			</con:testStep>
 			<con:testStep name="Copy hiemTopicConnection" type="groovy">
 				<con:settings/>
@@ -6873,7 +6805,7 @@ def destFile = "hiemTopicConfiguration.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
-FileUtils.moveFile(sourceDir, sourceFile, destDir, destFile, log);</script></con:config>
+FileUtils.copyFile(sourceDir, sourceFile, destDir, destFile, log);</script></con:config>
 			</con:testStep>
 			<con:testStep name="update config" type="groovy">
 				<con:settings/>
@@ -7022,8 +6954,6 @@ context.withSql('PatientCorrelationDB') { sql ->
                <nccommon:zipCode>AddrZip</nccommon:zipCode>
             </nccommon:address>
             <nccommon:dateOfBirth xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">06/04/1959 05:21:00</nccommon:dateOfBirth>
-            <!--nccommon:dateOfSignature xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">${#Project#sigDate}</nccommon:dateOfSignature-->
-            <!--nccommon:expirationDate xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">${#Project#expDate}</nccommon:expirationDate-->
             <nccommon:explanationNonClaimantSignature xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">Electronic</nccommon:explanationNonClaimantSignature>
             <nccommon:haveSecondWitnessSignature xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">false</nccommon:haveSecondWitnessSignature>
             <nccommon:haveSignature xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">false</nccommon:haveSignature>
@@ -7061,7 +6991,6 @@ context.withSql('PatientCorrelationDB') { sql ->
                   <nccommon:originalText>phoneCode</nccommon:originalText>
                </nccommon:phoneNumberType>
             </nccommon:phoneNumber>
-            <!--nccommon:purposeOfDisclosure xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">TREATMENT</nccommon:purposeOfDisclosure-->
             <nccommon:secondWitnessAddress xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">
                <nccommon:addressType>
                   <nccommon:code>AddrCode</nccommon:code>
@@ -7166,7 +7095,6 @@ context.withSql('PatientCorrelationDB') { sql ->
                   <nccommon:fullName>Kasrl S. Skagerberg</nccommon:fullName>
                </nccommon:personName>
                <nccommon:userName>kskagerb</nccommon:userName>
-               <!--nccommon:role>Pharmacy</nccommon:role-->
                <nccommon:org>
                   <nccommon:description>${#Project#RemoteHCDescription}</nccommon:description>
                   <nccommon:homeCommunityId>${#Project#RemoteHCID}</nccommon:homeCommunityId>
@@ -7270,23 +7198,23 @@ context.withSql('PatientCorrelationDB') { sql ->
 			<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2012-11-27T15:30:12Z</con:value>
+					<con:value>2012-11-28T20:24:13Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2012-11-27T15:40:12Z</con:value>
+					<con:value>2012-11-28T20:34:13Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>11/27/2012 15:30:12</con:value>
+					<con:value>11/28/2012 20:24:13</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2012-12-27T00:00:00Z</con:value>
+					<con:value>2012-12-28T00:00:00Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>date</con:name>
-					<con:value>12/27/2012 00:00:00</con:value>
+					<con:value>12/28/2012 00:00:00</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
@@ -7349,7 +7277,7 @@ context.withSql('PatientCorrelationDB') { sql ->
 		<con:property><con:name>SubscriptionDB</con:name><con:value>subscriptionrepository</con:value></con:property><con:property><con:name>SubscriptionEndpoint</con:name><con:value>https://localhost:8181/Gateway/HIEM/2_0/NhinService/NotificationProducerService/HiemSubscription</con:value></con:property><con:property><con:name>SubscriptionManagerEndpointAddress</con:name><con:value>https://localhost:8181/Gateway/HIEM/2_0/NhinService/SubscriptionManagerService/HiemUnsubscribe</con:value></con:property><con:property><con:name>SubscriptionTable</con:name><con:value>subscription</con:value></con:property><con:property><con:name>testAA</con:name><con:value>8.8</con:value></con:property>
 		
 		
-	<con:property><con:name>testHCDescription</con:name><con:value>Test HCID</con:value></con:property><con:property><con:name>testHCID</con:name><con:value>8.8</con:value></con:property><con:property><con:name>UnsubSubscriptionID</con:name><con:value>3e74139f-5271-4db1-98c0-88748fa3e4e3</con:value></con:property><con:property><con:name>GatewayPropDir</con:name><con:value>D:\glassfish3\glassfish\domains\domain1\config\nhin</con:value></con:property></con:properties>
+	<con:property><con:name>testHCDescription</con:name><con:value>Test HCID</con:value></con:property><con:property><con:name>testHCID</con:name><con:value>8.8</con:value></con:property><con:property><con:name>UnsubSubscriptionID</con:name><con:value>3e74139f-5271-4db1-98c0-88748fa3e4e3</con:value></con:property><con:property><con:name>GatewayPropDir</con:name><con:value>c:\glassfish3\glassfish\domains\domain1\config\nhin</con:value></con:property></con:properties>
 	<con:afterLoadScript>def propertiesFile = new File(new File(project.path).parent, 'HIEMPatientCentricUDDItests-soapui-project.properties')
 if (propertiesFile.exists()) {
 	def props = new Properties()
