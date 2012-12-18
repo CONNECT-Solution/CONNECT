@@ -13,8 +13,8 @@
             <Anchor name="direct.max.md"/>
             <Anchor name="ssdev.direct.cert.clinicalinterop.com"/>
             <Anchor name="phimail.emrdirect.com"/>
-            <Anchor name="direct.securehealthemail.com_ca"/>
-            <Anchor name="direct.connectopensource.org_ca"/>
+            <Anchor name="direct.securehealthemail.com"/>
+            <Anchor name="direct.connectopensource.org"/>
             <Anchor name="direct.icaetc.com"/>
             <Anchor name="direct.hispdev1.hispdirect.com"/>
             <Anchor name="common.root.der"/> -->         
@@ -30,15 +30,18 @@
             <Anchor name="direct.max.md"/>
             <Anchor name="ssdev.direct.cert.clinicalinterop.com"/>
             <Anchor name="phimail.emrdirect.com"/>
-            <Anchor name="direct.securehealthemail.com_ca"/>
-            <Anchor name="direct.connectopensource.org_ca"/>
+            <Anchor name="direct.securehealthemail.com"/>
+            <Anchor name="direct.connectopensource.org"/>
             <Anchor name="direct.icaetc.com"/>
             <Anchor name="direct.hispdev1.hispdirect.com"/>
             <Anchor name="common.root.der"/> -->
          </OutgoingTrustAnchors>           
       </Domain> 
    </Domains>
-   <PublicCertStore type="Keystore" file="/path/to/direct.publicstore.jks" filePass="changeit" privKeyPass="changeit"/>
+   <PublicCertStores>
+      <PublicCertStore type="Keystore" file="/path/to/direct.publicstore.jks" filePass="changeit" privKeyPass="changeit"/>
+      <PublicCertStore type="DNS" />
+   </PublicCertStores>
    <PrivateCertStore type="Keystore" file="/path/to/direct.privatestore.jks" filePass="changeit" privKeyPass="changeit"/>
    <RawMessageSettings saveFolder="RawMsgFolder"/>
    <OutgoingMessagesSettings saveFolder="OutgoingMsgFolder"/>
