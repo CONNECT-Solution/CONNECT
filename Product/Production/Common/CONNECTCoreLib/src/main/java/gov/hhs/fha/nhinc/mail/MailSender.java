@@ -26,38 +26,20 @@
  */
 package gov.hhs.fha.nhinc.mail;
 
-/**
- * Uses a mail client and handler to poll and handle mail messages from a server.
- */
-public abstract class AbstractMailPoller {
+import javax.mail.Address;
+import javax.mail.internet.MimeMessage;
 
-    private final MailReceiver mailReceiver;
-    private final MessageHandler messageHandler;
-    
+/**
+ * Responsible for sending messages using Javamail.
+ */
+public interface MailSender extends MailClient {
+
     /**
-     * @param mailClient of the server to be polled.
-     * @param messageHandler handles messages returned by the poller.
+     * Send a mime message.
+     * @param recipients of the message.
+     * @param message to be sent.
+     * @throws MailClientException if the mail client fails.
      */
-    public AbstractMailPoller(MailReceiver mailReceiver, MessageHandler messageHandler) {
-        super();
-        this.mailReceiver = mailReceiver;
-        this.messageHandler = messageHandler;
-    }
-    
-    /**
-     * Poll the mail server for new messages and handle them.
-     */
-    public void poll() {
-        try {
-            mailReceiver.handleMessages(messageHandler);
-        } catch (MailClientException e) {
-            handleException(e);
-        }
-    }
-    
-    /**
-     * Handle an exception thrown during message handling.
-     * @param e exception to be handled.
-     */
-    public abstract void handleException(MailClientException e);
+    void send(Address[] recipients, MimeMessage message) throws MailClientException;
+
 }

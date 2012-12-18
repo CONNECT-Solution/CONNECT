@@ -44,16 +44,15 @@ public class DirectOutboundMsgHandler implements MessageHandler {
     /**
      * Property for the external direct client used to send the outbound message.
      */
-    private final DirectAdapter directAdapter;
-
+    private final DirectSender directSender;
     
     /**
      * Constructor.
      * @param directAdapter direct adapter used to process messages.
      */
-    public DirectOutboundMsgHandler(DirectAdapter directAdapter) {
+    public DirectOutboundMsgHandler(DirectSender directSender) {
         super();
-        this.directAdapter = directAdapter;
+        this.directSender = directSender;
     }
 
     /**
@@ -63,8 +62,8 @@ public class DirectOutboundMsgHandler implements MessageHandler {
     public boolean handleMessage(MimeMessage message) {
         boolean handled = false;
         try {
-           directAdapter.sendOutboundDirect(message);
-           handled = true;
+            directSender.sendOutboundDirect(message);
+            handled = true;
         } catch (Exception e) {
             LOG.error("Exception while processing and sending outbound direct message");
         }

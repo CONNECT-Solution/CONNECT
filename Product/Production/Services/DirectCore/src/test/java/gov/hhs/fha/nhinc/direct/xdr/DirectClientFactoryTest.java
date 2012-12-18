@@ -75,7 +75,9 @@ public class DirectClientFactoryTest {
         LOG.info("nhinc.properties.dir: " + propertiesDir);
 
         DirectAdapterFactory testDirectFactory = new DirectAdapterFactory();
-        assertNotNull(testDirectFactory.getDirectAdapter());
+        assertNotNull(testDirectFactory.getDirectReceiver());
+        assertNotNull(testDirectFactory.getDirectSender());
+
     }
 
 }

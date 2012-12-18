@@ -26,38 +26,41 @@
  */
 package gov.hhs.fha.nhinc.mail;
 
-/**
- * Uses a mail client and handler to poll and handle mail messages from a server.
- */
-public abstract class AbstractMailPoller {
+import java.util.Properties;
 
-    private final MailReceiver mailReceiver;
-    private final MessageHandler messageHandler;
-    
+import javax.mail.Session;
+
+/**
+ * Base class for Mail Client 
+ */
+public class AbstractMailClient implements MailClient {
+
+    private final Session mailSession;
+    private final Properties mailServerProps;
+
     /**
-     * @param mailClient of the server to be polled.
-     * @param messageHandler handles messages returned by the poller.
+     * @param mailSession
      */
-    public AbstractMailPoller(MailReceiver mailReceiver, MessageHandler messageHandler) {
-        super();
-        this.mailReceiver = mailReceiver;
-        this.messageHandler = messageHandler;
+    public AbstractMailClient(Properties mailServerProps) {
+        this.mailServerProps = mailServerProps;
+        this.mailSession = MailUtils.getMailSession(mailServerProps, mailServerProps.getProperty("direct.mail.user"),
+                mailServerProps.getProperty("direct.mail.pass"));
+        mailSession.setDebug(Boolean.parseBoolean(mailServerProps.getProperty("direct.mail.session.debug")));
+        mailSession.setDebugOut(System.out);
+    }
+
+    /**
+     * @return the mailSession
+     */
+    public Session getMailSession() {
+        return mailSession;
+    }
+
+    /**
+     * @return the mailServerProps
+     */
+    public Properties getMailServerProps() {
+        return mailServerProps;
     }
     
-    /**
-     * Poll the mail server for new messages and handle them.
-     */
-    public void poll() {
-        try {
-            mailReceiver.handleMessages(messageHandler);
-        } catch (MailClientException e) {
-            handleException(e);
-        }
-    }
-    
-    /**
-     * Handle an exception thrown during message handling.
-     * @param e exception to be handled.
-     */
-    public abstract void handleException(MailClientException e);
 }

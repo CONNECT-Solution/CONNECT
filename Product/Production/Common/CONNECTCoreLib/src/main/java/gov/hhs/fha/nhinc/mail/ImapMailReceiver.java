@@ -28,56 +28,34 @@ package gov.hhs.fha.nhinc.mail;
 
 import java.util.Properties;
 
-import javax.mail.Address;
 import javax.mail.Folder;
 import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.NoSuchProviderException;
-import javax.mail.Session;
 import javax.mail.Store;
 import javax.mail.internet.MimeMessage;
 
 import org.apache.log4j.Logger;
 
 /**
- * Javamail Client that uses SMTP and IMAP to talk to send and receive messages with a specific mail server.
+ * Uses Imap to receive Javamail messages.
  */
-public class SmtpImapMailClient implements MailClient {
-
-    private static final Logger LOG = Logger.getLogger(SmtpImapMailClient.class);
+public class ImapMailReceiver extends AbstractMailClient implements MailReceiver {
+    
+    private static final Logger LOG = Logger.getLogger(ImapMailReceiver.class);
     
     private static final int IMAP_MSG_INDEX_START = 1;
     private static final String DEF_NUM_MSGS_TO_HANDLE = "25";
     
-    private final Properties mailServerProps;
-    private final Session mailSession;
     private int handlerInvocations = 0;
-    
 
     /**
-     * @param mailServerProps properties defining connection mail server.
+     * @param mailServerProps
      */
-    public SmtpImapMailClient(Properties mailServerProps) {
-        super();
-        this.mailServerProps = mailServerProps;
-        this.mailSession = MailUtils.getMailSession(mailServerProps, mailServerProps.getProperty("direct.mail.user"),
-                mailServerProps.getProperty("direct.mail.pass"));
-        mailSession.setDebug(Boolean.parseBoolean(mailServerProps.getProperty("direct.mail.session.debug")));
-        mailSession.setDebugOut(System.out);
+    public ImapMailReceiver(Properties mailServerProps) {
+        super(mailServerProps);
     }
     
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void send(Address[] recipients, MimeMessage message) throws MailClientException {
-        try {
-            MailUtils.sendMessage(recipients, mailSession, message);
-        } catch (MessagingException e) {
-            throw new MailClientException("Exception while sending message.", e);
-        }
-    }
-
     /**
      * {@inheritDoc}
      */
@@ -89,7 +67,7 @@ public class SmtpImapMailClient implements MailClient {
         
         if (LOG.isDebugEnabled()) {
             LOG.debug("handleMessages() invoked, (" + this.hashCode() + " : " + Thread.currentThread().getId() + "), ["
-                    + mailServerProps.getProperty("mail.imaps.host") + "], handler: "
+                    + getMailServerProps().getProperty("mail.imaps.host") + "], handler: "
                     + handler.getClass().getName() + ", invocation count: " + handlerInvocations);
         } else {
             LOG.info("handleMessages() invoked");            
@@ -108,16 +86,7 @@ public class SmtpImapMailClient implements MailClient {
         MailUtils.closeQuietly(store, inbox, MailUtils.FOLDER_EXPUNGE_INBOX_TRUE);
         return numberOfMsgsHandled;
     }
-
     
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public Session getMailSession() {
-        return mailSession;
-    }
-
     /**
      * @return the handlerInvocations
      */
@@ -161,7 +130,7 @@ public class SmtpImapMailClient implements MailClient {
     private int getNumberOfMsgsToHandle(Folder folder) throws MessagingException {
 
         int numberOfMsgsInFolder = folder.getMessageCount();
-        int maxNumberOfMsgsToHandle = Integer.parseInt(mailServerProps.getProperty("direct.max.msgs.in.batch",
+        int maxNumberOfMsgsToHandle = Integer.parseInt(getMailServerProps().getProperty("direct.max.msgs.in.batch",
                 DEF_NUM_MSGS_TO_HANDLE));
 
         return numberOfMsgsInFolder < maxNumberOfMsgsToHandle ? numberOfMsgsInFolder : maxNumberOfMsgsToHandle;
@@ -191,15 +160,14 @@ public class SmtpImapMailClient implements MailClient {
     
     private Store getImapsStore() throws MailClientException {
         try {
-            return mailSession.getStore("imaps");
+            return getMailSession().getStore("imaps");
         } catch (NoSuchProviderException e) {
             throw new MailClientException("Exception getting imaps store from session", e);
         }
     }
 
     private boolean isDeleteUnhandledMsgs() {
-        return Boolean.parseBoolean(mailServerProps.getProperty("connect.delete.unhandled.msgs"));
+        return Boolean.parseBoolean(getMailServerProps().getProperty("connect.delete.unhandled.msgs"));
     }    
-
 
 }

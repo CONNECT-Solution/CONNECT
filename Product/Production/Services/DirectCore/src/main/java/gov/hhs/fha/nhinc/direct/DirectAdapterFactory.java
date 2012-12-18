@@ -38,7 +38,8 @@ public class DirectAdapterFactory {
     private static final Logger LOG = Logger.getLogger(DirectAdapterFactory.class);
     
     private static final String CONFIG_FILE_NAME = "direct.appcontext.xml";
-    private static final String BEAN_NAME = "directAdapter";
+    private static final String BEAN_NAME_RECEIVER = "directReceiver";
+    private static final String BEAN_NAME_SENDER = "directSender";
     
     /**
      * Register Handlers will invoke getInstance, thereby loading the spring context and task scheduler for polling mail
@@ -46,14 +47,21 @@ public class DirectAdapterFactory {
      */
     public void registerHandlers() {
         LOG.debug("Registering handlers...");
-        getDirectAdapter();
+        getDirectReceiver();
     }
     
     /**
-     * @return a {@link DirectAdapter} from the factory.
+     * @return a {@link DirectReceiver} from the factory.
      */
-    public DirectAdapter getDirectAdapter() {
-        return new ComponentProxyFactory(CONFIG_FILE_NAME).getInstance(BEAN_NAME, DirectAdapter.class);
+    public DirectReceiver getDirectReceiver() {
+        return new ComponentProxyFactory(CONFIG_FILE_NAME).getInstance(BEAN_NAME_RECEIVER, DirectReceiver.class);
     }
     
+    /**
+     * @return a {@link DirectSender} from the factory.
+     */
+    public DirectSender getDirectSender() {
+        return new ComponentProxyFactory(CONFIG_FILE_NAME).getInstance(BEAN_NAME_SENDER, DirectSender.class);
+    }
+
 }

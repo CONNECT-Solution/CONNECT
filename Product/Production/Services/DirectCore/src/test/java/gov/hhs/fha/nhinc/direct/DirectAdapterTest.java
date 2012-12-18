@@ -106,7 +106,7 @@ public class DirectAdapterTest extends AbstractDirectMailClientTest {
         verify(mockSmtpAgent, times(NUM_MSGS_ONE_BATCH)).processMessage(any(MimeMessage.class),
                 any(NHINDAddressCollection.class), any(NHINDAddress.class));
 
-        intDirectClient.handleMessages(mockMessageHandler);
+        intMailReceiver.handleMessages(mockMessageHandler);
 
         verify(mockMessageHandler, times(NUM_MSGS_ONE_BATCH)).handleMessage(any(Message.class));
     }
@@ -137,7 +137,7 @@ public class DirectAdapterTest extends AbstractDirectMailClientTest {
         int batchCount = 0;
         while (numberOfMsgsHandled < NUM_MSGS_MULTI_BATCH) {
             batchCount++;
-            numberOfMsgsHandled += intDirectClient.handleMessages(mockMessageHandler);
+            numberOfMsgsHandled += intMailReceiver.handleMessages(mockMessageHandler);
             verify(mockMessageHandler, times(numberOfMsgsHandled)).handleMessage(any(Message.class));
 
             // there is a greenmail bug that only expunges every other message... delete read messages
@@ -157,7 +157,7 @@ public class DirectAdapterTest extends AbstractDirectMailClientTest {
     
     private void processAndSendMultipleMsgs(int numberOfMsgs) {
         for (int i = 0; i < numberOfMsgs; i++) {
-            testDirectAdapter.sendOutboundDirect(getSender(), getRecipients(), getMockDirectDocuments(),
+            testDirectSender.sendOutboundDirect(getSender(), getRecipients(), getMockDirectDocuments(),
                     ATTACHMENT_NAME);
         }
     }
@@ -177,22 +177,22 @@ public class DirectAdapterTest extends AbstractDirectMailClientTest {
         verifySmtpEdgeMessage();
 
         /* Initiating Gateway */
-        DirectEdgeProxySmtpImpl initiatingSmtp = new DirectEdgeProxySmtpImpl(intDirectClient);
+        DirectEdgeProxySmtpImpl initiatingSmtp = new DirectEdgeProxySmtpImpl(intMailSender);
         setUpDirectClients(recipMailServerProps, initiatingSmtp);
 
-        handleMessages(intDirectClient, outboundMsgHandler, 1, recipUser);
+        handleMessages(intMailReceiver, outboundMsgHandler, 1, recipUser);
         verifyOutboundMessageSent();
 
         /* Responding Gateway */
-        handleMessages(extDirectClient, inboundMsgHandler, 1, recipUser);
+        handleMessages(extMailReceiver, inboundMsgHandler, 1, recipUser);
         verifySmtpEdgeMessage();
         verifyOutboundMdn();
 
         /* Initiating Gateway collects an MDN */
-        DirectEdgeProxySmtpImpl respondingSmtp = new DirectEdgeProxySmtpImpl(intDirectClient);
+        DirectEdgeProxySmtpImpl respondingSmtp = new DirectEdgeProxySmtpImpl(intMailSender);
         setUpDirectClients(senderMailServerProps, respondingSmtp);
 
-        handleMessages(extDirectClient, inboundMsgHandler, 2, senderUser);
+        handleMessages(extMailReceiver, inboundMsgHandler, 2, senderUser);
         verifyInboundMdn();
     }
     

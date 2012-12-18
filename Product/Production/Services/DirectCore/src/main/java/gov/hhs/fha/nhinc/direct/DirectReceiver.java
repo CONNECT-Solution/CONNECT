@@ -24,40 +24,18 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.mail;
+package gov.hhs.fha.nhinc.direct;
+
+import javax.mail.internet.MimeMessage;
 
 /**
- * Uses a mail client and handler to poll and handle mail messages from a server.
+ * Receive inbound direct messages.
  */
-public abstract class AbstractMailPoller {
-
-    private final MailReceiver mailReceiver;
-    private final MessageHandler messageHandler;
+public interface DirectReceiver {
     
     /**
-     * @param mailClient of the server to be polled.
-     * @param messageHandler handles messages returned by the poller.
+     * Receive an inbound direct message.
+     * @param message mime message to be received
      */
-    public AbstractMailPoller(MailReceiver mailReceiver, MessageHandler messageHandler) {
-        super();
-        this.mailReceiver = mailReceiver;
-        this.messageHandler = messageHandler;
-    }
-    
-    /**
-     * Poll the mail server for new messages and handle them.
-     */
-    public void poll() {
-        try {
-            mailReceiver.handleMessages(messageHandler);
-        } catch (MailClientException e) {
-            handleException(e);
-        }
-    }
-    
-    /**
-     * Handle an exception thrown during message handling.
-     * @param e exception to be handled.
-     */
-    public abstract void handleException(MailClientException e);
+    void receiveInbound(MimeMessage message);
 }

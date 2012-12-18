@@ -27,37 +27,22 @@
 package gov.hhs.fha.nhinc.mail;
 
 /**
- * Uses a mail client and handler to poll and handle mail messages from a server.
+ * Responsible for receiving messages using Javamail.
  */
-public abstract class AbstractMailPoller {
+public interface MailReceiver {
 
-    private final MailReceiver mailReceiver;
-    private final MessageHandler messageHandler;
-    
     /**
-     * @param mailClient of the server to be polled.
-     * @param messageHandler handles messages returned by the poller.
+     * Pull messages from a server and use an injected MessageHandler to handle them.
+     * @param handler used to handle messages pulled down from the server.
+     * @return number of messages handled.
+     * @throws MailClientException if the mail client fails.
      */
-    public AbstractMailPoller(MailReceiver mailReceiver, MessageHandler messageHandler) {
-        super();
-        this.mailReceiver = mailReceiver;
-        this.messageHandler = messageHandler;
-    }
-    
+    int handleMessages(MessageHandler handler) throws MailClientException;
+ 
     /**
-     * Poll the mail server for new messages and handle them.
+     * Expose the number of invocations on {@link MailClient#handleMessages(MessageHandler)}.
+     * @return number of invocations.
      */
-    public void poll() {
-        try {
-            mailReceiver.handleMessages(messageHandler);
-        } catch (MailClientException e) {
-            handleException(e);
-        }
-    }
+    int getHandlerInvocations();
     
-    /**
-     * Handle an exception thrown during message handling.
-     * @param e exception to be handled.
-     */
-    public abstract void handleException(MailClientException e);
 }

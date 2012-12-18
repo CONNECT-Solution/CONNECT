@@ -30,7 +30,7 @@ import static gov.hhs.fha.nhinc.direct.DirectUnitTestUtil.removeSmtpAgentConfig;
 import static gov.hhs.fha.nhinc.direct.DirectUnitTestUtil.writeSmtpAgentConfig;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
-import gov.hhs.fha.nhinc.mail.MailClient;
+import gov.hhs.fha.nhinc.mail.MailReceiver;
 
 import org.apache.log4j.Logger;
 import org.junit.AfterClass;
@@ -56,13 +56,16 @@ public class DirectAdapterSpringTest {
     private static final Logger LOG = Logger.getLogger(DirectAdapterSpringTest.class);
     
     @Autowired
-    private DirectAdapter directAdapter;
+    private DirectSender directSender;
 
     @Autowired
-    private MailClient extMailClient;
+    private DirectReceiver directReceiver;
 
     @Autowired
-    private MailClient intMailClient;
+    private MailReceiver extMailReceiver;
+
+    @Autowired
+    private MailReceiver intMailReceiver;
     
     
     @Autowired
@@ -115,8 +118,8 @@ public class DirectAdapterSpringTest {
      * Test that we can get an external mail client with spring.
      */
     @Test
-    public void canGetDirectAdapter() {
-        assertNotNull(directAdapter);
+    public void canGetDirectSender() {
+        assertNotNull(directSender);
     }
     
     /**
@@ -128,8 +131,8 @@ public class DirectAdapterSpringTest {
     public void canRunScheduledTaskEveryOneSec() throws InterruptedException {
         Thread.sleep(DirectUnitTestUtil.WAIT_TIME_FOR_MAIL_HANDLER);
         
-        int internalInvocations = intMailClient.getHandlerInvocations();
-        int externalInvocations = extMailClient.getHandlerInvocations();
+        int internalInvocations = intMailReceiver.getHandlerInvocations();
+        int externalInvocations = extMailReceiver.getHandlerInvocations();
         
         assertTrue(internalInvocations >= 2);
         assertTrue(externalInvocations >= 2);

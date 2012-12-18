@@ -26,38 +26,34 @@
  */
 package gov.hhs.fha.nhinc.mail;
 
-/**
- * Uses a mail client and handler to poll and handle mail messages from a server.
- */
-public abstract class AbstractMailPoller {
+import java.util.Properties;
 
-    private final MailReceiver mailReceiver;
-    private final MessageHandler messageHandler;
-    
+import javax.mail.Address;
+import javax.mail.MessagingException;
+import javax.mail.internet.MimeMessage;
+
+/**
+ * Use Smtp to send messages using Javamail.
+ */
+public class SmtpMailSender extends AbstractMailClient implements MailSender {
+
     /**
-     * @param mailClient of the server to be polled.
-     * @param messageHandler handles messages returned by the poller.
+     * @param mailServerProps
      */
-    public AbstractMailPoller(MailReceiver mailReceiver, MessageHandler messageHandler) {
-        super();
-        this.mailReceiver = mailReceiver;
-        this.messageHandler = messageHandler;
+    public SmtpMailSender(Properties mailServerProps) {
+        super(mailServerProps);
     }
-    
+
     /**
-     * Poll the mail server for new messages and handle them.
+     * {@inheritDoc}
      */
-    public void poll() {
+    @Override
+    public void send(Address[] recipients, MimeMessage message) throws MailClientException {
         try {
-            mailReceiver.handleMessages(messageHandler);
-        } catch (MailClientException e) {
-            handleException(e);
+            MailUtils.sendMessage(recipients, getMailSession(), message);
+        } catch (MessagingException e) {
+            throw new MailClientException("Exception while sending message.", e);
         }
     }
-    
-    /**
-     * Handle an exception thrown during message handling.
-     * @param e exception to be handled.
-     */
-    public abstract void handleException(MailClientException e);
+
 }

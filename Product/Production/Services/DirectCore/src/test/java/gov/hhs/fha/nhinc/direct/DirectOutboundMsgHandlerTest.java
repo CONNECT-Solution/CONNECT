@@ -31,8 +31,8 @@ import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import gov.hhs.fha.nhinc.mail.MailClient;
 import gov.hhs.fha.nhinc.mail.MailClientException;
+import gov.hhs.fha.nhinc.mail.MailSender;
 import gov.hhs.fha.nhinc.mail.MessageHandler;
 
 import javax.mail.Address;
@@ -52,8 +52,8 @@ public class DirectOutboundMsgHandlerTest {
     
     private SmtpAgent mockSmtpAgent;
     private MessageProcessResult mockResult;
-    private MailClient mockExtMailClient;
-    private DirectAdapter directAdapter;
+    private MailSender mockExtMailSender;
+    private DirectSender directSender;
     private MessageHandler testOutboundMsgHandler;        
 
     
@@ -71,14 +71,14 @@ public class DirectOutboundMsgHandlerTest {
         when(mockSmtpAgent.processMessage(any(MimeMessage.class), any(NHINDAddressCollection.class),
                 any(NHINDAddress.class))).thenReturn(mockResult);
         
-        mockExtMailClient = mock(MailClient.class);
-        directAdapter = new DirectAdapterImpl(mockExtMailClient, mockSmtpAgent);        
-        testOutboundMsgHandler = new DirectOutboundMsgHandler(directAdapter);
+        mockExtMailSender = mock(MailSender.class);
+        directSender = new DirectSenderImpl(mockExtMailSender, mockSmtpAgent);        
+        testOutboundMsgHandler = new DirectOutboundMsgHandler(directSender);
 
         MimeMessage mimeMessage = getSampleMimeMessage();
         testOutboundMsgHandler.handleMessage(mimeMessage);
 
-        verify(mockExtMailClient).send(any(Address[].class), any(MimeMessage.class));
+        verify(mockExtMailSender).send(any(Address[].class), any(MimeMessage.class));
     }
     
 }

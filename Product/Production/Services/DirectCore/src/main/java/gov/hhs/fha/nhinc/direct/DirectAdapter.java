@@ -26,35 +26,110 @@
  */
 package gov.hhs.fha.nhinc.direct;
 
-import javax.mail.Address;
+import gov.hhs.fha.nhinc.direct.edge.proxy.DirectEdgeProxy;
+import gov.hhs.fha.nhinc.direct.edge.proxy.DirectEdgeProxyObjectFactory;
+import gov.hhs.fha.nhinc.mail.MailSender;
+
+import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 
-import org.nhindirect.xd.common.DirectDocuments;
+import org.apache.log4j.Logger;
+import org.nhindirect.gateway.smtp.MessageProcessResult;
+import org.nhindirect.gateway.smtp.SmtpAgent;
+import org.nhindirect.stagent.MessageEnvelope;
+import org.nhindirect.stagent.NHINDAddressCollection;
+import org.nhindirect.stagent.mail.notifications.NotificationMessage;
 
 /**
- * Interface defining a Mail Client.
+ * This class adapts the Direct code responsible for processing messages.
  */
-public interface DirectAdapter {
+public abstract class DirectAdapter {
+
+    private static final Logger LOG = Logger.getLogger(DirectAdapter.class);
+    
+    private final MailSender externalMailSender;
+    private final SmtpAgent smtpAgent;
+    
+    /**
+     * @param externalMailSender external mail sender.
+     * @param smtpAgent used to process direct messages.
+     */
+    public DirectAdapter(MailSender externalMailSender, SmtpAgent smtpAgent) {
+        this.externalMailSender = externalMailSender;
+        this.smtpAgent = smtpAgent;
+    }
+    
+    /**
+     * Process a direct message and return {@link MessageProcessResult}. If the processed message envelope returned
+     * is null, a Direct Error event is created with the notification messages if they are available. Then a
+     * {@link DirectException} is thrown.
+     * @param message processed message.
+     * @return message process result.
+     */
+    protected MessageProcessResult process(MimeMessage message) {
+        
+        MessageProcessResult result = processAsDirectMessage(message);
+        MessageEnvelope envelope = result.getProcessedMessage();
+        if (envelope == null) {
+            throw new DirectException("Result Message Envelope is null: " + getErrorNotificationMsgs(result), message);
+        }
+                
+        return result;
+    }
+
+    protected MessageProcessResult processAsDirectMessage(MimeMessage mimeMessage) {
+        MessageProcessResult result;
+        try {
+            NHINDAddressCollection collection = DirectAdapterUtils.getNhindRecipients(mimeMessage);
+            result = smtpAgent.processMessage(mimeMessage, collection, DirectAdapterUtils.getNhindSender(mimeMessage));
+        } catch (MessagingException e) {
+            String errorString = "Error occurred while extracting addresses.";
+            LOG.error(errorString, e);
+            throw new DirectException(errorString, e, mimeMessage);
+        }
+        
+        if (result == null) {
+            throw new DirectException("Message Process Result by Direct is null.", mimeMessage);
+        }
+        return result;
+    }
+    
+    /**
+     * @return DirectEdgeProxy implementation to handle the direct edge
+     */
+    protected DirectEdgeProxy getDirectEdgeProxy() {
+        DirectEdgeProxyObjectFactory factory = new DirectEdgeProxyObjectFactory();
+        return factory.getDirectEdgeProxy();
+    }    
+    
+    /**
+     * Log any notification messages that were produced by direct processing.
+     * 
+     * @param result to pull notification messages from
+     */
+    protected String getErrorNotificationMsgs(MessageProcessResult result) {
+        StringBuilder builder = new StringBuilder("Inbound Mime Message could not be processed by DIRECT.");
+        for (NotificationMessage notif : result.getNotificationMessages()) {
+            try {
+                builder.append(" " + notif.getContent());
+            } catch (Exception e) {
+                LOG.warn("Exception while logging notification messages.", e);
+            }
+        }
+        return builder.toString();
+    }
 
     /**
-     * Send an outbound mime message with direct.
-     * @param message to be sent.
+     * @return the externalMailSender
      */
-    void sendOutboundDirect(MimeMessage message);
-    
+    public MailSender getExternalMailSender() {
+        return externalMailSender;
+    }
+
     /**
-     * Send an outbound mime message with direct.
-     * @param sender of the message
-     * @param recipients of the message
-     * @param documents to be attached to the message
-     * @param messageId for the message
+     * @return the smtpAgent
      */
-    void sendOutboundDirect(Address sender, Address[] recipients, DirectDocuments documents, String messageId);
-    
-    /**
-     * Receive an inbound direct message.
-     * @param message mime message to be received
-     */
-    void receiveInbound(MimeMessage message);
-    
+    public SmtpAgent getSmtpAgent() {
+        return smtpAgent;
+    }
 }

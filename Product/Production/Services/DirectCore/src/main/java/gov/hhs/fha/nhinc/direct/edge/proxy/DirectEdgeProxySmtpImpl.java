@@ -4,7 +4,7 @@
 package gov.hhs.fha.nhinc.direct.edge.proxy;
 
 import gov.hhs.fha.nhinc.direct.DirectException;
-import gov.hhs.fha.nhinc.mail.MailClient;
+import gov.hhs.fha.nhinc.mail.MailSender;
 
 import javax.mail.internet.MimeMessage;
 
@@ -16,14 +16,14 @@ import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
  */
 public class DirectEdgeProxySmtpImpl implements DirectEdgeProxy {
 
-    private final MailClient internalMailClient;
+    private final MailSender internalMailSender;
     
     /**
-     * @param internalMailClient
+     * @param internalMailSender
      */
-    public DirectEdgeProxySmtpImpl(MailClient internalMailClient) {
+    public DirectEdgeProxySmtpImpl(MailSender internalMailSender) {
         super();
-        this.internalMailClient = internalMailClient;
+        this.internalMailSender = internalMailSender;
     }
 
     /* (non-Javadoc)
@@ -32,7 +32,7 @@ public class DirectEdgeProxySmtpImpl implements DirectEdgeProxy {
     @Override
     public RegistryResponseType provideAndRegisterDocumentSetB(MimeMessage message) {
         try {
-            internalMailClient.send(message.getAllRecipients(), message);
+            internalMailSender.send(message.getAllRecipients(), message);
         } catch (Exception e) {
             throw new DirectException("Error sending inbound direct message to smtp edge client.", e, message);
         }

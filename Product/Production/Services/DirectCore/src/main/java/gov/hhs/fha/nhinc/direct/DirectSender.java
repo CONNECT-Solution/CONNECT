@@ -24,40 +24,30 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.mail;
+package gov.hhs.fha.nhinc.direct;
+
+import javax.mail.Address;
+import javax.mail.internet.MimeMessage;
+
+import org.nhindirect.xd.common.DirectDocuments;
 
 /**
- * Uses a mail client and handler to poll and handle mail messages from a server.
+ * Send outbound direct messages.
  */
-public abstract class AbstractMailPoller {
+public interface DirectSender {
 
-    private final MailReceiver mailReceiver;
-    private final MessageHandler messageHandler;
+    /**
+     * Send an outbound mime message with direct.
+     * @param message to be sent.
+     */
+    void sendOutboundDirect(MimeMessage message);
     
     /**
-     * @param mailClient of the server to be polled.
-     * @param messageHandler handles messages returned by the poller.
+     * Send an outbound mime message with direct.
+     * @param sender of the message
+     * @param recipients of the message
+     * @param documents to be attached to the message
+     * @param messageId for the message
      */
-    public AbstractMailPoller(MailReceiver mailReceiver, MessageHandler messageHandler) {
-        super();
-        this.mailReceiver = mailReceiver;
-        this.messageHandler = messageHandler;
-    }
-    
-    /**
-     * Poll the mail server for new messages and handle them.
-     */
-    public void poll() {
-        try {
-            mailReceiver.handleMessages(messageHandler);
-        } catch (MailClientException e) {
-            handleException(e);
-        }
-    }
-    
-    /**
-     * Handle an exception thrown during message handling.
-     * @param e exception to be handled.
-     */
-    public abstract void handleException(MailClientException e);
+    void sendOutboundDirect(Address sender, Address[] recipients, DirectDocuments documents, String messageId);        
 }

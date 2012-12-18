@@ -40,10 +40,13 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 import gov.hhs.fha.nhinc.direct.edge.proxy.DirectEdgeProxy;
 import gov.hhs.fha.nhinc.event.EventManager;
+import gov.hhs.fha.nhinc.mail.ImapMailReceiver;
 import gov.hhs.fha.nhinc.mail.MailClient;
 import gov.hhs.fha.nhinc.mail.MailClientException;
+import gov.hhs.fha.nhinc.mail.MailReceiver;
+import gov.hhs.fha.nhinc.mail.MailSender;
 import gov.hhs.fha.nhinc.mail.MessageHandler;
-import gov.hhs.fha.nhinc.mail.SmtpImapMailClient;
+import gov.hhs.fha.nhinc.mail.SmtpMailSender;
 
 import java.util.Properties;
 
@@ -92,8 +95,11 @@ public abstract class AbstractDirectMailClientTest {
     protected Properties recipMailServerProps;
     protected Properties senderMailServerProps;
     
-    protected MailClient intDirectClient;
-    protected MailClient extDirectClient;
+    protected MailSender intMailSender;
+    protected MailReceiver intMailReceiver;
+    protected MailSender extMailSender;
+    protected MailReceiver extMailReceiver;
+    
     protected MessageHandler mockMessageHandler;
     protected DirectMailPoller extDirectMailPoller;
     protected DirectMailPoller intDirectMailPoller;
@@ -102,7 +108,9 @@ public abstract class AbstractDirectMailClientTest {
     protected MessageHandler outboundMsgHandler;
     
     protected SmtpAgent mockSmtpAgent;
-    protected DirectAdapter testDirectAdapter;
+
+    protected DirectSender testDirectSender;
+    protected DirectReceiver testDirectReceiver;
     
     protected GreenMail greenMail;
     protected GreenMailUser recipUser;
@@ -146,12 +154,16 @@ public abstract class AbstractDirectMailClientTest {
         mockMessageHandler = mock(MessageHandler.class);
         when(mockMessageHandler.handleMessage(any(MimeMessage.class))).thenReturn(true);
         
-        intDirectClient = new SmtpImapMailClient(recipMailServerProps);
-        extDirectClient = new SmtpImapMailClient(senderMailServerProps);
-        testDirectAdapter = new DirectAdapterImpl(extDirectClient, mockSmtpAgent);    
+        intMailSender = new SmtpMailSender(recipMailServerProps);
+        intMailReceiver = new ImapMailReceiver(recipMailServerProps);
+        extMailSender = new SmtpMailSender(senderMailServerProps);
+        extMailReceiver = new ImapMailReceiver(senderMailServerProps);
+
+        testDirectSender = new DirectSenderImpl(extMailSender, mockSmtpAgent);    
+        testDirectReceiver = new DirectReceiverImpl(extMailSender, mockSmtpAgent);    
         
-        extDirectMailPoller = new DirectMailPoller(extDirectClient, mockMessageHandler);
-        intDirectMailPoller = new DirectMailPoller(intDirectClient, mockMessageHandler);
+        extDirectMailPoller = new DirectMailPoller(extMailReceiver, mockMessageHandler);
+        intDirectMailPoller = new DirectMailPoller(intMailReceiver, mockMessageHandler);
         
     }
 
@@ -192,7 +204,7 @@ public abstract class AbstractDirectMailClientTest {
         // handle the messages on the internal server
         
         // create a real outbound Message Handler
-        MessageHandler outboundMessageHandler = new DirectOutboundMsgHandler(testDirectAdapter);
+        MessageHandler outboundMessageHandler = new DirectOutboundMsgHandler(testDirectSender);
         
         // we can use the same greenmail as external direct client
         outboundMessageHandler.handleMessage(originalMsg);
@@ -209,9 +221,12 @@ public abstract class AbstractDirectMailClientTest {
         
         SmtpAgent smtpAgent = getSmtpAgent();
 
-        extDirectClient = new SmtpImapMailClient(props);
-        intDirectClient = new SmtpImapMailClient(props);
-        testDirectAdapter = new DirectAdapterImpl(extDirectClient, smtpAgent) {
+        intMailSender = new SmtpMailSender(props);
+        intMailReceiver = new ImapMailReceiver(props);
+        extMailSender = new SmtpMailSender(props);
+        extMailReceiver = new ImapMailReceiver(props);
+
+        testDirectReceiver = new DirectReceiverImpl(extMailSender, smtpAgent) {
             /**
              * {@inheritDoc}
              */
@@ -221,8 +236,10 @@ public abstract class AbstractDirectMailClientTest {
             }
         };        
         
-        inboundMsgHandler = new DirectInboundMsgHandler(testDirectAdapter);
-        outboundMsgHandler = new DirectOutboundMsgHandler(testDirectAdapter);
+        testDirectSender = new DirectSenderImpl(extMailSender, smtpAgent);
+        
+        inboundMsgHandler = new DirectInboundMsgHandler(testDirectReceiver);
+        outboundMsgHandler = new DirectOutboundMsgHandler(testDirectSender);
 
     }
     
@@ -305,9 +322,9 @@ public abstract class AbstractDirectMailClientTest {
      * @param user used to expunge messages.
      * @throws MailClientException on error.
      */
-    protected void handleMessages(MailClient client, MessageHandler handler, int expectedNumberOfMsgs,
+    protected void handleMessages(MailReceiver receiver, MessageHandler handler, int expectedNumberOfMsgs,
             GreenMailUser user) throws MailClientException {
-        assertEquals(expectedNumberOfMsgs, client.handleMessages(handler));
+        assertEquals(expectedNumberOfMsgs, receiver.handleMessages(handler));
         DirectUnitTestUtil.expungeMissedMessages(greenMail, user);
     }
     
@@ -315,8 +332,15 @@ public abstract class AbstractDirectMailClientTest {
      * @param props mail properties to set on the internal client.
      * @return direct client.
      */
-    protected MailClient getMailClient(Properties props) {
-        return new SmtpImapMailClient(props);
+    protected MailSender getMailSender(Properties props) {
+        return new SmtpMailSender(props);
+    }
+    /**
+     * @param props mail properties to set on the internal client.
+     * @return direct client.
+     */
+    protected MailReceiver getMailReceiver(Properties props) {
+        return new ImapMailReceiver(props);
     }
 
 }

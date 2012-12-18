@@ -26,9 +26,7 @@
  */
 package gov.hhs.fha.nhinc.mail;
 
-import javax.mail.Address;
 import javax.mail.Session;
-import javax.mail.internet.MimeMessage;
 
 /**
  * Mail Client responsible for sending and receiving messages using Javamail.
@@ -36,30 +34,9 @@ import javax.mail.internet.MimeMessage;
 public interface MailClient {
 
     /**
-     * Send a mime message.
-     * @param recipients of the message.
-     * @param message to be sent.
-     * @throws MailClientException if the mail client fails.
-     */
-    void send(Address[] recipients, MimeMessage message) throws MailClientException;
-    
-    /**
-     * Pull messages from a server and use an injected MessageHandler to handle them.
-     * @param handler used to handle messages pulled down from the server.
-     * @return number of messages handled.
-     * @throws MailClientException if the mail client fails.
-     */
-    int handleMessages(MessageHandler handler) throws MailClientException;
- 
-    /**
      * Expose the mail session used by this client so we can use it to create mime messages.
      * @return mail session this client is using.
      */
     Session getMailSession();
     
-    /**
-     * Expose the number of invocations on {@link MailClient#handleMessages(MessageHandler)}.
-     * @return number of invocations.
-     */
-    int getHandlerInvocations();
 }

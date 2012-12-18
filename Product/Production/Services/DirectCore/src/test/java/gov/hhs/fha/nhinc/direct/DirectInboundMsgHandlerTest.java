@@ -35,8 +35,8 @@ import static org.mockito.Mockito.when;
 import gov.hhs.fha.nhinc.direct.edge.proxy.DirectEdgeProxy;
 import gov.hhs.fha.nhinc.direct.edge.proxy.DirectEdgeProxySmtpImpl;
 import gov.hhs.fha.nhinc.direct.edge.proxy.DirectEdgeProxySoapImpl;
-import gov.hhs.fha.nhinc.mail.MailClient;
 import gov.hhs.fha.nhinc.mail.MailClientException;
+import gov.hhs.fha.nhinc.mail.MailSender;
 import gov.hhs.fha.nhinc.mail.MessageHandler;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 
@@ -57,10 +57,10 @@ import org.nhindirect.stagent.NHINDAddressCollection;
 public class DirectInboundMsgHandlerTest {
 
     private SmtpAgent mockSmtpAgent;
-    private MailClient mockExtMailClient;
-    private MailClient mockIntMailClient;
+    private MailSender mockExtMailSender;
+    private MailSender mockIntMailSender;
     private MessageProcessResult mockResult; 
-    private DirectAdapter directAdapter;
+    private DirectReceiver directReceiver;
     private MessageHandler testInboundMsgHandler;        
 
     /**
@@ -70,8 +70,8 @@ public class DirectInboundMsgHandlerTest {
     @Before
     public void setUp() throws MessagingException {
         mockSmtpAgent = mock(SmtpAgent.class);
-        mockExtMailClient = mock(MailClient.class);
-        mockIntMailClient = mock(MailClient.class);
+        mockExtMailSender = mock(MailSender.class);
+        mockIntMailSender = mock(MailSender.class);
         mockResult = DirectUnitTestUtil.getMockMessageProcessResult(1);
         when(mockSmtpAgent.processMessage(any(MimeMessage.class), any(NHINDAddressCollection.class),
                 any(NHINDAddress.class))).thenReturn(mockResult);
@@ -121,28 +121,28 @@ public class DirectInboundMsgHandlerTest {
                 any(NHINDAddressCollection.class), any(NHINDAddress.class));
 
         // verify that the external direct mail client is used to send the MDN notification emails.
-        verify(mockExtMailClient, times(timesToSendMdn)).send(any(Address[].class), any(MimeMessage.class));
+        verify(mockExtMailSender, times(timesToSendMdn)).send(any(Address[].class), any(MimeMessage.class));
 
         // verify that the internal direct mail client is used n times to resend the message
-        verify(mockIntMailClient, times(timesSentToInternalSmtp)).send(any(Address[].class), any(MimeMessage.class));
+        verify(mockIntMailSender, times(timesSentToInternalSmtp)).send(any(Address[].class), any(MimeMessage.class));
     }
     
     private void setUpForSmtpEdgeClient() {
-        directAdapter = new DirectAdapterImpl(mockExtMailClient, mockSmtpAgent) {
+        directReceiver = new DirectReceiverImpl(mockExtMailSender, mockSmtpAgent) {
             /**
              * {@inheritDoc}
              */
             @Override
             protected DirectEdgeProxy getDirectEdgeProxy() {
-                return new DirectEdgeProxySmtpImpl(mockIntMailClient);
+                return new DirectEdgeProxySmtpImpl(mockIntMailSender);
             }
             
         };        
-        testInboundMsgHandler = new DirectInboundMsgHandler(directAdapter);
+        testInboundMsgHandler = new DirectInboundMsgHandler(directReceiver);
     }
 
     private void setUpForSoapEdgeClient() {
-        directAdapter = new DirectAdapterImpl(mockExtMailClient, mockSmtpAgent) {
+        directReceiver = new DirectReceiverImpl(mockExtMailSender, mockSmtpAgent) {
             /**
              * {@inheritDoc}
              */
@@ -152,6 +152,6 @@ public class DirectInboundMsgHandlerTest {
             }
             
         };        
-        testInboundMsgHandler = new DirectInboundMsgHandler(directAdapter);
+        testInboundMsgHandler = new DirectInboundMsgHandler(directReceiver);
     }
 }

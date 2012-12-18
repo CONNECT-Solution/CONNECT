@@ -12,31 +12,44 @@
         http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd
         http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task.xsd"> 
 
-    <!-- Set up 2 direct mail clients, for both internal and external. -->
-    <bean id="intDirectMailClient" class="gov.hhs.fha.nhinc.direct.DirectMailClient">
-        <constructor-arg><ref bean="internalMailProperties" /></constructor-arg>
-        <constructor-arg><ref bean="smtpAgent" /></constructor-arg>
-        <property name="messageHandler"><ref bean="outboundMessageHandler" /></property>
+    <!-- Set up the Direct SMTP Agent -->
+    <bean id="smtpAgent" class="org.nhindirect.gateway.smtp.SmtpAgentFactory" factory-method="createAgent">
+        <constructor-arg type="java.net.URL" value="classpath:/smtp.agent.config.xml" />        
     </bean>
-    <bean id="extDirectMailClient" class="gov.hhs.fha.nhinc.direct.DirectMailClient">
+
+    <!-- Set up 2 direct mail clients, for both internal and external. -->
+    <bean id="intMailClient" class="gov.hhs.fha.nhinc.mail.SmtpImapMailClient">
+        <constructor-arg><ref bean="internalMailProperties" /></constructor-arg>
+    </bean>
+    <bean id="extMailClient" class="gov.hhs.fha.nhinc.mail.SmtpImapMailClient">
         <constructor-arg><ref bean="externalMailProperties" /></constructor-arg>
+    </bean>
+
+    <!-- Set up the Direct Adapter -->
+    <bean id="directAdapter" class="gov.hhs.fha.nhinc.direct.DirectAdapterImpl">
+        <constructor-arg><ref bean="extMailClient" /></constructor-arg>
         <constructor-arg><ref bean="smtpAgent" /></constructor-arg>
-        <property name="messageHandler"><ref bean="inboundMessageHandler" /></property>
     </bean>
 
     <!-- Set up message handlers -->
-    <bean id="outboundMessageHandler" class="gov.hhs.fha.nhinc.direct.OutboundMessageHandler">
-        <!-- requires an external direct mail client to use for processing outbound messages -->
-        <property name="externalDirectClient"><ref bean="extDirectMailClient" /></property>
+    <bean id="outboundMessageHandler" class="gov.hhs.fha.nhinc.direct.DirectOutboundMsgHandler">
+        <constructor-arg><ref bean="directAdapter" /></constructor-arg>
     </bean>
-    <bean id="inboundMessageHandler" class="gov.hhs.fha.nhinc.direct.InboundMessageHandler"/>
+    <bean id="inboundMessageHandler" class="gov.hhs.fha.nhinc.direct.DirectInboundMsgHandler">
+        <constructor-arg><ref bean="directAdapter" /></constructor-arg>
+    </bean>
     
-    <!-- There could also be a separate agent for each mail client, if needed. -->
-    <bean id="smtpAgent" class="org.nhindirect.gateway.smtp.SmtpAgentFactory" factory-method="createAgent">
-        <constructor-arg type="java.net.URL" value="file:${nhinc.properties.dir}/smtp.agent.config.xml" />        
+    <!-- Set up message pollers (mailclient + handlers) -->
+    <bean id="outboundMessagePoller" class="gov.hhs.fha.nhinc.direct.DirectMailPoller">
+        <constructor-arg><ref bean="intMailClient" /></constructor-arg>
+        <constructor-arg><ref bean="outboundMessageHandler" /></constructor-arg>        
     </bean>
+    <bean id="inboundMessagePoller" class="gov.hhs.fha.nhinc.direct.DirectMailPoller">
+        <constructor-arg><ref bean="extMailClient" /></constructor-arg>
+        <constructor-arg><ref bean="inboundMessageHandler" /></constructor-arg>        
+    </bean>    
 
-    <util:properties id="internalMailProperties" location="file:${nhinc.properties.dir}/direct.mail.internal.properties" />
-    <util:properties id="externalMailProperties" location="file:${nhinc.properties.dir}/direct.mail.external.properties" />
-    
+    <util:properties id="internalMailProperties" location="classpath:/test.mail.internal.properties" />
+    <util:properties id="externalMailProperties" location="classpath:/test.mail.external.properties" />
+        
 </beans>

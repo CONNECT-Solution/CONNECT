@@ -30,10 +30,10 @@ import static gov.hhs.fha.nhinc.direct.DirectUnitTestUtil.getFileAsString;
 import static gov.hhs.fha.nhinc.direct.DirectUnitTestUtil.removeSmtpAgentConfig;
 import static gov.hhs.fha.nhinc.direct.DirectUnitTestUtil.writeSmtpAgentConfig;
 import static org.mockito.Mockito.mock;
-import gov.hhs.fha.nhinc.mail.MailClient;
+import gov.hhs.fha.nhinc.mail.ImapMailReceiver;
+import gov.hhs.fha.nhinc.mail.MailReceiver;
 import gov.hhs.fha.nhinc.mail.MailUtils;
 import gov.hhs.fha.nhinc.mail.MessageHandler;
-import gov.hhs.fha.nhinc.mail.SmtpImapMailClient;
 
 import java.util.Properties;
 
@@ -81,8 +81,8 @@ public class DirectMailPollerGmailTest {
     @Test
     public void testImapsFetchWithGmail() throws Exception {        
         MessageHandler mockHandler = mock(MessageHandler.class);
-        MailClient mailClient = new SmtpImapMailClient(props);
-        DirectMailPoller mailPoller = new DirectMailPoller(mailClient, mockHandler);
+        MailReceiver mailReceiver = new ImapMailReceiver(props);
+        DirectMailPoller mailPoller = new DirectMailPoller(mailReceiver, mockHandler);
         initiateEmail();
         mailPoller.poll();
     }

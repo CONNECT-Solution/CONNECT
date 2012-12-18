@@ -26,45 +26,59 @@
  */
 package gov.hhs.fha.nhinc.direct;
 
-import gov.hhs.fha.nhinc.mail.MessageHandler;
+import gov.hhs.fha.nhinc.direct.event.DirectEventLogger;
+import gov.hhs.fha.nhinc.direct.event.DirectEventType;
+import gov.hhs.fha.nhinc.mail.MailSender;
 
+import javax.mail.Address;
 import javax.mail.internet.MimeMessage;
 
-import org.apache.log4j.Logger;
+import org.nhindirect.gateway.smtp.SmtpAgent;
+import org.nhindirect.xd.common.DirectDocuments;
 
 /**
- * Handles inbound messages from an external mail client. Inbound messages are un-directified and either - sent to a
- * recipient on an internal mail client - SMTP+Mime - SMTP+XDM - process XDM as XDR - SOAP+XDR
+ * Used to send outbound direct messages.
  */
-public class DirectInboundMsgHandler implements MessageHandler {
+public class DirectSenderImpl extends DirectAdapter implements DirectSender {
 
-    private static final Logger LOG = Logger.getLogger(DirectInboundMsgHandler.class);
-
-    /**
-     * Property for the external direct client used to send the outbound message.
-     */
-    private final DirectReceiver directReceiver;
+    private static final String MSG_SUBJECT = "DIRECT Message";
+    private static final String MSG_TEXT = "DIRECT Message body text";
     
     /**
-     * Constructor.
-     * @param directAdapter direct adapter used to process messages.
+     * @param externalMailClient
+     * @param smtpAgent
      */
-    public DirectInboundMsgHandler(DirectReceiver directReceiver) {
-        this.directReceiver = directReceiver;
+    public DirectSenderImpl(MailSender externalMailSender, SmtpAgent smtpAgent) {
+        super(externalMailSender, smtpAgent);
     }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public boolean handleMessage(MimeMessage message) {
-        boolean handled = false;
+    public void sendOutboundDirect(MimeMessage message) {
+        DirectEventLogger.getInstance().log(DirectEventType.BEGIN_OUTBOUND_DIRECT, message);
         try {
-           directReceiver.receiveInbound(message);
-           handled = true;
+            MimeMessage processedMessage = process(message).getProcessedMessage().getMessage();
+            getExternalMailSender().send(message.getAllRecipients(), processedMessage);
         } catch (Exception e) {
-            LOG.error("Exception while processing and sending outbound direct message");
+            throw new DirectException("Exception sending outbound direct.", e, message);
         }
-        return handled;
+        DirectEventLogger.getInstance().log(DirectEventType.END_OUTBOUND_DIRECT, message);
+    }
+    
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void sendOutboundDirect(Address sender, Address[] recipients, DirectDocuments documents, String messageId) {
+        MimeMessage message = null;
+        try {
+            message = new MimeMessageBuilder(getExternalMailSender().getMailSession(), sender, recipients)
+                    .subject(MSG_SUBJECT).text(MSG_TEXT).documents(documents).messageId(messageId).build();
+            sendOutboundDirect(message);
+        } catch (Exception e) {
+            throw new DirectException("Error building and sending mime message.", e, message);
+        }
     }
 }

@@ -27,8 +27,8 @@
 package gov.hhs.fha.nhinc.direct;
 
 import gov.hhs.fha.nhinc.mail.AbstractMailPoller;
-import gov.hhs.fha.nhinc.mail.MailClient;
 import gov.hhs.fha.nhinc.mail.MailClientException;
+import gov.hhs.fha.nhinc.mail.MailReceiver;
 import gov.hhs.fha.nhinc.mail.MessageHandler;
 
 /**
@@ -40,8 +40,8 @@ public class DirectMailPoller extends AbstractMailPoller {
      * @param mailClient mail client talking to the server we want to poll.
      * @param messageHandler message handler invoked on each message returned.
      */
-    public DirectMailPoller(MailClient mailClient, MessageHandler messageHandler) {
-        super(mailClient, messageHandler);
+    public DirectMailPoller(MailReceiver mailReceiver, MessageHandler messageHandler) {
+        super(mailReceiver, messageHandler);
     }
 
     /**

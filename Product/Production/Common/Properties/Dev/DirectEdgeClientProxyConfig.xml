@@ -23,14 +23,16 @@
 	</bean>
 
 	<!-- Unsecured web service Implementation -->
-	<bean lazy-init="true" class="gov.hhs.fha.nhinc.direct.edge.proxy.DirectEdgeProxySoapImpl" id="directedgeclientsoap" name="directedgeclientsoap"> 
-		<meta key="impltype" value="soap"/>
+    <bean lazy-init="true" class="gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper" id="proxyHelper" name="proxyHelper"/> 
+	<bean lazy-init="true" class="gov.hhs.fha.nhinc.direct.edge.proxy.DirectEdgeProxySoapImpl" id="directedgeclientsoap" name="directedgeclientsoap">
+        <meta key="impltype" value="soap"/>
+        <constructor-arg><ref bean="proxyHelper" /></constructor-arg>
 	</bean>
     
     <!-- SMTP Implementation -->
     <bean lazy-init="true" class="gov.hhs.fha.nhinc.direct.edge.proxy.DirectEdgeProxySmtpImpl" id="directedgeclientsmtp" name="directedgeclientsmtp"> 
-        <meta key="impltype" value="smtp"/>
-        <property name="internalDirectClient" ref="intDirectMailClient"/>
+        <meta key="impltype" value="smtp"/>        
+        <constructor-arg><ref bean="intMailClient" /></constructor-arg>
     </bean> 
 
 </beans>
