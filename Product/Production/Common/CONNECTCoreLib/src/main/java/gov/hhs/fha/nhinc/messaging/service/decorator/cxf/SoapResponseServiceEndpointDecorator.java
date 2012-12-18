@@ -27,20 +27,22 @@
 
 package gov.hhs.fha.nhinc.messaging.service.decorator.cxf;
 
-import gov.hhs.fha.nhinc.messaging.client.interceptor.ClientSoapInInterceptor;
+import gov.hhs.fha.nhinc.messaging.client.interceptor.SoapResponseInInterceptor;
 import gov.hhs.fha.nhinc.messaging.service.ServiceEndpoint;
 import gov.hhs.fha.nhinc.messaging.service.decorator.ServiceEndpointDecorator;
 
 import org.apache.cxf.endpoint.Client;
 import org.apache.cxf.frontend.ClientProxy;
+import org.apache.cxf.interceptor.Interceptor;
+import org.apache.cxf.message.Message;
 
 /**
  * @author akong
  * 
  */
-public class SoapInInterceptorServiceEndpointDecorator<T> extends ServiceEndpointDecorator<T> {
+public class SoapResponseServiceEndpointDecorator<T> extends ServiceEndpointDecorator<T> {
 
-    public SoapInInterceptorServiceEndpointDecorator(ServiceEndpoint<T> decoratoredEndpoint) {
+    public SoapResponseServiceEndpointDecorator(ServiceEndpoint<T> decoratoredEndpoint) {
         super(decoratoredEndpoint);
     }
 
@@ -48,8 +50,13 @@ public class SoapInInterceptorServiceEndpointDecorator<T> extends ServiceEndpoin
     public void configure() {
         super.configure();
         Client client = ClientProxy.getClient(getPort());
-
-        ClientSoapInInterceptor soapInInterceptor = new ClientSoapInInterceptor();
-        client.getInInterceptors().add(soapInInterceptor);
+                
+        for (Interceptor<? extends Message> interceptor: client.getInInterceptors()) {
+            if (interceptor instanceof SoapResponseInInterceptor) {
+                return;
+            }
+        }
+        
+        client.getInInterceptors().add(new SoapResponseInInterceptor());
     }
 }

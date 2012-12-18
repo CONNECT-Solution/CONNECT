@@ -38,10 +38,10 @@ import org.apache.cxf.transports.http.configuration.HTTPClientPolicy;
 
 /**
  * @author akong
- *
+ * 
  */
-public class MTOMServiceEndpointDecorator <T> extends ServiceEndpointDecorator<T> {
-    
+public class MTOMServiceEndpointDecorator<T> extends ServiceEndpointDecorator<T> {
+
     /**
      * @param decorated
      */
@@ -49,6 +49,10 @@ public class MTOMServiceEndpointDecorator <T> extends ServiceEndpointDecorator<T
         super(decoratedEndpoint);
     }
 
+    /**
+     * Will configure the endpoint for MTOM. Note that if the endpoint is secured, then the WSS4JOutInterceptor will
+     * need to allow MTOM as well which is not set here.
+     */
     @Override
     public void configure() {
         super.configure();
@@ -58,13 +62,13 @@ public class MTOMServiceEndpointDecorator <T> extends ServiceEndpointDecorator<T
         HTTPClientPolicy httpClientPolicy = conduit.getClient();
         if (httpClientPolicy == null) {
             httpClientPolicy = new HTTPClientPolicy();
-        }                
+        }
         httpClientPolicy.setAllowChunking(true);
 
         // Enable MTOM
         SOAPBinding binding = (SOAPBinding) ((javax.xml.ws.BindingProvider) getPort()).getBinding();
         binding.setMTOMEnabled(true);
-       
+
         conduit.setClient(httpClientPolicy);
     }
 }

@@ -51,9 +51,9 @@ import org.w3c.dom.Element;
  * @author akong
  * 
  */
-public class ClientSoapInInterceptor extends AbstractSoapInterceptor {
+public class SoapResponseInInterceptor extends AbstractSoapInterceptor {
 
-    public ClientSoapInInterceptor() {
+    public SoapResponseInInterceptor() {
         super(Phase.USER_PROTOCOL);
     }
 

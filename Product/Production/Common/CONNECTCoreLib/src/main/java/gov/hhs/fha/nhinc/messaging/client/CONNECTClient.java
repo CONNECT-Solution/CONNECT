@@ -27,13 +27,13 @@
 
 package gov.hhs.fha.nhinc.messaging.client;
 
-import gov.hhs.fha.nhinc.messaging.client.interceptor.ClientSoapInInterceptor;
+import gov.hhs.fha.nhinc.messaging.client.interceptor.SoapResponseInInterceptor;
 import gov.hhs.fha.nhinc.messaging.service.BaseServiceEndpoint;
 import gov.hhs.fha.nhinc.messaging.service.ServiceEndpoint;
 import gov.hhs.fha.nhinc.messaging.service.decorator.MTOMServiceEndpointDecorator;
 import gov.hhs.fha.nhinc.messaging.service.decorator.TimeoutServiceEndpointDecorator;
 import gov.hhs.fha.nhinc.messaging.service.decorator.URLServiceEndpointDecorator;
-import gov.hhs.fha.nhinc.messaging.service.decorator.cxf.SoapInInterceptorServiceEndpointDecorator;
+import gov.hhs.fha.nhinc.messaging.service.decorator.cxf.SoapResponseServiceEndpointDecorator;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 
 import org.apache.cxf.phase.PhaseInterceptorChain;
@@ -55,7 +55,7 @@ public abstract class CONNECTClient<T> {
     public Object invokePort(Class<T> portClass, String methodName, Object operationInput) throws Exception {
         Object response = proxyHelper.invokePort(getPort(), portClass, methodName, operationInput);
 
-        ClientSoapInInterceptor.addResponseMessageIdToContext(getPort(), PhaseInterceptorChain.getCurrentMessage());
+        SoapResponseInInterceptor.addResponseMessageIdToContext(getPort(), PhaseInterceptorChain.getCurrentMessage());
 
         return response;
     }
@@ -72,7 +72,7 @@ public abstract class CONNECTClient<T> {
         serviceEndpoint = new URLServiceEndpointDecorator<T>(serviceEndpoint, url);
         serviceEndpoint = new TimeoutServiceEndpointDecorator<T>(serviceEndpoint);
         serviceEndpoint = new MTOMServiceEndpointDecorator<T>(serviceEndpoint);
-        serviceEndpoint = new SoapInInterceptorServiceEndpointDecorator<T>(serviceEndpoint);
+        serviceEndpoint = new SoapResponseServiceEndpointDecorator<T>(serviceEndpoint);
 
         return serviceEndpoint;
     }
