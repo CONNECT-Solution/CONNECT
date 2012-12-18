@@ -34,7 +34,7 @@ import org.apache.log4j.Logger;
  */
 public class UDDIUpdateManager implements gov.hhs.fha.nhinc.nhinccomponentuddiupdatemanager.NhincComponentUDDIUpdateManagerPortType {
 
-    private Logger log = Logger.getLogger(UDDIUpdateManager.class);
+    private static final Logger LOG = Logger.getLogger(UDDIUpdateManager.class);
 
     /**
      * Default constructor.
@@ -45,7 +45,7 @@ public class UDDIUpdateManager implements gov.hhs.fha.nhinc.nhinccomponentuddiup
             UDDITimer.startTimer();
         } catch (Exception e) {
             String sErrorMessage = "Failed to start UDDIUpdateManager's timer.  Error: " + e.getMessage();
-            log.error(sErrorMessage, e);
+            LOG.error(sErrorMessage, e);
         }
     }
 

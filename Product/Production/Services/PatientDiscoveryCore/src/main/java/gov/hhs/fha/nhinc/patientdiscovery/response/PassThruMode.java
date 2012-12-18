@@ -28,8 +28,7 @@ package gov.hhs.fha.nhinc.patientdiscovery.response;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 import org.hl7.v3.II;
 import org.hl7.v3.PRPAIN201306UV02;
 
@@ -38,17 +37,16 @@ import org.hl7.v3.PRPAIN201306UV02;
  * @author dunnek
  */
 public class PassThruMode implements ResponseMode {
-    private Log log = null;
+    private static final Logger LOG = Logger.getLogger(PassThruMode.class);
 
     public PassThruMode() {
         super();
-        log = createLogger();
     }
 
     public PRPAIN201306UV02 processResponse(ResponseParams params) {
         // In pass through mode, no additional processing is done by the Entity.
         // 201306 is returned directly to the agency.
-        log.debug("begin processResponse");
+        LOG.trace("begin processResponse");
         return params.response;
     }
     
@@ -56,7 +54,4 @@ public class PassThruMode implements ResponseMode {
         return response;
     }
 
-    protected Log createLogger() {
-        return ((log != null) ? log : LogFactory.getLog(getClass()));
-    }
 }

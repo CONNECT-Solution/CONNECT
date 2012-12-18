@@ -43,7 +43,7 @@ import org.apache.log4j.Logger;
  * @author Les Westberg
  */
 public class XACMLSerializer {
-    private Logger log = Logger.getLogger(XACMLSerializer.class);
+    private static final Logger LOG = Logger.getLogger(XACMLSerializer.class);
 
     // private static JAXBContext oJaxbContextXACML = null;
     // private static Marshaller oXACMLMarshaller = null;
@@ -75,7 +75,7 @@ public class XACMLSerializer {
             sConsentXACML = swXML.toString();
         } catch (Exception e) {
             String sErrorMessage = "Failed to serialize the XACML document to a string.  Error: " + e.getMessage();
-            log.error(sErrorMessage, e);
+            LOG.error(sErrorMessage, e);
             throw new AdapterPIPException(sErrorMessage, e);
         }
 
@@ -108,7 +108,7 @@ public class XACMLSerializer {
         } catch (Exception e) {
             String sErrorMessage = "Failed to deserialize the XACML consent string: " + sConsentXACML + "  Error: "
                     + e.getMessage();
-            log.error(sErrorMessage, e);
+            LOG.error(sErrorMessage, e);
             throw new AdapterPIPException(sErrorMessage, e);
         }
 

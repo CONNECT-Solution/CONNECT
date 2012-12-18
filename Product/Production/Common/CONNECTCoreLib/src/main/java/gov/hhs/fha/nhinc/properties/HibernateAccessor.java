@@ -38,7 +38,7 @@ import org.apache.log4j.Logger;
  * @author akong
  */
 public class HibernateAccessor {
-    private Logger log = Logger.getLogger(HibernateAccessor.class);
+    private static final Logger LOG = Logger.getLogger(HibernateAccessor.class);
 
     private static HibernateAccessor instance;
     
@@ -74,7 +74,7 @@ public class HibernateAccessor {
     private synchronized void loadPropertyFileDir() {
         propertyFileDir = getPropertyAccessor().getPropertyFileLocation();
         if (NullChecker.isNullish(propertyFileDir)) {
-            log.error("Failed to load Hibernate Directory");
+            LOG.error("Failed to load Hibernate Directory");
             failedToLoadEnvVar = true;
             return;
         }
@@ -83,7 +83,7 @@ public class HibernateAccessor {
         propertyFileDir = dir.getAbsolutePath();
         
         if (!dir.exists()) {
-            log.error("Failed to load Hibernate Directory");
+            LOG.error("Failed to load Hibernate Directory");
             failedToLoadEnvVar = true;
         }
     }

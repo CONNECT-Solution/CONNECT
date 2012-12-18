@@ -40,13 +40,13 @@ import com.google.common.base.Function;
  */
 public class ErrorExtractor implements Function<RegistryError, String> {
 
-    private Logger log = Logger.getLogger(ErrorExtractor.class);
+    private static final Logger LOG = Logger.getLogger(ErrorExtractor.class);
     
     @Override
     public String apply(RegistryError error) {
         String errorCode = error.getErrorCode();
         if (errorCode == null) {
-            log.error("Encountered an invalid registry error without an error code.");
+            LOG.error("Encountered an invalid registry error without an error code.");
         }
         
         return errorCode;

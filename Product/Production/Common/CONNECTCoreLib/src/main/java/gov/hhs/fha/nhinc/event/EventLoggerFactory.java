@@ -37,7 +37,7 @@ import gov.hhs.fha.nhinc.proxy.ComponentProxyFactory;
  */
 public class EventLoggerFactory {
 
-    private static Logger log = Logger.getLogger(EventLoggerFactory.class);
+    private static final Logger LOG = Logger.getLogger(EventLoggerFactory.class);
 
     private static final String CONFIG_FILE_NAME = "EventLoggerFactoryConfig.xml";
     private static final String BEAN_NAME = "eventLoggerFactory";
@@ -64,9 +64,9 @@ public class EventLoggerFactory {
      * Register Loggers.
      */
     public void registerLoggers() {
-        log.debug("Registering loggers...");
+        LOG.debug("Registering loggers...");
         for (EventLogger logger : loggers) {
-            log.info("Registering logger: " + logger.getClass().getName());
+            LOG.info("Registering logger: " + logger.getClass().getName());
             eventManager.addObserver(logger);
         }
     }

@@ -26,8 +26,7 @@
  */
 package gov.hhs.fha.nhinc.adapter.deferred.queue;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 
 import gov.hhs.fha.nhinc.adapter.deferred.queue.service.AdapterPatientDiscoveryDeferredReqQueueProcessServicePortDescriptor;
 import gov.hhs.fha.nhinc.adapterpatientdiscoveryreqqueueprocess.AdapterPatientDiscoveryDeferredReqQueueProcessPortType;
@@ -48,7 +47,7 @@ import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
  */
 public class PatientDiscoveryDeferredReqQueueClient {
 
-    private static final Log LOG = LogFactory.getLog(PatientDiscoveryDeferredReqQueueClient.class);
+    private static final Logger LOG = Logger.getLogger(PatientDiscoveryDeferredReqQueueClient.class);
     private static final String SERVICE_NAME =
             NhincConstants.PATIENT_DISCOVERY_ADAPTER_ASYNC_REQ_QUEUE_PROCESS_SERVICE_NAME;
 

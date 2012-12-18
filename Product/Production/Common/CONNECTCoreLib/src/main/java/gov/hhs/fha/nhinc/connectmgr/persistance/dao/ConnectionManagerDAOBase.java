@@ -44,7 +44,7 @@ import org.uddi.api_v3.ObjectFactory;
  */
 public class ConnectionManagerDAOBase {
 
-    private Logger log = Logger.getLogger(ConnectionManagerDAOBase.class);
+    private static final Logger LOG = Logger.getLogger(ConnectionManagerDAOBase.class);
 
     protected BusinessDetail loadBusinessDetail(File file) throws JAXBException {
         BusinessDetail resp = null;
@@ -69,9 +69,8 @@ public class ConnectionManagerDAOBase {
         } catch (JAXBException ex) {
             throw new RuntimeException("Unable to save to Connection Information File " + file.getName(), ex);
         }
-        if(log.isInfoEnabled()){
-        	log.info("Connection info saved to " + file.getName());
-        }
+ 
+        LOG.info("Connection info saved to " + file.getName());
     }
 
 }

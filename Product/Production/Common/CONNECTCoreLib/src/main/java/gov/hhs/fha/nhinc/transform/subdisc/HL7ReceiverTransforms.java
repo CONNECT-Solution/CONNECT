@@ -50,7 +50,7 @@ import org.hl7.v3.MCCIMT000300UV01Receiver;
  */
 public class HL7ReceiverTransforms {
 
-    private static Logger log = Logger.getLogger(HL7DataTransformHelper.class);
+    private static final Logger LOG = Logger.getLogger(HL7DataTransformHelper.class);
 
     /**
      * Create receiver element. The passed OID will be used as the HL7 device application id and the organization home
@@ -72,7 +72,7 @@ public class HL7ReceiverTransforms {
         MCCIMT000200UV01Device receiverDevice = new MCCIMT000200UV01Device();
         receiverDevice.setDeterminerCode(HL7Constants.RECEIVER_DETERMINER_CODE);
         receiverDevice.setClassCode(EntityClassDevice.DEV);
-        log.debug("Setting receiver device id (applicationId) to " + OID);
+        LOG.debug("Setting receiver device id (applicationId) to " + OID);
         receiverDevice.getId().add(HL7DataTransformHelper.IIFactory(OID));
 
         MCCIMT000200UV01Agent agent = new MCCIMT000200UV01Agent();
@@ -120,7 +120,7 @@ public class HL7ReceiverTransforms {
         MCCIMT000100UV01Device receiverDevice = new MCCIMT000100UV01Device();
         receiverDevice.setDeterminerCode(HL7Constants.RECEIVER_DETERMINER_CODE);
         receiverDevice.setClassCode(EntityClassDevice.DEV);
-        log.debug("Setting receiver device id (applicationId) to " + OID);
+        LOG.debug("Setting receiver device id (applicationId) to " + OID);
         receiverDevice.getId().add(HL7DataTransformHelper.IIFactory(OID));
 
         MCCIMT000100UV01Agent agent = new MCCIMT000100UV01Agent();
@@ -168,7 +168,7 @@ public class HL7ReceiverTransforms {
         MCCIMT000300UV01Device receiverDevice = new MCCIMT000300UV01Device();
         receiverDevice.setDeterminerCode(HL7Constants.RECEIVER_DETERMINER_CODE);
         receiverDevice.setClassCode(EntityClassDevice.DEV);
-        log.debug("Setting receiver device id (applicationId) to " + OID);
+        LOG.debug("Setting receiver device id (applicationId) to " + OID);
         receiverDevice.getId().add(HL7DataTransformHelper.IIFactory(OID));
 
         MCCIMT000300UV01Agent agent = new MCCIMT000300UV01Agent();

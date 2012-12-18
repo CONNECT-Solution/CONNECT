@@ -51,7 +51,7 @@ import com.sun.identity.xacml.policy.Obligations;
 public class AdapterPDPProxyNoopImpl implements AdapterPDPProxy
 {
     private static final String DECISION_VALUE_PERMIT = "Permit";
-    private Logger log = Logger.getLogger(AdapterPDPProxyNoopImpl.class);
+    private static final Logger LOG = Logger.getLogger(AdapterPDPProxyNoopImpl.class);
 
     /*
      * (non-Javadoc)
@@ -64,9 +64,9 @@ public class AdapterPDPProxyNoopImpl implements AdapterPDPProxy
     @Override
     public Response processPDPRequest(Request pdpRequest)
     {
-        log.debug("Begin AdapterPDPProxyNoopImpl.processPDPRequest(...)");
+        LOG.debug("Begin AdapterPDPProxyNoopImpl.processPDPRequest(...)");
         Response resp = createResponse();
-        log.debug("End AdapterPDPProxyNoopImpl.processPDPRequest(...)");
+        LOG.debug("End AdapterPDPProxyNoopImpl.processPDPRequest(...)");
         return resp;
     }
 
@@ -173,7 +173,7 @@ public class AdapterPDPProxyNoopImpl implements AdapterPDPProxy
 
         {
 
-            log.error("Error adding a result: " + e.getMessage(), e);
+            LOG.error("Error adding a result: " + e.getMessage(), e);
 
         }
 
@@ -333,7 +333,7 @@ public class AdapterPDPProxyNoopImpl implements AdapterPDPProxy
 
         {
 
-            log.error("Error setting decision: " + e.getMessage(), e);
+            LOG.error("Error setting decision: " + e.getMessage(), e);
 
         }
 
@@ -427,7 +427,7 @@ public class AdapterPDPProxyNoopImpl implements AdapterPDPProxy
 
         {
 
-            log.error("Error setting decision value: " + e.getMessage(), e);
+            LOG.error("Error setting decision value: " + e.getMessage(), e);
 
         }
 

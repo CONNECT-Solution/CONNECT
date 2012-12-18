@@ -27,14 +27,14 @@
 
 package gov.hhs.fha.nhinc.mpilib;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
-import org.apache.commons.logging.Log;
-import org.jmock.Expectations;
 import org.jmock.Mockery;
 import org.jmock.integration.junit4.JUnit4Mockery;
 import org.jmock.lib.legacy.ClassImposteriser;
-import org.junit.Before;
 import org.junit.Test;
 
 /**
@@ -48,18 +48,6 @@ public class PatientMatcherTest {
             setImposteriser(ClassImposteriser.INSTANCE);
         }
     };
-    final Log mockLog = context.mock(Log.class);
-    
-    @Before
-    public void setMockLogExpectations() {
-        context.checking(new Expectations() {
-            {
-                allowing(mockLog).debug(with(any(String.class)));
-                allowing(mockLog).isDebugEnabled();
-                will(returnValue(true));
-            }
-        });
-    }
     
     @Test
     public void testGetInstance() {
@@ -302,10 +290,6 @@ public class PatientMatcherTest {
     }
     
     private PatientMatcher createPatientMatcher() {
-        return new PatientMatcher() {
-            protected Log getLogger() {
-                return mockLog;
-            }
-        };
+        return new PatientMatcher();
     }
 }

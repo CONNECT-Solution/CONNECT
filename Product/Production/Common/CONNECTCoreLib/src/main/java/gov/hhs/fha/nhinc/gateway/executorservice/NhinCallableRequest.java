@@ -48,7 +48,7 @@ public class NhinCallableRequest<Response extends OutboundOrchestratableMessage>
     private OutboundDelegate client = null;
     private OutboundResponseProcessor processor = null;
     private OutboundOrchestratableMessage entityRequest = null;
-    private Logger log = Logger.getLogger(NhinCallableRequest.class);
+    private static final Logger LOG = Logger.getLogger(NhinCallableRequest.class);
     
     public NhinCallableRequest(OutboundOrchestratableMessage orch) {
         this.client = orch.getDelegate();
@@ -75,7 +75,7 @@ public class NhinCallableRequest<Response extends OutboundOrchestratableMessage>
                 throw new Exception("NhinDelegate is null!!!");
             }
         } catch (Exception e) {
-            log.error("Failed to process callable request.", e);
+            LOG.error("Failed to process callable request.", e);
             response = (Response) processor.processErrorResponse(entityRequest, e.getMessage());
         }
         return response;

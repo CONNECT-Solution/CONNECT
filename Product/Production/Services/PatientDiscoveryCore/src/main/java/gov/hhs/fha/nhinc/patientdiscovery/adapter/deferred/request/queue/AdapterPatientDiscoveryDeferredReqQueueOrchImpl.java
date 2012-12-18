@@ -26,15 +26,6 @@
  */
 package gov.hhs.fha.nhinc.patientdiscovery.adapter.deferred.request.queue;
 
-import java.util.List;
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-import org.hl7.v3.MCCIIN000002UV01;
-import org.hl7.v3.PRPAIN201305UV02;
-import org.hl7.v3.PRPAIN201306UV02;
-import org.hl7.v3.RespondingGatewayPRPAIN201305UV02RequestType;
-
 import gov.hhs.fha.nhinc.async.AddressingHeaderCreator;
 import gov.hhs.fha.nhinc.async.AsyncMessageProcessHelper;
 import gov.hhs.fha.nhinc.asyncmsgs.dao.AsyncMsgRecordDao;
@@ -42,7 +33,6 @@ import gov.hhs.fha.nhinc.common.nhinccommon.AcknowledgementType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
-import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException;
 import gov.hhs.fha.nhinc.connectmgr.UrlInfo;
@@ -58,12 +48,20 @@ import gov.hhs.fha.nhinc.patientdiscovery.entity.deferred.response.proxy.EntityP
 import gov.hhs.fha.nhinc.transform.subdisc.HL7AckTransforms;
 import gov.hhs.fha.nhinc.util.HomeCommunityMap;
 
+import java.util.List;
+
+import org.apache.log4j.Logger;
+import org.hl7.v3.MCCIIN000002UV01;
+import org.hl7.v3.PRPAIN201305UV02;
+import org.hl7.v3.PRPAIN201306UV02;
+import org.hl7.v3.RespondingGatewayPRPAIN201305UV02RequestType;
+
 /**
  *
  * @author JHOPPESC
  */
 public class AdapterPatientDiscoveryDeferredReqQueueOrchImpl {
-    private static Log log = LogFactory.getLog(AdapterPatientDiscoveryDeferredReqQueueOrchImpl.class);
+    private static final Logger LOG = Logger.getLogger(AdapterPatientDiscoveryDeferredReqQueueOrchImpl.class);
 
     protected AsyncMessageProcessHelper createAsyncProcesser() {
         return new AsyncMessageProcessHelper();
@@ -138,7 +136,7 @@ public class AdapterPatientDiscoveryDeferredReqQueueOrchImpl {
 
 	        ack = sendToNhin(resp, newAssertion, request.getNhinTargetCommunities());
 		} catch (PatientDiscoveryException e) {
-			log.error("Error occurred while processing Patient Discovery Deferred Request", e);
+			LOG.error("Error occurred while processing Patient Discovery Deferred Request", e);
 		}
 
         return ack;
@@ -161,7 +159,7 @@ public class AdapterPatientDiscoveryDeferredReqQueueOrchImpl {
 
             resp = proxy.processPatientDiscoveryAsyncResp(respMsg, assertion, targets);
         } else {
-            log.error("Failed to send response to the Nhin as no target endpoints can be found.");
+            LOG.error("Failed to send response to the Nhin as no target endpoints can be found.");
         }
 
         return resp;
@@ -176,7 +174,7 @@ public class AdapterPatientDiscoveryDeferredReqQueueOrchImpl {
                     targetCommunities, NhincConstants.PATIENT_DISCOVERY_DEFERRED_RESP_SERVICE_NAME);
 
         } catch (ConnectionManagerException ex) {
-            log.error("Failed to obtain target URLs for service "
+            LOG.error("Failed to obtain target URLs for service "
                     + NhincConstants.PATIENT_DISCOVERY_DEFERRED_RESP_SERVICE_NAME);
             return null;
         }

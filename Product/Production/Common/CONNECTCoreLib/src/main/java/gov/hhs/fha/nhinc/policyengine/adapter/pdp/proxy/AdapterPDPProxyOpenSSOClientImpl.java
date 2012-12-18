@@ -52,7 +52,7 @@ public class AdapterPDPProxyOpenSSOClientImpl implements AdapterPDPProxy
     private static final String PROPERTY_FILE_KEY_PDP_ENTITY = "PdpEntityName";
     private static final String OPENSSO_PEP_NAME = "ConnectOpenSSOPepEntity";
     private static final String PDP_ENTITY_SUFFIX = "PdpEntity";
-    private Logger log = Logger.getLogger(AdapterPDPProxyOpenSSOClientImpl.class);
+    private static final Logger LOG = Logger.getLogger(AdapterPDPProxyOpenSSOClientImpl.class);
 
     /*
      * (non-Javadoc)
@@ -67,7 +67,7 @@ public class AdapterPDPProxyOpenSSOClientImpl implements AdapterPDPProxy
 
     {
 
-        log.debug("Begin AdapterPDPProxyOpenSSOClientImpl.processPDPRequest(...)");
+        LOG.debug("Begin AdapterPDPProxyOpenSSOClientImpl.processPDPRequest(...)");
 
         String pdpSelection = getPDPSelcectionProperty();
 
@@ -83,11 +83,11 @@ public class AdapterPDPProxyOpenSSOClientImpl implements AdapterPDPProxy
 
         String pepEntity = OPENSSO_PEP_NAME;
 
-        log.debug("Submit request for pdp entity: " + pdpEntity + " & pep entity: " + pepEntity);
+        LOG.debug("Submit request for pdp entity: " + pdpEntity + " & pep entity: " + pepEntity);
 
         Response pdpResponse = callOpenSSO(pdpRequest, pdpEntity, pepEntity);
 
-        log.debug("End AdapterPDPProxyOpenSSOClientImpl.processPDPRequest(...)");
+        LOG.debug("End AdapterPDPProxyOpenSSOClientImpl.processPDPRequest(...)");
 
         return pdpResponse;
 

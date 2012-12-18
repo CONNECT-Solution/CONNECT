@@ -33,8 +33,7 @@ import gov.hhs.fha.nhinc.transform.subdisc.HL7ReceiverTransforms;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 import org.hl7.v3.MCCIMT000300UV01Receiver;
 import org.hl7.v3.PRPAIN201306UV02;
 
@@ -44,15 +43,7 @@ import org.hl7.v3.PRPAIN201306UV02;
  */
 public class PatientDiscovery201306Processor {
 
-    private Log log = null;
-
-    public PatientDiscovery201306Processor() {
-        log = createLogger();
-    }
-
-    protected Log createLogger() {
-        return LogFactory.getLog(getClass());
-    }
+    private static final Logger LOG = Logger.getLogger(PatientDiscovery201306Processor.class);
 
     /**
      * createNewRequest
@@ -70,9 +61,9 @@ public class PatientDiscovery201306Processor {
             MCCIMT000300UV01Receiver oNewReceiver = HL7ReceiverTransforms
                     .createMCCIMT000300UV01Receiver(targetCommunityId);
             newRequest.getReceiver().add(oNewReceiver);
-            log.debug("Created a new request for target communityId: " + targetCommunityId);
+            LOG.debug("Created a new request for target communityId: " + targetCommunityId);
         } else {
-            log.error("A null input paramter was passed to the method: createNewRequest in class: PatientDiscovery201305Processor");
+            LOG.error("A null input paramter was passed to the method: createNewRequest in class: PatientDiscovery201305Processor");
             return null;
         }
 
@@ -86,32 +77,32 @@ public class PatientDiscovery201306Processor {
      * @return
      */
     public void storeMapping(PRPAIN201306UV02 request) {
-        log.debug("Begin storeMapping");
+        LOG.debug("Begin storeMapping");
         String hcid = getHcid(request);
-        log.debug("Begin storeMapping: hcid" + hcid);
+        LOG.debug("Begin storeMapping: hcid" + hcid);
         List<String> assigningAuthorityIds = new ArrayList<String>();
         assigningAuthorityIds = extractAAListFrom201306(request);
         // String assigningAuthority = extractAAFrom201306(request);
         for (String assigningAuthority : assigningAuthorityIds) {
-            log.debug("storeMapping: assigningAuthority" + assigningAuthority);
+            LOG.debug("storeMapping: assigningAuthority" + assigningAuthority);
             if (NullChecker.isNullish(hcid)) {
-                log.warn("HCID null or empty. Mapping was not stored.");
+                LOG.warn("HCID null or empty. Mapping was not stored.");
             } else if (NullChecker.isNullish(assigningAuthority)) {
-                log.warn("Assigning authority null or empty. Mapping was not stored.");
+                LOG.warn("Assigning authority null or empty. Mapping was not stored.");
             } else {
                 AssigningAuthorityHomeCommunityMappingDAO mappingDao = getAssigningAuthorityHomeCommunityMappingDAO();
 
                 if (mappingDao == null) {
-                    log.warn("AssigningAuthorityHomeCommunityMappingDAO was null. Mapping was not stored.");
+                    LOG.warn("AssigningAuthorityHomeCommunityMappingDAO was null. Mapping was not stored.");
                 } else {
                     if (!mappingDao.storeMapping(hcid, assigningAuthority)) {
-                        log.warn("Failed to store home community - assigning authority mapping");
+                        LOG.warn("Failed to store home community - assigning authority mapping");
                     }
                 }
             }
         }
 
-        log.debug("End storeMapping");
+        LOG.debug("End storeMapping");
     }
 
     protected String getHcid(PRPAIN201306UV02 request) {
@@ -158,7 +149,7 @@ public class PatientDiscovery201306Processor {
     }
 
     protected String extractAAFrom201306(PRPAIN201306UV02 msg) {
-        log.debug("Begin extractAAFrom201306");
+        LOG.debug("Begin extractAAFrom201306");
         String assigningAuthority = null;
 
         if (msg != null
@@ -178,13 +169,13 @@ public class PatientDiscovery201306Processor {
                         .getSubject1().getPatient().getId().get(0).getRoot())) {
             assigningAuthority = msg.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1()
                     .getPatient().getId().get(0).getRoot();
-            log.debug("extractAAFrom201306 - assigningAuthority: " + assigningAuthority);
+            LOG.debug("extractAAFrom201306 - assigningAuthority: " + assigningAuthority);
         }
         return assigningAuthority;
     }
 
     protected List<String> extractAAListFrom201306(PRPAIN201306UV02 msg) {
-        log.debug("Begin extractAAFrom201306");
+        LOG.debug("Begin extractAAFrom201306");
         List<String> assigningAuthorityIds = new ArrayList<String>();
         String assigningAuthority = null;
         int subjCount = 0;
@@ -193,7 +184,7 @@ public class PatientDiscovery201306Processor {
                 && NullChecker.isNotNullish(msg.getControlActProcess().getSubject())) {
             subjCount = msg.getControlActProcess().getSubject().size();
         }
-        log.debug("storeMapping - Subject Count: " + subjCount);
+        LOG.debug("storeMapping - Subject Count: " + subjCount);
 
         for (int i = 0; i < subjCount; i++) {
             assigningAuthority = null;
@@ -214,7 +205,7 @@ public class PatientDiscovery201306Processor {
                             .getSubject1().getPatient().getId().get(0).getRoot())) {
                 assigningAuthority = msg.getControlActProcess().getSubject().get(i).getRegistrationEvent()
                         .getSubject1().getPatient().getId().get(0).getRoot();
-                log.debug("extractAAFrom201306 - assigningAuthority" + i + " :" + assigningAuthority);
+                LOG.debug("extractAAFrom201306 - assigningAuthority" + i + " :" + assigningAuthority);
                 assigningAuthorityIds.add(assigningAuthority);
             }
         }

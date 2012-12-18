@@ -53,7 +53,7 @@ import com.services.nhinc.schema.auditmessage.ParticipantObjectIdentificationTyp
  * @author Neil Webb
  */
 public class UnsubscribeTransforms {
-    private Logger log = Logger.getLogger(SubscribeTransforms.class);
+    private static final Logger LOG = Logger.getLogger(SubscribeTransforms.class);
 
     public LogEventRequestType transformNhinUnsubscribeRequestToAuditMessage(LogNhinUnsubscribeRequestType message) {
         LogEventRequestType response = new LogEventRequestType();
@@ -61,9 +61,9 @@ public class UnsubscribeTransforms {
         response.setDirection(message.getDirection());
         response.setInterface(message.getInterface());
 
-        log.info("******************************************************************");
-        log.info("Entering transformNhinUnsubscribeRequestToAuditMessage() method.");
-        log.info("******************************************************************");
+        LOG.info("******************************************************************");
+        LOG.info("Entering transformNhinUnsubscribeRequestToAuditMessage() method.");
+        LOG.info("******************************************************************");
 
         // Extract UserInfo from Message.Assertion
         UserType userInfo = new UserType();
@@ -127,22 +127,22 @@ public class UnsubscribeTransforms {
             		message.getMessage().getUnsubscribe());
             baOutStrm.close();
             marshaller.marshal(oJaxbElement, baOutStrm);
-            log.debug("Done marshalling the message.");
+            LOG.debug("Done marshalling the message.");
 
             participantObject.setParticipantObjectQuery(baOutStrm.toByteArray());
 
         } catch (Exception e) {
             e.printStackTrace();
-            log.error("EXCEPTION when marshalling unsubscribe request: " + e);
+            LOG.error("EXCEPTION when marshalling unsubscribe request: " + e);
             throw new RuntimeException();
         }
         auditMsg.getParticipantObjectIdentification().add(participantObject);
 
         response.setAuditMessage(auditMsg);
 
-        log.info("******************************************************************");
-        log.info("Exiting transformNhinUnsubscribeRequestToAuditMessage() method.");
-        log.info("******************************************************************");
+        LOG.info("******************************************************************");
+        LOG.info("Exiting transformNhinUnsubscribeRequestToAuditMessage() method.");
+        LOG.info("******************************************************************");
 
         return response;
     }
@@ -154,9 +154,9 @@ public class UnsubscribeTransforms {
         response.setDirection(message.getDirection());
         response.setInterface(message.getInterface());
 
-        log.info("******************************************************************");
-        log.info("Entering transformUnsubscribeResponseToGenericAudit() method.");
-        log.info("******************************************************************");
+        LOG.info("******************************************************************");
+        LOG.info("Entering transformUnsubscribeResponseToGenericAudit() method.");
+        LOG.info("******************************************************************");
 
         // Extract UserInfo from Message.Assertion
         UserType userInfo = new UserType();
@@ -215,22 +215,22 @@ public class UnsubscribeTransforms {
             baOutStrm.reset();
             gov.hhs.fha.nhinc.common.subscription.ObjectFactory factory = new gov.hhs.fha.nhinc.common.subscription.ObjectFactory();
             marshaller.marshal(message.getMessage().getUnsubscribeResponse(), baOutStrm);
-            log.debug("Done marshalling the message.");
+            LOG.debug("Done marshalling the message.");
 
             participantObject.setParticipantObjectQuery(baOutStrm.toByteArray());
 
         } catch (Exception e) {
             e.printStackTrace();
-            log.error("EXCEPTION when marshalling unsubscribe response: " + e);
+            LOG.error("EXCEPTION when marshalling unsubscribe response: " + e);
             throw new RuntimeException();
         }
         auditMsg.getParticipantObjectIdentification().add(participantObject);
 
         response.setAuditMessage(auditMsg);
 
-        log.info("******************************************************************");
-        log.info("Exiting transformUnsubscribeResponseToGenericAudit() method.");
-        log.info("******************************************************************");
+        LOG.info("******************************************************************");
+        LOG.info("Exiting transformUnsubscribeResponseToGenericAudit() method.");
+        LOG.info("******************************************************************");
 
         return response;
     }

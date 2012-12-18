@@ -52,7 +52,7 @@ import javax.xml.datatype.DatatypeConfigurationException;
  */
 public class AuditDataTransformHelper {
 
-    private static Logger log = Logger.getLogger(AuditDataTransformHelper.class);
+    private static final Logger LOG = Logger.getLogger(AuditDataTransformHelper.class);
 
     private static String ipAddr = null;
 
@@ -83,11 +83,11 @@ public class AuditDataTransformHelper {
                     0);
             eventIdentification.setEventDateTime(calendar);
         } catch (DatatypeConfigurationException e) {
-            log.error("DatatypeConfigurationException when createing XMLGregorian Date");
-            log.error(" message: " + e.getMessage());
+            LOG.error("DatatypeConfigurationException when createing XMLGregorian Date");
+            LOG.error(" message: " + e.getMessage());
         } catch (ArrayIndexOutOfBoundsException e) {
-            log.error("ArrayIndexOutOfBoundsException when createing XMLGregorian Date");
-            log.error(" message: " + e.getMessage());
+            LOG.error("ArrayIndexOutOfBoundsException when createing XMLGregorian Date");
+            LOG.error(" message: " + e.getMessage());
         }
         // Set the Event Outcome Indicator
         BigInteger eventOutcomeBig = BigInteger.ZERO;
@@ -172,7 +172,7 @@ public class AuditDataTransformHelper {
             try {
                 ipAddr = InetAddress.getLocalHost().getHostAddress();
             } catch (UnknownHostException ex) {
-                log.error("UnknownHostException thrown getting local host address.", ex);
+                LOG.error("UnknownHostException thrown getting local host address.", ex);
                 throw new RuntimeException();
             }
         }
@@ -236,7 +236,7 @@ public class AuditDataTransformHelper {
             try {
                 ipAddr = InetAddress.getLocalHost().getHostAddress();
             } catch (UnknownHostException ex) {
-                log.error("UnknownHostException thrown getting local host address.", ex);
+                LOG.error("UnknownHostException thrown getting local host address.", ex);
                 throw new RuntimeException();
             }
         }
@@ -293,7 +293,7 @@ public class AuditDataTransformHelper {
 
         // Set the Audit Source Id (community id)
         if (communityId != null) {
-            log.debug("communityId prior to remove urn:oid" + communityId);
+            LOG.debug("communityId prior to remove urn:oid" + communityId);
             if (communityId.startsWith("urn:oid:")) {
                 auditSrcId.setAuditSourceID(communityId.substring(8));
             } else {
@@ -399,35 +399,35 @@ public class AuditDataTransformHelper {
      * @param message
      */
     public static void logAuditMessage(AuditMessageType message) {
-        log.debug("********** Audit Log Message ***********");
-        log.debug("EventIdCode: " + message.getEventIdentification().getEventID().getCode());
-        log.debug("EventIdCodeSystem: " + message.getEventIdentification().getEventID().getCodeSystem());
+        LOG.debug("********** Audit Log Message ***********");
+        LOG.debug("EventIdCode: " + message.getEventIdentification().getEventID().getCode());
+        LOG.debug("EventIdCodeSystem: " + message.getEventIdentification().getEventID().getCodeSystem());
 
         if (message.getAuditSourceIdentification() != null && message.getAuditSourceIdentification().size() > 0
                 && message.getAuditSourceIdentification().get(0).getAuditSourceID() != null) {
-            log.debug("Home Community Id: " + message.getAuditSourceIdentification().get(0).getAuditSourceID());
+            LOG.debug("Home Community Id: " + message.getAuditSourceIdentification().get(0).getAuditSourceID());
         } else {
-            log.debug("Home Community Id: There was no AuditSourceID in the message");
+            LOG.debug("Home Community Id: There was no AuditSourceID in the message");
         }
 
         if (message.getActiveParticipant() != null && message.getActiveParticipant().size() > 0) {
             if (message.getActiveParticipant().get(0).getUserID() != null) {
-                log.debug("UserId: " + message.getActiveParticipant().get(0).getUserID());
+                LOG.debug("UserId: " + message.getActiveParticipant().get(0).getUserID());
             } else {
-                log.debug("UserId: There was no User Id in the message");
+                LOG.debug("UserId: There was no User Id in the message");
             }
 
             if (message.getActiveParticipant().get(0).getUserName() != null) {
-                log.debug("UserName: " + message.getActiveParticipant().get(0).getUserName());
+                LOG.debug("UserName: " + message.getActiveParticipant().get(0).getUserName());
             }
         }
 
         if (message.getParticipantObjectIdentification() != null
                 && message.getParticipantObjectIdentification().size() > 0
                 && message.getParticipantObjectIdentification().get(0).getParticipantObjectID() != null) {
-            log.debug("PatientId: " + message.getParticipantObjectIdentification().get(0).getParticipantObjectID());
+            LOG.debug("PatientId: " + message.getParticipantObjectIdentification().get(0).getParticipantObjectID());
         } else {
-            log.debug("PatientId: There was no Patient Id in the message");
+            LOG.debug("PatientId: There was no Patient Id in the message");
         }
     }
 

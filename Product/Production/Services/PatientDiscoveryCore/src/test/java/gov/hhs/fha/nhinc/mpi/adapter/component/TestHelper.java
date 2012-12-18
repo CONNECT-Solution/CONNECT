@@ -35,8 +35,6 @@ import java.util.List;
 
 import javax.xml.bind.JAXBElement;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.hl7.v3.CD;
 import org.hl7.v3.CE;
 import org.hl7.v3.CS;
@@ -77,8 +75,6 @@ import gov.hhs.fha.nhinc.mpilib.PersonName;
  * @author Jon Hoppesch
  */
 public class TestHelper {
-
-    private static Log log = LogFactory.getLog(TestHelper.class);
 
     /**
      * Test: Patient ID's are the same.
@@ -135,9 +131,9 @@ public class TestHelper {
         assertNotNull(patient2.getName().get(0).getContent());
 
         String pat1Name = extractName(patient1.getName().get(0));
-        log.info("Patient 1 name:" + pat1Name);
+        System.out.println("Patient 1 name:" + pat1Name);
         String pat2Name = extractName(patient2.getName().get(0));
-        log.info("Patient 2 name:" + pat2Name);
+       	System.out.println("Patient 2 name:" + pat2Name);
         assertEquals(pat1Name, pat2Name);
     }
 

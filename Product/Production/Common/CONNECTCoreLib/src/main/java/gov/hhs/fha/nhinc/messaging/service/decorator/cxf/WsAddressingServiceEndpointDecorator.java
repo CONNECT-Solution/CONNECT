@@ -51,7 +51,7 @@ import org.apache.cxf.ws.addressing.impl.AddressingPropertiesImpl;
  */
 public class WsAddressingServiceEndpointDecorator<T> extends ServiceEndpointDecorator<T> {
 
-    private Logger log = Logger.getLogger(WsAddressingServiceEndpointDecorator.class);
+    private static final Logger LOG = Logger.getLogger(WsAddressingServiceEndpointDecorator.class);
 
     private BindingProvider bindingProviderPort;
     private AddressingPropertiesImpl maps;
@@ -158,7 +158,7 @@ public class WsAddressingServiceEndpointDecorator<T> extends ServiceEndpointDeco
 
         if (NullChecker.isNullish(messageId)) {
             messageId = wsaHelper.generateMessageID();
-            log.warn("Assertion did not contain a message ID.  Generating one now...  Message ID = " + messageId);
+            LOG.warn("Assertion did not contain a message ID.  Generating one now...  Message ID = " + messageId);
         } else {
             messageId = wsaHelper.fixMessageIDPrefix(messageId);
         }

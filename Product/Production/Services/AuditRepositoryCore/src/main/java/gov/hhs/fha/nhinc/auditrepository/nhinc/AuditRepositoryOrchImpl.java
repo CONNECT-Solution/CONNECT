@@ -68,7 +68,7 @@ import com.services.nhinc.schema.auditmessage.ParticipantObjectIdentificationTyp
  * @author mflynn02
  */
 public class AuditRepositoryOrchImpl {
-    private static Logger log = Logger.getLogger(AuditRepositoryOrchImpl.class);
+    private static final Logger LOG = Logger.getLogger(AuditRepositoryOrchImpl.class);
     private static AuditRepositoryDAO auditLogDao = AuditRepositoryDAO.getAuditRepositoryDAOInstance();
     private static String logStatus = "";
 
@@ -76,7 +76,7 @@ public class AuditRepositoryOrchImpl {
      * constructor.
      */
     public AuditRepositoryOrchImpl() {
-        log.debug("AuditRepositoryOrchImpl Initialized");
+        LOG.debug("AuditRepositoryOrchImpl Initialized");
     }
 
     /**
@@ -88,7 +88,7 @@ public class AuditRepositoryOrchImpl {
      * @return gov.hhs.fha.nhinc.common.nhinccommon.AcknowledgementType
      */
     public AcknowledgementType logAudit(LogEventSecureRequestType mess, AssertionType assertion) {
-        log.debug("AuditRepositoryOrchImpl.logAudit() -- Begin");
+        LOG.debug("AuditRepositoryOrchImpl.logAudit() -- Begin");
         AcknowledgementType response = null;
 
         ActiveParticipant activeParticipant = null;
@@ -125,7 +125,7 @@ public class AuditRepositoryOrchImpl {
         if (auditSourceIdentificationList != null && auditSourceIdentificationList.size() > 0) {
             AuditSourceIdentificationType auditSourceIdentification = auditSourceIdentificationList.get(0);
             eventCommunityId = auditSourceIdentification.getAuditSourceID();
-            log.debug("auditSourceID : " + eventCommunityId);
+            LOG.debug("auditSourceID : " + eventCommunityId);
             if (eventCommunityId != null && !eventCommunityId.equals("")) {
                 auditRec.setCommunityId(eventCommunityId);
             } else {
@@ -160,9 +160,9 @@ public class AuditRepositoryOrchImpl {
 
         List<AuditRepositoryRecord> auditRecList = new ArrayList<AuditRepositoryRecord>();
         auditRecList.add(auditRec);
-        log.debug("AuditRepositoryOrchImpl.logAudit() -- Calling auditLogDao to insert record into database.");
+        LOG.debug("AuditRepositoryOrchImpl.logAudit() -- Calling auditLogDao to insert record into database.");
         boolean result = auditLogDao.insertAuditRepository(auditRecList);
-        log.debug("AuditRepositoryOrchImpl.logAudit() -- Done calling auditLogDao to insert record into database.");
+        LOG.debug("AuditRepositoryOrchImpl.logAudit() -- Done calling auditLogDao to insert record into database.");
 
         response = new AcknowledgementType();
         if (result) {
@@ -170,7 +170,7 @@ public class AuditRepositoryOrchImpl {
         } else {
             response.setMessage("Unable to create Log Message in Database...");
         }
-        log.debug("AuditRepositoryOrchImpl.logAudit() -- End");
+        LOG.debug("AuditRepositoryOrchImpl.logAudit() -- End");
         return response;
     }
 
@@ -189,7 +189,7 @@ public class AuditRepositoryOrchImpl {
             byte[] buffer = baOutStrm.toByteArray();
             eventMessage = Hibernate.createBlob(buffer);
         } catch (Exception e) {
-            log.error("Exception during Blob conversion :" + e.getMessage());
+            LOG.error("Exception during Blob conversion :" + e.getMessage());
             e.printStackTrace();
         }
         return eventMessage;
@@ -203,14 +203,14 @@ public class AuditRepositoryOrchImpl {
      * @return the found FindAuditEventsResponseType 
      */
     public FindCommunitiesAndAuditEventsResponseType findAudit(FindAuditEventsType query, AssertionType assertion) {
-        log.debug("AuditRepositoryOrchImpl.findAudit() -- Begin");
+        LOG.debug("AuditRepositoryOrchImpl.findAudit() -- Begin");
 
         if (logStatus.equals("")) {
             logStatus = "on";
         }
 
         if (logStatus.equalsIgnoreCase("off")) {
-            log.info("Enable Audit Logging Before Making Query by changing the "
+            LOG.info("Enable Audit Logging Before Making Query by changing the "
                     + "value in 'auditlogchoice' properties file");
             return null;
         }
@@ -231,13 +231,13 @@ public class AuditRepositoryOrchImpl {
 
         List<AuditRepositoryRecord> responseList = auditLogDao.queryAuditRepositoryOnCriteria(userId, patientId,
                 beginDate, endDate);
-        log.debug("after query call to logDAO.");
+        LOG.debug("after query call to logDAO.");
         /* if (responseList != null && responseList.size() > 0) { */
-        log.debug("responseList is not NULL ");
+        LOG.debug("responseList is not NULL ");
         auditEvents = buildAuditReponseType(responseList);
         /* } */
 
-        log.debug("AuditRepositoryOrchImpl.findAudit() -- End");
+        LOG.debug("AuditRepositoryOrchImpl.findAudit() -- End");
         return auditEvents;
     }
 
@@ -248,7 +248,7 @@ public class AuditRepositoryOrchImpl {
      * @return CommunitiesAndFindAdutiEventResponse
      */
     private FindCommunitiesAndAuditEventsResponseType buildAuditReponseType(List<AuditRepositoryRecord> auditRecList) {
-        log.debug("AuditRepositoryOrchImpl.buildAuditResponseType -- Begin");
+        LOG.debug("AuditRepositoryOrchImpl.buildAuditResponseType -- Begin");
         FindCommunitiesAndAuditEventsResponseType auditResType = new FindCommunitiesAndAuditEventsResponseType();
         FindAuditEventsResponseType response = new FindAuditEventsResponseType();
         AuditMessageType auditMessageType = null;
@@ -272,14 +272,14 @@ public class AuditRepositoryOrchImpl {
                     String tempCommunity = auditMessageType.getAuditSourceIdentification().get(0).getAuditSourceID();
                     if (!auditResType.getCommunities().contains(tempCommunity)) {
                         auditResType.getCommunities().add(tempCommunity);
-                        log.debug("Adding community " + tempCommunity);
+                        LOG.debug("Adding community " + tempCommunity);
                     }
                 }
             }
         }
 
         auditResType.setFindAuditEventResponse(response);
-        log.debug("AuditRepositoryOrchImpl.buildAuditResponseType -- End");
+        LOG.debug("AuditRepositoryOrchImpl.buildAuditResponseType -- End");
         return auditResType;
     }
 
@@ -290,7 +290,7 @@ public class AuditRepositoryOrchImpl {
      * @return AuditMessageType
      */
     private AuditMessageType unMarshallBlobToAuditMess(Blob auditBlob) {
-        log.debug("AuditRepositoryOrchImpl.unMarshallBlobToAuditMess -- Begin");
+        LOG.debug("AuditRepositoryOrchImpl.unMarshallBlobToAuditMess -- Begin");
         AuditMessageType auditMessageType = null;
         try {
             if (auditBlob != null && ((int) auditBlob.length()) > 0) {
@@ -302,10 +302,10 @@ public class AuditRepositoryOrchImpl {
                 auditMessageType = (AuditMessageType) jaxEle.getValue();
             }
         } catch (Exception e) {
-            log.error("Blob to Audit Message Conversion Error : " + e.getMessage());
+            LOG.error("Blob to Audit Message Conversion Error : " + e.getMessage());
             e.printStackTrace();
         }
-        log.debug("AuditRepositoryOrchImpl.unMarshallBlobToAuditMess -- End");
+        LOG.debug("AuditRepositoryOrchImpl.unMarshallBlobToAuditMess -- End");
         return auditMessageType;
     }
 
@@ -317,10 +317,10 @@ public class AuditRepositoryOrchImpl {
      */
     private Date convertXMLGregorianCalendarToDate(XMLGregorianCalendar xmlCalDate) {
         Calendar cal = Calendar.getInstance(Locale.getDefault());
-        log.info("cal.getTime() -> " + cal.getTime());
+        LOG.info("cal.getTime() -> " + cal.getTime());
         cal.setTime(xmlCalDate.toGregorianCalendar().getTime());
         Date eventDate = cal.getTime();
-        log.info("eventDate -> " + eventDate);
+        LOG.info("eventDate -> " + eventDate);
         return eventDate;
     }
 

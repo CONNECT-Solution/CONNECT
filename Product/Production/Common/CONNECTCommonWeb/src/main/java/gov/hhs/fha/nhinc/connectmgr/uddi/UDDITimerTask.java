@@ -41,13 +41,13 @@ import org.apache.log4j.Logger;
  */
 public class UDDITimerTask {
 
-    private Logger log = Logger.getLogger(UDDITimerTask.class);
+    private static final Logger LOG = Logger.getLogger(UDDITimerTask.class);
     private static final String GATEWAY_PROPERTY_FILE = "gateway";
     private static final String UDDI_SWITCH_PROPERTY = "UDDIRefreshActive";
 
     protected boolean isLogEnabled() {
         boolean isEnabled = false;
-        if (log.isDebugEnabled()) {
+        if (LOG.isDebugEnabled()) {
             isEnabled = true;
         }
         return isEnabled;
@@ -58,7 +58,7 @@ public class UDDITimerTask {
             UDDIUpdateManagerHelper helper = new UDDIUpdateManagerHelper();
             helper.forceRefreshUDDIFile();
         } catch (UDDIAccessorException ex) {
-            log.debug("****** UDDITimerTask THROWABLE: " + ex.getMessage(), ex);
+            LOG.debug("****** UDDITimerTask THROWABLE: " + ex.getMessage(), ex);
 
             StringWriter stackTrace = new StringWriter();
             ex.printStackTrace(new PrintWriter(stackTrace));
@@ -79,21 +79,21 @@ public class UDDITimerTask {
 
             if (bUDDIActive) {
                 if (isLogEnabled()) {
-                    log.debug("Start: UDDITimerTask.run method - loading from UDDI server.");
+                    LOG.debug("Start: UDDITimerTask.run method - loading from UDDI server.");
                 }
 
                 forceRefreshUDDIFile();
 
                 if (isLogEnabled()) {
-                    log.debug("Done: UDDITimerTask.run method - loading from UDDI server.");
+                    LOG.debug("Done: UDDITimerTask.run method - loading from UDDI server.");
                 }
             } else {
                 if (isLogEnabled()) {
-                    log.debug("UDDITimerTask is disabled by the UDDIRefreshActive property.");
+                    LOG.debug("UDDITimerTask is disabled by the UDDIRefreshActive property.");
                 }
             }
         } catch (PropertyAccessException ex) {
-        	log.error("UDDITimerTask.run method unable to read UDDIRefreshActive property: " + ex.getMessage());
+        	LOG.error("UDDITimerTask.run method unable to read UDDIRefreshActive property: " + ex.getMessage());
         }
     }
 

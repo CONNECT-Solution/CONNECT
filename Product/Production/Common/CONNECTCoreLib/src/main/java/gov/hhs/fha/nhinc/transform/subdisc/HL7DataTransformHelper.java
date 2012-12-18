@@ -42,7 +42,7 @@ import org.hl7.v3.*;
  */
 public class HL7DataTransformHelper {
 
-    private static Logger log = Logger.getLogger(HL7DataTransformHelper.class);
+    private static final Logger LOG = Logger.getLogger(HL7DataTransformHelper.class);
 
     public static II IIFactory(String root) {
         return IIFactory(root, null, null);
@@ -55,15 +55,15 @@ public class HL7DataTransformHelper {
     public static II IIFactory(String root, String extension, String assigningAuthorityName) {
         II ii = new II();
         if (NullChecker.isNotNullish(root)) {
-            log.debug("Setting root attribute of II to " + root);
+            LOG.debug("Setting root attribute of II to " + root);
             ii.setRoot(root);
         }
         if (NullChecker.isNotNullish(extension)) {
-            log.debug("Setting extension attribute of II to " + extension);
+            LOG.debug("Setting extension attribute of II to " + extension);
             ii.setExtension(extension);
         }
         if (NullChecker.isNotNullish(assigningAuthorityName)) {
-            log.debug("Setting assigning authority attribute of II to " + assigningAuthorityName);
+            LOG.debug("Setting assigning authority attribute of II to " + assigningAuthorityName);
             ii.setAssigningAuthorityName(assigningAuthorityName);
         }
         return ii;
@@ -79,7 +79,7 @@ public class HL7DataTransformHelper {
         CS cs = new CS();
 
         if (NullChecker.isNotNullish(code)) {
-            log.debug("Setting the code attribute of CS " + code);
+            LOG.debug("Setting the code attribute of CS " + code);
             cs.setCode(code);
         }
 
@@ -90,7 +90,7 @@ public class HL7DataTransformHelper {
         CE ce = new CE();
 
         if (NullChecker.isNotNullish(code)) {
-            log.debug("Setting the code attribute of CE " + code);
+            LOG.debug("Setting the code attribute of CE " + code);
             ce.setCode(code);
         }
 
@@ -109,17 +109,17 @@ public class HL7DataTransformHelper {
         CD cd = new CD();
 
         if (NullChecker.isNotNullish(code)) {
-            log.debug("Setting the code attribute of CD " + code);
+            LOG.debug("Setting the code attribute of CD " + code);
             cd.setCode(code);
         }
 
         if (NullChecker.isNotNullish(codeSystem)) {
-            log.debug("Setting the code system attribute of CD: " + codeSystem);
+            LOG.debug("Setting the code system attribute of CD: " + codeSystem);
             cd.setCodeSystem(codeSystem);
         }
 
         if (NullChecker.isNotNullish(displayName)) {
-            log.debug("Setting the display name attribute of CD: " + displayName);
+            LOG.debug("Setting the display name attribute of CD: " + displayName);
             cd.setDisplayName(displayName);
         }
 
@@ -148,12 +148,12 @@ public class HL7DataTransformHelper {
                     + String.valueOf(today.get(GregorianCalendar.MINUTE))
                     + String.valueOf(today.get(GregorianCalendar.SECOND));
         } catch (Exception e) {
-            log.error("Exception when creating XMLGregorian Date");
-            log.error(" message: " + e.getMessage());
+            LOG.error("Exception when creating XMLGregorian Date");
+            LOG.error(" message: " + e.getMessage());
         }
 
         if (NullChecker.isNotNullish(timestamp)) {
-            log.debug("Setting the creation timestamp to " + timestamp);
+            LOG.debug("Setting the creation timestamp to " + timestamp);
             creationTime.setValue(timestamp);
         }
 
@@ -212,14 +212,14 @@ public class HL7DataTransformHelper {
 
                 explicitFamilyName = createEnExplicitFamily(lastName);
                 namelist.add(factory.createPNExplicitFamily(explicitFamilyName));
-                log.debug("Added family name" + lastName);
+                LOG.debug("Added family name" + lastName);
             } else if (item instanceof EnGiven) {
                 EnGiven givenName = (EnGiven) item;
                 firstName = givenName.getRepresentation().value();
 
                 explicitGivenName = createEnExplicitGiven(firstName);
                 namelist.add(factory.createPNExplicitGiven(explicitGivenName));
-                log.debug("Added given name" + firstName);
+                LOG.debug("Added given name" + firstName);
             } else if (item instanceof EnPrefix) {
                 EnPrefix enPrefix = (EnPrefix) item;
                 String prefix = enPrefix.getRepresentation().value();
@@ -227,7 +227,7 @@ public class HL7DataTransformHelper {
                 EnExplicitPrefix explicitPrefix = createEnExplicitPrefix(prefix);
 
                 namelist.add(factory.createPNExplicitPrefix(explicitPrefix));
-                log.debug("Added prefix" + prefix);
+                LOG.debug("Added prefix" + prefix);
             } else if (item instanceof JAXBElement) {
                 JAXBElement newItem = (JAXBElement) item;
                 if (newItem.getValue() instanceof EnExplicitFamily) {
@@ -238,7 +238,7 @@ public class HL7DataTransformHelper {
                     explicitFamilyName.setPartType("FAM");
                     explicitFamilyName.setContent(lastName);
                     namelist.add(factory.createPNExplicitFamily(explicitFamilyName));
-                    log.debug("Added family name" + lastName);
+                    LOG.debug("Added family name" + lastName);
                 } else if (newItem.getValue() instanceof EnExplicitGiven) {
                     EnExplicitGiven givenName = (EnExplicitGiven) newItem.getValue();
                     firstName = givenName.getContent();
@@ -247,7 +247,7 @@ public class HL7DataTransformHelper {
                     explicitGivenName.setPartType("GIV");
                     explicitGivenName.setContent(firstName);
                     namelist.add(factory.createPNExplicitGiven(explicitGivenName));
-                    log.debug("Added given name" + firstName);
+                    LOG.debug("Added given name" + firstName);
                 }
             }
 
@@ -287,8 +287,8 @@ public class HL7DataTransformHelper {
     }
 
     public static PNExplicit CreatePNExplicit(String firstName, String lastName) {
-        log.debug("begin CreatePNExplicit");
-        log.debug("firstName = " + firstName + "; lastName = " + lastName);
+        LOG.debug("begin CreatePNExplicit");
+        LOG.debug("firstName = " + firstName + "; lastName = " + lastName);
         org.hl7.v3.ObjectFactory factory = new org.hl7.v3.ObjectFactory();
         PNExplicit name = (PNExplicit) (factory.createPNExplicit());
         List namelist = name.getContent();
@@ -297,7 +297,7 @@ public class HL7DataTransformHelper {
             EnExplicitFamily familyName = new EnExplicitFamily();
             familyName.setPartType("FAM");
             familyName.setContent(lastName);
-            log.info("Setting Patient Lastname: " + lastName);
+            LOG.info("Setting Patient Lastname: " + lastName);
             namelist.add(factory.createPNExplicitFamily(familyName));
         }
 
@@ -305,17 +305,17 @@ public class HL7DataTransformHelper {
             EnExplicitGiven givenName = new EnExplicitGiven();
             givenName.setPartType("GIV");
             givenName.setContent(firstName);
-            log.info("Setting Patient Firstname: " + firstName);
+            LOG.info("Setting Patient Firstname: " + firstName);
             namelist.add(factory.createPNExplicitGiven(givenName));
         }
 
-        log.debug("end CreatePNExplicit");
+        LOG.debug("end CreatePNExplicit");
         return name;
     }
 
     public static PNExplicit CreatePNExplicit(String firstName, String middleName, String lastName) {
-        log.debug("begin CreatePNExplicit");
-        log.debug("firstName = " + firstName + "; lastName = " + lastName);
+        LOG.debug("begin CreatePNExplicit");
+        LOG.debug("firstName = " + firstName + "; lastName = " + lastName);
         org.hl7.v3.ObjectFactory factory = new org.hl7.v3.ObjectFactory();
         PNExplicit name = CreatePNExplicit(firstName, lastName);
         List namelist = name.getContent();
@@ -324,11 +324,11 @@ public class HL7DataTransformHelper {
             EnExplicitGiven givenName = new EnExplicitGiven();
             givenName.setPartType("GIV");
             givenName.setContent(middleName);
-            log.info("Setting Patient Firstname: " + middleName);
+            LOG.info("Setting Patient Firstname: " + middleName);
             namelist.add(factory.createPNExplicitGiven(givenName));
         }
 
-        log.debug("end CreatePNExplicit");
+        LOG.debug("end CreatePNExplicit");
         return name;
     }
 

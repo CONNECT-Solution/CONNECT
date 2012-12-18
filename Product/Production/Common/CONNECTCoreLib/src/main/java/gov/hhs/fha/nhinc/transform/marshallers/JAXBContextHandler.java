@@ -40,7 +40,7 @@ import org.apache.log4j.Logger;
  * 
  */
 public class JAXBContextHandler {
-    private Logger log = Logger.getLogger(JAXBContextHandler.class);
+    private static final Logger LOG = Logger.getLogger(JAXBContextHandler.class);
 
     // Contexts that are being managed. The name will be the context.
     // ----------------------------------------------------------------
@@ -57,16 +57,16 @@ public class JAXBContextHandler {
         if ((sContextName != null) && (sContextName.length() > 0)) {
             JAXBContext oContext = hContexts.get(sContextName);
             if (oContext == null) {
-                log.debug("Loading JAXB Context for '" + sContextName + "'.");
+                LOG.debug("Loading JAXB Context for '" + sContextName + "'.");
                 oContext = JAXBContext.newInstance(sContextName);
                 hContexts.put(sContextName, oContext);
-                log.debug("Finished loading JAXB Context for '" + sContextName + "'.");
+                LOG.debug("Finished loading JAXB Context for '" + sContextName + "'.");
             } else {
-                log.debug("Reusing JAXB Context for '" + sContextName + "'.");
+                LOG.debug("Reusing JAXB Context for '" + sContextName + "'.");
             }
             return oContext;
         } else {
-            log.debug("Request for JAXB Context without a valid name.");
+            LOG.debug("Request for JAXB Context without a valid name.");
             return null;
         }
     }
@@ -93,7 +93,7 @@ public class JAXBContextHandler {
         if ((sContextName != null) && (sContextName.length() > 0)) {
             oContext = hContexts.get(sContextName);
             if (oContext == null) {
-                log.debug("Loading JAXB Context for '" + sContextName + "'.");
+                LOG.debug("Loading JAXB Context for '" + sContextName + "'.");
                 if ((oClass1 != null) && (oClass2 != null)) {
                     oContext = JAXBContext.newInstance(oClass1, oClass2);
                 } else if (oClass1 != null) {
@@ -101,16 +101,16 @@ public class JAXBContextHandler {
                 } else if (oClass2 != null) {
                     oContext = JAXBContext.newInstance(oClass2);
                 }
-                log.debug("Finished loading JAXB Context for '" + sContextName + "'.");
+                LOG.debug("Finished loading JAXB Context for '" + sContextName + "'.");
 
                 if (oContext != null) {
                     hContexts.put(sContextName, oContext);
                 }
             } else {
-                log.debug("Reusing JAXB Context for '" + sContextName + "'.");
+                LOG.debug("Reusing JAXB Context for '" + sContextName + "'.");
             }
         } else {
-            log.debug("Request for JAXB Context without object factory classes.");
+            LOG.debug("Request for JAXB Context without object factory classes.");
         }
 
         return oContext;
@@ -133,18 +133,18 @@ public class JAXBContextHandler {
         if ((sContextName != null) && (sContextName.length() > 0)) {
             oContext = hContexts.get(sContextName);
             if (oContext == null) {
-                log.debug("Loading JAXB Context for '" + sContextName + "'.");
+                LOG.debug("Loading JAXB Context for '" + sContextName + "'.");
                 oContext = JAXBContext.newInstance(oClass);
-                log.debug("Finished loading JAXB Context for '" + sContextName + "'.");
+                LOG.debug("Finished loading JAXB Context for '" + sContextName + "'.");
 
                 if (oContext != null) {
                     hContexts.put(sContextName, oContext);
                 }
             } else {
-                log.debug("Reusing JAXB Context for '" + sContextName + "'.");
+                LOG.debug("Reusing JAXB Context for '" + sContextName + "'.");
             }
         } else {
-            log.debug("Request for JAXB Context without object factory classes.");
+            LOG.debug("Request for JAXB Context without object factory classes.");
         }
 
         return oContext;

@@ -40,8 +40,7 @@ import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 import gov.hhs.fha.nhinc.patientdiscovery.aspect.PRPAIN201305UV02EventDescriptionBuilder;
 import gov.hhs.fha.nhinc.patientdiscovery.aspect.MCCIIN000002UV01EventDescriptionBuilder;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 import org.hl7.v3.AsyncAdapterPatientDiscoveryErrorSecuredRequestType;
 import org.hl7.v3.MCCIIN000002UV01;
 import org.hl7.v3.PRPAIN201305UV02;
@@ -54,16 +53,11 @@ import org.hl7.v3.PRPAIN201306UV02;
 public class AdapterPatientDiscoveryDeferredReqErrorProxyWebServiceSecuredImpl implements
         AdapterPatientDiscoveryDeferredReqErrorProxy {
 
-    private Log log = null;
+    private static final Logger LOG = Logger.getLogger(AdapterPatientDiscoveryDeferredReqErrorProxyWebServiceSecuredImpl.class);
     private WebServiceProxyHelper oProxyHelper = null;
 
     public AdapterPatientDiscoveryDeferredReqErrorProxyWebServiceSecuredImpl() {
-        log = createLogger();
         oProxyHelper = createWebServiceProxyHelper();
-    }
-
-    protected Log createLogger() {
-        return LogFactory.getLog(getClass());
     }
 
     protected WebServiceProxyHelper createWebServiceProxyHelper() {
@@ -76,7 +70,7 @@ public class AdapterPatientDiscoveryDeferredReqErrorProxyWebServiceSecuredImpl i
             version = "1.0")
     public MCCIIN000002UV01 processPatientDiscoveryAsyncReqError(PRPAIN201305UV02 request, PRPAIN201306UV02 response,
             AssertionType assertion, String errMsg) {
-        log.debug("Begin processPatientDiscoveryAsyncReqError");
+        LOG.debug("Begin processPatientDiscoveryAsyncReqError");
         MCCIIN000002UV01 ack = null;
 
         try {
@@ -85,11 +79,11 @@ public class AdapterPatientDiscoveryDeferredReqErrorProxyWebServiceSecuredImpl i
                             NhincConstants.PATIENT_DISCOVERY_ADAPTER_SECURED_ASYNC_REQ_ERROR_SERVICE_NAME);
             if (NullChecker.isNotNullish(url)) {
                 if (request == null) {
-                    log.error("Request was null");
+                    LOG.error("Request was null");
                 } else if (response == null) {
-                    log.error("Response was null");
+                    LOG.error("Response was null");
                 } else if (NullChecker.isNullish(errMsg)) {
-                    log.error("errMsg was null");
+                    LOG.error("errMsg was null");
                 } else {
                     ServicePortDescriptor<AdapterPatientDiscoverySecuredAsyncReqErrorPortType> portDescriptor = 
                             new PatientDiscoveryDeferredReqErrorSecuredServicePortDescriptor();
@@ -107,16 +101,16 @@ public class AdapterPatientDiscoveryDeferredReqErrorProxyWebServiceSecuredImpl i
                             "processPatientDiscoveryAsyncReqError", securedRequest);
                 }
             } else {
-                log.error("Failed to call the web service ("
+                LOG.error("Failed to call the web service ("
                         + NhincConstants.PATIENT_DISCOVERY_ADAPTER_SECURED_ASYNC_REQ_ERROR_SERVICE_NAME
                         + ").  The URL is null.");
             }
         } catch (Exception ex) {
-            log.error("Error calling processPatientDiscoveryAsyncReqError: " + ex.getMessage(), ex);
+            LOG.error("Error calling processPatientDiscoveryAsyncReqError: " + ex.getMessage(), ex);
             ack = HL7AckTransforms.createAckFrom201305(request, errMsg);
         }
 
-        log.debug("End processPatientDiscoveryAsyncReqError");
+        LOG.debug("End processPatientDiscoveryAsyncReqError");
         return ack;
     }
 }

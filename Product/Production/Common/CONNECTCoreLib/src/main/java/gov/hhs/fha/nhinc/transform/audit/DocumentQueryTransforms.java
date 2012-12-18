@@ -61,7 +61,7 @@ import oasis.names.tc.ebxml_regrep.xsd.rim._3.ObjectRefType;
  */
 public class DocumentQueryTransforms {
 
-    private Logger log = Logger.getLogger(DocumentQueryTransforms.class);
+    private static final Logger LOG = Logger.getLogger(DocumentQueryTransforms.class);
     private static final String PATIENT_ID_SLOT = "$XDSDocumentEntryPatientId";
 
     public DocumentQueryTransforms() {
@@ -90,9 +90,9 @@ public class DocumentQueryTransforms {
         response.setDirection(message.getDirection());
         response.setInterface(message.getInterface());
 
-        log.trace("******************************************************************");
-        log.trace("Entering transformDocQueryReq2AuditMsg() method.");
-        log.trace("******************************************************************");
+        LOG.trace("******************************************************************");
+        LOG.trace("Entering transformDocQueryReq2AuditMsg() method.");
+        LOG.trace("******************************************************************");
 
         // Extract UserInfo from Message.Assertion
         UserType userInfo = new UserType();
@@ -171,7 +171,7 @@ public class DocumentQueryTransforms {
             ByteArrayOutputStream baOutStrm = new ByteArrayOutputStream();
             baOutStrm.reset();
             marshaller.marshal(message.getMessage().getAdhocQueryRequest(), baOutStrm);
-            log.debug("Done marshalling the message.");
+            LOG.debug("Done marshalling the message.");
 
             partObjId.setParticipantObjectQuery(baOutStrm.toByteArray());
         } catch (Exception e) {
@@ -181,9 +181,9 @@ public class DocumentQueryTransforms {
         auditMsg.getParticipantObjectIdentification().add(partObjId);
         response.setAuditMessage(auditMsg);
 
-        log.trace("******************************************************************");
-        log.trace("Exiting transformDocQueryReq2AuditMsg() method.");
-        log.trace("******************************************************************");
+        LOG.trace("******************************************************************");
+        LOG.trace("Exiting transformDocQueryReq2AuditMsg() method.");
+        LOG.trace("******************************************************************");
 
         return response;
     }
@@ -210,20 +210,20 @@ public class DocumentQueryTransforms {
         response.setDirection(message.getDirection());
         response.setInterface(message.getInterface());
 
-        log.trace("******************************************************************");
-        log.trace("Entering transformDocQueryResp2AuditMsg() method.");
-        log.trace("******************************************************************");
+        LOG.trace("******************************************************************");
+        LOG.trace("Entering transformDocQueryResp2AuditMsg() method.");
+        LOG.trace("******************************************************************");
 
         // Extract UserInfo from Message.Assertion
         UserType userInfo = new UserType();
         if (message != null && message.getMessage() != null && message.getMessage().getAssertion() != null
                 && message.getMessage().getAssertion().getUserInfo() != null) {
             userInfo = message.getMessage().getAssertion().getUserInfo();
-            log.debug("***** ASSERTION UserInfo UserName contains: " + userInfo.getUserName() + " *****");
-            log.debug("***** ASSERTION UserInfo Org HomeCommunityId contains: " + userInfo.getOrg().getHomeCommunityId()
+            LOG.debug("***** ASSERTION UserInfo UserName contains: " + userInfo.getUserName() + " *****");
+            LOG.debug("***** ASSERTION UserInfo Org HomeCommunityId contains: " + userInfo.getOrg().getHomeCommunityId()
                     + " *****");
         } else {
-            log.info("***** ASSERTION IS NULL *****");
+            LOG.info("***** ASSERTION IS NULL *****");
         }
 
         // Create Event Identification Section
@@ -294,7 +294,7 @@ public class DocumentQueryTransforms {
             String communityId = null;
             if (requestCommunityID != null) {
                 communityId = requestCommunityID;
-                log.debug("=====>>>>> Create Audit Source Identification Section --> requestCommunityID is ["
+                LOG.debug("=====>>>>> Create Audit Source Identification Section --> requestCommunityID is ["
                         + requestCommunityID + "]");
             } else if ((oExtObj != null) && (oExtObj.getHome() != null) && (oExtObj.getHome().length() > 0)) {
                 communityId = oExtObj.getHome();
@@ -327,7 +327,7 @@ public class DocumentQueryTransforms {
                 ByteArrayOutputStream baOutStrm = new ByteArrayOutputStream();
                 baOutStrm.reset();
                 marshaller.marshal(message.getMessage().getAdhocQueryResponse(), baOutStrm);
-                log.debug("Done marshalling the message.");
+                LOG.debug("Done marshalling the message.");
 
                 partObjId.setParticipantObjectQuery(baOutStrm.toByteArray());
             } catch (Exception e) {
@@ -338,9 +338,9 @@ public class DocumentQueryTransforms {
         }
         response.setAuditMessage(auditMsg);
 
-        log.trace("******************************************************************");
-        log.trace("Exiting transformDocQueryResp2AuditMsg() method.");
-        log.trace("******************************************************************");
+        LOG.trace("******************************************************************");
+        LOG.trace("Exiting transformDocQueryResp2AuditMsg() method.");
+        LOG.trace("******************************************************************");
         return response;
     }
 
@@ -372,12 +372,12 @@ public class DocumentQueryTransforms {
         AuditMessageType auditMsg = null;
 
         if (acknowledgement == null) {
-            log.error("Acknowledgement is null");
+            LOG.error("Acknowledgement is null");
             return null;
         }
 
         if (assertion == null) {
-            log.error("Assertion is null");
+            LOG.error("Assertion is null");
             return null;
         }
 
@@ -469,9 +469,9 @@ public class DocumentQueryTransforms {
                     acknowledgement);
 
             marshaller.marshal(element, baOutStrm);
-            log.debug("Done marshalling the message.");
+            LOG.debug("Done marshalling the message.");
         } catch (Exception e) {
-            log.error("Exception while marshalling Acknowledgement", e);
+            LOG.error("Exception while marshalling Acknowledgement", e);
             throw new RuntimeException();
         }
     }

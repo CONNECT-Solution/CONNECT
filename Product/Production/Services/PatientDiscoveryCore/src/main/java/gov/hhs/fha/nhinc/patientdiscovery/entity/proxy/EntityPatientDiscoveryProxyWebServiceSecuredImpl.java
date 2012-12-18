@@ -38,8 +38,7 @@ import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.patientdiscovery.entity.proxy.service.EntityPatientDiscoverySecuredServicePortDescriptor;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 import org.hl7.v3.PRPAIN201305UV02;
 import org.hl7.v3.RespondingGatewayPRPAIN201305UV02RequestType;
 import org.hl7.v3.RespondingGatewayPRPAIN201306UV02ResponseType;
@@ -49,17 +48,8 @@ import org.hl7.v3.RespondingGatewayPRPAIN201306UV02ResponseType;
  * @author Neil Webb
  */
 public class EntityPatientDiscoveryProxyWebServiceSecuredImpl implements EntityPatientDiscoveryProxy {
-    private Log log = null;
+    private static final Logger LOG = Logger.getLogger(EntityPatientDiscoveryProxyWebServiceSecuredImpl.class);
     private WebServiceProxyHelper oProxyHelper = null;
-
-    public EntityPatientDiscoveryProxyWebServiceSecuredImpl() {
-        log = createLogger();
-        oProxyHelper = createWebServiceProxyHelper();
-    }
-
-    protected Log createLogger() {
-        return LogFactory.getLog(getClass());
-    }
 
     protected WebServiceProxyHelper createWebServiceProxyHelper() {
         return new WebServiceProxyHelper();
@@ -74,9 +64,9 @@ public class EntityPatientDiscoveryProxyWebServiceSecuredImpl implements EntityP
         String serviceName = NhincConstants.ENTITY_PATIENT_DISCOVERY_SECURED_SERVICE_NAME;
         try {
             endpointURL = invokeConnectionManager(serviceName);
-            log.debug("Retrieved endpoint URL for service " + serviceName + ": " + endpointURL);
+            LOG.debug("Retrieved endpoint URL for service " + serviceName + ": " + endpointURL);
         } catch (ConnectionManagerException ex) {
-            log.error(
+            LOG.error(
                     "Error getting url for " + serviceName + " from the connection manager. Error: " + ex.getMessage(),
                     ex);
         }
@@ -86,18 +76,18 @@ public class EntityPatientDiscoveryProxyWebServiceSecuredImpl implements EntityP
 
     public RespondingGatewayPRPAIN201306UV02ResponseType respondingGatewayPRPAIN201305UV02(PRPAIN201305UV02 pdRequest,
             AssertionType assertion, NhinTargetCommunitiesType targetCommunities) {
-        log.debug("Begin respondingGatewayPRPAIN201305UV02");
+        LOG.debug("Begin respondingGatewayPRPAIN201305UV02");
         RespondingGatewayPRPAIN201306UV02ResponseType response = null;
 
         try {
             String url = getEndpointURL();
 
             if (pdRequest == null) {
-                log.error("PRPAIN201305UV02 was null");
+                LOG.error("PRPAIN201305UV02 was null");
             } else if (assertion == null) {
-                log.error("AssertionType was null");
+                LOG.error("AssertionType was null");
             } else if (targetCommunities == null) {
-                log.error("NhinTargetCommunitiesType was null");
+                LOG.error("NhinTargetCommunitiesType was null");
             } else {
                 RespondingGatewayPRPAIN201305UV02RequestType request = new RespondingGatewayPRPAIN201305UV02RequestType();
                 request.setPRPAIN201305UV02(pdRequest);
@@ -107,10 +97,10 @@ public class EntityPatientDiscoveryProxyWebServiceSecuredImpl implements EntityP
                         EntityPatientDiscoverySecuredPortType.class, "respondingGatewayPRPAIN201305UV02", request);
             }
         } catch (Exception ex) {
-            log.error("Error calling respondingGatewayPRPAIN201305UV02: " + ex.getMessage(), ex);
+            LOG.error("Error calling respondingGatewayPRPAIN201305UV02: " + ex.getMessage(), ex);
         }
 
-        log.debug("End respondingGatewayPRPAIN201305UV02");
+        LOG.debug("End respondingGatewayPRPAIN201305UV02");
         return response;
     }
 

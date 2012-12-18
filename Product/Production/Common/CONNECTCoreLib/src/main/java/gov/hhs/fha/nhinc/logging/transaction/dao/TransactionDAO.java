@@ -47,14 +47,14 @@ import org.hibernate.Transaction;
  */
 public final class TransactionDAO {
 
-    private static final Logger log = Logger.getLogger(TransactionDAO.class);
+    private static final Logger LOG = Logger.getLogger(TransactionDAO.class);
     private static final TransactionDAO INSTANCE = new TransactionDAO();
 
     /**
      * The constructor.
      */
     private TransactionDAO() {
-        log.info("TransactionDAO initialized");
+        LOG.info("TransactionDAO initialized");
     }
 
     /**
@@ -63,7 +63,7 @@ public final class TransactionDAO {
      * @return TransactionDAO
      */
     public static TransactionDAO getInstance() {
-        log.debug("getTransactionDAOInstance()...");
+        LOG.debug("getTransactionDAOInstance()...");
         return INSTANCE;
     }
 
@@ -75,7 +75,7 @@ public final class TransactionDAO {
      */
     public boolean insertIntoTransactionRepo(TransactionRepo transactionRepo) {
 
-        log.debug("TransactionDAO.insertIntoTransactionRepo() - Begin");
+        LOG.debug("TransactionDAO.insertIntoTransactionRepo() - Begin");
         Session session = null;
         Transaction tx = null;
         boolean result = true;
@@ -85,21 +85,21 @@ public final class TransactionDAO {
                 SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
                 session = sessionFactory.openSession();
                 tx = session.beginTransaction();
-                log.info("Inserting Record...");
+                LOG.info("Inserting Record...");
 
                 session.persist(transactionRepo);
 
-                log.info("TransactionRepo Inserted successfully...");
+                LOG.info("TransactionRepo Inserted successfully...");
                 tx.commit();
             } catch (HibernateException e) {
                 result = false;
                 transactionRollback(tx);
-                log.error("Exception during insertion caused by :" + e.getMessage(), e);
+                LOG.error("Exception during insertion caused by :" + e.getMessage(), e);
             } finally {
                 closeSession(session, false);
             }
         }
-        log.debug("TransactionDAO.insertIntoTransactionRepo() - End");
+        LOG.debug("TransactionDAO.insertIntoTransactionRepo() - End");
         return result;
     }
 
@@ -111,11 +111,11 @@ public final class TransactionDAO {
      */
     @SuppressWarnings("unchecked")
     public String getTransactionId(String messageId) {
-        log.debug("TransactionDAO.getTransactinId() - Begin");
+        LOG.debug("TransactionDAO.getTransactinId() - Begin");
 
         if (NullChecker.isNullish(messageId)) {
-            log.info("-- MessageId Parameter is required for Transaction Query --");
-            log.debug("TransactionDAO.getTransactinId() - End");
+            LOG.info("-- MessageId Parameter is required for Transaction Query --");
+            LOG.debug("TransactionDAO.getTransactinId() - End");
             return null;
         }
 
@@ -125,8 +125,8 @@ public final class TransactionDAO {
             SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
             session = sessionFactory.openSession();
 
-            if (log.isDebugEnabled()) {
-                log.info("Getting Records");
+            if (LOG.isDebugEnabled()) {
+                LOG.info("Getting Records");
             }
             Query namedQuery = session.getNamedQuery("findTransactionByMessageId");
             namedQuery.setString("messageId", messageId);
@@ -138,7 +138,7 @@ public final class TransactionDAO {
                 return trans.getTransactionId();
             }
         } catch (Exception e) {
-            log.error("Exception in getTransactionId() occured due to :" + e.getMessage(), e);
+            LOG.error("Exception in getTransactionId() occured due to :" + e.getMessage(), e);
         } finally {
             closeSession(session, false);
         }

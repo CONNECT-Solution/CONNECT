@@ -44,8 +44,7 @@ import gov.hhs.fha.nhinc.transform.subdisc.HL7AckTransforms;
 
 import java.util.List;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 import org.hl7.v3.MCCIIN000002UV01;
 import org.hl7.v3.PRPAIN201306UV02;
 import org.hl7.v3.RespondingGatewayPRPAIN201306UV02RequestType;
@@ -59,7 +58,7 @@ public class StandardOutboundPatientDiscoveryDeferredResponse extends AbstractOu
     private final PatientDiscoveryAuditor auditLogger;
     private final OutboundPatientDiscoveryDeferredResponseDelegate delegate;
     private final ConnectionManagerCache connectionManager;
-    private final Log log;
+    private static final Logger log = Logger.getLogger(StandardOutboundPatientDiscoveryDeferredResponse.class);
 
     /**
      * Constructor.
@@ -70,7 +69,6 @@ public class StandardOutboundPatientDiscoveryDeferredResponse extends AbstractOu
         auditLogger = new PatientDiscoveryAuditLogger();
         delegate = new OutboundPatientDiscoveryDeferredResponseDelegate();
         connectionManager = ConnectionManagerCache.getInstance();
-        log = LogFactory.getLog(getClass());
     }
     
     /**
@@ -85,13 +83,12 @@ public class StandardOutboundPatientDiscoveryDeferredResponse extends AbstractOu
     public StandardOutboundPatientDiscoveryDeferredResponse(
             PolicyChecker<RespondingGatewayPRPAIN201306UV02RequestType, PRPAIN201306UV02> policyChecker,
             PatientDiscovery201306Processor pd201306Processor, PatientDiscoveryAuditor auditLogger, 
-            OutboundPatientDiscoveryDeferredResponseDelegate delegate, ConnectionManagerCache connectionManager, Log log) {
+            OutboundPatientDiscoveryDeferredResponseDelegate delegate, ConnectionManagerCache connectionManager) {
         this.policyChecker = policyChecker;
         this.pd201306Processor = pd201306Processor;
         this.auditLogger = auditLogger;
         this.delegate = delegate;
-        this.connectionManager = connectionManager;
-        this.log = log;
+        this.connectionManager = connectionManager;    
     }
 
     /*

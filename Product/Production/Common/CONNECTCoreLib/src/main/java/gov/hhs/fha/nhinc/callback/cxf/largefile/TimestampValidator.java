@@ -51,7 +51,7 @@ import org.apache.ws.security.validate.Validator;
  */
 public class TimestampValidator implements Validator {
 
-    private static Logger log = Logger.getLogger(TimestampValidator.class);
+    private static final Logger LOG = Logger.getLogger(TimestampValidator.class);
     private static long INVALID_LONG_VALUE = -1;
 
     /**
@@ -106,7 +106,7 @@ public class TimestampValidator implements Validator {
             return PropertyAccessor.getInstance().getPropertyLong(NhincConstants.GATEWAY_PROPERTY_FILE,
                     NhincConstants.TIMESTAMP_TIME_TO_LIVE);
         } catch (PropertyAccessException pae) {
-            log.info("Failed to determine timestamp time to live in gateway.properties.  Will use default values.");
+            LOG.info("Failed to determine timestamp time to live in gateway.properties.  Will use default values.");
         }
 
         return INVALID_LONG_VALUE;
@@ -117,7 +117,7 @@ public class TimestampValidator implements Validator {
             return PropertyAccessor.getInstance().getPropertyLong(NhincConstants.GATEWAY_PROPERTY_FILE,
                     NhincConstants.TIMESTAMP_FUTURE_TIME_TO_LIVE);
         } catch (PropertyAccessException pae) {
-            log.info("Failed to determine timestamp future time to live in gateway.properties.  Will use default values.");
+            LOG.info("Failed to determine timestamp future time to live in gateway.properties.  Will use default values.");
         }
 
         return INVALID_LONG_VALUE;
@@ -128,7 +128,7 @@ public class TimestampValidator implements Validator {
             return PropertyAccessor.getInstance().getPropertyBoolean(NhincConstants.GATEWAY_PROPERTY_FILE,
                     NhincConstants.TIMESTAMP_STRICT);
         } catch (PropertyAccessException pae) {
-            log.info("Failed to determine timestamp strict in gateway.properties.  Will use default values.");
+            LOG.info("Failed to determine timestamp strict in gateway.properties.  Will use default values.");
         }
 
         return true;

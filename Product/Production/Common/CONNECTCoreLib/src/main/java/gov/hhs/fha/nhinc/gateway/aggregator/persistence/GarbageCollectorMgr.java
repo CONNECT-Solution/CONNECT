@@ -41,7 +41,7 @@ import java.util.Calendar;
  * @author Les Westberg
  */
 public class GarbageCollectorMgr {
-    private static Logger log = Logger.getLogger(GarbageCollectorMgr.class);
+    private static final Logger LOG = Logger.getLogger(GarbageCollectorMgr.class);
     private static Date dtLastRun = new Date(); // The date that the garbage collector was last run.
     private static final String GATEWAY_PROPERTY_FILE = "gateway";
     private static final String GARBAGE_COLLECT_TIME_DURATION = "aggregatorGarbageCollectionTimeDuration";
@@ -69,7 +69,7 @@ public class GarbageCollectorMgr {
             String sErrorMessage = "Failed to read and parse property: " + GARBAGE_COLLECT_TIME_DURATION
                     + " from PropertyFile: " + GATEWAY_PROPERTY_FILE + ".propertues.  No "
                     + "garbage collection will be done on the aggregator tables.";
-            log.error(sErrorMessage);
+            LOG.error(sErrorMessage);
             return false;
         }
 
@@ -77,7 +77,7 @@ public class GarbageCollectorMgr {
             String sErrorMessage = "Failed to read and parse property: " + GARBAGE_COLLECT_TIME_DURATION
                     + " from PropertyFile: " + GATEWAY_PROPERTY_FILE + ".propertues.  No "
                     + "garbage collection will be done on the aggregator tables.";
-            log.error(sErrorMessage);
+            LOG.error(sErrorMessage);
             return false;
         }
 
@@ -109,7 +109,7 @@ public class GarbageCollectorMgr {
                 String sErrorMessage = "Failed to read and parse property: " + GARBAGE_COLLECT_STALE_DURATION
                         + " from PropertyFile: " + GATEWAY_PROPERTY_FILE + ".propertues.  No "
                         + "garbage collection will be done on the aggregator tables.";
-                log.error(sErrorMessage);
+                LOG.error(sErrorMessage);
                 return;
             }
 
@@ -117,14 +117,14 @@ public class GarbageCollectorMgr {
                 String sErrorMessage = "Failed to read and parse property: " + GARBAGE_COLLECT_STALE_DURATION
                         + " from PropertyFile: " + GATEWAY_PROPERTY_FILE + ".propertues.  No "
                         + "garbage collection will be done on the aggregator tables.";
-                log.error(sErrorMessage);
+                LOG.error(sErrorMessage);
                 return;
             }
 
             Calendar oCal = Calendar.getInstance();
             oCal.add(Calendar.SECOND, (-1) * iStaleDuration);
 
-            log.debug("Running aggregator garbage collection thread now.");
+            LOG.debug("Running aggregator garbage collection thread now.");
 
             GarbageCollectorThread oCollectorThread = new GarbageCollectorThread(oCal.getTime());
             oCollectorThread.run();

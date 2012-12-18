@@ -61,7 +61,7 @@ import gov.hhs.fha.nhinc.transform.subdisc.HL7AckTransforms;
  */
 public class AsyncMessageProcessHelper {
 
-    private Logger log = Logger.getLogger(AsyncMessageProcessHelper.class);
+    private static final Logger LOG = Logger.getLogger(AsyncMessageProcessHelper.class);
 
     private static HashMap<String, String> statusToDirectionMap = new HashMap<String, String>();
 
@@ -101,13 +101,13 @@ public class AsyncMessageProcessHelper {
      * @return true - success; false - error
      */
     public boolean addPatientDiscoveryRequest(PRPAIN201305UV02 request, AssertionType assertion, String direction) {
-        log.debug("Begin AsyncMessageProcessHelper.addPatientDiscoveryRequest(assertion)...");
+        LOG.debug("Begin AsyncMessageProcessHelper.addPatientDiscoveryRequest(assertion)...");
 
         RespondingGatewayPRPAIN201305UV02RequestType newRequest = new RespondingGatewayPRPAIN201305UV02RequestType();
         newRequest.setAssertion(assertion);
         newRequest.setPRPAIN201305UV02(request);
 
-        log.debug("End AsyncMessageProcessHelper.addPatientDiscoveryRequest(assertion)...");
+        LOG.debug("End AsyncMessageProcessHelper.addPatientDiscoveryRequest(assertion)...");
 
         return addPatientDiscoveryRequest(newRequest, direction);
     }
@@ -121,7 +121,7 @@ public class AsyncMessageProcessHelper {
      * @return true - success; false - error
      */
     public boolean addPatientDiscoveryRequest(RespondingGatewayPRPAIN201305UV02RequestType request, String direction) {
-        log.debug("Begin AsyncMessageProcessHelper.addPatientDiscoveryRequest()...");
+        LOG.debug("Begin AsyncMessageProcessHelper.addPatientDiscoveryRequest()...");
 
         boolean result = false;
 
@@ -145,13 +145,13 @@ public class AsyncMessageProcessHelper {
             result = instance.insertRecords(asyncMsgRecs);
 
             if (!result) {
-                log.error("Failed to insert asynchronous record in the database");
+                LOG.error("Failed to insert asynchronous record in the database");
             }
         } catch (Exception e) {
-            log.error("ERROR: Failed to add the async request to async msg repository.", e);
+            LOG.error("ERROR: Failed to add the async request to async msg repository.", e);
         }
 
-        log.debug("End AsyncMessageProcessHelper.addPatientDiscoveryRequest()...");
+        LOG.debug("End AsyncMessageProcessHelper.addPatientDiscoveryRequest()...");
 
         return result;
     }
@@ -166,7 +166,7 @@ public class AsyncMessageProcessHelper {
      * @return true - success; false - error
      */
     public boolean processAck(String messageId, String newStatus, String errorStatus, MCCIIN000002UV01 ack) {
-        log.debug("Begin AsyncMessageProcessHelper.processAck()...");
+        LOG.debug("Begin AsyncMessageProcessHelper.processAck()...");
 
         boolean result = false;
 
@@ -188,10 +188,10 @@ public class AsyncMessageProcessHelper {
             result = true;
         } catch (Exception e) {
             e.printStackTrace();
-            log.error("ERROR: Failed to update the async request.", e);
+            LOG.error("ERROR: Failed to update the async request.", e);
         }
 
-        log.debug("End AsyncMessageProcessHelper.processAck()...");
+        LOG.debug("End AsyncMessageProcessHelper.processAck()...");
 
         return result;
     }
@@ -204,7 +204,7 @@ public class AsyncMessageProcessHelper {
      * @return true - success; false - error
      */
     public boolean processMessageStatus(String messageId, String newStatus) {
-        log.debug("Begin AsyncMessageProcessHelper.processMessageStatus()...");
+        LOG.debug("Begin AsyncMessageProcessHelper.processMessageStatus()...");
 
         boolean result = false;
 
@@ -221,10 +221,10 @@ public class AsyncMessageProcessHelper {
             // Success if we got this far
             result = true;
         } catch (Exception e) {
-            log.error("ERROR: Failed to update the async request status.", e);
+            LOG.error("ERROR: Failed to update the async request status.", e);
         }
 
-        log.debug("End AsyncMessageProcessHelper.processMessageStatus()...");
+        LOG.debug("End AsyncMessageProcessHelper.processMessageStatus()...");
 
         return result;
     }
@@ -240,7 +240,7 @@ public class AsyncMessageProcessHelper {
      */
     public boolean processPatientDiscoveryResponse(String messageId, String newStatus, String errorStatus,
             RespondingGatewayPRPAIN201306UV02RequestType response) {
-        log.debug("Begin AsyncMessageProcessHelper.processPatientDiscoveryResponse()...");
+        LOG.debug("Begin AsyncMessageProcessHelper.processPatientDiscoveryResponse()...");
 
         boolean result = false;
 
@@ -268,10 +268,10 @@ public class AsyncMessageProcessHelper {
                 result = true;
             }
         } catch (Exception e) {
-            log.error("ERROR: Failed to update the async response.", e);
+            LOG.error("ERROR: Failed to update the async response.", e);
         }
 
-        log.debug("End AsyncMessageProcessHelper.processPatientDiscoveryResponse()...");
+        LOG.debug("End AsyncMessageProcessHelper.processPatientDiscoveryResponse()...");
 
         return result;
     }
@@ -304,7 +304,7 @@ public class AsyncMessageProcessHelper {
             copy = oJaxbElementCopy.getValue();
             // asyncMessage = Hibernate.createBlob(buffer);
         } catch (Exception e) {
-            log.error("Exception during copyAssertionTypeObject conversion :" + e, e);
+            LOG.error("Exception during copyAssertionTypeObject conversion :" + e, e);
         }
 
         return copy;
@@ -333,7 +333,7 @@ public class AsyncMessageProcessHelper {
             byte[] buffer = baOutStrm.toByteArray();
             returnValue = new String(buffer);
         } catch (Exception e) {
-            log.error("Exception during marshalAssertionTypeObject conversion :" + e, e);
+            LOG.error("Exception during marshalAssertionTypeObject conversion :" + e, e);
         }
 
         return returnValue;
@@ -368,7 +368,7 @@ public class AsyncMessageProcessHelper {
             byte[] buffer = baOutStrm.toByteArray();
             asyncMessage = Hibernate.createBlob(buffer);
         } catch (Exception e) {
-            log.error("Exception during Blob conversion :" + e.getMessage(), e);
+            LOG.error("Exception during Blob conversion :" + e.getMessage(), e);
         }
 
         return asyncMessage;
@@ -391,7 +391,7 @@ public class AsyncMessageProcessHelper {
             byte[] buffer = baOutStrm.toByteArray();
             asyncMessage = Hibernate.createBlob(buffer);
         } catch (Exception e) {
-            log.error("Exception during Blob conversion :" + e.getMessage(), e);
+            LOG.error("Exception during Blob conversion :" + e.getMessage(), e);
         }
 
         return asyncMessage;
@@ -414,7 +414,7 @@ public class AsyncMessageProcessHelper {
             byte[] buffer = baOutStrm.toByteArray();
             asyncMessage = Hibernate.createBlob(buffer);
         } catch (Exception e) {
-            log.error("Exception during Blob conversion :" + e.getMessage(), e);
+            LOG.error("Exception during Blob conversion :" + e.getMessage(), e);
         }
 
         return asyncMessage;

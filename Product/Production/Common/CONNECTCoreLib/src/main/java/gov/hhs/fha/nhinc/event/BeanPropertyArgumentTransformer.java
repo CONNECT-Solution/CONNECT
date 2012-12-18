@@ -47,7 +47,7 @@ import com.google.common.base.Optional;
  */
 public abstract class BeanPropertyArgumentTransformer extends ArgTransformerEventDescriptionBuilder {
 
-    private Logger log = Logger.getLogger(BeanPropertyArgumentTransformer.class);
+    private static final Logger LOG = Logger.getLogger(BeanPropertyArgumentTransformer.class);
 
     /**
      * Transforms the input argument list into the result by taking every argument, introspecting the bean properties,
@@ -91,9 +91,9 @@ public abstract class BeanPropertyArgumentTransformer extends ArgTransformerEven
                 return Optional.of(readValue);
             }
         } catch (IllegalAccessException e) {
-            log.warn(String.format("Unable to invoke bean read method '%s' on '%s'", readMethod, argument), e);
+            LOG.warn(String.format("Unable to invoke bean read method '%s' on '%s'", readMethod, argument), e);
         } catch (InvocationTargetException e) {
-            log.warn(String.format("Unable to invoke bean read method '%s' on '%s'", readMethod, argument), e);
+            LOG.warn(String.format("Unable to invoke bean read method '%s' on '%s'", readMethod, argument), e);
         }
         return Optional.absent();
     }

@@ -26,8 +26,7 @@
  */
 package gov.hhs.fha.nhinc.mpi.adapter.component.proxy;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 import org.hl7.v3.PRPAIN201305UV02;
 import org.hl7.v3.PRPAIN201306UV02;
 
@@ -41,23 +40,7 @@ import gov.hhs.fha.nhinc.mpi.adapter.component.AdapterComponentMpiOrchImpl;
  * @author Les Westberg
  */
 public class AdapterComponentMpiProxyJavaImpl implements AdapterComponentMpiProxy {
-    private Log log = null;
-
-    /**
-     * Default constructor.
-     */
-    public AdapterComponentMpiProxyJavaImpl() {
-        log = createLogger();
-    }
-
-    /**
-     * Creates the log object for logging.
-     *
-     * @return The log object.
-     */
-    protected Log createLogger() {
-        return ((log != null) ? log : LogFactory.getLog(getClass()));
-    }
+    private static final Logger LOG = Logger.getLogger(AdapterComponentMpiProxyJavaImpl.class);
 
     /**
      * Find the matching candidates from the MPI.
@@ -68,10 +51,10 @@ public class AdapterComponentMpiProxyJavaImpl implements AdapterComponentMpiProx
      */
     @Override
     public PRPAIN201306UV02 findCandidates(PRPAIN201305UV02 findCandidatesRequest, AssertionType assertion) {
-        log.debug("Entering AdapterComponentMpiProxyJavaImpl.findCandidates");
+        LOG.trace("Entering AdapterComponentMpiProxyJavaImpl.findCandidates");
         AdapterComponentMpiOrchImpl oOrchestrator = new AdapterComponentMpiOrchImpl();
         PRPAIN201306UV02 response = oOrchestrator.findCandidates(findCandidatesRequest, assertion);
-        log.debug("Leaving AdapterComponentMpiProxyJavaImpl.findCandidates");
+        LOG.trace("Leaving AdapterComponentMpiProxyJavaImpl.findCandidates");
         return response;
     }
 }

@@ -50,7 +50,7 @@ import gov.hhs.fha.nhinc.docrepository.adapter.persistence.HibernateUtil;
  * @author Neil Webb
  */
 public class DocumentDao {
-    private Logger log = Logger.getLogger(DocumentDao.class);
+    private static final Logger LOG = Logger.getLogger(DocumentDao.class);
 
     /**
      * Save a document record to the database. Insert if document id is null. Update otherwise.
@@ -58,7 +58,7 @@ public class DocumentDao {
      * @param document Document object to save.
      */
     public void save(Document document) {
-        log.debug("Performing document save");
+        LOG.debug("Performing document save");
         Session sess = null;
         Transaction trans = null;
         try {
@@ -69,29 +69,29 @@ public class DocumentDao {
                     trans = sess.beginTransaction();
                     sess.saveOrUpdate(document);
                 } else {
-                    log.error("Failed to obtain a session from the sessionFactory");
+                    LOG.error("Failed to obtain a session from the sessionFactory");
                 }
             } else {
-                log.error("Session factory was null");
+                LOG.error("Session factory was null");
             }
         } finally {
             if (trans != null) {
                 try {
                     trans.commit();
                 } catch (Throwable t) {
-                    log.error("Failed to commit transaction: " + t.getMessage(), t);
+                    LOG.error("Failed to commit transaction: " + t.getMessage(), t);
                 }
             }
             if (sess != null) {
                 try {
                     sess.close();
                 } catch (Throwable t) {
-                    log.error("Failed to close session: " + t.getMessage(), t);
+                    LOG.error("Failed to close session: " + t.getMessage(), t);
                 }
             }
         }
 
-        log.debug("Completed document save");
+        LOG.debug("Completed document save");
     }
 
     /**
@@ -100,7 +100,7 @@ public class DocumentDao {
      * @param document Document to delete
      */
     public void delete(Document document) {
-        log.debug("Performing document delete");
+        LOG.debug("Performing document delete");
 
         Session sess = null;
         Transaction trans = null;
@@ -112,28 +112,28 @@ public class DocumentDao {
                     trans = sess.beginTransaction();
                     sess.delete(document);
                 } else {
-                    log.error("Failed to obtain a session from the sessionFactory");
+                    LOG.error("Failed to obtain a session from the sessionFactory");
                 }
             } else {
-                log.error("Session factory was null");
+                LOG.error("Session factory was null");
             }
         } finally {
             if (trans != null) {
                 try {
                     trans.commit();
                 } catch (Throwable t) {
-                    log.error("Failed to commit transaction: " + t.getMessage(), t);
+                    LOG.error("Failed to commit transaction: " + t.getMessage(), t);
                 }
             }
             if (sess != null) {
                 try {
                     sess.close();
                 } catch (Throwable t) {
-                    log.error("Failed to close session: " + t.getMessage(), t);
+                    LOG.error("Failed to close session: " + t.getMessage(), t);
                 }
             }
         }
-        log.debug("Completed document delete");
+        LOG.debug("Completed document delete");
     }
 
     /**
@@ -143,7 +143,7 @@ public class DocumentDao {
      * @return Retrieved document
      */
     public Document findById(Long documentId) {
-        log.debug("Performing document retrieve using id: " + documentId);
+        LOG.debug("Performing document retrieve using id: " + documentId);
         Document document = null;
         Session sess = null;
         try {
@@ -153,13 +153,13 @@ public class DocumentDao {
                 if (sess != null) {
                     document = (Document) sess.get(Document.class, documentId);
                 } else {
-                    log.error("Failed to obtain a session from the sessionFactory");
+                    LOG.error("Failed to obtain a session from the sessionFactory");
                 }
             } else {
-                log.error("Session factory was null");
+                LOG.error("Session factory was null");
             }
-            if (log.isDebugEnabled()) {
-                log.debug("Completed document retrieve by id. Result was "
+            if (LOG.isDebugEnabled()) {
+                LOG.debug("Completed document retrieve by id. Result was "
                 		+ ((document == null) ? "not " : "")
                         + "found");
             }
@@ -168,7 +168,7 @@ public class DocumentDao {
                 try {
                     sess.close();
                 } catch (Throwable t) {
-                    log.error("Failed to close session: " + t.getMessage(), t);
+                    LOG.error("Failed to close session: " + t.getMessage(), t);
                 }
             }
         }
@@ -187,7 +187,7 @@ public class DocumentDao {
      */
     @SuppressWarnings("unchecked")
     public List<Document> findAll() {
-        log.debug("Performing retrieve of all documents");
+        LOG.debug("Performing retrieve of all documents");
         List<Document> documents = null;
         Session sess = null;
         try {
@@ -198,13 +198,13 @@ public class DocumentDao {
                     Criteria criteria = sess.createCriteria(Document.class);
                     documents = criteria.list();
                 } else {
-                    log.error("Failed to obtain a session from the sessionFactory");
+                    LOG.error("Failed to obtain a session from the sessionFactory");
                 }
             } else {
-                log.error("Session factory was null");
+                LOG.error("Session factory was null");
             }
-            if (log.isDebugEnabled()) {
-                log.debug("Completed retrieve of all documents. "
+            if (LOG.isDebugEnabled()) {
+                LOG.debug("Completed retrieve of all documents. "
                         + ((documents == null) ? "0" : Integer.toString(documents.size())) + " results returned.");
             }
         } finally {
@@ -212,7 +212,7 @@ public class DocumentDao {
                 try {
                     sess.close();
                 } catch (Throwable t) {
-                    log.error("Failed to close session: " + t.getMessage(), t);
+                    LOG.error("Failed to close session: " + t.getMessage(), t);
                 }
             }
         }
@@ -227,7 +227,7 @@ public class DocumentDao {
      */
     @SuppressWarnings("unchecked")
     public List<Document> findDocuments(DocumentQueryParams params) {
-        log.debug("Beginning document query");
+        LOG.debug("Beginning document query");
 
         String patientId = null;
         List<String> classCodes = null;
@@ -266,8 +266,8 @@ public class DocumentDao {
                     Criteria criteria = sess.createCriteria(Document.class);
 
                     if (patientId != null) {
-                        if (log.isDebugEnabled()) {
-                            log.debug("Document query - patient id: " + patientId);
+                        if (LOG.isDebugEnabled()) {
+                            LOG.debug("Document query - patient id: " + patientId);
                         }
                         criteria.add(Expression.eq("patientId", patientId));
                     }
@@ -290,8 +290,8 @@ public class DocumentDao {
                          *************************************************************/
                         Criterion criterion = null;
                         for (String classCode : classCodes) {
-                            if (log.isDebugEnabled()) {
-                                log.debug("Document query - class code: " + classCode);
+                            if (LOG.isDebugEnabled()) {
+                                LOG.debug("Document query - class code: " + classCode);
                             }
                             String newClassCode = null;
                             String newCodeScheme = null;
@@ -319,84 +319,84 @@ public class DocumentDao {
                     }
 
                     if (creationTimeFrom != null) {
-                        if (log.isDebugEnabled()) {
-                            log.debug("Document query - creation time from: "
+                        if (LOG.isDebugEnabled()) {
+                            LOG.debug("Document query - creation time from: "
                                     + logDateFormatter.format(creationTimeFrom));
                         }
                         criteria.add(Expression.ge("creationTime", creationTimeFrom));
                     }
 
                     if (creationTimeTo != null) {
-                        if (log.isDebugEnabled()) {
-                            log.debug("Document query - creation time to: " + logDateFormatter.format(creationTimeTo));
+                        if (LOG.isDebugEnabled()) {
+                            LOG.debug("Document query - creation time to: " + logDateFormatter.format(creationTimeTo));
                         }
                         criteria.add(Expression.le("creationTime", creationTimeTo));
                     }
 
                     if (serviceStartTimeFrom != null) {
-                        if (log.isDebugEnabled()) {
-                            log.debug("Document query - service start time from: "
+                        if (LOG.isDebugEnabled()) {
+                            LOG.debug("Document query - service start time from: "
                                     + logDateFormatter.format(serviceStartTimeFrom));
                         }
                         criteria.add(Expression.ge("serviceStartTime", serviceStartTimeFrom));
                     }
 
                     if (serviceStartTimeTo != null) {
-                        if (log.isDebugEnabled()) {
-                            log.debug("Document query - service start time to: "
+                        if (LOG.isDebugEnabled()) {
+                            LOG.debug("Document query - service start time to: "
                                     + logDateFormatter.format(serviceStartTimeTo));
                         }
                         criteria.add(Expression.le("serviceStartTime", serviceStartTimeTo));
                     }
 
                     if (serviceStopTimeFrom != null) {
-                        if (log.isDebugEnabled()) {
-                            log.debug("Document query - service stop time from: "
+                        if (LOG.isDebugEnabled()) {
+                            LOG.debug("Document query - service stop time from: "
                                     + logDateFormatter.format(serviceStopTimeFrom));
                         }
                         criteria.add(Expression.ge("serviceStopTime", serviceStopTimeFrom));
                     }
 
                     if (serviceStopTimeTo != null) {
-                        if (log.isDebugEnabled()) {
-                            log.debug("Document query - service stop time to: "
+                        if (LOG.isDebugEnabled()) {
+                            LOG.debug("Document query - service stop time to: "
                                     + logDateFormatter.format(serviceStopTimeTo));
                         }
                         criteria.add(Expression.le("serviceStopTime", serviceStopTimeTo));
                     }
 
                     if ((statuses != null) && (!statuses.isEmpty())) {
-                        if (log.isDebugEnabled()) {
+                        if (LOG.isDebugEnabled()) {
                             for (String status : statuses) {
-                                log.debug("Document query - status: " + status);
+                                LOG.debug("Document query - status: " + status);
                             }
                         }
                         criteria.add(Expression.in("status", statuses));
                     }
 
                     if ((documentUniqueIds != null) && (!documentUniqueIds.isEmpty())) {
-                        if (log.isDebugEnabled()) {
+                        if (LOG.isDebugEnabled()) {
                             for (String documentUniqueId : documentUniqueIds) {
-                                log.debug("Document query - document unique id: " + documentUniqueId);
+                                LOG.debug("Document query - document unique id: " + documentUniqueId);
                             }
                         }
                         criteria.add(Expression.in("documentUniqueId", documentUniqueIds));
                     }
 
-                    if (log.isDebugEnabled()) {
-                        log.debug("Document query - onDemand: " + onDemand);
+                    if (LOG.isDebugEnabled()) {
+                        LOG.debug("Document query - onDemand: " + onDemand);
                     }
                     criteria.add(Expression.eq("onDemand", onDemand));
 
                     documents = criteria.list();
                 } else {
-                    log.error("Failed to obtain a session from the sessionFactory");
+                    LOG.error("Failed to obtain a session from the sessionFactory");
                 }
             } else {
-                log.error("Session factory was null");
+                LOG.error("Session factory was null");
             }
-            if (log.isDebugEnabled()) {
-                log.debug("Completed retrieve of document query. "
+            if (LOG.isDebugEnabled()) {
+                LOG.debug("Completed retrieve of document query. "
                         + ((documents == null) ? "0" : Integer.toString(documents.size())) + " results returned.");
             }
         } finally {
@@ -404,7 +404,7 @@ public class DocumentDao {
                 try {
                     sess.close();
                 } catch (Throwable t) {
-                    log.error("Failed to close session: " + t.getMessage(), t);
+                    LOG.error("Failed to close session: " + t.getMessage(), t);
                 }
             }
         }

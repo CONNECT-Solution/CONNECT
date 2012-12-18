@@ -48,7 +48,7 @@ import org.hibernate.SessionFactory;
  * @author Les Westberg
  */
 public class AggTransactionDao {
-    private Logger log = Logger.getLogger(AggTransactionDao.class);
+    private static final Logger LOG = Logger.getLogger(AggTransactionDao.class);
 
     /**
      * Default constructor
@@ -71,7 +71,7 @@ public class AggTransactionDao {
             sTransactionId = oAggTransaction.getTransactionId();
         }
 
-        log.debug("Performing AggTransaction save for TransactionId: "
+        LOG.debug("Performing AggTransaction save for TransactionId: "
                 + ((sTransactionId.length() == 0) ? "New Record" : sTransactionId));
 
         HibernateUtil.save(oAggTransaction, sTransactionId, "TransactionId");
@@ -90,11 +90,11 @@ public class AggTransactionDao {
         if (oAggTransaction != null) {
             sTransactionId = oAggTransaction.getTransactionId();
         } else {
-            log.warn("Attempt to delete AggTransaction but the value was null.");
+            LOG.warn("Attempt to delete AggTransaction but the value was null.");
             return; // there is nothing to delete.
         }
 
-        log.debug("Performing AggTransaction delete for TransactionId: " + sTransactionId);
+        LOG.debug("Performing AggTransaction delete for TransactionId: " + sTransactionId);
 
         HibernateUtil.delete(oAggTransaction, sTransactionId, "TransactionId");
 
@@ -108,7 +108,7 @@ public class AggTransactionDao {
      * @return Retrieved transaction.
      */
     public AggTransaction findById(String sTransactionId) {
-        log.debug("Performing AggTransaction findById for TransactionId: " + sTransactionId);
+        LOG.debug("Performing AggTransaction findById for TransactionId: " + sTransactionId);
 
         AggTransaction oAggTransaction = (AggTransaction) HibernateUtil.findById(AggTransaction.class, sTransactionId,
                 sTransactionId, "TransactionId");
@@ -134,12 +134,12 @@ public class AggTransactionDao {
         String sDateTime = oFormat.format(dtDateTime);
         if (sDateTime == null) {
             String sErrorMessage = "AggTransactionDao.findOlderThan(dtDateTime) must be called with a valid date/time but dtDateTime was null.";
-            log.error(sErrorMessage);
+            LOG.error(sErrorMessage);
             throw new AggregatorException(sErrorMessage);
         }
 
-        if (log.isDebugEnabled()) {
-            log.debug("Performing AggTransactionDao.findOlderThan(" + sDateTime + ").");
+        if (LOG.isDebugEnabled()) {
+            LOG.debug("Performing AggTransactionDao.findOlderThan(" + sDateTime + ").");
         }
 
         Session oSession = null;
@@ -152,15 +152,15 @@ public class AggTransactionDao {
                     query.setParameter("transactionStartTime", dtDateTime);
                     olAggTransaction = query.list();
                 } else {
-                    log.error("Failed to obtain a session from the sessionFactory " + "while calling findOlderThan("
+                    LOG.error("Failed to obtain a session from the sessionFactory " + "while calling findOlderThan("
                             + sDateTime + ").  ");
                 }
             } else {
-                log.error("Session factory was null while calling findOlderThan(" + sDateTime + ").");
+                LOG.error("Session factory was null while calling findOlderThan(" + sDateTime + ").");
             }
 
-            if (log.isDebugEnabled()) {
-                log.debug("Completed AggTransactionDao.findOlderThan(" + sDateTime + ").  " + "Result was: "
+            if (LOG.isDebugEnabled()) {
+                LOG.debug("Completed AggTransactionDao.findOlderThan(" + sDateTime + ").  " + "Result was: "
                         + (((olAggTransaction == null) && (olAggTransaction.size() > 0)) ? "not " : "") + "found");
             }
         } finally {
@@ -168,7 +168,7 @@ public class AggTransactionDao {
                 try {
                     oSession.close();
                 } catch (Throwable t) {
-                    log.error("Failed to close session" + "while calling findOlderThan(" + sDateTime + ").  "
+                    LOG.error("Failed to close session" + "while calling findOlderThan(" + sDateTime + ").  "
                             + "Message: " + t.getMessage(), t);
                 }
             }

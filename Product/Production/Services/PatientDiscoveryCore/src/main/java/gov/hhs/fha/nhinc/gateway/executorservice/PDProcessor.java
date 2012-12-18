@@ -26,8 +26,7 @@
  */
 package gov.hhs.fha.nhinc.gateway.executorservice;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 import org.hl7.v3.CommunityPRPAIN201306UV02ResponseType;
 import org.hl7.v3.PRPAIN201306UV02;
 import org.hl7.v3.ProxyPRPAIN201305UVProxySecuredRequestType;
@@ -64,7 +63,7 @@ public class PDProcessor<Target extends UrlInfo, Request extends RespondingGatew
     Response extends PRPAIN201306UV02, CumulativeResponse extends RespondingGatewayPRPAIN201306UV02ResponseType>
         extends ResponseProcessor<Target, Request, Response, CumulativeResponse> {
 
-    private final Log log = LogFactory.getLog(getClass());
+    private static final Logger LOG = Logger.getLogger(PDProcessor.class);
 
     private RespondingGatewayPRPAIN201306UV02ResponseType cumulativeResponse = null;
     private AssertionType pdassertion = null;
@@ -120,7 +119,7 @@ public class PDProcessor<Target extends UrlInfo, Request extends RespondingGatew
      */
     @Override
     public Response processError(String error, Request request, Target target) {
-        log.debug("PDProcessor::processError has error=" + error);
+        LOG.debug("PDProcessor::processError has error=" + error);
         Response response =
                 (Response) new HL7PRPA201306Transforms().createPRPA201306ForErrors(request.getPRPAIN201305UV02(),
                         NhincConstants.PATIENT_DISCOVERY_ANSWER_NOT_AVAIL_ERR_CODE);
@@ -146,7 +145,7 @@ public class PDProcessor<Target extends UrlInfo, Request extends RespondingGatew
 
         // for debug
         count++;
-        log.debug("PDProcessor::processPDResponse combine next response count=" + count);
+        LOG.debug("PDProcessor::processPDResponse combine next response count=" + count);
 
         try {
             // store the correlation result and handle Trust/Verify Mode
@@ -175,7 +174,7 @@ public class PDProcessor<Target extends UrlInfo, Request extends RespondingGatew
             CommunityPRPAIN201306UV02ResponseType communityResponse = new CommunityPRPAIN201306UV02ResponseType();
             communityResponse.setPRPAIN201306UV02(current);
             cumulativeResponse.getCommunityResponse().add(communityResponse);
-            log.debug("PDProcessor::processPDResponse done count=" + count);
+            LOG.debug("PDProcessor::processPDResponse done count=" + count);
         } catch (Exception ex) {
             ExecutorServiceHelper.getInstance().outputCompleteException(ex);
             throw ex;

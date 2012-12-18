@@ -50,7 +50,7 @@ import gov.hhs.fha.nhinc.properties.PropertyAccessor;
  */
 public abstract class CONNECTOrchestrationBase implements CONNECTOrchestrator {
 
-    private Logger log = Logger.getLogger(CONNECTOrchestrationBase.class);
+    private static final Logger LOG = Logger.getLogger(CONNECTOrchestrationBase.class);
 
     private final IPropertyAcessor propertyAcessor;
 
@@ -71,34 +71,34 @@ public abstract class CONNECTOrchestrationBase implements CONNECTOrchestrator {
     @Override
     public Orchestratable process(Orchestratable message) {
         Orchestratable resp = null;
-        log.debug("Entering CONNECTNhinOrchestrator for " + message.getServiceName());
+        LOG.debug("Entering CONNECTNhinOrchestrator for " + message.getServiceName());
         if (message != null) {
             resp = processNotNullMessage(message);
         }
-        log.debug("Returning from CONNECTNhinOrchestrator for " + message.getServiceName());
+        LOG.debug("Returning from CONNECTNhinOrchestrator for " + message.getServiceName());
         return resp;
     }
 
     public Orchestratable processNotNullMessage(Orchestratable message) {
         Orchestratable resp = null;
         // audit
-        log.debug("Calling audit for " + message.getServiceName());
+        LOG.debug("Calling audit for " + message.getServiceName());
         auditRequest(message);
 
         resp = processEnabledMessage(message);
         // audit again
-        log.debug("Calling audit response for " + message.getServiceName());
+        LOG.debug("Calling audit response for " + message.getServiceName());
         auditResponse(message);
-        log.debug("Returning from CONNECTNhinOrchestrator for " + message.getServiceName());
+        LOG.debug("Returning from CONNECTNhinOrchestrator for " + message.getServiceName());
         return resp;
     }
 
     public Orchestratable processEnabledMessage(Orchestratable message) {
-        log.debug(message.getServiceName() + " service is enabled. Procesing message...");
+        LOG.debug(message.getServiceName() + " service is enabled. Procesing message...");
         if (message.isPassthru()) {
             return processPassThruMessage(message);
         } else {
-            log.debug(message.getServiceName() + "is not in passthrough mode. Calling internal processing");
+            LOG.debug(message.getServiceName() + "is not in passthrough mode. Calling internal processing");
             return processIfPolicyIsOk(message);
         }
     }
@@ -106,7 +106,7 @@ public abstract class CONNECTOrchestrationBase implements CONNECTOrchestrator {
     protected abstract Orchestratable processIfPolicyIsOk(Orchestratable message);
 
     public Orchestratable processPassThruMessage(Orchestratable message) {
-        log.debug(message.getServiceName() + " is in passthrough mode. Sending directly to adapter");
+        LOG.debug(message.getServiceName() + " is in passthrough mode. Sending directly to adapter");
         return delegate(message);
     }
 
@@ -131,12 +131,12 @@ public abstract class CONNECTOrchestrationBase implements CONNECTOrchestrator {
     }
 
     private Orchestratable handleFailedPolicyCheck(InboundOrchestratable message) {
-        log.debug(message.getServiceName() + " failed policy check. Returning a error response");
+        LOG.debug(message.getServiceName() + " failed policy check. Returning a error response");
         return createErrorResponse(message, message.getServiceName() + " failed policy check.");
     }
 
     private Orchestratable handleFailedPolicyCheck(OutboundOrchestratable message) {
-        log.debug(message.getServiceName() + " failed policy check. Returning a error response");
+        LOG.debug(message.getServiceName() + " failed policy check. Returning a error response");
         return createErrorResponse(message, message.getServiceName() + " failed policy check.");
     }
 
@@ -192,7 +192,7 @@ public abstract class CONNECTOrchestrationBase implements CONNECTOrchestrator {
     }
 
     private AcknowledgementType audit(LogEventRequestType message, AssertionType assertion) {
-        log.debug("Entering CONNECTNhinOrchestrator.audit(...)");
+        LOG.debug("Entering CONNECTNhinOrchestrator.audit(...)");
         AcknowledgementType ack = null;
         try {
             AuditRepositoryProxyObjectFactory auditRepoFactory = new AuditRepositoryProxyObjectFactory();
@@ -200,9 +200,9 @@ public abstract class CONNECTOrchestrationBase implements CONNECTOrchestrator {
 
             ack = proxy.auditLog(message, assertion);
         } catch (Exception exc) {
-            log.error("Error: Failed to Audit message.", exc);
+            LOG.error("Error: Failed to Audit message.", exc);
         }
-        log.debug("Exiting AuditRCONNECTNhinOrchestratorepositoryLogger.audit(...)");
+        LOG.debug("Exiting AuditRCONNECTNhinOrchestratorepositoryLogger.audit(...)");
         return ack;
     }
 
@@ -214,7 +214,7 @@ public abstract class CONNECTOrchestrationBase implements CONNECTOrchestrator {
      * Begin Policy Methods
      */
     protected boolean isPolicyOk(Orchestratable message, PolicyTransformer.Direction direction) {
-        log.debug("Entering CONNECTNhinOrchestrator.isPolicyOk(...)");
+        LOG.debug("Entering CONNECTNhinOrchestrator.isPolicyOk(...)");
         boolean policyIsValid = false;
 
         try {
@@ -239,9 +239,9 @@ public abstract class CONNECTOrchestrationBase implements CONNECTOrchestrator {
                 }
             }
         } catch (Exception exc) {
-            log.error("Error: Failed to check policy.", exc);
+            LOG.error("Error: Failed to check policy.", exc);
         }
-        log.debug("Exiting CONNECTNhinOrchestrator.isPolicyOk(...) with a value of :" + policyIsValid);
+        LOG.debug("Exiting CONNECTNhinOrchestrator.isPolicyOk(...) with a value of :" + policyIsValid);
         return policyIsValid;
     }
 
@@ -254,10 +254,10 @@ public abstract class CONNECTOrchestrationBase implements CONNECTOrchestrator {
      */
     protected Orchestratable delegate(Orchestratable message) {
         Orchestratable resp = null;
-        log.debug("Entering CONNECTNhinOrchestrator.delegateToNhin(...)");
+        LOG.debug("Entering CONNECTNhinOrchestrator.delegateToNhin(...)");
         Delegate p = message.getDelegate();
         resp = p.process(message);
-        log.debug("Exiting CONNECTNhinOrchestrator.delegateToNhin(...)");
+        LOG.debug("Exiting CONNECTNhinOrchestrator.delegateToNhin(...)");
         return resp;
     }
     /*

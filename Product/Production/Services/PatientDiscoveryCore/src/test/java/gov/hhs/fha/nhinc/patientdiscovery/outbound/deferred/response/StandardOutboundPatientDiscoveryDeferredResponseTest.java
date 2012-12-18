@@ -55,7 +55,6 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.commons.logging.Log;
 import org.hl7.v3.MCCIIN000002UV01;
 import org.hl7.v3.PRPAIN201306UV02;
 import org.hl7.v3.RespondingGatewayPRPAIN201306UV02RequestType;
@@ -120,7 +119,6 @@ public class StandardOutboundPatientDiscoveryDeferredResponseTest {
         OutboundPatientDiscoveryDeferredResponseDelegate delegate = mock(OutboundPatientDiscoveryDeferredResponseDelegate.class);
         OutboundPatientDiscoveryDeferredResponseOrchestratable returnedOrchestratable = mock(OutboundPatientDiscoveryDeferredResponseOrchestratable.class);
         ConnectionManagerCache connectionManager = mock(ConnectionManagerCache.class);
-        Log log = mock(Log.class);
 
         // Stubbing the methods
         when(connectionManager.getEndpointURLFromNhinTargetCommunities(targets, 
@@ -139,7 +137,7 @@ public class StandardOutboundPatientDiscoveryDeferredResponseTest {
 
         // Actual invocation
         StandardOutboundPatientDiscoveryDeferredResponse standardPatientDiscovery = new StandardOutboundPatientDiscoveryDeferredResponse(
-                policyChecker, pd201306Processor, auditLogger, delegate, connectionManager, log);
+                policyChecker, pd201306Processor, auditLogger, delegate, connectionManager);
 
         MCCIIN000002UV01 actualResponse = standardPatientDiscovery.processPatientDiscoveryAsyncResp(request, assertion,
                 targets);
@@ -180,7 +178,6 @@ public class StandardOutboundPatientDiscoveryDeferredResponseTest {
         // Mocks
         ConnectionManagerCache connectionManager = mock(ConnectionManagerCache.class);
         PatientDiscoveryAuditor auditLogger = mock(PatientDiscoveryAuditor.class);
-        Log log = mock(Log.class);
 
         // Stubbing the methods
         when(connectionManager.getEndpointURLFromNhinTargetCommunities(eq(targets), 
@@ -188,7 +185,7 @@ public class StandardOutboundPatientDiscoveryDeferredResponseTest {
 
         // Actual invocation
         StandardOutboundPatientDiscoveryDeferredResponse standardPatientDiscovery = new StandardOutboundPatientDiscoveryDeferredResponse(
-                null, null, auditLogger, null, connectionManager, log);
+                null, null, auditLogger, null, connectionManager);
 
         MCCIIN000002UV01 errorResponse = standardPatientDiscovery.processPatientDiscoveryAsyncResp(request, assertion,
                 targets);
@@ -222,7 +219,6 @@ public class StandardOutboundPatientDiscoveryDeferredResponseTest {
         PatientDiscoveryAuditor auditLogger = mock(PatientDiscoveryAuditor.class);
         OutboundPatientDiscoveryDeferredResponseDelegate delegate = mock(OutboundPatientDiscoveryDeferredResponseDelegate.class);
         ConnectionManagerCache connectionManager = mock(ConnectionManagerCache.class);
-        Log log = mock(Log.class);
 
         // Stubbing the methods
         when(connectionManager.getEndpointURLFromNhinTargetCommunities(targets, 
@@ -235,7 +231,7 @@ public class StandardOutboundPatientDiscoveryDeferredResponseTest {
 
         // Actual invocation
         StandardOutboundPatientDiscoveryDeferredResponse standardPatientDiscovery = new StandardOutboundPatientDiscoveryDeferredResponse(
-                policyChecker, pd201306Processor, auditLogger, delegate, connectionManager, log);
+                policyChecker, pd201306Processor, auditLogger, delegate, connectionManager);
 
         MCCIIN000002UV01 errorResponse = standardPatientDiscovery.processPatientDiscoveryAsyncResp(request, assertion,
                 targets);

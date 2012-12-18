@@ -35,7 +35,7 @@ import org.apache.log4j.Logger;
  */
 public class Log4jEventLogger extends EventLogger {
 
-    private static Logger log = Logger.getLogger(Log4jEventLogger.class);
+    private static final Logger LOG = Logger.getLogger(Log4jEventLogger.class);
 
     public Log4jEventLogger() {
     }
@@ -47,7 +47,7 @@ public class Log4jEventLogger extends EventLogger {
      */
     @Override
     void recordEvent(EventManager manager, Event logEvent) {
-        log.info(logEvent.getEventName() + " has triggered. It has messageID " + logEvent.getMessageID()
+        LOG.info(logEvent.getEventName() + " has triggered. It has messageID " + logEvent.getMessageID()
                 + ", transactionID " + logEvent.getTransactionID() + " and description " + logEvent.getDescription());
     }
 

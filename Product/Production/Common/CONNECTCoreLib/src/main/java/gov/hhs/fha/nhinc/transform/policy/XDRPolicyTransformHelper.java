@@ -46,7 +46,7 @@ import oasis.names.tc.xacml._2_0.context.schema.os.ResourceType;
  */
 public class XDRPolicyTransformHelper {
 
-    private Logger log = Logger.getLogger(XDRPolicyTransformHelper.class);
+    private static final Logger LOG = Logger.getLogger(XDRPolicyTransformHelper.class);
     private static final String ActionInValue = "XDRIn";
     private static final String ActionOutValue = "XDROut";
     private static final String XDRRESPONSE_ACTION_IN_VALUE = "XDRResponseIn";
@@ -62,11 +62,11 @@ public class XDRPolicyTransformHelper {
      */
 
     public CheckPolicyRequestType transformXDRToCheckPolicy(XDREventType event) {
-        log.debug("Begin -- XDRPolicyTransformHelper.transformXDRToCheckPolicy()");
+        LOG.debug("Begin -- XDRPolicyTransformHelper.transformXDRToCheckPolicy()");
         CheckPolicyRequestType checkPolicyRequest = null;
 
         if (event == null) {
-            log.debug("Request is null.");
+            LOG.debug("Request is null.");
             return checkPolicyRequest;
         } else {
             checkPolicyRequest = new CheckPolicyRequestType();
@@ -77,7 +77,7 @@ public class XDRPolicyTransformHelper {
         SubjectHelper subjHelp = new SubjectHelper();
         SubjectType subject = subjHelp.subjectFactory(event.getSendingHomeCommunity(), event.getMessage()
                 .getAssertion());
-        log.debug("transformXDRToCheckPolicy - adding subject");
+        LOG.debug("transformXDRToCheckPolicy - adding subject");
         request.getSubject().add(subject);
 
         String encodedPatientId = getPatientIdFromEvent(event);
@@ -91,14 +91,14 @@ public class XDRPolicyTransformHelper {
                     attrHelper.attributeFactory(PatientAssigningAuthorityAttributeId, Constants.DataTypeString,
                             assigningAuthorityId));
 
-            log.debug("transformXDRToCheckPolicy: sStrippedPatientId = " + patId);
+            LOG.debug("transformXDRToCheckPolicy: sStrippedPatientId = " + patId);
             resource.getAttribute().add(
                     attrHelper.attributeFactory(PatientIdAttributeId, Constants.DataTypeString, patId));
 
             request.getResource().add(resource);
         }
 
-        log.debug("transformXDRToCheckPolicy - adding assertion data");
+        LOG.debug("transformXDRToCheckPolicy - adding assertion data");
         AssertionHelper assertHelp = new AssertionHelper();
         assertHelp.appendAssertionDataToRequest(request, event.getMessage().getAssertion());
 
@@ -110,7 +110,7 @@ public class XDRPolicyTransformHelper {
 
         checkPolicyRequest.setRequest(request);
         checkPolicyRequest.setAssertion(event.getMessage().getAssertion());
-        log.debug("End -- XDRPolicyTransformHelper.transformXDRToCheckPolicy()");
+        LOG.debug("End -- XDRPolicyTransformHelper.transformXDRToCheckPolicy()");
         return checkPolicyRequest;
     }
 
@@ -122,14 +122,14 @@ public class XDRPolicyTransformHelper {
         String result = "";
 
         if (request == null) {
-            log.error(("Incoming ProvideAndRegisterDocumentSetRequestType was null"));
+            LOG.error(("Incoming ProvideAndRegisterDocumentSetRequestType was null"));
             return null;
         }
 
         if (request.getSubmitObjectsRequest() == null)
 
         {
-            log.error(("Incoming ProvideAndRegisterDocumentSetRequestType metadata was null"));
+            LOG.error(("Incoming ProvideAndRegisterDocumentSetRequestType metadata was null"));
             return null;
         }
 
@@ -177,11 +177,11 @@ public class XDRPolicyTransformHelper {
      */
     public CheckPolicyRequestType transformXDRResponseToCheckPolicy(XDRResponseEventType event) {
 
-        log.debug("Begin -- XDRPolicyTransformHelper.transformXDRResponseToCheckPolicy()");
+        LOG.debug("Begin -- XDRPolicyTransformHelper.transformXDRResponseToCheckPolicy()");
         CheckPolicyRequestType checkPolicyRequest = null;
 
         if (event == null) {
-            log.debug("Request is null.");
+            LOG.debug("Request is null.");
             return checkPolicyRequest;
         } else {
             checkPolicyRequest = new CheckPolicyRequestType();
@@ -192,10 +192,10 @@ public class XDRPolicyTransformHelper {
         SubjectHelper subjHelp = new SubjectHelper();
         SubjectType subject = subjHelp.subjectFactory(event.getSendingHomeCommunity(), event.getMessage()
                 .getAssertion());
-        log.debug("transformXDRResponseToCheckPolicy - adding subject");
+        LOG.debug("transformXDRResponseToCheckPolicy - adding subject");
         request.getSubject().add(subject);
 
-        log.debug("transformXDRResponseToCheckPolicy - adding assertion data");
+        LOG.debug("transformXDRResponseToCheckPolicy - adding assertion data");
         AssertionHelper assertHelp = new AssertionHelper();
         assertHelp.appendAssertionDataToRequest(request, event.getMessage().getAssertion());
 
@@ -207,7 +207,7 @@ public class XDRPolicyTransformHelper {
 
         checkPolicyRequest.setRequest(request);
         checkPolicyRequest.setAssertion(event.getMessage().getAssertion());
-        log.debug("End -- XDRPolicyTransformHelper.transformXDRResponseToCheckPolicy()");
+        LOG.debug("End -- XDRPolicyTransformHelper.transformXDRResponseToCheckPolicy()");
         return checkPolicyRequest;
     }
 

@@ -40,7 +40,6 @@ import gov.hhs.fha.nhinc.patientdiscovery.adapter.deferred.request.proxy.Adapter
 import gov.hhs.fha.nhinc.patientdiscovery.aspect.MCCIIN000002UV01EventDescriptionBuilder;
 import gov.hhs.fha.nhinc.patientdiscovery.aspect.PRPAIN201305UV02EventDescriptionBuilder;
 
-import org.apache.commons.logging.Log;
 import org.hl7.v3.MCCIIN000002UV01;
 import org.hl7.v3.PRPAIN201305UV02;
 import org.hl7.v3.PRPAIN201306UV02;
@@ -83,7 +82,6 @@ public class StandardInboundPatientDiscoveryDeferredRequestTest {
         PatientDiscoveryPolicyChecker policyChecker = mock(PatientDiscoveryPolicyChecker.class);
         AdapterPatientDiscoveryDeferredReqErrorProxyObjectFactory proxyErrorFactory = mock(AdapterPatientDiscoveryDeferredReqErrorProxyObjectFactory.class);
         PatientDiscoveryAuditLogger auditLogger = mock(PatientDiscoveryAuditLogger.class);
-        Log log = mock(Log.class);
         AdapterPatientDiscoveryDeferredReqProxyObjectFactory adapterFactory = mock(AdapterPatientDiscoveryDeferredReqProxyObjectFactory.class);
         AdapterPatientDiscoveryDeferredReqProxy adapterProxy = mock(AdapterPatientDiscoveryDeferredReqProxy.class);
 
@@ -97,7 +95,7 @@ public class StandardInboundPatientDiscoveryDeferredRequestTest {
         when(policyChecker.checkIncomingPolicy(request, assertion)).thenReturn(true);
 
         StandardInboundPatientDiscoveryDeferredRequest standardPatientDiscovery = new StandardInboundPatientDiscoveryDeferredRequest(
-                policyChecker, proxyErrorFactory, passthroughPatientDiscovery, auditLogger, log);
+                policyChecker, proxyErrorFactory, passthroughPatientDiscovery, auditLogger);
 
         MCCIIN000002UV01 actualResponse = standardPatientDiscovery
                 .respondingGatewayPRPAIN201305UV02(request, assertion);
@@ -127,8 +125,7 @@ public class StandardInboundPatientDiscoveryDeferredRequestTest {
         AdapterPatientDiscoveryDeferredReqErrorProxyObjectFactory proxyErrorFactory = mock(AdapterPatientDiscoveryDeferredReqErrorProxyObjectFactory.class);
         AdapterPatientDiscoveryDeferredReqErrorProxy errorProxy = mock(AdapterPatientDiscoveryDeferredReqErrorProxy.class);
         PatientDiscoveryAuditLogger auditLogger = mock(PatientDiscoveryAuditLogger.class);
-        Log log = mock(Log.class);
-
+        
         PassthroughInboundPatientDiscoveryDeferredRequest passthroughPatientDiscovery = mock(PassthroughInboundPatientDiscoveryDeferredRequest.class);
 
         when(proxyErrorFactory.create()).thenReturn(errorProxy);
@@ -140,7 +137,7 @@ public class StandardInboundPatientDiscoveryDeferredRequestTest {
         when(policyChecker.checkIncomingPolicy(request, assertion)).thenReturn(false);
 
         StandardInboundPatientDiscoveryDeferredRequest standardPatientDiscovery = new StandardInboundPatientDiscoveryDeferredRequest(
-                policyChecker, proxyErrorFactory, passthroughPatientDiscovery, auditLogger, log);
+                policyChecker, proxyErrorFactory, passthroughPatientDiscovery, auditLogger);
 
         MCCIIN000002UV01 actualResponse = standardPatientDiscovery
                 .respondingGatewayPRPAIN201305UV02(request, assertion);

@@ -46,7 +46,7 @@ import org.apache.cxf.transports.http.configuration.HTTPClientPolicy;
 public class TimeoutServiceEndpointDecorator<T> extends ServiceEndpointDecorator<T> {
     public static final String CONFIG_KEY_TIMEOUT = "webserviceproxy.timeout";
 
-    private Logger log = Logger.getLogger(TimeoutServiceEndpointDecorator.class);
+    private static final Logger LOG = Logger.getLogger(TimeoutServiceEndpointDecorator.class);
 
     /**
      * @param decorated
@@ -80,10 +80,10 @@ public class TimeoutServiceEndpointDecorator<T> extends ServiceEndpointDecorator
                 timeout = Integer.parseInt(sValue);
             }
         } catch (PropertyAccessException ex) {
-            log.warn("Error occurred reading property value from config file (" + CONFIG_KEY_TIMEOUT
+            LOG.warn("Error occurred reading property value from config file (" + CONFIG_KEY_TIMEOUT
                     + ").  Exception: " + ex.toString());
         } catch (NumberFormatException nfe) {
-            log.warn("Error occurred converting property value: " + CONFIG_KEY_TIMEOUT + ".  Exception: "
+            LOG.warn("Error occurred converting property value: " + CONFIG_KEY_TIMEOUT + ".  Exception: "
                     + nfe.toString());
         }
         return timeout;

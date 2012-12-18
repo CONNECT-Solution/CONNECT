@@ -55,7 +55,7 @@ import org.apache.log4j.Logger;
  */
 public class TaskExecutor<Target, Request, Response> {
 
-    private Logger log = Logger.getLogger(TaskExecutor.class);
+    private static final Logger LOG = Logger.getLogger(TaskExecutor.class);
 
     private Executor executor = null;
     private ResponseProcessor processor = null;
@@ -96,7 +96,7 @@ public class TaskExecutor<Target, Request, Response> {
     @SuppressWarnings("static-access")
     public void executeTask() throws InterruptedException, ExecutionException {
 
-        log.debug("TaskExecutor::executeTask");
+        LOG.debug("TaskExecutor::executeTask");
 
         try {
             for (Target target : targetList) {
@@ -119,7 +119,7 @@ public class TaskExecutor<Target, Request, Response> {
                 Future<Response> future = executorCompletionService.take();
                 // for debug
                 count++;
-                log.debug("TaskExecutor::executeTask::take received response count=" + count);
+                LOG.debug("TaskExecutor::executeTask::take received response count=" + count);
 
                 if (future != null) {
                     try {
@@ -129,22 +129,22 @@ public class TaskExecutor<Target, Request, Response> {
                             processor.processResponse(r.getCallableRequest(), r.getResponse(), r.getCallableTarget());
                         } else {
                             // shouldn't ever get here, but if we do all we can do is log and skip it
-                            log.error("TaskExecutor::executeTask (count=" + count + ") received null response!!!!!");
+                            LOG.error("TaskExecutor::executeTask (count=" + count + ") received null response!!!!!");
                         }
                     } catch (Exception e) {
                         // shouldn't ever get here
-                        log.error("TaskExecutorexecuteTask processResponse EXCEPTION!!!");
+                        LOG.error("TaskExecutorexecuteTask processResponse EXCEPTION!!!");
                         ExecutorServiceHelper.getInstance().outputCompleteException(e);
                     }
                 } else {
                     // shouldn't ever get here
-                    log.error("TaskExecutor::executeTask received null future from queue (i.e. take)!!!!!");
+                    LOG.error("TaskExecutor::executeTask received null future from queue (i.e. take)!!!!!");
                 }
             }
 
         } catch (Exception e) {
             // shouldn't ever get here
-            log.error("TaskExecutorexecuteTask EXCEPTION!!!");
+            LOG.error("TaskExecutorexecuteTask EXCEPTION!!!");
             ExecutorServiceHelper.getInstance().outputCompleteException(e);
         }
     }

@@ -33,8 +33,7 @@ import gov.hhs.fha.nhinc.patientdiscovery.nhin.proxy.NhinPatientDiscoveryProxyOb
 import gov.hhs.fha.nhinc.transform.subdisc.HL7PRPA201306Transforms;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 import org.hl7.v3.PRPAIN201306UV02;
 
 /**
@@ -44,15 +43,7 @@ import org.hl7.v3.PRPAIN201306UV02;
  */
 public class OutboundPatientDiscoveryStrategyImpl_g0 extends OutboundPatientDiscoveryStrategy {
 
-    private static Log log = LogFactory.getLog(OutboundPatientDiscoveryStrategyImpl_g0.class);
-
-    public OutboundPatientDiscoveryStrategyImpl_g0() {
-
-    }
-
-    private Log getLogger() {
-        return log;
-    }
+    private static final Logger LOG = Logger.getLogger(OutboundPatientDiscoveryStrategyImpl_g0.class);
 
     /**
      * @param message contains request message to execute
@@ -63,12 +54,12 @@ public class OutboundPatientDiscoveryStrategyImpl_g0 extends OutboundPatientDisc
             executeStrategy((OutboundPatientDiscoveryOrchestratable) message);
         } else {
             // shouldn't get here
-            getLogger().error("message was not an OutboundPatientDiscoveryOrchestratable");
+            LOG.error("message was not an OutboundPatientDiscoveryOrchestratable");
         }
     }
 
     public void executeStrategy(OutboundPatientDiscoveryOrchestratable message) {
-        getLogger().debug("begin executeStrategy");
+        LOG.debug("begin executeStrategy");
         auditRequestMessage(message.getRequest(), message.getAssertion(), message.getTarget().getHomeCommunity()
                 .getHomeCommunityId());
         try {
@@ -78,18 +69,18 @@ public class OutboundPatientDiscoveryStrategyImpl_g0 extends OutboundPatientDisc
                     message.getTarget(), NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME,
                     GATEWAY_API_LEVEL.LEVEL_g0);
             message.getTarget().setUrl(url);
-            getLogger().debug(
+            LOG.debug(
                     "executeStrategy sending nhin patient discovery request to "
                             + " target hcid=" + message.getTarget().getHomeCommunity().getHomeCommunityId() 
                             + " at url=" + url);
             message.setResponse(proxy.respondingGatewayPRPAIN201305UV02(message.getRequest(), message.getAssertion(),
                     message.getTarget()));
-            getLogger().debug("executeStrategy returning response");
+            LOG.debug("executeStrategy returning response");
         } catch (Exception ex) {
             PRPAIN201306UV02 response = new HL7PRPA201306Transforms().createPRPA201306ForErrors(message.getRequest(),
                  NhincConstants.PATIENT_DISCOVERY_ANSWER_NOT_AVAIL_ERR_CODE, ex.getMessage());
             message.setResponse(response);
-            getLogger().debug("executeStrategy returning error response");
+            LOG.debug("executeStrategy returning error response");
         }
         auditResponseMessage(message.getResponse(), message.getAssertion(), message.getTarget().getHomeCommunity()
                 .getHomeCommunityId());

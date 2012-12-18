@@ -28,8 +28,7 @@ package gov.hhs.fha.nhinc.patientdiscovery.adapter;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 import org.hl7.v3.PRPAIN201306UV02;
 import org.hl7.v3.RespondingGatewayPRPAIN201305UV02RequestType;
 
@@ -39,7 +38,7 @@ import org.hl7.v3.RespondingGatewayPRPAIN201305UV02RequestType;
  * @author westberg
  */
 public class AdapterPatientDiscoveryOrchImpl {
-    private static Log log = LogFactory.getLog(AdapterPatientDiscoveryOrchImpl.class);
+    private static final Logger LOG = Logger.getLogger(AdapterPatientDiscoveryOrchImpl.class);
 
     /**
      * Since this method is for pass through mode. There is nothing we do with it. It is intended that this class and
@@ -51,7 +50,7 @@ public class AdapterPatientDiscoveryOrchImpl {
      */
     public PRPAIN201306UV02 respondingGatewayPRPAIN201305UV02(RespondingGatewayPRPAIN201305UV02RequestType request,
             AssertionType assertion) {
-        log.debug("Entering AdapterPatientDiscoveryOrchImpl.respondingGatewayPRPAIN201305UV02");
+        LOG.debug("Entering AdapterPatientDiscoveryOrchImpl.respondingGatewayPRPAIN201305UV02");
         PRPAIN201306UV02 response = new PRPAIN201306UV02();
         return response;
     }

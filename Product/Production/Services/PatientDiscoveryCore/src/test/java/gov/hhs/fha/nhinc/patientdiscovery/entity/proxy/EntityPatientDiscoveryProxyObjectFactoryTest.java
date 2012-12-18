@@ -28,7 +28,6 @@ package gov.hhs.fha.nhinc.patientdiscovery.entity.proxy;
 
 import static org.junit.Assert.*;
 
-import org.apache.commons.logging.Log;
 import org.jmock.Mockery;
 import org.jmock.integration.junit4.JMock;
 import org.jmock.integration.junit4.JUnit4Mockery;
@@ -50,7 +49,6 @@ public class EntityPatientDiscoveryProxyObjectFactoryTest {
         }
     };
 
-    final Log mockLog = context.mock(Log.class);
     final EntityPatientDiscoveryProxy mockProxy = context.mock(EntityPatientDiscoveryProxy.class);
     final ApplicationContext appContext = new FileSystemXmlApplicationContext() {
         @Override
@@ -64,11 +62,6 @@ public class EntityPatientDiscoveryProxyObjectFactoryTest {
         try {
             final ApplicationContext mockContext = context.mock(ApplicationContext.class);
             EntityPatientDiscoveryProxyObjectFactory proxyFactory = new EntityPatientDiscoveryProxyObjectFactory() {
-                @Override
-                protected Log createLogger() {
-                    return mockLog;
-                }
-
                 @Override
                 protected String getConfigFileName() {
                     return "TEST_CONFIG_FILE_NAME";
@@ -90,11 +83,7 @@ public class EntityPatientDiscoveryProxyObjectFactoryTest {
     @Test
     public void testGetEntityPatientDiscoveryProxyHappy() {
         EntityPatientDiscoveryProxyObjectFactory proxyFactory = new EntityPatientDiscoveryProxyObjectFactory() {
-            @Override
-            protected Log createLogger() {
-                return mockLog;
-            }
-
+            
             @Override
             protected <T extends Object> T getBean(String beanName, Class<T> type) {
                 return type.cast(mockProxy);

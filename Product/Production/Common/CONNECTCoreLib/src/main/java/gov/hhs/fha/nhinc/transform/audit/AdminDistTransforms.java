@@ -44,7 +44,7 @@ import com.services.nhinc.schema.auditmessage.CodedValueType;
  * @author dunnek
  */
 public class AdminDistTransforms {
-    private Logger log = Logger.getLogger(AdminDistTransforms.class);
+    private static final Logger LOG = Logger.getLogger(AdminDistTransforms.class);
 
     public LogEventRequestType transformEntitySendAlertToAuditMsg(RespondingGatewaySendAlertMessageType message,
             AssertionType assertion, String direction, String _interface) {
@@ -52,19 +52,19 @@ public class AdminDistTransforms {
         EDXLDistribution body = null;
 
         if (message == null) {
-            log.error("The Incoming Send Alert message was Null");
+            LOG.error("The Incoming Send Alert message was Null");
             return null;
         } else {
             body = message.getEDXLDistribution();
         }
 
         if (body == null || assertion == null) {
-            log.error("The SendAlert did not have an EDXLDistribution or Assertion Object ");
+            LOG.error("The SendAlert did not have an EDXLDistribution or Assertion Object ");
             return null;
         }
 
         if ((message == null) || (assertion == null)) {
-            log.error("The SendAlert did not have an EDXLDistribution or Assertion Object ");
+            LOG.error("The SendAlert did not have an EDXLDistribution or Assertion Object ");
             return null;
         } else {
             oReturnLogEventRequestType = transformEDXLDistributionRequestToAuditMsg(message.getEDXLDistribution(),
@@ -72,14 +72,14 @@ public class AdminDistTransforms {
         }
 
         if (oReturnLogEventRequestType == null) {
-            log.error("There was a problem translating the request into an audit log request object.");
+            LOG.error("There was a problem translating the request into an audit log request object.");
             oReturnLogEventRequestType = null;
         } else {
             oReturnLogEventRequestType.setDirection(direction);
             oReturnLogEventRequestType.setInterface(_interface);
         }
 
-        log.info("Exiting transformEntityPRPAIN201305RequestToAuditMsg() method.");
+        LOG.info("Exiting transformEntityPRPAIN201305RequestToAuditMsg() method.");
 
         return oReturnLogEventRequestType;
 
@@ -93,7 +93,7 @@ public class AdminDistTransforms {
 
             AuditMessageType auditMsg = null;
 
-            log.debug("Entering transformPRPAIN201305RequestToAuditMsg() method.");
+            LOG.debug("Entering transformPRPAIN201305RequestToAuditMsg() method.");
 
             auditMsg = new AuditMessageType();
 
@@ -101,12 +101,12 @@ public class AdminDistTransforms {
             boolean bRequiredFieldsAreNull = areRequiredUserTypeFieldsNull(assertion);
             if (bRequiredFieldsAreNull) {
                 // TODO add a unit test case...
-                log.error("One or more of the required fields needed to transform to an audit message request were null.");
+                LOG.error("One or more of the required fields needed to transform to an audit message request were null.");
                 return null;
             } // else continue
             if (target == null || target.getHomeCommunity() == null
                     || target.getHomeCommunity().getHomeCommunityId() == null) {
-                log.error("One or more of the required fields needed to transform to an audit message request were null.");
+                LOG.error("One or more of the required fields needed to transform to an audit message request were null.");
             }
 
             // Extract UserInfo from request assertion
@@ -145,7 +145,7 @@ public class AdminDistTransforms {
             result.setDirection(direction);
             result.setInterface(_interface);
 
-            log.debug("Exiting transformEDXLDistributionRequestToAuditMsg() method.");
+            LOG.debug("Exiting transformEDXLDistributionRequestToAuditMsg() method.");
 
             return result;
         }
@@ -157,7 +157,7 @@ public class AdminDistTransforms {
 
         AuditMessageType auditMsg = null;
 
-        log.debug("Entering transformPRPAIN201305RequestToAuditMsg() method.");
+        LOG.debug("Entering transformPRPAIN201305RequestToAuditMsg() method.");
 
         auditMsg = new AuditMessageType();
 
@@ -165,7 +165,7 @@ public class AdminDistTransforms {
         boolean bRequiredFieldsAreNull = areRequiredUserTypeFieldsNull(assertion);
         if (bRequiredFieldsAreNull) {
             // TODO add a unit test case...
-            log.error("One or more of the required fields needed to transform to an audit message request were null.");
+            LOG.error("One or more of the required fields needed to transform to an audit message request were null.");
             return null;
         } // else continue
 
@@ -205,7 +205,7 @@ public class AdminDistTransforms {
         result.setDirection(direction);
         result.setInterface(_interface);
 
-        log.debug("Exiting transformEDXLDistributionRequestToAuditMsg() method.");
+        LOG.debug("Exiting transformEDXLDistributionRequestToAuditMsg() method.");
 
         return result;
 
@@ -216,33 +216,33 @@ public class AdminDistTransforms {
 
         if ((oAssertion != null) && (oAssertion.getUserInfo() != null)) {
             if (oAssertion.getUserInfo().getUserName() != null) {
-                log.debug("Incomming request.getAssertion.getUserInfo.getUserName: "
+                LOG.debug("Incomming request.getAssertion.getUserInfo.getUserName: "
                         + oAssertion.getUserInfo().getUserName());
             } else {
-                log.error("Incomming request.getAssertion.getUserInfo.getUserName was null.");
+                LOG.error("Incomming request.getAssertion.getUserInfo.getUserName was null.");
                 bReturnVal = true;
                 return true;
             }
 
             if (oAssertion.getUserInfo().getOrg().getHomeCommunityId() != null) {
-                log.debug("Incomming request.getAssertion.getUserInfo.getOrg().getHomeCommunityId(): "
+                LOG.debug("Incomming request.getAssertion.getUserInfo.getOrg().getHomeCommunityId(): "
                         + oAssertion.getUserInfo().getOrg().getHomeCommunityId());
             } else {
-                log.error("Incomming request.getAssertion.getUserInfo.getOrg().getHomeCommunityId() was null.");
+                LOG.error("Incomming request.getAssertion.getUserInfo.getOrg().getHomeCommunityId() was null.");
                 bReturnVal = true;
                 return true;
             }
 
             if (oAssertion.getUserInfo().getOrg().getName() != null) {
-                log.debug("Incomming request.getAssertion.getUserInfo.getOrg().getName() or Community Name: "
+                LOG.debug("Incomming request.getAssertion.getUserInfo.getOrg().getName() or Community Name: "
                         + oAssertion.getUserInfo().getOrg().getName());
             } else {
-                log.error("Incomming request.getAssertion.getUserInfo.getOrg().getName() or Community Name was null.");
+                LOG.error("Incomming request.getAssertion.getUserInfo.getOrg().getName() or Community Name was null.");
                 bReturnVal = true;
                 return true;
             }
         } else {
-            log.error("The UserType object or request assertion object containing the assertion user info was null.");
+            LOG.error("The UserType object or request assertion object containing the assertion user info was null.");
             bReturnVal = true;
             return true;
         } // else continue

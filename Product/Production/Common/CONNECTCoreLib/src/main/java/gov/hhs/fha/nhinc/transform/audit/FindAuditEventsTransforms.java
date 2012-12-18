@@ -50,7 +50,7 @@ import gov.hhs.fha.nhinc.transform.marshallers.JAXBContextHandler;
 
 public class FindAuditEventsTransforms {
 
-    private static Logger log = Logger.getLogger(FindAuditEventsTransforms.class);
+    private static final Logger LOG = Logger.getLogger(FindAuditEventsTransforms.class);
 
     public static LogEventRequestType transformFindAuditEventsReq2AuditMsg(LogFindAuditEventsRequestType message) {
 
@@ -60,7 +60,7 @@ public class FindAuditEventsTransforms {
         response.setInterface(message.getInterface());
 
         if (message != null) {
-            log.info("FAE message is NOT null");
+            LOG.info("FAE message is NOT null");
 
             // Extract UserInfo from Message.Assertion
             UserType userInfo = new UserType();
@@ -76,14 +76,14 @@ public class FindAuditEventsTransforms {
             // EventIdentification
             auditMsg.setEventIdentification(AuditDataTransformHelper.createEventIdentification(
                     AuditDataTransformConstants.EVENT_ACTION_CODE_EXECUTE, eventOutcomeID, eventID));
-            log.info("set EventIdentification");
+            LOG.info("set EventIdentification");
 
             // ActiveParticipant
             // NOTE: This is [1..*] in schema but only one item to map to from FindAuditEventsType
 
             if (userInfo != null && NullChecker.isNotNullish(userInfo.getUserName())) {
                 userID = userInfo.getUserName();
-                log.info("userID " + userID);
+                LOG.info("userID " + userID);
             }
             String altUserID = "";
             String userName = "";
@@ -95,7 +95,7 @@ public class FindAuditEventsTransforms {
                     userID, altUserID, userName, true);
 
             auditMsg.getActiveParticipant().add(activeParticipant);
-            log.info("set ActiveParticiapnt");
+            LOG.info("set ActiveParticiapnt");
 
             // AuditSourceIdentification
             // NOTE: This is [1..*] in the schema but only one item to map to from FindAuditEventsType
@@ -109,13 +109,13 @@ public class FindAuditEventsTransforms {
                         && userInfo.getOrg().getHomeCommunityId().length() > 0) {
 
                     auditSourceID = userInfo.getOrg().getHomeCommunityId();
-                    log.info("auditSourceID " + auditSourceID);
+                    LOG.info("auditSourceID " + auditSourceID);
                 }
             }
             AuditSourceIdentificationType auditSource = AuditDataTransformHelper.createAuditSourceIdentification(
                     auditSourceID, enterpriseSiteID);
             auditMsg.getAuditSourceIdentification().add(auditSource);
-            log.info("set AuditSourceIdentification");
+            LOG.info("set AuditSourceIdentification");
 
             // ParticipationObjectIdentification
             // NOTE: This is [0..*] in the schema but only one item to map to from FindAuditEventsType
@@ -124,7 +124,7 @@ public class FindAuditEventsTransforms {
             if (message.getMessage().getFindAuditEvents().getPatientId() != null
                     && message.getMessage().getFindAuditEvents().getPatientId().length() > 0) {
                 patientID = message.getMessage().getFindAuditEvents().getPatientId();
-                log.info("patientID " + patientID);
+                LOG.info("patientID " + patientID);
             }
             ParticipantObjectIdentificationType partObject = AuditDataTransformHelper
                     .createParticipantObjectIdentification(patientID);
@@ -141,7 +141,7 @@ public class FindAuditEventsTransforms {
                 JAXBElement oJaxbElement = factory.createFindAuditEvents(message.getMessage().getFindAuditEvents());
                 baOutStrm.close();
                 marshaller.marshal(oJaxbElement, baOutStrm);
-                log.debug("Done marshalling the message.");
+                LOG.debug("Done marshalling the message.");
 
                 partObject.setParticipantObjectQuery(baOutStrm.toByteArray());
             } catch (Exception e) {
@@ -150,7 +150,7 @@ public class FindAuditEventsTransforms {
             }
 
             auditMsg.getParticipantObjectIdentification().add(partObject);
-            log.info("set ParticipantObjectIdentification");
+            LOG.info("set ParticipantObjectIdentification");
         }
         response.setAuditMessage(auditMsg);
         return response;

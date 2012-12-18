@@ -40,7 +40,6 @@ import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 
 import javax.xml.ws.Service;
 
-import org.apache.commons.logging.Log;
 import org.hl7.v3.PRPAIN201305UV02;
 import org.hl7.v3.RespondingGatewayPRPAIN201306UV02ResponseType;
 import org.jmock.Expectations;
@@ -62,7 +61,6 @@ public class EntityPatientDiscoveryProxyWebServiceUnsecuredImplTest {
             setImposteriser(ClassImposteriser.INSTANCE);
         }
     };
-    final Log mockLog = context.mock(Log.class);
     final PRPAIN201305UV02 mockPdRequest = context.mock(PRPAIN201305UV02.class);
     final AssertionType mockAssertion = context.mock(AssertionType.class);
     final NhinTargetCommunitiesType mockTargetCommunities = context.mock(NhinTargetCommunitiesType.class);

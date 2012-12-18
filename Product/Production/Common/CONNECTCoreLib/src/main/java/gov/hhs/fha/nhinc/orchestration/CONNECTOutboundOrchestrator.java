@@ -26,16 +26,11 @@
  */
 package gov.hhs.fha.nhinc.orchestration;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 /**
  * 
  * @author mweaver
  */
 public class CONNECTOutboundOrchestrator extends CONNECTOrchestrationBase {
-
-    private Log log = LogFactory.getLog(CONNECTOutboundOrchestrator.class);
 
     @Override
     protected Orchestratable processIfPolicyIsOk(Orchestratable message) {

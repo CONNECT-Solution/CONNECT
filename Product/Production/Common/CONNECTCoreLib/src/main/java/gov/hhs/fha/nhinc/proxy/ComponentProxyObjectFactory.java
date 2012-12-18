@@ -44,7 +44,7 @@ import org.springframework.context.support.FileSystemXmlApplicationContext;
  * @author Neil Webb, Les Westberg
  */
 public abstract class ComponentProxyObjectFactory {
-    private Logger log = Logger.getLogger(ComponentProxyObjectFactory.class) ;
+    private static final Logger LOG = Logger.getLogger(ComponentProxyObjectFactory.class) ;
 
     // Getting a context is very expensive. We want to keep them around when we get them. Since
     // the context is specific to each of the derived classes, we need to keep a map for all of them.
@@ -78,7 +78,7 @@ public abstract class ComponentProxyObjectFactory {
         if (workingContext != null) {
             proxyObject = workingContext.getBean(beanName);
         } else {
-            log.warn("ApplicationContext was null - not retrieving bean.");
+            LOG.warn("ApplicationContext was null - not retrieving bean.");
         }
         return type.cast(proxyObject);
     }
@@ -107,18 +107,18 @@ public abstract class ComponentProxyObjectFactory {
         LocalApplicationContextInfo appContextInfo = getAppContextInfo(getConfigFileName());
 
         if (appContextInfo == null) {
-            log.debug("ApplicationContext for: " + getConfigFileName() + " was null - creating.");
+            LOG.debug("ApplicationContext for: " + getConfigFileName() + " was null - creating.");
             appContextInfo = new LocalApplicationContextInfo();
             appContextInfo.setApplicationContext(createApplicationContext(configFilePath));
             appContextInfo.setConfigLastModified(getLastModified(configFilePath));
             contextMap.put(getConfigFileName(), appContextInfo);
             appContext = appContextInfo.getApplicationContext();
         } else {
-            log.debug("ApplicationContext for: " + getConfigFileName()
+            LOG.debug("ApplicationContext for: " + getConfigFileName()
                     + " was not null - checking to see if it is stale.");
             long lastModified = getLastModified(configFilePath);
             if (appContextInfo.getConfigLastModified() != lastModified) {
-                log.debug("Refreshing the Spring application context for: " + getConfigFileName());
+                LOG.debug("Refreshing the Spring application context for: " + getConfigFileName());
                 refreshConfigurationContext(appContextInfo.getApplicationContext());
                 appContextInfo.setConfigLastModified(lastModified);
             }
@@ -162,10 +162,10 @@ public abstract class ComponentProxyObjectFactory {
             if (configFile.exists()) {
                 lastModified = configFile.lastModified();
             } else {
-                log.error(filePath + " does not exist.");
+                LOG.error(filePath + " does not exist.");
             }
         } catch (Throwable t) {
-            log.error("Error getting last modified: " + t.getMessage(), t);
+            LOG.error("Error getting last modified: " + t.getMessage(), t);
         }
         return lastModified;
     }

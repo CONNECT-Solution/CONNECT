@@ -39,7 +39,7 @@ import org.apache.log4j.Logger;
  */
 public class ServiceUtil {
 
-    private Logger log = Logger.getLogger(ServiceUtil.class);
+    private static final Logger LOG = Logger.getLogger(ServiceUtil.class);
 
     protected String getWsdlPath() {
         return ServicePropertyLoader.getBaseWsdlPath();
@@ -53,26 +53,26 @@ public class ServiceUtil {
     public Service createService(String wsdlFile, String namespaceURI, String serviceLocalPart)
             throws MalformedURLException {
         Service service = null;
-        log.debug("Begin createService");
+        LOG.debug("Begin createService");
 
         if ((wsdlFile == null) || (wsdlFile.length() < 1)) {
-            log.error("WSDL file name is required.");
+            LOG.error("WSDL file name is required.");
         } else if ((namespaceURI == null) || (namespaceURI.length() < 1)) {
-            log.error("Namespace URI is required.");
+            LOG.error("Namespace URI is required.");
         } else if ((serviceLocalPart == null) || (serviceLocalPart.length() < 1)) {
-            log.error("Service local part name is required.");
+            LOG.error("Service local part name is required.");
         } else {
             final String wsdlPath = getWsdlPath();
             if ((wsdlPath != null) && (wsdlPath.length() > 0)) {
                 String wsdlURL = wsdlPath + wsdlFile;
-                log.debug("Creating service using the URL: " + wsdlURL);
+                LOG.debug("Creating service using the URL: " + wsdlURL);
                 service = constructService(wsdlURL, namespaceURI, serviceLocalPart);
             } else {
-                log.error("Unable to retrieve the WSDL path.");
+                LOG.error("Unable to retrieve the WSDL path.");
             }
         }
 
-        log.debug("End createService");
+        LOG.debug("End createService");
         return service;
     }
 

@@ -16,7 +16,7 @@ import org.w3c.dom.Element;
  */
 public final class ElementBuilder {
 
-	private final Logger log = Logger.getLogger(ElementBuilder.class);
+	private static final Logger LOG = Logger.getLogger(ElementBuilder.class);
 
 	private Document document;
 
@@ -26,7 +26,7 @@ public final class ElementBuilder {
 			document = DocumentBuilderFactory.newInstance()
 					.newDocumentBuilder().newDocument();
 		} catch (ParserConfigurationException e) {
-			log.error("unable to create document " + e.getMessage());
+			LOG.error("unable to create document " + e.getMessage());
 		}
 	}
 

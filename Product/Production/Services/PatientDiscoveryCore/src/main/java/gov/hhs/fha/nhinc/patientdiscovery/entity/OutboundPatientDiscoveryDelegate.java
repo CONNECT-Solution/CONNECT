@@ -32,8 +32,7 @@ import gov.hhs.fha.nhinc.orchestration.OutboundDelegate;
 import gov.hhs.fha.nhinc.orchestration.OutboundOrchestratable;
 import gov.hhs.fha.nhinc.patientdiscovery.orchestration.OrchestrationContextFactory;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 
 /**
  * Patient Discovery implementation of OutboundDelegate Note that all exceptions should just throw out and will be
@@ -43,16 +42,13 @@ import org.apache.commons.logging.LogFactory;
  */
 public class OutboundPatientDiscoveryDelegate implements OutboundDelegate {
 
-    private static Log log = LogFactory.getLog(OutboundPatientDiscoveryDelegate.class);
-
-    public OutboundPatientDiscoveryDelegate() {
-    }
+    private static final Logger LOG = Logger.getLogger(OutboundPatientDiscoveryDelegate.class);
 
     @Override
     public Orchestratable process(Orchestratable message) {
-        getLogger().debug("NhinPatientDiscoveryDelegate::process Orchestratable");
+        LOG.debug("NhinPatientDiscoveryDelegate::process Orchestratable");
         if (message == null) {
-            getLogger().error("NhinPatientDiscoveryDelegate Orchestratable was null!!!");
+            LOG.error("NhinPatientDiscoveryDelegate Orchestratable was null!!!");
             return null;
         }
         if (message instanceof OutboundPatientDiscoveryOrchestratable) {
@@ -66,13 +62,13 @@ public class OutboundPatientDiscoveryDelegate implements OutboundDelegate {
         if (message instanceof OutboundPatientDiscoveryOrchestratable) {
             return process((OutboundPatientDiscoveryOrchestratable) message);
         }
-        getLogger().error(
+        LOG.error(
                 "NhinPatientDiscoveryDelegate message is not an instance of EntityPatientDiscoveryOrchestratable!");
         return null;
     }
 
     public OutboundPatientDiscoveryOrchestratable process(OutboundPatientDiscoveryOrchestratable message) {
-        getLogger().debug("NhinPatientDiscoveryDelegate::process EntityPatientDiscoveryOrchestratable");
+        LOG.debug("NhinPatientDiscoveryDelegate::process EntityPatientDiscoveryOrchestratable");
 
         OutboundPatientDiscoveryOrchestrationContextBuilder contextBuilder = (OutboundPatientDiscoveryOrchestrationContextBuilder) OrchestrationContextFactory
                 .getInstance().getBuilder(message.getTarget().getHomeCommunity(), NhincConstants.NHIN_SERVICE_NAMES.PATIENT_DISCOVERY);
@@ -89,10 +85,6 @@ public class OutboundPatientDiscoveryDelegate implements OutboundDelegate {
                 .build().execute();
 
         return response;
-    }
-
-    private Log getLogger() {
-        return log;
     }
 
 	/* (non-Javadoc)

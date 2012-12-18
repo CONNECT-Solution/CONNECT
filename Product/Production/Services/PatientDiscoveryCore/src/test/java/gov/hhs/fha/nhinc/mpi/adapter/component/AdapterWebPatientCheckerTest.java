@@ -28,8 +28,6 @@ package gov.hhs.fha.nhinc.mpi.adapter.component;
 
 import static org.junit.Assert.assertNotNull;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.hl7.v3.II;
 import org.hl7.v3.PRPAIN201305UV02;
 import org.hl7.v3.PRPAIN201306UV02;
@@ -51,7 +49,6 @@ import gov.hhs.fha.nhinc.properties.PropertyAccessor;
  * @author Jon Hoppesch
  */
 public class AdapterWebPatientCheckerTest {
-    private static Log log = LogFactory.getLog(AdapterWebPatientCheckerTest.class);
     private static String propertyFileLocation = null;
 
     /**
@@ -86,7 +83,6 @@ public class AdapterWebPatientCheckerTest {
     @Test
     @Ignore
     public void singlePatientExists() {
-        log.info("SinglePatientExists");
         II subjectId = new II();
         subjectId.setRoot("2.2");
         subjectId.setExtension("500000000");
@@ -116,7 +112,6 @@ public class AdapterWebPatientCheckerTest {
      */
     @Test
     public void patientDoesNotExist() {
-        log.info("PatientDoesNotExist");
         II subjectId = new II();
         subjectId.setRoot("2.16.840.1.113883.3.200");
         subjectId.setExtension("1239");

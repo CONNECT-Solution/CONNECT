@@ -46,7 +46,7 @@ public class UddiConnectionInfoDAOFileImpl extends ConnectionManagerDAOBase impl
 
     private static UddiConnectionInfoDAOFileImpl instance = null;
     private File file = null;
-    private Logger log = Logger.getLogger(UddiConnectionInfoDAOFileImpl.class);
+    private static final Logger LOG = Logger.getLogger(UddiConnectionInfoDAOFileImpl.class);
     private static final String UDDI_XML_FILE_NAME = "uddiConnectionInfo.xml";
 
     public static UddiConnectionInfoDAOFileImpl getInstance() {
@@ -58,7 +58,7 @@ public class UddiConnectionInfoDAOFileImpl extends ConnectionManagerDAOBase impl
 
     UddiConnectionInfoDAOFileImpl() {
         String fileName = getUddiConnectionFileLocation();
-        log.debug("Reading UddiConnectionInfo from file: " + fileName);
+        LOG.debug("Reading UddiConnectionInfo from file: " + fileName);
         if (fileName != null) {
             file = new File(fileName);
         }
@@ -92,7 +92,7 @@ public class UddiConnectionInfoDAOFileImpl extends ConnectionManagerDAOBase impl
         try {
             resp = super.loadBusinessDetail(file);
         } catch (JAXBException ex) {
-            log.error("unable to load business entities from " + file.getName(), ex);
+            LOG.error("unable to load business entities from " + file.getName(), ex);
             resp = new BusinessDetail();
             throw new Exception("unable to load business entities from " + file.getName(), ex);
         }

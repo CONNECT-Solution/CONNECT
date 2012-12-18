@@ -68,7 +68,7 @@ import org.hl7.v3.PRPAMT201310UV02BirthPlace;
  */
 public class HL7PatientTransforms {
 
-    private static Logger log = Logger.getLogger(HL7PatientTransforms.class);
+    private static final Logger LOG = Logger.getLogger(HL7PatientTransforms.class);
 
     public static org.hl7.v3.PRPAMT201301UV02Patient create201301Patient(PRPAMT201306UV02ParameterList paramList,
             String aaId) {
@@ -276,7 +276,7 @@ public class HL7PatientTransforms {
     }
 
     public static PRPAMT201310UV02Patient create201310Patient(JAXBElement<PRPAMT201310UV02Person> person, String patId) {
-        log.debug("begin create201310Patient");
+        LOG.debug("begin create201310Patient");
         return create201310Patient(person, HL7DataTransformHelper.IIFactory(patId));
     }
 
@@ -378,34 +378,34 @@ public class HL7PatientTransforms {
 
     public static JAXBElement<PRPAMT201301UV02Person> create201301PatientPerson(String patFirstName,
             String patLastName, String gender, String birthTime, String ssn) {
-        log.debug("begin create201301PatientPerson");
+        LOG.debug("begin create201301PatientPerson");
         PNExplicit name = null;
 
-        log.debug("begin create Name");
+        LOG.debug("begin create Name");
         if (NullChecker.isNotNullish(patFirstName) || NullChecker.isNotNullish(patLastName)) {
-            log.debug("not nullish");
+            LOG.debug("not nullish");
             name = HL7DataTransformHelper.CreatePNExplicit(patFirstName, patLastName);
         }
 
-        log.debug("begin create gender");
+        LOG.debug("begin create gender");
         CE genderCode = null;
         if (NullChecker.isNotNullish(gender)) {
             genderCode = HL7DataTransformHelper.CEFactory(gender);
         }
 
-        log.debug("begin create birthTime");
+        LOG.debug("begin create birthTime");
         TSExplicit bday = null;
         if (NullChecker.isNotNullish(birthTime)) {
             bday = HL7DataTransformHelper.TSExplicitFactory(birthTime);
         }
 
-        log.debug("begin create otherIds");
+        LOG.debug("begin create otherIds");
         PRPAMT201301UV02OtherIDs otherIds = null;
         if (NullChecker.isNotNullish(ssn)) {
             otherIds = createPRPAMT201301UVOtherIDs(ssn);
         }
 
-        log.debug("end create201301PatientPerson");
+        LOG.debug("end create201301PatientPerson");
         return create201301PatientPerson(name, genderCode, bday, otherIds);
     }
 
@@ -591,7 +591,7 @@ public class HL7PatientTransforms {
 
         // Set the SSN
         if (NullChecker.isNotNullish(ssn)) {
-            log.info("Setting Patient SSN: " + ssn);
+            LOG.info("Setting Patient SSN: " + ssn);
             otherIds.getId().add(HL7DataTransformHelper.IIFactory(HL7Constants.SSN_ID_ROOT, ssn));
         }
 
@@ -605,7 +605,7 @@ public class HL7PatientTransforms {
 
         // Set the SSN
         if (NullChecker.isNotNullish(ssn)) {
-            log.info("Setting Patient SSN: " + ssn);
+            LOG.info("Setting Patient SSN: " + ssn);
             otherIds.getId().add(HL7DataTransformHelper.IIFactory(HL7Constants.SSN_ID_ROOT, ssn));
         }
 
@@ -619,7 +619,7 @@ public class HL7PatientTransforms {
 
         // Set the SSN
         if (NullChecker.isNotNullish(ssn)) {
-            log.info("Setting Patient SSN: " + ssn);
+            LOG.info("Setting Patient SSN: " + ssn);
             PRPAMT201302UV02OtherIDsId ssnId = new PRPAMT201302UV02OtherIDsId();
             ssnId.setExtension(ssn);
             ssnId.setRoot(HL7Constants.SSN_ID_ROOT);
@@ -628,8 +628,8 @@ public class HL7PatientTransforms {
 
         if (remotePatId != null && NullChecker.isNotNullish(remotePatId.getRoot())
                 && NullChecker.isNotNullish(remotePatId.getExtension())) {
-            log.info("Setting Remote Patient Id: " + remotePatId.getExtension());
-            log.info("Setting Remote Assigning Authority: " + remotePatId.getRoot());
+            LOG.info("Setting Remote Patient Id: " + remotePatId.getExtension());
+            LOG.info("Setting Remote Assigning Authority: " + remotePatId.getRoot());
             PRPAMT201302UV02OtherIDsId respondingId = new PRPAMT201302UV02OtherIDsId();
             respondingId.setExtension(remotePatId.getExtension());
             respondingId.setRoot(remotePatId.getRoot());

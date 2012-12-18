@@ -60,7 +60,7 @@ public class TransactionHandler implements SOAPHandler<SOAPMessageContext> {
      */
     private static final QName TRANSACTION_QNAME = new QName("http://connectopensource.org/transaction/",
             "TransactionID");
-    private  Logger log = Logger.getLogger(TransactionHandler.class);
+    private static final Logger LOG = Logger.getLogger(TransactionHandler.class);
     private static final String WSA_NS_2005 = "http://www.w3.org/2005/08/addressing";
     private static final String WSA_NS_2004 = "http://www.w3.org/2004/08/addressing";
     private static final String MESSAGE_ID = "MessageID";
@@ -76,7 +76,7 @@ public class TransactionHandler implements SOAPHandler<SOAPMessageContext> {
     @Override
     public boolean handleMessage(SOAPMessageContext context) {
 
-        log.debug("TransactionHandler handleMessage() START ");
+        LOG.debug("TransactionHandler handleMessage() START ");
         
         String messageId = null;
         String transactionId = null;
@@ -99,11 +99,11 @@ public class TransactionHandler implements SOAPHandler<SOAPMessageContext> {
             	currentWSA = WSA_NS_2004;
             }
             
-            log.debug("TransactionHandler handleMessage() WSA namespace = " + currentWSA);
+            LOG.debug("TransactionHandler handleMessage() WSA namespace = " + currentWSA);
 
             if (messageIdElement != null) {
                 messageId = messageIdElement.getTextContent();
-                log.debug("TransactionHandler.handleMessage() messageId= " + messageId);
+                LOG.debug("TransactionHandler.handleMessage() messageId= " + messageId);
 
                 SOAPElement transactionIdElement = getFirstChild(soapHeader, TRANSACTION_QNAME);
 
@@ -113,7 +113,7 @@ public class TransactionHandler implements SOAPHandler<SOAPMessageContext> {
                 // Checks if the repeatable RelatesTo value in the message has a transactionID
                 if (NullChecker.isNullish(transactionId)) {
                    
-                    log.debug("TransactionHandler.handleMessage() Looking up on RelatesTo");
+                    LOG.debug("TransactionHandler.handleMessage() Looking up on RelatesTo");
                     Iterator<SOAPElement> iter = getAllChildren(soapHeader, currentWSA, RELATESTO_ID);
                     transactionId = iterateThroughRelatesTo(iter, messageId);
                 }
@@ -127,7 +127,7 @@ public class TransactionHandler implements SOAPHandler<SOAPMessageContext> {
             }
 
         } catch (SOAPException e) {
-            log.error(e);
+            LOG.error(e);
         }
         return true;
     }
@@ -149,9 +149,9 @@ public class TransactionHandler implements SOAPHandler<SOAPMessageContext> {
 
             if (TransactionDAO.getInstance().insertIntoTransactionRepo(transRepo)) {
                 newId = transRepo.getId();
-                log.info("TransactionHandler.createTransactionId() - New Transaction Log Id = " + newId);
+                LOG.info("TransactionHandler.createTransactionId() - New Transaction Log Id = " + newId);
             } else {
-                log.warn("TransactionHandler.createTransactionId() - ERROR Inserting New Record.");
+                LOG.warn("TransactionHandler.createTransactionId() - ERROR Inserting New Record.");
             }
         }
     }
@@ -180,11 +180,11 @@ public class TransactionHandler implements SOAPHandler<SOAPMessageContext> {
      */
     protected void enableMdcLogging(String transactionId, String messageId) {
         if (NullChecker.isNotNullish(transactionId)) {
-            log.info("found transaction-id " + transactionId + "for message id: " + messageId);
+            LOG.info("found transaction-id " + transactionId + "for message id: " + messageId);
             MDC.put("message-id", messageId);
             MDC.put("transaction-id", transactionId);
         } else {
-            log.info("no transaction-id for message id: " + messageId);
+            LOG.info("no transaction-id for message id: " + messageId);
         }
     }
 
@@ -192,7 +192,7 @@ public class TransactionHandler implements SOAPHandler<SOAPMessageContext> {
         String transactionId = null;
         if (transactionIdElement != null) {
             transactionId = transactionIdElement.getTextContent();
-            log.debug("TransactionHandler TransactionId found: " + transactionId);
+            LOG.debug("TransactionHandler TransactionId found: " + transactionId);
             if (getTransactionId(messageId) == null) {
                 createTransactionRecord(messageId, transactionId);
             } // else transactionId is already persisted
@@ -212,7 +212,7 @@ public class TransactionHandler implements SOAPHandler<SOAPMessageContext> {
                 SOAPElement relatesToIdElement = iter.next();
                 if (relatesToIdElement != null) {
                     relatesToId = relatesToIdElement.getTextContent();
-                    log.debug("TransactionHandler.handleMessage() RelatesTo: " + relatesToId);
+                    LOG.debug("TransactionHandler.handleMessage() RelatesTo: " + relatesToId);
                     transactionId = getTransactionId(relatesToId);
                     
                     if (NullChecker.isNotNullish(transactionId)) {    
@@ -274,7 +274,7 @@ public class TransactionHandler implements SOAPHandler<SOAPMessageContext> {
      */
     @Override
     public boolean handleFault(SOAPMessageContext context) {
-        log.warn("TransactionHandler.handleFault");
+        LOG.warn("TransactionHandler.handleFault");
         return true;
     }
 
@@ -285,7 +285,7 @@ public class TransactionHandler implements SOAPHandler<SOAPMessageContext> {
      */
     @Override
     public void close(MessageContext context) {
-        log.debug("TransactionHandler.close");
+        LOG.debug("TransactionHandler.close");
     }
 
     /*

@@ -70,7 +70,7 @@ import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryErrorList;
  * @author jhoppesc
  */
 public class AdapterComponentDocRegistryOrchImpl {
-    private Logger log = Logger.getLogger(AdapterComponentDocRegistryOrchImpl.class);
+    private static final Logger LOG = Logger.getLogger(AdapterComponentDocRegistryOrchImpl.class);
     private UTCDateUtil utcDateUtil = null;
 
     /*
@@ -176,7 +176,7 @@ public class AdapterComponentDocRegistryOrchImpl {
      * @return response - This method outputs the AdhocQUeryResponse back.
      */
     public AdhocQueryResponse registryStoredQuery(AdhocQueryRequest request) {
-        log.debug("Begin AdapterComponentDocRegistryOrchImpl.registryStoredQuery(...)");
+        LOG.debug("Begin AdapterComponentDocRegistryOrchImpl.registryStoredQuery(...)");
         AdhocQueryResponse response = new AdhocQueryResponse();
         boolean queryForStableDocs = true;
         boolean queryForOnDemandDocs = false;
@@ -250,9 +250,9 @@ public class AdapterComponentDocRegistryOrchImpl {
             }
 
             docs.addAll(onDemandDocs);
-            log.debug("registryStoredQuery- docs.size: " + docs.size());
+            LOG.debug("registryStoredQuery- docs.size: " + docs.size());
             loadResponseMessage(response, docs);
-            log.debug("End AdapterComponentDocRegistryOrchImpl.registryStoredQuery(...)");
+            LOG.debug("End AdapterComponentDocRegistryOrchImpl.registryStoredQuery(...)");
         } else {
             response = createErrorResponse(EBXML_DOCQUERY_STORED_QUERY_ERROR, "Unknown Stored Query query id ="
                     + request.getAdhocQuery().getId());
@@ -347,7 +347,7 @@ public class AdapterComponentDocRegistryOrchImpl {
             String formattedPatientId = slotValues.get(0);
             // patientId = PatientIdFormatUtil.parsePatientId(formattedPatientId);
             patientId = PatientIdFormatUtil.stripQuotesFromPatientId(formattedPatientId);
-            log.debug("extractPatientIdentifier - patientId: " + patientId);
+            LOG.debug("extractPatientIdentifier - patientId: " + patientId);
         }
         return patientId;
     }
@@ -585,10 +585,10 @@ public class AdapterComponentDocRegistryOrchImpl {
         response.setRegistryObjectList(regObjList);
 
         if (NullChecker.isNullish(docs)) {
-            log.debug("loadResponseMessage - docs size: null");
+            LOG.debug("loadResponseMessage - docs size: null");
             response.setStatus(XDS_QUERY_RESPONSE_STATUS_SUCCESS);
         } else {
-            log.debug("loadResponseMessage - docs size: " + docs.size());
+            LOG.debug("loadResponseMessage - docs size: " + docs.size());
             response.setStatus(XDS_QUERY_RESPONSE_STATUS_SUCCESS);
 
             oasis.names.tc.ebxml_regrep.xsd.rim._3.ObjectFactory oRimObjectFactory = 
@@ -1006,7 +1006,7 @@ public class AdapterComponentDocRegistryOrchImpl {
      */
     private ClassificationType createClassificationFromCodedData(String code, String codeScheme,
             String codeDisplayName, String sClassificationScheme, String sDocumentId) {
-        log.debug("DocumentRegistryHelper.CreateClassificationFromCodedData() -- Begin");
+        LOG.debug("DocumentRegistryHelper.CreateClassificationFromCodedData() -- Begin");
         ClassificationType oClassification = new ClassificationType();
         oClassification.setId("");
         boolean bHasCode = false;
@@ -1041,7 +1041,7 @@ public class AdapterComponentDocRegistryOrchImpl {
         if (bHasCode) {
             return oClassification;
         } else {
-            log.debug("DocumentRegistryHelper.CreateClassificationFromCodedData() -- End");
+            LOG.debug("DocumentRegistryHelper.CreateClassificationFromCodedData() -- End");
             return null;
         }
     }
@@ -1056,7 +1056,7 @@ public class AdapterComponentDocRegistryOrchImpl {
                     + PropertyAccessor.getInstance().getProperty(PROPERTY_FILE_NAME_GATEWAY,
                             PROPERTY_FILE_KEY_HOME_COMMUNITY);
         } catch (Throwable t) {
-            log.error("Error retrieving the home community id: " + t.getMessage(), t);
+            LOG.error("Error retrieving the home community id: " + t.getMessage(), t);
         }
         return homeCommunityId;
     }
@@ -1110,15 +1110,15 @@ public class AdapterComponentDocRegistryOrchImpl {
                             }
                         }
                         resultCollection.add(singleValue);
-                        if (log.isDebugEnabled()) {
-                            log.debug("Added single value: " + singleValue + " to query parameters");
+                        if (LOG.isDebugEnabled()) {
+                            LOG.debug("Added single value: " + singleValue + " to query parameters");
                         }
                     }
                 }
             } else {
                 resultCollection.add(paramFormattedString);
-                if (log.isDebugEnabled()) {
-                    log.debug("No wrapper on status - adding status: " + paramFormattedString + " to query parameters");
+                if (LOG.isDebugEnabled()) {
+                    LOG.debug("No wrapper on status - adding status: " + paramFormattedString + " to query parameters");
                 }
             }
         }
@@ -1132,10 +1132,10 @@ public class AdapterComponentDocRegistryOrchImpl {
      * @return The SlotType1 object containing the data passed in.
      */
     private SlotType1 createSingleValueSlot(String sSlotName, String sSlotValue) {
-        log.debug("DocumentRegistryHelper.CreateSingleValueSlot() -- Begin");
+        LOG.debug("DocumentRegistryHelper.CreateSingleValueSlot() -- Begin");
         String[] saSlotValue = new String[1];
         saSlotValue[0] = sSlotValue;
-        log.debug("DocumentRegistryHelper.CreateSingleValueSlot() -- End");
+        LOG.debug("DocumentRegistryHelper.CreateSingleValueSlot() -- End");
         return createMultiValueSlot(sSlotName, saSlotValue);
     }
 
@@ -1147,7 +1147,7 @@ public class AdapterComponentDocRegistryOrchImpl {
      * @return The SlotType1 object containing the data passed in.
      */
     private SlotType1 createMultiValueSlot(String sSlotName, String[] saSlotValue) {
-        log.debug("DocumentRegistryHelper.CreateMultiValueSlot() -- Begin");
+        LOG.debug("DocumentRegistryHelper.CreateMultiValueSlot() -- Begin");
         SlotType1 oSlot = new SlotType1();
         oSlot.setName(sSlotName);
         ValueListType oValueList = new ValueListType();
@@ -1156,7 +1156,7 @@ public class AdapterComponentDocRegistryOrchImpl {
         for (int i = 0; i < saSlotValue.length; i++) {
             olValue.add(saSlotValue[i]);
         }
-        log.debug("DocumentRegistryHelper.CreateMultiValueSlot() -- End");
+        LOG.debug("DocumentRegistryHelper.CreateMultiValueSlot() -- End");
         return oSlot;
     }
 
@@ -1167,13 +1167,13 @@ public class AdapterComponentDocRegistryOrchImpl {
      * @return The InternationStringType that is being returned.
      */
     private InternationalStringType createSingleValueInternationalStringType(String sLocStrValue) {
-        log.debug("DocumentTransforms.CreateSingleValueInternationalStringType() -- Begin");
+        LOG.debug("DocumentTransforms.CreateSingleValueInternationalStringType() -- Begin");
         InternationalStringType oName = new InternationalStringType();
         List<LocalizedStringType> olLocStr = oName.getLocalizedString();
         LocalizedStringType oNameLocStr = new LocalizedStringType();
         olLocStr.add(oNameLocStr);
         oNameLocStr.setValue(sLocStrValue);
-        log.debug("DocumentTransforms.CreateSingleValueInternationalStringType() -- End");
+        LOG.debug("DocumentTransforms.CreateSingleValueInternationalStringType() -- End");
         return oName;
     }
 

@@ -26,7 +26,7 @@ public class EventDescriptionJSONDecorator implements JSONString, EventDescripti
     private final EventDescription description;
     private final JSONObject jsonObject;
 
-    private static Logger log = Logger.getLogger(EventDescriptionJSONDecorator.class);
+    private static final Logger LOG = Logger.getLogger(EventDescriptionJSONDecorator.class);
 
     public EventDescriptionJSONDecorator(EventDescription description) {
         this.description = description;
@@ -50,7 +50,7 @@ public class EventDescriptionJSONDecorator implements JSONString, EventDescripti
             addStatuses(description);
             addErrorCodes(description);
         } catch (JSONException e) {
-            log.error("failed to serialize event description as JSON", e);
+            LOG.error("failed to serialize event description as JSON", e);
         }
     }
 

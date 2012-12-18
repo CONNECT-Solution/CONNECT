@@ -46,14 +46,14 @@ import org.hibernate.criterion.Expression;
  */
 public class Retriever {
 
-    private static Logger log = Logger.getLogger(Retriever.class);
+    private static final Logger LOG = Logger.getLogger(Retriever.class);
 
     public static List<QualifiedPatientIdentifier> retrievePatientCorrelation(
             QualifiedPatientIdentifier qualifiedPatientIdentifier, List<String> includeOnlyAssigningAuthorities) {
         List<QualifiedPatientIdentifier> qualifiedPatientIdentifiers = retrievePatientCorrelation(qualifiedPatientIdentifier);
-        log.info("unfiltered list = " + qualifiedPatientIdentifiers.size() + " record(s)");
+        LOG.info("unfiltered list = " + qualifiedPatientIdentifiers.size() + " record(s)");
         qualifiedPatientIdentifiers = filterByIncludeList(qualifiedPatientIdentifiers, includeOnlyAssigningAuthorities);
-        log.info("filtered list = " + qualifiedPatientIdentifiers.size() + " record(s)");
+        LOG.info("filtered list = " + qualifiedPatientIdentifiers.size() + " record(s)");
         return qualifiedPatientIdentifiers;
     }
 
@@ -89,7 +89,7 @@ public class Retriever {
 
     public static List<QualifiedPatientIdentifier> retrievePatientCorrelation(
             QualifiedPatientIdentifier qualifiedPatientIdentifier) {
-        log.debug("-- Begin CorrelatedIdentifiersDao.retrieveAllPatientCorrelation() ---");
+        LOG.debug("-- Begin CorrelatedIdentifiersDao.retrieveAllPatientCorrelation() ---");
 
         if (qualifiedPatientIdentifier == null) {
             throw new IllegalArgumentException("Missing required parameter: qualifiedPatientIdentifier");
@@ -137,11 +137,11 @@ public class Retriever {
 
         }
 
-        log.debug("Checking Expirations");
+        LOG.debug("Checking Expirations");
 
-        log.info("resultQualifiedPatientIdentifiers=" + resultQualifiedPatientIdentifiers.size() + " record(s)");
+        LOG.info("resultQualifiedPatientIdentifiers=" + resultQualifiedPatientIdentifiers.size() + " record(s)");
 
-        log.debug("-- End CorrelatedIdentifiersDao.retrieveAllPatientCorrelation() ---");
+        LOG.debug("-- End CorrelatedIdentifiersDao.retrieveAllPatientCorrelation() ---");
         return resultQualifiedPatientIdentifiers;
     }
 
@@ -184,7 +184,7 @@ public class Retriever {
             exists = NullChecker.isNotNullish(existingCorrelations);
         }
 
-        log.debug("correlation exists? = " + exists);
+        LOG.debug("correlation exists? = " + exists);
         return exists;
     }
 
@@ -210,7 +210,7 @@ public class Retriever {
 
         if (resultSet != null) {
             if (resultSet.size() > 1) {
-                log.warn("return more than 1 result");
+                LOG.warn("return more than 1 result");
             }
             result = resultSet.get(0);
         }
@@ -234,34 +234,34 @@ public class Retriever {
             criteria = sess.createCriteria(CorrelatedIdentifiers.class);
 
             if (NullChecker.isNotNullish(correlatedIdentifers.getPatientAssigningAuthorityId())) {
-                log.debug("Retrieving by patientAssigningAuthorityId="
+                LOG.debug("Retrieving by patientAssigningAuthorityId="
                         + correlatedIdentifers.getPatientAssigningAuthorityId());
                 criteria.add(Expression.eq("patientAssigningAuthorityId",
                         correlatedIdentifers.getPatientAssigningAuthorityId()));
             }
             if (NullChecker.isNotNullish(correlatedIdentifers.getPatientId())) {
-                log.debug("Retrieving by patientId=" + correlatedIdentifers.getPatientId());
+                LOG.debug("Retrieving by patientId=" + correlatedIdentifers.getPatientId());
                 criteria.add(Expression.eq("patientId", correlatedIdentifers.getPatientId()));
             }
             if (NullChecker.isNotNullish(correlatedIdentifers.getCorrelatedPatientAssigningAuthorityId())) {
-                log.debug("Retrieving by correlatedPatientAssigningAuthorityId="
+                LOG.debug("Retrieving by correlatedPatientAssigningAuthorityId="
                         + correlatedIdentifers.getCorrelatedPatientAssigningAuthorityId());
                 criteria.add(Expression.eq("correlatedPatientAssigningAuthorityId",
                         correlatedIdentifers.getCorrelatedPatientAssigningAuthorityId()));
             }
             if (NullChecker.isNotNullish(correlatedIdentifers.getCorrelatedPatientId())) {
-                log.debug("Retrieving by correlatedPatientId=" + correlatedIdentifers.getCorrelatedPatientId());
+                LOG.debug("Retrieving by correlatedPatientId=" + correlatedIdentifers.getCorrelatedPatientId());
                 criteria.add(Expression.eq("correlatedPatientId", correlatedIdentifers.getCorrelatedPatientId()));
             }
             result = removeExpiredCorrelations(criteria.list());
 
-            log.debug("Found " + result.size() + " record(s)");
+            LOG.debug("Found " + result.size() + " record(s)");
         } finally {
             if (sess != null) {
                 try {
                     sess.close();
                 } catch (Throwable t) {
-                    log.error("Failed to close session: " + t.getMessage(), t);
+                    LOG.error("Failed to close session: " + t.getMessage(), t);
                 }
 
             }
@@ -290,14 +290,14 @@ public class Retriever {
             // loop through list and remove the expired correlations from list then from db
             for (CorrelatedIdentifiers correlatedIdentifiers : result) {
                 // do not delete a record if there isn't an expiration date.
-                log.debug("~~~ expirationDate: " + correlatedIdentifiers.getCorrelationExpirationDate());
+                LOG.debug("~~~ expirationDate: " + correlatedIdentifiers.getCorrelationExpirationDate());
 
                 if ((correlatedIdentifiers.getCorrelationExpirationDate() == null)
                         || (now.before(correlatedIdentifiers.getCorrelationExpirationDate()))) {
-                    log.debug("patient correlation record has not expired");
+                    LOG.debug("patient correlation record has not expired");
                     modifiedResult.add(correlatedIdentifiers);
                 } else {
-                    log.debug("...removing expired patient correlation record...");
+                    LOG.debug("...removing expired patient correlation record...");
                     // remove expired record from database
                     Storer.removePatientCorrelation(correlatedIdentifiers);
                 }

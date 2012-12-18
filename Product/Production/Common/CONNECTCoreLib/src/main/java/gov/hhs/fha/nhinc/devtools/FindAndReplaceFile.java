@@ -42,7 +42,7 @@ import org.apache.log4j.Logger;
  * @author westbergl
  */
 public class FindAndReplaceFile {
-    private static Logger log = Logger.getLogger(FindAndReplaceFile.class);
+    private static final Logger LOG = Logger.getLogger(FindAndReplaceFile.class);
 
     /**
      * Copy contents of the file from the src to the dest. If the dest exists, it will be deleted first.
@@ -74,9 +74,9 @@ public class FindAndReplaceFile {
                 oOut.write(buf, 0, iLen);
             }
         } catch (FileNotFoundException ex) {
-            log.error("Failed to find file : " + ex.getMessage());
+            LOG.error("Failed to find file : " + ex.getMessage());
         } catch (IOException ex) {
-            log.error("Failed to read contents of the file : " + fSrc.getName() + ". " + ex.getMessage());
+            LOG.error("Failed to read contents of the file : " + fSrc.getName() + ". " + ex.getMessage());
         } finally {
             closeStreamsQuietly(fSrc, oIn);
             closeStreamsQuietly(fDst, oOut);
@@ -90,7 +90,7 @@ public class FindAndReplaceFile {
                 stream.close();
             }
         } catch (IOException ex) {
-            log.error("Failed to close stream on file " + file.getName() + "." + ex.getMessage());
+            LOG.error("Failed to close stream on file " + file.getName() + "." + ex.getMessage());
         }
     }
 

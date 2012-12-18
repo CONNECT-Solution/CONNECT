@@ -37,8 +37,7 @@ import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.patientdiscovery.entity.deferred.response.proxy.service.EntityPatientDiscoverySecuredAsyncRespServicePortDescriptor;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 import org.hl7.v3.MCCIIN000002UV01;
 import org.hl7.v3.PRPAIN201306UV02;
 import org.hl7.v3.RespondingGatewayPRPAIN201306UV02SecuredRequestType;
@@ -50,16 +49,11 @@ import org.hl7.v3.RespondingGatewayPRPAIN201306UV02SecuredRequestType;
 public class EntityPatientDiscoveryDeferredResponseProxyWebServiceSecuredImpl implements
         EntityPatientDiscoveryDeferredResponseProxy {
 
-    private Log log = null;
+    private static final Logger LOG = Logger.getLogger(EntityPatientDiscoveryDeferredResponseProxyWebServiceSecuredImpl.class);
     private WebServiceProxyHelper oProxyHelper = null;
 
     public EntityPatientDiscoveryDeferredResponseProxyWebServiceSecuredImpl() {
-        log = createLogger();
         oProxyHelper = createWebServiceProxyHelper();
-    }
-
-    protected Log createLogger() {
-        return LogFactory.getLog(getClass());
     }
 
     protected WebServiceProxyHelper createWebServiceProxyHelper() {
@@ -68,16 +62,16 @@ public class EntityPatientDiscoveryDeferredResponseProxyWebServiceSecuredImpl im
 
     public MCCIIN000002UV01 processPatientDiscoveryAsyncResp(PRPAIN201306UV02 request, AssertionType assertion,
             NhinTargetCommunitiesType target) {
-        log.debug("Begin EntityPatientDiscoveryDeferredResponseProxyWebServiceSecuredImpl.processPatientDiscoveryAsyncResp(...)");
+        LOG.debug("Begin EntityPatientDiscoveryDeferredResponseProxyWebServiceSecuredImpl.processPatientDiscoveryAsyncResp(...)");
         MCCIIN000002UV01 response = new MCCIIN000002UV01();
 
         String serviceName = NhincConstants.PATIENT_DISCOVERY_ENTITY_SECURED_ASYNC_RESP_SERVICE_NAME;
 
         try {
-            log.debug("Before target system URL look up.");
+            LOG.debug("Before target system URL look up.");
             String url = oProxyHelper.getUrlLocalHomeCommunity(serviceName);
-            if (log.isDebugEnabled()) {
-                log.debug("After target system URL look up. URL for service: " + serviceName + " is: " + url);
+            if (LOG.isDebugEnabled()) {
+                LOG.debug("After target system URL look up. URL for service: " + serviceName + " is: " + url);
             }
 
             if (NullChecker.isNotNullish(url)) {
@@ -92,14 +86,14 @@ public class EntityPatientDiscoveryDeferredResponseProxyWebServiceSecuredImpl im
                 response = (MCCIIN000002UV01) client.invokePort(EntityPatientDiscoverySecuredAsyncRespPortType.class,
                         "processPatientDiscoveryAsyncResp", securedRequest);
             } else {
-                log.error("Failed to call the web service (" + serviceName + ").  The URL is null.");
+                LOG.error("Failed to call the web service (" + serviceName + ").  The URL is null.");
             }
         } catch (Exception ex) {
-            log.error("Error: Failed to retrieve url for service: " + serviceName + " for local home community");
-            log.error(ex.getMessage(), ex);
+            LOG.error("Error: Failed to retrieve url for service: " + serviceName + " for local home community");
+            LOG.error(ex.getMessage(), ex);
         }
 
-        log.debug("End EntityPatientDiscoveryDeferredResponseProxyWebServiceSecuredImpl.processPatientDiscoveryAsyncResp(...)");
+        LOG.debug("End EntityPatientDiscoveryDeferredResponseProxyWebServiceSecuredImpl.processPatientDiscoveryAsyncResp(...)");
         return response;
     }
 }

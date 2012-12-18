@@ -45,7 +45,7 @@ import org.hl7.v3.PRPAMT201307UV02QueryByParameter;
  */
 public class PRPAIN201309UVParser {
 
-    private static Logger log = Logger.getLogger(PRPAIN201309UVParser.class);
+    private static final Logger LOG = Logger.getLogger(PRPAIN201309UVParser.class);
     private static String CODE = "CA";
     private static String CNTRL_MODCODE = "EVN";
     private static String CNTRL_CODE = "PRPA_TE201310UV";
@@ -83,11 +83,11 @@ public class PRPAIN201309UVParser {
     }
 
     public static PRPAMT201307UV02PatientIdentifier parseHL7PatientPersonFrom201309Message(PRPAIN201309UV02 message) {
-        log.debug("---- Begin PRPAIN201309UVParser.parseHL7PatientPersonFrom201309Message()----");
+        LOG.debug("---- Begin PRPAIN201309UVParser.parseHL7PatientPersonFrom201309Message()----");
         PRPAMT201307UV02ParameterList parameterList = parseHL7ParameterListFrom201309Message(message);
         PRPAMT201307UV02PatientIdentifier patientIdentifier = (parameterList.getPatientIdentifier() != null) ? parameterList
                 .getPatientIdentifier().get(0) : null;
-        log.debug("---- End PRPAIN201309UVParser.parseHL7PatientPersonFrom201309Message()----");
+        LOG.debug("---- End PRPAIN201309UVParser.parseHL7PatientPersonFrom201309Message()----");
         return patientIdentifier;
     }
 

@@ -43,8 +43,7 @@ import ihe.iti.xcpd._2009.RespondingGatewayPortType;
 
 import javax.xml.ws.BindingProvider;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 import org.hl7.v3.PRPAIN201305UV02;
 import org.hl7.v3.PRPAIN201306UV02;
 
@@ -54,24 +53,8 @@ import org.hl7.v3.PRPAIN201306UV02;
  */
 public class NhinPatientDiscoveryProxyWebServiceSecuredImpl implements NhinPatientDiscoveryProxy {
 
-    private Log log = null;
+    private static final Logger LOG = Logger.getLogger(NhinPatientDiscoveryProxyWebServiceSecuredImpl.class);
     private final WebServiceProxyHelper oProxyHelper = new WebServiceProxyHelper();
-
-    /**
-     * Default constructor.
-     */
-    public NhinPatientDiscoveryProxyWebServiceSecuredImpl() {
-        log = createLogger();
-    }
-
-    /**
-     * Creates the log object for logging.
-     *
-     * @return The log object.
-     */
-    protected Log createLogger() {
-        return ((log != null) ? log : LogFactory.getLog(getClass()));
-    }
 
     @Override
     @NwhinInvocationEvent(beforeBuilder = PRPAIN201305UV02EventDescriptionBuilder.class,
@@ -84,13 +67,13 @@ public class NhinPatientDiscoveryProxyWebServiceSecuredImpl implements NhinPatie
         try {
             if (request != null && target != null) {
 
-                log.debug("Before target system URL look up.");
+                LOG.debug("Before target system URL look up.");
                 String url = target.getUrl();
                 if (NullChecker.isNullish(url)) {
                     url = ConnectionManagerCache.getInstance().getDefaultEndpointURLByServiceName(
                             target.getHomeCommunity().getHomeCommunityId(),
                             NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME);
-                    log.debug("After target system URL look up. URL for service: "
+                    LOG.debug("After target system URL look up. URL for service: "
                             + NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME + " is: " + url);
                 }
 
@@ -106,15 +89,15 @@ public class NhinPatientDiscoveryProxyWebServiceSecuredImpl implements NhinPatie
                     response = (PRPAIN201306UV02) client.invokePort(RespondingGatewayPortType.class,
                             "respondingGatewayPRPAIN201305UV02", request);
                 } else {
-                    log.error("Failed to call the web service (" + NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME
+                    LOG.error("Failed to call the web service (" + NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME
                             + ").  The URL is null.");
                 }
             } else {
-                log.error("Failed to call the web service (" + NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME
+                LOG.error("Failed to call the web service (" + NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME
                         + ").  The input parameters are null.");
             }
         } catch (Exception e) {
-            log.error("Failed to call the web service (" + NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME
+            LOG.error("Failed to call the web service (" + NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME
                     + ").  An unexpected exception occurred.  " + "Exception: " + e.getMessage(), e);
             // response = new HL7PRPA201306Transforms().createPRPA201306ForErrors(request,
             // NhincConstants.PATIENT_DISCOVERY_ANSWER_NOT_AVAIL_ERR_CODE);

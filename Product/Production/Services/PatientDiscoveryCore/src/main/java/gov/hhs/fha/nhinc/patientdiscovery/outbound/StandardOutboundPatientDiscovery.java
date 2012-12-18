@@ -62,8 +62,7 @@ import java.util.UUID;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 import org.hl7.v3.CS;
 import org.hl7.v3.CommunityPRPAIN201306UV02ResponseType;
 import org.hl7.v3.EDExplicit;
@@ -78,7 +77,7 @@ import org.hl7.v3.RespondingGatewayPRPAIN201306UV02ResponseType;
 
 public class StandardOutboundPatientDiscovery implements OutboundPatientDiscovery {
 
-    private final Log log = getLog();
+    private static final Logger LOG = Logger.getLogger(StandardOutboundPatientDiscovery.class);
     private ExecutorService regularExecutor = null;
     private ExecutorService largejobExecutor = null;
 
@@ -118,7 +117,7 @@ public class StandardOutboundPatientDiscovery implements OutboundPatientDiscover
     public RespondingGatewayPRPAIN201306UV02ResponseType respondingGatewayPRPAIN201305UV02(
             RespondingGatewayPRPAIN201305UV02RequestType request, AssertionType assertion) {
 
-        log.debug("Begin respondingGatewayPRPAIN201305UV02");
+        LOG.debug("Begin respondingGatewayPRPAIN201305UV02");
         RespondingGatewayPRPAIN201306UV02ResponseType response = new RespondingGatewayPRPAIN201306UV02ResponseType();
 
         try {
@@ -134,12 +133,12 @@ public class StandardOutboundPatientDiscovery implements OutboundPatientDiscover
                 auditResponseToAdapter(response, assertion);
             }
         } catch (Exception e) {
-            log.error("Exception occurred while getting responses", e);
+            LOG.error("Exception occurred while getting responses", e);
 
             // generate error message and add to response
             addErrorMessageToResponse(request, response, e);
         }
-        log.debug("End respondingGatewayPRPAIN201305UV02");
+        LOG.debug("End respondingGatewayPRPAIN201305UV02");
         return response;
     }
 
@@ -159,7 +158,7 @@ public class StandardOutboundPatientDiscovery implements OutboundPatientDiscover
     @SuppressWarnings("static-access")
     protected RespondingGatewayPRPAIN201306UV02ResponseType getResponseFromCommunities(
             RespondingGatewayPRPAIN201305UV02RequestType request, AssertionType assertion) {
-        log.debug("Begin getResponseFromCommunities");
+        LOG.debug("Begin getResponseFromCommunities");
         RespondingGatewayPRPAIN201306UV02ResponseType response = new RespondingGatewayPRPAIN201306UV02ResponseType();
 
 
@@ -192,9 +191,9 @@ public class StandardOutboundPatientDiscovery implements OutboundPatientDiscover
                             createOrchestratable(newRequest.getPRPAIN201305UV02(), assertion, target, gatewayLevel);
                         callableList.add(new NhinCallableRequest<OutboundPatientDiscoveryOrchestratable>(message));
 
-                        log.debug("Added NhinCallableRequest" + " for hcid=" + target.getHomeCommunity().getHomeCommunityId());
+                        LOG.debug("Added NhinCallableRequest" + " for hcid=" + target.getHomeCommunity().getHomeCommunityId());
                     } else {
-                        log.debug("Policy Check Failed for homeId=" + urlInfo.getHcid());
+                        LOG.debug("Policy Check Failed for homeId=" + urlInfo.getHcid());
                         CommunityPRPAIN201306UV02ResponseType communityResponse =
                             createFailedPolicyCommunityResponseFromRequest(request.getPRPAIN201305UV02(), urlInfo.getHcid());
 
@@ -202,25 +201,25 @@ public class StandardOutboundPatientDiscovery implements OutboundPatientDiscover
                     }
                 }
                 if (callableList.size() > 0) {
-                log.debug("Executing tasks to concurrently retrieve responses");
+                LOG.debug("Executing tasks to concurrently retrieve responses");
                 NhinTaskExecutor<OutboundPatientDiscoveryOrchestratable, OutboundPatientDiscoveryOrchestratable> pdExecutor =
                     new NhinTaskExecutor<OutboundPatientDiscoveryOrchestratable, OutboundPatientDiscoveryOrchestratable>(
                         ExecutorServiceHelper.getInstance().checkExecutorTaskIsLarge(callableList.size()) ? largejobExecutor
                                 : regularExecutor, callableList, transactionId);
                 pdExecutor.executeTask();
-                log.debug("Aggregating all responses");
+                LOG.debug("Aggregating all responses");
                 response = getCumulativeResponse(pdExecutor);
                }
 
                 addPolicyErrorsToResponse(response, policyErrList);
             }
         } catch (Exception e) {
-            log.error("Exception occurred while getting responses from communities", e);
+            LOG.error("Exception occurred while getting responses from communities", e);
 
             addErrorMessageToResponse(request, response, e);
         }
 
-        log.debug("Exiting getResponseFromCommunities");
+        LOG.debug("Exiting getResponseFromCommunities");
         return response;
     }
 
@@ -397,7 +396,7 @@ public class StandardOutboundPatientDiscovery implements OutboundPatientDiscover
             urlInfoList = ConnectionManagerCache.getInstance().getEndpointURLFromNhinTargetCommunities(
                     targetCommunities, NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME);
         } catch (ConnectionManagerException ex) {
-            log.error("Failed to obtain target URLs", ex);
+            LOG.error("Failed to obtain target URLs", ex);
         }
         return urlInfoList;
     }
@@ -408,7 +407,7 @@ public class StandardOutboundPatientDiscovery implements OutboundPatientDiscover
             sHomeCommunity = PropertyAccessor.getInstance().getProperty(NhincConstants.GATEWAY_PROPERTY_FILE,
                     NhincConstants.HOME_COMMUNITY_ID_PROPERTY);
         } catch (Exception ex) {
-            log.error(ex.getMessage());
+            LOG.error(ex.getMessage());
         }
         return sHomeCommunity;
     }
@@ -430,14 +429,6 @@ public class StandardOutboundPatientDiscovery implements OutboundPatientDiscover
      */
     protected PatientDiscoveryAuditLogger getNewPatientDiscoveryAuditLogger() {
         return new PatientDiscoveryAuditLogger();
-    }
-
-    /**
-     * Returns the log. Creates the log if it didn't already exist.
-     * @return the log.
-     */
-    protected Log getLog() {
-        return (log == null)?LogFactory.getLog(getClass()) : log;
     }
 
 }

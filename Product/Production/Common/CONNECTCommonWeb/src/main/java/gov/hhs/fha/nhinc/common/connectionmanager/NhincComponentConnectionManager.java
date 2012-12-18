@@ -65,7 +65,7 @@ import org.uddi.api_v3.BusinessEntity;
 @BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
 public class NhincComponentConnectionManager implements gov.hhs.fha.nhinc.nhinccomponentconnectionmanager.NhincComponentConnectionManagerPortType {
 
-    private static Logger log = Logger.getLogger(NhincComponentConnectionManager.class);
+    private static final Logger LOG = Logger.getLogger(NhincComponentConnectionManager.class);
 
     /**
      * This method will return a list of all business entities that are known by the connection manager.
@@ -82,7 +82,7 @@ public class NhincComponentConnectionManager implements gov.hhs.fha.nhinc.nhincc
                 bDetail.getBusinessEntity().addAll(businessEntityList);
             }
         } catch (ConnectionManagerException cme) {
-            log.error("Failed to invoke getAllBusinessEntities", cme);
+            LOG.error("Failed to invoke getAllBusinessEntities", cme);
         }
 
         return bDetail;
@@ -99,7 +99,7 @@ public class NhincComponentConnectionManager implements gov.hhs.fha.nhinc.nhincc
         try {
             bEntity = ConnectionManagerCache.getInstance().getBusinessEntity(homeCommunity.getValue());
         } catch (ConnectionManagerException cme) {
-            log.error("Failed to invoke getBusinessEntity", cme);
+            LOG.error("Failed to invoke getBusinessEntity", cme);
         }
 
         return bEntity;
@@ -120,7 +120,7 @@ public class NhincComponentConnectionManager implements gov.hhs.fha.nhinc.nhincc
                 bDetail.getBusinessEntity().addAll(businessEntitySet);
             }
         } catch (ConnectionManagerException cme) {
-            log.error("Failed to invoke getBusinessEntitySet", cme);
+            LOG.error("Failed to invoke getBusinessEntitySet", cme);
         }
 
         return bDetail;
@@ -139,7 +139,7 @@ public class NhincComponentConnectionManager implements gov.hhs.fha.nhinc.nhincc
             bEntity = ConnectionManagerCache.getInstance().getBusinessEntityByServiceName(request.getHomeCommunityId(),
                     request.getServiceName());
         } catch (ConnectionManagerException cme) {
-            log.error("Failed to invoke getBusinessEntityByServiceName", cme);
+            LOG.error("Failed to invoke getBusinessEntityByServiceName", cme);
         }
 
         return bEntity;
@@ -158,7 +158,7 @@ public class NhincComponentConnectionManager implements gov.hhs.fha.nhinc.nhincc
             endpointUrl = ConnectionManagerCache.getInstance().getDefaultEndpointURLByServiceName(
                     request.getHomeCommunityId(), request.getServiceName());
         } catch (ConnectionManagerException cme) {
-            log.error("Failed to invoke getEndpointURLByServiceName", cme);
+            LOG.error("Failed to invoke getEndpointURLByServiceName", cme);
         }
         
         EndpointURLType response = new EndpointURLType();
@@ -179,7 +179,7 @@ public class NhincComponentConnectionManager implements gov.hhs.fha.nhinc.nhincc
         try {
             endpointUrl = ConnectionManagerCache.getInstance().getInternalEndpointURLByServiceName(serviceName.getValue());
         } catch (ConnectionManagerException cme) {
-            log.error("Failed to invoke getLocalEndpointURLByServiceName", cme);
+            LOG.error("Failed to invoke getLocalEndpointURLByServiceName", cme);
         }
 
         EndpointURLType response = new EndpointURLType();
@@ -204,7 +204,7 @@ public class NhincComponentConnectionManager implements gov.hhs.fha.nhinc.nhincc
             endpointUrl = ConnectionManagerCache.getInstance().getEndpointURLFromNhinTarget(
                     request.getNhinTargetSystem(), request.getServiceName());
         } catch (ConnectionManagerException cme) {
-            log.error("Failed to invoke getEndpointURLFromNhinTarget", cme);
+            LOG.error("Failed to invoke getEndpointURLFromNhinTarget", cme);
         }
 
         EndpointURLType response = new EndpointURLType();
@@ -246,7 +246,7 @@ public class NhincComponentConnectionManager implements gov.hhs.fha.nhinc.nhincc
             }
 
         } catch (ConnectionManagerException cme) {
-            log.error("Failed to invoke getEndpointURLFromNhinTargetCommunities", cme);
+            LOG.error("Failed to invoke getEndpointURLFromNhinTargetCommunities", cme);
         }
 
         return response;
@@ -266,7 +266,7 @@ public class NhincComponentConnectionManager implements gov.hhs.fha.nhinc.nhincc
                 bDetail.getBusinessEntity().addAll(businessEntitySet);
             }
         } catch (ConnectionManagerException cme) {
-            log.error("Failed to invoke getBusinessEntitySetByServiceName", cme);
+            LOG.error("Failed to invoke getBusinessEntitySetByServiceName", cme);
         }
 
         return bDetail;
@@ -286,7 +286,7 @@ public class NhincComponentConnectionManager implements gov.hhs.fha.nhinc.nhincc
                 bDetail.getBusinessEntity().addAll(businessEntitySet);
             }
         } catch (ConnectionManagerException cme) {
-            log.error("Failed to invoke getAllBusinessEntitySetByServiceName", cme);
+            LOG.error("Failed to invoke getAllBusinessEntitySetByServiceName", cme);
         }
 
         return bDetail;
@@ -304,7 +304,7 @@ public class NhincComponentConnectionManager implements gov.hhs.fha.nhinc.nhincc
             ADAPTER_API_LEVEL adapterLevel = ADAPTER_API_LEVEL.valueOf(request.getAdapterLevel());
             endpointUrl = ConnectionManagerCache.getInstance().getAdapterEndpointURL(request.getServiceName(), adapterLevel);
         } catch (Exception e) {
-            log.error("Failed to invoke getAdapterEndpointURL", e);
+            LOG.error("Failed to invoke getAdapterEndpointURL", e);
         }
         
         EndpointURLType response = new EndpointURLType();
@@ -326,7 +326,7 @@ public class NhincComponentConnectionManager implements gov.hhs.fha.nhinc.nhincc
         try {            
             ConnectionManagerCache.getInstance().forceRefreshUDDICache();
         } catch (ConnectionManagerException cme) {
-            log.error("Failed to invoke forceRefreshUDDICache", cme);
+            LOG.error("Failed to invoke forceRefreshUDDICache", cme);
             response.setSuccess(false);
         }
         
@@ -346,7 +346,7 @@ public class NhincComponentConnectionManager implements gov.hhs.fha.nhinc.nhincc
         try {            
             ConnectionManagerCache.getInstance().forceRefreshInternalConnectCache();
         } catch (ConnectionManagerException cme) {
-            log.error("Failed to invoke forceRefreshInternalConnectCache", cme);
+            LOG.error("Failed to invoke forceRefreshInternalConnectCache", cme);
             response.setSuccess(false);
         }
         

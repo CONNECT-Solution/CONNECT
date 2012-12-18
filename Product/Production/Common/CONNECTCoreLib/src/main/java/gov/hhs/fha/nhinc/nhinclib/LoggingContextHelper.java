@@ -39,7 +39,7 @@ import org.apache.log4j.NDC;
  */
 public class LoggingContextHelper {
 
-    private Logger log = Logger.getLogger(LoggingContextHelper.class);
+    private static final Logger LOG = Logger.getLogger(LoggingContextHelper.class);
 
     /**
      * Builds the Nested Diapnostic Context for the current thread and initializes the generated logging context id in
@@ -82,8 +82,8 @@ public class LoggingContextHelper {
         }
         buffer.append(".");
         buffer.append(UUID.randomUUID().toString());
-        if(log.isInfoEnabled()){
-        	log.info("Setting contextId: " + buffer.toString());
+        if(LOG.isInfoEnabled()){
+        	LOG.info("Setting contextId: " + buffer.toString());
         }
         return buffer.toString();
     }

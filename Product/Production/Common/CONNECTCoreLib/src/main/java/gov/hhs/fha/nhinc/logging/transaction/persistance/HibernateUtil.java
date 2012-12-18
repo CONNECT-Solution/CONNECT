@@ -44,7 +44,7 @@ import org.hibernate.cfg.Configuration;
 public class HibernateUtil {
 
     private static final SessionFactory SESSION_FACTORY;
-    private static Logger log = Logger.getLogger(HibernateUtil.class);
+    private static final Logger LOG = Logger.getLogger(HibernateUtil.class);
 
     static {
         try {
@@ -52,7 +52,7 @@ public class HibernateUtil {
             SESSION_FACTORY = new Configuration().configure(getConfigFile()).buildSessionFactory();
         } catch (ExceptionInInitializerError ex) {
             // Make sure you log the exception, as it might be swallowed
-            log.error("Initial SessionFactory creation failed." + ex, ex.getCause());
+            LOG.error("Initial SessionFactory creation failed." + ex, ex.getCause());
             throw ex;
         }
     }
@@ -72,7 +72,7 @@ public class HibernateUtil {
         try {
             result = HibernateAccessor.getInstance().getHibernateFile(NhincConstants.HIBERNATE_TRANSREPO_REPOSITORY);
         } catch (PropertyAccessException ex) {
-            log.error("Unable to load " + NhincConstants.HIBERNATE_TRANSREPO_REPOSITORY + " " + ex.getMessage(), ex);
+            LOG.error("Unable to load " + NhincConstants.HIBERNATE_TRANSREPO_REPOSITORY + " " + ex.getMessage(), ex);
         }
 
         return result;

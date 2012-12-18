@@ -77,7 +77,7 @@ import org.hl7.v3.RespondingGatewayPRPAIN201306UV02ResponseType;
 public class PatientDiscoveryTransforms {
 
     private static final String JAXB_HL7_CONTEXT_NAME = "org.hl7.v3";
-    private Logger log = Logger.getLogger(PatientDiscoveryTransforms.class);
+    private static final Logger LOG = Logger.getLogger(PatientDiscoveryTransforms.class);
 
     /**
      * This method tranforms a patient discovery request into an audit log message but it leaves the direction decision
@@ -709,7 +709,7 @@ public class PatientDiscoveryTransforms {
             Marshaller marshaller = jc.createMarshaller();
             baOutStrm.reset();
             marshaller.marshal(oPatientDiscoveryMessage, baOutStrm);
-            log.debug("Done marshalling the message.");
+            LOG.debug("Done marshalling the message.");
         } catch (Exception e) {
             e.printStackTrace();
             throw new RuntimeException();
@@ -744,15 +744,15 @@ public class PatientDiscoveryTransforms {
     }
 
     private void addLogInfo(String message) {
-        log.info(message);
+        LOG.info(message);
     }
 
     private void addLogDebug(String message) {
-        log.debug(message);
+        LOG.debug(message);
     }
 
     private void addLogError(String message) {
-        log.error(message);
+        LOG.error(message);
     }
 
     /**
@@ -1052,7 +1052,7 @@ public class PatientDiscoveryTransforms {
         // Based on IHE XCPD specification the receiver does not contain the home community name
         String sCommunityId = getPatientDiscoveryMessageCommunityId(message, direction, _interface);
 
-        log.info("Setting ACK CommunityID : " + sCommunityId);
+        LOG.info("Setting ACK CommunityID : " + sCommunityId);
 
         AuditSourceIdentificationType auditSource = AuditDataTransformHelper.createAuditSourceIdentification(
                 sCommunityId, sCommunityId);
@@ -1062,13 +1062,13 @@ public class PatientDiscoveryTransforms {
         String sPatientId = "";
         if (assertion != null && NullChecker.isNotNullish(assertion.getUniquePatientId())) {
             sPatientId = assertion.getUniquePatientId().get(0);
-            log.debug("setting objectID for ACK " + sPatientId);
+            LOG.debug("setting objectID for ACK " + sPatientId);
         }
 
         // objectID = AuditDataTransformHelper.createCompositePatientId(sourceID, objectID);
         ParticipantObjectIdentificationType participantObject = AuditDataTransformHelper
                 .createParticipantObjectIdentification(sPatientId);
-        log.info("Setting ACK participantObject id : " + participantObject.getParticipantObjectID());
+        LOG.info("Setting ACK participantObject id : " + participantObject.getParticipantObjectID());
 
         // Put the contents of the actual message into the Audit Log Message
         try {
@@ -1078,7 +1078,7 @@ public class PatientDiscoveryTransforms {
             ByteArrayOutputStream baOutStrm = new ByteArrayOutputStream();
             baOutStrm.reset();
             marshaller.marshal(message, baOutStrm);
-            log.debug("Done marshalling the message.");
+            LOG.debug("Done marshalling the message.");
 
             participantObject.setParticipantObjectQuery(baOutStrm.toByteArray());
         } catch (Exception e) {

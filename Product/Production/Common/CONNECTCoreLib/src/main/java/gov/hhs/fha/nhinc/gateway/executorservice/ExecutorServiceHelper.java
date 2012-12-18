@@ -53,7 +53,7 @@ import org.apache.log4j.Logger;
  */
 public class ExecutorServiceHelper {
 
-    private static Logger log = Logger.getLogger(ExecutorServiceHelper.class);
+    private static final Logger LOG = Logger.getLogger(ExecutorServiceHelper.class);
 
     private static ExecutorServiceHelper instance = null;
     private static final Object EXSYNC = new Object();
@@ -86,7 +86,7 @@ public class ExecutorServiceHelper {
                     NhincConstants.LARGEJOB_SIZE_PERCENT);
             largejobSizePercent = Double.parseDouble(largejobSizePercentStr);
         } catch (Exception e) {
-            log.error("ExecutorServiceHelper exception loading config properties so using default values");
+            LOG.error("ExecutorServiceHelper exception loading config properties so using default values");
             outputCompleteException(e);
             // set default pool size to 100
             concurrentPoolSize = 100;
@@ -95,7 +95,7 @@ public class ExecutorServiceHelper {
             // set default large job size percent to 75%
             largejobSizePercent = .75;
         }
-        log.debug("ExecutorServiceHelper created singleton instance and "
+        LOG.debug("ExecutorServiceHelper created singleton instance and "
                 + "set executor service configuration parameters: " + "concurrentPoolSize=" + concurrentPoolSize
                 + " largejobPoolSize=" + largejobPoolSize + " largejobSizePercent=" + largejobSizePercent);
     }
@@ -142,7 +142,7 @@ public class ExecutorServiceHelper {
         Double maxSize = new Double(largejobSizePercent * concurrentPoolSize);
         if (targetListCount >= maxSize.intValue()) {
             bigJob = true;
-            log.debug("checkExecutorTaskIsLarge has large job size=" + targetListCount
+            LOG.debug("checkExecutorTaskIsLarge has large job size=" + targetListCount
                     + " so returning LargeJobExecutor");
         }
         return bigJob;
@@ -158,7 +158,7 @@ public class ExecutorServiceHelper {
         CharArrayWriter caw = new CharArrayWriter();
         ex.printStackTrace(new PrintWriter(caw));
         err += caw.toString();
-        log.error(err);
+        LOG.error(err);
     }
 
     /**

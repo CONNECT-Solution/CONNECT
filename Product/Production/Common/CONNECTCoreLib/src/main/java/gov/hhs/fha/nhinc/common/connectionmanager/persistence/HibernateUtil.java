@@ -39,7 +39,7 @@ import java.io.File;
  */
 public class HibernateUtil {
     private static final SessionFactory sessionFactory;
-    private static Logger log = Logger.getLogger(HibernateUtil.class);
+    private static final Logger LOG = Logger.getLogger(HibernateUtil.class);
 
     private static final String HIBERNATE_ASSIGNING_AUTHORITY = "assignauthority.hibernate.cfg.xml";
     static {
@@ -68,7 +68,7 @@ public class HibernateUtil {
         try {
             result = HibernateAccessor.getInstance().getHibernateFile(HIBERNATE_ASSIGNING_AUTHORITY);
         } catch (Exception ex) {
-            log.error("Unable to load " + HIBERNATE_ASSIGNING_AUTHORITY + " " + ex.getMessage(), ex);
+            LOG.error("Unable to load " + HIBERNATE_ASSIGNING_AUTHORITY + " " + ex.getMessage(), ex);
         }
 
         return result;

@@ -51,7 +51,7 @@ import org.apache.log4j.Logger;
  */
 public class NotifyTransforms {
 
-    private Logger log = Logger.getLogger(NotifyTransforms.class);
+    private static final Logger LOG = Logger.getLogger(NotifyTransforms.class);
 
     public LogEventRequestType transformNhinNotifyRequestToAuditMessage(LogNhinNotifyRequestType message) {
         LogEventRequestType response = new LogEventRequestType();
@@ -59,9 +59,9 @@ public class NotifyTransforms {
         response.setDirection(message.getDirection());
         response.setInterface(message.getInterface());
 
-        log.info("******************************************************************");
-        log.info("Entering transformNhinNotifyRequestToAuditMessage() method.");
-        log.info("******************************************************************");
+        LOG.info("******************************************************************");
+        LOG.info("Entering transformNhinNotifyRequestToAuditMessage() method.");
+        LOG.info("******************************************************************");
 
         // Extract UserInfo from Message.Assertion
         UserType userInfo = new UserType();
@@ -124,22 +124,22 @@ public class NotifyTransforms {
             ByteArrayOutputStream baOutStrm = new ByteArrayOutputStream();
             baOutStrm.reset();
             marshaller.marshal(message.getMessage().getNotify(), baOutStrm);
-            log.debug("Done marshalling the message.");
+            LOG.debug("Done marshalling the message.");
 
             participantObject.setParticipantObjectQuery(baOutStrm.toByteArray());
 
         } catch (Exception e) {
             e.printStackTrace();
-            log.error("EXCEPTION when marshalling Nhin Notify Request : " + e);
+            LOG.error("EXCEPTION when marshalling Nhin Notify Request : " + e);
             throw new RuntimeException();
         }
         auditMsg.getParticipantObjectIdentification().add(participantObject);
 
         response.setAuditMessage(auditMsg);
 
-        log.info("******************************************************************");
-        log.info("Exiting transformNhinNotifyRequestToAuditMessage() method.");
-        log.info("******************************************************************");
+        LOG.info("******************************************************************");
+        LOG.info("Exiting transformNhinNotifyRequestToAuditMessage() method.");
+        LOG.info("******************************************************************");
 
         return response;
     }
@@ -150,9 +150,9 @@ public class NotifyTransforms {
         response.setDirection(message.getDirection());
         response.setInterface(message.getInterface());
 
-        log.info("******************************************************************");
-        log.info("Entering transformEntityNotifyResponseToGenericAudit() method.");
-        log.info("******************************************************************");
+        LOG.info("******************************************************************");
+        LOG.info("Entering transformEntityNotifyResponseToGenericAudit() method.");
+        LOG.info("******************************************************************");
 
         // Extract UserInfo from Message.Assertion
         UserType userInfo = new UserType();
@@ -210,9 +210,9 @@ public class NotifyTransforms {
 
         response.setAuditMessage(auditMsg);
 
-        log.info("******************************************************************");
-        log.info("Exiting transformEntityNotifyResponseToGenericAudit() method.");
-        log.info("******************************************************************");
+        LOG.info("******************************************************************");
+        LOG.info("Exiting transformEntityNotifyResponseToGenericAudit() method.");
+        LOG.info("******************************************************************");
         return response;
     }
 }

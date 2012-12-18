@@ -29,7 +29,7 @@ import org.opensaml.common.SAMLVersion;
  */
 public class CXFSAMLCallbackHandler implements CallbackHandler {
 
-    private static Logger log = Logger.getLogger(CXFSAMLCallbackHandler.class);
+    private static final Logger LOG = Logger.getLogger(CXFSAMLCallbackHandler.class);
 
     public static final String HOK_CONFIRM = "urn:oasis:names:tc:SAML:2.0:cm:holder-of-key";
 
@@ -43,7 +43,7 @@ public class CXFSAMLCallbackHandler implements CallbackHandler {
      */
     @Override
     public void handle(Callback[] callbacks) throws IOException, UnsupportedCallbackException {
-        log.debug("CXFSAMLCallbackHandler.handle begin");
+        LOG.debug("CXFSAMLCallbackHandler.handle begin");
         for (Callback callback : callbacks) {
             if (callback instanceof SAMLCallback) {
 
@@ -71,11 +71,11 @@ public class CXFSAMLCallbackHandler implements CallbackHandler {
 
                     oSAMLCallback.setAssertionElement(builder.build(properties));
                 } catch (Exception e) {
-                    log.error("failed to create saml", e);
+                    LOG.error("failed to create saml", e);
                 }
             }
         }
-        log.debug("CXFSAMLCallbackHandler.handle end");
+        LOG.debug("CXFSAMLCallbackHandler.handle end");
     }
     
     /**

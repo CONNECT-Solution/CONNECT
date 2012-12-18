@@ -32,8 +32,7 @@ import gov.hhs.fha.nhinc.patientdb.model.Patient;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 
 /**
  * 
@@ -41,14 +40,14 @@ import org.apache.commons.logging.LogFactory;
  */
 public class PatientService {
 
-    private static Log log = LogFactory.getLog(PatientService.class);
+    private static final Logger LOG = Logger.getLogger(PatientService.class);
     private static PatientService patientService = new PatientService();
 
     /**
      * Constructor
      */
     private PatientService() {
-        log.info("PatientService - Initialized");
+        LOG.info("PatientService - Initialized");
     }
 
     /**
@@ -57,7 +56,7 @@ public class PatientService {
      * @return PatientService
      */
     public static PatientService getPatientService() {
-        log.debug("getPatientService()..");
+        LOG.debug("getPatientService()..");
         return patientService;
     }
 
@@ -69,7 +68,7 @@ public class PatientService {
      */
     public List<Patient> findPatients(Patient searchParams) {
 
-        log.debug("PatientService.findAllPatients() - Begin");
+        LOG.debug("PatientService.findAllPatients() - Begin");
 
         List<Patient> results = new ArrayList<Patient>();
 
@@ -77,7 +76,7 @@ public class PatientService {
 
         results = dao.findPatients(searchParams);
 
-        log.debug("PatientService.findAllPatients() - End");
+        LOG.debug("PatientService.findAllPatients() - End");
 
         return results;
     }

@@ -46,7 +46,7 @@ public class InternalConnectionInfoDAOFileImpl extends ConnectionManagerDAOBase 
 
     private static InternalConnectionInfoDAOFileImpl instance = null;
     private File file = null;
-    private Logger log = Logger.getLogger(InternalConnectionInfoDAOFileImpl.class);
+    private static final Logger LOG = Logger.getLogger(InternalConnectionInfoDAOFileImpl.class);
     private static final String INTERNAL_XML_FILE_NAME = "internalConnectionInfo.xml";
 
     public static InternalConnectionInfoDAOFileImpl getInstance() {
@@ -59,7 +59,7 @@ public class InternalConnectionInfoDAOFileImpl extends ConnectionManagerDAOBase 
 
     InternalConnectionInfoDAOFileImpl() {
         String fileName = getInternalConnectionFileLocation();
-        log.debug("Reading InternalConnectionInfo from file: " + fileName);
+        LOG.debug("Reading InternalConnectionInfo from file: " + fileName);
         if (fileName != null) {
             file = new File(fileName);
         }
@@ -94,7 +94,7 @@ public class InternalConnectionInfoDAOFileImpl extends ConnectionManagerDAOBase 
         try {
             resp = super.loadBusinessDetail(file);
         } catch (JAXBException ex) {
-            log.error("unable to load business entities from " + file.getName(), ex);
+            LOG.error("unable to load business entities from " + file.getName(), ex);
             resp = new BusinessDetail();
             throw new Exception("unable to load business entities from " + file.getName(), ex);
         }

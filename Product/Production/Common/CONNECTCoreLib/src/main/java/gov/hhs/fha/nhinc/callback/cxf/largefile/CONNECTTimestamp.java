@@ -39,7 +39,7 @@ import org.w3c.dom.Element;
  */
 public class CONNECTTimestamp extends Timestamp {
 
-    private final static Logger LOG = Logger.getLogger(CONNECTTimestamp.class);
+    private static final Logger LOG = Logger.getLogger(CONNECTTimestamp.class);
 
     /**
      * {@inheritDoc}

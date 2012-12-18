@@ -48,7 +48,7 @@ import org.hibernate.criterion.Restrictions;
  * @author Neil Webb
  */
 public class EventCodeDao {
-    private Logger log = Logger.getLogger(EventCodeDao.class);
+    private static final Logger LOG = Logger.getLogger(EventCodeDao.class);
 
     protected SessionFactory getSessionFactory() {
         return HibernateUtil.getSessionFactory();
@@ -79,24 +79,24 @@ public class EventCodeDao {
                     trans = sess.beginTransaction();
                     sess.delete(eventCode);
                 } else {
-                    log.error("Failed to obtain a session from the sessionFactory");
+                    LOG.error("Failed to obtain a session from the sessionFactory");
                 }
             } else {
-                log.error("Session factory was null");
+                LOG.error("Session factory was null");
             }
         } finally {
             if (trans != null) {
                 try {
                     trans.commit();
                 } catch (Throwable t) {
-                    log.error("Failed to commit transaction: " + t.getMessage(), t);
+                    LOG.error("Failed to commit transaction: " + t.getMessage(), t);
                 }
             }
             if (sess != null) {
                 try {
                     sess.close();
                 } catch (Throwable t) {
-                    log.error("Failed to close session: " + t.getMessage(), t);
+                    LOG.error("Failed to close session: " + t.getMessage(), t);
                 }
             }
         }
@@ -136,17 +136,17 @@ public class EventCodeDao {
                         eventCodes = new ArrayList<EventCode>();
                     }
                 } else {
-                    log.error("Failed to obtain a session from the sessionFactory");
+                    LOG.error("Failed to obtain a session from the sessionFactory");
                 }
             } else {
-                log.error("Session factory was null");
+                LOG.error("Session factory was null");
             }
         } finally {
             if (sess != null) {
                 try {
                     sess.close();
                 } catch (Throwable t) {
-                    log.error("Failed to close session: " + t.getMessage(), t);
+                    LOG.error("Failed to close session: " + t.getMessage(), t);
                 }
             }
         }

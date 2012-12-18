@@ -57,7 +57,7 @@ import org.apache.log4j.Logger;
  */
 public class NhinTaskExecutor<CumulativeResponse extends OutboundOrchestratableMessage, IndividualResponse extends OutboundOrchestratableMessage> {
 
-    private Logger log = Logger.getLogger(NhinTaskExecutor.class);
+    private static final Logger LOG = Logger.getLogger(NhinTaskExecutor.class);
 
     private CumulativeResponse cumulativeResponse = null;
 
@@ -87,7 +87,7 @@ public class NhinTaskExecutor<CumulativeResponse extends OutboundOrchestratableM
     @SuppressWarnings("static-access")
     public void executeTask() throws InterruptedException, ExecutionException {
 
-        log.debug("NhinTaskExecutor::executeTask begin");
+        LOG.debug("NhinTaskExecutor::executeTask begin");
 
         try {
             CompletionService<IndividualResponse> executorCompletionService = new ExecutorCompletionService<IndividualResponse>(
@@ -105,7 +105,7 @@ public class NhinTaskExecutor<CumulativeResponse extends OutboundOrchestratableM
                 Future<IndividualResponse> future = executorCompletionService.take();
                 // for debug
                 count++;
-                log.debug("NhinTaskExecutor::executeTask::take received response count=" + count);
+                LOG.debug("NhinTaskExecutor::executeTask::take received response count=" + count);
 
                 if (future != null) {
                     try {
@@ -117,22 +117,22 @@ public class NhinTaskExecutor<CumulativeResponse extends OutboundOrchestratableM
                                     cumulativeResponse);
                         } else {
                             // shouldn't ever get here, but if we do all we can do is log and skip it
-                            log.error("NhinTaskExecutor::executeTask (count=" + count + ") received null response!!!!!");
+                            LOG.error("NhinTaskExecutor::executeTask (count=" + count + ") received null response!!!!!");
                         }
                     } catch (Exception e) {
                         // shouldn't ever get here
-                        log.error("NhinTaskExecutor processResponse EXCEPTION!!!");
+                        LOG.error("NhinTaskExecutor processResponse EXCEPTION!!!");
                         ExecutorServiceHelper.getInstance().outputCompleteException(e);
                     }
                 } else {
                     // shouldn't ever get here
-                    log.error("NhinTaskExecutor::executeTask received null future from queue (i.e. take)!!!!!");
+                    LOG.error("NhinTaskExecutor::executeTask received null future from queue (i.e. take)!!!!!");
                 }
             }
-            log.debug("NhinTaskExecutor::executeTask done");
+            LOG.debug("NhinTaskExecutor::executeTask done");
         } catch (Exception e) {
             // shouldn't ever get here
-            log.error("NhinTaskExecutor EXCEPTION!!!");
+            LOG.error("NhinTaskExecutor EXCEPTION!!!");
             ExecutorServiceHelper.getInstance().outputCompleteException(e);
         }
     }

@@ -47,7 +47,7 @@ import org.uddi.api_v3.GetBusinessDetail;
  */
 public class UDDIAccessor {
 
-    private Logger log = Logger.getLogger(UDDIAccessor.class);
+    private static final Logger LOG = Logger.getLogger(UDDIAccessor.class);
 
     private static String GATEWAY_PROPFILE_NAME = "gateway";
     private static String UDDI_BUSINESSES_TO_IGNORE = "UDDIBusinessesToIgnore";
@@ -80,7 +80,7 @@ public class UDDIAccessor {
             } catch (Exception e) {
                 String sErrorMessage = "Failed to retrieve properties from " + GATEWAY_PROPFILE_NAME
                         + ".properties file.  Error: " + e.getMessage();
-                log.error(sErrorMessage, e);
+                LOG.error(sErrorMessage, e);
                 throw new UDDIAccessorException(sErrorMessage, e);
             }
         }
@@ -145,8 +145,8 @@ public class UDDIAccessor {
      */
     private BusinessList retrieveBusinessesListFromUDDI() throws UDDIAccessorException {
 
-        if (log.isDebugEnabled()) {
-            log.debug("Retrieving business entities from UDDI using find_business web service call.");
+        if (LOG.isDebugEnabled()) {
+            LOG.debug("Retrieving business entities from UDDI using find_business web service call.");
         }
 
         BusinessList businessList = null;
@@ -159,7 +159,7 @@ public class UDDIAccessor {
         } catch (Exception e) {
             String sErrorMessage = "Failed to call 'find_business' web service on the NHIN UDDI server.  Error: "
                     + e.getMessage();
-            log.error(sErrorMessage, e);
+            LOG.error(sErrorMessage, e);
             throw new UDDIAccessorException(sErrorMessage, e);
         }
 
@@ -183,7 +183,7 @@ public class UDDIAccessor {
         } catch (Exception e) {
             String sErrorMessage = "Failed to call UDDI web service get_businessDetail method.  Error: "
                     + e.getMessage();
-            log.error(sErrorMessage, e);
+            LOG.error(sErrorMessage, e);
             throw new UDDIAccessorException(sErrorMessage, e);
         }
 

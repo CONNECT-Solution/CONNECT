@@ -45,7 +45,7 @@ import org.apache.log4j.Logger;
  * 
  */
 public class PropertyFileDAO {
-    private Logger log = Logger.getLogger(PropertyFileDAO.class);
+    private static final Logger LOG = Logger.getLogger(PropertyFileDAO.class);
     
     private Hashtable<String, Properties> propertyFilesHashmap = new Hashtable<String, Properties>();
 
@@ -90,7 +90,7 @@ public class PropertyFileDAO {
                 try {
                     propFile.close();
                 } catch (Exception e1) {
-                    log.error("Failed to close property file: '" + propertyFile + "'", e1);
+                    LOG.error("Failed to close property file: '" + propertyFile + "'", e1);
                 }
             }
         }
@@ -134,7 +134,7 @@ public class PropertyFileDAO {
                 } catch (Exception e) {
                     String errorMsg = "Failed to convert string value: '" + propertyValue + "' to a long.  Error: "
                             + e.getMessage();
-                    log.error(errorMsg, e);
+                    LOG.error(errorMsg, e);
                     throw new PropertyAccessException(errorMsg, e);
                 }
             }
@@ -163,7 +163,7 @@ public class PropertyFileDAO {
     public void printToLog(String propertyFileName) {
         
         Properties properties = propertyFilesHashmap.get(propertyFileName);        
-        log.info("Dumping information for property file: " + propertyFileName);
+        LOG.info("Dumping information for property file: " + propertyFileName);
         if (properties != null) {
             Set<String> setKeys = properties.stringPropertyNames();
             if (setKeys != null) {
@@ -174,14 +174,14 @@ public class PropertyFileDAO {
                     if (sValue != null) {
                         sValue = sValue.trim();
                     }
-                    log.info("Property:" + sKey + "=" + sValue);
+                    LOG.info("Property:" + sKey + "=" + sValue);
                 }
             } 
             else {
-                log.info("No properties were found in the property file.");
+                LOG.info("No properties were found in the property file.");
             }
         } else {
-            log.info("No content.  Property file has never been loaded.");
+            LOG.info("No content.  Property file has never been loaded.");
         }
     }
     

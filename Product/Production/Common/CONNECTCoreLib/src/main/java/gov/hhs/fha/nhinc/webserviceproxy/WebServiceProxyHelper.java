@@ -56,7 +56,7 @@ public class WebServiceProxyHelper {
     public static final String KEY_CONNECT_TIMEOUT = "com.sun.xml.ws.connect.timeout";
     public static final String KEY_REQUEST_TIMEOUT = "com.sun.xml.ws.request.timeout";
     public static final String KEY_URL = javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY;
-    private Logger log = Logger.getLogger(WebServiceProxyHelper.class);
+    private static final Logger LOG = Logger.getLogger(WebServiceProxyHelper.class);
     private final WebServiceProxyHelperProperties properties;
     public WebServiceProxyHelper() {
         properties = WebServiceProxyHelperProperties.getInstance();
@@ -160,20 +160,20 @@ public class WebServiceProxyHelper {
             try {
                 if (oTargetSystem.getHomeCommunity() != null) {
                     HomeCommunityType oHomeCommunity = oTargetSystem.getHomeCommunity();
-                    log.info("Target Sys properties Home Comm ID: " + oHomeCommunity.getHomeCommunityId());
-                    log.info("Target Sys properties Home Comm Description: " + oHomeCommunity.getDescription());
-                    log.info("Target Sys properties Home Comm Name: " + oHomeCommunity.getName());
+                    LOG.info("Target Sys properties Home Comm ID: " + oHomeCommunity.getHomeCommunityId());
+                    LOG.info("Target Sys properties Home Comm Description: " + oHomeCommunity.getDescription());
+                    LOG.info("Target Sys properties Home Comm Name: " + oHomeCommunity.getName());
                 }
                 sURL = getEndPointFromConnectionManagerByGatewayAPILevel(oTargetSystem, sServiceName, level);
             } catch (ConnectionManagerException e) {
-                log.error(
+                LOG.error(
                         "Error: Failed to retrieve url for service: " + sServiceName + ".  Exception: "
                                 + e.getMessage(), e);
                 throw (e);
             }
         } else {
             String sErrorMessage = "Target system passed into the proxy is null";
-            log.error(sErrorMessage);
+            LOG.error(sErrorMessage);
             throw new IllegalArgumentException(sErrorMessage);
         }
 
@@ -194,7 +194,7 @@ public class WebServiceProxyHelper {
         try {
             sURL = getLocalEndPointFromConnectionManager(sServiceName);
         } catch (ConnectionManagerException e) {
-            log.error("Error: Failed to retrieve url for service: " + sServiceName + ".  Exception: " + e.getMessage(),
+            LOG.error("Error: Failed to retrieve url for service: " + sServiceName + ".  Exception: " + e.getMessage(),
                     e);
             throw (e);
         }
@@ -307,10 +307,10 @@ public class WebServiceProxyHelper {
      */
     public Object invokePort(Object portObject, Class<?> portClass, String methodName, Object operationInput)
             throws Exception {
-        log.debug("Begin invokePort");
+        LOG.debug("Begin invokePort");
 
         if (portObject == null) {
-            log.error("portObject was null");
+            LOG.error("portObject was null");
         }
 
         Object oResponse = null;
@@ -327,13 +327,13 @@ public class WebServiceProxyHelper {
             oResponse = invokePortWithRetry(portObject, portClass, operationInput, iRetryCount, iRetryDelay, oMethod);
         } // if ((iRetryCount > 0) && (iRetryDelay > 0))
         else {
-            log.debug("Invoking " + portClass.getCanonicalName() + "." + oMethod.getName()
+            LOG.debug("Invoking " + portClass.getCanonicalName() + "." + oMethod.getName()
                     + ": Retry is not being used");
 
             oResponse = invokePort(portObject, portClass, operationInput, oResponse, oMethod);
         }
 
-        log.debug("End invokePort");
+        LOG.debug("End invokePort");
         return oResponse;
     }
 
@@ -350,14 +350,14 @@ public class WebServiceProxyHelper {
             Method oMethod) throws Exception {
         try {
 
-            log.debug("with parameters:" + listParameters(oMethod.getParameterTypes()));
+            LOG.debug("with parameters:" + listParameters(oMethod.getParameterTypes()));
 
             oResponse = invokeTheMethod(oMethod, portObject, operationInput);
         } catch (IllegalArgumentException e) {
             String sErrorMessage = "The method was called with incorrect arguments. "
                     + "This assumes that the method should have exactly one "
                     + "argument and it must be of the correct type for this method. " + "Exception: " + e.getMessage();
-            log.error(sErrorMessage, e);
+            LOG.error(sErrorMessage, e);
             throw e;
         } catch (InvocationTargetException e) {
             Exception cause = e;
@@ -368,11 +368,11 @@ public class WebServiceProxyHelper {
 
             String sErrorMessage = "An unexpected exception occurred of type: " + cause.getClass().getCanonicalName()
                     + ". Exception: " + cause.getMessage();
-            log.error(sErrorMessage, cause);
+            LOG.error(sErrorMessage, cause);
             throw cause;
         } catch (IllegalAccessException e) {
             // just log exception and throw it back out
-            log.error("WebServiceProxyHelper::invokePort Exception: ", e);
+            LOG.error("WebServiceProxyHelper::invokePort Exception: ", e);
             throw e;
         }
         return oResponse;
@@ -396,7 +396,7 @@ public class WebServiceProxyHelper {
         String sExceptionText = getExceptionText();
         while (i <= iRetryCount) {
             try {
-                log.debug("Invoking " + portClass.getCanonicalName() + "." + oMethod.getName() + ": Try #" + i);
+                LOG.debug("Invoking " + portClass.getCanonicalName() + "." + oMethod.getName() + ": Try #" + i);
 
                 // invokePort will log any exception and throw back out
                 oResponse = invokePort(portObject, portClass, operationInput, oResponse, oMethod);
@@ -426,7 +426,7 @@ public class WebServiceProxyHelper {
         // We have tried our max times - so we need to get out of here.
         // --------------------------------------------------------------
         if (i >= iRetryCount) {
-            log.error(
+            LOG.error(
                     "Failed to call " + portClass.getCanonicalName() + "." + oMethod.getName() + " Webservice "
                             + iRetryCount + " times.  " + "Stopping processing of this call.  Exception: "
                             + eCatchExp.getMessage(), eCatchExp);
@@ -458,10 +458,10 @@ public class WebServiceProxyHelper {
         try {
             Thread.sleep(iRetryDelay);
         } catch (InterruptedException iEx) {
-            log.error("Thread Got Interrupted while waiting on call: " + portClass.getCanonicalName() + ".  "
+            LOG.error("Thread Got Interrupted while waiting on call: " + portClass.getCanonicalName() + ".  "
                     + "Exception: " + iEx.getMessage(), iEx);
         } catch (IllegalArgumentException iaEx) {
-            log.error("Thread Got Interrupted while waiting on call: " + portClass.getCanonicalName() + ".  "
+            LOG.error("Thread Got Interrupted while waiting on call: " + portClass.getCanonicalName() + ".  "
                     + "Exception: " + iaEx.getMessage(), iaEx);
         }
     }
@@ -485,11 +485,11 @@ public class WebServiceProxyHelper {
             }
         }
         if (bFlag) {
-            log.warn("Exception calling ... web service: " + eCatchExp.getMessage());
-            log.info("Retrying attempt [ " + i + " ] the connection after [ " + iRetryDelay + " ] seconds");
+            LOG.warn("Exception calling ... web service: " + eCatchExp.getMessage());
+            LOG.info("Retrying attempt [ " + i + " ] the connection after [ " + iRetryDelay + " ] seconds");
 
         } else {
-            log.error(
+            LOG.error(
                     "Unable to call " + portClass.getCanonicalName() + " Webservice due to  : "
                             + eCatchExp.getMessage(), eCatchExp);
             throw eCatchExp;

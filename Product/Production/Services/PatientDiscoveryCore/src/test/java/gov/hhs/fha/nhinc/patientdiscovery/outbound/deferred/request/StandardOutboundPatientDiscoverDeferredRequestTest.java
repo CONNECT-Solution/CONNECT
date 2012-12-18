@@ -60,7 +60,6 @@ import java.util.List;
 import javax.xml.bind.JAXBElement;
 import javax.xml.namespace.QName;
 
-import org.apache.commons.logging.Log;
 import org.hl7.v3.II;
 import org.hl7.v3.MCCIIN000002UV01;
 import org.hl7.v3.PRPAIN201305UV02;
@@ -139,7 +138,6 @@ public class StandardOutboundPatientDiscoverDeferredRequestTest {
         PDDeferredCorrelationDao correlationDao = mock(PDDeferredCorrelationDao.class);
         ConnectionManagerCache connectionManager = mock(ConnectionManagerCache.class);
         PatientDiscoveryAuditor auditLogger = mock(PatientDiscoveryAuditor.class);
-        Log log = mock(Log.class);
         OutboundPatientDiscoveryDeferredRequestOrchestratable orchestratableResponse = mock(OutboundPatientDiscoveryDeferredRequestOrchestratable.class);
 
         // Stubbing the methods
@@ -164,7 +162,7 @@ public class StandardOutboundPatientDiscoverDeferredRequestTest {
         // Actual invocation
         StandardOutboundPatientDiscoveryDeferredRequest standardPatientDiscovery = new StandardOutboundPatientDiscoveryDeferredRequest(
                 pd201305Processor, asyncProcessHelper, policyChecker, delegate, correlationDao, connectionManager,
-                auditLogger, log);
+                auditLogger);
 
         MCCIIN000002UV01 actualResponse = standardPatientDiscovery.processPatientDiscoveryAsyncReq(request, assertion,
                 targets);
@@ -200,15 +198,14 @@ public class StandardOutboundPatientDiscoverDeferredRequestTest {
         // Mocks
         ConnectionManagerCache connectionManager = mock(ConnectionManagerCache.class);
         PatientDiscoveryAuditor auditLogger = mock(PatientDiscoveryAuditor.class);
-        Log log = mock(Log.class);
-
+        
         // Stubbing the methods
         when(connectionManager.getEndpointURLFromNhinTargetCommunities(eq(targets), 
                 eq(NhincConstants.PATIENT_DISCOVERY_DEFERRED_REQ_SERVICE_NAME))).thenThrow(new ConnectionManagerException());
 
         // Actual invocation
         StandardOutboundPatientDiscoveryDeferredRequest standardPatientDiscovery = new StandardOutboundPatientDiscoveryDeferredRequest(
-                null, null, null, null, null, connectionManager, auditLogger, log);
+                null, null, null, null, null, connectionManager, auditLogger);
 
         MCCIIN000002UV01 errorResponse = standardPatientDiscovery.processPatientDiscoveryAsyncReq(request, assertion,
                 targets);
@@ -241,7 +238,6 @@ public class StandardOutboundPatientDiscoverDeferredRequestTest {
         PDDeferredCorrelationDao correlationDao = mock(PDDeferredCorrelationDao.class);
         ConnectionManagerCache connectionManager = mock(ConnectionManagerCache.class);
         PatientDiscoveryAuditor auditLogger = mock(PatientDiscoveryAuditor.class);
-        Log log = mock(Log.class);
         
         // Stubbing the methods
         when(connectionManager.getEndpointURLFromNhinTargetCommunities(eq(targets),
@@ -259,7 +255,7 @@ public class StandardOutboundPatientDiscoverDeferredRequestTest {
         // Actual invocation
         StandardOutboundPatientDiscoveryDeferredRequest standardPatientDiscovery = new StandardOutboundPatientDiscoveryDeferredRequest(
                 pd201305Processor, asyncProcessHelper, policyChecker, delegate, correlationDao, connectionManager,
-                auditLogger, log);
+                auditLogger);
 
         MCCIIN000002UV01 errorResponse = standardPatientDiscovery.processPatientDiscoveryAsyncReq(request, assertion,
                 targets);

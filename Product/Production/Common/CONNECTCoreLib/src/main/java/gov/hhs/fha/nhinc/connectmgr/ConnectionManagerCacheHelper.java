@@ -42,7 +42,7 @@ import org.uddi.api_v3.KeyedReference;
 
 public class ConnectionManagerCacheHelper {
 
-	private static Logger log = Logger.getLogger(ConnectionManagerCacheHelper.class);
+	private static final Logger LOG = Logger.getLogger(ConnectionManagerCacheHelper.class);
 	
 	private static String UDDI_SPEC_VERSION_KEY = "uddi:nhin:versionofservice";
 	private static String UDDI_HOME_COMMUNITY_ID_KEY = "uddi:nhin:nhie:homecommunityid";
@@ -251,7 +251,7 @@ public class ConnectionManagerCacheHelper {
                 }
             }
         } catch (Exception ex) {
-            log.error("Error deducing highest spec version.", ex);
+            LOG.error("Error deducing highest spec version.", ex);
         }
 
         return highestSpecVersion;

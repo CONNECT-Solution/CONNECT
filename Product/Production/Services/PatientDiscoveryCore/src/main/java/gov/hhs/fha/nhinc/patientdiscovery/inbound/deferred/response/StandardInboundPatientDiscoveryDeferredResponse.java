@@ -38,8 +38,7 @@ import gov.hhs.fha.nhinc.patientdiscovery.response.ResponseFactory.ResponseModeT
 import gov.hhs.fha.nhinc.patientdiscovery.response.ResponseMode;
 import gov.hhs.fha.nhinc.transform.subdisc.HL7AckTransforms;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 import org.hl7.v3.II;
 import org.hl7.v3.MCCIIN000002UV01;
 import org.hl7.v3.PRPAIN201306UV02;
@@ -53,7 +52,7 @@ public class StandardInboundPatientDiscoveryDeferredResponse extends AbstractInb
     private final PDDeferredCorrelationDao pdCorrelationDao;
     private final PassthroughInboundPatientDiscoveryDeferredResponse passthroughPatientDiscovery;
     private final PatientDiscoveryAuditor auditLogger;
-    private final Log log;
+    private static final Logger LOG = Logger.getLogger(StandardInboundPatientDiscoveryDeferredResponse.class);
 
     /**
      * Constructor.
@@ -65,7 +64,6 @@ public class StandardInboundPatientDiscoveryDeferredResponse extends AbstractInb
         pdCorrelationDao = new PDDeferredCorrelationDao();
         passthroughPatientDiscovery = new PassthroughInboundPatientDiscoveryDeferredResponse();
         auditLogger = new PatientDiscoveryAuditLogger();
-        log = LogFactory.getLog(getClass());
     }
 
     /**
@@ -77,22 +75,21 @@ public class StandardInboundPatientDiscoveryDeferredResponse extends AbstractInb
      * @param pdCorrelationDao
      * @param passthroughPatientDiscovery
      * @param auditLogger
-     * @param log
+     * @param LOG
      */
     public StandardInboundPatientDiscoveryDeferredResponse(
             PolicyChecker<RespondingGatewayPRPAIN201306UV02RequestType, PRPAIN201306UV02> policyChecker,
             ResponseFactory responseFactory, PatientDiscovery201306Processor msgProcessor,
             PDDeferredCorrelationDao pdCorrelationDao,
             PassthroughInboundPatientDiscoveryDeferredResponse passthroughPatientDiscovery,
-            PatientDiscoveryAuditor auditLogger, Log log) {
+            PatientDiscoveryAuditor auditLogger) {
         
         this.policyChecker = policyChecker;
         this.responseFactory = responseFactory;
         this.msgProcessor = msgProcessor;
         this.pdCorrelationDao = pdCorrelationDao;
         this.passthroughPatientDiscovery = passthroughPatientDiscovery;
-        this.auditLogger = auditLogger;
-        this.log = log;
+        this.auditLogger = auditLogger;    
     }
 
     /*
@@ -119,7 +116,7 @@ public class StandardInboundPatientDiscoveryDeferredResponse extends AbstractInb
             response = passthroughPatientDiscovery.process(request, assertion);
         } else {
             ackMsg = "Policy Check Failed";
-            log.warn(ackMsg);
+            LOG.warn(ackMsg);
             response = HL7AckTransforms.createAckErrorFrom201306(request, ackMsg);
         }
 

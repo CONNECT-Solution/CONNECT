@@ -26,8 +26,7 @@
  */
 package gov.hhs.fha.nhinc.mpilib;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 
@@ -39,7 +38,7 @@ public class PatientMatcher {
 
     private static final String TELEPHONE_PREFIX_STRING = "tel:";
 
-    private static Log log = LogFactory.getLog(PatientMatcher.class);
+    private static final Logger LOG = Logger.getLogger(PatientMatcher.class);
     private static PatientMatcher instance = null;
 
     /**
@@ -74,8 +73,6 @@ public class PatientMatcher {
     }
 
     public boolean hasMatchByDemographics(Patient possibleMatch, Patient searchParams) {
-        Log log = getLogger();
-
         PersonName possibleMatchName = getPatientName(possibleMatch);
         PersonName searchName = getPatientName(searchParams);
 
@@ -94,24 +91,20 @@ public class PatientMatcher {
                     .getPhoneNumbers().get(0).getPhoneNumber());
         }
 
-        if (log.isDebugEnabled()) {
-            log.debug("hasMatchByDemoagraphics result ==>" + match);
-            log.debug("[" + serializePatient(searchParams) + "]==[" + serializePatient(possibleMatch) + "]");
-            log.debug("[" + searchParams.getDateOfBirth() + "]==[" + possibleMatch.getDateOfBirth() + "]");
-            log.debug("[" + searchParams.getGender() + "]==[" + possibleMatch.getGender() + "]");
-            log.debug("[" + serializePatientAddress(searchParams) + "]==[" + serializePatientAddress(possibleMatch)
+        if (LOG.isDebugEnabled()) {
+            LOG.debug("hasMatchByDemoagraphics result ==>" + match);
+            LOG.debug("[" + serializePatient(searchParams) + "]==[" + serializePatient(possibleMatch) + "]");
+            LOG.debug("[" + searchParams.getDateOfBirth() + "]==[" + possibleMatch.getDateOfBirth() + "]");
+            LOG.debug("[" + searchParams.getGender() + "]==[" + possibleMatch.getGender() + "]");
+            LOG.debug("[" + serializePatientAddress(searchParams) + "]==[" + serializePatientAddress(possibleMatch)
                     + "]");
             if (searchParams.getPhoneNumbers() != null && searchParams.getPhoneNumbers().size() > 0) {
-                log.debug("[" + searchParams.getPhoneNumbers().get(0).getPhoneNumber() + "]==["
+                LOG.debug("[" + searchParams.getPhoneNumbers().get(0).getPhoneNumber() + "]==["
                         + possibleMatch.getPhoneNumbers().get(0).getPhoneNumber() + "]");
             }
         }
 
         return match;
-    }
-
-    protected Log getLogger() {
-        return log;
     }
 
     private PersonName getPatientName(Patient patient) {

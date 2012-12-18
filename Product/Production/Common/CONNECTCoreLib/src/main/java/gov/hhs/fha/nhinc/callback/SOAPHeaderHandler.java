@@ -51,7 +51,7 @@ import gov.hhs.fha.nhinc.nhinclib.NullChecker;
  */
 public class SOAPHeaderHandler implements SOAPHandler<SOAPMessageContext> {
 
-    private static Logger log = Logger.getLogger(SOAPHeaderHandler.class);
+    private static final Logger LOG = Logger.getLogger(SOAPHeaderHandler.class);
     private static final String WSA_NS = "http://www.w3.org/2005/08/addressing";
     private static final String MESSAGE_ID_CONTEXT = "com.sun.xml.ws.addressing.response.messageID";
     private static final String MESSAGE_ID = "MessageID";
@@ -62,7 +62,7 @@ public class SOAPHeaderHandler implements SOAPHandler<SOAPMessageContext> {
      */
     @Override
     public Set<QName> getHeaders() {
-        log.debug("SoapHeaderHandler.getHeaders");
+        LOG.debug("SoapHeaderHandler.getHeaders");
         return Collections.emptySet();
     }
 
@@ -71,7 +71,7 @@ public class SOAPHeaderHandler implements SOAPHandler<SOAPMessageContext> {
      */
     @Override
     public boolean handleMessage(SOAPMessageContext messageContext) {
-        log.debug("Entering SOAPHeaderHandler.handleMessage");
+        LOG.debug("Entering SOAPHeaderHandler.handleMessage");
         Boolean isOutboundMessage = (Boolean) messageContext.get(MessageContext.MESSAGE_OUTBOUND_PROPERTY);
         try {
             SOAPMessage oMessage = messageContext.getMessage();
@@ -80,7 +80,7 @@ public class SOAPHeaderHandler implements SOAPHandler<SOAPMessageContext> {
             if (isOutboundMessage.booleanValue() && (!messageContext.containsKey(MESSAGE_ID_CONTEXT))) {
                 adjustMessageId(messageContext, oHeader);
             } else {
-                log.debug("Will not adjust messageID on inbound request");
+                LOG.debug("Will not adjust messageID on inbound request");
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -170,7 +170,7 @@ public class SOAPHeaderHandler implements SOAPHandler<SOAPMessageContext> {
      * @return
      */
     public boolean handleFault(SOAPMessageContext context) {
-        log.warn("SoapHeaderHandler.handleFault");
+        LOG.warn("SoapHeaderHandler.handleFault");
         return true;
     }
 
@@ -179,6 +179,6 @@ public class SOAPHeaderHandler implements SOAPHandler<SOAPMessageContext> {
      * @param context
      */
     public void close(MessageContext context) {
-        log.debug("SoapHeaderHandler.close");
+        LOG.debug("SoapHeaderHandler.close");
     }
 }

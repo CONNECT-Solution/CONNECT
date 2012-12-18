@@ -40,7 +40,7 @@ import org.hl7.v3.MFMIMT700711UV01Custodian;
  */
 public class HL7CustodianTransforms {
 
-    private static Logger log = Logger.getLogger(HL7MessageIdGenerator.class);
+    private static final Logger LOG = Logger.getLogger(HL7MessageIdGenerator.class);
     private static final String PROPERTY_FILE = "adapter";
     private static final String PROPERTY_NAME = "assigningAuthorityId";
 
@@ -103,7 +103,7 @@ public class HL7CustodianTransforms {
         try {
             defaultLocalId = PropertyAccessor.getInstance().getProperty(PROPERTY_FILE, PROPERTY_NAME);
         } catch (PropertyAccessException e) {
-            log.error(
+            LOG.error(
                     "PropertyAccessException - Default Assigning Authority property not defined in adapter.properties",
                     e);
         }

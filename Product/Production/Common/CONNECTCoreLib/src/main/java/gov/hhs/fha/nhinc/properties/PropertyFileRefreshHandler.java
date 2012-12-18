@@ -42,7 +42,7 @@ import org.apache.log4j.Logger;
  */
 public class PropertyFileRefreshHandler {
 
-    private Logger log = Logger.getLogger(PropertyFileRefreshHandler.class);
+    private static final Logger LOG = Logger.getLogger(PropertyFileRefreshHandler.class);
     private Hashtable<String, RefreshInfo> refreshInfoHashtable = new Hashtable<String, RefreshInfo>();
 
     PropertyFileRefreshHandler() {
@@ -145,18 +145,18 @@ public class PropertyFileRefreshHandler {
 
     public void printToLog(String propertyFile) {
         RefreshInfo refreshInfo = refreshInfoHashtable.get(propertyFile);
-        log.info("Dumping refresh information for property file: " + propertyFile);
+        LOG.info("Dumping refresh information for property file: " + propertyFile);
         if (refreshInfo != null) {
-            log.info("RefreshMode=" + refreshInfo.m_oRefreshMode);
-            log.info("RefreshMilliseconds=" + refreshInfo.m_iRefreshMilliseconds);
+            LOG.info("RefreshMode=" + refreshInfo.m_oRefreshMode);
+            LOG.info("RefreshMilliseconds=" + refreshInfo.m_iRefreshMilliseconds);
             if (refreshInfo.m_dtRefreshDate != null) {
                 SimpleDateFormat oFormat = new SimpleDateFormat("MM/dd/yyyy.HH:mm:ss");
-                log.info("RefreshDate=" + oFormat.format(refreshInfo.m_dtRefreshDate));
+                LOG.info("RefreshDate=" + oFormat.format(refreshInfo.m_dtRefreshDate));
             } else {
-                log.info("RefreshDate=null");
+                LOG.info("RefreshDate=null");
             }
         } else {
-            log.info("No refresh information found.");
+            LOG.info("No refresh information found.");
         }
     }
 
@@ -165,7 +165,7 @@ public class PropertyFileRefreshHandler {
         try {
             refreshDurationMillisec = Integer.parseInt(cacheRefreshDuration.trim());
         } catch (Exception e1) {
-            log.warn("Invalid CacheRefreshValue found in the property file: " + cacheRefreshDuration
+            LOG.warn("Invalid CacheRefreshValue found in the property file: " + cacheRefreshDuration
                     + "'.  Treating this property file as 'refresh never'.");
         }
 

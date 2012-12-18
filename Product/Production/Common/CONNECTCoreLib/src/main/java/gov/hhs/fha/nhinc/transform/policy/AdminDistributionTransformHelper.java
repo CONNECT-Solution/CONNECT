@@ -45,7 +45,7 @@ import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewaySendAlertMess
 public class AdminDistributionTransformHelper {
     private static final String ActionInValue = "AdminDistIn";
     private static final String ActionOutValue = "AdminDistOut";
-    private Logger log = Logger.getLogger(AdminDistributionTransformHelper.class);
+    private static final Logger LOG = Logger.getLogger(AdminDistributionTransformHelper.class);
 
     public CheckPolicyRequestType transformNhinAlertToCheckPolicy(EDXLDistribution message, AssertionType assertion) {
         CheckPolicyRequestType result = new CheckPolicyRequestType();
@@ -53,14 +53,14 @@ public class AdminDistributionTransformHelper {
         RequestType request = new RequestType();
 
         if (assertion == null) {
-            log.error("Missing Assertion");
+            LOG.error("Missing Assertion");
             return result;
         }
         if (message == null) {
-            log.error("Missing message");
+            LOG.error("Missing message");
             return result;
         }
-        log.debug("transformAdminDistributionNhincToCheckPolicy - adding assertion data");
+        LOG.debug("transformAdminDistributionNhincToCheckPolicy - adding assertion data");
         AssertionHelper assertHelp = new AssertionHelper();
         assertHelp.appendAssertionDataToRequest(request, assertion);
 
@@ -77,24 +77,24 @@ public class AdminDistributionTransformHelper {
 
         CheckPolicyRequestType result = new CheckPolicyRequestType();
         if (message == null) {
-            log.error("Request is null.");
+            LOG.error("Request is null.");
             return result;
         }
         if (target == null || target.isEmpty()) {
-            log.error("target is missing");
+            LOG.error("target is missing");
             return result;
         }
 
         if (message.getEDXLDistribution() == null) {
-            log.error("missing body");
+            LOG.error("missing body");
             return result;
         }
         if (message.getAssertion() == null) {
-            log.error("missing assertion");
+            LOG.error("missing assertion");
             return result;
         }
         if (message.getAssertion().getHomeCommunity() == null) {
-            log.error("missing home community");
+            LOG.error("missing home community");
             return result;
         }
 
@@ -103,12 +103,12 @@ public class AdminDistributionTransformHelper {
         RequestType request = new RequestType();
         AttributeHelper attrHelper = new AttributeHelper();
 
-        log.debug("transformEntityAlertToCheckPolicy - adding subject");
+        LOG.debug("transformEntityAlertToCheckPolicy - adding subject");
         SubjectHelper subjHelp = new SubjectHelper();
         // SubjectType subject = subjHelp.subjectFactory(event.getAssertion().getHomeCommunity(), event.getAssertion());
         SubjectType subject = new SubjectType();
         subject.setSubjectCategory(SubjectHelper.SubjectCategory);
-        log.debug("transformEntityAlertToCheckPolicy - adding subject");
+        LOG.debug("transformEntityAlertToCheckPolicy - adding subject");
         request.getSubject().add(subject);
 
         ResourceType resource = new ResourceType();
@@ -118,7 +118,7 @@ public class AdminDistributionTransformHelper {
 
         request.getResource().add(resource);
 
-        log.debug("transformEntityAlertToCheckPolicy - adding assertion data");
+        LOG.debug("transformEntityAlertToCheckPolicy - adding assertion data");
         AssertionHelper assertHelp = new AssertionHelper();
         assertHelp.appendAssertionDataToRequest(request, message.getAssertion());
 

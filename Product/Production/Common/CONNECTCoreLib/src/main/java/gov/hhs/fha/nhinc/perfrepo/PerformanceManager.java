@@ -47,7 +47,7 @@ import gov.hhs.fha.nhinc.properties.PropertyAccessor;
  */
 public class PerformanceManager {
 
-    private static Logger log = Logger.getLogger(PerformanceManager.class);
+    private static final Logger LOG = Logger.getLogger(PerformanceManager.class);
     private static PerformanceManager perfManager = new PerformanceManager();
     private static final String PERF_LOG_ENABLED = "performanceLogEnabled";
 
@@ -55,7 +55,7 @@ public class PerformanceManager {
      * Constructor
      */
     private PerformanceManager() {
-        log.info("PerformanceManager - Initialized");
+        LOG.info("PerformanceManager - Initialized");
     }
 
     /**
@@ -64,7 +64,7 @@ public class PerformanceManager {
      * @return PerformanceManager
      */
     public static PerformanceManager getPerformanceManagerInstance() {
-        log.debug("getPerformanceManagerInstance()..");
+        LOG.debug("getPerformanceManagerInstance()..");
         return perfManager;
     }
 
@@ -82,7 +82,7 @@ public class PerformanceManager {
     @Deprecated
     public Long logPerformanceStart(final Timestamp time, final String servicetype, final String messagetype,
             final String direction, final String communityid) {
-        log.debug("PerformanceManager.logPerformanceStart() - Begin");
+        LOG.debug("PerformanceManager.logPerformanceStart() - Begin");
 
         Long newId = null;
 
@@ -90,10 +90,10 @@ public class PerformanceManager {
             newId = createPerformanceRecord(time, servicetype, messagetype, direction, communityid, null, null, null,
                     null, null);
         } else {
-            log.info("PerformanceManager.logPerformanceStart() - Performance Monitor is Disabled");
+            LOG.info("PerformanceManager.logPerformanceStart() - Performance Monitor is Disabled");
         }
 
-        log.debug("PerformanceManager.logPerformanceStart() - End");
+        LOG.debug("PerformanceManager.logPerformanceStart() - End");
 
         return newId;
     }
@@ -110,7 +110,7 @@ public class PerformanceManager {
      */
     public Long logPerformanceStart(final String servicetype, final String messagetype,
             final String direction, final String communityid) {
-        log.debug("PerformanceManager.logPerformanceStart() - Begin");
+        LOG.debug("PerformanceManager.logPerformanceStart() - Begin");
 
         Long newId = null;
 
@@ -118,10 +118,10 @@ public class PerformanceManager {
             newId = createPerformanceRecord(createTimestamp(), servicetype, messagetype, direction, communityid, null, null, null,
                     null, null);
         } else {
-            log.info("PerformanceManager.logPerformanceStart() - Performance Monitor is Disabled");
+            LOG.info("PerformanceManager.logPerformanceStart() - Performance Monitor is Disabled");
         }
 
-        log.debug("PerformanceManager.logPerformanceStart() - End");
+        LOG.debug("PerformanceManager.logPerformanceStart() - End");
 
         return newId;
     }
@@ -138,7 +138,7 @@ public class PerformanceManager {
      */
     public Long logPerformanceStop(final String servicetype, final String messagetype,
             final String direction, final String communityid) {
-        log.debug("PerformanceManager.logPerformanceStart() - Begin");
+        LOG.debug("PerformanceManager.logPerformanceStart() - Begin");
 
         Long newId = null;
 
@@ -146,10 +146,10 @@ public class PerformanceManager {
             newId = createPerformanceRecord(createTimestamp(), servicetype, messagetype, direction, communityid, null, null, null,
                     null, null);
         } else {
-            log.info("PerformanceManager.logPerformanceStop() - Performance Monitor is Disabled");
+            LOG.info("PerformanceManager.logPerformanceStop() - Performance Monitor is Disabled");
         }
 
-        log.debug("PerformanceManager.logPerformanceStop() - End");
+        LOG.debug("PerformanceManager.logPerformanceStop() - End");
 
         return newId;
     }
@@ -172,9 +172,9 @@ public class PerformanceManager {
 
         if (PerfrepositoryDao.getPerfrepositoryDaoInstance().insertPerfrepository(perfRecord)) {
             newId = perfRecord.getId();
-            log.info("PerformanceManager.logPerformanceStart() - New Performance Log Id = " + newId);
+            LOG.info("PerformanceManager.logPerformanceStart() - New Performance Log Id = " + newId);
         } else {
-            log.warn("PerformanceManager.logPerformanceStart() - ERROR Inserting New Performance Log Record");
+            LOG.warn("PerformanceManager.logPerformanceStart() - ERROR Inserting New Performance Log Record");
         }
         return newId;
     }
@@ -191,7 +191,7 @@ public class PerformanceManager {
      */
     @Deprecated
     public Long logPerformanceStop(Long id, Timestamp starttime, Timestamp stoptime) {
-        log.debug("PerformanceManager.logPerformanceStop() - Begin");
+        LOG.debug("PerformanceManager.logPerformanceStop() - Begin");
 
         Long duration = null;
 
@@ -203,10 +203,10 @@ public class PerformanceManager {
                 // Calculate duration from starttime to stoptime in milliseconds
                 if (starttime != null && stoptime != null) {
                     duration = (stoptime.getTime() - starttime.getTime());
-                    log.info("PerformanceManager.logPerformanceStop() - Performance Duration = " + duration);
+                    LOG.info("PerformanceManager.logPerformanceStop() - Performance Duration = " + duration);
                 } else {
                     duration = null;
-                    log.warn("PerformanceManager.logPerformanceStop() - ERROR Calculating Performance Duration - starttime and/or stoptime null");
+                    LOG.warn("PerformanceManager.logPerformanceStop() - ERROR Calculating Performance Duration - starttime and/or stoptime null");
                 }
 
                 // perfRecord.setStoptime(stoptime);
@@ -215,14 +215,14 @@ public class PerformanceManager {
 
                 if (!PerfrepositoryDao.getPerfrepositoryDaoInstance().updatePerfrepository(perfRecord)) {
                     duration = null;
-                    log.warn("PerformanceManager.logPerformanceStop() - ERROR Updating Performance Log Record");
+                    LOG.warn("PerformanceManager.logPerformanceStop() - ERROR Updating Performance Log Record");
                 }
             }
         } else {
-            log.warn("PerformanceManager.logPerformanceStop() - WARN Performance Log Id NULL or Zero(0)");
+            LOG.warn("PerformanceManager.logPerformanceStop() - WARN Performance Log Id NULL or Zero(0)");
         }
 
-        log.debug("PerformanceManager.logPerformanceStop() - End");
+        LOG.debug("PerformanceManager.logPerformanceStop() - End");
 
         return duration;
     }
@@ -238,13 +238,13 @@ public class PerformanceManager {
      */
     public List<CountDataType> getPerfrepositoryCountData(Calendar beginTime, Calendar endTime) {
 
-        log.debug("getPerfrepositoryCountData() method start: beginTime ==" + beginTime + " :::   endTime==" + endTime);
+        LOG.debug("getPerfrepositoryCountData() method start: beginTime ==" + beginTime + " :::   endTime==" + endTime);
 
         List<CountDataType> countDataList = PerfrepositoryDao.getPerfrepositoryDaoInstance()
                 .getPerfrepositoryCountRange(new Timestamp(beginTime.getTimeInMillis()),
                         new Timestamp(endTime.getTimeInMillis()));
 
-        log.debug("getPerfrepositoryCountData() method end");
+        LOG.debug("getPerfrepositoryCountData() method end");
 
         return countDataList;
     }
@@ -260,13 +260,13 @@ public class PerformanceManager {
      */
     public List<DetailDataType> getPerfrepositoryDetailData(Calendar beginTime, Calendar endTime) {
 
-        log.debug("getPerfrepositoryDetailData() method start: beginTime ==" + beginTime + " :::   endTime==" + endTime);
+        LOG.debug("getPerfrepositoryDetailData() method start: beginTime ==" + beginTime + " :::   endTime==" + endTime);
 
         List<DetailDataType> detailDataList = PerfrepositoryDao.getPerfrepositoryDaoInstance()
                 .getPerfrepositoryDetailRange(new Timestamp(beginTime.getTimeInMillis()),
                         new Timestamp(endTime.getTimeInMillis()));
 
-        log.debug("getPerfrepositoryDetailData() method end");
+        LOG.debug("getPerfrepositoryDetailData() method end");
 
         return detailDataList;
     }
@@ -286,9 +286,9 @@ public class PerformanceManager {
                 match = true;
             }
         } catch (PropertyAccessException ex) {
-            log.error("Error: Failed to retrieve " + PERF_LOG_ENABLED + " from property file: "
+            LOG.error("Error: Failed to retrieve " + PERF_LOG_ENABLED + " from property file: "
                     + NhincConstants.GATEWAY_PROPERTY_FILE);
-            log.error(ex.getMessage());
+            LOG.error(ex.getMessage());
         }
         return match;
     }

@@ -41,7 +41,7 @@ import org.hibernate.Transaction;
  */
 public class DatabaseEventLoggerDao {
 
-    private static Logger log = Logger.getLogger(DatabaseEventLoggerDao.class);    
+    private static final Logger LOG = Logger.getLogger(DatabaseEventLoggerDao.class);    
 
     private static class SingletonHolder { 
         public static final DatabaseEventLoggerDao INSTANCE = new DatabaseEventLoggerDao();
@@ -52,7 +52,7 @@ public class DatabaseEventLoggerDao {
      * @return singleton instance of DatabaseEventLoggerDao
      */
     public static DatabaseEventLoggerDao getInstance() {
-        log.debug("getInstance()...");
+        LOG.debug("getInstance()...");
         return SingletonHolder.INSTANCE;
     }
     
@@ -80,7 +80,7 @@ public class DatabaseEventLoggerDao {
         } catch (HibernateException e) {
             result = false;
             transactionRollback(tx);
-            log.error("Exception during insertion caused by :" + e.getMessage(), e);
+            LOG.error("Exception during insertion caused by :" + e.getMessage(), e);
         } finally {
             closeSession(session, false);
         }

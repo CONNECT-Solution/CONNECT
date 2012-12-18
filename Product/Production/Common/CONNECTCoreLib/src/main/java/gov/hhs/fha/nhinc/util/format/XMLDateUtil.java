@@ -40,7 +40,7 @@ import org.apache.log4j.Logger;
  */
 public class XMLDateUtil {
 
-    private static Logger log = Logger.getLogger(XMLDateUtil.class);
+    private static final Logger LOG = Logger.getLogger(XMLDateUtil.class);
 
     /**
      * Transform a date in a long to a XMLGregorianCalendar
@@ -61,7 +61,7 @@ public class XMLDateUtil {
         } catch (DatatypeConfigurationException e) {
             throw new RuntimeException(e);
         } catch (Exception e) {
-            log.error(e);
+            LOG.error(e);
         }
 
         return xmlCal;

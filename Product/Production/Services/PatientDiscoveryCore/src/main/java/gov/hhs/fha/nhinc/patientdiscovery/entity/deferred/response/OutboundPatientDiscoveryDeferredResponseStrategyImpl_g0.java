@@ -35,8 +35,7 @@ import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryAuditor;
 import gov.hhs.fha.nhinc.patientdiscovery.nhin.deferred.response.proxy.NhinPatientDiscoveryDeferredRespProxy;
 import gov.hhs.fha.nhinc.patientdiscovery.nhin.deferred.response.proxy.NhinPatientDiscoveryDeferredRespProxyObjectFactory;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 import org.hl7.v3.MCCIIN000002UV01;
 import org.hl7.v3.PRPAIN201306UV02;
 
@@ -46,28 +45,21 @@ import org.hl7.v3.PRPAIN201306UV02;
  */
 public class OutboundPatientDiscoveryDeferredResponseStrategyImpl_g0 implements OrchestrationStrategy {
 
-    private static Log log = LogFactory.getLog(OutboundPatientDiscoveryDeferredResponseStrategyImpl_g0.class);
-
-    public OutboundPatientDiscoveryDeferredResponseStrategyImpl_g0() {
-    }
-
-    protected Log getLogger() {
-        return log;
-    }
+    private static final Logger LOG = Logger.getLogger(OutboundPatientDiscoveryDeferredResponseStrategyImpl_g0.class);
 
     @Override
     public void execute(Orchestratable message) {
         if (message instanceof OutboundPatientDiscoveryDeferredResponseOrchestratable) {
             execute((OutboundPatientDiscoveryDeferredResponseOrchestratable) message);
         } else {
-            getLogger().error("Not an OutboundPatientDiscoveryDeferredResponseOrchestratable.");
+            LOG.error("Not an OutboundPatientDiscoveryDeferredResponseOrchestratable.");
         }
     }
 
     public void execute(OutboundPatientDiscoveryDeferredResponseOrchestratable message) {
-        getLogger().debug("Begin OutboundPatientDiscoveryDeferredResponseOrchestratableImpl_g0.process");
+        LOG.debug("Begin OutboundPatientDiscoveryDeferredResponseOrchestratableImpl_g0.process");
         if (message == null) {
-            getLogger().debug("OutboundPatientDiscoveryDeferredResponseOrchestratable was null");
+            LOG.debug("OutboundPatientDiscoveryDeferredResponseOrchestratable was null");
             return;
         }
 
@@ -83,11 +75,11 @@ public class OutboundPatientDiscoveryDeferredResponseStrategyImpl_g0 implements 
             
             auditResponseFromNhin(message.getResponse(), message.getAssertion());
         } else {
-            getLogger().error(
+            LOG.error(
                     "OutboundPatientDiscoveryDeferredResponseStrategyImpl_g0 received a message "
                             + "which was not of type OutboundPatientDiscoveryDeferredResponseOrchestratable.");
         }
-        getLogger().debug("End OutboundPatientDiscoveryDeferredResponseStrategyImpl_g0.process");
+       	LOG.debug("End OutboundPatientDiscoveryDeferredResponseStrategyImpl_g0.process");
     }
 
     private void auditRequestToNhin(PRPAIN201306UV02 request, AssertionType assertion) {

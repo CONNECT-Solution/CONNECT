@@ -38,7 +38,7 @@ import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
  *
  */
 public class PropertyAccessorFileUtilities {
-    private Logger log = Logger.getLogger(PropertyAccessorFileUtilities.class);
+    private static final Logger LOG = Logger.getLogger(PropertyAccessorFileUtilities.class);
     private String propertyFileDirAbsolutePath = "";
         
     PropertyAccessorFileUtilities() {
@@ -50,14 +50,14 @@ public class PropertyAccessorFileUtilities {
 
         boolean failedToLoadPath = false;
         if (propertyFileDirAbsolutePath == null) {
-            log.warn("The runtime property nhinc.properties.dir is not set!!!  "
+            LOG.warn("The runtime property nhinc.properties.dir is not set!!!  "
                     + "Looking for the environment variable NHINC_PROPERTIES_DIR as a fall back.  "
                     + "Please set the runtime nhinc.properties.dir system property in your configuration files.");
             
             propertyFileDirAbsolutePath = getNhincPropertyDirValueFromSysEnv();
             if (propertyFileDirAbsolutePath == null) {
                 failedToLoadPath = true;
-                log.error("Unable to determine the path to the configuration files.  "
+                LOG.error("Unable to determine the path to the configuration files.  "
                         + "Please make sure that the runtime nhinc.properties.dir system property is set to the absolute location "
                         + "of your CONNECT configuration files.");
             }

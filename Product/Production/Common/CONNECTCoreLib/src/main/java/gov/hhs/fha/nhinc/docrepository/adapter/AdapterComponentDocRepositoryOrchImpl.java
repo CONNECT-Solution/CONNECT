@@ -123,7 +123,7 @@ public class AdapterComponentDocRepositoryOrchImpl {
     public static final String XDS_ASSOCIATION_TYPE_REPLACE = "urn:oasis:names:tc:ebxml-regrep:AssociationType:RPLC";
     // private static final String DATE_FORMAT_STRING = "yyyyMMddhhmmss";
     private static final String VALUE_LIST_SEPERATOR = "~";
-    private Logger log = Logger.getLogger(AdapterComponentDocRepositoryOrchImpl.class);
+    private static final Logger LOG = Logger.getLogger(AdapterComponentDocRepositoryOrchImpl.class);
     private UTCDateUtil utcDateUtil = null;
     private static final String REPOSITORY_UNIQUE_ID = "1";
     private static final String XDS_DOCUMENT_UNIQUE_ID_ERROR = "XDSDocumentUniqueIdError";
@@ -205,7 +205,7 @@ public class AdapterComponentDocRepositoryOrchImpl {
                     reposUniqueId = StringUtil.extractStringFromTokens(oDocRequest.getRepositoryUniqueId(), "'()");
                     repositoryUniqueIds.add(reposUniqueId);
                 } else {
-                    log.debug("RepositoryId not found");
+                    LOG.debug("RepositoryId not found");
                 }
 
             } // while (iterDocRequest.hasNext())
@@ -215,7 +215,7 @@ public class AdapterComponentDocRepositoryOrchImpl {
                 for (String repositoryUniqueId : repositoryUniqueIds) {
                     if (!REPOSITORY_UNIQUE_ID.equals(repositoryUniqueId)) {
                         repositoryIdMatched = false;
-                        log.warn("Document repository message not processed due to repository "
+                        LOG.warn("Document repository message not processed due to repository "
                                 + " unique id mismatch. Expected: " + REPOSITORY_UNIQUE_ID + ", found: "
                                 + repositoryUniqueId);
                     }
@@ -286,7 +286,7 @@ public class AdapterComponentDocRepositoryOrchImpl {
                     // --------------------
                     if (NullChecker.isNotNullish(doc.getDocumentUniqueId())) {
                         oDocResponse.setDocumentUniqueId(doc.getDocumentUniqueId());
-                        log.info("Document unique id: " + doc.getDocumentUniqueId());
+                        LOG.info("Document unique id: " + doc.getDocumentUniqueId());
                         bHasData = true;
                     }
 
@@ -294,7 +294,7 @@ public class AdapterComponentDocRepositoryOrchImpl {
                     // ----------
                     if (NullChecker.isNotNullish(doc.getMimeType())) {
                         oDocResponse.setMimeType(doc.getMimeType());
-                        log.info("Mime type: " + doc.getMimeType());
+                        LOG.info("Mime type: " + doc.getMimeType());
                         bHasData = true;
                     }
 
@@ -315,7 +315,7 @@ public class AdapterComponentDocRepositoryOrchImpl {
                 }
 
             } else {
-                log.info("loadDocumentResponses - no response messages returned.");
+                LOG.info("loadDocumentResponses - no response messages returned.");
                 response.getRegistryResponse().setStatus(responseStatus);
                 RegistryErrorList regErrList = new RegistryErrorList();
                 response.getRegistryResponse().setRegistryErrorList(regErrList);
@@ -335,7 +335,7 @@ public class AdapterComponentDocRepositoryOrchImpl {
                 response.getRegistryResponse().setStatus(XDS_RETRIEVE_RESPONSE_STATUS_SUCCESS);
             }
         } else {
-            log.info("loadDocumentResponses - response object was null");
+            LOG.info("loadDocumentResponses - response object was null");
         }
     }
 
@@ -343,7 +343,7 @@ public class AdapterComponentDocRepositoryOrchImpl {
         boolean bHasData = false;
         if ((doc.getRawData() != null) && (doc.getRawData().length > 0)) {
             String url = new String(doc.getRawData());
-            log.info("Raw Data: " + url);
+            LOG.info("Raw Data: " + url);
 
             try {
                 URI uri = new URI(url);
@@ -353,7 +353,7 @@ public class AdapterComponentDocRepositoryOrchImpl {
                     oDocResponse.setDocument(dh);
                     bHasData = true;
                 } catch (IOException ex) {
-                    log.error("Failed to read contents of the file : " + sourceFile.getName() + ". " + ex.getMessage());
+                    LOG.error("Failed to read contents of the file : " + sourceFile.getName() + ". " + ex.getMessage());
                     bHasData = false;
                 }
             } catch (URISyntaxException e) {
@@ -378,7 +378,7 @@ public class AdapterComponentDocRepositoryOrchImpl {
      */
     public oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType documentRepositoryProvideAndRegisterDocumentSet(
             ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType body) {
-        log.debug("Entering docRepositoryHelper.documentRepositoryProvideAndRegisterDocumentSet method.");
+        LOG.debug("Entering docRepositoryHelper.documentRepositoryProvideAndRegisterDocumentSet method.");
 
         RegistryResponseType registryResponse = new oasis.names.tc.ebxml_regrep.xsd.rs._3.ObjectFactory()
                 .createRegistryResponseType();
@@ -397,16 +397,16 @@ public class AdapterComponentDocRepositoryOrchImpl {
 
             errorList.getRegistryError().add(error);
 
-            log.error("Error Location: " + error.getLocation() + "; \n" + "Error Severity: " + error.getSeverity()
+            LOG.error("Error Location: " + error.getLocation() + "; \n" + "Error Severity: " + error.getSeverity()
                     + "; \n" + "Error ErrorCode: " + error.getErrorCode() + "; \n" + "Error CodeContext: "
                     + error.getCodeContext());
 
         } else {
-            log.debug("ProvideAndRegisterDocumentSetRequestType element is not null.");
+            LOG.debug("ProvideAndRegisterDocumentSetRequestType element is not null.");
 
             // retrieve the documents (base64encoded representation)
             List<ProvideAndRegisterDocumentSetRequestType.Document> binaryDocs = body.getDocument();
-            log.debug("There are " + binaryDocs.size() + " binary documents in this request.");
+            LOG.debug("There are " + binaryDocs.size() + " binary documents in this request.");
 
             // loop through binaryDocs list and put them into a hashmap for later use
             // when looping through the metadata - we need to associate the metadata
@@ -421,21 +421,21 @@ public class AdapterComponentDocRepositoryOrchImpl {
             RegistryObjectListType regObjectList = submitObjectsRequest.getRegistryObjectList();
             List<JAXBElement<? extends oasis.names.tc.ebxml_regrep.xsd.rim._3.IdentifiableType>> identifiableObjectList = regObjectList
                     .getIdentifiable();
-            log.debug("There is/are " + identifiableObjectList.size()
+            LOG.debug("There is/are " + identifiableObjectList.size()
                     + " identifiableObject(s) in this registryObjectsList.");
 
             boolean requestHasReplacementAssociation = checkForReplacementAssociation(identifiableObjectList, errorList);
 
             for (int i = 0; i < identifiableObjectList.size(); i++) {
                 oasis.names.tc.ebxml_regrep.xsd.rim._3.ExtrinsicObjectType extrinsicObject = null;
-                log.debug("Item " + i + " identifiableObject is of DeclaredType: "
+                LOG.debug("Item " + i + " identifiableObject is of DeclaredType: "
                         + identifiableObjectList.get(i).getDeclaredType());
 
                 // the getValue method will return the non-JAXBElement<? extends...> object
                 Object tempObj = identifiableObjectList.get(i).getValue();
                 if (tempObj instanceof oasis.names.tc.ebxml_regrep.xsd.rim._3.ExtrinsicObjectType) {
                     extrinsicObject = (ExtrinsicObjectType) tempObj;
-                    log.debug("extrinsicObject successfully populated");
+                    LOG.debug("extrinsicObject successfully populated");
 
                     // get the externalIdentifiers so that we can get the docId and patientId
                     List<oasis.names.tc.ebxml_regrep.xsd.rim._3.ExternalIdentifierType> externalIdentifiers = extrinsicObject
@@ -453,7 +453,7 @@ public class AdapterComponentDocRepositoryOrchImpl {
 
                         errorList.getRegistryError().add(error);
 
-                        log.error("Error Location: " + error.getLocation() + "; \n" + "Error Severity: "
+                        LOG.error("Error Location: " + error.getLocation() + "; \n" + "Error Severity: "
                                 + error.getSeverity() + "; \n" + "Error ErrorCode: " + error.getErrorCode() + "; \n"
                                 + "Error CodeContext: " + error.getCodeContext());
 
@@ -465,7 +465,7 @@ public class AdapterComponentDocRepositoryOrchImpl {
                         String documentUniqueId = extractMetadataFromExternalIdentifiers(externalIdentifiers,
                                 XDS_DOCUMENT_UNIQUE_ID);
                         if (documentUniqueId != null) {
-                            log.debug("DocumentUniqueId for ExtrinsicObject " + i + ": " + documentUniqueId);
+                            LOG.debug("DocumentUniqueId for ExtrinsicObject " + i + ": " + documentUniqueId);
                             doc.setDocumentUniqueId(documentUniqueId);
                         } else {
                             RegistryError error = new oasis.names.tc.ebxml_regrep.xsd.rs._3.ObjectFactory()
@@ -479,7 +479,7 @@ public class AdapterComponentDocRepositoryOrchImpl {
 
                             errorList.getRegistryError().add(error);
 
-                            log.error("Error Location: " + error.getLocation() + "; \n" + "Error Severity: "
+                            LOG.error("Error Location: " + error.getLocation() + "; \n" + "Error Severity: "
                                     + error.getSeverity() + "; \n" + "Error ErrorCode: " + error.getErrorCode()
                                     + "; \n" + "Error CodeContext: " + error.getCodeContext());
                         }
@@ -488,9 +488,9 @@ public class AdapterComponentDocRepositoryOrchImpl {
                         String patientId = extractMetadataFromExternalIdentifiers(externalIdentifiers, XDS_PATIENT_ID);
                         if (patientId != null) {
                             // remove the assigning authority value
-                            log.debug("patientId for ExtrinsicObject " + i + ": " + patientId);
+                            LOG.debug("patientId for ExtrinsicObject " + i + ": " + patientId);
                             String patientIdReformatted = PatientIdFormatUtil.stripQuotesFromPatientId(patientId);
-                            log.debug("Reformatted patientId for ExtrinsicObject " + i + ": " + patientIdReformatted);
+                            LOG.debug("Reformatted patientId for ExtrinsicObject " + i + ": " + patientIdReformatted);
                             doc.setPatientId(patientIdReformatted);
                         } else {
                             RegistryError error = new oasis.names.tc.ebxml_regrep.xsd.rs._3.ObjectFactory()
@@ -504,7 +504,7 @@ public class AdapterComponentDocRepositoryOrchImpl {
 
                             errorList.getRegistryError().add(error);
 
-                            log.error("Error Location: " + error.getLocation() + "; \n" + "Error Severity: "
+                            LOG.error("Error Location: " + error.getLocation() + "; \n" + "Error Severity: "
                                     + error.getSeverity() + "; \n" + "Error ErrorCode: " + error.getErrorCode()
                                     + "; \n" + "Error CodeContext: " + error.getCodeContext());
                         }
@@ -512,7 +512,7 @@ public class AdapterComponentDocRepositoryOrchImpl {
                         // extract the document title
                         InternationalStringType docTitle = extrinsicObject.getName();
                         if (docTitle != null) {
-                            log.debug("DocumentTitle for ExtrinsicObject " + i + ": "
+                            LOG.debug("DocumentTitle for ExtrinsicObject " + i + ": "
                                     + docTitle.getLocalizedString().get(0).getValue());
                             doc.setDocumentTitle(docTitle.getLocalizedString().get(0).getValue());
                         }
@@ -520,13 +520,13 @@ public class AdapterComponentDocRepositoryOrchImpl {
                         // extract the document comments
                         InternationalStringType docComments = extrinsicObject.getDescription();
                         if (docComments != null) {
-                            log.debug("DocumentComments for ExtrinsicObject " + i + ": "
+                            LOG.debug("DocumentComments for ExtrinsicObject " + i + ": "
                                     + docComments.getLocalizedString().get(0).getValue());
                             doc.setComments(docComments.getLocalizedString().get(0).getValue());
                         }
 
                         // extract mimeType
-                        log.debug("Document mimeType for ExtrinsicObject " + i + ": " + extrinsicObject.getMimeType());
+                        LOG.debug("Document mimeType for ExtrinsicObject " + i + ": " + extrinsicObject.getMimeType());
                         doc.setMimeType(extrinsicObject.getMimeType());
 
                         // there are many metadata items at the extrinsicObject/document
@@ -547,9 +547,9 @@ public class AdapterComponentDocRepositoryOrchImpl {
                             } else {
                                 intendedRecipientOrganization = intendedRecipientValue;
                             }
-                            log.debug("Document intendedRecipientPerson for ExtrinsicObject " + i + ": "
+                            LOG.debug("Document intendedRecipientPerson for ExtrinsicObject " + i + ": "
                                     + intendedRecipientPerson);
-                            log.debug("Document intendedRecipientOrganization for ExtrinsicObject " + i + ": "
+                            LOG.debug("Document intendedRecipientOrganization for ExtrinsicObject " + i + ": "
                                     + intendedRecipientOrganization);
                             doc.setIntendedRecipientPerson(intendedRecipientPerson);
                             doc.setIntendedRecipientOrganization(intendedRecipientOrganization);
@@ -557,58 +557,58 @@ public class AdapterComponentDocRepositoryOrchImpl {
 
                         // extract languageCode
                         doc.setLanguageCode(extractMetadataFromSlots(documentSlots, XDS_LANGUAGE_CODE_SLOT, 0));
-                        log.debug("Document LanguageCode for ExtrinsicObject " + i + ": " + doc.getLanguageCode());
+                        LOG.debug("Document LanguageCode for ExtrinsicObject " + i + ": " + doc.getLanguageCode());
 
                         // extract legalAuthenticator
                         doc.setLegalAuthenticator(extractMetadataFromSlots(documentSlots, XDS_LEGAL_AUTHENTICATOR_SLOT,
                                 0));
-                        log.debug("Document LegalAuthenticator for ExtrinsicObject " + i + ": "
+                        LOG.debug("Document LegalAuthenticator for ExtrinsicObject " + i + ": "
                                 + doc.getLegalAuthenticator());
 
                         // extract Date fields
                         String creationTime = extractMetadataFromSlots(documentSlots, XDS_CREATION_TIME_SLOT, 0);
-                        log.debug("Document creationTime for ExtrinsicObject " + i + ": " + creationTime);
+                        LOG.debug("Document creationTime for ExtrinsicObject " + i + ": " + creationTime);
                         // TODO add an error code for invalid date format
                         doc.setCreationTime(utcDateUtil.parseUTCDateOptionalTimeZone(creationTime));
 
                         String startTime = extractMetadataFromSlots(documentSlots, XDS_START_TIME_SLOT, 0);
-                        log.debug("Document startTime for ExtrinsicObject " + i + ": " + startTime);
+                        LOG.debug("Document startTime for ExtrinsicObject " + i + ": " + startTime);
                         doc.setServiceStartTime(utcDateUtil.parseUTCDateOptionalTimeZone(startTime));
 
                         String stopTime = extractMetadataFromSlots(documentSlots, XDS_STOP_TIME_SLOT, 0);
-                        log.debug("Document stopTime for ExtrinsicObject " + i + ": " + stopTime);
+                        LOG.debug("Document stopTime for ExtrinsicObject " + i + ": " + stopTime);
                         doc.setServiceStopTime(utcDateUtil.parseUTCDateOptionalTimeZone(stopTime));
 
                         // extract sourcePatientInfo metadata
                         String sourcePatientId = extractMetadataFromSlots(documentSlots, XDS_SOURCE_PATIENT_ID_SLOT, 0);
-                        log.debug("sourcePatientid: " + sourcePatientId);
+                        LOG.debug("sourcePatientid: " + sourcePatientId);
                         if (sourcePatientId != null) {
                             // remove the assigning authority value
                             String sourcePatientIdReformatted = PatientIdFormatUtil
                                     .stripQuotesFromPatientId(sourcePatientId);
-                            log.debug("Reformatted sourcePatientId for ExtrinsicObject " + i + ": "
+                            LOG.debug("Reformatted sourcePatientId for ExtrinsicObject " + i + ": "
                                     + sourcePatientIdReformatted);
                             doc.setSourcePatientId(sourcePatientIdReformatted);
                         }
 
                         String pid3 = extractPatientInfo(documentSlots, XDS_SOURCE_PATIENT_INFO_PID3);
-                        log.debug("pid3: " + pid3);
+                        LOG.debug("pid3: " + pid3);
                         doc.setPid3(pid3);
 
                         String pid5 = extractPatientInfo(documentSlots, XDS_SOURCE_PATIENT_INFO_PID5);
-                        log.debug("pid5: " + pid5);
+                        LOG.debug("pid5: " + pid5);
                         doc.setPid5(pid5);
 
                         String pid7 = extractPatientInfo(documentSlots, XDS_SOURCE_PATIENT_INFO_PID7);
-                        log.debug("pid7: " + pid7);
+                        LOG.debug("pid7: " + pid7);
                         doc.setPid7(pid7);
 
                         String pid8 = extractPatientInfo(documentSlots, XDS_SOURCE_PATIENT_INFO_PID8);
-                        log.debug("pid8: " + pid8);
+                        LOG.debug("pid8: " + pid8);
                         doc.setPid8(pid8);
 
                         String pid11 = extractPatientInfo(documentSlots, XDS_SOURCE_PATIENT_INFO_PID11);
-                        log.debug("pid11: " + pid11);
+                        LOG.debug("pid11: " + pid11);
                         doc.setPid11(pid11);
 
                         // extract classification metadata items
@@ -618,70 +618,70 @@ public class AdapterComponentDocRepositoryOrchImpl {
                         // extract the document's author info
                         String authorPerson = extractClassificationMetadata(classifications, XDS_AUTHOR_CLASSIFICATION,
                                 XDS_AUTHOR_PERSON_SLOT, -1);
-                        log.debug("authorPerson: " + authorPerson);
+                        LOG.debug("authorPerson: " + authorPerson);
                         doc.setAuthorPerson(authorPerson);
 
                         String authorInstitution = extractClassificationMetadata(classifications,
                                 XDS_AUTHOR_CLASSIFICATION, XDS_AUTHOR_INSTITUTION_SLOT, -1);
-                        log.debug("authorInstitution: " + authorInstitution);
+                        LOG.debug("authorInstitution: " + authorInstitution);
                         doc.setAuthorInstitution(authorInstitution);
 
                         String authorRole = extractClassificationMetadata(classifications, XDS_AUTHOR_CLASSIFICATION,
                                 XDS_AUTHOR_ROLE_SLOT, -1);
-                        log.debug("authorRole: " + authorRole);
+                        LOG.debug("authorRole: " + authorRole);
                         doc.setAuthorRole(authorRole);
 
                         String authorSpeciality = extractClassificationMetadata(classifications,
                                 XDS_AUTHOR_CLASSIFICATION, XDS_AUTHOR_SPECIALITY_SLOT, -1);
-                        log.debug("authorSpeciality: " + authorSpeciality);
+                        LOG.debug("authorSpeciality: " + authorSpeciality);
                         doc.setAuthorSpecialty(authorSpeciality);
 
                         // extract classCode
                         String classCode = extractClassificationMetadata(classifications, XDS_CLASSCODE_CLASSIFICATION,
                                 XDS_NODE_REPRESENTATION);
-                        log.debug("classCode: " + classCode);
+                        LOG.debug("classCode: " + classCode);
                         doc.setClassCode(classCode);
 
                         String classCodeScheme = extractClassificationMetadata(classifications,
                                 XDS_CLASSCODE_CLASSIFICATION, XDS_CODING_SCHEME_SLOT, 0);
-                        log.debug("classCodeScheme: " + classCodeScheme);
+                        LOG.debug("classCodeScheme: " + classCodeScheme);
                         doc.setClassCodeScheme(classCodeScheme);
 
                         String classCodeDisplayName = extractClassificationMetadata(classifications,
                                 XDS_CLASSCODE_CLASSIFICATION, XDS_NAME);
-                        log.debug("classCodeDisplayName: " + classCodeDisplayName);
+                        LOG.debug("classCodeDisplayName: " + classCodeDisplayName);
                         doc.setClassCodeDisplayName(classCodeDisplayName);
 
                         // extract confidentialityCode
                         String confidentialityCode = extractClassificationMetadata(classifications,
                                 XDS_CONFIDENTIALITY_CODE_CLASSIFICATION, XDS_NODE_REPRESENTATION);
-                        log.debug("confidentialityCode: " + confidentialityCode);
+                        LOG.debug("confidentialityCode: " + confidentialityCode);
                         doc.setConfidentialityCode(confidentialityCode);
 
                         String confidentialityCodeScheme = extractClassificationMetadata(classifications,
                                 XDS_CONFIDENTIALITY_CODE_CLASSIFICATION, XDS_CODING_SCHEME_SLOT, 0);
-                        log.debug("confidentialityCodeScheme: " + confidentialityCodeScheme);
+                        LOG.debug("confidentialityCodeScheme: " + confidentialityCodeScheme);
                         doc.setConfidentialityCodeScheme(confidentialityCodeScheme);
 
                         String confidentialityCodeDisplayName = extractClassificationMetadata(classifications,
                                 XDS_CONFIDENTIALITY_CODE_CLASSIFICATION, XDS_NAME);
-                        log.debug("confidentialityCodeDisplayName: " + confidentialityCodeDisplayName);
+                        LOG.debug("confidentialityCodeDisplayName: " + confidentialityCodeDisplayName);
                         doc.setConfidentialityCodeDisplayName(confidentialityCodeDisplayName);
 
                         // extract formatCode
                         String formatCode = extractClassificationMetadata(classifications,
                                 XDS_FORMAT_CODE_CLASSIFICATION, XDS_NODE_REPRESENTATION);
-                        log.debug("formatCode: " + formatCode);
+                        LOG.debug("formatCode: " + formatCode);
                         doc.setFormatCode(formatCode);
 
                         String formatCodeScheme = extractClassificationMetadata(classifications,
                                 XDS_FORMAT_CODE_CLASSIFICATION, XDS_CODING_SCHEME_SLOT, 0);
-                        log.debug("formatCodeScheme: " + formatCodeScheme);
+                        LOG.debug("formatCodeScheme: " + formatCodeScheme);
                         doc.setFormatCodeScheme(formatCodeScheme);
 
                         String formatCodeDisplayName = extractClassificationMetadata(classifications,
                                 XDS_FORMAT_CODE_CLASSIFICATION, XDS_NAME);
-                        log.debug("formatCodeDisplayName: " + formatCodeDisplayName);
+                        LOG.debug("formatCodeDisplayName: " + formatCodeDisplayName);
                         doc.setFormatCodeDisplayName(formatCodeDisplayName);
 
                         // extract healthcareFacilityTypeCode
@@ -695,33 +695,33 @@ public class AdapterComponentDocRepositoryOrchImpl {
                         // extract practiceSettingCode
                         String practiceSetting = extractClassificationMetadata(classifications,
                                 XDS_PRACTICE_SETTING_CODE_CLASSIFICATION, XDS_NODE_REPRESENTATION);
-                        log.debug("practiceSetting: " + practiceSetting);
+                        LOG.debug("practiceSetting: " + practiceSetting);
                         doc.setPracticeSetting(practiceSetting);
 
                         String practiceSettingScheme = extractClassificationMetadata(classifications,
                                 XDS_PRACTICE_SETTING_CODE_CLASSIFICATION, XDS_CODING_SCHEME_SLOT, 0);
-                        log.debug("practiceSettingScheme: " + practiceSettingScheme);
+                        LOG.debug("practiceSettingScheme: " + practiceSettingScheme);
                         doc.setPracticeSettingScheme(practiceSettingScheme);
 
                         String practiceSettingDisplayName = extractClassificationMetadata(classifications,
                                 XDS_PRACTICE_SETTING_CODE_CLASSIFICATION, XDS_NAME);
-                        log.debug("practiceSettingDisplayName: " + practiceSettingDisplayName);
+                        LOG.debug("practiceSettingDisplayName: " + practiceSettingDisplayName);
                         doc.setPracticeSettingDisplayName(practiceSettingDisplayName);
 
                         // extract typeCode
                         String typeCode = extractClassificationMetadata(classifications, XDS_TYPE_CODE_CLASSIFICATION,
                                 XDS_NODE_REPRESENTATION);
-                        log.debug("typeCode: " + typeCode);
+                        LOG.debug("typeCode: " + typeCode);
                         doc.setTypeCode(typeCode);
 
                         String typeCodeScheme = extractClassificationMetadata(classifications,
                                 XDS_TYPE_CODE_CLASSIFICATION, XDS_CODING_SCHEME_SLOT, 0);
-                        log.debug("typeCodeScheme: " + typeCodeScheme);
+                        LOG.debug("typeCodeScheme: " + typeCodeScheme);
                         doc.setTypeCodeScheme(typeCodeScheme);
 
                         String typeCodeDisplayName = extractClassificationMetadata(classifications,
                                 XDS_TYPE_CODE_CLASSIFICATION, XDS_NAME);
-                        log.debug("typeCodeDisplayName: " + typeCodeDisplayName);
+                        LOG.debug("typeCodeDisplayName: " + typeCodeDisplayName);
                         doc.setTypeCodeDisplayName(typeCodeDisplayName);
                         // extract eventCodes
                         extractEventCodes(classifications, doc);
@@ -734,11 +734,11 @@ public class AdapterComponentDocRepositoryOrchImpl {
                             
                             doc.setRawData(rawData);
                         } catch (IOException ioe) {
-                            log.error("Failed to retrieve document from the message.  Will not be able to save to repository.", ioe);
+                            LOG.error("Failed to retrieve document from the message.  Will not be able to save to repository.", ioe);
                         }
 
                         String availabilityStatus = extrinsicObject.getStatus();
-                        log.debug("Availability status received in message: " + availabilityStatus);
+                        LOG.debug("Availability status received in message: " + availabilityStatus);
                         // Use default if no value was provided
                         if (NullChecker.isNullish(availabilityStatus)) {
                             availabilityStatus = XDS_AVAILABLILTY_STATUS_APPROVED;
@@ -772,7 +772,7 @@ public class AdapterComponentDocRepositoryOrchImpl {
                         }
                         // call the DocumentService.save method
                         docService.saveDocument(doc);
-                        log.debug("doc.documentId: " + doc.getDocumentid());
+                        LOG.debug("doc.documentId: " + doc.getDocumentid());
                         // log.debug("document.isPersistent: " + doc.isPersistent()); //TODO need a better way to
                         // determine if the doc was actually persisted.
 
@@ -819,7 +819,7 @@ public class AdapterComponentDocRepositoryOrchImpl {
         boolean replacementAssociationExists = false;
 
         for (int i = 0; i < identifiableObjectList.size(); i++) {
-            log.debug("Item " + i + " identifiableObject is of DeclaredType: "
+            LOG.debug("Item " + i + " identifiableObject is of DeclaredType: "
                     + identifiableObjectList.get(i).getDeclaredType());
 
             // the getValue method will return the non-JAXBElement<? extends...> object
@@ -834,7 +834,7 @@ public class AdapterComponentDocRepositoryOrchImpl {
                 // logic will not work.
                 AssociationType1 associationObj = (AssociationType1) tempObj;
 
-                log.debug("associationType object present");
+                LOG.debug("associationType object present");
 
                 if (NullChecker.isNullish(associationObj.getAssociationType())) {
                     RegistryError error = new oasis.names.tc.ebxml_regrep.xsd.rs._3.ObjectFactory()
@@ -848,14 +848,14 @@ public class AdapterComponentDocRepositoryOrchImpl {
 
                     errorList.getRegistryError().add(error);
 
-                    log.error("Error Location: " + error.getLocation() + "; \n" + "Error Severity: "
+                    LOG.error("Error Location: " + error.getLocation() + "; \n" + "Error Severity: "
                             + error.getSeverity() + "; \n" + "Error ErrorCode: " + error.getErrorCode() + "; \n"
                             + "Error CodeContext: " + error.getCodeContext());
 
                 } else {
                     // check to see if the associationType is rplc
                     String associationType = associationObj.getAssociationType();
-                    log.debug("Association element associationType = " + associationType);
+                    LOG.debug("Association element associationType = " + associationType);
                     if (XDS_ASSOCIATION_TYPE_REPLACE.equalsIgnoreCase(associationType)) {
                         replacementAssociationExists = true;
                         break;
@@ -868,7 +868,7 @@ public class AdapterComponentDocRepositoryOrchImpl {
             } // if (tempObj instanceof oasis.names.tc.ebxml_regrep.xsd.rim._3.AssociationType1)
         } // for (int i = 0; i < identifiableObjectList.size(); i++)
 
-        log.debug("replacementAssociationExists = " + replacementAssociationExists);
+        LOG.debug("replacementAssociationExists = " + replacementAssociationExists);
         return replacementAssociationExists;
     }
 
@@ -888,11 +888,11 @@ public class AdapterComponentDocRepositoryOrchImpl {
 
         List<Document> documents = docService.documentQuery(params);
         if (NullChecker.isNotNullish(documents)) {
-            log.debug("queryRepositoryByPatientId " + documents.size() + " documents for patient: " + sPatId);
+            LOG.debug("queryRepositoryByPatientId " + documents.size() + " documents for patient: " + sPatId);
             for (Document doc : documents) {
-                log.debug("Found matching docId: " + doc.getDocumentUniqueId() + " with repository doc id: "
+                LOG.debug("Found matching docId: " + doc.getDocumentUniqueId() + " with repository doc id: "
                         + doc.getDocumentid());
-                log.debug("queryRepositoryByPatientId - sDocId: " + sDocId);
+                LOG.debug("queryRepositoryByPatientId - sDocId: " + sDocId);
                 if (sDocId.equals(doc.getDocumentUniqueId())) {
                     nhincDocRepositoryDocId = doc.getDocumentid();
                     break;
@@ -915,12 +915,12 @@ public class AdapterComponentDocRepositoryOrchImpl {
             String metadataItemName) {
         String metadataItemValue = null;
 
-        log.debug("extractMetadataFromExternalIdentifiers metadataItemName: " + metadataItemName);
+        LOG.debug("extractMetadataFromExternalIdentifiers metadataItemName: " + metadataItemName);
 
         // loop through the externalIdentifiers looking for the for the desired name
         for (oasis.names.tc.ebxml_regrep.xsd.rim._3.ExternalIdentifierType externalIdentifier : externalIdentifiers) {
             String externalIdentifierName = externalIdentifier.getName().getLocalizedString().get(0).getValue();
-            log.debug("externalIdentifierName: " + externalIdentifierName);
+            LOG.debug("externalIdentifierName: " + externalIdentifierName);
             if (metadataItemName.equalsIgnoreCase(externalIdentifierName)) {
                 metadataItemValue = externalIdentifier.getValue();
                 break;
@@ -977,12 +977,12 @@ public class AdapterComponentDocRepositoryOrchImpl {
             String classificationSchemeUUID, String classificationValueName) {
         String classificationValue = null;
 
-        log.debug("Looking for classificationScheme=" + classificationSchemeUUID);
-        log.debug("Looking for classificationValueName=" + classificationValueName);
+        LOG.debug("Looking for classificationScheme=" + classificationSchemeUUID);
+        LOG.debug("Looking for classificationValueName=" + classificationValueName);
         // loop through the classifications looking for the desired classification uuid
         for (oasis.names.tc.ebxml_regrep.xsd.rim._3.ClassificationType classification : classifications) {
             String classificationSchemeName = classification.getClassificationScheme();
-            log.debug("Found classificationScheme=" + classificationSchemeName);
+            LOG.debug("Found classificationScheme=" + classificationSchemeName);
 
             if (classificationSchemeUUID.equals(classificationSchemeName)) {
                 if (classificationValueName.equals(XDS_NAME)) {
@@ -1000,7 +1000,7 @@ public class AdapterComponentDocRepositoryOrchImpl {
         if (classificationValue != null && !classificationValue.equals("")) {
             classificationValue = StringUtil.extractStringFromTokens(classificationValue, "'()");
         }
-        log.debug(classificationValueName + ": " + classificationValue);
+        LOG.debug(classificationValueName + ": " + classificationValue);
         return classificationValue;
     }
 
@@ -1015,7 +1015,7 @@ public class AdapterComponentDocRepositoryOrchImpl {
      */
     private String extractMetadataFromSlots(List<oasis.names.tc.ebxml_regrep.xsd.rim._3.SlotType1> documentSlots,
             String slotName, int valueIndex) {
-        log.debug("extractMetadataFromSlots slotname: " + slotName + "; index: " + valueIndex);
+        LOG.debug("extractMetadataFromSlots slotname: " + slotName + "; index: " + valueIndex);
         String slotValue = null;
         StringBuffer slotValues = null;
         boolean returnAllValues = false;
@@ -1025,7 +1025,7 @@ public class AdapterComponentDocRepositoryOrchImpl {
         }
         for (oasis.names.tc.ebxml_regrep.xsd.rim._3.SlotType1 slot : documentSlots) {
             if (slotName.equals(slot.getName())) {
-                log.debug("Found " + slotName + ": " + slot.getValueList().getValue());
+                LOG.debug("Found " + slotName + ": " + slot.getValueList().getValue());
                 if (returnAllValues) {
                     int listSize = slot.getValueList().getValue().size();
                     int counter = 0;
@@ -1054,7 +1054,7 @@ public class AdapterComponentDocRepositoryOrchImpl {
             slotValue = slotValues.toString();
         }
 
-        log.debug(slotName + ": " + slotValue);
+        LOG.debug(slotName + ": " + slotValue);
         return slotValue;
     }
 
@@ -1076,7 +1076,7 @@ public class AdapterComponentDocRepositoryOrchImpl {
                     String nextSlotValue = (String) iter.next();
                     if (nextSlotValue.startsWith(patientInfoName)) {
                         slotValue = nextSlotValue.substring(patientInfoName.length() + 1);
-                        log.debug(patientInfoName + " extractionValue: " + slotValue);
+                        LOG.debug(patientInfoName + " extractionValue: " + slotValue);
                     }
                 }
             } // if (XDS_SOURCE_PATIENT_INFO_SLOT.equals(slot.getName()))
@@ -1093,12 +1093,12 @@ public class AdapterComponentDocRepositoryOrchImpl {
      */
     private void extractEventCodes(List<oasis.names.tc.ebxml_regrep.xsd.rim._3.ClassificationType> classifications,
             gov.hhs.fha.nhinc.docrepository.adapter.model.Document doc) {
-        log.debug("Begin extractEventCodes");
+        LOG.debug("Begin extractEventCodes");
         Set<EventCode> eventCodes = new HashSet<EventCode>();
         for (oasis.names.tc.ebxml_regrep.xsd.rim._3.ClassificationType classification : classifications) {
             String classificationSchemeName = classification.getClassificationScheme();
             if (XDS_EVENT_CODE_LIST_CLASSIFICATION.equals(classificationSchemeName)) {
-                log.debug("Found event code classification entry. Event code: "
+                LOG.debug("Found event code classification entry. Event code: "
                         + classification.getNodeRepresentation());
                 EventCode eventCode = new EventCode();
                 eventCode.setDocument(doc);
@@ -1115,7 +1115,7 @@ public class AdapterComponentDocRepositoryOrchImpl {
         } // for (oasis.names.tc.ebxml_regrep.xsd.rim._3.ClassificationType classification : classifications)
 
         doc.setEventCodes(eventCodes);
-        log.debug("End extractEventCodes");
+        LOG.debug("End extractEventCodes");
     }
 
 }

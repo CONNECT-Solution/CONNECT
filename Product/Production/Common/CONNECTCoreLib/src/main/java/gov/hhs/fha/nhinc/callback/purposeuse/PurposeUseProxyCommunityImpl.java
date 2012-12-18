@@ -39,7 +39,7 @@ import org.apache.log4j.Logger;
  */
 public class PurposeUseProxyCommunityImpl implements PurposeUseProxy {
 
-    private static Logger log = Logger.getLogger(PurposeUseProxyCommunityImpl.class);
+    private static final Logger LOG = Logger.getLogger(PurposeUseProxyCommunityImpl.class);
     
     private static final String PURPOSE_FOR_USE_PROPERTY_FILE = "purposeUse";
     private final IPropertyAcessor propertyAccessor;
@@ -90,9 +90,9 @@ public class PurposeUseProxyCommunityImpl implements PurposeUseProxy {
                 match = true;
             }
         } catch (PropertyAccessException ex) {
-            log.error("Error: Failed to retrieve (homeCommunityId) " + homeCommunityId + " from property file: "
+            LOG.error("Error: Failed to retrieve (homeCommunityId) " + homeCommunityId + " from property file: "
                     + PURPOSE_FOR_USE_PROPERTY_FILE);
-            log.error(ex.getMessage());
+            LOG.error(ex.getMessage());
         }
         return match;
     }
