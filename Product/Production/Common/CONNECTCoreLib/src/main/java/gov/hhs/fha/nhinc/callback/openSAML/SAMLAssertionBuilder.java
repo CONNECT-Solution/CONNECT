@@ -3,15 +3,6 @@
  */
 package gov.hhs.fha.nhinc.callback.openSAML;
 
-import gov.hhs.fha.nhinc.callback.purposeuse.PurposeUseProxy;
-import gov.hhs.fha.nhinc.callback.purposeuse.PurposeUseProxyObjectFactory;
-import gov.hhs.fha.nhinc.connectmgr.NhinEndpointManager;
-import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
-import gov.hhs.fha.nhinc.nhinclib.NhincConstants.GATEWAY_API_LEVEL;
-import gov.hhs.fha.nhinc.nhinclib.NhincConstants.NHIN_SERVICE_NAMES;
-import gov.hhs.fha.nhinc.properties.PropertyAccessException;
-import gov.hhs.fha.nhinc.properties.PropertyAccessor;
-
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -28,7 +19,6 @@ abstract public class SAMLAssertionBuilder {
 
     static final String NHIN_NS = "http://www.hhs.gov/healthit/nhin";
 
-    private static final String PURPOSE_FOR_USE_DEPRECATED_ENABLED = "purposeForUseEnabled";
 
     // Authorization Decision Action is always set to Execute
     static final String AUTHZ_DECISION_ACTION_EXECUTE = "Execute";
