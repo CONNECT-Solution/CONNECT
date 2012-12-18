@@ -28,8 +28,8 @@
 package gov.hhs.fha.nhinc.docsubmission.entity.deferred.request;
 
 import gov.hhs.fha.nhinc.orchestration.OrchestrationContext;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+
+import org.apache.log4j.Logger;
 
 /**
  * 
@@ -38,20 +38,13 @@ import org.apache.commons.logging.LogFactory;
 public class OutboundDocSubmissionDeferredRequestOrchestrationContextBuilder_g0 extends
         OutboundDocSubmissionDeferredRequestOrchestrationContextBuilder {
 
-    private static Log log = LogFactory
-            .getLog(OutboundDocSubmissionDeferredRequestOrchestrationContextBuilder_g0.class);
+    private static final Logger LOG = Logger.getLogger(OutboundDocSubmissionDeferredRequestOrchestrationContextBuilder_g0.class);
 
     @Override
     public OrchestrationContext build() {
-        log.debug("begin build");
+        LOG.trace("begin build");
         return new OrchestrationContext(new OutboundDocSubmissionDeferredRequestStrategyImpl_g0(),
                 new OutboundDocSubmissionDeferredRequestOrchestratable(getNhinDelegate(), getRequest(), getTarget(),
                         getAssertionType()));
     }
-
-    @Override
-    public Log getLog() {
-        return log;
-    }
-
 }

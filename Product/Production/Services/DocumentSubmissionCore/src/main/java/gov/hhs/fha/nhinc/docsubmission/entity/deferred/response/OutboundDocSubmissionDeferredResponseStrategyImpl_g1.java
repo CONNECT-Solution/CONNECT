@@ -34,8 +34,7 @@ import gov.hhs.fha.nhinc.orchestration.OrchestrationStrategy;
 import gov.hhs.healthit.nhin.XDRAcknowledgementType;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -43,15 +42,8 @@ import org.apache.commons.logging.LogFactory;
  */
 public class OutboundDocSubmissionDeferredResponseStrategyImpl_g1 implements OrchestrationStrategy {
 
-    private static Log log = LogFactory.getLog(OutboundDocSubmissionDeferredResponseStrategyImpl_g1.class);
-
-    public OutboundDocSubmissionDeferredResponseStrategyImpl_g1() {
-    }
-
-    protected Log getLogger() {
-        return log;
-    }
-    
+    private static final Logger LOG = Logger.getLogger(OutboundDocSubmissionDeferredResponseStrategyImpl_g1.class);
+   
     protected NhinDocSubmissionDeferredResponseProxy getNhinDocSubmissionDeferredResponseProxy() {
         return new NhinDocSubmissionDeferredResponseProxyObjectFactory().getNhinDocSubmissionDeferredResponseProxy();
     }
@@ -61,12 +53,12 @@ public class OutboundDocSubmissionDeferredResponseStrategyImpl_g1 implements Orc
         if (message instanceof OutboundDocSubmissionDeferredResponseOrchestratable) {
             execute((OutboundDocSubmissionDeferredResponseOrchestratable) message);
         } else {
-            getLogger().error("Not an OutboundDocSubmissionDeferredResponseOrchestratable.");
+            LOG.error("Not an OutboundDocSubmissionDeferredResponseOrchestratable.");
         }
     }
 
     public void execute(OutboundDocSubmissionDeferredResponseOrchestratable message) {
-        getLogger().debug("Begin OutboundDocSubmissionOrchestratableImpl_g1.process");
+        LOG.trace("Begin OutboundDocSubmissionOrchestratableImpl_g1.process");
 
         XDRAcknowledgementType ack = new XDRAcknowledgementType();
         NhinDocSubmissionDeferredResponseProxy nhincDocSubmission = getNhinDocSubmissionDeferredResponseProxy();
@@ -76,7 +68,7 @@ public class OutboundDocSubmissionDeferredResponseStrategyImpl_g1 implements Orc
         ack.setMessage(response);
         message.setResponse(ack);
 
-        getLogger().debug("End OutboundDocSubmissionDeferredResponseStrategyImpl_g1.process");
+        LOG.trace("End OutboundDocSubmissionDeferredResponseStrategyImpl_g1.process");
     }
 
 }

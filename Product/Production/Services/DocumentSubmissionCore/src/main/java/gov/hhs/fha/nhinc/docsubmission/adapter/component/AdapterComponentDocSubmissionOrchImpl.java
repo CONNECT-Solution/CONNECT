@@ -33,8 +33,7 @@ import java.util.List;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryErrorList;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.docsubmission.adapter.component.routing.RoutingObjectFactory;
@@ -46,18 +45,11 @@ import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
  * @author JHOPPESC
  */
 public class AdapterComponentDocSubmissionOrchImpl {
-    private static Log log = null;
-
-    /**
-     * Default Constructor. Creates the logger.
-     */
-    public AdapterComponentDocSubmissionOrchImpl() {
-        log = createLogger();
-    }
+    private static final Logger LOG = Logger.getLogger(AdapterComponentDocSubmissionOrchImpl.class);
 
     public RegistryResponseType provideAndRegisterDocumentSetB(ProvideAndRegisterDocumentSetRequestType msg,
             AssertionType assertion) {
-        log.debug("Begin provideAndRegisterDocumentSetb()");
+        LOG.debug("Begin provideAndRegisterDocumentSetb()");
         XDRHelper helper = new XDRHelper();
         RegistryErrorList errorList = helper.validateDocumentMetaData(msg);
 
@@ -66,8 +58,8 @@ public class AdapterComponentDocSubmissionOrchImpl {
         if (errorList.getHighestSeverity().equals(NhincConstants.XDS_REGISTRY_ERROR_SEVERITY_ERROR)) {
             result = helper.createErrorResponse(errorList);
         } else {
-            log.info(" Request contained " + msg.getDocument().size() + " documents.");
-            log.info(" Request Id: " + msg.getSubmitObjectsRequest().getId());
+            LOG.info(" Request contained " + msg.getDocument().size() + " documents.");
+            LOG.info(" Request Id: " + msg.getSubmitObjectsRequest().getId());
 
             List<String> recips = helper.getIntendedRecepients(msg);
 
@@ -76,24 +68,16 @@ public class AdapterComponentDocSubmissionOrchImpl {
                 RoutingObjectFactory factory = new RoutingObjectFactory();
 
                 for (String bean : xdrBeans) {
-                    log.debug("Bean name = " + bean);
+                    LOG.debug("Bean name = " + bean);
                     XDRRouting proxy = factory.getNhinXDRRouting(bean);
                     result = proxy.provideAndRegisterDocumentSetB(msg, assertion);
                 }
             } else {
-                log.debug("No beans to forward the message to");
+                LOG.debug("No beans to forward the message to");
                 result = helper.createPositiveAck();
             }
 
         }
         return result;
     }
-
-    /**
-     * @return the logger.
-     */
-    protected Log createLogger() {
-        return ((log != null) ? log : LogFactory.getLog(getClass()));
-    }
-
 }

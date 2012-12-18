@@ -42,11 +42,10 @@ import java.util.List;
 
 import javax.activation.DataHandler;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 
 public class DocSubmissionUtils {
-    private static Log log = LogFactory.getLog(DocSubmissionUtils.class);
+    private static final Logger LOG = Logger.getLogger(DocSubmissionUtils.class);
 
     private static DocSubmissionUtils instance = new DocSubmissionUtils();
 
@@ -76,9 +75,9 @@ public class DocSubmissionUtils {
             passThroughModeEnabled = PropertyAccessor.getInstance().getPropertyBoolean(
                     NhincConstants.GATEWAY_PROPERTY_FILE, passThruProperty);
         } catch (PropertyAccessException ex) {
-            log.error("Error: Failed to retrieve " + passThruProperty + " from property file: "
+            LOG.error("Error: Failed to retrieve " + passThruProperty + " from property file: "
                     + NhincConstants.GATEWAY_PROPERTY_FILE);
-            log.error(ex.getMessage());
+            LOG.error(ex.getMessage());
         }
         return passThroughModeEnabled;
     }

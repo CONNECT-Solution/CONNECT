@@ -26,8 +26,7 @@
  */
 package gov.hhs.fha.nhinc.docsubmission.inbound;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.docsubmission.DocSubmissionUtils;
@@ -46,7 +45,7 @@ import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
  */
 public class PassthroughInboundDocSubmission extends AbstractInboundDocSubmission {
 
-    private Log log = LogFactory.getLog(PassthroughInboundDocSubmission.class);
+    private static final Logger LOG = Logger.getLogger(PassthroughInboundDocSubmission.class);
     private AdapterDocSubmissionProxyObjectFactory adapterFactory = new AdapterDocSubmissionProxyObjectFactory();
     private DocSubmissionUtils dsUtils = DocSubmissionUtils.getInstance();
     private MessageGeneratorUtils msgUtils = MessageGeneratorUtils.getInstance();
@@ -56,11 +55,10 @@ public class PassthroughInboundDocSubmission extends AbstractInboundDocSubmissio
     }
 
     public PassthroughInboundDocSubmission(AdapterDocSubmissionProxyObjectFactory adapterFactory, XDRAuditLogger auditLogger,
-            DocSubmissionUtils dsUtils, Log log) {
+            DocSubmissionUtils dsUtils) {
         this.adapterFactory = adapterFactory;
         this.auditLogger = auditLogger;
         this.dsUtils = dsUtils;
-        this.log = log;
     }
 
     @Override
@@ -71,7 +69,7 @@ public class PassthroughInboundDocSubmission extends AbstractInboundDocSubmissio
             dsUtils.convertDataToFileLocationIfEnabled(body);
             response = sendToAdapter(body, assertion);
         } catch (LargePayloadException lpe) {
-            log.error("Failed to retrieve payload document.", lpe);
+            LOG.error("Failed to retrieve payload document.", lpe);
             response = msgUtils.createRegistryErrorResponse();
         }
 

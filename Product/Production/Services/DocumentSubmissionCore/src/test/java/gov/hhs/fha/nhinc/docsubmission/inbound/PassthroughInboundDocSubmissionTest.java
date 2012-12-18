@@ -41,7 +41,6 @@ import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
-import org.apache.commons.logging.Log;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
@@ -65,7 +64,6 @@ public class PassthroughInboundDocSubmissionTest {
         AssertionType assertion = new AssertionType();
         RegistryResponseType expectedResponse = new RegistryResponseType();
 
-        Log log = mock(Log.class);
         AdapterDocSubmissionProxyObjectFactory adapterFactory = mock(AdapterDocSubmissionProxyObjectFactory.class);
         AdapterDocSubmissionProxy adapterProxy = mock(AdapterDocSubmissionProxy.class);
         XDRAuditLogger auditLogger = mock(XDRAuditLogger.class);
@@ -76,7 +74,7 @@ public class PassthroughInboundDocSubmissionTest {
         when(adapterProxy.provideAndRegisterDocumentSetB(request, assertion)).thenReturn(expectedResponse);
 
         PassthroughInboundDocSubmission passthroughDocSubmission = new PassthroughInboundDocSubmission(adapterFactory,
-                auditLogger, dsUtils, log);
+                auditLogger, dsUtils);
 
         RegistryResponseType actualResponse = passthroughDocSubmission
                 .documentRepositoryProvideAndRegisterDocumentSetB(request, assertion);
@@ -100,7 +98,6 @@ public class PassthroughInboundDocSubmissionTest {
         ProvideAndRegisterDocumentSetRequestType request = new ProvideAndRegisterDocumentSetRequestType();
         AssertionType assertion = new AssertionType();
 
-        Log log = mock(Log.class);
         AdapterDocSubmissionProxyObjectFactory adapterFactory = mock(AdapterDocSubmissionProxyObjectFactory.class);
         XDRAuditLogger auditLogger = mock(XDRAuditLogger.class);
         DocSubmissionUtils dsUtils = mock(DocSubmissionUtils.class);
@@ -108,7 +105,7 @@ public class PassthroughInboundDocSubmissionTest {
         doThrow(new LargePayloadException()).when(dsUtils).convertDataToFileLocationIfEnabled(request);
 
         PassthroughInboundDocSubmission passthroughDocSubmission = new PassthroughInboundDocSubmission(adapterFactory,
-                auditLogger, dsUtils, log);
+                auditLogger, dsUtils);
 
         RegistryResponseType actualResponse = passthroughDocSubmission
                 .documentRepositoryProvideAndRegisterDocumentSetB(request, assertion);

@@ -46,7 +46,6 @@ import gov.hhs.healthit.nhin.XDRAcknowledgementType;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
-import org.apache.commons.logging.Log;
 import org.jmock.Expectations;
 import org.jmock.Mockery;
 import org.jmock.integration.junit4.JUnit4Mockery;
@@ -63,13 +62,11 @@ public class PassthroughOutboundDocSubmissionDeferredRequestTest {
             setImposteriser(ClassImposteriser.INSTANCE);
         }
     };
-    final Log mockLog = context.mock(Log.class);
     final XDRAuditLogger mockXDRLog = context.mock(XDRAuditLogger.class);
     final OutboundDocSubmissionDeferredRequestDelegate mockDelegate = context.mock(OutboundDocSubmissionDeferredRequestDelegate.class);
     
     @Test
     public void testProvideAndRegisterDocumentSetB() {
-        allowAnyMockLogging();
         expect2MockAudits();
         expectMockDelegateProcessAndReturnValidResponse();
         
@@ -83,7 +80,6 @@ public class PassthroughOutboundDocSubmissionDeferredRequestTest {
     public void testGetters() {
         PassthroughOutboundDocSubmissionDeferredRequest passthruOrch = new PassthroughOutboundDocSubmissionDeferredRequest();
         
-        assertNotNull(passthruOrch.getLogger());
         assertNotNull(passthruOrch.getOutboundDocSubmissionDeferredRequestDelegate());
         assertNotNull(passthruOrch.getXDRAuditLogger());
     }
@@ -107,14 +103,6 @@ public class PassthroughOutboundDocSubmissionDeferredRequestTest {
 
                 oneOf(mockXDRLog).auditAcknowledgement(with(any(XDRAcknowledgementType.class)),
                         with(any(AssertionType.class)), with(any(String.class)), with(any(String.class)));
-            }
-        });
-    }
-
-    private void allowAnyMockLogging() {
-        context.checking(new Expectations() {
-            {
-                ignoring(mockLog);
             }
         });
     }
@@ -143,10 +131,6 @@ public class PassthroughOutboundDocSubmissionDeferredRequestTest {
     
     private PassthroughOutboundDocSubmissionDeferredRequest createPassthruDocSubmissionDeferredRequestOrchImpl() {
         return new PassthroughOutboundDocSubmissionDeferredRequest() {
-            protected Log getLogger() {
-                return mockLog;
-            }
-
             protected XDRAuditLogger getXDRAuditLogger() {
                 return mockXDRLog;
             }

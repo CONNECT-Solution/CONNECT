@@ -43,16 +43,11 @@ import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.healthit.nhin.XDRAcknowledgementType;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 public class PassthroughOutboundDocSubmissionDeferredResponse implements OutboundDocSubmissionDeferredResponse {
-    private Log log = LogFactory.getLog(PassthroughOutboundDocSubmissionDeferredResponse.class);
     private XDRAuditLogger auditLogger = null;
     private MessageGeneratorUtils msgUtils = MessageGeneratorUtils.getInstance();
 
     public PassthroughOutboundDocSubmissionDeferredResponse() {
-        log = getLogger();
         auditLogger = getXDRAuditLogger();
     }
 
@@ -114,11 +109,7 @@ public class PassthroughOutboundDocSubmissionDeferredResponse implements Outboun
     protected XDRAuditLogger getXDRAuditLogger() {
         return new XDRAuditLogger();
     }
-
-    protected Log getLogger() {
-        return log;
-    }
-
+    
     protected OutboundDocSubmissionDeferredResponseDelegate getOutboundDocSubmissionDeferredResponseDelegate() {
         return new OutboundDocSubmissionDeferredResponseDelegate();
     }

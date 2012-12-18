@@ -55,7 +55,6 @@ import gov.hhs.healthit.nhin.XDRAcknowledgementType;
 
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
-import org.apache.commons.logging.Log;
 import org.jmock.Expectations;
 import org.jmock.Mockery;
 import org.jmock.integration.junit4.JUnit4Mockery;
@@ -73,7 +72,6 @@ public class StandardOutboundDocSubmissionDeferredRequestTest {
             setImposteriser(ClassImposteriser.INSTANCE);
         }
     };
-    final Log mockLog = context.mock(Log.class);
     final XDRAuditLogger mockXDRLog = context.mock(XDRAuditLogger.class);
     final XDRPolicyChecker mockPolicyCheck = context.mock(XDRPolicyChecker.class);
     final SubjectHelper mockSubjectHelper = context.mock(SubjectHelper.class);
@@ -82,7 +80,6 @@ public class StandardOutboundDocSubmissionDeferredRequestTest {
     @Test
     public void testProvideAndRegisterDocumentSetB() {
         expect2MockAudits();
-        allowAnyMockLogging();
         setMockPolicyCheck(true);
         setMockSubjectHelperToReturnValidHcid();
         setMockDelegateToReturnValidResponse();
@@ -97,7 +94,6 @@ public class StandardOutboundDocSubmissionDeferredRequestTest {
     @Test
     public void testProvideAndRegisterDocumentSetB_policyFailure() {
         expect2MockAudits();
-        allowAnyMockLogging();
         setMockPolicyCheck(false);
         setMockSubjectHelperToReturnValidHcid();
 
@@ -111,8 +107,6 @@ public class StandardOutboundDocSubmissionDeferredRequestTest {
     @Test
     public void testProvideAndRegisterDocumentSetB_emptyTargets() {
         expect2MockAudits();
-        allowAnyMockLogging();
-
         XDRAcknowledgementType response = runProvideAndRegisterDocumentSetBAsyncRequest_emptyTargets();
 
         context.assertIsSatisfied();
@@ -159,7 +153,6 @@ public class StandardOutboundDocSubmissionDeferredRequestTest {
     public void testGetters() {
         StandardOutboundDocSubmissionDeferredRequest entityOrch = new StandardOutboundDocSubmissionDeferredRequest();
 
-        assertNotNull(entityOrch.getLogger());
         assertNotNull(entityOrch.getOutboundDocSubmissionDeferredRequestDelegate());
         assertNotNull(entityOrch.getSubjectHelper());
         assertNotNull(entityOrch.getXDRAuditLogger());
@@ -196,14 +189,6 @@ public class StandardOutboundDocSubmissionDeferredRequestTest {
         targets.getNhinTargetCommunity().add(target);
 
         return targets;
-    }
-    
-    private void allowAnyMockLogging() {
-        context.checking(new Expectations() {
-            {
-                ignoring(mockLog);
-            }
-        });
     }
     
     private void expect2MockAudits() {
@@ -264,10 +249,6 @@ public class StandardOutboundDocSubmissionDeferredRequestTest {
     
     private StandardOutboundDocSubmissionDeferredRequest createEntityDocSubmissionDeferredRequestOrchImpl() {
         return new StandardOutboundDocSubmissionDeferredRequest() {
-            protected Log getLogger() {
-                return mockLog;
-            }
-
             protected XDRAuditLogger getXDRAuditLogger() {
                 return mockXDRLog;
             }

@@ -26,8 +26,8 @@
  */
 package gov.hhs.fha.nhinc.docsubmission.inbound.deferred.response;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
+
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.docsubmission.MessageGeneratorUtils;
 import gov.hhs.fha.nhinc.docsubmission.XDRAuditLogger;
@@ -45,7 +45,7 @@ import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
  */
 public class StandardInboundDocSubmissionDeferredResponse extends AbstractInboundDocSubmissionDeferredResponse {
 
-    private Log log = LogFactory.getLog(StandardInboundDocSubmissionDeferredResponse.class);
+    private static final Logger LOG = Logger.getLogger(StandardInboundDocSubmissionDeferredResponse.class);
     private PassthroughInboundDocSubmissionDeferredResponse passthroughDocSubmission = new PassthroughInboundDocSubmissionDeferredResponse();
     private XDRPolicyChecker policyChecker = new XDRPolicyChecker();
     private PropertyAccessor propertyAccessor = PropertyAccessor.getInstance();
@@ -57,12 +57,11 @@ public class StandardInboundDocSubmissionDeferredResponse extends AbstractInboun
 
     public StandardInboundDocSubmissionDeferredResponse(
             PassthroughInboundDocSubmissionDeferredResponse passthroughDocSubmission, XDRPolicyChecker policyChecker,
-            PropertyAccessor propertyAccessor, XDRAuditLogger auditLogger, Log log) {
+            PropertyAccessor propertyAccessor, XDRAuditLogger auditLogger) {
         this.passthroughDocSubmission = passthroughDocSubmission;
         this.policyChecker = policyChecker;
         this.propertyAccessor = propertyAccessor;
-        this.auditLogger = auditLogger;
-        this.log = log;
+        this.auditLogger = auditLogger;   
     }
 
     @Override
@@ -71,10 +70,10 @@ public class StandardInboundDocSubmissionDeferredResponse extends AbstractInboun
 
         String localHCID = getLocalHCID();
         if (isPolicyValid(body, assertion, localHCID)) {
-            log.debug("Policy Check Succeeded");
+            LOG.debug("Policy Check Succeeded");
             response = passthroughDocSubmission.processDocSubmissionResponse(body, assertion);
         } else {
-            log.error("Policy Check Failed");
+            LOG.error("Policy Check Failed");
             response = msgUtils.createFailedPolicyCheckXDRAcknowledgementType();
         }
 
@@ -83,7 +82,7 @@ public class StandardInboundDocSubmissionDeferredResponse extends AbstractInboun
 
     private boolean isPolicyValid(RegistryResponseType request, AssertionType assertion, String receiverHCID) {
         if (!hasHomeCommunityId(assertion)) {
-            log.warn("Failed policy check.  Received assertion does not have a home community id.");
+            LOG.warn("Failed policy check.  Received assertion does not have a home community id.");
             return false;
         }
 
@@ -99,7 +98,7 @@ public class StandardInboundDocSubmissionDeferredResponse extends AbstractInboun
             localHCID = propertyAccessor.getProperty(NhincConstants.GATEWAY_PROPERTY_FILE,
                     NhincConstants.HOME_COMMUNITY_ID_PROPERTY);
         } catch (PropertyAccessException ex) {
-            log.error("Exception while retrieving home community ID", ex);
+            LOG.error("Exception while retrieving home community ID", ex);
         }
 
         return localHCID;

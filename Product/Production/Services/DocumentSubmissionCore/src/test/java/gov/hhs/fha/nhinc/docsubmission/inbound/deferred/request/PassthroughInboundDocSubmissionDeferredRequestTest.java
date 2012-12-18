@@ -50,7 +50,6 @@ import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.healthit.nhin.XDRAcknowledgementType;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
 
-import org.apache.commons.logging.Log;
 import org.junit.Test;
 
 /**
@@ -65,7 +64,6 @@ public class PassthroughInboundDocSubmissionDeferredRequestTest {
         AssertionType assertion = new AssertionType();
         XDRAcknowledgementType expectedResponse = new XDRAcknowledgementType();
 
-        Log log = mock(Log.class);
         AdapterDocSubmissionDeferredRequestProxyObjectFactory adapterFactory = mock(AdapterDocSubmissionDeferredRequestProxyObjectFactory.class);
         AdapterDocSubmissionDeferredRequestProxy adapterProxy = mock(AdapterDocSubmissionDeferredRequestProxy.class);
         XDRAuditLogger auditLogger = mock(XDRAuditLogger.class);
@@ -76,7 +74,7 @@ public class PassthroughInboundDocSubmissionDeferredRequestTest {
         when(adapterProxy.provideAndRegisterDocumentSetBRequest(request, assertion)).thenReturn(expectedResponse);
 
         PassthroughInboundDocSubmissionDeferredRequest passthroughDocSubmission = new PassthroughInboundDocSubmissionDeferredRequest(
-                adapterFactory, auditLogger, dsUtils, log);
+                adapterFactory, auditLogger, dsUtils);
 
         XDRAcknowledgementType actualResponse = passthroughDocSubmission.provideAndRegisterDocumentSetBRequest(request,
                 assertion);
@@ -100,7 +98,6 @@ public class PassthroughInboundDocSubmissionDeferredRequestTest {
         ProvideAndRegisterDocumentSetRequestType request = new ProvideAndRegisterDocumentSetRequestType();
         AssertionType assertion = new AssertionType();
 
-        Log log = mock(Log.class);
         AdapterDocSubmissionDeferredRequestProxyObjectFactory adapterFactory = mock(AdapterDocSubmissionDeferredRequestProxyObjectFactory.class);
         XDRAuditLogger auditLogger = mock(XDRAuditLogger.class);
         DocSubmissionUtils dsUtils = mock(DocSubmissionUtils.class);
@@ -108,7 +105,7 @@ public class PassthroughInboundDocSubmissionDeferredRequestTest {
         doThrow(new LargePayloadException()).when(dsUtils).convertDataToFileLocationIfEnabled(request);
 
         PassthroughInboundDocSubmissionDeferredRequest passthroughDocSubmission = new PassthroughInboundDocSubmissionDeferredRequest(
-                adapterFactory, auditLogger, dsUtils, log);
+                adapterFactory, auditLogger, dsUtils);
 
         XDRAcknowledgementType actualResponse = passthroughDocSubmission.provideAndRegisterDocumentSetBRequest(request,
                 assertion);

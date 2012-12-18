@@ -31,19 +31,19 @@ import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
 import gov.hhs.fha.nhinc.docsubmission.outbound.deferred.response.StandardOutboundDocSubmissionDeferredResponse;
 import gov.hhs.healthit.nhin.XDRAcknowledgementType;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+
+import org.apache.log4j.Logger;
 
 /**
  * 
  * @author jhoppesc
  */
 public class EntityDocSubmissionDeferredResponseProxyJavaImpl implements EntityDocSubmissionDeferredResponseProxy {
-    private static Log log = LogFactory.getLog(EntityDocSubmissionDeferredResponseProxyJavaImpl.class);
+    private static final Logger LOG = Logger.getLogger(EntityDocSubmissionDeferredResponseProxyJavaImpl.class);
 
     public XDRAcknowledgementType provideAndRegisterDocumentSetBAsyncResponse(RegistryResponseType request,
             AssertionType assertion, NhinTargetCommunitiesType targets) {
-        log.debug("Using NoOp Implementation for Entity Doc Submission Deferred Response Service");
+        LOG.trace("Using NoOp Implementation for Entity Doc Submission Deferred Response Service");
         return new StandardOutboundDocSubmissionDeferredResponse().provideAndRegisterDocumentSetBAsyncResponse(request,
                 assertion, targets);
     }

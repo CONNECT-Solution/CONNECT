@@ -26,8 +26,7 @@
  */
 package gov.hhs.fha.nhinc.docsubmission.inbound;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.docsubmission.MessageGeneratorUtils;
@@ -46,7 +45,7 @@ import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
  */
 public class StandardInboundDocSubmission extends AbstractInboundDocSubmission {
 
-    private Log log = LogFactory.getLog(StandardInboundDocSubmission.class);
+    private static final Logger LOG = Logger.getLogger(StandardInboundDocSubmission.class);
     private MessageGeneratorUtils msgUtils = MessageGeneratorUtils.getInstance();
     private PropertyAccessor propertyAccessor = PropertyAccessor.getInstance();
     private XDRPolicyChecker policyChecker = new XDRPolicyChecker();
@@ -57,12 +56,11 @@ public class StandardInboundDocSubmission extends AbstractInboundDocSubmission {
     }
 
     public StandardInboundDocSubmission(PassthroughInboundDocSubmission passthroughDS, XDRPolicyChecker policyChecker,
-            PropertyAccessor propertyAccessor, XDRAuditLogger auditLogger, Log log) {
+            PropertyAccessor propertyAccessor, XDRAuditLogger auditLogger) {
         this.passthroughDS = passthroughDS;
         this.policyChecker = policyChecker;
         this.propertyAccessor = propertyAccessor;
         this.auditLogger = auditLogger;
-        this.log = log;
     }
 
     @Override
@@ -73,7 +71,7 @@ public class StandardInboundDocSubmission extends AbstractInboundDocSubmission {
         if (isPolicyValid(body, assertion, localHCID)) {
             response = passthroughDS.processDocSubmission(body, assertion);
         } else {
-            log.error("Failed policy check.  Sending error response.");
+            LOG.error("Failed policy check.  Sending error response.");
             response = msgUtils.createFailedPolicyCheckResponse();
         }
 
@@ -84,7 +82,7 @@ public class StandardInboundDocSubmission extends AbstractInboundDocSubmission {
             String receiverHCID) {
 
         if (!hasHomeCommunityId(assertion)) {
-            log.warn("Failed policy check.  Received assertion does not have a home community id.");
+            LOG.warn("Failed policy check.  Received assertion does not have a home community id.");
             return false;
         }
 
@@ -108,7 +106,7 @@ public class StandardInboundDocSubmission extends AbstractInboundDocSubmission {
             localHCID = propertyAccessor.getProperty(NhincConstants.GATEWAY_PROPERTY_FILE,
                     NhincConstants.HOME_COMMUNITY_ID_PROPERTY);
         } catch (PropertyAccessException ex) {
-            log.error("Failed to retrieve local HCID from properties file", ex);
+            LOG.error("Failed to retrieve local HCID from properties file", ex);
         }
 
         return localHCID;

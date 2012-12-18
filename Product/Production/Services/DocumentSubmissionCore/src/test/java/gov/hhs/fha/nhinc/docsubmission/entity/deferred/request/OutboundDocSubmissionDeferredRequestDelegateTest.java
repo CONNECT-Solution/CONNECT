@@ -32,7 +32,6 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
-import org.apache.commons.logging.Log;
 import org.jmock.Expectations;
 import org.jmock.Mockery;
 import org.jmock.integration.junit4.JUnit4Mockery;
@@ -62,13 +61,11 @@ public class OutboundDocSubmissionDeferredRequestDelegateTest {
     private static final String RESPONSE_ID_G0 = "g0";
     private static final String RESPONSE_ID_G1 = "g1";
 
-    private final Log mockLog = context.mock(Log.class);
     private final OrchestrationContextFactory mockContextFactory = context.mock(OrchestrationContextFactory.class);
     private final OrchestrationContext mockOrchestrationContext = context.mock(OrchestrationContext.class);
 
     @Test
     public void testOrchestration_G0Context() {
-        allowAnyMockLogging();
         setMockContextFactoryToReturnG0();
 
         OutboundDocSubmissionDeferredRequestDelegate delegate = createOutboundDocSubmissionDeferredRequestDelegate();
@@ -83,7 +80,6 @@ public class OutboundDocSubmissionDeferredRequestDelegateTest {
 
     @Test
     public void testOrchestration_G1Context() {
-        allowAnyMockLogging();
         setMockContextFactoryToReturnG1();
 
         OutboundDocSubmissionDeferredRequestDelegate delegate = createOutboundDocSubmissionDeferredRequestDelegate();
@@ -98,7 +94,6 @@ public class OutboundDocSubmissionDeferredRequestDelegateTest {
 
     @Test
     public void testOrchestration_UnknownContext() {
-        allowAnyMockLogging();
         setMockContextFactoryToReturnNull();
 
         OutboundDocSubmissionDeferredRequestDelegate delegate = createOutboundDocSubmissionDeferredRequestDelegate();
@@ -112,7 +107,6 @@ public class OutboundDocSubmissionDeferredRequestDelegateTest {
 
     @Test
     public void testOrchestration_GenericOrchestratable() {
-        allowAnyMockLogging();
         setMockContextFactoryToReturnG0();
 
         OutboundDocSubmissionDeferredRequestDelegate delegate = createOutboundDocSubmissionDeferredRequestDelegate();
@@ -127,9 +121,7 @@ public class OutboundDocSubmissionDeferredRequestDelegateTest {
 
     @Test
     public void testOrchestration_NullOrchestratable() {
-        allowAnyMockLogging();
-
-        OutboundDocSubmissionDeferredRequestDelegate delegate = createOutboundDocSubmissionDeferredRequestDelegate();
+    	OutboundDocSubmissionDeferredRequestDelegate delegate = createOutboundDocSubmissionDeferredRequestDelegate();
         Orchestratable response = delegate.process(null);
 
         context.assertIsSatisfied();
@@ -140,7 +132,6 @@ public class OutboundDocSubmissionDeferredRequestDelegateTest {
     public void testGetters() {
         OutboundDocSubmissionDeferredRequestDelegate delegate = new OutboundDocSubmissionDeferredRequestDelegate();
 
-        assertNotNull(delegate.getLogger());
         assertNotNull(delegate.getOrchestrationContextFactory());
     }
 
@@ -164,14 +155,6 @@ public class OutboundDocSubmissionDeferredRequestDelegateTest {
         dsOrchestratable.setTarget(target);
 
         return dsOrchestratable;
-    }
-
-    private void allowAnyMockLogging() {
-        context.checking(new Expectations() {
-            {
-                ignoring(mockLog);
-            }
-        });
     }
 
     private void setMockContextFactoryToReturnG0() {
@@ -252,11 +235,7 @@ public class OutboundDocSubmissionDeferredRequestDelegateTest {
 
     private OutboundDocSubmissionDeferredRequestDelegate createOutboundDocSubmissionDeferredRequestDelegate() {
         return new OutboundDocSubmissionDeferredRequestDelegate() {
-            @Override
-            protected Log getLogger() {
-                return mockLog;
-            }
-
+            
             @Override
             protected OrchestrationContextFactory getOrchestrationContextFactory() {
                 return mockContextFactory;

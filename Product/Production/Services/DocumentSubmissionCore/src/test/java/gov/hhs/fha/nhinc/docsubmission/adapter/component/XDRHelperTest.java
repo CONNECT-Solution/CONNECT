@@ -30,7 +30,7 @@ import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
 import java.util.List;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryErrorList;
-import org.apache.commons.logging.Log;
+
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -229,45 +229,23 @@ public class XDRHelperTest {
     }
 
     private XDRHelper createHelper() {
-        final Log mockLogger = context.mock(Log.class);
         // TestHelper helper = new TestHelper();
 
         XDRHelper result = new XDRHelper() {
-
-            @Override
-            protected Log createLogger() {
-                return mockLogger;
-            }
 
             @Override
             protected boolean checkIdsMatch() {
                 return true;
             }
         };
-        context.checking(new Expectations() {
-
-            {
-                allowing(mockLogger).info(with(any(String.class)));
-                allowing(mockLogger).debug(with(any(String.class)));
-                allowing(mockLogger).error(with(any(String.class)));
-                // never(mockLogger).error("Error");
-                will(returnValue(null));
-            }
-        });
         return result;
     }
 
     private XDRHelper createHelper(boolean supportedMimeType) {
-        final Log mockLogger = context.mock(Log.class);
         final boolean boolResult = supportedMimeType;
         // TestHelper helper = new TestHelper();
 
         XDRHelper result = new XDRHelper() {
-
-            @Override
-            protected Log createLogger() {
-                return mockLogger;
-            }
 
             @Override
             protected boolean isSupportedMimeType(String mimeType) {
@@ -280,16 +258,6 @@ public class XDRHelperTest {
             }
 
         };
-        context.checking(new Expectations() {
-
-            {
-                allowing(mockLogger).info(with(any(String.class)));
-                allowing(mockLogger).debug(with(any(String.class)));
-                allowing(mockLogger).error(with(any(String.class)));
-                // never(mockLogger).error("Error");
-                will(returnValue(null));
-            }
-        });
         return result;
     }
 

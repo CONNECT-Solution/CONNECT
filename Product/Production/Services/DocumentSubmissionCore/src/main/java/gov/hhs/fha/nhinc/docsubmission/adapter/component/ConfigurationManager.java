@@ -33,8 +33,7 @@ import java.util.List;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -48,11 +47,7 @@ import gov.hhs.fha.nhinc.properties.PropertyAccessor;
  */
 public class ConfigurationManager {
     public static final String XDR_CONFIG_FILE = "XDRConfiguration.xml";
-    private static Log log = null;
-
-    public ConfigurationManager() {
-        log = createLogger();
-    }
+    private static final Logger LOG = Logger.getLogger(ConfigurationManager.class);
 
     public Config loadConfiguration() {
         Config result;
@@ -90,7 +85,7 @@ public class ConfigurationManager {
             result.setRoutingInfo(loadRoutingInfo(nodeLst));
 
         } catch (Exception e) {
-            log.error("unable to load FTAConfiguration file", e);
+            LOG.error("unable to load FTAConfiguration file", e);
             e.printStackTrace();
         }
 
@@ -101,7 +96,7 @@ public class ConfigurationManager {
         ArrayList<RoutingConfig> result = new ArrayList<RoutingConfig>();
         Node channels = list.item(0);
 
-        log.debug("loading " + channels.getChildNodes().getLength() + " channels");
+        LOG.debug("loading " + channels.getChildNodes().getLength() + " channels");
         ;
         for (int s = 0; s < channels.getChildNodes().getLength(); s++) {
             Node node = channels.getChildNodes().item(s);
@@ -126,12 +121,5 @@ public class ConfigurationManager {
         }
 
         return result;
-    }
-
-    /**
-     * @return the Logger
-     */
-    protected Log createLogger() {
-        return ((log != null) ? log : LogFactory.getLog(getClass()));
     }
 }

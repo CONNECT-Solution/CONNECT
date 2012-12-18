@@ -37,23 +37,18 @@ import java.util.List;
 
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 
 /**
  * 
  * @author dunnek
  */
 public class ConnectReference implements XDRRouting {
-    private static Log log = null;
-
-    public ConnectReference() {
-        log = createLogger();
-    }
+    private static final Logger LOG = Logger.getLogger(ConnectReference.class);
 
     public RegistryResponseType provideAndRegisterDocumentSetB(ProvideAndRegisterDocumentSetRequestType request,
             AssertionType assertion) {
-        log.info("Inside Connect Reference provideAndRegisterDocumentSetB()");
+        LOG.info("Inside Connect Reference provideAndRegisterDocumentSetB()");
         XDRHelper helper = new XDRHelper();
         
         processRequest(request);
@@ -69,19 +64,15 @@ public class ConnectReference implements XDRRouting {
             try {
                 if (fileUtils.isParsePayloadAsFileLocationEnabled()) {
                     URI payloadURI = fileUtils.parseBase64DataAsUri(doc.getValue());
-                    log.debug("Payload Location ===> " + payloadURI.toString());
+                    LOG.debug("Payload Location ===> " + payloadURI.toString());
                 } else {
-                    log.debug("Closing request input streams");
+                    LOG.debug("Closing request input streams");
                     LargeFileUtils.getInstance().closeStreamWithoutException(
                             doc.getValue().getDataSource().getInputStream());
                 }
             } catch (Exception ioe) {
-                log.error("Failed to close input stream", ioe);
+                LOG.error("Failed to close input stream", ioe);
             }
         }       
-    }
-
-    protected Log createLogger() {
-        return ((log != null) ? log : LogFactory.getLog(getClass()));
     }
 }

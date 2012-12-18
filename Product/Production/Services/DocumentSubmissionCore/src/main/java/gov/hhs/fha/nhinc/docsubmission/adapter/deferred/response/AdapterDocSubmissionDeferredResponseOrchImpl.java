@@ -31,31 +31,23 @@ import gov.hhs.fha.nhinc.docsubmission.adapter.component.deferred.response.proxy
 import gov.hhs.fha.nhinc.docsubmission.adapter.component.deferred.response.proxy.AdapterComponentDocSubmissionResponseProxyObjectFactory;
 import gov.hhs.healthit.nhin.XDRAcknowledgementType;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+
+import org.apache.log4j.Logger;
 
 /**
  * 
  * @author Neil Webb
  */
 public class AdapterDocSubmissionDeferredResponseOrchImpl {
-    private Log log = null;
-
-    public AdapterDocSubmissionDeferredResponseOrchImpl() {
-        log = createLogger();
-    }
-
-    protected Log createLogger() {
-        return LogFactory.getLog(getClass());
-    }
+    private static final Logger LOG = Logger.getLogger(AdapterDocSubmissionDeferredResponseOrchImpl.class);
 
     public XDRAcknowledgementType provideAndRegisterDocumentSetBResponse(RegistryResponseType regResponse,
             AssertionType assertion) {
-        log.debug("Begin AdapterDocSubmissionDeferredResponseOrchImpl.provideAndRegisterDocumentSetBResponse");
+        LOG.trace("Begin AdapterDocSubmissionDeferredResponseOrchImpl.provideAndRegisterDocumentSetBResponse");
         AdapterComponentDocSubmissionResponseProxyObjectFactory oFactory = new AdapterComponentDocSubmissionResponseProxyObjectFactory();
         AdapterComponentDocSubmissionResponseProxy oProxy = oFactory.getAdapterComponentDocSubmissionResponseProxy();
         XDRAcknowledgementType ack = oProxy.provideAndRegisterDocumentSetBResponse(regResponse, assertion);
-        log.debug("End AdapterDocSubmissionDeferredResponseOrchImpl.provideAndRegisterDocumentSetBResponse");
+        LOG.trace("End AdapterDocSubmissionDeferredResponseOrchImpl.provideAndRegisterDocumentSetBResponse");
         return ack;
     }
 }
