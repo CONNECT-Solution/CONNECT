@@ -74,6 +74,7 @@ public class HOKSAMLAssertionBuilderTest {
      *
      * @throws Exception
      */
+    
     @Test
     public void testBuild() throws Exception {
         SAMLAssertionBuilder builder = new HOKSAMLAssertionBuilder(new CertificateManager() {

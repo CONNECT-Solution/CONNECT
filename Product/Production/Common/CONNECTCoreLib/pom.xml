@@ -60,6 +60,12 @@
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>antlr</groupId>
+                    <artifactId>antlr</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>commons-logging</groupId>
@@ -73,12 +79,6 @@
         <dependency>
             <groupId>com.thoughtworks.xstream</groupId>
             <artifactId>xstream</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.owasp.esapi</groupId>
-            <artifactId>esapi</artifactId>
-            <version>2.0GA</version>
-            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.skyscreamer</groupId>
@@ -97,6 +97,17 @@
         <dependency>
             <groupId>org.json</groupId>
             <artifactId>json</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.owasp.esapi</groupId>
+            <artifactId>esapi</artifactId>
+            <scope>test</scope>
+            <exclusions>
+                <exclusion>
+                    <artifactId>xalan</artifactId>
+                    <groupId>xalan</groupId>
+                </exclusion>
+            </exclusions>
         </dependency>
     </dependencies>
 
