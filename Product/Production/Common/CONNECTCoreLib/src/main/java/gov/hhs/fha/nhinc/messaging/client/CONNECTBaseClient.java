@@ -26,47 +26,54 @@
  */
 package gov.hhs.fha.nhinc.messaging.client;
 
+import gov.hhs.fha.nhinc.messaging.client.interceptor.SoapResponseInInterceptor;
 import gov.hhs.fha.nhinc.messaging.service.BaseServiceEndpoint;
 import gov.hhs.fha.nhinc.messaging.service.ServiceEndpoint;
-import gov.hhs.fha.nhinc.messaging.service.port.CachingCXFServicePortBuilder;
-import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
+import gov.hhs.fha.nhinc.messaging.service.decorator.MTOMServiceEndpointDecorator;
+import gov.hhs.fha.nhinc.messaging.service.decorator.TimeoutServiceEndpointDecorator;
+import gov.hhs.fha.nhinc.messaging.service.decorator.URLServiceEndpointDecorator;
+import gov.hhs.fha.nhinc.messaging.service.decorator.cxf.SoapResponseServiceEndpointDecorator;
+import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
+
+import org.apache.cxf.phase.PhaseInterceptorChain;
 
 /**
  * @author akong
- * 
+ *
  */
-public class CONNECTTestClient<T> implements CONNECTClient<T> {
-
-    protected ServiceEndpoint<T> serviceEndpoint = null;
+public abstract class CONNECTBaseClient<T> implements CONNECTClient<T> {
     
-    /**
-     * Constructor for a client used solely for unit tests. This class will only do the base configuration for the
-     * endpoint, but it will expose the service endpoint for test classes to use. This class will also use the caching
-     * mechanism that will single instance the port.
-     * 
-     * @param portDescriptor
-     */
-    public CONNECTTestClient(ServicePortDescriptor<T> portDescriptor) {
-        serviceEndpoint = new BaseServiceEndpoint<T>(new CachingCXFServicePortBuilder<T>(portDescriptor).createPort());
+    private WebServiceProxyHelper proxyHelper;
+
+    protected CONNECTBaseClient() {
+        proxyHelper = new WebServiceProxyHelper();
     }
 
-    public ServiceEndpoint<T> getServiceEndpoint() {
-        return serviceEndpoint;
-    }
+    public abstract T getPort();
 
-    /* (non-Javadoc)
-     * @see gov.hhs.fha.nhinc.messaging.client.CONNECTClient#getPort()
-     */
-    @Override
-    public T getPort() {
-        return serviceEndpoint.getPort();
-    }
-
-    /* (non-Javadoc)
-     * @see gov.hhs.fha.nhinc.messaging.client.CONNECTClient#invokePort(java.lang.Class, java.lang.String, java.lang.Object)
-     */
     @Override
     public Object invokePort(Class<T> portClass, String methodName, Object operationInput) throws Exception {
-        return null;
+        Object response = proxyHelper.invokePort(getPort(), portClass, methodName, operationInput);
+
+        SoapResponseInInterceptor.addResponseMessageIdToContext(getPort(), PhaseInterceptorChain.getCurrentMessage());
+
+        return response;
+    }
+
+    /**
+     * Configures the given port with properties common to all ports.
+     * 
+     * @param port
+     * @param url
+     * @return
+     */
+    protected ServiceEndpoint<T> configureBasePort(T port, String url) {
+        ServiceEndpoint<T> serviceEndpoint = new BaseServiceEndpoint<T>(port);
+        serviceEndpoint = new URLServiceEndpointDecorator<T>(serviceEndpoint, url);
+        serviceEndpoint = new TimeoutServiceEndpointDecorator<T>(serviceEndpoint);
+        serviceEndpoint = new MTOMServiceEndpointDecorator<T>(serviceEndpoint);
+        serviceEndpoint = new SoapResponseServiceEndpointDecorator<T>(serviceEndpoint);
+
+        return serviceEndpoint;
     }
 }

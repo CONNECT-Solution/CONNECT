@@ -27,31 +27,30 @@
 package gov.hhs.fha.nhinc.messaging.service.decorator;
 
 import static org.junit.Assert.assertEquals;
+import gov.hhs.fha.nhinc.messaging.client.CONNECTClient;
+import gov.hhs.fha.nhinc.messaging.client.CONNECTTestClient;
+import gov.hhs.fha.nhinc.messaging.service.ServiceEndpoint;
+import gov.hhs.fha.nhinc.messaging.service.port.TestServicePortDescriptor;
+import gov.hhs.fha.nhinc.messaging.service.port.TestServicePortType;
 
 import java.util.Map;
 
 import org.junit.Test;
 
-import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.messaging.client.CONNECTClient;
-import gov.hhs.fha.nhinc.messaging.client.CONNECTTestClient;
-import gov.hhs.fha.nhinc.messaging.service.port.TestServicePortDescriptor;
-import gov.hhs.fha.nhinc.messaging.service.port.TestServicePortType;
-
 /**
  * @author akong
- *
+ * 
  */
 public class URLServiceEndpointDecoratorTest {
-    
+
     @Test
     public void testURLConfiguration() {
         String url = "url";
         CONNECTClient<TestServicePortType> client = createClient(url);
-        
+
         verifyURLConfiguration(client, url);
     }
-    
+
     /**
      * Verifies that the client has the given url set.
      * 
@@ -60,12 +59,18 @@ public class URLServiceEndpointDecoratorTest {
      */
     public void verifyURLConfiguration(CONNECTClient<?> client, String url) {
         Map<String, Object> requestContext = ((javax.xml.ws.BindingProvider) client.getPort()).getRequestContext();
-        
+
         assertEquals(url, requestContext.get(javax.xml.ws.BindingProvider.ENDPOINT_ADDRESS_PROPERTY));
     }
-    
+
     private CONNECTClient<TestServicePortType> createClient(String url) {
-        // The base CONNECTClient is decorated with this URLServiceEndpointDecorator by default.
-        return new CONNECTTestClient<TestServicePortType>(new TestServicePortDescriptor(), url, new AssertionType());
+        CONNECTTestClient<TestServicePortType> testClient = new CONNECTTestClient<TestServicePortType>(
+                new TestServicePortDescriptor());
+
+        ServiceEndpoint<TestServicePortType> serviceEndpoint = testClient.getServiceEndpoint();
+        serviceEndpoint = new URLServiceEndpointDecorator<TestServicePortType>(serviceEndpoint, url);
+        serviceEndpoint.configure();
+
+        return testClient;
     }
 }

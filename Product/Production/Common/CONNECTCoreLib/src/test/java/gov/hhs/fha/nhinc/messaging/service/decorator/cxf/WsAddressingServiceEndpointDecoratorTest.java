@@ -105,12 +105,11 @@ public class WsAddressingServiceEndpointDecoratorTest {
     private CONNECTClient<TestServicePortType> createClient(String wsAddressingTo, String wsAddressingAction,
             AssertionType assertion) {
         CONNECTTestClient<TestServicePortType> testClient = new CONNECTTestClient<TestServicePortType>(
-                new TestServicePortDescriptor(), "", assertion);
+                new TestServicePortDescriptor());
 
         ServiceEndpoint<TestServicePortType> serviceEndpoint = testClient.getServiceEndpoint();
         serviceEndpoint = new WsAddressingServiceEndpointDecorator<TestServicePortType>(serviceEndpoint,
                 wsAddressingTo, wsAddressingAction, assertion);
-
         serviceEndpoint.configure();
 
         return testClient;

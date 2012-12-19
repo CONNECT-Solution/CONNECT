@@ -81,7 +81,7 @@ public class AdapterDocSubmissionDeferredRequestProxyWebServiceSecuredImplTest {
     public void tearDown() {
     }
 
-    class CONNECTClientMock extends CONNECTClient<AdapterXDRRequestSecuredPortType> {
+    class CONNECTClientMock implements CONNECTClient<AdapterXDRRequestSecuredPortType> {
 
         @Override
         public AdapterXDRRequestSecuredPortType getPort() {

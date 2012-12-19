@@ -27,53 +27,15 @@
 
 package gov.hhs.fha.nhinc.messaging.client;
 
-import gov.hhs.fha.nhinc.messaging.client.interceptor.SoapResponseInInterceptor;
-import gov.hhs.fha.nhinc.messaging.service.BaseServiceEndpoint;
-import gov.hhs.fha.nhinc.messaging.service.ServiceEndpoint;
-import gov.hhs.fha.nhinc.messaging.service.decorator.MTOMServiceEndpointDecorator;
-import gov.hhs.fha.nhinc.messaging.service.decorator.TimeoutServiceEndpointDecorator;
-import gov.hhs.fha.nhinc.messaging.service.decorator.URLServiceEndpointDecorator;
-import gov.hhs.fha.nhinc.messaging.service.decorator.cxf.SoapResponseServiceEndpointDecorator;
-import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
-
-import org.apache.cxf.phase.PhaseInterceptorChain;
 
 /**
  * @author akong
  * 
  */
-public abstract class CONNECTClient<T> {
+public interface CONNECTClient<T> {
 
-    private WebServiceProxyHelper proxyHelper;
+    public T getPort();
 
-    protected CONNECTClient() {
-        proxyHelper = new WebServiceProxyHelper();
-    }
+    public Object invokePort(Class<T> portClass, String methodName, Object operationInput) throws Exception;
 
-    public abstract T getPort();
-
-    public Object invokePort(Class<T> portClass, String methodName, Object operationInput) throws Exception {
-        Object response = proxyHelper.invokePort(getPort(), portClass, methodName, operationInput);
-
-        SoapResponseInInterceptor.addResponseMessageIdToContext(getPort(), PhaseInterceptorChain.getCurrentMessage());
-
-        return response;
-    }
-
-    /**
-     * Configures the given port with properties common to all ports.
-     * 
-     * @param port
-     * @param url
-     * @return
-     */
-    protected ServiceEndpoint<T> configureBasePort(T port, String url) {
-        ServiceEndpoint<T> serviceEndpoint = new BaseServiceEndpoint<T>(port);
-        serviceEndpoint = new URLServiceEndpointDecorator<T>(serviceEndpoint, url);
-        serviceEndpoint = new TimeoutServiceEndpointDecorator<T>(serviceEndpoint);
-        serviceEndpoint = new MTOMServiceEndpointDecorator<T>(serviceEndpoint);
-        serviceEndpoint = new SoapResponseServiceEndpointDecorator<T>(serviceEndpoint);
-
-        return serviceEndpoint;
-    }
 }

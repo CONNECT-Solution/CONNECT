@@ -29,15 +29,13 @@ package gov.hhs.fha.nhinc.messaging.service.decorator.cxf;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
-
-import java.util.Map;
-
-import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTClient;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTTestClient;
 import gov.hhs.fha.nhinc.messaging.service.ServiceEndpoint;
 import gov.hhs.fha.nhinc.messaging.service.port.TestServicePortDescriptor;
 import gov.hhs.fha.nhinc.messaging.service.port.TestServicePortType;
+
+import java.util.Map;
 
 import org.apache.cxf.endpoint.Client;
 import org.apache.cxf.frontend.ClientProxy;
@@ -119,11 +117,10 @@ public class WsSecurityServiceEndpointDecoratorTest {
 
     private CONNECTClient<TestServicePortType> createClient() {
         CONNECTTestClient<TestServicePortType> testClient = new CONNECTTestClient<TestServicePortType>(
-                new TestServicePortDescriptor(), "", new AssertionType());
+                new TestServicePortDescriptor());
 
         ServiceEndpoint<TestServicePortType> serviceEndpoint = testClient.getServiceEndpoint();
         serviceEndpoint = new WsSecurityServiceEndpointDecorator<TestServicePortType>(serviceEndpoint);
-
         serviceEndpoint.configure();
 
         return testClient;

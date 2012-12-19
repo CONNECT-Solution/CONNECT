@@ -61,11 +61,10 @@ public class SAMLServiceEndpointDecoratorTest {
 
     private CONNECTClient<TestServicePortType> createClient(AssertionType assertion) {
         CONNECTTestClient<TestServicePortType> testClient = new CONNECTTestClient<TestServicePortType>(
-                new TestServicePortDescriptor(), "", assertion);
+                new TestServicePortDescriptor());
 
         ServiceEndpoint<TestServicePortType> serviceEndpoint = testClient.getServiceEndpoint();
         serviceEndpoint = new SAMLServiceEndpointDecorator<TestServicePortType>(serviceEndpoint, assertion);
-
         serviceEndpoint.configure();
 
         return testClient;

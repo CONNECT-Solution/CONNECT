@@ -42,8 +42,6 @@ import gov.hhs.fha.nhinc.messaging.service.port.TestServicePortType;
 
 import org.apache.cxf.endpoint.Client;
 import org.apache.cxf.frontend.ClientProxy;
-import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
 
 /**
@@ -61,21 +59,6 @@ public class CONNECTCXFClientSecuredTest {
     private final TLSClientServiceEndpointDecoratorTest tlsTest = new TLSClientServiceEndpointDecoratorTest();
     private final WsAddressingServiceEndpointDecoratorTest addressTest = new WsAddressingServiceEndpointDecoratorTest();
     private final WsSecurityServiceEndpointDecoratorTest securityTest = new WsSecurityServiceEndpointDecoratorTest();
-
-    private String systemPassword = null;
-
-    @Before
-    public void setup() {
-        systemPassword = System.getProperty("javax.net.ssl.keyStorePassword");
-        System.setProperty("javax.net.ssl.keyStorePassword", "password");
-    }
-
-    @After
-    public void resetSystemPassword() {
-        if (systemPassword != null) {
-            System.setProperty("javax.net.ssl.keyStorePassword", systemPassword);
-        }
-    }
 
     /**
      * This test ensures that the interceptor count is the same no matter how many times the decorator is called on the

@@ -38,55 +38,64 @@ import javax.net.ssl.KeyManagerFactory;
 import javax.net.ssl.TrustManagerFactory;
 
 import org.apache.cxf.configuration.jsse.TLSClientParameters;
+import org.apache.log4j.Logger;
 
 /**
  * @author bhumphrey
- *
+ * 
  */
 public class TLSClientParametersFactory {
     
-    static private TLSClientParametersFactory INSTANCE = null;
+    private static final Logger LOG = Logger.getLogger(TLSClientParametersFactory.class);
+
+    private static TLSClientParametersFactory INSTANCE = null;
     private KeyManagerFactory keyFactory;
-    private TrustManagerFactory trustFactory; 
-    
+    private TrustManagerFactory trustFactory;
+
     private TLSClientParametersFactory() {
-        this(CertificateManagerImpl.getInstance(), System.getProperty("javax.net.ssl.keyStorePassword").toCharArray());
+        this(CertificateManagerImpl.getInstance());
     }
-    
-    TLSClientParametersFactory(CertificateManager cm, char[] password) {
+
+    TLSClientParametersFactory(CertificateManager cm) {
         try {
             keyFactory = KeyManagerFactory.getInstance(KeyManagerFactory.getDefaultAlgorithm());
-            
-            keyFactory.init(cm.getKeyStore(), password);
-            
+
+            keyFactory.init(cm.getKeyStore(), getKeystorePassword());
+
             trustFactory = TrustManagerFactory.getInstance(TrustManagerFactory.getDefaultAlgorithm());
             trustFactory.init(cm.getTrustStore());
-        } catch (UnrecoverableKeyException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+        } catch (UnrecoverableKeyException e) {            
+            LOG.error(e);
         } catch (KeyStoreException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+            LOG.error(e);
         } catch (NoSuchAlgorithmException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        } 
-       
+            LOG.error(e);
+        }
+
     }
-    
+
     public static TLSClientParametersFactory getInstance() {
         if (INSTANCE == null) {
             INSTANCE = new TLSClientParametersFactory();
         }
         return INSTANCE;
     }
-    
+
     public TLSClientParameters getTLSClientParameters() {
         TLSClientParameters tlsCP = new TLSClientParameters();
         tlsCP.setDisableCNCheck(true);
-        tlsCP.setKeyManagers(keyFactory.getKeyManagers()); 
+        tlsCP.setKeyManagers(keyFactory.getKeyManagers());
         tlsCP.setTrustManagers(trustFactory.getTrustManagers());
         return tlsCP;
+    }
+
+    private char[] getKeystorePassword() {
+        String keystorePassword = System.getProperty("javax.net.ssl.keyStorePassword");
+        if (keystorePassword == null) {
+            keystorePassword = "";
+        }
+
+        return keystorePassword.toCharArray();
     }
 
 }

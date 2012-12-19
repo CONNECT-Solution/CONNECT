@@ -28,70 +28,50 @@ package gov.hhs.fha.nhinc.messaging.service.decorator.cxf;
 
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
-
-import org.apache.cxf.configuration.jsse.TLSClientParameters;
-import org.apache.cxf.endpoint.Client;
-import org.apache.cxf.frontend.ClientProxy;
-import org.apache.cxf.transport.http.HTTPConduit;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Test;
-
-import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTClient;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTTestClient;
 import gov.hhs.fha.nhinc.messaging.service.ServiceEndpoint;
 import gov.hhs.fha.nhinc.messaging.service.port.TestServicePortDescriptor;
 import gov.hhs.fha.nhinc.messaging.service.port.TestServicePortType;
 
+import org.apache.cxf.configuration.jsse.TLSClientParameters;
+import org.apache.cxf.endpoint.Client;
+import org.apache.cxf.frontend.ClientProxy;
+import org.apache.cxf.transport.http.HTTPConduit;
+import org.junit.Test;
+
 /**
  * @author akong
- *
+ * 
  */
 public class TLSClientServiceEndpointDecoratorTest {
-    
-    private String systemPassword = null;
 
-    @Before
-    public void setup() {
-        systemPassword = System.getProperty("javax.net.ssl.keyStorePassword");
-        System.setProperty("javax.net.ssl.keyStorePassword", "password");
-    }
-
-    @After
-    public void resetSystemPassword() {
-        if (systemPassword != null) {
-            System.setProperty("javax.net.ssl.keyStorePassword", systemPassword);
-        }
-    }
-    
     @Test
     public void testTLSConfiguration() {
         CONNECTClient<TestServicePortType> client = createClient();
-        
+
         verifyTLSConfiguration(client);
     }
-    
-    public void verifyTLSConfiguration(CONNECTClient<?> client) { 
+
+    public void verifyTLSConfiguration(CONNECTClient<?> client) {
         Client clientProxy = ClientProxy.getClient(client.getPort());
         HTTPConduit conduit = (HTTPConduit) clientProxy.getConduit();
         TLSClientParameters tlsCP = conduit.getTlsClientParameters();
-        
+
         assertTrue(tlsCP.isDisableCNCheck());
         assertNotNull(tlsCP.getKeyManagers());
-        assertNotNull(tlsCP.getTrustManagers());                
+        assertNotNull(tlsCP.getTrustManagers());
     }
-    
+
     private CONNECTClient<TestServicePortType> createClient() {
         CONNECTTestClient<TestServicePortType> testClient = new CONNECTTestClient<TestServicePortType>(
-                new TestServicePortDescriptor(), "", new AssertionType());
+                new TestServicePortDescriptor());
 
         ServiceEndpoint<TestServicePortType> serviceEndpoint = testClient.getServiceEndpoint();
         serviceEndpoint = new TLSClientServiceEndpointDecorator<TestServicePortType>(serviceEndpoint);
-
         serviceEndpoint.configure();
 
         return testClient;
     }
-    
+
 }
