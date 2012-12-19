@@ -462,7 +462,7 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
             userRoleAttributes.put(new QName(SamlConstants.CE_DISPLAYNAME_ID), displayName);
         }
 
-        userRoleAttributes.put(new QName("http://www.w3.org/2001/XMLSchema-instance", "type"), "hl7:CE");
+        userRoleAttributes.put(new QName("type"), "hl7:CE");
 
         XSAny attributeValue = createAttributeValue("urn:hl7-org:v3", name, "hl7", userRoleAttributes);
         return attributeValue;

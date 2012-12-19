@@ -45,6 +45,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
@@ -61,12 +62,12 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.apache.xerces.dom.ElementNSImpl;
 import org.jmock.Expectations;
 import org.jmock.Mockery;
 import org.junit.Ignore;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
+import org.w3c.dom.Element;
 
 public class AssertionHelperTest {
 
@@ -491,8 +492,8 @@ public class AssertionHelperTest {
             for (AttributeValueType actAttrVal : attr.getAttributeValue()) {
                 if (actAttrVal.getContent() != null && !actAttrVal.getContent().isEmpty()) {
                     for (Object obj : actAttrVal.getContent()) {
-                        if (obj instanceof ElementNSImpl) {
-                            ElementNSImpl elem = (ElementNSImpl) obj;
+                        if (obj instanceof Element) {
+                            Element elem = (Element) obj;
                             NamedNodeMap attrMap = elem.getAttributes();
                             if ((attrMap != null) && (attrMap.getLength() > 0)) {
                                 int numMapNodes = attrMap.getLength();

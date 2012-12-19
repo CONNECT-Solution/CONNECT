@@ -17,17 +17,6 @@
 
     <dependencies>
         <dependency>
-            <groupId>org.connectopensource</groupId>
-            <artifactId>CONNECTCommonTypesLib</artifactId>
-            <version>${project.parent.version}</version>
-            <exclusions>
-                <exclusion>
-                    <artifactId>activation</artifactId>
-                    <groupId>javax.activation</groupId>
-                </exclusion>
-            </exclusions>
-        </dependency>    
-        <dependency>
             <groupId>commons-codec</groupId>
             <artifactId>commons-codec</artifactId>
             <version>1.4</version>
@@ -45,7 +34,6 @@
         <dependency>
             <groupId>org.mockito</groupId>
             <artifactId>mockito-all</artifactId>
-            <version>1.9.5</version>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -57,7 +45,6 @@
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-test</artifactId>
-            <version>3.0.7.RELEASE</version>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -76,7 +63,7 @@
             <groupId>org.nhind</groupId>
             <artifactId>agent</artifactId>
             <version>1.5.3</version>
-        </dependency>        
+        </dependency>
     </dependencies>
-    
+
 </project>
