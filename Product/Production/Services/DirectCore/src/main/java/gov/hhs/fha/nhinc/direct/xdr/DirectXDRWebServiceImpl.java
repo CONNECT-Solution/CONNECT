@@ -33,24 +33,33 @@ import javax.xml.ws.WebServiceContext;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
 /**
- * Direct XDR Web Service.
+ * The Class DirectXDRWebServiceImpl.
  */
-public class DirectXDRWebServiceImpl extends org.nhind.xdr.DocumentRepositoryAbstract {
+public class DirectXDRWebServiceImpl {
 
+    /** The context. */
     WebServiceContext context = null;
 
     /**
-     * Marshals a {@link ProvideAndRegisterDocumentSetRequestType} into a {@link RegistryResponseType}.
+     * Implementation business object of the JAXB web service interface. Manipulates web services headers, and delegates
+     * processing to the orchestration object.
      * 
-     * @param body request type body
-     * @param wsContext web service context
-     * @return RegistryResponseType representation
-     * @throws Exception on error
+     * @param body the body of the XDR message.
+     * @param wsContext the ws context for manipulating ws headers.
+     * @return the registry response type
+     * @throws Exception the exception
      */
     public RegistryResponseType provideAndRegisterDocumentSet(ProvideAndRegisterDocumentSetRequestType body,
             WebServiceContext wsContext) throws Exception {
+        RegistryResponseType resp = null;
         this.context = wsContext;
 
-        return provideAndRegisterDocumentSet(body);
+        DirectHeaderExtractor extractor = new DirectHeaderExtractor();
+
+        SoapDirectEdgeOrchestration orch = new SoapDirectEdgeOrchestration();
+        resp = orch.orchestrate(body, extractor.getHeaderProperties(wsContext));
+        
+        // TODO: set Response header data
+        return resp;
     }
 }

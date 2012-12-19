@@ -21,7 +21,6 @@
             <groupId>org.connectopensource</groupId>
             <artifactId>Properties</artifactId>
             <version>${project.parent.version}</version>
-            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.connectopensource</groupId>

@@ -26,6 +26,8 @@
  */
 package gov.hhs.fha.nhinc.direct.xdr.audit;
 
+import gov.hhs.fha.nhinc.direct.xdr.SoapEdgeContext;
+
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.Map;
@@ -57,7 +59,7 @@ public class DirectRIAuditor implements SoapEdgeAuditor {
 	 */
 	@Override
 	public void audit(String principal, String category, String message,
-			Auditable properties) {
+	        SoapEdgeContext properties) {
 
 		AuditEvent event = new AuditEvent(category, message);
 
@@ -75,7 +77,7 @@ public class DirectRIAuditor implements SoapEdgeAuditor {
 	 *            A {@link Auditable} object, must not be null.
 	 * @return A Collection of @{link AuditContext} objects.
 	 */
-    private Collection<? extends AuditContext> getContexts(Auditable auditable) {
+    private Collection<? extends AuditContext> getContexts(SoapEdgeContext auditable) {
 		Collection<AuditContext> contexts = new LinkedList<AuditContext>();
 
 		if (auditable.getAuditableValues() != null) {
