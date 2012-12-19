@@ -29,8 +29,7 @@ package gov.hhs.fha.nhinc.fta;
 import javax.jws.WebMethod;
 import javax.jws.WebService;
 import javax.ejb.Stateless;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 
 /**
  * 
@@ -39,10 +38,10 @@ import org.apache.commons.logging.LogFactory;
 @WebService()
 @Stateless()
 public class FTAService {
-    private static Log log = LogFactory.getLog(FTAService.class);
+    private static final Logger LOG = Logger.getLogger(FTAService.class);
 
     public FTAService() {
-        log.info("FTA Service Starting.");
+        LOG.info("FTA Service Starting.");
         this.start();
     }
 
@@ -52,13 +51,13 @@ public class FTAService {
     @WebMethod(operationName = "start")
     public Boolean start() {
         boolean result = true;
-        log.info("begin start()");
+        LOG.info("begin start()");
         try {
             FTATimer.startTimer();
         } catch (Exception ex) {
             result = false;
         }
-        log.info("end start()");
+        LOG.info("end start()");
         return result;
     }
 

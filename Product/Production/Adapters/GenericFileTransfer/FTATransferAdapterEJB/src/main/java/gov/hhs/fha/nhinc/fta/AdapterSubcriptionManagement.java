@@ -30,8 +30,7 @@ import gov.hhs.fha.nhinc.adaptersubscriptionmanagement.AdapterNotificationProduc
 import javax.ejb.Stateless;
 import javax.jws.WebService;
 import javax.xml.ws.BindingType;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 import org.oasis_open.docs.wsn.b_2.SubscribeResponse;
 
 /**
@@ -43,13 +42,13 @@ import org.oasis_open.docs.wsn.b_2.SubscribeResponse;
 @Stateless
 public class AdapterSubcriptionManagement implements AdapterNotificationProducerPortType {
 
-    private static Log log = LogFactory.getLog(AdapterSubcriptionManagement.class);
+    private static final Logger LOG = Logger.getLogger(AdapterSubcriptionManagement.class);
 
     public org.oasis_open.docs.wsn.b_2.SubscribeResponse subscribe(
             gov.hhs.fha.nhinc.common.nhinccommonadapter.SubscribeRequestType subscribeRequest) {
         SubscribeResponse response = new SubscribeResponse();
 
-        log.info("Received Subscribe Request: " + subscribeRequest);
+        LOG.info("Received Subscribe Request: " + subscribeRequest);
 
         return response;
 
