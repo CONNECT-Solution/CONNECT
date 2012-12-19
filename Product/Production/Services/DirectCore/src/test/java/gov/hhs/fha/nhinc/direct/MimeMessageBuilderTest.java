@@ -41,7 +41,7 @@ import org.junit.Test;
 /**
  * Test {@link MimeMessageBuilder}.
  */
-public class MimeMessageBuilderTest {
+public class MimeMessageBuilderTest extends DirectBaseTest {
 
     /**
      * Java mail session.

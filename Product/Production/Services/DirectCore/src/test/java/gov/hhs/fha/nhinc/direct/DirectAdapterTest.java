@@ -77,10 +77,10 @@ public class DirectAdapterTest extends AbstractDirectMailClientTest {
      */
     @Test
     public void canReadPropsAsStrings() {
-        assertNotNull(recipMailServerProps.getProperty("direct.mail.user"));
-        assertNotNull(recipMailServerProps.getProperty("direct.mail.pass"));
-        assertNotNull(recipMailServerProps.getProperty("direct.max.msgs.in.batch"));
-        assertNotNull(recipMailServerProps.getProperty("direct.delete.unhandled.msgs"));
+        assertNotNull(recipMailServerProps.getProperty("connect.mail.user"));
+        assertNotNull(recipMailServerProps.getProperty("connect.mail.pass"));
+        assertNotNull(recipMailServerProps.getProperty("connect.max.msgs.in.batch"));
+        assertNotNull(recipMailServerProps.getProperty("connect.delete.unhandled.msgs"));
         assertNotNull(recipMailServerProps.getProperty("mail.smtp.host"));
         assertNotNull(recipMailServerProps.getProperty("mail.smtp.auth"));
         assertNotNull(recipMailServerProps.getProperty("mail.smtp.port"));

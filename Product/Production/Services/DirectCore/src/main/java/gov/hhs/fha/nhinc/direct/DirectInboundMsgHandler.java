@@ -63,7 +63,7 @@ public class DirectInboundMsgHandler implements MessageHandler {
            directReceiver.receiveInbound(message);
            handled = true;
         } catch (Exception e) {
-            LOG.error("Exception while processing and sending outbound direct message");
+            LOG.error("Exception while processing and sending outbound direct message", e);
         }
         return handled;
     }
