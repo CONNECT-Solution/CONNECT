@@ -43,7 +43,7 @@ public class PropertyAccessor implements IPropertyAcessor {
     private PropertyFileRefreshHandler refreshHandler;    
     private PropertyFileDAO propertyFileDAO;    
     private PropertyAccessorFileUtilities fileUtilities;
-    private String propertyFileName;
+    private String propertyFileName = "gateway";
     
     /**
      * Default constructor.

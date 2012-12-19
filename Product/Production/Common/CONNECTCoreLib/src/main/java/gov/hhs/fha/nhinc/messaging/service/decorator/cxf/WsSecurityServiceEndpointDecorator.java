@@ -32,6 +32,8 @@ import java.util.Map;
 
 import org.apache.cxf.endpoint.Client;
 import org.apache.cxf.frontend.ClientProxy;
+import org.apache.cxf.interceptor.Interceptor;
+import org.apache.cxf.message.Message;
 import org.apache.cxf.ws.security.wss4j.WSS4JOutInterceptor;
 import org.apache.ws.security.handler.WSHandlerConstants;
 
@@ -42,16 +44,32 @@ import gov.hhs.fha.nhinc.messaging.service.decorator.ServiceEndpointDecorator;
  * @author akong
  *
  */
-public class SecurityOutInterceptorServiceEndpointDecorator<T> extends ServiceEndpointDecorator<T> {
-    public SecurityOutInterceptorServiceEndpointDecorator(ServiceEndpoint<T> decoratoredEndpoint) {
+public class WsSecurityServiceEndpointDecorator<T> extends ServiceEndpointDecorator<T> {
+    
+    /**
+     * Constructor.
+     * 
+     * @param decoratoredEndpoint - endpoint instance where this decorator will be applied
+     */
+    public WsSecurityServiceEndpointDecorator(ServiceEndpoint<T> decoratoredEndpoint) {
         super(decoratoredEndpoint);
     }
     
+    /**
+     * Configures the endpoint for WS-Security.
+     */
     @Override
     public void configure() {
         super.configure();
+        
         Client client = ClientProxy.getClient(getPort());
         
+        Map<String,Object> outProps = createWSSecurityConfiguration();
+        
+        configureWSSecurityOnClient(client, outProps);
+    }
+    
+    private Map<String,Object> createWSSecurityConfiguration() {
         Map<String,Object> outProps = new HashMap<String,Object>();
         
         outProps.put(WSHandlerConstants.ACTION, "Timestamp SAMLTokenSigned");
@@ -64,9 +82,21 @@ public class SecurityOutInterceptorServiceEndpointDecorator<T> extends ServiceEn
         outProps.put(WSHandlerConstants.SIG_ALGO, "http://www.w3.org/2000/09/xmldsig#rsa-sha1");
         outProps.put(WSHandlerConstants.SIG_DIGEST_ALGO, "http://www.w3.org/2000/09/xmldsig#sha1");
         outProps.put(WSHandlerConstants.SIGNATURE_PARTS, "{Element}{http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd}Timestamp;");
-                         
+        
+        return outProps;
+    }
+    
+    private void configureWSSecurityOnClient(Client client, Map<String,Object> outProps) {
         WSS4JOutInterceptor outInterceptor = new WSS4JOutInterceptor(outProps);
         outInterceptor.setAllowMTOM(true);
+        
+        for (Interceptor<? extends Message> interceptor: client.getOutInterceptors()) {
+            if (interceptor instanceof WSS4JOutInterceptor) {
+                ((WSS4JOutInterceptor) interceptor).setProperties(outProps);
+                return;
+            }
+        }
+        
         client.getOutInterceptors().add(outInterceptor);
     }
 }
