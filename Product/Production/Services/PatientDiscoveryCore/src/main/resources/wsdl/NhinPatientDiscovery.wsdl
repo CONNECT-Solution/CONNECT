@@ -93,7 +93,22 @@
                         <sp:IncludeTimestamp/>
                         <sp:AlgorithmSuite>
                             <wsp:Policy>
-                                <sp:Basic256/>
+                                <sp:Basic256 />
+                                <sp:Basic192 />
+                                <sp:Basic128 />
+                                <sp:TripleDes />
+                                <sp:Basic256Rsa15 />
+                                <sp:Basic192Rsa15 />
+                                <sp:Basic128Rsa15 />
+                                <sp:TripleDesRsa15 />
+                                <sp:Basic256Sha256 />
+                                <sp:Basic192Sha256 />
+                                <sp:Basic128Sha256 />
+                                <sp:TripleDesSha256 />
+                                <sp:Basic256Sha256Rsa15 />
+                                <sp:Basic192Sha256Rsa15 />
+                                <sp:Basic128Sha256Rsa15 />
+                                <sp:TripleDesSha256Rsa15 />
                             </wsp:Policy>
                         </sp:AlgorithmSuite>
                     </wsp:Policy>

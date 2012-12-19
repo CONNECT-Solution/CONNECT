@@ -19,7 +19,10 @@ public abstract class CONNECTClientFactory {
 
     abstract public <T> CONNECTClient<T> getCONNECTClientSecured(ServicePortDescriptor<T> portDescriptor, String url,
             AssertionType assertion, String wsAddressing, String subscriptionId);
-
+    
+    abstract public <T> CONNECTClient<T> getCONNECTClientSecured(ServicePortDescriptor<T> portDescriptor, 
+            AssertionType assertion, String url, String targetHomeCommunityId, String serviceName);
+    
     abstract public <T> CONNECTClient<T> getCONNECTClientUnsecured(ServicePortDescriptor<T> portDescriptor, String url,
             AssertionType assertion);
 

@@ -30,7 +30,6 @@ public abstract class CONNECTCXFClient<T> extends CONNECTBaseClient<T> {
             ServicePortBuilder<T> portBuilder, String subscriptionId) {
         serviceEndpoint = super.configureBasePort(portBuilder.createPort(), subscriptionId);
     }
-    
    
 
     public T getPort() {

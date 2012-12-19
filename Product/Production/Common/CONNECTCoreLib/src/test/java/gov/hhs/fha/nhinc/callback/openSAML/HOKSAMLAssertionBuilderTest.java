@@ -446,6 +446,11 @@ public class HOKSAMLAssertionBuilderTest {
             public String getTargetHomeCommunityId() {
                 return "targetHomeCommunityId";
             }
+            
+            @Override
+            public String getServiceName() {
+                return "serviceName";
+            }
 
             @Override
             public String getAction() {
