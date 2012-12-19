@@ -47,7 +47,7 @@ public class DirectInboundMsgHandler implements MessageHandler {
     
     /**
      * Constructor.
-     * @param directAdapter direct adapter used to process messages.
+     * @param directReceiver direct receiver used to process messages.
      */
     public DirectInboundMsgHandler(DirectReceiver directReceiver) {
         this.directReceiver = directReceiver;

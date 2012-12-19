@@ -46,10 +46,17 @@ public class MimeMessageTransformer {
     private static final String ERROR_MESSAGE = "Error transforming message to XDR";
     private final MimeXdsTransformer transformer;
     
+    /**
+     * Constructor.
+     */
     public MimeMessageTransformer() {
         transformer = getMimeXdsTransformer();
     }
     
+    /**
+     * @param message to be transformed
+     * @return ProvideAndRegisterDocumentSetRequestType representation of the message.
+     */
     public ProvideAndRegisterDocumentSetRequestType transform(MimeMessage message) {
         ProvideAndRegisterDocumentSetRequestType request = null;
         try {

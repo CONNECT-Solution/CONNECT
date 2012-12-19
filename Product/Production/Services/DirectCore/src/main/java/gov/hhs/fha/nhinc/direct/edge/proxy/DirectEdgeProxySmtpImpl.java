@@ -19,14 +19,14 @@ public class DirectEdgeProxySmtpImpl implements DirectEdgeProxy {
     private final MailSender internalMailSender;
     
     /**
-     * @param internalMailSender
+     * @param internalMailSender used to send mail messages.
      */
     public DirectEdgeProxySmtpImpl(MailSender internalMailSender) {
         this.internalMailSender = internalMailSender;
     }
 
-    /* (non-Javadoc)
-     * @see gov.hhs.fha.nhinc.direct.edge.proxy.DirectEdgeProxy#provideAndRegisterDocumentSetB(org.nhindirect.stagent.MessageEnvelope)
+    /**
+     * {@inheritDoc}
      */
     @Override
     public RegistryResponseType provideAndRegisterDocumentSetB(MimeMessage message) {

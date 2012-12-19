@@ -55,6 +55,7 @@ public abstract class DirectAdapter {
     /**
      * @param externalMailSender external mail sender.
      * @param smtpAgent used to process direct messages.
+     * @param directEventLogger used to log events.
      */
     public DirectAdapter(MailSender externalMailSender, SmtpAgent smtpAgent, DirectEventLogger directEventLogger) {
         this.externalMailSender = externalMailSender;
@@ -112,6 +113,7 @@ public abstract class DirectAdapter {
      * Log any notification messages that were produced by direct processing.
      * 
      * @param result to pull notification messages from
+     * @return String representation of notification messages from the result.
      */
     protected String getErrorNotificationMsgs(MessageProcessResult result) {
         StringBuilder builder = new StringBuilder("Inbound Mime Message could not be processed by DIRECT.");

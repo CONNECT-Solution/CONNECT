@@ -35,6 +35,9 @@ import org.junit.BeforeClass;
  */
 public class DirectBaseTest {
 
+    /**
+     * Statically inject a Direct Event Logger for direct exception handling.
+     */
     @BeforeClass
     public static void doBeforeClass() {
         DirectException.setDirectEventLogger(DirectEventLogger.getInstance());

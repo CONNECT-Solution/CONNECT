@@ -31,6 +31,14 @@ import javax.mail.internet.MimeMessage;
 
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
+/**
+ * Proxy for a direct edge client.
+ */
 public interface DirectEdgeProxy {
-    public RegistryResponseType provideAndRegisterDocumentSetB(MimeMessage message);
+
+    /**
+     * @param message to be passed to the edge client as a Registry Response Type
+     * @return registry response type
+     */
+    RegistryResponseType provideAndRegisterDocumentSetB(MimeMessage message);
 }

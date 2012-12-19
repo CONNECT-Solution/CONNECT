@@ -32,13 +32,20 @@ import gov.hhs.fha.nhinc.proxy.ComponentProxyObjectFactory;
  * @author svalluripalli
  */
 public class DirectEdgeProxyObjectFactory extends ComponentProxyObjectFactory {
+
     private static final String CONFIG_FILE_NAME = "DirectEdgeClientProxyConfig.xml";
     private static final String BEAN_NAME = "directedgeclient";
 
+    /**
+     * {@inheritDoc}
+     */
     protected String getConfigFileName() {
         return CONFIG_FILE_NAME;
     }
 
+    /**
+     * @return direct edge proxy
+     */
     public DirectEdgeProxy getDirectEdgeProxy() {
         return getBean(BEAN_NAME, DirectEdgeProxy.class);
     }

@@ -37,9 +37,8 @@ import gov.hhs.fha.nhinc.mail.MessageHandler;
 public class DirectMailPoller extends AbstractMailPoller {
     
     /**
-     * @param mailClient mail client talking to the server we want to poll.
+     * @param mailReceiver which retrieves messages from the server we want to poll.
      * @param messageHandler message handler invoked on each message returned.
-     * @param directEventLogger direct event logger.
      */
     public DirectMailPoller(MailReceiver mailReceiver, MessageHandler messageHandler) {
         super(mailReceiver, messageHandler);

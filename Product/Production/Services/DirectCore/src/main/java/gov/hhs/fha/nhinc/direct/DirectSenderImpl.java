@@ -45,8 +45,9 @@ public class DirectSenderImpl extends DirectAdapter implements DirectSender {
     private static final String MSG_TEXT = "DIRECT Message body text";
     
     /**
-     * @param externalMailClient
-     * @param smtpAgent
+     * @param externalMailSender used to send messages.
+     * @param smtpAgent used to process direct messages.
+     * @param directEventLogger used to log direct events.
      */
     public DirectSenderImpl(MailSender externalMailSender, SmtpAgent smtpAgent, DirectEventLogger directEventLogger) {
         super(externalMailSender, smtpAgent, directEventLogger);

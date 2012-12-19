@@ -42,7 +42,6 @@ import gov.hhs.fha.nhinc.direct.edge.proxy.DirectEdgeProxy;
 import gov.hhs.fha.nhinc.direct.event.DirectEventLogger;
 import gov.hhs.fha.nhinc.event.EventManager;
 import gov.hhs.fha.nhinc.mail.ImapMailReceiver;
-import gov.hhs.fha.nhinc.mail.MailClient;
 import gov.hhs.fha.nhinc.mail.MailClientException;
 import gov.hhs.fha.nhinc.mail.MailReceiver;
 import gov.hhs.fha.nhinc.mail.MailSender;
@@ -317,7 +316,7 @@ public abstract class AbstractDirectMailClientTest extends DirectBaseTest {
      * Invoke and test {@link MailClient#handleMessages(MessageHandler)}. Note that this method also cleans up after
      * GreenMail by expunging any straggling deleted messages that GreenMail misses.
      * 
-     * @param client mail client used to retrieve messages.
+     * @param receiver mail receiver used to retrieve messages.
      * @param handler used to handle retrieved messages.
      * @param expectedNumberOfMsgs number of messages expected to be retrieved.
      * @param user used to expunge messages.

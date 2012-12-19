@@ -49,8 +49,9 @@ public class DirectReceiverImpl extends DirectAdapter implements DirectReceiver 
     private static final Logger LOG = Logger.getLogger(DirectAdapter.class);
     
     /**
-     * @param externalMailSender
-     * @param smtpAgent
+     * @param externalMailSender used to send mail.
+     * @param smtpAgent used to process direct messages.
+     * @param directEventLogger used to log direct events.
      */
     public DirectReceiverImpl(MailSender externalMailSender, SmtpAgent smtpAgent, DirectEventLogger directEventLogger) {
         super(externalMailSender, smtpAgent, directEventLogger);
