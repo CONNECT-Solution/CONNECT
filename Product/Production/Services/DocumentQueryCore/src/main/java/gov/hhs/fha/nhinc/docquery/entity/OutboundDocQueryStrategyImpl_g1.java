@@ -29,9 +29,6 @@ package gov.hhs.fha.nhinc.docquery.entity;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants.GATEWAY_API_LEVEL;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 /**
  * Implements the DocQuery client strategy for spec g1 endpoint.
  * 
@@ -41,20 +38,8 @@ import org.apache.commons.logging.LogFactory;
 // CHECKSTYLE:OFF
 public class OutboundDocQueryStrategyImpl_g1 extends OutboundDocQueryStrategy {
     // CHECKSTYLE:ON
-    private static Log log = LogFactory.getLog(OutboundDocQueryStrategyImpl_g1.class);
-
     
-    
-    /**
-     * Default Constructor.
-     */
-    public OutboundDocQueryStrategyImpl_g1() {
-       
-    }
-
-   
-
-    @Override
+	@Override
     protected String getServiceName() {
         return NhincConstants.DOC_QUERY_SERVICE_NAME;
     }

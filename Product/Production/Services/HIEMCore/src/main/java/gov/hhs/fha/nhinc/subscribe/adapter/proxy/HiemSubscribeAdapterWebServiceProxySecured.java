@@ -39,8 +39,7 @@ import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.subscribe.adapter.proxy.service.HiemSubscribeAdapterSecuredServicePortDescriptor;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 import org.oasis_open.docs.wsn.b_2.Subscribe;
 import org.oasis_open.docs.wsn.b_2.SubscribeResponse;
 import org.w3c.dom.Element;
@@ -51,7 +50,7 @@ import org.w3c.dom.Element;
  */
 public class HiemSubscribeAdapterWebServiceProxySecured implements HiemSubscribeAdapterProxy {
 
-    private static Log log = LogFactory.getLog(HiemSubscribeAdapterWebServiceProxy.class);
+    private static final Logger LOG = Logger.getLogger(HiemSubscribeAdapterWebServiceProxy.class);
 
     private static WebServiceProxyHelper oProxyHelper = null;
 
@@ -83,7 +82,7 @@ public class HiemSubscribeAdapterWebServiceProxySecured implements HiemSubscribe
             SubscribeResponseMarshaller subscribeResponseMarshaller = new SubscribeResponseMarshaller();
             responseElement = subscribeResponseMarshaller.marshal(response);
         } else {
-            log.error("Failed to call the web service (" + NhincConstants.HIEM_SUBSCRIBE_ADAPTER_SECURED_SERVICE_NAME
+            LOG.error("Failed to call the web service (" + NhincConstants.HIEM_SUBSCRIBE_ADAPTER_SECURED_SERVICE_NAME
                     + ").  The URL is null.");
         }
 

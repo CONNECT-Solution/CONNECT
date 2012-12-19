@@ -30,23 +30,15 @@ import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+
+import org.apache.log4j.Logger;
 
 /**
  * 
  * @author JHOPPESC
  */
 public class AdapterRedactionEngineOrchImpl implements AdapterRedactionEngineOrch {
-    private Log log = null;
-
-    public AdapterRedactionEngineOrchImpl() {
-        log = createLogger();
-    }
-
-    protected Log createLogger() {
-        return LogFactory.getLog(getClass());
-    }
+    private static final Logger LOG = Logger.getLogger(AdapterRedactionEngineOrchImpl.class);
 
     protected RedactionEngine getRedactionEngine() {
         return new RedactionEngine();
@@ -55,15 +47,15 @@ public class AdapterRedactionEngineOrchImpl implements AdapterRedactionEngineOrc
     @Override
     public AdhocQueryResponse filterAdhocQueryResults(AdhocQueryRequest adhocQueryRequest,
             AdhocQueryResponse adhocQueryResponse) {
-        log.debug("Begin filterAdhocQueryResults");
+        LOG.trace("Begin filterAdhocQueryResults");
         AdhocQueryResponse response = null;
         RedactionEngine redactionEngine = getRedactionEngine();
         if (redactionEngine != null) {
             response = redactionEngine.filterAdhocQueryResults(adhocQueryRequest, adhocQueryResponse);
         } else {
-            log.warn("RedactionEngine was null");
+            LOG.warn("RedactionEngine was null");
         }
-        log.debug("End filterAdhocQueryResults");
+        LOG.trace("End filterAdhocQueryResults");
         return response;
     }
 
@@ -71,16 +63,16 @@ public class AdapterRedactionEngineOrchImpl implements AdapterRedactionEngineOrc
     public RetrieveDocumentSetResponseType filterRetrieveDocumentSetResults(
             RetrieveDocumentSetRequestType retrieveDocumentSetRequest,
             RetrieveDocumentSetResponseType retrieveDocumentSetResponse) {
-        log.debug("Begin filterRetrieveDocumentSetResults");
+        LOG.trace("Begin filterRetrieveDocumentSetResults");
         RetrieveDocumentSetResponseType response = null;
         RedactionEngine redactionEngine = getRedactionEngine();
         if (redactionEngine != null) {
             response = redactionEngine.filterRetrieveDocumentSetResults(retrieveDocumentSetRequest,
                     retrieveDocumentSetResponse);
         } else {
-            log.warn("RedactionEngine was null");
+            LOG.warn("RedactionEngine was null");
         }
-        log.debug("Begin filterRetrieveDocumentSetResults");
+        LOG.trace("Begin filterRetrieveDocumentSetResults");
         return response;
     }
 

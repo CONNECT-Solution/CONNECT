@@ -26,7 +26,11 @@
  */
 package gov.hhs.fha.nhinc.patientdiscovery;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.fail;
 import gov.hhs.fha.nhinc.common.connectionmanager.dao.AssigningAuthorityHomeCommunityMappingDAO;
 import gov.hhs.fha.nhinc.transform.subdisc.HL7PRPA201305Transforms;
 import gov.hhs.fha.nhinc.transform.subdisc.HL7PRPA201306Transforms;
@@ -37,7 +41,6 @@ import java.util.List;
 
 import javax.xml.bind.JAXBElement;
 
-import org.apache.commons.logging.Log;
 import org.hl7.v3.COCTMT090300UV01AssignedDevice;
 import org.hl7.v3.II;
 import org.hl7.v3.MCCIMT000300UV01Agent;
@@ -50,7 +53,6 @@ import org.hl7.v3.PRPAIN201306UV02;
 import org.hl7.v3.PRPAIN201306UV02MFMIMT700711UV01ControlActProcess;
 import org.hl7.v3.PRPAMT201301UV02Patient;
 import org.hl7.v3.PRPAMT201301UV02Person;
-import org.jmock.Expectations;
 import org.jmock.Mockery;
 import org.jmock.integration.junit4.JUnit4Mockery;
 import org.jmock.lib.legacy.ClassImposteriser;
@@ -67,54 +69,22 @@ public class PatientDiscovery201306ProcessorTest {
             setImposteriser(ClassImposteriser.INSTANCE);
         }
     };
-    final Log mockLog = context.mock(Log.class);
+    
     final AssigningAuthorityHomeCommunityMappingDAO mockMappingDao = context
             .mock(AssigningAuthorityHomeCommunityMappingDAO.class);
     final PRPAIN201306UV02 mockMessage = context.mock(PRPAIN201306UV02.class);
 
-    @Test
-    public void testCreateLogger() {
-        try {
-            PatientDiscovery201306Processor storage = new PatientDiscovery201306Processor() {
-                @Override
-                protected Log createLogger() {
-                    return mockLog;
-                }
-            };
-            context.checking(new Expectations() {
-                {
-                    allowing(mockLog).debug(with(aNonNull(String.class)));
-                }
-            });
-
-            Log log = storage.createLogger();
-            assertNotNull("Log was null", log);
-        } catch (Throwable t) {
-            System.out.println("Error running testCreateLogger: " + t.getMessage());
-            t.printStackTrace();
-            fail("Error running testCreateLogger: " + t.getMessage());
-        }
-    }
 
     @Test
     public void testGetAssigningAuthorityHomeCommunityMappingDAO() {
         try {
             PatientDiscovery201306Processor storage = new PatientDiscovery201306Processor() {
-                @Override
-                protected Log createLogger() {
-                    return mockLog;
-                }
 
                 @Override
                 protected AssigningAuthorityHomeCommunityMappingDAO getAssigningAuthorityHomeCommunityMappingDAO() {
                     return mockMappingDao;
                 }
             };
-            context.checking(new Expectations() {
-                {
-                    allowing(mockLog).debug(with(aNonNull(String.class)));
-                }
-            });
 
             AssigningAuthorityHomeCommunityMappingDAO mappingDao = storage
                     .getAssigningAuthorityHomeCommunityMappingDAO();
@@ -130,11 +100,7 @@ public class PatientDiscovery201306ProcessorTest {
     public void testStoreMappingHappy() {
         try {
             PatientDiscovery201306Processor storage = new PatientDiscovery201306Processor() {
-                @Override
-                protected Log createLogger() {
-                    return mockLog;
-                }
-
+                
                 @Override
                 protected AssigningAuthorityHomeCommunityMappingDAO getAssigningAuthorityHomeCommunityMappingDAO() {
                     AssigningAuthorityHomeCommunityMappingDAO mappingDao = new AssigningAuthorityHomeCommunityMappingDAO() {
@@ -159,11 +125,6 @@ public class PatientDiscovery201306ProcessorTest {
 
                 }
             };
-            context.checking(new Expectations() {
-                {
-                    allowing(mockLog).debug(with(aNonNull(String.class)));
-                }
-            });
 
             storage.storeMapping(mockMessage);
         } catch (Throwable t) {
@@ -177,11 +138,7 @@ public class PatientDiscovery201306ProcessorTest {
     public void testStoreMappingNullHcid() {
         try {
             PatientDiscovery201306Processor storage = new PatientDiscovery201306Processor() {
-                @Override
-                protected Log createLogger() {
-                    return mockLog;
-                }
-
+                
                 @Override
                 protected AssigningAuthorityHomeCommunityMappingDAO getAssigningAuthorityHomeCommunityMappingDAO() {
                     return mockMappingDao;
@@ -200,12 +157,6 @@ public class PatientDiscovery201306ProcessorTest {
 
                 }
             };
-            context.checking(new Expectations() {
-                {
-                    allowing(mockLog).debug(with(aNonNull(String.class)));
-                    allowing(mockLog).warn("HCID null or empty. Mapping was not stored.");
-                }
-            });
 
             storage.storeMapping(mockMessage);
         } catch (Throwable t) {
@@ -219,11 +170,7 @@ public class PatientDiscovery201306ProcessorTest {
     public void testStoreMappingNullAssigningAuthority() {
         try {
             PatientDiscovery201306Processor storage = new PatientDiscovery201306Processor() {
-                @Override
-                protected Log createLogger() {
-                    return mockLog;
-                }
-
+               
                 @Override
                 protected AssigningAuthorityHomeCommunityMappingDAO getAssigningAuthorityHomeCommunityMappingDAO() {
                     return mockMappingDao;
@@ -242,12 +189,6 @@ public class PatientDiscovery201306ProcessorTest {
 
                 }
             };
-            context.checking(new Expectations() {
-                {
-                    allowing(mockLog).debug(with(aNonNull(String.class)));
-                    allowing(mockLog).warn("Assigning authority null or empty. Mapping was not stored.");
-                }
-            });
 
             storage.storeMapping(mockMessage);
         } catch (Throwable t) {
@@ -261,11 +202,7 @@ public class PatientDiscovery201306ProcessorTest {
     public void testStoreMappingNullMappingDao() {
         try {
             PatientDiscovery201306Processor storage = new PatientDiscovery201306Processor() {
-                @Override
-                protected Log createLogger() {
-                    return mockLog;
-                }
-
+                
                 @Override
                 protected AssigningAuthorityHomeCommunityMappingDAO getAssigningAuthorityHomeCommunityMappingDAO() {
                     return null;
@@ -284,13 +221,6 @@ public class PatientDiscovery201306ProcessorTest {
 
                 }
             };
-            context.checking(new Expectations() {
-                {
-                    allowing(mockLog).debug(with(aNonNull(String.class)));
-                    allowing(mockLog).warn(
-                            "AssigningAuthorityHomeCommunityMappingDAO was null. Mapping was not stored.");
-                }
-            });
 
             storage.storeMapping(mockMessage);
         } catch (Throwable t) {
@@ -304,11 +234,7 @@ public class PatientDiscovery201306ProcessorTest {
     public void testStoreMappingFailedStorage() {
         try {
             PatientDiscovery201306Processor storage = new PatientDiscovery201306Processor() {
-                @Override
-                protected Log createLogger() {
-                    return mockLog;
-                }
-
+                
                 @Override
                 protected AssigningAuthorityHomeCommunityMappingDAO getAssigningAuthorityHomeCommunityMappingDAO() {
                     AssigningAuthorityHomeCommunityMappingDAO mappingDao = new AssigningAuthorityHomeCommunityMappingDAO() {
@@ -333,13 +259,7 @@ public class PatientDiscovery201306ProcessorTest {
 
                 }
             };
-            context.checking(new Expectations() {
-                {
-                    allowing(mockLog).debug(with(aNonNull(String.class)));
-                    allowing(mockLog).warn("Failed to store home community - assigning authority mapping");
-                }
-            });
-
+            
             storage.storeMapping(mockMessage);
         } catch (Throwable t) {
             System.out.println("Error running testStoreMappingFailedStorage: " + t.getMessage());
@@ -354,18 +274,8 @@ public class PatientDiscovery201306ProcessorTest {
     @Test
     public void testGetHcidHappy() {
         try {
-            PatientDiscovery201306Processor storage = new PatientDiscovery201306Processor() {
-                @Override
-                protected Log createLogger() {
-                    return mockLog;
-                }
-            };
-            context.checking(new Expectations() {
-                {
-                    allowing(mockLog).debug(with(aNonNull(String.class)));
-                }
-            });
-
+            PatientDiscovery201306Processor storage = new PatientDiscovery201306Processor();
+            
             org.hl7.v3.ObjectFactory hl7OjbFactory = new org.hl7.v3.ObjectFactory();
             PRPAIN201306UV02 request = new PRPAIN201306UV02();
             MCCIMT000300UV01Sender sender = new MCCIMT000300UV01Sender();
@@ -394,18 +304,8 @@ public class PatientDiscovery201306ProcessorTest {
     @Test
     public void testGetHcidNoMatch() {
         try {
-            PatientDiscovery201306Processor storage = new PatientDiscovery201306Processor() {
-                @Override
-                protected Log createLogger() {
-                    return mockLog;
-                }
-            };
-            context.checking(new Expectations() {
-                {
-                    allowing(mockLog).debug(with(aNonNull(String.class)));
-                }
-            });
-
+            PatientDiscovery201306Processor storage = new PatientDiscovery201306Processor();
+            
             org.hl7.v3.ObjectFactory hl7OjbFactory = new org.hl7.v3.ObjectFactory();
             PRPAIN201306UV02 request = new PRPAIN201306UV02();
             MCCIMT000300UV01Sender sender = new MCCIMT000300UV01Sender();
@@ -434,18 +334,8 @@ public class PatientDiscovery201306ProcessorTest {
     @Test
     public void testGetHcidNullHcid() {
         try {
-            PatientDiscovery201306Processor storage = new PatientDiscovery201306Processor() {
-                @Override
-                protected Log createLogger() {
-                    return mockLog;
-                }
-            };
-            context.checking(new Expectations() {
-                {
-                    allowing(mockLog).debug(with(aNonNull(String.class)));
-                }
-            });
-
+            PatientDiscovery201306Processor storage = new PatientDiscovery201306Processor();
+            
             org.hl7.v3.ObjectFactory hl7OjbFactory = new org.hl7.v3.ObjectFactory();
             PRPAIN201306UV02 request = new PRPAIN201306UV02();
             MCCIMT000300UV01Sender sender = new MCCIMT000300UV01Sender();
@@ -472,18 +362,8 @@ public class PatientDiscovery201306ProcessorTest {
     @Test
     public void testGetHcidNullId() {
         try {
-            PatientDiscovery201306Processor storage = new PatientDiscovery201306Processor() {
-                @Override
-                protected Log createLogger() {
-                    return mockLog;
-                }
-            };
-            context.checking(new Expectations() {
-                {
-                    allowing(mockLog).debug(with(aNonNull(String.class)));
-                }
-            });
-
+            PatientDiscovery201306Processor storage = new PatientDiscovery201306Processor();
+            
             org.hl7.v3.ObjectFactory hl7OjbFactory = new org.hl7.v3.ObjectFactory();
             PRPAIN201306UV02 request = new PRPAIN201306UV02();
             MCCIMT000300UV01Sender sender = new MCCIMT000300UV01Sender();
@@ -510,18 +390,8 @@ public class PatientDiscovery201306ProcessorTest {
     @Test
     public void testGetHcidMissingId() {
         try {
-            PatientDiscovery201306Processor storage = new PatientDiscovery201306Processor() {
-                @Override
-                protected Log createLogger() {
-                    return mockLog;
-                }
-            };
-            context.checking(new Expectations() {
-                {
-                    allowing(mockLog).debug(with(aNonNull(String.class)));
-                }
-            });
-
+            PatientDiscovery201306Processor storage = new PatientDiscovery201306Processor();
+            
             org.hl7.v3.ObjectFactory hl7OjbFactory = new org.hl7.v3.ObjectFactory();
             PRPAIN201306UV02 request = new PRPAIN201306UV02();
             MCCIMT000300UV01Sender sender = new MCCIMT000300UV01Sender();
@@ -546,18 +416,8 @@ public class PatientDiscovery201306ProcessorTest {
     @Test
     public void testGetHcidNullRepresentedOrganization() {
         try {
-            PatientDiscovery201306Processor storage = new PatientDiscovery201306Processor() {
-                @Override
-                protected Log createLogger() {
-                    return mockLog;
-                }
-            };
-            context.checking(new Expectations() {
-                {
-                    allowing(mockLog).debug(with(aNonNull(String.class)));
-                }
-            });
-
+            PatientDiscovery201306Processor storage = new PatientDiscovery201306Processor();
+            
             org.hl7.v3.ObjectFactory hl7OjbFactory = new org.hl7.v3.ObjectFactory();
             PRPAIN201306UV02 request = new PRPAIN201306UV02();
             MCCIMT000300UV01Sender sender = new MCCIMT000300UV01Sender();
@@ -582,18 +442,8 @@ public class PatientDiscovery201306ProcessorTest {
     @Test
     public void testGetHcidMissingRepresentedOrganization() {
         try {
-            PatientDiscovery201306Processor storage = new PatientDiscovery201306Processor() {
-                @Override
-                protected Log createLogger() {
-                    return mockLog;
-                }
-            };
-            context.checking(new Expectations() {
-                {
-                    allowing(mockLog).debug(with(aNonNull(String.class)));
-                }
-            });
-
+            PatientDiscovery201306Processor storage = new PatientDiscovery201306Processor();
+            
             org.hl7.v3.ObjectFactory hl7OjbFactory = new org.hl7.v3.ObjectFactory();
             PRPAIN201306UV02 request = new PRPAIN201306UV02();
             MCCIMT000300UV01Sender sender = new MCCIMT000300UV01Sender();
@@ -615,18 +465,8 @@ public class PatientDiscovery201306ProcessorTest {
     @Test
     public void testGetHcidNullAsAgent() {
         try {
-            PatientDiscovery201306Processor storage = new PatientDiscovery201306Processor() {
-                @Override
-                protected Log createLogger() {
-                    return mockLog;
-                }
-            };
-            context.checking(new Expectations() {
-                {
-                    allowing(mockLog).debug(with(aNonNull(String.class)));
-                }
-            });
-
+            PatientDiscovery201306Processor storage = new PatientDiscovery201306Processor();
+            
             org.hl7.v3.ObjectFactory hl7OjbFactory = new org.hl7.v3.ObjectFactory();
             PRPAIN201306UV02 request = new PRPAIN201306UV02();
             MCCIMT000300UV01Sender sender = new MCCIMT000300UV01Sender();
@@ -648,18 +488,8 @@ public class PatientDiscovery201306ProcessorTest {
     @Test
     public void testGetHcidMissingAsAgent() {
         try {
-            PatientDiscovery201306Processor storage = new PatientDiscovery201306Processor() {
-                @Override
-                protected Log createLogger() {
-                    return mockLog;
-                }
-            };
-            context.checking(new Expectations() {
-                {
-                    allowing(mockLog).debug(with(aNonNull(String.class)));
-                }
-            });
-
+            PatientDiscovery201306Processor storage = new PatientDiscovery201306Processor();
+            
             PRPAIN201306UV02 request = new PRPAIN201306UV02();
             MCCIMT000300UV01Sender sender = new MCCIMT000300UV01Sender();
             request.setSender(sender);
@@ -678,18 +508,8 @@ public class PatientDiscovery201306ProcessorTest {
     @Test
     public void testGetHcidNullDevice() {
         try {
-            PatientDiscovery201306Processor storage = new PatientDiscovery201306Processor() {
-                @Override
-                protected Log createLogger() {
-                    return mockLog;
-                }
-            };
-            context.checking(new Expectations() {
-                {
-                    allowing(mockLog).debug(with(aNonNull(String.class)));
-                }
-            });
-
+            PatientDiscovery201306Processor storage = new PatientDiscovery201306Processor();
+            
             PRPAIN201306UV02 request = new PRPAIN201306UV02();
             MCCIMT000300UV01Sender sender = new MCCIMT000300UV01Sender();
             request.setSender(sender);
@@ -706,18 +526,8 @@ public class PatientDiscovery201306ProcessorTest {
     @Test
     public void testGetHcidNullSender() {
         try {
-            PatientDiscovery201306Processor storage = new PatientDiscovery201306Processor() {
-                @Override
-                protected Log createLogger() {
-                    return mockLog;
-                }
-            };
-            context.checking(new Expectations() {
-                {
-                    allowing(mockLog).debug(with(aNonNull(String.class)));
-                }
-            });
-
+            PatientDiscovery201306Processor storage = new PatientDiscovery201306Processor();
+            
             PRPAIN201306UV02 request = new PRPAIN201306UV02();
 
             String hcid = storage.getHcid(request);
@@ -732,18 +542,8 @@ public class PatientDiscovery201306ProcessorTest {
     @Test
     public void testGetHcidNullRequest() {
         try {
-            PatientDiscovery201306Processor storage = new PatientDiscovery201306Processor() {
-                @Override
-                protected Log createLogger() {
-                    return mockLog;
-                }
-            };
-            context.checking(new Expectations() {
-                {
-                    allowing(mockLog).debug(with(aNonNull(String.class)));
-                }
-            });
-
+            PatientDiscovery201306Processor storage = new PatientDiscovery201306Processor();
+            
             PRPAIN201306UV02 request = null;
 
             String hcid = storage.getHcid(request);
@@ -762,18 +562,8 @@ public class PatientDiscovery201306ProcessorTest {
     @Test
     public void testGetAssigningAuthorityHappy() {
         try {
-            PatientDiscovery201306Processor storage = new PatientDiscovery201306Processor() {
-                @Override
-                protected Log createLogger() {
-                    return mockLog;
-                }
-            };
-            context.checking(new Expectations() {
-                {
-                    allowing(mockLog).debug(with(aNonNull(String.class)));
-                }
-            });
-
+            PatientDiscovery201306Processor storage = new PatientDiscovery201306Processor();
+            
             org.hl7.v3.ObjectFactory hl7OjbFactory = new org.hl7.v3.ObjectFactory();
             PRPAIN201306UV02 request = new PRPAIN201306UV02();
             PRPAIN201306UV02MFMIMT700711UV01ControlActProcess controlActProcess = new PRPAIN201306UV02MFMIMT700711UV01ControlActProcess();
@@ -800,18 +590,8 @@ public class PatientDiscovery201306ProcessorTest {
     @Test
     public void testGetAssigningAuthorityNoMatch() {
         try {
-            PatientDiscovery201306Processor storage = new PatientDiscovery201306Processor() {
-                @Override
-                protected Log createLogger() {
-                    return mockLog;
-                }
-            };
-            context.checking(new Expectations() {
-                {
-                    allowing(mockLog).debug(with(aNonNull(String.class)));
-                }
-            });
-
+            PatientDiscovery201306Processor storage = new PatientDiscovery201306Processor();
+            
             org.hl7.v3.ObjectFactory hl7OjbFactory = new org.hl7.v3.ObjectFactory();
             PRPAIN201306UV02 request = new PRPAIN201306UV02();
             PRPAIN201306UV02MFMIMT700711UV01ControlActProcess controlActProcess = new PRPAIN201306UV02MFMIMT700711UV01ControlActProcess();
@@ -838,18 +618,8 @@ public class PatientDiscovery201306ProcessorTest {
     @Test
     public void testGetAssigningAuthorityNullAssigningAuthority() {
         try {
-            PatientDiscovery201306Processor storage = new PatientDiscovery201306Processor() {
-                @Override
-                protected Log createLogger() {
-                    return mockLog;
-                }
-            };
-            context.checking(new Expectations() {
-                {
-                    allowing(mockLog).debug(with(aNonNull(String.class)));
-                }
-            });
-
+            PatientDiscovery201306Processor storage = new PatientDiscovery201306Processor();
+            
             org.hl7.v3.ObjectFactory hl7OjbFactory = new org.hl7.v3.ObjectFactory();
             PRPAIN201306UV02 request = new PRPAIN201306UV02();
             PRPAIN201306UV02MFMIMT700711UV01ControlActProcess controlActProcess = new PRPAIN201306UV02MFMIMT700711UV01ControlActProcess();
@@ -874,18 +644,8 @@ public class PatientDiscovery201306ProcessorTest {
     @Test
     public void testGetAssigningAuthorityNullId() {
         try {
-            PatientDiscovery201306Processor storage = new PatientDiscovery201306Processor() {
-                @Override
-                protected Log createLogger() {
-                    return mockLog;
-                }
-            };
-            context.checking(new Expectations() {
-                {
-                    allowing(mockLog).debug(with(aNonNull(String.class)));
-                }
-            });
-
+            PatientDiscovery201306Processor storage = new PatientDiscovery201306Processor();
+            
             org.hl7.v3.ObjectFactory hl7OjbFactory = new org.hl7.v3.ObjectFactory();
             PRPAIN201306UV02 request = new PRPAIN201306UV02();
             PRPAIN201306UV02MFMIMT700711UV01ControlActProcess controlActProcess = new PRPAIN201306UV02MFMIMT700711UV01ControlActProcess();
@@ -910,18 +670,8 @@ public class PatientDiscovery201306ProcessorTest {
     @Test
     public void testGetAssigningAuthorityMissingId() {
         try {
-            PatientDiscovery201306Processor storage = new PatientDiscovery201306Processor() {
-                @Override
-                protected Log createLogger() {
-                    return mockLog;
-                }
-            };
-            context.checking(new Expectations() {
-                {
-                    allowing(mockLog).debug(with(aNonNull(String.class)));
-                }
-            });
-
+            PatientDiscovery201306Processor storage = new PatientDiscovery201306Processor();
+            
             org.hl7.v3.ObjectFactory hl7OjbFactory = new org.hl7.v3.ObjectFactory();
             PRPAIN201306UV02 request = new PRPAIN201306UV02();
             PRPAIN201306UV02MFMIMT700711UV01ControlActProcess controlActProcess = new PRPAIN201306UV02MFMIMT700711UV01ControlActProcess();
@@ -944,18 +694,8 @@ public class PatientDiscovery201306ProcessorTest {
     @Test
     public void testGetAssigningAuthorityNullAssignedDevice() {
         try {
-            PatientDiscovery201306Processor storage = new PatientDiscovery201306Processor() {
-                @Override
-                protected Log createLogger() {
-                    return mockLog;
-                }
-            };
-            context.checking(new Expectations() {
-                {
-                    allowing(mockLog).debug(with(aNonNull(String.class)));
-                }
-            });
-
+            PatientDiscovery201306Processor storage = new PatientDiscovery201306Processor();
+            
             org.hl7.v3.ObjectFactory hl7OjbFactory = new org.hl7.v3.ObjectFactory();
             PRPAIN201306UV02 request = new PRPAIN201306UV02();
             PRPAIN201306UV02MFMIMT700711UV01ControlActProcess controlActProcess = new PRPAIN201306UV02MFMIMT700711UV01ControlActProcess();
@@ -978,18 +718,8 @@ public class PatientDiscovery201306ProcessorTest {
     @Test
     public void testGetAssigningAuthorityMissingAssignedDevice() {
         try {
-            PatientDiscovery201306Processor storage = new PatientDiscovery201306Processor() {
-                @Override
-                protected Log createLogger() {
-                    return mockLog;
-                }
-            };
-            context.checking(new Expectations() {
-                {
-                    allowing(mockLog).debug(with(aNonNull(String.class)));
-                }
-            });
-
+            PatientDiscovery201306Processor storage = new PatientDiscovery201306Processor();
+            
             PRPAIN201306UV02 request = new PRPAIN201306UV02();
             PRPAIN201306UV02MFMIMT700711UV01ControlActProcess controlActProcess = new PRPAIN201306UV02MFMIMT700711UV01ControlActProcess();
             request.setControlActProcess(controlActProcess);
@@ -1008,18 +738,8 @@ public class PatientDiscovery201306ProcessorTest {
     @Test
     public void testGetAssigningAuthorityNullAuthorOrPerformer() {
         try {
-            PatientDiscovery201306Processor storage = new PatientDiscovery201306Processor() {
-                @Override
-                protected Log createLogger() {
-                    return mockLog;
-                }
-            };
-            context.checking(new Expectations() {
-                {
-                    allowing(mockLog).debug(with(aNonNull(String.class)));
-                }
-            });
-
+            PatientDiscovery201306Processor storage = new PatientDiscovery201306Processor();
+            
             PRPAIN201306UV02 request = new PRPAIN201306UV02();
             PRPAIN201306UV02MFMIMT700711UV01ControlActProcess controlActProcess = new PRPAIN201306UV02MFMIMT700711UV01ControlActProcess();
             request.setControlActProcess(controlActProcess);
@@ -1038,18 +758,8 @@ public class PatientDiscovery201306ProcessorTest {
     @Test
     public void testGetAssigningAuthorityMissingAuthorOrPerformer() {
         try {
-            PatientDiscovery201306Processor storage = new PatientDiscovery201306Processor() {
-                @Override
-                protected Log createLogger() {
-                    return mockLog;
-                }
-            };
-            context.checking(new Expectations() {
-                {
-                    allowing(mockLog).debug(with(aNonNull(String.class)));
-                }
-            });
-
+            PatientDiscovery201306Processor storage = new PatientDiscovery201306Processor();
+            
             PRPAIN201306UV02 request = new PRPAIN201306UV02();
             PRPAIN201306UV02MFMIMT700711UV01ControlActProcess controlActProcess = new PRPAIN201306UV02MFMIMT700711UV01ControlActProcess();
             request.setControlActProcess(controlActProcess);
@@ -1066,17 +776,7 @@ public class PatientDiscovery201306ProcessorTest {
     @Test
     public void testGetAssigningAuthorityNullControlActProcess() {
         try {
-            PatientDiscovery201306Processor storage = new PatientDiscovery201306Processor() {
-                @Override
-                protected Log createLogger() {
-                    return mockLog;
-                }
-            };
-            context.checking(new Expectations() {
-                {
-                    allowing(mockLog).debug(with(aNonNull(String.class)));
-                }
-            });
+            PatientDiscovery201306Processor storage = new PatientDiscovery201306Processor();
 
             PRPAIN201306UV02 request = new PRPAIN201306UV02();
 
@@ -1092,18 +792,8 @@ public class PatientDiscovery201306ProcessorTest {
     @Test
     public void testGetAssigningAuthorityNullRequest() {
         try {
-            PatientDiscovery201306Processor storage = new PatientDiscovery201306Processor() {
-                @Override
-                protected Log createLogger() {
-                    return mockLog;
-                }
-            };
-            context.checking(new Expectations() {
-                {
-                    allowing(mockLog).debug(with(aNonNull(String.class)));
-                }
-            });
-
+            PatientDiscovery201306Processor storage = new PatientDiscovery201306Processor();
+            
             PRPAIN201306UV02 request = null;
 
             String aa = storage.getAssigningAuthority(request);

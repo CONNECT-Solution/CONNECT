@@ -30,8 +30,7 @@ import gov.hhs.fha.nhinc.xmlCommon.XpathHelper;
 
 import javax.xml.xpath.XPathExpressionException;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
@@ -41,18 +40,18 @@ import org.w3c.dom.Node;
  */
 public class ReferenceParametersHelper {
 
-    private static Log log = LogFactory.getLog(ReferenceParametersHelper.class);
+    private static final Logger LOG = Logger.getLogger(ReferenceParametersHelper.class);
 
     public SoapMessageElements createReferenceParameterElementsFromSubscriptionReference(String subscriptionReferenceXml)
             throws XPathExpressionException {
-        log.debug("extracting reference parameters from subscription reference [" + subscriptionReferenceXml + "]");
+        LOG.debug("extracting reference parameters from subscription reference [" + subscriptionReferenceXml + "]");
         String xpathQuery = "//*[local-name()='ReferenceParameters']";
         return createReferenceParameterElementsFromEndpointReference(subscriptionReferenceXml, xpathQuery);
     }
 
     public SoapMessageElements createReferenceParameterElementsFromConsumerReference(String subscribeXml)
             throws XPathExpressionException {
-        log.debug("extracting reference parameters from subscribe [" + subscribeXml + "]");
+        LOG.debug("extracting reference parameters from subscribe [" + subscribeXml + "]");
         String xpathQuery = "//*[local-name()='ReferenceParameters']";
         return createReferenceParameterElementsFromEndpointReference(subscribeXml, xpathQuery);
     }
@@ -87,12 +86,12 @@ public class ReferenceParametersHelper {
                    
             if (nodeName.equals("subscriptionid")) {
                 String nodeValue = referenceParametersElement.getNodeValue();
-                log.debug("nodeValue SubscriptionId :"+nodeValue);
+                LOG.debug("nodeValue SubscriptionId :"+nodeValue);
                 if (nodeValue == null && referenceParametersElement.getFirstChild() != null) {
                     nodeValue = referenceParametersElement.getFirstChild().getNodeValue(); 
                 }
            SubscriptionId = nodeValue;
-           log.debug("SubscriptionId: "+SubscriptionId);
+           LOG.debug("SubscriptionId: "+SubscriptionId);
            break;
         }
     }
@@ -101,8 +100,8 @@ public class ReferenceParametersHelper {
 
     private SoapMessageElements createReferenceParameterElementsFromEndpointReference(String xml, String xpathQuery)
             throws XPathExpressionException {
-        log.debug("extracting reference parameters from xml [" + xml + "]");
-        log.debug("get endpoint reference using xpath:" + xpathQuery);
+        LOG.debug("extracting reference parameters from xml [" + xml + "]");
+        LOG.debug("get endpoint reference using xpath:" + xpathQuery);
         Element endpointReference = (Element) XpathHelper.performXpathQuery(xml, xpathQuery);
         return createReferenceParameterElementsFromEndpointReference(endpointReference);
     }
@@ -113,17 +112,17 @@ public class ReferenceParametersHelper {
         if (endpointReference != null) {
             for (int i = 0; i < endpointReference.getChildNodes().getLength(); i++) {
                 Node childNode = endpointReference.getChildNodes().item(i);
-                log.debug("processing child node [" + childNode.getNodeName() + "]");
+                LOG.debug("processing child node [" + childNode.getNodeName() + "]");
                 if (childNode instanceof Element) {
-                    log.debug("adding to reference parameters");
+                    LOG.debug("adding to reference parameters");
                     Element childElement = (Element) childNode;
                     referenceParametersElements.getElements().add(childElement);
                 } else {
-                    log.debug("not an element - skipping");
+                    LOG.debug("not an element - skipping");
                 }
             }
         }
-        log.debug("referenceParametersElements.getElements().size() = "
+        LOG.debug("referenceParametersElements.getElements().size() = "
                 + referenceParametersElements.getElements().size());
         return referenceParametersElements;
     }

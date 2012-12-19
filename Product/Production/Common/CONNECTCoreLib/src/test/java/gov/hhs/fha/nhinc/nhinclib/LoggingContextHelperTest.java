@@ -34,7 +34,6 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 import javax.xml.ws.WebServiceContext;
-import org.apache.commons.logging.Log;
 import org.apache.log4j.NDC;
 import org.jmock.Mockery;
 import org.jmock.integration.junit4.JUnit4Mockery;
@@ -50,8 +49,6 @@ public class LoggingContextHelperTest {
             setImposteriser(ClassImposteriser.INSTANCE);
         }
     };
-
-    final Log mockLog = context.mock(Log.class);
 
     public LoggingContextHelperTest() {
     }
@@ -70,25 +67,6 @@ public class LoggingContextHelperTest {
 
     @After
     public void tearDown() {
-    }
-
-    @Test
-    public void testCreateLogger() {
-        try {
-            LoggingContextHelper loggingContextHelper = new LoggingContextHelper() {
-
-                @Override
-                protected Log createLogger() {
-                    return mockLog;
-                }
-            };
-            Log log = loggingContextHelper.createLogger();
-            assertNotNull("Log was null", log);
-        } catch (Throwable t) {
-            System.out.println("Error running testCreateLogger test: " + t.getMessage());
-            t.printStackTrace();
-            fail("Error running testCreateLogger test: " + t.getMessage());
-        }
     }
 
     @Test

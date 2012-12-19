@@ -27,13 +27,6 @@
 
 package universalclientgui;
 
-import com.sun.rave.web.ui.appbase.AbstractPageBean;
-import com.sun.webui.jsf.component.Calendar;
-import com.sun.webui.jsf.component.Hyperlink;
-import com.sun.webui.jsf.component.StaticText;
-import com.sun.webui.jsf.component.Tab;
-import com.sun.webui.jsf.component.TabSet;
-import com.sun.webui.jsf.component.TextField;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
 import gov.hhs.fha.nhinc.common.nhinccommon.PersonNameType;
@@ -52,6 +45,7 @@ import gov.hhs.fha.nhinc.transform.subdisc.HL7Extractors;
 import gov.hhs.fha.nhinc.transform.subdisc.HL7PRPA201305Transforms;
 import gov.hhs.fha.nhinc.transform.subdisc.HL7PatientTransforms;
 import gov.hhs.fha.nhinc.util.HomeCommunityMap;
+
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -62,15 +56,14 @@ import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Map;
 import java.util.TimeZone;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
 import javax.faces.FacesException;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletResponse;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerFactory;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+
+import org.apache.log4j.Logger;
 import org.hl7.v3.II;
 import org.hl7.v3.PRPAIN201305UV02;
 import org.hl7.v3.PRPAIN201306UV02;
@@ -80,6 +73,14 @@ import org.hl7.v3.PRPAMT201301UV02Patient;
 import org.hl7.v3.PRPAMT201310UV02OtherIDs;
 import org.hl7.v3.PRPAMT201310UV02Patient;
 import org.hl7.v3.RetrievePatientCorrelationsResponseType;
+
+import com.sun.rave.web.ui.appbase.AbstractPageBean;
+import com.sun.webui.jsf.component.Calendar;
+import com.sun.webui.jsf.component.Hyperlink;
+import com.sun.webui.jsf.component.StaticText;
+import com.sun.webui.jsf.component.Tab;
+import com.sun.webui.jsf.component.TabSet;
+import com.sun.webui.jsf.component.TextField;
 
 /**
  * <p>Page bean that corresponds to a similarly named JSP page.  This
@@ -103,7 +104,7 @@ public class Page2 extends AbstractPageBean {
     private static final String PROPERTY_FILE_KEY_HOME_COMMUNITY = "localHomeCommunityId";
     private static final String PROPERTY_FILE_KEY_LOCAL_DEVICE = "localDeviceId";
     private static final String SSA_OID = "2.16.840.1.113883.4.1";
-    private static Log log = LogFactory.getLog(Page2.class);
+    private static final Logger LOG = Logger.getLogger(Page2.class);
 
     /**
      * <p>Automatically managed component initialization.  <strong>WARNING:</strong>
@@ -372,14 +373,14 @@ public class Page2 extends AbstractPageBean {
                 FacesContext context = FacesContext.getCurrentInstance();
                 context.getExternalContext().redirect("Page1.jsp");
             } catch (IOException ex) {
-                log.error("Universal Client can not prerender Page2: " + ex.getMessage());
+                LOG.error("Universal Client can not prerender Page2: " + ex.getMessage());
             }
         }
         try {
             String agencyName = PropertyAccessor.getInstance().getProperty(PROPERTY_FILE_NAME_UC, PROPERTY_FILE_KEY_AGENCY);
             this.agencyLogo.setText(agencyName);
         } catch (PropertyAccessException ex) {
-            log.error("Universal Client can not access " + PROPERTY_FILE_KEY_AGENCY + " property: " + ex.getMessage());
+            LOG.error("Universal Client can not access " + PROPERTY_FILE_KEY_AGENCY + " property: " + ex.getMessage());
         }
     }
 
@@ -482,7 +483,7 @@ public class Page2 extends AbstractPageBean {
                 List<PRPAMT201310UV02Patient> mpiPatResultList = new ArrayList<PRPAMT201310UV02Patient>();
                 if (patients != null && patients.getControlActProcess() != null && patients.getControlActProcess().getSubject() != null) {
                     List<PRPAIN201306UV02MFMIMT700711UV01Subject1> subjectList = patients.getControlActProcess().getSubject();
-                    log.debug("Search MPI found " + subjectList.size() + " candidates");
+                    LOG.debug("Search MPI found " + subjectList.size() + " candidates");
                     for (PRPAIN201306UV02MFMIMT700711UV01Subject1 subject1 : subjectList) {
                         if (subject1 != null &&
                                 subject1.getRegistrationEvent() != null &&
@@ -523,7 +524,7 @@ public class Page2 extends AbstractPageBean {
                                             patientOrgAssigningAuthorityID = idxId.getRoot();
                                             //if (assigningAuthId.equals(idxId.getRoot())) {
                                             resultPatientId = idxId.getExtension();
-                                            log.debug(resultPatientId + " found with assigning authority: " + patientOrgAssigningAuthorityID);
+                                            LOG.debug(resultPatientId + " found with assigning authority: " + patientOrgAssigningAuthorityID);
                                             //}
                                         }
                                     }
@@ -542,7 +543,7 @@ public class Page2 extends AbstractPageBean {
                                                         idxId.getRoot() != null) {
                                                     if (SSA_OID.equals(idxId.getRoot())) {
                                                         resultPatientSSN = idxId.getExtension();
-                                                        log.debug(resultPatientSSN + " found with SSA Authority: " + idxId.getRoot());
+                                                        LOG.debug(resultPatientSSN + " found with SSA Authority: " + idxId.getRoot());
                                                     }
                                                 }
                                             }
@@ -573,14 +574,14 @@ public class Page2 extends AbstractPageBean {
                                 this.getPatientSearchDataList().add(patientData);
 
                             } else {
-                                log.error("Subject patientPerson has no name data.");
+                                LOG.error("Subject patientPerson has no name data.");
                             }
                         }
                     } else {
-                        log.error("No subject data found in the MPI candidate");
+                        LOG.error("No subject data found in the MPI candidate");
                     }
                 } else {
-                    log.error("No MPI candidates where found matching " + firstName + " " + lastName + " org: " + orgId + " assigning authority: " + assigningAuthId);
+                    LOG.error("No MPI candidates where found matching " + firstName + " " + lastName + " org: " + orgId + " assigning authority: " + assigningAuthId);
                 }
                 if (getPatientSearchDataList().isEmpty()) {
                     this.patientInfo.setText("No MPI candidates where found matching " + firstName + " " + lastName + " org: " + orgId + " assigning authority: " + assigningAuthId);
@@ -591,7 +592,7 @@ public class Page2 extends AbstractPageBean {
                 this.patientInfo.setText("Please enter the patient's name.");
             }
         } catch (PropertyAccessException ex) {
-            log.error("Property file assess problem: " + ex.getMessage());
+            LOG.error("Property file assess problem: " + ex.getMessage());
         }
         return null;
     }
@@ -843,7 +844,7 @@ public class Page2 extends AbstractPageBean {
         //System.out.println("Creation Date: " + dateFormatter.format(this.getCreationFromDate().getSelectedDate()));
 
         if (!isDocumentSearchCriteriaValid()) {
-            log.error("Error Message: " + errors);
+            LOG.error("Error Message: " + errors);
             this.errorMessage.setText(errors);
             return null;
         }
@@ -905,7 +906,7 @@ public class Page2 extends AbstractPageBean {
 
     public String displayDocument() throws Exception {
 
-        log.debug("Selected document ID: " + this.selectedDocumentID.getText());
+        LOG.debug("Selected document ID: " + this.selectedDocumentID.getText());
 
         DocumentRetrieveClient docRetrieveClient = new DocumentRetrieveClient();
 
@@ -936,7 +937,7 @@ public class Page2 extends AbstractPageBean {
 		xsl.close();
 		xml.close();
 		
-        log.debug("HTML PAGE: " + html);
+        LOG.debug("HTML PAGE: " + html);
 
         if (html == null || html.isEmpty()) {
             return "display_document_error";
@@ -973,7 +974,7 @@ public class Page2 extends AbstractPageBean {
                     new javax.xml.transform.stream.StreamResult(output));
 
         } catch (Exception e) {
-            log.error("Exception in transforming xml to html", e);
+            LOG.error("Exception in transforming xml to html", e);
         }
 
         return output.toString();

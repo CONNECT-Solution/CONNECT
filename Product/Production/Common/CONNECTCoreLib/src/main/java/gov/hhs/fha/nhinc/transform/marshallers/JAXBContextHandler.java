@@ -26,12 +26,11 @@
  */
 package gov.hhs.fha.nhinc.transform.marshallers;
 
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBException;
 import java.util.Hashtable;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import javax.xml.bind.JAXBContext;
+
+import org.apache.log4j.Logger;
 
 /**
  * This class is used to manage JAXB contexts. Once loaded a JAXB context is kept in static memory so that it does not
@@ -41,7 +40,7 @@ import org.apache.commons.logging.LogFactory;
  * 
  */
 public class JAXBContextHandler {
-    private static Log log = LogFactory.getLog(JAXBContextHandler.class);
+    private static final Logger LOG = Logger.getLogger(JAXBContextHandler.class);
 
     // Contexts that are being managed. The name will be the context.
     // ----------------------------------------------------------------
@@ -58,16 +57,16 @@ public class JAXBContextHandler {
         if ((sContextName != null) && (sContextName.length() > 0)) {
             JAXBContext oContext = hContexts.get(sContextName);
             if (oContext == null) {
-                log.debug("Loading JAXB Context for '" + sContextName + "'.");
+                LOG.debug("Loading JAXB Context for '" + sContextName + "'.");
                 oContext = JAXBContext.newInstance(sContextName);
                 hContexts.put(sContextName, oContext);
-                log.debug("Finished loading JAXB Context for '" + sContextName + "'.");
+                LOG.debug("Finished loading JAXB Context for '" + sContextName + "'.");
             } else {
-                log.debug("Reusing JAXB Context for '" + sContextName + "'.");
+                LOG.debug("Reusing JAXB Context for '" + sContextName + "'.");
             }
             return oContext;
         } else {
-            log.debug("Request for JAXB Context without a valid name.");
+            LOG.debug("Request for JAXB Context without a valid name.");
             return null;
         }
     }
@@ -94,7 +93,7 @@ public class JAXBContextHandler {
         if ((sContextName != null) && (sContextName.length() > 0)) {
             oContext = hContexts.get(sContextName);
             if (oContext == null) {
-                log.debug("Loading JAXB Context for '" + sContextName + "'.");
+                LOG.debug("Loading JAXB Context for '" + sContextName + "'.");
                 if ((oClass1 != null) && (oClass2 != null)) {
                     oContext = JAXBContext.newInstance(oClass1, oClass2);
                 } else if (oClass1 != null) {
@@ -102,16 +101,16 @@ public class JAXBContextHandler {
                 } else if (oClass2 != null) {
                     oContext = JAXBContext.newInstance(oClass2);
                 }
-                log.debug("Finished loading JAXB Context for '" + sContextName + "'.");
+                LOG.debug("Finished loading JAXB Context for '" + sContextName + "'.");
 
                 if (oContext != null) {
                     hContexts.put(sContextName, oContext);
                 }
             } else {
-                log.debug("Reusing JAXB Context for '" + sContextName + "'.");
+                LOG.debug("Reusing JAXB Context for '" + sContextName + "'.");
             }
         } else {
-            log.debug("Request for JAXB Context without object factory classes.");
+            LOG.debug("Request for JAXB Context without object factory classes.");
         }
 
         return oContext;
@@ -134,18 +133,18 @@ public class JAXBContextHandler {
         if ((sContextName != null) && (sContextName.length() > 0)) {
             oContext = hContexts.get(sContextName);
             if (oContext == null) {
-                log.debug("Loading JAXB Context for '" + sContextName + "'.");
+                LOG.debug("Loading JAXB Context for '" + sContextName + "'.");
                 oContext = JAXBContext.newInstance(oClass);
-                log.debug("Finished loading JAXB Context for '" + sContextName + "'.");
+                LOG.debug("Finished loading JAXB Context for '" + sContextName + "'.");
 
                 if (oContext != null) {
                     hContexts.put(sContextName, oContext);
                 }
             } else {
-                log.debug("Reusing JAXB Context for '" + sContextName + "'.");
+                LOG.debug("Reusing JAXB Context for '" + sContextName + "'.");
             }
         } else {
-            log.debug("Request for JAXB Context without object factory classes.");
+            LOG.debug("Request for JAXB Context without object factory classes.");
         }
 
         return oContext;

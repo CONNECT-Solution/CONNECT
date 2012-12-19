@@ -6,8 +6,7 @@ package gov.hhs.fha.nhinc.async;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -17,7 +16,7 @@ import org.w3c.dom.Element;
  */
 public final class ElementBuilder {
 
-	private final Log log = LogFactory.getLog(ElementBuilder.class);
+	private static final Logger LOG = Logger.getLogger(ElementBuilder.class);
 
 	private Document document;
 
@@ -27,7 +26,7 @@ public final class ElementBuilder {
 			document = DocumentBuilderFactory.newInstance()
 					.newDocumentBuilder().newDocument();
 		} catch (ParserConfigurationException e) {
-			log.error("unable to create document " + e.getMessage());
+			LOG.error("unable to create document " + e.getMessage());
 		}
 	}
 

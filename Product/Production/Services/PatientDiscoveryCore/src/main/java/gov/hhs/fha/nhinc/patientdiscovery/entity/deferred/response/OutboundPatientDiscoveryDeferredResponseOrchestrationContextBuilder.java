@@ -33,7 +33,6 @@ import gov.hhs.fha.nhinc.orchestration.OrchestrationContextBuilder;
 import gov.hhs.fha.nhinc.orchestration.OutboundDelegate;
 import gov.hhs.fha.nhinc.orchestration.OutboundOrchestratable;
 
-import org.apache.commons.logging.Log;
 import org.hl7.v3.PRPAIN201306UV02;
 
 /**
@@ -43,8 +42,7 @@ import org.hl7.v3.PRPAIN201306UV02;
 public abstract class OutboundPatientDiscoveryDeferredResponseOrchestrationContextBuilder implements
         OrchestrationContextBuilder {
 
-    private static Log log;
-    private AssertionType assertionType;
+	private AssertionType assertionType;
     private OutboundDelegate nhinDelegate;
     private PRPAIN201306UV02 request;
     private NhinTargetSystemType target;
@@ -64,10 +62,6 @@ public abstract class OutboundPatientDiscoveryDeferredResponseOrchestrationConte
 
     public void setAssertionType(AssertionType assertionType) {
         this.assertionType = assertionType;
-    }
-
-    public Log getLog() {
-        return log;
     }
 
     public OutboundDelegate getNhinDelegate() {

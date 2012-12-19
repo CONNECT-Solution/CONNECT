@@ -31,8 +31,7 @@ import gov.hhs.fha.nhinc.messaging.server.BaseService;
 
 import javax.xml.ws.WebServiceContext;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 import org.hl7.v3.PRPAIN201305UV02;
 import org.hl7.v3.PRPAIN201306UV02;
 
@@ -42,7 +41,7 @@ import org.hl7.v3.PRPAIN201306UV02;
  */
 
 public class AdapterMpiImpl extends BaseService {
-    private static Log log = LogFactory.getLog(AdapterMpiImpl.class);
+    private static final Logger LOG = Logger.getLogger(AdapterMpiImpl.class);
 
     /**
      * Perform a look up on the MPI.
@@ -54,7 +53,7 @@ public class AdapterMpiImpl extends BaseService {
      */
 
     public PRPAIN201306UV02 query(PRPAIN201305UV02 findCandidatesRequest, AssertionType assertionFromBody) {
-        log.debug("Entering AdapterMpiImpl.query");
+        LOG.debug("Entering AdapterMpiImpl.query");
 
         AssertionType assertion = null;
         if (assertionFromBody != null) {
@@ -67,12 +66,12 @@ public class AdapterMpiImpl extends BaseService {
         PRPAIN201306UV02 response = oOrchestrator.query(findCandidatesRequest, assertion);
 
         // Send response back to the initiating Gateway
-        log.debug("Exiting AdapterMpiImpl.query - unsecured");
+        LOG.debug("Exiting AdapterMpiImpl.query - unsecured");
         return response;
     }
 
     public PRPAIN201306UV02 query(boolean bIsSecure, PRPAIN201305UV02 findCandidatesRequest, WebServiceContext context) {
-        log.debug("Entering AdapterMpiImpl.findCandidates");
+        LOG.debug("Entering AdapterMpiImpl.findCandidates");
 
         AssertionType assertion = null;
         if ((bIsSecure) && (context != null)) {
@@ -85,7 +84,7 @@ public class AdapterMpiImpl extends BaseService {
         PRPAIN201306UV02 response = oOrchestrator.query(findCandidatesRequest, assertion);
 
         // Send response back to the initiating Gateway
-        log.debug("Exiting AdapterMpiImpl.query - secured");
+        LOG.debug("Exiting AdapterMpiImpl.query - secured");
         return response;
     }
 }

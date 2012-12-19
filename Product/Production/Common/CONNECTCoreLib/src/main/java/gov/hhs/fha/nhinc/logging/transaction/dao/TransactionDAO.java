@@ -32,8 +32,7 @@ import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 
 import java.util.List;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 import org.hibernate.HibernateException;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -48,7 +47,7 @@ import org.hibernate.Transaction;
  */
 public final class TransactionDAO {
 
-    private static final Log LOG = LogFactory.getLog(TransactionDAO.class);
+    private static final Logger LOG = Logger.getLogger(TransactionDAO.class);
     private static final TransactionDAO INSTANCE = new TransactionDAO();
 
     /**

@@ -26,8 +26,7 @@
  */
 package gov.hhs.fha.nhinc.adaptersubscription;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 import org.oasis_open.docs.wsn.b_2.SubscribeResponse;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.SubscribeRequestType;
 
@@ -36,16 +35,16 @@ import gov.hhs.fha.nhinc.common.nhinccommonadapter.SubscribeRequestType;
  * @author svalluripalli
  */
 public class AdapterSubscriptionHelper {
-    private static Log log = LogFactory.getLog(AdapterSubscriptionHelper.class);
+    private static final Logger LOG = Logger.getLogger(AdapterSubscriptionHelper.class);
 
     public static SubscribeResponse subscribe(SubscribeRequestType subscribeRequest) {
-        log.debug("Begin validating Subscription Request");
+        LOG.debug("Begin validating Subscription Request");
         SubscribeResponse subscribeResponse = null;
         if (subscribeRequest != null) {
-            log.info("The Subscribe message has been received");
+            LOG.info("The Subscribe message has been received");
             subscribeResponse = new SubscribeResponse();
         }
-        log.debug("End validating Subscription Request");
+        LOG.debug("End validating Subscription Request");
         return subscribeResponse;
     }
 }

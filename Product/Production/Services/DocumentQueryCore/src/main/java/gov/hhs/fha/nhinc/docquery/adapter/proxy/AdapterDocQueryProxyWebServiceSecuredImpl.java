@@ -43,8 +43,7 @@ import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryError;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -52,24 +51,17 @@ import org.apache.commons.logging.LogFactory;
  * @author Neil Webb
  */
 public class AdapterDocQueryProxyWebServiceSecuredImpl implements AdapterDocQueryProxy {
-    private Log log = null;
+    private Logger log = Logger.getLogger(AdapterDocQueryProxyJavaImpl.class);
 
     private WebServiceProxyHelper oProxyHelper = null;
 
     /**DocQueryWebServiceSecuredImpl creates log and WebServiceProxyHelper.
      */
     public AdapterDocQueryProxyWebServiceSecuredImpl() {
-        log = createLogger();
         oProxyHelper = createWebServiceProxyHelper();
     }
 
-    /**
-     * @return Log log
-     */
-    protected Log createLogger() {
-        return LogFactory.getLog(getClass());
-    }
-
+    
     /**
      * @return WebServiceProxyHelper Object
      */

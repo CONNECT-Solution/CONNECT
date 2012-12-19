@@ -42,8 +42,7 @@ import gov.hhs.fha.nhinc.patientdiscovery.aspect.PRPAIN201305UV02EventDescriptio
 import gov.hhs.fha.nhinc.transform.subdisc.HL7AckTransforms;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 import org.hl7.v3.MCCIIN000002UV01;
 import org.hl7.v3.PRPAIN201305UV02;
 import org.hl7.v3.RespondingGatewayPRPAIN201305UV02SecuredRequestType;
@@ -54,18 +53,13 @@ import org.hl7.v3.RespondingGatewayPRPAIN201305UV02SecuredRequestType;
  */
 public class AdapterPatientDiscoveryDeferredReqProxyWebServiceSecuredImpl implements
         AdapterPatientDiscoveryDeferredReqProxy {
-    private Log log = null;
+    private static final Logger LOG = Logger.getLogger(AdapterPatientDiscoveryDeferredReqProxyWebServiceSecuredImpl.class);
     private WebServiceProxyHelper oProxyHelper = null;
 
     public AdapterPatientDiscoveryDeferredReqProxyWebServiceSecuredImpl() {
-        log = createLogger();
         oProxyHelper = createWebServiceProxyHelper();
     }
-
-    protected Log createLogger() {
-        return LogFactory.getLog(getClass());
-    }
-
+    
     protected WebServiceProxyHelper createWebServiceProxyHelper() {
         return new WebServiceProxyHelper();
     }
@@ -74,7 +68,7 @@ public class AdapterPatientDiscoveryDeferredReqProxyWebServiceSecuredImpl implem
             afterReturningBuilder = MCCIIN000002UV01EventDescriptionBuilder.class, 
             serviceType = "Patient Discovery Deferred Request", version = "1.0")
     public MCCIIN000002UV01 processPatientDiscoveryAsyncReq(PRPAIN201305UV02 request, AssertionType assertion) {
-        log.debug("Begin processPatientDiscoveryAsyncReqError");
+        LOG.debug("Begin processPatientDiscoveryAsyncReqError");
         MCCIIN000002UV01 ack = null;
 
         try {
@@ -84,7 +78,7 @@ public class AdapterPatientDiscoveryDeferredReqProxyWebServiceSecuredImpl implem
             if (NullChecker.isNotNullish(url)) {
 
                 if (request == null) {
-                    log.error("Request was null");
+                    LOG.error("Request was null");
                 } else {
                     ServicePortDescriptor<AdapterPatientDiscoverySecuredAsyncReqPortType> portDescriptor = 
                             new AdapterPatientDiscoveryDeferredReqSecuredServicePortDescriptor();
@@ -99,17 +93,17 @@ public class AdapterPatientDiscoveryDeferredReqProxyWebServiceSecuredImpl implem
                             "processPatientDiscoveryAsyncReq", securedRequest);
                 }
             } else {
-                log.error("Failed to call the web service ("
+                LOG.error("Failed to call the web service ("
                         + NhincConstants.PATIENT_DISCOVERY_ADAPTER_SECURED_ASYNC_REQ_SERVICE_NAME
                         + ").  The URL is null.");
             }
         } catch (Exception ex) {
-            log.error("Error calling processPatientDiscoveryAsyncReq: " + ex.getMessage(), ex);
+            LOG.error("Error calling processPatientDiscoveryAsyncReq: " + ex.getMessage(), ex);
             ack = HL7AckTransforms.createAckFrom201305(request,
                     NhincConstants.PATIENT_DISCOVERY_ANSWER_NOT_AVAIL_ERR_CODE);
         }
 
-        log.debug("End processPatientDiscoveryAsyncReqError");
+        LOG.debug("End processPatientDiscoveryAsyncReqError");
         return ack;
     }
 }

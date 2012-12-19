@@ -17,13 +17,11 @@ import gov.hhs.fha.nhinc.docretrieve.adapter.proxy.AdapterDocRetrieveProxy;
 import gov.hhs.fha.nhinc.docretrieve.adapter.proxy.AdapterDocRetrieveProxyObjectFactory;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.orchestration.Orchestratable;
-import gov.hhs.fha.nhinc.orchestration.OrchestrationStrategy;
 import gov.hhs.fha.nhinc.util.HomeCommunityMap;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 
 /**
  * 
@@ -31,7 +29,7 @@ import org.apache.commons.logging.LogFactory;
  */
 public class InboundDocRetrieveStrategyImpl implements InboundDocRetrieveStrategy {
 
-    private static Log log = LogFactory.getLog(InboundDocRetrieveStrategyImpl.class);
+    private static final Logger LOG = Logger.getLogger(InboundDocRetrieveStrategyImpl.class);
     AdapterDocRetrieveProxy proxy;
     AuditRepositoryDocumentRetrieveLogger auditLogger;
 
@@ -56,9 +54,9 @@ public class InboundDocRetrieveStrategyImpl implements InboundDocRetrieveStrateg
     }
 
     public void execute(InboundDocRetrieveOrchestratable message) {
-        log.debug("Begin NhinDocRetrieveOrchestratableImpl_g0.process");
+        LOG.debug("Begin NhinDocRetrieveOrchestratableImpl_g0.process");
         if (message == null) {
-            log.debug("NhinOrchestratable was null");
+            LOG.debug("NhinOrchestratable was null");
             return;
         }
         auditOutboundRequestMessage(message);
@@ -69,7 +67,7 @@ public class InboundDocRetrieveStrategyImpl implements InboundDocRetrieveStrateg
 
         auditInboundResponseMessage(message);
 
-        log.debug("End NhinDocRetrieveOrchestratableImpl_g0.process");
+        LOG.debug("End NhinDocRetrieveOrchestratableImpl_g0.process");
     }
 
     /**
@@ -83,7 +81,7 @@ public class InboundDocRetrieveStrategyImpl implements InboundDocRetrieveStrateg
         try {
             DocRetrieveFileUtils.getInstance().convertFileLocationToDataIfEnabled(adapterResponse);
         } catch (Exception e) {
-            log.error("Failed to retrieve data from the file uri in the payload.", e);
+            LOG.error("Failed to retrieve data from the file uri in the payload.", e);
             adapterResponse = MessageGenerator.getInstance().createRegistryResponseError(
                     "Adapter Document Retrieve Processing");
         }
@@ -109,7 +107,7 @@ public class InboundDocRetrieveStrategyImpl implements InboundDocRetrieveStrateg
     public void auditInboundResponseMessage(InboundDocRetrieveOrchestratable message) {
         String requestCommunityID = HomeCommunityMap.getLocalHomeCommunityId();
 
-        log.debug("Calling audit log for doc retrieve response received from adapter (a0)");
+        LOG.debug("Calling audit log for doc retrieve response received from adapter (a0)");
         auditResponseMessage(message.getResponse(), message.getAssertion(), requestCommunityID);
     }
 
@@ -133,7 +131,7 @@ public class InboundDocRetrieveStrategyImpl implements InboundDocRetrieveStrateg
     public void auditOutboundRequestMessage(InboundDocRetrieveOrchestratable message) {
         String requestCommunityID = HomeCommunityMap.getLocalHomeCommunityId();
         
-        log.debug("Calling audit log for doc retrieve request (g0) sent to adapter (a0)");
+        LOG.debug("Calling audit log for doc retrieve request (g0) sent to adapter (a0)");
         auditRequestMessage(message.getRequest(), message.getAssertion(), requestCommunityID);
     }
 

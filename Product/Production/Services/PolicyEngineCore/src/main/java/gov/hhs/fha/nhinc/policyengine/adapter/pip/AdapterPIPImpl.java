@@ -26,23 +26,22 @@
  */
 package gov.hhs.fha.nhinc.policyengine.adapter.pip;
 
-import gov.hhs.fha.nhinc.common.nhinccommon.AcknowledgementType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.CeType;
 import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
 import gov.hhs.fha.nhinc.common.nhinccommon.PersonNameType;
 import gov.hhs.fha.nhinc.common.nhinccommon.UserType;
-import gov.hhs.fha.nhinc.common.nhinccommonadapter.RetrievePtConsentByPtIdRequestType;
-import gov.hhs.fha.nhinc.common.nhinccommonadapter.RetrievePtConsentByPtIdResponseType;
+import gov.hhs.fha.nhinc.common.nhinccommonadapter.PatientPreferencesType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.RetrievePtConsentByPtDocIdRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.RetrievePtConsentByPtDocIdResponseType;
+import gov.hhs.fha.nhinc.common.nhinccommonadapter.RetrievePtConsentByPtIdRequestType;
+import gov.hhs.fha.nhinc.common.nhinccommonadapter.RetrievePtConsentByPtIdResponseType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.StorePtConsentRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.StorePtConsentResponseType;
-import gov.hhs.fha.nhinc.common.nhinccommonadapter.PatientPreferencesType;
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+
+import org.apache.log4j.Logger;
 
 /**
  * This contains the implementation of the Adapter PIP (Policy Information Point).
@@ -51,20 +50,9 @@ import org.apache.commons.logging.LogFactory;
  */
 public class AdapterPIPImpl {
 
-    private Log log = null;
+    private static final Logger LOG = Logger.getLogger(AdapterPIPImpl.class);
     private static final String ASSERTIONINFO_PROPFILE_NAME = "assertioninfo";
-    private static final String GATEWAY_PROPERTIES_FILE = "gateway";
-    private static final String ADAPTER_PROPFILE_NAME = "adapter";
-    private static final String HOME_COMMUNITY_PROPERTY = "localHomeCommunityId";
-
-    public AdapterPIPImpl() {
-        log = createLogger();
-    }
-
-    protected Log createLogger() {
-        return ((log != null) ? log : LogFactory.getLog(getClass()));
-    }
-
+    
     protected PatientConsentManager getPatientConsentManager() {
         return new PatientConsentManager();
     }
@@ -109,7 +97,7 @@ public class AdapterPIPImpl {
      */
     public RetrievePtConsentByPtDocIdResponseType retrievePtConsentByPtDocId(
             RetrievePtConsentByPtDocIdRequestType request) throws AdapterPIPException {
-        log.debug("Begin AdapterPIPImpl.retrievePtIdFromDocumentId()..");
+        LOG.trace("Begin AdapterPIPImpl.retrievePtIdFromDocumentId()..");
         RetrievePtConsentByPtDocIdResponseType oResponse = new RetrievePtConsentByPtDocIdResponseType();
 
         String sHomeCommunityId = "";
@@ -136,7 +124,7 @@ public class AdapterPIPImpl {
             oResponse.setPatientPreferences(oPtPref);
         }
 
-        log.debug("End AdapterPIPImpl.retrievePtIdFromDocumentId()..");
+        LOG.trace("End AdapterPIPImpl.retrievePtIdFromDocumentId()..");
         return oResponse;
     }
 
@@ -148,7 +136,7 @@ public class AdapterPIPImpl {
      *         followed by the error information.
      */
     public StorePtConsentResponseType storePtConsent(StorePtConsentRequestType request) throws AdapterPIPException {
-        log.debug("Begin AdapterPIPImpl.storePtConsent()..");
+        LOG.trace("Begin AdapterPIPImpl.storePtConsent()..");
         StorePtConsentResponseType oResponse = new StorePtConsentResponseType();
         try {
             if ((request != null) && (request.getPatientPreferences() != null)) {
@@ -161,20 +149,20 @@ public class AdapterPIPImpl {
         } catch (Exception e) {
             oResponse.setStatus("FAILED: " + e.getMessage());
             String sErrorMessage = "Failed to store the patient consent.  Error: " + e.getMessage();
-            log.error(sErrorMessage, e);
+            LOG.error(sErrorMessage, e);
             throw new AdapterPIPException(sErrorMessage, e);
         }
         return oResponse;
     }
 
     /**
-     * This method is used to build Asserton information to send Notification to Entity Notification Consumer
+     * This method is used to build Assertion information to send Notification to Entity Notification Consumer
      * 
      * @param sHid
      * @return AssertionType
      */
     private AssertionType buildAssertionInfo(String sHid) {
-        log.debug("Begin - CPPOperations.buildAssertion() - ");
+        LOG.trace("Begin - CPPOperations.buildAssertion() - ");
         AssertionType assertion = new AssertionType();
         String svalue = "";
         try {
@@ -311,7 +299,7 @@ public class AdapterPIPImpl {
         } catch (PropertyAccessException propExp) {
             propExp.printStackTrace();
         }
-        log.debug("End - CPPOperations.buildAssertion() - ");
+        LOG.trace("End - CPPOperations.buildAssertion() - ");
         return assertion;
     }
 }

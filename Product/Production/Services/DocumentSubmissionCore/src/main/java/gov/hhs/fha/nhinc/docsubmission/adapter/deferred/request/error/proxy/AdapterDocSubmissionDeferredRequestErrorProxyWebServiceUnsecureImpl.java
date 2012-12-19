@@ -42,8 +42,7 @@ import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 import gov.hhs.healthit.nhin.XDRAcknowledgementType;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 
 /**
  * 
@@ -51,16 +50,11 @@ import org.apache.commons.logging.LogFactory;
  */
 public class AdapterDocSubmissionDeferredRequestErrorProxyWebServiceUnsecureImpl implements
         AdapterDocSubmissionDeferredRequestErrorProxy {
-    private Log log = null;
+    private static final Logger LOG = Logger.getLogger(AdapterDocSubmissionDeferredRequestErrorProxyWebServiceUnsecureImpl.class);
     private WebServiceProxyHelper oProxyHelper = null;
 
     public AdapterDocSubmissionDeferredRequestErrorProxyWebServiceUnsecureImpl() {
-        log = createLogger();
         oProxyHelper = createWebServiceProxyHelper();
-    }
-
-    protected Log createLogger() {
-        return LogFactory.getLog(this.getClass());
     }
 
     protected WebServiceProxyHelper createWebServiceProxyHelper() {
@@ -79,14 +73,14 @@ public class AdapterDocSubmissionDeferredRequestErrorProxyWebServiceUnsecureImpl
             version = "")
     public XDRAcknowledgementType provideAndRegisterDocumentSetBRequestError(
             ProvideAndRegisterDocumentSetRequestType request, String errorMessage, AssertionType assertion) {
-        log.debug("Begin AdapterDocSubmissionDeferredRequestErrorProxyWebServiceUnsecureImpl.provideAndRegisterDocumentSetBRequestError");
+        LOG.debug("Begin AdapterDocSubmissionDeferredRequestErrorProxyWebServiceUnsecureImpl.provideAndRegisterDocumentSetBRequestError");
         XDRAcknowledgementType response = null;
         String serviceName = NhincConstants.ADAPTER_XDR_ASYNC_REQ_ERROR_SERVICE_NAME;
 
         try {
-            log.debug("Before target system URL look up.");
+            LOG.debug("Before target system URL look up.");
             String url = oProxyHelper.getAdapterEndPointFromConnectionManager(serviceName);
-            log.debug("After target system URL look up. URL for service: " + serviceName + " is: " + url);
+            LOG.debug("After target system URL look up. URL for service: " + serviceName + " is: " + url);
 
             if (NullChecker.isNotNullish(url)) {
                 AdapterProvideAndRegisterDocumentSetRequestErrorType wsRequest = new AdapterProvideAndRegisterDocumentSetRequestErrorType();
@@ -102,14 +96,14 @@ public class AdapterDocSubmissionDeferredRequestErrorProxyWebServiceUnsecureImpl
                 response = (XDRAcknowledgementType) client.invokePort(AdapterXDRRequestErrorPortType.class,
                         "provideAndRegisterDocumentSetBRequestError", wsRequest);
             } else {
-                log.error("Failed to call the web service (" + serviceName + ").  The URL is null.");
+                LOG.error("Failed to call the web service (" + serviceName + ").  The URL is null.");
             }
         } catch (Exception ex) {
-            log.error("Error: Failed to retrieve url for service: " + serviceName + " for local home community");
-            log.error(ex.getMessage(), ex);
+            LOG.error("Error: Failed to retrieve url for service: " + serviceName + " for local home community");
+            LOG.error(ex.getMessage(), ex);
         }
 
-        log.debug("End AdapterDocSubmissionDeferredRequestErrorProxyWebServiceUnsecureImpl.provideAndRegisterDocumentSetBRequestError");
+        LOG.debug("End AdapterDocSubmissionDeferredRequestErrorProxyWebServiceUnsecureImpl.provideAndRegisterDocumentSetBRequestError");
         return response;
     }
 }

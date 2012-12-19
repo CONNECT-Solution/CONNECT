@@ -34,8 +34,7 @@ import gov.hhs.fha.nhinc.orchestration.Orchestratable;
 import gov.hhs.fha.nhinc.orchestration.OrchestrationStrategy;
 import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryAuditLogger;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 import org.hl7.v3.PRPAIN201305UV02;
 import org.hl7.v3.PRPAIN201306UV02;
 
@@ -45,11 +44,7 @@ import org.hl7.v3.PRPAIN201306UV02;
  */
 public abstract class OutboundPatientDiscoveryStrategy implements OrchestrationStrategy {
 
-    private static Log log = LogFactory.getLog(OutboundPatientDiscoveryStrategy.class);
-
-    private Log getLogger() {
-        return log;
-    }
+    private static final Logger LOG = Logger.getLogger(OutboundPatientDiscoveryStrategy.class);
 
     /*
      * (non-Javadoc)
@@ -63,8 +58,7 @@ public abstract class OutboundPatientDiscoveryStrategy implements OrchestrationS
             execute((OutboundPatientDiscoveryOrchestratable) message);
         } else {
             // shouldn't get here
-            getLogger()
-                    .error("NhinPatientDiscoveryStrategy input Orchestratable was not an EntityPatientDiscoveryOrchestratable!!!");
+            LOG.error("NhinPatientDiscoveryStrategy input Orchestratable was not an EntityPatientDiscoveryOrchestratable!!!");
             // throw new
             // Exception("NhinPatientDiscoveryStrategy input message was not an EntityPatientDiscoveryOrchestratable!!!");
         }

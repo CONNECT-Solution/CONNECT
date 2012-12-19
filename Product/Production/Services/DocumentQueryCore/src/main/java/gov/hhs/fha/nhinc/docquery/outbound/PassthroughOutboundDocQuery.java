@@ -37,18 +37,14 @@ import gov.hhs.fha.nhinc.docquery.aspect.AdhocQueryResponseDescriptionBuilder;
 import gov.hhs.fha.nhinc.docquery.entity.OutboundDocQueryDelegate;
 import gov.hhs.fha.nhinc.docquery.entity.OutboundDocQueryOrchestratable;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
-
-import java.util.concurrent.ExecutorService;
-
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 
 public class PassthroughOutboundDocQuery implements OutboundDocQuery {
 
-    private static Log log = LogFactory.getLog(PassthroughOutboundDocQuery.class);
+    private static final Logger LOG = Logger.getLogger(PassthroughOutboundDocQuery.class);
 
     private DocQueryAuditLog auditLog = new DocQueryAuditLog();
     private OutboundDocQueryDelegate delegate = new OutboundDocQueryDelegate();
@@ -110,7 +106,7 @@ public class PassthroughOutboundDocQuery implements OutboundDocQuery {
         } catch (Exception ex) {
             String errorMsg = "Error from target homeId = " + targetCommunityID + ". " + ex.getMessage();
             response = MessageGeneratorUtils.getInstance().createRepositoryErrorResponse(errorMsg);
-            log.error(errorMsg, ex);
+            LOG.error(errorMsg, ex);
         }
 
         return response;

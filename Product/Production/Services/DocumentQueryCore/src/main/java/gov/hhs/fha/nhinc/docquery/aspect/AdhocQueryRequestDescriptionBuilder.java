@@ -34,15 +34,14 @@ import java.util.Arrays;
 
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 
 import com.google.common.base.Optional;
 import com.google.common.collect.ImmutableList;
 
 public class AdhocQueryRequestDescriptionBuilder extends AssertionEventDescriptionBuilder {
 
-    private static final Log LOG = LogFactory.getLog(AdhocQueryRequestDescriptionBuilder.class);
+    private static final Logger LOG = Logger.getLogger(AdhocQueryRequestDescriptionBuilder.class);
     private Optional<AdhocQueryRequest> request;
 
     public AdhocQueryRequestDescriptionBuilder() {

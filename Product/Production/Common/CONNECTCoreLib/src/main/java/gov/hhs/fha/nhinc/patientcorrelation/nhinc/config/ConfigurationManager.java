@@ -26,18 +26,17 @@
  */
 package gov.hhs.fha.nhinc.patientcorrelation.nhinc.config;
 
-import gov.hhs.fha.nhinc.properties.*;
-import java.util.List;
-import java.util.ArrayList;
+import gov.hhs.fha.nhinc.properties.PropertyAccessor;
+
 import java.io.File;
+
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
+
+import org.apache.log4j.Logger;
 import org.w3c.dom.Document;
-import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 
 /**
  * 
@@ -45,18 +44,14 @@ import org.apache.commons.logging.LogFactory;
  */
 public class ConfigurationManager {
     public static final String FTA_CONFIG_FILE = "PCConfiguration.xml";
-    private Log log = null; // LogFactory.getLog(ConfigurationManager.class);
-
-    public ConfigurationManager() {
-        log = createLogger();
-    }
+    private static final Logger LOG = Logger.getLogger(ConfigurationManager.class);
 
     public ExpirationConfiguration loadExpirationConfiguration() {
         ExpirationConfiguration result = null;
-        log.debug("begin loadExpirationConfiguration()");
+        LOG.debug("begin loadExpirationConfiguration()");
         String propertyDir = PropertyAccessor.getInstance().getPropertyFileLocation();
 
-        log.debug("Property Directory: " + propertyDir);
+        LOG.debug("Property Directory: " + propertyDir);
         result = loadExpirationConfiguration(propertyDir, FTA_CONFIG_FILE);
 
         return result;
@@ -64,13 +59,13 @@ public class ConfigurationManager {
 
     public ExpirationConfiguration loadExpirationConfiguration(String dir, String fileName) {
         ExpirationConfiguration result = null;
-        log.debug("loadExpirationConfiguration");
-        log.debug("fileName = " + fileName);
+        LOG.debug("loadExpirationConfiguration");
+        LOG.debug("fileName = " + fileName);
         try {
             File file = new File(dir, fileName);
             result = loadExpirationConfiguration(file);
         } catch (Exception e) {
-            log.error("unable to load PCConfiguration file", e);
+            LOG.error("unable to load PCConfiguration file", e);
             e.printStackTrace();
         }
         return result;
@@ -78,20 +73,20 @@ public class ConfigurationManager {
 
     public ExpirationConfiguration loadExpirationConfiguration(String fileName) {
         ExpirationConfiguration result = null;
-        log.debug("loadExpirationConfiguration");
-        log.debug("fileName = " + fileName);
+        LOG.debug("loadExpirationConfiguration");
+        LOG.debug("fileName = " + fileName);
         try {
             File file = new File(fileName);
             result = loadExpirationConfiguration(file);
         } catch (Exception e) {
-            log.error("unable to load PCConfiguration file", e);
+            LOG.error("unable to load PCConfiguration file", e);
             e.printStackTrace();
         }
         return result;
     }
 
     public ExpirationConfiguration loadExpirationConfiguration(File file) {
-        log.debug("loadExpirationConfiguration(File)");
+        LOG.debug("loadExpirationConfiguration(File)");
         ExpirationConfiguration result = null;
         int defaultConfiguration = -1;
 
@@ -101,7 +96,7 @@ public class ConfigurationManager {
             Document doc = db.parse(file);
             doc.getDocumentElement().normalize();
 
-            log.debug("Root element " + doc.getDocumentElement().getNodeName());
+            LOG.debug("Root element " + doc.getDocumentElement().getNodeName());
 
             String defaultUnits = "";
             Node defaultDurationNode = doc.getElementsByTagName("expirations").item(0).getAttributes()
@@ -131,7 +126,7 @@ public class ConfigurationManager {
                 result.getExpirations().add(expItem);
             }
         } catch (Exception e) {
-            log.error("unable to load PCConfiguration file", e);
+            LOG.error("unable to load PCConfiguration file", e);
             e.printStackTrace();
         }
 
@@ -159,7 +154,4 @@ public class ConfigurationManager {
         return result;
     }
 
-    protected Log createLogger() {
-        return ((log != null) ? log : LogFactory.getLog(getClass()));
-    }
 }

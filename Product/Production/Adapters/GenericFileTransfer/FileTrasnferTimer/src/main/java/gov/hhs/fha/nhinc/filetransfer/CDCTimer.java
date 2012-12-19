@@ -28,8 +28,8 @@ package gov.hhs.fha.nhinc.filetransfer;
 
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+
+import org.apache.log4j.Logger;
 
 /**
  * 
@@ -40,7 +40,7 @@ import org.apache.commons.logging.LogFactory;
  */
 public class CDCTimer extends Thread {
 
-    private static Log log = LogFactory.getLog(CDCTimer.class);
+    private static final Logger LOG = Logger.getLogger(CDCTimer.class);
     private static CDCTimer m_oTheOneAndOnlyTimer = null;
     private static boolean m_bRunnable = false;
     // private static final String GATEWAY_PROPERTY_FILE = "gateway";
@@ -70,11 +70,11 @@ public class CDCTimer extends Thread {
             } catch (Exception e) {
                 m_oTheOneAndOnlyTimer = null;
                 String sErrorMessage = "Failed to start the CDC  timer.  Error: " + e.getMessage();
-                log.error(sErrorMessage, e);
+                LOG.error(sErrorMessage, e);
                 throw new CDCTimerException(sErrorMessage, e);
             }
 
-            log.info("UDDIUpdateManager timer has just been started now.");
+            LOG.info("UDDIUpdateManager timer has just been started now.");
         }
     }
 
@@ -110,7 +110,7 @@ public class CDCTimer extends Thread {
             try {
                 Thread.sleep(m_iDurationSeconds * 1000);
             } catch (InterruptedException ex) {
-                log.error("Failed to sleep.", ex);
+                LOG.error("Failed to sleep.", ex);
             }
         }
     }

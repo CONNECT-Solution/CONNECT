@@ -39,21 +39,16 @@ import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+
+import org.apache.log4j.Logger;
 
 
 public class EntityDocSubmissionProxyWebServiceUnsecuredImpl implements EntityDocSubmissionProxy {
-    private Log log = null;
+    private static final Logger LOG = Logger.getLogger(EntityDocSubmissionProxyWebServiceUnsecuredImpl.class);
     private WebServiceProxyHelper oProxyHelper = null;
 
     public EntityDocSubmissionProxyWebServiceUnsecuredImpl() {
-        log = createLogger();
         oProxyHelper = createWebServiceProxyHelper();
-    }
-
-    protected Log createLogger() {
-        return LogFactory.getLog(getClass());
     }
 
     protected WebServiceProxyHelper createWebServiceProxyHelper() {
@@ -67,7 +62,7 @@ public class EntityDocSubmissionProxyWebServiceUnsecuredImpl implements EntityDo
 
     public RegistryResponseType provideAndRegisterDocumentSetB(ProvideAndRegisterDocumentSetRequestType message,
             AssertionType assertion, NhinTargetCommunitiesType targets, UrlInfoType urlInfo) {
-        log.debug("Begin EntityDocSubmissionProxyWebServiceUnsecuredImpl.provideAndRegisterDocumentSetB");
+        LOG.debug("Begin EntityDocSubmissionProxyWebServiceUnsecuredImpl.provideAndRegisterDocumentSetB");
         RegistryResponseType response = new RegistryResponseType();
 
         try {
@@ -86,10 +81,10 @@ public class EntityDocSubmissionProxyWebServiceUnsecuredImpl implements EntityDo
                     "provideAndRegisterDocumentSetB", request);
 
         } catch (Exception ex) {
-            log.error("Error calling provideAndRegisterDocumentSetB: " + ex.getMessage(), ex);
+            LOG.error("Error calling provideAndRegisterDocumentSetB: " + ex.getMessage(), ex);
         }
 
-        log.debug("End EntityDocSubmissionProxyWebServiceUnsecuredImpl.provideAndRegisterDocumentSetB");
+        LOG.debug("End EntityDocSubmissionProxyWebServiceUnsecuredImpl.provideAndRegisterDocumentSetB");
         return response;
     }
 

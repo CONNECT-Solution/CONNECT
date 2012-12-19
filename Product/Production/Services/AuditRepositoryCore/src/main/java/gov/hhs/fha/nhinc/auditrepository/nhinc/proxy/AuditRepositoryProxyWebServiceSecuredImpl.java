@@ -39,8 +39,7 @@ import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 
 /**
  * 
@@ -49,25 +48,17 @@ import org.apache.commons.logging.LogFactory;
  */
 public class AuditRepositoryProxyWebServiceSecuredImpl implements AuditRepositoryProxy {
 
-    private Log log = null;
+    private static final Logger LOG = Logger.getLogger(AuditRepositoryProxyWebServiceSecuredImpl.class);
 
     private WebServiceProxyHelper oProxyHelper = new WebServiceProxyHelper();
 
-    public AuditRepositoryProxyWebServiceSecuredImpl() {
-        log = createLogger();
-    }
-
-    protected Log createLogger() {
-        return ((log != null) ? log : LogFactory.getLog(getClass()));
-    }
-
     public AcknowledgementType auditLog(LogEventRequestType request, AssertionType assertion) {
-        log.debug("Entering AuditRepositoryProxyWebServiceSecured.auditLog(...)");
+        LOG.debug("Entering AuditRepositoryProxyWebServiceSecured.auditLog(...)");
         AcknowledgementType result = new AcknowledgementType();
 
         LogEventSecureRequestType secureRequest = new LogEventSecureRequestType();
         if (request.getAuditMessage() == null) {
-            log.error("Audit Request is null");
+            LOG.error("Audit Request is null");
         }
         secureRequest.setAuditMessage(request.getAuditMessage());
         secureRequest.setDirection(request.getDirection());
@@ -89,16 +80,16 @@ public class AuditRepositoryProxyWebServiceSecuredImpl implements AuditRepositor
                             "logEvent", secureRequest);
 
                 } else {
-                    log.error("Failed to call the web service (" + NhincConstants.AUDIT_REPO_SECURE_SERVICE_NAME
+                    LOG.error("Failed to call the web service (" + NhincConstants.AUDIT_REPO_SECURE_SERVICE_NAME
                             + ").  The URL is null.");
                 }
             }
         } catch (Exception e) {
-            log.error("Failed to call the web service (" + NhincConstants.AUDIT_REPO_SECURE_SERVICE_NAME
+            LOG.error("Failed to call the web service (" + NhincConstants.AUDIT_REPO_SECURE_SERVICE_NAME
                     + ").  An unexpected exception occurred.  " + "Exception: " + e.getMessage(), e);
         }
 
-        log.debug("In AuditRepositoryProxyWebServiceSecured.auditLog(...) - completed called to ConnectionManager to retrieve endpoint.");
+        LOG.debug("In AuditRepositoryProxyWebServiceSecured.auditLog(...) - completed called to ConnectionManager to retrieve endpoint.");
 
         return result;
     }

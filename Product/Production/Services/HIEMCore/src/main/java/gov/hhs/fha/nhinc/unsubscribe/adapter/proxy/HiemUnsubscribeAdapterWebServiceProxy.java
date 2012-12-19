@@ -41,8 +41,7 @@ import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.unsubscribe.adapter.proxy.service.HiemUnsubscribeAdapterServicePortDescriptor;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 import org.oasis_open.docs.wsn.b_2.Unsubscribe;
 import org.oasis_open.docs.wsn.b_2.UnsubscribeResponse;
 import org.w3c.dom.Element;
@@ -53,7 +52,7 @@ import org.w3c.dom.Element;
  */
 public class HiemUnsubscribeAdapterWebServiceProxy implements HiemUnsubscribeAdapterProxy {
 
-    private static Log log = LogFactory.getLog(HiemUnsubscribeAdapterWebServiceProxy.class);
+    private static final Logger LOG = Logger.getLogger(HiemUnsubscribeAdapterWebServiceProxy.class);
 
     private static WebServiceProxyHelper oProxyHelper = null;
 
@@ -95,10 +94,10 @@ public class HiemUnsubscribeAdapterWebServiceProxy implements HiemUnsubscribeAda
                 responseElement = unsubscribeResponseMarshaller.marshal(response);
 
             } else {
-                log.error("Error getting url for: " + NhincConstants.HIEM_UNSUBSCRIBE_ADAPTER_SERVICE_NAME);
+                LOG.error("Error getting url for: " + NhincConstants.HIEM_UNSUBSCRIBE_ADAPTER_SERVICE_NAME);
             }
         } catch (Exception e) {
-            log.error("Failed to send unsubscribe message to adapter", e);
+            LOG.error("Failed to send unsubscribe message to adapter", e);
         }
 
         return responseElement;

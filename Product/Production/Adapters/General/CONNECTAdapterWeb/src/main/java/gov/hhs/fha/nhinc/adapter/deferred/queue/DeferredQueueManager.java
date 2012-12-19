@@ -34,14 +34,12 @@ import gov.hhs.fha.nhinc.common.deferredqueuemanager.QueryDeferredQueueRequestTy
 import gov.hhs.fha.nhinc.common.deferredqueuemanager.QueryDeferredQueueResponseType;
 import gov.hhs.fha.nhinc.common.deferredqueuemanager.RetrieveDeferredQueueRequestType;
 import gov.hhs.fha.nhinc.common.deferredqueuemanager.RetrieveDeferredQueueResponseType;
+
 import javax.annotation.Resource;
-import javax.jws.WebService;
-import javax.xml.ws.BindingType;
 import javax.xml.ws.WebServiceContext;
 import javax.xml.ws.soap.Addressing;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 
+import org.apache.log4j.Logger;
 /**
  * 
  * @author richard.ettema
@@ -50,7 +48,7 @@ import org.apache.commons.logging.LogFactory;
 @Addressing(enabled = true, required = true)
 public class DeferredQueueManager implements gov.hhs.fha.nhinc.deferredqueuemanager.DeferredQueueManagerPortType {
 
-    private static Log log = LogFactory.getLog(DeferredQueueManager.class);
+    private static final Logger LOG = Logger.getLogger(DeferredQueueManager.class);
 
     @Resource
     private WebServiceContext context;
@@ -64,7 +62,7 @@ public class DeferredQueueManager implements gov.hhs.fha.nhinc.deferredqueuemana
             DeferredQueueTimer.startTimer();
         } catch (Exception e) {
             String sErrorMessage = "Failed to start DeferredQueueManager's timer.  Error: " + e.getMessage();
-            log.error(sErrorMessage, e);
+            LOG.error(sErrorMessage, e);
         }
     }
 

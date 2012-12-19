@@ -26,8 +26,7 @@
  */
 package gov.hhs.fha.nhinc.subscription.repository.dao;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 import gov.hhs.fha.nhinc.subscription.repository.data.SubscriptionStorageItem;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -45,7 +44,7 @@ import org.hibernate.criterion.Restrictions;
  */
 public class SubscriptionStorageItemDao {
 
-    Log log = LogFactory.getLog(SubscriptionStorageItemDao.class);
+    private static final Logger LOG = Logger.getLogger(SubscriptionStorageItemDao.class);
 
     /**
      * Store a subscription storage item.
@@ -53,7 +52,7 @@ public class SubscriptionStorageItemDao {
      * @param subscriptionItem
      */
     public void save(SubscriptionStorageItem subscriptionItem) {
-        log.debug("Performing subscription item save");
+        LOG.debug("Performing subscription item save");
         Session sess = null;
         Transaction trans = null;
         try {
@@ -64,29 +63,29 @@ public class SubscriptionStorageItemDao {
                     trans = sess.beginTransaction();
                     sess.saveOrUpdate(subscriptionItem);
                 } else {
-                    log.error("Failed to obtain a session from the sessionFactory");
+                    LOG.error("Failed to obtain a session from the sessionFactory");
                 }
             } else {
-                log.error("Session factory was null");
+                LOG.error("Session factory was null");
             }
         } finally {
             if (trans != null) {
                 try {
                     trans.commit();
                 } catch (Throwable t) {
-                    log.error("Failed to commit transaction: " + t.getMessage(), t);
+                    LOG.error("Failed to commit transaction: " + t.getMessage(), t);
                 }
             }
             if (sess != null) {
                 try {
                     sess.close();
                 } catch (Throwable t) {
-                    log.error("Failed to close session: " + t.getMessage(), t);
+                    LOG.error("Failed to close session: " + t.getMessage(), t);
                 }
             }
         }
 
-        log.debug("Completed subscription item save");
+        LOG.debug("Completed subscription item save");
     }
 
     /**
@@ -96,7 +95,7 @@ public class SubscriptionStorageItemDao {
      * @return Retrieved subscription
      */
     public SubscriptionStorageItem findById(String recordId) {
-        log.debug("Performing subscription retrieve using id: " + recordId);
+        LOG.debug("Performing subscription retrieve using id: " + recordId);
         SubscriptionStorageItem subscription = null;
         Session sess = null;
         try {
@@ -106,13 +105,13 @@ public class SubscriptionStorageItemDao {
                 if (sess != null) {
                     subscription = (SubscriptionStorageItem) sess.get(SubscriptionStorageItem.class, recordId);
                 } else {
-                    log.error("Failed to obtain a session from the sessionFactory");
+                    LOG.error("Failed to obtain a session from the sessionFactory");
                 }
             } else {
-                log.error("Session factory was null");
+                LOG.error("Session factory was null");
             }
-            if (log.isDebugEnabled()) {
-                log.debug("Completed subscription retrieve by id. Result was " + ((subscription == null) ? "not " : "")
+            if (LOG.isDebugEnabled()) {
+                LOG.debug("Completed subscription retrieve by id. Result was " + ((subscription == null) ? "not " : "")
                         + "found");
             }
         } finally {
@@ -120,7 +119,7 @@ public class SubscriptionStorageItemDao {
                 try {
                     sess.close();
                 } catch (Throwable t) {
-                    log.error("Failed to close session: " + t.getMessage(), t);
+                    LOG.error("Failed to close session: " + t.getMessage(), t);
                 }
             }
         }
@@ -135,7 +134,7 @@ public class SubscriptionStorageItemDao {
      */
     @SuppressWarnings({ "unchecked", "unchecked" })
     public List<SubscriptionStorageItem> findBySubscriptionId(String subscriptionId) {
-        log.debug("Performing subscription retrieve using subscription id: " + subscriptionId);
+        LOG.debug("Performing subscription retrieve using subscription id: " + subscriptionId);
         List<SubscriptionStorageItem> subscriptions = null;
         Session sess = null;
         try {
@@ -147,13 +146,13 @@ public class SubscriptionStorageItemDao {
                     criteria.add(Restrictions.eq("subscriptionId", subscriptionId));
                     subscriptions = criteria.list();
                 } else {
-                    log.error("Failed to obtain a session from the sessionFactory");
+                    LOG.error("Failed to obtain a session from the sessionFactory");
                 }
             } else {
-                log.error("Session factory was null");
+                LOG.error("Session factory was null");
             }
-            if (log.isDebugEnabled()) {
-                log.debug("Completed subscription retrieve by subscription id. Results found: "
+            if (LOG.isDebugEnabled()) {
+                LOG.debug("Completed subscription retrieve by subscription id. Results found: "
                         + ((subscriptions == null) ? "0" : Integer.toString(subscriptions.size())));
             }
         } finally {
@@ -161,7 +160,7 @@ public class SubscriptionStorageItemDao {
                 try {
                     sess.close();
                 } catch (Throwable t) {
-                    log.error("Failed to close session: " + t.getMessage(), t);
+                    LOG.error("Failed to close session: " + t.getMessage(), t);
                 }
             }
         }
@@ -169,7 +168,7 @@ public class SubscriptionStorageItemDao {
     }
 
     public List<SubscriptionStorageItem> findByRootTopic(String rootTopic, String producer) {
-        log.debug("Performing subscription retrieve using rootTopic='" + rootTopic + "';producer='" + producer + "'");
+        LOG.debug("Performing subscription retrieve using rootTopic='" + rootTopic + "';producer='" + producer + "'");
 
         List<SubscriptionStorageItem> subscriptions = null;
         Session sess = null;
@@ -183,13 +182,13 @@ public class SubscriptionStorageItemDao {
                     criteria.add(Restrictions.eq("producer", producer));
                     subscriptions = criteria.list();
                 } else {
-                    log.error("Failed to obtain a session from the sessionFactory");
+                    LOG.error("Failed to obtain a session from the sessionFactory");
                 }
             } else {
-                log.error("Session factory was null");
+                LOG.error("Session factory was null");
             }
-            if (log.isDebugEnabled()) {
-                log.debug("Completed subscription retrieve by subscription id. Results found: "
+            if (LOG.isDebugEnabled()) {
+                LOG.debug("Completed subscription retrieve by subscription id. Results found: "
                         + ((subscriptions == null) ? "0" : Integer.toString(subscriptions.size())));
             }
         } finally {
@@ -197,7 +196,7 @@ public class SubscriptionStorageItemDao {
                 try {
                     sess.close();
                 } catch (Throwable t) {
-                    log.error("Failed to close session: " + t.getMessage(), t);
+                    LOG.error("Failed to close session: " + t.getMessage(), t);
                 }
             }
         }
@@ -205,7 +204,7 @@ public class SubscriptionStorageItemDao {
     }
 
     public List<SubscriptionStorageItem> findByProducer(String producer) {
-        log.debug("Performing subscription retrieve using producer='" + producer + "'");
+        LOG.debug("Performing subscription retrieve using producer='" + producer + "'");
 
         List<SubscriptionStorageItem> subscriptions = null;
         Session sess = null;
@@ -218,13 +217,13 @@ public class SubscriptionStorageItemDao {
                     criteria.add(Restrictions.eq("producer", producer));
                     subscriptions = criteria.list();
                 } else {
-                    log.error("Failed to obtain a session from the sessionFactory");
+                    LOG.error("Failed to obtain a session from the sessionFactory");
                 }
             } else {
-                log.error("Session factory was null");
+                LOG.error("Session factory was null");
             }
-            if (log.isDebugEnabled()) {
-                log.debug("Completed subscription retrieve by subscription id. Results found: "
+            if (LOG.isDebugEnabled()) {
+                LOG.debug("Completed subscription retrieve by subscription id. Results found: "
                         + ((subscriptions == null) ? "0" : Integer.toString(subscriptions.size())));
             }
         } finally {
@@ -232,7 +231,7 @@ public class SubscriptionStorageItemDao {
                 try {
                     sess.close();
                 } catch (Throwable t) {
-                    log.error("Failed to close session: " + t.getMessage(), t);
+                    LOG.error("Failed to close session: " + t.getMessage(), t);
                 }
             }
         }
@@ -247,7 +246,7 @@ public class SubscriptionStorageItemDao {
      */
     @SuppressWarnings("unchecked")
     public List<SubscriptionStorageItem> findByParentSubscriptionId(String parentSubscriptionId) {
-        log.debug("Performing subscription retrieve using parent subscription id: " + parentSubscriptionId);
+        LOG.debug("Performing subscription retrieve using parent subscription id: " + parentSubscriptionId);
         List<SubscriptionStorageItem> subscriptions = null;
         Session sess = null;
         try {
@@ -259,13 +258,13 @@ public class SubscriptionStorageItemDao {
                     criteria.add(Restrictions.eq("parentSubscriptionId", parentSubscriptionId));
                     subscriptions = criteria.list();
                 } else {
-                    log.error("Failed to obtain a session from the sessionFactory");
+                    LOG.error("Failed to obtain a session from the sessionFactory");
                 }
             } else {
-                log.error("Session factory was null");
+                LOG.error("Session factory was null");
             }
-            if (log.isDebugEnabled()) {
-                log.debug("Completed subscription retrieve by parent subscription id. Results found: "
+            if (LOG.isDebugEnabled()) {
+                LOG.debug("Completed subscription retrieve by parent subscription id. Results found: "
                         + ((subscriptions == null) ? "0" : Integer.toString(subscriptions.size())));
             }
         } finally {
@@ -273,7 +272,7 @@ public class SubscriptionStorageItemDao {
                 try {
                     sess.close();
                 } catch (Throwable t) {
-                    log.error("Failed to close session: " + t.getMessage(), t);
+                    LOG.error("Failed to close session: " + t.getMessage(), t);
                 }
             }
         }
@@ -287,7 +286,7 @@ public class SubscriptionStorageItemDao {
      * @return All subscriptions
      */
     public List<SubscriptionStorageItem> retrieveCloseBySubscriptionReference(String subRefFragment) {
-        log.debug("Performing retrieve all subscriptions");
+        LOG.debug("Performing retrieve all subscriptions");
         List<SubscriptionStorageItem> subscriptions = null;
         Session sess = null;
         try {
@@ -298,17 +297,17 @@ public class SubscriptionStorageItemDao {
                     // Criteria subRefCriteria = sess.;
                     // subscription = (SubscriptionStorageItem) sess.get(SubscriptionStorageItem.class, subscriptionId);
                 } else {
-                    log.error("Failed to obtain a session from the sessionFactory");
+                    LOG.error("Failed to obtain a session from the sessionFactory");
                 }
             } else {
-                log.error("Session factory was null");
+                LOG.error("Session factory was null");
             }
         } finally {
             if (sess != null) {
                 try {
                     sess.close();
                 } catch (Throwable t) {
-                    log.error("Failed to close session: " + t.getMessage(), t);
+                    LOG.error("Failed to close session: " + t.getMessage(), t);
                 }
             }
         }
@@ -321,7 +320,7 @@ public class SubscriptionStorageItemDao {
      * @param subscriptionItem Subscription storage item to delete
      */
     public void delete(SubscriptionStorageItem subscriptionItem) {
-        log.debug("Performing subscription storage item delete");
+        LOG.debug("Performing subscription storage item delete");
 
         Session sess = null;
         Transaction trans = null;
@@ -333,33 +332,33 @@ public class SubscriptionStorageItemDao {
                     trans = sess.beginTransaction();
                     sess.delete(subscriptionItem);
                 } else {
-                    log.error("Failed to obtain a session from the sessionFactory");
+                    LOG.error("Failed to obtain a session from the sessionFactory");
                 }
             } else {
-                log.error("Session factory was null");
+                LOG.error("Session factory was null");
             }
         } finally {
             if (trans != null) {
                 try {
                     trans.commit();
                 } catch (Throwable t) {
-                    log.error("Failed to commit transaction: " + t.getMessage(), t);
+                    LOG.error("Failed to commit transaction: " + t.getMessage(), t);
                 }
             }
             if (sess != null) {
                 try {
                     sess.close();
                 } catch (Throwable t) {
-                    log.error("Failed to close session: " + t.getMessage(), t);
+                    LOG.error("Failed to close session: " + t.getMessage(), t);
                 }
             }
         }
-        log.debug("Completed subscription storage item delete");
+        LOG.debug("Completed subscription storage item delete");
     }
 
     public int subscriptionCount() {
         int subscriptionCount = 0;
-        log.debug("Performing subscriptionCount");
+        LOG.debug("Performing subscriptionCount");
         Session sess = null;
         try {
             SessionFactory fact = HibernateUtil.getSessionFactory();
@@ -370,20 +369,20 @@ public class SubscriptionStorageItemDao {
                     criteria.setProjection(Projections.rowCount());
                     subscriptionCount = ((Integer) criteria.list().get(0)).intValue();
                 } else {
-                    log.error("Failed to obtain a session from the sessionFactory");
+                    LOG.error("Failed to obtain a session from the sessionFactory");
                 }
             } else {
-                log.error("Session factory was null");
+                LOG.error("Session factory was null");
             }
-            if (log.isDebugEnabled()) {
-                log.debug("Completed subscriptionCount " + subscriptionCount);
+            if (LOG.isDebugEnabled()) {
+                LOG.debug("Completed subscriptionCount " + subscriptionCount);
             }
         } finally {
             if (sess != null) {
                 try {
                     sess.close();
                 } catch (Throwable t) {
-                    log.error("Failed to close session: " + t.getMessage(), t);
+                    LOG.error("Failed to close session: " + t.getMessage(), t);
                 }
             }
         }
@@ -391,7 +390,7 @@ public class SubscriptionStorageItemDao {
     }
 
     public void emptyRepository() {
-        log.debug("Performing emptyRepository");
+        LOG.debug("Performing emptyRepository");
         Session sess = null;
         Transaction trans = null;
         try {
@@ -402,24 +401,24 @@ public class SubscriptionStorageItemDao {
                     trans = sess.beginTransaction();
                     sess.createQuery("delete from SubscriptionStorageItem").executeUpdate();
                 } else {
-                    log.error("Failed to obtain a session from the sessionFactory");
+                    LOG.error("Failed to obtain a session from the sessionFactory");
                 }
             } else {
-                log.error("Session factory was null");
+                LOG.error("Session factory was null");
             }
         } finally {
             if (trans != null) {
                 try {
                     trans.commit();
                 } catch (Throwable t) {
-                    log.error("Failed to commit transaction: " + t.getMessage(), t);
+                    LOG.error("Failed to commit transaction: " + t.getMessage(), t);
                 }
             }
             if (sess != null) {
                 try {
                     sess.close();
                 } catch (Throwable t) {
-                    log.error("Failed to close session: " + t.getMessage(), t);
+                    LOG.error("Failed to close session: " + t.getMessage(), t);
                 }
             }
         }

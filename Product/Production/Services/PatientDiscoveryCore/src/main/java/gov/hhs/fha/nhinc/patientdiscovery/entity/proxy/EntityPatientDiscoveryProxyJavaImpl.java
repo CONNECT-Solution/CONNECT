@@ -30,8 +30,7 @@ import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
 import gov.hhs.fha.nhinc.patientdiscovery.outbound.StandardOutboundPatientDiscovery;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 import org.hl7.v3.PRPAIN201305UV02;
 import org.hl7.v3.RespondingGatewayPRPAIN201305UV02RequestType;
 import org.hl7.v3.RespondingGatewayPRPAIN201306UV02ResponseType;
@@ -42,15 +41,7 @@ import org.hl7.v3.RespondingGatewayPRPAIN201306UV02ResponseType;
  * @author paul.eftis
  */
 public class EntityPatientDiscoveryProxyJavaImpl implements EntityPatientDiscoveryProxy {
-    private Log log = null;
-
-    public EntityPatientDiscoveryProxyJavaImpl() {
-        log = createLogger();
-    }
-
-    protected Log createLogger() {
-        return LogFactory.getLog(getClass());
-    }
+    private static final Logger LOG = Logger.getLogger(EntityPatientDiscoveryProxyJavaImpl.class);
 
     protected StandardOutboundPatientDiscovery getEntityPatientDiscoveryProcessor() {
         return new StandardOutboundPatientDiscovery();
@@ -58,11 +49,11 @@ public class EntityPatientDiscoveryProxyJavaImpl implements EntityPatientDiscove
 
     public RespondingGatewayPRPAIN201306UV02ResponseType respondingGatewayPRPAIN201305UV02(PRPAIN201305UV02 pdRequest,
             AssertionType assertion, NhinTargetCommunitiesType targetCommunities) {
-        log.debug("Begin respondingGatewayPRPAIN201305UV02");
+        LOG.debug("Begin respondingGatewayPRPAIN201305UV02");
         RespondingGatewayPRPAIN201306UV02ResponseType response = null;
         StandardOutboundPatientDiscovery processor = getEntityPatientDiscoveryProcessor();
         if (processor == null) {
-            log.warn("EntityPatientDiscoveryProcessor was null");
+            LOG.warn("EntityPatientDiscoveryProcessor was null");
         } else {
             RespondingGatewayPRPAIN201305UV02RequestType processorRequest = new RespondingGatewayPRPAIN201305UV02RequestType();
             processorRequest.setPRPAIN201305UV02(pdRequest);
@@ -70,7 +61,7 @@ public class EntityPatientDiscoveryProxyJavaImpl implements EntityPatientDiscove
             processorRequest.setNhinTargetCommunities(targetCommunities);
             response = processor.respondingGatewayPRPAIN201305UV02(processorRequest, assertion);
         }
-        log.debug("End respondingGatewayPRPAIN201305UV02");
+        LOG.debug("End respondingGatewayPRPAIN201305UV02");
         return response;
     }
 

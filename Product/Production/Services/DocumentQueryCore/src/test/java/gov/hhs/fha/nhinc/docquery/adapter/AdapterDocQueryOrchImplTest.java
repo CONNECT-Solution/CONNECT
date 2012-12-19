@@ -29,7 +29,6 @@ package gov.hhs.fha.nhinc.docquery.adapter;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.fail;
 
-import org.apache.commons.logging.Log;
 import org.jmock.Mockery;
 import org.jmock.integration.junit4.JUnit4Mockery;
 import org.jmock.lib.legacy.ClassImposteriser;
@@ -47,36 +46,13 @@ public class AdapterDocQueryOrchImplTest {
             setImposteriser(ClassImposteriser.INSTANCE);
         }
     };
-    final Log mockLog = context.mock(Log.class);
     final AdapterRedactionEngineProxy mockRedactionEngineProxy = context.mock(AdapterRedactionEngineProxy.class);
-
-    @Test
-    public void testCreateLogger() {
-        try {
-            AdapterDocQueryOrchImpl docQueryImpl = new AdapterDocQueryOrchImpl() {
-                @Override
-                protected Log createLogger() {
-                    return mockLog;
-                }
-            };
-
-            Log log = docQueryImpl.createLogger();
-            assertNotNull("Log was null", log);
-        } catch (Throwable t) {
-            System.out.println("Error running testCreateLogger test: " + t.getMessage());
-            t.printStackTrace();
-            fail("Error running testCreateLogger test: " + t.getMessage());
-        }
-    }
 
     @Test
     public void testGetRedactionEngineProxy() {
         try {
             AdapterDocQueryOrchImpl docQueryImpl = new AdapterDocQueryOrchImpl() {
-                @Override
-                protected Log createLogger() {
-                    return mockLog;
-                }
+              
 
                 @Override
                 protected AdapterRedactionEngineProxy getRedactionEngineProxy() {

@@ -32,8 +32,7 @@ import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import javax.xml.ws.BindingProvider;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 
 import java.io.File;
 import java.io.StringWriter;
@@ -62,7 +61,7 @@ import javax.xml.ws.Service;
  */
 public class FTATimerTask {
 
-    private static Log log = LogFactory.getLog(FTATimerTask.class);
+    private static final Logger LOG = Logger.getLogger(FTATimerTask.class);
     private FTAConfiguration ftaConfig = null;
     private static Service cachedService = null;
     private static Service cachedSecuredService = null;
@@ -84,7 +83,7 @@ public class FTATimerTask {
     public void run() {
         try {
             if (ftaConfig == null) {
-                log.error("FTA Configuration not loaded.");
+                LOG.error("FTA Configuration not loaded.");
                 ;
             } else {
                 for (FTAChannel channel : ftaConfig.getInboundChannels()) {
@@ -92,7 +91,7 @@ public class FTATimerTask {
                 }
             }
         } catch (Throwable t) {
-            log.error("****** FTATimerTask THROWABLE: " + t.getMessage(), t);
+            LOG.error("****** FTATimerTask THROWABLE: " + t.getMessage(), t);
 
             StringWriter stackTrace = new StringWriter();
             t.printStackTrace(new PrintWriter(stackTrace));
@@ -117,9 +116,9 @@ public class FTATimerTask {
                 File child = new File(dir.getAbsolutePath() + "/" + children[i]);
 
                 if (!child.isDirectory()) {
-                    log.info("FTATimerTask Processing File: " + child.getName());
+                    LOG.info("FTATimerTask Processing File: " + child.getName());
                     String contents = Util.getFileContents(child);
-                    log.debug("FTATimerTask File Contents: " + contents);
+                    LOG.debug("FTATimerTask File Contents: " + contents);
                     sendNotification(contents, topic);
 
                     child.delete();
@@ -135,7 +134,7 @@ public class FTATimerTask {
         try { // Call Web Service Operation
             String endpointURL = PropertyAccessor.getInstance().getProperty("adapter", "EntityNotificationConsumerURL");
             // String endpointURL = "http://localhost:8088/mockEntityNotificationConsumerBindingSoap11";
-            log.info("EntitySubscriptionURL :" + endpointURL);
+            LOG.info("EntitySubscriptionURL :" + endpointURL);
 
             // TODO initialize WS operation arguments here
             gov.hhs.fha.nhinc.common.nhinccommonentity.NotifyRequestType notifyRequest = new gov.hhs.fha.nhinc.common.nhinccommonentity.NotifyRequestType();
@@ -162,7 +161,7 @@ public class FTATimerTask {
 
             // topic =
             // "<wsnt:TopicExpression xmlns:wsnt='http://docs.oasis-open.org/wsn/b-2' Dialect='http://docs.oasis-open.org/wsn/t-1/TopicExpression/Simple' xmlns:nhinc='urn:gov.hhs.fha.nhinc.hiemtopic'>nhinc:testTopic</wsnt:TopicExpression>";
-            log.info("topic :" + topic);
+            LOG.info("topic :" + topic);
             topicExpression = (TopicExpressionType) marshaller.unmarshal(topic);
 
             messageHolder.setTopic(topicExpression);
@@ -177,9 +176,9 @@ public class FTATimerTask {
             // invocation
             AcknowledgementType result = port.notify(notifyRequest);
 
-            log.info("Result = " + result);
+            LOG.info("Result = " + result);
         } catch (Exception ex) {
-            log.error(ex.getMessage(), ex);
+            LOG.error(ex.getMessage(), ex);
         }
     }
 
@@ -187,7 +186,7 @@ public class FTATimerTask {
         try { // Call Web Service Operation
             String endpointURL = PropertyAccessor.getInstance().getProperty("adapter", "EntityNotificationConsumerURL");
             // String endpointURL = "http://localhost:8088/mockEntityNotificationConsumerBindingSoap11";
-            log.info("EntitySubscriptionURL :" + endpointURL);
+            LOG.info("EntitySubscriptionURL :" + endpointURL);
 
             SamlTokenCreator tokenCreator = new SamlTokenCreator();
             AssertionType assertion = Util.createAssertion();
@@ -209,7 +208,7 @@ public class FTATimerTask {
 
             // topic =
             // "<wsnt:TopicExpression xmlns:wsnt='http://docs.oasis-open.org/wsn/b-2' Dialect='http://docs.oasis-open.org/wsn/t-1/TopicExpression/Simple' xmlns:nhinc='urn:gov.hhs.fha.nhinc.hiemtopic'>nhinc:testTopic</wsnt:TopicExpression>";
-            log.info("topic :" + topic);
+            LOG.info("topic :" + topic);
             topicExpression = (TopicExpressionType) marshaller.unmarshal(topic);
 
             messageHolder.setTopic(topicExpression);
@@ -222,9 +221,9 @@ public class FTATimerTask {
 
             AcknowledgementType result = port.notify(notify);
 
-            log.info("Result = " + result);
+            LOG.info("Result = " + result);
         } catch (Exception ex) {
-            log.error(ex.getMessage(), ex);
+            LOG.error(ex.getMessage(), ex);
         }
     }
 
@@ -234,7 +233,7 @@ public class FTATimerTask {
             Service oService = getService(WSDL_FILE, NAMESPACE_URI, SERVICE_LOCAL_PART);
 
             if (oService != null) {
-                log.debug("subscribe() Obtained service - creating port.");
+                LOG.debug("subscribe() Obtained service - creating port.");
                 oPort = oService.getPort(new QName(NAMESPACE_URI, PORT_LOCAL_PART),
                         EntityNotificationConsumerPortType.class);
 
@@ -242,10 +241,10 @@ public class FTATimerTask {
                 getWebServiceProxyHelper().initializeUnsecurePort((BindingProvider) oPort, url, WS_ADDRESSING_ACTION,
                         assertIn);
             } else {
-                log.error("Unable to obtain serivce - no port created.");
+                LOG.error("Unable to obtain serivce - no port created.");
             }
         } catch (Throwable t) {
-            log.error("Error creating service: " + t.getMessage(), t);
+            LOG.error("Error creating service: " + t.getMessage(), t);
         }
         return oPort;
     }
@@ -256,7 +255,7 @@ public class FTATimerTask {
             Service oService = getService(WSDL_FILE, NAMESPACE_URI, SERVICE_LOCAL_PART);
 
             if (oService != null) {
-                log.debug("subscribe() Obtained service - creating port.");
+                LOG.debug("subscribe() Obtained service - creating port.");
                 oPort = oService.getPort(new QName(NAMESPACE_URI, PORT_LOCAL_PART),
                         EntityNotificationConsumerSecuredPortType.class);
 
@@ -264,10 +263,10 @@ public class FTATimerTask {
                 getWebServiceProxyHelper().initializeSecurePort((BindingProvider) oPort, url,
                         NhincConstants.HIEM_NOTIFY_ENTITY_SERVICE_NAME_SECURED, WS_ADDRESSING_ACTION, assertIn);
             } else {
-                log.error("Unable to obtain service - no port created.");
+                LOG.error("Unable to obtain service - no port created.");
             }
         } catch (Throwable t) {
-            log.error("Error creating service: " + t.getMessage(), t);
+            LOG.error("Error creating service: " + t.getMessage(), t);
         }
         return oPort;
     }
@@ -284,7 +283,7 @@ public class FTATimerTask {
             try {
                 cachedService = getWebServiceProxyHelper().createService(wsdl, uri, service);
             } catch (Throwable t) {
-                log.error("Error creating service: " + t.getMessage(), t);
+                LOG.error("Error creating service: " + t.getMessage(), t);
             }
         }
         return cachedService;
@@ -295,7 +294,7 @@ public class FTATimerTask {
             try {
                 cachedSecuredService = getWebServiceProxyHelper().createService(wsdl, uri, service);
             } catch (Throwable t) {
-                log.error("Error creating service: " + t.getMessage(), t);
+                LOG.error("Error creating service: " + t.getMessage(), t);
             }
         }
         return cachedSecuredService;

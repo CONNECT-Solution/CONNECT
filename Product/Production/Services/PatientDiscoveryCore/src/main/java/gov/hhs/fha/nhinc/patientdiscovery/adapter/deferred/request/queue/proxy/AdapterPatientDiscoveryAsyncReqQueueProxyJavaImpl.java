@@ -30,8 +30,7 @@ import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
 import gov.hhs.fha.nhinc.patientdiscovery.adapter.deferred.request.queue.AdapterPatientDiscoveryDeferredReqQueueOrchImpl;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 import org.hl7.v3.MCCIIN000002UV01;
 import org.hl7.v3.PRPAIN201305UV02;
 
@@ -42,23 +41,7 @@ import org.hl7.v3.PRPAIN201305UV02;
  */
 public class AdapterPatientDiscoveryAsyncReqQueueProxyJavaImpl implements AdapterPatientDiscoveryAsyncReqQueueProxy {
 
-    private Log log = null;
-
-    /**
-     * Default constructor.
-     */
-    public AdapterPatientDiscoveryAsyncReqQueueProxyJavaImpl() {
-        log = createLogger();
-    }
-
-    /**
-     * Creates the log object for logging.
-     * 
-     * @return The log object.
-     */
-    protected Log createLogger() {
-        return ((log != null) ? log : LogFactory.getLog(getClass()));
-    }
+    private static final Logger LOG = Logger.getLogger(AdapterPatientDiscoveryAsyncReqQueueProxyJavaImpl.class);
 
     /**
      * This calls the java implementation for this method.
@@ -69,9 +52,9 @@ public class AdapterPatientDiscoveryAsyncReqQueueProxyJavaImpl implements Adapte
      */
     public MCCIIN000002UV01 addPatientDiscoveryAsyncReq(PRPAIN201305UV02 request, AssertionType assertion,
             NhinTargetCommunitiesType targets) {
-        log.debug("Entering AdapterPatientDiscoveryAsyncReqQueueProxyJavaImpl.addPatientDiscoveryAsyncReq");
+        LOG.trace("Entering AdapterPatientDiscoveryAsyncReqQueueProxyJavaImpl.addPatientDiscoveryAsyncReq");
         AdapterPatientDiscoveryDeferredReqQueueOrchImpl oOrchestrator = new AdapterPatientDiscoveryDeferredReqQueueOrchImpl();
-        log.debug("Leaving AdapterPatientDiscoveryAsyncReqQueueProxyJavaImpl.addPatientDiscoveryAsyncReq");
+        LOG.trace("Leaving AdapterPatientDiscoveryAsyncReqQueueProxyJavaImpl.addPatientDiscoveryAsyncReq");
         return oOrchestrator.addPatientDiscoveryAsyncReq(request, assertion, targets);
 
     }

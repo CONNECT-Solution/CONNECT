@@ -31,18 +31,18 @@ import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.docsubmission.aspect.DocSubmissionBaseEventDescriptionBuilder;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+
+import org.apache.log4j.Logger;
 
 public class AdapterDocSubmissionProxyNoOpImpl implements AdapterDocSubmissionProxy {
-    private static Log log = LogFactory.getLog(AdapterDocSubmissionProxyNoOpImpl.class);
+    private static final Logger LOG = Logger.getLogger(AdapterDocSubmissionProxyNoOpImpl.class);
 
     @AdapterDelegationEvent(beforeBuilder = DocSubmissionBaseEventDescriptionBuilder.class,
             afterReturningBuilder = DocSubmissionBaseEventDescriptionBuilder.class, serviceType = "Document Submission",
             version = "")
     public RegistryResponseType provideAndRegisterDocumentSetB(ProvideAndRegisterDocumentSetRequestType msg,
             AssertionType assertion) {
-        log.debug("Using NoOp Implementation for Adapter Doc Submission Service");
+        LOG.trace("Using NoOp Implementation for Adapter Doc Submission Service");
         return new RegistryResponseType();
     }
 }

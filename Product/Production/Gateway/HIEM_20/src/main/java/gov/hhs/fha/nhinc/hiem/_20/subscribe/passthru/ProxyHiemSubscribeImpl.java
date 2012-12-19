@@ -34,8 +34,7 @@ import gov.hhs.fha.nhinc.subscribe.nhin.proxy.NhinHiemSubscribeProxyObjectFactor
 
 import javax.xml.ws.WebServiceContext;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 import org.oasis_open.docs.wsn.b_2.SubscribeResponse;
 
 /**
@@ -44,11 +43,11 @@ import org.oasis_open.docs.wsn.b_2.SubscribeResponse;
  */
 public class ProxyHiemSubscribeImpl {
 
-    private static Log log = LogFactory.getLog(ProxyHiemSubscribeImpl.class);
+    private static final Logger LOG = Logger.getLogger(ProxyHiemSubscribeImpl.class);
 
     public SubscribeResponse subscribe(SubscribeRequestType subscribeRequest, WebServiceContext context)
             throws Exception {
-        log.debug("Entering ProxyHiemSubscribeImpl.subscribe...");
+        LOG.debug("Entering ProxyHiemSubscribeImpl.subscribe...");
         SubscribeResponse resp = null;
 
         NhinHiemSubscribeProxyObjectFactory hiemSubscribeFactory = new NhinHiemSubscribeProxyObjectFactory();
@@ -57,13 +56,13 @@ public class ProxyHiemSubscribeImpl {
         resp = proxy.subscribe(subscribeRequest.getSubscribe(), subscribeRequest.getAssertion(),
                 subscribeRequest.getNhinTargetSystem());
 
-       log.debug("Exiting ProxyHiemSubscribeImpl.subscribe...");
+       LOG.debug("Exiting ProxyHiemSubscribeImpl.subscribe...");
         return resp;
     }
 
     public SubscribeResponse subscribe(SubscribeRequestSecuredType subscribeRequest, WebServiceContext context)
             throws Exception {
-        log.debug("Entering Secured ProxyHiemSubscribeImpl.subscribe...");
+        LOG.debug("Entering Secured ProxyHiemSubscribeImpl.subscribe...");
         SubscribeResponse resp = null;
 
         NhinHiemSubscribeProxyObjectFactory hiemSubscribeFactory = new NhinHiemSubscribeProxyObjectFactory();
@@ -72,7 +71,7 @@ public class ProxyHiemSubscribeImpl {
         resp = proxy.subscribe(subscribeRequest.getSubscribe(), SAML2AssertionExtractor.getInstance().extractSamlAssertion(context),
                 subscribeRequest.getNhinTargetSystem());
 
-        log.debug("Exiting Secured ProxyHiemSubscribeImpl.subscribe...");
+        LOG.debug("Exiting Secured ProxyHiemSubscribeImpl.subscribe...");
         return resp;
     }
 

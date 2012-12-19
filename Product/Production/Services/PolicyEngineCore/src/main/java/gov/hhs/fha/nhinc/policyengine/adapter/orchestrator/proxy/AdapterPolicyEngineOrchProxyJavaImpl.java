@@ -31,8 +31,7 @@ import gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyResponseType;
 import gov.hhs.fha.nhinc.policyengine.adapter.orchestrator.AdapterPolicyEngineOrchestratorImpl;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;;
 
 /**
  * This is the concrete implementation for the Java based call to the AdapterPolicyEngineOrchestrator.
@@ -40,15 +39,7 @@ import org.apache.commons.logging.LogFactory;
  * @author Les Westberg
  */
 public class AdapterPolicyEngineOrchProxyJavaImpl implements AdapterPolicyEngineOrchProxy {
-    private Log log = null;
-
-    public AdapterPolicyEngineOrchProxyJavaImpl() {
-        log = createLogger();
-    }
-
-    protected Log createLogger() {
-        return LogFactory.getLog(getClass());
-    }
+    private static final Logger LOG = Logger.getLogger(AdapterPolicyEngineOrchProxyJavaImpl.class);
 
     /**
      * Given a request to check the access policy, this service will interface with the Adapter PEP to determine if
@@ -58,7 +49,7 @@ public class AdapterPolicyEngineOrchProxyJavaImpl implements AdapterPolicyEngine
      * @return The response which contains the access decision
      */
     public CheckPolicyResponseType checkPolicy(CheckPolicyRequestType checkPolicyRequest, AssertionType assertion) {
-        log.debug("Begin AdapterPolicyEngineOrchProxyJavaImpl.checkPolicy");
+        LOG.trace("Begin AdapterPolicyEngineOrchProxyJavaImpl.checkPolicy");
         CheckPolicyResponseType oResponse = new CheckPolicyResponseType();
 
         AdapterPolicyEngineOrchestratorImpl oOrchestratorImpl = new AdapterPolicyEngineOrchestratorImpl();
@@ -68,11 +59,11 @@ public class AdapterPolicyEngineOrchProxyJavaImpl implements AdapterPolicyEngine
         } catch (Exception e) {
             String sErrorMessage = "Error occurred calling AdapterPolicyEngineOrchProxyJavaImpl.checkPolicy.  Error: "
                     + e.getMessage();
-            log.error(sErrorMessage, e);
+            LOG.error(sErrorMessage, e);
             throw new RuntimeException(sErrorMessage, e);
         }
 
-        log.debug("End AdapterPolicyEngineOrchProxyJavaImpl.checkPolicy");
+        LOG.trace("End AdapterPolicyEngineOrchProxyJavaImpl.checkPolicy");
         return oResponse;
     }
 

@@ -37,7 +37,6 @@ import javax.xml.ws.Service;
 
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
-import org.apache.commons.logging.Log;
 import org.jmock.Expectations;
 import org.jmock.Mockery;
 import org.jmock.lib.legacy.ClassImposteriser;
@@ -113,18 +112,12 @@ public class AdapterDocSubmissionDeferredRequestProxyWebServiceSecuredImplTest {
             }
         };
 
-        final Log mockLogger = mockery.mock(Log.class);
         mockery.mock(AdapterXDRRequestSecuredPortType.class);
         mockery.mock(Service.class);
         final CONNECTClient<AdapterXDRRequestSecuredPortType> mockClient= new CONNECTClientMock();
 
         AdapterDocSubmissionDeferredRequestProxyWebServiceSecuredImpl adapterXDRRequestWebServiceProxy = new AdapterDocSubmissionDeferredRequestProxyWebServiceSecuredImpl() {
-            @Override
-            protected Log createLogger() {
-                return mockLogger;
-            }
-
-
+            
             @Override
             protected CONNECTClient<AdapterXDRRequestSecuredPortType> getCONNECTClientSecured(
                     ServicePortDescriptor<AdapterXDRRequestSecuredPortType> portDescriptor, String url,
@@ -132,13 +125,6 @@ public class AdapterDocSubmissionDeferredRequestProxyWebServiceSecuredImplTest {
                 return mockClient;
             }
         };
-
-        mockery.checking(new Expectations() {
-            {
-                allowing(mockLogger).isDebugEnabled();
-                allowing(mockLogger).debug(with(any(String.class)));
-            }
-        });
 
         ProvideAndRegisterDocumentSetRequestType iheMsg = new ProvideAndRegisterDocumentSetRequestType();
         AssertionType assertion = new AssertionType();
@@ -161,18 +147,12 @@ public class AdapterDocSubmissionDeferredRequestProxyWebServiceSecuredImplTest {
             }
         };
 
-        final Log mockLogger = mockery.mock(Log.class);
         mockery.mock(AdapterXDRRequestSecuredPortType.class);
         mockery.mock(Service.class);
         final CONNECTClient<AdapterXDRRequestSecuredPortType> mockClient= new CONNECTClientMock();
 
         AdapterDocSubmissionDeferredRequestProxyWebServiceSecuredImpl adapterXDRRequestWebServiceProxy = new AdapterDocSubmissionDeferredRequestProxyWebServiceSecuredImpl() {
-            @Override
-            protected Log createLogger() {
-                return mockLogger;
-            }
-
-
+        	
             @Override
             protected CONNECTClient<AdapterXDRRequestSecuredPortType> getCONNECTClientSecured(
                     ServicePortDescriptor<AdapterXDRRequestSecuredPortType> portDescriptor, String url,
@@ -180,14 +160,6 @@ public class AdapterDocSubmissionDeferredRequestProxyWebServiceSecuredImplTest {
                 return mockClient;
             }
         };
-
-        mockery.checking(new Expectations() {
-            {
-                allowing(mockLogger).isDebugEnabled();
-                allowing(mockLogger).debug(with(any(String.class)));
-                allowing(mockLogger).error(with(any(String.class)));
-            }
-        });
 
         ProvideAndRegisterDocumentSetRequestType iheMsg = new ProvideAndRegisterDocumentSetRequestType();
         AssertionType assertion = new AssertionType();

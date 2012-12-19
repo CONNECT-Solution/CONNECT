@@ -37,7 +37,6 @@ import java.util.List;
 
 import javax.xml.bind.JAXBElement;
 
-import org.apache.commons.logging.Log;
 import org.hl7.v3.II;
 import org.hl7.v3.PRPAIN201305UV02;
 import org.hl7.v3.PRPAIN201306UV02;
@@ -67,8 +66,7 @@ public class VerifyModeTest {
         }
     };
     final TrustMode mockTrustMode = context.mock(TrustMode.class);
-    final Log mockLog = context.mock(Log.class);
-
+    
     public VerifyModeTest() {
     }
 
@@ -140,19 +138,12 @@ public class VerifyModeTest {
             protected TrustMode getTrustMode() {
                 return mockTrustMode;
             }
-
-            @Override
-            protected Log createLogger() {
-                return mockLog;
-            }
         };
 
         context.checking(new Expectations() {
             {
                 exactly(1).of(mockTrustMode).processResponse(with(any(PRPAIN201306UV02.class)),
                         with(any(AssertionType.class)), with(any(II.class)));
-                allowing(mockLog).debug(with(any(String.class)));
-                allowing(mockLog).warn(with(any(String.class)));
             }
         });
 
@@ -181,18 +172,12 @@ public class VerifyModeTest {
                 return mockTrustMode;
             }
 
-            @Override
-            protected Log createLogger() {
-                return mockLog;
-            }
         };
 
         context.checking(new Expectations() {
             {
                 exactly(1).of(mockTrustMode).processResponse(with(any(PRPAIN201306UV02.class)),
-                        with(any(AssertionType.class)), with(any(II.class)));
-                allowing(mockLog).debug(with(any(String.class)));
-                allowing(mockLog).warn(with(any(String.class)));
+                        with(any(AssertionType.class)), with(any(II.class)));    
             }
         });
 
@@ -212,13 +197,6 @@ public class VerifyModeTest {
         VerifyMode verifyMode = new VerifyMode();
         String senderCommunityId = verifyMode.getSenderCommunityId(response);
         assertEquals("2.2", senderCommunityId);
-    }
-
-    @Test
-    public void testGetLogger() {
-        VerifyMode verifyMode = new VerifyMode();
-        Log log = verifyMode.createLogger();
-        assertNotNull(log);
     }
 
     @Test
@@ -309,11 +287,6 @@ public class VerifyModeTest {
             }
 
             @Override
-            protected Log createLogger() {
-                return mockLog;
-            }
-
-            @Override
             protected PRPAIN201305UV02 convert201306to201305(PRPAIN201306UV02 response) {
                 return null;
             }
@@ -334,8 +307,6 @@ public class VerifyModeTest {
             {
                 exactly(1).of(mockTrustMode).processResponse(with(any(PRPAIN201306UV02.class)),
                         with(any(AssertionType.class)), with(any(II.class)));
-                allowing(mockLog).debug(with(any(String.class)));
-                allowing(mockLog).error(with(any(String.class)));
             }
         });
 
@@ -357,18 +328,7 @@ public class VerifyModeTest {
         remoteId.setRoot("root");
         remoteSubjectId.getValue().add(remoteId);
 
-        VerifyMode verifyMode = new VerifyMode() {
-            @Override
-            protected Log createLogger() {
-                return mockLog;
-            }
-        };
-
-        context.checking(new Expectations() {
-            {
-                allowing(mockLog).debug(with(any(String.class)));
-            }
-        });
+        VerifyMode verifyMode = new VerifyMode();
 
         boolean result = verifyMode.compareId(localSubjectId, remoteSubjectId);
         assertTrue(result);
@@ -392,18 +352,7 @@ public class VerifyModeTest {
         remoteSubjectId.getValue().add(remoteId);
         remoteSubjectIds.add(remoteSubjectId);
 
-        VerifyMode verifyMode = new VerifyMode() {
-            @Override
-            protected Log createLogger() {
-                return mockLog;
-            }
-        };
-
-        context.checking(new Expectations() {
-            {
-                allowing(mockLog).debug(with(any(String.class)));
-            }
-        });
+        VerifyMode verifyMode = new VerifyMode();
 
         boolean result = verifyMode.compareId(localSubjectIds, remoteSubjectIds);
         assertTrue(result);

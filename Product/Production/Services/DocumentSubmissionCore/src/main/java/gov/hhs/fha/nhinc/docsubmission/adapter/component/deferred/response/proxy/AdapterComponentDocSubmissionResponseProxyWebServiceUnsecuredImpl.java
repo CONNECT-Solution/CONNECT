@@ -28,8 +28,7 @@ package gov.hhs.fha.nhinc.docsubmission.adapter.component.deferred.response.prox
 
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 
 import gov.hhs.fha.nhinc.adaptercomponentxdrresponse.AdapterComponentXDRResponsePortType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
@@ -49,24 +48,8 @@ import gov.hhs.healthit.nhin.XDRAcknowledgementType;
  */
 public class AdapterComponentDocSubmissionResponseProxyWebServiceUnsecuredImpl implements
         AdapterComponentDocSubmissionResponseProxy {
-    private Log log = null;
+    private static final Logger LOG = Logger.getLogger(AdapterComponentDocSubmissionResponseProxyWebServiceUnsecuredImpl.class);
     private final WebServiceProxyHelper oProxyHelper = new WebServiceProxyHelper();
-
-    /**
-     * Default constructor.
-     */
-    public AdapterComponentDocSubmissionResponseProxyWebServiceUnsecuredImpl() {
-        log = createLogger();
-    }
-
-    /**
-     * Creates the log object for logging.
-     *
-     * @return The log object.
-     */
-    protected Log createLogger() {
-        return ((log != null) ? log : LogFactory.getLog(getClass()));
-    }
 
     protected CONNECTClient<AdapterComponentXDRResponsePortType> getCONNECTClientUnsecured(
             ServicePortDescriptor<AdapterComponentXDRResponsePortType> portDescriptor, String url,
@@ -91,9 +74,9 @@ public class AdapterComponentDocSubmissionResponseProxyWebServiceUnsecuredImpl i
 
         try {
             if (body != null) {
-                log.debug("Before target system URL look up.");
+                LOG.debug("Before target system URL look up.");
                 endpointUrl = oProxyHelper.getAdapterEndPointFromConnectionManager(sServiceName);
-                log.debug("After target system URL look up. URL for service: " + sServiceName + " is: " + endpointUrl);
+                LOG.debug("After target system URL look up. URL for service: " + sServiceName + " is: " + endpointUrl);
 
                 if (NullChecker.isNotNullish(endpointUrl)) {
                     AdapterRegistryResponseType adaptResponse = new AdapterRegistryResponseType();
@@ -109,13 +92,13 @@ public class AdapterComponentDocSubmissionResponseProxyWebServiceUnsecuredImpl i
                     response = (XDRAcknowledgementType) client.invokePort(AdapterComponentXDRResponsePortType.class,
                             "provideAndRegisterDocumentSetBResponse", adaptResponse);
                 } else {
-                    log.error("Failed to call the web service (" + sServiceName + ").  The URL is null.");
+                    LOG.error("Failed to call the web service (" + sServiceName + ").  The URL is null.");
                 }
             } else {
-                log.error("Failed to call the web service (" + sServiceName + ").  The input parameter is null.");
+                LOG.error("Failed to call the web service (" + sServiceName + ").  The input parameter is null.");
             }
         } catch (Exception e) {
-            log.error("Failed to call the web service (" + sServiceName + ").  An unexpected exception occurred.  "
+            LOG.error("Failed to call the web service (" + sServiceName + ").  An unexpected exception occurred.  "
                     + "Exception: " + e.getMessage(), e);
         }
 

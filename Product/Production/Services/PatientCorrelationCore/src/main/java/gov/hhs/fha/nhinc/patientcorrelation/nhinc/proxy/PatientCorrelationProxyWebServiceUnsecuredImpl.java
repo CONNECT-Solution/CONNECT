@@ -35,8 +35,8 @@ import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.patientcorrelation.nhinc.proxy.description.PatientCorrelationAddServicePortDescriptor;
 import gov.hhs.fha.nhinc.patientcorrelation.nhinc.proxy.description.PatientCorrelationRetrieveServicePortDescriptor;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+
+import org.apache.log4j.Logger;
 import org.hl7.v3.AddPatientCorrelationRequestType;
 import org.hl7.v3.AddPatientCorrelationResponseType;
 import org.hl7.v3.PRPAIN201301UV02;
@@ -49,22 +49,14 @@ import org.hl7.v3.RetrievePatientCorrelationsResponseType;
  * @author jhoppesc
  */
 public class PatientCorrelationProxyWebServiceUnsecuredImpl implements PatientCorrelationProxy {
-    private Log log = null;
+    private static final Logger LOG = Logger.getLogger(PatientCorrelationProxyWebServiceUnsecuredImpl.class);
     private WebServiceProxyHelper oProxyHelper = null;
 
     /**
      * Default Constructor.
      */
     public PatientCorrelationProxyWebServiceUnsecuredImpl() {
-        log = createLogger();
         oProxyHelper = createWebServiceProxyHelper();
-    }
-
-    /**
-     * @return Log.
-     */
-    protected Log createLogger() {
-        return LogFactory.getLog(getClass());
     }
 
     /**
@@ -112,16 +104,16 @@ public class PatientCorrelationProxyWebServiceUnsecuredImpl implements PatientCo
      */
     public RetrievePatientCorrelationsResponseType retrievePatientCorrelations(PRPAIN201309UV02 msg,
             AssertionType assertion) {
-        log.debug("Begin retrievePatientCorrelations");
+        LOG.debug("Begin retrievePatientCorrelations");
         RetrievePatientCorrelationsResponseType response = null;
 
         try {
             String url = oProxyHelper.getUrlLocalHomeCommunity(NhincConstants.PATIENT_CORRELATION_SERVICE_NAME);
 
             if (msg == null) {
-                log.error("Message was null");
+                LOG.error("Message was null");
             } else if (assertion == null) {
-                log.error("assertion was null");
+                LOG.error("assertion was null");
             } else {
                 RetrievePatientCorrelationsRequestType request = new RetrievePatientCorrelationsRequestType();
                 request.setPRPAIN201309UV02(msg);
@@ -137,10 +129,10 @@ public class PatientCorrelationProxyWebServiceUnsecuredImpl implements PatientCo
                         .invokePort(PatientCorrelationPortType.class, "retrievePatientCorrelations", request);
             }
         } catch (Exception ex) {
-            log.error("Error calling retrievePatientCorrelations: " + ex.getMessage(), ex);
+            LOG.error("Error calling retrievePatientCorrelations: " + ex.getMessage(), ex);
         }
 
-        log.debug("End retrievePatientCorrelations");
+        LOG.debug("End retrievePatientCorrelations");
         return response;
     }
 
@@ -151,15 +143,15 @@ public class PatientCorrelationProxyWebServiceUnsecuredImpl implements PatientCo
      * @return PatientCorrelationResponse.
      */
     public AddPatientCorrelationResponseType addPatientCorrelation(PRPAIN201301UV02 msg, AssertionType assertion) {
-        log.debug("Begin addPatientCorrelation");
+        LOG.debug("Begin addPatientCorrelation");
         AddPatientCorrelationResponseType response = null;
 
         try {
             String url = oProxyHelper.getUrlLocalHomeCommunity(NhincConstants.PATIENT_CORRELATION_SERVICE_NAME);
             if (msg == null) {
-                log.error("Message was null");
+                LOG.error("Message was null");
             } else if (assertion == null) {
-                log.error("assertion was null");
+                LOG.error("assertion was null");
             } else {
                 AddPatientCorrelationRequestType request = new AddPatientCorrelationRequestType();
                 request.setPRPAIN201301UV02(msg);
@@ -175,10 +167,10 @@ public class PatientCorrelationProxyWebServiceUnsecuredImpl implements PatientCo
                         .invokePort(PatientCorrelationPortType.class, "addPatientCorrelation", request);
             }
         } catch (Exception ex) {
-            log.error("Error calling addPatientCorrelation: " + ex.getMessage(), ex);
+            LOG.error("Error calling addPatientCorrelation: " + ex.getMessage(), ex);
         }
 
-        log.debug("End addPatientCorrelation");
+        LOG.debug("End addPatientCorrelation");
         return response;
     }
 }

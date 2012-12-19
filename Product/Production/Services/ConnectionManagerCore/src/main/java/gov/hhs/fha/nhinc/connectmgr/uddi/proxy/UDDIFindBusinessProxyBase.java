@@ -26,8 +26,8 @@
  */
 package gov.hhs.fha.nhinc.connectmgr.uddi.proxy;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
+
 import org.uddi.api_v3.BusinessDetail;
 import org.uddi.api_v3.BusinessList;
 import org.uddi.api_v3.GetBusinessDetail;
@@ -46,7 +46,7 @@ import gov.hhs.fha.nhinc.properties.PropertyAccessor;
  */
 public abstract class UDDIFindBusinessProxyBase implements UDDIFindBusinessProxy {
 
-    private static Log log = LogFactory.getLog(UDDIFindBusinessProxyBase.class);
+    private static final Logger LOG = Logger.getLogger(UDDIFindBusinessProxyBase.class);
 
     // URL for the UDDI Server.
     protected String uddiInquiryUrl = "";
@@ -79,7 +79,7 @@ public abstract class UDDIFindBusinessProxyBase implements UDDIFindBusinessProxy
         } catch (PropertyAccessException e) {
             String sErrorMessage = "Failed to retrieve properties from " + GATEWAY_PROPFILE_NAME
                     + ".properties file.  Error: " + e.getMessage();
-            log.error(sErrorMessage, e);
+            LOG.error(sErrorMessage, e);
             throw new UDDIFindBusinessException(sErrorMessage, e);
         }
 

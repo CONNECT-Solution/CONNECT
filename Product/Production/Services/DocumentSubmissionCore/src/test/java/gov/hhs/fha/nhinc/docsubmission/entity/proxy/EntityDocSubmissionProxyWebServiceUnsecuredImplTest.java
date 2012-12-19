@@ -41,7 +41,6 @@ import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
-import org.apache.commons.logging.Log;
 import org.jmock.Expectations;
 import org.jmock.Mockery;
 import org.jmock.integration.junit4.JUnit4Mockery;
@@ -61,7 +60,6 @@ public class EntityDocSubmissionProxyWebServiceUnsecuredImplTest {
             setImposteriser(ClassImposteriser.INSTANCE);
         }
     };
-    final Log mockLog = context.mock(Log.class);
     final WebServiceProxyHelper mockProxyHelper = context.mock(WebServiceProxyHelper.class);
     @SuppressWarnings("unchecked")
     final CONNECTClient<EntityXDRPortType> mockCONNECTClient = context.mock(CONNECTClient.class);
@@ -69,7 +67,6 @@ public class EntityDocSubmissionProxyWebServiceUnsecuredImplTest {
     @Test
     public void testProvideAndRegisterDocumentSetB() throws Exception {
 
-        setMockLoggerExpectations();
         setMockWebServiceProxyHelperExpectations();
         expectMockCONNECTClient();
 
@@ -84,7 +81,6 @@ public class EntityDocSubmissionProxyWebServiceUnsecuredImplTest {
     public void testGetters() {
         EntityDocSubmissionProxyWebServiceUnsecuredImpl proxyImpl = new EntityDocSubmissionProxyWebServiceUnsecuredImpl();
         
-        assertNotNull(proxyImpl.createLogger());
         assertNotNull(proxyImpl.createWebServiceProxyHelper());
     }
     
@@ -95,14 +91,6 @@ public class EntityDocSubmissionProxyWebServiceUnsecuredImplTest {
         UrlInfoType urlInfo = new UrlInfoType();
         
         return proxyImpl.provideAndRegisterDocumentSetB(message, assertion, targets, urlInfo);
-    }
-    
-    private void setMockLoggerExpectations() {
-        context.checking(new Expectations() {
-            {
-                ignoring(mockLog);
-            }
-        });
     }
 
     private void setMockWebServiceProxyHelperExpectations() throws Exception {
@@ -135,10 +123,6 @@ public class EntityDocSubmissionProxyWebServiceUnsecuredImplTest {
 
     private EntityDocSubmissionProxyWebServiceUnsecuredImpl createProxyImpl() {
         return new EntityDocSubmissionProxyWebServiceUnsecuredImpl() {
-            protected Log createLogger() {
-                return mockLog;
-            }
-
             protected WebServiceProxyHelper createWebServiceProxyHelper() {
                 return mockProxyHelper;
             }

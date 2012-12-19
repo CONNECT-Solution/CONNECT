@@ -14,7 +14,6 @@ import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryErrorList;
 import org.junit.Test;
 
 import gov.hhs.fha.nhinc.docrepository.adapter.model.Document;
-import gov.hhs.fha.nhinc.docrepository.adapter.model.DocumentQueryParams;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType.DocumentRequest;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType.DocumentResponse;
 

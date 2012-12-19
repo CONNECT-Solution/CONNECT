@@ -42,8 +42,8 @@ import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import java.io.IOException;
 import javax.faces.FacesException;
 import javax.faces.context.FacesContext;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+
+import org.apache.log4j.Logger;
 
 /**
  * <p>
@@ -71,7 +71,7 @@ public class UserLogin extends AbstractPageBean {
 
     private static final String PROPERTY_FILE_NAME_ADAPTER = "adapter";
     private static final String PROPERTY_FILE_KEY_AGENCY = "AgencyName";
-    private static Log log = LogFactory.getLog(UserLogin.class);
+    private static final Logger LOG = Logger.getLogger(UserLogin.class);
 
     // </editor-fold>
 
@@ -164,7 +164,7 @@ public class UserLogin extends AbstractPageBean {
         authRequest.setUserName("Default");
         authRequest.setPassword("Default");
         AuthenticateUserResponseType authResp = adapterAuthenticationProxy.authenticateUser(authRequest);
-        log.debug("UserLogin.prerender Authentication Service " + adapterAuthenticationProxy + " Avail: "
+        LOG.debug("UserLogin.prerender Authentication Service " + adapterAuthenticationProxy + " Avail: "
                 + authResp.isIsAuthenticationAvailable());
         if (authResp != null && !authResp.isIsAuthenticationAvailable()) {
             try {
@@ -172,7 +172,7 @@ public class UserLogin extends AbstractPageBean {
                 FacesContext context = FacesContext.getCurrentInstance();
                 context.getExternalContext().redirect("faces/SearchPatient.jsp");
             } catch (IOException ex) {
-                log.error("CPP GUI can not prerender UserLogin: ", ex);
+                LOG.error("CPP GUI can not prerender UserLogin: ", ex);
             }
         }
 
@@ -180,7 +180,7 @@ public class UserLogin extends AbstractPageBean {
             String agencyName = PropertyAccessor.getInstance().getProperty(PROPERTY_FILE_NAME_ADAPTER, PROPERTY_FILE_KEY_AGENCY);
             this.agencyLogo.setText(agencyName);
         } catch (PropertyAccessException ex) {
-            log.error("CPP GUI can not access " + PROPERTY_FILE_KEY_AGENCY + " property: ", ex);
+            LOG.error("CPP GUI can not access " + PROPERTY_FILE_KEY_AGENCY + " property: ", ex);
         }
     }
 

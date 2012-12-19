@@ -37,30 +37,18 @@ import java.util.List;
 
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 
 /**
  * 
  * @author Neil Webb
  */
 public class AdapterDocSubmissionDeferredRequestErrorOrchImpl {
-    private Log log = null;
-
-    public AdapterDocSubmissionDeferredRequestErrorOrchImpl() {
-        log = createLogger();
-    }
-
-    /**
-     * @return the logging object
-     */
-    protected Log createLogger() {
-        return LogFactory.getLog(getClass());
-    }
+    private static final Logger LOG = Logger.getLogger(AdapterDocSubmissionDeferredRequestErrorOrchImpl.class);
 
     public XDRAcknowledgementType provideAndRegisterDocumentSetBRequestError(
             ProvideAndRegisterDocumentSetRequestType request, String errorMessage, AssertionType assertion) {
-        log.debug("Begin AdapterDocSubmissionDeferredRequestErrorOrchImpl.provideAndRegisterDocumentSetBRequestError");
+        LOG.trace("Begin AdapterDocSubmissionDeferredRequestErrorOrchImpl.provideAndRegisterDocumentSetBRequestError");
 
         processRequest(request);
         
@@ -70,7 +58,7 @@ public class AdapterDocSubmissionDeferredRequestErrorOrchImpl {
         regResp.setStatus(NhincConstants.XDR_ACK_STATUS_MSG);
         ack.setMessage(regResp);
 
-        log.debug("End AdapterDocSubmissionDeferredRequestErrorOrchImpl.provideAndRegisterDocumentSetBRequestError");
+        LOG.trace("End AdapterDocSubmissionDeferredRequestErrorOrchImpl.provideAndRegisterDocumentSetBRequestError");
         return ack;
     }
     
@@ -79,10 +67,10 @@ public class AdapterDocSubmissionDeferredRequestErrorOrchImpl {
         List<Document> docList = request.getDocument();
         for (Document doc : docList) {
             try {
-                log.debug("Closing request input streams.");
+                LOG.debug("Closing request input streams.");
                 fileUtils.closeStreamWithoutException(doc.getValue().getDataSource().getInputStream());
             } catch (Exception ioe) {
-                log.error("Failed to close input stream", ioe);
+                LOG.error("Failed to close input stream", ioe);
             }
         }      
     }

@@ -32,33 +32,25 @@ import gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyResponseType;
 import oasis.names.tc.xacml._2_0.context.schema.os.DecisionType;
 import oasis.names.tc.xacml._2_0.context.schema.os.ResponseType;
 import oasis.names.tc.xacml._2_0.context.schema.os.ResultType;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+
+import org.apache.log4j.Logger;
 
 /**
  * 
  * @author Jon Hoppesch
  */
 public class PolicyEngineProxyNoOpImpl implements PolicyEngineProxy {
-    private Log log = null;
-
-    public PolicyEngineProxyNoOpImpl() {
-        log = createLogger();
-    }
-
-    protected Log createLogger() {
-        return LogFactory.getLog(getClass());
-    }
+    private static final Logger LOG = Logger.getLogger(PolicyEngineProxyNoOpImpl.class);
 
     public CheckPolicyResponseType checkPolicy(CheckPolicyRequestType checkPolicyRequest, AssertionType assertion) {
-        log.debug("Begin PolicyEngineNoOpImpl.checkPolicy");
+        LOG.trace("Begin PolicyEngineNoOpImpl.checkPolicy");
         CheckPolicyResponseType checkPolicyResponse = new CheckPolicyResponseType();
         ResponseType response = new ResponseType();
         ResultType result = new ResultType();
         result.setDecision(DecisionType.PERMIT);
         response.getResult().add(result);
         checkPolicyResponse.setResponse(response);
-        log.debug("End PolicyEngineNoOpImpl.checkPolicy");
+        LOG.trace("End PolicyEngineNoOpImpl.checkPolicy");
         return checkPolicyResponse;
     }
 }

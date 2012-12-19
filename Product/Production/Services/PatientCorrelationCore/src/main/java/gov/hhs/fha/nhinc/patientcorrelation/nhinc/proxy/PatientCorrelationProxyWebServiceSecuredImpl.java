@@ -37,8 +37,7 @@ import gov.hhs.fha.nhinc.patientcorrelation.nhinc.proxy.description
                             .PatientCorrelationSecuredRetrieveServicePortDescriptor;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 import org.hl7.v3.AddPatientCorrelationResponseType;
 import org.hl7.v3.AddPatientCorrelationSecuredRequestType;
 import org.hl7.v3.AddPatientCorrelationSecuredResponseType;
@@ -53,7 +52,7 @@ import org.hl7.v3.RetrievePatientCorrelationsSecuredResponseType;
  * @author jhoppesc
  */
 public class PatientCorrelationProxyWebServiceSecuredImpl implements PatientCorrelationProxy {
-    private Log log = null;
+    private static final Logger LOG = Logger.getLogger(PatientCorrelationProxyWebServiceSecuredImpl.class);
     
     private WebServiceProxyHelper oProxyHelper = null;
 
@@ -61,15 +60,7 @@ public class PatientCorrelationProxyWebServiceSecuredImpl implements PatientCorr
      * Default Constructor.
      */
     public PatientCorrelationProxyWebServiceSecuredImpl() {
-        log = createLogger();
         oProxyHelper = createWebServiceProxyHelper();
-    }
-
-    /**
-     * @return Log.
-     */
-    protected Log createLogger() {
-        return LogFactory.getLog(getClass());
     }
 
     /**
@@ -117,7 +108,7 @@ public class PatientCorrelationProxyWebServiceSecuredImpl implements PatientCorr
      */
     public RetrievePatientCorrelationsResponseType retrievePatientCorrelations(PRPAIN201309UV02 msg,
             AssertionType assertion) {
-        log.debug("Begin retrievePatientCorrelations");
+        LOG.debug("Begin retrievePatientCorrelations");
         RetrievePatientCorrelationsResponseType response = new RetrievePatientCorrelationsResponseType();
         RetrievePatientCorrelationsSecuredResponseType securedResp = 
                 new RetrievePatientCorrelationsSecuredResponseType();
@@ -126,7 +117,7 @@ public class PatientCorrelationProxyWebServiceSecuredImpl implements PatientCorr
             String url = oProxyHelper.getUrlLocalHomeCommunity(NhincConstants.PATIENT_CORRELATION_SECURED_SERVICE_NAME);
 
             if (msg == null) {
-                log.error("Message was null");
+                LOG.error("Message was null");
             } else {
                 RetrievePatientCorrelationsSecuredRequestType request = 
                         new RetrievePatientCorrelationsSecuredRequestType();
@@ -146,10 +137,10 @@ public class PatientCorrelationProxyWebServiceSecuredImpl implements PatientCorr
                 }
             }
         } catch (Exception ex) {
-            log.error("Error calling retrievePatientCorrelations: " + ex.getMessage(), ex);
+            LOG.error("Error calling retrievePatientCorrelations: " + ex.getMessage(), ex);
         }
 
-        log.debug("End retrievePatientCorrelations");
+        LOG.debug("End retrievePatientCorrelations");
         return response;
     }
 
@@ -160,7 +151,7 @@ public class PatientCorrelationProxyWebServiceSecuredImpl implements PatientCorr
      * @return PatientCorrelationResponse.
      */
     public AddPatientCorrelationResponseType addPatientCorrelation(PRPAIN201301UV02 msg, AssertionType assertion) {
-        log.debug("Begin addPatientCorrelation");
+        LOG.debug("Begin addPatientCorrelation");
         AddPatientCorrelationResponseType response = new AddPatientCorrelationResponseType();
         AddPatientCorrelationSecuredResponseType securedResp = new AddPatientCorrelationSecuredResponseType();
 
@@ -168,7 +159,7 @@ public class PatientCorrelationProxyWebServiceSecuredImpl implements PatientCorr
             String url = oProxyHelper.getUrlLocalHomeCommunity(NhincConstants.PATIENT_CORRELATION_SECURED_SERVICE_NAME);
 
             if (msg == null) {
-                log.error("Message was null");
+                LOG.error("Message was null");
             } else {
                 AddPatientCorrelationSecuredRequestType request = new AddPatientCorrelationSecuredRequestType();
                 request.setPRPAIN201301UV02(msg);
@@ -188,10 +179,10 @@ public class PatientCorrelationProxyWebServiceSecuredImpl implements PatientCorr
                 }
             }
         } catch (Exception ex) {
-            log.error("Error calling addPatientCorrelation: " + ex.getMessage(), ex);
+            LOG.error("Error calling addPatientCorrelation: " + ex.getMessage(), ex);
         }
 
-        log.debug("End addPatientCorrelation");
+        LOG.debug("End addPatientCorrelation");
         return response;
     }
 }

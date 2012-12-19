@@ -45,7 +45,6 @@ import gov.hhs.fha.nhinc.gateway.aggregator.document.DocumentConstants;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
-import org.apache.commons.logging.Log;
 import org.jmock.Expectations;
 import org.jmock.Mockery;
 import org.jmock.integration.junit4.JUnit4Mockery;
@@ -62,13 +61,11 @@ public class PassthroughOutboundDocSubmissionTest {
             setImposteriser(ClassImposteriser.INSTANCE);
         }
     };
-    final Log mockLog = context.mock(Log.class);
     final XDRAuditLogger mockXDRLog = context.mock(XDRAuditLogger.class);
     final OutboundDocSubmissionDelegate mockDelegate = context.mock(OutboundDocSubmissionDelegate.class);
     
     @Test
     public void testProvideAndRegisterDocumentSetB() {
-        allowAnyMockLogging();
         expect2MockAudits();
         expectMockDelegateProcessAndReturnValidResponse();
         
@@ -98,14 +95,6 @@ public class PassthroughOutboundDocSubmissionTest {
 
                 oneOf(mockXDRLog).auditNhinXDRResponse(with(any(RegistryResponseType.class)),
                         with(any(AssertionType.class)), with(any(String.class)));
-            }
-        });
-    }
-
-    private void allowAnyMockLogging() {
-        context.checking(new Expectations() {
-            {
-                ignoring(mockLog);
             }
         });
     }

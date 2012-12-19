@@ -26,19 +26,27 @@
  */
 package gov.hhs.fha.nhinc.transform.policy;
 
+import static org.junit.Assert.assertArrayEquals;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.CeType;
 import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
 import gov.hhs.fha.nhinc.common.nhinccommon.PersonNameType;
 import gov.hhs.fha.nhinc.common.nhinccommon.SamlAuthnStatementType;
 import gov.hhs.fha.nhinc.common.nhinccommon.SamlAuthzDecisionStatementEvidenceAssertionType;
+import gov.hhs.fha.nhinc.common.nhinccommon.SamlAuthzDecisionStatementEvidenceConditionsType;
 import gov.hhs.fha.nhinc.common.nhinccommon.SamlAuthzDecisionStatementEvidenceType;
 import gov.hhs.fha.nhinc.common.nhinccommon.SamlAuthzDecisionStatementType;
-import gov.hhs.fha.nhinc.common.nhinccommon.SamlAuthzDecisionStatementEvidenceConditionsType;
 import gov.hhs.fha.nhinc.common.nhinccommon.SamlSignatureKeyInfoType;
 import gov.hhs.fha.nhinc.common.nhinccommon.SamlSignatureType;
 import gov.hhs.fha.nhinc.common.nhinccommon.UserType;
 import gov.hhs.fha.nhinc.util.format.PatientIdFormatUtil;
+
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
@@ -49,29 +57,25 @@ import java.util.Map;
 import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
+
 import oasis.names.tc.xacml._2_0.context.schema.os.AttributeType;
 import oasis.names.tc.xacml._2_0.context.schema.os.AttributeValueType;
 import oasis.names.tc.xacml._2_0.context.schema.os.RequestType;
 import oasis.names.tc.xacml._2_0.context.schema.os.ResourceType;
 import oasis.names.tc.xacml._2_0.context.schema.os.SubjectType;
+
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
-import org.junit.Test;
-import static org.junit.Assert.*;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-import org.jmock.Expectations;
-import org.jmock.Mockery;
 import org.junit.Ignore;
+import org.junit.Test;
+import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
-import org.w3c.dom.Element;
 
 public class AssertionHelperTest {
 
-    private static Log log = LogFactory.getLog(AssertionHelperTest.class);
     public static final String STRING_DATATYPE = "http://www.w3.org/2001/XMLSchema#string";
     public static final String ANY_URI_DATATYPE = "http://www.w3.org/2001/XMLSchema#anyURI";
     public static final String DATE_DATATYPE = "http://www.w3.org/2001/XMLSchema#date";
@@ -150,26 +154,8 @@ public class AssertionHelperTest {
      */
     @Test
     public void testNullAssertionDataToRequest() {
-        log.info("testNullAssertionDataToRequest");
-        Mockery mockery = new Mockery();
-        final Log mockLog = mockery.mock(Log.class);
         RequestType policyRequest = new RequestType();
-        AssertionHelper assertHelp = new AssertionHelper() {
-
-            @Override
-            protected Log createLogger() {
-                return mockLog;
-            }
-        };
-        mockery.checking(new Expectations() {
-
-            {
-                oneOf(mockLog).debug("begin appending assertion data to xacml request");
-                oneOf(mockLog).warn(
-                        "assertion was not set - unable to extract assertion related data to send to policy engine");
-                oneOf(mockLog).debug("end appending assertion data to xacml request");
-            }
-        });
+        AssertionHelper assertHelp = new AssertionHelper();
         assertHelp.appendAssertionDataToRequest(policyRequest, null);
 
     }

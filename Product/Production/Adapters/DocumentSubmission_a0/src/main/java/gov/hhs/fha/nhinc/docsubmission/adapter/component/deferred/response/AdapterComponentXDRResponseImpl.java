@@ -30,8 +30,7 @@ import javax.xml.ws.WebServiceContext;
 
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterRegistryResponseType;
@@ -42,7 +41,7 @@ import gov.hhs.healthit.nhin.XDRAcknowledgementType;
  * @author JHOPPESC
  */
 public class AdapterComponentXDRResponseImpl {
-    private static Log log = LogFactory.getLog(AdapterComponentXDRResponseImpl.class);
+    private static final Logger LOG = Logger.getLogger(AdapterComponentXDRResponseImpl.class);
 
     /**
      * Extract information from the context and place it into the assertion.
@@ -63,7 +62,7 @@ public class AdapterComponentXDRResponseImpl {
      */
     public XDRAcknowledgementType provideAndRegisterDocumentSetBResponse(AdapterRegistryResponseType body,
             WebServiceContext context) {
-        log.debug("Entering AdapterComponentXDRResponseImpl.provideAndRegisterDocumentSetBResponse");
+        LOG.debug("Entering AdapterComponentXDRResponseImpl.provideAndRegisterDocumentSetBResponse");
 
         AssertionType assertion = null;
         RegistryResponseType regResponse = null;
@@ -80,7 +79,7 @@ public class AdapterComponentXDRResponseImpl {
         XDRAcknowledgementType response = oOrchestrator.provideAndRegisterDocumentSetBResponse(regResponse, assertion);
 
         // Send response back to the initiating Gateway
-        log.debug("Exiting AdapterComponentXDRResponseImpl.provideAndRegisterDocumentSetBResponse");
+        LOG.debug("Exiting AdapterComponentXDRResponseImpl.provideAndRegisterDocumentSetBResponse");
         return response;
     }
 

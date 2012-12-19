@@ -44,15 +44,14 @@ import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryError;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 
 /**
  *
  * @author jhoppesc
  */
 public class AdapterDocQueryProxyWebServiceUnsecuredImpl implements AdapterDocQueryProxy {
-    private Log log = null;
+    private static final Logger LOG = Logger.getLogger(AdapterDocQueryProxyWebServiceUnsecuredImpl.class);
 
     private WebServiceProxyHelper oProxyHelper = null;
 
@@ -60,15 +59,7 @@ public class AdapterDocQueryProxyWebServiceUnsecuredImpl implements AdapterDocQu
      * The AdpaterDocQUeryWebServiceImpl creates log and WebServiceProxyHelper.
      */
     public AdapterDocQueryProxyWebServiceUnsecuredImpl() {
-        log = createLogger();
         oProxyHelper = createWebServiceProxyHelper();
-    }
-
-    /**
-     * @return Log log
-     */
-    protected Log createLogger() {
-        return LogFactory.getLog(getClass());
     }
 
     /**
@@ -102,7 +93,7 @@ public class AdapterDocQueryProxyWebServiceUnsecuredImpl implements AdapterDocQu
             afterReturningBuilder = AdhocQueryResponseDescriptionBuilder.class, serviceType = "Document Query",
             version = "")
     public AdhocQueryResponse respondingGatewayCrossGatewayQuery(AdhocQueryRequest msg, AssertionType assertion) {
-        log.debug("Begin respondingGatewayCrossGatewayQuery");
+        LOG.debug("Begin respondingGatewayCrossGatewayQuery");
         AdhocQueryResponse response = null;
 
         try {
@@ -111,9 +102,9 @@ public class AdapterDocQueryProxyWebServiceUnsecuredImpl implements AdapterDocQu
             if (NullChecker.isNotNullish(url)) {
 
                 if (msg == null) {
-                    log.error("Message was null");
+                    LOG.error("Message was null");
                 } else if (assertion == null) {
-                    log.error("assertion was null");
+                    LOG.error("assertion was null");
                 } else {
                     RespondingGatewayCrossGatewayQueryRequestType request =
                             new RespondingGatewayCrossGatewayQueryRequestType();
@@ -129,11 +120,11 @@ public class AdapterDocQueryProxyWebServiceUnsecuredImpl implements AdapterDocQu
                             "respondingGatewayCrossGatewayQuery", request);
                 }
             } else {
-                log.error("Failed to call the web service (" + NhincConstants.ADAPTER_DOC_QUERY_SERVICE_NAME
+                LOG.error("Failed to call the web service (" + NhincConstants.ADAPTER_DOC_QUERY_SERVICE_NAME
                         + ").  The URL is null.");
             }
         } catch (Exception ex) {
-            log.error("Error sending Adapter Doc Query Unsecured message: " + ex.getMessage(), ex);
+            LOG.error("Error sending Adapter Doc Query Unsecured message: " + ex.getMessage(), ex);
             response = new AdhocQueryResponse();
             response.setStatus(DocumentConstants.XDS_QUERY_RESPONSE_STATUS_FAILURE);
 
@@ -144,7 +135,7 @@ public class AdapterDocQueryProxyWebServiceUnsecuredImpl implements AdapterDocQu
             response.getRegistryErrorList().getRegistryError().add(registryError);
         }
 
-        log.debug("End respondingGatewayCrossGatewayQuery");
+        LOG.debug("End respondingGatewayCrossGatewayQuery");
         return response;
     }
 

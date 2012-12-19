@@ -42,7 +42,6 @@ import gov.hhs.fha.nhinc.event.responder.EndAdapterDelegationEvent;
 import gov.hhs.fha.nhinc.event.responder.EndInboundMessageEvent;
 import gov.hhs.fha.nhinc.event.responder.EndInboundProcessingEvent;
 
-import org.apache.commons.logging.Log;
 import org.jmock.Mockery;
 import org.jmock.integration.junit4.JUnit4Mockery;
 import org.jmock.lib.legacy.ClassImposteriser;
@@ -65,8 +64,7 @@ public class EventFactoryTest {
             setImposteriser(ClassImposteriser.INSTANCE);
         }
     };
-    final Log mockLog = context.mock(Log.class);
-
+    
     @Autowired
     private EventFactory eventFactory;
 

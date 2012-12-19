@@ -27,18 +27,16 @@
 package gov.hhs.fha.nhinc.unsubscribe.entity;
 
 import gov.hhs.fha.nhinc.hiem.orchestration.OrchestrationContextFactory;
-import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
-import gov.hhs.fha.nhinc.orchestration.OutboundOrchestratable;
-import gov.hhs.fha.nhinc.orchestration.OutboundDelegate;
 import gov.hhs.fha.nhinc.orchestration.Orchestratable;
-import gov.hhs.fha.nhinc.orchestration.OrchestrationContextBuilder;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import gov.hhs.fha.nhinc.orchestration.OutboundDelegate;
+import gov.hhs.fha.nhinc.orchestration.OutboundOrchestratable;
+
+import org.apache.log4j.Logger;
 
 
 public class OutboundUnsubscribeDelegate implements OutboundDelegate {
 
-    private static Log log = LogFactory.getLog(OutboundUnsubscribeDelegate.class);
+    private static final Logger LOG = Logger.getLogger(OutboundUnsubscribeDelegate.class);
 
     public Orchestratable process(Orchestratable message) {
         if (message instanceof OutboundOrchestratable) {
@@ -49,9 +47,9 @@ public class OutboundUnsubscribeDelegate implements OutboundDelegate {
 
     @Override
     public OutboundOrchestratable process(OutboundOrchestratable message) {
-        getLogger().debug("begin process");
+        LOG.debug("begin process");
         if (message instanceof OutboundUnsubscribeOrchestratable) {
-            getLogger().debug("processing DS orchestratable ");
+            LOG.debug("processing DS orchestratable ");
             OutboundUnsubscribeOrchestratable dsMessage = (OutboundUnsubscribeOrchestratable) message;
 
             //Unsubscribe does not get sent based on UDDI or spec version
@@ -60,7 +58,7 @@ public class OutboundUnsubscribeDelegate implements OutboundDelegate {
             
             return (OutboundOrchestratable) contextBuilder.build().execute();
         }
-        getLogger().error("message is not an instance of OutboundSubscribeOrchestratable!");
+        LOG.error("message is not an instance of OutboundSubscribeOrchestratable!");
         return null;
     }
 
@@ -68,10 +66,6 @@ public class OutboundUnsubscribeDelegate implements OutboundDelegate {
         return OrchestrationContextFactory.getInstance();
     }
     
-    protected Log getLogger() {
-        return log;
-    }
-
 	/* (non-Javadoc)
 	 * @see gov.hhs.fha.nhinc.orchestration.OutboundDelegate#createErrorResponse(gov.hhs.fha.nhinc.orchestration.OutboundOrchestratable, java.lang.String)
 	 */

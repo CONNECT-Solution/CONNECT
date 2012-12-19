@@ -26,12 +26,10 @@
  */
 package gov.hhs.fha.nhinc.mpilib;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 import java.io.File;
 
-import org.apache.commons.logging.Log;
-import org.jmock.Expectations;
 import org.jmock.Mockery;
 import org.jmock.integration.junit4.JUnit4Mockery;
 import org.jmock.lib.legacy.ClassImposteriser;
@@ -52,7 +50,6 @@ public class MpiDataSaverTest {
             setImposteriser(ClassImposteriser.INSTANCE);
         }
     };
-    final Log mockLog = context.mock(Log.class);
     final static String mockMpiName = System.getProperty("user.dir", ".") + File.separator + "mockmpi.xml";
     final static String mockMpiDirectoryName = System.getProperty("user.dir", ".") + File.separator;
 
@@ -85,15 +82,6 @@ public class MpiDataSaverTest {
 
     protected MpiDataSaver createMpiDataSaver() {
         MpiDataSaver mpiDataSaver = new MpiDataSaver() {
-            @Override
-            protected Log createLogger() {
-                return mockLog;
-            }
-
-            @Override
-            protected void logException(Exception e) {
-                return;
-            }
 
             @Override
             protected String getDefaultMpiFilename() {
@@ -117,12 +105,7 @@ public class MpiDataSaverTest {
 
     @Test
     public void testSaveAndLoadMpi_DefaultFile_NoPatients() {
-        context.checking(new Expectations() {
-            {
-                allowing(mockLog).info(with(any(String.class)));
-            }
-        });
-
+        
         MpiDataSaver mpiDataSaver = createMpiDataSaver();
         mpiDataSaver.saveMpi(null);
         Patients patientList = mpiDataSaver.loadMpi();
@@ -131,11 +114,6 @@ public class MpiDataSaverTest {
 
     @Test
     public void testSaveAndLoadMpi_DefaultFile_OnePatient() {
-        context.checking(new Expectations() {
-            {
-                allowing(mockLog).info(with(any(String.class)));
-            }
-        });
 
         MpiDataSaver mpiDataSaver = createMpiDataSaver();
         Patients patientList = new Patients();
@@ -151,11 +129,6 @@ public class MpiDataSaverTest {
 
     @Test
     public void testSaveAndLoadMpi_DefaultFile_Resave() {
-        context.checking(new Expectations() {
-            {
-                allowing(mockLog).info(with(any(String.class)));
-            }
-        });
 
         MpiDataSaver mpiDataSaver = createMpiDataSaver();
         Patients patientList = new Patients();
@@ -172,11 +145,6 @@ public class MpiDataSaverTest {
 
     @Test(expected = MpiException.class)
     public void testSaveMpi_BadFile() {
-        context.checking(new Expectations() {
-            {
-                allowing(mockLog).info(with(any(String.class)));
-            }
-        });
 
         MpiDataSaver mpiDataSaver = createMpiDataSaver();
         mpiDataSaver.saveMpi(null, mockMpiDirectoryName);
@@ -184,11 +152,6 @@ public class MpiDataSaverTest {
 
     @Test
     public void testLoadMpi_NonExistingFile() {
-        context.checking(new Expectations() {
-            {
-                allowing(mockLog).info(with(any(String.class)));
-            }
-        });
 
         deleteMockMpiFile();
 

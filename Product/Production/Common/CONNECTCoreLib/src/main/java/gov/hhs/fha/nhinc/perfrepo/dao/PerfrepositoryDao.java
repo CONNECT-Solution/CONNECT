@@ -39,8 +39,7 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 import org.hibernate.Hibernate;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -54,7 +53,7 @@ import org.hibernate.Transaction;
  */
 public class PerfrepositoryDao {
 
-    private static Log log = LogFactory.getLog(PerfrepositoryDao.class);
+    private static final Logger LOG = Logger.getLogger(PerfrepositoryDao.class);
     private static PerfrepositoryDao perfDAO = new PerfrepositoryDao();
     private static final String DIRECTION_INBOUND = "inbound";
     private static final String DIRECTION_OUTBOUND = "outbound";
@@ -67,7 +66,7 @@ public class PerfrepositoryDao {
      * Constructor
      */
     private PerfrepositoryDao() {
-        log.info("PerfrepositoryDao - Initialized");
+        LOG.info("PerfrepositoryDao - Initialized");
     }
 
     /**
@@ -76,7 +75,7 @@ public class PerfrepositoryDao {
      * @return PerfrepositoryDao
      */
     public static PerfrepositoryDao getPerfrepositoryDaoInstance() {
-        log.debug("getPerfrepositoryDaoInstance()..");
+        LOG.debug("getPerfrepositoryDaoInstance()..");
         return perfDAO;
     }
 
@@ -87,7 +86,7 @@ public class PerfrepositoryDao {
      * @return boolean
      */
     public boolean insertPerfrepository(Perfrepository perfRecord) {
-        log.debug("PerfrepositoryDAO.insertPerfrepository() - Begin");
+        LOG.debug("PerfrepositoryDAO.insertPerfrepository() - Begin");
         Session session = null;
         Transaction tx = null;
         boolean result = true;
@@ -97,18 +96,18 @@ public class PerfrepositoryDao {
                 SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
                 session = sessionFactory.openSession();
                 tx = session.beginTransaction();
-                log.info("Inserting Record...");
+                LOG.info("Inserting Record...");
 
                 session.persist(perfRecord);
 
-                log.info("Perfrepository Inserted seccussfully...");
+                LOG.info("Perfrepository Inserted seccussfully...");
                 tx.commit();
             } catch (Exception e) {
                 result = false;
                 if (tx != null) {
                     tx.rollback();
                 }
-                log.error("Exception during insertion caused by :" + e.getMessage(), e);
+                LOG.error("Exception during insertion caused by :" + e.getMessage(), e);
             } finally {
                 // Actual event_log insertion will happen at this step
                 if (session != null) {
@@ -116,7 +115,7 @@ public class PerfrepositoryDao {
                 }
             }
         }
-        log.debug("PerfrepositoryDAO.insertPerfrepository() - End");
+        LOG.debug("PerfrepositoryDAO.insertPerfrepository() - End");
         return result;
     }
 
@@ -127,7 +126,7 @@ public class PerfrepositoryDao {
      * @return boolean
      */
     public boolean updatePerfrepository(Perfrepository perfRecord) {
-        log.debug("PerfrepositoryDAO.updatePerfrepository() - Begin");
+        LOG.debug("PerfrepositoryDAO.updatePerfrepository() - Begin");
         Session session = null;
         Transaction tx = null;
         boolean result = true;
@@ -137,18 +136,18 @@ public class PerfrepositoryDao {
                 SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
                 session = sessionFactory.openSession();
                 tx = session.beginTransaction();
-                log.info("Updating Record...");
+                LOG.info("Updating Record...");
 
                 session.saveOrUpdate(perfRecord);
 
-                log.info("Perfrepository Updated seccussfully...");
+                LOG.info("Perfrepository Updated seccussfully...");
                 tx.commit();
             } catch (Exception e) {
                 result = false;
                 if (tx != null) {
                     tx.rollback();
                 }
-                log.error("Exception during update caused by :" + e.getMessage(), e);
+                LOG.error("Exception during update caused by :" + e.getMessage(), e);
             } finally {
                 // Actual event_log update will happen at this step
                 if (session != null) {
@@ -156,7 +155,7 @@ public class PerfrepositoryDao {
                 }
             }
         }
-        log.debug("PerfrepositoryDAO.updatePerfrepository() - End");
+        LOG.debug("PerfrepositoryDAO.updatePerfrepository() - End");
         return result;
     }
 
@@ -167,11 +166,11 @@ public class PerfrepositoryDao {
      * @return Perfrepository
      */
     public Perfrepository getPerfrepository(Long id) {
-        log.debug("PerfrepositoryDao.getPerfrepository() - Begin");
+        LOG.debug("PerfrepositoryDao.getPerfrepository() - Begin");
 
         if (id == null) {
-            log.info("-- id Parameter is required for Performance Query --");
-            log.debug("PerfrepositoryDAO.getPerfrepository() - End");
+            LOG.info("-- id Parameter is required for Performance Query --");
+            LOG.debug("PerfrepositoryDAO.getPerfrepository() - End");
             return null;
         }
 
@@ -180,11 +179,11 @@ public class PerfrepositoryDao {
         try {
             SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
             session = sessionFactory.openSession();
-            log.info("Getting Records");
+            LOG.info("Getting Records");
 
             foundRecord = (Perfrepository) session.get(Perfrepository.class, id);
         } catch (Exception e) {
-            log.error("Exception in getPerfrepository() occured due to :" + e.getMessage(), e);
+            LOG.error("Exception in getPerfrepository() occured due to :" + e.getMessage(), e);
         } finally {
             // Flush and close session
             if (session != null) {
@@ -192,7 +191,7 @@ public class PerfrepositoryDao {
                 session.close();
             }
         }
-        log.debug("PerfrepositoryDAO.getPerfrepository() - End");
+        LOG.debug("PerfrepositoryDAO.getPerfrepository() - End");
         return foundRecord;
     }
 
@@ -204,11 +203,11 @@ public class PerfrepositoryDao {
      * @return List
      */
     public List<Perfrepository> getPerfrepositoryRange(Timestamp beginTime, Timestamp endTime) {
-        log.debug("PerfrepositoryDao.getAuditRepositoryOnCriteria() - Begin");
+        LOG.debug("PerfrepositoryDao.getAuditRepositoryOnCriteria() - Begin");
 
         if (beginTime == null || endTime == null) {
-            log.info("-- Range Parameters are required for Performance Query --");
-            log.debug("PerfrepositoryDao.queryAuditRepositoryOnCriteria() - End");
+            LOG.info("-- Range Parameters are required for Performance Query --");
+            LOG.debug("PerfrepositoryDao.queryAuditRepositoryOnCriteria() - End");
             return null;
         }
 
@@ -217,14 +216,14 @@ public class PerfrepositoryDao {
         try {
             SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
             session = sessionFactory.openSession();
-            log.info("Getting Records");
+            LOG.info("Getting Records");
 
             Query query = session.getNamedQuery("getPerfrepositoryRange");
             query.setParameter("start", beginTime);
             query.setParameter("stop", endTime);
             queryList = query.list();
         } catch (Exception e) {
-            log.error("Exception in getPerfrepositoryRange() occured due to :" + e.getMessage(), e);
+            LOG.error("Exception in getPerfrepositoryRange() occured due to :" + e.getMessage(), e);
         } finally {
             // Flush and close session
             if (session != null) {
@@ -232,7 +231,7 @@ public class PerfrepositoryDao {
                 session.close();
             }
         }
-        log.debug("PerfrepositoryDao.queryAuditRepositoryOnCriteria() - End");
+        LOG.debug("PerfrepositoryDao.queryAuditRepositoryOnCriteria() - End");
         return queryList;
     }
 
@@ -249,11 +248,11 @@ public class PerfrepositoryDao {
      * @return List
      */
     public List<CountDataType> getPerfrepositoryCountRange(Timestamp beginTime, Timestamp endTime) {
-        log.debug("PerfrepositoryDao.getPerfrepositoryCountRange() - Begin");
+        LOG.debug("PerfrepositoryDao.getPerfrepositoryCountRange() - Begin");
 
         if (beginTime == null || endTime == null) {
-            log.info("-- Range Parameters are required for Performance Query --");
-            log.debug("PerfrepositoryDao.getPerfrepositoryCountRange() - End");
+            LOG.info("-- Range Parameters are required for Performance Query --");
+            LOG.debug("PerfrepositoryDao.getPerfrepositoryCountRange() - End");
             return null;
         }
 
@@ -262,7 +261,7 @@ public class PerfrepositoryDao {
         try {
             SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
             session = sessionFactory.openSession();
-            log.info("Getting Records");
+            LOG.info("Getting Records");
 
             // Build the query
             Query sqlQuery = session
@@ -312,7 +311,7 @@ public class PerfrepositoryDao {
                 queryList.add(errorData);
             }
         } catch (Exception e) {
-            log.error("Exception in getPerfrepositoryCountRange() occured due to :" + e.getMessage(), e);
+            LOG.error("Exception in getPerfrepositoryCountRange() occured due to :" + e.getMessage(), e);
         } finally {
             // Flush and close session
             if (session != null) {
@@ -320,7 +319,7 @@ public class PerfrepositoryDao {
                 session.close();
             }
         }
-        log.debug("PerfrepositoryDao.getPerfrepositoryCountRange() - End");
+        LOG.debug("PerfrepositoryDao.getPerfrepositoryCountRange() - End");
         return queryList;
     }
 
@@ -333,11 +332,11 @@ public class PerfrepositoryDao {
      * @return List
      */
     public List<DetailDataType> getPerfrepositoryDetailRange(Timestamp beginTime, Timestamp endTime) {
-        log.debug("PerfrepositoryDao.getPerfrepositoryDetailRange() - Begin");
+        LOG.debug("PerfrepositoryDao.getPerfrepositoryDetailRange() - Begin");
 
         if (beginTime == null || endTime == null) {
-            log.info("-- Range Parameters are required for Performance Query --");
-            log.debug("PerfrepositoryDao.getPerfrepositoryDetailRange() - End");
+            LOG.info("-- Range Parameters are required for Performance Query --");
+            LOG.debug("PerfrepositoryDao.getPerfrepositoryDetailRange() - End");
             return null;
         }
 
@@ -346,7 +345,7 @@ public class PerfrepositoryDao {
         try {
             SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
             session = sessionFactory.openSession();
-            log.info("Getting Records");
+            LOG.info("Getting Records");
 
             // Build the query
             Query sqlQuery = session
@@ -393,7 +392,7 @@ public class PerfrepositoryDao {
                 }
             }
         } catch (Exception e) {
-            log.error("Exception in getPerfrepositoryDetailRange() occured due to :" + e.getMessage(), e);
+            LOG.error("Exception in getPerfrepositoryDetailRange() occured due to :" + e.getMessage(), e);
         } finally {
             // Flush and close session
             if (session != null) {
@@ -401,7 +400,7 @@ public class PerfrepositoryDao {
                 session.close();
             }
         }
-        log.debug("PerfrepositoryDao.getPerfrepositoryDetailRange() - End");
+        LOG.debug("PerfrepositoryDao.getPerfrepositoryDetailRange() - End");
         return queryList;
     }
 
@@ -414,11 +413,11 @@ public class PerfrepositoryDao {
      * @return List
      */
     public List<DetailDataType> getPerfrepositoryErrorRange(Timestamp beginTime, Timestamp endTime) {
-        log.debug("PerfrepositoryDao.getPerfrepositoryErrorRange() - Begin");
+        LOG.debug("PerfrepositoryDao.getPerfrepositoryErrorRange() - Begin");
 
         if (beginTime == null || endTime == null) {
-            log.info("-- Range Parameters are required for Performance Query --");
-            log.debug("PerfrepositoryDao.getPerfrepositoryErrorRange() - End");
+            LOG.info("-- Range Parameters are required for Performance Query --");
+            LOG.debug("PerfrepositoryDao.getPerfrepositoryErrorRange() - End");
             return null;
         }
 
@@ -427,7 +426,7 @@ public class PerfrepositoryDao {
         try {
             SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
             session = sessionFactory.openSession();
-            log.info("Getting Records");
+            LOG.info("Getting Records");
 
             // Build the query
             Query sqlQuery = session
@@ -474,7 +473,7 @@ public class PerfrepositoryDao {
                 }
             }
         } catch (Exception e) {
-            log.error("Exception in getPerfrepositoryErrorRange() occured due to :" + e.getMessage(), e);
+            LOG.error("Exception in getPerfrepositoryErrorRange() occured due to :" + e.getMessage(), e);
         } finally {
             // Flush and close session
             if (session != null) {
@@ -482,7 +481,7 @@ public class PerfrepositoryDao {
                 session.close();
             }
         }
-        log.debug("PerfrepositoryDao.getPerfrepositoryErrorRange() - End");
+        LOG.debug("PerfrepositoryDao.getPerfrepositoryErrorRange() - End");
         return queryList;
     }
 
@@ -501,14 +500,14 @@ public class PerfrepositoryDao {
                 inbound = new Long(inboundString);
             }
         } catch (PropertyAccessException pae) {
-            log.error("Error: Failed to retrieve " + PERF_EXPECTED_INBOUND + " from property file: "
+            LOG.error("Error: Failed to retrieve " + PERF_EXPECTED_INBOUND + " from property file: "
                     + NhincConstants.GATEWAY_PROPERTY_FILE);
-            log.error(pae.getMessage());
+            LOG.error(pae.getMessage());
             inbound = null;
         } catch (NumberFormatException nfe) {
-            log.error("Error: Failed to convert " + PERF_EXPECTED_INBOUND + " from property file: "
+            LOG.error("Error: Failed to convert " + PERF_EXPECTED_INBOUND + " from property file: "
                     + NhincConstants.GATEWAY_PROPERTY_FILE);
-            log.error(nfe.getMessage());
+            LOG.error(nfe.getMessage());
             inbound = null;
         }
         return inbound;
@@ -529,14 +528,14 @@ public class PerfrepositoryDao {
                 outbound = new Long(outboundString);
             }
         } catch (PropertyAccessException pae) {
-            log.error("Error: Failed to retrieve " + PERF_EXPECTED_OUTBOUND + " from property file: "
+            LOG.error("Error: Failed to retrieve " + PERF_EXPECTED_OUTBOUND + " from property file: "
                     + NhincConstants.GATEWAY_PROPERTY_FILE);
-            log.error(pae.getMessage());
+            LOG.error(pae.getMessage());
             outbound = null;
         } catch (NumberFormatException nfe) {
-            log.error("Error: Failed to convert " + PERF_EXPECTED_INBOUND + " from property file: "
+            LOG.error("Error: Failed to convert " + PERF_EXPECTED_INBOUND + " from property file: "
                     + NhincConstants.GATEWAY_PROPERTY_FILE);
-            log.error(nfe.getMessage());
+            LOG.error(nfe.getMessage());
             outbound = null;
         }
         return outbound;
@@ -557,14 +556,14 @@ public class PerfrepositoryDao {
                 errors = new Long(errorsString);
             }
         } catch (PropertyAccessException pae) {
-            log.error("Error: Failed to retrieve " + PERF_EXPECTED_ERRORS + " from property file: "
+            LOG.error("Error: Failed to retrieve " + PERF_EXPECTED_ERRORS + " from property file: "
                     + NhincConstants.GATEWAY_PROPERTY_FILE);
-            log.error(pae.getMessage());
+            LOG.error(pae.getMessage());
             errors = null;
         } catch (NumberFormatException nfe) {
-            log.error("Error: Failed to convert " + PERF_EXPECTED_INBOUND + " from property file: "
+            LOG.error("Error: Failed to convert " + PERF_EXPECTED_INBOUND + " from property file: "
                     + NhincConstants.GATEWAY_PROPERTY_FILE);
-            log.error(nfe.getMessage());
+            LOG.error(nfe.getMessage());
             errors = null;
         }
         return errors;

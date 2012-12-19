@@ -33,8 +33,7 @@ import gov.hhs.fha.nhinc.orchestration.OutboundDelegate;
 import gov.hhs.fha.nhinc.orchestration.OutboundOrchestratable;
 import gov.hhs.fha.nhinc.patientdiscovery.orchestration.OrchestrationContextFactory;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 
 /**
  * @author akong
@@ -42,7 +41,7 @@ import org.apache.commons.logging.LogFactory;
  */
 public class OutboundPatientDiscoveryDeferredResponseDelegate implements OutboundDelegate {
 
-    private static Log log = LogFactory.getLog(OutboundPatientDiscoveryDeferredResponseDelegate.class);
+    private static final Logger LOG = Logger.getLogger(OutboundPatientDiscoveryDeferredResponseDelegate.class);
 
     public Orchestratable process(Orchestratable message) {
         if (message instanceof OutboundOrchestratable) {
@@ -53,9 +52,9 @@ public class OutboundPatientDiscoveryDeferredResponseDelegate implements Outboun
 
     @Override
     public OutboundOrchestratable process(OutboundOrchestratable message) {
-        getLogger().debug("begin process");
+        LOG.debug("begin process");
         if (message instanceof OutboundPatientDiscoveryDeferredResponseOrchestratable) {
-            getLogger().debug("processing PD Deferred Request orchestratable ");
+            LOG.debug("processing PD Deferred Request orchestratable ");
             OutboundPatientDiscoveryDeferredResponseOrchestratable pdMessage = (OutboundPatientDiscoveryDeferredResponseOrchestratable) message;
 
             OrchestrationContextBuilder contextBuilder = OrchestrationContextFactory.getInstance().getBuilder(
@@ -64,17 +63,13 @@ public class OutboundPatientDiscoveryDeferredResponseDelegate implements Outboun
             if (contextBuilder instanceof OutboundPatientDiscoveryDeferredResponseOrchestrationContextBuilder_g0) {
                 ((OutboundPatientDiscoveryDeferredResponseOrchestrationContextBuilder_g0) contextBuilder).init(message);           
             } else {
-                log.error("Failed to initialize context builder.");
+                LOG.error("Failed to initialize context builder.");
                 return null;
             }
             return (OutboundOrchestratable) contextBuilder.build().execute();
         }
-        getLogger().error("message is not an instance of OutboundPatientDiscoveryDeferredResponseOrchestratable!");
+        LOG.error("message is not an instance of OutboundPatientDiscoveryDeferredResponseOrchestratable!");
         return null;
-    }
-
-    private Log getLogger() {
-        return log;
     }
 
 	/* (non-Javadoc)

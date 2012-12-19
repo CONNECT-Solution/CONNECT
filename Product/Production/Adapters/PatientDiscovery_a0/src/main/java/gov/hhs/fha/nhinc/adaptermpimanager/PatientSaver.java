@@ -26,8 +26,7 @@
  */
 package gov.hhs.fha.nhinc.adaptermpimanager;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 import org.hl7.v3.*;
 import gov.hhs.fha.nhinc.mpilib.*;
 import gov.hhs.fha.nhinc.adaptermpimanager.HL7Parsers.*;
@@ -42,7 +41,7 @@ import gov.hhs.fha.nhinc.transform.subdisc.HL7Constants;
  */
 public class PatientSaver {
 
-    private static Log log = LogFactory.getLog(PatientSaver.class);
+    private static final Logger LOG = Logger.getLogger(PatientSaver.class);
     private static final String PROPERTY_FILE = "adapter";
     private static final String PROPERTY_NAME = "assigningAuthorityId";
 
@@ -56,7 +55,7 @@ public class PatientSaver {
     private static org.hl7.v3.MCCIIN000002UV01 SaveAnnouncePatient(PRPAIN201301UV02 message,
             boolean AllowSearchByDemographics, boolean CreatePatientIfDoesNotExist, boolean UpdateDemographicsIfNeeded,
             boolean ConfirmDemographicMatchPriorToUpdatingCorrelation) {
-        log.info("in SaveAnnouncePatient (PRPAIN201301UV)");
+        LOG.info("in SaveAnnouncePatient (PRPAIN201301UV)");
         MCCIIN000002UV01 result = new MCCIIN000002UV01();
         String senderOID = null;
         String receiverOID = null;
@@ -91,35 +90,35 @@ public class PatientSaver {
         MCCIMT000100UV01Sender sender = message.getSender();
 
         if (patient == null) {
-            log.warn(" no patient supplied");
+            LOG.warn(" no patient supplied");
             ackTypeCode = HL7AckTransforms.ACK_TYPE_CODE_ERROR;
             msgText = "Error: No Patient Supplied";
         } else if (sender == null) {
-            log.warn(" no sender supplied");
+            LOG.warn(" no sender supplied");
             ackTypeCode = HL7AckTransforms.ACK_TYPE_CODE_ERROR;
             msgText = "Error: No Sender Supplied";
         } else {
             Patient sourcePatient = HL7Parser201301.ExtractMpiPatientFromHL7Patient(patient);
-            log.info("perform patient lookup in mpi");
+            LOG.info("perform patient lookup in mpi");
 
             Patients searchResults = MpiDataAccess.LookupPatients(sourcePatient, AllowSearchByDemographics);
 
             if (CommonChecks.isZeroSearchResult(searchResults)) {
-                log.info("patient not found in MPI");
+                LOG.info("patient not found in MPI");
                 if (CreatePatientIfDoesNotExist) {
-                    log.info("creating patient");
+                    LOG.info("creating patient");
                     MpiDataAccess.SavePatient(sourcePatient);
                     msgText = "Patient Successfully added to the MPI";
                 } else {
-                    log.info("patient not found in MPI - ignore");
+                    LOG.info("patient not found in MPI - ignore");
                 }
             } else if (CommonChecks.isMultipleSearchResult(searchResults)) {
-                log.info("multiple patients found in MPI [searchResults.size()=" + searchResults.size() + "]");
+                LOG.info("multiple patients found in MPI [searchResults.size()=" + searchResults.size() + "]");
                 msgText = "Error: Multiple patients were found in the MPI";
 
                 result = null;
             } else {
-                log.info("patient found in MPI. Currently IGNORE record!");
+                LOG.info("patient found in MPI. Currently IGNORE record!");
                 msgText = "Warning: Patient already found in MPI.";
             }
         }

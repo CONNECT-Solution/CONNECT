@@ -33,15 +33,14 @@ import gov.hhs.fha.nhinc.docquery.aspect.AdhocQueryResponseDescriptionBuilder;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 
 /**
  * @author achidamb
  *
  */
 public class AdapterDocQueryProxyNoOpImpl implements AdapterDocQueryProxy {
-    private static Log log = LogFactory.getLog(AdapterDocQueryProxyNoOpImpl.class);
+    private static Logger log = Logger.getLogger(AdapterDocQueryProxyNoOpImpl.class);
 
     /** The respondingGatewayCrossGatewayQuery takes AdhocQueryRequestmessage and assertion and
      * returns AdhocQueryResponse. This noop implementation returns AdhocQueryresponse without any document.

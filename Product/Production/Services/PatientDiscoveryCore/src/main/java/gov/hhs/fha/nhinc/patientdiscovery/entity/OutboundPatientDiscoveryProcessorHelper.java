@@ -26,8 +26,7 @@
  */
 package gov.hhs.fha.nhinc.patientdiscovery.entity;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 import org.hl7.v3.RespondingGatewayPRPAIN201306UV02ResponseType;
 
 /**
@@ -38,7 +37,7 @@ import org.hl7.v3.RespondingGatewayPRPAIN201306UV02ResponseType;
  */
 public class OutboundPatientDiscoveryProcessorHelper {
 
-    private static Log log = LogFactory.getLog(OutboundPatientDiscoveryProcessorHelper.class);
+    private static final Logger LOG = Logger.getLogger(OutboundPatientDiscoveryProcessorHelper.class);
 
     /**
      * constructs a new OutboundPatientDiscoveryOrchestratable object with associated new cumulativeResponse
@@ -56,7 +55,7 @@ public class OutboundPatientDiscoveryProcessorHelper {
         // create new cumulativeResponse object
         RespondingGatewayPRPAIN201306UV02ResponseType newResponse = new RespondingGatewayPRPAIN201306UV02ResponseType();
         cumulativeResponse.setCumulativeResponse(newResponse);
-        log.debug("EntityPatientDiscoveryProcessorHelper constructed initial cumulativeResponse");
+        LOG.debug("EntityPatientDiscoveryProcessorHelper constructed initial cumulativeResponse");
         return cumulativeResponse;
     }
 }

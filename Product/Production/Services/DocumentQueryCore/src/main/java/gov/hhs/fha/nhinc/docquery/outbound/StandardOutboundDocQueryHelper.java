@@ -37,8 +37,7 @@ import java.util.List;
 
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.SlotType1;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 
 /**
  * 
@@ -46,7 +45,7 @@ import org.apache.commons.logging.LogFactory;
  */
 public class StandardOutboundDocQueryHelper {
 
-    private Log log = LogFactory.getLog(StandardOutboundDocQueryHelper.class);
+    private static final Logger LOG = Logger.getLogger(StandardOutboundDocQueryHelper.class);
     private ConnectionManagerCommunityMapping connectionManagerCommunityMapping;
     private String sHomeCommunity;
 
@@ -59,7 +58,7 @@ public class StandardOutboundDocQueryHelper {
             this.sHomeCommunity = PropertyAccessor.getInstance().getProperty(NhincConstants.GATEWAY_PROPERTY_FILE,
                     NhincConstants.HOME_COMMUNITY_ID_PROPERTY);
         } catch (Exception ex) {
-            log.error(ex.getMessage());
+            LOG.error(ex.getMessage());
         }
     }
 
@@ -88,7 +87,7 @@ public class StandardOutboundDocQueryHelper {
              */
             targetCommunity = new HomeCommunityType();
             targetCommunity.setHomeCommunityId(sHomeCommunity);
-            log.debug("Assigning authority was for the local home community. "
+            LOG.debug("Assigning authority was for the local home community. "
                     + "Set target to manual local home community id");
         } else {
             targetCommunity = connectionManagerCommunityMapping
@@ -156,13 +155,13 @@ public class StandardOutboundDocQueryHelper {
                 if (slot1.getValueList() != null) {
                     if (NullChecker.isNotNullish(slot1.getValueList().getValue())) {
                         slotPresent = true;
-                        log.debug("retreiveCorrelations slot value: " + slot1.getValueList().getValue());
+                        LOG.debug("retreiveCorrelations slot value: " + slot1.getValueList().getValue());
                     }
                 } else {
-                    log.debug("retreiveCorrelations slot1.getValueList(): null");
+                    LOG.debug("retreiveCorrelations slot1.getValueList(): null");
                 }
             } else {
-                log.debug("retreiveCorrelations " + NhincConstants.DOC_QUERY_XDS_PATIENT_ID_SLOT_NAME + " not found");
+                LOG.debug("retreiveCorrelations " + NhincConstants.DOC_QUERY_XDS_PATIENT_ID_SLOT_NAME + " not found");
             }
         }
         return slotPresent;

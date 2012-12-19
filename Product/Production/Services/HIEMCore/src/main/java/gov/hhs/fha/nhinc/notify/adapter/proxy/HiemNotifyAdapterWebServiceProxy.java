@@ -42,8 +42,7 @@ import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.notify.adapter.proxy.service.HiemNotifyAdapterServicePortDescriptor;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 import org.oasis_open.docs.wsn.b_2.Notify;
 import org.w3c.dom.Element;
 
@@ -53,7 +52,7 @@ import org.w3c.dom.Element;
  */
 public class HiemNotifyAdapterWebServiceProxy implements HiemNotifyAdapterProxy {
 
-    private static Log log = LogFactory.getLog(HiemNotifyAdapterWebServiceProxy.class);
+    private static final Logger LOG = Logger.getLogger(HiemNotifyAdapterWebServiceProxy.class);
 
     private static WebServiceProxyHelper oProxyHelper = null;
 
@@ -94,7 +93,7 @@ public class HiemNotifyAdapterWebServiceProxy implements HiemNotifyAdapterProxy 
             NhincCommonAcknowledgementMarshaller acknowledgementMarshaller = new NhincCommonAcknowledgementMarshaller();
             responseElement = acknowledgementMarshaller.marshal(response);
         } else {
-            log.error("Failed to call the web service (" + NhincConstants.HIEM_NOTIFY_ADAPTER_SERVICE_NAME
+            LOG.error("Failed to call the web service (" + NhincConstants.HIEM_NOTIFY_ADAPTER_SERVICE_NAME
                     + ").  The URL is null.");
         }
 

@@ -34,15 +34,14 @@ import gov.hhs.fha.nhinc.docquery.aspect.AdhocQueryResponseDescriptionBuilder;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 
 /**
  *
  * @author jhoppesc
  */
 public class AdapterDocQueryProxyJavaImpl implements AdapterDocQueryProxy {
-    private static Log log = LogFactory.getLog(AdapterDocQueryProxyJavaImpl.class);
+    private static Logger log = Logger.getLogger(AdapterDocQueryProxyJavaImpl.class);
 
     /**
      *@param msg The AdhocQueryRequest message.

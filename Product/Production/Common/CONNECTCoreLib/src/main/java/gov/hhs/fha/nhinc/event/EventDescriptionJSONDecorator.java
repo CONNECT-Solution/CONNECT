@@ -2,8 +2,7 @@ package gov.hhs.fha.nhinc.event;
 
 import java.util.List;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.json.JSONString;
@@ -27,7 +26,7 @@ public class EventDescriptionJSONDecorator implements JSONString, EventDescripti
     private final EventDescription description;
     private final JSONObject jsonObject;
 
-    private static Log log = LogFactory.getLog(EventDescriptionJSONDecorator.class);
+    private static final Logger LOG = Logger.getLogger(EventDescriptionJSONDecorator.class);
 
     public EventDescriptionJSONDecorator(EventDescription description) {
         this.description = description;
@@ -51,7 +50,7 @@ public class EventDescriptionJSONDecorator implements JSONString, EventDescripti
             addStatuses(description);
             addErrorCodes(description);
         } catch (JSONException e) {
-            log.error("failed to serialize event description as JSON", e);
+            LOG.error("failed to serialize event description as JSON", e);
         }
     }
 

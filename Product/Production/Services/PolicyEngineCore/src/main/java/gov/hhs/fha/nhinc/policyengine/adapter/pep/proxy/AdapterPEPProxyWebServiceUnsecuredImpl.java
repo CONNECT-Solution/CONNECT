@@ -38,23 +38,17 @@ import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.policyengine.adapter.pep.proxy.service.AdapterPEPServicePortDescriptor;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 
 /**
  * This is the concrete implementation for the Web based call to the AdapterPEP.
  */
 public class AdapterPEPProxyWebServiceUnsecuredImpl implements AdapterPEPProxy {
-    private Log log = null;
+    private static final Logger LOG = Logger.getLogger(AdapterPEPProxyWebServiceUnsecuredImpl.class);
     private WebServiceProxyHelper oProxyHelper = null;
 
     public AdapterPEPProxyWebServiceUnsecuredImpl() {
-        log = createLogger();
         oProxyHelper = createWebServiceProxyHelper();
-    }
-
-    protected Log createLogger() {
-        return LogFactory.getLog(getClass());
     }
 
     protected WebServiceProxyHelper createWebServiceProxyHelper() {
@@ -75,14 +69,14 @@ public class AdapterPEPProxyWebServiceUnsecuredImpl implements AdapterPEPProxy {
      * @return The xacml response which contains the access decision
      */
     public CheckPolicyResponseType checkPolicy(CheckPolicyRequestType request, AssertionType assertion) {
-        log.debug("Begin AdapterPEPProxyWebServiceUnsecuredImpl.checkPolicy");
+        LOG.trace("Begin AdapterPEPProxyWebServiceUnsecuredImpl.checkPolicy");
         CheckPolicyResponseType checkPolicyResponse = new CheckPolicyResponseType();
         String serviceName = NhincConstants.ADAPTER_PEP_SERVICE_NAME;
 
         try {
-            log.debug("Before target system URL look up.");
+            LOG.debug("Before target system URL look up.");
             String url = oProxyHelper.getAdapterEndPointFromConnectionManager(serviceName);
-            log.debug("After target system URL look up. URL for service: " + serviceName + " is: " + url);
+            LOG.debug("After target system URL look up. URL for service: " + serviceName + " is: " + url);
 
             if (NullChecker.isNotNullish(url)) {
 
@@ -93,16 +87,16 @@ public class AdapterPEPProxyWebServiceUnsecuredImpl implements AdapterPEPProxy {
                 checkPolicyResponse = (CheckPolicyResponseType) client.invokePort(AdapterPEPPortType.class,
                         "checkPolicy", request);
             } else {
-                log.error("Failed to call the web service (" + serviceName + ").  The URL is null.");
+                LOG.error("Failed to call the web service (" + serviceName + ").  The URL is null.");
             }
         } catch (Exception ex) {
             String message = "Error occurred calling AdapterPEPProxyWebServiceUnsecuredImpl.checkPolicy.  Error: "
                     + ex.getMessage();
-            log.error(message, ex);
+            LOG.error(message, ex);
             throw new RuntimeException(message, ex);
         }
 
-        log.debug("End AdapterPEPProxyWebServiceUnsecuredImpl.checkPolicy");
+        LOG.trace("End AdapterPEPProxyWebServiceUnsecuredImpl.checkPolicy");
         return checkPolicyResponse;
     }
 

@@ -46,8 +46,7 @@ import gov.hhs.fha.nhinc.transform.subdisc.HL7AckTransforms;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 import ihe.iti.xcpd._2009.RespondingGatewayDeferredRequestPortType;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 import org.hl7.v3.MCCIIN000002UV01;
 import org.hl7.v3.PRPAIN201305UV02;
 
@@ -57,24 +56,8 @@ import org.hl7.v3.PRPAIN201305UV02;
  */
 public class NhinPatientDiscoveryDeferredReqProxyWebServiceSecuredImpl implements NhinPatientDiscoveryDeferredReqProxy {
 
-    private Log log = null;
+    private static final Logger LOG = Logger.getLogger(NhinPatientDiscoveryDeferredReqProxyWebServiceSecuredImpl.class);
     private WebServiceProxyHelper oProxyHelper = new WebServiceProxyHelper();
-
-    /**
-     * Default constructor.
-     */
-    public NhinPatientDiscoveryDeferredReqProxyWebServiceSecuredImpl() {
-        log = createLogger();
-    }
-
-    /**
-     * Creates the log object for logging.
-     * 
-     * @return The log object.
-     */
-    protected Log createLogger() {
-        return ((log != null) ? log : LogFactory.getLog(getClass()));
-    }
 
     @NwhinInvocationEvent(beforeBuilder = PRPAIN201305UV02EventDescriptionBuilder.class,
             afterReturningBuilder = MCCIIN000002UV01EventDescriptionBuilder.class, 
@@ -88,10 +71,10 @@ public class NhinPatientDiscoveryDeferredReqProxyWebServiceSecuredImpl implement
 
         try {
             if (request != null) {
-                log.debug("Before target system URL look up.");
+                LOG.debug("Before target system URL look up.");
                 url = oProxyHelper.getUrlFromTargetSystemByGatewayAPILevel(target,
                         NhincConstants.PATIENT_DISCOVERY_DEFERRED_REQ_SERVICE_NAME, GATEWAY_API_LEVEL.LEVEL_g0);
-                log.debug("After target system URL look up. URL for service: "
+                LOG.debug("After target system URL look up. URL for service: "
                         + NhincConstants.PATIENT_DISCOVERY_DEFERRED_REQ_SERVICE_NAME + " is: " + url);
 
                 if (NullChecker.isNotNullish(url)) {
@@ -110,21 +93,21 @@ public class NhinPatientDiscoveryDeferredReqProxyWebServiceSecuredImpl implement
                     ackMessage = "Failed to call the web service ("
                             + NhincConstants.PATIENT_DISCOVERY_DEFERRED_REQ_SERVICE_NAME + ").  The URL is null.";
                     response = HL7AckTransforms.createAckErrorFrom201305(request, ackMessage);
-                    log.error(ackMessage);
+                    LOG.error(ackMessage);
                 }
             } else {
                 ackMessage = "Failed to call the web service ("
                         + NhincConstants.PATIENT_DISCOVERY_DEFERRED_REQ_SERVICE_NAME
                         + ").  The input parameter is null.";
                 response = HL7AckTransforms.createAckErrorFrom201305(request, ackMessage);
-                log.error(ackMessage);
+                LOG.error(ackMessage);
             }
         } catch (Exception e) {
             ackMessage = "Failed to call the web service ("
                     + NhincConstants.PATIENT_DISCOVERY_DEFERRED_REQ_SERVICE_NAME
                     + ").  An unexpected exception occurred.";
             response = HL7AckTransforms.createAckErrorFrom201305(request, ackMessage);
-            log.error(ackMessage + "  Exception: " + e.getMessage(), e);
+            LOG.error(ackMessage + "  Exception: " + e.getMessage(), e);
         }
 
         return response;

@@ -32,11 +32,8 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 
@@ -45,14 +42,13 @@ import gov.hhs.fha.nhinc.properties.PropertyAccessor;
  *
  */
 public class MpiDataSaver {
-    private Log log = null;
+    private static final Logger LOG = Logger.getLogger(MpiDataSaver.class);
     private String defaultMpiFilename = null;
 
     /**
      * Default constructor for this class.
      */
     public MpiDataSaver() {
-        log = createLogger();
         defaultMpiFilename = getDefaultMpiFilename();
     }
 
@@ -76,8 +72,8 @@ public class MpiDataSaver {
             patientList = new Patients();
         }
 
-        log.info("Saving " + patientList.size() + " patient(s)");
-        log.info("Filename=" + file);
+        LOG.info("Saving " + patientList.size() + " patient(s)");
+        LOG.info("Filename=" + file);
 
         FileOutputStream fos = null;
         try {
@@ -89,7 +85,7 @@ public class MpiDataSaver {
             closeFileOutputStream(fos);
         }
 
-        log.info("Save complete");
+        LOG.info("Save complete");
     }
 
     /**
@@ -104,7 +100,7 @@ public class MpiDataSaver {
      * @return the patient list from the given filename
      */
     public Patients loadMpi(String file) {
-        log.info("Loading patients from " + file);
+        LOG.info("Loading patients from " + file);
 
         openOrCreateMpiFile(file);
 
@@ -119,22 +115,8 @@ public class MpiDataSaver {
             closeFileInputStream(fis);
         }
 
-        log.info("Loaded " + patientList.size() + " patient(s)");
+        LOG.info("Loaded " + patientList.size() + " patient(s)");
         return patientList;
-    }
-
-    /**
-     * @return an instance of the logger. It is created if it did not already exist.
-     */
-    protected Log createLogger() {
-        return ((log != null) ? log : LogFactory.getLog(getClass()));
-    }
-
-    /**
-     * @param e the exception to log.
-     */
-    protected void logException(Exception e) {
-        Logger.getLogger(MpiDataSaver.class.getName()).log(Level.SEVERE, null, e);
     }
 
     /**
@@ -153,7 +135,7 @@ public class MpiDataSaver {
         try {
             return new FileOutputStream(file);
         } catch (FileNotFoundException e) {
-            logException(e);
+            LOG.error("File not found: " + file, e);
             throw new MpiException("Error accessing mpi storage.", e);
         }
     }
@@ -162,7 +144,7 @@ public class MpiDataSaver {
         try {
             return new FileInputStream(file);
         } catch (FileNotFoundException e) {
-            logException(e);
+            LOG.error("File not found: " + file, e);
             throw new MpiException("Error accessing mpi storage", e);
         }
     }
@@ -171,7 +153,7 @@ public class MpiDataSaver {
         try {
             fos.close();
         } catch (Exception ex) {
-            logException(ex);
+            LOG.error("Error closing FileOutputStream.", ex);
         }
     }
 
@@ -179,7 +161,7 @@ public class MpiDataSaver {
         try {
             fis.close();
         } catch (Exception ex) {
-            logException(ex);
+            LOG.error("Error closing FileInputStream.", ex);
         }
     }
 
@@ -189,7 +171,7 @@ public class MpiDataSaver {
             xenc.writeObject(patientList);
             xenc.flush();
         } catch (Exception e) {
-            logException(e);
+            LOG.error(e.getMessage(), e);
             throw new MpiException("Error writing patient list to xml.", e);
         } finally {
             xenc.close();
@@ -203,7 +185,7 @@ public class MpiDataSaver {
             Object o = xdec.readObject();
             patientList = (Patients) o;
         } catch (Exception e) {
-            logException(e);
+            LOG.error(e.getMessage(), e);
             throw new MpiException("Error reading patient list.", e);
         } finally {
             xdec.close();

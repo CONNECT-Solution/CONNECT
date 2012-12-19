@@ -28,8 +28,7 @@ package gov.hhs.fha.nhinc.patientdiscovery.response;
 
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 
 /**
  * 
@@ -44,11 +43,7 @@ public class ResponseFactory {
         VERIFY, TRUST, PASSTHROUGH
     };
 
-    private Log log = null;
-
-    public ResponseFactory() {
-        log = createLogger();
-    }
+    private static final Logger LOG = Logger.getLogger(ResponseFactory.class);
 
     public ResponseMode getResponseMode() {
         ResponseMode result = null;
@@ -76,17 +71,13 @@ public class ResponseFactory {
         return result;
     }
 
-    protected Log createLogger() {
-        return ((log != null) ? log : LogFactory.getLog(getClass()));
-    }
-
     protected String getModeProperty() {
         String result = "";
 
         try {
             result = PropertyAccessor.getInstance().getProperty("gateway", "patientDiscoveryResponseMode");
         } catch (Exception ex) {
-            log.error(ex.getMessage(), ex);
+            LOG.error(ex.getMessage(), ex);
         }
 
         return result;
@@ -103,7 +94,7 @@ public class ResponseFactory {
                 result = ResponseModeType.PASSTHROUGH;
             } 
         } catch (Exception ex) {
-            log.error(ex.getMessage(), ex);            
+            LOG.error(ex.getMessage(), ex);            
         }
 
         return result;

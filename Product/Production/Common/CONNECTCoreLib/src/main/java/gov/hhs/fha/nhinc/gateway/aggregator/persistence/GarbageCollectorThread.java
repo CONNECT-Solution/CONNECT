@@ -29,15 +29,14 @@ package gov.hhs.fha.nhinc.gateway.aggregator.persistence;
 import gov.hhs.fha.nhinc.gateway.aggregator.dao.AggTransactionDao;
 import gov.hhs.fha.nhinc.gateway.aggregator.model.AggTransaction;
 import java.util.Date;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 
 /**
  * 
  * @author westbergl
  */
 public class GarbageCollectorThread extends Thread {
-    private static Log log = LogFactory.getLog(GarbageCollectorThread.class);
+    private static final Logger LOG = Logger.getLogger(GarbageCollectorThread.class);
     private Date pivotDate = null;
 
     /**
@@ -67,17 +66,17 @@ public class GarbageCollectorThread extends Thread {
                     }
                 }
 
-                log.debug("Aggregator garbage collector cleaned out " + iNumTrans + " stale transactions.");
+                LOG.debug("Aggregator garbage collector cleaned out " + iNumTrans + " stale transactions.");
             } catch (Exception e) {
                 String sErrorMessage = "Aggregator garbage collector failed to read entries from the aggregation tables. "
                         + "Garbage collection is not being done.  Error: " + e.getMessage();
-                log.error(sErrorMessage, e);
+                LOG.error(sErrorMessage, e);
                 return;
             }
 
         } else {
             String sErrorMessage = "Cannot run Aggregator garbage collection - pivot date was not set.";
-            log.error(sErrorMessage);
+            LOG.error(sErrorMessage);
             return;
         }
 

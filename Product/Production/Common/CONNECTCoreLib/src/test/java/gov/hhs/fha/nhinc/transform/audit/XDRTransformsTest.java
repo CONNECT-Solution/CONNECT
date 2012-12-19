@@ -26,41 +26,29 @@
  */
 package gov.hhs.fha.nhinc.transform.audit;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 import gov.hhs.fha.nhinc.common.auditlog.LogEventRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayProvideAndRegisterDocumentSetRequestType;
-import gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType;
+import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
+import gov.hhs.fha.nhinc.common.nhinccommon.UserType;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
-import org.apache.commons.logging.Log;
+import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
+
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import static org.junit.Assert.*;
-import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
-import gov.hhs.fha.nhinc.common.nhinccommon.UserType;
-import org.jmock.Expectations;
-import org.jmock.Mockery;
-import org.jmock.lib.legacy.ClassImposteriser;
-import com.services.nhinc.schema.auditmessage.AuditMessageType.ActiveParticipant;
-import com.services.nhinc.schema.auditmessage.AuditMessageType;
-import com.services.nhinc.schema.auditmessage.AuditSourceIdentificationType;
-import com.services.nhinc.schema.auditmessage.CodedValueType;
-import com.services.nhinc.schema.auditmessage.EventIdentificationType;
-import com.services.nhinc.schema.auditmessage.ParticipantObjectIdentificationType;
-import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
-import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
 /**
  * 
  * @author dunnek
  */
 public class XDRTransformsTest {
-    private Mockery context;
     private static final String CONST_USER_NAME = "userName";
-    private static final String CONST_USER_ID = "userId";
     private static final String CONST_HCID = "1.1";
     private static final String CONST_HC_NAME = "Home COmmunity";
     private static final String CONST_HC_DESC = "HC Description";
@@ -78,12 +66,6 @@ public class XDRTransformsTest {
 
     @Before
     public void setUp() {
-        context = new Mockery() {
-
-            {
-                setImposteriser(ClassImposteriser.INSTANCE);
-            }
-        };
     }
 
     @After
@@ -177,7 +159,6 @@ public class XDRTransformsTest {
         String direction = "";
         String _interface = "";
         XDRTransforms instance = createTransformsClass_OverrideRequiredFields();
-        LogEventRequestType expResult = new LogEventRequestType();
         LogEventRequestType result = instance.transformRequestToAuditMsg(request, assertion, direction, _interface);
 
         assertNotNull(result);
@@ -194,7 +175,6 @@ public class XDRTransformsTest {
         String direction = NhincConstants.AUDIT_LOG_INBOUND_DIRECTION;
         String _interface = "interface";
         XDRTransforms instance = createTransformsClass_OverrideRequiredFields();
-        LogEventRequestType expResult = new LogEventRequestType();
         LogEventRequestType result = instance.transformRequestToAuditMsg(request, assertion, direction, _interface);
 
         assertNotNull(result);
@@ -253,7 +233,6 @@ public class XDRTransformsTest {
         String direction = "";
         String _interface = "";
         XDRTransforms instance = createTransformsClass_OverrideRequiredFields();
-        LogEventRequestType expResult = new LogEventRequestType();
         LogEventRequestType result = instance
                 .transformRequestToAuditMsg(proxyRequest, assertion, direction, _interface);
 
@@ -274,7 +253,6 @@ public class XDRTransformsTest {
         String direction = NhincConstants.AUDIT_LOG_INBOUND_DIRECTION;
         String _interface = "interface";
         XDRTransforms instance = createTransformsClass_OverrideRequiredFields();
-        LogEventRequestType expResult = new LogEventRequestType();
         LogEventRequestType result = instance
                 .transformRequestToAuditMsg(proxyRequest, assertion, direction, _interface);
 
@@ -490,40 +468,17 @@ public class XDRTransformsTest {
     }
 
     private XDRTransforms createTransformsClass() {
-        final Log mockLogger = context.mock(Log.class);
         // TestHelper helper = new TestHelper();
 
-        XDRTransforms result = new XDRTransforms() {
-
-            @Override
-            protected Log createLogger() {
-                return mockLogger;
-            }
-
-        };
-        context.checking(new Expectations() {
-
-            {
-                allowing(mockLogger).info(with(any(String.class)));
-                allowing(mockLogger).debug(with(any(String.class)));
-                allowing(mockLogger).error(with(any(String.class)));
-                // never(mockLogger).error("Error");
-                will(returnValue(null));
-            }
-        });
+        XDRTransforms result = new XDRTransforms();
+        
         return result;
     }
 
     private XDRTransforms createTransformsClass_OverrideUserTypeCheck() {
-        final Log mockLogger = context.mock(Log.class);
         // TestHelper helper = new TestHelper();
 
         XDRTransforms result = new XDRTransforms() {
-
-            @Override
-            protected Log createLogger() {
-                return mockLogger;
-            }
 
             @Override
             protected boolean areRequiredUserTypeFieldsNull(AssertionType oAssertion) {
@@ -531,29 +486,14 @@ public class XDRTransformsTest {
             }
 
         };
-        context.checking(new Expectations() {
-
-            {
-                allowing(mockLogger).info(with(any(String.class)));
-                allowing(mockLogger).debug(with(any(String.class)));
-                allowing(mockLogger).error(with(any(String.class)));
-                // never(mockLogger).error("Error");
-                will(returnValue(null));
-            }
-        });
+       
         return result;
     }
 
     private XDRTransforms createTransformsClass_OverrideRequiredFields() {
-        final Log mockLogger = context.mock(Log.class);
         // TestHelper helper = new TestHelper();
 
         XDRTransforms result = new XDRTransforms() {
-
-            @Override
-            protected Log createLogger() {
-                return mockLogger;
-            }
 
             @Override
             protected boolean areRequiredUserTypeFieldsNull(AssertionType oAssertion) {
@@ -572,16 +512,7 @@ public class XDRTransformsTest {
             }
 
         };
-        context.checking(new Expectations() {
-
-            {
-                allowing(mockLogger).info(with(any(String.class)));
-                allowing(mockLogger).debug(with(any(String.class)));
-                allowing(mockLogger).error(with(any(String.class)));
-                // never(mockLogger).error("Error");
-                will(returnValue(null));
-            }
-        });
+        
         return result;
     }
 
@@ -603,12 +534,6 @@ public class XDRTransformsTest {
         assertion.getUserInfo().setOrg(createHomeCommunity());
 
         return assertion;
-    }
-
-    private ProvideAndRegisterDocumentSetRequestType createProvideAndRegisterRequest() {
-        ProvideAndRegisterDocumentSetRequestType result = new ProvideAndRegisterDocumentSetRequestType();
-
-        return result;
     }
 
 }

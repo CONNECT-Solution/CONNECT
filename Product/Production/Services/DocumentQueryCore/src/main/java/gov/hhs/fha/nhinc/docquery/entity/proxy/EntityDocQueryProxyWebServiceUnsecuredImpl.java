@@ -38,15 +38,15 @@ import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+
+import org.apache.log4j.Logger;
 
 /**
  * @author
  *
  */
 public class EntityDocQueryProxyWebServiceUnsecuredImpl implements EntityDocQueryProxy {
-    private Log log = null;
+    private static final Logger LOG = Logger.getLogger(EntityDocQueryProxyWebServiceUnsecuredImpl.class);
 
     private WebServiceProxyHelper oProxyHelper = null;
 
@@ -54,17 +54,9 @@ public class EntityDocQueryProxyWebServiceUnsecuredImpl implements EntityDocQuer
      * Default Constructor creates log and WebServiceProxyHelper.
      */
     public EntityDocQueryProxyWebServiceUnsecuredImpl() {
-        log = createLogger();
         oProxyHelper = createWebServiceProxyHelper();
     }
-
-    /**
-     * @return Log log.
-     */
-    protected Log createLogger() {
-        return LogFactory.getLog(getClass());
-    }
-
+    
     /**
      * @return WebServiceProxyHelper Object.
      */
@@ -94,18 +86,18 @@ public class EntityDocQueryProxyWebServiceUnsecuredImpl implements EntityDocQuer
      */
     public AdhocQueryResponse respondingGatewayCrossGatewayQuery(AdhocQueryRequest msg, AssertionType assertion,
             NhinTargetCommunitiesType targets) {
-        log.debug("Begin respondingGatewayCrossGatewayQuery");
+        LOG.debug("Begin respondingGatewayCrossGatewayQuery");
         AdhocQueryResponse response = null;
 
         try {
             String url = oProxyHelper.getUrlLocalHomeCommunity(NhincConstants.ENTITY_DOC_QUERY_PROXY_SERVICE_NAME);
 
             if (msg == null) {
-                log.error("Message was null");
+                LOG.error("Message was null");
             } else if (assertion == null) {
-                log.error("assertion was null");
+                LOG.error("assertion was null");
             } else if (targets == null) {
-                log.error("targets was null");
+                LOG.error("targets was null");
             } else {
                 ServicePortDescriptor<EntityDocQueryPortType> portDescriptor = getServicePortDescriptor(
                         NhincConstants.ADAPTER_API_LEVEL.LEVEL_a0);
@@ -123,10 +115,10 @@ public class EntityDocQueryProxyWebServiceUnsecuredImpl implements EntityDocQuer
                         "respondingGatewayCrossGatewayQuery", request);
             }
         } catch (Exception ex) {
-            log.error("Error calling respondingGatewayCrossGatewayQuery: " + ex.getMessage(), ex);
+            LOG.error("Error calling respondingGatewayCrossGatewayQuery: " + ex.getMessage(), ex);
         }
 
-        log.debug("End respondingGatewayCrossGatewayQuery");
+        LOG.debug("End respondingGatewayCrossGatewayQuery");
         return response;
     }
 

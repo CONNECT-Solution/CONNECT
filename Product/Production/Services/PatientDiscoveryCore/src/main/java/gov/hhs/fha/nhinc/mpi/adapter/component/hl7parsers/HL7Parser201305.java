@@ -32,8 +32,7 @@ import java.util.List;
 
 import javax.xml.bind.JAXBElement;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 import org.hl7.v3.ADExplicit;
 import org.hl7.v3.AdxpExplicitCity;
 import org.hl7.v3.AdxpExplicitPostalCode;
@@ -69,7 +68,7 @@ import gov.hhs.fha.nhinc.mpilib.PhoneNumber;
  */
 public class HL7Parser201305 {
 
-    private static Log log = LogFactory.getLog(HL7Parser201305.class);
+    private static final Logger LOG = Logger.getLogger(HL7Parser201305.class);
 
     /**
      * Method to extract Gender Code from a PRPAMT201306UV02ParameterList.
@@ -78,7 +77,7 @@ public class HL7Parser201305 {
      * @return The Gender Code is returned
      */
     public static String extractGender(PRPAMT201306UV02ParameterList params) {
-        log.debug("Entering HL7Parser201305.ExtractGender method...");
+        LOG.trace("Entering HL7Parser201305.ExtractGender method...");
 
         String genderCode = null;
 
@@ -92,16 +91,16 @@ public class HL7Parser201305 {
             if (gender.getValue() != null && gender.getValue().size() > 0 && gender.getValue().get(0) != null) {
                 CE administrativeGenderCode = gender.getValue().get(0);
 
-                log.info("Found gender in query parameters = " + administrativeGenderCode.getCode());
+                LOG.info("Found gender in query parameters = " + administrativeGenderCode.getCode());
                 genderCode = administrativeGenderCode.getCode();
             } else {
-                log.info("query does not contain a gender code");
+                LOG.info("query does not contain a gender code");
             }
         } else {
-            log.info("query does not contain a gender code");
+            LOG.info("query does not contain a gender code");
         }
 
-        log.debug("Exiting HL7Parser201305.ExtractGender method...");
+        LOG.trace("Exiting HL7Parser201305.ExtractGender method...");
         return genderCode;
     }
 
@@ -112,7 +111,7 @@ public class HL7Parser201305 {
      * @return a Timestamp object containing the birthdate.
      */
     public static String extractBirthdate(PRPAMT201306UV02ParameterList params) {
-        log.debug("Entering HL7Parser201305.ExtractBirthdate method...");
+        LOG.trace("Entering HL7Parser201305.ExtractBirthdate method...");
 
         String birthDate = null;
 
@@ -124,16 +123,16 @@ public class HL7Parser201305 {
             if (birthTime.getValue() != null && birthTime.getValue().size() > 0
                     && birthTime.getValue().get(0) != null) {
                 IVLTSExplicit birthday = birthTime.getValue().get(0);
-                log.info("Found birthTime in query parameters = " + birthday.getValue());
+                LOG.info("Found birthTime in query parameters = " + birthday.getValue());
                 birthDate = birthday.getValue();
             } else {
-                log.info("message does not contain a birthtime");
+                LOG.info("message does not contain a birthtime");
             }
         } else {
-            log.info("message does not contain a birthtime");
+            LOG.info("message does not contain a birthtime");
         }
 
-        log.debug("Exiting HL7Parser201305.ExtractBirthdate method...");
+        LOG.trace("Exiting HL7Parser201305.ExtractBirthdate method...");
         return birthDate;
     }
 
@@ -143,7 +142,7 @@ public class HL7Parser201305 {
      * @return a list of names from the ParamaterList.
      */
     public static PersonName extractPersonName(PRPAMT201306UV02ParameterList params) {
-        log.debug("Entering HL7Parser201305.ExtractPersonName method...");
+        LOG.trace("Entering HL7Parser201305.ExtractPersonName method...");
 
         PersonName personname = new PersonName();
 
@@ -155,7 +154,7 @@ public class HL7Parser201305 {
             if (name.getValue() != null && name.getValue().size() > 0 && name.getValue().get(0) != null) {
                 List<Serializable> choice = name.getValue().get(0).getContent();
 
-                log.info("choice.size()=" + choice.size());
+                LOG.info("choice.size()=" + choice.size());
 
                 Iterator<Serializable> iterSerialObjects = choice.iterator();
 
@@ -164,12 +163,12 @@ public class HL7Parser201305 {
                 EnExplicitGiven firstname = null;
 
                 while (iterSerialObjects.hasNext()) {
-                    log.info("in iterSerialObjects.hasNext() loop");
+                    LOG.info("in iterSerialObjects.hasNext() loop");
 
                     Serializable contentItem = iterSerialObjects.next();
 
                     if (contentItem instanceof String) {
-                        log.info("contentItem is string");
+                        LOG.info("contentItem is string");
                         String strValue = (String) contentItem;
 
                         if (nameString != null) {
@@ -177,29 +176,29 @@ public class HL7Parser201305 {
                         } else {
                             nameString = strValue;
                         }
-                        log.info("nameString=" + nameString);
+                        LOG.info("nameString=" + nameString);
                     } else if (contentItem instanceof JAXBElement) {
-                        log.info("contentItem is JAXBElement");
+                        LOG.info("contentItem is JAXBElement");
 
                         JAXBElement<?> oJAXBElement = (JAXBElement) contentItem;
 
                         if (oJAXBElement.getValue() instanceof EnExplicitFamily) {
                             lastname = new EnExplicitFamily();
                             lastname = (EnExplicitFamily) oJAXBElement.getValue();
-                            log.info("found lastname element; content=" + lastname.getContent());
+                            LOG.info("found lastname element; content=" + lastname.getContent());
                         } else if (oJAXBElement.getValue() instanceof EnExplicitGiven) {
                             if (firstname == null) {
                                 firstname = new EnExplicitGiven();
                                 firstname = (EnExplicitGiven) oJAXBElement.getValue();
-                                log.info("found firstname element; content=" + firstname.getContent());
+                                LOG.info("found firstname element; content=" + firstname.getContent());
                             } else {
                                 // this would be where to add handle for middlename
                             }
                         } else {
-                            log.info("other name part=" + oJAXBElement.getValue());
+                            LOG.info("other name part=" + oJAXBElement.getValue());
                         }
                     } else {
-                        log.info("contentItem is other");
+                        LOG.info("contentItem is other");
                     }
                 }
 
@@ -208,29 +207,29 @@ public class HL7Parser201305 {
                 boolean namefound = false;
                 if (lastname != null && lastname.getContent() != null) {
                     personname.setLastName(lastname.getContent());
-                    log.info("FamilyName : " + personname.getLastName());
+                    LOG.info("FamilyName : " + personname.getLastName());
                     namefound = true;
                 }
 
                 if (firstname != null && firstname.getContent() != null) {
                     personname.setFirstName(firstname.getContent());
-                    log.info("GivenName : " + personname.getFirstName());
+                    LOG.info("GivenName : " + personname.getFirstName());
                     namefound = true;
                 }
 
                 if (!namefound && !nameString.trim().contentEquals("")) {
-                    log.info("setting name by nameString " + nameString);
+                    LOG.info("setting name by nameString " + nameString);
                     personname.setLastName(nameString);
 
                 }
             } else {
-                log.info("message does not contain a subject name");
+                LOG.info("message does not contain a subject name");
             }
         } else {
-            log.info("message does not contain a subject name");
+            LOG.info("message does not contain a subject name");
         }
 
-        log.debug("Exiting HL7Parser201305.ExtractPersonName method...");
+        LOG.trace("Exiting HL7Parser201305.ExtractPersonName method...");
         return personname;
     }
 
@@ -240,7 +239,7 @@ public class HL7Parser201305 {
      * @return a List of Identifiers.
      */
     public static Identifiers extractPersonIdentifiers(PRPAMT201306UV02ParameterList params) {
-        log.debug("Entering HL7Parser201305.ExtractPersonIdentifiers method...");
+        LOG.trace("Entering HL7Parser201305.ExtractPersonIdentifiers method...");
 
         Identifiers ids = new Identifiers();
         Identifier id = new Identifier();
@@ -257,20 +256,20 @@ public class HL7Parser201305 {
                         && subjectId.getRoot() != null && subjectId.getRoot().length() > 0) {
                     id.setId(subjectId.getExtension());
                     id.setOrganizationId(subjectId.getRoot());
-                    log.info("Created id from patient identifier [organization=" + id.getOrganizationId() + "][id="
+                    LOG.info("Created id from patient identifier [organization=" + id.getOrganizationId() + "][id="
                             + id.getId() + "]");
                     ids.add(id);
                 } else {
-                    log.info("message does not contain an id");
+                    LOG.info("message does not contain an id");
                 }
             } else {
-                log.info("message does not contain an id");
+                LOG.info("message does not contain an id");
             }
         } else {
-            log.info("message does not contain an id");
+            LOG.info("message does not contain an id");
         }
 
-        log.debug("Exiting HL7Parser201305.ExtractPersonIdentifiers method...");
+        LOG.trace("Exiting HL7Parser201305.ExtractPersonIdentifiers method...");
         return ids;
     }
 
@@ -280,7 +279,7 @@ public class HL7Parser201305 {
      * @return an Address from PRPAMT201306UV02ParameterList.
      */
     public static Address extractPersonAddress(PRPAMT201306UV02ParameterList params) {
-        log.debug("Entering HL7Parser201305.ExtractPersonAddress method...");
+        LOG.trace("Entering HL7Parser201305.ExtractPersonAddress method...");
 
         Address address = null;
 
@@ -294,7 +293,7 @@ public class HL7Parser201305 {
 
                 List<Serializable> choice = adExplicit.getContent();
 
-                log.info("choice.size()=" + choice.size());
+                LOG.info("choice.size()=" + choice.size());
 
                 Iterator<Serializable> iterSerialObjects = choice.iterator();
 
@@ -306,12 +305,12 @@ public class HL7Parser201305 {
                 AdxpExplicitPostalCode postalCode = null;
 
                 while (iterSerialObjects.hasNext()) {
-                    log.info("in iterSerialObjects.hasNext() loop");
+                    LOG.info("in iterSerialObjects.hasNext() loop");
 
                     Serializable contentItem = iterSerialObjects.next();
 
                     if (contentItem instanceof JAXBElement) {
-                        log.info("contentItem is JAXBElement");
+                        LOG.info("contentItem is JAXBElement");
 
                         JAXBElement oJAXBElement = (JAXBElement) contentItem;
 
@@ -320,7 +319,7 @@ public class HL7Parser201305 {
                             if (addressLineCounter == 1) {
                                 addressLine1 = new AdxpExplicitStreetAddressLine();
                                 addressLine1 = (AdxpExplicitStreetAddressLine) oJAXBElement.getValue();
-                                log.info("found addressLine1 element; content=" + addressLine1.getContent());
+                                LOG.info("found addressLine1 element; content=" + addressLine1.getContent());
                                 if (address == null) {
                                     address = new Address();
                                 }
@@ -329,7 +328,7 @@ public class HL7Parser201305 {
                             if (addressLineCounter == 2) {
                                 addressLine2 = new AdxpExplicitStreetAddressLine();
                                 addressLine2 = (AdxpExplicitStreetAddressLine) oJAXBElement.getValue();
-                                log.info("found addressLine2 element; content=" + addressLine2.getContent());
+                                LOG.info("found addressLine2 element; content=" + addressLine2.getContent());
                                 if (address == null) {
                                     address = new Address();
                                 }
@@ -338,7 +337,7 @@ public class HL7Parser201305 {
                         } else if (oJAXBElement.getValue() instanceof AdxpExplicitCity) {
                             city = new AdxpExplicitCity();
                             city = (AdxpExplicitCity) oJAXBElement.getValue();
-                            log.info("found city element; content=" + city.getContent());
+                            LOG.info("found city element; content=" + city.getContent());
                             if (address == null) {
                                 address = new Address();
                             }
@@ -346,7 +345,7 @@ public class HL7Parser201305 {
                         } else if (oJAXBElement.getValue() instanceof AdxpExplicitState) {
                             state = new AdxpExplicitState();
                             state = (AdxpExplicitState) oJAXBElement.getValue();
-                            log.info("found state element; content=" + state.getContent());
+                            LOG.info("found state element; content=" + state.getContent());
                             if (address == null) {
                                 address = new Address();
                             }
@@ -354,16 +353,16 @@ public class HL7Parser201305 {
                         } else if (oJAXBElement.getValue() instanceof AdxpExplicitPostalCode) {
                             postalCode = new AdxpExplicitPostalCode();
                             postalCode = (AdxpExplicitPostalCode) oJAXBElement.getValue();
-                            log.info("found postalCode element; content=" + postalCode.getContent());
+                            LOG.info("found postalCode element; content=" + postalCode.getContent());
                             if (address == null) {
                                 address = new Address();
                             }
                             address.setZip(postalCode.getContent());
                         } else {
-                            log.info("other address part=" + oJAXBElement.getValue());
+                            LOG.info("other address part=" + oJAXBElement.getValue());
                         }
                     } else {
-                        log.info("contentItem is other");
+                        LOG.info("contentItem is other");
                     }
                 }
 
@@ -379,7 +378,7 @@ public class HL7Parser201305 {
      * @return Phone Number from the PRPAMT201306UV02ParameterList
      */
     public static String extractTelecom(PRPAMT201306UV02ParameterList params) {
-        log.debug("Entering HL7Parser201305.ExtractTelecom method...");
+        LOG.trace("Entering HL7Parser201305.ExtractTelecom method...");
 
         String telecom = null;
 
@@ -391,23 +390,23 @@ public class HL7Parser201305 {
             if (patientTelecom.getValue() != null && patientTelecom.getValue().size() > 0
                     && patientTelecom.getValue().get(0) != null) {
                 TELExplicit telecomValue = patientTelecom.getValue().get(0);
-                log.info("Found patientTelecom in query parameters = " + telecomValue.getValue());
+                LOG.info("Found patientTelecom in query parameters = " + telecomValue.getValue());
                 telecom = telecomValue.getValue();
                 if (telecom != null) {
                     if (!telecom.startsWith("tel:")) {
                         // telecom is not valid without tel: prefix
                         telecom = null;
-                        log.info("Found patientTelecom in query parameters is not in the correct uri format");
+                        LOG.info("Found patientTelecom in query parameters is not in the correct uri format");
                     }
                 }
             } else {
-                log.info("message does not contain a patientTelecom");
+                LOG.info("message does not contain a patientTelecom");
             }
         } else {
-            log.info("message does not contain a patientTelecom");
+            LOG.info("message does not contain a patientTelecom");
         }
 
-        log.debug("Exiting HL7Parser201305.ExtractTelecom method...");
+        LOG.trace("Exiting HL7Parser201305.ExtractTelecom method...");
         return telecom;
     }
 
@@ -417,17 +416,17 @@ public class HL7Parser201305 {
      * @return PRPAMT201306UV02ParameterList
      */
     public static PRPAMT201306UV02ParameterList extractHL7QueryParamsFromMessage(PRPAIN201305UV02 message) {
-        log.debug("Entering HL7Parser201305.ExtractHL7QueryParamsFromMessage method...");
+        LOG.trace("Entering HL7Parser201305.ExtractHL7QueryParamsFromMessage method...");
         PRPAMT201306UV02ParameterList queryParamList = null;
 
         if (message == null) {
-            log.warn("input message was null, no query parameters present in message");
+            LOG.warn("input message was null, no query parameters present in message");
             return null;
         }
 
         PRPAIN201305UV02QUQIMT021001UV01ControlActProcess controlActProcess = message.getControlActProcess();
         if (controlActProcess == null) {
-            log.info("controlActProcess is null - no query parameters present in message");
+            LOG.info("controlActProcess is null - no query parameters present in message");
             return null;
         }
 
@@ -441,7 +440,7 @@ public class HL7Parser201305 {
 
         }
 
-        log.debug("Exiting HL7Parser201305.ExtractHL7QueryParamsFromMessage method...");
+        LOG.trace("Exiting HL7Parser201305.ExtractHL7QueryParamsFromMessage method...");
         return queryParamList;
     }
 
@@ -451,12 +450,12 @@ public class HL7Parser201305 {
      * @return a Patient from the PRPAIN201305UV02 object
      */
     public static Patient extractMpiPatientFromMessage(PRPAIN201305UV02 message) {
-        log.debug("Entering HL7Parser201305.ExtractMpiPatientFromMessage method...");
+        LOG.trace("Entering HL7Parser201305.ExtractMpiPatientFromMessage method...");
 
         PRPAMT201306UV02ParameterList queryParamList = extractHL7QueryParamsFromMessage(message);
         Patient mpipatient = extractMpiPatientFromQueryParams(queryParamList);
 
-        log.debug("Exiting HL7Parser201305.ExtractMpiPatientFromMessage method...");
+        LOG.trace("Exiting HL7Parser201305.ExtractMpiPatientFromMessage method...");
         return mpipatient;
     }
 
@@ -466,7 +465,7 @@ public class HL7Parser201305 {
      * @return a Patient from the PRPAMT201306UV02ParameterList object
      */
     public static Patient extractMpiPatientFromQueryParams(PRPAMT201306UV02ParameterList params) {
-        log.debug("Entering HL7Parser201305.ExtractMpiPatientFromQueryParams method...");
+        LOG.trace("Entering HL7Parser201305.ExtractMpiPatientFromQueryParams method...");
 
         Patient mpiPatient = new Patient();
 
@@ -497,7 +496,7 @@ public class HL7Parser201305 {
             mpiPatient = null;
         }
 
-        log.debug("Exiting HL7Parser201305.ExtractMpiPatientFromQueryParams method...");
+        LOG.trace("Exiting HL7Parser201305.ExtractMpiPatientFromQueryParams method...");
         return mpiPatient;
     }
 }

@@ -30,8 +30,7 @@ import javax.xml.ws.WebServiceContext;
 
 import oasis.names.tc.xacml._2_0.context.schema.os.DecisionType;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 import org.oasis_open.docs.wsn.b_2.Notify;
 import org.w3c.dom.Element;
 
@@ -58,10 +57,10 @@ import gov.hhs.fha.nhinc.policyengine.adapter.proxy.PolicyEngineProxyObjectFacto
  */
 public class HiemNotifyImpl {
 
-    private static Log log = LogFactory.getLog(HiemNotifyImpl.class);
+    private static final Logger LOG = Logger.getLogger(HiemNotifyImpl.class);
 
     public void notify(Notify notifyRequest, WebServiceContext context) {
-        log.debug("Entering HiemNotifyImpl.notify");
+        LOG.debug("Entering HiemNotifyImpl.notify");
         AssertionType assertion = SAML2AssertionExtractor.getInstance().extractSamlAssertion(context);
 
         auditInputMessage(notifyRequest, assertion,
@@ -78,19 +77,19 @@ public class HiemNotifyImpl {
             if (checkPolicy(notifyRequest, assertion)) {
                 notifyProcessor.processNhinNotify(soapMessage, assertion);
             } else {
-                log.error("Failed policy check on notify message");
+                LOG.error("Failed policy check on notify message");
             }
         } catch (Throwable t) {
-            log.debug("Exception encountered processing a notify message: " + t.getMessage(), t);
+            LOG.debug("Exception encountered processing a notify message: " + t.getMessage(), t);
             // TODO: Add specific catch statements and throw the appropriate fault
 
         }
-        log.debug("Exiting HiemNotifyImpl.notify");
+        LOG.debug("Exiting HiemNotifyImpl.notify");
     }
 
     private void auditInputMessage(Notify notifyRequest, AssertionType assertion,
             String direction, String logInterface) {
-        log.debug("In HiemNotifyImpl.auditInputMessage");
+        LOG.debug("In HiemNotifyImpl.auditInputMessage");
         try {
             AuditRepositoryLogger auditLogger = new AuditRepositoryLogger();
 
@@ -107,12 +106,12 @@ public class HiemNotifyImpl {
                 proxy.auditLog(auditLogMsg, assertion);
             }
         } catch (Throwable t) {
-            log.error("Failed to log notify message: " + t.getMessage(), t);
+            LOG.error("Failed to log notify message: " + t.getMessage(), t);
         }
     }
 
     private boolean checkPolicy(Notify notifyRequest, AssertionType assertion) {
-        log.debug("In HiemNotifyImpl.checkPolicy");
+        LOG.debug("In HiemNotifyImpl.checkPolicy");
         boolean policyIsValid = false;
 
         NotifyEventType policyCheckReq = new NotifyEventType();
@@ -133,7 +132,7 @@ public class HiemNotifyImpl {
             policyIsValid = true;
         }
 
-        log.debug("Finished HiemNotifyImpl.checkPolicy - valid: " + policyIsValid);
+        LOG.debug("Finished HiemNotifyImpl.checkPolicy - valid: " + policyIsValid);
         return policyIsValid;
     }
 }

@@ -26,26 +26,19 @@
  */
 package gov.hhs.fha.nhinc.transform.audit;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
-import com.services.nhinc.schema.auditmessage.AuditMessageType;
-import com.services.nhinc.schema.auditmessage.AuditSourceIdentificationType;
-import com.services.nhinc.schema.auditmessage.EventIdentificationType;
-import com.services.nhinc.schema.auditmessage.ParticipantObjectIdentificationType;
-
+import static org.junit.Assert.assertEquals;
+import gov.hhs.fha.nhinc.common.auditlog.DocRetrieveMessageType;
+import gov.hhs.fha.nhinc.common.auditlog.DocRetrieveResponseMessageType;
+import gov.hhs.fha.nhinc.common.auditlog.LogDocRetrieveRequestType;
+import gov.hhs.fha.nhinc.common.auditlog.LogDocRetrieveResultRequestType;
+import gov.hhs.fha.nhinc.common.auditlog.LogEventRequestType;
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
 import gov.hhs.fha.nhinc.common.nhinccommon.PersonNameType;
-import gov.hhs.fha.nhinc.common.auditlog.LogDocRetrieveRequestType;
-import gov.hhs.fha.nhinc.common.auditlog.DocRetrieveMessageType;
-import gov.hhs.fha.nhinc.common.auditlog.LogDocRetrieveResultRequestType;
-import gov.hhs.fha.nhinc.common.auditlog.DocRetrieveResponseMessageType;
-import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.common.auditlog.LogEventRequestType;
-
+import gov.hhs.fha.nhinc.common.nhinccommon.UserType;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
-import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType.DocumentRequest;
+import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
 import org.junit.After;
@@ -53,16 +46,18 @@ import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import static org.junit.Assert.*;
-import gov.hhs.fha.nhinc.common.nhinccommon.UserType;
+
+import com.services.nhinc.schema.auditmessage.AuditMessageType;
+import com.services.nhinc.schema.auditmessage.AuditSourceIdentificationType;
+import com.services.nhinc.schema.auditmessage.EventIdentificationType;
+import com.services.nhinc.schema.auditmessage.ParticipantObjectIdentificationType;
 
 /**
  * 
  * @author mflynn02
  */
 public class DocumentRetrieveTransformsTest {
-    private static Log log = LogFactory.getLog(DocumentRetrieveTransformsTest.class);
-
+    
     public DocumentRetrieveTransformsTest() {
     }
 
@@ -87,7 +82,6 @@ public class DocumentRetrieveTransformsTest {
      */
     @Test
     public void testTransformDocRetrieveReq2AuditMsg() {
-        log.debug("Begin - testTransformDocRetrieveReq2AuditMsg");
         LogDocRetrieveRequestType logMessage = new LogDocRetrieveRequestType();
         DocRetrieveMessageType docReqMessage = new DocRetrieveMessageType();
         AssertionType assertion = new AssertionType();
@@ -142,8 +136,7 @@ public class DocumentRetrieveTransformsTest {
         // result.getAuditMessage().getAuditSourceIdentification().get(0).getAuditEnterpriseSiteID());
         assertEquals(expected.getAuditMessage().getEventIdentification().getEventActionCode(), result.getAuditMessage()
                 .getEventIdentification().getEventActionCode());
-
-        log.debug("Begin - testTransformDocRetrieveReq2AuditMsg");
+    
     }
 
     /**
@@ -151,8 +144,6 @@ public class DocumentRetrieveTransformsTest {
      */
     @Test
     public void testTransformDocRetrieveResp2AuditMsg() {
-        log.debug("Begin - testTransformDocRetrieveResp2AuditMsg");
-
         LogDocRetrieveResultRequestType logMessage = new LogDocRetrieveResultRequestType();
         DocRetrieveResponseMessageType docRespMessage = new DocRetrieveResponseMessageType();
         AssertionType assertion = new AssertionType();
@@ -210,7 +201,6 @@ public class DocumentRetrieveTransformsTest {
         assertEquals(expected.getAuditMessage().getEventIdentification().getEventActionCode(), result.getAuditMessage()
                 .getEventIdentification().getEventActionCode());
 
-        log.debug("End - testTransformDocRetrieveResp2AuditMsg");
     }
 
 }

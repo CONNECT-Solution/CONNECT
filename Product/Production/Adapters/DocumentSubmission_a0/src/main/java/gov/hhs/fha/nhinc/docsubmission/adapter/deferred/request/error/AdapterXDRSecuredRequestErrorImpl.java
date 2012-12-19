@@ -35,27 +35,18 @@ import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
 
 import javax.xml.ws.WebServiceContext;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 
 /**
  * 
  * @author JHOPPESC
  */
 public class AdapterXDRSecuredRequestErrorImpl extends BaseService {
-    private Log log = null;
-
-    public AdapterXDRSecuredRequestErrorImpl() {
-        log = createLogger();
-    }
-
-    protected Log createLogger() {
-        return LogFactory.getLog(getClass());
-    }
+    private static final Logger LOG = Logger.getLogger(AdapterXDRSecuredRequestErrorImpl.class);
 
     public XDRAcknowledgementType provideAndRegisterDocumentSetBRequestError(
             AdapterProvideAndRegisterDocumentSetRequestErrorSecuredType body, WebServiceContext context) {
-        log.debug("Begin AdapterXDRSecuredRequestErrorImpl.provideAndRegisterDocumentSetBRequestError(secured)");
+        LOG.debug("Begin AdapterXDRSecuredRequestErrorImpl.provideAndRegisterDocumentSetBRequestError(secured)");
         XDRAcknowledgementType response = null;
 
         ProvideAndRegisterDocumentSetRequestType request = null;
@@ -68,13 +59,13 @@ public class AdapterXDRSecuredRequestErrorImpl extends BaseService {
         assertion = getAssertion(context, assertion);
         response = provideAndRegisterDocumentSetBRequestError(request, errorMessage, assertion);
 
-        log.debug("End AdapterXDRSecuredRequestErrorImpl.provideAndRegisterDocumentSetBRequestError(secured)");
+        LOG.debug("End AdapterXDRSecuredRequestErrorImpl.provideAndRegisterDocumentSetBRequestError(secured)");
         return response;
     }
 
     public XDRAcknowledgementType provideAndRegisterDocumentSetBRequestError(
             AdapterProvideAndRegisterDocumentSetRequestErrorType body, WebServiceContext context) {
-        log.debug("Begin AdapterXDRSecuredRequestErrorImpl.provideAndRegisterDocumentSetBRequestError(unsecured)");
+        LOG.debug("Begin AdapterXDRSecuredRequestErrorImpl.provideAndRegisterDocumentSetBRequestError(unsecured)");
         XDRAcknowledgementType response = null;
 
         ProvideAndRegisterDocumentSetRequestType request = null;
@@ -88,7 +79,7 @@ public class AdapterXDRSecuredRequestErrorImpl extends BaseService {
         assertion = getAssertion(context, assertion);
         response = provideAndRegisterDocumentSetBRequestError(request, errorMessage, assertion);
 
-        log.debug("End AdapterXDRSecuredRequestErrorImpl.provideAndRegisterDocumentSetBRequestError(unsecured)");
+        LOG.debug("End AdapterXDRSecuredRequestErrorImpl.provideAndRegisterDocumentSetBRequestError(unsecured)");
         return response;
     }
 

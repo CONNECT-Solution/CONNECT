@@ -31,12 +31,8 @@ import gov.hhs.fha.nhinc.patientcorrelation.nhinc.model.QualifiedPatientIdentifi
 
 import java.util.List;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 public class CorrelatedIdentifiersDaoImpl implements CorrelatedIdentifiersDao {
-    Log log = LogFactory.getLog(CorrelatedIdentifiersDao.class);
-
+    
     public void addPatientCorrelation(CorrelatedIdentifiers correlatedIdentifers) {
         Storer.addPatientCorrelation(correlatedIdentifers);
     }

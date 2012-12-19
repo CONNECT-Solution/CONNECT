@@ -45,7 +45,6 @@ import java.lang.reflect.Method;
 
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
-import org.apache.commons.logging.Log;
 import org.jmock.Expectations;
 import org.jmock.Mockery;
 import org.jmock.integration.junit4.JUnit4Mockery;
@@ -62,7 +61,6 @@ public class PassthroughOutboundDocSubmissionDeferredResponseTest {
             setImposteriser(ClassImposteriser.INSTANCE);
         }
     };
-    final Log mockLog = context.mock(Log.class);
     final XDRAuditLogger mockXDRLog = context.mock(XDRAuditLogger.class);
     final OutboundDocSubmissionDeferredResponseDelegate mockDelegate = context
             .mock(OutboundDocSubmissionDeferredResponseDelegate.class);
@@ -70,7 +68,6 @@ public class PassthroughOutboundDocSubmissionDeferredResponseTest {
     @Test
     public void testProvideAndRegisterDocumentSetB() {
         expect2MockAudits();
-        allowAnyMockLogging();
         expectMockDelegateProcessAndReturnValidResponse();
 
         XDRAcknowledgementType response = runProvideAndRegisterDocumentSetBResponse();
@@ -84,7 +81,6 @@ public class PassthroughOutboundDocSubmissionDeferredResponseTest {
     public void testGetters() {
         PassthroughOutboundDocSubmissionDeferredResponse passthruOrch = new PassthroughOutboundDocSubmissionDeferredResponse();
 
-        assertNotNull(passthruOrch.getLogger());
         assertNotNull(passthruOrch.getOutboundDocSubmissionDeferredResponseDelegate());
         assertNotNull(passthruOrch.getXDRAuditLogger());
     }
@@ -107,14 +103,6 @@ public class PassthroughOutboundDocSubmissionDeferredResponseTest {
 
                 oneOf(mockXDRLog).auditAcknowledgement(with(any(XDRAcknowledgementType.class)),
                         with(any(AssertionType.class)), with(any(String.class)), with(any(String.class)));
-            }
-        });
-    }
-
-    private void allowAnyMockLogging() {
-        context.checking(new Expectations() {
-            {
-                ignoring(mockLog);
             }
         });
     }
@@ -144,11 +132,7 @@ public class PassthroughOutboundDocSubmissionDeferredResponseTest {
 
     private PassthroughOutboundDocSubmissionDeferredResponse createPassthruDocSubmissionDeferredResponseOrchImpl() {
         return new PassthroughOutboundDocSubmissionDeferredResponse() {
-            protected Log getLogger() {
-                return mockLog;
-            }
-
-            protected XDRAuditLogger getXDRAuditLogger() {
+        	protected XDRAuditLogger getXDRAuditLogger() {
                 return mockXDRLog;
             }
 

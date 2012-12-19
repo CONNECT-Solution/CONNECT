@@ -40,12 +40,11 @@ import javax.xml.ws.WebServiceContext;
 
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 
 class EntityDocSubmissionImpl_g1 extends BaseService {
 
-    private static final Log log = LogFactory.getLog(EntityDocSubmissionImpl_g1.class);
+    private static final Logger LOG = Logger.getLogger(EntityDocSubmissionImpl_g1.class);
 
     private OutboundDocSubmission outboundDocSubmission;
 
@@ -74,7 +73,7 @@ class EntityDocSubmissionImpl_g1 extends BaseService {
         try {
             response = outboundDocSubmission.provideAndRegisterDocumentSetB(request, assertIn, targets, urlInfo);
         } catch (Exception e) {
-            log.error("Failed to send request to Nwhin.", e);
+            LOG.error("Failed to send request to Nwhin.", e);
         }
 
         return response;

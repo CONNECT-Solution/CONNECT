@@ -50,7 +50,6 @@ import gov.hhs.fha.nhinc.transform.subdisc.HL7AckTransforms;
 
 import java.lang.reflect.Method;
 
-import org.apache.commons.logging.Log;
 import org.hl7.v3.II;
 import org.hl7.v3.MCCIIN000002UV01;
 import org.hl7.v3.PRPAIN201306UV02;
@@ -91,7 +90,6 @@ public class StandardInboundPatientDiscoveryDeferredResponseTest {
         PDDeferredCorrelationDao pdCorrelationDao = mock(PDDeferredCorrelationDao.class);
         PassthroughInboundPatientDiscoveryDeferredResponse passthroughPatientDiscovery = mock(PassthroughInboundPatientDiscoveryDeferredResponse.class);
         PatientDiscoveryAuditor auditLogger = mock(PatientDiscoveryAuditor.class);
-        Log log = mock(Log.class);
         ResponseMode responseMode = mock(ResponseMode.class);
 
         // Stubbing the methods
@@ -109,7 +107,7 @@ public class StandardInboundPatientDiscoveryDeferredResponseTest {
         // Actual invocation
         StandardInboundPatientDiscoveryDeferredResponse standardPatientDiscovery = new StandardInboundPatientDiscoveryDeferredResponse(
                 policyChecker, responseFactory, msgProcessor, pdCorrelationDao, passthroughPatientDiscovery,
-                auditLogger, log);
+                auditLogger);
 
         MCCIIN000002UV01 actualResponse = standardPatientDiscovery.respondingGatewayDeferredPRPAIN201306UV02(request,
                 assertion);
@@ -144,7 +142,6 @@ public class StandardInboundPatientDiscoveryDeferredResponseTest {
         ResponseFactory responseFactory = mock(ResponseFactory.class);
         PassthroughInboundPatientDiscoveryDeferredResponse passthroughPatientDiscovery = mock(PassthroughInboundPatientDiscoveryDeferredResponse.class);
         PatientDiscoveryAuditor auditLogger = mock(PatientDiscoveryAuditor.class);
-        Log log = mock(Log.class);
         ResponseMode responseMode = mock(ResponseMode.class);
 
         // Stubbing the methods
@@ -157,7 +154,7 @@ public class StandardInboundPatientDiscoveryDeferredResponseTest {
 
         // Actual invocation
         StandardInboundPatientDiscoveryDeferredResponse standardPatientDiscovery = new StandardInboundPatientDiscoveryDeferredResponse(
-                policyChecker, responseFactory, null, null, passthroughPatientDiscovery, auditLogger, log);
+                policyChecker, responseFactory, null, null, passthroughPatientDiscovery, auditLogger);
 
         MCCIIN000002UV01 actualResponse = standardPatientDiscovery.respondingGatewayDeferredPRPAIN201306UV02(request,
                 assertion);
@@ -190,15 +187,14 @@ public class StandardInboundPatientDiscoveryDeferredResponseTest {
         // Mocks
         PatientDiscovery201306PolicyChecker policyChecker = mock(PatientDiscovery201306PolicyChecker.class);
         PatientDiscoveryAuditor auditLogger = mock(PatientDiscoveryAuditor.class);
-        Log log = mock(Log.class);
-        
+       
         // Stubbing the methods
         when(policyChecker.checkOutgoingPolicy(any(RespondingGatewayPRPAIN201306UV02RequestType.class))).thenReturn(
                 false);
   
         // Actual invocation
         StandardInboundPatientDiscoveryDeferredResponse standardPatientDiscovery = new StandardInboundPatientDiscoveryDeferredResponse(
-                policyChecker, null, null, null, null, auditLogger, log);
+                policyChecker, null, null, null, null, auditLogger);
 
         MCCIIN000002UV01 errorResponse = standardPatientDiscovery.respondingGatewayDeferredPRPAIN201306UV02(request,
                 assertion);

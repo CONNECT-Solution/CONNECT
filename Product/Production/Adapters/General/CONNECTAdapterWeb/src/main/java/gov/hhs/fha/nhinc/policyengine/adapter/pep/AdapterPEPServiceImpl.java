@@ -29,23 +29,15 @@ package gov.hhs.fha.nhinc.policyengine.adapter.pep;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyResponseType;
 import javax.xml.ws.WebServiceContext;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+
+import org.apache.log4j.Logger;
 
 /**
  * 
  * @author Neil Webb
  */
 public class AdapterPEPServiceImpl {
-    private Log log = null;
-
-    public AdapterPEPServiceImpl() {
-        log = createLogger();
-    }
-
-    protected Log createLogger() {
-        return LogFactory.getLog(getClass());
-    }
+    private static final Logger LOG = Logger.getLogger(AdapterPEPServiceImpl.class);
 
     protected AdapterPEPImpl getAdapterPEPImpl() {
         return new AdapterPEPImpl();
@@ -76,7 +68,7 @@ public class AdapterPEPServiceImpl {
             checkPolicyResp = adapterPEPImpl.checkPolicy(checkPolicyRequest, assertion);
         } catch (Exception ex) {
             String message = "Error occurred calling AdapterPEPImpl.checkPolicy.  Error: " + ex.getMessage();
-            log.error(message, ex);
+            LOG.error(message, ex);
             throw new RuntimeException(message, ex);
         }
         return checkPolicyResp;

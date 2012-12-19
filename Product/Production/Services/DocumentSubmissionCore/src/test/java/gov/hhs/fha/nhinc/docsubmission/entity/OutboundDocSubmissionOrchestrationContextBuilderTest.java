@@ -58,8 +58,6 @@ public class OutboundDocSubmissionOrchestrationContextBuilderTest {
         contextBuilder.setAssertionType(new AssertionType());
         assertNotNull(contextBuilder.getAssertionType());
         
-        assertNotNull(contextBuilder.getLog());
-        
         contextBuilder.setNhinDelegate(new OutboundDocSubmissionDeferredRequestDelegate());
         assertNotNull(contextBuilder.getNhinDelegate());
         

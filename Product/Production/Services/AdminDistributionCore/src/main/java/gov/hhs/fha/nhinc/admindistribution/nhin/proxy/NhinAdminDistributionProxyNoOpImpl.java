@@ -34,29 +34,14 @@ import gov.hhs.fha.nhinc.event.DefaultEventDescriptionBuilder;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import oasis.names.tc.emergency.edxl.de._1.EDXLDistribution;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 
 /**
  * 
  * @author dunnek
  */
 public class NhinAdminDistributionProxyNoOpImpl implements NhinAdminDistributionProxy {
-    private Log log = null;
-
-    /**
-     * Constructor.
-     */
-    public NhinAdminDistributionProxyNoOpImpl() {
-        log = createLogger();
-    }
-
-    /**
-     * @return log.
-     */
-    protected Log createLogger() {
-        return LogFactory.getLog(getClass());
-    }
+    private static final Logger LOG = Logger.getLogger(NhinAdminDistributionProxyNoOpImpl.class);
 
     /**
      * This method does not do any implementation.
@@ -75,6 +60,6 @@ public class NhinAdminDistributionProxyNoOpImpl implements NhinAdminDistribution
             version = "")
     public void sendAlertMessage(EDXLDistribution body, AssertionType assertion, NhinTargetSystemType target,
             NhincConstants.GATEWAY_API_LEVEL apiLevel) {
-        log.info("begin send alert");
+        LOG.info("begin send alert");
     }
 }

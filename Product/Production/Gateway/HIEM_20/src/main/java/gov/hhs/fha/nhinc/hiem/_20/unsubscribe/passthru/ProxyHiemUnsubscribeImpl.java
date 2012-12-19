@@ -28,8 +28,7 @@ package gov.hhs.fha.nhinc.hiem._20.unsubscribe.passthru;
 
 import javax.xml.ws.WebServiceContext;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 import org.oasis_open.docs.wsn.b_2.Unsubscribe;
 import org.oasis_open.docs.wsn.b_2.UnsubscribeResponse;
 import org.w3c.dom.Element;
@@ -46,13 +45,13 @@ import gov.hhs.fha.nhinc.unsubscribe.nhin.proxy.NhinHiemUnsubscribeProxyObjectFa
 
 public class ProxyHiemUnsubscribeImpl {
 
-    private static Log log = LogFactory.getLog(ProxyHiemUnsubscribeImpl.class);
+    private static final Logger LOG = Logger.getLogger(ProxyHiemUnsubscribeImpl.class);
 
     public UnsubscribeResponse unsubscribe(
             gov.hhs.fha.nhinc.common.nhinccommonproxy.UnsubscribeRequestType unsubscribeRequest,
             WebServiceContext context) throws Exception {
         UnsubscribeResponse response = null;
-        log.debug("Entering ProxyHiemUnsubscribeImpl.unsubscribe...");
+        LOG.debug("Entering ProxyHiemUnsubscribeImpl.unsubscribe...");
 
         Unsubscribe unsubscribe = unsubscribeRequest.getUnsubscribe();
         NhinTargetSystemType target = unsubscribeRequest.getNhinTargetSystem();
@@ -66,11 +65,11 @@ public class ProxyHiemUnsubscribeImpl {
             response = proxy
                     .unsubscribe(unsubscribe, soapHeaderElements, assertion, target, getSubscriptionId(context));
         } catch (UnableToDestroySubscriptionFault ex) {
-            log.error("error occurred", ex);
+            LOG.error("error occurred", ex);
             response = new UnsubscribeResponse();
             response.getAny().add(ex);
         }
-        log.debug("Exiting ProxyHiemUnsubscribeImpl.unsubscribe...");
+        LOG.debug("Exiting ProxyHiemUnsubscribeImpl.unsubscribe...");
         return response;
     }
 
@@ -78,7 +77,7 @@ public class ProxyHiemUnsubscribeImpl {
             gov.hhs.fha.nhinc.common.nhinccommonproxy.UnsubscribeRequestSecuredType unsubscribeRequest,
             WebServiceContext context) throws UnableToDestroySubscriptionFault {
         UnsubscribeResponse response = null;
-        log.debug("Entering ProxyHiemUnsubscribeImpl.unsubscribe...");
+        LOG.debug("Entering ProxyHiemUnsubscribeImpl.unsubscribe...");
         Unsubscribe unsubscribe = unsubscribeRequest.getUnsubscribe();
         NhinTargetSystemType target = unsubscribeRequest.getNhinTargetSystem();
         AssertionType assertion = SAML2AssertionExtractor.getInstance().extractSamlAssertion(context);
@@ -91,14 +90,14 @@ public class ProxyHiemUnsubscribeImpl {
             response = proxy
                     .unsubscribe(unsubscribe, soapHeaderElements, assertion, target, getSubscriptionId(context));
         } catch (UnableToDestroySubscriptionFault e) {
-            log.error("error occurred", e);
+            LOG.error("error occurred", e);
             response = new UnsubscribeResponse();
             response.getAny().add(e);
         } catch (Exception e) {
-            log.error("exception occured: " + e.getMessage());
+            LOG.error("exception occured: " + e.getMessage());
             response.getAny().add(e);
         }
-        log.debug("Exiting ProxyHiemUnsubscribeImpl.unsubscribe...");
+        LOG.debug("Exiting ProxyHiemUnsubscribeImpl.unsubscribe...");
         return response;
     }
 

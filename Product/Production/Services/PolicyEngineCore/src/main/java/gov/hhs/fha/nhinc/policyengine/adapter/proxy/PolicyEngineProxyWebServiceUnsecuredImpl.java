@@ -38,24 +38,18 @@ import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.policyengine.adapter.proxy.service.PolicyEngineUnsecuredServicePortDescriptor;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 
 /**
  * 
  * @author Jon Hoppesch
  */
 public class PolicyEngineProxyWebServiceUnsecuredImpl implements PolicyEngineProxy {
-    private Log log = null;
+    private static final Logger LOG = Logger.getLogger(PolicyEngineProxyWebServiceUnsecuredImpl.class);
     private WebServiceProxyHelper oProxyHelper = null;
 
     public PolicyEngineProxyWebServiceUnsecuredImpl() {
-        log = createLogger();
         oProxyHelper = createWebServiceProxyHelper();
-    }
-
-    protected Log createLogger() {
-        return LogFactory.getLog(getClass());
     }
 
     protected WebServiceProxyHelper createWebServiceProxyHelper() {
@@ -63,7 +57,7 @@ public class PolicyEngineProxyWebServiceUnsecuredImpl implements PolicyEnginePro
     }
 
     public CheckPolicyResponseType checkPolicy(CheckPolicyRequestType checkPolicyRequest, AssertionType assertion) {
-        log.debug("Begin PolicyEngineWebServiceProxy.checkPolicy");
+        LOG.trace("Begin PolicyEngineWebServiceProxy.checkPolicy");
         CheckPolicyResponseType response = null;
         String serviceName = NhincConstants.POLICYENGINE_SERVICE_NAME;
 
@@ -81,15 +75,15 @@ public class PolicyEngineProxyWebServiceUnsecuredImpl implements PolicyEnginePro
                         "checkPolicy", checkPolicyRequest);
 
             } else {
-                log.error("Failed to call the web service (" + serviceName + ").  The URL is null.");
+                LOG.error("Failed to call the web service (" + serviceName + ").  The URL is null.");
             }
         } catch (Exception ex) {
-            log.error("Error: Failed to retrieve url for service: " + NhincConstants.POLICYENGINE_SERVICE_NAME
+            LOG.error("Error: Failed to retrieve url for service: " + NhincConstants.POLICYENGINE_SERVICE_NAME
                     + " for local home community");
-            log.error(ex.getMessage());
+            LOG.error(ex.getMessage());
         }
 
-        log.debug("End PolicyEngineWebServiceProxy.checkPolicy");
+        LOG.trace("End PolicyEngineWebServiceProxy.checkPolicy");
         return response;
     }
 

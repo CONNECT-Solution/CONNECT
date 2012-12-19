@@ -40,8 +40,7 @@ import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 
 /**
  * 
@@ -49,16 +48,11 @@ import org.apache.commons.logging.LogFactory;
  * @author Neil Webb
  */
 public class AdapterDocSubmissionProxyWebServiceSecuredImpl implements AdapterDocSubmissionProxy {
-    private Log log = null;
+    private static final Logger LOG = Logger.getLogger(AdapterDocSubmissionProxyWebServiceSecuredImpl.class);
     private WebServiceProxyHelper oProxyHelper = null;
 
     public AdapterDocSubmissionProxyWebServiceSecuredImpl() {
-        log = createLogger();
         oProxyHelper = createWebServiceProxyHelper();
-    }
-
-    protected Log createLogger() {
-        return LogFactory.getLog(getClass());
     }
 
     protected WebServiceProxyHelper createWebServiceProxyHelper() {
@@ -85,11 +79,11 @@ public class AdapterDocSubmissionProxyWebServiceSecuredImpl implements AdapterDo
                 response = (RegistryResponseType) client.invokePort(AdapterXDRSecuredPortType.class,
                         "provideAndRegisterDocumentSetb", msg);
             } else {
-                log.error("Failed to call the web service (" + NhincConstants.ADAPTER_XDR_SECURED_SERVICE_NAME
+                LOG.error("Failed to call the web service (" + NhincConstants.ADAPTER_XDR_SECURED_SERVICE_NAME
                         + ").  The URL is null.");
             }
         } catch (Exception ex) {
-            log.error("Error sending Adapter Doc Submission Secured message: " + ex.getMessage(), ex);
+            LOG.error("Error sending Adapter Doc Submission Secured message: " + ex.getMessage(), ex);
             response = new RegistryResponseType();
             response.setStatus("urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Failure");
         }

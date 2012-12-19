@@ -27,17 +27,14 @@
 package gov.hhs.fha.nhinc.orchestration;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
+import gov.hhs.fha.nhinc.orchestration.PolicyTransformer.Direction;
+import gov.hhs.fha.nhinc.properties.IPropertyAcessor;
+import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 
-import org.apache.commons.logging.Log;
 import org.jmock.Expectations;
 import org.jmock.Mockery;
 import org.jmock.integration.junit4.JUnit4Mockery;
 import org.junit.Test;
-
-import gov.hhs.fha.nhinc.orchestration.PolicyTransformer.Direction;
-import gov.hhs.fha.nhinc.properties.IPropertyAcessor;
-import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 
 /**
  *
@@ -51,21 +48,6 @@ public class CONNECTOrchestrationBaseTest {
      OutboundDelegate outboundDelegate = context.mock(OutboundDelegate.class);
 
     public CONNECTOrchestrationBaseTest() {
-    }
-
-    /**
-     * Test of getLogger method, of class CONNECTOrchestrationBase.
-     */
-    @Test
-    public void testGetLogger() {
-        CONNECTOrchestrationBase instance = new DenyCONNECTOrchestrationBaseImpl();
-        Log expResult = null;
-        Log result = instance.getLogger();
-        try {
-            result.info("testing CONNECTOrchestrationBase getLogger()");
-        } catch (Exception exc) {
-            fail("The test case is a prototype.");
-        }
     }
 
     /**

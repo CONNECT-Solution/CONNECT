@@ -34,8 +34,8 @@ import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.healthit.nhin.XDRAcknowledgementType;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+
+import org.apache.log4j.Logger;
 
 /**
  * 
@@ -43,15 +43,7 @@ import org.apache.commons.logging.LogFactory;
  */
 public class AdapterDocSubmissionDeferredRequestErrorProxyNoOpImpl implements
         AdapterDocSubmissionDeferredRequestErrorProxy {
-    private Log log = null;
-
-    public AdapterDocSubmissionDeferredRequestErrorProxyNoOpImpl() {
-        log = createLogger();
-    }
-
-    protected Log createLogger() {
-        return LogFactory.getLog(getClass());
-    }
+    private static final Logger LOG = Logger.getLogger(AdapterDocSubmissionDeferredRequestErrorProxyNoOpImpl.class);
 
     @AdapterDelegationEvent(beforeBuilder = DocSubmissionBaseEventDescriptionBuilder.class,
             afterReturningBuilder = DocSubmissionArgTransformerBuilder.class, 
@@ -59,12 +51,12 @@ public class AdapterDocSubmissionDeferredRequestErrorProxyNoOpImpl implements
             version = "")
     public XDRAcknowledgementType provideAndRegisterDocumentSetBRequestError(
             ProvideAndRegisterDocumentSetRequestType request, String errorMessage, AssertionType assertion) {
-        log.debug("Begin AdapterDocSubmissionDeferredRequestErrorProxyNoOpImpl.provideAndRegisterDocumentSetBRequestError");
+        LOG.trace("Begin AdapterDocSubmissionDeferredRequestErrorProxyNoOpImpl.provideAndRegisterDocumentSetBRequestError");
         XDRAcknowledgementType ack = new XDRAcknowledgementType();
         RegistryResponseType regResp = new RegistryResponseType();
         regResp.setStatus(NhincConstants.XDR_ACK_STATUS_MSG);
         ack.setMessage(regResp);
-        log.debug("End AdapterDocSubmissionDeferredRequestErrorProxyNoOpImpl.provideAndRegisterDocumentSetBRequestError");
+        LOG.trace("End AdapterDocSubmissionDeferredRequestErrorProxyNoOpImpl.provideAndRegisterDocumentSetBRequestError");
         return ack;
     }
 }

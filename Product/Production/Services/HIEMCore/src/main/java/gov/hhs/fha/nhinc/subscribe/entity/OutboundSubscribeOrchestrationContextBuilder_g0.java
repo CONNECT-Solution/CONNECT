@@ -27,13 +27,13 @@
 package gov.hhs.fha.nhinc.subscribe.entity;
 
 import gov.hhs.fha.nhinc.orchestration.OrchestrationContext;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+
+import org.apache.log4j.Logger;
 
 public class OutboundSubscribeOrchestrationContextBuilder_g0 extends
         OutboundSubscribeOrchestrationContextBuilder {
 
-    private static Log log = LogFactory.getLog(OutboundSubscribeOrchestrationContextBuilder_g0.class);
+    private static final Logger log = Logger.getLogger(OutboundSubscribeOrchestrationContextBuilder_g0.class);
 
     @Override
     public OrchestrationContext build() {
@@ -42,10 +42,4 @@ public class OutboundSubscribeOrchestrationContextBuilder_g0 extends
                 new OutboundSubscribeOrchestratable(getNhinDelegate(), getRequest(), getTarget(),
                         getAssertionType()));
     }
-
-    @Override
-    public Log getLog() {
-        return log;
-    }
-
 }

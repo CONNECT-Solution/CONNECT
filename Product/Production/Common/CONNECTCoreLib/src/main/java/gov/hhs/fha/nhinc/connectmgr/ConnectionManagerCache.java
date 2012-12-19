@@ -43,11 +43,8 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 import org.uddi.api_v3.BindingTemplate;
 import org.uddi.api_v3.BusinessDetail;
 import org.uddi.api_v3.BusinessEntity;
@@ -63,7 +60,7 @@ import org.uddi.api_v3.KeyedReference;
  */
 public class ConnectionManagerCache implements ConnectionManager {
 
-    private static Log log = LogFactory.getLog(ConnectionManagerCache.class);
+    private static final Logger LOG = Logger.getLogger(ConnectionManagerCache.class);
     private static String UDDI_SPEC_VERSION_KEY = "uddi:nhin:versionofservice";
     private static final String HOME_COMMUNITY_PREFIX = "urn:oid:";
     // Hash maps for the UDDI connection information. This hash map is keyed by home community ID.
@@ -113,7 +110,7 @@ public class ConnectionManagerCache implements ConnectionManager {
         try {
             businessDetail = getUddiConnectionManagerDAO().loadBusinessDetail();
         } catch (Exception ex) {
-            Logger.getLogger(ConnectionManagerCache.class.getName()).log(Level.SEVERE, null, ex);
+            LOG.error(ex);
         }
 
         if (businessDetail != null) {
@@ -136,7 +133,7 @@ public class ConnectionManagerCache implements ConnectionManager {
             } // synchronized (m_ohUDDIConnectInfo)
         } // if (oConnInfo != null)
         else {
-            log.warn("No UDDI information was found");
+            LOG.warn("No UDDI information was found");
         }
     }
 
@@ -179,7 +176,7 @@ public class ConnectionManagerCache implements ConnectionManager {
         try {
             businessDetail = getInternalConnectionManagerDAO().loadBusinessDetail();
         } catch (Exception ex) {
-            Logger.getLogger(ConnectionManagerCache.class.getName()).log(Level.SEVERE, null, ex);
+            LOG.error(ex);
         }
 
         if (businessDetail != null) {
@@ -202,7 +199,7 @@ public class ConnectionManagerCache implements ConnectionManager {
             } // synchronized (m_hInternalConnectInfo)
         } // if (oConnInfos != null)
         else {
-            log.warn("No UDDI information was found in");
+            LOG.warn("No UDDI information was found in");
         }
     }
 
@@ -244,19 +241,19 @@ public class ConnectionManagerCache implements ConnectionManager {
             // ----------------------------------------------------
             String sErrorMessage = "Failed to retrieve last modified dates on the connection manager XML files."
                     + "Error: " + e.getMessage();
-            log.warn(sErrorMessage, e);
+            LOG.warn(sErrorMessage, e);
         }
 
         // If we need to refresh the UDDI cache information.
         // --------------------------------------------------
         if (lUDDILastModified != m_lUDDIFileLastModified) {
             forceRefreshUDDICache();
-            log.info("UDDI cache was refreshed based on last modified time stamp change.");
+            LOG.info("UDDI cache was refreshed based on last modified time stamp change.");
         }
 
         if (lInternalLastModified != m_lInternalFileLastModified) {
             forceRefreshInternalConnectCache();
-            log.info("Internal connection cache was refreshed based on last modified time stamp change.");
+            LOG.info("Internal connection cache was refreshed based on last modified time stamp change.");
         }
     }
 
@@ -502,13 +499,13 @@ public class ConnectionManagerCache implements ConnectionManager {
         int idx = 0;
 
         if (urlList != null) {
-            log.debug("Connection Management URL Info List:");
+            LOG.debug("Connection Management URL Info List:");
             for (UrlInfo url : urlList) {
-                log.debug("   HCID: " + url.getHcid() + " URL #" + idx + ": " + url.getUrl());
+                LOG.debug("   HCID: " + url.getHcid() + " URL #" + idx + ": " + url.getUrl());
                 idx++;
             }
         } else {
-            log.debug("Url List was Empty");
+            LOG.debug("Url List was Empty");
         }
     }
 
@@ -580,7 +577,7 @@ public class ConnectionManagerCache implements ConnectionManager {
                     serviceName);
             
         } catch (Exception ex) {
-            Logger.getLogger(ConnectionManagerCache.class.getName()).log(Level.SEVERE, null, ex);
+            LOG.error(ex);
         }
 
         return specVersions;
@@ -615,7 +612,7 @@ public class ConnectionManagerCache implements ConnectionManager {
             sHomeCommunityId = PropertyAccessor.getInstance().getProperty(NhincConstants.GATEWAY_PROPERTY_FILE,
                     NhincConstants.HOME_COMMUNITY_ID_PROPERTY);
         } catch (PropertyAccessException ex) {
-            log.error("Error: Failed to retrieve " + NhincConstants.HOME_COMMUNITY_ID_PROPERTY
+            LOG.error("Error: Failed to retrieve " + NhincConstants.HOME_COMMUNITY_ID_PROPERTY
                     + " from property file: " + NhincConstants.GATEWAY_PROPERTY_FILE, ex);
         }
         
@@ -629,7 +626,7 @@ public class ConnectionManagerCache implements ConnectionManager {
     public String getDefaultEndpointURLByServiceName(String sHomeCommunityId, String sUniformServiceName)
             throws ConnectionManagerException {
     	ConnectionManagerCacheHelper helper = new ConnectionManagerCacheHelper();
-        log.debug("begin getEndpointURLByServiceName: " + sHomeCommunityId + " / " + sUniformServiceName);
+        LOG.debug("begin getEndpointURLByServiceName: " + sHomeCommunityId + " / " + sUniformServiceName);
 
         String sEndpointURL = "";
         BusinessEntity oEntity = getBusinessEntityByHCID(sHomeCommunityId);
@@ -649,25 +646,25 @@ public class ConnectionManagerCache implements ConnectionManager {
         	return sEndpointURL;
         }
         
-        if (log.isInfoEnabled()) {
-            log.info("Attempting to find binding template with spec version (" + highestSpec.toString() + ").");
+        if (LOG.isInfoEnabled()) {
+            LOG.info("Attempting to find binding template with spec version (" + highestSpec.toString() + ").");
         }
         
         BindingTemplate bindingTemplate = helper.findBindingTemplateByKey(oService, UDDI_SPEC_VERSION_KEY, highestSpec.toString());
         // we have no info on which binding template/endpoint "version" to use so just take the first.
         if (bindingTemplate == null || bindingTemplate.getAccessPoint() == null)
         {
-        	log.error("No binding templates found for home community: " + sHomeCommunityId + " and service name: " + sUniformServiceName);
+        	LOG.error("No binding templates found for home community: " + sHomeCommunityId + " and service name: " + sUniformServiceName);
         	return sEndpointURL;
         }
         
         sEndpointURL = bindingTemplate.getAccessPoint().getValue();
 
-        if (log.isInfoEnabled()) {
-            log.info("getEndpointURLByServiceName for home community (" + sHomeCommunityId + ") and service name ("
+        if (LOG.isInfoEnabled()) {
+            LOG.info("getEndpointURLByServiceName for home community (" + sHomeCommunityId + ") and service name ("
                     + sUniformServiceName + ") returned endpoint address: " + sEndpointURL);
         }
-        log.debug("end getEndpointURLByServiceName url = " + sEndpointURL);
+        LOG.debug("end getEndpointURLByServiceName url = " + sEndpointURL);
         return sEndpointURL;
     }
 
@@ -680,15 +677,15 @@ public class ConnectionManagerCache implements ConnectionManager {
         String sEndpointURL = null;
 
         try {
-            log.info("Attempting to retrieve property: " + NhincConstants.HOME_COMMUNITY_ID_PROPERTY
+            LOG.info("Attempting to retrieve property: " + NhincConstants.HOME_COMMUNITY_ID_PROPERTY
                     + " from property file: " + NhincConstants.GATEWAY_PROPERTY_FILE);
             sHomeCommunityId = PropertyAccessor.getInstance().getProperty(NhincConstants.GATEWAY_PROPERTY_FILE,
                     NhincConstants.HOME_COMMUNITY_ID_PROPERTY);
-            log.info("Retrieve local home community id: " + sHomeCommunityId);
+            LOG.info("Retrieve local home community id: " + sHomeCommunityId);
         } catch (PropertyAccessException ex) {
-            log.error("Error: Failed to retrieve " + NhincConstants.HOME_COMMUNITY_ID_PROPERTY
+            LOG.error("Error: Failed to retrieve " + NhincConstants.HOME_COMMUNITY_ID_PROPERTY
                     + " from property file: " + NhincConstants.GATEWAY_PROPERTY_FILE);
-            log.error(ex.getMessage());
+            LOG.error(ex.getMessage());
         }
 
         if (NullChecker.isNotNullish(sHomeCommunityId)) {
@@ -709,7 +706,7 @@ public class ConnectionManagerCache implements ConnectionManager {
         if (targetSystem != null) {
             if (targetSystem.getEpr() != null) {
                 // Extract the URL from the Endpoint Reference
-                log.debug("Attempting to look up URL by EPR");
+                LOG.debug("Attempting to look up URL by EPR");
                 if (targetSystem.getEpr() != null
                         && targetSystem.getEpr().getAddress() != null
                         && NullChecker.isNotNullish(targetSystem.getEpr().getAddress()
@@ -718,20 +715,20 @@ public class ConnectionManagerCache implements ConnectionManager {
                 }
             } else if (NullChecker.isNotNullish(targetSystem.getUrl())) {
                 // Echo back the URL provided
-                log.debug("Attempting to look up URL by URL");
+                LOG.debug("Attempting to look up URL by URL");
                 sEndpointURL = targetSystem.getUrl();
             } else if (targetSystem.getHomeCommunity() != null
                     && NullChecker.isNotNullish(targetSystem.getHomeCommunity().getHomeCommunityId())
                     && NullChecker.isNotNullish(serviceName)) {
                 // Get the URL based on Home Community Id and Service Name
                 String homeCommunityId = cleanHomeCommunityId(targetSystem.getHomeCommunity().getHomeCommunityId());
-                log.debug("Attempting to look up URL by home communinity id: " + homeCommunityId
+                LOG.debug("Attempting to look up URL by home communinity id: " + homeCommunityId
                         + " and service name: " + serviceName);
                 sEndpointURL = getDefaultEndpointURLByServiceName(homeCommunityId, serviceName);
             }
         }
 
-        log.debug("Returning URL: " + sEndpointURL);
+        LOG.debug("Returning URL: " + sEndpointURL);
         return sEndpointURL;
     }
 
@@ -748,7 +745,7 @@ public class ConnectionManagerCache implements ConnectionManager {
             for (NhinTargetCommunityType target : targets.getNhinTargetCommunity()) {
                 if (target.getHomeCommunity() != null
                         && NullChecker.isNotNullish(target.getHomeCommunity().getHomeCommunityId())) {
-                    log.info("Looking up URL by home community id");
+                    LOG.info("Looking up URL by home community id");
                     String endpt = getDefaultEndpointURLByServiceName(target.getHomeCommunity().getHomeCommunityId(),
                             serviceName);
 
@@ -761,13 +758,13 @@ public class ConnectionManagerCache implements ConnectionManager {
                 }
 
                 if (target.getRegion() != null) {
-                    log.info("Looking up URL by region");
+                    LOG.info("Looking up URL by region");
                     filterByRegion(endpointUrlSet, target.getRegion(), serviceName);
                 }
 
                 if (target.getList() != null) {
-                    log.info("Looking up URL by list");
-                    log.warn("The List target feature has not been implemented yet");
+                    LOG.info("Looking up URL by list");
+                    LOG.warn("The List target feature has not been implemented yet");
                 }
             }
         } else {

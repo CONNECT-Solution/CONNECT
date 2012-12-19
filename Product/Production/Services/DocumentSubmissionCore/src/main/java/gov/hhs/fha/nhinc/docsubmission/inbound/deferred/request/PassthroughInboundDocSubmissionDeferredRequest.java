@@ -26,8 +26,7 @@
  */
 package gov.hhs.fha.nhinc.docsubmission.inbound.deferred.request;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.docsubmission.DocSubmissionUtils;
@@ -46,7 +45,7 @@ import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
  */
 public class PassthroughInboundDocSubmissionDeferredRequest extends AbstractInboundDocSubmissionDeferredRequest {
 
-    private Log log = LogFactory.getLog(PassthroughInboundDocSubmissionDeferredRequest.class);
+    private static final Logger LOG = Logger.getLogger(PassthroughInboundDocSubmissionDeferredRequest.class);
     private AdapterDocSubmissionDeferredRequestProxyObjectFactory adapterFactory = new AdapterDocSubmissionDeferredRequestProxyObjectFactory();
     private DocSubmissionUtils dsUtils = DocSubmissionUtils.getInstance();
     private MessageGeneratorUtils msgUtils = MessageGeneratorUtils.getInstance();
@@ -57,11 +56,10 @@ public class PassthroughInboundDocSubmissionDeferredRequest extends AbstractInbo
 
     public PassthroughInboundDocSubmissionDeferredRequest(
             AdapterDocSubmissionDeferredRequestProxyObjectFactory adapterFactory, XDRAuditLogger auditLogger,
-            DocSubmissionUtils dsUtils, Log log) {
+            DocSubmissionUtils dsUtils) {
         this.adapterFactory = adapterFactory;
         this.auditLogger = auditLogger;
         this.dsUtils = dsUtils;
-        this.log = log;
     }
 
     XDRAcknowledgementType processDocSubmissionRequest(ProvideAndRegisterDocumentSetRequestType body,
@@ -73,7 +71,7 @@ public class PassthroughInboundDocSubmissionDeferredRequest extends AbstractInbo
             dsUtils.convertDataToFileLocationIfEnabled(body);
             response = sendToAdapter(body, assertion);
         } catch (LargePayloadException lpe) {
-            log.error("Failed to retrieve payload document.", lpe);
+            LOG.error("Failed to retrieve payload document.", lpe);
             response = msgUtils.createXDRAckWithRegistryErrorResponse();
         }
 

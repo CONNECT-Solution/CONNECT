@@ -26,8 +26,7 @@
  */
 package gov.hhs.fha.nhinc.filetransfer;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 
 /**
@@ -35,7 +34,7 @@ import gov.hhs.fha.nhinc.properties.PropertyAccessor;
  * @author dunnek
  */
 public class Util {
-    private static Log log = LogFactory.getLog(CDCTimerTask.class);
+    private static final Logger LOG = Logger.getLogger(CDCTimerTask.class);
     private static final String ADAPTER_PROPERTY_FILE = "adapter";
 
     public static byte[] convertToByte(String value) {
@@ -44,7 +43,7 @@ public class Util {
         try {
             rc = value.getBytes("UTF8");
         } catch (Exception ex) {
-            log.error("****** CDCTimerTask THROWABLE: " + ex.getMessage(), ex);
+            LOG.error("****** CDCTimerTask THROWABLE: " + ex.getMessage(), ex);
         }
 
         return rc;
@@ -57,7 +56,7 @@ public class Util {
         try {
             rc = new String(value, 0, value.length, "UTF8");// in string
         } catch (Exception ex) {
-            log.error("****** CDCTimerTask THROWABLE: " + ex.getMessage(), ex);
+            LOG.error("****** CDCTimerTask THROWABLE: " + ex.getMessage(), ex);
         }
         return rc;
     }

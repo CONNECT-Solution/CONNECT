@@ -28,8 +28,7 @@ package gov.hhs.fha.nhinc.patientdb.dao;
 
 import java.util.List;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -45,14 +44,14 @@ import gov.hhs.fha.nhinc.patientdb.persistence.HibernateUtil;
  * @author richard.ettema
  */
 public class AddressDAO {
-    private static Log log = LogFactory.getLog(AddressDAO.class);
+    private static final Logger LOG = Logger.getLogger(AddressDAO.class);
     private static AddressDAO addressDAO = new AddressDAO();
 
     /**
      * Constructor.
      */
     private AddressDAO() {
-        log.info("AddressDAO - Initialized");
+        LOG.info("AddressDAO - Initialized");
     }
 
     /**
@@ -60,7 +59,7 @@ public class AddressDAO {
      * @return AddressDAO
      */
     public static AddressDAO getAddressDAOInstance() {
-        log.debug("getAddressDAOInstance()..");
+        LOG.debug("getAddressDAOInstance()..");
         return addressDAO;
     }
 
@@ -76,7 +75,7 @@ public class AddressDAO {
      */
     public boolean create(Address addressRecord) {
 
-        log.debug("AddressDAO.create() - Begin");
+        LOG.debug("AddressDAO.create() - Begin");
 
         Session session = null;
 
@@ -94,11 +93,11 @@ public class AddressDAO {
 
                 tx = session.beginTransaction();
 
-                log.info("Inserting Record...");
+                LOG.info("Inserting Record...");
 
                 session.persist(addressRecord);
 
-                log.info("Address Inserted seccussfully...");
+                LOG.info("Address Inserted seccussfully...");
 
                 tx.commit();
 
@@ -112,7 +111,7 @@ public class AddressDAO {
 
                 }
 
-                log.error("Exception during insertion caused by :" + e.getMessage(), e);
+                LOG.error("Exception during insertion caused by :" + e.getMessage(), e);
 
             } finally {
 
@@ -128,7 +127,7 @@ public class AddressDAO {
 
         }
 
-        log.debug("AddressDAO.create() - End");
+        LOG.debug("AddressDAO.create() - End");
 
         return result;
 
@@ -147,13 +146,13 @@ public class AddressDAO {
 
     public Address read(Long id) {
 
-        log.debug("AddressDAO.read() - Begin");
+        LOG.debug("AddressDAO.read() - Begin");
 
         if (id == null) {
 
-            log.info("-- id Parameter is required for Address Query --");
+            LOG.info("-- id Parameter is required for Address Query --");
 
-            log.debug("AddressDAO.read() - End");
+            LOG.debug("AddressDAO.read() - End");
 
             return null;
 
@@ -171,7 +170,7 @@ public class AddressDAO {
 
             session = sessionFactory.openSession();
 
-            log.info("Reading Record...");
+            LOG.info("Reading Record...");
 
             // Build the criteria
 
@@ -189,7 +188,7 @@ public class AddressDAO {
 
         } catch (Exception e) {
 
-            log.error("Exception during read occured due to :" + e.getMessage(), e);
+            LOG.error("Exception during read occured due to :" + e.getMessage(), e);
 
         } finally {
 
@@ -205,7 +204,7 @@ public class AddressDAO {
 
         }
 
-        log.debug("AddressDAO.read() - End");
+        LOG.debug("AddressDAO.read() - End");
 
         return foundRecord;
 
@@ -222,7 +221,7 @@ public class AddressDAO {
 
     public boolean update(Address addressRecord) {
 
-        log.debug("AddressDAO.update() - Begin");
+        LOG.debug("AddressDAO.update() - Begin");
 
         Session session = null;
 
@@ -240,11 +239,11 @@ public class AddressDAO {
 
                 tx = session.beginTransaction();
 
-                log.info("Updating Record...");
+                LOG.info("Updating Record...");
 
                 session.saveOrUpdate(addressRecord);
 
-                log.info("Address Updated seccussfully...");
+                LOG.info("Address Updated seccussfully...");
 
                 tx.commit();
 
@@ -258,7 +257,7 @@ public class AddressDAO {
 
                 }
 
-                log.error("Exception during update caused by :" + e.getMessage(), e);
+                LOG.error("Exception during update caused by :" + e.getMessage(), e);
 
             } finally {
 
@@ -274,7 +273,7 @@ public class AddressDAO {
 
         }
 
-        log.debug("AddressDAO.update() - End");
+        LOG.debug("AddressDAO.update() - End");
 
         return result;
 
@@ -289,7 +288,7 @@ public class AddressDAO {
 
     public void delete(Address addressRecord) {
 
-        log.debug("AddressDAO.delete() - Begin");
+        LOG.debug("AddressDAO.delete() - Begin");
 
         Session session = null;
 
@@ -299,7 +298,7 @@ public class AddressDAO {
 
             session = sessionFactory.openSession();
 
-            log.info("Deleting Record...");
+            LOG.info("Deleting Record...");
 
             // Delete the Address record
 
@@ -307,7 +306,7 @@ public class AddressDAO {
 
         } catch (Exception e) {
 
-            log.error("Exception during delete occured due to :" + e.getMessage(), e);
+            LOG.error("Exception during delete occured due to :" + e.getMessage(), e);
 
         } finally {
 
@@ -323,7 +322,7 @@ public class AddressDAO {
 
         }
 
-        log.debug("AddressDAO.delete() - End");
+        LOG.debug("AddressDAO.delete() - End");
 
     }
 
@@ -346,13 +345,13 @@ public class AddressDAO {
 
     public List<Address> findPatientAddresses(Long patientId) {
 
-        log.debug("AddressDAO.readPatientAddresses() - Begin");
+        LOG.debug("AddressDAO.readPatientAddresses() - Begin");
 
         if (patientId == null) {
 
-            log.info("-- patientId Parameter is required for Address Query --");
+            LOG.info("-- patientId Parameter is required for Address Query --");
 
-            log.debug("AddressDAO.readPatientAddresses() - End");
+            LOG.debug("AddressDAO.readPatientAddresses() - End");
 
             return null;
 
@@ -368,7 +367,7 @@ public class AddressDAO {
 
             session = sessionFactory.openSession();
 
-            log.info("Reading Record...");
+            LOG.info("Reading Record...");
 
             // Build the criteria
 
@@ -380,7 +379,7 @@ public class AddressDAO {
 
         } catch (Exception e) {
 
-            log.error("Exception during read occured due to :" + e.getMessage(), e);
+            LOG.error("Exception during read occured due to :" + e.getMessage(), e);
 
         } finally {
 
@@ -396,7 +395,7 @@ public class AddressDAO {
 
         }
 
-        log.debug("readPatientAddresses.read() - End");
+        LOG.debug("readPatientAddresses.read() - End");
 
         return queryList;
 

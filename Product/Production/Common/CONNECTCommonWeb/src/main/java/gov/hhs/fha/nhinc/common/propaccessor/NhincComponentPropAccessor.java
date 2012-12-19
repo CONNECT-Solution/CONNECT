@@ -26,32 +26,32 @@
  */
 package gov.hhs.fha.nhinc.common.propaccessor;
 
-import gov.hhs.fha.nhinc.common.propertyaccess.GetPropertyResponseType;
-import gov.hhs.fha.nhinc.common.propertyaccess.GetPropertyRequestType;
-import gov.hhs.fha.nhinc.common.propertyaccess.GetPropertyBooleanResponseType;
-import gov.hhs.fha.nhinc.common.propertyaccess.GetPropertyBooleanRequestType;
-import gov.hhs.fha.nhinc.common.propertyaccess.GetPropertyNamesResponseType;
-import gov.hhs.fha.nhinc.common.propertyaccess.GetPropertyNamesRequestType;
-import gov.hhs.fha.nhinc.common.propertyaccess.GetPropertiesResponseType;
-import gov.hhs.fha.nhinc.common.propertyaccess.GetPropertiesRequestType;
-import gov.hhs.fha.nhinc.common.propertyaccess.GetRefreshDurationResponseType;
-import gov.hhs.fha.nhinc.common.propertyaccess.GetRefreshDurationRequestType;
-import gov.hhs.fha.nhinc.common.propertyaccess.GetDurationBeforeNextRefreshResponseType;
-import gov.hhs.fha.nhinc.common.propertyaccess.GetDurationBeforeNextRefreshRequestType;
-import gov.hhs.fha.nhinc.common.propertyaccess.ForceRefreshResponseType;
-import gov.hhs.fha.nhinc.common.propertyaccess.ForceRefreshRequestType;
-import gov.hhs.fha.nhinc.common.propertyaccess.GetPropertyFileLocationResponseType;
-import gov.hhs.fha.nhinc.common.propertyaccess.GetPropertyFileLocationRequestType;
-import gov.hhs.fha.nhinc.common.propertyaccess.DumpPropsToLogResponseType;
-import gov.hhs.fha.nhinc.common.propertyaccess.DumpPropsToLogRequestType;
-import gov.hhs.fha.nhinc.common.propertyaccess.WritePropertyFileResponseType;
-import gov.hhs.fha.nhinc.common.propertyaccess.WritePropertyFileRequestType;
-import gov.hhs.fha.nhinc.common.propertyaccess.DeletePropertyFileResponseType;
 import gov.hhs.fha.nhinc.common.propertyaccess.DeletePropertyFileRequestType;
-import javax.jws.WebService;
+import gov.hhs.fha.nhinc.common.propertyaccess.DeletePropertyFileResponseType;
+import gov.hhs.fha.nhinc.common.propertyaccess.DumpPropsToLogRequestType;
+import gov.hhs.fha.nhinc.common.propertyaccess.DumpPropsToLogResponseType;
+import gov.hhs.fha.nhinc.common.propertyaccess.ForceRefreshRequestType;
+import gov.hhs.fha.nhinc.common.propertyaccess.ForceRefreshResponseType;
+import gov.hhs.fha.nhinc.common.propertyaccess.GetDurationBeforeNextRefreshRequestType;
+import gov.hhs.fha.nhinc.common.propertyaccess.GetDurationBeforeNextRefreshResponseType;
+import gov.hhs.fha.nhinc.common.propertyaccess.GetPropertiesRequestType;
+import gov.hhs.fha.nhinc.common.propertyaccess.GetPropertiesResponseType;
+import gov.hhs.fha.nhinc.common.propertyaccess.GetPropertyBooleanRequestType;
+import gov.hhs.fha.nhinc.common.propertyaccess.GetPropertyBooleanResponseType;
+import gov.hhs.fha.nhinc.common.propertyaccess.GetPropertyFileLocationRequestType;
+import gov.hhs.fha.nhinc.common.propertyaccess.GetPropertyFileLocationResponseType;
+import gov.hhs.fha.nhinc.common.propertyaccess.GetPropertyNamesRequestType;
+import gov.hhs.fha.nhinc.common.propertyaccess.GetPropertyNamesResponseType;
+import gov.hhs.fha.nhinc.common.propertyaccess.GetPropertyRequestType;
+import gov.hhs.fha.nhinc.common.propertyaccess.GetPropertyResponseType;
+import gov.hhs.fha.nhinc.common.propertyaccess.GetRefreshDurationRequestType;
+import gov.hhs.fha.nhinc.common.propertyaccess.GetRefreshDurationResponseType;
+import gov.hhs.fha.nhinc.common.propertyaccess.WritePropertyFileRequestType;
+import gov.hhs.fha.nhinc.common.propertyaccess.WritePropertyFileResponseType;
+
 import javax.xml.ws.BindingType;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+
+import org.apache.log4j.Logger;
 
 /**
  * 
@@ -60,7 +60,7 @@ import org.apache.commons.logging.LogFactory;
 @BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
 public class NhincComponentPropAccessor implements gov.hhs.fha.nhinc.nhinccomponentpropaccessor.NhincComponentPropAccessorPortType  {
 
-    private static Log log = LogFactory.getLog(NhincComponentPropAccessor.class);
+    private static final Logger LOG = Logger.getLogger(NhincComponentPropAccessor.class);
 
     /**
      * This method returns the value of the given property that is located within the given property file. If the
@@ -79,7 +79,7 @@ public class NhincComponentPropAccessor implements gov.hhs.fha.nhinc.nhinccompon
             oOutput = PropertyAccessHelper.getProperty(getPropertyRequest);
         } catch (Exception e) {
             String sMessage = "Failed to retrieve property.  Exception: " + e.getMessage();
-            log.error(sMessage, e);
+            LOG.error(sMessage, e);
         }
 
         return oOutput;
@@ -99,7 +99,7 @@ public class NhincComponentPropAccessor implements gov.hhs.fha.nhinc.nhinccompon
             oOutput = PropertyAccessHelper.getPropertyBoolean(getPropertyBooleanRequest);
         } catch (Exception e) {
             String sMessage = "Failed to retrieve boolean property.  Exception: " + e.getMessage();
-            log.error(sMessage, e);
+            LOG.error(sMessage, e);
         }
 
         return oOutput;
@@ -118,7 +118,7 @@ public class NhincComponentPropAccessor implements gov.hhs.fha.nhinc.nhinccompon
             oOutput = PropertyAccessHelper.getPropertyNames(getPropertyNamesRequest);
         } catch (Exception e) {
             String sMessage = "Failed to retrieve property names.  Exception: " + e.getMessage();
-            log.error(sMessage, e);
+            LOG.error(sMessage, e);
         }
 
         return oOutput;
@@ -145,7 +145,7 @@ public class NhincComponentPropAccessor implements gov.hhs.fha.nhinc.nhinccompon
             oOutput = PropertyAccessHelper.getProperties(getPropertiesRequest);
         } catch (Exception e) {
             String sMessage = "Failed to retrieve properties.  Exception: " + e.getMessage();
-            log.error(sMessage, e);
+            LOG.error(sMessage, e);
         }
 
         return oOutput;
@@ -165,7 +165,7 @@ public class NhincComponentPropAccessor implements gov.hhs.fha.nhinc.nhinccompon
             oOutput = PropertyAccessHelper.getRefreshDuration(getRefreshDurationRequest);
         } catch (Exception e) {
             String sMessage = "Failed to retrieve refresh duration.  Exception: " + e.getMessage();
-            log.error(sMessage, e);
+            LOG.error(sMessage, e);
         }
 
         return oOutput;
@@ -186,7 +186,7 @@ public class NhincComponentPropAccessor implements gov.hhs.fha.nhinc.nhinccompon
             oOutput = PropertyAccessHelper.getDurationBeforeNextRefresh(getDurationBeforeNextRefreshRequest);
         } catch (Exception e) {
             String sMessage = "Failed to retrieve duration before next refresh.  Exception: " + e.getMessage();
-            log.error(sMessage, e);
+            LOG.error(sMessage, e);
         }
 
         return oOutput;
@@ -206,7 +206,7 @@ public class NhincComponentPropAccessor implements gov.hhs.fha.nhinc.nhinccompon
             oOutput = PropertyAccessHelper.forceRefresh(forceRefreshRequest);
         } catch (Exception e) {
             String sMessage = "Failed to force refresh.  Exception: " + e.getMessage();
-            log.error(sMessage, e);
+            LOG.error(sMessage, e);
         }
 
         return oOutput;
@@ -227,7 +227,7 @@ public class NhincComponentPropAccessor implements gov.hhs.fha.nhinc.nhinccompon
             oOutput = PropertyAccessHelper.getPropertyFileLocation(getPropertyFileLocationRequest);
         } catch (Exception e) {
             String sMessage = "Failed to retrieve property file location.  Exception: " + e.getMessage();
-            log.error(sMessage, e);
+            LOG.error(sMessage, e);
         }
 
         return oOutput;
@@ -246,7 +246,7 @@ public class NhincComponentPropAccessor implements gov.hhs.fha.nhinc.nhinccompon
             oOutput = PropertyAccessHelper.dumpPropsToLog(dumpPropsToLogRequest);
         } catch (Exception e) {
             String sMessage = "Failed to dump property file to log.  Exception: " + e.getMessage();
-            log.error(sMessage, e);
+            LOG.error(sMessage, e);
         }
 
         return oOutput;
@@ -271,7 +271,7 @@ public class NhincComponentPropAccessor implements gov.hhs.fha.nhinc.nhinccompon
             oOutput = PropertyAccessHelper.writePropertyFile(writePropertyFileRequest);
         } catch (Exception e) {
             String sMessage = "Failed to write property file.  Exception: " + e.getMessage();
-            log.error(sMessage, e);
+            LOG.error(sMessage, e);
         }
 
         return oOutput;
@@ -296,7 +296,7 @@ public class NhincComponentPropAccessor implements gov.hhs.fha.nhinc.nhinccompon
             oOutput = PropertyAccessHelper.deletePropertyFile(deletePropertyFileRequest);
         } catch (Exception e) {
             String sMessage = "Failed to delete property file.  Exception: " + e.getMessage();
-            log.error(sMessage, e);
+            LOG.error(sMessage, e);
         }
 
         return oOutput;

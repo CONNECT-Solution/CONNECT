@@ -40,8 +40,7 @@ import gov.hhs.fha.nhinc.patientdiscovery.aspect.PRPAIN201305UV02EventDescriptio
 import gov.hhs.fha.nhinc.patientdiscovery.aspect.PRPAIN201306UV02EventDescriptionBuilder;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 import org.hl7.v3.PRPAIN201306UV02;
 import org.hl7.v3.RespondingGatewayPRPAIN201305UV02RequestType;
 import org.hl7.v3.PRPAIN201305UV02;
@@ -52,24 +51,8 @@ import org.hl7.v3.PRPAIN201305UV02;
  */
 public class AdapterPatientDiscoveryProxyWebServiceUnsecuredImpl implements AdapterPatientDiscoveryProxy {
 
-    private Log log = null;
+    private static final Logger LOG = Logger.getLogger(AdapterPatientDiscoveryProxyWebServiceUnsecuredImpl.class);
     private WebServiceProxyHelper oProxyHelper = new WebServiceProxyHelper();
-
-    /**
-     * Default constructor.
-     */
-    public AdapterPatientDiscoveryProxyWebServiceUnsecuredImpl() {
-        log = createLogger();
-    }
-
-    /**
-     * Creates the log object for logging.
-     * 
-     * @return The log object.
-     */
-    protected Log createLogger() {
-        return ((log != null) ? log : LogFactory.getLog(getClass()));
-    }
 
     /**
      * This calls the unsecured web service for this method.
@@ -90,9 +73,9 @@ public class AdapterPatientDiscoveryProxyWebServiceUnsecuredImpl implements Adap
 
         try {
             if (body != null) {
-                log.debug("Before target system URL look up.");
+                LOG.debug("Before target system URL look up.");
                 url = oProxyHelper.getAdapterEndPointFromConnectionManager(sServiceName);
-                log.debug("After target system URL look up. URL for service: " + sServiceName + " is: " + url);
+                LOG.debug("After target system URL look up. URL for service: " + sServiceName + " is: " + url);
 
                 if (NullChecker.isNotNullish(url)) {
                     RespondingGatewayPRPAIN201305UV02RequestType request = 
@@ -117,7 +100,7 @@ public class AdapterPatientDiscoveryProxyWebServiceUnsecuredImpl implements Adap
                         + ").  The input parameter is null.");
             }
         } catch (Exception e) {
-            log.error("Failed to call the web service (" + sServiceName + ").  An unexpected exception occurred.  "
+            LOG.error("Failed to call the web service (" + sServiceName + ").  An unexpected exception occurred.  "
                     + "Exception: " + e.getMessage(), e);
             throw new PatientDiscoveryException(e.fillInStackTrace());
         }

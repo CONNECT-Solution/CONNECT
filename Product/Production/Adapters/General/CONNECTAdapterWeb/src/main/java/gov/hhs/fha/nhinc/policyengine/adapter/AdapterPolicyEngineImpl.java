@@ -29,8 +29,8 @@ package gov.hhs.fha.nhinc.policyengine.adapter;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyResponseType;
 import javax.xml.ws.WebServiceContext;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+
+import org.apache.log4j.Logger;
 
 /**
  * 
@@ -38,23 +38,15 @@ import org.apache.commons.logging.LogFactory;
  * @author Neil Webb
  */
 public class AdapterPolicyEngineImpl {
-    private Log log = null;
-
-    public AdapterPolicyEngineImpl() {
-        log = createLogger();
-    }
-
-    protected Log createLogger() {
-        return LogFactory.getLog(getClass());
-    }
-
+    private static final Logger LOG = Logger.getLogger(AdapterPolicyEngineImpl.class);
+    
     protected void loadAssertion(AssertionType assertion, WebServiceContext wsContext) throws Exception {
         // TODO: Extract message ID from the web service context for logging.
     }
 
     public CheckPolicyResponseType checkPolicy(
             gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyRequestType request, WebServiceContext context) {
-        log.debug("Begin AdapterPolicyEngineImpl.checkPolicy (unsecure)");
+        LOG.debug("Begin AdapterPolicyEngineImpl.checkPolicy (unsecure)");
         CheckPolicyResponseType checkPolicyResp = null;
 
         gov.hhs.fha.nhinc.policyengine.adapter.AdapterPolicyEngineProcessorImpl oPolicyEngine = new gov.hhs.fha.nhinc.policyengine.adapter.AdapterPolicyEngineProcessorImpl();
@@ -67,10 +59,10 @@ public class AdapterPolicyEngineImpl {
             checkPolicyResp = oPolicyEngine.checkPolicy(checkPolicyRequest, assertion);
         } catch (Exception e) {
             String sMessage = "Error occurred calling AdapterPolicyEngineImpl.checkPolicy.  Error: " + e.getMessage();
-            log.error(sMessage, e);
+            LOG.error(sMessage, e);
             throw new RuntimeException(sMessage, e);
         }
-        log.debug("End AdapterPolicyEngineImpl.checkPolicy (unsecure)");
+        LOG.debug("End AdapterPolicyEngineImpl.checkPolicy (unsecure)");
         return checkPolicyResp;
     }
 

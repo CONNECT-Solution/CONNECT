@@ -31,21 +31,16 @@ import gov.hhs.fha.nhinc.orchestration.OrchestrationStrategy;
 import gov.hhs.fha.nhinc.subscribe.nhin.proxy.NhinHiemSubscribeProxy;
 import gov.hhs.fha.nhinc.subscribe.nhin.proxy.NhinHiemSubscribeProxyObjectFactory;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 import org.oasis_open.docs.wsn.b_2.SubscribeResponse;
 
 class OutboundSubscribeStrategyImpl_g0 implements OrchestrationStrategy {
 
-    private static Log log = LogFactory.getLog(OutboundSubscribeStrategyImpl_g0.class);
+    private static final Logger LOG = Logger.getLogger(OutboundSubscribeStrategyImpl_g0.class);
 
     public OutboundSubscribeStrategyImpl_g0() {
     }
 
-    protected Log getLogger() {
-        return log;
-    }
-    
     protected NhinHiemSubscribeProxy getNhinDocSubmissionProxy() {
         return new NhinHiemSubscribeProxyObjectFactory().getNhinHiemSubscribeProxy();
     }
@@ -55,12 +50,12 @@ class OutboundSubscribeStrategyImpl_g0 implements OrchestrationStrategy {
         if (message instanceof OutboundSubscribeOrchestratable) {
             execute((OutboundSubscribeOrchestratable) message);
         } else {
-            getLogger().error("Not an OutboundDocSubmissionOrchestratable.");
+            LOG.error("Not an OutboundDocSubmissionOrchestratable.");
         }
     }
 
     public void execute(OutboundSubscribeOrchestratable message) {
-        getLogger().debug("Begin OutboundDocSubmissionOrchestratableImpl_g0.process");
+        LOG.debug("Begin OutboundDocSubmissionOrchestratableImpl_g0.process");
 
         NhinHiemSubscribeProxy nhincSubscribe = getNhinDocSubmissionProxy();
         SubscribeResponse response = null;
@@ -68,10 +63,10 @@ class OutboundSubscribeStrategyImpl_g0 implements OrchestrationStrategy {
 			response = nhincSubscribe.subscribe(message.getRequest(),
 			        message.getAssertion(), message.getTarget());
 		} catch (Exception e) {
-			log.error("Failure to process nhin Subscribe message.", e);
+			LOG.error("Failure to process nhin Subscribe message.", e);
 		}
         message.setResponse(response);
 
-        getLogger().debug("End OutboundDocSubmissionOrchestratableImpl_g0.process");
+        LOG.debug("End OutboundDocSubmissionOrchestratableImpl_g0.process");
     }
 }

@@ -44,8 +44,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import javax.faces.FacesException;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+
+import org.apache.log4j.Logger;
 
 /**
  * <p>
@@ -61,7 +61,7 @@ import org.apache.commons.logging.LogFactory;
  */
 public class ManageQueue extends AbstractPageBean {
 
-    private static Log log = LogFactory.getLog(ManageQueue.class);
+    private static final Logger LOG = Logger.getLogger(ManageQueue.class);
     private static final String PATIENT_DISCOVERY = "PatientDiscovery";
     private static final String QUERY_FOR_DOCUMENT = "QueryForDocument";
     private static final String RETRIEVE_DOCUMENT = "RetrieveDocument";
@@ -298,7 +298,7 @@ public class ManageQueue extends AbstractPageBean {
         this.errorMessages.setText("");
 
         if (!isDateSearchCriteriaValid()) {
-            log.error("Error Message: " + errors);
+            LOG.error("Error Message: " + errors);
             this.errorMessages.setText(errors);
             return null;
         }
@@ -340,7 +340,7 @@ public class ManageQueue extends AbstractPageBean {
                 stopDate = cal2.getTime();
             }
         } catch (Exception ex) {
-            log.error("Error Message: " + ex);
+            LOG.error("Error Message: " + ex);
             this.errorMessages
                     .setText("Unable to parse given input dates, please recheck the given dates and retry with the sample format(MMDDYYYY HH:MM:SS)");
             return null;

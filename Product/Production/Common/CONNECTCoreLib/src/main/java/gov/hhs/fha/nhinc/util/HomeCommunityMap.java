@@ -31,8 +31,7 @@ import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.AdhocQueryType;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 import org.uddi.api_v3.BusinessEntity;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
@@ -57,7 +56,7 @@ import gov.hhs.fha.nhinc.properties.PropertyAccessor;
  */
 public class HomeCommunityMap {
 
-    private static Log log = LogFactory.getLog(HomeCommunityMap.class);
+    private static final Logger LOG = Logger.getLogger(HomeCommunityMap.class);
 
     protected ConnectionManagerCache getConnectionManagerCache() {
         return ConnectionManagerCache.getInstance();
@@ -87,7 +86,7 @@ public class HomeCommunityMap {
                 sHomeCommunityName = helper.getCommunityId(oEntity);
             }
         } catch (Exception e) {
-            log.warn("Failed to retrieve textual name for home community ID: " + sHomeCommunityId, e);
+            LOG.warn("Failed to retrieve textual name for home community ID: " + sHomeCommunityId, e);
         }
 
         return sHomeCommunityName;
@@ -105,7 +104,7 @@ public class HomeCommunityMap {
                 && target.getNhinTargetCommunity().get(0) != null) {
             responseCommunityId = target.getNhinTargetCommunity().get(0).getHomeCommunity().getHomeCommunityId();
         }
-        log.debug("=====>>>>> responseCommunityId is " + responseCommunityId);
+        LOG.debug("=====>>>>> responseCommunityId is " + responseCommunityId);
         return formatHomeCommunityId(responseCommunityId);
     }
 
@@ -121,7 +120,7 @@ public class HomeCommunityMap {
                 && target.getHomeCommunity().getHomeCommunityId() != null) {
             responseCommunityId = target.getHomeCommunity().getHomeCommunityId();
         }
-        log.debug("=====>>>>> responseCommunityId is " + responseCommunityId);
+        LOG.debug("=====>>>>> responseCommunityId is " + responseCommunityId);
         return formatHomeCommunityId(responseCommunityId);
     }
 
@@ -220,7 +219,7 @@ public class HomeCommunityMap {
      */
     private static String formatHomeCommunityId(String communityId) {
         if (communityId != null) {
-            log.debug("communityId prior to remove urn:oid" + communityId);
+            LOG.debug("communityId prior to remove urn:oid" + communityId);
             if (communityId.startsWith("urn:oid:")) {
                 communityId = communityId.substring(8);
             }
@@ -240,7 +239,7 @@ public class HomeCommunityMap {
             sHomeCommunity = PropertyAccessor.getInstance().getProperty(NhincConstants.GATEWAY_PROPERTY_FILE,
                     NhincConstants.HOME_COMMUNITY_ID_PROPERTY);
         } catch (PropertyAccessException ex) {
-            log.error(ex.getMessage());
+            LOG.error(ex.getMessage());
         }
 
         return sHomeCommunity;

@@ -41,7 +41,7 @@ import oasis.names.tc.ebxml_regrep.xsd.rim._3.IdentifiableType;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.RegistryObjectListType;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.RegistryPackageType;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.SlotType1;
-import org.apache.commons.logging.Log;
+
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -85,17 +85,11 @@ public class PatientConsentDocumentBuilderHelperTest {
     public void testCreateSubmitObjectRequestFull() {
         try {
             // Create Mock objects
-            final Log mockLog = context.mock(Log.class);
             final String propertiesPath = "";
             final String documentUniqueId = "999.200.20.54";
             final String submissionSetUniqueId = "888.100.10.42";
 
             PatientConsentDocumentBuilderHelper builder = new PatientConsentDocumentBuilderHelper() {
-                @Override
-                protected Log createLogger() {
-                    return mockLog;
-                }
-
                 @Override
                 protected String getPropertiesFilePath() {
                     return propertiesPath;
@@ -112,16 +106,6 @@ public class PatientConsentDocumentBuilderHelperTest {
                     }
                 }
             };
-
-            // Set expectations
-            context.checking(new Expectations() {
-                {
-                    allowing(mockLog).isDebugEnabled();
-                    allowing(mockLog).isInfoEnabled();
-                    allowing(mockLog).debug(with(any(String.class)));
-                    allowing(mockLog).info(with(any(String.class)));
-                }
-            });
 
             String targetObject = ""; // If not empty/null, creates an association to this document id
             String sHomeCommunityId = "1.1"; // Used if patient id from patient preferences is not already HL7 2.x
@@ -226,17 +210,11 @@ public class PatientConsentDocumentBuilderHelperTest {
     public void testCreateSubmitObjectRequestMinimal() {
         try {
             // Create Mock objects
-            final Log mockLog = context.mock(Log.class);
             final String propertiesPath = "";
             final String documentUniqueId = "999.200.20.54";
             final String submissionSetUniqueId = "888.100.10.42";
 
             PatientConsentDocumentBuilderHelper builder = new PatientConsentDocumentBuilderHelper() {
-                @Override
-                protected Log createLogger() {
-                    return mockLog;
-                }
-
                 @Override
                 protected String getPropertiesFilePath() {
                     return propertiesPath;
@@ -253,16 +231,6 @@ public class PatientConsentDocumentBuilderHelperTest {
                     }
                 }
             };
-
-            // Set expectations
-            context.checking(new Expectations() {
-                {
-                    allowing(mockLog).isDebugEnabled();
-                    allowing(mockLog).isInfoEnabled();
-                    allowing(mockLog).debug(with(any(String.class)));
-                    allowing(mockLog).info(with(any(String.class)));
-                }
-            });
 
             String targetObject = ""; // If not empty/null, creates an association to this document id
             String sHomeCommunityId = "1.1"; // Used if patient id from patient preferences is not already HL7 2.x
@@ -339,17 +307,11 @@ public class PatientConsentDocumentBuilderHelperTest {
     public void testCreateSubmitObjectRequestNoMetadata() {
         try {
             // Create Mock objects
-            final Log mockLog = context.mock(Log.class);
             final String propertiesPath = "";
             final String documentUniqueId = "999.200.20.54";
             final String submissionSetUniqueId = "888.100.10.42";
 
             PatientConsentDocumentBuilderHelper builder = new PatientConsentDocumentBuilderHelper() {
-                @Override
-                protected Log createLogger() {
-                    return mockLog;
-                }
-
                 @Override
                 protected String getPropertiesFilePath() {
                     return propertiesPath;
@@ -366,16 +328,6 @@ public class PatientConsentDocumentBuilderHelperTest {
                     }
                 }
             };
-
-            // Set expectations
-            context.checking(new Expectations() {
-                {
-                    allowing(mockLog).isDebugEnabled();
-                    allowing(mockLog).isInfoEnabled();
-                    allowing(mockLog).debug(with(any(String.class)));
-                    allowing(mockLog).info(with(any(String.class)));
-                }
-            });
 
             String targetObject = ""; // If not empty/null, creates an association to this document id
             String sHomeCommunityId = "1.1"; // Used if patient id from patient preferences is not already HL7 2.x

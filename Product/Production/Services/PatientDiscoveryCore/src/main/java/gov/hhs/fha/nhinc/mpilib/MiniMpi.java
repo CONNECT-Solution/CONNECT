@@ -26,8 +26,7 @@
  */
 package gov.hhs.fha.nhinc.mpilib;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 
@@ -37,7 +36,7 @@ import gov.hhs.fha.nhinc.nhinclib.NullChecker;
  */
 public class MiniMpi implements IMPI {
 
-    private static Log log = LogFactory.getLog(MiniMpi.class);
+    private static final Logger LOG = Logger.getLogger(MiniMpi.class);
 
     private static MiniMpi instance = null;
 
@@ -85,7 +84,7 @@ public class MiniMpi implements IMPI {
         Patients results = new Patients();
         PatientMatcher matcher = PatientMatcher.getInstance();
 
-        log.info("performing a demograpics search");
+        LOG.info("performing a demograpics search");
         for (Patient patient : this.getPatients()) {
             if ((matcher.isPatientOptedInCriteriaMet(patient) || includeOptOutPatient)
                     && matcher.hasMatchByDemographics(patient, searchParams)) {
@@ -100,7 +99,7 @@ public class MiniMpi implements IMPI {
         Patients results = new Patients();
         PatientMatcher matcher = PatientMatcher.getInstance();
 
-        log.info("performing an id search");
+        LOG.info("performing an id search");
         for (Patient patient : this.getPatients()) {
             if ((matcher.isPatientOptedInCriteriaMet(patient) || includeOptOutPatient)
                     && matcher.hasMatchByIds(patient, searchParams)) {
@@ -153,9 +152,9 @@ public class MiniMpi implements IMPI {
 
         Identifier id;
         if (existingPatients.size() == 0) {
-            log.error("Delete failed.  Patient not found in MPI.");
+            LOG.error("Delete failed.  Patient not found in MPI.");
         } else if (existingPatients.size() == 1) {
-            log.info("Found 1 entry in MPI for the patient");
+            LOG.info("Found 1 entry in MPI for the patient");
 
             for (int idIdx = 0; idIdx < existingPatients.get(0).getIdentifiers().size(); idIdx++) {
                 id = existingPatients.get(0).getIdentifiers().get(idIdx);
@@ -168,7 +167,7 @@ public class MiniMpi implements IMPI {
             saveData();
 
         } else {
-            log.error("Delete failed.  Multiple instances of the patient were found.");
+            LOG.error("Delete failed.  Multiple instances of the patient were found.");
         }
     }
 
@@ -194,21 +193,21 @@ public class MiniMpi implements IMPI {
         Patients results = new Patients();
 
         if (searchByDemographics) {
-            log.info("searching by demographic");
+            LOG.info("searching by demographic");
             results = searchByDemographics(patient, includeOptOutPatient);
         } else {
-            log.info("no attempt on demographic search");
+            LOG.info("no attempt on demographic search");
         }
 
         if (results.size() == 0) {
-            log.info("searching by id");
+            LOG.info("searching by id");
             results = searchById(patient, includeOptOutPatient);
         } else {
-            log.info("no attempt on id search");
+            LOG.info("no attempt on id search");
         }
 
         if (results != null) {
-            log.info("result size=" + results.size());
+            LOG.info("result size=" + results.size());
         }
         return results;
     }

@@ -29,8 +29,7 @@ package gov.hhs.fha.nhinc.patientdiscovery.entity;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.orchestration.OrchestrationContextBuilder;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 
 /**
  * Returns the OrchestrationContextBuilder appropriate for the particular apiLevel
@@ -39,7 +38,7 @@ import org.apache.commons.logging.LogFactory;
  */
 public class OutboundPatientDiscoveryFactory {
 
-    private static Log log = LogFactory.getLog(OutboundPatientDiscoveryFactory.class);
+    private static final Logger LOG = Logger.getLogger(OutboundPatientDiscoveryFactory.class);
 
     private static OutboundPatientDiscoveryFactory INSTANCE = new OutboundPatientDiscoveryFactory();
 
@@ -47,10 +46,10 @@ public class OutboundPatientDiscoveryFactory {
     }
 
     public OrchestrationContextBuilder createOrchestrationContextBuilder(NhincConstants.GATEWAY_API_LEVEL apiLevel) {
-        log.debug("EntityPatientDiscoveryFactory has apiLevel=" + apiLevel.toString());
+        LOG.debug("EntityPatientDiscoveryFactory has apiLevel=" + apiLevel.toString());
         switch (apiLevel) {
         default:
-        log.warn("The same implementation is used for both PD g0 and PD g1.");
+        LOG.warn("The same implementation is used for both PD g0 and PD g1.");
         return new OutboundPatientDiscoveryOrchestrationContextBuilder();
         }
     }

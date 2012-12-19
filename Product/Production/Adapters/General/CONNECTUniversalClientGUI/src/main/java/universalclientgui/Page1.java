@@ -44,8 +44,7 @@ import java.io.IOException;
 import javax.faces.FacesException;
 import javax.faces.context.FacesContext;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 
 /**
  * <p>Page bean that corresponds to a similarly named JSP page.  This
@@ -63,7 +62,7 @@ public class Page1 extends AbstractPageBean {
 
     private static final String PROPERTY_FILE_NAME_ADAPTER = "adapter";
     private static final String PROPERTY_FILE_KEY_AGENCY = "AgencyName";
-    private static Log log = LogFactory.getLog(Page1.class);
+    private static final Logger LOG = Logger.getLogger(Page1.class);
 
     /**
      * <p>Automatically managed component initialization.  <strong>WARNING:</strong>
@@ -199,14 +198,14 @@ public class Page1 extends AbstractPageBean {
         authRequest.setUserName("Default");
         authRequest.setPassword("Default");
         AuthenticateUserResponseType authResp = adapterAuthenticationProxy.authenticateUser(authRequest);
-        log.debug("Page1.prerender Authentication Service " +  adapterAuthenticationProxy + " Avail: " + authResp.isIsAuthenticationAvailable());
+        LOG.debug("Page1.prerender Authentication Service " +  adapterAuthenticationProxy + " Avail: " + authResp.isIsAuthenticationAvailable());
         if (authResp != null && !authResp.isIsAuthenticationAvailable()) {
             try {
                 getSessionBean1().setAuthToken("NoOpToken");
                 FacesContext context = FacesContext.getCurrentInstance();
                 context.getExternalContext().redirect("faces/Page2.jsp");
             } catch (IOException ex) {
-                log.error("Universal Client can not prerender Page1: " + ex.getMessage());
+                LOG.error("Universal Client can not prerender Page1: " + ex.getMessage());
             }
         }
 
@@ -214,7 +213,7 @@ public class Page1 extends AbstractPageBean {
             String agencyName = PropertyAccessor.getInstance().getProperty(PROPERTY_FILE_NAME_ADAPTER, PROPERTY_FILE_KEY_AGENCY);
             this.agencyLogo.setText(agencyName);
         } catch (PropertyAccessException ex) {
-            log.error("Universal Client can not access " + PROPERTY_FILE_KEY_AGENCY + " property: " + ex.getMessage());
+            LOG.error("Universal Client can not access " + PROPERTY_FILE_KEY_AGENCY + " property: " + ex.getMessage());
         }
 
     }

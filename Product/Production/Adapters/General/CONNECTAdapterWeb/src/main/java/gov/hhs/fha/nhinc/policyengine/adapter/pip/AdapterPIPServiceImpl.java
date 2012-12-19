@@ -31,23 +31,15 @@ import gov.hhs.fha.nhinc.common.nhinccommonadapter.RetrievePtConsentByPtDocIdRes
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.RetrievePtConsentByPtIdResponseType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.StorePtConsentResponseType;
 import javax.xml.ws.WebServiceContext;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+
+import org.apache.log4j.Logger;
 
 /**
  * 
  * @author Neil Webb
  */
 public class AdapterPIPServiceImpl {
-    private Log log = null;
-
-    public AdapterPIPServiceImpl() {
-        log = createLogger();
-    }
-
-    protected Log createLogger() {
-        return LogFactory.getLog(getClass());
-    }
+    private static final Logger LOG = Logger.getLogger(AdapterPIPServiceImpl.class);
 
     protected AdapterPIPImpl getAdapterPIPImpl() {
         return new AdapterPIPImpl();
@@ -68,7 +60,7 @@ public class AdapterPIPServiceImpl {
     public gov.hhs.fha.nhinc.common.nhinccommonadapter.RetrievePtConsentByPtIdResponseType retrievePtConsentByPtId(
             gov.hhs.fha.nhinc.common.nhinccommonadapter.RetrievePtConsentByPtIdRequestType retrievePtConsentByPtIdRequest,
             WebServiceContext context) {
-        log.debug("Begin retrievePtConsentByPtId");
+        LOG.debug("Begin retrievePtConsentByPtId");
         RetrievePtConsentByPtIdResponseType oResponse = new RetrievePtConsentByPtIdResponseType();
 
         AdapterPIPImpl oAdapterPIPImpl = getAdapterPIPImpl();
@@ -81,11 +73,11 @@ public class AdapterPIPServiceImpl {
         } catch (Exception e) {
             String sErrorMessage = "Error occurred calling AdapterPIPImpl.retrievePtConsentByPtId.  Error: "
                     + e.getMessage();
-            log.error(sErrorMessage, e);
+            LOG.error(sErrorMessage, e);
             throw new RuntimeException(sErrorMessage, e);
         }
 
-        log.debug("End retrievePtConsentByPtId");
+        LOG.debug("End retrievePtConsentByPtId");
         return oResponse;
     }
 
@@ -111,7 +103,7 @@ public class AdapterPIPServiceImpl {
         } catch (Exception e) {
             String sErrorMessage = "Error occurred calling AdapterPIPImpl.retrievePtConsentByPtDocId.  Error: "
                     + e.getMessage();
-            log.error(sErrorMessage, e);
+            LOG.error(sErrorMessage, e);
             throw new RuntimeException(sErrorMessage, e);
         }
 
@@ -141,7 +133,7 @@ public class AdapterPIPServiceImpl {
         } catch (Exception e) {
             String sErrorMessage = "Error occurred calling AdapterPIPImpl.storePtConsent.  Error: " + e.getMessage();
             oResponse.setStatus("FAILED: " + sErrorMessage);
-            log.error(sErrorMessage, e);
+            LOG.error(sErrorMessage, e);
             throw new RuntimeException(sErrorMessage, e);
         }
 

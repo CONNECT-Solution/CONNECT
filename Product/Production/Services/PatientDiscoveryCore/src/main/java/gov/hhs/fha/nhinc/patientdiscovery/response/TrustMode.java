@@ -38,8 +38,7 @@ import gov.hhs.fha.nhinc.transform.subdisc.HL7PRPA201301Transforms;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 import org.hl7.v3.II;
 import org.hl7.v3.PRPAIN201301UV02;
 import org.hl7.v3.PRPAIN201305UV02;
@@ -52,11 +51,10 @@ import org.hl7.v3.PRPAIN201306UV02MFMIMT700711UV01Subject1;
  */
 public class TrustMode implements ResponseMode {
 
-    private Log log = null;
+    private static final Logger LOG = Logger.getLogger(TrustMode.class);
 
     public TrustMode() {
         super();
-        log = createLogger();
     }
 
     /**
@@ -66,7 +64,7 @@ public class TrustMode implements ResponseMode {
      * @return response
      */
     public PRPAIN201306UV02 processResponse(ResponseParams params) {
-        log.debug("Begin TrustMode.processResponse()...");
+        LOG.debug("Begin TrustMode.processResponse()...");
         PRPAIN201306UV02 response = null;
 
         if (params != null) {
@@ -78,9 +76,9 @@ public class TrustMode implements ResponseMode {
             if (response != null && response.getControlActProcess() != null
                     && NullChecker.isNotNullish(response.getControlActProcess().getSubject())) {
                 pRPAINSubjects = response.getControlActProcess().getSubject();
-                log.debug("processResponse - Subjects size: " + pRPAINSubjects.size());
+                LOG.debug("processResponse - Subjects size: " + pRPAINSubjects.size());
             } else {
-                log.debug("processResponse - response/subjects is null");
+                LOG.debug("processResponse - response/subjects is null");
             }
 
             II remotePatId = null;
@@ -89,7 +87,7 @@ public class TrustMode implements ResponseMode {
             if (requestHasLivingSubjectId(requestMsg) && localPatId != null) {
                 for (PRPAIN201306UV02MFMIMT700711UV01Subject1 pRPAINSubject : pRPAINSubjects) {
                     int pRPAINSubjectInd = response.getControlActProcess().getSubject().indexOf(pRPAINSubject);
-                    log.debug("processResponse - SubjectIndex: " + pRPAINSubjectInd);
+                    LOG.debug("processResponse - SubjectIndex: " + pRPAINSubjectInd);
 
                     PRPAIN201306UV02MFMIMT700711UV01Subject1 subjReplaced = response.getControlActProcess()
                             .getSubject().set(0, pRPAINSubject);
@@ -100,21 +98,21 @@ public class TrustMode implements ResponseMode {
                         if (remotePatId != null) {
                             sendToPatientCorrelationComponent(localPatId, remotePatId, assertion, response);
                         } else {
-                            log.error("One or more of the Patient Id values are null");
+                            LOG.error("One or more of the Patient Id values are null");
                         }
                     } catch (Exception ex) {
-                        log.error(ex.getMessage(), ex);
+                        LOG.error(ex.getMessage(), ex);
                     }
                     response.getControlActProcess().getSubject().set(pRPAINSubjectInd, pRPAINSubject);
                     response.getControlActProcess().getSubject().set(0, subjReplaced);
                 }
             } else {
-                log.debug("Local Patient Id was not provided, no correlation will be attempted");
+                LOG.debug("Local Patient Id was not provided, no correlation will be attempted");
             }
         } else {
-            log.warn("processResponse - params is null");
+            LOG.warn("processResponse - params is null");
         }
-        log.debug("End TrustMode.processResponse()...");
+        LOG.debug("End TrustMode.processResponse()...");
         return response;
     }
 
@@ -127,22 +125,22 @@ public class TrustMode implements ResponseMode {
      * @return response
      */
     public PRPAIN201306UV02 processResponse(PRPAIN201306UV02 response, AssertionType assertion, II localPatId) {
-        log.debug("begin processResponse");
+        LOG.debug("begin processResponse");
         if (response != null) {
             if (localPatId != null) {
                 List<PRPAIN201306UV02MFMIMT700711UV01Subject1> pRPAINSubjects = new ArrayList<PRPAIN201306UV02MFMIMT700711UV01Subject1>();
                 if (response.getControlActProcess() != null
                         && NullChecker.isNotNullish(response.getControlActProcess().getSubject())) {
                     pRPAINSubjects = response.getControlActProcess().getSubject();
-                    log.debug("processResponse - Subjects size: " + pRPAINSubjects.size());
+                    LOG.debug("processResponse - Subjects size: " + pRPAINSubjects.size());
                 } else {
-                    log.debug("processResponse - response/subjects is null");
+                    LOG.debug("processResponse - response/subjects is null");
                 }
 
                 II remotePatId = null;
                 for (PRPAIN201306UV02MFMIMT700711UV01Subject1 pRPAINSubject : pRPAINSubjects) {
                     int pRPAINSubjectInd = response.getControlActProcess().getSubject().indexOf(pRPAINSubject);
-                    log.debug("processResponse - SubjectIndex: " + pRPAINSubjectInd);
+                    LOG.debug("processResponse - SubjectIndex: " + pRPAINSubjectInd);
 
                     PRPAIN201306UV02MFMIMT700711UV01Subject1 subjReplaced = response.getControlActProcess()
                             .getSubject().set(0, pRPAINSubject);
@@ -153,22 +151,22 @@ public class TrustMode implements ResponseMode {
                         if (remotePatId != null) {
                             sendToPatientCorrelationComponent(localPatId, remotePatId, assertion, response);
                         } else {
-                            log.error("One or more of the Patient Id values are null");
+                            LOG.error("One or more of the Patient Id values are null");
                         }
                     } catch (Exception ex) {
-                        log.error(ex.getMessage(), ex);
+                        LOG.error(ex.getMessage(), ex);
                     }
 
                     response.getControlActProcess().getSubject().set(pRPAINSubjectInd, pRPAINSubject);
                     response.getControlActProcess().getSubject().set(0, subjReplaced);
                 }
             } else {
-                log.debug("Local Patient Id was not provided, no correlation will be attempted");
+                LOG.debug("Local Patient Id was not provided, no correlation will be attempted");
             }
         } else {
-            log.warn("processResponse - response is null, no correlation will be attempted");
+            LOG.warn("processResponse - response is null, no correlation will be attempted");
         }
-        log.debug("End TrustMode.processResponse()...");
+        LOG.debug("End TrustMode.processResponse()...");
         return response;
     }
 
@@ -216,7 +214,7 @@ public class TrustMode implements ResponseMode {
         try {
             localPatId = new PatientDiscovery201305Processor().extractPatientIdFrom201305(request);
         } catch (Exception ex) {
-            log.error(ex.getMessage(), ex);
+            LOG.error(ex.getMessage(), ex);
         }
         return localPatId;
     }
@@ -250,10 +248,6 @@ public class TrustMode implements ResponseMode {
         return patId;
     }
 
-    protected Log createLogger() {
-        return ((log != null) ? log : LogFactory.getLog(getClass()));
-    }
-
     protected PRPAIN201301UV02 createPRPA201301(PRPAIN201306UV02 input) {
         PRPAIN201301UV02 result = null;
 
@@ -269,7 +263,7 @@ public class TrustMode implements ResponseMode {
             result = PropertyAccessor.getInstance().getProperty(NhincConstants.GATEWAY_PROPERTY_FILE,
                     NhincConstants.HOME_COMMUNITY_ID_PROPERTY);
         } catch (Exception ex) {
-            log.error(ex.getMessage(), ex);
+            LOG.error(ex.getMessage(), ex);
         }
         return result;
     }
@@ -279,7 +273,7 @@ public class TrustMode implements ResponseMode {
 
         II remoteId;
 
-        log.debug("begin MergeIds");
+        LOG.debug("begin MergeIds");
 
         if (result != null
                 && result.getControlActProcess() != null
@@ -296,7 +290,7 @@ public class TrustMode implements ResponseMode {
                 remoteId = result.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1()
                         .getPatient().getId().get(0);
 
-                log.debug("Local Id = " + localId.getExtension() + "; remote id = " + remoteId.getExtension());
+                LOG.debug("Local Id = " + localId.getExtension() + "; remote id = " + remoteId.getExtension());
 
                 // clear Id's
                 result.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1().getPatient()
@@ -309,7 +303,7 @@ public class TrustMode implements ResponseMode {
                         .getId().add(remoteId);
 
             } catch (Exception ex) {
-                log.error(ex.getMessage(), ex);
+                LOG.error(ex.getMessage(), ex);
             }
         } else {
             return null;

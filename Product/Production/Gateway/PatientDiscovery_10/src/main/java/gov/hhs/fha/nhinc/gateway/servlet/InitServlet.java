@@ -35,8 +35,7 @@ import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 
 /**
  * Started on webapplication init, creates the main ExecutorService and CamelContext instances Note the following: 1.
@@ -56,7 +55,7 @@ public class InitServlet extends HttpServlet {
 	 */
     private static final long serialVersionUID = -4229185731377926278L;
 
-    private Log log = LogFactory.getLog(InitServlet.class);
+    private static final Logger LOG = Logger.getLogger(InitServlet.class);
 
     private static ExecutorService executor = null;
     private static ExecutorService largeJobExecutor = null;
@@ -65,7 +64,7 @@ public class InitServlet extends HttpServlet {
     @SuppressWarnings("static-access")
     public void init(ServletConfig config) throws ServletException {
         super.init(config);
-        log.debug("InitServlet start...");
+        LOG.debug("InitServlet start...");
         executor = Executors.newFixedThreadPool(ExecutorServiceHelper.getInstance().getExecutorPoolSize());
         largeJobExecutor = Executors.newFixedThreadPool(ExecutorServiceHelper.getInstance()
                 .getLargeJobExecutorPoolSize());
@@ -81,7 +80,7 @@ public class InitServlet extends HttpServlet {
 
     @Override
     public void destroy() {
-        log.debug("InitServlet shutdown stopping executor(s)....");
+        LOG.debug("InitServlet shutdown stopping executor(s)....");
         if (executor != null) {
             try {
                 executor.shutdown();

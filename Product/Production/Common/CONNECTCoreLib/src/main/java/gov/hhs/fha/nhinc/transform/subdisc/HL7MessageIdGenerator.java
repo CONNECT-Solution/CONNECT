@@ -29,8 +29,7 @@ package gov.hhs.fha.nhinc.transform.subdisc;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 import org.hl7.v3.*;
 
 /**
@@ -39,7 +38,7 @@ import org.hl7.v3.*;
  */
 public class HL7MessageIdGenerator {
 
-    private static Log log = LogFactory.getLog(HL7MessageIdGenerator.class);
+    private static final Logger LOG = Logger.getLogger(HL7MessageIdGenerator.class);
     private static final String PROPERTY_FILE = "adapter";
     private static final String PROPERTY_NAME = "assigningAuthorityId";
 
@@ -56,7 +55,7 @@ public class HL7MessageIdGenerator {
             myDeviceId = getDefaultLocalDeviceId();
         }
 
-        log.debug("Using local device id " + myDeviceId);
+        LOG.debug("Using local device id " + myDeviceId);
         messageId.setRoot(myDeviceId);
         messageId.setExtension(GenerateMessageId());
         return messageId;
@@ -80,7 +79,7 @@ public class HL7MessageIdGenerator {
         try {
             defaultLocalId = PropertyAccessor.getInstance().getProperty(PROPERTY_FILE, PROPERTY_NAME);
         } catch (PropertyAccessException e) {
-            log.error(
+            LOG.error(
                     "PropertyAccessException - Default Assigning Authority property not defined in adapter.properties",
                     e);
         }
@@ -95,7 +94,7 @@ public class HL7MessageIdGenerator {
      */
     public static String GenerateMessageId() {
         java.rmi.server.UID uid = new java.rmi.server.UID();
-        log.debug("generated message id=" + uid.toString());
+        LOG.debug("generated message id=" + uid.toString());
         return uid.toString();
     }
 }

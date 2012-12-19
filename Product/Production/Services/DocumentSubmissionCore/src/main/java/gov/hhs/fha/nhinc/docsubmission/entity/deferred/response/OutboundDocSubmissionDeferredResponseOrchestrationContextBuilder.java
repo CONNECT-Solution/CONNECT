@@ -28,12 +28,11 @@ package gov.hhs.fha.nhinc.docsubmission.entity.deferred.response;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
-import gov.hhs.fha.nhinc.orchestration.OutboundDelegate;
 import gov.hhs.fha.nhinc.orchestration.OrchestrationContext;
 import gov.hhs.fha.nhinc.orchestration.OrchestrationContextBuilder;
+import gov.hhs.fha.nhinc.orchestration.OutboundDelegate;
 import gov.hhs.fha.nhinc.orchestration.OutboundOrchestratable;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
-import org.apache.commons.logging.Log;
 
 /**
  * 
@@ -42,8 +41,7 @@ import org.apache.commons.logging.Log;
 public abstract class OutboundDocSubmissionDeferredResponseOrchestrationContextBuilder implements
         OrchestrationContextBuilder {
 
-    private static Log log;
-    private AssertionType assertionType;
+	private AssertionType assertionType;
     private OutboundDelegate nhinDelegate;
     private RegistryResponseType request;
     private NhinTargetSystemType target;
@@ -63,10 +61,6 @@ public abstract class OutboundDocSubmissionDeferredResponseOrchestrationContextB
 
     public void setAssertionType(AssertionType assertionType) {
         this.assertionType = assertionType;
-    }
-
-    public Log getLog() {
-        return log;
     }
 
     public OutboundDelegate getNhinDelegate() {

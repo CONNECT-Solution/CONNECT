@@ -31,8 +31,7 @@ import gov.hhs.fha.nhinc.util.JaxbDocumentUtils;
 
 import javax.xml.bind.JAXBElement;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.ClassificationType;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.ExtrinsicObjectType;
@@ -51,7 +50,7 @@ import com.google.common.collect.Iterables;
  */
 public class PayloadTypeExtractor implements Function<JAXBElement<? extends IdentifiableType>, Optional<String>> {
 
-    private static Log log = LogFactory.getLog(PayloadTypeExtractor.class);
+    private static final Logger LOG = Logger.getLogger(PayloadTypeExtractor.class);
 
     @Override
     public Optional<String> apply(JAXBElement<? extends IdentifiableType> jaxbElement) {
@@ -68,7 +67,7 @@ public class PayloadTypeExtractor implements Function<JAXBElement<? extends Iden
                         DocumentConstants.EBXML_RESPONSE_CODE_CODESCHEME_SLOTNAME);
             }
         } else {
-            log.warn("Passed in element has an unexpected type.  Expecting ExtrinsicObjectType.  Returning as absent.");
+            LOG.warn("Passed in element has an unexpected type.  Expecting ExtrinsicObjectType.  Returning as absent.");
         }
 
         return payloadType;

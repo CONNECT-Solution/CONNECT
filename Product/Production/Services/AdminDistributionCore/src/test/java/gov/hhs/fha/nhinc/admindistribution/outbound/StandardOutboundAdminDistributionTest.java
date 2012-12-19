@@ -29,7 +29,6 @@ package gov.hhs.fha.nhinc.admindistribution.outbound;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.commons.logging.Log;
 import org.jmock.Expectations;
 import org.jmock.Mockery;
 import org.jmock.integration.junit4.JUnit4Mockery;
@@ -58,7 +57,6 @@ public class StandardOutboundAdminDistributionTest {
         }
     };
 
-    final Log mockLog = context.mock(Log.class);
     final AdminDistributionAuditLogger mockAuditLog = context.mock(AdminDistributionAuditLogger.class);
     final AdminDistributionPolicyChecker mockPolicyCheck = context.mock(AdminDistributionPolicyChecker.class);
     final OutboundAdminDistributionDelegate mockDelegate = context.mock(OutboundAdminDistributionDelegate.class);
@@ -103,30 +101,14 @@ public class StandardOutboundAdminDistributionTest {
      * Expectations for successful sendAlertMessage().
      */
     private void expectationsInAlertMessage() {
-        allowAnyMockLogging();
-        expectProcessOrchestratable();
+    	expectProcessOrchestratable();
     }
 
     /**
      * Expectations for sendAlertMessage() failed policy check.
      */
     private void setPolicyFailExpectations() {
-        expectErrorLogInvocation();
         expectProcessOrchestratable_fail();
-    }
-
-    /**
-     * Sets up expectations for Error Log being invoked.
-     */
-    private void expectErrorLogInvocation() {
-        context.checking(new Expectations() {
-            {
-                atLeast(1).of(mockLog).error(with(any(String.class)));
-                allowing(mockLog).debug(with(any(String.class)));
-                allowing(mockLog).warn(with(any(String.class)));
-            }
-        });
-
     }
 
     private void expectMockAudits(final int n) {
@@ -145,14 +127,6 @@ public class StandardOutboundAdminDistributionTest {
                 oneOf(mockPolicyCheck).checkOutgoingPolicy(with(any(RespondingGatewaySendAlertMessageType.class)),
                         with(any(String.class)));
                 will(returnValue(allow));
-            }
-        });
-    }
-
-    private void allowAnyMockLogging() {
-        context.checking(new Expectations() {
-            {
-                ignoring(mockLog);
             }
         });
     }
@@ -182,11 +156,6 @@ public class StandardOutboundAdminDistributionTest {
      */
     private StandardOutboundAdminDistribution createMockEntityADOrchImpl() {
         return new StandardOutboundAdminDistribution() {
-
-            @Override
-            protected Log getLog() {
-                return mockLog;
-            }
 
             @Override
             protected AdminDistributionAuditLogger getAuditLogger() {

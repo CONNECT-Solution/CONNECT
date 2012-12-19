@@ -12,8 +12,6 @@ import java.util.List;
 import javax.xml.bind.JAXBElement;
 import javax.xml.namespace.QName;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.junit.Test;
 
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
@@ -42,7 +40,6 @@ import gov.hhs.fha.nhinc.orchestration.OutboundResponseProcessor;
 
 /* This method tests only AdhocQueryId supplied is not in the defined list and checks the ErrorCode * */
 public class OutboundDocQueryProcessorTest {
-    private static Log log = LogFactory.getLog(OutboundDocQueryProcessorTest.class);
     OutboundOrchestratableMessage individual = null;
     OutboundOrchestratableMessage cumulative = null;
     OutboundDocQueryProcessor processor = new OutboundDocQueryProcessor();
@@ -191,7 +188,7 @@ public class OutboundDocQueryProcessorTest {
                     aggregateResponse_a0(individualResponse, cumulativeResponse);
                     cumulativeResponse.setResponse(cumulativeResponse.getCumulativeResponse());
                 } catch (Exception e) {
-                    log.debug("Error while aggregating");
+                    System.out.println("Error while aggregating");
                     e.printStackTrace();
                 }
 

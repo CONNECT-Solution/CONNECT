@@ -31,7 +31,7 @@ import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
-import org.apache.commons.logging.Log;
+
 import org.jmock.Expectations;
 import org.jmock.Mockery;
 import org.jmock.integration.junit4.JMock;
@@ -53,48 +53,14 @@ public class RedactionEngineTest {
         }
     };
 
-    final Log mockLog = context.mock(Log.class);
     final DocQueryResponseProcessor mockDocQueryResponseProcessor = context.mock(DocQueryResponseProcessor.class);
     final DocRetrieveResponseProcessor mockDocRetrieveResponseProcessor = context
             .mock(DocRetrieveResponseProcessor.class);
 
     @Test
-    public void testGetLogger() {
-        try {
-            RedactionEngine redactionEngine = new RedactionEngine() {
-                @Override
-                protected Log createLogger() {
-                    return mockLog;
-                }
-
-                @Override
-                protected DocQueryResponseProcessor getDocQueryResponseProcessor() {
-                    return mockDocQueryResponseProcessor;
-                }
-
-                @Override
-                protected DocRetrieveResponseProcessor getDocRetrieveResponseProcessor() {
-                    return mockDocRetrieveResponseProcessor;
-                }
-            };
-            Log log = redactionEngine.createLogger();
-            assertNotNull("Log was null", log);
-        } catch (Throwable t) {
-            System.out.println("Error running testGetLogger test: " + t.getMessage());
-            t.printStackTrace();
-            fail("Error running testGetLogger test: " + t.getMessage());
-        }
-    }
-
-    @Test
     public void testGetDocQueryResponseProcessor() {
         try {
             RedactionEngine redactionEngine = new RedactionEngine() {
-                @Override
-                protected Log createLogger() {
-                    return mockLog;
-                }
-
                 @Override
                 protected DocQueryResponseProcessor getDocQueryResponseProcessor() {
                     return mockDocQueryResponseProcessor;
@@ -118,11 +84,6 @@ public class RedactionEngineTest {
     public void testGetDocRetrieveResponseProcessor() {
         try {
             RedactionEngine redactionEngine = new RedactionEngine() {
-                @Override
-                protected Log createLogger() {
-                    return mockLog;
-                }
-
                 @Override
                 protected DocQueryResponseProcessor getDocQueryResponseProcessor() {
                     return mockDocQueryResponseProcessor;
@@ -150,11 +111,6 @@ public class RedactionEngineTest {
 
             RedactionEngine redactionEngine = new RedactionEngine() {
                 @Override
-                protected Log createLogger() {
-                    return mockLog;
-                }
-
-                @Override
                 protected DocQueryResponseProcessor getDocQueryResponseProcessor() {
                     return mockDocQueryResponseProcessor;
                 }
@@ -166,8 +122,6 @@ public class RedactionEngineTest {
             };
             context.checking(new Expectations() {
                 {
-                    allowing(mockLog).isDebugEnabled();
-                    allowing(mockLog).debug(with(any(String.class)));
                     oneOf(mockDocQueryResponseProcessor).filterAdhocQueryResults(
                             with(aNonNull(AdhocQueryRequest.class)), with(aNonNull(AdhocQueryResponse.class)));
                 }
@@ -191,11 +145,6 @@ public class RedactionEngineTest {
 
             RedactionEngine redactionEngine = new RedactionEngine() {
                 @Override
-                protected Log createLogger() {
-                    return mockLog;
-                }
-
-                @Override
                 protected DocQueryResponseProcessor getDocQueryResponseProcessor() {
                     return mockDocQueryResponseProcessor;
                 }
@@ -207,8 +156,6 @@ public class RedactionEngineTest {
             };
             context.checking(new Expectations() {
                 {
-                    allowing(mockLog).isDebugEnabled();
-                    allowing(mockLog).debug(with(any(String.class)));
                     oneOf(mockDocQueryResponseProcessor).filterAdhocQueryResults(with(aNull(AdhocQueryRequest.class)),
                             with(aNull(AdhocQueryResponse.class)));
                 }
@@ -232,11 +179,6 @@ public class RedactionEngineTest {
 
             RedactionEngine redactionEngine = new RedactionEngine() {
                 @Override
-                protected Log createLogger() {
-                    return mockLog;
-                }
-
-                @Override
                 protected DocQueryResponseProcessor getDocQueryResponseProcessor() {
                     return null;
                 }
@@ -246,14 +188,6 @@ public class RedactionEngineTest {
                     return mockDocRetrieveResponseProcessor;
                 }
             };
-            context.checking(new Expectations() {
-                {
-                    allowing(mockLog).isDebugEnabled();
-                    allowing(mockLog).debug(with(any(String.class)));
-                    allowing(mockLog).warn(with(any(String.class)));
-                }
-            });
-
             AdhocQueryResponse response = redactionEngine.filterAdhocQueryResults(mockAdhocQueryRequest,
                     mockAdhocQueryResponse);
             assertNull("AdhocQueryResponse should be null", response);
@@ -272,11 +206,6 @@ public class RedactionEngineTest {
 
             RedactionEngine redactionEngine = new RedactionEngine() {
                 @Override
-                protected Log createLogger() {
-                    return mockLog;
-                }
-
-                @Override
                 protected DocQueryResponseProcessor getDocQueryResponseProcessor() {
                     DocQueryResponseProcessor processor = new DocQueryResponseProcessor() {
                         @Override
@@ -293,13 +222,6 @@ public class RedactionEngineTest {
                     return mockDocRetrieveResponseProcessor;
                 }
             };
-            context.checking(new Expectations() {
-                {
-                    allowing(mockLog).isDebugEnabled();
-                    allowing(mockLog).debug(with(any(String.class)));
-                }
-            });
-
             AdhocQueryResponse response = redactionEngine.filterAdhocQueryResults(mockAdhocQueryRequest,
                     mockAdhocQueryResponse);
             assertNull("AdhocQueryResponse should be null", response);
@@ -318,11 +240,6 @@ public class RedactionEngineTest {
 
             RedactionEngine redactionEngine = new RedactionEngine() {
                 @Override
-                protected Log createLogger() {
-                    return mockLog;
-                }
-
-                @Override
                 protected DocQueryResponseProcessor getDocQueryResponseProcessor() {
                     return mockDocQueryResponseProcessor;
                 }
@@ -334,8 +251,6 @@ public class RedactionEngineTest {
             };
             context.checking(new Expectations() {
                 {
-                    allowing(mockLog).isDebugEnabled();
-                    allowing(mockLog).debug(with(any(String.class)));
                     oneOf(mockDocRetrieveResponseProcessor).filterRetrieveDocumentSetReults(
                             with(aNonNull(RetrieveDocumentSetRequestType.class)),
                             with(aNonNull(RetrieveDocumentSetResponseType.class)));
@@ -360,11 +275,6 @@ public class RedactionEngineTest {
 
             RedactionEngine redactionEngine = new RedactionEngine() {
                 @Override
-                protected Log createLogger() {
-                    return mockLog;
-                }
-
-                @Override
                 protected DocQueryResponseProcessor getDocQueryResponseProcessor() {
                     return mockDocQueryResponseProcessor;
                 }
@@ -376,8 +286,6 @@ public class RedactionEngineTest {
             };
             context.checking(new Expectations() {
                 {
-                    allowing(mockLog).isDebugEnabled();
-                    allowing(mockLog).debug(with(any(String.class)));
                     oneOf(mockDocRetrieveResponseProcessor).filterRetrieveDocumentSetReults(
                             with(aNull(RetrieveDocumentSetRequestType.class)),
                             with(aNull(RetrieveDocumentSetResponseType.class)));
@@ -402,11 +310,6 @@ public class RedactionEngineTest {
 
             RedactionEngine redactionEngine = new RedactionEngine() {
                 @Override
-                protected Log createLogger() {
-                    return mockLog;
-                }
-
-                @Override
                 protected DocRetrieveResponseProcessor getDocRetrieveResponseProcessor() {
                     return null;
                 }
@@ -416,14 +319,6 @@ public class RedactionEngineTest {
                     return mockDocQueryResponseProcessor;
                 }
             };
-            context.checking(new Expectations() {
-                {
-                    allowing(mockLog).isDebugEnabled();
-                    allowing(mockLog).debug(with(any(String.class)));
-                    allowing(mockLog).warn(with(any(String.class)));
-                }
-            });
-
             RetrieveDocumentSetResponseType response = redactionEngine.filterRetrieveDocumentSetResults(mockRequest,
                     mockResponse);
             assertNull("RetrieveDocumentSetResponseType should be null", response);
@@ -443,11 +338,6 @@ public class RedactionEngineTest {
 
             RedactionEngine redactionEngine = new RedactionEngine() {
                 @Override
-                protected Log createLogger() {
-                    return mockLog;
-                }
-
-                @Override
                 protected DocRetrieveResponseProcessor getDocRetrieveResponseProcessor() {
                     DocRetrieveResponseProcessor processor = new DocRetrieveResponseProcessor() {
                         @Override
@@ -465,13 +355,7 @@ public class RedactionEngineTest {
                     return mockDocQueryResponseProcessor;
                 }
             };
-            context.checking(new Expectations() {
-                {
-                    allowing(mockLog).isDebugEnabled();
-                    allowing(mockLog).debug(with(any(String.class)));
-                }
-            });
-
+            
             RetrieveDocumentSetResponseType response = redactionEngine.filterRetrieveDocumentSetResults(mockRequest,
                     mockResponse);
             assertNull("RetrieveDocumentSetResponseType should be null", response);

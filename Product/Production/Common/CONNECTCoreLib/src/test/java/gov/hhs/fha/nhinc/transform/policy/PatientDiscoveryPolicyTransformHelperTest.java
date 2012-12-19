@@ -26,15 +26,18 @@
  */
 package gov.hhs.fha.nhinc.transform.policy;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyRequestType;
 import gov.hhs.fha.nhinc.transform.subdisc.HL7PRPA201305Transforms;
 import gov.hhs.fha.nhinc.transform.subdisc.HL7PatientTransforms;
+
 import javax.xml.bind.JAXBElement;
+
 import oasis.names.tc.xacml._2_0.context.schema.os.AttributeType;
-import oasis.names.tc.xacml._2_0.context.schema.os.RequestType;
-import org.apache.commons.logging.Log;
+
 import org.hl7.v3.II;
 import org.hl7.v3.MCCIMT000100UV01Agent;
 import org.hl7.v3.MCCIMT000100UV01Device;
@@ -44,12 +47,8 @@ import org.hl7.v3.PRPAIN201305UV02;
 import org.hl7.v3.PRPAMT201301UV02Patient;
 import org.hl7.v3.PRPAMT201301UV02Person;
 import org.hl7.v3.RespondingGatewayPRPAIN201305UV02RequestType;
-import org.jmock.Expectations;
-import org.jmock.Mockery;
-import org.jmock.lib.legacy.ClassImposteriser;
 import org.junit.After;
 import org.junit.AfterClass;
-import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -59,8 +58,6 @@ import org.junit.Test;
  * @author svalluripalli
  */
 public class PatientDiscoveryPolicyTransformHelperTest {
-
-    private Mockery context;
 
     public PatientDiscoveryPolicyTransformHelperTest() {
     }
@@ -75,12 +72,6 @@ public class PatientDiscoveryPolicyTransformHelperTest {
 
     @Before
     public void setUp() {
-        context = new Mockery() {
-
-            {
-                setImposteriser(ClassImposteriser.INSTANCE);
-            }
-        };
     }
 
     @After
@@ -88,32 +79,7 @@ public class PatientDiscoveryPolicyTransformHelperTest {
     }
 
     @Test
-    public void testTransformPatientDiscoveryEntityToCheckPolicyWillFailForNullRequest() {
-        final Log mockLogger = context.mock(Log.class);
-        PatientDiscoveryPolicyTransformHelper testSubject = new PatientDiscoveryPolicyTransformHelper() {
-
-            @Override
-            protected Log createLogger() {
-                return mockLogger;
-            }
-        };
-        context.checking(new Expectations() {
-
-            {
-                exactly(1).of(mockLogger).debug(with(any(String.class)));
-                // Input Request Object can not be null
-                exactly(1).of(mockLogger).error("Request is null.");
-                will(returnValue(with(any(CheckPolicyRequestType.class))));
-            }
-        });
-        testSubject.transformPatientDiscoveryEntityToCheckPolicy(null);
-        context.assertIsSatisfied();
-    }
-
-    @Test
     public void testTransformPatientDiscoveryEntityToCheckPolicyWillPass() {
-        final Log mockLogger = context.mock(Log.class);
-
         RespondingGatewayPRPAIN201305UV02RequestType event = new RespondingGatewayPRPAIN201305UV02RequestType();
         PRPAMT201301UV02Patient patient = new PRPAMT201301UV02Patient();
         II patId = new II();
@@ -126,22 +92,9 @@ public class PatientDiscoveryPolicyTransformHelperTest {
         event.setPRPAIN201305UV02(msg);
         event.setAssertion(new AssertionType());
 
-        PatientDiscoveryPolicyTransformHelper testSubject = new PatientDiscoveryPolicyTransformHelper() {
-
-            @Override
-            protected Log createLogger() {
-                return mockLogger;
-            }
-        };
-        context.checking(new Expectations() {
-
-            {
-                allowing(mockLogger).debug(with(any(String.class)));
-                will(returnValue(with(any(CheckPolicyRequestType.class))));
-            }
-        });
+        PatientDiscoveryPolicyTransformHelper testSubject = new PatientDiscoveryPolicyTransformHelper();
         CheckPolicyRequestType result = testSubject.transformPatientDiscoveryEntityToCheckPolicy(event);
-        context.assertIsSatisfied();
+        
         assertNotNull(result);
         assertNotNull(result.getRequest());
         assertNotNull(result.getRequest().getResource());
@@ -154,8 +107,6 @@ public class PatientDiscoveryPolicyTransformHelperTest {
 
     @Test
     public void testTransformPatientDiscoveryEntityToCheckPolicyNoPatId() {
-        final Log mockLogger = context.mock(Log.class);
-
         RespondingGatewayPRPAIN201305UV02RequestType event = new RespondingGatewayPRPAIN201305UV02RequestType();
         PRPAMT201301UV02Patient patient = new PRPAMT201301UV02Patient();
         II patId = null;
@@ -166,48 +117,12 @@ public class PatientDiscoveryPolicyTransformHelperTest {
         event.setPRPAIN201305UV02(msg);
         event.setAssertion(new AssertionType());
 
-        PatientDiscoveryPolicyTransformHelper testSubject = new PatientDiscoveryPolicyTransformHelper() {
-
-            @Override
-            protected Log createLogger() {
-                return mockLogger;
-            }
-        };
-        context.checking(new Expectations() {
-
-            {
-                allowing(mockLogger).debug(with(any(String.class)));
-                will(returnValue(with(any(CheckPolicyRequestType.class))));
-            }
-        });
+        PatientDiscoveryPolicyTransformHelper testSubject = new PatientDiscoveryPolicyTransformHelper();
+        
         CheckPolicyRequestType result = testSubject.transformPatientDiscoveryEntityToCheckPolicy(event);
-        context.assertIsSatisfied();
+        
         assertNotNull(result);
         verifyNoPatientId(result);
-    }
-
-    @Test
-    public void testGetRequestTypeWillPass() {
-        final Log mockLogger = context.mock(Log.class);
-        final RequestType request = new RequestType();
-        RespondingGatewayPRPAIN201305UV02RequestType event = new RespondingGatewayPRPAIN201305UV02RequestType();
-        getHomeCommunityType(event);
-        PatientDiscoveryPolicyTransformHelper testSubject = new PatientDiscoveryPolicyTransformHelper() {
-
-            @Override
-            protected Log createLogger() {
-                return mockLogger;
-            }
-        };
-        context.checking(new Expectations() {
-
-            {
-                exactly(2).of(mockLogger).debug(with(any(String.class)));
-                will(returnValue(with(any(RequestType.class))));
-            }
-        });
-        testSubject.getRequestType(event);
-        context.assertIsSatisfied();
     }
 
     @Test
@@ -217,7 +132,6 @@ public class PatientDiscoveryPolicyTransformHelperTest {
         PatientDiscoveryPolicyTransformHelper testSubject = new PatientDiscoveryPolicyTransformHelper();
         assertEquals(expectedReturnvalue.getHomeCommunityId(), "1.1");
         testSubject.getHomeCommunityFrom201305(event);
-        context.assertIsSatisfied();
     }
 
     protected HomeCommunityType getHomeCommunityType(RespondingGatewayPRPAIN201305UV02RequestType event) {

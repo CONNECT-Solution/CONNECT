@@ -44,16 +44,14 @@ import gov.hhs.fha.nhinc.transform.policy.SubjectHelper;
 import gov.hhs.healthit.nhin.XDRAcknowledgementType;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 
 public class StandardOutboundDocSubmissionDeferredResponse implements OutboundDocSubmissionDeferredResponse {
 
-    private static Log log = LogFactory.getLog(StandardOutboundDocSubmissionDeferredResponse.class);
+    private static final Logger LOG = Logger.getLogger(StandardOutboundDocSubmissionDeferredResponse.class);
     private XDRAuditLogger auditLogger = null;
 
     public StandardOutboundDocSubmissionDeferredResponse() {
-        log = getLogger();
         auditLogger = getXDRAuditLogger();
     }
 
@@ -71,10 +69,10 @@ public class StandardOutboundDocSubmissionDeferredResponse implements OutboundDo
         auditRequestFromAdapter(internalRequest, assertion);
 
         if (isPolicyValid(internalRequest, assertion)) {
-            log.info("Policy check successful");
+            LOG.info("Policy check successful");
             response = getResponseFromTarget(internalRequest, assertion);
         } else {
-            log.error("Failed policy check.  Sending error response.");
+            LOG.error("Failed policy check.  Sending error response.");
             response = createFailedPolicyCheckResponse();
         }
 
@@ -105,9 +103,9 @@ public class StandardOutboundDocSubmissionDeferredResponse implements OutboundDo
             isValid = getXDRPolicyChecker().checkXDRResponsePolicy(request.getRegistryResponse(), assertion,
                     senderHCID, receiverHCID, direction);
         } else {
-            log.warn("Check on policy requires a non null target home community ID specified in the request");
+            LOG.warn("Check on policy requires a non null target home community ID specified in the request");
         }
-        log.debug("Check on policy returns: " + isValid);
+        LOG.debug("Check on policy returns: " + isValid);
 
         return isValid;
     }
@@ -196,10 +194,6 @@ public class StandardOutboundDocSubmissionDeferredResponse implements OutboundDo
 
     protected XDRAuditLogger getXDRAuditLogger() {
         return new XDRAuditLogger();
-    }
-
-    protected Log getLogger() {
-        return log;
     }
 
     protected SubjectHelper getSubjectHelper() {

@@ -31,11 +31,8 @@ import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
 
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.xml.bind.JAXBException;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 
 import com.sun.identity.shared.xml.XMLUtils;
 import com.sun.identity.xacml.common.XACMLException;
@@ -74,18 +71,10 @@ import org.w3c.dom.Element;
  */
 public class AdapterPDPProxyJavaImpl implements AdapterPDPProxy {
 
-    private Log log = null;
+    private static final Logger LOG = Logger.getLogger(AdapterPDPProxyJavaImpl.class);
     private String statusCodeValue = "";
     private String statusMessageValue = "";
     private boolean foundMatchingAttributes = false;
-
-    public AdapterPDPProxyJavaImpl() {
-        log = createLogger();
-    }
-
-    protected Log createLogger() {
-        return LogFactory.getLog(getClass());
-    }
 
     /**
      * processPDPRequest process the pdp request and evaluates the policy to permit or deny
@@ -95,14 +84,14 @@ public class AdapterPDPProxyJavaImpl implements AdapterPDPProxy {
      */
     @Override
     public Response processPDPRequest(Request pdpRequest) {
-        log.info("Begin AdapterPDPProxyJavaImpl.processPDPRequest(...)");
+        LOG.info("Begin AdapterPDPProxyJavaImpl.processPDPRequest(...)");
         EffectType effect = EffectType.DENY;
         PolicyType policyType = new PolicyType();
         try {
             String serviceType = getAttrValFromPdpRequest(pdpRequest,
                     AdapterPDPConstants.REQUEST_CONTEXT_ATTRIBUTE_SERVICE_TYPE,
                     AdapterPDPConstants.ATTRIBUTEVALUE_DATATYPE_STRING);
-            log.debug("processPDPRequest - serviceType: " + serviceType);
+            LOG.debug("processPDPRequest - serviceType: " + serviceType);
 
             if (serviceType != null) {
                 if ((serviceType.equalsIgnoreCase(AdapterPDPConstants.REQUEST_ACTION_PATIENT_DISCOVERY_OUT))
@@ -113,7 +102,7 @@ public class AdapterPDPProxyJavaImpl implements AdapterPDPProxy {
 
                     DocumentQueryParams params = new DocumentQueryParams();
                     String patientId = getUniquePatientIdFromPdpRequest(pdpRequest, serviceType);
-                    log.debug("processPDPRequest - patientid:" + patientId);
+                    LOG.debug("processPDPRequest - patientid:" + patientId);
                     params.setPatientId(patientId);
                     List<String> classCodeValues = new ArrayList<String>();
                     classCodeValues.add(AdapterPDPConstants.DOCUMENT_CLASS_CODE);
@@ -123,9 +112,9 @@ public class AdapterPDPProxyJavaImpl implements AdapterPDPProxy {
                     int docsSize = 0;
                     if ((docs != null) && (docs.size() > 0)) {
                         docsSize = docs.size();
-                        log.debug("processPDPRequest - Policy Document Count:" + String.valueOf(docsSize));
+                        LOG.debug("processPDPRequest - Policy Document Count:" + String.valueOf(docsSize));
                     } else {
-                        log.debug("processPDPRequest - docs null/zero.");
+                        LOG.debug("processPDPRequest - docs null/zero.");
                     }
 
                     String policyStrRawData = "";
@@ -133,135 +122,135 @@ public class AdapterPDPProxyJavaImpl implements AdapterPDPProxy {
                         for (Document doc : docs) {
                             byte[] rawData = doc.getRawData();
                             policyStrRawData = new String(rawData);
-                            log.debug("processPDPRequest - Policy rawData:" + policyStrRawData);
+                            LOG.debug("processPDPRequest - Policy rawData:" + policyStrRawData);
                         }
                     } else if (docsSize < 1) {
-                        log.info("No policy documents found for the given criteria:");
+                        LOG.info("No policy documents found for the given criteria:");
                     } else if (docsSize > 1) {
-                        log.info("More than one document found for the given criteria:");
+                        LOG.info("More than one document found for the given criteria:");
                     }
 
                     if (policyStrRawData.trim().equals("")) {
-                        log.info("No Policy info found for the given criteria:");
+                        LOG.info("No Policy info found for the given criteria:");
                     } else {
                         policyType = getPolicyObject(policyStrRawData);
                     }
 
                     if (pdpRequest == null) {
-                        log.info("PDP request is null");
+                        LOG.info("PDP request is null");
                     } else if (policyType == null) {
-                        log.info("Policy is null");
+                        LOG.info("Policy is null");
                     } else {
                         effect = evaluatePolicy(pdpRequest, policyType);
                         effect = (effect == null) ? EffectType.DENY : effect;
                     }
                 } else {
-                    log.info("processPDPRequest - Permit for all other services except PD, QD and RD(in).");
+                    LOG.info("processPDPRequest - Permit for all other services except PD, QD and RD(in).");
                     effect = EffectType.PERMIT;
                 }
             } else {
-                log.info("processPDPRequest - Service Type is null");
+                LOG.info("processPDPRequest - Service Type is null");
             }
         } catch (Exception ex) {
             effect = EffectType.DENY;
-            log.error("Exception occured while retrieving documents");
-            log.error(ex.getMessage());
+            LOG.error("Exception occured while retrieving documents");
+            LOG.error(ex.getMessage());
         }
 
-        log.info("processPDPRequest - Policy effect: " + effect.value());
+        LOG.info("processPDPRequest - Policy effect: " + effect.value());
         Response resp = createResponse(effect);
-        log.info("End AdapterPDPProxyJavaImpl.processPDPRequest(...)");
+        LOG.info("End AdapterPDPProxyJavaImpl.processPDPRequest(...)");
         return resp;
     }
 
     private PolicyType getPolicyObject(String policyStrRawData) throws JAXBException {
-        log.debug("Begin AdapterPDPProxyJavaImpl.getPolicyObject(...) ***");
-        log.debug("getPolicyObject - Policy rawData:" + policyStrRawData);
+        LOG.debug("Begin AdapterPDPProxyJavaImpl.getPolicyObject(...) ***");
+        LOG.debug("getPolicyObject - Policy rawData:" + policyStrRawData);
         PolicyType policyType = new PolicyType();
 
         XACMLSerializer xACMLSerializer = new XACMLSerializer();
         try {
             policyType = xACMLSerializer.deserializeConsentXACMLDoc(policyStrRawData);
         } catch (AdapterPIPException ex) {
-            log.error("getPolicyObject - Error occured while deserializing policy document");
+            LOG.error("getPolicyObject - Error occured while deserializing policy document");
         }
         if (policyType != null) {
-            log.debug("getPolicyObject - Policy description:" + policyType.getDescription());
+            LOG.debug("getPolicyObject - Policy description:" + policyType.getDescription());
         } else {
-            log.debug("getPolicyObject - Policy description: null");
+            LOG.debug("getPolicyObject - Policy description: null");
         }
         return policyType;
     }
 
     private String getResourceIdFromPdpRequest(Request pdpRequest) {
-        log.debug("Begin AdapterPDPProxyJavaImpl.getPatientIdFromPdpRequest()");
+        LOG.debug("Begin AdapterPDPProxyJavaImpl.getPatientIdFromPdpRequest()");
         List<Resource> resources = new ArrayList<Resource>();
         resources = (List<Resource>) pdpRequest.getResources();
         String attrValue = "";
         if (resources != null) {
-            log.debug("Resources list size:" + resources.size());
+            LOG.debug("Resources list size:" + resources.size());
             for (Resource resource : resources) {
                 List<Attribute> attributes = new ArrayList<Attribute>();
                 attributes = (List<Attribute>) resource.getAttributes();
-                log.debug("Attributes list size:" + attributes.size());
+                LOG.debug("Attributes list size:" + attributes.size());
                 for (Attribute attribute : attributes) {
                     String attrId = "";
                     String attrDataType = "";
                     if (attribute.getAttributeId() != null) {
                         attrId = attribute.getAttributeId().toString();
-                        log.debug("AttributeId: " + attrId);
+                        LOG.debug("AttributeId: " + attrId);
                     } else {
-                        log.debug("AttributeId not found in the Attribute");
+                        LOG.debug("AttributeId not found in the Attribute");
                     }
                     if (attribute.getDataType() != null) {
                         attrDataType = attribute.getDataType().toString();
-                        log.debug("Attribute DataType : " + attrDataType);
+                        LOG.debug("Attribute DataType : " + attrDataType);
                     } else {
-                        log.debug("DataType not found in the Attribute");
+                        LOG.debug("DataType not found in the Attribute");
                     }
                     if ((attrId.trim().equals(AdapterPDPConstants.REQUEST_CONTEXT_ATTRIBUTE_RESOURCEID))
                             && attrDataType.trim().equals(AdapterPDPConstants.ATTRIBUTEVALUE_DATATYPE_STRING)) {
                         Element sidElement = (Element) attribute.getAttributeValues().get(0);
                         attrValue = XMLUtils.getElementValue(sidElement);
-                        log.debug("Attriute Value: " + attrValue);
+                        LOG.debug("Attriute Value: " + attrValue);
                     }
                 }
             }
         } else {
-            log.info("No resources found in the Request context");
+            LOG.info("No resources found in the Request context");
         }
-        log.debug("End AdapterPDPProxyJavaImpl.getPatientIdFromPdpRequest()");
+        LOG.debug("End AdapterPDPProxyJavaImpl.getPatientIdFromPdpRequest()");
         return attrValue;
     }
 
     private String getAttrValFromPdpRequest(Request pdpRequest, String sAttrId, String sAttrDataType) {
-        log.debug("Begin AdapterPDPProxyJavaImpl.getAttrValFromPdpRequest()");
-        log.debug("getAttrValFromPdpRequest - sAttrId:" + sAttrId);
-        log.debug("getAttrValFromPdpRequest - sAttrDataType:" + sAttrDataType);
+        LOG.debug("Begin AdapterPDPProxyJavaImpl.getAttrValFromPdpRequest()");
+        LOG.debug("getAttrValFromPdpRequest - sAttrId:" + sAttrId);
+        LOG.debug("getAttrValFromPdpRequest - sAttrDataType:" + sAttrDataType);
 
         List<Resource> resources = new ArrayList<Resource>();
         resources = (List<Resource>) pdpRequest.getResources();
         String attrValue = "";
         if (resources != null) {
-            log.debug("Resources list size:" + resources.size());
+            LOG.debug("Resources list size:" + resources.size());
             for (Resource resource : resources) {
                 List<Attribute> attributes = new ArrayList<Attribute>();
                 attributes = (List<Attribute>) resource.getAttributes();
-                log.debug("Attributes list size:" + attributes.size());
+                LOG.debug("Attributes list size:" + attributes.size());
                 for (Attribute attribute : attributes) {
                     String attrId = "";
                     String attrDataType = "";
                     if (attribute.getAttributeId() != null) {
                         attrId = attribute.getAttributeId().toString();
-                        log.debug("AttributeId: " + attrId);
+                        LOG.debug("AttributeId: " + attrId);
                     } else {
-                        log.debug("AttributeId not found in the Attribute");
+                        LOG.debug("AttributeId not found in the Attribute");
                     }
                     if (attribute.getDataType() != null) {
                         attrDataType = attribute.getDataType().toString();
-                        log.debug("Attribute DataType : " + attrDataType);
+                        LOG.debug("Attribute DataType : " + attrDataType);
                     } else {
-                        log.debug("DataType not found in the Attribute");
+                        LOG.debug("DataType not found in the Attribute");
                     }
                     if ((attrId.trim().equals(sAttrId)) && (attrDataType.trim().equals(sAttrDataType))) {
                         Element sidElement = (Element) attribute.getAttributeValues().get(0);
@@ -270,28 +259,28 @@ public class AdapterPDPProxyJavaImpl implements AdapterPDPProxy {
                 }
             }
         } else {
-            log.info("No resources found in the Request context");
+            LOG.info("No resources found in the Request context");
         }
         if (attrValue != null) {
             attrValue = attrValue.trim();
         }
-        log.debug("getAttrValFromPdpRequest - attrValue:" + attrValue);
+        LOG.debug("getAttrValFromPdpRequest - attrValue:" + attrValue);
 
-        log.debug("End AdapterPDPProxyJavaImpl.getAttrValFromPdpRequest()");
+        LOG.debug("End AdapterPDPProxyJavaImpl.getAttrValFromPdpRequest()");
         return attrValue;
     }
 
     private String getUniquePatientIdFromPdpRequest(Request pdpRequest, String serviceType) {
-        log.debug("Begin AdapterPDPProxyJavaImpl.getPatientIdFromPdpRequest()");
+        LOG.debug("Begin AdapterPDPProxyJavaImpl.getPatientIdFromPdpRequest()");
         String uniquePatientId = "";
         if ((serviceType != null) && (serviceType.equalsIgnoreCase("DocumentRetrieveIn"))) {
-            log.debug("getPatientIdFromPdpRequest() - serviceType: inside DocumentRetrieveIn");
+            LOG.debug("getPatientIdFromPdpRequest() - serviceType: inside DocumentRetrieveIn");
             String uniqueDocumentId = getAttrValFromPdpRequest(pdpRequest,
                     AdapterPDPConstants.REQUEST_CONTEXT_ATTRIBUTE_RESOURCEID,
                     AdapterPDPConstants.ATTRIBUTEVALUE_DATATYPE_STRING);
-            log.debug("getPatientIdFromPdpRequest() - DocumentRetrieveIn uniqueDocumentId: " + uniqueDocumentId);
+            LOG.debug("getPatientIdFromPdpRequest() - DocumentRetrieveIn uniqueDocumentId: " + uniqueDocumentId);
             uniquePatientId = getPatientIdByDocumentUniqueId(uniqueDocumentId);
-            log.debug("getUniquePatientIdFromPdpRequest - DocumentRetrieveIn uniquePatientId: " + uniquePatientId);
+            LOG.debug("getUniquePatientIdFromPdpRequest - DocumentRetrieveIn uniquePatientId: " + uniquePatientId);
         } else {
             String resourceId = getAttrValFromPdpRequest(pdpRequest,
                     AdapterPDPConstants.REQUEST_CONTEXT_ATTRIBUTE_RESOURCEID,
@@ -301,9 +290,9 @@ public class AdapterPDPProxyJavaImpl implements AdapterPDPProxy {
 
             uniquePatientId = (resourceId + "^^^&" + aaId + "&ISO");
         }
-        log.debug("getUniquePatientIdFromPdpRequest - uniquePatientId: " + uniquePatientId);
+        LOG.debug("getUniquePatientIdFromPdpRequest - uniquePatientId: " + uniquePatientId);
 
-        log.debug("End AdapterPDPProxyJavaImpl.getPatientIdFromPdpRequest()");
+        LOG.debug("End AdapterPDPProxyJavaImpl.getPatientIdFromPdpRequest()");
         return uniquePatientId;
     }
 
@@ -318,17 +307,17 @@ public class AdapterPDPProxyJavaImpl implements AdapterPDPProxy {
         int docsSize = 0;
         if ((docs != null) && (docs.size() > 0)) {
             docsSize = docs.size();
-            log.debug("getPatientIdByDocumentUniqueId - Document size:" + String.valueOf(docsSize));
+            LOG.debug("getPatientIdByDocumentUniqueId - Document size:" + String.valueOf(docsSize));
             patientId = docs.get(0).getPatientId();
         } else {
-            log.debug("getPatientIdByDocumentId - docs null/zero.");
+            LOG.debug("getPatientIdByDocumentId - docs null/zero.");
         }
 
         return patientId;
     }
 
     private EffectType evaluatePolicy(Request pdpRequest, PolicyType policy) {
-        log.debug("Begin AdapterPDPProxyJavaImpl.evaluatePolicy()");
+        LOG.debug("Begin AdapterPDPProxyJavaImpl.evaluatePolicy()");
         boolean isMatch = false;
         statusCodeValue = "";
         statusMessageValue = "";
@@ -336,14 +325,14 @@ public class AdapterPDPProxyJavaImpl implements AdapterPDPProxy {
         try {
             if (policy != null) {
                 if (policy.getTarget() == null) {
-                    log.info("Policy Target is null. Return Effect value Deny");
+                    LOG.info("Policy Target is null. Return Effect value Deny");
                     return EffectType.DENY;
                 }
                 List<RuleType> rules = new ArrayList<RuleType>();
                 // rules = policy.getRule();
                 if ((policy != null)
                         && (policy.getCombinerParametersOrRuleCombinerParametersOrVariableDefinition() != null)) {
-                    log.debug("getCombinerParametersOrRuleCombinerParametersOrVariableDefinition list size: "
+                    LOG.debug("getCombinerParametersOrRuleCombinerParametersOrVariableDefinition list size: "
                             + policy.getCombinerParametersOrRuleCombinerParametersOrVariableDefinition().size());
                     for (Object obj : policy.getCombinerParametersOrRuleCombinerParametersOrVariableDefinition()) {
                         if (obj instanceof RuleType) {
@@ -351,10 +340,10 @@ public class AdapterPDPProxyJavaImpl implements AdapterPDPProxy {
                         }
                     }
                 } else {
-                    log.debug("getCombinerParametersOrRuleCombinerParametersOrVariableDefinition list size: null");
+                    LOG.debug("getCombinerParametersOrRuleCombinerParametersOrVariableDefinition list size: null");
                 }
                 if ((rules != null) && (rules.size() > 0)) {
-                    log.debug("Rules list size: " + rules.size());
+                    LOG.debug("Rules list size: " + rules.size());
                     String policyMatchId = "";
                     String policyAttrValue = "";
                     String policyAttrDataType = "";
@@ -362,7 +351,7 @@ public class AdapterPDPProxyJavaImpl implements AdapterPDPProxy {
                     String policyAttrDesAttrDataType = "";
                     rulesFor: for (RuleType rule : rules) {
                         effect = rule.getEffect();
-                        log.debug("Rule Effect value: " + effect);
+                        LOG.debug("Rule Effect value: " + effect);
                         TargetType targetType = new TargetType();
                         targetType = (rule.getTarget() == null) ? policy.getTarget() : rule.getTarget();
 
@@ -372,16 +361,16 @@ public class AdapterPDPProxyJavaImpl implements AdapterPDPProxy {
                                 // subjects = rule.getTarget().getSubjects().getSubject();
                                 subjects = targetType.getSubjects().getSubject();
                                 if ((subjects != null) && (subjects.size() > 0)) {
-                                    log.debug("Subjects list size" + subjects.size());
+                                    LOG.debug("Subjects list size" + subjects.size());
                                     subjectsFor: for (SubjectType subject : subjects) {
                                         isMatch = false;
                                         List<SubjectMatchType> subjectMatchs = new ArrayList<SubjectMatchType>();
                                         subjectMatchs = subject.getSubjectMatch();
                                         if ((subjectMatchs != null) && (subjectMatchs.size() > 0)) {
-                                            log.debug("subjectMatchs list size" + subjectMatchs.size());
+                                            LOG.debug("subjectMatchs list size" + subjectMatchs.size());
                                             subjectMatchsFor: for (SubjectMatchType subjectMatch : subjectMatchs) {
                                                 policyMatchId = subjectMatch.getMatchId();
-                                                log.debug("SubjectMatch MatchId: " + policyMatchId);
+                                                LOG.debug("SubjectMatch MatchId: " + policyMatchId);
                                                 policyAttrValue = null;
                                                 policyAttrDataType = null;
                                                 if (subjectMatch.getAttributeValue() != null) {
@@ -393,10 +382,10 @@ public class AdapterPDPProxyJavaImpl implements AdapterPDPProxy {
                                                             .getDataType() == null) ? subjectMatch.getAttributeValue()
                                                             .getDataType() : subjectMatch.getAttributeValue()
                                                             .getDataType().trim();
-                                                    log.debug("AttributeValue Value: " + policyAttrValue);
-                                                    log.debug("AttributeValue DataType: " + policyAttrDataType);
+                                                    LOG.debug("AttributeValue Value: " + policyAttrValue);
+                                                    LOG.debug("AttributeValue DataType: " + policyAttrDataType);
                                                 } else {
-                                                    log.debug("AttributeValue is null!");
+                                                    LOG.debug("AttributeValue is null!");
                                                 }
                                                 if (subjectMatch.getSubjectAttributeDesignator() != null) {
                                                     policyAttrDesAttrId = (subjectMatch.getSubjectAttributeDesignator()
@@ -409,9 +398,9 @@ public class AdapterPDPProxyJavaImpl implements AdapterPDPProxy {
                                                             .getSubjectAttributeDesignator().getDataType()
                                                             : subjectMatch.getSubjectAttributeDesignator()
                                                                     .getDataType().trim();
-                                                    log.debug("SubjectAttributeDesignator DataType: "
+                                                    LOG.debug("SubjectAttributeDesignator DataType: "
                                                             + policyAttrDesAttrDataType);
-                                                    log.debug("SubjectAttributeDesignator AttributeId: "
+                                                    LOG.debug("SubjectAttributeDesignator AttributeId: "
                                                             + policyAttrDesAttrId);
                                                     foundMatchingAttributes = false;
                                                     isMatch = evaluateSubjectMatch(pdpRequest, policyMatchId,
@@ -428,72 +417,72 @@ public class AdapterPDPProxyJavaImpl implements AdapterPDPProxy {
                                                         break rulesFor;
                                                     }
                                                 } else {
-                                                    log.debug("SubjectAttributeDesignator is null!");
+                                                    LOG.debug("SubjectAttributeDesignator is null!");
                                                 }
                                                 if (!isMatch) {
                                                     break;
                                                 }
                                             }
                                         } else {
-                                            log.debug("SubjectMatch not found!");
+                                            LOG.debug("SubjectMatch not found!");
                                         }
                                         if (isMatch) {
                                             break rulesFor;
                                         }
                                     }
                                 } else {
-                                    log.debug("Rule Subject not found!");
+                                    LOG.debug("Rule Subject not found!");
                                 }
                             } else {
-                                log.debug("Rule Subjects is null");
+                                LOG.debug("Rule Subjects is null");
                                 break;
                             }
                         } else {
-                            log.debug("Rule Target is null");
+                            LOG.debug("Rule Target is null");
                         }
                     }
                 } else {
-                    log.debug("Rules not found in policy document");
+                    LOG.debug("Rules not found in policy document");
                 }
             } else {
-                log.info("Policy is null");
+                LOG.info("Policy is null");
             }
         } catch (Exception ex) {
             statusCodeValue = AdapterPDPConstants.POLICY_RESULT_STATUS_CODE_PROCESSING_ERROR;
             statusMessageValue = AdapterPDPConstants.POLICY_RESULT_STATUS_MESSAGE_PROCESSING_ERROR;
-            log.error("Exception occured while retrieving documents");
-            log.error(ex.getMessage());
+            LOG.error("Exception occured while retrieving documents");
+            LOG.error(ex.getMessage());
         }
-        log.debug("End AdapterPDPProxyJavaImpl.evaluatePolicy()");
-        log.debug("Rule Effect value: " + effect);
+        LOG.debug("End AdapterPDPProxyJavaImpl.evaluatePolicy()");
+        LOG.debug("Rule Effect value: " + effect);
         return effect;
     }
 
     private boolean evaluateSubjectMatch(Request pdpRequest, String policyMatchId, String policyAttrValue,
             String policyAttrDesAttrId, String policyAttrDesAttrDataType) {
-        log.debug("Begin AdapterPDPProxyJavaImpl.evaluateSubjectMatch()");
+        LOG.debug("Begin AdapterPDPProxyJavaImpl.evaluateSubjectMatch()");
         boolean isMatch = false;
         List<Subject> subjects = new ArrayList<Subject>();
         subjects = (List<Subject>) pdpRequest.getSubjects();
         foundMatchingAttributes = false;
-        log.debug("evaluateSubjectMatch - policyMatchId: " + policyMatchId);
-        log.debug("evaluateSubjectMatch - policyAttrValue: " + policyAttrValue);
-        log.debug("evaluateSubjectMatch - policyAttrDesAttrId: " + policyAttrDesAttrId);
-        log.debug("evaluateSubjectMatch - policyAttrDesAttrDataType: " + policyAttrDesAttrDataType);
+        LOG.debug("evaluateSubjectMatch - policyMatchId: " + policyMatchId);
+        LOG.debug("evaluateSubjectMatch - policyAttrValue: " + policyAttrValue);
+        LOG.debug("evaluateSubjectMatch - policyAttrDesAttrId: " + policyAttrDesAttrId);
+        LOG.debug("evaluateSubjectMatch - policyAttrDesAttrDataType: " + policyAttrDesAttrDataType);
         if (policyMatchId == null) {
-            log.debug("Policy - MatchId is null");
+            LOG.debug("Policy - MatchId is null");
         }
         if (policyAttrValue == null) {
-            log.debug("Policy - AttrValue is null");
+            LOG.debug("Policy - AttrValue is null");
         }
         if (policyAttrDesAttrId == null) {
-            log.debug("Policy - AttributeId is null");
+            LOG.debug("Policy - AttributeId is null");
         }
         if (policyAttrDesAttrDataType == null) {
-            log.debug("Policy - policyAttrDataType is null");
+            LOG.debug("Policy - policyAttrDataType is null");
         }
         if (subjects != null) {
-            log.debug("Subjects list size:" + subjects.size());
+            LOG.debug("Subjects list size:" + subjects.size());
             boolean isAnyAttributeInfoNull = false;
             subjectsFor: for (Subject subject : subjects) {
                 List<Attribute> attributes = new ArrayList<Attribute>();
@@ -505,46 +494,46 @@ public class AdapterPDPProxyJavaImpl implements AdapterPDPProxy {
                     isAnyAttributeInfoNull = false;
                     if (attribute.getAttributeId() != null) {
                         requestAttrId = attribute.getAttributeId().toString().trim();
-                        log.debug("Request AttributeId: " + requestAttrId);
+                        LOG.debug("Request AttributeId: " + requestAttrId);
                     } else {
                         isAnyAttributeInfoNull = true;
-                        log.debug("Request AttributeId is null");
+                        LOG.debug("Request AttributeId is null");
                     }
                     if (attribute.getDataType() != null) {
                         requestAttrDataType = attribute.getDataType().toString().trim();
-                        log.debug("Request Attribute DataType : " + requestAttrDataType);
+                        LOG.debug("Request Attribute DataType : " + requestAttrDataType);
                     } else {
                         isAnyAttributeInfoNull = true;
-                        log.debug("Request DataType not found in the Attribute");
+                        LOG.debug("Request DataType not found in the Attribute");
                     }
                     if (attribute.getAttributeValues() != null) {
                         Element sidElement = (Element) attribute.getAttributeValues().get(0);
                         requestAttrValue = (XMLUtils.getElementValue(sidElement) == null) ? XMLUtils
                                 .getElementValue(sidElement) : XMLUtils.getElementValue(sidElement).trim();
-                        log.debug("Request Attriute Value: " + requestAttrValue);
+                        LOG.debug("Request Attriute Value: " + requestAttrValue);
                     } else {
                         isAnyAttributeInfoNull = true;
-                        log.debug("Request Attriute Value not found in the Attribute");
+                        LOG.debug("Request Attriute Value not found in the Attribute");
                     }
                     if (!isAnyAttributeInfoNull) {
-                        log.debug("evaluateSubjectMatch - Request AttributeId: " + requestAttrId);
-                        log.debug("evaluateSubjectMatch - Request Attribute DataType : " + requestAttrDataType);
+                        LOG.debug("evaluateSubjectMatch - Request AttributeId: " + requestAttrId);
+                        LOG.debug("evaluateSubjectMatch - Request Attribute DataType : " + requestAttrDataType);
                         if ((policyAttrDesAttrId.equals(requestAttrId))
                                 && (policyAttrDesAttrDataType.equals(requestAttrDataType))) {
                             isMatch = evaluateMatchWithFunction(policyMatchId, policyAttrValue, requestAttrValue);
                             foundMatchingAttributes = true;
                         }
                     }
-                    log.debug("evaluateSubjectMatch - loop - isMatch: " + isMatch);
+                    LOG.debug("evaluateSubjectMatch - loop - isMatch: " + isMatch);
                     if (isMatch) {
                         break subjectsFor;
                     }
                 }
             }
         } else {
-            log.info("No subjects found in the Request context");
+            LOG.info("No subjects found in the Request context");
         }
-        log.debug("evaluateSubjectMatch - isMatch: " + isMatch);
+        LOG.debug("evaluateSubjectMatch - isMatch: " + isMatch);
         return isMatch;
     }
 
@@ -562,9 +551,9 @@ public class AdapterPDPProxyJavaImpl implements AdapterPDPProxy {
     private boolean evaluateMatchWithStringEqualFunction(String policyAttrValue, String requestAttrValue) {
         boolean isMatch = false;
         if ((policyAttrValue == null) || (policyAttrValue.equals(""))) {
-            log.debug("Policy Attribute Value is null or empty");
+            LOG.debug("Policy Attribute Value is null or empty");
         } else if ((requestAttrValue == null) || (requestAttrValue.equals(""))) {
-            log.debug("Request Attribute Value is null or empty");
+            LOG.debug("Request Attribute Value is null or empty");
         } else {
             if (policyAttrValue.trim().equalsIgnoreCase(requestAttrValue)) {
                 isMatch = true;
@@ -588,18 +577,18 @@ public class AdapterPDPProxyJavaImpl implements AdapterPDPProxy {
         try {
             response = ContextFactory.getInstance().createResponse();
             response.addResult(createResult(effect));
-            log.debug("response-xml:" + response.toXMLString());
+            LOG.debug("response-xml:" + response.toXMLString());
         } catch (XACMLException e) {
-            log.error("Error adding a result: " + e.getMessage(), e);
+            LOG.error("Error adding a result: " + e.getMessage(), e);
         } catch (URISyntaxException u) {
-            log.error("Error adding a result: " + u.getMessage(), u);
+            LOG.error("Error adding a result: " + u.getMessage(), u);
         }
 
         return response;
     }
 
     private Result createResult(EffectType effect) throws URISyntaxException {
-        log.info("Begin AdapterPDPProxyJavaImpl.createResult(...)");
+        LOG.info("Begin AdapterPDPProxyJavaImpl.createResult(...)");
         Result result = null;
         try {
             Decision decision = ContextFactory.getInstance().createDecision();
@@ -624,9 +613,9 @@ public class AdapterPDPProxyJavaImpl implements AdapterPDPProxy {
             result.setDecision(decision);
 
         } catch (XACMLException e) {
-            log.error("Error in setting decision and status: " + e.getMessage(), e);
+            LOG.error("Error in setting decision and status: " + e.getMessage(), e);
         }
-        log.info("End AdapterPDPProxyJavaImpl.createResult(...)");
+        LOG.info("End AdapterPDPProxyJavaImpl.createResult(...)");
         return result;
     }
 }

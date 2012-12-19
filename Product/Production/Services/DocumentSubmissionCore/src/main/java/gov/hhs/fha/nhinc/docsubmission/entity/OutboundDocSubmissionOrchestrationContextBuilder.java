@@ -33,7 +33,6 @@ import gov.hhs.fha.nhinc.orchestration.OrchestrationContext;
 import gov.hhs.fha.nhinc.orchestration.OrchestrationContextBuilder;
 import gov.hhs.fha.nhinc.orchestration.OutboundOrchestratable;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
-import org.apache.commons.logging.Log;
 
 /**
  * 
@@ -41,7 +40,6 @@ import org.apache.commons.logging.Log;
  */
 public abstract class OutboundDocSubmissionOrchestrationContextBuilder implements OrchestrationContextBuilder {
 
-    private static Log log;
     private AssertionType assertionType;
     private OutboundDelegate nhinDelegate;
     private ProvideAndRegisterDocumentSetRequestType request;
@@ -62,10 +60,6 @@ public abstract class OutboundDocSubmissionOrchestrationContextBuilder implement
 
     public void setAssertionType(AssertionType assertionType) {
         this.assertionType = assertionType;
-    }
-
-    public Log getLog() {
-        return log;
     }
 
     public OutboundDelegate getNhinDelegate() {

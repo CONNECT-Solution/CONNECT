@@ -32,8 +32,8 @@ import gov.hhs.fha.nhinc.common.nhinccommon.AcknowledgementType;
 import gov.hhs.fha.nhinc.common.nhinccommonentity.NotifyRequestType;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+
+import org.apache.log4j.Logger;
 import java.io.*;
 import java.io.File;
 import javax.xml.bind.JAXBElement;
@@ -51,7 +51,7 @@ import org.oasis_open.docs.wsn.b_2.TopicExpressionType;
  */
 public class CDCTimerTask {
 
-    private static Log log = LogFactory.getLog(CDCTimerTask.class);
+    private static final Logger LOG = Logger.getLogger(CDCTimerTask.class);
     private String monitorDirectory = "";
     private static final String ADAPTER_PROPERTY_FILE = "adapter";
     private static final String CDC_PROCESS_FILES_STATUS = "CDCProcessFiles";
@@ -84,7 +84,7 @@ public class CDCTimerTask {
             }
 
         } catch (Throwable t) {
-            log.error("****** CDCTimerTask THROWABLE: " + t.getMessage(), t);
+            LOG.error("****** CDCTimerTask THROWABLE: " + t.getMessage(), t);
 
             StringWriter stackTrace = new StringWriter();
             t.printStackTrace(new PrintWriter(stackTrace));
@@ -101,7 +101,7 @@ public class CDCTimerTask {
         try {
             process = PropertyAccessor.getInstance().getPropertyBoolean(ADAPTER_PROPERTY_FILE, CDC_PROCESS_FILES_STATUS);
         } catch (Exception ex) {
-            log.error("****** CDCTimerTask THROWABLE: " + ex.getMessage(), ex);
+            LOG.error("****** CDCTimerTask THROWABLE: " + ex.getMessage(), ex);
             process = false;
         }
         return process;
@@ -120,9 +120,9 @@ public class CDCTimerTask {
                 File child = new File(dir.getAbsolutePath() + "/" + children[i]);
 
                 if (!child.isDirectory()) {
-                    log.info("CDCTimerTask Processing File: " + child.getName());
+                    LOG.info("CDCTimerTask Processing File: " + child.getName());
                     String contents = getContents(child);
-                    log.info("CDCTimerTask File Contents: " + contents);
+                    LOG.info("CDCTimerTask File Contents: " + contents);
                     sendNotification(contents);
 
                     child.delete();
@@ -153,18 +153,18 @@ public class CDCTimerTask {
             }
         } catch (IOException ex) {
             ex.printStackTrace();
-            log.error("****** CDCTimerTask THROWABLE: " + ex.getMessage(), ex);
+            LOG.error("****** CDCTimerTask THROWABLE: " + ex.getMessage(), ex);
         }
 
         return contents.toString();
     }
 
     public static void sendNotification(String contents) {
-        log.debug("Begin - CDCFileTransferAdapter.sendNotification() - End");
+        LOG.debug("Begin - CDCFileTransferAdapter.sendNotification() - End");
         try {
             // Create End point Dynamically
             String endpointURL = PropertyAccessor.getInstance().getProperty("adapter", "EntityNotificationConsumerURL");
-            log.info("EntityNotificationConsumerURL :" + endpointURL);
+            LOG.info("EntityNotificationConsumerURL :" + endpointURL);
 
             NotifyRequestType notifyRequest = new NotifyRequestType();
 
@@ -193,11 +193,11 @@ public class CDCTimerTask {
             notify.getNotificationMessage().add(messageHolderType);
             notifyRequest.setNotify(notify);
             AcknowledgementType result = port.notify(notifyRequest);
-            log.info("Result = " + result);
+            LOG.info("Result = " + result);
         } catch (Exception ex) {
             ex.printStackTrace();
         }
-        log.debug("End - CDCFileTransferAdapter.sendNotification() - End");
+        LOG.debug("End - CDCFileTransferAdapter.sendNotification() - End");
     }
 
     protected static EntityNotificationConsumerPortType getPort(String url, AssertionType assertIn) {
@@ -206,7 +206,7 @@ public class CDCTimerTask {
             Service oService = getService(WSDL_FILE, NAMESPACE_URI, SERVICE_LOCAL_PART);
 
             if (oService != null) {
-                log.debug("subscribe() Obtained service - creating port.");
+                LOG.debug("subscribe() Obtained service - creating port.");
                 oPort = oService.getPort(new QName(NAMESPACE_URI, PORT_LOCAL_PART),
                         EntityNotificationConsumerPortType.class);
 
@@ -214,10 +214,10 @@ public class CDCTimerTask {
                 getWebServiceProxyHelper().initializeUnsecurePort((BindingProvider) oPort, url, WS_ADDRESSING_ACTION,
                         assertIn);
             } else {
-                log.error("Unable to obtain serivce - no port created.");
+                LOG.error("Unable to obtain serivce - no port created.");
             }
         } catch (Throwable t) {
-            log.error("Error creating service: " + t.getMessage(), t);
+            LOG.error("Error creating service: " + t.getMessage(), t);
         }
         return oPort;
     }
@@ -234,7 +234,7 @@ public class CDCTimerTask {
             try {
                 cachedService = getWebServiceProxyHelper().createService(wsdl, uri, service);
             } catch (Throwable t) {
-                log.error("Error creating service: " + t.getMessage(), t);
+                LOG.error("Error creating service: " + t.getMessage(), t);
             }
         }
         return cachedService;

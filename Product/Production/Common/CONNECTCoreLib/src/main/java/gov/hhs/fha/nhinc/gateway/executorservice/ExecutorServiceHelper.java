@@ -29,18 +29,12 @@ package gov.hhs.fha.nhinc.gateway.executorservice;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
-//import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
-//import gov.hhs.fha.nhinc.connectmgr.NhinEndpointManager;
-import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
-import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
-
 import java.io.CharArrayWriter;
 import java.io.PrintWriter;
 import java.util.Map;
 import java.util.HashMap;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 
 /**
  * Singleton class that holds the ExecutorService configs as follows - concurrentPoolSize is the size of the pool for
@@ -59,7 +53,7 @@ import org.apache.commons.logging.LogFactory;
  */
 public class ExecutorServiceHelper {
 
-    private static Log log = LogFactory.getLog(ExecutorServiceHelper.class);
+    private static final Logger LOG = Logger.getLogger(ExecutorServiceHelper.class);
 
     private static ExecutorServiceHelper instance = null;
     private static final Object EXSYNC = new Object();
@@ -92,7 +86,7 @@ public class ExecutorServiceHelper {
                     NhincConstants.LARGEJOB_SIZE_PERCENT);
             largejobSizePercent = Double.parseDouble(largejobSizePercentStr);
         } catch (Exception e) {
-            log.error("ExecutorServiceHelper exception loading config properties so using default values");
+            LOG.error("ExecutorServiceHelper exception loading config properties so using default values");
             outputCompleteException(e);
             // set default pool size to 100
             concurrentPoolSize = 100;
@@ -101,7 +95,7 @@ public class ExecutorServiceHelper {
             // set default large job size percent to 75%
             largejobSizePercent = .75;
         }
-        log.debug("ExecutorServiceHelper created singleton instance and "
+        LOG.debug("ExecutorServiceHelper created singleton instance and "
                 + "set executor service configuration parameters: " + "concurrentPoolSize=" + concurrentPoolSize
                 + " largejobPoolSize=" + largejobPoolSize + " largejobSizePercent=" + largejobSizePercent);
     }
@@ -148,7 +142,7 @@ public class ExecutorServiceHelper {
         Double maxSize = new Double(largejobSizePercent * concurrentPoolSize);
         if (targetListCount >= maxSize.intValue()) {
             bigJob = true;
-            log.debug("checkExecutorTaskIsLarge has large job size=" + targetListCount
+            LOG.debug("checkExecutorTaskIsLarge has large job size=" + targetListCount
                     + " so returning LargeJobExecutor");
         }
         return bigJob;
@@ -164,7 +158,7 @@ public class ExecutorServiceHelper {
         CharArrayWriter caw = new CharArrayWriter();
         ex.printStackTrace(new PrintWriter(caw));
         err += caw.toString();
-        log.error(err);
+        LOG.error(err);
     }
 
     /**

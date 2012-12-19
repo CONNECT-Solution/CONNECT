@@ -42,8 +42,7 @@ import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryError;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 
 /**
  * 
@@ -51,16 +50,11 @@ import org.apache.commons.logging.LogFactory;
  */
 public class AdapterComponentDocRepositoryProxyWebServiceUnsecuredImpl implements AdapterComponentDocRepositoryProxy {
 
-    private Log log = null;
+    private static final Logger LOG = Logger.getLogger(AdapterComponentDocRepositoryProxyWebServiceUnsecuredImpl.class);
     private WebServiceProxyHelper oProxyHelper = null;
 
     public AdapterComponentDocRepositoryProxyWebServiceUnsecuredImpl() {
-        log = createLogger();
         oProxyHelper = createWebServiceProxyHelper();
-    }
-
-    protected Log createLogger() {
-        return LogFactory.getLog(getClass());
     }
 
     protected WebServiceProxyHelper createWebServiceProxyHelper() {
@@ -74,7 +68,7 @@ public class AdapterComponentDocRepositoryProxyWebServiceUnsecuredImpl implement
     }
 
     public RetrieveDocumentSetResponseType retrieveDocument(RetrieveDocumentSetRequestType msg, AssertionType assertion) {
-        log.debug("Begin retrieveDocument");
+        LOG.debug("Begin retrieveDocument");
         RetrieveDocumentSetResponseType response = null;
 
         try {
@@ -84,7 +78,7 @@ public class AdapterComponentDocRepositoryProxyWebServiceUnsecuredImpl implement
                     NhincConstants.ADAPTER_DOC_REPOSITORY_SERVICE_NAME);
 
             if (msg == null) {
-                log.error("Message was null");
+                LOG.error("Message was null");
             } else {
                 ServicePortDescriptor<DocumentRepositoryPortType> portDescriptor = new AdapterComponentDocRepositoryServicePortDescriptor();
 
@@ -95,7 +89,7 @@ public class AdapterComponentDocRepositoryProxyWebServiceUnsecuredImpl implement
                         "documentRepositoryRetrieveDocumentSet", msg);
             }
         } catch (Exception ex) {
-            log.error("Error sending Adapter Component Doc Repository Unsecured message: " + ex.getMessage(), ex);
+            LOG.error("Error sending Adapter Component Doc Repository Unsecured message: " + ex.getMessage(), ex);
             response = new RetrieveDocumentSetResponseType();
             RegistryResponseType regResp = new RegistryResponseType();
 
@@ -109,7 +103,7 @@ public class AdapterComponentDocRepositoryProxyWebServiceUnsecuredImpl implement
             response.setRegistryResponse(regResp);
         }
 
-        log.debug("End retrieveDocument");
+        LOG.debug("End retrieveDocument");
         return response;
     }
 
@@ -124,7 +118,7 @@ public class AdapterComponentDocRepositoryProxyWebServiceUnsecuredImpl implement
                     NhincConstants.ADAPTER_DOC_REPOSITORY_SERVICE_NAME);
 
             if (msg == null) {
-                log.error("Message was null");
+                LOG.error("Message was null");
             } else {
                 ServicePortDescriptor<DocumentRepositoryPortType> portDescriptor = new AdapterComponentDocRepositoryServicePortDescriptor();
 
@@ -135,7 +129,7 @@ public class AdapterComponentDocRepositoryProxyWebServiceUnsecuredImpl implement
                         "documentRepositoryProvideAndRegisterDocumentSetB", msg);
             }
         } catch (Exception ex) {
-            log.error("Error sending message to the adapter document repository: " + ex.getMessage(), ex);
+            LOG.error("Error sending message to the adapter document repository: " + ex.getMessage(), ex);
         }
         return response;
     }

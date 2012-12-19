@@ -45,16 +45,14 @@ import gov.hhs.fha.nhinc.transform.policy.SubjectHelper;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 
 public class StandardOutboundDocSubmission implements OutboundDocSubmission {
 
-    private static Log log = LogFactory.getLog(StandardOutboundDocSubmission.class);
+    private static final Logger LOG = Logger.getLogger(StandardOutboundDocSubmission.class);
     private XDRAuditLogger auditLogger = null;
     
     public StandardOutboundDocSubmission() {
-        log = getLogger();
         auditLogger = getXDRAuditLogger();
     }
 
@@ -71,10 +69,10 @@ public class StandardOutboundDocSubmission implements OutboundDocSubmission {
         auditRequestFromAdapter(request, assertion);
 
         if (isPolicyValid(request, assertion)) {
-            log.info("Policy check successful");
+            LOG.info("Policy check successful");
             response = getResponseFromTarget(request, assertion);
         } else {
-            log.error("Failed policy check.  Sending error response.");
+            LOG.error("Failed policy check.  Sending error response.");
             response = MessageGeneratorUtils.getInstance().createFailedPolicyCheckResponse();
         }
 
@@ -97,10 +95,6 @@ public class StandardOutboundDocSubmission implements OutboundDocSubmission {
         }
 
         return false;
-    }
-    
-    protected Log getLogger() {
-        return log;
     }
 
     protected XDRAuditLogger getXDRAuditLogger() {
@@ -142,9 +136,9 @@ public class StandardOutboundDocSubmission implements OutboundDocSubmission {
             isValid = getXDRPolicyChecker().checkXDRRequestPolicy(request.getProvideAndRegisterDocumentSetRequest(),
                     assertion, senderHCID, receiverHCID, NhincConstants.POLICYENGINE_OUTBOUND_DIRECTION);
         } else {
-            log.warn("Check on policy requires a non null target home community ID specified in the request");
+            LOG.warn("Check on policy requires a non null target home community ID specified in the request");
         }
-        log.debug("Check on policy returns: " + isValid);
+        LOG.debug("Check on policy returns: " + isValid);
 
         return isValid;
     }
@@ -161,10 +155,10 @@ public class StandardOutboundDocSubmission implements OutboundDocSubmission {
             } catch (Exception e) {
                 String hcid = getNhinTargetHomeCommunityId(request);
                 nhinResponse = MessageGeneratorUtils.getInstance().createRegistryBusyErrorResponse("Failed to send request to community " + hcid);
-                log.error("Fault encountered while trying to send message to the nhin " + hcid, e);
+                LOG.error("Fault encountered while trying to send message to the nhin " + hcid, e);
             }
         } else {
-            log.warn("The request to the Nhin did not contain a target home community id.");
+            LOG.warn("The request to the Nhin did not contain a target home community id.");
         }
 
         return nhinResponse;

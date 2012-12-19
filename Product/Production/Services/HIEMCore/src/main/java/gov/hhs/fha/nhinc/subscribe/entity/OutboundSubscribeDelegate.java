@@ -32,13 +32,13 @@ import gov.hhs.fha.nhinc.orchestration.OutboundOrchestratable;
 import gov.hhs.fha.nhinc.orchestration.OutboundDelegate;
 import gov.hhs.fha.nhinc.orchestration.Orchestratable;
 import gov.hhs.fha.nhinc.orchestration.OrchestrationContextBuilder;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+
+import org.apache.log4j.Logger;
 
 
 public class OutboundSubscribeDelegate implements OutboundDelegate {
 
-    private static Log log = LogFactory.getLog(OutboundSubscribeDelegate.class);
+    private static final Logger LOG = Logger.getLogger(OutboundSubscribeDelegate.class);
 
     public Orchestratable process(Orchestratable message) {
         if (message instanceof OutboundOrchestratable) {
@@ -49,9 +49,9 @@ public class OutboundSubscribeDelegate implements OutboundDelegate {
 
     @Override
     public OutboundOrchestratable process(OutboundOrchestratable message) {
-        getLogger().debug("begin process");
+        LOG.debug("begin process");
         if (message instanceof OutboundSubscribeOrchestratable) {
-            getLogger().debug("processing DS orchestratable ");
+            LOG.debug("processing DS orchestratable ");
             OutboundSubscribeOrchestratable dsMessage = (OutboundSubscribeOrchestratable) message;
 
             OrchestrationContextBuilder contextBuilder = getOrchestrationContextFactory().getBuilder(
@@ -64,7 +64,7 @@ public class OutboundSubscribeDelegate implements OutboundDelegate {
             }
             return (OutboundOrchestratable) contextBuilder.build().execute();
         }
-        getLogger().error("message is not an instance of OutboundSubscribeOrchestratable!");
+        LOG.error("message is not an instance of OutboundSubscribeOrchestratable!");
         return null;
     }
 
@@ -72,11 +72,7 @@ public class OutboundSubscribeDelegate implements OutboundDelegate {
         return OrchestrationContextFactory.getInstance();
     }
     
-    protected Log getLogger() {
-        return log;
-    }
-
-	/* (non-Javadoc)
+    /* (non-Javadoc)
 	 * @see gov.hhs.fha.nhinc.orchestration.OutboundDelegate#createErrorResponse(gov.hhs.fha.nhinc.orchestration.OutboundOrchestratable, java.lang.String)
 	 */
 	@Override

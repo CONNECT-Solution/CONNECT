@@ -32,8 +32,7 @@ import gov.hhs.fha.nhinc.common.connectionmanager.persistence.HibernateUtil;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -45,7 +44,7 @@ import org.hibernate.Transaction;
  */
 public class AssigningAuthorityHomeCommunityMappingDAO {
 
-    private static Log log = LogFactory.getLog(AssigningAuthorityHomeCommunityMappingDAO.class);
+    private static final Logger LOG = Logger.getLogger(AssigningAuthorityHomeCommunityMappingDAO.class);
 
     /**
      * This method retrieves and returns a AssigningAuthority for an Home Community...
@@ -54,13 +53,13 @@ public class AssigningAuthorityHomeCommunityMappingDAO {
      * @return String
      */
     public String getAssigningAuthority(String homeCommunityId) {
-        log.trace("--Begin AssigningAuthorityHomeCommunityMappingDAO.getACommunityIdForAssigningAuthority() ---");
+        LOG.trace("--Begin AssigningAuthorityHomeCommunityMappingDAO.getACommunityIdForAssigningAuthority() ---");
         String assigningAuthId = "";
         List<String> aaids = getAssigningAuthoritiesByHomeCommunity(homeCommunityId);
         if (aaids.size() > 1) {
             assigningAuthId = aaids.get(0);
         }
-        log.trace("--End AssigningAuthorityHomeCommunityMappingDAO.getACommunityIdForAssigningAuthority() ---");
+        LOG.trace("--End AssigningAuthorityHomeCommunityMappingDAO.getACommunityIdForAssigningAuthority() ---");
         return assigningAuthId;
     }
 
@@ -72,7 +71,7 @@ public class AssigningAuthorityHomeCommunityMappingDAO {
      */
     @SuppressWarnings("unchecked")
     public List<String> getAssigningAuthoritiesByHomeCommunity(String homeCommunityId) {
-        log.trace("-- Begin AssigningAuthorityHomeCommunityMappingDAO.getAssigningAuthoritiesByHomeCommunity() ---");
+        LOG.trace("-- Begin AssigningAuthorityHomeCommunityMappingDAO.getAssigningAuthoritiesByHomeCommunity() ---");
         Session sess = null;
         List<String> listOfAAs = new ArrayList<String>();
         if (homeCommunityId != null && !homeCommunityId.equals("")) {
@@ -87,23 +86,23 @@ public class AssigningAuthorityHomeCommunityMappingDAO {
                     }
 
                 } else {
-                    log.error("Unable create Hibernate Sessions");
+                    LOG.error("Unable create Hibernate Sessions");
                 }
             } finally {
                 if (sess != null) {
                     try {
                         sess.close();
                     } catch (Throwable t) {
-                        log.error("Failed to close session: " + t.getMessage(), t);
+                        LOG.error("Failed to close session: " + t.getMessage(), t);
                     }
                 }
             }
         } else {
-            log.error("Please provide a valid homeCommunityId");
+            LOG.error("Please provide a valid homeCommunityId");
         }
-        if (log.isTraceEnabled()) {
-            log.trace("-- End AssigningAuthorityHomeCommunityMappingDAO.getAssigningAuthoritiesByHomeCommunity() ---");
-            log.trace("getAssigningAuthoritiesByHomeCommunity - listOfAAs.size: " + listOfAAs.size());
+        if (LOG.isTraceEnabled()) {
+            LOG.trace("-- End AssigningAuthorityHomeCommunityMappingDAO.getAssigningAuthoritiesByHomeCommunity() ---");
+            LOG.trace("getAssigningAuthoritiesByHomeCommunity - listOfAAs.size: " + listOfAAs.size());
         }
         return listOfAAs;
     }
@@ -114,7 +113,7 @@ public class AssigningAuthorityHomeCommunityMappingDAO {
      * @param assigningAuthority
      */
     public String getHomeCommunityId(String assigningAuthority) {
-        log.debug("--Begin AssigningAuthorityHomeCommunityMappingDAO.getAllCommunityIdsForAllAssigningAuthorities() ---");
+        LOG.debug("--Begin AssigningAuthorityHomeCommunityMappingDAO.getAllCommunityIdsForAllAssigningAuthorities() ---");
         String homeCommunity = "";
         if (assigningAuthority != null && !assigningAuthority.equals("")) {
             Session sess = null;
@@ -129,21 +128,21 @@ public class AssigningAuthorityHomeCommunityMappingDAO {
                         homeCommunity = l.get(0).getHomeCommunityId();
                     }
                 } else {
-                    log.error("Unable to create session");
+                    LOG.error("Unable to create session");
                 }
             } finally {
                 if (sess != null) {
                     try {
                         sess.close();
                     } catch (Throwable t) {
-                        log.error("Failed to close session: " + t.getMessage(), t);
+                        LOG.error("Failed to close session: " + t.getMessage(), t);
                     }
                 }
             }
         } else {
-            log.error("Enter correct assigning authority");
+            LOG.error("Enter correct assigning authority");
         }
-        log.debug("--End AssigningAuthorityHomeCommunityMappingDAO.getAllCommunityIdsForAllAssigningAuthorities() ---");
+        LOG.debug("--End AssigningAuthorityHomeCommunityMappingDAO.getAllCommunityIdsForAllAssigningAuthorities() ---");
         return homeCommunity;
     }
 
@@ -154,7 +153,7 @@ public class AssigningAuthorityHomeCommunityMappingDAO {
      * @param assigningAuthority
      */
     public boolean storeMapping(String homeCommunityId, String assigningAuthority) {
-        log.debug("--Begin AssigningAuthorityHomeCommunityMappingDAO.storeAssigningAuthorityAndHomeCommunity() ---");
+        LOG.debug("--Begin AssigningAuthorityHomeCommunityMappingDAO.storeAssigningAuthorityAndHomeCommunity() ---");
         System.out
                 .println("--Begin AssigningAuthorityHomeCommunityMappingDAO.storeAssigningAuthorityAndHomeCommunity() ---");
         boolean success = false;
@@ -173,7 +172,7 @@ public class AssigningAuthorityHomeCommunityMappingDAO {
                     List<AssigningAuthorityToHomeCommunityMapping> l = namedQuery.list();
 
                     if (l != null && l.size() > 0) {
-                        log.info("Assigning Authority and Home Community pair already present in the repository");
+                        LOG.info("Assigning Authority and Home Community pair already present in the repository");
                     } else {
                         mappingInfo = new AssigningAuthorityToHomeCommunityMapping();
                         mappingInfo.setAssigningAuthorityId(assigningAuthority);
@@ -183,28 +182,28 @@ public class AssigningAuthorityHomeCommunityMappingDAO {
                         success = true;
                     }
                 } else {
-                    log.error("Unable to create session information");
+                    LOG.error("Unable to create session information");
                 }
             } finally {
                 if (trans != null) {
                     try {
                         trans.commit();
                     } catch (Throwable t) {
-                        log.error("Failed to commit transaction: " + t.getMessage(), t);
+                        LOG.error("Failed to commit transaction: " + t.getMessage(), t);
                     }
                 }
                 if (sess != null) {
                     try {
                         sess.close();
                     } catch (Throwable t) {
-                        log.error("Failed to close session: " + t.getMessage(), t);
+                        LOG.error("Failed to close session: " + t.getMessage(), t);
                     }
                 }
             }
         } else {
-            log.error("Invalid data entered, Enter Valid data to store");
+            LOG.error("Invalid data entered, Enter Valid data to store");
         }
-        log.debug("--End AssigningAuthorityHomeCommunityMappingDAO.storeAssigningAuthorityAndHomeCommunity() ---");
+        LOG.debug("--End AssigningAuthorityHomeCommunityMappingDAO.storeAssigningAuthorityAndHomeCommunity() ---");
         System.out
                 .println("--End AssigningAuthorityHomeCommunityMappingDAO.storeAssigningAuthorityAndHomeCommunity() ---");
         return success;

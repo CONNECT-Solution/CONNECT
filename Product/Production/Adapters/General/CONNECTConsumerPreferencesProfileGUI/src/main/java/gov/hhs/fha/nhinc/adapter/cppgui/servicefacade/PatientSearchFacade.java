@@ -38,14 +38,14 @@ import gov.hhs.fha.nhinc.mpilib.Patient;
 import gov.hhs.fha.nhinc.mpilib.Patients;
 import gov.hhs.fha.nhinc.mpilib.PersonName;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
-import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import gov.hhs.fha.nhinc.transform.subdisc.HL7Extractors;
 import gov.hhs.fha.nhinc.transform.subdisc.HL7PRPA201305Transforms;
 import gov.hhs.fha.nhinc.transform.subdisc.HL7PatientTransforms;
+
 import java.util.ArrayList;
 import java.util.List;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+
+import org.apache.log4j.Logger;
 import org.hl7.v3.II;
 import org.hl7.v3.PRPAIN201305UV02;
 import org.hl7.v3.PRPAIN201306UV02;
@@ -59,7 +59,7 @@ import org.hl7.v3.PRPAMT201310UV02Patient;
  */
 public class PatientSearchFacade {
 
-    private static final Log log = LogFactory.getLog(PatientSearchFacade.class);
+    private static final Logger LOG = Logger.getLogger(PatientSearchFacade.class);
 
     /**
      * Search MPI with the given search criteria
@@ -128,7 +128,7 @@ public class PatientSearchFacade {
         PersonName personName = null;
         if ((patients != null) && (patients.getControlActProcess() != null)
                 && NullChecker.isNotNullish(patients.getControlActProcess().getSubject())) {
-            log.debug("convertPRPAIN201306UVToPatients - patients size: "
+            LOG.debug("convertPRPAIN201306UVToPatients - patients size: "
                     + patients.getControlActProcess().getSubject().size());
             for (PRPAIN201306UV02MFMIMT700711UV01Subject1 subj1 : patients.getControlActProcess().getSubject()) {
                 if ((subj1.getRegistrationEvent() != null) && (subj1.getRegistrationEvent().getSubject1() != null)
@@ -139,9 +139,9 @@ public class PatientSearchFacade {
                     if (NullChecker.isNotNullish(mpiPatResult.getId()) && mpiPatResult.getId().get(0) != null
                             && NullChecker.isNotNullish(mpiPatResult.getId().get(0).getExtension())
                             && NullChecker.isNotNullish(mpiPatResult.getId().get(0).getRoot())) {
-                        log.debug("convertPRPAIN201306UVToPatients - patients getExtension: "
+                        LOG.debug("convertPRPAIN201306UVToPatients - patients getExtension: "
                                 + mpiPatResult.getId().get(0).getExtension());
-                        log.debug("convertPRPAIN201306UVToPatients - patients getRoot: "
+                        LOG.debug("convertPRPAIN201306UVToPatients - patients getRoot: "
                                 + mpiPatResult.getId().get(0).getRoot());
                         searchPatient.getIdentifiers().add(mpiPatResult.getId().get(0).getExtension(),
                                 mpiPatResult.getId().get(0).getRoot());
@@ -152,9 +152,9 @@ public class PatientSearchFacade {
                         name = HL7Extractors.translatePNListtoPersonNameType(mpiPatResult.getPatientPerson().getValue()
                                 .getName());
                         if (name != null) {
-                            log.debug("convertPRPAIN201306UVToPatients - patients name.getGivenName(): "
+                            LOG.debug("convertPRPAIN201306UVToPatients - patients name.getGivenName(): "
                                     + name.getGivenName());
-                            log.debug("convertPRPAIN201306UVToPatients - patients name.getFamilyName(): "
+                            LOG.debug("convertPRPAIN201306UVToPatients - patients name.getFamilyName(): "
                                     + name.getFamilyName());
                             personName = new PersonName();
                             personName.setFirstName(name.getGivenName());
@@ -163,7 +163,7 @@ public class PatientSearchFacade {
                         }
 
                     } else {
-                        log.debug("convertPRPAIN201306UVToPatients - mpiPatResult.getPatientPerson(): null");
+                        LOG.debug("convertPRPAIN201306UVToPatients - mpiPatResult.getPatientPerson(): null");
                     }
 
                     mpiPatients.add(searchPatient);
@@ -172,7 +172,7 @@ public class PatientSearchFacade {
             }
 
         } else {
-            log.debug("convertPRPAIN201306UVToPatients - patients size: null");
+            LOG.debug("convertPRPAIN201306UVToPatients - patients size: null");
         }
 
         return mpiPatients;

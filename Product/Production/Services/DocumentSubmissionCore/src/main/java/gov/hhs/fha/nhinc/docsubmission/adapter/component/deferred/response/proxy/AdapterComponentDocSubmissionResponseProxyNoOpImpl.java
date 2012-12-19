@@ -28,9 +28,10 @@ package gov.hhs.fha.nhinc.docsubmission.adapter.component.deferred.response.prox
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.healthit.nhin.XDRAcknowledgementType;
+
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+
+import org.apache.log4j.Logger;
 
 /**
  * 
@@ -38,23 +39,7 @@ import org.apache.commons.logging.LogFactory;
  */
 public class AdapterComponentDocSubmissionResponseProxyNoOpImpl implements AdapterComponentDocSubmissionResponseProxy {
 
-    private Log log = null;
-
-    /**
-     * Default constructor.
-     */
-    public AdapterComponentDocSubmissionResponseProxyNoOpImpl() {
-        log = createLogger();
-    }
-
-    /**
-     * Creates the log object for logging.
-     * 
-     * @return The log object.
-     */
-    protected Log createLogger() {
-        return ((log != null) ? log : LogFactory.getLog(getClass()));
-    }
+    private static final Logger LOG = Logger.getLogger(AdapterComponentDocSubmissionResponseProxyNoOpImpl.class);
 
     /**
      * Receive document deferred document submission response.
@@ -66,7 +51,7 @@ public class AdapterComponentDocSubmissionResponseProxyNoOpImpl implements Adapt
     public XDRAcknowledgementType provideAndRegisterDocumentSetBResponse(RegistryResponseType body,
             AssertionType assertion) {
 
-        log.debug("Entering AdapterComponentDocSubmissionResponseProxyNoOpImpl.provideAndRegisterDocumentSetBResponse");
+        LOG.trace("Entering AdapterComponentDocSubmissionResponseProxyNoOpImpl.provideAndRegisterDocumentSetBResponse");
         return new XDRAcknowledgementType();
     }
 }
