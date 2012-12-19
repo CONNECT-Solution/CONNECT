@@ -26,21 +26,20 @@
  */
 package gov.hhs.fha.nhinc.subscription.repository.manager;
 
+import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
+import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import gov.hhs.fha.nhinc.subscription.repository.SubscriptionRepositoryException;
 import gov.hhs.fha.nhinc.subscription.repository.data.ReferenceParameter;
 import gov.hhs.fha.nhinc.subscription.repository.data.SubscriptionItem;
 import gov.hhs.fha.nhinc.subscription.repository.data.SubscriptionRecord;
 import gov.hhs.fha.nhinc.subscription.repository.data.SubscriptionRecordList;
 import gov.hhs.fha.nhinc.subscription.repository.data.SubscriptionReference;
-import gov.hhs.fha.nhinc.properties.PropertyAccessor;
-import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
-import org.uddi.api_v3.BusinessEntity;
-import org.uddi.api_v3.BusinessService;
 
 import java.util.Iterator;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+
+import org.apache.log4j.Logger;
+import org.uddi.api_v3.BusinessEntity;
 
 /**
  * Data manager for file-based subscriptions.
@@ -49,7 +48,7 @@ import org.apache.commons.logging.LogFactory;
  */
 public class Manager {
 
-    private static Log log = LogFactory.getLog(DataSaver.class);
+    private static final Logger LOG = Logger.getLogger(DataSaver.class);
     public static final String CONST_DEFAULT_SUBSCRIBE_LIST = "subscriptionList.xml";
     private static final String CONST_UNSUBSCRIBE_SERVICE_NAME = "subscriptionmanager";
 
@@ -132,7 +131,7 @@ public class Manager {
                 try {
                     subscriptionReference.addReferenceParameter(param);
                 } catch (SubscriptionRepositoryException ex) {
-                    log.error("Error adding subscription reference parameter to list", ex);
+                    LOG.error("Error adding subscription reference parameter to list", ex);
                 }
 
                 try {
@@ -143,19 +142,19 @@ public class Manager {
                                     CONST_UNSUBSCRIBE_SERVICE_NAME);
                         } catch (Throwable t) {
                             String sErrorMessage = "Failed to retrieve business entity.  Error: " + t.getMessage();
-                            log.error(sErrorMessage, t);
+                            LOG.error(sErrorMessage, t);
                         }
                     }
                     if (url != null && url.length() > 0) {
-                        log.info("Returning Endpoint URL: " + url);
+                        LOG.info("Returning Endpoint URL: " + url);
                         subscriptionReference.setSubscriptionManagerEndpointAddress(url);
                     } else {
-                        log.error("URL not defined for service " + CONST_UNSUBSCRIBE_SERVICE_NAME);
+                        LOG.error("URL not defined for service " + CONST_UNSUBSCRIBE_SERVICE_NAME);
                         subscriptionReference
                                 .setSubscriptionManagerEndpointAddress("https://www.somewhere.org/SubscriptionManager");
                     }
                 } catch (PropertyAccessException ex) {
-                    log.error("Failed to retrieve the subscription manager endpoint address: " + ex.getMessage(), ex);
+                    LOG.error("Failed to retrieve the subscription manager endpoint address: " + ex.getMessage(), ex);
                     subscriptionReference
                             .setSubscriptionManagerEndpointAddress("https://www.somewhere.org/SubscriptionManager");
                 }

@@ -42,8 +42,7 @@ import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 
 import javax.xml.ws.BindingProvider;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 import org.oasis_open.docs.wsn.b_2.Notify;
 import org.oasis_open.docs.wsn.bw_2.NotificationConsumer;
 
@@ -53,7 +52,7 @@ import org.oasis_open.docs.wsn.bw_2.NotificationConsumer;
  */
 public class NhinHiemNotifyWebServiceProxy implements NhinHiemNotifyProxy {
 
-    private static Log log = LogFactory.getLog(NhinHiemNotifyWebServiceProxy.class);
+    private static final Logger LOG = Logger.getLogger(NhinHiemNotifyWebServiceProxy.class);
 
     protected CONNECTClient<NotificationConsumer> getCONNECTClientSecured(
             ServicePortDescriptor<NotificationConsumer> portDescriptor, String url, AssertionType assertion,
@@ -71,9 +70,9 @@ public class NhinHiemNotifyWebServiceProxy implements NhinHiemNotifyProxy {
             String url = ConnectionManagerCache.getInstance().getEndpointURLFromNhinTarget(target,
                     NhincConstants.HIEM_NOTIFY_SERVICE_NAME);
             if (NullChecker.isNullish(url)) {
-                log.error("The URL for service: " + NhincConstants.HIEM_NOTIFY_SERVICE_NAME + " is null");
+                LOG.error("The URL for service: " + NhincConstants.HIEM_NOTIFY_SERVICE_NAME + " is null");
             } else if (target == null) {
-                log.error("Target system passed into the proxy is null");
+                LOG.error("Target system passed into the proxy is null");
             } else {
 
                 String wsAddressingTo = ReferenceParametersHelper.getWsAddressingTo(referenceParametersElements);
@@ -96,7 +95,7 @@ public class NhinHiemNotifyWebServiceProxy implements NhinHiemNotifyProxy {
                 client.invokePort(NotificationConsumer.class, "notify", notify);
             }
         } catch (Throwable t) {
-            log.error("Error sending notify to remote gateway: " + t.getMessage(), t);
+            LOG.error("Error sending notify to remote gateway: " + t.getMessage(), t);
         }
     }
 }

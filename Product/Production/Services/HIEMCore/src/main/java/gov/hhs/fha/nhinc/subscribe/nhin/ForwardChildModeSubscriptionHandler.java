@@ -26,6 +26,7 @@
  */
 package gov.hhs.fha.nhinc.subscribe.nhin;
 
+import org.apache.log4j.Logger;
 import org.oasis_open.docs.wsn.b_2.SubscribeResponse;
 import org.oasis_open.docs.wsn.bw_2.SubscribeCreationFailedFault;
 import org.w3._2005._08.addressing.EndpointReferenceType;
@@ -43,33 +44,34 @@ import gov.hhs.fha.nhinc.subscription.repository.data.HiemSubscriptionItem;
  * @author rayj
  */
 class ForwardChildModeSubscriptionHandler extends BaseSubscriptionHandler {
-
+	private static final Logger LOG = Logger.getLogger(ForwardChildModeSubscriptionHandler.class);
+	
     @Override
     public SubscribeResponse handleSubscribe(Element subscribe) throws SubscribeCreationFailedFault {
-        log.debug("In ForwardChildModeSubscriptionHandler.handleSubscribe");
+        LOG.debug("In ForwardChildModeSubscriptionHandler.handleSubscribe");
         AssertionType assertion = null;
         NhinTargetSystemType target = null;
 
-        log.info("initialize HiemSubscribeAdapterProxyObjectFactory");
+        LOG.info("initialize HiemSubscribeAdapterProxyObjectFactory");
         HiemSubscribeAdapterProxyObjectFactory adapterFactory = new HiemSubscribeAdapterProxyObjectFactory();
-        log.info("initialize HIEM subscribe adapter proxy");
+        LOG.info("initialize HIEM subscribe adapter proxy");
         HiemSubscribeAdapterProxy adapterProxy = adapterFactory.getHiemSubscribeAdapterProxy();
 
         try {
-            log.info("begin invoke HIEM subscribe adapter proxy");
+            LOG.info("begin invoke HIEM subscribe adapter proxy");
             adapterProxy.subscribe(subscribe, assertion, target);
-            log.info("end invoke HIEM subscribe adapter proxy");
+            LOG.info("end invoke HIEM subscribe adapter proxy");
         } catch (Exception ex) {
-            log.error("failed to forward subscribe to adapter", ex);
+            LOG.error("failed to forward subscribe to adapter", ex);
             throw new SoapFaultFactory().getFailedToForwardSubscribeToAgencyFault(ex);
         }
 
         // Build subscription item
-        log.debug("Calling createSubscriptionItem");
+        LOG.debug("Calling createSubscriptionItem");
         HiemSubscriptionItem subscription = createSubscriptionItem(subscribe, "gateway", "nhin");
 
         // Store subscription
-        log.debug("Calling storeSubscriptionItem");
+        LOG.debug("Calling storeSubscriptionItem");
         EndpointReferenceType subRef = storeSubscriptionItem(subscription);
 
         SubscribeResponse response = null;

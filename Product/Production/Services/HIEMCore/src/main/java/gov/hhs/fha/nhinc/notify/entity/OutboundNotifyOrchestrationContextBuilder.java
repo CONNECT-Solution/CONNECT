@@ -34,12 +34,10 @@ import gov.hhs.fha.nhinc.orchestration.OrchestrationContextBuilder;
 import gov.hhs.fha.nhinc.orchestration.OutboundDelegate;
 import gov.hhs.fha.nhinc.orchestration.OutboundOrchestratable;
 
-import org.apache.commons.logging.Log;
 import org.oasis_open.docs.wsn.b_2.Notify;
 
 public abstract class OutboundNotifyOrchestrationContextBuilder implements OrchestrationContextBuilder {
 
-    private static Log log;
     private AssertionType assertionType;
     private OutboundDelegate nhinDelegate;
     private Notify request;
@@ -61,10 +59,6 @@ public abstract class OutboundNotifyOrchestrationContextBuilder implements Orche
 
     public void setAssertionType(AssertionType assertionType) {
         this.assertionType = assertionType;
-    }
-
-    public Log getLog() {
-        return log;
     }
 
     public OutboundDelegate getNhinDelegate() {

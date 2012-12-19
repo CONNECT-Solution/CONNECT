@@ -32,8 +32,7 @@ import javax.xml.xpath.XPathExpressionException;
 
 import oasis.names.tc.xacml._2_0.context.schema.os.DecisionType;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 import org.oasis_open.docs.wsn.b_2.UnableToDestroySubscriptionFaultType;
 import org.oasis_open.docs.wsn.b_2.Unsubscribe;
 import org.oasis_open.docs.wsn.b_2.UnsubscribeResponse;
@@ -66,15 +65,7 @@ import gov.hhs.fha.nhinc.subscription.repository.service.SubscriptionRepositoryE
 
 public class EntityUnsubscribeOrchImpl {
 
-		private static Log log = LogFactory.getLog(EntityUnsubscribeOrchImpl.class);
-
-		public EntityUnsubscribeOrchImpl(){
-			log = getLogger();
-		}
-
-		protected Log getLogger() {
-	        return log;
-	    }
+		private static final Logger LOG = Logger.getLogger(EntityUnsubscribeOrchImpl.class);
 
 		/**
 		 * This method performs the entity orchestration for an unsubscribe at the entity.
@@ -96,13 +87,13 @@ public class EntityUnsubscribeOrchImpl {
 	        HiemSubscriptionRepositoryService repo = new HiemSubscriptionRepositoryService();
 	        HiemSubscriptionItem subscriptionItem = null;
 	        try {
-	            log.debug("lookup subscription by reference parameters");
+	            LOG.debug("lookup subscription by reference parameters");
 	           
 	            subscriptionItem = repo.retrieveBySubscriptionId(subscriptionId);
 	            
-	            log.debug("subscriptionItem isnull? = " + (subscriptionItem == null));
+	            LOG.debug("subscriptionItem isnull? = " + (subscriptionItem == null));
 	        } catch (SubscriptionRepositoryException ex) {
-	            log.error(ex);
+	            LOG.error(ex);
 	            throw new SubscriptionManagerSoapFaultFactory().getErrorDuringSubscriptionRetrieveFault(ex);
 	        }
 
@@ -113,28 +104,28 @@ public class EntityUnsubscribeOrchImpl {
 	        // todo: if has parent, retrieve parent, forward unsubscribe to agency
 	        List<HiemSubscriptionItem> childSubscriptions = null;
 	        try {
-	            log.debug("checking to see if subscription has child subscription");
+	            LOG.debug("checking to see if subscription has child subscription");
 	            childSubscriptions = repo.retrieveByParentSubscriptionReference(subscriptionItem
 	                    .getSubscriptionReferenceXML());
-	            log.debug("childSubscriptions isnull? = " + (childSubscriptions == null));
+	            LOG.debug("childSubscriptions isnull? = " + (childSubscriptions == null));
 	        } catch (SubscriptionRepositoryException ex) {
-	            log.warn("failed to check for child subscription", ex);
+	            LOG.warn("failed to check for child subscription", ex);
 	        }
 
 	        if (NullChecker.isNotNullish(childSubscriptions)) {
-	            log.debug("send unsubscribe(s) to child [" + childSubscriptions.size() + "]");
+	            LOG.debug("send unsubscribe(s) to child [" + childSubscriptions.size() + "]");
 	            for (HiemSubscriptionItem childSubscription : childSubscriptions) {
-	                log.debug("sending unsubscribe to child");
+	                LOG.debug("sending unsubscribe to child");
 	                response = unsubscribeToChild(unsubscribe, childSubscription, assertion, subscriptionId);
 	            }
 	        }
 
 	        // "remove" from local repo
-	        log.debug("invoking subscription storage service to delete subscription");
+	        LOG.debug("invoking subscription storage service to delete subscription");
 	        try {
 	            repo.deleteSubscription(subscriptionItem);
 	        } catch (SubscriptionRepositoryException ex) {
-	            log.error("unable to delete subscription.  This should result in a unable to remove subscription fault", ex);
+	            LOG.error("unable to delete subscription.  This should result in a unable to remove subscription fault", ex);
 	            throw new SubscriptionManagerSoapFaultFactory().getFailedToRemoveSubscriptionFault(ex);
 	        }
 
@@ -146,15 +137,15 @@ public class EntityUnsubscribeOrchImpl {
 		            AssertionType parentAssertion, String subscriptionId) throws UnableToDestroySubscriptionFault, ResourceUnknownFault, Exception {
 		        UnsubscribeResponse response = null;
 			 	try {
-		            log.debug("unsubscribing to child subscription");
+		            LOG.debug("unsubscribing to child subscription");
 
-		            log.debug("building target");
+		            LOG.debug("building target");
 		            NhinTargetSystemType target;
 
 		            target = new TargetBuilder().buildSubscriptionManagerTarget(childSubscriptionItem
 		                    .getSubscriptionReferenceXML());
 		            
-		            log.debug("target url = " + target.getUrl());
+		            LOG.debug("target url = " + target.getUrl());
 		            if (NullChecker.isNullish(target.getUrl())) {
 		                throw new UnableToDestroySubscriptionFault(
 		                        "Unable to determine where to send the unsubscribe for the child subscription",
@@ -165,7 +156,7 @@ public class EntityUnsubscribeOrchImpl {
 		            SoapMessageElements referenceParametersElements = referenceParametersHelper
 		                    .createReferenceParameterElementsFromSubscriptionReference(childSubscriptionItem
 		                            .getSubscriptionReferenceXML());
-		            log.debug("extracted " + referenceParametersElements.getElements().size() + " element(s)");
+		            LOG.debug("extracted " + referenceParametersElements.getElements().size() + " element(s)");
 		            
 		            response = getResponseFromTarget(parentUnsubscribe,referenceParametersElements,
 		            		parentAssertion, target,childSubscriptionItem.getStorageObject().getSubscriptionId());
@@ -173,10 +164,10 @@ public class EntityUnsubscribeOrchImpl {
 		            repo.deleteSubscription(childSubscriptionItem);
 
 		        } catch (SubscriptionRepositoryException ex) {
-		            log.error("failed to remove child subscription for repository");
+		            LOG.error("failed to remove child subscription for repository");
 		            throw new SubscriptionManagerSoapFaultFactory().getFailedToRemoveSubscriptionFault(ex);
 		        } catch (XPathExpressionException ex) {
-		            log.error("failed to parse subscription reference");
+		            LOG.error("failed to parse subscription reference");
 		            throw new SubscriptionManagerSoapFaultFactory().getFailedToRemoveSubscriptionFault(ex);
 		        }
 
@@ -195,7 +186,7 @@ public class EntityUnsubscribeOrchImpl {
 		 */
 		private void auditRequestFromAdapter(Unsubscribe unsubscribe,
 		        AssertionType assertion) {
-			log.debug("In EntitysubscribeOrchImpl.auditInputMessage");
+			LOG.debug("In EntitysubscribeOrchImpl.auditInputMessage");
 
 	        try {
 	            AuditRepositoryLogger auditLogger = new AuditRepositoryLogger();
@@ -213,7 +204,7 @@ public class EntityUnsubscribeOrchImpl {
 	                proxy.auditLog(auditLogMsg, assertion);
 	            }
 	        } catch (Throwable t) {
-	            log.error("Error logging subscribe message: " + t.getMessage(), t);
+	            LOG.error("Error logging subscribe message: " + t.getMessage(), t);
 	        }
 	    }
 
@@ -223,7 +214,7 @@ public class EntityUnsubscribeOrchImpl {
 		 * @param assertion The assertion to be audited
 		 */
 		private void auditResponseToAdapter(UnsubscribeResponse response, AssertionType assertion) {
-		    log.debug("In EntitysubscribeOrchImpl.auditResponseMessage");
+		    LOG.debug("In EntitysubscribeOrchImpl.auditResponseMessage");
 	        try {
 	            AuditRepositoryLogger auditLogger = new AuditRepositoryLogger();
 
@@ -240,7 +231,7 @@ public class EntityUnsubscribeOrchImpl {
 	                proxy.auditLog(auditLogMsg, assertion);
 	            }
 	        } catch (Throwable t) {
-	            log.error("Error logging subscribe response message: " + t.getMessage(), t);
+	            LOG.error("Error logging subscribe response message: " + t.getMessage(), t);
 	        }
 	    }
 
@@ -256,17 +247,17 @@ public class EntityUnsubscribeOrchImpl {
 				AssertionType assertion, NhinTargetSystemType targetSystem, String subscriptionId) {
 			UnsubscribeResponse nhinResponse = new UnsubscribeResponse();
 		    if(isPolicyValid(request, assertion)){
-	        	log.info("Policy check successful");
+	        	LOG.info("Policy check successful");
 	            //send request to nhin proxy
 	        	try {
 	                nhinResponse = sendToNhinProxy(request, referenceParameters, assertion, targetSystem,subscriptionId );
 	            } catch (Exception e) {
 	                //TODO nhinResponse = createFailedNhinSendResponse(hcid);
 	            	String hcid = targetSystem.getHomeCommunity().getHomeCommunityId();
-	                log.error("Fault encountered while trying to send message to the nhin " + hcid, e);
+	                LOG.error("Fault encountered while trying to send message to the nhin " + hcid, e);
 	            }
 	        } else {
-	            log.error("Failed policy check.  Sending error response.");
+	            LOG.error("Failed policy check.  Sending error response.");
 	            nhinResponse = createFailedPolicyCheckResponse();
 	        }
 
@@ -312,7 +303,7 @@ public class EntityUnsubscribeOrchImpl {
 		 */
 		private boolean isPolicyValid(Unsubscribe unsubscribe,
 				AssertionType assertion) {
-			log.debug("In NhinHiemSubscribeWebServiceProxy.checkPolicy");
+			LOG.debug("In NhinHiemSubscribeWebServiceProxy.checkPolicy");
 	        boolean policyIsValid = false;
 
 	        UnsubscribeEventType policyCheckReq = new UnsubscribeEventType();
@@ -334,7 +325,7 @@ public class EntityUnsubscribeOrchImpl {
 	            policyIsValid = true;
 	        }
 
-	        log.debug("Finished NhinHiemUnsubscribeWebServiceProxy.checkPolicy - valid: " + policyIsValid);
+	        LOG.debug("Finished NhinHiemUnsubscribeWebServiceProxy.checkPolicy - valid: " + policyIsValid);
 	        return policyIsValid;
 		}
 

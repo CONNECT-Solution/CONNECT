@@ -26,6 +26,7 @@
  */
 package gov.hhs.fha.nhinc.subscribe.nhin;
 
+import org.apache.log4j.Logger;
 import org.oasis_open.docs.wsn.b_2.Subscribe;
 import org.oasis_open.docs.wsn.b_2.SubscribeResponse;
 import org.oasis_open.docs.wsn.bw_2.SubscribeCreationFailedFault;
@@ -52,48 +53,50 @@ import gov.hhs.fha.nhinc.xmlCommon.XmlUtility;
  */
 class ChildSubscriptionModeSubscriptionHandler extends BaseSubscriptionHandler {
 
-    @Override
+	private static final Logger LOG = Logger.getLogger(ChildSubscriptionModeSubscriptionHandler.class);
+    
+	@Override
     public SubscribeResponse handleSubscribe(Element subscribe) throws SubscribeCreationFailedFault {
         HiemSubscriptionRepositoryService service = new HiemSubscriptionRepositoryService();
 
         AssertionType assertion = null;
         NhinTargetSystemType target = null;
 
-        log.debug("In ChildSubscriptionModeSubscriptionHandler.handleSubscribe");
+        LOG.debug("In ChildSubscriptionModeSubscriptionHandler.handleSubscribe");
         SubscribeResponse response = null;
 
         // Build subscription item
-        log.debug("create nhin->adapter subscription");
+        LOG.debug("create nhin->adapter subscription");
         // serialize childSubscribe to rawChildSubscribe
         HiemSubscriptionItem parentSubscriptionItem = createSubscriptionItem(subscribe, "gateway", "nhin");
 
         // Store subscription
-        log.debug("Calling storeSubscriptionItem");
+        LOG.debug("Calling storeSubscriptionItem");
         EndpointReferenceType parentSubscriptionReference = storeSubscriptionItem(parentSubscriptionItem);
-        log.debug("subscription stored");
+        LOG.debug("subscription stored");
 
         Element subscribeResponseElementFromAdapter = null;
         Element childSubscribe = null;
         try {
-            log.info("build message to send to adapter proxy");
+            LOG.info("build message to send to adapter proxy");
             childSubscribe = createChildSubscribe(subscribe);
 
-            log.info("initialize HiemSubscribeAdapterProxyObjectFactory");
+            LOG.info("initialize HiemSubscribeAdapterProxyObjectFactory");
             HiemSubscribeAdapterProxyObjectFactory adapterFactory = new HiemSubscribeAdapterProxyObjectFactory();
-            log.info("initialize HIEM subscribe adapter proxy");
+            LOG.info("initialize HIEM subscribe adapter proxy");
             HiemSubscribeAdapterProxy adapterProxy = adapterFactory.getHiemSubscribeAdapterProxy();
 
-            log.info("begin invoke HIEM subscribe adapter proxy");
+            LOG.info("begin invoke HIEM subscribe adapter proxy");
             subscribeResponseElementFromAdapter = adapterProxy.subscribe(childSubscribe, assertion, target);
-            log.info("end invoke HIEM subscribe adapter proxy");
+            LOG.info("end invoke HIEM subscribe adapter proxy");
         } catch (Exception ex) {
-            log.error("failed to forward subscribe to adapter", ex);
+            LOG.error("failed to forward subscribe to adapter", ex);
             throw new SoapFaultFactory().getFailedToForwardSubscribeToAgencyFault(ex);
         }
 
         try {
             // Build subscription item
-            log.debug("create gateway->adapter subscription");
+            LOG.debug("create gateway->adapter subscription");
             // serialize childSubscribe to rawChildSubscribe
             HiemSubscriptionItem childSubscriptionItem = new HiemSubscriptionItem();
             childSubscriptionItem.setSubscribeXML(XmlUtility.serializeElement(childSubscribe));
@@ -110,12 +113,12 @@ class ChildSubscriptionModeSubscriptionHandler extends BaseSubscriptionHandler {
             childSubscriptionItem.setConsumer("gateway");
 
             // Store subscription
-            log.debug("saving child subscription reference");
+            LOG.debug("saving child subscription reference");
             service.saveSubscriptionToExternal(childSubscriptionItem);
-            log.debug("saved child subscription reference");
+            LOG.debug("saved child subscription reference");
 
         } catch (Exception ex) {
-            log.error("throw proper error", ex);
+            LOG.error("throw proper error", ex);
         }
 
         response = new SubscribeResponse();
@@ -124,23 +127,23 @@ class ChildSubscriptionModeSubscriptionHandler extends BaseSubscriptionHandler {
     }
 
     private Element createChildSubscribe(Element parentSubscribeElement) throws ConfigurationException {
-        log.debug("build child subscribe");
-        log.debug("starting with parent subscribe [" + XmlUtility.serializeElementIgnoreFaults(parentSubscribeElement)
+        LOG.debug("build child subscribe");
+        LOG.debug("starting with parent subscribe [" + XmlUtility.serializeElementIgnoreFaults(parentSubscribeElement)
                 + "]");
 
         Element childSubscribeElement = parentSubscribeElement;
         Subscribe childSubscribe = null;
 
-        log.debug("unmarshal subscribe to element");
+        LOG.debug("unmarshal subscribe to element");
         SubscribeMarshaller subscribeMarshaller = new SubscribeMarshaller();
         childSubscribe = subscribeMarshaller.unmarshalSubscribe(childSubscribeElement);
 
-        log.debug("determine notification consumer address (entity interface)");
+        LOG.debug("determine notification consumer address (entity interface)");
         ConfigurationManager config = new ConfigurationManager();
         String entityNotificationConsumerAddress = config.getEntityNotificationConsumerAddress();
-        log.debug("entityNotificationConsumerAddress=" + entityNotificationConsumerAddress);
+        LOG.debug("entityNotificationConsumerAddress=" + entityNotificationConsumerAddress);
 
-        log.debug("creating consumer reference endpoint");
+        LOG.debug("creating consumer reference endpoint");
         ConsumerReferenceHelper consumerReferenceHelper = new ConsumerReferenceHelper();
         EndpointReferenceType consumerReferenceEndpointReference = consumerReferenceHelper
                 .createConsumerReferenceEndpointReference(entityNotificationConsumerAddress);
@@ -151,7 +154,7 @@ class ChildSubscriptionModeSubscriptionHandler extends BaseSubscriptionHandler {
         // endpointReferenceMarshaller.marshal(consumerReferenceEndpointReference);
         // log.debug("marshalled consumer reference endpoint [" +
         // XmlUtility.serializeElementIgnoreFaults(consumerReferenceEndpointReferenceElement) + "]");
-        log.debug("set consumer reference endpoint");
+        LOG.debug("set consumer reference endpoint");
         childSubscribe.setConsumerReference(consumerReferenceEndpointReference);
 
         // Element parentConsumerReference = XmlUtility.getSingleChildElement(childSubscribe,
@@ -163,9 +166,9 @@ class ChildSubscriptionModeSubscriptionHandler extends BaseSubscriptionHandler {
         // log.debug("adding consumer reference endpoint to child subscribe");
         // childSubscribe.appendChild(consumerReferenceEndpointReferenceElement);
 
-        log.debug("marshal subscribe to element");
+        LOG.debug("marshal subscribe to element");
         childSubscribeElement = subscribeMarshaller.marshalSubscribe(childSubscribe);
-        log.debug("built child subscribe [" + XmlUtility.serializeElementIgnoreFaults(childSubscribeElement) + "]");
+        LOG.debug("built child subscribe [" + XmlUtility.serializeElementIgnoreFaults(childSubscribeElement) + "]");
 
         return childSubscribeElement;
 

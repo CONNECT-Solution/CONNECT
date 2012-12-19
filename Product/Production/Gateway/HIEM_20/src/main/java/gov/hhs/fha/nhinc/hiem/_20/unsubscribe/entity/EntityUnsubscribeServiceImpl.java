@@ -27,8 +27,7 @@
 package gov.hhs.fha.nhinc.hiem._20.unsubscribe.entity;
 import javax.xml.ws.WebServiceContext;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 import org.oasis_open.docs.wsn.b_2.Unsubscribe;
 import org.oasis_open.docs.wsn.b_2.UnsubscribeResponse;
 import org.oasis_open.docs.wsn.bw_2.UnableToDestroySubscriptionFault;
@@ -48,7 +47,7 @@ import gov.hhs.fha.nhinc.unsubscribe.entity.EntityUnsubscribeOrchImpl;
  */
 public class EntityUnsubscribeServiceImpl {
 
-    private static Log log = LogFactory.getLog(EntityUnsubscribeServiceImpl.class);
+    private static final Logger LOG = Logger.getLogger(EntityUnsubscribeServiceImpl.class);
 
     private EntityUnsubscribeOrchImpl orchImpl;
 
@@ -69,7 +68,7 @@ public class EntityUnsubscribeServiceImpl {
             throw new gov.hhs.fha.nhinc.entitysubscriptionmanagement.UnableToDestroySubscriptionFault(ex.getMessage(),
                     ex);
         } catch (Exception e) {
-            log.error("Exception: " + e.getMessage());
+            LOG.error("Exception: " + e.getMessage());
             throw e;
         }
         return response;
@@ -87,7 +86,7 @@ public class EntityUnsubscribeServiceImpl {
             throw new gov.hhs.fha.nhinc.entitysubscriptionmanagementsecured.UnableToDestroySubscriptionFault(
                     ex.getMessage(), ex);
         } catch (Exception e) {
-            log.error("Exception occured: " + e.getMessage());
+            LOG.error("Exception occured: " + e.getMessage());
             throw e;
         }
         return response;

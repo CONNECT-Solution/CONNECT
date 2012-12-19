@@ -28,20 +28,16 @@ package gov.hhs.fha.nhinc.hiem.configuration.topicconfiguration;
 
 import gov.hhs.fha.nhinc.hiem.processor.faults.ConfigurationException;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
-import gov.hhs.fha.nhinc.subscription.repository.service.SubscriptionRepositoryException;
-import gov.hhs.fha.nhinc.util.StringUtil;
-import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.subscription.repository.roottopicextractor.RootTopicExtractor;
 import gov.hhs.fha.nhinc.subscription.repository.topicfilter.ITopicComparison;
 import gov.hhs.fha.nhinc.subscription.repository.topicfilter.TopicComparisonFactory;
+import gov.hhs.fha.nhinc.util.StringUtil;
 import gov.hhs.fha.nhinc.xmlCommon.XmlUtility;
+
 import java.io.File;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+
+import org.apache.log4j.Logger;
 import org.w3c.dom.Element;
-import org.w3c.dom.Node;
 
 /**
  * 
@@ -49,7 +45,7 @@ import org.w3c.dom.Node;
  */
 public class TopicConfigurationManager {
 
-    private static Log log = LogFactory.getLog(TopicConfigurationManager.class);
+    private static final Logger LOG = Logger.getLogger(TopicConfigurationManager.class);
     private static TopicConfigurationManager topicConfigurationManager;
     private static TopicConfigurations topicConfigurations = new TopicConfigurations();
     private static final String CRLF = System.getProperty("line.separator");
@@ -77,7 +73,7 @@ public class TopicConfigurationManager {
 
             m_sInternalXMLFileDir = m_sPropertyFileDir + TOPIC_CONFIG_XML_FILE_NAME;
         } else {
-            log.error(m_sFailedEnvVarMessage);
+            LOG.error(m_sFailedEnvVarMessage);
             m_bFailedToLoadEnvVar = true;
         }
     }
@@ -99,45 +95,45 @@ public class TopicConfigurationManager {
     public TopicConfigurationEntry getTopicConfiguration(Element TopicNode) throws ConfigurationException {
         TopicConfigurationEntry match = null;
 
-        log.info("finding topic configuration for node='" + XmlUtility.serializeNodeIgnoreFaults(TopicNode) + "'");
+        LOG.info("finding topic configuration for node='" + XmlUtility.serializeNodeIgnoreFaults(TopicNode) + "'");
 
         try {
             loadTopicConfigurations();
         } catch (Exception ex) {
-            log.error("failed to load topic configuration. [" + ex.getMessage() + "]");
+            LOG.error("failed to load topic configuration. [" + ex.getMessage() + "]");
             throw new ConfigurationException("Unable to load topic configuration", ex);
         }
 
         for (TopicConfigurationEntry topicConfig : topicConfigurations.getTopicConfigurations()) {
             try {
                 String topic = topicConfig.getTopic();
-                log.debug("comparing to config topic [topicConfig.topic='" + topic + "']");
+                LOG.debug("comparing to config topic [topicConfig.topic='" + topic + "']");
 
                 Element configurationTopicNode = XmlUtility.convertXmlToElement(topic);
-                log.debug("config topic converted to Element and then reseralized '"
+                LOG.debug("config topic converted to Element and then reseralized '"
                         + XmlUtility.serializeNodeIgnoreFaults(configurationTopicNode) + "'");
 
                 RootTopicExtractor rootTopicExtractor = new RootTopicExtractor();
                 String dialect = rootTopicExtractor.getDialectFromTopicExpression(topic);
-                log.debug("topic config dialect='" + dialect + "'");
+                LOG.debug("topic config dialect='" + dialect + "'");
 
-                log.debug("get ITopicComparison strategy");
+                LOG.debug("get ITopicComparison strategy");
                 ITopicComparison topicComparisonStrategy = TopicComparisonFactory.getTopicComparisonStrategy(dialect);
 
-                log.debug("checking if message topic meets matching criteria for this topic config");
+                LOG.debug("checking if message topic meets matching criteria for this topic config");
                 if (topicComparisonStrategy.MeetsCriteria(configurationTopicNode, TopicNode)) {
-                    log.debug("match");
+                    LOG.debug("match");
                     match = topicConfig;
                     break;
                 } else {
-                    log.debug("no match");
+                    LOG.debug("no match");
                 }
             } catch (Exception ex) {
                 throw new ConfigurationException("Error occurred determining topic configuration ", ex);
             }
         }
 
-        log.debug("complete getTopicConfiguration.  Found match? " + (match != null));
+        LOG.debug("complete getTopicConfiguration.  Found match? " + (match != null));
         return match;
     }
 
@@ -156,18 +152,18 @@ public class TopicConfigurationManager {
         } catch (Exception e) {
             String sErrorMessage = "Failed to read from file: '" + m_sInternalXMLFileDir + "'.  Error: "
                     + e.getMessage();
-            log.error(sErrorMessage);
+            LOG.error(sErrorMessage);
             throw new ConfigurationException(sErrorMessage, e);
         }
 
-        log.debug("Setting internal connection cache to be: " + CRLF + sTopicConfigXml);
+        LOG.debug("Setting internal connection cache to be: " + CRLF + sTopicConfigXml);
 
         topicConfigurations = TopicConfigurationsXML.deserialize(sTopicConfigXml);
 
         if (topicConfigurations != null) {
             m_bInternalLoaded = true;
         } else {
-            log.warn("No topic configuration information was found in: " + m_sInternalXMLFileDir);
+            LOG.warn("No topic configuration information was found in: " + m_sInternalXMLFileDir);
         }
     }
 }

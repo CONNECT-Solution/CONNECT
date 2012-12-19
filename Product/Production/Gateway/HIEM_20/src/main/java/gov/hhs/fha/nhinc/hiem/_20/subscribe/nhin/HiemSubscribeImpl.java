@@ -50,8 +50,7 @@ import javax.xml.ws.WebServiceContext;
 
 import oasis.names.tc.xacml._2_0.context.schema.os.DecisionType;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 import org.oasis_open.docs.wsn.b_2.Subscribe;
 import org.oasis_open.docs.wsn.b_2.SubscribeCreationFailedFaultType;
 import org.oasis_open.docs.wsn.b_2.SubscribeResponse;
@@ -67,12 +66,12 @@ import org.w3c.dom.Element;
  */
 public class HiemSubscribeImpl {
 
-    private static Log log = LogFactory.getLog(HiemSubscribeImpl.class);
+    private static final Logger LOG = Logger.getLogger(HiemSubscribeImpl.class);
 
     public SubscribeResponse subscribe(Subscribe subscribeRequest, WebServiceContext context)
             throws NotifyMessageNotSupportedFault, SubscribeCreationFailedFault, TopicNotSupportedFault,
             InvalidTopicExpressionFault {
-        log.debug("Entering HiemSubscriptionImpl.subscribe");
+        LOG.debug("Entering HiemSubscriptionImpl.subscribe");
 
         Element soapMessage = extractSoapMessage(context);
 
@@ -105,13 +104,13 @@ public class HiemSubscribeImpl {
                 NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE);
 
 
-        log.debug("Exiting HiemSubscriptionImpl.subscribe");
+        LOG.debug("Exiting HiemSubscriptionImpl.subscribe");
         return response;
     }
 
     private void auditInputMessage(Subscribe subscribe, AssertionType assertion,
             String direction, String logInterface) {
-        log.debug("In HiemSubscriptionImpl.auditInputMessage");
+        LOG.debug("In HiemSubscriptionImpl.auditInputMessage");
         try {
             AuditRepositoryLogger auditLogger = new AuditRepositoryLogger();
 
@@ -128,13 +127,13 @@ public class HiemSubscribeImpl {
                 proxy.auditLog(auditLogMsg, assertion);
             }
         } catch (Throwable t) {
-            log.error("Error logging subscribe message: " + t.getMessage(), t);
+            LOG.error("Error logging subscribe message: " + t.getMessage(), t);
         }
     }
 
     private void auditResponseMessage(SubscribeResponse response, AssertionType assertion,
             String direction, String logInterface) {
-        log.debug("In HiemSubscriptionImpl.auditResponseMessage");
+        LOG.debug("In HiemSubscriptionImpl.auditResponseMessage");
 
         try {
             AuditRepositoryLogger auditLogger = new AuditRepositoryLogger();
@@ -152,12 +151,12 @@ public class HiemSubscribeImpl {
                 proxy.auditLog(auditLogMsg, assertion);
             }
         } catch (Throwable t) {
-            log.error("Error loging subscription response: " + t.getMessage(), t);
+            LOG.error("Error loging subscription response: " + t.getMessage(), t);
         }
     }
 
     private boolean checkPolicy(Subscribe subscribe, AssertionType assertion) {
-        log.debug("In HiemSubscriptionImpl.checkPolicy");
+        LOG.debug("In HiemSubscriptionImpl.checkPolicy");
         boolean policyIsValid = false;
 
         SubscribeEventType policyCheckReq = new SubscribeEventType();
@@ -178,7 +177,7 @@ public class HiemSubscribeImpl {
             policyIsValid = true;
         }
 
-        log.debug("Finished HiemSubscriptionImpl.checkPolicy - valid: " + policyIsValid);
+        LOG.debug("Finished HiemSubscriptionImpl.checkPolicy - valid: " + policyIsValid);
         return policyIsValid;
     }
 

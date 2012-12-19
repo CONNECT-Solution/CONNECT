@@ -36,8 +36,7 @@ import gov.hhs.fha.nhinc.notify.nhin.proxy.NhinHiemNotifyProxyObjectFactory;
 
 import javax.xml.ws.WebServiceContext;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 import org.oasis_open.docs.wsn.b_2.Notify;
 
 /**
@@ -46,10 +45,10 @@ import org.oasis_open.docs.wsn.b_2.Notify;
  */
 public class ProxyHiemNotifyImpl {
 
-    private static Log log = LogFactory.getLog(ProxyHiemNotifyImpl.class);
+    private static final Logger LOG = Logger.getLogger(ProxyHiemNotifyImpl.class);
 
     public void notify(NotifyRequestType notifyRequest, WebServiceContext context) {
-        log.debug("Entering ProxyHiemNotifyImpl.notify...");
+        LOG.debug("Entering ProxyHiemNotifyImpl.notify...");
         Notify notify = notifyRequest.getNotify();
 
         SoapMessageElements soapHeaderElements = new SoapHeaderHelper().getSoapHeaderElements(context);
@@ -58,11 +57,11 @@ public class ProxyHiemNotifyImpl {
         NhinHiemNotifyProxy proxy = hiemNotifyFactory.getNhinHiemNotifyProxy();
 
         proxy.notify(notify, soapHeaderElements, notifyRequest.getAssertion(), notifyRequest.getNhinTargetSystem());
-        log.debug("Exiting ProxyHiemNotifyImpl.notify...");
+        LOG.debug("Exiting ProxyHiemNotifyImpl.notify...");
     }
 
     public void notify(NotifyRequestSecuredType notifyRequest, WebServiceContext context) {
-        log.debug("Entering ProxyHiemNotifyImpl.notify...");
+        LOG.debug("Entering ProxyHiemNotifyImpl.notify...");
         Notify notify = notifyRequest.getNotify();
 
         SoapMessageElements soapHeaderElements = new SoapHeaderHelper().getSoapHeaderElements(context);
@@ -72,7 +71,7 @@ public class ProxyHiemNotifyImpl {
 
         proxy.notify(notify, soapHeaderElements, SAML2AssertionExtractor.getInstance().extractSamlAssertion(context),
                 notifyRequest.getNhinTargetSystem());
-        log.debug("Exiting ProxyHiemNotifyImpl.notify...");
+        LOG.debug("Exiting ProxyHiemNotifyImpl.notify...");
     }
 
 }

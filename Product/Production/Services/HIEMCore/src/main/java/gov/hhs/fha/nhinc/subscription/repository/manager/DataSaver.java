@@ -34,8 +34,8 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+
+import org.apache.log4j.Logger;
 
 /**
  * Performs file operations for the subscription repository
@@ -43,7 +43,7 @@ import org.apache.commons.logging.LogFactory;
  * @author dunnek
  */
 class DataSaver {
-    private static Log log = LogFactory.getLog(DataSaver.class);
+    private static final Logger LOG = Logger.getLogger(DataSaver.class);
 
     /**
      * Save a subscription list using the provided file name
@@ -52,10 +52,10 @@ class DataSaver {
      * @param file File name to use when saving the file
      */
     public void saveList(SubscriptionRecordList list, String file) {
-        log.info("Saving " + list.size() + " items(s)");
+        LOG.info("Saving " + list.size() + " items(s)");
 
         // Create output stream.
-        log.info("Filename=" + file);
+        LOG.info("Filename=" + file);
 
         FileOutputStream fos;
 
@@ -76,13 +76,13 @@ class DataSaver {
                 try {
                     fos.close();
                 } catch (IOException ex) {
-                    log.info("Could not close " + file + ": " + ex.getMessage());
+                    LOG.info("Could not close " + file + ": " + ex.getMessage());
                 }
             }
         } catch (FileNotFoundException ex) {
-            log.error("Error accessing storage " + file + ": " + ex.getMessage());
+            LOG.error("Error accessing storage " + file + ": " + ex.getMessage());
         }
-        log.info("Save complete");
+        LOG.info("Save complete");
     }
 
     /**
@@ -92,14 +92,14 @@ class DataSaver {
      * @return Subscription list
      */
     public SubscriptionRecordList loadList(String fileName) {
-        log.info("Loading list");
+        LOG.info("Loading list");
 
         SubscriptionRecordList subscriptionListlist = new SubscriptionRecordList();
         File file;
 
         // Create input stream.
-        log.info("Filename=" + fileName);
-        log.info("user.dir: " + System.getProperty("user.dir"));
+        LOG.info("Filename=" + fileName);
+        LOG.info("user.dir: " + System.getProperty("user.dir"));
 
         file = new File(fileName);
         XMLDecoder xdec = null;
@@ -120,16 +120,16 @@ class DataSaver {
             xdec = new XMLDecoder(fis);
 
             // Write object.
-            log.info("Loading object");
+            LOG.info("Loading object");
             Object obj = xdec.readObject();
             if (obj instanceof SubscriptionRecordList) {
                 subscriptionListlist = (SubscriptionRecordList) obj;
             } else {
-                log.debug("Loaded object was not of expected type - SubscriptionListlist - default used");
+                LOG.debug("Loaded object was not of expected type - SubscriptionListlist - default used");
             }
 
         } catch (IOException ex) {
-            log.error("Error accessing storage " + fileName + ": " + ex.getMessage());
+            LOG.error("Error accessing storage " + fileName + ": " + ex.getMessage());
         } finally {
             try {
             	if (xdec != null) {
@@ -139,11 +139,11 @@ class DataSaver {
             		fis.close();
             	}
             } catch (IOException ex) {
-                log.info("Unable to close streams: " + ex.getMessage());
+                LOG.info("Unable to close streams: " + ex.getMessage());
             }
         }
 
-        log.info("Loaded " + subscriptionListlist.size() + " subscription(s)");
+        LOG.info("Loaded " + subscriptionListlist.size() + " subscription(s)");
         return subscriptionListlist;
     }
 }

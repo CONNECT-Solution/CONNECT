@@ -64,8 +64,7 @@ import javax.xml.ws.wsaddressing.W3CEndpointReference;
 
 import oasis.names.tc.xacml._2_0.context.schema.os.DecisionType;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 import org.oasis_open.docs.wsn.b_2.Subscribe;
 import org.oasis_open.docs.wsn.b_2.SubscribeResponse;
 import org.oasis_open.docs.wsn.bw_2.SubscribeCreationFailedFault;
@@ -75,15 +74,7 @@ import org.w3c.dom.Element;
 
 public class EntitySubscribeOrchImpl {
 
-    private static Log log = LogFactory.getLog(EntitySubscribeOrchImpl.class);
-
-    public EntitySubscribeOrchImpl() {
-        log = getLogger();
-    }
-
-    protected Log getLogger() {
-        return log;
-    }
+    private static final Logger LOG = Logger.getLogger(EntitySubscribeOrchImpl.class);
 
     /**
      * This method performs the entity orchestration for a subscribe at the entity.
@@ -112,7 +103,7 @@ public class EntitySubscribeOrchImpl {
 
         for (NhinTargetCommunityType targetCommunity : targetCommunities.getNhinTargetCommunity()) {
             if (isPolicyValid(subscribe, assertion)) {
-                log.info("Policy check successful");
+                LOG.info("Policy check successful");
                 // send request to nhin proxy
                 response = getResponseFromTarget(subscribe, assertion, targetCommunity);
 
@@ -121,7 +112,7 @@ public class EntitySubscribeOrchImpl {
                     storeChildSubscription(subscribe, response, parentSubscriptionReference);
                 }
             } else {
-                log.error("Failed policy check.  Sending error response.");
+                LOG.error("Failed policy check.  Sending error response.");
                 response = createFailedPolicyCheckResponse();
             }
         }
@@ -150,7 +141,7 @@ public class EntitySubscribeOrchImpl {
      * @param assertion The assertion to be audited
      */
     private void auditRequestFromAdapter(Subscribe subscribe, AssertionType assertion) {
-        log.debug("In EntitysubscribeOrchImpl.auditInputMessage");
+        LOG.debug("In EntitysubscribeOrchImpl.auditInputMessage");
 
         try {
             AuditRepositoryLogger auditLogger = new AuditRepositoryLogger();
@@ -168,7 +159,7 @@ public class EntitySubscribeOrchImpl {
                 proxy.auditLog(auditLogMsg, assertion);
             }
         } catch (Throwable t) {
-            log.error("Error logging subscribe message: " + t.getMessage(), t);
+            LOG.error("Error logging subscribe message: " + t.getMessage(), t);
         }
     }
 
@@ -179,7 +170,7 @@ public class EntitySubscribeOrchImpl {
      * @param assertion The assertion to be audited
      */
     private void auditResponseToAdapter(SubscribeResponse response, AssertionType assertion) {
-        log.debug("In EntitysubscribeOrchImpl.auditResponseMessage");
+        LOG.debug("In EntitysubscribeOrchImpl.auditResponseMessage");
         try {
             AuditRepositoryLogger auditLogger = new AuditRepositoryLogger();
 
@@ -196,7 +187,7 @@ public class EntitySubscribeOrchImpl {
                 proxy.auditLog(auditLogMsg, assertion);
             }
         } catch (Throwable t) {
-            log.error("Error logging subscribe response message: " + t.getMessage(), t);
+            LOG.error("Error logging subscribe response message: " + t.getMessage(), t);
         }
     }
 
@@ -218,10 +209,10 @@ public class EntitySubscribeOrchImpl {
             } catch (Exception e) {
                 // TODO nhinResponse = createFailedNhinSendResponse(hcid);
                 String hcid = targetCommunity.getHomeCommunity().getHomeCommunityId();
-                log.error("Fault encountered while trying to send message to the nhin " + hcid, e);
+                LOG.error("Fault encountered while trying to send message to the nhin " + hcid, e);
             }
         } else {
-            log.warn("The request to the Nhin did not contain a target home community id.");
+            LOG.warn("The request to the Nhin did not contain a target home community id.");
         }
 
         return nhinResponse;
@@ -265,7 +256,7 @@ public class EntitySubscribeOrchImpl {
      * @return
      */
     private boolean isPolicyValid(Subscribe subscribe, AssertionType assertion) {
-        log.debug("In NhinHiemSubscribeWebServiceProxy.checkPolicy");
+        LOG.debug("In NhinHiemSubscribeWebServiceProxy.checkPolicy");
         boolean policyIsValid = false;
 
         SubscribeEventType policyCheckReq = new SubscribeEventType();
@@ -287,7 +278,7 @@ public class EntitySubscribeOrchImpl {
             policyIsValid = true;
         }
 
-        log.debug("Finished NhinHiemSubscribeWebServiceProxy.checkPolicy - valid: " + policyIsValid);
+        LOG.debug("Finished NhinHiemSubscribeWebServiceProxy.checkPolicy - valid: " + policyIsValid);
         return policyIsValid;
     }
 
@@ -340,10 +331,10 @@ public class EntitySubscribeOrchImpl {
             } else if (subRef.getClass().isAssignableFrom(W3CEndpointReference.class)) {
                 childSubscriptionReference = serializeW3CEndpointReference((W3CEndpointReference) subRef);
             } else {
-                log.error("Unknown subscription reference type: " + subRef.getClass().getName());
+                LOG.error("Unknown subscription reference type: " + subRef.getClass().getName());
             }
         } else {
-            log.error("Subscription reference was null");
+            LOG.error("Subscription reference was null");
         }
 
         // ******Convert Subscription (subscribe) to XML
@@ -353,7 +344,7 @@ public class EntitySubscribeOrchImpl {
             Element subscribeElement = marshaller.marshalSubscribe(subscribe);
             childSubscribeXml = XmlUtility.serializeElement(subscribeElement);
         } catch (Exception ex) {
-            log.error("failed to process subscribe xml", ex);
+            LOG.error("failed to process subscribe xml", ex);
             childSubscribeXml = null;
         }
 
@@ -377,12 +368,12 @@ public class EntitySubscribeOrchImpl {
                 JAXBContext jc = oHandler.getJAXBContext("gov.hhs.fha.nhinc.common.nhinccommon");
                 Marshaller marshaller = jc.createMarshaller();
                 StringWriter swXML = new StringWriter();
-                log.debug("Calling marshal");
+                LOG.debug("Calling marshal");
                 marshaller.marshal(ncCommonObjFact.createNhinTargetCommunities(targetCommunitites), swXML);
                 targetCommunitiesXml = swXML.toString();
-                log.debug("Marshaled subscription reference: " + targetCommunitiesXml);
+                LOG.debug("Marshaled subscription reference: " + targetCommunitiesXml);
             } catch (JAXBException ex) {
-                log.error("Error serializing the target communitites: " + ex.getMessage(), ex);
+                LOG.error("Error serializing the target communitites: " + ex.getMessage(), ex);
             }
         }
         return targetCommunitiesXml;
@@ -397,12 +388,12 @@ public class EntitySubscribeOrchImpl {
                 JAXBContext jc = oHandler.getJAXBContext("org.w3._2005._08.addressing");
                 Marshaller marshaller = jc.createMarshaller();
                 StringWriter swXML = new StringWriter();
-                log.debug("Calling marshal");
+                LOG.debug("Calling marshal");
                 marshaller.marshal(wsaObjFact.createEndpointReference(endpointRefernece), swXML);
                 endpointReferenceXml = swXML.toString();
-                log.debug("Marshaled endpoint reference: " + endpointReferenceXml);
+                LOG.debug("Marshaled endpoint reference: " + endpointReferenceXml);
             } catch (JAXBException ex) {
-                log.error("Error serializing the endpoint reference: " + ex.getMessage(), ex);
+                LOG.error("Error serializing the endpoint reference: " + ex.getMessage(), ex);
             }
         }
         return endpointReferenceXml;
@@ -414,7 +405,7 @@ public class EntitySubscribeOrchImpl {
                     "NotificationConsumerEndpointAddress");
             subscribe.getConsumerReference().getAddress().setValue(notificationConsumerEndpointAddress);
         } catch (PropertyAccessException ex) {
-            log.error("Error retrieving the notification consumer endpoint address: " + ex.getMessage(), ex);
+            LOG.error("Error retrieving the notification consumer endpoint address: " + ex.getMessage(), ex);
         }
     }
 
@@ -423,32 +414,32 @@ public class EntitySubscribeOrchImpl {
         if (subscribeResponse != null) {
             Method[] methods = subscribeResponse.getClass().getDeclaredMethods();
             if (methods != null) {
-                log.debug("Method count: " + methods.length);
+                LOG.debug("Method count: " + methods.length);
                 for (Method m : methods) {
-                    log.debug("Looking at method: " + m.getName());
+                    LOG.debug("Looking at method: " + m.getName());
                     if (m.getName().equals("getSubscriptionReference")) {
                         try {
-                            log.debug("Return type of getSubscriptionReference method: " + m.getReturnType().getName());
+                            LOG.debug("Return type of getSubscriptionReference method: " + m.getReturnType().getName());
                             Object[] params = {};
                             o = m.invoke(subscribeResponse, params);
                             break;
                         } catch (IllegalAccessException ex) {
-                            log.error(
+                            LOG.error(
                                     "IllegalAccessException calling getSubscriptionReference method: "
                                             + ex.getMessage(), ex);
                         } catch (IllegalArgumentException ex) {
-                            log.error(
+                            LOG.error(
                                     "IllegalArgumentException calling getSubscriptionReference method: "
                                             + ex.getMessage(), ex);
                         } catch (InvocationTargetException ex) {
-                            log.error(
+                            LOG.error(
                                     "InvocationTargetException calling getSubscriptionReference method: "
                                             + ex.getMessage(), ex);
                         }
                     }
                 }
             } else {
-                log.debug("Methods were null");
+                LOG.debug("Methods were null");
             }
         }
         return o;
@@ -462,12 +453,12 @@ public class EntitySubscribeOrchImpl {
                 JAXBContext jc = oHandler.getJAXBContext("javax.xml.ws.wsaddressing");
                 Marshaller marshaller = jc.createMarshaller();
                 StringWriter swXML = new StringWriter();
-                log.debug("Calling marshal");
+                LOG.debug("Calling marshal");
                 marshaller.marshal(endpointRefernece, swXML);
                 endpointReferenceXml = swXML.toString();
-                log.debug("Marshaled W3C endpoint reference: " + endpointReferenceXml);
+                LOG.debug("Marshaled W3C endpoint reference: " + endpointReferenceXml);
             } catch (JAXBException ex) {
-                log.error("Error serializing the W3C endpoint reference: " + ex.getMessage(), ex);
+                LOG.error("Error serializing the W3C endpoint reference: " + ex.getMessage(), ex);
             }
         }
         return endpointReferenceXml;
@@ -483,7 +474,7 @@ public class EntitySubscribeOrchImpl {
      */
     private void auditInputMessage(Subscribe subscribe, AssertionType assertion, String logDirection,
             String logInterface) {
-        log.debug("In EntitySubscribeProcessor.auditInputMessage");
+        LOG.debug("In EntitySubscribeProcessor.auditInputMessage");
         AcknowledgementType ack = null;
         try {
             AuditRepositoryLogger auditLogger = new AuditRepositoryLogger();
@@ -500,7 +491,7 @@ public class EntitySubscribeOrchImpl {
                 ack = proxy.auditLog(auditLogMsg, assertion);
             }
         } catch (Throwable t) {
-            log.error("Error logging subscribe message: " + t.getMessage(), t);
+            LOG.error("Error logging subscribe message: " + t.getMessage(), t);
         }
     }
 
@@ -514,7 +505,7 @@ public class EntitySubscribeOrchImpl {
      */
     private void auditResponseMessage(SubscribeResponse response, AssertionType assertion, String logDirection,
             String logInterface) {
-        log.debug("In EntitySubscribeProcessor.auditResponseMessage");
+        LOG.debug("In EntitySubscribeProcessor.auditResponseMessage");
         try {
             AuditRepositoryLogger auditLogger = new AuditRepositoryLogger();
 
@@ -530,7 +521,7 @@ public class EntitySubscribeOrchImpl {
                 proxy.auditLog(auditLogMsg, assertion);
             }
         } catch (Throwable t) {
-            log.error("Error logging subscribe response message: " + t.getMessage(), t);
+            LOG.error("Error logging subscribe response message: " + t.getMessage(), t);
         }
     }
 }

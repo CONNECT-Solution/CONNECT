@@ -27,25 +27,20 @@
 package gov.hhs.fha.nhinc.notify.entity;
 
 import gov.hhs.fha.nhinc.orchestration.OrchestrationContext;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+
+import org.apache.log4j.Logger;
 
 public class OutboundNotifyOrchestrationContextBuilder_g0 extends
         OutboundNotifyOrchestrationContextBuilder {
 
-    private static Log log = LogFactory.getLog(OutboundNotifyOrchestrationContextBuilder_g0.class);
+    private static final Logger LOG = Logger.getLogger(OutboundNotifyOrchestrationContextBuilder_g0.class);
 
     @Override
     public OrchestrationContext build() {
-        log.debug("begin build");
+        LOG.debug("begin build");
         return new OrchestrationContext(new OutboundNotifyStrategyImpl_g0(),
                 new OutboundNotifyOrchestratable(getNhinDelegate(), getRequest(), getReferenceParameters(),
                 		getTarget(), getAssertionType()));
-    }
-
-    @Override
-    public Log getLog() {
-        return log;
     }
 
 }
