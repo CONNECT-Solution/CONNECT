@@ -29,7 +29,7 @@ package gov.hhs.fha.nhinc.messaging.client;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.messaging.service.decorator.SAMLServiceEndpointDecorator;
-import gov.hhs.fha.nhinc.messaging.service.decorator.cxf.SecurityOutInterceptorServiceEndpointDecorator;
+import gov.hhs.fha.nhinc.messaging.service.decorator.cxf.WsSecurityServiceEndpointDecorator;
 import gov.hhs.fha.nhinc.messaging.service.decorator.cxf.SoapHeaderServiceEndPointDecorator;
 import gov.hhs.fha.nhinc.messaging.service.decorator.cxf.TLSClientServiceEndpointDecorator;
 import gov.hhs.fha.nhinc.messaging.service.decorator.cxf.WsAddressingServiceEndpointDecorator;
@@ -45,7 +45,10 @@ public class CONNECTCXFClientSecured<T> extends CONNECTCXFClient<T> {
     CONNECTCXFClientSecured(ServicePortDescriptor<T> portDescriptor, String url, AssertionType assertion) {
         super(portDescriptor, url, assertion, new CXFServicePortBuilderWithAddressing<T>(portDescriptor));
         String SoapHeader = null;
-        decorateEndpoint(assertion, url, portDescriptor.getWSAddressingAction(), SoapHeader);
+        String targetHomeCommunityId = null;
+        String serviceName = null;
+        decorateEndpoint(assertion, url, portDescriptor.getWSAddressingAction(), SoapHeader, targetHomeCommunityId,
+                serviceName);
 
         serviceEndpoint.configure();
     }
@@ -54,7 +57,10 @@ public class CONNECTCXFClientSecured<T> extends CONNECTCXFClient<T> {
             String wsAddressingTo) {
         super(portDescriptor, url, assertion, new CXFServicePortBuilderWithAddressing<T>(portDescriptor));
         String SoapHeader = null;
-        decorateEndpoint(assertion, wsAddressingTo, portDescriptor.getWSAddressingAction(), SoapHeader);
+        String targetHomeCommunityId = null;
+        String serviceName = null;
+        decorateEndpoint(assertion, wsAddressingTo, portDescriptor.getWSAddressingAction(), SoapHeader, 
+                targetHomeCommunityId, serviceName);
 
         serviceEndpoint.configure();
     }
@@ -62,21 +68,42 @@ public class CONNECTCXFClientSecured<T> extends CONNECTCXFClient<T> {
     CONNECTCXFClientSecured(ServicePortDescriptor<T> portDescriptor, String url, AssertionType assertion,
             String wsAddressingTo, String SoapHeader) {
         super(portDescriptor, url, assertion, new CXFServicePortBuilderWithAddressing<T>(portDescriptor));
-
-        decorateEndpoint(assertion, wsAddressingTo, portDescriptor.getWSAddressingAction(), SoapHeader);
+        String targetHomeCommunityId = null;
+        String serviceName = null;
+        decorateEndpoint(assertion, wsAddressingTo, portDescriptor.getWSAddressingAction(), SoapHeader,
+                targetHomeCommunityId, serviceName);
 
         serviceEndpoint.configure();
     }
+    
+    CONNECTCXFClientSecured(ServicePortDescriptor<T> portDescriptor, AssertionType assertion,
+            String url, String targetHomeCommunityId, String serviceName) {
+        super(portDescriptor, url, assertion, new CXFServicePortBuilderWithAddressing<T>(portDescriptor));
+        String wsAddressingTo = null;
+        String SoapHeader= null;
+        decorateEndpoint(assertion, wsAddressingTo, portDescriptor.getWSAddressingAction(), SoapHeader,
+                targetHomeCommunityId, serviceName);
+
+        serviceEndpoint.configure();
+    }
+    
 
     public T getPort() {
         return serviceEndpoint.getPort();
     }
 
     private void decorateEndpoint(AssertionType assertion, String wsAddressingTo, String wsAddressingActionId,
-            String subscriptionId) {
-        serviceEndpoint = new SAMLServiceEndpointDecorator<T>(serviceEndpoint, assertion);
+            String subscriptionId, String targetHomeCommunityId, String serviceName) {
+        if ((targetHomeCommunityId != null) && (serviceName != null)) {
+        serviceEndpoint = new SAMLServiceEndpointDecorator<T>(serviceEndpoint, assertion, targetHomeCommunityId, 
+                serviceName);
+        }
+        else {
+            serviceEndpoint = new SAMLServiceEndpointDecorator<T>(serviceEndpoint, assertion);
+        }
+            
         serviceEndpoint = new TLSClientServiceEndpointDecorator<T>(serviceEndpoint);
-        serviceEndpoint = new SecurityOutInterceptorServiceEndpointDecorator<T>(serviceEndpoint);
+        serviceEndpoint = new WsSecurityServiceEndpointDecorator<T>(serviceEndpoint);
         serviceEndpoint = new WsAddressingServiceEndpointDecorator<T>(serviceEndpoint, wsAddressingTo,
                 wsAddressingActionId, assertion);
         if (subscriptionId != null) {

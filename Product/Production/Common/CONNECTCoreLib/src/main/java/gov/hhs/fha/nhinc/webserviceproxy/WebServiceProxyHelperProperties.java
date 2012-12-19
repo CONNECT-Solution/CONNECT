@@ -53,7 +53,7 @@ public class WebServiceProxyHelperProperties {
     private static WebServiceProxyHelperProperties INSTANCE = new WebServiceProxyHelperProperties();
 
     WebServiceProxyHelperProperties() {
-        this(PropertyAccessor.getInstance(CONFIG_FILE));
+        this(PropertyAccessor.getInstance());
     }
 
     public WebServiceProxyHelperProperties(IPropertyAcessor propertyAccessor) {

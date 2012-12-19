@@ -74,6 +74,7 @@ public class HOKSAMLAssertionBuilderTest {
      *
      * @throws Exception
      */
+    
     @Test
     public void testBuild() throws Exception {
         SAMLAssertionBuilder builder = new HOKSAMLAssertionBuilder(new CertificateManager() {
@@ -444,6 +445,11 @@ public class HOKSAMLAssertionBuilderTest {
             @Override
             public String getTargetHomeCommunityId() {
                 return "targetHomeCommunityId";
+            }
+            
+            @Override
+            public String getServiceName() {
+                return "serviceName";
             }
 
             @Override

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <con:soapui-project abortOnError="false" name="HIEMTestsforUDDI" resourceRoot="" runType="SEQUENTIAL" soapui-version="4.5.1" activeEnvironment="Default" xmlns:con="http://eviware.com/soapui/config">
 	<con:settings/>
-	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:entitysubscriptionmanagement}EntityNotificationProducerBindingSoap" definition="${ProjectDir}../ValidationSuite/target/wsdl/EntitySubscriptionManagement.wsdl" name="EntityNotificationProducerBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:entitysubscriptionmanagement}EntityNotificationProducerBindingSoap" definition="${projectDir}/../ValidationSuite/target/wsdl/EntitySubscriptionManagement.wsdl" name="EntityNotificationProducerBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 		<con:settings/>
 		
 		<con:endpoints>
@@ -102,8 +102,6 @@ nhinc.FileUtils.updateProperty(context.findProperty("GatewayPropDir"),"gateway.p
                <nccommon:zipCode>AddrZip</nccommon:zipCode>
             </nccommon:address>
             <nccommon:dateOfBirth xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">06/04/1959 05:21:00</nccommon:dateOfBirth>
-            <!--nccommon:dateOfSignature xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">${#Project#sigDate}</nccommon:dateOfSignature-->
-            <!--nccommon:expirationDate xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">${#Project#expDate}</nccommon:expirationDate-->
             <nccommon:explanationNonClaimantSignature xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">Electronic</nccommon:explanationNonClaimantSignature>
             <nccommon:haveSecondWitnessSignature xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">false</nccommon:haveSecondWitnessSignature>
             <nccommon:haveSignature xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">false</nccommon:haveSignature>
@@ -141,7 +139,6 @@ nhinc.FileUtils.updateProperty(context.findProperty("GatewayPropDir"),"gateway.p
                   <nccommon:originalText>phoneCode</nccommon:originalText>
                </nccommon:phoneNumberType>
             </nccommon:phoneNumber>
-            <!--nccommon:purposeOfDisclosure xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">TREATMENT</nccommon:purposeOfDisclosure-->
             <nccommon:secondWitnessAddress xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">
                <nccommon:addressType>
                   <!--nccommon:code>AddrCode</nccommon:code-->
@@ -246,7 +243,6 @@ nhinc.FileUtils.updateProperty(context.findProperty("GatewayPropDir"),"gateway.p
                   <nccommon:fullName>Kasrl S. Skagerberg</nccommon:fullName>
                </nccommon:personName>
                <nccommon:userName>kskagerb</nccommon:userName>
-               <!--nccommon:role>Pharmacy</nccommon:role-->
                <nccommon:org>
                   <nccommon:description>${#Project#RemoteHCDescription}</nccommon:description>
                   <nccommon:homeCommunityId>${#Project#RemoteHCID}</nccommon:homeCommunityId>
@@ -442,8 +438,6 @@ nhinc.FileUtils.updateProperty(context.findProperty("GatewayPropDir"),"gateway.p
                <nccommon:zipCode>AddrZip</nccommon:zipCode>
             </nccommon:address>
             <nccommon:dateOfBirth xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">06/04/1959 05:21:00</nccommon:dateOfBirth>
-            <!--nccommon:dateOfSignature xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">${#Project#sigDate}</nccommon:dateOfSignature-->
-            <!--nccommon:expirationDate xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">${#Project#expDate}</nccommon:expirationDate-->
             <nccommon:explanationNonClaimantSignature xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">Electronic</nccommon:explanationNonClaimantSignature>
             <nccommon:haveSecondWitnessSignature xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">false</nccommon:haveSecondWitnessSignature>
             <nccommon:haveSignature xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">false</nccommon:haveSignature>
@@ -481,7 +475,6 @@ nhinc.FileUtils.updateProperty(context.findProperty("GatewayPropDir"),"gateway.p
                   <nccommon:originalText>phoneCode</nccommon:originalText>
                </nccommon:phoneNumberType>
             </nccommon:phoneNumber>
-            <!--nccommon:purposeOfDisclosure xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">TREATMENT</nccommon:purposeOfDisclosure-->
             <nccommon:secondWitnessAddress xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">
                <nccommon:addressType>
                   <!--nccommon:code>AddrCode</nccommon:code-->
@@ -586,7 +579,6 @@ nhinc.FileUtils.updateProperty(context.findProperty("GatewayPropDir"),"gateway.p
                   <nccommon:fullName>Kasrl S. Skagerberg</nccommon:fullName>
                </nccommon:personName>
                <nccommon:userName>kskagerb</nccommon:userName>
-               <!--nccommon:role>Pharmacy</nccommon:role-->
                <nccommon:org>
                   <nccommon:description>${#Project#RemoteHCDescription}</nccommon:description>
                   <nccommon:homeCommunityId>${#Project#RemoteHCID}</nccommon:homeCommunityId>
@@ -774,8 +766,6 @@ nhinc.FileUtils.updateProperty(context.findProperty("GatewayPropDir"),"gateway.p
                <nccommon:zipCode>AddrZip</nccommon:zipCode>
             </nccommon:address>
             <nccommon:dateOfBirth xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">06/04/1959 05:21:00</nccommon:dateOfBirth>
-            <!--nccommon:dateOfSignature xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">${#Project#sigDate}</nccommon:dateOfSignature-->
-            <!--nccommon:expirationDate xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">${#Project#expDate}</nccommon:expirationDate-->
             <nccommon:explanationNonClaimantSignature xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">Electronic</nccommon:explanationNonClaimantSignature>
             <nccommon:haveSecondWitnessSignature xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">false</nccommon:haveSecondWitnessSignature>
             <nccommon:haveSignature xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">false</nccommon:haveSignature>
@@ -813,7 +803,6 @@ nhinc.FileUtils.updateProperty(context.findProperty("GatewayPropDir"),"gateway.p
                   <nccommon:originalText>phoneCode</nccommon:originalText>
                </nccommon:phoneNumberType>
             </nccommon:phoneNumber>
-            <!--nccommon:purposeOfDisclosure xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">TREATMENT</nccommon:purposeOfDisclosure-->
             <nccommon:secondWitnessAddress xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">
                <nccommon:addressType>
                   <!--nccommon:code>AddrCode</nccommon:code-->
@@ -918,7 +907,6 @@ nhinc.FileUtils.updateProperty(context.findProperty("GatewayPropDir"),"gateway.p
                   <nccommon:fullName>Kasrl S. Skagerberg</nccommon:fullName>
                </nccommon:personName>
                <nccommon:userName>kskagerb</nccommon:userName>
-               <!--nccommon:role>Pharmacy</nccommon:role-->
                <nccommon:org>
                   <nccommon:description>${#Project#RemoteHCDescription}</nccommon:description>
                   <nccommon:homeCommunityId>${#Project#RemoteHCID}</nccommon:homeCommunityId>
@@ -1105,8 +1093,6 @@ nhinc.FileUtils.updateProperty(context.findProperty("GatewayPropDir"),"gateway.p
                <nccommon:zipCode>AddrZip</nccommon:zipCode>
             </nccommon:address>
             <nccommon:dateOfBirth xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">06/04/1959 05:21:00</nccommon:dateOfBirth>
-            <!--nccommon:dateOfSignature xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">${#Project#sigDate}</nccommon:dateOfSignature-->
-            <!--nccommon:expirationDate xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">${#Project#expDate}</nccommon:expirationDate-->
             <nccommon:explanationNonClaimantSignature xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">Electronic</nccommon:explanationNonClaimantSignature>
             <nccommon:haveSecondWitnessSignature xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">false</nccommon:haveSecondWitnessSignature>
             <nccommon:haveSignature xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">false</nccommon:haveSignature>
@@ -1144,7 +1130,6 @@ nhinc.FileUtils.updateProperty(context.findProperty("GatewayPropDir"),"gateway.p
                   <nccommon:originalText>phoneCode</nccommon:originalText>
                </nccommon:phoneNumberType>
             </nccommon:phoneNumber>
-            <!--nccommon:purposeOfDisclosure xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">TREATMENT</nccommon:purposeOfDisclosure-->
             <nccommon:secondWitnessAddress xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">
                <nccommon:addressType>
                   <!--nccommon:code>AddrCode</nccommon:code-->
@@ -1249,7 +1234,6 @@ nhinc.FileUtils.updateProperty(context.findProperty("GatewayPropDir"),"gateway.p
                   <nccommon:fullName>Kasrl S. Skagerberg</nccommon:fullName>
                </nccommon:personName>
                <nccommon:userName>kskagerb</nccommon:userName>
-               <!--nccommon:role>Pharmacy</nccommon:role-->
                <nccommon:org>
                   <nccommon:description>${#Project#RemoteHCDescription}</nccommon:description>
                   <nccommon:homeCommunityId>${#Project#RemoteHCID}</nccommon:homeCommunityId>
@@ -1426,8 +1410,6 @@ nhinc.FileUtils.updateProperty(context.findProperty("GatewayPropDir"),"gateway.p
                <nccommon:zipCode>AddrZip</nccommon:zipCode>
             </nccommon:address>
             <nccommon:dateOfBirth xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">06/04/1959 05:21:00</nccommon:dateOfBirth>
-            <!--nccommon:dateOfSignature xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">${#Project#sigDate}</nccommon:dateOfSignature-->
-            <!--nccommon:expirationDate xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">${#Project#expDate}</nccommon:expirationDate-->
             <nccommon:explanationNonClaimantSignature xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">Electronic</nccommon:explanationNonClaimantSignature>
             <nccommon:haveSecondWitnessSignature xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">false</nccommon:haveSecondWitnessSignature>
             <nccommon:haveSignature xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">false</nccommon:haveSignature>
@@ -1465,7 +1447,6 @@ nhinc.FileUtils.updateProperty(context.findProperty("GatewayPropDir"),"gateway.p
                   <nccommon:originalText>phoneCode</nccommon:originalText>
                </nccommon:phoneNumberType>
             </nccommon:phoneNumber>
-            <!--nccommon:purposeOfDisclosure xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">TREATMENT</nccommon:purposeOfDisclosure-->
             <nccommon:secondWitnessAddress xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">
                <nccommon:addressType>
                   <!--nccommon:code>AddrCode</nccommon:code-->
@@ -1570,7 +1551,6 @@ nhinc.FileUtils.updateProperty(context.findProperty("GatewayPropDir"),"gateway.p
                   <nccommon:fullName>Kasrl S. Skagerberg</nccommon:fullName>
                </nccommon:personName>
                <nccommon:userName>kskagerb</nccommon:userName>
-               <!--nccommon:role>Pharmacy</nccommon:role-->
                <nccommon:org>
                   <nccommon:description>${#Project#RemoteHCDescription}</nccommon:description>
                   <nccommon:homeCommunityId>${#Project#RemoteHCID}</nccommon:homeCommunityId>
@@ -1758,8 +1738,6 @@ nhinc.FileUtils.updateProperty(context.findProperty("GatewayPropDir"),"gateway.p
                <nccommon:zipCode>AddrZip</nccommon:zipCode>
             </nccommon:address>
             <nccommon:dateOfBirth xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">06/04/1959 05:21:00</nccommon:dateOfBirth>
-            <!--nccommon:dateOfSignature xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">${#Project#sigDate}</nccommon:dateOfSignature-->
-            <!--nccommon:expirationDate xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">${#Project#expDate}</nccommon:expirationDate-->
             <nccommon:explanationNonClaimantSignature xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">Electronic</nccommon:explanationNonClaimantSignature>
             <nccommon:haveSecondWitnessSignature xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">false</nccommon:haveSecondWitnessSignature>
             <nccommon:haveSignature xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">false</nccommon:haveSignature>
@@ -1797,7 +1775,6 @@ nhinc.FileUtils.updateProperty(context.findProperty("GatewayPropDir"),"gateway.p
                   <nccommon:originalText>phoneCode</nccommon:originalText>
                </nccommon:phoneNumberType>
             </nccommon:phoneNumber>
-            <!--nccommon:purposeOfDisclosure xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">TREATMENT</nccommon:purposeOfDisclosure-->
             <nccommon:secondWitnessAddress xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">
                <nccommon:addressType>
                   <!--nccommon:code>AddrCode</nccommon:code-->
@@ -1902,7 +1879,6 @@ nhinc.FileUtils.updateProperty(context.findProperty("GatewayPropDir"),"gateway.p
                   <nccommon:fullName>Kasrl S. Skagerberg</nccommon:fullName>
                </nccommon:personName>
                <nccommon:userName>kskagerb</nccommon:userName>
-               <!--nccommon:role>Pharmacy</nccommon:role-->
                <nccommon:org>
                   <nccommon:description>${#Project#RemoteHCDescription}</nccommon:description>
                   <nccommon:homeCommunityId>${#Project#RemoteHCID}</nccommon:homeCommunityId>
@@ -2091,8 +2067,6 @@ nhinc.FileUtils.updateProperty(context.findProperty("GatewayPropDir"),"gateway.p
                <nccommon:zipCode>AddrZip</nccommon:zipCode>
             </nccommon:address>
             <nccommon:dateOfBirth xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">06/04/1959 05:21:00</nccommon:dateOfBirth>
-            <!--nccommon:dateOfSignature xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">${#Project#sigDate}</nccommon:dateOfSignature-->
-            <!--nccommon:expirationDate xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">${#Project#expDate}</nccommon:expirationDate-->
             <nccommon:explanationNonClaimantSignature xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">Electronic</nccommon:explanationNonClaimantSignature>
             <nccommon:haveSecondWitnessSignature xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">false</nccommon:haveSecondWitnessSignature>
             <nccommon:haveSignature xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">false</nccommon:haveSignature>
@@ -2130,7 +2104,6 @@ nhinc.FileUtils.updateProperty(context.findProperty("GatewayPropDir"),"gateway.p
                   <nccommon:originalText>phoneCode</nccommon:originalText>
                </nccommon:phoneNumberType>
             </nccommon:phoneNumber>
-            <!--nccommon:purposeOfDisclosure xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">TREATMENT</nccommon:purposeOfDisclosure-->
             <nccommon:secondWitnessAddress xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">
                <nccommon:addressType>
                   <!--nccommon:code>AddrCode</nccommon:code-->
@@ -2235,7 +2208,6 @@ nhinc.FileUtils.updateProperty(context.findProperty("GatewayPropDir"),"gateway.p
                   <nccommon:fullName>Kasrl S. Skagerberg</nccommon:fullName>
                </nccommon:personName>
                <nccommon:userName>kskagerb</nccommon:userName>
-               <!--nccommon:role>Pharmacy</nccommon:role-->
                <nccommon:org>
                   <nccommon:description>${#Project#RemoteHCDescription}</nccommon:description>
                   <nccommon:homeCommunityId>${#Project#RemoteHCID}</nccommon:homeCommunityId>
@@ -2424,8 +2396,6 @@ nhinc.FileUtils.updateProperty(context.findProperty("GatewayPropDir"),"gateway.p
                <nccommon:zipCode>AddrZip</nccommon:zipCode>
             </nccommon:address>
             <nccommon:dateOfBirth xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">06/04/1959 05:21:00</nccommon:dateOfBirth>
-            <!--nccommon:dateOfSignature xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">${#Project#sigDate}</nccommon:dateOfSignature-->
-            <!--nccommon:expirationDate xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">${#Project#expDate}</nccommon:expirationDate-->
             <nccommon:explanationNonClaimantSignature xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">Electronic</nccommon:explanationNonClaimantSignature>
             <nccommon:haveSecondWitnessSignature xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">false</nccommon:haveSecondWitnessSignature>
             <nccommon:haveSignature xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">false</nccommon:haveSignature>
@@ -2463,7 +2433,6 @@ nhinc.FileUtils.updateProperty(context.findProperty("GatewayPropDir"),"gateway.p
                   <nccommon:originalText>phoneCode</nccommon:originalText>
                </nccommon:phoneNumberType>
             </nccommon:phoneNumber>
-            <!--nccommon:purposeOfDisclosure xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">TREATMENT</nccommon:purposeOfDisclosure-->
             <nccommon:secondWitnessAddress xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">
                <nccommon:addressType>
                   <!--nccommon:code>AddrCode</nccommon:code-->
@@ -2568,7 +2537,6 @@ nhinc.FileUtils.updateProperty(context.findProperty("GatewayPropDir"),"gateway.p
                   <nccommon:fullName>Kasrl S. Skagerberg</nccommon:fullName>
                </nccommon:personName>
                <nccommon:userName>kskagerb</nccommon:userName>
-               <!--nccommon:role>Pharmacy</nccommon:role-->
                <nccommon:org>
                   <nccommon:description>${#Project#RemoteHCDescription}</nccommon:description>
                   <nccommon:homeCommunityId>${#Project#RemoteHCID}</nccommon:homeCommunityId>
@@ -2757,8 +2725,6 @@ nhinc.FileUtils.updateProperty(context.findProperty("GatewayPropDir"),"gateway.p
                <nccommon:zipCode>AddrZip</nccommon:zipCode>
             </nccommon:address>
             <nccommon:dateOfBirth xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">06/04/1959 05:21:00</nccommon:dateOfBirth>
-            <!--nccommon:dateOfSignature xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">${#Project#sigDate}</nccommon:dateOfSignature-->
-            <!--nccommon:expirationDate xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">${#Project#expDate}</nccommon:expirationDate-->
             <nccommon:explanationNonClaimantSignature xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">Electronic</nccommon:explanationNonClaimantSignature>
             <nccommon:haveSecondWitnessSignature xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">false</nccommon:haveSecondWitnessSignature>
             <nccommon:haveSignature xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">false</nccommon:haveSignature>
@@ -2796,7 +2762,6 @@ nhinc.FileUtils.updateProperty(context.findProperty("GatewayPropDir"),"gateway.p
                   <nccommon:originalText>phoneCode</nccommon:originalText>
                </nccommon:phoneNumberType>
             </nccommon:phoneNumber>
-            <!--nccommon:purposeOfDisclosure xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">TREATMENT</nccommon:purposeOfDisclosure-->
             <nccommon:secondWitnessAddress xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">
                <nccommon:addressType>
                   <!--nccommon:code>AddrCode</nccommon:code-->
@@ -2901,7 +2866,6 @@ nhinc.FileUtils.updateProperty(context.findProperty("GatewayPropDir"),"gateway.p
                   <nccommon:fullName>Kasrl S. Skagerberg</nccommon:fullName>
                </nccommon:personName>
                <nccommon:userName>kskagerb</nccommon:userName>
-               <!--nccommon:role>Pharmacy</nccommon:role-->
                <nccommon:org>
                   <nccommon:description>${#Project#RemoteHCDescription}</nccommon:description>
                   <nccommon:homeCommunityId>${#Project#RemoteHCID}</nccommon:homeCommunityId>
@@ -3089,8 +3053,6 @@ nhinc.FileUtils.updateProperty(context.findProperty("GatewayPropDir"),"gateway.p
                <nccommon:zipCode>AddrZip</nccommon:zipCode>
             </nccommon:address>
             <nccommon:dateOfBirth xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">06/04/1959 05:21:00</nccommon:dateOfBirth>
-            <!--nccommon:dateOfSignature xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">${#Project#sigDate}</nccommon:dateOfSignature-->
-            <!--nccommon:expirationDate xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">${#Project#expDate}</nccommon:expirationDate-->
             <nccommon:explanationNonClaimantSignature xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">Electronic</nccommon:explanationNonClaimantSignature>
             <nccommon:haveSecondWitnessSignature xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">false</nccommon:haveSecondWitnessSignature>
             <nccommon:haveSignature xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">false</nccommon:haveSignature>
@@ -3128,7 +3090,6 @@ nhinc.FileUtils.updateProperty(context.findProperty("GatewayPropDir"),"gateway.p
                   <nccommon:originalText>phoneCode</nccommon:originalText>
                </nccommon:phoneNumberType>
             </nccommon:phoneNumber>
-            <!--nccommon:purposeOfDisclosure xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">TREATMENT</nccommon:purposeOfDisclosure-->
             <nccommon:secondWitnessAddress xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">
                <nccommon:addressType>
                   <!--nccommon:code>AddrCode</nccommon:code-->
@@ -3233,7 +3194,6 @@ nhinc.FileUtils.updateProperty(context.findProperty("GatewayPropDir"),"gateway.p
                   <nccommon:fullName>Kasrl S. Skagerberg</nccommon:fullName>
                </nccommon:personName>
                <nccommon:userName>kskagerb</nccommon:userName>
-               <!--nccommon:role>Pharmacy</nccommon:role-->
                <nccommon:org>
                   <nccommon:description>${#Project#RemoteHCDescription}</nccommon:description>
                   <nccommon:homeCommunityId>${#Project#RemoteHCID}</nccommon:homeCommunityId>
@@ -3422,8 +3382,6 @@ nhinc.FileUtils.updateProperty(context.findProperty("GatewayPropDir"),"gateway.p
                <nccommon:zipCode>AddrZip</nccommon:zipCode>
             </nccommon:address>
             <nccommon:dateOfBirth xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">06/04/1959 05:21:00</nccommon:dateOfBirth>
-            <!--nccommon:dateOfSignature xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">${#Project#sigDate}</nccommon:dateOfSignature-->
-            <!--nccommon:expirationDate xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">${#Project#expDate}</nccommon:expirationDate-->
             <nccommon:explanationNonClaimantSignature xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">Electronic</nccommon:explanationNonClaimantSignature>
             <nccommon:haveSecondWitnessSignature xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">false</nccommon:haveSecondWitnessSignature>
             <nccommon:haveSignature xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">false</nccommon:haveSignature>
@@ -3461,7 +3419,6 @@ nhinc.FileUtils.updateProperty(context.findProperty("GatewayPropDir"),"gateway.p
                   <nccommon:originalText>phoneCode</nccommon:originalText>
                </nccommon:phoneNumberType>
             </nccommon:phoneNumber>
-            <!--nccommon:purposeOfDisclosure xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">TREATMENT</nccommon:purposeOfDisclosure-->
             <nccommon:secondWitnessAddress xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">
                <nccommon:addressType>
                   <!--nccommon:code>AddrCode</nccommon:code-->
@@ -3566,7 +3523,6 @@ nhinc.FileUtils.updateProperty(context.findProperty("GatewayPropDir"),"gateway.p
                   <nccommon:fullName>Kasrl S. Skagerberg</nccommon:fullName>
                </nccommon:personName>
                <nccommon:userName>kskagerb</nccommon:userName>
-               <!--nccommon:role>Pharmacy</nccommon:role-->
                <nccommon:org>
                   <nccommon:description>${#Project#RemoteHCDescription}</nccommon:description>
                   <nccommon:homeCommunityId>${#Project#RemoteHCID}</nccommon:homeCommunityId>
@@ -3753,8 +3709,6 @@ nhinc.FileUtils.updateProperty(context.findProperty("GatewayPropDir"),"gateway.p
                <nccommon:zipCode>AddrZip</nccommon:zipCode>
             </nccommon:address>
             <nccommon:dateOfBirth xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">06/04/1959 05:21:00</nccommon:dateOfBirth>
-            <!--nccommon:dateOfSignature xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">${#Project#sigDate}</nccommon:dateOfSignature-->
-            <!--nccommon:expirationDate xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">${#Project#expDate}</nccommon:expirationDate-->
             <nccommon:explanationNonClaimantSignature xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">Electronic</nccommon:explanationNonClaimantSignature>
             <nccommon:haveSecondWitnessSignature xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">false</nccommon:haveSecondWitnessSignature>
             <nccommon:haveSignature xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">false</nccommon:haveSignature>
@@ -3792,7 +3746,6 @@ nhinc.FileUtils.updateProperty(context.findProperty("GatewayPropDir"),"gateway.p
                   <nccommon:originalText>phoneCode</nccommon:originalText>
                </nccommon:phoneNumberType>
             </nccommon:phoneNumber>
-            <!--nccommon:purposeOfDisclosure xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">TREATMENT</nccommon:purposeOfDisclosure-->
             <nccommon:secondWitnessAddress xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">
                <nccommon:addressType>
                   <!--nccommon:code>AddrCode</nccommon:code-->
@@ -3897,7 +3850,6 @@ nhinc.FileUtils.updateProperty(context.findProperty("GatewayPropDir"),"gateway.p
                   <nccommon:fullName>Kasrl S. Skagerberg</nccommon:fullName>
                </nccommon:personName>
                <nccommon:userName>kskagerb</nccommon:userName>
-               <!--nccommon:role>Pharmacy</nccommon:role-->
                <nccommon:org>
                   <nccommon:description>${#Project#RemoteHCDescription}</nccommon:description>
                   <nccommon:homeCommunityId>${#Project#RemoteHCID}</nccommon:homeCommunityId>
@@ -4095,8 +4047,6 @@ nhinc.FileUtils.updateProperty(context.findProperty("GatewayPropDir"),"gateway.p
                <nccommon:zipCode>AddrZip</nccommon:zipCode>
             </nccommon:address>
             <nccommon:dateOfBirth xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">06/04/1959 05:21:00</nccommon:dateOfBirth>
-            <!--nccommon:dateOfSignature xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">${#Project#sigDate}</nccommon:dateOfSignature-->
-            <!--nccommon:expirationDate xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">${#Project#expDate}</nccommon:expirationDate-->
             <nccommon:explanationNonClaimantSignature xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">Electronic</nccommon:explanationNonClaimantSignature>
             <nccommon:haveSecondWitnessSignature xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">false</nccommon:haveSecondWitnessSignature>
             <nccommon:haveSignature xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">false</nccommon:haveSignature>
@@ -4134,7 +4084,6 @@ nhinc.FileUtils.updateProperty(context.findProperty("GatewayPropDir"),"gateway.p
                   <nccommon:originalText>phoneCode</nccommon:originalText>
                </nccommon:phoneNumberType>
             </nccommon:phoneNumber>
-            <!--nccommon:purposeOfDisclosure xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">TREATMENT</nccommon:purposeOfDisclosure-->
             <nccommon:secondWitnessAddress xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">
                <nccommon:addressType>
                   <!--nccommon:code>AddrCode</nccommon:code-->
@@ -4239,7 +4188,6 @@ nhinc.FileUtils.updateProperty(context.findProperty("GatewayPropDir"),"gateway.p
                   <nccommon:fullName>Kasrl S. Skagerberg</nccommon:fullName>
                </nccommon:personName>
                <nccommon:userName>kskagerb</nccommon:userName>
-               <!--nccommon:role>Pharmacy</nccommon:role-->
                <nccommon:org>
                   <nccommon:description>${#Project#RemoteHCDescription}</nccommon:description>
                   <nccommon:homeCommunityId>${#Project#RemoteHCID}</nccommon:homeCommunityId>
@@ -4400,7 +4348,7 @@ nhinc.FileUtils.updateProperty(context.findProperty("GatewayPropDir"),"gateway.p
 		
 		
 		
-	<con:property><con:name>UnsubSubscriptionID</con:name><con:value>3e74139f-5271-4db1-98c0-88748fa3e4e3</con:value></con:property><con:property><con:name>GatewayPropDIr</con:name><con:value>D:\glassfish3\glassfish\domains\domain1\config\nhin</con:value></con:property></con:properties>
+	<con:property><con:name>UnsubSubscriptionID</con:name><con:value>3e74139f-5271-4db1-98c0-88748fa3e4e3</con:value></con:property><con:property><con:name>GatewayPropDIr</con:name><con:value>c:\glassfish3\glassfish\domains\domain1\config\nhin</con:value></con:property></con:properties>
 	<con:afterLoadScript>def propertiesFile = new File(new File(project.path).parent, 'HIEMTestsforUDDI-soapui-project.properties')
 if (propertiesFile.exists()) {
 	def props = new Properties()

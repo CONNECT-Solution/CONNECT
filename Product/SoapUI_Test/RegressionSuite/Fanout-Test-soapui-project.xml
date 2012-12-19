@@ -8,7 +8,7 @@
     <con:operation action="urn:RespondingGateway_PRPA_IN201305UV02" anonymous="optional" bindingOperationName="RespondingGateway_PRPA_IN201305UV02" inputName="RespondingGateway_PRPA_IN201305UV02Request" isOneWay="false" name="RespondingGateway_PRPA_IN201305UV02" outputName="RespondingGateway_PRPA_IN201306UV02Response" receivesAttachments="false" sendsAttachments="false" type="Request-Response">
       <con:settings/>
     </con:operation>
-  </con:interface><con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincproxypatientdiscovery}NhincProxyPatientDiscoveryBinding" definition="${projectDir}/../ValidationSuite/target/wsdl/NhincProxyPatientDiscovery.wsdl" name="NhincProxyPatientDiscoveryBinding" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:endpoints><con:endpoint>http://localhost:${HttpDefaultPort}/NhinConnect/NhincProxyPatientDiscovery</con:endpoint></con:endpoints><con:operation action="urn:Proxy_PRPA_IN201305UV" anonymous="optional" bindingOperationName="Proxy_PRPA_IN201305UV" inputName="Proxy_PRPA_IN201305UVProxyRequest" isOneWay="false" name="Proxy_PRPA_IN201305UV" outputName="Proxy_PRPA_IN201306UVProxyResponse" receivesAttachments="false" sendsAttachments="false" type="Request-Response"><con:settings/></con:operation></con:interface><con:interface anonymous="optional" bindingName="{urn:ihe:iti:xcpd:2009}RespondingGateway_Binding_Soap" definition="${projectDir}/../ValidationSuite/target/wsdl/NhinPatientDiscovery.wsdl" name="RespondingGateway_Binding_Soap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:endpoints><con:endpoint>https://PHX-ONC-WTST21:7781/mockPDResp</con:endpoint><con:endpoint>https://localhost:${HttpsDefaultPort}/NhinConnect/PatientDiscovery</con:endpoint></con:endpoints><con:operation action="urn:hl7-org:v3:PRPA_IN201305UV02:CrossGatewayPatientDiscovery" anonymous="optional" bindingOperationName="RespondingGateway_PRPA_IN201305UV02" inputName="" isOneWay="false" name="RespondingGateway_PRPA_IN201305UV02" receivesAttachments="false" sendsAttachments="false" type="Request-Response"><con:settings/></con:operation></con:interface><con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:adapterpolicyengine}AdapterPolicyEngineBindingSoap" definition="${projectDir}/../ValidationSuite/target/wsdl/AdapterPolicyEngine.wsdl" name="AdapterPolicyEngineBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:endpoints><con:endpoint>http://localhost:${HttpDefaultPort}/NhinConnect/AdapterPolicyEngine</con:endpoint><con:endpoint>https://PHX-ONC-WTST21:8088/mockAdapterPolicyEngineBindingSoap</con:endpoint></con:endpoints><con:operation action="urn:CheckPolicy" anonymous="optional" bindingOperationName="CheckPolicy" inputName="CheckPolicyRequest" isOneWay="false" name="CheckPolicy" outputName="CheckPolicyResponse" receivesAttachments="false" sendsAttachments="false" type="Request-Response"><con:settings/></con:operation></con:interface><con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:entitydocquery}EntityDocQueryBindingSoap" definition="${projectDir}/../ValidationSuite/target/wsdl/EntityDocQuery.wsdl" name="EntityDocQueryBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  </con:interface><con:interface anonymous="optional" bindingName="{urn:ihe:iti:xcpd:2009}RespondingGateway_Binding_Soap" definition="${projectDir}/../ValidationSuite/target/wsdl/NhinPatientDiscovery.wsdl" name="RespondingGateway_Binding_Soap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:endpoints><con:endpoint>https://PHX-ONC-WTST21:7781/mockPDResp</con:endpoint><con:endpoint>https://localhost:${HttpsDefaultPort}/NhinConnect/PatientDiscovery</con:endpoint></con:endpoints><con:operation action="urn:hl7-org:v3:PRPA_IN201305UV02:CrossGatewayPatientDiscovery" anonymous="optional" bindingOperationName="RespondingGateway_PRPA_IN201305UV02" inputName="" isOneWay="false" name="RespondingGateway_PRPA_IN201305UV02" receivesAttachments="false" sendsAttachments="false" type="Request-Response"><con:settings/></con:operation></con:interface><con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:adapterpolicyengine}AdapterPolicyEngineBindingSoap" definition="${projectDir}/../ValidationSuite/target/wsdl/AdapterPolicyEngine.wsdl" name="AdapterPolicyEngineBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:endpoints><con:endpoint>http://localhost:${HttpDefaultPort}/NhinConnect/AdapterPolicyEngine</con:endpoint><con:endpoint>https://PHX-ONC-WTST21:8088/mockAdapterPolicyEngineBindingSoap</con:endpoint></con:endpoints><con:operation action="urn:CheckPolicy" anonymous="optional" bindingOperationName="CheckPolicy" inputName="CheckPolicyRequest" isOneWay="false" name="CheckPolicy" outputName="CheckPolicyResponse" receivesAttachments="false" sendsAttachments="false" type="Request-Response"><con:settings/></con:operation></con:interface><con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:entitydocquery}EntityDocQueryBindingSoap" definition="${projectDir}/../ValidationSuite/target/wsdl/EntityDocQuery.wsdl" name="EntityDocQueryBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <con:settings/>
     
     <con:endpoints>
@@ -333,19 +333,19 @@ exists( //ns3:PRPA_IN201306UV02/ns3:controlActProcess)</path>
       </con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);</con:setupScript><con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);</con:tearDownScript><con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2012-12-04T19:12:20Z</con:value>
+          <con:value>2012-12-16T17:29:03Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2012-12-04T19:22:20Z</con:value>
+          <con:value>2012-12-16T17:39:03Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>12/04/2012 19:12:20</con:value>
+          <con:value>12/16/2012 17:29:03</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2013-01-03T00:00:00Z</con:value>
+          <con:value>2013-01-15T00:00:00Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -680,19 +680,19 @@ exists( //ns3:PRPA_IN201306UV02/ns3:controlActProcess)</path>
       </con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);</con:setupScript><con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);</con:tearDownScript><con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2012-12-04T16:40:32Z</con:value>
+          <con:value>2012-12-16T17:24:52Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2012-12-04T16:50:32Z</con:value>
+          <con:value>2012-12-16T17:34:52Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>12/04/2012 16:40:32</con:value>
+          <con:value>12/16/2012 17:24:52</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2013-01-03T00:00:00Z</con:value>
+          <con:value>2013-01-15T00:00:00Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -1040,19 +1040,19 @@ nhinc.FileUtils.updateSpringConfig(context.findProperty('GatewayPropDir'), "Adap
 nhinc.FileUtils.updateSpringConfig(context.findProperty('GatewayPropDir'), "AdapterMpiConfig.xml", "mpi", "mpiwsunsecured", "mpiwssecured", log);</con:tearDownScript><con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2012-12-04T19:38:01Z</con:value>
+          <con:value>2012-12-16T17:25:52Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2012-12-04T19:48:01Z</con:value>
+          <con:value>2012-12-16T17:35:52Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>12/04/2012 19:38:01</con:value>
+          <con:value>12/16/2012 17:25:52</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2013-01-03T00:00:00Z</con:value>
+          <con:value>2013-01-15T00:00:00Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -1400,19 +1400,19 @@ testCase.getTestSuite().getProject().getMockServiceByName("mockPD_adapter").getM
 nhinc.FileUtils.updateSpringConfig(context.findProperty('GatewayPropDir'), "PatientDiscoveryProxyConfig.xml", "adapterpatientdiscovery", "adapterpatientdiscoverywsunsecured", "adapterpatientdiscoverywssecured", log);</con:tearDownScript><con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2012-12-04T19:48:31Z</con:value>
+          <con:value>2012-12-16T17:26:53Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2012-12-04T19:58:31Z</con:value>
+          <con:value>2012-12-16T17:36:53Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>12/04/2012 19:48:31</con:value>
+          <con:value>12/16/2012 17:26:53</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2013-01-03T00:00:00Z</con:value>
+          <con:value>2013-01-15T00:00:00Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -1759,19 +1759,19 @@ nhinc.FileUtils.updateSpringConfig(context.findProperty('GatewayPropDir'), "Adap
 nhinc.FileUtils.updateSpringConfig(context.findProperty('GatewayPropDir'), "AdapterMpiConfig.xml", "mpi", "mpiwsunsecured", "mpiwssecured", log);</con:tearDownScript><con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2012-12-04T20:05:43Z</con:value>
+          <con:value>2012-12-16T17:27:53Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2012-12-04T20:15:43Z</con:value>
+          <con:value>2012-12-16T17:37:53Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>12/04/2012 20:05:43</con:value>
+          <con:value>12/16/2012 17:27:53</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2013-01-03T00:00:00Z</con:value>
+          <con:value>2013-01-15T00:00:00Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -2099,19 +2099,19 @@ assert (documentID == msgDocID)</scriptText>
       </con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);</con:setupScript><con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);</con:tearDownScript><con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2012-12-04T20:06:06Z</con:value>
+          <con:value>2012-12-16T16:37:22Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2012-12-04T20:16:06Z</con:value>
+          <con:value>2012-12-16T16:47:22Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>12/04/2012 20:06:06</con:value>
+          <con:value>12/16/2012 16:37:22</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2013-01-03T00:00:00Z</con:value>
+          <con:value>2013-01-15T00:00:00Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -2452,7 +2452,7 @@ nhinc.FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFil
    </soap:Body>
 </soap:Envelope>]]></con:request>
             <con:assertion type="SOAP Response"/>
-            <con:assertion disabled="true" type="Schema Compliance">
+            <con:assertion type="Schema Compliance" disabled="true">
               <con:configuration/>
             </con:assertion>
             <con:assertion type="SOAP Fault Assertion"/>
@@ -2466,19 +2466,19 @@ nhinc.FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFil
       </con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);</con:setupScript><con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);</con:tearDownScript><con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2012-12-04T20:19:01Z</con:value>
+          <con:value>2012-12-16T16:37:39Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2012-12-04T20:29:01Z</con:value>
+          <con:value>2012-12-16T16:47:39Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>12/04/2012 20:19:01</con:value>
+          <con:value>12/16/2012 16:37:39</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2013-01-03T00:00:00Z</con:value>
+          <con:value>2013-01-15T00:00:00Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -2851,19 +2851,19 @@ testCase.getTestSuite().getProject().getMockServiceByName("mockDQ_happy_path").g
 nhinc.FileUtils.updateSpringConfig(context.findProperty('GatewayPropDir'), "DocumentQueryProxyConfig.xml", "adapterdocquery", "adapterdocquerywsunsecured", "adapterdocquerywssecured", log);</con:tearDownScript><con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2012-12-04T20:29:33Z</con:value>
+          <con:value>2012-12-16T16:37:26Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2012-12-04T20:39:33Z</con:value>
+          <con:value>2012-12-16T16:47:26Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>12/04/2012 20:29:33</con:value>
+          <con:value>12/16/2012 16:37:26</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2013-01-03T00:00:00Z</con:value>
+          <con:value>2013-01-15T00:00:00Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -3236,19 +3236,19 @@ testCase.getTestSuite().getProject().getMockServiceByName("mockDQ_all").getMockR
 nhinc.FileUtils.updateSpringConfig(context.findProperty('GatewayPropDir'), "DocumentQueryProxyConfig.xml", "adapterdocquery", "adapterdocquerywsunsecured", "adapterdocquerywssecured", log);</con:tearDownScript><con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2012-12-04T20:30:37Z</con:value>
+          <con:value>2012-12-16T16:37:27Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2012-12-04T20:40:37Z</con:value>
+          <con:value>2012-12-16T16:47:27Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>12/04/2012 20:30:37</con:value>
+          <con:value>12/16/2012 16:37:27</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2013-01-03T00:00:00Z</con:value>
+          <con:value>2013-01-15T00:00:00Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -5192,7 +5192,7 @@ context.root = Math.random()</con:script><con:responseContent><![CDATA[<S:Envelo
          </controlActProcess>
       </PRPA_IN201306UV02>
    </S:Body>
-</S:Envelope>]]></con:responseContent><con:header><con:name>Content-Type</con:name><con:value>application/soap+xml; charset=utf-8</con:value></con:header><con:wsaConfig action="urn:RespondingGateway_PRPA_IN201305UV02" mustUnderstand="NONE" version="200508"/></con:response><con:dispatchConfig/></con:mockOperation><con:properties/></con:mockService><con:properties><con:property><con:name>AAMappingDB</con:name><con:value>assigningauthoritydb</con:value></con:property><con:property><con:name>AAMappingTable</con:name><con:value>aa_to_home_community_mapping</con:value></con:property><con:property><con:name>AQPatientID</con:name><con:value>D123401</con:value></con:property><con:property><con:name>AQUserID</con:name><con:value>kskagerb</con:value></con:property><con:property><con:name>AsyncMsgDB</con:name><con:value>asyncmsgs</con:value></con:property><con:property><con:name>AsyncMsgsDB</con:name><con:value>asyncmsgs</con:value></con:property><con:property><con:name>AsyncMsgTable</con:name><con:value>asyncmsgrepo</con:value></con:property><con:property><con:name>AuditRepoDB</con:name><con:value>auditrepo</con:value></con:property><con:property><con:name>AuditRepoTable</con:name><con:value>auditrepository</con:value></con:property><con:property><con:name>BirthTime</con:name><con:value>19630804</con:value></con:property><con:property><con:name>City</con:name><con:value>Melbourne</con:value></con:property><con:property><con:name>Country</con:name><con:value>US</con:value></con:property><con:property><con:name>DateOfSignature</con:name><con:value>20080520</con:value></con:property><con:property><con:name>DBHost</con:name><con:value>localhost</con:value></con:property><con:property><con:name>DBPass</con:name><con:value>nhincpass</con:value></con:property><con:property><con:name>DBPort</con:name><con:value>3306</con:value></con:property><con:property><con:name>DBUser</con:name><con:value>nhincuser</con:value></con:property><con:property><con:name>DeferredDocRetrieveReqMessageID</con:name><con:value>dcd29642-5bc0-4e6f-84be-de0870b075ec</con:value></con:property><con:property><con:name>DeferredDocRetrieveReqMessageIDLocal</con:name><con:value>b508147b-482f-4bc3-9de0-42ee85f1ccac</con:value></con:property><con:property><con:name>DeferredDocRetrieveReqMessageIDRemote</con:name><con:value>dcd29642-5bc0-4e6f-84be-de0870b075ec</con:value></con:property><con:property><con:name>DeferredPatientDiscoveryReqMessageID</con:name><con:value>uuid:6666666666.66666.666.66</con:value></con:property><con:property><con:name>DeferredQueryReqMessageID</con:name><con:value>091cda8e-95b0-4ac8-a8bb-11224affede4</con:value></con:property><con:property><con:name>DeferredQueryReqMessageIDLocal</con:name><con:value>013c7195-12e1-454b-ac0a-c7705e1f3a14</con:value></con:property><con:property><con:name>DOB</con:name><con:value>19800516</con:value></con:property><con:property><con:name>DQDocID</con:name><con:value>1.123401.55555</con:value></con:property><con:property><con:name>DQPatientID</con:name><con:value>D123401</con:value></con:property><con:property><con:name>DRDocID</con:name><con:value>1.123407.777777</con:value></con:property><con:property><con:name>DRRepoID</con:name><con:value>1</con:value></con:property><con:property><con:name>DynamicDQDocID</con:name><con:value>103.8.9284320.020.3590.75^1266324032288</con:value></con:property><con:property><con:name>DynamicDRDocID</con:name><con:value/></con:property><con:property><con:name>Endpoint-AuditLogQuery</con:name><con:value>http://localhost:8080/CONNECTAdapter/EntityAuditQuery</con:value></con:property><con:property><con:name>Endpoint-DeferredDQRequest</con:name><con:value>http://localhost:8080/CONNECTGateway/EntityService/EntityDocQueryDeferredRequestUnsecured</con:value></con:property><con:property><con:name>Endpoint-DeferredDQResponse</con:name><con:value>http://localhost:8080/CONNECTGateway/EntityService/EntityDocQueryDeferredResponseUnsecured</con:value></con:property><con:property><con:name>Endpoint-DocQuery</con:name><con:value>http://localhost:8080/Gateway/DocumentQuery/2_0/EntityService/EntityDocQueryUnsecured</con:value></con:property><con:property><con:name>Endpoint-DocRetrieve</con:name><con:value>http://localhost:8080/CONNECTGateway/EntityService/EntityDocRetrieve</con:value></con:property><con:property><con:name>Endpoint-DocRetrieveDeferredRequest</con:name><con:value>http://localhost:8080/CONNECTGateway/EntityService/EntityDocRetrieveDeferredRequest</con:value></con:property><con:property><con:name>Endpoint-DocRetrieveDeferredResponse</con:name><con:value>http://localhost:8080/CONNECTGateway/EntityService/EntityDocRetrieveDeferredResponse</con:value></con:property><con:property><con:name>Endpoint-EntityAdminDist</con:name><con:value>http://localhost:8080/CONNECTGateway/AdministrativeDistribution_Service</con:value></con:property><con:property><con:name>Endpoint-EntityXDRRequest</con:name><con:value>http://localhost:8080/CONNECTGateway/EntityService/EntityDocSubmissionDeferredRequestUnsecured</con:value></con:property><con:property><con:name>Endpoint-Notify</con:name><con:value>http://localhost:8080/CONNECTAdapter/EntityNotificationConsumer</con:value></con:property><con:property><con:name>Endpoint-PatientDiscovery</con:name><con:value>http://localhost:8080/Gateway/PatientDiscovery/1_0/EntityPatientDiscovery</con:value></con:property><con:property><con:name>Endpoint-PatientDiscoveryAsyncReq</con:name><con:value>http://localhost:8080/CONNECTGateway/EntityService/EntityPatientDiscoveryDeferredRequestUnsecured</con:value></con:property><con:property><con:name>Endpoint-PatientDiscoveryAsyncResp</con:name><con:value>http://localhost:8080/CONNECTGateway/EntityService/EntityPatientDiscoveryDeferredResponseUnsecured</con:value></con:property><con:property><con:name>Endpoint-Reidentification</con:name><con:value>http://localhost:8080/CONNECTAdapter/EntitySubjectDiscovery</con:value></con:property><con:property><con:name>Endpoint-Subscribe</con:name><con:value>http://localhost:8080/CONNECTAdapter/EntityNotificationProducer</con:value></con:property><con:property><con:name>Endpoint-Unsubscribe</con:name><con:value>http://localhost:8080/CONNECTAdapter/EntitySubscriptionManager</con:value></con:property><con:property><con:name>Endpoint-XDREntity</con:name><con:value>http://localhost:8080/CONNECTGateway/EntityService/EntityDocSubmissionUnsecured</con:value></con:property><con:property><con:name>ExpirationDate</con:name><con:value>20100520</con:value></con:property><con:property><con:name>FamilyName</con:name><con:value>Younger</con:value></con:property><con:property><con:name>Gender</con:name><con:value>M</con:value></con:property><con:property><con:name>GivenName</con:name><con:value>Gallow</con:value></con:property><con:property><con:name>LocalAA</con:name><con:value>1.1</con:value></con:property><con:property><con:name>LocalConfigDir</con:name><con:value>C:/SelfTest/EndToEndSelfTest</con:value></con:property><con:property><con:name>LocalHCDescription</con:name><con:value>InternalTest1</con:value></con:property><con:property><con:name>LocalHCID</con:name><con:value>1.1</con:value></con:property><con:property><con:name>LocalPatientID</con:name><con:value>D123401</con:value></con:property><con:property><con:name>mockHost</con:name><con:value>localhost</con:value></con:property><con:property><con:name>MPIDir</con:name><con:value>C:/glassfish-2.1.1/domains/domain1/config</con:value></con:property><con:property><con:name>NHINGatewayConfigDir</con:name><con:value>C:/glassfish-2.1.1/domains/domain1/config/nhin</con:value></con:property><con:property><con:name>NHINGatewayHost</con:name><con:value>localhost</con:value></con:property><con:property><con:name>NotificationEndpoint</con:name><con:value>https://localhost:8181/CONNECTNhinServicesWeb/NhinService/NotificationConsumerService/HiemNotify</con:value></con:property><con:property><con:name>NotifySubscriptionID</con:name><con:value>-f7c1a5d:1204e50e42e:-79eb</con:value></con:property><con:property><con:name>NotifySubscriptionManagerEndpointAddress</con:name><con:value>https://localhost:8181/CONNECTNhinServicesWeb/NhinService/SubscriptionManagerService/HiemUnsubscribe</con:value></con:property><con:property><con:name>PatientCorrelationDB</con:name><con:value>patientcorrelationdb</con:value></con:property><con:property><con:name>PatientCorrelationTable</con:name><con:value>correlatedidentifiers</con:value></con:property><con:property><con:name>PseudonymAA</con:name><con:value>ABC</con:value></con:property><con:property><con:name>PseudonymPatientID</con:name><con:value>PSEUDO001</con:value></con:property><con:property><con:name>PurposeOfDisclosure</con:name><con:value>Mental</con:value></con:property><con:property><con:name>RealAA</con:name><con:value>1.1.1</con:value></con:property><con:property><con:name>RealPatientID</con:name><con:value>D1234010050</con:value></con:property><con:property><con:name>RemoteAA</con:name><con:value>2.2</con:value></con:property><con:property><con:name>RemoteHCDescription</con:name><con:value>Business Entity</con:value></con:property><con:property><con:name>RemoteHCID</con:name><con:value>2.2</con:value></con:property><con:property><con:name>RemotePatientID</con:name><con:value>D123401</con:value></con:property><con:property><con:name>SSN</con:name><con:value>123456789</con:value></con:property><con:property><con:name>State</con:name><con:value>FL</con:value></con:property><con:property><con:name>StreetAddress</con:name><con:value>123 Johnson Rd</con:value></con:property><con:property><con:name>SubjectID</con:name><con:value>D123401</con:value></con:property><con:property><con:name>SubscribePatientID</con:name><con:value>D123401</con:value></con:property><con:property><con:name>SubscriptionDB</con:name><con:value>subscriptionrepository</con:value></con:property><con:property><con:name>SubscriptionEndpoint</con:name><con:value>https://localhost:8181/CONNECTNhinServicesWeb/NhinService/NotificationProducerService/HiemSubscription</con:value></con:property><con:property><con:name>SubscriptionManagerEndpointAddress</con:name><con:value>https://localhost:8181/CONNECTNhinServicesWeb/NhinService/SubscriptionManagerService/HiemUnsubscribe</con:value></con:property><con:property><con:name>SubscriptionTable</con:name><con:value>subscription</con:value></con:property><con:property><con:name>UniquePatientId</con:name><con:value>1111^^^&amp;amp;1.1&amp;amp;ISO</con:value></con:property><con:property><con:name>UnSubscriptionID</con:name><con:value>3e74139f-5271-4db1-98c0-88748fa3e4e3</con:value></con:property><con:property><con:name>UnsubSubscriptionID</con:name><con:value/></con:property><con:property><con:name>ZipCode</con:name><con:value>12345</con:value></con:property><con:property><con:name>GatewayPropDir</con:name><con:value>c:\glassfish3\glassfish\domains\domain1\config\nhin</con:value></con:property></con:properties><con:afterLoadScript>def propertiesFilename = project.path[0..(project.path.size()-4)] + 'properties'
+</S:Envelope>]]></con:responseContent><con:header><con:name>Content-Type</con:name><con:value>application/soap+xml; charset=utf-8</con:value></con:header><con:wsaConfig action="urn:RespondingGateway_PRPA_IN201305UV02" mustUnderstand="NONE" version="200508"/></con:response><con:dispatchConfig/></con:mockOperation><con:properties/></con:mockService><con:properties><con:property><con:name>AAMappingDB</con:name><con:value>assigningauthoritydb</con:value></con:property><con:property><con:name>AAMappingTable</con:name><con:value>aa_to_home_community_mapping</con:value></con:property><con:property><con:name>AQPatientID</con:name><con:value>D123401</con:value></con:property><con:property><con:name>AQUserID</con:name><con:value>kskagerb</con:value></con:property><con:property><con:name>AsyncMsgDB</con:name><con:value>asyncmsgs</con:value></con:property><con:property><con:name>AsyncMsgsDB</con:name><con:value>asyncmsgs</con:value></con:property><con:property><con:name>AsyncMsgTable</con:name><con:value>asyncmsgrepo</con:value></con:property><con:property><con:name>AuditRepoDB</con:name><con:value>auditrepo</con:value></con:property><con:property><con:name>AuditRepoTable</con:name><con:value>auditrepository</con:value></con:property><con:property><con:name>BirthTime</con:name><con:value>19630804</con:value></con:property><con:property><con:name>City</con:name><con:value>Melbourne</con:value></con:property><con:property><con:name>Country</con:name><con:value>US</con:value></con:property><con:property><con:name>DBHost</con:name><con:value>localhost</con:value></con:property><con:property><con:name>DBPass</con:name><con:value>nhincpass</con:value></con:property><con:property><con:name>DBPort</con:name><con:value>3306</con:value></con:property><con:property><con:name>DBUser</con:name><con:value>nhincuser</con:value></con:property><con:property><con:name>DeferredDocRetrieveReqMessageID</con:name><con:value>dcd29642-5bc0-4e6f-84be-de0870b075ec</con:value></con:property><con:property><con:name>DeferredDocRetrieveReqMessageIDLocal</con:name><con:value>b508147b-482f-4bc3-9de0-42ee85f1ccac</con:value></con:property><con:property><con:name>DeferredDocRetrieveReqMessageIDRemote</con:name><con:value>dcd29642-5bc0-4e6f-84be-de0870b075ec</con:value></con:property><con:property><con:name>DeferredPatientDiscoveryReqMessageID</con:name><con:value>uuid:6666666666.66666.666.66</con:value></con:property><con:property><con:name>DeferredQueryReqMessageID</con:name><con:value>091cda8e-95b0-4ac8-a8bb-11224affede4</con:value></con:property><con:property><con:name>DeferredQueryReqMessageIDLocal</con:name><con:value>013c7195-12e1-454b-ac0a-c7705e1f3a14</con:value></con:property><con:property><con:name>DOB</con:name><con:value>19800516</con:value></con:property><con:property><con:name>DQDocID</con:name><con:value>1.123401.55555</con:value></con:property><con:property><con:name>DQPatientID</con:name><con:value>D123401</con:value></con:property><con:property><con:name>DRDocID</con:name><con:value>1.123407.777777</con:value></con:property><con:property><con:name>DRRepoID</con:name><con:value>1</con:value></con:property><con:property><con:name>DynamicDQDocID</con:name><con:value>103.8.9284320.020.3590.75^1266324032288</con:value></con:property><con:property><con:name>DynamicDRDocID</con:name><con:value/></con:property><con:property><con:name>Endpoint-AuditLogQuery</con:name><con:value>http://localhost:8080/CONNECTAdapter/EntityAuditQuery</con:value></con:property><con:property><con:name>Endpoint-DeferredDQRequest</con:name><con:value>http://localhost:8080/CONNECTGateway/EntityService/EntityDocQueryDeferredRequestUnsecured</con:value></con:property><con:property><con:name>Endpoint-DeferredDQResponse</con:name><con:value>http://localhost:8080/CONNECTGateway/EntityService/EntityDocQueryDeferredResponseUnsecured</con:value></con:property><con:property><con:name>Endpoint-DocQuery</con:name><con:value>http://localhost:8080/Gateway/DocumentQuery/2_0/EntityService/EntityDocQueryUnsecured</con:value></con:property><con:property><con:name>Endpoint-DocRetrieve</con:name><con:value>http://localhost:8080/CONNECTGateway/EntityService/EntityDocRetrieve</con:value></con:property><con:property><con:name>Endpoint-DocRetrieveDeferredRequest</con:name><con:value>http://localhost:8080/CONNECTGateway/EntityService/EntityDocRetrieveDeferredRequest</con:value></con:property><con:property><con:name>Endpoint-DocRetrieveDeferredResponse</con:name><con:value>http://localhost:8080/CONNECTGateway/EntityService/EntityDocRetrieveDeferredResponse</con:value></con:property><con:property><con:name>Endpoint-EntityAdminDist</con:name><con:value>http://localhost:8080/CONNECTGateway/AdministrativeDistribution_Service</con:value></con:property><con:property><con:name>Endpoint-EntityXDRRequest</con:name><con:value>http://localhost:8080/CONNECTGateway/EntityService/EntityDocSubmissionDeferredRequestUnsecured</con:value></con:property><con:property><con:name>Endpoint-Notify</con:name><con:value>http://localhost:8080/CONNECTAdapter/EntityNotificationConsumer</con:value></con:property><con:property><con:name>Endpoint-PatientDiscovery</con:name><con:value>http://localhost:8080/Gateway/PatientDiscovery/1_0/EntityPatientDiscovery</con:value></con:property><con:property><con:name>Endpoint-PatientDiscoveryAsyncReq</con:name><con:value>http://localhost:8080/CONNECTGateway/EntityService/EntityPatientDiscoveryDeferredRequestUnsecured</con:value></con:property><con:property><con:name>Endpoint-PatientDiscoveryAsyncResp</con:name><con:value>http://localhost:8080/CONNECTGateway/EntityService/EntityPatientDiscoveryDeferredResponseUnsecured</con:value></con:property><con:property><con:name>Endpoint-Reidentification</con:name><con:value>http://localhost:8080/CONNECTAdapter/EntitySubjectDiscovery</con:value></con:property><con:property><con:name>Endpoint-Subscribe</con:name><con:value>http://localhost:8080/CONNECTAdapter/EntityNotificationProducer</con:value></con:property><con:property><con:name>Endpoint-Unsubscribe</con:name><con:value>http://localhost:8080/CONNECTAdapter/EntitySubscriptionManager</con:value></con:property><con:property><con:name>Endpoint-XDREntity</con:name><con:value>http://localhost:8080/CONNECTGateway/EntityService/EntityDocSubmissionUnsecured</con:value></con:property><con:property><con:name>ExpirationDate</con:name><con:value>20100520</con:value></con:property><con:property><con:name>FamilyName</con:name><con:value>Younger</con:value></con:property><con:property><con:name>Gender</con:name><con:value>M</con:value></con:property><con:property><con:name>GivenName</con:name><con:value>Gallow</con:value></con:property><con:property><con:name>LocalAA</con:name><con:value>1.1</con:value></con:property><con:property><con:name>LocalConfigDir</con:name><con:value>C:/SelfTest/EndToEndSelfTest</con:value></con:property><con:property><con:name>LocalHCDescription</con:name><con:value>InternalTest1</con:value></con:property><con:property><con:name>LocalHCID</con:name><con:value>1.1</con:value></con:property><con:property><con:name>LocalPatientID</con:name><con:value>D123401</con:value></con:property><con:property><con:name>mockHost</con:name><con:value>localhost</con:value></con:property><con:property><con:name>MPIDir</con:name><con:value>C:/glassfish-2.1.1/domains/domain1/config</con:value></con:property><con:property><con:name>NHINGatewayConfigDir</con:name><con:value>C:/glassfish-2.1.1/domains/domain1/config/nhin</con:value></con:property><con:property><con:name>NHINGatewayHost</con:name><con:value>localhost</con:value></con:property><con:property><con:name>NotificationEndpoint</con:name><con:value>https://localhost:8181/CONNECTNhinServicesWeb/NhinService/NotificationConsumerService/HiemNotify</con:value></con:property><con:property><con:name>NotifySubscriptionID</con:name><con:value>-f7c1a5d:1204e50e42e:-79eb</con:value></con:property><con:property><con:name>NotifySubscriptionManagerEndpointAddress</con:name><con:value>https://localhost:8181/CONNECTNhinServicesWeb/NhinService/SubscriptionManagerService/HiemUnsubscribe</con:value></con:property><con:property><con:name>PatientCorrelationDB</con:name><con:value>patientcorrelationdb</con:value></con:property><con:property><con:name>PatientCorrelationTable</con:name><con:value>correlatedidentifiers</con:value></con:property><con:property><con:name>PseudonymAA</con:name><con:value>ABC</con:value></con:property><con:property><con:name>PseudonymPatientID</con:name><con:value>PSEUDO001</con:value></con:property><con:property><con:name>PurposeOfDisclosure</con:name><con:value>Mental</con:value></con:property><con:property><con:name>RealAA</con:name><con:value>1.1.1</con:value></con:property><con:property><con:name>RealPatientID</con:name><con:value>D1234010050</con:value></con:property><con:property><con:name>RemoteAA</con:name><con:value>2.2</con:value></con:property><con:property><con:name>RemoteHCDescription</con:name><con:value>Business Entity</con:value></con:property><con:property><con:name>RemoteHCID</con:name><con:value>2.2</con:value></con:property><con:property><con:name>RemotePatientID</con:name><con:value>D123401</con:value></con:property><con:property><con:name>SSN</con:name><con:value>123456789</con:value></con:property><con:property><con:name>State</con:name><con:value>FL</con:value></con:property><con:property><con:name>StreetAddress</con:name><con:value>123 Johnson Rd</con:value></con:property><con:property><con:name>SubjectID</con:name><con:value>D123401</con:value></con:property><con:property><con:name>SubscribePatientID</con:name><con:value>D123401</con:value></con:property><con:property><con:name>SubscriptionDB</con:name><con:value>subscriptionrepository</con:value></con:property><con:property><con:name>SubscriptionEndpoint</con:name><con:value>https://localhost:8181/CONNECTNhinServicesWeb/NhinService/NotificationProducerService/HiemSubscription</con:value></con:property><con:property><con:name>SubscriptionManagerEndpointAddress</con:name><con:value>https://localhost:8181/CONNECTNhinServicesWeb/NhinService/SubscriptionManagerService/HiemUnsubscribe</con:value></con:property><con:property><con:name>SubscriptionTable</con:name><con:value>subscription</con:value></con:property><con:property><con:name>UniquePatientId</con:name><con:value>1111^^^&amp;amp;1.1&amp;amp;ISO</con:value></con:property><con:property><con:name>UnSubscriptionID</con:name><con:value>3e74139f-5271-4db1-98c0-88748fa3e4e3</con:value></con:property><con:property><con:name>UnsubSubscriptionID</con:name><con:value/></con:property><con:property><con:name>ZipCode</con:name><con:value>12345</con:value></con:property><con:property><con:name>GatewayPropDir</con:name><con:value>c:\glassfish3\glassfish\domains\domain1\config\nhin</con:value></con:property></con:properties><con:afterLoadScript>def propertiesFilename = project.path[0..(project.path.size()-4)] + 'properties'
 def propertiesFile = new File(propertiesFilename)
 if (propertiesFile.exists()) {
 	def props = new Properties()

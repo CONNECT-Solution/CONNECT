@@ -38,6 +38,8 @@ import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
 import gov.hhs.fha.nhinc.mpi.adapter.component.proxy.service.AdapterComponentMpiSecuredServicePortDescriptor;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
+import gov.hhs.fha.nhinc.properties.PropertyAccessException;
+import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 
 /**
@@ -55,12 +57,18 @@ public class AdapterComponentMpiProxyWebServiceSecuredImpl implements AdapterCom
      * @param url the intended url
      * @param assertion the message assertion
      * @return a CONNECTClient object for AdapterComponentMpiSecuredPortType
+     * @throws PropertyAccessException 
      */
     protected CONNECTClient<AdapterComponentMpiSecuredPortType> getCONNECTClientSecured(
             ServicePortDescriptor<AdapterComponentMpiSecuredPortType> portDescriptor, String url,
-            AssertionType assertion) {
+            AssertionType assertion) throws PropertyAccessException {
 
-        return CONNECTCXFClientFactory.getInstance().getCONNECTClientSecured(portDescriptor, url, assertion);
+        String targetHomeCommunityId = null;
+        targetHomeCommunityId = PropertyAccessor.getInstance().getProperty(
+                NhincConstants.GATEWAY_PROPERTY_FILE, NhincConstants.HOME_COMMUNITY_ID_PROPERTY);
+
+        return CONNECTCXFClientFactory.getInstance().getCONNECTClientSecured(portDescriptor, assertion, url,
+                targetHomeCommunityId, NhincConstants.ADAPTER_COMPONENT_MPI_SECURED_SERVICE_NAME );
     }
 
     /**
@@ -85,7 +93,7 @@ public class AdapterComponentMpiProxyWebServiceSecuredImpl implements AdapterCom
                 if (NullChecker.isNotNullish(url)) {
                     ServicePortDescriptor<AdapterComponentMpiSecuredPortType> portDescriptor =
                             new AdapterComponentMpiSecuredServicePortDescriptor();
-
+                    
                     CONNECTClient<AdapterComponentMpiSecuredPortType> client =
                             getCONNECTClientSecured(portDescriptor, url, assertion);
 

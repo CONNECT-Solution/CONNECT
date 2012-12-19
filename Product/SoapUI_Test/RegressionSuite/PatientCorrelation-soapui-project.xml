@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <con:soapui-project abortOnError="false" name="PatientCorrelation" resourceRoot="${projectDir}" runType="SEQUENTIAL" soapui-version="4.5.1" activeEnvironment="Default" xmlns:con="http://eviware.com/soapui/config">
 	<con:settings/>
-	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhinccomponentpatientcorrelation}PatientCorrelationBinding" definition="${ProjectDir}../ValidationSuite/target/wsdl/${ProjectDir}../ValidationSuite/target/wsdl/NhincComponentPatientCorrelation.wsdl" name="PatientCorrelationBinding" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhinccomponentpatientcorrelation}PatientCorrelationBinding" definition="${projectDir}/../ValidationSuite/target/wsdl/${projectDir}/../ValidationSuite/target/wsdl/NhincComponentPatientCorrelation.wsdl" name="PatientCorrelationBinding" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 		<con:settings/>
 		
 		<con:endpoints>
@@ -6148,7 +6148,7 @@ context.withSql('PatientCorrelationDB') { sql ->
 			<con:name>DBPort</con:name>
 			<con:value>3306</con:value>
 		</con:property>
-	<con:property><con:name>GatewayPropDir</con:name><con:value>D:\glassfish3\glassfish\domains\domain1\config\nhin</con:value></con:property></con:properties>
+	<con:property><con:name>GatewayPropDir</con:name><con:value>c:\glassfish3\glassfish\domains\domain1\config\nhin</con:value></con:property></con:properties>
 	<con:afterLoadScript>def propertiesFile = new File(new File(project.path).parent, 'PatientCorrelation-soapui-project.properties')
 if (propertiesFile.exists()) {
 	def props = new Properties()
@@ -6238,4 +6238,4 @@ com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext.metaClass.withSql = { d
 		<con:parameters/>
 	</con:reporting>
 
-</con:soapui-project>
+<con:sensitiveInformation/></con:soapui-project>

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <con:soapui-project abortOnError="false" name="DocRegistryAndRepository" resourceRoot="${projectDir}" runType="SEQUENTIAL" soapui-version="4.5.1" activeEnvironment="Default" xmlns:con="http://eviware.com/soapui/config">
 	<con:settings/>
-	<con:interface anonymous="optional" bindingName="{urn:ihe:iti:xds-b:2007}DocumentRepository_Binding" definition="${ProjectDir}../ValidationSuite/target/wsdl/AdapterComponentDocRepository.wsdl" name="DocumentRepository_Binding" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<con:interface anonymous="optional" bindingName="{urn:ihe:iti:xds-b:2007}DocumentRepository_Binding" definition="${projectDir}/../ValidationSuite/target/wsdl/AdapterComponentDocRepository.wsdl" name="DocumentRepository_Binding" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 		<con:settings/>
 		
 		<con:endpoints>
@@ -16,7 +16,7 @@
 		</con:operation>
 	</con:interface>
 	
-	<con:interface anonymous="optional" bindingName="{urn:ihe:iti:xds-b:2007}DocumentRegistry_Binding_Soap" definition="${ProjectDir}../ValidationSuite/target/wsdl/AdapterComponentDocRegistry.wsdl" name="DocumentRegistry_Binding_Soap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<con:interface anonymous="optional" bindingName="{urn:ihe:iti:xds-b:2007}DocumentRegistry_Binding_Soap" definition="${projectDir}/../ValidationSuite/target/wsdl/AdapterComponentDocRegistry.wsdl" name="DocumentRegistry_Binding_Soap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 		<con:settings/>
 		
 		<con:endpoints>
@@ -345,19 +345,19 @@
 			<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2012-11-27T19:34:01Z</con:value>
+					<con:value>2012-12-12T23:24:43Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2012-11-27T19:44:01Z</con:value>
+					<con:value>2012-12-12T23:34:43Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>11/27/2012 19:34:01</con:value>
+					<con:value>12/12/2012 23:24:43</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2012-12-27T00:00:00Z</con:value>
+					<con:value>2013-01-11T00:00:00Z</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
@@ -1041,19 +1041,19 @@ count(//ns4:AdhocQueryResponse[1]/ns2:RegistryObjectList[1]/ns2:ExtrinsicObject)
 			<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2012-11-27T19:33:52Z</con:value>
+					<con:value>2012-12-12T23:24:44Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2012-11-27T19:43:52Z</con:value>
+					<con:value>2012-12-12T23:34:44Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>11/27/2012 19:33:52</con:value>
+					<con:value>12/12/2012 23:24:44</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2012-12-27T00:00:00Z</con:value>
+					<con:value>2013-01-11T00:00:00Z</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
@@ -1079,7 +1079,7 @@ count(//ns4:AdhocQueryResponse[1]/ns2:RegistryObjectList[1]/ns2:ExtrinsicObject)
 		
 		
 		
-	<con:property><con:name>EventCodeTable</con:name><con:value>eventcode</con:value></con:property><con:property><con:name>EventCol</con:name><con:value>EventCode</con:value></con:property><con:property><con:name>EventVal</con:name><con:value>'ProvideAndRegisterTestEventCodeValue'</con:value></con:property><con:property><con:name>EventVal1</con:name><con:value>'DocQueryTestEventCodeValue'</con:value></con:property><con:property><con:name>GatewayPropDir</con:name><con:value>D:\glassfish3\glassfish\domains\domain1\config\nhin</con:value></con:property></con:properties>
+	<con:property><con:name>EventCodeTable</con:name><con:value>eventcode</con:value></con:property><con:property><con:name>EventCol</con:name><con:value>EventCode</con:value></con:property><con:property><con:name>EventVal</con:name><con:value>'ProvideAndRegisterTestEventCodeValue'</con:value></con:property><con:property><con:name>EventVal1</con:name><con:value>'DocQueryTestEventCodeValue'</con:value></con:property><con:property><con:name>GatewayPropDir</con:name><con:value>c:\glassfish3\glassfish\domains\domain1\config\nhin</con:value></con:property></con:properties>
 	<con:afterLoadScript>def propertiesFilename = project.path[0..(project.path.size()-4)] + 'properties'
 def propertiesFile = new File(propertiesFilename)
 if (propertiesFile.exists()) {

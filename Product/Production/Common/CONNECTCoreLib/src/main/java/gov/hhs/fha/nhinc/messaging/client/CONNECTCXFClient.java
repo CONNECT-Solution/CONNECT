@@ -13,7 +13,7 @@ import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
  * @author bhumphrey
  * 
  */
-public abstract class CONNECTCXFClient<T> extends CONNECTClient<T> {
+public abstract class CONNECTCXFClient<T> extends CONNECTBaseClient<T> {
 
     protected ServiceEndpoint<T> serviceEndpoint = null;
 
@@ -30,7 +30,6 @@ public abstract class CONNECTCXFClient<T> extends CONNECTClient<T> {
             ServicePortBuilder<T> portBuilder, String subscriptionId) {
         serviceEndpoint = super.configureBasePort(portBuilder.createPort(), subscriptionId);
     }
-    
    
 
     public T getPort() {

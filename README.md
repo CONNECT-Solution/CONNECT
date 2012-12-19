@@ -36,6 +36,8 @@ Getting Started
 ###Prerequisites
 Before you get started, you'll need the following installed and set up:
 * [Java (JDK) 7](http://www.oracle.com/technetwork/java/javase/downloads/index.html)
+* [Java Cryptography Extension (JCE) Unlimited Strength Jurisdiction Policy Files](http://www.oracle.com/technetwork/java/javase/downloads/jce-7-download-432124.html)
+  * Install under $JAVA_HOME/jre/lib/security
 * [Maven 3.0.4+](http://maven.apache.org/download.html)    See [installation instructions](http://maven.apache.org/download.html#Installation).
 * [MySQL 5.1.x](http://dev.mysql.com/downloads/mysql/5.1.html#downloads)
 * [Eclipse Juno](http://www.eclipse.org/downloads/)

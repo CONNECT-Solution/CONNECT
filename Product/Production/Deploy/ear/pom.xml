@@ -21,6 +21,7 @@
         <hiem.excluded>true</hiem.excluded>
         <gui.excluded>true</gui.excluded>
         <pd.excluded>true</pd.excluded>
+        <direct.excluded>true</direct.excluded>
     </properties>
     <dependencies>
         <dependency>
@@ -58,6 +59,12 @@
         <dependency>
             <groupId>org.connectopensource</groupId>
             <artifactId>PatientDiscoveryCore</artifactId>
+            <version>${project.parent.version}</version>
+            <optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>org.connectopensource</groupId>
+            <artifactId>PatientCorrelationCore</artifactId>
             <version>${project.parent.version}</version>
             <optional>true</optional>
         </dependency>
@@ -189,9 +196,22 @@
             <type>war</type>
             <optional>true</optional>
         </dependency>
-        <!-- Shared JARs - In order for the SKINNY WARs to work you must 
-            include each dependency in the EAR manually and the JARS will be magically 
-            removed from the WAR's WEB-INF/lib -->
+        <dependency>
+            <groupId>org.connectopensource</groupId>
+            <artifactId>DirectCore</artifactId>
+            <version>${project.parent.version}</version>
+            <optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>org.connectopensource</groupId>
+            <artifactId>Direct</artifactId>
+            <version>${project.parent.version}</version>
+            <type>war</type>
+            <optional>true</optional>
+        </dependency>        
+        <!-- Shared JARs - In order for the SKINNY WARs to work you must include
+            each dependency in the EAR manually and the JARS will be magically removed
+            from the WAR's WEB-INF/lib -->
         <dependency>
             <groupId>org.connectopensource</groupId>
             <artifactId>CONNECTCommonTypesLib</artifactId>
@@ -322,12 +342,12 @@
         <dependency>
             <groupId>com.sun.xml.bind</groupId>
             <artifactId>jaxb-impl</artifactId>
-            <version>2.2.5</version>
+            <version>2.2.7-b41</version> 
         </dependency>
         <dependency>
-            <groupId>xml-apis</groupId>
-            <artifactId>xml-apis</artifactId>
-            <version>1.4.01</version>
+            <groupId>com.sun.xml.bind</groupId>
+            <artifactId>jaxb-xjc</artifactId>
+            <version>2.2.7-b41</version> 
         </dependency>
         <!-- Persistence (HBM, MySQL, Connnection Pooling -->
         <!-- Hibernate & cglib-nodep -->
@@ -339,6 +359,10 @@
                 <exclusion>
                     <artifactId>ehcache</artifactId>
                     <groupId>net.sf.ehcache</groupId>
+                </exclusion>
+                <exclusion>
+                    <artifactId>antlr</artifactId>
+                    <groupId>antlr</groupId>
                 </exclusion>
             </exclusions>
         </dependency>
@@ -371,7 +395,7 @@
         <dependency>
             <groupId>org.apache.ws.xmlschema</groupId>
             <artifactId>xmlschema-core</artifactId>
-            <version>2.0.2</version>
+            <version>2.0.3</version>
         </dependency>
         <dependency>
             <groupId>wsdl4j</groupId>
@@ -384,31 +408,30 @@
             <version>1.2</version>
         </dependency>
         <dependency>
-            <groupId>com.megginson.sax</groupId>
-            <artifactId>xml-writer</artifactId>
-            <version>0.2</version>
-            <!-- <exclusions> <exclusion> <groupId>xml-apis</groupId> <artifactId>xml-apis</artifactId> 
-                </exclusion> </exclusions> -->
-        </dependency>
-        <dependency>
             <groupId>com.sun.xml.fastinfoset</groupId>
             <artifactId>FastInfoset</artifactId>
-            <version>1.2.9</version>
+            <version>1.2.12</version>
         </dependency>
         <dependency>
             <groupId>xalan</groupId>
             <artifactId>serializer</artifactId>
             <version>2.7.1</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>xml-apis</groupId>
+                    <artifactId>xml-apis</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.apache.ws.security</groupId>
             <artifactId>wss4j</artifactId>
-            <version>1.6.5</version>
+            <version>1.6.8</version>
         </dependency>
         <dependency>
             <groupId>org.apache.santuario</groupId>
             <artifactId>xmlsec</artifactId>
-            <version>1.5.1</version>
+            <version>1.5.3</version>
         </dependency>
         <dependency>
             <groupId>net.sf.ehcache</groupId>
@@ -424,6 +447,12 @@
             <groupId>org.opensaml</groupId>
             <artifactId>opensaml</artifactId>
             <version>2.5.1-1</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>velocity</groupId>
+                    <artifactId>velocity</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.opensaml</groupId>
@@ -797,10 +826,6 @@
             </dependencies>
         </profile>
         <profile>
-            <!--
-                The HIEM profile is disabled by default per GATEWAY-3223.  To enable by default,
-                change the activeByDefault setting here
-             -->
             <id>HIEM</id>
             <activation>
                 <activeByDefault>false</activeByDefault>
@@ -849,5 +874,29 @@
                 </dependency>
             </dependencies>
         </profile>
+        <profile>
+            <id>Direct</id>
+            <activation>
+                <activeByDefault>false</activeByDefault>
+            </activation>
+            <properties>
+                <direct.excluded>false</direct.excluded>
+            </properties>
+            <dependencies>
+                <dependency>
+                    <groupId>org.connectopensource</groupId>
+                    <artifactId>Direct</artifactId>
+                    <version>${project.parent.version}</version>
+                    <type>war</type>
+                    <optional>false</optional>
+                </dependency>
+                <dependency>
+                    <groupId>org.connectopensource</groupId>
+                    <artifactId>DirectCore</artifactId>
+                    <version>${project.parent.version}</version>
+                    <optional>false</optional>
+                </dependency>
+            </dependencies>
+        </profile>        
     </profiles>
 </project>

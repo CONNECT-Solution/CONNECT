@@ -273,8 +273,6 @@
                <urn1:zipCode>?</urn1:zipCode>
             </urn1:address>
             <urn1:dateOfBirth>?</urn1:dateOfBirth>
-            <!--urn1:dateOfSignature>?</urn1:dateOfSignature-->
-            <!--urn1:expirationDate>?</urn1:expirationDate-->
             <urn1:explanationNonClaimantSignature>?</urn1:explanationNonClaimantSignature>
             <urn1:haveSecondWitnessSignature>?</urn1:haveSecondWitnessSignature>
             <urn1:haveSignature>?</urn1:haveSignature>
@@ -315,7 +313,6 @@
                   <urn1:translation/>
                </urn1:phoneNumberType>
             </urn1:phoneNumber>
-            <!--urn1:purposeOfDisclosure>?</urn1:purposeOfDisclosure-->
             <urn1:secondWitnessAddress>
                <urn1:addressType>
                   <urn1:code>?</urn1:code>
@@ -432,7 +429,6 @@
                   <urn1:secondNameOrInitials>?</urn1:secondNameOrInitials>
                </urn1:personName>
                <urn1:userName>?</urn1:userName>
-               <urn1:role>?</urn1:role>
                <urn1:org>
                   <urn1:description>?</urn1:description>
                   <urn1:homeCommunityId>?</urn1:homeCommunityId>
@@ -780,8 +776,6 @@
                <urn2:zipCode>AddrZip</urn2:zipCode>
             </urn2:address>
             <urn2:dateOfBirth xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">06/04/1959 05:21:00</urn2:dateOfBirth>
-            <urn2:dateOfSignature xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">${#Project#sigDate}</urn2:dateOfSignature>
-            <urn2:expirationDate xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">${#Project#expireDate}</urn2:expirationDate>
             <urn2:explanationNonClaimantSignature xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">Electronic</urn2:explanationNonClaimantSignature>
             <urn2:haveSecondWitnessSignature xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">false</urn2:haveSecondWitnessSignature>
             <urn2:haveSignature xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">false</urn2:haveSignature>
@@ -923,7 +917,6 @@
                   <urn2:fullName>Kasrl S. Skagerberg</urn2:fullName>
                </urn2:personName>
                <urn2:userName>kskagerb</urn2:userName>
-               <!--urn2:role>Pharmacy</urn2:role-->
                <urn2:org>
                   <urn2:description>${#Project#LocalHCDescription}</urn2:description>
                   <urn2:homeCommunityId>${#Project#LocalHCID}</urn2:homeCommunityId>
@@ -1084,8 +1077,6 @@ nhinc.FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", destConfi
                <urn2:zipCode>AddrZip</urn2:zipCode>
             </urn2:address>
             <urn2:dateOfBirth xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">06/04/1959 05:21:00</urn2:dateOfBirth>
-            <urn2:dateOfSignature xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">${#Project#sigDate}</urn2:dateOfSignature>
-            <urn2:expirationDate xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">${#Project#expireDate}</urn2:expirationDate>
             <urn2:explanationNonClaimantSignature xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">Electronic</urn2:explanationNonClaimantSignature>
             <urn2:haveSecondWitnessSignature xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">false</urn2:haveSecondWitnessSignature>
             <urn2:haveSignature xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">false</urn2:haveSignature>
@@ -1227,7 +1218,6 @@ nhinc.FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", destConfi
                   <urn2:fullName>Kasrl S. Skagerberg</urn2:fullName>
                </urn2:personName>
                <urn2:userName>kskagerb</urn2:userName>
-               <!--urn2:role>Pharmacy</urn2:role-->
                <urn2:org>
                   <urn2:description>${#Project#LocalHCDescription}</urn2:description>
                   <urn2:homeCommunityId>${#Project#LocalHCID}</urn2:homeCommunityId>
@@ -1430,8 +1420,6 @@ nhinc.FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", destConfi
                <urn2:zipCode>AddrZip</urn2:zipCode>
             </urn2:address>
             <urn2:dateOfBirth xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">06/04/1959 05:21:00</urn2:dateOfBirth>
-            <urn2:dateOfSignature xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">${#Project#sigDate}</urn2:dateOfSignature>
-            <urn2:expirationDate xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">${#Project#expireDate}</urn2:expirationDate>
             <urn2:explanationNonClaimantSignature xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">Electronic</urn2:explanationNonClaimantSignature>
             <urn2:haveSecondWitnessSignature xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">false</urn2:haveSecondWitnessSignature>
             <urn2:haveSignature xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">false</urn2:haveSignature>
@@ -1573,7 +1561,6 @@ nhinc.FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", destConfi
                   <urn2:fullName>Kasrl S. Skagerberg</urn2:fullName>
                </urn2:personName>
                <urn2:userName>kskagerb</urn2:userName>
-               <!--urn2:role>Pharmacy</urn2:role-->
                <urn2:org>
                   <urn2:description>${#Project#LocalHCDescription}</urn2:description>
                   <urn2:homeCommunityId>${#Project#LocalHCID}</urn2:homeCommunityId>
@@ -3232,8 +3219,6 @@ nhinc.FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", destConfi
                <urn2:zipCode>AddrZip</urn2:zipCode>
             </urn2:address>
             <urn2:dateOfBirth xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">06/04/1959 05:21:00</urn2:dateOfBirth>
-            <urn2:dateOfSignature xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">${#Project#sigDate}</urn2:dateOfSignature>
-            <urn2:expirationDate xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">${#Project#expireDate}</urn2:expirationDate>
             <urn2:explanationNonClaimantSignature xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">Electronic</urn2:explanationNonClaimantSignature>
             <urn2:haveSecondWitnessSignature xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">false</urn2:haveSecondWitnessSignature>
             <urn2:haveSignature xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">false</urn2:haveSignature>
@@ -3375,7 +3360,6 @@ nhinc.FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", destConfi
                   <urn2:fullName>Kasrl S. Skagerberg</urn2:fullName>
                </urn2:personName>
                <urn2:userName>kskagerb</urn2:userName>
-               <!--urn2:role>Pharmacy</urn2:role-->
                <urn2:org>
                   <urn2:description>${#Project#LocalHCDescription}</urn2:description>
                   <urn2:homeCommunityId>${#Project#LocalHCID}</urn2:homeCommunityId>
@@ -5060,8 +5044,6 @@ nhinc.FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", destConfi
                <urn2:zipCode>AddrZip</urn2:zipCode>
             </urn2:address>
             <urn2:dateOfBirth xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">06/04/1959 05:21:00</urn2:dateOfBirth>
-            <urn2:dateOfSignature xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">${#Project#sigDate}</urn2:dateOfSignature>
-            <urn2:expirationDate xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">${#Project#expireDate}</urn2:expirationDate>
             <urn2:explanationNonClaimantSignature xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">Electronic</urn2:explanationNonClaimantSignature>
             <urn2:haveSecondWitnessSignature xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">false</urn2:haveSecondWitnessSignature>
             <urn2:haveSignature xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">false</urn2:haveSignature>
@@ -5203,7 +5185,6 @@ nhinc.FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", destConfi
                   <urn2:fullName>Kasrl S. Skagerberg</urn2:fullName>
                </urn2:personName>
                <urn2:userName>kskagerb</urn2:userName>
-               <!--urn2:role>Pharmacy</urn2:role-->
                <urn2:org>
                   <urn2:description>${#Project#LocalHCDescription}</urn2:description>
                   <urn2:homeCommunityId>${#Project#LocalHCID}</urn2:homeCommunityId>
@@ -6863,8 +6844,6 @@ nhinc.FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", destConfi
                <urn2:zipCode>AddrZip</urn2:zipCode>
             </urn2:address>
             <urn2:dateOfBirth xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">06/04/1959 05:21:00</urn2:dateOfBirth>
-            <urn2:dateOfSignature xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">${#Project#sigDate}</urn2:dateOfSignature>
-            <urn2:expirationDate xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">${#Project#expireDate}</urn2:expirationDate>
             <urn2:explanationNonClaimantSignature xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">Electronic</urn2:explanationNonClaimantSignature>
             <urn2:haveSecondWitnessSignature xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">false</urn2:haveSecondWitnessSignature>
             <urn2:haveSignature xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">false</urn2:haveSignature>
@@ -7006,7 +6985,6 @@ nhinc.FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", destConfi
                   <urn2:fullName>Kasrl S. Skagerberg</urn2:fullName>
                </urn2:personName>
                <urn2:userName>kskagerb</urn2:userName>
-               <!--urn2:role>Pharmacy</urn2:role-->
                <urn2:org>
                   <urn2:description>${#Project#LocalHCDescription}</urn2:description>
                   <urn2:homeCommunityId>${#Project#LocalHCID}</urn2:homeCommunityId>
@@ -8660,8 +8638,6 @@ declare namespace ns9='urn:gov:hhs:fha:nhinc:common:nhinccommonadapter';
                <urn2:zipCode>AddrZip</urn2:zipCode>
             </urn2:address>
             <urn2:dateOfBirth xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">06/04/1959 05:21:00</urn2:dateOfBirth>
-            <urn2:dateOfSignature xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">${#Project#sigDate}</urn2:dateOfSignature>
-            <urn2:expirationDate xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">${#Project#expireDate}</urn2:expirationDate>
             <urn2:explanationNonClaimantSignature xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">Electronic</urn2:explanationNonClaimantSignature>
             <urn2:haveSecondWitnessSignature xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">false</urn2:haveSecondWitnessSignature>
             <urn2:haveSignature xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">false</urn2:haveSignature>
@@ -8803,7 +8779,6 @@ declare namespace ns9='urn:gov:hhs:fha:nhinc:common:nhinccommonadapter';
                   <urn2:fullName>Kasrl S. Skagerberg</urn2:fullName>
                </urn2:personName>
                <urn2:userName>kskagerb</urn2:userName>
-               <!--urn2:role>Pharmacy</urn2:role-->
                <urn2:org>
                   <urn2:description>${#Project#LocalHCDescription}</urn2:description>
                   <urn2:homeCommunityId>${#Project#LocalHCID}</urn2:homeCommunityId>
@@ -8972,8 +8947,6 @@ nhinc.FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", destConfi
                <urn2:zipCode>AddrZip</urn2:zipCode>
             </urn2:address>
             <urn2:dateOfBirth xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">06/04/1959 05:21:00</urn2:dateOfBirth>
-            <urn2:dateOfSignature xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">${#Project#sigDate}</urn2:dateOfSignature>
-            <urn2:expirationDate xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">${#Project#expireDate}</urn2:expirationDate>
             <urn2:explanationNonClaimantSignature xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">Electronic</urn2:explanationNonClaimantSignature>
             <urn2:haveSecondWitnessSignature xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">false</urn2:haveSecondWitnessSignature>
             <urn2:haveSignature xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">false</urn2:haveSignature>
@@ -9115,7 +9088,6 @@ nhinc.FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", destConfi
                   <urn2:fullName>Kasrl S. Skagerberg</urn2:fullName>
                </urn2:personName>
                <urn2:userName>kskagerb</urn2:userName>
-               <!--urn2:role>Pharmacy</urn2:role-->
                <urn2:org>
                   <urn2:description>${#Project#LocalHCDescription}</urn2:description>
                   <urn2:homeCommunityId>${#Project#LocalHCID}</urn2:homeCommunityId>
@@ -9324,7 +9296,7 @@ nhinc.FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", destConfi
 			<con:name>LocalHCDescription</con:name>
 			<con:value>InternalTest1</con:value>
 		</con:property>
-	<con:property><con:name>DBPort</con:name><con:value>3306</con:value></con:property><con:property><con:name>DBHost</con:name><con:value>localhost</con:value></con:property><con:property><con:name>DBUser</con:name><con:value>nhincuser</con:value></con:property><con:property><con:name>DBPass</con:name><con:value>nhincpass</con:value></con:property><con:property><con:name>GatewayPropDir</con:name><con:value>D:\glassfish3\glassfish\domains\domain1\config\nhin</con:value></con:property></con:properties>
+	<con:property><con:name>DBPort</con:name><con:value>3306</con:value></con:property><con:property><con:name>DBHost</con:name><con:value>localhost</con:value></con:property><con:property><con:name>DBUser</con:name><con:value>nhincuser</con:value></con:property><con:property><con:name>DBPass</con:name><con:value>nhincpass</con:value></con:property><con:property><con:name>GatewayPropDir</con:name><con:value>c:\glassfish3\glassfish\domains\domain1\config\nhin</con:value></con:property></con:properties>
 	<con:afterLoadScript>def propertiesFilename = project.path[0..(project.path.size()-4)] + 'properties'
 def propertiesFile = new File(propertiesFilename)
 if (propertiesFile.exists()) {

@@ -64,13 +64,13 @@ import oasis.names.tc.xacml._2_0.context.schema.os.RequestType;
 import oasis.names.tc.xacml._2_0.context.schema.os.ResourceType;
 import oasis.names.tc.xacml._2_0.context.schema.os.SubjectType;
 
-import org.apache.xerces.dom.ElementNSImpl;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Ignore;
 import org.junit.Test;
+import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 
@@ -478,8 +478,8 @@ public class AssertionHelperTest {
             for (AttributeValueType actAttrVal : attr.getAttributeValue()) {
                 if (actAttrVal.getContent() != null && !actAttrVal.getContent().isEmpty()) {
                     for (Object obj : actAttrVal.getContent()) {
-                        if (obj instanceof ElementNSImpl) {
-                            ElementNSImpl elem = (ElementNSImpl) obj;
+                        if (obj instanceof Element) {
+                            Element elem = (Element) obj;
                             NamedNodeMap attrMap = elem.getAttributes();
                             if ((attrMap != null) && (attrMap.getLength() > 0)) {
                                 int numMapNodes = attrMap.getLength();

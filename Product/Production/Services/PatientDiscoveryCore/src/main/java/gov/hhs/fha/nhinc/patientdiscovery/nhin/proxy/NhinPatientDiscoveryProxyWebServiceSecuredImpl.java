@@ -80,11 +80,12 @@ public class NhinPatientDiscoveryProxyWebServiceSecuredImpl implements NhinPatie
                 if (NullChecker.isNotNullish(url)) {
                     ServicePortDescriptor<RespondingGatewayPortType> portDescriptor = new RespondingGatewayServicePortDescriptor();
                     CONNECTClient<RespondingGatewayPortType> client = CONNECTClientFactory.getInstance()
-                            .getCONNECTClientSecured(portDescriptor, url, assertion);
+                            .getCONNECTClientSecured(portDescriptor, assertion, url, target.getHomeCommunity().getHomeCommunityId(), 
+                                    NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME);
 
-                    oProxyHelper.addTargetCommunity((BindingProvider) client.getPort(), target);
+                  /*  oProxyHelper.addTargetCommunity((BindingProvider) client.getPort(), target);
                     oProxyHelper.addServiceName((BindingProvider) client.getPort(), 
-                            NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME);
+                            NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME); */
                     
                     response = (PRPAIN201306UV02) client.invokePort(RespondingGatewayPortType.class,
                             "respondingGatewayPRPAIN201305UV02", request);

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <con:soapui-project abortOnError="false" name="EntitySendingXDRAsyncReqTests" resourceRoot="${projectDir}" runType="SEQUENTIAL" soapui-version="4.5.1" activeEnvironment="Default" xmlns:con="http://eviware.com/soapui/config">
   <con:settings/>
-  <con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincentityxdr:async:request}EntityXDRAsyncRequest_Binding" definition="${ProjectDir}../ValidationSuite/target/wsdl/EntityXDRRequest.wsdl" name="EntityXDRAsyncRequest_Binding" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincentityxdr:async:request}EntityXDRAsyncRequest_Binding" definition="${projectDir}/../ValidationSuite/target/wsdl/EntityXDRRequest.wsdl" name="EntityXDRAsyncRequest_Binding" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <con:settings/>
     
     <con:endpoints>
@@ -12,23 +12,8 @@
       <con:settings/>
     </con:operation>
   </con:interface>
-  <con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincproxyxdr:async:request}ProxyXDRAsyncRequest_Binding" definition="${ProjectDir}../ValidationSuite/target/wsdl/NhincProxyXDRRequest.wsdl" name="ProxyXDRAsyncRequest_Binding" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-    <con:settings/>
-    
-    <con:endpoints>
-      <con:endpoint>http://localhost:8080/CONNECTAdapter/EntityProxyService/NhincProxyXDRRequest</con:endpoint>
-      <con:endpoint>http://localhost:${HttpDefaultPort}/EntityService/NhincProxyXDRRequest</con:endpoint>
-      <con:endpoint>http://localhost:8080/CONNECTAdapter/EntityProxyService/EntityXDRResponse</con:endpoint>
-      <con:endpoint>${#Project#Endpoint-EntityXDRRequest}</con:endpoint>
-      <con:endpoint>${#Project#Endpoint-EntityXDRResponse}</con:endpoint>
-      <con:endpoint>http://localhost:${HttpDefaultPort}/EntityService/NhincProxyXDRAsyncRequest</con:endpoint>
-      <con:endpoint>http://localhost:8080/CONNECTAdapter/EntityProxyService/EntityXDRRequest</con:endpoint>
-    </con:endpoints>
-    <con:operation action="" anonymous="optional" bindingOperationName="ProvideAndRegisterDocumentSet-bAsyncRequest" inputName="" isOneWay="false" name="ProvideAndRegisterDocumentSet-bAsyncRequest" receivesAttachments="false" sendsAttachments="false" type="Request-Response">
-      <con:settings/>
-    </con:operation>
-  </con:interface>
-  <con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:adapterpolicyengine}AdapterPolicyEngineBindingSoap" definition="${ProjectDir}../ValidationSuite/target/wsdl/AdapterPolicyEngine.wsdl" name="AdapterPolicyEngineBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  
+  <con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:adapterpolicyengine}AdapterPolicyEngineBindingSoap" definition="${projectDir}/../ValidationSuite/target/wsdl/AdapterPolicyEngine.wsdl" name="AdapterPolicyEngineBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <con:settings/>
     
     <con:endpoints>
@@ -63,8 +48,6 @@
                <urn1:zipCode>?</urn1:zipCode>
             </urn1:address>
             <urn1:dateOfBirth>?</urn1:dateOfBirth>
-            <!--urn1:dateOfSignature>?</urn1:dateOfSignature-->
-            <!--urn1:expirationDate>?</urn1:expirationDate-->
             <urn1:explanationNonClaimantSignature>?</urn1:explanationNonClaimantSignature>
             <urn1:haveSecondWitnessSignature>?</urn1:haveSecondWitnessSignature>
             <urn1:haveSignature>?</urn1:haveSignature>
@@ -105,7 +88,6 @@
                   <urn1:translation/>
                </urn1:phoneNumberType>
             </urn1:phoneNumber>
-            <!--urn1:purposeOfDisclosure>?</urn1:purposeOfDisclosure-->
             <urn1:secondWitnessAddress>
                <urn1:addressType>
                   <urn1:code>?</urn1:code>
@@ -222,7 +204,6 @@
                   <urn1:secondNameOrInitials>?</urn1:secondNameOrInitials>
                </urn1:personName>
                <urn1:userName>?</urn1:userName>
-               <!--urn1:role>?</urn1:role-->
                <urn1:org>
                   <urn1:description>?</urn1:description>
                   <urn1:homeCommunityId>?</urn1:homeCommunityId>
@@ -827,17 +808,17 @@ FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", destConfigFileL
           <con:timeout>30000</con:timeout>
           <con:response>
             <con:settings/>
-            <con:responseContent><![CDATA[<S:Envelope xmlns:S="http://www.w3.org/2003/05/soap-envelope">
-   <S:Body>
-      <ns15:CheckPolicyResponse xmlns:ns2="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:ns3="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:ns4="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" xmlns:ns5="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:ns6="http://www.hhs.gov/healthit/nhin/cdc" xmlns:ns7="http://nhinc.services.com/schema/auditmessage" xmlns:ns8="http://www.w3.org/2005/08/addressing" xmlns:ns9="http://docs.oasis-open.org/wsn/b-2" xmlns:ns10="urn:ihe:iti:xds-b:2007" xmlns:ns11="urn:gov:hhs:fha:nhinc:common:subscriptionb2overridefordocuments" xmlns:ns12="http://docs.oasis-open.org/wsrf/bf-2" xmlns:ns13="http://docs.oasis-open.org/wsn/t-1" xmlns:ns14="urn:oasis:names:tc:xacml:2.0:policy:schema:os" xmlns:ns15="urn:gov:hhs:fha:nhinc:common:nhinccommonadapter" xmlns:ns16="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:ns17="urn:gov:hhs:fha:nhinc:common:subscriptionb2overrideforcdc" xmlns:ns18="urn:oasis:names:tc:xacml:2.0:context:schema:os" xmlns:ns19="http://schemas.xmlsoap.org/ws/2004/08/addressing">
-         <ns15:response>
-            <ns18:Result>
-               <ns18:Decision>Permit</ns18:Decision>
-            </ns18:Result>
-         </ns15:response>
-      </ns15:CheckPolicyResponse>
-   </S:Body>
-</S:Envelope>]]></con:responseContent>
+            <con:responseContent><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope">
+   <soap:Body>
+      <ns2:CheckPolicyResponse xmlns="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:ns2="urn:gov:hhs:fha:nhinc:common:nhinccommonadapter" xmlns:ns3="urn:oasis:names:tc:xacml:2.0:context:schema:os" xmlns:ns4="urn:oasis:names:tc:xacml:2.0:policy:schema:os" xmlns:ns5="http://www.w3.org/2005/08/addressing" xmlns:ns6="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:ns7="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:ns8="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" xmlns:ns9="urn:ihe:iti:xds-b:2007" xmlns:ns10="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:ns11="http://nhinc.services.com/schema/auditmessage" xmlns:ns12="http://docs.oasis-open.org/wsn/b-2" xmlns:ns13="http://www.hhs.gov/healthit/nhin/cdc" xmlns:ns14="urn:gov:hhs:fha:nhinc:common:subscriptionb2overrideforcdc" xmlns:ns15="http://docs.oasis-open.org/wsrf/bf-2" xmlns:ns16="http://docs.oasis-open.org/wsn/t-1" xmlns:ns17="urn:oasis:names:tc:emergency:EDXL:DE:1.0" xmlns:ns18="urn:gov:hhs:fha:nhinc:common:subscriptionb2overridefordocuments">
+         <ns2:response>
+            <ns3:Result>
+               <ns3:Decision>Pppppermit</ns3:Decision>
+            </ns3:Result>
+         </ns2:response>
+      </ns2:CheckPolicyResponse>
+   </soap:Body>
+</soap:Envelope>]]></con:responseContent>
             <con:wsaConfig mustUnderstand="NONE" version="200508"/>
           </con:response>
           <con:assertion name="AuthnStatementAuthnInstant " type="GroovyScriptAssertion">
@@ -2301,19 +2282,19 @@ declare namespace adapter='urn:gov:hhs:fha:nhinc:common:nhinccommonadapter';
       <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2012-11-28T14:58:28Z</con:value>
+          <con:value>2012-12-16T16:07:29Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2012-11-28T15:08:28Z</con:value>
+          <con:value>2012-12-16T16:17:29Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>11/28/2012 14:58:28</con:value>
+          <con:value>12/16/2012 16:07:29</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2012-12-28T00:00:00Z</con:value>
+          <con:value>2013-01-15T00:00:00Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -2810,17 +2791,17 @@ FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", destConfigFileL
           <con:timeout>30000</con:timeout>
           <con:response>
             <con:settings/>
-            <con:responseContent><![CDATA[<S:Envelope xmlns:S="http://www.w3.org/2003/05/soap-envelope">
-   <S:Body>
-      <ns15:CheckPolicyResponse xmlns:ns2="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:ns3="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:ns4="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" xmlns:ns5="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:ns6="http://www.hhs.gov/healthit/nhin/cdc" xmlns:ns7="http://nhinc.services.com/schema/auditmessage" xmlns:ns8="http://www.w3.org/2005/08/addressing" xmlns:ns9="http://docs.oasis-open.org/wsn/b-2" xmlns:ns10="urn:ihe:iti:xds-b:2007" xmlns:ns11="urn:gov:hhs:fha:nhinc:common:subscriptionb2overridefordocuments" xmlns:ns12="http://docs.oasis-open.org/wsrf/bf-2" xmlns:ns13="http://docs.oasis-open.org/wsn/t-1" xmlns:ns14="urn:oasis:names:tc:xacml:2.0:policy:schema:os" xmlns:ns15="urn:gov:hhs:fha:nhinc:common:nhinccommonadapter" xmlns:ns16="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:ns17="urn:gov:hhs:fha:nhinc:common:subscriptionb2overrideforcdc" xmlns:ns18="urn:oasis:names:tc:xacml:2.0:context:schema:os" xmlns:ns19="http://schemas.xmlsoap.org/ws/2004/08/addressing">
-         <ns15:response>
-            <ns18:Result>
-               <ns18:Decision>Deny</ns18:Decision>
-            </ns18:Result>
-         </ns15:response>
-      </ns15:CheckPolicyResponse>
-   </S:Body>
-</S:Envelope>]]></con:responseContent>
+            <con:responseContent><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope">
+   <soap:Body>
+      <ns2:CheckPolicyResponse xmlns="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:ns2="urn:gov:hhs:fha:nhinc:common:nhinccommonadapter" xmlns:ns3="urn:oasis:names:tc:xacml:2.0:context:schema:os" xmlns:ns4="urn:oasis:names:tc:xacml:2.0:policy:schema:os" xmlns:ns5="http://www.w3.org/2005/08/addressing" xmlns:ns6="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:ns7="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:ns8="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" xmlns:ns9="urn:ihe:iti:xds-b:2007" xmlns:ns10="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:ns11="http://nhinc.services.com/schema/auditmessage" xmlns:ns12="http://docs.oasis-open.org/wsn/b-2" xmlns:ns13="http://www.hhs.gov/healthit/nhin/cdc" xmlns:ns14="urn:gov:hhs:fha:nhinc:common:subscriptionb2overrideforcdc" xmlns:ns15="http://docs.oasis-open.org/wsrf/bf-2" xmlns:ns16="http://docs.oasis-open.org/wsn/t-1" xmlns:ns17="urn:oasis:names:tc:emergency:EDXL:DE:1.0" xmlns:ns18="urn:gov:hhs:fha:nhinc:common:subscriptionb2overridefordocuments">
+         <ns2:response>
+            <ns3:Result>
+               <ns3:Decision>Deny</ns3:Decision>
+            </ns3:Result>
+         </ns2:response>
+      </ns2:CheckPolicyResponse>
+   </soap:Body>
+</soap:Envelope>]]></con:responseContent>
             <con:wsaConfig mustUnderstand="NONE" version="200508"/>
           </con:response>
           <con:assertion name="AuthnStatementAuthnInstant " type="GroovyScriptAssertion">
@@ -4284,19 +4265,19 @@ declare namespace adapter='urn:gov:hhs:fha:nhinc:common:nhinccommonadapter';
       <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2012-11-28T13:53:48Z</con:value>
+          <con:value>2012-12-16T16:08:02Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2012-11-28T14:03:48Z</con:value>
+          <con:value>2012-12-16T16:18:02Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>11/28/2012 13:53:48</con:value>
+          <con:value>12/16/2012 16:08:02</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2012-12-28T00:00:00Z</con:value>
+          <con:value>2013-01-15T00:00:00Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -4805,19 +4786,19 @@ context.testCase.setPropertyValue('XDRUserId',"${UserID}${nowDate}");</script>
 assert (count > 0);</script></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2012-11-28T13:54:24Z</con:value>
+          <con:value>2012-12-16T16:08:03Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2012-11-28T14:04:24Z</con:value>
+          <con:value>2012-12-16T16:18:03Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>11/28/2012 13:54:24</con:value>
+          <con:value>12/16/2012 16:08:03</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2012-12-28T00:00:00Z</con:value>
+          <con:value>2013-01-15T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>FullPatientID</con:name>
@@ -4825,7 +4806,7 @@ assert (count > 0);</script></con:config></con:testStep><con:setupScript>nhinc.F
         </con:property>
         <con:property>
           <con:name>XDRUserId</con:name>
-          <con:value>XDR Request Inbound UserWed Nov 28 13:59:24 UTC 2012</con:value>
+          <con:value>XDR Request Inbound UserSun Dec 16 16:13:03 UTC 2012</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -4837,19 +4818,19 @@ assert (count > 0);</script></con:config></con:testStep><con:setupScript>nhinc.F
   <con:properties>
     <con:property><con:name>AuditDB</con:name><con:value>auditrepo</con:value></con:property>
     
-    <con:property><con:name>AuditTable</con:name><con:value>auditrepository</con:value></con:property>
-    
-    
-    <con:property><con:name>DBHost</con:name><con:value>localhost</con:value></con:property><con:property><con:name>DBPass</con:name><con:value>nhincpass</con:value></con:property>
-    <con:property><con:name>DBPort</con:name><con:value>3306</con:value></con:property><con:property><con:name>DBUser</con:name><con:value>nhincuser</con:value></con:property><con:property><con:name>Endpoint-AuditLogQuery</con:name><con:value>http://localhost:8080/CONNECTAdapter/EntityAuditQuery</con:value></con:property><con:property><con:name>Endpoint-EntityXDRRequest</con:name><con:value>http://localhost:8080/Gateway/DocumentSubmission/1_1/EntityService/EntityDocSubmissionDeferredRequestUnsecured</con:value></con:property>
     
     
     
+    <con:property><con:name>AuditTable</con:name><con:value>auditrepository</con:value></con:property><con:property><con:name>DBHost</con:name><con:value>localhost</con:value></con:property>
+    <con:property><con:name>DBPass</con:name><con:value>nhincpass</con:value></con:property><con:property><con:name>DBPort</con:name><con:value>3306</con:value></con:property><con:property><con:name>DBUser</con:name><con:value>nhincuser</con:value></con:property><con:property><con:name>Endpoint-AuditLogQuery</con:name><con:value>http://localhost:8080/CONNECTAdapter/EntityAuditQuery</con:value></con:property><con:property><con:name>Endpoint-EntityXDRRequest</con:name><con:value>http://localhost:8080/Gateway/DocumentSubmission/1_1/EntityService/EntityDocSubmissionDeferredRequestUnsecured</con:value></con:property>
     
-    <con:property><con:name>Endpoint-NhincProxyXDRRequest</con:name><con:value>http://localhost:8080/Gateway/DocumentSubmission/1_1/EntityService/PassthruDocSubmissionDeferredRequestUnsecured</con:value></con:property>
-    <con:property><con:name>LocalAA</con:name><con:value>1.1</con:value></con:property><con:property><con:name>LocalHCDescription</con:name><con:value>XDRAsyncTest1</con:value></con:property><con:property><con:name>LocalHCID</con:name><con:value>1.1</con:value></con:property><con:property><con:name>MockHost</con:name><con:value>localhost</con:value></con:property>
     
-  <con:property><con:name>NHINGatewayConfigDir</con:name><con:value>C:/Sun/AppServer/domains/domain1/config/nhin</con:value></con:property><con:property><con:name>NHINGatewayHost</con:name><con:value>localhost</con:value></con:property><con:property><con:name>PatientId</con:name><con:value>XDR Request1</con:value></con:property><con:property><con:name>RemoteAA</con:name><con:value>2.2</con:value></con:property><con:property><con:name>RemoteHCDescription</con:name><con:value>XDRAsyncTest2</con:value></con:property><con:property><con:name>RemoteHCID</con:name><con:value>2.2</con:value></con:property><con:property><con:name>UserID</con:name><con:value>XDR Request Inbound User</con:value></con:property><con:property><con:name>GatewayPropDir</con:name><con:value>D:\glassfish3\glassfish\domains\domain1\config\nhin</con:value></con:property></con:properties>
+    
+    
+    
+    <con:property><con:name>Endpoint-NhincProxyXDRRequest</con:name><con:value>http://localhost:8080/Gateway/DocumentSubmission/1_1/EntityService/PassthruDocSubmissionDeferredRequestUnsecured</con:value></con:property><con:property><con:name>GatewayPropDir</con:name><con:value>c:\glassfish3\glassfish\domains\domain1\config\nhin</con:value></con:property><con:property><con:name>LocalAA</con:name><con:value>1.1</con:value></con:property><con:property><con:name>LocalHCDescription</con:name><con:value>XDRAsyncTest1</con:value></con:property><con:property><con:name>LocalHCID</con:name><con:value>1.1</con:value></con:property>
+    
+  <con:property><con:name>MockHost</con:name><con:value>localhost</con:value></con:property><con:property><con:name>NHINGatewayConfigDir</con:name><con:value>C:/Sun/AppServer/domains/domain1/config/nhin</con:value></con:property><con:property><con:name>NHINGatewayHost</con:name><con:value>localhost</con:value></con:property><con:property><con:name>PatientId</con:name><con:value>XDR Request1</con:value></con:property><con:property><con:name>RemoteAA</con:name><con:value>2.2</con:value></con:property><con:property><con:name>RemoteHCDescription</con:name><con:value>XDRAsyncTest2</con:value></con:property><con:property><con:name>RemoteHCID</con:name><con:value>2.2</con:value></con:property><con:property><con:name>UserID</con:name><con:value>XDR Request Inbound User</con:value></con:property></con:properties>
   <con:afterLoadScript>def propertiesFile = new File(new File(project.path).parent, 'EntitySendingXDRAsyncReqTests-soapui-project.properties')
 if (propertiesFile.exists()) {
 	def props = new Properties()
@@ -4922,4 +4903,4 @@ com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext.metaClass.withSql = { d
     <con:parameters/>
   </con:reporting>
 
-</con:soapui-project>
+<con:sensitiveInformation/></con:soapui-project>

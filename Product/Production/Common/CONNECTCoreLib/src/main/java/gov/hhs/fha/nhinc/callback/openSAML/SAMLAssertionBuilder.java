@@ -3,15 +3,6 @@
  */
 package gov.hhs.fha.nhinc.callback.openSAML;
 
-import gov.hhs.fha.nhinc.callback.purposeuse.PurposeUseProxy;
-import gov.hhs.fha.nhinc.callback.purposeuse.PurposeUseProxyObjectFactory;
-import gov.hhs.fha.nhinc.connectmgr.NhinEndpointManager;
-import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
-import gov.hhs.fha.nhinc.nhinclib.NhincConstants.GATEWAY_API_LEVEL;
-import gov.hhs.fha.nhinc.nhinclib.NhincConstants.NHIN_SERVICE_NAMES;
-import gov.hhs.fha.nhinc.properties.PropertyAccessException;
-import gov.hhs.fha.nhinc.properties.PropertyAccessor;
-
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -28,7 +19,6 @@ abstract public class SAMLAssertionBuilder {
 
     static final String NHIN_NS = "http://www.hhs.gov/healthit/nhin";
 
-    private static final String PURPOSE_FOR_USE_DEPRECATED_ENABLED = "purposeForUseEnabled";
 
     // Authorization Decision Action is always set to Execute
     static final String AUTHZ_DECISION_ACTION_EXECUTE = "Execute";
@@ -96,55 +86,6 @@ abstract public class SAMLAssertionBuilder {
 
     static boolean isValidIssuerFormat(String format) {
         return VALID_NAME_LIST.contains(format);
-
-    }
-
-    /**
-     * @param callbackProperties used to pull target api level, target hcid and service name.
-     * @return true if deprecated "purposeForUse" syntax is allowed in outgoing saml assertion.
-     */
-    static boolean isPurposeForUseAllowed(CallbackProperties callbackProperties) {
-
-        // first check if target api level is explicitly specified...
-        GATEWAY_API_LEVEL targetApiLevel = callbackProperties.getTargetApiLevel();
-        if (targetApiLevel != null) {
-            return (targetApiLevel == GATEWAY_API_LEVEL.LEVEL_g0);
-        }
-        
-        // then check target api level based on target HCID and service name (action)...
-        NHIN_SERVICE_NAMES serviceName = null;
-        try {
-            serviceName = NHIN_SERVICE_NAMES.fromValueString(callbackProperties.getAction());
-        } catch  (IllegalArgumentException exc) {
-            // Do nothing, this isnt an NHIN service
-            return false;            
-        }           
-        String targetHcid = callbackProperties.getTargetHomeCommunityId();
-        if (serviceName == null || targetHcid == null) {
-            return false;
-        }
-        
-        NhinEndpointManager nem = new NhinEndpointManager();
-        return (nem.getApiVersion(targetHcid, serviceName) == GATEWAY_API_LEVEL.LEVEL_g0);        
-    }
-    
-    /**
-     * Returns boolean condition on whether PurposeForUse is enabled.
-     *
-     * @return The PurposeForUse enabled setting
-     */
-    static boolean isPurposeForUseEnabled(CallbackProperties callbackProperties) {
-        
-        // default return value
-        boolean purposeForUseEnabled = false;
-        
-        if (isPurposeForUseAllowed(callbackProperties)) {            
-            PurposeUseProxyObjectFactory purposeFactory = new PurposeUseProxyObjectFactory();
-            PurposeUseProxy purposeUseProxy = purposeFactory.getPurposeUseProxy();
-            purposeForUseEnabled = purposeUseProxy.isPurposeForUseEnabled(callbackProperties); 
-        }
-        
-        return purposeForUseEnabled;
     }
 
     abstract public Element build(CallbackProperties properties) throws Exception;

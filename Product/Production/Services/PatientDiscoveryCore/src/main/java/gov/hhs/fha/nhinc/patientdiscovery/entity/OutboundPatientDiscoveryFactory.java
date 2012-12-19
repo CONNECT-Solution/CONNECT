@@ -48,11 +48,9 @@ public class OutboundPatientDiscoveryFactory {
     public OrchestrationContextBuilder createOrchestrationContextBuilder(NhincConstants.GATEWAY_API_LEVEL apiLevel) {
         LOG.debug("EntityPatientDiscoveryFactory has apiLevel=" + apiLevel.toString());
         switch (apiLevel) {
-        case LEVEL_g0:
-            return new OutboundPatientDiscoveryOrchestrationContextBuilder_g0();        
         default:
-            LOG.warn("Unexpected api level received " + apiLevel.toString() + ".  Defaulting to g0");
-            return new OutboundPatientDiscoveryOrchestrationContextBuilder_g0();
+        LOG.warn("The same implementation is used for both PD g0 and PD g1.");
+        return new OutboundPatientDiscoveryOrchestrationContextBuilder();
         }
     }
 
