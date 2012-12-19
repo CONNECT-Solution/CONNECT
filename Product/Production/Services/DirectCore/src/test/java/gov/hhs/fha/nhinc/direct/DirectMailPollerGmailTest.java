@@ -49,10 +49,11 @@ import org.junit.Ignore;
 import org.junit.Test;
 
 /**
- * the SMTP/IMAP using gmail.
+ * This is basically a sanity check to make sure the smtp and imap settings we use can talk to a real mail server. If
+ * you want to run it you have to remove the ignore and put your real connection creds in the class.
  */
 @Ignore
-public class DirectMailPollerGmailTest {
+public class DirectMailPollerGmailTest extends DirectBaseTest {
     
     private final Properties props = getMailServerProps();
         
@@ -98,12 +99,12 @@ public class DirectMailPollerGmailTest {
 
         Properties props = new Properties();
 
-        props.setProperty("direct.mail.user", "xxx");
-        props.setProperty("direct.mail.pass", "xxx");
-        props.setProperty("direct.max.msgs.in.batch", "5");
+        props.setProperty("connect.mail.user", "xxx");
+        props.setProperty("connect.mail.pass", "xxx");
+        props.setProperty("connect.max.msgs.in.batch", "5");
 
-        props.setProperty("direct.mail.session.debug", "true");
-        props.setProperty("direct.delete.unhandled.msgs", "false");
+        props.setProperty("connect.mail.session.debug", "true");
+        props.setProperty("connect.delete.unhandled.msgs", "false");
         
         props.setProperty("mail.smtp.host", "smtp-01.direct.connectopensource.org");
         props.setProperty("mail.smtp.auth", "false");
@@ -120,8 +121,8 @@ public class DirectMailPollerGmailTest {
     
     private void initiateEmail() throws MessagingException {
        
-        Session session = MailUtils.getMailSession(props, props.getProperty("direct.mail.user"),
-                props.getProperty("direct.mail.pass"));
+        Session session = MailUtils.getMailSession(props, props.getProperty("connect.mail.user"),
+                props.getProperty("connect.mail.pass"));
         MimeMessage originalMsg = new MimeMessage(session,
                 IOUtils.toInputStream(getFileAsString("PlainOutgoingMessage.txt")));
         session.setDebug(true);

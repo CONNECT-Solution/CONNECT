@@ -51,7 +51,6 @@ public class DirectOutboundMsgHandler implements MessageHandler {
      * @param directAdapter direct adapter used to process messages.
      */
     public DirectOutboundMsgHandler(DirectSender directSender) {
-        super();
         this.directSender = directSender;
     }
 
@@ -65,7 +64,7 @@ public class DirectOutboundMsgHandler implements MessageHandler {
             directSender.sendOutboundDirect(message);
             handled = true;
         } catch (Exception e) {
-            LOG.error("Exception while processing and sending outbound direct message");
+            LOG.error("Exception while processing and sending outbound direct message", e);
         }
         return handled;
     }

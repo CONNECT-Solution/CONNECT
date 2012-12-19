@@ -46,14 +46,14 @@ import org.nhindirect.stagent.mail.notifications.NotificationMessage;
  */
 public class DirectReceiverImpl extends DirectAdapter implements DirectReceiver {
 
-    private static final Logger LOG = Logger.getLogger(DirectAdapter.class);    
+    private static final Logger LOG = Logger.getLogger(DirectAdapter.class);
     
     /**
      * @param externalMailSender
      * @param smtpAgent
      */
-    public DirectReceiverImpl(MailSender externalMailSender, SmtpAgent smtpAgent) {
-        super(externalMailSender, smtpAgent);
+    public DirectReceiverImpl(MailSender externalMailSender, SmtpAgent smtpAgent, DirectEventLogger directEventLogger) {
+        super(externalMailSender, smtpAgent, directEventLogger);
     }
 
     /**
@@ -62,18 +62,13 @@ public class DirectReceiverImpl extends DirectAdapter implements DirectReceiver 
     @Override
     public void receiveInbound(MimeMessage message) {
         
-        MessageProcessResult result = processAsDirectMessage(message);        
+        MessageProcessResult result = process(message);
         MessageEnvelope processedEnvelope = result.getProcessedMessage();
-        if (processedEnvelope == null) {            
-            throw new DirectException("Result Message Envelope is null: "
-                    + getErrorNotificationMsgs(result), message);
-        }
-        
         boolean isMdn = DirectAdapterUtils.isMdn(processedEnvelope);
         if (isMdn) {
-            DirectEventLogger.getInstance().log(DirectEventType.BEGIN_INBOUND_MDN, message);
+            getDirectEventLogger().log(DirectEventType.BEGIN_INBOUND_MDN, message);
         } else {
-            DirectEventLogger.getInstance().log(DirectEventType.BEGIN_INBOUND_DIRECT, message);            
+            getDirectEventLogger().log(DirectEventType.BEGIN_INBOUND_DIRECT, message);            
         }
 
         sendMdn(result);
@@ -82,9 +77,9 @@ public class DirectReceiverImpl extends DirectAdapter implements DirectReceiver 
         proxy.provideAndRegisterDocumentSetB(processedEnvelope.getMessage());
         
         if (isMdn) {
-            DirectEventLogger.getInstance().log(DirectEventType.END_INBOUND_MDN, message);
+            getDirectEventLogger().log(DirectEventType.END_INBOUND_MDN, message);
         } else {
-            DirectEventLogger.getInstance().log(DirectEventType.END_INBOUND_DIRECT, message);            
+            getDirectEventLogger().log(DirectEventType.END_INBOUND_DIRECT, message);            
         }
     }
     
@@ -93,14 +88,14 @@ public class DirectReceiverImpl extends DirectAdapter implements DirectReceiver 
         Collection<NotificationMessage> mdnMessages = DirectAdapterUtils.getMdnMessages(result);
         if (mdnMessages != null) {
             for (NotificationMessage mdnMessage : mdnMessages) {
-                DirectEventLogger.getInstance().log(DirectEventType.BEGIN_OUTBOUND_MDN, mdnMessage);
+                getDirectEventLogger().log(DirectEventType.BEGIN_OUTBOUND_MDN, mdnMessage);
                 try {
                     MimeMessage message = process(mdnMessage).getProcessedMessage().getMessage();
                     getExternalMailSender().send(mdnMessage.getAllRecipients(), message);
                 } catch (Exception e) {
                     throw new DirectException("Exception sending outbound direct mdn.", e, mdnMessage);
                 }
-                DirectEventLogger.getInstance().log(DirectEventType.END_OUTBOUND_MDN, mdnMessage);
+                getDirectEventLogger().log(DirectEventType.END_OUTBOUND_MDN, mdnMessage);
                 LOG.info("MDN notification sent.");
             }
         }

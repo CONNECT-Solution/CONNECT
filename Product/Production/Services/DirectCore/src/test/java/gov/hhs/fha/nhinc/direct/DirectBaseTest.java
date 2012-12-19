@@ -26,31 +26,18 @@
  */
 package gov.hhs.fha.nhinc.direct;
 
-import gov.hhs.fha.nhinc.mail.AbstractMailPoller;
-import gov.hhs.fha.nhinc.mail.MailClientException;
-import gov.hhs.fha.nhinc.mail.MailReceiver;
-import gov.hhs.fha.nhinc.mail.MessageHandler;
+import gov.hhs.fha.nhinc.direct.event.DirectEventLogger;
+
+import org.junit.BeforeClass;
 
 /**
- * Direct Mail Poller handles any exceptions incurred by {@link AbstractMailPoller#poll()}.
+ * Base class for Direct Unit Tests.
  */
-public class DirectMailPoller extends AbstractMailPoller {
+public class DirectBaseTest {
+
+    @BeforeClass
+    public static void doBeforeClass() {
+        DirectException.setDirectEventLogger(DirectEventLogger.getInstance());
+    }
     
-    /**
-     * @param mailClient mail client talking to the server we want to poll.
-     * @param messageHandler message handler invoked on each message returned.
-     * @param directEventLogger direct event logger.
-     */
-    public DirectMailPoller(MailReceiver mailReceiver, MessageHandler messageHandler) {
-        super(mailReceiver, messageHandler);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public void handleException(MailClientException e) {
-        throw new DirectException("Exception while polling mail server.", e);
-    }
-
 }

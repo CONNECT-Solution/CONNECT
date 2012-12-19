@@ -22,7 +22,6 @@ public class DirectEdgeProxySmtpImpl implements DirectEdgeProxy {
      * @param internalMailSender
      */
     public DirectEdgeProxySmtpImpl(MailSender internalMailSender) {
-        super();
         this.internalMailSender = internalMailSender;
     }
 

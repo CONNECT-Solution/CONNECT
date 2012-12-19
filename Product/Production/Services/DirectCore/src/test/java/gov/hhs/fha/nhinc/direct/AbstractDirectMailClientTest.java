@@ -39,6 +39,7 @@ import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 import gov.hhs.fha.nhinc.direct.edge.proxy.DirectEdgeProxy;
+import gov.hhs.fha.nhinc.direct.event.DirectEventLogger;
 import gov.hhs.fha.nhinc.event.EventManager;
 import gov.hhs.fha.nhinc.mail.ImapMailReceiver;
 import gov.hhs.fha.nhinc.mail.MailClient;
@@ -75,7 +76,7 @@ import com.icegreen.greenmail.util.ServerSetupTest;
 /**
  * 
  */
-public abstract class AbstractDirectMailClientTest {
+public abstract class AbstractDirectMailClientTest extends DirectBaseTest {
 
     /**
      * number of messages in one batch.
@@ -159,8 +160,8 @@ public abstract class AbstractDirectMailClientTest {
         extMailSender = new SmtpMailSender(senderMailServerProps);
         extMailReceiver = new ImapMailReceiver(senderMailServerProps);
 
-        testDirectSender = new DirectSenderImpl(extMailSender, mockSmtpAgent);    
-        testDirectReceiver = new DirectReceiverImpl(extMailSender, mockSmtpAgent);    
+        testDirectSender = new DirectSenderImpl(extMailSender, mockSmtpAgent, DirectEventLogger.getInstance());    
+        testDirectReceiver = new DirectReceiverImpl(extMailSender, mockSmtpAgent, DirectEventLogger.getInstance());    
         
         extDirectMailPoller = new DirectMailPoller(extMailReceiver, mockMessageHandler);
         intDirectMailPoller = new DirectMailPoller(intMailReceiver, mockMessageHandler);
@@ -226,7 +227,7 @@ public abstract class AbstractDirectMailClientTest {
         extMailSender = new SmtpMailSender(props);
         extMailReceiver = new ImapMailReceiver(props);
 
-        testDirectReceiver = new DirectReceiverImpl(extMailSender, smtpAgent) {
+        testDirectReceiver = new DirectReceiverImpl(extMailSender, smtpAgent, DirectEventLogger.getInstance()) {
             /**
              * {@inheritDoc}
              */
@@ -236,7 +237,7 @@ public abstract class AbstractDirectMailClientTest {
             }
         };        
         
-        testDirectSender = new DirectSenderImpl(extMailSender, smtpAgent);
+        testDirectSender = new DirectSenderImpl(extMailSender, smtpAgent, DirectEventLogger.getInstance());
         
         inboundMsgHandler = new DirectInboundMsgHandler(testDirectReceiver);
         outboundMsgHandler = new DirectOutboundMsgHandler(testDirectSender);

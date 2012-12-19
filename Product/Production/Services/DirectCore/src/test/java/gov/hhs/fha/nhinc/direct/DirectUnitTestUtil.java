@@ -148,11 +148,11 @@ public class DirectUnitTestUtil {
 
         Properties props = new Properties();
         
-        props.setProperty("direct.mail.user", toAddress);
-        props.setProperty("direct.mail.pass", toAddress);
-        props.setProperty("direct.max.msgs.in.batch", Integer.toString(MAX_NUM_MSGS_IN_BATCH));
-        props.setProperty("direct.delete.unhandled.msgs", "false");
-        props.setProperty("direct.mail.session.debug", "true");
+        props.setProperty("connect.mail.user", toAddress);
+        props.setProperty("connect.mail.pass", toAddress);
+        props.setProperty("connect.max.msgs.in.batch", Integer.toString(MAX_NUM_MSGS_IN_BATCH));
+        props.setProperty("connect.delete.unhandled.msgs", "false");
+        props.setProperty("connect.mail.session.debug", "true");
                         
         props.setProperty("mail.smtp.host", "localhost");
         props.setProperty("mail.smtp.auth", "TRUE");
