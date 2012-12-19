@@ -47,9 +47,9 @@ import org.nhindirect.stagent.mail.notifications.NotificationMessage;
 /**
  * Helper class to provide shared utility methods for interacting with the direct code.
  */
-public class DirectClientUtils {
+public class DirectAdapterUtils {
 
-    private static final Logger LOG = Logger.getLogger(DirectClientUtils.class);
+    private static final Logger LOG = Logger.getLogger(DirectAdapterUtils.class);
     private static final String MDN_CONTENT_TYPE = "DISPOSITION-NOTIFICATION";
     
     /**

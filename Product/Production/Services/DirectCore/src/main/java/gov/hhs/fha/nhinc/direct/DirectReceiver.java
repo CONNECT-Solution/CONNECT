@@ -24,60 +24,18 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.direct.xdr;
+package gov.hhs.fha.nhinc.direct;
 
-import static org.junit.Assert.assertNotNull;
-import gov.hhs.fha.nhinc.direct.DirectAdapterFactory;
-import gov.hhs.fha.nhinc.direct.DirectUnitTestUtil;
-
-import org.apache.log4j.Logger;
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
-import org.junit.Ignore;
-import org.junit.Test;
+import javax.mail.internet.MimeMessage;
 
 /**
- * Test {@link DirectAdapterFactory}.
+ * Receive inbound direct messages.
  */
-public class DirectClientFactoryTest {
-
-    private static final Logger LOG = Logger.getLogger(DirectClientFactoryTest.class);
+public interface DirectReceiver {
     
     /**
-     * Set up keystore for test.
+     * Receive an inbound direct message.
+     * @param message mime message to be received
      */
-    @BeforeClass
-    public static void setUpClass() {
-        DirectUnitTestUtil.writeSmtpAgentConfig();
-    }
-
-    /**
-     * Tear down keystore created in setup.
-     */
-    @AfterClass
-    public static void tearDownClass() {
-        DirectUnitTestUtil.removeSmtpAgentConfig();
-    }
-    
-    /**
-     * Test {@link DirectAdapterFactory#getDirectAdapter()}.
-     * Note: This test fails when run as part of the suite - it seems that the config is loaded in another test before
-     * we are setting the system property for the nhinc.properties.dir. Ignoring for now til more time can be spent on
-     * it.
-     */
-    @Test
-    @Ignore
-    public void canGetDirectClientFromFactory() {
-
-        LOG.info("nhinc.properties.dir...");
-        String propertiesDir = DirectUnitTestUtil.getClassPath();
-        System.setProperty("nhinc.properties.dir", propertiesDir);
-        LOG.info("nhinc.properties.dir: " + propertiesDir);
-
-        DirectAdapterFactory testDirectFactory = new DirectAdapterFactory();
-        assertNotNull(testDirectFactory.getDirectReceiver());
-        assertNotNull(testDirectFactory.getDirectSender());
-
-    }
-
+    void receiveInbound(MimeMessage message);
 }

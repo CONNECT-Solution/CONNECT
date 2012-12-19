@@ -27,61 +27,56 @@
 package gov.hhs.fha.nhinc.direct;
 
 import gov.hhs.fha.nhinc.direct.edge.proxy.DirectEdgeProxy;
-import gov.hhs.fha.nhinc.direct.edge.proxy.DirectEdgeProxyObjectFactory;
 import gov.hhs.fha.nhinc.direct.event.DirectEventLogger;
 import gov.hhs.fha.nhinc.direct.event.DirectEventType;
+import gov.hhs.fha.nhinc.mail.MailSender;
 
-import javax.mail.MessagingException;
+import java.util.Collection;
+
 import javax.mail.internet.MimeMessage;
 
 import org.apache.log4j.Logger;
 import org.nhindirect.gateway.smtp.MessageProcessResult;
+import org.nhindirect.gateway.smtp.SmtpAgent;
 import org.nhindirect.stagent.MessageEnvelope;
-import org.nhindirect.stagent.NHINDAddress;
-import org.nhindirect.stagent.NHINDAddressCollection;
 import org.nhindirect.stagent.mail.notifications.NotificationMessage;
 
 /**
- * Handles inbound messages from an external mail client. Inbound messages are un-directified and either - sent to a
- * recipient on an internal mail client - SMTP+Mime - SMTP+XDM - process XDM as XDR - SOAP+XDR
+ * Responsible for receiving direct messages.
  */
-public class InboundMessageHandler implements MessageHandler {
+public class DirectReceiverImpl extends DirectAdapter implements DirectReceiver {
 
-    private static final Logger LOG = Logger.getLogger(InboundMessageHandler.class);
+    private static final Logger LOG = Logger.getLogger(DirectAdapter.class);    
+    
+    /**
+     * @param externalMailSender
+     * @param smtpAgent
+     */
+    public DirectReceiverImpl(MailSender externalMailSender, SmtpAgent smtpAgent) {
+        super(externalMailSender, smtpAgent);
+    }
 
     /**
      * {@inheritDoc}
      */
     @Override
-    public void handleMessage(MimeMessage message, DirectClient externalDirectClient) {
-
-        MessageProcessResult result = null;
-        NHINDAddress origSender = null;
-        NHINDAddressCollection origRecipients = null;
-
-        try {
-            origSender = DirectClientUtils.getNhindSender(message);
-            origRecipients = DirectClientUtils.getNhindRecipients(message);
-            result = externalDirectClient.getSmtpAgent().processMessage(message, origRecipients, origSender);
-        } catch (MessagingException e) {
-            throw new DirectException("Error processing message.", e, message);
-        }
-
+    public void receiveInbound(MimeMessage message) {
+        
+        MessageProcessResult result = processAsDirectMessage(message);        
         MessageEnvelope processedEnvelope = result.getProcessedMessage();
-
-        boolean isMdn = DirectClientUtils.isMdn(processedEnvelope);
+        if (processedEnvelope == null) {            
+            throw new DirectException("Result Message Envelope is null: "
+                    + getErrorNotificationMsgs(result), message);
+        }
+        
+        boolean isMdn = DirectAdapterUtils.isMdn(processedEnvelope);
         if (isMdn) {
             DirectEventLogger.getInstance().log(DirectEventType.BEGIN_INBOUND_MDN, message);
         } else {
             DirectEventLogger.getInstance().log(DirectEventType.BEGIN_INBOUND_DIRECT, message);            
         }
 
-        externalDirectClient.sendMdn(result);
-
-        if (result.getProcessedMessage() == null) {
-            logNotfications(result);
-            return;
-        }
+        sendMdn(result);
         
         DirectEdgeProxy proxy = getDirectEdgeProxy();
         proxy.provideAndRegisterDocumentSetB(processedEnvelope.getMessage());
@@ -90,34 +85,26 @@ public class InboundMessageHandler implements MessageHandler {
             DirectEventLogger.getInstance().log(DirectEventType.END_INBOUND_MDN, message);
         } else {
             DirectEventLogger.getInstance().log(DirectEventType.END_INBOUND_DIRECT, message);            
+        }
     }
-
-    }    
     
-    /**
-     * @return DirectEdgeProxy implementation to handle the direct edge
-     */
-    protected DirectEdgeProxy getDirectEdgeProxy() {
-        DirectEdgeProxyObjectFactory factory = new DirectEdgeProxyObjectFactory();
-        return factory.getDirectEdgeProxy();
-    }
+    private void sendMdn(MessageProcessResult result) {
 
-    /**
-     * Log any notification messages that were produced by direct processing.
-     * 
-     * @param result to pull notification messages from
-     */
-    private void logNotfications(MessageProcessResult result) {
-        StringBuilder builder = new StringBuilder("Inbound Mime Message could not be processed by DIRECT.");
-        for (NotificationMessage notif : result.getNotificationMessages()) {
-            try {
-                builder.append(" " + notif.getContent());
-            } catch (Exception e) {
-                LOG.warn("Exception while logging notification messages.", e);
+        Collection<NotificationMessage> mdnMessages = DirectAdapterUtils.getMdnMessages(result);
+        if (mdnMessages != null) {
+            for (NotificationMessage mdnMessage : mdnMessages) {
+                DirectEventLogger.getInstance().log(DirectEventType.BEGIN_OUTBOUND_MDN, mdnMessage);
+                try {
+                    MimeMessage message = process(mdnMessage).getProcessedMessage().getMessage();
+                    getExternalMailSender().send(mdnMessage.getAllRecipients(), message);
+                } catch (Exception e) {
+                    throw new DirectException("Exception sending outbound direct mdn.", e, mdnMessage);
+                }
+                DirectEventLogger.getInstance().log(DirectEventType.END_OUTBOUND_MDN, mdnMessage);
+                LOG.info("MDN notification sent.");
             }
         }
-        String errorMsg = builder.toString();
-        LOG.info(errorMsg);
-        DirectEventLogger.getInstance().log(DirectEventType.DIRECT_ERROR, null, errorMsg);
     }
+    
+
 }
