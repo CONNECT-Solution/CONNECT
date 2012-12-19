@@ -43,8 +43,8 @@ import org.nhindirect.xd.transform.impl.DefaultMimeXdsTransformer;
 public class MimeMessageTransformer {
     
     private static final Logger LOG = Logger.getLogger(MimeMessageTransformer.class);
-    private MimeXdsTransformer transformer = null;
-    private String errorMessage = "Error transforming message to XDR";
+    private static final String ERROR_MESSAGE = "Error transforming message to XDR";
+    private final MimeXdsTransformer transformer;
     
     public MimeMessageTransformer() {
         transformer = getMimeXdsTransformer();
@@ -55,8 +55,8 @@ public class MimeMessageTransformer {
         try {
             request = transformer.transform(message);
         } catch (TransformationException e) {
-            LOG.error(errorMessage, e);
-            throw new DirectException(errorMessage, e);
+            LOG.error(ERROR_MESSAGE, e);
+            throw new DirectException(ERROR_MESSAGE, e);
         }
         return request;
     }

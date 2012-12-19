@@ -27,7 +27,6 @@
 package gov.hhs.fha.nhinc.direct.event;
 
 import gov.hhs.fha.nhinc.event.BaseEvent;
-import gov.hhs.fha.nhinc.event.Event;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;

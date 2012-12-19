@@ -24,60 +24,47 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.direct.xdr;
+package gov.hhs.fha.nhinc.direct;
 
-import static org.junit.Assert.assertNotNull;
-import gov.hhs.fha.nhinc.direct.DirectAdapterFactory;
-import gov.hhs.fha.nhinc.direct.DirectUnitTestUtil;
+import gov.hhs.fha.nhinc.mail.MessageHandler;
+
+import javax.mail.internet.MimeMessage;
 
 import org.apache.log4j.Logger;
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
-import org.junit.Ignore;
-import org.junit.Test;
 
 /**
- * Test {@link DirectAdapterFactory}.
+ * Handles inbound messages from an external mail client. Inbound messages are un-directified and either - sent to a
+ * recipient on an internal mail client - SMTP+Mime - SMTP+XDM - process XDM as XDR - SOAP+XDR
  */
-public class DirectClientFactoryTest {
+public class DirectInboundMsgHandler implements MessageHandler {
 
-    private static final Logger LOG = Logger.getLogger(DirectClientFactoryTest.class);
+    private static final Logger LOG = Logger.getLogger(DirectInboundMsgHandler.class);
+
+    /**
+     * Property for the external direct client used to send the outbound message.
+     */
+    private final DirectReceiver directReceiver;
     
     /**
-     * Set up keystore for test.
+     * Constructor.
+     * @param directAdapter direct adapter used to process messages.
      */
-    @BeforeClass
-    public static void setUpClass() {
-        DirectUnitTestUtil.writeSmtpAgentConfig();
+    public DirectInboundMsgHandler(DirectReceiver directReceiver) {
+        this.directReceiver = directReceiver;
     }
 
     /**
-     * Tear down keystore created in setup.
+     * {@inheritDoc}
      */
-    @AfterClass
-    public static void tearDownClass() {
-        DirectUnitTestUtil.removeSmtpAgentConfig();
+    @Override
+    public boolean handleMessage(MimeMessage message) {
+        boolean handled = false;
+        try {
+           directReceiver.receiveInbound(message);
+           handled = true;
+        } catch (Exception e) {
+            LOG.error("Exception while processing and sending outbound direct message");
+        }
+        return handled;
     }
-    
-    /**
-     * Test {@link DirectAdapterFactory#getDirectAdapter()}.
-     * Note: This test fails when run as part of the suite - it seems that the config is loaded in another test before
-     * we are setting the system property for the nhinc.properties.dir. Ignoring for now til more time can be spent on
-     * it.
-     */
-    @Test
-    @Ignore
-    public void canGetDirectClientFromFactory() {
-
-        LOG.info("nhinc.properties.dir...");
-        String propertiesDir = DirectUnitTestUtil.getClassPath();
-        System.setProperty("nhinc.properties.dir", propertiesDir);
-        LOG.info("nhinc.properties.dir: " + propertiesDir);
-
-        DirectAdapterFactory testDirectFactory = new DirectAdapterFactory();
-        assertNotNull(testDirectFactory.getDirectReceiver());
-        assertNotNull(testDirectFactory.getDirectSender());
-
-    }
-
 }
