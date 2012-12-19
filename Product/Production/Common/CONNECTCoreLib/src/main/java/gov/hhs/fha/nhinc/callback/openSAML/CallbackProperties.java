@@ -190,4 +190,9 @@ public interface CallbackProperties {
      */
     public GATEWAY_API_LEVEL getTargetApiLevel();
 
+    /**
+     * @return
+     */
+    public String getServiceName();
+
 }

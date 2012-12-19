@@ -33,6 +33,7 @@ import org.opensaml.xml.signature.SignatureException;
 import org.opensaml.xml.signature.Signer;
 import org.w3c.dom.Element;
 
+import gov.hhs.fha.nhinc.callback.PurposeOfForDecider;
 import gov.hhs.fha.nhinc.callback.SamlConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 
@@ -518,20 +519,20 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
 		 * Gateway-347 - Support for both values will remain until NHIN Specs
 		 * updated Determine whether to use PurposeOfUse or PuposeForUse
 		 */
-		if (isPurposeForUseEnabled(properties)) {
-			statements = OpenSAML2ComponentBuilder.getInstance()
-					.createPurposeForUseAttributeStatements(purposeCode, purposeSystem,
-							purposeSystemName, purposeDisplay);
-		} else {
-			statements = OpenSAML2ComponentBuilder.getInstance()
-					.createPurposeOfUseAttributeStatements(purposeCode, purposeSystem,
-							purposeSystemName, purposeDisplay);
-		}
-
-
-
+		
+         // Call out to the purpose decider to determine whether to use purposeofuse or purposeforuse.
+            PurposeOfForDecider pd = new PurposeOfForDecider();                
+            if(pd.isPurposeFor(properties)) {
+                  statements = OpenSAML2ComponentBuilder.getInstance()
+                    .createPurposeForUseAttributeStatements(purposeCode, purposeSystem,
+                            purposeSystemName, purposeDisplay);
+            } else {
+                statements = OpenSAML2ComponentBuilder.getInstance()
+                        .createPurposeOfUseAttributeStatements(purposeCode, purposeSystem,
+                                purposeSystemName, purposeDisplay);
+            } 
+            
 		return statements;
-
 	}
 
 	/**
@@ -627,4 +628,5 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
 		return statements;
 
 	}
+	
 }

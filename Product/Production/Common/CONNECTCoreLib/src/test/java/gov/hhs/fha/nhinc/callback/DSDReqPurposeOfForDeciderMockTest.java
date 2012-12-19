@@ -24,33 +24,26 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
  */
-package gov.hhs.fha.nhinc.patientdiscovery.entity;
+package gov.hhs.fha.nhinc.callback;
+
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
- * PatientDiscovery OrchestrationContext for g0 endpoint
- * 
- * @author paul.eftis
+ * @author mweaver
+ *
  */
-public class OutboundPatientDiscoveryOrchestrationContextBuilder_g0 extends
-        OutboundPatientDiscoveryOrchestrationContextBuilder {
-
-    /**
-     * @return strategy for g0
-     */
+public class DSDReqPurposeOfForDeciderMockTest extends AbstractPurposeOfForDeciderMockBaseTest {
+   
+    /*-----------------Setup Methods---------------*/
+    
     @Override
-    protected OutboundPatientDiscoveryStrategy getStrategy() {
-        return new OutboundPatientDiscoveryStrategyImpl_g0();
+    protected Map<String,Object> createTokenValues() {
+        HashMap<String, Object> tokenVals = new HashMap<String, Object>();
+        tokenVals.put(NhincConstants.WS_SOAP_TARGET_HOME_COMMUNITY_ID, "1.1");
+        tokenVals.put(NhincConstants.ACTION_PROP, NhincConstants.NHINC_XDR_REQUEST_SERVICE_NAME);
+        return tokenVals;
     }
-
-    /**
-     * @return OutboundPatientDiscoveryOrchestratable for g0
-     */
-    @Override
-    protected OutboundPatientDiscoveryOrchestratable getOrchestratable() {
-        OutboundPatientDiscoveryOrchestratable orch = new OutboundPatientDiscoveryOrchestratable(
-                getNhinDelegate(), getProcessor(), getAuditTransformer(), getPolicyTransformer(), getAssertionType(),
-                getServiceName(), getTargetSystemType(), getRequest());
-        return orch;
-    }
-
 }
