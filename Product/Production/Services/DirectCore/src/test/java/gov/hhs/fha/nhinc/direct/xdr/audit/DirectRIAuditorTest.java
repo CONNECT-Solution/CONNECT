@@ -26,7 +26,8 @@
  */
 package gov.hhs.fha.nhinc.direct.xdr.audit;
 
-import gov.hhs.fha.nhinc.direct.xdr.SoapEdgeHeadersPropertiesImpl;
+import gov.hhs.fha.nhinc.direct.xdr.SoapEdgeContext;
+import gov.hhs.fha.nhinc.direct.xdr.SoapEdgeContextMapImpl;
 
 import java.util.UUID;
 
@@ -60,8 +61,8 @@ public class DirectRIAuditorTest {
         return new DirectRIAuditor();
     }
 
-    protected Auditable getAuditable() {
-        Auditable auditable = new SoapEdgeHeadersPropertiesImpl();
+    protected SoapEdgeContext getAuditable() {
+        SoapEdgeContext auditable = new SoapEdgeContextMapImpl();
         auditable.setEndpoint("test@direct.connectopensource.org");
         auditable.setMessageId(UUID.randomUUID().toString());
         auditable.setPatId("1234");
