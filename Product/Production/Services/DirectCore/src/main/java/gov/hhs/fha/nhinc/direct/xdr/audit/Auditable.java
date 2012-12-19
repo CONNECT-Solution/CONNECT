@@ -24,42 +24,63 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.direct.xdr;
+package gov.hhs.fha.nhinc.direct.xdr.audit;
 
-import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
-
-import javax.xml.ws.WebServiceContext;
-
-import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
+import java.util.Map;
 
 /**
- * The Class DirectXDRWebServiceImpl.
+ * An interface for an auditable object. Implementing this interface forces a class to provide a set of key value pairs
+ * for data to be audited.
+ * 
+ * @author mweaver
+ * 
  */
-public class DirectXDRWebServiceImpl {
+public interface Auditable {
 
-    /** The context. */
-    WebServiceContext context = null;
+    public static final String MESSAGE_ID = "MESSAGE_ID";
+    public static final String REMOTE_HOST = "REMOTE_HOST";
+    public static final String ENDPOINT = "ENDPOINT";
+    public static final String TO = "TO";
+    public static final String THIS_HOST = "THIS_HOST";
+    public static final String PAT_ID = "PAT_ID";
+    public static final String SUBSET_ID = "SUBSET_ID";
+    public static final String P_ID = "P_ID";
 
-    /**
-     * Implementation business object of the JAXB web service interface. Manipulates web services headers, and delegates
-     * processing to the orchestration object.
-     * 
-     * @param body the body of the XDR message.
-     * @param wsContext the ws context for manipulating ws headers.
-     * @return the registry response type
-     * @throws Exception the exception
-     */
-    public RegistryResponseType provideAndRegisterDocumentSet(ProvideAndRegisterDocumentSetRequestType body,
-            WebServiceContext wsContext) throws Exception {
-        RegistryResponseType resp = null;
-        this.context = wsContext;
+    public static final String[] AuditKeys = { MESSAGE_ID, REMOTE_HOST, ENDPOINT, TO, THIS_HOST, PAT_ID, SUBSET_ID,
+            P_ID };
 
-        DirectHeaderExtractor extractor = new DirectHeaderExtractor();
+    public Map<String, String> getAuditableValues();
 
-        SoapDirectEdgeOrchestration orch = new SoapDirectEdgeOrchestration();
-        resp = orch.orchestrate(body, extractor.getHeaderProperties(wsContext));
-        
-        // TODO: set Response header data
-        return resp;
-    }
+    public String getMessageId();
+
+    public void setMessageId(String messageId);
+
+    public String getRemoteHost();
+
+    public void setRemoteHost(String remoteHost);
+
+    public String getEndpoint();
+
+    public void setEndpoint(String endpoint);
+
+    public String getTo();
+
+    public void setTo(String to);
+
+    public String getThisHost();
+
+    public void setThisHost(String thisHost);
+
+    public String getPatId();
+
+    public void setPatId(String patId);
+
+    public String getSubsetId();
+
+    public void SubsetId(String subsetId);
+
+    public String getPid();
+
+    public void setPid(String pid);
+
 }

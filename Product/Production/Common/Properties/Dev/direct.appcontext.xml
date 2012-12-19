@@ -15,12 +15,10 @@
     <import resource="direct.beans.xml"/>
 
     <!-- Set up polling for inbound and outbound direct messages -->
-    <!-- 
     <task:scheduled-tasks scheduler="directScheduler">
         <task:scheduled ref="intDirectMailClient" method="handleMessages" cron="0,30 * * * * *"/>
         <task:scheduled ref="extDirectMailClient" method="handleMessages" cron="0,30 * * * * *"/>
     </task:scheduled-tasks>
     <task:scheduler id="directScheduler" />
-     -->
      
 </beans>
