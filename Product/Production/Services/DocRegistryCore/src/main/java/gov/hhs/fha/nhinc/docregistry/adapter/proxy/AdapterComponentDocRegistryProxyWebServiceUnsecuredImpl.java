@@ -39,27 +39,18 @@ import ihe.iti.xds_b._2007.DocumentRegistryPortType;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryError;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+
+import org.apache.log4j.Logger;
 
 /**
  * 
  * @author svalluripalli
  */
 public class AdapterComponentDocRegistryProxyWebServiceUnsecuredImpl implements AdapterComponentDocRegistryProxy {
-    private Log log = null;
+    private static final Logger LOG = Logger.getLogger(AdapterComponentDocRegistryProxyWebServiceUnsecuredImpl.class);
     private WebServiceProxyHelper oProxyHelper = null;
 
-    public AdapterComponentDocRegistryProxyWebServiceUnsecuredImpl() {
-        log = createLogger();
-        oProxyHelper = createWebServiceProxyHelper();
-    }
-
-    protected Log createLogger() {
-        return LogFactory.getLog(getClass());
-    }
-
-    protected WebServiceProxyHelper createWebServiceProxyHelper() {
+   protected WebServiceProxyHelper createWebServiceProxyHelper() {
         return new WebServiceProxyHelper();
     }
 
@@ -79,7 +70,7 @@ public class AdapterComponentDocRegistryProxyWebServiceUnsecuredImpl implements 
      * @return AdhocQueryResponse
      */
     public AdhocQueryResponse registryStoredQuery(AdhocQueryRequest msg, AssertionType assertion) {
-        log.debug("Begin registryStoredQuery");
+        LOG.debug("Begin registryStoredQuery");
         AdhocQueryResponse response = null;
 
         try {
@@ -88,7 +79,7 @@ public class AdapterComponentDocRegistryProxyWebServiceUnsecuredImpl implements 
             if (NullChecker.isNotNullish(url)) {
 
                 if (msg == null) {
-                    log.error("Message was null");
+                    LOG.error("Message was null");
                 } else {
                     ServicePortDescriptor<DocumentRegistryPortType> portDescriptor = getServicePortDescriptor(NhincConstants.ADAPTER_API_LEVEL.LEVEL_a0);
 
@@ -99,11 +90,11 @@ public class AdapterComponentDocRegistryProxyWebServiceUnsecuredImpl implements 
                             "documentRegistryRegistryStoredQuery", msg);
                 }
             } else {
-                log.error("Failed to call the web service (" + NhincConstants.ADAPTER_DOC_REGISTRY_SERVICE_NAME
+                LOG.error("Failed to call the web service (" + NhincConstants.ADAPTER_DOC_REGISTRY_SERVICE_NAME
                         + ").  The URL is null.");
             }
         } catch (Exception ex) {
-            log.error("Error sending Adapter Component Doc Registry Unsecured message: " + ex.getMessage(), ex);
+            LOG.error("Error sending Adapter Component Doc Registry Unsecured message: " + ex.getMessage(), ex);
             response = new AdhocQueryResponse();
             response.setStatus(DocumentConstants.XDS_QUERY_RESPONSE_STATUS_FAILURE);
 
@@ -114,7 +105,7 @@ public class AdapterComponentDocRegistryProxyWebServiceUnsecuredImpl implements 
             response.getRegistryErrorList().getRegistryError().add(registryError);
         }
 
-        log.debug("End registryStoredQuery");
+        LOG.debug("End registryStoredQuery");
         return response;
     }
 }

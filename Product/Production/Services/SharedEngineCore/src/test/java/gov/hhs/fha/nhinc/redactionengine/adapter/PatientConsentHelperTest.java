@@ -130,12 +130,7 @@ public class PatientConsentHelperTest {
             String assigningAuthorityId = null;
 
             final AdapterPIPImpl adapterPIP = new AdapterPIPImpl() {
-                @Override
-                protected Log createLogger() {
-                    return mockLog;
-                }
-
-                @Override
+               @Override
                 protected PatientConsentManager getPatientConsentManager() {
                     return mockPatientConsentMgr;
                 }
@@ -146,11 +141,6 @@ public class PatientConsentHelperTest {
                     return null;
                 }
             };
-            context.checking(new Expectations() {
-                {
-                    allowing(mockLog).debug(with(any(String.class)));
-                }
-            });
             PatientPreferencesType response = testRetrievePatientConsentbyPatientId(patientId, assigningAuthorityId,
                     adapterPIP);
             assertNull("PatientPreferencesType was not null", response);

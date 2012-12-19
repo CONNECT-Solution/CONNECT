@@ -32,8 +32,8 @@ import gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyResponseType;
 import oasis.names.tc.xacml._2_0.context.schema.os.DecisionType;
 import oasis.names.tc.xacml._2_0.context.schema.os.ResponseType;
 import oasis.names.tc.xacml._2_0.context.schema.os.ResultType;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+
+import org.apache.log4j.Logger;;
 
 /**
  * This is a concrete implementation of the AdapterPolicyEngineOrchestrator interface that always returns a permit.
@@ -41,15 +41,7 @@ import org.apache.commons.logging.LogFactory;
  * @author Les Westberg
  */
 public class AdapterPolicyEngineOrchProxyPermitNoOpImpl implements AdapterPolicyEngineOrchProxy {
-    private Log log = null;
-
-    public AdapterPolicyEngineOrchProxyPermitNoOpImpl() {
-        log = createLogger();
-    }
-
-    protected Log createLogger() {
-        return LogFactory.getLog(getClass());
-    }
+    private static final Logger LOG = Logger.getLogger(AdapterPolicyEngineOrchProxyPermitNoOpImpl.class);
 
     /**
      * Given a request to check the access policy, this service will always return a permit response.
@@ -58,14 +50,14 @@ public class AdapterPolicyEngineOrchProxyPermitNoOpImpl implements AdapterPolicy
      * @return The response which contains the access decision
      */
     public CheckPolicyResponseType checkPolicy(CheckPolicyRequestType checkPolicyRequest, AssertionType assertion) {
-        log.debug("Begin AdapterPolicyEngineOrchProxyPermitNoOpImpl.checkPolicy");
+        LOG.trace("Begin AdapterPolicyEngineOrchProxyPermitNoOpImpl.checkPolicy");
         CheckPolicyResponseType oPolicyResponse = new CheckPolicyResponseType();
         ResponseType oResponse = new ResponseType();
         ResultType oResult = new ResultType();
         oResult.setDecision(DecisionType.PERMIT);
         oResponse.getResult().add(oResult);
         oPolicyResponse.setResponse(oResponse);
-        log.debug("End AdapterPolicyEngineOrchProxyPermitNoOpImpl.checkPolicy");
+        LOG.trace("End AdapterPolicyEngineOrchProxyPermitNoOpImpl.checkPolicy");
         return oPolicyResponse;
     }
 }

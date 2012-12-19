@@ -40,8 +40,8 @@ import oasis.names.tc.ebxml_regrep.xsd.rim._3.ExtrinsicObjectType;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.IdentifiableType;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.SlotType1;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.ValueListType;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+
+import org.apache.log4j.Logger;
 
 /**
  * Utility Methods for AdhocQuery requests and responses
@@ -50,15 +50,7 @@ import org.apache.commons.logging.LogFactory;
  */
 public class QueryUtil {
 
-    private Log log = null;
-
-    public QueryUtil() {
-        log = createLogger();
-    }
-
-    protected Log createLogger() {
-        return ((log != null) ? log : LogFactory.getLog(getClass()));
-    }
+    private static final Logger LOG = Logger.getLogger(QueryUtil.class);
 
     /**
      * This method extracts the patient ID from the AdhocQueryResponse message and returns it.
@@ -272,7 +264,7 @@ public class QueryUtil {
      */
     public AdhocQueryRequest createAdhocQueryRequest(String sPatientId, String sAssigningAuthority)
             throws AdapterPIPException {
-        log.debug("In createAdhocQueryRequest");
+        LOG.debug("In createAdhocQueryRequest");
 
         AdhocQueryRequest oRequest = new AdhocQueryRequest();
         String sHL7PatId = "";
@@ -314,8 +306,8 @@ public class QueryUtil {
         oValueList = new ValueListType();
         oSlot.setValueList(oValueList);
         oValueList.getValue().add(CDAConstants.ADHOC_QUERY_CLASS_CODE);
-        if (log.isDebugEnabled()) {
-            log.debug("Set class code for query to: " + CDAConstants.ADHOC_QUERY_CLASS_CODE);
+        if (LOG.isDebugEnabled()) {
+            LOG.debug("Set class code for query to: " + CDAConstants.ADHOC_QUERY_CLASS_CODE);
         }
 
         // Status
@@ -326,8 +318,8 @@ public class QueryUtil {
         oValueList = new ValueListType();
         oSlot.setValueList(oValueList);
         oValueList.getValue().add(CDAConstants.STATUS_APPROVED_QUERY_VALUE);
-        if (log.isDebugEnabled()) {
-            log.debug("Set status for query to: " + CDAConstants.STATUS_APPROVED_QUERY_VALUE);
+        if (LOG.isDebugEnabled()) {
+            LOG.debug("Set status for query to: " + CDAConstants.STATUS_APPROVED_QUERY_VALUE);
         }
 
         return oRequest;

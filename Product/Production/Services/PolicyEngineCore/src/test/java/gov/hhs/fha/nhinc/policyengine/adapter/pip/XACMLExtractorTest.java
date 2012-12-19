@@ -32,7 +32,6 @@ import gov.hhs.fha.nhinc.common.nhinccommonadapter.PatientPreferencesType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.UserIdFormatType;
 import oasis.names.tc.xacml._2_0.policy.schema.os.PolicyType;
 
-import org.apache.commons.logging.Log;
 import org.jmock.Mockery;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -508,14 +507,7 @@ public class XACMLExtractorTest {
     @Ignore
     @Test
     public void testExtractPatientPreferences() {
-        final Log mockLog = context.mock(Log.class);
-
-        XACMLExtractor oExtractor = new XACMLExtractor() {
-            @Override
-            protected Log createLogger() {
-                return mockLog;
-            }
-        };
+        XACMLExtractor oExtractor = new XACMLExtractor();
 
         // Test Policy 1
         // --------------

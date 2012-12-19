@@ -29,8 +29,8 @@ package gov.hhs.fha.nhinc.docregistry.adapter.proxy;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+
+import org.apache.log4j.Logger;
 
 /**
  * 
@@ -38,10 +38,10 @@ import org.apache.commons.logging.LogFactory;
  */
 public class AdapterComponentDocRegistryProxyNoOpImpl implements AdapterComponentDocRegistryProxy {
 
-    private static Log log = LogFactory.getLog(AdapterComponentDocRegistryProxyNoOpImpl.class);
+    private static final Logger LOG = Logger.getLogger(AdapterComponentDocRegistryProxyNoOpImpl.class);
 
     public AdhocQueryResponse registryStoredQuery(AdhocQueryRequest request, AssertionType assertion) {
-        log.debug("Using NoOp Implementation for Adapter Component Doc Registry Service");
+        LOG.trace("Using NoOp Implementation for Adapter Component Doc Registry Service");
         return new AdhocQueryResponse();
     }
 }

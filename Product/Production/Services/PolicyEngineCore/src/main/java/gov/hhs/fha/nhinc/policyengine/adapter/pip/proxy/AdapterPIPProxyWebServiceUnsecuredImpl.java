@@ -45,8 +45,7 @@ import gov.hhs.fha.nhinc.policyengine.adapter.pip.proxy.service.AdapterPIPRetrie
 import gov.hhs.fha.nhinc.policyengine.adapter.pip.proxy.service.AdapterPIPStoreConsentServicePortDescriptor;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 
 /**
  * This is the concrete implementation for the Web Service based call to the AdapterPIP.
@@ -54,16 +53,11 @@ import org.apache.commons.logging.LogFactory;
  * @author Les Westberg
  */
 public class AdapterPIPProxyWebServiceUnsecuredImpl implements AdapterPIPProxy {
-    private Log log = null;
+    private static final Logger LOG = Logger.getLogger(AdapterPIPProxyWebServiceUnsecuredImpl.class);
     private WebServiceProxyHelper oProxyHelper = null;
 
     public AdapterPIPProxyWebServiceUnsecuredImpl() {
-        log = createLogger();
         oProxyHelper = createWebServiceProxyHelper();
-    }
-
-    protected Log createLogger() {
-        return LogFactory.getLog(getClass());
     }
 
     protected WebServiceProxyHelper createWebServiceProxyHelper() {
@@ -84,14 +78,14 @@ public class AdapterPIPProxyWebServiceUnsecuredImpl implements AdapterPIPProxy {
      */
     public RetrievePtConsentByPtIdResponseType retrievePtConsentByPtId(RetrievePtConsentByPtIdRequestType request,
             AssertionType assertion) {
-        log.debug("Begin AdapterPIPProxyWebServiceUnsecuredImpl.retrievePtConsentByPtId");
+        LOG.trace("Begin AdapterPIPProxyWebServiceUnsecuredImpl.retrievePtConsentByPtId");
         RetrievePtConsentByPtIdResponseType oResponse = new RetrievePtConsentByPtIdResponseType();
         String serviceName = NhincConstants.ADAPTER_PIP_SERVICE_NAME;
 
         try {
-            log.debug("Before target system URL look up.");
+            LOG.debug("Before target system URL look up.");
             String url = oProxyHelper.getAdapterEndPointFromConnectionManager(serviceName);
-            log.debug("After target system URL look up. URL for service: " + serviceName + " is: " + url);
+            LOG.debug("After target system URL look up. URL for service: " + serviceName + " is: " + url);
 
             if (NullChecker.isNotNullish(url)) {
                 ServicePortDescriptor<AdapterPIPPortType> portDescriptor = new AdapterPIPRetrieveByPatientIdServicePortDescriptor();
@@ -101,16 +95,16 @@ public class AdapterPIPProxyWebServiceUnsecuredImpl implements AdapterPIPProxy {
                 oResponse = (RetrievePtConsentByPtIdResponseType) client.invokePort(AdapterPIPPortType.class,
                         "retrievePtConsentByPtId", request);
             } else {
-                log.error("Failed to call the web service (" + serviceName + ").  The URL is null.");
+                LOG.error("Failed to call the web service (" + serviceName + ").  The URL is null.");
             }
         } catch (Exception e) {
             String sErrorMessage = "Error occurred calling AdapterPIPProxyWebServiceUnsecuredImpl.retrievePtConsentByPtId.  Error: "
                     + e.getMessage();
-            log.error(sErrorMessage, e);
+            LOG.error(sErrorMessage, e);
             throw new RuntimeException(sErrorMessage, e);
         }
 
-        log.debug("End AdapterPIPProxyWebServiceUnsecuredImpl.retrievePtConsentByPtId");
+        LOG.trace("End AdapterPIPProxyWebServiceUnsecuredImpl.retrievePtConsentByPtId");
         return oResponse;
     }
 
@@ -122,16 +116,16 @@ public class AdapterPIPProxyWebServiceUnsecuredImpl implements AdapterPIPProxy {
      */
     public RetrievePtConsentByPtDocIdResponseType retrievePtConsentByPtDocId(
             RetrievePtConsentByPtDocIdRequestType request, AssertionType assertion) {
-        log.debug("Begin AdapterPIPProxyWebServiceUnsecuredImpl.retrievePtConsentByPtDocId");
+        LOG.trace("Begin AdapterPIPProxyWebServiceUnsecuredImpl.retrievePtConsentByPtDocId");
         RetrievePtConsentByPtDocIdResponseType oResponse = new RetrievePtConsentByPtDocIdResponseType();
         String serviceName = NhincConstants.ADAPTER_PIP_SERVICE_NAME;
 
         try {
-            log.debug("Before target system URL look up.");
+            LOG.debug("Before target system URL look up.");
             String url = oProxyHelper.getEndPointFromConnectionManagerByAdapterAPILevel(serviceName,
                     ADAPTER_API_LEVEL.LEVEL_a0);
-            if (log.isDebugEnabled()) {
-                log.debug("After target system URL look up. URL for service: " + serviceName + " is: " + url);
+            if (LOG.isDebugEnabled()) {
+                LOG.debug("After target system URL look up. URL for service: " + serviceName + " is: " + url);
             }
 
             if (NullChecker.isNotNullish(url)) {
@@ -142,16 +136,16 @@ public class AdapterPIPProxyWebServiceUnsecuredImpl implements AdapterPIPProxy {
                 oResponse = (RetrievePtConsentByPtDocIdResponseType) client.invokePort(AdapterPIPPortType.class,
                         "retrievePtConsentByPtDocId", request);
             } else {
-                log.error("Failed to call the web service (" + serviceName + ").  The URL is null.");
+                LOG.error("Failed to call the web service (" + serviceName + ").  The URL is null.");
             }
         } catch (Exception e) {
             String sErrorMessage = "Error occurred calling AdapterPIPProxyWebServiceUnsecuredImpl.retrievePtConsentByPtDocId.  Error: "
                     + e.getMessage();
-            log.error(sErrorMessage, e);
+            LOG.error(sErrorMessage, e);
             throw new RuntimeException(sErrorMessage, e);
         }
 
-        log.debug("End AdapterPIPProxyWebServiceUnsecuredImpl.retrievePtConsentByPtDocId");
+        LOG.trace("End AdapterPIPProxyWebServiceUnsecuredImpl.retrievePtConsentByPtDocId");
         return oResponse;
     }
 
@@ -163,14 +157,14 @@ public class AdapterPIPProxyWebServiceUnsecuredImpl implements AdapterPIPProxy {
      *         followed by the error information.
      */
     public StorePtConsentResponseType storePtConsent(StorePtConsentRequestType request, AssertionType assertion) {
-        log.debug("Begin AdapterPIPProxyWebServiceUnsecuredImpl.storePtConsent");
+        LOG.trace("Begin AdapterPIPProxyWebServiceUnsecuredImpl.storePtConsent");
         StorePtConsentResponseType oResponse = new StorePtConsentResponseType();
         String serviceName = NhincConstants.ADAPTER_PIP_SERVICE_NAME;
 
         try {
-            log.debug("Before target system URL look up.");
+            LOG.debug("Before target system URL look up.");
             String url = oProxyHelper.getAdapterEndPointFromConnectionManager(serviceName);
-            log.debug("After target system URL look up. URL for service: " + serviceName + " is: " + url);
+            LOG.debug("After target system URL look up. URL for service: " + serviceName + " is: " + url);
 
             if (NullChecker.isNotNullish(url)) {
                 ServicePortDescriptor<AdapterPIPPortType> portDescriptor = new AdapterPIPStoreConsentServicePortDescriptor();
@@ -180,17 +174,17 @@ public class AdapterPIPProxyWebServiceUnsecuredImpl implements AdapterPIPProxy {
                 oResponse = (StorePtConsentResponseType) client.invokePort(AdapterPIPPortType.class, "storePtConsent",
                         request);
             } else {
-                log.error("Failed to call the web service (" + serviceName + ").  The URL is null.");
+                LOG.error("Failed to call the web service (" + serviceName + ").  The URL is null.");
             }
         } catch (Exception e) {
             String sErrorMessage = "Error occurred calling AdapterPIPProxyWebServiceUnsecuredImpl.storePtConsent.  Error: "
                     + e.getMessage();
             oResponse.setStatus("FAILED: " + sErrorMessage);
-            log.error(sErrorMessage, e);
+            LOG.error(sErrorMessage, e);
             throw new RuntimeException(sErrorMessage, e);
         }
 
-        log.debug("End AdapterPIPProxyWebServiceUnsecuredImpl.storePtConsent");
+        LOG.trace("End AdapterPIPProxyWebServiceUnsecuredImpl.storePtConsent");
         return oResponse;
     }
 }

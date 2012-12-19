@@ -45,7 +45,6 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
-import org.apache.commons.logging.Log;
 import org.hl7.v3.ADExplicit;
 import org.hl7.v3.ActClassClinicalDocument;
 import org.hl7.v3.AdxpExplicitCity;
@@ -619,14 +618,7 @@ public class CdaPdfCreatorTest {
      * @return The CDA document that came out of the transformation.
      */
     private POCDMT000040ClinicalDocument createTheCDADocs(PatientPreferencesType oPtPref) {
-        final Log mockLog = context.mock(Log.class);
-
-        CdaPdfCreator oCreator = new CdaPdfCreator() {
-            @Override
-            protected Log createLogger() {
-                return mockLog;
-            }
-        };
+        CdaPdfCreator oCreator = new CdaPdfCreator();
 
         // Test Policy 1
         // --------------
