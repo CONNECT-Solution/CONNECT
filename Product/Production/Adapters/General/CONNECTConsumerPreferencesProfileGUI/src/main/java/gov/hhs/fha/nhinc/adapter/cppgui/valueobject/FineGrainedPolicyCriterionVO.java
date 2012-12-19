@@ -28,8 +28,8 @@ package gov.hhs.fha.nhinc.adapter.cppgui.valueobject;
 
 import gov.hhs.fha.nhinc.adapter.cppgui.CPPConstants;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+
+import org.apache.log4j.Logger;
 
 /**
  * 
@@ -37,7 +37,7 @@ import org.apache.commons.logging.LogFactory;
  */
 public class FineGrainedPolicyCriterionVO {
 
-    private static Log log = LogFactory.getLog(FineGrainedPolicyCriterionVO.class);
+    private static final Logger LOG = Logger.getLogger(FineGrainedPolicyCriterionVO.class);
 
     /** Creates a new instance of FineGrainedPolicyCriteriaForm */
     public FineGrainedPolicyCriterionVO() {
@@ -119,15 +119,15 @@ public class FineGrainedPolicyCriterionVO {
 
         try {
             if ((propertyFile == null) || ((propertyFile.trim()).equals(""))) {
-                log.error("propertyFile value is null");
+                LOG.error("propertyFile value is null");
             } else if ((propertyName == null) || ((propertyName.trim()).equals(""))) {
-                log.error("propertyName value is null");
+                LOG.error("propertyName value is null");
             } else {
                 description = PropertyAccessor.getInstance().getProperty(propertyFile, propertyName);
             }
 
         } catch (Exception e) {
-            log.error("Exception while reading the property: " + propertyFile + "." + propertyName, e);
+            LOG.error("Exception while reading the property: " + propertyFile + "." + propertyName, e);
         }
 
         return description;

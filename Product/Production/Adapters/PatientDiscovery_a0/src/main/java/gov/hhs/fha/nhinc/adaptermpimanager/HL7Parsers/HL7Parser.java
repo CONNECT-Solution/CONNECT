@@ -26,28 +26,27 @@
  */
 package gov.hhs.fha.nhinc.adaptermpimanager.HL7Parsers;
 
-import gov.hhs.fha.nhinc.mpilib.*;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-import org.hl7.v3.*;
+import org.apache.log4j.Logger;
+import org.hl7.v3.II;
+import org.hl7.v3.PRPAIN201301UV02;
 
 /**
  * 
  * @author rayj
  */
 public class HL7Parser {
-    private static Log log = LogFactory.getLog(HL7Parser.class);
+    private static final Logger LOG = Logger.getLogger(HL7Parser.class);
     public static final String SSN_OID = "2.16.840.1.113883.4.1";
 
     public static void PrintMessageIdFromMessage(Object message) {
-        log.debug("Begin HL7Parser.PrintMessageIdFromMessage(Object)");
+        LOG.debug("Begin HL7Parser.PrintMessageIdFromMessage(Object)");
         if (message != null) {
             if (message instanceof PRPAIN201301UV02) {
                 HL7Parser201301.PrintMessageIdFromMessage((PRPAIN201301UV02) message);
             }
 
         }
-        log.debug("End HL7Parser.PrintMessageIdFromMessage(Object)");
+        LOG.debug("End HL7Parser.PrintMessageIdFromMessage(Object)");
     }
 
     public static void PrintId(II id, String idname) {
@@ -55,10 +54,10 @@ public class HL7Parser {
             idname = "";
         }
         if (!(id == null)) {
-            log.info(idname + ".id.root=" + id.getRoot() + ";");
-            log.info(idname + ".id.extension=" + id.getExtension() + ";");
+            LOG.info(idname + ".id.root=" + id.getRoot() + ";");
+            LOG.info(idname + ".id.extension=" + id.getExtension() + ";");
         } else {
-            log.info("id for " + idname + " is null");
+            LOG.info("id for " + idname + " is null");
         }
     }
 

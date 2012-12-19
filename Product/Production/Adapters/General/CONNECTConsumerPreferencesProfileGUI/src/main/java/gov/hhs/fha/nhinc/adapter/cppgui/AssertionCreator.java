@@ -33,11 +33,8 @@ import gov.hhs.fha.nhinc.common.nhinccommon.PersonNameType;
 import gov.hhs.fha.nhinc.common.nhinccommon.UserType;
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+
+import org.apache.log4j.Logger;
 
 /**
  * This class creates a generic assertion class. Some services need this class to proceed.
@@ -64,7 +61,7 @@ public class AssertionCreator {
     private static final String PROPERTY_KEY_SIGN = "AssertionSignDate";
     private static final String PROPERTY_KEY_ACCESS_CONSENT = "AssertionAccessConsent";
 
-    private static Log log = LogFactory.getLog(AssertionCreator.class);
+    private static final Logger LOG = Logger.getLogger(AssertionCreator.class);
 
     public AssertionType createAssertion() {
 
@@ -108,7 +105,7 @@ public class AssertionCreator {
             // PROPERTY_KEY_ACCESS_CONSENT));
 
         } catch (PropertyAccessException ex) {
-            log.error("Universal Client can not access property: " + ex.getMessage());
+            LOG.error("Universal Client can not access property: " + ex.getMessage());
         }
         return assertOut;
     }

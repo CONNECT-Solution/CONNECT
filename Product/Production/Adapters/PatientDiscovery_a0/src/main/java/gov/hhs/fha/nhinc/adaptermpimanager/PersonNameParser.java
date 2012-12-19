@@ -26,8 +26,7 @@
  */
 package gov.hhs.fha.nhinc.adaptermpimanager;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 import gov.hhs.fha.nhinc.mpilib.*;
 
 /**
@@ -35,7 +34,7 @@ import gov.hhs.fha.nhinc.mpilib.*;
  * @author mflynn02
  */
 public class PersonNameParser {
-    private static Log log = LogFactory.getLog(PersonNameParser.class);
+    private static final Logger LOG = Logger.getLogger(PersonNameParser.class);
 
     private enum nameorder {
 
@@ -43,7 +42,7 @@ public class PersonNameParser {
     }
 
     public static PersonName SplitName(String name) {
-        log.debug("Begin PersonNameParser.SplitName(String)");
+        LOG.debug("Begin PersonNameParser.SplitName(String)");
         PersonName personname;
         if (name == null || name.contentEquals("")) {
             personname = new PersonName();
@@ -60,12 +59,12 @@ public class PersonNameParser {
                 }
             }
         }
-        log.debug("End PersonNameParser.SplitName(String)");
+        LOG.debug("End PersonNameParser.SplitName(String)");
         return personname;
     }
 
     private static PersonName SplitNameByDelimiter(String name, String delimiter, nameorder order) {
-        log.debug("Begin PersonNameParser.SplitNameByDelimiter(String,String,nameorder)");
+        LOG.debug("Begin PersonNameParser.SplitNameByDelimiter(String,String,nameorder)");
         PersonName personname = null;
         if (name.contains(delimiter)) {
             String[] nameparts = name.split(delimiter);
@@ -91,12 +90,12 @@ public class PersonNameParser {
         } else {
             personname = null;
         }
-        log.debug("End PersonNameParser.SplitNameByDelimiter(String,String,nameorder)");
+        LOG.debug("End PersonNameParser.SplitNameByDelimiter(String,String,nameorder)");
         return personname;
     }
 
     public static String SerializeName(PersonName personname) {
-        log.debug("Begin PersonNameParser.SerializeName(PersonName)");
+        LOG.debug("Begin PersonNameParser.SerializeName(PersonName)");
         String serializedname = null;
         if (personname == null) {
             serializedname = "";
@@ -107,7 +106,7 @@ public class PersonNameParser {
         } else {
             serializedname = personname.getLastName() + "," + personname.getFirstName();
         }
-        log.debug("End PersonNameParser.SerializeName(PersonName)");
+        LOG.debug("End PersonNameParser.SerializeName(PersonName)");
         return serializedname;
     }
 

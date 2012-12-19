@@ -31,8 +31,8 @@ import gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterProvideAndRegisterDocu
 import gov.hhs.healthit.nhin.XDRAcknowledgementType;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
 import javax.xml.ws.WebServiceContext;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+
+import org.apache.log4j.Logger;
 
 /**
  * 
@@ -40,7 +40,7 @@ import org.apache.commons.logging.LogFactory;
  */
 public class AdapterComponentXDRRequestImpl {
 
-    private static Log log = LogFactory.getLog(AdapterComponentXDRRequestImpl.class);
+    private static final Logger LOG = Logger.getLogger(AdapterComponentXDRRequestImpl.class);
 
     /**
      * Extract information from the context and place it into the assertion.
@@ -61,7 +61,7 @@ public class AdapterComponentXDRRequestImpl {
      */
     public XDRAcknowledgementType provideAndRegisterDocumentSetBRequest(
             AdapterProvideAndRegisterDocumentSetRequestType body, WebServiceContext context) {
-        log.debug("Entering AdapterComponentXDRRequestImpl.provideAndRegisterDocumentSetBRequest");
+        LOG.debug("Entering AdapterComponentXDRRequestImpl.provideAndRegisterDocumentSetBRequest");
 
         AssertionType assertion = null;
         ProvideAndRegisterDocumentSetRequestType request = null;
@@ -78,7 +78,7 @@ public class AdapterComponentXDRRequestImpl {
         XDRAcknowledgementType response = oOrchestrator.provideAndRegisterDocumentSetBRequest(request, assertion);
 
         // Send response back to the initiating Gateway
-        log.debug("Exiting AdapterComponentXDRRequestImpl.provideAndRegisterDocumentSetBRequest");
+        LOG.debug("Exiting AdapterComponentXDRRequestImpl.provideAndRegisterDocumentSetBRequest");
         return response;
     }
 }

@@ -26,15 +26,35 @@
  */
 package gov.hhs.fha.nhinc.adaptermpimanager.HL7Parsers;
 
-import gov.hhs.fha.nhinc.adaptermpimanager.*;
-import gov.hhs.fha.nhinc.mpilib.*;
-import java.util.List;
+import gov.hhs.fha.nhinc.mpilib.Identifier;
+import gov.hhs.fha.nhinc.mpilib.Identifiers;
+import gov.hhs.fha.nhinc.mpilib.Patient;
+import gov.hhs.fha.nhinc.mpilib.PersonName;
+
 import java.io.Serializable;
 import java.util.Iterator;
+import java.util.List;
+
 import javax.xml.bind.JAXBElement;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-import org.hl7.v3.*;
+
+import org.apache.log4j.Logger;
+import org.hl7.v3.CE;
+import org.hl7.v3.ENXPExplicit;
+import org.hl7.v3.EnExplicitFamily;
+import org.hl7.v3.EnExplicitGiven;
+import org.hl7.v3.II;
+import org.hl7.v3.MCCIMT000100UV01Device;
+import org.hl7.v3.MCCIMT000100UV01Sender;
+import org.hl7.v3.ObjectFactory;
+import org.hl7.v3.PNExplicit;
+import org.hl7.v3.PRPAIN201301UV02MFMIMT700701UV01ControlActProcess;
+import org.hl7.v3.PRPAIN201301UV02MFMIMT700701UV01RegistrationEvent;
+import org.hl7.v3.PRPAIN201301UV02MFMIMT700701UV01Subject1;
+import org.hl7.v3.PRPAIN201301UV02MFMIMT700701UV01Subject2;
+import org.hl7.v3.PRPAMT201301UV02OtherIDs;
+import org.hl7.v3.PRPAMT201301UV02Patient;
+import org.hl7.v3.PRPAMT201301UV02Person;
+import org.hl7.v3.TSExplicit;
 
 /**
  * 
@@ -42,7 +62,7 @@ import org.hl7.v3.*;
  */
 public class HL7Parser201301 {
 
-    private static Log log = LogFactory.getLog(HL7Parser201301.class);
+    private static final Logger LOG = Logger.getLogger(HL7Parser201301.class);
 
     public static void PrintMessageIdFromMessage(org.hl7.v3.PRPAIN201301UV02 message) {
         if (!(message == null)) {
@@ -54,10 +74,10 @@ public class HL7Parser201301 {
         String genderCode = null;
         CE administrativeGenderCode = person.getAdministrativeGenderCode();
         if (administrativeGenderCode == null) {
-            log.info("message does not contain a gender code");
+            LOG.info("message does not contain a gender code");
         } else {
-            log.info("person.getAdministrativeGenderCode().getCode()=" + person.getAdministrativeGenderCode().getCode());
-            log.info("person.getAdministrativeGenderCode().getDisplayName()="
+            LOG.info("person.getAdministrativeGenderCode().getCode()=" + person.getAdministrativeGenderCode().getCode());
+            LOG.info("person.getAdministrativeGenderCode().getDisplayName()="
                     + person.getAdministrativeGenderCode().getDisplayName());
             genderCode = person.getAdministrativeGenderCode().getCode();
         }
@@ -67,13 +87,13 @@ public class HL7Parser201301 {
     public static String ExtractBirthdate(PRPAMT201301UV02Person person) {
         String birthDate = null;
         if (person.getBirthTime() == null) {
-            log.info("message does not contain a birthtime");
+            LOG.info("message does not contain a birthtime");
         } else {
             birthDate = person.getBirthTime().getValue();
             if (birthDate == null) {
-                log.info("message does not contain a birthtime");
+                LOG.info("message does not contain a birthtime");
             } else {
-                log.info("person.getBirthTime().getValue()=" + person.getBirthTime().getValue());
+                LOG.info("person.getBirthTime().getValue()=" + person.getBirthTime().getValue());
             }
         }
         return birthDate;
@@ -84,12 +104,12 @@ public class HL7Parser201301 {
         // also assume one name, not multiple names
         PersonName personname = new PersonName();
 
-        log.info("patientPerson.getName().size() " + person.getName().size());
+        LOG.info("patientPerson.getName().size() " + person.getName().size());
         if (person.getName() != null && person.getName().size() > 0 && person.getName().get(0) != null
                 && person.getName().get(0).getContent() != null) {
 
             List<Serializable> choice = person.getName().get(0).getContent();
-            log.info("choice.size()=" + choice.size());
+            LOG.info("choice.size()=" + choice.size());
 
             Iterator<Serializable> iterSerialObjects = choice.iterator();
 
@@ -98,12 +118,12 @@ public class HL7Parser201301 {
             EnExplicitGiven firstname = new EnExplicitGiven();
 
             while (iterSerialObjects.hasNext()) {
-                log.info("in iterSerialObjects.hasNext() loop");
+                LOG.info("in iterSerialObjects.hasNext() loop");
 
                 Serializable contentItem = iterSerialObjects.next();
 
                 if (contentItem instanceof String) {
-                    log.info("contentItem is string");
+                    LOG.info("contentItem is string");
                     String strValue = (String) contentItem;
 
                     if (nameString != null) {
@@ -111,23 +131,23 @@ public class HL7Parser201301 {
                     } else {
                         nameString = strValue;
                     }
-                    log.info("nameString=" + nameString);
+                    LOG.info("nameString=" + nameString);
                 } else if (contentItem instanceof JAXBElement) {
-                    log.info("contentItem is JAXBElement");
+                    LOG.info("contentItem is JAXBElement");
 
                     JAXBElement oJAXBElement = (JAXBElement) contentItem;
 
                     if (oJAXBElement.getValue() instanceof EnExplicitFamily) {
                         lastname = (EnExplicitFamily) oJAXBElement.getValue();
-                        log.info("found lastname element; content=" + lastname.getContent());
+                        LOG.info("found lastname element; content=" + lastname.getContent());
                     } else if (oJAXBElement.getValue() instanceof EnExplicitGiven) {
                         firstname = (EnExplicitGiven) oJAXBElement.getValue();
-                        log.info("found firstname element; content=" + firstname.getContent());
+                        LOG.info("found firstname element; content=" + firstname.getContent());
                     } else {
-                        log.info("other name part=" + (ENXPExplicit) oJAXBElement.getValue());
+                        LOG.info("other name part=" + (ENXPExplicit) oJAXBElement.getValue());
                     }
                 } else {
-                    log.info("contentItem is other");
+                    LOG.info("contentItem is other");
                 }
             }
 
@@ -136,23 +156,23 @@ public class HL7Parser201301 {
             boolean namefound = false;
             if (lastname.getContent() != null) {
                 personname.setLastName(lastname.getContent());
-                log.info("FamilyName : " + personname.getLastName());
+                LOG.info("FamilyName : " + personname.getLastName());
                 namefound = true;
             }
 
             if (firstname.getContent() != null) {
                 personname.setFirstName(firstname.getContent());
-                log.info("GivenName : " + personname.getFirstName());
+                LOG.info("GivenName : " + personname.getFirstName());
                 namefound = true;
             }
 
             if (!namefound && !nameString.trim().contentEquals("")) {
-                log.info("setting name by nameString " + nameString);
+                LOG.info("setting name by nameString " + nameString);
                 personname.setLastName(nameString);
             } else {
             }
         }
-        log.info("returning personname");
+        LOG.info("returning personname");
         return personname;
     }
 
@@ -162,7 +182,7 @@ public class HL7Parser201301 {
             Identifier id = new Identifier();
             id.setId(patientid.getExtension());
             id.setOrganizationId(patientid.getRoot());
-            log.info("Created id from patient identifier [organization=" + id.getOrganizationId() + "][id="
+            LOG.info("Created id from patient identifier [organization=" + id.getOrganizationId() + "][id="
                     + id.getId() + "]");
             ids.add(id);
         }
@@ -172,7 +192,7 @@ public class HL7Parser201301 {
             Identifier id = new Identifier();
             id.setId(personid.getExtension());
             id.setOrganizationId(personid.getRoot());
-            log.info("Created id from person identifier [organization=" + id.getOrganizationId() + "][id=" + id.getId()
+            LOG.info("Created id from person identifier [organization=" + id.getOrganizationId() + "][id=" + id.getId()
                     + "]");
             ids.add(id);
         }
@@ -184,7 +204,7 @@ public class HL7Parser201301 {
                     Identifier id = new Identifier();
                     id.setId(otherPersonId.getExtension());
                     id.setOrganizationId(otherPersonId.getRoot());
-                    log.info("Created id from person other identifier [organization=" + id.getOrganizationId()
+                    LOG.info("Created id from person other identifier [organization=" + id.getOrganizationId()
                             + "][id=" + id.getId() + "]");
                     ids.add(id);
                 }
@@ -225,22 +245,22 @@ public class HL7Parser201301 {
     public static PRPAMT201301UV02Patient ExtractHL7PatientFromMessage(org.hl7.v3.PRPAIN201301UV02 message) {
         // assume one subject for now
         PRPAMT201301UV02Patient patient = null;
-        log.info("in ExtractPatient");
+        LOG.info("in ExtractPatient");
 
         if (message == null) {
-            log.info("message is null - no patient");
+            LOG.info("message is null - no patient");
             return null;
         }
         PRPAIN201301UV02MFMIMT700701UV01ControlActProcess controlActProcess = message.getControlActProcess();
         if (controlActProcess == null) {
-            log.info("controlActProcess is null - no patient");
+            LOG.info("controlActProcess is null - no patient");
             return null;
         }
         HL7Parser.PrintId(controlActProcess.getId(), "controlActProcess");
 
         List<PRPAIN201301UV02MFMIMT700701UV01Subject1> subjects = controlActProcess.getSubject();
         if ((subjects == null) || (subjects.size() == 0)) {
-            log.info("subjects is blank/null - no patient");
+            LOG.info("subjects is blank/null - no patient");
             return null;
         }
 
@@ -250,26 +270,26 @@ public class HL7Parser201301 {
 
         PRPAIN201301UV02MFMIMT700701UV01RegistrationEvent registrationevent = subject.getRegistrationEvent();
         if (registrationevent == null) {
-            log.info("registrationevent is null - no patient");
+            LOG.info("registrationevent is null - no patient");
             return null;
         }
         HL7Parser.PrintId(registrationevent.getTypeId(), "registrationevent");
 
         PRPAIN201301UV02MFMIMT700701UV01Subject2 subject1 = registrationevent.getSubject1();
         if (subject1 == null) {
-            log.info("subject1 is null - no patient");
+            LOG.info("subject1 is null - no patient");
             return null;
         }
         HL7Parser.PrintId(subject1.getTypeId(), "subject1");
 
         patient = subject1.getPatient();
         if (patient == null) {
-            log.info("patient is null - no patient");
+            LOG.info("patient is null - no patient");
             return null;
         }
         HL7Parser.PrintId(patient.getId(), "patient");
 
-        log.info("done with ExtractPatient");
+        LOG.info("done with ExtractPatient");
         return patient;
     }
 
@@ -339,7 +359,7 @@ public class HL7Parser201301 {
         }
         
         if (mpiPatientName != null && mpiPatientName.getLastName().length() > 0) {
-            log.info("familyName >" + mpiPatientName.getLastName() + "<");
+            LOG.info("familyName >" + mpiPatientName.getLastName() + "<");
             EnExplicitFamily familyName = new EnExplicitFamily();
             familyName.setContent(mpiPatientName.getLastName());
             familyName.setPartType("FAM");
@@ -347,7 +367,7 @@ public class HL7Parser201301 {
         }
 
         if (mpiPatientName != null && mpiPatientName.getFirstName().length() > 0) {
-            log.info("givenName >" + mpiPatientName.getFirstName() + "<");
+            LOG.info("givenName >" + mpiPatientName.getFirstName() + "<");
             EnExplicitGiven givenName = new EnExplicitGiven();
             givenName.setContent(mpiPatientName.getFirstName());
             givenName.setPartType("GIV");

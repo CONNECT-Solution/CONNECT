@@ -15,8 +15,7 @@ import javax.xml.ws.WebServiceContext;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 
 /**
  * 
@@ -24,36 +23,28 @@ import org.apache.commons.logging.LogFactory;
  */
 public class AdapterDocQueryImpl extends BaseService {
 
-    private Log log = null;
-
-    public AdapterDocQueryImpl() {
-        log = createLogger();
-    }
-
-    protected Log createLogger() {
-        return LogFactory.getLog(getClass());
-    }
+    private static final Logger LOG = Logger.getLogger(AdapterDocQueryImpl.class);
 
     public AdhocQueryResponse respondingGatewayCrossGatewayQuery(AdhocQueryRequest request, WebServiceContext context) {
-        log.debug("Enter AdapterDocQuerySecuredImpl.respondingGatewayCrossGatewayQuery()");
+        LOG.debug("Enter AdapterDocQuerySecuredImpl.respondingGatewayCrossGatewayQuery()");
         AssertionType assertion = getAssertion(context, null);
 
         AdhocQueryResponse response = new AdapterDocQueryOrchImpl().respondingGatewayCrossGatewayQuery(request,
                 assertion);
 
-        log.debug("End AdapterDocQuerySecuredImpl.respondingGatewayCrossGatewayQuery()");
+        LOG.debug("End AdapterDocQuerySecuredImpl.respondingGatewayCrossGatewayQuery()");
         return response;
     }
 
     public AdhocQueryResponse respondingGatewayCrossGatewayQuery(RespondingGatewayCrossGatewayQueryRequestType request,
             WebServiceContext context) {
-        log.debug("Enter AdapterDocQuerySecuredImpl.respondingGatewayCrossGatewayQuery()");
+        LOG.debug("Enter AdapterDocQuerySecuredImpl.respondingGatewayCrossGatewayQuery()");
         AssertionType assertion = getAssertion(context, request.getAssertion());
 
         AdhocQueryResponse response = new AdapterDocQueryOrchImpl().respondingGatewayCrossGatewayQuery(
                 request.getAdhocQueryRequest(), assertion);
 
-        log.debug("End AdapterDocQuerySecuredImpl.respondingGatewayCrossGatewayQuery()");
+        LOG.debug("End AdapterDocQuerySecuredImpl.respondingGatewayCrossGatewayQuery()");
         return response;
     }
 }

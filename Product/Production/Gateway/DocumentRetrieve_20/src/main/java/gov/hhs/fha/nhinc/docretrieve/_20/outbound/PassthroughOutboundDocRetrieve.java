@@ -36,8 +36,6 @@ import gov.hhs.fha.nhinc.orchestration.CONNECTOutboundOrchestrator;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
 
-import org.apache.commons.logging.Log;
-
 /**
  * @author akong
  *
@@ -57,8 +55,8 @@ public class PassthroughOutboundDocRetrieve extends gov.hhs.fha.nhinc.docretriev
      * @param orchestrator
      * @param log
      */
-    public PassthroughOutboundDocRetrieve(CONNECTOutboundOrchestrator orchestrator, Log log) {
-        super(orchestrator, log);
+    public PassthroughOutboundDocRetrieve(CONNECTOutboundOrchestrator orchestrator) {
+        super(orchestrator);
     }
     
     /**

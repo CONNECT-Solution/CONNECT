@@ -14,8 +14,9 @@ import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import javax.xml.ws.WebServiceContext;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+
+import org.apache.log4j.Logger;
+
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.RespondingGatewayCrossGatewayRetrieveRequestType;
 import gov.hhs.fha.nhinc.cxf.extraction.SAML2AssertionExtractor;
 
@@ -24,7 +25,7 @@ import gov.hhs.fha.nhinc.cxf.extraction.SAML2AssertionExtractor;
  * @author svalluripalli
  */
 public class AdapterDocRetrieveImpl {
-    private static Log log = LogFactory.getLog(AdapterDocRetrieveImpl.class);
+    private static final Logger LOG = Logger.getLogger(AdapterDocRetrieveImpl.class);
 
     /**
      * Perform Doc Retrieve.
@@ -37,7 +38,7 @@ public class AdapterDocRetrieveImpl {
     public RetrieveDocumentSetResponseType respondingGatewayCrossGatewayRetrieveUnsecured(
             RespondingGatewayCrossGatewayRetrieveRequestType respondingGatewayCrossGatewayRetrieveRequest,
             WebServiceContext context) {
-        log.debug("Entering AdapterDocRetrieveImpl.respondingGatewayCrossGatewayRetrieve");
+        LOG.debug("Entering AdapterDocRetrieveImpl.respondingGatewayCrossGatewayRetrieve");
 
         AssertionType assertion = null;
         RetrieveDocumentSetRequestType request = null;
@@ -49,7 +50,7 @@ public class AdapterDocRetrieveImpl {
         RetrieveDocumentSetResponseType response = callOrchestrator(request, assertion);
 
         // Send response back to the initiating Gateway
-        log.debug("Exiting AdapterDocRetrieveImpl.respondingGatewayCrossGatewayRetrieve");
+        LOG.debug("Exiting AdapterDocRetrieveImpl.respondingGatewayCrossGatewayRetrieve");
         return response;
 
     }
@@ -63,7 +64,7 @@ public class AdapterDocRetrieveImpl {
      */
     public RetrieveDocumentSetResponseType respondingGatewayCrossGatewayRetrieveSecured(
             RetrieveDocumentSetRequestType body, WebServiceContext context) {
-        log.debug("Entering AdapterDocRetrieveImpl.respondingGatewayCrossGatewayRetrieve");
+        LOG.debug("Entering AdapterDocRetrieveImpl.respondingGatewayCrossGatewayRetrieve");
 
         AssertionType assertion = null;
         if (context != null) {
@@ -75,7 +76,7 @@ public class AdapterDocRetrieveImpl {
         RetrieveDocumentSetResponseType response = callOrchestrator(body, assertion);
 
         // Send response back to the initiating Gateway
-        log.debug("Exiting AdapterDocRetrieveImpl.respondingGatewayCrossGatewayRetrieve");
+        LOG.debug("Exiting AdapterDocRetrieveImpl.respondingGatewayCrossGatewayRetrieve");
         return response;
     }
 

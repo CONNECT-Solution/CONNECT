@@ -26,8 +26,6 @@
  */
 package gov.hhs.fha.nhinc.adaptermpimanager;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import gov.hhs.fha.nhinc.mpilib.Patients;
 
 /**
@@ -35,8 +33,6 @@ import gov.hhs.fha.nhinc.mpilib.Patients;
  * @author mflynn02
  */
 public class CommonChecks {
-    private static Log log = LogFactory.getLog(PatientSaver.class);
-
     public static boolean isSingleSearchResult(Patients patients) {
         return ((patients != null) && (patients.size() == 1));
     }

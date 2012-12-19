@@ -29,15 +29,15 @@ package gov.hhs.fha.nhinc.util.config.app;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import java.io.File;
 import java.io.FilenameFilter;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+
+import org.apache.log4j.Logger;
 
 /**
  * 
  * @author Neil Webb
  */
 public class ConfigurationUtilApp {
-    private static Log log = LogFactory.getLog(ConfigurationUtilApp.class);
+    private static final Logger LOG = Logger.getLogger(ConfigurationUtilApp.class);
     private static final String CONFIGURATION_FILE_SUFFIX = "Config.xml";
     private static final String DEFAULT_CONFIG_FILE_DIRECTORY;
 
@@ -48,7 +48,7 @@ public class ConfigurationUtilApp {
         String propertyFileDirAbsolutePath = System.getProperty("nhinc.properties.dir");
 
         if (propertyFileDirAbsolutePath == null) {
-            log.warn("The runtime property nhinc.properties.dir is not set!!!  "
+            LOG.warn("The runtime property nhinc.properties.dir is not set!!!  "
                     + "Looking for the environment variable NHINC_PROPERTIES_DIR as a fall back.  "
                     + "Please set the runtime nhinc.properties.dir system property in your configuration files.");
             propertyFileDirAbsolutePath = System.getenv(NhincConstants.NHINC_PROPERTIES_DIR);
@@ -60,9 +60,9 @@ public class ConfigurationUtilApp {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        log.info("======================================");
-        log.info("Begin ConfigurationUtilApp");
-        log.info("======================================");
+        LOG.info("======================================");
+        LOG.info("Begin ConfigurationUtilApp");
+        LOG.info("======================================");
         if ((args.length < 1) || (args.length > 2) || ("-help".equalsIgnoreCase(args[0]))
                 || ("-h".equalsIgnoreCase(args[0]))) {
             printUsage();
@@ -73,34 +73,34 @@ public class ConfigurationUtilApp {
             printUsage();
             return;
         }
-        log.info("Switching to: " + implType.implementationType());
+        LOG.info("Switching to: " + implType.implementationType());
 
         File configFileDir = getConfigFileDirectory(args);
 
         File[] configFiles = loadFiles(configFileDir);
 
         if ((configFiles == null) || (configFiles.length < 1)) {
-            log.warn("No configuration files found in " + configFileDir);
+            LOG.warn("No configuration files found in " + configFileDir);
             return;
         }
-        log.info("File count: " + configFiles.length);
+        LOG.info("File count: " + configFiles.length);
 
         File tempFile;
         for (int i = 0; i < configFiles.length; i++) {
             tempFile = (File) configFiles[i];
-            log.info("* * * * Start processing " + tempFile.getName() + " * * * *");
+            LOG.info("* * * * Start processing " + tempFile.getName() + " * * * *");
             try {
                 ConfigurationUtil switcher = new ConfigurationUtil();
                 switcher.switchToType(tempFile, implType);
             } catch (Throwable t) {
-                log.error("Error switching file (" + tempFile.getName() + ") to " + implType.implementationType()
+                LOG.error("Error switching file (" + tempFile.getName() + ") to " + implType.implementationType()
                         + ": " + t.getMessage(), t);
             }
-            log.info("* * * * Completed processing " + tempFile.getName() + " * * * *");
+            LOG.info("* * * * Completed processing " + tempFile.getName() + " * * * *");
         }
-        log.info("======================================");
-        log.info("End ConfigurationUtilApp");
-        log.info("======================================");
+        LOG.info("======================================");
+        LOG.info("End ConfigurationUtilApp");
+        LOG.info("======================================");
     }
 
     /**
@@ -135,7 +135,7 @@ public class ConfigurationUtilApp {
      * @return Configuration files found in the directory.
      */
     private static File[] loadFiles(File configFileDir) {
-        log.debug("Loading configuration files from " + configFileDir.getPath());
+        LOG.debug("Loading configuration files from " + configFileDir.getPath());
         File[] files = null;
         if (configFileDir != null) {
             FilenameFilter filter = new FilenameFilter() {
@@ -160,19 +160,19 @@ public class ConfigurationUtilApp {
             try {
                 parsed = BeanImplementationType.valueOf(arg.toUpperCase());
             } catch (IllegalArgumentException iae) {
-                log.error("Error parsing unknown enum type: " + arg, iae);
+                LOG.error("Error parsing unknown enum type: " + arg, iae);
             }
         }
         return parsed;
     }
 
     private static void printUsage() {
-        log.info("==============================================================================");
-        log.info("Context Switcher Application");
-        log.info("Usage: java config.switcher.app.SwitcherApp noop|java|wssecure|wsunsecure [Directory path]");
-        log.info("Note that only Spring configuration files that end in Config.xml will be processed.");
-        log.info("The directory path is optional. If not provided, the value of the system environment variable ");
-        log.info("for the properties directory will be used.");
-        log.info("==============================================================================");
+        LOG.info("==============================================================================");
+        LOG.info("Context Switcher Application");
+        LOG.info("Usage: java config.switcher.app.SwitcherApp noop|java|wssecure|wsunsecure [Directory path]");
+        LOG.info("Note that only Spring configuration files that end in Config.xml will be processed.");
+        LOG.info("The directory path is optional. If not provided, the value of the system environment variable ");
+        LOG.info("for the properties directory will be used.");
+        LOG.info("==============================================================================");
     }
 }

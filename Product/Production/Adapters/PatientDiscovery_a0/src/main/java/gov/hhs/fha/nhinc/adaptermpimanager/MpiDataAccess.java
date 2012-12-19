@@ -26,8 +26,6 @@
  */
 package gov.hhs.fha.nhinc.adaptermpimanager;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.hl7.v3.*;
 import gov.hhs.fha.nhinc.mpilib.*;
 import gov.hhs.fha.nhinc.adaptermpimanager.HL7Parsers.*;
@@ -37,8 +35,6 @@ import gov.hhs.fha.nhinc.adaptermpimanager.HL7Parsers.*;
  * @author mflynn02
  */
 public class MpiDataAccess {
-    private static Log log = LogFactory.getLog(MpiDataAccess.class);
-
     public static Patients LookupPatients(PRPAMT201301UV02Patient patient) {
         return LookupPatients(patient, true);
     }
