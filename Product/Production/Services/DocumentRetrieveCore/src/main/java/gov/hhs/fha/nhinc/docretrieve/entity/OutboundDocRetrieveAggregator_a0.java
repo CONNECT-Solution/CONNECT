@@ -41,8 +41,7 @@ import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryError;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryErrorList;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 
 /**
  * 
@@ -50,11 +49,7 @@ import org.apache.commons.logging.LogFactory;
  */
 public class OutboundDocRetrieveAggregator_a0 implements NhinAggregator {
 
-    private static final Log LOGGER = LogFactory.getLog(OutboundDocRetrieveAggregator_a0.class);
-
-    private Log getLogger() {
-        return LOGGER;
-    }
+    private static final Logger LOG = Logger.getLogger(OutboundDocRetrieveAggregator_a0.class);
 
     /**
      * Aggregates the message in the from Orchestrable to the to Orchestratable.
@@ -74,7 +69,7 @@ public class OutboundDocRetrieveAggregator_a0 implements NhinAggregator {
                     streamDocumentsToFileSystemIfEnabled(fromResponse);
                     addAllDocuments(aggregatedResponse, fromResponse);
                 } catch (IOException ioe) {
-                    getLogger().error("Failed to save document to file system for aggregation.", ioe);
+                    LOG.error("Failed to save document to file system for aggregation.", ioe);
 
                     fromResponse.getResponse().getRegistryResponse()
                             .setStatus(DocumentConstants.XDS_RETRIEVE_RESPONSE_STATUS_FAILURE);
@@ -91,7 +86,7 @@ public class OutboundDocRetrieveAggregator_a0 implements NhinAggregator {
             }
 
         } else {
-            getLogger().error("This aggregator only aggregates to OutboundDocRetrieveOrchestratable.");
+            LOG.error("This aggregator only aggregates to OutboundDocRetrieveOrchestratable.");
         }
     }
     

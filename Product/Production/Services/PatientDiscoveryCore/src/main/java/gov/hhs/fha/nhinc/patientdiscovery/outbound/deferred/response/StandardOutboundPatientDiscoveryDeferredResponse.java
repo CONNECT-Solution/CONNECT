@@ -58,7 +58,7 @@ public class StandardOutboundPatientDiscoveryDeferredResponse extends AbstractOu
     private final PatientDiscoveryAuditor auditLogger;
     private final OutboundPatientDiscoveryDeferredResponseDelegate delegate;
     private final ConnectionManagerCache connectionManager;
-    private static final Logger log = Logger.getLogger(StandardOutboundPatientDiscoveryDeferredResponse.class);
+    private static final Logger LOG = Logger.getLogger(StandardOutboundPatientDiscoveryDeferredResponse.class);
 
     /**
      * Constructor.
@@ -78,7 +78,7 @@ public class StandardOutboundPatientDiscoveryDeferredResponse extends AbstractOu
      * @param pd201306Processor
      * @param auditLogger
      * @param delegate
-     * @param log
+     * @param LOG
      */
     public StandardOutboundPatientDiscoveryDeferredResponse(
             PolicyChecker<RespondingGatewayPRPAIN201306UV02RequestType, PRPAIN201306UV02> policyChecker,
@@ -118,7 +118,7 @@ public class StandardOutboundPatientDiscoveryDeferredResponse extends AbstractOu
                 }
             }
         } else {
-            log.warn("No targets were found for the Patient Discovery Response");
+            LOG.warn("No targets were found for the Patient Discovery Response");
             ack = HL7AckTransforms.createAckErrorFrom201306(body, "No Targets Found");
         }
 
@@ -140,7 +140,7 @@ public class StandardOutboundPatientDiscoveryDeferredResponse extends AbstractOu
             urlInfoList = connectionManager.getEndpointURLFromNhinTargetCommunities(
                     targetCommunities, NhincConstants.PATIENT_DISCOVERY_DEFERRED_RESP_SERVICE_NAME);
         } catch (ConnectionManagerException ex) {
-            log.error("Failed to obtain target URLs for service "
+            LOG.error("Failed to obtain target URLs for service "
                     + NhincConstants.PATIENT_DISCOVERY_DEFERRED_RESP_SERVICE_NAME);
             return null;
         }

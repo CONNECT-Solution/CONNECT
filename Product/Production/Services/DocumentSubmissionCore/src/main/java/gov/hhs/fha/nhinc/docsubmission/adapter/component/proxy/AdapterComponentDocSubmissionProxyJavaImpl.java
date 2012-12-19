@@ -40,11 +40,11 @@ import org.apache.log4j.Logger;
  * @author jhoppesc
  */
 public class AdapterComponentDocSubmissionProxyJavaImpl implements AdapterComponentDocSubmissionProxy {
-    private static final Logger log = Logger.getLogger(AdapterComponentDocSubmissionProxyJavaImpl.class);
+    private static final Logger LOG = Logger.getLogger(AdapterComponentDocSubmissionProxyJavaImpl.class);
 
     public RegistryResponseType provideAndRegisterDocumentSetB(ProvideAndRegisterDocumentSetRequestType msg,
             AssertionType assertion) {
-        log.trace("Using Java Implementation for Adapter Doc Submission Service");
+        LOG.trace("Using Java Implementation for Adapter Doc Submission Service");
         return new AdapterComponentDocSubmissionOrchImpl().provideAndRegisterDocumentSetB(msg, assertion);
     }
 

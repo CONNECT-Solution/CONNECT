@@ -44,12 +44,11 @@ import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
 
 import java.io.IOException;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 
 public class PassthroughOutboundDocRetrieve implements OutboundDocRetrieve {
 
-    private final Log log;
+    private static final Logger LOG = Logger.getLogger(PassthroughOutboundDocRetrieve.class);
     
     private final CONNECTOutboundOrchestrator orchestrator;
 
@@ -57,7 +56,6 @@ public class PassthroughOutboundDocRetrieve implements OutboundDocRetrieve {
      * Constructor.
      */
     public PassthroughOutboundDocRetrieve() {
-        log = LogFactory.getLog(getClass());
         orchestrator = new CONNECTOutboundOrchestrator();
     }
     
@@ -65,10 +63,8 @@ public class PassthroughOutboundDocRetrieve implements OutboundDocRetrieve {
      * Constructor with dependency injection parameters.
      * 
      * @param orchestrator
-     * @param log
      */
-    public PassthroughOutboundDocRetrieve(CONNECTOutboundOrchestrator orchestrator, Log log) {
-        this.log = log;
+    public PassthroughOutboundDocRetrieve(CONNECTOutboundOrchestrator orchestrator) {
         this.orchestrator = orchestrator;
     }
 
@@ -100,7 +96,7 @@ public class PassthroughOutboundDocRetrieve implements OutboundDocRetrieve {
         try {
             DocRetrieveFileUtils.getInstance().streamDocumentsToFileSystemIfEnabled(response);
         } catch (IOException ioe) {
-            log.error("Failed to save documents to file system.", ioe);
+            LOG.error("Failed to save documents to file system.", ioe);
             response = MessageGenerator.getInstance().createRegistryResponseError(
                     "Adapter Document Retrieve Processing: " + ioe.getLocalizedMessage());
         }

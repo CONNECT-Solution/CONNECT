@@ -35,13 +35,13 @@ import org.apache.log4j.Logger;
  * @author rayj
  */
 public class Patients extends ArrayList<Patient> implements java.io.Serializable {
-    private static final Logger log = Logger.getLogger(Patients.class);
+    private static final Logger LOG = Logger.getLogger(Patients.class);
     static final long serialVersionUID = -8509797581456649328L;
 
     /**
      * Public constructor for Patients.
      */
     public Patients() {
-        log.info("Patients Initialized");
+        LOG.info("Patients Initialized");
     }
 }

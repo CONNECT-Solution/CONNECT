@@ -11,8 +11,7 @@ import gov.hhs.fha.nhinc.orchestration.Orchestratable;
 import gov.hhs.fha.nhinc.orchestration.OrchestrationContext;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 
 /**
  * 
@@ -20,13 +19,7 @@ import org.apache.commons.logging.LogFactory;
  */
 public class InboundDocRetrieveDelegate implements InboundDelegate {
 
-    private static Log log = LogFactory.getLog(InboundDocRetrieveDelegate.class);
-
-    /**
-     * defualt constructor.
-     */
-    public InboundDocRetrieveDelegate() {
-    }
+    private static final Logger LOG = Logger.getLogger(InboundDocRetrieveDelegate.class);
 
     /**
      * process the message and return it so it can be chained.
@@ -38,7 +31,7 @@ public class InboundDocRetrieveDelegate implements InboundDelegate {
         if (message instanceof InboundOrchestratable) {
             return process((InboundOrchestratable) message);
         } else {
-            log.error("message is not an instance of NhinDocRetrieveOrchestratable!");
+            LOG.error("message is not an instance of NhinDocRetrieveOrchestratable!");
         }
         return message;
     }
@@ -57,7 +50,7 @@ public class InboundDocRetrieveDelegate implements InboundDelegate {
 
     public void createErrorResponse(InboundOrchestratable message, String error) {
         if (message == null) {
-            log.debug("NhinOrchestratable was null");
+            LOG.debug("NhinOrchestratable was null");
             return;
         }
 
