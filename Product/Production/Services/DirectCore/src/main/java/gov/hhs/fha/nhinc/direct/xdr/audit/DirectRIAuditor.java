@@ -26,6 +26,8 @@
  */
 package gov.hhs.fha.nhinc.direct.xdr.audit;
 
+import gov.hhs.fha.nhinc.direct.xdr.SoapEdgeContext;
+
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.Map;
@@ -42,61 +44,55 @@ import org.nhindirect.common.audit.DefaultAuditContext;
  */
 public class DirectRIAuditor implements SoapEdgeAuditor {
 
-	private Auditor auditor = null;
+    private Auditor auditor = null;
 
-	/**
-	 * Audits an event to the Direct RI audit logger. If a set of properties are
-	 * provided, they will be audited as additional contexts, otherwise only the
-	 * principal, category, and message will be audited.
-	 * 
-	 * (non-Javadoc)
-	 * 
-	 * @see gov.hhs.fha.nhinc.direct.xdr.audit.SoapEdgeAuditor#audit(java.lang.String,
-	 *      java.lang.String, java.lang.String,
-	 *      gov.hhs.fha.nhinc.direct.xdr.audit.Auditable)
-	 */
-	@Override
-	public void audit(String principal, String category, String message,
-			Auditable properties) {
+    /**
+     * Audits an event to the Direct RI audit logger. If a set of properties are provided, they will be audited as
+     * additional contexts, otherwise only the principal, category, and message will be audited.
+     * 
+     * (non-Javadoc)
+     * 
+     * @see gov.hhs.fha.nhinc.direct.xdr.audit.SoapEdgeAuditor#audit(java.lang.String, java.lang.String,
+     *      java.lang.String, gov.hhs.fha.nhinc.direct.xdr.audit.Auditable)
+     */
+    @Override
+    public void audit(String principal, String category, String message, SoapEdgeContext properties) {
 
-		AuditEvent event = new AuditEvent(category, message);
+        AuditEvent event = new AuditEvent(category, message);
 
-		if (properties == null) {
-			getAuditor().audit(principal, event);
-		} else {
-			getAuditor().audit(principal, event, getContexts(properties));
-		}
-	}
+        if (properties == null) {
+            getAuditor().audit(principal, event);
+        } else {
+            getAuditor().audit(principal, event, getContexts(properties));
+        }
+    }
 
-	/**
-	 * Creates a set of AuditContext objects from and Auditable object.
-	 * 
-	 * @param auditable
-	 *            A {@link Auditable} object, must not be null.
-	 * @return A Collection of @{link AuditContext} objects.
-	 */
-    private Collection<? extends AuditContext> getContexts(Auditable auditable) {
-		Collection<AuditContext> contexts = new LinkedList<AuditContext>();
+    /**
+     * Creates a set of AuditContext objects from and Auditable object.
+     * 
+     * @param auditable A {@link Auditable} object, must not be null.
+     * @return A Collection of @{link AuditContext} objects.
+     */
+    private Collection<? extends AuditContext> getContexts(SoapEdgeContext auditable) {
+        Collection<AuditContext> contexts = new LinkedList<AuditContext>();
 
-		if (auditable.getAuditableValues() != null) {
-			for (Map.Entry<String, String> entry : auditable
-					.getAuditableValues().entrySet()) {
-				AuditContext context = new DefaultAuditContext(entry.getKey(),
-						entry.getValue());
-				contexts.add(context);
-			}
-		}
-		return contexts;
-	}
+        if (auditable.getAuditableValues() != null) {
+            for (Map.Entry<String, String> entry : auditable.getAuditableValues().entrySet()) {
+                AuditContext context = new DefaultAuditContext(entry.getKey(), entry.getValue());
+                contexts.add(context);
+            }
+        }
+        return contexts;
+    }
 
-	/**
-	 * @return A Direct RI Auditor from the Direct RI AuditorFactory.
-	 */
-	protected Auditor getAuditor() {
-		if (auditor == null) {
-			auditor = AuditorFactory.createAuditor();
-		}
-		return auditor;
-	}
+    /**
+     * @return A Direct RI Auditor from the Direct RI AuditorFactory.
+     */
+    protected Auditor getAuditor() {
+        if (auditor == null) {
+            auditor = AuditorFactory.createAuditor();
+        }
+        return auditor;
+    }
 
 }
