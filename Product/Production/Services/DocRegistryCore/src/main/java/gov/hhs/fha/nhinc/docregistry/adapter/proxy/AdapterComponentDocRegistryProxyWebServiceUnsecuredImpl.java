@@ -47,9 +47,13 @@ import org.apache.log4j.Logger;
  * @author svalluripalli
  */
 public class AdapterComponentDocRegistryProxyWebServiceUnsecuredImpl implements AdapterComponentDocRegistryProxy {
-    private static final Logger LOG = Logger.getLogger(AdapterComponentDocRegistryProxyWebServiceUnsecuredImpl.class);
-    private WebServiceProxyHelper oProxyHelper = null;
+   private static final Logger LOG = Logger.getLogger(AdapterComponentDocRegistryProxyWebServiceUnsecuredImpl.class);
+   private WebServiceProxyHelper oProxyHelper = null;
 
+   public AdapterComponentDocRegistryProxyWebServiceUnsecuredImpl(){
+	   oProxyHelper = createWebServiceProxyHelper();
+   }
+   
    protected WebServiceProxyHelper createWebServiceProxyHelper() {
         return new WebServiceProxyHelper();
     }
