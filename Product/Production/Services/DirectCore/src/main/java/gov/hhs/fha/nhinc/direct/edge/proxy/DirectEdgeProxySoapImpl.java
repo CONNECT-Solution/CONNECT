@@ -35,7 +35,7 @@ import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
-import gov.hhs.fha.nhinc.xdcommon.XDCommonErrorHelper;
+import gov.hhs.fha.nhinc.xdcommon.XDCommonResponseHelper;
 import ihe.iti.xds_b._2007.DocumentRepositoryPortType;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
 
@@ -117,7 +117,7 @@ public class DirectEdgeProxySoapImpl implements DirectEdgeProxy {
     }
 
     private void handleError(String errorMessage, Throwable e, MimeMessage mimeMessage) {
-        XDCommonErrorHelper helper = new XDCommonErrorHelper();
+        XDCommonResponseHelper helper = new XDCommonResponseHelper();
         if (e != null) {                        
             String message = errorMessage + e.getMessage();            
             LOG.error(helper.createError(message));
