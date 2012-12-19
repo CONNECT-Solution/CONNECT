@@ -28,7 +28,6 @@ package gov.hhs.fha.nhinc.docquery.nhin.proxy;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.fail;
 import gov.hhs.fha.nhinc.aspect.NwhinInvocationEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
@@ -42,7 +41,6 @@ import javax.xml.ws.Service;
 
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
 
-import org.apache.commons.logging.Log;
 import org.jmock.Mockery;
 import org.jmock.integration.junit4.JMock;
 import org.jmock.integration.junit4.JUnit4Mockery;
@@ -62,28 +60,8 @@ public class NhinDocQueryWebServiceProxyTest {
         }
     };
 
-    final Log mockLog = context.mock(Log.class);
     final Service mockService = context.mock(Service.class);
     final RespondingGatewayQueryPortType mockPort = context.mock(RespondingGatewayQueryPortType.class);
-
-    @Test
-    public void testCreateLogger() {
-        try {
-            NhinDocQueryProxyWebServiceSecuredImpl sut = new NhinDocQueryProxyWebServiceSecuredImpl() {
-                @Override
-                protected Log createLogger() {
-                    return mockLog;
-                }
-
-            };
-            Log log = sut.createLogger();
-            assertNotNull("Log was null", log);
-        } catch (Throwable t) {
-            System.out.println("Error running testCreateLogger test: " + t.getMessage());
-            t.printStackTrace();
-            fail("Error running testCreateLogger test: " + t.getMessage());
-        }
-    }
 
     @Test
     public void hasBeginOutboundProcessingEvent() throws Exception {

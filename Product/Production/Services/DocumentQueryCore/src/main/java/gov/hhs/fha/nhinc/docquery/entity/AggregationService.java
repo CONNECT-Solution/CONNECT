@@ -45,7 +45,6 @@ import gov.hhs.fha.nhinc.orchestration.OutboundOrchestratable;
 import gov.hhs.fha.nhinc.patientcorrelation.nhinc.parsers.PRPAIN201309UV.PixRetrieveBuilder;
 import gov.hhs.fha.nhinc.patientcorrelation.nhinc.proxy.PatientCorrelationProxyFactory;
 import gov.hhs.fha.nhinc.patientcorrelation.nhinc.proxy.PatientCorrelationProxyObjectFactory;
-import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import gov.hhs.fha.nhinc.transform.document.DocumentTransformConstants;
 import gov.hhs.fha.nhinc.util.format.PatientIdFormatUtil;
 
@@ -58,8 +57,7 @@ import oasis.names.tc.ebxml_regrep.xsd.rim._3.AdhocQueryType;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.SlotType1;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.ValueListType;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 import org.hl7.v3.II;
 import org.hl7.v3.RetrievePatientCorrelationsResponseType;
 
@@ -70,7 +68,7 @@ import org.hl7.v3.RetrievePatientCorrelationsResponseType;
 public class AggregationService {
 
     private ConnectionManager connectionManager;
-    private Log log = LogFactory.getLog(AggregationService.class);
+    private static final Logger LOG = Logger.getLogger(AggregationService.class);
     private PatientCorrelationProxyFactory patientCorrelationProxyFactory;
 
     private OutboundDocQueryDelegate delegate = new OutboundDocQueryDelegate();
@@ -150,7 +148,7 @@ public class AggregationService {
             }
 
         } catch (ConnectionManagerException e) {
-            log.error(e);
+            LOG.error(e);
         }
 
         return list;
@@ -182,7 +180,7 @@ public class AggregationService {
         String uniquePatientId = new StandardOutboundDocQueryHelper().getUniquePatientId(slotList);
         qualSubId.setSubjectIdentifier(uniquePatientId);
         qualSubId.setAssigningAuthorityIdentifier(localAA);
-        log.debug("EntityDocQueryOrchImpl uniquePatientId: " + uniquePatientId + " and localAA=" + localAA);
+        LOG.debug("EntityDocQueryOrchImpl uniquePatientId: " + uniquePatientId + " and localAA=" + localAA);
         return qualSubId;
     }
 
@@ -271,7 +269,7 @@ public class AggregationService {
         newRequest.setResponseOption(request.getResponseOption());
         newRequest.setStartIndex(request.getStartIndex());
 
-        log.debug("EntityDocQueryOrchImpl::cloneRequest generated new AdhocQueryRequest");
+        LOG.debug("EntityDocQueryOrchImpl::cloneRequest generated new AdhocQueryRequest");
         return newRequest;
     }
 }

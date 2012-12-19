@@ -28,25 +28,24 @@ package gov.hhs.fha.nhinc.docquery.entity;
 
 import gov.hhs.fha.nhinc.docquery.MessageGeneratorUtils;
 import gov.hhs.fha.nhinc.gateway.aggregator.document.DocumentConstants;
-import gov.hhs.fha.nhinc.gateway.executorservice.ExecutorServiceHelper;
-import gov.hhs.fha.nhinc.orchestration.OutboundResponseProcessor;
-import gov.hhs.fha.nhinc.orchestration.OutboundOrchestratableMessage;
-import gov.hhs.fha.nhinc.orchestration.OutboundOrchestratable;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
-
-import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
-import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryErrorList;
-import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryError;
-import oasis.names.tc.ebxml_regrep.xsd.rim._3.RegistryObjectListType;
-import oasis.names.tc.ebxml_regrep.xsd.rim._3.IdentifiableType;
-import oasis.names.tc.ebxml_regrep.xsd.rim._3.SlotListType;
+import gov.hhs.fha.nhinc.orchestration.OutboundOrchestratable;
+import gov.hhs.fha.nhinc.orchestration.OutboundOrchestratableMessage;
+import gov.hhs.fha.nhinc.orchestration.OutboundResponseProcessor;
 
 import java.math.BigInteger;
 import java.util.List;
+
 import javax.xml.bind.JAXBElement;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
+import oasis.names.tc.ebxml_regrep.xsd.rim._3.IdentifiableType;
+import oasis.names.tc.ebxml_regrep.xsd.rim._3.RegistryObjectListType;
+import oasis.names.tc.ebxml_regrep.xsd.rim._3.SlotListType;
+import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryError;
+import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryErrorList;
+
+import org.apache.log4j.Logger;
 
 /**
  * Class handles all processing of responses for DocQuery for all the different spec combinations: 1. CumulativeResponse
@@ -58,7 +57,7 @@ import org.apache.commons.logging.LogFactory;
  */
 public class OutboundDocQueryProcessor implements OutboundResponseProcessor {
 
-    private static Log log = LogFactory.getLog(OutboundDocQueryProcessor.class);
+    private static final Logger LOG = Logger.getLogger(OutboundDocQueryProcessor.class);
 
     private NhincConstants.GATEWAY_API_LEVEL cumulativeSpecLevel = null;
 
@@ -113,19 +112,19 @@ public class OutboundDocQueryProcessor implements OutboundResponseProcessor {
         if (cumulativeResponse == null) {
             switch (cumulativeSpecLevel) {
             case LEVEL_g0:
-                log.debug("EntityDocQueryProcessor::processNhinResponse createNewCumulativeResponse_a0");
+                LOG.debug("EntityDocQueryProcessor::processNhinResponse createNewCumulativeResponse_a0");
                 cumulativeResponse = OutboundDocQueryProcessorHelper
                         .createNewCumulativeResponse_a0((OutboundDocQueryOrchestratable) individual);
                 break;
 
             case LEVEL_g1:
-                log.debug("EntityDocQueryProcessor::processNhinResponse createNewCumulativeResponse_a1");
+                LOG.debug("EntityDocQueryProcessor::processNhinResponse createNewCumulativeResponse_a1");
                 cumulativeResponse = OutboundDocQueryProcessorHelper
                         .createNewCumulativeResponse_a1((OutboundDocQueryOrchestratable) individual);
                 break;
 
             default:
-                log.debug("EntityDocQueryProcessor::processNhinResponse unknown cumulativeSpecLevel so "
+                LOG.debug("EntityDocQueryProcessor::processNhinResponse unknown cumulativeSpecLevel so "
                         + "createNewCumulativeResponse_a1");
                 cumulativeResponse = OutboundDocQueryProcessorHelper
                         .createNewCumulativeResponse_a1((OutboundDocQueryOrchestratable) individual);
@@ -149,7 +148,7 @@ public class OutboundDocQueryProcessor implements OutboundResponseProcessor {
             // DQ response requires no processing
             return individualResponse;
         } catch (Exception ex) {
-            log.error(ex);
+            LOG.error(ex);
             OutboundOrchestratableMessage response = processErrorResponse(individualResponse,
                     "Exception processing response.  Exception message=" + ex.getMessage());
             return response;
@@ -183,7 +182,7 @@ public class OutboundDocQueryProcessor implements OutboundResponseProcessor {
                             .transformResponse_ToA0((OutboundDocQueryOrchestratable_a1) individual);
                     aggregateResponse_a0(individualResponse, cumulativeResponse);
                 } else {
-                    log.error("EntityDocQueryProcessor::aggregateResponse individualResponse received was unknown!!!");
+                    LOG.error("EntityDocQueryProcessor::aggregateResponse individualResponse received was unknown!!!");
                     throw new Exception(
                             "EntityDocQueryProcessor::aggregateResponse individualResponse received was unknown!!!");
                 }
@@ -207,7 +206,7 @@ public class OutboundDocQueryProcessor implements OutboundResponseProcessor {
                     OutboundDocQueryOrchestratable_a1 individualResponse = (OutboundDocQueryOrchestratable_a1) individual;
                     aggregateResponse_a1(individualResponse, cumulativeResponse);
                 } else {
-                    log.error("EntityDocQueryProcessor::aggregateResponse individualResponse received was unknown!!!");
+                    LOG.error("EntityDocQueryProcessor::aggregateResponse individualResponse received was unknown!!!");
                     throw new Exception(
                             "EntityDocQueryProcessor::aggregateResponse individualResponse received was unknown!!!");
                 }
@@ -218,12 +217,12 @@ public class OutboundDocQueryProcessor implements OutboundResponseProcessor {
                 response.setCumulativeResponse(cumulativeResponse.getCumulativeResponse());
                 return response;
             } else {
-                log.error("EntityDocQueryProcessor::aggregateResponse cumulativeResponse received was unknown!!!");
+                LOG.error("EntityDocQueryProcessor::aggregateResponse cumulativeResponse received was unknown!!!");
                 throw new Exception(
                         "EntityDocQueryProcessor::aggregateResponse cumulativeResponse received was unknown!!!");
             }
         } catch (Exception e) {
-            log.error(e);
+            LOG.error(e);
             // add error response for exception to cumulativeResponse
             RegistryError regErr = MessageGeneratorUtils.getInstance().createRegistryError(e.getMessage(), "XDSRepositoryError");
             
@@ -257,13 +256,13 @@ public class OutboundDocQueryProcessor implements OutboundResponseProcessor {
      * @return ErrorResponse (a0 if specLevel is a0, a1 if specLevel is a1).
      */
     public OutboundOrchestratableMessage processErrorResponse(OutboundOrchestratableMessage request, String error) {
-        log.debug("EntityDocQueryProcessor::processErrorResponse error=" + error);
+        LOG.debug("EntityDocQueryProcessor::processErrorResponse error=" + error);
         if (request instanceof OutboundDocQueryOrchestratable_a0) {
             return processError_a0((OutboundDocQueryOrchestratable) request, error);
         } else if (request instanceof OutboundDocQueryOrchestratable_a1) {
             return processError_a1((OutboundDocQueryOrchestratable) request, error);
         } else {
-            log.error("EntityDocQueryProcessor::processErrorResponse request was unknown!!!");
+            LOG.error("EntityDocQueryProcessor::processErrorResponse request was unknown!!!");
             return processError_a1((OutboundDocQueryOrchestratable) request, error);
         }
     }
@@ -279,7 +278,7 @@ public class OutboundDocQueryProcessor implements OutboundResponseProcessor {
     // CHECKSTYLE:OFF
     public OutboundDocQueryOrchestratable_a0 processError_a0(OutboundDocQueryOrchestratable request, String error) {
         // CHECKSTYLE:ON
-        log.debug("EntityDocQueryProcessor::processError_a0 error=" + error);
+        LOG.debug("EntityDocQueryProcessor::processError_a0 error=" + error);
         OutboundDocQueryOrchestratable_a0 response = new OutboundDocQueryOrchestratable_a0(null,
                 request.getResponseProcessor(), null, null, request.getAssertion(), request.getServiceName(),
                 request.getTarget(), request.getRequest());
@@ -300,7 +299,7 @@ public class OutboundDocQueryProcessor implements OutboundResponseProcessor {
     // CHECKSTYLE:OFF
     public OutboundDocQueryOrchestratable_a1 processError_a1(OutboundDocQueryOrchestratable request, String error) {
         // CHECKSTYLE:ON
-        log.debug("EntityDocQueryProcessor::processError_a1 error=" + error);
+        LOG.debug("EntityDocQueryProcessor::processError_a1 error=" + error);
         OutboundDocQueryOrchestratable_a1 response = new OutboundDocQueryOrchestratable_a1(null,
                 request.getResponseProcessor(), null, null, request.getAssertion(), request.getServiceName(),
                 request.getTarget(), request.getRequest());
@@ -424,7 +423,7 @@ public class OutboundDocQueryProcessor implements OutboundResponseProcessor {
      */
     protected void collectRegistryObjectResponses(List<JAXBElement<? extends IdentifiableType>> identifiableList,
             AdhocQueryResponse aggregatedResponse) {
-        log.debug("individual Response has ObjectList");
+        LOG.debug("individual Response has ObjectList");
         RegistryObjectListType registryObjectList = aggregatedResponse.getRegistryObjectList();
         if (registryObjectList == null) {
             registryObjectList = new RegistryObjectListType();
@@ -513,8 +512,8 @@ public class OutboundDocQueryProcessor implements OutboundResponseProcessor {
 
         aggregatedResponse.setTotalResultCount(aggregatedResponse.getTotalResultCount().add(BigInteger.ONE));
 
-        if (log.isDebugEnabled()) {
-            log.debug("EntityDocQueryProcessor::aggregateResponse_a1 combine next response done cumulativeResponse "
+        if (LOG.isDebugEnabled()) {
+            LOG.debug("EntityDocQueryProcessor::aggregateResponse_a1 combine next response done cumulativeResponse "
                     + "count=" + aggregatedResponse.getTotalResultCount().toString());
         }
 

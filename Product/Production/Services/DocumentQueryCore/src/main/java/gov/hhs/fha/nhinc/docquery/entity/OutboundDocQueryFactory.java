@@ -29,8 +29,7 @@ package gov.hhs.fha.nhinc.docquery.entity;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.orchestration.OrchestrationContextBuilder;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 
 /**
  * Returns the OrchestrationContextBuilder appropriate for the particular apiLevel.
@@ -39,7 +38,7 @@ import org.apache.commons.logging.LogFactory;
  */
 public final class OutboundDocQueryFactory {
 
-    private static Log log = LogFactory.getLog(OutboundDocQueryFactory.class);
+    private static final Logger LOG = Logger.getLogger(OutboundDocQueryFactory.class);
 
     private static OutboundDocQueryFactory docQueryInstance = new OutboundDocQueryFactory();
 
@@ -51,7 +50,7 @@ public final class OutboundDocQueryFactory {
      * @return  OrchestrationContextBuilder appropriate for the particular apiLevel.
      */
     public OrchestrationContextBuilder createOrchestrationContextBuilder(NhincConstants.GATEWAY_API_LEVEL apiLevel) {
-        log.debug("EntityDocQueryFactory has apiLevel=" + apiLevel.toString());
+        LOG.debug("EntityDocQueryFactory has apiLevel=" + apiLevel.toString());
         switch (apiLevel) {
         case LEVEL_g0:
             return new OutboundDocQueryOrchestrationContextBuilder_g0();

@@ -30,8 +30,7 @@ import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
 
 import java.math.BigInteger;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 
 /**
  * Helper methods for DQ Processing to create a new cumulativeResponse object for a particular spec level and to
@@ -41,7 +40,7 @@ import org.apache.commons.logging.LogFactory;
  */
 public class OutboundDocQueryProcessorHelper {
 
-    private static Log log = LogFactory.getLog(OutboundDocQueryProcessorHelper.class);
+    private static final Logger LOG = Logger.getLogger(OutboundDocQueryProcessorHelper.class);
 
 
     /**
@@ -63,7 +62,7 @@ public class OutboundDocQueryProcessorHelper {
         newResponse.setTotalResultCount(BigInteger.ZERO);
 
         cumulativeResponse.setCumulativeResponse(newResponse);
-        log.debug("EntityDocQueryProcessorHelper constructed initial a0 cumulativeResponse");
+        LOG.debug("EntityDocQueryProcessorHelper constructed initial a0 cumulativeResponse");
         return cumulativeResponse;
     }
 
@@ -86,7 +85,7 @@ public class OutboundDocQueryProcessorHelper {
         newResponse.setTotalResultCount(BigInteger.ZERO);
 
         cumulativeResponse.setCumulativeResponse(newResponse);
-        log.debug("EntityDocQueryProcessorHelper constructed initial a1 cumulativeResponse");
+        LOG.debug("EntityDocQueryProcessorHelper constructed initial a1 cumulativeResponse");
         return cumulativeResponse;
     }
 

@@ -37,8 +37,8 @@ import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.healthit.nhin.DocQueryAcknowledgementType;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+
+import org.apache.log4j.Logger;
 
 /**
  * 
@@ -46,7 +46,7 @@ import org.apache.commons.logging.LogFactory;
  */
 public class DocQueryAuditLog {
 
-    private static final Log LOG = LogFactory.getLog(DocQueryAuditLog.class);
+    private static final Logger LOG = Logger.getLogger(DocQueryAuditLog.class);
     AuditRepositoryLogger auditLogger = new AuditRepositoryLogger();
     AuditRepositoryProxyObjectFactory auditRepoFactory = new AuditRepositoryProxyObjectFactory();
     
@@ -64,7 +64,7 @@ public class DocQueryAuditLog {
      */
     public AcknowledgementType auditDQResponse(AdhocQueryResponse msg, AssertionType assertion, String direction,
             String msgInterface) {
-        getLog().debug("Entering DocQueryAuditLog.auditDQResponse()...");
+        LOG.debug("Entering DocQueryAuditLog.auditDQResponse()...");
         return auditDQResponse(msg, assertion, direction, msgInterface, null);
     }
 
@@ -80,7 +80,7 @@ public class DocQueryAuditLog {
      */
     public AcknowledgementType auditDQResponse(AdhocQueryResponse msg, AssertionType assertion, String direction,
             String msgInterface, String requestCommunityID) {
-        getLog().debug("Entering DocQueryAuditLog.auditDQResponse()...");
+        LOG.debug("Entering DocQueryAuditLog.auditDQResponse()...");
 
         AdhocQueryResponseMessageType auditMsg = new AdhocQueryResponseMessageType();
         auditMsg.setAssertion(assertion);
@@ -88,7 +88,7 @@ public class DocQueryAuditLog {
 
         AcknowledgementType ack = logDocQueryResponse(auditMsg, direction, msgInterface, requestCommunityID);
 
-        getLog().debug("Exiting DocQueryAuditLog.auditDQResponse()...");
+        LOG.debug("Exiting DocQueryAuditLog.auditDQResponse()...");
         return ack;
     }
 
@@ -104,7 +104,7 @@ public class DocQueryAuditLog {
      */
     public AcknowledgementType auditDQRequest(AdhocQueryRequest msg, AssertionType assertion, String direction,
             String msgInterface) {
-        getLog().debug("Entering DocQueryAuditLog.auditDQRequest()...");
+        LOG.debug("Entering DocQueryAuditLog.auditDQRequest()...");
         return auditDQRequest(msg, assertion, direction, msgInterface, null);
     }
 
@@ -120,7 +120,7 @@ public class DocQueryAuditLog {
      */
     public AcknowledgementType auditDQRequest(AdhocQueryRequest msg, AssertionType assertion, String direction,
             String msgInterface, String responseCommunityId) {
-        getLog().debug("Entering DocQueryAuditLog.auditDQRequest()...");
+        LOG.debug("Entering DocQueryAuditLog.auditDQRequest()...");
 
         AdhocQueryMessageType auditMsg = new AdhocQueryMessageType();
         auditMsg.setAssertion(assertion);
@@ -128,7 +128,7 @@ public class DocQueryAuditLog {
 
         AcknowledgementType ack = logDocQueryRequest(auditMsg, direction, msgInterface, responseCommunityId);
 
-        getLog().debug("Exiting DocQueryAuditLog.auditDQRequest()...");
+        LOG.debug("Exiting DocQueryAuditLog.auditDQRequest()...");
         return ack;
     }
 
@@ -143,12 +143,12 @@ public class DocQueryAuditLog {
      */
     private AcknowledgementType logDocQueryRequest(AdhocQueryMessageType message, String direction, String msgInterface,
             String responseCommunityId) {
-        getLog().debug("Entering DocQueryAuditLog.logDocQuery(...)...");
+        LOG.debug("Entering DocQueryAuditLog.logDocQuery(...)...");
         LogEventRequestType auditLogMsg = auditLogger
                 .logAdhocQuery(message, direction, msgInterface, responseCommunityId);
 
         AcknowledgementType ack = auditLog(message.getAssertion(), auditLogMsg);
-        getLog().debug("Exiting DocQueryAuditLog.logDocQuery(...)...");
+        LOG.debug("Exiting DocQueryAuditLog.logDocQuery(...)...");
         return ack;
     }
 
@@ -176,13 +176,13 @@ public class DocQueryAuditLog {
      */
     public AcknowledgementType logDocQueryResponse(AdhocQueryResponseMessageType message, String direction,
             String msgInterface, String requestCommunityID) {
-        getLog().debug("Entering DocQueryAuditLog.auditResponse(...)...");
+        LOG.debug("Entering DocQueryAuditLog.auditResponse(...)...");
         LogEventRequestType auditLogMsg = auditLogger.logAdhocQueryResult(message, direction, msgInterface,
                 requestCommunityID);
 
         AcknowledgementType ack = auditLog(message.getAssertion(), auditLogMsg);
 
-        getLog().debug("Exiting DocQueryAuditLog.auditResponse(...)...");
+        LOG.debug("Exiting DocQueryAuditLog.auditResponse(...)...");
         return ack;
     }
 
@@ -212,13 +212,13 @@ public class DocQueryAuditLog {
      */
     public AcknowledgementType logDocQueryAck(DocQueryAcknowledgementType message, AssertionType assertion,
             String direction, String msgInterface, String requestCommunityID) {
-        getLog().debug("Entering DocQueryAuditLog.auditResponse(...)...");
+        LOG.debug("Entering DocQueryAuditLog.auditResponse(...)...");
         LogEventRequestType auditLogMsg = auditLogger.logAdhocQueryDeferredAck(message, assertion, direction,
                 msgInterface, requestCommunityID);
 
         AcknowledgementType ack = auditLog(assertion, auditLogMsg);
 
-        getLog().debug("Exiting DocQueryAuditLog.auditResponse(...)...");
+        LOG.debug("Exiting DocQueryAuditLog.auditResponse(...)...");
         return ack;
     }
 
@@ -234,13 +234,6 @@ public class DocQueryAuditLog {
             ack = proxy.auditLog(auditLogMsg, assertion);
         }
         return ack;
-    }
-
-    /**
-     * @return Log log.
-     */
-    protected Log getLog() {
-        return LOG;
     }
 
 }
