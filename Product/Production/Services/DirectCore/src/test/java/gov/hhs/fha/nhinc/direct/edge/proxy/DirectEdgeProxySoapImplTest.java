@@ -56,11 +56,12 @@ import org.junit.Test;
  */
 public class DirectEdgeProxySoapImplTest {
 
+    private static final String ENDPOINT_URL = "http://localhost:8080/DirectEdgeProxySoapImpl";
+
     private DirectEdgeProxy objectUnderTest = null;
     private DirectEdgeProxyObjectFactory factory = null;
     private CONNECTClient<DocumentRepositoryPortType> mockClient;
-    private WebServiceProxyHelper mockWebServiceProxyHelper = mock(WebServiceProxyHelper.class);
-    private String endpointUrl = "http://localhost:8080/DirectEdgeProxySoapImpl";
+    private final WebServiceProxyHelper mockWebServiceProxyHelper = mock(WebServiceProxyHelper.class);
 
     /**
      * Setup for tests.
@@ -72,7 +73,7 @@ public class DirectEdgeProxySoapImplTest {
             factory = new DirectEdgeProxyObjectFactory() {
                 @Override
                 public DirectEdgeProxy getDirectEdgeProxy() {
-                    return new DirectEdgeProxySoapImpl();
+                    return new DirectEdgeProxySoapImpl(mockWebServiceProxyHelper);
                 }
             };
         }
@@ -125,7 +126,7 @@ public class DirectEdgeProxySoapImplTest {
                         eq("documentRepositoryProvideAndRegisterDocumentSetB"),
                         any(ProvideAndRegisterDocumentSetRequestType.class))).thenReturn(getSuccessResponse());
         when(mockWebServiceProxyHelper.getAdapterEndPointFromConnectionManager(any(String.class))).thenReturn(
-                endpointUrl);
+                ENDPOINT_URL);
 
         MimeMessage message = new MimeMessage(null, IOUtils.toInputStream(DirectUnitTestUtil
                 .getFileAsString("Example_A.txt")));
@@ -139,17 +140,13 @@ public class DirectEdgeProxySoapImplTest {
      * @return an instance of DirectEdgeProxySoapImpl with a mocked up CONNECTClient.
      */
     private DirectEdgeProxySoapImpl getProxyWithMockClient() {
-        return new DirectEdgeProxySoapImpl() {
+        return new DirectEdgeProxySoapImpl(mockWebServiceProxyHelper) {
             @Override
             protected CONNECTClient<DocumentRepositoryPortType> getClient(
                     ServicePortDescriptor<DocumentRepositoryPortType> portDescriptor, String url) {
                 return mockClient;
             }
 
-            @Override
-            protected WebServiceProxyHelper createWebServiceProxyHelper() {
-                return mockWebServiceProxyHelper;
-            }
         };
     }
 

@@ -24,36 +24,36 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.direct;
+package gov.hhs.fha.nhinc.mail;
 
-import gov.hhs.fha.nhinc.proxy.ComponentProxyFactory;
+import java.util.Properties;
 
-import org.apache.log4j.Logger;
+import javax.mail.Address;
+import javax.mail.MessagingException;
+import javax.mail.internet.MimeMessage;
 
 /**
- * Direct Client Factory responsible for {@link DirectClient}.
+ * Use Smtp to send messages using Javamail.
  */
-public class DirectClientFactory {
-    
-    private static final Logger LOG = Logger.getLogger(DirectClientFactory.class);
-    
-    private static final String CONFIG_FILE_NAME = "direct.appcontext.xml";
-    private static final String BEAN_NAME = "extDirectMailClient";
-    
+public class SmtpMailSender extends AbstractMailClient implements MailSender {
+
     /**
-     * Register Handlers will invoke getInstance, thereby loading the spring context and task scheduler for polling mail
-     * servers.
+     * @param mailServerProps
      */
-    public void registerHandlers() {
-        LOG.debug("Registering handlers...");
-        getDirectClient();
+    public SmtpMailSender(Properties mailServerProps) {
+        super(mailServerProps);
     }
-    
+
     /**
-     * @return a {@link DirectClient} from the factory.
+     * {@inheritDoc}
      */
-    public DirectClient getDirectClient() {
-        return new ComponentProxyFactory(CONFIG_FILE_NAME).getInstance(BEAN_NAME, DirectClient.class);
+    @Override
+    public void send(Address[] recipients, MimeMessage message) throws MailClientException {
+        try {
+            MailUtils.sendMessage(recipients, getMailSession(), message);
+        } catch (MessagingException e) {
+            throw new MailClientException("Exception while sending message.", e);
+        }
     }
-    
+
 }

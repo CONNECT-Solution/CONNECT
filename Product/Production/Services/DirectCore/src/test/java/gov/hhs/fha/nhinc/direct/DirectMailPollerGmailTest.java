@@ -30,9 +30,14 @@ import static gov.hhs.fha.nhinc.direct.DirectUnitTestUtil.getFileAsString;
 import static gov.hhs.fha.nhinc.direct.DirectUnitTestUtil.removeSmtpAgentConfig;
 import static gov.hhs.fha.nhinc.direct.DirectUnitTestUtil.writeSmtpAgentConfig;
 import static org.mockito.Mockito.mock;
+import gov.hhs.fha.nhinc.mail.ImapMailReceiver;
+import gov.hhs.fha.nhinc.mail.MailReceiver;
+import gov.hhs.fha.nhinc.mail.MailUtils;
+import gov.hhs.fha.nhinc.mail.MessageHandler;
 
 import java.util.Properties;
 
+import javax.mail.MessagingException;
 import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.MimeMessage;
@@ -42,13 +47,12 @@ import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Ignore;
 import org.junit.Test;
-import org.nhindirect.gateway.smtp.SmtpAgent;
-import org.nhindirect.gateway.smtp.SmtpAgentFactory;
 
 /**
  * the SMTP/IMAP using gmail.
  */
-public class DirectClientGmailTest {
+@Ignore
+public class DirectMailPollerGmailTest {
     
     private final Properties props = getMailServerProps();
         
@@ -75,13 +79,12 @@ public class DirectClientGmailTest {
      * @throws Exception on error.
      */
     @Test
-    @Ignore
     public void testImapsFetchWithGmail() throws Exception {        
         MessageHandler mockHandler = mock(MessageHandler.class);
-        DirectMailClient directClient = new DirectMailClient(props, getSmtpAgent());
-        directClient.setMessageHandler(mockHandler);
+        MailReceiver mailReceiver = new ImapMailReceiver(props);
+        DirectMailPoller mailPoller = new DirectMailPoller(mailReceiver, mockHandler);
         initiateEmail();
-        directClient.handleMessages();
+        mailPoller.poll();
     }
 
     /**
@@ -115,11 +118,7 @@ public class DirectClientGmailTest {
         return props;
     }
     
-    private SmtpAgent getSmtpAgent() {
-        return SmtpAgentFactory.createAgent(getClass().getClassLoader().getResource("smtp.agent.config.xml"));
-    }
-
-    private void initiateEmail() throws Exception {
+    private void initiateEmail() throws MessagingException {
        
         Session session = MailUtils.getMailSession(props, props.getProperty("direct.mail.user"),
                 props.getProperty("direct.mail.pass"));
@@ -136,6 +135,4 @@ public class DirectClientGmailTest {
             transport.close();
         }
     }
-    
-
 }

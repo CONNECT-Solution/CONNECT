@@ -26,61 +26,59 @@
  */
 package gov.hhs.fha.nhinc.direct;
 
+import gov.hhs.fha.nhinc.direct.event.DirectEventLogger;
+import gov.hhs.fha.nhinc.direct.event.DirectEventType;
+import gov.hhs.fha.nhinc.mail.MailSender;
+
 import javax.mail.Address;
 import javax.mail.internet.MimeMessage;
 
-import org.nhindirect.gateway.smtp.MessageProcessResult;
 import org.nhindirect.gateway.smtp.SmtpAgent;
 import org.nhindirect.xd.common.DirectDocuments;
 
 /**
- * Interface defining a Mail Client.
+ * Used to send outbound direct messages.
  */
-public interface DirectClient {
+public class DirectSenderImpl extends DirectAdapter implements DirectSender {
 
-    /**
-     * Use the mail server to send a DIRECT message.
-     *
-     * @param sender of the message
-     * @param recipients of the message
-     * @param documents to be attached to the message
-     * @param messageId for the message
-     */
-    void processAndSend(Address sender, Address[] recipients, DirectDocuments documents, String messageId);
+    private static final String MSG_SUBJECT = "DIRECT Message";
+    private static final String MSG_TEXT = "DIRECT Message body text";
     
     /**
-     * Use the mail server to send a DIRECT message. When you already have a mail message and you want to send it
-     * as a DIRECT message. Sender and recipients are extracted from the mime message.
-     *
-     * @param message (mime) to be sent using the direct
+     * @param externalMailClient
+     * @param smtpAgent
      */
-    void processAndSend(MimeMessage message);
+    public DirectSenderImpl(MailSender externalMailSender, SmtpAgent smtpAgent) {
+        super(externalMailSender, smtpAgent);
+    }
 
     /**
-     * Use the mail server to send a processed message. When you have a mail message and you want to send it without
-     * performing anymore encryption/decryption or direct processing. Sender and recipients are extracted from the mime 
-     * message.
-     *
-     * @param message (mime) to be sent using the direct
+     * {@inheritDoc}
      */
-    void send(MimeMessage message);
-
-    /**
-     * Use the mail server to send MDN messages if result contains notification messages.
-     *
-     * @param result to be processed for MDN Messages.
-     */
-    void sendMdn(MessageProcessResult result);
-
-    /**
-     * Pull messages from a server and use an injected MessageHandler to handle them.
-     * @return number of messages handled.
-     */
-    int handleMessages();
+    @Override
+    public void sendOutboundDirect(MimeMessage message) {
+        DirectEventLogger.getInstance().log(DirectEventType.BEGIN_OUTBOUND_DIRECT, message);
+        try {
+            MimeMessage processedMessage = process(message).getProcessedMessage().getMessage();
+            getExternalMailSender().send(message.getAllRecipients(), processedMessage);
+        } catch (Exception e) {
+            throw new DirectException("Exception sending outbound direct.", e, message);
+        }
+        DirectEventLogger.getInstance().log(DirectEventType.END_OUTBOUND_DIRECT, message);
+    }
     
     /**
-     * Make the smtp agent on this direct client available to the caller.
-     * @return SmtpAgent property of this client.
+     * {@inheritDoc}
      */
-    SmtpAgent getSmtpAgent();
+    @Override
+    public void sendOutboundDirect(Address sender, Address[] recipients, DirectDocuments documents, String messageId) {
+        MimeMessage message = null;
+        try {
+            message = new MimeMessageBuilder(getExternalMailSender().getMailSession(), sender, recipients)
+                    .subject(MSG_SUBJECT).text(MSG_TEXT).documents(documents).messageId(messageId).build();
+            sendOutboundDirect(message);
+        } catch (Exception e) {
+            throw new DirectException("Error building and sending mime message.", e, message);
+        }
+    }
 }

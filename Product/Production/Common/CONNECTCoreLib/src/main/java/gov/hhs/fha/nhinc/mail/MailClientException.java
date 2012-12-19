@@ -24,60 +24,28 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.direct.xdr;
-
-import static org.junit.Assert.assertNotNull;
-import gov.hhs.fha.nhinc.direct.DirectAdapterFactory;
-import gov.hhs.fha.nhinc.direct.DirectUnitTestUtil;
-
-import org.apache.log4j.Logger;
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
-import org.junit.Ignore;
-import org.junit.Test;
+package gov.hhs.fha.nhinc.mail;
 
 /**
- * Test {@link DirectAdapterFactory}.
+ * Mail Client Exceptions.
  */
-public class DirectClientFactoryTest {
+public class MailClientException extends Exception {
 
-    private static final Logger LOG = Logger.getLogger(DirectClientFactoryTest.class);
-    
+    private static final long serialVersionUID = 9172182296895105633L;
+
     /**
-     * Set up keystore for test.
+     * @param message error message
+     * @param cause root exception
      */
-    @BeforeClass
-    public static void setUpClass() {
-        DirectUnitTestUtil.writeSmtpAgentConfig();
+    public MailClientException(String message, Throwable cause) {
+        super(message, cause);
     }
 
     /**
-     * Tear down keystore created in setup.
+     * @param message error message
      */
-    @AfterClass
-    public static void tearDownClass() {
-        DirectUnitTestUtil.removeSmtpAgentConfig();
-    }
-    
-    /**
-     * Test {@link DirectAdapterFactory#getDirectAdapter()}.
-     * Note: This test fails when run as part of the suite - it seems that the config is loaded in another test before
-     * we are setting the system property for the nhinc.properties.dir. Ignoring for now til more time can be spent on
-     * it.
-     */
-    @Test
-    @Ignore
-    public void canGetDirectClientFromFactory() {
-
-        LOG.info("nhinc.properties.dir...");
-        String propertiesDir = DirectUnitTestUtil.getClassPath();
-        System.setProperty("nhinc.properties.dir", propertiesDir);
-        LOG.info("nhinc.properties.dir: " + propertiesDir);
-
-        DirectAdapterFactory testDirectFactory = new DirectAdapterFactory();
-        assertNotNull(testDirectFactory.getDirectReceiver());
-        assertNotNull(testDirectFactory.getDirectSender());
-
+    public MailClientException(String message) {
+        super(message);
     }
 
 }

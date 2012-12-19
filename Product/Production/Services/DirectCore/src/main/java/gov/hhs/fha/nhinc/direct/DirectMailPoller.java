@@ -26,33 +26,30 @@
  */
 package gov.hhs.fha.nhinc.direct;
 
-import static gov.hhs.fha.nhinc.direct.DirectUnitTestUtil.getSampleMimeMessage;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-
-import javax.mail.internet.MimeMessage;
-
-import org.junit.Test;
+import gov.hhs.fha.nhinc.mail.AbstractMailPoller;
+import gov.hhs.fha.nhinc.mail.MailClientException;
+import gov.hhs.fha.nhinc.mail.MailReceiver;
+import gov.hhs.fha.nhinc.mail.MessageHandler;
 
 /**
- * Test {@link OutboundMessageHandler}.
+ * Direct Mail Poller handles any exceptions incurred by {@link AbstractMailPoller#poll()}.
  */
-public class OutboundMessageHandlerTest {
-    
-    /**
-     * Verify that the Outbound Message Handler will use the external direct mail client to directify the message.
-     * The internal direct mail client passed in will be ignored.
-     */
-    @Test
-    public void canHandleOutboundMsg() {
-        DirectMailClient mockExternalDirectMailClient = mock(DirectMailClient.class);
-        OutboundMessageHandler testOutBoundMessageHandler = new OutboundMessageHandler();
-        testOutBoundMessageHandler.setExternalDirectClient(mockExternalDirectMailClient);
-        
-        MimeMessage mimeMessage = getSampleMimeMessage();
-        testOutBoundMessageHandler.handleMessage(mimeMessage, mock(DirectMailClient.class));
+public class DirectMailPoller extends AbstractMailPoller {
 
-        verify(mockExternalDirectMailClient).processAndSend(mimeMessage);
+    /**
+     * @param mailClient mail client talking to the server we want to poll.
+     * @param messageHandler message handler invoked on each message returned.
+     */
+    public DirectMailPoller(MailReceiver mailReceiver, MessageHandler messageHandler) {
+        super(mailReceiver, messageHandler);
     }
-    
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public void handleException(MailClientException e) {
+        throw new DirectException("Exception while polling mail server.", e);
+    }
+
 }

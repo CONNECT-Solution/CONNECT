@@ -24,60 +24,43 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.direct.xdr;
+package gov.hhs.fha.nhinc.mail;
 
-import static org.junit.Assert.assertNotNull;
-import gov.hhs.fha.nhinc.direct.DirectAdapterFactory;
-import gov.hhs.fha.nhinc.direct.DirectUnitTestUtil;
+import java.util.Properties;
 
-import org.apache.log4j.Logger;
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
-import org.junit.Ignore;
-import org.junit.Test;
+import javax.mail.Session;
 
 /**
- * Test {@link DirectAdapterFactory}.
+ * Base class for Mail Client 
  */
-public class DirectClientFactoryTest {
+public class AbstractMailClient implements MailClient {
 
-    private static final Logger LOG = Logger.getLogger(DirectClientFactoryTest.class);
+    private final Session mailSession;
+    private final Properties mailServerProps;
+
+    /**
+     * @param mailSession
+     */
+    public AbstractMailClient(Properties mailServerProps) {
+        this.mailServerProps = mailServerProps;
+        this.mailSession = MailUtils.getMailSession(mailServerProps, mailServerProps.getProperty("direct.mail.user"),
+                mailServerProps.getProperty("direct.mail.pass"));
+        mailSession.setDebug(Boolean.parseBoolean(mailServerProps.getProperty("direct.mail.session.debug")));
+        mailSession.setDebugOut(System.out);
+    }
+
+    /**
+     * @return the mailSession
+     */
+    public Session getMailSession() {
+        return mailSession;
+    }
+
+    /**
+     * @return the mailServerProps
+     */
+    public Properties getMailServerProps() {
+        return mailServerProps;
+    }
     
-    /**
-     * Set up keystore for test.
-     */
-    @BeforeClass
-    public static void setUpClass() {
-        DirectUnitTestUtil.writeSmtpAgentConfig();
-    }
-
-    /**
-     * Tear down keystore created in setup.
-     */
-    @AfterClass
-    public static void tearDownClass() {
-        DirectUnitTestUtil.removeSmtpAgentConfig();
-    }
-    
-    /**
-     * Test {@link DirectAdapterFactory#getDirectAdapter()}.
-     * Note: This test fails when run as part of the suite - it seems that the config is loaded in another test before
-     * we are setting the system property for the nhinc.properties.dir. Ignoring for now til more time can be spent on
-     * it.
-     */
-    @Test
-    @Ignore
-    public void canGetDirectClientFromFactory() {
-
-        LOG.info("nhinc.properties.dir...");
-        String propertiesDir = DirectUnitTestUtil.getClassPath();
-        System.setProperty("nhinc.properties.dir", propertiesDir);
-        LOG.info("nhinc.properties.dir: " + propertiesDir);
-
-        DirectAdapterFactory testDirectFactory = new DirectAdapterFactory();
-        assertNotNull(testDirectFactory.getDirectReceiver());
-        assertNotNull(testDirectFactory.getDirectSender());
-
-    }
-
 }

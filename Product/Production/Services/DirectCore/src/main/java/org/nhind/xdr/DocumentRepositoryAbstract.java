@@ -28,8 +28,8 @@
 
 package org.nhind.xdr;
 
-import gov.hhs.fha.nhinc.direct.DirectClient;
-import gov.hhs.fha.nhinc.direct.DirectClientFactory;
+import gov.hhs.fha.nhinc.direct.DirectAdapterFactory;
+import gov.hhs.fha.nhinc.direct.DirectSender;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
 
@@ -183,7 +183,8 @@ public abstract class DocumentRepositoryAbstract {
                         addressTo[i++] = new InternetAddress(recipient);
                     }
 
-                    getDirectClient().processAndSend(new InternetAddress(replyEmail), addressTo, documents, messageId);
+                    getDirectSender().sendOutboundDirect(new InternetAddress(replyEmail), addressTo, documents,
+                            messageId);
 
                     // getAuditMessageGenerator().provideAndRegisterAuditSource(
                     // messageId, remoteHost, endpoint, to, thisHost, patId,
@@ -222,8 +223,8 @@ public abstract class DocumentRepositoryAbstract {
         return resp;
     }
 
-    private DirectClient getDirectClient() {
-        return new DirectClientFactory().getDirectClient();
+    private DirectSender getDirectSender() {
+        return new DirectAdapterFactory().getDirectSender();
     }
 
     /**
