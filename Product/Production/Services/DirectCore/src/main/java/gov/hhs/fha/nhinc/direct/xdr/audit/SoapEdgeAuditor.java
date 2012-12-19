@@ -26,6 +26,8 @@
  */
 package gov.hhs.fha.nhinc.direct.xdr.audit;
 
+import gov.hhs.fha.nhinc.direct.xdr.SoapEdgeContext;
+
 /**
  * Interface to describe a soap edge client or server auditor.
  * 
@@ -46,6 +48,6 @@ public interface SoapEdgeAuditor {
      * @param properties An implementation of DirectRIAuditable with properties which can be populated as Direct RI
      *            AuditContexts.
      */
-    void audit(String principal, String category, String message, Auditable properties);
+    void audit(String principal, String category, String message, SoapEdgeContext properties);
 
 }

@@ -41,6 +41,7 @@ import javax.mail.Store;
 import javax.mail.Transport;
 import javax.mail.internet.MimeMessage;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 
 /**
@@ -123,6 +124,9 @@ public class MailUtils {
             transport = session.getTransport("smtp");
             String host = session.getProperty("mail.smtp.host");
             String port = session.getProperty("mail.smtp.port");
+            if (!StringUtils.isBlank(port)) {
+                port = StringUtils.trim(port);
+            }
             String user = session.getProperty("direct.mail.user");
             String pass = session.getProperty("direct.mail.pass");
             
