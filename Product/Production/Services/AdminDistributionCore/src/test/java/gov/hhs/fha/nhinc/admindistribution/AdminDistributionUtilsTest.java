@@ -41,7 +41,6 @@ import oasis.names.tc.emergency.edxl.de._1.ContentObjectType;
 import oasis.names.tc.emergency.edxl.de._1.EDXLDistribution;
 import oasis.names.tc.emergency.edxl.de._1.NonXMLContentType;
 
-import org.apache.commons.logging.Log;
 import org.apache.cxf.attachment.ByteDataSource;
 import org.jmock.Expectations;
 import org.jmock.Mockery;
@@ -63,7 +62,6 @@ public class AdminDistributionUtilsTest {
 			setImposteriser(ClassImposteriser.INSTANCE);
 		}
 	};
-	final Log mockLog = context.mock(Log.class);
 	final LargeFileUtils mockFileUtils = context.mock(LargeFileUtils.class);
 
 	@Test

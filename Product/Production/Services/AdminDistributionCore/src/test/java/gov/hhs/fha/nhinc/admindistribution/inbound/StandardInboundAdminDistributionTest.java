@@ -40,7 +40,6 @@ import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import oasis.names.tc.emergency.edxl.de._1.EDXLDistribution;
 
-import org.apache.commons.logging.Log;
 import org.junit.Test;
 
 /**
@@ -58,19 +57,18 @@ public class StandardInboundAdminDistributionTest {
         AdminDistributionUtils adminUtils = mock(AdminDistributionUtils.class);
         AdapterAdminDistributionProxyObjectFactory adapterFactory = mock(AdapterAdminDistributionProxyObjectFactory.class);
         AdapterAdminDistributionProxy adapterProxy = mock(AdapterAdminDistributionProxy.class);
-        Log log = mock(Log.class);
-
+        
         when(adapterFactory.getAdapterAdminDistProxy()).thenReturn(adapterProxy);
 
         PassthroughInboundAdminDistribution passthroughAdminDist = new PassthroughInboundAdminDistribution(auditLogger,
-                adminUtils, adapterFactory, log);
+                adminUtils, adapterFactory);
 
         AdminDistributionPolicyChecker policyChecker = mock(AdminDistributionPolicyChecker.class);
         
         when(policyChecker.checkIncomingPolicy(request, assertion)).thenReturn(true);
 
         StandardInboundAdminDistribution standardAdminDist = new StandardInboundAdminDistribution(passthroughAdminDist,
-                policyChecker, auditLogger, log);
+                policyChecker, auditLogger);
         
         standardAdminDist.sendAlertMessage(request, assertion);
 
@@ -91,22 +89,19 @@ public class StandardInboundAdminDistributionTest {
         AdminDistributionAuditLogger auditLogger = mock(AdminDistributionAuditLogger.class);
         AdminDistributionUtils adminUtils = mock(AdminDistributionUtils.class);
         AdapterAdminDistributionProxyObjectFactory adapterFactory = mock(AdapterAdminDistributionProxyObjectFactory.class);
-        Log log = mock(Log.class);
-
+        
         PassthroughInboundAdminDistribution passthroughAdminDist = new PassthroughInboundAdminDistribution(auditLogger,
-                adminUtils, adapterFactory, log);
+                adminUtils, adapterFactory);
 
         AdminDistributionPolicyChecker policyChecker = mock(AdminDistributionPolicyChecker.class);
         
         when(policyChecker.checkIncomingPolicy(request, assertion)).thenReturn(false);
 
         StandardInboundAdminDistribution standardAdminDist = new StandardInboundAdminDistribution(passthroughAdminDist,
-                policyChecker, auditLogger, log);
+                policyChecker, auditLogger);
         
         standardAdminDist.sendAlertMessage(request, assertion);
         
-        verify(log).warn(anyString());
-
         verify(auditLogger).auditNhinAdminDist(eq(request), eq(assertion),
                 eq(NhincConstants.AUDIT_LOG_INBOUND_DIRECTION), eq(NhincConstants.AUDIT_LOG_NHIN_INTERFACE));
     }

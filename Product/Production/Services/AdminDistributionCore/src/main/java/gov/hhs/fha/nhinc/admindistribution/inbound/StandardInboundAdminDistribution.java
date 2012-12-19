@@ -26,8 +26,7 @@
  */
 package gov.hhs.fha.nhinc.admindistribution.inbound;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 
 import gov.hhs.fha.nhinc.admindistribution.AdminDistributionAuditLogger;
 import gov.hhs.fha.nhinc.admindistribution.AdminDistributionPolicyChecker;
@@ -40,7 +39,7 @@ import oasis.names.tc.emergency.edxl.de._1.EDXLDistribution;
  */
 public class StandardInboundAdminDistribution extends AbstractInboundAdminDistribution {
 
-    private Log log = LogFactory.getLog(StandardInboundAdminDistribution.class);
+    private static final Logger LOG = Logger.getLogger(StandardInboundAdminDistribution.class);
     private AdminDistributionPolicyChecker policyChecker = new AdminDistributionPolicyChecker();
     private PassthroughInboundAdminDistribution passthroughAdminDist = new PassthroughInboundAdminDistribution();
 
@@ -57,14 +56,12 @@ public class StandardInboundAdminDistribution extends AbstractInboundAdminDistri
      * @param passthroughAdminDist
      * @param policyChecker
      * @param auditLogger
-     * @param log
      */
     public StandardInboundAdminDistribution(PassthroughInboundAdminDistribution passthroughAdminDist,
-            AdminDistributionPolicyChecker policyChecker, AdminDistributionAuditLogger auditLogger, Log log) {
+            AdminDistributionPolicyChecker policyChecker, AdminDistributionAuditLogger auditLogger) {
         this.passthroughAdminDist = passthroughAdminDist;
         this.policyChecker = policyChecker;
         this.auditLogger = auditLogger;
-        this.log = log;
     }
 
     @Override
@@ -72,7 +69,7 @@ public class StandardInboundAdminDistribution extends AbstractInboundAdminDistri
         if (isPolicyValid(body, assertion)) {
             passthroughAdminDist.processAdminDistribution(body, assertion);
         } else {
-            log.warn("Invalid policy.  Will not send message to adapter.");
+            LOG.warn("Invalid policy.  Will not send message to adapter.");
         }
     }
 
@@ -82,7 +79,7 @@ public class StandardInboundAdminDistribution extends AbstractInboundAdminDistri
         if (body != null) {
             result = policyChecker.checkIncomingPolicy(body, assertion);
         } else {
-            log.warn("Admin Dist request body was null");
+            LOG.warn("Admin Dist request body was null");
         }
 
         return result;

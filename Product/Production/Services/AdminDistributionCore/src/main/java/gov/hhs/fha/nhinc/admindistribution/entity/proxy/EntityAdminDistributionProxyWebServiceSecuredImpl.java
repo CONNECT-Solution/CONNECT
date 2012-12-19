@@ -41,29 +41,14 @@ import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 import oasis.names.tc.emergency.edxl.de._1.EDXLDistribution;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 
 /**
  * 
  * @author dunnek
  */
 public class EntityAdminDistributionProxyWebServiceSecuredImpl {
-    private Log log = null;
-
-    /**
-     * Constructor.
-     */
-    public EntityAdminDistributionProxyWebServiceSecuredImpl() {
-        log = createLogger();
-    }
-
-    /**
-     * @return log.
-     */
-    private Log createLogger() {
-        return LogFactory.getLog(getClass());
-    }
+    private static final Logger LOG = Logger.getLogger(EntityAdminDistributionProxyWebServiceSecuredImpl.class);
 
     /**
      * @return instance of AdminDistributionHelper.
@@ -114,7 +99,7 @@ public class EntityAdminDistributionProxyWebServiceSecuredImpl {
      */
     public void sendAlertMessage(EDXLDistribution body, AssertionType assertion, NhinTargetCommunitiesType target,
             NhincConstants.GATEWAY_API_LEVEL apiLevel) {
-        log.debug("begin sendAlertMessage");
+        LOG.debug("begin sendAlertMessage");
         AdminDistributionHelper helper = getHelper();
         String hcid = helper.getLocalCommunityId();
         String url = helper.getUrl(hcid, NhincConstants.ENTITY_ADMIN_DIST_SECURED_SERVICE_NAME, apiLevel);
@@ -134,11 +119,11 @@ public class EntityAdminDistributionProxyWebServiceSecuredImpl {
 
                 client.invokePort(AdministrativeDistributionSecuredPortType.class, "sendAlertMessage", message);
             } catch (Exception ex) {
-                log.error("Failed to call the web service (" + NhincConstants.ENTITY_ADMIN_DIST_SECURED_SERVICE_NAME
+                LOG.error("Failed to call the web service (" + NhincConstants.ENTITY_ADMIN_DIST_SECURED_SERVICE_NAME
                         + ").  An unexpected exception occurred.  " + "Exception: " + ex.getMessage(), ex);
             }
         } else {
-            log.error("Failed to call the web service (" + NhincConstants.ADAPTER_ADMIN_DIST_SECURED_SERVICE_NAME
+            LOG.error("Failed to call the web service (" + NhincConstants.ADAPTER_ADMIN_DIST_SECURED_SERVICE_NAME
                     + ").  The URL is null.");
         }
     }

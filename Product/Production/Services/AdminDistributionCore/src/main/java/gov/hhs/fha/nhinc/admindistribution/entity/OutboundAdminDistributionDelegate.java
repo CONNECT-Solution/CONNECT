@@ -26,8 +26,7 @@
  */
 package gov.hhs.fha.nhinc.admindistribution.entity;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 
 import gov.hhs.fha.nhinc.admindistribution.orchestration.OrchestrationContextFactory;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
@@ -42,7 +41,7 @@ import gov.hhs.fha.nhinc.orchestration.OutboundOrchestratable;
  */
 public class OutboundAdminDistributionDelegate implements OutboundDelegate {
 
-    private static Log log = LogFactory.getLog(OutboundAdminDistributionDelegate.class);
+    private static final Logger LOG = Logger.getLogger(OutboundAdminDistributionDelegate.class);
 
     @Override
     public Orchestratable process(Orchestratable message) {
@@ -55,9 +54,9 @@ public class OutboundAdminDistributionDelegate implements OutboundDelegate {
     // @Overrides
     @Override
     public OutboundOrchestratable process(OutboundOrchestratable message) {
-        getLogger().debug("begin process");
+        LOG.debug("begin process");
         if (message instanceof OutboundAdminDistributionOrchestratable) {
-            getLogger().debug("processing AD orchectratable ");
+            LOG.debug("processing AD orchectratable ");
             OutboundAdminDistributionOrchestratable adMessage = (OutboundAdminDistributionOrchestratable) message;
 
             OrchestrationContextBuilder contextBuilder = OrchestrationContextFactory.getInstance().getBuilder(
@@ -73,12 +72,8 @@ public class OutboundAdminDistributionDelegate implements OutboundDelegate {
             }
             return (OutboundOrchestratable) contextBuilder.build().execute();
         }
-        getLogger().error("message is not an instance of NhinAdminDistributionOrchestratable!");
+        LOG.error("message is not an instance of NhinAdminDistributionOrchestratable!");
         return null;
-    }
-
-    private Log getLogger() {
-        return log;
     }
 
     /*

@@ -40,8 +40,7 @@ import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import oasis.names.tc.emergency.edxl.de._1.EDXLDistribution;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 
 /**
  * 
@@ -49,18 +48,7 @@ import org.apache.commons.logging.LogFactory;
  */
 
 public class EntityAdminDistributionProxyWebServiceUnsecuredImpl {
-    private Log log = null;
-
-    /**
-     * Constructor.
-     */
-    public EntityAdminDistributionProxyWebServiceUnsecuredImpl() {
-        log = createLogger();
-    }
-
-    private Log createLogger() {
-        return LogFactory.getLog(getClass());
-    }
+    private static final Logger LOG = Logger.getLogger(EntityAdminDistributionProxyWebServiceUnsecuredImpl.class);
 
     /**
      * @return instance of AdminDistributionHelper.
@@ -105,7 +93,7 @@ public class EntityAdminDistributionProxyWebServiceUnsecuredImpl {
      */
     public void sendAlertMessage(EDXLDistribution body, AssertionType assertion, NhinTargetCommunitiesType target,
             NhincConstants.GATEWAY_API_LEVEL apiLevel) {
-        log.debug("begin sendAlertMessage");
+        LOG.debug("begin sendAlertMessage");
 
         AdminDistributionHelper helper = getHelper();
         String hcid = helper.getLocalCommunityId();
@@ -126,10 +114,10 @@ public class EntityAdminDistributionProxyWebServiceUnsecuredImpl {
 
                 client.invokePort(AdministrativeDistributionPortType.class, "sendAlertMessage", message);
             } catch (Exception ex) {
-                log.error("Unable to send message: " + ex.getMessage(), ex);
+                LOG.error("Unable to send message: " + ex.getMessage(), ex);
             }
         } else {
-            log.error("Failed to call the web service (" + NhincConstants.ADAPTER_ADMIN_DIST_SERVICE_NAME
+            LOG.error("Failed to call the web service (" + NhincConstants.ADAPTER_ADMIN_DIST_SERVICE_NAME
                     + ").  The URL is null.");
         }
     }

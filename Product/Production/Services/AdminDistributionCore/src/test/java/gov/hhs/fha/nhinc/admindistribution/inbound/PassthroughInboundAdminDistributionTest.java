@@ -36,7 +36,6 @@ import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 
 import oasis.names.tc.emergency.edxl.de._1.EDXLDistribution;
 
-import org.apache.commons.logging.Log;
 import org.junit.Test;
 
 import static org.mockito.Matchers.anyString;
@@ -61,12 +60,11 @@ public class PassthroughInboundAdminDistributionTest {
         AdminDistributionUtils adminUtils = mock(AdminDistributionUtils.class);
         AdapterAdminDistributionProxyObjectFactory adapterFactory = mock(AdapterAdminDistributionProxyObjectFactory.class);
         AdapterAdminDistributionProxy adapterProxy = mock(AdapterAdminDistributionProxy.class);
-        Log log = mock(Log.class);
-
+        
         when(adapterFactory.getAdapterAdminDistProxy()).thenReturn(adapterProxy);
 
         PassthroughInboundAdminDistribution passthroughAdminDist = new PassthroughInboundAdminDistribution(auditLogger,
-                adminUtils, adapterFactory, log);
+                adminUtils, adapterFactory);
 
         passthroughAdminDist.sendAlertMessage(request, assertion);
 
@@ -88,15 +86,13 @@ public class PassthroughInboundAdminDistributionTest {
         AdminDistributionAuditLogger auditLogger = mock(AdminDistributionAuditLogger.class);
         AdminDistributionUtils adminUtils = mock(AdminDistributionUtils.class);
         AdapterAdminDistributionProxyObjectFactory adapterFactory = mock(AdapterAdminDistributionProxyObjectFactory.class);
-        Log log = mock(Log.class);
         
         doThrow(exception).when(adminUtils).convertDataToFileLocationIfEnabled(request);
         
         PassthroughInboundAdminDistribution passthroughAdminDist = new PassthroughInboundAdminDistribution(auditLogger,
-                adminUtils, adapterFactory, log);
+                adminUtils, adapterFactory);
 
         passthroughAdminDist.sendAlertMessage(request, assertion);
         
-        verify(log).error(anyString(), eq(exception));        
     }
 }

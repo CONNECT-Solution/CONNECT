@@ -33,16 +33,13 @@ import gov.hhs.fha.nhinc.orchestration.OutboundOrchestratable;
 import gov.hhs.fha.nhinc.orchestration.OutboundDelegate;
 import gov.hhs.fha.nhinc.orchestration.OrchestrationContext;
 import gov.hhs.fha.nhinc.orchestration.OrchestrationContextBuilder;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+
 
 /**
  * 
  * @author nnguyen
  */
 public abstract class OutboundAdminDistributionOrchestrationContextBuilder implements OrchestrationContextBuilder {
-
-    private static Log log = LogFactory.getLog(OutboundAdminDistributionOrchestrationContextBuilder.class);
 
     private RespondingGatewaySendAlertMessageType request;
     private AssertionType assertionType;
@@ -109,13 +106,6 @@ public abstract class OutboundAdminDistributionOrchestrationContextBuilder imple
      */
     public void setTargetSystem(NhinTargetSystemType targetSystem) {
         this.targetSystem = targetSystem;
-    }
-
-    /**
-     * @return log.
-     */
-    public Log getLog() {
-        return log;
     }
 
     /** This method gets and sets assertion,request and target info from orchestartable message.

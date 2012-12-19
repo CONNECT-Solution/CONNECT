@@ -28,7 +28,6 @@ package gov.hhs.fha.nhinc.admindistribution.adapter.proxy;
 
 import oasis.names.tc.emergency.edxl.de._1.EDXLDistribution;
 
-import org.apache.commons.logging.Log;
 import org.jmock.Expectations;
 import org.jmock.Mockery;
 import org.jmock.lib.legacy.ClassImposteriser;
@@ -61,26 +60,11 @@ public class AdapterAdminDistNoOpImplTest {
     @Test
     public void testSendAlertMessage() {
         System.out.println("sendAlertMessage");
-        final Log mockLogger = context.mock(Log.class);
-
         final EDXLDistribution body = null;
 
-        AdapterAdminDistributionProxyNoOpImpl instance = new AdapterAdminDistributionProxyNoOpImpl() {
-
-            @Override
-            protected Log createLogger() {
-                return mockLogger;
-            }
-
-        };
-        context.checking(new Expectations() {
-
-            {
-                allowing(mockLogger).info(with(any(String.class)));
-                allowing(mockLogger).debug(with(any(String.class)));
-                will(returnValue(null));
-            }
-        });
+        AdapterAdminDistributionProxyNoOpImpl instance = new AdapterAdminDistributionProxyNoOpImpl();
+        
+        //TODO Make better test.  No assertions.
 
         instance.sendAlertMessage(body, new AssertionType());
         context.assertIsSatisfied();
