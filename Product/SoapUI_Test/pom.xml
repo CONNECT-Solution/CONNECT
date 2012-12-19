@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0                       http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0  http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>org.connectopensource</groupId>
@@ -11,9 +11,15 @@
     <name>${project.artifactId}</name>
     <packaging>pom</packaging>
     <properties>
-        <skip.unpack>true</skip.unpack>
         <endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>
         <ear.path>${org.connectopensource:CONNECT-GF:ear}</ear.path>
+        <host>localhost</host>
+        <secured.port>8181</secured.port>
+        <port>8080</port>
+        <db.host>localhost</db.host>
+        <db.password>nhincpass</db.password>
+        <db.port>3306</db.port>
+        <db.user>nhincuser</db.user>
         <mysql.root.password>NHIE-Gateway</mysql.root.password>
     </properties>
     <modules>
@@ -40,14 +46,65 @@
                         <name>CONNECT</name>
                         <app>${ear.path}</app>
                         <autoDelete>true</autoDelete>
-                        <port>8080</port>
+                        <port>${port}</port>
                         <instanceRoot>${project.build.directory}/domain1</instanceRoot>
                     </configuration>
                 </plugin>
                 <plugin>
                     <groupId>com.github.redfish4ktc.soapui</groupId>
                     <artifactId>maven-soapui-extension-plugin</artifactId>
-                    <version>4.5.1.0</version>
+                    <version>4.5.1.2</version>
+                    <dependencies>
+                        <dependency>
+                            <groupId>mysql</groupId>
+                            <artifactId>mysql-connector-java</artifactId>
+                            <version>5.1.6</version>
+                        </dependency>
+                        <dependency>
+                            <groupId>org.connectopensource</groupId>
+                            <artifactId>CONNECTCommonTypesLib</artifactId>
+                            <version>${project.version}</version>
+                        </dependency>
+                        <dependency>
+                            <groupId>org.connectopensource</groupId>
+                            <artifactId>FileUtils</artifactId>
+                            <version>4.0.0-SNAPSHOT</version>
+                        </dependency>
+                    </dependencies>
+                    <configuration>
+                        <settingsFile>${basedir}/src/main/resources/soapui-settings.xml</settingsFile>
+                        <outputFolder>${basedir}/target/soapui/output/</outputFolder>
+                        <soapuiProperties>
+                            <property>
+                                <name>soapui.logroot</name>
+                                <value>${project.build.directory}/soapui/my_custom_logs/</value>
+                            </property>
+                            <property>
+                                <name>soapui.scripting.library</name>
+                                <value>${basedir}/src/main/resources/groovy_scripts</value>
+                            </property>
+                            <property>
+                                <name>soapui.ext.libraries</name>
+                                <value>${basedir}/src/main/resources/ext</value>
+                            </property>
+                        </soapuiProperties>
+                        <exportAll>true</exportAll>
+                        <printReport>true</printReport>
+                        <junitReport>true</junitReport>
+                        <coverage>false</coverage>
+                        <testFailIgnore>${soapui.testFailIgnore}</testFailIgnore>
+                        <saveAfterRun>false</saveAfterRun>
+                        <host>${host}:${port}</host>
+                        <testSuite>${test.suite}</testSuite>
+                        <testCase>${test.case}</testCase>
+                        <projectProperties>
+                            <value>GatewayPropDir=${properties.dir}</value>
+                            <value>DBHost=${db.host}</value>
+                            <value>DBPass=${db.password}</value>
+                            <value>DBPort=${db.port}</value>
+                            <value>DBUser=${db.user}</value>
+                        </projectProperties>
+                    </configuration>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
@@ -68,41 +125,14 @@
                 <artifactId>maven-dependency-plugin</artifactId>
                 <executions>
                     <execution>
-                        <id>dependency-validate</id>
-                        <phase>validate</phase>
-                        <goals>
-                            <goal>copy</goal>
-                        </goals>
-                        <configuration>
-                            <outputDirectory>${endorsed.dir}</outputDirectory>
-                            <silent>true</silent>
-                            <artifactItems>
-                                <artifactItem>
-                                    <groupId>javax</groupId>
-                                    <artifactId>javaee-endorsed-api</artifactId>
-                                    <version>6.0</version>
-                                    <type>jar</type>
-                                </artifactItem>
-                            </artifactItems>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>dependency-properties</id>
-                        <phase>initialize</phase>
-                        <goals>
-                            <goal>properties</goal>
-                        </goals>
-                    </execution>
-                    <execution>
-                        <id>unpack-nhin-properties</id>
-                        <!-- Using the initialize phase because it is before
+                        <id>unpack-soapui-test-resources</id>
+                        <!-- Using the initialize phase because it is before 
                             the generate sources phase -->
-                        <phase>process-resources</phase>
+                        <phase>pre-integration-test</phase>
                         <goals>
                             <goal>unpack</goal>
                         </goals>
                         <configuration>
-                            <skip>${skip.unpack}</skip>
                             <artifactItems>
                                 <artifactItem>
                                     <!-- Artifact that Holds our custom templates -->
@@ -112,68 +142,137 @@
                                     <type>jar</type>
                                 </artifactItem>
                             </artifactItems>
-                            <includes>**/*</includes>
-                            <outputDirectory>${project.build.directory}/nhinc-properites-dir/</outputDirectory>
+                            <includes>gateway.properties,adapter.properties,PCConfiguration.xml,internalConnectionInfo.xml,hiemTopicConfiguration.xml,XDSUniqueIds.properties</includes>
+                            <outputDirectory>${project.build.directory}/test-classes/</outputDirectory>
                         </configuration>
                     </execution>
                     <execution>
-                        <id>copy-resources-mysql-conn-to-lib</id>
-                        <phase>validate</phase>
+                        <id>unpack-soapui-xsd-resources</id>
+                        <phase>pre-integration-test</phase>
                         <goals>
-                            <goal>copy</goal>
+                            <goal>unpack</goal>
                         </goals>
                         <configuration>
-                            <outputDirectory>${project.build.directory}/domain1/lib/</outputDirectory>
-                            <silent>true</silent>
                             <artifactItems>
                                 <artifactItem>
-                                    <groupId>mysql</groupId>
-                                    <artifactId>mysql-connector-java</artifactId>
-                                    <version>5.1.10</version>
+                                    <groupId>org.connectopensource</groupId>
+                                    <artifactId>CONNECTCommonTypesLib</artifactId>
+                                    <version>${project.parent.version}</version>
                                     <type>jar</type>
                                 </artifactItem>
                             </artifactItems>
+                            <includes>schemas/**/*.xsd</includes>
+                            <outputDirectory>${project.build.directory}/</outputDirectory>
                         </configuration>
                     </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <artifactId>maven-resources-plugin</artifactId>
-                <version>2.6</version>
-                <executions>
+
                     <execution>
-                        <id>copy-resources-embedded-glassfish-domain</id>
-                        <phase>validate</phase>
+                        <id>unpack-soapui-wsdl-resources</id>
+                        <phase>pre-integration-test</phase>
                         <goals>
-                            <goal>copy-resources</goal>
+                            <goal>unpack</goal>
                         </goals>
                         <configuration>
-                            <outputDirectory>${project.build.directory}/domain1/</outputDirectory>
-                            <resources>
-                                <resource>
-                                    <directory>${basedir}/src/test/resources/domain1/</directory>
-                                    <filtering>true</filtering>
-                                </resource>
-                            </resources>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>copy-resources-gateway.properties</id>
-                        <phase>validate</phase>
-                        <goals>
-                            <goal>copy-resources</goal>
-                        </goals>
-                        <configuration>
-                            <outputDirectory>${project.build.directory}/domain1/config/nhin/</outputDirectory>
-                            <resources>
-                                <resource>
-                                    <directory>${project.build.testOutputDirectory}</directory>
-                                    <includes>
-                                        <include>gateway.properties</include>
-                                    </includes>
-                                    <filtering>true</filtering>
-                                </resource>
-                            </resources>
+                            <artifactItems>
+                                <artifactItem>
+                                    <groupId>org.connectopensource</groupId>
+                                    <artifactId>CONNECTCommonWeb</artifactId>
+                                    <version>${project.parent.version}</version>
+                                    <type>war</type>
+                                </artifactItem>
+                                <artifactItem>
+                                    <groupId>org.connectopensource</groupId>
+                                    <artifactId>AdapterAuthenticationCore</artifactId>
+                                    <version>${project.parent.version}</version>
+                                    <type>jar</type>
+                                </artifactItem>
+                                <artifactItem>
+                                    <groupId>org.connectopensource</groupId>
+                                    <artifactId>AdminDistributionCore</artifactId>
+                                    <version>${project.parent.version}</version>
+                                    <type>jar</type>
+                                </artifactItem>
+                                <artifactItem>
+                                    <groupId>org.connectopensource</groupId>
+                                    <artifactId>AuditRepositoryCore</artifactId>
+                                    <version>${project.parent.version}</version>
+                                    <type>jar</type>
+                                </artifactItem>
+                                <artifactItem>
+                                    <groupId>org.connectopensource</groupId>
+                                    <artifactId>ConnectionManagerCore</artifactId>
+                                    <version>${project.parent.version}</version>
+                                    <type>jar</type>
+                                </artifactItem>
+                                <artifactItem>
+                                    <groupId>org.connectopensource</groupId>
+                                    <artifactId>DocRegistryCore</artifactId>
+                                    <version>${project.parent.version}</version>
+                                    <type>jar</type>
+                                </artifactItem>
+                                <artifactItem>
+                                    <groupId>org.connectopensource</groupId>
+                                    <artifactId>DocRepositoryCore</artifactId>
+                                    <version>${project.parent.version}</version>
+                                    <type>jar</type>
+                                </artifactItem>
+                                <artifactItem>
+                                    <groupId>org.connectopensource</groupId>
+                                    <artifactId>DocumentQueryCore</artifactId>
+                                    <version>${project.parent.version}</version>
+                                    <type>jar</type>
+                                </artifactItem>
+                                <artifactItem>
+                                    <groupId>org.connectopensource</groupId>
+                                    <artifactId>DocumentRetrieveCore</artifactId>
+                                    <version>${project.parent.version}</version>
+                                    <type>jar</type>
+                                </artifactItem>
+                                <artifactItem>
+                                    <groupId>org.connectopensource</groupId>
+                                    <artifactId>DocumentSubmissionCore</artifactId>
+                                    <version>${project.parent.version}</version>
+                                    <type>jar</type>
+                                </artifactItem>
+                                <artifactItem>
+                                    <groupId>org.connectopensource</groupId>
+                                    <artifactId>HIEMCore</artifactId>
+                                    <version>${project.parent.version}</version>
+                                    <type>jar</type>
+                                </artifactItem>
+                                <artifactItem>
+                                    <groupId>org.connectopensource</groupId>
+                                    <artifactId>PatientCorrelationCore</artifactId>
+                                    <version>${project.parent.version}</version>
+                                    <type>jar</type>
+                                </artifactItem>
+                                <artifactItem>
+                                    <groupId>org.connectopensource</groupId>
+                                    <artifactId>PatientDiscoveryCore</artifactId>
+                                    <version>${project.parent.version}</version>
+                                    <type>jar</type>
+                                </artifactItem>
+                                <artifactItem>
+                                    <groupId>org.connectopensource</groupId>
+                                    <artifactId>PolicyEngineCore</artifactId>
+                                    <version>${project.parent.version}</version>
+                                    <type>jar</type>
+                                </artifactItem>
+                                <artifactItem>
+                                    <groupId>org.connectopensource</groupId>
+                                    <artifactId>RedactionEngineCore</artifactId>
+                                    <version>${project.parent.version}</version>
+                                    <type>jar</type>
+                                </artifactItem>
+                                <artifactItem>
+                                    <groupId>org.connectopensource</groupId>
+                                    <artifactId>SharedEngineCore</artifactId>
+                                    <version>${project.parent.version}</version>
+                                    <type>jar</type>
+                                </artifactItem>
+                            </artifactItems>
+                            <includes>**/*.wsdl</includes>
+                            <outputDirectory>${project.build.directory}/wsdl-extracted/</outputDirectory>
                         </configuration>
                     </execution>
                 </executions>
@@ -183,46 +282,43 @@
                 <artifactId>maven-antrun-plugin</artifactId>
                 <executions>
                     <execution>
-                        <id>create-docroot</id>
-                        <phase>process-test-resources</phase>
+                        <id>flatten-soapui-test-resources</id>
+                        <phase>pre-integration-test</phase>
                         <goals>
                             <goal>run</goal>
                         </goals>
                         <configuration>
                             <target>
-                                <mkdir dir="${project.build.directory}/domain1/docroot/" />
+                                <copy todir="${project.build.directory}/wsdl"
+                                    flatten="true">
+                                    <fileset
+                                        dir="${project.build.directory}/wsdl-extracted">
+                                        <include name="**/*.wsdl" />
+                                    </fileset>
+                                </copy>
                             </target>
                         </configuration>
                     </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>com.google.code.maven-replacer-plugin</groupId>
+                <artifactId>replacer</artifactId>
+                <executions>
                     <execution>
-                        <id>setup-selfsigned-certs</id>
-                        <phase>process-test-resources</phase>
+                        <id>fix-wsdl-schemalocation</id>
+                        <phase>pre-integration-test</phase>
                         <goals>
-                            <goal>run</goal>
+                            <goal>replace</goal>
                         </goals>
                         <configuration>
-                            <target>
-                                <mkdir dir="${project.build.directory}/domain1/config" />
-                                <exec failonerror="false" executable="keytool"
-                                    dir="${project.build.directory}/domain1/config">
-                                    <arg
-                                        line="-v -genkey -keyalg RSA -keysize 1024 -keystore gateway.jks -keypass changeit -storepass changeit -validity 365 -alias gateway -dname &quot;cn=localhost&quot;" />
-                                </exec>
-                                <exec failonerror="false" executable="keytool"
-                                    dir="${project.build.directory}/domain1/config/">
-                                    <arg
-                                        line="-v -export -rfc -alias gateway -file localhost.cer -keystore gateway.jks -keypass changeit -storepass changeit" />
-                                </exec>
-                                <exec failonerror="false" executable="keytool"
-                                    dir="${project.build.directory}/domain1/config/">
-                                    <arg
-                                        line="-v -import -keypass changeit -noprompt -trustcacerts -alias localhost -file localhost.cer -keystore cacerts.jks -storepass changeit" />
-                                </exec>
-                                <copy file="${project.build.directory}/domain1/config/gateway.jks"
-                                    todir="${project.build.directory}/domain1/lib/classes/" />
-                                <copy file="${project.build.directory}/domain1/config/cacerts.jks"
-                                    todir="${project.build.directory}/domain1/lib/classes/" />
-                            </target>
+                            <basedir>${project.build.directory}/wsdl</basedir>
+                            <includes>
+                                <include>**/*.wsdl</include>
+                            </includes>
+                            <token>schemaLocation=\"classpath:</token>
+                            <value>schemaLocation=\"../</value>
+                            <regex>true</regex>
                         </configuration>
                     </execution>
                 </executions>
