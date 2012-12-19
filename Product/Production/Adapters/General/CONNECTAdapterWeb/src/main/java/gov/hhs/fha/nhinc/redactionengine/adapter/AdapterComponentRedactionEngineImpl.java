@@ -38,8 +38,7 @@ import javax.xml.ws.WebServiceContext;
 
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 
 /**
  * 
@@ -47,31 +46,23 @@ import org.apache.commons.logging.LogFactory;
  */
 public class AdapterComponentRedactionEngineImpl {
 
-    private Log log = null;
+    private static final Logger LOG = Logger.getLogger(AdapterComponentRedactionEngineImpl.class);
     private AsyncMessageIdExtractor extractor = new AsyncMessageIdExtractor();
-
-    public AdapterComponentRedactionEngineImpl() {
-        log = createLogger();
-    }
-
-    protected Log createLogger() {
-        return LogFactory.getLog(getClass());
-    }
-
+    
     public FilterDocQueryResultsResponseType filterDocQueryResults(
             FilterDocQueryResultsRequestType filterDocQueryResultsRequest, WebServiceContext context) {
-        log.debug("Begin filterDocQueryResults");
+        LOG.debug("Begin filterDocQueryResults");
         FilterDocQueryResultsResponseType response = null;
         AssertionType assertion = getAssertion(context);
 
         if (filterDocQueryResultsRequest == null) {
-            log.warn("FilterDocQueryResultsRequestType was null");
+            LOG.warn("FilterDocQueryResultsRequestType was null");
         } else {
             AdhocQueryResponse adhocQueryResponse = invokeRedactionEngineForQuery(filterDocQueryResultsRequest);
             response = new FilterDocQueryResultsResponseType();
             response.setAdhocQueryResponse(adhocQueryResponse);
         }
-        log.debug("end filterDocQueryResults");
+        LOG.debug("end filterDocQueryResults");
         return response;
     }
 
@@ -81,7 +72,7 @@ public class AdapterComponentRedactionEngineImpl {
         AssertionType assertion = getAssertion(context);
 
         if (filterDocRetrieveResultsRequest == null) {
-            log.warn("FilterDocRetrieveResultsRequestType was null");
+            LOG.warn("FilterDocRetrieveResultsRequestType was null");
         } else {
             RetrieveDocumentSetResponseType retrieveDocSetResonse = invokeRedactionEngineForRetrieve(filterDocRetrieveResultsRequest);
             response = new FilterDocRetrieveResultsResponseType();

@@ -30,8 +30,8 @@ import javax.xml.ws.BindingType;
 
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.AuthenticateUserRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.AuthenticateUserResponseType;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+
+import org.apache.log4j.Logger;
 
 /**
  * 
@@ -40,7 +40,7 @@ import org.apache.commons.logging.LogFactory;
 @BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
 public class AdapterAuthenticationService implements gov.hhs.fha.nhinc.adapterauthentication.AdapterAuthenticationPortType{
 
-    private static Log log = LogFactory.getLog(AdapterAuthenticationService.class);
+    private static final Logger LOG = Logger.getLogger(AdapterAuthenticationService.class);
 
     /**
      * Given a request to authenticate a user, this service will determine if an authentication service is configured
@@ -60,7 +60,7 @@ public class AdapterAuthenticationService implements gov.hhs.fha.nhinc.adapterau
         } catch (Exception ex) {
             String message = "Error occurred calling AdapterAuthenticationImpl.authenticateUser.  Error: "
                     + ex.getMessage();
-            log.error(message, ex);
+            LOG.error(message, ex);
             throw new RuntimeException(message, ex);
         }
         return authResp;
