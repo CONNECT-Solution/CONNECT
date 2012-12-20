@@ -26,7 +26,6 @@
 
     <import file="package/package.targets.xml"/>
     <import file="${build.targets.basedir.location}/../Install/deploy.xml"/>
-    <import file="licensetool/license.targets.xml"/>
 
     <property name="calling.anttarget.from.netbeans" value="false"/>
     <!-- The above property is read from netbeans configuration file -->
