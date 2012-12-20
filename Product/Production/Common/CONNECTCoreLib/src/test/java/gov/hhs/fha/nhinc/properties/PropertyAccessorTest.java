@@ -36,7 +36,6 @@ import java.util.HashSet;
 import java.util.Properties;
 import java.util.Set;
 
-import org.apache.commons.logging.Log;
 import org.jmock.Expectations;
 import org.jmock.Mockery;
 import org.jmock.integration.junit4.JUnit4Mockery;
@@ -66,7 +65,6 @@ public class PropertyAccessorTest {
             setImposteriser(ClassImposteriser.INSTANCE);
         }
     };
-    final Log mockLog = context.mock(Log.class);
     final PropertyFileDAO mockFileDAO = context.mock(PropertyFileDAO.class);
     final PropertyFileRefreshHandler mockRefreshHandler = context.mock(PropertyFileRefreshHandler.class);
     
@@ -112,15 +110,6 @@ public class PropertyAccessorTest {
                 will(returnValue(REFRESH_DURATION));
                 
                 allowing(mockRefreshHandler).printToLog(with(any(String.class)));
-            }
-        });
-    }
-    
-    @Before
-    public void setMockLogExpectationsToIgnoreAllLogs() {     
-        context.checking(new Expectations() {
-            {
-                ignoring(mockLog);
             }
         });
     }
@@ -232,10 +221,6 @@ public class PropertyAccessorTest {
                 return new PropertyAccessorFileUtilities() {
                     public String getPropertyFileLocation(String propertyFileName) {
                         return PROPERTY_FILE_LOCATION_WITH_FILE;
-                    }
-                    
-                    protected Log getLogger() {
-                        return mockLog;
                     }
                 };
             }

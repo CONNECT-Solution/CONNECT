@@ -35,8 +35,7 @@ import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 import oasis.names.tc.xacml._2_0.policy.schema.os.PolicyType;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 
 /**
  * This class is used to serialize/deserialize teh XACML documents.
@@ -44,26 +43,11 @@ import org.apache.commons.logging.LogFactory;
  * @author Les Westberg
  */
 public class XACMLSerializer {
-    private Log log = null;
+    private static final Logger LOG = Logger.getLogger(XACMLSerializer.class);
 
     // private static JAXBContext oJaxbContextXACML = null;
     // private static Marshaller oXACMLMarshaller = null;
     // private static Unmarshaller oXACMLUnmarshaller = null;
-
-    /**
-     * Default constructor.
-     */
-    public XACMLSerializer() {
-        log = createLogger();
-    }
-
-    /**
-     * Sets up the logger object.
-     */
-    protected Log createLogger() {
-        return ((log != null) ? log : LogFactory.getLog(getClass()));
-
-    }
 
     /**
      * This method takes in an object representation of the XACML Policy and serializes it to a text string
@@ -91,7 +75,7 @@ public class XACMLSerializer {
             sConsentXACML = swXML.toString();
         } catch (Exception e) {
             String sErrorMessage = "Failed to serialize the XACML document to a string.  Error: " + e.getMessage();
-            log.error(sErrorMessage, e);
+            LOG.error(sErrorMessage, e);
             throw new AdapterPIPException(sErrorMessage, e);
         }
 
@@ -124,7 +108,7 @@ public class XACMLSerializer {
         } catch (Exception e) {
             String sErrorMessage = "Failed to deserialize the XACML consent string: " + sConsentXACML + "  Error: "
                     + e.getMessage();
-            log.error(sErrorMessage, e);
+            LOG.error(sErrorMessage, e);
             throw new AdapterPIPException(sErrorMessage, e);
         }
 

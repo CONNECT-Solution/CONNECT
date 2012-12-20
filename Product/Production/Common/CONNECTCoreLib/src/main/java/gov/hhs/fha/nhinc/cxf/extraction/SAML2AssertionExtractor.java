@@ -24,7 +24,7 @@ import org.w3c.dom.Element;
  */
 public class SAML2AssertionExtractor {
 
-    private static final Logger LOGGER = Logger.getLogger(SAML2AssertionExtractor.class);
+    private static final Logger LOG = Logger.getLogger(SAML2AssertionExtractor.class);
 
     private static SAML2AssertionExtractor INSTANCE = null;
 
@@ -50,7 +50,7 @@ public class SAML2AssertionExtractor {
      * @return AssertionType
      */
     public final AssertionType extractSamlAssertion(final WebServiceContext context) {
-        LOGGER.debug("Executing Saml2AssertionExtractor.extractSamlAssertion()...");
+        LOG.debug("Executing Saml2AssertionExtractor.extractSamlAssertion()...");
         AssertionType target = null;
 
         if (context == null) {

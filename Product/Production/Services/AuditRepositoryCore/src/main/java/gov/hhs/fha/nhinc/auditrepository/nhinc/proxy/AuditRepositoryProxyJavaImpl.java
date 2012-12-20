@@ -32,25 +32,13 @@ import gov.hhs.fha.nhinc.common.auditlog.LogEventSecureRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AcknowledgementType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 /**
  * 
  * @author mflynn02
  */
 public class AuditRepositoryProxyJavaImpl implements AuditRepositoryProxy {
-    private Log log = null;
-
-    public AuditRepositoryProxyJavaImpl() {
-        log = createLogger();
-    }
-
-    protected Log createLogger() {
-        return LogFactory.getLog(getClass());
-    }
-
-    protected AuditRepositoryOrchImpl getAuditRepositoryOrchImpl() {
+   
+	protected AuditRepositoryOrchImpl getAuditRepositoryOrchImpl() {
         return new AuditRepositoryOrchImpl();
     }
 

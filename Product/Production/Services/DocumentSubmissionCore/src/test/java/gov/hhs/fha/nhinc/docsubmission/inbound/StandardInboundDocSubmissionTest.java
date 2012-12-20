@@ -51,7 +51,6 @@ import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
-import org.apache.commons.logging.Log;
 import org.junit.Test;
 
 /**
@@ -70,7 +69,6 @@ public class StandardInboundDocSubmissionTest {
         assertion.getHomeCommunity().setHomeCommunityId(senderHCID);
         RegistryResponseType expectedResponse = new RegistryResponseType();
 
-        Log log = mock(Log.class);
         AdapterDocSubmissionProxyObjectFactory adapterFactory = mock(AdapterDocSubmissionProxyObjectFactory.class);
         AdapterDocSubmissionProxy adapterProxy = mock(AdapterDocSubmissionProxy.class);
         XDRAuditLogger auditLogger = mock(XDRAuditLogger.class);
@@ -81,7 +79,7 @@ public class StandardInboundDocSubmissionTest {
         when(adapterProxy.provideAndRegisterDocumentSetB(request, assertion)).thenReturn(expectedResponse);
 
         PassthroughInboundDocSubmission passthroughDocSubmission = new PassthroughInboundDocSubmission(adapterFactory,
-                auditLogger, dsUtils, log);
+                auditLogger, dsUtils);
 
         PropertyAccessor propertyAccessor = mock(PropertyAccessor.class);
         XDRPolicyChecker policyChecker = mock(XDRPolicyChecker.class);
@@ -93,7 +91,7 @@ public class StandardInboundDocSubmissionTest {
                 NhincConstants.POLICYENGINE_INBOUND_DIRECTION)).thenReturn(true);
 
         StandardInboundDocSubmission standardDocSubmission = new StandardInboundDocSubmission(passthroughDocSubmission,
-                policyChecker, propertyAccessor, auditLogger, log);
+                policyChecker, propertyAccessor, auditLogger);
 
         RegistryResponseType actualResponse = standardDocSubmission.documentRepositoryProvideAndRegisterDocumentSetB(
                 request, assertion);
@@ -121,7 +119,6 @@ public class StandardInboundDocSubmissionTest {
         assertion.setHomeCommunity(new HomeCommunityType());
         assertion.getHomeCommunity().setHomeCommunityId(senderHCID);
 
-        Log log = mock(Log.class);
         PassthroughInboundDocSubmission passthroughDocSubmission = mock(PassthroughInboundDocSubmission.class);
         PropertyAccessor propertyAccessor = mock(PropertyAccessor.class);
         XDRPolicyChecker policyChecker = mock(XDRPolicyChecker.class);
@@ -134,7 +131,7 @@ public class StandardInboundDocSubmissionTest {
                 NhincConstants.POLICYENGINE_INBOUND_DIRECTION)).thenReturn(false);
 
         StandardInboundDocSubmission standardDocSubmission = new StandardInboundDocSubmission(passthroughDocSubmission,
-                policyChecker, propertyAccessor, auditLogger, log);
+                policyChecker, propertyAccessor, auditLogger);
 
         RegistryResponseType actualResponse = standardDocSubmission.documentRepositoryProvideAndRegisterDocumentSetB(
                 request, assertion);
@@ -156,14 +153,13 @@ public class StandardInboundDocSubmissionTest {
         ProvideAndRegisterDocumentSetRequestType request = new ProvideAndRegisterDocumentSetRequestType();
         AssertionType assertion = new AssertionType();
 
-        Log log = mock(Log.class);
         PassthroughInboundDocSubmission passthroughDocSubmission = mock(PassthroughInboundDocSubmission.class);
         PropertyAccessor propertyAccessor = mock(PropertyAccessor.class);
         XDRPolicyChecker policyChecker = mock(XDRPolicyChecker.class);
         XDRAuditLogger auditLogger = mock(XDRAuditLogger.class);
 
         StandardInboundDocSubmission standardDocSubmission = new StandardInboundDocSubmission(passthroughDocSubmission,
-                policyChecker, propertyAccessor, auditLogger, log);
+                policyChecker, propertyAccessor, auditLogger);
 
         RegistryResponseType actualResponse = standardDocSubmission.documentRepositoryProvideAndRegisterDocumentSetB(
                 request, assertion);

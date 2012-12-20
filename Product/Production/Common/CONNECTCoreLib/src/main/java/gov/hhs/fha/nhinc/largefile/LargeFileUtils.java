@@ -43,21 +43,16 @@ import java.net.URISyntaxException;
 
 import javax.activation.DataHandler;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 import org.apache.cxf.aegis.type.mtom.StreamDataSource;
 import org.apache.cxf.attachment.ByteDataSource;
 
 public class LargeFileUtils {
-    private static Log log = null;
+    private static final Logger LOG = Logger.getLogger(LargeFileUtils.class);
 
     private static LargeFileUtils INSTANCE = new LargeFileUtils();
     private static String ATTACHMENT_FILE_PREFIX = "nhin";
     private static String ATTACHMENT_FILE_SUFFIX = ".clf";
-
-    LargeFileUtils() {
-        log = createLogger();
-    };
 
     /**
      * Returns the singleton instance of this class.
@@ -79,7 +74,7 @@ public class LargeFileUtils {
             return PropertyAccessor.getInstance().getPropertyBoolean(NhincConstants.GATEWAY_PROPERTY_FILE,
                     NhincConstants.PARSE_PAYLOAD_AS_FILE_URI_OUTBOUND);
         } catch (PropertyAccessException pae) {
-            log.error("Failed to determine if payload should be parsed as a file location.  Will assume false.", pae);
+            LOG.error("Failed to determine if payload should be parsed as a file location.  Will assume false.", pae);
         }
 
         return false;
@@ -95,7 +90,7 @@ public class LargeFileUtils {
             return PropertyAccessor.getInstance().getPropertyBoolean(NhincConstants.GATEWAY_PROPERTY_FILE,
                     NhincConstants.SAVE_PAYLOAD_TO_FILE_INBOUND);
         } catch (PropertyAccessException pae) {
-            log.error("Failed to determine if payload should be saved to a file location.  Will assume false.", pae);
+            LOG.error("Failed to determine if payload should be saved to a file location.  Will assume false.", pae);
         }
 
         return false;
@@ -176,7 +171,7 @@ public class LargeFileUtils {
                 is.close();
             }
         } catch (Exception e) {
-            log.warn("Failed to close input stream");
+            LOG.warn("Failed to close input stream");
         }
     }
 
@@ -191,7 +186,7 @@ public class LargeFileUtils {
                 os.close();
             }
         } catch (Exception e) {
-            log.warn("Failed to close output stream");
+            LOG.warn("Failed to close output stream");
         }
     }
 
@@ -283,7 +278,7 @@ public class LargeFileUtils {
         if (payloadSaveDirectory != null) {
             parentDir = new File(payloadSaveDirectory);
             if (!parentDir.exists()) {
-                log.warn("Payload save directory does not exists.  Defaulting to use java tmp directory.");
+                LOG.warn("Payload save directory does not exists.  Defaulting to use java tmp directory.");
                 parentDir = null;
             }
         }
@@ -296,17 +291,11 @@ public class LargeFileUtils {
             return PropertyAccessor.getInstance().getProperty(NhincConstants.GATEWAY_PROPERTY_FILE,
                     NhincConstants.PAYLOAD_SAVE_DIRECTORY);
         } catch (PropertyAccessException pae) {
-            log.error("Failed to determine payload save directory.  Is " + NhincConstants.PAYLOAD_SAVE_DIRECTORY
+            LOG.error("Failed to determine payload save directory.  Is " + NhincConstants.PAYLOAD_SAVE_DIRECTORY
                     + " set in gateway.properties?", pae);
         }
 
         return null;
     }
 
-    protected Log createLogger() {
-        if (log == null) {
-            log = LogFactory.getLog(LargeFileUtils.class);
-        }
-        return log;
-    }
 }

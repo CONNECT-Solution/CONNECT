@@ -28,9 +28,10 @@ package gov.hhs.fha.nhinc.docsubmission.adapter.component.deferred.request.proxy
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.healthit.nhin.XDRAcknowledgementType;
+
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+
+import org.apache.log4j.Logger;
 
 /**
  * 
@@ -38,23 +39,7 @@ import org.apache.commons.logging.LogFactory;
  */
 public class AdapterComponentDocSubmissionRequestProxyNoOpImpl implements AdapterComponentDocSubmissionRequestProxy {
 
-    private Log log = null;
-
-    /**
-     * Default constructor.
-     */
-    public AdapterComponentDocSubmissionRequestProxyNoOpImpl() {
-        log = createLogger();
-    }
-
-    /**
-     * Creates the log object for logging.
-     * 
-     * @return The log object.
-     */
-    protected Log createLogger() {
-        return ((log != null) ? log : LogFactory.getLog(getClass()));
-    }
+    private static final Logger LOG = Logger.getLogger(AdapterComponentDocSubmissionRequestProxyNoOpImpl.class);
 
     /**
      * Receive document deferred document submission request.
@@ -67,7 +52,7 @@ public class AdapterComponentDocSubmissionRequestProxyNoOpImpl implements Adapte
     public XDRAcknowledgementType provideAndRegisterDocumentSetBRequest(ProvideAndRegisterDocumentSetRequestType body,
             AssertionType assertion) {
 
-        log.debug("Entering AdapterComponentDocSubmissionRequestProxyNoOpImpl.provideAndRegisterDocumentSetBRequest");
+        LOG.trace("Entering AdapterComponentDocSubmissionRequestProxyNoOpImpl.provideAndRegisterDocumentSetBRequest");
         return new XDRAcknowledgementType();
     }
 }

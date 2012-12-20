@@ -29,9 +29,10 @@ package gov.hhs.fha.nhinc.docsubmission.adapter.component.deferred.request.proxy
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.docsubmission.adapter.component.deferred.request.AdapterComponentDocSubmissionRequestOrchImpl;
 import gov.hhs.healthit.nhin.XDRAcknowledgementType;
+
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+
+import org.apache.log4j.Logger;
 
 /**
  * This class is the java implementation of the AdapterPatientDiscovery component proxy.
@@ -40,23 +41,7 @@ import org.apache.commons.logging.LogFactory;
  */
 public class AdapterComponentDocSubmissionRequestProxyJavaImpl implements AdapterComponentDocSubmissionRequestProxy {
 
-    private Log log = null;
-
-    /**
-     * Default constructor.
-     */
-    public AdapterComponentDocSubmissionRequestProxyJavaImpl() {
-        log = createLogger();
-    }
-
-    /**
-     * Creates the log object for logging.
-     * 
-     * @return The log object.
-     */
-    protected Log createLogger() {
-        return ((log != null) ? log : LogFactory.getLog(getClass()));
-    }
+    private static final Logger LOG = Logger.getLogger(AdapterComponentDocSubmissionRequestProxyJavaImpl.class);
 
     /**
      * Receive document deferred document submission request.
@@ -68,9 +53,9 @@ public class AdapterComponentDocSubmissionRequestProxyJavaImpl implements Adapte
      */
     public XDRAcknowledgementType provideAndRegisterDocumentSetBRequest(ProvideAndRegisterDocumentSetRequestType body,
             AssertionType assertion) {
-        log.debug("Entering AdapterComponentDocSubmissionRequestProxyJavaImpl.provideAndRegisterDocumentSetBRequest");
+        LOG.trace("Entering AdapterComponentDocSubmissionRequestProxyJavaImpl.provideAndRegisterDocumentSetBRequest");
         AdapterComponentDocSubmissionRequestOrchImpl oOrchestrator = new AdapterComponentDocSubmissionRequestOrchImpl();
-        log.debug("Leaving AdapterComponentDocSubmissionRequestProxyJavaImpl.provideAndRegisterDocumentSetBRequest");
+        LOG.trace("Leaving AdapterComponentDocSubmissionRequestProxyJavaImpl.provideAndRegisterDocumentSetBRequest");
         return oOrchestrator.provideAndRegisterDocumentSetBRequest(body, assertion);
 
     }

@@ -48,8 +48,7 @@ import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 
 import java.util.List;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 
 /**
  * 
@@ -57,16 +56,9 @@ import org.apache.commons.logging.LogFactory;
  */
 public class StandardOutboundAdminDistribution implements OutboundAdminDistribution {
 
-    private Log log = null;
+    private static final Logger LOG = Logger.getLogger(StandardOutboundAdminDistribution.class);
     private final AdminDistributionAuditLogger auditLogger = null;
     private final MessageGeneratorUtils msgUtils = MessageGeneratorUtils.getInstance();
-
-    /**
-     * Constructor.
-     */
-    public StandardOutboundAdminDistribution() {
-        log = getLog();
-    }
 
     /**
      * This method sends AlertMessage to the target.
@@ -109,11 +101,11 @@ public class StandardOutboundAdminDistribution implements OutboundAdminDistribut
         List<UrlInfo> urlInfoList = getEndpoints(target);
 
         if ((urlInfoList == null) || (urlInfoList.isEmpty())) {
-            log.warn("No targets were found for the Admin Distribution Request");
+            LOG.warn("No targets were found for the Admin Distribution Request");
         } else {
             for (UrlInfo urlInfo : urlInfoList) {
                 // create a new request to send out to each target community
-                log.debug("Target: " + urlInfo.getHcid());
+                LOG.debug("Target: " + urlInfo.getHcid());
                 // check the policy for the outgoing request to the target community
                 boolean bIsPolicyOk = checkPolicy(message, assertion, urlInfo.getHcid());
 
@@ -122,7 +114,7 @@ public class StandardOutboundAdminDistribution implements OutboundAdminDistribut
                     auditMessage(message, assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION);
                     sendToNhinProxy(message, assertion, targetSystem);
                 } else {
-                    log.error("The policy engine evaluated the request and denied the request.");
+                    LOG.error("The policy engine evaluated the request and denied the request.");
                 }
             }
         }
@@ -141,7 +133,7 @@ public class StandardOutboundAdminDistribution implements OutboundAdminDistribut
     protected void auditMessage(RespondingGatewaySendAlertMessageType message, AssertionType assertion, String direction) {
         AcknowledgementType ack = getAuditLogger().auditEntityAdminDist(message, assertion, direction);
         if (ack != null) {
-            log.debug("ack: " + ack.getMessage());
+            LOG.debug("ack: " + ack.getMessage());
         }
     }
 
@@ -152,15 +144,8 @@ public class StandardOutboundAdminDistribution implements OutboundAdminDistribut
         return (auditLogger != null) ? auditLogger : new AdminDistributionAuditLogger();
     }
 
-    /**
-     * @return log.
-     */
-    protected Log getLog() {
-        return (log != null) ? log : LogFactory.getLog(getClass());
-    }
-
     private NhinTargetSystemType buildTargetSystem(UrlInfo urlInfo) {
-        log.debug("Begin buildTargetSystem");
+        LOG.debug("Begin buildTargetSystem");
         NhinTargetSystemType result = new NhinTargetSystemType();
         HomeCommunityType hc = new HomeCommunityType();
 
@@ -185,7 +170,7 @@ public class StandardOutboundAdminDistribution implements OutboundAdminDistribut
             urlInfoList = ConnectionManagerCache.getInstance().getEndpointURLFromNhinTargetCommunities(
                     targetCommunities, NhincConstants.NHIN_ADMIN_DIST_SERVICE_NAME);
         } catch (ConnectionManagerException ex) {
-            log.error("Failed to obtain target URLs", ex);
+            LOG.error("Failed to obtain target URLs", ex);
         }
 
         return urlInfoList;
@@ -221,7 +206,7 @@ public class StandardOutboundAdminDistribution implements OutboundAdminDistribut
      */
     protected void sendToNhinProxy(RespondingGatewaySendAlertMessageType newRequest, AssertionType assertion,
             NhinTargetSystemType target) {
-        log.debug("begin sendToNhinProxy");
+        LOG.debug("begin sendToNhinProxy");
         OutboundAdminDistributionDelegate adDelegate = getNewOutboundAdminDistributionDelegate();
         OutboundAdminDistributionOrchestratable orchestratable = new OutboundAdminDistributionOrchestratable(adDelegate);
         orchestratable.setRequest(newRequest);

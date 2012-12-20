@@ -26,8 +26,8 @@
  */
 package gov.hhs.fha.nhinc.connectmgr.uddi.proxy;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
+
 import org.uddi.api_v3.BusinessDetail;
 import org.uddi.api_v3.BusinessList;
 import org.uddi.api_v3.FindBusiness;
@@ -43,7 +43,7 @@ import gov.hhs.fha.nhinc.nhin_uddi_api_v3.UDDIInquiryPortType;
  */
 public class UDDIFindBusinessProxyHPImpl extends UDDIFindBusinessProxyBase {
 
-    private static Log log = LogFactory.getLog(UDDIFindBusinessProxyHPImpl.class);
+    private static final Logger LOG = Logger.getLogger(UDDIFindBusinessProxyHPImpl.class);
 
     /**
      *
@@ -52,7 +52,7 @@ public class UDDIFindBusinessProxyHPImpl extends UDDIFindBusinessProxyBase {
      */
     @Override
     public BusinessList findBusinessesFromUDDI() throws UDDIFindBusinessException {
-        log.debug("Using HP Implementation for UDDI Business Info Service");
+        LOG.debug("Using HP Implementation for UDDI Business Info Service");
 
         BusinessList oBusinessList = null;
 
@@ -67,7 +67,7 @@ public class UDDIFindBusinessProxyHPImpl extends UDDIFindBusinessProxyBase {
         } catch (Exception e) {
             String sErrorMessage = "Failed to call 'find_business' web service on the NHIN UDDI server.  Error: "
                     + e.getMessage();
-            log.error(sErrorMessage, e);
+            LOG.error(sErrorMessage, e);
             throw new UDDIFindBusinessException(sErrorMessage, e);
         }
 
@@ -89,7 +89,7 @@ public class UDDIFindBusinessProxyHPImpl extends UDDIFindBusinessProxyBase {
         } catch (Exception e) {
             String sErrorMessage = "Failed to call 'getBusinessDetail' web service on the NHIN UDDI server.  Error: "
                     + e.getMessage();
-            log.error(sErrorMessage, e);
+            LOG.error(sErrorMessage, e);
             throw new UDDIFindBusinessException(sErrorMessage, e);
         }
 

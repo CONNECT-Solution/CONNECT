@@ -33,8 +33,7 @@ import java.io.StringWriter;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 import org.oasis_open.docs.wsn.b_2.Subscribe;
 
 /**
@@ -43,7 +42,7 @@ import org.oasis_open.docs.wsn.b_2.Subscribe;
  * @author Neil Webb
  */
 public class SubscriptionItemUtil {
-	private static Log log = LogFactory.getLog(SubscriptionItemUtil.class);
+	private static final Logger LOG = Logger.getLogger(SubscriptionItemUtil.class);
 	
     /**
      * Create a subscription item from subscription info
@@ -86,7 +85,7 @@ public class SubscriptionItemUtil {
 	            jaxbContext.createMarshaller().marshal(subscribe, writer);
 	        	subscribeXml = writer.toString();
 			} catch (JAXBException e) {
-				log.error("Failed to marshal Subscribe Object:" + e.getErrorCode());
+				LOG.error("Failed to marshal Subscribe Object:" + e.getErrorCode());
 			}
         }
         return subscribeXml;

@@ -71,7 +71,6 @@ public class MimeMessageBuilder {
      * @param recipients - list of recipients of the message.
      */
     public MimeMessageBuilder(Session session, Address fromAddress, Address[] recipients) {
-        super();
         this.session = session;
         this.fromAddress = fromAddress;
         this.recipients = recipients;

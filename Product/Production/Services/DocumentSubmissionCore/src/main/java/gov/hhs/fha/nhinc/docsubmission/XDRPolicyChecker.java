@@ -30,8 +30,7 @@ import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 import oasis.names.tc.xacml._2_0.context.schema.os.DecisionType;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 
 import gov.hhs.fha.nhinc.common.eventcommon.XDREventType;
 import gov.hhs.fha.nhinc.common.eventcommon.XDRMessageType;
@@ -51,14 +50,7 @@ import gov.hhs.fha.nhinc.policyengine.adapter.proxy.PolicyEngineProxyObjectFacto
  * @author dunnek
  */
 public class XDRPolicyChecker {
-    private static Log log = null;
-
-    /**
-     * The default constructor. Creates the logger.
-     */
-    public XDRPolicyChecker() {
-        log = createLogger();
-    }
+    private static final Logger LOG = Logger.getLogger(XDRPolicyChecker.class);
 
     public boolean checkXDRRequestPolicy(ProvideAndRegisterDocumentSetRequestType message, AssertionType assertion,
             String senderHCID, String receiverHCID, String direction) {
@@ -83,10 +75,6 @@ public class XDRPolicyChecker {
         policyCheckReq.setMessage(policyMsg);
 
         return invokePolicyEngine(policyCheckReq);
-    }
-
-    protected Log createLogger() {
-        return ((log != null) ? log : LogFactory.getLog(getClass()));
     }
 
     protected boolean invokePolicyEngine(XDREventType policyCheckReq) {
@@ -122,7 +110,7 @@ public class XDRPolicyChecker {
      */
     public boolean checkXDRResponsePolicy(RegistryResponseType message, AssertionType assertion, String senderHCID,
             String receiverHCID, String direction) {
-        createLogger().debug("Entering checkXDRResponsePolicy");
+        LOG.debug("Entering checkXDRResponsePolicy");
 
         XDRResponseEventType policyCheckReq = createXDRResponseEventType(message, assertion, senderHCID, receiverHCID,
                 direction);
@@ -141,7 +129,7 @@ public class XDRPolicyChecker {
             isPolicyValid = true;
         }
 
-        createLogger().debug("Exiting checkXDRResponsePolicy");
+        LOG.debug("Exiting checkXDRResponsePolicy");
 
         return isPolicyValid;
     }

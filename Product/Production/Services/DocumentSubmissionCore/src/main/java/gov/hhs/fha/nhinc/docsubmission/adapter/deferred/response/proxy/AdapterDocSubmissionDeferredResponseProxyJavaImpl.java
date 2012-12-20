@@ -34,33 +34,24 @@ import gov.hhs.fha.nhinc.docsubmission.aspect.DocSubmissionArgTransformerBuilder
 import gov.hhs.healthit.nhin.XDRAcknowledgementType;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 
 /**
  * 
  * @author Neil Webb
  */
 public class AdapterDocSubmissionDeferredResponseProxyJavaImpl implements AdapterDocSubmissionDeferredResponseProxy {
-    private Log log = null;
-
-    public AdapterDocSubmissionDeferredResponseProxyJavaImpl() {
-        log = createLogger();
-    }
-
-    protected Log createLogger() {
-        return LogFactory.getLog(getClass());
-    }
+    private static final Logger LOG = Logger.getLogger(AdapterDocSubmissionDeferredResponseProxyJavaImpl.class);
 
     @AdapterDelegationEvent(beforeBuilder = DeferredResponseDescriptionBuilder.class,
             afterReturningBuilder = DocSubmissionArgTransformerBuilder.class,
             serviceType = "Document Submission Deferred Response", version = "")
     public XDRAcknowledgementType provideAndRegisterDocumentSetBResponse(RegistryResponseType regResponse,
             AssertionType assertion) {
-        log.debug("Begin AdapterDocSubmissionDeferredResponseProxyJavaImpl.provideAndRegisterDocumentSetBResponse");
+        LOG.trace("Begin AdapterDocSubmissionDeferredResponseProxyJavaImpl.provideAndRegisterDocumentSetBResponse");
         XDRAcknowledgementType ack = new AdapterDocSubmissionDeferredResponseOrchImpl()
                 .provideAndRegisterDocumentSetBResponse(regResponse, assertion);
-        log.debug("End AdapterDocSubmissionDeferredResponseProxyJavaImpl.provideAndRegisterDocumentSetBResponse");
+        LOG.trace("End AdapterDocSubmissionDeferredResponseProxyJavaImpl.provideAndRegisterDocumentSetBResponse");
         return ack;
     }
 }

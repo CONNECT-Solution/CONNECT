@@ -40,10 +40,7 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.management.Query;
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 import org.hibernate.Criteria;
 import org.hibernate.Hibernate;
 import org.hibernate.SQLQuery;
@@ -59,7 +56,7 @@ import org.hibernate.criterion.Expression;
  */
 public class PatientDAO {
 
-    private static Log log = LogFactory.getLog(PatientDAO.class);
+    private static final Logger LOG = Logger.getLogger(PatientDAO.class);
     private static PatientDAO patientDAO = new PatientDAO();
     private static final String ALLOW_SSN_QUERY = "mpi.db.allow.ssn.query";
 
@@ -67,7 +64,7 @@ public class PatientDAO {
      * Constructor
      */
     private PatientDAO() {
-        log.info("PatientDAO - Initialized");
+        LOG.info("PatientDAO - Initialized");
     }
 
     /**
@@ -76,7 +73,7 @@ public class PatientDAO {
      * @return PatientDAO
      */
     public static PatientDAO getPatientDAOInstance() {
-        log.debug("getPatientDAOInstance()..");
+        LOG.debug("getPatientDAOInstance()..");
         return patientDAO;
     }
 
@@ -91,7 +88,7 @@ public class PatientDAO {
      * @return boolean
      */
     public boolean create(Patient patientRecord) {
-        log.debug("PatientDAO.create() - Begin");
+        LOG.debug("PatientDAO.create() - Begin");
         Session session = null;
         Transaction tx = null;
         boolean result = true;
@@ -101,18 +98,18 @@ public class PatientDAO {
                 SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
                 session = sessionFactory.openSession();
                 tx = session.beginTransaction();
-                log.info("Inserting Record...");
+                LOG.info("Inserting Record...");
 
                 session.persist(patientRecord);
 
-                log.info("Patient Inserted seccussfully...");
+                LOG.info("Patient Inserted seccussfully...");
                 tx.commit();
             } catch (Exception e) {
                 result = false;
                 if (tx != null) {
                     tx.rollback();
                 }
-                log.error("Exception during insertion caused by :" + e.getMessage(), e);
+                LOG.error("Exception during insertion caused by :" + e.getMessage(), e);
             } finally {
                 // Actual Patient insertion will happen at this step
                 if (session != null) {
@@ -120,7 +117,7 @@ public class PatientDAO {
                 }
             }
         }
-        log.debug("PatientDAO.create() - End");
+        LOG.debug("PatientDAO.create() - End");
         return result;
     }
 
@@ -131,11 +128,11 @@ public class PatientDAO {
      * @return Patient
      */
     public Patient read(Long id) {
-        log.debug("PatientDAO.read() - Begin");
+        LOG.debug("PatientDAO.read() - Begin");
 
         if (id == null) {
-            log.info("-- id Parameter is required for Patient Query --");
-            log.debug("PatientDAO.read() - End");
+            LOG.info("-- id Parameter is required for Patient Query --");
+            LOG.debug("PatientDAO.read() - End");
             return null;
         }
 
@@ -145,7 +142,7 @@ public class PatientDAO {
         try {
             SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
             session = sessionFactory.openSession();
-            log.info("Reading Record...");
+            LOG.info("Reading Record...");
 
             // Build the criteria
             Criteria aCriteria = session.createCriteria(Patient.class);
@@ -158,7 +155,7 @@ public class PatientDAO {
                 foundRecord = queryList.get(0);
             }
         } catch (Exception e) {
-            log.error("Exception during read occured due to :" + e.getMessage(), e);
+            LOG.error("Exception during read occured due to :" + e.getMessage(), e);
         } finally {
             // Flush and close session
             if (session != null) {
@@ -166,7 +163,7 @@ public class PatientDAO {
                 session.close();
             }
         }
-        log.debug("PatientDAO.read() - End");
+        LOG.debug("PatientDAO.read() - End");
         return foundRecord;
     }
 
@@ -177,7 +174,7 @@ public class PatientDAO {
      * @return boolean
      */
     public boolean update(Patient patientRecord) {
-        log.debug("PatientDAO.update() - Begin");
+        LOG.debug("PatientDAO.update() - Begin");
         Session session = null;
         Transaction tx = null;
         boolean result = true;
@@ -187,18 +184,18 @@ public class PatientDAO {
                 SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
                 session = sessionFactory.openSession();
                 tx = session.beginTransaction();
-                log.info("Updating Record...");
+                LOG.info("Updating Record...");
 
                 session.saveOrUpdate(patientRecord);
 
-                log.info("Patient Updated seccussfully...");
+                LOG.info("Patient Updated seccussfully...");
                 tx.commit();
             } catch (Exception e) {
                 result = false;
                 if (tx != null) {
                     tx.rollback();
                 }
-                log.error("Exception during update caused by :" + e.getMessage(), e);
+                LOG.error("Exception during update caused by :" + e.getMessage(), e);
             } finally {
                 // Actual Patient update will happen at this step
                 if (session != null) {
@@ -206,7 +203,7 @@ public class PatientDAO {
                 }
             }
         }
-        log.debug("PatientDAO.update() - End");
+        LOG.debug("PatientDAO.update() - End");
         return result;
     }
 
@@ -216,18 +213,18 @@ public class PatientDAO {
      * @param patientRecord
      */
     public void delete(Patient patientRecord) {
-        log.debug("PatientDAO.delete() - Begin");
+        LOG.debug("PatientDAO.delete() - Begin");
 
         Session session = null;
         try {
             SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
             session = sessionFactory.openSession();
-            log.info("Deleting Record...");
+            LOG.info("Deleting Record...");
 
             // Delete the Patient record
             session.delete(patientRecord);
         } catch (Exception e) {
-            log.error("Exception during delete occured due to :" + e.getMessage(), e);
+            LOG.error("Exception during delete occured due to :" + e.getMessage(), e);
         } finally {
             // Flush and close session
             if (session != null) {
@@ -235,7 +232,7 @@ public class PatientDAO {
                 session.close();
             }
         }
-        log.debug("PatientDAO.delete() - End");
+        LOG.debug("PatientDAO.delete() - End");
     }
 
     // ===============================
@@ -249,7 +246,7 @@ public class PatientDAO {
      * @return Patient
      */
     public List<Patient> findPatients(Patient patient) {
-        log.debug("PatientDAO.findAllPatients() - Begin");
+        LOG.debug("PatientDAO.findAllPatients() - Begin");
 
         Session session = null;
         List<Patient> patientsList = new ArrayList<Patient>();
@@ -258,7 +255,7 @@ public class PatientDAO {
             SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
             session = sessionFactory.openSession();
 
-            log.info("Reading Records...");
+            LOG.info("Reading Records...");
 
             // NHIN required query parameters
             String gender = patient.getGender();
@@ -473,7 +470,7 @@ public class PatientDAO {
                 iParam++;
             }
 
-            log.debug("Final SQL Query is " + sqlQuery.getQueryString());
+            LOG.debug("Final SQL Query is " + sqlQuery.getQueryString());
 
             List<Object[]> result = sqlQuery.list();
 
@@ -523,7 +520,7 @@ public class PatientDAO {
             }
 
         } catch (Exception e) {
-            log.error("Exception during read occured due to : " + e.getMessage(), e);
+            LOG.error("Exception during read occured due to : " + e.getMessage(), e);
         } finally {
             // Flush and close session
             if (session != null) {
@@ -531,7 +528,7 @@ public class PatientDAO {
                 session.close();
             }
         }
-        log.debug("PatientDAO.findPatients() - End");
+        LOG.debug("PatientDAO.findPatients() - End");
         return patientsList;
     }
 
@@ -552,13 +549,13 @@ public class PatientDAO {
                 result = true;
             }
         } catch (PropertyAccessException pae) {
-            log.error("Error: Failed to retrieve " + ALLOW_SSN_QUERY + " from property file: "
+            LOG.error("Error: Failed to retrieve " + ALLOW_SSN_QUERY + " from property file: "
                     + NhincConstants.GATEWAY_PROPERTY_FILE);
-            log.error(pae.getMessage());
+            LOG.error(pae.getMessage());
         } catch (NumberFormatException nfe) {
-            log.error("Error: Failed to convert " + ALLOW_SSN_QUERY + " from property file: "
+            LOG.error("Error: Failed to convert " + ALLOW_SSN_QUERY + " from property file: "
                     + NhincConstants.GATEWAY_PROPERTY_FILE);
-            log.error(nfe.getMessage());
+            LOG.error(nfe.getMessage());
         }
         return result;
     }

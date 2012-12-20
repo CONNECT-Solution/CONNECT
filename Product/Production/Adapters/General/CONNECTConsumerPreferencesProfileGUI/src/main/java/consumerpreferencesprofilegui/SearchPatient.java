@@ -58,8 +58,8 @@ import javax.faces.component.UIParameter;
 import javax.faces.component.html.HtmlSelectOneRadio;
 import javax.faces.event.ValueChangeEvent;
 import javax.servlet.http.HttpSession;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+
+import org.apache.log4j.Logger;
 
 /**
  * <p>
@@ -75,7 +75,7 @@ import org.apache.commons.logging.LogFactory;
 public class SearchPatient extends AbstractPageBean {
     // <editor-fold defaultstate="collapsed" desc="Managed Component Definition">
 
-    private static Log log = LogFactory.getLog(SearchPatient.class);
+    private static final Logger LOG = Logger.getLogger(SearchPatient.class);
 
     /**
      * <p>
@@ -450,7 +450,7 @@ public class SearchPatient extends AbstractPageBean {
             try {
                 this.getExternalContext().redirect("UserLogin.jsp");
             } catch (IOException ex) {
-                log.error("CPP can not prerender SearchPatient.jsp: " + ex.getMessage(), ex);
+                LOG.error("CPP can not prerender SearchPatient.jsp: " + ex.getMessage(), ex);
             }
         }
     }
@@ -478,12 +478,12 @@ public class SearchPatient extends AbstractPageBean {
         List<PatientVO> searchResults = patientSearchFacade.searchPatient(criteria);
 
         if (searchResults != null) {
-            log.info("CPP - searchResults: " + searchResults.size());
+            LOG.info("CPP - searchResults: " + searchResults.size());
             for (PatientVO patientVO : searchResults) {
                 patientVO.setAssigningAuthorityID(patientVO.getOrganizationID());
             }
         } else {
-            log.info("CPP - searchResults: null");
+            LOG.info("CPP - searchResults: null");
         }
         UserSession userSession = (UserSession) getBean("UserSession");
         userSession.setSearchResults(searchResults);
@@ -496,22 +496,22 @@ public class SearchPatient extends AbstractPageBean {
 
         if (firstName != null && firstName.getText() != null) {
             criteria.setFirstName(firstName.getText().toString());
-            log.info("createPatientSearchCriteria - firstName: " + firstName.getText().toString());
+            LOG.info("createPatientSearchCriteria - firstName: " + firstName.getText().toString());
         }
 
         if (lastName != null && lastName.getText() != null) {
             criteria.setLastName(lastName.getText().toString());
-            log.info("createPatientSearchCriteria - firstName: " + lastName.getText().toString());
+            LOG.info("createPatientSearchCriteria - firstName: " + lastName.getText().toString());
         }
 
         if (identifier != null && identifier.getText() != null) {
             criteria.setPatientID(identifier.getText().toString());
-            log.info("createPatientSearchCriteria - firstName: " + identifier.getText().toString());
+            LOG.info("createPatientSearchCriteria - firstName: " + identifier.getText().toString());
         }
 
         if (aaId != null && aaId.getText() != null) {
             criteria.setAssigningAuthorityID(aaId.getText().toString());
-            log.info("createPatientSearchCriteria - aaId: " + aaId.getText().toString());
+            LOG.info("createPatientSearchCriteria - aaId: " + aaId.getText().toString());
         }
 
         // criteria.setOrganizationID("2.16.840.1.113883.0.202.1");
@@ -542,10 +542,10 @@ public class SearchPatient extends AbstractPageBean {
 
         PatientVO selectedPatient = null;
 
-        log.debug("displayConsumerPreferences - patientID: " + patientID);
+        LOG.debug("displayConsumerPreferences - patientID: " + patientID);
 
         for (PatientVO patient : userSession.getSearchResults()) {
-            log.debug("displayConsumerPreferences - PatientVO patientID: " + patient.getPatientID());
+            LOG.debug("displayConsumerPreferences - PatientVO patientID: " + patient.getPatientID());
             if (patientID.contentEquals(patient.getPatientID())) {
                 selectedPatient = patient;
                 break;
@@ -558,10 +558,10 @@ public class SearchPatient extends AbstractPageBean {
         if (selectedPatient != null) {
             this.patientName.setText(selectedPatient.getFirstName() + " " + selectedPatient.getLastName());
 
-            log.debug("displayConsumerPreferences - selectedPatient.getPatientID: " + selectedPatient.getPatientID());
-            log.debug("displayConsumerPreferences - selectedPatient.getAssigningAuthorityID: "
+            LOG.debug("displayConsumerPreferences - selectedPatient.getPatientID: " + selectedPatient.getPatientID());
+            LOG.debug("displayConsumerPreferences - selectedPatient.getAssigningAuthorityID: "
                     + selectedPatient.getAssigningAuthorityID());
-            log.debug("displayConsumerPreferences - selectedPatient.getOrganizationID: "
+            LOG.debug("displayConsumerPreferences - selectedPatient.getOrganizationID: "
                     + selectedPatient.getOrganizationID());
 
             ConsumerPreferencesSearchCriteria criteria = createPreferencesSearchCriteria(
@@ -571,7 +571,7 @@ public class SearchPatient extends AbstractPageBean {
 
             selectedPatient.setPatientPreferences(patientPreferences);
         } else {
-            log.debug("displayConsumerPreferences - selectedPatient: null");
+            LOG.debug("displayConsumerPreferences - selectedPatient: null");
         }
 
         userSession.setPatient(selectedPatient);
@@ -938,7 +938,7 @@ public class SearchPatient extends AbstractPageBean {
         try {
             properties = PropertyAccessor.getInstance().getProperties(propertiesFile);
         } catch (Exception e) {
-            log.error("Exception while reading properties file: " + propertiesFile, e);
+            LOG.error("Exception while reading properties file: " + propertiesFile, e);
         }
 
         Option defaultOption = new Option();

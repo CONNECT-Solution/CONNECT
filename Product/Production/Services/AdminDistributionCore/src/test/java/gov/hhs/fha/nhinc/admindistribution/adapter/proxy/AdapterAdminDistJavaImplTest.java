@@ -28,12 +28,11 @@ package gov.hhs.fha.nhinc.admindistribution.adapter.proxy;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import oasis.names.tc.emergency.edxl.de._1.EDXLDistribution;
-import org.junit.Before;
-import org.junit.Test;
-import org.apache.commons.logging.Log;
-import org.jmock.Expectations;
+
 import org.jmock.Mockery;
 import org.jmock.lib.legacy.ClassImposteriser;
+import org.junit.Before;
+import org.junit.Test;
 
 /**
  * 
@@ -59,27 +58,12 @@ public class AdapterAdminDistJavaImplTest {
     @Test
     public void testSendAlertMessage() {
         System.out.println("sendAlertMessage");
-        final Log mockLogger = context.mock(Log.class);
-
         final EDXLDistribution body = new EDXLDistribution();
 
-        AdapterAdminDistributionProxyJavaImpl instance = new AdapterAdminDistributionProxyJavaImpl() {
+        AdapterAdminDistributionProxyJavaImpl instance = new AdapterAdminDistributionProxyJavaImpl();
 
-            @Override
-            protected Log createLogger() {
-                return mockLogger;
-            }
-
-        };
-        context.checking(new Expectations() {
-
-            {
-                allowing(mockLogger).info(with(any(String.class)));
-                allowing(mockLogger).debug(with(any(String.class)));
-                will(returnValue(null));
-            }
-        });
-
+        //TODO Make better test. No assertions.
+        
         instance.sendAlertMessage(body, new AssertionType());
         context.assertIsSatisfied();
     }

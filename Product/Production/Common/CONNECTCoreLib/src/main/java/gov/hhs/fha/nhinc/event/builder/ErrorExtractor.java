@@ -26,8 +26,7 @@
  */
 package gov.hhs.fha.nhinc.event.builder;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryError;
 
@@ -41,13 +40,13 @@ import com.google.common.base.Function;
  */
 public class ErrorExtractor implements Function<RegistryError, String> {
 
-    private static Log log = LogFactory.getLog(ErrorExtractor.class);
+    private static final Logger LOG = Logger.getLogger(ErrorExtractor.class);
     
     @Override
     public String apply(RegistryError error) {
         String errorCode = error.getErrorCode();
         if (errorCode == null) {
-            log.error("Encountered an invalid registry error without an error code.");
+            LOG.error("Encountered an invalid registry error without an error code.");
         }
         
         return errorCode;

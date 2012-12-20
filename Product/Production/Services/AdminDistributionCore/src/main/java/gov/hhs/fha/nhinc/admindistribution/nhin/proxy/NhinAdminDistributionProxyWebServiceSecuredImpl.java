@@ -49,27 +49,15 @@ import javax.xml.ws.BindingProvider;
 
 import oasis.names.tc.emergency.edxl.de._1.EDXLDistribution;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 
 /**
  * 
  * @author dunnek
  */
 public class NhinAdminDistributionProxyWebServiceSecuredImpl implements NhinAdminDistributionProxy {
-    private Log log = null;
+    private static final Logger LOG = Logger.getLogger(NhinAdminDistributionProxyWebServiceSecuredImpl.class);
     private AdminDistributionAuditLogger adLogger = null;
-
-    /**
-     * Constructor.
-     */
-    public NhinAdminDistributionProxyWebServiceSecuredImpl() {
-        log = createLogger();
-    }
-
-    private Log createLogger() {
-        return LogFactory.getLog(getClass());
-    }
 
     /**
      * @return AdminDistributionUtils instance.
@@ -119,9 +107,10 @@ public class NhinAdminDistributionProxyWebServiceSecuredImpl implements NhinAdmi
      */
     protected CONNECTClient<RespondingGatewayAdministrativeDistributionPortType> getCONNECTClientSecured(
             ServicePortDescriptor<RespondingGatewayAdministrativeDistributionPortType> portDescriptor, String url,
-            AssertionType assertion) {
+            AssertionType assertion, String target, String serviceName) {
 
-        return CONNECTCXFClientFactory.getInstance().getCONNECTClientSecured(portDescriptor, url, assertion);
+        return CONNECTCXFClientFactory.getInstance().getCONNECTClientSecured(portDescriptor, assertion, url, 
+                target, serviceName);
     }
 
     /**
@@ -142,7 +131,7 @@ public class NhinAdminDistributionProxyWebServiceSecuredImpl implements NhinAdmi
             version = "")
     public void sendAlertMessage(EDXLDistribution body, AssertionType assertion, NhinTargetSystemType target,
             NhincConstants.GATEWAY_API_LEVEL apiLevel) {
-        log.debug("begin sendAlertMessage");
+        LOG.debug("begin sendAlertMessage");
         AdminDistributionHelper helper = getHelper();
         String url = helper.getUrl(target, NhincConstants.NHIN_ADMIN_DIST_SERVICE_NAME, apiLevel);
 
@@ -156,20 +145,16 @@ public class NhinAdminDistributionProxyWebServiceSecuredImpl implements NhinAdmi
                 ServicePortDescriptor<RespondingGatewayAdministrativeDistributionPortType> portDescriptor = getServicePortDescriptor(apiLevel);
 
                 CONNECTClient<RespondingGatewayAdministrativeDistributionPortType> client = getCONNECTClientSecured(
-                        portDescriptor, url, assertion);
-
-                WebServiceProxyHelper wsHelper = new WebServiceProxyHelper();
-                wsHelper.addTargetCommunity((BindingProvider) client.getPort(), target);
-                wsHelper.addTargetApiLevel((BindingProvider) client.getPort(), apiLevel);
-                wsHelper.addServiceName((BindingProvider) client.getPort(), NhincConstants.NHIN_ADMIN_DIST_SERVICE_NAME);
+                        portDescriptor, url, assertion, target.getHomeCommunity().getHomeCommunityId(), 
+                        NhincConstants.NHIN_ADMIN_DIST_SERVICE_NAME );
 
                 client.invokePort(RespondingGatewayAdministrativeDistributionPortType.class, "sendAlertMessage", body);
             } catch (Exception ex) {
-                log.error("Failed to call the web service (" + NhincConstants.NHIN_ADMIN_DIST_SERVICE_NAME
+                LOG.error("Failed to call the web service (" + NhincConstants.NHIN_ADMIN_DIST_SERVICE_NAME
                         + ").  An unexpected exception occurred.  " + "Exception: " + ex.getMessage(), ex);
             }
         } else {
-            log.error("Failed to call the web service (" + NhincConstants.ADAPTER_ADMIN_DIST_SERVICE_NAME
+            LOG.error("Failed to call the web service (" + NhincConstants.ADAPTER_ADMIN_DIST_SERVICE_NAME
                     + ").  The URL is null.");
         }
     }
@@ -188,7 +173,7 @@ public class NhinAdminDistributionProxyWebServiceSecuredImpl implements NhinAdmi
         AcknowledgementType ack = getLogger().auditNhinAdminDist(message, assertion, direction,
                 NhincConstants.AUDIT_LOG_NHIN_INTERFACE);
         if (ack != null) {
-            log.debug("ack: " + ack.getMessage());
+            LOG.debug("ack: " + ack.getMessage());
         }
     }
 

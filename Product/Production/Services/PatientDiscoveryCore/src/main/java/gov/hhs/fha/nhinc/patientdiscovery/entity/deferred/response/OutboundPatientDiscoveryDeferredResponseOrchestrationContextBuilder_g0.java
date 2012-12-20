@@ -28,8 +28,7 @@ package gov.hhs.fha.nhinc.patientdiscovery.entity.deferred.response;
 
 import gov.hhs.fha.nhinc.orchestration.OrchestrationContext;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 
 /**
  * @author akong
@@ -38,20 +37,14 @@ import org.apache.commons.logging.LogFactory;
 public class OutboundPatientDiscoveryDeferredResponseOrchestrationContextBuilder_g0 extends
         OutboundPatientDiscoveryDeferredResponseOrchestrationContextBuilder {
 
-    private static Log log = LogFactory
-            .getLog(OutboundPatientDiscoveryDeferredResponseOrchestrationContextBuilder_g0.class);
+    private static final Logger LOG = Logger.getLogger(OutboundPatientDiscoveryDeferredResponseOrchestrationContextBuilder_g0.class);
 
     @Override
     public OrchestrationContext build() {
-        log.debug("begin build");
+        LOG.trace("begin build");
         return new OrchestrationContext(new OutboundPatientDiscoveryDeferredResponseStrategyImpl_g0(),
                 new OutboundPatientDiscoveryDeferredResponseOrchestratable(getNhinDelegate(), getRequest(), getTarget(),
                         getAssertionType()));
-    }
-
-    @Override
-    public Log getLog() {
-        return log;
     }
 
 }

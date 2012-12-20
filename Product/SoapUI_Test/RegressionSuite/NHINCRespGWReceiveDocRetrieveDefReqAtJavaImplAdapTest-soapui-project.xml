@@ -1,18 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <con:soapui-project abortOnError="false" name="NHINCRespGWReceiveDocRetrieveDefReqAtJavaImplAdapTest" resourceRoot="${projectDir}" runType="SEQUENTIAL" soapui-version="4.5.1" activeEnvironment="Default" xmlns:con="http://eviware.com/soapui/config">
 	<con:settings/>
-	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincproxydocretrievedeferredrequest}NhincProxyDocRetrieveDeferredRequestBindingSoap" definition="${projectDir}/../ValidationSuite/target/wsdl/NhincProxyDocRetrieveDeferredReq.wsdl" name="NhincProxyDocRetrieveDeferredRequestBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-		<con:settings/>
-		
-		<con:endpoints>
-			<con:endpoint>${#Project#Endpoint-DocRetrieve}</con:endpoint>
-			<con:endpoint>http://localhost:${HttpDefaultPort}/NhinConnect/NhincProxyDocRetrieveDeferredRequest</con:endpoint>
-		</con:endpoints>
-		<con:operation action="urn:CrossGatewayRetrieveRequest" anonymous="optional" bindingOperationName="CrossGatewayRetrieveRequest" inputName="CrossGatewayRetrieveRequest" isOneWay="false" name="CrossGatewayRetrieveRequest" outputName="CrossGatewayRetrieveAcknowledgement" receivesAttachments="false" sendsAttachments="false" type="Request-Response">
-			<con:settings/>
-			
-		</con:operation>
-	</con:interface>
+	
 	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:adapterpolicyengine}AdapterPolicyEngineBindingSoap" definition="${projectDir}/../ValidationSuite/target/wsdl/AdapterPolicyEngine.wsdl" name="AdapterPolicyEngineBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 		<con:settings/>
 		
@@ -25,41 +14,10 @@
 		</con:operation>
 	</con:interface>
 	
-	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:adapterdocretrievedeferredreqsecured}AdapterDocRetrieveDeferredRequestSecuredBindingSoap" definition="${projectDir}/../ValidationSuite/target/wsdl/AdapterDocRetrieveDeferredReqSecured.wsdl" name="AdapterDocRetrieveDeferredRequestSecuredBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="200508" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-		<con:settings/>
-		
-		<con:endpoints>
-			<con:endpoint>http://localhost:${HttpDefaultPort}/NhinConnect/AdapterDocRetrieveDeferredRequest</con:endpoint>
-			<con:endpoint>https://localhost:${HttpsDefaultPort}/NhinConnect/AdapterDocRetrieveDeferredRequestSecured</con:endpoint>
-		</con:endpoints>
-		<con:operation action="urn:CrossGatewayRetrieveRequest" anonymous="optional" bindingOperationName="CrossGatewayRetrieveRequest" inputName="CrossGatewayRetrieveRequestMessage" isOneWay="false" name="CrossGatewayRetrieveRequest" outputName="CrossGatewayRetrieveAcknowledgement" receivesAttachments="false" sendsAttachments="false" type="Request-Response">
-			<con:settings/>
-			
-		</con:operation>
-	</con:interface>
-	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:adapterdocretrievedeferredrequesterror}AdapterDocRetrieveDeferredRequestErrorBinding" definition="${projectDir}/../ValidationSuite/target/wsdl/AdapterDocRetrieveDeferredReqError.wsdl" name="AdapterDocRetrieveDeferredRequestErrorBinding" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-		<con:settings/>
-		
-		<con:endpoints>
-			<con:endpoint>https://localhost:${HttpsDefaultPort}/AdapterDocRetrieveDeferredRequestError</con:endpoint>
-		</con:endpoints>
-		<con:operation action="tns:CrossGatewayRetrieveRequestError" anonymous="optional" bindingOperationName="CrossGatewayRetrieveRequestError" inputName="" isOneWay="false" name="CrossGatewayRetrieveRequestError" receivesAttachments="false" sendsAttachments="false" type="Request-Response">
-			<con:settings/>
-			
-		</con:operation>
-	</con:interface>
-	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:adapterdocretrievedeferredreq}AdapterDocRetrieveDeferredRequestBindingSoap" definition="${projectDir}/../ValidationSuite/target/wsdl/AdapterDocRetrieveDeferredReq.wsdl" name="AdapterDocRetrieveDeferredRequestBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-		<con:settings/>
-		
-		<con:endpoints>
-			<con:endpoint>http://localhost:${HttpDefaultPort}/NhinConnect/AdapterDocRetrieveDeferredRequest</con:endpoint>
-		</con:endpoints>
-		<con:operation action="urn:RespondingGateway_CrossGatewayRetrieve" anonymous="optional" bindingOperationName="CrossGatewayRetrieveRequest" inputName="CrossGatewayRetrieveRequestMessage" isOneWay="false" name="CrossGatewayRetrieveRequest" outputName="CrossGatewayRetrieveAcknowledgement" receivesAttachments="false" sendsAttachments="false" type="Request-Response">
-			<con:settings/>
-			
-		</con:operation>
-	</con:interface>
-	<con:testSuite name="NHINCRespGWReceiveDocRetrieveDefReqAtJavaImplAdapTestSuite">
+	
+	
+	
+	<con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="EntityDocRetrieveBindingSoap" type="wsdl" bindingName="{urn:gov:hhs:fha:nhinc:entitydocretrieve}EntityDocRetrieveBindingSoap" soapVersion="1_2" anonymous="optional" definition="../ValidationSuite/target/wsdl/EntityDocRetrieve.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:endpoints><con:endpoint>http://localhost:${HttpDefaultPort}/Gateway/DocumentRetrieve/2_0/EntityService/EntityDocRetrieve</con:endpoint></con:endpoints><con:operation isOneWay="false" action="urn:RespondingGateway_CrossGatewayRetrieve" name="RespondingGateway_CrossGatewayRetrieve" bindingOperationName="RespondingGateway_CrossGatewayRetrieve" type="Request-Response" outputName="RespondingGateway_CrossGatewayRetrieveResponse" inputName="RespondingGateway_CrossGatewayRetrieveRequest" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation></con:interface><con:testSuite name="NHINCRespGWReceiveDocRetrieveDefReqAtJavaImplAdapTestSuite">
 		<con:settings/>
 		<con:runType>SEQUENTIAL</con:runType>
 		<con:testCase failOnError="true" failTestCaseOnErrors="true" id="44a9dea3-c6e8-419c-bdaa-834c48ef66fe" keepSession="false" maxResults="0" name="NHINCProxyDocRetrieveDefReq" searchProperties="true">
@@ -67,22 +25,22 @@
 			<con:testStep name="NHINCProxyDocRetrieveRequest" type="request">
 				<con:settings/>
 				<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-					<con:interface>NhincProxyDocRetrieveDeferredRequestBindingSoap</con:interface>
-					<con:operation>CrossGatewayRetrieveRequest</con:operation>
+					<con:interface>EntityDocRetrieveBindingSoap</con:interface>
+					<con:operation>RespondingGateway_CrossGatewayRetrieve</con:operation>
 					<con:request name="NHINCProxyDocRetrieveRequest">
 						<con:settings>
 							<con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
 						</con:settings>
 						<con:encoding>UTF-8</con:encoding>
 						<con:endpoint>${#Project#Endpoint-DocRetrieve}</con:endpoint>
-						<con:request><![CDATA[
-							<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonproxy" xmlns:urn1="urn:ihe:iti:xds-b:2007" xmlns:urn2="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing">
+						<con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:ihe:iti:xds-b:2007" xmlns:urn2="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing">
    <soap:Header/>
    <soap:Body projectName="NHINCRespGWReceiveDocRetrieveDefReqAtJavaImplAdapTest" testCase="NHINCProxyDocRetrieveDefReq">
       <urn:RespondingGateway_CrossGatewayRetrieveRequest>
          <urn1:RetrieveDocumentSetRequest>
             <!--1 or more repetitions:-->
             <urn1:DocumentRequest>
+            <urn1:HomeCommunityId>urn:oid:${#Project#RemoteHCID}</urn1:HomeCommunityId>
                <urn1:RepositoryUniqueId>${#Project#DRRepoID}</urn1:RepositoryUniqueId>
                <urn1:DocumentUniqueId>${#Project#DRDocID}</urn1:DocumentUniqueId>
             </urn1:DocumentRequest>
@@ -296,14 +254,15 @@
                </urn2:evidence>
             </urn2:samlAuthzDecisionStatement>
          </urn:assertion>
-         <urn:nhinTargetSystem>
-            <!--You have a CHOICE of the next 3 items at this level-->
-            <urn2:homeCommunity>
-               <urn2:description>${#Project#RemoteHCDescription}</urn2:description>
-               <urn2:homeCommunityId>${#Project#RemoteHCID}</urn2:homeCommunityId>
-               <urn2:name>${#Project#RemoteHCDescription}</urn2:name>
-            </urn2:homeCommunity>
-         </urn:nhinTargetSystem>
+         <urn:NhinTargetCommunities>
+            <urn2:nhinTargetCommunity>
+               <urn2:homeCommunity>
+                  <urn2:description>${#Project#RemoteHCDescription}</urn2:description>
+                  <urn2:homeCommunityId>${#Project#RemoteHCID}</urn2:homeCommunityId>
+                  <urn2:name>${#Project#RemoteHCDescription}</urn2:name>
+               </urn2:homeCommunity>
+            </urn2:nhinTargetCommunity>
+         </urn:NhinTargetCommunities>
       </urn:RespondingGateway_CrossGatewayRetrieveRequest>
    </soap:Body>
 </soap:Envelope>]]></con:request>
@@ -333,19 +292,19 @@
 			<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2012-11-28T20:36:26Z</con:value>
+					<con:value>2012-12-20T03:02:50Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2012-11-28T20:46:26Z</con:value>
+					<con:value>2012-12-20T03:12:50Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>11/28/2012 20:36:26</con:value>
+					<con:value>12/20/2012 03:02:50</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2012-12-28T00:00:00Z</con:value>
+					<con:value>2013-01-19T00:00:00Z</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
@@ -364,8 +323,8 @@
 			<con:testStep name="NHINCProxyDocRetrieveRequest" type="request">
 				<con:settings/>
 				<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-					<con:interface>NhincProxyDocRetrieveDeferredRequestBindingSoap</con:interface>
-					<con:operation>CrossGatewayRetrieveRequest</con:operation>
+					<con:interface>EntityDocRetrieveBindingSoap</con:interface>
+					<con:operation>RespondingGateway_CrossGatewayRetrieve</con:operation>
 					<con:request name="NHINCProxyDocRetrieveRequest">
 						<con:settings>
 							<con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
@@ -373,13 +332,14 @@
 						<con:encoding>UTF-8</con:encoding>
 						<con:endpoint>${#Project#Endpoint-DocRetrieve}</con:endpoint>
 						<con:request><![CDATA[
-							<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonproxy" xmlns:urn1="urn:ihe:iti:xds-b:2007" xmlns:urn2="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing">
+							<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:ihe:iti:xds-b:2007" xmlns:urn2="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing">
    <soap:Header/>
    <soap:Body projectName="NHINCRespGWReceiveDocRetrieveDefReqAtJavaImplAdapTest" testCase="NHINCProxyDocRetrieveDefReqPassthrough">
       <urn:RespondingGateway_CrossGatewayRetrieveRequest>
          <urn1:RetrieveDocumentSetRequest>
             <!--1 or more repetitions:-->
             <urn1:DocumentRequest>
+			<urn1:HomeCommunityId>urn:oid:${#Project#RemoteHCID}</urn1:HomeCommunityId>
                <urn1:RepositoryUniqueId>${#Project#DRRepoID}</urn1:RepositoryUniqueId>
                <urn1:DocumentUniqueId>${#Project#DRDocID}</urn1:DocumentUniqueId>
             </urn1:DocumentRequest>
@@ -593,14 +553,15 @@
                </urn2:evidence>
             </urn2:samlAuthzDecisionStatement>
          </urn:assertion>
-         <urn:nhinTargetSystem>
-            <!--You have a CHOICE of the next 3 items at this level-->
-            <urn2:homeCommunity>
+         <urn:NhinTargetCommunities>
+            <urn2:nhinTargetCommunity>
+               <urn2:homeCommunity>
                <urn2:description>${#Project#RemoteHCDescription}</urn2:description>
                <urn2:homeCommunityId>${#Project#RemoteHCID}</urn2:homeCommunityId>
                <urn2:name>${#Project#RemoteHCDescription}</urn2:name>
             </urn2:homeCommunity>
-         </urn:nhinTargetSystem>
+            </urn2:nhinTargetCommunity>
+         </urn:NhinTargetCommunities>
       </urn:RespondingGateway_CrossGatewayRetrieveRequest>
    </soap:Body>
 </soap:Envelope>]]></con:request>
@@ -628,19 +589,19 @@
 			<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2012-11-28T20:36:18Z</con:value>
+					<con:value>2012-12-20T03:02:52Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2012-11-28T20:46:18Z</con:value>
+					<con:value>2012-12-20T03:12:52Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>11/28/2012 20:36:18</con:value>
+					<con:value>12/20/2012 03:02:52</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2012-12-28T00:00:00Z</con:value>
+					<con:value>2013-01-19T00:00:00Z</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
@@ -674,8 +635,8 @@ nhinc.FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", destConfi
 			<con:testStep name="NHINCProxyDocRetrieveRequest" type="request">
 				<con:settings/>
 				<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-					<con:interface>NhincProxyDocRetrieveDeferredRequestBindingSoap</con:interface>
-					<con:operation>CrossGatewayRetrieveRequest</con:operation>
+					<con:interface>EntityDocRetrieveBindingSoap</con:interface>
+					<con:operation>RespondingGateway_CrossGatewayRetrieve</con:operation>
 					<con:request name="NHINCProxyDocRetrieveRequest">
 						<con:settings>
 							<con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
@@ -683,13 +644,14 @@ nhinc.FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", destConfi
 						<con:encoding>UTF-8</con:encoding>
 						<con:endpoint>${#Project#Endpoint-DocRetrieve}</con:endpoint>
 						<con:request><![CDATA[
-							<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonproxy" xmlns:urn1="urn:ihe:iti:xds-b:2007" xmlns:urn2="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing">
+							<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:ihe:iti:xds-b:2007" xmlns:urn2="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing">
    <soap:Header/>
    <soap:Body projectName="NHINCRespGWReceiveDocRetrieveDefReqAtJavaImplAdapTest" testCase="NHINCProxyDocRetrieveDefReqPermitPE">
       <urn:RespondingGateway_CrossGatewayRetrieveRequest>
          <urn1:RetrieveDocumentSetRequest>
             <!--1 or more repetitions:-->
             <urn1:DocumentRequest>
+			<urn1:HomeCommunityId>urn:oid:${#Project#RemoteHCID}</urn1:HomeCommunityId>
                <urn1:RepositoryUniqueId>${#Project#DRRepoID}</urn1:RepositoryUniqueId>
                <urn1:DocumentUniqueId>${#Project#DRDocID}</urn1:DocumentUniqueId>
             </urn1:DocumentRequest>
@@ -903,14 +865,15 @@ nhinc.FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", destConfi
                </urn2:evidence>
             </urn2:samlAuthzDecisionStatement>
          </urn:assertion>
-         <urn:nhinTargetSystem>
-            <!--You have a CHOICE of the next 3 items at this level-->
-            <urn2:homeCommunity>
+         <urn:NhinTargetCommunities>
+            <urn2:nhinTargetCommunity>
+               <urn2:homeCommunity>
                <urn2:description>${#Project#RemoteHCDescription}</urn2:description>
                <urn2:homeCommunityId>${#Project#RemoteHCID}</urn2:homeCommunityId>
                <urn2:name>${#Project#RemoteHCDescription}</urn2:name>
             </urn2:homeCommunity>
-         </urn:nhinTargetSystem>
+            </urn2:nhinTargetCommunity>
+         </urn:NhinTargetCommunities>
       </urn:RespondingGateway_CrossGatewayRetrieveRequest>
    </soap:Body>
 </soap:Envelope>]]></con:request>
@@ -2420,19 +2383,19 @@ declare namespace ns9='urn:gov:hhs:fha:nhinc:common:nhinccommonadapter';
 			<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2012-11-28T20:36:19Z</con:value>
+					<con:value>2012-12-20T03:02:54Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2012-11-28T20:46:19Z</con:value>
+					<con:value>2012-12-20T03:12:54Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>11/28/2012 20:36:19</con:value>
+					<con:value>12/20/2012 03:02:54</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2012-12-28T00:00:00Z</con:value>
+					<con:value>2013-01-19T00:00:00Z</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
@@ -2471,8 +2434,8 @@ nhinc.FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", destConfi
 			<con:testStep name="NHINCProxyDocRetrieveRequest" type="request">
 				<con:settings/>
 				<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-					<con:interface>NhincProxyDocRetrieveDeferredRequestBindingSoap</con:interface>
-					<con:operation>CrossGatewayRetrieveRequest</con:operation>
+					<con:interface>EntityDocRetrieveBindingSoap</con:interface>
+					<con:operation>RespondingGateway_CrossGatewayRetrieve</con:operation>
 					<con:request name="NHINCProxyDocRetrieveRequest">
 						<con:settings>
 							<con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
@@ -2480,13 +2443,14 @@ nhinc.FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", destConfi
 						<con:encoding>UTF-8</con:encoding>
 						<con:endpoint>${#Project#Endpoint-DocRetrieve}</con:endpoint>
 						<con:request><![CDATA[
-							<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonproxy" xmlns:urn1="urn:ihe:iti:xds-b:2007" xmlns:urn2="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing">
+							<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:ihe:iti:xds-b:2007" xmlns:urn2="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing">
    <soap:Header/>
    <soap:Body projectName="NHINCRespGWReceiveDocRetrieveDefReqAtJavaImplAdapTest" testCase="NHINCProxyDocRetrieveDefReqDenyPE">
       <urn:RespondingGateway_CrossGatewayRetrieveRequest>
          <urn1:RetrieveDocumentSetRequest>
             <!--1 or more repetitions:-->
             <urn1:DocumentRequest>
+			<urn1:HomeCommunityId>urn:oid:${#Project#RemoteHCID}</urn1:HomeCommunityId>
                <urn1:RepositoryUniqueId>${#Project#DRRepoID}</urn1:RepositoryUniqueId>
                <urn1:DocumentUniqueId>${#Project#DRDocID}</urn1:DocumentUniqueId>
             </urn1:DocumentRequest>
@@ -2700,14 +2664,15 @@ nhinc.FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", destConfi
                </urn2:evidence>
             </urn2:samlAuthzDecisionStatement>
          </urn:assertion>
-         <urn:nhinTargetSystem>
-            <!--You have a CHOICE of the next 3 items at this level-->
-            <urn2:homeCommunity>
+         <urn:NhinTargetCommunities>
+            <urn2:nhinTargetCommunity>
+               <urn2:homeCommunity>
                <urn2:description>${#Project#RemoteHCDescription}</urn2:description>
                <urn2:homeCommunityId>${#Project#RemoteHCID}</urn2:homeCommunityId>
                <urn2:name>${#Project#RemoteHCDescription}</urn2:name>
             </urn2:homeCommunity>
-         </urn:nhinTargetSystem>
+            </urn2:nhinTargetCommunity>
+         </urn:NhinTargetCommunities>
       </urn:RespondingGateway_CrossGatewayRetrieveRequest>
    </soap:Body>
 </soap:Envelope>]]></con:request>
@@ -4217,19 +4182,19 @@ declare namespace ns9='urn:gov:hhs:fha:nhinc:common:nhinccommonadapter';
 			<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2012-11-28T20:36:19Z</con:value>
+					<con:value>2012-12-20T03:02:55Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2012-11-28T20:46:19Z</con:value>
+					<con:value>2012-12-20T03:12:55Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>11/28/2012 20:36:19</con:value>
+					<con:value>12/20/2012 03:02:55</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2012-12-28T00:00:00Z</con:value>
+					<con:value>2013-01-19T00:00:00Z</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
@@ -4247,8 +4212,8 @@ nhinc.FileUtils.updateProperty(destDir, 'gateway.properties', 'serviceDocumentRe
 			<con:testStep name="NHINCProxyDocRetrieveRequest" type="request">
 				<con:settings/>
 				<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-					<con:interface>NhincProxyDocRetrieveDeferredRequestBindingSoap</con:interface>
-					<con:operation>CrossGatewayRetrieveRequest</con:operation>
+					<con:interface>EntityDocRetrieveBindingSoap</con:interface>
+					<con:operation>RespondingGateway_CrossGatewayRetrieve</con:operation>
 					<con:request name="NHINCProxyDocRetrieveRequest">
 						<con:settings>
 							<con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
@@ -4256,13 +4221,14 @@ nhinc.FileUtils.updateProperty(destDir, 'gateway.properties', 'serviceDocumentRe
 						<con:encoding>UTF-8</con:encoding>
 						<con:endpoint>${#Project#Endpoint-DocRetrieve}</con:endpoint>
 						<con:request><![CDATA[
-							<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonproxy" xmlns:urn1="urn:ihe:iti:xds-b:2007" xmlns:urn2="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing">
+							<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:ihe:iti:xds-b:2007" xmlns:urn2="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing">
    <soap:Header/>
    <soap:Body projectName="NHINCRespGWReceiveDocRetrieveDefReqAtJavaImplAdapTest" testCase="NHINCProxyDocRetrieveDefReqServiceDisabled">
       <urn:RespondingGateway_CrossGatewayRetrieveRequest>
          <urn1:RetrieveDocumentSetRequest>
             <!--1 or more repetitions:-->
             <urn1:DocumentRequest>
+			<urn1:HomeCommunityId>urn:oid:${#Project#RemoteHCID}</urn1:HomeCommunityId>
                <urn1:RepositoryUniqueId>${#Project#DRRepoID}</urn1:RepositoryUniqueId>
                <urn1:DocumentUniqueId>${#Project#DRDocID}</urn1:DocumentUniqueId>
             </urn1:DocumentRequest>
@@ -4476,14 +4442,15 @@ nhinc.FileUtils.updateProperty(destDir, 'gateway.properties', 'serviceDocumentRe
                </urn2:evidence>
             </urn2:samlAuthzDecisionStatement>
          </urn:assertion>
-         <urn:nhinTargetSystem>
-            <!--You have a CHOICE of the next 3 items at this level-->
-            <urn2:homeCommunity>
+         <urn:NhinTargetCommunities>
+            <urn2:nhinTargetCommunity>
+               <urn2:homeCommunity>
                <urn2:description>${#Project#RemoteHCDescription}</urn2:description>
                <urn2:homeCommunityId>${#Project#RemoteHCID}</urn2:homeCommunityId>
                <urn2:name>${#Project#RemoteHCDescription}</urn2:name>
             </urn2:homeCommunity>
-         </urn:nhinTargetSystem>
+            </urn2:nhinTargetCommunity>
+         </urn:NhinTargetCommunities>
       </urn:RespondingGateway_CrossGatewayRetrieveRequest>
    </soap:Body>
 </soap:Envelope>]]></con:request>
@@ -4511,19 +4478,19 @@ nhinc.FileUtils.updateProperty(destDir, 'gateway.properties', 'serviceDocumentRe
 			<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2012-11-28T20:36:20Z</con:value>
+					<con:value>2012-12-20T03:02:56Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2012-11-28T20:46:20Z</con:value>
+					<con:value>2012-12-20T03:12:56Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>11/28/2012 20:36:20</con:value>
+					<con:value>12/20/2012 03:02:56</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2012-12-28T00:00:00Z</con:value>
+					<con:value>2013-01-19T00:00:00Z</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
@@ -4570,8 +4537,8 @@ context.testCase.setPropertyValue('DocRetDefUserID',"${UserID}${nowDate}");</scr
 			<con:testStep name="NHINCProxyDocRetrieveRequest" type="request">
 				<con:settings/>
 				<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-					<con:interface>NhincProxyDocRetrieveDeferredRequestBindingSoap</con:interface>
-					<con:operation>CrossGatewayRetrieveRequest</con:operation>
+					<con:interface>EntityDocRetrieveBindingSoap</con:interface>
+					<con:operation>RespondingGateway_CrossGatewayRetrieve</con:operation>
 					<con:request name="NHINCProxyDocRetrieveRequest">
 						<con:settings>
 							<con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
@@ -4579,13 +4546,14 @@ context.testCase.setPropertyValue('DocRetDefUserID',"${UserID}${nowDate}");</scr
 						<con:encoding>UTF-8</con:encoding>
 						<con:endpoint>${#Project#Endpoint-DocRetrieve}</con:endpoint>
 						<con:request><![CDATA[
-							<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonproxy" xmlns:urn1="urn:ihe:iti:xds-b:2007" xmlns:urn2="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing">
+							<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:ihe:iti:xds-b:2007" xmlns:urn2="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing">
    <soap:Header/>
    <soap:Body projectName="NHINCRespGWReceiveDocRetrieveDefReqAtJavaImplAdapTest" testCase="NHINCProxyDocRetrieveDefReqAuditLog">
       <urn:RespondingGateway_CrossGatewayRetrieveRequest>
          <urn1:RetrieveDocumentSetRequest>
             <!--1 or more repetitions:-->
             <urn1:DocumentRequest>
+			<urn1:HomeCommunityId>urn:oid:${#Project#RemoteHCID}</urn1:HomeCommunityId>
                <urn1:RepositoryUniqueId>${#Project#DRRepoID}</urn1:RepositoryUniqueId>
                <urn1:DocumentUniqueId>${#Project#DRDocID}</urn1:DocumentUniqueId>
             </urn1:DocumentRequest>
@@ -4799,14 +4767,15 @@ context.testCase.setPropertyValue('DocRetDefUserID',"${UserID}${nowDate}");</scr
                </urn2:evidence>
             </urn2:samlAuthzDecisionStatement>
          </urn:assertion>
-         <urn:nhinTargetSystem>
-            <!--You have a CHOICE of the next 3 items at this level-->
-            <urn2:homeCommunity>
+         <urn:NhinTargetCommunities>
+            <urn2:nhinTargetCommunity>
+               <urn2:homeCommunity>
                <urn2:description>${#Project#RemoteHCDescription}</urn2:description>
                <urn2:homeCommunityId>${#Project#RemoteHCID}</urn2:homeCommunityId>
                <urn2:name>${#Project#RemoteHCDescription}</urn2:name>
             </urn2:homeCommunity>
-         </urn:nhinTargetSystem>
+            </urn2:nhinTargetCommunity>
+         </urn:NhinTargetCommunities>
       </urn:RespondingGateway_CrossGatewayRetrieveRequest>
    </soap:Body>
 </soap:Envelope>]]></con:request>
@@ -4830,19 +4799,19 @@ context.testCase.setPropertyValue('DocRetDefUserID',"${UserID}${nowDate}");</scr
 assert (count > 0);</script></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2012-11-28T20:36:20Z</con:value>
+					<con:value>2012-12-20T03:02:58Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2012-11-28T20:46:20Z</con:value>
+					<con:value>2012-12-20T03:12:58Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>11/28/2012 20:36:20</con:value>
+					<con:value>12/20/2012 03:02:58</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2012-12-28T00:00:00Z</con:value>
+					<con:value>2013-01-19T00:00:00Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>FullPatientID</con:name>
@@ -4850,7 +4819,7 @@ assert (count > 0);</script></con:config></con:testStep><con:setupScript>nhinc.F
 				</con:property>
 				<con:property>
 					<con:name>DocRetDefUserID</con:name>
-					<con:value>DocfRetrieveDefUserWed Nov 28 20:41:20 UTC 2012</con:value>
+					<con:value>DocfRetrieveDefUserThu Dec 20 03:07:58 UTC 2012</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
@@ -4861,75 +4830,24 @@ assert (count > 0);</script></con:config></con:testStep><con:setupScript>nhinc.F
 	</con:testSuite>
 	<con:requirements/>
 	<con:properties>
-		<con:property>
-			<con:name>RemoteAA</con:name>
-			<con:value>2.2</con:value>
-		</con:property>
-		<con:property>
-			<con:name>DRRepoID</con:name>
-			<con:value>1</con:value>
-		</con:property>
-		<con:property>
-			<con:name>Endpoint-DocRetrieve</con:name>
-			<con:value>http://localhost:8080/Gateway/DocumentRetrieve/2_0/EntityService/NhincProxyDocRetrieveDeferredRequest</con:value>
-		</con:property>
-		<con:property>
-			<con:name>LocalPatientID</con:name>
-			<con:value>D123401</con:value>
-		</con:property>
-		<con:property>
-			<con:name>LocalAA</con:name>
-			<con:value>1.1</con:value>
-		</con:property>
-		<con:property>
-			<con:name>RemoteHCID</con:name>
-			<con:value>2.2</con:value>
-		</con:property>
-		<con:property>
-			<con:name>DRDocID</con:name>
-			<con:value>1.123407.777777</con:value>
-		</con:property>
-		<con:property>
-			<con:name>RemoteHCDescription</con:name>
-			<con:value>InternalTest2</con:value>
-		</con:property>
-		<con:property>
-			<con:name>LocalHCID</con:name>
-			<con:value>1.1</con:value>
-		</con:property>
-		<con:property>
-			<con:name>RemotePatientID</con:name>
-			<con:value>D123401</con:value>
-		</con:property>
-		<con:property>
-			<con:name>LocalHCDescription</con:name>
-			<con:value>InternalTest1</con:value>
-		</con:property>
-		<con:property>
-			<con:name>NHINGatewayHost</con:name>
-			<con:value>localhost</con:value>
-		</con:property>
-		<con:property>
-			<con:name>Endpoint-AuditLogQuery</con:name>
-			<con:value>http://localhost:8080/CONNECTAdapter/EntityAuditQuery</con:value>
-		</con:property>
-		<con:property>
-			<con:name>MockHost</con:name>
-			<con:value>localhost</con:value>
-		</con:property>
-		<con:property>
-			<con:name>NHINGatewayConfigDir</con:name>
-			<con:value>C:/Sun/AppServer/domains/domain1/config/nhin</con:value>
-		</con:property>
-		<con:property>
-			<con:name>DocRetUserID</con:name>
-			<con:value>DocfRetrieveDefUser</con:value>
-		</con:property>
-		<con:property>
-			<con:name>DocRetPatientID</con:name>
-			<con:value>D123401</con:value>
-		</con:property>
-	<con:property><con:name>AuditTable</con:name><con:value>auditrepository</con:value></con:property><con:property><con:name>AuditDB</con:name><con:value>auditrepo</con:value></con:property><con:property><con:name>DBPort</con:name><con:value>3306</con:value></con:property><con:property><con:name>DBHost</con:name><con:value>localhost</con:value></con:property><con:property><con:name>DBUser</con:name><con:value>nhincuser</con:value></con:property><con:property><con:name>DBPass</con:name><con:value>nhincpass</con:value></con:property><con:property><con:name>GatewayPropDir</con:name><con:value>c:\glassfish3\glassfish\domains\domain1\config\nhin</con:value></con:property></con:properties>
+		<con:property><con:name>AuditDB</con:name><con:value>auditrepo</con:value></con:property><con:property><con:name>AuditTable</con:name><con:value>auditrepository</con:value></con:property><con:property><con:name>DBHost</con:name><con:value>localhost</con:value></con:property><con:property><con:name>DBPass</con:name><con:value>nhincpass</con:value></con:property><con:property><con:name>DBPort</con:name><con:value>3306</con:value></con:property><con:property><con:name>DBUser</con:name><con:value>nhincuser</con:value></con:property><con:property><con:name>DocRetPatientID</con:name><con:value>D123401</con:value></con:property><con:property><con:name>DocRetUserID</con:name><con:value>DocfRetrieveDefUser</con:value></con:property><con:property><con:name>DRDocID</con:name><con:value>1.123407.777777</con:value></con:property><con:property><con:name>DRRepoID</con:name><con:value>1</con:value></con:property>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		<con:property><con:name>Endpoint-AuditLogQuery</con:name><con:value>http://localhost:8080/CONNECTAdapter/EntityAuditQuery</con:value></con:property><con:property><con:name>Endpoint-DocRetrieve</con:name><con:value>http://localhost:8080/Gateway/DocumentRetrieve/3_0/EntityService/EntityDocRetrieve</con:value></con:property><con:property><con:name>GatewayPropDir</con:name><con:value>c:\glassfish3\glassfish\domains\domain1\config\nhin</con:value></con:property><con:property><con:name>LocalAA</con:name><con:value>1.1</con:value></con:property><con:property><con:name>LocalHCDescription</con:name><con:value>InternalTest1</con:value></con:property><con:property><con:name>LocalHCID</con:name><con:value>1.1</con:value></con:property><con:property><con:name>LocalPatientID</con:name><con:value>D123401</con:value></con:property><con:property><con:name>MockHost</con:name><con:value>localhost</con:value></con:property><con:property><con:name>NHINGatewayConfigDir</con:name><con:value>C:/Sun/AppServer/domains/domain1/config/nhin</con:value></con:property>
+		
+		
+		
+		
+	<con:property><con:name>NHINGatewayHost</con:name><con:value>localhost</con:value></con:property><con:property><con:name>RemoteAA</con:name><con:value>2.2</con:value></con:property><con:property><con:name>RemoteHCDescription</con:name><con:value>InternalTest2</con:value></con:property><con:property><con:name>RemoteHCID</con:name><con:value>2.2</con:value></con:property><con:property><con:name>RemotePatientID</con:name><con:value>D123401</con:value></con:property></con:properties>
 	<con:afterLoadScript>def propertiesFilename = project.path[0..(project.path.size()-4)] + 'properties'
 def propertiesFile = new File(propertiesFilename)
 if (propertiesFile.exists()) {
@@ -5041,4 +4959,4 @@ log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
 FileUtils.copyFile(sourceDir, sourceFile, destDir, destFile, context, log);</con:script>
 	</con:eventHandlers>
-</con:soapui-project>
+<con:sensitiveInformation/></con:soapui-project>

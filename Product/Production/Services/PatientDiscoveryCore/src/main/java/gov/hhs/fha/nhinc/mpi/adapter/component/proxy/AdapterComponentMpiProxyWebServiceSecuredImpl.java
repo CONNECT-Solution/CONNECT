@@ -26,8 +26,7 @@
  */
 package gov.hhs.fha.nhinc.mpi.adapter.component.proxy;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 import org.hl7.v3.PRPAIN201305UV02;
 import org.hl7.v3.PRPAIN201306UV02;
 
@@ -49,24 +48,8 @@ import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
  */
 public class AdapterComponentMpiProxyWebServiceSecuredImpl implements AdapterComponentMpiProxy {
 
-    private Log log = null;
+    private static final Logger LOG = Logger.getLogger(AdapterComponentMpiProxyWebServiceSecuredImpl.class);
     private final WebServiceProxyHelper oProxyHelper = new WebServiceProxyHelper();
-
-    /**
-     * Default constructor.
-     */
-    public AdapterComponentMpiProxyWebServiceSecuredImpl() {
-        log = createLogger();
-    }
-
-    /**
-     * Creates the log object for logging.
-     *
-     * @return The log object.
-     */
-    protected Log createLogger() {
-        return ((log != null) ? log : LogFactory.getLog(getClass()));
-    }
 
     /**
      *
@@ -103,9 +86,9 @@ public class AdapterComponentMpiProxyWebServiceSecuredImpl implements AdapterCom
 
         try {
             if (request != null) {
-                log.debug("Before target system URL look up.");
+                LOG.debug("Before target system URL look up.");
                 url = oProxyHelper.getAdapterEndPointFromConnectionManager(sServiceName);
-                log.debug("After target system URL look up. URL for service: " + sServiceName + " is: " + url);
+                LOG.debug("After target system URL look up. URL for service: " + sServiceName + " is: " + url);
 
                 if (NullChecker.isNotNullish(url)) {
                     ServicePortDescriptor<AdapterComponentMpiSecuredPortType> portDescriptor =
@@ -118,13 +101,13 @@ public class AdapterComponentMpiProxyWebServiceSecuredImpl implements AdapterCom
                             (PRPAIN201306UV02) client.invokePort(AdapterComponentMpiSecuredPortType.class,
                                     "findCandidates", request);
                 } else {
-                    log.error("Failed to call the web service (" + sServiceName + ").  The URL is null.");
+                    LOG.error("Failed to call the web service (" + sServiceName + ").  The URL is null.");
                 }
             } else {
-                log.error("Failed to call the web service (" + sServiceName + ").  The input parameter is null.");
+                LOG.error("Failed to call the web service (" + sServiceName + ").  The input parameter is null.");
             }
         } catch (Exception e) {
-            log.error("Failed to call the web service (" + sServiceName + ").  An unexpected exception occurred.  "
+            LOG.error("Failed to call the web service (" + sServiceName + ").  An unexpected exception occurred.  "
                     + "Exception: " + e.getMessage(), e);
         }
 

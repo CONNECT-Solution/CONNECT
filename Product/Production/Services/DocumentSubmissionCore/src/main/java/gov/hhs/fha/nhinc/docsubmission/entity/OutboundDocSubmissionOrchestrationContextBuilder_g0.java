@@ -27,8 +27,8 @@
 package gov.hhs.fha.nhinc.docsubmission.entity;
 
 import gov.hhs.fha.nhinc.orchestration.OrchestrationContext;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+
+import org.apache.log4j.Logger;
 
 /**
  * 
@@ -37,19 +37,14 @@ import org.apache.commons.logging.LogFactory;
 public class OutboundDocSubmissionOrchestrationContextBuilder_g0 extends
         OutboundDocSubmissionOrchestrationContextBuilder {
 
-    private static Log log = LogFactory.getLog(OutboundDocSubmissionOrchestrationContextBuilder_g0.class);
+    private static final Logger LOG = Logger.getLogger(OutboundDocSubmissionOrchestrationContextBuilder_g0.class);
 
     @Override
     public OrchestrationContext build() {
-        log.debug("begin build");
+        LOG.trace("begin build");
         return new OrchestrationContext(new OutboundDocSubmissionStrategyImpl_g0(),
                 new OutboundDocSubmissionOrchestratable(getNhinDelegate(), getRequest(), getTarget(),
                         getAssertionType()));
-    }
-
-    @Override
-    public Log getLog() {
-        return log;
     }
 
 }

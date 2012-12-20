@@ -36,8 +36,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 
 /**
  * 
@@ -45,18 +44,18 @@ import org.apache.commons.logging.LogFactory;
  */
 public class FTAConfigurationHelper {
     public static final String FTA_CONFIG_FILE = "FTAConfiguration.xml";
-    private static Log log = LogFactory.getLog(FTAConfigurationHelper.class);
+    private static final Logger LOG = Logger.getLogger(FTAConfigurationHelper.class);
 
     public static FTAConfiguration loadFTAConfiguration() {
         FTAConfiguration result;
 
         String propertyDir = PropertyAccessor.getInstance().getPropertyFileLocation();
 
-        log.debug(propertyDir);
+        LOG.debug(propertyDir);
         result = loadFTAConfiguration(propertyDir, FTA_CONFIG_FILE);
 
-        log.debug("Successfully loaded configuration.");
-        log.debug("returned " + result.getInboundChannels().size() + " Inbound channels, "
+        LOG.debug("Successfully loaded configuration.");
+        LOG.debug("returned " + result.getInboundChannels().size() + " Inbound channels, "
                 + result.getOutboundChannels().size() + " Outbound channels");
         return result;
     }
@@ -68,14 +67,14 @@ public class FTAConfigurationHelper {
             DocumentBuilder db = dbf.newDocumentBuilder();
             Document doc = db.parse(file);
             doc.getDocumentElement().normalize();
-            log.debug("Root element " + doc.getDocumentElement().getNodeName());
+            LOG.debug("Root element " + doc.getDocumentElement().getNodeName());
             NodeList nodeLst = doc.getElementsByTagName("InboundChannels");
 
             result.setInboundChannels(loadChannels(doc.getElementsByTagName("InboundChannels")));
             result.setOutboundChannels(loadChannels(doc.getElementsByTagName("OutboundChannels")));
 
         } catch (Exception e) {
-            log.error("unable to load FTAConfiguration file", e);
+            LOG.error("unable to load FTAConfiguration file", e);
             e.printStackTrace();
         }
 
@@ -85,13 +84,13 @@ public class FTAConfigurationHelper {
     public static FTAConfiguration loadFTAConfiguration(String path, String fileName) {
         FTAConfiguration result = null;
 
-        log.debug("loadFTAConfiguration");
-        log.debug(fileName);
+        LOG.debug("loadFTAConfiguration");
+        LOG.debug(fileName);
         try {
             File file = new File(path, fileName);
             result = loadFTAConfiguration(file);
         } catch (Exception e) {
-            log.error("unable to load FTAConfiguration file", e);
+            LOG.error("unable to load FTAConfiguration file", e);
             e.printStackTrace();
         }
 
@@ -100,13 +99,13 @@ public class FTAConfigurationHelper {
 
     public static FTAConfiguration loadFTAConfiguration(String fileName) {
         FTAConfiguration result = null;
-        log.debug("loadFTAConfiguration");
-        log.debug(fileName);
+        LOG.debug("loadFTAConfiguration");
+        LOG.debug(fileName);
         try {
             File file = new File(fileName);
             result = loadFTAConfiguration(file);
         } catch (Exception e) {
-            log.error("unable to load FTAConfiguration file", e);
+            LOG.error("unable to load FTAConfiguration file", e);
             e.printStackTrace();
         }
         return result;
@@ -129,7 +128,7 @@ public class FTAConfigurationHelper {
 
         Node channels = channelNode.item(0);
 
-        log.debug("loading " + channels.getChildNodes().getLength() + " channels");
+        LOG.debug("loading " + channels.getChildNodes().getLength() + " channels");
         ;
         for (int s = 0; s < channels.getChildNodes().getLength(); s++) {
             Node node = channels.getChildNodes().item(s);

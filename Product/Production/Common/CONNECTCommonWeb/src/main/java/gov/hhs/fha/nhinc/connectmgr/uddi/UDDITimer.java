@@ -28,8 +28,7 @@ package gov.hhs.fha.nhinc.connectmgr.uddi;
 
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 
 /**
  * This class is used to start a timer which when it wakes up will read the UDDI data from the UDDI server, updte the
@@ -38,7 +37,7 @@ import org.apache.commons.logging.LogFactory;
  * @author Les Westberg
  */
 public class UDDITimer extends Thread {
-    private static Log log = LogFactory.getLog(UDDITimer.class);
+    private static final Logger LOG = Logger.getLogger(UDDITimer.class);
     private static UDDITimer m_oTheOneAndOnlyTimer = null;
     private static boolean m_bRunnable = false;
     private static final String GATEWAY_PROPERTY_FILE = "gateway";
@@ -72,11 +71,11 @@ public class UDDITimer extends Thread {
             } catch (Exception e) {
                 m_oTheOneAndOnlyTimer = null;
                 String sErrorMessage = "Failed to start the UDDI Update Manager timer.  Error: " + e.getMessage();
-                log.error(sErrorMessage, e);
+                LOG.error(sErrorMessage, e);
                 throw new UDDIAccessorException(sErrorMessage, e);
             }
 
-            log.info("UDDIUpdateManager timer has just been started now.");
+            LOG.info("UDDIUpdateManager timer has just been started now.");
         }
     }
 
@@ -98,7 +97,7 @@ public class UDDITimer extends Thread {
             String sErrorMessage = "Failed to read and parse " + UDDI_REFRESH_DURATION_PROPERTY + " from "
                     + GATEWAY_PROPERTY_FILE + ".properties file - using default " + "" + "value of "
                     + UDDI_REFRESH_DURATION_DEFAULT + " seconds.  Error: " + e.getMessage();
-            log.warn(sErrorMessage, e);
+            LOG.warn(sErrorMessage, e);
         }
     }
 
@@ -108,11 +107,11 @@ public class UDDITimer extends Thread {
             UDDITimerTask oUDDITimerTask = new UDDITimerTask();
             oUDDITimerTask.run();
             try {
-                log.debug("Before reading properties wait status....");
+                LOG.debug("Before reading properties wait status....");
                 Thread.sleep(m_iDurationSeconds * 1000);
-                log.debug("Now read properties....");
+                LOG.debug("Now read properties....");
             } catch (InterruptedException ex) {
-                log.error("Failed to sleep.", ex);
+                LOG.error("Failed to sleep.", ex);
             }
         }
     }
@@ -125,7 +124,7 @@ public class UDDITimer extends Thread {
      */
     public static void main(String[] args) {
         System.out.println("Starting test.");
-        log.debug("Log: Starting test.");
+        LOG.debug("Log: Starting test.");
 
         try {
             UDDITimer.startTimer();

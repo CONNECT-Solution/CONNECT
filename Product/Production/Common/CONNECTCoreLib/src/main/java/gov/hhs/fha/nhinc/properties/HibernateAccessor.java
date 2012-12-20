@@ -29,19 +29,16 @@ package gov.hhs.fha.nhinc.properties;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 
 import java.io.File;
-import java.net.URISyntaxException;
-import java.net.URL;
 import java.net.URLDecoder;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 
 /**
  * 
  * @author akong
  */
 public class HibernateAccessor {
-    private static Log log = LogFactory.getLog(HibernateAccessor.class);
+    private static final Logger LOG = Logger.getLogger(HibernateAccessor.class);
 
     private static HibernateAccessor instance;
     
@@ -77,7 +74,7 @@ public class HibernateAccessor {
     private synchronized void loadPropertyFileDir() {
         propertyFileDir = getPropertyAccessor().getPropertyFileLocation();
         if (NullChecker.isNullish(propertyFileDir)) {
-            log.error("Failed to load Hibernate Directory");
+            LOG.error("Failed to load Hibernate Directory");
             failedToLoadEnvVar = true;
             return;
         }
@@ -86,7 +83,7 @@ public class HibernateAccessor {
         propertyFileDir = dir.getAbsolutePath();
         
         if (!dir.exists()) {
-            log.error("Failed to load Hibernate Directory");
+            LOG.error("Failed to load Hibernate Directory");
             failedToLoadEnvVar = true;
         }
     }

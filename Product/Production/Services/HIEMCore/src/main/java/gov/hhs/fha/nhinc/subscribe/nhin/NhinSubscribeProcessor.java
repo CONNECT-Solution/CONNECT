@@ -28,8 +28,7 @@ package gov.hhs.fha.nhinc.subscribe.nhin;
 
 import javax.xml.xpath.XPathExpressionException;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 import org.oasis_open.docs.wsn.b_2.SubscribeResponse;
 import org.oasis_open.docs.wsn.bw_2.InvalidTopicExpressionFault;
 import org.oasis_open.docs.wsn.bw_2.NotifyMessageNotSupportedFault;
@@ -59,7 +58,7 @@ import gov.hhs.fha.nhinc.xmlCommon.XmlUtility;
  */
 public class NhinSubscribeProcessor {
 
-    private static Log log = LogFactory.getLog(NhinSubscribeProcessor.class);
+    private static final Logger LOG = Logger.getLogger(NhinSubscribeProcessor.class);
 
     /**
      * Perform processing for an NHIN subscribe message.
@@ -73,9 +72,9 @@ public class NhinSubscribeProcessor {
     public SubscribeResponse processNhinSubscribe(Element soapMessage, AssertionType assertion)
             throws NotifyMessageNotSupportedFault, SubscribeCreationFailedFault, TopicNotSupportedFault,
             InvalidTopicExpressionFault {
-        log.debug("In processNhinSubscribe");
+        LOG.debug("In processNhinSubscribe");
 
-        log.debug("extract subscribe from soapmessage");
+        LOG.debug("extract subscribe from soapmessage");
         Element subscribe = XmlUtility.getSingleChildElement(soapMessage, Namespaces.WSNT, "Subscribe");
         SubscribeResponse subscribeResponse = null;
 
@@ -88,18 +87,18 @@ public class NhinSubscribeProcessor {
                     .getUnknownSubscriptionServiceMode("Configuration occurred - unable to determine service mode.");
         }
 
-        log.debug("serviceMode=" + serviceMode);
+        LOG.debug("serviceMode=" + serviceMode);
         if (HiemProcessorConstants.HIEM_SERVICE_MODE_PASSTHROUGH.equals(serviceMode)) {
-            log.debug("In passthrough mode");
+            LOG.debug("In passthrough mode");
             subscribeResponse = passthroughMode(subscribe, assertion);
         } else if (HiemProcessorConstants.HIEM_SERVICE_MODE_NOT_SUPPORTED.equals(serviceMode)) {
-            log.debug("Subscriptions are not supported");
+            LOG.debug("Subscriptions are not supported");
             throw new SoapFaultFactory().getSubscriptionsNotSupported();
         } else if (HiemProcessorConstants.HIEM_SERVICE_MODE_SUPPORTED.equalsIgnoreCase(serviceMode)) {
-            log.debug("Subscriptions are supported. Processing subscribe message");
+            LOG.debug("Subscriptions are supported. Processing subscribe message");
             subscribeResponse = nhinSubscribe(subscribe, assertion);
         } else {
-            log.error("Unknown subscription service mode: " + serviceMode);
+            LOG.error("Unknown subscription service mode: " + serviceMode);
             throw new SoapFaultFactory().getUnknownSubscriptionServiceMode(serviceMode);
         }
         return subscribeResponse;
@@ -111,9 +110,9 @@ public class NhinSubscribeProcessor {
 
         Element topic;
         try {
-            log.debug("finding topic from message");
+            LOG.debug("finding topic from message");
             topic = rootTopicExtractor.extractTopicExpressionElementFromSubscribeElement(subscribeElement);
-            log.debug("complete with finding topic.  found=" + (topic != null));
+            LOG.debug("complete with finding topic.  found=" + (topic != null));
         } catch (XPathExpressionException ex) {
             throw new SoapFaultFactory().getUnableToParseTopicExpressionFromSubscribeFault(ex);
         }
@@ -140,14 +139,14 @@ public class NhinSubscribeProcessor {
 
     private SubscribeResponse nhinSubscribe(Element subscribe, AssertionType assertion) throws TopicNotSupportedFault,
             InvalidTopicExpressionFault, SubscribeCreationFailedFault {
-        log.debug("Begin nhinSubscribe");
+        LOG.debug("Begin nhinSubscribe");
         SubscribeResponse response = null;
 
         TopicConfigurationEntry topicConfig;
         try {
-            log.debug("determine topic configuration");
+            LOG.debug("determine topic configuration");
             topicConfig = getTopicConfiguration(subscribe);
-            log.debug("getTopicConfiguration complete.  isnull=" + (topicConfig == null));
+            LOG.debug("getTopicConfiguration complete.  isnull=" + (topicConfig == null));
 
             if (topicConfig == null) {
                 throw new SoapFaultFactory().getUnknownTopic(null);
@@ -158,17 +157,17 @@ public class NhinSubscribeProcessor {
 
         SubscriptionHandler subscriptionHandler;
         try {
-            log.debug("creating subscription handler [SubscriptionHandlerFactory().getSubscriptionHandler();]");
+            LOG.debug("creating subscription handler [SubscriptionHandlerFactory().getSubscriptionHandler();]");
             subscriptionHandler = new SubscriptionHandlerFactory().getSubscriptionHandler();
-            log.debug("create subscription handler complete.  isnull=" + (subscriptionHandler == null));
+            LOG.debug("create subscription handler complete.  isnull=" + (subscriptionHandler == null));
         } catch (ConfigurationException ex) {
             throw new SoapFaultFactory().getConfigurationException(ex);
         }
 
-        log.debug("Sending subscribe message to message handler");
+        LOG.debug("Sending subscribe message to message handler");
         response = subscriptionHandler.handleSubscribe(subscribe);
 
-        log.debug("End nhinSubscribe");
+        LOG.debug("End nhinSubscribe");
         return response;
     }
 
@@ -176,24 +175,24 @@ public class NhinSubscribeProcessor {
 
     private SubscribeResponse passthroughMode(Element subscribe, AssertionType assertion)
             throws SubscribeCreationFailedFault {
-        log.info("initialize HIEM subscribe adapter proxy");
+        LOG.info("initialize HIEM subscribe adapter proxy");
         HiemSubscribeAdapterProxyObjectFactory factory = new HiemSubscribeAdapterProxyObjectFactory();
         HiemSubscribeAdapterProxy proxy = factory.getHiemSubscribeAdapterProxy();
 
         Element subscribeResponseElement = null;
         NhinTargetSystemType target = null;
-        log.info("invoke HIEM subscribe adapter proxy");
+        LOG.info("invoke HIEM subscribe adapter proxy");
         try {
             subscribeResponseElement = proxy.subscribe(subscribe, assertion, target);
         } catch (Exception ex) {
             throw new SoapFaultFactory().getFailedToForwardSubscribeToAgencyFault(ex);
         }
 
-        log.debug("unmarshalling subscription response");
+        LOG.debug("unmarshalling subscription response");
         SubscribeResponseMarshaller marshaller = new SubscribeResponseMarshaller();
         SubscribeResponse subscribeResponse = marshaller.unmarshal(subscribeResponseElement);
 
-        log.info("complete with invoke HIEM subscribe adapter proxy");
+        LOG.info("complete with invoke HIEM subscribe adapter proxy");
 
         return subscribeResponse;
     }

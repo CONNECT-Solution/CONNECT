@@ -51,8 +51,7 @@ import gov.hhs.fha.nhinc.transform.subdisc.HL7DataTransformHelper;
 
 import java.util.List;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 import org.hl7.v3.II;
 import org.hl7.v3.MCCIIN000002UV01;
 import org.hl7.v3.PRPAIN201305UV02;
@@ -63,7 +62,7 @@ public class StandardOutboundPatientDiscoveryDeferredRequest extends AbstractOut
 
     private static final MessageGeneratorUtils msgUtils = MessageGeneratorUtils.getInstance();
 
-    private final Log log;
+    private static final Logger LOG = Logger.getLogger(StandardOutboundPatientDiscoveryDeferredRequest.class);
     private final PatientDiscovery201305Processor pd201305Processor;
     private final AsyncMessageProcessHelper asyncProcessHelper;
     private final PatientDiscoveryPolicyChecker policyChecker;
@@ -82,8 +81,7 @@ public class StandardOutboundPatientDiscoveryDeferredRequest extends AbstractOut
         delegate = new OutboundPatientDiscoveryDeferredRequestDelegate();
         correlationDao = new PDDeferredCorrelationDao();
         connectionManager = ConnectionManagerCache.getInstance();
-        auditLogger = new PatientDiscoveryAuditLogger();
-        log = LogFactory.getLog(getClass());
+        auditLogger = new PatientDiscoveryAuditLogger();    
     }
 
     /**
@@ -95,20 +93,18 @@ public class StandardOutboundPatientDiscoveryDeferredRequest extends AbstractOut
      * @param delegate
      * @param correlationDao
      * @param connectionManager
-     * @param log
      */
     public StandardOutboundPatientDiscoveryDeferredRequest(PatientDiscovery201305Processor pd201305Processor,
             AsyncMessageProcessHelper asyncProcessHelper, PatientDiscoveryPolicyChecker policyChecker,
             OutboundPatientDiscoveryDeferredRequestDelegate delegate, PDDeferredCorrelationDao correlationDao,
-            ConnectionManagerCache connectionManager, PatientDiscoveryAuditor auditLogger, Log log) {
+            ConnectionManagerCache connectionManager, PatientDiscoveryAuditor auditLogger) {
         this.pd201305Processor = pd201305Processor;
         this.asyncProcessHelper = asyncProcessHelper;
         this.policyChecker = policyChecker;
         this.delegate = delegate;
         this.correlationDao = correlationDao;
         this.connectionManager = connectionManager;
-        this.auditLogger = auditLogger;
-        this.log = log;
+        this.auditLogger = auditLogger;    
     }
 
     /**
@@ -149,7 +145,7 @@ public class StandardOutboundPatientDiscoveryDeferredRequest extends AbstractOut
             }
         } else {
             String ackMsg = "No targets were found for the Patient Discovery Request";
-            log.warn(ackMsg);
+            LOG.warn(ackMsg);
             ack = HL7AckTransforms.createAckErrorFrom201305(message, ackMsg);
         }
 
@@ -170,7 +166,7 @@ public class StandardOutboundPatientDiscoveryDeferredRequest extends AbstractOut
             urlInfoList = connectionManager.getEndpointURLFromNhinTargetCommunities(targetCommunities,
                     NhincConstants.PATIENT_DISCOVERY_DEFERRED_REQ_SERVICE_NAME);
         } catch (ConnectionManagerException ex) {
-            log.error("Failed to obtain target URLs for service "
+            LOG.error("Failed to obtain target URLs for service "
                     + NhincConstants.PATIENT_DISCOVERY_DEFERRED_REQ_SERVICE_NAME);
             return null;
         }
@@ -194,7 +190,7 @@ public class StandardOutboundPatientDiscoveryDeferredRequest extends AbstractOut
         if (patientId != null && NullChecker.isNotNullish(messageId)) {
             correlationDao.saveOrUpdate(messageId, patientId);
         } else {
-            log.error("Failed to retrieve patient or message id from outgoing PD deferred request.");
+            LOG.error("Failed to retrieve patient or message id from outgoing PD deferred request.");
         }
     }
 

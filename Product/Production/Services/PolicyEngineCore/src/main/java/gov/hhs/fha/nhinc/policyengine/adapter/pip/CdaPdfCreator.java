@@ -39,13 +39,14 @@ import gov.hhs.fha.nhinc.common.nhinccommonadapter.PolicyPatientInfoType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.PolicyScannerAuthorInfoType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.xml.bind.JAXBElement;
-import javax.xml.datatype.XMLGregorianCalendar;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+
+import org.apache.log4j.Logger;
 import org.hl7.v3.ADExplicit;
 import org.hl7.v3.ActClassClinicalDocument;
 import org.hl7.v3.AdxpExplicitCity;
@@ -98,26 +99,11 @@ import org.hl7.v3.TSExplicit;
  */
 public class CdaPdfCreator {
 
-    protected Log log = null;
+    private static final Logger LOG = Logger.getLogger(CdaPdfCreator.class);
     private static final String HL7_DATE_ONLY_FORMAT = "yyyyMMdd";
     private static final SimpleDateFormat oHL7DateOnlyFormatter = new SimpleDateFormat(HL7_DATE_ONLY_FORMAT);
     private static final String HL7_DATE_TIME_FORMAT = "yyyyMMddHHmmssZ";
     private static final SimpleDateFormat oHL7DateTimeFormatter = new SimpleDateFormat(HL7_DATE_TIME_FORMAT);
-
-    /**
-     * Default constructor.
-     */
-    public CdaPdfCreator() {
-        log = createLogger();
-    }
-
-    /**
-     * Sets up the logger object.
-     */
-    protected Log createLogger() {
-        return ((log != null) ? log : LogFactory.getLog(getClass()));
-
-    }
 
     /**
      * This class creates an instance of an II with the given root and extension.
@@ -171,7 +157,7 @@ public class CdaPdfCreator {
         } catch (Exception e) {
             String sErrorMessage = "Failed to retrieve home community ID from gateway properties file.  Error: "
                     + e.getMessage();
-            log.error(sErrorMessage, e);
+            LOG.error(sErrorMessage, e);
             throw new AdapterPIPException(sErrorMessage, e);
         }
 

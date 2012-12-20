@@ -35,8 +35,7 @@ import javax.xml.bind.JAXBElement;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 
 /**
  * This class is used to serialize/deserialize teh Patient Preferences documents.
@@ -44,22 +43,7 @@ import org.apache.commons.logging.LogFactory;
  * @author Les Westberg
  */
 public class CdaPdfSerializer {
-    private Log log = null;
-
-    /**
-     * Default constructor.
-     */
-    public CdaPdfSerializer() {
-        log = createLogger();
-    }
-
-    /**
-     * Sets up the logger object.
-     */
-    protected Log createLogger() {
-        return ((log != null) ? log : LogFactory.getLog(getClass()));
-
-    }
+    private static final Logger LOG = Logger.getLogger(CdaPdfSerializer.class);
 
     /**
      * This method takes in an object representation of the HL7 Clinical Document and serializes it to a text string
@@ -88,7 +72,7 @@ public class CdaPdfSerializer {
         } catch (Exception e) {
             String sErrorMessage = "Failed to serialize the Clinical Document (CDA) to a string.  Error: "
                     + e.getMessage();
-            log.error(sErrorMessage, e);
+            LOG.error(sErrorMessage, e);
             throw new AdapterPIPException(sErrorMessage, e);
         }
 
@@ -121,7 +105,7 @@ public class CdaPdfSerializer {
         } catch (Exception e) {
             String sErrorMessage = "Failed to deserialize the clinical document string: " + sCda + "  Error: "
                     + e.getMessage();
-            log.error(sErrorMessage, e);
+            LOG.error(sErrorMessage, e);
             throw new AdapterPIPException(sErrorMessage, e);
         }
 

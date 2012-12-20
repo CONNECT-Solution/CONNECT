@@ -31,7 +31,7 @@ import gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyResponseType;
 import gov.hhs.fha.nhinc.policyengine.adapter.orchestrator.AdapterPolicyEngineOrchestratorImpl;
 import javax.xml.ws.WebServiceContext;
-import org.apache.commons.logging.Log;
+
 import org.jmock.Expectations;
 import org.jmock.Mockery;
 import org.jmock.integration.junit4.JMock;
@@ -52,39 +52,14 @@ public class AdapterComponentPolicyEngineImplTest {
             setImposteriser(ClassImposteriser.INSTANCE);
         }
     };
-    final Log mockLog = context.mock(Log.class);
     final AdapterPolicyEngineOrchestratorImpl mockAdapterPolicyEngineOrchestratorImpl = context
             .mock(AdapterPolicyEngineOrchestratorImpl.class);
     final WebServiceContext mockWebServiceContext = context.mock(WebServiceContext.class);
 
     @Test
-    public void testCreateLogger() {
-        try {
-            AdapterComponentPolicyEngineImpl sut = new AdapterComponentPolicyEngineImpl() {
-                @Override
-                protected Log createLogger() {
-                    return mockLog;
-                }
-            };
-
-            Log log = sut.createLogger();
-            assertNotNull("Log was null", log);
-        } catch (Throwable t) {
-            System.out.println("Error running testCreateLogger: " + t.getMessage());
-            t.printStackTrace();
-            fail("Error running testCreateLogger: " + t.getMessage());
-        }
-    }
-
-    @Test
     public void testGetAdapterPEPImpl() {
         try {
             AdapterComponentPolicyEngineImpl sut = new AdapterComponentPolicyEngineImpl() {
-                @Override
-                protected Log createLogger() {
-                    return mockLog;
-                }
-
                 @Override
                 protected AdapterPolicyEngineOrchestratorImpl getAdapterPolicyEngineOrchestratorImpl() {
                     return mockAdapterPolicyEngineOrchestratorImpl;
@@ -105,11 +80,6 @@ public class AdapterComponentPolicyEngineImplTest {
         try {
             AdapterComponentPolicyEngineImpl sut = new AdapterComponentPolicyEngineImpl() {
                 @Override
-                protected Log createLogger() {
-                    return mockLog;
-                }
-
-                @Override
                 protected void loadAssertion(AssertionType assertion, WebServiceContext wsContext) throws Exception {
                 }
             };
@@ -129,11 +99,6 @@ public class AdapterComponentPolicyEngineImplTest {
         try {
             AdapterComponentPolicyEngineImpl sut = new AdapterComponentPolicyEngineImpl() {
                 @Override
-                protected Log createLogger() {
-                    return mockLog;
-                }
-
-                @Override
                 protected AdapterPolicyEngineOrchestratorImpl getAdapterPolicyEngineOrchestratorImpl() {
                     return mockAdapterPolicyEngineOrchestratorImpl;
                 }
@@ -144,7 +109,6 @@ public class AdapterComponentPolicyEngineImplTest {
             };
             context.checking(new Expectations() {
                 {
-                    allowing(mockLog).debug(with(aNonNull(String.class)));
                     oneOf(mockAdapterPolicyEngineOrchestratorImpl).checkPolicy(
                             with(aNonNull(CheckPolicyRequestType.class)), with(aNonNull(AssertionType.class)));
                 }
@@ -167,11 +131,6 @@ public class AdapterComponentPolicyEngineImplTest {
         try {
             AdapterComponentPolicyEngineImpl sut = new AdapterComponentPolicyEngineImpl() {
                 @Override
-                protected Log createLogger() {
-                    return mockLog;
-                }
-
-                @Override
                 protected AdapterPolicyEngineOrchestratorImpl getAdapterPolicyEngineOrchestratorImpl() {
                     return mockAdapterPolicyEngineOrchestratorImpl;
                 }
@@ -181,12 +140,6 @@ public class AdapterComponentPolicyEngineImplTest {
                     throw new IllegalArgumentException("Forced error.");
                 }
             };
-            context.checking(new Expectations() {
-                {
-                    allowing(mockLog).debug(with(aNonNull(String.class)));
-                    oneOf(mockLog).error(with(aNonNull(String.class)), with(aNonNull(IllegalArgumentException.class)));
-                }
-            });
 
             CheckPolicyRequestType request = new CheckPolicyRequestType();
 

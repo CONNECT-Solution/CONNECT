@@ -47,8 +47,7 @@ import gov.hhs.fha.nhinc.subscribe.entity.EntitySubscribeOrchImpl;
 
 import javax.xml.ws.WebServiceContext;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 import org.oasis_open.docs.wsn.b_2.Subscribe;
 import org.oasis_open.docs.wsn.b_2.SubscribeResponse;
 
@@ -59,7 +58,7 @@ import org.oasis_open.docs.wsn.b_2.SubscribeResponse;
  */
 public class EntitySubscribeServiceImpl {
 
-    private static Log log = LogFactory.getLog(EntitySubscribeServiceImpl.class);
+    private static final Logger LOG = Logger.getLogger(EntitySubscribeServiceImpl.class);
 
     private EntitySubscribeOrchImpl orchImpl;
     
@@ -90,7 +89,7 @@ public class EntitySubscribeServiceImpl {
             SubscribeCreationFailedFault, TopicExpressionDialectUnknownFault,
             TopicNotSupportedFault, UnacceptableInitialTerminationTimeFault, UnrecognizedPolicyRequestFault,
             UnsupportedPolicyRequestFault {
-        log.debug("In subscribe");
+        LOG.debug("In subscribe");
 
         AssertionType assertion = SAML2AssertionExtractor.getInstance().extractSamlAssertion(context);
 
@@ -108,7 +107,7 @@ public class EntitySubscribeServiceImpl {
             throw new SubscribeCreationFailedFault(ex.getMessage(), ex.getFaultInfo(), ex.getCause());
         } 
 
-        log.debug("Exiting ProxyHiemUnsubscribeImpl.unsubscribe...");
+        LOG.debug("Exiting ProxyHiemUnsubscribeImpl.unsubscribe...");
         return response;
     }
 
@@ -117,7 +116,7 @@ public class EntitySubscribeServiceImpl {
                     throws gov.hhs.fha.nhinc.entitysubscriptionmanagement.TopicNotSupportedFault,
                     gov.hhs.fha.nhinc.entitysubscriptionmanagement.InvalidTopicExpressionFault,
                     gov.hhs.fha.nhinc.entitysubscriptionmanagement.SubscribeCreationFailedFault {
-        log.debug("In subscribe");
+        LOG.debug("In subscribe");
         
         AssertionType assertion = subscribeRequest.getAssertion();
 

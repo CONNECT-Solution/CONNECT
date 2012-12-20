@@ -51,6 +51,7 @@ import oasis.names.tc.ebxml_regrep.xsd.rim._3.SlotType1;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.ValueListType;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
+import org.apache.log4j.Logger;
 
 /**
  * 
@@ -58,8 +59,7 @@ import org.w3c.dom.Node;
  */
 public class DocumentFilterStrategy {
 
-    private static org.apache.commons.logging.Log log = org.apache.commons.logging.LogFactory
-            .getLog(DocumentFilterStrategy.class);
+    private static final Logger LOG = Logger.getLogger(DocumentFilterStrategy.class);
 
     public static boolean IsDocumentCentric(Node subscriptionTopicExpression) {
         // find better way to handle this, maybe just share code
@@ -84,7 +84,7 @@ public class DocumentFilterStrategy {
         try {
             documentMetadata = getDocumentMetadata(documentIdentifier);
         } catch (Exception ex) {
-            log.error("Failed to find document metadata", ex);
+            LOG.error("Failed to find document metadata", ex);
         }
 
         boolean match;
@@ -93,7 +93,7 @@ public class DocumentFilterStrategy {
             AdhocQueryType adhocQuery = extractAdhocQueryAsObject(subscribeElement);
             match = meetsCriteria(documentMetadata, adhocQuery);
         } else {
-            log.warn("Document meta data could not be accessed, so assumed to not be a match");
+            LOG.warn("Document meta data could not be accessed, so assumed to not be a match");
             match = false;
         }
         return match;
@@ -104,24 +104,24 @@ public class DocumentFilterStrategy {
 
         for (SlotType1 slot : adhocQuery.getSlot()) {
             boolean slotMatch = true;
-            log.debug("Checking if the slot [name='" + slot.getName()
+            LOG.debug("Checking if the slot [name='" + slot.getName()
                     + "'] from the subscribe is meet by the document metadata from notify");
             String slotValue = null;
             if (slot.getValueList().getValue().size() == 0) {
-                log.warn("there are no slot values - assume that this will not result in no match");
+                LOG.warn("there are no slot values - assume that this will not result in no match");
             } else if (slot.getValueList().getValue().size() > 1) {
-                log.warn("there are multiple slot values, currently unsupported.  Will use the first value");
+                LOG.warn("there are multiple slot values, currently unsupported.  Will use the first value");
                 slotValue = slot.getValueList().getValue().get(0);
             } else {
                 slotValue = slot.getValueList().getValue().get(0);
             }
 
             if (NullChecker.isNotNullish(slotValue)) {
-                log.debug("[slot name='" + slot.getName() + "'][slot value='" + slotValue + "']");
+                LOG.debug("[slot name='" + slot.getName() + "'][slot value='" + slotValue + "']");
 
                 if (slot.getName().contentEquals(Constants.PatientIdSlotName)) {
                     QualifiedSubjectIdentifierType patientId = DocumentMetadataHelper.getPatient(documentMetadata);
-                    log.debug("extracted patient id from the metadata " + patientId.getSubjectIdentifier() + ";"
+                    LOG.debug("extracted patient id from the metadata " + patientId.getSubjectIdentifier() + ";"
                             + patientId.getAssigningAuthorityIdentifier());
                     slotMatch = patientId.getSubjectIdentifier().contentEquals(
                             PatientIdFormatUtil.parsePatientId(slotValue))
@@ -129,26 +129,26 @@ public class DocumentFilterStrategy {
                                     PatientIdFormatUtil.parseCommunityId(slotValue));
                 } else if (slot.getName().contentEquals(Constants.DocumentClassCodeSlotName)) {
                     String metadataValue = DocumentMetadataHelper.getDocumentClassCode(documentMetadata);
-                    log.debug("correspond value(s) from metadata=" + metadataValue);
+                    LOG.debug("correspond value(s) from metadata=" + metadataValue);
 
-                    log.debug("splitting slot value into individual parts");
+                    LOG.debug("splitting slot value into individual parts");
                     List<String> slotValues = DocumentClassCodeParser.parseFormattedParameter(slotValue);
                     for (String value : slotValues) {
-                        log.debug("checking document class code match. [" + value + "]==[" + metadataValue + "]");
+                        LOG.debug("checking document class code match. [" + value + "]==[" + metadataValue + "]");
                         slotMatch = slotMatch && value.contentEquals(metadataValue);
-                        log.debug("slotMatch=" + slotMatch);
+                        LOG.debug("slotMatch=" + slotMatch);
                     }
                 } else {
-                    log.warn("the current implementation of the document filter does not support this slot type - assume this does not affect the filtering");
+                    LOG.warn("the current implementation of the document filter does not support this slot type - assume this does not affect the filtering");
                     slotMatch = true;
                 }
-                log.debug("slot match?=" + slotMatch + "[slot name='" + slot.getName() + "'][slot value='" + slotValue
+                LOG.debug("slot match?=" + slotMatch + "[slot name='" + slot.getName() + "'][slot value='" + slotValue
                         + "']");
             }
             match = match && slotMatch;
         }
 
-        log.debug("match?=" + match);
+        LOG.debug("match?=" + match);
         return match;
     }
 
@@ -158,16 +158,16 @@ public class DocumentFilterStrategy {
         try {
             adhocQueryElement = (Element) XpathHelper.performXpathQuery(element, xpathQuery);
         } catch (XPathExpressionException ex) {
-            log.error("failed to extract adhoc query due to xpath exception");
+            LOG.error("failed to extract adhoc query due to xpath exception");
             adhocQueryElement = null;
         }
         return adhocQueryElement;
     }
 
     private AdhocQueryType extractAdhocQueryAsObject(Element element) {
-        log.info("extract adhoc query set from:" + XmlUtility.serializeElementIgnoreFaults(element));
+        LOG.info("extract adhoc query set from:" + XmlUtility.serializeElementIgnoreFaults(element));
         Element adhocQueryElement = extractAdhocQueryAsElement(element);
-        log.info("extracted adhocQueryElement:" + XmlUtility.serializeElementIgnoreFaults(adhocQueryElement));
+        LOG.info("extracted adhocQueryElement:" + XmlUtility.serializeElementIgnoreFaults(adhocQueryElement));
 
         AdhocQueryMarshaller marshaller = new AdhocQueryMarshaller();
         AdhocQueryType adhocQuery = marshaller.unmarshal(adhocQueryElement);
@@ -180,16 +180,16 @@ public class DocumentFilterStrategy {
         try {
             documentQueryElement = (Element) XpathHelper.performXpathQuery(element, xpathQuery);
         } catch (XPathExpressionException ex) {
-            log.error("failed to extract document query due to xpath exception");
+            LOG.error("failed to extract document query due to xpath exception");
             documentQueryElement = null;
         }
         return documentQueryElement;
     }
 
     private DocumentRequest extractDocumentIdentifiersAsObject(Element element) {
-        log.info("extract retrieve document set from:" + XmlUtility.serializeElementIgnoreFaults(element));
+        LOG.info("extract retrieve document set from:" + XmlUtility.serializeElementIgnoreFaults(element));
         Element retrieveDocumentSetRequestElement = extractRetrieveDocumentSetRequestAsElement(element);
-        log.info("extracted retrieveDocumentSetRequestElement:"
+        LOG.info("extracted retrieveDocumentSetRequestElement:"
                 + XmlUtility.serializeElementIgnoreFaults(retrieveDocumentSetRequestElement));
 
         RetrieveDocumentSetRequestMarshaller marshaller = new RetrieveDocumentSetRequestMarshaller();

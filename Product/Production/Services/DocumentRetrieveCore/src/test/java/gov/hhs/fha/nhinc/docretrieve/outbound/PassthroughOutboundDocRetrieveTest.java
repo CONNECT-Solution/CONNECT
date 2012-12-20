@@ -44,7 +44,6 @@ import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
 
 import java.lang.reflect.Method;
 
-import org.apache.commons.logging.Log;
 import org.junit.Test;
 
 /**
@@ -75,13 +74,12 @@ public class PassthroughOutboundDocRetrieveTest {
         
         CONNECTOutboundOrchestrator orchestrator = mock(CONNECTOutboundOrchestrator.class);
         OutboundDocRetrieveOrchestratable orchResponse = mock(OutboundDocRetrieveOrchestratable.class);
-        Log log = mock(Log.class);
-
+        
         when(orchestrator.process(any(OutboundDocRetrieveOrchestratable.class))).thenReturn(orchResponse);
         
         when(orchResponse.getResponse()).thenReturn(expectedResponse);
 
-        PassthroughOutboundDocRetrieve outboundDocRetrieve = new PassthroughOutboundDocRetrieve(orchestrator, log);
+        PassthroughOutboundDocRetrieve outboundDocRetrieve = new PassthroughOutboundDocRetrieve(orchestrator);
         
         RetrieveDocumentSetResponseType actualResponse = outboundDocRetrieve.respondingGatewayCrossGatewayRetrieve(
                 request, assertion, targets);

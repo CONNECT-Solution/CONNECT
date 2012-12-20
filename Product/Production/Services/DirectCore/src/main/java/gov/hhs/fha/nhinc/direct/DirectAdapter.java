@@ -28,6 +28,7 @@ package gov.hhs.fha.nhinc.direct;
 
 import gov.hhs.fha.nhinc.direct.edge.proxy.DirectEdgeProxy;
 import gov.hhs.fha.nhinc.direct.edge.proxy.DirectEdgeProxyObjectFactory;
+import gov.hhs.fha.nhinc.direct.event.DirectEventLogger;
 import gov.hhs.fha.nhinc.mail.MailSender;
 
 import javax.mail.MessagingException;
@@ -49,22 +50,27 @@ public abstract class DirectAdapter {
     
     private final MailSender externalMailSender;
     private final SmtpAgent smtpAgent;
+    private final DirectEventLogger directEventLogger;
     
     /**
      * @param externalMailSender external mail sender.
      * @param smtpAgent used to process direct messages.
+     * @param directEventLogger used to log events.
      */
-    public DirectAdapter(MailSender externalMailSender, SmtpAgent smtpAgent) {
+    public DirectAdapter(MailSender externalMailSender, SmtpAgent smtpAgent, DirectEventLogger directEventLogger) {
         this.externalMailSender = externalMailSender;
         this.smtpAgent = smtpAgent;
+        this.directEventLogger = directEventLogger;
     }
     
     /**
-     * Process a direct message and return {@link MessageProcessResult}. If the processed message envelope returned
-     * is null, a Direct Error event is created with the notification messages if they are available. Then a
-     * {@link DirectException} is thrown.
-     * @param message processed message.
-     * @return message process result.
+     * Process a direct message and return {@link MessageProcessResult}. If the returned result is null, a Direct Error
+     * event is created, and a DirectException is thrown. If the processed message envelope returned is null, a Direct
+     * Error event is created with the notification messages if they are available. Then a {@link DirectException} is
+     * thrown. This method is guaranteed to return a populated result, otherwise it throws a DirectException.
+     * 
+     * @param message (mime) to be processed.
+     * @return message process result, populated with a processed message envelope.
      */
     protected MessageProcessResult process(MimeMessage message) {
         
@@ -77,11 +83,12 @@ public abstract class DirectAdapter {
         return result;
     }
 
-    protected MessageProcessResult processAsDirectMessage(MimeMessage mimeMessage) {
+    private MessageProcessResult processAsDirectMessage(MimeMessage mimeMessage) {
         MessageProcessResult result;
         try {
             NHINDAddressCollection collection = DirectAdapterUtils.getNhindRecipients(mimeMessage);
-            result = smtpAgent.processMessage(mimeMessage, collection, DirectAdapterUtils.getNhindSender(mimeMessage));
+            result = smtpAgent.processMessage(mimeMessage, collection,
+                    DirectAdapterUtils.getNhindSender(mimeMessage));
         } catch (MessagingException e) {
             String errorString = "Error occurred while extracting addresses.";
             LOG.error(errorString, e);
@@ -106,6 +113,7 @@ public abstract class DirectAdapter {
      * Log any notification messages that were produced by direct processing.
      * 
      * @param result to pull notification messages from
+     * @return String representation of notification messages from the result.
      */
     protected String getErrorNotificationMsgs(MessageProcessResult result) {
         StringBuilder builder = new StringBuilder("Inbound Mime Message could not be processed by DIRECT.");
@@ -122,14 +130,21 @@ public abstract class DirectAdapter {
     /**
      * @return the externalMailSender
      */
-    public MailSender getExternalMailSender() {
+    protected MailSender getExternalMailSender() {
         return externalMailSender;
     }
 
     /**
      * @return the smtpAgent
      */
-    public SmtpAgent getSmtpAgent() {
+    protected SmtpAgent getSmtpAgent() {
         return smtpAgent;
     }
+
+    /**
+     * @return the directEventLogger
+     */
+    protected DirectEventLogger getDirectEventLogger() {
+        return directEventLogger;
+    }    
 }

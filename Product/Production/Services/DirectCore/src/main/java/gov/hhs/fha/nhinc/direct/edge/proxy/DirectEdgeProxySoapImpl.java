@@ -35,7 +35,7 @@ import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
-import gov.hhs.fha.nhinc.xdcommon.XDCommonErrorHelper;
+import gov.hhs.fha.nhinc.xdcommon.XDCommonResponseHelper;
 import ihe.iti.xds_b._2007.DocumentRepositoryPortType;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
 
@@ -59,10 +59,9 @@ public class DirectEdgeProxySoapImpl implements DirectEdgeProxy {
     private final WebServiceProxyHelper oProxyHelper;
 
     /**
-     * @param oProxyHelper
+     * @param oProxyHelper web service proxy helper for soap edge clients.
      */
     public DirectEdgeProxySoapImpl(WebServiceProxyHelper oProxyHelper) {
-        super();
         this.oProxyHelper = oProxyHelper;
     }
 
@@ -93,7 +92,8 @@ public class DirectEdgeProxySoapImpl implements DirectEdgeProxy {
                     .getAdapterEndPointFromConnectionManager(NhincConstants.DIRECT_SOAP_EDGE_SERVICE_NAME);
             if (NullChecker.isNotNullish(url)) {
 
-                ServicePortDescriptor<DocumentRepositoryPortType> portDescriptor = new DirectEdgeSoapServicePortDescriptor();
+                ServicePortDescriptor<DocumentRepositoryPortType> portDescriptor = 
+                        new DirectEdgeSoapServicePortDescriptor();
 
                 CONNECTClient<DocumentRepositoryPortType> client = getClient(portDescriptor, url);
 
@@ -117,7 +117,7 @@ public class DirectEdgeProxySoapImpl implements DirectEdgeProxy {
     }
 
     private void handleError(String errorMessage, Throwable e, MimeMessage mimeMessage) {
-        XDCommonErrorHelper helper = new XDCommonErrorHelper();
+        XDCommonResponseHelper helper = new XDCommonResponseHelper();
         if (e != null) {                        
             String message = errorMessage + e.getMessage();            
             LOG.error(helper.createError(message));

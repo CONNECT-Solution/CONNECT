@@ -71,7 +71,6 @@ public class DirectEvent extends BaseEvent {
      * @param name of the triggered event.
      */
     public DirectEvent(String name) {
-        super();
         this.name = name;
     }
 

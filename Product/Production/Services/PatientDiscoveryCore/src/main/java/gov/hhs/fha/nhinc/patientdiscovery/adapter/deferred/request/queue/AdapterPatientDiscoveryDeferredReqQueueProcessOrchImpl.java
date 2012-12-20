@@ -45,8 +45,7 @@ import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBElement;
 import javax.xml.bind.Unmarshaller;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 import org.hl7.v3.MCCIIN000002UV01;
 import org.hl7.v3.PRPAIN201305UV02;
 import org.hl7.v3.RespondingGatewayPRPAIN201305UV02RequestType;
@@ -57,7 +56,7 @@ import org.hl7.v3.RespondingGatewayPRPAIN201305UV02RequestType;
  */
 public class AdapterPatientDiscoveryDeferredReqQueueProcessOrchImpl {
 
-    private static Log log = LogFactory.getLog(AdapterPatientDiscoveryDeferredReqQueueProcessOrchImpl.class);
+    private static final Logger LOG = Logger.getLogger(AdapterPatientDiscoveryDeferredReqQueueProcessOrchImpl.class);
 
     public AdapterPatientDiscoveryDeferredReqQueueProcessOrchImpl() {
     }
@@ -73,35 +72,35 @@ public class AdapterPatientDiscoveryDeferredReqQueueProcessOrchImpl {
      * @return org.hl7.v3.MCCIIN000002UV01
      */
     public MCCIIN000002UV01 processPatientDiscoveryDeferredReqQueue(String messageId) {
-        log.info("Begin AdapterPatientDiscoveryDeferredReqQueueProcessOrchImpl.processPatientDiscoveryAsyncReq()....");
+        LOG.info("Begin AdapterPatientDiscoveryDeferredReqQueueProcessOrchImpl.processPatientDiscoveryAsyncReq()....");
         MCCIIN000002UV01 ack = new MCCIIN000002UV01();
         try {
             RespondingGatewayPRPAIN201305UV02RequestType respondingGatewayPRPAIN201305UV02RequestType = new RespondingGatewayPRPAIN201305UV02RequestType();
 
             AsyncMsgRecord asyncMsgRecord = new AsyncMsgRecord();
             AsyncMsgRecordDao instance = new AsyncMsgRecordDao();
-            log.info("messageId: " + messageId);
+            LOG.info("messageId: " + messageId);
             if ((messageId != null)) {
                 List<AsyncMsgRecord> msgList = new ArrayList<AsyncMsgRecord>();
                 msgList = instance.queryByMessageIdAndDirection(messageId, AsyncMsgRecordDao.QUEUE_DIRECTION_INBOUND);
                 if ((msgList != null) && (msgList.size() > 0)) {
-                    log.info("msgList: " + msgList.size());
+                    LOG.info("msgList: " + msgList.size());
                     asyncMsgRecord = msgList.get(0);
 
                     // Set queue status to processing
                     asyncMsgRecord.setStatus(AsyncMsgRecordDao.QUEUE_STATUS_RSPPROCESS);
                     instance.save(asyncMsgRecord);
                 } else {
-                    log.info("msgList: is null");
+                    LOG.info("msgList: is null");
                 }
 
             } else {
-                log.info("messageId: is null");
+                LOG.info("messageId: is null");
             }
 
-            log.info("AsyncMsgRecord - messageId: " + asyncMsgRecord.getMessageId());
-            log.info("AsyncMsgRecord - serviceName: " + asyncMsgRecord.getServiceName());
-            log.info("AsyncMsgRecord - creationTime: " + asyncMsgRecord.getCreationTime());
+            LOG.info("AsyncMsgRecord - messageId: " + asyncMsgRecord.getMessageId());
+            LOG.info("AsyncMsgRecord - serviceName: " + asyncMsgRecord.getServiceName());
+            LOG.info("AsyncMsgRecord - creationTime: " + asyncMsgRecord.getCreationTime());
 
             AdapterPatientDiscoveryAsyncReqQueueProxyJavaImpl adapterPDAsyncReqQueueProxyJavaImpl = new AdapterPatientDiscoveryAsyncReqQueueProxyJavaImpl();
 
@@ -111,14 +110,14 @@ public class AdapterPatientDiscoveryDeferredReqQueueProcessOrchImpl {
             }
 
             if (respondingGatewayPRPAIN201305UV02RequestType != null) {
-                log.info("AsyncMsgRecord - messageId: "
+                LOG.info("AsyncMsgRecord - messageId: "
                         + respondingGatewayPRPAIN201305UV02RequestType.getPRPAIN201305UV02().getITSVersion());
 
                 PRPAIN201305UV02 pRPAIN201305UV02 = respondingGatewayPRPAIN201305UV02RequestType.getPRPAIN201305UV02();
 
                 String senderTargetCommId = extractSenderOID(pRPAIN201305UV02);
                 if (senderTargetCommId != null) {
-                    log.info("senderTargetCommId: " + senderTargetCommId);
+                    LOG.info("senderTargetCommId: " + senderTargetCommId);
 
                     NhinTargetCommunitiesType targetCommunities = new NhinTargetCommunitiesType();
                     NhinTargetCommunityType nhinTargetCommunityType = new NhinTargetCommunityType();
@@ -133,11 +132,11 @@ public class AdapterPatientDiscoveryDeferredReqQueueProcessOrchImpl {
                     ack = adapterPDAsyncReqQueueProxyJavaImpl.addPatientDiscoveryAsyncReq(pRPAIN201305UV02, assertion,
                             targetCommunities);
                 } else {
-                    log.error("Sender root is null - Unable to extract target community hcid from sender root");
+                    LOG.error("Sender root is null - Unable to extract target community hcid from sender root");
                 }
             }
         } catch (Exception e) {
-            log.error("ERROR: Failed in accessing the async msg from repository.", e);
+            LOG.error("ERROR: Failed in accessing the async msg from repository.", e);
         }
 
         return ack;
@@ -146,7 +145,7 @@ public class AdapterPatientDiscoveryDeferredReqQueueProcessOrchImpl {
     @SuppressWarnings("unchecked")
     private RespondingGatewayPRPAIN201305UV02RequestType extractRespondingGatewayPRPAIN201305UV02RequestType(
             Blob msgData) {
-        log.debug("Begin AdapterPatientDiscoveryDeferredReqQueueProcessOrchImpl.extractRespondingGatewayPRPAIN201305UV02RequestType()..");
+        LOG.debug("Begin AdapterPatientDiscoveryDeferredReqQueueProcessOrchImpl.extractRespondingGatewayPRPAIN201305UV02RequestType()..");
         RespondingGatewayPRPAIN201305UV02RequestType respondingGatewayPRPAIN201305UV02RequestType = new RespondingGatewayPRPAIN201305UV02RequestType();
         try {
             byte[] msgBytes = null;
@@ -159,10 +158,10 @@ public class AdapterPatientDiscoveryDeferredReqQueueProcessOrchImpl {
                         .unmarshal(xmlContentBytes);
 
                 respondingGatewayPRPAIN201305UV02RequestType = root.getValue();
-                log.debug("End AdapterPatientDiscoveryDeferredReqQueueProcessOrchImpl.extractRespondingGatewayPRPAIN201305UV02RequestType()..");
+                LOG.debug("End AdapterPatientDiscoveryDeferredReqQueueProcessOrchImpl.extractRespondingGatewayPRPAIN201305UV02RequestType()..");
             }
         } catch (Exception e) {
-            log.error("Exception during Blob conversion :" + e.getMessage());
+            LOG.error("Exception during Blob conversion :" + e.getMessage());
             e.printStackTrace();
         }
         return respondingGatewayPRPAIN201305UV02RequestType;

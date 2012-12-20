@@ -51,7 +51,6 @@ import java.lang.reflect.Method;
 
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
-import org.apache.commons.logging.Log;
 import org.junit.Test;
 
 /**
@@ -81,7 +80,6 @@ public class StandardInboundDocSubmissionDeferredResponseTest {
         PassthroughInboundDocSubmissionDeferredResponse passthroughDocSubmission = new PassthroughInboundDocSubmissionDeferredResponse(
                 adapterFactory, auditLogger);
 
-        Log log = mock(Log.class);
         PropertyAccessor propertyAccessor = mock(PropertyAccessor.class);
         XDRPolicyChecker policyChecker = mock(XDRPolicyChecker.class);
 
@@ -94,7 +92,7 @@ public class StandardInboundDocSubmissionDeferredResponseTest {
                         NhincConstants.POLICYENGINE_INBOUND_DIRECTION)).thenReturn(true);
 
         StandardInboundDocSubmissionDeferredResponse standardDocSubmission = new StandardInboundDocSubmissionDeferredResponse(
-                passthroughDocSubmission, policyChecker, propertyAccessor, auditLogger, log);
+                passthroughDocSubmission, policyChecker, propertyAccessor, auditLogger);
 
         XDRAcknowledgementType actualResponse = standardDocSubmission.provideAndRegisterDocumentSetBResponse(
                 regResponse, assertion);
@@ -123,7 +121,6 @@ public class StandardInboundDocSubmissionDeferredResponseTest {
         assertion.setHomeCommunity(new HomeCommunityType());
         assertion.getHomeCommunity().setHomeCommunityId(senderHCID);
 
-        Log log = mock(Log.class);
         PassthroughInboundDocSubmissionDeferredResponse passthroughDocSubmission = mock(PassthroughInboundDocSubmissionDeferredResponse.class);
         PropertyAccessor propertyAccessor = mock(PropertyAccessor.class);
         XDRPolicyChecker policyChecker = mock(XDRPolicyChecker.class);
@@ -138,7 +135,7 @@ public class StandardInboundDocSubmissionDeferredResponseTest {
                         NhincConstants.POLICYENGINE_INBOUND_DIRECTION)).thenReturn(false);
 
         StandardInboundDocSubmissionDeferredResponse standardDocSubmission = new StandardInboundDocSubmissionDeferredResponse(
-                passthroughDocSubmission, policyChecker, propertyAccessor, auditLogger, log);
+                passthroughDocSubmission, policyChecker, propertyAccessor, auditLogger);
 
         XDRAcknowledgementType actualResponse = standardDocSubmission.provideAndRegisterDocumentSetBResponse(
                 regResponse, assertion);
@@ -162,14 +159,13 @@ public class StandardInboundDocSubmissionDeferredResponseTest {
         RegistryResponseType regResponse = new RegistryResponseType();
         AssertionType assertion = new AssertionType();
 
-        Log log = mock(Log.class);
         PassthroughInboundDocSubmissionDeferredResponse passthroughDocSubmission = mock(PassthroughInboundDocSubmissionDeferredResponse.class);
         PropertyAccessor propertyAccessor = mock(PropertyAccessor.class);
         XDRPolicyChecker policyChecker = mock(XDRPolicyChecker.class);
         XDRAuditLogger auditLogger = mock(XDRAuditLogger.class);
 
         StandardInboundDocSubmissionDeferredResponse standardDocSubmission = new StandardInboundDocSubmissionDeferredResponse(
-                passthroughDocSubmission, policyChecker, propertyAccessor, auditLogger, log);
+                passthroughDocSubmission, policyChecker, propertyAccessor, auditLogger);
 
         XDRAcknowledgementType actualResponse = standardDocSubmission.provideAndRegisterDocumentSetBResponse(
                 regResponse, assertion);

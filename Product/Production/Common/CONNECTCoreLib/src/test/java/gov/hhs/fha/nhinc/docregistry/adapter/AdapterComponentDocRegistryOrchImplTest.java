@@ -26,15 +26,17 @@
  */
 package gov.hhs.fha.nhinc.docregistry.adapter;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.xml.bind.JAXBElement;
-
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertSame;
 import gov.hhs.fha.nhinc.docrepository.adapter.model.Document;
 import gov.hhs.fha.nhinc.docrepository.adapter.model.DocumentQueryParams;
 import gov.hhs.fha.nhinc.docrepository.adapter.service.DocumentService;
 import gov.hhs.fha.nhinc.gateway.aggregator.document.DocumentConstants;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.xml.bind.JAXBElement;
 
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
@@ -45,13 +47,10 @@ import oasis.names.tc.ebxml_regrep.xsd.rim._3.IdentifiableType;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.SlotType1;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.ValueListType;
 
-import org.apache.commons.logging.Log;
-import org.jmock.Expectations;
 import org.jmock.Mockery;
 import org.jmock.integration.junit4.JUnit4Mockery;
 import org.jmock.lib.legacy.ClassImposteriser;
 import org.junit.Test;
-import static org.junit.Assert.*;
 
 /**
  * This class is used to test the AdapterComponentDocRegistryOrchImplTest class
@@ -65,7 +64,6 @@ public class AdapterComponentDocRegistryOrchImplTest {
             setImposteriser(ClassImposteriser.INSTANCE);
         }
     };
-    final Log mockLog = context.mock(Log.class);
     final DocumentService mockDocumentService = context.mock(DocumentService.class);
 
     /**
@@ -76,11 +74,7 @@ public class AdapterComponentDocRegistryOrchImplTest {
 
     private AdapterComponentDocRegistryOrchImpl createAdapterComponentDocRegistryOrchImpl() {
         return new AdapterComponentDocRegistryOrchImpl() {
-            @Override
-            protected Log createLogger() {
-                return mockLog;
-            }
-
+        	
             @Override
             protected DocumentService getDocumentService() {
                 return createDocumentService();
@@ -155,11 +149,6 @@ public class AdapterComponentDocRegistryOrchImplTest {
     @Test
     public void testRegistryStoredQuery_OnDemandDocs() {
         AdapterComponentDocRegistryOrchImpl orchImpl = createAdapterComponentDocRegistryOrchImpl();
-        context.checking(new Expectations() {
-            {
-                allowing(mockLog).debug(with(any(String.class)));
-            }
-        });
 
         AdhocQueryRequest request = createAdhocQueryRequestForOnDemandDocuments();
 
@@ -177,12 +166,7 @@ public class AdapterComponentDocRegistryOrchImplTest {
     @Test
     public void testRegistryStoredQuery_StableDocs() {
         AdapterComponentDocRegistryOrchImpl orchImpl = createAdapterComponentDocRegistryOrchImpl();
-        context.checking(new Expectations() {
-            {
-                allowing(mockLog).debug(with(any(String.class)));
-            }
-        });
-
+        
         AdhocQueryRequest request = createAdhocQueryRequestForStableDocuments();
 
         AdhocQueryResponse response = orchImpl.registryStoredQuery(request);
@@ -204,12 +188,7 @@ public class AdapterComponentDocRegistryOrchImplTest {
     @Test
     public void testRegistryStoredQuery_StableAndOnDemandDocs() {
         AdapterComponentDocRegistryOrchImpl orchImpl = createAdapterComponentDocRegistryOrchImpl();
-        context.checking(new Expectations() {
-            {
-                allowing(mockLog).debug(with(any(String.class)));
-            }
-        });
-
+        
         AdhocQueryRequest request = createAdhocQueryRequestForStableAndOnDemandDocuments();
         AdhocQueryResponse response = orchImpl.registryStoredQuery(request);
 
@@ -220,11 +199,7 @@ public class AdapterComponentDocRegistryOrchImplTest {
     @Test
     public void testRegistryStoredQuery_unknownRegistryQueryId() {
         AdapterComponentDocRegistryOrchImpl orchImpl = createAdapterComponentDocRegistryOrchImpl();
-        context.checking(new Expectations() {
-            {
-                allowing(mockLog).debug(with(any(String.class)));
-            }
-        });
+        
         AdhocQueryRequest request = createAdhocQueryRequestForunknownStoredQuery();
         AdhocQueryResponse response = orchImpl.registryStoredQuery(request);
         assertSame(response.getStatus(), DocumentConstants.XDS_QUERY_RESPONSE_STATUS_FAILURE);
@@ -254,11 +229,7 @@ public class AdapterComponentDocRegistryOrchImplTest {
     @Test
     public void testRegistryStoredQuery_RegistryQueryIdMissingParam() {
         AdapterComponentDocRegistryOrchImpl orchImpl = createAdapterComponentDocRegistryOrchImpl();
-        context.checking(new Expectations() {
-            {
-                allowing(mockLog).debug(with(any(String.class)));
-            }
-        });
+        
         AdhocQueryRequest request = createAdhocQueryRequestforMissingParam();
         AdhocQueryResponse response = orchImpl.registryStoredQuery(request);
         assertSame(response.getRegistryErrorList().getRegistryError().get(0).getErrorCode(),
@@ -294,11 +265,7 @@ public class AdapterComponentDocRegistryOrchImplTest {
     @Test
     public void testRegistryStoredQuery_XDSStoredQueryParamNumberError() {
         AdapterComponentDocRegistryOrchImpl orchImpl = createAdapterComponentDocRegistryOrchImpl();
-        context.checking(new Expectations() {
-            {
-                allowing(mockLog).debug(with(any(String.class)));
-            }
-        });
+        
         AdhocQueryRequest request = createAdhocQueryRequestForXDSStoredQueryParamNumberError();
         AdhocQueryResponse response = orchImpl.registryStoredQuery(request);
         assertSame(response.getRegistryErrorList().getRegistryError().get(0).getErrorCode(),

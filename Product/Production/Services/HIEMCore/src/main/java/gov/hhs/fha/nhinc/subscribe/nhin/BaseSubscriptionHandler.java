@@ -26,8 +26,7 @@
  */
 package gov.hhs.fha.nhinc.subscribe.nhin;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 import org.oasis_open.docs.wsn.b_2.SubscribeResponse;
 import org.oasis_open.docs.wsn.bw_2.SubscribeCreationFailedFault;
 import org.w3._2005._08.addressing.EndpointReferenceType;
@@ -45,20 +44,18 @@ import gov.hhs.fha.nhinc.xmlCommon.XmlUtility;
  */
 abstract class BaseSubscriptionHandler implements SubscriptionHandler {
 
-    protected Log log = null;
+    private static final Logger LOG = Logger.getLogger(BaseSubscriptionHandler.class);
     protected SubscriptionStorage subscriptionStorage;
 
     public BaseSubscriptionHandler() {
         subscriptionStorage = new SubscriptionStorage();
-        log = LogFactory.getLog(getClass());
-        log.debug("Constructor called");
     }
 
     @Override
     abstract public SubscribeResponse handleSubscribe(Element subscribe) throws SubscribeCreationFailedFault;
 
     protected EndpointReferenceType storeSubscriptionItem(HiemSubscriptionItem subscriptionItem) {
-        log.debug("In storeSubscriptionItem");
+        LOG.debug("In storeSubscriptionItem");
         return subscriptionStorage.storeSubscriptionItem(subscriptionItem);
     }
 
@@ -74,16 +71,16 @@ abstract class BaseSubscriptionHandler implements SubscriptionHandler {
 
         HiemSubscriptionItem subscription = null;
         if (subscribe != null) {
-            log.debug("Creating subscription item");
+            LOG.debug("Creating subscription item");
             subscription = new HiemSubscriptionItem();
 
             subscription.setSubscribeXML(rawSubscribe);
             // TODO: finish
             subscription.setProducer(producer);
             subscription.setConsumer(consumer);
-            log.debug("Finished creating subscription item");
+            LOG.debug("Finished creating subscription item");
         } else {
-            log.debug("Subscribe message was null in createSubscriptionItem");
+            LOG.debug("Subscribe message was null in createSubscriptionItem");
         }
         return subscription;
     }

@@ -41,8 +41,7 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.PropertyResourceBundle;
 import java.util.Set;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
@@ -55,7 +54,7 @@ import org.w3c.dom.Node;
  */
 public class DocumentLoadUtil {
 	private static final String DATE_FORMAT_STRING = "yyyyMMddhhmmssZ";
-	private static Log log = LogFactory.getLog(DocumentLoadUtil.class);
+	private static final Logger LOG = Logger.getLogger(DocumentLoadUtil.class);
 
 	private static void loadData(String absoluteFilePath) throws Exception {
 		// Load file into XML
@@ -194,7 +193,7 @@ public class DocumentLoadUtil {
 						formatString);
 				parsedDate = dateFormatter.parse(value);
 			} catch (Throwable t) {
-				log.error("Error parsing date '" + value + "' using format: '"
+				LOG.error("Error parsing date '" + value + "' using format: '"
 						+ dateFormat + "': " + t.getMessage(), t);
 			}
 		}
@@ -219,8 +218,8 @@ public class DocumentLoadUtil {
 				&& (dateString.length() > 0)
 				&& (dateString.length() < dateFormat.length())) {
 			formatString = dateFormat.substring(0, dateString.length());
-			if (log.isDebugEnabled()) {
-				log.debug("New dateFormat: " + dateFormat);
+			if (LOG.isDebugEnabled()) {
+				LOG.debug("New dateFormat: " + dateFormat);
 			}
 		}
 		return formatString;
@@ -261,8 +260,8 @@ public class DocumentLoadUtil {
 			String childElementName) {
 		String value = null;
 		if ((element != null) && (childElementName != null)) {
-			if (log.isDebugEnabled()) {
-				log.debug("Extracting child element '" + childElementName
+			if (LOG.isDebugEnabled()) {
+				LOG.debug("Extracting child element '" + childElementName
 						+ "' from '" + element.getTagName() + "'");
 			}
 			NodeList nodes = element.getElementsByTagName(childElementName);
@@ -281,8 +280,8 @@ public class DocumentLoadUtil {
 			String childElementName) {
 		Long value = null;
 		if ((element != null) && (childElementName != null)) {
-			if (log.isDebugEnabled()) {
-				log.debug("Extracting child element '" + childElementName
+			if (LOG.isDebugEnabled()) {
+				LOG.debug("Extracting child element '" + childElementName
 						+ "' from '" + element.getTagName() + "'");
 			}
 			NodeList nodes = element.getElementsByTagName(childElementName);
@@ -295,7 +294,7 @@ public class DocumentLoadUtil {
 						try {
 							value = Long.parseLong(strVal);
 						} catch (Throwable t) {
-							log.error("Failed to parse long from '" + strVal
+							LOG.error("Failed to parse long from '" + strVal
 									+ "'", t);
 						}
 					}
@@ -309,8 +308,8 @@ public class DocumentLoadUtil {
 			String childElementName) {
 		Integer value = null;
 		if ((element != null) && (childElementName != null)) {
-			if (log.isDebugEnabled()) {
-				log.debug("Extracting child element '" + childElementName
+			if (LOG.isDebugEnabled()) {
+				LOG.debug("Extracting child element '" + childElementName
 						+ "' from '" + element.getTagName() + "'");
 			}
 			NodeList nodes = element.getElementsByTagName(childElementName);
@@ -323,7 +322,7 @@ public class DocumentLoadUtil {
 						try {
 							value = new Integer(strVal);
 						} catch (Throwable t) {
-							log.error("Failed to parse integer from '" + strVal
+							LOG.error("Failed to parse integer from '" + strVal
 									+ "'", t);
 						}
 					}
@@ -337,8 +336,8 @@ public class DocumentLoadUtil {
 			String childElementName) {
 		byte[] value = null;
 		if ((element != null) && (childElementName != null)) {
-			if (log.isDebugEnabled()) {
-				log.debug("Extracting child element '" + childElementName
+			if (LOG.isDebugEnabled()) {
+				LOG.debug("Extracting child element '" + childElementName
 						+ "' from '" + element.getTagName() + "'");
 			}
 			NodeList nodes = element.getElementsByTagName(childElementName);
@@ -394,8 +393,8 @@ public class DocumentLoadUtil {
 				.getBundle(propFileName);
 		String inFilePath = prop.getString("inFilePath");
 		String outFilePath = prop.getString("outFilePath");
-		log.info("In Put File Path -> " + inFilePath);
-		log.info("Out Put File Path -> " + outFilePath);
+		LOG.info("In Put File Path -> " + inFilePath);
+		LOG.info("Out Put File Path -> " + outFilePath);
 		File inputfolder = new File(inFilePath);
 		File files[] = inputfolder.listFiles();
 		if (files.length != 0) {
@@ -407,16 +406,16 @@ public class DocumentLoadUtil {
 					try {
 						absolutePath = inFile.getAbsolutePath();
 						try {
-							log.info("absolutePath" + absolutePath);
+							LOG.info("absolutePath" + absolutePath);
 							loadData(absolutePath);
 						} catch (Throwable t) {
-							log.debug("Failed to load documents: "
+							LOG.debug("Failed to load documents: "
 									+ t.getMessage());
 							t.printStackTrace();
 						}
 						Thread.sleep(500);
 					} catch (InterruptedException ex) {
-						log.error(ex.getMessage());
+						LOG.error(ex.getMessage());
 					}
 					inFileName = inFile.getName();
 					destFile = new File(outFilePath, inFileName);
@@ -424,12 +423,12 @@ public class DocumentLoadUtil {
 						copyFile(inFile, destFile);
 						// inFile.delete();
 					} catch (IOException ex) {
-						log.error(ex.getMessage());
+						LOG.error(ex.getMessage());
 					}
 				}
 			}
 		} else {
-			log.info("Input files Not found under the specific directory, Please verify filespath.properties and run again");
+			LOG.info("Input files Not found under the specific directory, Please verify filespath.properties and run again");
 		}
 	}
 
@@ -441,7 +440,7 @@ public class DocumentLoadUtil {
 	 *            Absolute path to source file as only parameter.
 	 */
 	public static void main(String[] args) {
-		log.debug("Begin DocumentLoad");
+		LOG.debug("Begin DocumentLoad");
 		try {
 			if (args.length == 0) {
 				readFiles();
@@ -456,10 +455,10 @@ public class DocumentLoadUtil {
 			}
 
 		} catch (Throwable t) {
-			log.debug("Failed to load documents: " + t.getMessage());
+			LOG.debug("Failed to load documents: " + t.getMessage());
 			t.printStackTrace();
 		}
-		log.debug("End DocumentLoad");
+		LOG.debug("End DocumentLoad");
 		System.exit(0);
 	}
 
@@ -468,7 +467,7 @@ public class DocumentLoadUtil {
 			if (stream != null)
 				stream.close();
 		} catch (IOException ex) {
-			log.warn("Failed to close stream: " + ex.getMessage());
+			LOG.warn("Failed to close stream: " + ex.getMessage());
 		}
 	}
 }

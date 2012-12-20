@@ -46,12 +46,11 @@ import oasis.names.tc.ebxml_regrep.xsd.rim._3.RegistryObjectListType;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryError;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryErrorList;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 
 public class StandardOutboundDocQuery implements OutboundDocQuery {
 
-    private Log log =  LogFactory.getLog(getClass());
+    private static final Logger LOG =  Logger.getLogger(StandardOutboundDocQuery.class);
     private AggregationStrategy strategy;
    
     /**
@@ -62,8 +61,6 @@ public class StandardOutboundDocQuery implements OutboundDocQuery {
         strategy = new AggregationStrategy();
      }
     
-    
-
     /**
      * @param strategy
      */
@@ -98,7 +95,7 @@ public class StandardOutboundDocQuery implements OutboundDocQuery {
     @OutboundProcessingEvent(beforeBuilder = AdhocQueryRequestDescriptionBuilder.class, afterReturningBuilder = AdhocQueryResponseDescriptionBuilder.class, serviceType = "Document Query", version = "")
     public AdhocQueryResponse respondingGatewayCrossGatewayQuery(AdhocQueryRequest adhocQueryRequest,
             AssertionType assertion, NhinTargetCommunitiesType targets) {
-        log.trace("EntityDocQueryOrchImpl.respondingGatewayCrossGatewayQuery...");
+        LOG.trace("EntityDocQueryOrchImpl.respondingGatewayCrossGatewayQuery...");
       
         OutboundDocQueryAggregate aggregate = new OutboundDocQueryAggregate();
         aggregate.setAdhocQueryRequest(adhocQueryRequest);

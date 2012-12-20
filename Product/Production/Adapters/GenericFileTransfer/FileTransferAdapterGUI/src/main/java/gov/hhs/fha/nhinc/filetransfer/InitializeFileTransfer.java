@@ -28,35 +28,35 @@ package gov.hhs.fha.nhinc.filetransfer;
 
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+
+import org.apache.log4j.Logger;
 
 /**
  * 
  * @author svalluripalli
  */
 public class InitializeFileTransfer implements ServletContextListener {
-    private static Log log = LogFactory.getLog(InitializeFileTransfer.class);
+    private static final Logger LOG = Logger.getLogger(InitializeFileTransfer.class);
 
     public void contextInitialized(ServletContextEvent sce) {
-        log.info("Servlet Context Listner - Begin");
+        LOG.info("Servlet Context Listner - Begin");
         initializeFileTransfer();
-        log.info("Servlet Context Listner - End");
+        LOG.info("Servlet Context Listner - End");
     }
 
     private static void initializeFileTransfer() {
-        log.info("Servlet Context initializeFileTransfer - Begin");
+        LOG.info("Servlet Context initializeFileTransfer - Begin");
         try {
             CDCTimer.startTimer();
         } catch (CDCTimerException exp) {
             exp.printStackTrace();
         }
-        log.info("Servlet Context initializeFileTransfer - End");
+        LOG.info("Servlet Context initializeFileTransfer - End");
     }
 
     public void contextDestroyed(ServletContextEvent sce) {
-        log.info("Servlet Context contextDestroyed - Begin");
+        LOG.info("Servlet Context contextDestroyed - Begin");
         CDCTimer.stopTimer();
-        log.info("Servlet Context contextDestroyed - End");
+        LOG.info("Servlet Context contextDestroyed - End");
     }
 }

@@ -34,20 +34,20 @@ import gov.hhs.fha.nhinc.docsubmission.aspect.DocSubmissionBaseEventDescriptionB
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
+import org.apache.log4j.Logger;
 /**
  * 
  * @author JHOPPESC
  */
 public class NhinDocSubmissionDeferredResponseProxyNoOpImpl implements NhinDocSubmissionDeferredResponseProxy {
-    private static org.apache.commons.logging.Log log = org.apache.commons.logging.LogFactory
-            .getLog(NhinDocSubmissionDeferredResponseProxyNoOpImpl.class);
+    private static final Logger LOG = Logger.getLogger(NhinDocSubmissionDeferredResponseProxyNoOpImpl.class);
 
     @NwhinInvocationEvent(beforeBuilder = DeferredResponseDescriptionBuilder.class,
             afterReturningBuilder = DocSubmissionBaseEventDescriptionBuilder.class,
             serviceType = "Document Submission Deferred Response", version = "")
     public RegistryResponseType provideAndRegisterDocumentSetBDeferredResponse20(RegistryResponseType body,
             AssertionType assertion, NhinTargetSystemType target) {
-        log.debug("Using NoOp Implementation for Nhin Doc Submission Deferred Response Service");
+        LOG.debug("Using NoOp Implementation for Nhin Doc Submission Deferred Response Service");
         RegistryResponseType ack = new RegistryResponseType();
         ack.setStatus(NhincConstants.XDR_RESP_ACK_STATUS_MSG);
         return ack;

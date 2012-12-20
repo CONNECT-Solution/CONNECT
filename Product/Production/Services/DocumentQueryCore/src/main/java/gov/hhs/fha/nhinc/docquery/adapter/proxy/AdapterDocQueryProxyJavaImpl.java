@@ -34,15 +34,14 @@ import gov.hhs.fha.nhinc.docquery.aspect.AdhocQueryResponseDescriptionBuilder;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 
 /**
  *
  * @author jhoppesc
  */
 public class AdapterDocQueryProxyJavaImpl implements AdapterDocQueryProxy {
-    private static Log log = LogFactory.getLog(AdapterDocQueryProxyJavaImpl.class);
+    private static final Logger LOG = Logger.getLogger(AdapterDocQueryProxyJavaImpl.class);
 
     /**
      *@param msg The AdhocQueryRequest message.
@@ -53,7 +52,7 @@ public class AdapterDocQueryProxyJavaImpl implements AdapterDocQueryProxy {
             afterReturningBuilder = AdhocQueryResponseDescriptionBuilder.class, serviceType = "Document Query",
             version = "")
     public AdhocQueryResponse respondingGatewayCrossGatewayQuery(AdhocQueryRequest msg, AssertionType assertion) {
-        log.debug("Using Java Implementation for Adapter Doc Query Service");
+        LOG.debug("Using Java Implementation for Adapter Doc Query Service");
         return new AdapterDocQueryOrchImpl().respondingGatewayCrossGatewayQuery(msg, assertion);
     }
 

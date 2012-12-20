@@ -29,8 +29,7 @@ package gov.hhs.fha.nhinc.docsubmission;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 
 import gov.hhs.fha.nhinc.auditrepository.AuditRepositoryLogger;
 import gov.hhs.fha.nhinc.auditrepository.nhinc.proxy.AuditRepositoryProxy;
@@ -47,14 +46,7 @@ import gov.hhs.healthit.nhin.XDRAcknowledgementType;
  */
 public class XDRAuditLogger {
     
-    private static Log log = null;
-
-    /**
-     * The default constructor. Creates the logger.
-     */
-    public XDRAuditLogger() {
-        log = createLogger();
-    }
+    private static final Logger LOG = Logger.getLogger(XDRAuditLogger.class);
 
     /**
      * This method creates the generic Audit Log message for a NHIN XDR Request
@@ -67,7 +59,7 @@ public class XDRAuditLogger {
             String direction) {
         AcknowledgementType ack = new AcknowledgementType();
 
-        log.debug("begin auditNhinXDR()");
+        LOG.debug("begin auditNhinXDR()");
         // Set up the audit logging request message
         AuditRepositoryLogger auditLogger = new AuditRepositoryLogger();
         LogEventRequestType auditLogMsg = auditLogger.logXDRReq(request, assertion, direction);
@@ -76,14 +68,14 @@ public class XDRAuditLogger {
             if (auditLogMsg.getAuditMessage() != null) {
                 audit(auditLogMsg, assertion);
             } else {
-                log.error("auditLogMsg.getAuditMessage() is null");
+                LOG.error("auditLogMsg.getAuditMessage() is null");
             }
         } else {
-            log.error("auditLogMsg is null");
+            LOG.error("auditLogMsg is null");
         }
 
-        log.debug("end auditNhinXDR()");
-        log.debug("Ack message = " + ack.getMessage());
+        LOG.debug("end auditNhinXDR()");
+        LOG.debug("Ack message = " + ack.getMessage());
         return ack;
     }
 
@@ -98,7 +90,7 @@ public class XDRAuditLogger {
             AssertionType assertion, String direction) {
 
         AcknowledgementType ack = new AcknowledgementType();
-        log.debug("begin auditAdapterXDR()");
+        LOG.debug("begin auditAdapterXDR()");
 
 
         // Set up the audit logging request message
@@ -109,14 +101,14 @@ public class XDRAuditLogger {
             if (auditLogMsg.getAuditMessage() != null) {
                 audit(auditLogMsg, assertion);
             } else {
-                log.error("auditLogMsg.getAuditMessage() is null");
+                LOG.error("auditLogMsg.getAuditMessage() is null");
             }
         } else {
-            log.error("auditLogMsg is null");
+            LOG.error("auditLogMsg is null");
         }
 
-        log.debug("end auditAdapterXDR()");
-        log.debug("Ack message = " + ack.getMessage());
+        LOG.debug("end auditAdapterXDR()");
+        LOG.debug("Ack message = " + ack.getMessage());
         return ack;
     }
 
@@ -274,14 +266,6 @@ public class XDRAuditLogger {
     }
 
     /**
-     * Returns or creates a log object.
-     * @return the singleton log object
-     */
-    protected Log createLogger() {
-        return ((log != null) ? log : LogFactory.getLog(getClass()));
-    }
-
-    /**
      * Submits a generic Audit Log message to the Audit Log Repository.
      * @param auditLogMsg The generic audit log to be audited
      * @param assertion The assertion to be audited
@@ -306,7 +290,7 @@ public class XDRAuditLogger {
     public AcknowledgementType auditAcknowledgement(XDRAcknowledgementType acknowledgement, AssertionType assertion,
             String direction, String action) {
 
-        createLogger().debug("Start auditAcknowledgement for " + action);
+        LOG.debug("Start auditAcknowledgement for " + action);
         AcknowledgementType ack = new AcknowledgementType();
 
         // Set up the audit logging request message
@@ -331,7 +315,7 @@ public class XDRAuditLogger {
     public AcknowledgementType auditAdapterAcknowledgement(XDRAcknowledgementType acknowledgement,
             AssertionType assertion, String direction, String action) {
 
-        createLogger().debug("Start auditAcknowledgement for " + action);
+        LOG.debug("Start auditAcknowledgement for " + action);
         AcknowledgementType ack = new AcknowledgementType();
 
         // Set up the audit logging request message
@@ -357,7 +341,7 @@ public class XDRAuditLogger {
     public AcknowledgementType auditEntityAcknowledgement(XDRAcknowledgementType acknowledgement,
             AssertionType assertion, String direction, String action) {
 
-        createLogger().debug("Start auditAcknowledgement for " + action);
+        LOG.debug("Start auditAcknowledgement for " + action);
         AcknowledgementType ack = new AcknowledgementType();
 
         // Set up the audit logging request message

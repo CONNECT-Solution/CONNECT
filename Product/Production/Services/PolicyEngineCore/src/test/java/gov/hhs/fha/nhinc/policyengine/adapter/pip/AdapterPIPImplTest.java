@@ -52,7 +52,6 @@ import org.jmock.Mockery;
 import org.jmock.integration.junit4.JMock;
 import org.jmock.integration.junit4.JUnit4Mockery;
 import org.jmock.lib.legacy.ClassImposteriser;
-import org.apache.commons.logging.Log;
 
 /**
  * 
@@ -90,18 +89,12 @@ public class AdapterPIPImplTest {
     @Test
     public void testStoreOptInTrue() {
         // Create mock objects
-        final Log mockLog = context.mock(Log.class);
         final PatientConsentManager consentManager = context.mock(PatientConsentManager.class);
 
         // AdapterPIPImpl pipImpl = new AdapterPIPImpl();
         AdapterPIPImpl pipImpl = new AdapterPIPImpl() {
 
-            @Override
-            protected Log createLogger() {
-                return mockLog;
-            }
-
-            @Override
+        	@Override
             protected PatientConsentManager getPatientConsentManager() {
                 return consentManager;
             }
@@ -111,8 +104,6 @@ public class AdapterPIPImplTest {
             context.checking(new Expectations() {
 
                 {
-                    allowing(mockLog).isDebugEnabled();
-                    allowing(mockLog).debug(with(any(String.class)));
                     oneOf(consentManager).storePatientConsent(with(aNonNull(PatientPreferencesType.class)));
                 }
             });

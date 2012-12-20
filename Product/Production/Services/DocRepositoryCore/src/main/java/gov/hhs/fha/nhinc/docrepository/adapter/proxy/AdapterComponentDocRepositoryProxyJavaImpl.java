@@ -33,24 +33,23 @@ import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 
 /**
  * 
  * @author jhoppesc
  */
 public class AdapterComponentDocRepositoryProxyJavaImpl implements AdapterComponentDocRepositoryProxy {
-    private static Log log = LogFactory.getLog(AdapterComponentDocRepositoryProxyJavaImpl.class);
+    private static final Logger LOG = Logger.getLogger(AdapterComponentDocRepositoryProxyJavaImpl.class);
 
     public RetrieveDocumentSetResponseType retrieveDocument(RetrieveDocumentSetRequestType request,
             AssertionType assertion) {
-        log.debug("Using Java Implementation for Adapter Component Doc Repository Service");
+        LOG.debug("Using Java Implementation for Adapter Component Doc Repository Service");
         return new AdapterComponentDocRepositoryOrchImpl().documentRepositoryRetrieveDocumentSet(request);
     }
     
     public RegistryResponseType provideAndRegisterDocumentSet(ProvideAndRegisterDocumentSetRequestType body, AssertionType assertion) {
-        log.debug("Using Java Implementation for Adapter Component Doc Repository Service");
+        LOG.debug("Using Java Implementation for Adapter Component Doc Repository Service");
         return new AdapterComponentDocRepositoryOrchImpl().documentRepositoryProvideAndRegisterDocumentSet(body);
     }
 

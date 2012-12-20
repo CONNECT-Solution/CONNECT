@@ -26,14 +26,15 @@
  */
 package gov.hhs.fha.nhinc.mpi.adapter.component.hl7parsers;
 
+import org.apache.log4j.Logger;
+
 /**
  *
  * @author rayj
  */
 public class MessageIdGenerator {
 
-    private static org.apache.commons.logging.Log log = org.apache.commons.logging.LogFactory
-            .getLog(MessageIdGenerator.class);
+    private static final Logger LOG = Logger.getLogger(MessageIdGenerator.class);
 
     /**
      * Method to generate a MessageID.
@@ -41,7 +42,7 @@ public class MessageIdGenerator {
      */
     public static String generateMessageId() {
         java.rmi.server.UID uid = new java.rmi.server.UID();
-        log.debug("generated message id=" + uid.toString());
+        LOG.debug("generated message id=" + uid.toString());
         return uid.toString();
     }
 }

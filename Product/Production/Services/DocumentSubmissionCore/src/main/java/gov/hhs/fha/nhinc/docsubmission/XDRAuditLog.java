@@ -28,8 +28,7 @@ package gov.hhs.fha.nhinc.docsubmission;
 
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 
 import gov.hhs.fha.nhinc.auditrepository.nhinc.proxy.AuditRepositoryProxy;
 import gov.hhs.fha.nhinc.auditrepository.nhinc.proxy.AuditRepositoryProxyObjectFactory;
@@ -43,26 +42,15 @@ import gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayProvideAndRegi
  * @author dunnek
  */
 public class XDRAuditLog {
-    private Log log = null;
-
-    /**
-     * The default constroctor. Creates the logger.
-     */
-    public XDRAuditLog() {
-        log = createLogger();
-    }
-
-    protected Log createLogger() {
-        return ((log != null) ? log : LogFactory.getLog(getClass()));
-    }
+    private static final Logger LOG = Logger.getLogger(XDRAuditLog.class);
 
     public AcknowledgementType auditProxyRequest(
             RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType request, AssertionType assertion) {
         AcknowledgementType ack = new AcknowledgementType();
         if (request == null) {
-            log.error("Unable to create an audit log record for the proxy. The incomming request was null.");
+            LOG.error("Unable to create an audit log record for the proxy. The incomming request was null.");
         } else if (assertion == null) {
-            log.error("Unable to create an audit log record for the proxy. The incomming request assertion was null.");
+            LOG.error("Unable to create an audit log record for the proxy. The incomming request assertion was null.");
         } else {
             LogEventRequestType message = getLogEventRequestTypeForProxyRequestMessage(request, assertion);
             ack = logXDRRequest(message, assertion);
@@ -73,9 +61,9 @@ public class XDRAuditLog {
     public AcknowledgementType auditProxyResponse(RegistryResponseType response, AssertionType assertion) {
         AcknowledgementType ack = new AcknowledgementType();
         if (response == null) {
-            log.error("Unable to create an audit log record for the proxy. The incomming response was null.");
+            LOG.error("Unable to create an audit log record for the proxy. The incomming response was null.");
         } else if (assertion == null) {
-            log.error("Unable to create an audit log record for the proxy. The incomming response assertion was null.");
+            LOG.error("Unable to create an audit log record for the proxy. The incomming response assertion was null.");
         } else {
             LogEventRequestType message = getLogEventRequestTypeForProxyResponseMessage(response, assertion);
             ack = logXDRResponse(message, assertion);
@@ -87,9 +75,9 @@ public class XDRAuditLog {
         AcknowledgementType ack = new AcknowledgementType();
 
         if (auditLogRequest == null) {
-            log.error("There was a problem creating an audit log for the request (LogEventRequestType parameter was null). The audit record was not created.");
+            LOG.error("There was a problem creating an audit log for the request (LogEventRequestType parameter was null). The audit record was not created.");
         } else if (assertion == null) {
-            log.error("There was a problem creating an audit log for the request (AssertionType parameter was null). The audit record was not created.");
+            LOG.error("There was a problem creating an audit log for the request (AssertionType parameter was null). The audit record was not created.");
         } else {
             AuditRepositoryProxyObjectFactory auditRepoFactory = getAuditRepositoryProxyObjectFactory();
             AuditRepositoryProxy proxy = getAuditRepositoryProxy(auditRepoFactory);
@@ -103,13 +91,13 @@ public class XDRAuditLog {
         AcknowledgementType ack = new AcknowledgementType();
 
         if (auditLogRequest == null) {
-            log.error("There was a problem creating an audit log for the response (LogEventRequestType parameter was null). The audit record was not created.");
+            LOG.error("There was a problem creating an audit log for the response (LogEventRequestType parameter was null). The audit record was not created.");
         } else if (assertion == null) {
-            log.error("There was a problem creating an audit log for the response (AssertionType parameter was null). The audit record was not created.");
+            LOG.error("There was a problem creating an audit log for the response (AssertionType parameter was null). The audit record was not created.");
         } else {
             AuditRepositoryProxyObjectFactory auditRepoFactory = getAuditRepositoryProxyObjectFactory();
             AuditRepositoryProxy proxy = getAuditRepositoryProxy(auditRepoFactory);
-            log.debug("Calling the audit log proxy to create the audit log.");
+            LOG.debug("Calling the audit log proxy to create the audit log.");
             ack = getAuditLogProxyResponse(proxy, auditLogRequest, assertion);
         }
 

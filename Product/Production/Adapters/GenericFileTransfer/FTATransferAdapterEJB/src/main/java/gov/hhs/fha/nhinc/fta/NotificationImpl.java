@@ -35,8 +35,7 @@ import gov.hhs.fha.nhinc.common.ftaconfigmanager.FTAChannel;
 import org.oasis_open.docs.wsn.b_2.Notify;
 import org.oasis_open.docs.wsn.b_2.NotificationMessageHolderType;
 import org.oasis_open.docs.wsn.b_2.NotificationMessageHolderType.Message;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 
 import java.io.File;
 import java.io.Writer;
@@ -48,7 +47,7 @@ import java.io.BufferedWriter;
  * @author dunnek
  */
 public class NotificationImpl {
-    private static Log log = LogFactory.getLog(NotificationImpl.class);
+    private static final Logger LOG = Logger.getLogger(NotificationImpl.class);
 
     public static AcknowledgementType processNotify(Notify request) {
         AcknowledgementType result = new AcknowledgementType();
@@ -58,7 +57,7 @@ public class NotificationImpl {
                 result = processNotifyMsg(msgHolder);
             }
         } catch (Exception ex) {
-            log.error(ex.getMessage(), ex);
+            LOG.error(ex.getMessage(), ex);
             result.setMessage("Unable to process: " + ex.getMessage());
         }
 
@@ -73,7 +72,7 @@ public class NotificationImpl {
                 result = processNotifyMsg(msgHolder);
             }
         } catch (Exception ex) {
-            log.error(ex.getMessage(), ex);
+            LOG.error(ex.getMessage(), ex);
             result.setMessage("Unable to process: " + ex.getMessage());
         }
 
@@ -109,7 +108,7 @@ public class NotificationImpl {
             saveFile(contents, channel.getLocation());
             result.setMessage("Success");
         } catch (Exception ex) {
-            log.error(ex.getMessage(), ex);
+            LOG.error(ex.getMessage(), ex);
             result.setMessage("unable to create text file: " + ex.getMessage());
         }
         return result;

@@ -26,8 +26,7 @@
  */
 package gov.hhs.fha.nhinc.docsubmission.entity;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 
 import gov.hhs.fha.nhinc.docsubmission.orchestration.OrchestrationContextFactory;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
@@ -42,7 +41,7 @@ import gov.hhs.fha.nhinc.orchestration.OutboundOrchestratable;
  */
 public class OutboundDocSubmissionDelegate implements OutboundDelegate {
 
-    private static Log log = LogFactory.getLog(OutboundDocSubmissionDelegate.class);
+    private static final Logger LOG = Logger.getLogger(OutboundDocSubmissionDelegate.class);
 
     @Override
     public Orchestratable process(Orchestratable message) {
@@ -54,9 +53,9 @@ public class OutboundDocSubmissionDelegate implements OutboundDelegate {
 
     @Override
     public OutboundOrchestratable process(OutboundOrchestratable message) {
-        getLogger().debug("begin process");
+        LOG.debug("begin process");
         if (message instanceof OutboundDocSubmissionOrchestratable) {
-            getLogger().debug("processing DS orchestratable ");
+            LOG.debug("processing DS orchestratable ");
             OutboundDocSubmissionOrchestratable dsMessage = (OutboundDocSubmissionOrchestratable) message;
 
             OrchestrationContextBuilder contextBuilder = getOrchestrationContextFactory().getBuilder(
@@ -71,16 +70,12 @@ public class OutboundDocSubmissionDelegate implements OutboundDelegate {
             }
             return (OutboundOrchestratable) contextBuilder.build().execute();
         }
-        getLogger().error("message is not an instance of OutboundDocSubmissionOrchestratable!");
+        LOG.error("message is not an instance of OutboundDocSubmissionOrchestratable!");
         return null;
     }
 
     protected OrchestrationContextFactory getOrchestrationContextFactory() {
         return OrchestrationContextFactory.getInstance();
-    }
-
-    protected Log getLogger() {
-        return log;
     }
 
 	/* (non-Javadoc)

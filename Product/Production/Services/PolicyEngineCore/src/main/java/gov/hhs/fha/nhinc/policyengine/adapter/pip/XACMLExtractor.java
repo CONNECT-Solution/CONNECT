@@ -32,12 +32,11 @@ import gov.hhs.fha.nhinc.common.nhinccommonadapter.FineGrainedPolicyCriterionTyp
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.FineGrainedPolicyMetadataType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.PatientPreferencesType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.UserIdFormatType;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
-import javax.xml.datatype.DatatypeConstants;
-import javax.xml.datatype.DatatypeFactory;
-import javax.xml.datatype.XMLGregorianCalendar;
+
 import oasis.names.tc.xacml._2_0.policy.schema.os.EffectType;
 import oasis.names.tc.xacml._2_0.policy.schema.os.EnvironmentMatchType;
 import oasis.names.tc.xacml._2_0.policy.schema.os.EnvironmentType;
@@ -45,11 +44,9 @@ import oasis.names.tc.xacml._2_0.policy.schema.os.PolicyType;
 import oasis.names.tc.xacml._2_0.policy.schema.os.ResourceMatchType;
 import oasis.names.tc.xacml._2_0.policy.schema.os.ResourceType;
 import oasis.names.tc.xacml._2_0.policy.schema.os.RuleType;
-
 import oasis.names.tc.xacml._2_0.policy.schema.os.SubjectMatchType;
 import oasis.names.tc.xacml._2_0.policy.schema.os.SubjectType;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+
 import org.w3c.dom.Element;
 
 /**
@@ -58,7 +55,6 @@ import org.w3c.dom.Element;
  * @author Les Westberg
  */
 public class XACMLExtractor {
-    protected Log log = null;
     private static final String HL7_DATE_ONLY_FORMAT = "yyyyMMdd";
 
     private static final SimpleDateFormat oHL7DateOnlyFormatter = new SimpleDateFormat(HL7_DATE_ONLY_FORMAT);
@@ -68,21 +64,6 @@ public class XACMLExtractor {
     private static final SimpleDateFormat oXMLDateOnlyFormatter = new SimpleDateFormat(XML_DATE_ONLY_FORMAT);
     private static final String XML_DATE_TIME_FORMAT = "yyyy-MM-dd'T'HH:mm:ss.SSSZ";
     private static final SimpleDateFormat oXMLDateTimeFormatter = new SimpleDateFormat(XML_DATE_TIME_FORMAT);
-
-    /**
-     * Default constructor.
-     */
-    public XACMLExtractor() {
-        log = createLogger();
-    }
-
-    /**
-     * Sets up the logger object.
-     */
-    protected Log createLogger() {
-        return ((log != null) ? log : LogFactory.getLog(getClass()));
-
-    }
 
     /**
      * This method extracts the policy OID from the consent XACML object.

@@ -28,21 +28,20 @@ package gov.hhs.fha.nhinc.mpilib;
 
 import java.util.ArrayList;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 
 /**
  *
  * @author rayj
  */
 public class PersonNames extends ArrayList<PersonName> implements java.io.Serializable {
-    private static Log log = LogFactory.getLog(PhoneNumbers.class);
+    private static final Logger LOG = Logger.getLogger(PhoneNumbers.class);
     static final long serialVersionUID = 5200000000000000000L;
 
     /**
      * Public constructor for PersonNames.
      */
     public PersonNames() {
-        log.info("PersonNames Initialized");
+        LOG.info("PersonNames Initialized");
     }
 }

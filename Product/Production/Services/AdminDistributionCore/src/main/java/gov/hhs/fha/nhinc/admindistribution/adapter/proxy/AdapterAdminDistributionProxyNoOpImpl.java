@@ -32,29 +32,14 @@ import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.event.DefaultEventDescriptionBuilder;
 import oasis.names.tc.emergency.edxl.de._1.EDXLDistribution;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 
 /**
  * 
  * @author dunnek
  */
 public class AdapterAdminDistributionProxyNoOpImpl implements AdapterAdminDistributionProxy {
-    private Log log = null;
-
-    /**
-     * Default Constructor.
-     */
-    public AdapterAdminDistributionProxyNoOpImpl() {
-        log = createLogger();
-    }
-
-    /**
-     * @return log.
-     */
-    protected Log createLogger() {
-        return LogFactory.getLog(getClass());
-    }
+    private static final Logger LOG = Logger.getLogger(AdapterAdminDistributionProxyNoOpImpl.class);
 
     /**
      * This method does not implement anything.
@@ -68,6 +53,6 @@ public class AdapterAdminDistributionProxyNoOpImpl implements AdapterAdminDistri
             afterReturningBuilder = DefaultEventDescriptionBuilder.class, serviceType = "Admin Distribution",
             version = "")
     public void sendAlertMessage(EDXLDistribution body, AssertionType assertion) {
-        log.debug("Begin sendAlertMessage");
+        LOG.debug("Begin sendAlertMessage");
     }
 }

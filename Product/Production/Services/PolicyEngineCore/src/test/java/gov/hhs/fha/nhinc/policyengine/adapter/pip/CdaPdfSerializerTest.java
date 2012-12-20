@@ -39,7 +39,6 @@ import org.jmock.integration.junit4.JUnit4Mockery;
 import org.junit.runner.RunWith;
 import org.jmock.Mockery;
 
-import org.apache.commons.logging.Log;
 import org.hl7.v3.POCDMT000040ClinicalDocument;
 
 /**
@@ -269,14 +268,7 @@ public class CdaPdfSerializerTest {
      */
     @Test
     public void testDeserializeAndSerialize() {
-        final Log mockLog = context.mock(Log.class);
-
-        CdaPdfSerializer oSerializer = new CdaPdfSerializer() {
-            @Override
-            protected Log createLogger() {
-                return mockLog;
-            }
-        };
+        CdaPdfSerializer oSerializer = new CdaPdfSerializer();
 
         try {
             POCDMT000040ClinicalDocument oCda = oSerializer.deserialize(CDA_EXAMPLE1_PART1 + CDA_EXAMPLE1_PART2);

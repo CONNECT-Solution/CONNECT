@@ -36,8 +36,6 @@ import org.junit.Test;
 
 import static org.junit.Assert.*;
 
-import org.apache.commons.logging.Log;
-
 import org.jmock.Expectations;
 
 import org.jmock.Mockery;
@@ -63,165 +61,151 @@ public class QueryUtilTest
 
 {
 
-    Mockery context = new JUnit4Mockery();
+	Mockery context = new JUnit4Mockery();
 
-    @Test
-    public void testCreateAdhocQueryRequest()
+	@Test
+	public void testCreateAdhocQueryRequest()
 
-    {
+	{
 
-        try
+		try
 
-        {
+		{
 
-            // Create Mock objects
+			// Create Mock objects
 
-            final Log mockLog = context.mock(Log.class);
+			QueryUtil queryUtil = new QueryUtil();
 
-            QueryUtil queryUtil = new QueryUtil()
+			String sPatientId = "123abc";
 
-            {
+			String sAssigningAuthority = "1.1";
 
-                @Override
-                protected Log createLogger()
+			String expectedPatientId = "'" + sPatientId + "^^^&"
+					+ sAssigningAuthority + "&ISO'";
 
-                {
+			AdhocQueryRequest request = queryUtil.createAdhocQueryRequest(
+					sPatientId, sAssigningAuthority);
 
-                    return mockLog;
+			assertNotNull("Request was null", request);
 
-                }
+			// Validate response option
 
-            };
+			assertNotNull("Response option was null",
+					request.getResponseOption());
 
-            // Set expectations
+			assertEquals("Return composed objects flag", true, request
+					.getResponseOption().isReturnComposedObjects());
 
-            context.checking(new Expectations() {
-                {
+			assertEquals("Return type",
+					CDAConstants.ADHOC_QUERY_REQUEST_LEAF_CLASS, request
+							.getResponseOption().getReturnType());
 
-                    allowing(mockLog).isDebugEnabled();
+			// Validate AdhocQuery
 
-                    allowing(mockLog).isInfoEnabled();
+			assertNotNull("AdhocQuery was null", request.getAdhocQuery());
 
-                    allowing(mockLog).debug(with(any(String.class)));
+			assertEquals("Query id",
+					CDAConstants.ADHOC_QUERY_REQUEST_BY_PATIENT_ID_UUID,
+					request.getAdhocQuery().getId());
 
-                    allowing(mockLog).info(with(any(String.class)));
+			assertNotNull("Query slot list", request.getAdhocQuery().getSlot());
 
-                }
-            });
+			// Patient ID slot
 
-            String sPatientId = "123abc";
+			SlotType1 slot = retrieveFirstSlotOfName(request.getAdhocQuery()
+					.getSlot(),
+					CDAConstants.ADHOC_QUERY_REQUEST_SLOT_NAME_CPP_PATIENT_ID);
 
-            String sAssigningAuthority = "1.1";
+			assertNotNull("Patient ID slot was null", slot);
 
-            String expectedPatientId = "'" + sPatientId + "^^^&" + sAssigningAuthority + "&ISO'";
+			assertNotNull("Patient ID slot value list null",
+					slot.getValueList());
 
-            AdhocQueryRequest request = queryUtil.createAdhocQueryRequest(sPatientId, sAssigningAuthority);
+			assertNotNull("Patient ID slot value list container null", slot
+					.getValueList().getValue());
 
-            assertNotNull("Request was null", request);
+			assertEquals("Patient ID value", expectedPatientId, slot
+					.getValueList().getValue().get(0));
 
-            // Validate response option
+			// Class code slot
 
-            assertNotNull("Response option was null", request.getResponseOption());
+			slot = retrieveFirstSlotOfName(
+					request.getAdhocQuery().getSlot(),
+					CDAConstants.ADHOC_QUERY_REQUEST_SLOT_NAME_DOCUMENT_CLASS_CODE);
 
-            assertEquals("Return composed objects flag", true, request.getResponseOption().isReturnComposedObjects());
+			assertNotNull("Class code slot was null", slot);
 
-            assertEquals("Return type", CDAConstants.ADHOC_QUERY_REQUEST_LEAF_CLASS, request.getResponseOption()
-                    .getReturnType());
+			assertNotNull("Class code slot value list null",
+					slot.getValueList());
 
-            // Validate AdhocQuery
+			assertNotNull("Class code slot value list container null", slot
+					.getValueList().getValue());
 
-            assertNotNull("AdhocQuery was null", request.getAdhocQuery());
+			assertEquals("Class code ID value",
+					CDAConstants.ADHOC_QUERY_CLASS_CODE, slot.getValueList()
+							.getValue().get(0));
 
-            assertEquals("Query id", CDAConstants.ADHOC_QUERY_REQUEST_BY_PATIENT_ID_UUID, request.getAdhocQuery()
-                    .getId());
+			// Status slot
 
-            assertNotNull("Query slot list", request.getAdhocQuery().getSlot());
+			slot = retrieveFirstSlotOfName(request.getAdhocQuery().getSlot(),
+					CDAConstants.ADHOC_QUERY_REQUEST_SLOT_NAME_STATUS);
 
-            // Patient ID slot
+			assertNotNull("Status slot was null", slot);
 
-            SlotType1 slot = retrieveFirstSlotOfName(request.getAdhocQuery().getSlot(),
-                    CDAConstants.ADHOC_QUERY_REQUEST_SLOT_NAME_CPP_PATIENT_ID);
+			assertNotNull("Status slot value list null", slot.getValueList());
 
-            assertNotNull("Patient ID slot was null", slot);
+			assertNotNull("Status slot value list container null", slot
+					.getValueList().getValue());
 
-            assertNotNull("Patient ID slot value list null", slot.getValueList());
+			assertEquals("Status value",
+					CDAConstants.STATUS_APPROVED_QUERY_VALUE, slot
+							.getValueList().getValue().get(0));
 
-            assertNotNull("Patient ID slot value list container null", slot.getValueList().getValue());
+		}
 
-            assertEquals("Patient ID value", expectedPatientId, slot.getValueList().getValue().get(0));
+		catch (Throwable t)
 
-            // Class code slot
+		{
 
-            slot = retrieveFirstSlotOfName(request.getAdhocQuery().getSlot(),
-                    CDAConstants.ADHOC_QUERY_REQUEST_SLOT_NAME_DOCUMENT_CLASS_CODE);
+			t.printStackTrace();
 
-            assertNotNull("Class code slot was null", slot);
+			fail(t.getMessage());
 
-            assertNotNull("Class code slot value list null", slot.getValueList());
+		}
 
-            assertNotNull("Class code slot value list container null", slot.getValueList().getValue());
+	}
 
-            assertEquals("Class code ID value", CDAConstants.ADHOC_QUERY_CLASS_CODE, slot.getValueList().getValue()
-                    .get(0));
+	private SlotType1 retrieveFirstSlotOfName(List<SlotType1> olSlot,
+			String slotName)
 
-            // Status slot
+	{
 
-            slot = retrieveFirstSlotOfName(request.getAdhocQuery().getSlot(),
-                    CDAConstants.ADHOC_QUERY_REQUEST_SLOT_NAME_STATUS);
+		SlotType1 slot = null;
 
-            assertNotNull("Status slot was null", slot);
+		if (olSlot != null)
 
-            assertNotNull("Status slot value list null", slot.getValueList());
+		{
 
-            assertNotNull("Status slot value list container null", slot.getValueList().getValue());
+			for (SlotType1 oSlot : olSlot)
 
-            assertEquals("Status value", CDAConstants.STATUS_APPROVED_QUERY_VALUE, slot.getValueList().getValue()
-                    .get(0));
+			{
 
-        }
+				if ((oSlot != null) && (slotName.equals(oSlot.getName())))
 
-        catch (Throwable t)
+				{
 
-        {
+					slot = oSlot;
 
-            t.printStackTrace();
+					break;
 
-            fail(t.getMessage());
+				}
 
-        }
+			}
 
-    }
+		}
 
-    private SlotType1 retrieveFirstSlotOfName(List<SlotType1> olSlot, String slotName)
+		return slot;
 
-    {
-
-        SlotType1 slot = null;
-
-        if (olSlot != null)
-
-        {
-
-            for (SlotType1 oSlot : olSlot)
-
-            {
-
-                if ((oSlot != null) && (slotName.equals(oSlot.getName())))
-
-                {
-
-                    slot = oSlot;
-
-                    break;
-
-                }
-
-            }
-
-        }
-
-        return slot;
-
-    }
+	}
 
 }

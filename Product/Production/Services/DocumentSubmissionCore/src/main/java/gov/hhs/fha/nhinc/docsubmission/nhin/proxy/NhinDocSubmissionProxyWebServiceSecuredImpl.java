@@ -43,24 +43,16 @@ import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 import ihe.iti.xdr._2007.DocumentRepositoryXDRPortType;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
 
-import javax.xml.ws.BindingProvider;
-
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 
 public class NhinDocSubmissionProxyWebServiceSecuredImpl implements NhinDocSubmissionProxy {
-    private Log log = null;
+    private static final Logger LOG = Logger.getLogger(NhinDocSubmissionProxyWebServiceSecuredImpl.class);
     private WebServiceProxyHelper proxyHelper = null;
 
     public NhinDocSubmissionProxyWebServiceSecuredImpl() {
-        log = createLogger();
-        proxyHelper = new WebServiceProxyHelper();
-    }
-
-    protected Log createLogger() {
-        return LogFactory.getLog(getClass());
+    	proxyHelper = new WebServiceProxyHelper();
     }
 
     protected DocSubmissionUtils getDocSubmissionUtils() {
@@ -86,7 +78,7 @@ public class NhinDocSubmissionProxyWebServiceSecuredImpl implements NhinDocSubmi
             version = "")
     public RegistryResponseType provideAndRegisterDocumentSetB(ProvideAndRegisterDocumentSetRequestType request,
             AssertionType assertion, NhinTargetSystemType targetSystem, NhincConstants.GATEWAY_API_LEVEL apiLevel) {
-        log.debug("Begin provideAndRegisterDocumentSetB");
+        LOG.debug("Begin provideAndRegisterDocumentSetB");
         RegistryResponseType response = new RegistryResponseType();
 
         try {
@@ -97,24 +89,22 @@ public class NhinDocSubmissionProxyWebServiceSecuredImpl implements NhinDocSubmi
             ServicePortDescriptor<DocumentRepositoryXDRPortType> portDescriptor = getServicePortDescriptor(apiLevel);
 
             CONNECTClient<DocumentRepositoryXDRPortType> client = CONNECTCXFClientFactory.getInstance()
-                    .getCONNECTClientSecured(portDescriptor, url, assertion);
-
-            WebServiceProxyHelper wsHelper = new WebServiceProxyHelper();
-            wsHelper.addTargetCommunity((BindingProvider) client.getPort(), targetSystem);
-            wsHelper.addServiceName((BindingProvider) client.getPort(), NhincConstants.NHINC_XDR_SERVICE_NAME);
+                    .getCONNECTClientSecured(portDescriptor, assertion, url,
+                            targetSystem.getHomeCommunity().getHomeCommunityId(),
+                            NhincConstants.NHINC_XDR_SERVICE_NAME);
 
             response = (RegistryResponseType) client.invokePort(DocumentRepositoryXDRPortType.class,
                     "documentRepositoryProvideAndRegisterDocumentSetB", request);
 
         } catch (LargePayloadException lpe) {
-            log.error("Failed to send message.", lpe);
+            LOG.error("Failed to send message.", lpe);
             response = getMessageGeneratorUtils().createMissingDocumentRegistryResponse();
         } catch (Exception ex) {
-            log.error("Error calling documentRepositoryProvideAndRegisterDocumentSetB: " + ex.getMessage(), ex);
+            LOG.error("Error calling documentRepositoryProvideAndRegisterDocumentSetB: " + ex.getMessage(), ex);
             response = getMessageGeneratorUtils().createRegistryErrorResponseWithAckFailure(ex.getMessage());
         }
 
-        log.debug("End provideAndRegisterDocumentSetB");
+        LOG.debug("End provideAndRegisterDocumentSetB");
         return response;
     }
 

@@ -31,7 +31,6 @@ import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayCrossGatewayQueryRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayCrossGatewayQuerySecuredRequestType;
 import gov.hhs.fha.nhinc.docquery.outbound.OutboundDocQuery;
-import gov.hhs.fha.nhinc.gateway.servlet.InitServlet;
 import gov.hhs.fha.nhinc.messaging.server.BaseService;
 
 import javax.xml.ws.WebServiceContext;
@@ -39,12 +38,11 @@ import javax.xml.ws.WebServiceContext;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 
 public class EntityDocQueryImpl extends BaseService {
 
-    private Log log = LogFactory.getLog(getClass());
+    private static final Logger LOG = Logger.getLogger(EntityDocQueryImpl.class);
     private OutboundDocQuery outboundDocQuery;
 
     /**
@@ -53,17 +51,6 @@ public class EntityDocQueryImpl extends BaseService {
      * @param outboundDocQuery
      */
     public EntityDocQueryImpl(OutboundDocQuery outboundDocQuery) {
-        this.outboundDocQuery = outboundDocQuery;
-    }
-
-    /**
-     * Constructor.
-     * 
-     * @param outboundDocQuery
-     * @param log
-     */
-    public EntityDocQueryImpl(OutboundDocQuery outboundDocQuery, Log log) {
-        this.log = log;
         this.outboundDocQuery = outboundDocQuery;
     }
 
@@ -107,7 +94,7 @@ public class EntityDocQueryImpl extends BaseService {
         try {
             response = outboundDocQuery.respondingGatewayCrossGatewayQuery(request, assertion, targets);
         } catch (Exception e) {
-            log.error("Failed to send request to Nwhin.", e);
+            LOG.error("Failed to send request to Nwhin.", e);
         }
 
         return response;

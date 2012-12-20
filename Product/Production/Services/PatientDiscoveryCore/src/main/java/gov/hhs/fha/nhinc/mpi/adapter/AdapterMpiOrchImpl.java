@@ -26,8 +26,7 @@
  */
 package gov.hhs.fha.nhinc.mpi.adapter;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 import org.hl7.v3.PRPAIN201305UV02;
 import org.hl7.v3.PRPAIN201306UV02;
 
@@ -45,7 +44,7 @@ import gov.hhs.fha.nhinc.mpi.adapter.component.proxy.AdapterComponentMpiProxyObj
 
 public class AdapterMpiOrchImpl {
 
-    private static Log log = LogFactory.getLog(AdapterMpiOrchImpl.class);
+    private static final Logger LOG = Logger.getLogger(AdapterMpiOrchImpl.class);
 
     /**
      * Send the patient query request to the actual MPI that is implemented.
@@ -55,7 +54,7 @@ public class AdapterMpiOrchImpl {
      * @return The results of the query.
      */
     public PRPAIN201306UV02 query(PRPAIN201305UV02 findCandidatesRequest, AssertionType assertion) {
-        log.debug("Entering AdapterMpiOrchImpl.query method...");
+        LOG.trace("Entering AdapterMpiOrchImpl.query method...");
         AdapterComponentMpiProxy oMpiProxy = null;
         AdapterComponentMpiProxyObjectFactory oFactory = new AdapterComponentMpiProxyObjectFactory();
         oMpiProxy = oFactory.getAdapterComponentMpiProxy();

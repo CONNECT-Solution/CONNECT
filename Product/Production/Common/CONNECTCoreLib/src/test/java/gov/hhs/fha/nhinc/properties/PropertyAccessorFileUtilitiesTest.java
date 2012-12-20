@@ -32,7 +32,6 @@ import static org.junit.Assert.*;
 import java.io.File;
 import java.net.URL;
 
-import org.apache.commons.logging.Log;
 import org.jmock.Expectations;
 import org.jmock.Mockery;
 import org.jmock.integration.junit4.JUnit4Mockery;
@@ -53,16 +52,6 @@ public class PropertyAccessorFileUtilitiesTest {
             setImposteriser(ClassImposteriser.INSTANCE);
         }
     };    
-    final Log mockLog = context.mock(Log.class);
-        
-    @Before
-    public void setMockLogExpectationsToIgnoreAllLogs() {        
-        context.checking(new Expectations() {
-            {
-                ignoring(mockLog);
-            }
-        });
-    }
     
     @Test
     public void testGetPropertyFileLocation() {                
@@ -106,10 +95,6 @@ public class PropertyAccessorFileUtilitiesTest {
             protected String getNhincPropertyDirValueFromSysEnv() {
                 return null;
             }
-            
-            protected Log getLogger() {
-                return mockLog;
-            }
         };
         assertNull(fileUtilities.getPropertyFileLocation());
     }
@@ -122,10 +107,6 @@ public class PropertyAccessorFileUtilitiesTest {
             protected String getNhincPropertyDirValueFromSysEnv() {
                 return "/config/";
             }
-            
-            protected Log getLogger() {
-                return mockLog;
-            }
         };        
         assertTrue(fileUtilities.getPropertyFileLocation().endsWith(File.separator));
     }
@@ -135,12 +116,7 @@ public class PropertyAccessorFileUtilitiesTest {
         System.setProperty("nhinc.properties.dir", url.getFile());
         
         EXPECTED_PROPERTY_FILE_LOCATION = url.getFile() + File.separator;
-        
-        return new PropertyAccessorFileUtilities() {
-            protected Log getLogger() {
-                return mockLog;
-            }
-        };
+        return new PropertyAccessorFileUtilities();
     }
     
 }

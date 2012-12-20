@@ -36,8 +36,8 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import javax.xml.ws.WebServiceContext;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+
+import org.apache.log4j.Logger;
 
 /**
  * This class performs the actual work of querying the performance log
@@ -46,7 +46,7 @@ import org.apache.commons.logging.LogFactory;
  */
 public class EntityPerformanceLogQueryImpl {
 
-    private static Log log = LogFactory.getLog(EntityPerformanceLogQueryImpl.class);
+    private static final Logger LOG = Logger.getLogger(EntityPerformanceLogQueryImpl.class);
 
     /**
      * Return the Performance Log summary based on the request criteria
@@ -57,7 +57,7 @@ public class EntityPerformanceLogQueryImpl {
      */
     public EntityPerformanceLogQueryResponseType findPerformanceData(
             EntityPerformanceLogQueryRequestType entityPerformanceLogQueryRequest, WebServiceContext context) {
-        log.debug("Start - EntityPerformanceLogQueryImpl.findPerformanceData");
+        LOG.debug("Start - EntityPerformanceLogQueryImpl.findPerformanceData");
 
         EntityPerformanceLogQueryResponseType response = new EntityPerformanceLogQueryResponseType();
         response.setSuccessOrFail(new SuccessOrFailType());
@@ -84,10 +84,10 @@ public class EntityPerformanceLogQueryImpl {
             // Set success to true is we get this far
             response.getSuccessOrFail().setSuccess(true);
         } catch (Exception e) {
-            log.error("Exception populating response: ", e);
+            LOG.error("Exception populating response: ", e);
         }
 
-        log.debug("End - EntityPerformanceLogQueryImpl.findPerformanceData");
+        LOG.debug("End - EntityPerformanceLogQueryImpl.findPerformanceData");
 
         return response;
     }

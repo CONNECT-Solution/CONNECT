@@ -26,8 +26,7 @@
  */
 package gov.hhs.fha.nhinc.mpi.adapter.component;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 
 import gov.hhs.fha.nhinc.mpilib.PersonName;
 
@@ -37,7 +36,7 @@ import gov.hhs.fha.nhinc.mpilib.PersonName;
  */
 public class PersonNameParser {
 
-    private static Log log = LogFactory.getLog(PersonNameParser.class);
+    private static final Logger LOG = Logger.getLogger(PersonNameParser.class);
 
     /**
      *An enum for possible combinations of name order.
@@ -55,7 +54,7 @@ public class PersonNameParser {
      * @return name as a PersonName object
      */
     public static PersonName splitName(String name) {
-        log.debug("Begin PersonNameParser.SplitName(String)");
+        LOG.trace("Begin PersonNameParser.SplitName(String)");
         PersonName personName;
         if (name == null || name.contentEquals("")) {
             personName = new PersonName();
@@ -70,12 +69,12 @@ public class PersonNameParser {
                     personName.setLastName(name);
             }
         }
-        log.debug("End PersonNameParser.SplitName(String)");
+        LOG.trace("End PersonNameParser.SplitName(String)");
         return personName;
     }
 
     private static PersonName splitNameByDelimiter(String name, String delimiter, NameOrder order) {
-        log.debug("Begin PersonNameParser.SplitNameByDelimiter(String,String,nameorder)");
+        LOG.trace("Begin PersonNameParser.SplitNameByDelimiter(String,String,nameorder)");
         PersonName personName = null;
         if (name.contains(delimiter)) {
             String[] nameparts = name.split(delimiter);
@@ -101,7 +100,7 @@ public class PersonNameParser {
         } else {
             personName = null;
         }
-        log.debug("End PersonNameParser.SplitNameByDelimiter(String,String,nameorder)");
+        LOG.trace("End PersonNameParser.SplitNameByDelimiter(String,String,nameorder)");
         return personName;
     }
 
@@ -111,7 +110,7 @@ public class PersonNameParser {
      * @return the PersonName as a String.
      */
     public static String serializeName(PersonName personName) {
-        log.debug("Begin PersonNameParser.SerializeName(PersonName)");
+        LOG.trace("Begin PersonNameParser.SerializeName(PersonName)");
         String serializedName = null;
         if (personName == null) {
             serializedName = "";
@@ -122,7 +121,7 @@ public class PersonNameParser {
         } else {
             serializedName = personName.getLastName() + "," + personName.getFirstName();
         }
-        log.debug("End PersonNameParser.SerializeName(PersonName)");
+        LOG.trace("End PersonNameParser.SerializeName(PersonName)");
         return serializedName;
     }
 }

@@ -32,8 +32,7 @@ import gov.hhs.fha.nhinc.patientcorrelation.nhinc.persistence.HibernateUtil;
 import java.util.Date;
 import java.util.List;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -46,7 +45,7 @@ import org.hl7.v3.II;
  */
 public class PDDeferredCorrelationDao {
 
-    private static Log log = LogFactory.getLog(PDDeferredCorrelationDao.class);
+    private static final Logger LOG = Logger.getLogger(PDDeferredCorrelationDao.class);
 
     /**
      * Query by Message Id. This should return only one record.
@@ -55,7 +54,7 @@ public class PDDeferredCorrelationDao {
      * @return matching records
      */
     public II queryByMessageId(String messageId) {
-        log.debug("Performing database record retrieve using message id: " + messageId);
+        LOG.debug("Performing database record retrieve using message id: " + messageId);
 
         List<PDDeferredCorrelation> pdCorrelations = null;
         Session sess = null;
@@ -70,14 +69,14 @@ public class PDDeferredCorrelationDao {
                     query.setParameter("MessageId", messageId);
                     pdCorrelations = query.list();
                 } else {
-                    log.error("Failed to obtain a session from the sessionFactory");
+                    LOG.error("Failed to obtain a session from the sessionFactory");
                 }
             } else {
-                log.error("Session factory was null");
+                LOG.error("Session factory was null");
             }
 
-            if (log.isDebugEnabled()) {
-                log.debug("Completed database record retrieve by message id. Results found: "
+            if (LOG.isDebugEnabled()) {
+                LOG.debug("Completed database record retrieve by message id. Results found: "
                         + ((pdCorrelations == null) ? "0" : Integer.toString(pdCorrelations.size())));
             }
         } finally {
@@ -85,13 +84,13 @@ public class PDDeferredCorrelationDao {
                 try {
                     sess.close();
                 } catch (Throwable t) {
-                    log.error("Failed to close session: " + t.getMessage(), t);
+                    LOG.error("Failed to close session: " + t.getMessage(), t);
                 }
             }
         }
 
         if ((pdCorrelations == null) || (pdCorrelations.size() != 1)) {
-            log.error("Failed to find a unique patient id with the given message id " + messageId);
+            LOG.error("Failed to find a unique patient id with the given message id " + messageId);
         } else {
             PDDeferredCorrelation pdCorrelation = pdCorrelations.get(0);
             patientId = new II();
@@ -136,7 +135,7 @@ public class PDDeferredCorrelationDao {
      *            to save.
      */
     public void saveOrUpdate(PDDeferredCorrelation pdCorrelation) {
-        log.debug("PDDeferredCorrelationDao.save() - Begin");
+        LOG.debug("PDDeferredCorrelationDao.save() - Begin");
 
         Session sess = null;
         Transaction trans = null;
@@ -158,29 +157,29 @@ public class PDDeferredCorrelationDao {
                         sess.saveOrUpdate(pdCorrelation);
                     }
                 } else {
-                    log.error("Failed to obtain a session from the sessionFactory");
+                    LOG.error("Failed to obtain a session from the sessionFactory");
                 }
             } else {
-                log.error("Session factory was null");
+                LOG.error("Session factory was null");
             }
         } finally {
             if (trans != null) {
                 try {
                     trans.commit();
                 } catch (Throwable t) {
-                    log.error("Failed to commit transaction: " + t.getMessage(), t);
+                    LOG.error("Failed to commit transaction: " + t.getMessage(), t);
                 }
             }
             if (sess != null) {
                 try {
                     sess.close();
                 } catch (Throwable t) {
-                    log.error("Failed to close session: " + t.getMessage(), t);
+                    LOG.error("Failed to close session: " + t.getMessage(), t);
                 }
             }
         }
 
-        log.debug("PDDeferredCorrelationDao.save() - End");
+        LOG.debug("PDDeferredCorrelationDao.save() - End");
     }
 
 }

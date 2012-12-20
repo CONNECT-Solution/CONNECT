@@ -28,8 +28,7 @@ package gov.hhs.fha.nhinc.docsubmission.adapter.deferred.request.error.proxy;
 
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 
 import gov.hhs.fha.nhinc.aspect.AdapterDelegationEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
@@ -44,18 +43,7 @@ import gov.hhs.healthit.nhin.XDRAcknowledgementType;
  */
 public class AdapterDocSubmissionDeferredRequestErrorProxyJavaImpl implements
         AdapterDocSubmissionDeferredRequestErrorProxy {
-    private Log log = null;
-
-    public AdapterDocSubmissionDeferredRequestErrorProxyJavaImpl() {
-        log = createLogger();
-    }
-
-    /**
-     * @return the logging object
-     */
-    protected Log createLogger() {
-        return LogFactory.getLog(getClass());
-    }
+    private static final Logger LOG = Logger.getLogger(AdapterDocSubmissionDeferredRequestErrorProxyJavaImpl.class);
 
     @Override
     @AdapterDelegationEvent(beforeBuilder = DocSubmissionBaseEventDescriptionBuilder.class,
@@ -64,10 +52,10 @@ public class AdapterDocSubmissionDeferredRequestErrorProxyJavaImpl implements
     version = "")
     public XDRAcknowledgementType provideAndRegisterDocumentSetBRequestError(
             ProvideAndRegisterDocumentSetRequestType request, String errorMessage, AssertionType assertion) {
-        log.debug("Begin AdapterDocSubmissionDeferredRequestErrorProxyJavaImpl.provideAndRegisterDocumentSetBRequestError");
+        LOG.trace("Begin AdapterDocSubmissionDeferredRequestErrorProxyJavaImpl.provideAndRegisterDocumentSetBRequestError");
         XDRAcknowledgementType ack = new AdapterDocSubmissionDeferredRequestErrorOrchImpl()
                 .provideAndRegisterDocumentSetBRequestError(request, errorMessage, assertion);
-        log.debug("End AdapterDocSubmissionDeferredRequestErrorProxyJavaImpl.provideAndRegisterDocumentSetBRequestError");
+        LOG.trace("End AdapterDocSubmissionDeferredRequestErrorProxyJavaImpl.provideAndRegisterDocumentSetBRequestError");
         return ack;
     }
 }

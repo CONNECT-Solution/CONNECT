@@ -39,8 +39,7 @@ import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 import gov.hhs.healthit.nhin.XDRAcknowledgementType;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 
 /**
  * 
@@ -48,16 +47,11 @@ import org.apache.commons.logging.LogFactory;
  */
 public class EntityDocSubmissionDeferredResponseProxyWebServiceSecuredImpl implements
         EntityDocSubmissionDeferredResponseProxy {
-    private Log log = null;
+    private static final Logger LOG = Logger.getLogger(EntityDocSubmissionDeferredResponseProxyWebServiceSecuredImpl.class);
     private WebServiceProxyHelper oProxyHelper = null;
 
     public EntityDocSubmissionDeferredResponseProxyWebServiceSecuredImpl() {
-        log = createLogger();
         oProxyHelper = createWebServiceProxyHelper();
-    }
-
-    protected Log createLogger() {
-        return LogFactory.getLog(getClass());
     }
 
     protected WebServiceProxyHelper createWebServiceProxyHelper() {
@@ -66,16 +60,16 @@ public class EntityDocSubmissionDeferredResponseProxyWebServiceSecuredImpl imple
 
     public XDRAcknowledgementType provideAndRegisterDocumentSetBAsyncResponse(RegistryResponseType request,
             AssertionType assertion, NhinTargetCommunitiesType targets) {
-        log.debug("Begin provideAndRegisterDocumentSetBAsyncResponse");
+        LOG.debug("Begin provideAndRegisterDocumentSetBAsyncResponse");
         XDRAcknowledgementType response = null;
 
         try {
             String url = oProxyHelper.getUrlLocalHomeCommunity(NhincConstants.ENTITY_XDR_RESPONSE_SECURED_SERVICE_NAME);
 
             if (request == null) {
-                log.error("Message was null");
+                LOG.error("Message was null");
             } else if (targets == null) {
-                log.error("targets was null");
+                LOG.error("targets was null");
             } else {
                 RespondingGatewayProvideAndRegisterDocumentSetSecuredResponseRequestType msg = new RespondingGatewayProvideAndRegisterDocumentSetSecuredResponseRequestType();
                 msg.setRegistryResponse(request);
@@ -90,14 +84,14 @@ public class EntityDocSubmissionDeferredResponseProxyWebServiceSecuredImpl imple
                         "provideAndRegisterDocumentSetBAsyncResponse", msg);
             }
         } catch (Exception ex) {
-            log.error("Error calling provideAndRegisterDocumentSetBAsyncResponse: " + ex.getMessage(), ex);
+            LOG.error("Error calling provideAndRegisterDocumentSetBAsyncResponse: " + ex.getMessage(), ex);
             response = new XDRAcknowledgementType();
             RegistryResponseType regResp = new RegistryResponseType();
             regResp.setStatus(NhincConstants.XDR_ACK_FAILURE_STATUS_MSG);
             response.setMessage(regResp);
         }
 
-        log.debug("End provideAndRegisterDocumentSetBAsyncResponse");
+        LOG.debug("End provideAndRegisterDocumentSetBAsyncResponse");
         return response;
     }
 }

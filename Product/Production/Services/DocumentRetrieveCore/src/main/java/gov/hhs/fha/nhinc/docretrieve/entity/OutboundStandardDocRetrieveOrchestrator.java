@@ -29,21 +29,17 @@ package gov.hhs.fha.nhinc.docretrieve.entity;
 import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.orchestration.CONNECTOutboundOrchestrator;
-import gov.hhs.fha.nhinc.orchestration.OutboundOrchestratable;
 import gov.hhs.fha.nhinc.orchestration.NhinAggregator;
 import gov.hhs.fha.nhinc.orchestration.Orchestratable;
+import gov.hhs.fha.nhinc.orchestration.OutboundOrchestratable;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType.DocumentRequest;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 
 /**
  * 
  * @author mweaver
  */
 public class OutboundStandardDocRetrieveOrchestrator extends CONNECTOutboundOrchestrator {
-
-    private static final Log logger = LogFactory.getLog(OutboundStandardDocRetrieveOrchestrator.class);
 
     /**
      * Processes the doc retrieve message by processing each individual request and aggregating the responses.
@@ -80,8 +76,4 @@ public class OutboundStandardDocRetrieveOrchestrator extends CONNECTOutboundOrch
         return nhinTargetSystem;
     }
 
-    @Override
-    public Log getLogger() {
-        return logger;
-    }
 }

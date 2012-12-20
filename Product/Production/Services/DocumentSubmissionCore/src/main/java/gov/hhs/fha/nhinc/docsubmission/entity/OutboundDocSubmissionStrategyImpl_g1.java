@@ -32,8 +32,8 @@ import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.orchestration.Orchestratable;
 import gov.hhs.fha.nhinc.orchestration.OrchestrationStrategy;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+
+import org.apache.log4j.Logger;
 
 /**
  * 
@@ -41,14 +41,7 @@ import org.apache.commons.logging.LogFactory;
  */
 class OutboundDocSubmissionStrategyImpl_g1 implements OrchestrationStrategy {
 
-    private static Log log = LogFactory.getLog(OutboundDocSubmissionStrategyImpl_g1.class);
-
-    public OutboundDocSubmissionStrategyImpl_g1() {
-    }
-
-    protected Log getLogger() {
-        return log;
-    }
+    private static final Logger LOG = Logger.getLogger(OutboundDocSubmissionStrategyImpl_g1.class);
 
     protected NhinDocSubmissionProxy getNhinDocSubmissionProxy() {
         return new NhinDocSubmissionProxyObjectFactory().getNhinDocSubmissionProxy();
@@ -59,18 +52,18 @@ class OutboundDocSubmissionStrategyImpl_g1 implements OrchestrationStrategy {
         if (message instanceof OutboundDocSubmissionOrchestratable) {
             execute((OutboundDocSubmissionOrchestratable) message);
         } else {
-            getLogger().error("Not an OutboundDocSubmissionOrchestratable.");
+            LOG.error("Not an OutboundDocSubmissionOrchestratable.");
         }
     }
 
     public void execute(OutboundDocSubmissionOrchestratable message) {
-        getLogger().debug("Begin OutboundDocSubmissionOrchestratableImpl_g1.process");
+        LOG.trace("Begin OutboundDocSubmissionOrchestratableImpl_g1.process");
 
         NhinDocSubmissionProxy nhincDocSubmission = getNhinDocSubmissionProxy();
         RegistryResponseType response = nhincDocSubmission.provideAndRegisterDocumentSetB(message.getRequest(),
                 message.getAssertion(), message.getTarget(), NhincConstants.GATEWAY_API_LEVEL.LEVEL_g1);
         message.setResponse(response);
 
-        getLogger().debug("End OutboundDocSubmissionOrchestratableImpl_g1.process");
+        LOG.trace("End OutboundDocSubmissionOrchestratableImpl_g1.process");
     }
 }

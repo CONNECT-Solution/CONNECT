@@ -40,8 +40,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.TimeZone;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -55,7 +54,7 @@ import org.hibernate.criterion.Restrictions;
  */
 public class AsyncMsgRecordDao {
 
-    private static Log log = LogFactory.getLog(AsyncMsgRecordDao.class);
+    private static final Logger LOG = Logger.getLogger(AsyncMsgRecordDao.class);
 
     public static final String QUEUE_DIRECTION_INBOUND = "INBOUND";
     public static final String QUEUE_DIRECTION_OUTBOUND = "OUTBOUND";
@@ -89,7 +88,7 @@ public class AsyncMsgRecordDao {
      * @return matching records
      */
     public List<AsyncMsgRecord> queryByMessageIdAndDirection(String messageId, String direction) {
-        log.debug("Performing database record retrieve using message id: " + messageId + " and direction: " + direction);
+        LOG.debug("Performing database record retrieve using message id: " + messageId + " and direction: " + direction);
 
         List<AsyncMsgRecord> asyncMsgRecs = null;
         Session sess = null;
@@ -104,14 +103,14 @@ public class AsyncMsgRecordDao {
                     query.setParameter("Direction", direction);
                     asyncMsgRecs = query.list();
                 } else {
-                    log.error("Failed to obtain a session from the sessionFactory");
+                    LOG.error("Failed to obtain a session from the sessionFactory");
                 }
             } else {
-                log.error("Session factory was null");
+                LOG.error("Session factory was null");
             }
 
-            if (log.isDebugEnabled()) {
-                log.debug("Completed database record retrieve by message id. Results found: "
+            if (LOG.isDebugEnabled()) {
+                LOG.debug("Completed database record retrieve by message id. Results found: "
                         + ((asyncMsgRecs == null) ? "0" : Integer.toString(asyncMsgRecs.size())));
             }
         } finally {
@@ -119,7 +118,7 @@ public class AsyncMsgRecordDao {
                 try {
                     sess.close();
                 } catch (Throwable t) {
-                    log.error("Failed to close session: " + t.getMessage(), t);
+                    LOG.error("Failed to close session: " + t.getMessage(), t);
                 }
             }
         }
@@ -135,7 +134,7 @@ public class AsyncMsgRecordDao {
      * @return matching records
      */
     public List<AsyncMsgRecord> queryByMessageIdAndServiceName(String messageId, String serviceName) {
-        log.debug("Performing database record retrieve using message id: " + messageId + "and service name: "
+        LOG.debug("Performing database record retrieve using message id: " + messageId + "and service name: "
                 + serviceName);
 
         List<AsyncMsgRecord> asyncMsgRecs = null;
@@ -151,14 +150,14 @@ public class AsyncMsgRecordDao {
                     query.setParameter("ServiceName", serviceName);
                     asyncMsgRecs = query.list();
                 } else {
-                    log.error("Failed to obtain a session from the sessionFactory");
+                    LOG.error("Failed to obtain a session from the sessionFactory");
                 }
             } else {
-                log.error("Session factory was null");
+                LOG.error("Session factory was null");
             }
 
-            if (log.isDebugEnabled()) {
-                log.debug("Completed database record retrieve by message id and service name. Results found: "
+            if (LOG.isDebugEnabled()) {
+                LOG.debug("Completed database record retrieve by message id and service name. Results found: "
                         + ((asyncMsgRecs == null) ? "0" : Integer.toString(asyncMsgRecs.size())));
             }
         } finally {
@@ -166,7 +165,7 @@ public class AsyncMsgRecordDao {
                 try {
                     sess.close();
                 } catch (Throwable t) {
-                    log.error("Failed to close session: " + t.getMessage(), t);
+                    LOG.error("Failed to close session: " + t.getMessage(), t);
                 }
             }
         }
@@ -182,7 +181,7 @@ public class AsyncMsgRecordDao {
      * @return matching records
      */
     public List<AsyncMsgRecord> queryByTime(Date timestamp) {
-        log.debug("Performing database retrieve using timestamp");
+        LOG.debug("Performing database retrieve using timestamp");
 
         List<AsyncMsgRecord> asyncMsgRecs = null;
         Session sess = null;
@@ -196,14 +195,14 @@ public class AsyncMsgRecordDao {
                     query.setParameter("CreationTime", timestamp);
                     asyncMsgRecs = query.list();
                 } else {
-                    log.error("Failed to obtain a session from the sessionFactory");
+                    LOG.error("Failed to obtain a session from the sessionFactory");
                 }
             } else {
-                log.error("Session factory was null");
+                LOG.error("Session factory was null");
             }
 
-            if (log.isDebugEnabled()) {
-                log.debug("Completed database record retrieve by timestamp. Results found: "
+            if (LOG.isDebugEnabled()) {
+                LOG.debug("Completed database record retrieve by timestamp. Results found: "
                         + ((asyncMsgRecs == null) ? "0" : Integer.toString(asyncMsgRecs.size())));
             }
         } finally {
@@ -211,7 +210,7 @@ public class AsyncMsgRecordDao {
                 try {
                     sess.close();
                 } catch (Throwable t) {
-                    log.error("Failed to close session: " + t.getMessage(), t);
+                    LOG.error("Failed to close session: " + t.getMessage(), t);
                 }
             }
         }
@@ -228,7 +227,7 @@ public class AsyncMsgRecordDao {
      * @return matching records
      */
     public List<AsyncMsgRecord> queryForExpired(Date timestamp) {
-        log.debug("Performing database retrieve for expired requests");
+        LOG.debug("Performing database retrieve for expired requests");
 
         List<AsyncMsgRecord> asyncMsgRecs = null;
         Session sess = null;
@@ -242,14 +241,14 @@ public class AsyncMsgRecordDao {
                     query.setParameter("CreationTime", timestamp);
                     asyncMsgRecs = query.list();
                 } else {
-                    log.error("Failed to obtain a session from the sessionFactory");
+                    LOG.error("Failed to obtain a session from the sessionFactory");
                 }
             } else {
-                log.error("Session factory was null");
+                LOG.error("Session factory was null");
             }
 
-            if (log.isDebugEnabled()) {
-                log.debug("Completed database record retrieve by timestamp. Results found: "
+            if (LOG.isDebugEnabled()) {
+                LOG.debug("Completed database record retrieve by timestamp. Results found: "
                         + ((asyncMsgRecs == null) ? "0" : Integer.toString(asyncMsgRecs.size())));
             }
         } finally {
@@ -257,7 +256,7 @@ public class AsyncMsgRecordDao {
                 try {
                     sess.close();
                 } catch (Throwable t) {
-                    log.error("Failed to close session: " + t.getMessage(), t);
+                    LOG.error("Failed to close session: " + t.getMessage(), t);
                 }
             }
         }
@@ -271,7 +270,7 @@ public class AsyncMsgRecordDao {
      * @return matching records
      */
     public List<AsyncMsgRecord> queryForDeferredQueueProcessing() {
-        log.debug("Performing database record retrieve for deferred queue manager processing.");
+        LOG.debug("Performing database record retrieve for deferred queue manager processing.");
 
         List<AsyncMsgRecord> asyncMsgRecs = null;
         Session sess = null;
@@ -284,14 +283,14 @@ public class AsyncMsgRecordDao {
                     Query query = sess.getNamedQuery("queryForDeferredQueueProcessing");
                     asyncMsgRecs = query.list();
                 } else {
-                    log.error("Failed to obtain a session from the sessionFactory");
+                    LOG.error("Failed to obtain a session from the sessionFactory");
                 }
             } else {
-                log.error("Session factory was null");
+                LOG.error("Session factory was null");
             }
 
-            if (log.isDebugEnabled()) {
-                log.debug("Completed database record retrieve for deferred queue manager processing. Results found: "
+            if (LOG.isDebugEnabled()) {
+                LOG.debug("Completed database record retrieve for deferred queue manager processing. Results found: "
                         + ((asyncMsgRecs == null) ? "0" : Integer.toString(asyncMsgRecs.size())));
             }
         } finally {
@@ -299,7 +298,7 @@ public class AsyncMsgRecordDao {
                 try {
                     sess.close();
                 } catch (Throwable t) {
-                    log.error("Failed to close session: " + t.getMessage(), t);
+                    LOG.error("Failed to close session: " + t.getMessage(), t);
                 }
             }
         }
@@ -314,7 +313,7 @@ public class AsyncMsgRecordDao {
      * @return matching records
      */
     public List<AsyncMsgRecord> queryForDeferredQueueSelected() {
-        log.debug("Performing database record retrieve for deferred queue manager selected.");
+        LOG.debug("Performing database record retrieve for deferred queue manager selected.");
 
         List<AsyncMsgRecord> asyncMsgRecs = null;
         Session sess = null;
@@ -327,14 +326,14 @@ public class AsyncMsgRecordDao {
                     Query query = sess.getNamedQuery("queryForDeferredQueueSelected");
                     asyncMsgRecs = query.list();
                 } else {
-                    log.error("Failed to obtain a session from the sessionFactory");
+                    LOG.error("Failed to obtain a session from the sessionFactory");
                 }
             } else {
-                log.error("Session factory was null");
+                LOG.error("Session factory was null");
             }
 
-            if (log.isDebugEnabled()) {
-                log.debug("Completed database record retrieve for deferred queue manager selected. Results found: "
+            if (LOG.isDebugEnabled()) {
+                LOG.debug("Completed database record retrieve for deferred queue manager selected. Results found: "
                         + ((asyncMsgRecs == null) ? "0" : Integer.toString(asyncMsgRecs.size())));
             }
         } finally {
@@ -342,7 +341,7 @@ public class AsyncMsgRecordDao {
                 try {
                     sess.close();
                 } catch (Throwable t) {
-                    log.error("Failed to close session: " + t.getMessage(), t);
+                    LOG.error("Failed to close session: " + t.getMessage(), t);
                 }
             }
         }
@@ -358,7 +357,7 @@ public class AsyncMsgRecordDao {
      * @return matching records
      */
     public List<AsyncMsgRecord> queryByCriteria(QueryDeferredQueueRequestType queryCriteria) {
-        log.debug("Performing database record retrieve using AsyncMsgRecord instance to hold criteria.");
+        LOG.debug("Performing database record retrieve using AsyncMsgRecord instance to hold criteria.");
 
         List<AsyncMsgRecord> asyncMsgRecs = null;
         Session sess = null;
@@ -417,17 +416,17 @@ public class AsyncMsgRecordDao {
                     if (criteriaPopulated) {
                         asyncMsgRecs = criteria.list();
                     } else {
-                        log.error("No query criteria defined.  At least one criteria value must be defined.");
+                        LOG.error("No query criteria defined.  At least one criteria value must be defined.");
                     }
                 } else {
-                    log.error("Failed to obtain a session from the sessionFactory");
+                    LOG.error("Failed to obtain a session from the sessionFactory");
                 }
             } else {
-                log.error("Session factory was null");
+                LOG.error("Session factory was null");
             }
 
-            if (log.isDebugEnabled()) {
-                log.debug("Completed database record retrieve by criteria. Results found: "
+            if (LOG.isDebugEnabled()) {
+                LOG.debug("Completed database record retrieve by criteria. Results found: "
                         + ((asyncMsgRecs == null) ? "0" : Integer.toString(asyncMsgRecs.size())));
             }
         } finally {
@@ -435,7 +434,7 @@ public class AsyncMsgRecordDao {
                 try {
                     sess.close();
                 } catch (Throwable t) {
-                    log.error("Failed to close session: " + t.getMessage(), t);
+                    LOG.error("Failed to close session: " + t.getMessage(), t);
                 }
             }
         }
@@ -451,7 +450,7 @@ public class AsyncMsgRecordDao {
      * @return true - success; false - failure
      */
     public boolean insertRecords(List<AsyncMsgRecord> asyncMsgRecs) {
-        log.debug("AsyncMsgRecordDao.insertRecords() - Begin");
+        LOG.debug("AsyncMsgRecordDao.insertRecords() - Begin");
 
         Session session = null;
         Transaction tx = null;
@@ -466,21 +465,21 @@ public class AsyncMsgRecordDao {
                 session = sessionFactory.openSession();
                 tx = session.beginTransaction();
 
-                log.info("Inserting Record...");
+                LOG.info("Inserting Record...");
 
                 for (int i = 0; i < size; i++) {
                     dbRecord = asyncMsgRecs.get(i);
                     session.persist(dbRecord);
                 }
 
-                log.info("AsyncMsgRecord List Inserted successfully...");
+                LOG.info("AsyncMsgRecord List Inserted successfully...");
                 tx.commit();
             } catch (Exception e) {
                 result = false;
                 if (tx != null) {
                     tx.rollback();
                 }
-                log.error("Error during insertion caused by :" + e.getMessage());
+                LOG.error("Error during insertion caused by :" + e.getMessage());
             } finally {
                 // Actual insertion will happen at this step
                 if (session != null) {
@@ -489,7 +488,7 @@ public class AsyncMsgRecordDao {
             }
         }
 
-        log.debug("AsyncMsgRecordDao.insertRecords() - End");
+        LOG.debug("AsyncMsgRecordDao.insertRecords() - End");
         return result;
     }
 
@@ -500,7 +499,7 @@ public class AsyncMsgRecordDao {
      *            object to save.
      */
     public void save(AsyncMsgRecord asyncMsgRecord) {
-        log.debug("AsyncMsgRecordDao.save() - Begin");
+        LOG.debug("AsyncMsgRecordDao.save() - Begin");
 
         Session sess = null;
         Transaction trans = null;
@@ -512,29 +511,29 @@ public class AsyncMsgRecordDao {
                     trans = sess.beginTransaction();
                     sess.saveOrUpdate(asyncMsgRecord);
                 } else {
-                    log.error("Failed to obtain a session from the sessionFactory");
+                    LOG.error("Failed to obtain a session from the sessionFactory");
                 }
             } else {
-                log.error("Session factory was null");
+                LOG.error("Session factory was null");
             }
         } finally {
             if (trans != null) {
                 try {
                     trans.commit();
                 } catch (Throwable t) {
-                    log.error("Failed to commit transaction: " + t.getMessage(), t);
+                    LOG.error("Failed to commit transaction: " + t.getMessage(), t);
                 }
             }
             if (sess != null) {
                 try {
                     sess.close();
                 } catch (Throwable t) {
-                    log.error("Failed to close session: " + t.getMessage(), t);
+                    LOG.error("Failed to close session: " + t.getMessage(), t);
                 }
             }
         }
 
-        log.debug("AsyncMsgRecordDao.save() - End");
+        LOG.debug("AsyncMsgRecordDao.save() - End");
     }
 
     /**
@@ -544,7 +543,7 @@ public class AsyncMsgRecordDao {
      *            object to save.
      */
     public void save(List<AsyncMsgRecord> asyncMsgRecs) {
-        log.debug("AsyncMsgRecordDao.save(list) - Begin");
+        LOG.debug("AsyncMsgRecordDao.save(list) - Begin");
 
         Session sess = null;
         Transaction trans = null;
@@ -558,38 +557,38 @@ public class AsyncMsgRecordDao {
                     int size = asyncMsgRecs.size();
                     AsyncMsgRecord dbRecord = null;
 
-                    log.info("Saving Records...");
+                    LOG.info("Saving Records...");
 
                     for (int i = 0; i < size; i++) {
                         dbRecord = asyncMsgRecs.get(i);
                         sess.saveOrUpdate(dbRecord);
                     }
 
-                    log.info("AsyncMsgRecord List Saved successfully...");
+                    LOG.info("AsyncMsgRecord List Saved successfully...");
                 } else {
-                    log.error("Failed to obtain a session from the sessionFactory");
+                    LOG.error("Failed to obtain a session from the sessionFactory");
                 }
             } else {
-                log.error("Session factory was null");
+                LOG.error("Session factory was null");
             }
         } finally {
             if (trans != null) {
                 try {
                     trans.commit();
                 } catch (Throwable t) {
-                    log.error("Failed to commit transaction: " + t.getMessage(), t);
+                    LOG.error("Failed to commit transaction: " + t.getMessage(), t);
                 }
             }
             if (sess != null) {
                 try {
                     sess.close();
                 } catch (Throwable t) {
-                    log.error("Failed to close session: " + t.getMessage(), t);
+                    LOG.error("Failed to close session: " + t.getMessage(), t);
                 }
             }
         }
 
-        log.debug("AsyncMsgRecordDao.save(list) - End");
+        LOG.debug("AsyncMsgRecordDao.save(list) - End");
     }
 
     /**
@@ -599,7 +598,7 @@ public class AsyncMsgRecordDao {
      *            object to save.
      */
     public void delete(AsyncMsgRecord asyncMsgRecord) {
-        log.debug("Performing a database record delete on asyncmsgrepo table");
+        LOG.debug("Performing a database record delete on asyncmsgrepo table");
 
         Session sess = null;
         Transaction trans = null;
@@ -611,28 +610,28 @@ public class AsyncMsgRecordDao {
                     trans = sess.beginTransaction();
                     sess.delete(asyncMsgRecord);
                 } else {
-                    log.error("Failed to obtain a session from the sessionFactory");
+                    LOG.error("Failed to obtain a session from the sessionFactory");
                 }
             } else {
-                log.error("Session factory was null");
+                LOG.error("Session factory was null");
             }
         } finally {
             if (trans != null) {
                 try {
                     trans.commit();
                 } catch (Throwable t) {
-                    log.error("Failed to commit transaction: " + t.getMessage(), t);
+                    LOG.error("Failed to commit transaction: " + t.getMessage(), t);
                 }
             }
             if (sess != null) {
                 try {
                     sess.close();
                 } catch (Throwable t) {
-                    log.error("Failed to close session: " + t.getMessage(), t);
+                    LOG.error("Failed to close session: " + t.getMessage(), t);
                 }
             }
         }
-        log.debug("Completed database record delete");
+        LOG.debug("Completed database record delete");
     }
 
     /**
@@ -640,7 +639,7 @@ public class AsyncMsgRecordDao {
      * expiration settings. All expired records will be updated with an expired status.
      */
     public void checkExpiration() {
-        log.debug("AsyncMsgRecordDao.checkExpiration() - Begin");
+        LOG.debug("AsyncMsgRecordDao.checkExpiration() - Begin");
 
         // Read the delta properties from the gateway.properties file
         long value = 0;
@@ -650,18 +649,18 @@ public class AsyncMsgRecordDao {
             value = PropertyAccessor.getInstance().getPropertyLong(NhincConstants.GATEWAY_PROPERTY_FILE,
                     NhincConstants.ASYNC_DB_REC_EXP_VAL_PROP);
         } catch (PropertyAccessException ex) {
-            log.error("Error: Failed to retrieve " + NhincConstants.ASYNC_DB_REC_EXP_VAL_PROP + " from property file: "
+            LOG.error("Error: Failed to retrieve " + NhincConstants.ASYNC_DB_REC_EXP_VAL_PROP + " from property file: "
                     + NhincConstants.GATEWAY_PROPERTY_FILE);
-            log.error(ex.getMessage());
+            LOG.error(ex.getMessage());
         }
 
         try {
             units = PropertyAccessor.getInstance().getProperty(NhincConstants.GATEWAY_PROPERTY_FILE,
                     NhincConstants.ASYNC_DB_REC_EXP_VAL_UNITS_PROP);
         } catch (PropertyAccessException ex) {
-            log.error("Error: Failed to retrieve " + NhincConstants.ASYNC_DB_REC_EXP_VAL_UNITS_PROP
+            LOG.error("Error: Failed to retrieve " + NhincConstants.ASYNC_DB_REC_EXP_VAL_UNITS_PROP
                     + " from property file: " + NhincConstants.GATEWAY_PROPERTY_FILE);
-            log.error(ex.getMessage());
+            LOG.error(ex.getMessage());
         }
 
         // Determine the time to query on
@@ -677,7 +676,7 @@ public class AsyncMsgRecordDao {
             save(rec);
         }
 
-        log.debug("AsyncMsgRecordDao.checkExpiration() - End");
+        LOG.debug("AsyncMsgRecordDao.checkExpiration() - End");
     }
 
     private Date calculateExpirationValue(long value, String units) {

@@ -44,15 +44,14 @@ import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType.DocumentResponse;
 import java.io.IOException;
 import java.util.List;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 
 /**
  * 
  * @author patlollav
  */
 public class DocumentRetrieveClient {
-    private static Log log = LogFactory.getLog(DocumentRetrieveClient.class);;
+    private static final Logger LOG = Logger.getLogger(DocumentRetrieveClient.class);;
     private static final String SERVICE_NAME = NhincConstants.ENTITY_DOC_RETRIEVE_PROXY_SERVICE_NAME;
 
     public String retriveDocument(DocumentInformation documentInformation) {
@@ -68,10 +67,10 @@ public class DocumentRetrieveClient {
 
                 return extractDocument(response);
             } else {
-                log.error("Error getting URL for " + SERVICE_NAME);
+                LOG.error("Error getting URL for " + SERVICE_NAME);
             }
         } catch (Exception ex) {
-            log.error("Error calling respondingGatewayCrossGatewayRetrieve: " + ex.getMessage(), ex);
+            LOG.error("Error calling respondingGatewayCrossGatewayRetrieve: " + ex.getMessage(), ex);
         }
         return null;
     }
@@ -92,7 +91,7 @@ public class DocumentRetrieveClient {
                     byte[] rawData = LargeFileUtils.getInstance().convertToBytes(documentResponse.getDocument());
                     documentInXmlFormat = new String(rawData);
                 } catch (IOException ioe) {
-                    log.error("Failed to retrieve document.", ioe);
+                    LOG.error("Failed to retrieve document.", ioe);
                 }
             }
         }

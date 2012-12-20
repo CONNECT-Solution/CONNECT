@@ -29,8 +29,7 @@ package gov.hhs.fha.nhinc.transform.audit;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 import gov.hhs.fha.nhinc.common.auditlog.LogEventRequestType;
 import com.services.nhinc.schema.auditmessage.AuditMessageType.ActiveParticipant;
 import com.services.nhinc.schema.auditmessage.AuditMessageType;
@@ -54,24 +53,20 @@ import javax.xml.bind.Marshaller;
  * @author dunnek
  */
 public class XDRTransforms {
-    private Log log = null;
-
-    public XDRTransforms() {
-        log = createLogger();
-    }
+    private static final Logger LOG = Logger.getLogger(XDRTransforms.class);
 
     public LogEventRequestType transformRequestToAuditMsg(ProvideAndRegisterDocumentSetRequestType request,
             AssertionType assertion, String direction, String _interface) {
         LogEventRequestType result = null;
         AuditMessageType auditMsg = null;
 
-        log.debug("Begin transformRequestToAuditMsg() -- NHIN");
+        LOG.debug("Begin transformRequestToAuditMsg() -- NHIN");
         if (request == null) {
-            log.error("Requst Object was null");
+            LOG.error("Requst Object was null");
             return null;
         }
         if (assertion == null) {
-            log.error("Assertion was null");
+            LOG.error("Assertion was null");
             return null;
         }
 
@@ -79,7 +74,7 @@ public class XDRTransforms {
         boolean missingReqFields = areRequiredXDSfieldsNull(request, assertion);
 
         if (missingReqFields) {
-            log.error("One or more required fields was missing");
+            LOG.error("One or more required fields was missing");
             return null;
         }
 
@@ -110,7 +105,7 @@ public class XDRTransforms {
         result.setDirection(direction);
         result.setInterface(_interface);
 
-        log.debug("end transformRequestToAuditMsg() -- NHIN");
+        LOG.debug("end transformRequestToAuditMsg() -- NHIN");
         return result;
     }
 
@@ -121,11 +116,11 @@ public class XDRTransforms {
         AuditMessageType auditMsg = null;
 
         if (request == null) {
-            log.error("Requst Object was null");
+            LOG.error("Requst Object was null");
             return null;
         }
         if (assertion == null) {
-            log.error("Assertion was null");
+            LOG.error("Assertion was null");
             return null;
         }
 
@@ -134,7 +129,7 @@ public class XDRTransforms {
                 assertion);
 
         if (missingReqFields) {
-            log.error("One or more required fields was missing");
+            LOG.error("One or more required fields was missing");
             return null;
         }
 
@@ -177,14 +172,14 @@ public class XDRTransforms {
         LogEventRequestType result = null;
         AuditMessageType auditMsg = null;
 
-        log.debug("Begin transformRequestToAuditMsg() -- Entity");
+        LOG.debug("Begin transformRequestToAuditMsg() -- Entity");
 
         if (request == null) {
-            log.error("Requst Object was null");
+            LOG.error("Requst Object was null");
             return null;
         }
         if (assertion == null) {
-            log.error("Assertion was null");
+            LOG.error("Assertion was null");
             return null;
         }
 
@@ -193,7 +188,7 @@ public class XDRTransforms {
                 assertion);
 
         if (missingReqFields) {
-            log.error("One or more required fields was missing");
+            LOG.error("One or more required fields was missing");
             return null;
         }
 
@@ -237,11 +232,11 @@ public class XDRTransforms {
         AuditMessageType auditMsg = null;
 
         if (request == null) {
-            log.error("Requst Object was null");
+            LOG.error("Requst Object was null");
             return null;
         }
         if (assertion == null) {
-            log.error("Assertion was null");
+            LOG.error("Assertion was null");
             return null;
         }
 
@@ -249,7 +244,7 @@ public class XDRTransforms {
         boolean missingReqFields = areRequiredResponseFieldsNull(request.getRegistryResponse(), assertion);
 
         if (missingReqFields) {
-            log.error("One or more required fields was missing");
+            LOG.error("One or more required fields was missing");
             return null;
         }
 
@@ -287,11 +282,11 @@ public class XDRTransforms {
         AuditMessageType auditMsg = null;
 
         if (request == null) {
-            log.error("Requst Object was null");
+            LOG.error("Requst Object was null");
             return null;
         }
         if (assertion == null) {
-            log.error("Assertion was null");
+            LOG.error("Assertion was null");
             return null;
         }
 
@@ -299,7 +294,7 @@ public class XDRTransforms {
         boolean missingReqFields = areRequiredResponseFieldsNull(request.getRegistryResponse(), assertion);
 
         if (missingReqFields) {
-            log.error("One or more required fields was missing");
+            LOG.error("One or more required fields was missing");
             return null;
         }
 
@@ -336,11 +331,11 @@ public class XDRTransforms {
         AuditMessageType auditMsg = null;
 
         if (response == null) {
-            log.error("Requst Object was null");
+            LOG.error("Requst Object was null");
             return null;
         }
         if (assertion == null) {
-            log.error("Assertion was null");
+            LOG.error("Assertion was null");
             return null;
         }
 
@@ -348,7 +343,7 @@ public class XDRTransforms {
         boolean missingReqFields = areRequiredResponseFieldsNull(response, assertion);
 
         if (missingReqFields) {
-            log.error("One or more required fields was missing");
+            LOG.error("One or more required fields was missing");
             return null;
         }
 
@@ -380,67 +375,63 @@ public class XDRTransforms {
 
     }
 
-    protected Log createLogger() {
-        return ((log != null) ? log : LogFactory.getLog(getClass()));
-    }
-
     protected boolean areRequiredXDSfieldsNull(ProvideAndRegisterDocumentSetRequestType body, AssertionType assertion) {
         try {
 
             if (assertion == null) {
-                log.error("Assertion object is null");
+                LOG.error("Assertion object is null");
                 return true;
             }
             if (body == null) {
-                log.error("ProvideAndRegisterDocumentSetRequestType object is null");
+                LOG.error("ProvideAndRegisterDocumentSetRequestType object is null");
                 return true;
             }
 
             if (areRequiredUserTypeFieldsNull(assertion)) {
-                log.error("One of more UserInfo fields from the Assertion object were null.");
+                LOG.error("One of more UserInfo fields from the Assertion object were null.");
                 return true;
             }
 
             if (body.getSubmitObjectsRequest() == null) {
-                log.error("No Registry Object");
+                LOG.error("No Registry Object");
                 return true;
             }
 
             if (body.getSubmitObjectsRequest().getRegistryObjectList() == null) {
-                log.error("No Registry Object List");
+                LOG.error("No Registry Object List");
                 return true;
             }
             if (body.getSubmitObjectsRequest().getRegistryObjectList().getIdentifiable() == null
                     || body.getSubmitObjectsRequest().getRegistryObjectList().getIdentifiable().isEmpty()) {
-                log.error("No Identifiables on Registry Object");
+                LOG.error("No Identifiables on Registry Object");
                 return true;
             }
             return false;
         } catch (Exception ex) {
-            log.error("Encountered Error: " + ex.getMessage());
+            LOG.error("Encountered Error: " + ex.getMessage());
             return true;
         }
     }
 
     protected boolean areRequiredResponseFieldsNull(RegistryResponseType response, AssertionType assertion) {
         if (assertion == null) {
-            log.error("Assertion object is null");
+            LOG.error("Assertion object is null");
             return true;
         }
         if (response == null) {
-            log.error("RegistryResponseType object is null");
+            LOG.error("RegistryResponseType object is null");
             return true;
         }
         if (areRequiredUserTypeFieldsNull(assertion)) {
-            log.error("One of more UserInfo fields from the Assertion object were null.");
+            LOG.error("One of more UserInfo fields from the Assertion object were null.");
             return true;
         }
         if (response.getStatus() == null) {
-            log.error("Response does not contain a status");
+            LOG.error("Response does not contain a status");
             return true;
         }
         if (response.getStatus().isEmpty()) {
-            log.error("Response does not contain a status");
+            LOG.error("Response does not contain a status");
             return true;
         }
 
@@ -452,33 +443,33 @@ public class XDRTransforms {
 
         if ((oAssertion != null) && (oAssertion.getUserInfo() != null)) {
             if (oAssertion.getUserInfo().getUserName() != null) {
-                log.debug("Incomming request.getAssertion.getUserInfo.getUserName: "
+                LOG.debug("Incomming request.getAssertion.getUserInfo.getUserName: "
                         + oAssertion.getUserInfo().getUserName());
             } else {
-                log.error("Incomming request.getAssertion.getUserInfo.getUserName was null.");
+                LOG.error("Incomming request.getAssertion.getUserInfo.getUserName was null.");
                 bReturnVal = true;
                 return true;
             }
 
             if (oAssertion.getUserInfo().getOrg().getHomeCommunityId() != null) {
-                log.debug("Incomming request.getAssertion.getUserInfo.getOrg().getHomeCommunityId(): "
+                LOG.debug("Incomming request.getAssertion.getUserInfo.getOrg().getHomeCommunityId(): "
                         + oAssertion.getUserInfo().getOrg().getHomeCommunityId());
             } else {
-                log.error("Incomming request.getAssertion.getUserInfo.getOrg().getHomeCommunityId() was null.");
+                LOG.error("Incomming request.getAssertion.getUserInfo.getOrg().getHomeCommunityId() was null.");
                 bReturnVal = true;
                 return true;
             }
 
             if (oAssertion.getUserInfo().getOrg().getName() != null) {
-                log.debug("Incomming request.getAssertion.getUserInfo.getOrg().getName() or Community Name: "
+                LOG.debug("Incomming request.getAssertion.getUserInfo.getOrg().getName() or Community Name: "
                         + oAssertion.getUserInfo().getOrg().getName());
             } else {
-                log.error("Incomming request.getAssertion.getUserInfo.getOrg().getName() or Community Name was null.");
+                LOG.error("Incomming request.getAssertion.getUserInfo.getOrg().getName() or Community Name was null.");
                 bReturnVal = true;
                 return true;
             }
         } else {
-            log.error("The UserType object or request assertion object containing the assertion user info was null.");
+            LOG.error("The UserType object or request assertion object containing the assertion user info was null.");
             bReturnVal = true;
             return true;
         } // else continue
@@ -505,14 +496,14 @@ public class XDRTransforms {
         String result = "";
 
         if (request == null) {
-            log.error(("Incoming ProvideAndRegisterDocumentSetRequestType was null"));
+            LOG.error(("Incoming ProvideAndRegisterDocumentSetRequestType was null"));
             return null;
         }
 
         if (request.getSubmitObjectsRequest() == null)
 
         {
-            log.error(("Incoming ProvideAndRegisterDocumentSetRequestType metadata was null"));
+            LOG.error(("Incoming ProvideAndRegisterDocumentSetRequestType metadata was null"));
             return null;
         }
 
@@ -550,7 +541,7 @@ public class XDRTransforms {
     protected void marshalRequestMessage(ByteArrayOutputStream baOutStrm,
             ProvideAndRegisterDocumentSetRequestType request) throws RuntimeException {
         // Put the contents of the actual message into the Audit Log Message
-        log.debug("Begin marshalRequestMessage() -- NHIN Interface");
+        LOG.debug("Begin marshalRequestMessage() -- NHIN Interface");
         try {
             JAXBContextHandler oHandler = new JAXBContextHandler();
             JAXBContext jc = oHandler.getJAXBContext("ihe.iti.xds_b._2007");
@@ -568,7 +559,7 @@ public class XDRTransforms {
             element = factory.createProvideAndRegisterDocumentSetRequest(request);
 
             marshaller.marshal(element, baOutStrm);
-            log.debug("Done marshalling the ProvideAndRegisterDocumentSetRequestType  message.");
+            LOG.debug("Done marshalling the ProvideAndRegisterDocumentSetRequestType  message.");
         } catch (Exception e) {
             e.printStackTrace();
             throw new RuntimeException();
@@ -596,7 +587,7 @@ public class XDRTransforms {
                     request);
 
             marshaller.marshal(element, baOutStrm);
-            log.debug("Done marshalling the message.");
+            LOG.debug("Done marshalling the message.");
         } catch (Exception e) {
             e.printStackTrace();
             throw new RuntimeException();
@@ -625,7 +616,7 @@ public class XDRTransforms {
                     request);
 
             marshaller.marshal(element, baOutStrm);
-            log.debug("Done marshalling the message.");
+            LOG.debug("Done marshalling the message.");
         } catch (Exception e) {
             e.printStackTrace();
             throw new RuntimeException();
@@ -654,7 +645,7 @@ public class XDRTransforms {
                     request);
 
             marshaller.marshal(element, baOutStrm);
-            log.debug("Done marshalling the RespondingGatewayProvideAndRegisterDocumentSetSecuredResponseRequestType message.");
+            LOG.debug("Done marshalling the RespondingGatewayProvideAndRegisterDocumentSetSecuredResponseRequestType message.");
         } catch (Exception e) {
             e.printStackTrace();
             throw new RuntimeException();
@@ -683,7 +674,7 @@ public class XDRTransforms {
                     request);
 
             marshaller.marshal(element, baOutStrm);
-            log.debug("Done marshalling the RespondingGatewayProvideAndRegisterDocumentSetSecuredResponseRequestType message.");
+            LOG.debug("Done marshalling the RespondingGatewayProvideAndRegisterDocumentSetSecuredResponseRequestType message.");
         } catch (Exception e) {
             e.printStackTrace();
             throw new RuntimeException();
@@ -706,9 +697,9 @@ public class XDRTransforms {
             element = new JAXBElement<RegistryResponseType>(xmlqname, RegistryResponseType.class, response);
 
             marshaller.marshal(element, baOutStrm);
-            log.debug("Done marshalling the message.");
+            LOG.debug("Done marshalling the message.");
         } catch (Exception e) {
-            log.error("Exception while marshalling Acknowledgement", e);
+            LOG.error("Exception while marshalling Acknowledgement", e);
             throw new RuntimeException();
         }
     }
@@ -729,9 +720,9 @@ public class XDRTransforms {
             element = new JAXBElement<XDRAcknowledgementType>(xmlqname, XDRAcknowledgementType.class, acknowledgement);
 
             marshaller.marshal(element, baOutStrm);
-            log.debug("Done marshalling the message.");
+            LOG.debug("Done marshalling the message.");
         } catch (Exception e) {
-            log.error("Exception while marshalling Acknowledgement", e);
+            LOG.error("Exception while marshalling Acknowledgement", e);
             throw new RuntimeException();
         }
     }
@@ -829,12 +820,12 @@ public class XDRTransforms {
         AuditMessageType auditMsg = null;
 
         if (acknowledgement == null) {
-            log.error("Acknowledgement is null");
+            LOG.error("Acknowledgement is null");
             return null;
         }
 
         if (assertion == null) {
-            log.error("Assertion is null");
+            LOG.error("Assertion is null");
             return null;
         }
 
@@ -842,7 +833,7 @@ public class XDRTransforms {
         boolean missingReqFields = areRequiredAcknowledgementFieldsNull(acknowledgement, assertion);
 
         if (missingReqFields) {
-            log.error("One or more required fields was missing");
+            LOG.error("One or more required fields was missing");
             return null;
         }
 
@@ -889,19 +880,19 @@ public class XDRTransforms {
     protected boolean areRequiredAcknowledgementFieldsNull(XDRAcknowledgementType acknowledgement,
             AssertionType assertion) {
         if (assertion == null) {
-            log.error("Assertion object is null");
+            LOG.error("Assertion object is null");
             return true;
         }
         if (acknowledgement == null) {
-            log.error("Acknowledge object is null");
+            LOG.error("Acknowledge object is null");
             return true;
         }
         if (areRequiredUserTypeFieldsNull(assertion)) {
-            log.error("One of more UserInfo fields from the Assertion object were null.");
+            LOG.error("One of more UserInfo fields from the Assertion object were null.");
             return true;
         }
         if (acknowledgement.getMessage() == null) {
-            log.error("Acknowledgement does not contain a message");
+            LOG.error("Acknowledgement does not contain a message");
             return true;
         }
 

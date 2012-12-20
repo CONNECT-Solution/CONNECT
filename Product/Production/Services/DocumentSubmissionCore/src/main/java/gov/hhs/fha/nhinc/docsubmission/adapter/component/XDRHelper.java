@@ -39,8 +39,7 @@ import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryError;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryErrorList;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 
 import gov.hhs.fha.nhinc.docsubmission.adapter.component.routing.RoutingObjectFactory;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
@@ -51,7 +50,7 @@ import gov.hhs.fha.nhinc.properties.PropertyAccessor;
  * @author dunnek
  */
 public class XDRHelper {
-    private static Log log = null;
+    private static final Logger LOG = Logger.getLogger(XDRHelper.class);
 
     public static String XDR_EC_XDSMissingDocument = "XDSMissingDocument";
     public static String XDR_EC_XDSMissingDocumentMetadata = "XDSMissingDocumentMetadata";
@@ -112,13 +111,9 @@ public class XDRHelper {
     public static final String XDS_REPOSITORY_ERROR = "An error occurred while storing a document to the repository.";
     public static final String XDS_ASSOCIATION_TYPE_REPLACE = "urn:oasis:names:tc:ebxml-regrep:AssociationType:RPLC";
 
-    public XDRHelper() {
-        log = createLogger();
-    }
-
     public RegistryResponseType createErrorResponse(RegistryErrorList errorList) {
         RegistryResponseType result = new RegistryResponseType();
-        log.debug("begin createErrorResponse()");
+        LOG.debug("begin createErrorResponse()");
         result.setStatus(XDS_RETRIEVE_RESPONSE_STATUS_FAILURE);
         result.setRegistryErrorList(errorList);
 
@@ -136,7 +131,7 @@ public class XDRHelper {
     public RegistryErrorList validateDocumentMetaData(ProvideAndRegisterDocumentSetRequestType body) {
         RegistryErrorList result = new RegistryErrorList();
 
-        log.debug("begin validateDocumentMetaData()");
+        LOG.debug("begin validateDocumentMetaData()");
         if (body == null) {
             RegistryError error = createRegistryError(XDR_EC_XDSMissingDocument, NhincConstants.XDS_REGISTRY_ERROR_SEVERITY_ERROR,
                     "ProvideAndRegisterDocumentSetRequestType was null");
@@ -210,7 +205,7 @@ public class XDRHelper {
 
         List<String> result = new ArrayList<String>();
 
-        log.debug("begin getIntendedRecepients()");
+        LOG.debug("begin getIntendedRecepients()");
         if (body == null || body.getSubmitObjectsRequest() == null) {
             return null;
         }
@@ -230,10 +225,10 @@ public class XDRHelper {
 
             }
         } catch (Exception ex) {
-            log.error("Unable to pull intended recipients" + ex.getMessage());
+            LOG.error("Unable to pull intended recipients" + ex.getMessage());
         }
 
-        log.debug("Found " + result.size() + " recipients");
+        LOG.debug("Found " + result.size() + " recipients");
         return result;
     }
 
@@ -261,7 +256,7 @@ public class XDRHelper {
             result.add(RoutingObjectFactory.BEAN_REFERENCE_IMPLEMENTATION);
         }
 
-        log.debug("Found " + result.size() + " beans");
+        LOG.debug("Found " + result.size() + " beans");
         return result;
     }
 
@@ -271,7 +266,7 @@ public class XDRHelper {
         try {
             checkIds = PropertyAccessor.getInstance().getPropertyBoolean("adapter", "XDR.CheckPatientIdsMatch");
         } catch (Exception ex) {
-            log.error("Unable to load XDR.CheckPatientIdsMatch");
+            LOG.error("Unable to load XDR.CheckPatientIdsMatch");
         }
 
         return checkIds;
@@ -303,10 +298,6 @@ public class XDRHelper {
         }
 
         return mimeArray;
-    }
-
-    protected Log createLogger() {
-        return ((log != null) ? log : LogFactory.getLog(getClass()));
     }
 
     private boolean isDocIdPresent(List<ProvideAndRegisterDocumentSetRequestType.Document> documents, String docId) {
@@ -407,11 +398,11 @@ public class XDRHelper {
     private SlotType1 getNamedSlotItem(List<SlotType1> slots, String name) {
         SlotType1 result = null;
 
-        log.debug("begin getNamedSlotItem()");
+        LOG.debug("begin getNamedSlotItem()");
         for (SlotType1 slot : slots) {
             if (slot.getName().equalsIgnoreCase(name)) {
                 result = slot;
-                log.info("Slot=" + result.getName());
+                LOG.info("Slot=" + result.getName());
                 break;
             }
         }

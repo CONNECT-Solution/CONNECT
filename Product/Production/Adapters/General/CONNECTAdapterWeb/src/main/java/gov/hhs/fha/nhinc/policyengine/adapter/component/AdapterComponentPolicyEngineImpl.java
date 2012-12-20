@@ -30,8 +30,8 @@ import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyResponseType;
 import gov.hhs.fha.nhinc.policyengine.adapter.orchestrator.AdapterPolicyEngineOrchestratorImpl;
 import javax.xml.ws.WebServiceContext;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+
+import org.apache.log4j.Logger;
 
 /**
  * 
@@ -39,15 +39,7 @@ import org.apache.commons.logging.LogFactory;
  */
 public class AdapterComponentPolicyEngineImpl {
 
-    private Log log = null;
-
-    public AdapterComponentPolicyEngineImpl() {
-        log = createLogger();
-    }
-
-    protected Log createLogger() {
-        return LogFactory.getLog(getClass());
-    }
+    private static final Logger LOG = Logger.getLogger(AdapterComponentPolicyEngineImpl.class);
 
     protected AdapterPolicyEngineOrchestratorImpl getAdapterPolicyEngineOrchestratorImpl() {
         return new AdapterPolicyEngineOrchestratorImpl();
@@ -78,7 +70,7 @@ public class AdapterComponentPolicyEngineImpl {
         } catch (Exception e) {
             String sMessage = "Error occurred calling AdapterPolicyEngineOrchestratorLib.checkPolicy.  Error: "
                     + e.getMessage();
-            log.error(sMessage, e);
+            LOG.error(sMessage, e);
             throw new RuntimeException(sMessage, e);
         }
         return checkPolicyResp;

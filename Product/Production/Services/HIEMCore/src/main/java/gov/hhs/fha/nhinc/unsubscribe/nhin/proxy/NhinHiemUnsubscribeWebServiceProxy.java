@@ -42,8 +42,7 @@ import gov.hhs.fha.nhinc.nhinclib.NhincConstants.GATEWAY_API_LEVEL;
 import gov.hhs.fha.nhinc.unsubscribe.nhin.proxy.service.NhinHiemUnsubscribeServicePortDescriptor;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 import org.oasis_open.docs.wsn.b_2.Unsubscribe;
 import org.oasis_open.docs.wsn.b_2.UnsubscribeResponse;
 import org.oasis_open.docs.wsn.bw_2.SubscriptionManager;
@@ -56,7 +55,7 @@ import org.oasis_open.docs.wsrf.rw_2.ResourceUnknownFault;
  */
 public class NhinHiemUnsubscribeWebServiceProxy implements NhinHiemUnsubscribeProxy {
 
-    private static Log log = LogFactory.getLog(NhinHiemUnsubscribeWebServiceProxy.class);
+    private static final Logger LOG = Logger.getLogger(NhinHiemUnsubscribeWebServiceProxy.class);
 
     protected CONNECTClient<SubscriptionManager> getCONNECTClientSecured(
             ServicePortDescriptor<SubscriptionManager> portDescriptor, String url, AssertionType assertion,
@@ -77,10 +76,10 @@ public class NhinHiemUnsubscribeWebServiceProxy implements NhinHiemUnsubscribePr
             String url = ConnectionManagerCache.getInstance().getEndpointURLFromNhinTarget(target,
                     NhincConstants.HIEM_SUBSCRIPTION_MANAGER_SERVICE_NAME);
             if (NullChecker.isNullish(url)) {
-                log.error("Error: Failed to retrieve url for service: "
+                LOG.error("Error: Failed to retrieve url for service: "
                         + NhincConstants.HIEM_SUBSCRIPTION_MANAGER_SERVICE_NAME);
             } else if (target == null) {
-                log.error("Target system passed into the proxy is null");
+                LOG.error("Target system passed into the proxy is null");
             } else {
 
                 String wsAddressingTo = ReferenceParametersHelper.getWsAddressingTo(referenceParametersElements);
@@ -106,7 +105,7 @@ public class NhinHiemUnsubscribeWebServiceProxy implements NhinHiemUnsubscribePr
             }
 
         } catch (Exception ex) {
-            log.error("Failed to send unsubscribe to remote gateway.", ex);
+            LOG.error("Failed to send unsubscribe to remote gateway.", ex);
         }
 
         return response;

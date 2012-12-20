@@ -45,8 +45,8 @@ import oasis.names.tc.ebxml_regrep.xsd.rim._3.RegistryObjectListType;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.SlotType1;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.ValueListType;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.ObjectFactory;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+
+import org.apache.log4j.Logger;
 
 /**
  * 
@@ -55,18 +55,10 @@ import org.apache.commons.logging.LogFactory;
 public class DocQueryResponseProcessor {
     private static final String EBXML_DOCENTRY_PATIENT_ID = "$XDSDocumentEntryPatientId";
     private static final String EBXML_RESPONSE_TYPECODE_CLASS_SCHEME = "urn:uuid:f0306f51-975f-434e-a61c-c59651d33983";
-    private Log log = null;
+    private static final Logger LOG = Logger.getLogger(DocQueryResponseProcessor.class);
     private String patientId;
     private String assigningAuthorityId;
     private String homeCommunityId;
-
-    public DocQueryResponseProcessor() {
-        log = createLogger();
-    }
-
-    protected Log createLogger() {
-        return LogFactory.getLog(getClass());
-    }
 
     protected PatientConsentHelper getPatientConsentHelper() {
         return new PatientConsentHelper();
@@ -98,41 +90,41 @@ public class DocQueryResponseProcessor {
 
     public AdhocQueryResponse filterAdhocQueryResults(AdhocQueryRequest adhocQueryRequest,
             AdhocQueryResponse adhocQueryResponse) {
-        log.debug("Begin filterAdhocQueryResults");
+        LOG.debug("Begin filterAdhocQueryResults");
         AdhocQueryResponse response = null;
         if (adhocQueryRequest == null) {
-            log.warn("AdhocQueryRequest was null.");
+            LOG.warn("AdhocQueryRequest was null.");
         } else if (adhocQueryResponse == null) {
-            log.warn("AdhocQueryResponse was null.");
+            LOG.warn("AdhocQueryResponse was null.");
 
         } else {
             extractIdentifiers(adhocQueryRequest);
             if ((patientId != null) && (!patientId.isEmpty())) {
                 PatientConsentHelper patientConsentHelper = getPatientConsentHelper();
                 if (patientConsentHelper == null) {
-                    log.warn("PatientConsentHelper was null.");
+                    LOG.warn("PatientConsentHelper was null.");
                 } else {
                     PatientPreferencesType patientPreferences = patientConsentHelper.retrievePatientConsentbyPatientId(
                             patientId, assigningAuthorityId);
                     if (patientPreferences == null) {
-                        log.warn("PatientPreferences was null.");
+                        LOG.warn("PatientPreferences was null.");
                     } else {
                         response = filterResults(adhocQueryResponse, patientPreferences);
                     }
                 }
             } else {
-                log.info("Not a patient-centric query.");
+                LOG.info("Not a patient-centric query.");
                 response = filterResultsNonPatientCentric(adhocQueryResponse);
             }
         }
-        log.debug("End filterAdhocQueryResults");
+        LOG.debug("End filterAdhocQueryResults");
         return response;
     }
 
     protected void extractIdentifiers(AdhocQueryRequest adhocQueryRequest) {
-        log.debug("Begin extractIdentifiers");
+        LOG.debug("Begin extractIdentifiers");
         if (adhocQueryRequest == null) {
-            log.warn("AdhocQueryRequest was null.");
+            LOG.warn("AdhocQueryRequest was null.");
         } else {
             AdhocQueryType adhocQuery = adhocQueryRequest.getAdhocQuery();
             if (adhocQuery != null) {
@@ -151,11 +143,11 @@ public class DocQueryResponseProcessor {
             }
         }
 
-        log.debug("End extractIdentifiers");
+        LOG.debug("End extractIdentifiers");
     }
 
     protected List<String> extractSlotValues(List<SlotType1> slots, String slotName) {
-        log.debug("Begin extractSlotValues");
+        LOG.debug("Begin extractSlotValues");
         List<String> returnValues = null;
         if (slots != null) {
             for (SlotType1 slot : slots) {
@@ -174,21 +166,21 @@ public class DocQueryResponseProcessor {
 
             }
         }
-        log.debug("End extractSlotValues");
+        LOG.debug("End extractSlotValues");
         return returnValues;
     }
 
     protected AdhocQueryResponse filterResultsNonPatientCentric(AdhocQueryResponse adhocQueryResponse) {
-        log.debug("In filterResultsNonPatientCentric");
+        LOG.debug("In filterResultsNonPatientCentric");
         return filterResults(adhocQueryResponse, null);
     }
 
     protected AdhocQueryResponse filterResults(AdhocQueryResponse adhocQueryResponse,
             PatientPreferencesType patientPreferences) {
-        log.debug("Begin filterResults");
+        LOG.debug("Begin filterResults");
         AdhocQueryResponse response = null;
         if (adhocQueryResponse == null) {
-            log.warn("AdhocQueryResponse was null.");
+            LOG.warn("AdhocQueryResponse was null.");
         } else {
             ObjectFactory rimObjectFactory = new ObjectFactory();
             response = new AdhocQueryResponse();
@@ -215,7 +207,7 @@ public class DocQueryResponseProcessor {
                             workingPatientPreferences = patientPreferences;
                         }
                         if (documentAllowed(oExtObj, workingPatientPreferences)) {
-                            log.debug("Adding document query response to the list.");
+                            LOG.debug("Adding document query response to the list.");
                             if (registryObjectList == null) {
                                 registryObjectList = new RegistryObjectListType();
                                 response.setRegistryObjectList(registryObjectList);
@@ -223,24 +215,24 @@ public class DocQueryResponseProcessor {
                             registryObjectList.getIdentifiable().add(rimObjectFactory.createExtrinsicObject(oExtObj));
                             docCount++;
                         } else {
-                            log.debug("Skipping document");
+                            LOG.debug("Skipping document");
                         }
                     }
                 }
                 response.setTotalResultCount(BigInteger.valueOf(docCount));
             } else {
-                log.info("RegistryObjectList was null.");
+                LOG.info("RegistryObjectList was null.");
             }
 
         }
-        log.debug("End filterResults");
+        LOG.debug("End filterResults");
         return response;
     }
 
     protected PatientPreferencesType retrievePatientPreferencesForDocument(ExtrinsicObjectType oExtObj) {
         PatientPreferencesType patientPreferences = null;
         if (oExtObj == null) {
-            log.error("Extrinsic Object was null.");
+            LOG.error("Extrinsic Object was null.");
         } else {
             String documentId = extractDocumentId(oExtObj);
             String repositoryId = extractRepositoryId(oExtObj);
@@ -251,7 +243,7 @@ public class DocQueryResponseProcessor {
     }
 
     protected String extractDocumentId(ExtrinsicObjectType oExtObj) {
-        log.debug("Begin extractDocumentId");
+        LOG.debug("Begin extractDocumentId");
         String documentId = null;
         if (!oExtObj.getExternalIdentifier().isEmpty()) {
             List<ExternalIdentifierType> olExtId = oExtObj.getExternalIdentifier();
@@ -263,12 +255,12 @@ public class DocQueryResponseProcessor {
                 }
             }
         }
-        log.debug("End extractDocumentId - returning: " + documentId);
+        LOG.debug("End extractDocumentId - returning: " + documentId);
         return documentId;
     }
 
     protected String extractRepositoryId(ExtrinsicObjectType oExtObj) {
-        log.debug("Begin extractRepositoryId");
+        LOG.debug("Begin extractRepositoryId");
         String repositoryId = null;
         if (!oExtObj.getSlot().isEmpty()) {
             List<SlotType1> slots = oExtObj.getSlot();
@@ -283,12 +275,12 @@ public class DocQueryResponseProcessor {
                 }
             }
         }
-        log.debug("End extractRepositoryId - returning: " + repositoryId);
+        LOG.debug("End extractRepositoryId - returning: " + repositoryId);
         return repositoryId;
     }
 
     protected String extractDocumentType(ExtrinsicObjectType oExtObj) {
-        log.debug("Begin extractDocumentType");
+        LOG.debug("Begin extractDocumentType");
         String documentType = null;
         if (!oExtObj.getClassification().isEmpty()) {
             List<ClassificationType> classifications = oExtObj.getClassification();
@@ -300,16 +292,16 @@ public class DocQueryResponseProcessor {
                 }
             }
         }
-        log.debug("End extractDocumentType - returning: " + documentType);
+        LOG.debug("End extractDocumentType - returning: " + documentType);
         return documentType;
     }
 
     protected boolean documentAllowed(ExtrinsicObjectType extObject, PatientPreferencesType patientPreferences) {
-        log.debug("Begin documentAllowed");
+        LOG.debug("Begin documentAllowed");
         boolean allowed = false;
         String documentTypeCode = extractDocumentType(extObject);
         allowed = getPatientConsentHelper().documentSharingAllowed(documentTypeCode, patientPreferences);
-        log.debug("End documentAllowed - response: " + allowed);
+        LOG.debug("End documentAllowed - response: " + allowed);
         return allowed;
     }
 

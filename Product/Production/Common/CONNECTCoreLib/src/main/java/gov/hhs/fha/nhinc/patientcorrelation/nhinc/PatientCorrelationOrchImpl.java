@@ -54,6 +54,7 @@ import gov.hhs.fha.nhinc.patientcorrelation.nhinc.parsers.PRPAIN201301UV.PRPAIN2
 import gov.hhs.fha.nhinc.patientcorrelation.nhinc.parsers.PRPAIN201309UV.PRPAIN201309UVParser;
 import gov.hhs.fha.nhinc.patientcorrelation.nhinc.parsers.PRPAIN201309UV.PixRetrieveResponseBuilder;
 
+import org.apache.log4j.Logger;
 /**
  *
  *
@@ -63,8 +64,7 @@ import gov.hhs.fha.nhinc.patientcorrelation.nhinc.parsers.PRPAIN201309UV.PixRetr
 
 public class PatientCorrelationOrchImpl implements PatientCorrelationOrch {
 
-    private static org.apache.commons.logging.Log log = org.apache.commons.logging.LogFactory
-            .getLog(PatientCorrelationOrchImpl.class);
+    private static final Logger LOG = Logger.getLogger(PatientCorrelationOrchImpl.class);
     private final CorrelatedIdentifiersDao dao;
     public PatientCorrelationOrchImpl(CorrelatedIdentifiersDao dao) {
         this.dao = dao;
@@ -80,11 +80,11 @@ public class PatientCorrelationOrchImpl implements PatientCorrelationOrch {
         }
         List<II> listII = patIdentifier.getValue();
         if (listII == null) {
-            log.warn("patient identifier was null");
+            LOG.warn("patient identifier was null");
             return null;
         }
         if (listII.get(0) == null) {
-            log.warn("patient identifier(0) was null");
+            LOG.warn("patient identifier(0) was null");
             return null;
         }
         II inputPatientId = listII.get(0);
@@ -112,47 +112,47 @@ public class PatientCorrelationOrchImpl implements PatientCorrelationOrch {
         String correlatedPatientId = "";
         String correlatedPatientAssigningAuthId = "";
         if (patient == null) {
-            log.warn("Patient was null");
+            LOG.warn("Patient was null");
             return null;
         }
         List<II> ids = patient.getId();
         if (ids == null) {
-            log.warn("id's were null");
+            LOG.warn("id's were null");
             return null;
         }
 
         if (ids.get(0) == null) {
-            log.warn("id(0) was null");
+            LOG.warn("id(0) was null");
             return null;
         }
         if (ids.get(1) == null) {
-            log.warn("id(1) was null");
+            LOG.warn("id(1) was null");
             return null;
         }
         patientId = ids.get(0).getExtension();
         if (patientId != null && !patientId.equals("")) {
         } else {
-            log.warn("patient id was not supplied");
+            LOG.warn("patient id was not supplied");
             return null;
         }
         patientAssigningAuthId = ids.get(0).getRoot();
         if (patientAssigningAuthId != null && !patientAssigningAuthId.equals("")) {
-            log.warn("patientAssigningAuthId: " + patientAssigningAuthId);
+            LOG.warn("patientAssigningAuthId: " + patientAssigningAuthId);
         } else {
-            log.warn("patient assigning authority was not supplied");
+            LOG.warn("patient assigning authority was not supplied");
             return null;
         }
         correlatedPatientId = ids.get(1).getExtension();
         if (correlatedPatientId != null & !correlatedPatientId.equals("")) {
         } else {
-            log.warn("correlatedPatientId was not supplied");
+            LOG.warn("correlatedPatientId was not supplied");
             return null;
         }
         correlatedPatientAssigningAuthId = ids.get(1).getRoot();
         if (correlatedPatientAssigningAuthId != null && !correlatedPatientAssigningAuthId.equals("")) {
-            log.warn("correlatedPatientAssigningAuthId: " + correlatedPatientAssigningAuthId);
+            LOG.warn("correlatedPatientAssigningAuthId: " + correlatedPatientAssigningAuthId);
         } else {
-            log.warn("correlatedPatientId assigning authority was not supplied");
+            LOG.warn("correlatedPatientId assigning authority was not supplied");
             return null;
         }
 
@@ -214,7 +214,7 @@ public class PatientCorrelationOrchImpl implements PatientCorrelationOrch {
     public static Date calculateCorrelationExpirationDate(String assigningAuthority) {
         ExpirationConfiguration pcConfig;
         pcConfig = new ConfigurationManager().loadExpirationConfiguration();
-        log.debug("assigningAuthorityId = " + assigningAuthority);
+        LOG.debug("assigningAuthorityId = " + assigningAuthority);
         Expiration exp = new ConfigurationManager().loadConfiguration(pcConfig, assigningAuthority);
         return calculateCorrelationExpirationDate(exp);
     }
@@ -222,15 +222,15 @@ public class PatientCorrelationOrchImpl implements PatientCorrelationOrch {
     public static Date calculateCorrelationExpirationDate(Expiration config) {
         Date result = null;
         if (config != null) {
-            log.debug(" Expiration = " + config.getDuration());
+            LOG.debug(" Expiration = " + config.getDuration());
             try {
                 result = getExpirationDate(config.getUnits(), config.getDuration());
             } catch (Exception ex) {
-                log.error(ex.getMessage(), ex);
+                LOG.error(ex.getMessage(), ex);
                 result = null;
             }
         }
-        log.debug("Expiration Date = " + result);
+        LOG.debug("Expiration Date = " + result);
         return result;
     }
 

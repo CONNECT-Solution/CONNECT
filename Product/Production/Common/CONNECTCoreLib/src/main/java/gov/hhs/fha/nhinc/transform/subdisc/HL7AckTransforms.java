@@ -30,8 +30,7 @@ import java.util.List;
 
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import org.hl7.v3.*;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 
 /**
  * 
@@ -39,7 +38,7 @@ import org.apache.commons.logging.LogFactory;
  */
 public class HL7AckTransforms {
 
-    private static Log log = LogFactory.getLog(HL7AckTransforms.class);
+    private static final Logger LOG = Logger.getLogger(HL7AckTransforms.class);
 
     public static final String ACK_DETAIL_TYPE_CODE_ERROR = "E";
     public static final String ACK_DETAIL_TYPE_CODE_INFO = "I";
@@ -203,7 +202,7 @@ public class HL7AckTransforms {
         if (NullChecker.isNotNullish(msgText)
                 || (origMsgId != null && NullChecker.isNotNullish(origMsgId.getRoot()) && NullChecker
                         .isNotNullish(origMsgId.getExtension()))) {
-            log.debug("Adding Acknowledgement Section");
+            LOG.debug("Adding Acknowledgement Section");
             ackMsg.getAcknowledgement().add(createAcknowledgement(origMsgId, ackTypeCode, msgText));
         }
 
@@ -243,7 +242,7 @@ public class HL7AckTransforms {
         MCCIMT000200UV01TargetMessage targetMsg = new MCCIMT000200UV01TargetMessage();
 
         if (msgId != null) {
-            log.debug("Setting original message id, root: " + msgId.getRoot() + ", extension: " + msgId.getExtension());
+            LOG.debug("Setting original message id, root: " + msgId.getRoot() + ", extension: " + msgId.getExtension());
             targetMsg.setId(msgId);
         }
 
@@ -279,7 +278,7 @@ public class HL7AckTransforms {
             // Set the acknowledge message text
             EDExplicit msg = new EDExplicit();
 
-            log.debug("Setting ack message text: " + msgText);
+            LOG.debug("Setting ack message text: " + msgText);
             msg.getContent().add(msgText);
             ackDetail.setText(msg);
         }

@@ -30,8 +30,7 @@ import gov.hhs.fha.nhinc.properties.HibernateAccessor;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import java.io.File;
 import java.io.Serializable;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
@@ -44,7 +43,7 @@ import org.hibernate.Transaction;
  * @author Neil Webb, Les Westberg
  */
 public class HibernateUtil {
-    private static Log log = LogFactory.getLog(HibernateUtil.class);
+    private static final Logger LOG = Logger.getLogger(HibernateUtil.class);
     private static final SessionFactory sessionFactory;
 
     static {
@@ -53,7 +52,7 @@ public class HibernateUtil {
             sessionFactory = new Configuration().configure(getConfigFile()).buildSessionFactory();
         } catch (Throwable ex) {
             // Make sure you log the exception, as it might be swallowed
-            System.err.println("Initial SessionFactory creation failed." + ex);
+            LOG.error("Initial SessionFactory creation failed.", ex);
             throw new ExceptionInInitializerError(ex);
         }
     }
@@ -85,7 +84,7 @@ public class HibernateUtil {
             sLocalObjId = sObjectId;
         }
 
-        log.debug("Performing save for " + sObjectIdFieldName + ": " + sLocalObjId);
+        LOG.debug("Performing save for " + sObjectIdFieldName + ": " + sLocalObjId);
         Session oSession = null;
         Transaction oTransaction = null;
         try {
@@ -96,18 +95,18 @@ public class HibernateUtil {
                     oTransaction = oSession.beginTransaction();
                     oSession.saveOrUpdate(oObject);
                 } else {
-                    log.error("Failed to obtain a session from the sessionFactory while saving " + sObjectIdFieldName
+                    LOG.error("Failed to obtain a session from the sessionFactory while saving " + sObjectIdFieldName
                             + ": " + sLocalObjId);
                 }
             } else {
-                log.error("Session factory was null while saving " + sObjectIdFieldName + ": " + sLocalObjId);
+                LOG.error("Session factory was null while saving " + sObjectIdFieldName + ": " + sLocalObjId);
             }
         } finally {
             if (oTransaction != null) {
                 try {
                     oTransaction.commit();
                 } catch (Throwable t) {
-                    log.error("Failed to commit transaction for " + sObjectIdFieldName + ": " + sLocalObjId
+                    LOG.error("Failed to commit transaction for " + sObjectIdFieldName + ": " + sLocalObjId
                             + ".  Message: " + t.getMessage(), t);
                 }
             }
@@ -115,13 +114,13 @@ public class HibernateUtil {
                 try {
                     oSession.close();
                 } catch (Throwable t) {
-                    log.error("Failed to close session for " + sObjectIdFieldName + ": " + sLocalObjId + ".  Message: "
+                    LOG.error("Failed to close session for " + sObjectIdFieldName + ": " + sLocalObjId + ".  Message: "
                             + t.getMessage(), t);
                 }
             }
         }
 
-        log.debug("Completed document save for " + sObjectIdFieldName + ": " + sLocalObjId);
+        LOG.debug("Completed document save for " + sObjectIdFieldName + ": " + sLocalObjId);
     }
 
     /**
@@ -133,7 +132,7 @@ public class HibernateUtil {
      *            purposes.
      */
     public static void delete(Object oObject, String sObjectId, String sObjectIdFieldName) {
-        log.debug("Performing delete for " + sObjectIdFieldName + ": " + sObjectId);
+        LOG.debug("Performing delete for " + sObjectIdFieldName + ": " + sObjectId);
 
         Session oSession = null;
         Transaction oTransaction = null;
@@ -146,11 +145,11 @@ public class HibernateUtil {
                     oTransaction = oSession.beginTransaction();
                     oSession.delete(oObject);
                 } else {
-                    log.error("Failed to obtain a session from the sessionFactory " + "while deleting "
+                    LOG.error("Failed to obtain a session from the sessionFactory " + "while deleting "
                             + sObjectIdFieldName + ": " + sObjectId);
                 }
             } else {
-                log.error("Session factory was null while attempting to delete " + sObjectIdFieldName + ": "
+                LOG.error("Session factory was null while attempting to delete " + sObjectIdFieldName + ": "
                         + sObjectId);
             }
         } finally {
@@ -159,7 +158,7 @@ public class HibernateUtil {
                     oTransaction.commit();
 
                 } catch (Throwable t) {
-                    log.error("Failed to commit transaction for " + sObjectIdFieldName + ": " + sObjectId
+                    LOG.error("Failed to commit transaction for " + sObjectIdFieldName + ": " + sObjectId
                             + ".  Message: " + t.getMessage(), t);
                 }
             }
@@ -167,13 +166,13 @@ public class HibernateUtil {
                 try {
                     oSession.close();
                 } catch (Throwable t) {
-                    log.error("Failed to close session for " + sObjectIdFieldName + ": " + sObjectId + ".  Message: "
+                    LOG.error("Failed to close session for " + sObjectIdFieldName + ": " + sObjectId + ".  Message: "
                             + t.getMessage(), t);
                 }
             }
         }
 
-        log.debug("Completed delete for " + sObjectIdFieldName + ": " + sObjectId);
+        LOG.debug("Completed delete for " + sObjectIdFieldName + ": " + sObjectId);
     }
 
     /**
@@ -187,7 +186,7 @@ public class HibernateUtil {
      * @return The retrieved data. The caller is responsible to cast this to the correct type..
      */
     public static Object findById(Class oClass, Serializable oObjectId, String sObjectId, String sObjectIdFieldName) {
-        log.debug("Performing findById(" + sObjectId + ").");
+        LOG.debug("Performing findById(" + sObjectId + ").");
         Object oObject = null;
         Session oSession = null;
         try {
@@ -197,15 +196,15 @@ public class HibernateUtil {
                 if (oSession != null) {
                     oObject = oSession.get(oClass, oObjectId);
                 } else {
-                    log.error("Failed to obtain a session from the sessionFactory " + "while retrieving "
+                    LOG.error("Failed to obtain a session from the sessionFactory " + "while retrieving "
                             + sObjectIdFieldName + ":" + sObjectId);
                 }
             } else {
-                log.error("Session factory was null while retrieving " + sObjectIdFieldName + ": " + sObjectId);
+                LOG.error("Session factory was null while retrieving " + sObjectIdFieldName + ": " + sObjectId);
             }
 
-            if (log.isDebugEnabled()) {
-                log.debug("Completed findById(" + sObjectId + ")" + ". Result was: "
+            if (LOG.isDebugEnabled()) {
+                LOG.debug("Completed findById(" + sObjectId + ")" + ". Result was: "
                         + ((oObject == null) ? "not " : "") + "found");
             }
         } finally {
@@ -213,7 +212,7 @@ public class HibernateUtil {
                 try {
                     oSession.close();
                 } catch (Throwable t) {
-                    log.error("Failed to close session for " + sObjectIdFieldName + ":" + sObjectId + ".  Message: "
+                    LOG.error("Failed to close session for " + sObjectIdFieldName + ":" + sObjectId + ".  Message: "
                             + t.getMessage(), t);
                 }
             }
@@ -227,7 +226,7 @@ public class HibernateUtil {
         try {
             result = HibernateAccessor.getInstance().getHibernateFile(NhincConstants.HIBERNATE_AGGREGATOR_REPOSITORY);
         } catch (Exception ex) {
-            log.error("Unable to load " + NhincConstants.HIBERNATE_AGGREGATOR_REPOSITORY + " " + ex.getMessage(), ex);
+            LOG.error("Unable to load " + NhincConstants.HIBERNATE_AGGREGATOR_REPOSITORY + " " + ex.getMessage(), ex);
         }
 
         return result;

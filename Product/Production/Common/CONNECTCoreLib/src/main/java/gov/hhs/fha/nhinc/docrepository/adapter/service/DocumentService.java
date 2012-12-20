@@ -34,12 +34,14 @@ import gov.hhs.fha.nhinc.docrepository.adapter.model.DocumentQueryParams;
 import gov.hhs.fha.nhinc.docrepository.adapter.model.EventCode;
 import gov.hhs.fha.nhinc.docrepository.adapter.model.EventCodeParam;
 import gov.hhs.fha.nhinc.util.hash.SHA1HashCode;
+
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+
+import org.apache.log4j.Logger;
+
 
 /**
  * Persistence service for Document records
@@ -47,7 +49,7 @@ import org.apache.commons.logging.LogFactory;
  * @author Neil Webb
  */
 public class DocumentService {
-    private static Log log = LogFactory.getLog(DocumentService.class);
+    private static final Logger LOG = Logger.getLogger(DocumentService.class);
 
     /**
      * Save a document record.
@@ -55,11 +57,11 @@ public class DocumentService {
      * @param document Document object to save.
      */
     public void saveDocument(Document document) {
-        log.debug("Saving a document");
+        LOG.debug("Saving a document");
         if (document != null) {
             if (document.getDocumentid() != null) {
-                if (log.isDebugEnabled()) {
-                    log.debug("Performing an update for document: " + document.getDocumentid().longValue());
+                if (LOG.isDebugEnabled()) {
+                    LOG.debug("Performing an update for document: " + document.getDocumentid().longValue());
                 }
                 Document ecDoc = getDocument(document.getDocumentid());
                 if (ecDoc != null) {
@@ -84,7 +86,7 @@ public class DocumentService {
                     }
                 }
             } else {
-                log.debug("Performing an insert");
+                LOG.debug("Performing an insert");
             }
 
             // Calculate the hash code.
@@ -93,18 +95,18 @@ public class DocumentService {
                 try {
                     String sHash = "";
                     sHash = SHA1HashCode.calculateSHA1(new String(document.getRawData()));
-                    if (log.isDebugEnabled()) {
-                        log.debug("Created Hash Code: " + sHash + " for string: " + new String(document.getRawData()));
+                    if (LOG.isDebugEnabled()) {
+                        LOG.debug("Created Hash Code: " + sHash + " for string: " + new String(document.getRawData()));
                     }
                     document.setHash(sHash);
                 } catch (Throwable t) {
                     String sError = "Failed to create SHA-1 Hash code.  Error: " + t.getMessage() + "Data Text: "
                             + new String(document.getRawData());
-                    log.error(sError, t);
+                    LOG.error(sError, t);
                 }
             } else {
                 document.setHash("");
-                log.warn("No SHA-1 Hash Code created because document was null.");
+                LOG.warn("No SHA-1 Hash Code created because document was null.");
             }
         }
 
@@ -119,7 +121,7 @@ public class DocumentService {
      * @throws DocumentServiceException
      */
     public void deleteDocument(Document document) throws DocumentServiceException {
-        log.debug("Deleting a document");
+        LOG.debug("Deleting a document");
         DocumentDao dao = new DocumentDao();
 
         if ((document != null) && (document.getDocumentid() == null) && (document.getDocumentUniqueId() != null)) {

@@ -294,201 +294,12 @@
 		<con:settings/>
 		
 		<con:endpoints>
-			<con:endpoint>http://localhost:${HttpDefaultPort}/EntityService/EntityXDRAsyncRequest</con:endpoint>
-			<con:endpoint>http://localhost:8080/CONNECTAdapter/EntityProxyService/EntityXDRRequest</con:endpoint>
-		</con:endpoints>
-		<con:operation action="tns:ProvideAndRegisterDocumentSet-bAsyncRequest" anonymous="optional" bindingOperationName="ProvideAndRegisterDocumentSet-bAsyncRequest" inputName="" isOneWay="false" name="ProvideAndRegisterDocumentSet-bAsyncRequest" receivesAttachments="false" sendsAttachments="false" type="Request-Response">
+			
+			
+		<con:endpoint>http://localhost:8080/Gateway/DocumentSubmission/1_1/EntityService/EntityDocSubmissionDeferredRequestUnsecured</con:endpoint><con:endpoint>http://localhost:8080/Gateway/DocumentSubmission/2_0/EntityService/EntityDocSubmissionDeferredRequestUnsecured</con:endpoint><con:endpoint>http://localhost:${HttpDefaultPort}/Gateway/DocumentSubmission/1_1/EntityService/EntityDocSubmissionDeferredRequestUnsecured</con:endpoint></con:endpoints>
+		<con:operation action="" anonymous="optional" bindingOperationName="ProvideAndRegisterDocumentSet-bAsyncRequest" inputName="" isOneWay="false" name="ProvideAndRegisterDocumentSet-bAsyncRequest" receivesAttachments="false" sendsAttachments="false" type="Request-Response">
 			<con:settings/>
-		<con:call name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:${HttpDefaultPort}/EntityService/EntityXDRAsyncRequest</con:endpoint><con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" xmlns:urn3="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0">
-   <soap:Header/>
-   <soap:Body>
-      <urn:RespondingGateway_ProvideAndRegisterDocumentSetRequest>
-         <urn:assertion>
-            <urn1:address>
-               <urn1:addressType>
-                  <urn1:code>?</urn1:code>
-                  <urn1:codeSystem>?</urn1:codeSystem>
-                  <urn1:codeSystemName>?</urn1:codeSystemName>
-                  <urn1:codeSystemVersion>?</urn1:codeSystemVersion>
-                  <urn1:displayName>?</urn1:displayName>
-                  <urn1:originalText>?</urn1:originalText>
-               </urn1:addressType>
-               <urn1:city>?</urn1:city>
-               <urn1:country>?</urn1:country>
-               <urn1:state>?</urn1:state>
-               <urn1:streetAddress>?</urn1:streetAddress>
-               <urn1:zipCode>?</urn1:zipCode>
-            </urn1:address>
-            <urn1:dateOfBirth>?</urn1:dateOfBirth>
-            <urn1:explanationNonClaimantSignature>?</urn1:explanationNonClaimantSignature>
-            <urn1:haveSecondWitnessSignature>?</urn1:haveSecondWitnessSignature>
-            <urn1:haveSignature>?</urn1:haveSignature>
-            <urn1:haveWitnessSignature>?</urn1:haveWitnessSignature>
-            <urn1:homeCommunity>
-               <urn1:description>?</urn1:description>
-               <urn1:homeCommunityId>?</urn1:homeCommunityId>
-               <urn1:name>?</urn1:name>
-            </urn1:homeCommunity>
-            <urn1:nationalProviderId>?</urn1:nationalProviderId>
-            <urn1:personName>
-               <urn1:familyName>?</urn1:familyName>
-               <urn1:givenName>?</urn1:givenName>
-               <urn1:nameType>
-                  <urn1:code>?</urn1:code>
-                  <urn1:codeSystem>?</urn1:codeSystem>
-                  <urn1:codeSystemName>?</urn1:codeSystemName>
-                  <urn1:codeSystemVersion>?</urn1:codeSystemVersion>
-                  <urn1:displayName>?</urn1:displayName>
-                  <urn1:originalText>?</urn1:originalText>
-               </urn1:nameType>
-               <urn1:secondNameOrInitials>?</urn1:secondNameOrInitials>
-               <urn1:fullName>?</urn1:fullName>
-               <urn1:prefix>?</urn1:prefix>
-               <urn1:suffix>?</urn1:suffix>
-            </urn1:personName>
-            <urn1:phoneNumber>
-               <urn1:areaCode>?</urn1:areaCode>
-               <urn1:countryCode>?</urn1:countryCode>
-               <urn1:extension>?</urn1:extension>
-               <urn1:localNumber>?</urn1:localNumber>
-               <urn1:phoneNumberType>
-                  <urn1:code>?</urn1:code>
-                  <urn1:codeSystem>?</urn1:codeSystem>
-                  <urn1:codeSystemName>?</urn1:codeSystemName>
-                  <urn1:codeSystemVersion>?</urn1:codeSystemVersion>
-                  <urn1:displayName>?</urn1:displayName>
-                  <urn1:originalText>?</urn1:originalText>
-               </urn1:phoneNumberType>
-            </urn1:phoneNumber>
-            <urn1:secondWitnessAddress>
-               <urn1:addressType>
-                  <urn1:code>?</urn1:code>
-                  <urn1:codeSystem>?</urn1:codeSystem>
-                  <urn1:codeSystemName>?</urn1:codeSystemName>
-                  <urn1:codeSystemVersion>?</urn1:codeSystemVersion>
-                  <urn1:displayName>?</urn1:displayName>
-                  <urn1:originalText>?</urn1:originalText>
-               </urn1:addressType>
-               <urn1:city>?</urn1:city>
-               <urn1:country>?</urn1:country>
-               <urn1:state>?</urn1:state>
-               <urn1:streetAddress>?</urn1:streetAddress>
-               <urn1:zipCode>?</urn1:zipCode>
-            </urn1:secondWitnessAddress>
-            <urn1:secondWitnessName>
-               <urn1:familyName>?</urn1:familyName>
-               <urn1:givenName>?</urn1:givenName>
-               <urn1:nameType>
-                  <urn1:code>?</urn1:code>
-                  <urn1:codeSystem>?</urn1:codeSystem>
-                  <urn1:codeSystemName>?</urn1:codeSystemName>
-                  <urn1:codeSystemVersion>?</urn1:codeSystemVersion>
-                  <urn1:displayName>?</urn1:displayName>
-                  <urn1:originalText>?</urn1:originalText>
-               </urn1:nameType>
-               <urn1:secondNameOrInitials>?</urn1:secondNameOrInitials>
-               <urn1:fullName>?</urn1:fullName>
-               <urn1:prefix>?</urn1:prefix>
-               <urn1:suffix>?</urn1:suffix>
-            </urn1:secondWitnessName>
-            <urn1:secondWitnessPhone>
-               <urn1:areaCode>?</urn1:areaCode>
-               <urn1:countryCode>?</urn1:countryCode>
-               <urn1:extension>?</urn1:extension>
-               <urn1:localNumber>?</urn1:localNumber>
-               <urn1:phoneNumberType>
-                  <urn1:code>?</urn1:code>
-                  <urn1:codeSystem>?</urn1:codeSystem>
-                  <urn1:codeSystemName>?</urn1:codeSystemName>
-                  <urn1:codeSystemVersion>?</urn1:codeSystemVersion>
-                  <urn1:displayName>?</urn1:displayName>
-                  <urn1:originalText>?</urn1:originalText>
-               </urn1:phoneNumberType>
-            </urn1:secondWitnessPhone>
-            <urn1:SSN>?</urn1:SSN>
-            <!--1 or more repetitions:-->
-            <urn1:uniquePatientId>?</urn1:uniquePatientId>
-            <urn1:witnessAddress>
-               <urn1:addressType>
-                  <urn1:code>?</urn1:code>
-                  <urn1:codeSystem>?</urn1:codeSystem>
-                  <urn1:codeSystemName>?</urn1:codeSystemName>
-                  <urn1:codeSystemVersion>?</urn1:codeSystemVersion>
-                  <urn1:displayName>?</urn1:displayName>
-                  <urn1:originalText>?</urn1:originalText>
-               </urn1:addressType>
-               <urn1:city>?</urn1:city>
-               <urn1:country>?</urn1:country>
-               <urn1:state>?</urn1:state>
-               <urn1:streetAddress>?</urn1:streetAddress>
-               <urn1:zipCode>?</urn1:zipCode>
-            </urn1:witnessAddress>
-            <urn1:witnessName>
-               <urn1:familyName>?</urn1:familyName>
-               <urn1:givenName>?</urn1:givenName>
-               <urn1:nameType>
-                  <urn1:code>?</urn1:code>
-                  <urn1:codeSystem>?</urn1:codeSystem>
-                  <urn1:codeSystemName>?</urn1:codeSystemName>
-                  <urn1:codeSystemVersion>?</urn1:codeSystemVersion>
-                  <urn1:displayName>?</urn1:displayName>
-                  <urn1:originalText>?</urn1:originalText>
-               </urn1:nameType>
-               <urn1:secondNameOrInitials>?</urn1:secondNameOrInitials>
-               <urn1:fullName>?</urn1:fullName>
-               <urn1:prefix>?</urn1:prefix>
-               <urn1:suffix>?</urn1:suffix>
-            </urn1:witnessName>
-            <urn1:witnessPhone>
-               <urn1:areaCode>?</urn1:areaCode>
-               <urn1:countryCode>?</urn1:countryCode>
-               <urn1:extension>?</urn1:extension>
-               <urn1:localNumber>?</urn1:localNumber>
-               <urn1:phoneNumberType>
-                  <urn1:code>?</urn1:code>
-                  <urn1:codeSystem>?</urn1:codeSystem>
-                  <urn1:codeSystemName>?</urn1:codeSystemName>
-                  <urn1:codeSystemVersion>?</urn1:codeSystemVersion>
-                  <urn1:displayName>?</urn1:displayName>
-                  <urn1:originalText>?</urn1:originalText>
-               </urn1:phoneNumberType>
-            </urn1:witnessPhone>
-            <urn1:userInfo>
-               <urn1:personName>
-                  <urn1:familyName>?</urn1:familyName>
-                  <urn1:givenName>?</urn1:givenName>
-                  <urn1:nameType>
-                     <urn1:code>?</urn1:code>
-                     <urn1:codeSystem>?</urn1:codeSystem>
-                     <urn1:codeSystemName>?</urn1:codeSystemName>
-                     <urn1:codeSystemVersion>?</urn1:codeSystemVersion>
-                     <urn1:displayName>?</urn1:displayName>
-                     <urn1:originalText>?</urn1:originalText>
-                  </urn1:nameType>
-                  <urn1:secondNameOrInitials>?</urn1:secondNameOrInitials>
-                  <urn1:fullName>?</urn1:fullName>
-                  <urn1:prefix>?</urn1:prefix>
-                  <urn1:suffix>?</urn1:suffix>
-               </urn1:personName>
-               <urn1:userName>?</urn1:userName>
-               <urn1:org>
-                  <urn1:description>?</urn1:description>
-                  <urn1:homeCommunityId>?</urn1:homeCommunityId>
-                  <urn1:name>?</urn1:name>
-               </urn1:org>
-            </urn1:userInfo>
-            <urn1:authorized>?</urn1:authorized>
-            <!--1 or more repetitions:-->
-            <urn1:relatesToList>?</urn1:relatesToList>
-         </urn:assertion>
-         <urn:ProvideAndRegisterDocumentSetRequest>
-            <urn2:SubmitObjectsRequest>
-               <urn3:RegistryObjectList/>
-            </urn2:SubmitObjectsRequest>
-         </urn:ProvideAndRegisterDocumentSetRequest>
-      </urn:RespondingGateway_ProvideAndRegisterDocumentSetRequest>
-   </soap:Body>
-</soap:Envelope>]]></con:request><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:gov:hhs:fha:nhinc:nhincentityxdr:async:request:ProvideAndRegisterDocumentSet-bAsyncRequest_RequestMessage"/><con:wsrmConfig version="1.2"/></con:call></con:operation>
+		</con:operation>
 	</con:interface>
 	
 	<con:testSuite name="NHINCReceivingXDRAsyncRequestTestSuite">
@@ -511,12 +322,12 @@ nhinc.FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", destConfi
 				<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 					<con:interface>EntityXDRAsyncRequest_Binding</con:interface>
 					<con:operation>ProvideAndRegisterDocumentSet-bAsyncRequest</con:operation>
-					<con:request name="XDRAsyncRequest" useWsAddressing="false">
+					<con:request name="XDRAsyncRequest" useWsAddressing="true">
 						<con:settings>
 							<con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
 						</con:settings>
 						<con:encoding>UTF-8</con:encoding>
-						<con:endpoint>${#Project#Endpoint-EntityXDRRequest}</con:endpoint>
+						<con:endpoint>http://localhost:8080/Gateway/DocumentSubmission/2_0/EntityService/EntityDocSubmissionDeferredRequestUnsecured</con:endpoint>
 						<con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" xmlns:urn4="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn5="urn:ihe:iti:xds-b:2007">
    <soapenv:Header/>
    <soapenv:Body projectName="NHINCReceivingXDRAsyncRequestTests" testCase="PolicyCheckDeny">
@@ -2466,19 +2277,19 @@ declare namespace adapter='urn:gov:hhs:fha:nhinc:common:nhinccommonadapter';
 			<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2012-12-16T22:22:16Z</con:value>
+					<con:value>2012-12-20T01:46:58Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2012-12-16T22:32:16Z</con:value>
+					<con:value>2012-12-20T01:56:58Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>12/16/2012 22:22:16</con:value>
+					<con:value>12/20/2012 01:46:58</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2013-01-15T00:00:00Z</con:value>
+					<con:value>2013-01-19T00:00:00Z</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
@@ -2504,12 +2315,12 @@ FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", destConfigFileL
 				<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 					<con:interface>EntityXDRAsyncRequest_Binding</con:interface>
 					<con:operation>ProvideAndRegisterDocumentSet-bAsyncRequest</con:operation>
-					<con:request name="XDRAsyncRequest" useWsAddressing="false">
+					<con:request name="XDRAsyncRequest" useWsAddressing="true">
 						<con:settings>
 							<con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
 						</con:settings>
 						<con:encoding>UTF-8</con:encoding>
-						<con:endpoint>${#Project#Endpoint-EntityXDRRequest}</con:endpoint>
+						<con:endpoint>http://localhost:8080/Gateway/DocumentSubmission/1_1/EntityService/EntityDocSubmissionDeferredRequestUnsecured</con:endpoint>
 						<con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" xmlns:urn4="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn5="urn:ihe:iti:xds-b:2007">
    <soapenv:Header/>
    <soapenv:Body projectName="NHINCReceivingXDRAsyncRequestTests" testCase="PolicyCheckPermit">
@@ -2970,7 +2781,7 @@ FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", destConfigFileL
 						</con:assertion>
 						<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
 						<con:jmsPropertyConfig/>
-						<con:wsaConfig action="urn:gov:hhs:fha:nhinc:nhincproxyxdr:async:request:ProvideAndRegisterDocumentSet-bAsyncRequest_Request" addDefaultTo="true" messageID="uuid:1111111111.22222.333.55" mustUnderstand="TRUE" version="200508" addDefaultAction="false"/>
+						<con:wsaConfig action="urn:gov:hhs:fha:nhinc:nhincentityxdr:async:request:ProvideAndRegisterDocumentSet-bAsyncRequest_RequestMessage" addDefaultTo="true" messageID="uuid:1111111111.22222.333.55" mustUnderstand="TRUE" version="200508" addDefaultAction="false"/>
 						<con:wsrmConfig version="1.2"/>
 					</con:request>
 				</con:config>
@@ -4459,19 +4270,19 @@ declare namespace adapter='urn:gov:hhs:fha:nhinc:common:nhinccommonadapter';
 			<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2012-12-16T22:24:00Z</con:value>
+					<con:value>2012-12-20T01:47:01Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2012-12-16T22:34:00Z</con:value>
+					<con:value>2012-12-20T01:57:01Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>12/16/2012 22:24:00</con:value>
+					<con:value>12/20/2012 01:47:01</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2013-01-15T00:00:00Z</con:value>
+					<con:value>2013-01-19T00:00:00Z</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
@@ -4504,12 +4315,12 @@ context.testCase.setPropertyValue('XDRUserId',"${UserID}${nowDate}");</script></
 				<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 					<con:interface>EntityXDRAsyncRequest_Binding</con:interface>
 					<con:operation>ProvideAndRegisterDocumentSet-bAsyncRequest</con:operation>
-					<con:request name="XDRAsyncRequest" useWsAddressing="false">
+					<con:request name="XDRAsyncRequest" useWsAddressing="true">
 						<con:settings>
 							<con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
 						</con:settings>
 						<con:encoding>UTF-8</con:encoding>
-						<con:endpoint>${#Project#Endpoint-EntityXDRRequest}</con:endpoint>
+						<con:endpoint>http://localhost:8080/Gateway/DocumentSubmission/2_0/EntityService/EntityDocSubmissionDeferredRequestUnsecured</con:endpoint>
 						<con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" xmlns:urn4="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn5="urn:ihe:iti:xds-b:2007">
    <soapenv:Header/>
    <soapenv:Body projectName="NHINCReceivingXDRAsyncRequestTests" testCase="AuditForNHINCXDRRequest">
@@ -4988,23 +4799,23 @@ assert (count > 0);</script></con:config></con:testStep>
 				</con:property>
 				<con:property>
 					<con:name>XDRUserId</con:name>
-					<con:value>XDR Request Inbound UserSun Dec 16 22:27:02 UTC 2012</con:value>
+					<con:value>XDR Request Inbound UserThu Dec 20 01:52:04 UTC 2012</con:value>
 				</con:property>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2012-12-16T22:22:02Z</con:value>
+					<con:value>2012-12-20T01:47:04Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2012-12-16T22:32:02Z</con:value>
+					<con:value>2012-12-20T01:57:04Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>12/16/2012 22:22:02</con:value>
+					<con:value>12/20/2012 01:47:04</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2013-01-15T00:00:00Z</con:value>
+					<con:value>2013-01-19T00:00:00Z</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
@@ -5104,4 +4915,4 @@ com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext.metaClass.withSql = { d
 		<con:parameters/>
 	</con:reporting>
 
-</con:soapui-project>
+<con:sensitiveInformation/></con:soapui-project>

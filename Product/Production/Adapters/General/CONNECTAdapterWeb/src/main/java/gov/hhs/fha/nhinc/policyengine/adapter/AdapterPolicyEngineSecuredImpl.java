@@ -32,14 +32,14 @@ import gov.hhs.fha.nhinc.cxf.extraction.SAML2AssertionExtractor;
 
 import javax.xml.ws.WebServiceContext;
 
+import org.apache.log4j.Logger;
 /**
  * 
  * 
  * @author Neil Webb
  */
 public class AdapterPolicyEngineSecuredImpl {
-    private static org.apache.commons.logging.Log log = org.apache.commons.logging.LogFactory
-            .getLog(AdapterPolicyEngineSecuredImpl.class);
+    private static final Logger LOG = Logger.getLogger(AdapterPolicyEngineSecuredImpl.class);
 
     public CheckPolicyResponseType checkPolicy(
             gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyRequestSecuredType body, WebServiceContext context) {
@@ -55,7 +55,7 @@ public class AdapterPolicyEngineSecuredImpl {
             checkPolicyResp = oPolicyEngine.checkPolicy(checkPolicyRequest, assertion);
         } catch (Exception e) {
             String sMessage = "Error occurred calling AdapterPolicyEngineImpl.checkPolicy.  Error: " + e.getMessage();
-            log.error(sMessage, e);
+            LOG.error(sMessage, e);
             throw new RuntimeException(sMessage, e);
         }
         return checkPolicyResp;

@@ -34,9 +34,6 @@ import org.w3._2005._08.addressing.EndpointReferenceType;
  */
 public class ConsumerReferenceHelper {
 
-    private static org.apache.commons.logging.Log log = org.apache.commons.logging.LogFactory
-            .getLog(ConsumerReferenceHelper.class);
-
     public EndpointReferenceType createConsumerReferenceEndpointReference(String consumerReferenceAddress) {
         EndpointReferenceHelper helper = new EndpointReferenceHelper();
         EndpointReferenceType endpointReference = helper.createEndpointReferenceAddressOnly(consumerReferenceAddress);

@@ -29,8 +29,7 @@ package gov.hhs.fha.nhinc.docsubmission.entity.deferred.request.proxy;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
@@ -51,18 +50,13 @@ import gov.hhs.healthit.nhin.XDRAcknowledgementType;
  */
 public class EntityDocSubmissionDeferredRequestProxyWebServiceUnsecuredImpl implements
         EntityDocSubmissionDeferredRequestProxy {
-    private Log log = null;
+    private static final Logger LOG = Logger.getLogger(EntityDocSubmissionDeferredRequestProxyWebServiceUnsecuredImpl.class);
     private WebServiceProxyHelper oProxyHelper = null;
 
     public EntityDocSubmissionDeferredRequestProxyWebServiceUnsecuredImpl() {
-        log = createLogger();
         oProxyHelper = createWebServiceProxyHelper();
     }
-
-    protected Log createLogger() {
-        return LogFactory.getLog(getClass());
-    }
-
+    
     protected WebServiceProxyHelper createWebServiceProxyHelper() {
         return new WebServiceProxyHelper();
     }
@@ -78,18 +72,18 @@ public class EntityDocSubmissionDeferredRequestProxyWebServiceUnsecuredImpl impl
     public XDRAcknowledgementType provideAndRegisterDocumentSetBAsyncRequest(
             ProvideAndRegisterDocumentSetRequestType request, AssertionType assertion,
             NhinTargetCommunitiesType targets, UrlInfoType urlInfo) {
-        log.debug("Begin provideAndRegisterDocumentSetBAsyncRequest");
+        LOG.debug("Begin provideAndRegisterDocumentSetBAsyncRequest");
         XDRAcknowledgementType response = null;
 
         try {
             String url = oProxyHelper.getUrlLocalHomeCommunity(NhincConstants.ENTITY_XDR_REQUEST_SERVICE_NAME);
 
             if (request == null) {
-                log.error("Message was null");
+                LOG.error("Message was null");
             } else if (assertion == null) {
-                log.error("assertion was null");
+                LOG.error("assertion was null");
             } else if (targets == null) {
-                log.error("targets was null");
+                LOG.error("targets was null");
             } else {
                 RespondingGatewayProvideAndRegisterDocumentSetRequestType msg =
                         new RespondingGatewayProvideAndRegisterDocumentSetRequestType();
@@ -110,14 +104,14 @@ public class EntityDocSubmissionDeferredRequestProxyWebServiceUnsecuredImpl impl
                         "provideAndRegisterDocumentSetBAsyncRequest", msg);
             }
         } catch (Exception ex) {
-            log.error("Error calling provideAndRegisterDocumentSetBAsyncRequest: " + ex.getMessage(), ex);
+            LOG.error("Error calling provideAndRegisterDocumentSetBAsyncRequest: " + ex.getMessage(), ex);
             response = new XDRAcknowledgementType();
             RegistryResponseType regResp = new RegistryResponseType();
             regResp.setStatus(NhincConstants.XDR_ACK_FAILURE_STATUS_MSG);
             response.setMessage(regResp);
         }
 
-        log.debug("End provideAndRegisterDocumentSetBAsyncRequest");
+        LOG.debug("End provideAndRegisterDocumentSetBAsyncRequest");
         return response;
     }
 

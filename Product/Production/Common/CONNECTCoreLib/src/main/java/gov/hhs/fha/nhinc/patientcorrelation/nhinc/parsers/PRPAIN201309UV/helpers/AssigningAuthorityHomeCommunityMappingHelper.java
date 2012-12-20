@@ -29,8 +29,7 @@ package gov.hhs.fha.nhinc.patientcorrelation.nhinc.parsers.PRPAIN201309UV.helper
 import gov.hhs.fha.nhinc.common.connectionmanager.dao.AssigningAuthorityHomeCommunityMappingDAO;
 import java.util.ArrayList;
 import java.util.List;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 
 /**
@@ -40,7 +39,7 @@ import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 public class AssigningAuthorityHomeCommunityMappingHelper {
 
     private AssigningAuthorityHomeCommunityMappingDAO mappingDao;
-    private Log log = LogFactory.getLog(AssigningAuthorityHomeCommunityMappingDAO.class);
+    private static final Logger LOG = Logger.getLogger(AssigningAuthorityHomeCommunityMappingDAO.class);
 
     /**
      * 
@@ -57,14 +56,14 @@ public class AssigningAuthorityHomeCommunityMappingHelper {
     }
 
     public List<String> lookupAssigningAuthorities(String homeCommunityId) {
-        log.trace("converting homeCommunityId [" + homeCommunityId + "] to assigning authority");
+        LOG.trace("converting homeCommunityId [" + homeCommunityId + "] to assigning authority");
         return mappingDao.getAssigningAuthoritiesByHomeCommunity(homeCommunityId);
     }
 
     public List<String> lookupAssigningAuthorities(List<String> homeCommunityIds) {
         List<String> fullListOfAssigningAuthorities = null;
         if (NullChecker.isNotNullish(homeCommunityIds)) {
-            log.info("converting homeCommunityIds [count=" + homeCommunityIds.size() + "] to assigning authorities");
+            LOG.info("converting homeCommunityIds [count=" + homeCommunityIds.size() + "] to assigning authorities");
             fullListOfAssigningAuthorities = new ArrayList<String>();
 
             List<String> partialListOfAssigningAuthorities;
@@ -73,7 +72,7 @@ public class AssigningAuthorityHomeCommunityMappingHelper {
                 partialListOfAssigningAuthorities = lookupAssigningAuthorities(homeCommunity);
                 fullListOfAssigningAuthorities.addAll(partialListOfAssigningAuthorities);
             }
-            log.info("converted homeCommunityIds [count=" + homeCommunityIds.size()
+            LOG.info("converted homeCommunityIds [count=" + homeCommunityIds.size()
                     + "] to assigning authorities [count=" + fullListOfAssigningAuthorities.size() + "]");
         }
         return fullListOfAssigningAuthorities;

@@ -46,8 +46,7 @@ import javax.xml.ws.BindingProvider;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 
 /**
  * This class is the component proxy for calling the NHIN doc query web service.
@@ -56,21 +55,7 @@ import org.apache.commons.logging.LogFactory;
  */
 public class NhinDocQueryProxyWebServiceSecuredImpl implements NhinDocQueryProxy {
 
-    private Log log = null;
-
-    /**
-     * Default constructor creates log.
-     */
-    public NhinDocQueryProxyWebServiceSecuredImpl() {
-        log = createLogger();
-    }
-
-    /**
-     * @return Log log.
-     */
-    protected Log createLogger() {
-        return ((log != null) ? log : LogFactory.getLog(getClass()));
-    }
+    private static final Logger LOG = Logger.getLogger(NhinDocQueryProxyWebServiceSecuredImpl.class);
 
     /**
      * @return WebServiceProxyHelper.
@@ -115,7 +100,7 @@ public class NhinDocQueryProxyWebServiceSecuredImpl implements NhinDocQueryProxy
             if (NullChecker.isNullish(url)) {
                 url = ConnectionManagerCache.getInstance().getDefaultEndpointURLByServiceName(
                         target.getHomeCommunity().getHomeCommunityId(), NhincConstants.DOC_QUERY_SERVICE_NAME);
-                log.debug("After target system URL look up. URL for service: " + NhincConstants.DOC_QUERY_SERVICE_NAME
+                LOG.debug("After target system URL look up. URL for service: " + NhincConstants.DOC_QUERY_SERVICE_NAME
                         + " is: " + url);
             }
 
@@ -123,17 +108,15 @@ public class NhinDocQueryProxyWebServiceSecuredImpl implements NhinDocQueryProxy
                     NhincConstants.GATEWAY_API_LEVEL.LEVEL_g0);
 
             CONNECTClient<RespondingGatewayQueryPortType> client = CONNECTClientFactory.getInstance()
-                    .getCONNECTClientSecured(portDescriptor, url, assertion);
-
-            WebServiceProxyHelper wsHelper = new WebServiceProxyHelper();
-            wsHelper.addTargetCommunity((BindingProvider) client.getPort(), target);
-            wsHelper.addServiceName((BindingProvider) client.getPort(), NhincConstants.DOC_QUERY_SERVICE_NAME);
+                    .getCONNECTClientSecured(portDescriptor, assertion, url,
+                            target.getHomeCommunity().getHomeCommunityId(),
+                            NhincConstants.DOC_QUERY_SERVICE_NAME);
 
             response = (AdhocQueryResponse) client.invokePort(RespondingGatewayQueryPortType.class,
                     "respondingGatewayCrossGatewayQuery", request);
 
         } catch (Exception ex) {
-            log.error("Error calling respondingGatewayCrossGatewayQuery: " + ex.getMessage(), ex);
+            LOG.error("Error calling respondingGatewayCrossGatewayQuery: " + ex.getMessage(), ex);
             throw ex;
         }
         return response;

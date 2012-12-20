@@ -32,8 +32,7 @@ import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import java.io.File;
 
 import javax.xml.bind.JAXBException;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 import org.uddi.api_v3.BusinessDetail;
 
 /**
@@ -47,7 +46,7 @@ public class InternalConnectionInfoDAOFileImpl extends ConnectionManagerDAOBase 
 
     private static InternalConnectionInfoDAOFileImpl instance = null;
     private File file = null;
-    private Log log = null;
+    private static final Logger LOG = Logger.getLogger(InternalConnectionInfoDAOFileImpl.class);
     private static final String INTERNAL_XML_FILE_NAME = "internalConnectionInfo.xml";
 
     public static InternalConnectionInfoDAOFileImpl getInstance() {
@@ -59,10 +58,8 @@ public class InternalConnectionInfoDAOFileImpl extends ConnectionManagerDAOBase 
     }
 
     InternalConnectionInfoDAOFileImpl() {
-        log = getLogger();
-
         String fileName = getInternalConnectionFileLocation();
-        log.debug("Reading InternalConnectionInfo from file: " + fileName);
+        LOG.debug("Reading InternalConnectionInfo from file: " + fileName);
         if (fileName != null) {
             file = new File(fileName);
         }
@@ -97,7 +94,7 @@ public class InternalConnectionInfoDAOFileImpl extends ConnectionManagerDAOBase 
         try {
             resp = super.loadBusinessDetail(file);
         } catch (JAXBException ex) {
-            getLogger().error("unable to load business entities from " + file.getName(), ex);
+            LOG.error("unable to load business entities from " + file.getName(), ex);
             resp = new BusinessDetail();
             throw new Exception("unable to load business entities from " + file.getName(), ex);
         }
@@ -115,19 +112,6 @@ public class InternalConnectionInfoDAOFileImpl extends ConnectionManagerDAOBase 
         } else {
             return 0;
         }
-    }
-
-    @Override
-    protected Log getLogger() {
-        if (log == null) {
-            setLogger(LogFactory.getLog(this.getClass()));
-        }
-        return log;
-    }
-
-    @Override
-    protected void setLogger(Log log) {
-        this.log = log;
     }
 
     public void setFileName(String fileName) {

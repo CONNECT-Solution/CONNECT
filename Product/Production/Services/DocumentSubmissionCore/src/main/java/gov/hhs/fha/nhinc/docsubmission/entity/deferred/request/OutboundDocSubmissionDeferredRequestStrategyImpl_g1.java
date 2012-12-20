@@ -34,9 +34,10 @@ import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.orchestration.Orchestratable;
 import gov.hhs.fha.nhinc.orchestration.OrchestrationStrategy;
 import gov.hhs.healthit.nhin.XDRAcknowledgementType;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+
+import org.apache.log4j.Logger;
+
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
 
 /**
@@ -45,21 +46,7 @@ import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
  */
 public class OutboundDocSubmissionDeferredRequestStrategyImpl_g1 implements OrchestrationStrategy {
 
-    private static Log log = LogFactory.getLog(OutboundDocSubmissionDeferredRequestStrategyImpl_g1.class);
-
-    /**
-     * Generic constructor method.
-     */
-    public OutboundDocSubmissionDeferredRequestStrategyImpl_g1() {
-    }
-
-    /**
-     * Returns the log object.
-     * @return
-     */
-    protected Log getLogger() {
-        return log;
-    }
+    private static final Logger LOG = Logger.getLogger(OutboundDocSubmissionDeferredRequestStrategyImpl_g1.class);
 
     /**
      * Returns the Nhin Proxy object for Deferred Doc Submission.
@@ -78,7 +65,7 @@ public class OutboundDocSubmissionDeferredRequestStrategyImpl_g1 implements Orch
         if (message instanceof OutboundDocSubmissionDeferredRequestOrchestratable) {
             execute((OutboundDocSubmissionDeferredRequestOrchestratable) message);
         } else {
-            getLogger().error("Not an OutboundDocSubmissionDeferredRequestOrchestratable.");
+            LOG.error("Not an OutboundDocSubmissionDeferredRequestOrchestratable.");
         }
     }
 
@@ -88,7 +75,7 @@ public class OutboundDocSubmissionDeferredRequestStrategyImpl_g1 implements Orch
      * @param message
      */
     public void execute(OutboundDocSubmissionDeferredRequestOrchestratable message) {
-        getLogger().debug("Begin OutboundDocSubmissionOrchestratableImpl_g1.process");
+        LOG.debug("Begin OutboundDocSubmissionOrchestratableImpl_g1.process");
 
         auditRequestToNhin(message.getRequest(), message.getAssertion());
        
@@ -99,7 +86,7 @@ public class OutboundDocSubmissionDeferredRequestStrategyImpl_g1 implements Orch
         message.setResponse(response);
 
         auditResponseFromNhin(response, message.getAssertion());
-        getLogger().debug("End OutboundDocSubmissionDeferredRequestStrategyImpl_g1.process");
+        LOG.debug("End OutboundDocSubmissionDeferredRequestStrategyImpl_g1.process");
     }
 
     /**

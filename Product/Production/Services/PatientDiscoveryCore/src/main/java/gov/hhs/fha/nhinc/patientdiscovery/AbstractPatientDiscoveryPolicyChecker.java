@@ -36,13 +36,12 @@ import gov.hhs.fha.nhinc.policyengine.PolicyEngineChecker;
 import gov.hhs.fha.nhinc.policyengine.adapter.proxy.PolicyEngineProxy;
 import oasis.names.tc.xacml._2_0.context.schema.os.DecisionType;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 
 public abstract class AbstractPatientDiscoveryPolicyChecker<OUTGOING, INCOMMING> implements
         PolicyChecker<OUTGOING, INCOMMING> {
 
-    static Log log = LogFactory.getLog(AbstractPatientDiscoveryPolicyChecker.class);
+    private static final Logger LOG = Logger.getLogger(AbstractPatientDiscoveryPolicyChecker.class);
 
     private GenericFactory<PolicyEngineProxy> policyEngFactory;
 
@@ -84,10 +83,10 @@ public abstract class AbstractPatientDiscoveryPolicyChecker<OUTGOING, INCOMMING>
         /* if response='permit' */
         if (policyResp.getResponse() != null && NullChecker.isNotNullish(policyResp.getResponse().getResult())
                 && policyResp.getResponse().getResult().get(0).getDecision() == DecisionType.PERMIT) {
-            log.debug("Policy engine check returned permit.");
+            LOG.debug("Policy engine check returned permit.");
             policyIsValid = true;
         } else {
-            log.debug("Policy engine check returned deny.");
+            LOG.debug("Policy engine check returned deny.");
             policyIsValid = false;
         }
 

@@ -32,22 +32,22 @@ import gov.hhs.fha.nhinc.docsubmission.adapter.AdapterDocSubmissionOrchImpl;
 import gov.hhs.fha.nhinc.docsubmission.aspect.DocSubmissionBaseEventDescriptionBuilder;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+
+import org.apache.log4j.Logger;
 
 /**
  * 
  * @author jhoppesc
  */
 public class AdapterDocSubmissionProxyJavaImpl implements AdapterDocSubmissionProxy {
-    private static Log log = LogFactory.getLog(AdapterDocSubmissionProxyJavaImpl.class);
+    private static final Logger LOG = Logger.getLogger(AdapterDocSubmissionProxyJavaImpl.class);
 
     @AdapterDelegationEvent(beforeBuilder = DocSubmissionBaseEventDescriptionBuilder.class,
             afterReturningBuilder = DocSubmissionBaseEventDescriptionBuilder.class, serviceType = "Document Submission",
             version = "")
     public RegistryResponseType provideAndRegisterDocumentSetB(ProvideAndRegisterDocumentSetRequestType msg,
             AssertionType assertion) {
-        log.debug("Using Java Implementation for Adapter Doc Submission Service");
+        LOG.trace("Using Java Implementation for Adapter Doc Submission Service");
         return new AdapterDocSubmissionOrchImpl().provideAndRegisterDocumentSetB(msg, assertion);
     }
 

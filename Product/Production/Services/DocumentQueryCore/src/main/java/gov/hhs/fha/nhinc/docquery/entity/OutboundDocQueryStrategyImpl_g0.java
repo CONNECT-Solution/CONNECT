@@ -26,17 +26,8 @@
  */
 package gov.hhs.fha.nhinc.docquery.entity;
 
-import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException;
-import gov.hhs.fha.nhinc.docquery.nhin.proxy.NhinDocQueryProxy;
-import gov.hhs.fha.nhinc.docquery.nhin.proxy.NhinDocQueryProxyObjectFactory;
-import gov.hhs.fha.nhinc.gateway.executorservice.ExecutorServiceHelper;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants.GATEWAY_API_LEVEL;
-import gov.hhs.fha.nhinc.orchestration.OutboundResponseProcessor;
-import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 
 /**
  * Implements the DocQuery client strategy for spec g0 endpoint.
@@ -46,16 +37,6 @@ import org.apache.commons.logging.LogFactory;
 // CHECKSTYLE:OFF
 public class OutboundDocQueryStrategyImpl_g0 extends OutboundDocQueryStrategy {
     // CHECKSTYLE:ON
-    private static Log log = LogFactory.getLog(OutboundDocQueryStrategyImpl_g0.class);
-
-    /**
-     * Default Constructor.
-     */
-    public OutboundDocQueryStrategyImpl_g0() {
-
-    }
-
-   
 
     /**
      * @return

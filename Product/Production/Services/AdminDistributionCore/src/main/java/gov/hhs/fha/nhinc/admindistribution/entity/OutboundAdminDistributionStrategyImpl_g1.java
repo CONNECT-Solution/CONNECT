@@ -31,8 +31,8 @@ import gov.hhs.fha.nhinc.admindistribution.nhin.proxy.NhinAdminDistributionProxy
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.orchestration.Orchestratable;
 import gov.hhs.fha.nhinc.orchestration.OrchestrationStrategy;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+
+import org.apache.log4j.Logger;
 
 /**
  * 
@@ -42,24 +42,14 @@ import org.apache.commons.logging.LogFactory;
 public class OutboundAdminDistributionStrategyImpl_g1 implements OrchestrationStrategy {
 //CHECKSTYLE:ON
 
-    private static Log log = LogFactory.getLog(OutboundAdminDistributionStrategyImpl_g1.class);
-
-    /**
-     * Default Constructor.
-     */
-    public OutboundAdminDistributionStrategyImpl_g1() {
-    }
-
-    private Log getLogger() {
-        return log;
-    }
+    private static final Logger LOG = Logger.getLogger(OutboundAdminDistributionStrategyImpl_g1.class);
 
     @Override
     public void execute(Orchestratable message) {
         if (message instanceof OutboundAdminDistributionOrchestratable) {
             execute((OutboundAdminDistributionOrchestratable) message);
         } else {
-            getLogger().error("Not an EntityAdminDistributionOrchestratable.");
+            LOG.error("Not an EntityAdminDistributionOrchestratable.");
         }
     }
 
@@ -67,9 +57,9 @@ public class OutboundAdminDistributionStrategyImpl_g1 implements OrchestrationSt
      * @param message Orchestratable AdminDist message .
      */
     public void execute(OutboundAdminDistributionOrchestratable message) {
-        getLogger().debug("Begin NhinAdminDistributionOrchestratableImpl_g1.process");
+        LOG.debug("Begin NhinAdminDistributionOrchestratableImpl_g1.process");
         if (message == null) {
-            getLogger().error("EntityAdminDistributionOrchestratable was null");
+            LOG.error("EntityAdminDistributionOrchestratable was null");
             return;
         }
 
@@ -79,10 +69,10 @@ public class OutboundAdminDistributionStrategyImpl_g1 implements OrchestrationSt
             nhincAdminDist.sendAlertMessage(message.getRequest().getEDXLDistribution(), message.getRequest()
                     .getAssertion(), message.getTarget(), NhincConstants.GATEWAY_API_LEVEL.LEVEL_g1);
         } else {
-            getLogger().error(
+            LOG.error(
                     "NhinAdminDistributionImpl_g1 AdapterDelegateImpl.process recieved a message "
                             + "which was not of type NhinAdminDistributionOrchestratableImpl_g1.");
         }
-        getLogger().debug("End NhinAdminDistributionOrchestratableImpl_g1.process");
+        LOG.debug("End NhinAdminDistributionOrchestratableImpl_g1.process");
     }
 }

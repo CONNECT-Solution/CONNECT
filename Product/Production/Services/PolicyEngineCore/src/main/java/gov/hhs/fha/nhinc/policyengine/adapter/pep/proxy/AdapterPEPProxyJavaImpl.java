@@ -30,22 +30,14 @@ import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyResponseType;
 import gov.hhs.fha.nhinc.policyengine.adapter.pep.AdapterPEPImpl;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+
+import org.apache.log4j.Logger;
 
 /**
  * This is the concrete implementation for the Java based call to the AdapterPEP.
  */
 public class AdapterPEPProxyJavaImpl implements AdapterPEPProxy {
-    private Log log = null;
-
-    public AdapterPEPProxyJavaImpl() {
-        log = createLogger();
-    }
-
-    protected Log createLogger() {
-        return LogFactory.getLog(getClass());
-    }
+    private static final Logger LOG = Logger.getLogger(AdapterPEPProxyJavaImpl.class);
 
     /**
      * Given a request to check the access policy, this service will interface with the PDP to determine if access is to
@@ -55,7 +47,7 @@ public class AdapterPEPProxyJavaImpl implements AdapterPEPProxy {
      * @return The xacml response which contains the access decision
      */
     public CheckPolicyResponseType checkPolicy(CheckPolicyRequestType checkPolicyRequest, AssertionType assertion) {
-        log.debug("Begin AdapterPEPProxyJavaImpl.checkPolicy");
+        LOG.trace("Begin AdapterPEPProxyJavaImpl.checkPolicy");
         CheckPolicyResponseType checkPolicyResponse = new CheckPolicyResponseType();
 
         AdapterPEPImpl pepImpl = new AdapterPEPImpl();
@@ -64,11 +56,11 @@ public class AdapterPEPProxyJavaImpl implements AdapterPEPProxy {
             checkPolicyResponse = pepImpl.checkPolicy(checkPolicyRequest, assertion);
         } catch (Exception ex) {
             String message = "Error occurred calling AdapterPEPProxyJavaImpl.checkPolicy.  Error: " + ex.getMessage();
-            log.error(message, ex);
+            LOG.error(message, ex);
             throw new RuntimeException(message, ex);
         }
 
-        log.debug("End AdapterPEPProxyJavaImpl.checkPolicy");
+        LOG.trace("End AdapterPEPProxyJavaImpl.checkPolicy");
         return checkPolicyResponse;
     }
 }

@@ -42,8 +42,7 @@ import oasis.names.tc.ebxml_regrep.xsd.rim._3.AdhocQueryType;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.SlotType1;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.ValueListType;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 
 /**
  * Class to perform transform operations for document query messages.
@@ -51,7 +50,7 @@ import org.apache.commons.logging.LogFactory;
  * @author Neil Webb
  */
 public class DocumentQueryTransform {
-    private static Log log = LogFactory.getLog(DocumentQueryTransform.class);
+    private static final Logger LOG = Logger.getLogger(DocumentQueryTransform.class);
 
     /**
      * Replace the patient identifier information in an AdhocQuery message with the information provided.
@@ -64,7 +63,7 @@ public class DocumentQueryTransform {
      */
     public AdhocQueryRequest replaceAdhocQueryPatientId(AdhocQueryRequest sourceQuery, String homeCommuinty,
             String assigningAuthority, String patientId) {
-        log.debug("DocumentQueryTransform.replaceAdhocQueryPatientId() -- Begin");
+        LOG.debug("DocumentQueryTransform.replaceAdhocQueryPatientId() -- Begin");
         AdhocQueryRequest adhocQueryRequest = null;
 
         if (sourceQuery != null) {
@@ -122,13 +121,13 @@ public class DocumentQueryTransform {
             } // if ((oInsertDocQueryPatIds.getQualifiedSubjectId() != null) &&
         } // if ((oInsertDocQueryPatIds != null) &&
 
-        if (log.isDebugEnabled()) {
-            log.debug("The result as it should be: ");
+        if (LOG.isDebugEnabled()) {
+            LOG.debug("The result as it should be: ");
             outputAdhocQueryRequest(adhocQueryRequest);
-            log.debug("----------------------------");
+            LOG.debug("----------------------------");
         }
 
-        log.debug("DocumentQueryTransform.replaceAdhocQueryPatientId() -- End");
+        LOG.debug("DocumentQueryTransform.replaceAdhocQueryPatientId() -- End");
         return adhocQueryRequest;
     }
 
@@ -138,23 +137,23 @@ public class DocumentQueryTransform {
      * @param oAdhocQueryRequest The object to be printed out.
      */
     public static void outputAdhocQueryRequest(AdhocQueryRequest oAdhocQueryRequest) {
-        log.debug("DocumentQueryTransform.outputAdhocQueryRequest() -- Begin");
+        LOG.debug("DocumentQueryTransform.outputAdhocQueryRequest() -- Begin");
         try {
             JAXBContextHandler oHandler = new JAXBContextHandler();
             JAXBContext jc = oHandler.getJAXBContext("oasis.names.tc.ebxml_regrep.xsd.query._3");
             Marshaller marshaller = jc.createMarshaller();
             StringWriter oXML = new StringWriter();
             marshaller.marshal(oAdhocQueryRequest, oXML);
-            log.debug("Done marshalling the message.");
+            LOG.debug("Done marshalling the message.");
 
-            log.debug("");
-            log.debug(oXML);
-            log.debug("");
+            LOG.debug("");
+            LOG.debug(oXML);
+            LOG.debug("");
         } catch (Exception e) {
-            log.error("Unexpected exception: " + e.getMessage());
+            LOG.error("Unexpected exception: " + e.getMessage());
             e.printStackTrace();
         }
-        log.debug("DocumentQueryTransform.outputAdhocQueryRequest() -- End");
+        LOG.debug("DocumentQueryTransform.outputAdhocQueryRequest() -- End");
     }
 
 }

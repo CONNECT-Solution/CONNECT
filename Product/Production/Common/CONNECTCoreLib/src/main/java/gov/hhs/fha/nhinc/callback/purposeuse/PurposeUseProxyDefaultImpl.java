@@ -32,8 +32,7 @@ import gov.hhs.fha.nhinc.properties.IPropertyAcessor;
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 
 
 /**
@@ -42,7 +41,7 @@ import org.apache.commons.logging.LogFactory;
  */
 public class PurposeUseProxyDefaultImpl implements PurposeUseProxy {
 
-    private static Log log = LogFactory.getLog(PurposeUseProxyDefaultImpl.class);
+    private static final Logger LOG = Logger.getLogger(PurposeUseProxyDefaultImpl.class);
     private static final String PURPOSE_FOR_USE_DEPRECATED_ENABLED = "purposeForUseEnabled";
     
     private final IPropertyAcessor propertyAccessor;
@@ -70,7 +69,7 @@ public class PurposeUseProxyDefaultImpl implements PurposeUseProxy {
      * @return The PurposeForUse enabled setting
      */
     public boolean isPurposeForUseEnabled() {
-        log.info("Entering PurposeUseProxyDefaultImpl.isPurposeForUseEnabled...");
+        LOG.info("Entering PurposeUseProxyDefaultImpl.isPurposeForUseEnabled...");
         boolean match = false;
         try {
             // Use CONNECT utility class to access gateway.properties
@@ -80,9 +79,9 @@ public class PurposeUseProxyDefaultImpl implements PurposeUseProxy {
                 match = true;
             }
         } catch (PropertyAccessException ex) {
-            log.error("Error: Failed to retrieve " + PURPOSE_FOR_USE_DEPRECATED_ENABLED + " from property file: "
+            LOG.error("Error: Failed to retrieve " + PURPOSE_FOR_USE_DEPRECATED_ENABLED + " from property file: "
                     + NhincConstants.GATEWAY_PROPERTY_FILE);
-            log.error(ex.getMessage());
+            LOG.error(ex.getMessage());
         }
         return match;
     }

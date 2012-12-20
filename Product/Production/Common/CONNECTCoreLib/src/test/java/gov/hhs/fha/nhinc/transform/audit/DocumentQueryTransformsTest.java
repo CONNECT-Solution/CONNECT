@@ -26,39 +26,37 @@
  */
 package gov.hhs.fha.nhinc.transform.audit;
 
-import org.apache.commons.logging.Log;
-
-import com.services.nhinc.schema.auditmessage.AuditMessageType;
-import com.services.nhinc.schema.auditmessage.EventIdentificationType;
-import com.services.nhinc.schema.auditmessage.AuditSourceIdentificationType;
-
-import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import gov.hhs.fha.nhinc.common.auditlog.AdhocQueryMessageType;
+import gov.hhs.fha.nhinc.common.auditlog.AdhocQueryResponseMessageType;
+import gov.hhs.fha.nhinc.common.auditlog.LogAdhocQueryRequestType;
+import gov.hhs.fha.nhinc.common.auditlog.LogAdhocQueryResultRequestType;
+import gov.hhs.fha.nhinc.common.auditlog.LogEventRequestType;
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
+import gov.hhs.fha.nhinc.common.nhinccommon.PersonNameType;
+import gov.hhs.fha.nhinc.common.nhinccommon.UserType;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
+import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.AdhocQueryType;
+import oasis.names.tc.ebxml_regrep.xsd.rim._3.ExtrinsicObjectType;
+import oasis.names.tc.ebxml_regrep.xsd.rim._3.ObjectRefType;
+import oasis.names.tc.ebxml_regrep.xsd.rim._3.RegistryObjectListType;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.SlotType1;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.ValueListType;
 
+import org.jmock.Mockery;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import static org.junit.Assert.*;
 
-import gov.hhs.fha.nhinc.common.nhinccommon.UserType;
-import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
-import gov.hhs.fha.nhinc.common.nhinccommon.PersonNameType;
-import gov.hhs.fha.nhinc.common.auditlog.LogAdhocQueryRequestType;
-import gov.hhs.fha.nhinc.common.auditlog.AdhocQueryMessageType;
-import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.common.auditlog.LogAdhocQueryResultRequestType;
-import gov.hhs.fha.nhinc.common.auditlog.AdhocQueryResponseMessageType;
-import gov.hhs.fha.nhinc.common.auditlog.LogEventRequestType;
-import oasis.names.tc.ebxml_regrep.xsd.rim._3.ExtrinsicObjectType;
-import oasis.names.tc.ebxml_regrep.xsd.rim._3.ObjectRefType;
-import oasis.names.tc.ebxml_regrep.xsd.rim._3.RegistryObjectListType;
-import org.jmock.Expectations;
-import org.jmock.Mockery;
+import com.services.nhinc.schema.auditmessage.AuditMessageType;
+import com.services.nhinc.schema.auditmessage.AuditSourceIdentificationType;
+import com.services.nhinc.schema.auditmessage.EventIdentificationType;
 
 /**
  * 
@@ -138,25 +136,10 @@ public class DocumentQueryTransformsTest {
         eventId.setEventActionCode(AuditDataTransformConstants.EVENT_ACTION_CODE_EXECUTE);
         expResult.getAuditMessage().setEventIdentification(eventId);
 
-        // Create mock objects
-        final Log mockLog = context.mock(Log.class);
 
-        DocumentQueryTransforms transformer = new DocumentQueryTransforms() {
-            @Override
-            protected Log createLogger() {
-                return mockLog;
-            }
-        };
+        DocumentQueryTransforms transformer = new DocumentQueryTransforms();
 
-        // Set expectations
-        context.checking(new Expectations() {
-            {
-                allowing(mockLog).isDebugEnabled();
-                allowing(mockLog).debug(with(any(String.class)));
-                allowing(mockLog).info(with(any(String.class)));
-            }
-        });
-
+        
         LogEventRequestType result = transformer.transformDocQueryReq2AuditMsg(logMessage, home.getHomeCommunityId());
 
         assertEquals(expResult.getAuditMessage().getActiveParticipant().get(0).getUserName(), result.getAuditMessage()
@@ -224,25 +207,10 @@ public class DocumentQueryTransformsTest {
         LogEventRequestType expected = new LogEventRequestType();
         expected.setAuditMessage(expResult);
 
-        // Create mock objects
-        final Log mockLog = context.mock(Log.class);
+      
+        DocumentQueryTransforms transformer = new DocumentQueryTransforms();
 
-        DocumentQueryTransforms transformer = new DocumentQueryTransforms() {
-            @Override
-            protected Log createLogger() {
-                return mockLog;
-            }
-        };
-
-        // Set expectations
-        context.checking(new Expectations() {
-            {
-                allowing(mockLog).isDebugEnabled();
-                allowing(mockLog).debug(with(any(String.class)));
-                allowing(mockLog).info(with(any(String.class)));
-            }
-        });
-
+      
         LogEventRequestType result = transformer.transformDocQueryResp2AuditMsg(logMessage, expectedHomeCommunity);
 
         assertEquals(expected.getAuditMessage().getActiveParticipant().get(0).getUserName(), result.getAuditMessage()
@@ -329,24 +297,9 @@ public class DocumentQueryTransformsTest {
         LogEventRequestType expected = new LogEventRequestType();
         expected.setAuditMessage(expResult);
 
-        // Create mock objects
-        final Log mockLog = context.mock(Log.class);
-
-        DocumentQueryTransforms transformer = new DocumentQueryTransforms() {
-            @Override
-            protected Log createLogger() {
-                return mockLog;
-            }
-        };
-
-        // Set expectations
-        context.checking(new Expectations() {
-            {
-                allowing(mockLog).isDebugEnabled();
-                allowing(mockLog).debug(with(any(String.class)));
-                allowing(mockLog).info(with(any(String.class)));
-            }
-        });
+      
+        DocumentQueryTransforms transformer = new DocumentQueryTransforms();
+        
 
         LogEventRequestType result = transformer.transformDocQueryResp2AuditMsg(logMessage, expectedHomeCommunity);
 

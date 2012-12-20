@@ -26,8 +26,7 @@
  */
 package gov.hhs.fha.nhinc.connectmgr.uddi;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 
 /**
  * 
@@ -35,7 +34,7 @@ import org.apache.commons.logging.LogFactory;
  */
 public class UDDIUpdateManager implements gov.hhs.fha.nhinc.nhinccomponentuddiupdatemanager.NhincComponentUDDIUpdateManagerPortType {
 
-    private static Log log = LogFactory.getLog(UDDIUpdateManager.class);
+    private static final Logger LOG = Logger.getLogger(UDDIUpdateManager.class);
 
     /**
      * Default constructor.
@@ -46,7 +45,7 @@ public class UDDIUpdateManager implements gov.hhs.fha.nhinc.nhinccomponentuddiup
             UDDITimer.startTimer();
         } catch (Exception e) {
             String sErrorMessage = "Failed to start UDDIUpdateManager's timer.  Error: " + e.getMessage();
-            log.error(sErrorMessage, e);
+            LOG.error(sErrorMessage, e);
         }
     }
 

@@ -33,8 +33,7 @@ import gov.hhs.fha.nhinc.gateway.aggregator.persistence.HibernateUtil;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -47,7 +46,7 @@ import org.hibernate.SessionFactory;
  * @author Les Westberg
  */
 public class AggMessageResultDao {
-    private static Log log = LogFactory.getLog(AggMessageResultDao.class);
+    private static final Logger LOG = Logger.getLogger(AggMessageResultDao.class);
 
     /**
      * Default constructor.
@@ -69,7 +68,7 @@ public class AggMessageResultDao {
             sMessageId = oAggMessageResult.getMessageId();
         }
 
-        log.debug("Performing AggMessageResult save for TransactionId: "
+        LOG.debug("Performing AggMessageResult save for TransactionId: "
                 + ((sMessageId.length() == 0) ? "New Record" : sMessageId));
 
         HibernateUtil.save(oAggMessageResult, sMessageId, "MessageId");
@@ -87,11 +86,11 @@ public class AggMessageResultDao {
         if (oAggMessageResult != null) {
             sMessageId = oAggMessageResult.getMessageId();
         } else {
-            log.warn("Attempt to delete AggMessageResults but the value was null.");
+            LOG.warn("Attempt to delete AggMessageResults but the value was null.");
             return; // there is nothing to delete.
         }
 
-        log.debug("Performing AggMessageResults delete for MessageId: " + sMessageId);
+        LOG.debug("Performing AggMessageResults delete for MessageId: " + sMessageId);
 
         HibernateUtil.delete(oAggMessageResult, sMessageId, "MessageId");
 
@@ -105,7 +104,7 @@ public class AggMessageResultDao {
      * @return Retrieved message result.
      */
     public AggMessageResult findById(String sMessageId) {
-        log.debug("Performing AggMessageResults findById for MessageId: " + sMessageId);
+        LOG.debug("Performing AggMessageResults findById for MessageId: " + sMessageId);
 
         AggMessageResult oAggMessageResult = (AggMessageResult) HibernateUtil.findById(AggMessageResult.class,
                 sMessageId, sMessageId, "TransactionId");
@@ -130,18 +129,18 @@ public class AggMessageResultDao {
         List<AggMessageResult> olAggMessageResult = new ArrayList<AggMessageResult>();
         if ((sTransactionId == null) || (sTransactionId.length() <= 0)) {
             String sErrorMessage = "AggMessageResultDao.findByMessagekey(sTransactionId, sMessageKey) must be called with a valid transaction Id but it was null or empty.";
-            log.error(sErrorMessage);
+            LOG.error(sErrorMessage);
             throw new AggregatorException(sErrorMessage);
         }
 
         if ((sMessageKey == null) || (sMessageKey.length() <= 0)) {
             String sErrorMessage = "AggMessageResultDao.findByMessagekey(sTransactionId, sMessageKey) must be called with a valid message key but it was null or empty.";
-            log.error(sErrorMessage);
+            LOG.error(sErrorMessage);
             throw new AggregatorException(sErrorMessage);
         }
 
-        if (log.isDebugEnabled()) {
-            log.debug("Performing AggMessageResultsDao.findByMessageKey(" + sTransactionId + ", " + sMessageKey + ").");
+        if (LOG.isDebugEnabled()) {
+            LOG.debug("Performing AggMessageResultsDao.findByMessageKey(" + sTransactionId + ", " + sMessageKey + ").");
         }
 
         Session oSession = null;
@@ -155,11 +154,11 @@ public class AggMessageResultDao {
                     query.setParameter("messageKey", sMessageKey);
                     olAggMessageResult = query.list();
                 } else {
-                    log.error("Failed to obtain a session from the sessionFactory " + "while calling findByMessageKey("
+                    LOG.error("Failed to obtain a session from the sessionFactory " + "while calling findByMessageKey("
                             + sTransactionId + ", " + sMessageKey + ").  ");
                 }
             } else {
-                log.error("Session factory was null while calling findByKey(" + sTransactionId + ", " + sMessageKey
+                LOG.error("Session factory was null while calling findByKey(" + sTransactionId + ", " + sMessageKey
                         + ").");
             }
         } finally {
@@ -167,14 +166,14 @@ public class AggMessageResultDao {
                 try {
                     oSession.close();
                 } catch (Throwable t) {
-                    log.error("Failed to close session" + "while calling findByMessageKey(" + sTransactionId + ", "
+                    LOG.error("Failed to close session" + "while calling findByMessageKey(" + sTransactionId + ", "
                             + sMessageKey + ").  " + "Message: " + t.getMessage(), t);
                 }
             }
         }
 
-        if (log.isDebugEnabled()) {
-            log.debug("Completed AggMessageResultDao.findByMessageKey(" + sTransactionId + ", " + sMessageKey + ").  "
+        if (LOG.isDebugEnabled()) {
+            LOG.debug("Completed AggMessageResultDao.findByMessageKey(" + sTransactionId + ", " + sMessageKey + ").  "
                     + "Result was: "
                     + (((olAggMessageResult == null) && (olAggMessageResult.size() > 0)) ? "not " : "") + "found");
         }
@@ -188,7 +187,7 @@ public class AggMessageResultDao {
             String sErrorMessage = "AggMessageResult.findByMessgeKey(" + sTransactionId + ", " + sMessageKey
                     + ") returned " + olAggMessageResult.size()
                     + "results.  It should have only returned 0 or 1 results.";
-            log.error(sErrorMessage);
+            LOG.error(sErrorMessage);
             throw new AggregatorException(sErrorMessage);
         } else {
             return null;

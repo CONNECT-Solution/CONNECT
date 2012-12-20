@@ -42,15 +42,10 @@ import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.healthit.nhin.XDRAcknowledgementType;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 public class PassthroughOutboundDocSubmissionDeferredRequest implements OutboundDocSubmissionDeferredRequest {
-    private static Log log = LogFactory.getLog(PassthroughOutboundDocSubmissionDeferredRequest.class);
     private XDRAuditLogger auditLogger = null;
 
     public PassthroughOutboundDocSubmissionDeferredRequest() {
-        log = getLogger();
         auditLogger = getXDRAuditLogger();
     }
     
@@ -117,10 +112,6 @@ public class PassthroughOutboundDocSubmissionDeferredRequest implements Outbound
 
     protected XDRAuditLogger getXDRAuditLogger() {
         return new XDRAuditLogger();
-    }
-
-    protected Log getLogger() {
-        return log;
     }
 
 }

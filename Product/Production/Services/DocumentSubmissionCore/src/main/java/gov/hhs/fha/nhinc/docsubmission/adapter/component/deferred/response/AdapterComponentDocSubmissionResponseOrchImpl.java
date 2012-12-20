@@ -29,9 +29,10 @@ package gov.hhs.fha.nhinc.docsubmission.adapter.component.deferred.response;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.healthit.nhin.XDRAcknowledgementType;
+
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+
+import org.apache.log4j.Logger;
 
 /**
  * This is the Java implementation for the AdapterComponentXDRResponse service. This is intended to be overridden by the
@@ -40,7 +41,7 @@ import org.apache.commons.logging.LogFactory;
  * @author Les Westberg
  */
 public class AdapterComponentDocSubmissionResponseOrchImpl {
-    private static Log log = LogFactory.getLog(AdapterComponentDocSubmissionResponseOrchImpl.class);
+    private static final Logger LOG = Logger.getLogger(AdapterComponentDocSubmissionResponseOrchImpl.class);
 
     /**
      * This method receives an AdapterComponentXDRResponse and returns an ACK.
@@ -51,7 +52,7 @@ public class AdapterComponentDocSubmissionResponseOrchImpl {
      */
     public XDRAcknowledgementType provideAndRegisterDocumentSetBResponse(RegistryResponseType body,
             AssertionType assertion) {
-        log.debug("Entering AdapterComponentXDRResponseOrchImpl.provideAndRegisterDocumentSetBResponse");
+        LOG.debug("Entering AdapterComponentXDRResponseOrchImpl.provideAndRegisterDocumentSetBResponse");
         XDRAcknowledgementType response = new XDRAcknowledgementType();
         RegistryResponseType regResp = new RegistryResponseType();
         regResp.setStatus(NhincConstants.XDR_RESP_ACK_STATUS_MSG);

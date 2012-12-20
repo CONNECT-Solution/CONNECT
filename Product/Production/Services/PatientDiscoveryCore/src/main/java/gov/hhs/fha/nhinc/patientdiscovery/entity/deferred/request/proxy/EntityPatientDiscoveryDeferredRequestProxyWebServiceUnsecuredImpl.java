@@ -36,24 +36,18 @@ import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.patientdiscovery.entity.deferred.request.proxy.service.EntityPatientDiscoveryAsyncReqServicePortDescriptor;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 import org.hl7.v3.MCCIIN000002UV01;
 import org.hl7.v3.PRPAIN201305UV02;
 import org.hl7.v3.RespondingGatewayPRPAIN201305UV02RequestType;
 
 public class EntityPatientDiscoveryDeferredRequestProxyWebServiceUnsecuredImpl implements
         EntityPatientDiscoveryDeferredRequestProxy {
-    private Log log = null;
+    private static final Logger LOG = Logger.getLogger(EntityPatientDiscoveryDeferredRequestProxyWebServiceUnsecuredImpl.class);
     private WebServiceProxyHelper oProxyHelper = null;
 
     public EntityPatientDiscoveryDeferredRequestProxyWebServiceUnsecuredImpl() {
-        log = createLogger();
         oProxyHelper = createWebServiceProxyHelper();
-    }
-
-    protected Log createLogger() {
-        return LogFactory.getLog(getClass());
     }
 
     protected WebServiceProxyHelper createWebServiceProxyHelper() {
@@ -62,7 +56,7 @@ public class EntityPatientDiscoveryDeferredRequestProxyWebServiceUnsecuredImpl i
 
     public MCCIIN000002UV01 processPatientDiscoveryAsyncReq(PRPAIN201305UV02 message, AssertionType assertion,
             NhinTargetCommunitiesType target) {
-        log.debug("Begin processPatientDiscoveryAsyncReq");
+        LOG.debug("Begin processPatientDiscoveryAsyncReq");
         MCCIIN000002UV01 response = new MCCIIN000002UV01();
 
         try {
@@ -78,10 +72,10 @@ public class EntityPatientDiscoveryDeferredRequestProxyWebServiceUnsecuredImpl i
             response = (MCCIIN000002UV01) client.invokePort(EntityPatientDiscoveryAsyncReqPortType.class,
                     "processPatientDiscoveryAsyncReq", request);
         } catch (Exception ex) {
-            log.error("Error calling processPatientDiscoveryAsyncReq: " + ex.getMessage(), ex);
+            LOG.error("Error calling processPatientDiscoveryAsyncReq: " + ex.getMessage(), ex);
         }
 
-        log.debug("End processPatientDiscoveryAsyncReq");
+        LOG.debug("End processPatientDiscoveryAsyncReq");
         return response;
     }
 

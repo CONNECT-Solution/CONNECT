@@ -18,8 +18,7 @@ import gov.hhs.fha.nhinc.util.HomeCommunityMap;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 
 /**
  * 
@@ -27,7 +26,7 @@ import org.apache.commons.logging.LogFactory;
  */
 public abstract class OutboundDocRetrieveStrategyBase implements OrchestrationStrategy {
 
-    private static Log log = LogFactory.getLog(OutboundDocRetrieveStrategyBase.class);
+    private static final Logger LOG = Logger.getLogger(OutboundDocRetrieveStrategyBase.class);
 
     @Override
     public void execute(Orchestratable message) {
@@ -36,14 +35,10 @@ public abstract class OutboundDocRetrieveStrategyBase implements OrchestrationSt
         }
     }
 
-    protected Log getLogger() {
-        return log;
-    }
-
     public void execute(OutboundDocRetrieveOrchestratable message) {
-        getLogger().debug("Begin OutboundDocRetrieveStrategyBase.execute");
+        LOG.trace("Begin OutboundDocRetrieveStrategyBase.execute");
         if (message == null) {
-            getLogger().debug("NhinOrchestratable was null");
+            LOG.debug("NhinOrchestratable was null");
             return;
         }
 
@@ -51,20 +46,19 @@ public abstract class OutboundDocRetrieveStrategyBase implements OrchestrationSt
             OutboundDocRetrieveOrchestratable NhinDRMessage = (OutboundDocRetrieveOrchestratable) message;
             String requestCommunityID = HomeCommunityMap.getCommunityIdForRDRequest(NhinDRMessage.getRequest());
 
-            getLogger().debug("Calling audit log for doc retrieve request (a0) sent to nhin (g0)");
+            LOG.debug("Calling audit log for doc retrieve request (a0) sent to nhin (g0)");
             auditRequestMessage(NhinDRMessage.getRequest(), NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION,
                     NhincConstants.AUDIT_LOG_NHIN_INTERFACE, NhinDRMessage.getAssertion(), requestCommunityID);
 
             NhinDRMessage.setResponse(callProxy(NhinDRMessage));
 
-            getLogger().debug("Calling audit log for doc retrieve response received from nhin (g0)");
+            LOG.debug("Calling audit log for doc retrieve response received from nhin (g0)");
             auditResponseMessage(NhinDRMessage.getResponse(), NhincConstants.AUDIT_LOG_INBOUND_DIRECTION,
                     NhincConstants.AUDIT_LOG_NHIN_INTERFACE, NhinDRMessage.getAssertion(), requestCommunityID);
         } else {
-            getLogger()
-                    .error("OutboundDocRetrieveStrategyBase.execute recieved a message which was not of type NhinDocRetrieveOrchestratableImpl_g0.");
+            LOG.error("OutboundDocRetrieveStrategyBase.execute recieved a message which was not of type NhinDocRetrieveOrchestratableImpl_g0.");
         }
-        getLogger().debug("End OutboundDocRetrieveStrategyBase.execute");
+        LOG.trace("End OutboundDocRetrieveStrategyBase.execute");
     }
 
     protected abstract RetrieveDocumentSetResponseType callProxy(OutboundDocRetrieveOrchestratable message);

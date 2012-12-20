@@ -35,23 +35,14 @@ import gov.hhs.fha.nhinc.common.nhinccommonadapter.FindCommunitiesAndAuditEvents
 
 import javax.xml.ws.WebServiceContext;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 
 /**
  * 
  * @author mflynn02
  */
 public class AuditRepositoryUnsecuredImpl {
-    private Log log = null;
-
-    public AuditRepositoryUnsecuredImpl() {
-        log = createLogger();
-    }
-
-    protected Log createLogger() {
-        return LogFactory.getLog(getClass());
-    }
+    private static final Logger LOG = Logger.getLogger(AuditRepositoryUnsecuredImpl.class);
 
     protected AuditRepositoryOrchImpl getAuditRepositoryOrchImpl() {
         return new AuditRepositoryOrchImpl();
@@ -62,11 +53,11 @@ public class AuditRepositoryUnsecuredImpl {
     }
 
     public AcknowledgementType logEvent(LogEventRequestType logEventRequest, WebServiceContext context) {
-        log.info("Entering AuditRepositoryUnsecuredImpl.logAudit");
+        LOG.info("Entering AuditRepositoryUnsecuredImpl.logAudit");
         AcknowledgementType response = null;
 
         if (logEventRequest == null) {
-            log.warn("request was null.");
+            LOG.warn("request was null.");
         } else {
             AuditRepositoryOrchImpl processor = getAuditRepositoryOrchImpl();
             if (processor != null) {
@@ -82,25 +73,25 @@ public class AuditRepositoryUnsecuredImpl {
                     response = processor.logAudit(secureRequest, assertion);
                 } catch (Exception ex) {
                     String message = "Error occurred calling AuditRepositoryImpl.logAudit. Error: " + ex.getMessage();
-                    log.error(message, ex);
+                    LOG.error(message, ex);
                     throw new RuntimeException(message, ex);
                 }
             } else {
-                log.warn("AuditRepositoryUnsecuredImpl was null.");
+                LOG.warn("AuditRepositoryUnsecuredImpl was null.");
             }
         }
 
-        log.info("Exiting AuditRepositoryUnsecuredImpl.logAudit");
+        LOG.info("Exiting AuditRepositoryUnsecuredImpl.logAudit");
         return response;
     }
 
     public FindCommunitiesAndAuditEventsResponseType queryAuditEvents(
             FindCommunitiesAndAuditEventsRequestType queryAuditEventsRequest, WebServiceContext context) {
-        log.info("Entering AuditRepositoryUnsecuredImpl.queryAuditEvents");
+        LOG.info("Entering AuditRepositoryUnsecuredImpl.queryAuditEvents");
         FindCommunitiesAndAuditEventsResponseType response = null;
 
         if (queryAuditEventsRequest == null) {
-            log.warn("request was null.");
+            LOG.warn("request was null.");
         } else {
             AuditRepositoryOrchImpl processor = getAuditRepositoryOrchImpl();
             if (processor != null) {
@@ -112,15 +103,15 @@ public class AuditRepositoryUnsecuredImpl {
                 } catch (Exception ex) {
                     String message = "Error occurred calling AuditRepositoryUnsecuredImpl.queryAuditEvents. Error: "
                             + ex.getMessage();
-                    log.error(message, ex);
+                    LOG.error(message, ex);
                     throw new RuntimeException(message, ex);
                 }
             } else {
-                log.warn("AuditRepositoryUnsecuredImpl was null.");
+                LOG.warn("AuditRepositoryUnsecuredImpl was null.");
             }
         }
 
-        log.info("Exiting AuditRepositoryUnsecuredImpl.queryAuditEvents");
+        LOG.info("Exiting AuditRepositoryUnsecuredImpl.queryAuditEvents");
         return response;
 
     }

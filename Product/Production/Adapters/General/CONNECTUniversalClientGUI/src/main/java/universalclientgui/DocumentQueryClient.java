@@ -27,38 +27,35 @@
 
 package universalclientgui;
 
-import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayCrossGatewayQueryRequestType;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException;
 import gov.hhs.fha.nhinc.docquery.entity.proxy.EntityDocQueryProxyWebServiceUnsecuredImpl;
-import gov.hhs.fha.nhinc.entitydocquery.EntityDocQueryPortType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
-import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import gov.hhs.fha.nhinc.util.format.UTCDateUtil;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
 import javax.xml.bind.JAXBElement;
+
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.ResponseOptionType;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.AdhocQueryType;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.ClassificationType;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.ExternalIdentifierType;
+import oasis.names.tc.ebxml_regrep.xsd.rim._3.ExtrinsicObjectType;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.IdentifiableType;
+import oasis.names.tc.ebxml_regrep.xsd.rim._3.LocalizedStringType;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.SlotType1;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.ValueListType;
-import oasis.names.tc.ebxml_regrep.xsd.rim._3.ExtrinsicObjectType;
-import oasis.names.tc.ebxml_regrep.xsd.rim._3.LocalizedStringType;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
-import javax.xml.namespace.QName;
-import javax.xml.ws.Service;
+
+import org.apache.log4j.Logger;
 
 /**
  * 
@@ -66,7 +63,7 @@ import javax.xml.ws.Service;
  */
 public class DocumentQueryClient {
 
-    private static Log log = LogFactory.getLog(DocumentQueryClient.class);
+    private static final Logger LOG = Logger.getLogger(DocumentQueryClient.class);
     private static final String HOME_ID = "urn:oid:2.16.840.1.113883.3.200";
     private static final String ID = "urn:uuid:14d4debf-8f97-4251-9a74-a90016b0af0d";
     private static final String PATIENT_ID_SLOT_NAME = "$XDSDocumentEntryPatientId";
@@ -105,10 +102,10 @@ public class DocumentQueryClient {
 
                 return convertAdhocQueryResponseToDocInfoBO(response);
             } else {
-                log.error("Error getting URL for " + SERVICE_NAME);
+                LOG.error("Error getting URL for " + SERVICE_NAME);
             }
         } catch (Exception ex) {
-            log.error("Error calling respondingGatewayCrossGatewayQuery: " + ex.getMessage(), ex);
+            LOG.error("Error calling respondingGatewayCrossGatewayQuery: " + ex.getMessage(), ex);
         }
         return null;
     }
@@ -208,12 +205,12 @@ public class DocumentQueryClient {
         List<DocumentInformation> documentInfoList = new ArrayList<DocumentInformation>();
 
         if (response == null) {
-            log.debug("AdhocQueryResponse is null");
+            LOG.debug("AdhocQueryResponse is null");
             return documentInfoList;
         }
 
         if (response.getRegistryObjectList() == null || response.getRegistryObjectList().getIdentifiable() == null) {
-            log.debug("AdhocQueryResponse is null");
+            LOG.debug("AdhocQueryResponse is null");
             return documentInfoList;
         }
 

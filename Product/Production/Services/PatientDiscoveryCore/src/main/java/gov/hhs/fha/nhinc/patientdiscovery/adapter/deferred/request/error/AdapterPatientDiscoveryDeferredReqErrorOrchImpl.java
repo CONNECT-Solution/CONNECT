@@ -31,8 +31,6 @@ import gov.hhs.fha.nhinc.asyncmsgs.dao.AsyncMsgRecordDao;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.transform.subdisc.HL7AckTransforms;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.hl7.v3.MCCIIN000002UV01;
 import org.hl7.v3.PRPAIN201305UV02;
 import org.hl7.v3.PRPAIN201306UV02;
@@ -42,16 +40,6 @@ import org.hl7.v3.PRPAIN201306UV02;
  * @author jhoppesc
  */
 public class AdapterPatientDiscoveryDeferredReqErrorOrchImpl {
-
-    private Log log = null;
-
-    public AdapterPatientDiscoveryDeferredReqErrorOrchImpl() {
-        log = createLogger();
-    }
-
-    protected Log createLogger() {
-        return ((log != null) ? log : LogFactory.getLog(getClass()));
-    }
 
     protected AsyncMessageProcessHelper createAsyncProcesser() {
         return new AsyncMessageProcessHelper();

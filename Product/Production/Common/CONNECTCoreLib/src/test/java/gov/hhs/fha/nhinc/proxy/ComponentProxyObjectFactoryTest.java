@@ -26,8 +26,12 @@
  */
 package gov.hhs.fha.nhinc.proxy;
 
-import org.apache.commons.logging.Log;
-import org.jmock.Expectations;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
+
 import org.jmock.Mockery;
 import org.jmock.integration.junit4.JMock;
 import org.jmock.integration.junit4.JUnit4Mockery;
@@ -36,7 +40,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.FileSystemXmlApplicationContext;
-import static org.junit.Assert.*;
 
 /**
  * 
@@ -50,42 +53,11 @@ public class ComponentProxyObjectFactoryTest {
         }
     };
 
-    final Log mockLog = context.mock(Log.class);
-
-    @Test
-    public void testCreateLogger() {
-        try {
-            ComponentProxyObjectFactory sut = new ComponentProxyObjectFactory() {
-
-                @Override
-                protected Log createLogger() {
-                    return mockLog;
-                }
-
-                @Override
-                protected String getConfigFileName() {
-                    return "";
-                }
-
-            };
-            Log log = sut.createLogger();
-            assertNotNull("Log was null", log);
-        } catch (Throwable t) {
-            System.out.println("Error running testCreateLogger test: " + t.getMessage());
-            t.printStackTrace();
-            fail("Error running testCreateLogger test: " + t.getMessage());
-        }
-    }
 
     @Test
     public void testGetPropertyFileURL() {
         try {
             ComponentProxyObjectFactory sut = new ComponentProxyObjectFactory() {
-
-                @Override
-                protected Log createLogger() {
-                    return mockLog;
-                }
 
                 @Override
                 protected String getPropertyFileURL() {
@@ -116,11 +88,6 @@ public class ComponentProxyObjectFactoryTest {
             ComponentProxyObjectFactory sut = new ComponentProxyObjectFactory() {
 
                 @Override
-                protected Log createLogger() {
-                    return mockLog;
-                }
-
-                @Override
                 protected ApplicationContext createApplicationContext(String configFilePath) {
                     return mockContext;
                 }
@@ -148,11 +115,6 @@ public class ComponentProxyObjectFactoryTest {
             ComponentProxyObjectFactory sut = new ComponentProxyObjectFactory() {
 
                 @Override
-                protected Log createLogger() {
-                    return mockLog;
-                }
-
-                @Override
                 protected void refreshConfigurationContext(ApplicationContext appContext) {
                 }
 
@@ -176,11 +138,6 @@ public class ComponentProxyObjectFactoryTest {
     public void testGetLastModified() {
         try {
             ComponentProxyObjectFactory sut = new ComponentProxyObjectFactory() {
-
-                @Override
-                protected Log createLogger() {
-                    return mockLog;
-                }
 
                 @Override
                 protected long getLastModified(String filePath) {
@@ -207,12 +164,7 @@ public class ComponentProxyObjectFactoryTest {
         try {
             ComponentProxyObjectFactory sut = new ComponentProxyObjectFactory() {
 
-                @Override
-                protected Log createLogger() {
-                    return mockLog;
-                }
-
-                @Override
+            	@Override
                 protected String getConfigFileName() {
                     return "TEST_CONFIG_FILE_NAME";
                 }
@@ -233,17 +185,7 @@ public class ComponentProxyObjectFactoryTest {
         try {
             final ApplicationContext mockContext = context.mock(ApplicationContext.class);
 
-            context.checking(new Expectations() {
-                {
-                    oneOf(mockLog).debug("ApplicationContext for: TestFile.xml was null - creating.");
-                }
-            });
             ComponentProxyObjectFactory sut = new ComponentProxyObjectFactory() {
-
-                @Override
-                protected Log createLogger() {
-                    return mockLog;
-                }
 
                 @Override
                 protected long getLastModified(String filePath) {
@@ -280,11 +222,7 @@ public class ComponentProxyObjectFactoryTest {
             final ApplicationContext mockContext = context.mock(ApplicationContext.class);
 
             ComponentProxyObjectFactory sut = new ComponentProxyObjectFactory() {
-                @Override
-                protected Log createLogger() {
-                    return mockLog;
-                }
-
+                
                 @Override
                 protected void refreshConfigurationContext(ApplicationContext appContext) {
                 }
@@ -318,13 +256,6 @@ public class ComponentProxyObjectFactoryTest {
                 }
 
             };
-            context.checking(new Expectations() {
-                {
-                    oneOf(mockLog).debug(
-                            "ApplicationContext for: TestFile.xml was not null - checking to see if it is stale.");
-                    oneOf(mockLog).debug("Refreshing the Spring application context for: TestFile.xml");
-                }
-            });
             assertNotNull("ApplicationContext from getContext", sut.getContext());
         } catch (Throwable t) {
             System.out.println("Error running testGetContextRefresh test: " + t.getMessage());
@@ -346,11 +277,6 @@ public class ComponentProxyObjectFactoryTest {
             };
 
             ComponentProxyObjectFactory sut = new ComponentProxyObjectFactory() {
-
-                @Override
-                protected Log createLogger() {
-                    return mockLog;
-                }
 
                 @Override
                 protected ApplicationContext getContext() {
@@ -378,11 +304,6 @@ public class ComponentProxyObjectFactoryTest {
             ComponentProxyObjectFactory sut = new ComponentProxyObjectFactory() {
 
                 @Override
-                protected Log createLogger() {
-                    return mockLog;
-                }
-
-                @Override
                 protected ApplicationContext getContext() {
                     return null;
                 }
@@ -393,11 +314,7 @@ public class ComponentProxyObjectFactoryTest {
                 }
 
             };
-            context.checking(new Expectations() {
-                {
-                    oneOf(mockLog).warn("ApplicationContext was null - not retrieving bean.");
-                }
-            });
+            
             assertNull("ApplicationContext from getContext", sut.getBean("", String.class));
         } catch (Throwable t) {
             System.out.println("Error running testGetBeanNullContext test: " + t.getMessage());
@@ -419,11 +336,6 @@ public class ComponentProxyObjectFactoryTest {
             };
 
             ComponentProxyObjectFactory sut = new ComponentProxyObjectFactory() {
-
-                @Override
-                protected Log createLogger() {
-                    return mockLog;
-                }
 
                 @Override
                 protected ApplicationContext getContext() {

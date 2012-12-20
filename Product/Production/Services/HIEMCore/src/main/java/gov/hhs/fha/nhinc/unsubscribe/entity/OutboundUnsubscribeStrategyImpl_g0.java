@@ -26,28 +26,19 @@
  */
 package gov.hhs.fha.nhinc.unsubscribe.entity;
 
-import gov.hhs.fha.nhinc.hiem.consumerreference.SoapMessageElements;
 import gov.hhs.fha.nhinc.orchestration.Orchestratable;
 import gov.hhs.fha.nhinc.orchestration.OrchestrationStrategy;
 import gov.hhs.fha.nhinc.unsubscribe.nhin.proxy.NhinHiemUnsubscribeProxy;
 import gov.hhs.fha.nhinc.unsubscribe.nhin.proxy.NhinHiemUnsubscribeProxyObjectFactory;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 import org.oasis_open.docs.wsn.b_2.UnsubscribeResponse;
 import org.w3c.dom.Element;
 
 class OutboundUnsubscribeStrategyImpl_g0 implements OrchestrationStrategy {
 
-    private static Log log = LogFactory.getLog(OutboundUnsubscribeStrategyImpl_g0.class);
+    private static final Logger LOG = Logger.getLogger(OutboundUnsubscribeStrategyImpl_g0.class);
 
-    public OutboundUnsubscribeStrategyImpl_g0() {
-    }
-
-    protected Log getLogger() {
-        return log;
-    }
-    
     protected NhinHiemUnsubscribeProxy getNhinUnsubscribeProxy() {
         return new NhinHiemUnsubscribeProxyObjectFactory().getNhinHiemUnsubscribeProxy();
     }
@@ -57,26 +48,26 @@ class OutboundUnsubscribeStrategyImpl_g0 implements OrchestrationStrategy {
         if (message instanceof OutboundUnsubscribeOrchestratable) {
             execute((OutboundUnsubscribeOrchestratable) message);
         } else {
-            getLogger().error("Not an OutboundDocSubmissionOrchestratable.");
+            LOG.error("Not an OutboundDocSubmissionOrchestratable.");
         }
     }
 
     public void execute(OutboundUnsubscribeOrchestratable message) {
-        getLogger().debug("Begin OutboundDocSubmissionOrchestratableImpl_g0.process");
+        LOG.debug("Begin OutboundDocSubmissionOrchestratableImpl_g0.process");
 
         NhinHiemUnsubscribeProxy nhincUnsubscribe = getNhinUnsubscribeProxy();
         UnsubscribeResponse response = null;
         for ( Element element :  message.getReferenceParameters().getElements()) {
-            log.debug("element: "+element.getNodeValue());
+            LOG.debug("element: "+element.getNodeValue());
         }
 		try {
 			response = nhincUnsubscribe.unsubscribe(message.getRequest(), message.getReferenceParameters(),
 			        message.getAssertion(), message.getTarget(),message.getSubscriptionId());
 		} catch (Exception e) {
-			log.error("Failure to process nhin Subscribe message.", e);
+			LOG.error("Failure to process nhin Subscribe message.", e);
 		}
         message.setResponse(response);
 
-        getLogger().debug("End OutboundDocSubmissionOrchestratableImpl_g0.process");
+        LOG.debug("End OutboundDocSubmissionOrchestratableImpl_g0.process");
     }
 }

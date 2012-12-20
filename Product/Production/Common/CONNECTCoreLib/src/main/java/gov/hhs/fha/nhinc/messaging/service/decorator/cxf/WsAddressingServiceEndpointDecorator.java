@@ -35,8 +35,7 @@ import gov.hhs.fha.nhinc.wsa.WSAHeaderHelper;
 
 import javax.xml.ws.BindingProvider;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 import org.apache.cxf.endpoint.Client;
 import org.apache.cxf.frontend.ClientProxy;
 import org.apache.cxf.transport.http.HTTPConduit;
@@ -52,7 +51,7 @@ import org.apache.cxf.ws.addressing.impl.AddressingPropertiesImpl;
  */
 public class WsAddressingServiceEndpointDecorator<T> extends ServiceEndpointDecorator<T> {
 
-    private Log log = null;
+    private static final Logger LOG = Logger.getLogger(WsAddressingServiceEndpointDecorator.class);
 
     private BindingProvider bindingProviderPort;
     private AddressingPropertiesImpl maps;
@@ -68,7 +67,6 @@ public class WsAddressingServiceEndpointDecorator<T> extends ServiceEndpointDeco
     public WsAddressingServiceEndpointDecorator(ServiceEndpoint<T> decoratoredEndpoint, String wsAddressingTo,
             String wsAddressingAction, AssertionType assertion) {
         super(decoratoredEndpoint);
-        log = createLogger();
 
         this.bindingProviderPort = (BindingProvider) decoratedEndpoint.getPort();
         this.assertion = assertion;
@@ -108,10 +106,6 @@ public class WsAddressingServiceEndpointDecorator<T> extends ServiceEndpointDeco
         maps.setMessageID(messageId);
 
         bindingProviderPort.getRequestContext().put(JAXWSAConstants.CLIENT_ADDRESSING_PROPERTIES, maps);        
-    }
-
-    protected Log createLogger() {
-        return LogFactory.getLog(getClass());
     }
 
     /**
@@ -164,7 +158,7 @@ public class WsAddressingServiceEndpointDecorator<T> extends ServiceEndpointDeco
 
         if (NullChecker.isNullish(messageId)) {
             messageId = wsaHelper.generateMessageID();
-            log.warn("Assertion did not contain a message ID.  Generating one now...  Message ID = " + messageId);
+            LOG.warn("Assertion did not contain a message ID.  Generating one now...  Message ID = " + messageId);
         } else {
             messageId = wsaHelper.fixMessageIDPrefix(messageId);
         }

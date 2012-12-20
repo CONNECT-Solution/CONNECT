@@ -32,7 +32,6 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
-import org.apache.commons.logging.Log;
 import org.jmock.Expectations;
 import org.jmock.Mockery;
 import org.jmock.integration.junit4.JUnit4Mockery;
@@ -58,13 +57,11 @@ public class OutboundDocSubmissionDelegateTest {
     private static final String RESPONSE_ID_G0 = "g0";
     private static final String RESPONSE_ID_G1 = "g1";
 
-    private final Log mockLog = context.mock(Log.class);
     private final OrchestrationContextFactory mockContextFactory = context.mock(OrchestrationContextFactory.class);
     private final OrchestrationContext mockOrchestrationContext = context.mock(OrchestrationContext.class);
 
     @Test
     public void testOrchestration_G0Context() {
-        allowAnyMockLogging();
         setMockContextFactoryToReturnG0();
 
         OutboundDocSubmissionDelegate delegate = createOutboundDocSubmissionDelegate();
@@ -78,7 +75,6 @@ public class OutboundDocSubmissionDelegateTest {
 
     @Test
     public void testOrchestration_G1Context() {
-        allowAnyMockLogging();
         setMockContextFactoryToReturnG1();
 
         OutboundDocSubmissionDelegate delegate = createOutboundDocSubmissionDelegate();
@@ -92,7 +88,6 @@ public class OutboundDocSubmissionDelegateTest {
 
     @Test
     public void testOrchestration_UnknownContext() {
-        allowAnyMockLogging();
         setMockContextFactoryToReturnNull();
 
         OutboundDocSubmissionDelegate delegate = createOutboundDocSubmissionDelegate();
@@ -105,7 +100,6 @@ public class OutboundDocSubmissionDelegateTest {
 
     @Test
     public void testOrchestration_GenericOrchestratable() {
-        allowAnyMockLogging();
         setMockContextFactoryToReturnG0();
 
         OutboundDocSubmissionDelegate delegate = createOutboundDocSubmissionDelegate();
@@ -119,8 +113,6 @@ public class OutboundDocSubmissionDelegateTest {
 
     @Test
     public void testOrchestration_NullOrchestratable() {
-        allowAnyMockLogging();
-
         OutboundDocSubmissionDelegate delegate = createOutboundDocSubmissionDelegate();
         Orchestratable response = delegate.process(null);
 
@@ -130,8 +122,6 @@ public class OutboundDocSubmissionDelegateTest {
 
     @Test
     public void testOrchestration_UnknownOrchestratable() {
-        allowAnyMockLogging();
-
         TestOrchestratable wrongOrchestratable = new TestOrchestratable();
         OutboundDocSubmissionDelegate delegate = createOutboundDocSubmissionDelegate();
         Orchestratable response = delegate.process(wrongOrchestratable);
@@ -145,7 +135,6 @@ public class OutboundDocSubmissionDelegateTest {
         OutboundDocSubmissionDelegate delegate = new OutboundDocSubmissionDelegate();
 
         context.assertIsSatisfied();
-        assertNotNull(delegate.getLogger());
         assertNotNull(delegate.getOrchestrationContextFactory());
     }
 
@@ -167,14 +156,6 @@ public class OutboundDocSubmissionDelegateTest {
         dsOrchestratable.setTarget(target);
 
         return dsOrchestratable;
-    }
-
-    private void allowAnyMockLogging() {
-        context.checking(new Expectations() {
-            {
-                ignoring(mockLog);
-            }
-        });
     }
 
     private void setMockContextFactoryToReturnG0() {
@@ -246,10 +227,6 @@ public class OutboundDocSubmissionDelegateTest {
 
     private OutboundDocSubmissionDelegate createOutboundDocSubmissionDelegate() {
         return new OutboundDocSubmissionDelegate() {
-            protected Log getLogger() {
-                return mockLog;
-            }
-
             protected OrchestrationContextFactory getOrchestrationContextFactory() {
                 return mockContextFactory;
             }

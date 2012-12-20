@@ -16,15 +16,14 @@ import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
 import java.security.interfaces.RSAPublicKey;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 
 /**
  * @author mweaver
  * 
  */
 public class CertificateManagerImpl implements CertificateManager {
-    private static Log log = LogFactory.getLog(CertificateManagerImpl.class);
+    private static final Logger LOG = Logger.getLogger(CertificateManagerImpl.class);
 
     private KeyStore keyStore = null;
 
@@ -39,7 +38,7 @@ public class CertificateManagerImpl implements CertificateManager {
                 initTrustStore();
             }
         } catch (Exception e) {
-            log.error("unable to initialize keystores", e);
+            LOG.error("unable to initialize keystores", e);
             e.printStackTrace();
         }
     }
@@ -71,7 +70,7 @@ public class CertificateManagerImpl implements CertificateManager {
      * @throws Exception
      */
     private void initKeyStore() throws Exception {
-        log.debug("SamlCallbackHandler.initKeyStore() -- Begin");
+        LOG.debug("SamlCallbackHandler.initKeyStore() -- Begin");
 
         InputStream is = null;
         String storeType = System.getProperty("javax.net.ssl.keyStoreType");
@@ -79,17 +78,17 @@ public class CertificateManagerImpl implements CertificateManager {
         String storeLoc = System.getProperty("javax.net.ssl.keyStore");
 
         if (storeType == null) {
-            log.error("javax.net.ssl.keyStoreType is not defined");
-            log.warn("Default to JKS keyStoreType");
+            LOG.error("javax.net.ssl.keyStoreType is not defined");
+            LOG.warn("Default to JKS keyStoreType");
             storeType = "JKS";
         }
         if (password == null || storeLoc == null) {
-            log.error("Store password or store location not defined");
-            log.error("Please define javax.net.ssl.keyStorePassword and javax.net.ssl.keyStore");
+            LOG.error("Store password or store location not defined");
+            LOG.error("Please define javax.net.ssl.keyStorePassword and javax.net.ssl.keyStore");
         }
 
         if ("JKS".equals(storeType) && storeLoc == null) {
-            log.error("javax.net.ssl.keyStore is not defined");
+            LOG.error("javax.net.ssl.keyStore is not defined");
         } else {
             try {
                 keyStore = KeyStore.getInstance(storeType);
@@ -98,13 +97,13 @@ public class CertificateManagerImpl implements CertificateManager {
                 }
                 keyStore.load(is, password.toCharArray());
             } catch (NoSuchAlgorithmException ex) {
-                log.error("Error initializing KeyStore: " + ex);
+                LOG.error("Error initializing KeyStore: " + ex);
                 throw new Exception(ex.getMessage());
             } catch (CertificateException ex) {
-                log.error("Error initializing KeyStore: " + ex);
+                LOG.error("Error initializing KeyStore: " + ex);
                 throw new Exception(ex.getMessage());
             } catch (KeyStoreException ex) {
-                log.error("Error initializing KeyStore: " + ex);
+                LOG.error("Error initializing KeyStore: " + ex);
                 throw new Exception(ex.getMessage());
             } finally {
                 try {
@@ -112,12 +111,12 @@ public class CertificateManagerImpl implements CertificateManager {
                         is.close();
                     }
                 } catch (IOException ex) {
-                    log.debug("KeyStoreCallbackHandler " + ex);
+                    LOG.debug("KeyStoreCallbackHandler " + ex);
                 }
             }
         }
 
-        log.debug("SamlCallbackHandler.initKeyStore() -- End");
+        LOG.debug("SamlCallbackHandler.initKeyStore() -- End");
     }
 
     /**
@@ -127,7 +126,7 @@ public class CertificateManagerImpl implements CertificateManager {
      * @throws Exception
      */
     private void initTrustStore() throws Exception {
-        log.debug("SamlCallbackHandler.initTrustStore() -- Begin");
+        LOG.debug("SamlCallbackHandler.initTrustStore() -- Begin");
 
         InputStream is = null;
         String storeType = System.getProperty("javax.net.ssl.trustStoreType");
@@ -135,13 +134,13 @@ public class CertificateManagerImpl implements CertificateManager {
         String storeLoc = System.getProperty("javax.net.ssl.trustStore");
 
         if (storeType == null) {
-            log.error("javax.net.ssl.trustStoreType is not defined in domain.xml");
-            log.warn("Default to JKS trustStoreType");
+            LOG.error("javax.net.ssl.trustStoreType is not defined in domain.xml");
+            LOG.warn("Default to JKS trustStoreType");
             storeType = "JKS";
         }
         if (password != null) {
             if ("JKS".equals(storeType) && storeLoc == null) {
-                log.error("javax.net.ssl.trustStore is not defined in domain.xml");
+                LOG.error("javax.net.ssl.trustStore is not defined in domain.xml");
             } else {
                 try {
                     trustStore = KeyStore.getInstance(storeType);
@@ -150,13 +149,13 @@ public class CertificateManagerImpl implements CertificateManager {
                     }
                     trustStore.load(is, password.toCharArray());
                 } catch (NoSuchAlgorithmException ex) {
-                    log.error("Error initializing TrustStore: " + ex);
+                    LOG.error("Error initializing TrustStore: " + ex);
                     throw new Exception(ex.getMessage());
                 } catch (CertificateException ex) {
-                    log.error("Error initializing TrustStore: " + ex);
+                    LOG.error("Error initializing TrustStore: " + ex);
                     throw new IOException(ex.getMessage());
                 } catch (KeyStoreException ex) {
-                    log.error("Error initializing TrustStore: " + ex);
+                    LOG.error("Error initializing TrustStore: " + ex);
                     throw new IOException(ex.getMessage());
                 } finally {
                     try {
@@ -164,14 +163,14 @@ public class CertificateManagerImpl implements CertificateManager {
                             is.close();
                         }
                     } catch (IOException ex) {
-                        log.debug("KeyStoreCallbackHandler " + ex);
+                        LOG.debug("KeyStoreCallbackHandler " + ex);
                     }
                 }
             }
         } else {
-            log.error("javax.net.ssl.trustStorePassword is not defined in domain.xml");
+            LOG.error("javax.net.ssl.trustStorePassword is not defined in domain.xml");
         }
-        log.debug("SamlCallbackHandler.initTrustStore() -- End");
+        LOG.debug("SamlCallbackHandler.initTrustStore() -- End");
     }
 
     /*
@@ -194,7 +193,7 @@ public class CertificateManagerImpl implements CertificateManager {
     }
 
     private PrivateKeyEntry getPrivateKeyEntry() throws Exception {
-        log.debug("SamlCallbackHandler.getDefaultPrivKeyCert() -- Begin");
+        LOG.debug("SamlCallbackHandler.getDefaultPrivKeyCert() -- Begin");
         X509Certificate cert = null;
         KeyStore.PrivateKeyEntry pkEntry = null;
 
@@ -207,25 +206,25 @@ public class CertificateManagerImpl implements CertificateManager {
                             new KeyStore.PasswordProtection(password.toCharArray()));
 
                 } catch (NoSuchAlgorithmException ex) {
-                    log.error("Error initializing Private Key: " + ex);
+                    LOG.error("Error initializing Private Key: " + ex);
                     throw new Exception(ex.getMessage());
                 } catch (KeyStoreException ex) {
-                    log.error("Error initializing Private Key: " + ex);
+                    LOG.error("Error initializing Private Key: " + ex);
                     throw new Exception(ex.getMessage());
                 } catch (UnrecoverableEntryException ex) {
-                    log.error("Error initializing Private Key: " + ex);
+                    LOG.error("Error initializing Private Key: " + ex);
                     throw new Exception(ex.getMessage());
                 }
 
             } else {
-                log.error("javax.net.ssl.keyStorePassword is not defined in domain.xml");
+                LOG.error("javax.net.ssl.keyStorePassword is not defined in domain.xml");
             }
 
         } else {
-            log.error("CLIENT_KEY_ALIAS is not defined in domain.xml");
+            LOG.error("CLIENT_KEY_ALIAS is not defined in domain.xml");
         }
 
-        log.debug("SamlCallbackHandler.getDefaultPrivKeyCert() -- End");
+        LOG.debug("SamlCallbackHandler.getDefaultPrivKeyCert() -- End");
         return pkEntry;
     }
 
@@ -240,7 +239,7 @@ public class CertificateManagerImpl implements CertificateManager {
         try {
             return (RSAPublicKey) getDefaultCertificate().getPublicKey();
         } catch (Exception e) {
-            log.error(e);
+            LOG.error(e);
 
         }
         return null;

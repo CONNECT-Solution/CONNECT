@@ -35,7 +35,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import org.apache.commons.logging.Log;
 import org.hl7.v3.CS;
 import org.hl7.v3.MCCIIN000002UV01;
 import org.hl7.v3.MCCIMT000200UV01Acknowledgement;
@@ -63,7 +62,7 @@ public class AsyncMessageProcessHelperTest {
             setImposteriser(ClassImposteriser.INSTANCE);
         }
     };
-    final Log mockLog = context.mock(Log.class);
+    
     final AsyncMsgRecordDao mockDao = context.mock(AsyncMsgRecordDao.class);
 
     /**
@@ -91,11 +90,6 @@ public class AsyncMessageProcessHelperTest {
     private AsyncMessageProcessHelper createAsyncMessageProcessHelper() {
         return new AsyncMessageProcessHelper() {
             @Override
-            protected Log createLogger() {
-                return mockLog;
-            }
-
-            @Override
             protected AsyncMsgRecordDao createAsyncMsgRecordDao() {
                 return mockDao;
             }
@@ -110,18 +104,6 @@ public class AsyncMessageProcessHelperTest {
         mockRecords.add(record);
 
         return mockRecords;
-    }
-
-    @Test
-    public void testCreateLogger() {
-        try {
-            AsyncMessageProcessHelper asyncHelper = createAsyncMessageProcessHelper();
-            Log oLog = asyncHelper.createLogger();
-            assertNotNull(oLog);
-        } catch (Exception e) {
-            e.printStackTrace();
-            fail("Error running testCreateLogger test: " + e.getMessage());
-        }
     }
 
     @Test
@@ -147,7 +129,6 @@ public class AsyncMessageProcessHelperTest {
                 {
                     exactly(2).of(mockDao).insertRecords(with(any(List.class)));
                     will(returnValue(true));
-                    allowing(mockLog).debug(with(any(String.class)));
                 }
             });
             AsyncMessageProcessHelper asyncHelper = createAsyncMessageProcessHelper();
@@ -181,8 +162,6 @@ public class AsyncMessageProcessHelperTest {
                     exactly(1).of(mockDao).queryByMessageIdAndDirection(with(any(String.class)),
                             with(any(String.class)));
                     will(returnValue(returnMockRecords()));
-                    allowing(mockLog).debug(with(any(String.class)));
-                    allowing(mockLog).error(with(any(String.class)));
                 }
             });
             AsyncMessageProcessHelper asyncHelper = createAsyncMessageProcessHelper();
@@ -200,8 +179,7 @@ public class AsyncMessageProcessHelperTest {
             {
                 exactly(1).of(mockDao).save(with(any(AsyncMsgRecord.class)));
                 exactly(1).of(mockDao).queryByMessageIdAndDirection(with(any(String.class)), with(any(String.class)));
-                will(returnValue(returnMockRecords()));
-                allowing(mockLog).debug(with(any(String.class)));
+                will(returnValue(returnMockRecords()));    
             }
         });
 
@@ -217,8 +195,7 @@ public class AsyncMessageProcessHelperTest {
             {
                 exactly(1).of(mockDao).save(with(any(AsyncMsgRecord.class)));
                 exactly(1).of(mockDao).queryByMessageIdAndDirection(with(any(String.class)), with(any(String.class)));
-                will(returnValue(returnMockRecords()));
-                allowing(mockLog).debug(with(any(String.class)));
+                will(returnValue(returnMockRecords()));     
             }
         });
         AsyncMessageProcessHelper asyncHelper = createAsyncMessageProcessHelper();

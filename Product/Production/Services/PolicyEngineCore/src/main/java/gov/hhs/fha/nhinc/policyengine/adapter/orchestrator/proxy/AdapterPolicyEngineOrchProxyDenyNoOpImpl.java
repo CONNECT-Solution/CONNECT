@@ -32,8 +32,8 @@ import gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyResponseType;
 import oasis.names.tc.xacml._2_0.context.schema.os.DecisionType;
 import oasis.names.tc.xacml._2_0.context.schema.os.ResponseType;
 import oasis.names.tc.xacml._2_0.context.schema.os.ResultType;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+
+import org.apache.log4j.Logger;
 
 /**
  * This is a concrete implementation of the AdapterPolicyEngineOrchestrator interface that always returns a deny.
@@ -41,15 +41,7 @@ import org.apache.commons.logging.LogFactory;
  * @author Les Westberg
  */
 public class AdapterPolicyEngineOrchProxyDenyNoOpImpl implements AdapterPolicyEngineOrchProxy {
-    private Log log = null;
-
-    public AdapterPolicyEngineOrchProxyDenyNoOpImpl() {
-        log = createLogger();
-    }
-
-    protected Log createLogger() {
-        return LogFactory.getLog(getClass());
-    }
+    private static final Logger LOG = Logger.getLogger(AdapterPolicyEngineOrchProxyDenyNoOpImpl.class);
 
     /**
      * Given a request to check the access policy, this service will always return a deny response.
@@ -58,14 +50,14 @@ public class AdapterPolicyEngineOrchProxyDenyNoOpImpl implements AdapterPolicyEn
      * @return The response which contains the access decision
      */
     public CheckPolicyResponseType checkPolicy(CheckPolicyRequestType checkPolicyRequest, AssertionType assertion) {
-        log.debug("Begin AdapterPolicyEngineOrchProxyDenyNoOpImpl.checkPolicy");
+        LOG.trace("Begin AdapterPolicyEngineOrchProxyDenyNoOpImpl.checkPolicy");
         CheckPolicyResponseType oPolicyResponse = new CheckPolicyResponseType();
         ResponseType oResponse = new ResponseType();
         ResultType oResult = new ResultType();
         oResult.setDecision(DecisionType.DENY);
         oResponse.getResult().add(oResult);
         oPolicyResponse.setResponse(oResponse);
-        log.debug("End AdapterPolicyEngineOrchProxyDenyNoOpImpl.checkPolicy");
+        LOG.trace("End AdapterPolicyEngineOrchProxyDenyNoOpImpl.checkPolicy");
         return oPolicyResponse;
     }
 }

@@ -33,8 +33,7 @@ import java.util.Map;
 
 import javax.xml.ws.BindingProvider;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 import org.hl7.v3.CS;
 import org.hl7.v3.EDExplicit;
 import org.hl7.v3.II;
@@ -71,7 +70,7 @@ public class PDClient<Target extends UrlInfo, Request extends RespondingGatewayP
     Response extends ResponseWrapper>
         implements WebServiceClient<Target, Request, Response> {
 
-    private static Log log = LogFactory.getLog(PDClient.class);
+    private static final Logger LOG = Logger.getLogger(PDClient.class);
 
     private static RespondingGatewayService serviceInstance = null;
     private static final Object PDSYNC = new Object();
@@ -95,7 +94,7 @@ public class PDClient<Target extends UrlInfo, Request extends RespondingGatewayP
         } else {
             synchronized (PDSYNC) {
                 if (serviceInstance == null) {
-                    log.debug("PDClient retrieving web service client from wsdl");
+                    LOG.debug("PDClient retrieving web service client from wsdl");
                     try {
                         serviceInstance = new RespondingGatewayService();
                     } catch (Exception e) {
@@ -157,15 +156,15 @@ public class PDClient<Target extends UrlInfo, Request extends RespondingGatewayP
 
                     newRequest.getPRPAIN201305UV02().getReceiver().get(0).getDevice().getId().get(0).setRoot(
                             target.getHcid());
-                    log.debug(Thread.currentThread().getName() + " set Receiver.Device.Id.Root of "
+                    LOG.debug(Thread.currentThread().getName() + " set Receiver.Device.Id.Root of "
                             + "PRPAIN201305UV02 request to hcid=" + target.getHcid());
                 }
 
-                log.debug(Thread.currentThread().getName() + " calling serviceAddress=" + serviceAddress
+                LOG.debug(Thread.currentThread().getName() + " calling serviceAddress=" + serviceAddress
                         + " for target hcid=" + target.getHcid());
                 discoveryResponse = servicePort.respondingGatewayPRPAIN201305UV02(newRequest.getPRPAIN201305UV02());
             } else {
-                log.debug(Thread.currentThread().getName() + " has validPolicy=false");
+                LOG.debug(Thread.currentThread().getName() + " has validPolicy=false");
                 discoveryResponse =
                         (new HL7PRPA201306Transforms()).createPRPA201306ForErrors(newRequest.getPRPAIN201305UV02(),
                                 NhincConstants.PATIENT_DISCOVERY_POLICY_FAILED_ACK_MSG);

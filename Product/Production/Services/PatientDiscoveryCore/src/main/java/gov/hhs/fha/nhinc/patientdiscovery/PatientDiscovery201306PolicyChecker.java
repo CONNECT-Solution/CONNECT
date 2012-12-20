@@ -35,16 +35,12 @@ import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.policyengine.adapter.proxy.PolicyEngineProxy;
 import gov.hhs.fha.nhinc.policyengine.adapter.proxy.PolicyEngineProxyObjectFactory;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.hl7.v3.II;
 import org.hl7.v3.PRPAIN201306UV02;
 import org.hl7.v3.RespondingGatewayPRPAIN201306UV02RequestType;
 
 public class PatientDiscovery201306PolicyChecker extends
         AbstractPatientDiscoveryPolicyChecker<RespondingGatewayPRPAIN201306UV02RequestType, PRPAIN201306UV02> {
-
-    static Log log = LogFactory.getLog(PatientDiscoveryPolicyChecker.class);
 
     private static PatientDiscovery201306PolicyChecker INSTANCE = new PatientDiscovery201306PolicyChecker(
             new PolicyEngineProxyObjectFactory());

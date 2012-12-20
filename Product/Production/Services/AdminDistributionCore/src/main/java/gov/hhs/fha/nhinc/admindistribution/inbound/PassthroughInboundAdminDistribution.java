@@ -26,8 +26,7 @@
  */
 package gov.hhs.fha.nhinc.admindistribution.inbound;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 
 import gov.hhs.fha.nhinc.admindistribution.AdminDistributionAuditLogger;
 import gov.hhs.fha.nhinc.admindistribution.AdminDistributionUtils;
@@ -44,7 +43,7 @@ import oasis.names.tc.emergency.edxl.de._1.EDXLDistribution;
  */
 public class PassthroughInboundAdminDistribution extends AbstractInboundAdminDistribution {
 
-    private Log log = LogFactory.getLog(PassthroughInboundAdminDistribution.class);
+    private static final Logger LOG = Logger.getLogger(PassthroughInboundAdminDistribution.class);
     private AdminDistributionUtils adminUtils = AdminDistributionUtils.getInstance();
     private AdapterAdminDistributionProxyObjectFactory adapterFactory = new AdapterAdminDistributionProxyObjectFactory();
 
@@ -61,14 +60,12 @@ public class PassthroughInboundAdminDistribution extends AbstractInboundAdminDis
      * @param auditLogger
      * @param adminUtils
      * @param adapterFactory
-     * @param log
      */
     public PassthroughInboundAdminDistribution(AdminDistributionAuditLogger auditLogger,
-            AdminDistributionUtils adminUtils, AdapterAdminDistributionProxyObjectFactory adapterFactory, Log log) {
+            AdminDistributionUtils adminUtils, AdapterAdminDistributionProxyObjectFactory adapterFactory) {
         this.auditLogger = auditLogger;
         this.adminUtils = adminUtils;
         this.adapterFactory = adapterFactory;
-        this.log = log;
     }
 
     @Override
@@ -77,7 +74,7 @@ public class PassthroughInboundAdminDistribution extends AbstractInboundAdminDis
             adminUtils.convertDataToFileLocationIfEnabled(body);
             sendToAdapter(body, assertion);
         } catch (LargePayloadException lpe) {
-            log.error("Failed to retrieve payload document.", lpe);
+            LOG.error("Failed to retrieve payload document.", lpe);
         }
     }
 

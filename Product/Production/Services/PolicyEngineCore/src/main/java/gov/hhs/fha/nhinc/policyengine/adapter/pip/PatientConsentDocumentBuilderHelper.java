@@ -62,8 +62,8 @@ import oasis.names.tc.ebxml_regrep.xsd.rim._3.RegistryObjectListType;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.RegistryPackageType;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.SlotType1;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.ValueListType;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+
+import org.apache.log4j.Logger;
 
 /**
  * 
@@ -71,22 +71,17 @@ import org.apache.commons.logging.LogFactory;
  */
 public class PatientConsentDocumentBuilderHelper {
 
-    private Log log = null;
+    private static final Logger LOG = Logger.getLogger(PatientConsentDocumentBuilderHelper.class);
     private UTCDateUtil utcDateUtil = null;
     private static final String FILE_NAME = "XDSUniqueIds";
     private static String sPropertyFile = null;
     private static final String PDF_MIME_TYPE = "application/pdf";
 
     public PatientConsentDocumentBuilderHelper() {
-        log = createLogger();
         if (sPropertyFile == null) {
             sPropertyFile = getPropertiesFilePath();
         }
         utcDateUtil = createUTCDateUtil();
-    }
-
-    protected Log createLogger() {
-        return ((log != null) ? log : LogFactory.getLog(getClass()));
     }
 
     protected UTCDateUtil createUTCDateUtil() {
@@ -106,18 +101,18 @@ public class PatientConsentDocumentBuilderHelper {
                 propertiesFilePath = sValue + sFileSeparator + FILE_NAME;
             }
         } else {
-            log.error("Path to property files not found");
+            LOG.error("Path to property files not found");
         }
-        if (log.isDebugEnabled()) {
-            log.debug("Properties file path: " + propertiesFilePath);
+        if (LOG.isDebugEnabled()) {
+            LOG.debug("Properties file path: " + propertiesFilePath);
         }
         return propertiesFilePath;
     }
 
     public SubmitObjectsRequest createSubmitObjectRequest(String sTargetObject, String sHid, String sDocUniqueId,
             String sMimeType, PatientPreferencesType oPtPref) throws PropertyAccessException {
-        log.info("------- Begin PatientConsentDocumentBuilderHelper.createSubmitObjectRequest -------");
-        log.info("Document: " + sDocUniqueId + " of type: " + sMimeType);
+        LOG.info("------- Begin PatientConsentDocumentBuilderHelper.createSubmitObjectRequest -------");
+        LOG.info("Document: " + sDocUniqueId + " of type: " + sMimeType);
         String hl7PatientId = "";
         SubmitObjectsRequest oSubmitObjectRequest = new SubmitObjectsRequest();
         RegistryObjectListType oRegistryObjectList = new RegistryObjectListType();
@@ -187,7 +182,7 @@ public class PatientConsentDocumentBuilderHelper {
         oRegistryPackage.getExternalIdentifier().add(oExtIdTypePatForReg);
 
         String sSubmissionSetUniqueId = PropertyAccessor.getInstance().getProperty(FILE_NAME, "submissionsetuniqueid");
-        log.debug("sSubmissionSetUniqueId: " + sSubmissionSetUniqueId);
+        LOG.debug("sSubmissionSetUniqueId: " + sSubmissionSetUniqueId);
         // getOidFromProperty("submissionsetuniqueid");
         oExtIdTypePatForReg = createExternalIdentifier(oRimObjectFactory,
                 CDAConstants.EXTERNAL_IDENTIFICATION_SCHEMA_REGISTRYOBJECT,
@@ -210,7 +205,7 @@ public class PatientConsentDocumentBuilderHelper {
         JAXBElement<? extends IdentifiableType> oJAXBAss = oRimObjectFactory.createAssociation(oAssociation);
         oRegistryObjList.add(oJAXBAss);
         if (sTargetObject != null && !sTargetObject.equals("")) {
-            log.info("Found Doc Id - Begin Association RPLC Created");
+            LOG.info("Found Doc Id - Begin Association RPLC Created");
             AssociationType1 oAssociationRPLC = new AssociationType1();
             oAssociationRPLC.setAssociationType(CDAConstants.XDS_REGISTRY_ASSOCIATION_TYPE_RPLC);
             oAssociationRPLC.setSourceObject(sDocUniqueId);
@@ -220,7 +215,7 @@ public class PatientConsentDocumentBuilderHelper {
             JAXBElement<? extends IdentifiableType> oJAXBAssRplc = oRimObjectFactory
                     .createAssociation(oAssociationRPLC);
             oRegistryObjList.add(oJAXBAssRplc);
-            log.info("End Association RPLC Created");
+            LOG.info("End Association RPLC Created");
         }
 
         ClassificationType oClassificationSumissionSet = new ClassificationType();
@@ -245,7 +240,7 @@ public class PatientConsentDocumentBuilderHelper {
         setTypeCode(oExtObj, oPtPref, oRimObjectFactory, sDocUniqueId, sMimeType);
         setIntendedRecipient(oSlots, oPtPref, oRimObjectFactory, sDocUniqueId, sMimeType);
         oSubmitObjectRequest.setRegistryObjectList(oRegistryObjectList);
-        log.info("------- End PatientConsentDocumentBuilderHelper.createSubmitObjectRequest -------");
+        LOG.info("------- End PatientConsentDocumentBuilderHelper.createSubmitObjectRequest -------");
         return oSubmitObjectRequest;
     }
 
@@ -926,13 +921,13 @@ public class PatientConsentDocumentBuilderHelper {
      * @return SlotType1
      */
     private SlotType1 createSlot(ObjectFactory fact, String name, String value) {
-        log.info("------- Begin PatientConsentDocumentBuilderHelper.createSlot -------");
+        LOG.info("------- Begin PatientConsentDocumentBuilderHelper.createSlot -------");
         SlotType1 slot = fact.createSlotType1();
         slot.setName(name);
         ValueListType valList = new ValueListType();
         valList.getValue().add(value);
         slot.setValueList(valList);
-        log.info("------- End PatientConsentDocumentBuilderHelper.createSlot -------");
+        LOG.info("------- End PatientConsentDocumentBuilderHelper.createSlot -------");
         return slot;
     }
 
@@ -951,7 +946,7 @@ public class PatientConsentDocumentBuilderHelper {
      */
     private ExternalIdentifierType createExternalIdentifier(ObjectFactory fact, String regObject, String identScheme,
             String objType, String value, String nameCharSet, String nameLang, String nameVal) {
-        log.info("------- Begin PatientConsentDocumentBuilderHelper.createExternalIdentifier -------");
+        LOG.info("------- Begin PatientConsentDocumentBuilderHelper.createExternalIdentifier -------");
         String id = UUID.randomUUID().toString();
         ExternalIdentifierType idType = fact.createExternalIdentifierType();
         idType.setId(id);
@@ -960,7 +955,7 @@ public class PatientConsentDocumentBuilderHelper {
         idType.setObjectType(objType);
         idType.setValue(value);
         idType.setName(createInternationalStringType(fact, nameCharSet, nameLang, nameVal));
-        log.info("------- End PatientConsentDocumentBuilderHelper.createExternalIdentifier -------");
+        LOG.info("------- End PatientConsentDocumentBuilderHelper.createExternalIdentifier -------");
         return idType;
     }
 
@@ -982,7 +977,7 @@ public class PatientConsentDocumentBuilderHelper {
     private ClassificationType createClassification(ObjectFactory fact, String scheme, String clObject, String id,
             String nodeRep, String objType, String slotName, String slotVal, String nameCharSet, String nameLang,
             String nameVal) {
-        log.info("------- Begin PatientConsentDocumentBuilderHelper.createClassification -------");
+        LOG.info("------- Begin PatientConsentDocumentBuilderHelper.createClassification -------");
         ClassificationType cType = fact.createClassificationType();
         cType.setClassificationScheme(scheme);
         cType.setClassifiedObject(clObject);
@@ -995,7 +990,7 @@ public class PatientConsentDocumentBuilderHelper {
         cType.setObjectType(objType);
         cType.getSlot().add(createSlot(fact, slotName, slotVal));
         cType.setName(createInternationalStringType(fact, nameCharSet, nameLang, nameVal));
-        log.info("------- End PatientConsentDocumentBuilderHelper.createClassification -------");
+        LOG.info("------- End PatientConsentDocumentBuilderHelper.createClassification -------");
         return cType;
     }
 
@@ -1009,14 +1004,14 @@ public class PatientConsentDocumentBuilderHelper {
      */
     private InternationalStringType createInternationalStringType(ObjectFactory fact, String charSet, String language,
             String value) {
-        log.info("------- Begin PatientConsentDocumentBuilderHelper.createInternationalStringType -------");
+        LOG.info("------- Begin PatientConsentDocumentBuilderHelper.createInternationalStringType -------");
         InternationalStringType intStr = fact.createInternationalStringType();
         LocalizedStringType locStr = fact.createLocalizedStringType();
         locStr.setCharset(charSet);
         locStr.setLang(language);
         locStr.setValue(value);
         intStr.getLocalizedString().add(locStr);
-        log.info("------- End PatientConsentDocumentBuilderHelper.createInternationalStringType -------");
+        LOG.info("------- End PatientConsentDocumentBuilderHelper.createInternationalStringType -------");
         return intStr;
     }
 
@@ -1041,8 +1036,8 @@ public class PatientConsentDocumentBuilderHelper {
         } catch (Exception ex) {
             ex.printStackTrace();
         }
-        if (log.isDebugEnabled()) {
-            log.debug("Generated unique id: " + sUniqueId);
+        if (LOG.isDebugEnabled()) {
+            LOG.debug("Generated unique id: " + sUniqueId);
         }
         return sUniqueId;
     }

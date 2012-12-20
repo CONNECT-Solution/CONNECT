@@ -38,8 +38,7 @@ import java.util.concurrent.Executor;
 import java.util.concurrent.ExecutorCompletionService;
 import java.util.concurrent.Executors;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 
 /**
  * @author bhumphrey
@@ -47,7 +46,7 @@ import org.apache.commons.logging.LogFactory;
  */
 public class AggregationStrategy {
 
-    private Log log = LogFactory.getLog(AggregationStrategy.class);
+    private static final Logger LOG = Logger.getLogger(AggregationStrategy.class);
 
     public void execute(Aggregate aggregate) {
         Executor executor = Executors.newCachedThreadPool();
@@ -65,18 +64,18 @@ public class AggregationStrategy {
         for(; i < size; i++) {
             try {
                 aggregate.aggregate(completionService.take().get());
-                log.trace("got response " + (i+1) + " of " + size);
+                LOG.trace("got response " + (i+1) + " of " + size);
             } catch (InterruptedException e) {
-                log.error(e);
+                LOG.error(e);
                 break;
             } catch (ExecutionException e) {
-                log.error(e);
+                LOG.error(e);
                 break;
             }
         }
         
         if ( i < size) {
-            log.info("aggregation stop. failed to get " + (size - i) + " responses.");
+            LOG.info("aggregation stop. failed to get " + (size - i) + " responses.");
         }
 
     }

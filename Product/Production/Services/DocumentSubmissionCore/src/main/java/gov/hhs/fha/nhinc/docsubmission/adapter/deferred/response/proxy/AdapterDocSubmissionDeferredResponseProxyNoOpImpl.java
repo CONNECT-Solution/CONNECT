@@ -34,35 +34,26 @@ import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.healthit.nhin.XDRAcknowledgementType;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 
 /**
  * 
  * @author patlollav
  */
 public class AdapterDocSubmissionDeferredResponseProxyNoOpImpl implements AdapterDocSubmissionDeferredResponseProxy {
-    private Log log = null;
-
-    public AdapterDocSubmissionDeferredResponseProxyNoOpImpl() {
-        log = createLogger();
-    }
-
-    protected Log createLogger() {
-        return LogFactory.getLog(getClass());
-    }
+    private static final Logger LOG = Logger.getLogger(AdapterDocSubmissionDeferredResponseProxyNoOpImpl.class);
 
     @AdapterDelegationEvent(beforeBuilder = DeferredResponseDescriptionBuilder.class,
             afterReturningBuilder = DocSubmissionArgTransformerBuilder.class,
             serviceType = "Document Submission Deferred Response", version = "")
     public XDRAcknowledgementType provideAndRegisterDocumentSetBResponse(RegistryResponseType regResponse,
             AssertionType assertion) {
-        log.debug("Begin AdapterDocSubmissionDeferredResponseProxyNoOpImpl.provideAndRegisterDocumentSetBResponse");
+        LOG.trace("Begin AdapterDocSubmissionDeferredResponseProxyNoOpImpl.provideAndRegisterDocumentSetBResponse");
         XDRAcknowledgementType ack = new XDRAcknowledgementType();
         RegistryResponseType regResp = new RegistryResponseType();
         regResp.setStatus(NhincConstants.XDR_ACK_STATUS_MSG);
         ack.setMessage(regResp);
-        log.debug("End AdapterDocSubmissionDeferredResponseProxyNoOpImpl.provideAndRegisterDocumentSetBResponse");
+        LOG.trace("End AdapterDocSubmissionDeferredResponseProxyNoOpImpl.provideAndRegisterDocumentSetBResponse");
         return ack;
     }
 }

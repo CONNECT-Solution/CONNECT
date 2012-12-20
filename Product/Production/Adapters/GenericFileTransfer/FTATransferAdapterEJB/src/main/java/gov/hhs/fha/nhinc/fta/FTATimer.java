@@ -28,8 +28,7 @@ package gov.hhs.fha.nhinc.fta;
 
 import gov.hhs.fha.nhinc.common.ftaconfigmanager.FTAConfiguration;
 import gov.hhs.fha.nhinc.common.ftaconfigmanager.FTAConfigurationHelper;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 
 /**
  * 
@@ -39,7 +38,7 @@ public class FTATimer extends Thread {
     private static FTATimer m_oTheOneAndOnlyTimer = null;
     private static boolean m_bRunnable = false;
 
-    private static Log log = LogFactory.getLog(FTATimer.class);
+    private static final Logger LOG = Logger.getLogger(FTATimer.class);
     private static final int FTA_REFRESH_DURATION_DEFAULT = 1800;
     // private static final String FTA_REFRESH_DURATION_PROPERTY = "FTARefreshDuration";
     private int m_iDurationSeconds = FTA_REFRESH_DURATION_DEFAULT;
@@ -60,11 +59,11 @@ public class FTATimer extends Thread {
                 m_oTheOneAndOnlyTimer.interrupt();
                 m_oTheOneAndOnlyTimer = null;
                 String sErrorMessage = "Failed to start the FTA  timer.  Error: " + e.getMessage();
-                log.error(sErrorMessage, e);
+                LOG.error(sErrorMessage, e);
                 throw new FTATimerException(sErrorMessage, e);
             }
 
-            log.info("FTATimer has just been initialized.");
+            LOG.info("FTATimer has just been initialized.");
         } else {
             if (m_bRunnable == false) {
                 // thread was already intialized, but stopped at one point.
@@ -72,11 +71,11 @@ public class FTATimer extends Thread {
                 m_oTheOneAndOnlyTimer.start();
             }
         }
-        log.info("FTATimer has just been started.");
+        LOG.info("FTATimer has just been started.");
     }
 
     public static void stopTimer() {
-        log.info("FTATimer has just been shut down.");
+        LOG.info("FTATimer has just been shut down.");
         m_bRunnable = false;
 
     }
@@ -89,12 +88,12 @@ public class FTATimer extends Thread {
         try {
             m_oTheOneAndOnlyTimer.sleep(duration);
         } catch (InterruptedException ex) {
-            log.error("Failed to sleep.", ex);
+            LOG.error("Failed to sleep.", ex);
         }
     }
 
     private void initialize() throws FTATimerException {
-        log.info("begin initialize");
+        LOG.info("begin initialize");
 
         config = FTAConfigurationHelper.loadFTAConfiguration();
         if (config == null) {
@@ -104,7 +103,7 @@ public class FTATimer extends Thread {
         }
         m_iDurationSeconds = 30;
 
-        log.info("end initialize");
+        LOG.info("end initialize");
     }
 
     @Override
@@ -118,7 +117,7 @@ public class FTATimer extends Thread {
             pause();
 
             if (m_bRunnable == false) {
-                log.debug("breaking loop");
+                LOG.debug("breaking loop");
                 break;
             }
         }

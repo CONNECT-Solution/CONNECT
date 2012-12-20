@@ -43,8 +43,7 @@ import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryError;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -52,24 +51,17 @@ import org.apache.commons.logging.LogFactory;
  * @author Neil Webb
  */
 public class AdapterDocQueryProxyWebServiceSecuredImpl implements AdapterDocQueryProxy {
-    private Log log = null;
+    private static final Logger LOG = Logger.getLogger(AdapterDocQueryProxyJavaImpl.class);
 
     private WebServiceProxyHelper oProxyHelper = null;
 
     /**DocQueryWebServiceSecuredImpl creates log and WebServiceProxyHelper.
      */
     public AdapterDocQueryProxyWebServiceSecuredImpl() {
-        log = createLogger();
         oProxyHelper = createWebServiceProxyHelper();
     }
 
-    /**
-     * @return Log log
-     */
-    protected Log createLogger() {
-        return LogFactory.getLog(getClass());
-    }
-
+    
     /**
      * @return WebServiceProxyHelper Object
      */
@@ -109,7 +101,7 @@ public class AdapterDocQueryProxyWebServiceSecuredImpl implements AdapterDocQuer
             if (NullChecker.isNotNullish(url)) {
 
                 if (msg == null) {
-                    log.error("Message was null");
+                    LOG.error("Message was null");
                 } else {
                     ServicePortDescriptor<AdapterDocQuerySecuredPortType> portDescriptor =
                             getServicePortDescriptor(NhincConstants.ADAPTER_API_LEVEL.LEVEL_a0);
@@ -121,11 +113,11 @@ public class AdapterDocQueryProxyWebServiceSecuredImpl implements AdapterDocQuer
                             "respondingGatewayCrossGatewayQuery", msg);
                 }
             } else {
-                log.error("Failed to call the web service (" + NhincConstants.ADAPTER_DOC_QUERY_SECURED_SERVICE_NAME
+                LOG.error("Failed to call the web service (" + NhincConstants.ADAPTER_DOC_QUERY_SECURED_SERVICE_NAME
                         + ").  The URL is null.");
             }
         } catch (Exception ex) {
-            log.error("Error sending Adapter Doc Query Secured message: " + ex.getMessage(), ex);
+            LOG.error("Error sending Adapter Doc Query Secured message: " + ex.getMessage(), ex);
             response = new AdhocQueryResponse();
             response.setStatus(DocumentConstants.XDS_QUERY_RESPONSE_STATUS_FAILURE);
 

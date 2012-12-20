@@ -30,8 +30,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 import org.hl7.v3.PRPAIN201305UV02;
 import org.hl7.v3.PRPAIN201306UV02;
 import org.hl7.v3.PRPAMT201306UV02ParameterList;
@@ -48,18 +47,18 @@ import gov.hhs.fha.nhinc.patientdb.service.PatientService;
  */
 public class PatientDbChecker implements AdapterComponentMpiChecker {
 
-    private static Log log = LogFactory.getLog(PatientDbChecker.class);
+    private static final Logger LOG = Logger.getLogger(PatientDbChecker.class);
 
     @Override
     public PRPAIN201306UV02 findPatient(PRPAIN201305UV02 query) {
-        log.debug("Entering PatientDbChecker.FindPatient method...");
+        LOG.trace("Entering PatientDbChecker.FindPatient method...");
         PRPAIN201306UV02 result = null;
 
         PRPAMT201306UV02ParameterList queryParams = HL7DbParser201305.extractHL7QueryParamsFromMessage(query);
         List<Patient> filteredPatients = new ArrayList<Patient>();
 
         if (queryParams == null) {
-            log.error("no query parameters were supplied");
+            LOG.error("no query parameters were supplied");
         } else {
             Patient sourcePatient = HL7DbParser201305.extractMpiPatientFromQueryParams(queryParams);
 
@@ -87,7 +86,7 @@ public class PatientDbChecker implements AdapterComponentMpiChecker {
                 if ((dupOrgIds != null) && (dupOrgIds.size() > 0)) {
                     HashSet<String> hashSet = new HashSet<String>(dupOrgIds);
                     dupOrgIds = new ArrayList<String>(hashSet);
-                    log.debug("More than one matching patient found in some organizations. dupOrgIds.size(): "
+                    LOG.debug("More than one matching patient found in some organizations. dupOrgIds.size(): "
                             + dupOrgIds.size());
                 }
 
@@ -102,16 +101,16 @@ public class PatientDbChecker implements AdapterComponentMpiChecker {
                         }
                     }
                 }
-                log.debug("After duplicates removed - filteredPatients.size(): " + filteredPatients.size());
+                LOG.debug("After duplicates removed - filteredPatients.size(): " + filteredPatients.size());
             } else {
                 // No matches found, generate appropriate empty response
-                log.debug("No matches found, generate appropriate empty response");
+                LOG.debug("No matches found, generate appropriate empty response");
             }
         }
 
         result = HL7DbParser201306.buildMessageFromMpiPatients(filteredPatients, query);
 
-        log.debug("Exiting PatientDbChecker.FindPatient method...");
+        LOG.trace("Exiting PatientDbChecker.FindPatient method...");
         return result;
     }
 

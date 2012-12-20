@@ -33,8 +33,7 @@ import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import java.util.ArrayList;
 import java.util.HashSet;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 import org.uddi.api_v3.BusinessDetail;
 import org.uddi.api_v3.BusinessInfo;
 import org.uddi.api_v3.BusinessInfos;
@@ -48,7 +47,7 @@ import org.uddi.api_v3.GetBusinessDetail;
  */
 public class UDDIAccessor {
 
-    private Log log = null;
+    private static final Logger LOG = Logger.getLogger(UDDIAccessor.class);
 
     private static String GATEWAY_PROPFILE_NAME = "gateway";
     private static String UDDI_BUSINESSES_TO_IGNORE = "UDDIBusinessesToIgnore";
@@ -59,14 +58,6 @@ public class UDDIAccessor {
     // ------------------------------------------------------------------------------------
     private HashSet<String> m_hBusinessToIgnore = new HashSet<String>();
     private boolean m_bPropsLoaded = false; // True if the props have been loaded.
-
-    public UDDIAccessor() {
-        log = createLogger();
-    }
-
-    protected Log createLogger() {
-        return LogFactory.getLog(getClass());
-    }
 
     /**
      * This method loads information from the gateway.properties file that are pertinent to this class.
@@ -89,7 +80,7 @@ public class UDDIAccessor {
             } catch (Exception e) {
                 String sErrorMessage = "Failed to retrieve properties from " + GATEWAY_PROPFILE_NAME
                         + ".properties file.  Error: " + e.getMessage();
-                log.error(sErrorMessage, e);
+                LOG.error(sErrorMessage, e);
                 throw new UDDIAccessorException(sErrorMessage, e);
             }
         }
@@ -154,8 +145,8 @@ public class UDDIAccessor {
      */
     private BusinessList retrieveBusinessesListFromUDDI() throws UDDIAccessorException {
 
-        if (log.isDebugEnabled()) {
-            log.debug("Retrieving business entities from UDDI using find_business web service call.");
+        if (LOG.isDebugEnabled()) {
+            LOG.debug("Retrieving business entities from UDDI using find_business web service call.");
         }
 
         BusinessList businessList = null;
@@ -168,7 +159,7 @@ public class UDDIAccessor {
         } catch (Exception e) {
             String sErrorMessage = "Failed to call 'find_business' web service on the NHIN UDDI server.  Error: "
                     + e.getMessage();
-            log.error(sErrorMessage, e);
+            LOG.error(sErrorMessage, e);
             throw new UDDIAccessorException(sErrorMessage, e);
         }
 
@@ -192,7 +183,7 @@ public class UDDIAccessor {
         } catch (Exception e) {
             String sErrorMessage = "Failed to call UDDI web service get_businessDetail method.  Error: "
                     + e.getMessage();
-            log.error(sErrorMessage, e);
+            LOG.error(sErrorMessage, e);
             throw new UDDIAccessorException(sErrorMessage, e);
         }
 

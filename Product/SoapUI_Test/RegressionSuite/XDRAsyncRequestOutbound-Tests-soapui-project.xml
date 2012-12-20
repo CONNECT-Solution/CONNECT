@@ -1143,19 +1143,19 @@
 			<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2012-11-27T16:52:46Z</con:value>
+					<con:value>2012-12-19T00:04:52Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2012-11-27T17:02:46Z</con:value>
+					<con:value>2012-12-19T00:14:52Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>11/27/2012 16:52:46</con:value>
+					<con:value>12/19/2012 00:04:52</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2012-12-27T00:00:00Z</con:value>
+					<con:value>2013-01-18T00:00:00Z</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
@@ -3114,36 +3114,23 @@ declare namespace adapter='urn:gov:hhs:fha:nhinc:common:nhinccommonadapter';
 					</con:assertion>
 				</con:config>
 			</con:testStep>
-			<con:testStep disabled="true" name="reset URL" type="groovy">
-				<con:settings/>
-				<con:config>
-					<script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
-
-def destConfigFileLocation = context.findProperty("NHINGatewayConfigDir");
-def NHINGatewayHost = context.findProperty("NHINGatewayHost");
-def mockHost = context.findProperty("mockHost");
-def mockPEURL = "http://" + mockHost + ":8080/CONNECTAdapter/AdapterProxyService/AdapterPolicyEngine";
-def LocalHCID = context.findProperty( "LocalHCID" );
-
-FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "policyengineservice", mockPEURL, context, log)</script>
-				</con:config>
-			</con:testStep>
+			
 			<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2012-11-27T16:53:34Z</con:value>
+					<con:value>2012-12-19T02:16:38Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2012-11-27T17:03:34Z</con:value>
+					<con:value>2012-12-19T02:26:38Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>11/27/2012 16:53:34</con:value>
+					<con:value>12/19/2012 02:16:38</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2012-12-27T00:00:00Z</con:value>
+					<con:value>2013-01-18T00:00:00Z</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
@@ -3644,19 +3631,19 @@ context.testCase.setPropertyValue('XDRUserId',"${UserID}${nowDate}");</script>
 assert (count > 0);</script></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2012-11-27T16:52:22Z</con:value>
+					<con:value>2012-12-18T19:30:05Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2012-11-27T17:02:22Z</con:value>
+					<con:value>2012-12-18T19:40:05Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>11/27/2012 16:52:22</con:value>
+					<con:value>12/18/2012 19:30:05</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2012-12-27T00:00:00Z</con:value>
+					<con:value>2013-01-17T00:00:00Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>FullPatientID</con:name>
@@ -3664,7 +3651,7 @@ assert (count > 0);</script></con:config></con:testStep><con:setupScript>nhinc.F
 				</con:property>
 				<con:property>
 					<con:name>XDRUserId</con:name>
-					<con:value>XDR Request Inbound UserTue Nov 27 16:57:22 UTC 2012</con:value>
+					<con:value>XDR Request Inbound UserTue Dec 18 19:35:05 UTC 2012</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
@@ -3800,4 +3787,4 @@ com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext.metaClass.withSql = { d
 		<con:parameters/>
 	</con:reporting>
 
-</con:soapui-project>
+<con:sensitiveInformation/></con:soapui-project>

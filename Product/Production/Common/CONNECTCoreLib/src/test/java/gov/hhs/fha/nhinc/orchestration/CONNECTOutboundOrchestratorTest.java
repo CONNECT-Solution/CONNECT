@@ -27,13 +27,12 @@
 package gov.hhs.fha.nhinc.orchestration;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import org.apache.commons.logging.Log;
+
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import static org.junit.Assert.*;
 
 /**
  * 
@@ -70,20 +69,6 @@ public class CONNECTOutboundOrchestratorTest {
         instance.process(message);
         // there was no error, so success
         // TODO: make a better test
-    }
-
-    /**
-     * Test of getLogger method, of class CONNECTInboundOrchestrator.
-     */
-    @Test
-    public void testGetLogger() {
-        CONNECTInboundOrchestrator instance = new CONNECTInboundOrchestrator();
-        Log result = instance.getLogger();
-        try {
-            result.info("testing CONNECTEntityOrchestrator getLogger()");
-        } catch (Exception exc) {
-            fail("An exception has occurred:" + exc.getMessage());
-        }
     }
 
     /**

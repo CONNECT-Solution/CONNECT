@@ -26,23 +26,23 @@
  */
 package gov.hhs.fha.nhinc.policyengine.adapter.pep;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyResponseType;
+
 import javax.xml.ws.WebServiceContext;
-import org.apache.commons.logging.Log;
+
 import org.jmock.Expectations;
 import org.jmock.Mockery;
 import org.jmock.integration.junit4.JMock;
 import org.jmock.integration.junit4.JUnit4Mockery;
 import org.jmock.lib.legacy.ClassImposteriser;
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import static org.junit.Assert.*;
 
 /**
  * 
@@ -55,38 +55,13 @@ public class AdapterPEPServiceImplTest {
             setImposteriser(ClassImposteriser.INSTANCE);
         }
     };
-    final Log mockLog = context.mock(Log.class);
     final WebServiceContext mockWebServiceContext = context.mock(WebServiceContext.class);
     final AdapterPEPImpl mockAdapterPEPImpl = context.mock(AdapterPEPImpl.class);
-
-    @Test
-    public void testCreateLogger() {
-        try {
-            AdapterPEPServiceImpl sut = new AdapterPEPServiceImpl() {
-                @Override
-                protected Log createLogger() {
-                    return mockLog;
-                }
-            };
-
-            Log log = sut.createLogger();
-            assertNotNull("Log was null", log);
-        } catch (Throwable t) {
-            System.out.println("Error running testCreateLogger: " + t.getMessage());
-            t.printStackTrace();
-            fail("Error running testCreateLogger: " + t.getMessage());
-        }
-    }
 
     @Test
     public void testGetAdapterPEPImpl() {
         try {
             AdapterPEPServiceImpl sut = new AdapterPEPServiceImpl() {
-                @Override
-                protected Log createLogger() {
-                    return mockLog;
-                }
-
                 @Override
                 protected AdapterPEPImpl getAdapterPEPImpl() {
                     return mockAdapterPEPImpl;
@@ -107,11 +82,6 @@ public class AdapterPEPServiceImplTest {
         try {
             AdapterPEPServiceImpl sut = new AdapterPEPServiceImpl() {
                 @Override
-                protected Log createLogger() {
-                    return mockLog;
-                }
-
-                @Override
                 protected void loadAssertion(AssertionType assertion, WebServiceContext wsContext) throws Exception {
                 }
             };
@@ -131,11 +101,6 @@ public class AdapterPEPServiceImplTest {
         try {
             AdapterPEPServiceImpl sut = new AdapterPEPServiceImpl() {
                 @Override
-                protected Log createLogger() {
-                    return mockLog;
-                }
-
-                @Override
                 protected AdapterPEPImpl getAdapterPEPImpl() {
                     return mockAdapterPEPImpl;
                 }
@@ -146,7 +111,6 @@ public class AdapterPEPServiceImplTest {
             };
             context.checking(new Expectations() {
                 {
-                    allowing(mockLog).debug(with(aNonNull(String.class)));
                     oneOf(mockAdapterPEPImpl).checkPolicy(with(aNonNull(CheckPolicyRequestType.class)),
                             with(aNonNull(AssertionType.class)));
                 }
@@ -169,11 +133,6 @@ public class AdapterPEPServiceImplTest {
         try {
             AdapterPEPServiceImpl sut = new AdapterPEPServiceImpl() {
                 @Override
-                protected Log createLogger() {
-                    return mockLog;
-                }
-
-                @Override
                 protected AdapterPEPImpl getAdapterPEPImpl() {
                     return mockAdapterPEPImpl;
                 }
@@ -183,13 +142,7 @@ public class AdapterPEPServiceImplTest {
                     throw new IllegalArgumentException("Forced error.");
                 }
             };
-            context.checking(new Expectations() {
-                {
-                    allowing(mockLog).debug(with(aNonNull(String.class)));
-                    oneOf(mockLog).error(with(aNonNull(String.class)), with(aNonNull(IllegalArgumentException.class)));
-                }
-            });
-
+            
             CheckPolicyRequestType request = new CheckPolicyRequestType();
 
             sut.checkPolicy(request, mockWebServiceContext);

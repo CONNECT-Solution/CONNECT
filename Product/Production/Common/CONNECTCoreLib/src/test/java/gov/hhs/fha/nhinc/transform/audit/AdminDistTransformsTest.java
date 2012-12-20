@@ -26,31 +26,28 @@
  */
 package gov.hhs.fha.nhinc.transform.audit;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import gov.hhs.fha.nhinc.common.auditlog.LogEventRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
 import gov.hhs.fha.nhinc.common.nhinccommon.UserType;
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewaySendAlertMessageType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
-import org.apache.commons.logging.Log;
-import org.jmock.Expectations;
-import org.jmock.Mockery;
-import org.jmock.lib.legacy.ClassImposteriser;
+import oasis.names.tc.emergency.edxl.de._1.EDXLDistribution;
+
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import static org.junit.Assert.*;
-import oasis.names.tc.emergency.edxl.de._1.EDXLDistribution;
 
 /**
  * 
  * @author dunnek
  */
 public class AdminDistTransformsTest {
-    private Mockery context;
-
+    
     public AdminDistTransformsTest() {
     }
 
@@ -64,12 +61,6 @@ public class AdminDistTransformsTest {
 
     @Before
     public void setup() {
-        context = new Mockery() {
-
-            {
-                setImposteriser(ClassImposteriser.INSTANCE);
-            }
-        };
     }
 
     @After
@@ -82,34 +73,13 @@ public class AdminDistTransformsTest {
     @Test
     public void testTransformEntitySendAlertToAuditMsg_Null() {
         System.out.println("testTransformEntitySendAlertToAuditMsg_Null");
-        final Log mockLogger = context.mock(Log.class);
 
-        RespondingGatewaySendAlertMessageType message = null;
-        AssertionType assertion = null;
-        String direction = "";
-        String _interface = "";
-        AdminDistTransforms instance = new AdminDistTransforms() {
-
-            @Override
-            protected Log createLogger() {
-                return mockLogger;
-            }
-        };
-        context.checking(new Expectations() {
-
-            {
-                allowing(mockLogger).info(with(any(String.class)));
-                allowing(mockLogger).debug(with(any(String.class)));
-                one(mockLogger).error("The Incoming Send Alert message was Null");
-                will(returnValue(null));
-            }
-        });
-
+        AdminDistTransforms instance = new AdminDistTransforms();
+        
         LogEventRequestType expResult = null;
         LogEventRequestType result = instance.transformEntitySendAlertToAuditMsg(null, null,
                 NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_ENTITY_INTERFACE);
 
-        context.assertIsSatisfied();
         assertEquals(expResult, result);
 
     }
@@ -117,34 +87,14 @@ public class AdminDistTransformsTest {
     @Test
     public void testTransformEntitySendAlertToAuditMsg_NullAssert() {
         System.out.println("testTransformEntitySendAlertToAuditMsg_NullAssert");
-        final Log mockLogger = context.mock(Log.class);
-
+        
         RespondingGatewaySendAlertMessageType message = new RespondingGatewaySendAlertMessageType();
-        AssertionType assertion = null;
-        String direction = "";
-        String _interface = "";
-        AdminDistTransforms instance = new AdminDistTransforms() {
-
-            @Override
-            protected Log createLogger() {
-                return mockLogger;
-            }
-        };
-        context.checking(new Expectations() {
-
-            {
-                allowing(mockLogger).info(with(any(String.class)));
-                allowing(mockLogger).debug(with(any(String.class)));
-                one(mockLogger).error("The SendAlert did not have an EDXLDistribution or Assertion Object ");
-                will(returnValue(null));
-            }
-        });
+        AdminDistTransforms instance = new AdminDistTransforms();
 
         LogEventRequestType expResult = null;
         LogEventRequestType result = instance.transformEntitySendAlertToAuditMsg(message, null,
                 NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_ENTITY_INTERFACE);
 
-        context.assertIsSatisfied();
         assertEquals(expResult, result);
 
     }
@@ -152,41 +102,17 @@ public class AdminDistTransformsTest {
     @Test
     public void testTransformEntitySendAlertToAuditMsg_Empty() {
         System.out.println("testTransformEntitySendAlertToAuditMsg_Empty");
-        final Log mockLogger = context.mock(Log.class);
-
+        
         RespondingGatewaySendAlertMessageType message = new RespondingGatewaySendAlertMessageType();
         AssertionType assertion = new AssertionType();
-        String direction = "";
-        String _interface = "";
         message.setEDXLDistribution(new EDXLDistribution());
 
-        AdminDistTransforms instance = new AdminDistTransforms() {
-
-            @Override
-            protected Log createLogger() {
-                return mockLogger;
-            }
-        };
-        context.checking(new Expectations() {
-
-            {
-                allowing(mockLogger).info(with(any(String.class)));
-                allowing(mockLogger).debug(with(any(String.class)));
-                one(mockLogger).error(
-                        "The UserType object or request assertion object containing the assertion user info was null.");
-                one(mockLogger)
-                        .error("One or more of the required fields needed to transform to an audit message request were null.");
-                one(mockLogger).error("There was a problem translating the request into an audit log request object.");
-
-                will(returnValue(null));
-            }
-        });
-
+        AdminDistTransforms instance = new AdminDistTransforms();
+        
         LogEventRequestType expResult = null;
         LogEventRequestType result = instance.transformEntitySendAlertToAuditMsg(message, assertion,
                 NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_ENTITY_INTERFACE);
 
-        context.assertIsSatisfied();
         assertEquals(expResult, result);
 
     }
@@ -194,8 +120,7 @@ public class AdminDistTransformsTest {
     @Test
     public void testTransformEntitySendAlertToAuditMsg_Good() {
         System.out.println("testTransformEntitySendAlertToAuditMsg_Good");
-        final Log mockLogger = context.mock(Log.class);
-
+        
         RespondingGatewaySendAlertMessageType message = new RespondingGatewaySendAlertMessageType();
         AssertionType assertion = new AssertionType();
 
@@ -213,28 +138,11 @@ public class AdminDistTransformsTest {
 
         message.setEDXLDistribution(new EDXLDistribution());
 
-        AdminDistTransforms instance = new AdminDistTransforms() {
-
-            @Override
-            protected Log createLogger() {
-                return mockLogger;
-            }
-        };
-        context.checking(new Expectations() {
-
-            {
-                allowing(mockLogger).info(with(any(String.class)));
-                allowing(mockLogger).debug(with(any(String.class)));
-
-                will(returnValue(null));
-            }
-        });
-
-        LogEventRequestType expResult = null;
+        AdminDistTransforms instance = new AdminDistTransforms();
+        
         LogEventRequestType result = instance.transformEntitySendAlertToAuditMsg(message, assertion,
                 NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_ENTITY_INTERFACE);
 
-        context.assertIsSatisfied();
         assertNotNull(result);
         assertEquals(NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, result.getDirection());
         assertEquals(NhincConstants.AUDIT_LOG_ENTITY_INTERFACE, result.getInterface());
@@ -256,28 +164,13 @@ public class AdminDistTransformsTest {
     @Test
     public void testAreRequiredUserTypeFieldsNull() {
         System.out.println("areRequiredUserTypeFieldsNull");
-        final Log mockLogger = context.mock(Log.class);
+        
         AssertionType oAssertion = null;
-        AdminDistTransforms instance = new AdminDistTransforms() {
-
-            @Override
-            protected Log createLogger() {
-                return mockLogger;
-            }
-        };
-        context.checking(new Expectations() {
-
-            {
-                allowing(mockLogger).info(with(any(String.class)));
-                allowing(mockLogger).debug(with(any(String.class)));
-                one(mockLogger).error(with(any(String.class)));
-                will(returnValue(null));
-            }
-        });
-
+        AdminDistTransforms instance = new AdminDistTransforms();
+       
         boolean expResult = true;
         boolean result = instance.areRequiredUserTypeFieldsNull(oAssertion);
-        context.assertIsSatisfied();
+        
         assertEquals(expResult, result);
 
     }
@@ -285,32 +178,14 @@ public class AdminDistTransformsTest {
     @Test
     public void testAreRequiredUserTypeFieldsNull_NoUserName() {
         System.out.println("testAreRequiredUserTypeFieldsNull_NoUserName");
-        final Log mockLogger = context.mock(Log.class);
         AssertionType assertion = new AssertionType();
         assertion.setUserInfo(new UserType());
 
-        AdminDistTransforms instance = new AdminDistTransforms() {
-
-            @Override
-            protected Log createLogger() {
-                return mockLogger;
-            }
-        };
-        context.checking(new Expectations() {
-
-            {
-                allowing(mockLogger).info(with(any(String.class)));
-                allowing(mockLogger).debug(with(any(String.class)));
-
-                one(mockLogger).error("Incomming request.getAssertion.getUserInfo.getUserName was null.");
-
-                will(returnValue(null));
-            }
-        });
+        AdminDistTransforms instance = new AdminDistTransforms();
 
         boolean expResult = true;
         boolean result = instance.areRequiredUserTypeFieldsNull(assertion);
-        context.assertIsSatisfied();
+        
         assertEquals(expResult, result);
 
     }
@@ -318,7 +193,6 @@ public class AdminDistTransformsTest {
     @Test
     public void testAreRequiredUserTypeFieldsNull_NoHCID() {
         System.out.println("testAreRequiredUserTypeFieldsNull_NoHCID");
-        final Log mockLogger = context.mock(Log.class);
         AssertionType assertion = new AssertionType();
 
         UserType user = new UserType();
@@ -329,35 +203,17 @@ public class AdminDistTransformsTest {
 
         assertion.setUserInfo(user);
 
-        AdminDistTransforms instance = new AdminDistTransforms() {
-
-            @Override
-            protected Log createLogger() {
-                return mockLogger;
-            }
-        };
-        context.checking(new Expectations() {
-
-            {
-                allowing(mockLogger).info(with(any(String.class)));
-                allowing(mockLogger).debug(with(any(String.class)));
-                allowing(mockLogger).error(with(any(String.class)));
-
-                will(returnValue(null));
-            }
-        });
-
+        AdminDistTransforms instance = new AdminDistTransforms();
+        
         boolean expResult = true;
         boolean result = instance.areRequiredUserTypeFieldsNull(assertion);
-        context.assertIsSatisfied();
+        
         assertEquals(expResult, result);
-
     }
 
     @Test
     public void testAreRequiredUserTypeFieldsNull_NoHCName() {
         System.out.println("testAreRequiredUserTypeFieldsNull_NoHCName");
-        final Log mockLogger = context.mock(Log.class);
         AssertionType assertion = new AssertionType();
 
         UserType user = new UserType();
@@ -370,27 +226,11 @@ public class AdminDistTransformsTest {
 
         assertion.setUserInfo(user);
 
-        AdminDistTransforms instance = new AdminDistTransforms() {
-
-            @Override
-            protected Log createLogger() {
-                return mockLogger;
-            }
-        };
-        context.checking(new Expectations() {
-
-            {
-                allowing(mockLogger).info(with(any(String.class)));
-                allowing(mockLogger).debug(with(any(String.class)));
-                allowing(mockLogger).error(with(any(String.class)));
-
-                will(returnValue(null));
-            }
-        });
-
+        AdminDistTransforms instance = new AdminDistTransforms();
+       
         boolean expResult = true;
         boolean result = instance.areRequiredUserTypeFieldsNull(assertion);
-        context.assertIsSatisfied();
+        
         assertEquals(expResult, result);
 
     }
@@ -398,7 +238,6 @@ public class AdminDistTransformsTest {
     @Test
     public void testAreRequiredUserTypeFieldsNull_False() {
         System.out.println("testAreRequiredUserTypeFieldsNull_False");
-        final Log mockLogger = context.mock(Log.class);
         AssertionType assertion = new AssertionType();
 
         UserType user = new UserType();
@@ -412,26 +251,11 @@ public class AdminDistTransformsTest {
 
         assertion.setUserInfo(user);
 
-        AdminDistTransforms instance = new AdminDistTransforms() {
-
-            @Override
-            protected Log createLogger() {
-                return mockLogger;
-            }
-        };
-        context.checking(new Expectations() {
-
-            {
-                allowing(mockLogger).info(with(any(String.class)));
-                allowing(mockLogger).debug(with(any(String.class)));
-
-                will(returnValue(null));
-            }
-        });
+        AdminDistTransforms instance = new AdminDistTransforms();
 
         boolean expResult = false;
         boolean result = instance.areRequiredUserTypeFieldsNull(assertion);
-        context.assertIsSatisfied();
+        
         assertEquals(expResult, result);
 
     }

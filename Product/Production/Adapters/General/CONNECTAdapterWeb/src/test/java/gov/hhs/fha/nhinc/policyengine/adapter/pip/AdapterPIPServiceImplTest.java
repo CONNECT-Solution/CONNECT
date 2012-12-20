@@ -34,7 +34,7 @@ import gov.hhs.fha.nhinc.common.nhinccommonadapter.RetrievePtConsentByPtIdRespon
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.StorePtConsentRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.StorePtConsentResponseType;
 import javax.xml.ws.WebServiceContext;
-import org.apache.commons.logging.Log;
+
 import org.jmock.Expectations;
 import org.jmock.Mockery;
 import org.jmock.integration.junit4.JMock;
@@ -55,38 +55,13 @@ public class AdapterPIPServiceImplTest {
             setImposteriser(ClassImposteriser.INSTANCE);
         }
     };
-    final Log mockLog = context.mock(Log.class);
     final WebServiceContext mockWebServiceContext = context.mock(WebServiceContext.class);
     final AdapterPIPImpl mockAdapterPIPImpl = context.mock(AdapterPIPImpl.class);
-
-    @Test
-    public void testCreateLogger() {
-        try {
-            AdapterPIPServiceImpl sut = new AdapterPIPServiceImpl() {
-                @Override
-                protected Log createLogger() {
-                    return mockLog;
-                }
-            };
-
-            Log log = sut.createLogger();
-            assertNotNull("Log was null", log);
-        } catch (Throwable t) {
-            System.out.println("Error running testCreateLogger: " + t.getMessage());
-            t.printStackTrace();
-            fail("Error running testCreateLogger: " + t.getMessage());
-        }
-    }
 
     @Test
     public void testGetAdapterPIPImpl() {
         try {
             AdapterPIPServiceImpl sut = new AdapterPIPServiceImpl() {
-                @Override
-                protected Log createLogger() {
-                    return mockLog;
-                }
-
                 @Override
                 protected AdapterPIPImpl getAdapterPIPImpl() {
                     return mockAdapterPIPImpl;
@@ -107,11 +82,6 @@ public class AdapterPIPServiceImplTest {
         try {
             AdapterPIPServiceImpl sut = new AdapterPIPServiceImpl() {
                 @Override
-                protected Log createLogger() {
-                    return mockLog;
-                }
-
-                @Override
                 protected void loadAssertion(AssertionType assertion, WebServiceContext wsContext) throws Exception {
                 }
             };
@@ -131,11 +101,6 @@ public class AdapterPIPServiceImplTest {
         try {
             AdapterPIPServiceImpl sut = new AdapterPIPServiceImpl() {
                 @Override
-                protected Log createLogger() {
-                    return mockLog;
-                }
-
-                @Override
                 protected AdapterPIPImpl getAdapterPIPImpl() {
                     return mockAdapterPIPImpl;
                 }
@@ -146,7 +111,6 @@ public class AdapterPIPServiceImplTest {
             };
             context.checking(new Expectations() {
                 {
-                    allowing(mockLog).debug(with(aNonNull(String.class)));
                     oneOf(mockAdapterPIPImpl).retrievePtConsentByPtId(
                             with(aNonNull(RetrievePtConsentByPtIdRequestType.class)));
                 }
@@ -168,11 +132,6 @@ public class AdapterPIPServiceImplTest {
         try {
             AdapterPIPServiceImpl sut = new AdapterPIPServiceImpl() {
                 @Override
-                protected Log createLogger() {
-                    return mockLog;
-                }
-
-                @Override
                 protected AdapterPIPImpl getAdapterPIPImpl() {
                     return mockAdapterPIPImpl;
                 }
@@ -182,12 +141,6 @@ public class AdapterPIPServiceImplTest {
                     throw new IllegalArgumentException("Forced error.");
                 }
             };
-            context.checking(new Expectations() {
-                {
-                    allowing(mockLog).debug(with(aNonNull(String.class)));
-                    oneOf(mockLog).error(with(aNonNull(String.class)), with(aNonNull(IllegalArgumentException.class)));
-                }
-            });
 
             RetrievePtConsentByPtIdRequestType request = new RetrievePtConsentByPtIdRequestType();
 
@@ -209,11 +162,6 @@ public class AdapterPIPServiceImplTest {
         try {
             AdapterPIPServiceImpl sut = new AdapterPIPServiceImpl() {
                 @Override
-                protected Log createLogger() {
-                    return mockLog;
-                }
-
-                @Override
                 protected AdapterPIPImpl getAdapterPIPImpl() {
                     return mockAdapterPIPImpl;
                 }
@@ -224,7 +172,6 @@ public class AdapterPIPServiceImplTest {
             };
             context.checking(new Expectations() {
                 {
-                    allowing(mockLog).debug(with(aNonNull(String.class)));
                     oneOf(mockAdapterPIPImpl).retrievePtConsentByPtDocId(
                             with(aNonNull(RetrievePtConsentByPtDocIdRequestType.class)));
                 }
@@ -247,11 +194,6 @@ public class AdapterPIPServiceImplTest {
         try {
             AdapterPIPServiceImpl sut = new AdapterPIPServiceImpl() {
                 @Override
-                protected Log createLogger() {
-                    return mockLog;
-                }
-
-                @Override
                 protected AdapterPIPImpl getAdapterPIPImpl() {
                     return mockAdapterPIPImpl;
                 }
@@ -261,13 +203,7 @@ public class AdapterPIPServiceImplTest {
                     throw new IllegalArgumentException("Forced error.");
                 }
             };
-            context.checking(new Expectations() {
-                {
-                    allowing(mockLog).debug(with(aNonNull(String.class)));
-                    oneOf(mockLog).error(with(aNonNull(String.class)), with(aNonNull(IllegalArgumentException.class)));
-                }
-            });
-
+            
             RetrievePtConsentByPtDocIdRequestType request = new RetrievePtConsentByPtDocIdRequestType();
 
             sut.retrievePtConsentByPtDocId(request, mockWebServiceContext);
@@ -288,11 +224,6 @@ public class AdapterPIPServiceImplTest {
         try {
             AdapterPIPServiceImpl sut = new AdapterPIPServiceImpl() {
                 @Override
-                protected Log createLogger() {
-                    return mockLog;
-                }
-
-                @Override
                 protected AdapterPIPImpl getAdapterPIPImpl() {
                     return mockAdapterPIPImpl;
                 }
@@ -303,7 +234,6 @@ public class AdapterPIPServiceImplTest {
             };
             context.checking(new Expectations() {
                 {
-                    allowing(mockLog).debug(with(aNonNull(String.class)));
                     oneOf(mockAdapterPIPImpl).storePtConsent(with(aNonNull(StorePtConsentRequestType.class)));
                 }
             });
@@ -324,11 +254,6 @@ public class AdapterPIPServiceImplTest {
         try {
             AdapterPIPServiceImpl sut = new AdapterPIPServiceImpl() {
                 @Override
-                protected Log createLogger() {
-                    return mockLog;
-                }
-
-                @Override
                 protected AdapterPIPImpl getAdapterPIPImpl() {
                     return mockAdapterPIPImpl;
                 }
@@ -338,13 +263,7 @@ public class AdapterPIPServiceImplTest {
                     throw new IllegalArgumentException("Forced error.");
                 }
             };
-            context.checking(new Expectations() {
-                {
-                    allowing(mockLog).debug(with(aNonNull(String.class)));
-                    oneOf(mockLog).error(with(aNonNull(String.class)), with(aNonNull(IllegalArgumentException.class)));
-                }
-            });
-
+            
             StorePtConsentRequestType request = new StorePtConsentRequestType();
 
             sut.storePtConsent(request, mockWebServiceContext);

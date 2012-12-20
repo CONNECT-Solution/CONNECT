@@ -29,7 +29,6 @@ package gov.hhs.fha.nhinc.policyengine.adapter.pip;
 import gov.hhs.fha.nhinc.common.nhinccommon.AddressType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AddressesType;
 import gov.hhs.fha.nhinc.common.nhinccommon.CeType;
-
 import gov.hhs.fha.nhinc.common.nhinccommon.PersonNameType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.BinaryDocumentPolicyCriterionType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.BinaryDocumentStoreActionType;
@@ -39,21 +38,20 @@ import gov.hhs.fha.nhinc.common.nhinccommonadapter.PolicyLegalAuthenticatorType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.PolicyOriginalAuthorInfoType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.PolicyPatientInfoType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.PolicyScannerAuthorInfoType;
+
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.List;
-import javax.xml.bind.JAXBElement;
-import org.hl7.v3.POCDMT000040ClinicalDocument;
-import org.hl7.v3.CE;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import javax.xml.bind.JAXBElement;
+
 import org.hl7.v3.ADExplicit;
 import org.hl7.v3.AdxpExplicitCity;
 import org.hl7.v3.AdxpExplicitCountry;
 import org.hl7.v3.AdxpExplicitPostalCode;
 import org.hl7.v3.AdxpExplicitState;
 import org.hl7.v3.AdxpExplicitStreetAddressLine;
+import org.hl7.v3.CE;
 import org.hl7.v3.CS;
 import org.hl7.v3.EnExplicitFamily;
 import org.hl7.v3.EnExplicitGiven;
@@ -64,6 +62,7 @@ import org.hl7.v3.IVXBTSExplicit;
 import org.hl7.v3.ONExplicit;
 import org.hl7.v3.PNExplicit;
 import org.hl7.v3.POCDMT000040Author;
+import org.hl7.v3.POCDMT000040ClinicalDocument;
 import org.hl7.v3.POCDMT000040Custodian;
 import org.hl7.v3.POCDMT000040DataEnterer;
 import org.hl7.v3.POCDMT000040LegalAuthenticator;
@@ -76,26 +75,10 @@ import org.hl7.v3.SCExplicit;
  * @author Les Westberg
  */
 public class CdaPdfExtractor {
-    protected Log log = null;
     private static final String HL7_DATE_ONLY_FORMAT = "yyyyMMdd";
     private static final SimpleDateFormat oHL7DateOnlyFormatter = new SimpleDateFormat(HL7_DATE_ONLY_FORMAT);
     private static final String HL7_DATE_TIME_FORMAT = "yyyyMMddHHmmssZ";
     private static final SimpleDateFormat oHL7DateTimeFormatter = new SimpleDateFormat(HL7_DATE_TIME_FORMAT);
-
-    /**
-     * Default constructor.
-     */
-    public CdaPdfExtractor() {
-        log = createLogger();
-    }
-
-    /**
-     * Sets up the logger object.
-     */
-    protected Log createLogger() {
-        return ((log != null) ? log : LogFactory.getLog(getClass()));
-
-    }
 
     /**
      * Create a CE from the given data.

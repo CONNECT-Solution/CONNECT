@@ -49,7 +49,6 @@ import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
 
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
-import org.apache.commons.logging.Log;
 import org.jmock.Expectations;
 import org.jmock.Mockery;
 import org.jmock.integration.junit4.JUnit4Mockery;
@@ -63,7 +62,6 @@ public class StandardOutboundDocSubmissionTest {
             setImposteriser(ClassImposteriser.INSTANCE);
         }
     };
-    final Log mockLog = context.mock(Log.class);
     final XDRAuditLogger mockXDRLog = context.mock(XDRAuditLogger.class);
     final XDRPolicyChecker mockPolicyCheck = context.mock(XDRPolicyChecker.class);
     final SubjectHelper mockSubjectHelper = context.mock(SubjectHelper.class);
@@ -72,7 +70,6 @@ public class StandardOutboundDocSubmissionTest {
     @Test
     public void testProvideAndRegisterDocumentSetB() {
         expect4MockAudits();
-        allowAnyMockLogging();
         setMockPolicyCheck(true);
         setMockSubjectHelperToReturnValidHcid();
         setMockDelegateToReturnValidResponse();
@@ -87,7 +84,6 @@ public class StandardOutboundDocSubmissionTest {
     @Test
     public void testProvideAndRegisterDocumentSetB_policyFailure() {
         expect2MockAudits();
-        allowAnyMockLogging();
         setMockPolicyCheck(false);
         setMockSubjectHelperToReturnValidHcid();
 
@@ -102,7 +98,6 @@ public class StandardOutboundDocSubmissionTest {
     @Test
     public void testProvideAndRegisterDocumentSetB_emptyTargets() {
         expect2MockAudits();
-        allowAnyMockLogging();
         
         RegistryResponseType response = runProvideAndRegisterDocumentSetB_emptyTargets();
 
@@ -115,7 +110,6 @@ public class StandardOutboundDocSubmissionTest {
     @Test
     public void testProvideAndRegisterDocumentSetB_failedNhinCall() {
         expect3MockAudits();
-        allowAnyMockLogging();
         setMockPolicyCheck(true);
         setMockSubjectHelperToReturnValidHcid();
         setMockDelegateToThrowException();
@@ -167,7 +161,6 @@ public class StandardOutboundDocSubmissionTest {
     public void testGetters() {
         StandardOutboundDocSubmission entityOrch = new StandardOutboundDocSubmission();
 
-        assertNotNull(entityOrch.getLogger());
         assertNotNull(entityOrch.getOutboundDocSubmissionDelegate());
         assertNotNull(entityOrch.getSubjectHelper());
         assertNotNull(entityOrch.getXDRAuditLogger());
@@ -268,14 +261,6 @@ public class StandardOutboundDocSubmissionTest {
         });
     }
 
-    private void allowAnyMockLogging() {
-        context.checking(new Expectations() {
-            {
-                ignoring(mockLog);
-            }
-        });
-    }
-
     private void setMockPolicyCheck(final boolean allow) {
         context.checking(new Expectations() {
             {
@@ -317,10 +302,6 @@ public class StandardOutboundDocSubmissionTest {
 
     private StandardOutboundDocSubmission createStandardOutboundDocSubmission() {
         return new StandardOutboundDocSubmission() {
-            protected Log getLogger() {
-                return mockLog;
-            }
-
             protected XDRAuditLogger getXDRAuditLogger() {
                 return mockXDRLog;
             }

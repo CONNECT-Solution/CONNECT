@@ -43,8 +43,7 @@ import gov.hhs.fha.nhinc.xmlCommon.XmlUtility;
 
 import java.util.List;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 import org.oasis_open.docs.wsn.b_2.NotificationMessageHolderType;
 import org.oasis_open.docs.wsn.b_2.Notify;
 import org.w3c.dom.Element;
@@ -55,7 +54,7 @@ import org.w3c.dom.Element;
  */
 public class NhinNotifyProcessor {
 
-    private static Log log = LogFactory.getLog(NhinNotifyProcessor.class);
+    private static final Logger LOG = Logger.getLogger(NhinNotifyProcessor.class);
 
     /**
      * Perform processing for an NHIN notify message.
@@ -66,7 +65,7 @@ public class NhinNotifyProcessor {
      * @throws java.lang.Exception
      */
     public void processNhinNotify(Element soapMessage, AssertionType assertion) throws Exception {
-        log.debug("In processNhinNotify");
+        LOG.debug("In processNhinNotify");
 
         Element notify = XmlUtility.getSingleChildElement(soapMessage, Namespaces.WSNT, "Notify");
 
@@ -75,7 +74,7 @@ public class NhinNotifyProcessor {
             String serviceMode = config.getNotificationServiceMode();
 
             if (HiemProcessorConstants.HIEM_SERVICE_MODE_PASSTHROUGH.equals(serviceMode)) {
-                log.debug("In passthrough mode");
+                LOG.debug("In passthrough mode");
 
                 SoapHeaderHelper soapHeaderHelper = new SoapHeaderHelper();
                 SoapMessageElements soapHeaderElements = soapHeaderHelper
@@ -83,27 +82,27 @@ public class NhinNotifyProcessor {
 
                 forwardToAgency(notify, soapHeaderElements, assertion);
             } else if (HiemProcessorConstants.HIEM_SERVICE_MODE_NOT_SUPPORTED.equals(serviceMode)) {
-                log.debug("Notfications are not supported");
+                LOG.debug("Notfications are not supported");
                 // TODO: Figure out how to create this fault and throw it
                 // throw new NotifyMessageNotSupportedFaultType();
                 throw new Exception("Notification not supported");
             } else if (HiemProcessorConstants.HIEM_SERVICE_MODE_SUPPORTED.equalsIgnoreCase(serviceMode)) {
-                log.debug("Notifications are supported. Processing notify message");
+                LOG.debug("Notifications are supported. Processing notify message");
                 nhinNotify(notify, assertion);
             } else {
-                log.error("Unknown notification service mode: " + serviceMode);
+                LOG.error("Unknown notification service mode: " + serviceMode);
                 throw new Exception("Unsupported notification service mode of \"" + serviceMode + "\" for property: "
                         + HiemProcessorConstants.HIEM_SERVICE_MODE_SUBSCRIPTION_PROPERTY);
             }
         } catch (Throwable t) {
-            log.error("Error processing a notify message: " + t.getMessage(), t);
+            LOG.error("Error processing a notify message: " + t.getMessage(), t);
             // TODO: Change to a SubscribeCreationFailedFaultType exception
             throw new Exception(t);
         }
     }
 
     private void nhinNotify(Element notify, AssertionType assertion) throws Exception {
-        log.debug("In nhinNotify");
+        LOG.debug("In nhinNotify");
 
         NotifyMarshaller marshaller = new NotifyMarshaller();
         Notify nhinNotify = marshaller.unmarshal(notify);
@@ -118,26 +117,26 @@ public class NhinNotifyProcessor {
 
         List<NotificationMessageHolderType> notificationMessageList = nhinNotify.getNotificationMessage();
         if (notificationMessageList != null) {
-            log.debug("Notifcation message count: " + notificationMessageList.size());
+            LOG.debug("Notifcation message count: " + notificationMessageList.size());
             for (NotificationMessageHolderType notificationMessage : notificationMessageList) {
-                log.debug("Processing a single notification message");
+                LOG.debug("Processing a single notification message");
                 NotificationMessageMarshaller notificationMessageMarshaller = new NotificationMessageMarshaller();
                 Element notificationMessageElement = notificationMessageMarshaller.marshal(notificationMessage);
-                if (log.isDebugEnabled()) {
-                    log.debug("Notification message: "
+                if (LOG.isDebugEnabled()) {
+                    LOG.debug("Notification message: "
                             + XmlUtility.serializeElementIgnoreFaults(notificationMessageElement));
                 }
                 List<HiemSubscriptionItem> subscriptionItems = repositoryService.RetrieveByNotificationMessage(
                         notificationMessageElement, HiemProcessorConstants.PRODUCER_GATEWAY);
                 if (subscriptionItems != null) {
-                    log.debug("Subscription item list count: " + subscriptionItems.size());
+                    LOG.debug("Subscription item list count: " + subscriptionItems.size());
                     for (HiemSubscriptionItem subscriptionItem : subscriptionItems) {
-                        log.debug("extracting reference parameters from subscribe consumer reference");
+                        LOG.debug("extracting reference parameters from subscribe consumer reference");
                         ReferenceParametersHelper referenceParametersHelper = new ReferenceParametersHelper();
                         SoapMessageElements referenceParametersElements = referenceParametersHelper
                                 .createReferenceParameterElementsFromSubscriptionReference(subscriptionItem
                                         .getSubscribeXML());
-                        log.debug("extracted reference parameters from subscribe consumer reference");
+                        LOG.debug("extracted reference parameters from subscribe consumer reference");
 
                         Notify adapterNotify = createAdapterNotify(notificationMessage, assertion, subscriptionItem);
                         Element adapterNotifyElement = marshaller.marshal(adapterNotify);
@@ -148,20 +147,20 @@ public class NhinNotifyProcessor {
                                 referenceParametersElements, assertion, null);
 
                         if (responseElement != null) {
-                            if (log.isDebugEnabled()) {
-                                log.debug("Adapter notify response: "
+                            if (LOG.isDebugEnabled()) {
+                                LOG.debug("Adapter notify response: "
                                         + XmlUtility.serializeElementIgnoreFaults(responseElement));
                             }
                         } else {
-                            log.debug("Adapter notify response was null");
+                            LOG.debug("Adapter notify response was null");
                         }
                     }
                 } else {
-                    log.debug("Subscription item list was null");
+                    LOG.debug("Subscription item list was null");
                 }
             }
         } else {
-            log.info("Notification message list was null in notify message");
+            LOG.info("Notification message list was null in notify message");
         }
     }
 
@@ -191,7 +190,7 @@ public class NhinNotifyProcessor {
 
             adapterProxy.notify(notify, referenceParametersElements, assertion, null);
         } catch (Exception ex) {
-            log.error("adapterProxy.notify threw exception", ex);
+            LOG.error("adapterProxy.notify threw exception", ex);
         }
     }
 }

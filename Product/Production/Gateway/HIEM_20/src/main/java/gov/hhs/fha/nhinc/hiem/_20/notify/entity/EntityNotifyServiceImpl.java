@@ -28,8 +28,7 @@ package gov.hhs.fha.nhinc.hiem._20.notify.entity;
 
 import javax.xml.ws.WebServiceContext;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 import org.oasis_open.docs.wsn.b_2.Notify;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AcknowledgementType;
@@ -46,7 +45,7 @@ import gov.hhs.fha.nhinc.notify.entity.EntityNotifyOrchImpl;
  */
 public class EntityNotifyServiceImpl {
 
-    private static Log log = LogFactory.getLog(EntityNotifyServiceImpl.class);
+    private static final Logger LOG = Logger.getLogger(EntityNotifyServiceImpl.class);
     private EntityNotifyOrchImpl orchImpl;
 
     EntityNotifyServiceImpl(EntityNotifyOrchImpl orchImpl) {
@@ -54,7 +53,7 @@ public class EntityNotifyServiceImpl {
     }
 
     public AcknowledgementType notify(NotifyRequestType notifyRequest, WebServiceContext context) {
-        log.debug("EntityNotifyServiceImpl.notify");
+        LOG.debug("EntityNotifyServiceImpl.notify");
         AcknowledgementType ack = new AcknowledgementType();
 
         try {
@@ -62,21 +61,21 @@ public class EntityNotifyServiceImpl {
 
             orchImpl.processNotify(notifyRequest.getNotify(), notifyRequest.getAssertion(), rawNotifyXml);
         } catch (Throwable t) {
-            log.error("Exception encountered processing notify message: " + t.getMessage(), t);
+            LOG.error("Exception encountered processing notify message: " + t.getMessage(), t);
         }
 
         return ack;
     }
 
     public AcknowledgementType notify(Notify notifyRequest, WebServiceContext context) {
-        log.debug("EntityNotifyServiceImpl.notify");
+        LOG.debug("EntityNotifyServiceImpl.notify");
         AcknowledgementType ack = new AcknowledgementType();
 
         try {
             String rawNotifyXml = new SoapUtil().extractSoapMessage(context, NhincConstants.HTTP_REQUEST_ATTRIBUTE_SOAPMESSAGE);
             orchImpl.processNotify(notifyRequest, SAML2AssertionExtractor.getInstance().extractSamlAssertion(context), rawNotifyXml);
         } catch (Throwable t) {
-            log.error("Exception encountered processing notify message: " + t.getMessage(), t);
+            LOG.error("Exception encountered processing notify message: " + t.getMessage(), t);
         }
 
         return ack;

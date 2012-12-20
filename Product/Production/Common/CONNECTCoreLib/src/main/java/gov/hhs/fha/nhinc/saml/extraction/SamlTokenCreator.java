@@ -38,8 +38,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 
 /**
  * 
@@ -47,7 +46,7 @@ import org.apache.commons.logging.LogFactory;
  */
 public class SamlTokenCreator {
 
-    private static Log log = LogFactory.getLog(SamlTokenCreator.class);
+    private static final Logger LOG = Logger.getLogger(SamlTokenCreator.class);
 
     /**
      * This method will populate a Map with information from the assertion that is used within the SAML Token. This Map
@@ -62,7 +61,7 @@ public class SamlTokenCreator {
      * @return A Map containing all of the information needed for creation of the SAML Token.
      */
     public Map<String, Object> CreateRequestContext(AssertionType assertion, String url, String action) {
-        log.debug("Entering SamlTokenCreator.CreateRequestContext...");
+        LOG.debug("Entering SamlTokenCreator.CreateRequestContext...");
 
         Map<String, Object> requestContext = new HashMap<String, Object>();
 
@@ -82,7 +81,7 @@ public class SamlTokenCreator {
                         requestContext.put(NhincConstants.USER_ORG_ID_PROP, org.getHomeCommunityId());
                     }
                 } else {
-                    log.error("Error: samlSendOperation input assertion user org is null");
+                    LOG.error("Error: samlSendOperation input assertion user org is null");
                 }
                 if (userInfo.getRoleCoded() != null) {
                     if (NullChecker.isNotNullish(userInfo.getRoleCoded().getCode())) {
@@ -99,7 +98,7 @@ public class SamlTokenCreator {
                         requestContext.put(NhincConstants.USER_DISPLAY_PROP, userInfo.getRoleCoded().getDisplayName());
                     }
                 } else {
-                    log.error("Error: samlSendOperation input assertion user info role is null");
+                    LOG.error("Error: samlSendOperation input assertion user info role is null");
                 }
                 if (userInfo.getPersonName() != null) {
                     if (NullChecker.isNotNullish(userInfo.getPersonName().getGivenName())) {
@@ -113,10 +112,10 @@ public class SamlTokenCreator {
                         requestContext.put(NhincConstants.USER_LAST_PROP, userInfo.getPersonName().getFamilyName());
                     }
                 } else {
-                    log.error("Error: samlSendOperation input assertion user person name is null");
+                    LOG.error("Error: samlSendOperation input assertion user person name is null");
                 }
             } else {
-                log.error("Error: samlSendOperation input assertion user info is null");
+                LOG.error("Error: samlSendOperation input assertion user info is null");
             }
             if (assertion.getPurposeOfDisclosureCoded() != null) {
                 if (assertion.getPurposeOfDisclosureCoded() != null) {
@@ -137,10 +136,10 @@ public class SamlTokenCreator {
                                 .getDisplayName());
                     }
                 } else {
-                    log.error("Error: samlSendOperation input assertion purpose coded is null");
+                    LOG.error("Error: samlSendOperation input assertion purpose coded is null");
                 }
             } else {
-                log.error("Error: samlSendOperation input assertion purpose is null");
+                LOG.error("Error: samlSendOperation input assertion purpose is null");
             }
             if (assertion.getHomeCommunity() != null) {
                 if (NullChecker.isNotNullish(assertion.getHomeCommunity().getHomeCommunityId())) {
@@ -148,7 +147,7 @@ public class SamlTokenCreator {
                 }
 
             } else {
-                log.error("Error: samlSendOperation input assertion Home Community is null");
+                LOG.error("Error: samlSendOperation input assertion Home Community is null");
             }
             if (assertion.getUniquePatientId() != null && assertion.getUniquePatientId().size() > 0) {
                 // take first non-null item in the List as the identifier
@@ -181,7 +180,7 @@ public class SamlTokenCreator {
                             .getSubjectLocalityDNSName());
                 }
             } else {
-                log.error("Error: samlSendOperation input assertion AuthnStatement is null");
+                LOG.error("Error: samlSendOperation input assertion AuthnStatement is null");
             }
             if (assertion.getSamlAuthzDecisionStatement() != null) {
                 requestContext.put(NhincConstants.AUTHZ_STATEMENT_EXISTS_PROP, "true");
@@ -256,14 +255,14 @@ public class SamlTokenCreator {
                                     .getNotOnOrAfter());
                         }
                     } else {
-                        log.error("Error: samlSendOperation input assertion AuthzDecisionStatement Evidence Conditions is null");
+                        LOG.error("Error: samlSendOperation input assertion AuthzDecisionStatement Evidence Conditions is null");
                     }
                 } else {
-                    log.error("Error: samlSendOperation input assertion AuthzDecisionStatement Evidence is null");
+                    LOG.error("Error: samlSendOperation input assertion AuthzDecisionStatement Evidence is null");
                 }
             } else {
                 requestContext.put(NhincConstants.AUTHZ_STATEMENT_EXISTS_PROP, "false");
-                log.info("AuthzDecisionStatement is null.  It will not be part of the SAML Assertion");
+                LOG.info("AuthzDecisionStatement is null.  It will not be part of the SAML Assertion");
             }
 
             if (assertion.getSamlIssuer() != null) {
@@ -275,10 +274,10 @@ public class SamlTokenCreator {
                             .getIssuerFormat());
                 }
             } else {
-                log.debug("samlSendOperation input assertion Saml Issuer is null");
+                LOG.debug("samlSendOperation input assertion Saml Issuer is null");
             }
         } else {
-            log.error("Error: samlSendOperation input assertion is null");
+            LOG.error("Error: samlSendOperation input assertion is null");
         }
 
         // This will be overwrite any value that is available in
@@ -293,15 +292,15 @@ public class SamlTokenCreator {
             requestContext.put(NhincConstants.ACTION_PROP, action);
         }
 
-        if (log.isTraceEnabled()) {
-            log.trace("Request Context:");
+        if (LOG.isTraceEnabled()) {
+            LOG.trace("Request Context:");
             Set<String> allKeys = requestContext.keySet();
             for (String key : allKeys) {
-                log.trace(key + " = " + requestContext.get(key));
+                LOG.trace(key + " = " + requestContext.get(key));
             }
         }
 
-        log.debug("Exiting SamlTokenCreator.CreateRequestContext...");
+        LOG.debug("Exiting SamlTokenCreator.CreateRequestContext...");
         return requestContext;
     }
 }
