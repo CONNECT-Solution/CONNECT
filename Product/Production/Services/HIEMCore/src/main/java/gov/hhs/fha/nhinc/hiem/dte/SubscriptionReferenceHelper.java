@@ -37,9 +37,6 @@ import gov.hhs.fha.nhinc.xmlCommon.XmlUtility;
  * @author rayj
  */
 public class SubscriptionReferenceHelper {
-    private static org.apache.commons.logging.Log log = org.apache.commons.logging.LogFactory
-            .getLog(SubscriptionReferenceHelper.class);
-
     /**
      * @deprecated
      * @param subscribeResponseXml

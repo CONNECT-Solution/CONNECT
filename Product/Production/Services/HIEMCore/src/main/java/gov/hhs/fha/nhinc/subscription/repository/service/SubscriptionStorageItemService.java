@@ -30,9 +30,8 @@ import gov.hhs.fha.nhinc.hiem.consumerreference.SoapMessageElements;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.subscription.repository.dao.SubscriptionStorageItemDao;
 import gov.hhs.fha.nhinc.subscription.repository.data.SubscriptionStorageItem;
-import java.io.ByteArrayInputStream;
+
 import java.util.List;
-import org.xml.sax.InputSource;
 
 /**
  * SubscriptionStorageItem persistence service
@@ -42,9 +41,6 @@ import org.xml.sax.InputSource;
  * @author Neil Webb
  */
 public class SubscriptionStorageItemService {
-
-    private static org.apache.commons.logging.Log log = org.apache.commons.logging.LogFactory
-            .getLog(SubscriptionStorageItemService.class);
 
     /**
      * Save a subscription storage item

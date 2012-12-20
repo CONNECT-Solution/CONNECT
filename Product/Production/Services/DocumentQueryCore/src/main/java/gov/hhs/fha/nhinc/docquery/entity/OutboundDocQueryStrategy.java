@@ -53,7 +53,7 @@ import org.apache.log4j.Logger;
  */
 public abstract class OutboundDocQueryStrategy implements OrchestrationStrategy {
 
-    private static Logger log = Logger.getLogger(OutboundDocQueryStrategy.class);
+    private static final Logger LOG = Logger.getLogger(OutboundDocQueryStrategy.class);
 
     private AuditRepositoryLogger auditLogger;
     private NhinDocQueryProxyFactory proxyFactory;
@@ -90,7 +90,7 @@ public abstract class OutboundDocQueryStrategy implements OrchestrationStrategy 
         if (message instanceof OutboundDocQueryOrchestratable) {
             execute((OutboundDocQueryOrchestratable) message);
         } else {
-            log.debug("OutboundDocQueryStrategy Orchestratable was not an OutboundDocQueryOrchestratable!!!");
+            LOG.debug("OutboundDocQueryStrategy Orchestratable was not an OutboundDocQueryOrchestratable!!!");
         }
     }
 
@@ -103,7 +103,7 @@ public abstract class OutboundDocQueryStrategy implements OrchestrationStrategy 
         OutboundResponseProcessor processor = message.getResponseProcessor();
         message.setResponse(((OutboundDocQueryOrchestratable) processor.processErrorResponse(message, err))
                 .getResponse());
-        log.debug("executeStrategy returning error response");
+        LOG.debug("executeStrategy returning error response");
     }
 
     /**
@@ -136,8 +136,8 @@ public abstract class OutboundDocQueryStrategy implements OrchestrationStrategy 
 
         final String url = getUrl(message.getTarget());
         message.getTarget().setUrl(url);
-        if (log.isDebugEnabled()) {
-            log.debug("executeStrategy sending nhin doc query request to " + " target hcid="
+        if (LOG.isDebugEnabled()) {
+            LOG.debug("executeStrategy sending nhin doc query request to " + " target hcid="
                     + message.getTarget().getHomeCommunity().getHomeCommunityId() + " at url=" + url);
         }
 
@@ -146,7 +146,7 @@ public abstract class OutboundDocQueryStrategy implements OrchestrationStrategy 
 
         message.setResponse(response);
 
-        log.debug("executeStrategy returning response");
+        LOG.debug("executeStrategy returning response");
 
     }
 

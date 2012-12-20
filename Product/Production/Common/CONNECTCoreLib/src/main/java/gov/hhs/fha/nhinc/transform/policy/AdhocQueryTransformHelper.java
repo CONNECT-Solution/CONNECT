@@ -41,21 +41,21 @@ import oasis.names.tc.xacml._2_0.context.schema.os.RequestType;
 import oasis.names.tc.xacml._2_0.context.schema.os.ResourceType;
 import oasis.names.tc.xacml._2_0.context.schema.os.SubjectType;
 
+import org.apache.log4j.Logger;
 /**
  * 
  * @author rayj
  */
 public class AdhocQueryTransformHelper {
 
-    private static org.apache.commons.logging.Log log = org.apache.commons.logging.LogFactory
-            .getLog(AdhocQueryTransformHelper.class);
+    private static final Logger LOG = Logger.getLogger(AdhocQueryTransformHelper.class);
     private static final String ACTIONVALUEIN = "DocumentQueryIn";
     private static final String ACTIONVALUEOUT = "DocumentQueryOut";
     private static final String PatientAssigningAuthorityAttributeId = Constants.AssigningAuthorityAttributeId;
     private static final String PatientIdAttributeId = Constants.ResourceIdAttributeId;
 
     public static CheckPolicyRequestType transformAdhocQueryToCheckPolicy(AdhocQueryRequestEventType event) {
-        log.debug("begin transformAdhocQueryToCheckPolicy");
+        LOG.debug("begin transformAdhocQueryToCheckPolicy");
 
         CheckPolicyRequestType result = null;
         if (InboundOutboundChecker.IsInbound(event.getDirection())) {
@@ -65,12 +65,12 @@ public class AdhocQueryTransformHelper {
             result = transformAdhocQueryOutboundToCheckPolicy(event);
         }
 
-        log.debug("end transformAdhocQueryToCheckPolicy");
+        LOG.debug("end transformAdhocQueryToCheckPolicy");
         return result;
     }
 
     public static CheckPolicyRequestType transformAdhocQueryResponseToCheckPolicy(AdhocQueryResultEventType event) {
-        log.debug("begin transformAdhocQueryResponseToCheckPolicy");
+        LOG.debug("begin transformAdhocQueryResponseToCheckPolicy");
 
         CheckPolicyRequestType result = null;
         if (InboundOutboundChecker.IsInbound(event.getDirection())) {
@@ -80,7 +80,7 @@ public class AdhocQueryTransformHelper {
             result = transformAdhocQueryResponseOutboundToCheckPolicy(event);
         }
 
-        log.debug("end transformAdhocQueryToCheckPolicy");
+        LOG.debug("end transformAdhocQueryToCheckPolicy");
         return result;
     }
 
@@ -111,8 +111,8 @@ public class AdhocQueryTransformHelper {
             sStrippedPatientId = PatientIdFormatUtil.parsePatientId(sPatientId);
             aaId = PatientIdFormatUtil.parseCommunityId(sPatientId);
         }
-        log.debug("transformAdhocQueryResponseToCheckPolicyBase aaId: " + aaId);
-        log.debug("transformAdhocQueryResponseToCheckPolicyBase PatientId: " + sStrippedPatientId);
+        LOG.debug("transformAdhocQueryResponseToCheckPolicyBase aaId: " + aaId);
+        LOG.debug("transformAdhocQueryResponseToCheckPolicyBase PatientId: " + sStrippedPatientId);
 
         resource.getAttribute().add(
                 attrHelper.attributeFactory(PatientAssigningAuthorityAttributeId, Constants.DataTypeString, aaId));
@@ -178,13 +178,13 @@ public class AdhocQueryTransformHelper {
                 sStrippedPatientId = PatientIdFormatUtil.parsePatientId(assertion.getUniquePatientId().get(0));
 
             } else {
-                log.info("Unique patientid is null in the assertion.");
+                LOG.info("Unique patientid is null in the assertion.");
             }
         }
 
-        log.debug("transformAdhocQueryToCheckPolicyBase: event direction: " + event.getDirection());
-        log.debug("transformAdhocQueryToCheckPolicyBase: aaId: " + aaId);
-        log.debug("transformAdhocQueryToCheckPolicyBase: PatientId: " + sStrippedPatientId);
+        LOG.debug("transformAdhocQueryToCheckPolicyBase: event direction: " + event.getDirection());
+        LOG.debug("transformAdhocQueryToCheckPolicyBase: aaId: " + aaId);
+        LOG.debug("transformAdhocQueryToCheckPolicyBase: PatientId: " + sStrippedPatientId);
 
         ResourceType resource = new ResourceType();
         AttributeHelper attrHelper = new AttributeHelper();

@@ -35,46 +35,47 @@ import oasis.names.tc.ebxml_regrep.xsd.rim._3.*;
 import org.oasis_open.docs.wsn.b_2.Subscribe;
 import org.w3c.dom.Element;
 
+import org.apache.log4j.Logger;
+
 /**
  * 
  * @author rayj
  */
 public class AdhocQueryHelper {
 
-    private static org.apache.commons.logging.Log log = org.apache.commons.logging.LogFactory
-            .getLog(AdhocQueryHelper.class);
+    private static final Logger LOG = Logger.getLogger(AdhocQueryHelper.class);
 
     public static AdhocQueryType getAdhocQuery(Subscribe nhinSubscribe) {
         AdhocQueryType adhocQuery = null;
-        log.info("begin getAdhocQuery");
+        LOG.info("begin getAdhocQuery");
         List<Object> any = nhinSubscribe.getAny();
-        log.info("found " + any.size() + " any item(s)");
+        LOG.info("found " + any.size() + " any item(s)");
 
         for (Object anyItem : any) {
-            log.info("anyItem=" + anyItem);
+            LOG.info("anyItem=" + anyItem);
             if (anyItem instanceof oasis.names.tc.ebxml_regrep.xsd.rim._3.AdhocQueryType) {
                 adhocQuery = (AdhocQueryType) anyItem;
             }
             if (anyItem instanceof Element) {
                 Element element = (Element) anyItem;
-                log.info("element.getNodeName()=" + element.getNodeName());
+                LOG.info("element.getNodeName()=" + element.getNodeName());
 
                 Object o = (JAXBElement<oasis.names.tc.ebxml_regrep.xsd.rim._3.AdhocQueryType>) nhinSubscribe.getAny();
 
                 // Object o = (JAXBElement<oasis.names.tc.ebxml_regrep.xsd.rim._3.AdhocQueryType>) anyItem;
             }
             if (anyItem instanceof JAXBElement) {
-                log.info("jaxbelement.getValue=" + ((JAXBElement) anyItem).getValue());
+                LOG.info("jaxbelement.getValue=" + ((JAXBElement) anyItem).getValue());
                 if (((JAXBElement) anyItem).getValue() instanceof AdhocQueryType) {
                     adhocQuery = (AdhocQueryType) ((JAXBElement) anyItem).getValue();
                 } else {
-                    log.warn("unhandled anyitem jaxbelement value " + ((JAXBElement) anyItem).getValue());
+                    LOG.warn("unhandled anyitem jaxbelement value " + ((JAXBElement) anyItem).getValue());
                 }
             } else {
-                log.warn("unhandled anyitem " + anyItem);
+                LOG.warn("unhandled anyitem " + anyItem);
             }
         }
-        log.info("end getAdhocQuery");
+        LOG.info("end getAdhocQuery");
         return adhocQuery;
     }
 
@@ -87,16 +88,16 @@ public class AdhocQueryHelper {
     }
 
     public static List<String> findSlotValues(Subscribe nhinSubscribe, String slotName) {
-        log.info("begin findSlotValue");
+        LOG.info("begin findSlotValue");
         List<SlotType1> allSlots = getAllSlots(nhinSubscribe);
         List<String> matchingSlotValues = findSlotValues(allSlots, slotName);
-        log.info("total slotValues found " + matchingSlotValues.size());
-        log.info("end findSlotValue");
+        LOG.info("total slotValues found " + matchingSlotValues.size());
+        LOG.info("end findSlotValue");
         return matchingSlotValues;
     }
 
     public static List<String> findSlotValues(List<SlotType1> slots, String slotName) {
-        log.info("begin findSlotValue");
+        LOG.info("begin findSlotValue");
         List<String> matchingSlotValues = new ArrayList<String>();
 
         for (SlotType1 slot : slots) {
@@ -105,7 +106,7 @@ public class AdhocQueryHelper {
                     List<String> slotValues = slot.getValueList().getValue();
                     for (String slotValue : slotValues) {
                         if (NullChecker.isNotNullish(slotValue)) {
-                            log.info("adding slotValue " + slotValue);
+                            LOG.info("adding slotValue " + slotValue);
                             matchingSlotValues.add(slotValue);
                         }
                     }
@@ -113,8 +114,8 @@ public class AdhocQueryHelper {
             }
         }
 
-        log.info("total slotValues found " + matchingSlotValues.size());
-        log.info("end findSlotValue");
+        LOG.info("total slotValues found " + matchingSlotValues.size());
+        LOG.info("end findSlotValue");
         return matchingSlotValues;
     }
 

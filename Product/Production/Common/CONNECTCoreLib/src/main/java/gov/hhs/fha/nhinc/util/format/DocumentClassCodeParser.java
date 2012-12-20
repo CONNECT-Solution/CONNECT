@@ -30,14 +30,15 @@ import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.log4j.Logger;
+
 /**
  * 
  * @author rayj
  */
 public class DocumentClassCodeParser {
 
-    private static org.apache.commons.logging.Log log = org.apache.commons.logging.LogFactory
-            .getLog(DocumentClassCodeParser.class);
+    private static final Logger LOG = Logger.getLogger(DocumentClassCodeParser.class);
 
     public static List<String> parseFormattedParameter(List<String> rawList) {
         List<String> normalizedList = new ArrayList<String>();
@@ -80,15 +81,15 @@ public class DocumentClassCodeParser {
                             }
                         }
                         resultCollection.add(singleValue);
-                        if (log.isDebugEnabled()) {
-                            log.debug("Added single value: " + singleValue + " to query parameters");
+                        if (LOG.isDebugEnabled()) {
+                            LOG.debug("Added single value: " + singleValue + " to query parameters");
                         }
                     }
                 }
             } else {
                 resultCollection.add(paramFormattedString);
-                if (log.isDebugEnabled()) {
-                    log.debug("No wrapper on status - adding status: " + paramFormattedString + " to query parameters");
+                if (LOG.isDebugEnabled()) {
+                    LOG.debug("No wrapper on status - adding status: " + paramFormattedString + " to query parameters");
                 }
             }
         }

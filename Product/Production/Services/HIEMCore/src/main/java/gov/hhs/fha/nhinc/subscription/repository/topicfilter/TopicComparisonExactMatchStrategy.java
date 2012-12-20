@@ -29,9 +29,9 @@ package gov.hhs.fha.nhinc.subscription.repository.topicfilter;
 import gov.hhs.fha.nhinc.subscription.repository.roottopicextractor.RootTopicExtractor;
 import gov.hhs.fha.nhinc.subscription.repository.roottopicextractor.RootTopicExtractorHelper;
 import gov.hhs.fha.nhinc.subscription.repository.service.SubscriptionRepositoryException;
-import gov.hhs.fha.nhinc.subscription.repository.topicfilter.ITopicComparison;
+
 import org.w3c.dom.Element;
-import org.w3c.dom.Node;
+import org.apache.log4j.Logger;
 
 /**
  * 
@@ -39,8 +39,7 @@ import org.w3c.dom.Node;
  */
 public class TopicComparisonExactMatchStrategy implements ITopicComparison {
 
-    private static org.apache.commons.logging.Log log = org.apache.commons.logging.LogFactory
-            .getLog(TopicComparisonExactMatchStrategy.class);
+    private static final Logger LOG = Logger.getLogger(TopicComparisonExactMatchStrategy.class);
 
     public boolean MeetsCriteria(Element subscriptionTopicExpression, Element notificationMessageTopic) {
         boolean meetsCriteria = false;
@@ -59,13 +58,13 @@ public class TopicComparisonExactMatchStrategy implements ITopicComparison {
                         .removeNamespaceHolder(subscribeRootTopic);
                 meetsCriteria = subscribeRootTopicWithoutPrefix.contentEquals(notifyRootTopicWithoutPrefix);
                 if (meetsCriteria) {
-                    log.debug("using supportNonNamespaceMatch able to make match. [notifyRootTopic=" + notifyRootTopic
+                    LOG.debug("using supportNonNamespaceMatch able to make match. [notifyRootTopic=" + notifyRootTopic
                             + "][subscribeRootTopic=" + subscribeRootTopic + "]");
                 }
             }
 
         } catch (SubscriptionRepositoryException ex) {
-            log.error(
+            LOG.error(
                     "Error occurred processing topic comparison strategy TopicComparisonExactMatchStrategy.MeetsCriteria",
                     ex);
             meetsCriteria = false;

@@ -29,7 +29,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Properties;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.logging.Logger;
 
 import javax.xml.namespace.QName;
 import javax.xml.soap.SOAPException;
@@ -98,6 +97,7 @@ import org.apache.ws.security.util.WSSecurityUtil;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -105,7 +105,7 @@ import org.w3c.dom.NodeList;
 public class EndorsingSupportingTokensInterceptor extends WSS4JInInterceptor {
     public static final String PROPERTIES_CACHE = "ws-security.properties.cache";
     public static final EndorsingSupportingTokensInterceptor INSTANCE = new EndorsingSupportingTokensInterceptor();
-    private static final Logger LOG = LogUtils.getL7dLogger(EndorsingSupportingTokensInterceptor.class);
+    private static final Logger LOG = Logger.getLogger(EndorsingSupportingTokensInterceptor.class);
 
     /**
      *
@@ -522,19 +522,19 @@ public class EndorsingSupportingTokensInterceptor extends WSS4JInInterceptor {
         // Check policies
         //
         if (!checkSignedEncryptedCoverage(aim, msg, soapHeader, soapBody, signed, encrypted)) {
-            LOG.fine("Incoming request failed signed-encrypted policy validation");
+            LOG.trace("Incoming request failed signed-encrypted policy validation");
         }
 
         if (!checkTokenCoverage(aim, msg, soapBody, results, signedResults)) {
-            LOG.fine("Incoming request failed token policy validation");
+            LOG.trace("Incoming request failed token policy validation");
         }
 
         if (!checkBindingCoverage(aim, msg, soapBody, results, signedResults, encryptResults)) {
-            LOG.fine("Incoming request failed binding policy validation");
+            LOG.trace("Incoming request failed binding policy validation");
         }
 
         if (!checkSupportingTokenCoverage(aim, msg, results, signedResults, encryptResults, utWithCallbacks)) {
-            LOG.fine("Incoming request failed supporting token policy validation");
+            LOG.trace("Incoming request failed supporting token policy validation");
         }
 
         // The supporting tokens are already validated

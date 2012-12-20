@@ -36,40 +36,41 @@ import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 import org.w3c.dom.Element;
 
+import org.apache.log4j.Logger;
+
 /**
  * 
  * @author rayj
  */
 public class MarshallerHelper {
 
-    private static org.apache.commons.logging.Log log = org.apache.commons.logging.LogFactory
-            .getLog(MarshallerHelper.class);
+    private static final Logger LOG = Logger.getLogger(MarshallerHelper.class);
 
     public Element marshal(Object object, String contextPath) {
         Element element = null;
-        log.debug("begin marshal");
+        LOG.debug("begin marshal");
         if (object == null) {
-            log.warn("object to marshall is null");
+            LOG.warn("object to marshall is null");
         } else if (NullChecker.isNullish(contextPath)) {
-            log.warn("no contextPath supplied");
+            LOG.warn("no contextPath supplied");
         } else {
             try {
-                log.debug("get instance of JAXBContext [contextPath='" + contextPath + "']");
+                LOG.debug("get instance of JAXBContext [contextPath='" + contextPath + "']");
                 JAXBContextHandler oHandler = new JAXBContextHandler();
                 JAXBContext jc = oHandler.getJAXBContext(contextPath);
-                log.debug("get instance of marshaller");
+                LOG.debug("get instance of marshaller");
                 Marshaller marshaller = jc.createMarshaller();
                 StringWriter stringWriter = new StringWriter();
-                log.debug("Calling marshal");
+                LOG.debug("Calling marshal");
                 marshaller.marshal(object, stringWriter);
-                log.debug("string writer writing to string");
+                LOG.debug("string writer writing to string");
                 String xml = stringWriter.toString();
-                log.debug("Marshaled xml=[" + xml + "]");
+                LOG.debug("Marshaled xml=[" + xml + "]");
                 if (NullChecker.isNotNullish(xml)) {
                     element = XmlUtility.convertXmlToElement(xml);
                 }
             } catch (Exception e) {
-                log.error("Failed to marshall: " + e.getMessage(), e);
+                LOG.error("Failed to marshall: " + e.getMessage(), e);
                 element = null;
             }
         }
@@ -78,29 +79,29 @@ public class MarshallerHelper {
 
     public Object unmarshal(Element element, String contextPath) {
         Object unmarshalledObject = null;
-        log.debug("begin unmarshal");
+        LOG.debug("begin unmarshal");
 
         if (element == null) {
-            log.warn("element to unmarshal is null");
+            LOG.warn("element to unmarshal is null");
         } else if (contextPath == null) {
-            log.warn("no contextPath supplied");
+            LOG.warn("no contextPath supplied");
         } else {
             try {
-                log.debug("desializing element");
+                LOG.debug("desializing element");
                 String serializedElement = XmlUtility.serializeElement(element);
-                log.debug("serializedElement=[" + serializedElement + "]");
-                log.debug("get instance of JAXBContext [contextPath='" + contextPath + "']");
+                LOG.debug("serializedElement=[" + serializedElement + "]");
+                LOG.debug("get instance of JAXBContext [contextPath='" + contextPath + "']");
                 JAXBContextHandler oHandler = new JAXBContextHandler();
                 JAXBContext jc = oHandler.getJAXBContext(contextPath);
-                log.debug("get instance of unmarshaller");
+                LOG.debug("get instance of unmarshaller");
                 Unmarshaller unmarshaller = jc.createUnmarshaller();
-                log.debug("init stringReader");
+                LOG.debug("init stringReader");
                 StringReader stringReader = new StringReader(serializedElement);
-                log.debug("Calling unmarshal");
+                LOG.debug("Calling unmarshal");
                 unmarshalledObject = unmarshaller.unmarshal(stringReader);
-                log.debug("end unmarshal");
+                LOG.debug("end unmarshal");
             } catch (Exception e) {
-                log.error("Failed to unmarshall: " + e.getMessage(), e);
+                LOG.error("Failed to unmarshall: " + e.getMessage(), e);
                 unmarshalledObject = null;
             }
         }

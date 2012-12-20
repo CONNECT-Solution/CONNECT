@@ -28,8 +28,6 @@ package gov.hhs.fha.nhinc.connectmgr;
 
 import java.util.HashSet;
 import java.util.Set;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import org.uddi.api_v3.BindingTemplate;
 import org.uddi.api_v3.BusinessEntity;
@@ -40,16 +38,19 @@ import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants.ADAPTER_API_LEVEL;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 
+import org.apache.log4j.Logger;
+
 public class AdapterEndpointManager {
     public static final String ADAPTER_API_LEVEL_KEY = "CONNECT:adapter:apilevel";
-
+    public static final Logger LOG = Logger.getLogger(AdapterEndpointManager.class);
+    
     public ADAPTER_API_LEVEL getApiVersion(String serviceName) {
         ADAPTER_API_LEVEL result = null;
         try {
             Set<ADAPTER_API_LEVEL> apiLevels = getAdapterAPILevelsByServiceName(serviceName);
             result = getHighestGatewayApiLevel(apiLevels);
         } catch (Exception ex) {
-            Logger.getLogger(ConnectionManagerCache.class.getName()).log(Level.SEVERE, null, ex);
+            LOG.error("Error getting API version: ", ex);
         }
 
         return (result == null) ? ADAPTER_API_LEVEL.LEVEL_a1 : result;
@@ -65,7 +66,7 @@ public class AdapterEndpointManager {
                 }
             }
         } catch (Exception ex) {
-            Logger.getLogger(ConnectionManagerCache.class.getName()).log(Level.SEVERE, null, ex);
+            LOG.error("Error getting highest API Level: ", ex);
         }
 
         return highestApiLevel;
@@ -83,7 +84,7 @@ public class AdapterEndpointManager {
             apiLevels = getAPILevelsFromBusinessService(businessService);
 
         } catch (Exception ex) {
-            Logger.getLogger(ConnectionManagerCache.class.getName()).log(Level.SEVERE, null, ex);
+            LOG.error("Error getting API Level by Service Name: ", ex);
         }
 
         return apiLevels;

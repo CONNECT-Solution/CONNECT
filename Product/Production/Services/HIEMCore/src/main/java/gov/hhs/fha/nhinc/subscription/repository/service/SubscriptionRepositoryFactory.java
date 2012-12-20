@@ -37,7 +37,7 @@ import org.apache.log4j.Logger;
  * @author Neil Webb
  */
 public class SubscriptionRepositoryFactory {
-    private static Logger LOG = Logger.getLogger(SubscriptionRepositoryFactory.class);
+    private static final Logger LOG = Logger.getLogger(SubscriptionRepositoryFactory.class);
     private static final String PROPERTIES_FILE_NAME = "gateway";
     private static final String IMPL_CLASS_NAME_KEY = "subscription.repository.implementation.class";
 

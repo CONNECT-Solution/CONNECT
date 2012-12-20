@@ -37,13 +37,14 @@ import gov.hhs.fha.nhinc.docsubmission.aspect.DocSubmissionArgTransformerBuilder
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.healthit.nhin.XDRAcknowledgementType;
 
+import org.apache.log4j.Logger;
+
 /**
  *
  * @author JHOPPESC
  */
 public class NhinDocSubmissionDeferredRequestProxyNoOpImpl implements NhinDocSubmissionDeferredRequestProxy {
-    private static org.apache.commons.logging.Log log = org.apache.commons.logging.LogFactory
-            .getLog(NhinDocSubmissionDeferredRequestProxyNoOpImpl.class);
+    private static final Logger LOG = Logger.getLogger(NhinDocSubmissionDeferredRequestProxyNoOpImpl.class);
 
     /*
      * (non-Javadoc)
@@ -59,7 +60,7 @@ public class NhinDocSubmissionDeferredRequestProxyNoOpImpl implements NhinDocSub
     version = "")
     public XDRAcknowledgementType provideAndRegisterDocumentSetBRequest11(
             ProvideAndRegisterDocumentSetRequestType request, AssertionType assertion, NhinTargetSystemType targetSystem) {
-        log.debug("Using NoOp Implementation for Nhin Doc Submission Deferred Request Service");
+        LOG.debug("Using NoOp Implementation for Nhin Doc Submission Deferred Request Service");
         XDRAcknowledgementType ack = new XDRAcknowledgementType();
         RegistryResponseType regResp = new RegistryResponseType();
         regResp.setStatus(NhincConstants.XDR_ACK_STATUS_MSG);

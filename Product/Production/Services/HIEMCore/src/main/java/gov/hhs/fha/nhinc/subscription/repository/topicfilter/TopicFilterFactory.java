@@ -30,13 +30,14 @@ import gov.hhs.fha.nhinc.subscription.repository.dialectalgorithms.full.FullDial
 import gov.hhs.fha.nhinc.subscription.repository.roottopicextractor.RootTopicExtractor;
 import gov.hhs.fha.nhinc.subscription.repository.service.SubscriptionRepositoryException;
 
+import org.apache.log4j.Logger;
+
 /**
  * 
  * @author rayj
  */
 public class TopicFilterFactory {
-    private static org.apache.commons.logging.Log log = org.apache.commons.logging.LogFactory
-            .getLog(TopicFilterFactory.class);
+    private static final Logger LOG = Logger.getLogger(TopicFilterFactory.class);
 
     public static ITopicFilterStrategy getTopicFilterStrategy(String dialect) throws SubscriptionRepositoryException {
         ITopicFilterStrategy topicFilterStategy = null;
@@ -44,21 +45,21 @@ public class TopicFilterFactory {
             ITopicComparison topicComparison = TopicComparisonFactory.getTopicComparisonStrategy(dialect);
             topicFilterStategy = new TopicFilterBasicComparisonStrategy(topicComparison);
         } else if (dialect.contentEquals(RootTopicExtractor.DIALECT_SIMPLE_MISSPELLED)) {
-            log.warn("Dialect unknown ('" + dialect + ", but assumed to be '" + RootTopicExtractor.DIALECT_SIMPLE + "'");
+            LOG.warn("Dialect unknown ('" + dialect + ", but assumed to be '" + RootTopicExtractor.DIALECT_SIMPLE + "'");
             ITopicComparison topicComparison = TopicComparisonFactory.getTopicComparisonStrategy(dialect);
             topicFilterStategy = new TopicFilterBasicComparisonStrategy(topicComparison);
         } else if (dialect.contentEquals(RootTopicExtractor.DIALECT_CONCRETE)) {
             ITopicComparison topicComparison = TopicComparisonFactory.getTopicComparisonStrategy(dialect);
             topicFilterStategy = new TopicFilterBasicComparisonStrategy(topicComparison);
         } else if (dialect.contentEquals(RootTopicExtractor.DIALECT_CONCRETE_MISSPELLED)) {
-            log.warn("Dialect unknown ('" + dialect + ", but assumed to be '" + RootTopicExtractor.DIALECT_CONCRETE
+            LOG.warn("Dialect unknown ('" + dialect + ", but assumed to be '" + RootTopicExtractor.DIALECT_CONCRETE
                     + "'");
             ITopicComparison topicComparison = TopicComparisonFactory.getTopicComparisonStrategy(dialect);
             topicFilterStategy = new TopicFilterBasicComparisonStrategy(topicComparison);
         } else if (dialect.contentEquals(RootTopicExtractor.DIALECT_FULL)) {
             topicFilterStategy = new FullDialectTopicFilterStrategy();
         } else if (dialect.contentEquals(RootTopicExtractor.DIALECT_FULL_MISSPELLED)) {
-            log.warn("Dialect unknown ('" + dialect + ", but assumed to be '" + RootTopicExtractor.DIALECT_FULL + "'");
+            LOG.warn("Dialect unknown ('" + dialect + ", but assumed to be '" + RootTopicExtractor.DIALECT_FULL + "'");
             topicFilterStategy = new FullDialectTopicFilterStrategy();
         } else {
             throw new SubscriptionRepositoryException("Unknown dialect + '" + dialect + "'");
