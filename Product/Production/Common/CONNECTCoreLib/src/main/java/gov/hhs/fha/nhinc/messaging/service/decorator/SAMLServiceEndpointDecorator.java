@@ -41,8 +41,8 @@ import java.util.Map;
 public class SAMLServiceEndpointDecorator<T> extends ServiceEndpointDecorator<T> {
 
     private AssertionType assertion;
-    private String targetHomeCommunityId;
-    private String serviceName;
+    private String targetHomeCommunityId = null;
+    private String serviceName = null;
     
     
     public SAMLServiceEndpointDecorator(ServiceEndpoint<T> decoratoredEndpoint, AssertionType assertion) {

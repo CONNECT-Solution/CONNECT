@@ -43,8 +43,6 @@ import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 import ihe.iti.xdr._2007.XDRDeferredRequest20PortType;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
 
-import javax.xml.ws.BindingProvider;
-
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
 import org.apache.log4j.Logger;
@@ -71,9 +69,11 @@ public class NhinDocSubmissionDeferredRequestProxyWebServiceSecuredImpl implemen
     }
 
     protected CONNECTClient<XDRDeferredRequest20PortType> getCONNECTClientSecured(
-            ServicePortDescriptor<XDRDeferredRequest20PortType> portDescriptor, String url, AssertionType assertion) {
+            ServicePortDescriptor<XDRDeferredRequest20PortType> portDescriptor, String url, AssertionType assertion,
+             String target, String serviceName) {
 
-        return CONNECTCXFClientFactory.getInstance().getCONNECTClientSecured(portDescriptor, url, assertion);
+        return CONNECTCXFClientFactory.getInstance().getCONNECTClientSecured(portDescriptor, assertion, url, target,
+                serviceName);
     }
 
     @NwhinInvocationEvent(beforeBuilder = DocSubmissionBaseEventDescriptionBuilder.class,
@@ -96,11 +96,7 @@ public class NhinDocSubmissionDeferredRequestProxyWebServiceSecuredImpl implemen
                 ServicePortDescriptor<XDRDeferredRequest20PortType> portDescriptor = new NhinDocSubmissionDeferredRequestServicePortDescriptor();
 
                 CONNECTClient<XDRDeferredRequest20PortType> client = getCONNECTClientSecured(portDescriptor, url,
-                        assertion);
-
-                WebServiceProxyHelper wsHelper = new WebServiceProxyHelper();
-                wsHelper.addTargetCommunity((BindingProvider) client.getPort(), targetSystem);
-                wsHelper.addServiceName((BindingProvider) client.getPort(),
+                        assertion, targetSystem.getHomeCommunity().getHomeCommunityId(),
                         NhincConstants.NHINC_XDR_REQUEST_SERVICE_NAME);
 
                 response = (RegistryResponseType) client.invokePort(XDRDeferredRequest20PortType.class,

@@ -44,10 +44,7 @@ import ihe.iti.xds_b._2007.RespondingGatewayRetrievePortType;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
 
-import javax.xml.ws.BindingProvider;
-
 import org.apache.log4j.Logger;
-
 /**
  * 
  * 
@@ -82,15 +79,20 @@ public class NhinDocRetrieveProxyWebServiceSecuredImpl implements NhinDocRetriev
                 LOG.debug("After target system URL look up. URL for service: " + sServiceName + " is: " + url);
 
                 if (NullChecker.isNotNullish(url)) {
-                    ServicePortDescriptor<RespondingGatewayRetrievePortType> portDescriptor = getServicePortDescriptor(NhincConstants.GATEWAY_API_LEVEL.LEVEL_g0);
+                    ServicePortDescriptor<RespondingGatewayRetrievePortType> portDescriptor = 
+                            getServicePortDescriptor(NhincConstants.GATEWAY_API_LEVEL.LEVEL_g0);
+                    
+                    String target = null;
+                    if(targetSystem.getHomeCommunity().getHomeCommunityId().startsWith("urn:oid:")) {
+                        target = targetSystem.getHomeCommunity().getHomeCommunityId().replace("urn:oid:", "");
+                    }
+                    else { 
+                    target = targetSystem.getHomeCommunity().getHomeCommunityId();
+                    }
 
                     CONNECTClient<RespondingGatewayRetrievePortType> client = CONNECTClientFactory.getInstance()
-                            .getCONNECTClientSecured(portDescriptor, url, assertion);
-
-                    WebServiceProxyHelper wsHelper = new WebServiceProxyHelper();
-                    wsHelper.addTargetCommunity((BindingProvider) client.getPort(), targetSystem);
-                    wsHelper.addServiceName((BindingProvider) client.getPort(),
-                            NhincConstants.DOC_RETRIEVE_SERVICE_NAME);
+                            .getCONNECTClientSecured(portDescriptor, assertion, url,
+                                    target, NhincConstants.DOC_RETRIEVE_SERVICE_NAME);
 
                     response = (RetrieveDocumentSetResponseType) client.invokePort(
                             RespondingGatewayRetrievePortType.class, "respondingGatewayCrossGatewayRetrieve", request);

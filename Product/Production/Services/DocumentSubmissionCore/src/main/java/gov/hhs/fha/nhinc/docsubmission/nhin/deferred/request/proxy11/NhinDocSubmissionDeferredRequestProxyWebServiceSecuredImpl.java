@@ -45,8 +45,6 @@ import gov.hhs.healthit.nhin.XDRAcknowledgementType;
 import ihe.iti.xdr._2007.XDRDeferredRequestPortType;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
 
-import javax.xml.ws.BindingProvider;
-
 import org.apache.log4j.Logger;
 
 public class NhinDocSubmissionDeferredRequestProxyWebServiceSecuredImpl implements
@@ -71,8 +69,10 @@ public class NhinDocSubmissionDeferredRequestProxyWebServiceSecuredImpl implemen
     }
 
     protected CONNECTClient<XDRDeferredRequestPortType> getCONNECTClientSecured(
-            ServicePortDescriptor<XDRDeferredRequestPortType> portDescriptor, String url, AssertionType assertion) {
-        return CONNECTClientFactory.getInstance().getCONNECTClientSecured(portDescriptor, url, assertion);
+            ServicePortDescriptor<XDRDeferredRequestPortType> portDescriptor, String url, AssertionType assertion, 
+                       String target, String serviceName) {
+        return CONNECTClientFactory.getInstance().getCONNECTClientSecured(portDescriptor, assertion, url, target, 
+                serviceName);
     }
 
     @Override
@@ -95,12 +95,8 @@ public class NhinDocSubmissionDeferredRequestProxyWebServiceSecuredImpl implemen
 
                 ServicePortDescriptor<XDRDeferredRequestPortType> portDescriptor = new NhinDocSubmissionDeferredRequestServicePortDescriptor();
                 CONNECTClient<XDRDeferredRequestPortType> client = getCONNECTClientSecured(portDescriptor, url,
-                        assertion);
-
-                WebServiceProxyHelper wsHelper = new WebServiceProxyHelper();
-                wsHelper.addTargetCommunity((BindingProvider) client.getPort(), targetSystem);
-                wsHelper.addServiceName((BindingProvider) client.getPort(),
-                        NhincConstants.NHINC_XDR_REQUEST_SERVICE_NAME);
+                        assertion, targetSystem.getHomeCommunity().getHomeCommunityId(), 
+                        NhincConstants.NHINC_XDR_REQUEST_SERVICE_NAME );
 
                 response = (XDRAcknowledgementType) client.invokePort(XDRDeferredRequestPortType.class,
                         "provideAndRegisterDocumentSetBDeferredRequest", request);

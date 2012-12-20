@@ -107,9 +107,10 @@ public class NhinAdminDistributionProxyWebServiceSecuredImpl implements NhinAdmi
      */
     protected CONNECTClient<RespondingGatewayAdministrativeDistributionPortType> getCONNECTClientSecured(
             ServicePortDescriptor<RespondingGatewayAdministrativeDistributionPortType> portDescriptor, String url,
-            AssertionType assertion) {
+            AssertionType assertion, String target, String serviceName) {
 
-        return CONNECTCXFClientFactory.getInstance().getCONNECTClientSecured(portDescriptor, url, assertion);
+        return CONNECTCXFClientFactory.getInstance().getCONNECTClientSecured(portDescriptor, assertion, url, 
+                target, serviceName);
     }
 
     /**
@@ -144,12 +145,8 @@ public class NhinAdminDistributionProxyWebServiceSecuredImpl implements NhinAdmi
                 ServicePortDescriptor<RespondingGatewayAdministrativeDistributionPortType> portDescriptor = getServicePortDescriptor(apiLevel);
 
                 CONNECTClient<RespondingGatewayAdministrativeDistributionPortType> client = getCONNECTClientSecured(
-                        portDescriptor, url, assertion);
-
-                WebServiceProxyHelper wsHelper = new WebServiceProxyHelper();
-                wsHelper.addTargetCommunity((BindingProvider) client.getPort(), target);
-                wsHelper.addTargetApiLevel((BindingProvider) client.getPort(), apiLevel);
-                wsHelper.addServiceName((BindingProvider) client.getPort(), NhincConstants.NHIN_ADMIN_DIST_SERVICE_NAME);
+                        portDescriptor, url, assertion, target.getHomeCommunity().getHomeCommunityId(), 
+                        NhincConstants.NHIN_ADMIN_DIST_SERVICE_NAME );
 
                 client.invokePort(RespondingGatewayAdministrativeDistributionPortType.class, "sendAlertMessage", body);
             } catch (Exception ex) {
