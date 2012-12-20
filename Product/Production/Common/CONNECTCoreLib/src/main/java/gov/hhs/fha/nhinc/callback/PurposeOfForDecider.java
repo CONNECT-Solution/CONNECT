@@ -67,6 +67,10 @@ public class PurposeOfForDecider {
         // determine 2010 vs 2011 spec version
         GATEWAY_API_LEVEL apiLevel = properties.getTargetApiLevel();
         String hcid = properties.getTargetHomeCommunityId(); 
+        
+        if(hcid.startsWith("urn:oid:")) {
+            hcid = hcid.replace("urn:oid:", "");
+        }
 
         if (apiLevel == null && serviceName != null && hcid != null) {
             NhinEndpointManager nem = getNhinEndpointManager();

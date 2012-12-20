@@ -81,18 +81,10 @@ public class NhinDocRetrieveProxyWebServiceSecuredImpl implements NhinDocRetriev
                 if (NullChecker.isNotNullish(url)) {
                     ServicePortDescriptor<RespondingGatewayRetrievePortType> portDescriptor = 
                             getServicePortDescriptor(NhincConstants.GATEWAY_API_LEVEL.LEVEL_g0);
-                    
-                    String target = null;
-                    if(targetSystem.getHomeCommunity().getHomeCommunityId().startsWith("urn:oid:")) {
-                        target = targetSystem.getHomeCommunity().getHomeCommunityId().replace("urn:oid:", "");
-                    }
-                    else { 
-                    target = targetSystem.getHomeCommunity().getHomeCommunityId();
-                    }
 
                     CONNECTClient<RespondingGatewayRetrievePortType> client = CONNECTClientFactory.getInstance()
                             .getCONNECTClientSecured(portDescriptor, assertion, url,
-                                    target, NhincConstants.DOC_RETRIEVE_SERVICE_NAME);
+                                    targetSystem.getHomeCommunity().getHomeCommunityId(), NhincConstants.DOC_RETRIEVE_SERVICE_NAME);
 
                     response = (RetrieveDocumentSetResponseType) client.invokePort(
                             RespondingGatewayRetrievePortType.class, "respondingGatewayCrossGatewayRetrieve", request);
