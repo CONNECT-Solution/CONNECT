@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<project xmlns="http://nant.sf.net/schemas/nant.xsd" name="PersonalTracking.Properties">
-
-  <property name="PersonalTracking.LogFileName" value="${Now}.${environment::get-variable('USERNAME')}.${string::trim(Targets.Specified)}.Build.Log.xml" overwrite="true" readonly="true"/>
-  <property name="PersonalTracking.LogFilePath" value="${Common.Directory.Transient.Path}\Personal\${Now}\${PersonalTracking.LogFileName}" overwrite="true" readonly="true"/>
-
-  <property name="XmlLogger.file" value="${PersonalTracking.LogFilePath}" readonly="true"/>
-
-</project>

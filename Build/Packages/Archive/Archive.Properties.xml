@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<project xmlns="http://nant.sf.net/schemas/nant.xsd" name="Archive.Properties">
-
-	<property name="Archive.WindowInDays" value="15"/>
-  <loadpackages>
-    <package name="Backup" unless="${scriptfile::exists('Backup')}"/>
-  </loadpackages>
-  
-</project>
