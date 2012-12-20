@@ -43,8 +43,6 @@ import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 import ihe.iti.xdr._2007.DocumentRepositoryXDRPortType;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
 
-import javax.xml.ws.BindingProvider;
-
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
 import org.apache.log4j.Logger;
@@ -91,11 +89,9 @@ public class NhinDocSubmissionProxyWebServiceSecuredImpl implements NhinDocSubmi
             ServicePortDescriptor<DocumentRepositoryXDRPortType> portDescriptor = getServicePortDescriptor(apiLevel);
 
             CONNECTClient<DocumentRepositoryXDRPortType> client = CONNECTCXFClientFactory.getInstance()
-                    .getCONNECTClientSecured(portDescriptor, url, assertion);
-
-            WebServiceProxyHelper wsHelper = new WebServiceProxyHelper();
-            wsHelper.addTargetCommunity((BindingProvider) client.getPort(), targetSystem);
-            wsHelper.addServiceName((BindingProvider) client.getPort(), NhincConstants.NHINC_XDR_SERVICE_NAME);
+                    .getCONNECTClientSecured(portDescriptor, assertion, url,
+                            targetSystem.getHomeCommunity().getHomeCommunityId(),
+                            NhincConstants.NHINC_XDR_SERVICE_NAME);
 
             response = (RegistryResponseType) client.invokePort(DocumentRepositoryXDRPortType.class,
                     "documentRepositoryProvideAndRegisterDocumentSetB", request);

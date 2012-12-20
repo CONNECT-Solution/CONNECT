@@ -30,6 +30,7 @@ import gov.hhs.fha.nhinc.callback.openSAML.CallbackProperties;
 import gov.hhs.fha.nhinc.callback.purposeuse.PurposeUseProxy;
 import gov.hhs.fha.nhinc.callback.purposeuse.PurposeUseProxyObjectFactory;
 import gov.hhs.fha.nhinc.connectmgr.NhinEndpointManager;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants.GATEWAY_API_LEVEL;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants.NHIN_SERVICE_NAMES;
 
@@ -67,6 +68,10 @@ public class PurposeOfForDecider {
         // determine 2010 vs 2011 spec version
         GATEWAY_API_LEVEL apiLevel = properties.getTargetApiLevel();
         String hcid = properties.getTargetHomeCommunityId(); 
+        
+        if(hcid.startsWith(NhincConstants.HCID_PREFIX)) {
+            hcid = hcid.replace(NhincConstants.HCID_PREFIX, "");
+        }
 
         if (apiLevel == null && serviceName != null && hcid != null) {
             NhinEndpointManager nem = getNhinEndpointManager();

@@ -26,8 +26,6 @@
  */
 package gov.hhs.fha.nhinc.patientdiscovery.nhin.deferred.request.proxy;
 
-import javax.xml.ws.BindingProvider;
-
 import gov.hhs.fha.nhinc.aspect.NwhinInvocationEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
@@ -81,11 +79,9 @@ public class NhinPatientDiscoveryDeferredReqProxyWebServiceSecuredImpl implement
                     ServicePortDescriptor<RespondingGatewayDeferredRequestPortType> portDescriptor = 
                             new RespondingGatewayDeferredRequestServicePortDescriptor();
                     CONNECTClient<RespondingGatewayDeferredRequestPortType> client = CONNECTClientFactory.getInstance()
-                            .getCONNECTClientSecured(portDescriptor, url, assertion);
-                    
-                    oProxyHelper.addTargetCommunity((BindingProvider) client.getPort(), target);
-                    oProxyHelper.addServiceName((BindingProvider) client.getPort(), 
-                            NhincConstants.PATIENT_DISCOVERY_DEFERRED_REQ_SERVICE_NAME);
+                            .getCONNECTClientSecured(portDescriptor, assertion, url,
+                               target.getHomeCommunity().getHomeCommunityId(), 
+                               NhincConstants.PATIENT_DISCOVERY_DEFERRED_REQ_SERVICE_NAME);
                     
                     response = (MCCIIN000002UV01) client.invokePort(RespondingGatewayDeferredRequestPortType.class,
                             "respondingGatewayDeferredPRPAIN201305UV02", request);
