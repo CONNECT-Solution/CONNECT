@@ -42,8 +42,6 @@ import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 import gov.hhs.healthit.nhin.XDRAcknowledgementType;
 import ihe.iti.xdr._2007.XDRDeferredResponsePortType;
 
-import javax.xml.ws.BindingProvider;
-
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
 import org.apache.log4j.Logger;
@@ -71,9 +69,11 @@ public class NhinDocSubmissionDeferredResponseProxyWebServiceSecuredImpl impleme
     }
 
     protected CONNECTClient<XDRDeferredResponsePortType> getCONNECTClientSecured(
-            ServicePortDescriptor<XDRDeferredResponsePortType> portDescriptor, String url, AssertionType assertion) {
+            ServicePortDescriptor<XDRDeferredResponsePortType> portDescriptor, String url, AssertionType assertion,
+              String target, String serviceName) {
 
-        return CONNECTClientFactory.getInstance().getCONNECTClientSecured(portDescriptor, url, assertion);
+        return CONNECTClientFactory.getInstance().getCONNECTClientSecured(portDescriptor, assertion, url, target,
+                serviceName);
     }
 
     @NwhinInvocationEvent(beforeBuilder = DeferredResponseDescriptionBuilder.class,
@@ -92,11 +92,7 @@ public class NhinDocSubmissionDeferredResponseProxyWebServiceSecuredImpl impleme
             } else {
                 ServicePortDescriptor<XDRDeferredResponsePortType> portDescriptor = new NhinDocSubmissionDeferredResponseServicePortDescriptor();
                 CONNECTClient<XDRDeferredResponsePortType> client = getCONNECTClientSecured(portDescriptor, url,
-                        assertion);
-
-                WebServiceProxyHelper wsHelper = new WebServiceProxyHelper();
-                wsHelper.addTargetCommunity((BindingProvider) client.getPort(), target);
-                wsHelper.addServiceName((BindingProvider) client.getPort(),
+                        assertion, target.getHomeCommunity().getHomeCommunityId(),
                         NhincConstants.NHINC_XDR_RESPONSE_SERVICE_NAME);
 
                 response = (XDRAcknowledgementType) client.invokePort(XDRDeferredResponsePortType.class,

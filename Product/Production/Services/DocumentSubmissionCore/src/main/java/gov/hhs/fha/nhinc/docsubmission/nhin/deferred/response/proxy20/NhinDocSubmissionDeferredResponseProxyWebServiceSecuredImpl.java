@@ -41,7 +41,6 @@ import gov.hhs.fha.nhinc.nhinclib.NhincConstants.GATEWAY_API_LEVEL;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 import ihe.iti.xdr._2007.XDRDeferredResponse20PortType;
 
-import javax.xml.ws.BindingProvider;
 import javax.xml.ws.Holder;
 
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
@@ -70,9 +69,11 @@ public class NhinDocSubmissionDeferredResponseProxyWebServiceSecuredImpl impleme
     }
 
     protected CONNECTClient<XDRDeferredResponse20PortType> getCONNECTClientSecured(
-            ServicePortDescriptor<XDRDeferredResponse20PortType> portDescriptor, String url, AssertionType assertion) {
+            ServicePortDescriptor<XDRDeferredResponse20PortType> portDescriptor, String url, AssertionType assertion,
+             String target, String serviceName) {
 
-        return CONNECTCXFClientFactory.getInstance().getCONNECTClientSecured(portDescriptor, url, assertion);
+        return CONNECTCXFClientFactory.getInstance().getCONNECTClientSecured(portDescriptor, assertion, url, target,
+                serviceName);
     }
 
     @NwhinInvocationEvent(beforeBuilder = DeferredResponseDescriptionBuilder.class,
@@ -96,11 +97,7 @@ public class NhinDocSubmissionDeferredResponseProxyWebServiceSecuredImpl impleme
                 ServicePortDescriptor<XDRDeferredResponse20PortType> portDescriptor = new NhinDocSubmissionDeferredResponseServicePortDescriptor();
 
                 CONNECTClient<XDRDeferredResponse20PortType> client = getCONNECTClientSecured(portDescriptor, url,
-                        assertion);
-
-                WebServiceProxyHelper wsHelper = new WebServiceProxyHelper();
-                wsHelper.addTargetCommunity((BindingProvider) client.getPort(), target);
-                wsHelper.addServiceName((BindingProvider) client.getPort(),
+                        assertion, target.getHomeCommunity().getHomeCommunityId(), 
                         NhincConstants.NHINC_XDR_RESPONSE_SERVICE_NAME);
 
                 client.invokePort(XDRDeferredResponse20PortType.class,
