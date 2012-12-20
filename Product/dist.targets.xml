@@ -36,8 +36,7 @@
         <mkdir dir="${dist.artifact.dir}" />
     </target>
 
-    <target name="binary_dist" depends="clean,
-                   package.create,
+    <target name="binary_dist" depends="package.create,
                    copy.deployable.artifacts,
                    just.binary_dist" />
 

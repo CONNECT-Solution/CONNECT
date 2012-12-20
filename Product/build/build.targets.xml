@@ -133,21 +133,6 @@
         <call target="copy.artifacts.to.development" if="${deploy.isDeployable}"/>
     </target>
 
-    <target name="clean" description="Clean the project: run ant help for more info...">
-        <dependcalls target="clean" />
-        <call target="just.clean"/>
-    </target>
-
-    <target name="just.clean" description="Clean the project, does not call dependent targets..." depends="just.quick.clean"/>
-
-    <target name="just.quick.clean" description="Clean the project, does not call dependent targets...">
-        <call target="compile.clean"/>
-        <call target="package.clean"/>
-        <call target="junit.clean"/>
-        <call target="coverage.clean"/>
-        <call target="soapui.clean"/>
-    </target>
-
     <target name="package.create" description="Create the jar|war|ear for the project: run ant help for more info...">
         <dependcalls target="package.create"/>
         <call target="just.package.create"/>
