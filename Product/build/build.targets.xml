@@ -1,17 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
-script: Ant
-
-kinda of the ringmaster of the show
-
-defines the highlevel target names and order
-of operation
-
-layer of abstraction
-
-
-
--->
 <project name="build.targets" basedir=".">
 
     <dirname property="build.targets.basedir" file="${ant.file.build.targets}"/>
@@ -36,16 +23,9 @@ layer of abstraction
     <import file="properties.build.xml" />
     <import file="common.build.xml" />
     <import file="build.macros.xml"/>
-    <import file="custom.build.xml"/>
 
-    <import file="ivy/ivy.targets.xml"/>
-    <import file="compile/compile.targets.xml"/>
     <import file="package/package.targets.xml"/>
-    <import file="junit/junit.targets.xml"/>
-    <import file="soapui/soapui.targets.xml"/>
-    <import file="corbertura/corbertura.targets.xml"/>
     <import file="${build.targets.basedir.location}/../Install/deploy.xml"/>
-    <import file="static.analysis/static.analysis.targets.xml"/>
     <import file="licensetool/license.targets.xml"/>
 
     <property name="calling.anttarget.from.netbeans" value="false"/>
@@ -159,11 +139,7 @@ layer of abstraction
         <call target="just.clean"/>
     </target>
 
-    <target name="do.ivy.clean" unless="skip.ivy.clean">
-        <call target="ivy.clean"/>
-    </target>
-
-    <target name="just.clean" description="Clean the project, does not call dependent targets..." depends="do.ivy.clean, just.quick.clean"/>
+    <target name="just.clean" description="Clean the project, does not call dependent targets..." depends="just.quick.clean"/>
 
     <target name="just.quick.clean" description="Clean the project, does not call dependent targets...">
         <call target="compile.clean"/>
@@ -173,90 +149,12 @@ layer of abstraction
         <call target="soapui.clean"/>
     </target>
 
-    <target name="source.compile" description="Compile the project: run ant help for more info...">
-        <dependcalls target="source.compile" />
-        <call target="just.source.compile"/>
-    </target>
-
-    <target name="quick.source.compile">
-        <dependcalls target="quick.source.compile" />
-        <call target="just.quick.source.compile"/>
-    </target>
-
-    <target name="just.source.compile" description="Compile the project, does not call dependent targets...">
-        <call target="ivy.resolve"/>
-        <call target="-compile.source"/>
-        <call target="coverage.instrument.classes" />
-    </target>
-
-    <target name="just.quick.source.compile">
-        <call target="-quick.compile.source"/>
-        <call target="coverage.instrument.classes" />
-    </target>
-
-    <target name="unittest.run" description="Run the JUnit tests for the project: run ant help for more info...">
-        <call target="source.compile" if="${unittest.hasTests}" once="true"/>
-        <call target="just.unittest.run" if="${unittest.hasTests}"/>
-    </target>
-
-    <target name="just.unittest.run" description="Run the JUnit tests for the project, does not call dependent targets...">
-        <if>
-            <istrue value="${unittest.hasTests}"/>
-            <then>
-                <var name="just.unittest.run.is.outofdate" value="false"/>
-                <run.if.unit.tests.are.out.of.date>
-                    <extra-source>
-                        <fileset dir="${project.dir}">
-                            <include name="coverage.thresholds.xml" />
-                        </fileset>
-                    </extra-source>
-                    <do>
-                        <call target="coverage.prepfortests" />
-                        <call target="-unittest.run"/>
-
-                        <call target="-coverage.check.project" />
-                        <var name="just.unittest.run.is.outofdate" value="true"/>
-                    </do>
-                </run.if.unit.tests.are.out.of.date>
-                <if>
-                    <isfalse value="${just.unittest.run.is.outofdate}"/>
-                    <then>
-                        <call target="-coverage.update.failure.file" />
-                        <call target="-unittest.update.failure.file" />
-                    </then>
-                </if>
-            </then>
-        </if>
-    </target>
-
-    <target name="integrationtest.run" description="Run the JUnit Integration tests for the project: run ant help for more info...">
-        <call target="source.compile" if="${integrationtest.hasTests}" once="true"/>
-        <call target="just.integrationtest.run" if="${integrationtest.hasTests}"/>
-    </target>
-
-    <target name="just.integrationtest.run" description="Run the JUnit Integration tests for the project, does not call dependent targets...">
-        <call target="-integrationtest.run"/>
-    </target>
-
-    <target name="soapui.run" description="Run the SoapUI tests for the project: run ant help for more info...">
-        <call target="-soapui.run"/>
-    </target>
-
-    <target name="webtest.run" description="Run the Selenium JUnit tests for the project: run ant help for more info...">
-        <call target="source.compile" if="${webtest.hasTests}" once="true"/>
-        <call target="just.webtest.run" if="${webtest.hasTests}"/>
-    </target>
-
-    <target name="just.webtest.run" description="Run the Selenium JUnit tests for the project, does not call dependent targets...">
-        <call target="-webtest.run"/>
-    </target>
-
-    <target name="package.create" depends="source.compile" description="Create the jar|war|ear for the project: run ant help for more info...">
+    <target name="package.create" description="Create the jar|war|ear for the project: run ant help for more info...">
         <dependcalls target="package.create"/>
         <call target="just.package.create"/>
     </target>
 
-    <target name="quick.package.create" depends="quick.source.compile">
+    <target name="quick.package.create">
         <dependcalls target="quick.package.create"/>
         <call target="just.quick.package.create"/>
     </target>
@@ -268,15 +166,9 @@ layer of abstraction
     </target>
 
     <target name="just.quick.package.create">
-        <call target="ivy.resolve"/>
         <call target="just.quick.source.compile" once="true"/>
         <call target="-package.create"/>
         <call target="coverage.instrument.package"/>
-    </target>
-
-    <target name="static.analysis" depends="static.analysis.clean">
-        <call target="checkstyle"/>
-        <call target="pmd"/>
     </target>
 
     <target name="scratch.files">
@@ -285,65 +177,4 @@ layer of abstraction
         </exec>
     </target>
 
-    <target name="help">
-        <echo taskname="help">
-      run ant -p for the short help
-
-      This project is in a ${build.config} configuration because the property compile.debug is set to ${compile.debug}.
-      To control the configuration set the property compile.debug at the command line like so: -Dcompile.debug=[true|false].
-
-      Targets available in this project:
-
-      clean - deletes all transient directories and files of this project and it's dependent projects.
-
-      just.clean - cleans just this project.
-
-      source.compile - if out-of-date compiles all source files and copies all resources into the ${build.dir}; also compile all dependent projects.
-
-      just.source.compile - compiles just this project if out-of-date.
-
-      package.create - if out-of-date creates ${dist.file}; also creates packages for all dependent projects.
-
-      just.package.create - packages just this project if out-of-date.
-
-      unittest.run - calls source.compile then executes all the tests in ${unittest.source.dir}.
-      It is ${unittest.hasTests} that this project has unit tests.
-      Writes an html report to ${coverage.report.dir}/index.html.
-      It is ${coverage.isneeded} that coverage is collected in this configuration.
-      Checks that both line and branch coverage rates are meet for all classes.
-      The default minimum rates, percents required are ${coverage.threshold.linerate}% line coverage
-      and ${coverage.threshold.branchrate}% branch coverage.  Exceptions to the default rates are maintained
-      in the file ${coverage.thresholds.file}.
-
-      just.unittest.run - does what unittest.run does minus the compilation.
-
-      integrationtest.run - calls source.compile then executes all tests in ${unittest.source.dir}.
-      It is ${integrationtest.hasTests} that this project has integration tests.
-      Writes an html report to ${coverage.report.dir}/index.html.
-      It is ${coverage.isneeded} that coverage is collected in this configuration.
-      Checks that both line and branch coverage rates are meet for all classes.
-      The default minimum rates, percents required are ${coverage.threshold.linerate}% line coverage
-      and ${coverage.threshold.branchrate}% branch coverage.  Exceptions to the default rates are maintained
-      in the file ${coverage.thresholds.file}.
-
-      just.integrationtest.run - does what integrationtest.run does minus the compilation.
-
-      webtest.run - executes all tests in ${unittest.source.dir}.
-      It is ${webtest.hasTests} that this project has web tests..
-
-      deploy - calls package.create then deploys the project's package ${dist.file} if the property deploy.isDeployable is set to true, it is currently marked ${deploy.isDeployable}.
-
-      just.deploy - deploys the project's package ${dist.file} if the property deploy.isDeployable is set to true, it is currently marked ${deploy.isDeployable}.
-
-      undeploy - undeploys the project's package ${dist.file} if the property deploy.isDeployable is set to true, it is currently marked ${deploy.isDeployable}.
-
-    </echo>
-
-        <call target="ivy.help"/>
-        <call target="compile.help"/>
-        <call target="package.help"/>
-        <call target="junit.help"/>
-        <call target="coverage.help"/>
-        <call target="soapui.help"/>
-    </target>
 </project>
