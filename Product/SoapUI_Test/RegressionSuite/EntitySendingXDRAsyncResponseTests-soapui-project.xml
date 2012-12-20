@@ -32,21 +32,7 @@
   <con:entry key="Endpoint" value=""/>
 </xml-fragment>]]></con:setting>
   </con:settings>
-  <con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincproxyxdr:async:request}ProxyXDRAsyncRequest_Binding" definition="${projectDir}/../ValidationSuite/target/wsdl/NhincProxyXDRRequest.wsdl" name="ProxyXDRAsyncRequest_Binding" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-    <con:settings/>
-    
-    <con:endpoints>
-      <con:endpoint>http://localhost:8080/CONNECTAdapter/EntityProxyService/NhincProxyXDRRequest</con:endpoint>
-      <con:endpoint>http://localhost:${HttpDefaultPort}/EntityService/NhincProxyXDRRequest</con:endpoint>
-      <con:endpoint>http://localhost:8080/CONNECTAdapter/EntityProxyService/EntityXDRResponse</con:endpoint>
-      <con:endpoint>${#Project#Endpoint-NhincProxyXDRRequest}</con:endpoint>
-      <con:endpoint>${#Project#Endpoint-EntityXDRResponse}</con:endpoint>
-      <con:endpoint>http://localhost:${HttpDefaultPort}/EntityService/NhincProxyXDRAsyncRequest</con:endpoint>
-    </con:endpoints>
-    <con:operation action="" anonymous="optional" bindingOperationName="ProvideAndRegisterDocumentSet-bAsyncRequest" inputName="" isOneWay="false" name="ProvideAndRegisterDocumentSet-bAsyncRequest" receivesAttachments="false" sendsAttachments="false" type="Request-Response">
-      <con:settings/>
-    </con:operation>
-  </con:interface>
+  
   <con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:adapterpolicyengine}AdapterPolicyEngineBindingSoap" definition="${projectDir}/../ValidationSuite/target/wsdl/AdapterPolicyEngine.wsdl" name="AdapterPolicyEngineBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <con:settings/>
     
@@ -335,12 +321,12 @@
     </con:operation>
   </con:interface>
   
-  <con:testSuite name="EntitySendingXDRAsyncResponseTestSuite">
+  <con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="EntityXDRAsyncResponse_Binding" type="wsdl" bindingName="{urn:gov:hhs:fha:nhinc:nhincentityxdr:async:response}EntityXDRAsyncResponse_Binding" soapVersion="1_2" anonymous="optional" definition="../ValidationSuite/target/wsdl/EntityXDRResponse.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:endpoints><con:endpoint>http://localhost:${HttpDefaultPort}/Gateway/DocumentSubmission/1_1/EntityService/EntityDocSubmissionDeferredResponseUnsecured</con:endpoint></con:endpoints><con:operation isOneWay="false" action="" name="ProvideAndRegisterDocumentSet-bAsyncResponse" bindingOperationName="ProvideAndRegisterDocumentSet-bAsyncResponse" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation></con:interface><con:testSuite name="EntitySendingXDRAsyncResponseTestSuite">
     <con:settings/>
     <con:runType>SEQUENTIAL</con:runType>
     <con:testCase failOnError="true" failTestCaseOnErrors="true" id="47023b4b-42b8-4864-8301-82fb58510648" keepSession="false" maxResults="0" name="PolicyCheckPermit" searchProperties="true">
-      <con:settings/>
-      <con:testStep name="Set PolicyEngine Mock" type="groovy">
+      <con:description>Disabled the mock permit step because that is the default in the gateway; and SoapUI now seems to be sending only one response per mock step and then shutting down the mock. This results in a failure becaue the PE is unavailable. This test case now checks the positive case.</con:description><con:settings/>
+      <con:testStep name="Set PolicyEngine Mock" type="groovy" disabled="true">
         <con:settings/>
         <con:config><script>import nhinc.FileUtils;
 def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
@@ -356,8 +342,8 @@ FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", destConfigFileL
       <con:testStep name="EntityXDRresponse - Request" type="request">
         <con:settings/>
         <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-          <con:interface>ProxyXDRAsyncRequest_Binding</con:interface>
-          <con:operation>ProvideAndRegisterDocumentSet-bAsyncRequest</con:operation>
+          <con:interface>EntityXDRAsyncResponse_Binding</con:interface>
+          <con:operation>ProvideAndRegisterDocumentSet-bAsyncResponse</con:operation>
           <con:request name="EntityXDRresponse - Request" useWsAddressing="false">
             <con:settings>
               <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
@@ -517,53 +503,7 @@ FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", destConfigFileL
             <!--Optional:-->
             <!--urn1:claimFormRaw>cid:610957193055</urn1:claimFormRaw-->
             <!--Optional:-->
-            <urn1:samlAuthnStatement>
-               <!--Optional:-->
-               <urn1:authInstant>authInstant</urn1:authInstant>
-               <!--Optional:-->
-               <urn1:sessionIndex>sessionIndex</urn1:sessionIndex>
-               <!--Optional:-->
-               <urn1:authContextClassRef>authContextClassRef</urn1:authContextClassRef>
-               <!--Optional:-->
-               <urn1:subjectLocalityAddress>subjectLocalityAddress</urn1:subjectLocalityAddress>
-               <!--Optional:-->
-               <urn1:subjectLocalityDNSName>subjectLocalityDNSName</urn1:subjectLocalityDNSName>
-            </urn1:samlAuthnStatement>
-            <!--Optional:-->
-            <urn1:samlAuthzDecisionStatement>
-               <!--Optional:-->
-               <urn1:decision>decision</urn1:decision>
-               <!--Optional:-->
-               <urn1:resource>resource</urn1:resource>
-               <!--Optional:-->
-               <urn1:action>action</urn1:action>
-               <!--Optional:-->
-               <urn1:evidence>
-                  <!--Optional:-->
-                  <urn1:assertion>
-                     <!--Optional:-->
-                     <urn1:id>5555</urn1:id>
-                     <!--Optional:-->
-                     <urn1:issueInstant>issueInstant</urn1:issueInstant>
-                     <!--Optional:-->
-                     <urn1:version>version</urn1:version>
-                     <!--Optional:-->
-                     <urn1:issuer>issuer</urn1:issuer>
-                     <!--Optional:-->
-                     <urn1:issuerFormat>issuerFormat</urn1:issuerFormat>
-                     <!--Optional:-->
-                     <urn1:conditions>
-                        <!--Optional:-->
-                        <urn1:notBefore>notBefore</urn1:notBefore>
-                        <!--Optional:-->
-                        <urn1:notOnOrAfter>notOnOrAfter</urn1:notOnOrAfter>
-                     </urn1:conditions>
-                     <!--Optional:-->
-                     <!--Optional:-->
-                     <!--Optional:-->
-                  </urn1:assertion>
-               </urn1:evidence>
-            </urn1:samlAuthzDecisionStatement>
+            
             <!--Optional:-->
             <urn1:samlSignature>
                <!--Optional:-->
@@ -623,7 +563,7 @@ FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", destConfigFileL
           </con:request>
         </con:config>
       </con:testStep>
-      <con:testStep name="Policy Engine Mock" type="mockresponse">
+      <con:testStep name="Policy Engine Mock" type="mockresponse" disabled="true">
         <con:settings/>
         <con:config startStep="EntityXDRresponse - Request" xsi:type="con:MockResponseStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
           <con:interface>AdapterPolicyEngineBindingSoap</con:interface>
@@ -2107,19 +2047,19 @@ declare namespace adapter='urn:gov:hhs:fha:nhinc:common:nhinccommonadapter';
       <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2012-11-28T15:02:49Z</con:value>
+          <con:value>2012-12-18T19:28:02Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2012-11-28T17:07:49Z</con:value>
+          <con:value>2012-12-18T21:33:02Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>11/28/2012 15:02:49</con:value>
+          <con:value>12/18/2012 19:28:02</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2012-12-28T00:00:00Z</con:value>
+          <con:value>2013-01-17T00:00:00Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -2128,22 +2068,18 @@ declare namespace adapter='urn:gov:hhs:fha:nhinc:common:nhinccommonadapter';
       <con:settings/>
       <con:testStep name="Set PolicyEngine Mock" type="groovy">
         <con:settings/>
-        <con:config><script>import nhinc.FileUtils;
-def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
-
-def destConfigFileLocation = context.findProperty("GatewayPropDir");
-def NHINGatewayHost = context.findProperty("NHINGatewayHost");
+        <con:config><script>def destConfigFileLocation = context.findProperty("GatewayPropDir");
 def mockHost = context.findProperty("mockHost");
 def mockPEURL = "http://" + mockHost + ":1882/mockPE";
 def LocalHCID = context.findProperty( "LocalHCID" );
 
-FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", destConfigFileLocation, LocalHCID, "policyengineservice", mockPEURL, "LEVEL_a0", log)</script></con:config>
+nhinc.FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", destConfigFileLocation, LocalHCID, "policyengineservice", mockPEURL, "LEVEL_a0", log)</script></con:config>
       </con:testStep>
       <con:testStep name="EntityXDRresponse - Request" type="request">
         <con:settings/>
         <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-          <con:interface>ProxyXDRAsyncRequest_Binding</con:interface>
-          <con:operation>ProvideAndRegisterDocumentSet-bAsyncRequest</con:operation>
+          <con:interface>EntityXDRAsyncResponse_Binding</con:interface>
+          <con:operation>ProvideAndRegisterDocumentSet-bAsyncResponse</con:operation>
           <con:request name="EntityXDRresponse - Request" useWsAddressing="false">
             <con:settings>
               <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
@@ -3893,19 +3829,19 @@ declare namespace adapter='urn:gov:hhs:fha:nhinc:common:nhinccommonadapter';
       <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2012-11-28T15:04:02Z</con:value>
+          <con:value>2012-12-18T19:25:49Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2012-11-28T17:09:02Z</con:value>
+          <con:value>2012-12-18T21:30:49Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>11/28/2012 15:04:02</con:value>
+          <con:value>12/18/2012 19:25:49</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2012-12-28T00:00:00Z</con:value>
+          <con:value>2013-01-17T00:00:00Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -3939,8 +3875,8 @@ context.testCase.setPropertyValue('FullPatientID', "${PatientID}^^^&amp;amp;${lo
       <con:testStep name="EntityXDRresponse - Request" type="request">
         <con:settings/>
         <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-          <con:interface>ProxyXDRAsyncRequest_Binding</con:interface>
-          <con:operation>ProvideAndRegisterDocumentSet-bAsyncRequest</con:operation>
+          <con:interface>EntityXDRAsyncResponse_Binding</con:interface>
+          <con:operation>ProvideAndRegisterDocumentSet-bAsyncResponse</con:operation>
           <con:request name="EntityXDRresponse - Request" useWsAddressing="false">
             <con:settings>
               <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
@@ -4183,23 +4119,23 @@ context.testCase.setPropertyValue('FullPatientID', "${PatientID}^^^&amp;amp;${lo
 assert (count > 0);</script></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2012-11-28T15:03:56Z</con:value>
+          <con:value>2012-12-18T19:25:50Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2012-11-28T17:08:56Z</con:value>
+          <con:value>2012-12-18T21:30:50Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>11/28/2012 15:03:56</con:value>
+          <con:value>12/18/2012 19:25:50</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2012-12-28T00:00:00Z</con:value>
+          <con:value>2013-01-17T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>XDRUserId</con:name>
-          <con:value>XDR Request Inbound UserWed Nov 28 15:08:56 UTC 2012</con:value>
+          <con:value>XDR Request Inbound UserTue Dec 18 19:30:51 UTC 2012</con:value>
         </con:property>
         <con:property>
           <con:name>FullPatientID</con:name>
@@ -4213,67 +4149,25 @@ assert (count > 0);</script></con:config></con:testStep><con:setupScript>nhinc.F
   </con:testSuite>
   <con:requirements/>
   <con:properties>
-    <con:property>
-      <con:name>RemoteAA</con:name>
-      <con:value>2.2</con:value>
-    </con:property>
-    <con:property>
+    <con:property><con:name>AuditDB</con:name><con:value>auditrepo</con:value></con:property>
+    <con:property><con:name>AuditTable</con:name><con:value>auditrepository</con:value></con:property><con:property><con:name>DBHost</con:name><con:value>localhost</con:value></con:property><con:property><con:name>DBPass</con:name><con:value>nhincpass</con:value></con:property><con:property><con:name>DBPort</con:name><con:value>3306</con:value></con:property><con:property><con:name>DBUser</con:name><con:value>nhincuser</con:value></con:property><con:property><con:name>Endpoint-AuditLogQuery</con:name><con:value>http://localhost:8080/CONNECTAdapter/EntityAuditQuery</con:value></con:property><con:property><con:name>Endpoint-EntityXDRRequest</con:name><con:value>http://localhost:8080/Gateway/DocumentSubmission/1_1/EntityService/EntityDocSubmissionDeferredRequestUnsecured</con:value></con:property><con:property><con:name>Endpoint-EntityXDRResponse</con:name><con:value>http://localhost:8080/Gateway/DocumentSubmission/1_1/EntityService/EntityDocSubmissionDeferredResponseUnsecured</con:value></con:property><con:property><con:name>Endpoint-NhincProxyXDRRequest</con:name><con:value>http://localhost:8080/Gateway/DocumentSubmission/1_1/EntityService/PassthruDocSubmissionDeferredRequestUnsecured</con:value></con:property><con:property><con:name>GatewayPropDir</con:name><con:value>c:\glassfish3\glassfish\domains\domain1\config\nhin</con:value></con:property><con:property><con:name>LocalAA</con:name><con:value>1.1</con:value></con:property><con:property><con:name>LocalHCDescription</con:name><con:value>XDRAsyncTest1</con:value></con:property><con:property><con:name>LocalHCID</con:name><con:value>1.1</con:value></con:property><con:property><con:name>MockHost</con:name><con:value>localhost</con:value></con:property><con:property><con:name>NHINGatewayConfigDir</con:name><con:value>C:/Sun/AppServer/domains/domain1/config/nhin</con:value></con:property><con:property><con:name>NHINGatewayHost</con:name><con:value>localhost</con:value></con:property><con:property><con:name>PatientId</con:name><con:value>XDR Request1</con:value></con:property><con:property><con:name>RemoteAA</con:name><con:value>2.2</con:value></con:property><con:property><con:name>RemoteHCDescription</con:name><con:value>XDRAsyncTest2</con:value></con:property><con:property><con:name>RemoteHCID</con:name><con:value>2.2</con:value></con:property><con:property>
       <con:name>UserID</con:name>
       <con:value>XDR Request Inbound User</con:value>
     </con:property>
-    <con:property>
-      <con:name>PatientId</con:name>
-      <con:value>XDR Request1</con:value>
-    </con:property>
-    <con:property>
-      <con:name>NHINGatewayConfigDir</con:name>
-      <con:value>C:/Sun/AppServer/domains/domain1/config/nhin</con:value>
-    </con:property>
-    <con:property>
-      <con:name>LocalAA</con:name>
-      <con:value>1.1</con:value>
-    </con:property>
-    <con:property>
-      <con:name>RemoteHCID</con:name>
-      <con:value>2.2</con:value>
-    </con:property>
-    <con:property>
-      <con:name>RemoteHCDescription</con:name>
-      <con:value>XDRAsyncTest2</con:value>
-    </con:property>
-    <con:property>
-      <con:name>LocalHCID</con:name>
-      <con:value>1.1</con:value>
-    </con:property>
-    <con:property>
-      <con:name>Endpoint-NhincProxyXDRRequest</con:name>
-      <con:value>http://localhost:8080/Gateway/DocumentSubmission/1_1/EntityService/PassthruDocSubmissionDeferredRequestUnsecured</con:value>
-    </con:property>
-    <con:property>
-      <con:name>NHINGatewayHost</con:name>
-      <con:value>localhost</con:value>
-    </con:property>
-    <con:property>
-      <con:name>MockHost</con:name>
-      <con:value>localhost</con:value>
-    </con:property>
-    <con:property>
-      <con:name>Endpoint-AuditLogQuery</con:name>
-      <con:value>http://localhost:8080/CONNECTAdapter/EntityAuditQuery</con:value>
-    </con:property>
-    <con:property>
-      <con:name>Endpoint-EntityXDRRequest</con:name>
-      <con:value>http://localhost:8080/Gateway/DocumentSubmission/1_1/EntityService/EntityDocSubmissionDeferredRequestUnsecured</con:value>
-    </con:property>
-    <con:property>
-      <con:name>LocalHCDescription</con:name>
-      <con:value>XDRAsyncTest1</con:value>
-    </con:property>
-    <con:property>
-      <con:name>Endpoint-EntityXDRResponse</con:name>
-      <con:value>http://localhost:8080/Gateway/DocumentSubmission/1_1/EntityService/EntityDocSubmissionDeferredResponseUnsecured</con:value>
-    </con:property>
-  <con:property><con:name>AuditTable</con:name><con:value>auditrepository</con:value></con:property><con:property><con:name>AuditDB</con:name><con:value>auditrepo</con:value></con:property><con:property><con:name>DBPort</con:name><con:value>3306</con:value></con:property><con:property><con:name>DBHost</con:name><con:value>localhost</con:value></con:property><con:property><con:name>DBUser</con:name><con:value>nhincuser</con:value></con:property><con:property><con:name>DBPass</con:name><con:value>nhincpass</con:value></con:property><con:property><con:name>GatewayPropDir</con:name><con:value>c:\glassfish3\glassfish\domains\domain1\config\nhin</con:value></con:property></con:properties>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+  </con:properties>
   <con:afterLoadScript>def propertiesFile = new File(new File(project.path).parent, 'EntitySendingXDRAsyncResponseTests-soapui-project.properties')
 if (propertiesFile.exists()) {
 	def props = new Properties()
@@ -4342,4 +4236,4 @@ com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext.metaClass.withSql = { d
     <con:parameters/>
   </con:reporting>
 
-</con:soapui-project>
+<con:sensitiveInformation/></con:soapui-project>

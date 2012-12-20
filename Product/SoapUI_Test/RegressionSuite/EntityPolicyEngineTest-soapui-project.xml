@@ -102,7 +102,7 @@ def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
 def destConfigFileLocation = context.findProperty("GatewayPropDir");
 def NHINGatewayHost = context.findProperty("NHINGatewayHost");
 def mockHost = context.findProperty("MockHost");
-def mockPEURL = "http://" + mockHost + ":18088/mockPolicyEngine1";
+def mockPEURL = "http://" + mockHost + ":18088/mockPolicyEngine";
 def InitiatingHCID = context.findProperty( "LocalHCID" );
 
 nhinc.FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", destConfigFileLocation, InitiatingHCID, "policyengineservice", mockPEURL, "LEVEL_a0", log)</script></con:config>
@@ -430,19 +430,19 @@ declare namespace ns18='urn:gov:hhs:fha:nhinc:common:nhinccommonadapter';
 			<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2012-12-13T02:28:28Z</con:value>
+					<con:value>2012-12-20T03:43:02Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2012-12-13T02:38:28Z</con:value>
+					<con:value>2012-12-20T03:53:02Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>12/13/2012 02:28:28</con:value>
+					<con:value>12/20/2012 03:43:02</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2013-01-12T00:00:00Z</con:value>
+					<con:value>2013-01-19T00:00:00Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>FullPatientID</con:name>
@@ -686,19 +686,19 @@ declare namespace ns18='urn:gov:hhs:fha:nhinc:common:nhinccommonadapter';
 			<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2012-12-13T02:28:30Z</con:value>
+					<con:value>2012-12-20T02:10:34Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2012-12-13T02:38:30Z</con:value>
+					<con:value>2012-12-20T02:20:34Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>12/13/2012 02:28:30</con:value>
+					<con:value>12/20/2012 02:10:34</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2013-01-12T00:00:00Z</con:value>
+					<con:value>2013-01-19T00:00:00Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>correctedRemoteHCID</con:name>
@@ -1807,4 +1807,4 @@ com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext.metaClass.withSql = { d
 		<con:xmlTemplates/>
 		<con:parameters/>
 	</con:reporting>
-</con:soapui-project>
+<con:sensitiveInformation/></con:soapui-project>
