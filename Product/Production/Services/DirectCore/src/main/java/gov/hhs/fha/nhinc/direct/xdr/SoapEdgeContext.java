@@ -26,7 +26,7 @@
  */
 package gov.hhs.fha.nhinc.direct.xdr;
 
-import java.util.Map;
+import com.google.common.collect.ImmutableMap;
 
 /**
  * Interface to define the data elements which are extracted from the web services headers for an XD* message.
@@ -56,7 +56,7 @@ public interface SoapEdgeContext {
             P_ID, ACTION, RELATES_TO, REPLY_TO, FROM, DIRECT_FROM, DIRECT_TO, DIRECT_METADATA_LEVEL };
 
 
-    public Map<String, String> getAuditableValues();
+    public ImmutableMap<String, String> getAuditableValues();
 
     public String getMessageId();
 

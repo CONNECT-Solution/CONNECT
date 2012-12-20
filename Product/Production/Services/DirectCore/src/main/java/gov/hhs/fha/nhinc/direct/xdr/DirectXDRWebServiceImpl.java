@@ -58,8 +58,6 @@ public class DirectXDRWebServiceImpl {
 
         SoapDirectEdgeOrchestration orch = new SoapDirectEdgeOrchestration();
         resp = orch.orchestrate(body, extractor.getHeaderProperties(wsContext));
-        
-        // TODO: set Response header data
         return resp;
     }
 }

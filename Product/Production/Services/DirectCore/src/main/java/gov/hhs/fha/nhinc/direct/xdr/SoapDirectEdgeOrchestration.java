@@ -26,8 +26,8 @@
  */
 package gov.hhs.fha.nhinc.direct.xdr;
 
-import gov.hhs.fha.nhinc.direct.DirectSender;
 import gov.hhs.fha.nhinc.direct.DirectAdapterFactory;
+import gov.hhs.fha.nhinc.direct.DirectSender;
 import gov.hhs.fha.nhinc.direct.addressparsing.FromAddressParser;
 import gov.hhs.fha.nhinc.direct.addressparsing.FromAddressParserFactory;
 import gov.hhs.fha.nhinc.direct.addressparsing.ToAddressParser;
@@ -37,18 +37,18 @@ import gov.hhs.fha.nhinc.direct.xdr.audit.SoapEdgeAuditorFactory;
 import gov.hhs.fha.nhinc.xdcommon.XDCommonResponseHelper;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
 
+import java.util.Set;
+
 import javax.mail.Address;
 
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
-import org.apache.log4j.Logger;
 import org.nhindirect.xd.common.DirectDocuments;
 import org.nhindirect.xd.transform.XdsDirectDocumentsTransformer;
 import org.nhindirect.xd.transform.exception.TransformationException;
 import org.nhindirect.xd.transform.impl.DefaultXdsDirectDocumentsTransformer;
 
 public class SoapDirectEdgeOrchestration {
-    private static final Logger LOG = Logger.getLogger(SoapDirectEdgeOrchestration.class);
 
     private XdsDirectDocumentsTransformer xdsDirectDocumentsTransformer = null;
     private DirectSender directSender = null;
@@ -62,26 +62,17 @@ public class SoapDirectEdgeOrchestration {
      * @return a RegistryResponseType object
      * @throws Exception
      */
-    public RegistryResponseType orchestrate(ProvideAndRegisterDocumentSetRequestType prdst,
-            SoapEdgeContext context) throws Exception {
+    public RegistryResponseType orchestrate(ProvideAndRegisterDocumentSetRequestType prdst, SoapEdgeContext context)
+            throws Exception {
         RegistryResponseType resp = null;
 
-        try {
-            // TODO patID and subsetId for atn
-            // String patId = messageId;
-            // String subsetId = messageId;
-            getAuditor().audit(SoapEdgeAuditor.PRINCIPAL, SoapEdgeAuditor.REQUESTRECIEVED_CATEGORY,
-                    SoapEdgeAuditor.REQUESTRECIEVED_MESSAGE, context);
+        getAuditor().audit(SoapEdgeAuditor.PRINCIPAL, SoapEdgeAuditor.REQUESTRECIEVED_CATEGORY,
+                SoapEdgeAuditor.REQUESTRECIEVED_MESSAGE, context);
 
-            resp = sendMessage(prdst, context );
+        resp = sendMessage(prdst, context);
 
-            getAuditor().audit(SoapEdgeAuditor.PRINCIPAL, SoapEdgeAuditor.RESPONSERETURNED_CATEGORY,
-                    SoapEdgeAuditor.RESPONSERETURNED_MESSAGE, context);
-
-        } catch (Exception e) {
-            LOG.error("Error orchestrating Direct Soap edge message.", e);
-            throw (e);
-        }
+        getAuditor().audit(SoapEdgeAuditor.PRINCIPAL, SoapEdgeAuditor.RESPONSERETURNED_CATEGORY,
+                SoapEdgeAuditor.RESPONSERETURNED_MESSAGE, context);
 
         return resp;
     }
@@ -96,12 +87,13 @@ public class SoapDirectEdgeOrchestration {
         DirectDocuments documents = getDefaultXdsDirectDocumentsTransformer().transform(prdst);
 
         ToAddressParser toParser = new ToAddressParserFactory().getToParser();
-        Address[] addressTo = toParser.parse(context.getDirectTo(), documents);
+        Set<Address> addressTo = toParser.parse(context.getDirectTo(), documents);
 
         FromAddressParser fromParser = new FromAddressParserFactory().getFromParser();
         Address addressFrom = fromParser.parse(context.getDirectFrom(), documents);
 
-        getDirectSender().sendOutboundDirect(addressFrom, addressTo, documents, context.getMessageId());
+        getDirectSender().sendOutboundDirect(addressFrom, addressTo.toArray(new Address[0]), documents,
+                context.getMessageId());
 
         return new XDCommonResponseHelper().createSuccess();
     }

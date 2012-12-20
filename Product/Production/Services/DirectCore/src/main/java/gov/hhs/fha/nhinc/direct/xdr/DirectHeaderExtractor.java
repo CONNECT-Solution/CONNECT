@@ -65,7 +65,6 @@ public class DirectHeaderExtractor {
         if (sr != null) {
             headers.setRemoteHost(sr.getRemoteHost());
             headers.setThisHost(sr.getServerName());
-            // TODO: headers.setPid(getPID());
         }
 
         return headers;
@@ -147,7 +146,9 @@ public class DirectHeaderExtractor {
         SoapEdgeContext headers = new SoapEdgeContextMapImpl();
         for (int i = 0; i < nodes.getLength(); i++) {
             Node header = nodes.item(i);
-            LOG.debug(header.getNodeName());
+            if (LOG.isTraceEnabled()) {
+                LOG.debug(header.getNodeName());
+            }
 
             if (StringUtils.contains(header.getNodeName(), "MessageID")) {
                 headers.setMessageId(getTextContent(header));
@@ -175,7 +176,9 @@ public class DirectHeaderExtractor {
         NodeList reps = node.getChildNodes();
         for (int i = 0; i < reps.getLength(); i++) {
             Node childNode = reps.item(i);
-            LOG.debug("inspecting child node: " + childNode.getNodeName());
+            if (LOG.isTraceEnabled()) {
+                LOG.trace("inspecting child node: " + childNode.getNodeName());
+            }
             if (StringUtils.contains(childNode.getNodeName(), childName)) {
                 s = getTextContent(childNode);
             }
@@ -185,7 +188,9 @@ public class DirectHeaderExtractor {
 
     protected String getTextContent(Node node) {
         String s = node.getTextContent();
-        LOG.debug("Extracted the following value from text node: " + s);
+        if (LOG.isTraceEnabled()) {
+            LOG.trace("Extracted the following value from text node: " + s);
+        }
         return s;
     }
 }

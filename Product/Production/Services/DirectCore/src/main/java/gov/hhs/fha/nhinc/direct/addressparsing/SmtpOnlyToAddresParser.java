@@ -32,7 +32,9 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.mail.Address;
 import javax.mail.internet.AddressException;
@@ -53,8 +55,8 @@ public class SmtpOnlyToAddresParser implements ToAddressParser {
 	RoutingResolver resolver = null;
 
 	@Override
-	public Address[] parse(String addresses, DirectDocuments documents) {
-		Address[] addressTo = null;
+	public Set<Address> parse(String addresses, DirectDocuments documents) {
+	    Set<Address> addressTo = new HashSet<Address>();
 
 		// Get endpoints (first check direct:to header, then go to
 		// intendedRecipients)
@@ -74,12 +76,9 @@ public class SmtpOnlyToAddresParser implements ToAddressParser {
 
 		if (getResolver().hasSmtpEndpoints(forwards)) {
 
-			addressTo = new InternetAddress[getResolver()
-					.getSmtpEndpoints(forwards).size()];
-			int i = 0;
 			for (String recipient : getResolver().getSmtpEndpoints(forwards)) {
 				try {
-					addressTo[i++] = new InternetAddress(recipient);
+					addressTo.add(new InternetAddress(recipient));
 				} catch (AddressException e) {
 					LOG.error("Unable to convert " + recipient + " to an InternetAdress.", e);
 				}

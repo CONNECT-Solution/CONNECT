@@ -31,6 +31,8 @@ import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
 
+import com.google.common.collect.ImmutableMap;
+
 /**
  * The Class SoapEdgeHeadersPropertiesImpl implements {@link SoapEdgeContext} and {@link SoapEdgeContext} to provide an
  * class to carry all of the Soap Headers, as well as those used for auditing.
@@ -53,16 +55,16 @@ public class SoapEdgeContextMapImpl implements SoapEdgeContext {
      * @see gov.hhs.fha.nhinc.direct.xdr.audit.SoapEdgeHeaders#getSoapEdgeHeadersValues()
      */
     @Override
-    public Map<String, String> getAuditableValues() {
-        Map<String, String> auditValues = new HashMap<String, String>();
+    public ImmutableMap<String, String> getAuditableValues() {
+        ImmutableMap.Builder<String, String> builder = new ImmutableMap.Builder<String, String>();
 
         for (String s : SoapEdgeContext.PropertyKeys) {
             String value = properties.get(s);
             if (StringUtils.isNotBlank(value)) {
-                auditValues.put(s, value);
+                builder.put(s, value);
             }
         }
-        return auditValues;
+        return builder.build();
     }
 
     /*
