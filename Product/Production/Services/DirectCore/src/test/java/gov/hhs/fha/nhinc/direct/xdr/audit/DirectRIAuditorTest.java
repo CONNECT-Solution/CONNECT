@@ -24,40 +24,54 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.direct.xdr;
+package gov.hhs.fha.nhinc.direct.xdr.audit;
 
-import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
+import gov.hhs.fha.nhinc.direct.xdr.SoapEdgeContext;
+import gov.hhs.fha.nhinc.direct.xdr.SoapEdgeContextMapImpl;
 
-import javax.xml.ws.WebServiceContext;
+import java.util.UUID;
 
-import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
+import org.junit.Test;
 
 /**
- * The Class DirectXDRWebServiceImpl.
+ * @author mweaver
+ * 
  */
-public class DirectXDRWebServiceImpl {
+public class DirectRIAuditorTest {
 
-    /** The context. */
-    WebServiceContext context = null;
-
-    /**
-     * Implementation business object of the JAXB web service interface. Manipulates web services headers, and delegates
-     * processing to the orchestration object.
-     * 
-     * @param body the body of the XDR message.
-     * @param wsContext the ws context for manipulating ws headers.
-     * @return the registry response type
-     * @throws Exception the exception
-     */
-    public RegistryResponseType provideAndRegisterDocumentSet(ProvideAndRegisterDocumentSetRequestType body,
-            WebServiceContext wsContext) throws Exception {
-        RegistryResponseType resp = null;
-        this.context = wsContext;
-
-        DirectHeaderExtractor extractor = new DirectHeaderExtractor();
-
-        SoapDirectEdgeOrchestration orch = new SoapDirectEdgeOrchestration();
-        resp = orch.orchestrate(body, extractor.getHeaderProperties(wsContext));
-        return resp;
+    @Test
+    public void testWithNoProperties() {
+        DirectRIAuditor auditor = getDirectRIAuditor();
+        auditor.audit("this is my principal.", "name", "type", null);
     }
+
+    @Test
+    public void testWithProperties() {
+        DirectRIAuditor auditor = getDirectRIAuditor();
+        auditor.audit("this is my principal.", "name", "type", getAuditable());
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testWithAllNulls() {
+        DirectRIAuditor auditor = getDirectRIAuditor();
+        auditor.audit(null, null, null, null);
+    }
+
+    protected DirectRIAuditor getDirectRIAuditor() {
+        return new DirectRIAuditor();
+    }
+
+
+    protected SoapEdgeContext getAuditable() {
+        SoapEdgeContext auditable = new SoapEdgeContextMapImpl();
+        auditable.setEndpoint("test@direct.connectopensource.org");
+        auditable.setMessageId(UUID.randomUUID().toString());
+        auditable.setPatId("1234");
+        auditable.setPid("80341");
+        auditable.setRemoteHost("www.connectopensource.org");
+        auditable.setThisHost("direct.connectopensource.org");
+        auditable.setTo("drtony@direct.connectopensource.org");
+        return auditable;
+    }
+
 }

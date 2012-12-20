@@ -35,11 +35,17 @@ import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
  * @author mweaver
  *
  */
-public class XDCommonErrorHelper {
+public class XDCommonResponseHelper {
     
     public enum ErrorCodes {
         XDSRegistryError,
         XDSRepositoryError
+    }
+    
+    public RegistryResponseType createSuccess() {
+        RegistryResponseType response = new RegistryResponseType();
+        response.setStatus(NhincConstants.NHINC_ADHOC_QUERY_SUCCESS_RESPONSE);
+        return response;
     }
     
     public RegistryResponseType createError(String message) {
