@@ -37,6 +37,7 @@ http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd ">
         </jaxws:properties>
         <jaxws:inInterceptors>
             <ref bean="securityInInterceptor" />
+            <ref bean="securityConfigInInterceptor" />
         </jaxws:inInterceptors>
         <jaxws:handlers>
             <ref bean="SOAPHeaderHandler" />
@@ -59,6 +60,7 @@ http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd ">
         </jaxws:properties>
         <jaxws:inInterceptors>
             <ref bean="securityInInterceptor" />
+            <ref bean="securityConfigInInterceptor" />
         </jaxws:inInterceptors>
         <jaxws:handlers>
             <ref bean="SOAPHeaderHandler" />
@@ -99,6 +101,7 @@ http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd ">
         </jaxws:properties>
         <jaxws:inInterceptors>
             <ref bean="securityInInterceptor" />
+            <ref bean="securityConfigInInterceptor" />
         </jaxws:inInterceptors>
         <jaxws:handlers>
             <ref bean="SOAPHeaderHandler" />
@@ -123,6 +126,7 @@ http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd ">
         </jaxws:properties>
         <jaxws:inInterceptors>
             <ref bean="securityInInterceptor" />
+            <ref bean="securityConfigInInterceptor" />
         </jaxws:inInterceptors>
         <jaxws:handlers>
             <ref bean="SOAPHeaderHandler" />
@@ -164,6 +168,7 @@ http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd ">
         </jaxws:properties>
         <jaxws:inInterceptors>
             <ref bean="securityInInterceptor" />
+            <ref bean="securityConfigInInterceptor" />
         </jaxws:inInterceptors>
         <jaxws:handlers>
             <ref bean="SOAPHeaderHandler" />
@@ -189,6 +194,7 @@ http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd ">
         </jaxws:properties>
         <jaxws:inInterceptors>
             <ref bean="securityInInterceptor" />
+            <ref bean="securityConfigInInterceptor" />
         </jaxws:inInterceptors>
         <jaxws:handlers>
             <ref bean="SOAPHeaderHandler" />
