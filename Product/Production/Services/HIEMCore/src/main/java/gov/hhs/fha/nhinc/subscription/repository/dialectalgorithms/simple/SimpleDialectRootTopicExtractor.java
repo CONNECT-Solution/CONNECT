@@ -32,16 +32,17 @@ import gov.hhs.fha.nhinc.subscription.repository.service.SubscriptionRepositoryE
 import gov.hhs.fha.nhinc.xmlCommon.XmlUtility;
 import org.w3c.dom.Node;
 
+import org.apache.log4j.Logger;
+
 /**
  * 
  * @author rayj
  */
 public class SimpleDialectRootTopicExtractor implements IRootTopicExtractionStrategy {
-    private static org.apache.commons.logging.Log log = org.apache.commons.logging.LogFactory
-            .getLog(SimpleDialectRootTopicExtractor.class);
+    private static final Logger LOG = Logger.getLogger(SimpleDialectRootTopicExtractor.class);
 
     public String extractRootTopicFromTopicExpressionNode(Node topicExpression) throws SubscriptionRepositoryException {
-        log.debug("begin SimpleDialectRootTopicExtractor.extractRootTopicFromTopicExpressionNode topicExpression='"
+        LOG.debug("begin SimpleDialectRootTopicExtractor.extractRootTopicFromTopicExpressionNode topicExpression='"
                 + XmlUtility.serializeNodeIgnoreFaults(topicExpression) + "'");
         String rootTopic = null;
         String topicValue = XmlUtility.getNodeValue(topicExpression);

@@ -32,8 +32,7 @@ import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 
 /**
  * Web Application initialization for Direct.
@@ -41,7 +40,7 @@ import org.apache.commons.logging.LogFactory;
 public class InitServlet extends HttpServlet {
 
     private static final long serialVersionUID = -2548417535183464693L;
-    private Log log = LogFactory.getLog(InitServlet.class);
+    private static final Logger LOG = Logger.getLogger(InitServlet.class);
 
     /**
      * {@inheritDoc}
@@ -49,7 +48,7 @@ public class InitServlet extends HttpServlet {
     @Override
     public void init(ServletConfig config) throws ServletException {
         super.init(config);
-        log.debug("Direct InitServlet start...");
+        LOG.debug("Direct InitServlet start...");
         new DirectAdapterFactory().registerHandlers();        
     }
 }

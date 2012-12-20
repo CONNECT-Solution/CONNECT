@@ -30,9 +30,9 @@ import gov.hhs.fha.nhinc.hiem.consumerreference.SoapMessageElements;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.xmlCommon.XmlUtility;
 import gov.hhs.fha.nhinc.xmlCommon.XpathHelper;
-import org.xml.sax.InputSource;
-import java.io.ByteArrayInputStream;
+
 import org.w3c.dom.Element;
+import org.apache.log4j.Logger;
 
 /**
  * 
@@ -40,15 +40,14 @@ import org.w3c.dom.Element;
  */
 public class SubscriptionIdHelper {
 
-    private static org.apache.commons.logging.Log log = org.apache.commons.logging.LogFactory
-            .getLog(SubscriptionIdHelper.class);
+    private static final Logger LOG = Logger.getLogger(SubscriptionIdHelper.class);
 
     public static String extractSubscriptionIdFromSubscriptionReferenceXml(String subscriptionReferenceXml) {
-        log.debug("Begin attemptSubscriptionIdExtract");
+        LOG.debug("Begin attemptSubscriptionIdExtract");
         String subscriptionId = null;
         if (subscriptionReferenceXml != null) {
             try {
-                log.debug("Attempting  to extract subscription id from subscription reference xml: "
+                LOG.debug("Attempting  to extract subscription id from subscription reference xml: "
                         + subscriptionReferenceXml);
 
                 Element subscriptionIdElement = (Element) XpathHelper.performXpathQuery(subscriptionReferenceXml,
@@ -64,12 +63,12 @@ public class SubscriptionIdHelper {
                 if (subscriptionId != null) {
                     subscriptionId = subscriptionId.trim();
                 }
-                log.debug("The value for subscription id was: " + ((subscriptionId == null) ? "null" : subscriptionId));
+                LOG.debug("The value for subscription id was: " + ((subscriptionId == null) ? "null" : subscriptionId));
             } catch (Throwable t) {
-                log.error("Error looking up subscription id: " + t.getMessage(), t);
+                LOG.error("Error looking up subscription id: " + t.getMessage(), t);
             }
         }
-        log.debug("End attemptSubscriptionIdExtractXpath - Subscription id='" + subscriptionId + "'");
+        LOG.debug("End attemptSubscriptionIdExtractXpath - Subscription id='" + subscriptionId + "'");
 
         return subscriptionId;
     }
@@ -79,20 +78,20 @@ public class SubscriptionIdHelper {
     // to change without having to trace changes
     public static String extractSubscriptionIdFromReferenceParametersElements(
             SoapMessageElements referenceParametersElements) {
-        log.debug("Begin extractSubscriptionIdFromReferenceParametersElements");
+        LOG.debug("Begin extractSubscriptionIdFromReferenceParametersElements");
         String subscriptionId = null;
         if (referenceParametersElements != null) {
-            log.debug("looking for subscription id");
+            LOG.debug("looking for subscription id");
             for (Element consumerReferenceElement : referenceParametersElements.getElements()) {
                 if (consumerReferenceElement.getLocalName().contentEquals("SubscriptionId")) {
-                    log.debug("subscriptionId element: "
+                    LOG.debug("subscriptionId element: "
                             + XmlUtility.formatElementForLogging(null, consumerReferenceElement));
                     subscriptionId = XmlUtility.getNodeValue(consumerReferenceElement);
                     break;
                 }
             }
         }
-        log.debug("End extractSubscriptionIdFromReferenceParametersElements - Subscription id='" + subscriptionId + "'");
+        LOG.debug("End extractSubscriptionIdFromReferenceParametersElements - Subscription id='" + subscriptionId + "'");
 
         return subscriptionId;
     }

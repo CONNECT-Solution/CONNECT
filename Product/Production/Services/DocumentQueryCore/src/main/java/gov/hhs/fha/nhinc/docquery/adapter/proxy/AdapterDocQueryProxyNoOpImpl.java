@@ -40,7 +40,7 @@ import org.apache.log4j.Logger;
  *
  */
 public class AdapterDocQueryProxyNoOpImpl implements AdapterDocQueryProxy {
-    private static Logger log = Logger.getLogger(AdapterDocQueryProxyNoOpImpl.class);
+    private static final Logger LOG = Logger.getLogger(AdapterDocQueryProxyNoOpImpl.class);
 
     /** The respondingGatewayCrossGatewayQuery takes AdhocQueryRequestmessage and assertion and
      * returns AdhocQueryResponse. This noop implementation returns AdhocQueryresponse without any document.
@@ -52,7 +52,7 @@ public class AdapterDocQueryProxyNoOpImpl implements AdapterDocQueryProxy {
             afterReturningBuilder = AdhocQueryResponseDescriptionBuilder.class, serviceType = "Document Query",
             version = "")
     public AdhocQueryResponse respondingGatewayCrossGatewayQuery(AdhocQueryRequest msg, AssertionType assertion) {
-        log.debug("Using NoOp Implementation for Adapter Doc Query Service");
+        LOG.debug("Using NoOp Implementation for Adapter Doc Query Service");
         return new AdhocQueryResponse();
     }
 }

@@ -27,24 +27,25 @@
 package gov.hhs.fha.nhinc.subscription.repository.roottopicextractor;
 
 //import java.io.ByteArrayOutputStream;
-import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.subscription.repository.dialectalgorithms.concrete.ConcreteDialectRootTopicExtractor;
 import gov.hhs.fha.nhinc.subscription.repository.dialectalgorithms.full.FullDialectRootTopicExtractor;
 import gov.hhs.fha.nhinc.subscription.repository.dialectalgorithms.simple.SimpleDialectRootTopicExtractor;
-import gov.hhs.fha.nhinc.subscription.repository.service.*;
+import gov.hhs.fha.nhinc.subscription.repository.service.SubscriptionRepositoryException;
 import gov.hhs.fha.nhinc.xmlCommon.XmlUtility;
+
+import javax.xml.xpath.XPathExpressionException;
+
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.apache.log4j.Logger;
 //import java.io.IOException;
 //import javax.xml.parsers.ParserConfigurationException;
 //import javax.xml.xpath.XPathConstants;
 //import org.apache.xml.serialize.OutputFormat;
 //import org.apache.xml.serialize.XMLSerializer;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.xml.xpath.XPathExpressionException;
 //import org.w3c.dom.DOMException;
 //import org.w3c.dom.ls.LSException;
 //import org.xml.sax.InputSource;
-import org.w3c.dom.*;
 //import java.io.ByteArrayInputStream;
 //import org.w3c.dom.DOMConfiguration;
 //import java.io.StringReader;
@@ -72,8 +73,7 @@ public class RootTopicExtractor {
     public static final String DIALECT_CONCRETE_MISSPELLED = "http://doc.oasis-open.org/wsn/t-1/TopicExpression/Concrete";
     public static final String DIALECT_SIMPLE = "http://docs.oasis-open.org/wsn/t-1/TopicExpression/Simple";
     public static final String DIALECT_SIMPLE_MISSPELLED = "http://doc.oasis-open.org/wsn/t-1/TopicExpression/Simple";
-    private static org.apache.commons.logging.Log log = org.apache.commons.logging.LogFactory
-            .getLog(RootTopicExtractor.class);
+    private static final Logger LOG = Logger.getLogger(RootTopicExtractor.class);
 
     public String extractRootTopicFromSubscribeElement(Element subscribeElement) throws SubscriptionRepositoryException {
         // TODO: Root topic extraction strategy
@@ -85,14 +85,14 @@ public class RootTopicExtractor {
                 if (topicExpressionElement != null) {
                     rootTopic = extractRootTopicFromTopicExpressionNode(topicExpressionElement);
                 } else {
-                    log.warn("subscribe does not have topic expression node");
+                    LOG.warn("subscribe does not have topic expression node");
                     // RootTopicExtractorReverseCompat compat = new RootTopicExtractorReverseCompat();
                     // rootTopic = compat.extractReverseCompatRootTopic(subscribeElement);
                 }
 
-                log.debug("Extracted root topic: " + rootTopic);
+                LOG.debug("Extracted root topic: " + rootTopic);
             } catch (Throwable t) {
-                log.error("Error extracting root topic: " + t.getMessage(), t);
+                LOG.error("Error extracting root topic: " + t.getMessage(), t);
                 throw new SubscriptionRepositoryException("Error extracting root topic: " + t.getMessage(), t);
             }
         }
@@ -122,12 +122,12 @@ public class RootTopicExtractor {
                 if (topic != null) {
                     rootTopic = extractRootTopicFromTopicExpressionNode(topic);
                 } else {
-                    log.warn("notify does not have topic node");
+                    LOG.warn("notify does not have topic node");
                 }
 
-                log.debug("Extracted root topic: " + rootTopic);
+                LOG.debug("Extracted root topic: " + rootTopic);
             } catch (Throwable t) {
-                log.error("Error extracting root topic: " + t.getMessage(), t);
+                LOG.error("Error extracting root topic: " + t.getMessage(), t);
                 throw new SubscriptionRepositoryException("Error extracting root topic: " + t.getMessage(), t);
             }
         }
@@ -147,7 +147,7 @@ public class RootTopicExtractor {
     }
 
     public String extractRootTopicFromTopicExpressionNode(Node topicExpression) throws SubscriptionRepositoryException {
-        log.debug("extractRootTopicFromTopicExpressionNode node='"
+        LOG.debug("extractRootTopicFromTopicExpressionNode node='"
                 + XmlUtility.serializeNodeIgnoreFaults(topicExpression) + "'");
         String rootTopic = null;
         if (topicExpression != null) {
@@ -156,24 +156,24 @@ public class RootTopicExtractor {
             if (dialect.contentEquals(DIALECT_SIMPLE)) {
                 extractor = new SimpleDialectRootTopicExtractor();
             } else if (dialect.contentEquals(DIALECT_SIMPLE_MISSPELLED)) {
-                log.warn("Dialect unknown ('" + dialect + ", but assumed to be '" + DIALECT_SIMPLE + "'");
+                LOG.warn("Dialect unknown ('" + dialect + ", but assumed to be '" + DIALECT_SIMPLE + "'");
                 extractor = new SimpleDialectRootTopicExtractor();
             } else if (dialect.contentEquals(DIALECT_CONCRETE)) {
                 extractor = new ConcreteDialectRootTopicExtractor();
             } else if (dialect.contentEquals(DIALECT_CONCRETE_MISSPELLED)) {
-                log.warn("Dialect unknown ('" + dialect + ", but assumed to be '" + DIALECT_CONCRETE + "'");
+                LOG.warn("Dialect unknown ('" + dialect + ", but assumed to be '" + DIALECT_CONCRETE + "'");
                 extractor = new ConcreteDialectRootTopicExtractor();
             } else if (dialect.contentEquals(DIALECT_FULL)) {
                 extractor = new FullDialectRootTopicExtractor();
             } else if (dialect.contentEquals(DIALECT_FULL_MISSPELLED)) {
-                log.warn("Dialect unknown ('" + dialect + ", but assumed to be '" + DIALECT_FULL + "'");
+                LOG.warn("Dialect unknown ('" + dialect + ", but assumed to be '" + DIALECT_FULL + "'");
                 extractor = new FullDialectRootTopicExtractor();
             } else {
                 throw new SubscriptionRepositoryException("Unknown dialect + '" + dialect + "'");
             }
             rootTopic = extractor.extractRootTopicFromTopicExpressionNode(topicExpression);
         }
-        log.debug("rootTopic='" + rootTopic + "'");
+        LOG.debug("rootTopic='" + rootTopic + "'");
         return rootTopic;
     }
 
@@ -209,7 +209,7 @@ public class RootTopicExtractor {
 
         Element topicExpressionElement = (Element) XmlUtility.performXpathQuery(subscribeElement, xpathQuery);
         if (topicExpressionElement == null) {
-            log.info("subscribe does not have topic expression node.  Will check for reverse compat");
+            LOG.info("subscribe does not have topic expression node.  Will check for reverse compat");
             RootTopicExtractorReverseCompat compat = new RootTopicExtractorReverseCompat();
             topicExpressionElement = compat.buildTopicExpressionFromSubscribe(subscribeElement);
         }
@@ -229,7 +229,7 @@ public class RootTopicExtractor {
         Element topicElement = (Element) XmlUtility.performXpathQuery(notificationMessageElement, xpathQuery);
 
         if (topicElement == null) {
-            log.info("notify does not have topic node.  Will check for reverse compat");
+            LOG.info("notify does not have topic node.  Will check for reverse compat");
             RootTopicExtractorReverseCompat compat = new RootTopicExtractorReverseCompat();
             topicElement = compat.buildTopicFromNotify(notificationMessageElement);
         }

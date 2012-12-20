@@ -40,7 +40,7 @@ import org.apache.log4j.Logger;
  * @author jhoppesc
  */
 public class AdapterComponentDocRepositoryProxyJavaImpl implements AdapterComponentDocRepositoryProxy {
-    private static Logger LOG = Logger.getLogger(AdapterComponentDocRepositoryProxyJavaImpl.class);
+    private static final Logger LOG = Logger.getLogger(AdapterComponentDocRepositoryProxyJavaImpl.class);
 
     public RetrieveDocumentSetResponseType retrieveDocument(RetrieveDocumentSetRequestType request,
             AssertionType assertion) {

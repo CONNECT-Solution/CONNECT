@@ -56,7 +56,7 @@ public class AssertionCreator {
     private static final String PROPERTY_KEY_SIGN = "AssertionSignDate";
     private static final String PROPERTY_KEY_ACCESS_CONSENT = "AssertionAccessConsent";
 
-    private static Logger LOG = Logger.getLogger(AssertionCreator.class);
+    private static final Logger LOG = Logger.getLogger(AssertionCreator.class);
 
     AssertionType createAssertion() {
 

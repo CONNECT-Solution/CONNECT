@@ -41,7 +41,7 @@ import org.apache.log4j.Logger;
  */
 public class OutboundDocQueryDelegate implements OutboundDelegate {
 
-    private static Logger log = Logger.getLogger(OutboundDocQueryDelegate.class);
+    private static final Logger LOG = Logger.getLogger(OutboundDocQueryDelegate.class);
 
     /**
      * Default constructor.
@@ -51,9 +51,9 @@ public class OutboundDocQueryDelegate implements OutboundDelegate {
 
     @Override
     public Orchestratable process(Orchestratable message) {
-        log.debug("NhinDocQueryDelegate::process Orchestratable");
+        LOG.debug("NhinDocQueryDelegate::process Orchestratable");
         if (message == null) {
-            log.error("NhinDocQueryDelegate Orchestratable was null!!!");
+            LOG.error("NhinDocQueryDelegate Orchestratable was null!!!");
             return null;
         }
         if (message instanceof OutboundDocQueryOrchestratable) {
@@ -67,7 +67,7 @@ public class OutboundDocQueryDelegate implements OutboundDelegate {
         if (message instanceof OutboundDocQueryOrchestratable) {
             return process((OutboundDocQueryOrchestratable) message);
         }
-        log.error("NhinDocQueryDelegate message is not an instance of EntityDocQueryOrchestratable!");
+        LOG.error("NhinDocQueryDelegate message is not an instance of EntityDocQueryOrchestratable!");
         return null;
     }
 
@@ -76,7 +76,7 @@ public class OutboundDocQueryDelegate implements OutboundDelegate {
      * @return response Response received from Nhin.
      */
     public OutboundDocQueryOrchestratable process(OutboundDocQueryOrchestratable message) {
-        log.debug("NhinDocQueryDelegate::process EntityDocQueryOrchestratable");
+        LOG.debug("NhinDocQueryDelegate::process EntityDocQueryOrchestratable");
 
         OutboundDocQueryOrchestrationContextBuilder contextBuilder =
            (OutboundDocQueryOrchestrationContextBuilder) OrchestrationContextFactory.getInstance().
@@ -92,11 +92,11 @@ public class OutboundDocQueryDelegate implements OutboundDelegate {
         OutboundDocQueryOrchestratable response = (OutboundDocQueryOrchestratable) contextBuilder.build().execute();
 
         if (response instanceof OutboundDocQueryOrchestratable_a0) {
-            log.debug("NhinDocQueryDelegate::process returning a0 result");
+            LOG.debug("NhinDocQueryDelegate::process returning a0 result");
         } else if (response instanceof OutboundDocQueryOrchestratable_a0) {
-            log.debug("NhinDocQueryDelegate::process returning a1 result");
+            LOG.debug("NhinDocQueryDelegate::process returning a1 result");
         } else {
-            log.error("NhinDocQueryDelegate::process has unknown response!!!");
+            LOG.error("NhinDocQueryDelegate::process has unknown response!!!");
         }
         return response;
     }

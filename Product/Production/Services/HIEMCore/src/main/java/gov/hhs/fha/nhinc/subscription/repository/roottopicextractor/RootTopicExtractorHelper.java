@@ -29,12 +29,10 @@ package gov.hhs.fha.nhinc.subscription.repository.roottopicextractor;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.subscription.repository.service.SubscriptionRepositoryException;
 import gov.hhs.fha.nhinc.xmlCommon.XmlUtility;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import org.w3c.dom.DOMException;
+
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
-import org.w3c.dom.ls.LSException;
+import org.apache.log4j.Logger;
 
 /**
  * 
@@ -42,8 +40,7 @@ import org.w3c.dom.ls.LSException;
  */
 public class RootTopicExtractorHelper {
 
-    private static org.apache.commons.logging.Log log = org.apache.commons.logging.LogFactory
-            .getLog(RootTopicExtractorHelper.class);
+    private static final Logger LOG = Logger.getLogger(RootTopicExtractorHelper.class);
     private static final String startDelimter = "{";
     private static final String endDelimter = "}";
 
@@ -57,8 +54,8 @@ public class RootTopicExtractorHelper {
 
     public static String ReplaceNamespacePrefixesWithNamespaces(String xml, Node node)
             throws SubscriptionRepositoryException {
-        log.debug("begin ReplaceNamespacePrefixesWithNamespaces for xml string: '" + xml + "'");
-        log.debug("node='" + XmlUtility.serializeElementIgnoreFaults((Element) node) + "'");
+        LOG.debug("begin ReplaceNamespacePrefixesWithNamespaces for xml string: '" + xml + "'");
+        LOG.debug("node='" + XmlUtility.serializeElementIgnoreFaults((Element) node) + "'");
         int positionOfDelimiter = xml.indexOf(":");
         String prefix;
         String value;
@@ -66,13 +63,13 @@ public class RootTopicExtractorHelper {
         String newValue;
         if (positionOfDelimiter > 0) {
             prefix = xml.substring(0, positionOfDelimiter);
-            log.debug("prefix='" + prefix + "'");
+            LOG.debug("prefix='" + prefix + "'");
             value = xml.substring(positionOfDelimiter + 1);
-            log.debug("value='" + value + "'");
+            LOG.debug("value='" + value + "'");
             namespaceValue = node.lookupNamespaceURI(prefix);
-            log.debug("namespaceValue='" + namespaceValue + "'");
+            LOG.debug("namespaceValue='" + namespaceValue + "'");
             if (namespaceValue == null) {
-                log.warn("Unable to determine namespace for prefix '" + prefix + "'");
+                LOG.warn("Unable to determine namespace for prefix '" + prefix + "'");
                 if (supportUndefinedNamespacePrefix()) {
                     namespaceValue = null;
                 } else {
@@ -84,10 +81,10 @@ public class RootTopicExtractorHelper {
 
             newValue = "{" + namespaceValue + "}" + value;
             xml = newValue;
-            log.debug("updated xml='" + xml + "'");
+            LOG.debug("updated xml='" + xml + "'");
         }
 
-        log.debug("end ReplaceNamespacePrefixesWithNamespaces");
+        LOG.debug("end ReplaceNamespacePrefixesWithNamespaces");
         return xml;
     }
 

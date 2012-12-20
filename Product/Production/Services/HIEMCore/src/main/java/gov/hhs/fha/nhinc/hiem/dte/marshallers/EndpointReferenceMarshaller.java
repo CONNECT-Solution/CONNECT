@@ -27,9 +27,10 @@
 package gov.hhs.fha.nhinc.hiem.dte.marshallers;
 
 import gov.hhs.fha.nhinc.xmlCommon.XmlUtility;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
 import javax.xml.bind.JAXBElement;
+
+import org.apache.log4j.Logger;
 import org.w3._2005._08.addressing.EndpointReferenceType;
 import org.w3c.dom.Element;
 
@@ -38,7 +39,7 @@ import org.w3c.dom.Element;
  * @author rayj
  */
 public class EndpointReferenceMarshaller {
-    private static org.apache.commons.logging.Log log = org.apache.commons.logging.LogFactory.getLog(Marshaller.class);
+    private static final Logger LOG = Logger.getLogger(Marshaller.class);
     private static final String EndpointReferenceContextPath = "org.w3._2005._08.addressing";
 
     public Element marshal(EndpointReferenceType object) {
@@ -70,7 +71,7 @@ public class EndpointReferenceMarshaller {
         try {
             element = XmlUtility.convertXmlToElement(xml);
         } catch (Exception ex) {
-            log.warn("failed to parse xml", ex);
+            LOG.warn("failed to parse xml", ex);
         }
         return unmarshal(element, contextPath);
     }

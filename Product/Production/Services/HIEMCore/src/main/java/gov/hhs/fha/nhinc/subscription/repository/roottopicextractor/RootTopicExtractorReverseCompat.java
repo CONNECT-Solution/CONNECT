@@ -27,24 +27,21 @@
 package gov.hhs.fha.nhinc.subscription.repository.roottopicextractor;
 
 //import java.io.ByteArrayOutputStream;
-import gov.hhs.fha.nhinc.nhinclib.NullChecker;
-import gov.hhs.fha.nhinc.subscription.repository.dialectalgorithms.concrete.ConcreteDialectRootTopicExtractor;
-import gov.hhs.fha.nhinc.subscription.repository.dialectalgorithms.full.FullDialectRootTopicExtractor;
-import gov.hhs.fha.nhinc.subscription.repository.dialectalgorithms.simple.SimpleDialectRootTopicExtractor;
-import gov.hhs.fha.nhinc.subscription.repository.service.*;
 import gov.hhs.fha.nhinc.xmlCommon.XmlUtility;
+
+import javax.xml.xpath.XPathExpressionException;
+
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.apache.log4j.Logger;
 //import java.io.IOException;
 //import javax.xml.parsers.ParserConfigurationException;
 //import javax.xml.xpath.XPathConstants;
 //import org.apache.xml.serialize.OutputFormat;
 //import org.apache.xml.serialize.XMLSerializer;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.xml.xpath.XPathExpressionException;
 //import org.w3c.dom.DOMException;
 //import org.w3c.dom.ls.LSException;
 //import org.xml.sax.InputSource;
-import org.w3c.dom.*;
 //import java.io.ByteArrayInputStream;
 //import org.w3c.dom.DOMConfiguration;
 //import java.io.StringReader;
@@ -65,8 +62,7 @@ import org.w3c.dom.*;
  */
 public class RootTopicExtractorReverseCompat {
 
-    private static org.apache.commons.logging.Log log = org.apache.commons.logging.LogFactory
-            .getLog(RootTopicExtractorReverseCompat.class);
+    private static final Logger LOG = Logger.getLogger(RootTopicExtractorReverseCompat.class);
 
     public Element buildTopicExpressionFromSubscribe(Element message) {
         String documentSubscribeXpathQuery = "//*[local-name()='Subscribe']/*[local-name()='AdhocQuery']";
@@ -95,7 +91,7 @@ public class RootTopicExtractorReverseCompat {
         try {
             element = XmlUtility.convertXmlToElement(topicExpression);
         } catch (Exception ex) {
-            log.warn("unable to handle reverse compat topic", ex);
+            LOG.warn("unable to handle reverse compat topic", ex);
         }
         return element;
     }
@@ -106,7 +102,7 @@ public class RootTopicExtractorReverseCompat {
         try {
             element = XmlUtility.convertXmlToElement(topicExpression);
         } catch (Exception ex) {
-            log.warn("unable to handle reverse compat topic", ex);
+            LOG.warn("unable to handle reverse compat topic", ex);
         }
         return element;
     }
@@ -142,7 +138,7 @@ public class RootTopicExtractorReverseCompat {
         try {
             match = XmlUtility.performXpathQuery(message, xpathQuery);
         } catch (XPathExpressionException ex) {
-            log.debug("Failed to perform xpath query against message.  Assume that this is not a match");
+            LOG.debug("Failed to perform xpath query against message.  Assume that this is not a match");
         }
         result = (match != null);
         return result;

@@ -35,7 +35,6 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
-import org.apache.commons.logging.*;
 import java.util.ArrayList;
 import org.junit.Ignore;
 
@@ -47,7 +46,6 @@ import org.junit.Ignore;
 // TODO: Move to an integration test
 public class AuditRepositoryDAOTest {
     private AuditRepositoryDAO auditDao = null;
-    private static Log log = LogFactory.getLog(AuditRepositoryDAOTest.class);
 
     public AuditRepositoryDAOTest() {
         auditDao = AuditRepositoryDAO.getAuditRepositoryDAOInstance();
@@ -82,14 +80,10 @@ public class AuditRepositoryDAOTest {
      */
     @Test
     public void testQueryAuditRepository() {
-        log.debug("Begin - testQueryAuditRepository");
-
         String query = "select * from auditRepository";
         List result = auditDao.queryAuditRepository(query);
         assertNotNull(result);
-        log.debug("getAuditRepository number of records : " + result.size());
-
-        log.debug("End - testQueryAuditRepository");
+        System.out.println("getAuditRepository number of records : " + result.size());
     }
 
     /**
@@ -97,7 +91,6 @@ public class AuditRepositoryDAOTest {
      */
     @Test
     public void testInsertAuditRepository() {
-        log.debug("Begin - testInsertAuditRepository");
         List<AuditRepositoryRecord> eventLogList = new ArrayList();
         Date now = new Date();
 
@@ -110,7 +103,7 @@ public class AuditRepositoryDAOTest {
         boolean expResult = true;
         boolean result = auditDao.insertAuditRepository(eventLogList);
         assertEquals(expResult, result);
-        log.debug("End - testInsertAuditRepository");
+        
     }
 
     /**
@@ -118,7 +111,6 @@ public class AuditRepositoryDAOTest {
      */
     @Test
     public void testQueryAuditRepositoryOnCriteria() {
-        log.debug("Begin - testQueryAuditRepositoryOnCriteria");
         String eUserId = "UnitTest1";
         String ePatientId = "";
         String eCommunityId = "";
@@ -126,8 +118,7 @@ public class AuditRepositoryDAOTest {
         Date endDate = null;
         List result = auditDao.queryAuditRepositoryOnCriteria(eUserId, ePatientId, startDate, endDate);
         assertNotNull(result);
-        log.debug("Number of records returned : " + result.size());
-        log.debug("End - testQueryAuditRepositoryOnCriteria");
+        
     }
 
 }

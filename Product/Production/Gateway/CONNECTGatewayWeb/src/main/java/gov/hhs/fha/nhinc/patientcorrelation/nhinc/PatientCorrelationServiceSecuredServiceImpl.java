@@ -35,6 +35,7 @@ import org.hl7.v3.RetrievePatientCorrelationsResponseType;
 import org.hl7.v3.RetrievePatientCorrelationsSecuredRequestType;
 import org.hl7.v3.RetrievePatientCorrelationsSecuredResponseType;
 
+import org.apache.log4j.Logger;
 /**
  * 
  * @author svalluripalli
@@ -47,8 +48,7 @@ public class PatientCorrelationServiceSecuredServiceImpl
 
     private PatientCorrelationOrch orchestration;
 
-    private static org.apache.commons.logging.Log log = org.apache.commons.logging.LogFactory
-            .getLog(PatientCorrelationServiceSecuredServiceImpl.class);
+    private static final Logger LOG = Logger.getLogger(PatientCorrelationServiceSecuredServiceImpl.class);
 
     PatientCorrelationServiceSecuredServiceImpl(PatientCorrelationOrch orchestration) {
         this.orchestration = orchestration;
@@ -58,7 +58,7 @@ public class PatientCorrelationServiceSecuredServiceImpl
             RetrievePatientCorrelationsSecuredRequestType request, AssertionType assertion) {
         RetrievePatientCorrelationsSecuredResponseType response = new RetrievePatientCorrelationsSecuredResponseType();
 
-        log.info("Calling the Patient Correlation Retrieve Correlations Orch Impl");
+        LOG.info("Calling the Patient Correlation Retrieve Correlations Orch Impl");
         RetrievePatientCorrelationsResponseType unsecureResp = orchestration.retrievePatientCorrelations(
                 request.getPRPAIN201309UV02(), assertion);
 
@@ -72,7 +72,7 @@ public class PatientCorrelationServiceSecuredServiceImpl
             AddPatientCorrelationSecuredRequestType request, AssertionType assertion) {
         AddPatientCorrelationSecuredResponseType response = new AddPatientCorrelationSecuredResponseType();
 
-        log.info("Calling the Patient Correlation Add Correlations Orch Impl");
+        LOG.info("Calling the Patient Correlation Add Correlations Orch Impl");
         AddPatientCorrelationResponseType unsecureResp = orchestration.addPatientCorrelation(
                 request.getPRPAIN201301UV02(), assertion);
 
