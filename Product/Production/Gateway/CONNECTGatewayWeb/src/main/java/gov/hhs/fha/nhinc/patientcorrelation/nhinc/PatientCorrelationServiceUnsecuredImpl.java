@@ -33,6 +33,8 @@ import org.hl7.v3.AddPatientCorrelationResponseType;
 import org.hl7.v3.RetrievePatientCorrelationsRequestType;
 import org.hl7.v3.RetrievePatientCorrelationsResponseType;
 
+import org.apache.log4j.Logger;
+
 /**
  * 
  * @author jhoppesc
@@ -41,8 +43,7 @@ public class PatientCorrelationServiceUnsecuredImpl
         implements
         PatientCorrelationService<RetrievePatientCorrelationsRequestType, RetrievePatientCorrelationsResponseType, AddPatientCorrelationRequestType, AddPatientCorrelationResponseType> {
 
-    private static org.apache.commons.logging.Log log = org.apache.commons.logging.LogFactory
-            .getLog(PatientCorrelationServiceUnsecuredImpl.class);
+    private static final Logger LOG = Logger.getLogger(PatientCorrelationServiceUnsecuredImpl.class);
 
     private PatientCorrelationOrch orchestration;
 
@@ -53,7 +54,7 @@ public class PatientCorrelationServiceUnsecuredImpl
     public RetrievePatientCorrelationsResponseType retrievePatientCorrelations(
             RetrievePatientCorrelationsRequestType retrievePatientCorrelationsRequest, AssertionType assertionType) {
 
-        log.info("Calling the Patient Correlation Retrieve Correlations Orch Impl");
+        LOG.info("Calling the Patient Correlation Retrieve Correlations Orch Impl");
         RetrievePatientCorrelationsResponseType response = orchestration.retrievePatientCorrelations(
                 retrievePatientCorrelationsRequest.getPRPAIN201309UV02(),
                 retrievePatientCorrelationsRequest.getAssertion());
@@ -64,7 +65,7 @@ public class PatientCorrelationServiceUnsecuredImpl
     public AddPatientCorrelationResponseType addPatientCorrelation(
             AddPatientCorrelationRequestType addPatientCorrelationRequest, AssertionType assertionType) {
 
-        log.info("Calling the Patient Correlation Add Correlations Orch Impl");
+        LOG.info("Calling the Patient Correlation Add Correlations Orch Impl");
         AddPatientCorrelationResponseType response = orchestration.addPatientCorrelation(
                 addPatientCorrelationRequest.getPRPAIN201301UV02(), addPatientCorrelationRequest.getAssertion());
 

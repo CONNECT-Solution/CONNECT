@@ -27,15 +27,10 @@
 package gov.hhs.fha.nhinc.subscription.repository.topicfilter;
 
 import gov.hhs.fha.nhinc.subscription.repository.roottopicextractor.RootTopicExtractor;
-import gov.hhs.fha.nhinc.subscription.repository.service.SubscriptionRepositoryException;
-import gov.hhs.fha.nhinc.subscription.repository.topicfilter.ITopicComparison;
-import gov.hhs.fha.nhinc.subscription.repository.topicfilter.ITopicFilterStrategy;
-import gov.hhs.fha.nhinc.subscription.repository.topicfilter.TopicComparisonExactMatchStrategy;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
 import javax.xml.xpath.XPathExpressionException;
+
 import org.w3c.dom.Element;
-import org.w3c.dom.Node;
 
 /**
  * 

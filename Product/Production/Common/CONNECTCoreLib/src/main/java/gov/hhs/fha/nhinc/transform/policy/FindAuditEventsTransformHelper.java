@@ -35,14 +35,14 @@ import oasis.names.tc.xacml._2_0.context.schema.os.RequestType;
 import oasis.names.tc.xacml._2_0.context.schema.os.ResourceType;
 import oasis.names.tc.xacml._2_0.context.schema.os.SubjectType;
 
+import org.apache.log4j.Logger;
 /**
  * 
  * @author svalluripalli
  */
 public class FindAuditEventsTransformHelper {
 
-    private static org.apache.commons.logging.Log log = org.apache.commons.logging.LogFactory
-            .getLog(FindAuditEventsTransformHelper.class);
+    private static final Logger LOG = Logger.getLogger(FindAuditEventsTransformHelper.class);
     private static final String ActionInValue = "AuditLogQueryIn";
     private static final String ActionOutValue = "AuditLogQueryOut";
     private static final String PatientIdAttributeId = Constants.ResourceIdAttributeId;
@@ -71,16 +71,16 @@ public class FindAuditEventsTransformHelper {
                     ResourceType resource = new ResourceType();
                     AttributeHelper attrHelper = new AttributeHelper();
                     String sPatientId = findAudit.getPatientId();
-                    log.debug("transformFindAuditEventsToCheckPolicy: sPatientId = " + sPatientId);
+                    LOG.debug("transformFindAuditEventsToCheckPolicy: sPatientId = " + sPatientId);
 
                     String sAssigningAuthority = PatientIdFormatUtil.parseCommunityId(sPatientId);
-                    log.debug("transformFindAuditEventsToCheckPolicy: sAssigningAuthority = " + sAssigningAuthority);
+                    LOG.debug("transformFindAuditEventsToCheckPolicy: sAssigningAuthority = " + sAssigningAuthority);
                     resource.getAttribute().add(
                             attrHelper.attributeFactory(AssigningAuthorityAttributeId, Constants.DataTypeString,
                                     sAssigningAuthority));
 
                     String sStrippedPatientId = PatientIdFormatUtil.parsePatientId(findAudit.getPatientId());
-                    log.debug("transformFindAuditEventsToCheckPolicy: sStrippedPatientId = " + sStrippedPatientId);
+                    LOG.debug("transformFindAuditEventsToCheckPolicy: sStrippedPatientId = " + sStrippedPatientId);
                     resource.getAttribute().add(
                             attrHelper.attributeFactory(PatientIdAttributeId, Constants.DataTypeString,
                                     sStrippedPatientId));

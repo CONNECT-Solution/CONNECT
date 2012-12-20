@@ -33,11 +33,11 @@ import org.apache.log4j.Logger;
 public class OutboundSubscribeOrchestrationContextBuilder_g0 extends
         OutboundSubscribeOrchestrationContextBuilder {
 
-    private static final Logger log = Logger.getLogger(OutboundSubscribeOrchestrationContextBuilder_g0.class);
+    private static final Logger LOG = Logger.getLogger(OutboundSubscribeOrchestrationContextBuilder_g0.class);
 
     @Override
     public OrchestrationContext build() {
-        log.debug("begin build");
+        LOG.debug("begin build");
         return new OrchestrationContext(new OutboundSubscribeStrategyImpl_g0(),
                 new OutboundSubscribeOrchestratable(getNhinDelegate(), getRequest(), getTarget(),
                         getAssertionType()));

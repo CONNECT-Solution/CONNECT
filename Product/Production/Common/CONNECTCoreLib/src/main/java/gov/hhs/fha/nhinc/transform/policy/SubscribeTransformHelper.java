@@ -47,14 +47,14 @@ import org.oasis_open.docs.wsn.b_2.Subscribe;
 import org.oasis_open.docs.wsn.b_2.TopicExpressionType;
 import org.w3c.dom.Element;
 
+import org.apache.log4j.Logger;
 /**
  * 
  * @author svalluripalli
  */
 public class SubscribeTransformHelper {
 
-    private static org.apache.commons.logging.Log log = org.apache.commons.logging.LogFactory
-            .getLog(SubscribeTransformHelper.class);
+    private static final Logger LOG = Logger.getLogger(SubscribeTransformHelper.class);
     private static final String ActionInValue = "HIEMSubscriptionRequestIn";
     private static final String ActionOutValue = "HIEMSubscriptionRequestOut";
     private static final String PatientAssigningAuthorityAttributeId = Constants.AssigningAuthorityAttributeId;
@@ -95,7 +95,7 @@ public class SubscribeTransformHelper {
 
         if (NullChecker.isNotNullish(patId)) {
             String sStrippedPatientId = PatientIdFormatUtil.parsePatientId(patId);
-            log.debug("transformSubscribeToCheckPolicy: sStrippedPatientId = " + sStrippedPatientId);
+            LOG.debug("transformSubscribeToCheckPolicy: sStrippedPatientId = " + sStrippedPatientId);
             resource.getAttribute().add(
                     attrHelper.attributeFactory(PatientIdAttributeId, Constants.DataTypeString, sStrippedPatientId));
         }
@@ -115,18 +115,18 @@ public class SubscribeTransformHelper {
     private static void setTopic(SubscribeEventType event, ResourceType resource) {
         String topic = null;
         try {
-            log.debug("######## BEGIN TOPIC EXTRACTION ########");
+            LOG.debug("######## BEGIN TOPIC EXTRACTION ########");
             JAXBElement<TopicExpressionType> jbElement = (JAXBElement<TopicExpressionType>) event.getMessage()
                     .getSubscribe().getFilter().getAny().get(0);
             TopicExpressionType topicExpression = jbElement.getValue();
             topic = (String) topicExpression.getContent().get(0);
-            log.debug("Topic extracted: " + topic);
+            LOG.debug("Topic extracted: " + topic);
         } catch (Throwable t) {
-            log.error("Error extracting the topic: " + t.getMessage(), t);
+            LOG.error("Error extracting the topic: " + t.getMessage(), t);
         }
         if (NullChecker.isNotNullish(topic)) {
-            if (log.isDebugEnabled()) {
-                log.debug("Adding topic (" + topic + ") as attribute (" + ATTRIBUTE_ID_TOPIC + ") and type: "
+            if (LOG.isDebugEnabled()) {
+                LOG.debug("Adding topic (" + topic + ") as attribute (" + ATTRIBUTE_ID_TOPIC + ") and type: "
                         + Constants.DataTypeString);
             }
             AttributeHelper attrHelper = new AttributeHelper();
@@ -140,27 +140,27 @@ public class SubscribeTransformHelper {
         List<Object> any = nhinSubscribe.getAny();
 
         for (Object anyItem : any) {
-            log.debug("SubscribeTransformHelper.getAdhocQuery - type of any in list: " + anyItem.getClass().getName());
+            LOG.debug("SubscribeTransformHelper.getAdhocQuery - type of any in list: " + anyItem.getClass().getName());
             if (anyItem instanceof oasis.names.tc.ebxml_regrep.xsd.rim._3.AdhocQueryType) {
-                log.debug("Any item was oasis.names.tc.ebxml_regrep.xsd.rim._3.AdhocQueryType");
+                LOG.debug("Any item was oasis.names.tc.ebxml_regrep.xsd.rim._3.AdhocQueryType");
                 adhocQuery = (AdhocQueryType) anyItem;
             } else if (anyItem instanceof JAXBElement) {
-                log.debug("Any item was JAXBElement");
+                LOG.debug("Any item was JAXBElement");
                 if (((JAXBElement) anyItem).getValue() instanceof AdhocQueryType) {
-                    log.debug("Any item - JAXBElement value was AdhocQueryType");
+                    LOG.debug("Any item - JAXBElement value was AdhocQueryType");
                     adhocQuery = (AdhocQueryType) ((JAXBElement) anyItem).getValue();
                 }
             } else if (anyItem instanceof Element) {
-                log.debug("Any item was Element");
+                LOG.debug("Any item was Element");
                 Element element = (Element) anyItem;
-                log.debug("SubscribeTransformHelper.getAdhocQuery - element name of any in list: "
+                LOG.debug("SubscribeTransformHelper.getAdhocQuery - element name of any in list: "
                         + element.getLocalName());
                 adhocQuery = unmarshalAdhocQuery(element);
                 // Object o = (JAXBElement<oasis.names.tc.ebxml_regrep.xsd.rim._3.AdhocQueryType>) anyItem;
 
                 // Object o = (JAXBElement<oasis.names.tc.ebxml_regrep.xsd.rim._3.AdhocQueryType>) anyItem;
             } else {
-                log.debug("Any type did not fit any expected value");
+                LOG.debug("Any type did not fit any expected value");
             }
         }
         return adhocQuery;
@@ -169,34 +169,34 @@ public class SubscribeTransformHelper {
     public static AdhocQueryType unmarshalAdhocQuery(Element adhocQueryElement) {
         AdhocQueryType unmarshalledObject = null;
         String contextPath = "oasis.names.tc.ebxml_regrep.xsd.rim._3";
-        log.debug("begin unmarshal");
+        LOG.debug("begin unmarshal");
 
         if (adhocQueryElement == null) {
-            log.warn("element to unmarshal is null");
+            LOG.warn("element to unmarshal is null");
         } else if (contextPath == null) {
-            log.warn("no contextPath supplied");
+            LOG.warn("no contextPath supplied");
         } else {
             try {
-                log.debug("desializing element");
+                LOG.debug("desializing element");
                 String serializedElement = XmlUtility.serializeElement(adhocQueryElement);
-                log.debug("serializedElement=[" + serializedElement + "]");
-                log.debug("get instance of JAXBContext [contextPath='" + contextPath + "']");
+                LOG.debug("serializedElement=[" + serializedElement + "]");
+                LOG.debug("get instance of JAXBContext [contextPath='" + contextPath + "']");
                 JAXBContextHandler oHandler = new JAXBContextHandler();
                 JAXBContext jc = oHandler.getJAXBContext(contextPath);
-                log.debug("get instance of unmarshaller");
+                LOG.debug("get instance of unmarshaller");
                 javax.xml.bind.Unmarshaller unmarshaller = jc.createUnmarshaller();
-                log.debug("init stringReader");
+                LOG.debug("init stringReader");
                 StringReader stringReader = new StringReader(serializedElement);
-                log.debug("Calling unmarshal");
+                LOG.debug("Calling unmarshal");
                 JAXBElement<AdhocQueryType> jaxbElement = (JAXBElement<AdhocQueryType>) unmarshaller
                         .unmarshal(stringReader);
-                log.debug("unmarshalled to JAXBElement");
+                LOG.debug("unmarshalled to JAXBElement");
                 unmarshalledObject = jaxbElement.getValue();
-                log.debug("end unmarshal");
+                LOG.debug("end unmarshal");
             } catch (Exception e) {
                 // "java.security.PrivilegedActionException: java.lang.ClassNotFoundException: com.sun.xml.bind.v2.ContextFactory"
                 // use jaxb element
-                log.error("Failed to unmarshall: " + e.getMessage(), e);
+                LOG.error("Failed to unmarshall: " + e.getMessage(), e);
                 unmarshalledObject = null;
             }
         }

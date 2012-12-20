@@ -17,7 +17,6 @@ import java.security.cert.X509Certificate;
 import java.security.interfaces.RSAPublicKey;
 
 import org.apache.log4j.Logger;
-import org.apache.commons.logging.LogFactory;
 
 /**
  * @author mweaver

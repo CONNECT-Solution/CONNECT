@@ -38,6 +38,7 @@ import javax.xml.ws.handler.MessageContext;
 import javax.xml.ws.handler.soap.SOAPMessageContext;
 
 import org.w3c.dom.Element;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -46,41 +47,41 @@ import org.w3c.dom.Element;
  */
 public class SoapUtil {
 
-    private static org.apache.commons.logging.Log log = org.apache.commons.logging.LogFactory.getLog(SoapUtil.class);
+    private static final Logger LOG = Logger.getLogger(SoapUtil.class);
 
     /**
      * @param context
      * @param attributeName
      */
     public void saveSoapMessageToContext(SOAPMessageContext context, String attributeName) {
-        log.debug("******** In handleMessage() *************");
+        LOG.debug("******** In handleMessage() *************");
         SOAPMessage soapMessage = null;
         String soapMessageText = null;
         try {
             if (context != null) {
-                log.debug("******** Context was not null *************");
+                LOG.debug("******** Context was not null *************");
                 soapMessage = context.getMessage();
-                log.debug("******** After getMessage *************");
+                LOG.debug("******** After getMessage *************");
 
                 if (soapMessage != null) {
-                    log.debug("******** Attempting to write out SOAP message *************");
+                    LOG.debug("******** Attempting to write out SOAP message *************");
                     try {
                         ByteArrayOutputStream bos = new ByteArrayOutputStream();
                         soapMessage.writeTo(bos);
                         soapMessageText = bos.toString();
-                        log.debug("Captured soap message: " + soapMessageText);
+                        LOG.debug("Captured soap message: " + soapMessageText);
                     } catch (Throwable t) {
-                        log.debug("Exception writing out the message");
+                        LOG.debug("Exception writing out the message");
                         t.printStackTrace();
                     }
                 } else {
-                    log.debug("SOAPMessage was null");
+                    LOG.debug("SOAPMessage was null");
                 }
             } else {
-                log.debug("SOAPMessageContext was null.");
+                LOG.debug("SOAPMessageContext was null.");
             }
         } catch (Throwable t) {
-            log.debug("Error logging the SOAP message: " + t.getMessage());
+            LOG.debug("Error logging the SOAP message: " + t.getMessage());
             t.printStackTrace();
         }
         if (soapMessage != null) {
@@ -108,17 +109,17 @@ public class SoapUtil {
 
         SOAPMessage soapMessage = extractSoapMessageObject(context, attributeName);
         if (soapMessage != null) {
-            log.debug("******** Attempting to write out SOAP message *************");
+            LOG.debug("******** Attempting to write out SOAP message *************");
             try {
                 ByteArrayOutputStream bos = new ByteArrayOutputStream();
                 soapMessage.writeTo(bos);
                 extractedMessage = new String(bos.toByteArray());
-                log.debug("Extracted soap message: " + extractedMessage);
+                LOG.debug("Extracted soap message: " + extractedMessage);
             } catch (Throwable t) {
-                log.error("Exception writing out the message", t);
+                LOG.error("Exception writing out the message", t);
             }
         } else {
-            log.debug("SOAPMessage was null");
+            LOG.debug("SOAPMessage was null");
         }
         return extractedMessage;
     }
@@ -130,7 +131,7 @@ public class SoapUtil {
         try {
             messageElement = XmlUtility.convertXmlToElement(extractedMessage);
         } catch (Exception ex) {
-            log.error("failed to convert soap xml to element", ex);
+            LOG.error("failed to convert soap xml to element", ex);
         }
         return messageElement;
     }

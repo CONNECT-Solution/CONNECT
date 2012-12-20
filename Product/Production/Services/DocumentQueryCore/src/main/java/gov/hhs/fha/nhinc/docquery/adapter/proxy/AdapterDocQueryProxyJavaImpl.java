@@ -41,7 +41,7 @@ import org.apache.log4j.Logger;
  * @author jhoppesc
  */
 public class AdapterDocQueryProxyJavaImpl implements AdapterDocQueryProxy {
-    private static Logger log = Logger.getLogger(AdapterDocQueryProxyJavaImpl.class);
+    private static final Logger LOG = Logger.getLogger(AdapterDocQueryProxyJavaImpl.class);
 
     /**
      *@param msg The AdhocQueryRequest message.
@@ -52,7 +52,7 @@ public class AdapterDocQueryProxyJavaImpl implements AdapterDocQueryProxy {
             afterReturningBuilder = AdhocQueryResponseDescriptionBuilder.class, serviceType = "Document Query",
             version = "")
     public AdhocQueryResponse respondingGatewayCrossGatewayQuery(AdhocQueryRequest msg, AssertionType assertion) {
-        log.debug("Using Java Implementation for Adapter Doc Query Service");
+        LOG.debug("Using Java Implementation for Adapter Doc Query Service");
         return new AdapterDocQueryOrchImpl().respondingGatewayCrossGatewayQuery(msg, assertion);
     }
 

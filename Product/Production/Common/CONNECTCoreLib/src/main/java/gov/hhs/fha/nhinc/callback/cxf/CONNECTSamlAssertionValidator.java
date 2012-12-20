@@ -11,6 +11,7 @@ import org.apache.ws.security.validate.SamlAssertionValidator;
 import org.opensaml.xml.validation.ValidationException;
 import org.opensaml.xml.validation.ValidatorSuite;
 
+import org.apache.log4j.Logger;
 /**
  * {@inheritDoc}
  * 
@@ -19,8 +20,7 @@ import org.opensaml.xml.validation.ValidatorSuite;
  */
 public class CONNECTSamlAssertionValidator extends SamlAssertionValidator {
 
-    private static org.apache.commons.logging.Log LOG = org.apache.commons.logging.LogFactory
-            .getLog(CONNECTSamlAssertionValidator.class);
+    private static final Logger LOG = Logger.getLogger(CONNECTSamlAssertionValidator.class);
 
     private static final String ALLOW_NO_SUBJECT_ASSERTION_PROP = "allowNoSubjectAssertion";
     private static final String ALLOW_NO_SUBJECT_ASSERTION_ID = "saml2-core-spec-validator-allow-no-subject-assertion";

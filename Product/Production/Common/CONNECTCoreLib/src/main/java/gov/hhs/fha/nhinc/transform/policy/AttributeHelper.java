@@ -38,6 +38,7 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import org.hl7.v3.II;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.apache.log4j.Logger;
 
 /**
  * 
@@ -45,15 +46,14 @@ import org.w3c.dom.Element;
  */
 public class AttributeHelper {
 
-    private static org.apache.commons.logging.Log log = org.apache.commons.logging.LogFactory
-            .getLog(AttributeHelper.class);
+    private static final Logger LOG = Logger.getLogger(AttributeHelper.class);
 
     public AttributeType attributeFactory(String attributeId, String dataType, String value) {
         return attributeFactory(attributeId, dataType, (Object) value);
     }
 
     public AttributeType attributeFactory(String attributeId, String dataType, Object value) {
-        log.debug("creating XACML attribute [id='" + attributeId + "'; value='" + value + "'; datatype='" + dataType
+        LOG.debug("creating XACML attribute [id='" + attributeId + "'; value='" + value + "'; datatype='" + dataType
                 + "']");
 
         // There is a problem if the value is null. If that occurs then we get a XACML Attribute outer tag
@@ -62,7 +62,7 @@ public class AttributeHelper {
         // a JAXB list where the value is null turns into a noop.
         // -----------------------------------------------------------------------------------------------------------------
         if (value == null) {
-            log.debug("XACML attribute [id='" + attributeId
+            LOG.debug("XACML attribute [id='" + attributeId
                     + "' was null - returning null - no atribute will be added.");
             return null;
         }
@@ -89,7 +89,7 @@ public class AttributeHelper {
                 iiElement.setAttribute("extension", iiValue.getExtension());
                 atttibuteValue.getContent().add(iiElement);
             } catch (Exception e) {
-                log.error("Unable to add II attribute " + e.getMessage());
+                LOG.error("Unable to add II attribute " + e.getMessage());
             }
         } else {
             // Note sure what to do with the rest - just put them in...

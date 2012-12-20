@@ -31,11 +31,13 @@ import gov.hhs.fha.nhinc.nhinclib.NhincConstants.GATEWAY_API_LEVEL;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants.UDDI_SPEC_VERSION;
 
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
+import org.apache.log4j.Logger;
 
 
 public class NhinEndpointManager {
+	
+	private static final Logger LOG = Logger.getLogger(NhinEndpointManager.class);
     
     protected ConnectionManagerCacheHelper getConnectionManagerCacheHelper() {
         return new ConnectionManagerCacheHelper();
@@ -57,7 +59,7 @@ public class NhinEndpointManager {
             UDDI_SPEC_VERSION specVersion = helper.getHighestUDDISpecVersion(specVersions);
             result = getHighestGatewayApiLevelSupportedBySpec(specVersion, serviceName);
         } catch (Exception ex) {
-            Logger.getLogger(ConnectionManagerCache.class.getName()).log(Level.SEVERE, null, ex);
+            LOG.error("Error getting API version: ", ex);
         }
 
         return (result == null) ? GATEWAY_API_LEVEL.LEVEL_g1 : result;
@@ -70,7 +72,7 @@ public class NhinEndpointManager {
         	UddiSpecVersionRegistry specRegistry = getUddiSpecVersionRegistry();
         	highestApiLevel = specRegistry.getSupportedGatewayAPI(specVersion, serviceName);
         } catch (Exception ex) {
-            Logger.getLogger(ConnectionManagerCache.class.getName()).log(Level.SEVERE, null, ex);
+            LOG.error("Error in getting highest gateway API level supported by specification: ", ex);
         }
 
         return highestApiLevel;
