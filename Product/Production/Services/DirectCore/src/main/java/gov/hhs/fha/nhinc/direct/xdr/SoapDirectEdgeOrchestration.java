@@ -26,8 +26,8 @@
  */
 package gov.hhs.fha.nhinc.direct.xdr;
 
-import gov.hhs.fha.nhinc.direct.DirectClient;
-import gov.hhs.fha.nhinc.direct.DirectClientFactory;
+import gov.hhs.fha.nhinc.direct.DirectSender;
+import gov.hhs.fha.nhinc.direct.DirectAdapterFactory;
 import gov.hhs.fha.nhinc.direct.addressparsing.FromAddressParser;
 import gov.hhs.fha.nhinc.direct.addressparsing.FromAddressParserFactory;
 import gov.hhs.fha.nhinc.direct.addressparsing.ToAddressParser;
@@ -51,7 +51,7 @@ public class SoapDirectEdgeOrchestration {
     private static final Logger LOG = Logger.getLogger(SoapDirectEdgeOrchestration.class);
 
     private XdsDirectDocumentsTransformer xdsDirectDocumentsTransformer = null;
-    private DirectClient directClient = null;
+    private DirectSender directSender = null;
     private SoapEdgeAuditor auditor = null;
 
     /**
@@ -101,19 +101,19 @@ public class SoapDirectEdgeOrchestration {
         FromAddressParser fromParser = new FromAddressParserFactory().getFromParser();
         Address addressFrom = fromParser.parse(context.getDirectFrom(), documents);
 
-        getDirectClient().processAndSend(addressFrom, addressTo, documents, context.getMessageId());
+        getDirectSender().sendOutboundDirect(addressFrom, addressTo, documents, context.getMessageId());
 
         return new XDCommonResponseHelper().createSuccess();
     }
 
     /**
-     * @return The DirectClient impl
+     * @return The DirectSender impl
      */
-    private DirectClient getDirectClient() {
-        if (directClient == null) {
-            directClient = new DirectClientFactory().getDirectClient();
+    private DirectSender getDirectSender() {
+        if (directSender == null) {
+            directSender = new DirectAdapterFactory().getDirectSender();
         }
-        return directClient;
+        return directSender;
     }
 
     /**
