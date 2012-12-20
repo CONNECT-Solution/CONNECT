@@ -74,6 +74,7 @@ public class DirectAdapterUtils {
 
     /**
      * Extract the NHINDAddress sender from the mime headers of the message.
+     * 
      * @param message mime message
      * @return NHINDAddress for the sender
      * @throws MessagingException if there was an error

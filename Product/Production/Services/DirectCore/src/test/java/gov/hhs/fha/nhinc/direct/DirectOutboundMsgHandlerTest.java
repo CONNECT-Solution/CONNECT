@@ -31,6 +31,7 @@ import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import gov.hhs.fha.nhinc.direct.event.DirectEventLogger;
 import gov.hhs.fha.nhinc.mail.MailClientException;
 import gov.hhs.fha.nhinc.mail.MailSender;
 import gov.hhs.fha.nhinc.mail.MessageHandler;
@@ -48,7 +49,7 @@ import org.nhindirect.stagent.NHINDAddressCollection;
 /**
  * Test {@link OutboundMessageHandler}.
  */
-public class DirectOutboundMsgHandlerTest {
+public class DirectOutboundMsgHandlerTest extends DirectBaseTest {
     
     private SmtpAgent mockSmtpAgent;
     private MessageProcessResult mockResult;
@@ -72,7 +73,7 @@ public class DirectOutboundMsgHandlerTest {
                 any(NHINDAddress.class))).thenReturn(mockResult);
         
         mockExtMailSender = mock(MailSender.class);
-        directSender = new DirectSenderImpl(mockExtMailSender, mockSmtpAgent);        
+        directSender = new DirectSenderImpl(mockExtMailSender, mockSmtpAgent, DirectEventLogger.getInstance());        
         testOutboundMsgHandler = new DirectOutboundMsgHandler(directSender);
 
         MimeMessage mimeMessage = getSampleMimeMessage();

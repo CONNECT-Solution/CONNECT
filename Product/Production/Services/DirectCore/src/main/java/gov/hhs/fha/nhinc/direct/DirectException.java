@@ -41,6 +41,7 @@ public class DirectException extends RuntimeException {
 
     private static final long serialVersionUID = 4636463959045310435L;
     private static final Logger LOG = Logger.getLogger(DirectException.class);
+    private static DirectEventLogger directEventLogger;
 
     /**
      * Constructor.
@@ -52,7 +53,7 @@ public class DirectException extends RuntimeException {
     public DirectException(String message, Throwable cause, MimeMessage mimeMessage) {
         super(message, cause);
         LOG.error(message, cause);
-        getDirectEventLogger().log(DirectEventType.DIRECT_ERROR, mimeMessage, message + cause.getMessage());
+        directEventLogger.log(DirectEventType.DIRECT_ERROR, mimeMessage, message + cause.getMessage());
     }
 
     /**
@@ -64,7 +65,7 @@ public class DirectException extends RuntimeException {
     public DirectException(String message, MimeMessage mimeMessage) {
         super(message);
         LOG.error(message);
-        getDirectEventLogger().log(DirectEventType.DIRECT_ERROR, mimeMessage, message);
+        directEventLogger.log(DirectEventType.DIRECT_ERROR, mimeMessage, message);
     }
 
     
@@ -77,7 +78,7 @@ public class DirectException extends RuntimeException {
     public DirectException(String message, Throwable cause) {
         super(message, cause);
         LOG.error(message, cause);
-        getDirectEventLogger().log(DirectEventType.DIRECT_ERROR, message + cause.getMessage());
+        directEventLogger.log(DirectEventType.DIRECT_ERROR, message + cause.getMessage());
     }
 
     /**
@@ -88,10 +89,14 @@ public class DirectException extends RuntimeException {
     public DirectException(String message) {
         super(message);
         LOG.error(message);
-        getDirectEventLogger().log(DirectEventType.DIRECT_ERROR, message);
+        directEventLogger.log(DirectEventType.DIRECT_ERROR, message);
     }
-    
-    private DirectEventLogger getDirectEventLogger() {
-        return DirectEventLogger.getInstance();
+
+    /**
+     * Statically inject a {@link DirectEventLogger}.
+     * @param directEventLogger the directEventLogger to set
+     */
+    public static void setDirectEventLogger(DirectEventLogger directEventLogger) {
+        DirectException.directEventLogger = directEventLogger;
     }
 }

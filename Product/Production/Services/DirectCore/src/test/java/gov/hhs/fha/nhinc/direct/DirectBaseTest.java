@@ -24,52 +24,23 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.direct.transform;
+package gov.hhs.fha.nhinc.direct;
 
-import gov.hhs.fha.nhinc.direct.DirectException;
-import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
+import gov.hhs.fha.nhinc.direct.event.DirectEventLogger;
 
-import javax.mail.internet.MimeMessage;
-
-import org.apache.log4j.Logger;
-import org.nhindirect.xd.transform.MimeXdsTransformer;
-import org.nhindirect.xd.transform.exception.TransformationException;
-import org.nhindirect.xd.transform.impl.DefaultMimeXdsTransformer;
+import org.junit.BeforeClass;
 
 /**
- * @author mweaver
- *
+ * Base class for Direct Unit Tests.
  */
-public class MimeMessageTransformer {
-    
-    private static final Logger LOG = Logger.getLogger(MimeMessageTransformer.class);
-    private static final String ERROR_MESSAGE = "Error transforming message to XDR";
-    private final MimeXdsTransformer transformer;
-    
-    /**
-     * Constructor.
-     */
-    public MimeMessageTransformer() {
-        transformer = getMimeXdsTransformer();
-    }
-    
-    /**
-     * @param message to be transformed
-     * @return ProvideAndRegisterDocumentSetRequestType representation of the message.
-     */
-    public ProvideAndRegisterDocumentSetRequestType transform(MimeMessage message) {
-        ProvideAndRegisterDocumentSetRequestType request = null;
-        try {
-            request = transformer.transform(message);
-        } catch (TransformationException e) {
-            LOG.error(ERROR_MESSAGE, e);
-            throw new DirectException(ERROR_MESSAGE, e);
-        }
-        return request;
-    }
-    
-    private MimeXdsTransformer getMimeXdsTransformer() {
-        return new DefaultMimeXdsTransformer();
-    }
+public class DirectBaseTest {
 
+    /**
+     * Statically inject a Direct Event Logger for direct exception handling.
+     */
+    @BeforeClass
+    public static void doBeforeClass() {
+        DirectException.setDirectEventLogger(DirectEventLogger.getInstance());
+    }
+    
 }

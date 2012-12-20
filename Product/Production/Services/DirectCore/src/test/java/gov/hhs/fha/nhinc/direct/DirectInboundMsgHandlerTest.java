@@ -35,6 +35,7 @@ import static org.mockito.Mockito.when;
 import gov.hhs.fha.nhinc.direct.edge.proxy.DirectEdgeProxy;
 import gov.hhs.fha.nhinc.direct.edge.proxy.DirectEdgeProxySmtpImpl;
 import gov.hhs.fha.nhinc.direct.edge.proxy.DirectEdgeProxySoapImpl;
+import gov.hhs.fha.nhinc.direct.event.DirectEventLogger;
 import gov.hhs.fha.nhinc.mail.MailClientException;
 import gov.hhs.fha.nhinc.mail.MailSender;
 import gov.hhs.fha.nhinc.mail.MessageHandler;
@@ -54,7 +55,7 @@ import org.nhindirect.stagent.NHINDAddressCollection;
 /**
  * Test {@link InboundMessageHandler}.
  */
-public class DirectInboundMsgHandlerTest {
+public class DirectInboundMsgHandlerTest extends DirectBaseTest {
 
     private SmtpAgent mockSmtpAgent;
     private MailSender mockExtMailSender;
@@ -128,7 +129,7 @@ public class DirectInboundMsgHandlerTest {
     }
     
     private void setUpForSmtpEdgeClient() {
-        directReceiver = new DirectReceiverImpl(mockExtMailSender, mockSmtpAgent) {
+        directReceiver = new DirectReceiverImpl(mockExtMailSender, mockSmtpAgent, DirectEventLogger.getInstance()) {
             /**
              * {@inheritDoc}
              */
@@ -142,15 +143,14 @@ public class DirectInboundMsgHandlerTest {
     }
 
     private void setUpForSoapEdgeClient() {
-        directReceiver = new DirectReceiverImpl(mockExtMailSender, mockSmtpAgent) {
+        directReceiver = new DirectReceiverImpl(mockExtMailSender, mockSmtpAgent, DirectEventLogger.getInstance()) {
             /**
              * {@inheritDoc}
              */
             @Override
             protected DirectEdgeProxy getDirectEdgeProxy() {
                 return new DirectEdgeProxySoapImpl(new WebServiceProxyHelper());
-            }
-            
+            }            
         };        
         testInboundMsgHandler = new DirectInboundMsgHandler(directReceiver);
     }

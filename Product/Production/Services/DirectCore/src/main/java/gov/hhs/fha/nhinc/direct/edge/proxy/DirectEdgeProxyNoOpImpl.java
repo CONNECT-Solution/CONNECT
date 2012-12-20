@@ -31,9 +31,16 @@ import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
 import org.apache.log4j.Logger;
 
+/**
+ * No-op impl of the direct edge client proxy.
+ */
 public class DirectEdgeProxyNoOpImpl implements DirectEdgeProxy {
+
     private static final Logger LOG = Logger.getLogger(DirectEdgeProxyNoOpImpl.class);
 
+    /**
+     * {@inheritDoc}
+     */
     public RegistryResponseType provideAndRegisterDocumentSetB(MimeMessage message) {
         LOG.debug("Using NoOp Implementation for Adapter Doc Submission Service");
         return new RegistryResponseType();

@@ -45,11 +45,12 @@ public class DirectSenderImpl extends DirectAdapter implements DirectSender {
     private static final String MSG_TEXT = "DIRECT Message body text";
     
     /**
-     * @param externalMailClient
-     * @param smtpAgent
+     * @param externalMailSender used to send messages.
+     * @param smtpAgent used to process direct messages.
+     * @param directEventLogger used to log direct events.
      */
-    public DirectSenderImpl(MailSender externalMailSender, SmtpAgent smtpAgent) {
-        super(externalMailSender, smtpAgent);
+    public DirectSenderImpl(MailSender externalMailSender, SmtpAgent smtpAgent, DirectEventLogger directEventLogger) {
+        super(externalMailSender, smtpAgent, directEventLogger);
     }
 
     /**
@@ -57,14 +58,14 @@ public class DirectSenderImpl extends DirectAdapter implements DirectSender {
      */
     @Override
     public void sendOutboundDirect(MimeMessage message) {
-        DirectEventLogger.getInstance().log(DirectEventType.BEGIN_OUTBOUND_DIRECT, message);
+        getDirectEventLogger().log(DirectEventType.BEGIN_OUTBOUND_DIRECT, message);
         try {
             MimeMessage processedMessage = process(message).getProcessedMessage().getMessage();
             getExternalMailSender().send(message.getAllRecipients(), processedMessage);
         } catch (Exception e) {
             throw new DirectException("Exception sending outbound direct.", e, message);
         }
-        DirectEventLogger.getInstance().log(DirectEventType.END_OUTBOUND_DIRECT, message);
+        getDirectEventLogger().log(DirectEventType.END_OUTBOUND_DIRECT, message);
     }
     
     /**

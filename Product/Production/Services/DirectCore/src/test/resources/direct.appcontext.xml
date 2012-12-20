@@ -31,14 +31,29 @@
         <constructor-arg><ref bean="externalMailProperties" /></constructor-arg>
     </bean>
 
+    <!-- Direct Event Logger for injection -->
+    <bean id="directEventLogger" class="gov.hhs.fha.nhinc.direct.event.DirectEventLogger" factory-method="getInstance"
+        scope="singleton" />
+        
+    <!-- Statically inject direct event logger for exception handling -->
+    <bean name="staticDirectExceptionInitializer" 
+          class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
+        <property name="staticMethod" value="gov.hhs.fha.nhinc.direct.DirectException.setDirectEventLogger"/>
+        <property name="arguments">
+            <list><ref bean="directEventLogger"/></list>
+       </property>
+    </bean>
+    
     <!-- Set up the Direct Adapters - Sending and Receiving -->
     <bean id="directSender" class="gov.hhs.fha.nhinc.direct.DirectSenderImpl">
         <constructor-arg><ref bean="extMailSender" /></constructor-arg>
         <constructor-arg><ref bean="smtpAgent" /></constructor-arg>
+        <constructor-arg ref="directEventLogger" />
     </bean>
     <bean id="directReceiver" class="gov.hhs.fha.nhinc.direct.DirectReceiverImpl">
         <constructor-arg><ref bean="extMailSender" /></constructor-arg>
         <constructor-arg><ref bean="smtpAgent" /></constructor-arg>
+        <constructor-arg ref="directEventLogger" />
     </bean>
 
     <!-- Set up message handlers -->
