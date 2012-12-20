@@ -15,6 +15,7 @@
 						<accessPoint useType="endPoint">https://localhost:8181/Gateway/DocumentQuery/2_0/NhinService/RespondingGateway_Query_Service/DocQuery</accessPoint>
 						<categoryBag>
 							<keyedReference keyName="" keyValue="2.0" tModelKey="uddi:nhin:versionofservice"/>
+							<keyedReference keyName="" keyValue="3.0" tModelKey="uddi:nhin:versionofservice"/>
 						</categoryBag>
 					</bindingTemplate>
 				</bindingTemplates>
@@ -292,6 +293,7 @@
 						<accessPoint useType="endPoint">https://localhost:8181/Gateway/DocumentQuery/2_0/NhinService/RespondingGateway_Query_Service/DocQuery</accessPoint>
 						<categoryBag>
 							<keyedReference keyName="" keyValue="2.0" tModelKey="uddi:nhin:versionofservice"/>
+							<keyedReference keyName="" keyValue="3.0" tModelKey="uddi:nhin:versionofservice"/>
 						</categoryBag>
 					</bindingTemplate>
 				</bindingTemplates>

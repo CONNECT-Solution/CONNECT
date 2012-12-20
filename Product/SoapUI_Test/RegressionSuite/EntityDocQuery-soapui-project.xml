@@ -51,10 +51,10 @@ context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;$
   def remotePatientID2 = context.findProperty("RemotePatientID2")
   def insertSql = "insert into " + table + " (correlationId, PatientAssigningAuthorityId, PatientId, CorrelatedPatientAssignAuthId, CorrelatedPatientId) " + 
                    "values (?, ?, ?, ?, ?)"
-//  sql.executeUpdate(insertSql, [1, localAA, localPatientID, remoteAA1, remotePatientID1])
-//  sql.executeUpdate(insertSql, [2, localAA, localPatientID, remoteAA2, remotePatientID2])
-  sql.executeUpdate(insertSql, [1, remoteAA1, remotePatientID1, localAA, localPatientID])
-  sql.executeUpdate(insertSql, [2, remoteAA2, remotePatientID2, localAA, localPatientID])
+  sql.executeUpdate(insertSql, [1, localAA, localPatientID, remoteAA1, remotePatientID1])
+  sql.executeUpdate(insertSql, [2, localAA, localPatientID, remoteAA2, remotePatientID2])
+  //sql.executeUpdate(insertSql, [1, remoteAA1, remotePatientID1, localAA, localPatientID])
+  //sql.executeUpdate(insertSql, [2, remoteAA2, remotePatientID2, localAA, localPatientID])
 }</script></con:config>
       </con:testStep>
       <con:testStep name="Clear AA Mapping Table &amp; Add Mapping" type="groovy">
@@ -112,11 +112,11 @@ nhinc.FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml",destConfigFile
                      <urn2:Value>${#TestCase#FullPatientID}</urn2:Value>
                   </urn2:ValueList>
                </urn2:Slot>
-		<urn2:Slot name="$XDSDocumentEntryType">
-			<urn2:ValueList>
-			<urn2:Value>('${#Project#DQStableDocs}','${#Project#DQDynamicDocs}')</urn2:Value>
-			</urn2:ValueList>
-		</urn2:Slot>
+               <urn2:Slot name="$XDSDocumentEntryType">
+                  <urn2:ValueList>
+                     <urn2:Value>('${#Project#DQStableDocs}','${#Project#DQDynamicDocs}')</urn2:Value>
+                  </urn2:ValueList>
+               </urn2:Slot>
             </urn2:AdhocQuery>
          </urn1:AdhocQueryRequest>
          <urn:assertion>
@@ -322,12 +322,13 @@ nhinc.FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml",destConfigFile
                         <urn3:notBefore>2009-04-16T13:10:39.093Z</urn3:notBefore>
                         <urn3:notOnOrAfter>2009-12-31T12:00:00.000Z</urn3:notOnOrAfter>
                      </urn3:conditions>
+                     <urn3:accessConsentPolicy>urn:oid:1.2.3.4</urn3:accessConsentPolicy>
+                     <urn3:instanceAccessConsentPolicy>urn:oid:1.2.3.4.123456789</urn3:instanceAccessConsentPolicy>
                   </urn3:assertion>
                </urn3:evidence>
             </urn3:samlAuthzDecisionStatement>
          </urn:assertion>
-
-   <!--      <urn:NhinTargetCommunities>
+         <!--urn:NhinTargetCommunities>
             <urn3:nhinTargetCommunity>
                <urn3:homeCommunity>
                   <urn3:description></urn3:description>
@@ -337,8 +338,7 @@ nhinc.FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml",destConfigFile
                <urn3:list/>
                <urn3:region>US-NY</urn3:region>
             </urn3:nhinTargetCommunity>
-         </urn:NhinTargetCommunities> -->
-
+         </urn:NhinTargetCommunities-->
       </urn:RespondingGateway_CrossGatewayQueryRequest>
    </soapenv:Body>
 </soapenv:Envelope>]]></con:request>
@@ -364,19 +364,19 @@ count(//ns6:AdhocQueryResponse[1]/ns3:RegistryObjectList[1]/ns3:ExtrinsicObject)
       </con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2012-12-13T01:44:19Z</con:value>
+          <con:value>2012-12-18T14:52:11Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2012-12-13T01:54:19Z</con:value>
+          <con:value>2012-12-18T15:02:11Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>12/13/2012 01:44:19</con:value>
+          <con:value>12/18/2012 14:52:11</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2013-01-12T00:00:00Z</con:value>
+          <con:value>2013-01-17T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>FullPatientID</con:name>
@@ -697,6 +697,8 @@ nhinc.FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFil
                         <urn3:notBefore>2009-04-16T13:10:39.093Z</urn3:notBefore>
                         <urn3:notOnOrAfter>2009-12-31T12:00:00.000Z</urn3:notOnOrAfter>
                      </urn3:conditions>
+                     <urn3:accessConsentPolicy>urn:oid:1.2.3.4</urn3:accessConsentPolicy>
+                     <urn3:instanceAccessConsentPolicy>urn:oid:1.2.3.4.123456789</urn3:instanceAccessConsentPolicy>
                   </urn3:assertion>
                </urn3:evidence>
             </urn3:samlAuthzDecisionStatement>
@@ -747,19 +749,19 @@ count(//ns9:AdhocQueryResponse[1]/ns7:RegistryErrorList[1]/ns7:RegistryError)</p
       </con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2012-12-13T01:44:19Z</con:value>
+          <con:value>2012-12-18T14:10:30Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2012-12-13T01:54:19Z</con:value>
+          <con:value>2012-12-18T14:20:30Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>12/13/2012 01:44:19</con:value>
+          <con:value>12/18/2012 14:10:30</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2013-01-12T00:00:00Z</con:value>
+          <con:value>2013-01-17T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>FullPatientID</con:name>
@@ -1072,6 +1074,8 @@ nhinc.FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFil
                         <urn3:notBefore>2009-04-16T13:10:39.093Z</urn3:notBefore>
                         <urn3:notOnOrAfter>2009-12-31T12:00:00.000Z</urn3:notOnOrAfter>
                      </urn3:conditions>
+                     <urn3:accessConsentPolicy>urn:oid:1.2.3.4</urn3:accessConsentPolicy>
+                     <urn3:instanceAccessConsentPolicy>urn:oid:1.2.3.4.123456789</urn3:instanceAccessConsentPolicy>
                   </urn3:assertion>
                </urn3:evidence>
             </urn3:samlAuthzDecisionStatement>
@@ -1107,23 +1111,23 @@ count(//ns6:AdhocQueryResponse[1]/ns3:RegistryObjectList[1]/ns3:ExtrinsicObject)
       </con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2012-12-13T01:44:20Z</con:value>
+          <con:value>2012-12-18T14:30:47Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2012-12-13T01:54:20Z</con:value>
+          <con:value>2012-12-18T14:40:47Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>12/13/2012 01:44:20</con:value>
+          <con:value>12/18/2012 14:30:47</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2013-01-12T00:00:00Z</con:value>
+          <con:value>2013-01-17T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>FullPatientID</con:name>
-          <con:value>'D123400^^^&amp;amp;1.1&amp;amp;ISO'</con:value>
+          <con:value>'D123401^^^&amp;amp;1.1&amp;amp;ISO'</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -1439,6 +1443,8 @@ nhinc.FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFil
                         <urn3:notBefore>2009-04-16T13:10:39.093Z</urn3:notBefore>
                         <urn3:notOnOrAfter>2009-12-31T12:00:00.000Z</urn3:notOnOrAfter>
                      </urn3:conditions>
+                     <urn3:accessConsentPolicy>urn:oid:1.2.3.4</urn3:accessConsentPolicy>
+                     <urn3:instanceAccessConsentPolicy>urn:oid:1.2.3.4.123456789</urn3:instanceAccessConsentPolicy>
                   </urn3:assertion>
                </urn3:evidence>
             </urn3:samlAuthzDecisionStatement>
@@ -1481,19 +1487,19 @@ count(//ns6:AdhocQueryResponse[1]/ns3:RegistryObjectList[1]/ns3:ExtrinsicObject)
       </con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2012-12-13T01:44:21Z</con:value>
+          <con:value>2012-12-18T14:10:31Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2012-12-13T01:54:21Z</con:value>
+          <con:value>2012-12-18T14:20:31Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>12/13/2012 01:44:21</con:value>
+          <con:value>12/18/2012 14:10:31</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2013-01-12T00:00:00Z</con:value>
+          <con:value>2013-01-17T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>FullPatientID</con:name>
@@ -1813,6 +1819,8 @@ nhinc.FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFil
                         <urn3:notBefore>2009-04-16T13:10:39.093Z</urn3:notBefore>
                         <urn3:notOnOrAfter>2009-12-31T12:00:00.000Z</urn3:notOnOrAfter>
                      </urn3:conditions>
+                     <urn3:accessConsentPolicy>urn:oid:1.2.3.4</urn3:accessConsentPolicy>
+                     <urn3:instanceAccessConsentPolicy>urn:oid:1.2.3.4.123456789</urn3:instanceAccessConsentPolicy>
                   </urn3:assertion>
                </urn3:evidence>
             </urn3:samlAuthzDecisionStatement>
@@ -1855,19 +1863,19 @@ count(//ns6:AdhocQueryResponse[1]/ns3:RegistryObjectList[1]/ns3:ExtrinsicObject)
       </con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2012-12-13T01:44:21Z</con:value>
+          <con:value>2012-12-18T14:10:32Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2012-12-13T01:54:21Z</con:value>
+          <con:value>2012-12-18T14:20:32Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>12/13/2012 01:44:21</con:value>
+          <con:value>12/18/2012 14:10:32</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2013-01-12T00:00:00Z</con:value>
+          <con:value>2013-01-17T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>FullPatientID</con:name>
