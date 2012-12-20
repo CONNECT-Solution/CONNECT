@@ -24,40 +24,23 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.direct.xdr;
-
-import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
-
-import javax.xml.ws.WebServiceContext;
-
-import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
+package gov.hhs.fha.nhinc.direct.xdr.audit;
 
 /**
- * The Class DirectXDRWebServiceImpl.
+ * Factory for creating SoapEdgeAuditors.
+ * 
+ * @author mweaver
+ * 
  */
-public class DirectXDRWebServiceImpl {
-
-    /** The context. */
-    WebServiceContext context = null;
+public class SoapEdgeAuditorFactory {
 
     /**
-     * Implementation business object of the JAXB web service interface. Manipulates web services headers, and delegates
-     * processing to the orchestration object.
+     * In the future if support for the CONNECT database audit logger is added, this method should determine which
+     * Auditor to use and then provide an instance of the chosen SoapEdgeAuditor.
      * 
-     * @param body the body of the XDR message.
-     * @param wsContext the ws context for manipulating ws headers.
-     * @return the registry response type
-     * @throws Exception the exception
+     * @return Returns a DirectRIAuditor.
      */
-    public RegistryResponseType provideAndRegisterDocumentSet(ProvideAndRegisterDocumentSetRequestType body,
-            WebServiceContext wsContext) throws Exception {
-        RegistryResponseType resp = null;
-        this.context = wsContext;
-
-        DirectHeaderExtractor extractor = new DirectHeaderExtractor();
-
-        SoapDirectEdgeOrchestration orch = new SoapDirectEdgeOrchestration();
-        resp = orch.orchestrate(body, extractor.getHeaderProperties(wsContext));
-        return resp;
+    public SoapEdgeAuditor getAuditor() {
+        return new DirectRIAuditor();
     }
 }

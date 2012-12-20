@@ -24,40 +24,55 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.direct.xdr;
+package gov.hhs.fha.nhinc.direct.addressparsing;
 
-import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
+import gov.hhs.fha.nhinc.direct.DirectException;
 
-import javax.xml.ws.WebServiceContext;
+import java.net.URI;
+import java.net.URISyntaxException;
 
-import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
+import javax.mail.Address;
+import javax.mail.internet.AddressException;
+import javax.mail.internet.InternetAddress;
 
-/**
- * The Class DirectXDRWebServiceImpl.
- */
-public class DirectXDRWebServiceImpl {
+import org.apache.commons.lang.StringUtils;
+import org.apache.log4j.Logger;
+import org.nhindirect.xd.common.DirectDocuments;
+import org.nhindirect.xd.transform.parse.ParserHL7;
 
-    /** The context. */
-    WebServiceContext context = null;
+public class DefaultFromAddresParser implements FromAddressParser {
+	private static final Logger LOG = Logger
+			.getLogger(DefaultFromAddresParser.class);
+	
+	@Override
+	public Address parse(String addresses, DirectDocuments documents) {
+		Address address = null;
+		String replyEmail = null;
+		
+		// Get a reply address (first check direct:from header, then
+		// go to authorPerson)
+		if (StringUtils.isNotBlank(addresses))
+			try {
+				replyEmail = (new URI(addresses)).getSchemeSpecificPart();
+			} catch (URISyntaxException e) {
+				LOG.error(
+						"Unable to parse Direct From header, attempting to parse XDR author telecom.",
+						e);
+			}
+		else {
+			replyEmail = documents.getSubmissionSet()
+					.getAuthorTelecommunication();
+			replyEmail = ParserHL7.parseXTN(replyEmail);
+		}
+		
+		try {
+			address = new InternetAddress(replyEmail);
+		} catch (AddressException e) {
+			String errorMesssage = "Unable to create InternetAddress from direct from address.";
+			throw new DirectException(errorMesssage, e);
+		}
+		
+		return address;
+	}
 
-    /**
-     * Implementation business object of the JAXB web service interface. Manipulates web services headers, and delegates
-     * processing to the orchestration object.
-     * 
-     * @param body the body of the XDR message.
-     * @param wsContext the ws context for manipulating ws headers.
-     * @return the registry response type
-     * @throws Exception the exception
-     */
-    public RegistryResponseType provideAndRegisterDocumentSet(ProvideAndRegisterDocumentSetRequestType body,
-            WebServiceContext wsContext) throws Exception {
-        RegistryResponseType resp = null;
-        this.context = wsContext;
-
-        DirectHeaderExtractor extractor = new DirectHeaderExtractor();
-
-        SoapDirectEdgeOrchestration orch = new SoapDirectEdgeOrchestration();
-        resp = orch.orchestrate(body, extractor.getHeaderProperties(wsContext));
-        return resp;
-    }
 }

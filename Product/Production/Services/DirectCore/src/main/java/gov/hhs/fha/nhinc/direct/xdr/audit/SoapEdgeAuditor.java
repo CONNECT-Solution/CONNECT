@@ -24,40 +24,30 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.direct.xdr;
+package gov.hhs.fha.nhinc.direct.xdr.audit;
 
-import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
-
-import javax.xml.ws.WebServiceContext;
-
-import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
+import gov.hhs.fha.nhinc.direct.xdr.SoapEdgeContext;
 
 /**
- * The Class DirectXDRWebServiceImpl.
+ * Interface to describe a soap edge client or server auditor.
+ * 
+ * @author mweaver
  */
-public class DirectXDRWebServiceImpl {
+public interface SoapEdgeAuditor {
 
-    /** The context. */
-    WebServiceContext context = null;
+    public static final String PRINCIPAL = "XDR Edge Service";
+    public static final String REQUESTRECIEVED_CATEGORY = "Inbound Request to Soap Edge Service.";
+    public static final String REQUESTRECIEVED_MESSAGE = "Processing Request.";
+    public static final String RESPONSERETURNED_CATEGORY = "Outbound Responset from Soap Edge Service.";
+    public static final String RESPONSERETURNED_MESSAGE = "Sending Response.";
 
     /**
-     * Implementation business object of the JAXB web service interface. Manipulates web services headers, and delegates
-     * processing to the orchestration object.
-     * 
-     * @param body the body of the XDR message.
-     * @param wsContext the ws context for manipulating ws headers.
-     * @return the registry response type
-     * @throws Exception the exception
+     * @param principal The principal metadata for the audit call.
+     * @param category The category metadata for the audit call.
+     * @param message The message metadata for the audit call.
+     * @param properties An implementation of DirectRIAuditable with properties which can be populated as Direct RI
+     *            AuditContexts.
      */
-    public RegistryResponseType provideAndRegisterDocumentSet(ProvideAndRegisterDocumentSetRequestType body,
-            WebServiceContext wsContext) throws Exception {
-        RegistryResponseType resp = null;
-        this.context = wsContext;
+    void audit(String principal, String category, String message, SoapEdgeContext properties);
 
-        DirectHeaderExtractor extractor = new DirectHeaderExtractor();
-
-        SoapDirectEdgeOrchestration orch = new SoapDirectEdgeOrchestration();
-        resp = orch.orchestrate(body, extractor.getHeaderProperties(wsContext));
-        return resp;
-    }
 }

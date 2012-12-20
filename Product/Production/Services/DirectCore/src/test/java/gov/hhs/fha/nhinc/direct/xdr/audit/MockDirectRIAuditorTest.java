@@ -24,40 +24,56 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.direct.xdr;
+package gov.hhs.fha.nhinc.direct.xdr.audit;
 
-import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
+import static org.mockito.Matchers.any;
+import static org.mockito.Matchers.eq;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
 
-import javax.xml.ws.WebServiceContext;
+import java.util.Collection;
 
-import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
+import org.junit.Test;
+import org.nhindirect.common.audit.AuditEvent;
+import org.nhindirect.common.audit.Auditor;
 
 /**
- * The Class DirectXDRWebServiceImpl.
+ * @author mweaver
+ * 
  */
-public class DirectXDRWebServiceImpl {
+public class MockDirectRIAuditorTest extends DirectRIAuditorTest {
 
-    /** The context. */
-    WebServiceContext context = null;
+    private Auditor mockAuditor = mock(Auditor.class);
 
-    /**
-     * Implementation business object of the JAXB web service interface. Manipulates web services headers, and delegates
-     * processing to the orchestration object.
-     * 
-     * @param body the body of the XDR message.
-     * @param wsContext the ws context for manipulating ws headers.
-     * @return the registry response type
-     * @throws Exception the exception
-     */
-    public RegistryResponseType provideAndRegisterDocumentSet(ProvideAndRegisterDocumentSetRequestType body,
-            WebServiceContext wsContext) throws Exception {
-        RegistryResponseType resp = null;
-        this.context = wsContext;
-
-        DirectHeaderExtractor extractor = new DirectHeaderExtractor();
-
-        SoapDirectEdgeOrchestration orch = new SoapDirectEdgeOrchestration();
-        resp = orch.orchestrate(body, extractor.getHeaderProperties(wsContext));
-        return resp;
+    @Test
+    @Override
+    public void testWithNoProperties() {
+        super.testWithNoProperties();
+        verify(mockAuditor).audit(eq("this is my principal."), any(AuditEvent.class));
     }
+
+    @SuppressWarnings("unchecked")
+    @Test
+    @Override
+    public void testWithProperties() {
+        super.testWithProperties();
+        verify(mockAuditor).audit(eq("this is my principal."), any(AuditEvent.class), any(Collection.class));
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testWithAllNulls() {
+        DirectRIAuditor auditor = getDirectRIAuditor();
+        auditor.audit(null, null, null, null);
+    }
+
+    @Override
+    protected DirectRIAuditor getDirectRIAuditor() {
+        return new DirectRIAuditor() {
+            @Override
+            protected Auditor getAuditor() {
+                return mockAuditor;
+            }
+        };
+    }
+
 }
