@@ -37,8 +37,12 @@ import org.apache.log4j.Logger;
  * @author msweaver
  */
 public class DirectEdgeProxyJavaImpl implements DirectEdgeProxy {
+    
     private static final Logger LOG = Logger.getLogger(DirectEdgeProxyJavaImpl.class);
 
+    /**
+     * {@inheritDoc}
+     */
     public RegistryResponseType provideAndRegisterDocumentSetB(MimeMessage message) {
         LOG.debug("Using Java Implementation for Adapter Doc Submission Service");
         return new RegistryResponseType();

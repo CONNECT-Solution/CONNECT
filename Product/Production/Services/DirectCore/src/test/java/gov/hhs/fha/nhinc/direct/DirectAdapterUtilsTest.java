@@ -41,7 +41,7 @@ import org.junit.Test;
 /**
  * Test {@link DirectAdapterUtils}.
  */
-public class DirectAdapterUtilsTest {
+public class DirectAdapterUtilsTest extends DirectBaseTest {
 
     private static final Address[] EMPTY_ADDRESS_ARRAY = new Address[] {};
     private final MimeMessage mockMessage = mock(MimeMessage.class);

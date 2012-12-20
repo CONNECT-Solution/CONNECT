@@ -59,10 +59,9 @@ public class DirectEdgeProxySoapImpl implements DirectEdgeProxy {
     private final WebServiceProxyHelper oProxyHelper;
 
     /**
-     * @param oProxyHelper
+     * @param oProxyHelper web service proxy helper for soap edge clients.
      */
     public DirectEdgeProxySoapImpl(WebServiceProxyHelper oProxyHelper) {
-        super();
         this.oProxyHelper = oProxyHelper;
     }
 
@@ -93,7 +92,8 @@ public class DirectEdgeProxySoapImpl implements DirectEdgeProxy {
                     .getAdapterEndPointFromConnectionManager(NhincConstants.DIRECT_SOAP_EDGE_SERVICE_NAME);
             if (NullChecker.isNotNullish(url)) {
 
-                ServicePortDescriptor<DocumentRepositoryPortType> portDescriptor = new DirectEdgeSoapServicePortDescriptor();
+                ServicePortDescriptor<DocumentRepositoryPortType> portDescriptor = 
+                        new DirectEdgeSoapServicePortDescriptor();
 
                 CONNECTClient<DocumentRepositoryPortType> client = getClient(portDescriptor, url);
 

@@ -36,16 +36,14 @@ import javax.mail.Session;
 public class AbstractMailClient implements MailClient {
 
     private final Session mailSession;
-    private final Properties mailServerProps;
 
     /**
      * @param mailSession
      */
     public AbstractMailClient(Properties mailServerProps) {
-        this.mailServerProps = mailServerProps;
-        this.mailSession = MailUtils.getMailSession(mailServerProps, mailServerProps.getProperty("direct.mail.user"),
-                mailServerProps.getProperty("direct.mail.pass"));
-        mailSession.setDebug(Boolean.parseBoolean(mailServerProps.getProperty("direct.mail.session.debug")));
+        this.mailSession = MailUtils.getMailSession(mailServerProps, mailServerProps.getProperty("connect.mail.user"),
+                mailServerProps.getProperty("connect.mail.pass"));
+        mailSession.setDebug(Boolean.parseBoolean(mailServerProps.getProperty("connect.mail.session.debug")));
         mailSession.setDebugOut(System.out);
     }
 
@@ -55,12 +53,4 @@ public class AbstractMailClient implements MailClient {
     public Session getMailSession() {
         return mailSession;
     }
-
-    /**
-     * @return the mailServerProps
-     */
-    public Properties getMailServerProps() {
-        return mailServerProps;
-    }
-    
 }
