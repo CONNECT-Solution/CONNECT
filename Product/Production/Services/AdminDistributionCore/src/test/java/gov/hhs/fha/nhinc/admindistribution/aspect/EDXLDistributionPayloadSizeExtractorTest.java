@@ -36,11 +36,14 @@ import java.util.List;
 
 import javax.activation.DataHandler;
 
+import oasis.names.tc.emergency.edxl.de._1.AnyXMLType;
 import oasis.names.tc.emergency.edxl.de._1.ContentObjectType;
 import oasis.names.tc.emergency.edxl.de._1.EDXLDistribution;
 import oasis.names.tc.emergency.edxl.de._1.NonXMLContentType;
 import oasis.names.tc.emergency.edxl.de._1.XmlContentType;
 
+import org.jmock.Expectations;
+import org.jmock.Mockery;
 import org.junit.Test;
 
 /**
@@ -49,6 +52,8 @@ import org.junit.Test;
  */
 public class EDXLDistributionPayloadSizeExtractorTest {
 
+	private Mockery context = new Mockery();
+	
     @Test
     public void emptyBuild() {
         EDXLDistributionPayloadSizeExtractor extractor = new EDXLDistributionPayloadSizeExtractor();
@@ -62,6 +67,19 @@ public class EDXLDistributionPayloadSizeExtractorTest {
         EDXLDistributionPayloadSizeExtractor extractor = new EDXLDistributionPayloadSizeExtractor();
 
         assertEquals(BigInteger.TEN.toString(), extractor.getPayloadSizes(alert).get(0));
+    }
+    
+    @Test
+    public void testPayloadSizeOnSingleNonXMLEmptyPayload() {
+    	EDXLDistribution alert = new EDXLDistribution();
+    	ContentObjectType payload = new ContentObjectType();
+    	NonXMLContentType payloadContent = createMockNonXmlPayload();
+    	payload.setNonXMLContent(payloadContent);
+    	alert.getContentObject().add(payload);
+    	EDXLDistributionPayloadSizeExtractor extractor = new EDXLDistributionPayloadSizeExtractor();
+
+    	assertTrue(extractor.getPayloadSizes(alert).size() == 1);
+    	assertEquals("0", extractor.getPayloadSizes(alert).get(0));
     }
 
     @Test
@@ -88,7 +106,7 @@ public class EDXLDistributionPayloadSizeExtractorTest {
         setXmlPayload(alert);
         List<String> payloadSizes = extractor.getPayloadSizes(alert);
         assertEquals(1, payloadSizes.size());
-        assertEquals("", payloadSizes.get(0));
+        assertEquals("0", payloadSizes.get(0));
     }
 
     @Test
@@ -101,10 +119,83 @@ public class EDXLDistributionPayloadSizeExtractorTest {
 
         List<String> payloadSizes = extractor.getPayloadSizes(alert);
         assertEquals(2, payloadSizes.size());
-        assertEquals("", payloadSizes.get(0));
+        assertEquals("0", payloadSizes.get(0));
         assertEquals("10", payloadSizes.get(1));
     }
+    
+    @Test
+    public void testPayloadSizeContentXMLbothXMLContentTypesEmpty() {
+    	EDXLDistributionPayloadSizeExtractor extractor = new EDXLDistributionPayloadSizeExtractor();
+        EDXLDistribution alert = new EDXLDistribution();
+        
+        final List<AnyXMLType> emptyList = context.mock(List.class);
+        XmlContentType contentType = new XmlContentType(){
+        	@Override
+        	public List<AnyXMLType> getKeyXMLContent(){
+        		return emptyList;
+        	}
+        	@Override
+        	public List<AnyXMLType> getEmbeddedXMLContent(){
+        		return emptyList;
+        	}
+        };
+        
+        context.checking(new Expectations(){
+        	{
+        		oneOf(emptyList).size();
+        		will(returnValue(0));
+        		oneOf(emptyList).size();
+        		will(returnValue(0));
+        	}
+        });
+       
+        ContentObjectType payload = new ContentObjectType();
+        payload.setXmlContent(contentType);
+        alert.getContentObject().add(payload);
+        
+        List<String> payloadSizes = extractor.getPayloadSizes(alert);
+        context.assertIsSatisfied();
+        assertEquals(1, payloadSizes.size());
+        assertEquals("0", payloadSizes.get(0));
+    }
 
+    @Test
+    public void testPayloadSizeContentXMLMixedXMLContentTypeSizes() {
+    	EDXLDistributionPayloadSizeExtractor extractor = new EDXLDistributionPayloadSizeExtractor();
+        EDXLDistribution alert = new EDXLDistribution();
+        
+        final List<AnyXMLType> keyList = context.mock(List.class, "keyList");
+        final List<AnyXMLType> embeddedList = context.mock(List.class, "embeddedList");
+        
+        XmlContentType contentType = new XmlContentType(){
+        	@Override
+        	public List<AnyXMLType> getKeyXMLContent(){
+        		return keyList;
+        	}
+        	@Override
+        	public List<AnyXMLType> getEmbeddedXMLContent(){
+        		return embeddedList;
+        	}
+        };
+        
+        context.checking(new Expectations(){
+        	{
+        		oneOf(keyList).size();
+        		will(returnValue(4));
+        		oneOf(embeddedList).size();
+        		will(returnValue(5));
+        	}
+        });
+       
+        ContentObjectType payload = new ContentObjectType();
+        payload.setXmlContent(contentType);
+        alert.getContentObject().add(payload);
+        
+        List<String> payloadSizes = extractor.getPayloadSizes(alert);
+        context.assertIsSatisfied();
+        assertEquals(1, payloadSizes.size());
+        assertEquals("9", payloadSizes.get(0));
+    }
     /**
      * @param alert
      */

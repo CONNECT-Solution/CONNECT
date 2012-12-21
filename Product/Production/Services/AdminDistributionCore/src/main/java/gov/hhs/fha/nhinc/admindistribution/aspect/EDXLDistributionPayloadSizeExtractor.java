@@ -26,11 +26,14 @@
  */
 package gov.hhs.fha.nhinc.admindistribution.aspect;
 
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 
 import oasis.names.tc.emergency.edxl.de._1.ContentObjectType;
 import oasis.names.tc.emergency.edxl.de._1.EDXLDistribution;
+import oasis.names.tc.emergency.edxl.de._1.NonXMLContentType;
+import oasis.names.tc.emergency.edxl.de._1.XmlContentType;
 
 /**
  * @author zmelnick
@@ -50,23 +53,41 @@ public class EDXLDistributionPayloadSizeExtractor {
         if (alertMessage != null) {
             List<ContentObjectType> contents = alertMessage.getContentObject();
             for (ContentObjectType message : contents) {
-                payloadSize.add(getPayloadSize(message));
+            		payloadSize.add(getPayloadSize(message));
             }
         }
         return payloadSize;
     }
 
     private String getPayloadSize(ContentObjectType message) {
-        if (isPayloadSizeEmpty(message)) {
-            return "";
-        } else {
-            return message.getNonXMLContent().getSize().toString();
-        }
+        int result = 0;
+        result += getContentXMLSize(message.getXmlContent());
+    	result += getNonContentXMLSize(message.getNonXMLContent());
+    	return "" + result;
     }
-
-    private boolean isPayloadSizeEmpty(ContentObjectType message) {
-        return message.getXmlContent() != null
-                || (message.getNonXMLContent() != null && message.getNonXMLContent().getSize() == null);
+    
+    private int getContentXMLSize(XmlContentType contentXML){
+    	if(contentXML == null){
+    		return 0;
+    	}else {
+    		int embeddedXMLSize = contentXML.getEmbeddedXMLContent().size();
+    		int keyXMLSize = contentXML.getKeyXMLContent().size();
+    		return embeddedXMLSize + keyXMLSize;
+    	}
+    }
+    
+    private int getNonContentXMLSize(NonXMLContentType nonContentXML){
+    	if(nonContentXML == null){
+    		return 0;
+    	}else{
+    		BigInteger size = nonContentXML.getSize();
+    		if(size != null) {
+    			return size.intValue();
+    		}
+    		else {
+    			return 0;
+    		}
+    	}
     }
 
 }
