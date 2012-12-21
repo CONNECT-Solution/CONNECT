@@ -38,6 +38,7 @@
         <jaxws:inInterceptors>
             <ref bean="timestampInInterceptor" />
             <ref bean="securityInInterceptor" />
+            <ref bean="securityConfigInInterceptor" />
         </jaxws:inInterceptors>
         <jaxws:outFaultInterceptors>
             <ref bean="attachmentFaultOutInterceptor" />
@@ -77,6 +78,7 @@
         <jaxws:inInterceptors>
             <ref bean="timestampInInterceptor" />
             <ref bean="securityInInterceptor" />
+            <ref bean="securityConfigInInterceptor" />
         </jaxws:inInterceptors>
         <jaxws:outFaultInterceptors>
             <ref bean="attachmentFaultOutInterceptor" />
@@ -108,6 +110,7 @@
         <jaxws:inInterceptors>
             <ref bean="timestampInInterceptor" />
             <ref bean="securityInInterceptor" />
+            <ref bean="securityConfigInInterceptor" />
         </jaxws:inInterceptors>
         <jaxws:outFaultInterceptors>
             <ref bean="attachmentFaultOutInterceptor" />
@@ -150,6 +153,7 @@
         <jaxws:inInterceptors>
             <ref bean="timestampInInterceptor" />
             <ref bean="securityInInterceptor" />
+            <ref bean="securityConfigInInterceptor" />
         </jaxws:inInterceptors>
         <jaxws:outFaultInterceptors>
             <ref bean="attachmentFaultOutInterceptor" />
@@ -178,6 +182,7 @@
         </jaxws:properties>
         <jaxws:inInterceptors>
             <ref bean="securityInInterceptor" />
+            <ref bean="securityConfigInInterceptor" />
         </jaxws:inInterceptors>
         <jaxws:handlers>
             <ref bean="SOAPHeaderHandler" />
@@ -209,6 +214,7 @@
         </jaxws:properties>
         <jaxws:inInterceptors>
             <ref bean="securityInInterceptor" />
+            <ref bean="securityConfigInInterceptor" />
         </jaxws:inInterceptors>
         <jaxws:handlers>
             <ref bean="TransactionHandler" />

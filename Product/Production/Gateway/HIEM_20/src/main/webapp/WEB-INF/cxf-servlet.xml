@@ -43,6 +43,7 @@ http://www.springframework.org/schema/aop http://www.springframework.org/schema/
         </jaxws:properties>
         <jaxws:inInterceptors>
             <ref bean="securityInInterceptor" />
+            <ref bean="securityConfigInInterceptor" />
         </jaxws:inInterceptors>
         <jaxws:handlers>
             <ref bean="HIEMSoapHeaderHandler" />
@@ -71,6 +72,7 @@ http://www.springframework.org/schema/aop http://www.springframework.org/schema/
         </jaxws:properties>
         <jaxws:inInterceptors>
             <ref bean="securityInInterceptor" />
+            <ref bean="securityConfigInInterceptor" />
         </jaxws:inInterceptors>
         <jaxws:handlers>
             <ref bean="HIEMSoapHeaderHandler" />
@@ -118,6 +120,7 @@ http://www.springframework.org/schema/aop http://www.springframework.org/schema/
         </jaxws:properties>
         <jaxws:inInterceptors>
             <ref bean="securityInInterceptor" />
+            <ref bean="securityConfigInInterceptor" />
         </jaxws:inInterceptors>
         <jaxws:handlers>
             <ref bean="HIEMSoapHeaderHandler" />
@@ -173,6 +176,7 @@ http://www.springframework.org/schema/aop http://www.springframework.org/schema/
         </jaxws:properties>
         <jaxws:inInterceptors>
             <ref bean="securityInInterceptor" />
+            <ref bean="securityConfigInInterceptor" />
         </jaxws:inInterceptors>
         <jaxws:handlers>
             <ref bean="HIEMSoapHeaderHandler" />
@@ -205,6 +209,7 @@ http://www.springframework.org/schema/aop http://www.springframework.org/schema/
         </jaxws:properties>
         <jaxws:inInterceptors>
             <ref bean="securityInInterceptor" />
+            <ref bean="securityConfigInInterceptor" />
         </jaxws:inInterceptors>
         <jaxws:handlers>
             <ref bean="HIEMSoapHeaderHandler" />
@@ -256,6 +261,7 @@ http://www.springframework.org/schema/aop http://www.springframework.org/schema/
         </jaxws:properties>
         <jaxws:inInterceptors>
             <ref bean="securityInInterceptor" />
+            <ref bean="securityConfigInInterceptor" />
         </jaxws:inInterceptors>
         <jaxws:handlers>
             <ref bean="HIEMSoapHeaderHandler" />
@@ -307,6 +313,7 @@ http://www.springframework.org/schema/aop http://www.springframework.org/schema/
         </jaxws:properties>
         <jaxws:inInterceptors>
             <ref bean="securityInInterceptor" />
+            <ref bean="securityConfigInInterceptor" />
         </jaxws:inInterceptors>
         <jaxws:handlers>
             <ref bean="HIEMSoapHeaderHandler" />
@@ -336,6 +343,7 @@ http://www.springframework.org/schema/aop http://www.springframework.org/schema/
         </jaxws:properties>
         <jaxws:inInterceptors>
             <ref bean="securityInInterceptor" />
+            <ref bean="securityConfigInInterceptor" />
         </jaxws:inInterceptors>
         <jaxws:handlers>
             <ref bean="HIEMSoapHeaderHandler" />
@@ -383,6 +391,7 @@ http://www.springframework.org/schema/aop http://www.springframework.org/schema/
         </jaxws:properties>
         <jaxws:inInterceptors>
             <ref bean="securityInInterceptor" />
+            <ref bean="securityConfigInInterceptor" />
         </jaxws:inInterceptors>
         <jaxws:handlers>
             <ref bean="HIEMSoapHeaderHandler" />
