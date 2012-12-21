@@ -75,6 +75,7 @@ public class HL7AckTransforms {
 
         return ack;
     }
+    
 
     /**
      * Create acknowledgment error message from patient discovery request.
@@ -94,11 +95,10 @@ public class HL7AckTransforms {
             }
 
             // Set the sender OID to the receiver OID from the original message
-            String senderOID = getMCCIMT000100UV01RepresentedOrganizationRootOID(request.getReceiver());
+            String senderOID = getMCCIMT000100UV01RepresentedOrganizationRootOID(request.getSender());
 
             // Set the receiver OID to the sender OID from the original message
-            String receiverOID = getMCCIMT000100UV01RepresentedOrganizationRootOID(request.getSender());
-
+            String receiverOID = senderOID;
             // Create the ack message
             ack = HL7AckTransforms.createAckMessage(null, msgId, ACK_TYPE_CODE_ERROR, ackMsgText, senderOID,
                     receiverOID);
@@ -360,7 +360,8 @@ public class HL7AckTransforms {
                 && sender.getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue() != null
                 && NullChecker.isNotNullish(sender.getDevice().getAsAgent().getValue().getRepresentedOrganization()
                         .getValue().getId())
-                && sender.getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId().get(0) != null
+                && sender.getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue()
+                        .getId().get(0) != null
                 && NullChecker.isNotNullish(sender.getDevice().getAsAgent().getValue().getRepresentedOrganization()
                         .getValue().getId().get(0).getRoot())) {
             root = sender.getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId().get(0)
