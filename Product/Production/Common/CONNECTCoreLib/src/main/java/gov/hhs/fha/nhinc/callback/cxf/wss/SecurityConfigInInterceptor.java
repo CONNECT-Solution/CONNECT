@@ -39,7 +39,9 @@ import org.apache.cxf.ws.security.wss4j.WSS4JInInterceptor;
 import org.apache.ws.security.WSSConfig;
 
 /**
- * This interceptor will override how CXF normally handles Ws-Security tokens with CONNECT specific security processors.
+ * This interceptor will override how CXF normally handles the Signature element of the Security header by registering a
+ * CONNECT security processor. That processor will inline all digest and signature values in the Signature element if
+ * they are attached as a reference as otherwise CXF will erroneously consider them as invalid.
  * 
  */
 public class SecurityConfigInInterceptor extends AbstractPhaseInterceptor<Message> {
@@ -65,10 +67,10 @@ public class SecurityConfigInInterceptor extends AbstractPhaseInterceptor<Messag
         WSSConfig config = (WSSConfig) msg.getContextualProperty(WSSConfig.class.getName());
         if (config == null) {
             config = WSSConfig.getNewInstance();
-            config.setProcessor(new QName(SamlConstants.XML_SIGNATURE_NS, SamlConstants.SIGNATURE_TAG),
-                    new CONNECTSignatureProcessor());
-            msg.setContextualProperty(WSSConfig.class.getName(), config);
         }
+        config.setProcessor(new QName(SamlConstants.XML_SIGNATURE_NS, SamlConstants.SIGNATURE_TAG),
+                new CONNECTSignatureProcessor());
+        msg.setContextualProperty(WSSConfig.class.getName(), config);
     }
 
 }

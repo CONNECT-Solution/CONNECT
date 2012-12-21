@@ -47,6 +47,8 @@ import org.apache.ws.security.processor.SignatureProcessor;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
+import com.google.common.base.Optional;
+
 /**
  * This class will process the signature element of the Security header. It inherits from the default SignatureProcessor
  * but will inline all digest and signature values in the Security header if they are attached as a reference.
@@ -78,7 +80,7 @@ public class CONNECTSignatureProcessor extends SignatureProcessor {
      * @param signatureElem
      * @throws WSSecurityException
      */
-    public void inlineSignatureAttachments(SoapMessage soapMsg, Element signatureElem) throws WSSecurityException {
+    void inlineSignatureAttachments(SoapMessage soapMsg, Element signatureElem) throws WSSecurityException {
         Collection<Attachment> attachments = soapMsg.getAttachments();
 
         try {
@@ -114,9 +116,9 @@ public class CONNECTSignatureProcessor extends SignatureProcessor {
 
                 String refId = ((Element) child).getAttribute(HREF_ATTRIBUTE).replaceFirst(CONTENT_ID_PREFIX, "");
 
-                Attachment attachment = getAttachment(attachments, refId);
-                if (attachment != null) {
-                    String attachmentValue = convertToBase64Data(attachment.getDataHandler());
+                Optional<Attachment> attachment = getAttachment(attachments, refId);
+                if (attachment.isPresent()) {
+                    String attachmentValue = convertToBase64Data(attachment.get().getDataHandler());
                     sigElement.setTextContent(attachmentValue);
                 } else {
                     LOG.warn("Failed to inline signature/digest element to the header.  Cannot find reference id: "
@@ -126,21 +128,21 @@ public class CONNECTSignatureProcessor extends SignatureProcessor {
         }
     }
 
-    private Attachment getAttachment(Collection<Attachment> attachments, String id) {
+    private Optional<Attachment> getAttachment(Collection<Attachment> attachments, String id) {
         for (Attachment attachment : attachments) {
             if (attachment.getId().equals(id)) {
-                return attachment;
+                return Optional.of(attachment);
             }
         }
 
-        return null;
+        return Optional.absent();
     }
 
     private boolean isIncludeElement(Element elem) {
         String namespace = elem.getNamespaceURI();
         String elemName = elem.getLocalName();
 
-        if (namespace != null && namespace.equals(XOP_NS) && elemName != null && elemName.equals(XOP_INCLUDE_TAG)) {
+        if (XOP_NS.equals(namespace) && XOP_INCLUDE_TAG.equals(elemName)) {
             return true;
         }
 

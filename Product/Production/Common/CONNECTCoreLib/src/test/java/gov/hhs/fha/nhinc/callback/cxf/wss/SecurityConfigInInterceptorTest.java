@@ -59,13 +59,27 @@ public class SecurityConfigInInterceptorTest {
     }
 
     @Test
-    public void securityConfiguration() throws WSSecurityException {
+    public void verifySecurityConfig() throws WSSecurityException {
         Message msg = new MessageImpl();
 
         SecurityConfigInInterceptor interceptor = new SecurityConfigInInterceptor();
-
         interceptor.handleMessage(msg);
 
+        assertSecurityProcessorIsRegistered(msg);
+    }
+    
+    @Test
+    public void verifySecurityConfigWithPresetWSSConfig() throws WSSecurityException {
+        Message msg = new MessageImpl();
+        msg.setContextualProperty(WSSConfig.class.getName(), WSSConfig.getNewInstance());
+
+        SecurityConfigInInterceptor interceptor = new SecurityConfigInInterceptor();
+        interceptor.handleMessage(msg);
+
+        assertSecurityProcessorIsRegistered(msg);
+    }
+    
+    private void assertSecurityProcessorIsRegistered(Message msg) throws WSSecurityException {
         WSSConfig config = (WSSConfig) msg.getContextualProperty(WSSConfig.class.getName());
         Processor securityProcessor = config.getProcessor(new QName(SamlConstants.XML_SIGNATURE_NS,
                 SamlConstants.SIGNATURE_TAG));
