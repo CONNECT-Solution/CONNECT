@@ -36,6 +36,7 @@ http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
         <jaxws:inInterceptors>
             <ref bean="timestampInInterceptor" />
             <ref bean="securityInInterceptor" />
+            <ref bean="securityConfigInInterceptor" />
         </jaxws:inInterceptors>
         <jaxws:outFaultInterceptors>
             <ref bean="attachmentFaultOutInterceptor" />
@@ -64,6 +65,7 @@ http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
         <jaxws:inInterceptors>
             <ref bean="timestampInInterceptor" />
             <ref bean="securityInInterceptor" />
+            <ref bean="securityConfigInInterceptor" />
         </jaxws:inInterceptors>
         <jaxws:outFaultInterceptors>
             <ref bean="attachmentFaultOutInterceptor" />
