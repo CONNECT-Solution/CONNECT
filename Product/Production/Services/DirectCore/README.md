@@ -198,28 +198,31 @@ The SOAP+XDR edge service implements the `XDS.b_DocumentRepositoryWSDLSynchMTOM.
 __Note__: Domains used in the to and from block must be configured in the SMTP Agent.
 
 Web Service Headers:
-	<d:addressBlock xmlns:d="urn:direct:addressing">
-		<d:from>CONNECTProduct@direct.connectopensource.org</d:from>
-		<d:to>gm2552@direct.securehealthemail.com</d:to>
-	</d:addressBlock>
+
+    <d:addressBlock xmlns:d="urn:direct:addressing">
+        <d:from>CONNECTProduct@direct.connectopensource.org</d:from>
+        <d:to>gm2552@direct.securehealthemail.com</d:to>
+    </d:addressBlock>
 	
 Messages received on this interface are transformed into an XDM package and sent as an attachment. Please see the following table regardling the full and mimimum metadata set requirements:
-     * Metadata Attribute           XDS     Minimal Metadata
-     * -----------------------------------------------------
-     * author                       R2      R2
-     * classCode                    R       R2
-     * confidentialityCode          R       R2
-     * creationTime                 R       R2
-     * entriUUID                    R       R
-     * formatCode                   R       R
-     * healthcareFacilityTypeCode   R       R2
-     * languageCode                 R       R2
-     * mimeType                     R       R
-     * patientId                    R       R2
-     * practiceSettingCode          R       R2
-     * sourcePatientId              R       R2
-     * typeCode                     R       R2
-     * uniqueId                     R       R
+
+    * Metadata Attribute           XDS     Minimal Metadata
+    * -----------------------------------------------------
+    * author                       R2      R2
+    * classCode                    R       R2
+    * confidentialityCode          R       R2
+    * creationTime                 R       R2
+    * entriUUID                    R       R
+    * formatCode                   R       R
+    * healthcareFacilityTypeCode   R       R2
+    * languageCode                 R       R2
+    * mimeType                     R       R
+    * patientId                    R       R2
+    * practiceSettingCode          R       R2
+    * sourcePatientId              R       R2
+    * typeCode                     R       R2
+    * uniqueId                     R       R
+
 
 Due to the paradigm shift between a synchronous SOAP+XDR message and an ansynchronous SMTP/MDN messages, a sucessful response status from this service only means that a message was sent. Currently, adopters will have to check the event logging for the status of MDN messages.
 
