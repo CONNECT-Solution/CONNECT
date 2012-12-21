@@ -29,7 +29,7 @@ package gov.hhs.fha.nhinc.admindistribution.aspect;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.*;
 
 import java.math.BigInteger;
 import java.util.List;
@@ -42,8 +42,6 @@ import oasis.names.tc.emergency.edxl.de._1.EDXLDistribution;
 import oasis.names.tc.emergency.edxl.de._1.NonXMLContentType;
 import oasis.names.tc.emergency.edxl.de._1.XmlContentType;
 
-import org.jmock.Expectations;
-import org.jmock.Mockery;
 import org.junit.Test;
 
 /**
@@ -52,9 +50,7 @@ import org.junit.Test;
  */
 public class EDXLDistributionPayloadSizeExtractorTest {
 
-	private Mockery context = new Mockery();
-	
-    @Test
+	@Test
     public void emptyBuild() {
         EDXLDistributionPayloadSizeExtractor extractor = new EDXLDistributionPayloadSizeExtractor();
         assertNotNull(extractor);
@@ -128,7 +124,7 @@ public class EDXLDistributionPayloadSizeExtractorTest {
     	EDXLDistributionPayloadSizeExtractor extractor = new EDXLDistributionPayloadSizeExtractor();
         EDXLDistribution alert = new EDXLDistribution();
         
-        final List<AnyXMLType> emptyList = context.mock(List.class);
+        final List<AnyXMLType> emptyList = mock(List.class);
         XmlContentType contentType = new XmlContentType(){
         	@Override
         	public List<AnyXMLType> getKeyXMLContent(){
@@ -140,21 +136,13 @@ public class EDXLDistributionPayloadSizeExtractorTest {
         	}
         };
         
-        context.checking(new Expectations(){
-        	{
-        		oneOf(emptyList).size();
-        		will(returnValue(0));
-        		oneOf(emptyList).size();
-        		will(returnValue(0));
-        	}
-        });
-       
+        when(emptyList.size()).thenReturn(0,0);
+        
         ContentObjectType payload = new ContentObjectType();
         payload.setXmlContent(contentType);
         alert.getContentObject().add(payload);
         
         List<String> payloadSizes = extractor.getPayloadSizes(alert);
-        context.assertIsSatisfied();
         assertEquals(1, payloadSizes.size());
         assertEquals("0", payloadSizes.get(0));
     }
@@ -164,8 +152,8 @@ public class EDXLDistributionPayloadSizeExtractorTest {
     	EDXLDistributionPayloadSizeExtractor extractor = new EDXLDistributionPayloadSizeExtractor();
         EDXLDistribution alert = new EDXLDistribution();
         
-        final List<AnyXMLType> keyList = context.mock(List.class, "keyList");
-        final List<AnyXMLType> embeddedList = context.mock(List.class, "embeddedList");
+        final List<AnyXMLType> keyList = mock(List.class, "keyList");
+        final List<AnyXMLType> embeddedList = mock(List.class, "embeddedList");
         
         XmlContentType contentType = new XmlContentType(){
         	@Override
@@ -178,21 +166,15 @@ public class EDXLDistributionPayloadSizeExtractorTest {
         	}
         };
         
-        context.checking(new Expectations(){
-        	{
-        		oneOf(keyList).size();
-        		will(returnValue(4));
-        		oneOf(embeddedList).size();
-        		will(returnValue(5));
-        	}
-        });
-       
+        when(keyList.size()).thenReturn(4);
+        when(embeddedList.size()).thenReturn(5);
+        
         ContentObjectType payload = new ContentObjectType();
         payload.setXmlContent(contentType);
         alert.getContentObject().add(payload);
         
         List<String> payloadSizes = extractor.getPayloadSizes(alert);
-        context.assertIsSatisfied();
+        //context.assertIsSatisfied();
         assertEquals(1, payloadSizes.size());
         assertEquals("9", payloadSizes.get(0));
     }
