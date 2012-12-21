@@ -31,6 +31,8 @@ import java.util.List;
 
 import oasis.names.tc.emergency.edxl.de._1.ContentObjectType;
 import oasis.names.tc.emergency.edxl.de._1.EDXLDistribution;
+import oasis.names.tc.emergency.edxl.de._1.NonXMLContentType;
+import oasis.names.tc.emergency.edxl.de._1.XmlContentType;
 
 /**
  * @author zmelnick
@@ -49,8 +51,10 @@ public class EDXLDistributionPayloadSizeExtractor {
         List<String> payloadSize = new ArrayList<String>();
         if (alertMessage != null) {
             List<ContentObjectType> contents = alertMessage.getContentObject();
-            for (ContentObjectType message : contents) {
-                payloadSize.add(getPayloadSize(message));
+            if(!contents.isEmpty()){
+            	for (ContentObjectType message : contents) {
+            		payloadSize.add(getPayloadSize(message));
+            	}
             }
         }
         return payloadSize;
@@ -65,8 +69,24 @@ public class EDXLDistributionPayloadSizeExtractor {
     }
 
     private boolean isPayloadSizeEmpty(ContentObjectType message) {
-        return message.getXmlContent() != null
-                || (message.getNonXMLContent() != null && message.getNonXMLContent().getSize() == null);
+    	return isNonContentXMLEmpty(message.getNonXMLContent()) ||
+    			isContentXMLEmpty(message.getXmlContent());
+    }
+    
+    private boolean isContentXMLEmpty(XmlContentType contentXML){
+    	if(contentXML != null){
+    		int embeddedXMLSize = contentXML.getEmbeddedXMLContent().size();
+    		int keyXMLSize = contentXML.getKeyXMLContent().size();
+    		return embeddedXMLSize == 0 && keyXMLSize == 0;
+    	}
+    	return contentXML != null;
+    }
+    
+    private boolean isNonContentXMLEmpty(NonXMLContentType nonContentXML){
+    	if(nonContentXML != null){
+    		return nonContentXML.getSize() == null;
+    	}
+    	return nonContentXML == null;
     }
 
 }

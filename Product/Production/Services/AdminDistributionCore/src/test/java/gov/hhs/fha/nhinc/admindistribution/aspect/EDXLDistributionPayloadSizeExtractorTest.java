@@ -63,6 +63,19 @@ public class EDXLDistributionPayloadSizeExtractorTest {
 
         assertEquals(BigInteger.TEN.toString(), extractor.getPayloadSizes(alert).get(0));
     }
+    
+    @Test
+    public void testPayloadSizeOnSingleNonXMLEmptyPayload() {
+    	EDXLDistribution alert = new EDXLDistribution();
+    	ContentObjectType payload = new ContentObjectType();
+    	NonXMLContentType payloadContent = createMockNonXmlPayload();
+    	payload.setNonXMLContent(payloadContent);
+    	alert.getContentObject().add(payload);
+    	EDXLDistributionPayloadSizeExtractor extractor = new EDXLDistributionPayloadSizeExtractor();
+
+    	assertTrue(extractor.getPayloadSizes(alert).size() == 1);
+    	assertEquals("", extractor.getPayloadSizes(alert).get(0));
+    }
 
     @Test
     public void testPayloadSizeMultipleNonXMLPayload() {
