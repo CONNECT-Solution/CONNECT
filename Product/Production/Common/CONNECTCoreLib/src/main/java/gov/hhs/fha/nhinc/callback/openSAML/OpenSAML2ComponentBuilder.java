@@ -218,7 +218,7 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
 
     public Assertion createAssertion(final String uuid) {
         Assertion assertion = assertionBuilder.buildObject(Assertion.DEFAULT_ELEMENT_NAME, Assertion.TYPE_NAME);
-        assertion.setID("_" + uuid);
+        assertion.setID(uuid);
         assertion.setVersion(SAMLVersion.VERSION_20);
         assertion.setIssueInstant(new DateTime());
         return assertion;
