@@ -49,11 +49,12 @@ The following steps can be used to achieve this:
 2. Procure signed certificates as you normally would.
 
 3. Transform the signed certificate into a binary format.
-	* openssl x509 -in org-cert-signed.pem -inform PEM -out org-cert-signed.der -outform DER
+
+	`openssl x509 -in org-cert-signed.pem -inform PEM -out org-cert-signed.der -outform DER`
 
 4. Use the PGP make-dns-cert tool to build the zonefile entry as if it were a PGP key.
 
-	* See: [http://www.gushi.org/make-dns-cert/HOWTO.html](http://www.gushi.org/make-dns-cert/HOWTO.html) 
+	See: [http://www.gushi.org/make-dns-cert/HOWTO.html](http://www.gushi.org/make-dns-cert/HOWTO.html) 
 
 5. Before applying the "big.cert" to your zone file, edit your big.cert file to specify a PKIX type of cert. This involves changing the code in position 5 from "0003" -> "0001". We found that switching this value to it's mneumonic value ("PKIX") was not accepted by our dns server (bind).
     
@@ -195,6 +196,6 @@ Helpful Links
 -------------
 
 [http://engineerbyday.wordpress.com/2011/09/13/how-email-encryption-works/](http://engineerbyday.wordpress.com/2011/09/13/how-email-encryption-works/)  
-[http://www.freebsdmadeeasy.com/tutorials/freebsd/create-a-ca-with-openssl.php](http://www.freebsdmadeeasy.com/tutorials/freebsd/create-a-ca-with-openssl.php)
-[http://www.freebsdmadeeasy.com/tutorials/web-server/apache-ssl-certs.php](http://www.freebsdmadeeasy.com/tutorials/web-server/apache-ssl-certs.php)
+[http://www.freebsdmadeeasy.com/tutorials/freebsd/create-a-ca-with-openssl.php](http://www.freebsdmadeeasy.com/tutorials/freebsd/create-a-ca-with-openssl.php)  
+[http://www.freebsdmadeeasy.com/tutorials/web-server/apache-ssl-certs.php](http://www.freebsdmadeeasy.com/tutorials/web-server/apache-ssl-certs.php)  
 [http://blog.jgc.org/2011/06/importing-existing-ssl-keycertificate.html](http://blog.jgc.org/2011/06/importing-existing-ssl-keycertificate.html)
