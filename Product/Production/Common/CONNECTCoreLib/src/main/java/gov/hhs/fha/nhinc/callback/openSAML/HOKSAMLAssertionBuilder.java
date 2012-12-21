@@ -78,7 +78,7 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
 			// with a number (UUIDs can). Direction
 			// given from 2011 specification set was to prepend with and
 			// underscore.
-			String aID = ID_PREFIX.concat(String.valueOf(UUID.randomUUID())).replaceAll("-", "");
+			String aID = createAssertionId();
 			LOG.debug("Assertion ID: " + aID);
 
 			// set assertion Id
@@ -333,7 +333,7 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
 
 		List<Assertion> evidenceAssertions = new ArrayList<Assertion>();
 		if (evAssertionID == null) {
-			evAssertionID = ID_PREFIX.concat(String.valueOf(UUID.randomUUID()));
+			evAssertionID = createAssertionId();
 		}
 
 		if (issueInstant == null) {
@@ -627,5 +627,10 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
 		return statements;
 
 	}
+	
+	private static String createAssertionId() {
+	    return ID_PREFIX.concat(String.valueOf(UUID.randomUUID())).replaceAll("-", "");
+	    }
+
 	
 }
