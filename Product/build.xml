@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="NHINC" basedir=".">
 
-    <import file="build/build.targets.xml"/>
-    <import file="dist.targets.xml"/>
+    <import file="build/build.targets.xml" />
 
     <condition property="progress-filepath" value="${temp.directory.path}/ant-progress.txt">
         <not>
@@ -10,41 +9,31 @@
         </not>
     </condition>
 
-    <target name="package.create" description="Create the jar|war|ear for all projects: run ant help for more info...">
-        <var name="do-to-target" value="just.package.create" />
-        <antcall target="do-to-projects" />
-    </target>
-
-    <target name="quick.package.create">
-        <var name="do-to-target" value="just.quick.package.create" />
-        <antcall target="do-to-projects" />
-    </target>
-
     <target name="deploy" depends="copy.deployable.artifacts" description="Deploy all projects: run ant help for more info...">
-        <call target="deploy.to.production"/>
+        <call target="deploy.to.production" />
     </target>
 
     <target name="copy.deployable.artifacts">
-        <delete dir="${deployment.binaries.dir}"/>
-        <mkdir dir="${deployment.binaries.dir}"/>
-        <delete dir="${deployment.dir}/ValidationSuite"/>
-        <mkdir dir="${deployment.dir}/ValidationSuite"/>
-        <runtarget target="create.deploy.list.xml"/>
+        <delete dir="${deployment.binaries.dir}" />
+        <mkdir dir="${deployment.binaries.dir}" />
+        <delete dir="${deployment.dir}/ValidationSuite" />
+        <mkdir dir="${deployment.dir}/ValidationSuite" />
+        <runtarget target="create.deploy.list.xml" />
 
         <copy todir="${deployment.dir}/${deployment.environment.configuration.dir.name}" verbose="true" overwrite="true">
-            <fileset dir="${root.project.directory.path}/Production/Common/Properties/${deployment.environment.configuration.dir.name}"/>
+            <fileset dir="${root.project.directory.path}/Production/Common/Properties/${deployment.environment.configuration.dir.name}" />
         </copy>
 
         <copy todir="${deployment.interfaces.dir}" verbose="true" overwrite="true">
-            <fileset dir="${root.project.directory.path}/Production/Common/Interfaces/src"/>
+            <fileset dir="${root.project.directory.path}/Production/Common/Interfaces/src" />
         </copy>
 
         <copy todir="${deployment.dir}/ValidationSuite" verbose="true" overwrite="true">
             <fileset dir="${root.project.directory.path}/SoapUI_Test/ValidationSuite" />
         </copy>
 
-        <var name="do-to-target" value="copy.deployable.artifacts"/>
-        <antcall target="do-to-projects"/>
+        <var name="do-to-target" value="copy.deployable.artifacts" />
+        <antcall target="do-to-projects" />
     </target>
 
     <target name="do-to-projects" unless="skip.do-to-projects" description="calls the target specified in the property do-to-target on all the projects.">
@@ -56,18 +45,41 @@
                 <param name="should.build" path="should.build/text()" />
                 <actions>
                     <if>
-                        <istrue value="@{should.build}"/>
+                        <istrue value="@{should.build}" />
                         <then>
                             <math result="current.project.count" operand1="${current.project.count}" operation="+" operand2="1" datatype="int" />
-                            <echo message=" ******************** Start @{project.name} ${do-to-target} project ${current.project.count} of ${to.build.count} *************************" file="${progress-filepath}" level="info"/>
-                            <echo message=" ******************** Start @{project.name} ${do-to-target} project ${current.project.count} of ${to.build.count} *************************" level="info"/>
-                            <project name="@{project.name}" dir="${basedir}/@{project.directory}" file="build.xml" target="${do-to-target}" order="${current.project.count}"/>
-                            <echo message=" ******************** End @{project.name} ${do-to-target} project ${current.project.count} of ${to.build.count} *************************" file="${progress-filepath}" level="info"/>
-                            <echo message=" ******************** End @{project.name} ${do-to-target} project ${current.project.count} of ${to.build.count} *************************" level="info"/>
+                            <echo message=" ******************** Start @{project.name} ${do-to-target} project ${current.project.count} of ${to.build.count} *************************" file="${progress-filepath}" level="info" />
+                            <echo message=" ******************** Start @{project.name} ${do-to-target} project ${current.project.count} of ${to.build.count} *************************" level="info" />
+                            <project name="@{project.name}" dir="${basedir}/@{project.directory}" file="build.xml" target="${do-to-target}" order="${current.project.count}" />
+                            <echo message=" ******************** End @{project.name} ${do-to-target} project ${current.project.count} of ${to.build.count} *************************" file="${progress-filepath}" level="info" />
+                            <echo message=" ******************** End @{project.name} ${do-to-target} project ${current.project.count} of ${to.build.count} *************************" level="info" />
                         </then>
                     </if>
                 </actions>
             </call>
         </xmltask>
+    </target>
+
+    <target name="dist" description="Create the binary distribution">
+        <property name="dist.artifact.dir" value="./target" />
+        <property name="maven_root" value="${user.home}/.m2/repository/org/connectopensource" />
+        <property name="maven_version" value="4.0.0-SNAPSHOT" />
+        <property name="dist.zip.filename" value="CONNECT-${maven_version}.zip" />
+
+        <delete dir="${dist.artifact.dir}" failonerror="false" />
+        <mkdir dir="${dist.artifact.dir}" />
+
+        <zip zipfile="${dist.artifact.dir}/${dist.zip.filename}">
+            <zipfileset file="${maven_root}/CONNECT/${maven_version}/CONNECT-${maven_version}.ear" />
+            <zipfileset prefix="Properties" src="${maven_root}/Properties/${maven_version}/Properties-${maven_version}.jar" excludes="**/META-INF/**/*" />
+            <zipfileset prefix="DBScripts" src="${maven_root}/DBScripts/${maven_version}/DBScripts-${maven_version}.jar" excludes="**/META-INF/**/*" />
+            <zipfileset prefix="ValidationSuite" dir="SoapUI_Test/ValidationSuite">
+                <include name="src/**"/>
+                <include name="*.xml"/>
+                <include name="*.properties"/>
+                <exclude name="pom.xml"/>
+            </zipfileset>
+            <zipfileset prefix="glassfish_templates" dir="./Install/Glassfish/templates" />
+        </zip>
     </target>
 </project>
