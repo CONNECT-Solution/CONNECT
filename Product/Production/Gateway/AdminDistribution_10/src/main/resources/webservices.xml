@@ -35,7 +35,6 @@ http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
         </jaxws:properties>
         <jaxws:inInterceptors>
             <ref bean="timestampInInterceptor" />
-            <ref bean="securityInInterceptor" />
             <ref bean="securityConfigInInterceptor" />
         </jaxws:inInterceptors>
         <jaxws:outFaultInterceptors>
@@ -61,10 +60,12 @@ http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
             <entry key="ws-security.timestamp.validator">
                 <bean class="gov.hhs.fha.nhinc.callback.cxf.largefile.TimestampValidator" />
             </entry>
+            <entry key="ws-security.saml2.validator">
+                <bean class="gov.hhs.fha.nhinc.callback.cxf.CONNECTSamlAssertionValidator" />
+            </entry>            
         </jaxws:properties>
         <jaxws:inInterceptors>
             <ref bean="timestampInInterceptor" />
-            <ref bean="securityInInterceptor" />
             <ref bean="securityConfigInInterceptor" />
         </jaxws:inInterceptors>
         <jaxws:outFaultInterceptors>

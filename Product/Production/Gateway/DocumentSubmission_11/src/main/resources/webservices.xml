@@ -37,7 +37,6 @@
         </jaxws:properties>
         <jaxws:inInterceptors>
             <ref bean="timestampInInterceptor" />
-            <ref bean="securityInInterceptor" />
             <ref bean="securityConfigInInterceptor" />
         </jaxws:inInterceptors>
         <jaxws:outFaultInterceptors>
@@ -74,10 +73,12 @@
             <entry key="ws-security.timestamp.validator">
                 <bean class="gov.hhs.fha.nhinc.callback.cxf.largefile.TimestampValidator" />
             </entry>
+            <entry key="ws-security.saml2.validator">
+                <bean class="gov.hhs.fha.nhinc.callback.cxf.CONNECTSamlAssertionValidator" />
+            </entry>            
         </jaxws:properties>
         <jaxws:inInterceptors>
             <ref bean="timestampInInterceptor" />
-            <ref bean="securityInInterceptor" />
             <ref bean="securityConfigInInterceptor" />
         </jaxws:inInterceptors>
         <jaxws:outFaultInterceptors>
@@ -109,7 +110,6 @@
         </jaxws:properties>
         <jaxws:inInterceptors>
             <ref bean="timestampInInterceptor" />
-            <ref bean="securityInInterceptor" />
             <ref bean="securityConfigInInterceptor" />
         </jaxws:inInterceptors>
         <jaxws:outFaultInterceptors>
@@ -149,10 +149,12 @@
             <entry key="ws-security.timestamp.validator">
                 <bean class="gov.hhs.fha.nhinc.callback.cxf.largefile.TimestampValidator" />
             </entry>
+            <entry key="ws-security.saml2.validator">
+                <bean class="gov.hhs.fha.nhinc.callback.cxf.CONNECTSamlAssertionValidator" />
+            </entry>            
         </jaxws:properties>
         <jaxws:inInterceptors>
             <ref bean="timestampInInterceptor" />
-            <ref bean="securityInInterceptor" />
             <ref bean="securityConfigInInterceptor" />
         </jaxws:inInterceptors>
         <jaxws:outFaultInterceptors>
@@ -181,7 +183,6 @@
             </entry>
         </jaxws:properties>
         <jaxws:inInterceptors>
-            <ref bean="securityInInterceptor" />
             <ref bean="securityConfigInInterceptor" />
         </jaxws:inInterceptors>
         <jaxws:handlers>
@@ -211,9 +212,11 @@
             <entry key="ws-security.callback-handler" value="gov.hhs.fha.nhinc.callback.cxf.CXFSAMLCallbackHandler" />
             <entry key="ws-security.signature.properties" value="keystore.properties" />
             <entry key="ws-security.encryption.properties" value="truststore.properties" />
+            <entry key="ws-security.saml2.validator">
+                <bean class="gov.hhs.fha.nhinc.callback.cxf.CONNECTSamlAssertionValidator" />
+            </entry>
         </jaxws:properties>
         <jaxws:inInterceptors>
-            <ref bean="securityInInterceptor" />
             <ref bean="securityConfigInInterceptor" />
         </jaxws:inInterceptors>
         <jaxws:handlers>
