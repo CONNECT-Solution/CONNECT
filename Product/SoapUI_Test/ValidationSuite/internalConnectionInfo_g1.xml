@@ -4,8 +4,23 @@
         <name xml:lang="en">DoD</name>
         <businessServices>
 
-            <!--  Administrative Distribution  s-->
-
+            <!-- Direct Soap Edge  -->
+            <businessService serviceKey="uddi:nhincnode:directsoapedge">
+                <name xml:lang="en">directsoapedge</name>
+                <bindingTemplates>
+                    <bindingTemplate bindingKey="uddi:nhincnode:directsoapedge" serviceKey="uddi:nhincnode:directsoapedge">
+                        <accessPoint useType="endPoint">https://localhost:8080/YourDirectSoapEndpoint</accessPoint>
+                        <categoryBag>
+                            <keyedReference tModelKey="CONNECT:adapter:apilevel" keyName="" keyValue="LEVEL_a0"/> 
+                        </categoryBag>
+                    </bindingTemplate>
+                </bindingTemplates>
+                <categoryBag>
+                    <keyedReference tModelKey="uddi:nhin:standard-servicenames" keyName="directsoapedge" keyValue="directsoapedge"/>
+                </categoryBag>
+            </businessService>
+            
+            <!--  Administrative Distribution  -->
             <businessService serviceKey="uddi:nhincnode:adapteradmindistsecured">
                 <name xml:lang="en">adapteradmindistsecured</name>
                 <bindingTemplates>
@@ -33,47 +48,7 @@
                 <categoryBag>
                     <keyedReference tModelKey="uddi:nhin:standard-servicenames" keyName="adapteradmindist" keyValue="adapteradmindist"/>
                 </categoryBag>
-            </businessService>
-            <businessService serviceKey="uddi:nhincnode:nhincadmindistsecured">
-                <name xml:lang="en">nhincadmindistsecured</name>
-                <bindingTemplates>
-                    <bindingTemplate bindingKey="uddi:nhincnode:nhincadmindistsecured" serviceKey="uddi:nhincnode:nhincadmindistsecured">
-                        <accessPoint useType="endPoint">https://localhost:8181/Gateway/AdminDistribution/1_0/MsgProxy/NhincProxyAdminDistSecured</accessPoint>
-                        <categoryBag>
-                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="1.0"/>
-                        </categoryBag>
-                    </bindingTemplate>
-					<bindingTemplate bindingKey="uddi:nhincnode:nhincadmindistsecured" serviceKey="uddi:nhincnode:nhincadmindistsecured">
-                        <accessPoint useType="endPoint">https://localhost:8181/Gateway/AdminDistribution/2_0/MsgProxy/NhincProxyAdminDistSecured</accessPoint>
-                        <categoryBag>
-                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="2.0"/>
-                        </categoryBag>
-                    </bindingTemplate>
-                </bindingTemplates>
-                <categoryBag>
-                    <keyedReference tModelKey="uddi:nhin:standard-servicenames" keyName="nhincadmindistsecured" keyValue="nhincadmindistsecured"/>
-                </categoryBag>
-            </businessService>
-            <businessService serviceKey="uddi:nhincnode:nhincadmindist">
-                <name xml:lang="en">nhincadmindist</name>
-                <bindingTemplates>
-                    <bindingTemplate bindingKey="uddi:nhincnode:nhincadmindist" serviceKey="uddi:nhincnode:nhincadmindist">
-                        <accessPoint useType="endPoint">http://localhost:8080/Gateway/AdminDistribution/1_0/MsgProxy/NhincProxyAdminDist</accessPoint>
-                        <categoryBag>
-                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="1.0"/>
-                        </categoryBag>
-                    </bindingTemplate>
-					<bindingTemplate bindingKey="uddi:nhincnode:nhincadmindist" serviceKey="uddi:nhincnode:nhincadmindist">
-                        <accessPoint useType="endPoint">http://localhost:8080/Gateway/AdminDistribution/2_0/MsgProxy/NhincProxyAdminDist</accessPoint>
-                        <categoryBag>
-                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="2.0"/>
-                        </categoryBag>
-                    </bindingTemplate>
-                </bindingTemplates>
-                <categoryBag>
-                    <keyedReference tModelKey="uddi:nhin:standard-servicenames" keyName="nhincadmindist" keyValue="nhincadmindist"/>
-                </categoryBag>
-            </businessService>
+            </businessService>            
 			<businessService serviceKey="uddi:nhincnode:admindistservice">
                 <name xml:lang="en">admindistservice</name>
                 <bindingTemplates>
@@ -135,86 +110,6 @@
                 </bindingTemplates>
                 <categoryBag>
                     <keyedReference tModelKey="uddi:nhin:standard-servicenames" keyName="DocSubmission" keyValue="DocSubmission"/>
-                </categoryBag>
-            </businessService>
-            <businessService serviceKey="uddi:nhincnode:nhincproxyxdrsecured">
-                <name xml:lang="en">nhincproxyxdrsecured</name>
-                <bindingTemplates>
-                    <bindingTemplate bindingKey="uddi:nhincnode:nhincproxyxdrsecured" serviceKey="uddi:nhincnode:nhincproxyxdrsecured">
-                        <accessPoint useType="endPoint">https://localhost:8181/Gateway/DocumentSubmission/1_1/EntityService/PassthruDocSubmissionSecured</accessPoint>
-                        <categoryBag>
-                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="1.1"/>
-                        </categoryBag>
-                    </bindingTemplate>
-					<bindingTemplate bindingKey="uddi:nhincnode:nhincproxyxdrsecured" serviceKey="uddi:nhincnode:nhincproxyxdrsecured">
-                        <accessPoint useType="endPoint">https://localhost:8181/Gateway/DocumentSubmission/2_0/EntityService/PassthruDocSubmissionSecured</accessPoint>
-                        <categoryBag>
-                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="2.0"/>
-                        </categoryBag>
-                    </bindingTemplate>
-                </bindingTemplates>
-                <categoryBag>
-                    <keyedReference tModelKey="uddi:nhin:standard-servicenames" keyName="nhincproxyxdrsecured" keyValue="nhincproxyxdrsecured"/>
-                </categoryBag>
-            </businessService>
-            <businessService serviceKey="uddi:nhincnode:nhincproxyxdr">
-                <name xml:lang="en">nhincproxyxdr</name>
-                <bindingTemplates>
-                    <bindingTemplate bindingKey="uddi:nhincnode:nhincproxyxdr" serviceKey="uddi:nhincnode:nhincproxyxdr">
-                        <accessPoint useType="endPoint">http://localhost:8080/Gateway/DocumentSubmission/1_1/EntityService/PassthruDocSubmissionUnsecured</accessPoint>
-                        <categoryBag>
-                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="1.1"/>
-                        </categoryBag>
-                    </bindingTemplate>
-					<bindingTemplate bindingKey="uddi:nhincnode:nhincproxyxdr" serviceKey="uddi:nhincnode:nhincproxyxdr">
-                        <accessPoint useType="endPoint">http://localhost:8080/Gateway/DocumentSubmission/2_0/EntityService/PassthruDocSubmissionUnsecured</accessPoint>
-                        <categoryBag>
-                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="2.0"/>
-                        </categoryBag>
-                    </bindingTemplate>
-                </bindingTemplates>
-                <categoryBag>
-                    <keyedReference tModelKey="uddi:nhin:standard-servicenames" keyName="nhincproxyxdr" keyValue="nhincproxyxdr"/>
-                </categoryBag>
-            </businessService>
-            <businessService serviceKey="uddi:nhincnode:nhincproxyxdrrequestsecured">
-                <name xml:lang="en">nhincproxyxdrrequestsecured</name>
-                <bindingTemplates>
-                    <bindingTemplate bindingKey="uddi:nhincnode:nhincproxyxdrrequestsecured" serviceKey="uddi:nhincnode:nhincproxyxdrrequestsecured">
-                        <accessPoint useType="endPoint">https://localhost:8181/Gateway/DocumentSubmission/1_1/EntityService/PassthruDocSubmissionDeferredRequestSecured</accessPoint>
-                        <categoryBag>
-                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="1.1"/>
-                        </categoryBag>
-                    </bindingTemplate>
-					<bindingTemplate bindingKey="uddi:nhincnode:nhincproxyxdrrequestsecured" serviceKey="uddi:nhincnode:nhincproxyxdrrequestsecured">
-                        <accessPoint useType="endPoint">https://localhost:8181/Gateway/DocumentSubmission/2_0/EntityService/PassthruDocSubmissionDeferredRequestSecured</accessPoint>
-                        <categoryBag>
-                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="2.0"/>
-                        </categoryBag>
-                    </bindingTemplate>
-                </bindingTemplates>
-                <categoryBag>
-                    <keyedReference tModelKey="uddi:nhin:standard-servicenames" keyName="nhincproxyxdrrequestsecured" keyValue="nhincproxyxdrrequestsecured"/>
-                </categoryBag>
-            </businessService>
-            <businessService serviceKey="uddi:nhincnode:nhincproxyxdrresponsesecured">
-                <name xml:lang="en">nhincproxyxdrresponsesecured</name>
-                <bindingTemplates>
-                    <bindingTemplate bindingKey="uddi:nhincnode:nhincproxyxdrresponsesecured" serviceKey="uddi:nhincnode:nhincproxyxdrresponsesecured">
-                        <accessPoint useType="endPoint">https://localhost:8181/Gateway/DocumentSubmission/1_1/EntityService/PassthruDocSubmissionDeferredResponseSecured</accessPoint>
-                        <categoryBag>
-                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="1.1"/>
-                        </categoryBag>
-                    </bindingTemplate>
-					<bindingTemplate bindingKey="uddi:nhincnode:nhincproxyxdrresponsesecured" serviceKey="uddi:nhincnode:nhincproxyxdrresponsesecured">
-                        <accessPoint useType="endPoint">https://localhost:8181/Gateway/DocumentSubmission/2_0/EntityService/PassthruDocSubmissionDeferredResponseSecured</accessPoint>
-                        <categoryBag>
-                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="2.0"/>
-                        </categoryBag>
-                    </bindingTemplate>
-                </bindingTemplates>
-                <categoryBag>
-                    <keyedReference tModelKey="uddi:nhin:standard-servicenames" keyName="nhincproxyxdrresponsesecured" keyValue="nhincproxyxdrresponsesecured"/>
                 </categoryBag>
             </businessService>
             <businessService serviceKey="uddi:nhincnode:adapterxdrsecured">
@@ -396,27 +291,7 @@
                 <categoryBag>
                     <keyedReference tModelKey="uddi:nhin:standard-servicenames" keyName="adapterxdrrequesterror" keyValue="adapterxdrrequesterror"/>
                 </categoryBag>
-            </businessService>
-            <businessService serviceKey="uddi:nhincnode:nhincproxyxdrrequest">
-                <name xml:lang="en">nhincproxyxdrrequest</name>
-                <bindingTemplates>
-                    <bindingTemplate bindingKey="uddi:nhincnode:nhincproxyxdrrequest" serviceKey="uddi:nhincnode:nhincproxyxdrrequest">
-                        <accessPoint useType="endPoint">http://localhost:8080/Gateway/DocumentSubmission/1_1/EntityService/PassthruDocSubmissionDeferredRequestUnsecured</accessPoint>
-                        <categoryBag>
-                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="1.1"/>
-                        </categoryBag>
-                    </bindingTemplate>
-					<bindingTemplate bindingKey="uddi:nhincnode:nhincproxyxdrrequest" serviceKey="uddi:nhincnode:nhincproxyxdrrequest">
-                        <accessPoint useType="endPoint">http://localhost:8080/Gateway/DocumentSubmission/2_0/EntityService/PassthruDocSubmissionDeferredRequestUnsecured</accessPoint>
-                        <categoryBag>
-                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="2.0"/>
-                        </categoryBag>
-                    </bindingTemplate>
-                </bindingTemplates>
-                <categoryBag>
-                    <keyedReference tModelKey="uddi:nhin:standard-servicenames" keyName="nhincproxyxdrrequest" keyValue="nhincproxyxdrrequest"/>
-                </categoryBag>
-            </businessService>
+            </businessService>            
             <businessService serviceKey="uddi:nhincnode:entityxdrrequestsecured">
                 <name xml:lang="en">entityxdrrequestsecured</name>
                 <bindingTemplates>
@@ -485,26 +360,6 @@
                     <keyedReference tModelKey="uddi:nhin:standard-servicenames" keyName="adapterxdrresponse" keyValue="adapterxdrresponse"/>
                 </categoryBag>
             </businessService>
-            <businessService serviceKey="uddi:nhincnode:nhincproxyxdrresponse">
-                <name xml:lang="en">nhincproxyxdrresponse</name>
-                <bindingTemplates>
-                    <bindingTemplate bindingKey="uddi:nhincnode:nhincproxyxdrresponse" serviceKey="uddi:nhincnode:nhincproxyxdrresponse">
-                        <accessPoint useType="endPoint">http://localhost:8080/Gateway/DocumentSubmission/1_1/EntityService/PassthruDocSubmissionDeferredResponseUnsecured</accessPoint>
-                        <categoryBag>
-                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="1.1"/>
-                        </categoryBag>
-                    </bindingTemplate>
-					<bindingTemplate bindingKey="uddi:nhincnode:nhincproxyxdrresponse" serviceKey="uddi:nhincnode:nhincproxyxdrresponse">
-                        <accessPoint useType="endPoint">http://localhost:8080/Gateway/DocumentSubmission/2_0/EntityService/PassthruDocSubmissionDeferredResponseUnsecured</accessPoint>
-                        <categoryBag>
-                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="2.0"/>
-                        </categoryBag>
-                    </bindingTemplate>
-                </bindingTemplates>
-                <categoryBag>
-                    <keyedReference tModelKey="uddi:nhin:standard-servicenames" keyName="nhincproxyxdrresponse" keyValue="nhincproxyxdrresponse"/>
-                </categoryBag>
-            </businessService>
             <businessService serviceKey="uddi:nhincnode:entityxdrresponsesecured">
                 <name xml:lang="en">entityxdrresponsesecured</name>
                 <bindingTemplates>
@@ -548,20 +403,6 @@
 
             <!--  Document Query  -->
 
-            <businessService serviceKey="uddi:nhincnode:nhincproxydocquerysecured">
-                <name xml:lang="en">nhincproxydocquerysecured</name>
-                <bindingTemplates>
-                    <bindingTemplate bindingKey="uddi:nhincnode:nhincproxydocquerysecured" serviceKey="uddi:nhincnode:nhincproxydocquerysecured">
-                        <accessPoint useType="endPoint">https://localhost:8181/Gateway/DocumentQuery/2_0/EntityService/NhincProxyDocQuerySecured</accessPoint>
-                        <categoryBag>
-                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="2.0"/>
-                        </categoryBag>
-                    </bindingTemplate>
-                </bindingTemplates>
-                <categoryBag>
-                    <keyedReference tModelKey="uddi:nhin:standard-servicenames" keyName="nhincproxydocquerysecured" keyValue="nhincproxydocquerysecured"/>
-                </categoryBag>
-            </businessService>
             <businessService serviceKey="uddi:nhincnode:adapterdocquery">
                 <name xml:lang="en">adapterdocquery</name>
                 <bindingTemplates>
@@ -618,43 +459,9 @@
                     <keyedReference tModelKey="uddi:nhin:standard-servicenames" keyName="entitydocquerysecured" keyValue="entitydocquerysecured"/>
                 </categoryBag>
             </businessService>
-            <businessService serviceKey="uddi:nhincnode:nhincproxydocquery">
-                <name xml:lang="en">nhincproxydocquery</name>
-                <bindingTemplates>
-                    <bindingTemplate bindingKey="uddi:nhincnode:nhincproxydocquery" serviceKey="uddi:nhincnode:nhincproxydocquery">
-                        <accessPoint useType="endPoint">http://localhost:8080/Gateway/DocumentQuery/2_0/EntityService/NhincProxyDocQueryUnsecured</accessPoint>
-                        <categoryBag>
-                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="2.0"/>
-                        </categoryBag>
-                    </bindingTemplate>
-                </bindingTemplates>
-                <categoryBag>
-                    <keyedReference tModelKey="uddi:nhin:standard-servicenames" keyName="nhincproxydocquery" keyValue="nhincproxydocquery"/>
-                </categoryBag>
-            </businessService>
-
+            
             <!--  Document Retrieve  -->
 
-            <businessService serviceKey="uddi:nhincnode:nhincproxydocretrievesecured">
-                <name xml:lang="en">nhincproxydocretrievesecured</name>
-                <bindingTemplates>
-                    <bindingTemplate bindingKey="uddi:nhincnode:nhincproxydocretrievesecured" serviceKey="uddi:nhincnode:nhincproxydocretrievesecured">
-                        <accessPoint useType="endPoint">https://localhost:8181/Gateway/DocumentRetrieve/2_0/EntityService/NhincProxyDocRetrieveSecured</accessPoint>
-                        <categoryBag>
-                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="2.0"/>
-                        </categoryBag>
-                    </bindingTemplate>
-					<bindingTemplate bindingKey="uddi:nhincnode:nhincproxydocretrievesecured" serviceKey="uddi:nhincnode:nhincproxydocretrievesecured">
-                        <accessPoint useType="endPoint">https://localhost:8181/Gateway/DocumentRetrieve/3_0/EntityService/NhincProxyDocRetrieveSecured</accessPoint>
-                        <categoryBag>
-                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="3.0"/>
-                        </categoryBag>
-                    </bindingTemplate>
-                </bindingTemplates>
-                <categoryBag>
-                    <keyedReference tModelKey="uddi:nhin:standard-servicenames" keyName="nhincproxydocretrievesecured" keyValue="nhincproxydocretrievesecured"/>
-                </categoryBag>
-            </businessService>
             <businessService serviceKey="uddi:nhincnode:adapterdocretrieve">
                 <name xml:lang="en">adapterdocretrieve</name>
                 <bindingTemplates>
@@ -723,27 +530,7 @@
                     <keyedReference tModelKey="uddi:nhin:standard-servicenames" keyName="entitydocretrievesecured" keyValue="entitydocretrievesecured"/>
                 </categoryBag>
             </businessService>
-            <businessService serviceKey="uddi:nhincnode:nhincproxydocretrieve">
-                <name xml:lang="en">nhincproxydocretrieve</name>
-                <bindingTemplates>
-                    <bindingTemplate bindingKey="uddi:nhincnode:nhincproxydocretrieve" serviceKey="uddi:nhincnode:nhincproxydocretrieve">
-                        <accessPoint useType="endPoint">http://localhost:8080/Gateway/DocumentRetrieve/2_0/NhincProxyDocRetrieveUnsecured</accessPoint>
-                        <categoryBag>
-                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="2.0"/>
-                        </categoryBag>
-                    </bindingTemplate>
-					<bindingTemplate bindingKey="uddi:nhincnode:nhincproxydocretrieve" serviceKey="uddi:nhincnode:nhincproxydocretrieve">
-                        <accessPoint useType="endPoint">http://localhost:8080/Gateway/DocumentRetrieve/3_0/NhincProxyDocRetrieveUnsecured</accessPoint>
-                        <categoryBag>
-                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="3.0"/>
-                        </categoryBag>
-                    </bindingTemplate>
-                </bindingTemplates>
-                <categoryBag>
-                    <keyedReference tModelKey="uddi:nhin:standard-servicenames" keyName="nhincproxydocretrieve" keyValue="nhincproxydocretrieve"/>
-                </categoryBag>
-            </businessService>
-						
+            			
             <!--  HIEM  -->
 
             <businessService serviceKey="uddi:nhincnode:nhincproxynotificationconsumersecured">
@@ -986,52 +773,7 @@
             </businessService>
 			
             <!--  Patient Discovery  -->
-
-            <businessService serviceKey="uddi:nhincnode:nhincproxypatientdiscoverysecured">
-                <name xml:lang="en">nhincproxypatientdiscoverysecured</name>
-                <bindingTemplates>
-                    <bindingTemplate bindingKey="uddi:nhincnode:nhincproxypatientdiscoverysecured" serviceKey="uddi:nhincnode:nhincproxypatientdiscoverysecured">
-                        <accessPoint useType="endPoint">https://localhost:8181/Gateway/PatientDiscovery/1_0/EntityService/NhincProxyPatientDiscoverySecured</accessPoint>
-                        <categoryBag>
-                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="2.0"/>
-                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="1.0"/>
-                        </categoryBag>
-                    </bindingTemplate>
-                </bindingTemplates>
-                <categoryBag>
-                    <keyedReference tModelKey="uddi:nhin:standard-servicenames" keyName="nhincproxypatientdiscoverysecured" keyValue="nhincproxypatientdiscoverysecured"/>
-                </categoryBag>
-            </businessService>
-            <businessService serviceKey="uddi:nhincnode:nhincproxypatientdiscoverysecuredasyncreq">
-                <name xml:lang="en">nhincproxypatientdiscoverysecuredasyncreq</name>
-                <bindingTemplates>
-                    <bindingTemplate bindingKey="uddi:nhincnode:nhincproxypatientdiscoverysecuredasyncreq" serviceKey="uddi:nhincnode:nhincproxypatientdiscoverysecuredasyncreq">
-                        <accessPoint useType="endPoint">https://localhost:8181/Gateway/PatientDiscovery/1_0/MsgProxy/NhincProxyPatientDiscoveryDeferredRequestSecured</accessPoint>
-                        <categoryBag>
-                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="2.0"/>
-                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="1.0"/>
-                        </categoryBag>
-                    </bindingTemplate>
-                </bindingTemplates>
-                <categoryBag>
-                    <keyedReference tModelKey="uddi:nhin:standard-servicenames" keyName="nhincproxypatientdiscoverysecuredasyncreq" keyValue="nhincproxypatientdiscoverysecuredasyncreq"/>
-                </categoryBag>
-            </businessService>
-            <businessService serviceKey="uddi:nhincnode:nhincproxypatientdiscoverysecuredasyncresp">
-                <name xml:lang="en">nhincproxypatientdiscoverysecuredasyncresp</name>
-                <bindingTemplates>
-                    <bindingTemplate bindingKey="uddi:nhincnode:nhincproxypatientdiscoverysecuredasyncresp" serviceKey="uddi:nhincnode:nhincproxypatientdiscoverysecuredasyncresp">
-                        <accessPoint useType="endPoint">https://localhost:8181/Gateway/PatientDiscovery/1_0/EntityService/NhincProxyPatientDiscoveryAsyncRespSecured</accessPoint>
-                        <categoryBag>
-                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="2.0"/>
-                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="1.0"/>
-                        </categoryBag>
-                    </bindingTemplate>
-                </bindingTemplates>
-                <categoryBag>
-                    <keyedReference tModelKey="uddi:nhin:standard-servicenames" keyName="nhincproxypatientdiscoverysecuredasyncresp" keyValue="nhincproxypatientdiscoverysecuredasyncresp"/>
-                </categoryBag>
-            </businessService>
+            
             <businessService serviceKey="uddi:nhincnode:patientcorrelation">
                 <name xml:lang="en">patientcorrelation</name>
                 <bindingTemplates>
@@ -1151,52 +893,7 @@
                 <categoryBag>
                     <keyedReference tModelKey="uddi:nhin:standard-servicenames" keyName="entitypatientdiscoveryasyncresp" keyValue="entitypatientdiscoveryasyncresp"/>
                 </categoryBag>
-            </businessService>
-            <businessService serviceKey="uddi:nhincnode:nhincproxypatientdiscovery">
-                <name xml:lang="en">nhincproxypatientdiscovery</name>
-                <bindingTemplates>
-                    <bindingTemplate bindingKey="uddi:nhincnode:nhincproxypatientdiscovery" serviceKey="uddi:nhincnode:nhincproxypatientdiscovery">
-                        <accessPoint useType="endPoint">http://localhost:8080/Gateway/PatientDiscovery/1_0/MsgProxy/NhincProxyPatientDiscovery</accessPoint>
-                        <categoryBag>
-                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="2.0"/>
-                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="1.0"/>
-                        </categoryBag>
-                    </bindingTemplate>
-                </bindingTemplates>
-                <categoryBag>
-                    <keyedReference tModelKey="uddi:nhin:standard-servicenames" keyName="nhincproxypatientdiscovery" keyValue="nhincproxypatientdiscovery"/>
-                </categoryBag>
-            </businessService>
-            <businessService serviceKey="uddi:nhincnode:nhincproxypatientdiscoveryasyncreq">
-                <name xml:lang="en">nhincproxypatientdiscoveryasyncreq</name>
-                <bindingTemplates>
-                    <bindingTemplate bindingKey="uddi:nhincnode:nhincproxypatientdiscoveryasyncreq" serviceKey="uddi:nhincnode:nhincproxypatientdiscoveryasyncreq">
-                        <accessPoint useType="endPoint">http://localhost:8080/Gateway/PatientDiscovery/1_0/MsgProxy/NhincProxyPatientDiscoveryDeferredRequestUnsecured</accessPoint>
-                        <categoryBag>
-                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="2.0"/>
-                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="1.0"/>
-                        </categoryBag>
-                    </bindingTemplate>
-                </bindingTemplates>
-                <categoryBag>
-                    <keyedReference tModelKey="uddi:nhin:standard-servicenames" keyName="nhincproxypatientdiscoveryasyncreq" keyValue="nhincproxypatientdiscoveryasyncreq"/>
-                </categoryBag>
-            </businessService>
-            <businessService serviceKey="uddi:nhincnode:nhincproxypatientdiscoveryasyncresp">
-                <name xml:lang="en">nhincproxypatientdiscoveryasyncresp</name>
-                <bindingTemplates>
-                    <bindingTemplate bindingKey="uddi:nhincnode:nhincproxypatientdiscoveryasyncresp" serviceKey="uddi:nhincnode:nhincproxypatientdiscoveryasyncresp">
-                        <accessPoint useType="endPoint">http://localhost:8080/Gateway/PatientDiscovery/1_0/MsgProxy/NhincProxyPatientDiscoveryAsyncResp</accessPoint>
-                        <categoryBag>
-                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="2.0"/>
-                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="1.0"/>
-                        </categoryBag>
-                    </bindingTemplate>
-                </bindingTemplates>
-                <categoryBag>
-                    <keyedReference tModelKey="uddi:nhin:standard-servicenames" keyName="nhincproxypatientdiscoveryasyncresp" keyValue="nhincproxypatientdiscoveryasyncresp"/>
-                </categoryBag>
-            </businessService>
+            </businessService>            
             <businessService serviceKey="uddi:nhincnode:adapterpatientdiscovery">
                 <name xml:lang="en">adapterpatientdiscovery</name>
                 <bindingTemplates>
