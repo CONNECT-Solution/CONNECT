@@ -26,6 +26,7 @@
  */
 package gov.hhs.fha.nhinc.admindistribution.aspect;
 
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -51,42 +52,42 @@ public class EDXLDistributionPayloadSizeExtractor {
         List<String> payloadSize = new ArrayList<String>();
         if (alertMessage != null) {
             List<ContentObjectType> contents = alertMessage.getContentObject();
-            if(!contents.isEmpty()){
-            	for (ContentObjectType message : contents) {
+            for (ContentObjectType message : contents) {
             		payloadSize.add(getPayloadSize(message));
-            	}
             }
         }
         return payloadSize;
     }
 
     private String getPayloadSize(ContentObjectType message) {
-        if (isPayloadSizeEmpty(message)) {
-            return "";
-        } else {
-            return message.getNonXMLContent().getSize().toString();
-        }
-    }
-
-    private boolean isPayloadSizeEmpty(ContentObjectType message) {
-    	return isNonContentXMLEmpty(message.getNonXMLContent()) ||
-    			isContentXMLEmpty(message.getXmlContent());
+        int result = 0;
+        result += getContentXMLSize(message.getXmlContent());
+    	result += getNonContentXMLSize(message.getNonXMLContent());
+    	return "" + result;
     }
     
-    private boolean isContentXMLEmpty(XmlContentType contentXML){
-    	if(contentXML != null){
+    private int getContentXMLSize(XmlContentType contentXML){
+    	if(contentXML == null){
+    		return 0;
+    	}else {
     		int embeddedXMLSize = contentXML.getEmbeddedXMLContent().size();
     		int keyXMLSize = contentXML.getKeyXMLContent().size();
-    		return embeddedXMLSize == 0 && keyXMLSize == 0;
+    		return embeddedXMLSize + keyXMLSize;
     	}
-    	return contentXML != null;
     }
     
-    private boolean isNonContentXMLEmpty(NonXMLContentType nonContentXML){
-    	if(nonContentXML != null){
-    		return nonContentXML.getSize() == null;
+    private int getNonContentXMLSize(NonXMLContentType nonContentXML){
+    	if(nonContentXML == null){
+    		return 0;
+    	}else{
+    		BigInteger size = nonContentXML.getSize();
+    		if(size != null) {
+    			return size.intValue();
+    		}
+    		else {
+    			return 0;
+    		}
     	}
-    	return nonContentXML == null;
     }
 
 }
