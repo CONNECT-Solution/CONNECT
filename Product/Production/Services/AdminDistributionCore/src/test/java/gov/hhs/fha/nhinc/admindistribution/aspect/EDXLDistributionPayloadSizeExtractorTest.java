@@ -174,7 +174,6 @@ public class EDXLDistributionPayloadSizeExtractorTest {
         alert.getContentObject().add(payload);
         
         List<String> payloadSizes = extractor.getPayloadSizes(alert);
-        //context.assertIsSatisfied();
         assertEquals(1, payloadSizes.size());
         assertEquals("9", payloadSizes.get(0));
     }
