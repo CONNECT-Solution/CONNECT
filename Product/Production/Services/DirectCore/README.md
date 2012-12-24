@@ -13,6 +13,13 @@ Install under:
 
 	$JAVA_HOME/jre/lib/security 
 
+###Maven
+
+Direct is currently disabled in the deployment pom.xml file. In order to enable it...  
+--> .../Product/Production/Deploy/ear/pom.xml : _maven pom for the deployment._ 
+
+    <direct.excluded>false</direct.excluded>
+
 Mail Servers
 ------------
 
