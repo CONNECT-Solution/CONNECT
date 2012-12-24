@@ -57,9 +57,6 @@
                 </fileset>
             </classpath>
         </taskdef>
-        <xmltask source="${basedir}/deploy.application.list.xml" dest="${basedir}/deploy.application.list.xml">
-            <replace path="//should.deploy/text()[../preceding-sibling::name/text()[contains(., 'GUI')]]" withText="false" />
-        </xmltask>
         <ant antfile="${basedir}/build.xml" dir="${basedir}">
             <property name="mysql.executable" value="${mysql.executable}" />
         </ant>
