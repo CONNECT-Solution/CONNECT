@@ -30,6 +30,7 @@ package gov.hhs.fha.nhinc.messaging.service.decorator.cxf;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.cxf.endpoint.Client;
 import org.apache.cxf.frontend.ClientProxy;
 import org.apache.cxf.interceptor.Interceptor;
@@ -74,7 +75,7 @@ public class WsSecurityServiceEndpointDecorator<T> extends ServiceEndpointDecora
         
         outProps.put(WSHandlerConstants.ACTION, "Timestamp SAMLTokenSigned");
         outProps.put(WSHandlerConstants.TTL_TIMESTAMP, "3600");
-        outProps.put(WSHandlerConstants.USER, "gateway");
+        outProps.put(WSHandlerConstants.USER, getIssuerKeyAlias());
         outProps.put(WSHandlerConstants.PW_CALLBACK_CLASS, "gov.hhs.fha.nhinc.callback.cxf.CXFPasswordCallbackHandler");    
         outProps.put(WSHandlerConstants.PASSWORD_TYPE, "PasswordDigest");
         outProps.put(WSHandlerConstants.SAML_PROP_FILE, "saml.properties");
@@ -98,5 +99,10 @@ public class WsSecurityServiceEndpointDecorator<T> extends ServiceEndpointDecora
         }
         
         client.getOutInterceptors().add(outInterceptor);
+    }
+    
+    protected String getIssuerKeyAlias() {
+    	String alias = System.getProperty("CLIENT_KEY_ALIAS");
+    	return StringUtils.isBlank(alias) ? "gateway" : alias;
     }
 }
