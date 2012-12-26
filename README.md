@@ -171,6 +171,17 @@ Lastly, we're going to install the Glassfish Application Server
 
         $ ant install
 
+####Chain of Trust Certificates
+Unlike testing with the embedded glassfish and chain of trust certificates, 'ant install' generates self signed certificates at deploy time. In order to switch over to chain of trust certs follow these directions (it is recommended to back up your self signed certs first):
+
+        $ asadmin stop-domain domain1
+        $ cp <CONNECT_CLONE_DIR>/Product/SoapUI_Test/ValidationSuite/src/test/resources/chaincerts/*.jks <GLASSFISH_HOME>/domains/domain1/config/
+        $ asadmin start-domain domain1
+        
+The certificates that come in the CONNECT source do not include a Certificate Revocation List, therefore the following `domain.xml` properties need to be set to false:
+
+        <jvm-options>-Dcom.sun.net.ssl.checkRevocation=false</jvm-options>
+        <jvm-options>-Dcom.sun.security.enableCRLDP=false</jvm-options>
 
 ####Deploy to GlassFish
 Navigate to the <CONNECT_CLONE_DIR>/Product/Install directory
@@ -185,7 +196,7 @@ TK
 Testing
 -------
 ###Run the Validation Suite as part of install
-At the end of the mvn install process, an embedded GlassFish instance will start and the Validation Suite will run against it:
+At the end of the mvn install process, an embedded GlassFish instance will start and the Validation Suite will run against it. The maven scripts automatically stand up the embedded glassfish using trust chain certificates:
 
         $ cd <CONNECT_CLONE_DIR>/Product/SoapUI_Test/ValidationSuite
         $ mvn clean install
