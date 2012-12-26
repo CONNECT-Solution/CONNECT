@@ -34,12 +34,16 @@ import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants.GATEWAY_API_LEVEL;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants.NHIN_SERVICE_NAMES;
 
+import org.apache.log4j.Logger;
+
 /**
  * @author mweaver
  * 
  */
 public class PurposeOfForDecider {
 
+	private static final Logger LOG = Logger.getLogger(PurposeOfForDecider.class);
+	
     public PurposeOfForDecider() {
 
     }
@@ -82,7 +86,26 @@ public class PurposeOfForDecider {
             PurposeUseProxy purposeUse = getPurposeUseProxyObjectFactory();
             purposeFor = purposeUse.isPurposeForUseEnabled(properties);
         }
+        
+        if(LOG.isDebugEnabled()){
+        	logPurposeDecision(purposeFor, hcid, serviceName.getUDDIServiceName());
+        }
+        
         return purposeFor;
+    }
+    
+    private void logPurposeDecision(Boolean purposeFor, String hcid,
+    		String serviceName){
+    	String purposeName = null;
+    	if(purposeFor){
+    		purposeName = "PURPOSE FOR";
+    	}else{
+    		purposeName = "PURPOSE OF";
+    	}
+    	
+    	LOG.debug("PurposeOfForDecider decision for HCID: " + hcid +
+    			" and Service Name: " + serviceName + " is = " + 
+    			purposeName + ".");
     }
 
 }
