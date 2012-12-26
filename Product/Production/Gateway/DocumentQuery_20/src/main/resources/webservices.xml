@@ -22,7 +22,6 @@ http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd http://www.s
         endpointName="ndq:RespondingGateway_Query_Port_Soap" implementorClass="gov.hhs.fha.nhinc.docquery._20.nhin.DocQuery"
         implementor="#nhinDQ" wsdlLocation="classpath:wsdl/NhinDocQuery.wsdl">
         <jaxws:properties>
-            <entry key="ws-security.callback-handler" value="gov.hhs.fha.nhinc.callback.cxf.CXFSAMLCallbackHandler" />
             <entry key="ws-security.signature.properties" value="keystore.properties" />
             <entry key="ws-security.encryption.properties" value="truststore.properties" />
             <entry key="ws-security.saml2.validator">
@@ -30,7 +29,6 @@ http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd http://www.s
             </entry>
         </jaxws:properties>
         <jaxws:inInterceptors>
-            <ref bean="securityInInterceptor" />
             <ref bean="securityConfigInInterceptor" />
         </jaxws:inInterceptors>
         <jaxws:handlers>
@@ -55,12 +53,13 @@ http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd http://www.s
         implementorClass="gov.hhs.fha.nhinc.docquery._20.entity.EntityDocQuerySecured" implementor="#entityDQSecured"
         wsdlLocation="classpath:wsdl/EntityDocQuerySecured.wsdl">
         <jaxws:properties>
-            <entry key="ws-security.callback-handler" value="gov.hhs.fha.nhinc.callback.cxf.CXFSAMLCallbackHandler" />
             <entry key="ws-security.signature.properties" value="keystore.properties" />
             <entry key="ws-security.encryption.properties" value="truststore.properties" />
+            <entry key="ws-security.saml2.validator">
+                <bean class="gov.hhs.fha.nhinc.callback.cxf.CONNECTSamlAssertionValidator" />
+            </entry>            
         </jaxws:properties>
         <jaxws:inInterceptors>
-            <ref bean="securityInInterceptor" />
             <ref bean="securityConfigInInterceptor" />
         </jaxws:inInterceptors>
         <jaxws:handlers>

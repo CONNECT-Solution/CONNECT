@@ -27,7 +27,6 @@
 package gov.hhs.fha.nhinc.callback.cxf.wss;
 
 import gov.hhs.fha.nhinc.callback.SamlConstants;
-import gov.hhs.fha.nhinc.callback.cxf.EndorsingSupportingTokensInterceptor;
 
 import javax.xml.namespace.QName;
 
@@ -53,7 +52,6 @@ public class SecurityConfigInInterceptor extends AbstractPhaseInterceptor<Messag
         super(Phase.PRE_PROTOCOL);
 
         // this needs to run before the following interceptors that process security headers
-        getBefore().add(EndorsingSupportingTokensInterceptor.class.getName());
         getBefore().add(WSS4JInInterceptor.class.getName());
     }
 

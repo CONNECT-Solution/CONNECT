@@ -24,7 +24,6 @@
         serviceName="nds:DocumentRepositoryXDR_Service" endpointName="nds:DocumentRepositoryXDR_Port_Soap"
         implementor="#nhinXDR" wsdlLocation="classpath:wsdl/NhinXDR.wsdl">
         <jaxws:properties>
-            <entry key="ws-security.callback-handler" value="gov.hhs.fha.nhinc.callback.cxf.CXFSAMLCallbackHandler" />
             <entry key="ws-security.signature.properties" value="keystore.properties" />
             <entry key="ws-security.encryption.properties" value="truststore.properties" />
             <entry key="ws-security.saml2.validator">
@@ -37,7 +36,6 @@
         </jaxws:properties>
         <jaxws:inInterceptors>
             <ref bean="timestampInInterceptor" />
-            <ref bean="securityInInterceptor" />
             <ref bean="securityConfigInInterceptor" />
         </jaxws:inInterceptors>
         <jaxws:outFaultInterceptors>
@@ -67,17 +65,18 @@
         endpointName="edss:EntityXDRSecured_Port" implementor="#entityXDRSecured"
         wsdlLocation="classpath:wsdl/EntityXDRSecured.wsdl">
         <jaxws:properties>
-            <entry key="ws-security.callback-handler" value="gov.hhs.fha.nhinc.callback.cxf.CXFSAMLCallbackHandler" />
             <entry key="ws-security.signature.properties" value="keystore.properties" />
             <entry key="ws-security.encryption.properties" value="truststore.properties" />
             <entry key="mtom-enabled" value="true" />
             <entry key="ws-security.timestamp.validator">
                 <bean class="gov.hhs.fha.nhinc.callback.cxf.largefile.TimestampValidator" />
             </entry>
+            <entry key="ws-security.saml2.validator">
+                <bean class="gov.hhs.fha.nhinc.callback.cxf.CONNECTSamlAssertionValidator" />
+            </entry>            
         </jaxws:properties>
         <jaxws:inInterceptors>
             <ref bean="timestampInInterceptor" />
-            <ref bean="securityInInterceptor" />
             <ref bean="securityConfigInInterceptor" />
         </jaxws:inInterceptors>
         <jaxws:outFaultInterceptors>
@@ -96,7 +95,6 @@
         serviceName="tns:XDRDeferredRequest_Service" endpointName="tns:XDRDeferredRequest_Port_Soap"
         implementor="#nhinXDRDeferredRequest" wsdlLocation="classpath:wsdl/NhinXDRDeferredRequest.wsdl">
         <jaxws:properties>
-            <entry key="ws-security.callback-handler" value="gov.hhs.fha.nhinc.callback.cxf.CXFSAMLCallbackHandler" />
             <entry key="ws-security.signature.properties" value="keystore.properties" />
             <entry key="ws-security.encryption.properties" value="truststore.properties" />
             <entry key="ws-security.saml2.validator">
@@ -109,7 +107,6 @@
         </jaxws:properties>
         <jaxws:inInterceptors>
             <ref bean="timestampInInterceptor" />
-            <ref bean="securityInInterceptor" />
             <ref bean="securityConfigInInterceptor" />
         </jaxws:inInterceptors>
         <jaxws:outFaultInterceptors>
@@ -142,17 +139,18 @@
         implementor="#entityXDRDeferredRequestSecured"
         wsdlLocation="classpath:wsdl/EntityXDRSecuredRequest.wsdl">
         <jaxws:properties>
-            <entry key="ws-security.callback-handler" value="gov.hhs.fha.nhinc.callback.cxf.CXFSAMLCallbackHandler" />
             <entry key="ws-security.signature.properties" value="keystore.properties" />
             <entry key="ws-security.encryption.properties" value="truststore.properties" />
             <entry key="mtom-enabled" value="true" />
             <entry key="ws-security.timestamp.validator">
                 <bean class="gov.hhs.fha.nhinc.callback.cxf.largefile.TimestampValidator" />
             </entry>
+            <entry key="ws-security.saml2.validator">
+                <bean class="gov.hhs.fha.nhinc.callback.cxf.CONNECTSamlAssertionValidator" />
+            </entry>            
         </jaxws:properties>
         <jaxws:inInterceptors>
             <ref bean="timestampInInterceptor" />
-            <ref bean="securityInInterceptor" />
             <ref bean="securityConfigInInterceptor" />
         </jaxws:inInterceptors>
         <jaxws:outFaultInterceptors>
@@ -173,7 +171,6 @@
         implementor="#nhinXDRDeferredResponse"
         wsdlLocation="classpath:wsdl/NhinXDRDeferredResponse.wsdl">
         <jaxws:properties>
-            <entry key="ws-security.callback-handler" value="gov.hhs.fha.nhinc.callback.cxf.CXFSAMLCallbackHandler" />
             <entry key="ws-security.signature.properties" value="keystore.properties" />
             <entry key="ws-security.encryption.properties" value="truststore.properties" />
             <entry key="ws-security.saml2.validator">
@@ -181,7 +178,6 @@
             </entry>
         </jaxws:properties>
         <jaxws:inInterceptors>
-            <ref bean="securityInInterceptor" />
             <ref bean="securityConfigInInterceptor" />
         </jaxws:inInterceptors>
         <jaxws:handlers>
@@ -208,12 +204,13 @@
         implementor="#entityXDRDeferredResponseSecured"
         wsdlLocation="classpath:wsdl/EntityXDRSecuredResponse.wsdl">
         <jaxws:properties>
-            <entry key="ws-security.callback-handler" value="gov.hhs.fha.nhinc.callback.cxf.CXFSAMLCallbackHandler" />
             <entry key="ws-security.signature.properties" value="keystore.properties" />
             <entry key="ws-security.encryption.properties" value="truststore.properties" />
+            <entry key="ws-security.saml2.validator">
+                <bean class="gov.hhs.fha.nhinc.callback.cxf.CONNECTSamlAssertionValidator" />
+            </entry>
         </jaxws:properties>
         <jaxws:inInterceptors>
-            <ref bean="securityInInterceptor" />
             <ref bean="securityConfigInInterceptor" />
         </jaxws:inInterceptors>
         <jaxws:handlers>
