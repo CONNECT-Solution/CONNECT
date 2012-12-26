@@ -122,6 +122,7 @@ public class CONNECTSamlAssertionValidator extends SamlAssertionValidator {
 	 * @return A Credential instance
 	 * @throws WSSecurityException
 	 */
+	@Override
 	protected Credential verifySignedAssertion(AssertionWrapper assertion,
 			RequestData data) throws WSSecurityException {
 		Credential trustCredential = new Credential();
