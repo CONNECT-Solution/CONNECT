@@ -212,29 +212,17 @@
                                     <target>
                                         <mkdir
                                             dir="${project.build.directory}/domain1/config" />
-                                        <exec failonerror="false"
-                                            executable="keytool"
-                                            dir="${project.build.directory}/domain1/config">
-                                            <arg
-                                                line="-v -genkey -keyalg RSA -keysize 1024 -keystore gateway.jks -keypass changeit -storepass changeit -validity 365 -alias gateway -dname &quot;cn=localhost&quot;" />
-                                        </exec>
-                                        <exec failonerror="false"
-                                            executable="keytool"
-                                            dir="${project.build.directory}/domain1/config/">
-                                            <arg
-                                                line="-v -export -rfc -alias gateway -file localhost.cer -keystore gateway.jks -keypass changeit -storepass changeit" />
-                                        </exec>
-                                        <exec failonerror="false"
-                                            executable="keytool"
-                                            dir="${project.build.directory}/domain1/config/">
-                                            <arg
-                                                line="-v -import -keypass changeit -noprompt -trustcacerts -alias localhost -file localhost.cer -keystore cacerts.jks -storepass changeit" />
-                                        </exec>
                                         <copy
-                                            file="${project.build.directory}/domain1/config/gateway.jks"
+                                            file="${project.build.directory}/test-classes/chaincerts/gateway.jks"
+                                            todir="${project.build.directory}/domain1/config/" />
+                                        <copy
+                                            file="${project.build.directory}/test-classes/chaincerts/cacerts.jks"
+                                            todir="${project.build.directory}/domain1/config/" />
+                                        <copy
+                                            file="${project.build.directory}/test-classes/chaincerts/gateway.jks"
                                             todir="${project.build.directory}/domain1/lib/classes/" />
                                         <copy
-                                            file="${project.build.directory}/domain1/config/cacerts.jks"
+                                            file="${project.build.directory}/test-classes/chaincerts/cacerts.jks"
                                             todir="${project.build.directory}/domain1/lib/classes/" />
                                     </target>
                                 </configuration>
