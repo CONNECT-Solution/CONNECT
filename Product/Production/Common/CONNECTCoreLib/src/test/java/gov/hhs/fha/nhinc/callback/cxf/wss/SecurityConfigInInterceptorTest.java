@@ -32,7 +32,6 @@ import static org.junit.Assert.assertTrue;
 import javax.xml.namespace.QName;
 
 import gov.hhs.fha.nhinc.callback.SamlConstants;
-import gov.hhs.fha.nhinc.callback.cxf.EndorsingSupportingTokensInterceptor;
 
 import org.apache.cxf.message.Message;
 import org.apache.cxf.message.MessageImpl;
@@ -54,7 +53,6 @@ public class SecurityConfigInInterceptorTest {
         SecurityConfigInInterceptor interceptor = new SecurityConfigInInterceptor();
 
         assertEquals(Phase.PRE_PROTOCOL, interceptor.getPhase());
-        assertTrue(interceptor.getBefore().contains(EndorsingSupportingTokensInterceptor.class.getName()));
         assertTrue(interceptor.getBefore().contains(WSS4JInInterceptor.class.getName()));
     }
 
