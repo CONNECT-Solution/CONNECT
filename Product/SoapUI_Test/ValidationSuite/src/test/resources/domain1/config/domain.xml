@@ -329,8 +329,8 @@
         <jvm-options>-Djavax.net.ssl.keyStore=${project.build.directory}/domain1/config/gateway.jks</jvm-options>
         <jvm-options>-Djavax.net.ssl.keyStoreType=JKS</jvm-options>
         <jvm-options>-Djavax.net.ssl.trustStoreType=JKS</jvm-options>
-        <jvm-options>-Dcom.sun.net.ssl.checkRevocation=true</jvm-options>
-        <jvm-options>-Dcom.sun.security.enableCRLDP=true</jvm-options>
+        <jvm-options>-Dcom.sun.net.ssl.checkRevocation=false</jvm-options>
+        <jvm-options>-Dcom.sun.security.enableCRLDP=false</jvm-options>
         <jvm-options>-Dcom.sun.enterprise.security.httpsOutboundKeyAlias=gateway</jvm-options>
         <jvm-options>-DSERVER_KEY_ALIAS=gateway</jvm-options>
         <jvm-options>-DCLIENT_KEY_ALIAS=gateway</jvm-options>
