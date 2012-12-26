@@ -812,7 +812,6 @@
                     <bindingTemplate bindingKey="uddi:nhincnode:entitypatientdiscoveryasyncresp" serviceKey="uddi:nhincnode:entitypatientdiscoveryasyncresp">
                         <accessPoint useType="endPoint">http://localhost:8080/Gateway/PatientDiscovery/1_0/EntityService/EntityPatientDiscoveryDeferredResponseUnsecured</accessPoint>
                             <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="1.0"/>
-                        </categoryBag>
                     </bindingTemplate>
                 </bindingTemplates>
                 <categoryBag>
