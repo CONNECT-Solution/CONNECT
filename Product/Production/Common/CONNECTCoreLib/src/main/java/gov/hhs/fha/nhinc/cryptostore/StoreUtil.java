@@ -24,53 +24,48 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
  */
-package gov.hhs.fha.nhinc.callback.openSAML;
+package gov.hhs.fha.nhinc.cryptostore;
 
-import java.security.KeyStore;
-import java.security.PrivateKey;
-import java.security.cert.X509Certificate;
-import java.security.interfaces.RSAPublicKey;
+import gov.hhs.fha.nhinc.callback.openSAML.CertificateManager;
+
+import org.apache.commons.lang.StringUtils;
 
 /**
- * @author bhumphrey
- *
+ * Utility class to help managing cryptographic key and trust stores.
+ * 
+ * @author msw
+ * 
  */
-public interface CertificateManager {
-	
-	/**
-	 * System property which controls the alias used to retrieve the private key to sign the SAML assertion and
-	 * endorsing supporting token.
-	 */
-	public static final String CLIENT_KEY_ALIAS = "CLIENT_KEY_ALIAS";
+public class StoreUtil {
 
 	/**
-	 * Default alias used to retrieve the private key to sign the SAML assertion and endorsing supporting token.
-	 */
-	public static final String DEFAULT_CLIENT_KEY_ALIAS = "gateway";
-	
-	/**
-	 * Finds the X509 certificate in the keystore with the client alias as defined in the domain.xml system property
-	 * CLIENT_KEY_ALIAS and establishes the private key on the SignatureKeyCallback request using this certificate.
+	 * Easy way to instantiate for code readability.
 	 * 
-	 * @param request The SignatureKeyCallback request object
-	 * @throws Exception
-	 */
-	public abstract X509Certificate getDefaultCertificate() throws Exception;
-
-	public abstract PrivateKey getDefaultPrivateKey()
-			throws Exception;
-
-	/**
 	 * @return
 	 */
-	public abstract RSAPublicKey getDefaultPublicKey();
-    /**
-     * @return the keyStore
-     */
-    public abstract KeyStore getKeyStore();
-    /**
-     * @return the trustStore
-     */
-    public abstract KeyStore getTrustStore();
+	public static StoreUtil getInstance() {
+		return new StoreUtil();
+	}
+
+	/**
+	 * Default constructor.
+	 */
+	public StoreUtil() {
+
+	}
+
+	/**
+	 * Gets the private key alias used for digital signatures. The method will
+	 * return the value of the system property defined in
+	 * CertifcateManager.CLIENT_KEY_ALIAS or the default alias defined in
+	 * CertificateManager.DEFAULT_CLIENT_KEY_ALIAS.
+	 * 
+	 * @return String containing the private key alias.
+	 */
+	public String getPrivateKeyAlias() {
+		String alias = System.getProperty(CertificateManager.CLIENT_KEY_ALIAS);
+		return StringUtils.isBlank(alias) ? CertificateManager.DEFAULT_CLIENT_KEY_ALIAS
+				: alias;
+	}
 
 }

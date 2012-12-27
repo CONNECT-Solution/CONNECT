@@ -24,13 +24,11 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
  */
-
 package gov.hhs.fha.nhinc.messaging.service.decorator.cxf;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import org.apache.commons.lang.StringUtils;
 import org.apache.cxf.endpoint.Client;
 import org.apache.cxf.frontend.ClientProxy;
 import org.apache.cxf.interceptor.Interceptor;
@@ -38,6 +36,7 @@ import org.apache.cxf.message.Message;
 import org.apache.cxf.ws.security.wss4j.WSS4JOutInterceptor;
 import org.apache.ws.security.handler.WSHandlerConstants;
 
+import gov.hhs.fha.nhinc.cryptostore.StoreUtil;
 import gov.hhs.fha.nhinc.messaging.service.ServiceEndpoint;
 import gov.hhs.fha.nhinc.messaging.service.decorator.ServiceEndpointDecorator;
 
@@ -102,7 +101,6 @@ public class WsSecurityServiceEndpointDecorator<T> extends ServiceEndpointDecora
     }
     
     protected String getIssuerKeyAlias() {
-    	String alias = System.getProperty("CLIENT_KEY_ALIAS");
-    	return StringUtils.isBlank(alias) ? "gateway" : alias;
+    	return StoreUtil.getInstance().getPrivateKeyAlias();
     }
 }
