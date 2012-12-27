@@ -27,30 +27,7 @@
 			<con:settings/>
 		</con:operation>
 	</con:interface><con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincentityxdr:async:response}EntityXDRAsyncResponse_Binding" definition="${projectDir}/../ValidationSuite/target/wsdl/EntityXDRResponse.wsdl" name="EntityXDRAsyncResponse_Binding" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/>
-<con:endpoints><con:endpoint>http://localhost:${HttpDefaultPort}/EntityService/EntityXDRAsyncResponse</con:endpoint><con:endpoint>${#TestSuite#Endpoint-DSDeferredResp}</con:endpoint></con:endpoints><con:operation action="" anonymous="optional" bindingOperationName="ProvideAndRegisterDocumentSet-bAsyncResponse" inputName="" isOneWay="false" name="ProvideAndRegisterDocumentSet-bAsyncResponse" receivesAttachments="false" sendsAttachments="false" type="Request-Response"><con:settings/></con:operation></con:interface><con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincentityxdr:async:request}EntityXDRAsyncRequest_Binding" definition="${projectDir}/../ValidationSuite/target/wsdl/EntityXDRRequest.wsdl" name="EntityXDRAsyncRequest_Binding" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-		<con:settings/>
-
-		<con:endpoints>
-			<con:endpoint>http://localhost:${HttpDefaultPort}/EntityService/EntityXDRRequest</con:endpoint>
-			
-			<con:endpoint>${#TestSuite#Endpoint-EntityXDRRequest}</con:endpoint>
-			
-		</con:endpoints>
-		<con:operation action="tns:ProvideAndRegisterDocumentSet-bAsyncRequest" anonymous="optional" bindingOperationName="ProvideAndRegisterDocumentSet-bAsyncRequest" inputName="" isOneWay="false" name="ProvideAndRegisterDocumentSet-bAsyncRequest" receivesAttachments="false" sendsAttachments="false" type="Request-Response">
-			<con:settings/>
-			
-		</con:operation>
-	</con:interface><con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:entitypatientdiscoveryasyncreq}EntityPatientDiscoveryAsyncReqBindingSoap" definition="${projectDir}/../ValidationSuite/target/wsdl/EntityPatientDiscoveryAsyncReq.wsdl" name="EntityPatientDiscoveryAsyncReqBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-		<con:settings/>
-
-		<con:endpoints>
-			<con:endpoint>${#TestSuite#Endpoint-PatientDiscoveryAsyncReq}</con:endpoint>
-			<con:endpoint>http://localhost/NhinConnect/EntityPatientDiscoveryAsyncReq</con:endpoint>
-		</con:endpoints>
-		<con:operation action="urn:ProcessPatientDiscoveryAsyncReq" anonymous="optional" bindingOperationName="ProcessPatientDiscoveryAsyncReq" inputName="ProcessPatientDiscoveryAsyncReqAsyncRequest" isOneWay="false" name="ProcessPatientDiscoveryAsyncReq" outputName="ProcessPatientDiscoveryAsyncReqAsyncResponse" receivesAttachments="false" sendsAttachments="false" type="Request-Response">
-			<con:settings/>
-		</con:operation>
-	</con:interface><con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:entitypatientdiscoveryasyncresp}EntityPatientDiscoveryAsyncRespBindingSoap" definition="${projectDir}/../ValidationSuite/target/wsdl/EntityPatientDiscoveryAsyncResp.wsdl" name="EntityPatientDiscoveryAsyncRespBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<con:endpoints><con:endpoint>http://localhost:${HttpDefaultPort}/EntityService/EntityXDRAsyncResponse</con:endpoint><con:endpoint>${#TestSuite#Endpoint-DSDeferredResp}</con:endpoint></con:endpoints><con:operation action="" anonymous="optional" bindingOperationName="ProvideAndRegisterDocumentSet-bAsyncResponse" inputName="" isOneWay="false" name="ProvideAndRegisterDocumentSet-bAsyncResponse" receivesAttachments="false" sendsAttachments="false" type="Request-Response"><con:settings/></con:operation></con:interface><con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:entitypatientdiscoveryasyncresp}EntityPatientDiscoveryAsyncRespBindingSoap" definition="${projectDir}/../ValidationSuite/target/wsdl/EntityPatientDiscoveryAsyncResp.wsdl" name="EntityPatientDiscoveryAsyncRespBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 		<con:settings><con:setting id="CreateWsdlDocumentationAction@report-directory">C:\Users\Tiller\Desktop</con:setting></con:settings>
 
 		<con:endpoints>
@@ -59,349 +36,6 @@
 		</con:endpoints>
 		<con:operation action="" bindingOperationName="ProcessPatientDiscoveryAsyncResp" inputName="ProcessPatientDiscoveryAsyncRespAsyncRequest" isOneWay="false" name="ProcessPatientDiscoveryAsyncResp" outputName="ProcessPatientDiscoveryAsyncRespAsyncResponse" receivesAttachments="false" sendsAttachments="false" type="Request-Response" anonymous="optional">
 			<con:settings/>
-		</con:operation>
-	</con:interface><con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincentityxdr}EntityXDR_Binding" definition="${projectDir}/../ValidationSuite/target/wsdl/EntityXDR.wsdl" name="EntityXDR_Binding" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-		<con:settings/>
-
-		<con:endpoints>
-			<con:endpoint>http://localhost:8080/CONNECTGateway/EntityService/EntityDocSubmissionUnsecured</con:endpoint>
-			<con:endpoint>${#TestSuite#Endpoint-XDREntity}</con:endpoint>
-		</con:endpoints>
-		<con:operation action="tns:ProvideAndRegisterDocumentSet-b" anonymous="optional" bindingOperationName="ProvideAndRegisterDocumentSet-b" inputName="" isOneWay="false" name="ProvideAndRegisterDocumentSet-b" receivesAttachments="false" sendsAttachments="false" type="Request-Response">
-			<con:settings/>
-			<con:call name="Request 1">
-				<con:settings/>
-				<con:encoding>UTF-8</con:encoding>
-				<con:endpoint>http://localhost:8080/CONNECTGateway/EntityService/EntityDocSubmissionUnsecured</con:endpoint>
-				<con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" xmlns:urn3="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:urn4="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn5="urn:ihe:iti:xds-b:2007">
-   <soap:Header/>
-   <soap:Body>
-      <urn:RespondingGateway_ProvideAndRegisterDocumentSetRequest>
-         <urn:assertion>
-            <urn1:address>
-               <urn1:addressType>
-                  <urn1:code>?</urn1:code>
-                  <urn1:codeSystem>?</urn1:codeSystem>
-                  <urn1:codeSystemName>?</urn1:codeSystemName>
-                  <urn1:codeSystemVersion>?</urn1:codeSystemVersion>
-                  <urn1:displayName>?</urn1:displayName>
-                  <urn1:originalText>?</urn1:originalText>
-                  <!--Zero or more repetitions:-->
-                  
-               </urn1:addressType>
-               <urn1:city>?</urn1:city>
-               <urn1:country>?</urn1:country>
-               <urn1:state>?</urn1:state>
-               <urn1:streetAddress>?</urn1:streetAddress>
-               <urn1:zipCode>?</urn1:zipCode>
-            </urn1:address>
-            <urn1:dateOfBirth>?</urn1:dateOfBirth>
-            <urn1:explanationNonClaimantSignature>?</urn1:explanationNonClaimantSignature>
-            <urn1:haveSecondWitnessSignature>?</urn1:haveSecondWitnessSignature>
-            <urn1:haveSignature>?</urn1:haveSignature>
-            <urn1:haveWitnessSignature>?</urn1:haveWitnessSignature>
-            <urn1:homeCommunity>
-               <urn1:description>?</urn1:description>
-               <urn1:homeCommunityId>?</urn1:homeCommunityId>
-               <urn1:name>?</urn1:name>
-            </urn1:homeCommunity>
-            <urn1:personName>
-               <urn1:familyName>?</urn1:familyName>
-               <urn1:givenName>?</urn1:givenName>
-               <urn1:nameType>
-                  <urn1:code>?</urn1:code>
-                  <urn1:codeSystem>?</urn1:codeSystem>
-                  <urn1:codeSystemName>?</urn1:codeSystemName>
-                  <urn1:codeSystemVersion>?</urn1:codeSystemVersion>
-                  <urn1:displayName>?</urn1:displayName>
-                  <urn1:originalText>?</urn1:originalText>
-                  <!--Zero or more repetitions:-->
-                  
-               </urn1:nameType>
-               <urn1:secondNameOrInitials>?</urn1:secondNameOrInitials>
-               <urn1:fullName>?</urn1:fullName>
-               <urn1:prefix>?</urn1:prefix>
-               <urn1:suffix>?</urn1:suffix>
-            </urn1:personName>
-            <urn1:phoneNumber>
-               <urn1:areaCode>?</urn1:areaCode>
-               <urn1:countryCode>?</urn1:countryCode>
-               <urn1:extension>?</urn1:extension>
-               <urn1:localNumber>?</urn1:localNumber>
-               <urn1:phoneNumberType>
-                  <urn1:code>?</urn1:code>
-                  <urn1:codeSystem>?</urn1:codeSystem>
-                  <urn1:codeSystemName>?</urn1:codeSystemName>
-                  <urn1:codeSystemVersion>?</urn1:codeSystemVersion>
-                  <urn1:displayName>?</urn1:displayName>
-                  <urn1:originalText>?</urn1:originalText>
-                  <!--Zero or more repetitions:-->
-                  
-               </urn1:phoneNumberType>
-            </urn1:phoneNumber>
-            <urn1:secondWitnessAddress>
-               <urn1:addressType>
-                  <urn1:code>?</urn1:code>
-                  <urn1:codeSystem>?</urn1:codeSystem>
-                  <urn1:codeSystemName>?</urn1:codeSystemName>
-                  <urn1:codeSystemVersion>?</urn1:codeSystemVersion>
-                  <urn1:displayName>?</urn1:displayName>
-                  <urn1:originalText>?</urn1:originalText>
-                  <!--Zero or more repetitions:-->
-                  
-               </urn1:addressType>
-               <urn1:city>?</urn1:city>
-               <urn1:country>?</urn1:country>
-               <urn1:state>?</urn1:state>
-               <urn1:streetAddress>?</urn1:streetAddress>
-               <urn1:zipCode>?</urn1:zipCode>
-            </urn1:secondWitnessAddress>
-            <urn1:secondWitnessName>
-               <urn1:familyName>?</urn1:familyName>
-               <urn1:givenName>?</urn1:givenName>
-               <urn1:nameType>
-                  <urn1:code>?</urn1:code>
-                  <urn1:codeSystem>?</urn1:codeSystem>
-                  <urn1:codeSystemName>?</urn1:codeSystemName>
-                  <urn1:codeSystemVersion>?</urn1:codeSystemVersion>
-                  <urn1:displayName>?</urn1:displayName>
-                  <urn1:originalText>?</urn1:originalText>
-                  <!--Zero or more repetitions:-->
-                  
-               </urn1:nameType>
-               <urn1:secondNameOrInitials>?</urn1:secondNameOrInitials>
-               <urn1:fullName>?</urn1:fullName>
-               <urn1:prefix>?</urn1:prefix>
-               <urn1:suffix>?</urn1:suffix>
-            </urn1:secondWitnessName>
-            <urn1:secondWitnessPhone>
-               <urn1:areaCode>?</urn1:areaCode>
-               <urn1:countryCode>?</urn1:countryCode>
-               <urn1:extension>?</urn1:extension>
-               <urn1:localNumber>?</urn1:localNumber>
-               <urn1:phoneNumberType>
-                  <urn1:code>?</urn1:code>
-                  <urn1:codeSystem>?</urn1:codeSystem>
-                  <urn1:codeSystemName>?</urn1:codeSystemName>
-                  <urn1:codeSystemVersion>?</urn1:codeSystemVersion>
-                  <urn1:displayName>?</urn1:displayName>
-                  <urn1:originalText>?</urn1:originalText>
-                  <!--Zero or more repetitions:-->
-                  
-               </urn1:phoneNumberType>
-            </urn1:secondWitnessPhone>
-            <urn1:SSN>?</urn1:SSN>
-            <!--1 or more repetitions:-->
-            <urn1:uniquePatientId>?</urn1:uniquePatientId>
-            <urn1:witnessAddress>
-               <urn1:addressType>
-                  <urn1:code>?</urn1:code>
-                  <urn1:codeSystem>?</urn1:codeSystem>
-                  <urn1:codeSystemName>?</urn1:codeSystemName>
-                  <urn1:codeSystemVersion>?</urn1:codeSystemVersion>
-                  <urn1:displayName>?</urn1:displayName>
-                  <urn1:originalText>?</urn1:originalText>
-                  <!--Zero or more repetitions:-->
-                  
-               </urn1:addressType>
-               <urn1:city>?</urn1:city>
-               <urn1:country>?</urn1:country>
-               <urn1:state>?</urn1:state>
-               <urn1:streetAddress>?</urn1:streetAddress>
-               <urn1:zipCode>?</urn1:zipCode>
-            </urn1:witnessAddress>
-            <urn1:witnessName>
-               <urn1:familyName>?</urn1:familyName>
-               <urn1:givenName>?</urn1:givenName>
-               <urn1:nameType>
-                  <urn1:code>?</urn1:code>
-                  <urn1:codeSystem>?</urn1:codeSystem>
-                  <urn1:codeSystemName>?</urn1:codeSystemName>
-                  <urn1:codeSystemVersion>?</urn1:codeSystemVersion>
-                  <urn1:displayName>?</urn1:displayName>
-                  <urn1:originalText>?</urn1:originalText>
-                  <!--Zero or more repetitions:-->
-                  
-               </urn1:nameType>
-               <urn1:secondNameOrInitials>?</urn1:secondNameOrInitials>
-               <urn1:fullName>?</urn1:fullName>
-               <urn1:prefix>?</urn1:prefix>
-               <urn1:suffix>?</urn1:suffix>
-            </urn1:witnessName>
-            <urn1:witnessPhone>
-               <urn1:areaCode>?</urn1:areaCode>
-               <urn1:countryCode>?</urn1:countryCode>
-               <urn1:extension>?</urn1:extension>
-               <urn1:localNumber>?</urn1:localNumber>
-               <urn1:phoneNumberType>
-                  <urn1:code>?</urn1:code>
-                  <urn1:codeSystem>?</urn1:codeSystem>
-                  <urn1:codeSystemName>?</urn1:codeSystemName>
-                  <urn1:codeSystemVersion>?</urn1:codeSystemVersion>
-                  <urn1:displayName>?</urn1:displayName>
-                  <urn1:originalText>?</urn1:originalText>
-                  <!--Zero or more repetitions:-->
-                  
-               </urn1:phoneNumberType>
-            </urn1:witnessPhone>
-            <urn1:userInfo>
-               <urn1:personName>
-                  <urn1:familyName>?</urn1:familyName>
-                  <urn1:givenName>?</urn1:givenName>
-                  <urn1:nameType>
-                     <urn1:code>?</urn1:code>
-                     <urn1:codeSystem>?</urn1:codeSystem>
-                     <urn1:codeSystemName>?</urn1:codeSystemName>
-                     <urn1:codeSystemVersion>?</urn1:codeSystemVersion>
-                     <urn1:displayName>?</urn1:displayName>
-                     <urn1:originalText>?</urn1:originalText>
-                     <!--Zero or more repetitions:-->
-                     
-                  </urn1:nameType>
-                  <urn1:secondNameOrInitials>?</urn1:secondNameOrInitials>
-                  <urn1:fullName>?</urn1:fullName>
-                  <urn1:prefix>?</urn1:prefix>
-                  <urn1:suffix>?</urn1:suffix>
-               </urn1:personName>
-               <urn1:userName>?</urn1:userName>
-               <urn1:org>
-                  <urn1:description>?</urn1:description>
-                  <urn1:homeCommunityId>?</urn1:homeCommunityId>
-                  <urn1:name>?</urn1:name>
-               </urn1:org>
-               <!--Optional:-->
-               <urn1:roleCoded>
-                  <urn1:code>?</urn1:code>
-                  <urn1:codeSystem>?</urn1:codeSystem>
-                  <urn1:codeSystemName>?</urn1:codeSystemName>
-                  <urn1:codeSystemVersion>?</urn1:codeSystemVersion>
-                  <urn1:displayName>?</urn1:displayName>
-                  <urn1:originalText>?</urn1:originalText>
-                  <!--Zero or more repetitions:-->
-                  <urn1:translation/>
-               </urn1:roleCoded>
-            </urn1:userInfo>
-            <urn1:authorized>?</urn1:authorized>
-            <!--Optional:-->
-            <urn1:purposeOfDisclosureCoded>
-               <urn1:code>?</urn1:code>
-               <urn1:codeSystem>?</urn1:codeSystem>
-               <urn1:codeSystemName>?</urn1:codeSystemName>
-               <urn1:codeSystemVersion>?</urn1:codeSystemVersion>
-               <urn1:displayName>?</urn1:displayName>
-               <urn1:originalText>?</urn1:originalText>
-               <!--Zero or more repetitions:-->
-               <urn1:translation/>
-            </urn1:purposeOfDisclosureCoded>
-            <!--Optional:-->
-            <urn1:samlAuthnStatement>
-               <!--Optional:-->
-               <urn1:authInstant>?</urn1:authInstant>
-               <!--Optional:-->
-               <urn1:sessionIndex>?</urn1:sessionIndex>
-               <!--Optional:-->
-               <urn1:authContextClassRef>?</urn1:authContextClassRef>
-               <!--Optional:-->
-               <urn1:subjectLocalityAddress>?</urn1:subjectLocalityAddress>
-               <!--Optional:-->
-               <urn1:subjectLocalityDNSName>?</urn1:subjectLocalityDNSName>
-            </urn1:samlAuthnStatement>
-            <!--Optional:-->
-            <urn1:samlAuthzDecisionStatement>
-               <!--Optional:-->
-               <urn1:decision>?</urn1:decision>
-               <!--Optional:-->
-               <urn1:resource>?</urn1:resource>
-               <!--Optional:-->
-               <urn1:action>?</urn1:action>
-               <!--Optional:-->
-               <urn1:evidence>
-                  <!--Optional:-->
-                  <urn1:assertion>
-                     <!--Optional:-->
-                     <urn1:id>?</urn1:id>
-                     <!--Optional:-->
-                     <urn1:issueInstant>?</urn1:issueInstant>
-                     <!--Optional:-->
-                     <urn1:version>?</urn1:version>
-                     <!--Optional:-->
-                     <urn1:issuer>?</urn1:issuer>
-                     <!--Optional:-->
-                     <urn1:issuerFormat>?</urn1:issuerFormat>
-                     <!--Optional:-->
-                     <urn1:conditions>
-                        <!--Optional:-->
-                        <urn1:notBefore>?</urn1:notBefore>
-                        <!--Optional:-->
-                        <urn1:notOnOrAfter>?</urn1:notOnOrAfter>
-                     </urn1:conditions>
-                     <!--Optional:-->
-                     <urn1:accessConsentPolicy>?</urn1:accessConsentPolicy>
-                     <!--Optional:-->
-                     <urn1:instanceAccessConsentPolicy>?</urn1:instanceAccessConsentPolicy>
-                  </urn1:assertion>
-               </urn1:evidence>
-            </urn1:samlAuthzDecisionStatement>
-            <!--Optional:-->
-            <urn1:samlSignature>
-               <!--Optional:-->
-               <urn1:keyInfo>
-                  <!--Optional:-->
-                  <urn1:rsaKeyValueModulus>cid:169090860082</urn1:rsaKeyValueModulus>
-                  <!--Optional:-->
-                  <urn1:rsaKeyValueExponent>cid:1270555944849</urn1:rsaKeyValueExponent>
-               </urn1:keyInfo>
-               <!--Optional:-->
-               <urn1:signatureValue>cid:178644931063</urn1:signatureValue>
-            </urn1:samlSignature>
-            <!--Optional:-->
-            <urn1:asyncMessageId>?</urn1:asyncMessageId>
-         </urn:assertion>
-         <!--Optional:-->
-         <urn:nhinTargetCommunities>
-            <!--1 or more repetitions:-->
-            <urn1:nhinTargetCommunity>
-               <urn1:homeCommunity>
-                  <urn1:description>?</urn1:description>
-                  <urn1:homeCommunityId>?</urn1:homeCommunityId>
-                  <urn1:name>?</urn1:name>
-               </urn1:homeCommunity>
-               <urn1:list>?</urn1:list>
-               <urn1:region>?</urn1:region>
-            </urn1:nhinTargetCommunity>
-         </urn:nhinTargetCommunities>
-         <urn:ProvideAndRegisterDocumentSetRequest>
-            <urn2:SubmitObjectsRequest id="?" comment="?">
-               <!--Optional:-->
-               <urn3:RequestSlotList>
-                  <!--Zero or more repetitions:-->
-                  <urn4:Slot name="?" slotType="?">
-                     <urn4:ValueList>
-                        <urn4:Value>?</urn4:Value>
-                     </urn4:ValueList>
-                  </urn4:Slot>
-               </urn3:RequestSlotList>
-               <urn4:RegistryObjectList>
-                  <!--Zero or more repetitions:-->
-                  <urn4:Identifiable id="?" home="?">
-                     <!--Zero or more repetitions:-->
-                     <urn4:Slot name="?" slotType="?">
-                        <urn4:ValueList>
-                           <urn4:Value>?</urn4:Value>
-                        </urn4:ValueList>
-                     </urn4:Slot>
-                  </urn4:Identifiable>
-               </urn4:RegistryObjectList>
-            </urn2:SubmitObjectsRequest>
-            <!--1 or more repetitions:-->
-            <urn5:Document id="?">cid:307166858456</urn5:Document>
-         </urn:ProvideAndRegisterDocumentSetRequest>
-      </urn:RespondingGateway_ProvideAndRegisterDocumentSetRequest>
-   </soap:Body>
-</soap:Envelope>]]></con:request>
-				<con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:wsaConfig action="{urn:gov:hhs:fha:nhinc:nhincentityxdr}ProvideAndRegisterDocumentSet-b" mustUnderstand="NONE" version="200508"/>
-				<con:wsrmConfig version="1.2"/>
-			</con:call>
 		</con:operation>
 	</con:interface><con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:entityadmindistribution}AdministrativeDistribution_Binding_Soap12" definition="${projectDir}/../ValidationSuite/target/wsdl/EntityAdminDist.wsdl" name="AdministrativeDistribution_Binding_Soap12" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 		<con:settings/>
@@ -1258,6 +892,32 @@
 		<con:endpoint>http://localhost:8080/Gateway/HIEM/2_0/NhincProxyNotificationConsumer</con:endpoint></con:endpoints>
 		<con:operation action="urn:Notify" anonymous="optional" bindingOperationName="Notify" inputName="NotifyRequest" isOneWay="false" name="Notify" sendsAttachments="false" type="One-Way">
 			<con:settings/>
+		</con:operation>
+	</con:interface><con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincentityxdr:async:request}EntityXDRAsyncRequest_Binding" definition="${projectDir}/../target/wsdl/EntityXDRRequest.wsdl" name="EntityXDRAsyncRequest_Binding" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+		<con:settings/>
+
+		<con:endpoints>
+		<con:endpoint>http://localhost:8080/Gateway/DocumentSubmission/1_1/EntityService/EntityDocSubmissionDeferredRequestUnsecured</con:endpoint></con:endpoints>
+		<con:operation action="" anonymous="optional" bindingOperationName="ProvideAndRegisterDocumentSet-bAsyncRequest" inputName="" isOneWay="false" name="ProvideAndRegisterDocumentSet-bAsyncRequest" receivesAttachments="false" sendsAttachments="false" type="Request-Response">
+			<con:settings/>
+
+		</con:operation>
+	</con:interface><con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:entitypatientdiscoveryasyncreq}EntityPatientDiscoveryAsyncReqBindingSoap" definition="${projectDir}/../target/wsdl/EntityPatientDiscoveryAsyncReq.wsdl" name="EntityPatientDiscoveryAsyncReqBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+		<con:settings/>
+
+		<con:endpoints>
+		<con:endpoint>http://localhost:8080/Gateway/PatientDiscovery/1_0/EntityService/EntityPatientDiscoveryDeferredRequestUnsecured</con:endpoint></con:endpoints>
+		<con:operation action="" anonymous="optional" bindingOperationName="ProcessPatientDiscoveryAsyncReq" inputName="ProcessPatientDiscoveryAsyncReqAsyncRequest" isOneWay="false" name="ProcessPatientDiscoveryAsyncReq" outputName="ProcessPatientDiscoveryAsyncReqAsyncResponse" receivesAttachments="false" sendsAttachments="false" type="Request-Response">
+			<con:settings/>
+		</con:operation>
+	</con:interface><con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincentityxdr}EntityXDR_Binding" definition="${projectDir}/../target/wsdl/EntityXDR.wsdl" name="EntityXDR_Binding" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+		<con:settings/>
+
+		<con:endpoints>
+		<con:endpoint>http://localhost:8080/Gateway/DocumentSubmission/1_1/EntityService/EntityDocSubmissionUnsecured</con:endpoint></con:endpoints>
+		<con:operation action="" anonymous="optional" bindingOperationName="ProvideAndRegisterDocumentSet-b" inputName="" isOneWay="false" name="ProvideAndRegisterDocumentSet-b" receivesAttachments="false" sendsAttachments="false" type="Request-Response">
+			<con:settings/>
+
 		</con:operation>
 	</con:interface><con:testSuite name="Entity"><con:settings/><con:runType>SEQUENTIAL</con:runType><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="PD-QD-RD" searchProperties="true" id="6a88988b-d293-4cc7-9fd7-6c0503031844">
 	<con:settings/>
@@ -2228,23 +1888,23 @@ testRunner.testCase.testSuite.setPropertyValue("TransactionID", TransactionID);
 		<con:config><script>context.withSql('transrepo') { sql -> 
 			sql.execute('delete from ' + context.findProperty('TransactionRepoTable'))
 			}</script></con:config>
-</con:testStep><con:testStep name="Doc Submission Def Request" type="request">
+</con:testStep><con:testStep name="Doc Submission Deferred Req" type="request">
 				<con:settings/>
 				<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 					<con:interface>EntityXDRAsyncRequest_Binding</con:interface>
 					<con:operation>ProvideAndRegisterDocumentSet-bAsyncRequest</con:operation>
-					<con:request incomingWss="" name="Doc Submission Def Request" outgoingWss="" useWsAddressing="false" wssPasswordType="">
+					<con:request incomingWss="" name="Doc Submission Deferred Req" outgoingWss="" useWsAddressing="false" wssPasswordType="">
 						<con:settings>
 							<con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
 				</con:settings>
 				<con:encoding>UTF-8</con:encoding>
-				<con:endpoint>${#TestSuite#Endpoint-EntityXDRRequest}</con:endpoint>
-				<con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" xmlns:urn3="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:urn4="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn5="urn:ihe:iti:xds-b:2007">
+				<con:endpoint>http://localhost:8080/Gateway/DocumentSubmission/1_1/EntityService/EntityDocSubmissionDeferredRequestUnsecured</con:endpoint>
+				<con:request><![CDATA[
+					<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" xmlns:urn3="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:urn4="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn5="urn:ihe:iti:xds-b:2007">
    <soap:Header>
 	<MessageID xmlns="http://www.w3.org/2004/08/addressing" mustUnderstand="true">${#TestSuite#MessageID_DSDefReq1}</MessageID>
 	<txn:TransactionID xmlns:txn="http://connectopensource.org/transaction/">${#TestSuite#TransactionID}</txn:TransactionID>
-   </soap:Header>
-   <soap:Body projectName="EndToEndSelfTest" testCase="XDR Async">
+   </soap:Header><soap:Body testSuite="Entity_g1" testCase="Document Submission Deferred Req">
       <urn:RespondingGateway_ProvideAndRegisterDocumentSetRequest>
          <urn:assertion>
             <urn1:address>
@@ -2454,8 +2114,9 @@ testRunner.testCase.testSuite.setPropertyValue("TransactionID", TransactionID);
                   </urn1:assertion>
                </urn1:evidence>
             </urn1:samlAuthzDecisionStatement>
-	<urn1:messageId xmlns="http://www.w3.org/2004/08/addressing">${#TestSuite#MessageID_DSDefReq1}</urn1:messageId>
+            <urn1:messageId xmlns="http://www.w3.org/2004/08/addressing">${#TestSuite#MessageID_DSDefReq1}</urn1:messageId>
          </urn:assertion>
+
          <urn:nhinTargetCommunities>
             <urn1:nhinTargetCommunity>
                <urn1:homeCommunity>
@@ -2465,9 +2126,11 @@ testRunner.testCase.testSuite.setPropertyValue("TransactionID", TransactionID);
                </urn1:homeCommunity>
             </urn1:nhinTargetCommunity>
          </urn:nhinTargetCommunities>
+
          <urn:ProvideAndRegisterDocumentSetRequest>
             <urn2:SubmitObjectsRequest id="123" comment="comme">
                <!--Optional:-->
+  
                <urn4:RegistryObjectList>
                   <urn4:ExtrinsicObject id="Document01" mimeType="text/xml" objectType="urn:uuid:7edca82f-054d-47f2-a032-9b2a5b5186c1">
                      <urn4:Slot name="creationTime">
@@ -2671,7 +2334,8 @@ testRunner.testCase.testSuite.setPropertyValue("TransactionID", TransactionID);
                         </urn4:ValueList>
                      </urn4:Slot>
                   </urn4:Association>
-               </urn4:RegistryObjectList>
+               </urn4:RegistryObjectList> 
+
             </urn2:SubmitObjectsRequest>
             <!--1 or more repetitions:-->
             <urn5:Document id="Document01">UjBsR09EbGhjZ0dTQUxNQUFBUUNBRU1tQ1p0dU1GUXhEUzhi</urn5:Document>
@@ -2681,7 +2345,7 @@ testRunner.testCase.testSuite.setPropertyValue("TransactionID", TransactionID);
 </soap:Envelope>]]></con:request>
 				<con:assertion type="SOAP Response"/>
 				<con:assertion type="SOAP Fault Assertion"/>
-				<con:assertion name="Match content of [@status]" type="XPath Match">
+				<con:assertion name="Match content of @status" type="XPath Match">
 					<con:configuration>
 						<path>declare namespace ns10='http://www.hhs.gov/healthit/nhin';
 							//ns10:XDRAcknowledgement[1]/ns10:message[1]/@status</path>
@@ -2690,9 +2354,19 @@ testRunner.testCase.testSuite.setPropertyValue("TransactionID", TransactionID);
 						<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
 					</con:configuration>
 				</con:assertion>
-				<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+				<con:assertion name="Schema Compliance" type="Schema Compliance">
+					<con:configuration>
+						<definition/>
+					</con:configuration>
+				</con:assertion>
+				<con:assertion type="GroovyScriptAssertion" name="Verify RelatesTo"><con:configuration><scriptText>import com.eviware.soapui.support.XmlHolder;
+def request = new XmlHolder(messageExchange.requestContentAsXml);
+def response = new XmlHolder(messageExchange.responseContentAsXml);
+request.namespaces["add"] = "http://www.w3.org/2005/08/addressing";
+response.namespaces["add"] = "http://www.w3.org/2005/08/addressing";
+assert request["//add:MessageID/text()"] == response["//add:RelatesTo/text()"];</scriptText></con:configuration></con:assertion><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
 				<con:jmsPropertyConfig/>
-				<con:wsaConfig action="urn:gov:hhs:fha:nhinc:nhincentityxdr:async:request:ProvideAndRegisterDocumentSet-bAsyncRequest_RequestMessage" generateMessageId="false" mustUnderstand="TRUE" version="200508" addDefaultAction="false" messageID="${#Project#DeferredRequestMessageID}"/>
+				<con:wsaConfig action="urn:gov:hhs:fha:nhinc:nhincentityxdr:async:request:ProvideAndRegisterDocumentSet-bAsyncRequest_RequestMessage" generateMessageId="true" mustUnderstand="NONE" version="200508"/>
 				<con:wsrmConfig version="1.2"/>
 			</con:request>
 		</con:config>
@@ -3036,9 +2710,9 @@ testRunner.testCase.testSuite.setPropertyValue("TransactionID", TransactionID);
 					<con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
 		</con:settings>
 		<con:encoding>UTF-8</con:encoding>
-		<con:endpoint>${#TestSuite#Endpoint-PatientDiscoveryAsyncReq}</con:endpoint>
+		<con:endpoint>http://localhost:8080/Gateway/PatientDiscovery/1_0/EntityService/EntityPatientDiscoveryDeferredRequestUnsecured</con:endpoint>
 		<con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:hl7-org:v3" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
-    <soap:Header>
+   <soap:Header>
 	<MessageID xmlns="http://www.w3.org/2004/08/addressing" mustUnderstand="true">${#TestSuite#MessageID_PDDefReq1}</MessageID>
 	<txn:TransactionID xmlns:txn="http://connectopensource.org/transaction/">${#TestSuite#TransactionID}</txn:TransactionID>
    </soap:Header>
@@ -3334,7 +3008,7 @@ request.namespaces["add"] = "http://www.w3.org/2005/08/addressing";
 response.namespaces["add"] = "http://www.w3.org/2005/08/addressing";
 assert request["//add:MessageID/text()"] == response["//add:RelatesTo/text()"];</scriptText></con:configuration></con:assertion><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
 		<con:jmsPropertyConfig/>
-		<con:wsaConfig action="urn:gov:hhs:fha:nhinc:entitypatientdiscoveryasyncreq:ProcessPatientDiscoveryAsyncReqAsyncRequest" addDefaultTo="true" messageID="uuid:6666666666.66666.666.66" mustUnderstand="NONE" version="200508"/>
+		<con:wsaConfig action="urn:gov:hhs:fha:nhinc:entitypatientdiscoveryasyncreq:ProcessPatientDiscoveryAsyncReqAsyncRequest" addDefaultTo="false" messageID="" mustUnderstand="NONE" version="200508"/>
 		<con:wsrmConfig version="1.2"/>
 	</con:request>
 </con:config>
@@ -3679,7 +3353,7 @@ assert request["//add:MessageID/text()"] == response["//add:RelatesTo/text()"];<
 </con:testStep><con:testStep name="count transaction repo entries" type="groovy">
 	<con:settings/>
 	<con:config><script>context.withSql('transrepo') { sql -> 
-		assert 3 == sql.firstRow('select count(*) from ' + context.findProperty('TransactionRepoTable') + ' where transactionId = "' + context.findProperty('TransactionID') + '"')[0]
+		assert 4 == sql.firstRow('select count(*) from ' + context.findProperty('TransactionRepoTable') + ' where transactionId = "' + context.findProperty('TransactionID') + '"')[0]
 		}</script></con:config>
 </con:testStep><con:setupScript>testCase.getTestSuite().getProject().setPropertyValue("TransactionID", "urn:uuid:".concat(((Math.random()*100000000).intValue()).toString()));
 testCase.getTestSuite().getProject().setPropertyValue("DeferredRequestMessageID", "urn:uuid:".concat(((Math.random()*100000000).intValue()).toString()));</con:setupScript><con:properties/></con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="DS and AD" searchProperties="true" id="9b706e07-dd2a-4ca2-b95b-cca99c943a4d"><con:settings/><con:testStep type="groovy" name="Create MessageIDs"><con:settings/><con:config><script>def DSMessageID = 'urn:uuid:' + (int)(Math.random()*10000000);
@@ -3695,21 +3369,24 @@ testRunner.testCase.testSuite.setPropertyValue("TransactionID", TransactionID);
 		<con:config><script>context.withSql('transrepo') { sql -> 
 			sql.execute('delete from ' + context.findProperty('TransactionRepoTable'))
 			}</script></con:config>
-</con:testStep><con:testStep name="EntityXDR" type="request">
+</con:testStep><con:testStep name="Doc Submission" type="request">
 		<con:settings/>
 		<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 			<con:interface>EntityXDR_Binding</con:interface>
 			<con:operation>ProvideAndRegisterDocumentSet-b</con:operation>
-			<con:request incomingWss="" name="EntityXDR" outgoingWss="" wssPasswordType="" useWsAddressing="false">
-				<con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings>
-				<con:encoding>UTF-8</con:encoding>
-				<con:endpoint>${#TestSuite#Endpoint-XDREntity}</con:endpoint>
-				<con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" xmlns:urn3="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:urn4="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn5="urn:ihe:iti:xds-b:2007">
-   <soapenv:Header>
+			<con:request incomingWss="" name="Doc Submission" outgoingWss="" wssPasswordType="">
+				<con:settings>
+					<con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
+		</con:settings>
+		<con:encoding>UTF-8</con:encoding>
+		<con:endpoint>http://localhost:8080/Gateway/DocumentSubmission/1_1/EntityService/EntityDocSubmissionUnsecured</con:endpoint>
+		<con:request><![CDATA[
+			<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" xmlns:urn3="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:urn4="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn5="urn:ihe:iti:xds-b:2007">
+   <soap:Header>
 	<MessageID xmlns="http://www.w3.org/2004/08/addressing">${#TestSuite#MessageID_DS}</MessageID>
 	<txn:TransactionID xmlns:txn="http://connectopensource.org/transaction/">${#TestSuite#TransactionID}</txn:TransactionID>
-	</soapenv:Header>
-   <soapenv:Body projectName="EndToEndSelfTest" testCase="XDR (Sync)">
+	</soap:Header>
+   <soap:Body testSuite="Entity_g1" testCase="Document Submission">
       <urn:RespondingGateway_ProvideAndRegisterDocumentSetRequest>
          <urn:assertion>
             <urn1:address>
@@ -3919,7 +3596,7 @@ testRunner.testCase.testSuite.setPropertyValue("TransactionID", TransactionID);
                   </urn1:assertion>
                </urn1:evidence>
             </urn1:samlAuthzDecisionStatement>
-	<urn1:messageId xmlns="http://www.w3.org/2004/08/addressing">${#TestSuite#MessageID_DS}</urn1:messageId> 
+            <urn1:messageId xmlns="http://www.w3.org/2004/08/addressing">${#TestSuite#MessageID_DS}</urn1:messageId> 
          </urn:assertion>
 
          <urn:nhinTargetCommunities>
@@ -4146,26 +3823,31 @@ testRunner.testCase.testSuite.setPropertyValue("TransactionID", TransactionID);
             <urn5:Document id="Document01">UjBsR09EbGhjZ0dTQUxNQUFBUUNBRU1tQ1p0dU1GUXhEUzhi</urn5:Document>
          </urn:ProvideAndRegisterDocumentSetRequest>
       </urn:RespondingGateway_ProvideAndRegisterDocumentSetRequest>
-   </soapenv:Body>
-</soapenv:Envelope>]]></con:request>
-				<con:assertion type="SOAP Response"/>
-				<con:assertion type="SOAP Fault Assertion"/>
-				<con:assertion type="XPath Match">
-					<con:configuration>
-						<path>declare namespace ns11='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
+   </soap:Body>
+</soap:Envelope>]]></con:request>
+		<con:assertion type="SOAP Response"/>
+		<con:assertion type="SOAP Fault Assertion"/>
+		<con:assertion type="XPath Match">
+			<con:configuration>
+				<path>declare namespace ns11='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
 							//ns11:RegistryResponse[1]/@status</path>
-						<content>urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Success</content>
-						<allowWildcards>false</allowWildcards>
-						<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
-					</con:configuration>
-				</con:assertion>
-				<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
-				<con:jmsPropertyConfig/>
-				<con:wsaConfig action="" mustUnderstand="NONE" version="200508" messageID="" addDefaultAction="false" addDefaultTo="false"/>
-				<con:wsrmConfig version="1.2"/>
-			</con:request>
-		</con:config>
-	</con:testStep><con:testStep name="AdminDist Request" type="request"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>AdministrativeDistribution_Binding_Soap12</con:interface><con:operation>SendAlertMessage</con:operation><con:request name="AdminDist Request"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>${#TestSuite#Endpoint-EntityAdminDist}</con:endpoint><con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:urn2="urn:oasis:names:tc:emergency:EDXL:DE:1.0">
+				<content>urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Success</content>
+				<allowWildcards>false</allowWildcards>
+				<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
+			</con:configuration>
+		</con:assertion>
+		<con:assertion name="Schema Compliance" type="Schema Compliance">
+			<con:configuration>
+				<definition/>
+			</con:configuration>
+		</con:assertion>
+		<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+		<con:jmsPropertyConfig/>
+		<con:wsaConfig action="{urn:gov:hhs:fha:nhinc:nhincentityxdr}ProvideAndRegisterDocumentSet-b" mustUnderstand="NONE" version="200508"/>
+		<con:wsrmConfig version="1.2"/>
+	</con:request>
+</con:config>
+</con:testStep><con:testStep name="AdminDist Request" type="request"><con:settings/><con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>AdministrativeDistribution_Binding_Soap12</con:interface><con:operation>SendAlertMessage</con:operation><con:request name="AdminDist Request"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>${#TestSuite#Endpoint-EntityAdminDist}</con:endpoint><con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:urn2="urn:oasis:names:tc:emergency:EDXL:DE:1.0">
 <soap:Header>
 	<MessageID xmlns="http://www.w3.org/2004/08/addressing">${#TestSuite#MessageID_AD}</MessageID>
 	<txn:TransactionID xmlns:txn="http://connectopensource.org/transaction/">${#TestSuite#TransactionID}</txn:TransactionID>
@@ -4532,9 +4214,9 @@ testRunner.testCase.testSuite.setPropertyValue("TransactionID2", TransactionID2)
 					<con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
 		</con:settings>
 		<con:encoding>UTF-8</con:encoding>
-		<con:endpoint>${#TestSuite#Endpoint-PatientDiscoveryAsyncReq}</con:endpoint>
+		<con:endpoint>http://localhost:8080/Gateway/PatientDiscovery/1_0/EntityService/EntityPatientDiscoveryDeferredRequestUnsecured</con:endpoint>
 		<con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:hl7-org:v3" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
-    <soap:Header>
+   <soap:Header>
 	<MessageID xmlns="http://www.w3.org/2004/08/addressing" mustUnderstand="true">${#TestSuite#MessageID_PDDefReq1}</MessageID>
 	<txn:TransactionID xmlns:txn="http://connectopensource.org/transaction/">${#TestSuite#TransactionID}</txn:TransactionID>
    </soap:Header>
@@ -4830,7 +4512,7 @@ request.namespaces["add"] = "http://www.w3.org/2005/08/addressing";
 response.namespaces["add"] = "http://www.w3.org/2005/08/addressing";
 assert request["//add:MessageID/text()"] == response["//add:RelatesTo/text()"];</scriptText></con:configuration></con:assertion><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
 		<con:jmsPropertyConfig/>
-		<con:wsaConfig action="urn:gov:hhs:fha:nhinc:entitypatientdiscoveryasyncreq:ProcessPatientDiscoveryAsyncReqAsyncRequest" addDefaultTo="true" messageID="uuid:6666666666.66666.666.66" mustUnderstand="NONE" version="200508"/>
+		<con:wsaConfig action="urn:gov:hhs:fha:nhinc:entitypatientdiscoveryasyncreq:ProcessPatientDiscoveryAsyncReqAsyncRequest" addDefaultTo="false" messageID="" mustUnderstand="NONE" version="200508"/>
 		<con:wsrmConfig version="1.2"/>
 	</con:request>
 </con:config>
@@ -4844,9 +4526,9 @@ assert request["//add:MessageID/text()"] == response["//add:RelatesTo/text()"];<
 					<con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
 		</con:settings>
 		<con:encoding>UTF-8</con:encoding>
-		<con:endpoint>${#TestSuite#Endpoint-PatientDiscoveryAsyncReq}</con:endpoint>
+		<con:endpoint>http://localhost:8080/Gateway/PatientDiscovery/1_0/EntityService/EntityPatientDiscoveryDeferredRequestUnsecured</con:endpoint>
 		<con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:hl7-org:v3" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
-    <soap:Header>
+   <soap:Header>
 	<MessageID xmlns="http://www.w3.org/2004/08/addressing" mustUnderstand="true">${#TestSuite#MessageID_PDDefReq2}</MessageID>
 	<txn:TransactionID xmlns:txn="http://connectopensource.org/transaction/">${#TestSuite#TransactionID2}</txn:TransactionID>
    </soap:Header>
@@ -5142,7 +4824,7 @@ request.namespaces["add"] = "http://www.w3.org/2005/08/addressing";
 response.namespaces["add"] = "http://www.w3.org/2005/08/addressing";
 assert request["//add:MessageID/text()"] == response["//add:RelatesTo/text()"];</scriptText></con:configuration></con:assertion><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
 		<con:jmsPropertyConfig/>
-		<con:wsaConfig action="urn:gov:hhs:fha:nhinc:entitypatientdiscoveryasyncreq:ProcessPatientDiscoveryAsyncReqAsyncRequest" addDefaultTo="true" messageID="uuid:6666666666.66666.666.66" mustUnderstand="NONE" version="200508"/>
+		<con:wsaConfig action="urn:gov:hhs:fha:nhinc:entitypatientdiscoveryasyncreq:ProcessPatientDiscoveryAsyncReqAsyncRequest" addDefaultTo="false" messageID="" mustUnderstand="NONE" version="200508"/>
 		<con:wsrmConfig version="1.2"/>
 	</con:request>
 </con:config>
@@ -5488,7 +5170,7 @@ assert request["//add:MessageID/text()"] == response["//add:RelatesTo/text()"];<
 </con:testStep><con:testStep name="count transaction repo entries" type="groovy">
 	<con:settings/>
 	<con:config><script>context.withSql('transrepo') { sql -> 
-		assert 3 == sql.firstRow('select count(*) from ' + context.findProperty('TransactionRepoTable') + ' where transactionId = "' + context.findProperty('TransactionID') + '"')[0]
+		assert 4 == sql.firstRow('select count(*) from ' + context.findProperty('TransactionRepoTable') + ' where transactionId = "' + context.findProperty('TransactionID') + '"')[0]
 		assert 3 == sql.firstRow('select count(*) from ' + context.findProperty('TransactionRepoTable') + ' where transactionId = "' + context.findProperty('TransactionID2') + '"')[0]
 		
 		}</script></con:config>
@@ -5510,24 +5192,25 @@ testRunner.testCase.testSuite.setPropertyValue("TransactionID2", TransactionID2)
 		<con:config><script>context.withSql('transrepo') { sql -> 
 			sql.execute('delete from ' + context.findProperty('TransactionRepoTable'))
 			}</script></con:config>
-</con:testStep><con:testStep name="Doc Submission Def Request" type="request">
+</con:testStep><con:testStep name="Doc Submission Deferred Req" type="request">
 				<con:settings/>
 				<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 					<con:interface>EntityXDRAsyncRequest_Binding</con:interface>
 					<con:operation>ProvideAndRegisterDocumentSet-bAsyncRequest</con:operation>
-					<con:request incomingWss="" name="Doc Submission Def Request" outgoingWss="" useWsAddressing="false" wssPasswordType="">
+					<con:request incomingWss="" name="Doc Submission Deferred Req" outgoingWss="" useWsAddressing="false" wssPasswordType="">
 						<con:settings>
 							<con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
 				</con:settings>
 				<con:encoding>UTF-8</con:encoding>
-				<con:endpoint>${#TestSuite#Endpoint-EntityXDRRequest}</con:endpoint>
-				<con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" xmlns:urn3="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:urn4="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn5="urn:ihe:iti:xds-b:2007">
+				<con:endpoint>http://localhost:8080/Gateway/DocumentSubmission/1_1/EntityService/EntityDocSubmissionDeferredRequestUnsecured</con:endpoint>
+				<con:request><![CDATA[
+					<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" xmlns:urn3="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:urn4="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn5="urn:ihe:iti:xds-b:2007">
    <soap:Header>
 	<MessageID xmlns="http://www.w3.org/2004/08/addressing" mustUnderstand="true">${#TestSuite#MessageID_DSDefReq1}</MessageID>
 	<txn:TransactionID xmlns:txn="http://connectopensource.org/transaction/">${#TestSuite#TransactionID}</txn:TransactionID>
    </soap:Header>
-   <soap:Body projectName="EndToEndSelfTest" testCase="XDR Async">
-      <urn:RespondingGateway_ProvideAndRegisterDocumentSetRequest>
+   <soap:Body testSuite="Entity_g1" testCase="Document Submission Deferred Req">
+   <urn:RespondingGateway_ProvideAndRegisterDocumentSetRequest>
          <urn:assertion>
             <urn1:address>
                <urn1:addressType>
@@ -5736,8 +5419,9 @@ testRunner.testCase.testSuite.setPropertyValue("TransactionID2", TransactionID2)
                   </urn1:assertion>
                </urn1:evidence>
             </urn1:samlAuthzDecisionStatement>
-	<urn1:messageId xmlns="http://www.w3.org/2004/08/addressing">${#TestSuite#MessageID_DSDefReq1}</urn1:messageId>
+            <urn1:messageId xmlns="http://www.w3.org/2004/08/addressing">${#TestSuite#MessageID_DSDefReq1}</urn1:messageId>
          </urn:assertion>
+
          <urn:nhinTargetCommunities>
             <urn1:nhinTargetCommunity>
                <urn1:homeCommunity>
@@ -5747,9 +5431,11 @@ testRunner.testCase.testSuite.setPropertyValue("TransactionID2", TransactionID2)
                </urn1:homeCommunity>
             </urn1:nhinTargetCommunity>
          </urn:nhinTargetCommunities>
+
          <urn:ProvideAndRegisterDocumentSetRequest>
             <urn2:SubmitObjectsRequest id="123" comment="comme">
                <!--Optional:-->
+  
                <urn4:RegistryObjectList>
                   <urn4:ExtrinsicObject id="Document01" mimeType="text/xml" objectType="urn:uuid:7edca82f-054d-47f2-a032-9b2a5b5186c1">
                      <urn4:Slot name="creationTime">
@@ -5953,7 +5639,8 @@ testRunner.testCase.testSuite.setPropertyValue("TransactionID2", TransactionID2)
                         </urn4:ValueList>
                      </urn4:Slot>
                   </urn4:Association>
-               </urn4:RegistryObjectList>
+               </urn4:RegistryObjectList> 
+
             </urn2:SubmitObjectsRequest>
             <!--1 or more repetitions:-->
             <urn5:Document id="Document01">UjBsR09EbGhjZ0dTQUxNQUFBUUNBRU1tQ1p0dU1GUXhEUzhi</urn5:Document>
@@ -5963,7 +5650,7 @@ testRunner.testCase.testSuite.setPropertyValue("TransactionID2", TransactionID2)
 </soap:Envelope>]]></con:request>
 				<con:assertion type="SOAP Response"/>
 				<con:assertion type="SOAP Fault Assertion"/>
-				<con:assertion name="Match content of [@status]" type="XPath Match">
+				<con:assertion name="Match content of @status" type="XPath Match">
 					<con:configuration>
 						<path>declare namespace ns10='http://www.hhs.gov/healthit/nhin';
 							//ns10:XDRAcknowledgement[1]/ns10:message[1]/@status</path>
@@ -5972,30 +5659,41 @@ testRunner.testCase.testSuite.setPropertyValue("TransactionID2", TransactionID2)
 						<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
 					</con:configuration>
 				</con:assertion>
-				<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+				<con:assertion name="Schema Compliance" type="Schema Compliance">
+					<con:configuration>
+						<definition/>
+					</con:configuration>
+				</con:assertion>
+				<con:assertion type="GroovyScriptAssertion" name="Verify RelatesTo"><con:configuration><scriptText>import com.eviware.soapui.support.XmlHolder;
+def request = new XmlHolder(messageExchange.requestContentAsXml);
+def response = new XmlHolder(messageExchange.responseContentAsXml);
+request.namespaces["add"] = "http://www.w3.org/2005/08/addressing";
+response.namespaces["add"] = "http://www.w3.org/2005/08/addressing";
+assert request["//add:MessageID/text()"] == response["//add:RelatesTo/text()"];</scriptText></con:configuration></con:assertion><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
 				<con:jmsPropertyConfig/>
-				<con:wsaConfig action="urn:gov:hhs:fha:nhinc:nhincentityxdr:async:request:ProvideAndRegisterDocumentSet-bAsyncRequest_RequestMessage" generateMessageId="false" mustUnderstand="TRUE" version="200508" addDefaultAction="false" messageID="${#Project#DeferredRequestMessageID}"/>
+				<con:wsaConfig action="urn:gov:hhs:fha:nhinc:nhincentityxdr:async:request:ProvideAndRegisterDocumentSet-bAsyncRequest_RequestMessage" generateMessageId="true" mustUnderstand="NONE" version="200508"/>
 				<con:wsrmConfig version="1.2"/>
 			</con:request>
 		</con:config>
-	</con:testStep><con:testStep name="Doc Submission Def Request 2" type="request">
+	</con:testStep><con:testStep name="Doc Submission Deferred Req 2" type="request">
 				<con:settings/>
 				<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 					<con:interface>EntityXDRAsyncRequest_Binding</con:interface>
 					<con:operation>ProvideAndRegisterDocumentSet-bAsyncRequest</con:operation>
-					<con:request incomingWss="" name="Doc Submission Def Request 2" outgoingWss="" useWsAddressing="false" wssPasswordType="">
+					<con:request incomingWss="" name="Doc Submission Deferred Req 2" outgoingWss="" useWsAddressing="false" wssPasswordType="">
 						<con:settings>
 							<con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
 				</con:settings>
 				<con:encoding>UTF-8</con:encoding>
-				<con:endpoint>${#TestSuite#Endpoint-EntityXDRRequest}</con:endpoint>
-				<con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" xmlns:urn3="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:urn4="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn5="urn:ihe:iti:xds-b:2007">
+				<con:endpoint>http://localhost:8080/Gateway/DocumentSubmission/1_1/EntityService/EntityDocSubmissionDeferredRequestUnsecured</con:endpoint>
+				<con:request><![CDATA[
+					<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" xmlns:urn3="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:urn4="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn5="urn:ihe:iti:xds-b:2007">
    <soap:Header>
 	<MessageID xmlns="http://www.w3.org/2004/08/addressing" mustUnderstand="true">${#TestSuite#MessageID_DSDefReq2}</MessageID>
 	<txn:TransactionID xmlns:txn="http://connectopensource.org/transaction/">${#TestSuite#TransactionID2}</txn:TransactionID>
    </soap:Header>
-   <soap:Body projectName="EndToEndSelfTest" testCase="XDR Async">
-      <urn:RespondingGateway_ProvideAndRegisterDocumentSetRequest>
+   <soap:Body testSuite="Entity_g1" testCase="Document Submission Deferred Req">
+   <urn:RespondingGateway_ProvideAndRegisterDocumentSetRequest>
          <urn:assertion>
             <urn1:address>
                <urn1:addressType>
@@ -6204,8 +5902,9 @@ testRunner.testCase.testSuite.setPropertyValue("TransactionID2", TransactionID2)
                   </urn1:assertion>
                </urn1:evidence>
             </urn1:samlAuthzDecisionStatement>
-	<urn1:messageId xmlns="http://www.w3.org/2004/08/addressing">${#Project#DsDefReqMessageID_2}</urn1:messageId>
+            <urn1:messageId xmlns="http://www.w3.org/2004/08/addressing">${#Project#DsDefReqMessageID_2}</urn1:messageId>
          </urn:assertion>
+
          <urn:nhinTargetCommunities>
             <urn1:nhinTargetCommunity>
                <urn1:homeCommunity>
@@ -6215,9 +5914,11 @@ testRunner.testCase.testSuite.setPropertyValue("TransactionID2", TransactionID2)
                </urn1:homeCommunity>
             </urn1:nhinTargetCommunity>
          </urn:nhinTargetCommunities>
+
          <urn:ProvideAndRegisterDocumentSetRequest>
             <urn2:SubmitObjectsRequest id="123" comment="comme">
                <!--Optional:-->
+  
                <urn4:RegistryObjectList>
                   <urn4:ExtrinsicObject id="Document01" mimeType="text/xml" objectType="urn:uuid:7edca82f-054d-47f2-a032-9b2a5b5186c1">
                      <urn4:Slot name="creationTime">
@@ -6421,7 +6122,8 @@ testRunner.testCase.testSuite.setPropertyValue("TransactionID2", TransactionID2)
                         </urn4:ValueList>
                      </urn4:Slot>
                   </urn4:Association>
-               </urn4:RegistryObjectList>
+               </urn4:RegistryObjectList> 
+
             </urn2:SubmitObjectsRequest>
             <!--1 or more repetitions:-->
             <urn5:Document id="Document01">UjBsR09EbGhjZ0dTQUxNQUFBUUNBRU1tQ1p0dU1GUXhEUzhi</urn5:Document>
@@ -6431,7 +6133,7 @@ testRunner.testCase.testSuite.setPropertyValue("TransactionID2", TransactionID2)
 </soap:Envelope>]]></con:request>
 				<con:assertion type="SOAP Response"/>
 				<con:assertion type="SOAP Fault Assertion"/>
-				<con:assertion name="Match content of [@status]" type="XPath Match">
+				<con:assertion name="Match content of @status" type="XPath Match">
 					<con:configuration>
 						<path>declare namespace ns10='http://www.hhs.gov/healthit/nhin';
 							//ns10:XDRAcknowledgement[1]/ns10:message[1]/@status</path>
@@ -6440,9 +6142,19 @@ testRunner.testCase.testSuite.setPropertyValue("TransactionID2", TransactionID2)
 						<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
 					</con:configuration>
 				</con:assertion>
-				<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+				<con:assertion name="Schema Compliance" type="Schema Compliance">
+					<con:configuration>
+						<definition/>
+					</con:configuration>
+				</con:assertion>
+				<con:assertion type="GroovyScriptAssertion" name="Verify RelatesTo"><con:configuration><scriptText>import com.eviware.soapui.support.XmlHolder;
+def request = new XmlHolder(messageExchange.requestContentAsXml);
+def response = new XmlHolder(messageExchange.responseContentAsXml);
+request.namespaces["add"] = "http://www.w3.org/2005/08/addressing";
+response.namespaces["add"] = "http://www.w3.org/2005/08/addressing";
+assert request["//add:MessageID/text()"] == response["//add:RelatesTo/text()"];</scriptText></con:configuration></con:assertion><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
 				<con:jmsPropertyConfig/>
-				<con:wsaConfig action="urn:gov:hhs:fha:nhinc:nhincentityxdr:async:request:ProvideAndRegisterDocumentSet-bAsyncRequest_RequestMessage" generateMessageId="false" mustUnderstand="TRUE" version="200508" addDefaultAction="false" messageID="${#Project#DeferredRequestMessageID}"/>
+				<con:wsaConfig action="urn:gov:hhs:fha:nhinc:nhincentityxdr:async:request:ProvideAndRegisterDocumentSet-bAsyncRequest_RequestMessage" generateMessageId="true" mustUnderstand="NONE" version="200508"/>
 				<con:wsrmConfig version="1.2"/>
 			</con:request>
 		</con:config>
@@ -6767,7 +6479,7 @@ testRunner.testCase.testSuite.setPropertyValue("TransactionID2", TransactionID2)
 		
 		}</script></con:config>
 </con:testStep><con:setupScript>testCase.getTestSuite().getProject().setPropertyValue("TransactionID", "urn:uuid:".concat(((Math.random()*100000000).intValue()).toString()));
-testCase.getTestSuite().getProject().setPropertyValue("TransactionID_2", "urn:uuid:".concat(((Math.random()*100000000).intValue()).toString()));</con:setupScript><con:properties/></con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="DQ Fanout Test" searchProperties="true" id="9c89ad49-8371-40d8-803c-dcb2d4ca5b54"><con:settings/><con:testStep name="update config" type="groovy">
+testCase.getTestSuite().getProject().setPropertyValue("TransactionID_2", "urn:uuid:".concat(((Math.random()*100000000).intValue()).toString()));</con:setupScript><con:properties/></con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="DQ Fanout Test" searchProperties="true" id="9c89ad49-8371-40d8-803c-dcb2d4ca5b54" disabled="true"><con:settings/><con:testStep name="update config" type="groovy">
 		<con:settings/>
 		<con:config><script>nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'), "gateway.properties", "documentQueryQuerySelf", "false", log);</script></con:config>
 </con:testStep><con:testStep name="backup uddiConnectionInfo" type="groovy">
@@ -7160,7 +6872,7 @@ log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
 nhinc.FileUtils.copyFile(sourceDir, sourceFile, destDir, destFile, log);
 
-new File(sourceDir + "/" + sourceFile).delete();</con:tearDownScript><con:properties/></con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="HIEM" searchProperties="true" id="de4fb969-9d5c-4f37-b3ba-4bf11375fd99">
+new File(sourceDir + "/" + sourceFile).delete();</con:tearDownScript><con:properties/></con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="HIEM" searchProperties="true" id="de4fb969-9d5c-4f37-b3ba-4bf11375fd99" disabled="true">
 	<con:settings/>
 
 	<con:testStep type="groovy" name="Create MessageIDs"><con:settings/><con:config><script>def SubMessageID = 'urn:uuid:' + (int)(Math.random()*10000000);
@@ -7790,7 +7502,7 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
 	</con:property>
 </con:properties>
 <con:reportParameters/>
-</con:testCase><con:properties><con:property><con:name>Endpoint-DocQuery</con:name><con:value>http://localhost:8080/Gateway/DocumentQuery/2_0/EntityService/EntityDocQueryUnsecured</con:value></con:property><con:property><con:name>Endpoint-DocRetrieve</con:name><con:value>http://localhost:8080/Gateway/DocumentRetrieve/2_0/EntityService/EntityDocRetrieve</con:value></con:property><con:property><con:name>Endpoint-DSDeferredResp</con:name><con:value>http://localhost:8080/Gateway/DocumentSubmission/2_0/EntityService/EntityDocSubmissionDeferredResponseUnsecured</con:value></con:property><con:property><con:name>Endpoint-EntityAdminDist</con:name><con:value>http://localhost:8080/Gateway/AdminDistribution/1_0/AdministrativeDistribution_Service</con:value></con:property><con:property><con:name>Endpoint-EntityXDRRequest</con:name><con:value>http://localhost:8080/Gateway/DocumentSubmission/1_1/EntityService/EntityDocSubmissionDeferredRequestUnsecured</con:value></con:property><con:property><con:name>Endpoint-PatientDiscovery</con:name><con:value>http://localhost:8080/Gateway/PatientDiscovery/1_0/EntityPatientDiscovery</con:value></con:property><con:property><con:name>Endpoint-PatientDiscoveryAsyncReq</con:name><con:value>http://localhost:8080/Gateway/PatientDiscovery/1_0/EntityService/EntityPatientDiscoveryDeferredRequestUnsecured</con:value></con:property><con:property><con:name>Endpoint-PatientDiscoveryAsyncResp</con:name><con:value>http://localhost:8080/Gateway/PatientDiscovery/1_0/EntityService/EntityPatientDiscoveryDeferredResponseUnsecured</con:value></con:property><con:property><con:name>Endpoint-XDREntity</con:name><con:value>http://localhost:8080/Gateway/DocumentSubmission/1_1/EntityService/EntityDocSubmissionUnsecured</con:value></con:property><con:property><con:name>MessageID_PD</con:name><con:value>urn:uuid:85747</con:value></con:property><con:property><con:name>MessageID_DQ</con:name><con:value>urn:uuid:937252</con:value></con:property><con:property><con:name>MessageID_DR</con:name><con:value>urn:uuid:8514358</con:value></con:property><con:property><con:name>TransactionID</con:name><con:value>urn:uuid:1547831</con:value></con:property><con:property><con:name>MessageID_DSDefReq1</con:name><con:value>urn:uuid:2013086</con:value></con:property><con:property><con:name>MessageID_DSDefResp1</con:name><con:value>urn:uuid:6820534</con:value></con:property><con:property><con:name>MessageID_PDDefReq1</con:name><con:value>urn:uuid:1365658</con:value></con:property><con:property><con:name>MessageID_PDDefResp1</con:name><con:value>urn:uuid:5376286</con:value></con:property><con:property><con:name>MessageID_DS</con:name><con:value>urn:uuid:4385768</con:value></con:property><con:property><con:name>MessageID_AD</con:name><con:value>urn:uuid:8375655</con:value></con:property><con:property><con:name>MessageID_PDDefReq2</con:name><con:value>urn:uuid:6912009</con:value></con:property><con:property><con:name>TransactionID2</con:name><con:value>urn:uuid:36664991</con:value></con:property><con:property><con:name>MessageID_DSDefReq2</con:name><con:value>urn:uuid:2821738</con:value></con:property><con:property><con:name>MessageID_Sub</con:name><con:value>urn:uuid:1168917</con:value></con:property><con:property><con:name>MessageID_Notify</con:name><con:value>urn:uuid:8345345</con:value></con:property></con:properties><con:setupScript/></con:testSuite><con:testSuite name="MsgProxy"><con:settings/><con:runType>SEQUENTIAL</con:runType><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="PD-QD-RD" searchProperties="true" id="cb6d5c28-24d0-42d3-901c-0f9344429c24">
+</con:testCase><con:properties><con:property><con:name>Endpoint-DocQuery</con:name><con:value>http://localhost:8080/Gateway/DocumentQuery/2_0/EntityService/EntityDocQueryUnsecured</con:value></con:property><con:property><con:name>Endpoint-DocRetrieve</con:name><con:value>http://localhost:8080/Gateway/DocumentRetrieve/2_0/EntityService/EntityDocRetrieve</con:value></con:property><con:property><con:name>Endpoint-DSDeferredResp</con:name><con:value>http://localhost:8080/Gateway/DocumentSubmission/2_0/EntityService/EntityDocSubmissionDeferredResponseUnsecured</con:value></con:property><con:property><con:name>Endpoint-EntityAdminDist</con:name><con:value>http://localhost:8080/Gateway/AdminDistribution/1_0/AdministrativeDistribution_Service</con:value></con:property><con:property><con:name>Endpoint-EntityXDRRequest</con:name><con:value>http://localhost:8080/Gateway/DocumentSubmission/1_1/EntityService/EntityDocSubmissionDeferredRequestUnsecured</con:value></con:property><con:property><con:name>Endpoint-PatientDiscovery</con:name><con:value>http://localhost:8080/Gateway/PatientDiscovery/1_0/EntityPatientDiscovery</con:value></con:property><con:property><con:name>Endpoint-PatientDiscoveryAsyncReq</con:name><con:value>http://localhost:8080/Gateway/PatientDiscovery/1_0/EntityService/EntityPatientDiscoveryDeferredRequestUnsecured</con:value></con:property><con:property><con:name>Endpoint-PatientDiscoveryAsyncResp</con:name><con:value>http://localhost:8080/Gateway/PatientDiscovery/1_0/EntityService/EntityPatientDiscoveryDeferredResponseUnsecured</con:value></con:property><con:property><con:name>Endpoint-XDREntity</con:name><con:value>http://localhost:8080/Gateway/DocumentSubmission/1_1/EntityService/EntityDocSubmissionUnsecured</con:value></con:property><con:property><con:name>MessageID_PD</con:name><con:value>urn:uuid:7495237</con:value></con:property><con:property><con:name>MessageID_DQ</con:name><con:value>urn:uuid:3430545</con:value></con:property><con:property><con:name>MessageID_DR</con:name><con:value>urn:uuid:3612023</con:value></con:property><con:property><con:name>TransactionID</con:name><con:value>urn:uuid:12152803</con:value></con:property><con:property><con:name>MessageID_DSDefReq1</con:name><con:value>urn:uuid:4440339</con:value></con:property><con:property><con:name>MessageID_DSDefResp1</con:name><con:value>urn:uuid:9481956</con:value></con:property><con:property><con:name>MessageID_PDDefReq1</con:name><con:value>urn:uuid:6674677</con:value></con:property><con:property><con:name>MessageID_PDDefResp1</con:name><con:value>urn:uuid:7562591</con:value></con:property><con:property><con:name>MessageID_DS</con:name><con:value>urn:uuid:5040084</con:value></con:property><con:property><con:name>MessageID_AD</con:name><con:value>urn:uuid:1644915</con:value></con:property><con:property><con:name>MessageID_PDDefReq2</con:name><con:value>urn:uuid:8022376</con:value></con:property><con:property><con:name>TransactionID2</con:name><con:value>urn:uuid:46495727</con:value></con:property><con:property><con:name>MessageID_DSDefReq2</con:name><con:value>urn:uuid:5983156</con:value></con:property><con:property><con:name>MessageID_Sub</con:name><con:value>urn:uuid:3091088</con:value></con:property><con:property><con:name>MessageID_Notify</con:name><con:value>urn:uuid:2401781</con:value></con:property></con:properties><con:setupScript/></con:testSuite><con:testSuite name="MsgProxy" disabled="true"><con:settings/><con:runType>SEQUENTIAL</con:runType><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="PD-QD-RD" searchProperties="true" id="cb6d5c28-24d0-42d3-901c-0f9344429c24">
 	<con:settings/>
 	<con:testStep type="groovy" name="Create MessageIDs"><con:settings/><con:config><script>def MessageID_PD = 'urn:uuid:' + (int)(Math.random()*10000000);
 def MessageID_DQ = 'urn:uuid:' + (int)(Math.random()*10000000);
@@ -13993,4 +13705,4 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
 	</con:property>
 </con:properties>
 <con:reportParameters/>
-</con:testCase><con:properties><con:property><con:name>MessageID_PD</con:name><con:value/></con:property><con:property><con:name>MessageID_DQ</con:name><con:value/></con:property><con:property><con:name>MessageID_DR</con:name><con:value/></con:property><con:property><con:name>TransactionID</con:name><con:value/></con:property><con:property><con:name>MessageID_DSDefReq1</con:name><con:value/></con:property><con:property><con:name>MessageID_DSDefResp1</con:name><con:value/></con:property><con:property><con:name>MessageID_PDDefReq1</con:name><con:value/></con:property><con:property><con:name>MessageID_PDDefResp1</con:name><con:value/></con:property><con:property><con:name>MessageID_DS</con:name><con:value/></con:property><con:property><con:name>MessageID_AD</con:name><con:value/></con:property><con:property><con:name>MessageID_PDDefReq2</con:name><con:value/></con:property><con:property><con:name>TransactionID2</con:name><con:value/></con:property><con:property><con:name>MessageID_DSDefReq2</con:name><con:value/></con:property><con:property><con:name>Endpoint-DocQuery</con:name><con:value>http://localhost:8080/Gateway/DocumentQuery/2_0/EntityService/NhincProxyDocQueryUnsecured</con:value></con:property><con:property><con:name>Endpoint-DocRetrieve</con:name><con:value>http://localhost:8080/Gateway/DocumentRetrieve/2_0/NhincProxyDocRetrieveUnsecured</con:value></con:property><con:property><con:name>Endpoint-NhincProxyAdminDist</con:name><con:value>http://localhost:8080/Gateway/AdminDistribution/1_0/MsgProxy/NhincProxyAdminDist</con:value></con:property><con:property><con:name>Endpoint-NhincProxyXDRRequest</con:name><con:value>http://localhost:8080/Gateway/DocumentSubmission/2_0/EntityService/PassthruDocSubmissionDeferredRequestUnsecured</con:value></con:property><con:property><con:name>Endpoint-PatientDiscovery</con:name><con:value>http://localhost:8080/Gateway/PatientDiscovery/1_0/MsgProxy/NhincProxyPatientDiscovery</con:value></con:property><con:property><con:name>Endpoint-PatientDiscoveryAsyncReq</con:name><con:value>http://localhost:8080/Gateway/PatientDiscovery/1_0/MsgProxy/NhincProxyPatientDiscoveryDeferredRequestUnsecured</con:value></con:property><con:property><con:name>Endpoint-PatientDiscoveryAsyncResp</con:name><con:value>http://localhost:8080/Gateway/PatientDiscovery/1_0/MsgProxy/NhincProxyPatientDiscoveryAsyncResp</con:value></con:property><con:property><con:name>Endpoint-NhincProxyXDR</con:name><con:value>http://localhost:8080/Gateway/DocumentSubmission/2_0/EntityService/PassthruDocSubmissionUnsecured</con:value></con:property><con:property><con:name>Endpoint-NhincProxyXDRResponse</con:name><con:value>http://localhost:8080/Gateway/DocumentSubmission/2_0/EntityService/PassthruDocSubmissionDeferredResponseUnsecured</con:value></con:property><con:property><con:name>DQDocID</con:name><con:value>1.123401.11111</con:value></con:property><con:property><con:name>MessageID_Sub</con:name><con:value/></con:property><con:property><con:name>MessageID_Notify</con:name><con:value/></con:property></con:properties></con:testSuite><con:properties><con:property><con:name>AAMappingDB</con:name><con:value>assigningauthoritydb</con:value></con:property><con:property><con:name>AAMappingTable</con:name><con:value>aa_to_home_community_mapping</con:value></con:property><con:property><con:name>AsyncMsgDB</con:name><con:value>asyncmsgs</con:value></con:property><con:property><con:name>AsyncMsgTable</con:name><con:value>asyncmsgrepo</con:value></con:property><con:property><con:name>AuditRepoDB</con:name><con:value>auditrepo</con:value></con:property><con:property><con:name>AuditRepoTable</con:name><con:value>auditrepository</con:value></con:property><con:property><con:name>BirthTime</con:name><con:value>19630804</con:value></con:property><con:property><con:name>City</con:name><con:value>Melbourne</con:value></con:property><con:property><con:name>Country</con:name><con:value>US</con:value></con:property><con:property><con:name>DBHost</con:name><con:value>localhost</con:value></con:property><con:property><con:name>DBPass</con:name><con:value>nhincpass</con:value></con:property><con:property><con:name>DBPort</con:name><con:value>3306</con:value></con:property><con:property><con:name>DBUser</con:name><con:value>nhincuser</con:value></con:property><con:property><con:name>DeferredPatientDiscoveryReqMessageID</con:name><con:value>uuid:666666666.66666546546.666.66</con:value></con:property><con:property><con:name>DeferredRequestMessageID</con:name><con:value>urn:uuid:12477518</con:value></con:property><con:property><con:name>DOB</con:name><con:value>19800516</con:value></con:property><con:property><con:name>DQDocID_Entity</con:name><con:value>1.123401.55555</con:value></con:property><con:property><con:name>DQDocID_MsgProxy</con:name><con:value>1.123401.11111</con:value></con:property><con:property><con:name>DQPatientID</con:name><con:value>D123401</con:value></con:property><con:property><con:name>DRDocID</con:name><con:value>1.123407.777777</con:value></con:property><con:property><con:name>DRRepoID</con:name><con:value>1</con:value></con:property><con:property><con:name>DynamicDQDocID</con:name><con:value>103.8.9284320.020.3590.75^1266324032288</con:value></con:property><con:property><con:name>ExpirationDate</con:name><con:value>20100520</con:value></con:property><con:property><con:name>FamilyName</con:name><con:value>Younger</con:value></con:property><con:property><con:name>Gender</con:name><con:value>M</con:value></con:property><con:property><con:name>GivenName</con:name><con:value>Gallow</con:value></con:property><con:property><con:name>LocalAA</con:name><con:value>1.1</con:value></con:property><con:property><con:name>LocalHCDescription</con:name><con:value>InternalTest1</con:value></con:property><con:property><con:name>LocalHCID</con:name><con:value>1.1</con:value></con:property><con:property><con:name>LocalPatientID</con:name><con:value>D123401</con:value></con:property><con:property><con:name>MessageID</con:name><con:value>61948417</con:value></con:property><con:property><con:name>NotificationEndpoint</con:name><con:value>https://localhost:8181/Gateway/HIEM/2_0/NhinService/NotificationConsumerService/HiemNotify</con:value></con:property><con:property><con:name>NotifySubscriptionID</con:name><con:value>c423febc-b079-419a-b156-f0e82552d22e</con:value></con:property><con:property><con:name>NotifySubscriptionManagerEndpointAddress</con:name><con:value>https://localhost:8181/Gateway/HIEM/2_0/NhinService/SubscriptionManagerService/HiemUnsubscribe</con:value></con:property><con:property><con:name>PatientCorrelationDB</con:name><con:value>patientcorrelationdb</con:value></con:property><con:property><con:name>PatientCorrelationTable</con:name><con:value>correlatedidentifiers</con:value></con:property><con:property><con:name>PurposeOfDisclosure</con:name><con:value>Mental</con:value></con:property><con:property><con:name>RemoteAA</con:name><con:value>2.2</con:value></con:property><con:property><con:name>RemoteHCDescription</con:name><con:value>InternalTest2</con:value></con:property><con:property><con:name>RemoteHCID</con:name><con:value>2.2</con:value></con:property><con:property><con:name>RemotePatientID</con:name><con:value>D123401</con:value></con:property><con:property><con:name>SSN</con:name><con:value>123456789</con:value></con:property><con:property><con:name>State</con:name><con:value>FL</con:value></con:property><con:property><con:name>StreetAddress</con:name><con:value>123 Johnson Rd</con:value></con:property><con:property><con:name>SubjectID</con:name><con:value>1111</con:value></con:property><con:property><con:name>SubscribePatientID</con:name><con:value>D123401</con:value></con:property><con:property><con:name>SubscriptionDB</con:name><con:value>subscriptionrepository</con:value></con:property><con:property><con:name>SubscriptionEndpoint</con:name><con:value>https://localhost:8181/Gateway/HIEM/2_0/NhinService/NotificationProducerService/HiemSubscription</con:value></con:property><con:property><con:name>SubscriptionManagerEndpointAddress</con:name><con:value>https://localhost:8181/Gateway/HIEM/2_0/NhinService/SubscriptionManagerService/HiemUnsubscribe</con:value></con:property><con:property><con:name>SubscriptionTable</con:name><con:value>subscription</con:value></con:property><con:property><con:name>TransactionRepoTable</con:name><con:value>transactionrepository</con:value></con:property><con:property><con:name>UniquePatientId</con:name><con:value>1111^^^&amp;amp;1.1&amp;amp;ISO</con:value></con:property><con:property><con:name>UnSubscriptionID</con:name><con:value>3e74139f-5271-4db1-98c0-88748fa3e4e3</con:value></con:property><con:property><con:name>ZipCode</con:name><con:value>12345</con:value></con:property><con:property><con:name>GatewayPropDir</con:name><con:value>c:\glassfish3\glassfish\domains\domain1\config\nhin</con:value></con:property><con:property><con:name>TransactionID</con:name><con:value>urn:uuid:76750051</con:value></con:property><con:property><con:name>TransactionID_2</con:name><con:value>urn:uuid:56125953</con:value></con:property></con:properties><con:afterLoadScript/><con:wssContainer/></con:soapui-project>
+</con:testCase><con:properties><con:property><con:name>MessageID_PD</con:name><con:value/></con:property><con:property><con:name>MessageID_DQ</con:name><con:value/></con:property><con:property><con:name>MessageID_DR</con:name><con:value/></con:property><con:property><con:name>TransactionID</con:name><con:value/></con:property><con:property><con:name>MessageID_DSDefReq1</con:name><con:value/></con:property><con:property><con:name>MessageID_DSDefResp1</con:name><con:value/></con:property><con:property><con:name>MessageID_PDDefReq1</con:name><con:value/></con:property><con:property><con:name>MessageID_PDDefResp1</con:name><con:value/></con:property><con:property><con:name>MessageID_DS</con:name><con:value/></con:property><con:property><con:name>MessageID_AD</con:name><con:value/></con:property><con:property><con:name>MessageID_PDDefReq2</con:name><con:value/></con:property><con:property><con:name>TransactionID2</con:name><con:value/></con:property><con:property><con:name>MessageID_DSDefReq2</con:name><con:value/></con:property><con:property><con:name>Endpoint-DocQuery</con:name><con:value>http://localhost:8080/Gateway/DocumentQuery/2_0/EntityService/NhincProxyDocQueryUnsecured</con:value></con:property><con:property><con:name>Endpoint-DocRetrieve</con:name><con:value>http://localhost:8080/Gateway/DocumentRetrieve/2_0/NhincProxyDocRetrieveUnsecured</con:value></con:property><con:property><con:name>Endpoint-NhincProxyAdminDist</con:name><con:value>http://localhost:8080/Gateway/AdminDistribution/1_0/MsgProxy/NhincProxyAdminDist</con:value></con:property><con:property><con:name>Endpoint-NhincProxyXDRRequest</con:name><con:value>http://localhost:8080/Gateway/DocumentSubmission/2_0/EntityService/PassthruDocSubmissionDeferredRequestUnsecured</con:value></con:property><con:property><con:name>Endpoint-PatientDiscovery</con:name><con:value>http://localhost:8080/Gateway/PatientDiscovery/1_0/MsgProxy/NhincProxyPatientDiscovery</con:value></con:property><con:property><con:name>Endpoint-PatientDiscoveryAsyncReq</con:name><con:value>http://localhost:8080/Gateway/PatientDiscovery/1_0/MsgProxy/NhincProxyPatientDiscoveryDeferredRequestUnsecured</con:value></con:property><con:property><con:name>Endpoint-PatientDiscoveryAsyncResp</con:name><con:value>http://localhost:8080/Gateway/PatientDiscovery/1_0/MsgProxy/NhincProxyPatientDiscoveryAsyncResp</con:value></con:property><con:property><con:name>Endpoint-NhincProxyXDR</con:name><con:value>http://localhost:8080/Gateway/DocumentSubmission/2_0/EntityService/PassthruDocSubmissionUnsecured</con:value></con:property><con:property><con:name>Endpoint-NhincProxyXDRResponse</con:name><con:value>http://localhost:8080/Gateway/DocumentSubmission/2_0/EntityService/PassthruDocSubmissionDeferredResponseUnsecured</con:value></con:property><con:property><con:name>DQDocID</con:name><con:value>1.123401.11111</con:value></con:property><con:property><con:name>MessageID_Sub</con:name><con:value/></con:property><con:property><con:name>MessageID_Notify</con:name><con:value/></con:property></con:properties></con:testSuite><con:properties><con:property><con:name>AAMappingDB</con:name><con:value>assigningauthoritydb</con:value></con:property><con:property><con:name>AAMappingTable</con:name><con:value>aa_to_home_community_mapping</con:value></con:property><con:property><con:name>AsyncMsgDB</con:name><con:value>asyncmsgs</con:value></con:property><con:property><con:name>AsyncMsgTable</con:name><con:value>asyncmsgrepo</con:value></con:property><con:property><con:name>AuditRepoDB</con:name><con:value>auditrepo</con:value></con:property><con:property><con:name>AuditRepoTable</con:name><con:value>auditrepository</con:value></con:property><con:property><con:name>BirthTime</con:name><con:value>19630804</con:value></con:property><con:property><con:name>City</con:name><con:value>Melbourne</con:value></con:property><con:property><con:name>Country</con:name><con:value>US</con:value></con:property><con:property><con:name>DBHost</con:name><con:value>localhost</con:value></con:property><con:property><con:name>DBPass</con:name><con:value>nhincpass</con:value></con:property><con:property><con:name>DBPort</con:name><con:value>3306</con:value></con:property><con:property><con:name>DBUser</con:name><con:value>nhincuser</con:value></con:property><con:property><con:name>DeferredPatientDiscoveryReqMessageID</con:name><con:value>uuid:666666666.66666546546.666.66</con:value></con:property><con:property><con:name>DeferredRequestMessageID</con:name><con:value>urn:uuid:87378637</con:value></con:property><con:property><con:name>DOB</con:name><con:value>19800516</con:value></con:property><con:property><con:name>DQDocID_Entity</con:name><con:value>1.123401.55555</con:value></con:property><con:property><con:name>DQDocID_MsgProxy</con:name><con:value>1.123401.11111</con:value></con:property><con:property><con:name>DQPatientID</con:name><con:value>D123401</con:value></con:property><con:property><con:name>DRDocID</con:name><con:value>1.123407.777777</con:value></con:property><con:property><con:name>DRRepoID</con:name><con:value>1</con:value></con:property><con:property><con:name>DynamicDQDocID</con:name><con:value>103.8.9284320.020.3590.75^1266324032288</con:value></con:property><con:property><con:name>ExpirationDate</con:name><con:value>20100520</con:value></con:property><con:property><con:name>FamilyName</con:name><con:value>Younger</con:value></con:property><con:property><con:name>Gender</con:name><con:value>M</con:value></con:property><con:property><con:name>GivenName</con:name><con:value>Gallow</con:value></con:property><con:property><con:name>LocalAA</con:name><con:value>1.1</con:value></con:property><con:property><con:name>LocalHCDescription</con:name><con:value>InternalTest1</con:value></con:property><con:property><con:name>LocalHCID</con:name><con:value>1.1</con:value></con:property><con:property><con:name>LocalPatientID</con:name><con:value>D123401</con:value></con:property><con:property><con:name>MessageID</con:name><con:value>61948417</con:value></con:property><con:property><con:name>NotificationEndpoint</con:name><con:value>https://localhost:8181/Gateway/HIEM/2_0/NhinService/NotificationConsumerService/HiemNotify</con:value></con:property><con:property><con:name>NotifySubscriptionID</con:name><con:value>c423febc-b079-419a-b156-f0e82552d22e</con:value></con:property><con:property><con:name>NotifySubscriptionManagerEndpointAddress</con:name><con:value>https://localhost:8181/Gateway/HIEM/2_0/NhinService/SubscriptionManagerService/HiemUnsubscribe</con:value></con:property><con:property><con:name>PatientCorrelationDB</con:name><con:value>patientcorrelationdb</con:value></con:property><con:property><con:name>PatientCorrelationTable</con:name><con:value>correlatedidentifiers</con:value></con:property><con:property><con:name>PurposeOfDisclosure</con:name><con:value>Mental</con:value></con:property><con:property><con:name>RemoteAA</con:name><con:value>2.2</con:value></con:property><con:property><con:name>RemoteHCDescription</con:name><con:value>InternalTest2</con:value></con:property><con:property><con:name>RemoteHCID</con:name><con:value>2.2</con:value></con:property><con:property><con:name>RemotePatientID</con:name><con:value>D123401</con:value></con:property><con:property><con:name>SSN</con:name><con:value>123456789</con:value></con:property><con:property><con:name>State</con:name><con:value>FL</con:value></con:property><con:property><con:name>StreetAddress</con:name><con:value>123 Johnson Rd</con:value></con:property><con:property><con:name>SubjectID</con:name><con:value>1111</con:value></con:property><con:property><con:name>SubscribePatientID</con:name><con:value>D123401</con:value></con:property><con:property><con:name>SubscriptionDB</con:name><con:value>subscriptionrepository</con:value></con:property><con:property><con:name>SubscriptionEndpoint</con:name><con:value>https://localhost:8181/Gateway/HIEM/2_0/NhinService/NotificationProducerService/HiemSubscription</con:value></con:property><con:property><con:name>SubscriptionManagerEndpointAddress</con:name><con:value>https://localhost:8181/Gateway/HIEM/2_0/NhinService/SubscriptionManagerService/HiemUnsubscribe</con:value></con:property><con:property><con:name>SubscriptionTable</con:name><con:value>subscription</con:value></con:property><con:property><con:name>TransactionRepoTable</con:name><con:value>transactionrepository</con:value></con:property><con:property><con:name>UniquePatientId</con:name><con:value>1111^^^&amp;amp;1.1&amp;amp;ISO</con:value></con:property><con:property><con:name>UnSubscriptionID</con:name><con:value>3e74139f-5271-4db1-98c0-88748fa3e4e3</con:value></con:property><con:property><con:name>ZipCode</con:name><con:value>12345</con:value></con:property><con:property><con:name>GatewayPropDir</con:name><con:value/></con:property><con:property><con:name>TransactionID</con:name><con:value>urn:uuid:12479164</con:value></con:property><con:property><con:name>TransactionID_2</con:name><con:value>urn:uuid:2694797</con:value></con:property></con:properties><con:afterLoadScript/><con:wssContainer/><con:sensitiveInformation/></con:soapui-project>
