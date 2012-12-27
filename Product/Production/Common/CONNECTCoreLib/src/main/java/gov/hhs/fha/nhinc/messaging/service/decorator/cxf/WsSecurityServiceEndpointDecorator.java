@@ -24,7 +24,6 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
  */
-
 package gov.hhs.fha.nhinc.messaging.service.decorator.cxf;
 
 import java.util.HashMap;
@@ -37,6 +36,7 @@ import org.apache.cxf.message.Message;
 import org.apache.cxf.ws.security.wss4j.WSS4JOutInterceptor;
 import org.apache.ws.security.handler.WSHandlerConstants;
 
+import gov.hhs.fha.nhinc.cryptostore.StoreUtil;
 import gov.hhs.fha.nhinc.messaging.service.ServiceEndpoint;
 import gov.hhs.fha.nhinc.messaging.service.decorator.ServiceEndpointDecorator;
 
@@ -74,7 +74,7 @@ public class WsSecurityServiceEndpointDecorator<T> extends ServiceEndpointDecora
         
         outProps.put(WSHandlerConstants.ACTION, "Timestamp SAMLTokenSigned");
         outProps.put(WSHandlerConstants.TTL_TIMESTAMP, "3600");
-        outProps.put(WSHandlerConstants.USER, "gateway");
+        outProps.put(WSHandlerConstants.USER, getIssuerKeyAlias());
         outProps.put(WSHandlerConstants.PW_CALLBACK_CLASS, "gov.hhs.fha.nhinc.callback.cxf.CXFPasswordCallbackHandler");    
         outProps.put(WSHandlerConstants.PASSWORD_TYPE, "PasswordDigest");
         outProps.put(WSHandlerConstants.SAML_PROP_FILE, "saml.properties");
@@ -98,5 +98,9 @@ public class WsSecurityServiceEndpointDecorator<T> extends ServiceEndpointDecora
         }
         
         client.getOutInterceptors().add(outInterceptor);
+    }
+    
+    protected String getIssuerKeyAlias() {
+    	return StoreUtil.getInstance().getPrivateKeyAlias();
     }
 }

@@ -120,7 +120,12 @@ public class WsSecurityServiceEndpointDecoratorTest {
                 new TestServicePortDescriptor());
 
         ServiceEndpoint<TestServicePortType> serviceEndpoint = testClient.getServiceEndpoint();
-        serviceEndpoint = new WsSecurityServiceEndpointDecorator<TestServicePortType>(serviceEndpoint);
+        serviceEndpoint = new WsSecurityServiceEndpointDecorator<TestServicePortType>(serviceEndpoint) {
+        	@Override
+        	protected String getIssuerKeyAlias() {
+        		return "gateway";
+        	}
+        };
         serviceEndpoint.configure();
 
         return testClient;
