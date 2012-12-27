@@ -27,6 +27,7 @@
 package gov.hhs.fha.nhinc.callback.purposeuse;
 
 import gov.hhs.fha.nhinc.callback.openSAML.CallbackProperties;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.properties.IPropertyAcessor;
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
@@ -69,7 +70,11 @@ public class PurposeUseProxyCommunityImpl implements PurposeUseProxy {
 
         // check configured hcid value in purpose for use properties file
         String targetHomeCommunityId = callbackProperties.getTargetHomeCommunityId();
+        
         if (targetHomeCommunityId != null) {
+        	if(targetHomeCommunityId.startsWith(NhincConstants.HCID_PREFIX)) {
+                targetHomeCommunityId = targetHomeCommunityId.replace(NhincConstants.HCID_PREFIX, "");
+            }
             return isPurposeForUseEnabled(targetHomeCommunityId);
         }
 
