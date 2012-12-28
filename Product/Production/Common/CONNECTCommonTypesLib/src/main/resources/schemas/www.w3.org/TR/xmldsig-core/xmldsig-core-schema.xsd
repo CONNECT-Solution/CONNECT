@@ -1,4 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- 
+  2012-12-28 tparnell:
+  - Commenting this block out to allow building when access to www.w3.org is not available.
+  - When a catalog is used for jaxb generation and XMLSchema.dtd and datatypes.dtd are local,
+  - revert back to the 876c827 version.
+    
 <!DOCTYPE schema
   PUBLIC "-//W3C//DTD XMLSchema 200102//EN" "http://www.w3.org/2001/XMLSchema.dtd"
  [
@@ -8,7 +14,7 @@
    <!ENTITY % p ''>
    <!ENTITY % s ''>
   ]>
-
+-->
 <!-- Schema for XML Signatures
     http://www.w3.org/2000/09/xmldsig#
     $Revision: 1.1 $ on $Date: 2002/02/08 20:32:26 $ by $Author: reagle $
