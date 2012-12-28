@@ -32,7 +32,7 @@
     <!-- SMTP Implementation -->
     <bean lazy-init="true" class="gov.hhs.fha.nhinc.direct.edge.proxy.DirectEdgeProxySmtpImpl" id="directedgeclientsmtp" name="directedgeclientsmtp"> 
         <meta key="impltype" value="smtp"/>        
-        <constructor-arg><ref bean="intMailClient" /></constructor-arg>
+        <constructor-arg><ref bean="intMailSender" /></constructor-arg>
     </bean> 
 
 </beans>
