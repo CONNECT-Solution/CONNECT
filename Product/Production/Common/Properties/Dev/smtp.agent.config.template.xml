@@ -1,6 +1,6 @@
 <SmtpAgentConfig>
    <Domains>        
-      <AnchorStore type="Uniform" storeType="KeyStore" file="/path/to/direct.anchorstore.jks" filePass="changeit" privKeyPass="changeit"/>    
+      <AnchorStore type="Uniform" storeType="KeyStore" file="@ANCHOR_STORE_JKS@" filePass="changeit" privKeyPass="changeit"/>    
       <Domain name="direct.connectopensource.org" postmaster="postmaster@direct.connectopensource.org">
          <IncomingTrustAnchors> 
             <Anchor name="gateway"/>
@@ -39,10 +39,10 @@
       </Domain> 
    </Domains>
    <PublicCertStores>
-      <PublicCertStore type="Keystore" file="/path/to/direct.publicstore.jks" filePass="changeit" privKeyPass="changeit"/>
+      <PublicCertStore type="Keystore" file="@PUBLIC_STORE_JKS@" filePass="changeit" privKeyPass="changeit"/>
       <PublicCertStore type="DNS" />
    </PublicCertStores>
-   <PrivateCertStore type="Keystore" file="/path/to/direct.privatestore.jks" filePass="changeit" privKeyPass="changeit"/>
+   <PrivateCertStore type="Keystore" file="@PRIVATE_STORE_JKS@" filePass="changeit" privKeyPass="changeit"/>
    <RawMessageSettings saveFolder="RawMsgFolder"/>
    <OutgoingMessagesSettings saveFolder="OutgoingMsgFolder"/>
    <IncomingMessagesSettings saveFolder="IncomingMsgFolder"/>

@@ -242,6 +242,11 @@
                 <file name="mpi.xml" />
             </filelist>
         </copy>
+	<copy file="${deployment.glassfish.domain.config.home}/smtp.agent.config.template.xml" tofile="${deployment.glassfish.domain.config.home}/smtp.agent.config.xml" filtering="yes" overwrite="yes">
+	    <filterset>
+	        <filter token="@ANCHOR_STORE_JKS@" value="${direct.anchorstore.abspath}"/>
+	    </filterset>
+	</copy>
 
         <if>
             <istrue value="${deployment.restore.configuration}" />
@@ -263,6 +268,13 @@
 
     <target name="deploy.nhinc.configuration.to.glassfish">
         <unjar dest="${deployment.config.home}" src="${config.nhin.dependency.file.path}"> </unjar>
+	<copy file="${deployment.config.home}/smtp.agent.config.template.xml" tofile="${deployment.config.home}/smtp.agent.config.xml" filtering="yes" overwrite="yes">
+	    <filterset>
+	        <filter token="ANCHOR_STORE_JKS" value="${direct.anchorstore.abspath}"/>
+	        <filter token="PUBLIC_STORE_JKS" value="${direct.publicstore.abspath}"/>
+	        <filter token="PRIVATE_STORE_JKS" value="${direct.privatestore.abspath}"/>
+	    </filterset>
+	</copy>
     </target>
 
     <target name="deploy.nhinc.interfaces.to.glassfish">
