@@ -8,17 +8,6 @@
 		<con:operation action="urn:RespondingGateway_CrossGatewayQuery" anonymous="optional" bindingOperationName="RespondingGateway_CrossGatewayQuery" inputName="RespondingGateway_CrossGatewayQueryRequest" isOneWay="false" name="RespondingGateway_CrossGatewayQuery" outputName="RespondingGateway_CrossGatewayQueryResponse" receivesAttachments="false" sendsAttachments="false" type="Request-Response">
 			<con:settings/>
 		</con:operation>
-	</con:interface><con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincentityxdr}EntityXDR_Binding" definition="${projectDir}/../ValidationSuite/target/wsdl/EntityXDR.wsdl" name="EntityXDR_Binding" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-		<con:settings/>
-
-		<con:endpoints>
-			<con:endpoint>http://localhost:8080/CONNECTGateway/EntityService/EntityDocSubmissionUnsecured</con:endpoint>
-			<con:endpoint>${#TestSuite#Endpoint-XDREntity}</con:endpoint>
-		</con:endpoints>
-		<con:operation action="tns:ProvideAndRegisterDocumentSet-b" anonymous="optional" bindingOperationName="ProvideAndRegisterDocumentSet-b" inputName="" isOneWay="false" name="ProvideAndRegisterDocumentSet-b" receivesAttachments="false" sendsAttachments="false" type="Request-Response">
-			<con:settings/>
-
-		</con:operation>
 	</con:interface><con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:entitysubscriptionmanagement}EntityNotificationProducerBindingSoap" definition="${projectDir}/../ValidationSuite/target/wsdl/EntitySubscriptionManagement.wsdl" name="EntityNotificationProducerBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 		<con:settings/>
 
@@ -41,16 +30,6 @@
 			<con:endpoint>http://localhost:${HttpDefaultPort}/NhinConnect/EntityDocRetrieve</con:endpoint>
 		</con:endpoints>
 		<con:operation action="urn:RespondingGateway_CrossGatewayRetrieve" anonymous="optional" bindingOperationName="RespondingGateway_CrossGatewayRetrieve" inputName="RespondingGateway_CrossGatewayRetrieveRequest" isOneWay="false" name="RespondingGateway_CrossGatewayRetrieve" outputName="RespondingGateway_CrossGatewayRetrieveResponse" receivesAttachments="false" sendsAttachments="false" type="Request-Response">
-			<con:settings/>
-		</con:operation>
-	</con:interface><con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:entitypatientdiscoveryasyncresp}EntityPatientDiscoveryAsyncRespBindingSoap" definition="${projectDir}/../ValidationSuite/target/wsdl/EntityPatientDiscoveryAsyncResp.wsdl" name="EntityPatientDiscoveryAsyncRespBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-		<con:settings/>
-
-		<con:endpoints>
-			<con:endpoint>http://localhost/NhinConnect/EntityPatientDiscoveryAsyncResp</con:endpoint>
-			<con:endpoint>${#TestSuite#Endpoint-PatientDiscoveryAsyncResp}</con:endpoint>
-		</con:endpoints>
-		<con:operation action="urn:ProcessPatientDiscoveryAsyncResp" bindingOperationName="ProcessPatientDiscoveryAsyncResp" inputName="ProcessPatientDiscoveryAsyncRespAsyncRequest" isOneWay="false" name="ProcessPatientDiscoveryAsyncResp" outputName="ProcessPatientDiscoveryAsyncRespAsyncResponse" receivesAttachments="false" sendsAttachments="false" type="Request-Response">
 			<con:settings/>
 		</con:operation>
 	</con:interface><con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincentityxdr:async:response}EntityXDRAsyncResponse_Binding" definition="${projectDir}/../ValidationSuite/target/wsdl/EntityXDRResponse.wsdl" name="EntityXDRAsyncResponse_Binding" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
@@ -127,7 +106,24 @@
 		<con:operation action="urn:Notify" anonymous="optional" bindingOperationName="Notify" inputName="NotifyRequest" isOneWay="false" name="Notify" outputName="NotifyResponse" receivesAttachments="false" sendsAttachments="false" type="Request-Response">
 			<con:settings/>
 		</con:operation>
-	</con:interface><con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="AdministrativeDistribution_Binding_Soap12_g0" type="wsdl" bindingName="{urn:gov:hhs:fha:nhinc:entityadmindistribution}AdministrativeDistribution_Binding_Soap12" soapVersion="1_2" anonymous="optional" definition="${projectDir}/../ValidationSuite/target/wsdl/EntityAdminDist.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:endpoints><con:endpoint>http://localhost:${HttpDefaultPort}/Gateway/AdminDistribution/1_0/AdministrativeDistribution_Service</con:endpoint></con:endpoints><con:operation isOneWay="false" action="urn:oasis:names:tc:emergency:EDXL:DE:1.0:SendAlertMessage" name="SendAlertMessage" bindingOperationName="SendAlertMessage" type="One-Way" inputName="" sendsAttachments="false"><con:settings/></con:operation></con:interface><con:testSuite name="Entity_g1_gateway_True">
+	</con:interface><con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="AdministrativeDistribution_Binding_Soap12_g0" type="wsdl" bindingName="{urn:gov:hhs:fha:nhinc:entityadmindistribution}AdministrativeDistribution_Binding_Soap12" soapVersion="1_2" anonymous="optional" definition="${projectDir}/../ValidationSuite/target/wsdl/EntityAdminDist.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:endpoints><con:endpoint>http://localhost:${HttpDefaultPort}/Gateway/AdminDistribution/1_0/AdministrativeDistribution_Service</con:endpoint></con:endpoints><con:operation isOneWay="false" action="urn:oasis:names:tc:emergency:EDXL:DE:1.0:SendAlertMessage" name="SendAlertMessage" bindingOperationName="SendAlertMessage" type="One-Way" inputName="" sendsAttachments="false"><con:settings/></con:operation></con:interface><con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincentityxdr}EntityXDR_Binding" definition="${projectDir}/../target/wsdl/EntityXDR.wsdl" name="EntityXDR_Binding" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+		<con:settings/>
+
+		<con:endpoints>
+		<con:endpoint>http://localhost:8080/Gateway/DocumentSubmission/1_1/EntityService/EntityDocSubmissionUnsecured</con:endpoint></con:endpoints>
+		<con:operation action="" anonymous="optional" bindingOperationName="ProvideAndRegisterDocumentSet-b" inputName="" isOneWay="false" name="ProvideAndRegisterDocumentSet-b" receivesAttachments="false" sendsAttachments="false" type="Request-Response">
+			<con:settings/>
+
+		</con:operation>
+	</con:interface><con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:entitypatientdiscoveryasyncresp}EntityPatientDiscoveryAsyncRespBindingSoap" definition="${projectDir}/../target/wsdl/EntityPatientDiscoveryAsyncResp.wsdl" name="EntityPatientDiscoveryAsyncRespBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+		<con:settings/>
+
+		<con:endpoints>
+		<con:endpoint>http://localhost:8080/Gateway/PatientDiscovery/1_0/EntityService/EntityPatientDiscoveryDeferredResponseUnsecured</con:endpoint></con:endpoints>
+		<con:operation action="" bindingOperationName="ProcessPatientDiscoveryAsyncResp" inputName="ProcessPatientDiscoveryAsyncRespAsyncRequest" isOneWay="false" name="ProcessPatientDiscoveryAsyncResp" outputName="ProcessPatientDiscoveryAsyncRespAsyncResponse" receivesAttachments="false" sendsAttachments="false" type="Request-Response" anonymous="optional">
+			<con:settings/>
+		</con:operation>
+	</con:interface><con:testSuite name="Entity_g1_gateway_True">
 		<con:description>Testing for Purpose Of/For Use. This suite sends a request message to the g1 entity interfaces, with the Gateway spring proxy, and purposeForUseEnabled=true in gateway.properties.
 Because this is a g1 test suite, all spec versions are 2011. Messages to 2011 specs do not respect the Purpose Of/For Use settings, and thus PurposeOfUse should be used.</con:description><con:settings/>
 		<con:runType>SEQUENTIAL</con:runType>
@@ -615,19 +611,19 @@ Because this is a g1 test suite, all spec versions are 2011. Messages to 2011 sp
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2012-10-04T20:52:00Z</con:value>
+		<con:value>2012-12-27T22:29:21Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2012-10-04T21:02:00Z</con:value>
+		<con:value>2012-12-27T22:39:21Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>10/04/2012 20:52:00</con:value>
+		<con:value>12/27/2012 22:29:21</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2012-11-03T00:00:00Z</con:value>
+		<con:value>2013-01-26T00:00:00Z</con:value>
 	</con:property>
 </con:properties>
 <con:reportParameters/>
@@ -995,25 +991,26 @@ Because this is a g1 test suite, all spec versions are 2011. Messages to 2011 sp
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2012-10-04T20:52:01Z</con:value>
+		<con:value>2012-12-27T22:29:23Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2012-10-04T21:02:01Z</con:value>
+		<con:value>2012-12-27T22:39:23Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>10/04/2012 20:52:01</con:value>
+		<con:value>12/27/2012 22:29:23</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2012-11-03T00:00:00Z</con:value>
+		<con:value>2013-01-26T00:00:00Z</con:value>
 	</con:property>
 </con:properties>
 </con:testCase>
 <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Document Submission" searchProperties="true" id="032a6d36-8a8e-4870-baab-b5656cf9d770">
 	<con:settings/>
-	<con:testStep name="Doc Submission" type="request">
+	
+<con:testStep name="Doc Submission" type="request">
 		<con:settings/>
 		<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 			<con:interface>EntityXDR_Binding</con:interface>
@@ -1023,7 +1020,7 @@ Because this is a g1 test suite, all spec versions are 2011. Messages to 2011 sp
 					<con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
 		</con:settings>
 		<con:encoding>UTF-8</con:encoding>
-		<con:endpoint>${#TestSuite#Endpoint-XDREntity}</con:endpoint>
+		<con:endpoint>http://localhost:8080/Gateway/DocumentSubmission/1_1/EntityService/EntityDocSubmissionUnsecured</con:endpoint>
 		<con:request><![CDATA[
 			<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" xmlns:urn3="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:urn4="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn5="urn:ihe:iti:xds-b:2007">
    <soap:Header/>
@@ -1487,27 +1484,26 @@ Because this is a g1 test suite, all spec versions are 2011. Messages to 2011 sp
 		<con:wsrmConfig version="1.2"/>
 	</con:request>
 </con:config>
-</con:testStep>
-<con:testStep type="groovy" name="assert PurposeOfUse"><con:settings/><con:config><script/></con:config></con:testStep><con:setupScript/>
+</con:testStep><con:testStep type="groovy" name="assert PurposeOfUse"><con:settings/><con:config><script/></con:config></con:testStep><con:setupScript/>
 <con:tearDownScript>
 
 </con:tearDownScript>
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2012-10-04T20:52:02Z</con:value>
+		<con:value>2012-12-27T22:29:24Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2012-10-04T21:02:02Z</con:value>
+		<con:value>2012-12-27T22:39:24Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>10/04/2012 20:52:02</con:value>
+		<con:value>12/27/2012 22:29:24</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2012-11-03T00:00:00Z</con:value>
+		<con:value>2013-01-26T00:00:00Z</con:value>
 	</con:property>
 </con:properties>
 <con:reportParameters/>
@@ -2094,19 +2090,19 @@ Because this is a g1 test suite, all spec versions are 2011. Messages to 2011 sp
 	</con:property>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2012-10-04T20:52:04Z</con:value>
+		<con:value>2012-12-27T22:29:25Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2012-10-04T21:02:04Z</con:value>
+		<con:value>2012-12-27T22:39:25Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>10/04/2012 20:52:04</con:value>
+		<con:value>12/27/2012 22:29:25</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2012-11-03T00:00:00Z</con:value>
+		<con:value>2013-01-26T00:00:00Z</con:value>
 	</con:property>
 </con:properties>
 <con:reportParameters/>
@@ -2123,15 +2119,10 @@ Because this is a g1 test suite, all spec versions are 2011. Messages to 2011 sp
 					<con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
 		</con:settings>
 		<con:encoding>UTF-8</con:encoding>
-		<con:endpoint>${#TestSuite#Endpoint-PatientDiscoveryAsyncResp}</con:endpoint>
+		<con:endpoint>http://localhost:8080/Gateway/PatientDiscovery/1_0/EntityService/EntityPatientDiscoveryDeferredResponseUnsecured</con:endpoint>
 		<con:request><![CDATA[
 			<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:hl7-org:v3" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
-   <soap:Header xmlns:add="SoapUI_Test/ValidationSuite/2-EndToEndSelfTest-soapui-project.xml">
-      <add:Action>urn:gov:hhs:fha:nhinc:entitypatientdiscoveryasyncresp:ProcessPatientDiscoveryAsyncRespAsyncRequest</add:Action>
-      <add:MessageID>uuid:12bcfc1e-f422-4d1d-af99-ff83d050313e</add:MessageID>
-      <add:RelatesTo>uuid:6666666666.66666.666.66</add:RelatesTo>
-      <add:To>${#Project#Endpoint-PatientDiscoveryAsyncResp}</add:To>
-   </soap:Header>
+   <soap:Header/>
    <soap:Body testSuite="Entity_g1" testCase="Patient Discovery Deferred Resp">
       <urn:RespondingGateway_PRPA_IN201306UV02Request>
          <urn:PRPA_IN201306UV02 ITSVersion="XML_1.0">
@@ -2452,8 +2443,8 @@ Because this is a g1 test suite, all spec versions are 2011. Messages to 2011 sp
 		<con:wsrmConfig version="1.2"/>
 	</con:request>
 </con:config>
-</con:testStep><con:testStep type="groovy" name="assert PurposeOfUse"><con:settings/><con:config><script/></con:config></con:testStep>
-<con:setupScript/>
+</con:testStep>
+<con:testStep type="groovy" name="assert PurposeOfUse"><con:settings/><con:config><script/></con:config></con:testStep><con:setupScript/>
 <con:tearDownScript>
 
 </con:tearDownScript>
@@ -2724,19 +2715,19 @@ Because this is a g1 test suite, all spec versions are 2011. Messages to 2011 sp
 	</con:property>
 <con:property>
 	<con:name>startDate</con:name>
-	<con:value>2012-10-04T20:52:05Z</con:value>
+	<con:value>2012-12-27T22:29:27Z</con:value>
 </con:property>
 <con:property>
 	<con:name>endDate</con:name>
-	<con:value>2012-10-04T21:02:05Z</con:value>
+	<con:value>2012-12-27T22:39:27Z</con:value>
 </con:property>
 <con:property>
 	<con:name>sigDate</con:name>
-	<con:value>10/04/2012 20:52:05</con:value>
+	<con:value>12/27/2012 22:29:27</con:value>
 </con:property>
 <con:property>
 	<con:name>expireDate</con:name>
-	<con:value>2012-11-03T00:00:00Z</con:value>
+	<con:value>2013-01-26T00:00:00Z</con:value>
 </con:property>
 </con:properties>
 <con:reportParameters/>
@@ -3060,19 +3051,19 @@ Because this is a g1 test suite, all spec versions are 2011. Messages to 2011 sp
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2012-10-04T20:52:07Z</con:value>
+		<con:value>2012-12-27T22:29:28Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2012-10-04T21:02:07Z</con:value>
+		<con:value>2012-12-27T22:39:28Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>10/04/2012 20:52:07</con:value>
+		<con:value>12/27/2012 22:29:28</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2012-11-03T00:00:00Z</con:value>
+		<con:value>2013-01-26T00:00:00Z</con:value>
 	</con:property>
 </con:properties>
 <con:reportParameters/>
@@ -3415,19 +3406,19 @@ Because this is a g1 test suite, all spec versions are 2011. Messages to 2011 sp
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2012-10-04T20:52:08Z</con:value>
+		<con:value>2012-12-27T22:29:30Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2012-10-04T21:02:08Z</con:value>
+		<con:value>2012-12-27T22:39:30Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>10/04/2012 20:52:08</con:value>
+		<con:value>12/27/2012 22:29:30</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2012-11-03T00:00:00Z</con:value>
+		<con:value>2013-01-26T00:00:00Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>FullPatientID</con:name>
@@ -3685,7 +3676,7 @@ Because this is a g1 test suite, all spec versions are 2011. Messages to 2011 sp
 </soap:Envelope>]]></con:request>
 		<con:assertion type="SOAP Response"/>
 		<con:assertion type="SOAP Fault Assertion"/>
-		<con:assertion type="Schema Compliance">
+		<con:assertion type="Schema Compliance" disabled="true">
 			<con:configuration>
 				<definition/>
 			</con:configuration>
@@ -3736,19 +3727,19 @@ Because this is a g1 test suite, all spec versions are 2011. Messages to 2011 sp
 	</con:property>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2012-10-04T20:52:10Z</con:value>
+		<con:value>2012-12-27T22:29:31Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2012-10-04T21:02:10Z</con:value>
+		<con:value>2012-12-27T22:39:31Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>10/04/2012 20:52:10</con:value>
+		<con:value>12/27/2012 22:29:31</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2012-11-03T00:00:00Z</con:value>
+		<con:value>2013-01-26T00:00:00Z</con:value>
 	</con:property>
 </con:properties>
 <con:reportParameters/>
@@ -4122,19 +4113,19 @@ Because this is a g1 test suite, all spec versions are 2011. Messages to 2011 sp
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2012-10-04T20:52:11Z</con:value>
+		<con:value>2012-12-27T22:29:34Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2012-10-04T21:02:11Z</con:value>
+		<con:value>2012-12-27T22:39:34Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>10/04/2012 20:52:11</con:value>
+		<con:value>12/27/2012 22:29:34</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2012-11-03T00:00:00Z</con:value>
+		<con:value>2013-01-26T00:00:00Z</con:value>
 	</con:property>
 </con:properties>
 </con:testCase>
@@ -4188,11 +4179,9 @@ Because this is a g1 test suite, all spec versions are 2011. Messages to 2011 sp
 		<con:value>http://localhost:8080/Gateway/HIEM/2_0/EntitySubscriptionManager</con:value>
 	</con:property>
 </con:properties>
-<con:setupScript>
-nhinc.FileUtils.backupConfiguration(context.expand(testSuite.project.getPropertyValue("GatewayPropDir")), log);
+<con:setupScript>nhinc.FileUtils.backupConfiguration(context.expand(testSuite.project.getPropertyValue("GatewayPropDir")), log);
 nhinc.FileUtils.updateProperty(context.expand(testSuite.project.getPropertyValue("GatewayPropDir")), "gateway.properties", "purposeForUseEnabled", "true", log);
-nhinc.FileUtils.copyFile(context.expand(testSuite.project.resourceRoot), "uddiConnectionInfo_g1.xml", context.expand(testSuite.project.getPropertyValue("GatewayPropDir")), "uddiConnectionInfo.xml", log);
-nhinc.FileUtils.changeSpringConfig(context.expand(testSuite.project.getPropertyValue("GatewayPropDir")), "PurposeUseProxyConfig.xml", "gateway", "purposeuse", log);</con:setupScript>
+nhinc.FileUtils.copyFile(context.expand(testSuite.project.resourceRoot), "uddiConnectionInfo_g1.xml", context.expand(testSuite.project.getPropertyValue("GatewayPropDir")), "uddiConnectionInfo.xml", log);</con:setupScript>
 <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.expand(testSuite.project.getPropertyValue("GatewayPropDir")), log);</con:tearDownScript>
 <con:reportParameters/>
 </con:testSuite><con:testSuite name="Entity_g0_gateway_True">
@@ -4684,19 +4673,19 @@ Because this is a g0 test suite, all spec versions are 2010. Messages to 2010 sp
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2012-10-04T20:52:27Z</con:value>
+		<con:value>2012-12-27T22:35:29Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2012-10-04T21:02:27Z</con:value>
+		<con:value>2012-12-27T22:45:29Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>10/04/2012 20:52:27</con:value>
+		<con:value>12/27/2012 22:35:29</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2012-11-03T00:00:00Z</con:value>
+		<con:value>2013-01-26T00:00:00Z</con:value>
 	</con:property>
 </con:properties>
 <con:reportParameters/>
@@ -5048,25 +5037,26 @@ Because this is a g0 test suite, all spec versions are 2010. Messages to 2010 sp
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2012-10-04T20:52:28Z</con:value>
+		<con:value>2012-12-27T22:35:31Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2012-10-04T21:02:28Z</con:value>
+		<con:value>2012-12-27T22:45:31Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>10/04/2012 20:52:28</con:value>
+		<con:value>12/27/2012 22:35:31</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2012-11-03T00:00:00Z</con:value>
+		<con:value>2013-01-26T00:00:00Z</con:value>
 	</con:property>
 </con:properties>
 </con:testCase>
 <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Document Submission" searchProperties="true" id="f1152344-9b0f-4af2-986f-a9355479a233">
 	<con:settings/>
-	<con:testStep name="Doc Submission" type="request">
+	
+<con:testStep name="Doc Submission" type="request">
 		<con:settings/>
 		<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 			<con:interface>EntityXDR_Binding</con:interface>
@@ -5076,9 +5066,8 @@ Because this is a g0 test suite, all spec versions are 2010. Messages to 2010 sp
 					<con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
 		</con:settings>
 		<con:encoding>UTF-8</con:encoding>
-		<con:endpoint>${#TestSuite#Endpoint-XDREntity}</con:endpoint>
-		<con:request><![CDATA[
-			<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" xmlns:urn3="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:urn4="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn5="urn:ihe:iti:xds-b:2007">
+		<con:endpoint>http://localhost:8080/Gateway/DocumentSubmission/1_1/EntityService/EntityDocSubmissionUnsecured</con:endpoint>
+		<con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" xmlns:urn3="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:urn4="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn5="urn:ihe:iti:xds-b:2007">
    <soap:Header/>
    <soap:Body testSuite="Entity_g0" testCase="Document Submission">
       <urn:RespondingGateway_ProvideAndRegisterDocumentSetRequest>
@@ -5540,25 +5529,24 @@ Because this is a g0 test suite, all spec versions are 2010. Messages to 2010 sp
 		<con:wsrmConfig version="1.2"/>
 	</con:request>
 </con:config>
-</con:testStep>
-<con:testStep type="groovy" name="assert PurposeForUse"><con:settings/><con:config><script/></con:config></con:testStep><con:setupScript/>
+</con:testStep><con:testStep type="groovy" name="assert PurposeForUse"><con:settings/><con:config><script/></con:config></con:testStep><con:setupScript/>
 <con:tearDownScript/>
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2012-10-04T20:52:29Z</con:value>
+		<con:value>2012-12-27T22:35:31Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2012-10-04T21:02:29Z</con:value>
+		<con:value>2012-12-27T22:45:31Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>10/04/2012 20:52:29</con:value>
+		<con:value>12/27/2012 22:35:31</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2012-11-03T00:00:00Z</con:value>
+		<con:value>2013-01-26T00:00:00Z</con:value>
 	</con:property>
 </con:properties>
 <con:reportParameters/>
@@ -6147,19 +6135,19 @@ Because this is a g0 test suite, all spec versions are 2010. Messages to 2010 sp
 	</con:property>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2012-10-04T20:52:31Z</con:value>
+		<con:value>2012-12-27T22:35:34Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2012-10-04T21:02:31Z</con:value>
+		<con:value>2012-12-27T22:45:34Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>10/04/2012 20:52:31</con:value>
+		<con:value>12/27/2012 22:35:34</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2012-11-03T00:00:00Z</con:value>
+		<con:value>2013-01-26T00:00:00Z</con:value>
 	</con:property>
 </con:properties>
 <con:reportParameters/>
@@ -6167,7 +6155,8 @@ Because this is a g0 test suite, all spec versions are 2010. Messages to 2010 sp
 
 <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Patient Discovery Deferred Resp" searchProperties="true" id="054334ca-62c4-45c5-a86f-0c862d619bd4">
 	<con:settings/>
-	<con:testStep name="Patient Discovery Deferred Resp" type="request">
+	
+<con:testStep name="Patient Discovery Deferred Resp" type="request">
 		<con:settings/>
 		<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 			<con:interface>EntityPatientDiscoveryAsyncRespBindingSoap</con:interface>
@@ -6177,15 +6166,10 @@ Because this is a g0 test suite, all spec versions are 2010. Messages to 2010 sp
 					<con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
 		</con:settings>
 		<con:encoding>UTF-8</con:encoding>
-		<con:endpoint>${#TestSuite#Endpoint-PatientDiscoveryAsyncResp}</con:endpoint>
+		<con:endpoint>http://localhost:8080/Gateway/PatientDiscovery/1_0/EntityService/EntityPatientDiscoveryDeferredResponseUnsecured</con:endpoint>
 		<con:request><![CDATA[
 			<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:hl7-org:v3" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
-   <soap:Header xmlns:add="SoapUI_Test/ValidationSuite/2-EndToEndSelfTest-soapui-project.xml">
-      <add:Action>urn:gov:hhs:fha:nhinc:entitypatientdiscoveryasyncresp:ProcessPatientDiscoveryAsyncRespAsyncRequest</add:Action>
-      <add:MessageID>uuid:12bcfc1e-f422-4d1d-af99-ff83d050313e</add:MessageID>
-      <add:RelatesTo>uuid:6666666666.66666.666.66</add:RelatesTo>
-      <add:To>${#Project#Endpoint-PatientDiscoveryAsyncResp}</add:To>
-   </soap:Header>
+   <soap:Header/>
    <soap:Body testSuite="Entity_g0" testCase="Patient Discovery Deferred Resp">
       <urn:RespondingGateway_PRPA_IN201306UV02Request>
          <urn:PRPA_IN201306UV02 ITSVersion="XML_1.0">
@@ -6506,8 +6490,7 @@ Because this is a g0 test suite, all spec versions are 2010. Messages to 2010 sp
 		<con:wsrmConfig version="1.2"/>
 	</con:request>
 </con:config>
-</con:testStep>
-<con:testStep type="groovy" name="assert PurposeForUse"><con:settings/><con:config><script/></con:config></con:testStep><con:setupScript/>
+</con:testStep><con:testStep type="groovy" name="assert PurposeForUse"><con:settings/><con:config><script/></con:config></con:testStep><con:setupScript/>
 <con:tearDownScript/>
 <con:properties>
 	<con:property>
@@ -6776,19 +6759,19 @@ Because this is a g0 test suite, all spec versions are 2010. Messages to 2010 sp
 	</con:property>
 <con:property>
 	<con:name>startDate</con:name>
-	<con:value>2012-10-04T20:52:32Z</con:value>
+	<con:value>2012-12-27T22:35:35Z</con:value>
 </con:property>
 <con:property>
 	<con:name>endDate</con:name>
-	<con:value>2012-10-04T21:02:32Z</con:value>
+	<con:value>2012-12-27T22:45:35Z</con:value>
 </con:property>
 <con:property>
 	<con:name>sigDate</con:name>
-	<con:value>10/04/2012 20:52:32</con:value>
+	<con:value>12/27/2012 22:35:35</con:value>
 </con:property>
 <con:property>
 	<con:name>expireDate</con:name>
-	<con:value>2012-11-03T00:00:00Z</con:value>
+	<con:value>2013-01-26T00:00:00Z</con:value>
 </con:property>
 </con:properties>
 <con:reportParameters/>
@@ -7110,19 +7093,19 @@ Because this is a g0 test suite, all spec versions are 2010. Messages to 2010 sp
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2012-10-04T20:52:34Z</con:value>
+		<con:value>2012-12-27T22:35:37Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2012-10-04T21:02:34Z</con:value>
+		<con:value>2012-12-27T22:45:37Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>10/04/2012 20:52:34</con:value>
+		<con:value>12/27/2012 22:35:37</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2012-11-03T00:00:00Z</con:value>
+		<con:value>2013-01-26T00:00:00Z</con:value>
 	</con:property>
 </con:properties>
 <con:reportParameters/>
@@ -7465,19 +7448,19 @@ Because this is a g0 test suite, all spec versions are 2010. Messages to 2010 sp
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2012-10-04T20:52:35Z</con:value>
+		<con:value>2012-12-27T22:35:38Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2012-10-04T21:02:35Z</con:value>
+		<con:value>2012-12-27T22:45:38Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>10/04/2012 20:52:35</con:value>
+		<con:value>12/27/2012 22:35:38</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2012-11-03T00:00:00Z</con:value>
+		<con:value>2013-01-26T00:00:00Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>FullPatientID</con:name>
@@ -7735,7 +7718,7 @@ Because this is a g0 test suite, all spec versions are 2010. Messages to 2010 sp
 </soap:Envelope>]]></con:request>
 		<con:assertion type="SOAP Response"/>
 		<con:assertion type="SOAP Fault Assertion"/>
-		<con:assertion type="Schema Compliance">
+		<con:assertion type="Schema Compliance" disabled="true">
 			<con:configuration>
 				<definition/>
 			</con:configuration>
@@ -7784,26 +7767,26 @@ Because this is a g0 test suite, all spec versions are 2010. Messages to 2010 sp
 	</con:property>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2012-10-04T20:52:37Z</con:value>
+		<con:value>2012-12-27T22:35:40Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2012-10-04T21:02:37Z</con:value>
+		<con:value>2012-12-27T22:45:40Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>10/04/2012 20:52:37</con:value>
+		<con:value>12/27/2012 22:35:40</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2012-11-03T00:00:00Z</con:value>
+		<con:value>2013-01-26T00:00:00Z</con:value>
 	</con:property>
 </con:properties>
 <con:reportParameters/>
 </con:testCase>
 
 
-<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Subscribe" searchProperties="true" id="408a30b5-648c-4619-baf2-2e97f7c21c3e">
+<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Subscribe" searchProperties="true" id="408a30b5-648c-4619-baf2-2e97f7c21c3e" disabled="true">
 	<con:settings/>
 
 	<con:testStep name="update config" type="groovy">
@@ -8126,7 +8109,7 @@ assert holder["//ns4:SubscribeResponse[1]/ns4:SubscriptionReference[1]/ns3:Refer
 </con:properties>
 <con:reportParameters/>
 </con:testCase>
-<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Notify" searchProperties="true" id="b02bb91d-f639-497c-8cea-58b115d2c838">
+<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Notify" searchProperties="true" id="b02bb91d-f639-497c-8cea-58b115d2c838" disabled="true">
 	<con:settings/>
 
 	<con:testStep name="update config" type="groovy">
@@ -8710,7 +8693,7 @@ context.testCase.testSuite.project.setPropertyValue( "NotifySubscriptionID", par
 </con:properties>
 <con:reportParameters/>
 </con:testCase>
-<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Unsubscribe" searchProperties="true" id="658a1090-0704-40bd-85e7-f005c30d4444">
+<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Unsubscribe" searchProperties="true" id="658a1090-0704-40bd-85e7-f005c30d4444" disabled="true">
 	<con:settings/>
 
 	<con:testStep name="update config" type="groovy">
@@ -9664,19 +9647,19 @@ context.testCase.testSuite.project.setPropertyValue( "UnSubscriptionID", subID )
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2012-10-04T20:52:43Z</con:value>
+		<con:value>2012-12-27T22:35:41Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2012-10-04T21:02:43Z</con:value>
+		<con:value>2012-12-27T22:45:41Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>10/04/2012 20:52:43</con:value>
+		<con:value>12/27/2012 22:35:41</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2012-11-03T00:00:00Z</con:value>
+		<con:value>2013-01-26T00:00:00Z</con:value>
 	</con:property>
 </con:properties>
 <con:reportParameters/>
@@ -9731,11 +9714,9 @@ context.testCase.testSuite.project.setPropertyValue( "UnSubscriptionID", subID )
 		<con:value>http://localhost:8080/Gateway/DocumentSubmission/1_1/EntityService/EntityDocSubmissionUnsecured</con:value>
 	</con:property>
 </con:properties>
-<con:setupScript>
-nhinc.FileUtils.backupConfiguration(context.expand(testSuite.project.getPropertyValue("GatewayPropDir")), log);
+<con:setupScript>nhinc.FileUtils.backupConfiguration(context.expand(testSuite.project.getPropertyValue("GatewayPropDir")), log);
 nhinc.FileUtils.updateProperty(context.expand(testSuite.project.getPropertyValue("GatewayPropDir")), "gateway.properties", "purposeForUseEnabled", "true", log);
-nhinc.FileUtils.copyFile(context.expand(testSuite.project.resourceRoot), "uddiConnectionInfo_g0.xml", context.expand(testSuite.project.getPropertyValue("GatewayPropDir")), "uddiConnectionInfo.xml", log);
-nhinc.FileUtils.changeSpringConfig(context.expand(testSuite.project.getPropertyValue("GatewayPropDir")), "PurposeUseProxyConfig.xml", "gateway", "purposeuse", log);</con:setupScript>
+nhinc.FileUtils.copyFile(context.expand(testSuite.project.resourceRoot), "uddiConnectionInfo_g0.xml", context.expand(testSuite.project.getPropertyValue("GatewayPropDir")), "uddiConnectionInfo.xml", log);</con:setupScript>
 <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.expand(testSuite.project.getPropertyValue("GatewayPropDir")), log);</con:tearDownScript>
 <con:reportParameters/>
 </con:testSuite><con:testSuite name="Entity_g1_gateway_False">
@@ -10226,19 +10207,19 @@ Because this is a g1 test suite, all spec versions are 2011. Messages to 2011 sp
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2012-10-04T20:52:59Z</con:value>
+		<con:value>2012-12-27T22:37:54Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2012-10-04T21:02:59Z</con:value>
+		<con:value>2012-12-27T22:47:54Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>10/04/2012 20:52:59</con:value>
+		<con:value>12/27/2012 22:37:54</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2012-11-03T00:00:00Z</con:value>
+		<con:value>2013-01-26T00:00:00Z</con:value>
 	</con:property>
 </con:properties>
 <con:reportParameters/>
@@ -10606,25 +10587,26 @@ Because this is a g1 test suite, all spec versions are 2011. Messages to 2011 sp
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2012-10-04T20:53:00Z</con:value>
+		<con:value>2012-12-27T22:37:55Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2012-10-04T21:03:00Z</con:value>
+		<con:value>2012-12-27T22:47:55Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>10/04/2012 20:53:00</con:value>
+		<con:value>12/27/2012 22:37:55</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2012-11-03T00:00:00Z</con:value>
+		<con:value>2013-01-26T00:00:00Z</con:value>
 	</con:property>
 </con:properties>
 </con:testCase>
 <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Document Submission" searchProperties="true" id="d0bac6fe-0500-4f40-91e4-920cce219bd0">
 	<con:settings/>
-	<con:testStep name="Doc Submission" type="request">
+	
+<con:testStep name="Doc Submission" type="request">
 		<con:settings/>
 		<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 			<con:interface>EntityXDR_Binding</con:interface>
@@ -10634,7 +10616,7 @@ Because this is a g1 test suite, all spec versions are 2011. Messages to 2011 sp
 					<con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
 		</con:settings>
 		<con:encoding>UTF-8</con:encoding>
-		<con:endpoint>${#TestSuite#Endpoint-XDREntity}</con:endpoint>
+		<con:endpoint>http://localhost:8080/Gateway/DocumentSubmission/1_1/EntityService/EntityDocSubmissionUnsecured</con:endpoint>
 		<con:request><![CDATA[
 			<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" xmlns:urn3="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:urn4="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn5="urn:ihe:iti:xds-b:2007">
    <soap:Header/>
@@ -11098,27 +11080,26 @@ Because this is a g1 test suite, all spec versions are 2011. Messages to 2011 sp
 		<con:wsrmConfig version="1.2"/>
 	</con:request>
 </con:config>
-</con:testStep>
-<con:testStep type="groovy" name="assert PurposeOfUse"><con:settings/><con:config><script/></con:config></con:testStep><con:setupScript/>
+</con:testStep><con:testStep type="groovy" name="assert PurposeOfUse"><con:settings/><con:config><script/></con:config></con:testStep><con:setupScript/>
 <con:tearDownScript>
 
 </con:tearDownScript>
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2012-10-04T20:53:01Z</con:value>
+		<con:value>2012-12-27T22:37:56Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2012-10-04T21:03:01Z</con:value>
+		<con:value>2012-12-27T22:47:56Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>10/04/2012 20:53:01</con:value>
+		<con:value>12/27/2012 22:37:56</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2012-11-03T00:00:00Z</con:value>
+		<con:value>2013-01-26T00:00:00Z</con:value>
 	</con:property>
 </con:properties>
 <con:reportParameters/>
@@ -11705,19 +11686,19 @@ Because this is a g1 test suite, all spec versions are 2011. Messages to 2011 sp
 	</con:property>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2012-10-04T20:53:03Z</con:value>
+		<con:value>2012-12-27T22:37:57Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2012-10-04T21:03:03Z</con:value>
+		<con:value>2012-12-27T22:47:57Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>10/04/2012 20:53:03</con:value>
+		<con:value>12/27/2012 22:37:57</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2012-11-03T00:00:00Z</con:value>
+		<con:value>2013-01-26T00:00:00Z</con:value>
 	</con:property>
 </con:properties>
 <con:reportParameters/>
@@ -11734,15 +11715,10 @@ Because this is a g1 test suite, all spec versions are 2011. Messages to 2011 sp
 					<con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
 		</con:settings>
 		<con:encoding>UTF-8</con:encoding>
-		<con:endpoint>${#TestSuite#Endpoint-PatientDiscoveryAsyncResp}</con:endpoint>
+		<con:endpoint>http://localhost:8080/Gateway/PatientDiscovery/1_0/EntityService/EntityPatientDiscoveryDeferredResponseUnsecured</con:endpoint>
 		<con:request><![CDATA[
 			<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:hl7-org:v3" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
-   <soap:Header xmlns:add="SoapUI_Test/ValidationSuite/2-EndToEndSelfTest-soapui-project.xml">
-      <add:Action>urn:gov:hhs:fha:nhinc:entitypatientdiscoveryasyncresp:ProcessPatientDiscoveryAsyncRespAsyncRequest</add:Action>
-      <add:MessageID>uuid:12bcfc1e-f422-4d1d-af99-ff83d050313e</add:MessageID>
-      <add:RelatesTo>uuid:6666666666.66666.666.66</add:RelatesTo>
-      <add:To>${#Project#Endpoint-PatientDiscoveryAsyncResp}</add:To>
-   </soap:Header>
+   <soap:Header/>
    <soap:Body testSuite="Entity_g1" testCase="Patient Discovery Deferred Resp">
       <urn:RespondingGateway_PRPA_IN201306UV02Request>
          <urn:PRPA_IN201306UV02 ITSVersion="XML_1.0">
@@ -12063,8 +12039,8 @@ Because this is a g1 test suite, all spec versions are 2011. Messages to 2011 sp
 		<con:wsrmConfig version="1.2"/>
 	</con:request>
 </con:config>
-</con:testStep><con:testStep type="groovy" name="assert PurposeOfUse"><con:settings/><con:config><script/></con:config></con:testStep>
-<con:setupScript/>
+</con:testStep>
+<con:testStep type="groovy" name="assert PurposeOfUse"><con:settings/><con:config><script/></con:config></con:testStep><con:setupScript/>
 <con:tearDownScript>
 
 </con:tearDownScript>
@@ -12335,19 +12311,19 @@ Because this is a g1 test suite, all spec versions are 2011. Messages to 2011 sp
 	</con:property>
 <con:property>
 	<con:name>startDate</con:name>
-	<con:value>2012-10-04T20:53:04Z</con:value>
+	<con:value>2012-12-27T22:37:58Z</con:value>
 </con:property>
 <con:property>
 	<con:name>endDate</con:name>
-	<con:value>2012-10-04T21:03:04Z</con:value>
+	<con:value>2012-12-27T22:47:58Z</con:value>
 </con:property>
 <con:property>
 	<con:name>sigDate</con:name>
-	<con:value>10/04/2012 20:53:04</con:value>
+	<con:value>12/27/2012 22:37:58</con:value>
 </con:property>
 <con:property>
 	<con:name>expireDate</con:name>
-	<con:value>2012-11-03T00:00:00Z</con:value>
+	<con:value>2013-01-26T00:00:00Z</con:value>
 </con:property>
 </con:properties>
 <con:reportParameters/>
@@ -12671,19 +12647,19 @@ Because this is a g1 test suite, all spec versions are 2011. Messages to 2011 sp
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2012-10-04T20:53:06Z</con:value>
+		<con:value>2012-12-27T22:37:59Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2012-10-04T21:03:06Z</con:value>
+		<con:value>2012-12-27T22:47:59Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>10/04/2012 20:53:06</con:value>
+		<con:value>12/27/2012 22:37:59</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2012-11-03T00:00:00Z</con:value>
+		<con:value>2013-01-26T00:00:00Z</con:value>
 	</con:property>
 </con:properties>
 <con:reportParameters/>
@@ -13026,19 +13002,19 @@ Because this is a g1 test suite, all spec versions are 2011. Messages to 2011 sp
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2012-10-04T20:53:07Z</con:value>
+		<con:value>2012-12-27T22:38:01Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2012-10-04T21:03:07Z</con:value>
+		<con:value>2012-12-27T22:48:01Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>10/04/2012 20:53:07</con:value>
+		<con:value>12/27/2012 22:38:01</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2012-11-03T00:00:00Z</con:value>
+		<con:value>2013-01-26T00:00:00Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>FullPatientID</con:name>
@@ -13296,7 +13272,7 @@ Because this is a g1 test suite, all spec versions are 2011. Messages to 2011 sp
 </soap:Envelope>]]></con:request>
 		<con:assertion type="SOAP Response"/>
 		<con:assertion type="SOAP Fault Assertion"/>
-		<con:assertion type="Schema Compliance">
+		<con:assertion type="Schema Compliance" disabled="true">
 			<con:configuration>
 				<definition/>
 			</con:configuration>
@@ -13347,19 +13323,19 @@ Because this is a g1 test suite, all spec versions are 2011. Messages to 2011 sp
 	</con:property>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2012-10-04T20:53:09Z</con:value>
+		<con:value>2012-12-27T22:38:02Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2012-10-04T21:03:09Z</con:value>
+		<con:value>2012-12-27T22:48:02Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>10/04/2012 20:53:09</con:value>
+		<con:value>12/27/2012 22:38:02</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2012-11-03T00:00:00Z</con:value>
+		<con:value>2013-01-26T00:00:00Z</con:value>
 	</con:property>
 </con:properties>
 <con:reportParameters/>
@@ -13733,19 +13709,19 @@ Because this is a g1 test suite, all spec versions are 2011. Messages to 2011 sp
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2012-10-04T20:53:10Z</con:value>
+		<con:value>2012-12-27T22:38:03Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2012-10-04T21:03:10Z</con:value>
+		<con:value>2012-12-27T22:48:03Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>10/04/2012 20:53:10</con:value>
+		<con:value>12/27/2012 22:38:03</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2012-11-03T00:00:00Z</con:value>
+		<con:value>2013-01-26T00:00:00Z</con:value>
 	</con:property>
 </con:properties>
 </con:testCase>
@@ -13799,11 +13775,9 @@ Because this is a g1 test suite, all spec versions are 2011. Messages to 2011 sp
 		<con:value>http://localhost:8080/Gateway/HIEM/2_0/EntitySubscriptionManager</con:value>
 	</con:property>
 </con:properties>
-<con:setupScript>
-nhinc.FileUtils.backupConfiguration(context.expand(testSuite.project.getPropertyValue("GatewayPropDir")), log);
+<con:setupScript>nhinc.FileUtils.backupConfiguration(context.expand(testSuite.project.getPropertyValue("GatewayPropDir")), log);
 nhinc.FileUtils.updateProperty(context.expand(testSuite.project.getPropertyValue("GatewayPropDir")), "gateway.properties", "purposeForUseEnabled", "false", log);
-nhinc.FileUtils.copyFile(context.expand(testSuite.project.resourceRoot), "uddiConnectionInfo_g1.xml", context.expand(testSuite.project.getPropertyValue("GatewayPropDir")), "uddiConnectionInfo.xml", log);
-nhinc.FileUtils.changeSpringConfig(context.expand(testSuite.project.getPropertyValue("GatewayPropDir")), "PurposeUseProxyConfig.xml", "gateway", "purposeuse", log);</con:setupScript>
+nhinc.FileUtils.copyFile(context.expand(testSuite.project.resourceRoot), "uddiConnectionInfo_g1.xml", context.expand(testSuite.project.getPropertyValue("GatewayPropDir")), "uddiConnectionInfo.xml", log);</con:setupScript>
 <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.expand(testSuite.project.getPropertyValue("GatewayPropDir")), log);</con:tearDownScript>
 <con:reportParameters/>
 </con:testSuite><con:testSuite name="Entity_g0_gateway_False">
@@ -14295,19 +14269,19 @@ Because this is a g0 test suite, all spec versions are 2010. Messages to 2010 sp
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2012-10-04T20:53:25Z</con:value>
+		<con:value>2012-12-27T22:39:03Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2012-10-04T21:03:25Z</con:value>
+		<con:value>2012-12-27T22:49:03Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>10/04/2012 20:53:25</con:value>
+		<con:value>12/27/2012 22:39:03</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2012-11-03T00:00:00Z</con:value>
+		<con:value>2013-01-26T00:00:00Z</con:value>
 	</con:property>
 </con:properties>
 <con:reportParameters/>
@@ -14659,25 +14633,26 @@ Because this is a g0 test suite, all spec versions are 2010. Messages to 2010 sp
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2012-10-04T20:53:27Z</con:value>
+		<con:value>2012-12-27T22:39:04Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2012-10-04T21:03:27Z</con:value>
+		<con:value>2012-12-27T22:49:04Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>10/04/2012 20:53:27</con:value>
+		<con:value>12/27/2012 22:39:04</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2012-11-03T00:00:00Z</con:value>
+		<con:value>2013-01-26T00:00:00Z</con:value>
 	</con:property>
 </con:properties>
 </con:testCase>
 <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Document Submission" searchProperties="true" id="ec4e3d5d-d902-47cd-a31c-2ece1e231197">
 	<con:settings/>
-	<con:testStep name="Doc Submission" type="request">
+	
+<con:testStep name="Doc Submission" type="request">
 		<con:settings/>
 		<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 			<con:interface>EntityXDR_Binding</con:interface>
@@ -14687,9 +14662,8 @@ Because this is a g0 test suite, all spec versions are 2010. Messages to 2010 sp
 					<con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
 		</con:settings>
 		<con:encoding>UTF-8</con:encoding>
-		<con:endpoint>${#TestSuite#Endpoint-XDREntity}</con:endpoint>
-		<con:request><![CDATA[
-			<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" xmlns:urn3="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:urn4="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn5="urn:ihe:iti:xds-b:2007">
+		<con:endpoint>http://localhost:8080/Gateway/DocumentSubmission/1_1/EntityService/EntityDocSubmissionUnsecured</con:endpoint>
+		<con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" xmlns:urn3="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:urn4="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn5="urn:ihe:iti:xds-b:2007">
    <soap:Header/>
    <soap:Body testSuite="Entity_g0" testCase="Document Submission">
       <urn:RespondingGateway_ProvideAndRegisterDocumentSetRequest>
@@ -15151,25 +15125,24 @@ Because this is a g0 test suite, all spec versions are 2010. Messages to 2010 sp
 		<con:wsrmConfig version="1.2"/>
 	</con:request>
 </con:config>
-</con:testStep>
-<con:testStep type="groovy" name="assert PurposeOfUse"><con:settings/><con:config><script/></con:config></con:testStep><con:setupScript/>
+</con:testStep><con:testStep type="groovy" name="assert PurposeOfUse"><con:settings/><con:config><script/></con:config></con:testStep><con:setupScript/>
 <con:tearDownScript/>
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2012-10-04T20:53:28Z</con:value>
+		<con:value>2012-12-27T22:39:05Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2012-10-04T21:03:28Z</con:value>
+		<con:value>2012-12-27T22:49:05Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>10/04/2012 20:53:28</con:value>
+		<con:value>12/27/2012 22:39:05</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2012-11-03T00:00:00Z</con:value>
+		<con:value>2013-01-26T00:00:00Z</con:value>
 	</con:property>
 </con:properties>
 <con:reportParameters/>
@@ -15758,19 +15731,19 @@ Because this is a g0 test suite, all spec versions are 2010. Messages to 2010 sp
 	</con:property>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2012-10-04T20:53:30Z</con:value>
+		<con:value>2012-12-27T22:39:06Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2012-10-04T21:03:30Z</con:value>
+		<con:value>2012-12-27T22:49:06Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>10/04/2012 20:53:30</con:value>
+		<con:value>12/27/2012 22:39:06</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2012-11-03T00:00:00Z</con:value>
+		<con:value>2013-01-26T00:00:00Z</con:value>
 	</con:property>
 </con:properties>
 <con:reportParameters/>
@@ -15778,7 +15751,8 @@ Because this is a g0 test suite, all spec versions are 2010. Messages to 2010 sp
 
 <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Patient Discovery Deferred Resp" searchProperties="true" id="61629982-75a5-4ec3-abba-275d76f8fe58">
 	<con:settings/>
-	<con:testStep name="Patient Discovery Deferred Resp" type="request">
+	
+<con:testStep name="Patient Discovery Deferred Resp" type="request">
 		<con:settings/>
 		<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 			<con:interface>EntityPatientDiscoveryAsyncRespBindingSoap</con:interface>
@@ -15788,15 +15762,10 @@ Because this is a g0 test suite, all spec versions are 2010. Messages to 2010 sp
 					<con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
 		</con:settings>
 		<con:encoding>UTF-8</con:encoding>
-		<con:endpoint>${#TestSuite#Endpoint-PatientDiscoveryAsyncResp}</con:endpoint>
+		<con:endpoint>http://localhost:8080/Gateway/PatientDiscovery/1_0/EntityService/EntityPatientDiscoveryDeferredResponseUnsecured</con:endpoint>
 		<con:request><![CDATA[
 			<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:hl7-org:v3" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
-   <soap:Header xmlns:add="SoapUI_Test/ValidationSuite/2-EndToEndSelfTest-soapui-project.xml">
-      <add:Action>urn:gov:hhs:fha:nhinc:entitypatientdiscoveryasyncresp:ProcessPatientDiscoveryAsyncRespAsyncRequest</add:Action>
-      <add:MessageID>uuid:12bcfc1e-f422-4d1d-af99-ff83d050313e</add:MessageID>
-      <add:RelatesTo>uuid:6666666666.66666.666.66</add:RelatesTo>
-      <add:To>${#Project#Endpoint-PatientDiscoveryAsyncResp}</add:To>
-   </soap:Header>
+   <soap:Header/>
    <soap:Body testSuite="Entity_g0" testCase="Patient Discovery Deferred Resp">
       <urn:RespondingGateway_PRPA_IN201306UV02Request>
          <urn:PRPA_IN201306UV02 ITSVersion="XML_1.0">
@@ -16117,8 +16086,7 @@ Because this is a g0 test suite, all spec versions are 2010. Messages to 2010 sp
 		<con:wsrmConfig version="1.2"/>
 	</con:request>
 </con:config>
-</con:testStep>
-<con:testStep type="groovy" name="assert PurposeOfUse"><con:settings/><con:config><script/></con:config></con:testStep><con:setupScript/>
+</con:testStep><con:testStep type="groovy" name="assert PurposeOfUse"><con:settings/><con:config><script/></con:config></con:testStep><con:setupScript/>
 <con:tearDownScript/>
 <con:properties>
 	<con:property>
@@ -16387,19 +16355,19 @@ Because this is a g0 test suite, all spec versions are 2010. Messages to 2010 sp
 	</con:property>
 <con:property>
 	<con:name>startDate</con:name>
-	<con:value>2012-10-04T20:53:31Z</con:value>
+	<con:value>2012-12-27T22:39:08Z</con:value>
 </con:property>
 <con:property>
 	<con:name>endDate</con:name>
-	<con:value>2012-10-04T21:03:31Z</con:value>
+	<con:value>2012-12-27T22:49:08Z</con:value>
 </con:property>
 <con:property>
 	<con:name>sigDate</con:name>
-	<con:value>10/04/2012 20:53:31</con:value>
+	<con:value>12/27/2012 22:39:08</con:value>
 </con:property>
 <con:property>
 	<con:name>expireDate</con:name>
-	<con:value>2012-11-03T00:00:00Z</con:value>
+	<con:value>2013-01-26T00:00:00Z</con:value>
 </con:property>
 </con:properties>
 <con:reportParameters/>
@@ -16721,19 +16689,19 @@ Because this is a g0 test suite, all spec versions are 2010. Messages to 2010 sp
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2012-10-04T20:53:33Z</con:value>
+		<con:value>2012-12-27T22:39:09Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2012-10-04T21:03:33Z</con:value>
+		<con:value>2012-12-27T22:49:09Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>10/04/2012 20:53:33</con:value>
+		<con:value>12/27/2012 22:39:09</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2012-11-03T00:00:00Z</con:value>
+		<con:value>2013-01-26T00:00:00Z</con:value>
 	</con:property>
 </con:properties>
 <con:reportParameters/>
@@ -17076,19 +17044,19 @@ Because this is a g0 test suite, all spec versions are 2010. Messages to 2010 sp
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2012-10-04T20:53:34Z</con:value>
+		<con:value>2012-12-27T22:39:10Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2012-10-04T21:03:34Z</con:value>
+		<con:value>2012-12-27T22:49:10Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>10/04/2012 20:53:34</con:value>
+		<con:value>12/27/2012 22:39:10</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2012-11-03T00:00:00Z</con:value>
+		<con:value>2013-01-26T00:00:00Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>FullPatientID</con:name>
@@ -17346,7 +17314,7 @@ Because this is a g0 test suite, all spec versions are 2010. Messages to 2010 sp
 </soap:Envelope>]]></con:request>
 		<con:assertion type="SOAP Response"/>
 		<con:assertion type="SOAP Fault Assertion"/>
-		<con:assertion type="Schema Compliance">
+		<con:assertion type="Schema Compliance" disabled="true">
 			<con:configuration>
 				<definition/>
 			</con:configuration>
@@ -17395,26 +17363,26 @@ Because this is a g0 test suite, all spec versions are 2010. Messages to 2010 sp
 	</con:property>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2012-10-04T20:53:36Z</con:value>
+		<con:value>2012-12-27T22:39:12Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2012-10-04T21:03:36Z</con:value>
+		<con:value>2012-12-27T22:49:12Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>10/04/2012 20:53:36</con:value>
+		<con:value>12/27/2012 22:39:12</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2012-11-03T00:00:00Z</con:value>
+		<con:value>2013-01-26T00:00:00Z</con:value>
 	</con:property>
 </con:properties>
 <con:reportParameters/>
 </con:testCase>
 
 
-<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Subscribe" searchProperties="true" id="87027985-b2a6-4cc6-a093-362ac5f5e903">
+<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Subscribe" searchProperties="true" id="87027985-b2a6-4cc6-a093-362ac5f5e903" disabled="true">
 	<con:settings/>
 
 	<con:testStep name="update config" type="groovy">
@@ -17737,7 +17705,7 @@ assert holder["//ns4:SubscribeResponse[1]/ns4:SubscriptionReference[1]/ns3:Refer
 </con:properties>
 <con:reportParameters/>
 </con:testCase>
-<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Notify" searchProperties="true" id="0905ba43-ff98-4be1-8241-41530b91d223">
+<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Notify" searchProperties="true" id="0905ba43-ff98-4be1-8241-41530b91d223" disabled="true">
 	<con:settings/>
 
 	<con:testStep name="update config" type="groovy">
@@ -18321,7 +18289,7 @@ context.testCase.testSuite.project.setPropertyValue( "NotifySubscriptionID", par
 </con:properties>
 <con:reportParameters/>
 </con:testCase>
-<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Unsubscribe" searchProperties="true" id="1a510afb-d5f0-4244-a2d8-2d1afe2e3f85">
+<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Unsubscribe" searchProperties="true" id="1a510afb-d5f0-4244-a2d8-2d1afe2e3f85" disabled="true">
 	<con:settings/>
 
 	<con:testStep name="update config" type="groovy">
@@ -19275,19 +19243,19 @@ context.testCase.testSuite.project.setPropertyValue( "UnSubscriptionID", subID )
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2012-10-04T20:53:42Z</con:value>
+		<con:value>2012-12-27T22:39:13Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2012-10-04T21:03:42Z</con:value>
+		<con:value>2012-12-27T22:49:13Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>10/04/2012 20:53:42</con:value>
+		<con:value>12/27/2012 22:39:13</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2012-11-03T00:00:00Z</con:value>
+		<con:value>2013-01-26T00:00:00Z</con:value>
 	</con:property>
 </con:properties>
 <con:reportParameters/>
@@ -19342,14 +19310,12 @@ context.testCase.testSuite.project.setPropertyValue( "UnSubscriptionID", subID )
 		<con:value>http://localhost:8080/Gateway/DocumentSubmission/1_1/EntityService/EntityDocSubmissionUnsecured</con:value>
 	</con:property>
 </con:properties>
-<con:setupScript>
-nhinc.FileUtils.backupConfiguration(context.expand(testSuite.project.getPropertyValue("GatewayPropDir")), log);
+<con:setupScript>nhinc.FileUtils.backupConfiguration(context.expand(testSuite.project.getPropertyValue("GatewayPropDir")), log);
 nhinc.FileUtils.updateProperty(context.expand(testSuite.project.getPropertyValue("GatewayPropDir")), "gateway.properties", "purposeForUseEnabled", "false", log);
-nhinc.FileUtils.copyFile(context.expand(testSuite.project.resourceRoot), "uddiConnectionInfo_g0.xml", context.expand(testSuite.project.getPropertyValue("GatewayPropDir")), "uddiConnectionInfo.xml", log);
-nhinc.FileUtils.changeSpringConfig(context.expand(testSuite.project.getPropertyValue("GatewayPropDir")), "PurposeUseProxyConfig.xml", "gateway", "purposeuse", log);</con:setupScript>
+nhinc.FileUtils.copyFile(context.expand(testSuite.project.resourceRoot), "uddiConnectionInfo_g0.xml", context.expand(testSuite.project.getPropertyValue("GatewayPropDir")), "uddiConnectionInfo.xml", log);</con:setupScript>
 <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.expand(testSuite.project.getPropertyValue("GatewayPropDir")), log);</con:tearDownScript>
 <con:reportParameters/>
-</con:testSuite><con:properties><con:property><con:name>AAMappingDB</con:name><con:value>assigningauthoritydb</con:value></con:property><con:property><con:name>AAMappingTable</con:name><con:value>aa_to_home_community_mapping</con:value></con:property><con:property><con:name>AsyncMsgDB</con:name><con:value>asyncmsgs</con:value></con:property><con:property><con:name>AsyncMsgTable</con:name><con:value>asyncmsgrepo</con:value></con:property><con:property><con:name>AuditRepoDB</con:name><con:value>auditrepo</con:value></con:property><con:property><con:name>AuditRepoTable</con:name><con:value>auditrepository</con:value></con:property><con:property><con:name>BirthTime</con:name><con:value>19630804</con:value></con:property><con:property><con:name>City</con:name><con:value>Melbourne</con:value></con:property><con:property><con:name>Country</con:name><con:value>US</con:value></con:property><con:property><con:name>DBHost</con:name><con:value>localhost</con:value></con:property><con:property><con:name>DBPass</con:name><con:value>nhincpass</con:value></con:property><con:property><con:name>DBPort</con:name><con:value>3306</con:value></con:property><con:property><con:name>DBUser</con:name><con:value>nhincuser</con:value></con:property><con:property><con:name>DeferredPatientDiscoveryReqMessageID</con:name><con:value>uuid:6666666666.66666.666.66</con:value></con:property><con:property><con:name>DOB</con:name><con:value>19800516</con:value></con:property><con:property><con:name>DQDocID</con:name><con:value>1.123401.55555</con:value></con:property><con:property><con:name>DQPatientID</con:name><con:value>D123401</con:value></con:property><con:property><con:name>DRDocID</con:name><con:value>1.123407.777777</con:value></con:property><con:property><con:name>DRRepoID</con:name><con:value>1</con:value></con:property><con:property><con:name>DynamicDQDocID</con:name><con:value>103.8.9284320.020.3590.75^1266324032288</con:value></con:property><con:property><con:name>ExpirationDate</con:name><con:value>20100520</con:value></con:property><con:property><con:name>FamilyName</con:name><con:value>Younger</con:value></con:property><con:property><con:name>Gender</con:name><con:value>M</con:value></con:property><con:property><con:name>GivenName</con:name><con:value>Gallow</con:value></con:property><con:property><con:name>LocalAA</con:name><con:value>1.1</con:value></con:property><con:property><con:name>LocalHCDescription</con:name><con:value>InternalTest1</con:value></con:property><con:property><con:name>LocalHCID</con:name><con:value>1.1</con:value></con:property><con:property><con:name>LocalPatientID</con:name><con:value>D123401</con:value></con:property><con:property><con:name>NotificationEndpoint</con:name><con:value>https://localhost:8181/Gateway/HIEM/2_0/NhinService/NotificationConsumerService/HiemNotify</con:value></con:property><con:property><con:name>NotifySubscriptionID</con:name><con:value>178591cd-0e44-4df3-922a-fe70db3872db</con:value></con:property><con:property><con:name>NotifySubscriptionManagerEndpointAddress</con:name><con:value>https://localhost:8181/Gateway/HIEM/2_0/NhinService/SubscriptionManagerService/HiemUnsubscribe</con:value></con:property><con:property><con:name>PatientCorrelationDB</con:name><con:value>patientcorrelationdb</con:value></con:property><con:property><con:name>PatientCorrelationTable</con:name><con:value>correlatedidentifiers</con:value></con:property><con:property><con:name>PurposeOfDisclosure</con:name><con:value>Mental</con:value></con:property><con:property><con:name>RemoteAA</con:name><con:value>2.2</con:value></con:property><con:property><con:name>RemoteHCDescription</con:name><con:value>InternalTest2</con:value></con:property><con:property><con:name>RemoteHCID</con:name><con:value>2.2</con:value></con:property><con:property><con:name>RemotePatientID</con:name><con:value>D123401</con:value></con:property><con:property><con:name>SSN</con:name><con:value>123456789</con:value></con:property><con:property><con:name>State</con:name><con:value>FL</con:value></con:property><con:property><con:name>StreetAddress</con:name><con:value>123 Johnson Rd</con:value></con:property><con:property><con:name>SubjectID</con:name><con:value>1111</con:value></con:property><con:property><con:name>SubscribePatientID</con:name><con:value>D123401</con:value></con:property><con:property><con:name>SubscriptionDB</con:name><con:value>subscriptionrepository</con:value></con:property><con:property><con:name>SubscriptionEndpoint</con:name><con:value>https://localhost:8181/Gateway/HIEM/2_0/NhinService/NotificationProducerService/HiemSubscription</con:value></con:property><con:property><con:name>SubscriptionManagerEndpointAddress</con:name><con:value>https://localhost:8181/Gateway/HIEM/2_0/NhinService/SubscriptionManagerService/HiemUnsubscribe</con:value></con:property><con:property><con:name>SubscriptionTable</con:name><con:value>subscription</con:value></con:property><con:property><con:name>UniquePatientId</con:name><con:value>1111^^^&amp;amp;1.1&amp;amp;ISO</con:value></con:property><con:property><con:name>UnSubscriptionID</con:name><con:value>e219ec68-d38b-4379-8c92-e8ee8a07fb7f</con:value></con:property><con:property><con:name>ZipCode</con:name><con:value>12345</con:value></con:property><con:property><con:name>GatewayPropDir</con:name><con:value>c:\glassfish3\glassfish\domains\domain1\config\nhin</con:value></con:property></con:properties><con:afterLoadScript>TimeZone.setDefault(TimeZone.getTimeZone("UTC"))
+</con:testSuite><con:properties><con:property><con:name>AAMappingDB</con:name><con:value>assigningauthoritydb</con:value></con:property><con:property><con:name>AAMappingTable</con:name><con:value>aa_to_home_community_mapping</con:value></con:property><con:property><con:name>AsyncMsgDB</con:name><con:value>asyncmsgs</con:value></con:property><con:property><con:name>AsyncMsgTable</con:name><con:value>asyncmsgrepo</con:value></con:property><con:property><con:name>AuditRepoDB</con:name><con:value>auditrepo</con:value></con:property><con:property><con:name>AuditRepoTable</con:name><con:value>auditrepository</con:value></con:property><con:property><con:name>BirthTime</con:name><con:value>19630804</con:value></con:property><con:property><con:name>City</con:name><con:value>Melbourne</con:value></con:property><con:property><con:name>Country</con:name><con:value>US</con:value></con:property><con:property><con:name>DBHost</con:name><con:value>localhost</con:value></con:property><con:property><con:name>DBPass</con:name><con:value>nhincpass</con:value></con:property><con:property><con:name>DBPort</con:name><con:value>3306</con:value></con:property><con:property><con:name>DBUser</con:name><con:value>nhincuser</con:value></con:property><con:property><con:name>DeferredPatientDiscoveryReqMessageID</con:name><con:value>uuid:6666666666.66666.666.66</con:value></con:property><con:property><con:name>DOB</con:name><con:value>19800516</con:value></con:property><con:property><con:name>DQDocID</con:name><con:value>1.123401.55555</con:value></con:property><con:property><con:name>DQPatientID</con:name><con:value>D123401</con:value></con:property><con:property><con:name>DRDocID</con:name><con:value>1.123407.777777</con:value></con:property><con:property><con:name>DRRepoID</con:name><con:value>1</con:value></con:property><con:property><con:name>DynamicDQDocID</con:name><con:value>103.8.9284320.020.3590.75^1266324032288</con:value></con:property><con:property><con:name>ExpirationDate</con:name><con:value>20100520</con:value></con:property><con:property><con:name>FamilyName</con:name><con:value>Younger</con:value></con:property><con:property><con:name>Gender</con:name><con:value>M</con:value></con:property><con:property><con:name>GivenName</con:name><con:value>Gallow</con:value></con:property><con:property><con:name>LocalAA</con:name><con:value>1.1</con:value></con:property><con:property><con:name>LocalHCDescription</con:name><con:value>InternalTest1</con:value></con:property><con:property><con:name>LocalHCID</con:name><con:value>1.1</con:value></con:property><con:property><con:name>LocalPatientID</con:name><con:value>D123401</con:value></con:property><con:property><con:name>NotificationEndpoint</con:name><con:value>https://localhost:8181/Gateway/HIEM/2_0/NhinService/NotificationConsumerService/HiemNotify</con:value></con:property><con:property><con:name>NotifySubscriptionID</con:name><con:value>178591cd-0e44-4df3-922a-fe70db3872db</con:value></con:property><con:property><con:name>NotifySubscriptionManagerEndpointAddress</con:name><con:value>https://localhost:8181/Gateway/HIEM/2_0/NhinService/SubscriptionManagerService/HiemUnsubscribe</con:value></con:property><con:property><con:name>PatientCorrelationDB</con:name><con:value>patientcorrelationdb</con:value></con:property><con:property><con:name>PatientCorrelationTable</con:name><con:value>correlatedidentifiers</con:value></con:property><con:property><con:name>PurposeOfDisclosure</con:name><con:value>Mental</con:value></con:property><con:property><con:name>RemoteAA</con:name><con:value>2.2</con:value></con:property><con:property><con:name>RemoteHCDescription</con:name><con:value>InternalTest2</con:value></con:property><con:property><con:name>RemoteHCID</con:name><con:value>2.2</con:value></con:property><con:property><con:name>RemotePatientID</con:name><con:value>D123401</con:value></con:property><con:property><con:name>SSN</con:name><con:value>123456789</con:value></con:property><con:property><con:name>State</con:name><con:value>FL</con:value></con:property><con:property><con:name>StreetAddress</con:name><con:value>123 Johnson Rd</con:value></con:property><con:property><con:name>SubjectID</con:name><con:value>1111</con:value></con:property><con:property><con:name>SubscribePatientID</con:name><con:value>D123401</con:value></con:property><con:property><con:name>SubscriptionDB</con:name><con:value>subscriptionrepository</con:value></con:property><con:property><con:name>SubscriptionEndpoint</con:name><con:value>https://localhost:8181/Gateway/HIEM/2_0/NhinService/NotificationProducerService/HiemSubscription</con:value></con:property><con:property><con:name>SubscriptionManagerEndpointAddress</con:name><con:value>https://localhost:8181/Gateway/HIEM/2_0/NhinService/SubscriptionManagerService/HiemUnsubscribe</con:value></con:property><con:property><con:name>SubscriptionTable</con:name><con:value>subscription</con:value></con:property><con:property><con:name>UniquePatientId</con:name><con:value>1111^^^&amp;amp;1.1&amp;amp;ISO</con:value></con:property><con:property><con:name>UnSubscriptionID</con:name><con:value>e219ec68-d38b-4379-8c92-e8ee8a07fb7f</con:value></con:property><con:property><con:name>ZipCode</con:name><con:value>12345</con:value></con:property><con:property><con:name>GatewayPropDir</con:name><con:value/></con:property></con:properties><con:afterLoadScript>TimeZone.setDefault(TimeZone.getTimeZone("UTC"))
 def testRunListener = [
 afterRun: { testRunner, runContext -> },
 afterStep: { testRunner, runContext, result -> },
