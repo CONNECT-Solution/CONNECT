@@ -9,14 +9,16 @@
 -->
 	<description>Beans included in this file: {purposeuse}</description>
 
+	<alias alias="purposeuse" name="purposeusedefault" />
+		
 	<!-- Gateway Property File Selection -->
-	<bean class="gov.hhs.fha.nhinc.callback.purposeuse.PurposeUseProxyDefaultImpl" id="purposeuse" name="purposeusedefault">
+	<bean lazy-init="true" class="gov.hhs.fha.nhinc.callback.purposeuse.PurposeUseProxyDefaultImpl" id="purposeusedefault" name="purposeusedefault">
 		<meta key="impltype" value="gateway"/>
 		<meta key="default" value="true"/>
 	</bean> 
 
 	<!-- Community Based Selection -->
-    <bean class="gov.hhs.fha.nhinc.callback.purposeuse.PurposeUseProxyCommunityImpl" id="purposeusecommunity" name="purposeusecommunity"> 
+    <bean lazy-init="true" class="gov.hhs.fha.nhinc.callback.purposeuse.PurposeUseProxyCommunityImpl" id="purposeusecommunity" name="purposeusecommunity"> 
 		<meta key="impltype" value="community"/>
 	</bean>
 
