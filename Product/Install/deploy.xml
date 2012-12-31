@@ -7,8 +7,6 @@
         value="${nhinc.deployment.basedir}/../Production/Common/Properties/Dev" />
     <property name="deployment.config.home" value="${glassfish.home}/domains/domain1/config/nhin" />
 
-    <import file="ear.libs.properties.xml" />
-
     <taskdef resource="net/sf/antcontrib/antlib.xml">
         <classpath>
             <fileset dir="${nhinc.deployment.thirdparty.dir}/AntExtraLibs">
