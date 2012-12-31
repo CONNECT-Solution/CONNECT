@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2013, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -24,36 +24,21 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.docquery.entity.proxy;
+package gov.hhs.fha.nhinc.docquery.adapter.proxy;
 
-import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
-import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
-import oasis.names.tc.ebxml_regrep.xsd.rim._3.RegistryObjectListType;
 
-/**
- * @author
- * 
- */
-public class EntityDocQueryProxyNoOpImpl implements EntityDocQueryProxy {
+import org.junit.Test;
 
-    /**
-     * This method does not have any implementation. Hence it returns a empty AdhocQueryResponse without any documents.
-     * 
-     * @param msg
-     *            AdhocQUery Request received.
-     * @param assertion
-     *            Assertion received.
-     * @param targets
-     *            TargetCommunities to send request.
-     * @return AdhocQueryResponse from Entity Interface.
-     */
-    public AdhocQueryResponse respondingGatewayCrossGatewayQuery(AdhocQueryRequest msg, AssertionType assertion,
-            NhinTargetCommunitiesType targets) {
-        AdhocQueryResponse response = new AdhocQueryResponse();
-        response.setRegistryObjectList(new RegistryObjectListType());
-        return response;
+public class AdapterDocQueryProxyNoOpImplTest {
+
+    @Test
+    public void errorResponseHasRegistryObjectList() {
+        AdapterDocQueryProxyNoOpImpl impl = new AdapterDocQueryProxyNoOpImpl();
+        AdhocQueryResponse response = impl.respondingGatewayCrossGatewayQuery(null, null);
+        assertNotNull(response.getRegistryObjectList());
+        assertEquals(0, response.getRegistryObjectList().getIdentifiable().size());
     }
-
 }

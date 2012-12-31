@@ -26,8 +26,11 @@
  */
 package gov.hhs.fha.nhinc.docquery.adapter;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.fail;
+
+import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
 
 import org.jmock.Mockery;
 import org.jmock.integration.junit4.JUnit4Mockery;
@@ -37,7 +40,7 @@ import org.junit.Test;
 import gov.hhs.fha.nhinc.redactionengine.adapter.proxy.AdapterRedactionEngineProxy;
 
 /**
- *
+ * 
  * @author Neil Webb
  */
 public class AdapterDocQueryOrchImplTest {
@@ -52,7 +55,6 @@ public class AdapterDocQueryOrchImplTest {
     public void testGetRedactionEngineProxy() {
         try {
             AdapterDocQueryOrchImpl docQueryImpl = new AdapterDocQueryOrchImpl() {
-              
 
                 @Override
                 protected AdapterRedactionEngineProxy getRedactionEngineProxy() {
@@ -67,6 +69,14 @@ public class AdapterDocQueryOrchImplTest {
             t.printStackTrace();
             fail("Error running testGetRedactionEngineProxy test: " + t.getMessage());
         }
+    }
+
+    @Test
+    public void errorResponseHasRegistryObjectList() {
+        AdapterDocQueryOrchImpl impl = new AdapterDocQueryOrchImpl();
+        AdhocQueryResponse response = impl.respondingGatewayCrossGatewayQuery(null, null);
+        assertNotNull(response.getRegistryObjectList());
+        assertEquals(0, response.getRegistryObjectList().getIdentifiable().size());
     }
 
     // @Test

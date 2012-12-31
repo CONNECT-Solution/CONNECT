@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services. 
+ * Copyright (c) 2009-2013, United States Government, as represented by the Secretary of Health and Human Services. 
  * All rights reserved. 
  *
  * Redistribution and use in source and binary forms, with or without 
@@ -26,25 +26,19 @@
  */
 package gov.hhs.fha.nhinc.docregistry.adapter.proxy;
 
-import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
-import oasis.names.tc.ebxml_regrep.xsd.rim._3.RegistryObjectListType;
 
-import org.apache.log4j.Logger;
+import org.junit.Test;
 
-/**
- * 
- * @author svalluripalli
- */
-public class AdapterComponentDocRegistryProxyNoOpImpl implements AdapterComponentDocRegistryProxy {
+public class AdapterComponentDocRegistryProxyNoOpImplTest {
 
-    private static final Logger LOG = Logger.getLogger(AdapterComponentDocRegistryProxyNoOpImpl.class);
-
-    public AdhocQueryResponse registryStoredQuery(AdhocQueryRequest request, AssertionType assertion) {
-        LOG.trace("Using NoOp Implementation for Adapter Component Doc Registry Service");
-        AdhocQueryResponse response = new AdhocQueryResponse();
-        response.setRegistryObjectList(new RegistryObjectListType());
-        return response;
+    @Test
+    public void hasRegistryObjectList() {
+        AdapterComponentDocRegistryProxyNoOpImpl impl = new AdapterComponentDocRegistryProxyNoOpImpl();
+        AdhocQueryResponse response = impl.registryStoredQuery(null, null);
+        assertNotNull(response.getRegistryObjectList());
+        assertEquals(0, response.getRegistryObjectList().getIdentifiable().size());
     }
 }

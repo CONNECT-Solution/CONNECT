@@ -50,7 +50,8 @@ public class StandardOutboundDocQueryTest {
         StandardOutboundDocQuery entitydocqueryimpl = new StandardOutboundDocQuery(strategy);
 
         NhinTargetCommunitiesType targets = createNhinTargetCommunites();
-        AdhocQueryResponse response = entitydocqueryimpl.respondingGatewayCrossGatewayQuery(adhocQueryRequest, assertion, targets);
+        AdhocQueryResponse response = entitydocqueryimpl.respondingGatewayCrossGatewayQuery(adhocQueryRequest,
+                assertion, targets);
 
         ArgumentCaptor<OutboundDocQueryAggregate> aggregate = ArgumentCaptor.forClass(OutboundDocQueryAggregate.class);
 
@@ -59,6 +60,19 @@ public class StandardOutboundDocQueryTest {
         assertSame(aggregate.getValue().getAdhocQueryRequest(), adhocQueryRequest);
         assertSame(aggregate.getValue().getAssertion(), assertion);
         assertSame(aggregate.getValue().getTargets(), targets);
+    }
+
+    @Test
+    public void errorResponseHasRegistryObjectList() {
+        AggregationStrategy strategy = mock(AggregationStrategy.class);
+        StandardOutboundDocQuery docQuery = new StandardOutboundDocQuery(strategy);
+
+        AdhocQueryRequest adhocQueryRequest = mock(AdhocQueryRequest.class);
+        AssertionType assertion = mock(AssertionType.class);
+        NhinTargetCommunitiesType targets = mock(NhinTargetCommunitiesType.class);
+        AdhocQueryResponse response = docQuery
+                .respondingGatewayCrossGatewayQuery(adhocQueryRequest, assertion, targets);
+        assertNotNull(response.getRegistryObjectList());
     }
 
     private AdhocQueryRequest createRequest(List<SlotType1> slotList) {
@@ -130,5 +144,4 @@ public class StandardOutboundDocQueryTest {
         assertEquals("Document Query", annotation.serviceType());
         assertEquals("", annotation.version());
     }
-
 }

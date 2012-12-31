@@ -33,19 +33,23 @@ import gov.hhs.fha.nhinc.docquery.aspect.AdhocQueryRequestDescriptionBuilder;
 import gov.hhs.fha.nhinc.docquery.aspect.AdhocQueryResponseDescriptionBuilder;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
+import oasis.names.tc.ebxml_regrep.xsd.rim._3.RegistryObjectListType;
 
 /**
- *
+ * 
  * @author jhoppesc
  */
 public class NhinDocQueryProxyNoOpImpl implements NhinDocQueryProxy {
 
     /**
-     * Sends a document query to another Gateway.
-     *      *
-     * @param request Document Query Request received.
-     * @param assertion Assertion received.
-     * @param target NhinTargetCommunities to send DocQueryRequest.
+     * Sends a document query to another Gateway. *
+     * 
+     * @param request
+     *            Document Query Request received.
+     * @param assertion
+     *            Assertion received.
+     * @param target
+     *            NhinTargetCommunities to send DocQueryRequest.
      * @return null AdhocQuery Response since this does not send Query request.
      */
     @NwhinInvocationEvent(beforeBuilder = AdhocQueryRequestDescriptionBuilder.class,
@@ -53,7 +57,9 @@ public class NhinDocQueryProxyNoOpImpl implements NhinDocQueryProxy {
             version = "")
     public AdhocQueryResponse respondingGatewayCrossGatewayQuery(AdhocQueryRequest request, AssertionType assertion,
             NhinTargetSystemType target) {
-        return new AdhocQueryResponse();
+        AdhocQueryResponse response = new AdhocQueryResponse();
+        response.setRegistryObjectList(new RegistryObjectListType());
+        return response;
     }
 
 }

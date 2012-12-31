@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services. 
+ * Copyright (c) 2009-2013, United States Government, as represented by the Secretary of Health and Human Services. 
  * All rights reserved. 
  *
  * Redistribution and use in source and binary forms, with or without 
@@ -26,25 +26,33 @@
  */
 package gov.hhs.fha.nhinc.docregistry.adapter.proxy;
 
-import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.mockito.Matchers.anyString;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
+import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
-import oasis.names.tc.ebxml_regrep.xsd.rim._3.RegistryObjectListType;
 
-import org.apache.log4j.Logger;
+import org.junit.Test;
+import org.mockito.Mockito;
 
-/**
- * 
- * @author svalluripalli
- */
-public class AdapterComponentDocRegistryProxyNoOpImpl implements AdapterComponentDocRegistryProxy {
+public class AdapterComponentDocRegistryProxyWebServiceUnsecuredImplTest {
 
-    private static final Logger LOG = Logger.getLogger(AdapterComponentDocRegistryProxyNoOpImpl.class);
+    @SuppressWarnings("unchecked")
+    @Test
+    public void errorResponseHasRegistryObjectList() throws Exception {
+        // Note on the mocking here: the class under test is not well suited to unit testing.
+        // Using calls_real_methods and an exception uses knowledge of the try/catch block's structure.
+        WebServiceProxyHelper proxyMock = mock(WebServiceProxyHelper.class);
+        when(proxyMock.getAdapterEndPointFromConnectionManager(anyString())).thenThrow(RuntimeException.class);
 
-    public AdhocQueryResponse registryStoredQuery(AdhocQueryRequest request, AssertionType assertion) {
-        LOG.trace("Using NoOp Implementation for Adapter Component Doc Registry Service");
-        AdhocQueryResponse response = new AdhocQueryResponse();
-        response.setRegistryObjectList(new RegistryObjectListType());
-        return response;
+        AdapterComponentDocRegistryProxyWebServiceUnsecuredImpl impl = mock(
+                AdapterComponentDocRegistryProxyWebServiceUnsecuredImpl.class, Mockito.CALLS_REAL_METHODS);
+        when(impl.createWebServiceProxyHelper()).thenReturn(proxyMock);
+
+        AdhocQueryResponse response = impl.registryStoredQuery(null, null);
+        assertNotNull(response.getRegistryObjectList());
+        assertEquals(0, response.getRegistryObjectList().getIdentifiable().size());
     }
 }
