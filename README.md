@@ -63,31 +63,13 @@ Everyone:
         $ cd <CONNECT_CLONE_DIR>
         $ mvn clean install
 
-###Generate Eclipse Projects
-After you have built from source you can create all of the Eclipse Project files
-
-        $ cd <CONNECT_CLONE_DIR>
-        $ mvn eclipse:clean eclipse:eclipse
-
-Before launching eclipse, execute the following to set up the M2_REPO var used in lib dependencies
-
-        $ mvn eclipse:configure-workspace -Declipse.workspace=/path/to/your/workspace
-
-When complete, open Eclipse then click on the following:
-
-        File --> Import --> 'Existing Projects into workspace'
-
-and choose the clone repo directory (\<CONNECT_CLONE_DIR\>), e.g. CONNECT. You may also need to repeat these steps and choose additional directories:
-* \<CONNECT_CLONE_DIR\>/Product
-* \<CONNECT_CLONE_DIR\>/Product/Production
-
 ####Building an ear
 All services profiles are active by default, so to build an ear containing all services, just execute:
 
         $ cd <CONNECT_CLONE_DIR>
         $ mvn clean install
 
-If you want to exclude a service, in this case PD, you can turn off the profile by adding a "!" to the name of the service profile you'd like to exclude (needs to be escaped with "\" char on *NIX) platforms:
+If you want to exclude a service, in this case Patient Discovery, you can turn off the profile by adding a "!" to the name of the service profile you'd like to exclude (needs to be escaped with "\" char on *NIX) platforms:
 
         $ mvn clean install -P \!PD
 
@@ -115,14 +97,7 @@ You can also specify explicitly what services are included in the ear by passing
         $ mvn clean package -P PD
 
 ######Altering targeted application server
-For some application server deployments the generated .ear needs different dependencies. The following profiles are available to control which type of .ear is generated (use value within parentheses):
-* GlassFish v3.1.2.2 (glassfish)
-* WebSphere Application Server Community Edition v3.0.0.2 (websphere)
-
-This profile options are used just like above. As an example to generate a WebSphere specific .ear with only Patient Discovery.
-
-        $ cd <CONNECT_CLONE_DIR>
-        $ mvn clean install -P PD,websphere
+For some application server deployments the generated .ear needs different dependencies. This readme describes building and deploying on GlassFish. See the CONNECT wiki for details on other application servers.
 
 ###Setup Glassfish, MySQL & Deploy CONNECT
 These steps will install and configure a Glassfish Application Server, prepare your MySQL databases and deploy CONNECT for use. Lets get started.
