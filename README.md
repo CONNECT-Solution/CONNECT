@@ -11,6 +11,7 @@ CONNECT can be used to:
 
 * Set up a health information exchange within an organization
 * Tie a health information exchange into a regional network of health information exchanges using Nationwide Health Information Network standards
+* Send and receive Direct messages, see: [Setting up CONNECT as a Direct HISP](https://github.com/CONNECT-Solution/CONNECT/blob/CONNECT_integration/Product/Production/Services/DirectCore/README.md)
 
 By advancing the adoption of interoperable health IT systems and health information exchanges, the country will better be able to achieve the goal of making sure all citizens have electronic health records by 2014. Health data will be able to follow a patient across the street or across the country.
 
