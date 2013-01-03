@@ -15,7 +15,7 @@
 		<con:settings/>
 
 		<con:endpoints>
-		<con:endpoint>http://localhost:8080/Gateway/DocumentRetrieve/2_0/EntityService/EntityDocRetrieve</con:endpoint></con:endpoints>
+		<con:endpoint>http://localhost:8080/Gateway/DocumentRetrieve/3_0/EntityService/EntityDocRetrieve</con:endpoint></con:endpoints>
 		<con:operation action="urn:RespondingGateway_CrossGatewayRetrieve" anonymous="optional" bindingOperationName="RespondingGateway_CrossGatewayRetrieve" inputName="RespondingGateway_CrossGatewayRetrieveRequest" isOneWay="false" name="RespondingGateway_CrossGatewayRetrieve" outputName="RespondingGateway_CrossGatewayRetrieveResponse" receivesAttachments="false" sendsAttachments="false" type="Request-Response">
 			<con:settings/>
 		</con:operation>
@@ -64,7 +64,7 @@
 		<con:settings/>
 
 		<con:endpoints>
-		<con:endpoint>http://localhost:8080/Gateway/DocumentSubmission/1_1/EntityService/EntityDocSubmissionDeferredRequestUnsecured</con:endpoint></con:endpoints>
+		<con:endpoint>http://localhost:8080/Gateway/DocumentSubmission/2_0/EntityService/EntityDocSubmissionDeferredRequestUnsecured</con:endpoint></con:endpoints>
 		<con:operation action="" anonymous="optional" bindingOperationName="ProvideAndRegisterDocumentSet-bAsyncRequest" inputName="" isOneWay="false" name="ProvideAndRegisterDocumentSet-bAsyncRequest" receivesAttachments="false" sendsAttachments="false" type="Request-Response">
 			<con:settings/>
 
@@ -92,7 +92,7 @@
 		<con:settings/>
 
 		<con:endpoints>
-		<con:endpoint>http://localhost:8080/Gateway/DocumentSubmission/1_1/EntityService/EntityDocSubmissionUnsecured</con:endpoint></con:endpoints>
+		<con:endpoint>http://localhost:8080/Gateway/DocumentSubmission/2_0/EntityService/EntityDocSubmissionUnsecured</con:endpoint></con:endpoints>
 		<con:operation action="" anonymous="optional" bindingOperationName="ProvideAndRegisterDocumentSet-b" inputName="" isOneWay="false" name="ProvideAndRegisterDocumentSet-b" receivesAttachments="false" sendsAttachments="false" type="Request-Response">
 			<con:settings/>
 
@@ -123,7 +123,7 @@
 	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincentityxdr:async:response}EntityXDRAsyncResponse_Binding" definition="${projectDir}/../target/wsdl/EntityXDRResponse.wsdl" name="EntityXDRAsyncResponse_Binding" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 		<con:settings/>
 		<con:endpoints>
-		<con:endpoint>http://localhost:8080/Gateway/DocumentSubmission/1_1/EntityService/EntityDocSubmissionDeferredResponseUnsecured</con:endpoint></con:endpoints>
+		<con:endpoint>http://localhost:8080/Gateway/DocumentSubmission/2_0/EntityService/EntityDocSubmissionDeferredResponseUnsecured</con:endpoint></con:endpoints>
 		<con:operation action="" anonymous="optional" bindingOperationName="ProvideAndRegisterDocumentSet-bAsyncResponse" inputName="" isOneWay="false" name="ProvideAndRegisterDocumentSet-bAsyncResponse" receivesAttachments="false" sendsAttachments="false" type="Request-Response">
 			<con:settings/>
 		</con:operation>
@@ -177,7 +177,7 @@ if(passthruValue != null){
 							<con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
 				</con:settings>
 				<con:encoding>UTF-8</con:encoding>
-				<con:endpoint>http://localhost:8080/Gateway/DocumentSubmission/1_1/EntityService/EntityDocSubmissionDeferredRequestUnsecured</con:endpoint>
+				<con:endpoint>http://localhost:8080/Gateway/DocumentSubmission/2_0/EntityService/EntityDocSubmissionDeferredRequestUnsecured</con:endpoint>
 				<con:request><![CDATA[
 					<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" xmlns:urn3="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:urn4="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn5="urn:ihe:iti:xds-b:2007">
    <soap:Header/>
@@ -656,21 +656,21 @@ if(context.findProperty("PassThruOn").toBoolean()){
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2012-12-04T19:10:44Z</con:value>
+		<con:value>2013-01-03T15:54:18Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2012-12-04T19:20:44Z</con:value>
+		<con:value>2013-01-03T16:04:18Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>12/04/2012 19:10:44</con:value>
+		<con:value>01/03/2013 15:54:18</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2013-01-03T00:00:00Z</con:value>
+		<con:value>2013-02-02T00:00:00Z</con:value>
 	</con:property>
-<con:property><con:name>PassThruOn</con:name><con:value/></con:property></con:properties>
+<con:property><con:name>PassThruOn</con:name><con:value>false</con:value></con:property></con:properties>
 <con:reportParameters/>
 </con:testCase>
 
@@ -722,7 +722,7 @@ if(passthruValue != null){
 					<con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
 		</con:settings>
 		<con:encoding>UTF-8</con:encoding>
-		<con:endpoint>http://localhost:8080/Gateway/DocumentSubmission/1_1/EntityService/EntityDocSubmissionDeferredResponseUnsecured</con:endpoint>
+		<con:endpoint>http://localhost:8080/Gateway/DocumentSubmission/2_0/EntityService/EntityDocSubmissionDeferredResponseUnsecured</con:endpoint>
 		<con:request><![CDATA[
 			<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:urn3="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0">
    <soap:Header/>
@@ -1056,21 +1056,21 @@ if(context.findProperty("PassThruOn").toBoolean()){
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2012-12-04T19:10:53Z</con:value>
+		<con:value>2013-01-03T15:49:11Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2012-12-04T19:20:53Z</con:value>
+		<con:value>2013-01-03T15:59:11Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>12/04/2012 19:10:53</con:value>
+		<con:value>01/03/2013 15:49:11</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2013-01-03T00:00:00Z</con:value>
+		<con:value>2013-02-02T00:00:00Z</con:value>
 	</con:property>
-<con:property><con:name>PassThruOn</con:name><con:value/></con:property></con:properties>
+<con:property><con:name>PassThruOn</con:name><con:value>false</con:value></con:property></con:properties>
 </con:testCase>
 <con:testCase failOnError="true" failTestCaseOnErrors="true" id="fa57d83c-8474-4625-9186-b3902fdda4ab" keepSession="false" maxResults="0" name="Document Submission" searchProperties="true">
 	<con:settings/>
@@ -1107,7 +1107,7 @@ if(passthruValue != null){
 					<con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
 		</con:settings>
 		<con:encoding>UTF-8</con:encoding>
-		<con:endpoint>http://localhost:8080/Gateway/DocumentSubmission/1_1/EntityService/EntityDocSubmissionUnsecured</con:endpoint>
+		<con:endpoint>http://localhost:8080/Gateway/DocumentSubmission/2_0/EntityService/EntityDocSubmissionUnsecured</con:endpoint>
 		<con:request><![CDATA[
 			<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" xmlns:urn3="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:urn4="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn5="urn:ihe:iti:xds-b:2007">
    <soap:Header/>
@@ -1581,21 +1581,21 @@ if(context.findProperty("PassThruOn").toBoolean()){
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2012-12-04T19:10:57Z</con:value>
+		<con:value>2013-01-03T15:53:46Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2012-12-04T19:20:57Z</con:value>
+		<con:value>2013-01-03T16:03:46Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>12/04/2012 19:10:57</con:value>
+		<con:value>01/03/2013 15:53:46</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2013-01-03T00:00:00Z</con:value>
+		<con:value>2013-02-02T00:00:00Z</con:value>
 	</con:property>
-<con:property><con:name>PassThruOn</con:name><con:value/></con:property></con:properties>
+<con:property><con:name>PassThruOn</con:name><con:value>false</con:value></con:property></con:properties>
 <con:reportParameters/>
 </con:testCase>
 <con:testCase failOnError="true" failTestCaseOnErrors="true" id="62ebf4c2-b4e0-4465-b715-df30e72f945a" keepSession="false" maxResults="0" name="Patient Discovery Deferred Req" searchProperties="true">
@@ -1941,21 +1941,21 @@ if(context.findProperty("PassThruOn").toBoolean()){
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2012-12-04T19:11:02Z</con:value>
+		<con:value>2013-01-03T15:49:19Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2012-12-04T19:21:02Z</con:value>
+		<con:value>2013-01-03T15:59:19Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>12/04/2012 19:11:02</con:value>
+		<con:value>01/03/2013 15:49:19</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2013-01-03T00:00:00Z</con:value>
+		<con:value>2013-02-02T00:00:00Z</con:value>
 	</con:property>
-<con:property><con:name>PassThruOn</con:name><con:value/></con:property></con:properties>
+<con:property><con:name>PassThruOn</con:name><con:value>false</con:value></con:property></con:properties>
 <con:reportParameters/>
 </con:testCase>
 <con:testCase failOnError="true" failTestCaseOnErrors="true" id="e98901ca-10ae-4725-ac64-5b2bd8da2b3e" keepSession="false" maxResults="0" name="Patient Discovery Deferred Resp" searchProperties="true">
@@ -2327,21 +2327,21 @@ if(context.findProperty("PassThruOn").toBoolean()){
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2012-12-04T19:11:13Z</con:value>
+		<con:value>2013-01-03T15:49:31Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2012-12-04T19:21:13Z</con:value>
+		<con:value>2013-01-03T15:59:31Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>12/04/2012 19:11:13</con:value>
+		<con:value>01/03/2013 15:49:31</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2013-01-03T00:00:00Z</con:value>
+		<con:value>2013-02-02T00:00:00Z</con:value>
 	</con:property>
-<con:property><con:name>PassThruOn</con:name><con:value/></con:property></con:properties>
+<con:property><con:name>PassThruOn</con:name><con:value>false</con:value></con:property></con:properties>
 <con:reportParameters/>
 </con:testCase>
 <con:testCase failOnError="true" failTestCaseOnErrors="true" id="fe917e9c-4e89-4ce8-9828-05b542fb1be0" keepSession="false" maxResults="0" name="Patient Discovery" searchProperties="true">
@@ -2858,21 +2858,21 @@ if(context.findProperty("PassThruOn").toBoolean()){
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2012-12-04T19:11:18Z</con:value>
+		<con:value>2013-01-03T15:49:37Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2012-12-04T19:21:18Z</con:value>
+		<con:value>2013-01-03T15:59:37Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>12/04/2012 19:11:18</con:value>
+		<con:value>01/03/2013 15:49:37</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2013-01-03T00:00:00Z</con:value>
+		<con:value>2013-02-02T00:00:00Z</con:value>
 	</con:property>
-<con:property><con:name>PassThruOn</con:name><con:value/></con:property></con:properties>
+<con:property><con:name>PassThruOn</con:name><con:value>false</con:value></con:property></con:properties>
 <con:reportParameters/>
 </con:testCase>
 <con:testCase failOnError="true" failTestCaseOnErrors="true" id="801f7f15-5164-41c3-907f-9c0a9db42262" keepSession="false" maxResults="0" name="Document Query" searchProperties="true">
@@ -3243,19 +3243,19 @@ if(context.findProperty("PassThruOn").toBoolean()){
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2012-12-04T19:11:24Z</con:value>
+		<con:value>2013-01-03T15:49:45Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2012-12-04T19:21:24Z</con:value>
+		<con:value>2013-01-03T15:59:45Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>12/04/2012 19:11:24</con:value>
+		<con:value>01/03/2013 15:49:45</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2013-01-03T00:00:00Z</con:value>
+		<con:value>2013-02-02T00:00:00Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>FullPatientID</con:name>
@@ -3300,7 +3300,7 @@ if(passthruValue != null){
 					<con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
 		</con:settings>
 		<con:encoding>UTF-8</con:encoding>
-		<con:endpoint>http://localhost:8080/Gateway/DocumentRetrieve/2_0/EntityService/EntityDocRetrieve</con:endpoint>
+		<con:endpoint>http://localhost:8080/Gateway/DocumentRetrieve/3_0/EntityService/EntityDocRetrieve</con:endpoint>
 		<con:request><![CDATA[
 			<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:ihe:iti:xds-b:2007" xmlns:urn2="urn:gov:hhs:fha:nhinc:common:nhinccommon">
    <soap:Header/>
@@ -3589,21 +3589,21 @@ if(context.findProperty("PassThruOn").toBoolean()){
 	</con:property>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2012-12-04T19:11:27Z</con:value>
+		<con:value>2013-01-03T15:52:28Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2012-12-04T19:21:27Z</con:value>
+		<con:value>2013-01-03T16:02:28Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>12/04/2012 19:11:27</con:value>
+		<con:value>01/03/2013 15:52:28</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2013-01-03T00:00:00Z</con:value>
+		<con:value>2013-02-02T00:00:00Z</con:value>
 	</con:property>
-<con:property><con:name>PassThruOn</con:name><con:value/></con:property></con:properties>
+<con:property><con:name>PassThruOn</con:name><con:value>false</con:value></con:property></con:properties>
 <con:reportParameters/>
 </con:testCase>
 <con:testCase failOnError="true" failTestCaseOnErrors="true" id="447c3431-e74d-48fa-ab20-3c2be4600b82" keepSession="false" maxResults="0" name="Subscribe" searchProperties="true" disabled="true">
@@ -5472,21 +5472,21 @@ if(context.findProperty("PassThruOn").toBoolean()){
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2012-12-04T19:11:31Z</con:value>
+		<con:value>2013-01-03T15:49:53Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2012-12-04T19:21:31Z</con:value>
+		<con:value>2013-01-03T15:59:53Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>12/04/2012 19:11:31</con:value>
+		<con:value>01/03/2013 15:49:53</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2013-01-03T00:00:00Z</con:value>
+		<con:value>2013-02-02T00:00:00Z</con:value>
 	</con:property>
-<con:property><con:name>PassThruOn</con:name><con:value/></con:property></con:properties>
+<con:property><con:name>PassThruOn</con:name><con:value>false</con:value></con:property></con:properties>
 </con:testCase>
 <con:properties/>
 <con:setupScript/>
@@ -5531,7 +5531,7 @@ if(passthruValue != null){
 						<con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
 			</con:settings>
 			<con:encoding>UTF-8</con:encoding>
-			<con:endpoint>http://localhost:8080/Gateway/DocumentSubmission/1_1/EntityService/EntityDocSubmissionDeferredRequestUnsecured</con:endpoint>
+			<con:endpoint>http://localhost:8080/Gateway/DocumentSubmission/2_0/EntityService/EntityDocSubmissionDeferredRequestUnsecured</con:endpoint>
 			<con:request><![CDATA[
 				<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" xmlns:urn3="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:urn4="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn5="urn:ihe:iti:xds-b:2007">
    <soap:Header/>
@@ -6061,7 +6061,7 @@ if(passthruValue != null){
 					<con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
 		</con:settings>
 		<con:encoding>UTF-8</con:encoding>
-		<con:endpoint>http://localhost:8080/Gateway/DocumentSubmission/1_1/EntityService/EntityDocSubmissionDeferredResponseUnsecured</con:endpoint>
+		<con:endpoint>http://localhost:8080/Gateway/DocumentSubmission/2_0/EntityService/EntityDocSubmissionDeferredResponseUnsecured</con:endpoint>
 		<con:request><![CDATA[
 			<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:urn3="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0">
    <soap:Header/>
@@ -6451,7 +6451,7 @@ if(passthruValue != null){
 					<con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
 		</con:settings>
 		<con:encoding>UTF-8</con:encoding>
-		<con:endpoint>http://localhost:8080/Gateway/DocumentSubmission/1_1/EntityService/EntityDocSubmissionUnsecured</con:endpoint>
+		<con:endpoint>http://localhost:8080/Gateway/DocumentSubmission/2_0/EntityService/EntityDocSubmissionUnsecured</con:endpoint>
 		<con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" xmlns:urn3="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:urn4="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn5="urn:ihe:iti:xds-b:2007">
    <soap:Header/>
    <soap:Body testSuite="Entity_g0" testCase="Document Submission">
@@ -8579,7 +8579,7 @@ if(passthruValue != null){
 					<con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
 		</con:settings>
 		<con:encoding>UTF-8</con:encoding>
-		<con:endpoint>http://localhost:8080/Gateway/DocumentRetrieve/2_0/EntityService/EntityDocRetrieve</con:endpoint>
+		<con:endpoint>http://localhost:8080/Gateway/DocumentRetrieve/3_0/EntityService/EntityDocRetrieve</con:endpoint>
 		<con:request><![CDATA[
 			<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:ihe:iti:xds-b:2007" xmlns:urn2="urn:gov:hhs:fha:nhinc:common:nhinccommon">
    <soap:Header/>
