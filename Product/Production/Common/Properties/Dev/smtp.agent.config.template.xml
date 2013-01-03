@@ -1,9 +1,9 @@
 <SmtpAgentConfig>
    <Domains>        
       <AnchorStore type="Uniform" storeType="KeyStore" file="@ANCHOR_STORE_JKS@" filePass="changeit" privKeyPass="changeit"/>    
-      <Domain name="direct.connectopensource.org" postmaster="postmaster@direct.connectopensource.org">
+      <Domain name="direct.example.com" postmaster="postmaster@direct.example.com">
          <IncomingTrustAnchors> 
-            <Anchor name="gateway"/>
+            <Anchor name="direct.example.com"/>
 <!--        <Anchor name="infomedtrix"/>
             <Anchor name="direct.careevolutiondirect.com"/>
             <Anchor name="browsersoftdirect.com"/>
@@ -20,7 +20,7 @@
             <Anchor name="common.root.der"/> -->         
          </IncomingTrustAnchors>  
          <OutgoingTrustAnchors> 
-            <Anchor name="gateway"/>         
+            <Anchor name="direct.example.com"/>         
 <!--        <Anchor name="infomedtrix"/>
             <Anchor name="direct.careevolutiondirect.com"/>
             <Anchor name="browsersoftdirect.com"/>

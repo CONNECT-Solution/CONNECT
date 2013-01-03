@@ -161,10 +161,30 @@
         <exec failonerror="true" executable="keytool" dir="${temp.dir}">
             <arg line="-v -import -keypass ${cert.keypass} -noprompt -trustcacerts -alias ${cert.cn} -file ${cert.cn}.cer -keystore ${cert.store.name}.jks -storepass ${cert.storepass}" />
         </exec>
+	<!-- Direct stores -->
+        <exec failonerror="true" executable="keytool" dir="${temp.dir}">
+            <arg line="-v -genkey -keyalg ${cert.key.algorithm} -keysize ${cert.key.size} -keystore ${direct.key.store}.jks -keypass ${cert.keypass} -storepass ${cert.storepass} -validity ${cert.validity.length} -alias direct.example.com -dname &quot;cn=direct.example.com&quot;" />
+        </exec>
+        <exec failonerror="true" executable="keytool" dir="${temp.dir}">
+            <arg line="-v -export -rfc -alias direct.example.com -file example.cer -keystore ${direct.key.store}.jks -keypass ${cert.keypass} -storepass ${cert.storepass}" />
+        </exec>
+        <exec failonerror="true" executable="keytool" dir="${temp.dir}">
+            <arg line="-v -import -keypass ${cert.keypass} -noprompt -trustcacerts -alias direct.example.com -file example.cer -keystore ${direct.trust.store}.jks -storepass ${cert.storepass}" />
+        </exec>
+	<!-- Use the same trust store for the anchor store -->
+        <exec failonerror="true" executable="keytool" dir="${temp.dir}">
+            <arg line="-v -import -keypass ${cert.keypass} -noprompt -trustcacerts -alias direct.example.com -file example.cer -keystore ${direct.anchor.store}.jks -storepass ${cert.storepass}" />
+        </exec>
+        <!-- exec failonerror="true" executable="keytool" dir="${temp.dir}">
+            <arg line="-v -genkey -keystore ${direct.anchor.store}.jks -keypass ${cert.keypass} -storepass ${cert.storepass} -alias direct.example.com -dname &quot;cn=direct.example.com o=example.com CA&quot;" />
+        </exec -->
         <copy todir="${glassfish.install.dir}/glassfish/domains/domain1/config" overwrite="true">
             <fileset dir="${temp.dir}">
                 <include name="${cert.keystore.name}.jks" />
                 <include name="${cert.store.name}.jks" />
+		<include name="${direct.key.store}.jks" />
+		<include name="${direct.trust.store}.jks" />
+		<include name="${direct.anchor.store}.jks" />
             </fileset>
         </copy>
     </target>
