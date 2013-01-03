@@ -27,6 +27,7 @@
 package gov.hhs.fha.nhinc.docregistry.adapter.proxy;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.gateway.aggregator.document.DocumentConstants;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.RegistryObjectListType;
@@ -45,6 +46,7 @@ public class AdapterComponentDocRegistryProxyNoOpImpl implements AdapterComponen
         LOG.trace("Using NoOp Implementation for Adapter Component Doc Registry Service");
         AdhocQueryResponse response = new AdhocQueryResponse();
         response.setRegistryObjectList(new RegistryObjectListType());
+        response.setStatus(DocumentConstants.XDS_QUERY_RESPONSE_STATUS_SUCCESS);
         return response;
     }
 }

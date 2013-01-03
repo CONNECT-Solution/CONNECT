@@ -26,8 +26,7 @@
  */
 package gov.hhs.fha.nhinc.docregistry.adapter.proxy;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import gov.hhs.fha.nhinc.docquery.AdhocQueryResponseAsserter;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
 
 import org.junit.Test;
@@ -35,10 +34,9 @@ import org.junit.Test;
 public class AdapterComponentDocRegistryProxyNoOpImplTest {
 
     @Test
-    public void hasRegistryObjectList() {
+    public void hasRegistryObjectList() throws Exception {
         AdapterComponentDocRegistryProxyNoOpImpl impl = new AdapterComponentDocRegistryProxyNoOpImpl();
         AdhocQueryResponse response = impl.registryStoredQuery(null, null);
-        assertNotNull(response.getRegistryObjectList());
-        assertEquals(0, response.getRegistryObjectList().getIdentifiable().size());
+        AdhocQueryResponseAsserter.assertSchemaCompliant(response);
     }
 }
