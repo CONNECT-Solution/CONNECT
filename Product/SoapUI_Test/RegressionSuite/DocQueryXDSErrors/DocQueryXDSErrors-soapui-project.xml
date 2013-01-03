@@ -52,7 +52,7 @@ FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", destConfigFileL
 						<con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings>
 						<con:encoding>UTF-8</con:encoding>
 						<con:endpoint>${#Project#Endpoint-DocQuery}</con:endpoint>
-						<con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonproxy" xmlns:urn1="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn3="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing">
+						<con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn3="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing">
    <soap:Header/>
    <soap:Body projectName="DocQueryXDSErrors" testCase="XDSStoredQueryParamNumber TestCase">
       <urn:RespondingGateway_CrossGatewayQueryRequest>
@@ -384,7 +384,7 @@ FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", destConfigFileL
 						<con:encoding>UTF-8</con:encoding>
 						<con:endpoint>${#Project#Endpoint-DocQuery}</con:endpoint>
 						<con:request><![CDATA[
-							<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonproxy" xmlns:urn1="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn3="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing">
+							<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn3="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing">
    <soap:Header/>
    <soap:Body projectName="DocQueryXDSErrors" testCase="XDSStoredQueryParamNumber TestCase">
       <urn:RespondingGateway_CrossGatewayQueryRequest>
@@ -718,7 +718,7 @@ FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", destConfigFileL
 						<con:encoding>UTF-8</con:encoding>
 						<con:endpoint>${#Project#Endpoint-DocQuery}</con:endpoint>
 						<con:request><![CDATA[
-							<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonproxy" xmlns:urn1="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn3="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing">
+							<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn3="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing">
    <soap:Header/>
    <soap:Body projectName="DocQueryXDSErrors" testCase="XDSStoredQueryParamNumber TestCase">
       <urn:RespondingGateway_CrossGatewayQueryRequest>
@@ -1052,7 +1052,7 @@ FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", destConfigFileL
 						<con:encoding>UTF-8</con:encoding>
 						<con:endpoint>${#Project#Endpoint-DocQuery}</con:endpoint>
 						<con:request><![CDATA[
-							<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonproxy" xmlns:urn1="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn3="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing">
+							<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn3="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing">
    <soap:Header/>
    <soap:Body projectName="DocQueryXDSErrors" testCase="XDSStoredQueryParamNumber TestCase">
       <urn:RespondingGateway_CrossGatewayQueryRequest>
@@ -1386,7 +1386,7 @@ FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", destConfigFileL
 						<con:encoding>UTF-8</con:encoding>
 						<con:endpoint>${#Project#Endpoint-DocQuery}</con:endpoint>
 						<con:request><![CDATA[
-							<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonproxy" xmlns:urn1="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn3="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing">
+							<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn3="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing">
    <soap:Header/>
    <soap:Body projectName="DocQueryXDSErrors" testCase="XDSStoredQueryParamNumber TestCase">
       <urn:RespondingGateway_CrossGatewayQueryRequest>
@@ -1720,7 +1720,7 @@ FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", destConfigFileL
 						<con:encoding>UTF-8</con:encoding>
 						<con:endpoint>${#Project#Endpoint-DocQuery}</con:endpoint>
 						<con:request><![CDATA[
-							<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonproxy" xmlns:urn1="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn3="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing">
+							<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn3="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing">
    <soap:Header/>
    <soap:Body projectName="DocQueryXDSErrors" testCase="XDSStoredQueryParamNumber TestCase">
       <urn:RespondingGateway_CrossGatewayQueryRequest>
@@ -2054,7 +2054,7 @@ FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", destConfigFileL
 						<con:encoding>UTF-8</con:encoding>
 						<con:endpoint>${#Project#Endpoint-DocQuery}</con:endpoint>
 						<con:request><![CDATA[
-							<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonproxy" xmlns:urn1="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn3="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing">
+							<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn3="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing">
    <soap:Header/>
    <soap:Body projectName="DocQueryXDSErrors" testCase="XDSStoredQueryParamNumber TestCase">
       <urn:RespondingGateway_CrossGatewayQueryRequest>
@@ -2388,7 +2388,7 @@ FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", destConfigFileL
 						<con:encoding>UTF-8</con:encoding>
 						<con:endpoint>${#Project#Endpoint-DocQuery}</con:endpoint>
 						<con:request><![CDATA[
-							<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonproxy" xmlns:urn1="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn3="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing">
+							<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn3="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing">
    <soap:Header/>
    <soap:Body projectName="DocQueryXDSErrors" testCase="XDSStoredQueryParamNumber TestCase">
       <urn:RespondingGateway_CrossGatewayQueryRequest>
