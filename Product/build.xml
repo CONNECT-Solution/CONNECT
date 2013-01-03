@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="NHINC" basedir=".">
 
+    <taskdef name="xmltask" classname="com.oopsconsultancy.xmltask.ant.XmlTask"
+             classpath="../ThirdParty/AntExtraLibs/xmltask-1.16.jar"/>
+
     <property environment="env" />
 
     <script language="javascript">
@@ -45,16 +48,20 @@
     </target>
 
     <target name="dist" description="Create the binary distribution">
+        <xmltask source="pom.xml" >
+           <copy path="//*[local-name() = 'version']/text()" property="maven_version"/>
+        </xmltask>
+        <echo message="Building binary distribution for ${maven_version}."/>
+        <echo message="Must be run after a mvn build that includes all application server profiles."/>
         <property name="dist.artifact.dir" value="./target" />
         <property name="maven_root" value="${user.home}/.m2/repository/org/connectopensource" />
-        <property name="maven_version" value="4.0.0-SNAPSHOT" />
         <property name="dist.zip.filename" value="CONNECT-${maven_version}.zip" />
 
         <delete dir="${dist.artifact.dir}" failonerror="false" />
         <mkdir dir="${dist.artifact.dir}" />
 
         <zip zipfile="${dist.artifact.dir}/${dist.zip.filename}">
-            <zipfileset file="${maven_root}/CONNECT/${maven_version}/CONNECT-${maven_version}.ear" />
+            <zipfileset dir="${maven_root}/" includes="CONNECT*/${maven_version}/CONNECT*${maven_version}.ear" />
             <zipfileset prefix="Properties" src="${maven_root}/Properties/${maven_version}/Properties-${maven_version}.jar" excludes="**/META-INF/**/*" />
             <zipfileset prefix="DBScripts" src="${maven_root}/DBScripts/${maven_version}/DBScripts-${maven_version}.jar" excludes="**/META-INF/**/*" />
             <zipfileset prefix="ValidationSuite" dir="SoapUI_Test/ValidationSuite">
