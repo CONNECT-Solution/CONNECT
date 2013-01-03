@@ -74,7 +74,7 @@
         <constructor-arg><ref bean="inboundMessageHandler" /></constructor-arg>        
     </bean>    
 
-    <util:properties id="internalMailProperties" location="file://${nhinc.properties.dir}/direct.mail.internal.properties" />
-    <util:properties id="externalMailProperties" location="file://${nhinc.properties.dir}/direct.mail.external.properties" />
+    <util:properties id="internalMailProperties" location="file:///${nhinc.properties.dir}/direct.mail.internal.properties" />
+    <util:properties id="externalMailProperties" location="file:///${nhinc.properties.dir}/direct.mail.external.properties" />
             
 </beans>
