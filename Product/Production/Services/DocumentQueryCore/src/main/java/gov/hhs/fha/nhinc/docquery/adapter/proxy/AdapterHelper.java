@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2013, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -24,44 +24,28 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.docquery.nhin.proxy;
+package gov.hhs.fha.nhinc.docquery.adapter.proxy;
 
-import gov.hhs.fha.nhinc.aspect.NwhinInvocationEvent;
-import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
-import gov.hhs.fha.nhinc.docquery.aspect.AdhocQueryRequestDescriptionBuilder;
-import gov.hhs.fha.nhinc.docquery.aspect.AdhocQueryResponseDescriptionBuilder;
 import gov.hhs.fha.nhinc.gateway.aggregator.document.DocumentConstants;
-import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.RegistryObjectListType;
+import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryError;
+import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryErrorList;
 
-/**
- * 
- * @author jhoppesc
- */
-public class NhinDocQueryProxyNoOpImpl implements NhinDocQueryProxy {
+class AdapterHelper {
 
-    /**
-     * Sends a document query to another Gateway. *
-     * 
-     * @param request
-     *            Document Query Request received.
-     * @param assertion
-     *            Assertion received.
-     * @param target
-     *            NhinTargetCommunities to send DocQueryRequest.
-     * @return null AdhocQuery Response since this does not send Query request.
-     */
-    @NwhinInvocationEvent(beforeBuilder = AdhocQueryRequestDescriptionBuilder.class,
-            afterReturningBuilder = AdhocQueryResponseDescriptionBuilder.class, serviceType = "Document Query",
-            version = "")
-    public AdhocQueryResponse respondingGatewayCrossGatewayQuery(AdhocQueryRequest request, AssertionType assertion,
-            NhinTargetSystemType target) {
+    public AdhocQueryResponse createErrorResponse() {
         AdhocQueryResponse response = new AdhocQueryResponse();
         response.setRegistryObjectList(new RegistryObjectListType());
-        response.setStatus(DocumentConstants.XDS_QUERY_RESPONSE_STATUS_SUCCESS);
+        response.setStatus(DocumentConstants.XDS_QUERY_RESPONSE_STATUS_FAILURE);
+
+        RegistryError registryError = new RegistryError();
+        registryError.setCodeContext("Processing Adapter Doc Query document query");
+        registryError.setErrorCode("XDSRegistryError");
+        registryError.setSeverity(NhincConstants.XDS_REGISTRY_ERROR_SEVERITY_ERROR);
+        response.setRegistryErrorList(new RegistryErrorList());
+        response.getRegistryErrorList().getRegistryError().add(registryError);
         return response;
     }
-
 }

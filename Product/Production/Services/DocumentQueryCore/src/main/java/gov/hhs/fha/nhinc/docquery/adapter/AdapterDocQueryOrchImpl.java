@@ -26,13 +26,6 @@
  */
 package gov.hhs.fha.nhinc.docquery.adapter;
 
-import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
-import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
-import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryError;
-import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryErrorList;
-
-import org.apache.log4j.Logger;
-
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.docregistry.adapter.proxy.AdapterComponentDocRegistryProxy;
 import gov.hhs.fha.nhinc.docregistry.adapter.proxy.AdapterComponentDocRegistryProxyObjectFactory;
@@ -40,9 +33,16 @@ import gov.hhs.fha.nhinc.gateway.aggregator.document.DocumentConstants;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.redactionengine.adapter.proxy.AdapterRedactionEngineProxy;
 import gov.hhs.fha.nhinc.redactionengine.adapter.proxy.AdapterRedactionEngineProxyObjectFactory;
+import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
+import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
+import oasis.names.tc.ebxml_regrep.xsd.rim._3.RegistryObjectListType;
+import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryError;
+import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryErrorList;
+
+import org.apache.log4j.Logger;
 
 /**
- *
+ * 
  * @author jhoppesc
  */
 public class AdapterDocQueryOrchImpl {
@@ -56,11 +56,12 @@ public class AdapterDocQueryOrchImpl {
     public AdapterDocQueryOrchImpl() {
     }
 
-
     /**
-     *
-     * @param request The AdhocQUeryRequest message.
-     * @param assertion Assertion received.
+     * 
+     * @param request
+     *            The AdhocQUeryRequest message.
+     * @param assertion
+     *            Assertion received.
      * @return AdhocQueryResponse The AdhocQuery response received.
      */
     public AdhocQueryResponse respondingGatewayCrossGatewayQuery(AdhocQueryRequest request, AssertionType assertion) {
@@ -68,8 +69,7 @@ public class AdapterDocQueryOrchImpl {
         AdhocQueryResponse response = null;
         try {
             if (request != null) {
-                AdapterComponentDocRegistryProxyObjectFactory objFactory =
-                        new AdapterComponentDocRegistryProxyObjectFactory();
+                AdapterComponentDocRegistryProxyObjectFactory objFactory = new AdapterComponentDocRegistryProxyObjectFactory();
                 AdapterComponentDocRegistryProxy registryProxy = objFactory.getAdapterComponentDocRegistryProxy();
                 AdhocQueryRequest adhocQueryRequest = new AdhocQueryRequest();
                 adhocQueryRequest.setAdhocQuery(request.getAdhocQuery());
@@ -86,6 +86,7 @@ public class AdapterDocQueryOrchImpl {
             } else {
                 RegistryErrorList errorList = new RegistryErrorList();
                 response = new AdhocQueryResponse();
+                response.setRegistryObjectList(new RegistryObjectListType());
                 response.setStatus(DocumentConstants.XDS_QUERY_RESPONSE_STATUS_FAILURE);
 
                 RegistryError e = new RegistryError();
@@ -94,6 +95,7 @@ public class AdapterDocQueryOrchImpl {
                 e.setValue(ERROR_VALUE);
                 e.setSeverity(NhincConstants.XDS_REGISTRY_ERROR_SEVERITY_ERROR);
                 e.setCodeContext(ERROR_CODE_CONTEXT);
+                e.setErrorCode(DocumentConstants.XDS_ERRORCODE_REPOSITORY_ERROR);
             }
         } catch (Exception exp) {
             LOG.error(exp.getMessage());
@@ -105,9 +107,12 @@ public class AdapterDocQueryOrchImpl {
     }
 
     /**
-     * @param queryRequest The AdhocRequest message send to RedactionEngine.
-     * @param queryResponse The AdhocQueryResponse received from AdapterComponentDocRegistry.
-     * @param assertion Assertion received.
+     * @param queryRequest
+     *            The AdhocRequest message send to RedactionEngine.
+     * @param queryResponse
+     *            The AdhocQueryResponse received from AdapterComponentDocRegistry.
+     * @param assertion
+     *            Assertion received.
      * @return redactionEngine AdhocQueryResponse.
      */
     protected AdhocQueryResponse callRedactionEngine(AdhocQueryRequest queryRequest, AdhocQueryResponse queryResponse,

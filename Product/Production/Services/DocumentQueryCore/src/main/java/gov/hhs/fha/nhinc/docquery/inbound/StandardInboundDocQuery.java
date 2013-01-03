@@ -62,7 +62,7 @@ public class StandardInboundDocQuery extends AbstractInboundDocQuery {
      */
     @Override
     AdhocQueryResponse processDocQuery(AdhocQueryRequest msg, AssertionType assertion, String requestCommunityID) {
-        AdhocQueryResponse resp = new AdhocQueryResponse();
+        AdhocQueryResponse resp = null;
 
         if (isPolicyValid(msg, assertion)) {
             resp = sendToAdapter(msg, assertion, requestCommunityID);

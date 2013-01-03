@@ -30,10 +30,13 @@ import gov.hhs.fha.nhinc.common.nhinccommonadapter.PatientPreferencesType;
 import gov.hhs.fha.nhinc.policyengine.adapter.pip.CDAConstants;
 import gov.hhs.fha.nhinc.util.HomeCommunityMap;
 import gov.hhs.fha.nhinc.util.format.PatientIdFormatUtil;
+
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.xml.bind.JAXBElement;
+
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.AdhocQueryType;
@@ -41,10 +44,10 @@ import oasis.names.tc.ebxml_regrep.xsd.rim._3.ClassificationType;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.ExternalIdentifierType;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.ExtrinsicObjectType;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.IdentifiableType;
+import oasis.names.tc.ebxml_regrep.xsd.rim._3.ObjectFactory;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.RegistryObjectListType;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.SlotType1;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.ValueListType;
-import oasis.names.tc.ebxml_regrep.xsd.rim._3.ObjectFactory;
 
 import org.apache.log4j.Logger;
 
@@ -186,7 +189,7 @@ public class DocQueryResponseProcessor {
             response = new AdhocQueryResponse();
             response.setRegistryErrorList(adhocQueryResponse.getRegistryErrorList());
             response.setStatus(adhocQueryResponse.getStatus());
-            RegistryObjectListType registryObjectList = null;
+            response.setRegistryObjectList(new RegistryObjectListType());
             long docCount = 0;
 
             RegistryObjectListType sourceRegistryObjectList = adhocQueryResponse.getRegistryObjectList();
@@ -208,11 +211,8 @@ public class DocQueryResponseProcessor {
                         }
                         if (documentAllowed(oExtObj, workingPatientPreferences)) {
                             LOG.debug("Adding document query response to the list.");
-                            if (registryObjectList == null) {
-                                registryObjectList = new RegistryObjectListType();
-                                response.setRegistryObjectList(registryObjectList);
-                            }
-                            registryObjectList.getIdentifiable().add(rimObjectFactory.createExtrinsicObject(oExtObj));
+                            response.getRegistryObjectList().getIdentifiable()
+                                    .add(rimObjectFactory.createExtrinsicObject(oExtObj));
                             docCount++;
                         } else {
                             LOG.debug("Skipping document");

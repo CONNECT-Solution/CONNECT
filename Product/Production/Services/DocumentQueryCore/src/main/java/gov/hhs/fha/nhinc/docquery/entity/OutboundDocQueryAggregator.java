@@ -52,16 +52,13 @@ public class OutboundDocQueryAggregator implements NhinAggregator {
      */
     protected void aggregateRegistryErrors(AdhocQueryResponse aggregatedResponse, AdhocQueryResponse individualResponse) {
         RegistryErrorList registryErrorList = individualResponse.getRegistryErrorList();
-        if (registryErrorList != null &&
-                registryErrorList.getRegistryError().size() > 0) {
+        if (registryErrorList != null && registryErrorList.getRegistryError().size() > 0) {
 
             if (aggregatedResponse.getRegistryErrorList() == null) {
                 aggregatedResponse.setRegistryErrorList(new RegistryErrorList());
             }
 
-            
-            aggregatedResponse.getRegistryErrorList().getRegistryError()
-                    .addAll(registryErrorList.getRegistryError());
+            aggregatedResponse.getRegistryErrorList().getRegistryError().addAll(registryErrorList.getRegistryError());
         }
     }
 
@@ -146,7 +143,7 @@ public class OutboundDocQueryAggregator implements NhinAggregator {
         aggregatedResponse.setStatus(determineAggregateStatus(aggregatedResponse.getStatus(),
                 individualResponse.getStatus()));
     }
-    
+
     /**
      * @param aggregate
      */
@@ -171,8 +168,6 @@ public class OutboundDocQueryAggregator implements NhinAggregator {
 
         increaseCount(aggregate);
     }
-
-   
 
     public void aggregate(OutboundDocQueryOrchestratable to, OutboundDocQueryOrchestratable from) {
         initializeResponse(to);

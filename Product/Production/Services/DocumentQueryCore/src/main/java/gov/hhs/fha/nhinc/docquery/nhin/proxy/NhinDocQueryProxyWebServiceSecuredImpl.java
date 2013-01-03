@@ -40,9 +40,6 @@ import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 import ihe.iti.xds_b._2007.RespondingGatewayQueryPortType;
-
-import javax.xml.ws.BindingProvider;
-
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
 
@@ -50,7 +47,7 @@ import org.apache.log4j.Logger;
 
 /**
  * This class is the component proxy for calling the NHIN doc query web service.
- *
+ * 
  * @author jhoppesc, Les Westberg
  */
 public class NhinDocQueryProxyWebServiceSecuredImpl implements NhinDocQueryProxy {
@@ -65,9 +62,10 @@ public class NhinDocQueryProxyWebServiceSecuredImpl implements NhinDocQueryProxy
     }
 
     /**
-     * @param apiLevel The gateway apiLevel to be implemented for webService (g0,g1)
+     * @param apiLevel
+     *            The gateway apiLevel to be implemented for webService (g0,g1)
      * @return NhinDocQueryServicePortDescriptor Comprises of NameSpaceUri,ServiceName,Port,WSDLFile and
-     * WSAddressingAction.
+     *         WSAddressingAction.
      */
     public ServicePortDescriptor<RespondingGatewayQueryPortType> getServicePortDescriptor(
             NhincConstants.GATEWAY_API_LEVEL apiLevel) {
@@ -81,11 +79,15 @@ public class NhinDocQueryProxyWebServiceSecuredImpl implements NhinDocQueryProxy
 
     /**
      * Calls the respondingGatewayCrossGatewayQuery method of the web service.
-     *
-     * @param request The AdhocQuery Request received.
-     * @param assertion Assertion received.
-     * @param target NhinTarget community to forward DocQuery Request.
-     * @throws Exception Throws Exception.
+     * 
+     * @param request
+     *            The AdhocQuery Request received.
+     * @param assertion
+     *            Assertion received.
+     * @param target
+     *            NhinTarget community to forward DocQuery Request.
+     * @throws Exception
+     *             Throws Exception.
      * @return The AdhocQUery response from the web service.
      */
     @NwhinInvocationEvent(beforeBuilder = AdhocQueryRequestDescriptionBuilder.class,
@@ -93,8 +95,6 @@ public class NhinDocQueryProxyWebServiceSecuredImpl implements NhinDocQueryProxy
             version = "")
     public AdhocQueryResponse respondingGatewayCrossGatewayQuery(AdhocQueryRequest request, AssertionType assertion,
             NhinTargetSystemType target) throws Exception {
-        AdhocQueryResponse response = new AdhocQueryResponse();
-
         try {
             String url = target.getUrl();
             if (NullChecker.isNullish(url)) {
@@ -104,21 +104,18 @@ public class NhinDocQueryProxyWebServiceSecuredImpl implements NhinDocQueryProxy
                         + " is: " + url);
             }
 
-            ServicePortDescriptor<RespondingGatewayQueryPortType> portDescriptor = getServicePortDescriptor(
-                    NhincConstants.GATEWAY_API_LEVEL.LEVEL_g0);
+            ServicePortDescriptor<RespondingGatewayQueryPortType> portDescriptor = getServicePortDescriptor(NhincConstants.GATEWAY_API_LEVEL.LEVEL_g0);
 
             CONNECTClient<RespondingGatewayQueryPortType> client = CONNECTClientFactory.getInstance()
                     .getCONNECTClientSecured(portDescriptor, assertion, url,
-                            target.getHomeCommunity().getHomeCommunityId(),
-                            NhincConstants.DOC_QUERY_SERVICE_NAME);
+                            target.getHomeCommunity().getHomeCommunityId(), NhincConstants.DOC_QUERY_SERVICE_NAME);
 
-            response = (AdhocQueryResponse) client.invokePort(RespondingGatewayQueryPortType.class,
+            return (AdhocQueryResponse) client.invokePort(RespondingGatewayQueryPortType.class,
                     "respondingGatewayCrossGatewayQuery", request);
 
         } catch (Exception ex) {
             LOG.error("Error calling respondingGatewayCrossGatewayQuery: " + ex.getMessage(), ex);
             throw ex;
         }
-        return response;
     }
 }

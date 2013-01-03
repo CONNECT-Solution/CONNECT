@@ -33,44 +33,26 @@ import gov.hhs.fha.nhinc.common.nhinccommonadapter.RespondingGatewayCrossGateway
 import gov.hhs.fha.nhinc.docquery.adapter.proxy.description.AdapterDocQueryServicePortDescriptor;
 import gov.hhs.fha.nhinc.docquery.aspect.AdhocQueryRequestDescriptionBuilder;
 import gov.hhs.fha.nhinc.docquery.aspect.AdhocQueryResponseDescriptionBuilder;
-import gov.hhs.fha.nhinc.gateway.aggregator.document.DocumentConstants;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTClient;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTClientFactory;
 import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
-import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
-import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryError;
 
 import org.apache.log4j.Logger;
 
 /**
- *
+ * 
  * @author jhoppesc
  */
-public class AdapterDocQueryProxyWebServiceUnsecuredImpl implements AdapterDocQueryProxy {
+public class AdapterDocQueryProxyWebServiceUnsecuredImpl extends BaseAdapterDocQueryProxy {
     private static final Logger LOG = Logger.getLogger(AdapterDocQueryProxyWebServiceUnsecuredImpl.class);
 
-    private WebServiceProxyHelper oProxyHelper = null;
-
     /**
-     * The AdpaterDocQUeryWebServiceImpl creates log and WebServiceProxyHelper.
-     */
-    public AdapterDocQueryProxyWebServiceUnsecuredImpl() {
-        oProxyHelper = createWebServiceProxyHelper();
-    }
-
-    /**
-     * @return WebServiceHelper Object.
-     */
-    protected WebServiceProxyHelper createWebServiceProxyHelper() {
-        return new WebServiceProxyHelper();
-    }
-
-    /**
-     * @param apiLevel Adapter ApiLevel Param.
+     * @param apiLevel
+     *            Adapter ApiLevel Param.
      * @return Adapter Apilevel to be implemented (a0 or a1).
      */
     public ServicePortDescriptor<AdapterDocQueryPortType> getServicePortDescriptor(
@@ -85,8 +67,11 @@ public class AdapterDocQueryProxyWebServiceUnsecuredImpl implements AdapterDocQu
 
     /**
      * The respondingGatewayCrossGatewayQuery method returns AdhocQueryResponse from Adapter interface.
-     * @param msg The AdhocQueryRequest message.
-     * @param assertion Assertion received.
+     * 
+     * @param msg
+     *            The AdhocQueryRequest message.
+     * @param assertion
+     *            Assertion received.
      * @return AdhocQuery Response from Adapter interface.
      */
     @AdapterDelegationEvent(beforeBuilder = AdhocQueryRequestDescriptionBuilder.class,
@@ -97,8 +82,8 @@ public class AdapterDocQueryProxyWebServiceUnsecuredImpl implements AdapterDocQu
         AdhocQueryResponse response = null;
 
         try {
-            String url = oProxyHelper
-                    .getAdapterEndPointFromConnectionManager(NhincConstants.ADAPTER_DOC_QUERY_SERVICE_NAME);
+            String url = getWebServiceProxyHelper().getAdapterEndPointFromConnectionManager(
+                    NhincConstants.ADAPTER_DOC_QUERY_SERVICE_NAME);
             if (NullChecker.isNotNullish(url)) {
 
                 if (msg == null) {
@@ -106,12 +91,10 @@ public class AdapterDocQueryProxyWebServiceUnsecuredImpl implements AdapterDocQu
                 } else if (assertion == null) {
                     LOG.error("assertion was null");
                 } else {
-                    RespondingGatewayCrossGatewayQueryRequestType request =
-                            new RespondingGatewayCrossGatewayQueryRequestType();
+                    RespondingGatewayCrossGatewayQueryRequestType request = new RespondingGatewayCrossGatewayQueryRequestType();
                     request.setAdhocQueryRequest(msg);
                     request.setAssertion(assertion);
-                    ServicePortDescriptor<AdapterDocQueryPortType> portDescriptor =
-                            getServicePortDescriptor(NhincConstants.ADAPTER_API_LEVEL.LEVEL_a0);
+                    ServicePortDescriptor<AdapterDocQueryPortType> portDescriptor = getServicePortDescriptor(NhincConstants.ADAPTER_API_LEVEL.LEVEL_a0);
 
                     CONNECTClient<AdapterDocQueryPortType> client = CONNECTClientFactory.getInstance()
                             .getCONNECTClientUnsecured(portDescriptor, url, assertion);
@@ -125,14 +108,7 @@ public class AdapterDocQueryProxyWebServiceUnsecuredImpl implements AdapterDocQu
             }
         } catch (Exception ex) {
             LOG.error("Error sending Adapter Doc Query Unsecured message: " + ex.getMessage(), ex);
-            response = new AdhocQueryResponse();
-            response.setStatus(DocumentConstants.XDS_QUERY_RESPONSE_STATUS_FAILURE);
-
-            RegistryError registryError = new RegistryError();
-            registryError.setCodeContext("Processing Adapter Doc Query document query");
-            registryError.setErrorCode("XDSRegistryError");
-            registryError.setSeverity(NhincConstants.XDS_REGISTRY_ERROR_SEVERITY_ERROR);
-            response.getRegistryErrorList().getRegistryError().add(registryError);
+            return getAdapterHelper().createErrorResponse();
         }
 
         LOG.debug("End respondingGatewayCrossGatewayQuery");

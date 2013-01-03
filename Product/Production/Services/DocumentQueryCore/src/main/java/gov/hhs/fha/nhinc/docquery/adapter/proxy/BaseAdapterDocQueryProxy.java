@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2013, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -24,38 +24,29 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.docquery.entity.proxy;
+package gov.hhs.fha.nhinc.docquery.adapter.proxy;
 
-import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
-import gov.hhs.fha.nhinc.gateway.aggregator.document.DocumentConstants;
-import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
-import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
-import oasis.names.tc.ebxml_regrep.xsd.rim._3.RegistryObjectListType;
+import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 
-/**
- * @author
- * 
- */
-public class EntityDocQueryProxyNoOpImpl implements EntityDocQueryProxy {
+public abstract class BaseAdapterDocQueryProxy implements AdapterDocQueryProxy {
 
-    /**
-     * This method does not have any implementation. Hence it returns a empty AdhocQueryResponse without any documents.
-     * 
-     * @param msg
-     *            AdhocQUery Request received.
-     * @param assertion
-     *            Assertion received.
-     * @param targets
-     *            TargetCommunities to send request.
-     * @return AdhocQueryResponse from Entity Interface.
-     */
-    public AdhocQueryResponse respondingGatewayCrossGatewayQuery(AdhocQueryRequest msg, AssertionType assertion,
-            NhinTargetCommunitiesType targets) {
-        AdhocQueryResponse response = new AdhocQueryResponse();
-        response.setRegistryObjectList(new RegistryObjectListType());
-        response.setStatus(DocumentConstants.XDS_QUERY_RESPONSE_STATUS_SUCCESS);
-        return response;
+    private AdapterHelper helper = new AdapterHelper();
+
+    private WebServiceProxyHelper oProxyHelper = new WebServiceProxyHelper();
+
+    final WebServiceProxyHelper getWebServiceProxyHelper() {
+        return oProxyHelper;
     }
 
+    final void setWebServiceProxyHelper(WebServiceProxyHelper helper) {
+        oProxyHelper = helper;
+    }
+
+    final AdapterHelper getAdapterHelper() {
+        return this.helper;
+    }
+
+    final void setAdapterHelper(AdapterHelper helper) {
+        this.helper = helper;
+    }
 }

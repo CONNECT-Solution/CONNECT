@@ -38,7 +38,9 @@ import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 import ihe.iti.xds_b._2007.DocumentRegistryPortType;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
+import oasis.names.tc.ebxml_regrep.xsd.rim._3.RegistryObjectListType;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryError;
+import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryErrorList;
 
 import org.apache.log4j.Logger;
 
@@ -47,14 +49,14 @@ import org.apache.log4j.Logger;
  * @author svalluripalli
  */
 public class AdapterComponentDocRegistryProxyWebServiceUnsecuredImpl implements AdapterComponentDocRegistryProxy {
-   private static final Logger LOG = Logger.getLogger(AdapterComponentDocRegistryProxyWebServiceUnsecuredImpl.class);
-   private WebServiceProxyHelper oProxyHelper = null;
+    private static final Logger LOG = Logger.getLogger(AdapterComponentDocRegistryProxyWebServiceUnsecuredImpl.class);
+    private WebServiceProxyHelper oProxyHelper = null;
 
-   public AdapterComponentDocRegistryProxyWebServiceUnsecuredImpl(){
-	   oProxyHelper = createWebServiceProxyHelper();
-   }
-   
-   protected WebServiceProxyHelper createWebServiceProxyHelper() {
+    public AdapterComponentDocRegistryProxyWebServiceUnsecuredImpl() {
+        oProxyHelper = createWebServiceProxyHelper();
+    }
+
+    protected WebServiceProxyHelper createWebServiceProxyHelper() {
         return new WebServiceProxyHelper();
     }
 
@@ -101,11 +103,13 @@ public class AdapterComponentDocRegistryProxyWebServiceUnsecuredImpl implements 
             LOG.error("Error sending Adapter Component Doc Registry Unsecured message: " + ex.getMessage(), ex);
             response = new AdhocQueryResponse();
             response.setStatus(DocumentConstants.XDS_QUERY_RESPONSE_STATUS_FAILURE);
+            response.setRegistryObjectList(new RegistryObjectListType());
 
             RegistryError registryError = new RegistryError();
             registryError.setCodeContext("Processing Adapter Doc Query document query");
             registryError.setErrorCode("XDSRegistryError");
             registryError.setSeverity(NhincConstants.XDS_REGISTRY_ERROR_SEVERITY_ERROR);
+            response.setRegistryErrorList(new RegistryErrorList());
             response.getRegistryErrorList().getRegistryError().add(registryError);
         }
 

@@ -36,14 +36,11 @@ import static org.junit.Assert.assertTrue;
 import gov.hhs.fha.nhinc.gateway.aggregator.document.DocumentConstants;
 
 import java.math.BigInteger;
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.xml.bind.JAXBElement;
 import javax.xml.namespace.QName;
 
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
-import oasis.names.tc.ebxml_regrep.xsd.rim._3.IdentifiableType;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.RegistryObjectListType;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.RegistryObjectType;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.SlotListType;
@@ -192,11 +189,13 @@ public class OutboundDocQueryAggregatorTest {
     @Test
     public void testAggregateRegistryCollectionNullRegistry() {
         AdhocQueryResponse aggregatedResponse = new AdhocQueryResponse();
+        aggregatedResponse.setRegistryObjectList(new RegistryObjectListType());
 
         AdhocQueryResponse individualResponse = new AdhocQueryResponse();
 
         nhinAggregator.aggregateRegistryObjectList(aggregatedResponse, individualResponse);
-        assertNull(aggregatedResponse.getRegistryObjectList());
+        assertNotNull(aggregatedResponse.getRegistryObjectList());
+        assertEquals(0, aggregatedResponse.getRegistryObjectList().getIdentifiable().size());
     }
 
     @Test
@@ -262,7 +261,7 @@ public class OutboundDocQueryAggregatorTest {
 
         assertEquals(1, aggregatedResponse.getRegistryErrorList().getRegistryError().size());
     }
-    
+
     @Test
     public void testAggregateSlotlistResponse() {
         AdhocQueryResponse aggregatedResponse = new AdhocQueryResponse();
@@ -271,16 +270,12 @@ public class OutboundDocQueryAggregatorTest {
 
         nhinAggregator.aggregateSlotlistResponse(aggregatedResponse, individualResponse);
         assertEquals(0, aggregatedResponse.getResponseSlotList().getSlot().size());
-        
-        
+
         individualResponse.setResponseSlotList(new SlotListType());
         individualResponse.getResponseSlotList().getSlot().add(new SlotType1());
-        
-       
+
         nhinAggregator.aggregateSlotlistResponse(aggregatedResponse, individualResponse);
         assertEquals(1, aggregatedResponse.getResponseSlotList().getSlot().size());
-        
-        
 
     }
 }
