@@ -26,11 +26,18 @@
  */
 package gov.hhs.fha.nhinc.redactionengine.adapter;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.fail;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.PatientPreferencesType;
 import gov.hhs.fha.nhinc.policyengine.adapter.pip.CDAConstants;
+
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
+
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.AdhocQueryType;
@@ -48,7 +55,6 @@ import org.jmock.integration.junit4.JUnit4Mockery;
 import org.jmock.lib.legacy.ClassImposteriser;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import static org.junit.Assert.*;
 
 /**
  * 
@@ -88,7 +94,7 @@ public class DocQueryResponseProcessorTest {
     public void testGetPatientIdBeforeSet() {
         try {
             DocQueryResponseProcessor processor = new DocQueryResponseProcessor();
-      
+
             assertNull("Patient identifier", processor.getPatientId());
         } catch (Throwable t) {
             System.out.println("Error running testGetPatientIdBeforeSet test: " + t.getMessage());
@@ -102,7 +108,7 @@ public class DocQueryResponseProcessorTest {
     public void testSetPatientId() {
         try {
             DocQueryResponseProcessor processor = new DocQueryResponseProcessor();
-            
+
             processor.setPatientId("test_patient_id");
             assertEquals("Patient identifier", "test_patient_id", processor.getPatientId());
         } catch (Throwable t) {
@@ -117,7 +123,7 @@ public class DocQueryResponseProcessorTest {
     public void testGetAssigningAuthorityIdBeforeSet() {
         try {
             DocQueryResponseProcessor processor = new DocQueryResponseProcessor();
-            
+
             assertNull("Assigning authority id", processor.getAssigningAuthorityId());
         } catch (Throwable t) {
             System.out.println("Error running testGetAssigningAuthorityIdBeforeSet test: " + t.getMessage());
@@ -131,7 +137,7 @@ public class DocQueryResponseProcessorTest {
     public void testSetAssigningAuthorityId() {
         try {
             DocQueryResponseProcessor processor = new DocQueryResponseProcessor();
-            
+
             processor.setAssigningAuthorityId("test_assigning_authority_id");
             assertEquals("Assigning authority id", "test_assigning_authority_id", processor.getAssigningAuthorityId());
         } catch (Throwable t) {
@@ -145,7 +151,7 @@ public class DocQueryResponseProcessorTest {
     public void testGetHomeCommunityIdBeforeSet() {
         try {
             DocQueryResponseProcessor processor = new DocQueryResponseProcessor();
-            
+
             assertNull("Home Community id", processor.getHomeCommunityId());
         } catch (Throwable t) {
             System.out.println("Error running testGetHomeCommunityIdBeforeSet test: " + t.getMessage());
@@ -159,7 +165,7 @@ public class DocQueryResponseProcessorTest {
     public void testSetHomeCommunityIdId() {
         try {
             DocQueryResponseProcessor processor = new DocQueryResponseProcessor();
-            
+
             processor.setHomeCommunityId("test_homeCommunity_id");
             assertEquals("Home community id", "test_homeCommunity_id", processor.getHomeCommunityId());
         } catch (Throwable t) {
@@ -192,7 +198,7 @@ public class DocQueryResponseProcessorTest {
                     return mockAdhocQueryResponse;
                 }
             };
-            
+
             List<String> slotValues = processor.extractSlotValues(slots, "$XDSDocumentEntryPatientId");
             assertNotNull("Slot values was null", slotValues);
             assertEquals("Slot values was empty", 1, slotValues.size());
@@ -227,7 +233,7 @@ public class DocQueryResponseProcessorTest {
                     return mockAdhocQueryResponse;
                 }
             };
-            
+
             List<String> slotValues = processor.extractSlotValues(slots, "NoMatchSlotName");
             assertNull("Slot values was not null", slotValues);
         } catch (Throwable t) {
@@ -254,7 +260,7 @@ public class DocQueryResponseProcessorTest {
                     return mockAdhocQueryResponse;
                 }
             };
-            
+
             List<String> slotValues = processor.extractSlotValues(slots, "NoMatchSlotName");
             assertNull("Slot values was not null", slotValues);
         } catch (Throwable t) {
@@ -281,7 +287,7 @@ public class DocQueryResponseProcessorTest {
                     return mockAdhocQueryResponse;
                 }
             };
-            
+
             List<String> slotValues = processor.extractSlotValues(slots, "$XDSDocumentEntryPatientId");
             assertNull("Slot values was not null", slotValues);
         } catch (Throwable t) {
@@ -313,7 +319,7 @@ public class DocQueryResponseProcessorTest {
                     return mockAdhocQueryResponse;
                 }
             };
-            
+
             List<String> slotValues = processor.extractSlotValues(slots, "$XDSDocumentEntryPatientId");
             assertNull("Slot values was not null", slotValues);
         } catch (Throwable t) {
@@ -346,7 +352,7 @@ public class DocQueryResponseProcessorTest {
                     return mockAdhocQueryResponse;
                 }
             };
-            
+
             List<String> slotValues = processor.extractSlotValues(slots, "$XDSDocumentEntryPatientId");
             assertNull("Slot values was not null", slotValues);
         } catch (Throwable t) {
@@ -376,7 +382,7 @@ public class DocQueryResponseProcessorTest {
                     return mockAdhocQueryResponse;
                 }
             };
-            
+
             List<String> slotValues = processor.extractSlotValues(slots, "$XDSDocumentEntryPatientId");
             assertNull("Slot values was not null", slotValues);
         } catch (Throwable t) {
@@ -408,7 +414,7 @@ public class DocQueryResponseProcessorTest {
                     return mockAdhocQueryResponse;
                 }
             };
-           
+
             List<String> slotValues = processor.extractSlotValues(slots, "$XDSDocumentEntryPatientId");
             assertNull("Slot values was not null", slotValues);
         } catch (Throwable t) {
@@ -442,7 +448,7 @@ public class DocQueryResponseProcessorTest {
                     return mockAdhocQueryResponse;
                 }
             };
-            
+
             List<String> slotValues = processor.extractSlotValues(slots, "$XDSDocumentEntryPatientId");
             assertNotNull("Slot values was null", slotValues);
             assertEquals("Slot values count", 2, slotValues.size());
@@ -481,7 +487,7 @@ public class DocQueryResponseProcessorTest {
                     return mockAdhocQueryResponse;
                 }
             };
-            
+
             processor.extractIdentifiers(adhocQueryRequest);
             assertNotNull("Patient identifier null", processor.getPatientId());
             assertNotNull("Assigning authority id null", processor.getAssigningAuthorityId());
@@ -544,7 +550,7 @@ public class DocQueryResponseProcessorTest {
                     return mockAdhocQueryResponse;
                 }
             };
-            
+
             processor.extractIdentifiers(adhocQueryRequest);
             assertNull("Patient identifier", processor.getPatientId());
             assertNull("Assigning authority id", processor.getAssigningAuthorityId());
@@ -575,7 +581,7 @@ public class DocQueryResponseProcessorTest {
                     return mockAdhocQueryResponse;
                 }
             };
-            
+
             processor.extractIdentifiers(adhocQueryRequest);
             assertNull("Patient identifier was not null", processor.getPatientId());
             assertNull("Assigning authority id was not null", processor.getAssigningAuthorityId());
@@ -605,7 +611,7 @@ public class DocQueryResponseProcessorTest {
                     return mockAdhocQueryResponse;
                 }
             };
-            
+
             processor.extractIdentifiers(adhocQueryRequest);
             assertNull("HomeCommunity id was not null", processor.getHomeCommunityId());
         } catch (Throwable t) {
@@ -635,7 +641,7 @@ public class DocQueryResponseProcessorTest {
                     return mockAdhocQueryResponse;
                 }
             };
-            
+
             processor.extractIdentifiers(adhocQueryRequest);
             assertNotNull("HomeCommunity id was null", processor.getHomeCommunityId());
             assertEquals("Home community id", "7.7", processor.getHomeCommunityId());
@@ -680,7 +686,7 @@ public class DocQueryResponseProcessorTest {
     @Test
     public void filterAdhocQueryResultsNullAdhocQueryRequest() {
         try {
-            
+
             AdhocQueryResponse response = testFilterAdhocQueryResults(null, mockAdhocQueryResponse,
                     mockPatientConsentHelper);
             assertNull("AdhocQueryResponse was not null", response);
@@ -694,7 +700,7 @@ public class DocQueryResponseProcessorTest {
     @Test
     public void filterAdhocQueryResultsNullAdhocQueryResponse() {
         try {
-            
+
             AdhocQueryResponse response = testFilterAdhocQueryResults(mockAdhocQueryRequest, null,
                     mockPatientConsentHelper);
             assertNull("AdhocQueryResponse was not null", response);
@@ -708,7 +714,7 @@ public class DocQueryResponseProcessorTest {
     @Test
     public void filterAdhocQueryResultsNullPatientConsentHelper() {
         try {
-            
+
             AdhocQueryResponse response = testFilterAdhocQueryResults(mockAdhocQueryRequest, mockAdhocQueryResponse,
                     null);
             assertNull("AdhocQueryResponse was not null", response);
@@ -729,7 +735,7 @@ public class DocQueryResponseProcessorTest {
                     return null;
                 }
             };
-            
+
             AdhocQueryResponse response = testFilterAdhocQueryResults(mockAdhocQueryRequest, mockAdhocQueryResponse,
                     patientConsentHelper);
             assertNull("AdhocQueryResponse was not null", response);
@@ -950,7 +956,8 @@ public class DocQueryResponseProcessorTest {
             AdhocQueryResponse response = testFilterResults(adhocQueryResponse, patientPreferences, false);
 
             assertNotNull("AdhocQueryResponse was null", response);
-            assertNull("RegistryObjectList was not null", response.getRegistryObjectList());
+            assertNotNull("RegistryObjectList was null", response.getRegistryObjectList());
+            assertEquals(0, response.getRegistryObjectList().getIdentifiable().size());
             assertEquals("Result count", 0L, response.getTotalResultCount().longValue());
         } catch (Throwable t) {
             System.out.println("Error running testFilterResultsNotAllowed test: " + t.getMessage());
@@ -1115,7 +1122,8 @@ public class DocQueryResponseProcessorTest {
             AdhocQueryResponse response = testFilterResultsNonPatientCentric(adhocQueryResponse);
 
             assertNotNull("AdhocQueryResponse was null", response);
-            assertNull("RegistryObjectList was not null", response.getRegistryObjectList());
+            assertNotNull("RegistryObjectList was null", response.getRegistryObjectList());
+            assertEquals(0, response.getRegistryObjectList().getIdentifiable().size());
         } catch (Throwable t) {
             System.out.println("Error running testFilterResultsNonPatientCentricNullRegistryObjectList test: "
                     + t.getMessage());
@@ -1409,7 +1417,7 @@ public class DocQueryResponseProcessorTest {
             ExtrinsicObjectType extObject = null;
 
             DocQueryResponseProcessor processor = new DocQueryResponseProcessor();
-            
+
             PatientPreferencesType patientPreferences = processor.retrievePatientPreferencesForDocument(extObject);
 
             assertNull("Extracted patient preferences was not null", patientPreferences);

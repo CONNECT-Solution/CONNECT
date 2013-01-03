@@ -29,6 +29,7 @@ package gov.hhs.fha.nhinc.docquery;
 import gov.hhs.fha.nhinc.gateway.aggregator.document.DocumentConstants;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
+import oasis.names.tc.ebxml_regrep.xsd.rim._3.RegistryObjectListType;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryError;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryErrorList;
 
@@ -51,13 +52,16 @@ public class MessageGeneratorUtils extends gov.hhs.fha.nhinc.util.MessageGenerat
     public static MessageGeneratorUtils getInstance() {
         return INSTANCE;
     }
-    
+
     /**
      * Create a AdhocQueryResponse with severity set to error.
      * 
-     * @param errorMsg - the code context value of the message
-     * @param errorCode - the error code value of the message
-     * @param status - the status of the message
+     * @param errorMsg
+     *            - the code context value of the message
+     * @param errorCode
+     *            - the error code value of the message
+     * @param status
+     *            - the status of the message
      * @return the generated AdhocQueryResponse message
      */
     public AdhocQueryResponse createAdhocQueryErrorResponse(String errorMsg, String errorCode, String status) {
@@ -69,6 +73,7 @@ public class MessageGeneratorUtils extends gov.hhs.fha.nhinc.util.MessageGenerat
         AdhocQueryResponse response = new AdhocQueryResponse();
         response.setRegistryErrorList(regErrList);
         response.setStatus(status);
+        response.setRegistryObjectList(new RegistryObjectListType());
 
         return response;
     }
