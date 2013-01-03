@@ -26,18 +26,16 @@
  */
 package gov.hhs.fha.nhinc.docquery.adapter;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.fail;
-
+import gov.hhs.fha.nhinc.docquery.AdhocQueryResponseAsserter;
+import gov.hhs.fha.nhinc.redactionengine.adapter.proxy.AdapterRedactionEngineProxy;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
 
 import org.jmock.Mockery;
 import org.jmock.integration.junit4.JUnit4Mockery;
 import org.jmock.lib.legacy.ClassImposteriser;
 import org.junit.Test;
-
-import gov.hhs.fha.nhinc.redactionengine.adapter.proxy.AdapterRedactionEngineProxy;
 
 /**
  * 
@@ -72,11 +70,10 @@ public class AdapterDocQueryOrchImplTest {
     }
 
     @Test
-    public void errorResponseHasRegistryObjectList() {
+    public void errorResponseHasRegistryObjectList() throws Exception {
         AdapterDocQueryOrchImpl impl = new AdapterDocQueryOrchImpl();
         AdhocQueryResponse response = impl.respondingGatewayCrossGatewayQuery(null, null);
-        assertNotNull(response.getRegistryObjectList());
-        assertEquals(0, response.getRegistryObjectList().getIdentifiable().size());
+        AdhocQueryResponseAsserter.assertSchemaCompliant(response);
     }
 
     // @Test

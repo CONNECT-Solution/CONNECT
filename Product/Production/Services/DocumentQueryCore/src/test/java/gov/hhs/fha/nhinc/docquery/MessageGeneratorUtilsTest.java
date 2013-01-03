@@ -28,7 +28,6 @@
  */
 package gov.hhs.fha.nhinc.docquery;
 
-import static org.junit.Assert.assertNotNull;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
 
 import org.junit.Test;
@@ -36,9 +35,9 @@ import org.junit.Test;
 public class MessageGeneratorUtilsTest {
 
     @Test
-    public void errorResponseHasRegistryObjectList() {
+    public void errorResponseHasRegistryObjectList() throws Exception {
         AdhocQueryResponse response = MessageGeneratorUtils.getInstance().createAdhocQueryErrorResponse("msg", "code",
                 "status");
-        assertNotNull(response.getRegistryObjectList());
+        AdhocQueryResponseAsserter.assertSchemaCompliant(response);
     }
 }

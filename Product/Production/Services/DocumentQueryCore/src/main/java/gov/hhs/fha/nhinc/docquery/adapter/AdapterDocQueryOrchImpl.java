@@ -95,6 +95,7 @@ public class AdapterDocQueryOrchImpl {
                 e.setValue(ERROR_VALUE);
                 e.setSeverity(NhincConstants.XDS_REGISTRY_ERROR_SEVERITY_ERROR);
                 e.setCodeContext(ERROR_CODE_CONTEXT);
+                e.setErrorCode(DocumentConstants.XDS_ERRORCODE_REPOSITORY_ERROR);
             }
         } catch (Exception exp) {
             LOG.error(exp.getMessage());

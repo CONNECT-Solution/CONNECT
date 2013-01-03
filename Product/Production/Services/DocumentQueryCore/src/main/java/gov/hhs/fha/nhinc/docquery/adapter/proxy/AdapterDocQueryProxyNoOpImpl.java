@@ -30,6 +30,7 @@ import gov.hhs.fha.nhinc.aspect.AdapterDelegationEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.docquery.aspect.AdhocQueryRequestDescriptionBuilder;
 import gov.hhs.fha.nhinc.docquery.aspect.AdhocQueryResponseDescriptionBuilder;
+import gov.hhs.fha.nhinc.gateway.aggregator.document.DocumentConstants;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.RegistryObjectListType;
@@ -60,6 +61,7 @@ public class AdapterDocQueryProxyNoOpImpl implements AdapterDocQueryProxy {
         LOG.debug("Using NoOp Implementation for Adapter Doc Query Service");
         AdhocQueryResponse response = new AdhocQueryResponse();
         response.setRegistryObjectList(new RegistryObjectListType());
+        response.setStatus(DocumentConstants.XDS_QUERY_RESPONSE_STATUS_SUCCESS);
         return response;
     }
 }

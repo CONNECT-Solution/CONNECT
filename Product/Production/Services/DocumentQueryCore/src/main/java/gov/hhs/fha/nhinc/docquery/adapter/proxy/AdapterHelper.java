@@ -36,8 +36,7 @@ import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryErrorList;
 class AdapterHelper {
 
     public AdhocQueryResponse createErrorResponse() {
-        AdhocQueryResponse response;
-        response = new AdhocQueryResponse();
+        AdhocQueryResponse response = new AdhocQueryResponse();
         response.setRegistryObjectList(new RegistryObjectListType());
         response.setStatus(DocumentConstants.XDS_QUERY_RESPONSE_STATUS_FAILURE);
 

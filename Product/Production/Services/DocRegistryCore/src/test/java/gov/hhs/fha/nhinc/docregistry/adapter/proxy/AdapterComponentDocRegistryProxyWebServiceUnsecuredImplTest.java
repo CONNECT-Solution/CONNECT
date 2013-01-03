@@ -26,11 +26,10 @@
  */
 package gov.hhs.fha.nhinc.docregistry.adapter.proxy;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
 import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
+import gov.hhs.fha.nhinc.docquery.AdhocQueryResponseAsserter;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
 
@@ -52,7 +51,7 @@ public class AdapterComponentDocRegistryProxyWebServiceUnsecuredImplTest {
         when(impl.createWebServiceProxyHelper()).thenReturn(proxyMock);
 
         AdhocQueryResponse response = impl.registryStoredQuery(null, null);
-        assertNotNull(response.getRegistryObjectList());
-        assertEquals(0, response.getRegistryObjectList().getIdentifiable().size());
+
+        AdhocQueryResponseAsserter.assertSchemaCompliant(response);
     }
 }

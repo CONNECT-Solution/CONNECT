@@ -26,8 +26,7 @@
  */
 package gov.hhs.fha.nhinc.docquery.entity.proxy;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import gov.hhs.fha.nhinc.docquery.AdhocQueryResponseAsserter;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
 
 import org.junit.Test;
@@ -35,10 +34,10 @@ import org.junit.Test;
 public class EntityDocQueryProxyNoOpImplTest {
 
     @Test
-    public void responseHasObjectTypeList() {
+    public void responseHasObjectTypeList() throws Exception {
         EntityDocQueryProxyNoOpImpl impl = new EntityDocQueryProxyNoOpImpl();
         AdhocQueryResponse response = impl.respondingGatewayCrossGatewayQuery(null, null, null);
-        assertNotNull(response.getRegistryObjectList());
-        assertEquals(0, response.getRegistryObjectList().getIdentifiable().size());
+
+        AdhocQueryResponseAsserter.assertSchemaCompliant(response);
     }
 }

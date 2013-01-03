@@ -13,6 +13,7 @@ import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunityType;
+import gov.hhs.fha.nhinc.docquery.AdhocQueryResponseAsserter;
 import gov.hhs.fha.nhinc.docquery.aspect.AdhocQueryRequestDescriptionBuilder;
 import gov.hhs.fha.nhinc.docquery.aspect.AdhocQueryResponseDescriptionBuilder;
 import gov.hhs.fha.nhinc.docquery.entity.AggregationStrategy;
@@ -63,7 +64,7 @@ public class StandardOutboundDocQueryTest {
     }
 
     @Test
-    public void errorResponseHasRegistryObjectList() {
+    public void errorResponseHasRegistryObjectList() throws Exception {
         AggregationStrategy strategy = mock(AggregationStrategy.class);
         StandardOutboundDocQuery docQuery = new StandardOutboundDocQuery(strategy);
 
@@ -72,7 +73,7 @@ public class StandardOutboundDocQueryTest {
         NhinTargetCommunitiesType targets = mock(NhinTargetCommunitiesType.class);
         AdhocQueryResponse response = docQuery
                 .respondingGatewayCrossGatewayQuery(adhocQueryRequest, assertion, targets);
-        assertNotNull(response.getRegistryObjectList());
+        AdhocQueryResponseAsserter.assertSchemaCompliant(response);
     }
 
     private AdhocQueryRequest createRequest(List<SlotType1> slotList) {
