@@ -161,20 +161,6 @@ __Links:__
 [http://wiki.directproject.org/smtp+gateway+configuration](http://wiki.directproject.org/smtp+gateway+configuration)  
 [http://api.nhindirect.org/java/site/gateway/2.0/users-guide/smtp-depl-xmlconfig.html](http://api.nhindirect.org/java/site/gateway/2.0/users-guide/smtp-depl-xmlconfig.html)
 
-###Edge Client Configuration
-
---> DirectEdgeClientProxyConfig.xml : _Used to determine which edge client will be used to handle processed inbound direct messages._
-
-This file uses spring to configure which edge client we want to use for handling processed Inbound Direct messages. We can specify:
-
-	<alias alias="directedgeclient" name="directedgeclientsmtp" />
-
-or:
-
-	<alias alias="directedgeclient" name="directedgeclientsoap" />
-
-__Note:__ Processed Inbound Direct MDN Messages are passed to the SMTP edge client. If the edge client is SOAP, the MDN is logged (event logging + log4j). 
-
 ###Configuring Mail Pollers
 --> direct.appcontext.xml : _used to schedule the mail pollers._
 
@@ -195,6 +181,42 @@ The following example schedules the outbound message poller against the internal
 __Links:__  
 [http://static.springsource.org/spring/docs/3.0.x/reference/scheduling.html](http://static.springsource.org/spring/docs/3.0.x/reference/scheduling.html)  
 [http://blog.springsource.org/2010/01/05/task-scheduling-simplifications-in-spring-3-0/](http://blog.springsource.org/2010/01/05/task-scheduling-simplifications-in-spring-3-0/)
+
+###Edge Client Configuration
+
+The following section is used to configure how inbound direct messages are handled (smtp or soap) and how to specify an adapter endpoint to be invoked after an inbound direct message is processed, in the case where the edge client is soap. 
+
+--> DirectEdgeClientProxyConfig.xml : _Used to determine which edge client will be used to handle processed inbound direct messages._
+
+This file uses spring to configure which edge client we want to use for handling processed Inbound Direct messages. We can specify:
+
+	<alias alias="directedgeclient" name="directedgeclientsmtp" />
+
+or:
+
+	<alias alias="directedgeclient" name="directedgeclientsoap" />
+
+__Note:__ Processed Inbound Direct MDN Messages are passed to the SMTP edge client. If the edge client is SOAP, the MDN is logged (event logging + log4j). 
+
+--> internalConnectionInfo.xml : _Specify an adapter endpoint to be invoked which handles processed inbound direct messages._
+
+Register the adapter endpoint in _businessService/bindingTemplates/bindingTemplate/accessPoint_:
+
+	<!-- Direct Soap Edge  -->
+	<businessService serviceKey="uddi:nhincnode:directsoapedge">
+	<name xml:lang="en">directsoapedge</name>
+	<bindingTemplates>
+	    <bindingTemplate bindingKey="uddi:nhincnode:directsoapedge" serviceKey="uddi:nhincnode:directsoapedge">
+	        <accessPoint useType="endPoint">https://localhost:8080/YourDirectSoapEndpoint</accessPoint>
+	        <categoryBag>
+	            <keyedReference tModelKey="CONNECT:adapter:apilevel" keyName="" keyValue="LEVEL_a0"/> 
+	        </categoryBag>
+	    </bindingTemplate>
+	</bindingTemplates>
+	<categoryBag>
+	    <keyedReference tModelKey="uddi:nhin:standard-servicenames" keyName="directsoapedge" keyValue="directsoapedge"/>
+	</categoryBag>
+	</businessService>
 
 ###Initiating a message using SOAP+XDR
 
