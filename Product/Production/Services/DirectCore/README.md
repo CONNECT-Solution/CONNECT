@@ -184,7 +184,7 @@ __Links:__
 
 ###Edge Client Configuration
 
-The following section is used to configure how inbound direct messages are handled (smtp or soap) and how to specify an adapter endpoint to be invoked after an inbound direct message is processed, in the case where the edge client is soap. 
+The following section is used to configure how inbound direct messages are handled (smtp/soap/java) after an inbound direct message is processed. 
 
 --> DirectEdgeClientProxyConfig.xml : _Used to determine which edge client will be used to handle processed inbound direct messages._
 
@@ -194,9 +194,29 @@ This file uses spring to configure which edge client we want to use for handling
 
 or:
 
-	<alias alias="directedgeclient" name="directedgeclientsoap" />
+	<alias alias="directedgeclient" name="directedgeclientjava" />
 
-__Note:__ Processed Inbound Direct MDN Messages are passed to the SMTP edge client. If the edge client is SOAP, the MDN is logged (event logging + log4j). 
+or:
+
+	<alias alias="directedgeclient" name="directedgeclientsoap" />
+	
+####directedgeclientsmtp
+
+When SMTP is specified, processed direct messages and MDN messages are sent to the recipient on the internal mail server.	
+
+####directedgeclientjava
+
+When java is specified, processed direct messages are handled by the Java class configured. A stub class is included by default which can be replaced with a real implementation:
+
+	<bean lazy-init="true" class="gov.hhs.fha.nhinc.direct.edge.proxy.DirectEdgeProxyJavaImpl" id="directedgeclientjava" name="directedgeclientjava"> 
+		<meta key="impltype" value="java"/>
+	</bean>
+
+MDN messages are logged.
+
+####directedgeclientsoap
+
+When SOAP is specified, the endpoint adapter is invoked as specified in internalConnectionInfo.xml.
 
 --> internalConnectionInfo.xml : _Specify an adapter endpoint to be invoked which handles processed inbound direct messages._
 
@@ -217,6 +237,8 @@ Register the adapter endpoint in _businessService/bindingTemplates/bindingTempla
 	    <keyedReference tModelKey="uddi:nhin:standard-servicenames" keyName="directsoapedge" keyValue="directsoapedge"/>
 	</categoryBag>
 	</businessService>
+
+MDN messages are logged.
 
 ###Initiating a message using SOAP+XDR
 
