@@ -15,10 +15,11 @@
     <import resource="direct.beans.xml"/>
 
     <!-- Set up polling for inbound and outbound direct messages -->
-    <task:scheduled-tasks scheduler="directScheduler">
+    <!-- This commented out in the source intentionally. Please see the DirectCore project README.md for more details. -->
+    <!-- task:scheduled-tasks scheduler="directScheduler">
         <task:scheduled ref="outboundMessagePoller" method="poll" cron="0,30 * * * * *"/>
         <task:scheduled ref="inboundMessagePoller" method="poll" cron="15,45 * * * * *"/>
     </task:scheduled-tasks>
-    <task:scheduler id="directScheduler" />
+    <task:scheduler id="directScheduler" / -->
      
 </beans>

@@ -263,6 +263,13 @@
 
     <target name="deploy.nhinc.configuration.to.glassfish">
         <unjar dest="${deployment.config.home}" src="${config.nhin.dependency.file.path}"> </unjar>
+	<copy file="${deployment.config.home}/smtp.agent.config.template.xml" tofile="${deployment.config.home}/smtp.agent.config.xml" filtering="yes" overwrite="yes">
+	    <filterset>
+	        <filter token="ANCHOR_STORE_JKS" value="${glassfish.install.dir}/glassfish/domains/domain1/config/${direct.anchor.store}.jks"/>
+	        <filter token="PUBLIC_STORE_JKS" value="${glassfish.install.dir}/glassfish/domains/domain1/config/${direct.trust.store}.jks"/>
+	        <filter token="PRIVATE_STORE_JKS" value="${glassfish.install.dir}/glassfish/domains/domain1/config/${direct.key.store}.jks"/>
+	    </filterset>
+	</copy>
     </target>
 
     <target name="deploy.nhinc.interfaces.to.glassfish">
