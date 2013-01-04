@@ -79,7 +79,7 @@ The Direct feature is included in CONNECT as a "selectable service", however it 
 
 ###Building CONNECT with the Direct Feature
 
-__Note:__ All of the commands referenced here are explained in more deatail in the `<CONNECT git root>/README.md` file.
+__Note:__ All of the commands referenced here are explained in more detail in the `<CONNECT git root>/README.md` file.
 
 To build an EAR file with only the CONNECT Direct feature, from `<CONNECT git root>` execute:
 
