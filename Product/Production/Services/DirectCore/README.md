@@ -72,6 +72,53 @@ __Links:__
 [http://tools.ietf.org/html/rfc4398](http://tools.ietf.org/html/rfc4398)  
 [http://crane.initd.net/source/make-dns-cert.c](http://crane.initd.net/source/make-dns-cert.c)
 
+Installing the CONNECT Direct feature
+-------------------------------------
+
+The Direct feature is included in CONNECT as a "selectable service", however it is currently not enabled by default.
+
+###Building CONNECT with the Direct Feature
+
+__Note:__ All of the commands referenced here are explained in more deatail in the `<CONNECT git root>/README.md` file.
+
+To build an EAR file with only the CONNECT Direct feature, from `<CONNECT git root>` execute:
+
+	mvn clean install -P Direct
+     
+This command also interacts with other profiles, for example to build CONNECT with Direct, Patient Discovery, Query for Documents, and Document Retrieve, on Websphere, execute:
+
+	mvn clean install -P Direct,PD,DQ,RD,websphere
+	
+###Deploying CONNECT from a Direct perspective
+    
+When running `ant install` to create a local glassfish instance, certificates are automatically generated and placed in the following default stores (which are configurable through the `local.install.properties` file:
+
+    achors.jks - to store the trust anchors of trusted HISPs.
+    example-store.jks - to store the public keys of trusted HISPs.
+    exmple-key.jks - to store the local HISP private key.
+	
+As part of the `ant deploy.connect` command (which is executed as part of `ant install`) stores are referenced via the `smtp.agent.config.xml`.
+
+__Note:__ When deploying to glassfish using the ant scripts, any changes made to the glassfish config directory will be overwritten with the configs from the CONNECT properties jar.
+
+To deploy CONNECT to other application servers, the same instructions apply with or without the Direct feature enabled with one exception. Updates to configurations outlined in the below sections of this README.md will need to be completed before deploying the application.
+
+Once the application configuration has been completed and the application deploys successfully, regardless of the target application server, the "pollers" will need to be enabled. The pollers are disabled by default because there is no feasable way at this point to deploy and configure all of the necessary Direct HISP components automatically. Update `<nhinc.properties.dir>/direct.appcontext.xml` from:
+
+    <!-- task:scheduled-tasks scheduler="directScheduler">
+        <task:scheduled ref="outboundMessagePoller" method="poll" cron="0,30 * * * * *"/>
+        <task:scheduled ref="inboundMessagePoller" method="poll" cron="15,45 * * * * *"/>
+    </task:scheduled-tasks>
+    <task:scheduler id="directScheduler" / -->
+    
+to:
+
+    <task:scheduled-tasks scheduler="directScheduler">
+        <task:scheduled ref="outboundMessagePoller" method="poll" cron="0,30 * * * * *"/>
+        <task:scheduled ref="inboundMessagePoller" method="poll" cron="15,45 * * * * *"/>
+    </task:scheduled-tasks>
+    <task:scheduler id="directScheduler" />
+
 Gateway Configuration
 ---------------------
 
