@@ -161,7 +161,7 @@ public class PatientCorrelationProxyWebServiceUnsecuredImpl implements PatientCo
                         getRetrieveServicePortDescriptor(NhincConstants.ADAPTER_API_LEVEL.LEVEL_a0);
 
                 CONNECTClient<PatientCorrelationPortType> client = CONNECTClientFactory.getInstance()
-                        .getCONNECTClientSecured(portDescriptor, url, assertion);
+                        .getCONNECTClientUnsecured(portDescriptor, url, assertion);
 
                 response = (AddPatientCorrelationResponseType) client
                         .invokePort(PatientCorrelationPortType.class, "addPatientCorrelation", request);
