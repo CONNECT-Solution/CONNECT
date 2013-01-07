@@ -63,8 +63,7 @@ public class StandardOutboundDocQuery implements OutboundDocQuery {
      * takes the executor services as input.
      */
     public StandardOutboundDocQuery() {
-        strategy = new AggregationStrategy();
-        fanoutService = new AggregationService();
+        this(new AggregationStrategy(), new AggregationService());
     }
 
     /**
@@ -74,17 +73,6 @@ public class StandardOutboundDocQuery implements OutboundDocQuery {
         super();
         this.strategy = strategy;
         this.fanoutService = fanoutService;
-    }
-
-    /**
-     * We construct the orch impl class with references to both executor services that could be used for this particular
-     * orchestration instance. Determination of which executor service to use (largejob or regular) is based on the size
-     * of the correlationsResult and configs.
-     * 
-     * @param e regular executor.
-     * @param le largejob executor.
-     */
-    public StandardOutboundDocQuery(ExecutorService e, ExecutorService le) {
     }
 
     /**
@@ -105,7 +93,7 @@ public class StandardOutboundDocQuery implements OutboundDocQuery {
         List<OutboundOrchestratable> aggregateRequests = fanoutService
                 .createChildRequests(adhocQueryRequest, assertion, targets);
 
-        if (aggregateRequests.size() == 0) {
+        if (aggregateRequests.isEmpty()) {
             LOG.info("no patient correlation found.");
             return createErrorResponse("XDSUnknownPatientId", "No patient correlations found.");
         }

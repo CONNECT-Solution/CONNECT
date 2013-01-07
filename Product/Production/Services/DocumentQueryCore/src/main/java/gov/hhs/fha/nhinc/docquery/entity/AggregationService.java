@@ -78,10 +78,7 @@ public class AggregationService {
     private PixRetrieveBuilder pixRetrieveBuilder;
     private StandardOutboundDocQueryHelper standardOutboundDocQueryHelper;
 
-    private static final OutboundResponseProcessor NULL_OutboundResponseProcessor = null;
-    private static final AuditTransformer NULL_AuditTransformer = null;
-    private static final PolicyTransformer NULL_PolicyTransformer = null;
-
+ 
     /**
      * @param sHomeCommunity
      * @param connectionManager
@@ -148,8 +145,7 @@ public class AggregationService {
                 // set the home community id to the target hcid
                 setTargetHomeCommunityId(childRequest, target.getHomeCommunity().getHomeCommunityId());
 
-                OutboundDocQueryOrchestratable orchestratable = new OutboundDocQueryOrchestratable(delegate,
-                        NULL_OutboundResponseProcessor, NULL_AuditTransformer, NULL_PolicyTransformer, assertion,
+                OutboundDocQueryOrchestratable orchestratable = new OutboundDocQueryOrchestratable(delegate, assertion,
                         NhincConstants.DOC_QUERY_SERVICE_NAME, target, childRequest);
 
                 list.add(orchestratable);

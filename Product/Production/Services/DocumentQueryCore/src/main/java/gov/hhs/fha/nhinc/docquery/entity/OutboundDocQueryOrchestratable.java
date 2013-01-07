@@ -26,6 +26,7 @@
  */
 package gov.hhs.fha.nhinc.docquery.entity;
 
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.orchestration.OutboundOrchestratableMessage;
 import gov.hhs.fha.nhinc.orchestration.OutboundDelegate;
 import gov.hhs.fha.nhinc.orchestration.NhinAggregator;
@@ -97,13 +98,14 @@ public class OutboundDocQueryOrchestratable implements OutboundOrchestratableMes
         this.target = t;
         this.request = r;
     }
+    
+    public OutboundDocQueryOrchestratable(OutboundDelegate d, AssertionType a, String name, NhinTargetSystemType t, AdhocQueryRequest r) {
+        this(d, null, null, null, a, name,  t, r);
+    }
 
     public OutboundDocQueryOrchestratable(NhinAggregator agg, AssertionType a, String name, AdhocQueryRequest r) {
     //CHECKSTYLE:ON
-
-        this.assertion = a;
-        this.serviceName = name;
-        this.request = r;
+        this(null, null, null, null, a, name, null, r);
         this.aggregator = agg;
     }
     

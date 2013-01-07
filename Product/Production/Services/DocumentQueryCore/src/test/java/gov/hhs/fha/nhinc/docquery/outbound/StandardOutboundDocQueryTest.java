@@ -41,7 +41,7 @@ import org.mockito.ArgumentCaptor;
 public class StandardOutboundDocQueryTest {
 
     @Test
-    public void testrespondingGatewayCrossGatewayQueryforNullEndPoint() {
+    public void testrespondingGatewayCrossGatewayQueryforNullEndPoint() throws Exception {
 
         AggregationStrategy strategy = mock(AggregationStrategy.class);
 
@@ -57,11 +57,9 @@ public class StandardOutboundDocQueryTest {
         NhinTargetCommunitiesType targets = createNhinTargetCommunites();
         AdhocQueryResponse response = entitydocqueryimpl.respondingGatewayCrossGatewayQuery(adhocQueryRequest,
                 assertion, targets);
-
-
         verify(service).createChildRequests(eq(adhocQueryRequest), eq(assertion), eq(targets));
-    //    verify(strategy).execute(aggregate);
-
+        
+        AdhocQueryResponseAsserter.assertSchemaCompliant(response);
      
     }
 
