@@ -30,7 +30,7 @@
 	<binding name="PatientCorrelationBinding" type="tns:PatientCorrelationPortType">
 		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
 		<operation name="RetrievePatientCorrelations">
-			<soap:operation soapAction="RetrievePatientCorrelations"/>
+			<soap:operation soapAction="urn:gov:hhs:fha:nhinc:nhinccomponentpatientcorrelation:RetrievePatientCorrelationsRequestMessage"/>
 			<input name="RetrievePatientCorrelationsRequest">
 				<soap:body use="literal"/>
 			</input>
@@ -39,7 +39,7 @@
 			</output>
 		</operation>
 		<operation name="AddPatientCorrelation">
-			<soap:operation soapAction="AddPatientCorrelation"/>
+			<soap:operation soapAction="urn:gov:hhs:fha:nhinc:nhinccomponentpatientcorrelation:AddPatientCorrelationRequestMessage"/>
 			<input name="AddPatientCorrelationRequest">
 				<soap:body use="literal"/>
 			</input>

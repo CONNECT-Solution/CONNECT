@@ -32,7 +32,7 @@
         <wsp:PolicyReference URI="#PatientCorrelationService_Binding_SoapPolicy"/>
         <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
         <operation name="RetrievePatientCorrelations">
-            <soap:operation soapAction="RetrievePatientCorrelations"/>
+            <soap:operation soapAction="urn:gov:hhs:fha:nhinc:nhinccomponentpatientcorrelation:RetrievePatientCorrelationsRequestMessageSecured"/>
             <input name="RetrievePatientCorrelationsRequest">
                 <soap:body use="literal"/>
                 <wsp:PolicyReference URI="#RetrievePatientCorrelations_Binding_Soap_Input_Policy"/>
@@ -43,7 +43,7 @@
             </output>
         </operation>
         <operation name="AddPatientCorrelation">
-            <soap:operation soapAction="AddPatientCorrelation"/>
+            <soap:operation soapAction="urn:gov:hhs:fha:nhinc:nhinccomponentpatientcorrelation:AddPatientCorrelationRequestMessageSecured"/>
             <input name="AddPatientCorrelationRequest">
                 <soap:body use="literal"/>
                 <wsp:PolicyReference URI="#AddPatientCorrelation_Binding_Soap_Input_Policy"/>
