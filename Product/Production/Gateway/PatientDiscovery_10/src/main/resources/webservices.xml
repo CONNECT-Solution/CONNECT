@@ -26,8 +26,8 @@ http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd ">
         endpointName="tns:RespondingGateway_Port_Soap"
         implementor="#nhinPD" wsdlLocation="classpath:wsdl/NhinPatientDiscovery.wsdl">
         <jaxws:properties>
-            <entry key="ws-security.signature.properties" value="keystore.properties" />
-            <entry key="ws-security.encryption.properties" value="truststore.properties" />
+            <entry key="ws-security.signature.properties" value="file:///${nhinc.properties.dir}/signature.properties" />
+            <entry key="ws-security.encryption.properties" value="file:///${nhinc.properties.dir}/truststore.properties" />
             <entry key="ws-security.saml2.validator">
                 <bean
                     class="gov.hhs.fha.nhinc.callback.cxf.CONNECTSamlAssertionValidator" />
@@ -50,8 +50,8 @@ http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd ">
         serviceName="tns:EntityPatientDiscoverySecured" endpointName="tns:EntityPatientDiscoverySecuredPortSoap"
         implementor="#entityPDSecured" wsdlLocation="classpath:wsdl/EntityPatientDiscoverySecured.wsdl">
         <jaxws:properties>
-            <entry key="ws-security.signature.properties" value="keystore.properties" />
-            <entry key="ws-security.encryption.properties" value="truststore.properties" />
+            <entry key="ws-security.signature.properties" value="file:///${nhinc.properties.dir}/signature.properties" />
+            <entry key="ws-security.encryption.properties" value="file:///${nhinc.properties.dir}/truststore.properties" />
             <entry key="ws-security.saml2.validator">
                 <bean class="gov.hhs.fha.nhinc.callback.cxf.CONNECTSamlAssertionValidator" />
             </entry>            
@@ -87,8 +87,8 @@ http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd ">
         implementor="#nhinPDReq"
         wsdlLocation="classpath:wsdl/NhinPatientDiscoveryDeferredRequest.wsdl">
         <jaxws:properties>
-            <entry key="ws-security.signature.properties" value="keystore.properties" />
-            <entry key="ws-security.encryption.properties" value="truststore.properties" />
+            <entry key="ws-security.signature.properties" value="file:///${nhinc.properties.dir}/signature.properties" />
+            <entry key="ws-security.encryption.properties" value="file:///${nhinc.properties.dir}/truststore.properties" />
             <entry key="ws-security.saml2.validator">
                 <bean
                     class="gov.hhs.fha.nhinc.callback.cxf.CONNECTSamlAssertionValidator" />
@@ -113,8 +113,8 @@ http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd ">
         implementor="#entityPDReqSecured"
         wsdlLocation="classpath:wsdl/EntityPatientDiscoverySecuredAsyncReq.wsdl">
         <jaxws:properties>
-            <entry key="ws-security.signature.properties" value="keystore.properties" />
-            <entry key="ws-security.encryption.properties" value="truststore.properties" />
+            <entry key="ws-security.signature.properties" value="file:///${nhinc.properties.dir}/signature.properties" />
+            <entry key="ws-security.encryption.properties" value="file:///${nhinc.properties.dir}/truststore.properties" />
             <entry key="ws-security.saml2.validator">
                 <bean class="gov.hhs.fha.nhinc.callback.cxf.CONNECTSamlAssertionValidator" />
             </entry>            
@@ -151,8 +151,8 @@ http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd ">
         implementor="#nhinPDResp"
         wsdlLocation="classpath:wsdl/NhinPatientDiscoveryDeferredResponse.wsdl">
         <jaxws:properties>
-            <entry key="ws-security.signature.properties" value="keystore.properties" />
-            <entry key="ws-security.encryption.properties" value="truststore.properties" />
+            <entry key="ws-security.signature.properties" value="file:///${nhinc.properties.dir}/signature.properties" />
+            <entry key="ws-security.encryption.properties" value="file:///${nhinc.properties.dir}/truststore.properties" />
             <entry key="ws-security.saml2.validator">
                 <bean
                     class="gov.hhs.fha.nhinc.callback.cxf.CONNECTSamlAssertionValidator" />
@@ -178,8 +178,8 @@ http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd ">
         implementor="#entityPDRespSecured"
         wsdlLocation="classpath:wsdl/EntityPatientDiscoverySecuredAsyncResp.wsdl">
         <jaxws:properties>
-            <entry key="ws-security.signature.properties" value="keystore.properties" />
-            <entry key="ws-security.encryption.properties" value="truststore.properties" />
+            <entry key="ws-security.signature.properties" value="file:///${nhinc.properties.dir}/signature.properties" />
+            <entry key="ws-security.encryption.properties" value="file:///${nhinc.properties.dir}/truststore.properties" />
             <entry key="ws-security.saml2.validator">
                 <bean class="gov.hhs.fha.nhinc.callback.cxf.CONNECTSamlAssertionValidator" />
             </entry>            
