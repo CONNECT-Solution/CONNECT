@@ -41,7 +41,10 @@ import gov.hhs.fha.nhinc.connectmgr.UrlInfo;
 import gov.hhs.fha.nhinc.docquery.outbound.StandardOutboundDocQueryHelper;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
+import gov.hhs.fha.nhinc.orchestration.AuditTransformer;
 import gov.hhs.fha.nhinc.orchestration.OutboundOrchestratable;
+import gov.hhs.fha.nhinc.orchestration.OutboundResponseProcessor;
+import gov.hhs.fha.nhinc.orchestration.PolicyTransformer;
 import gov.hhs.fha.nhinc.patientcorrelation.nhinc.parsers.PRPAIN201309UV.PixRetrieveBuilder;
 import gov.hhs.fha.nhinc.patientcorrelation.nhinc.proxy.PatientCorrelationProxyFactory;
 import gov.hhs.fha.nhinc.patientcorrelation.nhinc.proxy.PatientCorrelationProxyObjectFactory;
@@ -75,6 +78,7 @@ public class AggregationService {
     private PixRetrieveBuilder pixRetrieveBuilder;
     private StandardOutboundDocQueryHelper standardOutboundDocQueryHelper;
 
+ 
     /**
      * @param sHomeCommunity
      * @param connectionManager
@@ -91,10 +95,10 @@ public class AggregationService {
     }
 
     /**
-     * defualt constructor.
+     * default constructor.
      */
     public AggregationService() {
-        
+
         this.connectionManager = ConnectionManagerCache.getInstance();
         this.patientCorrelationProxyFactory = new PatientCorrelationProxyObjectFactory();
         this.pixRetrieveBuilder = new PixRetrieveBuilder();
@@ -127,8 +131,8 @@ public class AggregationService {
             if (hasIdentities(results)) {
                 identities = results.getPRPAIN201310UV02().getControlActProcess().getSubject().get(0)
                         .getRegistrationEvent().getSubject1().getPatient().getId();
-            } 
-            
+            }
+
             for (II id : identities) {
                 NhinTargetSystemType target = new NhinTargetSystemType();
                 HomeCommunityType targetCommunity = standardOutboundDocQueryHelper.lookupHomeCommunityId(id.getRoot(),
@@ -141,8 +145,8 @@ public class AggregationService {
                 // set the home community id to the target hcid
                 setTargetHomeCommunityId(childRequest, target.getHomeCommunity().getHomeCommunityId());
 
-                OutboundDocQueryOrchestratable orchestratable = new OutboundDocQueryOrchestratable(delegate, null,
-                        null, null, assertion, NhincConstants.DOC_QUERY_SERVICE_NAME, target, childRequest);
+                OutboundDocQueryOrchestratable orchestratable = new OutboundDocQueryOrchestratable(delegate, assertion,
+                        NhincConstants.DOC_QUERY_SERVICE_NAME, target, childRequest);
 
                 list.add(orchestratable);
             }
