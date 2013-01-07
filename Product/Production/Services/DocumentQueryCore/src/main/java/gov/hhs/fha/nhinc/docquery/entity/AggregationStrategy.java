@@ -51,14 +51,13 @@ public class AggregationStrategy {
     public void execute(Aggregate aggregate) {
         Executor executor = Executors.newCachedThreadPool();
         CompletionService<OutboundOrchestratable> completionService = new ExecutorCompletionService<OutboundOrchestratable>(executor);
-        Collection<OutboundOrchestratable> aggregationContexts = aggregate.getMessages();
-        for(OutboundOrchestratable orchestrationContext : aggregationContexts) {
+        Collection<OutboundOrchestratable> aggregationRequests = aggregate.getAggregateRequests();
+        
+        int size = aggregationRequests.size();
+        
+        for(OutboundOrchestratable orchestrationContext : aggregationRequests) {
             completionService.submit(new CallableAggregation(orchestrationContext));
         }
-        
-        int size = aggregationContexts.size();
-        
-        
         
         int i = 0;
         for(; i < size; i++) {
@@ -70,12 +69,12 @@ public class AggregationStrategy {
                 break;
             } catch (ExecutionException e) {
                 LOG.error(e);
-                break;
+                continue;
             }
         }
         
         if ( i < size) {
-            LOG.info("aggregation stop. failed to get " + (size - i) + " responses.");
+            LOG.info((size - i) + " responses failed.");
         }
 
     }

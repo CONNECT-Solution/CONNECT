@@ -6,6 +6,7 @@ package gov.hhs.fha.nhinc.docquery.outbound;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertSame;
+import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import gov.hhs.fha.nhinc.aspect.OutboundProcessingEvent;
@@ -16,6 +17,7 @@ import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunityType;
 import gov.hhs.fha.nhinc.docquery.AdhocQueryResponseAsserter;
 import gov.hhs.fha.nhinc.docquery.aspect.AdhocQueryRequestDescriptionBuilder;
 import gov.hhs.fha.nhinc.docquery.aspect.AdhocQueryResponseDescriptionBuilder;
+import gov.hhs.fha.nhinc.docquery.entity.AggregationService;
 import gov.hhs.fha.nhinc.docquery.entity.AggregationStrategy;
 import gov.hhs.fha.nhinc.docquery.entity.OutboundDocQueryAggregate;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
@@ -39,34 +41,33 @@ import org.mockito.ArgumentCaptor;
 public class StandardOutboundDocQueryTest {
 
     @Test
-    public void testrespondingGatewayCrossGatewayQueryforNullEndPoint() {
+    public void testrespondingGatewayCrossGatewayQueryforNullEndPoint() throws Exception {
 
         AggregationStrategy strategy = mock(AggregationStrategy.class);
 
         AdhocQueryRequest adhocQueryRequest = new AdhocQueryRequest();
         adhocQueryRequest = createRequest(createSlotList());
+        
+        AggregationService service = mock(AggregationService.class);
 
         AssertionType assertion = new AssertionType();
 
-        StandardOutboundDocQuery entitydocqueryimpl = new StandardOutboundDocQuery(strategy);
+        StandardOutboundDocQuery entitydocqueryimpl = new StandardOutboundDocQuery(strategy, service);
 
         NhinTargetCommunitiesType targets = createNhinTargetCommunites();
         AdhocQueryResponse response = entitydocqueryimpl.respondingGatewayCrossGatewayQuery(adhocQueryRequest,
                 assertion, targets);
-
-        ArgumentCaptor<OutboundDocQueryAggregate> aggregate = ArgumentCaptor.forClass(OutboundDocQueryAggregate.class);
-
-        verify(strategy).execute(aggregate.capture());
-
-        assertSame(aggregate.getValue().getAdhocQueryRequest(), adhocQueryRequest);
-        assertSame(aggregate.getValue().getAssertion(), assertion);
-        assertSame(aggregate.getValue().getTargets(), targets);
+        verify(service).createChildRequests(eq(adhocQueryRequest), eq(assertion), eq(targets));
+        
+        AdhocQueryResponseAsserter.assertSchemaCompliant(response);
+     
     }
 
     @Test
     public void errorResponseHasRegistryObjectList() throws Exception {
         AggregationStrategy strategy = mock(AggregationStrategy.class);
-        StandardOutboundDocQuery docQuery = new StandardOutboundDocQuery(strategy);
+        AggregationService service = mock(AggregationService.class);
+        StandardOutboundDocQuery docQuery = new StandardOutboundDocQuery(strategy, service);
 
         AdhocQueryRequest adhocQueryRequest = mock(AdhocQueryRequest.class);
         AssertionType assertion = mock(AssertionType.class);
