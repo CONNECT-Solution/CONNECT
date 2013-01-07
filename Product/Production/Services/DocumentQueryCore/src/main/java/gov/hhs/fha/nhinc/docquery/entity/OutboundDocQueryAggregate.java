@@ -28,37 +28,27 @@
  */
 package gov.hhs.fha.nhinc.docquery.entity;
 
-import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
-import gov.hhs.fha.nhinc.orchestration.NhinAggregator;
 import gov.hhs.fha.nhinc.orchestration.OutboundOrchestratable;
 
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
-
-import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
 
 /**
  * @author bhumphrey
- *
+ * 
  */
 public class OutboundDocQueryAggregate implements Aggregate {
-    
-    
+
     private OutboundDocQueryOrchestratable request;
-    
-    private NhinTargetCommunitiesType targets;
-    private AssertionType assertion;
-    private AdhocQueryRequest adhocQueryRequest;
-    private AggregationService fanoutService;
-    
+
+    private Collection<OutboundOrchestratable> aggregateRequests;
+
     public OutboundDocQueryAggregate() {
         this.request = new OutboundDocQueryOrchestratable();
-        this.fanoutService = new AggregationService();
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see gov.hhs.fha.nhinc.docquery.entity.Aggregate#aggregate(gov.hhs.fha.nhinc.docquery.entity.AggregationContext)
      */
     @Override
@@ -66,12 +56,14 @@ public class OutboundDocQueryAggregate implements Aggregate {
         request.getAggregator().aggregate(request, message);
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see gov.hhs.fha.nhinc.docquery.entity.Aggregate#getContexts()
      */
     @Override
-    public Collection<OutboundOrchestratable> getMessages() {
-       return fanoutService.createChildRequests(adhocQueryRequest, assertion, targets);
+    public Collection<OutboundOrchestratable> getAggregateRequests() {
+        return aggregateRequests;
     }
 
     /**
@@ -89,61 +81,10 @@ public class OutboundDocQueryAggregate implements Aggregate {
     }
 
     /**
-     * @return the targets
+     * @param messages the messages to set
      */
-    public NhinTargetCommunitiesType getTargets() {
-        return targets;
+    public void setAggregateRequests(Collection<OutboundOrchestratable> aggregateResponses) {
+        this.aggregateRequests = aggregateResponses;
     }
-
-    /**
-     * @param targets the targets to set
-     */
-    public void setTargets(NhinTargetCommunitiesType targets) {
-        this.targets = targets;
-    }
-
-    /**
-     * @return the assertion
-     */
-    public AssertionType getAssertion() {
-        return assertion;
-    }
-
-    /**
-     * @param assertion the assertion to set
-     */
-    public void setAssertion(AssertionType assertion) {
-        this.assertion = assertion;
-    }
-
-    /**
-     * @return the adhocQueryRequest
-     */
-    public AdhocQueryRequest getAdhocQueryRequest() {
-        return adhocQueryRequest;
-    }
-
-    /**
-     * @param adhocQueryRequest the adhocQueryRequest to set
-     */
-    public void setAdhocQueryRequest(AdhocQueryRequest adhocQueryRequest) {
-        this.adhocQueryRequest = adhocQueryRequest;
-    }
-
-    /**
-     * @return the fanoutService
-     */
-    public AggregationService getFanoutService() {
-        return fanoutService;
-    }
-
-    /**
-     * @param fanoutService the fanoutService to set
-     */
-    public void setFanoutService(AggregationService fanoutService) {
-        this.fanoutService = fanoutService;
-    }
-    
-    
 
 }

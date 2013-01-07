@@ -58,7 +58,7 @@ public class AggregationStrategyTest {
         ArrayList<OutboundOrchestratable> values = new ArrayList<OutboundOrchestratable>();
         values.add(message);
 
-        when(aggregate.getMessages()).thenReturn(values);
+        when(aggregate.getAggregateRequests()).thenReturn(values);
         when(message.getDelegate()).thenReturn(delegate);
         
         strategy.execute(aggregate);

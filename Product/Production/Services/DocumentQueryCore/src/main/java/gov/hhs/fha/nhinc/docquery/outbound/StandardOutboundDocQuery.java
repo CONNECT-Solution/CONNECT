@@ -31,13 +31,16 @@ import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
 import gov.hhs.fha.nhinc.docquery.aspect.AdhocQueryRequestDescriptionBuilder;
 import gov.hhs.fha.nhinc.docquery.aspect.AdhocQueryResponseDescriptionBuilder;
+import gov.hhs.fha.nhinc.docquery.entity.AggregationService;
 import gov.hhs.fha.nhinc.docquery.entity.AggregationStrategy;
 import gov.hhs.fha.nhinc.docquery.entity.OutboundDocQueryAggregate;
 import gov.hhs.fha.nhinc.docquery.entity.OutboundDocQueryAggregator;
 import gov.hhs.fha.nhinc.docquery.entity.OutboundDocQueryOrchestratable;
 import gov.hhs.fha.nhinc.gateway.aggregator.document.DocumentConstants;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import gov.hhs.fha.nhinc.orchestration.OutboundOrchestratable;
 
+import java.util.List;
 import java.util.concurrent.ExecutorService;
 
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
@@ -50,26 +53,28 @@ import org.apache.log4j.Logger;
 
 public class StandardOutboundDocQuery implements OutboundDocQuery {
 
-    private static final Logger LOG =  Logger.getLogger(StandardOutboundDocQuery.class);
+    private static final Logger LOG = Logger.getLogger(StandardOutboundDocQuery.class);
     private AggregationStrategy strategy;
-   
+    private AggregationService fanoutService;
+    
+
     /**
      * Add default constructor that is used by test cases Note that implementations should always use constructor that
      * takes the executor services as input.
      */
     public StandardOutboundDocQuery() {
         strategy = new AggregationStrategy();
-     }
-    
+        fanoutService = new AggregationService();
+    }
+
     /**
      * @param strategy
      */
-    StandardOutboundDocQuery(AggregationStrategy strategy) {
+    StandardOutboundDocQuery(AggregationStrategy strategy, AggregationService fanoutService) {
         super();
         this.strategy = strategy;
+        this.fanoutService = fanoutService;
     }
-
-
 
     /**
      * We construct the orch impl class with references to both executor services that could be used for this particular
@@ -82,8 +87,6 @@ public class StandardOutboundDocQuery implements OutboundDocQuery {
     public StandardOutboundDocQuery(ExecutorService e, ExecutorService le) {
     }
 
-   
-    
     /**
      * 
      * @param adhocQueryRequest The AdhocQueryRequest message received.
@@ -96,23 +99,30 @@ public class StandardOutboundDocQuery implements OutboundDocQuery {
     public AdhocQueryResponse respondingGatewayCrossGatewayQuery(AdhocQueryRequest adhocQueryRequest,
             AssertionType assertion, NhinTargetCommunitiesType targets) {
         LOG.trace("EntityDocQueryOrchImpl.respondingGatewayCrossGatewayQuery...");
-      
+
         OutboundDocQueryAggregate aggregate = new OutboundDocQueryAggregate();
-        aggregate.setAdhocQueryRequest(adhocQueryRequest);
-        aggregate.setAssertion(assertion);
-        aggregate.setTargets(targets);
-        OutboundDocQueryOrchestratable request= new OutboundDocQueryOrchestratable(new OutboundDocQueryAggregator(), assertion, NhincConstants.DOC_QUERY_SERVICE_NAME, adhocQueryRequest);
-  
-        aggregate.setRequest(request);
-        strategy.execute(aggregate);
-        
-        AdhocQueryResponse response = request.getResponse();
-        if (response == null) {
-            response = createErrorResponse("XDSUnknownPatientId", "No patient correlations found.");
+
+        List<OutboundOrchestratable> aggregateRequests = fanoutService
+                .createChildRequests(adhocQueryRequest, assertion, targets);
+
+        if (aggregateRequests.size() == 0) {
+            LOG.info("no patient correlation found.");
+            return createErrorResponse("XDSUnknownPatientId", "No patient correlations found.");
         }
-        return response;
-     }
-    
+        
+        OutboundDocQueryOrchestratable request = new OutboundDocQueryOrchestratable(new OutboundDocQueryAggregator(),
+                assertion, NhincConstants.DOC_QUERY_SERVICE_NAME, adhocQueryRequest);
+
+        aggregate.setRequest(request);
+
+        aggregate.setAggregateRequests(aggregateRequests);
+
+        strategy.execute(aggregate);
+
+        return request.getResponse();
+
+    }
+
     /**
      * This method returns RegistryErrorList for AdhocQueryResponse.
      * 
@@ -129,8 +139,7 @@ public class StandardOutboundDocQuery implements OutboundDocQuery {
         regErr.setSeverity(NhincConstants.XDS_REGISTRY_ERROR_SEVERITY_ERROR);
         return regErrList;
     }
-   
-    
+
     /**
      * This method returns Response with RegistryErrorList if there is any failure.
      * 
