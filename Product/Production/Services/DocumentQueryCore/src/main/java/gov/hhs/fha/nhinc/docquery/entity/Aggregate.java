@@ -40,6 +40,6 @@ public interface Aggregate {
 
     void aggregate(OutboundOrchestratable message);
 
-    Collection<OutboundOrchestratable> getMessages();
+    Collection<OutboundOrchestratable> getAggregateRequests();
 
 }
