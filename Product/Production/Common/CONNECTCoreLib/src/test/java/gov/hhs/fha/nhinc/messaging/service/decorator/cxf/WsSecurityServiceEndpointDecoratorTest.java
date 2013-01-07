@@ -42,7 +42,6 @@ import org.apache.cxf.frontend.ClientProxy;
 import org.apache.cxf.interceptor.Interceptor;
 import org.apache.cxf.message.Message;
 import org.apache.cxf.ws.security.wss4j.WSS4JOutInterceptor;
-import org.apache.ws.security.handler.WSHandlerConstants;
 import org.junit.Test;
 
 /**
@@ -98,21 +97,9 @@ public class WsSecurityServiceEndpointDecoratorTest {
 
         assertNotNull(wss4jInterceptor);
         assertTrue(wss4jInterceptor.isAllowMTOM());
-
-        Map<String, Object> properties = wss4jInterceptor.getProperties();
-        assertEquals("Timestamp SAMLTokenSigned", properties.get(WSHandlerConstants.ACTION));
-        assertEquals("3600", properties.get(WSHandlerConstants.TTL_TIMESTAMP));
-        assertEquals("gateway", properties.get(WSHandlerConstants.USER));
-        assertEquals("gov.hhs.fha.nhinc.callback.cxf.CXFPasswordCallbackHandler",
-                properties.get(WSHandlerConstants.PW_CALLBACK_CLASS));
-        assertEquals("PasswordDigest", properties.get(WSHandlerConstants.PASSWORD_TYPE));
-        assertEquals("saml.properties", properties.get(WSHandlerConstants.SAML_PROP_FILE));
-        assertEquals("keystore.properties", properties.get(WSHandlerConstants.SIG_PROP_FILE));
-        assertEquals("http://www.w3.org/2000/09/xmldsig#rsa-sha1", properties.get(WSHandlerConstants.SIG_ALGO));
-        assertEquals("http://www.w3.org/2000/09/xmldsig#sha1", properties.get(WSHandlerConstants.SIG_DIGEST_ALGO));
-        assertEquals(
-                "{Element}{http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd}Timestamp;",
-                properties.get(WSHandlerConstants.SIGNATURE_PARTS));
+        
+        Map<String, Object> properties = wss4jInterceptor.getProperties();        
+        new WsSecurityConfigFactoryTest().verifyWsSecurityProperties(properties);
     }
 
     private CONNECTClient<TestServicePortType> createClient() {
@@ -120,12 +107,8 @@ public class WsSecurityServiceEndpointDecoratorTest {
                 new TestServicePortDescriptor());
 
         ServiceEndpoint<TestServicePortType> serviceEndpoint = testClient.getServiceEndpoint();
-        serviceEndpoint = new WsSecurityServiceEndpointDecorator<TestServicePortType>(serviceEndpoint) {
-        	@Override
-        	protected String getIssuerKeyAlias() {
-        		return "gateway";
-        	}
-        };
+
+        serviceEndpoint = new WsSecurityServiceEndpointDecorator<TestServicePortType>(serviceEndpoint);
         serviceEndpoint.configure();
 
         return testClient;
