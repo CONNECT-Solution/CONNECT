@@ -28,6 +28,10 @@
             <artifactId>SharedEngineCore</artifactId>
             <version>${project.parent.version}</version>
         </dependency>
+        <dependency>
+            <groupId>commons-lang</groupId>
+            <artifactId>commons-lang</artifactId>
+        </dependency>
     </dependencies>
     <build>
     </build>
