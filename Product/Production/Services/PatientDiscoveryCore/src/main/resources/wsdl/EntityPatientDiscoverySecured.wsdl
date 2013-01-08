@@ -28,7 +28,7 @@
         <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
         <wsp:PolicyReference URI="#Entity_PatientDiscovery_SoapPolicy"/>
         <wsdl:operation name="RespondingGateway_PRPA_IN201305UV02">
-            <soap:operation soapAction="urn:RespondingGateway_PRPA_IN201305UV02"/>
+            <soap:operation soapAction="urn:gov:hhs:fha:nhinc:entitypatientdiscoverysecured:RespondingGateway_PRPA_IN201305UV02RequestMessage"/>
             <wsdl:input name="RespondingGateway_PRPA_IN201305UV02Request">
                 <soap:body use="literal"/>
                 <wsp:PolicyReference URI="#Entity_PatientDiscovery_Binding_Soap_Input_Policy"/>

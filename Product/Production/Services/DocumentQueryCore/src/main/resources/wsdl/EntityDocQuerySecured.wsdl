@@ -55,7 +55,7 @@
     <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
     <wsp:PolicyReference URI="#RespondingGateway_Query_Binding_SoapPolicy"/>
     <operation name="RespondingGateway_CrossGatewayQuery">
-      <soap:operation soapAction="urn:RespondingGateway_CrossGatewayQuery"/>
+      <soap:operation soapAction="urn:gov:hhs:fha:nhinc:entitydocquery:RespondingGateway_CrossGatewayQuerySecuredRequestMessage"/>
       <input name="RespondingGateway_CrossGatewayQueryRequest">
         <soap:body use="literal"/>
         <wsp:PolicyReference URI="#RespondingGateway_Query_Binding_Soap_Input_Policy"/>

@@ -64,7 +64,7 @@ public class XmlUtility {
         }
         return value;
     }
-    
+
     protected static DOMImplementationLS getDOMImplementationLS(Node node) {
         Document document = node.getOwnerDocument();
         return (DOMImplementationLS) document.getImplementation();
@@ -147,20 +147,6 @@ public class XmlUtility {
 
     /**
      * @deprecated Use {@link XpathHelper} instead
-     * @param sourceXml
-     * @param xpathQuery
-     * @param namespaceContext
-     * @return
-     * @throws javax.xml.xpath.XPathExpressionException
-     */
-    @Deprecated
-    public static Node performXpathQuery(String sourceXml, String xpathQuery, NamespaceContext namespaceContext)
-            throws XPathExpressionException {
-        return XpathHelper.performXpathQuery(sourceXml, xpathQuery, namespaceContext);
-    }
-
-    /**
-     * @deprecated Use {@link XpathHelper} instead
      * @param sourceElement
      * @param xpathQuery
      * @return
@@ -203,7 +189,7 @@ public class XmlUtility {
         }
         return element;
     }
-    
+
     private static Element initializeElement() {
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         DocumentBuilder builder = null;

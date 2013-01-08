@@ -54,7 +54,7 @@
         <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
         <wsp:PolicyReference URI="#RespondingGateway_Retrieve_Binding_SoapPolicy"/>
         <operation name="RespondingGateway_CrossGatewayRetrieve">
-            <soap:operation soapAction="urn:RespondingGateway_CrossGatewayRetrieve"/>
+            <soap:operation soapAction="urn:gov:hhs:fha:nhinc:entitydocretrievesecured:RespondingGateway_CrossGatewayRetrieveRequestMessage"/>
             <input name="RespondingGateway_CrossGatewayRetrieveRequest">
                 <soap:body use="literal"/>
                 <wsp:PolicyReference URI="#RespondingGateway_Retrieve_Binding_Soap_Input_Policy"/>

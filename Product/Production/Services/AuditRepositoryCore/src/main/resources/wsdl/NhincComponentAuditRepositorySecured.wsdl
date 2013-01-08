@@ -54,7 +54,7 @@
         <wsp:PolicyReference URI="#AuditRepository_Binding_SoapPolicy"/>
         <operation name="QueryAuditEvents">
             <soap:operation style="document"
-                            soapAction="urn:QueryAuditEvents"/>
+                            soapAction="urn:gov:hhs:fha:nhinc:nhinccomponentauditrepository:QueryAuditEventsSecuredRequest"/>
             <input name="QueryAuditEventsSecuredRequest">
                 <soap:body use="literal"/>
                 <wsp:PolicyReference URI="#AuditRepository_Input_Policy"/>
@@ -65,7 +65,7 @@
             </output>
         </operation>
         <operation name="LogEvent">
-            <soap:operation soapAction="urn:LogEvent"/>
+            <soap:operation soapAction="urn:gov:hhs:fha:nhinc:nhinccomponentauditrepository:LogEventSecuredRequest"/>
             <input name="LogEventSecuredRequest">
                 <soap:body use="literal"/>
                 <wsp:PolicyReference URI="#AuditRepository_Input_Policy"/>

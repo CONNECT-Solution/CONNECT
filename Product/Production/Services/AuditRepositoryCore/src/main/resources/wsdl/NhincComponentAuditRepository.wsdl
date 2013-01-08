@@ -48,7 +48,7 @@
                       transport="http://schemas.xmlsoap.org/soap/http"/>
         <operation name="QueryAuditEvents">
             <soap:operation style="document" 
-                            soapAction="urn:QueryAuditEvents"/>
+                            soapAction="urn:gov:hhs:fha:nhinc:nhinccomponentauditrepository:QueryAuditEventsRequest"/>
             <input name="QueryAuditEventsRequest">
                 <soap:body use="literal"/>
             </input>
@@ -57,7 +57,7 @@
             </output>
         </operation>
         <operation name="LogEvent">
-            <soap:operation soapAction="urn:LogEvent"/>
+            <soap:operation soapAction="urn:gov:hhs:fha:nhinc:nhinccomponentauditrepository:LogEventRequest"/>
             <input name="LogEventRequest">
                 <soap:body use="literal"/>
             </input>
