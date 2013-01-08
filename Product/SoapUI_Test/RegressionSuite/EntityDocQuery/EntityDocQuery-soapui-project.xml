@@ -1,89 +1,120 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<con:soapui-project activeEnvironment="Default" name="DocQueryErrorCodes" resourceRoot="${projectDir}" soapui-version="4.5.1" abortOnError="false" runType="SEQUENTIAL" xmlns:con="http://eviware.com/soapui/config"><con:settings/><con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:entitydocquery}EntityDocQueryBindingSoap" definition="../../target/wsdl/EntityDocQuery.wsdl" name="EntityDocQueryBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-		<con:settings/>
+<con:soapui-project abortOnError="false" name="EntityDocQuery" resourceRoot="${projectDir}" runType="SEQUENTIAL" soapui-version="4.5.1" activeEnvironment="Default" xmlns:con="http://eviware.com/soapui/config">
+  <con:settings/>
+  <con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:entitydocquery}EntityDocQueryBindingSoap" definition="../../target/wsdl/EntityDocQuery.wsdl" name="EntityDocQueryBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <con:settings/>
+    
+    <con:endpoints>
+      <con:endpoint>http://localhost:${HttpDefaultPort}/NhinConnect/EntityDocQuery</con:endpoint>
+    <con:endpoint>http://localhost:${HttpDefaultPort}/Gateway/DocumentQuery/2_0/EntityService/EntityDocQueryUnsecured</con:endpoint></con:endpoints>
+    <con:operation action="urn:gov:hhs:fha:nhinc:entitydocquery:RespondingGateway_CrossGatewayQueryRequest" anonymous="optional" bindingOperationName="RespondingGateway_CrossGatewayQuery" inputName="RespondingGateway_CrossGatewayQueryRequest" isOneWay="false" name="RespondingGateway_CrossGatewayQuery" outputName="RespondingGateway_CrossGatewayQueryResponse" receivesAttachments="false" sendsAttachments="false" type="Request-Response">
+      <con:settings/>
+    </con:operation>
+  </con:interface>
+  <con:testSuite name="EntityDocQueryTestSuite">
+    <con:settings/>
+    <con:runType>SEQUENTIAL</con:runType>
+    <con:testCase failOnError="true" failTestCaseOnErrors="true" id="4906f58e-5725-4a79-8ab1-c86eb8822975" keepSession="false" maxResults="0" name="Document Query Fanout" searchProperties="true">
+      <con:settings/>
+      
+      <con:testStep name="Copy uddiConnectionInfo" type="groovy">
+        <con:settings/>
+        <con:config><script>def sourceDir = (new com.eviware.soapui.support.GroovyUtils(context)).projectPath;
 
-		<con:endpoints>
-		<con:endpoint>http://localhost:8080/Gateway/DocumentQuery/2_0/EntityService/EntityDocQueryUnsecured</con:endpoint></con:endpoints>
-		<con:operation action="urn:RespondingGateway_CrossGatewayQuery" anonymous="optional" bindingOperationName="RespondingGateway_CrossGatewayQuery" inputName="RespondingGateway_CrossGatewayQueryRequest" isOneWay="false" name="RespondingGateway_CrossGatewayQuery" outputName="RespondingGateway_CrossGatewayQueryResponse" receivesAttachments="false" sendsAttachments="false" type="Request-Response">
-			<con:settings/>
-		</con:operation>
-	</con:interface><con:testSuite name="DocQueryErrorCodes"><con:settings/><con:runType>SEQUENTIAL</con:runType><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="XDSUnknownStoredQuery" searchProperties="true" id="ca621509-930f-4408-89fc-a217f85872d7">
-	<con:description>The &lt;AdHocQuery>/@id value was changed to something not valid. Expecting an XDSUnknownStoredQuery</con:description><con:settings/>
+nhinc.FileUtils.copyFile(sourceDir, "uddiConnectionInfo_FANOUT.xml", context.findProperty("GatewayPropDir"), "uddiConnectionInfo.xml", log);</script></con:config>
+      </con:testStep>
+      <con:testStep name="update config" type="groovy">
+        <con:settings/>
+        <con:config><script>nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'), "gateway.properties", "documentQueryQuerySelf", "false", log);</script></con:config>
+      </con:testStep>
+      <con:testStep name="Generate patient ID for Doc Query" type="groovy">
+        <con:settings/>
+        <con:config>
+          <script>def localAA = context.findProperty('LocalAA')
+def dqPatientID = context.findProperty('DQPatientID')
 
-	<con:testStep name="update config" type="groovy">
-		<con:settings/>
-		<con:config><script>nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'), "gateway.properties", "documentQueryQuerySelf", "false", log);</script></con:config>
-</con:testStep>
-<con:testStep name="Clear Correlation Table &amp; Add Correlation" type="groovy">
-	<con:settings/>
-	<con:config>
-		<script>context.withSql('PatientCorrelationDB') { sql -> 
-		def table = context.findProperty('PatientCorrelationTable')
+context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;${localAA}&amp;amp;ISO'");</script>
+        </con:config>
+      </con:testStep>
+      <con:testStep name="Clear Correlation Table &amp; Add Correlation" type="groovy">
+        <con:settings/>
+        <con:config><script>context.withSql('PatientCorrelationDB') { sql -> 
+  def table = context.findProperty('PatientCorrelationTable')
+  
+  sql.execute('delete from ' + table)
 
-		sql.execute('delete from ' + table)
+  def localAA = context.findProperty( "LocalAA" )
+  def localPatientID = context.findProperty("LocalPatientID")
+  def remoteAA1 = context.findProperty( "RemoteAA1" )
+  def remoteAA2 = context.findProperty( "RemoteAA2" )
+  def remotePatientID1 = context.findProperty("RemotePatientID1")
+  def remotePatientID2 = context.findProperty("RemotePatientID2")
+  def insertSql = "insert into " + table + " (correlationId, PatientAssigningAuthorityId, PatientId, CorrelatedPatientAssignAuthId, CorrelatedPatientId) " + 
+                   "values (?, ?, ?, ?, ?)"
+  sql.executeUpdate(insertSql, [1, localAA, localPatientID, remoteAA1, remotePatientID1])
+  sql.executeUpdate(insertSql, [2, localAA, localPatientID, remoteAA2, remotePatientID2])
+  //sql.executeUpdate(insertSql, [1, remoteAA1, remotePatientID1, localAA, localPatientID])
+  //sql.executeUpdate(insertSql, [2, remoteAA2, remotePatientID2, localAA, localPatientID])
+}</script></con:config>
+      </con:testStep>
+      <con:testStep name="Clear AA Mapping Table &amp; Add Mapping" type="groovy">
+        <con:settings/>
+        <con:config>
+          <script>context.withSql('AAMappingDB') { sql -> 
+  def table = context.findProperty('AAMappingTable')
+  
+  sql.execute('delete from ' + table)
 
-		def localAA = context.findProperty( "LocalAA" )
-		def localPatientID = context.findProperty("LocalPatientID")
-		def remoteAA = context.findProperty( "RemoteAA" )
-		def remotePatientID = context.findProperty("RemotePatientID")
-		def insertSql = "insert into " + table + " (correlationId, PatientAssigningAuthorityId, PatientId, CorrelatedPatientAssignAuthId, CorrelatedPatientId) " + 
-		"values (1, ?, ?, ?, ?)"
-		sql.executeUpdate(insertSql, [localAA, localPatientID, remoteAA, remotePatientID])
-		}</script>
-</con:config>
-</con:testStep>
-<con:testStep name="Clear AA Mapping Table &amp; Add Mapping" type="groovy">
-	<con:settings/>
-	<con:config>
-		<script>context.withSql('AAMappingDB') { sql -> 
-		def table = context.findProperty('AAMappingTable')
+  def remoteAA1 = context.findProperty( "RemoteAA1" )
+  def remoteHCID1 = context.findProperty("RemoteHCID1")
+  def remoteAA2 = context.findProperty( "RemoteAA2" )
+  def remoteHCID2 = context.findProperty("RemoteHCID2")
+  def insertSql = "insert into " + table + " (id, assigningauthorityid, homecommunityid) " + 
+                   "values (?, ?, ?)"
+  sql.executeUpdate(insertSql, [1, remoteAA1, remoteHCID1])
+  sql.executeUpdate(insertSql, [2, remoteAA2, remoteHCID2])
+}</script>
+        </con:config>
+      </con:testStep>
+      <con:testStep name="Set Connection Info" type="groovy">
+        <con:settings/>
+        <con:config><script>def destConfigFileLocation = context.findProperty("GatewayPropDir");
+def Host2 = context.findProperty("Host2");
+def HCID2 = context.findProperty("RemoteHCID1");
+def docQueryURL1 = "https://" + Host2 + ":8181/Gateway/DocumentQuery/2_0/NhinService/RespondingGateway_Query_Service/DocQuery";
 
-		sql.execute('delete from ' + table)
+def Host3 = context.findProperty("Host3");
+def HCID3 = context.findProperty( "RemoteHCID2" );
+def docQueryURL2 = "https://" + Host3 + ":8181/Gateway/DocumentQuery/2_0/NhinService/RespondingGateway_Query_Service/DocQuery";
 
-		def remoteAA = context.findProperty( "RemoteAA" )
-		def remoteHCID = context.findProperty("RemoteHCID")
-		def insertSql = "insert into " + table + " (id, assigningauthorityid, homecommunityid) " + 
-		"values (1, ?, ?)"
-		sql.executeUpdate(insertSql, [remoteAA, remoteHCID])
-		}</script>
-</con:config>
-</con:testStep>
-<con:testStep name="Document Query" type="request">
-	<con:settings/>
-	<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-		<con:interface>EntityDocQueryBindingSoap</con:interface>
-		<con:operation>RespondingGateway_CrossGatewayQuery</con:operation>
-		<con:request name="Document Query">
-			<con:settings>
-				<con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
-	</con:settings>
-	<con:encoding>UTF-8</con:encoding>
-	<con:endpoint>http://localhost:8080/Gateway/DocumentQuery/2_0/EntityService/EntityDocQueryUnsecured</con:endpoint>
-	<con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn3="urn:gov:hhs:fha:nhinc:common:nhinccommon">
-   <soap:Header/>
-   <soap:Body testSuite="DocQueryErrorCodes" testCase="XDSUnknownStoredQuery">
+nhinc.FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml",destConfigFileLocation, HCID2, "QueryForDocuments", docQueryURL1,"3.0", log)
+nhinc.FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml",destConfigFileLocation, HCID3, "QueryForDocuments", docQueryURL2,"3.0", log)</script></con:config>
+      </con:testStep>
+      
+      <con:testStep name="Document Query" type="request">
+        <con:settings/>
+        <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+          <con:interface>EntityDocQueryBindingSoap</con:interface>
+          <con:operation>RespondingGateway_CrossGatewayQuery</con:operation>
+          <con:request name="Document Query">
+            <con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings>
+            <con:encoding>UTF-8</con:encoding>
+            <con:endpoint>${#Project#Endpoint-DocQuery}</con:endpoint>
+            <con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn3="urn:gov:hhs:fha:nhinc:common:nhinccommon">
+   <soapenv:Header/>
+   <soapenv:Body projectName="EntityDocQuery" testCase="Document Query Fanout">
       <urn:RespondingGateway_CrossGatewayQueryRequest>
          <urn1:AdhocQueryRequest federated="false" startIndex="0" maxResults="-1">
-            <urn1:ResponseOption returnType="LeafClass" returnComposedObjects="false"/>
-            <urn2:AdhocQuery home="urn:oid:1.1" id="urn:uuid:NOT_VALID">
+            <urn1:ResponseOption returnType="RegistryObject" returnComposedObjects="false"/>
+            <urn2:AdhocQuery home="urn:oid:2.16.840.1.113883.3.200" id="urn:uuid:14d4debf-8f97-4251-9a74-a90016b0af0d">
                <urn2:Slot name="$XDSDocumentEntryPatientId">
                   <urn2:ValueList>
-                     <urn2:Value>'${#Project#DQPatientID}^^^&amp;${#Project#LocalAA}&amp;ISO'</urn2:Value>
+                     <urn2:Value>${#TestCase#FullPatientID}</urn2:Value>
                   </urn2:ValueList>
                </urn2:Slot>
-               <urn2:Slot name="$XDSDocumentEntryStatus">
+               <urn2:Slot name="$XDSDocumentEntryType">
                   <urn2:ValueList>
-                     <urn2:Value>('urn:oasis:names:tc:ebxml-regrep:StatusType:Approved')</urn2:Value>
-                  </urn2:ValueList>
-               </urn2:Slot>
-               <urn2:Slot name="$XDSDocumentEntryClassCode">
-                  <urn2:ValueList>
-                     <urn2:Value>34133-9</urn2:Value>
-                  </urn2:ValueList>
-               </urn2:Slot>
-               <urn2:Slot name="$XDSDocumentEntryClassCodeScheme">
-                  <urn2:ValueList>
-                     <urn2:Value>2.16.840.1.113883.6.1</urn2:Value>
+                     <urn2:Value>('${#Project#DQStableDocs}','${#Project#DQDynamicDocs}')</urn2:Value>
                   </urn2:ValueList>
                </urn2:Slot>
             </urn2:AdhocQuery>
@@ -186,7 +217,7 @@
                </urn3:phoneNumberType>
             </urn3:secondWitnessPhone>
             <urn3:SSN xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">253-98-7546</urn3:SSN>
-            <urn3:uniquePatientId xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">500000000^^^&amp;1.1&amp;ISO</urn3:uniquePatientId>
+            <urn3:uniquePatientId xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">500000000</urn3:uniquePatientId>
             <urn3:witnessAddress xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
                <urn3:addressType>
                   <urn3:code>addrCode</urn3:code>
@@ -245,7 +276,7 @@
                   <urn3:secondNameOrInitials>S</urn3:secondNameOrInitials>
                   <urn3:fullName>Kasrl S. Skagerberg</urn3:fullName>
                </urn3:personName>
-               <urn3:userName>kskagerberg</urn3:userName>
+               <urn3:userName>kskagerb</urn3:userName>
                <urn3:org>
                   <urn3:description>${#Project#LocalHCDescription}</urn3:description>
                   <urn3:homeCommunityId>${#Project#LocalHCID}</urn3:homeCommunityId>
@@ -297,140 +328,163 @@
                </urn3:evidence>
             </urn3:samlAuthzDecisionStatement>
          </urn:assertion>
-         <urn:NhinTargetCommunities>
+         <!--urn:NhinTargetCommunities>
             <urn3:nhinTargetCommunity>
                <urn3:homeCommunity>
-                  <urn3:description>${#Project#RemoteHCDescription}</urn3:description>
-                  <urn3:homeCommunityId>${#Project#RemoteHCID}</urn3:homeCommunityId>
-                  <urn3:name>${#Project#RemoteHCDescription}</urn3:name>
+                  <urn3:description></urn3:description>
+                  <urn3:homeCommunityId></urn3:homeCommunityId>
+                  <urn3:name></urn3:name>
                </urn3:homeCommunity>
+               <urn3:list/>
+               <urn3:region>US-NY</urn3:region>
             </urn3:nhinTargetCommunity>
-         </urn:NhinTargetCommunities>
+         </urn:NhinTargetCommunities-->
       </urn:RespondingGateway_CrossGatewayQueryRequest>
-   </soap:Body>
-</soap:Envelope>]]></con:request>
-	<con:assertion type="SOAP Response"/>
-	<con:assertion type="Schema Compliance">
-		<con:configuration/>
-	</con:assertion>
-	<con:assertion type="SOAP Fault Assertion"/>
-	
-	<con:assertion type="XPath Match" name="codeContext"><con:configuration><path>declare namespace ns2='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request>
+            <con:assertion type="SOAP Response"/>
+            <con:assertion type="Schema Compliance">
+              <con:configuration/>
+            </con:assertion>
+            <con:assertion type="SOAP Fault Assertion"/>
+            <con:assertion name="Document Count" type="XPath Match">
+              <con:configuration><path>declare namespace ns3='urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0';
+declare namespace ns6='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
+count(//ns6:AdhocQueryResponse[1]/ns3:RegistryObjectList[1]/ns3:ExtrinsicObject)</path><content>4</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration>
+            </con:assertion>
+            <con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/>
+            <con:wsrmConfig version="1.2"/>
+          </con:request>
+        </con:config>
+      </con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
+        <con:property>
+          <con:name>startDate</con:name>
+          <con:value>2013-02-04T00:22:38Z</con:value>
+        </con:property>
+        <con:property>
+          <con:name>endDate</con:name>
+          <con:value>2013-02-04T00:32:38Z</con:value>
+        </con:property>
+        <con:property>
+          <con:name>sigDate</con:name>
+          <con:value>02/04/2013 00:22:38</con:value>
+        </con:property>
+        <con:property>
+          <con:name>expireDate</con:name>
+          <con:value>2013-03-06T00:00:00Z</con:value>
+        </con:property>
+        <con:property>
+          <con:name>FullPatientID</con:name>
+          <con:value>'D123400^^^&amp;amp;1.1&amp;amp;ISO'</con:value>
+        </con:property>
+      </con:properties>
+      <con:reportParameters/>
+    <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);</con:tearDownScript></con:testCase>
+    <con:testCase failOnError="true" failTestCaseOnErrors="true" id="9c7bc51e-43ca-4c8d-83da-068f42cbfc00" keepSession="false" maxResults="0" name="Document Query Fanout - bad endpoint" searchProperties="true">
+      <con:settings/>
+      
+      
+      <con:testStep name="Copy uddiConnectionInfo" type="groovy">
+        <con:settings/>
+        <con:config><script>def sourceDir = (new com.eviware.soapui.support.GroovyUtils(context)).projectPath;
 
-//ns2:RegistryErrorList/ns2:RegistryError/@codeContext</path><content>Unknown Stored Query query id =urn:uuid:NOT_VALID</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion><con:assertion type="XPath Match" name="errorCode"><con:configuration><path>declare namespace ns2='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
+nhinc.FileUtils.copyFile(sourceDir, "uddiConnectionInfo_FANOUT.xml", context.findProperty("GatewayPropDir"), "uddiConnectionInfo.xml", log);</script></con:config>
+      </con:testStep>
+      
+      <con:testStep name="update config" type="groovy">
+        <con:settings/>
+        <con:config><script>nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'), "gateway.properties", "documentQueryQuerySelf", "false", log);</script></con:config>
+      </con:testStep>
+      <con:testStep name="Generate patient ID for Doc Query" type="groovy">
+        <con:settings/>
+        <con:config>
+          <script>def localAA = context.findProperty('LocalAA')
+def dqPatientID = context.findProperty('DQPatientID')
 
-//ns2:RegistryErrorList/ns2:RegistryError/@errorCode</path><content>XDSUnknownStoredQuery</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
-	<con:jmsPropertyConfig/>
-	<con:wsaConfig mustUnderstand="NONE" version="200508"/>
-	<con:wsrmConfig version="1.2"/>
-</con:request>
-</con:config>
-</con:testStep>
+context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;${localAA}&amp;amp;ISO'");</script>
+        </con:config>
+      </con:testStep>
+      
+      <con:testStep name="Clear Correlation Table &amp; Add Correlation" type="groovy">
+        <con:settings/>
+        <con:config><script>context.withSql('PatientCorrelationDB') { sql -> 
+  def table = context.findProperty('PatientCorrelationTable')
+  
+  sql.execute('delete from ' + table)
 
-<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);</con:setupScript>
-<con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);</con:tearDownScript>
-<con:properties>
-	<con:property>
-		<con:name>startDate</con:name>
-		<con:value>2012-12-05T01:10:54Z</con:value>
-	</con:property>
-	<con:property>
-		<con:name>endDate</con:name>
-		<con:value>2012-12-05T01:20:54Z</con:value>
-	</con:property>
-	<con:property>
-		<con:name>sigDate</con:name>
-		<con:value>12/05/2012 01:10:54</con:value>
-	</con:property>
-	<con:property>
-		<con:name>expireDate</con:name>
-		<con:value>2013-01-04T00:00:00Z</con:value>
-	</con:property>
-	<con:property>
-		<con:name>FullPatientID</con:name>
-		<con:value>'D123401^^^&amp;amp;1.1&amp;amp;ISO'</con:value>
-	</con:property>
-</con:properties>
-<con:reportParameters/>
-</con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="XDSStoredQueryMissingParam Missing XDSDocumentEntryPatientId Value" searchProperties="true" id="f785aa06-b451-45b1-bdc5-1c550fe4cb3a">
-	<con:description>Removing the element &lt;urn3:Slot name="$XDSDocumentEntryPatientId"> from the DQ request message resulted in a response containing &lt;ns11:RegistryError codeContext="Required parameter XDSDocumentEntryPatientId, not present in query request." errorCode="XDSStoredQueryMissingParam" severity="urn:oasis:names:tc:ebxml-regrep:ErrorSeverityType:Error"/>. The attribute errorCode is verified in the response.</con:description><con:settings/>
-	
-	<con:testStep name="update config" type="groovy">
-		<con:settings/>
-		<con:config><script>nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'), "gateway.properties", "documentQueryQuerySelf", "false", log);</script></con:config>
-</con:testStep>
-<con:testStep name="Clear Correlation Table &amp; Add Correlation" type="groovy">
-	<con:settings/>
-	<con:config>
-		<script>context.withSql('PatientCorrelationDB') { sql -> 
-		def table = context.findProperty('PatientCorrelationTable')
+  def localAA = context.findProperty( "LocalAA" )
+  def localPatientID = context.findProperty("LocalPatientID")
+  def remoteAA1 = context.findProperty( "RemoteAA1" )
+  def remoteAA2 = context.findProperty( "RemoteAA2" )
+  def remotePatientID1 = context.findProperty("RemotePatientID1")
+  def remotePatientID2 = context.findProperty("RemotePatientID2")
+  def insertSql = "insert into " + table + " (correlationId, PatientAssigningAuthorityId, PatientId, CorrelatedPatientAssignAuthId, CorrelatedPatientId) " + 
+                   "values (?, ?, ?, ?, ?)"
+  sql.executeUpdate(insertSql, [1, localAA, localPatientID, remoteAA1, remotePatientID1])
+  sql.executeUpdate(insertSql, [2, localAA, localPatientID, remoteAA2, remotePatientID2])
+}</script></con:config>
+      </con:testStep>
+      <con:testStep name="Clear AA Mapping Table &amp; Add Mapping" type="groovy">
+        <con:settings/>
+        <con:config>
+          <script>context.withSql('AAMappingDB') { sql -> 
+  def table = context.findProperty('AAMappingTable')
+  
+  sql.execute('delete from ' + table)
 
-		sql.execute('delete from ' + table)
+  def remoteAA1 = context.findProperty( "RemoteAA1" )
+  def remoteHCID1 = context.findProperty("RemoteHCID1")
+  def remoteAA2 = context.findProperty( "RemoteAA2" )
+  def remoteHCID2 = context.findProperty("RemoteHCID2")
+  def insertSql = "insert into " + table + " (id, assigningauthorityid, homecommunityid) " + 
+                   "values (?, ?, ?)"
+  sql.executeUpdate(insertSql, [1, remoteAA1, remoteHCID1])
+  sql.executeUpdate(insertSql, [2, remoteAA2, remoteHCID2])
+}</script>
+        </con:config>
+      </con:testStep>
+      
+      <con:testStep name="Set Connection Info" type="groovy">
+        <con:settings/>
+        <con:config><script>def destConfigFileLocation = context.findProperty("GatewayPropDir");
+def Host2 = context.findProperty("Host2");
+def HCID2 = context.findProperty( "RemoteHCID1" );
+def docQueryURL1 = "https://" + Host2 + ":8181/Gateway/DocumentQuery/2_0/NhinService/RespondingGateway_Query_Service/DocQuery";
 
-		def localAA = context.findProperty( "LocalAA" )
-		def localPatientID = context.findProperty("LocalPatientID")
-		def remoteAA = context.findProperty( "RemoteAA" )
-		def remotePatientID = context.findProperty("RemotePatientID")
-		def insertSql = "insert into " + table + " (correlationId, PatientAssigningAuthorityId, PatientId, CorrelatedPatientAssignAuthId, CorrelatedPatientId) " + 
-		"values (1, ?, ?, ?, ?)"
-		sql.executeUpdate(insertSql, [localAA, localPatientID, remoteAA, remotePatientID])
-		}</script>
-</con:config>
-</con:testStep>
-<con:testStep name="Clear AA Mapping Table &amp; Add Mapping" type="groovy">
-	<con:settings/>
-	<con:config>
-		<script>context.withSql('AAMappingDB') { sql -> 
-		def table = context.findProperty('AAMappingTable')
+def Host3 = context.findProperty("Host3");
+def HCID3 = context.findProperty( "RemoteHCID2" );
+def docQueryURL2 = "https://" + Host3 + ":8181/RespondingGateway_Query_Service/BadURL";
 
-		sql.execute('delete from ' + table)
-
-		def remoteAA = context.findProperty( "RemoteAA" )
-		def remoteHCID = context.findProperty("RemoteHCID")
-		def insertSql = "insert into " + table + " (id, assigningauthorityid, homecommunityid) " + 
-		"values (1, ?, ?)"
-		sql.executeUpdate(insertSql, [remoteAA, remoteHCID])
-		}</script>
-</con:config>
-</con:testStep>
-<con:testStep name="Document Query" type="request">
-	<con:settings/>
-	<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-		<con:interface>EntityDocQueryBindingSoap</con:interface>
-		<con:operation>RespondingGateway_CrossGatewayQuery</con:operation>
-		<con:request name="Document Query">
-			<con:settings>
-				<con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
-	</con:settings>
-	<con:encoding>UTF-8</con:encoding>
-	<con:endpoint>http://localhost:8080/Gateway/DocumentQuery/2_0/EntityService/EntityDocQueryUnsecured</con:endpoint>
-	<con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn3="urn:gov:hhs:fha:nhinc:common:nhinccommon">
-   <soap:Header/>
-   <soap:Body testSuite="DocQueryErrorCodes" testCase="XDSUnknownStoredQuery">
+nhinc.FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocation, HCID2, "QueryForDocuments", docQueryURL1, "2.0", log)
+nhinc.FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocation, HCID3, "QueryForDocuments", docQueryURL2, "2.0", log)</script></con:config>
+      </con:testStep>
+      
+      <con:testStep name="Document Query" type="request">
+        <con:settings/>
+        <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+          <con:interface>EntityDocQueryBindingSoap</con:interface>
+          <con:operation>RespondingGateway_CrossGatewayQuery</con:operation>
+          <con:request name="Document Query">
+            <con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings>
+            <con:encoding>UTF-8</con:encoding>
+            <con:endpoint>${#Project#Endpoint-DocQuery}</con:endpoint>
+            <con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn3="urn:gov:hhs:fha:nhinc:common:nhinccommon">
+   <soapenv:Header/>
+   <soapenv:Body projectName="EntityDocQuery" testCase="Document Query Fanout - bad endpoint">
       <urn:RespondingGateway_CrossGatewayQueryRequest>
          <urn1:AdhocQueryRequest federated="false" startIndex="0" maxResults="-1">
-            <urn1:ResponseOption returnType="LeafClass" returnComposedObjects="false"/>
-            <urn2:AdhocQuery home="urn:oid:1.1" id="urn:uuid:14d4debf-8f97-4251-9a74-a90016b0af0d">
-               <!--urn2:Slot name="$XDSDocumentEntryPatientId">
+            <urn1:ResponseOption returnType="RegistryObject" returnComposedObjects="false"/>
+            <urn2:AdhocQuery home="urn:oid:2.16.840.1.113883.3.200" id="urn:uuid:14d4debf-8f97-4251-9a74-a90016b0af0d">
+               <urn2:Slot name="$XDSDocumentEntryPatientId">
                   <urn2:ValueList>
-                     <urn2:Value>'${#Project#DQPatientID}^^^&amp;${#Project#LocalAA}&amp;ISO'</urn2:Value>
-                  </urn2:ValueList>
-               </urn2:Slot-->
-               <urn2:Slot name="$XDSDocumentEntryStatus">
-                  <urn2:ValueList>
-                     <urn2:Value>('urn:oasis:names:tc:ebxml-regrep:StatusType:Approved')</urn2:Value>
+                     <urn2:Value>${#TestCase#FullPatientID}</urn2:Value>
                   </urn2:ValueList>
                </urn2:Slot>
-               <urn2:Slot name="$XDSDocumentEntryClassCode">
-                  <urn2:ValueList>
-                     <urn2:Value>34133-9</urn2:Value>
-                  </urn2:ValueList>
-               </urn2:Slot>
-               <urn2:Slot name="$XDSDocumentEntryClassCodeScheme">
-                  <urn2:ValueList>
-                     <urn2:Value>2.16.840.1.113883.6.1</urn2:Value>
-                  </urn2:ValueList>
-               </urn2:Slot>
+		<urn2:Slot name="$XDSDocumentEntryType">
+			<urn2:ValueList>
+			<urn2:Value>('${#Project#DQStableDocs}','${#Project#DQDynamicDocs}')</urn2:Value>
+			</urn2:ValueList>
+		</urn2:Slot>
             </urn2:AdhocQuery>
          </urn1:AdhocQueryRequest>
          <urn:assertion>
@@ -531,7 +585,7 @@
                </urn3:phoneNumberType>
             </urn3:secondWitnessPhone>
             <urn3:SSN xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">253-98-7546</urn3:SSN>
-            <urn3:uniquePatientId xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">500000000^^^&amp;1.1&amp;ISO</urn3:uniquePatientId>
+            <urn3:uniquePatientId xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">500000000</urn3:uniquePatientId>
             <urn3:witnessAddress xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
                <urn3:addressType>
                   <urn3:code>addrCode</urn3:code>
@@ -590,7 +644,7 @@
                   <urn3:secondNameOrInitials>S</urn3:secondNameOrInitials>
                   <urn3:fullName>Kasrl S. Skagerberg</urn3:fullName>
                </urn3:personName>
-               <urn3:userName>kskagerberg</urn3:userName>
+               <urn3:userName>kskagerb</urn3:userName>
                <urn3:org>
                   <urn3:description>${#Project#LocalHCDescription}</urn3:description>
                   <urn3:homeCommunityId>${#Project#LocalHCID}</urn3:homeCommunityId>
@@ -642,140 +696,170 @@
                </urn3:evidence>
             </urn3:samlAuthzDecisionStatement>
          </urn:assertion>
+<!--
          <urn:NhinTargetCommunities>
             <urn3:nhinTargetCommunity>
                <urn3:homeCommunity>
-                  <urn3:description>${#Project#RemoteHCDescription}</urn3:description>
-                  <urn3:homeCommunityId>${#Project#RemoteHCID}</urn3:homeCommunityId>
-                  <urn3:name>${#Project#RemoteHCDescription}</urn3:name>
+                  <urn3:description>InternalTest2</urn3:description>
+                  <urn3:homeCommunityId>2.2</urn3:homeCommunityId>
+                  <urn3:name>InternalTest2</urn3:name>
                </urn3:homeCommunity>
             </urn3:nhinTargetCommunity>
          </urn:NhinTargetCommunities>
+-->
       </urn:RespondingGateway_CrossGatewayQueryRequest>
-   </soap:Body>
-</soap:Envelope>]]></con:request>
-	<con:assertion type="SOAP Response"/>
-	<con:assertion type="Schema Compliance">
-		<con:configuration/>
-	</con:assertion>
-	<con:assertion type="SOAP Fault Assertion"/>
-	
-	<con:assertion name="errorCode" type="XPath Match"><con:configuration><path>declare namespace S='http://www.w3.org/2003/05/soap-envelope';
-declare namespace ns11='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
-declare namespace ns12='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request>
+            <con:assertion type="SOAP Response"/>
+            <con:assertion type="Schema Compliance">
+              <con:configuration/>
+            </con:assertion>
+            <con:assertion type="SOAP Fault Assertion"/>
+            <con:assertion name="Document Count" type="XPath Match">
+              <con:configuration>
+                <path>declare namespace ns3='urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0';
+declare namespace ns6='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
+count(//ns6:AdhocQueryResponse[1]/ns3:RegistryObjectList[1]/ns3:ExtrinsicObject)</path>
+                <content>3</content>
+                <allowWildcards>false</allowWildcards>
+                <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
+              </con:configuration>
+            </con:assertion>
+            <con:assertion type="XPath Match" name="Count RegistryError">
+              <con:configuration>
+                <path>declare namespace ns9='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
+declare namespace ns7='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
+count(//ns9:AdhocQueryResponse[1]/ns7:RegistryErrorList[1]/ns7:RegistryError)</path>
+                <content>1</content>
+                <allowWildcards>false</allowWildcards>
+                <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
+              </con:configuration>
+            </con:assertion>
+            <con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/>
+            <con:wsrmConfig version="1.2"/>
+          </con:request>
+        </con:config>
+      </con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
+        <con:property>
+          <con:name>startDate</con:name>
+          <con:value>2013-02-04T00:27:01Z</con:value>
+        </con:property>
+        <con:property>
+          <con:name>endDate</con:name>
+          <con:value>2013-02-04T00:37:01Z</con:value>
+        </con:property>
+        <con:property>
+          <con:name>sigDate</con:name>
+          <con:value>02/04/2013 00:27:01</con:value>
+        </con:property>
+        <con:property>
+          <con:name>expireDate</con:name>
+          <con:value>2013-03-06T00:00:00Z</con:value>
+        </con:property>
+        <con:property>
+          <con:name>FullPatientID</con:name>
+          <con:value>'D123400^^^&amp;amp;1.1&amp;amp;ISO'</con:value>
+        </con:property>
+      </con:properties>
+      <con:reportParameters/>
+    <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);</con:tearDownScript></con:testCase>
+    <con:testCase failOnError="true" failTestCaseOnErrors="true" id="eb2fe928-9168-4d20-a4ae-d1cbba57db99" keepSession="false" maxResults="0" name="Document Query SingleEndpoint" searchProperties="true">
+      <con:settings/>
+      
+      
+      <con:testStep name="Copy uddiConnectionInfo" type="groovy">
+        <con:settings/>
+        <con:config><script>def sourceDir = (new com.eviware.soapui.support.GroovyUtils(context)).projectPath;
 
-/S:Envelope/S:Body/ns12:AdhocQueryResponse/ns11:RegistryErrorList/ns11:RegistryError/@errorCode</path><content>XDSStoredQueryMissingParam</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:assertion type="XPath Match" name="codeContext"><con:configuration><path>declare namespace ns2='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
+nhinc.FileUtils.copyFile(sourceDir, "uddiConnectionInfo_FANOUT.xml", context.findProperty("GatewayPropDir"), "uddiConnectionInfo.xml", log);</script></con:config>
+      </con:testStep>
+      
+      <con:testStep name="update config" type="groovy">
+        <con:settings/>
+        <con:config><script>nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'), "gateway.properties", "documentQueryQuerySelf", "false", log);</script></con:config>
+      </con:testStep>
+      <con:testStep name="Generate patient ID for Doc Query" type="groovy">
+        <con:settings/>
+        <con:config>
+          <script>def localAA = context.findProperty('LocalAA')
+def dqPatientID = context.findProperty('DQPatientID')
 
-//ns2:RegistryErrorList/ns2:RegistryError/@codeContext</path><content>Required parameter XDSDocumentEntryPatientId, not present in query request</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
-	<con:jmsPropertyConfig/>
-	<con:wsaConfig mustUnderstand="NONE" version="200508"/>
-	<con:wsrmConfig version="1.2"/>
-</con:request>
-</con:config>
-</con:testStep>
+context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;${localAA}&amp;amp;ISO'");</script>
+        </con:config>
+      </con:testStep>
+      <con:testStep name="Clear Correlation Table &amp; Add Correlation" type="groovy">
+        <con:settings/>
+        <con:config><script>context.withSql('PatientCorrelationDB') { sql -> 
+  def table = context.findProperty('PatientCorrelationTable')
+  
+  sql.execute('delete from ' + table)
 
-<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);</con:setupScript><con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);</con:tearDownScript><con:properties>
-	<con:property>
-		<con:name>startDate</con:name>
-		<con:value>2012-06-28T03:00:02Z</con:value>
-	</con:property>
-	<con:property>
-		<con:name>endDate</con:name>
-		<con:value>2012-06-28T03:10:02Z</con:value>
-	</con:property>
-	<con:property>
-		<con:name>sigDate</con:name>
-		<con:value>06/28/2012 03:00:02</con:value>
-	</con:property>
-	<con:property>
-		<con:name>expireDate</con:name>
-		<con:value>2012-07-28T00:00:00Z</con:value>
-	</con:property>
-	<con:property>
-		<con:name>FullPatientID</con:name>
-		<con:value>'D123401^^^&amp;amp;1.1&amp;amp;ISO'</con:value>
-	</con:property>
-</con:properties>
-<con:reportParameters/>
-</con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="XDSStoredQueryMissingParam Missing XDSDocumentEntryPatientId slot element" searchProperties="true" id="e423d23e-589a-4842-baed-100c2238965b">
-	<con:description>Removing the element &lt;urn3:Slot name="$XDSDocumentEntryPatientId">/&lt;urn3:Value> from the DQ request message resulted in a response containing &lt;ns11:RegistryError codeContext="Required parameter XDSDocumentEntryPatientId, not present in query request." errorCode="XDSStoredQueryMissingParam" severity="urn:oasis:names:tc:ebxml-regrep:ErrorSeverityType:Error"/>. The attribute errorCode is verified in the response.</con:description><con:settings/>
-	
-	<con:testStep name="update config" type="groovy">
-		<con:settings/>
-		<con:config><script>nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'), "gateway.properties", "documentQueryQuerySelf", "false", log);</script></con:config>
-</con:testStep>
-<con:testStep name="Clear Correlation Table &amp; Add Correlation" type="groovy">
-	<con:settings/>
-	<con:config>
-		<script>context.withSql('PatientCorrelationDB') { sql -> 
-		def table = context.findProperty('PatientCorrelationTable')
+  def localAA = context.findProperty( "LocalAA" )
+  def localPatientID = context.findProperty("LocalPatientID")
+  def remoteAA1 = context.findProperty( "RemoteAA1" )
+  def remoteAA2 = context.findProperty( "RemoteAA2" )
+  def remotePatientID1 = context.findProperty("RemotePatientID1")
+  def remotePatientID2 = context.findProperty("RemotePatientID2")
+  def insertSql = "insert into " + table + " (correlationId, PatientAssigningAuthorityId, PatientId, CorrelatedPatientAssignAuthId, CorrelatedPatientId) " + 
+                   "values (?, ?, ?, ?, ?)"
+  sql.executeUpdate(insertSql, [1, localAA, localPatientID, remoteAA1, remotePatientID1])
+}</script></con:config>
+      </con:testStep>
+      <con:testStep name="Clear AA Mapping Table &amp; Add Mapping" type="groovy">
+        <con:settings/>
+        <con:config>
+          <script>context.withSql('AAMappingDB') { sql -> 
+  def table = context.findProperty('AAMappingTable')
+  
+  sql.execute('delete from ' + table)
 
-		sql.execute('delete from ' + table)
+  def remoteAA1 = context.findProperty( "RemoteAA1" )
+  def remoteHCID1 = context.findProperty("RemoteHCID1")
+  def remoteAA2 = context.findProperty( "RemoteAA2" )
+  def remoteHCID2 = context.findProperty("RemoteHCID2")
+  def insertSql = "insert into " + table + " (id, assigningauthorityid, homecommunityid) " + 
+                   "values (?, ?, ?)"
+  sql.executeUpdate(insertSql, [1, remoteAA1, remoteHCID1])
+}</script>
+        </con:config>
+      </con:testStep>
+      
+      <con:testStep name="Set Connection Info" type="groovy">
+        <con:settings/>
+        <con:config><script>def destConfigFileLocation = context.findProperty("GatewayPropDir");
+def Host2 = context.findProperty("Host2");
+def HCID2 = context.findProperty( "RemoteHCID1" );
+def docQueryURL1 = "https://" + Host2 + ":8181/Gateway/DocumentQuery/2_0/NhinService/RespondingGateway_Query_Service/DocQuery";
 
-		def localAA = context.findProperty( "LocalAA" )
-		def localPatientID = context.findProperty("LocalPatientID")
-		def remoteAA = context.findProperty( "RemoteAA" )
-		def remotePatientID = context.findProperty("RemotePatientID")
-		def insertSql = "insert into " + table + " (correlationId, PatientAssigningAuthorityId, PatientId, CorrelatedPatientAssignAuthId, CorrelatedPatientId) " + 
-		"values (1, ?, ?, ?, ?)"
-		sql.executeUpdate(insertSql, [localAA, localPatientID, remoteAA, remotePatientID])
-		}</script>
-</con:config>
-</con:testStep>
-<con:testStep name="Clear AA Mapping Table &amp; Add Mapping" type="groovy">
-	<con:settings/>
-	<con:config>
-		<script>context.withSql('AAMappingDB') { sql -> 
-		def table = context.findProperty('AAMappingTable')
-
-		sql.execute('delete from ' + table)
-
-		def remoteAA = context.findProperty( "RemoteAA" )
-		def remoteHCID = context.findProperty("RemoteHCID")
-		def insertSql = "insert into " + table + " (id, assigningauthorityid, homecommunityid) " + 
-		"values (1, ?, ?)"
-		sql.executeUpdate(insertSql, [remoteAA, remoteHCID])
-		}</script>
-</con:config>
-</con:testStep>
-<con:testStep name="Document Query" type="request">
-	<con:settings/>
-	<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-		<con:interface>EntityDocQueryBindingSoap</con:interface>
-		<con:operation>RespondingGateway_CrossGatewayQuery</con:operation>
-		<con:request name="Document Query">
-			<con:settings>
-				<con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
-	</con:settings>
-	<con:encoding>UTF-8</con:encoding>
-	<con:endpoint>http://localhost:8080/Gateway/DocumentQuery/2_0/EntityService/EntityDocQueryUnsecured</con:endpoint>
-	<con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn3="urn:gov:hhs:fha:nhinc:common:nhinccommon">
-   <soap:Header/>
-   <soap:Body testSuite="DocQueryErrorCodes" testCase="XDSUnknownStoredQuery">
+nhinc.FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocation, HCID2, "QueryForDocuments", docQueryURL1, "2.0", log)</script></con:config>
+      </con:testStep>
+      
+      <con:testStep name="Document Query" type="request">
+        <con:settings/>
+        <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+          <con:interface>EntityDocQueryBindingSoap</con:interface>
+          <con:operation>RespondingGateway_CrossGatewayQuery</con:operation>
+          <con:request name="Document Query">
+            <con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings>
+            <con:encoding>UTF-8</con:encoding>
+            <con:endpoint>${#Project#Endpoint-DocQuery}</con:endpoint>
+            <con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn3="urn:gov:hhs:fha:nhinc:common:nhinccommon">
+   <soapenv:Header/>
+   <soapenv:Body projectName="EntityDocQuery" testCase="Document Query SingleEndpoint">
       <urn:RespondingGateway_CrossGatewayQueryRequest>
          <urn1:AdhocQueryRequest federated="false" startIndex="0" maxResults="-1">
-            <urn1:ResponseOption returnType="LeafClass" returnComposedObjects="false"/>
-            <urn2:AdhocQuery home="urn:oid:1.1" id="urn:uuid:14d4debf-8f97-4251-9a74-a90016b0af0d">
+            <urn1:ResponseOption returnType="RegistryObject" returnComposedObjects="false"/>
+            <urn2:AdhocQuery home="urn:oid:2.16.840.1.113883.3.200" id="urn:uuid:14d4debf-8f97-4251-9a74-a90016b0af0d">
                <urn2:Slot name="$XDSDocumentEntryPatientId">
                   <urn2:ValueList>
-                     <!--urn2:Value>'${#Project#DQPatientID}^^^&amp;${#Project#LocalAA}&amp;ISO'</urn2:Value-->
+                     <urn2:Value>${#TestCase#FullPatientID}</urn2:Value>
                   </urn2:ValueList>
                </urn2:Slot>
-               <urn2:Slot name="$XDSDocumentEntryStatus">
-                  <urn2:ValueList>
-                     <urn2:Value>('urn:oasis:names:tc:ebxml-regrep:StatusType:Approved')</urn2:Value>
-                  </urn2:ValueList>
-               </urn2:Slot>
-               <urn2:Slot name="$XDSDocumentEntryClassCode">
-                  <urn2:ValueList>
-                     <urn2:Value>34133-9</urn2:Value>
-                  </urn2:ValueList>
-               </urn2:Slot>
-               <urn2:Slot name="$XDSDocumentEntryClassCodeScheme">
-                  <urn2:ValueList>
-                     <urn2:Value>2.16.840.1.113883.6.1</urn2:Value>
-                  </urn2:ValueList>
-               </urn2:Slot>
+		<urn2:Slot name="$XDSDocumentEntryType">
+			<urn2:ValueList>
+			<urn2:Value>('${#Project#DQStableDocs}','${#Project#DQDynamicDocs}')</urn2:Value>
+			</urn2:ValueList>
+		</urn2:Slot>
             </urn2:AdhocQuery>
          </urn1:AdhocQueryRequest>
          <urn:assertion>
@@ -876,7 +960,7 @@ declare namespace ns12='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
                </urn3:phoneNumberType>
             </urn3:secondWitnessPhone>
             <urn3:SSN xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">253-98-7546</urn3:SSN>
-            <urn3:uniquePatientId xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">500000000^^^&amp;1.1&amp;ISO</urn3:uniquePatientId>
+            <urn3:uniquePatientId xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">500000000</urn3:uniquePatientId>
             <urn3:witnessAddress xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
                <urn3:addressType>
                   <urn3:code>addrCode</urn3:code>
@@ -935,7 +1019,7 @@ declare namespace ns12='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
                   <urn3:secondNameOrInitials>S</urn3:secondNameOrInitials>
                   <urn3:fullName>Kasrl S. Skagerberg</urn3:fullName>
                </urn3:personName>
-               <urn3:userName>kskagerberg</urn3:userName>
+               <urn3:userName>kskagerb</urn3:userName>
                <urn3:org>
                   <urn3:description>${#Project#LocalHCDescription}</urn3:description>
                   <urn3:homeCommunityId>${#Project#LocalHCID}</urn3:homeCommunityId>
@@ -987,145 +1071,162 @@ declare namespace ns12='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
                </urn3:evidence>
             </urn3:samlAuthzDecisionStatement>
          </urn:assertion>
+<!--
          <urn:NhinTargetCommunities>
             <urn3:nhinTargetCommunity>
                <urn3:homeCommunity>
-                  <urn3:description>${#Project#RemoteHCDescription}</urn3:description>
-                  <urn3:homeCommunityId>${#Project#RemoteHCID}</urn3:homeCommunityId>
-                  <urn3:name>${#Project#RemoteHCDescription}</urn3:name>
+                  <urn3:description>InternalTest2</urn3:description>
+                  <urn3:homeCommunityId>2.2</urn3:homeCommunityId>
+                  <urn3:name>InternalTest2</urn3:name>
                </urn3:homeCommunity>
             </urn3:nhinTargetCommunity>
          </urn:NhinTargetCommunities>
+-->
       </urn:RespondingGateway_CrossGatewayQueryRequest>
-   </soap:Body>
-</soap:Envelope>]]></con:request>
-	<con:assertion type="SOAP Response"/>
-	<con:assertion type="Schema Compliance">
-		<con:configuration/>
-	</con:assertion>
-	<con:assertion type="SOAP Fault Assertion"/>
-	
-	<con:assertion name="errorCode" type="XPath Match"><con:configuration><path>declare namespace S='http://www.w3.org/2003/05/soap-envelope';
-declare namespace ns11='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
-declare namespace ns12='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request>
+            <con:assertion type="SOAP Response"/>
+            <con:assertion type="Schema Compliance">
+              <con:configuration/>
+            </con:assertion>
+            <con:assertion type="SOAP Fault Assertion"/>
+            <con:assertion name="Document Count" type="XPath Match">
+              <con:configuration><path>declare namespace ns3='urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0';
+declare namespace ns6='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
+count(//ns6:AdhocQueryResponse[1]/ns3:RegistryObjectList[1]/ns3:ExtrinsicObject)</path><content>3</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration>
+            </con:assertion>
+            <con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/>
+            <con:wsrmConfig version="1.2"/>
+          </con:request>
+        </con:config>
+      </con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
+        <con:property>
+          <con:name>startDate</con:name>
+          <con:value>2013-02-04T00:22:40Z</con:value>
+        </con:property>
+        <con:property>
+          <con:name>endDate</con:name>
+          <con:value>2013-02-04T00:32:40Z</con:value>
+        </con:property>
+        <con:property>
+          <con:name>sigDate</con:name>
+          <con:value>02/04/2013 00:22:40</con:value>
+        </con:property>
+        <con:property>
+          <con:name>expireDate</con:name>
+          <con:value>2013-03-06T00:00:00Z</con:value>
+        </con:property>
+        <con:property>
+          <con:name>FullPatientID</con:name>
+          <con:value>'D123400^^^&amp;amp;1.1&amp;amp;ISO'</con:value>
+        </con:property>
+      </con:properties>
+      <con:reportParameters/>
+    <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);</con:tearDownScript></con:testCase>
+    <con:testCase failOnError="true" failTestCaseOnErrors="true" id="f15669b3-5b74-4be0-84df-ebec541cbbeb" keepSession="false" maxResults="0" name="Document Query State Fanout" searchProperties="true">
+      <con:settings/>
+      
+      
+      <con:testStep name="Copy uddiConnectionInfo" type="groovy">
+        <con:settings/>
+        <con:config><script>def sourceDir = (new com.eviware.soapui.support.GroovyUtils(context)).projectPath;
 
-/S:Envelope/S:Body/ns12:AdhocQueryResponse/ns11:RegistryErrorList/ns11:RegistryError/@errorCode</path><content>XDSStoredQueryMissingParam</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:assertion type="XPath Match" name="codeContext"><con:configuration><path>declare namespace ns2='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
+nhinc.FileUtils.copyFile(sourceDir, "uddiConnectionInfo_FANOUT.xml", context.findProperty("GatewayPropDir"), "uddiConnectionInfo.xml", log);</script></con:config>
+      </con:testStep>
+      
+      <con:testStep name="update config" type="groovy">
+        <con:settings/>
+        <con:config><script>nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'), "gateway.properties", "documentQueryQuerySelf", "false", log);</script></con:config>
+      </con:testStep>
+      <con:testStep name="Generate patient ID for Doc Query" type="groovy">
+        <con:settings/>
+        <con:config>
+          <script>def localAA = context.findProperty('LocalAA')
+def dqPatientID = context.findProperty('DQPatientID')
 
-//ns2:RegistryErrorList/ns2:RegistryError/@codeContext</path><content>Required parameter XDSDocumentEntryPatientId, not present in query request</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
-	<con:jmsPropertyConfig/>
-	<con:wsaConfig mustUnderstand="NONE" version="200508"/>
-	<con:wsrmConfig version="1.2"/>
-</con:request>
-</con:config>
-</con:testStep>
+context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;${localAA}&amp;amp;ISO'");</script>
+        </con:config>
+      </con:testStep>
+      <con:testStep name="Clear Correlation Table &amp; Add Correlation" type="groovy">
+        <con:settings/>
+        <con:config><script>context.withSql('PatientCorrelationDB') { sql -> 
+  def table = context.findProperty('PatientCorrelationTable')
+  
+  sql.execute('delete from ' + table)
 
-<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);</con:setupScript><con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);</con:tearDownScript><con:properties>
-	<con:property>
-		<con:name>startDate</con:name>
-		<con:value>2012-06-28T03:00:02Z</con:value>
-	</con:property>
-	<con:property>
-		<con:name>endDate</con:name>
-		<con:value>2012-06-28T03:10:02Z</con:value>
-	</con:property>
-	<con:property>
-		<con:name>sigDate</con:name>
-		<con:value>06/28/2012 03:00:02</con:value>
-	</con:property>
-	<con:property>
-		<con:name>expireDate</con:name>
-		<con:value>2012-07-28T00:00:00Z</con:value>
-	</con:property>
-	<con:property>
-		<con:name>FullPatientID</con:name>
-		<con:value>'D123401^^^&amp;amp;1.1&amp;amp;ISO'</con:value>
-	</con:property>
-</con:properties>
-<con:reportParameters/>
-</con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="XDSStoredQueryParamNumber" searchProperties="true" id="29c18762-abfb-4be2-a423-24e56633bd75">
-	<con:description>Send a DQ message with multiple &lt;urn2:Slot name="$XDSDocumentEntryPatientId">. Results in a XDSStoredQueryParamNumber error.</con:description><con:settings/>
-	
-	<con:testStep name="update config" type="groovy">
-		<con:settings/>
-		<con:config><script>nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'), "gateway.properties", "documentQueryQuerySelf", "false", log);</script></con:config>
-</con:testStep>
-<con:testStep name="Clear Correlation Table &amp; Add Correlation" type="groovy">
-	<con:settings/>
-	<con:config>
-		<script>context.withSql('PatientCorrelationDB') { sql -> 
-		def table = context.findProperty('PatientCorrelationTable')
+  def localAA = context.findProperty( "LocalAA" )
+  def localPatientID = context.findProperty("LocalPatientID")
+  def remoteAA1 = context.findProperty( "RemoteAA1" )
+  def remoteAA2 = context.findProperty( "RemoteAA2" )
+  def remotePatientID1 = context.findProperty("RemotePatientID1")
+  def remotePatientID2 = context.findProperty("RemotePatientID2")
+  def insertSql = "insert into " + table + " (correlationId, PatientAssigningAuthorityId, PatientId, CorrelatedPatientAssignAuthId, CorrelatedPatientId) " + 
+                   "values (?, ?, ?, ?, ?)"
+  sql.executeUpdate(insertSql, [1, localAA, localPatientID, remoteAA1, remotePatientID1])
+  sql.executeUpdate(insertSql, [2, localAA, localPatientID, remoteAA2, remotePatientID2])
+}</script></con:config>
+      </con:testStep>
+      <con:testStep name="Clear AA Mapping Table &amp; Add Mapping" type="groovy">
+        <con:settings/>
+        <con:config>
+          <script>context.withSql('AAMappingDB') { sql -> 
+  def table = context.findProperty('AAMappingTable')
+  
+  sql.execute('delete from ' + table)
 
-		sql.execute('delete from ' + table)
+  def remoteAA1 = context.findProperty( "RemoteAA1" )
+  def remoteHCID1 = context.findProperty("RemoteHCID1")
+  def remoteAA2 = context.findProperty( "RemoteAA2" )
+  def remoteHCID2 = context.findProperty("RemoteHCID2")
+  def insertSql = "insert into " + table + " (id, assigningauthorityid, homecommunityid) " + 
+                   "values (?, ?, ?)"
+  sql.executeUpdate(insertSql, [1, remoteAA1, remoteHCID1])
+  sql.executeUpdate(insertSql, [2, remoteAA2, remoteHCID2])
+}</script>
+        </con:config>
+      </con:testStep>
+      
+      <con:testStep name="Set Connection Info" type="groovy">
+        <con:settings/>
+        <con:config><script>def destConfigFileLocation = context.findProperty("GatewayPropDir");
+def Host2 = context.findProperty("Host2");
+def HCID2 = context.findProperty( "RemoteHCID1" );
+def docQueryURL1 = "https://" + Host2 + ":8181/Gateway/DocumentQuery/2_0/NhinService/RespondingGateway_Query_Service/DocQuery";
 
-		def localAA = context.findProperty( "LocalAA" )
-		def localPatientID = context.findProperty("LocalPatientID")
-		def remoteAA = context.findProperty( "RemoteAA" )
-		def remotePatientID = context.findProperty("RemotePatientID")
-		def insertSql = "insert into " + table + " (correlationId, PatientAssigningAuthorityId, PatientId, CorrelatedPatientAssignAuthId, CorrelatedPatientId) " + 
-		"values (1, ?, ?, ?, ?)"
-		sql.executeUpdate(insertSql, [localAA, localPatientID, remoteAA, remotePatientID])
-		}</script>
-</con:config>
-</con:testStep>
-<con:testStep name="Clear AA Mapping Table &amp; Add Mapping" type="groovy">
-	<con:settings/>
-	<con:config>
-		<script>context.withSql('AAMappingDB') { sql -> 
-		def table = context.findProperty('AAMappingTable')
+def Host3 = context.findProperty("Host3");
+def HCID3 = context.findProperty( "RemoteHCID2" );
+def docQueryURL2 = "https://" + Host2 + ":8181/Gateway/DocumentQuery/2_0/NhinService/RespondingGateway_Query_Service/DocQuery";
 
-		sql.execute('delete from ' + table)
-
-		def remoteAA = context.findProperty( "RemoteAA" )
-		def remoteHCID = context.findProperty("RemoteHCID")
-		def insertSql = "insert into " + table + " (id, assigningauthorityid, homecommunityid) " + 
-		"values (1, ?, ?)"
-		sql.executeUpdate(insertSql, [remoteAA, remoteHCID])
-		}</script>
-</con:config>
-</con:testStep>
-<con:testStep name="Document Query" type="request">
-	<con:settings/>
-	<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-		<con:interface>EntityDocQueryBindingSoap</con:interface>
-		<con:operation>RespondingGateway_CrossGatewayQuery</con:operation>
-		<con:request name="Document Query">
-			<con:settings>
-				<con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
-	</con:settings>
-	<con:encoding>UTF-8</con:encoding>
-	<con:endpoint>http://localhost:8080/Gateway/DocumentQuery/2_0/EntityService/EntityDocQueryUnsecured</con:endpoint>
-	<con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn3="urn:gov:hhs:fha:nhinc:common:nhinccommon">
-   <soap:Header/>
-   <soap:Body testSuite="DocQueryErrorCodes" testCase="XDSUnknownStoredQuery">
+nhinc.FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocation, HCID2, "QueryForDocuments", docQueryURL1, "2.0", log)
+nhinc.FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocation, HCID3, "QueryForDocuments", docQueryURL2, "2.0", log)</script></con:config>
+      </con:testStep>
+      
+      <con:testStep name="Document Query" type="request">
+        <con:settings/>
+        <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+          <con:interface>EntityDocQueryBindingSoap</con:interface>
+          <con:operation>RespondingGateway_CrossGatewayQuery</con:operation>
+          <con:request name="Document Query">
+            <con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings>
+            <con:encoding>UTF-8</con:encoding>
+            <con:endpoint>${#Project#Endpoint-DocQuery}</con:endpoint>
+            <con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn3="urn:gov:hhs:fha:nhinc:common:nhinccommon">
+   <soapenv:Header/>
+   <soapenv:Body projectName="EntityDocQuery" testCase="Document Query State Fanout">
       <urn:RespondingGateway_CrossGatewayQueryRequest>
          <urn1:AdhocQueryRequest federated="false" startIndex="0" maxResults="-1">
-            <urn1:ResponseOption returnType="LeafClass" returnComposedObjects="false"/>
-            <urn2:AdhocQuery home="urn:oid:1.1" id="urn:uuid:14d4debf-8f97-4251-9a74-a90016b0af0d">
+            <urn1:ResponseOption returnType="RegistryObject" returnComposedObjects="false"/>
+            <urn2:AdhocQuery home="urn:oid:2.16.840.1.113883.3.200" id="urn:uuid:14d4debf-8f97-4251-9a74-a90016b0af0d">
                <urn2:Slot name="$XDSDocumentEntryPatientId">
                   <urn2:ValueList>
-                     <urn2:Value>'${#Project#DQPatientID}^^^&amp;${#Project#LocalAA}&amp;ISO'</urn2:Value>
+                     <urn2:Value>${#TestCase#FullPatientID}</urn2:Value>
                   </urn2:ValueList>
                </urn2:Slot>
-               <urn2:Slot name="$XDSDocumentEntryPatientId">
-                  <urn2:ValueList>
-                     <urn2:Value>'${#Project#DQPatientID}3^^^&amp;${#Project#LocalAA}&amp;ISO'</urn2:Value>
-                  </urn2:ValueList>
-               </urn2:Slot>
-               <urn2:Slot name="$XDSDocumentEntryStatus">
-                  <urn2:ValueList>
-                     <urn2:Value>('urn:oasis:names:tc:ebxml-regrep:StatusType:Approved')</urn2:Value>
-                  </urn2:ValueList>
-               </urn2:Slot>
-               <urn2:Slot name="$XDSDocumentEntryClassCode">
-                  <urn2:ValueList>
-                     <urn2:Value>34133-9</urn2:Value>
-                  </urn2:ValueList>
-               </urn2:Slot>
-               <urn2:Slot name="$XDSDocumentEntryClassCodeScheme">
-                  <urn2:ValueList>
-                     <urn2:Value>2.16.840.1.113883.6.1</urn2:Value>
-                  </urn2:ValueList>
-               </urn2:Slot>
+		<urn2:Slot name="$XDSDocumentEntryType">
+			<urn2:ValueList>
+			<urn2:Value>('${#Project#DQStableDocs}','${#Project#DQDynamicDocs}')</urn2:Value>
+			</urn2:ValueList>
+		</urn2:Slot>
             </urn2:AdhocQuery>
          </urn1:AdhocQueryRequest>
          <urn:assertion>
@@ -1226,7 +1327,7 @@ declare namespace ns12='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
                </urn3:phoneNumberType>
             </urn3:secondWitnessPhone>
             <urn3:SSN xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">253-98-7546</urn3:SSN>
-            <urn3:uniquePatientId xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">500000000^^^&amp;1.1&amp;ISO</urn3:uniquePatientId>
+            <urn3:uniquePatientId xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">500000000</urn3:uniquePatientId>
             <urn3:witnessAddress xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
                <urn3:addressType>
                   <urn3:code>addrCode</urn3:code>
@@ -1285,7 +1386,7 @@ declare namespace ns12='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
                   <urn3:secondNameOrInitials>S</urn3:secondNameOrInitials>
                   <urn3:fullName>Kasrl S. Skagerberg</urn3:fullName>
                </urn3:personName>
-               <urn3:userName>kskagerberg</urn3:userName>
+               <urn3:userName>kskagerb</urn3:userName>
                <urn3:org>
                   <urn3:description>${#Project#LocalHCDescription}</urn3:description>
                   <urn3:homeCommunityId>${#Project#LocalHCID}</urn3:homeCommunityId>
@@ -1337,140 +1438,164 @@ declare namespace ns12='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
                </urn3:evidence>
             </urn3:samlAuthzDecisionStatement>
          </urn:assertion>
+
          <urn:NhinTargetCommunities>
             <urn3:nhinTargetCommunity>
                <urn3:homeCommunity>
-                  <urn3:description>${#Project#RemoteHCDescription}</urn3:description>
-                  <urn3:homeCommunityId>${#Project#RemoteHCID}</urn3:homeCommunityId>
-                  <urn3:name>${#Project#RemoteHCDescription}</urn3:name>
+                  <urn3:description/>
+                  <urn3:homeCommunityId/>
+                  <urn3:name/>
                </urn3:homeCommunity>
+               <urn3:list/>
+               <urn3:region>US-NY</urn3:region>
             </urn3:nhinTargetCommunity>
          </urn:NhinTargetCommunities>
+
       </urn:RespondingGateway_CrossGatewayQueryRequest>
-   </soap:Body>
-</soap:Envelope>]]></con:request>
-	<con:assertion type="SOAP Response"/>
-	<con:assertion type="Schema Compliance">
-		<con:configuration/>
-	</con:assertion>
-	<con:assertion type="SOAP Fault Assertion"/>
-	
-	<con:assertion name="errorCode" type="XPath Match"><con:configuration><path>declare namespace S='http://www.w3.org/2003/05/soap-envelope';
-declare namespace ns11='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
-declare namespace ns12='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request>
+            <con:assertion type="SOAP Response"/>
+            <con:assertion type="Schema Compliance">
+              <con:configuration/>
+            </con:assertion>
+            <con:assertion type="SOAP Fault Assertion"/>
+            <con:assertion name="Document Count" type="XPath Match">
+              <con:configuration><path>declare namespace ns3='urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0';
+declare namespace ns6='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
+count(//ns6:AdhocQueryResponse[1]/ns3:RegistryObjectList[1]/ns3:ExtrinsicObject)</path><content>3</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration>
+            </con:assertion>
+            <con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/>
+            <con:wsrmConfig version="1.2"/>
+          </con:request>
+        </con:config>
+      </con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
+        <con:property>
+          <con:name>startDate</con:name>
+          <con:value>2013-02-04T00:22:41Z</con:value>
+        </con:property>
+        <con:property>
+          <con:name>endDate</con:name>
+          <con:value>2013-02-04T00:32:41Z</con:value>
+        </con:property>
+        <con:property>
+          <con:name>sigDate</con:name>
+          <con:value>02/04/2013 00:22:41</con:value>
+        </con:property>
+        <con:property>
+          <con:name>expireDate</con:name>
+          <con:value>2013-03-06T00:00:00Z</con:value>
+        </con:property>
+        <con:property>
+          <con:name>FullPatientID</con:name>
+          <con:value>'D123400^^^&amp;amp;1.1&amp;amp;ISO'</con:value>
+        </con:property>
+      </con:properties>
+      <con:reportParameters/>
+    <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);</con:tearDownScript></con:testCase>
+    <con:testCase failOnError="true" failTestCaseOnErrors="true" id="c7f8f863-a545-48d3-86c2-d7a329f2cb10" keepSession="false" maxResults="0" name="Document Query State Fanout Multiple Communities" searchProperties="true">
+      <con:settings/>
+      
+      
+      <con:testStep name="Copy uddiConnectionInfo" type="groovy">
+        <con:settings/>
+        <con:config><script>def sourceDir = (new com.eviware.soapui.support.GroovyUtils(context)).projectPath;
 
-/S:Envelope/S:Body/ns12:AdhocQueryResponse/ns11:RegistryErrorList/ns11:RegistryError/@errorCode</path><content>XDSStoredQueryParamNumber</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion><con:assertion type="XPath Match" name="codeContext"><con:configuration><path>declare namespace ns2='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
+nhinc.FileUtils.copyFile(sourceDir, "uddiConnectionInfo_FANOUT.xml", context.findProperty("GatewayPropDir"), "uddiConnectionInfo.xml", log);</script></con:config>
+      </con:testStep>
+      
+      <con:testStep name="update config" type="groovy">
+        <con:settings/>
+        <con:config><script>nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'), "gateway.properties", "documentQueryQuerySelf", "false", log);</script></con:config>
+      </con:testStep>
+      <con:testStep name="Generate patient ID for Doc Query" type="groovy">
+        <con:settings/>
+        <con:config>
+          <script>def localAA = context.findProperty('LocalAA')
+def dqPatientID = context.findProperty('DQPatientID')
 
-//ns2:RegistryErrorList/ns2:RegistryError/@codeContext</path><content>Multiple $XDSDocumentEntryPatientId Present in the Request</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
-	<con:jmsPropertyConfig/>
-	<con:wsaConfig mustUnderstand="NONE" version="200508"/>
-	<con:wsrmConfig version="1.2"/>
-</con:request>
-</con:config>
-</con:testStep>
+context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;${localAA}&amp;amp;ISO'");</script>
+        </con:config>
+      </con:testStep>
+      <con:testStep name="Clear Correlation Table &amp; Add Correlation" type="groovy">
+        <con:settings/>
+        <con:config><script>context.withSql('PatientCorrelationDB') { sql -> 
+  def table = context.findProperty('PatientCorrelationTable')
+  
+  sql.execute('delete from ' + table)
 
-<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);</con:setupScript><con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);</con:tearDownScript><con:properties>
-	<con:property>
-		<con:name>startDate</con:name>
-		<con:value>2012-06-28T03:00:02Z</con:value>
-	</con:property>
-	<con:property>
-		<con:name>endDate</con:name>
-		<con:value>2012-06-28T03:10:02Z</con:value>
-	</con:property>
-	<con:property>
-		<con:name>sigDate</con:name>
-		<con:value>06/28/2012 03:00:02</con:value>
-	</con:property>
-	<con:property>
-		<con:name>expireDate</con:name>
-		<con:value>2012-07-28T00:00:00Z</con:value>
-	</con:property>
-	<con:property>
-		<con:name>FullPatientID</con:name>
-		<con:value>'D123401^^^&amp;amp;1.1&amp;amp;ISO'</con:value>
-	</con:property>
-</con:properties>
-<con:reportParameters/>
-</con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="XDSUnknownPatientId" searchProperties="true" id="b653f7c0-e092-4fb0-8529-85756d005423">
-	<con:description>When the patient ID in the $XDSDocumentEntryPatientId slot is unknown (meaning no correlations are present for the patient), the error "XDSUnknownPatientId" should be returned</con:description><con:settings/>
-	
-	<con:testStep name="update config" type="groovy">
-		<con:settings/>
-		<con:config><script>nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'), "gateway.properties", "documentQueryQuerySelf", "false", log);</script></con:config>
-</con:testStep>
-<con:testStep name="Clear Correlation Table &amp; Add Correlation" type="groovy">
-	<con:settings/>
-	<con:config>
-		<script>context.withSql('PatientCorrelationDB') { sql -> 
-		def table = context.findProperty('PatientCorrelationTable')
+  def localAA = context.findProperty( "LocalAA" )
+  def localPatientID = context.findProperty("LocalPatientID")
+  def remoteAA1 = context.findProperty( "RemoteAA1" )
+  def remoteAA2 = context.findProperty( "RemoteAA2" )
+  def remotePatientID1 = context.findProperty("RemotePatientID1")
+  def remotePatientID2 = context.findProperty("RemotePatientID2")
+  def insertSql = "insert into " + table + " (correlationId, PatientAssigningAuthorityId, PatientId, CorrelatedPatientAssignAuthId, CorrelatedPatientId) " + 
+                   "values (?, ?, ?, ?, ?)"
+  sql.executeUpdate(insertSql, [1, localAA, localPatientID, remoteAA1, remotePatientID1])
+  sql.executeUpdate(insertSql, [2, localAA, localPatientID, remoteAA2, remotePatientID2])
+}</script></con:config>
+      </con:testStep>
+      <con:testStep name="Clear AA Mapping Table &amp; Add Mapping" type="groovy">
+        <con:settings/>
+        <con:config>
+          <script>context.withSql('AAMappingDB') { sql -> 
+  def table = context.findProperty('AAMappingTable')
+  
+  sql.execute('delete from ' + table)
 
-		sql.execute('delete from ' + table)
+  def remoteAA1 = context.findProperty( "RemoteAA1" )
+  def remoteHCID1 = context.findProperty("RemoteHCID1")
+  def remoteAA2 = context.findProperty( "RemoteAA2" )
+  def remoteHCID2 = context.findProperty("RemoteHCID2")
+  def insertSql = "insert into " + table + " (id, assigningauthorityid, homecommunityid) " + 
+                   "values (?, ?, ?)"
+  sql.executeUpdate(insertSql, [1, remoteAA1, remoteHCID1])
+  sql.executeUpdate(insertSql, [2, remoteAA2, remoteHCID2])
+}</script>
+        </con:config>
+      </con:testStep>
+      
+      <con:testStep name="Set Connection Info" type="groovy">
+        <con:settings/>
+        <con:config><script>def destConfigFileLocation = context.findProperty("GatewayPropDir");
+def Host2 = context.findProperty("Host2");
+def HCID2 = context.findProperty( "RemoteHCID1" );
+def docQueryURL1 = "https://" + Host2 + ":8181/Gateway/DocumentQuery/2_0/NhinService/RespondingGateway_Query_Service/DocQuery";
 
-		def localAA = context.findProperty( "LocalAA" )
-		def localPatientID = context.findProperty("LocalPatientID")
-		def remoteAA = context.findProperty( "RemoteAA" )
-		def remotePatientID = context.findProperty("RemotePatientID")
-		def insertSql = "insert into " + table + " (correlationId, PatientAssigningAuthorityId, PatientId, CorrelatedPatientAssignAuthId, CorrelatedPatientId) " + 
-		"values (1, ?, ?, ?, ?)"
-		sql.executeUpdate(insertSql, [localAA, localPatientID, remoteAA, remotePatientID])
-		}</script>
-</con:config>
-</con:testStep>
-<con:testStep name="Clear AA Mapping Table &amp; Add Mapping" type="groovy">
-	<con:settings/>
-	<con:config>
-		<script>context.withSql('AAMappingDB') { sql -> 
-		def table = context.findProperty('AAMappingTable')
+def Host3 = context.findProperty("Host3");
+def HCID3 = context.findProperty( "RemoteHCID2" );
+def docQueryURL2 = "https://" + Host2 + ":8181/Gateway/DocumentQuery/2_0/NhinService/RespondingGateway_Query_Service/DocQuery";
 
-		sql.execute('delete from ' + table)
-
-		def remoteAA = context.findProperty( "RemoteAA" )
-		def remoteHCID = context.findProperty("RemoteHCID")
-		def insertSql = "insert into " + table + " (id, assigningauthorityid, homecommunityid) " + 
-		"values (1, ?, ?)"
-		sql.executeUpdate(insertSql, [remoteAA, remoteHCID])
-		}</script>
-</con:config>
-</con:testStep>
-<con:testStep name="Document Query" type="request">
-	<con:settings/>
-	<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-		<con:interface>EntityDocQueryBindingSoap</con:interface>
-		<con:operation>RespondingGateway_CrossGatewayQuery</con:operation>
-		<con:request name="Document Query">
-			<con:settings>
-				<con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
-	</con:settings>
-	<con:encoding>UTF-8</con:encoding>
-	<con:endpoint>http://localhost:8080/Gateway/DocumentQuery/2_0/EntityService/EntityDocQueryUnsecured</con:endpoint>
-	<con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn3="urn:gov:hhs:fha:nhinc:common:nhinccommon">
-   <soap:Header/>
-   <soap:Body testSuite="DocQueryErrorCodes" testCase="XDSUnknownPatientId">
+nhinc.FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocation, HCID2, "QueryForDocuments", docQueryURL1, "2.0", log)
+nhinc.FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocation, HCID3, "QueryForDocuments", docQueryURL2, "2.0", log)</script></con:config>
+      </con:testStep>
+      
+      <con:testStep name="Document Query" type="request">
+        <con:settings/>
+        <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+          <con:interface>EntityDocQueryBindingSoap</con:interface>
+          <con:operation>RespondingGateway_CrossGatewayQuery</con:operation>
+          <con:request name="Document Query">
+            <con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings>
+            <con:encoding>UTF-8</con:encoding>
+            <con:endpoint>${#Project#Endpoint-DocQuery}</con:endpoint>
+            <con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn3="urn:gov:hhs:fha:nhinc:common:nhinccommon">
+   <soapenv:Header/>
+   <soapenv:Body projectName="EntityDocQuery" testCase="Document Query State Fanout Multiple Communities">
       <urn:RespondingGateway_CrossGatewayQueryRequest>
          <urn1:AdhocQueryRequest federated="false" startIndex="0" maxResults="-1">
-            <urn1:ResponseOption returnType="LeafClass" returnComposedObjects="false"/>
-            <urn2:AdhocQuery home="urn:oid:1.1" id="urn:uuid:14d4debf-8f97-4251-9a74-a90016b0af0d">
+            <urn1:ResponseOption returnType="RegistryObject" returnComposedObjects="false"/>
+            <urn2:AdhocQuery home="urn:oid:2.16.840.1.113883.3.200" id="urn:uuid:14d4debf-8f97-4251-9a74-a90016b0af0d">
                <urn2:Slot name="$XDSDocumentEntryPatientId">
                   <urn2:ValueList>
-                     <urn2:Value>unknown</urn2:Value>
+                     <urn2:Value>${#TestCase#FullPatientID}</urn2:Value>
                   </urn2:ValueList>
                </urn2:Slot>
-               <urn2:Slot name="$XDSDocumentEntryStatus">
-                  <urn2:ValueList>
-                     <urn2:Value>('urn:oasis:names:tc:ebxml-regrep:StatusType:Approved')</urn2:Value>
-                  </urn2:ValueList>
-               </urn2:Slot>
-               <urn2:Slot name="$XDSDocumentEntryClassCode">
-                  <urn2:ValueList>
-                     <urn2:Value>34133-9</urn2:Value>
-                  </urn2:ValueList>
-               </urn2:Slot>
-               <urn2:Slot name="$XDSDocumentEntryClassCodeScheme">
-                  <urn2:ValueList>
-                     <urn2:Value>2.16.840.1.113883.6.1</urn2:Value>
-                  </urn2:ValueList>
-               </urn2:Slot>
+		<urn2:Slot name="$XDSDocumentEntryType">
+			<urn2:ValueList>
+			<urn2:Value>('${#Project#DQStableDocs}','${#Project#DQDynamicDocs}')</urn2:Value>
+			</urn2:ValueList>
+		</urn2:Slot>
             </urn2:AdhocQuery>
          </urn1:AdhocQueryRequest>
          <urn:assertion>
@@ -1571,7 +1696,7 @@ declare namespace ns12='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
                </urn3:phoneNumberType>
             </urn3:secondWitnessPhone>
             <urn3:SSN xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">253-98-7546</urn3:SSN>
-            <urn3:uniquePatientId xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">500000000^^^&amp;1.1&amp;ISO</urn3:uniquePatientId>
+            <urn3:uniquePatientId xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">500000000</urn3:uniquePatientId>
             <urn3:witnessAddress xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
                <urn3:addressType>
                   <urn3:code>addrCode</urn3:code>
@@ -1630,7 +1755,7 @@ declare namespace ns12='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
                   <urn3:secondNameOrInitials>S</urn3:secondNameOrInitials>
                   <urn3:fullName>Kasrl S. Skagerberg</urn3:fullName>
                </urn3:personName>
-               <urn3:userName>kskagerberg</urn3:userName>
+               <urn3:userName>kskagerb</urn3:userName>
                <urn3:org>
                   <urn3:description>${#Project#LocalHCDescription}</urn3:description>
                   <urn3:homeCommunityId>${#Project#LocalHCID}</urn3:homeCommunityId>
@@ -1682,66 +1807,104 @@ declare namespace ns12='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
                </urn3:evidence>
             </urn3:samlAuthzDecisionStatement>
          </urn:assertion>
+
          <urn:NhinTargetCommunities>
             <urn3:nhinTargetCommunity>
                <urn3:homeCommunity>
-                  <urn3:description>${#Project#RemoteHCDescription}</urn3:description>
-                  <urn3:homeCommunityId>${#Project#RemoteHCID}</urn3:homeCommunityId>
-                  <urn3:name>${#Project#RemoteHCDescription}</urn3:name>
+                  <urn3:description/>
+                  <urn3:homeCommunityId/>
+                  <urn3:name/>
                </urn3:homeCommunity>
+               <urn3:list/>
+               <urn3:region>US-VA</urn3:region>
             </urn3:nhinTargetCommunity>
          </urn:NhinTargetCommunities>
+
       </urn:RespondingGateway_CrossGatewayQueryRequest>
-   </soap:Body>
-</soap:Envelope>]]></con:request>
-	<con:assertion type="SOAP Response"/>
-	<con:assertion type="Schema Compliance">
-		<con:configuration/>
-	</con:assertion>
-	<con:assertion type="SOAP Fault Assertion"/>
-	
-	<con:assertion name="errorCode" type="XPath Match"><con:configuration><path>declare namespace S='http://www.w3.org/2003/05/soap-envelope';
-declare namespace ns11='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
-declare namespace ns12='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
-
-/S:Envelope/S:Body/ns12:AdhocQueryResponse/ns11:RegistryErrorList/ns11:RegistryError/@errorCode</path><content>XDSUnknownPatientId</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion><con:assertion type="XPath Match" name="codeContext"><con:configuration><path>declare namespace ns2='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
-
-//ns2:RegistryErrorList/ns2:RegistryError/@codeContext</path><content>No patient correlations found.</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
-	<con:jmsPropertyConfig/>
-	<con:wsaConfig mustUnderstand="NONE" version="200508"/>
-	<con:wsrmConfig version="1.2"/>
-</con:request>
-</con:config>
-</con:testStep>
-
-<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);</con:setupScript><con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);</con:tearDownScript><con:properties>
-	<con:property>
-		<con:name>startDate</con:name>
-		<con:value>2012-06-28T03:00:02Z</con:value>
-	</con:property>
-	<con:property>
-		<con:name>endDate</con:name>
-		<con:value>2012-06-28T03:10:02Z</con:value>
-	</con:property>
-	<con:property>
-		<con:name>sigDate</con:name>
-		<con:value>06/28/2012 03:00:02</con:value>
-	</con:property>
-	<con:property>
-		<con:name>expireDate</con:name>
-		<con:value>2012-07-28T00:00:00Z</con:value>
-	</con:property>
-	<con:property>
-		<con:name>FullPatientID</con:name>
-		<con:value>'D123401^^^&amp;amp;1.1&amp;amp;ISO'</con:value>
-	</con:property>
-</con:properties>
-<con:reportParameters/>
-</con:testCase><con:properties/></con:testSuite><con:properties><con:property><con:name>AAMappingDB</con:name><con:value>assigningauthoritydb</con:value></con:property><con:property><con:name>AAMappingTable</con:name><con:value>aa_to_home_community_mapping</con:value></con:property><con:property><con:name>AsyncMsgDB</con:name><con:value>asyncmsgs</con:value></con:property><con:property><con:name>AsyncMsgTable</con:name><con:value>asyncmsgrepo</con:value></con:property><con:property><con:name>AuditRepoDB</con:name><con:value>auditrepo</con:value></con:property><con:property><con:name>AuditRepoTable</con:name><con:value>auditrepository</con:value></con:property><con:property><con:name>BirthTime</con:name><con:value>19630804</con:value></con:property><con:property><con:name>City</con:name><con:value>Melbourne</con:value></con:property><con:property><con:name>Country</con:name><con:value>US</con:value></con:property><con:property><con:name>DBHost</con:name><con:value>localhost</con:value></con:property><con:property><con:name>DBPass</con:name><con:value>nhincpass</con:value></con:property><con:property><con:name>DBPort</con:name><con:value>3306</con:value></con:property><con:property><con:name>DBUser</con:name><con:value>nhincuser</con:value></con:property><con:property><con:name>DeferredPatientDiscoveryReqMessageID</con:name><con:value>uuid:6666666666.66666.666.66</con:value></con:property><con:property><con:name>DOB</con:name><con:value>19800516</con:value></con:property><con:property><con:name>DQDocID</con:name><con:value>1.123401.55555</con:value></con:property><con:property><con:name>DQPatientID</con:name><con:value>D123401</con:value></con:property><con:property><con:name>DRDocID</con:name><con:value>1.123407.777777</con:value></con:property><con:property><con:name>DRRepoID</con:name><con:value>1</con:value></con:property><con:property><con:name>DynamicDQDocID</con:name><con:value>103.8.9284320.020.3590.75^1266324032288</con:value></con:property><con:property><con:name>ExpirationDate</con:name><con:value>20100520</con:value></con:property><con:property><con:name>FamilyName</con:name><con:value>Younger</con:value></con:property><con:property><con:name>GatewayPropDir</con:name><con:value>c:\glassfish3\glassfish\domains\domain1\config\nhin</con:value></con:property><con:property><con:name>Gender</con:name><con:value>M</con:value></con:property><con:property><con:name>GivenName</con:name><con:value>Gallow</con:value></con:property><con:property><con:name>LocalAA</con:name><con:value>1.1</con:value></con:property><con:property><con:name>LocalHCDescription</con:name><con:value>InternalTest1</con:value></con:property><con:property><con:name>LocalHCID</con:name><con:value>1.1</con:value></con:property><con:property><con:name>LocalPatientID</con:name><con:value>D123401</con:value></con:property><con:property><con:name>NotificationEndpoint</con:name><con:value>https://localhost:8181/Gateway/HIEM/2_0/NhinService/NotificationConsumerService/HiemNotify</con:value></con:property><con:property><con:name>NotifySubscriptionID</con:name><con:value>fb5fa810-501b-4b2f-b935-63c1db25143b</con:value></con:property><con:property><con:name>NotifySubscriptionManagerEndpointAddress</con:name><con:value>https://localhost:8181/Gateway/HIEM/2_0/NhinService/SubscriptionManagerService/HiemUnsubscribe</con:value></con:property><con:property><con:name>PatientCorrelationDB</con:name><con:value>patientcorrelationdb</con:value></con:property><con:property><con:name>PatientCorrelationTable</con:name><con:value>correlatedidentifiers</con:value></con:property><con:property><con:name>project.name</con:name><con:value>EntityValidation</con:value></con:property><con:property><con:name>PurposeOfDisclosure</con:name><con:value>Mental</con:value></con:property><con:property><con:name>RemoteAA</con:name><con:value>2.2</con:value></con:property><con:property><con:name>RemoteHCDescription</con:name><con:value>InternalTest2</con:value></con:property><con:property><con:name>RemoteHCID</con:name><con:value>2.2</con:value></con:property><con:property><con:name>RemotePatientID</con:name><con:value>D123401</con:value></con:property><con:property><con:name>SSN</con:name><con:value>123456789</con:value></con:property><con:property><con:name>State</con:name><con:value>FL</con:value></con:property><con:property><con:name>StreetAddress</con:name><con:value>123 Johnson Rd</con:value></con:property><con:property><con:name>SubjectID</con:name><con:value>1111</con:value></con:property><con:property><con:name>SubscribePatientID</con:name><con:value>D123401</con:value></con:property><con:property><con:name>SubscriptionDB</con:name><con:value>subscriptionrepository</con:value></con:property><con:property><con:name>SubscriptionManagerEndpointAddress</con:name><con:value>https://localhost:8181/Gateway/HIEM/2_0/NhinService/SubscriptionManagerService/HiemUnsubscribe</con:value></con:property><con:property><con:name>SubscriptionTable</con:name><con:value>subscription</con:value></con:property><con:property><con:name>UniquePatientId</con:name><con:value>1111^^^&amp;amp;1.1&amp;amp;ISO</con:value></con:property><con:property><con:name>UnSubscriptionID</con:name><con:value>5aae31a7-317d-4609-8ffb-9b4d9636ff70</con:value></con:property><con:property><con:name>ZipCode</con:name><con:value>12345</con:value></con:property></con:properties><con:afterLoadScript>def propertiesFilename = project.path[0..(project.path.size()-4)] + 'properties'
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request>
+            <con:assertion type="SOAP Response"/>
+            <con:assertion type="Schema Compliance">
+              <con:configuration/>
+            </con:assertion>
+            <con:assertion type="SOAP Fault Assertion"/>
+            <con:assertion name="Document Count" type="XPath Match">
+              <con:configuration>
+                <path>declare namespace ns3='urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0';
+declare namespace ns6='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
+count(//ns6:AdhocQueryResponse[1]/ns3:RegistryObjectList[1]/ns3:ExtrinsicObject)</path>
+                <content>4</content>
+                <allowWildcards>false</allowWildcards>
+                <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
+              </con:configuration>
+            </con:assertion>
+            <con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/>
+            <con:wsrmConfig version="1.2"/>
+          </con:request>
+        </con:config>
+      </con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
+        <con:property>
+          <con:name>startDate</con:name>
+          <con:value>2013-02-04T00:22:43Z</con:value>
+        </con:property>
+        <con:property>
+          <con:name>endDate</con:name>
+          <con:value>2013-02-04T00:32:43Z</con:value>
+        </con:property>
+        <con:property>
+          <con:name>sigDate</con:name>
+          <con:value>02/04/2013 00:22:43</con:value>
+        </con:property>
+        <con:property>
+          <con:name>expireDate</con:name>
+          <con:value>2013-03-06T00:00:00Z</con:value>
+        </con:property>
+        <con:property>
+          <con:name>FullPatientID</con:name>
+          <con:value>'D123400^^^&amp;amp;1.1&amp;amp;ISO'</con:value>
+        </con:property>
+      </con:properties>
+      <con:reportParameters/>
+    <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);</con:tearDownScript></con:testCase>
+    <con:properties/>
+    <con:setupScript/><con:tearDownScript/><con:reportParameters/>
+  </con:testSuite>
+  <con:requirements/>
+  <con:properties>
+    <con:property><con:name>AAMappingDB</con:name><con:value>assigningauthoritydb</con:value></con:property>
+    
+    
+    <con:property><con:name>AAMappingTable</con:name><con:value>aa_to_home_community_mapping</con:value></con:property><con:property><con:name>DBHost</con:name><con:value>localhost</con:value></con:property><con:property><con:name>DBPass</con:name><con:value>nhincpass</con:value></con:property>
+    
+    <con:property><con:name>DBPort</con:name><con:value>3306</con:value></con:property><con:property><con:name>DBUser</con:name><con:value>nhincuser</con:value></con:property><con:property><con:name>DQDocID</con:name><con:value>1.123401.11111</con:value></con:property><con:property><con:name>DQPatientID</con:name><con:value>D123400</con:value></con:property><con:property>
+      <con:name>Endpoint-DocQuery</con:name>
+      <con:value>http://localhost:8080/Gateway/DocumentQuery/2_0/EntityService/EntityDocQueryUnsecured</con:value>
+    </con:property>
+    
+    
+    
+    <con:property><con:name>Host2</con:name><con:value>localhost</con:value></con:property><con:property><con:name>Host3</con:name><con:value>localhost</con:value></con:property>
+    
+    <con:property><con:name>LocalAA</con:name><con:value>1.1</con:value></con:property>
+    
+    <con:property><con:name>LocalHCDescription</con:name><con:value>InternalTest</con:value></con:property>
+    <con:property><con:name>LocalHCID</con:name><con:value>1.1</con:value></con:property>
+    
+    
+    
+    <con:property><con:name>LocalPatientID</con:name><con:value>D123400</con:value></con:property><con:property><con:name>NHINGatewayConfigDir</con:name><con:value>C:/Sun/AppServer/domains/domain1/config/nhin</con:value></con:property>
+    
+    <con:property><con:name>PatientCorrelationDB</con:name><con:value>patientcorrelationdb</con:value></con:property><con:property><con:name>PatientCorrelationTable</con:name><con:value>correlatedidentifiers</con:value></con:property><con:property><con:name>RemoteAA1</con:name><con:value>2.2</con:value></con:property><con:property><con:name>RemoteAA2</con:name><con:value>3.3</con:value></con:property><con:property><con:name>RemoteHCDescription2</con:name><con:value>InternalTest3</con:value></con:property>
+    
+    
+    
+    
+  <con:property><con:name>RemoteHCID1</con:name><con:value>2.2</con:value></con:property><con:property><con:name>RemoteHCID2</con:name><con:value>3.3</con:value></con:property><con:property><con:name>RemotePatientID1</con:name><con:value>D123401</con:value></con:property><con:property><con:name>RemotePatientID2</con:name><con:value>D123402</con:value></con:property><con:property><con:name>DQStableDocs</con:name><con:value>urn:uuid:7edca82f-054d-47f2-a032-9b2a5b5186c1</con:value></con:property><con:property><con:name>DQDynamicDocs</con:name><con:value>urn:uuid:34268e47-fdf5-41a6-ba33-82133c465248</con:value></con:property><con:property><con:name>GatewayPropDir</con:name><con:value>c:\glassfish3\glassfish\domains\domain1\config\nhin</con:value></con:property></con:properties>
+  <con:afterLoadScript>def propertiesFilename = project.path[0..(project.path.size()-4)] + 'properties'
 def propertiesFile = new File(propertiesFilename)
 if (propertiesFile.exists()) {
 	def props = new Properties()
-	props.load(new FileInputStream(propertiesFile))
+	props.load(new FileReader(propertiesFile))
 	props.each { key, value ->
 	    project.setPropertyValue(key, value)
 	}
@@ -1796,4 +1959,47 @@ com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext.metaClass.withSql = { d
   } finally {
     sql.close()
   }
-}</con:afterLoadScript><con:wssContainer/><con:sensitiveInformation/></con:soapui-project>
+}</con:afterLoadScript>
+  <con:wssContainer/>
+  <con:databaseConnectionContainer/>
+  <con:reporting>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:xmlTemplates/>
+    <con:parameters/>
+  </con:reporting>
+
+<con:sensitiveInformation/></con:soapui-project>
