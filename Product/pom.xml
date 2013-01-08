@@ -341,6 +341,15 @@
             </snapshots>
         </repository>
         <repository>
+            <id>jboss</id>
+            <name>JBoss</name>
+            <layout>default</layout>
+            <url>https://repository.jboss.org/nexus/content/groups/public/</url>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+        <repository>
             <id>forgerock</id>
             <url>http://repo.forgerock.org</url>
             <snapshots>
