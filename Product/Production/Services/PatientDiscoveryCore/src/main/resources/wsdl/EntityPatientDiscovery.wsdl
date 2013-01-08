@@ -30,7 +30,7 @@ name="EntityPatientDiscovery" targetNamespace="urn:gov:hhs:fha:nhinc:entitypatie
 		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
 		<wsp:PolicyReference URI="#Entity_PatientDiscovery_SoapPolicy"/>
 		<wsdl:operation name="RespondingGateway_PRPA_IN201305UV02">
-			<soap:operation soapAction="urn:RespondingGateway_PRPA_IN201305UV02"/>
+			<soap:operation soapAction="urn:gov:hhs:fha:nhinc:entitypatientdiscovery:RespondingGateway_PRPA_IN201305UV02RequestMessage"/>
 			<wsdl:input name="RespondingGateway_PRPA_IN201305UV02Request">
 				<soap:body use="literal"/>
 			</wsdl:input>

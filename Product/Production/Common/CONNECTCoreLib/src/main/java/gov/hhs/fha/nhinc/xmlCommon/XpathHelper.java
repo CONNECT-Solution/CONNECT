@@ -46,17 +46,8 @@ public class XpathHelper {
     private static final Logger LOG = Logger.getLogger(XpathHelper.class);
 
     public static Node performXpathQuery(String sourceXml, String xpathQuery) throws XPathExpressionException {
-        return performXpathQuery(sourceXml, xpathQuery, null);
-    }
-
-    public static Node performXpathQuery(String sourceXml, String xpathQuery, NamespaceContext namespaceContext)
-            throws XPathExpressionException {
         javax.xml.xpath.XPathFactory factory = javax.xml.xpath.XPathFactory.newInstance();
         javax.xml.xpath.XPath xpath = factory.newXPath();
-
-        if (namespaceContext != null) {
-            xpath.setNamespaceContext(namespaceContext);
-        }
 
         InputSource inputSource = new InputSource(new ByteArrayInputStream(sourceXml.getBytes()));
 
@@ -70,7 +61,7 @@ public class XpathHelper {
                 // retry using UTF-8
                 LOG.warn("failed to perform xpath query - retrying with UTF-8");
                 sourceXml = XmlUtfHelper.convertToUtf8(sourceXml);
-                result = performXpathQuery(sourceXml, xpathQuery, namespaceContext);
+                result = performXpathQuery(sourceXml, xpathQuery);
             }
         } else {
             result = (Node) xpath.evaluate(xpathQuery, inputSource, XPathConstants.NODE);

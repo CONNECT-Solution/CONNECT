@@ -30,7 +30,7 @@
     <portType name="AdministrativeDistributionSecured_PortType">
         <operation name="SendAlertMessage">
             <input message="tns:SendAlertMessageSecured_Message"
-        wsaw:Action="urn:gov:hhs:fha:nhinc:entityadmindistribution:SendAlertMessageSecured_Message"/>
+        wsaw:Action="urn:oasis:names:tc:emergency:EDXL:DE:1.0:SendAlertMessage"/>
         </operation>
     </portType>
     <binding name="AdministrativeDistributionSecured_Binding_Soap12" type="tns:AdministrativeDistributionSecured_PortType">

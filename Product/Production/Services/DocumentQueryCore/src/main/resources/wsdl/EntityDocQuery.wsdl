@@ -47,7 +47,7 @@
   <binding name="EntityDocQueryBindingSoap" type="tns:EntityDocQueryPortType">
     <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
     <operation name="RespondingGateway_CrossGatewayQuery">
-      <soap:operation soapAction="urn:RespondingGateway_CrossGatewayQuery"/>
+      <soap:operation soapAction="urn:gov:hhs:fha:nhinc:entitydocquery:RespondingGateway_CrossGatewayQueryRequest"/>
       <input name="RespondingGateway_CrossGatewayQueryRequest">
         <soap:body use="literal"/>
       </input>
