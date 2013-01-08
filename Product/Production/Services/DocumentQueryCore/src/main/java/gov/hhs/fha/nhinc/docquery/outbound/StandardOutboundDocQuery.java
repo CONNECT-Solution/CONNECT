@@ -29,6 +29,7 @@ package gov.hhs.fha.nhinc.docquery.outbound;
 import gov.hhs.fha.nhinc.aspect.OutboundProcessingEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
+import gov.hhs.fha.nhinc.docquery.MessageGeneratorUtils;
 import gov.hhs.fha.nhinc.docquery.aspect.AdhocQueryRequestDescriptionBuilder;
 import gov.hhs.fha.nhinc.docquery.aspect.AdhocQueryResponseDescriptionBuilder;
 import gov.hhs.fha.nhinc.docquery.entity.AggregationService;
@@ -56,7 +57,6 @@ public class StandardOutboundDocQuery implements OutboundDocQuery {
     private static final Logger LOG = Logger.getLogger(StandardOutboundDocQuery.class);
     private AggregationStrategy strategy;
     private AggregationService fanoutService;
-    
 
     /**
      * Add default constructor that is used by test cases Note that implementations should always use constructor that
@@ -90,14 +90,14 @@ public class StandardOutboundDocQuery implements OutboundDocQuery {
 
         OutboundDocQueryAggregate aggregate = new OutboundDocQueryAggregate();
 
-        List<OutboundOrchestratable> aggregateRequests = fanoutService
-                .createChildRequests(adhocQueryRequest, assertion, targets);
+        List<OutboundOrchestratable> aggregateRequests = fanoutService.createChildRequests(adhocQueryRequest,
+                assertion, targets);
 
         if (aggregateRequests.isEmpty()) {
             LOG.info("no patient correlation found.");
             return createErrorResponse("XDSUnknownPatientId", "No patient correlations found.");
         }
-        
+
         OutboundDocQueryOrchestratable request = new OutboundDocQueryOrchestratable(new OutboundDocQueryAggregator(),
                 assertion, NhincConstants.DOC_QUERY_SERVICE_NAME, adhocQueryRequest);
 
@@ -112,23 +112,6 @@ public class StandardOutboundDocQuery implements OutboundDocQuery {
     }
 
     /**
-     * This method returns RegistryErrorList for AdhocQueryResponse.
-     * 
-     * @param errorCode The ErrorCode that needs to be set to the AdhocQueryResponse (Errorcodes are defined in spec).
-     * @param codeContext The codecontext defines the reason of failure of AdhocQueryRequest.
-     * @return registryErrorList.
-     */
-    private RegistryErrorList createErrorListWithError(String errorCode, String codeContext) {
-        RegistryErrorList regErrList = new RegistryErrorList();
-        RegistryError regErr = new RegistryError();
-        regErrList.getRegistryError().add(regErr);
-        regErr.setCodeContext(codeContext);
-        regErr.setErrorCode(errorCode);
-        regErr.setSeverity(NhincConstants.XDS_REGISTRY_ERROR_SEVERITY_ERROR);
-        return regErrList;
-    }
-
-    /**
      * This method returns Response with RegistryErrorList if there is any failure.
      * 
      * @param errorCode The ErrorCode that needs to be set to the AdhocQueryResponse (Errorcodes are defined in spec).
@@ -136,14 +119,8 @@ public class StandardOutboundDocQuery implements OutboundDocQuery {
      * @return AdhocQueryResponse.
      */
     private AdhocQueryResponse createErrorResponse(String errorCode, String codeContext) {
-        AdhocQueryResponse response = new AdhocQueryResponse();
-        response.setRegistryErrorList(createErrorListWithError(errorCode, codeContext));
-        response.setStatus(DocumentConstants.XDS_QUERY_RESPONSE_STATUS_FAILURE);
-
-        RegistryObjectListType regObjectList = new RegistryObjectListType();
-        response.setRegistryObjectList(regObjectList);
-
-        return response;
+        return MessageGeneratorUtils.getInstance().createAdhocQueryErrorResponse(codeContext, errorCode,
+                DocumentConstants.XDS_QUERY_RESPONSE_STATUS_FAILURE);
     }
 
 }
