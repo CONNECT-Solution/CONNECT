@@ -1,17 +1,15 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<?xml version="1.0"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>org.connectopensource</groupId>
         <artifactId>SoapUI_Test</artifactId>
         <version>4.0.0-SNAPSHOT</version>
     </parent>
-    <artifactId>DocQueryAdditionalStoredQueries</artifactId>
+    <artifactId>HIEMPatientCentricUDDItests</artifactId>
     <packaging>jar</packaging>
-    <name>Maven 3 soapUI DocQueryAdditionalStoredQueries</name>
+    <name>Maven 3 soapUI HIEMPatientCentricUDDItests</name>
     <properties>
-        <skip.unpack>false</skip.unpack>
-        <soapui.testFailIgnore>true</soapui.testFailIgnore>
     </properties>
     <pluginRepositories>
         <pluginRepository>
@@ -26,13 +24,13 @@
                 <artifactId>maven-soapui-extension-plugin</artifactId>
                 <executions>
                     <execution>
-                        <id>DocQueryAdditionalStoredQueries-soapui-project</id>
+                        <id>HIEMPatientCentricUDDItests-soapui-project</id>
                         <phase>integration-test</phase>
                         <goals>
                             <goal>test</goal>
                         </goals>
                         <configuration>
-                            <projectFile>${basedir}/DocQueryAdditionalStoredQueries-soapui-project.xml</projectFile>
+                            <projectFile>${basedir}/HIEMPatientCentricUDDItests-soapui-project.xml</projectFile>
                             <outputFolder>${project.build.directory}/soapui/output</outputFolder>
                         </configuration>
                     </execution>
