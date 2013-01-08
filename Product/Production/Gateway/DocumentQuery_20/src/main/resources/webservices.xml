@@ -22,8 +22,8 @@ http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd http://www.s
         endpointName="ndq:RespondingGateway_Query_Port_Soap" implementorClass="gov.hhs.fha.nhinc.docquery._20.nhin.DocQuery"
         implementor="#nhinDQ" wsdlLocation="classpath:wsdl/NhinDocQuery.wsdl">
         <jaxws:properties>
-            <entry key="ws-security.signature.properties" value="keystore.properties" />
-            <entry key="ws-security.encryption.properties" value="truststore.properties" />
+            <entry key="ws-security.signature.properties" value="file:///${nhinc.properties.dir}/signature.properties" />
+            <entry key="ws-security.encryption.properties" value="file:///${nhinc.properties.dir}/truststore.properties" />
             <entry key="ws-security.saml2.validator">
                 <bean class="gov.hhs.fha.nhinc.callback.cxf.CONNECTSamlAssertionValidator" />
             </entry>
@@ -53,8 +53,8 @@ http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd http://www.s
         implementorClass="gov.hhs.fha.nhinc.docquery._20.entity.EntityDocQuerySecured" implementor="#entityDQSecured"
         wsdlLocation="classpath:wsdl/EntityDocQuerySecured.wsdl">
         <jaxws:properties>
-            <entry key="ws-security.signature.properties" value="keystore.properties" />
-            <entry key="ws-security.encryption.properties" value="truststore.properties" />
+            <entry key="ws-security.signature.properties" value="file:///${nhinc.properties.dir}/signature.properties" />
+            <entry key="ws-security.encryption.properties" value="file:///${nhinc.properties.dir}/truststore.properties" />
             <entry key="ws-security.saml2.validator">
                 <bean class="gov.hhs.fha.nhinc.callback.cxf.CONNECTSamlAssertionValidator" />
             </entry>            
