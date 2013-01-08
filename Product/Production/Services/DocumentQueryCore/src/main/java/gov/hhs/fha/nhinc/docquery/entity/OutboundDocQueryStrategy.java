@@ -33,8 +33,10 @@ import gov.hhs.fha.nhinc.common.auditlog.LogEventRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException;
+import gov.hhs.fha.nhinc.docquery.MessageGeneratorUtils;
 import gov.hhs.fha.nhinc.docquery.nhin.proxy.NhinDocQueryProxyFactory;
 import gov.hhs.fha.nhinc.docquery.nhin.proxy.NhinDocQueryProxyObjectFactory;
+import gov.hhs.fha.nhinc.gateway.aggregator.document.DocumentConstants;
 import gov.hhs.fha.nhinc.gateway.executorservice.ExecutorServiceHelper;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants.GATEWAY_API_LEVEL;
@@ -45,6 +47,7 @@ import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 
 /**
@@ -124,7 +127,7 @@ public abstract class OutboundDocQueryStrategy implements OrchestrationStrategy 
     }
 
     /**
-     * This method takes Orchestrated message request and returns reponse.
+     * This method takes Orchestrated message request and returns response.
      * 
      * @param message DocQueryOrchestartable message from Adapter level a0 passed.
      * @throws Exception
@@ -135,14 +138,20 @@ public abstract class OutboundDocQueryStrategy implements OrchestrationStrategy 
             ConnectionManagerException, Exception {
 
         final String url = getUrl(message.getTarget());
-        message.getTarget().setUrl(url);
-        if (LOG.isDebugEnabled()) {
-            LOG.debug("executeStrategy sending nhin doc query request to " + " target hcid="
-                    + message.getTarget().getHomeCommunity().getHomeCommunityId() + " at url=" + url);
-        }
+        AdhocQueryResponse response;
+        if (StringUtils.isBlank(url)) {
+            response = MessageGeneratorUtils.getInstance().createRepositoryErrorResponse(
+                    "Unable to find any callable targets.");
+        } else {
+            message.getTarget().setUrl(url);
+            if (LOG.isDebugEnabled()) {
+                LOG.debug("executeStrategy sending nhin doc query request to " + " target hcid="
+                        + message.getTarget().getHomeCommunity().getHomeCommunityId() + " at url=" + url);
+            }
 
-        AdhocQueryResponse response = proxyFactory.getNhinDocQueryProxy().respondingGatewayCrossGatewayQuery(
-                message.getRequest(), message.getAssertion(), message.getTarget());
+            response = proxyFactory.getNhinDocQueryProxy().respondingGatewayCrossGatewayQuery(message.getRequest(),
+                    message.getAssertion(), message.getTarget());
+        }
 
         message.setResponse(response);
 
