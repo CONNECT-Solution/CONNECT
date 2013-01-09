@@ -24,7 +24,7 @@
       and let Hibernate bind the session automatically to the thread    -->
       <property name="current_session_context_class">thread</property>
 
-      <property name="connection.datasource">jdbc/auditrepo_datasource</property>
+      <property name="connection.datasource">java:comp/env/jdbc/auditrepo_datasource</property>
 
       <!-- Mapping files -->
       <mapping resource="auditrepo.hbm.xml"/>

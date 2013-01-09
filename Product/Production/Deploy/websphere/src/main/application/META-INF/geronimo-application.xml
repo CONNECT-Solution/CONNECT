@@ -37,6 +37,7 @@
             <sys:filter>org.objectweb.asm</sys:filter>
             <sys:filter>com.ctc.wstx</sys:filter>
             <sys:filter>org.codehaus.stax2</sys:filter>
+            <sys:filter>org.uddi.api_v3</sys:filter>
         </sys:hidden-classes>
 
         <sys:inverse-classloading />
