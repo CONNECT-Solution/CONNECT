@@ -20,8 +20,8 @@
       classpath:CONNECT-interceptor-beans.xml 
       classpath:CONNECT-context.xml
       classpath:eventlogging.xml
-      classpath:applicationContext.xml
-      classpath:webservices.xml
+      classpath:/patientdiscovery/_10/applicationContext.xml
+      classpath:/patientdiscovery/_10/webservices.xml
       </param-value>
       
    </context-param>
