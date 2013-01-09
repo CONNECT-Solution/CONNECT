@@ -51,7 +51,7 @@ context.testCase.setPropertyValue('UserId',"${AQUserID}${nowDate}1");</script></
 						<con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings>
 						<con:encoding>UTF-8</con:encoding>
 						<con:endpoint>${#Project#Endpoint-DocQuery}</con:endpoint>
-						<con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonproxy" xmlns:urn1="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn3="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing">
+						<con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn3="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing">
    <soapenv:Header/>
    <soapenv:Body projectName="AuditLogsforDocQandR" testCase="DocQuery - AuditLog TestCase">
       <urn:RespondingGateway_CrossGatewayQueryRequest>
@@ -336,19 +336,19 @@ assert (count > 0);</script></con:config></con:testStep>
 			<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2012-12-16T16:06:14Z</con:value>
+					<con:value>2013-01-07T18:11:05Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2012-12-16T16:16:14Z</con:value>
+					<con:value>2013-01-07T18:21:05Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>12/16/2012 16:06:14</con:value>
+					<con:value>01/07/2013 18:11:05</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2013-01-15T00:00:00Z</con:value>
+					<con:value>2013-02-06T00:00:00Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>FullPatientID</con:name>
@@ -356,7 +356,7 @@ assert (count > 0);</script></con:config></con:testStep>
 				</con:property>
 				<con:property>
 					<con:name>UserId</con:name>
-					<con:value>TestSun Dec 16 16:11:14 UTC 20121</con:value>
+					<con:value>TestMon Jan 07 18:16:05 UTC 20131</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
@@ -397,7 +397,7 @@ context.testCase.setPropertyValue('UserId',"${AQUserID}${nowDate}1");</script>
 						<con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings>
 						<con:encoding>UTF-8</con:encoding>
 						<con:endpoint>${#Project#Endpoint-DocRetrieve}</con:endpoint>
-						<con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonproxy" xmlns:urn1="urn:ihe:iti:xds-b:2007" xmlns:urn2="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing">
+						<con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:ihe:iti:xds-b:2007" xmlns:urn2="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing">
    <soapenv:Header/>
    <soapenv:Body projectName="AuditLogsforDocQandR" testCase="DocRetrieve - AuditLog TestCase">
       <urn:RespondingGateway_CrossGatewayRetrieveRequest>
@@ -656,19 +656,19 @@ assert (count > 0);</script></con:config></con:testStep>
 			<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2012-12-16T16:06:16Z</con:value>
+					<con:value>2013-01-07T18:11:53Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2012-12-16T16:16:16Z</con:value>
+					<con:value>2013-01-07T18:21:53Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>12/16/2012 16:06:16</con:value>
+					<con:value>01/07/2013 18:11:53</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2013-01-15T00:00:00Z</con:value>
+					<con:value>2013-02-06T00:00:00Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>CorrectedLocalHCID</con:name>
@@ -676,7 +676,7 @@ assert (count > 0);</script></con:config></con:testStep>
 				</con:property>
 				<con:property>
 					<con:name>UserId</con:name>
-					<con:value>TestSun Dec 16 16:11:16 UTC 20121</con:value>
+					<con:value>TestMon Jan 07 18:16:53 UTC 20131</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>

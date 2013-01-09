@@ -313,7 +313,7 @@
 			</con:request>
 		</con:config>
 	</con:testStep>
-	<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);</con:tearDownScript><con:properties/>
+	<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);</con:tearDownScript><con:properties><con:property><con:name>startDate</con:name><con:value>2013-01-07T18:22:19Z</con:value></con:property><con:property><con:name>endDate</con:name><con:value>2013-01-07T18:32:19Z</con:value></con:property><con:property><con:name>sigDate</con:name><con:value>01/07/2013 18:22:19</con:value></con:property><con:property><con:name>expireDate</con:name><con:value>2013-02-06T00:00:00Z</con:value></con:property></con:properties>
 </con:testCase>
 <con:testCase failOnError="true" failTestCaseOnErrors="true" id="0db49d7b-aecc-47a9-98bc-8aab0f6234a1" keepSession="false" maxResults="0" name="ForceRefreshUDDICache TestCase" searchProperties="true">
 	<con:settings/>
@@ -351,7 +351,7 @@
 	</con:request>
 </con:config>
 </con:testStep>
-<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);</con:tearDownScript><con:properties/>
+<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);</con:tearDownScript><con:properties><con:property><con:name>startDate</con:name><con:value>2013-01-07T18:22:19Z</con:value></con:property><con:property><con:name>endDate</con:name><con:value>2013-01-07T18:32:19Z</con:value></con:property><con:property><con:name>sigDate</con:name><con:value>01/07/2013 18:22:19</con:value></con:property><con:property><con:name>expireDate</con:name><con:value>2013-02-06T00:00:00Z</con:value></con:property></con:properties>
 </con:testCase>
 <con:testCase failOnError="true" failTestCaseOnErrors="true" id="97d0131a-3476-482f-9f1c-fbacab55a800" keepSession="false" maxResults="0" name="GetAdapterEndpointURL TestCase" searchProperties="true">
 	<con:settings/>
@@ -392,7 +392,7 @@
 	</con:request>
 </con:config>
 </con:testStep>
-<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);</con:tearDownScript><con:properties/>
+<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);</con:tearDownScript><con:properties><con:property><con:name>startDate</con:name><con:value>2013-01-07T18:22:19Z</con:value></con:property><con:property><con:name>endDate</con:name><con:value>2013-01-07T18:32:19Z</con:value></con:property><con:property><con:name>sigDate</con:name><con:value>01/07/2013 18:22:19</con:value></con:property><con:property><con:name>expireDate</con:name><con:value>2013-02-06T00:00:00Z</con:value></con:property></con:properties>
 </con:testCase>
 <con:testCase failOnError="true" failTestCaseOnErrors="true" id="fae385b0-78cc-4b03-9af0-ca7e952d6e56" keepSession="false" maxResults="0" name="GetAllBusinessEntities TestCase" searchProperties="true">
 	<con:settings/>
@@ -430,7 +430,7 @@ count(//ns3:GetAllBusinessEntitiesResponse/ns4:businessEntity)</path>
 	</con:request>
 </con:config>
 </con:testStep>
-<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);</con:tearDownScript><con:properties/>
+<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);</con:tearDownScript><con:properties><con:property><con:name>startDate</con:name><con:value>2013-01-07T18:22:20Z</con:value></con:property><con:property><con:name>endDate</con:name><con:value>2013-01-07T18:32:20Z</con:value></con:property><con:property><con:name>sigDate</con:name><con:value>01/07/2013 18:22:20</con:value></con:property><con:property><con:name>expireDate</con:name><con:value>2013-02-06T00:00:00Z</con:value></con:property></con:properties>
 </con:testCase>
 <con:testCase failOnError="true" failTestCaseOnErrors="true" id="52f3ae01-c13f-4bb1-a725-f5cf496027e4" keepSession="false" maxResults="0" name="GetAllBusinessEntitySetByServiceName TestCase" searchProperties="true">
 	<con:settings/>
@@ -479,7 +479,7 @@ declare namespace ns5='urn:uddi-org:api_v3';
 	</con:request>
 </con:config>
 </con:testStep>
-<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);</con:tearDownScript><con:properties/>
+<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);</con:tearDownScript><con:properties><con:property><con:name>startDate</con:name><con:value>2013-01-07T18:22:20Z</con:value></con:property><con:property><con:name>endDate</con:name><con:value>2013-01-07T18:32:20Z</con:value></con:property><con:property><con:name>sigDate</con:name><con:value>01/07/2013 18:22:20</con:value></con:property><con:property><con:name>expireDate</con:name><con:value>2013-02-06T00:00:00Z</con:value></con:property></con:properties>
 </con:testCase>
 <con:testCase failOnError="true" failTestCaseOnErrors="true" id="0218401c-1187-44c1-9251-fd3c34a505e5" keepSession="false" maxResults="0" name="GetAssigningAuthoritiesByHomeCommunity TestCase" searchProperties="true">
 	<con:settings/>
@@ -527,7 +527,7 @@ declare namespace ns5='urn:uddi-org:api_v3';
 	</con:request>
 </con:config>
 </con:testStep>
-<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);</con:tearDownScript><con:properties><con:property><con:name>startDate</con:name><con:value>2012-12-11T15:07:34Z</con:value></con:property><con:property><con:name>endDate</con:name><con:value>2012-12-11T15:17:34Z</con:value></con:property><con:property><con:name>sigDate</con:name><con:value>12/11/2012 15:07:34</con:value></con:property><con:property><con:name>expireDate</con:name><con:value>2013-01-10T00:00:00Z</con:value></con:property></con:properties>
+<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);</con:tearDownScript><con:properties><con:property><con:name>startDate</con:name><con:value>2013-01-07T18:22:20Z</con:value></con:property><con:property><con:name>endDate</con:name><con:value>2013-01-07T18:32:20Z</con:value></con:property><con:property><con:name>sigDate</con:name><con:value>01/07/2013 18:22:20</con:value></con:property><con:property><con:name>expireDate</con:name><con:value>2013-02-06T00:00:00Z</con:value></con:property></con:properties>
 </con:testCase>
 <con:testCase failOnError="true" failTestCaseOnErrors="true" id="1aa3b5ec-effc-40da-b545-6f860a604234" keepSession="false" maxResults="0" name="GetBusinessEntity TestCase" searchProperties="true">
 	<con:settings/>
@@ -574,7 +574,7 @@ count(//ns3:GetBusinessEntityResponse)</path>
 	</con:request>
 </con:config>
 </con:testStep>
-<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);</con:tearDownScript><con:properties/>
+<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);</con:tearDownScript><con:properties><con:property><con:name>startDate</con:name><con:value>2013-01-07T18:22:20Z</con:value></con:property><con:property><con:name>endDate</con:name><con:value>2013-01-07T18:32:20Z</con:value></con:property><con:property><con:name>sigDate</con:name><con:value>01/07/2013 18:22:20</con:value></con:property><con:property><con:name>expireDate</con:name><con:value>2013-02-06T00:00:00Z</con:value></con:property></con:properties>
 </con:testCase>
 <con:testCase failOnError="true" failTestCaseOnErrors="true" id="6f9eaa82-6115-41e0-b6c4-442ee29eaafc" keepSession="false" maxResults="0" name="GetBusinessEntityByServiceName TestCase" searchProperties="true">
 	<con:settings/>
@@ -615,7 +615,7 @@ count(//ns3:GetBusinessEntityResponse)</path>
 	</con:request>
 </con:config>
 </con:testStep>
-<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);</con:tearDownScript><con:properties/>
+<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);</con:tearDownScript><con:properties><con:property><con:name>startDate</con:name><con:value>2013-01-07T18:22:21Z</con:value></con:property><con:property><con:name>endDate</con:name><con:value>2013-01-07T18:32:21Z</con:value></con:property><con:property><con:name>sigDate</con:name><con:value>01/07/2013 18:22:21</con:value></con:property><con:property><con:name>expireDate</con:name><con:value>2013-02-06T00:00:00Z</con:value></con:property></con:properties>
 </con:testCase>
 <con:testCase failOnError="true" failTestCaseOnErrors="true" id="849502f6-2f04-4045-a9ef-2e3a693a9a97" keepSession="false" maxResults="0" name="GetBusinessEntitySet TestCase" searchProperties="true">
 	<con:settings/>
@@ -664,7 +664,7 @@ count(//ns3:GetBusinessEntitySetResponse/ns4:businessEntity)</path>
 	</con:request>
 </con:config>
 </con:testStep>
-<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);</con:tearDownScript><con:properties/>
+<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);</con:tearDownScript><con:properties><con:property><con:name>startDate</con:name><con:value>2013-01-07T18:22:21Z</con:value></con:property><con:property><con:name>endDate</con:name><con:value>2013-01-07T18:32:21Z</con:value></con:property><con:property><con:name>sigDate</con:name><con:value>01/07/2013 18:22:21</con:value></con:property><con:property><con:name>expireDate</con:name><con:value>2013-02-06T00:00:00Z</con:value></con:property></con:properties>
 </con:testCase>
 <con:testCase failOnError="true" failTestCaseOnErrors="true" id="f69e50d7-77fe-4c1f-a3b3-7519c1337b41" keepSession="false" maxResults="0" name="GetBusinessEntitySetByServiceName TestCase" searchProperties="true">
 	<con:settings/>
@@ -717,7 +717,7 @@ declare namespace ns5='urn:uddi-org:api_v3';
 	</con:request>
 </con:config>
 </con:testStep>
-<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);</con:tearDownScript><con:properties/>
+<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);</con:tearDownScript><con:properties><con:property><con:name>startDate</con:name><con:value>2013-01-07T18:22:21Z</con:value></con:property><con:property><con:name>endDate</con:name><con:value>2013-01-07T18:32:21Z</con:value></con:property><con:property><con:name>sigDate</con:name><con:value>01/07/2013 18:22:21</con:value></con:property><con:property><con:name>expireDate</con:name><con:value>2013-02-06T00:00:00Z</con:value></con:property></con:properties>
 </con:testCase>
 <con:testCase failOnError="true" failTestCaseOnErrors="true" id="95fc9fca-0735-42a4-8493-60072b7605e2" keepSession="false" maxResults="0" name="GetDefaultEndpointURLByServiceName TestCase" searchProperties="true">
 	<con:settings/>
@@ -758,7 +758,7 @@ declare namespace ns5='urn:uddi-org:api_v3';
 	</con:request>
 </con:config>
 </con:testStep>
-<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);</con:tearDownScript><con:properties/>
+<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);</con:tearDownScript><con:properties><con:property><con:name>startDate</con:name><con:value>2013-01-07T18:22:22Z</con:value></con:property><con:property><con:name>endDate</con:name><con:value>2013-01-07T18:32:22Z</con:value></con:property><con:property><con:name>sigDate</con:name><con:value>01/07/2013 18:22:22</con:value></con:property><con:property><con:name>expireDate</con:name><con:value>2013-02-06T00:00:00Z</con:value></con:property></con:properties>
 </con:testCase>
 <con:testCase failOnError="true" failTestCaseOnErrors="true" id="16b97b01-d6ee-4c6d-adb2-2de73b0bb504" keepSession="false" maxResults="0" name="GetEndpointURLFromNhinTarget TestCase" searchProperties="true">
 	<con:settings/>
@@ -805,7 +805,7 @@ declare namespace ns5='urn:uddi-org:api_v3';
 	</con:request>
 </con:config>
 </con:testStep>
-<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);</con:tearDownScript><con:properties/>
+<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);</con:tearDownScript><con:properties><con:property><con:name>startDate</con:name><con:value>2013-01-07T18:22:22Z</con:value></con:property><con:property><con:name>endDate</con:name><con:value>2013-01-07T18:32:22Z</con:value></con:property><con:property><con:name>sigDate</con:name><con:value>01/07/2013 18:22:22</con:value></con:property><con:property><con:name>expireDate</con:name><con:value>2013-02-06T00:00:00Z</con:value></con:property></con:properties>
 </con:testCase>
 <con:testCase failOnError="true" failTestCaseOnErrors="true" id="3905d5d2-d6e9-46bd-9ef5-23a24e906b3a" keepSession="false" maxResults="0" name="GetEndpointURLFromNhinTargetCommunities TestCase" searchProperties="true">
 	<con:settings/>
@@ -868,7 +868,7 @@ declare namespace ns3='urn:gov:hhs:fha:nhinc:common:nhinccommon';
 	</con:request>
 </con:config>
 </con:testStep>
-<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);</con:tearDownScript><con:properties/>
+<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);</con:tearDownScript><con:properties><con:property><con:name>startDate</con:name><con:value>2013-01-07T18:22:22Z</con:value></con:property><con:property><con:name>endDate</con:name><con:value>2013-01-07T18:32:22Z</con:value></con:property><con:property><con:name>sigDate</con:name><con:value>01/07/2013 18:22:22</con:value></con:property><con:property><con:name>expireDate</con:name><con:value>2013-02-06T00:00:00Z</con:value></con:property></con:properties>
 </con:testCase>
 <con:testCase failOnError="true" failTestCaseOnErrors="true" id="dd3a0180-2bbe-4bad-8497-48abfa96cae0" keepSession="false" maxResults="0" name="GetHomeCommunityByAssigningAuthority TestCase" searchProperties="true">
 	<con:settings/>
@@ -886,7 +886,7 @@ declare namespace ns3='urn:gov:hhs:fha:nhinc:common:nhinccommon';
 		<con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:connectionmanagerinfo">
    <soap:Header/>
    <soap:Body>
-      <urn:AssigningAuthorityId>2.2</urn:AssigningAuthorityId>
+      <urn:GetHomeCommunityByAssigningAuthorityRequest>2.2</urn:GetHomeCommunityByAssigningAuthorityRequest>
    </soap:Body>
 </soap:Envelope>]]></con:request>
 		<con:assertion type="SOAP Fault Assertion"/>
@@ -906,7 +906,7 @@ declare namespace ns3='urn:gov:hhs:fha:nhinc:common:nhinccommon';
 	</con:request>
 </con:config>
 </con:testStep>
-<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);</con:tearDownScript><con:properties/>
+<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);</con:tearDownScript><con:properties><con:property><con:name>startDate</con:name><con:value>2013-01-07T18:22:22Z</con:value></con:property><con:property><con:name>endDate</con:name><con:value>2013-01-07T18:32:22Z</con:value></con:property><con:property><con:name>sigDate</con:name><con:value>01/07/2013 18:22:22</con:value></con:property><con:property><con:name>expireDate</con:name><con:value>2013-02-06T00:00:00Z</con:value></con:property></con:properties>
 </con:testCase>
 <con:testCase failOnError="true" failTestCaseOnErrors="true" id="420cc72a-daac-42e4-a36f-fb9dc2d9bcc7" keepSession="false" maxResults="0" name="GetInternalEndpointURLByServiceName TestCase" searchProperties="true">
 	<con:settings/>
@@ -924,7 +924,7 @@ declare namespace ns3='urn:gov:hhs:fha:nhinc:common:nhinccommon';
 		<con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:connectionmanagerinfo">
    <soap:Header/>
    <soap:Body>
-      <urn:ServiceName>QueryForDocuments</urn:ServiceName>
+      <urn:GetInternalEndpointURLByServiceNameRequest>QueryForDocuments</urn:GetInternalEndpointURLByServiceNameRequest>
    </soap:Body>
 </soap:Envelope>]]></con:request>
 		<con:assertion type="SOAP Fault Assertion"/>
@@ -944,7 +944,7 @@ declare namespace ns3='urn:gov:hhs:fha:nhinc:common:nhinccommon';
 	</con:request>
 </con:config>
 </con:testStep>
-<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);</con:tearDownScript><con:properties/>
+<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);</con:tearDownScript><con:properties><con:property><con:name>startDate</con:name><con:value>2013-01-07T18:22:22Z</con:value></con:property><con:property><con:name>endDate</con:name><con:value>2013-01-07T18:32:22Z</con:value></con:property><con:property><con:name>sigDate</con:name><con:value>01/07/2013 18:22:22</con:value></con:property><con:property><con:name>expireDate</con:name><con:value>2013-02-06T00:00:00Z</con:value></con:property></con:properties>
 </con:testCase>
 <con:properties/>
 </con:testSuite>

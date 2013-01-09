@@ -666,7 +666,7 @@ declare namespace ns12='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
 
 /S:Envelope/S:Body/ns12:AdhocQueryResponse/ns11:RegistryErrorList/ns11:RegistryError/@errorCode</path><content>XDSStoredQueryMissingParam</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:assertion type="XPath Match" name="codeContext"><con:configuration><path>declare namespace ns2='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
 
-//ns2:RegistryErrorList/ns2:RegistryError/@codeContext</path><content>Required parameter XDSDocumentEntryPatientId, not present in query request.</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+//ns2:RegistryErrorList/ns2:RegistryError/@codeContext</path><content>Required parameter XDSDocumentEntryPatientId, not present in query request</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
 	<con:jmsPropertyConfig/>
 	<con:wsaConfig mustUnderstand="NONE" version="200508"/>
 	<con:wsrmConfig version="1.2"/>
@@ -1011,7 +1011,7 @@ declare namespace ns12='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
 
 /S:Envelope/S:Body/ns12:AdhocQueryResponse/ns11:RegistryErrorList/ns11:RegistryError/@errorCode</path><content>XDSStoredQueryMissingParam</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:assertion type="XPath Match" name="codeContext"><con:configuration><path>declare namespace ns2='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
 
-//ns2:RegistryErrorList/ns2:RegistryError/@codeContext</path><content>Required parameter XDSDocumentEntryPatientId, not present in query request.</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+//ns2:RegistryErrorList/ns2:RegistryError/@codeContext</path><content>Required parameter XDSDocumentEntryPatientId, not present in query request</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
 	<con:jmsPropertyConfig/>
 	<con:wsaConfig mustUnderstand="NONE" version="200508"/>
 	<con:wsrmConfig version="1.2"/>
