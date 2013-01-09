@@ -57,7 +57,7 @@ FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", destConfigFileL
 						<con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings>
 						<con:encoding>UTF-8</con:encoding>
 						<con:endpoint>${#Project#Endpoint-DocRetrieve}</con:endpoint>
-						<con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonproxy" xmlns:urn1="urn:ihe:iti:xds-b:2007" xmlns:urn2="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing">
+						<con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:ihe:iti:xds-b:2007" xmlns:urn2="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing">
    <soapenv:Header/>
    <soapenv:Body projectName="DocumentRetrieveXDSErrorValidation" testCase="XDSRegistryError TestCase">
       <urn:RespondingGateway_CrossGatewayRetrieveRequest>
@@ -335,19 +335,19 @@ declare namespace ns12='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
 			<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2012-12-13T01:21:43Z</con:value>
+					<con:value>2013-01-08T15:12:03Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2012-12-13T01:31:43Z</con:value>
+					<con:value>2013-01-08T15:22:03Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>12/13/2012 01:21:43</con:value>
+					<con:value>01/08/2013 15:12:03</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2013-01-12T00:00:00Z</con:value>
+					<con:value>2013-02-07T00:00:00Z</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
@@ -375,11 +375,11 @@ FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", destConfigFileL
 					<con:interface>EntityDocRetrieveBindingSoap</con:interface>
 					<con:operation>RespondingGateway_CrossGatewayRetrieve</con:operation>
 					<con:request name="Nhinc Doc Retrieve Request">
-						<con:settings/>
+						<con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings>
 						<con:encoding>UTF-8</con:encoding>
 						<con:endpoint>${#Project#Endpoint-DocRetrieve}</con:endpoint>
 						<con:request><![CDATA[
-							<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonproxy" xmlns:urn1="urn:ihe:iti:xds-b:2007" xmlns:urn2="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing">
+							<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:ihe:iti:xds-b:2007" xmlns:urn2="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing">
    <soapenv:Header/>
    <soapenv:Body projectName="DocumentRetrieveXDSErrorValidation" testCase="XDSRegistryBusy TestCase">
       <urn:RespondingGateway_CrossGatewayRetrieveRequest>
@@ -656,19 +656,19 @@ declare namespace ns12='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
 			<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2012-12-13T01:21:45Z</con:value>
+					<con:value>2013-01-08T15:12:07Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2012-12-13T01:31:45Z</con:value>
+					<con:value>2013-01-08T15:22:07Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>12/13/2012 01:21:45</con:value>
+					<con:value>01/08/2013 15:12:07</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2013-01-12T00:00:00Z</con:value>
+					<con:value>2013-02-07T00:00:00Z</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
@@ -696,11 +696,11 @@ FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", destConfigFileL
 					<con:interface>EntityDocRetrieveBindingSoap</con:interface>
 					<con:operation>RespondingGateway_CrossGatewayRetrieve</con:operation>
 					<con:request name="Nhinc Doc Retrieve Request">
-						<con:settings/>
+						<con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings>
 						<con:encoding>UTF-8</con:encoding>
 						<con:endpoint>${#Project#Endpoint-DocRetrieve}</con:endpoint>
 						<con:request><![CDATA[
-							<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonproxy" xmlns:urn1="urn:ihe:iti:xds-b:2007" xmlns:urn2="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing">
+							<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:ihe:iti:xds-b:2007" xmlns:urn2="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing">
    <soapenv:Header/>
    <soapenv:Body projectName="DocumentRetrieveXDSErrorValidation" testCase="XDSRegistryOutOfResources TestCase">
       <urn:RespondingGateway_CrossGatewayRetrieveRequest>
@@ -943,7 +943,7 @@ declare namespace ns12='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
 								<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
 							</con:configuration>
 						</con:assertion>
-						<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:wsaConfig action="urn:gov:hhs:fha:nhinc:nhincproxydocretrieve/NhincProxyDocRetrievePortType/RespondingGateway_CrossGatewayRetrieveRequest" mustUnderstand="NONE" version="200508"/>
+						<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig action="urn:gov:hhs:fha:nhinc:nhincproxydocretrieve/NhincProxyDocRetrievePortType/RespondingGateway_CrossGatewayRetrieveRequest" mustUnderstand="NONE" version="200508"/>
 						<con:wsrmConfig version="1.2"/>
 					</con:request>
 				</con:config>
@@ -977,19 +977,19 @@ declare namespace ns12='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
 			<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2012-12-13T01:21:47Z</con:value>
+					<con:value>2013-01-08T15:12:09Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2012-12-13T01:31:47Z</con:value>
+					<con:value>2013-01-08T15:22:09Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>12/13/2012 01:21:47</con:value>
+					<con:value>01/08/2013 15:12:09</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2013-01-12T00:00:00Z</con:value>
+					<con:value>2013-02-07T00:00:00Z</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
@@ -1017,11 +1017,11 @@ FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", destConfigFileL
 					<con:interface>EntityDocRetrieveBindingSoap</con:interface>
 					<con:operation>RespondingGateway_CrossGatewayRetrieve</con:operation>
 					<con:request name="Nhinc Doc Retrieve Request">
-						<con:settings/>
+						<con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings>
 						<con:encoding>UTF-8</con:encoding>
 						<con:endpoint>${#Project#Endpoint-DocRetrieve}</con:endpoint>
 						<con:request><![CDATA[
-							<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonproxy" xmlns:urn1="urn:ihe:iti:xds-b:2007" xmlns:urn2="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing">
+							<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:ihe:iti:xds-b:2007" xmlns:urn2="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing">
    <soapenv:Header/>
    <soapenv:Body projectName="DocumentRetrieveXDSErrorValidation" testCase="XDSTooManyResults TestCase">
       <urn:RespondingGateway_CrossGatewayRetrieveRequest>
@@ -1264,7 +1264,7 @@ declare namespace ns12='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
 								<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
 							</con:configuration>
 						</con:assertion>
-						<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:wsaConfig action="urn:gov:hhs:fha:nhinc:nhincproxydocretrieve/NhincProxyDocRetrievePortType/RespondingGateway_CrossGatewayRetrieveRequest" mustUnderstand="NONE" version="200508"/>
+						<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig action="urn:gov:hhs:fha:nhinc:nhincproxydocretrieve/NhincProxyDocRetrievePortType/RespondingGateway_CrossGatewayRetrieveRequest" mustUnderstand="NONE" version="200508"/>
 						<con:wsrmConfig version="1.2"/>
 					</con:request>
 				</con:config>
@@ -1298,19 +1298,19 @@ declare namespace ns12='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
 			<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2012-12-13T01:21:49Z</con:value>
+					<con:value>2013-01-08T15:12:13Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2012-12-13T01:31:49Z</con:value>
+					<con:value>2013-01-08T15:22:13Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>12/13/2012 01:21:49</con:value>
+					<con:value>01/08/2013 15:12:13</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2013-01-12T00:00:00Z</con:value>
+					<con:value>2013-02-07T00:00:00Z</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
@@ -1338,11 +1338,11 @@ FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", destConfigFileL
 					<con:interface>EntityDocRetrieveBindingSoap</con:interface>
 					<con:operation>RespondingGateway_CrossGatewayRetrieve</con:operation>
 					<con:request name="Nhinc Doc Retrieve Request">
-						<con:settings/>
+						<con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings>
 						<con:encoding>UTF-8</con:encoding>
 						<con:endpoint>${#Project#Endpoint-DocRetrieve}</con:endpoint>
 						<con:request><![CDATA[
-							<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonproxy" xmlns:urn1="urn:ihe:iti:xds-b:2007" xmlns:urn2="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing">
+							<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:ihe:iti:xds-b:2007" xmlns:urn2="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing">
    <soapenv:Header/>
    <soapenv:Body projectName="DocumentRetrieveXDSErrorValidation" testCase="XDSUnknownStoredQuery TestCase">
       <urn:RespondingGateway_CrossGatewayRetrieveRequest>
@@ -1585,7 +1585,7 @@ declare namespace ns12='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
 								<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
 							</con:configuration>
 						</con:assertion>
-						<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:wsaConfig action="urn:gov:hhs:fha:nhinc:nhincproxydocretrieve/NhincProxyDocRetrievePortType/RespondingGateway_CrossGatewayRetrieveRequest" mustUnderstand="NONE" version="200508"/>
+						<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig action="urn:gov:hhs:fha:nhinc:nhincproxydocretrieve/NhincProxyDocRetrievePortType/RespondingGateway_CrossGatewayRetrieveRequest" mustUnderstand="NONE" version="200508"/>
 						<con:wsrmConfig version="1.2"/>
 					</con:request>
 				</con:config>
@@ -1619,19 +1619,19 @@ declare namespace ns12='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
 			<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2012-12-13T01:21:51Z</con:value>
+					<con:value>2013-01-08T15:12:14Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2012-12-13T01:31:51Z</con:value>
+					<con:value>2013-01-08T15:22:14Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>12/13/2012 01:21:51</con:value>
+					<con:value>01/08/2013 15:12:14</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2013-01-12T00:00:00Z</con:value>
+					<con:value>2013-02-07T00:00:00Z</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
@@ -1659,11 +1659,11 @@ FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", destConfigFileL
 					<con:interface>EntityDocRetrieveBindingSoap</con:interface>
 					<con:operation>RespondingGateway_CrossGatewayRetrieve</con:operation>
 					<con:request name="Nhinc Doc Retrieve Request">
-						<con:settings/>
+						<con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings>
 						<con:encoding>UTF-8</con:encoding>
 						<con:endpoint>${#Project#Endpoint-DocRetrieve}</con:endpoint>
 						<con:request><![CDATA[
-							<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonproxy" xmlns:urn1="urn:ihe:iti:xds-b:2007" xmlns:urn2="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing">
+							<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:ihe:iti:xds-b:2007" xmlns:urn2="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing">
    <soapenv:Header/>
    <soapenv:Body projectName="DocumentRetrieveXDSErrorValidation" testCase="XDSStoredQueryMissingParam TestCase">
       <urn:RespondingGateway_CrossGatewayRetrieveRequest>
@@ -1906,7 +1906,7 @@ declare namespace ns12='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
 								<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
 							</con:configuration>
 						</con:assertion>
-						<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:wsaConfig action="urn:gov:hhs:fha:nhinc:nhincproxydocretrieve/NhincProxyDocRetrievePortType/RespondingGateway_CrossGatewayRetrieveRequest" mustUnderstand="NONE" version="200508"/>
+						<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig action="urn:gov:hhs:fha:nhinc:nhincproxydocretrieve/NhincProxyDocRetrievePortType/RespondingGateway_CrossGatewayRetrieveRequest" mustUnderstand="NONE" version="200508"/>
 						<con:wsrmConfig version="1.2"/>
 					</con:request>
 				</con:config>
@@ -1940,19 +1940,19 @@ declare namespace ns12='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
 			<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2012-12-13T01:21:53Z</con:value>
+					<con:value>2013-01-08T15:12:16Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2012-12-13T01:31:53Z</con:value>
+					<con:value>2013-01-08T15:22:16Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>12/13/2012 01:21:53</con:value>
+					<con:value>01/08/2013 15:12:16</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2013-01-12T00:00:00Z</con:value>
+					<con:value>2013-02-07T00:00:00Z</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
@@ -1980,11 +1980,10 @@ FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", destConfigFileL
 					<con:interface>EntityDocRetrieveBindingSoap</con:interface>
 					<con:operation>RespondingGateway_CrossGatewayRetrieve</con:operation>
 					<con:request name="Nhinc Doc Retrieve Request">
-						<con:settings/>
+						<con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings>
 						<con:encoding>UTF-8</con:encoding>
 						<con:endpoint>${#Project#Endpoint-DocRetrieve}</con:endpoint>
-						<con:request><![CDATA[
-							<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonproxy" xmlns:urn1="urn:ihe:iti:xds-b:2007" xmlns:urn2="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing">
+						<con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:ihe:iti:xds-b:2007" xmlns:urn2="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing">
    <soapenv:Header/>
    <soapenv:Body projectName="DocumentRetrieveXDSErrorValidation" testCase="XDSStoredQueryParamNumber TestCase">
       <urn:RespondingGateway_CrossGatewayRetrieveRequest>
@@ -2227,7 +2226,7 @@ declare namespace ns12='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
 								<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
 							</con:configuration>
 						</con:assertion>
-						<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:wsaConfig action="urn:gov:hhs:fha:nhinc:nhincproxydocretrieve/NhincProxyDocRetrievePortType/RespondingGateway_CrossGatewayRetrieveRequest" mustUnderstand="NONE" version="200508"/>
+						<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig action="urn:gov:hhs:fha:nhinc:nhincproxydocretrieve/NhincProxyDocRetrievePortType/RespondingGateway_CrossGatewayRetrieveRequest" mustUnderstand="NONE" version="200508"/>
 						<con:wsrmConfig version="1.2"/>
 					</con:request>
 				</con:config>
@@ -2261,19 +2260,19 @@ declare namespace ns12='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
 			<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2012-12-13T01:21:55Z</con:value>
+					<con:value>2013-01-08T15:12:17Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2012-12-13T01:31:55Z</con:value>
+					<con:value>2013-01-08T15:22:17Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>12/13/2012 01:21:55</con:value>
+					<con:value>01/08/2013 15:12:17</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2013-01-12T00:00:00Z</con:value>
+					<con:value>2013-02-07T00:00:00Z</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
@@ -2301,11 +2300,10 @@ FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", destConfigFileL
 					<con:interface>EntityDocRetrieveBindingSoap</con:interface>
 					<con:operation>RespondingGateway_CrossGatewayRetrieve</con:operation>
 					<con:request name="Nhinc Doc Retrieve Request">
-						<con:settings/>
+						<con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings>
 						<con:encoding>UTF-8</con:encoding>
 						<con:endpoint>${#Project#Endpoint-DocRetrieve}</con:endpoint>
-						<con:request><![CDATA[
-							<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonproxy" xmlns:urn1="urn:ihe:iti:xds-b:2007" xmlns:urn2="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing">
+						<con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:ihe:iti:xds-b:2007" xmlns:urn2="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing">
    <soapenv:Header/>
    <soapenv:Body projectName="DocumentRetrieveXDSErrorValidation" testCase="PartialSuccess TestCase">
       <urn:RespondingGateway_CrossGatewayRetrieveRequest>
@@ -2548,7 +2546,7 @@ declare namespace ns12='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
 								<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
 							</con:configuration>
 						</con:assertion>
-						<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:wsaConfig action="urn:gov:hhs:fha:nhinc:nhincproxydocretrieve/NhincProxyDocRetrievePortType/RespondingGateway_CrossGatewayRetrieveRequest" mustUnderstand="NONE" version="200508"/>
+						<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig action="urn:gov:hhs:fha:nhinc:nhincproxydocretrieve/NhincProxyDocRetrievePortType/RespondingGateway_CrossGatewayRetrieveRequest" mustUnderstand="NONE" version="200508"/>
 						<con:wsrmConfig version="1.2"/>
 					</con:request>
 				</con:config>
@@ -2582,19 +2580,19 @@ declare namespace ns12='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
 			<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2012-12-13T01:21:57Z</con:value>
+					<con:value>2013-01-08T15:12:19Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2012-12-13T01:31:57Z</con:value>
+					<con:value>2013-01-08T15:22:19Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>12/13/2012 01:21:57</con:value>
+					<con:value>01/08/2013 15:12:19</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2013-01-12T00:00:00Z</con:value>
+					<con:value>2013-02-07T00:00:00Z</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
