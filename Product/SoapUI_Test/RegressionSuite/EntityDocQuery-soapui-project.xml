@@ -348,14 +348,9 @@ nhinc.FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml",destConfigFile
             </con:assertion>
             <con:assertion type="SOAP Fault Assertion"/>
             <con:assertion name="Document Count" type="XPath Match">
-              <con:configuration>
-                <path>declare namespace ns3='urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0';
+              <con:configuration><path>declare namespace ns3='urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0';
 declare namespace ns6='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
-count(//ns6:AdhocQueryResponse[1]/ns3:RegistryObjectList[1]/ns3:ExtrinsicObject)</path>
-                <content>4</content>
-                <allowWildcards>false</allowWildcards>
-                <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
-              </con:configuration>
+count(//ns6:AdhocQueryResponse[1]/ns3:RegistryObjectList[1]/ns3:ExtrinsicObject)</path><content>4</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration>
             </con:assertion>
             <con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/>
             <con:wsrmConfig version="1.2"/>
@@ -364,19 +359,19 @@ count(//ns6:AdhocQueryResponse[1]/ns3:RegistryObjectList[1]/ns3:ExtrinsicObject)
       </con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2012-12-18T14:52:11Z</con:value>
+          <con:value>2013-01-08T17:36:05Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2012-12-18T15:02:11Z</con:value>
+          <con:value>2013-01-08T17:46:05Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>12/18/2012 14:52:11</con:value>
+          <con:value>01/08/2013 17:36:05</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2013-01-17T00:00:00Z</con:value>
+          <con:value>2013-02-07T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>FullPatientID</con:name>
@@ -412,8 +407,7 @@ context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;$
       
       <con:testStep name="Clear Correlation Table &amp; Add Correlation" type="groovy">
         <con:settings/>
-        <con:config>
-          <script>context.withSql('PatientCorrelationDB') { sql -> 
+        <con:config><script>context.withSql('PatientCorrelationDB') { sql -> 
   def table = context.findProperty('PatientCorrelationTable')
   
   sql.execute('delete from ' + table)
@@ -424,12 +418,11 @@ context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;$
   def remoteAA2 = context.findProperty( "RemoteAA2" )
   def remotePatientID1 = context.findProperty("RemotePatientID1")
   def remotePatientID2 = context.findProperty("RemotePatientID2")
-  def insertSql = "insert into " + table + " (correlationId, PatientAssigningAuthorityId, PatientId, CorrelatedPatientAssignAuthId, CorrelatedPatientId, CorrelationExpirationDate) " + 
-                   "values (?, ?, ?, ?, ?,?)"
-  sql.executeUpdate(insertSql, [1, localAA, localPatientID, remoteAA1, remotePatientID1,'2012-12-21 00:00:00'])
-  sql.executeUpdate(insertSql, [2, localAA, localPatientID, remoteAA2, remotePatientID2,'2012-12-21 00:00:00'])
-}</script>
-        </con:config>
+  def insertSql = "insert into " + table + " (correlationId, PatientAssigningAuthorityId, PatientId, CorrelatedPatientAssignAuthId, CorrelatedPatientId) " + 
+                   "values (?, ?, ?, ?, ?)"
+  sql.executeUpdate(insertSql, [1, localAA, localPatientID, remoteAA1, remotePatientID1])
+  sql.executeUpdate(insertSql, [2, localAA, localPatientID, remoteAA2, remotePatientID2])
+}</script></con:config>
       </con:testStep>
       <con:testStep name="Clear AA Mapping Table &amp; Add Mapping" type="groovy">
         <con:settings/>
@@ -749,19 +742,19 @@ count(//ns9:AdhocQueryResponse[1]/ns7:RegistryErrorList[1]/ns7:RegistryError)</p
       </con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2012-12-18T14:10:30Z</con:value>
+          <con:value>2013-01-08T15:38:24Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2012-12-18T14:20:30Z</con:value>
+          <con:value>2013-01-08T15:48:24Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>12/18/2012 14:10:30</con:value>
+          <con:value>01/08/2013 15:38:24</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2013-01-17T00:00:00Z</con:value>
+          <con:value>2013-02-07T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>FullPatientID</con:name>
@@ -796,8 +789,7 @@ context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;$
       </con:testStep>
       <con:testStep name="Clear Correlation Table &amp; Add Correlation" type="groovy">
         <con:settings/>
-        <con:config>
-          <script>context.withSql('PatientCorrelationDB') { sql -> 
+        <con:config><script>context.withSql('PatientCorrelationDB') { sql -> 
   def table = context.findProperty('PatientCorrelationTable')
   
   sql.execute('delete from ' + table)
@@ -808,11 +800,10 @@ context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;$
   def remoteAA2 = context.findProperty( "RemoteAA2" )
   def remotePatientID1 = context.findProperty("RemotePatientID1")
   def remotePatientID2 = context.findProperty("RemotePatientID2")
-  def insertSql = "insert into " + table + " (correlationId, PatientAssigningAuthorityId, PatientId, CorrelatedPatientAssignAuthId, CorrelatedPatientId, CorrelationExpirationDate) " + 
-                   "values (?, ?, ?, ?, ?,?)"
-  sql.executeUpdate(insertSql, [1, localAA, localPatientID, remoteAA1, remotePatientID1,'2012-12-21 00:00:00'])
-}</script>
-        </con:config>
+  def insertSql = "insert into " + table + " (correlationId, PatientAssigningAuthorityId, PatientId, CorrelatedPatientAssignAuthId, CorrelatedPatientId) " + 
+                   "values (?, ?, ?, ?, ?)"
+  sql.executeUpdate(insertSql, [1, localAA, localPatientID, remoteAA1, remotePatientID1])
+}</script></con:config>
       </con:testStep>
       <con:testStep name="Clear AA Mapping Table &amp; Add Mapping" type="groovy">
         <con:settings/>
@@ -1111,23 +1102,23 @@ count(//ns6:AdhocQueryResponse[1]/ns3:RegistryObjectList[1]/ns3:ExtrinsicObject)
       </con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2012-12-18T14:30:47Z</con:value>
+          <con:value>2013-01-08T15:35:42Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2012-12-18T14:40:47Z</con:value>
+          <con:value>2013-01-08T15:45:42Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>12/18/2012 14:30:47</con:value>
+          <con:value>01/08/2013 15:35:42</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2013-01-17T00:00:00Z</con:value>
+          <con:value>2013-02-07T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>FullPatientID</con:name>
-          <con:value>'D123401^^^&amp;amp;1.1&amp;amp;ISO'</con:value>
+          <con:value>'D123400^^^&amp;amp;1.1&amp;amp;ISO'</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -1158,8 +1149,7 @@ context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;$
       </con:testStep>
       <con:testStep name="Clear Correlation Table &amp; Add Correlation" type="groovy">
         <con:settings/>
-        <con:config>
-          <script>context.withSql('PatientCorrelationDB') { sql -> 
+        <con:config><script>context.withSql('PatientCorrelationDB') { sql -> 
   def table = context.findProperty('PatientCorrelationTable')
   
   sql.execute('delete from ' + table)
@@ -1170,12 +1160,11 @@ context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;$
   def remoteAA2 = context.findProperty( "RemoteAA2" )
   def remotePatientID1 = context.findProperty("RemotePatientID1")
   def remotePatientID2 = context.findProperty("RemotePatientID2")
-  def insertSql = "insert into " + table + " (correlationId, PatientAssigningAuthorityId, PatientId, CorrelatedPatientAssignAuthId, CorrelatedPatientId, CorrelationExpirationDate) " + 
-                   "values (?, ?, ?, ?, ?,?)"
-  sql.executeUpdate(insertSql, [1, localAA, localPatientID, remoteAA1, remotePatientID1,'2012-12-21 00:00:00'])
-  sql.executeUpdate(insertSql, [2, localAA, localPatientID, remoteAA2, remotePatientID2,'2012-12-21 00:00:00'])
-}</script>
-        </con:config>
+  def insertSql = "insert into " + table + " (correlationId, PatientAssigningAuthorityId, PatientId, CorrelatedPatientAssignAuthId, CorrelatedPatientId) " + 
+                   "values (?, ?, ?, ?, ?)"
+  sql.executeUpdate(insertSql, [1, localAA, localPatientID, remoteAA1, remotePatientID1])
+  sql.executeUpdate(insertSql, [2, localAA, localPatientID, remoteAA2, remotePatientID2])
+}</script></con:config>
       </con:testStep>
       <con:testStep name="Clear AA Mapping Table &amp; Add Mapping" type="groovy">
         <con:settings/>
@@ -1471,14 +1460,9 @@ nhinc.FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFil
             </con:assertion>
             <con:assertion type="SOAP Fault Assertion"/>
             <con:assertion name="Document Count" type="XPath Match">
-              <con:configuration>
-                <path>declare namespace ns3='urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0';
+              <con:configuration><path>declare namespace ns3='urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0';
 declare namespace ns6='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
-count(//ns6:AdhocQueryResponse[1]/ns3:RegistryObjectList[1]/ns3:ExtrinsicObject)</path>
-                <content>3</content>
-                <allowWildcards>false</allowWildcards>
-                <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
-              </con:configuration>
+count(//ns6:AdhocQueryResponse[1]/ns3:RegistryObjectList[1]/ns3:ExtrinsicObject)</path><content>3</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration>
             </con:assertion>
             <con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/>
             <con:wsrmConfig version="1.2"/>
@@ -1487,19 +1471,19 @@ count(//ns6:AdhocQueryResponse[1]/ns3:RegistryObjectList[1]/ns3:ExtrinsicObject)
       </con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2012-12-18T14:10:31Z</con:value>
+          <con:value>2013-01-08T15:39:31Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2012-12-18T14:20:31Z</con:value>
+          <con:value>2013-01-08T15:49:31Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>12/18/2012 14:10:31</con:value>
+          <con:value>01/08/2013 15:39:31</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2013-01-17T00:00:00Z</con:value>
+          <con:value>2013-02-07T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>FullPatientID</con:name>
@@ -1534,8 +1518,7 @@ context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;$
       </con:testStep>
       <con:testStep name="Clear Correlation Table &amp; Add Correlation" type="groovy">
         <con:settings/>
-        <con:config>
-          <script>context.withSql('PatientCorrelationDB') { sql -> 
+        <con:config><script>context.withSql('PatientCorrelationDB') { sql -> 
   def table = context.findProperty('PatientCorrelationTable')
   
   sql.execute('delete from ' + table)
@@ -1546,12 +1529,11 @@ context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;$
   def remoteAA2 = context.findProperty( "RemoteAA2" )
   def remotePatientID1 = context.findProperty("RemotePatientID1")
   def remotePatientID2 = context.findProperty("RemotePatientID2")
-  def insertSql = "insert into " + table + " (correlationId, PatientAssigningAuthorityId, PatientId, CorrelatedPatientAssignAuthId, CorrelatedPatientId, CorrelationExpirationDate) " + 
-                   "values (?, ?, ?, ?, ?,?)"
-  sql.executeUpdate(insertSql, [1, localAA, localPatientID, remoteAA1, remotePatientID1,'2012-12-21 00:00:00'])
-  sql.executeUpdate(insertSql, [2, localAA, localPatientID, remoteAA2, remotePatientID2,'2012-12-21 00:00:00'])
-}</script>
-        </con:config>
+  def insertSql = "insert into " + table + " (correlationId, PatientAssigningAuthorityId, PatientId, CorrelatedPatientAssignAuthId, CorrelatedPatientId) " + 
+                   "values (?, ?, ?, ?, ?)"
+  sql.executeUpdate(insertSql, [1, localAA, localPatientID, remoteAA1, remotePatientID1])
+  sql.executeUpdate(insertSql, [2, localAA, localPatientID, remoteAA2, remotePatientID2])
+}</script></con:config>
       </con:testStep>
       <con:testStep name="Clear AA Mapping Table &amp; Add Mapping" type="groovy">
         <con:settings/>
@@ -1863,19 +1845,19 @@ count(//ns6:AdhocQueryResponse[1]/ns3:RegistryObjectList[1]/ns3:ExtrinsicObject)
       </con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2012-12-18T14:10:32Z</con:value>
+          <con:value>2013-01-08T15:42:06Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2012-12-18T14:20:32Z</con:value>
+          <con:value>2013-01-08T15:52:06Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>12/18/2012 14:10:32</con:value>
+          <con:value>01/08/2013 15:42:06</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2013-01-17T00:00:00Z</con:value>
+          <con:value>2013-02-07T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>FullPatientID</con:name>

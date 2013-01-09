@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <con:soapui-project abortOnError="false" name="XDRAdapter-Tests" resourceRoot="${projectDir}" runType="SEQUENTIAL" soapui-version="4.5.1" activeEnvironment="Default" xmlns:con="http://eviware.com/soapui/config">
 	<con:settings/>
-	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincadapterxdr}AdapterXDR_Binding" definition="${projectDir}/../ValidationSuite/target/wsdl/AdapterComponentXDR.wsdl" name="AdapterXDR_Binding" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:adaptercomponentxdr}AdapterComponentXDR_Binding" definition="${projectDir}/../ValidationSuite/target/wsdl/AdapterComponentXDR.wsdl" name="AdapterComponentXDR_Binding" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 		<con:settings/>
 		
 		<con:endpoints>
 			<con:endpoint>${#Project#Endpoint-Adapter}</con:endpoint>
 			<con:endpoint>http://localhost:${HttpDefaultPort}/NhinConnect/AdapterXDR</con:endpoint>
-		</con:endpoints>
-		<con:operation action="tns:ProvideAndRegisterDocumentSet-b" anonymous="optional" bindingOperationName="ProvideAndRegisterDocumentSetb" inputName="" isOneWay="false" name="ProvideAndRegisterDocumentSetb" receivesAttachments="false" sendsAttachments="false" type="Request-Response">
+		<con:endpoint>http://localhost:${HttpDefaultPort}/Adapter/DocumentSubmission/A_0/AdapterComponentDocSubmissionUnsecured</con:endpoint></con:endpoints>
+		<con:operation action="" anonymous="optional" bindingOperationName="ProvideAndRegisterDocumentSetb" inputName="" isOneWay="false" name="ProvideAndRegisterDocumentSetb" receivesAttachments="false" sendsAttachments="false" type="Request-Response">
 			<con:settings/>
 			<con:call name="Request 1">
 				<con:settings/>
 				<con:encoding>UTF-8</con:encoding>
-				<con:endpoint>${#Project#Endpoint-Adapter}</con:endpoint>
+				<con:endpoint>http://localhost:${HttpDefaultPort}/Adapter/DocumentSubmission/A_0/AdapterComponentDocSubmissionUnsecured</con:endpoint>
 				<con:request><![CDATA[
 					<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonadapter" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" xmlns:urn3="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:urn4="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn5="urn:ihe:iti:xds-b:2007">
    <soapenv:Header/>
@@ -331,7 +331,7 @@
 			<con:call name="Request 2">
 				<con:settings/>
 				<con:encoding>UTF-8</con:encoding>
-				<con:endpoint>${#Project#Endpoint-Adapter}</con:endpoint>
+				<con:endpoint>http://localhost:${HttpDefaultPort}/Adapter/DocumentSubmission/A_0/AdapterComponentDocSubmissionUnsecured</con:endpoint>
 				<con:request><![CDATA[
 					<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonadapter" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" xmlns:urn3="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:urn4="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn5="urn:ihe:iti:xds-b:2007">
    <soapenv:Header/>
@@ -657,10 +657,10 @@
 			<con:testStep name="Success" type="request">
 				<con:settings/>
 				<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-					<con:interface>AdapterXDR_Binding</con:interface>
+					<con:interface>AdapterComponentXDR_Binding</con:interface>
 					<con:operation>ProvideAndRegisterDocumentSetb</con:operation>
 					<con:request incomingWss="" name="Success" outgoingWss="" wssPasswordType="">
-						<con:settings/>
+						<con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings>
 						<con:encoding>UTF-8</con:encoding>
 						<con:endpoint>${#Project#Endpoint-Adapter}</con:endpoint>
 						<con:request><![CDATA[
@@ -1103,19 +1103,19 @@
 			<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2012-08-24T23:04:41Z</con:value>
+					<con:value>2013-01-09T20:34:48Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2012-08-24T23:14:41Z</con:value>
+					<con:value>2013-01-09T20:44:48Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>08/24/2012 23:04:41</con:value>
+					<con:value>01/09/2013 20:34:48</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2012-09-23T00:00:00Z</con:value>
+					<con:value>2013-02-08T00:00:00Z</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
@@ -1127,7 +1127,7 @@ FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
 			<con:testStep name="Success - Multiple Documents" type="request">
 				<con:settings/>
 				<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-					<con:interface>AdapterXDR_Binding</con:interface>
+					<con:interface>AdapterComponentXDR_Binding</con:interface>
 					<con:operation>ProvideAndRegisterDocumentSetb</con:operation>
 					<con:request incomingWss="" name="Success - Multiple Documents" outgoingWss="" wssPasswordType="">
 						<con:settings/>
@@ -1639,19 +1639,19 @@ FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
 			<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2012-11-27T16:27:26Z</con:value>
+					<con:value>2013-01-09T20:34:48Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2012-11-27T16:37:26Z</con:value>
+					<con:value>2013-01-09T20:44:48Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>11/27/2012 16:27:26</con:value>
+					<con:value>01/09/2013 20:34:48</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2012-12-27T00:00:00Z</con:value>
+					<con:value>2013-02-08T00:00:00Z</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
@@ -1662,7 +1662,7 @@ FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
 			<con:testStep name="Failure - XDSUnknownPatientId" type="request">
 				<con:settings/>
 				<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-					<con:interface>AdapterXDR_Binding</con:interface>
+					<con:interface>AdapterComponentXDR_Binding</con:interface>
 					<con:operation>ProvideAndRegisterDocumentSetb</con:operation>
 					<con:request incomingWss="" name="Failure - XDSUnknownPatientId" outgoingWss="" wssPasswordType="">
 						<con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings>
@@ -2135,19 +2135,19 @@ FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
 			<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2012-11-27T16:27:48Z</con:value>
+					<con:value>2013-01-09T20:34:48Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2012-11-27T16:37:48Z</con:value>
+					<con:value>2013-01-09T20:44:48Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>11/27/2012 16:27:48</con:value>
+					<con:value>01/09/2013 20:34:48</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2012-12-27T00:00:00Z</con:value>
+					<con:value>2013-02-08T00:00:00Z</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
@@ -2158,7 +2158,7 @@ FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
 			<con:testStep name="Failure - XDSPatientIdDoesNotMatch" type="request">
 				<con:settings/>
 				<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-					<con:interface>AdapterXDR_Binding</con:interface>
+					<con:interface>AdapterComponentXDR_Binding</con:interface>
 					<con:operation>ProvideAndRegisterDocumentSetb</con:operation>
 					<con:request incomingWss="" name="Failure - XDSPatientIdDoesNotMatch" outgoingWss="" wssPasswordType="">
 						<con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings>
@@ -2696,19 +2696,19 @@ FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
 			<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2012-11-27T16:27:39Z</con:value>
+					<con:value>2013-01-09T20:34:49Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2012-11-27T16:37:39Z</con:value>
+					<con:value>2013-01-09T20:44:49Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>11/27/2012 16:27:39</con:value>
+					<con:value>01/09/2013 20:34:49</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2012-12-27T00:00:00Z</con:value>
+					<con:value>2013-02-08T00:00:00Z</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
@@ -2719,7 +2719,7 @@ FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
 			<con:testStep name="Failure - XDSMissingDocumentMetadata" type="request">
 				<con:settings/>
 				<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-					<con:interface>AdapterXDR_Binding</con:interface>
+					<con:interface>AdapterComponentXDR_Binding</con:interface>
 					<con:operation>ProvideAndRegisterDocumentSetb</con:operation>
 					<con:request incomingWss="" name="Failure - XDSMissingDocumentMetadata" outgoingWss="" wssPasswordType="">
 						<con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings>
@@ -3191,19 +3191,19 @@ FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
 			<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2012-08-24T23:04:42Z</con:value>
+					<con:value>2013-01-09T20:34:49Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2012-08-24T23:14:42Z</con:value>
+					<con:value>2013-01-09T20:44:49Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>08/24/2012 23:04:42</con:value>
+					<con:value>01/09/2013 20:34:49</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2012-09-23T00:00:00Z</con:value>
+					<con:value>2013-02-08T00:00:00Z</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
@@ -3214,7 +3214,7 @@ FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
 			<con:testStep name="Failure - XDSMissingDocument" type="request">
 				<con:settings/>
 				<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-					<con:interface>AdapterXDR_Binding</con:interface>
+					<con:interface>AdapterComponentXDR_Binding</con:interface>
 					<con:operation>ProvideAndRegisterDocumentSetb</con:operation>
 					<con:request incomingWss="" name="Failure - XDSMissingDocument" outgoingWss="" wssPasswordType="">
 						<con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings>
@@ -3476,19 +3476,19 @@ FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
 			<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2012-08-24T23:04:42Z</con:value>
+					<con:value>2013-01-09T20:34:49Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2012-08-24T23:14:42Z</con:value>
+					<con:value>2013-01-09T20:44:49Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>08/24/2012 23:04:42</con:value>
+					<con:value>01/09/2013 20:34:49</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2012-09-23T00:00:00Z</con:value>
+					<con:value>2013-02-08T00:00:00Z</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
@@ -3499,7 +3499,7 @@ FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
 			<con:testStep name="Multiple Failure Messages" type="request">
 				<con:settings/>
 				<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-					<con:interface>AdapterXDR_Binding</con:interface>
+					<con:interface>AdapterComponentXDR_Binding</con:interface>
 					<con:operation>ProvideAndRegisterDocumentSetb</con:operation>
 					<con:request incomingWss="" name="Multiple Failure Messages" outgoingWss="" wssPasswordType="">
 						<con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings>
@@ -3994,19 +3994,19 @@ FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
 			<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2012-08-24T23:04:42Z</con:value>
+					<con:value>2013-01-09T20:34:49Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2012-08-24T23:14:42Z</con:value>
+					<con:value>2013-01-09T20:44:49Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>08/24/2012 23:04:42</con:value>
+					<con:value>01/09/2013 20:34:49</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2012-09-23T00:00:00Z</con:value>
+					<con:value>2013-02-08T00:00:00Z</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>

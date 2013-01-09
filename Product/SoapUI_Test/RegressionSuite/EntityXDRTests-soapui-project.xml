@@ -665,11 +665,11 @@
 			<con:endpoint>${#Project#Endpoint-XDREntity}</con:endpoint>
 			<con:endpoint>http://localhost:${HttpDefaultPort}/NhinConnect/EntityXDR</con:endpoint>
 			<con:endpoint>${#Project#Endpoint-XDREntity}</con:endpoint>
-		</con:endpoints>
-		<con:operation action="tns:ProvideAndRegisterDocumentSet-b" anonymous="optional" bindingOperationName="ProvideAndRegisterDocumentSet-b" inputName="" isOneWay="false" name="ProvideAndRegisterDocumentSet-b" receivesAttachments="false" sendsAttachments="false" type="Request-Response">
+		<con:endpoint>http://localhost:${HttpDefaultPort}/Gateway/DocumentSubmission/1_1/EntityService/EntityDocSubmissionUnsecured</con:endpoint></con:endpoints>
+		<con:operation action="" anonymous="optional" bindingOperationName="ProvideAndRegisterDocumentSet-b" inputName="" isOneWay="false" name="ProvideAndRegisterDocumentSet-b" receivesAttachments="false" sendsAttachments="false" type="Request-Response">
 			<con:settings/>
 			
-		<con:call name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>${#Project#Endpoint-XDREntity}</con:endpoint><con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" xmlns:urn3="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0">
+		<con:call name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:${HttpDefaultPort}/Gateway/DocumentSubmission/1_1/EntityService/EntityDocSubmissionUnsecured</con:endpoint><con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" xmlns:urn3="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0">
    <soap:Header/>
    <soap:Body>
       <urn:RespondingGateway_ProvideAndRegisterDocumentSetRequest>
@@ -2838,19 +2838,19 @@ declare namespace adapter='urn:gov:hhs:fha:nhinc:common:nhinccommonadapter';
 			<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2012-12-18T18:48:50Z</con:value>
+					<con:value>2013-01-08T18:57:48Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2012-12-18T18:58:50Z</con:value>
+					<con:value>2013-01-08T19:07:48Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>12/18/2012 18:48:50</con:value>
+					<con:value>01/08/2013 18:57:48</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2013-01-17T00:00:00Z</con:value>
+					<con:value>2013-02-07T00:00:00Z</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
@@ -5249,19 +5249,19 @@ declare namespace adapter='urn:gov:hhs:fha:nhinc:common:nhinccommonadapter';
 			<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2012-12-18T18:48:52Z</con:value>
+					<con:value>2013-01-08T19:09:10Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2012-12-18T18:58:52Z</con:value>
+					<con:value>2013-01-08T19:19:10Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>12/18/2012 18:48:52</con:value>
+					<con:value>01/08/2013 19:09:10</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2013-01-17T00:00:00Z</con:value>
+					<con:value>2013-02-07T00:00:00Z</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
@@ -6783,19 +6783,19 @@ assert (count > 0);</script></con:config></con:testStep>
 			<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2012-12-18T18:48:54Z</con:value>
+					<con:value>2013-01-08T19:09:36Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2012-12-18T18:58:54Z</con:value>
+					<con:value>2013-01-08T19:19:36Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>12/18/2012 18:48:54</con:value>
+					<con:value>01/08/2013 19:09:36</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2013-01-17T00:00:00Z</con:value>
+					<con:value>2013-02-07T00:00:00Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>FullPatientID</con:name>
@@ -6803,7 +6803,7 @@ assert (count > 0);</script></con:config></con:testStep>
 				</con:property>
 				<con:property>
 					<con:name>XDRUserId</con:name>
-					<con:value>XDR Inbound UserTue Dec 18 18:53:54 UTC 2012</con:value>
+					<con:value>XDR Inbound UserTue Jan 08 19:14:36 UTC 2013</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
@@ -6896,7 +6896,7 @@ assert (count > 0);</script></con:config></con:testStep>
 		</con:property>
 		<con:property>
 			<con:name>Endpoint-XDREntity</con:name>
-			<con:value>http://localhost:8080/Gateway/DocumentSubmission/1_1/EntityService/EntityDocSubmissionUnsecured</con:value>
+			<con:value>http://localhost:8080/Gateway/DocumentSubmission/2_0/EntityService/EntityDocSubmissionUnsecured</con:value>
 		</con:property>
 		<con:property>
 			<con:name>Endpoint-AuditLogQuery</con:name>
