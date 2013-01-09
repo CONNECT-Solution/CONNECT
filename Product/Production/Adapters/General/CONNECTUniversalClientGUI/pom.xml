@@ -123,7 +123,6 @@
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate</artifactId>
             <version>3.2.5.ga</version>
-            <scope>provided</scope>
             <exclusions>
                 <exclusion>
                     <groupId>asm</groupId>
