@@ -16,7 +16,7 @@
         <!-- Disable the second-level cache  -->
         <property name="cache.provider_class">org.hibernate.cache.NoCacheProvider</property>
 
-        <property name="connection.datasource">jdbc/assigningauthoritydb_datasource</property>
+        <property name="connection.datasource">java:comp/env/jdbc/assigningauthoritydb_datasource</property>
 
         <!-- We currently have the antlr classpath conflict described here:
              http://thejavablog.wordpress.com/2010/12/02/classnotfoundexception-org-hibernate-hql-ast-hqltoken/

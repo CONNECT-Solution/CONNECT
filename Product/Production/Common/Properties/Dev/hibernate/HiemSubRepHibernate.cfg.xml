@@ -13,7 +13,7 @@
         <!-- Disable the second-level cache  -->
         <property name="cache.provider_class">org.hibernate.cache.NoCacheProvider</property>
 
-        <property name="connection.datasource">jdbc/subscriptionrepository_datasource</property>
+        <property name="connection.datasource">java:comp/env/jdbc/subscriptionrepository_datasource</property>
 
         <mapping resource="SubscriptionStorageItem.hbm.xml"/>
 
