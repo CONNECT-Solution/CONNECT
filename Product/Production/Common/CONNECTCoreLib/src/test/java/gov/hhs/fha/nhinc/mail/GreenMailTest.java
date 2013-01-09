@@ -51,7 +51,13 @@ import com.icegreen.greenmail.util.ServerSetupTest;
  */
 public abstract class GreenMailTest {
 
-    public static final String EMAIL = "test@connect.example.org";
+    protected static final String EMAIL = "test@connect.example.org";
+    protected static final String EMAIL_RECIP = "recip@connect.example.org";
+
+    protected static final int NUMBER_OF_MSGS = 28;
+    protected static final int NUMBER_OF_MSGS_IN_BATCH = 5;
+
+    protected static final String MESSAGE_FILEPATH = "gov/hhs/fha/nhinc/mail/message.txt";
     
     private GreenMail greenMail;
     private GreenMailUser greenMailUser;    
@@ -108,22 +114,37 @@ public abstract class GreenMailTest {
      * @param messageFile to be delivered.
      */
     protected void deliverMsg(String messageFile) {
-
-        MimeMessage originalMsg;
         try {
-            originalMsg = new MimeMessage(null, IOUtils.toInputStream(MailTestUtil.getFileAsString(messageFile)));
-            assertNotNull(originalMsg);
+            MimeMessage originalMsg;
+            originalMsg = getMimeMessage(messageFile);
             greenMailUser.deliver(originalMsg);
         } catch (Exception e) {
             fail(e.getMessage());
         }
-    }    
+    }
+    
+    /**
+     * Get a mime message from a message file.
+     * @param messageFile path
+     * @return mime message
+     */
+    protected MimeMessage getMimeMessage(String messageFile) {
+
+        MimeMessage mimeMsg = null;
+        try {
+            mimeMsg = new MimeMessage(null, IOUtils.toInputStream(MailTestUtil.getFileAsString(messageFile)));
+            assertNotNull(mimeMsg);
+        } catch (Exception e) {
+            fail(e.getMessage());
+        }
+        return mimeMsg;
+    }
     
     /**
      * @return count of unread messages on the server.
      * @throws MessagingException
      */
-    protected int countRemainingMsgs() throws MessagingException {
+    protected int countRemainingMsgs() {
         return greenMail.getReceivedMessages().length;
     }
 

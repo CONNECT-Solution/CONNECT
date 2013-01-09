@@ -46,9 +46,6 @@ import com.icegreen.greenmail.util.ServerSetupTest;
  */
 public class ImapMailReceiverTest extends GreenMailTest {
 
-    private static final int NUMBER_OF_MSGS = 28;
-    private static final int NUMBER_OF_MSGS_IN_BATCH = 5;
-        
     @Test
     public void canReceiveAndHandleMsgs() throws MailClientException, MessagingException {
         
@@ -106,7 +103,7 @@ public class ImapMailReceiverTest extends GreenMailTest {
 
     private void deliverMsgs(int numberOfMsgs) {
         for (int i=0; i < numberOfMsgs; i++) {
-            deliverMsg("gov/hhs/fha/nhinc/mail/message.txt");            
+            deliverMsg(MESSAGE_FILEPATH);            
         }
     }
     
