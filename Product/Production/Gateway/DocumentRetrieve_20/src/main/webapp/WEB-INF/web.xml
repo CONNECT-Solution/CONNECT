@@ -10,8 +10,8 @@
             classpath:CONNECT-interceptor-beans.xml
             classpath:CONNECT-context.xml
             classpath:eventlogging.xml
-            classpath:applicationContext.xml
-            classpath:webservices.xml
+            classpath:/docretrieve/_20/applicationContext.xml
+            classpath:/docretrieve/_20/webservices.xml
         </param-value>
     </context-param>
 
