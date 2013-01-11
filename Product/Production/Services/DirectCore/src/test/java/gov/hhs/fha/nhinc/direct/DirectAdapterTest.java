@@ -31,6 +31,7 @@ import static gov.hhs.fha.nhinc.direct.DirectUnitTestUtil.getRecipients;
 import static gov.hhs.fha.nhinc.direct.DirectUnitTestUtil.getSender;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.fail;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.doAnswer;
 import static org.mockito.Mockito.mock;
@@ -159,6 +160,11 @@ public class DirectAdapterTest extends AbstractDirectMailClientTest {
         for (int i = 0; i < numberOfMsgs; i++) {
             testDirectSender.sendOutboundDirect(getSender(), getRecipients(), getMockDirectDocuments(),
                     ATTACHMENT_NAME);
+        }
+        try {
+            greenMail.waitForIncomingEmail(5000, numberOfMsgs);
+        } catch (InterruptedException e) {            
+            fail("Interrupted while waiting for inbound messages." + e.getMessage());
         }
     }
     

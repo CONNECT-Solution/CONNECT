@@ -28,6 +28,7 @@ package gov.hhs.fha.nhinc.mail;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -40,6 +41,36 @@ public class AbstractMailPollerTest {
 
     private static final String EXCEPTION_MSG = "Arbitrary fake error message";
     
+    /**
+     * Test {@link AbstractMailPoller#poll()}.
+     * @throws MailClientException on a mail client exception
+     */
+    @Test   
+    public void canMailPollerInvokeHandler() throws MailClientException {
+
+        MailReceiver mockMailReceiver = mock(MailReceiver.class);
+        MessageHandler mockMessageHandler = mock(MessageHandler.class);
+        
+        MailClientException mockException = mock(MailClientException.class);
+        when(mockException.getMessage()).thenReturn(EXCEPTION_MSG);
+
+        AbstractMailPoller testMailPoller = new AbstractMailPoller(mockMailReceiver, mockMessageHandler) {            
+            @Override
+            public void handleException(MailClientException e) {
+                assertEquals(EXCEPTION_MSG, e.getMessage());
+            }
+        };
+        
+        testMailPoller.poll();
+        verify(mockMailReceiver).handleMessages(mockMessageHandler);
+        verify(mockException, times(0)).getMessage();
+
+    }
+    
+    /**
+     * Test {@link AbstractMailPoller#poll()} invokes the override exception handling mechanism.
+     * @throws MailClientException
+     */
     @Test
     public void canMailPollerHandleException() throws MailClientException {
                 

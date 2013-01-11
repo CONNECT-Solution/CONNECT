@@ -46,7 +46,7 @@ public class MailUtilsTest {
 
     /**
      * Test {@link MailUtils#closeQuietly(Store)}.
-     * @throws MessagingException
+     * @throws MessagingException messaging exception
      */
     @Test
     public void canCloseQuietlyOnStoreException() throws MessagingException {
@@ -55,7 +55,7 @@ public class MailUtilsTest {
 
     /**
      * Test {@link MailUtils#closeQuietly(Store, Folder, boolean)}.
-     * @throws MessagingException
+     * @throws MessagingException messaging exception
      */
     @Test
     public void canCloseBothQuietlyOnStoreException() throws MessagingException {
@@ -64,7 +64,7 @@ public class MailUtilsTest {
     
     /**
      * Test {@link MailUtils#closeQuietly(Store, Folder, boolean)}.
-     * @throws MessagingException
+     * @throws MessagingException messaging exception
      */
     @Test
     public void canCloseBothQuietlyOnFolderException() throws MessagingException {
@@ -73,7 +73,7 @@ public class MailUtilsTest {
     
     /**
      * Test {@link MailUtils#setDeletedQuietly(MimeMessage)}.
-     * @throws MessagingException
+     * @throws MessagingException messaging exception
      */
     @Test
     public void canSetDeletedQuietlyOnException() throws MessagingException {

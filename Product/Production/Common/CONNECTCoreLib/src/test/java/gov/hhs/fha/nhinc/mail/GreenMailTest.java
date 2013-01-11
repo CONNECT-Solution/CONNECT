@@ -30,6 +30,7 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.fail;
 
 import java.util.Properties;
+import java.util.concurrent.TimeUnit;
 
 import javax.mail.Flags;
 import javax.mail.MessagingException;
@@ -51,33 +52,94 @@ import com.icegreen.greenmail.util.ServerSetupTest;
  */
 public abstract class GreenMailTest {
 
+    /**
+     * Email of Greenmail User Account.
+     */
     protected static final String EMAIL = "test@connect.example.org";
+
+    /**
+     * Email of Recipient.
+     */
     protected static final String EMAIL_RECIP = "recip@connect.example.org";
 
+    /**
+     * Number of messages to handle in a multi-batch test.
+     */
     protected static final int NUMBER_OF_MSGS = 28;
+    
+    /**
+     * Number of messages defined for a single batch.
+     */
     protected static final int NUMBER_OF_MSGS_IN_BATCH = 5;
 
+    /**
+     * A sample mail message resource.
+     */
     protected static final String MESSAGE_FILEPATH = "gov/hhs/fha/nhinc/mail/message.txt";
+    
+    /**
+     * Timeout value to wait for an incoming SMTP msg.
+     */
+    protected static final long WAIT_TIME_FOR_SMTP_SENDER = TimeUnit.SECONDS.toMillis(10);
     
     private GreenMail greenMail;
     private GreenMailUser greenMailUser;    
 
+    /**
+     * Start greenmail before each test.
+     */
     @Before
     public void setUpGreenMail() {
-
         greenMail = new GreenMail(new ServerSetup[] {ServerSetupTest.SMTP, ServerSetupTest.IMAPS });
         greenMail.start();
         greenMailUser = greenMail.setUser(EMAIL, EMAIL, EMAIL);
-
     }
     
+    /**
+     * Tear down greenmail at the end of each test.
+     * @throws InterruptedException on an interrupted exception.
+     */
     @After
-    public void tearDownGreenMail() {
+    public void tearDownGreenMail() throws InterruptedException {
         if (greenMail != null) {
             greenMail.stop();
         }    
     }
     
+    /**
+     * Wait for the number of messages to be received or timeout. This allows you to send the messages from a separate
+     * thread in a test. Otherwise the execution thread might check for the received messages before they actually
+     * get there.
+     * @param emailCount number of email msgs expected.
+     */
+    protected void waitForIncomingMsg(int emailCount) {
+        try {
+            greenMail.waitForIncomingEmail(WAIT_TIME_FOR_SMTP_SENDER, emailCount);
+        } catch (InterruptedException e) {
+            fail("Thread interrupted waiting for incoming email: " + e.getMessage());
+        }
+    }
+    
+    /**
+     * Get mail server properties for a test.
+     * @param deleteUnhandledMsgs determines if unhandled messages should be deleted or not.
+     * @return populated properties
+     */
+    protected Properties getTestMailServerProperties(boolean deleteUnhandledMsgs) {
+        return getTestMailServerProperties(EMAIL, NUMBER_OF_MSGS_IN_BATCH,
+                greenMail.getSmtp().getPort(), greenMail.getImaps().getPort(), "3000", "5000", deleteUnhandledMsgs);
+    }
+    
+    /**
+     * @param email address used as credentials
+     * @param maxMsgsInBatch number of messages in each batch.
+     * @param smtpPort smtp port
+     * @param imapPort imap port
+     * @param timeoutConnectionMillis timeout on making the connection
+     * @param timeoutMillis timeout on data from the socket
+     * @param deleteUnhandledMsgs determines if unhandled messages should be deleted or not.
+     * @return populate properties
+     */
     protected Properties getTestMailServerProperties(String email, int maxMsgsInBatch, int smtpPort, int imapPort,
             String timeoutConnectionMillis, String timeoutMillis, boolean deleteUnhandledMsgs) {
 
@@ -149,25 +211,15 @@ public abstract class GreenMailTest {
     }
 
     /**
-     * Workaround for defect in greenmail expunging messages: 
-     * http://sourceforge.net/tracker/?func=detail&aid=2688036&group_id=159695&atid=812857
-     */
-    protected void expungeMissedMessages() {
-        expungeMissedMessages(greenMail, greenMailUser);
-    }
-    
-    /**
-     * Workaround for defect in greenmail expunging messages: 
+     * Workaround for defect in greenmail expunging messages.
      * http://sourceforge.net/tracker/?func=detail&aid=2688036&group_id=159695&atid=812857
      * 
      * We have to delete these ourselves...
-     * @param greenMail mock mail server
-     * @param user used to access folder to be expunged
      */
-    private void expungeMissedMessages(GreenMail greenMail, GreenMailUser user) {
+    protected void expungeMissedMessages() {
         try {
             MailFolder folder = greenMail.getManagers().getImapHostManager()
-                    .getFolder(user, MailUtils.FOLDER_NAME_INBOX);
+                    .getFolder(greenMailUser, MailUtils.FOLDER_NAME_INBOX);
             while (folderHasDeletedMsgs(folder)) {
                 folder.expunge();
             }
@@ -185,4 +237,5 @@ public abstract class GreenMailTest {
         }
         return false;
     }
+    
 }

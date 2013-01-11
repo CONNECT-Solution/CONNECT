@@ -26,7 +26,6 @@
  */
 package gov.hhs.fha.nhinc.mail;
 
-//import static gov.hhs.fha.nhinc.direct.DirectUnitTestUtil.getFileAsString;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.mock;
@@ -39,38 +38,49 @@ import javax.mail.internet.MimeMessage;
 
 import org.junit.Test;
 
-import com.icegreen.greenmail.util.ServerSetupTest;
-
 /**
  * Test {@link ImapMailReceiver}.
  */
 public class ImapMailReceiverTest extends GreenMailTest {
 
+    /**
+     * Test {@link ImapMailReceiver#handleMessages(MessageHandler)} can receive and handle messages. 
+     * @throws MailClientException mail client exception
+     * @throws MessagingException messaging exception
+     */
     @Test
     public void canReceiveAndHandleMsgs() throws MailClientException, MessagingException {
         
-        ImapMailReceiver testMailReceiver = getTestMailReceiver(false);
+        final ImapMailReceiver testMailReceiver = getTestMailReceiver(false);
         
         deliverMsgs(NUMBER_OF_MSGS);        
-        MessageHandler mockHandler = getMockHandler(true);
+        final MessageHandler mockHandler = getMockHandler(true);
         
-        int numberOfFullBatches = NUMBER_OF_MSGS / NUMBER_OF_MSGS_IN_BATCH;
-        int lastBatchCount = NUMBER_OF_MSGS % NUMBER_OF_MSGS_IN_BATCH;
+        final int numberOfFullBatches = NUMBER_OF_MSGS / NUMBER_OF_MSGS_IN_BATCH;
+        final int lastBatchCount = NUMBER_OF_MSGS % NUMBER_OF_MSGS_IN_BATCH;
         for (int i=0;i < numberOfFullBatches; i++) {
             assertEquals("Number of handled messages matches batch size.", NUMBER_OF_MSGS_IN_BATCH,
                     testMailReceiver.handleMessages(mockHandler));
             expungeMissedMessages();
         }
         assertEquals("Last batch should handle correct count of remaining messages <= batch size.", lastBatchCount,
-                testMailReceiver.handleMessages(mockHandler     ));
+                testMailReceiver.handleMessages(mockHandler));
+        assertEquals("Invocation count is 1 + number of full batches", numberOfFullBatches + 1,
+                testMailReceiver.getHandlerInvocations());
         expungeMissedMessages();
         assertEquals("No messages should be left on the server.", 0, countRemainingMsgs());        
     }
     
+    /**
+     * Test {@link ImapMailReceiver#handleMessages(MessageHandler)} will delete messages that were received but could
+     * not be handled (based on configuration).
+     * @throws MailClientException
+     * @throws MessagingException
+     */
     @Test
-    public void canDeleteUnhandledMsgs() throws MailClientException, MessagingException {
+    public void willDeleteUnhandledMsgs() throws MailClientException, MessagingException {
 
-        ImapMailReceiver testMailReceiver = getTestMailReceiver(true);
+        final ImapMailReceiver testMailReceiver = getTestMailReceiver(true);
         MessageHandler handler = getMockHandler(false);
             
         deliverMsgs(NUMBER_OF_MSGS);
@@ -81,6 +91,12 @@ public class ImapMailReceiverTest extends GreenMailTest {
                 - NUMBER_OF_MSGS_IN_BATCH, countRemainingMsgs());
     }
     
+    /**
+     * Test {@link ImapMailReceiver#handleMessages(MessageHandler)} will leave messages that were received but could
+     * not be handled on the server (based on configuration).
+     * @throws MailClientException
+     * @throws MessagingException
+     */
     @Test
     public void canLeaveUnhandledMsgsOnServer() throws MailClientException, MessagingException {
 
@@ -94,6 +110,10 @@ public class ImapMailReceiverTest extends GreenMailTest {
         assertEquals("All messages should be left on the server.", NUMBER_OF_MSGS, countRemainingMsgs());        
     }
 
+    /**
+     * Test {@link ImapMailReceiver#handleMessages(MessageHandler)} can handle zero messages.
+     * @throws MailClientException
+     */
     @Test
     public void canHandleNoMessages() throws MailClientException {
         ImapMailReceiver testMailReceiver = getTestMailReceiver(false);
@@ -101,15 +121,14 @@ public class ImapMailReceiverTest extends GreenMailTest {
                 testMailReceiver.handleMessages(getMockHandler(true)));
     }
 
-    private void deliverMsgs(int numberOfMsgs) {
+    private void deliverMsgs(final int numberOfMsgs) {
         for (int i=0; i < numberOfMsgs; i++) {
             deliverMsg(MESSAGE_FILEPATH);            
         }
     }
     
-    private ImapMailReceiver getTestMailReceiver(boolean deleteUnhandledMsgs) {
-        Properties testMailProps = getTestMailServerProperties(EMAIL, NUMBER_OF_MSGS_IN_BATCH,
-                ServerSetupTest.SMTP.getPort(), ServerSetupTest.IMAPS.getPort(), "3000", "5000", deleteUnhandledMsgs);
+    private ImapMailReceiver getTestMailReceiver(final boolean deleteUnhandledMsgs) {
+        Properties testMailProps = getTestMailServerProperties(deleteUnhandledMsgs);
         return new ImapMailReceiver(testMailProps);
     }
     

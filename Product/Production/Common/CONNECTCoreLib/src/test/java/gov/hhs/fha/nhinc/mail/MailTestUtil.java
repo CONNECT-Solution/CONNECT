@@ -34,7 +34,7 @@ import java.io.IOException;
 import org.apache.commons.io.FileUtils;
 
 /**
- * Utility methods. 
+ * Utility methods for testing. 
  */
 public class MailTestUtil {
 
