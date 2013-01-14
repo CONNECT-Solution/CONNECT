@@ -14,7 +14,7 @@ http://www.springframework.org/schema/aop http://www.springframework.org/schema/
         <property name="ignoreResourceNotFound" value="true"/>
         <property name="locations">
             <list>
-                <value>classpath:admindistribution.properties</value>
+                <value>classpath:admindistribution10.properties</value>
                 <value>file:///${nhinc.properties.dir}/gateway.properties</value>
                 <value>classpath:admindistribution-test.properties</value>
             </list>
