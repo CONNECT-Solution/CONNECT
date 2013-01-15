@@ -4,8 +4,8 @@
 
 		<con:endpoints>
 			<con:endpoint>http://localhost:${HttpDefaultPort}/NhinConnect/EntityDocQuery</con:endpoint>
-		</con:endpoints>
-		<con:operation action="urn:RespondingGateway_CrossGatewayQuery" anonymous="optional" bindingOperationName="RespondingGateway_CrossGatewayQuery" inputName="RespondingGateway_CrossGatewayQueryRequest" isOneWay="false" name="RespondingGateway_CrossGatewayQuery" outputName="RespondingGateway_CrossGatewayQueryResponse" receivesAttachments="false" sendsAttachments="false" type="Request-Response">
+		<con:endpoint>http://localhost:${HttpDefaultPort}/Gateway/DocumentQuery/2_0/EntityService/EntityDocQueryUnsecured</con:endpoint></con:endpoints>
+		<con:operation action="urn:gov:hhs:fha:nhinc:entitydocquery:RespondingGateway_CrossGatewayQueryRequest" anonymous="optional" bindingOperationName="RespondingGateway_CrossGatewayQuery" inputName="RespondingGateway_CrossGatewayQueryRequest" isOneWay="false" name="RespondingGateway_CrossGatewayQuery" outputName="RespondingGateway_CrossGatewayQueryResponse" receivesAttachments="false" sendsAttachments="false" type="Request-Response">
 			<con:settings/>
 		</con:operation>
 	</con:interface><con:testSuite name="DQ_OnDemand TestSuite"><con:settings/><con:runType>SEQUENTIAL</con:runType><con:testCase failOnError="true" failTestCaseOnErrors="true" id="3d470289-6e05-42e3-a764-0ab85e2a0115" keepSession="false" maxResults="0" name="DQ - XDSDocEntryType Not Set" searchProperties="true">
@@ -346,19 +346,19 @@
 <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);</con:tearDownScript><con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2012-12-12T20:44:55Z</con:value>
+		<con:value>2013-01-11T17:21:24Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2012-12-12T20:54:55Z</con:value>
+		<con:value>2013-01-11T17:31:24Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>12/12/2012 20:44:55</con:value>
+		<con:value>01/11/2013 17:21:24</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2013-01-11T00:00:00Z</con:value>
+		<con:value>2013-02-10T00:00:00Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>FullPatientID</con:name>
@@ -709,19 +709,19 @@
 <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);</con:tearDownScript><con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2012-12-12T20:44:57Z</con:value>
+		<con:value>2013-01-11T17:21:25Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2012-12-12T20:54:57Z</con:value>
+		<con:value>2013-01-11T17:31:25Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>12/12/2012 20:44:57</con:value>
+		<con:value>01/11/2013 17:21:25</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2013-01-11T00:00:00Z</con:value>
+		<con:value>2013-02-10T00:00:00Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>FullPatientID</con:name>
@@ -1072,19 +1072,19 @@
 <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);</con:tearDownScript><con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2012-12-12T20:44:59Z</con:value>
+		<con:value>2013-01-11T17:21:26Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2012-12-12T20:54:59Z</con:value>
+		<con:value>2013-01-11T17:31:26Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>12/12/2012 20:44:59</con:value>
+		<con:value>01/11/2013 17:21:26</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2013-01-11T00:00:00Z</con:value>
+		<con:value>2013-02-10T00:00:00Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>FullPatientID</con:name>
@@ -1435,19 +1435,19 @@
 <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);</con:tearDownScript><con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2012-12-12T20:45:01Z</con:value>
+		<con:value>2013-01-11T17:21:27Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2012-12-12T20:55:01Z</con:value>
+		<con:value>2013-01-11T17:31:27Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>12/12/2012 20:45:01</con:value>
+		<con:value>01/11/2013 17:21:27</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2013-01-11T00:00:00Z</con:value>
+		<con:value>2013-02-10T00:00:00Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>FullPatientID</con:name>
@@ -1803,19 +1803,19 @@
 <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);</con:tearDownScript><con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2012-12-12T20:45:03Z</con:value>
+		<con:value>2013-01-11T17:21:29Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2012-12-12T20:55:03Z</con:value>
+		<con:value>2013-01-11T17:31:29Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>12/12/2012 20:45:03</con:value>
+		<con:value>01/11/2013 17:21:29</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2013-01-11T00:00:00Z</con:value>
+		<con:value>2013-02-10T00:00:00Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>FullPatientID</con:name>
@@ -2171,19 +2171,19 @@
 <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);</con:tearDownScript><con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2012-12-12T20:45:05Z</con:value>
+		<con:value>2013-01-11T17:21:30Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2012-12-12T20:55:05Z</con:value>
+		<con:value>2013-01-11T17:31:30Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>12/12/2012 20:45:05</con:value>
+		<con:value>01/11/2013 17:21:30</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2013-01-11T00:00:00Z</con:value>
+		<con:value>2013-02-10T00:00:00Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>FullPatientID</con:name>

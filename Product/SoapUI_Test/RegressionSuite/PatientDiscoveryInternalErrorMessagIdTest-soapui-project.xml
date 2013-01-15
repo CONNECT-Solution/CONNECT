@@ -6,7 +6,7 @@
 		<con:endpoints>
 			<con:endpoint>http://localhost:${HttpDefaultPort}/Gateway/PatientDiscovery/1_0/EntityPatientDiscovery</con:endpoint>
 		</con:endpoints>
-		<con:operation isOneWay="false" action="urn:RespondingGateway_PRPA_IN201305UV02" name="RespondingGateway_PRPA_IN201305UV02" bindingOperationName="RespondingGateway_PRPA_IN201305UV02" type="Request-Response" outputName="RespondingGateway_PRPA_IN201306UV02Response" inputName="RespondingGateway_PRPA_IN201305UV02Request" receivesAttachments="false" sendsAttachments="false">
+		<con:operation isOneWay="false" action="urn:gov:hhs:fha:nhinc:entitypatientdiscovery:RespondingGateway_PRPA_IN201305UV02RequestMessage" name="RespondingGateway_PRPA_IN201305UV02" bindingOperationName="RespondingGateway_PRPA_IN201305UV02" type="Request-Response" outputName="RespondingGateway_PRPA_IN201306UV02Response" inputName="RespondingGateway_PRPA_IN201305UV02Request" receivesAttachments="false" sendsAttachments="false" anonymous="optional">
 			<con:settings/>
 		</con:operation>
 	</con:interface>
@@ -352,19 +352,19 @@ exists( //ns3:PRPA_IN201306UV02/ns3:controlActProcess/ns3:reasonOf/ns3:detectedI
 <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"),log);</con:setupScript><con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"),log);</con:tearDownScript><con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2012-11-30T13:50:53Z</con:value>
+		<con:value>2013-01-11T20:06:46Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2012-11-30T14:00:53Z</con:value>
+		<con:value>2013-01-11T20:16:46Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>11/30/2012 13:50:53</con:value>
+		<con:value>01/11/2013 20:06:46</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2012-12-30T00:00:00Z</con:value>
+		<con:value>2013-02-10T00:00:00Z</con:value>
 	</con:property>
 </con:properties>
 <con:reportParameters/>
@@ -666,7 +666,7 @@ nhinc.FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFil
 				<con:wsrmConfig version="1.2"/>
 			</con:request>
 		</con:config>
-	</con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"),log);</con:setupScript><con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"),log);</con:tearDownScript><con:properties><con:property><con:name>startDate</con:name><con:value>2012-11-30T13:51:13Z</con:value></con:property><con:property><con:name>endDate</con:name><con:value>2012-11-30T14:01:13Z</con:value></con:property><con:property><con:name>sigDate</con:name><con:value>11/30/2012 13:51:13</con:value></con:property><con:property><con:name>expireDate</con:name><con:value>2012-12-30T00:00:00Z</con:value></con:property></con:properties></con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="PD Deferred Response" searchProperties="true" id="2a1cb79a-a1bc-454c-8ebb-bde2d50155e9" disabled="true"><con:settings/><con:testStep type="groovy" name="Update uddiConnectionInfo">
+	</con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"),log);</con:setupScript><con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"),log);</con:tearDownScript><con:properties><con:property><con:name>startDate</con:name><con:value>2013-01-11T20:06:47Z</con:value></con:property><con:property><con:name>endDate</con:name><con:value>2013-01-11T20:16:47Z</con:value></con:property><con:property><con:name>sigDate</con:name><con:value>01/11/2013 20:06:47</con:value></con:property><con:property><con:name>expireDate</con:name><con:value>2013-02-10T00:00:00Z</con:value></con:property></con:properties></con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="PD Deferred Response" searchProperties="true" id="2a1cb79a-a1bc-454c-8ebb-bde2d50155e9" disabled="true"><con:settings/><con:testStep type="groovy" name="Update uddiConnectionInfo">
 				<con:settings/>
 				<con:config><script>def destConfigFileLocation = context.findProperty("GatewayPropDir");
 def HCID2 = context.findProperty("RemoteHCID");
@@ -1028,7 +1028,7 @@ nhinc.FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFil
 	
 	
 	
-	<con:property><con:name>FamilyName</con:name><con:value>Younger</con:value></con:property><con:property><con:name>GatewayPropDir</con:name><con:value>c:\glassfish3\glassfish\domains\domain1\config\nhin</con:value></con:property><con:property><con:name>Gender</con:name><con:value>M</con:value></con:property>
+	<con:property><con:name>FamilyName</con:name><con:value>Younger</con:value></con:property><con:property><con:name>GatewayPropDir</con:name><con:value>c:/glassfish3/glassfish/domains/domain1/config/nhin</con:value></con:property><con:property><con:name>Gender</con:name><con:value>M</con:value></con:property>
 	<con:property><con:name>GivenName</con:name><con:value>Gallow</con:value></con:property><con:property><con:name>Host2</con:name><con:value>localhost</con:value></con:property><con:property><con:name>LocalAA</con:name><con:value>1.1</con:value></con:property>
 	
 	<con:property><con:name>LocalHCDescription</con:name><con:value>InternalTest1</con:value></con:property>
