@@ -1,6 +1,10 @@
 /*
  * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services. 
  * All rights reserved. 
+ * Copyright (c) 2011, Conemaugh Valley Memorial Hospital
+ * This source is subject to the Conemaugh public license.  Please see the
+ * license.txt file for more information.
+ * All other rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without 
  * modification, are permitted provided that the following conditions are met: 
@@ -31,7 +35,6 @@ import gov.hhs.fha.nhinc.assemblymanager.builder.cda.section.AllergiesSectionImp
 import gov.hhs.fha.nhinc.assemblymanager.builder.cda.section.CDASection;
 import gov.hhs.fha.nhinc.assemblymanager.builder.cda.section.MedicationsSectionImpl;
 import gov.hhs.fha.nhinc.assemblymanager.builder.cda.section.ProblemsSectionImpl;
-import gov.hhs.fha.nhinc.assemblymanager.dao.PropertiesDAO;
 import gov.hhs.fha.nhinc.assemblymanager.service.DataService;
 import gov.hhs.fha.nhinc.assemblymanager.utils.DateUtil;
 import gov.hhs.fha.nhinc.assemblymanager.utils.XMLUtil;
@@ -51,19 +54,17 @@ import org.hl7.v3.POCDMT000040Component3;
 public class StructureComponentFactoryBuilder {
 
     private static Log log = LogFactory.getLog(StructureComponentFactoryBuilder.class);
+    private static String endpoint = AssemblyConstants.DAS_DATASERVICE_ENDPOINT;
+    private static DataService dataService = new DataService(endpoint);
 
     /**
-     * 
+     *
      * @param templateId HITSP template identifier
      * @return
      */
     public static POCDMT000040Component3 createHITSPComponent(II subjectId, CdaTemplate template) {
         String hitspTemplateId = template.getHitspTemplateId();
         CDASection sectionBuilder = null;
-
-        String endpoint = PropertiesDAO.getInstance().getAttributeValue(AssemblyConstants.DAS_DATASERVICE_ENDPOINT,
-                true);
-        DataService dataService = new DataService(endpoint);
 
         CareRecordQUPCIN043200UV01ResponseType careRecord = null;
 
@@ -100,8 +101,8 @@ public class StructureComponentFactoryBuilder {
                     careProvisionCode = "CURMEDLIST";
                 }
 
-                careRecord = dataService.getMedications(subjectId, careProvisionCode, cdaStartDate, cdaStartDate,
-                        endpoint);
+                careRecord =
+                    dataService.getMedications(subjectId, careProvisionCode, cdaStartDate, cdaStartDate, endpoint);
 
                 log.debug("******************  CARE RECORD RESPONSE for getMedications() *************");
                 log.debug(XMLUtil.toPrettyXML(careRecord));
@@ -115,8 +116,8 @@ public class StructureComponentFactoryBuilder {
                 String careProvisionCode = "INTOLIST";
 
                 // get Allergies Data
-                careRecord = dataService.getAllergies(subjectId, careProvisionCode, cdaStartDate, cdaStartDate,
-                        endpoint);
+                careRecord =
+                    dataService.getAllergies(subjectId, careProvisionCode, cdaStartDate, cdaStartDate, endpoint);
 
                 log.debug("******************  CARE RECORD RESPONSE for getAllergies() *************");
                 log.debug(XMLUtil.toPrettyXML(careRecord));
@@ -124,15 +125,13 @@ public class StructureComponentFactoryBuilder {
                 if (careRecord != null) {
                     sectionBuilder.setCareRecordResponse(careRecord);
                 }
-            }
-            // problems section
+            } // problems section
             else if (hitspTemplateId.equalsIgnoreCase(TemplateConstants.PROBLEMS_SECTION_HITSP_TEMPLATE_ID)) {
                 sectionBuilder = new ProblemsSectionImpl(template);
                 String careProvisionCode = "PROBLIST";
 
                 // get problem data
-                careRecord = dataService
-                        .getProblems(subjectId, careProvisionCode, cdaStartDate, cdaStartDate, endpoint);
+                careRecord = dataService.getProblems(subjectId, careProvisionCode, cdaStartDate, cdaStartDate, endpoint);
 
                 log.debug("******************  CARE RECORD RESPONSE for getProblems() *************");
                 log.debug(XMLUtil.toPrettyXML(careRecord));
@@ -140,8 +139,7 @@ public class StructureComponentFactoryBuilder {
                 if (careRecord != null) {
                     sectionBuilder.setCareRecordResponse(careRecord);
                 }
-            }
-            // unknown section
+            } // unknown section
             else {
                 log.error("Template: \"" + hitspTemplateId + "\" - Not implemented yet.");
                 return new POCDMT000040Component3();

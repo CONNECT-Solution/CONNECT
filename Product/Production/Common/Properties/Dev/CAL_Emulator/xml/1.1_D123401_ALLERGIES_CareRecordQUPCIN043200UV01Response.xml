@@ -1,0 +1,73 @@
+<CareRecord_QUPC_IN043200UV01Response xmlns="urn:hl7-org:v3">
+			<careRecord typeCode="SUBJ">
+				<registrationEvent classCode="REG" moodCode="EVN">
+					<statusCode code="ACTIVE"/>
+					<author typeCode="AUT" contextControlCode="OP">
+						<time value="20120911135405"/>
+						<assignedEntity>
+							<assignedDevice determinerCode="INSTANCE">
+								<softwareName code="Legacy EHR System" displayName="Legacy EHR System"/>
+							</assignedDevice>
+						</assignedEntity>
+					</author>
+					<custodian typeCode="CST">
+						<assignedEntity>
+							<id root="1.1" assigningAuthorityName="NwHIN Gateway"/>
+						</assignedEntity>
+					</custodian>
+					<subject2 typeCode="SUBJ">
+						<careProvisionEvent classCode="ENC" moodCode="EVN">
+							<recordTarget typeCode="RCT">
+								<patient classCode="PAT">
+									<id root="1.1" extension="D123401" assigningAuthorityName="NwHIN Gateway"/>
+									<patientPerson classCode="PSN" determinerCode="INSTANCE"/>
+								</patient>
+							</recordTarget>
+							<pertinentInformation3 typeCode="SUBJ" contextControlCode="OP" contextConductionInd="false">
+								<sequenceNumber value="1"/>
+								<observation classCode="OBS" moodCode="EVN">
+									<code displayName="Drug Allergy"/>
+									<text>Peanut-derived; 11 Jun 2006</text>
+									<effectiveTime value="20060611000000"/>
+									<sourceOf typeCode="MFST">
+										<substanceAdministration classCode="SBADM" moodCode="EVN">
+											<consumable typeCode="CSM">
+												<administerableMaterial classCode="ADMM">
+													<administerableMaterial classCode="MMAT" determinerCode="INSTANCE">
+														<desc>Peanut-derived</desc>
+													</administerableMaterial>
+												</administerableMaterial>
+											</consumable>
+										</substanceAdministration>
+									</sourceOf>
+								</observation>
+							</pertinentInformation3>
+							<pertinentInformation3 typeCode="SUBJ" contextControlCode="OP" contextConductionInd="false">
+								<sequenceNumber value="2"/>
+								<observation classCode="OBS" moodCode="EVN">
+									<code displayName="Drug Allergy"/>
+									<text>Latex Exam Gloves MISC; 01 Jan 2010</text>
+									<effectiveTime value="20100101000000"/>
+									<sourceOf typeCode="MFST">
+										<substanceAdministration classCode="SBADM" moodCode="EVN">
+											<consumable typeCode="CSM">
+												<administerableMaterial classCode="ADMM">
+													<administerableMaterial classCode="MMAT" determinerCode="INSTANCE">
+														<desc>Latex Exam Gloves MISC</desc>
+													</administerableMaterial>
+												</administerableMaterial>
+											</consumable>
+										</substanceAdministration>
+									</sourceOf>
+									<sourceOf typeCode="MFST">
+										<observation classCode="OBS" moodCode="EVN">
+											<text>Itching</text>
+										</observation>
+									</sourceOf>
+								</observation>
+							</pertinentInformation3>
+						</careProvisionEvent>
+					</subject2>
+				</registrationEvent>
+			</careRecord>
+		</CareRecord_QUPC_IN043200UV01Response>

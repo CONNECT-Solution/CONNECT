@@ -1,6 +1,10 @@
 /*
  * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services. 
  * All rights reserved. 
+ * Copyright (c) 2011, Conemaugh Valley Memorial Hospital
+ * This source is subject to the Conemaugh public license.  Please see the
+ * license.txt file for more information.
+ * All other rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without 
  * modification, are permitted provided that the following conditions are met: 
@@ -49,7 +53,6 @@ public class TemplateManagerDAO implements TemplateManager {
     public final static String TEMPLATE_MANAGER_PU = "TemplateManagerPU";
     private static PersistentServiceFactory factory = null;
     protected static Log log = LogFactory.getLog(TemplateManagerDAO.class);
-
     // @PersistenceContext(unitName="TemplateManagerPU") EntityManager manager;
     // private PersistenceManager serviceFactory = null;
     private static TemplateManager dao = null;
@@ -58,7 +61,7 @@ public class TemplateManagerDAO implements TemplateManager {
         factory = PersistentServiceFactory.getInstance(pUnit);
     }
 
-    public static TemplateManager getInstance() {
+    public synchronized static TemplateManager getInstance() {
         synchronized (TemplateManagerDAO.class) {
             if (dao == null) {
                 dao = new TemplateManagerDAO(TEMPLATE_MANAGER_PU);
@@ -69,7 +72,7 @@ public class TemplateManagerDAO implements TemplateManager {
     }
 
     @Override
-    public List<CdaTemplate> getSectionTemplatesForDocument(String loincCode, boolean active) {
+    public synchronized List<CdaTemplate> getSectionTemplatesForDocument(String loincCode, boolean active) {
 
         EntityManager em = null;
         List<CdaTemplate> templates = new ArrayList<CdaTemplate>();
@@ -106,7 +109,7 @@ public class TemplateManagerDAO implements TemplateManager {
     }
 
     @Override
-    public List<CdaTemplate> getModuleTemplatesForSection(int id, boolean active) {
+    public synchronized List<CdaTemplate> getModuleTemplatesForSection(int id, boolean active) {
 
         EntityManager em = null;
         List<CdaTemplate> templates = new ArrayList<CdaTemplate>();
@@ -138,7 +141,7 @@ public class TemplateManagerDAO implements TemplateManager {
     }
 
     @Override
-    public CdaTemplate getTemplateForDocument(String loincCode) {
+    public synchronized CdaTemplate getTemplateForDocument(String loincCode) {
 
         CdaTemplate result = null;
         EntityManager em = null;
@@ -160,7 +163,7 @@ public class TemplateManagerDAO implements TemplateManager {
     }
 
     @Override
-    public List<CdaTemplate> getTemplates() {
+    public synchronized List<CdaTemplate> getTemplates() {
 
         List<CdaTemplate> results = new ArrayList<CdaTemplate>();
         EntityManager em = null;

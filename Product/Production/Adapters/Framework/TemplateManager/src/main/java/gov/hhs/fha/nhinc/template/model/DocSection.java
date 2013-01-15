@@ -1,6 +1,10 @@
 /*
  * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services. 
  * All rights reserved. 
+ * Copyright (c) 2011, Conemaugh Valley Memorial Hospital
+ * This source is subject to the Conemaugh public license.  Please see the
+ * license.txt file for more information.
+ * All other rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without 
  * modification, are permitted provided that the following conditions are met: 
@@ -45,12 +49,13 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "doc_section")
 @NamedQueries({
-        @NamedQuery(name = "DocSection.findAll", query = "SELECT d FROM DocSection d"),
-        @NamedQuery(name = "DocSection.findByDocId", query = "SELECT d FROM DocSection d WHERE d.docSectionPK.docId = :docId"),
-        @NamedQuery(name = "DocSection.findBySectionId", query = "SELECT d FROM DocSection d WHERE d.docSectionPK.sectionId = :sectionId"),
-        @NamedQuery(name = "DocSection.findByActiveYn", query = "SELECT d FROM DocSection d WHERE d.activeYn = :activeYn"),
-        @NamedQuery(name = "DocSection.findByLoincCode", query = "SELECT d FROM DocSection d WHERE d.cdaTemplate.loincCode = :loincCode AND d.activeYn = :activeYn") })
+    @NamedQuery(name = "DocSection.findAll", query = "SELECT d FROM DocSection d"),
+    @NamedQuery(name = "DocSection.findByDocId", query = "SELECT d FROM DocSection d WHERE d.docSectionPK.docId = :docId"),
+    @NamedQuery(name = "DocSection.findBySectionId", query = "SELECT d FROM DocSection d WHERE d.docSectionPK.sectionId = :sectionId"),
+    @NamedQuery(name = "DocSection.findByActiveYn", query = "SELECT d FROM DocSection d WHERE d.activeYn = :activeYn"),
+    @NamedQuery(name = "DocSection.findByLoincCode", query = "SELECT d FROM DocSection d WHERE d.cdaTemplate.loincCode = :loincCode AND d.activeYn = :activeYn")})
 public class DocSection implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @EmbeddedId
     protected DocSectionPK docSectionPK;
@@ -127,8 +132,7 @@ public class DocSection implements Serializable {
             return false;
         }
         DocSection other = (DocSection) object;
-        if ((this.docSectionPK == null && other.docSectionPK != null)
-                || (this.docSectionPK != null && !this.docSectionPK.equals(other.docSectionPK))) {
+        if ((this.docSectionPK == null && other.docSectionPK != null) || (this.docSectionPK != null && !this.docSectionPK.equals(other.docSectionPK))) {
             return false;
         }
         return true;
@@ -144,5 +148,4 @@ public class DocSection implements Serializable {
         str.append("Section template: " + cdaTemplate1.toString());
         return str.toString();
     }
-
 }

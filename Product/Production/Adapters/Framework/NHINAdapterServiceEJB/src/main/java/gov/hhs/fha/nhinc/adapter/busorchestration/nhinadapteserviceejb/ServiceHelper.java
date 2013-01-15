@@ -1,6 +1,10 @@
 /*
  * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
+ * Copyright (c) 2011, Conemaugh Valley Memorial Hospital
+ * This source is subject to the Conemaugh public license.  Please see the
+ * license.txt file for more information.
+ * All other rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -26,18 +30,9 @@
  */
 package gov.hhs.fha.nhinc.adapter.busorchestration.nhinadapteserviceejb;
 
-import javax.xml.ws.BindingProvider;
-
-import javax.xml.ws.WebServiceException;
-
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
-
-import gov.hhs.fha.nhinc.properties.PropertyAccessException;
-
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
-
 import org.apache.commons.logging.Log;
-
 import org.apache.commons.logging.LogFactory;
 
 /**
@@ -48,15 +43,11 @@ import org.apache.commons.logging.LogFactory;
  *
  * @author Jerry Goodnough
  */
-
 public class ServiceHelper {
 
     private static Log log = LogFactory.getLog(
-
-    ServiceHelper.class);
-
+        ServiceHelper.class);
     private static final String GATEWAY_PROPERTY_FILE = "gateway";
-
     private static final String HOME_COMMUNITY_ID_PROPERTY = "localHomeCommunityId";
 
     /**
@@ -67,10 +58,7 @@ public class ServiceHelper {
      *
      * @return The endpoint reference or null if BOS does not have a mapping
      */
-
-    public static String getEndpointFromBOS(String srvName)
-
-    {
+    public static String getEndpointFromBOS(String srvName) {
 
         // Get the Home community ID for this box...
 
@@ -81,33 +69,25 @@ public class ServiceHelper {
         String sEndpointURL = "";
 
         try {
-
             sHomeCommunityId = PropertyAccessor.getInstance().getProperty(GATEWAY_PROPERTY_FILE, HOME_COMMUNITY_ID_PROPERTY);
-
         } catch (Exception e) {
 
             log.error("Failed to read " + HOME_COMMUNITY_ID_PROPERTY +
-
-            " property from the " + GATEWAY_PROPERTY_FILE + ".properties  file.  Error: " +
-
-            e.getMessage(), e);
+                " property from the " + GATEWAY_PROPERTY_FILE + ".properties  file.  Error: " +
+                e.getMessage(), e);
 
         }
 
         try {
-
             sEndpointURL = ConnectionManagerCache.getInstance().getDefaultEndpointURLByServiceName(sHomeCommunityId, srvName);
-
         } catch (Exception e) {
 
             log.error("Failed to retrieve endpoint URL for service:" + srvName +
-
-            " from connection manager.  Error: " + e.getMessage(), e);
+                " from connection manager.  Error: " + e.getMessage(), e);
 
         }
 
         return sEndpointURL;
 
     }
-
 }

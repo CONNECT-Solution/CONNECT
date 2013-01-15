@@ -1,6 +1,10 @@
 /*
  * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services. 
  * All rights reserved. 
+ * Copyright (c) 2011, Conemaugh Valley Memorial Hospital
+ * This source is subject to the Conemaugh public license.  Please see the
+ * license.txt file for more information.
+ * All other rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without 
  * modification, are permitted provided that the following conditions are met: 
@@ -45,12 +49,13 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "section_module")
 @NamedQueries({
-        @NamedQuery(name = "SectionModule.findAll", query = "SELECT s FROM SectionModule s"),
-        @NamedQuery(name = "SectionModule.findBySectionId", query = "SELECT s FROM SectionModule s WHERE s.sectionModulePK.sectionId = :sectionId"),
-        @NamedQuery(name = "SectionModule.findByModuleId", query = "SELECT s FROM SectionModule s WHERE s.sectionModulePK.moduleId = :moduleId"),
-        @NamedQuery(name = "SectionModule.findByActiveYn", query = "SELECT s FROM SectionModule s WHERE s.activeYn = :activeYn"),
-        @NamedQuery(name = "SectionModule.findBySectionIdActiveYn", query = "SELECT s FROM SectionModule s WHERE s.sectionModulePK.sectionId = :sectionId AND s.activeYn = :activeYn") })
+    @NamedQuery(name = "SectionModule.findAll", query = "SELECT s FROM SectionModule s"),
+    @NamedQuery(name = "SectionModule.findBySectionId", query = "SELECT s FROM SectionModule s WHERE s.sectionModulePK.sectionId = :sectionId"),
+    @NamedQuery(name = "SectionModule.findByModuleId", query = "SELECT s FROM SectionModule s WHERE s.sectionModulePK.moduleId = :moduleId"),
+    @NamedQuery(name = "SectionModule.findByActiveYn", query = "SELECT s FROM SectionModule s WHERE s.activeYn = :activeYn"),
+    @NamedQuery(name = "SectionModule.findBySectionIdActiveYn", query = "SELECT s FROM SectionModule s WHERE s.sectionModulePK.sectionId = :sectionId AND s.activeYn = :activeYn")})
 public class SectionModule implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @EmbeddedId
     protected SectionModulePK sectionModulePK;
@@ -127,8 +132,7 @@ public class SectionModule implements Serializable {
             return false;
         }
         SectionModule other = (SectionModule) object;
-        if ((this.sectionModulePK == null && other.sectionModulePK != null)
-                || (this.sectionModulePK != null && !this.sectionModulePK.equals(other.sectionModulePK))) {
+        if ((this.sectionModulePK == null && other.sectionModulePK != null) || (this.sectionModulePK != null && !this.sectionModulePK.equals(other.sectionModulePK))) {
             return false;
         }
         return true;
@@ -144,5 +148,4 @@ public class SectionModule implements Serializable {
         str.append("Module template: " + cdaTemplate1.toString());
         return str.toString();
     }
-
 }

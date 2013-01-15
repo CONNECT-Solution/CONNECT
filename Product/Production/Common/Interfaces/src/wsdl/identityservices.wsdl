@@ -768,7 +768,7 @@
     </binding>
     <service name="IdentityServicesImplService">
         <port name="IdentityServicesImplPort" binding="tns:IdentityServicesImplPortBinding">
-            <soap:address location="http://localhost:8080/opensso/identityservices/IdentityServices"></soap:address>
+            <soap:address location="http://localhost:2080/opensso/identityservices/IdentityServices"></soap:address>
         </port>
     </service>
 </definitions>

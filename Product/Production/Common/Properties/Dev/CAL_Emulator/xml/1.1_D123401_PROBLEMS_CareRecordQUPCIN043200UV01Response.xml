@@ -1,0 +1,60 @@
+<CareRecord_QUPC_IN043200UV01Response xmlns:ns2="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns="urn:hl7-org:v3">
+    <careRecord typeCode="SUBJ">
+        <registrationEvent classCode="REG" moodCode="EVN">
+            <statusCode code="active"/>
+            <custodian typeCode="CST">
+                <assignedEntity classCode="ASSIGNED">
+                    <id extension="Health System" root="1.1"/>
+                </assignedEntity>
+            </custodian>
+            <subject2 typeCode="SUBJ">
+                <careProvisionEvent classCode="ENC" moodCode="EVN">
+                    <recordTarget typeCode="RCT">
+                        <patient classCode="PAT">
+                            <id extension="D123401"/>
+                            <patientPerson classCode="PSN" determinerCode="INSTANCE"/>
+                        </patient>
+                    </recordTarget>
+                    <pertinentInformation3 contextConductionInd="false" contextControlCode="OP" typeCode="SUBJ">
+                        <sequenceNumber value="1"/>
+                        <observation classCode="OBS" moodCode="EVN">
+                            <templateId root="2.16.840.1.113883.10.20.1.28"/>
+                            <text>Immunologic disorder</text>
+                            <effectiveTime value="20090508"/>
+                            <value code="279.9" codeSystem="2.16.840.1.113883.11.15931" codeSystemName="ICD9" displayName="Immunologic disorder" xsi:type="CD" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"/>
+                        </observation>
+                    </pertinentInformation3>
+                    <pertinentInformation3 contextConductionInd="false" contextControlCode="OP" typeCode="SUBJ">
+                        <sequenceNumber value="2"/>
+                        <observation classCode="OBS" moodCode="EVN">
+                            <templateId root="2.16.840.1.113883.10.20.1.28"/>
+                            <text>Influenza</text>
+                            <effectiveTime value="20090324"/>
+                            <value code="487.1" codeSystem="2.16.840.1.113883.11.15931" codeSystemName="ICD9" displayName="Influenza" xsi:type="CD" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"/>
+                            <performer typeCode="PRF">
+                                <assignedEntity1 classCode="ASSIGNED">
+                                    <id extension="PROVIDER-1" root="2.16.840.1.113883.3.42"/>
+                                    <assignedPerson classCode="PSN" determinerCode="INSTANCE">
+                                        <name>
+                                            <family>MIDTIER</family>
+                                            <given>THE FOURTH</given>
+                                        </name>
+                                    </assignedPerson>
+                                </assignedEntity1>
+                            </performer>
+                        </observation>
+                    </pertinentInformation3>
+                    <pertinentInformation3 contextConductionInd="false" contextControlCode="OP" typeCode="SUBJ">
+                        <sequenceNumber value="3"/>
+                        <observation classCode="OBS" moodCode="EVN">
+                            <templateId root="2.16.840.1.113883.10.20.1.28"/>
+                            <text>Malignant myopia</text>
+                            <effectiveTime value="20090304"/>
+                            <value code="360.21" codeSystem="2.16.840.1.113883.11.15931" codeSystemName="ICD9" displayName="Malignant myopia" xsi:type="CD" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"/>
+                        </observation>
+                    </pertinentInformation3>                                    
+                </careProvisionEvent>
+            </subject2>
+        </registrationEvent>
+    </careRecord>
+</CareRecord_QUPC_IN043200UV01Response>

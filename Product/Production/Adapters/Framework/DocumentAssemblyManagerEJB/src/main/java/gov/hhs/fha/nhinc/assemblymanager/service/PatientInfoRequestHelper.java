@@ -1,6 +1,10 @@
 /*
  * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services. 
  * All rights reserved. 
+ * Copyright (c) 2011, Conemaugh Valley Memorial Hospital
+ * This source is subject to the Conemaugh public license.  Please see the
+ * license.txt file for more information.
+ * All other rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without 
  * modification, are permitted provided that the following conditions are met: 
@@ -27,11 +31,8 @@
 package gov.hhs.fha.nhinc.assemblymanager.service;
 
 import gov.hhs.fha.nhinc.assemblymanager.AssemblyConstants;
-
-import gov.hhs.fha.nhinc.assemblymanager.dao.PropertiesDAO;
-
-import gov.hhs.fha.nhinc.assemblymanager.utils.DocumentIdGenerator;
-
+import gov.hhs.fha.nhinc.assemblymanager.utils.UUIDGenerator;
+import org.hl7.v3.ActClassControlAct;
 import org.hl7.v3.CD;
 
 import org.hl7.v3.CE;
@@ -39,7 +40,7 @@ import org.hl7.v3.CE;
 import org.hl7.v3.CS;
 
 import org.hl7.v3.CommunicationFunctionType;
-
+import org.hl7.v3.EntityClassDevice;
 import org.hl7.v3.II;
 
 import org.hl7.v3.MCCIMT000100UV01Device;
@@ -74,7 +75,6 @@ import org.hl7.v3.XActMoodIntentEvent;
  * 
  * @author kim
  */
-
 public class PatientInfoRequestHelper {
 
     public final static String PATIENT_INFO_INTERACTION = "PRPA_IN201307UV02";
@@ -83,12 +83,9 @@ public class PatientInfoRequestHelper {
 
         PatientDemographicsPRPAIN201307UV02RequestType msg = new PatientDemographicsPRPAIN201307UV02RequestType();
 
-        msg.setLocalDeviceId(PropertiesDAO.getInstance().getAttributeValue(AssemblyConstants.ORGANIZATION_OID, true));
-
-        msg.setReceiverOID(PropertiesDAO.getInstance().getAttributeValue(AssemblyConstants.ORGANIZATION_OID, true));
-
-        msg.setSenderOID(PropertiesDAO.getInstance().getAttributeValue(AssemblyConstants.ORGANIZATION_OID, true));
-
+        msg.setLocalDeviceId(AssemblyConstants.ORGANIZATION_OID);
+        msg.setReceiverOID(AssemblyConstants.ORGANIZATION_OID);
+        msg.setSenderOID(AssemblyConstants.ORGANIZATION_OID);
         msg.setQuery(build201307(subjectId));
 
         return msg;
@@ -100,11 +97,8 @@ public class PatientInfoRequestHelper {
         PRPAIN201307UV02MCCIMT000100UV01Message query = new PRPAIN201307UV02MCCIMT000100UV01Message();
 
         II id = new II();
-
-        id.setRoot(PropertiesDAO.getInstance().getAttributeValue(AssemblyConstants.ORGANIZATION_OID, true));
-
-        id.setExtension(DocumentIdGenerator.generateDocumentId());
-
+        id.setRoot(AssemblyConstants.ORGANIZATION_OID);
+        id.setExtension(UUIDGenerator.generateRandomUUID());
         query.setId(id);
 
         TSExplicit creationTime = new TSExplicit();
@@ -161,10 +155,11 @@ public class PatientInfoRequestHelper {
 
         device.setDeterminerCode("INSTANCE");
 
+        //added to work with request to AllScripts
+        device.setClassCode(EntityClassDevice.DEV);
+
         II id = new II();
-
         id.setRoot("2.16.840.1.113883.3.200");
-
         device.getId().add(id);
 
         TELExplicit url = new TELExplicit();
@@ -189,10 +184,11 @@ public class PatientInfoRequestHelper {
 
         device.setDeterminerCode("INSTANCE");
 
+        //added to work with request to AllScripts
+        device.setClassCode(EntityClassDevice.DEV);
+
         II id = new II();
-
         id.setRoot("2.16.840.1.113883.3.200");
-
         device.getId().add(id);
 
         sender.setDevice(device);
@@ -209,12 +205,12 @@ public class PatientInfoRequestHelper {
 
         controlActProcess.setMoodCode(XActMoodIntentEvent.EVN);
 
+        //added to work with request to AllScripts
+        controlActProcess.setClassCode(ActClassControlAct.CACT);
+
         CD code = new CD();
-
         code.setCode("PRPA_TE201307UV02");
-
         code.setCodeSystem("2.16.840.1.113883.1.6");
-
         controlActProcess.setCode(code);
 
         CE priority = new CE();
@@ -223,8 +219,7 @@ public class PatientInfoRequestHelper {
 
         controlActProcess.getPriorityCode().add(priority);
 
-        controlActProcess.setQueryByParameter(hl7Factory
-                .createPRPAIN201307UV02QUQIMT021001UV01ControlActProcessQueryByParameter(createQueryParams(subjectId)));
+        controlActProcess.setQueryByParameter(hl7Factory.createPRPAIN201307UV02QUQIMT021001UV01ControlActProcessQueryByParameter(createQueryParams(subjectId)));
 
         return controlActProcess;
 
@@ -277,5 +272,4 @@ public class PatientInfoRequestHelper {
         return id;
 
     }
-
 }

@@ -1,6 +1,10 @@
 /*
  * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services. 
  * All rights reserved. 
+ * Copyright (c) 2011, Conemaugh Valley Memorial Hospital
+ * This source is subject to the Conemaugh public license.  Please see the
+ * license.txt file for more information.
+ * All other rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without 
  * modification, are permitted provided that the following conditions are met: 
@@ -133,59 +137,57 @@ public class AllergiesSectionImpl extends SectionImpl {
 
             log.debug(moduleTemplate);
 
-            List<POCDMT000040Entry> entries = ModuleFactoryBuilder.createModule(moduleTemplate, careRecordResponse,
-                    this);
-            for (POCDMT000040Entry entry : entries) {
-                allergySection.getEntry().add(entry);
+            List<POCDMT000040Entry> entries = ModuleFactoryBuilder.createModule(moduleTemplate, careRecordResponse, this);
+            if (entries != null) {
+                for (POCDMT000040Entry entry : entries) {
+                    allergySection.getEntry().add(entry);
+                }
+
+                // set reaction + severity references (if any)
+                try {
+                    if (getReactions().size() > 0 || getSeverities().size() > 0) {
+                        Element textElement = XMLUtil.createElement(CDAConstants.TEXT_TAG);
+                        StringBuffer contentBuffer = new StringBuffer();
+                        Set<String> keys = null;
+
+                        if (getReactions().size() > 0) {
+                            // build reaction references, i.e. <content ID='reaction-1'>some reaction</content>
+                            keys = getReactions().keySet();
+                            StrucDocContent reactionTextContent = null;
+                            for (String key : keys) {
+                                reactionTextContent = objectFactory.createStrucDocContent();
+                                reactionTextContent.setID(key);
+                                reactionTextContent.getContent().add(getReactions().get(key));
+                                contentBuffer.append(XMLUtil.toCanonicalXML(objectFactory.createStrucDocTextContent(reactionTextContent)));
+                            }
+                        }
+
+                        if (getSeverities().size() > 0) {
+                            // build severity references, i.e. <content ID='severity-1'>Severe</content>
+                            keys = getSeverities().keySet();
+                            StrucDocContent severityTextContent = null;
+                            for (String key : keys) {
+                                severityTextContent = objectFactory.createStrucDocContent();
+                                severityTextContent.setID(key);
+                                severityTextContent.getContent().add(getSeverities().get(key));
+                                contentBuffer.append(XMLUtil.toCanonicalXML(objectFactory.createStrucDocTextContent(severityTextContent)));
+                            }
+                        }
+
+                        if (contentBuffer.toString().length() > 1) {
+                            textElement.setTextContent(contentBuffer.toString());
+                            allergySection.setText(textElement);
+                        }
+                    }
+                } catch (Exception e) {
+                    log.error("Failed to set AllergySection.text", e);
+                }
+
+                getSectionComponent().setSection(allergySection);
+
+                return getSectionComponent();
             }
         }
-
-        // set reaction + severity references (if any)
-        try {
-            if (getReactions().size() > 0 || getSeverities().size() > 0) {
-                Element textElement = XMLUtil.createElement(CDAConstants.TEXT_TAG);
-                StringBuffer contentBuffer = new StringBuffer();
-                Set<String> keys = null;
-
-                if (getReactions().size() > 0) {
-                    // build reaction references, i.e. <content
-                    // ID='reaction-1'>some reaction</content>
-                    keys = getReactions().keySet();
-                    StrucDocContent reactionTextContent = null;
-                    for (String key : keys) {
-                        reactionTextContent = objectFactory.createStrucDocContent();
-                        reactionTextContent.setID(key);
-                        reactionTextContent.getContent().add(getReactions().get(key));
-                        contentBuffer.append(XMLUtil.toCanonicalXML(objectFactory
-                                .createStrucDocTextContent(reactionTextContent)));
-                    }
-                }
-
-                if (getSeverities().size() > 0) {
-                    // build severity references, i.e. <content
-                    // ID='severity-1'>Severe</content>
-                    keys = getSeverities().keySet();
-                    StrucDocContent severityTextContent = null;
-                    for (String key : keys) {
-                        severityTextContent = objectFactory.createStrucDocContent();
-                        severityTextContent.setID(key);
-                        severityTextContent.getContent().add(getSeverities().get(key));
-                        contentBuffer.append(XMLUtil.toCanonicalXML(objectFactory
-                                .createStrucDocTextContent(severityTextContent)));
-                    }
-                }
-
-                if (contentBuffer.toString().length() > 1) {
-                    textElement.setTextContent(contentBuffer.toString());
-                    allergySection.setText(textElement);
-                }
-            }
-        } catch (Exception e) {
-            log.error("Failed to set AllergySection.text", e);
-        }
-
-        getSectionComponent().setSection(allergySection);
-
-        return getSectionComponent();
+        return null;
     }
 }

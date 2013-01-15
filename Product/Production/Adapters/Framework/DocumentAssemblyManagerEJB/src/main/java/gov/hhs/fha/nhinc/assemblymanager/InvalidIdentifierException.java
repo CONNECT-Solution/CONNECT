@@ -1,6 +1,10 @@
 /*
  * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services. 
  * All rights reserved. 
+ * Copyright (c) 2011, Conemaugh Valley Memorial Hospital
+ * This source is subject to the Conemaugh public license.  Please see the
+ * license.txt file for more information.
+ * All other rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without 
  * modification, are permitted provided that the following conditions are met: 
@@ -32,14 +36,12 @@ package gov.hhs.fha.nhinc.assemblymanager;
  * 
  * @author kim
  */
-
 public class InvalidIdentifierException extends Exception {
 
     /**
      * 
      * Creates a new instance of <code>InvalidIdentifierException</code> without detail message.
      */
-
     public InvalidIdentifierException() {
 
         super();
@@ -52,11 +54,9 @@ public class InvalidIdentifierException extends Exception {
      * 
      * @param msg the detail message.
      */
-
     public InvalidIdentifierException(String msg) {
 
         super(msg);
 
     }
-
 }

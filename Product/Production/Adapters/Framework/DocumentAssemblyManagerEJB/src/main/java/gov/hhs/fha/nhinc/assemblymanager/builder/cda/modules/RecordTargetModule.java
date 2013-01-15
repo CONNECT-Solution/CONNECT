@@ -1,6 +1,10 @@
 /*
  * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services. 
  * All rights reserved. 
+ * Copyright (c) 2011, Conemaugh Valley Memorial Hospital
+ * This source is subject to the Conemaugh public license.  Please see the
+ * license.txt file for more information.
+ * All other rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without 
  * modification, are permitted provided that the following conditions are met: 
@@ -29,7 +33,6 @@ package gov.hhs.fha.nhinc.assemblymanager.builder.cda.modules;
 import gov.hhs.fha.nhinc.assemblymanager.AssemblyConstants;
 import gov.hhs.fha.nhinc.assemblymanager.builder.DocumentBuilder;
 import gov.hhs.fha.nhinc.assemblymanager.builder.DocumentBuilderException;
-import gov.hhs.fha.nhinc.assemblymanager.dao.PropertiesDAO;
 import gov.hhs.fha.nhinc.assemblymanager.service.DataService;
 import java.util.List;
 import org.apache.commons.logging.Log;
@@ -49,6 +52,7 @@ import org.hl7.v3.PRPAMT201303UV02Patient;
 import org.hl7.v3.PRPAMT201303UV02Person;
 import org.hl7.v3.PatientDemographicsPRPAMT201303UV02ResponseType;
 import org.hl7.v3.TELExplicit;
+import org.hl7.v3.POCDMT000040Participant1;
 
 /**
  * 
@@ -58,12 +62,13 @@ public class RecordTargetModule extends DocumentBuilder {
 
     private static Log log = LogFactory.getLog(RecordTargetModule.class);
     private II subjectId = null;
+    private String MaritalStatusCodeSystem = "2.16.840.1.113883.5.2";
+    private String MaritalStatusCodeSystemName = "MaritalStatusCode";
 
     /**
      * Constructor
-     * 
-     * @param patientId Unique identifer for patient in the EMR system.
-     * @param rootId Unique object identifier representing the EMR system.
+     * @param patientId  Unique identifer for patient in the EMR system.
+     * @param rootId      Unique object identifier representing the EMR system.
      */
     public RecordTargetModule(II subjectId) {
         super();
@@ -81,19 +86,39 @@ public class RecordTargetModule extends DocumentBuilder {
     public POCDMT000040RecordTarget build() throws DocumentBuilderException {
         POCDMT000040RecordTarget recordTarget = objectFactory.createPOCDMT000040RecordTarget();
 
-        String serviceEndpoint = PropertiesDAO.getInstance().getAttributeValue(
-                AssemblyConstants.DAS_DATASERVICE_ENDPOINT, true);
+        String serviceEndpoint = AssemblyConstants.DAS_DATASERVICE_ENDPOINT;
         DataService dataService = new DataService(serviceEndpoint);
 
-        // query patient registry for demographics information (including
-        // contact info)
-        PatientDemographicsPRPAMT201303UV02ResponseType response = dataService.getPatientDemographics(subjectId,
-                serviceEndpoint);
+        // query patient registry for demographics information (including contact info)
+        PatientDemographicsPRPAMT201303UV02ResponseType response = dataService.getPatientDemographics(subjectId, serviceEndpoint);
 
         if (response.getSubject() != null) {
             recordTarget.setPatientRole(createPatient(response.getSubject()));
         } else {
             log.error("response.getSubject() = null");
+            recordTarget = null;
+        }
+
+        return recordTarget;
+    }
+
+    public POCDMT000040RecordTarget build(POCDMT000040Participant1 participant) throws DocumentBuilderException {
+        POCDMT000040RecordTarget recordTarget = objectFactory.createPOCDMT000040RecordTarget();
+
+        String serviceEndpoint = AssemblyConstants.DAS_DATASERVICE_ENDPOINT;
+        DataService dataService = new DataService(serviceEndpoint);
+
+        // query patient registry for demographics information (including contact info)
+        PatientDemographicsPRPAMT201303UV02ResponseType response = dataService.getPatientDemographics(subjectId, serviceEndpoint);
+
+        if (response.getSubject() != null) {
+            recordTarget.setPatientRole(createPatient(response.getSubject()));
+            //since the Emergency contact info is in the patient info response, create the participant module as well
+            ParticipantModule participantModule = new ParticipantModule();
+            participantModule.build(response, participant);
+        } else {
+            log.debug("response.getSubject() = null");
+            recordTarget = null;
         }
 
         return recordTarget;
@@ -110,17 +135,20 @@ public class RecordTargetModule extends DocumentBuilder {
         }
 
         // address(es)
-        // set recordTarget->patientRole->addr element to convey patient's
-        // addresses info
+        // set recordTarget->patientRole->addr element to convey patient's addresses info
         if (subject.getAddr() != null && subject.getAddr().size() > 0) {
             for (ADExplicit address : subject.getAddr()) {
+
+                //add use attribute to address that is returned from EHR
+                address.getUse().add("HP");
+
                 patientRole.getAddr().add(address);
+
             }
         }
 
         // telecom(s)
-        // set recordTarget->patientRole->telecom element to convey patient's
-        // phone info
+        // set recordTarget->patientRole->telecom element to convey patient's phone info
         if (subject.getTelecom() != null && subject.getTelecom().size() > 0) {
             for (TELExplicit telecom : subject.getTelecom()) {
                 patientRole.getTelecom().add(telecom);
@@ -131,13 +159,12 @@ public class RecordTargetModule extends DocumentBuilder {
         if (subject.getPatientPerson() != null) {
             patientRole.setPatient(createPOCDMT000040Patient(subject.getPatientPerson().getValue()));
         } else {
-            log.error("patient.getPatientPerson() = null");
+            log.debug("patient.getPatientPerson() = null");
         }
 
         // provider organization
         if (subject.getProviderOrganization() != null) {
-            patientRole.setProviderOrganization(createPOCDMT000040Organization(subject.getProviderOrganization()
-                    .getValue()));
+            patientRole.setProviderOrganization(createPOCDMT000040Organization(subject.getProviderOrganization().getValue()));
         }
 
         return patientRole;
@@ -194,8 +221,15 @@ public class RecordTargetModule extends DocumentBuilder {
                 cdaPatient.setRaceCode(patientPerson.getRaceCode().get(0));
             }
 
+
             // marital status
-            cdaPatient.setMaritalStatusCode(patientPerson.getMaritalStatusCode());
+            org.hl7.v3.CE patientPersonMaritalStatusCode = patientPerson.getMaritalStatusCode();
+
+            //added for NIST compliance
+            patientPersonMaritalStatusCode.setCodeSystem(MaritalStatusCodeSystem);
+            patientPersonMaritalStatusCode.setCodeSystemName(MaritalStatusCodeSystemName);
+
+            cdaPatient.setMaritalStatusCode(patientPersonMaritalStatusCode);
 
             // language
             List<PRPAMT201303UV02LanguageCommunication> languages = patientPerson.getLanguageCommunication();

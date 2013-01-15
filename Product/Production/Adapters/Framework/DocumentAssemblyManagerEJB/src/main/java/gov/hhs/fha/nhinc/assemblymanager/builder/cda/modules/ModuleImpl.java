@@ -1,6 +1,10 @@
 /*
  * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services. 
  * All rights reserved. 
+ * Copyright (c) 2011, Conemaugh Valley Memorial Hospital
+ * This source is subject to the Conemaugh public license.  Please see the
+ * license.txt file for more information.
+ * All other rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without 
  * modification, are permitted provided that the following conditions are met: 
@@ -30,7 +34,6 @@ import gov.hhs.fha.nhinc.assemblymanager.AssemblyConstants;
 import gov.hhs.fha.nhinc.template.model.CdaTemplate;
 import java.util.ArrayList;
 import java.util.List;
-import javax.xml.bind.JAXBElement;
 import org.hl7.v3.CareRecordQUPCIN043200UV01ResponseType;
 import org.hl7.v3.EDExplicit;
 import org.hl7.v3.II;
@@ -87,9 +90,10 @@ public abstract class ModuleImpl implements CDAModule {
             }
         }
 
-        if (template.getCdaTemplateId() != null && template.getCdaTemplateId().length() > 0) {
+        if (template.getCdaTemplateId() != null &&
+            template.getCdaTemplateId().length() > 0) {
             II templateId3 = new II();
-            templateId3.setExtension(template.getCdaTemplateId());
+            templateId3.setRoot(template.getCdaTemplateId());
             templateId3.setAssigningAuthorityName("CCD");
             templateIdList.add(templateId3);
         }
