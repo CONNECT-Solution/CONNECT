@@ -103,6 +103,17 @@ public class NhincConstants {
     	{
     		return this.UDDIServiceName;
     	}
+    	
+        public static NHIN_SERVICE_NAMES fromValueString(String valueString) {
+            if (valueString != null) {
+                for (NHIN_SERVICE_NAMES enumValue : NHIN_SERVICE_NAMES.values()) {
+                    if (valueString.equals(enumValue.UDDIServiceName)) {
+                        return enumValue;
+                    }
+                }
+            }
+            throw new IllegalArgumentException("No enum constant " + valueString);
+        }
     };
 
     // Property File Constants
@@ -130,6 +141,7 @@ public class NhincConstants {
     public static final String REQUEST_TIMEOUT_NAME = "com.sun.xml.ws.request.timeout";
 
     // SAML Constants
+    public static final String TARGET_API_LEVEL = "targetAPILevel";
     public static final String ACTION_PROP = "action";
     public static final String RESOURCE_PROP = "resource";
     public static final String PURPOSE_CODE_PROP = "purposeOfUseRoleCode";
@@ -306,6 +318,7 @@ public class NhincConstants {
     public static final String WS_SOAP_HEADER_ADDRESS = "Address";
     public static final String WS_SOAP_HEADER_MESSAGE_ID = "MessageID";
     public static final String WS_SOAP_HEADER_MESSAGE_ID_PREFIX = "urn:uuid:";
+    public static final String WS_SOAP_TARGET_HOME_COMMUNITY_ID = "TargetHomeCommunityID";
     // Document Query Constants
     public static final String ADAPTER_DOC_QUERY_SERVICE_NAME = "adapterdocquery";
     public static final String ADAPTER_DOC_QUERY_SECURED_SERVICE_NAME = "adapterdocquerysecured";

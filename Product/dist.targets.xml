@@ -1,59 +1,59 @@
 <project name="dist.targets">
-	<tstamp>
-		<format pattern="MMddyyyy_hhmm" property="snapshot_tstamp"/>
-	</tstamp>
-	<if>
-		<not>
-			<isset property="released.version.name" />
-		</not>
-		<then>
-			<property name="released.version.name" value="snapshot_${snapshot_tstamp}"/>
-		</then>
-	</if>
+    <tstamp>
+        <format pattern="MMddyyyy_hhmm" property="snapshot_tstamp"/>
+    </tstamp>
+    <if>
+        <not>
+            <isset property="released.version.name" />
+        </not>
+        <then>
+            <property name="released.version.name" value="3.3_snapshot_${snapshot_tstamp}"/>
+        </then>
+    </if>
 
-	<property name="dist.zip.filename" value="CONNECT_Binaries_${released.version.name}.zip"/>
-	<property name="dist.artifact.dir" value="../target"/>
-	<property name="dbscripts.dir.name" value="DBScripts"/>
-	<property name="dbscripts.dir" value="${root.project.directory.path}/${dbscripts.dir.name}"/>
-	<property name="install.scripts.dir" value="${root.project.directory.path}/Install"/>
-	<property name="install.scripts.staging.dir" value="${dist.artifact.dir}/.script_staging"/>
-	<property name="production.dir" value="${root.project.directory.path}/Production"/>
-	<property name="thirdparty.dir" value="${root.project.directory.path}/../ThirdParty"/>
+    <property name="dist.zip.filename" value="CONNECT_Binaries_${released.version.name}.zip"/>
+    <property name="dist.artifact.dir" value="../target"/>
+    <property name="dbscripts.dir.name" value="DBScripts"/>
+    <property name="dbscripts.dir" value="${root.project.directory.path}/${dbscripts.dir.name}"/>
+    <property name="install.scripts.dir" value="${root.project.directory.path}/Install"/>
+    <property name="install.scripts.staging.dir" value="${dist.artifact.dir}/.script_staging"/>
+    <property name="production.dir" value="${root.project.directory.path}/Production"/>
+    <property name="thirdparty.dir" value="${root.project.directory.path}/../ThirdParty"/>
 
-	<!--
+    <!--
     This target should build **all** externally released artifacts from scratch.
-    
+
     Originally modeled off of the target 'Build.PublishZip.Release.Installer' in /Build/Custom.Build.xml
     -->
-	<target name="dist" depends="init, binary_dist"/>
+    <target name="dist" depends="init, binary_dist"/>
 
-	<!-- ***** BEGIN INTERNAL TARGETS *********************** -->
+    <!-- ***** BEGIN INTERNAL TARGETS *********************** -->
 
-	<target name="init">
-		<delete dir="${dist.artifact.dir}"
+    <target name="init">
+        <delete dir="${dist.artifact.dir}"
             failonerror="false"/>
-		<delete dir="${deployment.dir}"
+        <delete dir="${deployment.dir}"
             failonerror="false"/>
-		<mkdir dir="${deployment.dir}"/>
-		<mkdir dir="${dist.artifact.dir}"/>
-	</target>
+        <mkdir dir="${deployment.dir}"/>
+        <mkdir dir="${dist.artifact.dir}"/>
+    </target>
 
 
-	<target name="binary_dist"
-          depends="clean, 
-                   package.create, 
-                   copy.deployable.artifacts, 
+    <target name="binary_dist"
+          depends="clean,
+                   package.create,
+                   copy.deployable.artifacts,
                    just.binary_dist"/>
 
 
-	<target name="just.binary_dist">
-		<tempfile property="release.info.tempfile"/>
-		<copy todir="${install.scripts.staging.dir}">
-			<fileset dir="${install.scripts.dir}">
-				<include name="**\*"/>
-				<exclude name="**\*.zip"/>
-			</fileset>
-		</copy>
+    <target name="just.binary_dist">
+        <tempfile property="release.info.tempfile"/>
+        <copy todir="${install.scripts.staging.dir}">
+            <fileset dir="${install.scripts.dir}">
+                <include name="**\*"/>
+                <exclude name="**\*.zip"/>
+            </fileset>
+        </copy>
         <replace file="${install.scripts.staging.dir}/build.xml">
             <replacetoken><![CDATA[default="install"]]></replacetoken>
             <replacevalue><![CDATA[default="install-binary"]]></replacevalue>
@@ -66,56 +66,56 @@
             <replacetoken><![CDATA[${CONNECT.Automated.Installer.basedir}/../../ThirdParty]]></replacetoken>
             <replacevalue><![CDATA[${CONNECT.Automated.Installer.basedir}/ThirdParty]]></replacevalue>
         </replace>
-		<replace file="${install.scripts.staging.dir}/deploy.xml">
-			<replacetoken><![CDATA[${nhinc.deployment.basedir}/../../ThirdParty]]></replacetoken>
-			<replacevalue><![CDATA[${nhinc.deployment.basedir}/ThirdParty]]></replacevalue>
-		</replace>
-		<replace file="${install.scripts.staging.dir}/deploy.xml">
-			<replacetoken><![CDATA[${nhinc.deployment.basedir}/../Production/Common/Properties/Dev]]></replacetoken>
-			<replacevalue><![CDATA[${nhinc.deployment.basedir}/Dev]]></replacevalue>
-		</replace>
-		<echo file="${release.info.tempfile}">${released.version.name}, ${snapshot_tstamp}</echo>
-		<zip zipfile="${dist.artifact.dir}/${dist.zip.filename}">
-			<zipfileset dir="${deployment.dir}">
-				<include name="**\*"/>
-			</zipfileset>
-			<zipfileset dir="${install.scripts.staging.dir}">
-				<include name="**\*"/>
-			</zipfileset>
-			<zipfileset dir="${dbscripts.dir}" prefix="${dbscripts.dir.name}">
-				<include name="**\*"/>
-			</zipfileset>
-			<zipfileset file="${release.info.tempfile}" fullpath="ReleaseInfo.txt"/>
-			<zipfileset dir="${thirdparty.dir}/C3PO" prefix="ThirdParty/C3PO">
-				<include name="*.jar"/>
-			</zipfileset>
-			<zipfileset dir="${thirdparty.dir}/HibernateLibraries" prefix="ThirdParty/HibernateLibraries">
-				<include name="*.jar"/>
-			</zipfileset>
-			<zipfileset dir="${thirdparty.dir}/log4j" prefix="ThirdParty/log4j">
-				<include name="*.jar"/>
-			</zipfileset>
-			<zipfileset dir="${thirdparty.dir}/MySQLDB" prefix="ThirdParty/MySQLDB">
-				<include name="*.jar"/>
-			</zipfileset>
-			<zipfileset dir="${thirdparty.dir}/OpenSSO" prefix="ThirdParty/OpenSSO">
-				<include name="*.jar"/>
-			</zipfileset>
-			<zipfileset dir="${thirdparty.dir}/SpringFramework" prefix="ThirdParty/SpringFramework">
-				<include name="*.jar"/>
-			</zipfileset>
-			<zipfileset dir="${thirdparty.dir}/Xerces" prefix="ThirdParty/Xerces">
-				<include name="*.jar"/>
-			</zipfileset>
-			<zipfileset dir="${thirdparty.dir}/XStream" prefix="ThirdParty/XStream">
-				<include name="*.jar"/>
-			</zipfileset>
-			<zipfileset dir="${thirdparty.dir}/AntExtraLibs" prefix="ThirdParty/AntExtraLibs">
-				<include name="*.jar"/>
-			</zipfileset>
-		</zip>
-		<delete file="${release.info.tempfile}"/>
-		<delete dir="${install.scripts.staging.dir}"/>
-	</target>
+        <replace file="${install.scripts.staging.dir}/deploy.xml">
+            <replacetoken><![CDATA[${nhinc.deployment.basedir}/../../ThirdParty]]></replacetoken>
+            <replacevalue><![CDATA[${nhinc.deployment.basedir}/ThirdParty]]></replacevalue>
+        </replace>
+        <replace file="${install.scripts.staging.dir}/deploy.xml">
+            <replacetoken><![CDATA[${nhinc.deployment.basedir}/../Production/Common/Properties/Dev]]></replacetoken>
+            <replacevalue><![CDATA[${nhinc.deployment.basedir}/Dev]]></replacevalue>
+        </replace>
+        <echo file="${release.info.tempfile}">${released.version.name}, ${snapshot_tstamp}</echo>
+        <zip zipfile="${dist.artifact.dir}/${dist.zip.filename}">
+            <zipfileset dir="${deployment.dir}">
+                <include name="**\*"/>
+            </zipfileset>
+            <zipfileset dir="${install.scripts.staging.dir}">
+                <include name="**\*"/>
+            </zipfileset>
+            <zipfileset dir="${dbscripts.dir}" prefix="${dbscripts.dir.name}">
+                <include name="**\*"/>
+            </zipfileset>
+            <zipfileset file="${release.info.tempfile}" fullpath="ReleaseInfo.txt"/>
+            <zipfileset dir="${thirdparty.dir}/C3PO" prefix="ThirdParty/C3PO">
+                <include name="*.jar"/>
+            </zipfileset>
+            <zipfileset dir="${thirdparty.dir}/HibernateLibraries" prefix="ThirdParty/HibernateLibraries">
+                <include name="*.jar"/>
+            </zipfileset>
+            <zipfileset dir="${thirdparty.dir}/log4j" prefix="ThirdParty/log4j">
+                <include name="*.jar"/>
+            </zipfileset>
+            <zipfileset dir="${thirdparty.dir}/MySQLDB" prefix="ThirdParty/MySQLDB">
+                <include name="*.jar"/>
+            </zipfileset>
+            <zipfileset dir="${thirdparty.dir}/OpenSSO" prefix="ThirdParty/OpenSSO">
+                <include name="*.jar"/>
+            </zipfileset>
+            <zipfileset dir="${thirdparty.dir}/SpringFramework" prefix="ThirdParty/SpringFramework">
+                <include name="*.jar"/>
+            </zipfileset>
+            <zipfileset dir="${thirdparty.dir}/Xerces" prefix="ThirdParty/Xerces">
+                <include name="*.jar"/>
+            </zipfileset>
+            <zipfileset dir="${thirdparty.dir}/XStream" prefix="ThirdParty/XStream">
+                <include name="*.jar"/>
+            </zipfileset>
+            <zipfileset dir="${thirdparty.dir}/AntExtraLibs" prefix="ThirdParty/AntExtraLibs">
+                <include name="*.jar"/>
+            </zipfileset>
+        </zip>
+        <delete file="${release.info.tempfile}"/>
+        <delete dir="${install.scripts.staging.dir}"/>
+    </target>
 
 </project>

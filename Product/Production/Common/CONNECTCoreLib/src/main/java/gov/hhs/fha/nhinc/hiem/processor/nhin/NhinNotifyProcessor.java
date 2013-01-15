@@ -26,9 +26,13 @@
  */
 package gov.hhs.fha.nhinc.hiem.processor.nhin;
 
+import gov.hhs.fha.nhinc.auditrepository.AuditRepositoryLogger;
+import gov.hhs.fha.nhinc.auditrepository.nhinc.proxy.AuditRepositoryProxy;
+import gov.hhs.fha.nhinc.auditrepository.nhinc.proxy.AuditRepositoryProxyObjectFactory;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.hiem.configuration.ConfigurationManager;
 //import gov.hhs.fha.nhinc.hiem.dte.marshallers.MarshallerHelper;
+import gov.hhs.fha.nhinc.common.auditlog.LogEventRequestType;
 import gov.hhs.fha.nhinc.hiem.consumerreference.ReferenceParametersElements;
 import gov.hhs.fha.nhinc.hiem.consumerreference.ReferenceParametersHelper;
 import gov.hhs.fha.nhinc.hiem.processor.common.HiemProcessorConstants;
@@ -44,6 +48,7 @@ import org.w3c.dom.Element;
 import gov.hhs.fha.nhinc.hiem.dte.Namespaces;
 import gov.hhs.fha.nhinc.hiem.dte.marshallers.NotificationMessageMarshaller;
 import gov.hhs.fha.nhinc.hiem.dte.marshallers.NotifyMarshaller;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.subscription.repository.data.HiemSubscriptionItem;
 import org.oasis_open.docs.wsn.b_2.NotificationMessageHolderType;
 import gov.hhs.fha.nhinc.subscription.repository.service.HiemSubscriptionRepositoryService;
@@ -83,7 +88,7 @@ public class NhinNotifyProcessor {
                 ReferenceParametersElements referenceParametersElements = referenceParametersHelper
                         .createReferenceParameterElementsFromSoapMessage(soapMessage);
                 log.debug("extracted reference parameters from soap header");
-
+                
                 forwardToAgency(notify, referenceParametersElements, assertion);
             } else if (HiemProcessorConstants.HIEM_SERVICE_MODE_NOT_SUPPORTED.equals(serviceMode)) {
                 log.debug("Notfications are not supported");
@@ -188,7 +193,7 @@ public class NhinNotifyProcessor {
             AssertionType assertion) {
         HiemNotifyAdapterProxyObjectFactory adapterFactory = new HiemNotifyAdapterProxyObjectFactory();
         HiemNotifyAdapterProxy adapterProxy = adapterFactory.getHiemNotifyAdapterProxy();
-
+        
         try {
             Element resp = adapterProxy.notify(notify, referenceParametersElements, assertion, null);
         } catch (Exception ex) {

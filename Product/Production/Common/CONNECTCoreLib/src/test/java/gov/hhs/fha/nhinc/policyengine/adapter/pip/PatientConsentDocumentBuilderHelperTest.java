@@ -100,17 +100,6 @@ public class PatientConsentDocumentBuilderHelperTest {
                 protected String getPropertiesFilePath() {
                     return propertiesPath;
                 }
-
-                @Override
-                protected synchronized String getOidFromProperty(String sPropertyName) {
-                    if ("documentuniqueid".equals(sPropertyName)) {
-                        return documentUniqueId;
-                    } else if ("submissionsetuniqueid".equals(sPropertyName)) {
-                        return submissionSetUniqueId;
-                    } else {
-                        throw new IllegalArgumentException("Unexpected property key");
-                    }
-                }
             };
 
             // Set expectations
@@ -241,17 +230,6 @@ public class PatientConsentDocumentBuilderHelperTest {
                 protected String getPropertiesFilePath() {
                     return propertiesPath;
                 }
-
-                @Override
-                protected synchronized String getOidFromProperty(String sPropertyName) {
-                    if ("documentuniqueid".equals(sPropertyName)) {
-                        return documentUniqueId;
-                    } else if ("submissionsetuniqueid".equals(sPropertyName)) {
-                        return submissionSetUniqueId;
-                    } else {
-                        throw new IllegalArgumentException("Unexpected property key");
-                    }
-                }
             };
 
             // Set expectations
@@ -353,17 +331,6 @@ public class PatientConsentDocumentBuilderHelperTest {
                 @Override
                 protected String getPropertiesFilePath() {
                     return propertiesPath;
-                }
-
-                @Override
-                protected synchronized String getOidFromProperty(String sPropertyName) {
-                    if ("documentuniqueid".equals(sPropertyName)) {
-                        return documentUniqueId;
-                    } else if ("submissionsetuniqueid".equals(sPropertyName)) {
-                        return submissionSetUniqueId;
-                    } else {
-                        throw new IllegalArgumentException("Unexpected property key");
-                    }
                 }
             };
 

@@ -70,7 +70,7 @@ public class NhinDocSubmissionDeferredResponseOrchImplTest {
     @Test
     public void testProvideAndRegisterDocumentSetB() throws PropertyAccessException{
         allowAnyMockLogging(); 
-        exptect2MockAudits();
+        expect4MockAudits();
         setMockPropertyAccessorToReturnValidHcid();
         setMockPolicyCheck(true);
         setMockServiceEnabled(true);
@@ -103,7 +103,7 @@ public class NhinDocSubmissionDeferredResponseOrchImplTest {
     @Test
     public void testProvideAndRegisterDocumentSetB_passthru() throws PropertyAccessException{
         allowAnyMockLogging(); 
-        exptect2MockAudits();               
+        expect4MockAudits();
         setMockServiceEnabled(true);
         setMockPassthruMode(true);        
         expectMockProxyInvocationAndReturnValidResponse();
@@ -204,6 +204,27 @@ public class NhinDocSubmissionDeferredResponseOrchImplTest {
                 oneOf(mockXDRLog).auditAcknowledgement(with(any(XDRAcknowledgementType.class)),
                         with(any(AssertionType.class)), with(any(String.class)), with(any(String.class)));
             }
+        });
+    }
+
+    private void expect4MockAudits() {
+        context.checking(new Expectations() {
+            {
+                oneOf(mockXDRLog).auditNhinXDRResponse(
+                        with(any(RegistryResponseType.class)),
+                        with(any(AssertionType.class)), with(any(String.class)));
+
+                oneOf(mockXDRLog).auditAdapterXDRResponse(
+                        with(any(RegistryResponseType.class)),
+                        with(any(AssertionType.class)), with(any(String.class)));
+
+                oneOf(mockXDRLog).auditAdapterAcknowledgement(with(any(XDRAcknowledgementType.class)),
+                        with(any(AssertionType.class)), with(any(String.class)), with(any(String.class)));
+
+                oneOf(mockXDRLog).auditAcknowledgement(with(any(XDRAcknowledgementType.class)),
+                        with(any(AssertionType.class)), with(any(String.class)), with(any(String.class)));
+
+           }
         });
     }
 

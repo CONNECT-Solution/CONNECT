@@ -35,6 +35,7 @@ import gov.hhs.healthit.nhin.XDRAcknowledgementType;
 import ihe.iti.xdr._2007.XDRDeferredResponsePortType;
 import java.util.HashMap;
 import javax.xml.namespace.QName;
+import javax.xml.ws.BindingProvider;
 import javax.xml.ws.Service;
 
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryError;
@@ -89,7 +90,7 @@ public class NhinDocSubmissionDeferredResponseProxyWebServiceSecuredImpl impleme
         {
             log.debug("Obtained service - creating port.");
             port = service.getPort(new QName(NAMESPACE_URI, PORT_LOCAL_PART), XDRDeferredResponsePortType.class);
-            proxyHelper.initializeSecurePort((javax.xml.ws.BindingProvider) port, url, NhincConstants.XDR_RESPONSE_ACTION, wsAction, assertion);
+            proxyHelper.initializeSecurePort((javax.xml.ws.BindingProvider) port, url, NhincConstants.NHINC_XDR_RESPONSE_SERVICE_NAME, wsAction, assertion);
          }
         else
         {
@@ -136,6 +137,8 @@ public class NhinDocSubmissionDeferredResponseProxyWebServiceSecuredImpl impleme
         {
             String url = oProxyHelper.getUrlFromTargetSystemByGatewayAPILevel(target, NhincConstants.NHINC_XDR_RESPONSE_SERVICE_NAME, GATEWAY_API_LEVEL.LEVEL_g0);
             XDRDeferredResponsePortType port = getPort11(url, assertion);
+            WebServiceProxyHelper wsHelper = new WebServiceProxyHelper();
+            wsHelper.addTargetCommunity(((BindingProvider)port), target);
 
             if(request == null)
             {

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?><con:soapui-project xmlns:con="http://eviware.com/soapui/config" abortOnError="false" name="NhincPolicyEngineTest" resourceRoot="" runType="SEQUENTIAL" soapui-version="3.5.1">
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><con:soapui-project xmlns:con="http://eviware.com/soapui/config" abortOnError="false" name="NhincPolicyEngineTest" resourceRoot="" runType="SEQUENTIAL" soapui-version="3.6">
 	<con:settings>
 		<con:setting id="com.eviware.soapui.impl.wsdl.actions.iface.tools.soapui.TestRunnerAction@values-local"><![CDATA[
 			<xml-fragment xmlns:con="http://eviware.com/soapui/config">
@@ -52,21 +52,7 @@
 		</con:operation>
 	</con:interface>
 	
-	<con:interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincproxyauditlogquery}NhincProxyAuditLogQueryBindingSoap" definition="WSDL path not set.  #NhincProxyAuditLogQuery.wsdl" name="NhincProxyAuditLogQueryBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface">
-		<con:settings/>
-		
-		<con:endpoints>
-			<con:endpoint>http://localhost:${HttpDefaultPort}/NhinConnect/NhincProxyAuditLogQuery</con:endpoint>
-			<con:endpoint>http://ATHC-GFAS:8080/NhinConnect/NhincProxyAuditLogQuery</con:endpoint>
-			<con:endpoint>http://mhsnhie3.fedsconnect.org:8080/NhinConnect/NhincProxyAuditLogQuery</con:endpoint>
-			<con:endpoint>http://dvanhie3.fedsconnect.org:9080/NhinConnect/NhincProxyAuditLogQuery</con:endpoint>
-			<con:endpoint>http://172.16.50.150:9080/NhinConnect/NhincProxyAuditLogQuery</con:endpoint>
-			<con:endpoint>http://localhost:${NhincHttpPort}/NhinConnect/NhincProxyAuditLogQuery</con:endpoint>
-		</con:endpoints>
-		<con:operation action="urn:findAuditEvents" anonymous="optional" bindingOperationName="findAuditEvents" inputName="findAuditEventsRequest" isOneWay="false" name="findAuditEvents" outputName="findAuditEventsResponse" receivesAttachments="false" sendsAttachments="false" type="Request-Response">
-			<con:settings/>
-		</con:operation>
-	</con:interface>
+	
 	<con:interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincproxynotificationconsumer}NhincProxyNotificationConsumerBindingSoap" definition="WSDL path not set.  #NhincProxyNotificationConsumer.wsdl" name="NhincProxyNotificationConsumerBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface">
 		<con:settings/>
 		
@@ -159,14 +145,14 @@
 			<con:settings/>
 			<con:testStep name="Intialize Configurations" type="groovy">
 				<con:settings/>
-				<con:config>
-					<script>FileUtils.InitializeNHINCProperties(context, log);
-					</script>
-				</con:config>
+				<con:config><script>import nhinc.FileUtils;
+FileUtils.InitializeNHINCProperties(context, log);
+					</script></con:config>
 			</con:testStep>
 			<con:testStep name="ModifyInterrnalConnectionInfo" type="groovy">
 				<con:settings/>
-				<con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
+				<con:config><script>import nhinc.FileUtils;
+def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
 
 //def destConfigFileLocation = dataSource.getPropertyValue("NHINGatewayConfigDir");
 def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
@@ -515,19 +501,19 @@ declare namespace ns18='urn:gov:hhs:fha:nhinc:common:nhinccommonadapter';
 			<con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2012-02-24T20:55:29Z</con:value>
+					<con:value>2012-08-24T23:09:27Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2012-02-24T21:05:29Z</con:value>
+					<con:value>2012-08-24T23:19:27Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>02/24/2012 20:55:29</con:value>
+					<con:value>08/24/2012 23:09:27</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2012-03-25T00:00:00Z</con:value>
+					<con:value>2012-09-23T00:00:00Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>FullPatientID</con:name>
@@ -535,20 +521,21 @@ declare namespace ns18='urn:gov:hhs:fha:nhinc:common:nhinccommonadapter';
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
-			<con:tearDownScript>FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
+			<con:tearDownScript>import nhinc.FileUtils;
+FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
 		</con:testCase>
 		<con:testCase failOnError="true" failTestCaseOnErrors="true" id="5c8330cc-e382-4dad-9c68-716bf8595ae1" keepSession="false" maxResults="0" name="Document Retrieve" searchProperties="true">
 			<con:settings/>
 			<con:testStep name="Intialize Configurations" type="groovy">
 				<con:settings/>
-				<con:config>
-					<script>FileUtils.InitializeNHINCProperties(context, log);
-					</script>
-				</con:config>
+				<con:config><script>import nhinc.FileUtils;
+FileUtils.InitializeNHINCProperties(context, log);
+					</script></con:config>
 			</con:testStep>
 			<con:testStep name="ModifyInterrnalConnectionInfo" type="groovy">
 				<con:settings/>
-				<con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
+				<con:config><script>import nhinc.FileUtils;
+def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
 
 //def destConfigFileLocation = dataSource.getPropertyValue("NHINGatewayConfigDir");
 def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
@@ -877,19 +864,19 @@ declare namespace ns18='urn:gov:hhs:fha:nhinc:common:nhinccommonadapter';
 				</con:property>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2012-02-24T20:55:30Z</con:value>
+					<con:value>2012-08-24T23:09:29Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2012-02-24T21:05:30Z</con:value>
+					<con:value>2012-08-24T23:19:29Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>02/24/2012 20:55:30</con:value>
+					<con:value>08/24/2012 23:09:29</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2012-03-25T00:00:00Z</con:value>
+					<con:value>2012-09-23T00:00:00Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>CorrectedLocalHCID</con:name>
@@ -897,7 +884,8 @@ declare namespace ns18='urn:gov:hhs:fha:nhinc:common:nhinccommonadapter';
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
-			<con:tearDownScript>FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
+			<con:tearDownScript>import nhinc.FileUtils;
+FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
 		</con:testCase>
 		<con:testCase disabled="true" failOnError="true" failTestCaseOnErrors="true" id="9a79dfe1-b58c-45b1-9e33-d1d33e234bd3" keepSession="false" maxResults="0" name="Subscribe" searchProperties="true">
 			<con:settings/>
@@ -911,7 +899,7 @@ declare namespace ns18='urn:gov:hhs:fha:nhinc:common:nhinccommonadapter';
 			<con:testStep name="Test Case Properties" type="properties">
 				<con:settings/>
 				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" createMissingOnLoad="true" discardValuesOnSave="true" saveFirst="true" xsi:type="con:PropertiesStep">
-					<con:source>C:/Projects/NHINC/Current/Product/SoapUI_Test/RegressionSuite/NhincPolicyEngineTest-soapui-project.properties</con:source>
+					<con:source>C:/git/Product/SoapUI_Test/RegressionSuite/NhincPolicyEngineTest-soapui-project.properties</con:source>
 					<con:properties>
 						<con:property>
 							<con:name>LocalHCID</con:name>
@@ -1761,7 +1749,7 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation, InitiatingHCID, "poli
 			<con:testStep disabled="true" name="Test Case Properties" type="properties">
 				<con:settings/>
 				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" createMissingOnLoad="true" discardValuesOnSave="true" saveFirst="true" xsi:type="con:PropertiesStep">
-					<con:source>C:/Projects/NHINC/Current/Product/SoapUI_Test/RegressionSuite/NhincPolicyEngineTest-soapui-project.properties</con:source>
+					<con:source>C:/git/Product/SoapUI_Test/RegressionSuite/NhincPolicyEngineTest-soapui-project.properties</con:source>
 					<con:properties>
 						<con:property>
 							<con:name>LocalHCID</con:name>
@@ -2575,7 +2563,7 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation, InitiatingHCID, "poli
 			<con:testStep name="Test Case Properties" type="properties">
 				<con:settings/>
 				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" createMissingOnLoad="true" discardValuesOnSave="true" saveFirst="true" xsi:type="con:PropertiesStep">
-					<con:source>C:/Projects/NHINC/Current/Product/SoapUI_Test/RegressionSuite/NhincPolicyEngineTest-soapui-project.properties</con:source>
+					<con:source>C:/git/Product/SoapUI_Test/RegressionSuite/NhincPolicyEngineTest-soapui-project.properties</con:source>
 					<con:properties>
 						<con:property>
 							<con:name>LocalHCID</con:name>
@@ -3459,372 +3447,7 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation, InitiatingHCID, "poli
 			<con:reportParameters/>
 			<con:tearDownScript>FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
 		</con:testCase>
-		<con:testCase disabled="true" failOnError="true" failTestCaseOnErrors="true" id="8a684085-93ef-4627-9bd2-878f6defa6e0" keepSession="false" maxResults="0" name="Audit Log Query" searchProperties="true">
-			<con:settings/>
-			<con:testStep name="Intialize Configurations" type="groovy">
-				<con:settings/>
-				<con:config>
-					<script>FileUtils.InitializeNHINCProperties(context, log);
-					</script>
-				</con:config>
-			</con:testStep>
-			<con:testStep name="ModifyInterrnalConnectionInfo" type="groovy">
-				<con:settings/>
-				<con:config>
-					<script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
-
-//def destConfigFileLocation = dataSource.getPropertyValue("NHINGatewayConfigDir");
-def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
-def NHINGatewayHost = context.findProperty("NHINGatewayHost");
-def mockHost = context.findProperty("MockHost");
-def mockPEURL = "http://" + mockHost + ":18088/mockPolicyEngine";
-def InitiatingHCID = context.findProperty( "LocalHCID" );
-
-FileUtils.CreateOrUpdateConnection(destConfigFileLocation, InitiatingHCID, "policyengineservice", mockPEURL, context, log)</script>
-				</con:config>
-			</con:testStep>
-			<con:testStep name="Generate patient ID for Audit Log Query" type="groovy">
-				<con:settings/>
-				<con:config>
-					<script>def localAA = context.findProperty('LocalAA')
-def aqPatientID = context.findProperty('AQPatientID')
-
-context.testCase.setPropertyValue('FullPatientID', "${aqPatientID}^^^&amp;amp;${localAA}&amp;amp;ISO");
-					</script>
-				</con:config>
-			</con:testStep>
-			<con:testStep name="Audit Log Query" type="request">
-				<con:settings/>
-				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
-					<con:interface>NhincProxyAuditLogQueryBindingSoap</con:interface>
-					<con:operation>findAuditEvents</con:operation>
-					<con:request name="Audit Log Query">
-						<con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/&gt;</con:setting></con:settings>
-						<con:encoding>UTF-8</con:encoding>
-						<con:endpoint>${#Project#Endpoint-AuditLogQuery}</con:endpoint>
-						<con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonproxy" xmlns:aud="http://nhinc.services.com/schema/auditmessage" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing">
-   <soapenv:Header/>
-   <soapenv:Body projectName="NhincPolicyEngineTest" testCase="Audit Log Query">
-      <urn:FindAuditEventsRequest>
-         <aud:FindAuditEvents>
-            <aud:patientId>${#TestCase#FullPatientID}</aud:patientId>
-            <aud:userId>${#Project#AQUserID}</aud:userId>
-            <aud:beginDateTime>${#Project#startDate}</aud:beginDateTime>
-            <aud:endDateTime>${#Project#endDate}</aud:endDateTime>
-         </aud:FindAuditEvents>
-         <urn:assertion>
-            <urn1:address>
-               <urn1:addressType>
-                  <urn1:code>AddrCode</urn1:code>
-                  <urn1:codeSystem>AddrCodeSyst</urn1:codeSystem>
-                  <urn1:codeSystemName>AddrCodeSystName</urn1:codeSystemName>
-                  <urn1:codeSystemVersion>1.0</urn1:codeSystemVersion>
-                  <urn1:displayName>AddrCode</urn1:displayName>
-                  <urn1:originalText>AddrCode</urn1:originalText>
-               </urn1:addressType>
-               <urn1:city>AddrCity</urn1:city>
-               <urn1:country>AddrCountry</urn1:country>
-               <urn1:state>AddrState</urn1:state>
-               <urn1:streetAddress>AddrStreet</urn1:streetAddress>
-               <urn1:zipCode>AddrZip</urn1:zipCode>
-            </urn1:address>
-            <urn1:dateOfBirth>06/04/1959 05:21:00</urn1:dateOfBirth>
-            <urn1:dateOfSignature>${#Project#sigDate}</urn1:dateOfSignature>
-            <urn1:expirationDate>${#Project#expireDate}</urn1:expirationDate>
-            <urn1:explanationNonClaimantSignature>Electronic</urn1:explanationNonClaimantSignature>
-            <urn1:haveSecondWitnessSignature>false</urn1:haveSecondWitnessSignature>
-            <urn1:haveSignature>false</urn1:haveSignature>
-            <urn1:haveWitnessSignature>false</urn1:haveWitnessSignature>
-            <urn1:homeCommunity>
-               <urn1:description>${#Project#RemoteHCDescription}</urn1:description>
-               <urn1:homeCommunityId>${#Project#RemoteHCID}</urn1:homeCommunityId>
-               <urn1:name>${#Project#RemoteHCDescription}</urn1:name>
-            </urn1:homeCommunity>
-            <urn1:personName>
-               <urn1:familyName>Smith</urn1:familyName>
-               <urn1:givenName>Sandy</urn1:givenName>
-               <urn1:nameType>
-                  <urn1:code>nameCode</urn1:code>
-                  <urn1:codeSystem>nameCodeSyst</urn1:codeSystem>
-                  <urn1:codeSystemName>nameCodeSystName</urn1:codeSystemName>
-                  <urn1:codeSystemVersion>1.0</urn1:codeSystemVersion>
-                  <urn1:displayName>nameCode</urn1:displayName>
-                  <urn1:originalText>nameCode</urn1:originalText>
-               </urn1:nameType>
-               <urn1:secondNameOrInitials>S</urn1:secondNameOrInitials>
-               <urn1:fullName>Sandy S. Smith</urn1:fullName>
-            </urn1:personName>
-            <urn1:phoneNumber>
-               <urn1:areaCode>321</urn1:areaCode>
-               <urn1:countryCode>1</urn1:countryCode>
-               <urn1:extension>5436</urn1:extension>
-               <urn1:localNumber>253-6849</urn1:localNumber>
-               <urn1:phoneNumberType>
-                  <urn1:code>phoneCode</urn1:code>
-                  <urn1:codeSystem>phoneCodeSyst</urn1:codeSystem>
-                  <urn1:codeSystemName>phoneCodeSystName</urn1:codeSystemName>
-                  <urn1:codeSystemVersion>1.0</urn1:codeSystemVersion>
-                  <urn1:displayName>phoneCode</urn1:displayName>
-                  <urn1:originalText>phoneCode</urn1:originalText>
-               </urn1:phoneNumberType>
-            </urn1:phoneNumber>
-            <urn1:purposeOfDisclosure>TREATMENT</urn1:purposeOfDisclosure>
-            <urn1:secondWitnessAddress>
-               <urn1:addressType>
-                  <urn1:code>AddrCode</urn1:code>
-                  <urn1:codeSystem>AddrCodeSyst</urn1:codeSystem>
-                  <urn1:codeSystemName>AddrCodeSystName</urn1:codeSystemName>
-                  <urn1:codeSystemVersion>1.0</urn1:codeSystemVersion>
-                  <urn1:displayName>AddrCode</urn1:displayName>
-                  <urn1:originalText>AddrCode</urn1:originalText>
-               </urn1:addressType>
-               <urn1:city>Addr2City</urn1:city>
-               <urn1:country>Addr2Country</urn1:country>
-               <urn1:state>Addr2State</urn1:state>
-               <urn1:streetAddress>Addr2Street</urn1:streetAddress>
-               <urn1:zipCode>Addr2Zip</urn1:zipCode>
-            </urn1:secondWitnessAddress>
-            <urn1:secondWitnessName>
-               <urn1:familyName>Smith</urn1:familyName>
-               <urn1:givenName>Sammy</urn1:givenName>
-               <urn1:nameType>
-                  <urn1:code>nameCode</urn1:code>
-                  <urn1:codeSystem>nameCodeSyst</urn1:codeSystem>
-                  <urn1:codeSystemName>nameCodeSystName</urn1:codeSystemName>
-                  <urn1:codeSystemVersion>1.0</urn1:codeSystemVersion>
-                  <urn1:displayName>nameCode</urn1:displayName>
-                  <urn1:originalText>nameCode</urn1:originalText>
-               </urn1:nameType>
-               <urn1:secondNameOrInitials>s</urn1:secondNameOrInitials>
-               <urn1:fullName>Sammy S. Smith</urn1:fullName>
-            </urn1:secondWitnessName>
-            <urn1:secondWitnessPhone>
-               <urn1:areaCode>321</urn1:areaCode>
-               <urn1:countryCode>1</urn1:countryCode>
-               <urn1:extension>5424</urn1:extension>
-               <urn1:localNumber>542-6823</urn1:localNumber>
-               <urn1:phoneNumberType>
-                  <urn1:code>phoneCode</urn1:code>
-                  <urn1:codeSystem>phoneCodeSyst</urn1:codeSystem>
-                  <urn1:codeSystemName>phoneCodeSystName</urn1:codeSystemName>
-                  <urn1:codeSystemVersion>1.0</urn1:codeSystemVersion>
-                  <urn1:displayName>phoneCode</urn1:displayName>
-                  <urn1:originalText>phoneCode</urn1:originalText>
-               </urn1:phoneNumberType>
-            </urn1:secondWitnessPhone>
-            <urn1:SSN>253-98-7546</urn1:SSN>
-            <urn1:uniquePatientId>500000000</urn1:uniquePatientId>
-            <urn1:witnessAddress>
-               <urn1:addressType>
-                  <urn1:code>addrCode</urn1:code>
-                  <urn1:codeSystem>addrCodeSyst</urn1:codeSystem>
-                  <urn1:codeSystemName>addrCodeSystName</urn1:codeSystemName>
-                  <urn1:codeSystemVersion>1.0</urn1:codeSystemVersion>
-                  <urn1:displayName>addrCode</urn1:displayName>
-                  <urn1:originalText>addrCode</urn1:originalText>
-               </urn1:addressType>
-               <urn1:city>Burnell</urn1:city>
-               <urn1:country>USA</urn1:country>
-               <urn1:state>FL</urn1:state>
-               <urn1:streetAddress>825 North</urn1:streetAddress>
-               <urn1:zipCode>32184</urn1:zipCode>
-            </urn1:witnessAddress>
-            <urn1:witnessName>
-               <urn1:familyName>Smith</urn1:familyName>
-               <urn1:givenName>Scott</urn1:givenName>
-               <urn1:nameType>
-                  <urn1:code>nameCode</urn1:code>
-                  <urn1:codeSystem>nameCodeSyst</urn1:codeSystem>
-                  <urn1:codeSystemName>nameCodeSystName</urn1:codeSystemName>
-                  <urn1:codeSystemVersion>1.0</urn1:codeSystemVersion>
-                  <urn1:displayName>nameCode</urn1:displayName>
-                  <urn1:originalText>nameCode</urn1:originalText>
-               </urn1:nameType>
-               <urn1:secondNameOrInitials>S.</urn1:secondNameOrInitials>
-               <urn1:fullName>Scott S. Smith</urn1:fullName>
-            </urn1:witnessName>
-            <urn1:witnessPhone>
-               <urn1:areaCode>321</urn1:areaCode>
-               <urn1:countryCode>1</urn1:countryCode>
-               <urn1:extension>8432</urn1:extension>
-               <urn1:localNumber>985-2239</urn1:localNumber>
-               <urn1:phoneNumberType>
-                  <urn1:code>phoneCode</urn1:code>
-                  <urn1:codeSystem>phoneCodeSyst</urn1:codeSystem>
-                  <urn1:codeSystemName>phoneCodeSystName</urn1:codeSystemName>
-                  <urn1:codeSystemVersion>1.0</urn1:codeSystemVersion>
-                  <urn1:displayName>phoneCode</urn1:displayName>
-                  <urn1:originalText>phoneCode</urn1:originalText>
-               </urn1:phoneNumberType>
-            </urn1:witnessPhone>
-            <urn1:userInfo>
-               <urn1:personName>
-                  <urn1:familyName>Skagerberg</urn1:familyName>
-                  <urn1:givenName>Karl</urn1:givenName>
-                  <urn1:nameType>
-                     <urn1:code>nameCode</urn1:code>
-                     <urn1:codeSystem>nameCodeSyst</urn1:codeSystem>
-                     <urn1:codeSystemName>nameCodeSystName</urn1:codeSystemName>
-                     <urn1:codeSystemVersion>1.0</urn1:codeSystemVersion>
-                     <urn1:displayName>nameCode</urn1:displayName>
-                     <urn1:originalText>nameCode</urn1:originalText>
-                  </urn1:nameType>
-                  <urn1:secondNameOrInitials>S</urn1:secondNameOrInitials>
-                  <urn1:fullName>Kasrl S. Skagerberg</urn1:fullName>
-               </urn1:personName>
-               <urn1:userName>kskagerb</urn1:userName>
-               <urn1:role>Pharmacy</urn1:role>
-               <urn1:org>
-                  <urn1:description>${#Project#RemoteHCDescription}</urn1:description>
-                  <urn1:homeCommunityId>${#Project#RemoteHCID}</urn1:homeCommunityId>
-                  <urn1:name>${#Project#RemoteHCDescription}</urn1:name>
-               </urn1:org>
-               <urn1:roleCoded>
-                  <urn1:code>307969004</urn1:code>
-                  <urn1:codeSystem>2.16.840.1.113883.6.96</urn1:codeSystem>
-                  <urn1:codeSystemName>SNOMED_CT</urn1:codeSystemName>
-                  <urn1:codeSystemVersion>1.0</urn1:codeSystemVersion>
-                  <urn1:displayName>Public Health</urn1:displayName>
-                  <urn1:originalText>Public Health</urn1:originalText>
-               </urn1:roleCoded>
-            </urn1:userInfo>
-            <urn1:authorized>true</urn1:authorized>
-            <urn1:purposeOfDisclosureCoded>
-               <urn1:code>PUBLICHEALTH</urn1:code>
-               <urn1:codeSystem>2.16.840.1.113883.3.18.7.1</urn1:codeSystem>
-               <urn1:codeSystemName>nhin-purpose</urn1:codeSystemName>
-               <urn1:codeSystemVersion>1.0</urn1:codeSystemVersion>
-               <urn1:displayName>Use or disclosure of Psychotherapy Notes</urn1:displayName>
-               <urn1:originalText>Use or disclosure of Psychotherapy Notes</urn1:originalText>
-            </urn1:purposeOfDisclosureCoded>
-            <urn1:samlAuthnStatement>
-               <urn1:authInstant>2009-04-16T13:15:39Z</urn1:authInstant>
-               <urn1:sessionIndex>987</urn1:sessionIndex>
-               <urn1:authContextClassRef>urn:oasis:names:tc:SAML:2.0:ac:classes:X509</urn1:authContextClassRef>
-               <urn1:subjectLocalityAddress>158.147.185.168</urn1:subjectLocalityAddress>
-               <urn1:subjectLocalityDNSName>cs.myharris.net</urn1:subjectLocalityDNSName>
-            </urn1:samlAuthnStatement>
-            <urn1:samlAuthzDecisionStatement>
-               <urn1:decision>Permit</urn1:decision>
-               <urn1:resource>https://158.147.185.168:8181/SamlReceiveService/SamlProcessWS</urn1:resource>
-               <urn1:action>TestSaml</urn1:action>
-               <urn1:evidence>
-                  <urn1:assertion>
-                     <urn1:id>40df7c0a-ff3e-4b26-baeb-f2910f6d05a9</urn1:id>
-                     <urn1:issueInstant>2009-04-16T13:10:39.093Z</urn1:issueInstant>
-                     <urn1:version>2.0</urn1:version>
-                     <urn1:issuerFormat>urn:oasis:names:tc:SAML:1.1:nameid-format:X509SubjectName</urn1:issuerFormat>
-                     <urn1:issuer>CN=SAML User,OU=Harris,O=HITS,L=Melbourne,ST=FL,C=US</urn1:issuer>
-                     <urn1:conditions>
-                        <urn1:notBefore>2009-04-16T13:10:39.093Z</urn1:notBefore>
-                        <urn1:notOnOrAfter>2009-12-31T12:00:00.000Z</urn1:notOnOrAfter>
-                     </urn1:conditions>
-                     <urn1:contentReference>Claim-Ref-1234</urn1:contentReference>
-                     <urn1:contentType>application/pdf</urn1:contentType>
-                     <urn1:content>YWVvbGlhbQ==</urn1:content>
-                  </urn1:assertion>
-               </urn1:evidence>
-            </urn1:samlAuthzDecisionStatement>
-         </urn:assertion>
-         <urn:nhinTargetSystem>
-            <urn1:homeCommunity>
-               <urn1:description>${#Project#LocalHCDescription}</urn1:description>
-               <urn1:homeCommunityId>${#Project#LocalHCID}</urn1:homeCommunityId>
-               <urn1:name>${#Project#LocalHCDescription}</urn1:name>
-            </urn1:homeCommunity>
-         </urn:nhinTargetSystem>
-      </urn:FindAuditEventsRequest>
-   </soapenv:Body>
-</soapenv:Envelope>]]></con:request>
-						<con:assertion type="SOAP Fault Assertion"/>
-						<con:assertion type="SOAP Response"/>
-						<con:assertion disabled="true" type="Schema Compliance">
-							<con:configuration>
-								<definition/>
-							</con:configuration>
-						</con:assertion>
-						<con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig action="urn:gov:hhs:fha:nhinc:nhincproxyauditlogquery/NhincProxyAuditLogQueryPortType/findAuditEventsRequest" mustUnderstand="NONE" version="200508"/>
-						<con:wsrmConfig version="1.2"/>
-					</con:request>
-				</con:config>
-			</con:testStep>
-			<con:testStep name="Policy Engine Mock" type="mockresponse">
-				<con:settings/>
-				<con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" startStep="Audit Log Query" xsi:type="con:MockResponseStep">
-					<con:interface>AdapterPolicyEngineBindingSoap</con:interface>
-					<con:operation>CheckPolicy</con:operation>
-					<con:path>/mockPolicyEngine</con:path>
-					<con:port>18088</con:port>
-					<con:timeout>60000</con:timeout>
-					<con:response>
-						<con:settings/>
-						<con:responseContent><![CDATA[<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonadapter" xmlns:urn1="urn:oasis:names:tc:xacml:2.0:context:schema:os" xmlns:urn2="urn:oasis:names:tc:xacml:2.0:policy:schema:os">
-   <soapenv:Header/>
-   <soapenv:Body>
-      <urn:CheckPolicyResponse>
-         <urn:response>
-            <urn1:Result ResourceId="?">
-               <urn1:Decision>Permit</urn1:Decision>
-            </urn1:Result>
-         </urn:response>
-      </urn:CheckPolicyResponse>
-   </soapenv:Body>
-</soapenv:Envelope>]]></con:responseContent>
-						<con:wsaConfig mustUnderstand="NONE" version="200508"/>
-					</con:response>
-					<con:assertion type="XPath Match">
-						<con:configuration>
-							<path>declare namespace ns10='urn:oasis:names:tc:xacml:2.0:context:schema:os';
-declare namespace ns18='urn:gov:hhs:fha:nhinc:common:nhinccommonadapter';
-//ns18:CheckPolicyRequest[1]/ns18:request[1]/ns10:Action[1]/ns10:Attribute[1]/ns10:AttributeValue[1]</path>
-							<content>AuditLogQueryIn</content>
-							<allowWildcards>false</allowWildcards>
-							<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
-						</con:configuration>
-					</con:assertion>
-				</con:config>
-			</con:testStep>
-			<con:testStep name="RestoreInterrnalConnectionInfo" type="groovy">
-				<con:settings/>
-				<con:config>
-					<script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
-
-//def destConfigFileLocation = dataSource.getPropertyValue("NHINGatewayConfigDir");
-def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
-def NHINGatewayHost = context.findProperty("NHINGatewayHost");
-def mockHost = context.findProperty("MockHost");
-def PEURL = "http://" + NHINGatewayHost + ":8080/CONNECTAdapter/AdapterProxyService/AdapterPolicyEngine";
-def InitiatingHCID = context.findProperty( "LocalHCID" );
-
-FileUtils.CreateOrUpdateConnection(destConfigFileLocation, InitiatingHCID, "policyengineservice", PEURL, context, log)
-					</script>
-				</con:config>
-			</con:testStep>
-			<con:properties>
-				<con:property>
-					<con:name>startDate</con:name>
-					<con:value>2010-04-26T00:00:00Z</con:value>
-				</con:property>
-				<con:property>
-					<con:name>endDate</con:name>
-					<con:value>2010-04-27T00:00:50Z</con:value>
-				</con:property>
-				<con:property>
-					<con:name>sigDate</con:name>
-					<con:value>04/26/2010 00:00:00</con:value>
-				</con:property>
-				<con:property>
-					<con:name>expireDate</con:name>
-					<con:value>2010-05-26T00:00:00Z</con:value>
-				</con:property>
-				<con:property>
-					<con:name>FullPatientID</con:name>
-					<con:value>D123401^^^&amp;amp;1.1&amp;amp;ISO</con:value>
-				</con:property>
-			</con:properties>
-			<con:reportParameters/>
-			<con:tearDownScript>FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
-		</con:testCase>
+		
 		<con:properties/>
 		<con:setupScript/>
 		<con:reportParameters/>

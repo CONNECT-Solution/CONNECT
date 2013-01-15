@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<con:soapui-project abortOnError="false" name="Fanout_Test" resourceRoot="" runType="SEQUENTIAL" soapui-version="3.6" xmlns:con="http://eviware.com/soapui/config"><con:settings/><con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:entitypatientdiscovery}EntityPatientDiscoveryBindingSoap" definition="C:\Oracle\glassfish\domains\domain1\config\nhin\wsdl\EntityPatientDiscovery.wsdl" name="EntityPatientDiscoveryBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><con:soapui-project xmlns:con="http://eviware.com/soapui/config" abortOnError="false" name="Fanout_Test" resourceRoot="" runType="SEQUENTIAL" soapui-version="3.6"><con:settings/><con:interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:entitypatientdiscovery}EntityPatientDiscoveryBindingSoap" definition="WSDL path not set.  #EntityPatientDiscovery.wsdl" name="EntityPatientDiscoveryBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface">
     <con:settings/>
     
     <con:endpoints>
@@ -8,7 +7,7 @@
     <con:operation action="urn:RespondingGateway_PRPA_IN201305UV02" anonymous="optional" bindingOperationName="RespondingGateway_PRPA_IN201305UV02" inputName="RespondingGateway_PRPA_IN201305UV02Request" isOneWay="false" name="RespondingGateway_PRPA_IN201305UV02" outputName="RespondingGateway_PRPA_IN201306UV02Response" receivesAttachments="false" sendsAttachments="false" type="Request-Response">
       <con:settings/>
     </con:operation>
-  </con:interface><con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincproxypatientdiscovery}NhincProxyPatientDiscoveryBinding" definition="C:\Oracle\glassfish\domains\domain1\config\nhin\wsdl\NhincProxyPatientDiscovery.wsdl" name="NhincProxyPatientDiscoveryBinding" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:endpoints><con:endpoint>http://localhost:${HttpDefaultPort}/NhinConnect/NhincProxyPatientDiscovery</con:endpoint></con:endpoints><con:operation action="urn:Proxy_PRPA_IN201305UV" anonymous="optional" bindingOperationName="Proxy_PRPA_IN201305UV" inputName="Proxy_PRPA_IN201305UVProxyRequest" isOneWay="false" name="Proxy_PRPA_IN201305UV" outputName="Proxy_PRPA_IN201306UVProxyResponse" receivesAttachments="false" sendsAttachments="false" type="Request-Response"><con:settings/></con:operation></con:interface><con:interface anonymous="optional" bindingName="{urn:ihe:iti:xcpd:2009}RespondingGateway_Binding_Soap" definition="C:\Oracle\glassfish\domains\domain1\config\nhin\wsdl\NhinPatientDiscovery.wsdl" name="RespondingGateway_Binding_Soap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:endpoints><con:endpoint>https://PHX-ONC-WTST21:7781/mockPDResp</con:endpoint><con:endpoint>https://localhost:${HttpsDefaultPort}/NhinConnect/PatientDiscovery</con:endpoint></con:endpoints><con:operation action="urn:hl7-org:v3:PRPA_IN201305UV02:CrossGatewayPatientDiscovery" anonymous="optional" bindingOperationName="RespondingGateway_PRPA_IN201305UV02" inputName="" isOneWay="false" name="RespondingGateway_PRPA_IN201305UV02" receivesAttachments="false" sendsAttachments="false" type="Request-Response"><con:settings/></con:operation></con:interface><con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:adapterpolicyengine}AdapterPolicyEngineBindingSoap" definition="C:\Oracle\glassfish\domains\domain1\config\nhin\wsdl\AdapterPolicyEngine.wsdl" name="AdapterPolicyEngineBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:endpoints><con:endpoint>http://localhost:${HttpDefaultPort}/NhinConnect/AdapterPolicyEngine</con:endpoint><con:endpoint>https://PHX-ONC-WTST21:8088/mockAdapterPolicyEngineBindingSoap</con:endpoint></con:endpoints><con:operation action="urn:CheckPolicy" anonymous="optional" bindingOperationName="CheckPolicy" inputName="CheckPolicyRequest" isOneWay="false" name="CheckPolicy" outputName="CheckPolicyResponse" receivesAttachments="false" sendsAttachments="false" type="Request-Response"><con:settings/></con:operation></con:interface><con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:entitydocquery}EntityDocQueryBindingSoap" definition="C:\Oracle\glassfish\domains\domain1\config\nhin\wsdl\EntityDocQuery.wsdl" name="EntityDocQueryBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  </con:interface><con:interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincproxypatientdiscovery}NhincProxyPatientDiscoveryBinding" definition="WSDL path not set.  #NhincProxyPatientDiscovery.wsdl" name="NhincProxyPatientDiscoveryBinding" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface"><con:settings/><con:endpoints><con:endpoint>http://localhost:${HttpDefaultPort}/NhinConnect/NhincProxyPatientDiscovery</con:endpoint></con:endpoints><con:operation action="urn:Proxy_PRPA_IN201305UV" anonymous="optional" bindingOperationName="Proxy_PRPA_IN201305UV" inputName="Proxy_PRPA_IN201305UVProxyRequest" isOneWay="false" name="Proxy_PRPA_IN201305UV" outputName="Proxy_PRPA_IN201306UVProxyResponse" receivesAttachments="false" sendsAttachments="false" type="Request-Response"><con:settings/></con:operation></con:interface><con:interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" anonymous="optional" bindingName="{urn:ihe:iti:xcpd:2009}RespondingGateway_Binding_Soap" definition="WSDL path not set.  #NhinPatientDiscovery.wsdl" name="RespondingGateway_Binding_Soap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface"><con:settings/><con:endpoints><con:endpoint>https://PHX-ONC-WTST21:7781/mockPDResp</con:endpoint><con:endpoint>https://localhost:${HttpsDefaultPort}/NhinConnect/PatientDiscovery</con:endpoint></con:endpoints><con:operation action="urn:hl7-org:v3:PRPA_IN201305UV02:CrossGatewayPatientDiscovery" anonymous="optional" bindingOperationName="RespondingGateway_PRPA_IN201305UV02" inputName="" isOneWay="false" name="RespondingGateway_PRPA_IN201305UV02" receivesAttachments="false" sendsAttachments="false" type="Request-Response"><con:settings/></con:operation></con:interface><con:interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:adapterpolicyengine}AdapterPolicyEngineBindingSoap" definition="WSDL path not set.  #AdapterPolicyEngine.wsdl" name="AdapterPolicyEngineBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface"><con:settings/><con:endpoints><con:endpoint>http://localhost:${HttpDefaultPort}/NhinConnect/AdapterPolicyEngine</con:endpoint><con:endpoint>https://PHX-ONC-WTST21:8088/mockAdapterPolicyEngineBindingSoap</con:endpoint></con:endpoints><con:operation action="urn:CheckPolicy" anonymous="optional" bindingOperationName="CheckPolicy" inputName="CheckPolicyRequest" isOneWay="false" name="CheckPolicy" outputName="CheckPolicyResponse" receivesAttachments="false" sendsAttachments="false" type="Request-Response"><con:settings/></con:operation></con:interface><con:interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:entitydocquery}EntityDocQueryBindingSoap" definition="WSDL path not set.  #EntityDocQuery.wsdl" name="EntityDocQueryBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface">
     <con:settings/>
     
     <con:endpoints>
@@ -21,28 +20,28 @@
     <con:operation action="urn:RespondingGateway_CrossGatewayQuery" anonymous="optional" bindingOperationName="RespondingGateway_CrossGatewayQuery" inputName="RespondingGateway_CrossGatewayQueryRequest" isOneWay="false" name="RespondingGateway_CrossGatewayQuery" outputName="RespondingGateway_CrossGatewayQueryResponse" receivesAttachments="false" sendsAttachments="false" type="Request-Response">
       <con:settings/>
     </con:operation>
-  </con:interface><con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:adaptercomponentmpi}AdapterComponentMpiPortTypeBinding" definition="C:\Oracle\glassfish\domains\domain1\config\nhin\wsdl\AdapterComponentMpi.wsdl" name="AdapterComponentMpiPortTypeBinding" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:endpoints><con:endpoint>http://localhost:${NhincHttpPort}/NhinConnect/AdapterComponentMpiService</con:endpoint></con:endpoints><con:operation action="FindCandidates" anonymous="optional" bindingOperationName="FindCandidates" inputName="FindCandidatesRequest" isOneWay="false" name="FindCandidates" outputName="FindCandidatesResponse" receivesAttachments="false" sendsAttachments="false" type="Request-Response"><con:settings/></con:operation></con:interface><con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:adaptermpi}AdapterMpiPortTypeBinding" definition="C:\Oracle\glassfish\domains\domain1\config\nhin\wsdl\AdapterMpi.wsdl" name="AdapterMpiPortTypeBinding" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:endpoints><con:endpoint>http://localhost:${NhincHttpPort}/NhinConnect/AdapterMpiService</con:endpoint></con:endpoints><con:operation action="FindCandidates" anonymous="optional" bindingOperationName="FindCandidates" inputName="FindCandidatesRequest" isOneWay="false" name="FindCandidates" outputName="FindCandidatesResponse" receivesAttachments="false" sendsAttachments="false" type="Request-Response"><con:settings/></con:operation></con:interface><con:interface anonymous="optional" bindingName="{urn:ihe:iti:xds-b:2007}DocumentRegistry_Binding_Soap" definition="C:\Oracle\glassfish\domains\domain1\config\nhin\wsdl\AdapterComponentDocRegistry.wsdl" name="DocumentRegistry_Binding_Soap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:endpoints><con:endpoint>http://localhost:${NhincHttpPort}/DocumentRegistry_Service</con:endpoint></con:endpoints><con:operation action="urn:hl7-org:v3:PRPA_IN201301UV02" anonymous="optional" bindingOperationName="DocumentRegistry_PRPA_IN201301UV02" inputName="" isOneWay="false" name="DocumentRegistry_PRPA_IN201301UV02" receivesAttachments="false" sendsAttachments="false" type="Request-Response"><con:settings/></con:operation><con:operation action="urn:hl7-org:v3:PRPA_IN201302UV02" anonymous="optional" bindingOperationName="DocumentRegistry_PRPA_IN201302UV02" inputName="" isOneWay="false" name="DocumentRegistry_PRPA_IN201302UV02" receivesAttachments="false" sendsAttachments="false" type="Request-Response"><con:settings/></con:operation><con:operation action="urn:hl7-org:v3:PRPA_IN201304UV02" anonymous="optional" bindingOperationName="DocumentRegistry_PRPA_IN201304UV02" inputName="" isOneWay="false" name="DocumentRegistry_PRPA_IN201304UV02" receivesAttachments="false" sendsAttachments="false" type="Request-Response"><con:settings/></con:operation><con:operation action="urn:ihe:iti:2007:RegisterDocumentSet-b" anonymous="optional" bindingOperationName="DocumentRegistry_RegisterDocumentSet-b" inputName="" isOneWay="false" name="DocumentRegistry_RegisterDocumentSet-b" receivesAttachments="false" sendsAttachments="false" type="Request-Response"><con:settings/></con:operation><con:operation action="urn:ihe:iti:2007:RegistryStoredQuery" anonymous="optional" bindingOperationName="DocumentRegistry_RegistryStoredQuery" inputName="" isOneWay="false" name="DocumentRegistry_RegistryStoredQuery" receivesAttachments="false" sendsAttachments="false" type="Request-Response"><con:settings/></con:operation></con:interface><con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:adapterdocquery}AdapterDocQueryBindingSoap" definition="C:\Oracle\glassfish\domains\domain1\config\nhin\wsdl\AdapterDocQuery.wsdl" name="AdapterDocQueryBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:endpoints><con:endpoint>http://localhost:${HttpDefaultPort}/NhinConnect/AdapterDocQuery</con:endpoint></con:endpoints><con:operation action="urn:RespondingGateway_CrossGatewayQuery" anonymous="optional" bindingOperationName="RespondingGateway_CrossGatewayQuery" inputName="RespondingGateway_CrossGatewayQueryRequest" isOneWay="false" name="RespondingGateway_CrossGatewayQuery" outputName="RespondingGateway_CrossGatewayQueryResponse" receivesAttachments="false" sendsAttachments="false" type="Request-Response"><con:settings/></con:operation></con:interface><con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:adapterpatientdiscovery}AdapterPatientDiscoveryBindingSoap" definition="C:\Oracle\glassfish\domains\domain1\config\nhin\wsdl\AdapterPatientDiscovery.wsdl" name="AdapterPatientDiscoveryBindingSoap" soapVersion="1_1" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:endpoints><con:endpoint>https://localhost:${HttpsDefaultPort}/NhinConnect/AdapterPatientDiscovery</con:endpoint><con:endpoint>https://PHX-ONC-WTST21:7785/mockAdapterPD</con:endpoint></con:endpoints><con:operation action="urn:RespondingGateway_PRPA_IN201305UV02" anonymous="optional" bindingOperationName="RespondingGateway_PRPA_IN201305UV02" inputName="RespondingGateway_PRPA_IN201305UV02Request" isOneWay="false" name="RespondingGateway_PRPA_IN201305UV02" outputName="RespondingGateway_PRPA_IN201306UV02Response" receivesAttachments="false" sendsAttachments="false" type="Request-Response"><con:settings/></con:operation></con:interface><con:testSuite name="Fanout_Test"><con:settings/><con:runType>SEQUENTIAL</con:runType><con:testCase failOnError="true" failTestCaseOnErrors="true" id="2360032f-7112-4f06-bb4f-f7c5f979bb94" keepSession="false" maxResults="0" name="PD warmup" searchProperties="true">
+  </con:interface><con:interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:adaptercomponentmpi}AdapterComponentMpiPortTypeBinding" definition="WSDL path not set.  #AdapterComponentMpi.wsdl" name="AdapterComponentMpiPortTypeBinding" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface"><con:settings/><con:endpoints><con:endpoint>http://localhost:${NhincHttpPort}/NhinConnect/AdapterComponentMpiService</con:endpoint></con:endpoints><con:operation action="FindCandidates" anonymous="optional" bindingOperationName="FindCandidates" inputName="FindCandidatesRequest" isOneWay="false" name="FindCandidates" outputName="FindCandidatesResponse" receivesAttachments="false" sendsAttachments="false" type="Request-Response"><con:settings/></con:operation></con:interface><con:interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:adaptermpi}AdapterMpiPortTypeBinding" definition="WSDL path not set.  #AdapterMpi.wsdl" name="AdapterMpiPortTypeBinding" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface"><con:settings/><con:endpoints><con:endpoint>http://localhost:${NhincHttpPort}/NhinConnect/AdapterMpiService</con:endpoint></con:endpoints><con:operation action="FindCandidates" anonymous="optional" bindingOperationName="FindCandidates" inputName="FindCandidatesRequest" isOneWay="false" name="FindCandidates" outputName="FindCandidatesResponse" receivesAttachments="false" sendsAttachments="false" type="Request-Response"><con:settings/></con:operation></con:interface><con:interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" anonymous="optional" bindingName="{urn:ihe:iti:xds-b:2007}DocumentRegistry_Binding_Soap" definition="WSDL path not set.  #AdapterComponentDocRegistry.wsdl" name="DocumentRegistry_Binding_Soap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface"><con:settings/><con:endpoints><con:endpoint>http://localhost:${NhincHttpPort}/DocumentRegistry_Service</con:endpoint></con:endpoints><con:operation action="urn:hl7-org:v3:PRPA_IN201301UV02" anonymous="optional" bindingOperationName="DocumentRegistry_PRPA_IN201301UV02" inputName="" isOneWay="false" name="DocumentRegistry_PRPA_IN201301UV02" receivesAttachments="false" sendsAttachments="false" type="Request-Response"><con:settings/></con:operation><con:operation action="urn:hl7-org:v3:PRPA_IN201302UV02" anonymous="optional" bindingOperationName="DocumentRegistry_PRPA_IN201302UV02" inputName="" isOneWay="false" name="DocumentRegistry_PRPA_IN201302UV02" receivesAttachments="false" sendsAttachments="false" type="Request-Response"><con:settings/></con:operation><con:operation action="urn:hl7-org:v3:PRPA_IN201304UV02" anonymous="optional" bindingOperationName="DocumentRegistry_PRPA_IN201304UV02" inputName="" isOneWay="false" name="DocumentRegistry_PRPA_IN201304UV02" receivesAttachments="false" sendsAttachments="false" type="Request-Response"><con:settings/></con:operation><con:operation action="urn:ihe:iti:2007:RegisterDocumentSet-b" anonymous="optional" bindingOperationName="DocumentRegistry_RegisterDocumentSet-b" inputName="" isOneWay="false" name="DocumentRegistry_RegisterDocumentSet-b" receivesAttachments="false" sendsAttachments="false" type="Request-Response"><con:settings/></con:operation><con:operation action="urn:ihe:iti:2007:RegistryStoredQuery" anonymous="optional" bindingOperationName="DocumentRegistry_RegistryStoredQuery" inputName="" isOneWay="false" name="DocumentRegistry_RegistryStoredQuery" receivesAttachments="false" sendsAttachments="false" type="Request-Response"><con:settings/></con:operation></con:interface><con:interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:adapterdocquery}AdapterDocQueryBindingSoap" definition="WSDL path not set.  #AdapterDocQuery.wsdl" name="AdapterDocQueryBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface"><con:settings/><con:endpoints><con:endpoint>http://localhost:${HttpDefaultPort}/NhinConnect/AdapterDocQuery</con:endpoint></con:endpoints><con:operation action="urn:RespondingGateway_CrossGatewayQuery" anonymous="optional" bindingOperationName="RespondingGateway_CrossGatewayQuery" inputName="RespondingGateway_CrossGatewayQueryRequest" isOneWay="false" name="RespondingGateway_CrossGatewayQuery" outputName="RespondingGateway_CrossGatewayQueryResponse" receivesAttachments="false" sendsAttachments="false" type="Request-Response"><con:settings/></con:operation></con:interface><con:interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:adapterpatientdiscovery}AdapterPatientDiscoveryBindingSoap" definition="WSDL path not set.  #AdapterPatientDiscovery.wsdl" name="AdapterPatientDiscoveryBindingSoap" soapVersion="1_1" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface"><con:settings/><con:endpoints><con:endpoint>https://localhost:${HttpsDefaultPort}/NhinConnect/AdapterPatientDiscovery</con:endpoint><con:endpoint>https://PHX-ONC-WTST21:7785/mockAdapterPD</con:endpoint></con:endpoints><con:operation action="urn:RespondingGateway_PRPA_IN201305UV02" anonymous="optional" bindingOperationName="RespondingGateway_PRPA_IN201305UV02" inputName="RespondingGateway_PRPA_IN201305UV02Request" isOneWay="false" name="RespondingGateway_PRPA_IN201305UV02" outputName="RespondingGateway_PRPA_IN201306UV02Response" receivesAttachments="false" sendsAttachments="false" type="Request-Response"><con:settings/></con:operation></con:interface><con:testSuite name="Fanout_Test"><con:settings/><con:runType>SEQUENTIAL</con:runType><con:testCase failOnError="true" failTestCaseOnErrors="true" id="2360032f-7112-4f06-bb4f-f7c5f979bb94" keepSession="false" maxResults="0" name="PD warmup" searchProperties="true">
       <con:settings/>
       
       
       <con:testStep name="Clear correlations and AA mapping tables" type="groovy">
         <con:settings/>
-        <con:config><script>context.withSql('PatientCorrelationDB') { sql -> 
+        <con:config><script>context.withSql('PatientCorrelationDB') { sql -&gt; 
   sql.execute('delete from ' + context.findProperty('PatientCorrelationTable'))
 }
 
-context.withSql('AAMappingDB') { sql -> 
+context.withSql('AAMappingDB') { sql -&gt; 
   sql.execute('delete from ' + context.findProperty('AAMappingTable'))
 }</script></con:config>
       </con:testStep>
       <con:testStep name="Patient Discovery" type="request">
         <con:settings/>
-        <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+        <con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
           <con:interface>EntityPatientDiscoveryBindingSoap</con:interface>
           <con:operation>RespondingGateway_PRPA_IN201305UV02</con:operation>
           <con:request name="Patient Discovery">
             <con:settings>
-              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
+              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/&gt;</con:setting>
             </con:settings>
             <con:encoding>UTF-8</con:encoding>
             <con:endpoint>${#Project#Endpoint-PatientDiscovery}</con:endpoint>
@@ -333,25 +332,26 @@ exists( //ns3:PRPA_IN201306UV02/ns3:controlActProcess)</path>
         </con:config>
       </con:testStep><con:testStep name="Count correlations (1)" type="groovy">
         <con:settings/>
-        <con:config><script>context.withSql('PatientCorrelationDB') { sql -> 
+        <con:config><script>context.withSql('PatientCorrelationDB') { sql -&gt; 
   assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('PatientCorrelationTable'))[0]
 }</script></con:config>
-      </con:testStep><con:setupScript/><con:tearDownScript>FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript><con:properties>
+      </con:testStep><con:setupScript/><con:tearDownScript>import nhinc.FileUtils;
+FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript><con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2012-04-13T13:38:37Z</con:value>
+          <con:value>2012-08-25T00:56:03Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2012-04-13T13:48:37Z</con:value>
+          <con:value>2012-08-25T01:06:03Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>04/13/2012 13:38:37</con:value>
+          <con:value>08/25/2012 00:56:03</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2012-05-13T00:00:00Z</con:value>
+          <con:value>2012-09-24T00:00:00Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -362,16 +362,17 @@ exists( //ns3:PRPA_IN201306UV02/ns3:controlActProcess)</path>
       
       <con:testStep name="Clear correlations and AA mapping tables" type="groovy">
         <con:settings/>
-        <con:config><script>context.withSql('PatientCorrelationDB') { sql -> 
+        <con:config><script>context.withSql('PatientCorrelationDB') { sql -&gt; 
   sql.execute('delete from ' + context.findProperty('PatientCorrelationTable'))
 }
 
-context.withSql('AAMappingDB') { sql -> 
+context.withSql('AAMappingDB') { sql -&gt; 
   sql.execute('delete from ' + context.findProperty('AAMappingTable'))
 }</script></con:config>
       </con:testStep><con:testStep name="copy uddiConnectionInfo" type="groovy">
 				<con:settings/>
-				<con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
+				<con:config><script>import nhinc.FileUtils;
+def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
 def testCase = testRunner.getTestCase()
 def testSuite = testCase.getTestSuite()
 def project = testSuite.getProject()
@@ -393,7 +394,8 @@ FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);
 
 
 					</script></con:config>
-			</con:testStep><con:testStep name="modify uddiConnectionInfo" type="groovy"><con:settings/><con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
+			</con:testStep><con:testStep name="modify uddiConnectionInfo" type="groovy"><con:settings/><con:config><script>import nhinc.FileUtils;
+def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
 
 def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
 def NHINGatewayHost = context.findProperty("NHINGatewayHost");
@@ -409,12 +411,12 @@ FileUtils.CreateOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocat
 FileUtils.CreateOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocation, "7.7", "PatientDiscovery", PDURL, "2.0", context, log)
 FileUtils.CreateOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocation, "8.8", "PatientDiscovery", PDURL, "2.0", context, log)</script></con:config></con:testStep><con:testStep name="Patient Discovery" type="request">
         <con:settings/>
-        <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+        <con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
           <con:interface>EntityPatientDiscoveryBindingSoap</con:interface>
           <con:operation>RespondingGateway_PRPA_IN201305UV02</con:operation>
           <con:request name="Patient Discovery">
             <con:settings>
-              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
+              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/&gt;</con:setting>
             </con:settings>
             <con:encoding>UTF-8</con:encoding>
             <con:endpoint>${#Project#Endpoint-PatientDiscovery}</con:endpoint>
@@ -705,7 +707,7 @@ exists( //ns3:PRPA_IN201306UV02/ns3:controlActProcess)</path>
         </con:config>
       </con:testStep><con:testStep name="count correlations" type="groovy">
         <con:settings/>
-        <con:config><script>context.withSql('PatientCorrelationDB') { sql -> 
+        <con:config><script>context.withSql('PatientCorrelationDB') { sql -&gt; 
   assert 0 &lt; sql.firstRow('select count(*) from ' + context.findProperty('PatientCorrelationTable'))[0]
 }</script></con:config>
       </con:testStep><con:setupScript>def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
@@ -722,7 +724,7 @@ void MoveFile(File sourceFile, File destinationFile, log){
    {
     def reader = sourceFile.newReader();
     destinationFile.withWriter 
-    { writer ->       
+    { writer -&gt;       
      writer &lt;&lt; reader;   
     }   
     reader.close();
@@ -746,19 +748,19 @@ DeleteFile(backupInternalFile, log);
 DeleteFile(backupUddiFile, log);</con:tearDownScript><con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2012-04-13T22:08:26Z</con:value>
+          <con:value>2012-08-25T00:56:05Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2012-04-13T22:18:26Z</con:value>
+          <con:value>2012-08-25T01:06:05Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>04/13/2012 22:08:26</con:value>
+          <con:value>08/25/2012 00:56:05</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2012-05-13T00:00:00Z</con:value>
+          <con:value>2012-09-24T00:00:00Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -768,17 +770,19 @@ DeleteFile(backupUddiFile, log);</con:tearDownScript><con:properties>
       
       <con:testStep name="Clear correlations and AA mapping tables" type="groovy">
         <con:settings/>
-        <con:config><script>context.withSql('PatientCorrelationDB') { sql -> 
+        <con:config><script>import nhinc.FileUtils;
+context.withSql('PatientCorrelationDB') { sql -&gt; 
   sql.execute('delete from ' + context.findProperty('PatientCorrelationTable'))
 }
 
-context.withSql('AAMappingDB') { sql -> 
+context.withSql('AAMappingDB') { sql -&gt; 
   sql.execute('delete from ' + context.findProperty('AAMappingTable'))
 }</script></con:config>
       </con:testStep>
       <con:testStep name="copy uddiConnectionInfo" type="groovy">
 				<con:settings/>
-				<con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
+				<con:config><script>import nhinc.FileUtils;
+def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
 def testCase = testRunner.getTestCase()
 def testSuite = testCase.getTestSuite()
 def project = testSuite.getProject()
@@ -800,7 +804,8 @@ FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);
 
 
 					</script></con:config>
-			</con:testStep><con:testStep name="modify internalConnectionInfo" type="groovy"><con:settings/><con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
+			</con:testStep><con:testStep name="modify internalConnectionInfo" type="groovy"><con:settings/><con:config><script>import nhinc.FileUtils;
+def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
 def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
 def NHINGatewayHost = context.findProperty("NHINGatewayHost");
 def mockHost = context.findProperty("mockHost");
@@ -808,7 +813,8 @@ def localHCID = context.findProperty("LocalHCID");
 
 def MPIURL = "http://" + mockHost + ":7783/MockMPIResp";
 
-FileUtils.CreateOrUpdateConnection("internalConnectionInfo.xml", destConfigFileLocation, localHCID, "adaptercomponentmpiservice", MPIURL, "LEVEL_a0", context, log)</script></con:config></con:testStep><con:testStep name="modify uddiConnectionInfo" type="groovy"><con:settings/><con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
+FileUtils.CreateOrUpdateConnection("internalConnectionInfo.xml", destConfigFileLocation, localHCID, "adaptercomponentmpiservice", MPIURL, "LEVEL_a0", context, log)</script></con:config></con:testStep><con:testStep name="modify uddiConnectionInfo" type="groovy"><con:settings/><con:config><script>import nhinc.FileUtils;
+def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
 
 def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
 def NHINGatewayHost = context.findProperty("NHINGatewayHost");
@@ -824,12 +830,12 @@ FileUtils.CreateOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocat
 FileUtils.CreateOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocation, "7.7", "PatientDiscovery", PDURL, "2.0", context, log)
 FileUtils.CreateOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocation, "8.8", "PatientDiscovery", PDURL, "2.0", context, log)</script></con:config></con:testStep><con:testStep name="Patient Discovery" type="request">
         <con:settings/>
-        <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+        <con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
           <con:interface>EntityPatientDiscoveryBindingSoap</con:interface>
           <con:operation>RespondingGateway_PRPA_IN201305UV02</con:operation>
           <con:request name="Patient Discovery">
             <con:settings>
-              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
+              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/&gt;</con:setting>
             </con:settings>
             <con:encoding>UTF-8</con:encoding>
             <con:endpoint>${#Project#Endpoint-PatientDiscovery}</con:endpoint>
@@ -1120,10 +1126,11 @@ exists( //ns3:PRPA_IN201306UV02/ns3:controlActProcess)</path>
         </con:config>
       </con:testStep><con:testStep name="count correlations" type="groovy">
         <con:settings/>
-        <con:config><script>context.withSql('PatientCorrelationDB') { sql -> 
-  assert 8 == sql.firstRow('select count(*) from ' + context.findProperty('PatientCorrelationTable'))[0]
+        <con:config><script>context.withSql('PatientCorrelationDB') { sql -&gt; 
+  assert 0 &lt; sql.firstRow('select count(*) from ' + context.findProperty('PatientCorrelationTable'))[0]
 }</script></con:config>
-      </con:testStep><con:setupScript>testCase.getTestSuite().getProject().getMockServiceByName("mockMPI_happy_path").start();
+      </con:testStep><con:setupScript>import nhinc.FileUtils;
+testCase.getTestSuite().getProject().getMockServiceByName("mockMPI_happy_path").start();
 
 def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
 
@@ -1142,7 +1149,7 @@ void MoveFile(File sourceFile, File destinationFile, log){
    {
     def reader = sourceFile.newReader();
     destinationFile.withWriter 
-    { writer ->       
+    { writer -&gt;       
      writer &lt;&lt; reader;   
     }   
     reader.close();
@@ -1153,7 +1160,8 @@ void MoveFile(File sourceFile, File destinationFile, log){
 }
 
 MoveFile(sourceInternalFile, backupInternalFile, log);
-MoveFile(sourceUddiFile, backupUddiFile, log);</con:setupScript><con:tearDownScript>FileUtils.restoreToMasterConfiguration(context, log);
+MoveFile(sourceUddiFile, backupUddiFile, log);</con:setupScript><con:tearDownScript>import nhinc.FileUtils;
+FileUtils.restoreToMasterConfiguration(context, log);
 
 testCase.getTestSuite().getProject().getMockServicFileUtils.changeSpringConfigByName("mockMPI_happy_path").getMockRunner().stop();
 
@@ -1169,7 +1177,7 @@ void MoveFile(File sourceFile, File destinationFile, log){
    {
     def reader = sourceFile.newReader();
     destinationFile.withWriter 
-    { writer ->       
+    { writer -&gt;       
      writer &lt;&lt; reader;   
     }   
     reader.close();
@@ -1195,19 +1203,19 @@ DeleteFile(backupInternalFile, log);
 DeleteFile(backupUddiFile, log);</con:tearDownScript><con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2011-06-07T18:25:13Z</con:value>
+          <con:value>2012-08-25T00:56:12Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2011-06-07T18:35:13Z</con:value>
+          <con:value>2012-08-25T01:06:12Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>06/07/2011 18:25:13</con:value>
+          <con:value>08/25/2012 00:56:12</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2011-07-07T00:00:00Z</con:value>
+          <con:value>2012-09-24T00:00:00Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -1215,8 +1223,7 @@ DeleteFile(backupUddiFile, log);</con:tearDownScript><con:properties>
       <con:description/><con:settings/>
       <con:testStep name="Modify gateway.properties" type="groovy">
         <con:settings/>
-        <con:config><script>//def destConfigFileLocation = context.findProperty("NHINGatewayConfigDir");
-
+        <con:config><script>import nhinc.FileUtils;
 def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR']
 
 void UpdateProperty(String directory, String filename, String propertyKey, String propertyValue,context,log) {
@@ -1228,7 +1235,7 @@ void UpdateProperty(String directory, String filename, String propertyKey, Strin
    properties.load(frPropFile);
    properties.setProperty(propertyKey, propertyValue);
    FileOutputStream fwPropFile = new FileOutputStream(file);
-   properties.store(fwPropFile, "**DO NOT CHECK IN** - written by groovy script FileUtils.groovy->UpdateProperty");
+   properties.store(fwPropFile, "**DO NOT CHECK IN** - written by groovy script FileUtils.groovy-&gt;UpdateProperty");
    properties = null;
 }
 
@@ -1236,17 +1243,18 @@ UpdateProperty(destConfigFileLocation,"gateway.properties","patientDiscoveryPass
       </con:testStep>
       <con:testStep name="Clear correlations and AA mapping tables" type="groovy">
         <con:settings/>
-        <con:config><script>context.withSql('PatientCorrelationDB') { sql -> 
+        <con:config><script>context.withSql('PatientCorrelationDB') { sql -&gt; 
   sql.execute('delete from ' + context.findProperty('PatientCorrelationTable'))
 }
 
-context.withSql('AAMappingDB') { sql -> 
+context.withSql('AAMappingDB') { sql -&gt; 
   sql.execute('delete from ' + context.findProperty('AAMappingTable'))
 }</script></con:config>
       </con:testStep>
       <con:testStep name="copy uddiConnectionInfo" type="groovy">
 				<con:settings/>
-				<con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
+				<con:config><script>import nhinc.FileUtils;
+def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
 def testCase = testRunner.getTestCase()
 def testSuite = testCase.getTestSuite()
 def project = testSuite.getProject()
@@ -1269,7 +1277,8 @@ FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);
 
 					</script></con:config>
 			</con:testStep>
-      <con:testStep name="modify internalConnectionInfo" type="groovy"><con:settings/><con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
+      <con:testStep name="modify internalConnectionInfo" type="groovy"><con:settings/><con:config><script>import nhinc.FileUtils;
+def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
 def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
 def NHINGatewayHost = context.findProperty("NHINGatewayHost");
 def mockHost = context.findProperty("mockHost");
@@ -1278,7 +1287,8 @@ def localHCID = context.findProperty("LocalHCID");
 def adapPDURL = "http://" + mockHost + ":7785/mockPDAdapter";
 
 FileUtils.CreateOrUpdateConnection("internalConnectionInfo.xml", destConfigFileLocation, localHCID, "adapterpatientdiscovery", adapPDURL, "LEVEL_a0", context, log)
-</script></con:config></con:testStep><con:testStep name="modify uddiConnectionInfo" type="groovy"><con:settings/><con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
+</script></con:config></con:testStep><con:testStep name="modify uddiConnectionInfo" type="groovy"><con:settings/><con:config><script>import nhinc.FileUtils;
+def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
 
 def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
 def NHINGatewayHost = context.findProperty("NHINGatewayHost");
@@ -1295,12 +1305,12 @@ FileUtils.CreateOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocat
 FileUtils.CreateOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocation, "7.7", "PatientDiscovery", PDURL, "2.0", context, log)
 FileUtils.CreateOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocation, "8.8", "PatientDiscovery", PDURL, "2.0", context, log)</script></con:config></con:testStep><con:testStep name="Patient Discovery" type="request">
         <con:settings/>
-        <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+        <con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
           <con:interface>EntityPatientDiscoveryBindingSoap</con:interface>
           <con:operation>RespondingGateway_PRPA_IN201305UV02</con:operation>
           <con:request name="Patient Discovery">
             <con:settings>
-              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
+              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/&gt;</con:setting>
             </con:settings>
             <con:encoding>UTF-8</con:encoding>
             <con:endpoint>${#Project#Endpoint-PatientDiscovery}</con:endpoint>
@@ -1591,10 +1601,11 @@ exists( //ns3:PRPA_IN201306UV02/ns3:controlActProcess)</path>
         </con:config>
       </con:testStep><con:testStep name="count correlations" type="groovy">
         <con:settings/>
-        <con:config><script>context.withSql('PatientCorrelationDB') { sql -> 
+        <con:config><script>context.withSql('PatientCorrelationDB') { sql -&gt; 
   assert 8 == sql.firstRow('select count(*) from ' + context.findProperty('PatientCorrelationTable'))[0]
 }</script></con:config>
-      </con:testStep><con:setupScript>testCase.getTestSuite().getProject().getMockServiceByName("mockPD_adapter").start();
+      </con:testStep><con:setupScript>import nhinc.FileUtils;
+testCase.getTestSuite().getProject().getMockServiceByName("mockPD_adapter").start();
 FileUtils.changeSpringConfig("AdapterPatientDiscoveryProxyConfig.xml", "wsunsecured", log);
 
 def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
@@ -1611,7 +1622,7 @@ void MoveFile(File sourceFile, File destinationFile, log){
    {
     def reader = sourceFile.newReader();
     destinationFile.withWriter 
-    { writer ->       
+    { writer -&gt;       
      writer &lt;&lt; reader;   
     }   
     reader.close();
@@ -1622,9 +1633,10 @@ void MoveFile(File sourceFile, File destinationFile, log){
 }
 
 MoveFile(sourceInternalFile, backupInternalFile, log);
-MoveFile(sourceUddiFile, backupUddiFile, log);</con:setupScript><con:tearDownScript>FileUtils.restoreToMasterConfiguration(context, log);
+MoveFile(sourceUddiFile, backupUddiFile, log);</con:setupScript><con:tearDownScript>import nhinc.FileUtils;
+FileUtils.restoreToMasterConfiguration(context, log);
 testCase.getTestSuite().getProject().getMockServiceByName("mockPD_adapter").getMockRunner().stop();
-FileUtils.changeSpringConfig("AdapterPatientDiscoveryProxyConfig.xml", "default", log);
+//FileUtils.changeSpringConfig("AdapterPatientDiscoveryProxyConfig.xml", "default", log);
 
 
 File sourceUddiFile = new File(destConfigFileLocation, "uddiConnectionInfo.xml");
@@ -1636,7 +1648,7 @@ void MoveFile(File sourceFile, File destinationFile, log){
    {
     def reader = sourceFile.newReader();
     destinationFile.withWriter 
-    { writer ->       
+    { writer -&gt;       
      writer &lt;&lt; reader;   
     }   
     reader.close();
@@ -1662,19 +1674,19 @@ DeleteFile(backupInternalFile, log);
 DeleteFile(backupUddiFile, log);</con:tearDownScript><con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2011-06-07T18:25:13Z</con:value>
+          <con:value>2012-08-25T02:01:37Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2011-06-07T18:35:13Z</con:value>
+          <con:value>2012-08-25T02:11:37Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>06/07/2011 18:25:13</con:value>
+          <con:value>08/25/2012 02:01:37</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2011-07-07T00:00:00Z</con:value>
+          <con:value>2012-09-24T00:00:00Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -1682,17 +1694,18 @@ DeleteFile(backupUddiFile, log);</con:tearDownScript><con:properties>
       <con:description/><con:settings/>
       <con:testStep name="Clear correlations and AA mapping tables" type="groovy">
         <con:settings/>
-        <con:config><script>context.withSql('PatientCorrelationDB') { sql -> 
+        <con:config><script>context.withSql('PatientCorrelationDB') { sql -&gt; 
   sql.execute('delete from ' + context.findProperty('PatientCorrelationTable'))
 }
 
-context.withSql('AAMappingDB') { sql -> 
+context.withSql('AAMappingDB') { sql -&gt; 
   sql.execute('delete from ' + context.findProperty('AAMappingTable'))
 }</script></con:config>
       </con:testStep>
       <con:testStep name="copy uddiConnectionInfo" type="groovy">
 				<con:settings/>
-				<con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
+				<con:config><script>import nhinc.FileUtils;
+def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
 def testCase = testRunner.getTestCase()
 def testSuite = testCase.getTestSuite()
 def project = testSuite.getProject()
@@ -1715,7 +1728,8 @@ FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);
 
 					</script></con:config>
 			</con:testStep>
-      <con:testStep name="modify internalConnectionInfo" type="groovy"><con:settings/><con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
+      <con:testStep name="modify internalConnectionInfo" type="groovy"><con:settings/><con:config><script>import nhinc.FileUtils;
+def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
 def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
 def NHINGatewayHost = context.findProperty("NHINGatewayHost");
 def mockHost = context.findProperty("mockHost");
@@ -1724,7 +1738,8 @@ def localHCID = context.findProperty("LocalHCID");
 def MPIURL = "http://" + mockHost + ":7781/MockMPIResp";
 
 FileUtils.CreateOrUpdateConnection("internalConnectionInfo.xml", destConfigFileLocation, localHCID, "adaptercomponentmpiservice", MPIURL, "LEVEL_a0", context, log)</script></con:config></con:testStep>
-      <con:testStep name="modify uddiConnectionInfo" type="groovy"><con:settings/><con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
+      <con:testStep name="modify uddiConnectionInfo" type="groovy"><con:settings/><con:config><script>import nhinc.FileUtils;
+def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
 
 def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
 def NHINGatewayHost = context.findProperty("NHINGatewayHost");
@@ -1741,12 +1756,12 @@ FileUtils.CreateOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocat
 FileUtils.CreateOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocation, "7.7", "PatientDiscovery", PDURL, "2.0", context, log)
 FileUtils.CreateOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocation, "7.7", "PatientDiscovery", badURL, "2.0", context, log)</script></con:config></con:testStep><con:testStep name="Patient Discovery" type="request">
         <con:settings/>
-        <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+        <con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
           <con:interface>EntityPatientDiscoveryBindingSoap</con:interface>
           <con:operation>RespondingGateway_PRPA_IN201305UV02</con:operation>
           <con:request name="Patient Discovery">
             <con:settings>
-              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
+              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/&gt;</con:setting>
             </con:settings>
             <con:encoding>UTF-8</con:encoding>
             <con:endpoint>${#Project#Endpoint-PatientDiscovery}</con:endpoint>
@@ -2037,10 +2052,11 @@ exists( //ns3:PRPA_IN201306UV02/ns3:controlActProcess)</path>
         </con:config>
       </con:testStep><con:testStep name="count correlations" type="groovy">
         <con:settings/>
-        <con:config><script>context.withSql('PatientCorrelationDB') { sql -> 
+        <con:config><script>context.withSql('PatientCorrelationDB') { sql -&gt; 
   assert 6 == sql.firstRow('select count(*) from ' + context.findProperty('PatientCorrelationTable'))[0]
 }</script></con:config>
-      </con:testStep><con:setupScript>testCase.getTestSuite().getProject().getMockServiceByName("mockMPI_all").start();
+      </con:testStep><con:setupScript>import nhinc.FileUtils;
+testCase.getTestSuite().getProject().getMockServiceByName("mockMPI_all").start();
 FileUtils.changeSpringConfig("AdapterMpiProxyConfig.xml", "wsunsecured", log);
 FileUtils.changeSpringConfig("AdapterComponentMpiProxyConfig.xml", "wsunsecured", log);
 
@@ -2058,7 +2074,7 @@ void MoveFile(File sourceFile, File destinationFile, log){
    {
     def reader = sourceFile.newReader();
     destinationFile.withWriter 
-    { writer ->       
+    { writer -&gt;       
      writer &lt;&lt; reader;   
     }   
     reader.close();
@@ -2069,7 +2085,8 @@ void MoveFile(File sourceFile, File destinationFile, log){
 }
 
 MoveFile(sourceInternalFile, backupInternalFile, log);
-MoveFile(sourceUddiFile, backupUddiFile, log);</con:setupScript><con:tearDownScript>FileUtils.restoreToMasterConfiguration(context, log);
+MoveFile(sourceUddiFile, backupUddiFile, log);</con:setupScript><con:tearDownScript>import nhinc.FileUtils;
+FileUtils.restoreToMasterConfiguration(context, log);
 testCase.getTestSuite().getProject().getMockServiceByName("mockMPI_all").getMockRunner().stop();
 FileUtils.changetSpringConfig("AdapterMpiProxyConfig.xml", "default", log);
 FileUtils.changeSpringConfig("AdapterComponentMpiProxyConfig.xml", "default", log);
@@ -2084,7 +2101,7 @@ void MoveFile(File sourceFile, File destinationFile, log){
    {
     def reader = sourceFile.newReader();
     destinationFile.withWriter 
-    { writer ->       
+    { writer -&gt;       
      writer &lt;&lt; reader;   
     }   
     reader.close();
@@ -2110,19 +2127,19 @@ DeleteFile(backupInternalFile, log);
 DeleteFile(backupUddiFile, log);</con:tearDownScript><con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2011-06-07T18:25:13Z</con:value>
+          <con:value>2012-08-25T01:07:50Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2011-06-07T18:35:13Z</con:value>
+          <con:value>2012-08-25T01:17:50Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>06/07/2011 18:25:13</con:value>
+          <con:value>08/25/2012 01:07:50</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2011-07-07T00:00:00Z</con:value>
+          <con:value>2012-09-24T00:00:00Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -2145,7 +2162,7 @@ void UpdateProperty(String directory, String filename, String propertyKey, Strin
    properties.load(frPropFile);
    properties.setProperty(propertyKey, propertyValue);
    FileOutputStream fwPropFile = new FileOutputStream(file);
-   properties.store(fwPropFile, "**DO NOT CHECK IN** - written by groovy script FileUtils.groovy->UpdateProperty");
+   properties.store(fwPropFile, "**DO NOT CHECK IN** - written by groovy script FileUtils.groovy-&gt;UpdateProperty");
    properties = null;
 }
 
@@ -2155,7 +2172,7 @@ UpdateProperty(destConfigFileLocation,"gateway.properties","documentQueryQuerySe
       
       <con:testStep name="Clear Correlation Table &amp; Add Correlation" type="groovy">
         <con:settings/>
-        <con:config><script>context.withSql('PatientCorrelationDB') { sql -> 
+        <con:config><script>context.withSql('PatientCorrelationDB') { sql -&gt; 
   def table = context.findProperty('PatientCorrelationTable')
   
   sql.execute('delete from ' + table)
@@ -2170,7 +2187,7 @@ UpdateProperty(destConfigFileLocation,"gateway.properties","documentQueryQuerySe
 }</script></con:config>
       </con:testStep><con:testStep name="Clear AA Mapping Table &amp; Add Mapping" type="groovy">
         <con:settings/>
-        <con:config><script>context.withSql('AAMappingDB') { sql -> 
+        <con:config><script>context.withSql('AAMappingDB') { sql -&gt; 
   def table = context.findProperty('AAMappingTable')
   
   sql.execute('delete from ' + table)
@@ -2183,12 +2200,12 @@ UpdateProperty(destConfigFileLocation,"gateway.properties","documentQueryQuerySe
 }</script></con:config>
       </con:testStep><con:testStep name="Document Query" type="request">
         <con:settings/>
-        <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+        <con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
           <con:interface>EntityDocQueryBindingSoap</con:interface>
           <con:operation>RespondingGateway_CrossGatewayQuery</con:operation>
           <con:request name="Document Query">
             <con:settings>
-              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
+              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/&gt;</con:setting>
             </con:settings>
             <con:encoding>UTF-8</con:encoding>
             <con:endpoint>${#Project#Endpoint-DocQuery}</con:endpoint>
@@ -2461,22 +2478,23 @@ assert (documentID == msgDocID)</scriptText>
             <con:wsrmConfig version="1.2"/>
           </con:request>
         </con:config>
-      </con:testStep><con:tearDownScript>FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript><con:properties>
+      </con:testStep><con:setupScript/><con:tearDownScript>import nhinc.FileUtils;
+FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript><con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2011-06-07T18:25:13Z</con:value>
+          <con:value>2012-08-25T00:56:29Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2011-06-07T18:35:13Z</con:value>
+          <con:value>2012-08-25T01:06:29Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>06/07/2011 18:25:13</con:value>
+          <con:value>08/25/2012 00:56:29</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2011-07-07T00:00:00Z</con:value>
+          <con:value>2012-09-24T00:00:00Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -2499,7 +2517,7 @@ void UpdateProperty(String directory, String filename, String propertyKey, Strin
    properties.load(frPropFile);
    properties.setProperty(propertyKey, propertyValue);
    FileOutputStream fwPropFile = new FileOutputStream(file);
-   properties.store(fwPropFile, "**DO NOT CHECK IN** - written by groovy script FileUtils.groovy->UpdateProperty");
+   properties.store(fwPropFile, "**DO NOT CHECK IN** - written by groovy script FileUtils.groovy-&gt;UpdateProperty");
    properties = null;
 }
 
@@ -2509,7 +2527,7 @@ UpdateProperty(destConfigFileLocation,"gateway.properties","documentQueryQuerySe
       
       <con:testStep name="Clear Correlation Table &amp; Add Correlation" type="groovy">
         <con:settings/>
-        <con:config><script>context.withSql('PatientCorrelationDB') { sql -> 
+        <con:config><script>context.withSql('PatientCorrelationDB') { sql -&gt; 
   def table = context.findProperty('PatientCorrelationTable')
   
   sql.execute('delete from ' + table)
@@ -2534,7 +2552,8 @@ UpdateProperty(destConfigFileLocation,"gateway.properties","documentQueryQuerySe
 }</script></con:config>
       </con:testStep><con:testStep name="copy uddiConnectionInfo" type="groovy">
 				<con:settings/>
-				<con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
+				<con:config><script>import nhinc.FileUtils;
+def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
 def testCase = testRunner.getTestCase()
 def testSuite = testCase.getTestSuite()
 def project = testSuite.getProject()
@@ -2558,7 +2577,7 @@ FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);
 					</script></con:config>
 			</con:testStep><con:testStep name="Clear AA Mapping Table &amp; Add Mapping" type="groovy">
         <con:settings/>
-        <con:config><script>context.withSql('AAMappingDB') { sql -> 
+        <con:config><script>context.withSql('AAMappingDB') { sql -&gt; 
   def table = context.findProperty('AAMappingTable')
   
   sql.execute('delete from ' + table)
@@ -2576,7 +2595,8 @@ FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);
   sql.executeUpdate(insertSql, ["7.7", "7.7"])
   sql.executeUpdate(insertSql, ["8.8", "8.8"])
 }</script></con:config>
-      </con:testStep><con:testStep name="modify uddiConnectionInfo" type="groovy"><con:settings/><con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
+      </con:testStep><con:testStep name="modify uddiConnectionInfo" type="groovy"><con:settings/><con:config><script>import nhinc.FileUtils;
+def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
 def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
 def mockHost = context.findProperty("mockHost");
 def localHCID = context.findProperty("LocalHCID");
@@ -2592,12 +2612,12 @@ FileUtils.CreateOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocat
 FileUtils.CreateOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocation, "7.7", "QueryForDocuments", DQURL, "2.0", context, log)
 FileUtils.CreateOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocation, "8.8", "QueryForDocuments", DQURL, "2.0", context, log)</script></con:config></con:testStep><con:testStep name="Document Query fanout" type="request">
         <con:settings/>
-        <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+        <con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
           <con:interface>EntityDocQueryBindingSoap</con:interface>
           <con:operation>RespondingGateway_CrossGatewayQuery</con:operation>
           <con:request name="Document Query fanout">
             <con:settings>
-              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
+              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/&gt;</con:setting>
             </con:settings>
             <con:encoding>UTF-8</con:encoding>
             <con:endpoint>${#Project#Endpoint-DocQuery}</con:endpoint>
@@ -2859,7 +2879,8 @@ FileUtils.CreateOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocat
             <con:wsrmConfig version="1.2"/>
           </con:request>
         </con:config>
-      </con:testStep><con:setupScript>def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
+      </con:testStep><con:setupScript>import nhinc.FileUtils;
+def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
 
 File sourceInternalFile = new File(destConfigFileLocation, "internalConnectionInfo.xml");
 File backupInternalFile = new File(destConfigFileLocation, "internalConnectionInfo_BACKUP.xml");
@@ -2873,7 +2894,7 @@ void MoveFile(File sourceFile, File destinationFile, log){
    {
     def reader = sourceFile.newReader();
     destinationFile.withWriter 
-    { writer ->       
+    { writer -&gt;       
      writer &lt;&lt; reader;   
     }   
     reader.close();
@@ -2884,7 +2905,8 @@ void MoveFile(File sourceFile, File destinationFile, log){
 }
 
 MoveFile(sourceInternalFile, backupInternalFile, log);
-MoveFile(sourceUddiFile, backupUddiFile, log);</con:setupScript><con:tearDownScript>FileUtils.restoreToMasterConfiguration(context, log);
+MoveFile(sourceUddiFile, backupUddiFile, log);</con:setupScript><con:tearDownScript>import nhinc.FileUtils;
+FileUtils.restoreToMasterConfiguration(context, log);
 
 
 File sourceUddiFile = new File(destConfigFileLocation, "uddiConnectionInfo.xml");
@@ -2896,7 +2918,7 @@ void MoveFile(File sourceFile, File destinationFile, log){
    {
     def reader = sourceFile.newReader();
     destinationFile.withWriter 
-    { writer ->       
+    { writer -&gt;       
      writer &lt;&lt; reader;   
     }   
     reader.close();
@@ -2922,19 +2944,19 @@ DeleteFile(backupInternalFile, log);
 DeleteFile(backupUddiFile, log);</con:tearDownScript><con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2011-06-07T18:25:13Z</con:value>
+          <con:value>2012-08-25T00:56:31Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2011-06-07T18:35:13Z</con:value>
+          <con:value>2012-08-25T01:06:31Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>06/07/2011 18:25:13</con:value>
+          <con:value>08/25/2012 00:56:31</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2011-07-07T00:00:00Z</con:value>
+          <con:value>2012-09-24T00:00:00Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -2957,7 +2979,7 @@ void UpdateProperty(String directory, String filename, String propertyKey, Strin
    properties.load(frPropFile);
    properties.setProperty(propertyKey, propertyValue);
    FileOutputStream fwPropFile = new FileOutputStream(file);
-   properties.store(fwPropFile, "**DO NOT CHECK IN** - written by groovy script FileUtils.groovy->UpdateProperty");
+   properties.store(fwPropFile, "**DO NOT CHECK IN** - written by groovy script FileUtils.groovy-&gt;UpdateProperty");
    properties = null;
 }
 
@@ -2967,7 +2989,7 @@ UpdateProperty(destConfigFileLocation,"gateway.properties","documentQueryQuerySe
       
       <con:testStep name="Clear Correlation Table &amp; Add Correlation" type="groovy">
         <con:settings/>
-        <con:config><script>context.withSql('PatientCorrelationDB') { sql -> 
+        <con:config><script>context.withSql('PatientCorrelationDB') { sql -&gt; 
   def table = context.findProperty('PatientCorrelationTable')
   
   sql.execute('delete from ' + table)
@@ -2989,7 +3011,7 @@ UpdateProperty(destConfigFileLocation,"gateway.properties","documentQueryQuerySe
 }</script></con:config>
       </con:testStep><con:testStep name="Clear AA Mapping Table &amp; Add Mapping" type="groovy">
         <con:settings/>
-        <con:config><script>context.withSql('AAMappingDB') { sql -> 
+        <con:config><script>context.withSql('AAMappingDB') { sql -&gt; 
   def table = context.findProperty('AAMappingTable')
   
   sql.execute('delete from ' + table)
@@ -3009,7 +3031,8 @@ UpdateProperty(destConfigFileLocation,"gateway.properties","documentQueryQuerySe
 }</script></con:config>
       </con:testStep><con:testStep name="copy uddiConnectionInfo" type="groovy">
 				<con:settings/>
-				<con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
+				<con:config><script>import nhinc.FileUtils;
+def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
 def testCase = testRunner.getTestCase()
 def testSuite = testCase.getTestSuite()
 def project = testSuite.getProject()
@@ -3031,7 +3054,8 @@ FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);
 
 
 					</script></con:config>
-			</con:testStep><con:testStep name="modify uddiConnectionInfo" type="groovy"><con:settings/><con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
+			</con:testStep><con:testStep name="modify uddiConnectionInfo" type="groovy"><con:settings/><con:config><script>import nhinc.FileUtils;
+def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
 def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
 def mockHost = context.findProperty("mockHost");
 def localHCID = context.findProperty("LocalHCID");
@@ -3045,7 +3069,8 @@ FileUtils.CreateOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocat
 FileUtils.CreateOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocation, "5.5", "QueryForDocuments", DQURL, "2.0", context, log)
 FileUtils.CreateOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocation, "6.6", "QueryForDocuments", DQURL, "2.0", context, log)
 FileUtils.CreateOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocation, "7.7", "QueryForDocuments", DQURL, "2.0", context, log)
-FileUtils.CreateOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocation, "8.8", "QueryForDocuments", DQURL, "2.0", context, log)</script></con:config></con:testStep><con:testStep name="modify internalConnectionInfo" type="groovy"><con:settings/><con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
+FileUtils.CreateOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocation, "8.8", "QueryForDocuments", DQURL, "2.0", context, log)</script></con:config></con:testStep><con:testStep name="modify internalConnectionInfo" type="groovy"><con:settings/><con:config><script>import nhinc.FileUtils;
+def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
 def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
 def mockHost = context.findProperty("mockHost");
 def localHCID = context.findProperty("LocalHCID");
@@ -3055,12 +3080,12 @@ def AdapterDQURL = "http://" + mockHost + ":7782/MockDQResp";
 FileUtils.CreateOrUpdateConnection("internalConnectionInfo.xml", destConfigFileLocation, localHCID, "adapterdocquery", AdapterDQURL, "LEVEL_a0", context, log)
 </script></con:config></con:testStep><con:testStep name="Document Query fanout" type="request">
         <con:settings/>
-        <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+        <con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
           <con:interface>EntityDocQueryBindingSoap</con:interface>
           <con:operation>RespondingGateway_CrossGatewayQuery</con:operation>
           <con:request name="Document Query fanout">
             <con:settings>
-              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
+              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/&gt;</con:setting>
             </con:settings>
             <con:encoding>UTF-8</con:encoding>
             <con:endpoint>${#Project#Endpoint-DocQuery}</con:endpoint>
@@ -3316,16 +3341,16 @@ FileUtils.CreateOrUpdateConnection("internalConnectionInfo.xml", destConfigFileL
             </con:assertion>
             <con:assertion type="SOAP Fault Assertion"/>
             <con:assertion name="DocID Match" type="GroovyScriptAssertion">
-              <con:configuration>
-                <scriptText>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
+              <con:configuration><scriptText>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
 def holder = groovyUtils.getXmlHolder( messageExchange.responseContent );
 holder.namespaces["ns1"] = "urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0";
 holder.namespaces["ns3"] = "urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0";
 
 def documentID = context.findProperty('DQDocID')
-def msgDocID = holder["//ns1:AdhocQueryResponse[1]/ns3:RegistryObjectList[1]/ns3:ExtrinsicObject[1]/ns3:ExternalIdentifier[@identificationScheme='urn:uuid:2e82c1f6-a085-4c72-9da3-8640a32e42ab']/@value"];
-assert (documentID == msgDocID)</scriptText>
-              </con:configuration>
+def msgDocID = holder["//ns1:AdhocQueryResponse[1]/ns3:RegistryObjectList[1]/ns3:ExtrinsicObject/ns3:ExternalIdentifier[@identificationScheme='urn:uuid:2e82c1f6-a085-4c72-9da3-8640a32e42ab']/@value"];
+assert (msgDocID.toString().contains(documentID))
+assert (msgDocID.toString().contains("1.123401.66666"))
+assert (msgDocID.toString().contains("1.123402.11111"))</scriptText></con:configuration>
             </con:assertion>
             <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
             <con:jmsPropertyConfig/>
@@ -3333,7 +3358,8 @@ assert (documentID == msgDocID)</scriptText>
             <con:wsrmConfig version="1.2"/>
           </con:request>
         </con:config>
-      </con:testStep><con:setupScript>testCase.getTestSuite().getProject().getMockServiceByName("mockDQ_happy_path").start();
+      </con:testStep><con:setupScript>import nhinc.FileUtils;
+testCase.getTestSuite().getProject().getMockServiceByName("mockDQ_happy_path").start();
 FileUtils.changeSpringConfig("AdapterDocQueryProxyConfig.xml", "wsunsecured", log);
 
 def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
@@ -3350,7 +3376,7 @@ void MoveFile(File sourceFile, File destinationFile, log){
    {
     def reader = sourceFile.newReader();
     destinationFile.withWriter 
-    { writer ->       
+    { writer -&gt;       
      writer &lt;&lt; reader;   
     }   
     reader.close();
@@ -3361,7 +3387,8 @@ void MoveFile(File sourceFile, File destinationFile, log){
 }
 
 MoveFile(sourceInternalFile, backupInternalFile, log);
-MoveFile(sourceUddiFile, backupUddiFile, log);</con:setupScript><con:tearDownScript>FileUtils.restoreToMasterConfiguration(context, log);
+MoveFile(sourceUddiFile, backupUddiFile, log);</con:setupScript><con:tearDownScript>import nhinc.FileUtils;
+FileUtils.restoreToMasterConfiguration(context, log);
 testCase.getTestSuite().getProject().getMockServiceByName("mockDQ_happy_path").getMockRunner().stop();
 FileUtils.changeSpringConfig("AdapterDocQueryProxyConfig.xml", "default", log);
 
@@ -3375,7 +3402,7 @@ void MoveFile(File sourceFile, File destinationFile, log){
    {
     def reader = sourceFile.newReader();
     destinationFile.withWriter 
-    { writer ->       
+    { writer -&gt;       
      writer &lt;&lt; reader;   
     }   
     reader.close();
@@ -3401,19 +3428,19 @@ DeleteFile(backupInternalFile, log);
 DeleteFile(backupUddiFile, log);</con:tearDownScript><con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2011-06-07T18:25:13Z</con:value>
+          <con:value>2012-08-25T00:56:36Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2011-06-07T18:35:13Z</con:value>
+          <con:value>2012-08-25T01:06:36Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>06/07/2011 18:25:13</con:value>
+          <con:value>08/25/2012 00:56:36</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2011-07-07T00:00:00Z</con:value>
+          <con:value>2012-09-24T00:00:00Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -3436,7 +3463,7 @@ void UpdateProperty(String directory, String filename, String propertyKey, Strin
    properties.load(frPropFile);
    properties.setProperty(propertyKey, propertyValue);
    FileOutputStream fwPropFile = new FileOutputStream(file);
-   properties.store(fwPropFile, "**DO NOT CHECK IN** - written by groovy script FileUtils.groovy->UpdateProperty");
+   properties.store(fwPropFile, "**DO NOT CHECK IN** - written by groovy script FileUtils.groovy-&gt;UpdateProperty");
    properties = null;
 }
 
@@ -3446,7 +3473,7 @@ UpdateProperty(destConfigFileLocation,"gateway.properties","documentQueryQuerySe
       
       <con:testStep name="Clear Correlation Table &amp; Add Correlation" type="groovy">
         <con:settings/>
-        <con:config><script>context.withSql('PatientCorrelationDB') { sql -> 
+        <con:config><script>context.withSql('PatientCorrelationDB') { sql -&gt; 
   def table = context.findProperty('PatientCorrelationTable')
   
   sql.execute('delete from ' + table)
@@ -3468,7 +3495,7 @@ UpdateProperty(destConfigFileLocation,"gateway.properties","documentQueryQuerySe
 }</script></con:config>
       </con:testStep><con:testStep name="Clear AA Mapping Table &amp; Add Mapping" type="groovy">
         <con:settings/>
-        <con:config><script>context.withSql('AAMappingDB') { sql -> 
+        <con:config><script>context.withSql('AAMappingDB') { sql -&gt; 
   def table = context.findProperty('AAMappingTable')
   
   sql.execute('delete from ' + table)
@@ -3488,7 +3515,8 @@ UpdateProperty(destConfigFileLocation,"gateway.properties","documentQueryQuerySe
 }</script></con:config>
       </con:testStep><con:testStep name="copy uddiConnectionInfo" type="groovy">
 				<con:settings/>
-				<con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
+				<con:config><script>import nhinc.FileUtils;
+def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
 def testCase = testRunner.getTestCase()
 def testSuite = testCase.getTestSuite()
 def project = testSuite.getProject()
@@ -3510,7 +3538,8 @@ FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);
 
 
 					</script></con:config>
-			</con:testStep><con:testStep name="modify uddiConnectionInfo" type="groovy"><con:settings/><con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
+			</con:testStep><con:testStep name="modify uddiConnectionInfo" type="groovy"><con:settings/><con:config><script>import nhinc.FileUtils;
+def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
 def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
 def mockHost = context.findProperty("mockHost");
 def localHCID = context.findProperty("LocalHCID");
@@ -3524,7 +3553,8 @@ FileUtils.CreateOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocat
 FileUtils.CreateOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocation, "5.5", "QueryForDocuments", DQURL, "2.0", context, log)
 FileUtils.CreateOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocation, "6.6", "QueryForDocuments", DQURL, "2.0", context, log)
 FileUtils.CreateOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocation, "7.7", "QueryForDocuments", DQURL, "2.0", context, log)
-FileUtils.CreateOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocation, "8.8", "QueryForDocuments", DQURL, "2.0", context, log)</script></con:config></con:testStep><con:testStep name="modify internalConnectionInfo" type="groovy"><con:settings/><con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
+FileUtils.CreateOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocation, "8.8", "QueryForDocuments", DQURL, "2.0", context, log)</script></con:config></con:testStep><con:testStep name="modify internalConnectionInfo" type="groovy"><con:settings/><con:config><script>import nhinc.FileUtils;
+def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
 def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
 def mockHost = context.findProperty("mockHost");
 def localHCID = context.findProperty("LocalHCID");
@@ -3533,12 +3563,12 @@ def AdapterDQURL = "http://" + mockHost + ":7784/MockDQResp";
 
 FileUtils.CreateOrUpdateConnection("internalConnectionInfo.xml", destConfigFileLocation, localHCID, "adapterdocquery", AdapterDQURL, "LEVEL_a0", context, log)</script></con:config></con:testStep><con:testStep name="Document Query fanout" type="request">
         <con:settings/>
-        <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+        <con:config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:RequestStep">
           <con:interface>EntityDocQueryBindingSoap</con:interface>
           <con:operation>RespondingGateway_CrossGatewayQuery</con:operation>
           <con:request name="Document Query fanout">
             <con:settings>
-              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
+              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/&gt;</con:setting>
             </con:settings>
             <con:encoding>UTF-8</con:encoding>
             <con:endpoint>${#Project#Endpoint-DocQuery}</con:endpoint>
@@ -3811,7 +3841,8 @@ assert (documentID == msgDocID)</scriptText>
             <con:wsrmConfig version="1.2"/>
           </con:request>
         </con:config>
-      </con:testStep><con:setupScript>testCase.getTestSuite().getProject().getMockServiceByName("mockDQ_all").start();
+      </con:testStep><con:setupScript>import nhinc.FileUtils;
+testCase.getTestSuite().getProject().getMockServiceByName("mockDQ_all").start();
 FileUtils.changeSpringConfig("AdapterDocQueryProxyConfig.xml", "wsunsecured", log);
 
 def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
@@ -3828,7 +3859,7 @@ void MoveFile(File sourceFile, File destinationFile, log){
    {
     def reader = sourceFile.newReader();
     destinationFile.withWriter 
-    { writer ->       
+    { writer -&gt;       
      writer &lt;&lt; reader;   
     }   
     reader.close();
@@ -3839,7 +3870,8 @@ void MoveFile(File sourceFile, File destinationFile, log){
 }
 
 MoveFile(sourceInternalFile, backupInternalFile, log);
-MoveFile(sourceUddiFile, backupUddiFile, log);</con:setupScript><con:tearDownScript>FileUtils.restoreToMasterConfiguration(context, log);
+MoveFile(sourceUddiFile, backupUddiFile, log);</con:setupScript><con:tearDownScript>import nhinc.FileUtils;
+FileUtils.restoreToMasterConfiguration(context, log);
 testCase.getTestSuite().getProject().getMockServiceByName("mockDQ_all").getMockRunner().stop();
 FileUtils.changeSpringConfig("AdapterDocQueryProxyConfig.xml", "default", log);
 
@@ -3853,7 +3885,7 @@ void MoveFile(File sourceFile, File destinationFile, log){
    {
     def reader = sourceFile.newReader();
     destinationFile.withWriter 
-    { writer ->       
+    { writer -&gt;       
      writer &lt;&lt; reader;   
     }   
     reader.close();
@@ -3879,19 +3911,19 @@ DeleteFile(backupInternalFile, log);
 DeleteFile(backupUddiFile, log);</con:tearDownScript><con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2011-06-07T18:25:13Z</con:value>
+          <con:value>2012-08-25T00:56:40Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2011-06-07T18:35:13Z</con:value>
+          <con:value>2012-08-25T01:06:40Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>06/07/2011 18:25:13</con:value>
+          <con:value>08/25/2012 00:56:40</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2011-07-07T00:00:00Z</con:value>
+          <con:value>2012-09-24T00:00:00Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -4377,7 +4409,7 @@ context.root = Math.random()</con:script><con:responseContent><![CDATA[<S:Envelo
       </soap:Reason>
     </soap:Fault>
   </soap:Body>
-</soap:Envelope>]]></con:responseContent><con:wsaConfig action="urn:gov:hhs:fha:nhinc:adaptercomponentmpi/AdapterComponentMpiPortType/FindCandidatesResponse" mustUnderstand="NONE" version="200508"/></con:response><con:dispatchConfig xsi:type="con:MockOperationQueryMatchDispatch" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:query><con:name>MAA</con:name><con:query>declare namespace ns3='urn:hl7-org:v3';
+</soap:Envelope>]]></con:responseContent><con:wsaConfig action="urn:gov:hhs:fha:nhinc:adaptercomponentmpi/AdapterComponentMpiPortType/FindCandidatesResponse" mustUnderstand="NONE" version="200508"/></con:response><con:dispatchConfig xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:MockOperationQueryMatchDispatch"><con:query><con:name>MAA</con:name><con:query>declare namespace ns3='urn:hl7-org:v3';
 declare namespace S='http://www.w3.org/2003/05/soap-envelope'
 
 //S:Envelope[1]/S:Body[1]/ns3:PRPA_IN201305UV02[1]/ns3:receiver[1]/ns3:device[1]/ns3:asAgent[1]/ns3:representedOrganization[1]/ns3:id[1]/@root</con:query><con:match>2.2</con:match><con:response>MAA</con:response></con:query><con:query><con:name>Bad Response</con:name><con:query>declare namespace ns3='urn:hl7-org:v3';
@@ -5214,7 +5246,7 @@ context.root = Math.random()</con:script><con:responseContent><![CDATA[<S:Envelo
          </ns3:controlActProcess>
       </ns3:PRPA_IN201306UV02>
    </S:Body>
-</S:Envelope>]]></con:responseContent><con:wsaConfig action="urn:gov:hhs:fha:nhinc:adaptercomponentmpi/AdapterComponentMpiPortType/FindCandidatesResponse" mustUnderstand="NONE" version="200508"/></con:response><con:dispatchConfig xsi:type="con:MockOperationQueryMatchDispatch" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:query><con:name>MAA</con:name><con:query>declare namespace ns3='urn:hl7-org:v3';
+</S:Envelope>]]></con:responseContent><con:wsaConfig action="urn:gov:hhs:fha:nhinc:adaptercomponentmpi/AdapterComponentMpiPortType/FindCandidatesResponse" mustUnderstand="NONE" version="200508"/></con:response><con:dispatchConfig xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="con:MockOperationQueryMatchDispatch"><con:query><con:name>MAA</con:name><con:query>declare namespace ns3='urn:hl7-org:v3';
 declare namespace S='http://www.w3.org/2003/05/soap-envelope'
 
 //S:Envelope[1]/S:Body[1]/ns3:PRPA_IN201305UV02[1]/ns3:receiver[1]/ns3:device[1]/ns3:asAgent[1]/ns3:representedOrganization[1]/ns3:id[1]/@root</con:query><con:match>3.3</con:match><con:response>MAA</con:response></con:query></con:dispatchConfig></con:mockOperation><con:properties/></con:mockService><con:mockService bindToHostOnly="false" docroot="" host="localhost" name="mockDQ_happy_path" path="/MockDQResp" port="7782"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.mock.WsdlMockService@require-soap-action">false</con:setting></con:settings><con:mockOperation interface="AdapterDocQueryBindingSoap" name="RespondingGateway_CrossGatewayQuery" operation="RespondingGateway_CrossGatewayQuery"><con:settings/><con:dispatchStyle>SEQUENCE</con:dispatchStyle><con:defaultResponse>correct doc</con:defaultResponse><con:response encoding="UTF-8" name="correct doc"><con:settings/><con:responseContent><![CDATA[<S:Envelope xmlns:S="http://www.w3.org/2003/05/soap-envelope">
@@ -5835,12 +5867,12 @@ context.root = Math.random()</con:script><con:responseContent><![CDATA[<S:Envelo
          </controlActProcess>
       </PRPA_IN201306UV02>
    </S:Body>
-</S:Envelope>]]></con:responseContent><con:header><con:name>Content-Type</con:name><con:value>application/soap+xml; charset=utf-8</con:value></con:header><con:wsaConfig action="urn:RespondingGateway_PRPA_IN201305UV02" mustUnderstand="NONE" version="200508"/></con:response><con:dispatchConfig/></con:mockOperation><con:properties/></con:mockService><con:properties><con:property><con:name>AAMappingDB</con:name><con:value>assigningauthoritydb</con:value></con:property><con:property><con:name>AAMappingTable</con:name><con:value>aa_to_home_community_mapping</con:value></con:property><con:property><con:name>AQPatientID</con:name><con:value>D123401</con:value></con:property><con:property><con:name>AQUserID</con:name><con:value>kskagerb</con:value></con:property><con:property><con:name>AsyncMsgDB</con:name><con:value>asyncmsgs</con:value></con:property><con:property><con:name>AsyncMsgsDB</con:name><con:value>asyncmsgs</con:value></con:property><con:property><con:name>AsyncMsgTable</con:name><con:value>asyncmsgrepo</con:value></con:property><con:property><con:name>AuditRepoDB</con:name><con:value>auditrepo</con:value></con:property><con:property><con:name>AuditRepoTable</con:name><con:value>auditrepository</con:value></con:property><con:property><con:name>BirthTime</con:name><con:value>19630804</con:value></con:property><con:property><con:name>City</con:name><con:value>Melbourne</con:value></con:property><con:property><con:name>Country</con:name><con:value>US</con:value></con:property><con:property><con:name>DateOfSignature</con:name><con:value>20080520</con:value></con:property><con:property><con:name>DBHost</con:name><con:value>localhost</con:value></con:property><con:property><con:name>DBPass</con:name><con:value>nhincpass</con:value></con:property><con:property><con:name>DBPort</con:name><con:value>3306</con:value></con:property><con:property><con:name>DBUser</con:name><con:value>nhincuser</con:value></con:property><con:property><con:name>DeferredDocRetrieveReqMessageID</con:name><con:value>dcd29642-5bc0-4e6f-84be-de0870b075ec</con:value></con:property><con:property><con:name>DeferredDocRetrieveReqMessageIDLocal</con:name><con:value>b508147b-482f-4bc3-9de0-42ee85f1ccac</con:value></con:property><con:property><con:name>DeferredDocRetrieveReqMessageIDRemote</con:name><con:value>dcd29642-5bc0-4e6f-84be-de0870b075ec</con:value></con:property><con:property><con:name>DeferredPatientDiscoveryReqMessageID</con:name><con:value>uuid:6666666666.66666.666.66</con:value></con:property><con:property><con:name>DeferredQueryReqMessageID</con:name><con:value>091cda8e-95b0-4ac8-a8bb-11224affede4</con:value></con:property><con:property><con:name>DeferredQueryReqMessageIDLocal</con:name><con:value>013c7195-12e1-454b-ac0a-c7705e1f3a14</con:value></con:property><con:property><con:name>DOB</con:name><con:value>19800516</con:value></con:property><con:property><con:name>DQDocID</con:name><con:value>1.123401.44444</con:value></con:property><con:property><con:name>DQPatientID</con:name><con:value>D123401</con:value></con:property><con:property><con:name>DRDocID</con:name><con:value>1.123407.777777</con:value></con:property><con:property><con:name>DRRepoID</con:name><con:value>1</con:value></con:property><con:property><con:name>DynamicDQDocID</con:name><con:value>103.8.9284320.020.3590.75^1266324032288</con:value></con:property><con:property><con:name>DynamicDRDocID</con:name><con:value/></con:property><con:property><con:name>Endpoint-AuditLogQuery</con:name><con:value>http://localhost:8080/CONNECTAdapter/EntityAuditQuery</con:value></con:property><con:property><con:name>Endpoint-DeferredDQRequest</con:name><con:value>http://localhost:8080/CONNECTGateway/EntityService/EntityDocQueryDeferredRequestUnsecured</con:value></con:property><con:property><con:name>Endpoint-DeferredDQResponse</con:name><con:value>http://localhost:8080/CONNECTGateway/EntityService/EntityDocQueryDeferredResponseUnsecured</con:value></con:property><con:property><con:name>Endpoint-DocQuery</con:name><con:value>http://localhost:8080/Gateway/DocumentQuery/2_0/EntityService/EntityDocQueryUnsecured</con:value></con:property><con:property><con:name>Endpoint-DocRetrieve</con:name><con:value>http://localhost:8080/CONNECTGateway/EntityService/EntityDocRetrieve</con:value></con:property><con:property><con:name>Endpoint-DocRetrieveDeferredRequest</con:name><con:value>http://localhost:8080/CONNECTGateway/EntityService/EntityDocRetrieveDeferredRequest</con:value></con:property><con:property><con:name>Endpoint-DocRetrieveDeferredResponse</con:name><con:value>http://localhost:8080/CONNECTGateway/EntityService/EntityDocRetrieveDeferredResponse</con:value></con:property><con:property><con:name>Endpoint-EntityAdminDist</con:name><con:value>http://localhost:8080/CONNECTGateway/AdministrativeDistribution_Service</con:value></con:property><con:property><con:name>Endpoint-EntityXDRRequest</con:name><con:value>http://localhost:8080/CONNECTGateway/EntityService/EntityDocSubmissionDeferredRequestUnsecured</con:value></con:property><con:property><con:name>Endpoint-Notify</con:name><con:value>http://localhost:8080/CONNECTAdapter/EntityNotificationConsumer</con:value></con:property><con:property><con:name>Endpoint-PatientDiscovery</con:name><con:value>http://localhost:8080/Gateway/PatientDiscovery/1_0/EntityPatientDiscovery</con:value></con:property><con:property><con:name>Endpoint-PatientDiscoveryAsyncReq</con:name><con:value>http://localhost:8080/CONNECTGateway/EntityService/EntityPatientDiscoveryDeferredRequestUnsecured</con:value></con:property><con:property><con:name>Endpoint-PatientDiscoveryAsyncResp</con:name><con:value>http://localhost:8080/CONNECTGateway/EntityService/EntityPatientDiscoveryDeferredResponseUnsecured</con:value></con:property><con:property><con:name>Endpoint-Reidentification</con:name><con:value>http://localhost:8080/CONNECTAdapter/EntitySubjectDiscovery</con:value></con:property><con:property><con:name>Endpoint-Subscribe</con:name><con:value>http://localhost:8080/CONNECTAdapter/EntityNotificationProducer</con:value></con:property><con:property><con:name>Endpoint-Unsubscribe</con:name><con:value>http://localhost:8080/CONNECTAdapter/EntitySubscriptionManager</con:value></con:property><con:property><con:name>Endpoint-XDREntity</con:name><con:value>http://localhost:8080/CONNECTGateway/EntityService/EntityDocSubmissionUnsecured</con:value></con:property><con:property><con:name>ExpirationDate</con:name><con:value>20100520</con:value></con:property><con:property><con:name>FamilyName</con:name><con:value>Younger</con:value></con:property><con:property><con:name>Gender</con:name><con:value>M</con:value></con:property><con:property><con:name>GivenName</con:name><con:value>Gallow</con:value></con:property><con:property><con:name>LocalAA</con:name><con:value>1.1</con:value></con:property><con:property><con:name>LocalConfigDir</con:name><con:value>C:/SelfTest/EndToEndSelfTest</con:value></con:property><con:property><con:name>LocalHCDescription</con:name><con:value>InternalTest1</con:value></con:property><con:property><con:name>LocalHCID</con:name><con:value>1.1</con:value></con:property><con:property><con:name>LocalPatientID</con:name><con:value>D123401</con:value></con:property><con:property><con:name>mockHost</con:name><con:value>localhost</con:value></con:property><con:property><con:name>MPIDir</con:name><con:value>C:/Sun/AppServer/domains/domain1/config</con:value></con:property><con:property><con:name>NHINGatewayConfigDir</con:name><con:value>C:/Sun/AppServer/domains/domain1/config/nhin</con:value></con:property><con:property><con:name>NHINGatewayHost</con:name><con:value>localhost</con:value></con:property><con:property><con:name>NotificationEndpoint</con:name><con:value>https://localhost:8181/CONNECTNhinServicesWeb/NhinService/NotificationConsumerService/HiemNotify</con:value></con:property><con:property><con:name>NotifySubscriptionID</con:name><con:value>-f7c1a5d:1204e50e42e:-79eb</con:value></con:property><con:property><con:name>NotifySubscriptionManagerEndpointAddress</con:name><con:value>https://localhost:8181/CONNECTNhinServicesWeb/NhinService/SubscriptionManagerService/HiemUnsubscribe</con:value></con:property><con:property><con:name>PatientCorrelationDB</con:name><con:value>patientcorrelationdb</con:value></con:property><con:property><con:name>PatientCorrelationTable</con:name><con:value>correlatedidentifiers</con:value></con:property><con:property><con:name>PseudonymAA</con:name><con:value>ABC</con:value></con:property><con:property><con:name>PseudonymPatientID</con:name><con:value>PSEUDO001</con:value></con:property><con:property><con:name>PurposeOfDisclosure</con:name><con:value>Mental</con:value></con:property><con:property><con:name>RealAA</con:name><con:value>1.1.1</con:value></con:property><con:property><con:name>RealPatientID</con:name><con:value>D1234010050</con:value></con:property><con:property><con:name>RemoteAA</con:name><con:value>2.2</con:value></con:property><con:property><con:name>RemoteHCDescription</con:name><con:value>Business Entity</con:value></con:property><con:property><con:name>RemoteHCID</con:name><con:value>2.2</con:value></con:property><con:property><con:name>RemotePatientID</con:name><con:value>D123401</con:value></con:property><con:property><con:name>SSN</con:name><con:value>123456789</con:value></con:property><con:property><con:name>State</con:name><con:value>FL</con:value></con:property><con:property><con:name>StreetAddress</con:name><con:value>123 Johnson Rd</con:value></con:property><con:property><con:name>SubjectID</con:name><con:value>D123401</con:value></con:property><con:property><con:name>SubscribePatientID</con:name><con:value>D123401</con:value></con:property><con:property><con:name>SubscriptionDB</con:name><con:value>subscriptionrepository</con:value></con:property><con:property><con:name>SubscriptionEndpoint</con:name><con:value>https://localhost:8181/CONNECTNhinServicesWeb/NhinService/NotificationProducerService/HiemSubscription</con:value></con:property><con:property><con:name>SubscriptionManagerEndpointAddress</con:name><con:value>https://localhost:8181/CONNECTNhinServicesWeb/NhinService/SubscriptionManagerService/HiemUnsubscribe</con:value></con:property><con:property><con:name>SubscriptionTable</con:name><con:value>subscription</con:value></con:property><con:property><con:name>UniquePatientId</con:name><con:value>1111^^^&amp;amp;1.1&amp;amp;ISO</con:value></con:property><con:property><con:name>UnSubscriptionID</con:name><con:value>3e74139f-5271-4db1-98c0-88748fa3e4e3</con:value></con:property><con:property><con:name>UnsubSubscriptionID</con:name><con:value/></con:property><con:property><con:name>ZipCode</con:name><con:value>12345</con:value></con:property></con:properties><con:afterLoadScript>def propertiesFilename = project.path[0..(project.path.size()-4)] + 'properties'
+</S:Envelope>]]></con:responseContent><con:header><con:name>Content-Type</con:name><con:value>application/soap+xml; charset=utf-8</con:value></con:header><con:wsaConfig action="urn:RespondingGateway_PRPA_IN201305UV02" mustUnderstand="NONE" version="200508"/></con:response><con:dispatchConfig/></con:mockOperation><con:properties/></con:mockService><con:properties><con:property><con:name>AAMappingDB</con:name><con:value>assigningauthoritydb</con:value></con:property><con:property><con:name>AAMappingTable</con:name><con:value>aa_to_home_community_mapping</con:value></con:property><con:property><con:name>AQPatientID</con:name><con:value>D123401</con:value></con:property><con:property><con:name>AQUserID</con:name><con:value>kskagerb</con:value></con:property><con:property><con:name>AsyncMsgDB</con:name><con:value>asyncmsgs</con:value></con:property><con:property><con:name>AsyncMsgsDB</con:name><con:value>asyncmsgs</con:value></con:property><con:property><con:name>AsyncMsgTable</con:name><con:value>asyncmsgrepo</con:value></con:property><con:property><con:name>AuditRepoDB</con:name><con:value>auditrepo</con:value></con:property><con:property><con:name>AuditRepoTable</con:name><con:value>auditrepository</con:value></con:property><con:property><con:name>BirthTime</con:name><con:value>19630804</con:value></con:property><con:property><con:name>City</con:name><con:value>Melbourne</con:value></con:property><con:property><con:name>Country</con:name><con:value>US</con:value></con:property><con:property><con:name>DateOfSignature</con:name><con:value>20080520</con:value></con:property><con:property><con:name>DBHost</con:name><con:value>localhost</con:value></con:property><con:property><con:name>DBPass</con:name><con:value>nhincpass</con:value></con:property><con:property><con:name>DBPort</con:name><con:value>3306</con:value></con:property><con:property><con:name>DBUser</con:name><con:value>nhincuser</con:value></con:property><con:property><con:name>DeferredDocRetrieveReqMessageID</con:name><con:value>dcd29642-5bc0-4e6f-84be-de0870b075ec</con:value></con:property><con:property><con:name>DeferredDocRetrieveReqMessageIDLocal</con:name><con:value>b508147b-482f-4bc3-9de0-42ee85f1ccac</con:value></con:property><con:property><con:name>DeferredDocRetrieveReqMessageIDRemote</con:name><con:value>dcd29642-5bc0-4e6f-84be-de0870b075ec</con:value></con:property><con:property><con:name>DeferredPatientDiscoveryReqMessageID</con:name><con:value>uuid:6666666666.66666.666.66</con:value></con:property><con:property><con:name>DeferredQueryReqMessageID</con:name><con:value>091cda8e-95b0-4ac8-a8bb-11224affede4</con:value></con:property><con:property><con:name>DeferredQueryReqMessageIDLocal</con:name><con:value>013c7195-12e1-454b-ac0a-c7705e1f3a14</con:value></con:property><con:property><con:name>DOB</con:name><con:value>19800516</con:value></con:property><con:property><con:name>DQDocID</con:name><con:value>1.123401.55555</con:value></con:property><con:property><con:name>DQPatientID</con:name><con:value>D123401</con:value></con:property><con:property><con:name>DRDocID</con:name><con:value>1.123407.777777</con:value></con:property><con:property><con:name>DRRepoID</con:name><con:value>1</con:value></con:property><con:property><con:name>DynamicDQDocID</con:name><con:value>103.8.9284320.020.3590.75^1266324032288</con:value></con:property><con:property><con:name>DynamicDRDocID</con:name><con:value/></con:property><con:property><con:name>Endpoint-AuditLogQuery</con:name><con:value>http://localhost:8080/CONNECTAdapter/EntityAuditQuery</con:value></con:property><con:property><con:name>Endpoint-DeferredDQRequest</con:name><con:value>http://localhost:8080/CONNECTGateway/EntityService/EntityDocQueryDeferredRequestUnsecured</con:value></con:property><con:property><con:name>Endpoint-DeferredDQResponse</con:name><con:value>http://localhost:8080/CONNECTGateway/EntityService/EntityDocQueryDeferredResponseUnsecured</con:value></con:property><con:property><con:name>Endpoint-DocQuery</con:name><con:value>http://localhost:8080/Gateway/DocumentQuery/2_0/EntityService/EntityDocQueryUnsecured</con:value></con:property><con:property><con:name>Endpoint-DocRetrieve</con:name><con:value>http://localhost:8080/CONNECTGateway/EntityService/EntityDocRetrieve</con:value></con:property><con:property><con:name>Endpoint-DocRetrieveDeferredRequest</con:name><con:value>http://localhost:8080/CONNECTGateway/EntityService/EntityDocRetrieveDeferredRequest</con:value></con:property><con:property><con:name>Endpoint-DocRetrieveDeferredResponse</con:name><con:value>http://localhost:8080/CONNECTGateway/EntityService/EntityDocRetrieveDeferredResponse</con:value></con:property><con:property><con:name>Endpoint-EntityAdminDist</con:name><con:value>http://localhost:8080/CONNECTGateway/AdministrativeDistribution_Service</con:value></con:property><con:property><con:name>Endpoint-EntityXDRRequest</con:name><con:value>http://localhost:8080/CONNECTGateway/EntityService/EntityDocSubmissionDeferredRequestUnsecured</con:value></con:property><con:property><con:name>Endpoint-Notify</con:name><con:value>http://localhost:8080/CONNECTAdapter/EntityNotificationConsumer</con:value></con:property><con:property><con:name>Endpoint-PatientDiscovery</con:name><con:value>http://localhost:8080/Gateway/PatientDiscovery/1_0/EntityPatientDiscovery</con:value></con:property><con:property><con:name>Endpoint-PatientDiscoveryAsyncReq</con:name><con:value>http://localhost:8080/CONNECTGateway/EntityService/EntityPatientDiscoveryDeferredRequestUnsecured</con:value></con:property><con:property><con:name>Endpoint-PatientDiscoveryAsyncResp</con:name><con:value>http://localhost:8080/CONNECTGateway/EntityService/EntityPatientDiscoveryDeferredResponseUnsecured</con:value></con:property><con:property><con:name>Endpoint-Reidentification</con:name><con:value>http://localhost:8080/CONNECTAdapter/EntitySubjectDiscovery</con:value></con:property><con:property><con:name>Endpoint-Subscribe</con:name><con:value>http://localhost:8080/CONNECTAdapter/EntityNotificationProducer</con:value></con:property><con:property><con:name>Endpoint-Unsubscribe</con:name><con:value>http://localhost:8080/CONNECTAdapter/EntitySubscriptionManager</con:value></con:property><con:property><con:name>Endpoint-XDREntity</con:name><con:value>http://localhost:8080/CONNECTGateway/EntityService/EntityDocSubmissionUnsecured</con:value></con:property><con:property><con:name>ExpirationDate</con:name><con:value>20100520</con:value></con:property><con:property><con:name>FamilyName</con:name><con:value>Younger</con:value></con:property><con:property><con:name>Gender</con:name><con:value>M</con:value></con:property><con:property><con:name>GivenName</con:name><con:value>Gallow</con:value></con:property><con:property><con:name>LocalAA</con:name><con:value>1.1</con:value></con:property><con:property><con:name>LocalConfigDir</con:name><con:value>C:/SelfTest/EndToEndSelfTest</con:value></con:property><con:property><con:name>LocalHCDescription</con:name><con:value>InternalTest1</con:value></con:property><con:property><con:name>LocalHCID</con:name><con:value>1.1</con:value></con:property><con:property><con:name>LocalPatientID</con:name><con:value>D123401</con:value></con:property><con:property><con:name>mockHost</con:name><con:value>localhost</con:value></con:property><con:property><con:name>MPIDir</con:name><con:value>C:/glassfish-2.1.1/domains/domain1/config</con:value></con:property><con:property><con:name>NHINGatewayConfigDir</con:name><con:value>C:/glassfish-2.1.1/domains/domain1/config/nhin</con:value></con:property><con:property><con:name>NHINGatewayHost</con:name><con:value>localhost</con:value></con:property><con:property><con:name>NotificationEndpoint</con:name><con:value>https://localhost:8181/CONNECTNhinServicesWeb/NhinService/NotificationConsumerService/HiemNotify</con:value></con:property><con:property><con:name>NotifySubscriptionID</con:name><con:value>-f7c1a5d:1204e50e42e:-79eb</con:value></con:property><con:property><con:name>NotifySubscriptionManagerEndpointAddress</con:name><con:value>https://localhost:8181/CONNECTNhinServicesWeb/NhinService/SubscriptionManagerService/HiemUnsubscribe</con:value></con:property><con:property><con:name>PatientCorrelationDB</con:name><con:value>patientcorrelationdb</con:value></con:property><con:property><con:name>PatientCorrelationTable</con:name><con:value>correlatedidentifiers</con:value></con:property><con:property><con:name>PseudonymAA</con:name><con:value>ABC</con:value></con:property><con:property><con:name>PseudonymPatientID</con:name><con:value>PSEUDO001</con:value></con:property><con:property><con:name>PurposeOfDisclosure</con:name><con:value>Mental</con:value></con:property><con:property><con:name>RealAA</con:name><con:value>1.1.1</con:value></con:property><con:property><con:name>RealPatientID</con:name><con:value>D1234010050</con:value></con:property><con:property><con:name>RemoteAA</con:name><con:value>2.2</con:value></con:property><con:property><con:name>RemoteHCDescription</con:name><con:value>Business Entity</con:value></con:property><con:property><con:name>RemoteHCID</con:name><con:value>2.2</con:value></con:property><con:property><con:name>RemotePatientID</con:name><con:value>D123401</con:value></con:property><con:property><con:name>SSN</con:name><con:value>123456789</con:value></con:property><con:property><con:name>State</con:name><con:value>FL</con:value></con:property><con:property><con:name>StreetAddress</con:name><con:value>123 Johnson Rd</con:value></con:property><con:property><con:name>SubjectID</con:name><con:value>D123401</con:value></con:property><con:property><con:name>SubscribePatientID</con:name><con:value>D123401</con:value></con:property><con:property><con:name>SubscriptionDB</con:name><con:value>subscriptionrepository</con:value></con:property><con:property><con:name>SubscriptionEndpoint</con:name><con:value>https://localhost:8181/CONNECTNhinServicesWeb/NhinService/NotificationProducerService/HiemSubscription</con:value></con:property><con:property><con:name>SubscriptionManagerEndpointAddress</con:name><con:value>https://localhost:8181/CONNECTNhinServicesWeb/NhinService/SubscriptionManagerService/HiemUnsubscribe</con:value></con:property><con:property><con:name>SubscriptionTable</con:name><con:value>subscription</con:value></con:property><con:property><con:name>UniquePatientId</con:name><con:value>1111^^^&amp;amp;1.1&amp;amp;ISO</con:value></con:property><con:property><con:name>UnSubscriptionID</con:name><con:value>3e74139f-5271-4db1-98c0-88748fa3e4e3</con:value></con:property><con:property><con:name>UnsubSubscriptionID</con:name><con:value/></con:property><con:property><con:name>ZipCode</con:name><con:value>12345</con:value></con:property></con:properties><con:afterLoadScript>def propertiesFilename = project.path[0..(project.path.size()-4)] + 'properties'
 def propertiesFile = new File(propertiesFilename)
 if (propertiesFile.exists()) {
 	def props = new Properties()
 	props.load(new FileReader(propertiesFile))
-	props.each { key, value ->
+	props.each { key, value -&gt;
 	    project.setPropertyValue(key, value)
 	}
 }
@@ -5848,11 +5880,11 @@ if (propertiesFile.exists()) {
 
 TimeZone.setDefault(TimeZone.getTimeZone("UTC"))
 def testRunListener = [
-  afterRun: { testRunner, runContext -> },
-  afterStep: { testRunner, runContext, result -> },
-  beforeStep: { testRunner, runContext -> },
-  beforeStep: { testRunner, runContext, testStep -> },
-  beforeRun: { testRunner, runContext -> 
+  afterRun: { testRunner, runContext -&gt; },
+  afterStep: { testRunner, runContext, result -&gt; },
+  beforeStep: { testRunner, runContext -&gt; },
+  beforeStep: { testRunner, runContext, testStep -&gt; },
+  beforeRun: { testRunner, runContext -&gt; 
     use (org.codehaus.groovy.runtime.TimeCategory) {
       def startDate = 5.minutes.ago
       def endDate = 5.minutes.from.now
@@ -5873,14 +5905,14 @@ project.testSuiteList*.testCaseList.flatten()*.addTestRunListener(testRunListene
 
 
 
-com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext.metaClass.findProperty = { propertyName ->
+com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext.metaClass.findProperty = { propertyName -&gt;
     return delegate.getProperty(propertyName) ?:
                 delegate.testCase.getPropertyValue(propertyName) ?:
                 delegate.testCase.testSuite.getPropertyValue(propertyName) ?:
                 delegate.testCase.testSuite.project.getPropertyValue(propertyName)
 }
 
-com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext.metaClass.withSql = { dbOrPropertyName, block ->
+com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext.metaClass.withSql = { dbOrPropertyName, block -&gt;
   def dbName = delegate.findProperty(dbOrPropertyName) ?: dbOrPropertyName
   def host = delegate.findProperty('DBHost')
   def port = delegate.findProperty('DBPort')
@@ -5895,4 +5927,4 @@ com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext.metaClass.withSql = { d
     sql.close()
   }
 }
-	</con:afterLoadScript><con:wssContainer><con:crypto><con:source>C:/Sun/AppServer/domains/domain1/config/cacerts.jks</con:source><con:password>changeit</con:password></con:crypto><con:crypto><con:source>C:/Sun/AppServer/domains/domain1/config/internal.jks</con:source><con:password>changeit</con:password></con:crypto></con:wssContainer><con:sensitiveInformation/></con:soapui-project>
+	</con:afterLoadScript><con:wssContainer><con:crypto><con:source>C:/glassfish-2.1.1/domains/domain1/config/cacerts.jks</con:source><con:password>changeit</con:password></con:crypto><con:crypto><con:source>C:/glassfish-2.1.1/domains/domain1/config/gateway.jks</con:source><con:password>changeit</con:password></con:crypto></con:wssContainer><con:sensitiveInformation/></con:soapui-project>

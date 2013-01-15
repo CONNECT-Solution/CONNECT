@@ -15,19 +15,14 @@ import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunityType;
 import gov.hhs.fha.nhinc.common.nhinccommon.QualifiedSubjectIdentifierType;
 import gov.hhs.fha.nhinc.gateway.aggregator.document.DocumentConstants;
 import gov.hhs.fha.nhinc.gateway.executorservice.NhinCallableRequest;
-import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
-import gov.hhs.fha.nhinc.nhinclib.NhincConstants.GATEWAY_API_LEVEL;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants.NHIN_SERVICE_NAMES;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayCrossGatewayQuerySecuredRequestType;
-import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
-import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException;
 import gov.hhs.fha.nhinc.connectmgr.UrlInfo;
 import gov.hhs.fha.nhinc.docquery.DocQueryAuditLog;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.hl7.v3.PRPAIN201306UV02;
 import org.junit.Test;
 
 import org.jmock.Expectations;
@@ -43,8 +38,6 @@ import oasis.names.tc.ebxml_regrep.xsd.rim._3.AdhocQueryType;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.RegistryObjectListType;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.SlotType1;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.ValueListType;
-
-import org.hl7.v3.*;
 
 /**
  * @author achidamb
@@ -136,13 +129,15 @@ public class EntityDocQueryOrchImplTest {
             protected boolean getApiLevel(String localHomeCommunityId, NHIN_SERVICE_NAMES documentQuery) {
                 return true;
             }
-
+            
         };
         try {
 
             context.checking(new Expectations() {
                 {
+                    allowing(mockLog).isDebugEnabled();
                     allowing(mockLog).debug(with(any(String.class)));
+                  
                 }
             });
             response = entitydocqueryimpl.respondingGatewayCrossGatewayQuery(adhocQueryRequest, assertion,
@@ -266,6 +261,7 @@ public class EntityDocQueryOrchImplTest {
 
             context.checking(new Expectations() {
                 {
+                    allowing(mockLog).isDebugEnabled();
                     allowing(mockLog).debug(with(any(String.class)));
                 }
             });

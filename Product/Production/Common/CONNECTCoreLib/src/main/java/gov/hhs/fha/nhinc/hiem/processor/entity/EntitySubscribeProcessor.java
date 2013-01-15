@@ -26,12 +26,17 @@
  */
 package gov.hhs.fha.nhinc.hiem.processor.entity;
 
+import gov.hhs.fha.nhinc.auditrepository.nhinc.proxy.AuditRepositoryProxy;
+import gov.hhs.fha.nhinc.auditrepository.nhinc.proxy.AuditRepositoryProxyObjectFactory;
+import gov.hhs.fha.nhinc.auditrepository.AuditRepositoryLogger;
+import gov.hhs.fha.nhinc.common.auditlog.LogEventRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
 import gov.hhs.fha.nhinc.common.nhinccommon.QualifiedSubjectIdentifierType;
 import org.oasis_open.docs.wsn.b_2.Subscribe;
 import org.oasis_open.docs.wsn.bw_2.InvalidTopicExpressionFault;
 import org.oasis_open.docs.wsn.bw_2.SubscribeCreationFailedFault;
+import gov.hhs.fha.nhinc.common.nhinccommon.AcknowledgementType;
 import org.oasis_open.docs.wsn.bw_2.TopicNotSupportedFault;
 import org.w3c.dom.Element;
 import org.oasis_open.docs.wsn.b_2.SubscribeResponse;
@@ -42,6 +47,7 @@ import gov.hhs.fha.nhinc.hiem.processor.entity.handler.EntitySubscribeHandler;
 import gov.hhs.fha.nhinc.hiem.processor.entity.handler.EntitySubscribeHandlerFactory;
 import gov.hhs.fha.nhinc.hiem.processor.common.PatientIdExtractor;
 import gov.hhs.fha.nhinc.hiem.processor.faults.SoapFaultFactory;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.subscription.repository.roottopicextractor.RootTopicExtractor;
 import gov.hhs.fha.nhinc.xmlCommon.XmlUtility;
 import javax.xml.xpath.XPathExpressionException;
@@ -60,6 +66,9 @@ public class EntitySubscribeProcessor {
             NhinTargetCommunitiesType targetCommunitites) throws TopicNotSupportedFault, InvalidTopicExpressionFault,
             SubscribeCreationFailedFault, ResourceUnknownFault {
         SubscribeResponse response = null;
+        
+        auditInputMessage(subscribe, assertion,
+            NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_ENTITY_INTERFACE);
 
         TopicConfigurationEntry topicConfig;
         try {
@@ -83,6 +92,9 @@ public class EntitySubscribeProcessor {
         response = subscribeHandler.handleSubscribe(topicConfig, subscribe, subscribeElement, assertion,
                 targetCommunitites);
 
+        auditResponseMessage(response, assertion,
+                NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION,NhincConstants.AUDIT_LOG_ENTITY_INTERFACE);
+        
         return response;
     }
 
@@ -109,5 +121,66 @@ public class EntitySubscribeProcessor {
         }
 
         return topicConfig;
+    }
+
+    /**
+     * Create generic audit log for Input requests.
+     * @param subscribe The subscribe message to be audited
+     * @param assertion The assertion to be audited
+     * @param logDirection The direction of the log being audited (Inbound or Outbound)
+     * @param logInterface The interface of the log being audited (NHIN or Adapter)
+     */
+    private void auditInputMessage(Subscribe subscribe, AssertionType assertion,
+            String logDirection, String logInterface ) {
+        log.debug("In EntitySubscribeProcessor.auditInputMessage");
+        AcknowledgementType ack = null;
+        try {
+            AuditRepositoryLogger auditLogger = new AuditRepositoryLogger();
+
+            gov.hhs.fha.nhinc.common.nhinccommoninternalorch.SubscribeRequestType message = new gov.hhs.fha.nhinc.common.nhinccommoninternalorch.SubscribeRequestType();
+            message.setAssertion(assertion);
+            message.setSubscribe(subscribe);
+
+            LogEventRequestType auditLogMsg = auditLogger.logNhinSubscribeRequest(message,
+                    logDirection, logInterface);
+
+            if (auditLogMsg != null) {
+                AuditRepositoryProxyObjectFactory auditRepoFactory = new AuditRepositoryProxyObjectFactory();
+                AuditRepositoryProxy proxy = auditRepoFactory.getAuditRepositoryProxy();
+                ack = proxy.auditLog(auditLogMsg, assertion);
+            }
+        } catch (Throwable t) {
+            log.error("Error logging subscribe message: " + t.getMessage(), t);
+        }
+    }
+
+    /**
+     * Create generic audit log for response messages.
+     * @param response the response to be audited
+     * @param assertion the assertion to be audited
+     * @param logDirection the direction of the log to be audited (Inbound or Outbound)
+     * @param logInterface the interface of the log being audited (NHIN or Adapter)
+     */
+    private void auditResponseMessage(SubscribeResponse response, AssertionType assertion, String logDirection,
+            String logInterface ) {
+        log.debug("In EntitySubscribeProcessor.auditResponseMessage");
+        try {
+            AuditRepositoryLogger auditLogger = new AuditRepositoryLogger();
+
+            gov.hhs.fha.nhinc.common.hiemauditlog.SubscribeResponseMessageType message = new gov.hhs.fha.nhinc.common.hiemauditlog.SubscribeResponseMessageType();
+            message.setAssertion(assertion);
+            message.setSubscribeResponse(response);
+
+            LogEventRequestType auditLogMsg = auditLogger.logSubscribeResponse(message,
+                    logDirection, logInterface);
+
+            if (auditLogMsg != null) {
+                AuditRepositoryProxyObjectFactory auditRepoFactory = new AuditRepositoryProxyObjectFactory();
+                AuditRepositoryProxy proxy = auditRepoFactory.getAuditRepositoryProxy();
+                proxy.auditLog(auditLogMsg, assertion);
+            }
+        } catch (Throwable t) {
+            log.error("Error logging subscribe response message: " + t.getMessage(), t);
+        }
     }
 }

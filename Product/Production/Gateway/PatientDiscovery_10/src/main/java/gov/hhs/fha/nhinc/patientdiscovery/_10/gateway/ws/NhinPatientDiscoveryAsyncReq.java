@@ -27,7 +27,6 @@
 package gov.hhs.fha.nhinc.patientdiscovery._10.gateway.ws;
 
 import javax.annotation.Resource;
-import javax.jws.HandlerChain;
 import javax.jws.WebService;
 import javax.xml.ws.BindingType;
 import javax.xml.ws.WebServiceContext;
@@ -40,7 +39,6 @@ import javax.xml.ws.soap.Addressing;
 @WebService(serviceName = "RespondingGatewayDeferredRequest_Service", portName = "RespondingGatewayDeferredRequest_Port", endpointInterface = "ihe.iti.xcpd._2009.RespondingGatewayDeferredRequestPortType", targetNamespace = "urn:ihe:iti:xcpd:2009", wsdlLocation = "WEB-INF/wsdl/NhinPatientDiscoveryAsyncReq/NhinPatientDiscoveryDeferredRequest.wsdl")
 @BindingType(value = "http://www.w3.org/2003/05/soap/bindings/HTTP/")
 @Addressing(enabled = true)
-@HandlerChain(file="../../../../../../../../handler-chain.xml")
 public class NhinPatientDiscoveryAsyncReq extends PatientDiscoveryBase {
     @Resource
     private WebServiceContext context;

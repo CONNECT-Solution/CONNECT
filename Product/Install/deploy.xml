@@ -24,24 +24,6 @@
 
   <import file="settings.xml" />
 
-  <taskdef resource="com/sun/tools/appserver/antlib.xml">
-    <classpath>
-      <pathelement location="${glassfish.home}/lib/sun-appserv-ant.jar"/>
-      <pathelement location="${glassfish.home}/jbi/lib/jbi-ant-tasks.jar"/>
-      <pathelement location="${glassfish.home}/javadb/lib/derby.jar"/>
-
-      <pathelement location="${glassfish.home}/jbi/lib/jbi-admin-cli.jar"/>
-      <pathelement location="${glassfish.home}/jbi/lib/jbi-admin-common.jar"/>
-      <pathelement location="${glassfish.home}/lib/appserv-rt.jar"/>
-      <pathelement location="${glassfish.home}/lib/appserv-ext.jar"/>
-      <pathelement location="${glassfish.home}/lib/javaee.jar"/>
-      <pathelement location="${glassfish.home}/lib/appserv-se.jar"/>
-      <pathelement location="${glassfish.home}/lib/admin-cli.jar"/>
-      <pathelement location="${glassfish.home}/lib/appserv-admin.jar"/>
-      <pathelement location="${glassfish.home}/lib/install/applications/jmsra/imqjmsra.jar"/>
-    </classpath>
-  </taskdef>
-
   <target name="-deploy.setup.init" description="Set up the OS version">
     <tstamp>
       <format property="start.time" pattern="MM/dd/yyyy hh:mm aa"/>

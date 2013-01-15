@@ -41,37 +41,7 @@ public class UddiSpecVersionRegistryTest {
 
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception {
-	}
-
-	@Test
-	public void testGetSupportedSpecs_g0() {
-		GATEWAY_API_LEVEL api = GATEWAY_API_LEVEL.LEVEL_g0;
-		ArrayList<UDDI_SPEC_VERSION> list = UddiSpecVersionRegistry.getInstance().getSupportedSpecs(api, NHIN_SERVICE_NAMES.ADMINISTRATIVE_DISTRIBUTION);
-		assertTrue(list.contains(UDDI_SPEC_VERSION.SPEC_1_0));
-		list = UddiSpecVersionRegistry.getInstance().getSupportedSpecs(api, NHIN_SERVICE_NAMES.DOCUMENT_QUERY);
-		assertTrue(list.contains(UDDI_SPEC_VERSION.SPEC_2_0));
-		assertTrue(list.contains(UDDI_SPEC_VERSION.SPEC_3_0));
-		list = UddiSpecVersionRegistry.getInstance().getSupportedSpecs(api, NHIN_SERVICE_NAMES.DOCUMENT_RETRIEVE);
-		assertTrue(list.contains(UDDI_SPEC_VERSION.SPEC_2_0));
-		list = UddiSpecVersionRegistry.getInstance().getSupportedSpecs(api, NHIN_SERVICE_NAMES.DOCUMENT_SUBMISSION);
-		assertTrue(list.contains(UDDI_SPEC_VERSION.SPEC_1_1));
-		list = UddiSpecVersionRegistry.getInstance().getSupportedSpecs(api, NHIN_SERVICE_NAMES.HIEM_NOTIFY);
-		assertTrue(list.contains(UDDI_SPEC_VERSION.SPEC_2_0));
-		list = UddiSpecVersionRegistry.getInstance().getSupportedSpecs(api, NHIN_SERVICE_NAMES.PATIENT_DISCOVERY);
-		assertTrue(list.contains(UDDI_SPEC_VERSION.SPEC_1_0));
-		assertTrue(list.contains(UDDI_SPEC_VERSION.SPEC_2_0));
-	}
-	
-	@Test
-	public void testGetSupportedSpecs_g1() {
-		GATEWAY_API_LEVEL api = GATEWAY_API_LEVEL.LEVEL_g1;
-		ArrayList<UDDI_SPEC_VERSION> list = UddiSpecVersionRegistry.getInstance().getSupportedSpecs(api, NHIN_SERVICE_NAMES.ADMINISTRATIVE_DISTRIBUTION);
-		assertTrue(list.contains(UDDI_SPEC_VERSION.SPEC_2_0));
-		list = UddiSpecVersionRegistry.getInstance().getSupportedSpecs(api, NHIN_SERVICE_NAMES.DOCUMENT_RETRIEVE);
-		assertTrue(list.contains(UDDI_SPEC_VERSION.SPEC_3_0));
-		list = UddiSpecVersionRegistry.getInstance().getSupportedSpecs(api, NHIN_SERVICE_NAMES.DOCUMENT_SUBMISSION);
-		assertTrue(list.contains(UDDI_SPEC_VERSION.SPEC_2_0));
-	}
+	}   
 	
 	@Test(expected = IllegalArgumentException.class)
 	public void testGetSupportedSpecsWrongAPI() {
@@ -83,20 +53,6 @@ public class UddiSpecVersionRegistryTest {
 	public void testGetSupportedSpecsWrongService() {
 		GATEWAY_API_LEVEL api = GATEWAY_API_LEVEL.LEVEL_g1;
 		UddiSpecVersionRegistry.getInstance().getSupportedSpecs(api, NHIN_SERVICE_NAMES.valueOf("wrongValue"));
-	}
-	
-	@Test
-	public void testGetSupportedSpecsDeferredService() {
-		GATEWAY_API_LEVEL api = GATEWAY_API_LEVEL.LEVEL_g1;
-		ArrayList<UDDI_SPEC_VERSION> list = UddiSpecVersionRegistry.getInstance().getSupportedSpecs(api, NHIN_SERVICE_NAMES.DOCUMENT_SUBMISSION_DEFERRED_REQUEST);
-		assertTrue(list.contains(UDDI_SPEC_VERSION.SPEC_2_0));
-	}
-	
-	@Test
-	public void testGetSupportedSpecsUnusedService() {
-		GATEWAY_API_LEVEL api = GATEWAY_API_LEVEL.LEVEL_g1;
-		ArrayList<UDDI_SPEC_VERSION> list = UddiSpecVersionRegistry.getInstance().getSupportedSpecs(api, NHIN_SERVICE_NAMES.HIEM_SUBSCRIBE);
-		assertTrue(list.isEmpty());
 	}
 	
 	@Test
@@ -127,16 +83,20 @@ public class UddiSpecVersionRegistryTest {
 		api = UddiSpecVersionRegistry.getInstance().getSupportedGatewayAPI(spec, NHIN_SERVICE_NAMES.DOCUMENT_SUBMISSION);
 		assertTrue(api == GATEWAY_API_LEVEL.LEVEL_g1);
 		api = UddiSpecVersionRegistry.getInstance().getSupportedGatewayAPI(spec, NHIN_SERVICE_NAMES.PATIENT_DISCOVERY);
-		assertTrue(api == GATEWAY_API_LEVEL.LEVEL_g0);
+		assertTrue(api == GATEWAY_API_LEVEL.LEVEL_g1);
 		api = UddiSpecVersionRegistry.getInstance().getSupportedGatewayAPI(spec, NHIN_SERVICE_NAMES.HIEM_NOTIFY);
 		assertTrue(api == GATEWAY_API_LEVEL.LEVEL_g0);
+		api = UddiSpecVersionRegistry.getInstance().getSupportedGatewayAPI(spec, NHIN_SERVICE_NAMES.HIEM_SUBSCRIBE);
+        assertTrue(api == GATEWAY_API_LEVEL.LEVEL_g0);
+        api = UddiSpecVersionRegistry.getInstance().getSupportedGatewayAPI(spec, NHIN_SERVICE_NAMES.HIEM_UNSUBSCRIBE);
+        assertTrue(api == GATEWAY_API_LEVEL.LEVEL_g0);
 	}
 	
 	@Test
 	public void getSupportedGatewayAPI_3_0() {
 		UDDI_SPEC_VERSION spec = UDDI_SPEC_VERSION.SPEC_3_0;
 		GATEWAY_API_LEVEL api = UddiSpecVersionRegistry.getInstance().getSupportedGatewayAPI(spec, NHIN_SERVICE_NAMES.DOCUMENT_QUERY);
-		assertTrue(api == GATEWAY_API_LEVEL.LEVEL_g0);
+		assertTrue(api == GATEWAY_API_LEVEL.LEVEL_g1);
 		api = UddiSpecVersionRegistry.getInstance().getSupportedGatewayAPI(spec, NHIN_SERVICE_NAMES.DOCUMENT_RETRIEVE);
 		assertTrue(api == GATEWAY_API_LEVEL.LEVEL_g1);
 	}

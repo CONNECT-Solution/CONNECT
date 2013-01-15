@@ -103,7 +103,7 @@ public class EntityPatientDiscoveryDeferredRequestOrchImpl {
 
             // loop through the communities and send request if results were not null
             List<UrlInfo> urlInfoList = getTargetEndpoints(targets);
-            if (urlInfoList != null) {
+            if (NullChecker.isNotNullish(urlInfoList)) {
 
                 // Log the start of the performance record
                 PerformanceManager.getPerformanceManagerInstance().logPerformanceStart(NhincConstants.PATIENT_DISCOVERY_DEFERRED_SERVICE_NAME,
@@ -131,7 +131,7 @@ public class EntityPatientDiscoveryDeferredRequestOrchImpl {
                         ack = sendToProxy(new201305, newAssertion, urlInfo);
                     } else {
                         ackMsg = "Policy Failed";
-                        ack = HL7AckTransforms.createAckErrorFrom201305(message, ackMsg);
+                        ack = HL7AckTransforms.createAckErrorFrom201305Initiator(message, ackMsg);
                     }
                     // clean up new assertion
                     newAssertion = null;
@@ -144,7 +144,7 @@ public class EntityPatientDiscoveryDeferredRequestOrchImpl {
             } else {
                 ackMsg = "No targets were found for the Patient Discovery Request";
                 log.warn(ackMsg);
-                ack = HL7AckTransforms.createAckErrorFrom201305(message, ackMsg);
+                ack = HL7AckTransforms.createAckErrorFrom201305Initiator(message, ackMsg);
             }
 
             auditResponseToAdapter(ack, assertion);
@@ -177,11 +177,23 @@ public class EntityPatientDiscoveryDeferredRequestOrchImpl {
         pdDeferredDao.saveOrUpdate(correlationMsgId, patientId);
     }
 
+    /**
+     * Return an instance of the ConnectionManagerCache.
+     * @return the instance
+     */
+    protected ConnectionManagerCache getConnectionManagerCache(){
+    	return ConnectionManagerCache.getInstance();
+    }
+    /**
+     * Get the list of targetEndpoints' URLs.
+     * @param targetCommunities the target communities
+     * @return the list
+     */
     protected List<UrlInfo> getTargetEndpoints(NhinTargetCommunitiesType targetCommunities) {
         List<UrlInfo> urlInfoList = null;
 
         try {
-            urlInfoList = ConnectionManagerCache.getInstance().getEndpointURLFromNhinTargetCommunities(
+            urlInfoList = getConnectionManagerCache().getEndpointURLFromNhinTargetCommunities(
                     targetCommunities, NhincConstants.PATIENT_DISCOVERY_DEFERRED_REQ_SERVICE_NAME);
         } catch (ConnectionManagerException ex) {
             log.error("Failed to obtain target URLs for service "
@@ -192,6 +204,13 @@ public class EntityPatientDiscoveryDeferredRequestOrchImpl {
         return urlInfoList;
     }
 
+    /**
+     * Creates one request targeted for one community.
+     * @param message The message to be used
+     * @param hcid The HCID of the target
+     * @param pd201305Processor The processor that creates the request
+     * @return
+     */
     protected PRPAIN201305UV02 createNewPRPAIN201305UV02ForOneTargetCommunity(PRPAIN201305UV02 message, String hcid,
             PatientDiscovery201305Processor pd201305Processor) {
 
@@ -212,6 +231,13 @@ public class EntityPatientDiscoveryDeferredRequestOrchImpl {
         return new201305;
     }
 
+    /**
+     * Creates a request in the NHIN namespace.
+     * @param message The original message
+     * @param assertion The assertion to be used
+     * @param targets The targets of the message
+     * @return The new request
+     */
     protected RespondingGatewayPRPAIN201305UV02RequestType createNewRespondingGatewayRequest(PRPAIN201305UV02 message,
             AssertionType assertion, NhinTargetCommunitiesType targets) {
         RespondingGatewayPRPAIN201305UV02RequestType newRequest = new RespondingGatewayPRPAIN201305UV02RequestType();
@@ -222,10 +248,22 @@ public class EntityPatientDiscoveryDeferredRequestOrchImpl {
         return newRequest;
     }
 
+    /**
+     * Checks the policy of the outbound message.
+     * @param request The request for which to check the policy
+     * @return boolean indicating if the policy passed
+     */
     protected boolean checkPolicy(RespondingGatewayPRPAIN201305UV02RequestType request) {
         return PatientDiscoveryPolicyChecker.getInstance().checkOutgoingPolicy(request);
     }
 
+    /**
+     * Invokes the NHINProxy to send message across NHIN.
+     * @param request the request to be sent.
+     * @param assertion the assertion to be sent.
+     * @param urlInfo the URL of the target.
+     * @return The acknowledgment response.
+     */
     protected MCCIIN000002UV01 sendToProxy(PRPAIN201305UV02 request, AssertionType assertion, UrlInfo urlInfo) {
         auditRequestToNhin(request, assertion);
 
@@ -244,6 +282,12 @@ public class EntityPatientDiscoveryDeferredRequestOrchImpl {
         return resp;
     }
 
+    /**
+     * Creates a targetNHINSystem.
+     * @param url The url to add to the target system
+     * @param hcid the HCID to add to the target system
+     * @return the targetNHINSystem
+     */
     protected NhinTargetSystemType createNhinTargetSystemType(String url, String hcid) {
         NhinTargetSystemType targetSystemType = new NhinTargetSystemType();
         targetSystemType.setUrl(url);
@@ -255,11 +299,21 @@ public class EntityPatientDiscoveryDeferredRequestOrchImpl {
         return targetSystemType;
     }
 
+    /**
+     * Audits the request being sent to the NHIN.
+     * @param request the request being audited
+     * @param newAssertion the Assertion being audited
+     */
     protected void auditRequestToNhin(PRPAIN201305UV02 request, AssertionType newAssertion) {
         PatientDiscoveryAuditor auditLog = new PatientDiscoveryAuditLogger();
         auditLog.auditNhinDeferred201305(request, newAssertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION);
     }
 
+    /**
+     * Audit the request returned from the NHIN.
+     * @param resp the response being audited
+     * @param newAssertion the assertion being audited
+     */
     protected void auditResponseFromNhin(MCCIIN000002UV01 resp, AssertionType newAssertion) {
         PatientDiscoveryAuditor auditLog = new PatientDiscoveryAuditLogger();
         auditLog.auditAck(resp, newAssertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION,

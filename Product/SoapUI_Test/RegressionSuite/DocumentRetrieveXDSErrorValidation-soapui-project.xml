@@ -45,7 +45,8 @@
 			<con:settings/>
 			<con:testStep name="set Mock URL" type="groovy">
 				<con:settings/>
-				<con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
+				<con:config><script>import nhinc.FileUtils;
+def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
 //def dataSource = testRunner.testCase.getTestStepByName( "Test Case Properties" );
 //def destConfigFileLocation = dataSource.getPropertyValue("NHINGatewayConfigDir");
 def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
@@ -342,29 +343,31 @@ declare namespace ns12='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
 			<con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2012-02-24T23:09:38Z</con:value>
+					<con:value>2012-08-25T01:00:04Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2012-02-24T23:19:38Z</con:value>
+					<con:value>2012-08-25T01:10:04Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>02/24/2012 23:09:38</con:value>
+					<con:value>08/25/2012 01:00:04</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2012-03-25T00:00:00Z</con:value>
+					<con:value>2012-09-24T00:00:00Z</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
-			<con:tearDownScript>FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
+			<con:tearDownScript>import nhinc.FileUtils;
+FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
 		</con:testCase>
 		<con:testCase failOnError="true" failTestCaseOnErrors="true" id="53232109-4583-4658-80ee-3f0d6639d4c2" keepSession="false" maxResults="0" name="XDSRegistryBusy TestCase" searchProperties="true">
 			<con:settings/>
 			<con:testStep name="set Mock URL" type="groovy">
 				<con:settings/>
-				<con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
+				<con:config><script>import nhinc.FileUtils;
+def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
 //def dataSource = testRunner.testCase.getTestStepByName( "Test Case Properties" );
 //def destConfigFileLocation = dataSource.getPropertyValue("NHINGatewayConfigDir");
 def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
@@ -660,29 +663,31 @@ declare namespace ns12='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
 			<con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2012-02-24T23:09:45Z</con:value>
+					<con:value>2012-08-25T01:06:32Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2012-02-24T23:19:45Z</con:value>
+					<con:value>2012-08-25T01:16:32Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>02/24/2012 23:09:45</con:value>
+					<con:value>08/25/2012 01:06:32</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2012-03-25T00:00:00Z</con:value>
+					<con:value>2012-09-24T00:00:00Z</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
-			<con:tearDownScript>FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
+			<con:tearDownScript>import nhinc.FileUtils;
+FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
 		</con:testCase>
 		<con:testCase failOnError="true" failTestCaseOnErrors="true" id="d3730e5f-ed63-4c74-8cab-41c3ad9af515" keepSession="false" maxResults="0" name="XDSRegistryOutOfResources TestCase" searchProperties="true">
 			<con:settings/>
 			<con:testStep name="set Mock URL" type="groovy">
 				<con:settings/>
-				<con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
+				<con:config><script>import nhinc.FileUtils;
+def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
 //def dataSource = testRunner.testCase.getTestStepByName( "Test Case Properties" );
 //def destConfigFileLocation = dataSource.getPropertyValue("NHINGatewayConfigDir");
 def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
@@ -978,29 +983,31 @@ declare namespace ns12='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
 			<con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2012-02-24T23:09:48Z</con:value>
+					<con:value>2012-08-25T01:06:56Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2012-02-24T23:19:48Z</con:value>
+					<con:value>2012-08-25T01:16:56Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>02/24/2012 23:09:48</con:value>
+					<con:value>08/25/2012 01:06:56</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2012-03-25T00:00:00Z</con:value>
+					<con:value>2012-09-24T00:00:00Z</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
-			<con:tearDownScript>FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
+			<con:tearDownScript>import nhinc.FileUtils;
+FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
 		</con:testCase>
 		<con:testCase failOnError="true" failTestCaseOnErrors="true" id="0f6d5b79-dac4-48f6-ace5-917c09447835" keepSession="false" maxResults="0" name="XDSTooManyResults TestCase" searchProperties="true">
 			<con:settings/>
 			<con:testStep name="set Mock URL" type="groovy">
 				<con:settings/>
-				<con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
+				<con:config><script>import nhinc.FileUtils;
+def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
 //def dataSource = testRunner.testCase.getTestStepByName( "Test Case Properties" );
 //def destConfigFileLocation = dataSource.getPropertyValue("NHINGatewayConfigDir");
 def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
@@ -1296,29 +1303,31 @@ declare namespace ns12='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
 			<con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2012-02-24T23:09:56Z</con:value>
+					<con:value>2012-08-25T01:07:51Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2012-02-24T23:19:56Z</con:value>
+					<con:value>2012-08-25T01:17:51Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>02/24/2012 23:09:56</con:value>
+					<con:value>08/25/2012 01:07:51</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2012-03-25T00:00:00Z</con:value>
+					<con:value>2012-09-24T00:00:00Z</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
-			<con:tearDownScript>FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
+			<con:tearDownScript>import nhinc.FileUtils;
+FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
 		</con:testCase>
 		<con:testCase failOnError="true" failTestCaseOnErrors="true" id="edf7a61e-c1de-4946-9b6d-ba16e971745c" keepSession="false" maxResults="0" name="XDSUnknownStoredQuery TestCase" searchProperties="true">
 			<con:settings/>
 			<con:testStep name="set Mock URL" type="groovy">
 				<con:settings/>
-				<con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
+				<con:config><script>import nhinc.FileUtils;
+def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
 //def dataSource = testRunner.testCase.getTestStepByName( "Test Case Properties" );
 //def destConfigFileLocation = dataSource.getPropertyValue("NHINGatewayConfigDir");
 def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
@@ -1614,29 +1623,31 @@ declare namespace ns12='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
 			<con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2012-02-24T23:09:57Z</con:value>
+					<con:value>2012-08-25T01:08:24Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2012-02-24T23:19:57Z</con:value>
+					<con:value>2012-08-25T01:18:24Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>02/24/2012 23:09:57</con:value>
+					<con:value>08/25/2012 01:08:24</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2012-03-25T00:00:00Z</con:value>
+					<con:value>2012-09-24T00:00:00Z</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
-			<con:tearDownScript>FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
+			<con:tearDownScript>import nhinc.FileUtils;
+FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
 		</con:testCase>
 		<con:testCase failOnError="true" failTestCaseOnErrors="true" id="e1bbe1b4-f6ab-4cee-9a47-4ebd046424ea" keepSession="false" maxResults="0" name="XDSStoredQueryMissingParam TestCase" searchProperties="true">
 			<con:settings/>
 			<con:testStep name="set Mock URL" type="groovy">
 				<con:settings/>
-				<con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
+				<con:config><script>import nhinc.FileUtils;
+def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
 //def dataSource = testRunner.testCase.getTestStepByName( "Test Case Properties" );
 //def destConfigFileLocation = dataSource.getPropertyValue("NHINGatewayConfigDir");
 def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
@@ -1932,29 +1943,31 @@ declare namespace ns12='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
 			<con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2012-02-24T23:09:59Z</con:value>
+					<con:value>2012-08-25T01:11:07Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2012-02-24T23:19:59Z</con:value>
+					<con:value>2012-08-25T01:21:07Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>02/24/2012 23:09:59</con:value>
+					<con:value>08/25/2012 01:11:07</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2012-03-25T00:00:00Z</con:value>
+					<con:value>2012-09-24T00:00:00Z</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
-			<con:tearDownScript>FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
+			<con:tearDownScript>import nhinc.FileUtils;
+FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
 		</con:testCase>
 		<con:testCase failOnError="true" failTestCaseOnErrors="true" id="62a67620-6f92-4dd7-8c51-705ab554d6f2" keepSession="false" maxResults="0" name="XDSStoredQueryParamNumber TestCase" searchProperties="true">
 			<con:settings/>
 			<con:testStep name="set Mock URL" type="groovy">
 				<con:settings/>
-				<con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
+				<con:config><script>import nhinc.FileUtils;
+def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
 //def dataSource = testRunner.testCase.getTestStepByName( "Test Case Properties" );
 //def destConfigFileLocation = dataSource.getPropertyValue("NHINGatewayConfigDir");
 def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
@@ -2250,29 +2263,31 @@ declare namespace ns12='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
 			<con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2012-02-24T23:10:02Z</con:value>
+					<con:value>2012-08-25T01:12:36Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2012-02-24T23:20:02Z</con:value>
+					<con:value>2012-08-25T01:22:36Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>02/24/2012 23:10:02</con:value>
+					<con:value>08/25/2012 01:12:36</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2012-03-25T00:00:00Z</con:value>
+					<con:value>2012-09-24T00:00:00Z</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
-			<con:tearDownScript>FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
+			<con:tearDownScript>import nhinc.FileUtils;
+FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
 		</con:testCase>
 		<con:testCase failOnError="true" failTestCaseOnErrors="true" id="33a3dd3b-130f-43e6-b21d-1b7aa9d967e9" keepSession="false" maxResults="0" name="PartialSuccess TestCase" searchProperties="true">
 			<con:settings/>
 			<con:testStep name="set Mock URL" type="groovy">
 				<con:settings/>
-				<con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
+				<con:config><script>import nhinc.FileUtils;
+def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
 //def dataSource = testRunner.testCase.getTestStepByName( "Test Case Properties" );
 //def destConfigFileLocation = dataSource.getPropertyValue("NHINGatewayConfigDir");
 def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
@@ -2568,23 +2583,24 @@ declare namespace ns12='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
 			<con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2012-02-24T23:10:03Z</con:value>
+					<con:value>2012-08-25T01:12:57Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2012-02-24T23:20:03Z</con:value>
+					<con:value>2012-08-25T01:22:57Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>02/24/2012 23:10:03</con:value>
+					<con:value>08/25/2012 01:12:57</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2012-03-25T00:00:00Z</con:value>
+					<con:value>2012-09-24T00:00:00Z</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
-			<con:tearDownScript>FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
+			<con:tearDownScript>import nhinc.FileUtils;
+FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
 		</con:testCase>
 		<con:properties/>
 		<con:reportParameters/>

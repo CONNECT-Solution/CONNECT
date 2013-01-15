@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?><con:soapui-project xmlns:con="http://eviware.com/soapui/config" abortOnError="false" name="HIEMPatientCentricUDDItests" resourceRoot="" runType="SEQUENTIAL" soapui-version="3.5.1">
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><con:soapui-project xmlns:con="http://eviware.com/soapui/config" abortOnError="false" name="HIEMPatientCentricUDDItests" resourceRoot="" runType="SEQUENTIAL" soapui-version="3.6">
 	<con:settings/>
 	
 	<con:interface xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincsubscription}NotificationProducerBinding" definition="WSDL path not set.  #NhincSubscription.wsdl" name="NotificationProducerBinding" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface">
@@ -75,7 +75,8 @@
 			
 			<con:testStep name="Copy uddiConnectionInfo" type="groovy">
 				<con:settings/>
-				<con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
+				<con:config><script>import nhinc.FileUtils;
+def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
 def testCase = testRunner.getTestCase()
 def testSuite = testCase.getTestSuite()
 def project = testSuite.getProject()
@@ -93,8 +94,8 @@ FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);</scr
 			</con:testStep>
 			<con:testStep name="Copy hiemTopicConnection" type="groovy">
 				<con:settings/>
-				<con:config>
-					<script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
+				<con:config><script>import nhinc.FileUtils;
+def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
 def testCase = testRunner.getTestCase()
 def testSuite = testCase.getTestSuite()
 def project = testSuite.getProject()
@@ -117,8 +118,7 @@ FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);
 
 
 
-					</script>
-				</con:config>
+					</script></con:config>
 			</con:testStep>
 			<con:testStep name="update config" type="groovy">
 				<con:settings/>
@@ -457,27 +457,28 @@ MoveFile(sourceInternalFile, backupInternalFile, log);
 MoveFile(sourceUddiFile, backupUddiFile, log);</con:setupScript><con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2012-02-27T16:02:21Z</con:value>
+					<con:value>2012-08-24T23:25:15Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2012-02-27T16:12:21Z</con:value>
+					<con:value>2012-08-24T23:35:15Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>02/27/2012 16:02:21</con:value>
+					<con:value>08/24/2012 23:25:15</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2012-03-28T00:00:00Z</con:value>
+					<con:value>2012-09-23T00:00:00Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>date</con:name>
-					<con:value>03/28/2012 00:00:00</con:value>
+					<con:value>09/23/2012 00:00:00</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
-			<con:tearDownScript>FileUtils.restoreToMasterConfiguration(context, log);
+			<con:tearDownScript>import nhinc.FileUtils;
+FileUtils.restoreToMasterConfiguration(context, log);
 
 def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
 
@@ -523,7 +524,8 @@ DeleteFile(backupUddiFile, log);</con:tearDownScript>
 			
 			<con:testStep name="Copy uddiConnectionInfo" type="groovy">
 				<con:settings/>
-				<con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
+				<con:config><script>import nhinc.FileUtils;
+def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
 def testCase = testRunner.getTestCase()
 def testSuite = testCase.getTestSuite()
 def project = testSuite.getProject()
@@ -541,8 +543,8 @@ FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);</scr
 			</con:testStep>
 			<con:testStep name="Copy hiemTopicConnection" type="groovy">
 				<con:settings/>
-				<con:config>
-					<script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
+				<con:config><script>import nhinc.FileUtils;
+def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
 def testCase = testRunner.getTestCase()
 def testSuite = testCase.getTestSuite()
 def project = testSuite.getProject()
@@ -565,8 +567,7 @@ FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);
 
 
 
-					</script>
-				</con:config>
+					</script></con:config>
 			</con:testStep>
 			<con:testStep name="update config" type="groovy">
 				<con:settings/>
@@ -922,27 +923,28 @@ MoveFile(sourceInternalFile, backupInternalFile, log);
 MoveFile(sourceUddiFile, backupUddiFile, log);</con:setupScript><con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2012-02-27T16:02:22Z</con:value>
+					<con:value>2012-08-24T23:25:15Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2012-02-27T16:12:22Z</con:value>
+					<con:value>2012-08-24T23:35:15Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>02/27/2012 16:02:22</con:value>
+					<con:value>08/24/2012 23:25:15</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2012-03-28T00:00:00Z</con:value>
+					<con:value>2012-09-23T00:00:00Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>date</con:name>
-					<con:value>03/28/2012 00:00:00</con:value>
+					<con:value>09/23/2012 00:00:00</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
-			<con:tearDownScript>FileUtils.restoreToMasterConfiguration(context, log);
+			<con:tearDownScript>import nhinc.FileUtils;
+FileUtils.restoreToMasterConfiguration(context, log);
 
 def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
 
@@ -988,7 +990,8 @@ DeleteFile(backupUddiFile, log);</con:tearDownScript>
 			
 			<con:testStep name="Copy uddiConnectionInfo" type="groovy">
 				<con:settings/>
-				<con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
+				<con:config><script>import nhinc.FileUtils;
+def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
 def testCase = testRunner.getTestCase()
 def testSuite = testCase.getTestSuite()
 def project = testSuite.getProject()
@@ -1006,8 +1009,8 @@ FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);</scr
 			</con:testStep>
 			<con:testStep name="Copy hiemTopicConnection" type="groovy">
 				<con:settings/>
-				<con:config>
-					<script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
+				<con:config><script>import nhinc.FileUtils;
+def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
 def testCase = testRunner.getTestCase()
 def testSuite = testCase.getTestSuite()
 def project = testSuite.getProject()
@@ -1030,8 +1033,7 @@ FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);
 
 
 
-					</script>
-				</con:config>
+					</script></con:config>
 			</con:testStep>
 			<con:testStep name="update config" type="groovy">
 				<con:settings/>
@@ -1419,27 +1421,28 @@ MoveFile(sourceInternalFile, backupInternalFile, log);
 MoveFile(sourceUddiFile, backupUddiFile, log);</con:setupScript><con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2012-02-27T16:02:24Z</con:value>
+					<con:value>2012-08-24T23:25:16Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2012-02-27T16:12:24Z</con:value>
+					<con:value>2012-08-24T23:35:16Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>02/27/2012 16:02:24</con:value>
+					<con:value>08/24/2012 23:25:16</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2012-03-28T00:00:00Z</con:value>
+					<con:value>2012-09-23T00:00:00Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>date</con:name>
-					<con:value>03/28/2012 00:00:00</con:value>
+					<con:value>09/23/2012 00:00:00</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
-			<con:tearDownScript>FileUtils.restoreToMasterConfiguration(context, log);
+			<con:tearDownScript>import nhinc.FileUtils;
+FileUtils.restoreToMasterConfiguration(context, log);
 
 def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
 
@@ -1485,7 +1488,8 @@ DeleteFile(backupUddiFile, log);</con:tearDownScript>
 			
 			<con:testStep name="Copy uddiConnectionInfo" type="groovy">
 				<con:settings/>
-				<con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
+				<con:config><script>import nhinc.FileUtils;
+def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
 def testCase = testRunner.getTestCase()
 def testSuite = testCase.getTestSuite()
 def project = testSuite.getProject()
@@ -1503,8 +1507,8 @@ FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);</scr
 			</con:testStep>
 			<con:testStep name="Copy hiemTopicConnection" type="groovy">
 				<con:settings/>
-				<con:config>
-					<script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
+				<con:config><script>import nhinc.FileUtils;
+def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
 def testCase = testRunner.getTestCase()
 def testSuite = testCase.getTestSuite()
 def project = testSuite.getProject()
@@ -1527,8 +1531,7 @@ FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);
 
 
 
-					</script>
-				</con:config>
+					</script></con:config>
 			</con:testStep>
 			<con:testStep name="update config" type="groovy">
 				<con:settings/>
@@ -1885,27 +1888,28 @@ MoveFile(sourceInternalFile, backupInternalFile, log);
 MoveFile(sourceUddiFile, backupUddiFile, log);</con:setupScript><con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2012-02-27T16:02:27Z</con:value>
+					<con:value>2012-08-24T23:25:18Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2012-02-27T16:12:27Z</con:value>
+					<con:value>2012-08-24T23:35:18Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>02/27/2012 16:02:27</con:value>
+					<con:value>08/24/2012 23:25:18</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2012-03-28T00:00:00Z</con:value>
+					<con:value>2012-09-23T00:00:00Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>date</con:name>
-					<con:value>03/28/2012 00:00:00</con:value>
+					<con:value>09/23/2012 00:00:00</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
-			<con:tearDownScript>FileUtils.restoreToMasterConfiguration(context, log);
+			<con:tearDownScript>import nhinc.FileUtils;
+FileUtils.restoreToMasterConfiguration(context, log);
 
 def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
 
@@ -1951,7 +1955,8 @@ DeleteFile(backupUddiFile, log);</con:tearDownScript>
 			
 			<con:testStep name="Copy uddiConnectionInfo" type="groovy">
 				<con:settings/>
-				<con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
+				<con:config><script>import nhinc.FileUtils;
+def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
 def testCase = testRunner.getTestCase()
 def testSuite = testCase.getTestSuite()
 def project = testSuite.getProject()
@@ -1969,8 +1974,8 @@ FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);</scr
 			</con:testStep>
 			<con:testStep name="Copy hiemTopicConnection" type="groovy">
 				<con:settings/>
-				<con:config>
-					<script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
+				<con:config><script>import nhinc.FileUtils;
+def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
 def testCase = testRunner.getTestCase()
 def testSuite = testCase.getTestSuite()
 def project = testSuite.getProject()
@@ -1993,8 +1998,7 @@ FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);
 
 
 
-					</script>
-				</con:config>
+					</script></con:config>
 			</con:testStep>
 			<con:testStep name="update config" type="groovy">
 				<con:settings/>
@@ -2400,27 +2404,28 @@ MoveFile(sourceInternalFile, backupInternalFile, log);
 MoveFile(sourceUddiFile, backupUddiFile, log);</con:setupScript><con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2012-02-27T16:02:29Z</con:value>
+					<con:value>2012-08-24T23:25:19Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2012-02-27T16:12:29Z</con:value>
+					<con:value>2012-08-24T23:35:19Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>02/27/2012 16:02:29</con:value>
+					<con:value>08/24/2012 23:25:19</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2012-03-28T00:00:00Z</con:value>
+					<con:value>2012-09-23T00:00:00Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>date</con:name>
-					<con:value>03/28/2012 00:00:00</con:value>
+					<con:value>09/23/2012 00:00:00</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
-			<con:tearDownScript>FileUtils.restoreToMasterConfiguration(context, log);
+			<con:tearDownScript>import nhinc.FileUtils;
+FileUtils.restoreToMasterConfiguration(context, log);
 
 def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
 
@@ -2466,7 +2471,8 @@ DeleteFile(backupUddiFile, log);</con:tearDownScript>
 			
 			<con:testStep name="Copy uddiConnectionInfo" type="groovy">
 				<con:settings/>
-				<con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
+				<con:config><script>import nhinc.FileUtils;
+def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
 def testCase = testRunner.getTestCase()
 def testSuite = testCase.getTestSuite()
 def project = testSuite.getProject()
@@ -2484,8 +2490,8 @@ FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);</scr
 			</con:testStep>
 			<con:testStep name="Copy hiemTopicConnection" type="groovy">
 				<con:settings/>
-				<con:config>
-					<script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
+				<con:config><script>import nhinc.FileUtils;
+def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
 def testCase = testRunner.getTestCase()
 def testSuite = testCase.getTestSuite()
 def project = testSuite.getProject()
@@ -2508,8 +2514,7 @@ FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);
 
 
 
-					</script>
-				</con:config>
+					</script></con:config>
 			</con:testStep>
 			<con:testStep name="update config" type="groovy">
 				<con:settings/>
@@ -2883,27 +2888,28 @@ MoveFile(sourceInternalFile, backupInternalFile, log);
 MoveFile(sourceUddiFile, backupUddiFile, log);</con:setupScript><con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2012-02-27T16:02:31Z</con:value>
+					<con:value>2012-08-24T23:25:20Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2012-02-27T16:12:31Z</con:value>
+					<con:value>2012-08-24T23:35:20Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>02/27/2012 16:02:31</con:value>
+					<con:value>08/24/2012 23:25:20</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2012-03-28T00:00:00Z</con:value>
+					<con:value>2012-09-23T00:00:00Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>date</con:name>
-					<con:value>03/28/2012 00:00:00</con:value>
+					<con:value>09/23/2012 00:00:00</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
-			<con:tearDownScript>FileUtils.restoreToMasterConfiguration(context, log);
+			<con:tearDownScript>import nhinc.FileUtils;
+FileUtils.restoreToMasterConfiguration(context, log);
 
 def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
 
@@ -2949,7 +2955,8 @@ DeleteFile(backupUddiFile, log);</con:tearDownScript>
 			
 			<con:testStep name="Copy uddiConnectionInfo" type="groovy">
 				<con:settings/>
-				<con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
+				<con:config><script>import nhinc.FileUtils;
+def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
 def testCase = testRunner.getTestCase()
 def testSuite = testCase.getTestSuite()
 def project = testSuite.getProject()
@@ -2967,8 +2974,8 @@ FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);</scr
 			</con:testStep>
 			<con:testStep name="Copy hiemTopicConnection" type="groovy">
 				<con:settings/>
-				<con:config>
-					<script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
+				<con:config><script>import nhinc.FileUtils;
+def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
 def testCase = testRunner.getTestCase()
 def testSuite = testCase.getTestSuite()
 def project = testSuite.getProject()
@@ -2991,8 +2998,7 @@ FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);
 
 
 
-					</script>
-				</con:config>
+					</script></con:config>
 			</con:testStep>
 			<con:testStep name="update config" type="groovy">
 				<con:settings/>
@@ -3401,27 +3407,28 @@ MoveFile(sourceInternalFile, backupInternalFile, log);
 MoveFile(sourceUddiFile, backupUddiFile, log);</con:setupScript><con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2012-02-27T16:02:32Z</con:value>
+					<con:value>2012-08-24T23:25:21Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2012-02-27T16:12:32Z</con:value>
+					<con:value>2012-08-24T23:35:21Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>02/27/2012 16:02:32</con:value>
+					<con:value>08/24/2012 23:25:21</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2012-03-28T00:00:00Z</con:value>
+					<con:value>2012-09-23T00:00:00Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>date</con:name>
-					<con:value>03/28/2012 00:00:00</con:value>
+					<con:value>09/23/2012 00:00:00</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
-			<con:tearDownScript>FileUtils.restoreToMasterConfiguration(context, log);
+			<con:tearDownScript>import nhinc.FileUtils;
+FileUtils.restoreToMasterConfiguration(context, log);
 
 def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
 
@@ -3467,7 +3474,8 @@ DeleteFile(backupUddiFile, log);</con:tearDownScript>
 			
 			<con:testStep name="Copy uddiConnectionInfo" type="groovy">
 				<con:settings/>
-				<con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
+				<con:config><script>import nhinc.FileUtils;
+def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
 def testCase = testRunner.getTestCase()
 def testSuite = testCase.getTestSuite()
 def project = testSuite.getProject()
@@ -3485,8 +3493,8 @@ FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);</scr
 			</con:testStep>
 			<con:testStep name="Copy hiemTopicConnection" type="groovy">
 				<con:settings/>
-				<con:config>
-					<script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
+				<con:config><script>import nhinc.FileUtils;
+def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
 def testCase = testRunner.getTestCase()
 def testSuite = testCase.getTestSuite()
 def project = testSuite.getProject()
@@ -3509,8 +3517,7 @@ FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);
 
 
 
-					</script>
-				</con:config>
+					</script></con:config>
 			</con:testStep>
 			<con:testStep name="update config" type="groovy">
 				<con:settings/>
@@ -3877,27 +3884,28 @@ MoveFile(sourceInternalFile, backupInternalFile, log);
 MoveFile(sourceUddiFile, backupUddiFile, log);</con:setupScript><con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2012-02-27T16:02:35Z</con:value>
+					<con:value>2012-08-24T23:25:23Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2012-02-27T16:12:35Z</con:value>
+					<con:value>2012-08-24T23:35:23Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>02/27/2012 16:02:35</con:value>
+					<con:value>08/24/2012 23:25:23</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2012-03-28T00:00:00Z</con:value>
+					<con:value>2012-09-23T00:00:00Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>date</con:name>
-					<con:value>03/28/2012 00:00:00</con:value>
+					<con:value>09/23/2012 00:00:00</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
-			<con:tearDownScript>FileUtils.restoreToMasterConfiguration(context, log);
+			<con:tearDownScript>import nhinc.FileUtils;
+FileUtils.restoreToMasterConfiguration(context, log);
 
 def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
 
@@ -3943,7 +3951,8 @@ DeleteFile(backupUddiFile, log);</con:tearDownScript>
 			
 			<con:testStep name="Copy uddiConnectionInfo" type="groovy">
 				<con:settings/>
-				<con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
+				<con:config><script>import nhinc.FileUtils;
+def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
 def testCase = testRunner.getTestCase()
 def testSuite = testCase.getTestSuite()
 def project = testSuite.getProject()
@@ -3961,8 +3970,8 @@ FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);</scr
 			</con:testStep>
 			<con:testStep name="Copy hiemTopicConnection" type="groovy">
 				<con:settings/>
-				<con:config>
-					<script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
+				<con:config><script>import nhinc.FileUtils;
+def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
 def testCase = testRunner.getTestCase()
 def testSuite = testCase.getTestSuite()
 def project = testSuite.getProject()
@@ -3985,8 +3994,7 @@ FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);
 
 
 
-					</script>
-				</con:config>
+					</script></con:config>
 			</con:testStep>
 			<con:testStep name="update config" type="groovy">
 				<con:settings/>
@@ -4334,27 +4342,28 @@ MoveFile(sourceInternalFile, backupInternalFile, log);
 MoveFile(sourceUddiFile, backupUddiFile, log);</con:setupScript><con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2012-02-27T16:02:37Z</con:value>
+					<con:value>2012-08-24T23:25:24Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2012-02-27T16:12:37Z</con:value>
+					<con:value>2012-08-24T23:35:24Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>02/27/2012 16:02:37</con:value>
+					<con:value>08/24/2012 23:25:24</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2012-03-28T00:00:00Z</con:value>
+					<con:value>2012-09-23T00:00:00Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>date</con:name>
-					<con:value>03/28/2012 00:00:00</con:value>
+					<con:value>09/23/2012 00:00:00</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
-			<con:tearDownScript>FileUtils.restoreToMasterConfiguration(context, log);
+			<con:tearDownScript>import nhinc.FileUtils;
+FileUtils.restoreToMasterConfiguration(context, log);
 
 def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
 
@@ -4400,7 +4409,8 @@ DeleteFile(backupUddiFile, log);</con:tearDownScript>
 			
 			<con:testStep name="Copy uddiConnectionInfo" type="groovy">
 				<con:settings/>
-				<con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
+				<con:config><script>import nhinc.FileUtils;
+def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
 def testCase = testRunner.getTestCase()
 def testSuite = testCase.getTestSuite()
 def project = testSuite.getProject()
@@ -4418,8 +4428,8 @@ FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);</scr
 			</con:testStep>
 			<con:testStep name="Copy hiemTopicConnection" type="groovy">
 				<con:settings/>
-				<con:config>
-					<script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
+				<con:config><script>import nhinc.FileUtils;
+def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
 def testCase = testRunner.getTestCase()
 def testSuite = testCase.getTestSuite()
 def project = testSuite.getProject()
@@ -4442,8 +4452,7 @@ FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);
 
 
 
-					</script>
-				</con:config>
+					</script></con:config>
 			</con:testStep>
 			<con:testStep name="update config" type="groovy">
 				<con:settings/>
@@ -4816,27 +4825,28 @@ MoveFile(sourceInternalFile, backupInternalFile, log);
 MoveFile(sourceUddiFile, backupUddiFile, log);</con:setupScript><con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2012-02-27T16:02:38Z</con:value>
+					<con:value>2012-08-24T23:25:25Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2012-02-27T16:12:38Z</con:value>
+					<con:value>2012-08-24T23:35:25Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>02/27/2012 16:02:38</con:value>
+					<con:value>08/24/2012 23:25:25</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2012-03-28T00:00:00Z</con:value>
+					<con:value>2012-09-23T00:00:00Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>date</con:name>
-					<con:value>03/28/2012 00:00:00</con:value>
+					<con:value>09/23/2012 00:00:00</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
-			<con:tearDownScript>FileUtils.restoreToMasterConfiguration(context, log);
+			<con:tearDownScript>import nhinc.FileUtils;
+FileUtils.restoreToMasterConfiguration(context, log);
 
 def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
 
@@ -4882,7 +4892,8 @@ DeleteFile(backupUddiFile, log);</con:tearDownScript>
 			
 			<con:testStep name="Copy uddiConnectionInfo" type="groovy">
 				<con:settings/>
-				<con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
+				<con:config><script>import nhinc.FileUtils;
+def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
 def testCase = testRunner.getTestCase()
 def testSuite = testCase.getTestSuite()
 def project = testSuite.getProject()
@@ -4900,8 +4911,8 @@ FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);</scr
 			</con:testStep>
 			<con:testStep name="Copy hiemTopicConnection" type="groovy">
 				<con:settings/>
-				<con:config>
-					<script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
+				<con:config><script>import nhinc.FileUtils;
+def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
 def testCase = testRunner.getTestCase()
 def testSuite = testCase.getTestSuite()
 def project = testSuite.getProject()
@@ -4924,8 +4935,7 @@ FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);
 
 
 
-					</script>
-				</con:config>
+					</script></con:config>
 			</con:testStep>
 			<con:testStep name="update config" type="groovy">
 				<con:settings/>
@@ -5284,27 +5294,28 @@ MoveFile(sourceInternalFile, backupInternalFile, log);
 MoveFile(sourceUddiFile, backupUddiFile, log);</con:setupScript><con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2012-02-27T16:02:39Z</con:value>
+					<con:value>2012-08-24T23:25:25Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2012-02-27T16:12:39Z</con:value>
+					<con:value>2012-08-24T23:35:25Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>02/27/2012 16:02:39</con:value>
+					<con:value>08/24/2012 23:25:25</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2012-03-28T00:00:00Z</con:value>
+					<con:value>2012-09-23T00:00:00Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>date</con:name>
-					<con:value>03/28/2012 00:00:00</con:value>
+					<con:value>09/23/2012 00:00:00</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
-			<con:tearDownScript>FileUtils.restoreToMasterConfiguration(context, log);
+			<con:tearDownScript>import nhinc.FileUtils;
+FileUtils.restoreToMasterConfiguration(context, log);
 
 def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
 
@@ -5350,7 +5361,8 @@ DeleteFile(backupUddiFile, log);</con:tearDownScript>
 			
 			<con:testStep name="Copy uddiConnectionInfo" type="groovy">
 				<con:settings/>
-				<con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
+				<con:config><script>import nhinc.FileUtils;
+def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
 def testCase = testRunner.getTestCase()
 def testSuite = testCase.getTestSuite()
 def project = testSuite.getProject()
@@ -5368,8 +5380,8 @@ FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);</scr
 			</con:testStep>
 			<con:testStep name="Copy hiemTopicConnection" type="groovy">
 				<con:settings/>
-				<con:config>
-					<script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
+				<con:config><script>import nhinc.FileUtils;
+def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
 def testCase = testRunner.getTestCase()
 def testSuite = testCase.getTestSuite()
 def project = testSuite.getProject()
@@ -5392,8 +5404,7 @@ FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);
 
 
 
-					</script>
-				</con:config>
+					</script></con:config>
 			</con:testStep>
 			<con:testStep name="update config" type="groovy">
 				<con:settings/>
@@ -5768,27 +5779,28 @@ MoveFile(sourceInternalFile, backupInternalFile, log);
 MoveFile(sourceUddiFile, backupUddiFile, log);</con:setupScript><con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2012-02-27T16:02:40Z</con:value>
+					<con:value>2012-08-24T23:25:26Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2012-02-27T16:12:40Z</con:value>
+					<con:value>2012-08-24T23:35:26Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>02/27/2012 16:02:40</con:value>
+					<con:value>08/24/2012 23:25:26</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2012-03-28T00:00:00Z</con:value>
+					<con:value>2012-09-23T00:00:00Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>date</con:name>
-					<con:value>03/28/2012 00:00:00</con:value>
+					<con:value>09/23/2012 00:00:00</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
-			<con:tearDownScript>FileUtils.restoreToMasterConfiguration(context, log);
+			<con:tearDownScript>import nhinc.FileUtils;
+FileUtils.restoreToMasterConfiguration(context, log);
 
 def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
 
@@ -5834,7 +5846,8 @@ DeleteFile(backupUddiFile, log);</con:tearDownScript>
 			
 			<con:testStep name="Copy uddiConnectionInfo" type="groovy">
 				<con:settings/>
-				<con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
+				<con:config><script>import nhinc.FileUtils;
+def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
 def testCase = testRunner.getTestCase()
 def testSuite = testCase.getTestSuite()
 def project = testSuite.getProject()
@@ -5852,8 +5865,8 @@ FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);</scr
 			</con:testStep>
 			<con:testStep name="Copy hiemTopicConnection" type="groovy">
 				<con:settings/>
-				<con:config>
-					<script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
+				<con:config><script>import nhinc.FileUtils;
+def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
 def testCase = testRunner.getTestCase()
 def testSuite = testCase.getTestSuite()
 def project = testSuite.getProject()
@@ -5876,8 +5889,7 @@ FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);
 
 
 
-					</script>
-				</con:config>
+					</script></con:config>
 			</con:testStep>
 			<con:testStep name="update config" type="groovy">
 				<con:settings/>
@@ -6271,10 +6283,9 @@ context.withSql('PatientCorrelationDB') { sql -&gt;
 			</con:testStep>
 			<con:testStep name="Restore Configurations" type="groovy">
 				<con:settings/>
-				<con:config>
-					<script>FileUtils.InitializeNHINCProperties(context, log);
-					</script>
-				</con:config>
+				<con:config><script>import nhinc.FileUtils;
+FileUtils.InitializeNHINCProperties(context, log);
+					</script></con:config>
 			</con:testStep>
 			<con:setupScript>def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
 
@@ -6304,27 +6315,28 @@ MoveFile(sourceInternalFile, backupInternalFile, log);
 MoveFile(sourceUddiFile, backupUddiFile, log);</con:setupScript><con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2012-02-27T16:02:41Z</con:value>
+					<con:value>2012-08-24T23:25:27Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2012-02-27T16:12:41Z</con:value>
+					<con:value>2012-08-24T23:35:27Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>02/27/2012 16:02:41</con:value>
+					<con:value>08/24/2012 23:25:27</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2012-03-28T00:00:00Z</con:value>
+					<con:value>2012-09-23T00:00:00Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>date</con:name>
-					<con:value>03/28/2012 00:00:00</con:value>
+					<con:value>09/23/2012 00:00:00</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
-			<con:tearDownScript>FileUtils.restoreToMasterConfiguration(context, log);
+			<con:tearDownScript>import nhinc.FileUtils;
+FileUtils.restoreToMasterConfiguration(context, log);
 
 def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
 
@@ -6370,7 +6382,8 @@ DeleteFile(backupUddiFile, log);</con:tearDownScript>
 			
 			<con:testStep name="Copy uddiConnectionInfo" type="groovy">
 				<con:settings/>
-				<con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
+				<con:config><script>import nhinc.FileUtils;
+def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
 def testCase = testRunner.getTestCase()
 def testSuite = testCase.getTestSuite()
 def project = testSuite.getProject()
@@ -6388,8 +6401,8 @@ FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);</scr
 			</con:testStep>
 			<con:testStep name="Copy hiemTopicConnection" type="groovy">
 				<con:settings/>
-				<con:config>
-					<script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
+				<con:config><script>import nhinc.FileUtils;
+def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
 def testCase = testRunner.getTestCase()
 def testSuite = testCase.getTestSuite()
 def project = testSuite.getProject()
@@ -6412,8 +6425,7 @@ FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);
 
 
 
-					</script>
-				</con:config>
+					</script></con:config>
 			</con:testStep>
 			<con:testStep name="update config" type="groovy">
 				<con:settings/>
@@ -6743,10 +6755,9 @@ UpdateProperty(destConfigFileLocation,"gateway.properties","hiem.AdapterSubscrip
 			</con:testStep>
 			<con:testStep name="Restore Configurations" type="groovy">
 				<con:settings/>
-				<con:config>
-					<script>FileUtils.InitializeNHINCProperties(context, log);
-					</script>
-				</con:config>
+				<con:config><script>import nhinc.FileUtils;
+FileUtils.InitializeNHINCProperties(context, log);
+					</script></con:config>
 			</con:testStep>
 			<con:setupScript>def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
 
@@ -6776,27 +6787,28 @@ MoveFile(sourceInternalFile, backupInternalFile, log);
 MoveFile(sourceUddiFile, backupUddiFile, log);</con:setupScript><con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2012-02-27T16:02:44Z</con:value>
+					<con:value>2012-08-24T23:25:30Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2012-02-27T16:12:44Z</con:value>
+					<con:value>2012-08-24T23:35:30Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>02/27/2012 16:02:44</con:value>
+					<con:value>08/24/2012 23:25:30</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2012-03-28T00:00:00Z</con:value>
+					<con:value>2012-09-23T00:00:00Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>date</con:name>
-					<con:value>03/28/2012 00:00:00</con:value>
+					<con:value>09/23/2012 00:00:00</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
-			<con:tearDownScript>FileUtils.restoreToMasterConfiguration(context, log);
+			<con:tearDownScript>import nhinc.FileUtils;
+FileUtils.restoreToMasterConfiguration(context, log);
 
 def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
 
@@ -6842,7 +6854,8 @@ DeleteFile(backupUddiFile, log);</con:tearDownScript>
 			
 			<con:testStep name="Copy uddiConnectionInfo" type="groovy">
 				<con:settings/>
-				<con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
+				<con:config><script>import nhinc.FileUtils;
+def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
 def testCase = testRunner.getTestCase()
 def testSuite = testCase.getTestSuite()
 def project = testSuite.getProject()
@@ -6860,8 +6873,8 @@ FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);</scr
 			</con:testStep>
 			<con:testStep name="Copy hiemTopicConnection" type="groovy">
 				<con:settings/>
-				<con:config>
-					<script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
+				<con:config><script>import nhinc.FileUtils;
+def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
 def testCase = testRunner.getTestCase()
 def testSuite = testCase.getTestSuite()
 def project = testSuite.getProject()
@@ -6884,8 +6897,7 @@ FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);
 
 
 
-					</script>
-				</con:config>
+					</script></con:config>
 			</con:testStep>
 			<con:testStep name="update config" type="groovy">
 				<con:settings/>
@@ -7258,27 +7270,28 @@ MoveFile(sourceInternalFile, backupInternalFile, log);
 MoveFile(sourceUddiFile, backupUddiFile, log);</con:setupScript><con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2012-02-27T16:02:46Z</con:value>
+					<con:value>2012-08-24T23:25:30Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2012-02-27T16:12:46Z</con:value>
+					<con:value>2012-08-24T23:35:30Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>02/27/2012 16:02:46</con:value>
+					<con:value>08/24/2012 23:25:30</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2012-03-28T00:00:00Z</con:value>
+					<con:value>2012-09-23T00:00:00Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>date</con:name>
-					<con:value>03/28/2012 00:00:00</con:value>
+					<con:value>09/23/2012 00:00:00</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
-			<con:tearDownScript>FileUtils.restoreToMasterConfiguration(context, log);
+			<con:tearDownScript>import nhinc.FileUtils;
+FileUtils.restoreToMasterConfiguration(context, log);
 
 def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
 
@@ -7324,7 +7337,8 @@ DeleteFile(backupUddiFile, log);</con:tearDownScript>
 			
 			<con:testStep name="Copy uddiConnectionInfo" type="groovy">
 				<con:settings/>
-				<con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
+				<con:config><script>import nhinc.FileUtils;
+def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
 def testCase = testRunner.getTestCase()
 def testSuite = testCase.getTestSuite()
 def project = testSuite.getProject()
@@ -7342,8 +7356,8 @@ FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);</scr
 			</con:testStep>
 			<con:testStep name="Copy hiemTopicConnection" type="groovy">
 				<con:settings/>
-				<con:config>
-					<script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
+				<con:config><script>import nhinc.FileUtils;
+def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
 def testCase = testRunner.getTestCase()
 def testSuite = testCase.getTestSuite()
 def project = testSuite.getProject()
@@ -7366,8 +7380,7 @@ FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);
 
 
 
-					</script>
-				</con:config>
+					</script></con:config>
 			</con:testStep>
 			<con:testStep name="update config" type="groovy">
 				<con:settings/>
@@ -7786,27 +7799,28 @@ MoveFile(sourceInternalFile, backupInternalFile, log);
 MoveFile(sourceUddiFile, backupUddiFile, log);</con:setupScript><con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2012-02-27T16:02:47Z</con:value>
+					<con:value>2012-08-24T23:25:31Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2012-02-27T16:12:47Z</con:value>
+					<con:value>2012-08-24T23:35:31Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>02/27/2012 16:02:47</con:value>
+					<con:value>08/24/2012 23:25:31</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2012-03-28T00:00:00Z</con:value>
+					<con:value>2012-09-23T00:00:00Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>date</con:name>
-					<con:value>03/28/2012 00:00:00</con:value>
+					<con:value>09/23/2012 00:00:00</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
-			<con:tearDownScript>FileUtils.restoreToMasterConfiguration(context, log);
+			<con:tearDownScript>import nhinc.FileUtils;
+FileUtils.restoreToMasterConfiguration(context, log);
 
 def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
 
@@ -7852,7 +7866,8 @@ DeleteFile(backupUddiFile, log);</con:tearDownScript>
 			
 			<con:testStep name="Copy uddiConnectionInfo" type="groovy">
 				<con:settings/>
-				<con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
+				<con:config><script>import nhinc.FileUtils;
+def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
 def testCase = testRunner.getTestCase()
 def testSuite = testCase.getTestSuite()
 def project = testSuite.getProject()
@@ -7870,8 +7885,8 @@ FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);</scr
 			</con:testStep>
 			<con:testStep name="Copy hiemTopicConnection" type="groovy">
 				<con:settings/>
-				<con:config>
-					<script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
+				<con:config><script>import nhinc.FileUtils;
+def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
 def testCase = testRunner.getTestCase()
 def testSuite = testCase.getTestSuite()
 def project = testSuite.getProject()
@@ -7894,8 +7909,7 @@ FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);
 
 
 
-					</script>
-				</con:config>
+					</script></con:config>
 			</con:testStep>
 			<con:testStep name="update config" type="groovy">
 				<con:settings/>
@@ -8301,27 +8315,28 @@ MoveFile(sourceInternalFile, backupInternalFile, log);
 MoveFile(sourceUddiFile, backupUddiFile, log);</con:setupScript><con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2012-02-27T16:02:49Z</con:value>
+					<con:value>2012-08-24T23:25:33Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2012-02-27T16:12:49Z</con:value>
+					<con:value>2012-08-24T23:35:33Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>02/27/2012 16:02:49</con:value>
+					<con:value>08/24/2012 23:25:33</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2012-03-28T00:00:00Z</con:value>
+					<con:value>2012-09-23T00:00:00Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>date</con:name>
-					<con:value>03/28/2012 00:00:00</con:value>
+					<con:value>09/23/2012 00:00:00</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
-			<con:tearDownScript>FileUtils.restoreToMasterConfiguration(context, log);
+			<con:tearDownScript>import nhinc.FileUtils;
+FileUtils.restoreToMasterConfiguration(context, log);
 
 def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
 
@@ -8367,7 +8382,8 @@ DeleteFile(backupUddiFile, log);</con:tearDownScript>
 			
 			<con:testStep name="Copy uddiConnectionInfo" type="groovy">
 				<con:settings/>
-				<con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
+				<con:config><script>import nhinc.FileUtils;
+def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
 def testCase = testRunner.getTestCase()
 def testSuite = testCase.getTestSuite()
 def project = testSuite.getProject()
@@ -8385,8 +8401,8 @@ FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);</scr
 			</con:testStep>
 			<con:testStep name="Copy hiemTopicConnection" type="groovy">
 				<con:settings/>
-				<con:config>
-					<script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
+				<con:config><script>import nhinc.FileUtils;
+def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
 def testCase = testRunner.getTestCase()
 def testSuite = testCase.getTestSuite()
 def project = testSuite.getProject()
@@ -8409,8 +8425,7 @@ FileUtils.MoveFile(sourceDir, sourceFile, destDir, destFile, context, log);
 
 
 
-					</script>
-				</con:config>
+					</script></con:config>
 			</con:testStep>
 			<con:testStep name="update config" type="groovy">
 				<con:settings/>
@@ -8851,27 +8866,28 @@ MoveFile(sourceInternalFile, backupInternalFile, log);
 MoveFile(sourceUddiFile, backupUddiFile, log);</con:setupScript><con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2012-02-27T16:02:54Z</con:value>
+					<con:value>2012-08-24T23:25:34Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2012-02-27T16:12:54Z</con:value>
+					<con:value>2012-08-24T23:35:34Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>02/27/2012 16:02:54</con:value>
+					<con:value>08/24/2012 23:25:34</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2012-03-28T00:00:00Z</con:value>
+					<con:value>2012-09-23T00:00:00Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>date</con:name>
-					<con:value>03/28/2012 00:00:00</con:value>
+					<con:value>09/23/2012 00:00:00</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
-			<con:tearDownScript>FileUtils.restoreToMasterConfiguration(context, log);
+			<con:tearDownScript>import nhinc.FileUtils;
+FileUtils.restoreToMasterConfiguration(context, log);
 
 def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
 

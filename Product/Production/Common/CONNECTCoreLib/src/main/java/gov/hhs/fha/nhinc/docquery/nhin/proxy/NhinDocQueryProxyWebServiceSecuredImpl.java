@@ -46,6 +46,7 @@ import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.perfrepo.PerformanceManager;
 import gov.hhs.fha.nhinc.util.HomeCommunityMap;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
+import javax.xml.ws.BindingProvider;
 
 /**
  * This class is the component proxy for calling the NHIN doc query web service.
@@ -141,8 +142,10 @@ public class NhinDocQueryProxyWebServiceSecuredImpl implements NhinDocQueryProxy
                         + " is: " + url);
             }
 
-            RespondingGatewayQueryPortType port = getPort(url, NhincConstants.DOC_QUERY_ACTION, WS_ADDRESSING_ACTION,
+            RespondingGatewayQueryPortType port = getPort(url, NhincConstants.DOC_QUERY_SERVICE_NAME, WS_ADDRESSING_ACTION,
                     assertion);
+            WebServiceProxyHelper wsHelper = new WebServiceProxyHelper();
+            wsHelper.addTargetCommunity(((BindingProvider)port), target);
 
             if (request == null) {
                 log.error("Message was null");

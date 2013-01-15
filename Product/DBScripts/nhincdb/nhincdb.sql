@@ -306,7 +306,7 @@ CREATE DATABASE perfrepo;
 CREATE TABLE perfrepo.perfrepository (
   id BIGINT NOT NULL AUTO_INCREMENT,
   time TIMESTAMP NULL,
-  servicetype VARCHAR(45) NULL,
+  servicetype VARCHAR(255) NULL,
   messagetype VARCHAR(10) NULL,
   direction VARCHAR(10) NULL,
   communityid VARCHAR(255) NULL,

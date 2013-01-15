@@ -46,7 +46,7 @@ public class InboundDocRetrieveStrategyImpl implements InboundDocRetrieveStrateg
 
         if (message instanceof InboundDocRetrieveOrchestratableImpl) {
             InboundDocRetrieveOrchestratableImpl NhinDRMessage = (InboundDocRetrieveOrchestratableImpl) message;
-            String requestCommunityID = HomeCommunityMap.getLocalHomeCommunityId();
+            String requestCommunityID = HomeCommunityMap.getCommunityIdForRDRequest(NhinDRMessage.getRequest());
 
             getLogger().debug("Calling audit log for doc retrieve request (g0) sent to adapter (a0)");
             auditRequestMessage(NhinDRMessage.getRequest(), NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION,

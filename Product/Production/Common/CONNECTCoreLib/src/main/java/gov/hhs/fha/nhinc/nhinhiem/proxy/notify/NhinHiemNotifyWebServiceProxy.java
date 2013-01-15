@@ -28,6 +28,7 @@ package gov.hhs.fha.nhinc.nhinhiem.proxy.notify;
 
 
 import java.util.List;
+import java.util.Map;
 
 import javax.xml.namespace.QName;
 import javax.xml.ws.BindingProvider;
@@ -59,6 +60,7 @@ import gov.hhs.fha.nhinc.hiem.consumerreference.ReferenceParametersElements;
 import gov.hhs.fha.nhinc.hiem.dte.SoapUtil;
 import gov.hhs.fha.nhinc.hiem.dte.marshallers.WsntSubscribeMarshaller;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants.GATEWAY_API_LEVEL;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.policyengine.PolicyEngineChecker;
 import gov.hhs.fha.nhinc.policyengine.adapter.proxy.PolicyEngineProxy;
@@ -94,7 +96,6 @@ public class NhinHiemNotifyWebServiceProxy implements NhinHiemNotifyProxy {
         log.debug("unmarshaling notify message");
         WsntSubscribeMarshaller notifyMarshaller = new WsntSubscribeMarshaller();
         Notify notify = notifyMarshaller.unmarshalNotifyRequest(notifyElement);
-        auditInputMessage(notify, assertion);
 
         if (target != null) {
             try {
@@ -115,6 +116,8 @@ public class NhinHiemNotifyWebServiceProxy implements NhinHiemNotifyProxy {
                 log.debug("Calling checkPolicy");
                 if (checkPolicy(notify, assertion)) {
                     NotificationConsumer port = getPort(url, assertion);
+                    WebServiceProxyHelper wsHelper = new WebServiceProxyHelper();
+                    wsHelper.addTargetCommunity(((BindingProvider)port), target);
 
                     log.debug("attaching reference parameter headers");
                     List<Header> headers = oProxyHelper.createWSAddressingHeaders((WSBindingProvider) port,
@@ -124,6 +127,9 @@ public class NhinHiemNotifyWebServiceProxy implements NhinHiemNotifyProxy {
                             headers);
 
                     try {
+                        auditInputMessage(notify, assertion,
+                            NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE);
+
                         log.debug("Calling notification consumer port in NhinHiemWebServiceProxy.");
                         // The proxyhelper invocation casts exceptions to generic Exception, trying to use the default
                         // method invocation
@@ -152,7 +158,9 @@ public class NhinHiemNotifyWebServiceProxy implements NhinHiemNotifyProxy {
 
                 // Initialize secured port
                 getWebServiceProxyHelper().initializeSecurePort((BindingProvider) oPort, url,
-                        NhincConstants.SUBSCRIBE_ACTION, null, assertion);
+                        NhincConstants.HIEM_NOTIFY_SERVICE_NAME, null, assertion);
+                
+                ((BindingProvider)oPort).getRequestContext().put(NhincConstants.TARGET_API_LEVEL, GATEWAY_API_LEVEL.LEVEL_g0);
             } else {
                 log.error("Unable to obtain service - no port created.");
             }
@@ -190,7 +198,15 @@ public class NhinHiemNotifyWebServiceProxy implements NhinHiemNotifyProxy {
         return policyIsValid;
     }
 
-    private void auditInputMessage(Notify notify, AssertionType assertion) {
+    /**
+     * Create a generic log for Input messages.
+     * @param notify The notify message to be audited
+     * @param assertion The assertion element to be audited
+     * @param direction The direction of the log to be audited (Inbound or Outbound)
+     * @param logInterface The interface of the log to be audited (NHIN or Adapter)
+     */
+    private void auditInputMessage(Notify notify, AssertionType assertion, String direction,
+            String logInterface) {
         log.debug("In NhinHiemNotifyWebServiceProxy.auditInputMessage");
         try {
             AuditRepositoryLogger auditLogger = new AuditRepositoryLogger();
@@ -200,7 +216,7 @@ public class NhinHiemNotifyWebServiceProxy implements NhinHiemNotifyProxy {
             message.setNotify(notify);
 
             LogEventRequestType auditLogMsg = auditLogger.logNhinNotifyRequest(message,
-                    NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE);
+                    direction, logInterface);
 
             if (auditLogMsg != null) {
                 AuditRepositoryProxyObjectFactory auditRepoFactory = new AuditRepositoryProxyObjectFactory();

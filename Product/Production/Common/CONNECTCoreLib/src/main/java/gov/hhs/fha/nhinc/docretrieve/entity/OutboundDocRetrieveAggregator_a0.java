@@ -26,6 +26,7 @@
  */
 package gov.hhs.fha.nhinc.docretrieve.entity;
 
+import gov.hhs.fha.nhinc.docretrieve.util.DocRetrieveStatusUtil;
 import gov.hhs.fha.nhinc.gateway.aggregator.document.DocumentConstants;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
@@ -45,84 +46,79 @@ import org.apache.commons.logging.LogFactory;
  */
 public class OutboundDocRetrieveAggregator_a0 implements NhinAggregator {
 
-    private static final Log logger = LogFactory.getLog(OutboundDocRetrieveAggregator_a0.class);
+    private static final Log LOGGER = LogFactory.getLog(OutboundDocRetrieveAggregator_a0.class);
 
     private Log getLogger() {
-        return logger;
+        return LOGGER;
     }
 
+    /**
+     * Aggregates the message in the from Orchestrable to the to Orchestratable.
+     * 
+     * @param to The orchestratable which contains the aggregated message
+     * @param from The orchestratable which contains the message to be aggregated
+     */
     public void aggregate(OutboundOrchestratable to, OutboundOrchestratable from) {
         if (to instanceof OutboundDocRetrieveOrchestratable) {
+            String status = null;
             if (from instanceof OutboundDocRetrieveOrchestratable) {
-                OutboundDocRetrieveOrchestratable to_a0 = (OutboundDocRetrieveOrchestratable) to;
-                OutboundDocRetrieveOrchestratable from_a0 = (OutboundDocRetrieveOrchestratable) from;
-                if (to_a0.getResponse() == null) {
-                    to_a0.setResponse(new RetrieveDocumentSetResponseType());
+                OutboundDocRetrieveOrchestratable aggregatedResponse = (OutboundDocRetrieveOrchestratable) to;
+                OutboundDocRetrieveOrchestratable fromResponse = (OutboundDocRetrieveOrchestratable) from;
+                if (aggregatedResponse.getResponse() == null) {
+                    aggregatedResponse.setResponse(new RetrieveDocumentSetResponseType());
                 }
 
-                if (to_a0.getResponse().getRegistryResponse() == null) {
+                if (aggregatedResponse.getResponse().getRegistryResponse() == null) {
                     RegistryResponseType rrt = new RegistryResponseType();
-                    to_a0.getResponse().setRegistryResponse(rrt);
-                }
-                
-                if (from_a0.getResponse() == null
-                        || from_a0.getResponse().getRegistryResponse() == null
-                        || NhincConstants.NHINC_ADHOC_QUERY_SUCCESS_RESPONSE.equalsIgnoreCase(from_a0.getResponse()
-                                .getRegistryResponse().getStatus())) {
-                    to_a0.getResponse().getRegistryResponse()
-                            .setStatus(NhincConstants.NHINC_ADHOC_QUERY_SUCCESS_RESPONSE);
-                } else if (DocumentConstants.XDS_RETRIEVE_RESPONSE_STATUS_FAILURE.equalsIgnoreCase(from_a0
-                        .getResponse().getRegistryResponse().getStatus())
-                        || !from_a0.getResponse().getRegistryResponse().getRegistryErrorList().getRegistryError()
-                                .isEmpty()) {
-                    
-                    to_a0.getResponse().getRegistryResponse()
-                            .setStatus(DocumentConstants.XDS_RETRIEVE_RESPONSE_STATUS_FAILURE);
-                              
-                    addRegistryErrors(to_a0, from_a0);                                    
+                    aggregatedResponse.getResponse().setRegistryResponse(rrt);
                 }
 
-                if (from_a0.getResponse() != null) {
-                    to_a0.getResponse().getDocumentResponse().addAll(from_a0.getResponse().getDocumentResponse());
-                } 
-            } /*
-               * else if (from instanceof EntityDocRetrieveOrchestratableImpl_a1) {
-               * 
-               * }
-               */
+                if (fromResponse.getResponse() != null) {
+                    aggregatedResponse.getResponse().getDocumentResponse()
+                            .addAll(fromResponse.getResponse().getDocumentResponse());
+                }
+
+                status = DocRetrieveStatusUtil.setResponseStatus(fromResponse.getResponse(),
+                        aggregatedResponse.getResponse());
+                aggregatedResponse.getResponse().getRegistryResponse().setStatus(status);
+
+                if (DocRetrieveStatusUtil.isStatusFailureOrPartialFailure(fromResponse.getResponse()
+                        .getRegistryResponse().getStatus())) {
+                    addRegistryErrors(aggregatedResponse, fromResponse);
+                }
+            }
         } else {
             // throw error, this aggregator does not handle this case
             getLogger().error("This aggregator only aggregates to EntityDocRetrieveOrchestratableImpl_a0.");
         }
     }
-    
+
+    /**
+     * Adds the registry error to the to Orchestrable from the from Orchestratable. If none exists, then one is created.
+     * 
+     * @param to the Orchestratrable whose response is to be modified
+     * @param from the Orchestratrable whose response's registry error is to used
+     */
     private void addRegistryErrors(OutboundDocRetrieveOrchestratable to, OutboundDocRetrieveOrchestratable from) {
         if (to.getResponse().getRegistryResponse().getRegistryErrorList() == null) {
             to.getResponse().getRegistryResponse().setRegistryErrorList(new RegistryErrorList());
         }
-        
-        if (from.getResponse() != null 
-                && from.getResponse().getRegistryResponse() != null 
+
+        if (from.getResponse() != null
+                && from.getResponse().getRegistryResponse() != null
                 && from.getResponse().getRegistryResponse().getRegistryErrorList() != null
-                && NullChecker.isNotNullish(from.getResponse().getRegistryResponse().getRegistryErrorList().getRegistryError())) {
-            to.getResponse()
-                    .getRegistryResponse()
-                    .getRegistryErrorList()
-                    .getRegistryError()
-                    .addAll(from.getResponse().getRegistryResponse().getRegistryErrorList()
-                            .getRegistryError());
+                && NullChecker.isNotNullish(from.getResponse().getRegistryResponse().getRegistryErrorList()
+                        .getRegistryError())) {
+            to.getResponse().getRegistryResponse().getRegistryErrorList().getRegistryError()
+                    .addAll(from.getResponse().getRegistryResponse().getRegistryErrorList().getRegistryError());
         } else {
             RegistryError registryError = new RegistryError();
             registryError.setErrorCode(DocumentConstants.XDS_RETRIEVE_ERRORCODE_REPOSITORY_ERROR);
             registryError.setCodeContext("Received an invalid response.");
             registryError.setSeverity(NhincConstants.XDS_REGISTRY_ERROR_SEVERITY_ERROR);
-            
-            to.getResponse()
-                   .getRegistryResponse()
-                   .getRegistryErrorList()
-                   .getRegistryError()
-                   .add(registryError);
-        }        
+
+            to.getResponse().getRegistryResponse().getRegistryErrorList().getRegistryError().add(registryError);
+        }
     }
 
 }

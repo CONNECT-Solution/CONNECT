@@ -26,8 +26,10 @@
  */
 package gov.hhs.fha.nhinc.admindistribution.nhin.proxy;
 
+import gov.hhs.fha.nhinc.admindistribution.AdminDistributionAuditLogger;
 import gov.hhs.fha.nhinc.admindistribution.AdminDistributionHelper;
 import oasis.names.tc.emergency.edxl.de._1.EDXLDistribution;
+import gov.hhs.fha.nhinc.common.nhinccommon.AcknowledgementType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.nhinadmindistribution.RespondingGatewayAdministrativeDistributionPortType;
@@ -49,6 +51,8 @@ import org.apache.commons.logging.LogFactory;
  */
 public class NhinAdminDistributionProxyWebServiceSecuredImpl implements NhinAdminDistributionProxy {
     private Log log = null;
+    private AdminDistributionAuditLogger adLogger = null;
+
     private static HashMap<String, Service> cachedServiceMap = new HashMap<String, Service>();
     private static final String NAMESPACE_URI = "urn:gov:hhs:fha:nhinc:nhinadmindistribution";
     private static final String SERVICE_LOCAL_PART = "RespondingGateway_AdministrativeDistribution";
@@ -77,11 +81,16 @@ public class NhinAdminDistributionProxyWebServiceSecuredImpl implements NhinAdmi
 
         if (NullChecker.isNotNullish(url)) {
             RespondingGatewayAdministrativeDistributionPortType port = getPort(url, assertion, apiLevel);
+            WebServiceProxyHelper wsHelper = new WebServiceProxyHelper();
+            wsHelper.addTargetCommunity(((BindingProvider)port), target);
 
             SamlTokenCreator tokenCreator = new SamlTokenCreator();
-            Map requestContext = tokenCreator.CreateRequestContext(assertion, url, NhincConstants.ADMIN_DIST_ACTION);
+            Map requestContext = tokenCreator.CreateRequestContext(assertion, url, NhincConstants.NHIN_ADMIN_DIST_SERVICE_NAME);
+            requestContext.put(NhincConstants.TARGET_API_LEVEL, apiLevel);
 
             ((BindingProvider) port).getRequestContext().putAll(requestContext);
+
+            auditMessage(body, assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION);
 
             try {
                 log.debug("invoke port");
@@ -142,4 +151,17 @@ public class NhinAdminDistributionProxyWebServiceSecuredImpl implements NhinAdmi
         }
         return cachedService;
     }
+
+    protected void auditMessage(EDXLDistribution message, AssertionType assertion, String direction) {
+        AcknowledgementType ack = getLogger().auditNhinAdminDist(message, assertion, direction, NhincConstants.AUDIT_LOG_NHIN_INTERFACE);
+        if (ack != null) {
+            log.debug("ack: " + ack.getMessage());
+        }
+    }
+
+    protected AdminDistributionAuditLogger getLogger() {
+        return (adLogger != null) ? adLogger : new AdminDistributionAuditLogger();
+    }
+
+
 }

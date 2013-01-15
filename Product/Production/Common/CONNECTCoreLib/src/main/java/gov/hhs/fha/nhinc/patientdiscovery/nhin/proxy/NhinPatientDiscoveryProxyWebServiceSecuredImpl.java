@@ -43,6 +43,7 @@ import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.perfrepo.PerformanceManager;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
+import javax.xml.ws.BindingProvider;
 
 /**
  *
@@ -93,8 +94,10 @@ public class NhinPatientDiscoveryProxyWebServiceSecuredImpl implements NhinPatie
                 }
 
                 if (NullChecker.isNotNullish(url)) {
-                    RespondingGatewayPortType port = getPort(url, NhincConstants.PATIENT_DISCOVERY_ACTION,
+                    RespondingGatewayPortType port = getPort(url, NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME,
                             WS_ADDRESSING_ACTION, assertion);
+                    WebServiceProxyHelper wsHelper = new WebServiceProxyHelper();
+                    wsHelper.addTargetCommunity(((BindingProvider)port), target);
 
                     // Log the start of the performance record
                     String targetCommunityId = "";

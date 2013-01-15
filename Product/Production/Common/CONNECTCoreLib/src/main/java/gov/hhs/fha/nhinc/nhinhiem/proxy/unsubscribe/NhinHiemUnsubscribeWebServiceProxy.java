@@ -27,6 +27,7 @@
 package gov.hhs.fha.nhinc.nhinhiem.proxy.unsubscribe;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.xml.namespace.QName;
 import javax.xml.ws.BindingProvider;
@@ -60,6 +61,7 @@ import gov.hhs.fha.nhinc.hiem.dte.marshallers.WsntUnsubscribeMarshaller;
 import gov.hhs.fha.nhinc.hiem.dte.marshallers.WsntUnsubscribeResponseMarshaller;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants.GATEWAY_API_LEVEL;
 import gov.hhs.fha.nhinc.policyengine.PolicyEngineChecker;
 import gov.hhs.fha.nhinc.policyengine.adapter.proxy.PolicyEngineProxy;
 import gov.hhs.fha.nhinc.policyengine.adapter.proxy.PolicyEngineProxyObjectFactory;
@@ -87,6 +89,9 @@ public class NhinHiemUnsubscribeWebServiceProxy implements NhinHiemUnsubscribePr
             AssertionType assertion, NhinTargetSystemType target) throws ResourceUnknownFault,
             UnableToDestroySubscriptionFault, Exception {
         SubscriptionManager port = getPort(target, assertion);
+        WebServiceProxyHelper wsHelper = new WebServiceProxyHelper();
+        wsHelper.addTargetCommunity(((BindingProvider)port), target);
+
         Element responseElement = null;
         UnsubscribeResponse response = null;
 
@@ -179,7 +184,9 @@ public class NhinHiemUnsubscribeWebServiceProxy implements NhinHiemUnsubscribePr
 
                 // Initialize secured port
                 getWebServiceProxyHelper().initializeSecurePort((BindingProvider) oPort, url,
-                        NhincConstants.UNSUBSCRIBE_ACTION, WS_ADDRESSING_ACTION, assertIn);
+                        NhincConstants.HIEM_UNSUBSCRIBE_ENTITY_SERVICE_NAME, WS_ADDRESSING_ACTION, assertIn);
+                
+                ((BindingProvider)oPort).getRequestContext().put(NhincConstants.TARGET_API_LEVEL, GATEWAY_API_LEVEL.LEVEL_g0);
             } else {
                 log.error("Unable to obtain service - no port created.");
             }
