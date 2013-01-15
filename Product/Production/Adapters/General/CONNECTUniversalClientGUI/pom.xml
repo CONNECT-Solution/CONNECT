@@ -160,9 +160,8 @@
             <version>1.0</version>
         </dependency>
         <dependency>
-                <groupId>org.springframework</groupId>
-                <artifactId>spring-web</artifactId>
-                <version>3.0.7.RELEASE</version>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-web</artifactId>
         </dependency>
         <dependency>
             <groupId>com.sun.xml.fastinfoset</groupId>
