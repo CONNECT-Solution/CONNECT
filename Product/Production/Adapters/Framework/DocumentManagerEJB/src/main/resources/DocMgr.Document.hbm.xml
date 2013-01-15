@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/*
+ * Copyright (c) 2011, Conemaugh Valley Memorial Hospital
+ *
+ * This source is subject to the Conemaugh public license.  Please see the
+ * license.txt file for more information.
+ *
+ * All other rights reserved.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND
+ * CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING,
+ * BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND
+ * FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT
+ * SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY
+ * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+ * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE
+ * GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+ * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+ * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+ * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF
+ * ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+ *
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+-->
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="gov.hhs.fha.nhinc.docmgr.repository.model">
+  <class name="Document" table="document">
+    <id column="documentid" name="documentid" type="long">
+      <generator class="increment"/>
+    </id>
+    <property column="DocumentUniqueId" length="64" name="documentUniqueId" not-null="true" type="string"/>
+    <property column="DocumentTitle" length="128" name="documentTitle" not-null="false" type="string"/>
+    <property column="authorPerson" length="64" name="authorPerson" not-null="false" type="string"/>
+    <property column="authorInstitution" length="64" name="authorInstitution" not-null="false" type="string"/>
+    <property column="authorRole" length="64" name="authorRole" not-null="false" type="string"/>
+    <property column="authorSpecialty" length="64" name="authorSpecialty" not-null="false" type="string"/>
+    <property column="AvailabilityStatus" length="64" name="availablityStatus" not-null="false" type="string"/>
+    <property column="ClassCode" length="64" name="classCode" not-null="false" type="string"/>
+    <property column="ClassCodeScheme" length="64" name="classCodeScheme" not-null="false" type="string"/>
+    <property column="ClassCodeDisplayName" length="64" name="classCodeDisplayName" not-null="false" type="string"/>
+    <property column="ConfidentialityCode" length="64" name="confidentialityCode" not-null="false" type="string"/>
+    <property column="ConfidentialityCodeScheme" length="64" name="confidentialityCodeScheme" not-null="false" type="string"/>
+    <property column="ConfidentialityCodeDisplayName" length="64" name="confidentialityCodeDisplayName" not-null="false" type="string"/>
+    <property column="CreationTime" length="64" name="creationTime" not-null="false" type="timestamp"/>
+    <property column="FormatCode" length="64" name="formatCode" not-null="false" type="string"/>
+    <property column="FormatCodeScheme" length="64" name="formatCodeScheme" not-null="false" type="string"/>
+    <property column="FormatCodeDisplayName" length="64" name="formatCodeDisplayName" not-null="false" type="string"/>
+    <property column="PatientId" length="64" name="patientId" not-null="false" type="string"/>
+    <property column="ServiceStartTime" name="serviceStartTime" not-null="false" type="timestamp"/>
+    <property column="ServiceStopTime" name="serviceStopTime" not-null="false" type="timestamp"/>
+    <property column="Status" length="64" name="status" not-null="false" type="string"/>
+    <property column="Comments" length="256" name="comments" not-null="false" type="string"/>
+    <property column="Hash" length="1028" name="hash" not-null="false" type="string"/>
+    <property column="FacilityCode" length="64" name="facilityCode" not-null="false" type="string"/>
+    <property column="FacilityCodeScheme" length="64" name="facilityCodeScheme" not-null="false" type="string"/>
+    <property column="FacilityCodeDisplayName" length="64" name="facilityCodeDisplayName" not-null="false" type="string"/>
+    <property column="IntendedRecipientPerson" length="128" name="intendedRecipientPerson" not-null="false" type="string"/>
+    <property column="IntendedRecipientOrganization" length="128" name="intendedRecipientOrganization" not-null="false" type="string"/>
+    <property column="LanguageCode" length="64" name="languageCode" not-null="false" type="string"/>
+    <property column="legalAuthenticator" length="128" name="legalAuthenticator" not-null="false" type="string"/>
+    <property column="MimeType" length="32" name="mimeType" not-null="false" type="string"/>
+    <property column="ParentDocumentId" length="64" name="parentDocumentId" not-null="false" type="string"/>
+    <property column="ParentDocumentRelationship" length="64" name="parentDocumentRelationship" not-null="false" type="string"/>
+    <property column="PracticeSetting" length="64" name="practiceSetting" not-null="false" type="string"/>
+    <property column="PracticeSettingScheme" length="64" name="practiceSettingScheme" not-null="false" type="string"/>
+    <property column="PracticeSettingDisplayName" length="64" name="practiceSettingDisplayName" not-null="false" type="string"/>
+    <property column="DocumentSize" name="size" not-null="false" type="long"/>
+    <property column="SourcePatientId" length="128" name="sourcePatientId" not-null="false" type="string"/>
+    <property column="Pid3" length="128" name="pid3" not-null="false" type="string"/>
+    <property column="Pid5" length="128" name="pid5" not-null="false" type="string"/>
+    <property column="Pid7" length="128" name="pid7" not-null="false" type="string"/>
+    <property column="Pid8" length="128" name="pid8" not-null="false" type="string"/>
+    <property column="Pid11" length="128" name="pid11" not-null="false" type="string"/>
+    <property column="TypeCode" length="64" name="typeCode" not-null="false" type="string"/>
+    <property column="TypeCodeScheme" length="64" name="typeCodeScheme" not-null="false" type="string"/>
+    <property column="TypeCodeDisplayName" length="64" name="typeCodeDisplayName" not-null="false" type="string"/>
+    <property column="DocumentUri" length="128" name="documentUri" not-null="false" type="string"/>
+    <property column="rawData" length="2147483647" name="rawData" not-null="false" type="binary"/>
+    <property column="Persistent" name="persistentCode" not-null="true" type="int"/>
+    <property column="RepositoryId" length="128" name="repositoryId" not-null="true" type="string"/>
+    <set cascade="all-delete-orphan" inverse="true" lazy="false" name="eventCodes">
+      <key column="documentid"/>
+      <one-to-many class="EventCode"/>
+    </set>
+    <set cascade="all-delete-orphan" inverse="true" lazy="false" name="extraSlots">
+      <key column="documentid"/>
+      <one-to-many class="ExtraSlot"/>
+    </set>
+  </class>
+</hibernate-mapping>

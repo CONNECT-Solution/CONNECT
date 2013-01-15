@@ -1,6 +1,11 @@
 /*
  * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services. 
  * All rights reserved. 
+ * Copyright (c) 2011, Conemaugh Valley Memorial Hospital
+ * This source is subject to the Conemaugh public license.  Please see the
+ * license.txt file for more information.
+ * All other rights reserved.
+ *
  *
  * Redistribution and use in source and binary forms, with or without 
  * modification, are permitted provided that the following conditions are met: 
@@ -28,8 +33,13 @@ package gov.hhs.fha.nhinc.assemblymanager.builder.cda.modules;
 
 import gov.hhs.fha.nhinc.assemblymanager.builder.DocumentBuilder;
 import gov.hhs.fha.nhinc.assemblymanager.builder.DocumentBuilderException;
+import org.hl7.v3.ADExplicit;
+import org.hl7.v3.PNExplicit;
 import org.hl7.v3.POCDMT000040AssignedEntity;
 import org.hl7.v3.POCDMT000040Informant12;
+import org.hl7.v3.POCDMT000040Organization;
+import org.hl7.v3.POCDMT000040Person;
+import org.hl7.v3.TELExplicit;
 
 /**
  * This module This includes information about the author or creator of the information contained within the exchange.
@@ -49,9 +59,19 @@ public class InformationSource extends DocumentBuilder {
     public POCDMT000040Informant12 build() throws DocumentBuilderException {
         POCDMT000040Informant12 informant = new POCDMT000040Informant12();
         POCDMT000040AssignedEntity assignedEntity = new POCDMT000040AssignedEntity();
+        POCDMT000040Organization representedOrganization = getRepresentedOrganization();
 
         try {
             assignedEntity.getId().add(getOrganization());
+            //For CHS, set the assigned author addr and telecom to the same values as Represented Organization
+            assignedEntity.getAddr().add((ADExplicit) representedOrganization.getAddr().get(0));
+            assignedEntity.getTelecom().add((TELExplicit) representedOrganization.getTelecom().get(0));
+            //assignedPerson
+            POCDMT000040Person assignedPerson = objectFactory.createPOCDMT000040Person();
+            PNExplicit assignedPersonName = objectFactory.createPNExplicit();
+            assignedPersonName.getNullFlavor().add("UNK");
+            assignedPerson.getName().add(assignedPersonName);
+            assignedEntity.setAssignedPerson(assignedPerson);
             assignedEntity.setRepresentedOrganization(getRepresentedOrganization());
             informant.setAssignedEntity(assignedEntity);
             return informant;

@@ -1,6 +1,10 @@
 /*
  * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services. 
  * All rights reserved. 
+ * Copyright (c) 2011, Conemaugh Valley Memorial Hospital
+ * This source is subject to the Conemaugh public license.  Please see the
+ * license.txt file for more information.
+ * All other rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without 
  * modification, are permitted provided that the following conditions are met: 
@@ -30,7 +34,7 @@ import gov.hhs.fha.nhinc.assemblymanager.CDAConstants;
 import gov.hhs.fha.nhinc.assemblymanager.builder.DocumentBuilderException;
 import gov.hhs.fha.nhinc.assemblymanager.builder.cda.section.AllergiesSectionImpl;
 import gov.hhs.fha.nhinc.assemblymanager.builder.cda.section.SectionImpl;
-import gov.hhs.fha.nhinc.assemblymanager.utils.DocumentIdGenerator;
+import gov.hhs.fha.nhinc.assemblymanager.utils.UUIDGenerator;
 import gov.hhs.fha.nhinc.template.TemplateConstants;
 import gov.hhs.fha.nhinc.template.model.CdaTemplate;
 import java.util.ArrayList;
@@ -56,6 +60,7 @@ import org.hl7.v3.POCDMT000040Act;
 import org.hl7.v3.XActClassDocumentEntryAct;
 import org.hl7.v3.XDocumentActMood;
 import org.hl7.v3.CD;
+import org.hl7.v3.CEExplicit;
 import org.hl7.v3.XActRelationshipEntryRelationship;
 import org.hl7.v3.POCDMT000040ParticipantRole;
 import org.hl7.v3.CS;
@@ -71,8 +76,8 @@ import org.hl7.v3.XActRelationshipEntry;
 
 /**
  * This module defines a patient's current medications and pertinent medication history.
- * 
- * 
+ *
+ *
  */
 public class AllergiesModule extends ModuleImpl {
 
@@ -83,8 +88,7 @@ public class AllergiesModule extends ModuleImpl {
         super(template, careRecordResponse);
     }
 
-    public AllergiesModule(CdaTemplate template, CareRecordQUPCIN043200UV01ResponseType careRecordResponse,
-            SectionImpl section) {
+    public AllergiesModule(CdaTemplate template, CareRecordQUPCIN043200UV01ResponseType careRecordResponse, SectionImpl section) {
         super(template, careRecordResponse);
         this.section = (AllergiesSectionImpl) section;
     }
@@ -95,22 +99,29 @@ public class AllergiesModule extends ModuleImpl {
         List<POCDMT000040Entry> entries = new ArrayList<POCDMT000040Entry>();
 
         QUPCIN043200UV01MFMIMT700712UV01Subject1 careRecord = careRecordResponse.getCareRecord();
-        REPCMT004000UV01CareProvisionEvent careProvisionEvent = careRecord.getRegistrationEvent().getSubject2()
-                .getCareProvisionEvent();
+        REPCMT004000UV01CareProvisionEvent careProvisionEvent =
+            careRecord.getRegistrationEvent().getSubject2().getCareProvisionEvent();
 
         List<REPCMT004000UV01PertinentInformation5> allergyEvents = careProvisionEvent.getPertinentInformation3();
 
         log.info("*******************  # of Allergy EVENTS: " + allergyEvents.size());
 
-        for (REPCMT004000UV01PertinentInformation5 allergyEvent : allergyEvents) {
-            entries.add(buildAllergy(allergyEvent));
-        }
+        //counter used for act and observation id's
+        int counter = 0;
 
-        // allergy
-        return entries;
+        for (REPCMT004000UV01PertinentInformation5 allergyEvent : allergyEvents) {
+
+            entries.add(buildAllergy(allergyEvent, counter++));
+        }
+        if (entries.size() > 0) {
+            // allergy
+            return entries;
+        } else {
+            return null;
+        }
     }
 
-    private POCDMT000040Entry buildAllergy(REPCMT004000UV01PertinentInformation5 allergyEvent) {
+    private POCDMT000040Entry buildAllergy(REPCMT004000UV01PertinentInformation5 allergyEvent, int count) {
         // CDA
         POCDMT000040Entry allergyEntry = new POCDMT000040Entry();
         allergyEntry.setTypeCode(XActRelationshipEntry.DRIV);
@@ -126,12 +137,29 @@ public class AllergiesModule extends ModuleImpl {
             act.getTemplateId().add(templateId);
         }
 
+        //additional template id is required to conform to the 1.3.6.1.4.1.19376.1.5.3.1.4.5.2 entry
+        II additionalTemplateId = objectFactory.createII();
+        additionalTemplateId.setRoot("1.3.6.1.4.1.19376.1.5.3.1.4.5.1");
+        act.getTemplateId().add(additionalTemplateId);
+
         CD actCode = new CD();
         actCode.getNullFlavor().add("NA");
         act.setCode(actCode);
+        //statusCode
+        CS actStatusCode = new CS();
+        actStatusCode.setCode("active");
+        act.setStatusCode(actStatusCode);
+
+        //act effectiveTime
+        IVLTSExplicit actEffectiveTime = new IVLTSExplicit();
+        IVXBTSExplicit lowExpVal = new IVXBTSExplicit();
+        lowExpVal.getNullFlavor().add("UNK");
+        actEffectiveTime.getContent().add(this.objectFactory.createIVLTSExplicitLow(lowExpVal));
+        act.setEffectiveTime(actEffectiveTime);
 
         POCDMT000040EntryRelationship actEntryRelationship = new POCDMT000040EntryRelationship();
         actEntryRelationship.setTypeCode(XActRelationshipEntryRelationship.SUBJ);
+        actEntryRelationship.setInversionInd(Boolean.FALSE);
 
         // CAL
         REPCMT000100UV01Observation allergyObservation = allergyEvent.getObservation().getValue();
@@ -151,19 +179,59 @@ public class AllergiesModule extends ModuleImpl {
         template2.setAssigningAuthorityName("IHE");
         actEntryRelationshipObs.getTemplateId().add(template2);
 
-        // unique id for this module entry
+        // this ihe observation template identifier is required for both problems and allergies
+        II template3 = new II();
+        template3.setRoot(TemplateConstants.ccdProblemObservationTemplateId);
+        actEntryRelationshipObs.getTemplateId().add(template3);
+
+        II template4 = objectFactory.createII();
+        template4.setRoot("1.3.6.1.4.1.19376.1.5.3.1.4.6");
+        actEntryRelationshipObs.getTemplateId().add(template4);
+
+        //unique act id for this module
+        II id = new II();
+
+        //create an id that is sequential and always clinical hash compliant
+        String idStr = "Allergy Act Id " + String.valueOf(count);
+        String idVal = UUIDGenerator.generateUUIDFromString(idStr);
+
+        id.setRoot(idVal);
+        act.getId().add(id);
+        log.debug("Allergy act #" + String.valueOf(count) + " id = " + idVal);
+
+        //unique observation id for this module entry
         if (allergyObservation.getId().size() > 0) {
-            act.getId().add(allergyObservation.getId().get(0));
+            //value returned from EHR
+            actEntryRelationshipObs.getId().add(allergyObservation.getId().get(0));
         } else {
-            II id = new II();
-            id.setExtension(DocumentIdGenerator.generateDocumentId());
+            //No value returned from EHR - generate random id
+            II observationId = new II();
+
+            //create an id that is sequential and always clinical hash compliant
+            String obsIdStr = "Allergy Observation Id " + String.valueOf(count);
+            String obsIdVal = UUIDGenerator.generateUUIDFromString(obsIdStr);
+
+            observationId.setRoot(obsIdVal);
+            actEntryRelationshipObs.getId().add(observationId);
+            log.debug("Allergy observation #" + String.valueOf(count) + " id = " + obsIdVal);
+
         }
 
-        // ------------------ Adverse Event Type ------------------
+        // status code
+        CS statusCode = new CS();
+        statusCode.setCode("completed");
+        actEntryRelationshipObs.setStatusCode(statusCode);
+
+
+        // ------------------  Adverse Event Type  ------------------
         CD obsCode = allergyObservation.getCode();
+        obsCode.setCodeSystem("2.16.840.1.113883.6.96");
+        obsCode.setCode("420134006");  //this code is the "parent" for all other codes
         actEntryRelationshipObs.setCode(obsCode);
 
-        // ------------------ Adverse Event Date ------------------
+
+
+        // ------------------  Adverse Event Date  ------------------
         // needs to be report in the "low" element of effectiveTime
         if (allergyObservation.getEffectiveTime().size() > 0) {
             IVLTSExplicit newt = new IVLTSExplicit();
@@ -174,7 +242,46 @@ public class AllergiesModule extends ModuleImpl {
             newt.getContent().add(this.objectFactory.createIVLTSExplicitLow(lowVal));
 
             actEntryRelationshipObs.setEffectiveTime(newt);
+
+            log.debug("Allergy Event Date set to : " + newt.getValue());
+        } else if (allergyObservation.getText() != null) {
+
+            //CHS returns allergy date in text block
+            String textValue = getEDItem(allergyObservation.getText());
+            int index = textValue.indexOf(';');
+
+            if ((index >= 0) && (textValue.length() > index + 2)) {
+                String newText = textValue.substring(index + 2);
+                log.debug("Parsed effectiveDate from Text = " + newText);
+
+                IVLTSExplicit effectiveTime = new IVLTSExplicit();
+                IVXBTSExplicit lowVal = new IVXBTSExplicit();
+
+                if (newText.trim().equals("No Date Recorded")) {
+                    //set the low value to null flavor because date is unknown
+                    log.debug("No Allergy Observation Date available. Set NullFlavor value");
+                    //lowVal.getNullFlavor().add("UNK");
+                    // lowVal.setValue("00000000");
+                    lowVal.getNullFlavor().add("UNK");
+                } else {
+                    lowVal.setValue(newText);
+                }
+
+                log.debug("Setting Allergy Observation effectiveTime Low value...");
+                effectiveTime.getContent().add(this.objectFactory.createIVLTSExplicitLow(lowVal));
+
+                log.debug("Setting effectiveTime value...");
+                actEntryRelationshipObs.setEffectiveTime(effectiveTime);
+                log.debug("Allergy Event Date set to : " + effectiveTime.getValue());
+            }
+
+        } else {
+            log.debug("Allergy Event Date not found.");
         }
+
+        //reaction value
+        CD test = objectFactory.createCD();
+        actEntryRelationshipObs.getValue().add(test);
 
         List<REPCMT000100UV01SourceOf3> allergySourceOf3 = allergyObservation.getSourceOf();
 
@@ -182,25 +289,22 @@ public class AllergiesModule extends ModuleImpl {
             // check type code
             String typeCode = thisAllergySourceOf3.getTypeCode().get(0);
             if (typeCode.equalsIgnoreCase(CDAConstants.TYPE_CODE_MFST)) {
-                // ------------------ Product ------------------
+                // ------------------  Product  ------------------
                 if (thisAllergySourceOf3.getSubstanceAdministration() != null) {
                     log.debug("***********  ALLERGY SUBSTANCE  ***********");
 
-                    REPCMT000100UV01Consumable calConsumable = thisAllergySourceOf3.getSubstanceAdministration()
-                            .getValue().getConsumable();
+                    REPCMT000100UV01Consumable calConsumable = thisAllergySourceOf3.getSubstanceAdministration().getValue().getConsumable();
 
                     if (calConsumable != null) {
                         POCDMT000040Participant2 CDAParticipant2 = new POCDMT000040Participant2();
                         CDAParticipant2.getTypeCode().add(CDAConstants.TYPE_CODE_CSM);
 
-                        REPCMT000100UV01AdministerableMaterial calAdministerableMaterial = calConsumable
-                                .getAdministerableMaterial();
+                        REPCMT000100UV01AdministerableMaterial calAdministerableMaterial = calConsumable.getAdministerableMaterial();
                         if (calAdministerableMaterial != null) {
-                            actEntryRelationshipObs.getParticipant().add(
-                                    getProduct(calConsumable.getAdministerableMaterial()));
+                            actEntryRelationshipObs.getParticipant().add(getProduct(calConsumable.getAdministerableMaterial()));
                         }
                     }
-                } // ------------------ Reaction ------------------
+                } // ------------------  Reaction  ------------------
                 else if (thisAllergySourceOf3.getObservation() != null) {
                     log.debug("***********  ALLERGY REACTION OBSERVATION  ***********");
 
@@ -215,23 +319,21 @@ public class AllergiesModule extends ModuleImpl {
                 } else {
                     log.error("Unknown allergy information with typeCode=" + typeCode);
                 }
-            } // ------------------ Severity ------------------
+            } // ------------------  Severity  ------------------
             else if (typeCode.equalsIgnoreCase(CDAConstants.TYPE_CODE_SUBJ)) {
                 // NEED TO BE FIX AT CAL LAYER AS SEVERITY IS TIE TO A REACTION!
-                // if (thisAllergySourceOf3.getObservation() != null) {
-                // log.debug("***********  ALLERGY SEVERITY OBSERVATION  ***********");
+                //if (thisAllergySourceOf3.getObservation() != null) {
+                //   log.debug("***********  ALLERGY SEVERITY OBSERVATION  ***********");
 
-                // REPCMT000100UV01Observation calSeverityObs =
-                // thisAllergySourceOf3.getObservation().getValue();
+                //   REPCMT000100UV01Observation calSeverityObs = thisAllergySourceOf3.getObservation().getValue();
 
-                // if (calSeverityObs != null) {
-                // POCDMT000040EntryRelationship severity =
-                // getSeverity(calSeverityObs);
-                // if (severity != null) {
-                // actEntryRelationshipObs.getEntryRelationship().add(severity);
-                // }
-                // }
-                // }
+                //   if (calSeverityObs != null) {
+                //      POCDMT000040EntryRelationship severity = getSeverity(calSeverityObs);
+                //      if (severity != null) {
+                //         actEntryRelationshipObs.getEntryRelationship().add(severity);
+                //      }
+                //   }
+                //}
                 log.error("Allergy severity information not implemented!");
             } else {
                 log.error("Unknown allergy information with typeCode=" + typeCode);
@@ -262,6 +364,17 @@ public class AllergiesModule extends ModuleImpl {
                 // Product Coded
                 if (calMaterial.getCode() != null) {
                     productDetailPlayingEntity.setCode(calMaterial.getCode());
+                } else {
+                    //playingEntity code and text are not known
+                    CEExplicit playingCode = objectFactory.createCEExplicit();
+                    EDExplicit playText = objectFactory.createEDExplicit();
+                    TELExplicit telExpl = objectFactory.createTELExplicit();
+                    telExpl.getNullFlavor().add("UNK");
+                    playText.getContent().add(this.objectFactory.createEDExplicitReference(telExpl));
+                    playText.getNullFlavor().add("UNK");
+                    playingCode.setOriginalText(playText);
+                    playingCode.getNullFlavor().add("UNK");
+                    productDetailPlayingEntity.setCode(playingCode);
                 }
 
                 // Product Free-Text
@@ -324,8 +437,9 @@ public class AllergiesModule extends ModuleImpl {
                 }
 
                 // Reaction Free-Text
-                if (obs.getText() != null && obs.getText().getContent() != null
-                        && obs.getText().getContent().size() > 0) {
+                if (obs.getText() != null &&
+                    obs.getText().getContent() != null &&
+                    obs.getText().getContent().size() > 0) {
                     EDExplicit reactionText = new EDExplicit();
                     TELExplicit reactionReference = new TELExplicit();
 
@@ -384,8 +498,8 @@ public class AllergiesModule extends ModuleImpl {
                 CD severityCode = new CD();
                 severityCode.setCode(CDAConstants.ACT_CODE_SEVERITY);
                 severityCode.setDisplayName(CDAConstants.ACT_CODE_SEVERITY_LABEL);
-                severityCode.setCodeSystem(CDAConstants.ACT_CODE_SYSTEM_OID);
-                severityCode.setCodeSystemName(CDAConstants.ACT_CODE_SYSTEM);
+                severityCode.setCodeSystem(CDAConstants.ACT_CODE_SYS_OID);
+                severityCode.setCodeSystemName(CDAConstants.ACT_CODE_SYS_NAME);
                 cdaSeverityObs.setCode(severityCode);
 
                 // Severity Coded
@@ -399,8 +513,9 @@ public class AllergiesModule extends ModuleImpl {
                 // }
 
                 // Severity Free-Text
-                if (obs.getText() != null && obs.getText().getContent() != null
-                        && obs.getText().getContent().size() > 0) {
+                if (obs.getText() != null &&
+                    obs.getText().getContent() != null &&
+                    obs.getText().getContent().size() > 0) {
                     EDExplicit severityText = new EDExplicit();
                     TELExplicit severityReference = new TELExplicit();
 

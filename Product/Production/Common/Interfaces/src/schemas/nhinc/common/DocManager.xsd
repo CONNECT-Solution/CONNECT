@@ -1,9 +1,54 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            xmlns:dda="urn:gov:hhs:fha:nhinc:common:dda"
             targetNamespace="urn:gov:hhs:fha:nhinc:common:docmgr"
             xmlns:tns="urn:gov:hhs:fha:nhinc:common:docmgr"
             elementFormDefault="qualified">
+    <xsd:complexType name="nameValuesPair">
+        <xsd:sequence>
+            <xsd:element name="name" type="xsd:string" minOccurs="0"/>
+            <xsd:element name="values" type="xsd:string" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="documentInfoType">
+        <xsd:sequence>
+            <xsd:element name="itemId" type="xsd:string"></xsd:element>
+            <xsd:element name="dataSource" type="xsd:string"></xsd:element>
+            <xsd:element name="from" type="xsd:string"></xsd:element>
+            <xsd:element name="author" type="xsd:string"></xsd:element>
+            <xsd:element name="patient" type="xsd:string"></xsd:element>
+            <xsd:element name="description" type="xsd:string"></xsd:element>
+            <xsd:element name="dateCreated" type="xsd:dateTime"></xsd:element>
+            <xsd:element name="itemValues" type="tns:nameValuesPair" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="ArchiveDocumentRequestType">
+        <xsd:sequence>
+            <xsd:element name="homeCommunityId" type="xsd:string"></xsd:element>
+            <xsd:element name="repositoryUniqueId" type="xsd:string"></xsd:element>
+            <xsd:element name="documentUniqueId" type="xsd:string"></xsd:element>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="ArchiveDocumentRequest" type="tns:ArchiveDocumentRequestType"></xsd:element>
+    <xsd:complexType name="UpdateDocumentSlotRequestType">
+        <xsd:sequence>
+            <xsd:element name="homeCommunityId" type="xsd:string"></xsd:element>
+            <xsd:element name="repositoryUniqueId" type="xsd:string"></xsd:element>
+            <xsd:element name="documentUniqueId" type="xsd:string"></xsd:element>
+            <xsd:element name="slotName" type="xsd:string"></xsd:element>
+            <xsd:element name="slotValueList" type="xsd:string" nillable="true" minOccurs="0" maxOccurs="unbounded"></xsd:element>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="UpdateDocumentSlotRequest" type="tns:UpdateDocumentSlotRequestType"></xsd:element>
+    <xsd:complexType name="DocDownloadInfoType">
+        <xsd:sequence>
+            <xsd:element name="ticket" type="xsd:string"></xsd:element>
+            <xsd:element name="docInfo" type="tns:documentInfoType"></xsd:element>
+            <xsd:element name="success" type="xsd:boolean"></xsd:element>
+            <xsd:element name="detail" type="xsd:string"></xsd:element>
+        </xsd:sequence>
+    </xsd:complexType>
     <xsd:complexType name="GenerateUniqueIdRequestType">
         <xsd:sequence>
         </xsd:sequence>
@@ -15,4 +60,96 @@
         </xsd:sequence>
     </xsd:complexType>
     <xsd:element name="GenerateUniqueIdResponse" type="tns:GenerateUniqueIdResponseType"></xsd:element>
+    <xsd:complexType name="QueryDoneRequestType">
+        <xsd:sequence>
+            <xsd:element name="ticket" type="xsd:string"></xsd:element>
+            <xsd:element name="newDocs" type="tns:DocDownloadInfoType" nillable="true" minOccurs="0" maxOccurs="unbounded"></xsd:element>
+            <xsd:element name="success" type="xsd:boolean"></xsd:element>
+            <xsd:element name="detail" type="xsd:string"></xsd:element>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="QueryDoneRequest" type="tns:QueryDoneRequestType"></xsd:element>
+    <xsd:complexType name="QueryDoneResponseType">
+        <xsd:sequence>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="QueryDoneResponse" type="tns:QueryDoneResponseType"></xsd:element>
+    <xsd:element name="DocAvailableRequest" type="tns:DocDownloadInfoType"></xsd:element>
+    <xsd:complexType name="DocAvailableResponseType">
+        <xsd:sequence>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="DocAvailableResponse" type="tns:DocAvailableResponseType"></xsd:element>
+    <xsd:complexType name="StartNHINQueryAndDownloadRequestType">
+        <xsd:sequence>
+            <xsd:element name="callbackURL" type="xsd:string"></xsd:element>
+            <xsd:element name="username" type="xsd:string"></xsd:element>
+            <xsd:element name="queryFromDate" type="xsd:dateTime"></xsd:element>
+            <xsd:element name="queryToDate" type="xsd:dateTime" nillable="true"></xsd:element>
+            <xsd:element name="patientUnitNumber" type="xsd:string"></xsd:element>
+            <xsd:element name="patientFirstName" type="xsd:string"></xsd:element>
+            <xsd:element name="patientMiddleName" type="xsd:string"></xsd:element>
+            <xsd:element name="patientLastName" type="xsd:string"></xsd:element>
+            <xsd:element name="patientDOB" type="xsd:date"></xsd:element>
+            <xsd:element name="providerFirstName" type="xsd:string"></xsd:element>
+            <xsd:element name="providerMiddleName" type="xsd:string"></xsd:element>
+            <xsd:element name="providerLastName" type="xsd:string"></xsd:element>
+            <xsd:element name="homeCommunityId" type="xsd:string"></xsd:element>
+            <xsd:element name="homeCommunityName" type="xsd:string"></xsd:element>
+            <xsd:element name="homeCommunityDescription" type="xsd:string"></xsd:element>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="StartNHINQueryAndDownloadRequest" type="tns:StartNHINQueryAndDownloadRequestType"></xsd:element>
+    <xsd:complexType name="StartNHINQueryAndDownloadResponseType">
+        <xsd:sequence>
+            <xsd:element name="ticket" type="xsd:string"></xsd:element>
+            <xsd:element name="requestDetail" type="xsd:string"></xsd:element>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="StartNHINQueryAndDownloadResponse" type="tns:StartNHINQueryAndDownloadResponseType"></xsd:element>
+    <xsd:complexType name="ServiceErrorType">
+        <xsd:sequence>
+            <xsd:element name="code" type="xsd:int" minOccurs="0"/>
+            <xsd:element name="text" type="xsd:string" minOccurs="0"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="AssertionInfoType">
+        <xsd:sequence>
+            <xsd:element name="username" type="xsd:string"></xsd:element>
+            <xsd:element name="patientUnitNumber" type="xsd:string"></xsd:element>
+            <xsd:element name="patientFirstName" type="xsd:string"></xsd:element>
+            <xsd:element name="patientMiddleName" type="xsd:string"></xsd:element>
+            <xsd:element name="patientLastName" type="xsd:string"></xsd:element>
+            <xsd:element name="patientDOB" type="xsd:date"></xsd:element>
+            <xsd:element name="providerFirstName" type="xsd:string"></xsd:element>
+            <xsd:element name="providerMiddleName" type="xsd:string"></xsd:element>
+            <xsd:element name="providerLastName" type="xsd:string"></xsd:element>
+            <xsd:element name="homeCommunityId" type="xsd:string"></xsd:element>
+            <xsd:element name="homeCommunityName" type="xsd:string"></xsd:element>
+            <xsd:element name="homeCommunityDescription" type="xsd:string"></xsd:element>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="InfoButtonResponseType">
+        <xsd:sequence>
+            <xsd:element name="infoButtonResult" type="xsd:string"></xsd:element>
+            <xsd:element name="errorList" type="tns:ServiceErrorType" nillable="true" minOccurs="0" maxOccurs="unbounded"></xsd:element>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="InfoButtonResponse" type="tns:InfoButtonResponseType"></xsd:element>
+    <xsd:complexType name="InfoButtonQueryRequestType">
+        <xsd:sequence>
+            <xsd:element name="assertionInfo" type="tns:AssertionInfoType"></xsd:element>
+            <xsd:element name="query" type="xsd:string"></xsd:element>
+            <xsd:element name="targets" type="xsd:string" nillable="true" minOccurs="0" maxOccurs="unbounded"></xsd:element>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="InfoButtonQueryRequest" type="tns:InfoButtonQueryRequestType"></xsd:element>
+    <xsd:complexType name="InfoButtonRetrieveRequestType">
+        <xsd:sequence>
+            <xsd:element name="assertionInfo" type="tns:AssertionInfoType"></xsd:element>
+            <xsd:element name="retrieve" type="xsd:string"></xsd:element>
+            <xsd:element name="targets" type="xsd:string" nillable="true" minOccurs="0" maxOccurs="unbounded"></xsd:element>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="InfoButtonRetrieveRequest" type="tns:InfoButtonRetrieveRequestType"></xsd:element>
 </xsd:schema>

@@ -22,6 +22,8 @@
 	<xsd:include schemaLocation="../../HL7V3/NE2008/multicacheschemas/PRPA_MT201310UV02.xsd"/>
 	<xsd:include schemaLocation="../../HL7V3/NE2008/multicacheschemas/PRPA_IN900300UV02.xsd"/>
 	<xsd:include schemaLocation="../../HL7V3/NE2008/multicacheschemas/PRPA_MT900350UV02.xsd"/>
+	<xsd:include schemaLocation="../../HL7V3/NE2008/multicacheschemas/RCMR_IN000031UV01.xsd"/>
+	<xsd:include schemaLocation="../../HL7V3/NE2008/multicacheschemas/RCMR_IN000032UV01.xsd"/>
 	<!-- ====================================================================
      Common Data Layer Schemas.
     ==================================================================== -->
@@ -77,6 +79,26 @@
 			<xsd:element name="subject" type="PRPA_MT201310UV02.Patient" minOccurs="0" maxOccurs="unbounded"/>
 		</xsd:sequence>
 	</xsd:complexType>
+	<xsd:complexType name="FindDocument_RCMR_IN000031UV01RequestType">
+		<xsd:sequence>
+			<xsd:element name="query" type="RCMR_IN000031UV01.MCCI_MT000100UV01.Message"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="FindDocument_RCMR_IN000032UV01ResponseType">
+		<xsd:sequence>
+			<xsd:element name="response" type="RCMR_IN000032UV01.MCCI_MT000300UV01.Message"/>
+		</xsd:sequence>
+	</xsd:complexType>
+		<xsd:complexType name="FindDocumentWithContent_RCMR_IN000031UV01RequestType">
+		<xsd:sequence>
+			<xsd:element name="query" type="RCMR_IN000031UV01.MCCI_MT000100UV01.Message"/>
+		</xsd:sequence>
+	</xsd:complexType>
+	<xsd:complexType name="FindDocumentWithContent_RCMR_IN000032UV01ResponseType">
+		<xsd:sequence>
+			<xsd:element name="response" type="RCMR_IN000032UV01.MCCI_MT000300UV01.Message"/>
+		</xsd:sequence>
+	</xsd:complexType>
 	<!-- requests -->
 	<xsd:element name="CareRecord_QUPC_IN043100UV01AllergiesRequest" type="CareRecord_QUPC_IN043100UV01RequestType"/>
 	<xsd:element name="CareRecord_QUPC_IN043100UV01MedicationsRequest" type="CareRecord_QUPC_IN043100UV01RequestType"/>
@@ -94,9 +116,13 @@
 	<xsd:element name="FindEncounters_PRPA_IN900300UV02Request" type="FindEncounters_PRPA_IN900300UV02RequestType"/>
 	<xsd:element name="PatientDemographics_PRPA_IN201307UV02Request" type="PatientDemographics_PRPA_IN201307UV02RequestType"/>
 	<xsd:element name="FindPatients_PRPA_IN201305UV02Request" type="FindPatients_PRPA_IN201305UV02RequestType"/>
+	<xsd:element name="FindDocument_RCMR_IN000031UV01Request" type="FindDocument_RCMR_IN000031UV01RequestType"/>
+	<xsd:element name="FindDocumentWithContent_RCMR_IN000031UV01Request" type="FindDocumentWithContent_RCMR_IN000031UV01RequestType"/>
 	<!-- responses -->
 	<xsd:element name="CareRecord_QUPC_IN043200UV01Response" type="CareRecord_QUPC_IN043200UV01ResponseType"/>
 	<xsd:element name="FindEncounters_PRPA_MT900350UV02Response" type="FindEncounters_PRPA_MT900350UV02ResponseType"/>
 	<xsd:element name="PatientDemographics_PRPA_MT201303UV02Response" type="PatientDemographics_PRPA_MT201303UV02ResponseType"/>
 	<xsd:element name="FindPatients_PRPA_MT201310UV02Response" type="FindPatients_PRPA_MT201310UV02ResponseType"/>
+	<xsd:element name="FindDocument_RCMR_IN000032UV01Response" type="FindDocument_RCMR_IN000032UV01ResponseType"/>
+	<xsd:element name="FindDocumentWithContent_RCMR_IN000032UV01Response" type="FindDocumentWithContent_RCMR_IN000032UV01ResponseType"/>
 </xsd:schema>

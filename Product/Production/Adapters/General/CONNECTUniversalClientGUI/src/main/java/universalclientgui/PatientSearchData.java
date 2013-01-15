@@ -1,6 +1,12 @@
 /*
  * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services. 
  * All rights reserved. 
+ * Copyright (c) 2011, Conemaugh Valley Memorial Hospital
+ 
+ * This source is subject to the Conemaugh public license.  Please see the
+ * license.txt file for more information.
+ *
+ * All other rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without 
  * modification, are permitted provided that the following conditions are met: 
@@ -28,21 +34,28 @@ package universalclientgui;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+import javax.xml.bind.JAXBElement;
+import org.hl7.v3.EnExplicitFamily;
+import org.hl7.v3.EnExplicitGiven;
+import org.hl7.v3.PNExplicit;
 
-public class PatientSearchData implements Serializable {
+public class PatientSearchData implements Serializable
+{
 
-    private ArrayList<String> columns;
+    private ArrayList<Object> columns;
     private String assigningAuthorityID;
 
-    public PatientSearchData() {
+    public PatientSearchData()
+    {
     }
 
-    public PatientSearchData(List<String> cols) {
-        columns = new ArrayList<String>(cols);
+    public PatientSearchData(List<Object> cols) {
+            columns = new ArrayList<Object>(cols);
     }
 
-    public ArrayList<String> getColumns() {
+    public ArrayList<Object> getColumns() {
         return columns;
     }
 
@@ -54,56 +67,125 @@ public class PatientSearchData implements Serializable {
         this.assigningAuthorityID = assigningAuthorityID;
     }
 
-    public void setColumns(ArrayList<String> columns) {
+    public void setColumns(ArrayList<Object> columns) {
         this.columns = columns;
     }
 
-    public String getLastName() {
+    //patient names
+    public Object getNames() {
         return columns.get(0);
     }
 
-    public void setLastName(String col) {
+    public void setNames(Object col) {
         columns.set(0, col);
     }
 
-    public String getFirstName() {
+    //patient Address
+    public Object getAddress() {
+
         return columns.get(1);
     }
 
-    public void setFirstName(String col) {
-        columns.set(1, col);
+    public void setAddress(Object col) {
+
+        columns.set(1,col);
     }
 
-    public String getPatientId() {
+  /*  public Object getLastName() {
+        return columns.get(0);
+    }
+
+    public void setLastName(Object col) {
+        columns.set(0, col);
+    }
+
+    public Object getFirstName() {
+        return columns.get(1);
+    }
+
+    public void setFirstName(Object col) {
+        columns.set(1, col);
+    }
+*/
+    public Object getPatientId() {
         return columns.get(2);
     }
 
-    public void setPatientId(String col) {
+    public void setPatientId(Object col) {
         columns.set(2, col);
     }
 
-    public String getSsn() {
+    public Object getSsn() {
         return columns.get(3);
     }
 
-    public void setSsn(String col) {
+    public void setSsn(Object col) {
         columns.set(3, col);
     }
 
-    public String getDob() {
+    public Object getDisplaySsn() {
+        return columns.get(9);
+    }
+
+    public void setDisplaySsn(Object col) {
+        columns.set(9, col);
+    }
+
+    public Object getDob() {
         return columns.get(4);
     }
 
-    public void setDob(String col) {
+    public void setDob(Object col) {
         columns.set(4, col);
     }
 
-    public String getGender() {
+    public Object getGender() {
         return columns.get(5);
     }
 
-    public void setGender(String col) {
+    public void setGender(Object col) {
         columns.set(5, col);
     }
+
+    //phone number
+    public Object getPhoneNumbers() {
+
+        return columns.get(6);
+    }
+
+    public void setPhoneNumbers(Object col)
+    {
+        columns.set(6, col);
+    }
+
+    public Object getLastName() {
+
+       return columns.get(7);
+    }
+
+    public void setLastName(Object col) {
+
+        columns.set(7, col);
+    }
+
+    public Object getFirstName() {
+
+        return columns.get(8);
+    }
+
+    public void setFirstName(Object col) {
+        columns.set(8, col);
+    }
+
+    //hold PRPAMT201301UV02Patient value 
+    //public Object getPatientObj() {
+         
+     //   return columns.get(9);
+    //}
+    
+    //public Object setPatientObj(Object col) {
+        
+    //    return columns.set(9, col);
+   // }
 
 }

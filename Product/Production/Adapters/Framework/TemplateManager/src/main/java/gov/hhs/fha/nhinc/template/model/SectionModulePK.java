@@ -1,6 +1,10 @@
 /*
  * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services. 
  * All rights reserved. 
+ * Copyright (c) 2011, Conemaugh Valley Memorial Hospital
+ * This source is subject to the Conemaugh public license.  Please see the
+ * license.txt file for more information.
+ * All other rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without 
  * modification, are permitted provided that the following conditions are met: 
@@ -37,6 +41,7 @@ import javax.persistence.Embeddable;
  */
 @Embeddable
 public class SectionModulePK implements Serializable {
+
     @Basic(optional = false)
     @Column(name = "SECTION_ID")
     private int sectionId;
@@ -97,5 +102,4 @@ public class SectionModulePK implements Serializable {
     public String toString() {
         return "SectionModulePK[sectionId=" + sectionId + ", moduleId=" + moduleId + "]";
     }
-
 }

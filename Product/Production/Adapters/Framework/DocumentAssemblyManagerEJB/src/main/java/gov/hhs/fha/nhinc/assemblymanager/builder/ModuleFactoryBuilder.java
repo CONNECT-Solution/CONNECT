@@ -1,6 +1,10 @@
 /*
  * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services. 
  * All rights reserved. 
+ * Copyright (c) 2011, Conemaugh Valley Memorial Hospital
+ * This source is subject to the Conemaugh public license.  Please see the
+ * license.txt file for more information.
+ * All other rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without 
  * modification, are permitted provided that the following conditions are met: 
@@ -50,25 +54,23 @@ public class ModuleFactoryBuilder {
 
     /**
      * Returns a list of entries representing the requested clinical domain in the template.
-     * 
+     *
      * @param template template information
      * @param careRecord domain clinical information
      * @return
      */
-    public final static List<POCDMT000040Entry> createModule(CdaTemplate template,
-            CareRecordQUPCIN043200UV01ResponseType careRecord, SectionImpl section) {
+    public final static List<POCDMT000040Entry> createModule(CdaTemplate template, CareRecordQUPCIN043200UV01ResponseType careRecord, SectionImpl section) {
         String hitspTemplateId = template.getHitspTemplateId();
         CDAModule moduleBuilder = null;
 
         try {
             // medication module
             if (hitspTemplateId.equalsIgnoreCase(TemplateConstants.MEDICATION_MODULE_HITSP_TEMPLATE_ID)) {
-                moduleBuilder = new MedicationModule(template, careRecord);
+                moduleBuilder = new MedicationModule(template, careRecord, section);
             } // condition module
             else if (hitspTemplateId.equalsIgnoreCase(TemplateConstants.CONDITION_MODULE_HITSP_TEMPLATE_ID)) {
                 moduleBuilder = new ProblemsModule(template, careRecord, section);
-            }
-            // allergy module
+            } // allergy module
             else if (hitspTemplateId.equalsIgnoreCase(TemplateConstants.ALLERGY_MODULE_HITSP_TEMPLATE_ID)) {
                 moduleBuilder = new AllergiesModule(template, careRecord, section);
             } else {
@@ -80,7 +82,7 @@ public class ModuleFactoryBuilder {
         } catch (DocumentBuilderException ex) {
             log.error("Failed to build template module \"" + hitspTemplateId + "\".", ex);
             ex.printStackTrace();
-            return new ArrayList<POCDMT000040Entry>();
+            return null;
         }
     }
 }

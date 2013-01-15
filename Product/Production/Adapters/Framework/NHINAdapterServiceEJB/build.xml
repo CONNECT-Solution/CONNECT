@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <project basedir="." default="package.create" name="NHINAdapterServiceEJB">
-
 	<property name="dist.type" value="jar" />
 	<property name="webtest.hasTests" value="false" />
 	<property name="unittest.hasTests" value="false" />
-	<property name="deploy.isDeployable" value="false"/>
+	<property name="deploy.isDeployable" value="true"/>
 	<property name="deploy.type" value="ejb" />
 	<property name="copy.wsdl.to.webinf" value="true" />
 

@@ -1,6 +1,10 @@
 /*
  * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services. 
  * All rights reserved. 
+ * Copyright (c) 2011, Conemaugh Valley Memorial Hospital
+ * This source is subject to the Conemaugh public license.  Please see the
+ * license.txt file for more information.
+ * All other rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without 
  * modification, are permitted provided that the following conditions are met: 
@@ -29,6 +33,7 @@ package gov.hhs.fha.nhinc.assemblymanager.builder.cda.modules;
 import gov.hhs.fha.nhinc.assemblymanager.AssemblyConstants;
 import gov.hhs.fha.nhinc.assemblymanager.CDAConstants;
 import gov.hhs.fha.nhinc.assemblymanager.builder.DocumentBuilderException;
+import gov.hhs.fha.nhinc.assemblymanager.utils.UUIDGenerator;
 import gov.hhs.fha.nhinc.assemblymanager.utils.XMLUtil;
 import gov.hhs.fha.nhinc.template.TemplateConstants;
 import gov.hhs.fha.nhinc.template.model.CdaTemplate;
@@ -45,6 +50,7 @@ import org.hl7.v3.COCTMT090000UV01AssignedEntity;
 import org.hl7.v3.COCTMT090000UV01Person;
 import org.hl7.v3.CS;
 import org.hl7.v3.CareRecordQUPCIN043200UV01ResponseType;
+import org.hl7.v3.EDExplicit;
 import org.hl7.v3.ENExplicit;
 import org.hl7.v3.EntityDeterminerDetermined;
 import org.hl7.v3.II;
@@ -83,6 +89,12 @@ import org.hl7.v3.XActMoodDocumentObservation;
 import org.hl7.v3.XActRelationshipEntry;
 import org.hl7.v3.XActRelationshipEntryRelationship;
 import org.hl7.v3.XDocumentSubstanceMood;
+import gov.hhs.fha.nhinc.assemblymanager.builder.cda.section.MedicationsSectionImpl;
+import gov.hhs.fha.nhinc.assemblymanager.builder.cda.section.SectionImpl;
+import gov.hhs.fha.nhinc.properties.PropertyAccessException;
+import org.hl7.v3.TELExplicit;
+import gov.hhs.fha.nhinc.properties.PropertyAccessor;
+import java.util.StringTokenizer;
 
 /**
  * This module defines a patient's current medications and pertinent medication history.
@@ -92,9 +104,12 @@ import org.hl7.v3.XDocumentSubstanceMood;
 public class MedicationModule extends ModuleImpl {
 
     private static Log log = LogFactory.getLog(MedicationModule.class);
+    private MedicationsSectionImpl section = null;
 
-    public MedicationModule(CdaTemplate template, CareRecordQUPCIN043200UV01ResponseType careRecordResponse) {
+    public MedicationModule(CdaTemplate template, CareRecordQUPCIN043200UV01ResponseType careRecordResponse, SectionImpl section) {
         super(template, careRecordResponse);
+        this.section = (MedicationsSectionImpl) section;
+
     }
 
     @Override
@@ -102,22 +117,29 @@ public class MedicationModule extends ModuleImpl {
         List<POCDMT000040Entry> entries = new ArrayList<POCDMT000040Entry>();
 
         QUPCIN043200UV01MFMIMT700712UV01Subject1 careRecord = careRecordResponse.getCareRecord();
-        REPCMT004000UV01CareProvisionEvent careProvisionEvent = careRecord.getRegistrationEvent().getSubject2()
-                .getCareProvisionEvent();
+        REPCMT004000UV01CareProvisionEvent careProvisionEvent =
+            careRecord.getRegistrationEvent().getSubject2().getCareProvisionEvent();
 
         List<REPCMT004000UV01PertinentInformation5> medEvents = careProvisionEvent.getPertinentInformation3();
 
         log.debug("*******************  # of MED EVENTS: " + medEvents.size());
 
+        //counter used to create unique id values
+        int counter = 0;
+
         for (REPCMT004000UV01PertinentInformation5 medEvent : medEvents) {
-            entries.add(buildMedication(medEvent));
+            entries.add(buildMedication(medEvent, counter++));
         }
 
-        // medication
-        return entries;
+        if (entries.size() > 0) {
+            // medications
+            return entries;
+        } else {
+            return null;
+        }
     }
 
-    private POCDMT000040Entry buildMedication(REPCMT004000UV01PertinentInformation5 medEvent) {
+    private POCDMT000040Entry buildMedication(REPCMT004000UV01PertinentInformation5 medEvent, int count) {
 
         REPCMT000100UV01SubstanceAdministration medEventSubsAdmin = null;
         POCDMT000040Entry medEntry = new POCDMT000040Entry();
@@ -139,19 +161,58 @@ public class MedicationModule extends ModuleImpl {
                     subsAdmin.getTemplateId().add(templateId);
                 }
 
+                //required template
+                II subsAdminTemplateId = objectFactory.createII();
+                subsAdminTemplateId.setRoot("1.3.6.1.4.1.19376.1.5.3.1.4.7.1");
+                subsAdmin.getTemplateId().add(subsAdminTemplateId);
+
+                // Sig
+                EDExplicit medEventSubsAdminSigText = medEventSubsAdmin.getText();
+                if (medEventSubsAdminSigText != null) {
+                    subsAdmin.setText(medEventSubsAdminSigText);
+
+                    //create medication references to be used by MedicationsSectionImpl to create references
+                    String medText = medEventSubsAdmin.getText().getContent().get(0).toString();
+                    int semicolonIndex = medText.indexOf(";");
+                    section.getSigs().put(medText.substring(0, semicolonIndex), medText.substring(semicolonIndex + 1, medText.length()));
+                }
+
+                II tempId = new II();
+
                 // unique id for this module entry
                 if (medEventSubsAdmin.getId().size() > 0) {
-                    subsAdmin.getId().add(medEventSubsAdmin.getId().get(0));
-                    // } else {
-                    // II id = new II();
-                    // id.setExtension(DocumentIdGenerator.generateDocumentId());
-                    // subsAdmin.getId().add(id);
+                    //    subsAdmin.getId().add(medEventSubsAdmin.getId().get(0));
+                    subsAdmin.getId().add(tempId);
+                } else {
+                    //no id returned from CAL - create one
+                    II id = new II();
+
+                    //create an id that is sequential and always clinical hash compliant
+                    String subsAdminIdStr = "Medication Substance Admin Id " + String.valueOf(count);
+                    String subsAdminIdVal = UUIDGenerator.generateUUIDFromString(subsAdminIdStr);
+
+                    id.setRoot(subsAdminIdVal);
+                    subsAdmin.getId().add(id);
+                    log.debug("Medication Substance Admin #" + String.valueOf(count) + " id = " + subsAdminIdVal);
+
                 }
 
                 // status code
                 if (medEventSubsAdmin.getStatusCode() != null) {
-                    subsAdmin.setStatusCode(medEventSubsAdmin.getStatusCode());
+
+                    //status code from AllScripts is "Active", but must be "completed" according to the Spec
+                    if (medEventSubsAdmin.getStatusCode().getCode().equals("Active")) {
+                        //set to completed
+                        CS statusCode = new CS();
+                        statusCode.setCode(CDAConstants.STATUS_CODE_COMPLETED);
+                        subsAdmin.setStatusCode(statusCode);
+                    } else {
+                        //retain value from EHR
+                        subsAdmin.setStatusCode(medEventSubsAdmin.getStatusCode());
+                    }
                 } else {
+
+                    //no value returned from EHR, set to "completed"
                     CS statusCode = new CS();
                     statusCode.setCode(CDAConstants.STATUS_CODE_COMPLETED);
                     subsAdmin.setStatusCode(statusCode);
@@ -164,6 +225,7 @@ public class MedicationModule extends ModuleImpl {
 
                 // route
                 subsAdmin.setRouteCode(medEventSubsAdmin.getRouteCode());
+                subsAdmin.getRouteCode().setCodeSystem("2.16.840.1.113883.3.26.1.1");
 
                 // dose quantity
                 subsAdmin.setDoseQuantity(medEventSubsAdmin.getDoseQuantity());
@@ -176,30 +238,65 @@ public class MedicationModule extends ModuleImpl {
 
                 for (REPCMT000100UV01SourceOf3 sourceOf : sourceOfs) {
                     if (sourceOf.getTypeCode().size() > 0) {
-                        // --------- ORDER INFORMATION ----------------
-                        if (sourceOf.getTypeCode().get(0).equalsIgnoreCase(CDAConstants.TYPE_CODE_REFR)
-                                && sourceOf.getSupply() != null) {
-                            POCDMT000040EntryRelationship orderInfo = buildOrderInfo(sourceOf.getSupply().getValue());
+                        // ---------    ORDER INFORMATION   ----------------
+                        if (sourceOf.getTypeCode().get(0).equalsIgnoreCase(CDAConstants.TYPE_CODE_REFR) &&
+                            sourceOf.getSupply() != null) {
+                            POCDMT000040EntryRelationship orderInfo =
+                                buildOrderInfo(sourceOf.getSupply().getValue());
+
+                            //fix the supply quantity unit to include {} braces
+                            if (orderInfo.getSupply().getQuantity() != null) //supply quantity may be null due to repeatNumber = 0
+                            {
+
+                                //if the untit is a unit of measure (as per the property file values, do not include within {}
+                                try {
+
+                                    String unitsOfMeasure = PropertyAccessor.getInstance().getProperty("docassembly", "C32_SUPPLY_UNITS_OF_MEASURE");
+                                    StringTokenizer strToken = new StringTokenizer(unitsOfMeasure, ",");
+                                    boolean inPropertiesFile = false;
+
+                                    while (strToken.hasMoreTokens()) {
+                                        //check the units value against the properties file to see if there's a match
+                                        if (orderInfo.getSupply().getQuantity().getUnit().trim().equals(strToken.nextToken().trim())) {
+                                            //found in properties - set flag to true
+                                            inPropertiesFile = true;
+                                            break;
+                                        }
+                                    }
+
+                                    if (inPropertiesFile) {
+                                        //do not put the units value in brackets ({})
+                                        orderInfo.getSupply().getQuantity().setUnit(orderInfo.getSupply().getQuantity().getUnit());
+                                    } else {
+                                        orderInfo.getSupply().getQuantity().setUnit("{" + orderInfo.getSupply().getQuantity().getUnit() + "}");
+                                    }
+
+                                } catch (PropertyAccessException e) {
+                                    log.error("Exception during building of Medication Supply: " + e);
+
+                                }
+
+                            }
+
                             subsAdmin.getEntryRelationship().add(orderInfo);
-                        } // --------- TYPE OF MEDICATION ----------------
-                        else if (sourceOf.getTypeCode().get(0).equalsIgnoreCase(CDAConstants.TYPE_CODE_SUBJ)
-                                && sourceOf.getObservation() != null) {
-                            POCDMT000040EntryRelationship typeOfMedInfo = buildTypeOfMedInfo(sourceOf.getObservation()
-                                    .getValue());
+                        } // ---------    TYPE OF MEDICATION   ----------------
+                        else if (sourceOf.getTypeCode().get(0).equalsIgnoreCase(CDAConstants.TYPE_CODE_SUBJ) &&
+                            sourceOf.getObservation() != null) {
+                            POCDMT000040EntryRelationship typeOfMedInfo =
+                                buildTypeOfMedInfo(sourceOf.getObservation().getValue());
                             subsAdmin.getEntryRelationship().add(typeOfMedInfo);
-                        } // --------- FULLFILLMENT HISTORY INFORMATION
-                          // ----------------
-                        else if (sourceOf.getTypeCode().get(0).equalsIgnoreCase(CDAConstants.TYPE_CODE_COMP)
-                                && sourceOf.getSupply() != null) {
-                            POCDMT000040EntryRelationship fullfillmentsInfo = buildFullillmentsInfo(sourceOf
-                                    .getSupply().getValue());
+                        } // ---------    FULLFILLMENT HISTORY INFORMATION   ----------------
+                        else if (sourceOf.getTypeCode().get(0).equalsIgnoreCase(CDAConstants.TYPE_CODE_COMP) &&
+                            sourceOf.getSupply() != null) {
+                            POCDMT000040EntryRelationship fullfillmentsInfo =
+                                buildFullillmentsInfo(sourceOf.getSupply().getValue());
                             subsAdmin.getEntryRelationship().add(fullfillmentsInfo);
-                        } // --------- STATUS OF INFORMATION ----------------
-                        else if (sourceOf.getTypeCode().get(0).equalsIgnoreCase(CDAConstants.TYPE_CODE_REFR)
-                                && sourceOf.getObservation() != null) {
+                        } // ---------    STATUS OF INFORMATION   ----------------
+                        else if (sourceOf.getTypeCode().get(0).equalsIgnoreCase(CDAConstants.TYPE_CODE_REFR) &&
+                            sourceOf.getObservation() != null) {
                             if (sourceOf.getObservation().getValue() != null) {
-                                POCDMT000040EntryRelationship status = buildStatusOfMed(sourceOf.getObservation()
-                                        .getValue());
+                                POCDMT000040EntryRelationship status =
+                                    buildStatusOfMed(sourceOf.getObservation().getValue());
                                 subsAdmin.getEntryRelationship().add(status);
                             }
                         }
@@ -216,11 +313,11 @@ public class MedicationModule extends ModuleImpl {
 
     /**
      * Build Medication (Product) Information entry
-     * 
      * @param medEventConsumable
-     * @return POCDMT000040Consumable - medication (Product) Information entry
+     * @return  POCDMT000040Consumable - medication (Product) Information entry
      */
-    private POCDMT000040Consumable buildConsumable(REPCMT000100UV01Consumable medEventConsumable) {
+    private POCDMT000040Consumable buildConsumable(
+        REPCMT000100UV01Consumable medEventConsumable) {
 
         POCDMT000040Consumable consumable = new POCDMT000040Consumable();
         consumable.getTypeCode().add(CDAConstants.TYPE_CODE_CSM);
@@ -264,6 +361,16 @@ public class MedicationModule extends ModuleImpl {
             REPCMT000100UV01Material admm = medEventConsumable.getAdministerableMaterial().getAdministerableMaterial();
             if (admm != null) {
                 manProductMaterial.setCode(admm.getCode());
+
+                //originalText and reference
+                EDExplicit originalText = objectFactory.createEDExplicit();
+                TELExplicit telExpl = objectFactory.createTELExplicit();
+                telExpl.getNullFlavor().add("UNK");
+
+                originalText.getContent().add(this.objectFactory.createEDExplicitReference(telExpl));
+
+                manProductMaterial.getCode().setOriginalText(originalText);
+
             }
 
             if (admm.getDesc() != null) {
@@ -304,15 +411,20 @@ public class MedicationModule extends ModuleImpl {
             if (AssemblyConstants.usePre25Templates()) {
                 templateId1.setRoot(TemplateConstants.hitspPre24OrderTemplateId);
                 templateId1.setAssigningAuthorityName("HITSP/C32");
-                entry.getTemplateId().add(templateId1);
+                orderEntry.getTemplateId().add(templateId1);
             } else {
                 templateId1.setRoot(TemplateConstants.hitspOrderTemplateId);
                 templateId1.setAssigningAuthorityName("HITSP/C83");
-                entry.getTemplateId().add(templateId1);
+                orderEntry.getTemplateId().add(templateId1);
                 II templateId2 = new II();
                 templateId2.setRoot(TemplateConstants.iheOrderTemplateId);
                 templateId2.setAssigningAuthorityName("IHE");
-                entry.getTemplateId().add(templateId2);
+                orderEntry.getTemplateId().add(templateId2);
+                //CCD
+                II templateId3 = new II();
+                templateId3.setRoot(TemplateConstants.ccdSupplyActivityTemplateId);
+                templateId3.setAssigningAuthorityName("CCD");
+                orderEntry.getTemplateId().add(templateId3);
             }
 
             orderEntry.setClassCode(ActClassSupply.SPLY);
@@ -321,6 +433,11 @@ public class MedicationModule extends ModuleImpl {
             // prescription number
             if (rxSupply.getId().size() > 0) {
                 orderEntry.getId().add(rxSupply.getId().get(0));
+            } else {
+                //no id returned- set to nullFlavor
+                II supplyId = objectFactory.createII();
+                supplyId.getNullFlavor().add("UNK");
+                orderEntry.getId().add(templateId1);
             }
 
             // number of fills
@@ -359,6 +476,14 @@ public class MedicationModule extends ModuleImpl {
                     for (II id : rxOrderAuthor.getId()) {
                         orderingProv.getId().add(id);
                     }
+
+                    //provider telecom and address
+                    ADExplicit addr = objectFactory.createADExplicit();
+                    addr.getNullFlavor().add("UNK");
+                    orderingProv.getAddr().add(addr);
+                    TELExplicit telecom = objectFactory.createTELExplicit();
+                    telecom.getNullFlavor().add("UNK");
+                    orderingProv.getTelecom().add(telecom);
 
                     // provider name
                     if (rxOrderAuthor.getAssignedPerson() != null) {
@@ -462,8 +587,7 @@ public class MedicationModule extends ModuleImpl {
                     POCDMT000040Performer2 rxSupplyDispenserInfo = new POCDMT000040Performer2();
                     POCDMT000040AssignedEntity rxSupplyDispenser = new POCDMT000040AssignedEntity();
 
-                    COCTMT090000UV01AssignedEntity rxHistoryDispenser = rxHistoryPerformer.getAssignedEntity1()
-                            .getValue();
+                    COCTMT090000UV01AssignedEntity rxHistoryDispenser = rxHistoryPerformer.getAssignedEntity1().getValue();
 
                     // dispensing location address
                     if (rxHistoryDispenser.getAddr().size() > 0) {
@@ -523,7 +647,7 @@ public class MedicationModule extends ModuleImpl {
 
         CD code = new CD();
         code.setCode(CDAConstants.LOINC_STATUS_CODE);
-        code.setDisplayName(CDAConstants.LOINC_STATUS_CODE_DISPLAY_NAME);
+        code.setDisplayName(AssemblyConstants.LOINC_STATUS_CODE_DISPLAY_NAME);
         code.setCodeSystem(CDAConstants.LOINC_CODE_SYS_OID);
         code.setCodeSystemName(CDAConstants.LOINC_SYS_NAME);
         statusObs.setCode(code);
