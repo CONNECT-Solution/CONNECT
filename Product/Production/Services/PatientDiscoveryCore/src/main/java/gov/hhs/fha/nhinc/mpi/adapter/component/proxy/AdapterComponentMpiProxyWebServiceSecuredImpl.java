@@ -63,12 +63,7 @@ public class AdapterComponentMpiProxyWebServiceSecuredImpl implements AdapterCom
             ServicePortDescriptor<AdapterComponentMpiSecuredPortType> portDescriptor, String url,
             AssertionType assertion) throws PropertyAccessException {
 
-        String targetHomeCommunityId = null;
-        targetHomeCommunityId = PropertyAccessor.getInstance().getProperty(
-                NhincConstants.GATEWAY_PROPERTY_FILE, NhincConstants.HOME_COMMUNITY_ID_PROPERTY);
-
-        return CONNECTCXFClientFactory.getInstance().getCONNECTClientSecured(portDescriptor, assertion, url,
-                targetHomeCommunityId, NhincConstants.ADAPTER_COMPONENT_MPI_SECURED_SERVICE_NAME );
+        return CONNECTCXFClientFactory.getInstance().getCONNECTClientSecured(portDescriptor, url, assertion);
     }
 
     /**

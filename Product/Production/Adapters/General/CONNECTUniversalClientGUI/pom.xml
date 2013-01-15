@@ -58,6 +58,11 @@
             <version>${project.parent.version}</version>
         </dependency>
         <dependency>
+	        <groupId>org.connectopensource</groupId>
+	        <artifactId>Properties</artifactId>
+	        <version>${project.parent.version}</version>
+        </dependency>
+        <dependency>
             <groupId>javax</groupId>
             <artifactId>javaee-api</artifactId>
             <version>6.0</version>
