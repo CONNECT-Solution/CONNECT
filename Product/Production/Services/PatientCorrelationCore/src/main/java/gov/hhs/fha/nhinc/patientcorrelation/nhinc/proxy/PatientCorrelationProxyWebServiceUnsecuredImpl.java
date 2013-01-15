@@ -65,6 +65,10 @@ public class PatientCorrelationProxyWebServiceUnsecuredImpl implements PatientCo
     protected WebServiceProxyHelper createWebServiceProxyHelper() {
         return new WebServiceProxyHelper();
     }
+    
+    protected CONNECTClientFactory getCONNECTClientFactory() {
+    	return CONNECTClientFactory.getInstance();
+    }
 
     /**
      * This method returns WS_ADDRESSING_ACTION_RETRIEVE.
@@ -122,8 +126,8 @@ public class PatientCorrelationProxyWebServiceUnsecuredImpl implements PatientCo
                 ServicePortDescriptor<PatientCorrelationPortType> portDescriptor = 
                         getRetrieveServicePortDescriptor(NhincConstants.ADAPTER_API_LEVEL.LEVEL_a0);
 
-                CONNECTClient<PatientCorrelationPortType> client = CONNECTClientFactory.getInstance()
-                        .getCONNECTClientSecured(portDescriptor, url, assertion);
+                CONNECTClient<PatientCorrelationPortType> client = getCONNECTClientFactory()
+                        .getCONNECTClientUnsecured(portDescriptor, url, assertion);
 
                 response = (RetrievePatientCorrelationsResponseType) client
                         .invokePort(PatientCorrelationPortType.class, "retrievePatientCorrelations", request);
@@ -160,8 +164,8 @@ public class PatientCorrelationProxyWebServiceUnsecuredImpl implements PatientCo
                 ServicePortDescriptor<PatientCorrelationPortType> portDescriptor = 
                         getRetrieveServicePortDescriptor(NhincConstants.ADAPTER_API_LEVEL.LEVEL_a0);
 
-                CONNECTClient<PatientCorrelationPortType> client = CONNECTClientFactory.getInstance()
-                        .getCONNECTClientSecured(portDescriptor, url, assertion);
+                CONNECTClient<PatientCorrelationPortType> client = getCONNECTClientFactory()
+                        .getCONNECTClientUnsecured(portDescriptor, url, assertion);
 
                 response = (AddPatientCorrelationResponseType) client
                         .invokePort(PatientCorrelationPortType.class, "addPatientCorrelation", request);
