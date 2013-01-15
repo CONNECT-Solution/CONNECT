@@ -41,6 +41,7 @@
 
 	<dependency org="commons-logging"     name="commons-logging"                rev="1.1.1"               conf="compile->default" transitive="false" />
     <dependency org="log4j"               name="log4j"                          rev="1.2.15"              conf="compile->default" transitive="false" />
+    <dependency org="org.hibernate" name="hibernate" rev="3.2.5.ga" conf="compile->default" transitive="false" />
     <dependency org="javax"                 name="javaee-api"           rev="6.0"                   conf="compile->default" transitive="false" />
     <!-- runtime jars -->
     <!-- jars for test only -->

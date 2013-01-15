@@ -1,6 +1,10 @@
 /*
  * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services. 
  * All rights reserved. 
+ * Copyright (c) 2011, Conemaugh Valley Memorial Hospital
+ * This source is subject to the Conemaugh public license.  Please see the
+ * license.txt file for more information.
+ * All other rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without 
  * modification, are permitted provided that the following conditions are met: 
@@ -28,10 +32,13 @@ package gov.hhs.fha.nhinc.assemblymanager.builder.cda.modules;
 
 import gov.hhs.fha.nhinc.assemblymanager.builder.DocumentBuilder;
 import gov.hhs.fha.nhinc.assemblymanager.builder.DocumentBuilderException;
+import org.hl7.v3.ADExplicit;
 import org.hl7.v3.ONExplicit;
 import org.hl7.v3.POCDMT000040AssignedCustodian;
 import org.hl7.v3.POCDMT000040Custodian;
 import org.hl7.v3.POCDMT000040CustodianOrganization;
+import org.hl7.v3.POCDMT000040Organization;
+import org.hl7.v3.TELExplicit;
 
 /**
  * 
@@ -54,11 +61,15 @@ public class CustodianModule extends DocumentBuilder {
 
     private POCDMT000040CustodianOrganization createCustodianOrganization() {
         POCDMT000040CustodianOrganization custodianOrg = new POCDMT000040CustodianOrganization();
+        POCDMT000040Organization representedOrganization = getRepresentedOrganization();
 
         custodianOrg.getId().add(getOrganization());
         ONExplicit oOrgName = objectFactory.createONExplicit();
         oOrgName.getContent().add(orgName);
         custodianOrg.setName(oOrgName);
+        //For CHS, set the assigned author addr and telecom to the same values as Represented Organization
+        custodianOrg.setAddr((ADExplicit) representedOrganization.getAddr().get(0));
+        custodianOrg.setTelecom((TELExplicit) representedOrganization.getTelecom().get(0));
 
         return custodianOrg;
     }

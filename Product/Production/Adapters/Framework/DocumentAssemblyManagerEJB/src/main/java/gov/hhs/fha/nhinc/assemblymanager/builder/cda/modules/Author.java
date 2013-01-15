@@ -1,6 +1,10 @@
 /*
  * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services. 
  * All rights reserved. 
+ * Copyright (c) 2011, Conemaugh Valley Memorial Hospital
+ * This source is subject to the Conemaugh public license.  Please see the
+ * license.txt file for more information.
+ * All other rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without 
  * modification, are permitted provided that the following conditions are met: 
@@ -29,20 +33,34 @@ package gov.hhs.fha.nhinc.assemblymanager.builder.cda.modules;
 import gov.hhs.fha.nhinc.assemblymanager.AssemblyConstants;
 import gov.hhs.fha.nhinc.assemblymanager.builder.DocumentBuilder;
 import gov.hhs.fha.nhinc.assemblymanager.builder.DocumentBuilderException;
-import gov.hhs.fha.nhinc.assemblymanager.dao.PropertiesDAO;
+import org.hl7.v3.ADExplicit;
+import org.hl7.v3.PNExplicit;
 import org.hl7.v3.POCDMT000040AssignedAuthor;
 import org.hl7.v3.POCDMT000040Author;
 import org.hl7.v3.POCDMT000040AuthoringDevice;
+import org.hl7.v3.POCDMT000040Organization;
+import org.hl7.v3.POCDMT000040Person;
 import org.hl7.v3.SCExplicit;
+import org.hl7.v3.TELExplicit;
 import org.hl7.v3.TSExplicit;
 
 /**
- * This module includes information about the author or creator of the information contained within the exchange.
- * 
- * <author> <time value="20081216170000+0500"/> <assignedAuthor> <id root="[organization OID]"/>
- * <assignedAuthoringDevice> <softwareName>[name of software system]</softwareName> </assignedAuthoringDevice>*
- * <representedOrganization> <id root="<organization OID>"/> <name>[organization name]</name> </representedOrganization>
- * </assignedEntity> </informant>
+ *  This module includes information about the author or creator of the information
+ *  contained within the exchange.
+ *
+ *  <author>
+ *    <time value="20081216170000+0500"/>
+ *		<assignedAuthor>
+ *			<id root="[organization OID]"/>
+ *       <assignedAuthoringDevice>
+ *         <softwareName>[name of software system]</softwareName>
+ *       </assignedAuthoringDevice>*
+ *			<representedOrganization>
+ *				<id root="<organization OID>"/>
+ *				<name>[organization name]</name>
+ *			</representedOrganization>
+ *		</assignedEntity>
+ *	</informant>
  * 
  * @author kim
  */
@@ -75,11 +93,25 @@ public class Author extends DocumentBuilder {
     }
 
     private POCDMT000040AssignedAuthor createAssignedAuthor() {
+
         POCDMT000040AssignedAuthor assignedAuthor = new POCDMT000040AssignedAuthor();
+        POCDMT000040Organization representedOrganization = getRepresentedOrganization();
+
 
         assignedAuthor.getId().add(this.getOrganization());
-        assignedAuthor.setAssignedAuthoringDevice(createAuthoringDevice());
-        assignedAuthor.setRepresentedOrganization(getRepresentedOrganization());
+        //For CHS, set the assigned author addr and telecom to the same values as Represented Organization
+        assignedAuthor.getAddr().add((ADExplicit) representedOrganization.getAddr().get(0));
+        assignedAuthor.getTelecom().add((TELExplicit) representedOrganization.getTelecom().get(0));
+
+        //assignedPerson is required field - set the nullFlavor
+        POCDMT000040Person provider = new POCDMT000040Person();
+        PNExplicit providerName = objectFactory.createPNExplicit();
+        providerName.getNullFlavor().add("UNK");
+        provider.getName().add(providerName);
+        assignedAuthor.setAssignedPerson(provider);
+
+        // assignedAuthor.setAssignedAuthoringDevice(createAuthoringDevice());
+        assignedAuthor.setRepresentedOrganization(representedOrganization);
 
         return assignedAuthor;
     }
@@ -88,8 +120,7 @@ public class Author extends DocumentBuilder {
         POCDMT000040AuthoringDevice device = new POCDMT000040AuthoringDevice();
 
         SCExplicit softwareName = new SCExplicit();
-        softwareName.getContent().add(
-                PropertiesDAO.getInstance().getAttributeValue(AssemblyConstants.ORGANIZATION_SYSTEM, true));
+        softwareName.getContent().add(AssemblyConstants.C32_ORGANIZATION_SYS);
         device.setSoftwareName(softwareName);
 
         return device;

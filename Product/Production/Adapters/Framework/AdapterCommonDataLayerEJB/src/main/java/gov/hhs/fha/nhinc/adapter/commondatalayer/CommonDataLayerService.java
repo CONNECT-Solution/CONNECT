@@ -1,6 +1,10 @@
 /*
  * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services. 
- * All rights reserved. 
+ * All rights reserved.
+ *
+ * Copyright (c) 2011, Conemaugh Valley Memorial Hospital
+ * This source is subject to the Conemaugh public license.  Please see the
+ * license.txt file for more information.
  *
  * Redistribution and use in source and binary forms, with or without 
  * modification, are permitted provided that the following conditions are met: 
@@ -52,18 +56,12 @@ import javax.xml.ws.WebServiceFeature;
  * 
  * 
  */
-
-@WebServiceClient(name = "CommonDataLayerService", targetNamespace = "urn:gov:hhs:fha:nhinc:adapter:commondatalayer", wsdlLocation = "file:/D:/GlassFishESBV2.1/NetBeansProjects6.5.1/NHINC/Current/Product/Production/Adapters/Framework/AdapterCommonDataLayerEJB/src/conf/xml-resources/web-services/AdapterCommonDataLayer/wsdl/AdapterCommonDataLayer.wsdl")
+@WebServiceClient(name = "CommonDataLayerService", targetNamespace = "urn:gov:hhs:fha:nhinc:adapter:commondatalayer", wsdlLocation = "file:/D:/GlassFishESBV2.1/NetBeansProjects6.5.1/NHINC/3.3.1/Product/Production/Adapters/Framework/AdapterCommonDataLayerEJB/src/conf/xml-resources/web-services/AdapterCommonDataLayer/wsdl/AdapterCommonDataLayer.wsdl")
 public class CommonDataLayerService
-
-extends Service
-
-{
+    extends Service {
 
     private final static URL COMMONDATALAYERSERVICE_WSDL_LOCATION;
-
-    private final static Logger logger = Logger
-            .getLogger(gov.hhs.fha.nhinc.adapter.commondatalayer.CommonDataLayerService.class.getName());
+    private final static Logger logger = Logger.getLogger(gov.hhs.fha.nhinc.adapter.commondatalayer.CommonDataLayerService.class.getName());
 
     static {
 
@@ -76,12 +74,12 @@ extends Service
             baseUrl = gov.hhs.fha.nhinc.adapter.commondatalayer.CommonDataLayerService.class.getResource(".");
 
             url = new URL(
-                    baseUrl,
-                    "file:/D:/GlassFishESBV2.1/NetBeansProjects6.5.1/NHINC/Current/Product/Production/Adapters/Framework/AdapterCommonDataLayerEJB/src/conf/xml-resources/web-services/AdapterCommonDataLayer/wsdl/AdapterCommonDataLayer.wsdl");
+                baseUrl,
+                "file:/C:/Oracle/glassfish/domains/domain1/config/nhin/wsdl/AdapterCommonDataLayer.wsdl");
 
         } catch (MalformedURLException e) {
 
-            logger.warning("Failed to create URL for the wsdl Location: 'file:/D:/GlassFishESBV2.1/NetBeansProjects6.5.1/NHINC/Current/Product/Production/Adapters/Framework/AdapterCommonDataLayerEJB/src/conf/xml-resources/web-services/AdapterCommonDataLayer/wsdl/AdapterCommonDataLayer.wsdl', retrying as a local file");
+            logger.warning("Failed to create URL for the wsdl Location: 'file:/C:/Oracle/glassfish/domains/domain1/config/nhin/wsdl/AdapterCommonDataLayer.wsdl', retrying as a local file");
 
             logger.warning(e.getMessage());
 
@@ -100,7 +98,7 @@ extends Service
     public CommonDataLayerService() {
 
         super(COMMONDATALAYERSERVICE_WSDL_LOCATION, new QName("urn:gov:hhs:fha:nhinc:adapter:commondatalayer",
-                "CommonDataLayerService"));
+            "CommonDataLayerService"));
 
     }
 
@@ -112,12 +110,11 @@ extends Service
      * 
      *         returns CommonDataLayerPortType
      */
-
     @WebEndpoint(name = "CommonDataLayerPort")
     public CommonDataLayerPortType getCommonDataLayerPort() {
 
         return super.getPort(new QName("urn:gov:hhs:fha:nhinc:adapter:commondatalayer", "CommonDataLayerPort"),
-                CommonDataLayerPortType.class);
+            CommonDataLayerPortType.class);
 
     }
 
@@ -134,13 +131,11 @@ extends Service
      * 
      *         returns CommonDataLayerPortType
      */
-
     @WebEndpoint(name = "CommonDataLayerPort")
     public CommonDataLayerPortType getCommonDataLayerPort(WebServiceFeature... features) {
 
         return super.getPort(new QName("urn:gov:hhs:fha:nhinc:adapter:commondatalayer", "CommonDataLayerPort"),
-                CommonDataLayerPortType.class, features);
+            CommonDataLayerPortType.class, features);
 
     }
-
 }

@@ -1,6 +1,10 @@
 /*
  * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services. 
  * All rights reserved. 
+ * Copyright (c) 2011, Conemaugh Valley Memorial Hospital
+ * This source is subject to the Conemaugh public license.  Please see the
+ * license.txt file for more information.
+ * All other rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without 
  * modification, are permitted provided that the following conditions are met: 
@@ -27,13 +31,8 @@
 package gov.hhs.fha.nhinc.assemblymanager.service;
 
 import gov.hhs.fha.nhinc.assemblymanager.AssemblyConstants;
-
-import gov.hhs.fha.nhinc.assemblymanager.dao.PropertiesDAO;
-
 import gov.hhs.fha.nhinc.assemblymanager.utils.DateUtil;
-
-import gov.hhs.fha.nhinc.assemblymanager.utils.DocumentIdGenerator;
-
+import gov.hhs.fha.nhinc.assemblymanager.utils.UUIDGenerator;
 import java.util.Date;
 
 import org.hl7.v3.ActClassControlAct;
@@ -88,30 +87,27 @@ import org.hl7.v3.XActMoodIntentEvent;
  * 
  * @author kim
  */
-
 public class CareRecordRequestHelper {
 
     private static ObjectFactory factory = null;
-
     private static String homeOID = "";
+    private static String localDeviceOID = "";
 
     static {
-
-        homeOID = PropertiesDAO.getInstance().getAttributeValue(AssemblyConstants.ORGANIZATION_OID, true);
-
+        homeOID = AssemblyConstants.ORGANIZATION_OID;
+        localDeviceOID = AssemblyConstants.LOCAL_DEVICE_OID;
         factory = new ObjectFactory();
-
     }
 
     public static CareRecordQUPCIN043100UV01RequestType createCareRecordRequest(II subjectId, String careProvisionCode) {
 
         CareRecordQUPCIN043100UV01RequestType msg = new CareRecordQUPCIN043100UV01RequestType();
 
-        msg.setLocalDeviceId(homeOID);
+        msg.setLocalDeviceId(localDeviceOID);
 
         msg.setReceiverOID(homeOID);
 
-        msg.setSenderOID("1.1");
+        msg.setSenderOID(homeOID);
 
         msg.setQuery(build043100(subjectId, careProvisionCode, null, null));
 
@@ -119,16 +115,14 @@ public class CareRecordRequestHelper {
 
     }
 
-    public static CareRecordQUPCIN043100UV01RequestType createCareRecordRequest(II subjectId, String careProvisionCode,
-            String dataStartDate, String dataEndDate) {
-
+    public static CareRecordQUPCIN043100UV01RequestType createCareRecordRequest(II subjectId, String careProvisionCode, String dataStartDate, String dataEndDate) {
         CareRecordQUPCIN043100UV01RequestType msg = new CareRecordQUPCIN043100UV01RequestType();
 
-        msg.setLocalDeviceId(homeOID);
+        msg.setLocalDeviceId(localDeviceOID);
 
         msg.setReceiverOID(homeOID);
 
-        msg.setSenderOID("1.1");
+        msg.setSenderOID(homeOID);
 
         if (dataStartDate == null) {
 
@@ -144,17 +138,13 @@ public class CareRecordRequestHelper {
 
     }
 
-    private static QUPCIN043100UV01MCCIMT000100UV01Message build043100(II subjectId, String careProvisionCode,
-            String dataStartDate, String dataEndDate) {
+    private static QUPCIN043100UV01MCCIMT000100UV01Message build043100(II subjectId, String careProvisionCode, String dataStartDate, String dataEndDate) {
 
         QUPCIN043100UV01MCCIMT000100UV01Message query = new QUPCIN043100UV01MCCIMT000100UV01Message();
 
         II id = new II();
-
         id.setRoot(homeOID);
-
-        id.setExtension(DocumentIdGenerator.generateDocumentId());
-
+        id.setExtension(UUIDGenerator.generateRandomUUID());
         query.setId(id);
 
         TSExplicit creationTime = new TSExplicit();
@@ -206,15 +196,12 @@ public class CareRecordRequestHelper {
         // create parameters list and set it in QueryByParameter object
 
         QUPCMT040300UV01ParameterList paramList =
-
-        createParameterList(subjectId, careProvisionCode, dataStartDate, dataEndDate);
+            createParameterList(subjectId, careProvisionCode, dataStartDate, dataEndDate);
 
         queryParams.getParameterList().add(paramList);
 
         // set QueryByParameter in ControlActProcess object
-
-        controlActProcess.setQueryByParameter(factory
-                .createQUPCIN043100UV01QUQIMT020001UV01ControlActProcessQueryByParameter(queryParams));
+        controlActProcess.setQueryByParameter(factory.createQUPCIN043100UV01QUQIMT020001UV01ControlActProcessQueryByParameter(queryParams));
 
         // set ControlActProcess in Message object
 
@@ -285,8 +272,7 @@ public class CareRecordRequestHelper {
     private static QUPCIN043100UV01QUQIMT020001UV01ControlActProcess createControlActProcess() {
 
         QUPCIN043100UV01QUQIMT020001UV01ControlActProcess controlActProcess =
-
-        new QUPCIN043100UV01QUQIMT020001UV01ControlActProcess();
+            new QUPCIN043100UV01QUQIMT020001UV01ControlActProcess();
 
         controlActProcess.setMoodCode(XActMoodIntentEvent.EVN);
 
@@ -317,59 +303,37 @@ public class CareRecordRequestHelper {
     // JAXBElement<QUPCIN043100UV01QUQIMT020001UV01QueryByParameter>
     // createQueryParams(II subjectId,
     // String careProvisionCode) {
-
     // QUPCIN043100UV01QUQIMT020001UV01QueryByParameter params = new
     // QUPCIN043100UV01QUQIMT020001UV01QueryByParameter();
-
     //
-
     // II id = new II();
-
     // id.setExtension(DocumentIdGenerator.generateDocumentId());
-
     // id.setRoot(homeOID);
-
     // params.setQueryId(id);
-
     //
-
     // CS statusCode = new CS();
-
     // statusCode.setCode("new");
-
     // params.setStatusCode(statusCode);
-
     //
-
     // params.getParameterList().add(createParameterList(subjectId,
     // careProvisionCode));
-
     //
-
     // javax.xml.namespace.QName xmlqname = new
     // javax.xml.namespace.QName("urn:hl7-org:v3", "queryByParameter");
-
     // JAXBElement<QUPCIN043100UV01QUQIMT020001UV01QueryByParameter> queryParams
     // = new
     // JAXBElement<QUPCIN043100UV01QUQIMT020001UV01QueryByParameter>(xmlqname,
     // QUPCIN043100UV01QUQIMT020001UV01QueryByParameter.class, params);
-
     //
-
     // return queryParams;
-
     // }
-
     private static QUPCIN043100UV01QUQIMT020001UV01QueryByParameter createQueryParams() {
 
         QUPCIN043100UV01QUQIMT020001UV01QueryByParameter queryParams = new QUPCIN043100UV01QUQIMT020001UV01QueryByParameter();
 
         II id = new II();
-
-        id.setExtension(DocumentIdGenerator.generateDocumentId());
-
+        id.setExtension(UUIDGenerator.generateRandomUUID());
         id.setRoot(homeOID);
-
         queryParams.setQueryId(id);
 
         CS statusCode = new CS();
@@ -393,9 +357,7 @@ public class CareRecordRequestHelper {
 
     }
 
-    private static QUPCMT040300UV01ParameterList createParameterList(II subjectId, String careProvisionCode,
-            String startDate, String endDate) {
-
+    private static QUPCMT040300UV01ParameterList createParameterList(II subjectId, String careProvisionCode, String startDate, String endDate) {
         QUPCMT040300UV01ParameterList paramList = new QUPCMT040300UV01ParameterList();
 
         // -------- Provision Code -------
@@ -447,5 +409,4 @@ public class CareRecordRequestHelper {
         return paramList;
 
     }
-
 }

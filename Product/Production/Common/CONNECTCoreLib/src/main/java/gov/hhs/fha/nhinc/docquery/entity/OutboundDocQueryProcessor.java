@@ -408,6 +408,29 @@ public class OutboundDocQueryProcessor implements OutboundResponseProcessor {
 
         AdhocQueryResponse current = individual.getResponse();
         if (current != null) {
+            // handle status first
+            if (cumulativeResponse.getCumulativeResponse() != null) {
+                if (cumulativeResponse.getCumulativeResponse().getStatus() == null) {
+                    cumulativeResponse.getCumulativeResponse().setStatus(current.getStatus());
+                } else {
+                    // there are only 3 cases
+                    // 1) either are partial success
+                    // 2) they are different
+                    // 3) they are the same (we do nothing)
+                    if (cumulativeResponse.getCumulativeResponse().getStatus()
+                            .equalsIgnoreCase(DocumentConstants.XDS_QUERY_RESPONSE_STATUS_PARTIAL_SUCCESS)
+                            || current.getStatus().equalsIgnoreCase(
+                                    DocumentConstants.XDS_QUERY_RESPONSE_STATUS_PARTIAL_SUCCESS)) {
+                        cumulativeResponse.getCumulativeResponse().setStatus(
+                                DocumentConstants.XDS_QUERY_RESPONSE_STATUS_PARTIAL_SUCCESS);
+                    } else if (!cumulativeResponse.getCumulativeResponse().getStatus()
+                            .equalsIgnoreCase(current.getStatus())) {
+                        cumulativeResponse.getCumulativeResponse().setStatus(
+                                DocumentConstants.XDS_QUERY_RESPONSE_STATUS_PARTIAL_SUCCESS);
+                    }
+
+                }
+            }
             // add the responses from registry object list
             if (current.getRegistryObjectList() != null) {
                 List<JAXBElement<? extends IdentifiableType>> identifiableList = current.getRegistryObjectList()

@@ -1,6 +1,10 @@
 /*
  * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services. 
  * All rights reserved. 
+ * Copyright (c) 2011, Conemaugh Valley Memorial Hospital
+ * This source is subject to the Conemaugh public license.  Please see the
+ * license.txt file for more information.
+ * All other rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without 
  * modification, are permitted provided that the following conditions are met: 
@@ -38,38 +42,30 @@ import java.util.Calendar;
 
 import java.util.GregorianCalendar;
 
-import java.util.logging.Level;
-
-import java.util.logging.Logger;
-
 /**
  * 
  * 
  * 
  * @author kim
  */
-
 public class DateUtil {
 
     private static DateFormat dfYYYYMMDD = null;
-
     private static DateFormat cdaDateFormat = null;
 
     static {
 
         dfYYYYMMDD = new SimpleDateFormat("yyyyMMdd");
 
-        cdaDateFormat = new SimpleDateFormat("yyyyMMddHHmmssZ"); // YYYYMMDDHHmmss-0000
+        cdaDateFormat = new SimpleDateFormat("yyyyMMddHHmmss");
 
     }
 
     public static String formatYYYYMMDD(GregorianCalendar gCal) {
 
         return String.valueOf(gCal.get(GregorianCalendar.YEAR)) +
-
-        String.valueOf(gCal.get(GregorianCalendar.MONTH)) +
-
-        String.valueOf(gCal.get(GregorianCalendar.DATE));
+            String.valueOf(gCal.get(GregorianCalendar.MONTH)) +
+            String.valueOf(gCal.get(GregorianCalendar.DATE));
 
     }
 
@@ -111,21 +107,19 @@ public class DateUtil {
      * 
      * @return
      */
-
     public static String convertTFormatToCDATime(String tDate) throws Exception {
 
-        if (tDate == null || tDate.length() < 0)
-
+        if (tDate == null || tDate.length() < 0) {
             return null;
+        }
 
         // today date
 
-        if (tDate.equalsIgnoreCase("T"))
-
+        if (tDate.equalsIgnoreCase("T")) {
             convertToCDATime(Calendar.getInstance().getTime());
+        }
 
         throw new Exception("Need to be implemented!");
 
     }
-
 }

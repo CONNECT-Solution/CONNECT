@@ -1,6 +1,10 @@
 /*
  * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services. 
  * All rights reserved. 
+ * Copyright (c) 2011, Conemaugh Valley Memorial Hospital
+ * This source is subject to the Conemaugh public license.  Please see the
+ * license.txt file for more information.
+ * All other rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without 
  * modification, are permitted provided that the following conditions are met: 
@@ -58,19 +62,13 @@ import org.apache.commons.logging.LogFactory;
  * 
  * @author kim
  */
-
 public class AdhocQueryRequestParser extends EBXMLConstants {
 
     private static Log log = LogFactory.getLog(AdhocQueryRequestParser.class);
-
     private static final String DATE_FORMAT_FULL = "yyyyMMddhhmmssZ";
-
     public LinkedList<String> requiredQueryParametersList;
-
     public LinkedList<String> queryParametersList;
-
     private AdhocQueryRequest adhocQueryReq = null;
-
     private HashMap<String, ValueListType> querySlotHashMap = null;
 
     /**
@@ -79,7 +77,6 @@ public class AdhocQueryRequestParser extends EBXMLConstants {
      * 
      * @param adhocQuery
      */
-
     public AdhocQueryRequestParser(AdhocQueryRequest adhocQueryReq) {
 
         initialize();
@@ -154,7 +151,6 @@ public class AdhocQueryRequestParser extends EBXMLConstants {
      * 
      * @return the patient id
      */
-
     public String getPatientId() {
 
         String patientId = null;
@@ -179,7 +175,6 @@ public class AdhocQueryRequestParser extends EBXMLConstants {
      * 
      * @return the patient id
      */
-
     public String getISOFormatPatientId() {
 
         String formattedPatientId = "";
@@ -202,7 +197,6 @@ public class AdhocQueryRequestParser extends EBXMLConstants {
      * 
      * @return the document type (LOINC code)
      */
-
     public String getDocType() {
 
         List<String> classCodes = null;
@@ -227,10 +221,22 @@ public class AdhocQueryRequestParser extends EBXMLConstants {
 
     }
 
+
+    /* Extract the Status Values from the specified slot */
+    public List getStatusValues() {
+        List<String> statusValues = null;
+        List<String> slotValues = extractSlotValues(adhocQueryReq.getAdhocQuery().getSlot(), EBXML_DOCENTRY_STATUS);
+        if ((slotValues != null) && (!slotValues.isEmpty())) {
+            statusValues = new ArrayList<String>();
+            for (String slotValue : slotValues) {
+                parseParamFormattedString(slotValue, statusValues);
+            }
+        }
+        return statusValues;
+    }
+
     public Date getServiceStartTimeFrom() {
-
         return extractDate(EBXML_DOCENTRY_SERVICE_START_TIME_FROM);
-
     }
 
     public Date getServiceStartTimeTo() {
@@ -274,8 +280,7 @@ public class AdhocQueryRequestParser extends EBXMLConstants {
         if (adhocQueryReq.getResponseOption().getReturnType().compareTo("LeafClass") != 0) {
 
             log.warn("query:ResponseOption returnType=" + adhocQueryReq.getResponseOption().getReturnType() +
-
-            " changed to LeafClass");
+                " changed to LeafClass");
 
             adhocQueryReq.getResponseOption().setReturnType("LeafClass");
 
@@ -311,14 +316,10 @@ public class AdhocQueryRequestParser extends EBXMLConstants {
         for (SlotType1 slot : slots) {
 
             if ((slot.getName() != null) &&
-
-            (slot.getName().length() > 0) &&
-
-            (slot.getValueList() != null) &&
-
-            (slot.getValueList().getValue() != null) &&
-
-            (slot.getValueList().getValue().size() > 0)) {
+                (slot.getName().length() > 0) &&
+                (slot.getValueList() != null) &&
+                (slot.getValueList().getValue() != null) &&
+                (slot.getValueList().getValue().size() > 0)) {
 
                 if (slot.getName().equals(slotName)) {
 
@@ -430,13 +431,11 @@ public class AdhocQueryRequestParser extends EBXMLConstants {
      * 
      * @return Modified format string based on the date string length (ex. yyyyMMdd)
      */
-
     public static String prepareDateFormatString(String dateFormat, String dateString) {
 
         String formatString = dateFormat;
 
-        if ((dateString != null) && (dateFormat != null) && (dateString.length() > 0)
-                && (dateString.length() < dateFormat.length())) {
+        if ((dateString != null) && (dateFormat != null) && (dateString.length() > 0) && (dateString.length() < dateFormat.length())) {
 
             formatString = dateFormat.substring(0, dateString.length());
 
@@ -491,5 +490,4 @@ public class AdhocQueryRequestParser extends EBXMLConstants {
         return extractedDate;
 
     }
-
 }

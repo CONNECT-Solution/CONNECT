@@ -27,7 +27,6 @@
 package gov.hhs.fha.nhinc.docsubmission._20.nhin.deferred.request;
 
 import javax.annotation.Resource;
-import javax.jws.HandlerChain;
 import javax.jws.WebService;
 import javax.xml.ws.BindingType;
 import javax.xml.ws.WebServiceContext;
@@ -40,7 +39,6 @@ import javax.xml.ws.soap.Addressing;
 @WebService(serviceName = "XDRDeferredRequest20_Service", portName = "XDRDeferredRequest20_Port_Soap", endpointInterface = "ihe.iti.xdr._2007.XDRDeferredRequest20PortType", targetNamespace = "urn:ihe:iti:xdr:2007", wsdlLocation = "WEB-INF/wsdl/NhinXDRRequest20/NhinXDRDeferredRequest20.wsdl")
 @BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
 @Addressing(enabled=true)
-@HandlerChain(file="../../../../../../../../../handler-chain.xml")
 public class NhinXDRRequest20 {
     @Resource
     private WebServiceContext context;

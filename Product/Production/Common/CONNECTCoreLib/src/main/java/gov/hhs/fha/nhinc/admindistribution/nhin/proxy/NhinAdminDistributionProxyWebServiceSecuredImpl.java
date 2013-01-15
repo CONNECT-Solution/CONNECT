@@ -85,7 +85,8 @@ public class NhinAdminDistributionProxyWebServiceSecuredImpl implements NhinAdmi
             wsHelper.addTargetCommunity(((BindingProvider)port), target);
 
             SamlTokenCreator tokenCreator = new SamlTokenCreator();
-            Map requestContext = tokenCreator.CreateRequestContext(assertion, url, NhincConstants.ADMIN_DIST_ACTION);
+            Map requestContext = tokenCreator.CreateRequestContext(assertion, url, NhincConstants.NHIN_ADMIN_DIST_SERVICE_NAME);
+            requestContext.put(NhincConstants.TARGET_API_LEVEL, apiLevel);
 
             ((BindingProvider) port).getRequestContext().putAll(requestContext);
 

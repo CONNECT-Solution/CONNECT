@@ -89,7 +89,7 @@ public class NhinDocSubmissionDeferredResponseProxyWebServiceSecuredImpl impleme
         {
             log.debug("Obtained service - creating port.");
             port = service.getPort(new QName(NAMESPACE_URI, PORT_LOCAL_PART), XDRDeferredResponse20PortType.class);
-            proxyHelper.initializeSecurePort((javax.xml.ws.BindingProvider) port, url, NhincConstants.XDR_RESPONSE_ACTION, wsAction, assertion);
+            proxyHelper.initializeSecurePort((javax.xml.ws.BindingProvider) port, url, NhincConstants.NHINC_XDR_RESPONSE_SERVICE_NAME, wsAction, assertion);
          }
         else
         {

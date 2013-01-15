@@ -1,6 +1,10 @@
 /*
  * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services. 
  * All rights reserved. 
+ * Copyright (c) 2011, Conemaugh Valley Memorial Hospital
+ * This source is subject to the Conemaugh public license.  Please see the
+ * license.txt file for more information.
+ * All other rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without 
  * modification, are permitted provided that the following conditions are met: 
@@ -26,22 +30,11 @@
  */
 package gov.hhs.fha.nhinc.assemblymanager;
 
-import gov.hhs.fha.nhinc.assemblymanager.builder.CDADocumentBuilder;
-
+import gov.hhs.fha.nhinc.assemblymanager.builder.C62DocumentBuilder;
+import gov.hhs.fha.nhinc.assemblymanager.builder.C32DocumentBuilder;
 import gov.hhs.fha.nhinc.assemblymanager.builder.DocumentBuilderException;
-
-import gov.hhs.fha.nhinc.assemblymanager.dao.DocumentTypeDAO;
-
-import gov.hhs.fha.nhinc.assemblymanager.dao.PropertiesDAO;
-
-import gov.hhs.fha.nhinc.assemblymanager.dao.model.DocumentType;
-
-import gov.hhs.fha.nhinc.assemblymanager.utils.XMLUtil;
-
+import gov.hhs.fha.nhinc.transform.marshallers.JAXBContextHandler;
 import java.io.StringWriter;
-
-import java.util.ArrayList;
-
 import java.util.List;
 
 import javax.xml.bind.JAXBContext;
@@ -62,177 +55,80 @@ import org.hl7.v3.POCDMT000040ClinicalDocument;
  * 
  * @author kim
  */
-
 public class AssemblyManager {
 
     private static Log log = LogFactory.getLog(AssemblyManager.class);
-
     private String documentType = "";
 
-    public POCDMT000040ClinicalDocument getDocument(String docType, String patientId) throws InvalidTypeException,
-            InvalidIdentifierException, DocumentBuilderException {
+    public List<POCDMT000040ClinicalDocument> getDocuments(String docType, String patientId) throws InvalidTypeException, InvalidIdentifierException, DocumentBuilderException {
+
+        List<POCDMT000040ClinicalDocument> clinDocsList = null;
+        String displayName = null;
 
         // check for valid document type
-
         if (docType == null) {
-
             throw new InvalidTypeException("Must specify a document type.");
-
         }
-
-        if (!DocumentTypeDAO.getInstance().isValidDocumentType(docType)) {
-
+        if (!DocumentType.isValidDocumentType(docType)) {
             log.debug("Requested document type \"" + docType + "\" is not supported!");
-
             throw new InvalidTypeException("Requested document type \"" + docType + "\" is not supported.");
-
         }
 
         documentType = docType;
 
         // check for valid patient identifier parameter
-
         if (patientId == null || patientId.length() < 1) {
-
             log.debug("Patient identifier \"" + patientId + "\" is invalid!");
-
             throw new InvalidIdentifierException("Identifier is invalid.");
-
         }
 
         log.debug("Requesting document of type=" + docType + " for patient=" + patientId);
 
         // get a document builder
-
-        CDADocumentBuilder docBuilder = AssemblerFactory.cdaBuilder(docType);
-
-        docBuilder.setPatientId(patientId);
-
-        POCDMT000040ClinicalDocument clinDoc = docBuilder.build();
-
-        log.debug("NEW DOCUMENT=" + XMLUtil.toPrettyXML(clinDoc));
-
-        log.debug("Request for document=\"" + docBuilder.getDocumentType().getDisplayName() +
-
-        "\" for patient[" + patientId + "] completed!");
-
-        return clinDoc;
-
-    }
-
-    public String getDocumentAsString(String docType, String patientId) throws InvalidTypeException,
-            InvalidIdentifierException, DocumentBuilderException {
-
-        POCDMT000040ClinicalDocument clinDoc = getDocument(docType, patientId);
-
-        try {
-
-            return XMLUtil.toCanonicalXMLString(clinDoc);
-
-        } catch (JAXBException ex) {
-
-            log.error(ex);
-
-            throw new DocumentBuilderException("Failed to convert POCDMT000040ClinicalDocument object to String.");
-
+        if (docType.equalsIgnoreCase(AssemblyConstants.C32_CLASS_CODE)) {
+            C32DocumentBuilder c32Builder = AssemblerFactory.C32Builder(docType);
+            c32Builder.setPatientId(patientId);
+            clinDocsList = c32Builder.build();
+            if (clinDocsList.size() == 0) {
+                clinDocsList = null;
+            }
+            displayName = c32Builder.getDocumentType().getDisplayName();
+        } else if (docType.equalsIgnoreCase(AssemblyConstants.C62_CLASS_CODE) || docType.equalsIgnoreCase(AssemblyConstants.C62_RR_CLASS_CODE)) {
+            //build a Discharge Summary, ER Report or Radiology Report
+            C62DocumentBuilder c62Builder = AssemblerFactory.c62Builder(docType);
+            c62Builder.setPatientId(patientId);
+            clinDocsList = c62Builder.build();
+            if (clinDocsList.size() == 0) {
+                clinDocsList = null;
+            }
+        } else {
+            log.debug("Document of type: " + docType + " not supported...");
         }
-
-    }
-
-    public byte[] getDocumentAsBytes(String docType, String patientId) throws InvalidTypeException,
-            InvalidIdentifierException, DocumentBuilderException {
-
-        POCDMT000040ClinicalDocument clinDoc = getDocument(docType, patientId);
-
-        try {
-
-            return XMLUtil.toCanonicalXMLBytes(clinDoc);
-
-        } catch (JAXBException ex) {
-
-            log.error(ex);
-
-            throw new DocumentBuilderException("Failed to convert POCDMT000040ClinicalDocument object to String.");
-
-        }
-
+        return clinDocsList;
     }
 
     public DocumentType getDocumentType(String docType) {
-
-        DocumentType d = null;
-
-        try {
-
-            d = DocumentTypeDAO.getInstance().getDocumentType(docType);
-
-        } catch (Exception ex) {
-
-            log.error(ex);
-
-        }
-
+        DocumentType d = DocumentType.getDocument(docType);
         return d;
-
-    }
-
-    public List<DocumentType> getDocumentTypes() {
-
-        List<DocumentType> docTypes = new ArrayList<DocumentType>();
-
-        try {
-
-            docTypes = DocumentTypeDAO.getInstance().getDocumentTypes();
-
-        } catch (Exception ex) {
-
-            log.error(ex);
-
-        }
-
-        return docTypes;
-
-    }
-
-    public static String getProperty(String name) {
-
-        if (name != null) {
-
-            return PropertiesDAO.getInstance().getAttributeValue(name, true);
-
-        }
-
-        return "";
-
     }
 
     /**
-     * 
      * Returns a serialized copy of this POCDMT000040ClinicalDocument object.
-     * 
      * @param pObject
-     * 
      * @return
-     * 
      * @throws javax.xml.bind.JAXBException
      */
-
     public String serializeCDAContentToXMLString(POCDMT000040ClinicalDocument pObject) throws JAXBException {
 
         if (pObject == null) {
-
             throw new JAXBException("POCDMT000040ClinicalDocument object cannot be NULL!");
-
         }
 
-        JAXBContext jc = JAXBContext.newInstance("org.hl7.v3");
-
+        JAXBContextHandler jch = new JAXBContextHandler();
+        JAXBContext jc = jch.getJAXBContext("org.hl7.v3");
         java.io.StringWriter sw = new StringWriter();
-
         Marshaller marshaller = jc.createMarshaller();
-
         marshaller.setProperty(Marshaller.JAXB_ENCODING, "UTF-8");
-
         marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, Boolean.TRUE);
 
         org.hl7.v3.ObjectFactory factory = new org.hl7.v3.ObjectFactory();
@@ -242,16 +138,14 @@ public class AssemblyManager {
         String clinDocString = sw.toString();
 
         // add stylesheet reference:
+        //   <?xml-stylesheet type="text/xsl" href="CCD.xsl"?>
+        if (!documentType.equalsIgnoreCase(AssemblyConstants.C62_CLASS_CODE)) {
+            String replacementString =
+                "<?xml-stylesheet type=\"text/xsl\" href=\"" + getStyleSheet() + "\"?>" +
+                System.getProperty("line.separator") + "<ClinicalDocument";
 
-        // <?xml-stylesheet type="text/xsl" href="CCD.xsl"?>
-
-        String replacementString =
-
-        "<?xml-stylesheet type=\"text/xsl\" href=\"" + getStyleSheet() + "\"?>" +
-
-        System.getProperty("line.separator") + "<ClinicalDocument";
-
-        clinDocString = clinDocString.replaceFirst("<ClinicalDocument", replacementString);
+            clinDocString = clinDocString.replaceFirst("<ClinicalDocument", replacementString);
+        }
 
         // remove empty xmlns="" which is an issue for stylesheet
 
@@ -287,18 +181,13 @@ public class AssemblyManager {
 
     private String getStyleSheet() {
 
-        if (documentType.equalsIgnoreCase(AssemblyConstants.C32_DOCUMENT)) {
-
-            return PropertiesDAO.getInstance().getAttributeValue(AssemblyConstants.DAS_C32_STYLESHEET, true);
-
+        if (documentType.equalsIgnoreCase(AssemblyConstants.C32_CLASS_CODE)) {
+            return AssemblyConstants.C32_STYLESHEET;
         } else {
-
-            log.error("No stylesheet available for document type \"" + documentType);
-
+            log.error("No stylesheet defined for document type \"" + documentType + "\"");
         }
 
         return "CCD.xsl";
 
     }
-
 }

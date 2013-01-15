@@ -1,6 +1,11 @@
 /*
  * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services. 
  * All rights reserved. 
+ * Copyright (c) 2011, Conemaugh Valley Memorial Hospital
+ * This source is subject to the Conemaugh public license.  Please see the
+ * license.txt file for more information.
+ * All other rights reserved.
+ *
  *
  * Redistribution and use in source and binary forms, with or without 
  * modification, are permitted provided that the following conditions are met: 
@@ -38,11 +43,9 @@ import org.hl7.v3.POCDMT000040Component3;
  * 
  * @author kim
  */
-
 public interface CDASection {
 
     public POCDMT000040Component3 build() throws DocumentBuilderException;
 
     public void setCareRecordResponse(CareRecordQUPCIN043200UV01ResponseType careRecordResponse);
-
 }

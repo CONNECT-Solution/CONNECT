@@ -20,16 +20,6 @@
               linecount="16"
               linerate="80"
               linesexecuted="0"/>
-   <threshold branchcount="0" branchrate="80" branchsexecuted="0"
-              class="gov.hhs.fha.nhinc.adapter.commondatalayer.DODConnectorPortType"
-              linecount="0"
-              linerate="80"
-              linesexecuted="0"/>
-   <threshold branchcount="0" branchrate="80" branchsexecuted="0"
-              class="gov.hhs.fha.nhinc.adapter.commondatalayer.DODConnectorService"
-              linecount="16"
-              linerate="80"
-              linesexecuted="0"/>
    <threshold branchcount="8" branchrate="80" branchsexecuted="0"
               class="gov.hhs.fha.nhinc.adapter.commondatalayer.mappers.StaticAllergiesQuery"
               linecount="51"

@@ -28,6 +28,7 @@ package gov.hhs.fha.nhinc.nhinhiem.proxy.notify;
 
 
 import java.util.List;
+import java.util.Map;
 
 import javax.xml.namespace.QName;
 import javax.xml.ws.BindingProvider;
@@ -59,6 +60,7 @@ import gov.hhs.fha.nhinc.hiem.consumerreference.ReferenceParametersElements;
 import gov.hhs.fha.nhinc.hiem.dte.SoapUtil;
 import gov.hhs.fha.nhinc.hiem.dte.marshallers.WsntSubscribeMarshaller;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants.GATEWAY_API_LEVEL;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.policyengine.PolicyEngineChecker;
 import gov.hhs.fha.nhinc.policyengine.adapter.proxy.PolicyEngineProxy;
@@ -156,7 +158,9 @@ public class NhinHiemNotifyWebServiceProxy implements NhinHiemNotifyProxy {
 
                 // Initialize secured port
                 getWebServiceProxyHelper().initializeSecurePort((BindingProvider) oPort, url,
-                        NhincConstants.SUBSCRIBE_ACTION, null, assertion);
+                        NhincConstants.HIEM_NOTIFY_SERVICE_NAME, null, assertion);
+                
+                ((BindingProvider)oPort).getRequestContext().put(NhincConstants.TARGET_API_LEVEL, GATEWAY_API_LEVEL.LEVEL_g0);
             } else {
                 log.error("Unable to obtain service - no port created.");
             }

@@ -32,7 +32,7 @@
               linesexecuted="0"/>
    <threshold branchcount="88" branchrate="80" branchsexecuted="0"
               class="gov.hhs.fha.nhinc.documentassembly.ebxml.parsers.AdhocQueryRequestParser"
-              linecount="124"
+              linecount="122"
               linerate="80"
               linesexecuted="0"/>
 </thresholds>

@@ -649,26 +649,9 @@ public class SamlCallbackHandler implements CallbackHandler {
             final Element elemPFUAttr = document.createElementNS("urn:oasis:names:tc:SAML:2.0:assertion",
                     "AttibuteValue");
 
-            // determine 2010 vs 2011 spec version
-            String hcid = tokenVals.get(SamlConstants.HOME_COM_PROP).toString();
-            String action = tokenVals.get(NhincConstants.ACTION_PROP).toString();
-            NHIN_SERVICE_NAMES serviceName = AddressingActionToServiceNameMapping.get(action);
-
-            NhincConstants.GATEWAY_API_LEVEL apiLevel = null;
-            boolean purposeFor = false;
-            
-            if (serviceName != null && hcid != null) {
-                NhinEndpointManager nem = new NhinEndpointManager();
-                apiLevel = nem.getApiVersion(hcid, serviceName);
-                
-                if (GATEWAY_API_LEVEL.LEVEL_g0 == apiLevel) {
-                    PurposeUseProxyObjectFactory purposeFactory = new PurposeUseProxyObjectFactory();
-                    PurposeUseProxy purposeUse = purposeFactory.getPurposeUseProxy();
-                    purposeFor = purposeUse.createPurposeUseElement(tokenVals);
-                }
-            }
-                
-            Element purpose = createPurposeUseElement(document, purposeFor);
+            // Call out to the purpose decider to determine whether to use purposeofuse or purposeforuse.
+            PurposeOfForDecider pd = new PurposeOfForDecider();                
+            Element purpose = createPurposeUseElement(document, pd.isPurposeFor(tokenVals));
 
             elemPFUAttr.appendChild(purpose);
 

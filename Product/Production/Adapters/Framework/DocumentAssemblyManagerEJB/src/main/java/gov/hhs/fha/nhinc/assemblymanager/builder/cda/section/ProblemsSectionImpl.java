@@ -1,6 +1,10 @@
 /*
  * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services. 
  * All rights reserved. 
+ * Copyright (c) 2011, Conemaugh Valley Memorial Hospital
+ * This source is subject to the Conemaugh public license.  Please see the
+ * license.txt file for more information.
+ * All other rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without 
  * modification, are permitted provided that the following conditions are met: 
@@ -40,14 +44,14 @@ import org.hl7.v3.II;
 import org.hl7.v3.POCDMT000040Component3;
 import org.hl7.v3.POCDMT000040Entry;
 import org.hl7.v3.POCDMT000040Section;
-import org.hl7.v3.StrucDocContent;
 import org.hl7.v3.StrucDocParagraph;
 import org.w3c.dom.Element;
 import org.hl7.v3.STExplicit;
 
 /**
- * This class performs the necessary mappings from CareRecordQUPCIN043200UV01ResponseType to POCDMT000040Component3.
- * 
+ * This class performs the necessary mappings from CareRecordQUPCIN043200UV01ResponseType
+ * to POCDMT000040Component3.
+ *
  * @author kim
  */
 public class ProblemsSectionImpl extends SectionImpl {
@@ -81,77 +85,72 @@ public class ProblemsSectionImpl extends SectionImpl {
 
         POCDMT000040Section probSection = new POCDMT000040Section();
 
-        // REQUIRED! Set template ids to identify that this is a medication
-        // section
+        // REQUIRED! Set template ids to identify that this is a medication section
         List<II> templateIdList = getConformingTemplateIds();
         for (II templateId : templateIdList) {
             probSection.getTemplateId().add(templateId);
         }
 
-        // REQUIRED! Must have this also: <code code="48765-2"
-        // codeSystem="2.16.840.1.113883.6.1"/>
+        // REQUIRED! Must have this also: <code code="48765-2" codeSystem="2.16.840.1.113883.6.1"/>
         CE loincAllergyCode = new CE();
         loincAllergyCode.setCode(CDAConstants.LOINC_PROBLEM_CODE);
         loincAllergyCode.setCodeSystem(CDAConstants.LOINC_CODE_SYS_OID);
         probSection.setCode(loincAllergyCode);
 
         // REQUIRED! Set title for display
-        // try {
-        // Element title = XMLUtil.createElement(CDAConstants.TITLE_TAG);
-        // title.setTextContent(CDAConstants.PROBLEMS_SECTION_TITLE);
-        // probSection.setTitle(title);
-        // } catch (Exception e) {
-        // log.error("Failed to set POCDMT000040Section.title", e);
-        // }
+//      try {
+//         Element title = XMLUtil.createElement(CDAConstants.TITLE_TAG);
+//         title.setTextContent(CDAConstants.PROBLEMS_SECTION_TITLE);
+//         probSection.setTitle(title);
+//      } catch (Exception e) {
+//         log.error("Failed to set POCDMT000040Section.title", e);
+//      }
         STExplicit title = new STExplicit();
         title.getContent().add(CDAConstants.PROBLEMS_SECTION_TITLE);
         probSection.setTitle(title);
 
         // build the relevant module entries
         log.debug("*******************  # of PROBLEM MODULE: " + moduleTemplates.size());
-
         if (moduleTemplates.size() > 0) {
             CdaTemplate moduleTemplate = moduleTemplates.get(0);
 
             log.debug(moduleTemplate);
 
-            List<POCDMT000040Entry> entries = ModuleFactoryBuilder.createModule(moduleTemplate, careRecordResponse,
-                    this);
-            for (POCDMT000040Entry entry : entries) {
-                probSection.getEntry().add(entry);
-            }
-        }
+            List<POCDMT000040Entry> entries = ModuleFactoryBuilder.createModule(moduleTemplate, careRecordResponse, this);
+            if (entries != null) {
+                for (POCDMT000040Entry entry : entries) {
+                    probSection.getEntry().add(entry);
+                }
+                // set problem references (if any)
+                try {
+                    if (getProblems().size() > 0) {
+                        Element textElement = XMLUtil.createElement(CDAConstants.TEXT_TAG);
+                        StringBuffer contentBuffer = new StringBuffer();
+                        Set<String> keys = null;
+                        // build problem references, i.e. <content ID='reaction-1'>some reaction</content>
+                        keys = getProblems().keySet();
+                        StrucDocParagraph problemTextParagraph = null;
+                        for (String key : keys) {
+                            problemTextParagraph = objectFactory.createStrucDocParagraph();
+                            problemTextParagraph.setID(key);
+                            problemTextParagraph.getContent().add(getProblems().get(key));
+                            contentBuffer.append(XMLUtil.toCanonicalXML(objectFactory.createStrucDocTextParagraph(problemTextParagraph)));
+                        }
 
-        // set problem references (if any)
-        try {
-            if (getProblems().size() > 0) {
-                Element textElement = XMLUtil.createElement(CDAConstants.TEXT_TAG);
-                StringBuffer contentBuffer = new StringBuffer();
-                Set<String> keys = null;
-
-                // build problem references, i.e. <content ID='reaction-1'>some
-                // reaction</content>
-                keys = getProblems().keySet();
-                StrucDocParagraph problemTextParagraph = null;
-                for (String key : keys) {
-                    problemTextParagraph = objectFactory.createStrucDocParagraph();
-                    problemTextParagraph.setID(key);
-                    problemTextParagraph.getContent().add(getProblems().get(key));
-                    contentBuffer.append(XMLUtil.toCanonicalXML(objectFactory
-                            .createStrucDocTextParagraph(problemTextParagraph)));
+                        if (contentBuffer.toString().length() > 1) {
+                            textElement.setTextContent(contentBuffer.toString());
+                            probSection.setText(textElement);
+                        }
+                    }
+                } catch (Exception e) {
+                    log.error("Failed to set Problem Section.text", e);
                 }
 
-                if (contentBuffer.toString().length() > 1) {
-                    textElement.setTextContent(contentBuffer.toString());
-                    probSection.setText(textElement);
-                }
+                getSectionComponent().setSection(probSection);
+
+                return getSectionComponent();
             }
-        } catch (Exception e) {
-            log.error("Failed to set Problem Section.text", e);
         }
-
-        getSectionComponent().setSection(probSection);
-
-        return getSectionComponent();
+        return null;
     }
 }

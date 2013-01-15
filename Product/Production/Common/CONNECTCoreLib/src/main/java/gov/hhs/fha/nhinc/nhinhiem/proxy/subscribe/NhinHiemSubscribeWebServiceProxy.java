@@ -28,6 +28,8 @@ package gov.hhs.fha.nhinc.nhinhiem.proxy.subscribe;
 
 //import java.lang.reflect.InvocationTargetException;
 
+import java.util.Map;
+
 import javax.xml.namespace.QName;
 import javax.xml.ws.BindingProvider;
 import javax.xml.ws.Service;
@@ -59,6 +61,7 @@ import gov.hhs.fha.nhinc.hiem.dte.marshallers.SubscribeResponseMarshaller;
 import gov.hhs.fha.nhinc.hiem.dte.marshallers.WsntSubscribeMarshaller;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants.GATEWAY_API_LEVEL;
 import gov.hhs.fha.nhinc.policyengine.PolicyEngineChecker;
 import gov.hhs.fha.nhinc.policyengine.adapter.proxy.PolicyEngineProxy;
 import gov.hhs.fha.nhinc.policyengine.adapter.proxy.PolicyEngineProxyObjectFactory;
@@ -241,7 +244,9 @@ public class NhinHiemSubscribeWebServiceProxy implements NhinHiemSubscribeProxy 
 
                 // Initialize secured port
                 getWebServiceProxyHelper().initializeSecurePort((BindingProvider) oPort, url,
-                        NhincConstants.SUBSCRIBE_ACTION, WS_ADDRESSING_ACTION, assertIn);
+                        NhincConstants.HIEM_SUBSCRIBE_SERVICE_NAME, WS_ADDRESSING_ACTION, assertIn);
+                
+                ((BindingProvider)oPort).getRequestContext().put(NhincConstants.TARGET_API_LEVEL, GATEWAY_API_LEVEL.LEVEL_g0);
             } else {
                 log.error("Unable to obtain service - no port created.");
             }

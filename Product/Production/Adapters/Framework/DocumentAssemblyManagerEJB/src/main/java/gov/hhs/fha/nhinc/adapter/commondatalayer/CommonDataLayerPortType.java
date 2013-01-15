@@ -1,6 +1,12 @@
 /*
  * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services. 
  * All rights reserved. 
+ * Copyright (c) 2011, Conemaugh Valley Memorial Hospital
+ *
+ * This source is subject to the Conemaugh public license.  Please see the
+ * license.txt file for more information.
+ *
+ * All other rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without 
  * modification, are permitted provided that the following conditions are met: 
@@ -55,6 +61,10 @@ import org.hl7.v3.ObjectFactory;
 import org.hl7.v3.PatientDemographicsPRPAIN201307UV02RequestType;
 
 import org.hl7.v3.PatientDemographicsPRPAMT201303UV02ResponseType;
+import org.hl7.v3.FindDocumentRCMRIN000031UV01RequestType;
+import org.hl7.v3.FindDocumentRCMRIN000032UV01ResponseType;
+import org.hl7.v3.FindDocumentWithContentRCMRIN000032UV01ResponseType;
+import org.hl7.v3.FindDocumentWithContentRCMRIN000031UV01RequestType;
 
 /**
  * 
@@ -66,13 +76,10 @@ import org.hl7.v3.PatientDemographicsPRPAMT201303UV02ResponseType;
  * 
  * 
  */
-
 @WebService(name = "CommonDataLayerPortType", targetNamespace = "urn:gov:hhs:fha:nhinc:adapter:commondatalayer")
 @SOAPBinding(parameterStyle = SOAPBinding.ParameterStyle.BARE)
 @XmlSeeAlso({
-
-ObjectFactory.class
-
+    ObjectFactory.class
 })
 public interface CommonDataLayerPortType {
 
@@ -86,13 +93,10 @@ public interface CommonDataLayerPortType {
      * 
      *         returns org.hl7.v3.FindEncountersPRPAMT900350UV02ResponseType
      */
-
     @WebMethod(operationName = "GetEncounters", action = "urn:GetEncounters")
     @WebResult(name = "FindEncounters_PRPA_MT900350UV02Response", targetNamespace = "urn:hl7-org:v3", partName = "output")
     public FindEncountersPRPAMT900350UV02ResponseType getEncounters(
-
-            @WebParam(name = "FindEncounters_PRPA_IN900300UV02Request", targetNamespace = "urn:hl7-org:v3", partName = "param0")
-            FindEncountersPRPAIN900300UV02RequestType param0);
+        @WebParam(name = "FindEncounters_PRPA_IN900300UV02Request", targetNamespace = "urn:hl7-org:v3", partName = "param0") FindEncountersPRPAIN900300UV02RequestType param0);
 
     /**
      * 
@@ -104,13 +108,10 @@ public interface CommonDataLayerPortType {
      * 
      *         returns org.hl7.v3.CareRecordQUPCIN043200UV01ResponseType
      */
-
     @WebMethod(operationName = "GetProcedures", action = "urn:Procedures")
     @WebResult(name = "CareRecord_QUPC_IN043200UV01Response", targetNamespace = "urn:hl7-org:v3", partName = "output")
     public CareRecordQUPCIN043200UV01ResponseType getProcedures(
-
-            @WebParam(name = "CareRecord_QUPC_IN043100UV01ProceduresRequest", targetNamespace = "urn:hl7-org:v3", partName = "param0")
-            CareRecordQUPCIN043100UV01RequestType param0);
+        @WebParam(name = "CareRecord_QUPC_IN043100UV01ProceduresRequest", targetNamespace = "urn:hl7-org:v3", partName = "param0") CareRecordQUPCIN043100UV01RequestType param0);
 
     /**
      * 
@@ -122,13 +123,10 @@ public interface CommonDataLayerPortType {
      * 
      *         returns org.hl7.v3.CareRecordQUPCIN043200UV01ResponseType
      */
-
     @WebMethod(operationName = "GetMedications", action = "urn:Medications")
     @WebResult(name = "CareRecord_QUPC_IN043200UV01Response", targetNamespace = "urn:hl7-org:v3", partName = "output")
     public CareRecordQUPCIN043200UV01ResponseType getMedications(
-
-            @WebParam(name = "CareRecord_QUPC_IN043100UV01MedicationsRequest", targetNamespace = "urn:hl7-org:v3", partName = "param0")
-            CareRecordQUPCIN043100UV01RequestType param0);
+        @WebParam(name = "CareRecord_QUPC_IN043100UV01MedicationsRequest", targetNamespace = "urn:hl7-org:v3", partName = "param0") CareRecordQUPCIN043100UV01RequestType param0);
 
     /**
      * 
@@ -140,13 +138,10 @@ public interface CommonDataLayerPortType {
      * 
      *         returns org.hl7.v3.CareRecordQUPCIN043200UV01ResponseType
      */
-
     @WebMethod(operationName = "GetAllergies", action = "urn:Allergies")
     @WebResult(name = "CareRecord_QUPC_IN043200UV01Response", targetNamespace = "urn:hl7-org:v3", partName = "output")
     public CareRecordQUPCIN043200UV01ResponseType getAllergies(
-
-            @WebParam(name = "CareRecord_QUPC_IN043100UV01AllergiesRequest", targetNamespace = "urn:hl7-org:v3", partName = "param0")
-            CareRecordQUPCIN043100UV01RequestType param0);
+        @WebParam(name = "CareRecord_QUPC_IN043100UV01AllergiesRequest", targetNamespace = "urn:hl7-org:v3", partName = "param0") CareRecordQUPCIN043100UV01RequestType param0);
 
     /**
      * 
@@ -158,13 +153,10 @@ public interface CommonDataLayerPortType {
      * 
      *         returns org.hl7.v3.CareRecordQUPCIN043200UV01ResponseType
      */
-
     @WebMethod(operationName = "GetVitals", action = "urn:Vitals")
     @WebResult(name = "CareRecord_QUPC_IN043200UV01Response", targetNamespace = "urn:hl7-org:v3", partName = "output")
     public CareRecordQUPCIN043200UV01ResponseType getVitals(
-
-            @WebParam(name = "CareRecord_QUPC_IN043100UV01VitalsRequest", targetNamespace = "urn:hl7-org:v3", partName = "param0")
-            CareRecordQUPCIN043100UV01RequestType param0);
+        @WebParam(name = "CareRecord_QUPC_IN043100UV01VitalsRequest", targetNamespace = "urn:hl7-org:v3", partName = "param0") CareRecordQUPCIN043100UV01RequestType param0);
 
     /**
      * 
@@ -176,13 +168,10 @@ public interface CommonDataLayerPortType {
      * 
      *         returns org.hl7.v3.CareRecordQUPCIN043200UV01ResponseType
      */
-
     @WebMethod(operationName = "GetProblems", action = "urn:Problems")
     @WebResult(name = "CareRecord_QUPC_IN043200UV01Response", targetNamespace = "urn:hl7-org:v3", partName = "output")
     public CareRecordQUPCIN043200UV01ResponseType getProblems(
-
-            @WebParam(name = "CareRecord_QUPC_IN043100UV01ProblemsRequest", targetNamespace = "urn:hl7-org:v3", partName = "param0")
-            CareRecordQUPCIN043100UV01RequestType param0);
+        @WebParam(name = "CareRecord_QUPC_IN043100UV01ProblemsRequest", targetNamespace = "urn:hl7-org:v3", partName = "param0") CareRecordQUPCIN043100UV01RequestType param0);
 
     /**
      * 
@@ -194,13 +183,10 @@ public interface CommonDataLayerPortType {
      * 
      *         returns org.hl7.v3.CareRecordQUPCIN043200UV01ResponseType
      */
-
     @WebMethod(operationName = "GetTestResults", action = "urn:TestResults")
     @WebResult(name = "CareRecord_QUPC_IN043200UV01Response", targetNamespace = "urn:hl7-org:v3", partName = "output")
     public CareRecordQUPCIN043200UV01ResponseType getTestResults(
-
-            @WebParam(name = "CareRecord_QUPC_IN043100UV01TestResultsRequest", targetNamespace = "urn:hl7-org:v3", partName = "param0")
-            CareRecordQUPCIN043100UV01RequestType param0);
+        @WebParam(name = "CareRecord_QUPC_IN043100UV01TestResultsRequest", targetNamespace = "urn:hl7-org:v3", partName = "param0") CareRecordQUPCIN043100UV01RequestType param0);
 
     /**
      * 
@@ -212,13 +198,10 @@ public interface CommonDataLayerPortType {
      * 
      *         returns org.hl7.v3.CareRecordQUPCIN043200UV01ResponseType
      */
-
     @WebMethod(operationName = "GetAdmissions", action = "urn:Admissions")
     @WebResult(name = "CareRecord_QUPC_IN043200UV01Response", targetNamespace = "urn:hl7-org:v3", partName = "output")
     public CareRecordQUPCIN043200UV01ResponseType getAdmissions(
-
-            @WebParam(name = "CareRecord_QUPC_IN043100UV01AppointmentsRequest", targetNamespace = "urn:hl7-org:v3", partName = "param0")
-            CareRecordQUPCIN043100UV01RequestType param0);
+        @WebParam(name = "CareRecord_QUPC_IN043100UV01AppointmentsRequest", targetNamespace = "urn:hl7-org:v3", partName = "param0") CareRecordQUPCIN043100UV01RequestType param0);
 
     /**
      * 
@@ -230,13 +213,10 @@ public interface CommonDataLayerPortType {
      * 
      *         returns org.hl7.v3.CareRecordQUPCIN043200UV01ResponseType
      */
-
     @WebMethod(operationName = "GetAppointments", action = "urn:Appointments")
     @WebResult(name = "CareRecord_QUPC_IN043200UV01Response", targetNamespace = "urn:hl7-org:v3", partName = "output")
     public CareRecordQUPCIN043200UV01ResponseType getAppointments(
-
-            @WebParam(name = "CareRecord_QUPC_IN043100UV01AppointmentsRequest", targetNamespace = "urn:hl7-org:v3", partName = "param0")
-            CareRecordQUPCIN043100UV01RequestType param0);
+        @WebParam(name = "CareRecord_QUPC_IN043100UV01AppointmentsRequest", targetNamespace = "urn:hl7-org:v3", partName = "param0") CareRecordQUPCIN043100UV01RequestType param0);
 
     /**
      * 
@@ -248,13 +228,10 @@ public interface CommonDataLayerPortType {
      * 
      *         returns org.hl7.v3.CareRecordQUPCIN043200UV01ResponseType
      */
-
     @WebMethod(operationName = "GetImmunizations", action = "urn:Immunizations")
     @WebResult(name = "CareRecord_QUPC_IN043200UV01Response", targetNamespace = "urn:hl7-org:v3", partName = "output")
     public CareRecordQUPCIN043200UV01ResponseType getImmunizations(
-
-            @WebParam(name = "CareRecord_QUPC_IN043100UV01ImmunizationsRequest", targetNamespace = "urn:hl7-org:v3", partName = "param0")
-            CareRecordQUPCIN043100UV01RequestType param0);
+        @WebParam(name = "CareRecord_QUPC_IN043100UV01ImmunizationsRequest", targetNamespace = "urn:hl7-org:v3", partName = "param0") CareRecordQUPCIN043100UV01RequestType param0);
 
     /**
      * 
@@ -266,13 +243,10 @@ public interface CommonDataLayerPortType {
      * 
      *         returns org.hl7.v3.CareRecordQUPCIN043200UV01ResponseType
      */
-
     @WebMethod(operationName = "GetFamilyHistory", action = "urn:FamilyHistory")
     @WebResult(name = "CareRecord_QUPC_IN043200UV01Response", targetNamespace = "urn:hl7-org:v3", partName = "output")
     public CareRecordQUPCIN043200UV01ResponseType getFamilyHistory(
-
-            @WebParam(name = "CareRecord_QUPC_IN043100UV01FamilyHistoryRequest", targetNamespace = "urn:hl7-org:v3", partName = "param0")
-            CareRecordQUPCIN043100UV01RequestType param0);
+        @WebParam(name = "CareRecord_QUPC_IN043100UV01FamilyHistoryRequest", targetNamespace = "urn:hl7-org:v3", partName = "param0") CareRecordQUPCIN043100UV01RequestType param0);
 
     /**
      * 
@@ -284,13 +258,10 @@ public interface CommonDataLayerPortType {
      * 
      *         returns org.hl7.v3.CareRecordQUPCIN043200UV01ResponseType
      */
-
     @WebMethod(operationName = "GetSocialHistory", action = "urn:SocialHistory")
     @WebResult(name = "CareRecord_QUPC_IN043200UV01Response", targetNamespace = "urn:hl7-org:v3", partName = "output")
     public CareRecordQUPCIN043200UV01ResponseType getSocialHistory(
-
-            @WebParam(name = "CareRecord_QUPC_IN043100UV01SocialHistoryRequest", targetNamespace = "urn:hl7-org:v3", partName = "param0")
-            CareRecordQUPCIN043100UV01RequestType param0);
+        @WebParam(name = "CareRecord_QUPC_IN043100UV01SocialHistoryRequest", targetNamespace = "urn:hl7-org:v3", partName = "param0") CareRecordQUPCIN043100UV01RequestType param0);
 
     /**
      * 
@@ -302,13 +273,10 @@ public interface CommonDataLayerPortType {
      * 
      *         returns org.hl7.v3.CareRecordQUPCIN043200UV01ResponseType
      */
-
     @WebMethod(operationName = "GetInsurances", action = "urn:Insurances")
     @WebResult(name = "CareRecord_QUPC_IN043200UV01Response", targetNamespace = "urn:hl7-org:v3", partName = "output")
     public CareRecordQUPCIN043200UV01ResponseType getInsurances(
-
-    @WebParam(name = "CareRecord_QUPC_IN043100UV01Request", targetNamespace = "urn:hl7-org:v3", partName = "param0")
-    CareRecordQUPCIN043100UV01RequestType param0);
+        @WebParam(name = "CareRecord_QUPC_IN043100UV01Request", targetNamespace = "urn:hl7-org:v3", partName = "param0") CareRecordQUPCIN043100UV01RequestType param0);
 
     /**
      * 
@@ -320,13 +288,10 @@ public interface CommonDataLayerPortType {
      * 
      *         returns org.hl7.v3.CareRecordQUPCIN043200UV01ResponseType
      */
-
     @WebMethod(operationName = "GetOrders", action = "urn:Orders")
     @WebResult(name = "CareRecord_QUPC_IN043200UV01Response", targetNamespace = "urn:hl7-org:v3", partName = "output")
     public CareRecordQUPCIN043200UV01ResponseType getOrders(
-
-            @WebParam(name = "CareRecord_QUPC_IN043100UV01OrdersRequest", targetNamespace = "urn:hl7-org:v3", partName = "param0")
-            CareRecordQUPCIN043100UV01RequestType param0);
+        @WebParam(name = "CareRecord_QUPC_IN043100UV01OrdersRequest", targetNamespace = "urn:hl7-org:v3", partName = "param0") CareRecordQUPCIN043100UV01RequestType param0);
 
     /**
      * 
@@ -338,13 +303,10 @@ public interface CommonDataLayerPortType {
      * 
      *         returns org.hl7.v3.PatientDemographicsPRPAMT201303UVResponseType
      */
-
-    @WebMethod(operationName = "GetPatienInfo", action = "urn:GetPatienInfo")
+    @WebMethod(operationName = "GetPatientInfo", action = "urn:GetPatientInfo")
     @WebResult(name = "PatientDemographics_PRPA_MT201303UVResponse", targetNamespace = "urn:hl7-org:v3", partName = "output")
-    public PatientDemographicsPRPAMT201303UV02ResponseType getPatienInfo(
-
-            @WebParam(name = "PatientDemographics_PRPA_IN201307UV02Request", targetNamespace = "urn:hl7-org:v3", partName = "param0")
-            PatientDemographicsPRPAIN201307UV02RequestType param0);
+    public PatientDemographicsPRPAMT201303UV02ResponseType getPatientInfo(
+        @WebParam(name = "PatientDemographics_PRPA_IN201307UV02Request", targetNamespace = "urn:hl7-org:v3", partName = "param0") PatientDemographicsPRPAIN201307UV02RequestType param0);
 
     /**
      * 
@@ -356,12 +318,30 @@ public interface CommonDataLayerPortType {
      * 
      *         returns org.hl7.v3.FindPatientsPRPAMT201310UVResponseType
      */
-
     @WebMethod(operationName = "FindPatients", action = "urn:FindPatients")
     @WebResult(name = "FindPatients_PRPA_MT201310UVResponse", targetNamespace = "urn:hl7-org:v3", partName = "output")
     public FindPatientsPRPAMT201310UV02ResponseType findPatients(
+        @WebParam(name = "FindPatients_PRPA_IN201305UVRequest", targetNamespace = "urn:hl7-org:v3", partName = "param0") FindPatientsPRPAIN201305UV02RequestType param0);
 
-    @WebParam(name = "FindPatients_PRPA_IN201305UVRequest", targetNamespace = "urn:hl7-org:v3", partName = "param0")
-    FindPatientsPRPAIN201305UV02RequestType param0);
+    /**
+     *
+     * @param param0
+     * @return
+     *     returns org.hl7.v3.FindDocumentRCMRIN000032UV01ResponseType
+     */
+    @WebMethod(operationName = "FindDocument", action = "urn:FindPatients")
+    @WebResult(name = "FindDocumentRCMRIN000032UV01ResponseType", targetNamespace = "urn:hl7-org:v3", partName = "output")
+    public FindDocumentRCMRIN000032UV01ResponseType findDocument(
+        @WebParam(name = "FindDocumentRCMRIN000031UV01RequestType", targetNamespace = "urn:hl7-org:v3", partName = "param0") FindDocumentRCMRIN000031UV01RequestType param0);
 
+    /**
+     *
+     * @param param0
+     * @return
+     *     returns org.hl7.v3.FindPatientsPRPAMT201310UVResponseType
+     */
+    @WebMethod(operationName = "FindDocumentWithContent", action = "urn:FindDocumentWithContent")
+    @WebResult(name = "FindDocumentWithContentRCMRIN000032UV01ResponseType", targetNamespace = "urn:hl7-org:v3", partName = "output")
+    public FindDocumentWithContentRCMRIN000032UV01ResponseType findDocumentWithContent(
+        @WebParam(name = "FindDocumentWithContentRCMRIN000031UV01RequestType", targetNamespace = "urn:hl7-org:v3", partName = "param0") FindDocumentWithContentRCMRIN000031UV01RequestType param0);
 }

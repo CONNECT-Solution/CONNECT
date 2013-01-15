@@ -1,6 +1,12 @@
 /*
  * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services. 
  * All rights reserved. 
+ * Copyright (c) 2011, Conemaugh Valley Memorial Hospital
+ *
+ * This source is subject to the Conemaugh public license.  Please see the
+ * license.txt file for more information.
+ *
+ * All other rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without 
  * modification, are permitted provided that the following conditions are met: 
@@ -52,18 +58,12 @@ import javax.xml.ws.WebServiceFeature;
  * 
  * 
  */
-
-@WebServiceClient(name = "CommonDataLayerService", targetNamespace = "urn:gov:hhs:fha:nhinc:adapter:commondatalayer", wsdlLocation = "file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterCommonDataLayer.wsdl")
+@WebServiceClient(name = "CommonDataLayerService", targetNamespace = "urn:gov:hhs:fha:nhinc:adapter:commondatalayer", wsdlLocation = "file:/C:/projects/NHINC/3.1/Product/Production/Common/Interfaces/src/wsdl/AdapterCommonDataLayer.wsdl")
 public class CommonDataLayerService
-
-extends Service
-
-{
+    extends Service {
 
     private final static URL COMMONDATALAYERSERVICE_WSDL_LOCATION;
-
-    private final static Logger logger = Logger
-            .getLogger(gov.hhs.fha.nhinc.adapter.commondatalayer.CommonDataLayerService.class.getName());
+    private final static Logger logger = Logger.getLogger(gov.hhs.fha.nhinc.adapter.commondatalayer.CommonDataLayerService.class.getName());
 
     static {
 
@@ -74,14 +74,9 @@ extends Service
             URL baseUrl;
 
             baseUrl = gov.hhs.fha.nhinc.adapter.commondatalayer.CommonDataLayerService.class.getResource(".");
-
-            url = new URL(baseUrl,
-                    "file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterCommonDataLayer.wsdl");
-
+            url = new URL(baseUrl, "file:/C:/projects/NHINC/3.3.1/Product/Production/Common/Interfaces/src/wsdl/AdapterCommonDataLayer.wsdl");
         } catch (MalformedURLException e) {
-
-            logger.warning("Failed to create URL for the wsdl Location: 'file:/C:/projects/NHINC/Current/Product/Production/Common/Interfaces/src/wsdl/AdapterCommonDataLayer.wsdl', retrying as a local file");
-
+            logger.warning("Failed to create URL for the wsdl Location: 'file:/C:/projects/NHINC/3.3.1/Product/Production/Common/Interfaces/src/wsdl/AdapterCommonDataLayer.wsdl', retrying as a local file");
             logger.warning(e.getMessage());
 
         }
@@ -97,10 +92,7 @@ extends Service
     }
 
     public CommonDataLayerService() {
-
-        super(COMMONDATALAYERSERVICE_WSDL_LOCATION, new QName("urn:gov:hhs:fha:nhinc:adapter:commondatalayer",
-                "CommonDataLayerService"));
-
+        super(COMMONDATALAYERSERVICE_WSDL_LOCATION, new QName("urn:gov:hhs:fha:nhinc:adapter:commondatalayer", "CommonDataLayerService"));
     }
 
     /**
@@ -111,13 +103,9 @@ extends Service
      * 
      *         returns CommonDataLayerPortType
      */
-
     @WebEndpoint(name = "CommonDataLayerPort")
     public CommonDataLayerPortType getCommonDataLayerPort() {
-
-        return super.getPort(new QName("urn:gov:hhs:fha:nhinc:adapter:commondatalayer", "CommonDataLayerPort"),
-                CommonDataLayerPortType.class);
-
+        return super.getPort(new QName("urn:gov:hhs:fha:nhinc:adapter:commondatalayer", "CommonDataLayerPort"), CommonDataLayerPortType.class);
     }
 
     /**
@@ -133,13 +121,8 @@ extends Service
      * 
      *         returns CommonDataLayerPortType
      */
-
     @WebEndpoint(name = "CommonDataLayerPort")
     public CommonDataLayerPortType getCommonDataLayerPort(WebServiceFeature... features) {
-
-        return super.getPort(new QName("urn:gov:hhs:fha:nhinc:adapter:commondatalayer", "CommonDataLayerPort"),
-                CommonDataLayerPortType.class, features);
-
+        return super.getPort(new QName("urn:gov:hhs:fha:nhinc:adapter:commondatalayer", "CommonDataLayerPort"), CommonDataLayerPortType.class, features);
     }
-
 }

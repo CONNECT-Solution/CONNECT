@@ -1,6 +1,10 @@
 /*
  * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services. 
  * All rights reserved. 
+ * Copyright (c) 2011, Conemaugh Valley Memorial Hospital
+ * This source is subject to the Conemaugh public license.  Please see the
+ * license.txt file for more information.
+ * All other rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without 
  * modification, are permitted provided that the following conditions are met: 
@@ -48,13 +52,14 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "cda_template")
 @NamedQueries({
-        @NamedQuery(name = "CdaTemplate.findAll", query = "SELECT c FROM CdaTemplate c"),
-        @NamedQuery(name = "CdaTemplate.findById", query = "SELECT c FROM CdaTemplate c WHERE c.id = :id"),
-        @NamedQuery(name = "CdaTemplate.findByType", query = "SELECT c FROM CdaTemplate c WHERE c.type = :type"),
-        @NamedQuery(name = "CdaTemplate.findByHitspTemplateId", query = "SELECT c FROM CdaTemplate c WHERE c.hitspTemplateId = :hitspTemplateId"),
-        @NamedQuery(name = "CdaTemplate.findByIheTemplateId", query = "SELECT c FROM CdaTemplate c WHERE c.iheTemplateId = :iheTemplateId"),
-        @NamedQuery(name = "CdaTemplate.findByLoincCode", query = "SELECT c FROM CdaTemplate c WHERE c.loincCode = :loincCode") })
+    @NamedQuery(name = "CdaTemplate.findAll", query = "SELECT c FROM CdaTemplate c"),
+    @NamedQuery(name = "CdaTemplate.findById", query = "SELECT c FROM CdaTemplate c WHERE c.id = :id"),
+    @NamedQuery(name = "CdaTemplate.findByType", query = "SELECT c FROM CdaTemplate c WHERE c.type = :type"),
+    @NamedQuery(name = "CdaTemplate.findByHitspTemplateId", query = "SELECT c FROM CdaTemplate c WHERE c.hitspTemplateId = :hitspTemplateId"),
+    @NamedQuery(name = "CdaTemplate.findByIheTemplateId", query = "SELECT c FROM CdaTemplate c WHERE c.iheTemplateId = :iheTemplateId"),
+    @NamedQuery(name = "CdaTemplate.findByLoincCode", query = "SELECT c FROM CdaTemplate c WHERE c.loincCode = :loincCode")})
 public class CdaTemplate implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -262,5 +267,4 @@ public class CdaTemplate implements Serializable {
 
         return str.toString();
     }
-
 }

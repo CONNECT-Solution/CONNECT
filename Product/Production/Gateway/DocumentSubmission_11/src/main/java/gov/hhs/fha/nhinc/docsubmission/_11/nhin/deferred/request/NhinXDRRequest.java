@@ -27,7 +27,6 @@
 package gov.hhs.fha.nhinc.docsubmission._11.nhin.deferred.request;
 
 import javax.annotation.Resource;
-import javax.jws.HandlerChain;
 import javax.jws.WebService;
 import javax.xml.ws.BindingType;
 import javax.xml.ws.WebServiceContext;
@@ -40,11 +39,15 @@ import javax.xml.ws.soap.Addressing;
 @WebService(serviceName = "XDRDeferredRequest_Service", portName = "XDRDeferredRequest_Port_Soap", endpointInterface = "ihe.iti.xdr._2007.XDRDeferredRequestPortType", targetNamespace = "urn:ihe:iti:xdr:2007", wsdlLocation = "WEB-INF/wsdl/NhinXDRRequest/NhinXDRDeferredRequest.wsdl")
 @BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
 @Addressing(enabled = true)
-@HandlerChain(file = "../../../../../../../../../handler-chain.xml")
 public class NhinXDRRequest {
     @Resource
     private WebServiceContext context;
 
+    /**
+     * The web service implemenation for Document Submission request.
+     * @param body The message of the request
+     * @return an acknowledgement
+     */
     public gov.hhs.healthit.nhin.XDRAcknowledgementType provideAndRegisterDocumentSetBDeferredRequest(
             ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType body) {
         return new NhinDocSubmissionDeferredRequestImpl().provideAndRegisterDocumentSetBRequest(body, context);

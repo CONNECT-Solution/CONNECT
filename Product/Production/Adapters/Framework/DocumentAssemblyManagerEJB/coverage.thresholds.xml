@@ -135,36 +135,6 @@
               linecount="45"
               linerate="80"
               linesexecuted="0"/>
-   <threshold branchcount="14" branchrate="80" branchsexecuted="0"
-              class="gov.hhs.fha.nhinc.assemblymanager.dao.DocumentTypeDAO"
-              linecount="48"
-              linerate="80"
-              linesexecuted="0"/>
-   <threshold branchcount="20" branchrate="80" branchsexecuted="0"
-              class="gov.hhs.fha.nhinc.assemblymanager.dao.PropertiesDAO"
-              linecount="59"
-              linerate="80"
-              linesexecuted="0"/>
-   <threshold branchcount="0" branchrate="80" branchsexecuted="0"
-              class="gov.hhs.fha.nhinc.assemblymanager.dao.QueryDAO"
-              linecount="6"
-              linerate="80"
-              linesexecuted="0"/>
-   <threshold branchcount="12" branchrate="80" branchsexecuted="0"
-              class="gov.hhs.fha.nhinc.assemblymanager.dao.model.DasConfig"
-              linecount="28"
-              linerate="80"
-              linesexecuted="0"/>
-   <threshold branchcount="16" branchrate="80" branchsexecuted="0"
-              class="gov.hhs.fha.nhinc.assemblymanager.dao.model.DocumentType"
-              linecount="47"
-              linerate="80"
-              linesexecuted="0"/>
-   <threshold branchcount="14" branchrate="80" branchsexecuted="0"
-              class="gov.hhs.fha.nhinc.assemblymanager.dao.persistence.PersistentServiceFactory"
-              linecount="35"
-              linerate="80"
-              linesexecuted="0"/>
    <threshold branchcount="2" branchrate="80" branchsexecuted="0"
               class="gov.hhs.fha.nhinc.assemblymanager.service.CareRecordRequestHelper"
               linecount="104"
@@ -188,11 +158,6 @@
    <threshold branchcount="0" branchrate="80" branchsexecuted="0"
               class="gov.hhs.fha.nhinc.assemblymanager.utils.DocumentIdGenerator"
               linecount="5"
-              linerate="80"
-              linesexecuted="0"/>
-   <threshold branchcount="2" branchrate="80" branchsexecuted="0"
-              class="gov.hhs.fha.nhinc.assemblymanager.utils.HashCodeUtil"
-              linecount="9"
               linerate="80"
               linesexecuted="0"/>
    <threshold branchcount="6" branchrate="80" branchsexecuted="0"

@@ -26,18 +26,16 @@
  */
 package gov.hhs.fha.nhinc.patientdiscovery._10.gateway.ws;
 
+import gov.hhs.fha.nhinc.patientdiscovery.NhinPatientDiscoveryImpl;
+import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryException;
+import gov.hhs.healthit.nhin.PatientDiscoveryFaultType;
 import ihe.iti.xcpd._2009.PRPAIN201305UV02Fault;
 
 import javax.annotation.Resource;
-import javax.jws.HandlerChain;
 import javax.jws.WebService;
 import javax.xml.ws.BindingType;
 import javax.xml.ws.WebServiceContext;
 import javax.xml.ws.soap.Addressing;
-
-import gov.hhs.fha.nhinc.patientdiscovery.NhinPatientDiscoveryImpl;
-import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryException;
-import gov.hhs.healthit.nhin.PatientDiscoveryFaultType;
 
 /**
  * 
@@ -46,21 +44,34 @@ import gov.hhs.healthit.nhin.PatientDiscoveryFaultType;
 @WebService(serviceName = "RespondingGateway_Service", portName = "RespondingGateway_Port_Soap", endpointInterface = "ihe.iti.xcpd._2009.RespondingGatewayPortType", targetNamespace = "urn:ihe:iti:xcpd:2009", wsdlLocation = "WEB-INF/wsdl/NhinPatientDiscovery/NhinPatientDiscovery.wsdl")
 @BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
 @Addressing(enabled = true)
-@HandlerChain(file="../../../../../../../../handler-chain.xml")
 public class NhinPatientDiscovery extends PatientDiscoveryBase {
 
     @Resource
     private WebServiceContext context;
 
+    /**
+     * A generic constructor.
+     */
     public NhinPatientDiscovery() {
         super();
     }
 
+    /**
+     * A constructor that takes a PD service factory.
+     * @param serviceFactory the service factory.
+     */
     public NhinPatientDiscovery(PatientDiscoveryServiceFactory serviceFactory) {
         super(serviceFactory);
     }
 
-    public org.hl7.v3.PRPAIN201306UV02 respondingGatewayPRPAIN201305UV02(org.hl7.v3.PRPAIN201305UV02 body) throws PRPAIN201305UV02Fault {
+    /**
+     * The web service implementation of Patient Discovery.
+     * @param body the body of the request
+     * @return the Patient discovery Response
+     * @throws PRPAIN201305UV02Fault a fault if there's an exception
+     */
+    public org.hl7.v3.PRPAIN201306UV02 respondingGatewayPRPAIN201305UV02(org.hl7.v3.PRPAIN201305UV02 body) 
+    		throws PRPAIN201305UV02Fault {
         try {
             return getNhinPatientDiscoveryService().respondingGatewayPRPAIN201305UV02(body, context);
         } catch (PatientDiscoveryException e) {
@@ -72,6 +83,10 @@ public class NhinPatientDiscovery extends PatientDiscoveryBase {
         }
     }
 
+    /**
+     * A getter function that returns the NHIN patient discovery service impl.
+     * @return the service impl.
+     */
     protected NhinPatientDiscoveryImpl getNhinPatientDiscoveryService() {
         return getServiceFactory().getNhinPatientDiscoveryService();
     }

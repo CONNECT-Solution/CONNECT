@@ -1,6 +1,10 @@
 /*
  * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services. 
- * All rights reserved. 
+ * All rights reserved.
+ *
+ * Copyright (c) 2011, Conemaugh Valley Memorial Hospital
+ * This source is subject to the Conemaugh public license.  Please see the
+ * license.txt file for more information.
  *
  * Redistribution and use in source and binary forms, with or without 
  * modification, are permitted provided that the following conditions are met: 
@@ -48,33 +52,32 @@ public class AdapterCommonDataLayerImpl {
         return instance;
     }
 
-    public PatientDemographicsPRPAMT201303UV02ResponseType getPatienInfo(
-            PatientDemographicsPRPAIN201307UV02RequestType request) {
+    public PatientDemographicsPRPAMT201303UV02ResponseType getPatientInfo(
+        PatientDemographicsPRPAIN201307UV02RequestType request) {
         return StaticPatientDemographicsQuery.createPatientDemographicsResponse(request);
     }
 
     public org.hl7.v3.CareRecordQUPCIN043200UV01ResponseType getMedications(
-            org.hl7.v3.CareRecordQUPCIN043100UV01RequestType param0) {
+        org.hl7.v3.CareRecordQUPCIN043100UV01RequestType param0) {
         return StaticMedicationsQuery.createMedicationsResponse(param0);
     }
 
-    public org.hl7.v3.CareRecordQUPCIN043200UV01ResponseType getTestResults(
-            org.hl7.v3.CareRecordQUPCIN043100UV01RequestType param0) {
-        return StaticTestResultsQuery.createTestResultsResponse(param0);
-    }
-
     public org.hl7.v3.CareRecordQUPCIN043200UV01ResponseType getAllergies(
-            org.hl7.v3.CareRecordQUPCIN043100UV01RequestType param0) {
+        org.hl7.v3.CareRecordQUPCIN043100UV01RequestType param0) {
         return StaticAllergiesQuery.createAllergiesResponse(param0);
     }
 
     public org.hl7.v3.CareRecordQUPCIN043200UV01ResponseType getProblems(
-            org.hl7.v3.CareRecordQUPCIN043100UV01RequestType param0) {
+        org.hl7.v3.CareRecordQUPCIN043100UV01RequestType param0) {
         return StaticProblemsQuery.createProblemsResponse(param0);
     }
 
     public org.hl7.v3.FindPatientsPRPAMT201310UV02ResponseType findPatients(
-            org.hl7.v3.FindPatientsPRPAIN201305UV02RequestType param0) {
+        org.hl7.v3.FindPatientsPRPAIN201305UV02RequestType param0) {
         return StaticFindPatientsQuery.createFindPatientsResponse(param0);
+    }
+
+    public org.hl7.v3.FindDocumentWithContentRCMRIN000032UV01ResponseType findDocumentWithContent(org.hl7.v3.FindDocumentWithContentRCMRIN000031UV01RequestType param0) {
+        return StaticFindDocumentWithContentQuery.createFindDocumentWithContentResponse(param0);
     }
 }

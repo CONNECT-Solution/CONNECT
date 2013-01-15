@@ -1,6 +1,10 @@
 /*
  * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services. 
  * All rights reserved. 
+ * Copyright (c) 2011, Conemaugh Valley Memorial Hospital
+ * This source is subject to the Conemaugh public license.  Please see the
+ * license.txt file for more information.
+ * All other rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without 
  * modification, are permitted provided that the following conditions are met: 
@@ -43,8 +47,7 @@ public class AdapterDocumentAssembly implements DocumentAssemblyPortType {
 
     @Override
     public RespondingGatewayCrossGatewayProvideAndRegisterDocumentSetRequestRequestType dynamicAssemblyQuery(
-            RespondingGatewayCrossGatewayQueryRequestType dynamicAssemblyQueryRequest) {
+        RespondingGatewayCrossGatewayQueryRequestType dynamicAssemblyQueryRequest) {
         return AdapterDocumentAssemblyHelper.dynamicAssemblyQuery(dynamicAssemblyQueryRequest);
     }
-
 }
