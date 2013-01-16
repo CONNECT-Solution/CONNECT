@@ -30,7 +30,6 @@ import gov.hhs.fha.nhinc.aspect.OutboundProcessingEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
-import gov.hhs.fha.nhinc.docquery.DocQueryAuditLog;
 import gov.hhs.fha.nhinc.docquery.MessageGeneratorUtils;
 import gov.hhs.fha.nhinc.docquery.aspect.AdhocQueryRequestDescriptionBuilder;
 import gov.hhs.fha.nhinc.docquery.aspect.AdhocQueryResponseDescriptionBuilder;
@@ -46,15 +45,13 @@ public class PassthroughOutboundDocQuery implements OutboundDocQuery {
 
     private static final Logger LOG = Logger.getLogger(PassthroughOutboundDocQuery.class);
 
-    private DocQueryAuditLog auditLog = new DocQueryAuditLog();
     private OutboundDocQueryDelegate delegate = new OutboundDocQueryDelegate();
     
     public PassthroughOutboundDocQuery() {
         super();
     }
 
-    public PassthroughOutboundDocQuery(DocQueryAuditLog auditLog, OutboundDocQueryDelegate delegate) {
-        this.auditLog = auditLog;
+    public PassthroughOutboundDocQuery(OutboundDocQueryDelegate delegate) {
         this.delegate = delegate;
     }
 
@@ -77,23 +74,19 @@ public class PassthroughOutboundDocQuery implements OutboundDocQuery {
 
         String targetHCID = getTargetHCID(target);
 
-        auditRequestFromAdapter(request, assertion, targetHCID);
-
         AdhocQueryResponse response = sendRequestToNwhin(request, assertion, target, targetHCID);
-
-        auditResponseToAdapter(response, assertion, targetHCID);
 
         return response;
     }
 
-    private String getTargetHCID(NhinTargetSystemType target) {
-        String targetHCID = null;
-        if (target != null && target.getHomeCommunity() != null) {
-            targetHCID = target.getHomeCommunity().getHomeCommunityId();
-        }
+	private String getTargetHCID(NhinTargetSystemType target) {
+		String targetHCID = null;
+		if (target != null && target.getHomeCommunity() != null) {
+			targetHCID = target.getHomeCommunity().getHomeCommunityId();
+		}
 
-        return targetHCID;
-    }
+		return targetHCID;
+	}
 
     private AdhocQueryResponse sendRequestToNwhin(AdhocQueryRequest request, AssertionType assertion,
             NhinTargetSystemType target, String targetCommunityID) {
@@ -110,15 +103,5 @@ public class PassthroughOutboundDocQuery implements OutboundDocQuery {
         }
 
         return response;
-    }
-
-    private void auditRequestFromAdapter(AdhocQueryRequest request, AssertionType assertion, String responseCommunityID) {
-        auditLog.auditDQRequest(request, assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION,
-                NhincConstants.AUDIT_LOG_NHIN_INTERFACE, responseCommunityID);
-    }
-
-    private void auditResponseToAdapter(AdhocQueryResponse response, AssertionType assertion, String responseCommunityID) {
-        auditLog.auditDQResponse(response, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION,
-                NhincConstants.AUDIT_LOG_NHIN_INTERFACE, responseCommunityID);
     }
 }
