@@ -29,6 +29,8 @@ package gov.hhs.fha.nhinc.docquery.outbound;
 import gov.hhs.fha.nhinc.aspect.OutboundProcessingEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
+import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
+import gov.hhs.fha.nhinc.docquery.DocQueryAuditLog;
 import gov.hhs.fha.nhinc.docquery.MessageGeneratorUtils;
 import gov.hhs.fha.nhinc.docquery.aspect.AdhocQueryRequestDescriptionBuilder;
 import gov.hhs.fha.nhinc.docquery.aspect.AdhocQueryResponseDescriptionBuilder;
@@ -42,13 +44,9 @@ import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.orchestration.OutboundOrchestratable;
 
 import java.util.List;
-import java.util.concurrent.ExecutorService;
 
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
-import oasis.names.tc.ebxml_regrep.xsd.rim._3.RegistryObjectListType;
-import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryError;
-import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryErrorList;
 
 import org.apache.log4j.Logger;
 
@@ -57,6 +55,7 @@ public class StandardOutboundDocQuery implements OutboundDocQuery {
     private static final Logger LOG = Logger.getLogger(StandardOutboundDocQuery.class);
     private AggregationStrategy strategy;
     private AggregationService fanoutService;
+    private DocQueryAuditLog auditLog = null;
 
     /**
      * Add default constructor that is used by test cases Note that implementations should always use constructor that
@@ -87,6 +86,12 @@ public class StandardOutboundDocQuery implements OutboundDocQuery {
     public AdhocQueryResponse respondingGatewayCrossGatewayQuery(AdhocQueryRequest adhocQueryRequest,
             AssertionType assertion, NhinTargetCommunitiesType targets) {
         LOG.trace("EntityDocQueryOrchImpl.respondingGatewayCrossGatewayQuery...");
+        AdhocQueryResponse response = null;
+
+        NhinTargetSystemType target = MessageGeneratorUtils.getInstance().convertFirstToNhinTargetSystemType(targets);
+        String targetHCID = getTargetHCID(target);
+
+        auditRequestFromAdapter(adhocQueryRequest, assertion, targetHCID);
 
         OutboundDocQueryAggregate aggregate = new OutboundDocQueryAggregate();
 
@@ -95,20 +100,32 @@ public class StandardOutboundDocQuery implements OutboundDocQuery {
 
         if (aggregateRequests.isEmpty()) {
             LOG.info("no patient correlation found.");
-            return createErrorResponse("XDSUnknownPatientId", "No patient correlations found.");
+            response = createErrorResponse("XDSUnknownPatientId", "No patient correlations found.");
+        } else {
+            OutboundDocQueryOrchestratable request = new OutboundDocQueryOrchestratable(
+                    new OutboundDocQueryAggregator(), assertion, NhincConstants.DOC_QUERY_SERVICE_NAME,
+                    adhocQueryRequest);
+
+            aggregate.setRequest(request);
+
+            aggregate.setAggregateRequests(aggregateRequests);
+
+            strategy.execute(aggregate);
+
+            response = request.getResponse();
         }
 
-        OutboundDocQueryOrchestratable request = new OutboundDocQueryOrchestratable(new OutboundDocQueryAggregator(),
-                assertion, NhincConstants.DOC_QUERY_SERVICE_NAME, adhocQueryRequest);
+        auditResponseToAdapter(response, assertion, targetHCID);
 
-        aggregate.setRequest(request);
+        return response;
 
-        aggregate.setAggregateRequests(aggregateRequests);
+    }
 
-        strategy.execute(aggregate);
-
-        return request.getResponse();
-
+    protected DocQueryAuditLog getAuditLogger() {
+        if (auditLog == null) {
+            auditLog = new DocQueryAuditLog();
+        }
+        return auditLog;
     }
 
     /**
@@ -121,6 +138,25 @@ public class StandardOutboundDocQuery implements OutboundDocQuery {
     private AdhocQueryResponse createErrorResponse(String errorCode, String codeContext) {
         return MessageGeneratorUtils.getInstance().createAdhocQueryErrorResponse(codeContext, errorCode,
                 DocumentConstants.XDS_QUERY_RESPONSE_STATUS_FAILURE);
+    }
+
+    private String getTargetHCID(NhinTargetSystemType target) {
+        String targetHCID = null;
+        if (target != null && target.getHomeCommunity() != null) {
+            targetHCID = target.getHomeCommunity().getHomeCommunityId();
+        }
+
+        return targetHCID;
+    }
+
+    private void auditRequestFromAdapter(AdhocQueryRequest request, AssertionType assertion, String responseCommunityID) {
+        getAuditLogger().auditDQRequest(request, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION,
+                NhincConstants.AUDIT_LOG_ENTITY_INTERFACE, responseCommunityID);
+    }
+
+    private void auditResponseToAdapter(AdhocQueryResponse response, AssertionType assertion, String responseCommunityID) {
+        getAuditLogger().auditDQResponse(response, assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION,
+                NhincConstants.AUDIT_LOG_ENTITY_INTERFACE, responseCommunityID);
     }
 
 }
