@@ -27,11 +27,8 @@
 
 package gov.hhs.fha.nhinc.messaging.client;
 
-import gov.hhs.fha.nhinc.messaging.client.CONNECTCXFClientUnsecured;
-import gov.hhs.fha.nhinc.messaging.client.CONNECTClient;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
-import gov.hhs.fha.nhinc.nhinclib.NhincConstants.GATEWAY_API_LEVEL;
 
 /**
  * @author akong
@@ -39,45 +36,38 @@ import gov.hhs.fha.nhinc.nhinclib.NhincConstants.GATEWAY_API_LEVEL;
  */
 public class CONNECTCXFClientFactory extends CONNECTClientFactory {
 
+    /**
+     * Returns a CONNECTClient configured for secured invocation.
+     */
     public <T> CONNECTClient<T> getCONNECTClientSecured(ServicePortDescriptor<T> portDescriptor, String url,
             AssertionType assertion) {
-        CONNECTCXFClientSecured<T> client = new CONNECTCXFClientSecured<T>(portDescriptor, url, assertion);
-
-        return client;
+        return getCONNECTClientSecured(portDescriptor, url, assertion, null, null);
     }
 
-    public <T> CONNECTClient<T> getCONNECTClientSecured(ServicePortDescriptor<T> portDescriptor, String url,
-            AssertionType assertion, String wsAddressingTo) {
-        CONNECTCXFClientSecured<T> client = new CONNECTCXFClientSecured<T>(portDescriptor, url, assertion,
-                wsAddressingTo);
-
-        return client;
-    }
-
+    /**
+     * Returns a CONNECTClient configured for secured invocation. This method allows Ws-Addressing parameters to be
+     * passed for HIEM use.
+     */
     public <T> CONNECTClient<T> getCONNECTClientSecured(ServicePortDescriptor<T> portDescriptor, String url,
             AssertionType assertion, String wsAddressingTo, String subscriptionId) {
-        CONNECTCXFClientSecured<T> client = new CONNECTCXFClientSecured<T>(portDescriptor, url, assertion,
-                wsAddressingTo, subscriptionId);
-
-        return client;
-
+        return new CONNECTCXFClientSecured<T>(portDescriptor, url, assertion, wsAddressingTo, subscriptionId);
     }
-    
-    public <T> CONNECTClient<T> getCONNECTClientSecured(ServicePortDescriptor<T> portDescriptor, 
+
+    /**
+     * Returns a CONNECTClient configured for secured invocation. This method allows the target hcid and service name to
+     * be passed to be used for purpose of/purpose for logic.  
+     */
+    public <T> CONNECTClient<T> getCONNECTClientSecured(ServicePortDescriptor<T> portDescriptor,
             AssertionType assertion, String url, String targetHomeCommunityId, String serviceName) {
-        CONNECTCXFClientSecured<T> client = new CONNECTCXFClientSecured<T>(portDescriptor, assertion, url,
-                targetHomeCommunityId, serviceName);
-
-        return client;
-
+        return new CONNECTCXFClientSecured<T>(portDescriptor, assertion, url, targetHomeCommunityId, serviceName);
     }
-    
 
+    /**
+     * Returns a CONNECTClient configured for unsecured invocation.
+     */
     public <T> CONNECTClient<T> getCONNECTClientUnsecured(ServicePortDescriptor<T> portDescriptor, String url,
             AssertionType assertion) {
-        CONNECTCXFClientUnsecured<T> client = new CONNECTCXFClientUnsecured<T>(portDescriptor, url, assertion);
-
-        return client;
+        return new CONNECTCXFClientUnsecured<T>(portDescriptor, url, assertion);
     }
 
 }

@@ -32,7 +32,6 @@ import gov.hhs.fha.nhinc.messaging.service.ServiceEndpoint;
 import gov.hhs.fha.nhinc.messaging.service.decorator.MTOMServiceEndpointDecorator;
 import gov.hhs.fha.nhinc.messaging.service.decorator.TimeoutServiceEndpointDecorator;
 import gov.hhs.fha.nhinc.messaging.service.decorator.URLServiceEndpointDecorator;
-import gov.hhs.fha.nhinc.messaging.service.decorator.cxf.SoapResponseServiceEndpointDecorator;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 
 import org.apache.cxf.phase.PhaseInterceptorChain;
@@ -72,8 +71,7 @@ public abstract class CONNECTBaseClient<T> implements CONNECTClient<T> {
         serviceEndpoint = new URLServiceEndpointDecorator<T>(serviceEndpoint, url);
         serviceEndpoint = new TimeoutServiceEndpointDecorator<T>(serviceEndpoint);
         serviceEndpoint = new MTOMServiceEndpointDecorator<T>(serviceEndpoint);
-        serviceEndpoint = new SoapResponseServiceEndpointDecorator<T>(serviceEndpoint);
-
+        
         return serviceEndpoint;
     }
 }

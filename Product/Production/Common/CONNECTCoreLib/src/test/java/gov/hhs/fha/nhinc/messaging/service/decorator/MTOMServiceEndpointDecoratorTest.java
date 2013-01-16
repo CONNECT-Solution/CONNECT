@@ -33,11 +33,11 @@ import gov.hhs.fha.nhinc.messaging.service.ServiceEndpoint;
 import gov.hhs.fha.nhinc.messaging.service.port.TestServicePortDescriptor;
 import gov.hhs.fha.nhinc.messaging.service.port.TestServicePortType;
 
+import java.util.Map;
+
 import javax.xml.ws.soap.SOAPBinding;
 
-import org.apache.cxf.endpoint.Client;
-import org.apache.cxf.frontend.ClientProxy;
-import org.apache.cxf.transport.http.HTTPConduit;
+import org.apache.cxf.transports.http.configuration.HTTPClientPolicy;
 import org.junit.Test;
 
 /**
@@ -59,11 +59,11 @@ public class MTOMServiceEndpointDecoratorTest {
      * @param client
      */
     public void verifyMTOMEnabled(CONNECTClient<?> client) {
-        Client clientProxy = ClientProxy.getClient(client.getPort());
-        HTTPConduit conduit = (HTTPConduit) clientProxy.getConduit();
-        SOAPBinding binding = (SOAPBinding) ((javax.xml.ws.BindingProvider) client.getPort()).getBinding();
+        Map<String, Object> requestContext = ((javax.xml.ws.BindingProvider) client.getPort()).getRequestContext();
+        HTTPClientPolicy clientPolicy = (HTTPClientPolicy) requestContext.get(HTTPClientPolicy.class.getName());
+        assertTrue(clientPolicy.isAllowChunking());
         
-        assertTrue(conduit.getClient().isAllowChunking());
+        SOAPBinding binding = (SOAPBinding) ((javax.xml.ws.BindingProvider) client.getPort()).getBinding();
         assertTrue(binding.isMTOMEnabled());
     }
     
