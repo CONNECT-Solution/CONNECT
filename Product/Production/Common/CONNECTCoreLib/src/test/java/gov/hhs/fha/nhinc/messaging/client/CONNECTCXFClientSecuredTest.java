@@ -114,7 +114,7 @@ public class CONNECTCXFClientSecuredTest {
 
     private CONNECTClient<TestServicePortType> createClient(String url, AssertionType assertion, String wsAddressingTo) {
         return CONNECTClientFactory.getInstance().getCONNECTClientSecured(new TestServicePortDescriptor(), url,
-                assertion, wsAddressingTo);
+                assertion, wsAddressingTo, null);
     }
 
 }

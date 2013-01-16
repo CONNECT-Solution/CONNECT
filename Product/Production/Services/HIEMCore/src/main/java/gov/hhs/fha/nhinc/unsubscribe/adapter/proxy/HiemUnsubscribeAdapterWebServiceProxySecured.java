@@ -62,7 +62,7 @@ public class HiemUnsubscribeAdapterWebServiceProxySecured implements HiemUnsubsc
             AssertionType assertion, String wsAddressingTo) {
 
         return CONNECTCXFClientFactory.getInstance().getCONNECTClientSecured(portDescriptor, url, assertion,
-                wsAddressingTo);
+                wsAddressingTo, null);
     }
 
     public Element unsubscribe(Element unsubscribeElement, SoapMessageElements referenceParametersElements,

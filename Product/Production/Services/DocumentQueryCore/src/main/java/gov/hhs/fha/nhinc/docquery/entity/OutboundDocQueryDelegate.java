@@ -93,7 +93,7 @@ public class OutboundDocQueryDelegate implements OutboundDelegate {
 
         if (response instanceof OutboundDocQueryOrchestratable_a0) {
             LOG.debug("NhinDocQueryDelegate::process returning a0 result");
-        } else if (response instanceof OutboundDocQueryOrchestratable_a0) {
+        } else if (response instanceof OutboundDocQueryOrchestratable_a1) {
             LOG.debug("NhinDocQueryDelegate::process returning a1 result");
         } else {
             LOG.error("NhinDocQueryDelegate::process has unknown response!!!");

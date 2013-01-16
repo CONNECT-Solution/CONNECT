@@ -59,7 +59,7 @@ public class NhinHiemNotifyWebServiceProxy implements NhinHiemNotifyProxy {
             String wsAddressingTo) {
 
         return CONNECTCXFClientFactory.getInstance().getCONNECTClientSecured(portDescriptor, url, assertion,
-                wsAddressingTo);
+                wsAddressingTo, null);
     }
 
     @Override

@@ -44,7 +44,6 @@ import org.apache.cxf.headers.Header;
 import org.apache.cxf.interceptor.Fault;
 import org.apache.cxf.message.Message;
 import org.apache.cxf.phase.Phase;
-import org.eclipse.jetty.util.log.Log;
 import org.w3c.dom.Element;
 
 /**

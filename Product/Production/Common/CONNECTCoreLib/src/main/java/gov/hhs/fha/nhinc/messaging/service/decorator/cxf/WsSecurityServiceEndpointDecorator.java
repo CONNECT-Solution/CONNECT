@@ -67,7 +67,8 @@ public class WsSecurityServiceEndpointDecorator<T> extends ServiceEndpointDecora
     }
 
     /**
-     * Configures the endpoint for WS-Security.
+     * Configures the endpoint for WS-Security. This call is not thread safe if the port is a shared instance as it adds
+     * interceptors to the CXF client.
      */
     @Override
     public void configure() {

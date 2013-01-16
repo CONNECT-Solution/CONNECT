@@ -39,6 +39,7 @@ import javax.xml.ws.BindingProvider;
 
 import org.apache.cxf.headers.Header;
 import org.apache.cxf.jaxb.JAXBDataBinding;
+import org.apache.log4j.Logger;
 
 /**
  * @author achidamb
@@ -47,29 +48,34 @@ import org.apache.cxf.jaxb.JAXBDataBinding;
  */
 public class SoapHeaderServiceEndPointDecorator<T> extends ServiceEndpointDecorator<T> {
 
-    private String SubscriptionId = null;
+    private static final Logger LOG = Logger.getLogger(SoapHeaderServiceEndPointDecorator.class);
+    
+    private String subscriptionId = null;
 
     private BindingProvider bindingProviderPort;
 
-    public SoapHeaderServiceEndPointDecorator(ServiceEndpoint<T> decoratoredEndpoint, String SubscriptionId) {
+    public SoapHeaderServiceEndPointDecorator(ServiceEndpoint<T> decoratoredEndpoint, String subscriptionId) {
         super(decoratoredEndpoint);
-        this.SubscriptionId = SubscriptionId;
+        this.subscriptionId = subscriptionId;
         this.bindingProviderPort = (BindingProvider) decoratedEndpoint.getPort();
     }
 
     @Override
     public void configure() {
         super.configure();
-        List<Header> headers = new ArrayList<Header>();
-        Header SoapHeader;
-        try {
-            SoapHeader = new Header(new QName("http://www.hhs.gov/healthit/nhin", "SubscriptionId"), SubscriptionId,
-                    new JAXBDataBinding(String.class));
-            headers.add(SoapHeader);
-        } catch (JAXBException e) {
-            e.printStackTrace();
+        
+        if (subscriptionId != null) {
+            List<Header> headers = new ArrayList<Header>();
+            Header SoapHeader;
+            try {
+                SoapHeader = new Header(new QName("http://www.hhs.gov/healthit/nhin", "SubscriptionId"),
+                        subscriptionId, new JAXBDataBinding(String.class));
+                headers.add(SoapHeader);
+            } catch (JAXBException e) {
+                LOG.error("Failed to set subscription id to header", e);
+            }
+            
+            bindingProviderPort.getRequestContext().put(Header.HEADER_LIST, headers);
         }
-
-        bindingProviderPort.getRequestContext().put(Header.HEADER_LIST, headers);
     }
 }

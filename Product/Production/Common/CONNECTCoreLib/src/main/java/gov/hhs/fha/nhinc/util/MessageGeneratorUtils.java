@@ -26,8 +26,16 @@
  */
 package gov.hhs.fha.nhinc.util;
 
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
+import gov.hhs.fha.nhinc.transform.marshallers.Marshaller;
+
+import javax.xml.namespace.QName;
+
+import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
+
+import org.w3c.dom.Element;
 
 /**
  * @author akong
@@ -36,6 +44,12 @@ import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 public class MessageGeneratorUtils {
 
     private static MessageGeneratorUtils INSTANCE = new MessageGeneratorUtils();
+
+    private static String NHINC_COMMON_CONTEXT = "gov.hhs.fha.nhinc.common.nhinccommon";
+    private static String NHINC_COMMON_URN = "urn:gov:hhs:fha:nhinc:common:nhinccommon";
+
+    private static String OASIS_QUERY_30_CONTEXT = "oasis.names.tc.ebxml_regrep.xsd.query._3";
+    private static String OASIS_QUERY_30_URN = "urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0";
 
     protected MessageGeneratorUtils() {
     }
@@ -63,6 +77,36 @@ public class MessageGeneratorUtils {
         }
 
         return nhinTargetSystem;
+    }
+
+    /**
+     * Clones the assertion object.
+     * 
+     * @param assertion
+     * @return a cloned assertion
+     */
+    public AssertionType clone(AssertionType assertion) {
+        QName qName = new QName(NHINC_COMMON_URN, "Assertion");
+        Marshaller marshaller = new Marshaller();
+
+        Element jaxbElement = marshaller.marshal(assertion, NHINC_COMMON_CONTEXT, qName);
+
+        return (AssertionType) marshaller.unmarshallJaxbElement(jaxbElement, NHINC_COMMON_CONTEXT);
+    }
+
+    /**
+     * Clones the Adhoc Query Request.
+     * 
+     * @param adhocQueryRequest
+     * @return a cloned adhocQueryRequest
+     */
+    public AdhocQueryRequest clone(AdhocQueryRequest adhocQueryRequest) {
+        QName qName = new QName(OASIS_QUERY_30_URN, "AdhocQueryRequest");
+        Marshaller marshaller = new Marshaller();
+
+        Element jaxbElement = marshaller.marshal(adhocQueryRequest, OASIS_QUERY_30_CONTEXT, qName);
+
+        return (AdhocQueryRequest) marshaller.unmarshallJaxbElement(jaxbElement, OASIS_QUERY_30_CONTEXT);
     }
 
 }

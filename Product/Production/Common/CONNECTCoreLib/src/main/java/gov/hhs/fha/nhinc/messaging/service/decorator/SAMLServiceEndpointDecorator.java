@@ -36,24 +36,23 @@ import java.util.Map;
 /**
  * @author bhumphrey
  * @param <T>
- *
+ * 
  */
 public class SAMLServiceEndpointDecorator<T> extends ServiceEndpointDecorator<T> {
 
     private AssertionType assertion;
     private String targetHomeCommunityId = null;
     private String serviceName = null;
-    
-    
+
     public SAMLServiceEndpointDecorator(ServiceEndpoint<T> decoratoredEndpoint, AssertionType assertion) {
-    super(decoratoredEndpoint);    
-    this.assertion = assertion;
+        super(decoratoredEndpoint);
+        this.assertion = assertion;
     }
-    
+
     /**
      * @param decoratored
      */
-    public SAMLServiceEndpointDecorator(ServiceEndpoint<T> decoratoredEndpoint, AssertionType assertion, 
+    public SAMLServiceEndpointDecorator(ServiceEndpoint<T> decoratoredEndpoint, AssertionType assertion,
             String targetHomeCommunityId, String serviceName) {
         super(decoratoredEndpoint);
         this.assertion = assertion;
@@ -66,12 +65,12 @@ public class SAMLServiceEndpointDecorator<T> extends ServiceEndpointDecorator<T>
         super.configure();
         Map<String, Object> requestContext = ((javax.xml.ws.BindingProvider) getPort()).getRequestContext();
         requestContext.put("assertion", assertion);
-        if ( targetHomeCommunityId!= null ) {
-        requestContext.put(NhincConstants.WS_SOAP_TARGET_HOME_COMMUNITY_ID, targetHomeCommunityId);
+        if (targetHomeCommunityId != null) {
+            requestContext.put(NhincConstants.WS_SOAP_TARGET_HOME_COMMUNITY_ID, targetHomeCommunityId);
         }
         if (serviceName != null) {
-        requestContext.put(NhincConstants.ACTION_PROP, serviceName);
+            requestContext.put(NhincConstants.ACTION_PROP, serviceName);
         }
     }
-        
+
 }
