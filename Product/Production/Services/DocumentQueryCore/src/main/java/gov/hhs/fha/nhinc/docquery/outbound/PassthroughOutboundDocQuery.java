@@ -43,75 +43,63 @@ import org.apache.log4j.Logger;
 
 public class PassthroughOutboundDocQuery implements OutboundDocQuery {
 
-	private static final Logger LOG = Logger
-			.getLogger(PassthroughOutboundDocQuery.class);
+    private static final Logger LOG = Logger.getLogger(PassthroughOutboundDocQuery.class);
 
-	private OutboundDocQueryDelegate delegate = new OutboundDocQueryDelegate();
+    private OutboundDocQueryDelegate delegate = new OutboundDocQueryDelegate();
 
-	public PassthroughOutboundDocQuery() {
-		super();
-	}
+    public PassthroughOutboundDocQuery() {
+        super();
+    }
 
-	public PassthroughOutboundDocQuery(OutboundDocQueryDelegate delegate) {
-		this.delegate = delegate;
-	}
+    public PassthroughOutboundDocQuery(OutboundDocQueryDelegate delegate) {
+        this.delegate = delegate;
+    }
 
-	/**
-	 * This method sends a AdhocQueryRequest to the NwHIN to a single gateway.
-	 * 
-	 * @param request
-	 *            the AdhocQueryRequest message to be sent
-	 * @param assertion
-	 *            the AssertionType instance received from the adapter
-	 * @param target
-	 *            NhinTargetCommunitiesType where DocQuery Request is to be
-	 *            sent. Only the first one is used.
-	 * @return AdhocQueryResponse received from the NHIN
-	 */
-	@Override
-	@OutboundProcessingEvent(beforeBuilder = AdhocQueryRequestDescriptionBuilder.class, afterReturningBuilder = AdhocQueryResponseDescriptionBuilder.class, serviceType = "Document Query", version = "")
-	public AdhocQueryResponse respondingGatewayCrossGatewayQuery(
-			AdhocQueryRequest request, AssertionType assertion,
-			NhinTargetCommunitiesType targets) {
+    /**
+     * This method sends a AdhocQueryRequest to the NwHIN to a single gateway.
+     * 
+     * @param request the AdhocQueryRequest message to be sent
+     * @param assertion the AssertionType instance received from the adapter
+     * @param target NhinTargetCommunitiesType where DocQuery Request is to be sent. Only the first one is used.
+     * @return AdhocQueryResponse received from the NHIN
+     */
+    @Override
+    @OutboundProcessingEvent(beforeBuilder = AdhocQueryRequestDescriptionBuilder.class, afterReturningBuilder = AdhocQueryResponseDescriptionBuilder.class, serviceType = "Document Query", version = "")
+    public AdhocQueryResponse respondingGatewayCrossGatewayQuery(AdhocQueryRequest request, AssertionType assertion,
+            NhinTargetCommunitiesType targets) {
 
-		NhinTargetSystemType target = MessageGeneratorUtils.getInstance()
-				.convertFirstToNhinTargetSystemType(targets);
+        NhinTargetSystemType target = MessageGeneratorUtils.getInstance().convertFirstToNhinTargetSystemType(targets);
 
-		String targetHCID = getTargetHCID(target);
+        String targetHCID = getTargetHCID(target);
 
-		AdhocQueryResponse response = sendRequestToNwhin(request, assertion,
-				target, targetHCID);
+        AdhocQueryResponse response = sendRequestToNwhin(request, assertion, target, targetHCID);
 
-		return response;
-	}
+        return response;
+    }
 
-	private String getTargetHCID(NhinTargetSystemType target) {
-		String targetHCID = null;
-		if (target != null && target.getHomeCommunity() != null) {
-			targetHCID = target.getHomeCommunity().getHomeCommunityId();
-		}
+    private String getTargetHCID(NhinTargetSystemType target) {
+        String targetHCID = null;
+        if (target != null && target.getHomeCommunity() != null) {
+            targetHCID = target.getHomeCommunity().getHomeCommunityId();
+        }
 
-		return targetHCID;
-	}
+        return targetHCID;
+    }
 
-	private AdhocQueryResponse sendRequestToNwhin(AdhocQueryRequest request,
-			AssertionType assertion, NhinTargetSystemType target,
-			String targetCommunityID) {
-		AdhocQueryResponse response = null;
+    private AdhocQueryResponse sendRequestToNwhin(AdhocQueryRequest request, AssertionType assertion,
+            NhinTargetSystemType target, String targetCommunityID) {
+        AdhocQueryResponse response = null;
 
-		try {
-			OutboundDocQueryOrchestratable orchestratable = new OutboundDocQueryOrchestratable(
-					delegate, null, null, null, assertion,
-					NhincConstants.DOC_QUERY_SERVICE_NAME, target, request);
-			response = delegate.process(orchestratable).getResponse();
-		} catch (Exception ex) {
-			String errorMsg = "Error from target homeId = " + targetCommunityID
-					+ ". " + ex.getMessage();
-			response = MessageGeneratorUtils.getInstance()
-					.createRepositoryErrorResponse(errorMsg);
-			LOG.error(errorMsg, ex);
-		}
+        try {
+            OutboundDocQueryOrchestratable orchestratable = new OutboundDocQueryOrchestratable(delegate, null, null,
+                    null, assertion, NhincConstants.DOC_QUERY_SERVICE_NAME, target, request);
+            response = delegate.process(orchestratable).getResponse();
+        } catch (Exception ex) {
+            String errorMsg = "Error from target homeId = " + targetCommunityID + ". " + ex.getMessage();
+            response = MessageGeneratorUtils.getInstance().createRepositoryErrorResponse(errorMsg);
+            LOG.error(errorMsg, ex);
+        }
 
-		return response;
-	}
+        return response;
+    }
 }

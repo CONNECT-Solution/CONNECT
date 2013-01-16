@@ -53,44 +53,38 @@ import org.junit.Test;
  */
 public class PassthroughOutboundDocQueryTest {
 
-	@Test
-	public void hasBeginOutboundProcessingEvent() throws Exception {
-		Class<PassthroughOutboundDocQuery> clazz = PassthroughOutboundDocQuery.class;
-		Method method = clazz.getMethod("respondingGatewayCrossGatewayQuery",
-				AdhocQueryRequest.class, AssertionType.class,
-				NhinTargetCommunitiesType.class);
-		OutboundProcessingEvent annotation = method
-				.getAnnotation(OutboundProcessingEvent.class);
-		assertNotNull(annotation);
-		assertEquals(AdhocQueryRequestDescriptionBuilder.class,
-				annotation.beforeBuilder());
-		assertEquals(AdhocQueryResponseDescriptionBuilder.class,
-				annotation.afterReturningBuilder());
-		assertEquals("Document Query", annotation.serviceType());
-		assertEquals("", annotation.version());
-	}
+    @Test
+    public void hasBeginOutboundProcessingEvent() throws Exception {
+        Class<PassthroughOutboundDocQuery> clazz = PassthroughOutboundDocQuery.class;
+        Method method = clazz.getMethod("respondingGatewayCrossGatewayQuery", AdhocQueryRequest.class,
+                AssertionType.class, NhinTargetCommunitiesType.class);
+        OutboundProcessingEvent annotation = method.getAnnotation(OutboundProcessingEvent.class);
+        assertNotNull(annotation);
+        assertEquals(AdhocQueryRequestDescriptionBuilder.class, annotation.beforeBuilder());
+        assertEquals(AdhocQueryResponseDescriptionBuilder.class, annotation.afterReturningBuilder());
+        assertEquals("Document Query", annotation.serviceType());
+        assertEquals("", annotation.version());
+    }
 
-	@Test
-	public void passthroughOutboundDocQuery() {
-		OutboundDocQueryDelegate mockDelegate = mock(OutboundDocQueryDelegate.class);
+    @Test
+    public void passthroughOutboundDocQuery() {
+        OutboundDocQueryDelegate mockDelegate = mock(OutboundDocQueryDelegate.class);
 
-		AdhocQueryResponse expectedResponse = new AdhocQueryResponse();
-		OutboundDocQueryOrchestratable orchestratableResponse = new OutboundDocQueryOrchestratable();
-		orchestratableResponse.setResponse(expectedResponse);
+        AdhocQueryResponse expectedResponse = new AdhocQueryResponse();
+        OutboundDocQueryOrchestratable orchestratableResponse = new OutboundDocQueryOrchestratable();
+        orchestratableResponse.setResponse(expectedResponse);
 
-		when(mockDelegate.process(any(OutboundDocQueryOrchestratable.class)))
-				.thenReturn(orchestratableResponse);
+        when(mockDelegate.process(any(OutboundDocQueryOrchestratable.class))).thenReturn(orchestratableResponse);
 
-		AdhocQueryRequest request = new AdhocQueryRequest();
-		AssertionType assertion = new AssertionType();
-		NhinTargetCommunitiesType targets = new NhinTargetCommunitiesType();
+        AdhocQueryRequest request = new AdhocQueryRequest();
+        AssertionType assertion = new AssertionType();
+        NhinTargetCommunitiesType targets = new NhinTargetCommunitiesType();
 
-		PassthroughOutboundDocQuery passthroughDocQuery = new PassthroughOutboundDocQuery(
-				mockDelegate);
-		AdhocQueryResponse actualResponse = passthroughDocQuery
-				.respondingGatewayCrossGatewayQuery(request, assertion, targets);
+        PassthroughOutboundDocQuery passthroughDocQuery = new PassthroughOutboundDocQuery(mockDelegate);
+        AdhocQueryResponse actualResponse = passthroughDocQuery.respondingGatewayCrossGatewayQuery(request, assertion,
+                targets);
 
-		assertSame(expectedResponse, actualResponse);
+        assertSame(expectedResponse, actualResponse);
 
-	}
+    }
 }

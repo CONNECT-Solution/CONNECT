@@ -52,131 +52,111 @@ import org.apache.log4j.Logger;
 
 public class StandardOutboundDocQuery implements OutboundDocQuery {
 
-	private static final Logger LOG = Logger
-			.getLogger(StandardOutboundDocQuery.class);
-	private AggregationStrategy strategy;
-	private AggregationService fanoutService;
-	private DocQueryAuditLog auditLog = null;
+    private static final Logger LOG = Logger.getLogger(StandardOutboundDocQuery.class);
+    private AggregationStrategy strategy;
+    private AggregationService fanoutService;
+    private DocQueryAuditLog auditLog = null;
 
-	/**
-	 * Add default constructor that is used by test cases Note that
-	 * implementations should always use constructor that takes the executor
-	 * services as input.
-	 */
-	public StandardOutboundDocQuery() {
-		this(new AggregationStrategy(), new AggregationService());
-	}
+    /**
+     * Add default constructor that is used by test cases Note that implementations should always use constructor that
+     * takes the executor services as input.
+     */
+    public StandardOutboundDocQuery() {
+        this(new AggregationStrategy(), new AggregationService());
+    }
 
-	/**
-	 * @param strategy
-	 */
-	StandardOutboundDocQuery(AggregationStrategy strategy,
-			AggregationService fanoutService) {
-		super();
-		this.strategy = strategy;
-		this.fanoutService = fanoutService;
-	}
+    /**
+     * @param strategy
+     */
+    StandardOutboundDocQuery(AggregationStrategy strategy, AggregationService fanoutService) {
+        super();
+        this.strategy = strategy;
+        this.fanoutService = fanoutService;
+    }
 
-	/**
-	 * 
-	 * @param adhocQueryRequest
-	 *            The AdhocQueryRequest message received.
-	 * @param assertion
-	 *            Assertion received.
-	 * @param targets
-	 *            Target to send request.
-	 * @return AdhocQueryResponse from Entity Interface.
-	 */
-	@Override
-	@OutboundProcessingEvent(beforeBuilder = AdhocQueryRequestDescriptionBuilder.class, afterReturningBuilder = AdhocQueryResponseDescriptionBuilder.class, serviceType = "Document Query", version = "")
-	public AdhocQueryResponse respondingGatewayCrossGatewayQuery(
-			AdhocQueryRequest adhocQueryRequest, AssertionType assertion,
-			NhinTargetCommunitiesType targets) {
-		LOG.trace("EntityDocQueryOrchImpl.respondingGatewayCrossGatewayQuery...");
-		AdhocQueryResponse response = null;
+    /**
+     * 
+     * @param adhocQueryRequest The AdhocQueryRequest message received.
+     * @param assertion Assertion received.
+     * @param targets Target to send request.
+     * @return AdhocQueryResponse from Entity Interface.
+     */
+    @Override
+    @OutboundProcessingEvent(beforeBuilder = AdhocQueryRequestDescriptionBuilder.class, afterReturningBuilder = AdhocQueryResponseDescriptionBuilder.class, serviceType = "Document Query", version = "")
+    public AdhocQueryResponse respondingGatewayCrossGatewayQuery(AdhocQueryRequest adhocQueryRequest,
+            AssertionType assertion, NhinTargetCommunitiesType targets) {
+        LOG.trace("EntityDocQueryOrchImpl.respondingGatewayCrossGatewayQuery...");
+        AdhocQueryResponse response = null;
 
-		NhinTargetSystemType target = MessageGeneratorUtils.getInstance()
-				.convertFirstToNhinTargetSystemType(targets);
-		String targetHCID = getTargetHCID(target);
+        NhinTargetSystemType target = MessageGeneratorUtils.getInstance().convertFirstToNhinTargetSystemType(targets);
+        String targetHCID = getTargetHCID(target);
 
-		auditRequestFromAdapter(adhocQueryRequest, assertion, targetHCID);
+        auditRequestFromAdapter(adhocQueryRequest, assertion, targetHCID);
 
-		OutboundDocQueryAggregate aggregate = new OutboundDocQueryAggregate();
+        OutboundDocQueryAggregate aggregate = new OutboundDocQueryAggregate();
 
-		List<OutboundOrchestratable> aggregateRequests = fanoutService
-				.createChildRequests(adhocQueryRequest, assertion, targets);
+        List<OutboundOrchestratable> aggregateRequests = fanoutService.createChildRequests(adhocQueryRequest,
+                assertion, targets);
 
-		if (aggregateRequests.isEmpty()) {
-			LOG.info("no patient correlation found.");
-			response = createErrorResponse("XDSUnknownPatientId",
-					"No patient correlations found.");
-		} else {
-			OutboundDocQueryOrchestratable request = new OutboundDocQueryOrchestratable(
-					new OutboundDocQueryAggregator(), assertion,
-					NhincConstants.DOC_QUERY_SERVICE_NAME, adhocQueryRequest);
+        if (aggregateRequests.isEmpty()) {
+            LOG.info("no patient correlation found.");
+            response = createErrorResponse("XDSUnknownPatientId", "No patient correlations found.");
+        } else {
+            OutboundDocQueryOrchestratable request = new OutboundDocQueryOrchestratable(
+                    new OutboundDocQueryAggregator(), assertion, NhincConstants.DOC_QUERY_SERVICE_NAME,
+                    adhocQueryRequest);
 
-			aggregate.setRequest(request);
+            aggregate.setRequest(request);
 
-			aggregate.setAggregateRequests(aggregateRequests);
+            aggregate.setAggregateRequests(aggregateRequests);
 
-			strategy.execute(aggregate);
+            strategy.execute(aggregate);
 
-			response = request.getResponse();
-		}
+            response = request.getResponse();
+        }
 
-		auditResponseToAdapter(response, assertion, targetHCID);
+        auditResponseToAdapter(response, assertion, targetHCID);
 
-		return response;
+        return response;
 
-	}
+    }
 
-	protected DocQueryAuditLog getAuditLogger() {
-		if (auditLog == null) {
-			auditLog = new DocQueryAuditLog();
-		}
-		return auditLog;
-	}
+    protected DocQueryAuditLog getAuditLogger() {
+        if (auditLog == null) {
+            auditLog = new DocQueryAuditLog();
+        }
+        return auditLog;
+    }
 
-	/**
-	 * This method returns Response with RegistryErrorList if there is any
-	 * failure.
-	 * 
-	 * @param errorCode
-	 *            The ErrorCode that needs to be set to the AdhocQueryResponse
-	 *            (Errorcodes are defined in spec).
-	 * @param codeContext
-	 *            The codecontext defines the reason of failure of
-	 *            AdhocQueryRequest.
-	 * @return AdhocQueryResponse.
-	 */
-	private AdhocQueryResponse createErrorResponse(String errorCode,
-			String codeContext) {
-		return MessageGeneratorUtils.getInstance()
-				.createAdhocQueryErrorResponse(codeContext, errorCode,
-						DocumentConstants.XDS_QUERY_RESPONSE_STATUS_FAILURE);
-	}
+    /**
+     * This method returns Response with RegistryErrorList if there is any failure.
+     * 
+     * @param errorCode The ErrorCode that needs to be set to the AdhocQueryResponse (Errorcodes are defined in spec).
+     * @param codeContext The codecontext defines the reason of failure of AdhocQueryRequest.
+     * @return AdhocQueryResponse.
+     */
+    private AdhocQueryResponse createErrorResponse(String errorCode, String codeContext) {
+        return MessageGeneratorUtils.getInstance().createAdhocQueryErrorResponse(codeContext, errorCode,
+                DocumentConstants.XDS_QUERY_RESPONSE_STATUS_FAILURE);
+    }
 
-	private String getTargetHCID(NhinTargetSystemType target) {
-		String targetHCID = null;
-		if (target != null && target.getHomeCommunity() != null) {
-			targetHCID = target.getHomeCommunity().getHomeCommunityId();
-		}
+    private String getTargetHCID(NhinTargetSystemType target) {
+        String targetHCID = null;
+        if (target != null && target.getHomeCommunity() != null) {
+            targetHCID = target.getHomeCommunity().getHomeCommunityId();
+        }
 
-		return targetHCID;
-	}
+        return targetHCID;
+    }
 
-	private void auditRequestFromAdapter(AdhocQueryRequest request,
-			AssertionType assertion, String responseCommunityID) {
-		getAuditLogger().auditDQRequest(request, assertion,
-				NhincConstants.AUDIT_LOG_INBOUND_DIRECTION,
-				NhincConstants.AUDIT_LOG_ENTITY_INTERFACE, responseCommunityID);
-	}
+    private void auditRequestFromAdapter(AdhocQueryRequest request, AssertionType assertion, String responseCommunityID) {
+        getAuditLogger().auditDQRequest(request, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION,
+                NhincConstants.AUDIT_LOG_ENTITY_INTERFACE, responseCommunityID);
+    }
 
-	private void auditResponseToAdapter(AdhocQueryResponse response,
-			AssertionType assertion, String responseCommunityID) {
-		getAuditLogger().auditDQResponse(response, assertion,
-				NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION,
-				NhincConstants.AUDIT_LOG_ENTITY_INTERFACE, responseCommunityID);
-	}
+    private void auditResponseToAdapter(AdhocQueryResponse response, AssertionType assertion, String responseCommunityID) {
+        getAuditLogger().auditDQResponse(response, assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION,
+                NhincConstants.AUDIT_LOG_ENTITY_INTERFACE, responseCommunityID);
+    }
 
 }
