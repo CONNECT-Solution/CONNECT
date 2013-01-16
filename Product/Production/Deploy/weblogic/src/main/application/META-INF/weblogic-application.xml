@@ -26,5 +26,7 @@
             	<package-name>com.ctc.wstx.*</package-name>
             	<package-name>org.codehaus.stax2.*</package-name>
             	<package-name>com.sun.xml.messaging.saaj.*</package-name>
+            	<package-name>com.google.common.*</package-name>
+            	<package-name>org.bouncycastle.*</package-name>
 	</prefer-application-packages>
 </weblogic-application>

@@ -1,6 +1,7 @@
 -- workaround for non-supported DROP USER IF EXISTS. see MySQL Bug #15287
 GRANT USAGE ON *.* TO nhincuser identified by 'nhincpass';
-DROP USER nhincuser;
+DROP USER 'nhincuser';
+DELETE FROM mysql.user WHERE User = 'nhincuser';
 
 DROP DATABASE IF EXISTS subscriptionrepository;
 
