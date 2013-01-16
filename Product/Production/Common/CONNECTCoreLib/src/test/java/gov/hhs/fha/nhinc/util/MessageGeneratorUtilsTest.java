@@ -28,9 +28,11 @@ package gov.hhs.fha.nhinc.util;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunityType;
+import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
 
 import org.junit.Test;
 
@@ -66,5 +68,27 @@ public class MessageGeneratorUtilsTest {
         assertEquals(2, targets.getNhinTargetCommunity().size());
         assertEquals("1.1", msgUtils.convertFirstToNhinTargetSystemType(targets).getHomeCommunity()
                 .getHomeCommunityId());
+    }
+    
+    @Test
+    public void cloneAssertion() {
+        AssertionType assertion = new AssertionType();
+        assertion.setMessageId("11111");
+        
+        AssertionType copyAssertion = msgUtils.clone(assertion);               
+        assertion.setMessageId("22222");
+        
+        assertEquals("11111", copyAssertion.getMessageId());       
+    }
+    
+    @Test
+    public void cloneAdhocQueryRequest() {
+        AdhocQueryRequest request = new AdhocQueryRequest();
+        request.setId("11111");
+        
+        AdhocQueryRequest clonedRequest = msgUtils.clone(request);
+        request.setId("22222");
+        
+        assertEquals("11111", clonedRequest.getId());
     }
 }

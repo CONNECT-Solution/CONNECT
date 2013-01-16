@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-13, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -24,49 +24,33 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.messaging.client;
+package gov.hhs.fha.nhinc.messaging.service.port;
 
-import gov.hhs.fha.nhinc.messaging.service.BaseServiceEndpoint;
-import gov.hhs.fha.nhinc.messaging.service.ServiceEndpoint;
-import gov.hhs.fha.nhinc.messaging.service.port.CXFSecuredServicePortBuilder;
-import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @author akong
  * 
  */
-public class CONNECTTestClient<T> implements CONNECTClient<T> {
+public class CXFUnsecuredServicePortBuilder<T> extends CachingCXFServicePortBuilder<T> {
 
-    protected ServiceEndpoint<T> serviceEndpoint = null;
-    
+    private static Map<Class<?>, Object> CACHED_PORTS = new HashMap<Class<?>, Object>();
+
     /**
-     * Constructor for a client used solely for unit tests. This class will only do the base configuration for the
-     * endpoint, but it will expose the service endpoint for test classes to use. This class will also use the caching
-     * mechanism that will single instance the port.
+     * Constructor.
      * 
      * @param portDescriptor
      */
-    public CONNECTTestClient(ServicePortDescriptor<T> portDescriptor) {
-        serviceEndpoint = new BaseServiceEndpoint<T>(new CXFSecuredServicePortBuilder<T>(portDescriptor).createPort());
-    }
-
-    public ServiceEndpoint<T> getServiceEndpoint() {
-        return serviceEndpoint;
+    public CXFUnsecuredServicePortBuilder(ServicePortDescriptor<T> portDescriptor) {
+        super(portDescriptor);
     }
 
     /* (non-Javadoc)
-     * @see gov.hhs.fha.nhinc.messaging.client.CONNECTClient#getPort()
+     * @see gov.hhs.fha.nhinc.messaging.service.port.CachingCXFServicePortBuilder#getCache()
      */
     @Override
-    public T getPort() {
-        return serviceEndpoint.getPort();
-    }
-
-    /* (non-Javadoc)
-     * @see gov.hhs.fha.nhinc.messaging.client.CONNECTClient#invokePort(java.lang.Class, java.lang.String, java.lang.Object)
-     */
-    @Override
-    public Object invokePort(Class<T> portClass, String methodName, Object operationInput) throws Exception {
-        return null;
+    protected Map<Class<?>, Object> getCache() {
+        return CACHED_PORTS;
     }
 }

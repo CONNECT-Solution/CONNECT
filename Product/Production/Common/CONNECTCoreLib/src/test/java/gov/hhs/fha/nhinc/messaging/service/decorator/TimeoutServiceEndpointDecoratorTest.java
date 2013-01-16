@@ -35,9 +35,9 @@ import gov.hhs.fha.nhinc.messaging.service.port.TestServicePortType;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 
-import org.apache.cxf.endpoint.Client;
-import org.apache.cxf.frontend.ClientProxy;
-import org.apache.cxf.transport.http.HTTPConduit;
+import java.util.Map;
+
+import org.apache.cxf.transports.http.configuration.HTTPClientPolicy;
 import org.junit.Test;
 
 /**
@@ -56,11 +56,11 @@ public class TimeoutServiceEndpointDecoratorTest {
     public void verifyTimeoutIsSet(CONNECTClient<?> client) {
         int timeout = getTimeoutFromConfig();
         
-        Client clientProxy = ClientProxy.getClient(client.getPort());
-        HTTPConduit conduit = (HTTPConduit) clientProxy.getConduit();
-
-        assertEquals(timeout, conduit.getClient().getConnectionTimeout());
-        assertEquals(timeout, conduit.getClient().getReceiveTimeout());
+        Map<String, Object> requestContext = ((javax.xml.ws.BindingProvider) client.getPort()).getRequestContext();        
+        HTTPClientPolicy clientPolicy = (HTTPClientPolicy) requestContext.get(HTTPClientPolicy.class.getName());
+        
+        assertEquals(timeout, clientPolicy.getConnectionTimeout());
+        assertEquals(timeout, clientPolicy.getReceiveTimeout());
     }
     
     private int getTimeoutFromConfig() {
@@ -72,7 +72,7 @@ public class TimeoutServiceEndpointDecoratorTest {
             }
         } catch (Exception ex) {
             // Do Nothing
-        } 
+        }
         return timeout;
     }
 
