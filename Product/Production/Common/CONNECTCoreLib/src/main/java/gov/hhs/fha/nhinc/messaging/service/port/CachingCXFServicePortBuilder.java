@@ -21,6 +21,14 @@ import org.apache.cxf.transports.http.configuration.HTTPClientPolicy;
 public abstract class CachingCXFServicePortBuilder<T> extends CXFServicePortBuilder<T> {
 
     /**
+     * This is a CXF configuration that will ensure that the request context are thread local and will not be shared
+     * between sessions. See Apache CXF FAQ about ports being thread-safe:
+     * 
+     * http://cxf.apache.org/faq.html
+     */
+    private static String THREAD_LOCAL_REQUEST_CONTEXT = "thread.local.request.context";
+    
+    /**
      * Returns the cache map of the ports.
      * 
      * @return the cache map
@@ -47,8 +55,8 @@ public abstract class CachingCXFServicePortBuilder<T> extends CXFServicePortBuil
      * 2. Modifying the HTTP Conduit
      * 
      * The following configuration to the port are considered local and are thread safe if configured properly: 
-     * 1. The request context
-     * 2. HTTPClientPolicy but only through the request context
+     * 1. The request context if configured for thread local
+     * 2. HTTPClientPolicy BUT only through the request context
      * 
      * @param port The port to be configured
      */
@@ -66,7 +74,7 @@ public abstract class CachingCXFServicePortBuilder<T> extends CXFServicePortBuil
         T port = (T) getCache().get(serviceEndpointClass);
         if (port == null) {
             port = super.createPort();
-            ((BindingProvider) port).getRequestContext().put("thread.local.request.context", Boolean.TRUE);
+            ((BindingProvider) port).getRequestContext().put(THREAD_LOCAL_REQUEST_CONTEXT, Boolean.TRUE);
 
             configurePort(port);
 

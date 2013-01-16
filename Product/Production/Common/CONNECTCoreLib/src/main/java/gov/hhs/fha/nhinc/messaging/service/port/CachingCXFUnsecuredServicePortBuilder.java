@@ -26,31 +26,23 @@
  */
 package gov.hhs.fha.nhinc.messaging.service.port;
 
-import gov.hhs.fha.nhinc.messaging.service.BaseServiceEndpoint;
-import gov.hhs.fha.nhinc.messaging.service.ServiceEndpoint;
-import gov.hhs.fha.nhinc.messaging.service.decorator.cxf.TLSClientServiceEndpointDecorator;
-import gov.hhs.fha.nhinc.messaging.service.decorator.cxf.WsSecurityServiceEndpointDecorator;
-
 import java.util.HashMap;
 import java.util.Map;
 
-import org.apache.cxf.jaxws.JaxWsProxyFactoryBean;
-import org.apache.cxf.ws.addressing.WSAddressingFeature;
-
 /**
  * @author akong
- *
+ * 
  */
-public class CXFSecuredServicePortBuilder<T> extends CachingCXFServicePortBuilder<T> {
-    
+public class CachingCXFUnsecuredServicePortBuilder<T> extends CachingCXFServicePortBuilder<T> {
+
     private static Map<Class<?>, Object> CACHED_PORTS = new HashMap<Class<?>, Object>();
-    
+
     /**
      * Constructor.
      * 
      * @param portDescriptor
      */
-    public CXFSecuredServicePortBuilder(ServicePortDescriptor<T> portDescriptor) {
+    public CachingCXFUnsecuredServicePortBuilder(ServicePortDescriptor<T> portDescriptor) {
         super(portDescriptor);
     }
 
@@ -60,24 +52,5 @@ public class CXFSecuredServicePortBuilder<T> extends CachingCXFServicePortBuilde
     @Override
     protected Map<Class<?>, Object> getCache() {
         return CACHED_PORTS;
-    }
-
-    /* (non-Javadoc)
-     * @see gov.hhs.fha.nhinc.messaging.service.port.CachingCXFServicePortBuilder#configurePort(java.lang.Object)
-     */
-    @Override
-    protected void configurePort(T port) {
-        super.configurePort(port);
-        
-        ServiceEndpoint<T> serviceEndpoint = new BaseServiceEndpoint<T>(port);
-        serviceEndpoint = new TLSClientServiceEndpointDecorator<T>(serviceEndpoint);
-        serviceEndpoint = new WsSecurityServiceEndpointDecorator<T>(serviceEndpoint);
-        serviceEndpoint.configure();
-    }
-    
-    @Override
-    protected void configureJaxWsProxyFactory(JaxWsProxyFactoryBean factory) {
-        super.configureJaxWsProxyFactory(factory);
-        factory.getFeatures().add(new WSAddressingFeature());
     }
 }

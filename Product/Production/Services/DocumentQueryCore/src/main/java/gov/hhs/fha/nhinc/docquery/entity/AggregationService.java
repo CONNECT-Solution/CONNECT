@@ -246,33 +246,43 @@ public class AggregationService {
     }
     
     protected Set<II> removeDuplicates(List<II> iiArray) {
-        Set<II> iiSet = new HashSet<II>();
+        // remove duplicates
+        Set<ComparableII> comparableIISet = new HashSet<ComparableII>();
         for (II ii: iiArray) {
-            iiSet.add(new ComparableII(ii));
+            comparableIISet.add(new ComparableII(ii));
         }
         
-        return iiSet;        
+        // restore original instances
+        Set<II> iiSet = new HashSet<II>();
+        for (ComparableII comparableII: comparableIISet) {
+            iiSet.add(comparableII.getII());
+        }
+        
+        return iiSet;
     }
 
     /**
-     * A class that extends the II xml object to override the hashCode() and equals() methods. 
+     * A class that wraps the II xml object to implement the hashCode() and equals() methods for comparison. 
      */
-    private class ComparableII extends II {
+    private class ComparableII {
+        
+        private II ii;
 
         private ComparableII(II ii) {
-            this.setExtension(ii.getExtension());
-            this.setRoot(ii.getRoot());
-            this.setAssigningAuthorityName(ii.getAssigningAuthorityName());
-            this.setDisplayable(ii.isDisplayable());
+            this.ii = ii;
+        }
+        
+        public II getII() {
+            return ii;
         }
 
         @Override
         public int hashCode() {
             int hashCode = new HashCodeBuilder(17, 37)
-                    .append(getExtension())
-                    .append(getRoot())
-                    .append(getAssigningAuthorityName())
-                    .append(isDisplayable())
+                    .append(ii.getExtension())
+                    .append(ii.getRoot())
+                    .append(ii.getAssigningAuthorityName())
+                    .append(ii.isDisplayable())
                     .toHashCode();
                         
             return hashCode;
@@ -292,10 +302,10 @@ public class AggregationService {
 
             ComparableII otherId = (ComparableII) obj;
             return new EqualsBuilder()
-                    .append(getExtension(), otherId.getExtension())
-                    .append(getRoot(), otherId.getRoot())
-                    .append(getAssigningAuthorityName(), otherId.getAssigningAuthorityName())
-                    .append(isDisplayable(), otherId.isDisplayable())
+                    .append(ii.getExtension(), otherId.getII().getExtension())
+                    .append(ii.getRoot(), otherId.getII().getRoot())
+                    .append(ii.getAssigningAuthorityName(), otherId.getII().getAssigningAuthorityName())
+                    .append(ii.isDisplayable(), otherId.getII().isDisplayable())
                     .isEquals();
         }
 

@@ -31,7 +31,7 @@ import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.messaging.service.decorator.SAMLServiceEndpointDecorator;
 import gov.hhs.fha.nhinc.messaging.service.decorator.cxf.SoapHeaderServiceEndPointDecorator;
 import gov.hhs.fha.nhinc.messaging.service.decorator.cxf.WsAddressingServiceEndpointDecorator;
-import gov.hhs.fha.nhinc.messaging.service.port.CXFSecuredServicePortBuilder;
+import gov.hhs.fha.nhinc.messaging.service.port.CachingCXFSecuredServicePortBuilder;
 import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
 
 /**
@@ -42,7 +42,7 @@ public class CONNECTCXFClientSecured<T> extends CONNECTCXFClient<T> {
 
     CONNECTCXFClientSecured(ServicePortDescriptor<T> portDescriptor, String url, AssertionType assertion,
             String wsAddressingTo, String SoapHeader) {
-        super(portDescriptor, url, assertion, new CXFSecuredServicePortBuilder<T>(portDescriptor));
+        super(portDescriptor, url, assertion, new CachingCXFSecuredServicePortBuilder<T>(portDescriptor));
         decorateEndpoint(assertion, wsAddressingTo, portDescriptor.getWSAddressingAction(), SoapHeader, null, null);
 
         serviceEndpoint.configure();
@@ -50,7 +50,7 @@ public class CONNECTCXFClientSecured<T> extends CONNECTCXFClient<T> {
 
     CONNECTCXFClientSecured(ServicePortDescriptor<T> portDescriptor, AssertionType assertion, String url,
             String targetHomeCommunityId, String serviceName) {
-        super(portDescriptor, url, assertion, new CXFSecuredServicePortBuilder<T>(portDescriptor));
+        super(portDescriptor, url, assertion, new CachingCXFSecuredServicePortBuilder<T>(portDescriptor));
         decorateEndpoint(assertion, null, portDescriptor.getWSAddressingAction(), null, targetHomeCommunityId,
                 serviceName);
 
