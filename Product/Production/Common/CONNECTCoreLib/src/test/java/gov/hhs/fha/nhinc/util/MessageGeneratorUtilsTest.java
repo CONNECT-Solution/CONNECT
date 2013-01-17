@@ -27,6 +27,7 @@
 package gov.hhs.fha.nhinc.util;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
@@ -80,6 +81,16 @@ public class MessageGeneratorUtilsTest {
         assertion.setMessageId("22222");
         
         assertEquals("11111", copyAssertion.getMessageId());       
+    }
+    
+    @Test
+    public void cloneAssertionWithNewMsgId() {
+        AssertionType assertion = new AssertionType();
+        assertion.setMessageId("11111");
+        
+        AssertionType copyAssertion = msgUtils.cloneWithNewMsgId(assertion);               
+                
+        assertFalse(copyAssertion.getMessageId().equals("11111"));
     }
     
     @Test
