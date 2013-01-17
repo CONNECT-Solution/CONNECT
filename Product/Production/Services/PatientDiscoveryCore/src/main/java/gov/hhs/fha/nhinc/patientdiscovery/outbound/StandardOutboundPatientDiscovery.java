@@ -55,6 +55,7 @@ import gov.hhs.fha.nhinc.patientdiscovery.entity.OutboundPatientDiscoveryProcess
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import gov.hhs.fha.nhinc.transform.subdisc.HL7DataTransformHelper;
 import gov.hhs.fha.nhinc.transform.subdisc.HL7PRPA201306Transforms;
+import gov.hhs.fha.nhinc.util.MessageGeneratorUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -63,13 +64,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 import org.apache.log4j.Logger;
-import org.hl7.v3.CS;
 import org.hl7.v3.CommunityPRPAIN201306UV02ResponseType;
-import org.hl7.v3.EDExplicit;
-import org.hl7.v3.II;
-import org.hl7.v3.MCCIMT000100UV01AttentionLine;
-import org.hl7.v3.MCCIMT000100UV01Receiver;
-import org.hl7.v3.MCCIMT000100UV01RespondTo;
 import org.hl7.v3.PRPAIN201305UV02;
 import org.hl7.v3.PRPAMT201306UV02QueryByParameter;
 import org.hl7.v3.RespondingGatewayPRPAIN201305UV02RequestType;
@@ -184,11 +179,11 @@ public class StandardOutboundPatientDiscovery implements OutboundPatientDiscover
                     RespondingGatewayPRPAIN201305UV02RequestType newRequest = createNewRequest(request, assertion,
                             urlInfo);
 
-                    if (checkPolicy(newRequest, assertion)) {
+                    if (checkPolicy(newRequest)) {
                         setHomeCommunityIdInRequest(newRequest, urlInfo.getHcid());
 
                         OutboundPatientDiscoveryOrchestratable message =
-                            createOrchestratable(newRequest.getPRPAIN201305UV02(), assertion, target, gatewayLevel);
+                            createOrchestratable(newRequest.getPRPAIN201305UV02(), newRequest.getAssertion(), target, gatewayLevel);
                         callableList.add(new NhinCallableRequest<OutboundPatientDiscoveryOrchestratable>(message));
 
                         LOG.debug("Added NhinCallableRequest" + " for hcid=" + target.getHomeCommunity().getHomeCommunityId());
@@ -294,16 +289,13 @@ public class StandardOutboundPatientDiscovery implements OutboundPatientDiscover
     /**
      * Policy Check verification done here....from connect code
      */
-    protected boolean checkPolicy(RespondingGatewayPRPAIN201305UV02RequestType request, AssertionType assertion) {
-        if (request != null) {
-            request.setAssertion(assertion);
-        }
+    protected boolean checkPolicy(RespondingGatewayPRPAIN201305UV02RequestType request) {
         return PatientDiscoveryPolicyChecker.getInstance().checkOutgoingPolicy(request);
     }
 
     /**
      * Create a new RespondingGatewayPRPAIN201305UV02RequestType which has a new PRPAIN201305UV02 cloned from the
-     * original
+     * original but with a new message id.
      *
      * @param request
      * @param assertion
@@ -329,65 +321,20 @@ public class StandardOutboundPatientDiscovery implements OutboundPatientDiscover
             }
         }
 
-        newRequest.setAssertion(assertion);
+        AssertionType newAssertion = cloneAssertionWithNewMsgId(assertion);
+        
+        newRequest.setAssertion(newAssertion);
         newRequest.setPRPAIN201305UV02(new201305);
         newRequest.setNhinTargetCommunities(request.getNhinTargetCommunities());
         return newRequest;
     }
-
-    /**
-     * paul added this to generate a new PRPAIN201305UV02 for every PDClient thread rather than a single
-     * PRPAIN201305UV02 for all requests
-     *
-     * The reason is that otherwise you can get a java.util.ConcurrentModificationException when the PRPAIN201305UV02 is
-     * marshalled for audit/policy etc calls in one thread and updated in another thread
-     *
-     * @param request is original PRPAIN201305UV02
-     * @return new PRPAIN201305UV02 object with values set to original
-     */
+    
     private PRPAIN201305UV02 cloneRequest(PRPAIN201305UV02 request) {
-        PRPAIN201305UV02 newRequest = new PRPAIN201305UV02();
-
-        newRequest.setAcceptAckCode(request.getAcceptAckCode());
-
-        for (EDExplicit edex : request.getAttachmentText()) {
-            newRequest.getAttachmentText().add(edex);
-        }
-        for (MCCIMT000100UV01AttentionLine mcc : request.getAttentionLine()) {
-            newRequest.getAttentionLine().add(mcc);
-        }
-        newRequest.setControlActProcess(request.getControlActProcess());
-        newRequest.setCreationTime(request.getCreationTime());
-        newRequest.setITSVersion(request.getITSVersion());
-        newRequest.setId(request.getId());
-        newRequest.setInteractionId(request.getInteractionId());
-        for (String n : request.getNullFlavor()) {
-            newRequest.getNullFlavor().add(n);
-        }
-        newRequest.setProcessingCode(request.getProcessingCode());
-        newRequest.setProcessingModeCode(request.getProcessingModeCode());
-        for (II ii : request.getProfileId()) {
-            newRequest.getProfileId().add(ii);
-        }
-        for (CS cs : request.getRealmCode()) {
-            newRequest.getRealmCode().add(cs);
-        }
-        for (MCCIMT000100UV01Receiver mcc : request.getReceiver()) {
-            newRequest.getReceiver().add(mcc);
-        }
-        for (MCCIMT000100UV01RespondTo mcc : request.getRespondTo()) {
-            newRequest.getRespondTo().add(mcc);
-        }
-        newRequest.setSecurityText(request.getSecurityText());
-        newRequest.setSender(request.getSender());
-        newRequest.setSequenceNumber(request.getSequenceNumber());
-        for (II ii : request.getTemplateId()) {
-            newRequest.getTemplateId().add(ii);
-        }
-        newRequest.setTypeId(request.getTypeId());
-        newRequest.setVersionCode(request.getVersionCode());
-
-        return newRequest;
+        return MessageGeneratorUtils.getInstance().clone(request);
+    }
+    
+    protected AssertionType cloneAssertionWithNewMsgId(AssertionType assertion) {
+        return MessageGeneratorUtils.getInstance().cloneWithNewMsgId(assertion);
     }
 
     protected List<UrlInfo> getEndpoints(NhinTargetCommunitiesType targetCommunities) {

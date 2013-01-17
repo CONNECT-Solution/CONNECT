@@ -238,11 +238,7 @@ public class AggregationService {
     }
     
     protected AssertionType cloneAssertionWithNewMsgId(AssertionType assertion) {
-        AssertionType newAssertion = MessageGeneratorUtils.getInstance().clone(assertion);
-        
-        newAssertion.setMessageId(new WSAHeaderHelper().generateMessageID());
-        
-        return newAssertion;
+        return MessageGeneratorUtils.getInstance().cloneWithNewMsgId(assertion);
     }
     
     protected Set<II> removeDuplicates(List<II> iiArray) {

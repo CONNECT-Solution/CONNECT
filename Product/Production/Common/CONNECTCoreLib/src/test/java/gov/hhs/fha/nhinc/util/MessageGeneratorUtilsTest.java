@@ -34,6 +34,7 @@ import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunityType;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
 
+import org.hl7.v3.PRPAIN201305UV02;
 import org.junit.Test;
 
 /**
@@ -90,5 +91,16 @@ public class MessageGeneratorUtilsTest {
         request.setId("22222");
         
         assertEquals("11111", clonedRequest.getId());
+    }
+    
+    @Test
+    public void clonePRPAIN201305UV02() {
+        PRPAIN201305UV02 request = new PRPAIN201305UV02();
+        request.setITSVersion("11111");
+        
+        PRPAIN201305UV02 clonedRequest = msgUtils.clone(request);
+        request.setITSVersion("22222");
+        
+        assertEquals("11111", clonedRequest.getITSVersion());
     }
 }
