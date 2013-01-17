@@ -95,7 +95,8 @@ public class DocumentQueryClient {
 
                 RespondingGatewayCrossGatewayQueryRequestType request = createAdhocQueryRequest(patientSearchData,
                         creationFromDate, creationToDate);
-
+                NhinTargetCommunitiesType target = new NhinTargetCommunitiesType();
+                request.setNhinTargetCommunities(target);
                 EntityDocQueryProxyWebServiceUnsecuredImpl instance = new EntityDocQueryProxyWebServiceUnsecuredImpl();
                 AdhocQueryResponse response = instance.respondingGatewayCrossGatewayQuery(
                         request.getAdhocQueryRequest(), request.getAssertion(), request.getNhinTargetCommunities());
