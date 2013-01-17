@@ -28,6 +28,7 @@
 package universalclientgui;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
@@ -90,7 +91,9 @@ public class PatientDiscoveryClient {
         try {
 
             RespondingGatewayPRPAIN201305UV02RequestType request = new RespondingGatewayPRPAIN201305UV02RequestType();
+            NhinTargetCommunitiesType target = new NhinTargetCommunitiesType();
             request.setAssertion(assertion);
+            request.setNhinTargetCommunities(target);
 
             String orgId = getHomeCommunityId();
 
