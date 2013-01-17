@@ -27,6 +27,9 @@
 package gov.hhs.fha.nhinc.direct.xdr;
 
 import static org.junit.Assert.assertNotNull;
+
+import java.net.URISyntaxException;
+
 import gov.hhs.fha.nhinc.direct.DirectAdapterFactory;
 import gov.hhs.fha.nhinc.direct.DirectUnitTestUtil;
 
@@ -64,13 +67,14 @@ public class DirectClientFactoryTest {
      * Note: This test fails when run as part of the suite - it seems that the config is loaded in another test before
      * we are setting the system property for the nhinc.properties.dir. Ignoring for now til more time can be spent on
      * it.
+     * @throws URISyntaxException 
      */
     @Test
     @Ignore
-    public void canGetDirectClientFromFactory() {
+    public void canGetDirectClientFromFactory() throws URISyntaxException {
 
         LOG.info("nhinc.properties.dir...");
-        String propertiesDir = DirectUnitTestUtil.getClassPath();
+        String propertiesDir = DirectUnitTestUtil.getClassPath().getPath();
         System.setProperty("nhinc.properties.dir", propertiesDir);
         LOG.info("nhinc.properties.dir: " + propertiesDir);
 
