@@ -44,14 +44,20 @@ import org.springframework.context.support.FileSystemXmlApplicationContext;
  * @author Neil Webb, Les Westberg
  */
 public abstract class ComponentProxyObjectFactory {
-    private static final Logger LOG = Logger.getLogger(ComponentProxyObjectFactory.class) ;
+    private static final Logger LOG = Logger.getLogger(ComponentProxyObjectFactory.class);
+
+    /**
+     * As the contextMap cache is static, the lock for this class MUST be at the object level and not at the instance
+     * level.
+     */
+    private static final Object CACHE_LOCK = new Object();
 
     // Getting a context is very expensive. We want to keep them around when we get them. Since
     // the context is specific to each of the derived classes, we need to keep a map for all of them.
     // We have synchronized the method that sets and retrieves this to make it thread safe.
     // ------------------------------------------------------------------------------------------------
     private static HashMap<String, LocalApplicationContextInfo> contextMap = new HashMap<String, LocalApplicationContextInfo>();
-    
+
     /**
      * Get the URL to properties files.
      * 
@@ -100,30 +106,38 @@ public abstract class ComponentProxyObjectFactory {
      * 
      * @return ApplicationContext
      */
-    protected synchronized ApplicationContext getContext() {
+    protected ApplicationContext getContext() {
         ApplicationContext appContext = null;
 
         String configFilePath = getPropertyFileURL() + getConfigFileName();
-        LocalApplicationContextInfo appContextInfo = getAppContextInfo(getConfigFileName());
-
-        if (appContextInfo == null) {
-            LOG.debug("ApplicationContext for: " + getConfigFileName() + " was null - creating.");
-            appContextInfo = new LocalApplicationContextInfo();
-            appContextInfo.setApplicationContext(createApplicationContext(configFilePath));
-            appContextInfo.setConfigLastModified(getLastModified(configFilePath));
-            contextMap.put(getConfigFileName(), appContextInfo);
-            appContext = appContextInfo.getApplicationContext();
-        } else {
-            LOG.debug("ApplicationContext for: " + getConfigFileName()
-                    + " was not null - checking to see if it is stale.");
-            long lastModified = getLastModified(configFilePath);
-            if (appContextInfo.getConfigLastModified() != lastModified) {
-                LOG.debug("Refreshing the Spring application context for: " + getConfigFileName());
-                refreshConfigurationContext(appContextInfo.getApplicationContext());
-                appContextInfo.setConfigLastModified(lastModified);
-            }
-            appContext = appContextInfo.getApplicationContext();
+        if (LOG.isDebugEnabled()) {
+            LOG.debug("Trying to get lock for ApplicationContext " + configFilePath);
         }
+        synchronized (CACHE_LOCK) {
+            LocalApplicationContextInfo appContextInfo = getAppContextInfo(getConfigFileName());
+            if (appContextInfo == null) {
+                LOG.debug("ApplicationContext for: " + getConfigFileName() + " was null - creating.");
+                appContextInfo = new LocalApplicationContextInfo();
+                appContextInfo.setApplicationContext(createApplicationContext(configFilePath));
+                appContextInfo.setConfigLastModified(getLastModified(configFilePath));
+                contextMap.put(getConfigFileName(), appContextInfo);
+                appContext = appContextInfo.getApplicationContext();
+            } else {
+                LOG.debug("ApplicationContext for: " + getConfigFileName()
+                        + " was not null - checking to see if it is stale.");
+                long lastModified = getLastModified(configFilePath);
+                if (appContextInfo.getConfigLastModified() != lastModified) {
+                    LOG.debug("Refreshing the Spring application context for: " + getConfigFileName());
+                    refreshConfigurationContext(appContextInfo.getApplicationContext());
+                    appContextInfo.setConfigLastModified(lastModified);
+                }
+                appContext = appContextInfo.getApplicationContext();
+            }
+        }
+        if (LOG.isDebugEnabled()) {
+            LOG.debug("Releasing lock for ApplicationContext" + configFilePath);
+        }
+
         return appContext;
     }
 
