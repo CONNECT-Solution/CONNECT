@@ -12,7 +12,7 @@
     <packaging>jar</packaging>
     <name>CONNECT Direct Core</name>
     <properties>
-        <connectdir>${basedir}/../../../../</connectdir>
+        <connectdir>${basedir}/../../../..</connectdir>
     </properties>
 
     <dependencies>
