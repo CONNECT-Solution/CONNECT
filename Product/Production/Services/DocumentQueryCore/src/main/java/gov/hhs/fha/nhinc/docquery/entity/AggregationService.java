@@ -40,6 +40,7 @@ import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException;
 import gov.hhs.fha.nhinc.connectmgr.UrlInfo;
 import gov.hhs.fha.nhinc.docquery.MessageGeneratorUtils;
 import gov.hhs.fha.nhinc.docquery.outbound.StandardOutboundDocQueryHelper;
+import gov.hhs.fha.nhinc.logging.transaction.TransactionLogger;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.orchestration.OutboundOrchestratable;
@@ -48,7 +49,6 @@ import gov.hhs.fha.nhinc.patientcorrelation.nhinc.proxy.PatientCorrelationProxyF
 import gov.hhs.fha.nhinc.patientcorrelation.nhinc.proxy.PatientCorrelationProxyObjectFactory;
 import gov.hhs.fha.nhinc.transform.document.DocumentTransformConstants;
 import gov.hhs.fha.nhinc.util.format.PatientIdFormatUtil;
-import gov.hhs.fha.nhinc.wsa.WSAHeaderHelper;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -79,6 +79,7 @@ public class AggregationService {
     private OutboundDocQueryDelegate delegate = new OutboundDocQueryDelegate();
     private PixRetrieveBuilder pixRetrieveBuilder;
     private StandardOutboundDocQueryHelper standardOutboundDocQueryHelper;
+    private TransactionLogger transactionLogger;
 
     /**
      * @param sHomeCommunity
@@ -87,12 +88,14 @@ public class AggregationService {
      */
     AggregationService(ConnectionManager connectionManager,
             PatientCorrelationProxyFactory patientCorrelationProxyFactory, PixRetrieveBuilder pixRetrieveBuilder,
-            StandardOutboundDocQueryHelper standardOutboundDocQueryHelper) {
+            StandardOutboundDocQueryHelper standardOutboundDocQueryHelper, TransactionLogger transactionLogger) {
         super();
         this.connectionManager = connectionManager;
         this.patientCorrelationProxyFactory = patientCorrelationProxyFactory;
         this.pixRetrieveBuilder = pixRetrieveBuilder;
         this.standardOutboundDocQueryHelper = standardOutboundDocQueryHelper;
+        this.transactionLogger = transactionLogger;
+
     }
 
     /**
@@ -104,6 +107,7 @@ public class AggregationService {
         this.patientCorrelationProxyFactory = new PatientCorrelationProxyObjectFactory();
         this.pixRetrieveBuilder = new PixRetrieveBuilder();
         this.standardOutboundDocQueryHelper = new StandardOutboundDocQueryHelper();
+        this.transactionLogger = new TransactionLogger();
     }
 
     public List<OutboundOrchestratable> createChildRequests(AdhocQueryRequest adhocQueryRequest,
@@ -147,11 +151,14 @@ public class AggregationService {
 
                 // set the home community id to the target hcid
                 setTargetHomeCommunityId(childRequest, target.getHomeCommunity().getHomeCommunityId());
-                                
+
                 AssertionType newAssertion = cloneAssertionWithNewMsgId(assertion);
 
-                OutboundDocQueryOrchestratable orchestratable = new OutboundDocQueryOrchestratable(delegate, newAssertion,
-                        NhincConstants.DOC_QUERY_SERVICE_NAME, target, childRequest);
+                transactionLogger.logTransactionFromRelatedMessageId(assertion.getMessageId(),
+                        newAssertion.getMessageId());
+
+                OutboundDocQueryOrchestratable orchestratable = new OutboundDocQueryOrchestratable(delegate,
+                        newAssertion, NhincConstants.DOC_QUERY_SERVICE_NAME, target, childRequest);
 
                 list.add(orchestratable);
             }
@@ -162,7 +169,7 @@ public class AggregationService {
 
         return list;
     }
-    
+
     protected boolean hasIdentities(RetrievePatientCorrelationsResponseType results) {
         return results != null
                 && results.getPRPAIN201310UV02() != null
@@ -236,38 +243,38 @@ public class AggregationService {
     protected AdhocQueryRequest cloneRequest(AdhocQueryRequest request) {
         return MessageGeneratorUtils.getInstance().clone(request);
     }
-    
+
     protected AssertionType cloneAssertionWithNewMsgId(AssertionType assertion) {
         return MessageGeneratorUtils.getInstance().cloneWithNewMsgId(assertion);
     }
-    
+
     protected Set<II> removeDuplicates(List<II> iiArray) {
         // remove duplicates
         Set<ComparableII> comparableIISet = new HashSet<ComparableII>();
-        for (II ii: iiArray) {
+        for (II ii : iiArray) {
             comparableIISet.add(new ComparableII(ii));
         }
-        
+
         // restore original instances
         Set<II> iiSet = new HashSet<II>();
-        for (ComparableII comparableII: comparableIISet) {
+        for (ComparableII comparableII : comparableIISet) {
             iiSet.add(comparableII.getII());
         }
-        
+
         return iiSet;
     }
 
     /**
-     * A class that wraps the II xml object to implement the hashCode() and equals() methods for comparison. 
+     * A class that wraps the II xml object to implement the hashCode() and equals() methods for comparison.
      */
     private class ComparableII {
-        
+
         private II ii;
 
         private ComparableII(II ii) {
             this.ii = ii;
         }
-        
+
         public II getII() {
             return ii;
         }
@@ -280,7 +287,7 @@ public class AggregationService {
                     .append(ii.getAssigningAuthorityName())
                     .append(ii.isDisplayable())
                     .toHashCode();
-                        
+
             return hashCode;
         }
 

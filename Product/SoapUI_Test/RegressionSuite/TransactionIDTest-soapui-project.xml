@@ -1231,7 +1231,7 @@ testRunner.testCase.testSuite.setPropertyValue("TransactionID", "urn:uuid:".conc
 </con:testStep><con:testStep name="count transaction repo entries" type="groovy">
 	<con:settings/>
 	<con:config><script>context.withSql('transrepo') { sql -> 
-		assert 6 == sql.firstRow('select count(*) from ' + context.findProperty('TransactionRepoTable') + ' where transactionId = "' + context.findProperty('TransactionID') + '"')[0]
+		assert 8 == sql.firstRow('select count(*) from ' + context.findProperty('TransactionRepoTable') + ' where transactionId = "' + context.findProperty('TransactionID') + '"')[0]
 		}</script></con:config>
 </con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);</con:setupScript><con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);</con:tearDownScript><con:properties>
 	<con:property>

@@ -39,6 +39,7 @@ import gov.hhs.fha.nhinc.connectmgr.UrlInfo;
 import gov.hhs.fha.nhinc.gateway.executorservice.ExecutorServiceHelper;
 import gov.hhs.fha.nhinc.gateway.executorservice.NhinCallableRequest;
 import gov.hhs.fha.nhinc.gateway.executorservice.NhinTaskExecutor;
+import gov.hhs.fha.nhinc.logging.transaction.TransactionLogger;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants.GATEWAY_API_LEVEL;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
@@ -75,7 +76,8 @@ public class StandardOutboundPatientDiscovery implements OutboundPatientDiscover
     private static final Logger LOG = Logger.getLogger(StandardOutboundPatientDiscovery.class);
     private ExecutorService regularExecutor = null;
     private ExecutorService largejobExecutor = null;
-
+    private TransactionLogger transactionLogger = new TransactionLogger();
+    
     /**
      * Add default constructor that is used by test cases Note that implementations should always use constructor that
      * takes the executor services as input
@@ -154,9 +156,8 @@ public class StandardOutboundPatientDiscovery implements OutboundPatientDiscover
     protected RespondingGatewayPRPAIN201306UV02ResponseType getResponseFromCommunities(
             RespondingGatewayPRPAIN201305UV02RequestType request, AssertionType assertion) {
         LOG.debug("Begin getResponseFromCommunities");
+        
         RespondingGatewayPRPAIN201306UV02ResponseType response = new RespondingGatewayPRPAIN201306UV02ResponseType();
-
-
         NhincConstants.GATEWAY_API_LEVEL gatewayLevel = getGatewayVersion();
 
         try {
@@ -181,7 +182,10 @@ public class StandardOutboundPatientDiscovery implements OutboundPatientDiscover
 
                     if (checkPolicy(newRequest)) {
                         setHomeCommunityIdInRequest(newRequest, urlInfo.getHcid());
-
+                        
+                        transactionLogger.logTransactionFromRelatedMessageId(assertion.getMessageId(), newRequest
+                                .getAssertion().getMessageId());
+                        
                         OutboundPatientDiscoveryOrchestratable message =
                             createOrchestratable(newRequest.getPRPAIN201305UV02(), newRequest.getAssertion(), target, gatewayLevel);
                         callableList.add(new NhinCallableRequest<OutboundPatientDiscoveryOrchestratable>(message));

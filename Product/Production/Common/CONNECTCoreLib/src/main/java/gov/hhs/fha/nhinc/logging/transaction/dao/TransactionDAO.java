@@ -45,7 +45,7 @@ import org.hibernate.Transaction;
  * @author jasonasmith
  * 
  */
-public final class TransactionDAO {
+public class TransactionDAO {
 
     private static final Logger LOG = Logger.getLogger(TransactionDAO.class);
     private static final TransactionDAO INSTANCE = new TransactionDAO();
