@@ -233,8 +233,8 @@
                 <version>1.4.4</version>
             </dependency>
             <dependency>
-                <groupId>bouncycastle</groupId>
-                <artifactId>bcprov-jdk16</artifactId>
+                <groupId>org.bouncycastle</groupId>
+                <artifactId>bcprov-jdk15</artifactId>
                 <version>1.45</version>
             </dependency>
             <dependency>
