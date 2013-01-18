@@ -65,10 +65,8 @@ public class TransactionLogger {
      * @param messageId The messageId for the message
      */
     public void logTransaction(String transactionId, String messageId) {
-        if (StringUtils.isNotBlank(transactionId)) {
-            createTransactionRecord(messageId, transactionId);
-            enableMdcLogging(transactionId, messageId);
-        }
+        createTransactionRecord(messageId, transactionId);
+        enableMdcLogging(transactionId, messageId);
     }
 
     /**
