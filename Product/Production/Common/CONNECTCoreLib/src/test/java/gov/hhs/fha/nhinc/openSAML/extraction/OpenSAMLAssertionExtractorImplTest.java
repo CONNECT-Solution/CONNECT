@@ -54,6 +54,8 @@ import javax.xml.parsers.DocumentBuilderFactory;
 
 import org.apache.ws.security.saml.ext.OpenSAMLUtil;
 import org.junit.Test;
+import org.opensaml.saml2.core.Assertion;
+import org.opensaml.saml2.core.Evidence;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
@@ -71,7 +73,8 @@ public class OpenSAMLAssertionExtractorImplTest {
     /**
      * When the SAML file is null, assertion extracted will be null.
      * 
-     * @throws Exception on error.
+     * @throws Exception
+     *             on error.
      */
     @Test
     public void testNullAssertionElement() throws Exception {
@@ -81,11 +84,12 @@ public class OpenSAMLAssertionExtractorImplTest {
     /**
      * Tests SAML Assertion populated with all possible Assertion elements and attributes, verify they are populated.
      * 
-     * @throws Exception on error.
+     * @throws Exception
+     *             on error.
      */
     @Test
     public void testCompleteSamlAssertion() throws Exception {
-   
+
         AssertionType assertionType = openSAMLAssertionExtractorImpl
                 .extractSAMLAssertion(getElementForSamlFile(getTestFilePath("complete_saml.xml")));
         assertNotNull(assertionType);
@@ -105,13 +109,14 @@ public class OpenSAMLAssertionExtractorImplTest {
      * Tests the SAML Assertion extraction ensuring that the correct assertion is retrieved even if the element is not
      * first in the security element and even if there are descendants that have assertions.
      * 
-     * @throws Exception on error
+     * @throws Exception
+     *             on error
      */
     @Test
     public void testDifferentOrderedAssertion() throws Exception {
-        
+
         AssertionType assertionType = openSAMLAssertionExtractorImpl
-                .extractSAMLAssertion(getElementForSamlFile(getTestFilePath("saml_header_diff_order.xml")));        
+                .extractSAMLAssertion(getElementForSamlFile(getTestFilePath("saml_header_diff_order.xml")));
         assertNotNull(assertionType);
 
         assertEquals("CN=SAML User,OU=SU,O=SAML User,L=Los Angeles,ST=CA,C=US", assertionType.getSamlIssuer()
@@ -119,12 +124,32 @@ public class OpenSAMLAssertionExtractorImplTest {
         assertEquals("urn:oasis:names:tc:SAML:1.1:nameid-format:X509SubjectName", assertionType.getSamlIssuer()
                 .getIssuerFormat());
     }
-    
+
+    @Test
+    public void evidenceWithoutAssertions() throws Exception {
+        Element element = getElementWitoutEvidenceAssertions();
+        AssertionType assertionType = openSAMLAssertionExtractorImpl.extractSAMLAssertion(element);
+        SamlAuthzDecisionStatementEvidenceType extractedEvidence = assertionType.getSamlAuthzDecisionStatement()
+                .getEvidence();
+        assertNotNull(extractedEvidence);
+        assertNull(extractedEvidence.getAssertion());
+    }
+
+    private Element getElementWitoutEvidenceAssertions() throws Exception {
+        Element element = getElementForSamlFile(getTestFilePath("complete_saml.xml"));
+        Assertion assertion = (Assertion) OpenSAMLUtil.fromDom(element);
+        Evidence evidence = assertion.getAuthzDecisionStatements().get(0).getEvidence();
+        List<Assertion> assertions = evidence.getAssertions();
+        assertions.clear();
+        return OpenSAMLUtil.toDom(assertion, null);
+    }
+
     /**
      * Gets the file path to the test resource.
      * 
-     * @param filename the name of the file to retrieve
-     * @return 
+     * @param filename
+     *            the name of the file to retrieve
+     * @return
      */
     private String getTestFilePath(String filename) {
         // the first "/" is intentionally not using File.separator due to differences in how windows and unix based
