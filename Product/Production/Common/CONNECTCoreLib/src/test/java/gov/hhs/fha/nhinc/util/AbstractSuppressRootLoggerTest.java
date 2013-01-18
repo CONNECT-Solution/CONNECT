@@ -70,9 +70,8 @@ public class AbstractSuppressRootLoggerTest {
 
     @Before
     public final void setupMockAppender() {
-        Logger rootLogger = Logger.getRootLogger();
         mockAppender = mock(Appender.class);
-        rootLogger.addAppender(mockAppender);
+        ROOT_LOGGER.addAppender(mockAppender);
     }
 
     /**
