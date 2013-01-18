@@ -301,9 +301,9 @@ public class DirectUnitTestUtil {
             String smtpAgentConfigTmpl = getFileAsString("smtp.agent.config.tmpl.xml");
             File path = getClassPath();
             FileUtils.writeStringToFile(new File(path + "/smtp.agent.config.xml"),
-                    smtpAgentConfigTmpl.replaceAll("\\{jks.keystore.path\\}", path.getPath() + "/"));
+                    smtpAgentConfigTmpl.replace("{jks.keystore.path}", path.getPath() + "/"));
             LOG.debug("smtp.agent.config.xml: "
-                    + smtpAgentConfigTmpl.replaceAll("\\{jks.keystore.path\\}", path.getPath() + "/"));
+                    + smtpAgentConfigTmpl.replace("{jks.keystore.path}", path.getPath() + "/"));
         } catch (Exception e) {
             fail(e.getMessage());
         }
