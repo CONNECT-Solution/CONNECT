@@ -161,7 +161,7 @@ public class PatientDiscoveryTransformsTest {
                 oPatientDiscoveryRequest, oAssertionType, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION,
                 NhincConstants.AUDIT_LOG_ENTITY_INTERFACE, NhincConstants.AUDIT_LOG_SYNC_TYPE,
                 NhincConstants.AUDIT_LOG_REQUEST_PROCESS);
-        
+
         Assert.assertNotNull(expected);
         Assert.assertTrue(expected.getAuditMessage().getAuditSourceIdentification().size() == 1);
         Assert.assertTrue(expected.getAuditMessage().getAuditSourceIdentification().size() == 1);
@@ -185,7 +185,7 @@ public class PatientDiscoveryTransformsTest {
         mockListII.add(mockII);
 
         PatientDiscoveryTransforms testSubject = new PatientDiscoveryTransforms() {
-        	@Override
+            @Override
             protected boolean areRequired201305fieldsNull(PRPAIN201305UV02 oPatientDiscoveryRequestMessage,
                     AssertionType oAssertion) {
                 return false;
@@ -206,7 +206,7 @@ public class PatientDiscoveryTransformsTest {
                 oPatientDiscoveryRequest, oAssertionType, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION,
                 NhincConstants.AUDIT_LOG_NHIN_INTERFACE, NhincConstants.AUDIT_LOG_SYNC_TYPE,
                 NhincConstants.AUDIT_LOG_REQUEST_PROCESS);
-        
+
         Assert.assertNotNull(expected);
         Assert.assertTrue(expected.getAuditMessage().getAuditSourceIdentification().size() == 1);
         Assert.assertTrue(expected.getAuditMessage().getAuditSourceIdentification().size() == 1);
@@ -251,7 +251,7 @@ public class PatientDiscoveryTransformsTest {
                 oPatientDiscoveryRequest, oAssertionType, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION,
                 NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE, NhincConstants.AUDIT_LOG_SYNC_TYPE,
                 NhincConstants.AUDIT_LOG_REQUEST_PROCESS);
-       
+
         Assert.assertNotNull(expected);
         Assert.assertTrue(expected.getAuditMessage().getAuditSourceIdentification().size() == 1);
         Assert.assertTrue(expected.getAuditMessage().getAuditSourceIdentification().size() == 1);
@@ -409,7 +409,7 @@ public class PatientDiscoveryTransformsTest {
 
     @Test
     public void testAreRequired201306fieldsNullWillFailForNullPatientId() {
-       final List<II> mockListII = new ArrayList<II>();
+        final List<II> mockListII = new ArrayList<II>();
         final II mockII = new II();
         mockListII.add(mockII);
 
@@ -480,19 +480,19 @@ public class PatientDiscoveryTransformsTest {
         oAssertionType.getUserInfo().getOrg().setHomeCommunityId(null);
         bExpectedResult = testSubject.areRequiredUserTypeFieldsNull(oAssertionType);
         Assert.assertTrue(bExpectedResult);
-        
+
         oAssertionType.getUserInfo().setUserName("Test User");
         oAssertionType.getUserInfo().getOrg().setHomeCommunityId("2.16.840.1.113883.3.200");
         oAssertionType.getUserInfo().getOrg().setName(null);
         bExpectedResult = testSubject.areRequiredUserTypeFieldsNull(oAssertionType);
         Assert.assertTrue(bExpectedResult);
-        
+
     }
 
     @Test
     public void testGetHL7IdentitiersFromResponseMethodWillFailForNullResponseRequest() {
         PatientDiscoveryTransforms testSubject = new PatientDiscoveryTransforms();
-        
+
         List<II> oExpectedResult = testSubject.getHL7IdentitiersFromResponse(null);
 
         Assert.assertNull(oExpectedResult);
@@ -504,7 +504,7 @@ public class PatientDiscoveryTransformsTest {
 
         final PRPAIN201306UV02 oPRPAIN201306UV = new PRPAIN201306UV02();
         List<II> oExpectedResult = testSubject.getHL7IdentitiersFromResponse(oPRPAIN201306UV);
-        
+
         Assert.assertNull(oExpectedResult);
     }
 
@@ -540,7 +540,7 @@ public class PatientDiscoveryTransformsTest {
 
     @Test
     public void testGetHL7IdentifiersWillFailOnNullQueryByParameterGetValue() {
-       PatientDiscoveryTransforms testSubject = new PatientDiscoveryTransforms();
+        PatientDiscoveryTransforms testSubject = new PatientDiscoveryTransforms();
 
         final PRPAIN201306UV02 oPRPAIN201306UV = new PRPAIN201306UV02();
         final PRPAIN201306UV02MFMIMT700711UV01ControlActProcess oPRPAIN201306UVMFMIMT700711UV01ControlActProcess = new PRPAIN201306UV02MFMIMT700711UV01ControlActProcess();

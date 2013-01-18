@@ -26,28 +26,25 @@
  */
 package gov.hhs.fha.nhinc.transform.audit;
 
-import com.services.nhinc.schema.auditmessage.AuditMessageType.ActiveParticipant;
-import java.util.List;
-import javax.xml.bind.JAXBElement;
-
-import org.apache.log4j.Logger;
-
-import javax.xml.bind.JAXBContext;
-import java.io.ByteArrayOutputStream;
-import javax.xml.bind.Marshaller;
-
-import com.services.nhinc.schema.auditmessage.AuditMessageType;
-import com.services.nhinc.schema.auditmessage.AuditSourceIdentificationType;
-import com.services.nhinc.schema.auditmessage.CodedValueType;
-import com.services.nhinc.schema.auditmessage.EventIdentificationType;
-import com.services.nhinc.schema.auditmessage.ParticipantObjectIdentificationType;
+import gov.hhs.fha.nhinc.common.auditlog.LogEventRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.UserType;
-import gov.hhs.fha.nhinc.common.auditlog.LogEventRequestType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
+import gov.hhs.fha.nhinc.properties.PropertyAccessException;
+import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import gov.hhs.fha.nhinc.transform.marshallers.JAXBContextHandler;
+
+import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
+import java.util.List;
+
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBElement;
+import javax.xml.bind.Marshaller;
+
+import org.apache.commons.lang.StringUtils;
+import org.apache.log4j.Logger;
 import org.hl7.v3.CommunityPRPAIN201306UV02ResponseType;
 import org.hl7.v3.II;
 import org.hl7.v3.MCCIIN000002UV01;
@@ -65,6 +62,13 @@ import org.hl7.v3.PRPAMT201310UV02Patient;
 import org.hl7.v3.RespondingGatewayPRPAIN201305UV02RequestType;
 import org.hl7.v3.RespondingGatewayPRPAIN201306UV02RequestType;
 import org.hl7.v3.RespondingGatewayPRPAIN201306UV02ResponseType;
+
+import com.services.nhinc.schema.auditmessage.AuditMessageType;
+import com.services.nhinc.schema.auditmessage.AuditMessageType.ActiveParticipant;
+import com.services.nhinc.schema.auditmessage.AuditSourceIdentificationType;
+import com.services.nhinc.schema.auditmessage.CodedValueType;
+import com.services.nhinc.schema.auditmessage.EventIdentificationType;
+import com.services.nhinc.schema.auditmessage.ParticipantObjectIdentificationType;
 
 /**
  * 
@@ -1104,99 +1108,77 @@ public class PatientDiscoveryTransforms {
      */
     public String getPatientDiscoveryMessageCommunityId(PRPAIN201305UV02 requestMessage, String direction,
             String _interface, String _type, String _process) {
-        String communityId = "";
+        String communityId = StringUtils.EMPTY;
         boolean useReceiver = false;
 
-        if (_process == null) {
-            _process = "";
-        }
-
-        if (requestMessage != null && direction != null && _interface != null) {
-            if (_type.equals(NhincConstants.AUDIT_LOG_DEFERRED_TYPE)) {
-
-                if ((_interface.equals(NhincConstants.AUDIT_LOG_ENTITY_INTERFACE)
-                        && direction.equals(NhincConstants.AUDIT_LOG_INBOUND_DIRECTION) && _process
-                            .equals(NhincConstants.AUDIT_LOG_RESPONSE_PROCESS))
-                        || (_interface.equals(NhincConstants.AUDIT_LOG_NHIN_INTERFACE) && direction
-                                .equals(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION))
-                        || (_interface.equals(NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE) && direction
-                                .equals(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION))) {
-                    // Request message Adapter Outbound, NHIN Inbound and Adapter Outbound interfaces will use the
-                    // receiver
-                    useReceiver = true;
-                }
-            } else {
-                if ((_interface.equals(NhincConstants.AUDIT_LOG_NHIN_INTERFACE) && direction
-                        .equals(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION))
-                        || (_interface.equals(NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE))) {
-                    // Request message NHIN Outbound and Adapter interfaces will use the receiver
-                    useReceiver = true;
-                }
+        if (NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE.equalsIgnoreCase(_interface)
+                || NhincConstants.AUDIT_LOG_ENTITY_INTERFACE.equalsIgnoreCase(_interface)) {
+            communityId = getLocalHCID();
+        } else if (_interface.equals(NhincConstants.AUDIT_LOG_NHIN_INTERFACE)) {
+            if (direction.equals(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION)) {
+                useReceiver = true;
             }
 
             if (useReceiver) {
-                if (requestMessage.getReceiver() != null
-                        && requestMessage.getReceiver().size() > 0
-                        && requestMessage.getReceiver().get(0) != null
-                        && requestMessage.getReceiver().get(0).getDevice() != null
-                        && requestMessage.getReceiver().get(0).getDevice().getAsAgent() != null
-                        && requestMessage.getReceiver().get(0).getDevice().getAsAgent().getValue() != null
-                        && requestMessage.getReceiver().get(0).getDevice().getAsAgent().getValue()
-                                .getRepresentedOrganization() != null
-                        && requestMessage.getReceiver().get(0).getDevice().getAsAgent().getValue()
-                                .getRepresentedOrganization().getValue() != null
-                        && requestMessage.getReceiver().get(0).getDevice().getAsAgent().getValue()
-                                .getRepresentedOrganization().getValue().getId() != null
-                        && requestMessage.getReceiver().get(0).getDevice().getAsAgent().getValue()
-                                .getRepresentedOrganization().getValue().getId().size() > 0
-                        && requestMessage.getReceiver().get(0).getDevice().getAsAgent().getValue()
-                                .getRepresentedOrganization().getValue().getId().get(0).getRoot() != null) {
-                    communityId = requestMessage.getReceiver().get(0).getDevice().getAsAgent().getValue()
-                            .getRepresentedOrganization().getValue().getId().get(0).getRoot();
-                }
-                // If represented organization is empty or null, check the device id
-                if (communityId == null || communityId.equals("")) {
-                    if (requestMessage.getReceiver() != null && requestMessage.getReceiver().size() > 0
-                            && requestMessage.getReceiver().get(0) != null
-                            && requestMessage.getReceiver().get(0).getDevice() != null
-                            && requestMessage.getReceiver().get(0).getDevice().getId() != null
-                            && requestMessage.getReceiver().get(0).getDevice().getId().size() > 0
-                            && requestMessage.getReceiver().get(0).getDevice().getId().get(0) != null
-                            && requestMessage.getReceiver().get(0).getDevice().getId().get(0).getRoot() != null) {
-                        communityId = requestMessage.getReceiver().get(0).getDevice().getId().get(0).getRoot();
-                    }
-                }
+                communityId = getHCIDFromReceiver(requestMessage);
             } else {
-                if (requestMessage.getSender() != null
-                        && requestMessage.getSender().getDevice() != null
-                        && requestMessage.getSender().getDevice().getAsAgent() != null
-                        && requestMessage.getSender().getDevice().getAsAgent().getValue() != null
-                        && requestMessage.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization() != null
-                        && requestMessage.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization()
-                                .getValue() != null
-                        && requestMessage.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization()
-                                .getValue().getId() != null
-                        && requestMessage.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization()
-                                .getValue().getId().size() > 0
-                        && requestMessage.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization()
-                                .getValue().getId().get(0).getRoot() != null) {
-                    communityId = requestMessage.getSender().getDevice().getAsAgent().getValue()
-                            .getRepresentedOrganization().getValue().getId().get(0).getRoot();
-                }
-                // If represented organization is empty or null, check the device id
-                if (communityId == null || communityId.equals("")) {
-                    if (requestMessage.getSender() != null && requestMessage.getSender().getDevice() != null
-                            && requestMessage.getSender().getDevice() != null
-                            && requestMessage.getSender().getDevice().getId() != null
-                            && requestMessage.getSender().getDevice().getId().size() > 0
-                            && requestMessage.getSender().getDevice().getId().get(0) != null
-                            && requestMessage.getSender().getDevice().getId().get(0).getRoot() != null) {
-                        communityId = requestMessage.getSender().getDevice().getId().get(0).getRoot();
-                    }
-                }
+                communityId = getHCIDFromSender(requestMessage);
             }
         }
 
+        return communityId;
+    }
+
+    /**
+     * @return
+     */
+    protected String getLocalHCID() {
+        String hcid = StringUtils.EMPTY;
+        try {
+            hcid = PropertyAccessor.getInstance().getProperty(NhincConstants.HOME_COMMUNITY_ID_PROPERTY);
+        } catch (PropertyAccessException e) {
+            LOG.error("Could not retrieve local HCID from gateway.properties", e);
+        }
+        return hcid;
+    }
+
+    protected String getHCIDFromReceiver(PRPAIN201305UV02 requestMessage) {
+        String communityId = StringUtils.EMPTY;
+        try {
+            communityId = requestMessage.getReceiver().get(0).getDevice().getAsAgent().getValue()
+                    .getRepresentedOrganization().getValue().getId().get(0).getRoot();
+        } catch (NullPointerException | IndexOutOfBoundsException e) {
+            LOG.debug("could not obtain HCID from Receiver RepresentedOrganization.", e);
+        }
+
+        // If represented organization is empty or null, check the device id
+        if (StringUtils.isBlank(communityId)) {
+            try {
+                communityId = requestMessage.getReceiver().get(0).getDevice().getId().get(0).getRoot();
+            } catch (NullPointerException | IndexOutOfBoundsException e) {
+                LOG.debug("could not obtain HCID from Receiver Device Id.", e);
+            }
+        }
+        return communityId;
+    }
+
+    protected String getHCIDFromSender(PRPAIN201305UV02 requestMessage) {
+        String communityId = StringUtils.EMPTY;
+        try {
+            communityId = requestMessage.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization()
+                    .getValue().getId().get(0).getRoot();
+        } catch (NullPointerException | IndexOutOfBoundsException e) {
+            LOG.debug("could not obtain HCID from Sender RepresentedOrganization.", e);
+        }
+
+        // If represented organization is empty or null, check the device id
+        if (StringUtils.isBlank(communityId)) {
+            try {
+                communityId = requestMessage.getSender().getDevice().getId().get(0).getRoot();
+            } catch (NullPointerException | IndexOutOfBoundsException e) {
+                LOG.debug("could not obtain HCID from Sender Device Id.", e);
+            }
+        }
         return communityId;
     }
 
@@ -1211,90 +1193,70 @@ public class PatientDiscoveryTransforms {
     public String getPatientDiscoveryMessageCommunityId(PRPAIN201306UV02 responseMessage, String direction,
             String _interface, String _type) {
         String communityId = "";
-        boolean useSender = false;
+        boolean useReceiver = false;
 
-        if (responseMessage != null && direction != null && _interface != null) {
-            if (_type.equals(NhincConstants.AUDIT_LOG_DEFERRED_TYPE)) {
-                if ((_interface.equals(NhincConstants.AUDIT_LOG_NHIN_INTERFACE) && direction
-                        .equals(NhincConstants.AUDIT_LOG_INBOUND_DIRECTION))
-                        || (_interface.equals(NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE) && direction
-                                .equals(NhincConstants.AUDIT_LOG_INBOUND_DIRECTION))) {
-                    // Request message NHIN Inbound and Adapter Inbound interfaces will use the receiver
-                    useSender = true;
-                }
-            } else {
-                if ((_interface.equals(NhincConstants.AUDIT_LOG_NHIN_INTERFACE) && direction
-                        .equals(NhincConstants.AUDIT_LOG_INBOUND_DIRECTION))
-                        || (_interface.equals(NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE))) {
-                    // Response message NHIN Inbound and Adapter interfaces will use the sender
-                    useSender = true;
-                }
+        if (NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE.equalsIgnoreCase(_interface)
+                || NhincConstants.AUDIT_LOG_ENTITY_INTERFACE.equalsIgnoreCase(_interface)) {
+            communityId = getLocalHCID();
+        } else if (_interface.equals(NhincConstants.AUDIT_LOG_NHIN_INTERFACE)) {
+            if (direction.equals(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION)) {
+                useReceiver = true;
             }
 
-            if (useSender) {
-                if (responseMessage.getSender() != null
-                        && responseMessage.getSender().getDevice() != null
-                        && responseMessage.getSender().getDevice().getAsAgent() != null
-                        && responseMessage.getSender().getDevice().getAsAgent().getValue() != null
-                        && responseMessage.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization() != null
-                        && responseMessage.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization()
-                                .getValue() != null
-                        && responseMessage.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization()
-                                .getValue().getId() != null
-                        && responseMessage.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization()
-                                .getValue().getId().size() > 0
-                        && responseMessage.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization()
-                                .getValue().getId().get(0).getRoot() != null) {
-                    communityId = responseMessage.getSender().getDevice().getAsAgent().getValue()
-                            .getRepresentedOrganization().getValue().getId().get(0).getRoot();
-                }
-                // If represented organization is empty or null, check the device id
-                if (communityId == null || communityId.equals("")) {
-                    if (responseMessage.getSender() != null && responseMessage.getSender().getDevice() != null
-                            && responseMessage.getSender().getDevice() != null
-                            && responseMessage.getSender().getDevice().getId() != null
-                            && responseMessage.getSender().getDevice().getId().size() > 0
-                            && responseMessage.getSender().getDevice().getId().get(0) != null
-                            && responseMessage.getSender().getDevice().getId().get(0).getRoot() != null) {
-                        communityId = responseMessage.getSender().getDevice().getId().get(0).getRoot();
-                    }
-                }
+            if (useReceiver) {
+                communityId = getHCIDFromReceiver(responseMessage);
             } else {
-                if (responseMessage != null
-                        && responseMessage.getReceiver() != null
-                        && responseMessage.getReceiver().size() > 0
-                        && responseMessage.getReceiver().get(0) != null
-                        && responseMessage.getReceiver().get(0).getDevice() != null
-                        && responseMessage.getReceiver().get(0).getDevice().getAsAgent() != null
-                        && responseMessage.getReceiver().get(0).getDevice().getAsAgent().getValue() != null
-                        && responseMessage.getReceiver().get(0).getDevice().getAsAgent().getValue()
-                                .getRepresentedOrganization() != null
-                        && responseMessage.getReceiver().get(0).getDevice().getAsAgent().getValue()
-                                .getRepresentedOrganization().getValue() != null
-                        && responseMessage.getReceiver().get(0).getDevice().getAsAgent().getValue()
-                                .getRepresentedOrganization().getValue().getId() != null
-                        && responseMessage.getReceiver().get(0).getDevice().getAsAgent().getValue()
-                                .getRepresentedOrganization().getValue().getId().size() > 0
-                        && responseMessage.getReceiver().get(0).getDevice().getAsAgent().getValue()
-                                .getRepresentedOrganization().getValue().getId().get(0).getRoot() != null) {
-                    communityId = responseMessage.getReceiver().get(0).getDevice().getAsAgent().getValue()
-                            .getRepresentedOrganization().getValue().getId().get(0).getRoot();
-                }
-                // If represented organization is empty or null, check the device id
-                if (communityId == null || communityId.equals("")) {
-                    if (responseMessage.getReceiver() != null && responseMessage.getReceiver().size() > 0
-                            && responseMessage.getReceiver().get(0) != null
-                            && responseMessage.getReceiver().get(0).getDevice() != null
-                            && responseMessage.getReceiver().get(0).getDevice().getId() != null
-                            && responseMessage.getReceiver().get(0).getDevice().getId().size() > 0
-                            && responseMessage.getReceiver().get(0).getDevice().getId().get(0) != null
-                            && responseMessage.getReceiver().get(0).getDevice().getId().get(0).getRoot() != null) {
-                        communityId = responseMessage.getReceiver().get(0).getDevice().getId().get(0).getRoot();
-                    }
-                }
+                communityId = getHCIDFromSender(responseMessage);
             }
         }
 
+        return communityId;
+    }
+
+    /**
+     * @param responseMessage
+     * @return
+     */
+    protected String getHCIDFromSender(PRPAIN201306UV02 responseMessage) {
+        String communityId = StringUtils.EMPTY;
+        try {
+            communityId = responseMessage.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization()
+                    .getValue().getId().get(0).getRoot();
+        } catch (NullPointerException | IndexOutOfBoundsException e) {
+            LOG.debug("could not obtain HCID from Sender RepresentedOrganization.", e);
+        }
+        // If represented organization is empty or null, check the device id
+        if (StringUtils.isBlank(communityId)) {
+            try {
+                communityId = responseMessage.getSender().getDevice().getId().get(0).getRoot();
+            } catch (NullPointerException | IndexOutOfBoundsException e) {
+                LOG.debug("could not obtain HCID from Sender Device Id.", e);
+            }
+        }
+        return communityId;
+    }
+
+    /**
+     * @param responseMessage
+     * @return
+     */
+    protected String getHCIDFromReceiver(PRPAIN201306UV02 responseMessage) {
+        String communityId = StringUtils.EMPTY;
+        try {
+            communityId = responseMessage.getReceiver().get(0).getDevice().getAsAgent().getValue()
+                    .getRepresentedOrganization().getValue().getId().get(0).getRoot();
+        } catch (NullPointerException | IndexOutOfBoundsException e) {
+            LOG.debug("could not obtain HCID from Receiver RepresentedOrganization.", e);
+        }
+
+        // If represented organization is empty or null, check the device id
+        if (StringUtils.isBlank(communityId)) {
+            try {
+                communityId = responseMessage.getReceiver().get(0).getDevice().getId().get(0).getRoot();
+            } catch (NullPointerException | IndexOutOfBoundsException e) {
+                LOG.debug("could not obtain HCID from Receiver Device Id.", e);
+            }
+        }
         return communityId;
     }
 
