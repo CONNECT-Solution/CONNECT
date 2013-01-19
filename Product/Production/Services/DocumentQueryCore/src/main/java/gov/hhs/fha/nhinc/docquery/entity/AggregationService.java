@@ -152,7 +152,7 @@ public class AggregationService {
                 // set the home community id to the target hcid
                 setTargetHomeCommunityId(childRequest, target.getHomeCommunity().getHomeCommunityId());
 
-                AssertionType newAssertion = cloneAssertionWithNewMsgId(assertion);
+                AssertionType newAssertion = createNewAssertion(assertion, uniqueIdentities.size());
 
                 transactionLogger.logTransactionFromRelatedMessageId(assertion.getMessageId(),
                         newAssertion.getMessageId());
@@ -243,11 +243,26 @@ public class AggregationService {
     protected AdhocQueryRequest cloneRequest(AdhocQueryRequest request) {
         return MessageGeneratorUtils.getInstance().clone(request);
     }
-
-    protected AssertionType cloneAssertionWithNewMsgId(AssertionType assertion) {
-        return MessageGeneratorUtils.getInstance().cloneWithNewMsgId(assertion);
+    
+    /**
+     * Creates a new assertion with a new message id if there's more than one outbound targets.  Otherwise
+     * use the same message id passed into the assertion.
+     * 
+     * @param assertion - the assertion to clone
+     * @param numTargets - number of outbound targets
+     * @return a cloned Assertion with the same message id if numTargets == 1, and a new message id otherwise
+     */
+    private AssertionType createNewAssertion(AssertionType assertion, int numTargets) {
+        AssertionType newAssertion;
+        if (numTargets == 1) {
+            newAssertion = MessageGeneratorUtils.getInstance().clone(assertion);
+        } else {
+            newAssertion = MessageGeneratorUtils.getInstance().cloneWithNewMsgId(assertion);
+        }
+        
+        return newAssertion;
     }
-
+    
     protected Set<II> removeDuplicates(List<II> iiArray) {
         // remove duplicates
         Set<ComparableII> comparableIISet = new HashSet<ComparableII>();
