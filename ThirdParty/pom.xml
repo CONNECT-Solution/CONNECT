@@ -250,6 +250,28 @@
                             <createChecksum>true</createChecksum>
                         </configuration>
                     </execution>
+                    <execution>
+                        <id>org.connectopensource.thirdparty.com.icegreen.greenmail:greenmail-1.3.1b-mbaechler</id>
+                        <phase>initialize</phase>
+                        <goals>
+                            <goal>install-file</goal>
+                        </goals>
+                        <configuration>
+                            <pomFile>${basedir}/repo/com/icegreen/greenmail/1.3.1b-mbaechler/greenmail-1.3.1b-mbaechler.pom</pomFile>
+                            <file>${basedir}/repo/com/icegreen/greenmail/1.3.1b-mbaechler/greenmail-1.3.1b-mbaechler.jar</file>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>org.connectopensource.thirdparty.org.nhind.xd-common:xd-common-1.1-CONNECT</id>
+                        <phase>initialize</phase>
+                        <goals>
+                            <goal>install-file</goal>
+                        </goals>
+                        <configuration>
+                            <pomFile>${basedir}/repo/org/nhind/xd-common/1.2-CONNECT-SNAPSHOT/xd-common-1.2-CONNECT-SNAPSHOT.pom</pomFile>
+                            <file>${basedir}/repo/org/nhind/xd-common/1.2-CONNECT-SNAPSHOT/xd-common-1.2-CONNECT-SNAPSHOT.jar</file>
+                        </configuration>
+                    </execution>
                 </executions>
             </plugin>
         </plugins>

@@ -15,7 +15,6 @@
     <properties>
         <skip.unpack>false</skip.unpack>
         <skip.source>false</skip.source>
-        <connectdir>${basedir}/../../../..</connectdir>
     </properties>
     <dependencies>
         <dependency>
