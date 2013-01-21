@@ -250,6 +250,38 @@
                             <createChecksum>true</createChecksum>
                         </configuration>
                     </execution>
+                    <execution>
+                        <id>org.connectopensource.thirdparty.com.sun.faces.extensions:jsf-extensions-dynamic-faces</id>
+                        <phase>initialize</phase>
+                        <goals>
+                            <goal>install-file</goal>
+                        </goals>
+                        <configuration>
+                            <file>${basedir}/jsf/jsf-extensions-dynamic-faces-0.1.jar</file>
+                            <groupId>org.connectopensource.thirdparty.com.sun.faces.extensions</groupId>
+                            <artifactId>jsf-extensions-dynamic-faces</artifactId>
+                            <version>1.0</version>
+                            <packaging>jar</packaging>
+                            <generatePom>true</generatePom>
+                            <createChecksum>true</createChecksum>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>org.connectopensource.thirdparty.com.sun.faces.extensions:jsf-extensions-common</id>
+                        <phase>initialize</phase>
+                        <goals>
+                            <goal>install-file</goal>
+                        </goals>
+                        <configuration>
+                            <file>${basedir}/jsf/jsf-extensions-common-0.1.jar</file>
+                            <groupId>org.connectopensource.thirdparty.com.sun.faces.extensions</groupId>
+                            <artifactId>jsf-extensions-common</artifactId>
+                            <version>1.0</version>
+                            <packaging>jar</packaging>
+                            <generatePom>true</generatePom>
+                            <createChecksum>true</createChecksum>
+                        </configuration>
+                    </execution>
                 </executions>
             </plugin>
         </plugins>
