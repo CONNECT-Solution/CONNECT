@@ -1116,8 +1116,8 @@ public class PatientDiscoveryTransforms {
         if (NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE.equalsIgnoreCase(_interface)
                 || NhincConstants.AUDIT_LOG_ENTITY_INTERFACE.equalsIgnoreCase(_interface)) {
             communityId = getLocalHCID();
-        } else if (_interface.equals(NhincConstants.AUDIT_LOG_NHIN_INTERFACE)) {
-            if (direction.equals(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION)) {
+        } else if (NhincConstants.AUDIT_LOG_NHIN_INTERFACE.equalsIgnoreCase(_interface)) {
+            if (NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION.equalsIgnoreCase(direction)) {
                 useReceiver = true;
             }
 
@@ -1161,6 +1161,10 @@ public class PatientDiscoveryTransforms {
                 LOG.debug("could not obtain HCID from Receiver Device Id.", e);
             }
         }
+        
+        if (StringUtils.isBlank(communityId)) {
+            LOG.error("Could not obtain HCID from Receiver.");
+        }
         return communityId;
     }
 
@@ -1181,6 +1185,10 @@ public class PatientDiscoveryTransforms {
                 LOG.debug("could not obtain HCID from Sender Device Id.", e);
             }
         }
+        
+        if (StringUtils.isBlank(communityId)) {
+            LOG.error("Could not obtain HCID from Sender.");
+        }
         return communityId;
     }
 
@@ -1200,8 +1208,8 @@ public class PatientDiscoveryTransforms {
         if (NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE.equalsIgnoreCase(_interface)
                 || NhincConstants.AUDIT_LOG_ENTITY_INTERFACE.equalsIgnoreCase(_interface)) {
             communityId = getLocalHCID();
-        } else if (_interface.equals(NhincConstants.AUDIT_LOG_NHIN_INTERFACE)) {
-            if (direction.equals(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION)) {
+        } else if (NhincConstants.AUDIT_LOG_NHIN_INTERFACE.equalsIgnoreCase(_interface)) {
+            if (NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION.equalsIgnoreCase(direction)) {
                 useReceiver = true;
             }
 
@@ -1236,6 +1244,10 @@ public class PatientDiscoveryTransforms {
                 LOG.debug("could not obtain HCID from Sender Device Id.", e);
             }
         }
+        
+        if (StringUtils.isBlank(communityId)) {
+            LOG.error("Could not obtain HCID from Sender.");
+        }
         return communityId;
     }
 
@@ -1259,6 +1271,10 @@ public class PatientDiscoveryTransforms {
             } catch (NullPointerException | IndexOutOfBoundsException e) {
                 LOG.debug("could not obtain HCID from Receiver Device Id.", e);
             }
+        }
+        
+        if (StringUtils.isBlank(communityId)) {
+            LOG.error("Could not obtain HCID from Receiver.");
         }
         return communityId;
     }
@@ -1312,6 +1328,10 @@ public class PatientDiscoveryTransforms {
                 LOG.debug("could not obtain HCID from Receiver Device Id.", e);
             }
         }
+        
+        if (StringUtils.isBlank(communityId)) {
+            LOG.error("Could not obtain HCID from Receiver.");
+        }
         return communityId;
     }
 
@@ -1335,6 +1355,10 @@ public class PatientDiscoveryTransforms {
             } catch (NullPointerException | IndexOutOfBoundsException e) {
                 LOG.debug("could not obtain HCID from Sender Device Id.", e);
             }
+        }
+        
+        if (StringUtils.isBlank(communityId)) {
+            LOG.error("Could not obtain HCID from Sender.");
         }
         return communityId;
     }
