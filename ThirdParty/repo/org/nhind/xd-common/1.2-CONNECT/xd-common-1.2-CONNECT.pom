@@ -6,7 +6,7 @@
     <modelVersion>4.0.0</modelVersion>
     <artifactId>xd-common</artifactId>
     <name>NHIN Direct XD* Common Library</name>
-    <version>1.2-CONNECT-SNAPSHOT</version>
+    <version>1.2-CONNECT</version>
     <description>Library for common XD* operations and objects</description>
     <inceptionYear>2010</inceptionYear>
     <url>http://api.nhindirect.org/x/www/api.nhindirect.org/java/site/xd-common/${project.version}</url>     
