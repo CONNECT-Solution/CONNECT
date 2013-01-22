@@ -11,9 +11,6 @@
     <artifactId>DirectCore</artifactId>
     <packaging>jar</packaging>
     <name>CONNECT Direct Core</name>
-    <properties>
-        <connectdir>${basedir}/../../../..</connectdir>
-    </properties>
 
     <dependencies>
         <dependency>

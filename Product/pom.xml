@@ -392,11 +392,6 @@
             <id>sonatype-snapshots</id>
             <url>https://oss.sonatype.org/content/repositories/snapshots/</url>
         </repository>
-        <repository>
-            <id>project.local</id>
-            <name>project</name>
-            <url>file://${connectdir}/repo/</url>
-        </repository>
     </repositories>
     <profiles>
         <profile>
