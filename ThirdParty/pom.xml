@@ -191,14 +191,14 @@
                         </configuration>
                     </execution>
                     <execution>
-                        <id>org.connectopensource.thirdparty.org.nhind.xd-common:xd-common-1.1-CONNECT</id>
+                        <id>org.connectopensource.thirdparty.org.nhind.xd-common:xd-common-1.2-CONNECT</id>
                         <phase>initialize</phase>
                         <goals>
                             <goal>install-file</goal>
                         </goals>
                         <configuration>
-                            <pomFile>${basedir}/repo/org/nhind/xd-common/1.2-CONNECT-SNAPSHOT/xd-common-1.2-CONNECT-SNAPSHOT.pom</pomFile>
-                            <file>${basedir}/repo/org/nhind/xd-common/1.2-CONNECT-SNAPSHOT/xd-common-1.2-CONNECT-SNAPSHOT.jar</file>
+                            <pomFile>${basedir}/repo/org/nhind/xd-common/1.2-CONNECT/xd-common-1.2-CONNECT.pom</pomFile>
+                            <file>${basedir}/repo/org/nhind/xd-common/1.2-CONNECT/xd-common-1.2-CONNECT.jar</file>
                         </configuration>
                     </execution>
                 </executions>
