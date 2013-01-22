@@ -657,7 +657,7 @@ public class PatientDiscoveryTransformsTest {
     }
 
     @Test
-    public void testAckToAuditTransfer() {
+    public void testAdapterAckToAuditTransfer() {
         PatientDiscoveryTransforms auditTransformer = new PatientDiscoveryTransforms();
 
         II msgId = new II();

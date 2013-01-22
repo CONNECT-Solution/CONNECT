@@ -1225,6 +1225,7 @@ public class PatientDiscoveryTransforms {
         } catch (NullPointerException | IndexOutOfBoundsException e) {
             LOG.debug("could not obtain HCID from Sender RepresentedOrganization.", e);
         }
+        
         // If represented organization is empty or null, check the device id
         if (StringUtils.isBlank(communityId)) {
             try {
@@ -1267,81 +1268,72 @@ public class PatientDiscoveryTransforms {
      * @return String
      */
     public String getPatientDiscoveryMessageCommunityId(MCCIIN000002UV01 ackMessage, String direction, String _interface) {
-        String communityId = "";
+        String communityId = StringUtils.EMPTY;
         boolean useSender = false;
-
-        if (ackMessage != null && direction != null && _interface != null) {
-            if ((_interface.equals(NhincConstants.AUDIT_LOG_NHIN_INTERFACE) && direction
-                    .equals(NhincConstants.AUDIT_LOG_INBOUND_DIRECTION))
-                    || (_interface.equals(NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE))) {
-                // Ack message NHIN interface will use the sender
+        
+        if (NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE.equalsIgnoreCase(_interface) || 
+                NhincConstants.AUDIT_LOG_ENTITY_INTERFACE.equalsIgnoreCase(_interface)) {
+            communityId = getLocalHCID();
+        } else if (NhincConstants.AUDIT_LOG_NHIN_INTERFACE.equalsIgnoreCase(_interface)) {
+            if (NhincConstants.AUDIT_LOG_INBOUND_DIRECTION.equalsIgnoreCase(direction)) {
                 useSender = true;
             }
 
             if (useSender) {
-                if (ackMessage.getSender() != null
-                        && ackMessage.getSender().getDevice() != null
-                        && ackMessage.getSender().getDevice().getAsAgent() != null
-                        && ackMessage.getSender().getDevice().getAsAgent().getValue() != null
-                        && ackMessage.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization() != null
-                        && ackMessage.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization()
-                                .getValue() != null
-                        && ackMessage.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization()
-                                .getValue().getId() != null
-                        && ackMessage.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization()
-                                .getValue().getId().size() > 0
-                        && ackMessage.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization()
-                                .getValue().getId().get(0).getRoot() != null) {
-                    communityId = ackMessage.getSender().getDevice().getAsAgent().getValue()
-                            .getRepresentedOrganization().getValue().getId().get(0).getRoot();
-                }
-                // If represented organization is empty or null, check the device id
-                if (communityId == null || communityId.equals("")) {
-                    if (ackMessage.getSender() != null && ackMessage.getSender().getDevice() != null
-                            && ackMessage.getSender().getDevice() != null
-                            && ackMessage.getSender().getDevice().getId() != null
-                            && ackMessage.getSender().getDevice().getId().size() > 0
-                            && ackMessage.getSender().getDevice().getId().get(0) != null
-                            && ackMessage.getSender().getDevice().getId().get(0).getRoot() != null) {
-                        communityId = ackMessage.getSender().getDevice().getId().get(0).getRoot();
-                    }
-                }
+                communityId = getHCIDFromSender(ackMessage);
             } else {
-                if (ackMessage != null
-                        && ackMessage.getReceiver() != null
-                        && ackMessage.getReceiver().size() > 0
-                        && ackMessage.getReceiver().get(0) != null
-                        && ackMessage.getReceiver().get(0).getDevice() != null
-                        && ackMessage.getReceiver().get(0).getDevice().getAsAgent() != null
-                        && ackMessage.getReceiver().get(0).getDevice().getAsAgent().getValue() != null
-                        && ackMessage.getReceiver().get(0).getDevice().getAsAgent().getValue()
-                                .getRepresentedOrganization() != null
-                        && ackMessage.getReceiver().get(0).getDevice().getAsAgent().getValue()
-                                .getRepresentedOrganization().getValue() != null
-                        && ackMessage.getReceiver().get(0).getDevice().getAsAgent().getValue()
-                                .getRepresentedOrganization().getValue().getId() != null
-                        && ackMessage.getReceiver().get(0).getDevice().getAsAgent().getValue()
-                                .getRepresentedOrganization().getValue().getId().size() > 0
-                        && ackMessage.getReceiver().get(0).getDevice().getAsAgent().getValue()
-                                .getRepresentedOrganization().getValue().getId().get(0).getRoot() != null) {
-                    communityId = ackMessage.getReceiver().get(0).getDevice().getAsAgent().getValue()
-                            .getRepresentedOrganization().getValue().getId().get(0).getRoot();
-                }
-                // If represented organization is empty or null, check the device id
-                if (communityId == null || communityId.equals("")) {
-                    if (ackMessage.getReceiver() != null && ackMessage.getReceiver().size() > 0
-                            && ackMessage.getReceiver().get(0) != null
-                            && ackMessage.getReceiver().get(0).getDevice() != null
-                            && ackMessage.getReceiver().get(0).getDevice().getId() != null
-                            && ackMessage.getReceiver().get(0).getDevice().getId().size() > 0
-                            && ackMessage.getReceiver().get(0).getDevice().getId().get(0) != null
-                            && ackMessage.getReceiver().get(0).getDevice().getId().get(0).getRoot() != null) {
-                        communityId = ackMessage.getReceiver().get(0).getDevice().getId().get(0).getRoot();
-                    }
-                }
+                communityId = getHCIDFromReceiver(ackMessage);
             }
         }
 
+        return communityId;
+    }
+
+    /**
+     * @param ackMessage
+     * @return
+     */
+    protected String getHCIDFromReceiver(MCCIIN000002UV01 ackMessage) {
+        String communityId = StringUtils.EMPTY;
+        try {
+            communityId = ackMessage.getReceiver().get(0).getDevice().getAsAgent().getValue()
+                    .getRepresentedOrganization().getValue().getId().get(0).getRoot();
+        } catch (NullPointerException | IndexOutOfBoundsException e) {
+            LOG.debug("could not obtain HCID from Receiver RepresentedOrganization.", e);
+        }
+
+        // If represented organization is empty or null, check the device id
+        if (StringUtils.isBlank(communityId)) {
+            try {
+                communityId = ackMessage.getReceiver().get(0).getDevice().getId().get(0).getRoot();
+            } catch (NullPointerException | IndexOutOfBoundsException e) {
+                LOG.debug("could not obtain HCID from Receiver Device Id.", e);
+            }
+        }
+        return communityId;
+    }
+
+    /**
+     * @param ackMessage
+     * @return
+     */
+    protected String getHCIDFromSender(MCCIIN000002UV01 ackMessage) {
+        String communityId = StringUtils.EMPTY;
+        try {
+            communityId = ackMessage.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization()
+                    .getValue().getId().get(0).getRoot();
+        } catch (NullPointerException | IndexOutOfBoundsException e) {
+            LOG.debug("could not obtain HCID from Sender RepresentedOrganization.", e);
+        }
+        
+        // If represented organization is empty or null, check the device id
+        if (StringUtils.isBlank(communityId)) {
+            try {
+                communityId = ackMessage.getSender().getDevice().getId().get(0).getRoot();
+            } catch (NullPointerException | IndexOutOfBoundsException e) {
+                LOG.debug("could not obtain HCID from Sender Device Id.", e);
+            }
+        }
         return communityId;
     }
 }

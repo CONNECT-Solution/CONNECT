@@ -3,6 +3,7 @@
  */
 package gov.hhs.fha.nhinc.transform.audit;
 
+import org.hl7.v3.MCCIIN000002UV01;
 import org.hl7.v3.PRPAIN201305UV02;
 import org.hl7.v3.PRPAIN201306UV02;
 
@@ -44,6 +45,16 @@ public class PatientDiscoveryTransformsBase {
             
             @Override
             protected String getHCIDFromSender(PRPAIN201306UV02 requestMessage) {
+                return SENDER_VALUE;
+            }
+            
+            @Override
+            protected String getHCIDFromReceiver(MCCIIN000002UV01 requestMessage) {
+                return RECEIVER_VALUE;
+            }
+            
+            @Override
+            protected String getHCIDFromSender(MCCIIN000002UV01 requestMessage) {
                 return SENDER_VALUE;
             }
             
