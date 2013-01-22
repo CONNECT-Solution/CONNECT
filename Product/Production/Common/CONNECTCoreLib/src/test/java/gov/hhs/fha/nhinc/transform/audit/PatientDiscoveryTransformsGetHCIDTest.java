@@ -68,10 +68,7 @@ public class PatientDiscoveryTransformsGetHCIDTest {
         String expected = RECEIVER;
 
         PatientDiscoveryTransforms instance = getPatientDiscoveryTransforms();
-        long startTime = System.currentTimeMillis();
         String result = instance.getHCIDFromReceiver(message);
-        long endTime = System.currentTimeMillis();
-        System.out.println("milliseconds to execute: " + String.valueOf(endTime - startTime));
 
         Assert.assertEquals(expected, result);
     }
@@ -105,11 +102,7 @@ public class PatientDiscoveryTransformsGetHCIDTest {
         String expected = SENDER;
 
         PatientDiscoveryTransforms instance = getPatientDiscoveryTransforms();
-
-        long startTime = System.currentTimeMillis();
         String result = instance.getHCIDFromSender(message);
-        long endTime = System.currentTimeMillis();
-        System.out.println("milliseconds to execute: " + String.valueOf(endTime - startTime));
 
         Assert.assertEquals(expected, result);
     }
@@ -142,11 +135,8 @@ public class PatientDiscoveryTransformsGetHCIDTest {
 
         String expected = SENDER;
 
-        long startTime = System.currentTimeMillis();
         PatientDiscoveryTransforms instance = getPatientDiscoveryTransforms();
         String result = instance.getHCIDFromSender(message);
-        long endTime = System.currentTimeMillis();
-        System.out.println("milliseconds to execute: " + String.valueOf(endTime - startTime));
         
         Assert.assertEquals(expected, result);
     }
@@ -180,10 +170,7 @@ public class PatientDiscoveryTransformsGetHCIDTest {
         String expected = RECEIVER;
 
         PatientDiscoveryTransforms instance = getPatientDiscoveryTransforms();
-        long startTime = System.currentTimeMillis();
         String result = instance.getHCIDFromReceiver(message);
-        long endTime = System.currentTimeMillis();
-        System.out.println("milliseconds to execute: " + String.valueOf(endTime - startTime));
 
         Assert.assertEquals(expected, result);
     }
