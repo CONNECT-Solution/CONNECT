@@ -2,7 +2,7 @@
 <project name="NHINC" basedir=".">
 
     <taskdef name="xmltask" classname="com.oopsconsultancy.xmltask.ant.XmlTask"
-             classpath="../ThirdParty/AntExtraLibs/xmltask-1.16.jar"/>
+             classpath="../ThirdParty/ant/AntExtraLibs/xmltask-1.16.jar"/>
 
     <property environment="env" />
 
