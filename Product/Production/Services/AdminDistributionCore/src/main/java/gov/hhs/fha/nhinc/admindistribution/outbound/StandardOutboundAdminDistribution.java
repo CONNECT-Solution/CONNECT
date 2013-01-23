@@ -111,7 +111,6 @@ public class StandardOutboundAdminDistribution implements OutboundAdminDistribut
 
                 if (bIsPolicyOk) {
                     NhinTargetSystemType targetSystem = buildTargetSystem(urlInfo);
-                    //auditMessage(message, assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION);
                     sendToNhinProxy(message, assertion, targetSystem);
                 } else {
                     LOG.error("The policy engine evaluated the request and denied the request.");

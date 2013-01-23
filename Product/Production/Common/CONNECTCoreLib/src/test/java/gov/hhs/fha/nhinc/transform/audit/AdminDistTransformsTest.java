@@ -67,50 +67,16 @@ public class AdminDistTransformsTest {
     public void tearDown() {
     }
 
-    /**
-     * Test of transformEntitySendAlertToAuditMsg method, of class AdminDistTransforms.
-     */
-    @Test
-    public void testTransformEntitySendAlertToAuditMsg_Null() {
-        System.out.println("testTransformEntitySendAlertToAuditMsg_Null");
-
-        AdminDistTransforms instance = new AdminDistTransforms();
-        
-        LogEventRequestType expResult = null;
-        LogEventRequestType result = instance.transformEntitySendAlertToAuditMsg(null, null,
-                NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_ENTITY_INTERFACE);
-
-        assertEquals(expResult, result);
-
-    }
 
     @Test
-    public void testTransformEntitySendAlertToAuditMsg_NullAssert() {
-        System.out.println("testTransformEntitySendAlertToAuditMsg_NullAssert");
-        
-        RespondingGatewaySendAlertMessageType message = new RespondingGatewaySendAlertMessageType();
-        AdminDistTransforms instance = new AdminDistTransforms();
-
-        LogEventRequestType expResult = null;
-        LogEventRequestType result = instance.transformEntitySendAlertToAuditMsg(message, null,
-                NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_ENTITY_INTERFACE);
-
-        assertEquals(expResult, result);
-
-    }
-
-    @Test
-    public void testTransformEntitySendAlertToAuditMsg_Empty() {
-        System.out.println("testTransformEntitySendAlertToAuditMsg_Empty");
-        
-        RespondingGatewaySendAlertMessageType message = new RespondingGatewaySendAlertMessageType();
+    public void testTransformEDXLDistributionRequestToAuditMsg_Empty() {
+        EDXLDistribution message = new EDXLDistribution();
         AssertionType assertion = new AssertionType();
-        message.setEDXLDistribution(new EDXLDistribution());
-
+        
         AdminDistTransforms instance = new AdminDistTransforms();
         
         LogEventRequestType expResult = null;
-        LogEventRequestType result = instance.transformEntitySendAlertToAuditMsg(message, assertion,
+        LogEventRequestType result = instance.transformEDXLDistributionRequestToAuditMsg(message, assertion,
                 NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_ENTITY_INTERFACE);
 
         assertEquals(expResult, result);
@@ -119,9 +85,7 @@ public class AdminDistTransformsTest {
 
     @Test
     public void testTransformEntitySendAlertToAuditMsg_Good() {
-        System.out.println("testTransformEntitySendAlertToAuditMsg_Good");
-        
-        RespondingGatewaySendAlertMessageType message = new RespondingGatewaySendAlertMessageType();
+    	EDXLDistribution message = new EDXLDistribution();
         AssertionType assertion = new AssertionType();
 
         UserType user = new UserType();
@@ -136,11 +100,9 @@ public class AdminDistTransformsTest {
 
         assertion.setUserInfo(user);
 
-        message.setEDXLDistribution(new EDXLDistribution());
-
         AdminDistTransforms instance = new AdminDistTransforms();
         
-        LogEventRequestType result = instance.transformEntitySendAlertToAuditMsg(message, assertion,
+        LogEventRequestType result = instance.transformEDXLDistributionRequestToAuditMsg(message, assertion,
                 NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_ENTITY_INTERFACE);
 
         assertNotNull(result);
