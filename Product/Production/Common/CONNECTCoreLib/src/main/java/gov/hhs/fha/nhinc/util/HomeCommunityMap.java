@@ -144,7 +144,7 @@ public class HomeCommunityMap {
                 }
             }
 
-        } else if (assertion != null && assertion.getHomeCommunity() != null) {
+        }  if (communityId == null && assertion != null && assertion.getHomeCommunity() != null) {
             communityId = assertion.getHomeCommunity().getHomeCommunityId();
         }
         return formatHomeCommunityId(communityId);
