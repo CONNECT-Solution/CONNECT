@@ -143,11 +143,28 @@ public class HomeCommunityMap {
                     communityId = userInfo.getOrg().getHomeCommunityId();
                 }
             }
-
-        } else if (assertion != null && assertion.getHomeCommunity() != null) {
-            communityId = assertion.getHomeCommunity().getHomeCommunityId();
+        }
+        
+        if (communityId == null){
+        	communityId = getHomeCommunityIdFromAssertion(assertion);
         }
         return formatHomeCommunityId(communityId);
+    }
+    
+    /**
+     * This method retrieves the home community id from the homeCommunityId property of
+     * the assertion.
+     * @param assertion
+     * @return
+     */
+    public static String getHomeCommunityIdFromAssertion(AssertionType assertion){
+    	String homeCommunity = null;
+    	try{
+    	 	 homeCommunity = assertion.getHomeCommunity().getHomeCommunityId();
+    	}catch (NullPointerException ex){
+    		LOG.warn("Could not obtain HCID from HomeCommunity in assertion.", ex);
+    	}
+    	return homeCommunity;
     }
 
     /**

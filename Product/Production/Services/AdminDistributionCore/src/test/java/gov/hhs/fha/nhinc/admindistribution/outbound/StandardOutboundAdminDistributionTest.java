@@ -65,7 +65,7 @@ public class StandardOutboundAdminDistributionTest {
 
     @Test
     public void testSendAlertMessage_PolicyOK() {
-        expectMockAudits(2);
+        expectMockAudits(1);
         setMockPolicyCheck(true);
         expectationsInAlertMessage();
 

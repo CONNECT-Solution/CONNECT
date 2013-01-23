@@ -31,6 +31,7 @@ import gov.hhs.fha.nhinc.admindistribution.AdminDistributionUtils;
 import gov.hhs.fha.nhinc.admindistribution.adapter.proxy.AdapterAdminDistributionProxy;
 import gov.hhs.fha.nhinc.admindistribution.adapter.proxy.AdapterAdminDistributionProxyObjectFactory;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.largefile.LargePayloadException;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 
@@ -55,6 +56,7 @@ public class PassthroughInboundAdminDistributionTest {
     public void passthroughAdminDistribution() {
         EDXLDistribution request = new EDXLDistribution();
         AssertionType assertion = new AssertionType();
+        NhinTargetSystemType target = null;
 
         AdminDistributionAuditLogger auditLogger = mock(AdminDistributionAuditLogger.class);
         AdminDistributionUtils adminUtils = mock(AdminDistributionUtils.class);
@@ -71,10 +73,10 @@ public class PassthroughInboundAdminDistributionTest {
         verify(adapterProxy).sendAlertMessage(eq(request), eq(assertion));
 
         verify(auditLogger).auditNhinAdminDist(eq(request), eq(assertion),
-                eq(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION), eq(NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE));
+                eq(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION), eq(target), eq(NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE));
 
         verify(auditLogger).auditNhinAdminDist(eq(request), eq(assertion),
-                eq(NhincConstants.AUDIT_LOG_INBOUND_DIRECTION), eq(NhincConstants.AUDIT_LOG_NHIN_INTERFACE));
+                eq(NhincConstants.AUDIT_LOG_INBOUND_DIRECTION), eq(target), eq(NhincConstants.AUDIT_LOG_NHIN_INTERFACE));
     }
     
     @Test
