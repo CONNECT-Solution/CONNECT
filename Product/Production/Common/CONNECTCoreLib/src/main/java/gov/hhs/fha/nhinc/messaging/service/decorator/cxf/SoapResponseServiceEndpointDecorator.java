@@ -46,17 +46,21 @@ public class SoapResponseServiceEndpointDecorator<T> extends ServiceEndpointDeco
         super(decoratoredEndpoint);
     }
 
+    /**
+     * Configures the endpoint for an interceptor that will record the response id. This call is not thread safe if the
+     * port is a shared instance as it adds interceptors to the CXF client.
+     */
     @Override
     public void configure() {
         super.configure();
         Client client = ClientProxy.getClient(getPort());
-                
-        for (Interceptor<? extends Message> interceptor: client.getInInterceptors()) {
+
+        for (Interceptor<? extends Message> interceptor : client.getInInterceptors()) {
             if (interceptor instanceof SoapResponseInInterceptor) {
                 return;
             }
         }
-        
+
         client.getInInterceptors().add(new SoapResponseInInterceptor());
     }
 }

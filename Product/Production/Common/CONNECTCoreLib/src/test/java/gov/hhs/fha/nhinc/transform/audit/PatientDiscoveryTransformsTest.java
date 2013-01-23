@@ -1,28 +1,30 @@
 /*
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services. 
- * All rights reserved. 
+ * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.
  *
- * Redistribution and use in source and binary forms, with or without 
- * modification, are permitted provided that the following conditions are met: 
- *     * Redistributions of source code must retain the above 
- *       copyright notice, this list of conditions and the following disclaimer. 
- *     * Redistributions in binary form must reproduce the above copyright 
- *       notice, this list of conditions and the following disclaimer in the documentation 
- *       and/or other materials provided with the distribution. 
- *     * Neither the name of the United States Government nor the 
- *       names of its contributors may be used to endorse or promote products 
- *       derived from this software without specific prior written permission. 
+ * Copyright (c) 2009-2013, United States Government, as represented by the Secretary of Health and Human Services.
+ * All rights reserved.
  *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
- * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
- * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
- * DISCLAIMED. IN NO EVENT SHALL THE UNITED STATES GOVERNMENT BE LIABLE FOR ANY 
- * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES 
- * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; 
- * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND 
- * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT 
- * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
- * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ *     * Redistributions of source code must retain the above
+ *      copyright notice, this list of conditions and the following disclaimer.
+ *    * Redistributions in binary form must reproduce the above copyright
+ *      notice, this list of conditions and the following disclaimer in the documentation
+ *      and/or other materials provided with the distribution.
+ *    * Neither the name of the United States Government nor the
+ *      names of its contributors may be used to endorse or promote products
+ *      derived from this software without specific prior written permission.
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+ * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ * DISCLAIMED. IN NO EVENT SHALL THE UNITED STATES GOVERNMENT BE LIABLE FOR ANY
+ * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+ * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+ * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 package gov.hhs.fha.nhinc.transform.audit;
 
@@ -161,7 +163,7 @@ public class PatientDiscoveryTransformsTest {
                 oPatientDiscoveryRequest, oAssertionType, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION,
                 NhincConstants.AUDIT_LOG_ENTITY_INTERFACE, NhincConstants.AUDIT_LOG_SYNC_TYPE,
                 NhincConstants.AUDIT_LOG_REQUEST_PROCESS);
-        
+
         Assert.assertNotNull(expected);
         Assert.assertTrue(expected.getAuditMessage().getAuditSourceIdentification().size() == 1);
         Assert.assertTrue(expected.getAuditMessage().getAuditSourceIdentification().size() == 1);
@@ -185,7 +187,7 @@ public class PatientDiscoveryTransformsTest {
         mockListII.add(mockII);
 
         PatientDiscoveryTransforms testSubject = new PatientDiscoveryTransforms() {
-        	@Override
+            @Override
             protected boolean areRequired201305fieldsNull(PRPAIN201305UV02 oPatientDiscoveryRequestMessage,
                     AssertionType oAssertion) {
                 return false;
@@ -206,7 +208,7 @@ public class PatientDiscoveryTransformsTest {
                 oPatientDiscoveryRequest, oAssertionType, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION,
                 NhincConstants.AUDIT_LOG_NHIN_INTERFACE, NhincConstants.AUDIT_LOG_SYNC_TYPE,
                 NhincConstants.AUDIT_LOG_REQUEST_PROCESS);
-        
+
         Assert.assertNotNull(expected);
         Assert.assertTrue(expected.getAuditMessage().getAuditSourceIdentification().size() == 1);
         Assert.assertTrue(expected.getAuditMessage().getAuditSourceIdentification().size() == 1);
@@ -251,7 +253,7 @@ public class PatientDiscoveryTransformsTest {
                 oPatientDiscoveryRequest, oAssertionType, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION,
                 NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE, NhincConstants.AUDIT_LOG_SYNC_TYPE,
                 NhincConstants.AUDIT_LOG_REQUEST_PROCESS);
-       
+
         Assert.assertNotNull(expected);
         Assert.assertTrue(expected.getAuditMessage().getAuditSourceIdentification().size() == 1);
         Assert.assertTrue(expected.getAuditMessage().getAuditSourceIdentification().size() == 1);
@@ -409,7 +411,7 @@ public class PatientDiscoveryTransformsTest {
 
     @Test
     public void testAreRequired201306fieldsNullWillFailForNullPatientId() {
-       final List<II> mockListII = new ArrayList<II>();
+        final List<II> mockListII = new ArrayList<II>();
         final II mockII = new II();
         mockListII.add(mockII);
 
@@ -480,19 +482,19 @@ public class PatientDiscoveryTransformsTest {
         oAssertionType.getUserInfo().getOrg().setHomeCommunityId(null);
         bExpectedResult = testSubject.areRequiredUserTypeFieldsNull(oAssertionType);
         Assert.assertTrue(bExpectedResult);
-        
+
         oAssertionType.getUserInfo().setUserName("Test User");
         oAssertionType.getUserInfo().getOrg().setHomeCommunityId("2.16.840.1.113883.3.200");
         oAssertionType.getUserInfo().getOrg().setName(null);
         bExpectedResult = testSubject.areRequiredUserTypeFieldsNull(oAssertionType);
         Assert.assertTrue(bExpectedResult);
-        
+
     }
 
     @Test
     public void testGetHL7IdentitiersFromResponseMethodWillFailForNullResponseRequest() {
         PatientDiscoveryTransforms testSubject = new PatientDiscoveryTransforms();
-        
+
         List<II> oExpectedResult = testSubject.getHL7IdentitiersFromResponse(null);
 
         Assert.assertNull(oExpectedResult);
@@ -504,7 +506,7 @@ public class PatientDiscoveryTransformsTest {
 
         final PRPAIN201306UV02 oPRPAIN201306UV = new PRPAIN201306UV02();
         List<II> oExpectedResult = testSubject.getHL7IdentitiersFromResponse(oPRPAIN201306UV);
-        
+
         Assert.assertNull(oExpectedResult);
     }
 
@@ -540,7 +542,7 @@ public class PatientDiscoveryTransformsTest {
 
     @Test
     public void testGetHL7IdentifiersWillFailOnNullQueryByParameterGetValue() {
-       PatientDiscoveryTransforms testSubject = new PatientDiscoveryTransforms();
+        PatientDiscoveryTransforms testSubject = new PatientDiscoveryTransforms();
 
         final PRPAIN201306UV02 oPRPAIN201306UV = new PRPAIN201306UV02();
         final PRPAIN201306UV02MFMIMT700711UV01ControlActProcess oPRPAIN201306UVMFMIMT700711UV01ControlActProcess = new PRPAIN201306UV02MFMIMT700711UV01ControlActProcess();
@@ -657,7 +659,7 @@ public class PatientDiscoveryTransformsTest {
     }
 
     @Test
-    public void testAckToAuditTransfer() {
+    public void testAdapterAckToAuditTransfer() {
         PatientDiscoveryTransforms auditTransformer = new PatientDiscoveryTransforms();
 
         II msgId = new II();

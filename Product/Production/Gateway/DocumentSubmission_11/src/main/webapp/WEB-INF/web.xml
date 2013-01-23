@@ -14,8 +14,8 @@
       classpath:CONNECT-interceptor-beans.xml 
       classpath:CONNECT-context.xml
       classpath:eventlogging.xml
-      classpath:applicationContext.xml
-      classpath:webservices.xml
+      classpath:/docsubmission/_11/applicationContext.xml
+      classpath:/docsubmission/_11/webservices.xml
       </param-value>
 
     </context-param>

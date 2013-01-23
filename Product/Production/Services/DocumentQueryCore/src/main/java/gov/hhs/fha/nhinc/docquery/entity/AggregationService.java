@@ -38,13 +38,12 @@ import gov.hhs.fha.nhinc.connectmgr.ConnectionManager;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException;
 import gov.hhs.fha.nhinc.connectmgr.UrlInfo;
+import gov.hhs.fha.nhinc.docquery.MessageGeneratorUtils;
 import gov.hhs.fha.nhinc.docquery.outbound.StandardOutboundDocQueryHelper;
+import gov.hhs.fha.nhinc.logging.transaction.TransactionLogger;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
-import gov.hhs.fha.nhinc.orchestration.AuditTransformer;
 import gov.hhs.fha.nhinc.orchestration.OutboundOrchestratable;
-import gov.hhs.fha.nhinc.orchestration.OutboundResponseProcessor;
-import gov.hhs.fha.nhinc.orchestration.PolicyTransformer;
 import gov.hhs.fha.nhinc.patientcorrelation.nhinc.parsers.PRPAIN201309UV.PixRetrieveBuilder;
 import gov.hhs.fha.nhinc.patientcorrelation.nhinc.proxy.PatientCorrelationProxyFactory;
 import gov.hhs.fha.nhinc.patientcorrelation.nhinc.proxy.PatientCorrelationProxyObjectFactory;
@@ -53,13 +52,16 @@ import gov.hhs.fha.nhinc.util.format.PatientIdFormatUtil;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
-import oasis.names.tc.ebxml_regrep.xsd.rim._3.AdhocQueryType;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.SlotType1;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.ValueListType;
 
+import org.apache.commons.lang.builder.EqualsBuilder;
+import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.log4j.Logger;
 import org.hl7.v3.II;
 import org.hl7.v3.RetrievePatientCorrelationsResponseType;
@@ -77,8 +79,8 @@ public class AggregationService {
     private OutboundDocQueryDelegate delegate = new OutboundDocQueryDelegate();
     private PixRetrieveBuilder pixRetrieveBuilder;
     private StandardOutboundDocQueryHelper standardOutboundDocQueryHelper;
+    private TransactionLogger transactionLogger;
 
- 
     /**
      * @param sHomeCommunity
      * @param connectionManager
@@ -86,12 +88,14 @@ public class AggregationService {
      */
     AggregationService(ConnectionManager connectionManager,
             PatientCorrelationProxyFactory patientCorrelationProxyFactory, PixRetrieveBuilder pixRetrieveBuilder,
-            StandardOutboundDocQueryHelper standardOutboundDocQueryHelper) {
+            StandardOutboundDocQueryHelper standardOutboundDocQueryHelper, TransactionLogger transactionLogger) {
         super();
         this.connectionManager = connectionManager;
         this.patientCorrelationProxyFactory = patientCorrelationProxyFactory;
         this.pixRetrieveBuilder = pixRetrieveBuilder;
         this.standardOutboundDocQueryHelper = standardOutboundDocQueryHelper;
+        this.transactionLogger = transactionLogger;
+
     }
 
     /**
@@ -103,6 +107,7 @@ public class AggregationService {
         this.patientCorrelationProxyFactory = new PatientCorrelationProxyObjectFactory();
         this.pixRetrieveBuilder = new PixRetrieveBuilder();
         this.standardOutboundDocQueryHelper = new StandardOutboundDocQueryHelper();
+        this.transactionLogger = new TransactionLogger();
     }
 
     public List<OutboundOrchestratable> createChildRequests(AdhocQueryRequest adhocQueryRequest,
@@ -133,7 +138,9 @@ public class AggregationService {
                         .getRegistrationEvent().getSubject1().getPatient().getId();
             }
 
-            for (II id : identities) {
+            Set<II> uniqueIdentities = removeDuplicates(identities);
+
+            for (II id : uniqueIdentities) {
                 NhinTargetSystemType target = new NhinTargetSystemType();
                 HomeCommunityType targetCommunity = standardOutboundDocQueryHelper.lookupHomeCommunityId(id.getRoot(),
                         qualSubId.getAssigningAuthorityIdentifier());
@@ -145,8 +152,13 @@ public class AggregationService {
                 // set the home community id to the target hcid
                 setTargetHomeCommunityId(childRequest, target.getHomeCommunity().getHomeCommunityId());
 
-                OutboundDocQueryOrchestratable orchestratable = new OutboundDocQueryOrchestratable(delegate, assertion,
-                        NhincConstants.DOC_QUERY_SERVICE_NAME, target, childRequest);
+                AssertionType newAssertion = createNewAssertion(assertion, uniqueIdentities.size());
+
+                transactionLogger.logTransactionFromRelatedMessageId(assertion.getMessageId(),
+                        newAssertion.getMessageId());
+
+                OutboundDocQueryOrchestratable orchestratable = new OutboundDocQueryOrchestratable(delegate,
+                        newAssertion, NhincConstants.DOC_QUERY_SERVICE_NAME, target, childRequest);
 
                 list.add(orchestratable);
             }
@@ -229,51 +241,91 @@ public class AggregationService {
      * @return AdhocQUery Request.
      */
     protected AdhocQueryRequest cloneRequest(AdhocQueryRequest request) {
-        AdhocQueryRequest newRequest = new AdhocQueryRequest();
-        AdhocQueryType currentQuery = request.getAdhocQuery();
-
-        AdhocQueryType newQuery = new AdhocQueryType();
-        List<SlotType1> newslotList = new ArrayList<SlotType1>();
-        List<SlotType1> slotList = currentQuery.getSlot();
-        for (SlotType1 slot : slotList) {
-            SlotType1 newSlot = new SlotType1();
-            newSlot.setName(slot.getName());
-            newSlot.setSlotType(slot.getSlotType());
-
-            ValueListType valueListType = new ValueListType();
-            List<String> valueList = new ArrayList<String>();
-            for (String value : slot.getValueList().getValue()) {
-                valueList.add(value);
-            }
-            valueListType.getValue().addAll(valueList);
-            newSlot.setValueList(valueListType);
-
-            newslotList.add(newSlot);
+        return MessageGeneratorUtils.getInstance().clone(request);
+    }
+    
+    /**
+     * Creates a new assertion with a new message id if there's more than one outbound targets.  Otherwise
+     * use the same message id passed into the assertion.
+     * 
+     * @param assertion - the assertion to clone
+     * @param numTargets - number of outbound targets
+     * @return a cloned Assertion with the same message id if numTargets == 1, and a new message id otherwise
+     */
+    private AssertionType createNewAssertion(AssertionType assertion, int numTargets) {
+        AssertionType newAssertion;
+        if (numTargets == 1) {
+            newAssertion = MessageGeneratorUtils.getInstance().clone(assertion);
+        } else {
+            newAssertion = MessageGeneratorUtils.getInstance().cloneWithNewMsgId(assertion);
         }
-        newQuery.getSlot().addAll(newslotList);
+        
+        return newAssertion;
+    }
+    
+    protected Set<II> removeDuplicates(List<II> iiArray) {
+        // remove duplicates
+        Set<ComparableII> comparableIISet = new HashSet<ComparableII>();
+        for (II ii : iiArray) {
+            comparableIISet.add(new ComparableII(ii));
+        }
 
-        newQuery.getClassification().addAll(currentQuery.getClassification());
-        newQuery.getExternalIdentifier().addAll(currentQuery.getExternalIdentifier());
+        // restore original instances
+        Set<II> iiSet = new HashSet<II>();
+        for (ComparableII comparableII : comparableIISet) {
+            iiSet.add(comparableII.getII());
+        }
 
-        newQuery.setDescription(currentQuery.getDescription());
-        newQuery.setHome(currentQuery.getHome());
-        newQuery.setId(currentQuery.getId());
-        newQuery.setLid(currentQuery.getLid());
-        newQuery.setName(currentQuery.getName());
-        newQuery.setObjectType(currentQuery.getObjectType());
-        newQuery.setQueryExpression(currentQuery.getQueryExpression());
-        newQuery.setStatus(currentQuery.getStatus());
-        newQuery.setVersionInfo(currentQuery.getVersionInfo());
-        newRequest.setAdhocQuery(newQuery);
+        return iiSet;
+    }
 
-        newRequest.setComment(request.getComment());
-        newRequest.setFederation(request.getFederation());
-        newRequest.setId(request.getId());
-        newRequest.setMaxResults(request.getMaxResults());
-        newRequest.setResponseOption(request.getResponseOption());
-        newRequest.setStartIndex(request.getStartIndex());
+    /**
+     * A class that wraps the II xml object to implement the hashCode() and equals() methods for comparison.
+     */
+    private class ComparableII {
 
-        LOG.debug("EntityDocQueryOrchImpl::cloneRequest generated new AdhocQueryRequest");
-        return newRequest;
+        private II ii;
+
+        private ComparableII(II ii) {
+            this.ii = ii;
+        }
+
+        public II getII() {
+            return ii;
+        }
+
+        @Override
+        public int hashCode() {
+            int hashCode = new HashCodeBuilder(17, 37)
+                    .append(ii.getExtension())
+                    .append(ii.getRoot())
+                    .append(ii.getAssigningAuthorityName())
+                    .append(ii.isDisplayable())
+                    .toHashCode();
+
+            return hashCode;
+        }
+
+        @Override
+        public boolean equals(Object obj) {
+            if (obj == null) {
+                return false;
+            }
+            if (obj == this) {
+                return true;
+            }
+            if (obj.getClass() != getClass()) {
+                return false;
+            }
+
+            ComparableII otherId = (ComparableII) obj;
+            return new EqualsBuilder()
+                    .append(ii.getExtension(), otherId.getII().getExtension())
+                    .append(ii.getRoot(), otherId.getII().getRoot())
+                    .append(ii.getAssigningAuthorityName(), otherId.getII().getAssigningAuthorityName())
+                    .append(ii.isDisplayable(), otherId.getII().isDisplayable())
+                    .isEquals();
+        }
+
     }
 }

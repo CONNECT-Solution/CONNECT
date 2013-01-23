@@ -1,0 +1,30 @@
+To: recip@connect.example.org
+From: test@connect.example.org
+Subject: Hello
+Date: Thu, 05 Jan 95 10:53:24 -0500
+Message-ID: <1234@connect.example.org.Fairfax.VA.US>
+Mime-Version: 1.0
+Content-type: multipart/Mixed; boundary="NextPart"
+
+--NextPart
+
+Content-type: text/plain; charset="us-ascii"
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam sollicitudin nisi at turpis commodo adipiscing. Mauris 
+condimentum tincidunt urna, nec sodales odio sagittis id. Donec interdum fermentum erat quis congue. Ut mi eros, 
+rhoncus at iaculis ut, mattis nec lacus. Proin et interdum diam. Vivamus dui ante, faucibus eu bibendum et, aliquet ac 
+est. Mauris ut tempus metus. Aliquam faucibus leo vel nulla fringilla quis hendrerit sapien elementum. Nam tempus magna
+vel ligula mollis hendrerit. Nulla varius sapien justo, vitae sodales urna. Fusce sit amet orci eget neque scelerisque
+dapibus. Aenean lacus nibh, fringilla id malesuada id, eleifend id eros. Praesent ligula augue, dignissim quis 
+sollicitudin a, feugiat et lacus. Proin sagittis semper risus dignissim dictum. Ut vel eleifend ante.
+
+--NextPart
+
+Content-type: Message/External-body;
+name="someattach.txt";
+site="ds.internic.net"; access-type="anon-ftp"; directory="internet-drafts"
+
+Content-Type: text/plain
+Content-ID: <1234@connect.example.org.Fairfax.VA.US>
+
+--NextPart

@@ -29,11 +29,9 @@ package gov.hhs.fha.nhinc.messaging.service.decorator;
 
 import gov.hhs.fha.nhinc.messaging.service.ServiceEndpoint;
 
+import javax.xml.ws.BindingProvider;
 import javax.xml.ws.soap.SOAPBinding;
 
-import org.apache.cxf.endpoint.Client;
-import org.apache.cxf.frontend.ClientProxy;
-import org.apache.cxf.transport.http.HTTPConduit;
 import org.apache.cxf.transports.http.configuration.HTTPClientPolicy;
 
 /**
@@ -56,19 +54,12 @@ public class MTOMServiceEndpointDecorator<T> extends ServiceEndpointDecorator<T>
     @Override
     public void configure() {
         super.configure();
-        Client client = ClientProxy.getClient(getPort());
-        HTTPConduit conduit = (HTTPConduit) client.getConduit();
 
-        HTTPClientPolicy httpClientPolicy = conduit.getClient();
-        if (httpClientPolicy == null) {
-            httpClientPolicy = new HTTPClientPolicy();
-        }
-        httpClientPolicy.setAllowChunking(true);
-
-        // Enable MTOM
         SOAPBinding binding = (SOAPBinding) ((javax.xml.ws.BindingProvider) getPort()).getBinding();
         binding.setMTOMEnabled(true);
-
-        conduit.setClient(httpClientPolicy);
+        
+        HTTPClientPolicy httpClientPolicy = (HTTPClientPolicy) ((BindingProvider) getPort()).getRequestContext().get(
+                HTTPClientPolicy.class.getName());
+        httpClientPolicy.setAllowChunking(true);
     }
 }

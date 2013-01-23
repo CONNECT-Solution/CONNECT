@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:aop="http://www.springframework.org/schema/aop" xmlns:context="http://www.springframework.org/schema/context"
+    xsi:schemaLocation="
+http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
+http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+">
+
+    <aop:aspectj-autoproxy proxy-target-class="true" />
+    <context:annotation-config />
+    
+    <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="ignoreResourceNotFound" value="true"/>
+        <property name="locations">
+            <list>
+                <value>classpath:documentsubmission11.properties</value>
+                <value>file:///${nhinc.properties.dir}/gateway.properties</value>
+                <value>classpath:documentsubmission-test.properties</value>
+            </list>
+        </property>
+    </bean>
+
+    <bean id="nhinXDR" class="gov.hhs.fha.nhinc.docsubmission._11.nhin.NhinXDR">
+        <property name="inboundDocSubmission">
+            <bean class="${docsubmission.inboundDocSubmission}" />
+        </property>
+    </bean>
+
+    <bean id="entityXDRUnsecured" class="gov.hhs.fha.nhinc.docsubmission._11.entity.EntityDocSubmissionUnsecured">
+        <property name="outboundDocSubmission">
+            <bean class="${docsubmission.outboundDocSubmission}" />
+        </property>
+    </bean>
+
+    <bean id="entityXDRSecured" class="gov.hhs.fha.nhinc.docsubmission._11.entity.EntityDocSubmissionSecured">
+        <property name="outboundDocSubmission">
+            <bean class="${docsubmission.outboundDocSubmission}" />
+        </property>
+    </bean>
+    
+    <bean id="nhinXDRDeferredRequest" class="gov.hhs.fha.nhinc.docsubmission._11.nhin.deferred.request.NhinXDRRequest">
+        <property name="inboundDocSubmissionRequest">
+            <bean class="${docsubmission.inboundDocSubmissionRequest}" />
+        </property>
+    </bean>
+    
+    <bean id="entityXDRDeferredRequestUnsecured" class="gov.hhs.fha.nhinc.docsubmission._11.entity.deferred.request.EntityDocSubmissionDeferredRequestUnsecured">
+        <property name="outboundDocSubmissionRequest">
+            <bean class="${docsubmission.outboundDocSubmissionRequest}" />
+        </property>
+    </bean>
+    
+    <bean id="entityXDRDeferredRequestSecured" class="gov.hhs.fha.nhinc.docsubmission._11.entity.deferred.request.EntityDocSubmissionDeferredRequestSecured">
+        <property name="outboundDocSubmissionRequest">
+            <bean class="${docsubmission.outboundDocSubmissionRequest}" />
+        </property>
+    </bean>
+    
+    <bean id="nhinXDRDeferredResponse" class="gov.hhs.fha.nhinc.docsubmission._11.nhin.deferred.response.NhinXDRResponse">
+        <property name="inboundDocSubmissionResponse">
+            <bean class="${docsubmission.inboundDocSubmissionResponse}" />
+        </property>
+    </bean>
+    
+    <bean id="entityXDRDeferredResponseUnsecured" class="gov.hhs.fha.nhinc.docsubmission._11.entity.deferred.response.EntityDocSubmissionDeferredResponseUnsecured">
+        <property name="outboundDocSubmissionResponse">
+            <bean class="${docsubmission.outboundDocSubmissionResponse}" />
+        </property>
+    </bean>
+    
+    <bean id="entityXDRDeferredResponseSecured" class="gov.hhs.fha.nhinc.docsubmission._11.entity.deferred.response.EntityDocSubmissionDeferredResponseSecured">
+        <property name="outboundDocSubmissionResponse">
+            <bean class="${docsubmission.outboundDocSubmissionResponse}" />
+        </property>
+    </bean>
+        
+    <bean id="SOAPHeaderHandler" class="gov.hhs.fha.nhinc.callback.SOAPHeaderHandler" />
+    <bean id="TransactionHandler" class="gov.hhs.fha.nhinc.logging.transaction.TransactionHandler" />
+
+</beans>

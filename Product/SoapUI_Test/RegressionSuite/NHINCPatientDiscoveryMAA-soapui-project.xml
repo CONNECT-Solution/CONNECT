@@ -2,7 +2,7 @@
 <con:soapui-project abortOnError="false" name="NHINCPatientDiscoveryMAA" resourceRoot="${projectDir}" runType="SEQUENTIAL" soapui-version="4.5.1" activeEnvironment="Default" xmlns:con="http://eviware.com/soapui/config">
 	<con:settings/>
 	
-	<con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="EntityPatientDiscoveryBindingSoap" type="wsdl" bindingName="{urn:gov:hhs:fha:nhinc:entitypatientdiscovery}EntityPatientDiscoveryBindingSoap" soapVersion="1_2" anonymous="optional" definition="../ValidationSuite/target/wsdl/EntityPatientDiscovery.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:endpoints><con:endpoint>http://localhost:8080/Gateway/PatientDiscovery/1_0/EntityPatientDiscovery</con:endpoint></con:endpoints><con:operation isOneWay="false" action="urn:RespondingGateway_PRPA_IN201305UV02" name="RespondingGateway_PRPA_IN201305UV02" bindingOperationName="RespondingGateway_PRPA_IN201305UV02" type="Request-Response" outputName="RespondingGateway_PRPA_IN201306UV02Response" inputName="RespondingGateway_PRPA_IN201305UV02Request" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation></con:interface><con:testSuite name="PatientDiscovery">
+	<con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="EntityPatientDiscoveryBindingSoap" type="wsdl" bindingName="{urn:gov:hhs:fha:nhinc:entitypatientdiscovery}EntityPatientDiscoveryBindingSoap" soapVersion="1_2" anonymous="optional" definition="../ValidationSuite/target/wsdl/EntityPatientDiscovery.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:endpoints><con:endpoint>http://localhost:8080/Gateway/PatientDiscovery/1_0/EntityPatientDiscovery</con:endpoint><con:endpoint>http://localhost:${HttpDefaultPort}/Gateway/PatientDiscovery/1_0/EntityPatientDiscovery</con:endpoint></con:endpoints><con:operation isOneWay="false" action="urn:gov:hhs:fha:nhinc:entitypatientdiscovery:RespondingGateway_PRPA_IN201305UV02RequestMessage" name="RespondingGateway_PRPA_IN201305UV02" bindingOperationName="RespondingGateway_PRPA_IN201305UV02" type="Request-Response" outputName="RespondingGateway_PRPA_IN201306UV02Response" inputName="RespondingGateway_PRPA_IN201305UV02Request" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/></con:operation></con:interface><con:testSuite name="PatientDiscovery">
 		<con:settings/>
 		<con:runType>SEQUENTIAL</con:runType>
 		<con:testCase failOnError="true" failTestCaseOnErrors="true" id="228cca2d-5c0c-4bde-8678-a9829aa19156" keepSession="false" maxResults="0" name="PatientDiscoveryMAA" searchProperties="true">
@@ -21,7 +21,7 @@
 				<con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:hl7-org:v3" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing">
    <soapenv:Header/>
    <soapenv:Body projectName="InternalSelfTest" testCase="Patient Discovery">
-      <urn:Proxy_PRPA_IN201305UVProxyRequest>
+      <urn:RespondingGateway_PRPA_IN201305UV02Request>
          <urn:PRPA_IN201305UV02 ITSVersion="XML_1.0">
             <urn:id root="1.1" extension="-5a3e95b1:11d1fa33d45:-7f9b"/>
             <urn:creationTime value="20091116084800"/>
@@ -263,7 +263,7 @@
                </urn1:homeCommunity>
             </urn1:nhinTargetCommunity>
          </urn:NhinTargetCommunities>
-      </urn:Proxy_PRPA_IN201305UVProxyRequest>
+      </urn:RespondingGateway_PRPA_IN201305UV02Request>
    </soapenv:Body>
 </soapenv:Envelope>]]></con:request>
 				<con:assertion type="SOAP Response"/>
@@ -317,7 +317,7 @@ exists( //ns3:PRPA_IN201306UV02/ns3:controlActProcess)</path>
 		</con:config>
 	</con:testStep>
 	<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);</con:tearDownScript>
-	<con:properties><con:property><con:name>startDate</con:name><con:value>2012-12-16T17:56:15Z</con:value></con:property><con:property><con:name>endDate</con:name><con:value>2012-12-16T18:06:15Z</con:value></con:property><con:property><con:name>sigDate</con:name><con:value>12/16/2012 17:56:15</con:value></con:property><con:property><con:name>expireDate</con:name><con:value>2013-01-15T00:00:00Z</con:value></con:property></con:properties>
+	<con:properties><con:property><con:name>startDate</con:name><con:value>2013-01-11T19:01:24Z</con:value></con:property><con:property><con:name>endDate</con:name><con:value>2013-01-11T19:11:24Z</con:value></con:property><con:property><con:name>sigDate</con:name><con:value>01/11/2013 19:01:24</con:value></con:property><con:property><con:name>expireDate</con:name><con:value>2013-02-10T00:00:00Z</con:value></con:property></con:properties>
 </con:testCase>
 <con:properties/>
 </con:testSuite>

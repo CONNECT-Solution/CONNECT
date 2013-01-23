@@ -133,6 +133,9 @@ public class MailUtils {
             transport.connect(host, Integer.parseInt(port), user, pass);
             transport.sendMessage(message, recipients);
             logHeaders(message);
+        } catch (AssertionError e) { 
+            LOG.error("Assertion Error while sending.", e);
+            throw e;
         } finally {
             transport.close();
         }

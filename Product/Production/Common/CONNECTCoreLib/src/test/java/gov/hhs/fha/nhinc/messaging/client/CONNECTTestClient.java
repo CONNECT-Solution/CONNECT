@@ -28,7 +28,7 @@ package gov.hhs.fha.nhinc.messaging.client;
 
 import gov.hhs.fha.nhinc.messaging.service.BaseServiceEndpoint;
 import gov.hhs.fha.nhinc.messaging.service.ServiceEndpoint;
-import gov.hhs.fha.nhinc.messaging.service.port.CachingCXFServicePortBuilder;
+import gov.hhs.fha.nhinc.messaging.service.port.CachingCXFSecuredServicePortBuilder;
 import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
 
 /**
@@ -47,7 +47,7 @@ public class CONNECTTestClient<T> implements CONNECTClient<T> {
      * @param portDescriptor
      */
     public CONNECTTestClient(ServicePortDescriptor<T> portDescriptor) {
-        serviceEndpoint = new BaseServiceEndpoint<T>(new CachingCXFServicePortBuilder<T>(portDescriptor).createPort());
+        serviceEndpoint = new BaseServiceEndpoint<T>(new CachingCXFSecuredServicePortBuilder<T>(portDescriptor).createPort());
     }
 
     public ServiceEndpoint<T> getServiceEndpoint() {

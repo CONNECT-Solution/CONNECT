@@ -32,13 +32,8 @@
                             <goal>install-file</goal>
                         </goals>
                         <configuration>
-                            <file>${basedir}/jms1.1/lib/javax.jms.jar</file>
-                            <groupId>javax.jms</groupId>
-                            <artifactId>jms</artifactId>
-                            <version>1.1</version>
-                            <packaging>jar</packaging>
-                            <generatePom>true</generatePom>
-                            <createChecksum>true</createChecksum>
+                            <pomFile>${basedir}/repo/javax/jms/jms/1.1/jms-1.1.pom</pomFile>
+                            <file>${basedir}/repo/javax/jms/jms/1.1/jms-1.1.jar</file>
                         </configuration>
                     </execution>
                     <execution>
@@ -48,13 +43,8 @@
                             <goal>install-file</goal>
                         </goals>
                         <configuration>
-                            <file>${basedir}/JTA/javax.transaction.jar</file>
-                            <groupId>javax.transaction</groupId>
-                            <artifactId>jta</artifactId>
-                            <version>1.0.1B</version>
-                            <packaging>jar</packaging>
-                            <generatePom>true</generatePom>
-                            <createChecksum>true</createChecksum>
+                            <pomFile>${basedir}/repo/javax/transaction/jta/1.0.1B/jta-1.0.1B.pom</pomFile>
+                            <file>${basedir}/repo/javax/transaction/jta/1.0.1B/jta-1.0.1B.jar</file>
                         </configuration>
                     </execution>
                     <execution>
@@ -64,13 +54,8 @@
                             <goal>install-file</goal>
                         </goals>
                         <configuration>
-                            <file>${basedir}/jmx-1_2_1-bin/lib/jmxri.jar</file>
-                            <groupId>com.sun.jmx</groupId>
-                            <artifactId>jmxri</artifactId>
-                            <version>1.2.1</version>
-                            <packaging>jar</packaging>
-                            <generatePom>true</generatePom>
-                            <createChecksum>true</createChecksum>
+                            <pomFile>${basedir}/repo/com/sun/jmx/jmxri/1.2.1/jmxri-1.2.1.pom</pomFile>
+                            <file>${basedir}/repo/com/sun/jmx/jmxri/1.2.1/jmxri-1.2.1.jar</file>
                         </configuration>
                     </execution>
                     <execution>
@@ -80,13 +65,8 @@
                             <goal>install-file</goal>
                         </goals>
                         <configuration>
-                            <file>${basedir}/jmx-1_2_1-bin/lib/jmxtools.jar</file>
-                            <groupId>com.sun.jdmk</groupId>
-                            <artifactId>jmxtools</artifactId>
-                            <version>1.2.1</version>
-                            <packaging>jar</packaging>
-                            <generatePom>true</generatePom>
-                            <createChecksum>true</createChecksum>
+                            <pomFile>${basedir}/repo/com/sun/jdmk/jmxtools/1.2.1/jmxtools-1.2.1.pom</pomFile>
+                            <file>${basedir}/repo/com/sun/jdmk/jmxtools/1.2.1/jmxtools-1.2.1.jar</file>
                         </configuration>
                     </execution>
                     <execution>
@@ -96,14 +76,8 @@
                             <goal>install-file</goal>
                         </goals>
                         <configuration>
-                            <file>${basedir}/OpenSSO/ssoAdminTools/lib/opensso.jar</file>
-                            <groupId>com.sun.identity</groupId>
-                            <artifactId>opensso</artifactId>
-                            <version>1.0</version>
-                            <packaging>jar</packaging>
-                            <generatePom>true</generatePom>
-
-                            <createChecksum>true</createChecksum>
+                            <pomFile>${basedir}/repo/com/sun/identity/opensso/1.0/opensso-1.0.pom</pomFile>
+                            <file>${basedir}/repo/com/sun/identity/opensso/1.0/opensso-1.0.jar</file>
                         </configuration>
                     </execution>
                     <execution>
@@ -113,13 +87,8 @@
                             <goal>install-file</goal>
                         </goals>
                         <configuration>
-                            <file>${basedir}/OpenSSO/ssoAdminTools/lib/opensso-sharedlib.jar</file>
-                            <groupId>com.sun.identity</groupId>
-                            <artifactId>opensso-sharedlib</artifactId>
-                            <version>1.0</version>
-                            <packaging>jar</packaging>
-                            <generatePom>true</generatePom>
-                            <createChecksum>true</createChecksum>
+                            <pomFile>${basedir}/repo/com/sun/identity/opensso-sharedlib/1.0/opensso-sharedlib-1.0.pom</pomFile>
+                            <file>${basedir}/repo/com/sun/identity/opensso-sharedlib/1.0/opensso-sharedlib-1.0.jar</file>
                         </configuration>
                     </execution>
                     <execution>
@@ -129,13 +98,8 @@
                             <goal>install-file</goal>
                         </goals>
                         <configuration>
-                            <file>${basedir}/OpenSSO/openssoclientsdk.jar</file>
-                            <groupId>com.sun.identity</groupId>
-                            <artifactId>openssoclientsdk</artifactId>
-                            <version>1.0</version>
-                            <packaging>jar</packaging>
-                            <generatePom>true</generatePom>
-                            <createChecksum>true</createChecksum>
+                            <pomFile>${basedir}/repo/com/sun/identity/openssoclientsdk/1.0/openssoclientsdk-1.0.pom</pomFile>
+                            <file>${basedir}/repo/com/sun/identity/openssoclientsdk/1.0/openssoclientsdk-1.0.jar</file>
                         </configuration>
                     </execution>
                     <execution>
@@ -145,13 +109,8 @@
                             <goal>install-file</goal>
                         </goals>
                         <configuration>
-                            <file>${basedir}/jsf/jsfcl.jar</file>
-                            <groupId>org.connectopensource.thirdparty.com.sun.jsf</groupId>
-                            <artifactId>jsfcl</artifactId>
-                            <version>1.0</version>
-                            <packaging>jar</packaging>
-                            <generatePom>true</generatePom>
-                            <createChecksum>true</createChecksum>
+                            <pomFile>${basedir}/repo/org/connectopensource/thirdparty/com/sun/jsf/jsfcl/1.0/jsfcl-1.0.pom</pomFile>
+                            <file>${basedir}/repo/org/connectopensource/thirdparty/com/sun/jsf/jsfcl/1.0/jsfcl-1.0.jar</file>
                         </configuration>
                     </execution>
                     <execution>
@@ -161,13 +120,8 @@
                             <goal>install-file</goal>
                         </goals>
                         <configuration>
-                            <file>${basedir}/jsf/appbase.jar</file>
-                            <groupId>org.connectopensource.thirdparty.com.sun.jsf</groupId>
-                            <artifactId>appbase</artifactId>
-                            <version>1.0</version>
-                            <packaging>jar</packaging>
-                            <generatePom>true</generatePom>
-                            <createChecksum>true</createChecksum>
+                            <pomFile>${basedir}/repo/org/connectopensource/thirdparty/com/sun/jsf/appbase/1.0/appbase-1.0.pom</pomFile>
+                            <file>${basedir}/repo/org/connectopensource/thirdparty/com/sun/jsf/appbase/1.0/appbase-1.0.jar</file>   
                         </configuration>
                     </execution>
                     <execution>
@@ -177,13 +131,8 @@
                             <goal>install-file</goal>
                         </goals>
                         <configuration>
-                            <file>${basedir}/jsf/sqlx.jar</file>
-                            <groupId>org.connectopensource.thirdparty.com.sun.jsf</groupId>
-                            <artifactId>sqlx</artifactId>
-                            <version>1.0</version>
-                            <packaging>jar</packaging>
-                            <generatePom>true</generatePom>
-                            <createChecksum>true</createChecksum>
+                            <pomFile>${basedir}/repo/org/connectopensource/thirdparty/com/sun/jsf/sqlx/1.0/sqlx-1.0.pom</pomFile>
+                            <file>${basedir}/repo/org/connectopensource/thirdparty/com/sun/jsf/sqlx/1.0/sqlx-1.0.jar</file>
                         </configuration>
                     </execution>
                     <execution>
@@ -193,13 +142,8 @@
                             <goal>install-file</goal>
                         </goals>
                         <configuration>
-                            <file>${basedir}/jsf/dataprovider.jar</file>
-                            <groupId>org.connectopensource.thirdparty.com.sun.jsf</groupId>
-                            <artifactId>dataprovider</artifactId>
-                            <version>1.0</version>
-                            <packaging>jar</packaging>
-                            <generatePom>true</generatePom>
-                            <createChecksum>true</createChecksum>
+                            <pomFile>${basedir}/repo/org/connectopensource/thirdparty/com/sun/jsf/dataprovider/1.0/dataprovider-1.0.pom</pomFile>
+                            <file>${basedir}/repo/org/connectopensource/thirdparty/com/sun/jsf/dataprovider/1.0/dataprovider-1.0.jar</file>
                         </configuration>
                     </execution>
                     <execution>
@@ -209,13 +153,8 @@
                             <goal>install-file</goal>
                         </goals>
                         <configuration>
-                            <file>${basedir}/jsf/errorhandler.jar</file>
-                            <groupId>org.connectopensource.thirdparty.com.sun.jsf</groupId>
-                            <artifactId>errorhandler</artifactId>
-                            <version>1.0</version>
-                            <packaging>jar</packaging>
-                            <generatePom>true</generatePom>
-                            <createChecksum>true</createChecksum>
+                            <pomFile>${basedir}/repo/org/connectopensource/thirdparty/com/sun/jsf/errorhandler/1.0/errorhandler-1.0.pom</pomFile>
+                            <file>${basedir}/repo/org/connectopensource/thirdparty/com/sun/jsf/errorhandler/1.0/errorhandler-1.0.jar</file>
                         </configuration>
                     </execution>
                     <execution>
@@ -225,13 +164,8 @@
                             <goal>install-file</goal>
                         </goals>
                         <configuration>
-                            <file>${basedir}/jsf/webui-jsf.jar</file>
-                            <groupId>org.connectopensource.thirdparty.com.sun.jsf</groupId>
-                            <artifactId>webui-jsf</artifactId>
-                            <version>1.0</version>
-                            <packaging>jar</packaging>
-                            <generatePom>true</generatePom>
-                            <createChecksum>true</createChecksum>
+                            <pomFile>${basedir}/repo/org/connectopensource/thirdparty/com/sun/jsf/webui-jsf/1.0/webui-jsf-1.0.pom</pomFile>
+                            <file>${basedir}/repo/org/connectopensource/thirdparty/com/sun/jsf/webui-jsf/1.0/webui-jsf-1.0.jar</file>
                         </configuration>
                     </execution>
                     <execution>
@@ -241,13 +175,30 @@
                             <goal>install-file</goal>
                         </goals>
                         <configuration>
-                            <file>${basedir}/jsf/webui-jsf-suntheme.jar</file>
-                            <groupId>org.connectopensource.thirdparty.com.sun.jsf</groupId>
-                            <artifactId>webui-jsf-suntheme</artifactId>
-                            <version>1.0</version>
-                            <packaging>jar</packaging>
-                            <generatePom>true</generatePom>
-                            <createChecksum>true</createChecksum>
+                            <pomFile>${basedir}/repo/org/connectopensource/thirdparty/com/sun/jsf/webui-jsf-suntheme/1.0/webui-jsf-suntheme-1.0.pom</pomFile>
+                            <file>${basedir}/repo/org/connectopensource/thirdparty/com/sun/jsf/webui-jsf-suntheme/1.0/webui-jsf-suntheme-1.0.jar</file>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>org.connectopensource.thirdparty.com.icegreen.greenmail:greenmail-1.3.1b-mbaechler</id>
+                        <phase>initialize</phase>
+                        <goals>
+                            <goal>install-file</goal>
+                        </goals>
+                        <configuration>
+                            <pomFile>${basedir}/repo/com/icegreen/greenmail/1.3.1b-mbaechler/greenmail-1.3.1b-mbaechler.pom</pomFile>
+                            <file>${basedir}/repo/com/icegreen/greenmail/1.3.1b-mbaechler/greenmail-1.3.1b-mbaechler.jar</file>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>org.connectopensource.thirdparty.org.nhind.xd-common:xd-common-1.2-CONNECT</id>
+                        <phase>initialize</phase>
+                        <goals>
+                            <goal>install-file</goal>
+                        </goals>
+                        <configuration>
+                            <pomFile>${basedir}/repo/org/nhind/xd-common/1.2-CONNECT/xd-common-1.2-CONNECT.pom</pomFile>
+                            <file>${basedir}/repo/org/nhind/xd-common/1.2-CONNECT/xd-common-1.2-CONNECT.jar</file>
                         </configuration>
                     </execution>
                 </executions>

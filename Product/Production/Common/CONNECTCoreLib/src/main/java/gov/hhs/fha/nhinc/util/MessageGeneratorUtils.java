@@ -26,8 +26,18 @@
  */
 package gov.hhs.fha.nhinc.util;
 
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
+import gov.hhs.fha.nhinc.transform.marshallers.Marshaller;
+import gov.hhs.fha.nhinc.wsa.WSAHeaderHelper;
+
+import javax.xml.namespace.QName;
+
+import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
+
+import org.hl7.v3.PRPAIN201305UV02;
+import org.w3c.dom.Element;
 
 /**
  * @author akong
@@ -36,6 +46,15 @@ import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 public class MessageGeneratorUtils {
 
     private static MessageGeneratorUtils INSTANCE = new MessageGeneratorUtils();
+
+    private static final String NHINC_COMMON_CONTEXT = "gov.hhs.fha.nhinc.common.nhinccommon";
+    private static final String NHINC_COMMON_URN = "urn:gov:hhs:fha:nhinc:common:nhinccommon";
+
+    private static final String OASIS_QUERY_30_CONTEXT = "oasis.names.tc.ebxml_regrep.xsd.query._3";
+    private static final String OASIS_QUERY_30_URN = "urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0";
+    
+    private static final String HL7_V3_CONTEXT = "org.hl7.v3";
+    private static final String HL7_V3_URN = "urn:hl7-org:v3";
 
     protected MessageGeneratorUtils() {
     }
@@ -63,6 +82,64 @@ public class MessageGeneratorUtils {
         }
 
         return nhinTargetSystem;
+    }
+
+    /**
+     * Clones the assertion object.
+     * 
+     * @param assertion
+     * @return a cloned assertion
+     */
+    public AssertionType clone(AssertionType assertion) {
+        QName qName = new QName(NHINC_COMMON_URN, "Assertion");
+        Marshaller marshaller = new Marshaller();
+
+        Element jaxbElement = marshaller.marshal(assertion, NHINC_COMMON_CONTEXT, qName);
+
+        return (AssertionType) marshaller.unmarshallJaxbElement(jaxbElement, NHINC_COMMON_CONTEXT);
+    }
+    
+    /**
+     * Clones the assertion object but with a new message id
+     * 
+     * @param assertion
+     * @return a cloned assertion but with a new message id
+     */
+    public AssertionType cloneWithNewMsgId(AssertionType assertion) {
+        AssertionType newAssertion = clone(assertion);
+        newAssertion.setMessageId(new WSAHeaderHelper().generateMessageID());
+        
+        return newAssertion;
+    }
+
+    /**
+     * Clones the Adhoc Query Request.
+     * 
+     * @param adhocQueryRequest
+     * @return a cloned adhocQueryRequest
+     */
+    public AdhocQueryRequest clone(AdhocQueryRequest adhocQueryRequest) {
+        QName qName = new QName(OASIS_QUERY_30_URN, "AdhocQueryRequest");
+        Marshaller marshaller = new Marshaller();
+
+        Element jaxbElement = marshaller.marshal(adhocQueryRequest, OASIS_QUERY_30_CONTEXT, qName);
+
+        return (AdhocQueryRequest) marshaller.unmarshallJaxbElement(jaxbElement, OASIS_QUERY_30_CONTEXT);
+    }
+    
+    /**
+     * Clones the PRPAIN201305UV02.
+     * 
+     * @param request
+     * @return a cloned PRPAIN201305UV02
+     */
+    public PRPAIN201305UV02 clone(PRPAIN201305UV02 request) {
+        QName qName = new QName(HL7_V3_URN, "PRPA_IN201305UV02");        
+        Marshaller marshaller = new Marshaller();
+
+        Element jaxbElement = marshaller.marshal(request, HL7_V3_CONTEXT, qName);
+        
+        return (PRPAIN201305UV02) marshaller.unmarshallJaxbElement(jaxbElement, HL7_V3_CONTEXT);
     }
 
 }

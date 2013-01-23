@@ -32,11 +32,10 @@ import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 
-import org.apache.log4j.Logger;
-import org.apache.cxf.endpoint.Client;
-import org.apache.cxf.frontend.ClientProxy;
-import org.apache.cxf.transport.http.HTTPConduit;
+import javax.xml.ws.BindingProvider;
+
 import org.apache.cxf.transports.http.configuration.HTTPClientPolicy;
+import org.apache.log4j.Logger;
 
 /**
  * @author bhumphrey
@@ -58,18 +57,13 @@ public class TimeoutServiceEndpointDecorator<T> extends ServiceEndpointDecorator
     @Override
     public void configure() {
         super.configure();
-        Client client = ClientProxy.getClient(getPort());
-        HTTPConduit conduit = (HTTPConduit) client.getConduit();
 
-        HTTPClientPolicy httpClientPolicy = conduit.getClient();
-        if (httpClientPolicy == null) {
-            httpClientPolicy = new HTTPClientPolicy();
-        }
+        HTTPClientPolicy httpClientPolicy = (HTTPClientPolicy) ((BindingProvider) getPort())
+                .getRequestContext().get(HTTPClientPolicy.class.getName());
+
         int timeout = getTimeoutFromConfig();
         httpClientPolicy.setReceiveTimeout(timeout);
         httpClientPolicy.setConnectionTimeout(timeout);
-
-        conduit.setClient(httpClientPolicy);
     }
 
     private int getTimeoutFromConfig() {

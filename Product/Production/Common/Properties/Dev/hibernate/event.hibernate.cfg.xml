@@ -10,7 +10,7 @@
         <!-- SQL dialect -->
         <property name="dialect">org.hibernate.dialect.MySQLDialect</property>
 
-        <property name="connection.datasource">jdbc/eventdb_datasource</property>
+        <property name="connection.datasource">java:comp/env/jdbc/eventdb_datasource</property>
 
         <mapping resource="event.hbm.xml"/>
     </session-factory>

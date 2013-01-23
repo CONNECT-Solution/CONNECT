@@ -56,19 +56,16 @@ public class MessageGeneratorUtils extends gov.hhs.fha.nhinc.util.MessageGenerat
     /**
      * Create a AdhocQueryResponse with severity set to error.
      * 
-     * @param errorMsg
-     *            - the code context value of the message
-     * @param errorCode
-     *            - the error code value of the message
-     * @param status
-     *            - the status of the message
+     * @param codeContext The codecontext defines the reason of failure of AdhocQueryRequest.
+     * @param errorCode The ErrorCode that needs to be set to the AdhocQueryResponse (Errorcodes are defined in spec).
+     * @param status - the status of the message
      * @return the generated AdhocQueryResponse message
      */
-    public AdhocQueryResponse createAdhocQueryErrorResponse(String errorMsg, String errorCode, String status) {
+    public AdhocQueryResponse createAdhocQueryErrorResponse(String codeContext, String errorCode, String status) {
         RegistryErrorList regErrList = new RegistryErrorList();
         regErrList.setHighestSeverity(NhincConstants.XDS_REGISTRY_ERROR_SEVERITY_ERROR);
 
-        regErrList.getRegistryError().add(createRegistryError(errorMsg, errorCode));
+        regErrList.getRegistryError().add(createRegistryError(codeContext, errorCode));
 
         AdhocQueryResponse response = new AdhocQueryResponse();
         response.setRegistryErrorList(regErrList);
@@ -79,13 +76,15 @@ public class MessageGeneratorUtils extends gov.hhs.fha.nhinc.util.MessageGenerat
     }
 
     /**
-     * @param errorMsg
-     * @param errorCode
-     * @return
+     * Creates a registry error with the passed in codeContext and errorCode.
+     * 
+     * @param codeContext The codecontext defines the reason of failure of AdhocQueryRequest.
+     * @param errorCode The ErrorCode that needs to be set to the AdhocQueryResponse (Errorcodes are defined in spec).
+     * @return the generated RegistryError
      */
-    public RegistryError createRegistryError(String errorMsg, String errorCode) {
+    public RegistryError createRegistryError(String codeContext, String errorCode) {
         RegistryError regErr = new RegistryError();
-        regErr.setCodeContext(errorMsg);
+        regErr.setCodeContext(codeContext);
         regErr.setErrorCode(errorCode);
         regErr.setSeverity(NhincConstants.XDS_REGISTRY_ERROR_SEVERITY_ERROR);
         return regErr;
@@ -101,8 +100,14 @@ public class MessageGeneratorUtils extends gov.hhs.fha.nhinc.util.MessageGenerat
                 DocumentConstants.XDS_QUERY_RESPONSE_STATUS_FAILURE);
     }
 
-    public AdhocQueryResponse createRepositoryErrorResponse(String errorMsg) {
-        return createAdhocQueryErrorResponse(errorMsg, DocumentConstants.XDS_ERRORCODE_REPOSITORY_ERROR,
+    /**
+     * Create a AdhocQueryResponse failure with errorCode XDSRepositoryError.
+     * 
+     * @param codeContext The codecontext defines the reason of failure of AdhocQueryRequest.
+     * @return the generated AdhocQueryResponse message
+     */
+    public AdhocQueryResponse createRepositoryErrorResponse(String codeContext) {
+        return createAdhocQueryErrorResponse(codeContext, DocumentConstants.XDS_ERRORCODE_REPOSITORY_ERROR,
                 DocumentConstants.XDS_QUERY_RESPONSE_STATUS_FAILURE);
     }
 

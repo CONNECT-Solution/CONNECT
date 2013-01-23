@@ -44,6 +44,7 @@ import gov.hhs.fha.nhinc.connectmgr.ConnectionManager;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException;
 import gov.hhs.fha.nhinc.connectmgr.UrlInfo;
 import gov.hhs.fha.nhinc.docquery.outbound.StandardOutboundDocQueryHelper;
+import gov.hhs.fha.nhinc.logging.transaction.TransactionLogger;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.orchestration.OutboundOrchestratable;
 import gov.hhs.fha.nhinc.patientcorrelation.nhinc.parsers.PRPAIN201309UV.PixRetrieveBuilder;
@@ -79,8 +80,9 @@ public class FanoutServiceTest {
     PixRetrieveBuilder pixRetrieveBuilder = mock(PixRetrieveBuilder.class);
     PatientCorrelationProxy patientCorrelationProxy = mock(PatientCorrelationProxy.class);
     StandardOutboundDocQueryHelper standardDocQueryHelper = mock(StandardOutboundDocQueryHelper.class);
+    TransactionLogger transactionLogger = mock(TransactionLogger.class);
     AggregationService service = new AggregationService(connectionManager, patientCorrelationProxyFactory,
-            pixRetrieveBuilder, standardDocQueryHelper);
+            pixRetrieveBuilder, standardDocQueryHelper, transactionLogger);
 
     @Test
     public void createChildRequestsSingle() throws ConnectionManagerException {

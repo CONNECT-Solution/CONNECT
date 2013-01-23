@@ -67,12 +67,16 @@ public class TLSClientServiceEndpointDecorator<T> extends ServiceEndpointDecorat
         this.tlsClientFactory = tlsClientFactory;
     }
 
+    /**
+     * This call is not thread safe if the port is a shared instance as it modifies the HTTP Conduit.
+     */
     @Override
     public void configure() {
         super.configure();
         Client client = ClientProxy.getClient(getPort());
         HTTPConduit conduit = (HTTPConduit) client.getConduit();
         TLSClientParameters tlsCP = tlsClientFactory.getTLSClientParameters();
+        
         conduit.setTlsClientParameters(tlsCP);
     }
 

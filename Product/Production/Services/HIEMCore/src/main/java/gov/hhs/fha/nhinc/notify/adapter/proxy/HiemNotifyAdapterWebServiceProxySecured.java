@@ -104,7 +104,7 @@ public class HiemNotifyAdapterWebServiceProxySecured implements HiemNotifyAdapte
             AssertionType assertion, String wsAddressingTo) {
 
         return CONNECTCXFClientFactory.getInstance().getCONNECTClientSecured(portDescriptor, url, assertion,
-                wsAddressingTo);
+                wsAddressingTo, null);
     }
 
     protected WebServiceProxyHelper getWebServiceProxyHelper() {

@@ -11,15 +11,11 @@
     <artifactId>DirectCore</artifactId>
     <packaging>jar</packaging>
     <name>CONNECT Direct Core</name>
-    <properties>
-        <connectdir>${basedir}/../../../../</connectdir>
-    </properties>
 
     <dependencies>
         <dependency>
             <groupId>commons-codec</groupId>
             <artifactId>commons-codec</artifactId>
-            <version>1.4</version>
         </dependency>
         <dependency>
             <groupId>org.nhind</groupId>
@@ -29,7 +25,7 @@
         <dependency>
             <groupId>org.nhind</groupId>
             <artifactId>xd-common</artifactId>
-            <version>1.2-CONNECT-SNAPSHOT</version>
+            <version>1.2-CONNECT</version>
         </dependency>
         <dependency>
             <groupId>org.mockito</groupId>
@@ -39,36 +35,39 @@
         <dependency>
             <groupId>com.icegreen</groupId>
             <artifactId>greenmail</artifactId>
-            <version>1.3.1b-mbaechler</version>
-            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-test</artifactId>
-            <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-api</artifactId>
-            <version>1.6.2</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-simple</artifactId>
-            <version>1.6.2</version>
-            <scope>test</scope>
+            <groupId>org.bouncycastle</groupId>
+            <artifactId>bcprov-jdk15</artifactId>
         </dependency>
         <dependency>
             <groupId>org.nhind</groupId>
             <artifactId>agent</artifactId>
             <version>1.5.3</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>bouncycastle</groupId>
+                    <artifactId>bcprov-jdk15</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.nhind</groupId>
             <artifactId>direct-common</artifactId>
             <version>1.1.1</version>
         </dependency>
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>javax.mail</groupId>
+            <artifactId>mail</artifactId>
+        </dependency>        
     </dependencies>
 
 </project>

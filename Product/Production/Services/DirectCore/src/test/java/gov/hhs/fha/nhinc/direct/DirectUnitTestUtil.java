@@ -37,6 +37,7 @@ import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType.Document;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -298,11 +299,12 @@ public class DirectUnitTestUtil {
     public static void writeSmtpAgentConfig() {
         try {
             String smtpAgentConfigTmpl = getFileAsString("smtp.agent.config.tmpl.xml");
-            String classpath = getClassPath();
-            FileUtils.writeStringToFile(new File(classpath + "smtp.agent.config.xml"),
-                    smtpAgentConfigTmpl.replaceAll("\\{jks.keystore.path\\}", classpath));
-            LOG.debug("smtp.agent.config.xml: " + smtpAgentConfigTmpl.replaceAll("\\{jks.keystore.path\\}", classpath));
-        } catch (IOException e) {
+            File path = getClassPath();
+            FileUtils.writeStringToFile(new File(path + "/smtp.agent.config.xml"),
+                    smtpAgentConfigTmpl.replace("{jks.keystore.path}", path.getPath() + "/"));
+            LOG.debug("smtp.agent.config.xml: "
+                    + smtpAgentConfigTmpl.replace("{jks.keystore.path}", path.getPath() + "/"));
+        } catch (Exception e) {
             fail(e.getMessage());
         }
     }
@@ -315,8 +317,8 @@ public class DirectUnitTestUtil {
     public static String getFileAsString(String filename) {
         String fileAsString = null;
         try {
-            fileAsString =  FileUtils.readFileToString(new File(getClassPath() + filename));
-        } catch (IOException e) {
+            fileAsString =  FileUtils.readFileToString(new File(getClassPath() + "/" + filename));
+        } catch (Exception e) {
             fail(e.getMessage());            
         }
         return fileAsString;
@@ -326,15 +328,19 @@ public class DirectUnitTestUtil {
      * Delete the auto-generated smtp.agent.config.xml once the test is complete.
      */
     public static void removeSmtpAgentConfig() {
-        FileUtils.deleteQuietly(new File(getClassPath() + "smtp.agent.config.xml"));
+        try {
+            FileUtils.deleteQuietly(new File(getClassPath() + "/smtp.agent.config.xml"));
+        } catch (Exception e) {
+            fail(e.getMessage());                        
+        }
     }
     
     /**
      * Used when calling code requires absolute paths to test resources.
      * @return absolute classpath.
      */
-    public static String getClassPath() {
-        return DirectUnitTestUtil.class.getProtectionDomain().getCodeSource().getLocation().getPath();
+    public static File getClassPath() throws URISyntaxException {
+        return new File(DirectUnitTestUtil.class.getProtectionDomain().getCodeSource().getLocation().toURI());
     }    
     
     /**

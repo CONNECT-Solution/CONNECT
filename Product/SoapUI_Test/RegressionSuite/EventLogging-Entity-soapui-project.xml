@@ -28,8 +28,8 @@
 		<con:endpoints>
 			<con:endpoint>http://localhost:8080/CONNECTGateway/EntityService/EntityDocSubmissionUnsecured</con:endpoint>
 			<con:endpoint>${#TestSuite#Endpoint-XDREntity}</con:endpoint>
-		</con:endpoints>
-		<con:operation action="tns:ProvideAndRegisterDocumentSet-b" anonymous="optional" bindingOperationName="ProvideAndRegisterDocumentSet-b" inputName="" isOneWay="false" name="ProvideAndRegisterDocumentSet-b" receivesAttachments="false" sendsAttachments="false" type="Request-Response">
+		<con:endpoint>http://localhost:${HttpDefaultPort}/Gateway/DocumentSubmission/1_1/EntityService/EntityDocSubmissionUnsecured</con:endpoint></con:endpoints>
+		<con:operation action="" anonymous="optional" bindingOperationName="ProvideAndRegisterDocumentSet-b" inputName="" isOneWay="false" name="ProvideAndRegisterDocumentSet-b" receivesAttachments="false" sendsAttachments="false" type="Request-Response">
 			<con:settings/>
 
 		</con:operation>
@@ -85,8 +85,8 @@
 
 		<con:endpoints>
 			<con:endpoint>http://localhost:8080/CONNECTGateway/EntityPatientDiscovery</con:endpoint>
-		</con:endpoints>
-		<con:operation action="urn:RespondingGateway_PRPA_IN201305UV02" bindingOperationName="RespondingGateway_PRPA_IN201305UV02" inputName="RespondingGateway_PRPA_IN201305UV02Request" isOneWay="false" name="RespondingGateway_PRPA_IN201305UV02" outputName="RespondingGateway_PRPA_IN201306UV02Response" receivesAttachments="false" sendsAttachments="false" type="Request-Response">
+		<con:endpoint>http://localhost:${HttpDefaultPort}/Gateway/PatientDiscovery/1_0/EntityPatientDiscovery</con:endpoint></con:endpoints>
+		<con:operation action="urn:gov:hhs:fha:nhinc:entitypatientdiscovery:RespondingGateway_PRPA_IN201305UV02RequestMessage" bindingOperationName="RespondingGateway_PRPA_IN201305UV02" inputName="RespondingGateway_PRPA_IN201305UV02Request" isOneWay="false" name="RespondingGateway_PRPA_IN201305UV02" outputName="RespondingGateway_PRPA_IN201306UV02Response" receivesAttachments="false" sendsAttachments="false" type="Request-Response" anonymous="optional">
 			<con:settings/>
 		</con:operation>
 	</con:interface><con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:entitypatientdiscoveryasyncreq}EntityPatientDiscoveryAsyncReqBindingSoap" definition="${projectDir}/../ValidationSuite/target/wsdl/EntityPatientDiscoveryAsyncReq.wsdl" name="EntityPatientDiscoveryAsyncReqBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
@@ -104,8 +104,8 @@
 
 		<con:endpoints>
 			<con:endpoint>http://localhost:${HttpDefaultPort}/NhinConnect/EntityDocRetrieve</con:endpoint>
-		</con:endpoints>
-		<con:operation action="urn:RespondingGateway_CrossGatewayRetrieve" anonymous="optional" bindingOperationName="RespondingGateway_CrossGatewayRetrieve" inputName="RespondingGateway_CrossGatewayRetrieveRequest" isOneWay="false" name="RespondingGateway_CrossGatewayRetrieve" outputName="RespondingGateway_CrossGatewayRetrieveResponse" receivesAttachments="false" sendsAttachments="false" type="Request-Response">
+		<con:endpoint>http://localhost:${HttpDefaultPort}/Gateway/DocumentRetrieve/2_0/EntityService/EntityDocRetrieve</con:endpoint></con:endpoints>
+		<con:operation action="urn:gov:hhs:fha:nhinc:entitydocretrieve:RespondingGateway_CrossGatewayRetrieveRequestMessage" anonymous="optional" bindingOperationName="RespondingGateway_CrossGatewayRetrieve" inputName="RespondingGateway_CrossGatewayRetrieveRequest" isOneWay="false" name="RespondingGateway_CrossGatewayRetrieve" outputName="RespondingGateway_CrossGatewayRetrieveResponse" receivesAttachments="false" sendsAttachments="false" type="Request-Response">
 			<con:settings/>
 		</con:operation>
 	</con:interface><con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:entitypatientdiscoveryasyncresp}EntityPatientDiscoveryAsyncRespBindingSoap" definition="${projectDir}/../ValidationSuite/target/wsdl/EntityPatientDiscoveryAsyncResp.wsdl" name="EntityPatientDiscoveryAsyncRespBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
@@ -114,8 +114,8 @@
 		<con:endpoints>
 			<con:endpoint>http://localhost/NhinConnect/EntityPatientDiscoveryAsyncResp</con:endpoint>
 			<con:endpoint>${#TestSuite#Endpoint-PatientDiscoveryAsyncResp}</con:endpoint>
-		</con:endpoints>
-		<con:operation action="urn:ProcessPatientDiscoveryAsyncResp" bindingOperationName="ProcessPatientDiscoveryAsyncResp" inputName="ProcessPatientDiscoveryAsyncRespAsyncRequest" isOneWay="false" name="ProcessPatientDiscoveryAsyncResp" outputName="ProcessPatientDiscoveryAsyncRespAsyncResponse" receivesAttachments="false" sendsAttachments="false" type="Request-Response">
+		<con:endpoint>http://localhost:${HttpDefaultPort}/Gateway/PatientDiscovery/1_0/EntityService/EntityPatientDiscoveryDeferredResponseUnsecured</con:endpoint></con:endpoints>
+		<con:operation action="" bindingOperationName="ProcessPatientDiscoveryAsyncResp" inputName="ProcessPatientDiscoveryAsyncRespAsyncRequest" isOneWay="false" name="ProcessPatientDiscoveryAsyncResp" outputName="ProcessPatientDiscoveryAsyncRespAsyncResponse" receivesAttachments="false" sendsAttachments="false" type="Request-Response" anonymous="optional">
 			<con:settings/>
 		</con:operation>
 	</con:interface><con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:entitydocquery}EntityDocQueryBindingSoap" definition="${projectDir}/../ValidationSuite/target/wsdl/EntityDocQuery.wsdl" name="EntityDocQueryBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
@@ -123,8 +123,8 @@
 
 		<con:endpoints>
 			<con:endpoint>http://localhost:${HttpDefaultPort}/NhinConnect/EntityDocQuery</con:endpoint>
-		</con:endpoints>
-		<con:operation action="urn:RespondingGateway_CrossGatewayQuery" anonymous="optional" bindingOperationName="RespondingGateway_CrossGatewayQuery" inputName="RespondingGateway_CrossGatewayQueryRequest" isOneWay="false" name="RespondingGateway_CrossGatewayQuery" outputName="RespondingGateway_CrossGatewayQueryResponse" receivesAttachments="false" sendsAttachments="false" type="Request-Response">
+		<con:endpoint>http://localhost:${HttpDefaultPort}/Gateway/DocumentQuery/2_0/EntityService/EntityDocQueryUnsecured</con:endpoint></con:endpoints>
+		<con:operation action="urn:gov:hhs:fha:nhinc:entitydocquery:RespondingGateway_CrossGatewayQueryRequest" anonymous="optional" bindingOperationName="RespondingGateway_CrossGatewayQuery" inputName="RespondingGateway_CrossGatewayQueryRequest" isOneWay="false" name="RespondingGateway_CrossGatewayQuery" outputName="RespondingGateway_CrossGatewayQueryResponse" receivesAttachments="false" sendsAttachments="false" type="Request-Response">
 			<con:settings/>
 		</con:operation>
 	</con:interface><con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="AdministrativeDistribution_Binding_Soap12_g0" type="wsdl" bindingName="{urn:gov:hhs:fha:nhinc:entityadmindistribution}AdministrativeDistribution_Binding_Soap12" soapVersion="1_2" anonymous="optional" definition="${projectDir}/../ValidationSuite/target/wsdl/EntityAdminDist.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:endpoints><con:endpoint>http://localhost:${HttpDefaultPort}/Gateway/AdminDistribution/1_0/AdministrativeDistribution_Service</con:endpoint></con:endpoints><con:operation isOneWay="false" action="urn:oasis:names:tc:emergency:EDXL:DE:1.0:SendAlertMessage" name="SendAlertMessage" bindingOperationName="SendAlertMessage" type="One-Way" inputName="" sendsAttachments="false" anonymous="optional"><con:settings/></con:operation></con:interface><con:testSuite name="Entity_g1">
@@ -629,19 +629,19 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2012-12-16T17:21:25Z</con:value>
+		<con:value>2013-01-11T18:35:11Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2012-12-16T17:31:25Z</con:value>
+		<con:value>2013-01-11T18:45:11Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>12/16/2012 17:21:25</con:value>
+		<con:value>01/11/2013 18:35:11</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2013-01-15T00:00:00Z</con:value>
+		<con:value>2013-02-10T00:00:00Z</con:value>
 	</con:property>
 </con:properties>
 <con:reportParameters/>
@@ -1025,19 +1025,19 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2012-12-16T17:21:29Z</con:value>
+		<con:value>2013-01-11T18:35:12Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2012-12-16T17:31:29Z</con:value>
+		<con:value>2013-01-11T18:45:12Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>12/16/2012 17:21:29</con:value>
+		<con:value>01/11/2013 18:35:12</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2013-01-15T00:00:00Z</con:value>
+		<con:value>2013-02-10T00:00:00Z</con:value>
 	</con:property>
 </con:properties>
 </con:testCase>
@@ -1541,19 +1541,19 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2012-12-16T17:21:32Z</con:value>
+		<con:value>2013-01-11T18:35:13Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2012-12-16T17:31:32Z</con:value>
+		<con:value>2013-01-11T18:45:13Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>12/16/2012 17:21:32</con:value>
+		<con:value>01/11/2013 18:35:13</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2013-01-15T00:00:00Z</con:value>
+		<con:value>2013-02-10T00:00:00Z</con:value>
 	</con:property>
 </con:properties>
 <con:reportParameters/>
@@ -2155,19 +2155,19 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
 	</con:property>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2012-12-16T17:21:35Z</con:value>
+		<con:value>2013-01-11T18:35:14Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2012-12-16T17:31:35Z</con:value>
+		<con:value>2013-01-11T18:45:14Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>12/16/2012 17:21:35</con:value>
+		<con:value>01/11/2013 18:35:14</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2013-01-15T00:00:00Z</con:value>
+		<con:value>2013-02-10T00:00:00Z</con:value>
 	</con:property>
 </con:properties>
 <con:reportParameters/>
@@ -2801,19 +2801,19 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
 	</con:property>
 <con:property>
 	<con:name>startDate</con:name>
-	<con:value>2012-12-16T17:21:46Z</con:value>
+	<con:value>2013-01-11T18:35:15Z</con:value>
 </con:property>
 <con:property>
 	<con:name>endDate</con:name>
-	<con:value>2012-12-16T17:31:46Z</con:value>
+	<con:value>2013-01-11T18:45:15Z</con:value>
 </con:property>
 <con:property>
 	<con:name>sigDate</con:name>
-	<con:value>12/16/2012 17:21:46</con:value>
+	<con:value>01/11/2013 18:35:15</con:value>
 </con:property>
 <con:property>
 	<con:name>expireDate</con:name>
-	<con:value>2013-01-15T00:00:00Z</con:value>
+	<con:value>2013-02-10T00:00:00Z</con:value>
 </con:property>
 </con:properties>
 <con:reportParameters/>
@@ -3152,19 +3152,19 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2012-12-16T17:24:12Z</con:value>
+		<con:value>2013-01-11T18:35:17Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2012-12-16T17:34:12Z</con:value>
+		<con:value>2013-01-11T18:45:17Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>12/16/2012 17:24:12</con:value>
+		<con:value>01/11/2013 18:35:17</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2013-01-15T00:00:00Z</con:value>
+		<con:value>2013-02-10T00:00:00Z</con:value>
 	</con:property>
 </con:properties>
 <con:reportParameters/>
@@ -3520,19 +3520,19 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2012-12-16T17:21:57Z</con:value>
+		<con:value>2013-01-11T18:35:18Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2012-12-16T17:31:57Z</con:value>
+		<con:value>2013-01-11T18:45:18Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>12/16/2012 17:21:57</con:value>
+		<con:value>01/11/2013 18:35:18</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2013-01-15T00:00:00Z</con:value>
+		<con:value>2013-02-10T00:00:00Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>FullPatientID</con:name>
@@ -3857,19 +3857,19 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
 	</con:property>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2012-12-16T17:22:01Z</con:value>
+		<con:value>2013-01-11T18:35:19Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2012-12-16T17:32:01Z</con:value>
+		<con:value>2013-01-11T18:45:19Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>12/16/2012 17:22:01</con:value>
+		<con:value>01/11/2013 18:35:19</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2013-01-15T00:00:00Z</con:value>
+		<con:value>2013-02-10T00:00:00Z</con:value>
 	</con:property>
 </con:properties>
 <con:reportParameters/>
@@ -5788,19 +5788,19 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2012-12-16T17:22:04Z</con:value>
+		<con:value>2013-01-11T18:36:05Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2012-12-16T17:32:04Z</con:value>
+		<con:value>2013-01-11T18:46:05Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>12/16/2012 17:22:04</con:value>
+		<con:value>01/11/2013 18:36:05</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2013-01-15T00:00:00Z</con:value>
+		<con:value>2013-02-10T00:00:00Z</con:value>
 	</con:property>
 </con:properties>
 </con:testCase>
@@ -6363,19 +6363,19 @@ nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.pr
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2012-12-16T16:35:31Z</con:value>
+		<con:value>2013-01-11T18:35:35Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2012-12-16T16:45:31Z</con:value>
+		<con:value>2013-01-11T18:45:35Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>12/16/2012 16:35:31</con:value>
+		<con:value>01/11/2013 18:35:35</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2013-01-15T00:00:00Z</con:value>
+		<con:value>2013-02-10T00:00:00Z</con:value>
 	</con:property>
 </con:properties>
 <con:reportParameters/>
@@ -6745,19 +6745,19 @@ nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.pr
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2012-12-16T16:35:32Z</con:value>
+		<con:value>2013-01-11T18:35:36Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2012-12-16T16:45:32Z</con:value>
+		<con:value>2013-01-11T18:45:36Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>12/16/2012 16:35:32</con:value>
+		<con:value>01/11/2013 18:35:36</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2013-01-15T00:00:00Z</con:value>
+		<con:value>2013-02-10T00:00:00Z</con:value>
 	</con:property>
 </con:properties>
 </con:testCase>
@@ -7260,19 +7260,19 @@ nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.pr
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2012-12-16T16:35:33Z</con:value>
+		<con:value>2013-01-11T18:35:38Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2012-12-16T16:45:33Z</con:value>
+		<con:value>2013-01-11T18:45:38Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>12/16/2012 16:35:33</con:value>
+		<con:value>01/11/2013 18:35:38</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2013-01-15T00:00:00Z</con:value>
+		<con:value>2013-02-10T00:00:00Z</con:value>
 	</con:property>
 </con:properties>
 <con:reportParameters/>
@@ -7879,19 +7879,19 @@ nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.pr
 	</con:property>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2012-12-16T16:35:35Z</con:value>
+		<con:value>2013-01-11T18:35:39Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2012-12-16T16:45:35Z</con:value>
+		<con:value>2013-01-11T18:45:39Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>12/16/2012 16:35:35</con:value>
+		<con:value>01/11/2013 18:35:39</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2013-01-15T00:00:00Z</con:value>
+		<con:value>2013-02-10T00:00:00Z</con:value>
 	</con:property>
 </con:properties>
 <con:reportParameters/>
@@ -8526,17 +8526,17 @@ nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.pr
 	</con:property>
 <con:property>
 	<con:name>endDate</con:name>
-	<con:value>2012-12-16T16:45:36Z</con:value>
+	<con:value>2013-01-11T18:45:40Z</con:value>
 </con:property>
 <con:property>
 	<con:name>sigDate</con:name>
-	<con:value>12/16/2012 16:35:36</con:value>
+	<con:value>01/11/2013 18:35:40</con:value>
 </con:property>
 <con:property>
 	<con:name>expireDate</con:name>
-	<con:value>2013-01-15T00:00:00Z</con:value>
+	<con:value>2013-02-10T00:00:00Z</con:value>
 </con:property>
-<con:property><con:name>startDate</con:name><con:value>2012-12-16T16:35:36Z</con:value></con:property></con:properties>
+<con:property><con:name>startDate</con:name><con:value>2013-01-11T18:35:40Z</con:value></con:property></con:properties>
 <con:reportParameters/>
 </con:testCase>
 <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Patient Discovery" searchProperties="true" id="a2f144ec-2c70-4d77-a7ea-81f9a550fee7">
@@ -8855,13 +8855,13 @@ nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.pr
 </con:config>
 </con:testStep>
 <con:testStep type="groovy" name="Verify Event Logs"><con:settings/><con:config><script>context.withSql('eventdb') {sql ->
-	assert 12 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable'))[0]
+	assert 14 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable'))[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_INBOUND_MESSAGE"')[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_INBOUND_MESSAGE"')[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_INBOUND_PROCESSING"')[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_INBOUND_PROCESSING"')[0]
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_DELEGATION_TO_ADAPTER"')[0]
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_DELEGATION_TO_ADAPTER"')[0]
+	assert 2 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_DELEGATION_TO_ADAPTER"')[0]
+	assert 2 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_DELEGATION_TO_ADAPTER"')[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_OUTBOUND_MESSAGE"')[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_OUTBOUND_MESSAGE"')[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_OUTBOUND_PROCESSING"')[0]
@@ -8874,19 +8874,19 @@ nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.pr
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2012-12-16T16:35:37Z</con:value>
+		<con:value>2013-01-11T18:35:41Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2012-12-16T16:45:37Z</con:value>
+		<con:value>2013-01-11T18:45:41Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>12/16/2012 16:35:37</con:value>
+		<con:value>01/11/2013 18:35:41</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2013-01-15T00:00:00Z</con:value>
+		<con:value>2013-02-10T00:00:00Z</con:value>
 	</con:property>
 </con:properties>
 <con:reportParameters/>
@@ -9241,19 +9241,19 @@ nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.pr
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2012-12-16T16:35:38Z</con:value>
+		<con:value>2013-01-11T18:35:43Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2012-12-16T16:45:38Z</con:value>
+		<con:value>2013-01-11T18:45:43Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>12/16/2012 16:35:38</con:value>
+		<con:value>01/11/2013 18:35:43</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2013-01-15T00:00:00Z</con:value>
+		<con:value>2013-02-10T00:00:00Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>FullPatientID</con:name>
@@ -9514,7 +9514,7 @@ nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.pr
 </soap:Envelope>]]></con:request>
 		<con:assertion type="SOAP Response"/>
 		<con:assertion type="SOAP Fault Assertion"/>
-		<con:assertion type="Schema Compliance">
+		<con:assertion type="Schema Compliance" disabled="true">
 			<con:configuration>
 				<definition/>
 			</con:configuration>
@@ -9578,19 +9578,19 @@ nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.pr
 	</con:property>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2012-12-16T16:35:40Z</con:value>
+		<con:value>2013-01-11T18:35:44Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2012-12-16T16:45:40Z</con:value>
+		<con:value>2013-01-11T18:45:44Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>12/16/2012 16:35:40</con:value>
+		<con:value>01/11/2013 18:35:44</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2013-01-15T00:00:00Z</con:value>
+		<con:value>2013-02-10T00:00:00Z</con:value>
 	</con:property>
 </con:properties>
 <con:reportParameters/>
@@ -11509,19 +11509,19 @@ nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.pr
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2012-12-16T16:35:41Z</con:value>
+		<con:value>2013-01-11T18:35:46Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2012-12-16T16:45:41Z</con:value>
+		<con:value>2013-01-11T18:45:46Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>12/16/2012 16:35:41</con:value>
+		<con:value>01/11/2013 18:35:46</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2013-01-15T00:00:00Z</con:value>
+		<con:value>2013-02-10T00:00:00Z</con:value>
 	</con:property>
 </con:properties>
 <con:reportParameters/>

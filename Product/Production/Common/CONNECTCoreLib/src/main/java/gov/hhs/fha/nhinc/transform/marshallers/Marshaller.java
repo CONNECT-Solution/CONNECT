@@ -28,13 +28,18 @@ package gov.hhs.fha.nhinc.transform.marshallers;
 
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.xmlCommon.XmlUtility;
+
+import java.io.IOException;
 import java.io.StringReader;
 import java.io.StringWriter;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBElement;
+import javax.xml.namespace.QName;
+
 import org.w3c.dom.Element;
 
 import org.apache.log4j.Logger;
+
 /**
  * 
  * @author rayj
@@ -72,6 +77,42 @@ public class Marshaller {
                 element = null;
             }
         }
+        return element;
+    }
+
+    /**
+     * Marshalls the passed in XML Bean object into an XML Element.  
+     * 
+     * @param object - the XML bean to be marshalled
+     * @param contextPath - The name of the context. (i.e. "org.hl7.v3").
+     * @param qname - the qualified name of the XML (i.e. "urn:org:hl7:v3")
+     * @return the XML Element
+     */
+    @SuppressWarnings({ "rawtypes", "unchecked" })
+    public Element marshal(Object object, String contextPath, QName qname) {
+        Element element = null;
+        StringWriter stringWriter = new StringWriter();
+
+        try {
+            JAXBContextHandler oHandler = new JAXBContextHandler();
+            JAXBContext jc = oHandler.getJAXBContext(contextPath);
+
+            javax.xml.bind.Marshaller marshaller = jc.createMarshaller();
+            
+            marshaller.marshal(new JAXBElement(qname, object.getClass(), object), stringWriter);
+            
+            element = XmlUtility.convertXmlToElement(stringWriter.toString());
+        } catch (Exception e) {
+            LOG.error("Failed to marshall: " + e.getMessage(), e);
+            element = null;
+        } finally {
+            try {
+                stringWriter.close();
+            } catch (IOException ioe) {
+                // close quietly
+            }
+        }
+
         return element;
     }
 

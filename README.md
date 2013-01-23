@@ -187,17 +187,12 @@ Several properties can be passed for mvn verify:
 
         -Dstandalone -- must be passed in for standalone testing
         -Dproperties.dir=<gateway config dir> -- for GlassFish this is <GlassFish home>/domains/domain1/config/nhin; there is an equivalent in WebSphere 
-        -Dhost=<machine name or IP address to act as the requesting gateway> -- defaults to localhost, but can be passed in to test on remote machines
-        -Dport=<####> -- defaults to 8080; the unsecured port
-        -Dsecured.port=<####> -- defaults to 8181; the secured port, used for defining HIEM response endpoints
         -Ddb.host=<machine name or IP address of the MySQL server> --  defaults to localhost
         -Ddb.port=<####> -- defaults to 3306
         -Ddb.user=<database user name> -- defaults to nhincuser
         -Ddb.password=<database password> -- defaults to nhincpass
         -Dtest.suite=<g0 or g1>
         -Dtest.case=<test case name> -- one of "Document Submission Deferred Req", "Document Submission Deferred Resp", "Document Submission", "Patient Discovery Deferred Req", "Patient Discovery Deferred Resp", "Patient Discovery", "Document Query", "Document Retrieve", "Subscribe", "Notify", "Unsubscribe", "Admin Distribution"
-        -Dentity.skip -- pass in to skip Entity testing
-        -Dmsgproxy.skip -- pass in to skip MsgProxy testing
 		
 Alternatively, any of these properties can be set in your maven settings.xml file, and they will be propagated to all your builds.  Here is an example showing the mysql.root.password property set to a non-default value:
 

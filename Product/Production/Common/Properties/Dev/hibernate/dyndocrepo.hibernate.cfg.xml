@@ -15,7 +15,7 @@
 
         <property name="hibernate.hbm2ddl.auto">update</property>
 
-        <property name="connection.datasource">jdbc/docrepository_datasource</property>
+        <property name="connection.datasource">java:comp/env/jdbc/docrepository_datasource</property>
 
         <mapping resource="Document.hbm.xml"/>
         <mapping resource="EventCode.hbm.xml"/>
