@@ -80,12 +80,8 @@ public class PassthroughOutboundPatientDiscovery implements OutboundPatientDisco
     public RespondingGatewayPRPAIN201306UV02ResponseType respondingGatewayPRPAIN201305UV02(
             RespondingGatewayPRPAIN201305UV02RequestType request, AssertionType assertion) {
 
-        auditRequestFromAdapter(request.getPRPAIN201305UV02(), assertion);
-
         RespondingGatewayPRPAIN201306UV02ResponseType response = sendToNhin(request.getPRPAIN201305UV02(), assertion,
                 msgUtils.convertFirstToNhinTargetSystemType(request.getNhinTargetCommunities()));
-
-        auditResponseToAdapter(response, assertion);
 
         return response;
     }
@@ -93,15 +89,6 @@ public class PassthroughOutboundPatientDiscovery implements OutboundPatientDisco
     @Override
     public void setExecutorService(ExecutorService regularExecutor, ExecutorService largeJobExecutor) {
         // Do nothing. Passthrough does not do fan out.
-    }
-
-    private void auditRequestFromAdapter(PRPAIN201305UV02 request, AssertionType assertion) {
-        auditLogger.auditNhin201305(request, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION);
-    }
-
-    private void auditResponseToAdapter(RespondingGatewayPRPAIN201306UV02ResponseType response,
-            AssertionType assertion) {
-        auditLogger.auditEntity201306(response, assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION);
     }
 
     private RespondingGatewayPRPAIN201306UV02ResponseType sendToNhin(PRPAIN201305UV02 request,
