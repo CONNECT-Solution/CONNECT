@@ -64,7 +64,7 @@ public class AdminDistTransforms {
     		String direction, NhinTargetSystemType target, String _interface){
     	LOG.trace("Entering ADTransform-getLogEventRequestType() method.");
     	
-    	LogEventRequestType result = new LogEventRequestType();;
+    	LogEventRequestType result = new LogEventRequestType();
         AuditMessageType auditMsg = new AuditMessageType();
 
         boolean bRequiredFieldsAreNull = areRequiredUserTypeFieldsNull(assertion);
@@ -147,47 +147,47 @@ public class AdminDistTransforms {
             NhinTargetSystemType target){
     	
     	String communityId = null;
-        boolean useReceiver = false;
+        boolean useTarget = false;
 
         if (NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE.equalsIgnoreCase(_interface)
                 || NhincConstants.AUDIT_LOG_ENTITY_INTERFACE.equalsIgnoreCase(_interface)) {
             communityId = getLocalHCID();
         } else if (NhincConstants.AUDIT_LOG_NHIN_INTERFACE.equalsIgnoreCase(_interface)) {
             if (NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION.equalsIgnoreCase(direction)) {
-                useReceiver = true;
+                useTarget = true;
             }
 
-            if (useReceiver) {
-                communityId = getHCIDFromReceiver(target);
+            if (useTarget) {
+                communityId = getHCIDFromTarget(target);
             } else {
-                communityId = getHCIDFromSender(assertion);
+                communityId = getHCIDFromAssertion(assertion);
             }
         }
 
         return communityId;
     }
 
-    private String getHCIDFromSender(AssertionType assertion){
+    private String getHCIDFromAssertion(AssertionType assertion){
     	String homeCommunity = null;
     	try{
     		homeCommunity = assertion.getHomeCommunity().getHomeCommunityId();
     	}catch (NullPointerException ex){
-    		LOG.warn("Could not obtain HCID from sender HomeCommunity assertion.", ex);
+    		LOG.warn("Could not obtain HCID from HomeCommunity in assertion.", ex);
     	}
     	return homeCommunity;
     }
     
-    private String getHCIDFromReceiver(NhinTargetSystemType target){
+    private String getHCIDFromTarget(NhinTargetSystemType target){
     	String homeCommunity = null;
     	try{
     		homeCommunity = target.getHomeCommunity().getHomeCommunityId();
     	}catch(NullPointerException ex){
-    		LOG.warn("Could not obtain HCID from receiver Target HomeCommunity", ex);
+    		LOG.warn("Could not obtain HCID from Target.", ex);
     	}
     	return homeCommunity;
     }
     
-    private String getLocalHCID(){
+    protected String getLocalHCID(){
     	String hcid = null;
         try {
             hcid = PropertyAccessor.getInstance().getProperty(NhincConstants.HOME_COMMUNITY_ID_PROPERTY);
