@@ -31,8 +31,7 @@ import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.common.nhinccommon.UserType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
-import gov.hhs.fha.nhinc.properties.PropertyAccessException;
-import gov.hhs.fha.nhinc.properties.PropertyAccessor;
+import gov.hhs.fha.nhinc.util.HomeCommunityMap;
 import oasis.names.tc.emergency.edxl.de._1.EDXLDistribution;
 
 import org.apache.log4j.Logger;
@@ -47,7 +46,7 @@ import com.services.nhinc.schema.auditmessage.CodedValueType;
  */
 public class AdminDistTransforms {
     private static final Logger LOG = Logger.getLogger(AdminDistTransforms.class);
-
+    
     public LogEventRequestType transformEDXLDistributionRequestToAuditMsg(EDXLDistribution body,
             AssertionType assertion, NhinTargetSystemType target, String direction, String _interface) {
         
@@ -147,53 +146,27 @@ public class AdminDistTransforms {
             NhinTargetSystemType target){
     	
     	String communityId = null;
-        boolean useTarget = false;
-
-        if (NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE.equalsIgnoreCase(_interface)
+       
+    	if (NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE.equalsIgnoreCase(_interface)
                 || NhincConstants.AUDIT_LOG_ENTITY_INTERFACE.equalsIgnoreCase(_interface)) {
-            communityId = getLocalHCID();
+            communityId = getHomeCommunityFromMapping();
         } else if (NhincConstants.AUDIT_LOG_NHIN_INTERFACE.equalsIgnoreCase(_interface)) {
             if (NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION.equalsIgnoreCase(direction)) {
-                useTarget = true;
-            }
-
-            if (useTarget) {
-                communityId = getHCIDFromTarget(target);
+                communityId = HomeCommunityMap.getCommunityIdFromTargetSystem(target);
             } else {
-                communityId = getHCIDFromAssertion(assertion);
+                communityId = HomeCommunityMap.getHomeCommunityIdFromAssertion(assertion);
             }
         }
 
         return communityId;
     }
+    
+    /**
+     * Needed for overriding the static HomeCommunityMapping call for unit test.
+     * @return
+     */
+    protected String getHomeCommunityFromMapping(){
+    	return HomeCommunityMap.getLocalHomeCommunityId();
+    }
 
-    private String getHCIDFromAssertion(AssertionType assertion){
-    	String homeCommunity = null;
-    	try{
-    		homeCommunity = assertion.getHomeCommunity().getHomeCommunityId();
-    	}catch (NullPointerException ex){
-    		LOG.warn("Could not obtain HCID from HomeCommunity in assertion.", ex);
-    	}
-    	return homeCommunity;
-    }
-    
-    private String getHCIDFromTarget(NhinTargetSystemType target){
-    	String homeCommunity = null;
-    	try{
-    		homeCommunity = target.getHomeCommunity().getHomeCommunityId();
-    	}catch(NullPointerException ex){
-    		LOG.warn("Could not obtain HCID from Target.", ex);
-    	}
-    	return homeCommunity;
-    }
-    
-    protected String getLocalHCID(){
-    	String hcid = null;
-        try {
-            hcid = PropertyAccessor.getInstance().getProperty(NhincConstants.HOME_COMMUNITY_ID_PROPERTY);
-        } catch (PropertyAccessException e) {
-            LOG.error("Could not retrieve local HCID from gateway.properties", e);
-        }
-        return hcid;
-    }
 }

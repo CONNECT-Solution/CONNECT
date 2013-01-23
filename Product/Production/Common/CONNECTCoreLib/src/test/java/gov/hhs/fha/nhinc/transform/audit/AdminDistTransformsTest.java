@@ -33,7 +33,6 @@ import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.common.nhinccommon.UserType;
-import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewaySendAlertMessageType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import oasis.names.tc.emergency.edxl.de._1.EDXLDistribution;
 
@@ -96,11 +95,11 @@ public class AdminDistTransformsTest {
     	EDXLDistribution message = new EDXLDistribution();
         AssertionType assertion = new AssertionType();
         
-        setUserForAssertion(assertion);
+        setUserForAssertion(assertion, LOCAL_HCID);
 
         AdminDistTransforms instance = new AdminDistTransforms(){
         	@Override
-        	protected String getLocalHCID(){
+        	protected String getHomeCommunityFromMapping(){
         		return LOCAL_HCID;
         	}
         };
@@ -137,7 +136,7 @@ public class AdminDistTransformsTest {
         homeCommunity.setHomeCommunityId(LOCAL_HCID);
         assertion.setHomeCommunity(homeCommunity);
         
-        setUserForAssertion(assertion);
+        setUserForAssertion(assertion, LOCAL_HCID);
 
         AdminDistTransforms instance = new AdminDistTransforms();
         
@@ -170,7 +169,7 @@ public class AdminDistTransformsTest {
     	EDXLDistribution message = new EDXLDistribution();
         AssertionType assertion = new AssertionType();
         
-        setUserForAssertion(assertion);
+        setUserForAssertion(assertion, LOCAL_HCID);
         
         NhinTargetSystemType target = new NhinTargetSystemType();
         HomeCommunityType homeCommunity = new HomeCommunityType();
@@ -300,11 +299,11 @@ public class AdminDistTransformsTest {
 
     }
     
-    private void setUserForAssertion(AssertionType assertion){
+    private void setUserForAssertion(AssertionType assertion, String communityId){
     	UserType user = new UserType();
         HomeCommunityType hc = new HomeCommunityType();
 
-        hc.setHomeCommunityId("123");
+        hc.setHomeCommunityId(communityId);
         hc.setName("test");
 
         user.setUserName("test");
