@@ -953,9 +953,9 @@ public class AuditRepositoryLogger implements AuditRepositoryDocumentRetrieveLog
      * @return
      */
     public LogEventRequestType logNhincAdminDist(EDXLDistribution message, AssertionType assertion,
-            NhinTargetSystemType target, String direction) {
+            NhinTargetSystemType target, String direction, String _interface) {
 
-        return logNhincAdminDist(message, assertion, direction, NhincConstants.AUDIT_LOG_NHIN_INTERFACE );
+    	return adAuditTransformer.transformEDXLDistributionRequestToAuditMsg(message, assertion, target, direction, _interface);
     }
 
     /**

@@ -137,7 +137,7 @@ public class NhinAdminDistributionProxyWebServiceSecuredImpl implements NhinAdmi
 
         if (NullChecker.isNotNullish(url)) {
 
-            auditMessage(body, assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION);
+            auditMessage(body, assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, target);
 
             try {
                 getAdminDistributionUtils().convertFileLocationToDataIfEnabled(body);
@@ -169,9 +169,10 @@ public class NhinAdminDistributionProxyWebServiceSecuredImpl implements NhinAdmi
      * @param direction
      *            The direction can be eigther outbound or inbound.
      */
-    protected void auditMessage(EDXLDistribution message, AssertionType assertion, String direction) {
+    protected void auditMessage(EDXLDistribution message, AssertionType assertion, String direction,
+    		NhinTargetSystemType target) {
         AcknowledgementType ack = getLogger().auditNhinAdminDist(message, assertion, direction,
-                NhincConstants.AUDIT_LOG_NHIN_INTERFACE);
+                target, NhincConstants.AUDIT_LOG_NHIN_INTERFACE);
         if (ack != null) {
             LOG.debug("ack: " + ack.getMessage());
         }
