@@ -75,7 +75,7 @@ public abstract class GreenMailTest {
     /**
      * A sample mail message resource.
      */
-    protected static final String MESSAGE_FILEPATH = "gov/hhs/fha/nhinc/mail/message.txt";
+    protected static final String MESSAGE_FILEPATH = "/gov/hhs/fha/nhinc/mail/message.txt";
     
     /**
      * Timeout value to wait for an incoming SMTP msg.

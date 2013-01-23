@@ -2,7 +2,7 @@
 <project basedir="." name="nhinc.deployment" default="deploy">
 
     <dirname property="nhinc.deployment.basedir" file="${ant.file.nhinc.deployment}" />
-    <property name="nhinc.deployment.thirdparty.dir" location="${nhinc.deployment.basedir}/../../ThirdParty" />
+    <property name="nhinc.deployment.thirdparty.dir" location="${nhinc.deployment.basedir}/../../ThirdParty/ant" />
     <property name="nhinc.deployment.properties.dir"
         value="${nhinc.deployment.basedir}/../Production/Common/Properties/Dev" />
     <property name="deployment.config.home" value="${glassfish.home}/domains/domain1/config/nhin" />

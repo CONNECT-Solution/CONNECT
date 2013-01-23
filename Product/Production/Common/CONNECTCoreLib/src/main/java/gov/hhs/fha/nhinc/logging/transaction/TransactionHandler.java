@@ -27,10 +27,8 @@
 package gov.hhs.fha.nhinc.logging.transaction;
 
 import gov.hhs.fha.nhinc.logging.transaction.dao.TransactionDAO;
-import gov.hhs.fha.nhinc.logging.transaction.model.TransactionRepo;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 
-import java.sql.Timestamp;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
@@ -47,7 +45,6 @@ import javax.xml.ws.handler.soap.SOAPHandler;
 import javax.xml.ws.handler.soap.SOAPMessageContext;
 
 import org.apache.log4j.Logger;
-import org.apache.log4j.MDC;
 
 /**
  * @author bhumphrey/jasonasmith
@@ -65,9 +62,8 @@ public class TransactionHandler implements SOAPHandler<SOAPMessageContext> {
     private static final String WSA_NS_2004 = "http://www.w3.org/2004/08/addressing";
     private static final String MESSAGE_ID = "MessageID";
     private static final String RELATESTO_ID = "RelatesTo";
-
+    
    
-
     /*
      * (non-Javadoc)
      * 
@@ -139,21 +135,7 @@ public class TransactionHandler implements SOAPHandler<SOAPMessageContext> {
      * @param transactionId The transactionId fromthe SOAPHeader
      */
     protected void createTransactionRecord(String messageId, String transactionId) {
-        if (NullChecker.isNotNullish(messageId) && NullChecker.isNotNullish(transactionId)) {
-            TransactionRepo transRepo = new TransactionRepo();
-            Long newId = null;
-
-            transRepo.setMessageId(messageId);
-            transRepo.setTransactionId(transactionId);
-            transRepo.setTime(this.createTimestamp());
-
-            if (TransactionDAO.getInstance().insertIntoTransactionRepo(transRepo)) {
-                newId = transRepo.getId();
-                LOG.info("TransactionHandler.createTransactionId() - New Transaction Log Id = " + newId);
-            } else {
-                LOG.warn("TransactionHandler.createTransactionId() - ERROR Inserting New Record.");
-            }
-        }
+        new TransactionLogger().createTransactionRecord(messageId, transactionId);
     }
 
     /**
@@ -163,13 +145,7 @@ public class TransactionHandler implements SOAPHandler<SOAPMessageContext> {
      * @return transactionId The transactionId from the DAO lookup
      */
     protected String getTransactionId(String id) {
-        String transactionId = null;
-        
-        if(NullChecker.isNotNullish(id)) {
-            transactionId = TransactionDAO.getInstance().getTransactionId(id);
-        }
-            
-        return transactionId;
+        return TransactionDAO.getInstance().getTransactionId(id);
     }
 
     /**
@@ -179,13 +155,7 @@ public class TransactionHandler implements SOAPHandler<SOAPMessageContext> {
      * @param messageId The messageId for the message
      */
     protected void enableMdcLogging(String transactionId, String messageId) {
-        if (NullChecker.isNotNullish(transactionId)) {
-            LOG.info("found transaction-id " + transactionId + "for message id: " + messageId);
-            MDC.put("message-id", messageId);
-            MDC.put("transaction-id", transactionId);
-        } else {
-            LOG.info("no transaction-id for message id: " + messageId);
-        }
+        new TransactionLogger().enableMdcLogging(transactionId, messageId);
     }
 
     private String checkTransactionIdFromMessage(SOAPElement transactionIdElement, String messageId){
@@ -256,15 +226,6 @@ public class TransactionHandler implements SOAPHandler<SOAPMessageContext> {
             iter = header.getChildElements(qname);
         }
         return iter;
-    }
-
-    /**
-     * Returns a timestamp, down to the millisecond.
-     * 
-     * @return timestamp The created timestamp
-     */
-    private Timestamp createTimestamp() {
-        return new Timestamp(System.currentTimeMillis());
     }
 
     /*

@@ -20,7 +20,7 @@
     <fail unless="properties.file.exists" message="Did not find properties file ${properties.file}" />
 
     <property file="${properties.file}" />
-    <property name="thirdparty.dir" location="${CONNECT.Automated.Installer.basedir}/../../ThirdParty" />
+    <property name="thirdparty.dir" location="${CONNECT.Automated.Installer.basedir}/../../ThirdParty/ant" />
     <property name="glassfish.install.dir" value="${glassfish.install.dir.root}/${glassfish.install.dir.name}" />
     <property name="temp.dir" value="${basedir}/.installer.temp" />
     <property name="glassfish.install.ant.script" value="${glassfish.install.dir}/setup.xml" />
