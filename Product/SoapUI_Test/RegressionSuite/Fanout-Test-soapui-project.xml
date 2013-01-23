@@ -4,11 +4,11 @@
     
     <con:endpoints>
       <con:endpoint>http://localhost:8080/CONNECTGateway/EntityPatientDiscovery</con:endpoint>
-    <con:endpoint>https://localhost:${HttpsDefaultPort}/NhinConnect/EntityPatientDiscovery</con:endpoint></con:endpoints>
-    <con:operation action="urn:RespondingGateway_PRPA_IN201305UV02" anonymous="optional" bindingOperationName="RespondingGateway_PRPA_IN201305UV02" inputName="RespondingGateway_PRPA_IN201305UV02Request" isOneWay="false" name="RespondingGateway_PRPA_IN201305UV02" outputName="RespondingGateway_PRPA_IN201306UV02Response" receivesAttachments="false" sendsAttachments="false" type="Request-Response">
+    <con:endpoint>https://localhost:${HttpsDefaultPort}/NhinConnect/EntityPatientDiscovery</con:endpoint><con:endpoint>http://localhost:${HttpDefaultPort}/Gateway/PatientDiscovery/1_0/EntityPatientDiscovery</con:endpoint></con:endpoints>
+    <con:operation action="urn:gov:hhs:fha:nhinc:entitypatientdiscovery:RespondingGateway_PRPA_IN201305UV02RequestMessage" anonymous="optional" bindingOperationName="RespondingGateway_PRPA_IN201305UV02" inputName="RespondingGateway_PRPA_IN201305UV02Request" isOneWay="false" name="RespondingGateway_PRPA_IN201305UV02" outputName="RespondingGateway_PRPA_IN201306UV02Response" receivesAttachments="false" sendsAttachments="false" type="Request-Response">
       <con:settings/>
     </con:operation>
-  </con:interface><con:interface anonymous="optional" bindingName="{urn:ihe:iti:xcpd:2009}RespondingGateway_Binding_Soap" definition="${projectDir}/../ValidationSuite/target/wsdl/NhinPatientDiscovery.wsdl" name="RespondingGateway_Binding_Soap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:endpoints><con:endpoint>https://PHX-ONC-WTST21:7781/mockPDResp</con:endpoint><con:endpoint>https://localhost:${HttpsDefaultPort}/NhinConnect/PatientDiscovery</con:endpoint></con:endpoints><con:operation action="urn:hl7-org:v3:PRPA_IN201305UV02:CrossGatewayPatientDiscovery" anonymous="optional" bindingOperationName="RespondingGateway_PRPA_IN201305UV02" inputName="" isOneWay="false" name="RespondingGateway_PRPA_IN201305UV02" receivesAttachments="false" sendsAttachments="false" type="Request-Response"><con:settings/></con:operation></con:interface><con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:adapterpolicyengine}AdapterPolicyEngineBindingSoap" definition="${projectDir}/../ValidationSuite/target/wsdl/AdapterPolicyEngine.wsdl" name="AdapterPolicyEngineBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:endpoints><con:endpoint>http://localhost:${HttpDefaultPort}/NhinConnect/AdapterPolicyEngine</con:endpoint><con:endpoint>https://PHX-ONC-WTST21:8088/mockAdapterPolicyEngineBindingSoap</con:endpoint></con:endpoints><con:operation action="urn:CheckPolicy" anonymous="optional" bindingOperationName="CheckPolicy" inputName="CheckPolicyRequest" isOneWay="false" name="CheckPolicy" outputName="CheckPolicyResponse" receivesAttachments="false" sendsAttachments="false" type="Request-Response"><con:settings/></con:operation></con:interface><con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:entitydocquery}EntityDocQueryBindingSoap" definition="${projectDir}/../ValidationSuite/target/wsdl/EntityDocQuery.wsdl" name="EntityDocQueryBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  </con:interface><con:interface anonymous="optional" bindingName="{urn:ihe:iti:xcpd:2009}RespondingGateway_Binding_Soap" definition="${projectDir}/../ValidationSuite/target/wsdl/NhinPatientDiscovery.wsdl" name="RespondingGateway_Binding_Soap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:endpoints><con:endpoint>https://PHX-ONC-WTST21:7781/mockPDResp</con:endpoint><con:endpoint>https://localhost:${HttpsDefaultPort}/NhinConnect/PatientDiscovery</con:endpoint><con:endpoint>https://localhost:${HttpsDefaultPort}/Gateway/PatientDiscovery/1_0/NhinService/NhinPatientDiscovery</con:endpoint></con:endpoints><con:operation action="urn:hl7-org:v3:PRPA_IN201305UV02:CrossGatewayPatientDiscovery" anonymous="optional" bindingOperationName="RespondingGateway_PRPA_IN201305UV02" inputName="" isOneWay="false" name="RespondingGateway_PRPA_IN201305UV02" receivesAttachments="false" sendsAttachments="false" type="Request-Response"><con:settings/></con:operation></con:interface><con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:adapterpolicyengine}AdapterPolicyEngineBindingSoap" definition="${projectDir}/../ValidationSuite/target/wsdl/AdapterPolicyEngine.wsdl" name="AdapterPolicyEngineBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:endpoints><con:endpoint>http://localhost:${HttpDefaultPort}/NhinConnect/AdapterPolicyEngine</con:endpoint><con:endpoint>https://PHX-ONC-WTST21:8088/mockAdapterPolicyEngineBindingSoap</con:endpoint></con:endpoints><con:operation action="urn:CheckPolicy" anonymous="optional" bindingOperationName="CheckPolicy" inputName="CheckPolicyRequest" isOneWay="false" name="CheckPolicy" outputName="CheckPolicyResponse" receivesAttachments="false" sendsAttachments="false" type="Request-Response"><con:settings/></con:operation></con:interface><con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:entitydocquery}EntityDocQueryBindingSoap" definition="${projectDir}/../ValidationSuite/target/wsdl/EntityDocQuery.wsdl" name="EntityDocQueryBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <con:settings/>
     
     <con:endpoints>
@@ -17,11 +17,11 @@
       <con:endpoint>http://172.16.50.54:9080/NhinConnect/EntityDocQuery</con:endpoint>
       <con:endpoint>http://172.16.50.82:9080/NhinConnect/EntityDocQuery</con:endpoint>
       <con:endpoint>http://DVANHIE3.fedsconnect.org:9080/NhinConnect/EntityDocQuery</con:endpoint>
-    </con:endpoints>
-    <con:operation action="urn:RespondingGateway_CrossGatewayQuery" anonymous="optional" bindingOperationName="RespondingGateway_CrossGatewayQuery" inputName="RespondingGateway_CrossGatewayQueryRequest" isOneWay="false" name="RespondingGateway_CrossGatewayQuery" outputName="RespondingGateway_CrossGatewayQueryResponse" receivesAttachments="false" sendsAttachments="false" type="Request-Response">
+    <con:endpoint>http://localhost:${HttpDefaultPort}/Gateway/DocumentQuery/2_0/EntityService/EntityDocQueryUnsecured</con:endpoint></con:endpoints>
+    <con:operation action="urn:gov:hhs:fha:nhinc:entitydocquery:RespondingGateway_CrossGatewayQueryRequest" anonymous="optional" bindingOperationName="RespondingGateway_CrossGatewayQuery" inputName="RespondingGateway_CrossGatewayQueryRequest" isOneWay="false" name="RespondingGateway_CrossGatewayQuery" outputName="RespondingGateway_CrossGatewayQueryResponse" receivesAttachments="false" sendsAttachments="false" type="Request-Response">
       <con:settings/>
     </con:operation>
-  </con:interface><con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:adaptercomponentmpi}AdapterComponentMpiPortTypeBinding" definition="${projectDir}/../ValidationSuite/target/wsdl/AdapterComponentMpi.wsdl" name="AdapterComponentMpiPortTypeBinding" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:endpoints><con:endpoint>http://localhost:${NhincHttpPort}/NhinConnect/AdapterComponentMpiService</con:endpoint></con:endpoints><con:operation action="FindCandidates" anonymous="optional" bindingOperationName="FindCandidates" inputName="FindCandidatesRequest" isOneWay="false" name="FindCandidates" outputName="FindCandidatesResponse" receivesAttachments="false" sendsAttachments="false" type="Request-Response"><con:settings/></con:operation></con:interface><con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:adaptermpi}AdapterMpiPortTypeBinding" definition="${projectDir}/../ValidationSuite/target/wsdl/AdapterMpi.wsdl" name="AdapterMpiPortTypeBinding" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:endpoints><con:endpoint>http://localhost:${NhincHttpPort}/NhinConnect/AdapterMpiService</con:endpoint></con:endpoints><con:operation action="FindCandidates" anonymous="optional" bindingOperationName="FindCandidates" inputName="FindCandidatesRequest" isOneWay="false" name="FindCandidates" outputName="FindCandidatesResponse" receivesAttachments="false" sendsAttachments="false" type="Request-Response"><con:settings/></con:operation></con:interface><con:interface anonymous="optional" bindingName="{urn:ihe:iti:xds-b:2007}DocumentRegistry_Binding_Soap" definition="${projectDir}/../ValidationSuite/target/wsdl/AdapterComponentDocRegistry.wsdl" name="DocumentRegistry_Binding_Soap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:endpoints><con:endpoint>http://localhost:${NhincHttpPort}/DocumentRegistry_Service</con:endpoint></con:endpoints><con:operation action="urn:hl7-org:v3:PRPA_IN201301UV02" anonymous="optional" bindingOperationName="DocumentRegistry_PRPA_IN201301UV02" inputName="" isOneWay="false" name="DocumentRegistry_PRPA_IN201301UV02" receivesAttachments="false" sendsAttachments="false" type="Request-Response"><con:settings/></con:operation><con:operation action="urn:hl7-org:v3:PRPA_IN201302UV02" anonymous="optional" bindingOperationName="DocumentRegistry_PRPA_IN201302UV02" inputName="" isOneWay="false" name="DocumentRegistry_PRPA_IN201302UV02" receivesAttachments="false" sendsAttachments="false" type="Request-Response"><con:settings/></con:operation><con:operation action="urn:hl7-org:v3:PRPA_IN201304UV02" anonymous="optional" bindingOperationName="DocumentRegistry_PRPA_IN201304UV02" inputName="" isOneWay="false" name="DocumentRegistry_PRPA_IN201304UV02" receivesAttachments="false" sendsAttachments="false" type="Request-Response"><con:settings/></con:operation><con:operation action="urn:ihe:iti:2007:RegisterDocumentSet-b" anonymous="optional" bindingOperationName="DocumentRegistry_RegisterDocumentSet-b" inputName="" isOneWay="false" name="DocumentRegistry_RegisterDocumentSet-b" receivesAttachments="false" sendsAttachments="false" type="Request-Response"><con:settings/></con:operation><con:operation action="urn:ihe:iti:2007:RegistryStoredQuery" anonymous="optional" bindingOperationName="DocumentRegistry_RegistryStoredQuery" inputName="" isOneWay="false" name="DocumentRegistry_RegistryStoredQuery" receivesAttachments="false" sendsAttachments="false" type="Request-Response"><con:settings/></con:operation></con:interface><con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:adapterdocquery}AdapterDocQueryBindingSoap" definition="${projectDir}/../ValidationSuite/target/wsdl/AdapterDocQuery.wsdl" name="AdapterDocQueryBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:endpoints><con:endpoint>http://localhost:${HttpDefaultPort}/NhinConnect/AdapterDocQuery</con:endpoint></con:endpoints><con:operation action="urn:RespondingGateway_CrossGatewayQuery" anonymous="optional" bindingOperationName="RespondingGateway_CrossGatewayQuery" inputName="RespondingGateway_CrossGatewayQueryRequest" isOneWay="false" name="RespondingGateway_CrossGatewayQuery" outputName="RespondingGateway_CrossGatewayQueryResponse" receivesAttachments="false" sendsAttachments="false" type="Request-Response"><con:settings/></con:operation></con:interface><con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:adapterpatientdiscovery}AdapterPatientDiscoveryBindingSoap" definition="${projectDir}/../ValidationSuite/target/wsdl/AdapterPatientDiscovery.wsdl" name="AdapterPatientDiscoveryBindingSoap" soapVersion="1_1" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:endpoints><con:endpoint>https://localhost:${HttpsDefaultPort}/NhinConnect/AdapterPatientDiscovery</con:endpoint><con:endpoint>https://PHX-ONC-WTST21:7785/mockAdapterPD</con:endpoint></con:endpoints><con:operation action="urn:RespondingGateway_PRPA_IN201305UV02" anonymous="optional" bindingOperationName="RespondingGateway_PRPA_IN201305UV02" inputName="RespondingGateway_PRPA_IN201305UV02Request" isOneWay="false" name="RespondingGateway_PRPA_IN201305UV02" outputName="RespondingGateway_PRPA_IN201306UV02Response" receivesAttachments="false" sendsAttachments="false" type="Request-Response"><con:settings/></con:operation></con:interface><con:testSuite name="Fanout_Test"><con:settings/><con:runType>SEQUENTIAL</con:runType><con:testCase failOnError="true" failTestCaseOnErrors="true" id="2360032f-7112-4f06-bb4f-f7c5f979bb94" keepSession="false" maxResults="0" name="PD warmup" searchProperties="true">
+  </con:interface><con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:adaptercomponentmpi}AdapterComponentMpiPortTypeBinding" definition="${projectDir}/../ValidationSuite/target/wsdl/AdapterComponentMpi.wsdl" name="AdapterComponentMpiPortTypeBinding" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:endpoints><con:endpoint>http://localhost:${NhincHttpPort}/NhinConnect/AdapterComponentMpiService</con:endpoint><con:endpoint>http://localhost:${HttpDefaultPort}/Adapter/PatientDiscovery/A_0/AdapterComponentMpiService</con:endpoint></con:endpoints><con:operation action="FindCandidates" anonymous="optional" bindingOperationName="FindCandidates" inputName="FindCandidatesRequest" isOneWay="false" name="FindCandidates" outputName="FindCandidatesResponse" receivesAttachments="false" sendsAttachments="false" type="Request-Response"><con:settings/></con:operation></con:interface><con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:adaptermpi}AdapterMpiPortTypeBinding" definition="${projectDir}/../ValidationSuite/target/wsdl/AdapterMpi.wsdl" name="AdapterMpiPortTypeBinding" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:endpoints><con:endpoint>http://localhost:${NhincHttpPort}/NhinConnect/AdapterMpiService</con:endpoint></con:endpoints><con:operation action="FindCandidates" anonymous="optional" bindingOperationName="FindCandidates" inputName="FindCandidatesRequest" isOneWay="false" name="FindCandidates" outputName="FindCandidatesResponse" receivesAttachments="false" sendsAttachments="false" type="Request-Response"><con:settings/></con:operation></con:interface><con:interface anonymous="optional" bindingName="{urn:ihe:iti:xds-b:2007}DocumentRegistry_Binding_Soap" definition="${projectDir}/../ValidationSuite/target/wsdl/AdapterComponentDocRegistry.wsdl" name="DocumentRegistry_Binding_Soap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:endpoints><con:endpoint>http://localhost:${NhincHttpPort}/DocumentRegistry_Service</con:endpoint></con:endpoints><con:operation action="urn:hl7-org:v3:PRPA_IN201301UV02" anonymous="optional" bindingOperationName="DocumentRegistry_PRPA_IN201301UV02" inputName="" isOneWay="false" name="DocumentRegistry_PRPA_IN201301UV02" receivesAttachments="false" sendsAttachments="false" type="Request-Response"><con:settings/></con:operation><con:operation action="urn:hl7-org:v3:PRPA_IN201302UV02" anonymous="optional" bindingOperationName="DocumentRegistry_PRPA_IN201302UV02" inputName="" isOneWay="false" name="DocumentRegistry_PRPA_IN201302UV02" receivesAttachments="false" sendsAttachments="false" type="Request-Response"><con:settings/></con:operation><con:operation action="urn:hl7-org:v3:PRPA_IN201304UV02" anonymous="optional" bindingOperationName="DocumentRegistry_PRPA_IN201304UV02" inputName="" isOneWay="false" name="DocumentRegistry_PRPA_IN201304UV02" receivesAttachments="false" sendsAttachments="false" type="Request-Response"><con:settings/></con:operation><con:operation action="urn:ihe:iti:2007:RegisterDocumentSet-b" anonymous="optional" bindingOperationName="DocumentRegistry_RegisterDocumentSet-b" inputName="" isOneWay="false" name="DocumentRegistry_RegisterDocumentSet-b" receivesAttachments="false" sendsAttachments="false" type="Request-Response"><con:settings/></con:operation><con:operation action="urn:ihe:iti:2007:RegistryStoredQuery" anonymous="optional" bindingOperationName="DocumentRegistry_RegistryStoredQuery" inputName="" isOneWay="false" name="DocumentRegistry_RegistryStoredQuery" receivesAttachments="false" sendsAttachments="false" type="Request-Response"><con:settings/></con:operation></con:interface><con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:adapterdocquery}AdapterDocQueryBindingSoap" definition="${projectDir}/../ValidationSuite/target/wsdl/AdapterDocQuery.wsdl" name="AdapterDocQueryBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:endpoints><con:endpoint>http://localhost:${HttpDefaultPort}/NhinConnect/AdapterDocQuery</con:endpoint></con:endpoints><con:operation action="urn:RespondingGateway_CrossGatewayQuery" anonymous="optional" bindingOperationName="RespondingGateway_CrossGatewayQuery" inputName="RespondingGateway_CrossGatewayQueryRequest" isOneWay="false" name="RespondingGateway_CrossGatewayQuery" outputName="RespondingGateway_CrossGatewayQueryResponse" receivesAttachments="false" sendsAttachments="false" type="Request-Response"><con:settings/></con:operation></con:interface><con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:adapterpatientdiscovery}AdapterPatientDiscoveryBindingSoap" definition="${projectDir}/../ValidationSuite/target/wsdl/AdapterPatientDiscovery.wsdl" name="AdapterPatientDiscoveryBindingSoap" soapVersion="1_1" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:endpoints><con:endpoint>https://localhost:${HttpsDefaultPort}/NhinConnect/AdapterPatientDiscovery</con:endpoint><con:endpoint>https://PHX-ONC-WTST21:7785/mockAdapterPD</con:endpoint></con:endpoints><con:operation action="urn:RespondingGateway_PRPA_IN201305UV02" anonymous="optional" bindingOperationName="RespondingGateway_PRPA_IN201305UV02" inputName="RespondingGateway_PRPA_IN201305UV02Request" isOneWay="false" name="RespondingGateway_PRPA_IN201305UV02" outputName="RespondingGateway_PRPA_IN201306UV02Response" receivesAttachments="false" sendsAttachments="false" type="Request-Response"><con:settings/></con:operation></con:interface><con:testSuite name="Fanout_Test"><con:settings/><con:runType>SEQUENTIAL</con:runType><con:testCase failOnError="true" failTestCaseOnErrors="true" id="2360032f-7112-4f06-bb4f-f7c5f979bb94" keepSession="false" maxResults="0" name="PD warmup" searchProperties="true">
       <con:settings/>
       
       
@@ -333,19 +333,19 @@ exists( //ns3:PRPA_IN201306UV02/ns3:controlActProcess)</path>
       </con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);</con:setupScript><con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);</con:tearDownScript><con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2012-12-16T17:29:03Z</con:value>
+          <con:value>2013-01-23T20:24:12Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2012-12-16T17:39:03Z</con:value>
+          <con:value>2013-01-23T20:34:12Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>12/16/2012 17:29:03</con:value>
+          <con:value>01/23/2013 20:24:12</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2013-01-15T00:00:00Z</con:value>
+          <con:value>2013-02-22T00:00:00Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -666,7 +666,8 @@ exists( //ns3:PRPA_IN201306UV02/ns3:controlActProcess)</path>
                 <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
               </con:configuration>
             </con:assertion>
-            <con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+            <con:assertion type="XPath Match" name="Count number of asOtherIDs"><con:configuration><path>declare namespace ns3='urn:hl7-org:v3';
+count( //ns3:PRPA_IN201306UV02/ns3:controlActProcess/ns3:subject/ns3:registrationEvent/ns3:subject1/ns3:patient/ns3:patientPerson/ns3:asOtherIDs)</path><content>8</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
             <con:jmsPropertyConfig/>
             <con:wsaConfig mustUnderstand="NONE" version="200508"/>
             <con:wsrmConfig version="1.2"/>
@@ -675,24 +676,24 @@ exists( //ns3:PRPA_IN201306UV02/ns3:controlActProcess)</path>
       </con:testStep><con:testStep name="count correlations" type="groovy">
         <con:settings/>
         <con:config><script>context.withSql('PatientCorrelationDB') { sql -> 
-  assert 0 &lt; sql.firstRow('select count(*) from ' + context.findProperty('PatientCorrelationTable'))[0]
+  assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('PatientCorrelationTable'))[0]
 }</script></con:config>
       </con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);</con:setupScript><con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);</con:tearDownScript><con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2012-12-16T17:24:52Z</con:value>
+          <con:value>2013-01-23T20:24:46Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2012-12-16T17:34:52Z</con:value>
+          <con:value>2013-01-23T20:34:46Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>12/16/2012 17:24:52</con:value>
+          <con:value>01/23/2013 20:24:46</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2013-01-15T00:00:00Z</con:value>
+          <con:value>2013-02-22T00:00:00Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -1029,7 +1030,7 @@ exists( //ns3:PRPA_IN201306UV02/ns3:controlActProcess)</path>
       </con:testStep><con:testStep name="count correlations" type="groovy">
         <con:settings/>
         <con:config><script>context.withSql('PatientCorrelationDB') { sql -> 
-  assert 0 &lt; sql.firstRow('select count(*) from ' + context.findProperty('PatientCorrelationTable'))[0]
+  assert 9 == sql.firstRow('select count(*) from ' + context.findProperty('PatientCorrelationTable'))[0]
 }</script></con:config>
       </con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
 testCase.getTestSuite().getProject().getMockServiceByName("mockMPI_happy_path").start();
@@ -1040,23 +1041,23 @@ nhinc.FileUtils.updateSpringConfig(context.findProperty('GatewayPropDir'), "Adap
 nhinc.FileUtils.updateSpringConfig(context.findProperty('GatewayPropDir'), "AdapterMpiConfig.xml", "mpi", "mpiwsunsecured", "mpiwssecured", log);</con:tearDownScript><con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2012-12-16T17:25:52Z</con:value>
+          <con:value>2013-01-23T20:24:57Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2012-12-16T17:35:52Z</con:value>
+          <con:value>2013-01-23T20:34:57Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>12/16/2012 17:25:52</con:value>
+          <con:value>01/23/2013 20:24:57</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2013-01-15T00:00:00Z</con:value>
+          <con:value>2013-02-22T00:00:00Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
-    </con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" id="78fe48f8-26da-4ea7-a912-93458c56fe57" keepSession="false" maxResults="0" name="PD happy path passthrough" searchProperties="true">
+    </con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" id="78fe48f8-26da-4ea7-a912-93458c56fe57" keepSession="false" maxResults="0" name="PD happy path passthrough" searchProperties="true" disabled="true">
       <con:description/><con:settings/>
       <con:testStep name="Modify gateway.properties" type="groovy">
         <con:settings/>
@@ -1400,19 +1401,19 @@ testCase.getTestSuite().getProject().getMockServiceByName("mockPD_adapter").getM
 nhinc.FileUtils.updateSpringConfig(context.findProperty('GatewayPropDir'), "PatientDiscoveryProxyConfig.xml", "adapterpatientdiscovery", "adapterpatientdiscoverywsunsecured", "adapterpatientdiscoverywssecured", log);</con:tearDownScript><con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2012-12-16T17:26:53Z</con:value>
+          <con:value>2013-01-23T20:26:28Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2012-12-16T17:36:53Z</con:value>
+          <con:value>2013-01-23T20:36:28Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>12/16/2012 17:26:53</con:value>
+          <con:value>01/23/2013 20:26:28</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2013-01-15T00:00:00Z</con:value>
+          <con:value>2013-02-22T00:00:00Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -1708,7 +1709,7 @@ nhinc.FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFil
    </soap:Body>
 </soap:Envelope>]]></con:request>
             <con:assertion type="SOAP Response"/>
-            <con:assertion disabled="true" type="Schema Compliance">
+            <con:assertion type="Schema Compliance" disabled="true">
               <con:configuration/>
             </con:assertion>
             <con:assertion type="SOAP Fault Assertion"/>
@@ -1739,7 +1740,8 @@ exists( //ns3:PRPA_IN201306UV02/ns3:controlActProcess)</path>
                 <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
               </con:configuration>
             </con:assertion>
-            <con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+            <con:assertion type="XPath Match" name="Count number of asOtherIDs"><con:configuration><path>declare namespace ns3='urn:hl7-org:v3';
+count( //ns3:PRPA_IN201306UV02/ns3:controlActProcess/ns3:subject/ns3:registrationEvent/ns3:subject1/ns3:patient/ns3:patientPerson/ns3:asOtherIDs)</path><content>2</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
             <con:jmsPropertyConfig/>
             <con:wsaConfig mustUnderstand="NONE" version="200508"/>
             <con:wsrmConfig version="1.2"/>
@@ -1748,7 +1750,7 @@ exists( //ns3:PRPA_IN201306UV02/ns3:controlActProcess)</path>
       </con:testStep><con:testStep name="count correlations" type="groovy">
         <con:settings/>
         <con:config><script>context.withSql('PatientCorrelationDB') { sql -> 
-  assert 6 == sql.firstRow('select count(*) from ' + context.findProperty('PatientCorrelationTable'))[0]
+  assert 2 == sql.firstRow('select count(*) from ' + context.findProperty('PatientCorrelationTable'))[0]
 }</script></con:config>
       </con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
 testCase.getTestSuite().getProject().getMockServiceByName("mockMPI_all").start();
@@ -1759,19 +1761,19 @@ nhinc.FileUtils.updateSpringConfig(context.findProperty('GatewayPropDir'), "Adap
 nhinc.FileUtils.updateSpringConfig(context.findProperty('GatewayPropDir'), "AdapterMpiConfig.xml", "mpi", "mpiwsunsecured", "mpiwssecured", log);</con:tearDownScript><con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2012-12-16T17:27:53Z</con:value>
+          <con:value>2013-01-23T20:25:14Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2012-12-16T17:37:53Z</con:value>
+          <con:value>2013-01-23T20:35:14Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>12/16/2012 17:27:53</con:value>
+          <con:value>01/23/2013 20:25:14</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2013-01-15T00:00:00Z</con:value>
+          <con:value>2013-02-22T00:00:00Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -2099,19 +2101,19 @@ assert (documentID == msgDocID)</scriptText>
       </con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);</con:setupScript><con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);</con:tearDownScript><con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2012-12-16T16:37:22Z</con:value>
+          <con:value>2013-01-23T20:25:19Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2012-12-16T16:47:22Z</con:value>
+          <con:value>2013-01-23T20:35:19Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>12/16/2012 16:37:22</con:value>
+          <con:value>01/23/2013 20:25:19</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2013-01-15T00:00:00Z</con:value>
+          <con:value>2013-02-22T00:00:00Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -2452,7 +2454,7 @@ nhinc.FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFil
    </soap:Body>
 </soap:Envelope>]]></con:request>
             <con:assertion type="SOAP Response"/>
-            <con:assertion type="Schema Compliance" disabled="true">
+            <con:assertion type="Schema Compliance">
               <con:configuration/>
             </con:assertion>
             <con:assertion type="SOAP Fault Assertion"/>
@@ -2466,19 +2468,19 @@ nhinc.FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFil
       </con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);</con:setupScript><con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);</con:tearDownScript><con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2012-12-16T16:37:39Z</con:value>
+          <con:value>2013-01-23T20:25:23Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2012-12-16T16:47:39Z</con:value>
+          <con:value>2013-01-23T20:35:23Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>12/16/2012 16:37:39</con:value>
+          <con:value>01/23/2013 20:25:23</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2013-01-15T00:00:00Z</con:value>
+          <con:value>2013-02-22T00:00:00Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -2822,7 +2824,7 @@ nhinc.FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", destConfi
    </soap:Body>
 </soap:Envelope>]]></con:request>
             <con:assertion type="SOAP Response"/>
-            <con:assertion disabled="true" type="Schema Compliance">
+            <con:assertion type="Schema Compliance">
               <con:configuration/>
             </con:assertion>
             <con:assertion type="SOAP Fault Assertion"/>
@@ -2836,7 +2838,7 @@ def documentID = context.findProperty('DQDocID')
 def msgDocID = holder["//ns1:AdhocQueryResponse[1]/ns3:RegistryObjectList[1]/ns3:ExtrinsicObject/ns3:ExternalIdentifier[@identificationScheme='urn:uuid:2e82c1f6-a085-4c72-9da3-8640a32e42ab']/@value"];
 assert (msgDocID.toString().contains(documentID))
 assert (msgDocID.toString().contains("1.123401.66666"))
-assert (msgDocID.toString().contains("1.123402.11111"))</scriptText></con:configuration>
+assert (msgDocID.toString().contains("1.123401.44444"))</scriptText></con:configuration>
             </con:assertion>
             <con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
             <con:jmsPropertyConfig/>
@@ -2851,19 +2853,19 @@ testCase.getTestSuite().getProject().getMockServiceByName("mockDQ_happy_path").g
 nhinc.FileUtils.updateSpringConfig(context.findProperty('GatewayPropDir'), "DocumentQueryProxyConfig.xml", "adapterdocquery", "adapterdocquerywsunsecured", "adapterdocquerywssecured", log);</con:tearDownScript><con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2012-12-16T16:37:26Z</con:value>
+          <con:value>2013-01-23T20:25:26Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2012-12-16T16:47:26Z</con:value>
+          <con:value>2013-01-23T20:35:26Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>12/16/2012 16:37:26</con:value>
+          <con:value>01/23/2013 20:25:26</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2013-01-15T00:00:00Z</con:value>
+          <con:value>2013-02-22T00:00:00Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -3212,16 +3214,14 @@ nhinc.FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", destConfi
             </con:assertion>
             <con:assertion type="SOAP Fault Assertion"/>
             <con:assertion name="DocID Match" type="GroovyScriptAssertion">
-              <con:configuration>
-                <scriptText>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
+              <con:configuration><scriptText>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
 def holder = groovyUtils.getXmlHolder( messageExchange.responseContent );
 holder.namespaces["ns1"] = "urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0";
 holder.namespaces["ns3"] = "urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0";
 
 def documentID = context.findProperty('DQDocID')
 def msgDocID = holder["//ns1:AdhocQueryResponse[1]/ns3:RegistryObjectList[1]/ns3:ExtrinsicObject[1]/ns3:ExternalIdentifier[@identificationScheme='urn:uuid:2e82c1f6-a085-4c72-9da3-8640a32e42ab']/@value"];
-assert (documentID == msgDocID)</scriptText>
-              </con:configuration>
+assert ('1.123401.44444' == msgDocID)</scriptText></con:configuration>
             </con:assertion>
             <con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
             <con:jmsPropertyConfig/>
@@ -3236,19 +3236,19 @@ testCase.getTestSuite().getProject().getMockServiceByName("mockDQ_all").getMockR
 nhinc.FileUtils.updateSpringConfig(context.findProperty('GatewayPropDir'), "DocumentQueryProxyConfig.xml", "adapterdocquery", "adapterdocquerywsunsecured", "adapterdocquerywssecured", log);</con:tearDownScript><con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2012-12-16T16:37:27Z</con:value>
+          <con:value>2013-01-23T20:25:29Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2012-12-16T16:47:27Z</con:value>
+          <con:value>2013-01-23T20:35:29Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>12/16/2012 16:37:27</con:value>
+          <con:value>01/23/2013 20:25:29</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2013-01-15T00:00:00Z</con:value>
+          <con:value>2013-02-22T00:00:00Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -3735,24 +3735,18 @@ context.root = Math.random()</con:script><con:responseContent><![CDATA[<S:Envelo
     </soap:Fault>
   </soap:Body>
 </soap:Envelope>]]></con:responseContent><con:wsaConfig action="urn:gov:hhs:fha:nhinc:adaptercomponentmpi/AdapterComponentMpiPortType/FindCandidatesResponse" mustUnderstand="NONE" version="200508"/></con:response><con:dispatchConfig xsi:type="con:MockOperationQueryMatchDispatch" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:query><con:name>MAA</con:name><con:query>declare namespace ns3='urn:hl7-org:v3';
-declare namespace S='http://www.w3.org/2003/05/soap-envelope'
 
-//S:Envelope[1]/S:Body[1]/ns3:PRPA_IN201305UV02[1]/ns3:receiver[1]/ns3:device[1]/ns3:asAgent[1]/ns3:representedOrganization[1]/ns3:id[1]/@root</con:query><con:match>2.2</con:match><con:response>MAA</con:response></con:query><con:query><con:name>Bad Response</con:name><con:query>declare namespace ns3='urn:hl7-org:v3';
-declare namespace S='http://www.w3.org/2003/05/soap-envelope'
+//ns3:PRPA_IN201305UV02[1]/ns3:receiver[1]/ns3:device[1]/ns3:asAgent[1]/ns3:representedOrganization[1]/ns3:id[1]/@root</con:query><con:match>2.2</con:match><con:response>MAA</con:response></con:query><con:query><con:name>Bad Response</con:name><con:query>declare namespace ns3='urn:hl7-org:v3';
 
-//S:Envelope[1]/S:Body[1]/ns3:PRPA_IN201305UV02[1]/ns3:receiver[1]/ns3:device[1]/ns3:asAgent[1]/ns3:representedOrganization[1]/ns3:id[1]/@root</con:query><con:match>3.3</con:match><con:response>Bad Response</con:response></con:query><con:query><con:name>ResponderBusy</con:name><con:query>declare namespace ns3='urn:hl7-org:v3';
-declare namespace S='http://www.w3.org/2003/05/soap-envelope'
+//ns3:PRPA_IN201305UV02[1]/ns3:receiver[1]/ns3:device[1]/ns3:asAgent[1]/ns3:representedOrganization[1]/ns3:id[1]/@root</con:query><con:match>3.3</con:match><con:response>Bad Response</con:response></con:query><con:query><con:name>ResponderBusy</con:name><con:query>declare namespace ns3='urn:hl7-org:v3';
 
-//S:Envelope[1]/S:Body[1]/ns3:PRPA_IN201305UV02[1]/ns3:receiver[1]/ns3:device[1]/ns3:asAgent[1]/ns3:representedOrganization[1]/ns3:id[1]/@root</con:query><con:match>4.4</con:match><con:response>ResponderBusy</con:response></con:query><con:query><con:name>AnswerNotAvailable</con:name><con:query>declare namespace ns3='urn:hl7-org:v3';
-declare namespace S='http://www.w3.org/2003/05/soap-envelope'
+//ns3:PRPA_IN201305UV02[1]/ns3:receiver[1]/ns3:device[1]/ns3:asAgent[1]/ns3:representedOrganization[1]/ns3:id[1]/@root</con:query><con:match>4.4</con:match><con:response>ResponderBusy</con:response></con:query><con:query><con:name>AnswerNotAvailable</con:name><con:query>declare namespace ns3='urn:hl7-org:v3';
 
-//S:Envelope[1]/S:Body[1]/ns3:PRPA_IN201305UV02[1]/ns3:receiver[1]/ns3:device[1]/ns3:asAgent[1]/ns3:representedOrganization[1]/ns3:id[1]/@root</con:query><con:match>5.5</con:match><con:response>AnswerNotAvailable</con:response></con:query><con:query><con:name>Soap Fault</con:name><con:query>declare namespace ns3='urn:hl7-org:v3';
-declare namespace S='http://www.w3.org/2003/05/soap-envelope'
+//ns3:PRPA_IN201305UV02[1]/ns3:receiver[1]/ns3:device[1]/ns3:asAgent[1]/ns3:representedOrganization[1]/ns3:id[1]/@root</con:query><con:match>5.5</con:match><con:response>AnswerNotAvailable</con:response></con:query><con:query><con:name>Soap Fault</con:name><con:query>declare namespace ns3='urn:hl7-org:v3';
 
-//S:Envelope[1]/S:Body[1]/ns3:PRPA_IN201305UV02[1]/ns3:receiver[1]/ns3:device[1]/ns3:asAgent[1]/ns3:representedOrganization[1]/ns3:id[1]/@root</con:query><con:match>6.6</con:match><con:response>Soap Fault</con:response></con:query><con:query><con:name>Soap Fault 2</con:name><con:query>declare namespace ns3='urn:hl7-org:v3';
-declare namespace S='http://www.w3.org/2003/05/soap-envelope'
+//ns3:PRPA_IN201305UV02[1]/ns3:receiver[1]/ns3:device[1]/ns3:asAgent[1]/ns3:representedOrganization[1]/ns3:id[1]/@root</con:query><con:match>6.6</con:match><con:response>Soap Fault</con:response></con:query><con:query><con:name>Soap Fault 2</con:name><con:query>declare namespace ns3='urn:hl7-org:v3';
 
-//S:Envelope[1]/S:Body[1]/ns3:PRPA_IN201305UV02[1]/ns3:receiver[1]/ns3:device[1]/ns3:asAgent[1]/ns3:representedOrganization[1]/ns3:id[1]/@root</con:query><con:match>7.7</con:match><con:response>Soap Fault 2</con:response></con:query></con:dispatchConfig></con:mockOperation><con:properties/></con:mockService><con:mockService bindToHostOnly="false" docroot="" host="localhost" name="mockDQ_all" path="/MockDQResp" port="7784"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.mock.WsdlMockService@require-soap-action">false</con:setting></con:settings><con:mockOperation interface="AdapterDocQueryBindingSoap" name="RespondingGateway_CrossGatewayQuery" operation="RespondingGateway_CrossGatewayQuery"><con:settings/><con:dispatchStyle>QUERY_MATCH</con:dispatchStyle><con:defaultResponse>correct doc</con:defaultResponse><con:response encoding="UTF-8" name="correct doc"><con:settings/><con:responseContent><![CDATA[<S:Envelope xmlns:S="http://www.w3.org/2003/05/soap-envelope">
+//ns3:PRPA_IN201305UV02[1]/ns3:receiver[1]/ns3:device[1]/ns3:asAgent[1]/ns3:representedOrganization[1]/ns3:id[1]/@root</con:query><con:match>7.7</con:match><con:response>Soap Fault 2</con:response></con:query></con:dispatchConfig></con:mockOperation><con:properties/></con:mockService><con:mockService bindToHostOnly="false" docroot="" host="localhost" name="mockDQ_all" path="/MockDQResp" port="7784"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.mock.WsdlMockService@require-soap-action">false</con:setting></con:settings><con:mockOperation interface="AdapterDocQueryBindingSoap" name="RespondingGateway_CrossGatewayQuery" operation="RespondingGateway_CrossGatewayQuery"><con:settings/><con:dispatchStyle>QUERY_MATCH</con:dispatchStyle><con:defaultResponse>correct doc</con:defaultResponse><con:response encoding="UTF-8" name="correct doc"><con:settings/><con:responseContent><![CDATA[<S:Envelope xmlns:S="http://www.w3.org/2003/05/soap-envelope">
    <S:Body>
       <ns8:AdhocQueryResponse status="urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Success" xmlns:ns2="urn:hl7-org:v3" xmlns:ns3="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:ns4="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:ns5="urn:gov:hhs:fha:nhinc:common:patientcorrelationfacade" xmlns:ns6="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:ns7="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:ns8="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:ns9="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0">
          <ns6:RegistryObjectList>
@@ -4572,9 +4566,8 @@ context.root = Math.random()</con:script><con:responseContent><![CDATA[<S:Envelo
       </ns3:PRPA_IN201306UV02>
    </S:Body>
 </S:Envelope>]]></con:responseContent><con:wsaConfig action="urn:gov:hhs:fha:nhinc:adaptercomponentmpi/AdapterComponentMpiPortType/FindCandidatesResponse" mustUnderstand="NONE" version="200508"/></con:response><con:dispatchConfig xsi:type="con:MockOperationQueryMatchDispatch" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:query><con:name>MAA</con:name><con:query>declare namespace ns3='urn:hl7-org:v3';
-declare namespace S='http://www.w3.org/2003/05/soap-envelope'
 
-//S:Envelope[1]/S:Body[1]/ns3:PRPA_IN201305UV02[1]/ns3:receiver[1]/ns3:device[1]/ns3:asAgent[1]/ns3:representedOrganization[1]/ns3:id[1]/@root</con:query><con:match>3.3</con:match><con:response>MAA</con:response></con:query></con:dispatchConfig></con:mockOperation><con:properties/></con:mockService><con:mockService bindToHostOnly="false" docroot="" host="localhost" name="mockDQ_happy_path" path="/MockDQResp" port="7782"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.mock.WsdlMockService@require-soap-action">false</con:setting></con:settings><con:mockOperation interface="AdapterDocQueryBindingSoap" name="RespondingGateway_CrossGatewayQuery" operation="RespondingGateway_CrossGatewayQuery"><con:settings/><con:dispatchStyle>SEQUENCE</con:dispatchStyle><con:defaultResponse>correct doc</con:defaultResponse><con:response encoding="UTF-8" name="correct doc"><con:settings/><con:responseContent><![CDATA[<S:Envelope xmlns:S="http://www.w3.org/2003/05/soap-envelope">
+//ns3:PRPA_IN201305UV02[1]/ns3:receiver[1]/ns3:device[1]/ns3:asAgent[1]/ns3:representedOrganization[1]/ns3:id[1]/@root</con:query><con:match>3.3</con:match><con:response>MAA</con:response></con:query></con:dispatchConfig></con:mockOperation><con:properties/></con:mockService><con:mockService bindToHostOnly="false" docroot="" host="localhost" name="mockDQ_happy_path" path="/MockDQResp" port="7782"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.mock.WsdlMockService@require-soap-action">false</con:setting></con:settings><con:mockOperation interface="AdapterDocQueryBindingSoap" name="RespondingGateway_CrossGatewayQuery" operation="RespondingGateway_CrossGatewayQuery"><con:settings/><con:dispatchStyle>SEQUENCE</con:dispatchStyle><con:defaultResponse>correct doc</con:defaultResponse><con:response encoding="UTF-8" name="correct doc"><con:settings/><con:responseContent><![CDATA[<S:Envelope xmlns:S="http://www.w3.org/2003/05/soap-envelope">
    <S:Body>
       <ns8:AdhocQueryResponse status="urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Success" xmlns:ns2="urn:hl7-org:v3" xmlns:ns3="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:ns4="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:ns5="urn:gov:hhs:fha:nhinc:common:patientcorrelationfacade" xmlns:ns6="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:ns7="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:ns8="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:ns9="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0">
          <ns6:RegistryObjectList>
