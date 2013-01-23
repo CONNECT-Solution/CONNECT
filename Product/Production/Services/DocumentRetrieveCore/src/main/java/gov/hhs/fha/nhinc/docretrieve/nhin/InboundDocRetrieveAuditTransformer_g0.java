@@ -77,7 +77,7 @@ public class InboundDocRetrieveAuditTransformer_g0 implements AuditTransformer {
         DocRetrieveMessageType docRetrieveMessage = new DocRetrieveMessageType();
         docRetrieveMessage.setRetrieveDocumentSetRequest(request);
         docRetrieveMessage.setAssertion(assertion);
-        return transformRequest(docRetrieveMessage, HomeCommunityMap.getCommunityIdFromAssertion(assertion));
+        return transformRequest(docRetrieveMessage, HomeCommunityMap.getLocalHomeCommunityId());
     }
 
     /**
