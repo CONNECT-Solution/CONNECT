@@ -87,7 +87,7 @@ public class PassthroughInboundAdminDistribution extends AbstractInboundAdminDis
 
     private void auditRequestToAdapter(EDXLDistribution body, AssertionType assertion) {
         auditLogger.auditNhinAdminDist(body, assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION,
-                NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE);
+                null, NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE);
     }
 
 }

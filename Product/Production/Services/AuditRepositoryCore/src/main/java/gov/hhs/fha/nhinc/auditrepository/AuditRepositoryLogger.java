@@ -935,12 +935,18 @@ public class AuditRepositoryLogger implements AuditRepositoryDocumentRetrieveLog
     public LogEventRequestType logEntityAdminDist(
             gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewaySendAlertMessageType message,
             AssertionType assertion, String direction) {
-        LOG.debug("Entering AuditRepositoryLogger.logEntityPatientDiscResp(...)");
-        LogEventRequestType auditMsg = null;
-            AdminDistTransforms auditTransformer = new AdminDistTransforms();
-            auditMsg = auditTransformer.transformEntitySendAlertToAuditMsg(message, assertion, direction,
+    	LOG.trace("Entering AuditRepositoryLogger.logEntityPatientDiscResp(...)");
+        
+    	LogEventRequestType auditMsg = null;       
+        try{
+        	EDXLDistribution body = message.getEDXLDistribution();
+        	auditMsg = adAuditTransformer.transformEDXLDistributionRequestToAuditMsg(body, assertion, direction,
                     NhincConstants.AUDIT_LOG_ENTITY_INTERFACE);
-        LOG.debug("Exiting AuditRepositoryLogger.logEntityPatientDiscResp(...)");
+        }catch (NullPointerException ex){
+        	LOG.error("The Incoming Send Alert message was Null", ex);
+        }
+        
+        LOG.trace("Exiting AuditRepositoryLogger.logEntityPatientDiscResp(...)");
         return auditMsg;
     }
 
@@ -950,12 +956,13 @@ public class AuditRepositoryLogger implements AuditRepositoryDocumentRetrieveLog
      * @param assertion The assertion to be audited
      * @param target
      * @param direction The direction this message is going (Inbound or Outbound)
+     * @param _interface The interface this message is sent from(NHIN, Adapter, or Entity)
      * @return
      */
     public LogEventRequestType logNhincAdminDist(EDXLDistribution message, AssertionType assertion,
-            NhinTargetSystemType target, String direction) {
+            NhinTargetSystemType target, String direction, String _interface) {
 
-        return logNhincAdminDist(message, assertion, direction, NhincConstants.AUDIT_LOG_NHIN_INTERFACE );
+    	return adAuditTransformer.transformEDXLDistributionRequestToAuditMsg(message, assertion, target, direction, _interface);
     }
 
     /**
@@ -963,17 +970,13 @@ public class AuditRepositoryLogger implements AuditRepositoryDocumentRetrieveLog
      * @param message The Admin Distribution message to be audited
      * @param assertion The assertion to be audited
      * @param direction The direction this message is going (Inbound or Outbound)
-     * @param logInterface The interface this message is sent from(NHIN, Adapter, or Entity)
+     * @param _interface The interface this message is sent from(NHIN, Adapter, or Entity)
      * @return
      */
     public LogEventRequestType logNhincAdminDist(EDXLDistribution message, AssertionType assertion, String direction,
-            String logInterface) {
-        LOG.debug("Entering AuditRepositoryLogger.logEntityPatientDiscResp(...)");
-        LogEventRequestType auditMsg = null;
-        auditMsg = adAuditTransformer.transformEDXLDistributionRequestToAuditMsg(message, assertion, direction,
-                logInterface);
-        LOG.debug("Exiting AuditRepositoryLogger.logEntityPatientDiscResp(...)");
-        return auditMsg;
+            String _interface) {
+        
+    	return adAuditTransformer.transformEDXLDistributionRequestToAuditMsg(message, assertion, direction, _interface);
     }
 
 }

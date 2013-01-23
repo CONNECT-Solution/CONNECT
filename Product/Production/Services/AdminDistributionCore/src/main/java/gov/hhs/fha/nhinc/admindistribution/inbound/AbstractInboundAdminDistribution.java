@@ -60,6 +60,6 @@ public abstract class AbstractInboundAdminDistribution implements InboundAdminDi
 
     private void auditRequestFromNhin(EDXLDistribution body, AssertionType assertion) {
         auditLogger.auditNhinAdminDist(body, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION,
-                NhincConstants.AUDIT_LOG_NHIN_INTERFACE);
+                null, NhincConstants.AUDIT_LOG_NHIN_INTERFACE);
     }
 }

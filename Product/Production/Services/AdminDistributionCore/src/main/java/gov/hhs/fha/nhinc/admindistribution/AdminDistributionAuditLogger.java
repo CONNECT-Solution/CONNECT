@@ -35,6 +35,7 @@ import oasis.names.tc.emergency.edxl.de._1.EDXLDistribution;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewaySendAlertMessageType;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 
 import org.apache.log4j.Logger;
 
@@ -88,7 +89,8 @@ public class AdminDistributionAuditLogger {
         AcknowledgementType ack = null;
         AuditRepositoryLogger auditLogger = new AuditRepositoryLogger();
 
-        LogEventRequestType auditLogMsg = auditLogger.logNhincAdminDist(body, assertion, target, direction);
+        LogEventRequestType auditLogMsg = auditLogger.logNhincAdminDist(body, assertion, target, direction,
+        		NhincConstants.AUDIT_LOG_PROXY_INTERFACE);
 
         if (auditLogMsg != null) {
             ack = audit(auditLogMsg, assertion);
@@ -107,7 +109,7 @@ public class AdminDistributionAuditLogger {
      * @return ack Acknowledgement.
      */
     public AcknowledgementType auditNhinAdminDist(EDXLDistribution body, AssertionType assertion, String direction,
-            String logInterface) {
+            NhinTargetSystemType target, String logInterface) {
         LOG.debug("begin auditNhinAdminDist() " + direction);
         AcknowledgementType ack = null;
         AuditRepositoryLogger auditLogger = new AuditRepositoryLogger();
@@ -115,7 +117,7 @@ public class AdminDistributionAuditLogger {
         LOG.debug("body == null = " + body == null);
         LOG.debug("assertion == null = " + assertion == null);
 
-        LogEventRequestType auditLogMsg = auditLogger.logNhincAdminDist(body, assertion, direction, logInterface);
+        LogEventRequestType auditLogMsg = auditLogger.logNhincAdminDist(body, assertion, target, direction, logInterface);
 
         if (auditLogMsg != null) {
             ack = audit(auditLogMsg, assertion);
