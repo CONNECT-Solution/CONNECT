@@ -142,15 +142,16 @@ public class HomeCommunityMap {
                     communityId = userInfo.getOrg().getHomeCommunityId();
                 }
             }
-
         }
         if (communityId == null && assertion != null && assertion.getHomeCommunity() != null) {
             communityId = assertion.getHomeCommunity().getHomeCommunityId();
         }
-        if (NullChecker.isNullish(communityId)){
+        if (NullChecker.isNullish(communityId)) {
             LOG.error("CommunityId in Assertion passed is Null");
+            return null;
+        } else {
+            return formatHomeCommunityId(communityId);
         }
-        return formatHomeCommunityId(communityId);
     }
 
     /**

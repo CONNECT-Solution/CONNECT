@@ -197,6 +197,17 @@ public class HomeCommunityMapTest {
         assertion.setUserInfo(null);
         communityId = HomeCommunityMap.getCommunityIdFromAssertion(assertion);
         assertEquals("1.1", communityId);
+        
+        UserType info = new UserType();
+        assertion.setUserInfo(info);
+        HomeCommunityType org1 = new HomeCommunityType();
+        assertion.getUserInfo().setOrg(org1);
+        assertion.getUserInfo().getOrg().setHomeCommunityId("");
+        HomeCommunityType homecommunity = new HomeCommunityType();
+        homecommunity.setHomeCommunityId("1.1");
+        assertion.setHomeCommunity(homecommunity);
+        communityId = HomeCommunityMap.getCommunityIdFromAssertion(assertion);
+        assertEquals("1.1", communityId);
     }
 
     @Test
