@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services. 
+ * Copyright (c) 2009-13, United States Government, as represented by the Secretary of Health and Human Services. 
  * All rights reserved. 
  *
  * Redistribution and use in source and binary forms, with or without 
@@ -52,8 +52,6 @@ public class DocQueryAuditLog {
     AuditRepositoryLogger auditLogger = new AuditRepositoryLogger();
     AuditRepositoryProxyObjectFactory auditRepoFactory = new AuditRepositoryProxyObjectFactory();
     
-    
-
   
     /**
      * This method will log Audit Query Requests received on the NHIN Proxy Interface.
@@ -225,6 +223,7 @@ public class DocQueryAuditLog {
     }
     
     /**
+     * Log the outbound doc query strategy request.
      * 
      * @param request The AdhocQuery Request received.
      * @param assertion Assertion received.
@@ -243,6 +242,8 @@ public class DocQueryAuditLog {
     }
 
     /**
+     * Log the outbound doc query strategy response.
+     * 
      * @param response The AdhocQUery Response received.
      * @param assertion Assertion received.
      * @param requestCommunityID CommunityId passed.

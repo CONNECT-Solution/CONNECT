@@ -60,13 +60,12 @@ import org.junit.Test;
 public class PassthroughInboundDocQueryTest {
         
     /**
-     * Compared with value in the gateway.properties file.
+     * Responding gateway home community id (from gateway.properties).
      */
-    private static final String RESPONDING_HCID_FORMATTED = "1.2";
-    
+    private static final String RESPONDING_HCID_FORMATTED = "1.2";    
     
     /**
-     * Compared with value in the assertion.
+     * Sending gateway home community id (from the assertion org/home community).
      */
     private static final String SENDING_HCID_ORG = "urn:oid:7.2";
     private static final String SENDING_HCID_ORG_FORMATTED = "7.2";

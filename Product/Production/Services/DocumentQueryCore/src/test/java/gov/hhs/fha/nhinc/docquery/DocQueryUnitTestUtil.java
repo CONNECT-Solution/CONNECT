@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2013, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-13, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -45,6 +45,9 @@ public class DocQueryUnitTestUtil {
         return new File(DocQueryUnitTestUtil.class.getProtectionDomain().getCodeSource().getLocation().toURI());
     }
     
+    /**
+     * Load gateway.properties file from a "local" subdirectory on the test classpath.
+     */
     public static synchronized void setUpGatewayProperties() {
         try {
             PropertyAccessor.getInstance().setPropertyFileLocation("" + getClassPath() + "/local");
