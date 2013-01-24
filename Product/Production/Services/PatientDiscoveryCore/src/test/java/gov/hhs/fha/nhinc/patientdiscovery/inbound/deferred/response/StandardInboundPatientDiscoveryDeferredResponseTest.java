@@ -132,6 +132,11 @@ public class StandardInboundPatientDiscoveryDeferredResponseTest {
 
         verify(auditLogger).auditAck(actualResponse, assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION,
                 NhincConstants.AUDIT_LOG_NHIN_INTERFACE);
+        
+        verify(auditLogger).auditAdapterDeferred201306(request, assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION);
+
+        verify(auditLogger).auditAck(actualResponse, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION,
+                NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE);
     }
 
     @Test
