@@ -31,6 +31,7 @@ import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryAuditLogger;
 import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryAuditor;
 import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryPolicyChecker;
 import gov.hhs.fha.nhinc.patientdiscovery.adapter.deferred.request.error.proxy.AdapterPatientDiscoveryDeferredReqErrorProxyObjectFactory;
+import gov.hhs.fha.nhinc.patientdiscovery.adapter.deferred.request.proxy.AdapterPatientDiscoveryDeferredReqProxyObjectFactory;
 import gov.hhs.fha.nhinc.transform.subdisc.HL7PRPA201306Transforms;
 
 import org.apache.log4j.Logger;
@@ -47,16 +48,15 @@ public class StandardInboundPatientDiscoveryDeferredRequest extends AbstractInbo
     private static final Logger LOG = Logger.getLogger(StandardInboundPatientDiscoveryDeferredRequest.class);
     private final PatientDiscoveryPolicyChecker policyChecker;
     private final AdapterPatientDiscoveryDeferredReqErrorProxyObjectFactory proxyErrorFactory;
-    private final PassthroughInboundPatientDiscoveryDeferredRequest passthroughPatientDiscovery;
-    private final PatientDiscoveryAuditor auditLogger; 
+    private final PatientDiscoveryAuditor auditLogger;
 
     /**
      * Constructor.
      */
     public StandardInboundPatientDiscoveryDeferredRequest() {
+        super(new AdapterPatientDiscoveryDeferredReqProxyObjectFactory());
         policyChecker = PatientDiscoveryPolicyChecker.getInstance();
         proxyErrorFactory = new AdapterPatientDiscoveryDeferredReqErrorProxyObjectFactory();
-        passthroughPatientDiscovery = new PassthroughInboundPatientDiscoveryDeferredRequest();
         auditLogger = new PatientDiscoveryAuditLogger();
     }
 
@@ -71,30 +71,33 @@ public class StandardInboundPatientDiscoveryDeferredRequest extends AbstractInbo
      */
     public StandardInboundPatientDiscoveryDeferredRequest(PatientDiscoveryPolicyChecker policyChecker,
             AdapterPatientDiscoveryDeferredReqErrorProxyObjectFactory proxyErrorFactory,
-            PassthroughInboundPatientDiscoveryDeferredRequest passthroughPatientDiscovery,
-            PatientDiscoveryAuditor auditLogger) {
+            AdapterPatientDiscoveryDeferredReqProxyObjectFactory adapterFactory, PatientDiscoveryAuditor auditLogger) {
+        super(adapterFactory);
         this.policyChecker = policyChecker;
         this.proxyErrorFactory = proxyErrorFactory;
-        this.passthroughPatientDiscovery = passthroughPatientDiscovery;
         this.auditLogger = auditLogger;
     }
 
     MCCIIN000002UV01 process(PRPAIN201305UV02 request, AssertionType assertion) {
         MCCIIN000002UV01 response = null;
 
+        auditRequestToAdapter(request, assertion);
+        
         String errMsg = null;
         if (isPolicyValid(request, assertion)) {
             LOG.debug("Adapter patient discovery deferred policy check successful");
-            response = passthroughPatientDiscovery.process(request, assertion);
+            response = sendToAdapter(request, assertion);
         } else {
             errMsg = "Policy Check Failed";
             LOG.error(errMsg);
             response = sendErrorToAdapter(request, assertion, errMsg);
         }
+        
+        auditResponseFromAdapter(response, assertion);
 
         return response;
     }
-    
+
     PatientDiscoveryAuditor getAuditLogger() {
         return auditLogger;
     }
@@ -104,14 +107,10 @@ public class StandardInboundPatientDiscoveryDeferredRequest extends AbstractInbo
     }
 
     private MCCIIN000002UV01 sendErrorToAdapter(PRPAIN201305UV02 request, AssertionType assertion, String errMsg) {
-        auditRequestToAdapter(request, assertion);
-
         PRPAIN201306UV02 response = new HL7PRPA201306Transforms().createPRPA201306ForPatientNotFound(request);
 
         MCCIIN000002UV01 adapterResp = proxyErrorFactory.create().processPatientDiscoveryAsyncReqError(request,
                 response, assertion, errMsg);
-
-        auditResponseFromAdapter(adapterResp, assertion);
 
         return adapterResp;
     }
