@@ -34,6 +34,7 @@ import gov.hhs.fha.nhinc.common.auditlog.AdhocQueryResponseMessageType;
 import gov.hhs.fha.nhinc.common.auditlog.LogEventRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AcknowledgementType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.healthit.nhin.DocQueryAcknowledgementType;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
@@ -47,6 +48,7 @@ import org.apache.log4j.Logger;
 public class DocQueryAuditLog {
 
     private static final Logger LOG = Logger.getLogger(DocQueryAuditLog.class);
+    
     AuditRepositoryLogger auditLogger = new AuditRepositoryLogger();
     AuditRepositoryProxyObjectFactory auditRepoFactory = new AuditRepositoryProxyObjectFactory();
     
@@ -220,6 +222,40 @@ public class DocQueryAuditLog {
 
         LOG.debug("Exiting DocQueryAuditLog.auditResponse(...)...");
         return ack;
+    }
+    
+    /**
+     * 
+     * @param request The AdhocQuery Request received.
+     * @param assertion Assertion received.
+     * @param requestCommunityID communityId passed.
+     */
+    public void auditOutboundDocQueryStrategyRequest(AdhocQueryRequest request, AssertionType assertion,
+            String requestCommunityID) {
+        AdhocQueryMessageType message = new AdhocQueryMessageType();
+        message.setAdhocQueryRequest(request);
+        message.setAssertion(assertion);
+        LogEventRequestType auditLogMsg = auditLogger.logAdhocQuery(message,
+                NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE,
+                requestCommunityID);
+        auditLog(assertion, auditLogMsg);
+
+    }
+
+    /**
+     * @param response The AdhocQUery Response received.
+     * @param assertion Assertion received.
+     * @param requestCommunityID CommunityId passed.
+     */
+    public void auditOutboundDocQueryStrategyResponse(AdhocQueryResponse response, AssertionType assertion,
+            String requestCommunityID) {
+        AdhocQueryResponseMessageType message = new AdhocQueryResponseMessageType();
+        message.setAdhocQueryResponse(response);
+        message.setAssertion(assertion);
+        LogEventRequestType auditLogMsg = auditLogger
+                .logAdhocQueryResult(message, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION,
+                        NhincConstants.AUDIT_LOG_NHIN_INTERFACE, requestCommunityID);
+        auditLog(assertion, auditLogMsg);
     }
 
     /**

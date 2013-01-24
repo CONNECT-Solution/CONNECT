@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-13, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -26,25 +26,19 @@
  */
 package gov.hhs.fha.nhinc.docquery.entity;
 
-import gov.hhs.fha.nhinc.auditrepository.AuditRepositoryLogger;
-import gov.hhs.fha.nhinc.auditrepository.nhinc.proxy.AuditRepositoryProxy;
-import gov.hhs.fha.nhinc.auditrepository.nhinc.proxy.AuditRepositoryProxyObjectFactory;
-import gov.hhs.fha.nhinc.common.auditlog.LogEventRequestType;
-import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException;
+import gov.hhs.fha.nhinc.docquery.DocQueryAuditLog;
 import gov.hhs.fha.nhinc.docquery.MessageGeneratorUtils;
 import gov.hhs.fha.nhinc.docquery.nhin.proxy.NhinDocQueryProxyFactory;
 import gov.hhs.fha.nhinc.docquery.nhin.proxy.NhinDocQueryProxyObjectFactory;
-import gov.hhs.fha.nhinc.gateway.aggregator.document.DocumentConstants;
 import gov.hhs.fha.nhinc.gateway.executorservice.ExecutorServiceHelper;
-import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants.GATEWAY_API_LEVEL;
 import gov.hhs.fha.nhinc.orchestration.Orchestratable;
 import gov.hhs.fha.nhinc.orchestration.OrchestrationStrategy;
 import gov.hhs.fha.nhinc.orchestration.OutboundResponseProcessor;
+import gov.hhs.fha.nhinc.util.HomeCommunityMap;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
-import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
 
 import org.apache.commons.lang.StringUtils;
@@ -58,7 +52,7 @@ public abstract class OutboundDocQueryStrategy implements OrchestrationStrategy 
 
     private static final Logger LOG = Logger.getLogger(OutboundDocQueryStrategy.class);
 
-    private AuditRepositoryLogger auditLogger;
+    private DocQueryAuditLog auditLog = null;
     private NhinDocQueryProxyFactory proxyFactory;
     WebServiceProxyHelper webServiceProxyHelper;
 
@@ -67,7 +61,6 @@ public abstract class OutboundDocQueryStrategy implements OrchestrationStrategy 
      */
     OutboundDocQueryStrategy() {
         proxyFactory = new NhinDocQueryProxyObjectFactory();
-        auditLogger = new AuditRepositoryLogger();
         webServiceProxyHelper = new WebServiceProxyHelper();
     }
 
@@ -114,16 +107,16 @@ public abstract class OutboundDocQueryStrategy implements OrchestrationStrategy 
      */
     public void execute(OutboundDocQueryOrchestratable message) {
 
-        auditRequestMessage(message.getRequest(), message.getAssertion(), message.getTarget().getHomeCommunity()
-                .getHomeCommunityId());
+        getAuditLogger().auditOutboundDocQueryStrategyRequest(message.getRequest(), message.getAssertion(),
+                HomeCommunityMap.getCommunityIdFromTargetSystem(message.getTarget()));
         try {
             executeStrategy(message);
         } catch (Exception ex) {
             handleError(message, ex);
         }
 
-        auditResponseMessage(message.getResponse(), message.getAssertion(), message.getTarget().getHomeCommunity()
-                .getHomeCommunityId());
+        getAuditLogger().auditOutboundDocQueryStrategyResponse(message.getResponse(), message.getAssertion(), 
+                HomeCommunityMap.getCommunityIdFromTargetSystem(message.getTarget()));
     }
 
     /**
@@ -171,44 +164,11 @@ public abstract class OutboundDocQueryStrategy implements OrchestrationStrategy 
 
         return webServiceProxyHelper.getUrlFromTargetSystemByGatewayAPILevel(target, getServiceName(), getAPILevel());
     }
-
-    private void auditMessage(LogEventRequestType auditLogMsg, AssertionType assertion) {
-        if (auditLogMsg != null) {
-            AuditRepositoryProxyObjectFactory auditRepoFactory = new AuditRepositoryProxyObjectFactory();
-            AuditRepositoryProxy proxy = auditRepoFactory.getAuditRepositoryProxy();
-            proxy.auditLog(auditLogMsg, assertion);
+    
+    protected DocQueryAuditLog getAuditLogger() {
+        if (auditLog == null) {
+            auditLog = new DocQueryAuditLog();
         }
+        return auditLog;
     }
-
-    /**
-     * @param request The AdhocQuery Request received.
-     * @param assertion Assertion received.
-     * @param requestCommunityID communityId passed.
-     */
-    protected void auditRequestMessage(AdhocQueryRequest request, AssertionType assertion, String requestCommunityID) {
-        gov.hhs.fha.nhinc.common.auditlog.AdhocQueryMessageType message = new gov.hhs.fha.nhinc.common.auditlog.AdhocQueryMessageType();
-        message.setAdhocQueryRequest(request);
-        message.setAssertion(assertion);
-        LogEventRequestType auditLogMsg = auditLogger.logAdhocQuery(message,
-                NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE,
-                requestCommunityID);
-        auditMessage(auditLogMsg, assertion);
-
-    }
-
-    /**
-     * @param response The AdhocQUery Response received.
-     * @param assertion Assertion received.
-     * @param requestCommunityID CommunityId passed.
-     */
-    protected void auditResponseMessage(AdhocQueryResponse response, AssertionType assertion, String requestCommunityID) {
-        gov.hhs.fha.nhinc.common.auditlog.AdhocQueryResponseMessageType message = new gov.hhs.fha.nhinc.common.auditlog.AdhocQueryResponseMessageType();
-        message.setAdhocQueryResponse(response);
-        message.setAssertion(assertion);
-        LogEventRequestType auditLogMsg = auditLogger
-                .logAdhocQueryResult(message, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION,
-                        NhincConstants.AUDIT_LOG_NHIN_INTERFACE, requestCommunityID);
-        auditMessage(auditLogMsg, assertion);
-    }
-
 }

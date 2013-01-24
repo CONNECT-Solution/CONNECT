@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2013, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -24,20 +24,24 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.docquery.outbound;
+package gov.hhs.fha.nhinc.docquery;
 
-import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
-import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
-import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
+import gov.hhs.fha.nhinc.docquery.outbound.StandardOutboundDocQueryTest;
+
+import java.io.File;
+import java.net.URISyntaxException;
 
 /**
- * @author akong
- * 
+ * Document Query Unit Test Utility Methods.
  */
-public interface OutboundDocQuery {
-
-    public AdhocQueryResponse respondingGatewayCrossGatewayQuery(AdhocQueryRequest adhocQueryRequest,
-            AssertionType assertion, NhinTargetCommunitiesType targets);
+public class DocQueryUnitTestUtil {
+    
+    /**
+     * Used when calling code requires absolute paths to test resources.
+     * @return absolute classpath.
+     */
+    public static File getClassPath() throws URISyntaxException {
+        return new File(StandardOutboundDocQueryTest.class.getProtectionDomain().getCodeSource().getLocation().toURI());
+    }     
 
 }

@@ -61,16 +61,16 @@ public abstract class AbstractInboundDocQuery implements InboundDocQuery {
             afterReturningBuilder = AdhocQueryResponseDescriptionBuilder.class, serviceType = "Document Query",
             version = "")
     public AdhocQueryResponse respondingGatewayCrossGatewayQuery(AdhocQueryRequest msg, AssertionType assertion) {
-        String requestCommunityID = null;
+        String senderHcid = null;
         if (msg != null) {
-            requestCommunityID = HomeCommunityMap.getCommunityId(msg.getAdhocQuery());
+            senderHcid = HomeCommunityMap.getCommunityIdFromAssertion(assertion);
         }
 
-        auditRequestFromNhin(msg, assertion, requestCommunityID);
+        auditRequestFromNhin(msg, assertion, senderHcid);
 
         AdhocQueryResponse resp = processDocQuery(msg, assertion, HomeCommunityMap.getLocalHomeCommunityId());
 
-        auditResponseToNhin(resp, assertion, requestCommunityID);
+        auditResponseToNhin(resp, assertion, senderHcid);
 
         return resp;
     }

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-13, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -29,7 +29,6 @@ package gov.hhs.fha.nhinc.docquery.outbound;
 import gov.hhs.fha.nhinc.aspect.OutboundProcessingEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
-import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.docquery.DocQueryAuditLog;
 import gov.hhs.fha.nhinc.docquery.MessageGeneratorUtils;
 import gov.hhs.fha.nhinc.docquery.aspect.AdhocQueryRequestDescriptionBuilder;
@@ -42,6 +41,7 @@ import gov.hhs.fha.nhinc.docquery.entity.OutboundDocQueryOrchestratable;
 import gov.hhs.fha.nhinc.gateway.aggregator.document.DocumentConstants;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.orchestration.OutboundOrchestratable;
+import gov.hhs.fha.nhinc.util.HomeCommunityMap;
 
 import java.util.List;
 
@@ -88,10 +88,8 @@ public class StandardOutboundDocQuery implements OutboundDocQuery {
         LOG.trace("EntityDocQueryOrchImpl.respondingGatewayCrossGatewayQuery...");
         AdhocQueryResponse response = null;
 
-        NhinTargetSystemType target = MessageGeneratorUtils.getInstance().convertFirstToNhinTargetSystemType(targets);
-        String targetHCID = getTargetHCID(target);
-
-        auditRequestFromAdapter(adhocQueryRequest, assertion, targetHCID);
+        String sendingHCID = HomeCommunityMap.getLocalHomeCommunityId();
+        auditRequestFromAdapter(adhocQueryRequest, assertion, sendingHCID);
 
         OutboundDocQueryAggregate aggregate = new OutboundDocQueryAggregate();
 
@@ -115,7 +113,7 @@ public class StandardOutboundDocQuery implements OutboundDocQuery {
             response = request.getResponse();
         }
 
-        auditResponseToAdapter(response, assertion, targetHCID);
+        auditResponseToAdapter(response, assertion, sendingHCID);
 
         return response;
 
@@ -140,23 +138,14 @@ public class StandardOutboundDocQuery implements OutboundDocQuery {
                 DocumentConstants.XDS_QUERY_RESPONSE_STATUS_FAILURE);
     }
 
-    private String getTargetHCID(NhinTargetSystemType target) {
-        String targetHCID = null;
-        if (target != null && target.getHomeCommunity() != null) {
-            targetHCID = target.getHomeCommunity().getHomeCommunityId();
-        }
-
-        return targetHCID;
-    }
-
-    private void auditRequestFromAdapter(AdhocQueryRequest request, AssertionType assertion, String responseCommunityID) {
+    private void auditRequestFromAdapter(AdhocQueryRequest request, AssertionType assertion, String sendingHCID) {
         getAuditLogger().auditDQRequest(request, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION,
-                NhincConstants.AUDIT_LOG_ENTITY_INTERFACE, responseCommunityID);
+                NhincConstants.AUDIT_LOG_ENTITY_INTERFACE, sendingHCID);
     }
 
-    private void auditResponseToAdapter(AdhocQueryResponse response, AssertionType assertion, String responseCommunityID) {
+    private void auditResponseToAdapter(AdhocQueryResponse response, AssertionType assertion, String sendingHCID) {
         getAuditLogger().auditDQResponse(response, assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION,
-                NhincConstants.AUDIT_LOG_ENTITY_INTERFACE, responseCommunityID);
+                NhincConstants.AUDIT_LOG_ENTITY_INTERFACE, sendingHCID);
     }
 
 }
