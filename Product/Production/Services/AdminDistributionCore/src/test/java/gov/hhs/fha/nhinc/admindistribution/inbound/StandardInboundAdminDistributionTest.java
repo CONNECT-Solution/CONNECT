@@ -63,15 +63,12 @@ public class StandardInboundAdminDistributionTest {
         
         when(adapterFactory.getAdapterAdminDistProxy()).thenReturn(adapterProxy);
 
-        PassthroughInboundAdminDistribution passthroughAdminDist = new PassthroughInboundAdminDistribution(auditLogger, adminUtils, adapterFactory);
-        passthroughAdminDist.setPassthrough(false);
-        
         AdminDistributionPolicyChecker policyChecker = mock(AdminDistributionPolicyChecker.class);
         
         when(policyChecker.checkIncomingPolicy(request, assertion)).thenReturn(true);
 
-        StandardInboundAdminDistribution standardAdminDist = new StandardInboundAdminDistribution(passthroughAdminDist,
-                policyChecker, auditLogger);
+        StandardInboundAdminDistribution standardAdminDist = new StandardInboundAdminDistribution(policyChecker,
+        		auditLogger, adapterFactory, adminUtils);
         
         standardAdminDist.sendAlertMessage(request, assertion);
 
@@ -94,16 +91,12 @@ public class StandardInboundAdminDistributionTest {
         AdminDistributionUtils adminUtils = mock(AdminDistributionUtils.class);
         AdapterAdminDistributionProxyObjectFactory adapterFactory = mock(AdapterAdminDistributionProxyObjectFactory.class);
         
-        PassthroughInboundAdminDistribution passthroughAdminDist = new PassthroughInboundAdminDistribution(auditLogger, 
-        		adminUtils, adapterFactory);
-        passthroughAdminDist.setPassthrough(false);
-
         AdminDistributionPolicyChecker policyChecker = mock(AdminDistributionPolicyChecker.class);
         
         when(policyChecker.checkIncomingPolicy(request, assertion)).thenReturn(false);
 
-        StandardInboundAdminDistribution standardAdminDist = new StandardInboundAdminDistribution(passthroughAdminDist,
-                policyChecker, auditLogger);
+        StandardInboundAdminDistribution standardAdminDist = new StandardInboundAdminDistribution(policyChecker,
+        		auditLogger, adapterFactory, adminUtils);
         
         standardAdminDist.sendAlertMessage(request, assertion);
         
