@@ -2011,7 +2011,7 @@ if(passthruValue != null){
                   <urn:id root="1.2.345.678.999"/>
                   <urn:asAgent classCode="AGNT">
                      <urn:representedOrganization classCode="ORG" determinerCode="INSTANCE">
-                        <urn:id root="1.1"/>
+                        <urn:id root="${#Project#RemoteHCID}"/>
                      </urn:representedOrganization>
                   </urn:asAgent>
                </urn:device>
@@ -7341,7 +7341,7 @@ if(passthruValue != null){
                   <urn:id root="1.2.345.678.999"/>
                   <urn:asAgent classCode="AGNT">
                      <urn:representedOrganization classCode="ORG" determinerCode="INSTANCE">
-                        <urn:id root="1.1"/>
+                        <urn:id root="${#Project#RemoteHCID}"/>
                      </urn:representedOrganization>
                   </urn:asAgent>
                </urn:device>
@@ -8046,7 +8046,7 @@ if(!runMock){
    		<id root="1.2.345.678.999"/>
    		<asAgent classCode="AGNT">
    			<representedOrganization classCode="ORG" determinerCode="INSTANCE">
-   				<id root="1.1"/>
+   				<id root="${#Project#RemoteHCID}"/>
    			</representedOrganization>
    		</asAgent>
    	</device>
