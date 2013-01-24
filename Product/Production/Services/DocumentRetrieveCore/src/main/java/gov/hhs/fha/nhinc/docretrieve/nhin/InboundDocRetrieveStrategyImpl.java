@@ -59,17 +59,17 @@ public class InboundDocRetrieveStrategyImpl implements InboundDocRetrieveStrateg
             LOG.debug("NhinOrchestratable was null");
             return;
         }
-        
-        if (! message.isPassthru()){
-        auditOutboundRequestMessage(message);
+
+        if (!message.isPassthru()) {
+            auditOutboundRequestMessage(message);
         }
 
         RetrieveDocumentSetResponseType adapterResponse = sendToAdapter(message);
 
         message.setResponse(adapterResponse);
 
-        if(!message.isPassthru()) {
-        auditInboundResponseMessage(message);
+        if (!message.isPassthru()) {
+            auditInboundResponseMessage(message);
         }
 
         LOG.debug("End NhinDocRetrieveOrchestratableImpl_g0.process");
@@ -116,7 +116,6 @@ public class InboundDocRetrieveStrategyImpl implements InboundDocRetrieveStrateg
         auditResponseMessage(message.getResponse(), message.getAssertion(), requestCommunityID);
     }
 
-
     private void auditRequestMessage(RetrieveDocumentSetRequestType request, AssertionType assertion,
             String requestCommunityID) {
         gov.hhs.fha.nhinc.common.auditlog.DocRetrieveMessageType message = new gov.hhs.fha.nhinc.common.auditlog.DocRetrieveMessageType();
@@ -129,17 +128,17 @@ public class InboundDocRetrieveStrategyImpl implements InboundDocRetrieveStrateg
             auditMessage(auditLogMsg, assertion);
         }
     }
+
     /**
      * @param message
      * @return
      */
     public void auditOutboundRequestMessage(InboundDocRetrieveOrchestratable message) {
         String requestCommunityID = HomeCommunityMap.getLocalHomeCommunityId();
-        
+
         LOG.debug("Calling audit log for doc retrieve request (g0) sent to adapter (a0)");
         auditRequestMessage(message.getRequest(), message.getAssertion(), requestCommunityID);
     }
-
 
     private AcknowledgementType auditMessage(LogEventRequestType auditLogMsg, AssertionType assertion) {
         AuditRepositoryProxyObjectFactory auditRepoFactory = new AuditRepositoryProxyObjectFactory();
