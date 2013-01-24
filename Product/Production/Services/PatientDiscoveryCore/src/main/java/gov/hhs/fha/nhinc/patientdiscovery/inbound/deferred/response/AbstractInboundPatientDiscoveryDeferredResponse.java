@@ -28,8 +28,11 @@ package gov.hhs.fha.nhinc.patientdiscovery.inbound.deferred.response;
 
 import gov.hhs.fha.nhinc.aspect.InboundProcessingEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.generic.GenericFactory;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryAuditor;
+import gov.hhs.fha.nhinc.patientdiscovery.adapter.deferred.response.proxy.AdapterPatientDiscoveryDeferredRespProxy;
+import gov.hhs.fha.nhinc.patientdiscovery.adapter.deferred.response.proxy.AdapterPatientDiscoveryDeferredRespProxyObjectFactory;
 import gov.hhs.fha.nhinc.patientdiscovery.aspect.MCCIIN000002UV01EventDescriptionBuilder;
 import gov.hhs.fha.nhinc.patientdiscovery.aspect.PRPAIN201306UV02EventDescriptionBuilder;
 
@@ -38,36 +41,50 @@ import org.hl7.v3.PRPAIN201306UV02;
 
 /**
  * @author akong
- *
+ * 
  */
-public abstract class AbstractInboundPatientDiscoveryDeferredResponse implements InboundPatientDiscoveryDeferredResponse {
+public abstract class AbstractInboundPatientDiscoveryDeferredResponse implements
+        InboundPatientDiscoveryDeferredResponse {
+
+    private final GenericFactory<AdapterPatientDiscoveryDeferredRespProxy> proxyFactory;
 
     abstract MCCIIN000002UV01 process(PRPAIN201306UV02 request, AssertionType assertion);
-    
+
     abstract PatientDiscoveryAuditor getAuditLogger();
+
+    public AbstractInboundPatientDiscoveryDeferredResponse() {
+        proxyFactory = new AdapterPatientDiscoveryDeferredRespProxyObjectFactory();
+    }
     
+    public AbstractInboundPatientDiscoveryDeferredResponse(GenericFactory<AdapterPatientDiscoveryDeferredRespProxy> factory) {
+        proxyFactory = factory;
+    }
+
     @Override
-    @InboundProcessingEvent(beforeBuilder = PRPAIN201306UV02EventDescriptionBuilder.class,
-            afterReturningBuilder = MCCIIN000002UV01EventDescriptionBuilder.class, 
-            serviceType = "Patient Discovery Deferred Response",
-            version = "1.0")
+    @InboundProcessingEvent(beforeBuilder = PRPAIN201306UV02EventDescriptionBuilder.class, afterReturningBuilder = MCCIIN000002UV01EventDescriptionBuilder.class, serviceType = "Patient Discovery Deferred Response", version = "1.0")
     public MCCIIN000002UV01 respondingGatewayDeferredPRPAIN201306UV02(PRPAIN201306UV02 request, AssertionType assertion) {
         auditRequestFromNhin(request, assertion);
-        
+
         MCCIIN000002UV01 response = process(request, assertion);
 
         auditResponseToNhin(response, assertion);
 
         return response;
     }
-    
+
+    protected MCCIIN000002UV01 sendToAdapter(PRPAIN201306UV02 request, AssertionType assertion) {
+        AdapterPatientDiscoveryDeferredRespProxy proxy = proxyFactory.create();
+
+        return proxy.processPatientDiscoveryAsyncResp(request, assertion);
+    }
+
     protected void auditRequestFromNhin(PRPAIN201306UV02 request, AssertionType assertion) {
         getAuditLogger().auditNhinDeferred201306(request, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION);
     }
-    
+
     protected void auditResponseToNhin(MCCIIN000002UV01 response, AssertionType assertion) {
         getAuditLogger().auditAck(response, assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION,
                 NhincConstants.AUDIT_LOG_NHIN_INTERFACE);
     }
-    
+
 }
