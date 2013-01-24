@@ -32,6 +32,7 @@ import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.docsubmission.MessageGeneratorUtils;
 import gov.hhs.fha.nhinc.docsubmission.XDRAuditLogger;
 import gov.hhs.fha.nhinc.docsubmission.XDRPolicyChecker;
+import gov.hhs.fha.nhinc.docsubmission.adapter.proxy.AdapterDocSubmissionProxyObjectFactory;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
@@ -49,31 +50,45 @@ public class StandardInboundDocSubmission extends AbstractInboundDocSubmission {
     private MessageGeneratorUtils msgUtils = MessageGeneratorUtils.getInstance();
     private PropertyAccessor propertyAccessor = PropertyAccessor.getInstance();
     private XDRPolicyChecker policyChecker = new XDRPolicyChecker();
-    private PassthroughInboundDocSubmission passthroughDS = new PassthroughInboundDocSubmission();
 
+    /**
+     * Constructor.
+     */
     public StandardInboundDocSubmission() {
-        super();
+        super(new AdapterDocSubmissionProxyObjectFactory(), new XDRAuditLogger());
     }
 
-    public StandardInboundDocSubmission(PassthroughInboundDocSubmission passthroughDS, XDRPolicyChecker policyChecker,
+    /**
+     * Constructor with dependency injection of strategy components.
+     * 
+     * @param adapterFactory
+     * @param policyChecker
+     * @param propertyAccessor
+     * @param auditLogger
+     */
+    public StandardInboundDocSubmission(AdapterDocSubmissionProxyObjectFactory adapterFactory,
+            XDRPolicyChecker policyChecker,
             PropertyAccessor propertyAccessor, XDRAuditLogger auditLogger) {
-        this.passthroughDS = passthroughDS;
+        super(adapterFactory, auditLogger);
         this.policyChecker = policyChecker;
         this.propertyAccessor = propertyAccessor;
-        this.auditLogger = auditLogger;
     }
 
     @Override
     RegistryResponseType processDocSubmission(ProvideAndRegisterDocumentSetRequestType body, AssertionType assertion) {
         RegistryResponseType response = null;
-
+        
         String localHCID = getLocalHCID();
         if (isPolicyValid(body, assertion, localHCID)) {
-            response = passthroughDS.processDocSubmission(body, assertion);
+            auditRequestToAdapter(body, assertion);
+            
+            response = sendToAdapter(body, assertion);
         } else {
             LOG.error("Failed policy check.  Sending error response.");
             response = msgUtils.createFailedPolicyCheckResponse();
         }
+        
+        auditResponseFromAdapter(response, assertion);
 
         return response;
     }

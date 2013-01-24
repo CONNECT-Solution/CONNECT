@@ -28,9 +28,7 @@ package gov.hhs.fha.nhinc.docsubmission.inbound.deferred.response;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.docsubmission.XDRAuditLogger;
-import gov.hhs.fha.nhinc.docsubmission.adapter.deferred.response.proxy.AdapterDocSubmissionDeferredResponseProxy;
 import gov.hhs.fha.nhinc.docsubmission.adapter.deferred.response.proxy.AdapterDocSubmissionDeferredResponseProxyObjectFactory;
-import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.healthit.nhin.XDRAcknowledgementType;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
@@ -40,39 +38,26 @@ import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
  */
 public class PassthroughInboundDocSubmissionDeferredResponse extends AbstractInboundDocSubmissionDeferredResponse {
 
-    private AdapterDocSubmissionDeferredResponseProxyObjectFactory adapterFactory = new AdapterDocSubmissionDeferredResponseProxyObjectFactory();
-
+    /**
+     * Constructor.
+     */
     public PassthroughInboundDocSubmissionDeferredResponse() {
-        super();
+        super(new AdapterDocSubmissionDeferredResponseProxyObjectFactory(), new XDRAuditLogger());
     }
 
+    /**
+     * Constructor with dependency injection of strategy components.
+     * 
+     * @param adapterFactory
+     * @param auditLogger
+     */
     public PassthroughInboundDocSubmissionDeferredResponse(
             AdapterDocSubmissionDeferredResponseProxyObjectFactory adapterFactory, XDRAuditLogger auditLogger) {
-        this.adapterFactory = adapterFactory;
-        this.auditLogger = auditLogger;
+        super(adapterFactory, auditLogger);
     }
 
     @Override
     XDRAcknowledgementType processDocSubmissionResponse(RegistryResponseType body, AssertionType assertion) {
         return sendToAdapter(body, assertion);
-    }
-
-    private XDRAcknowledgementType sendToAdapter(RegistryResponseType body, AssertionType assertion) {
-        auditRequestToAdapter(body, assertion);
-
-        AdapterDocSubmissionDeferredResponseProxy proxy = adapterFactory.getAdapterDocSubmissionDeferredResponseProxy();
-        XDRAcknowledgementType response = proxy.provideAndRegisterDocumentSetBResponse(body, assertion);
-
-        auditResponseFromAdapter(response, assertion);
-        return response;
-    }
-
-    private void auditRequestToAdapter(RegistryResponseType body, AssertionType assertion) {
-        auditLogger.auditAdapterXDRResponse(body, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION);
-    }
-
-    private void auditResponseFromAdapter(XDRAcknowledgementType response, AssertionType assertion) {
-        auditLogger.auditAdapterAcknowledgement(response, assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION,
-                NhincConstants.XDR_RESPONSE_ACTION);
     }
 }

@@ -26,18 +26,16 @@
  */
 package gov.hhs.fha.nhinc.docsubmission.inbound.deferred.request;
 
-import org.apache.log4j.Logger;
-
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.docsubmission.DocSubmissionUtils;
 import gov.hhs.fha.nhinc.docsubmission.MessageGeneratorUtils;
 import gov.hhs.fha.nhinc.docsubmission.XDRAuditLogger;
-import gov.hhs.fha.nhinc.docsubmission.adapter.deferred.request.proxy.AdapterDocSubmissionDeferredRequestProxy;
 import gov.hhs.fha.nhinc.docsubmission.adapter.deferred.request.proxy.AdapterDocSubmissionDeferredRequestProxyObjectFactory;
 import gov.hhs.fha.nhinc.largefile.LargePayloadException;
-import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.healthit.nhin.XDRAcknowledgementType;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
+
+import org.apache.log4j.Logger;
 
 /**
  * @author akong
@@ -46,22 +44,32 @@ import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
 public class PassthroughInboundDocSubmissionDeferredRequest extends AbstractInboundDocSubmissionDeferredRequest {
 
     private static final Logger LOG = Logger.getLogger(PassthroughInboundDocSubmissionDeferredRequest.class);
-    private AdapterDocSubmissionDeferredRequestProxyObjectFactory adapterFactory = new AdapterDocSubmissionDeferredRequestProxyObjectFactory();
+
     private DocSubmissionUtils dsUtils = DocSubmissionUtils.getInstance();
     private MessageGeneratorUtils msgUtils = MessageGeneratorUtils.getInstance();
 
+    /**
+     * Constructor.
+     */
     public PassthroughInboundDocSubmissionDeferredRequest() {
-        super();
+        super(new AdapterDocSubmissionDeferredRequestProxyObjectFactory(), new XDRAuditLogger());
     }
 
+    /**
+     * Constructor with dependency injection of strategy components.
+     * 
+     * @param adapterFactory
+     * @param auditLogger
+     * @param dsUtils
+     */
     public PassthroughInboundDocSubmissionDeferredRequest(
             AdapterDocSubmissionDeferredRequestProxyObjectFactory adapterFactory, XDRAuditLogger auditLogger,
             DocSubmissionUtils dsUtils) {
-        this.adapterFactory = adapterFactory;
-        this.auditLogger = auditLogger;
+        super(adapterFactory, auditLogger);
         this.dsUtils = dsUtils;
     }
 
+    @Override
     XDRAcknowledgementType processDocSubmissionRequest(ProvideAndRegisterDocumentSetRequestType body,
             AssertionType assertion) {
 
@@ -77,25 +85,4 @@ public class PassthroughInboundDocSubmissionDeferredRequest extends AbstractInbo
 
         return response;
     }
-
-    private XDRAcknowledgementType sendToAdapter(ProvideAndRegisterDocumentSetRequestType body, AssertionType assertion) {
-        auditRequestToAdapter(body, assertion);
-
-        AdapterDocSubmissionDeferredRequestProxy proxy = adapterFactory.getAdapterDocSubmissionDeferredRequestProxy();
-        XDRAcknowledgementType response = proxy.provideAndRegisterDocumentSetBRequest(body, assertion);
-
-        auditResponseFromAdapter(response, assertion);
-
-        return response;
-    }
-    
-    private void auditRequestToAdapter(ProvideAndRegisterDocumentSetRequestType request, AssertionType assertion) {
-        auditLogger.auditAdapterXDR(request, assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION);
-    }
-
-    private void auditResponseFromAdapter(XDRAcknowledgementType response, AssertionType assertion) {
-        auditLogger.auditAdapterAcknowledgement(response, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION,
-                NhincConstants.XDR_REQUEST_ACTION);
-    }
-
 }

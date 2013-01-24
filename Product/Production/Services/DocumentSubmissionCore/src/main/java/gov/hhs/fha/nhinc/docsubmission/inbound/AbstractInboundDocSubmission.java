@@ -29,6 +29,8 @@ package gov.hhs.fha.nhinc.docsubmission.inbound;
 import gov.hhs.fha.nhinc.aspect.InboundProcessingEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.docsubmission.XDRAuditLogger;
+import gov.hhs.fha.nhinc.docsubmission.adapter.proxy.AdapterDocSubmissionProxy;
+import gov.hhs.fha.nhinc.docsubmission.adapter.proxy.AdapterDocSubmissionProxyObjectFactory;
 import gov.hhs.fha.nhinc.docsubmission.aspect.DocSubmissionBaseEventDescriptionBuilder;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
@@ -39,7 +41,14 @@ public abstract class AbstractInboundDocSubmission implements InboundDocSubmissi
     abstract RegistryResponseType processDocSubmission(ProvideAndRegisterDocumentSetRequestType body,
             AssertionType assertion);
 
-    protected XDRAuditLogger auditLogger = new XDRAuditLogger();
+    private XDRAuditLogger auditLogger;
+    private AdapterDocSubmissionProxyObjectFactory adapterFactory;
+    
+    public AbstractInboundDocSubmission(AdapterDocSubmissionProxyObjectFactory adapterFactory,
+            XDRAuditLogger auditLogger) {
+        this.adapterFactory = adapterFactory;
+        this.auditLogger = auditLogger;
+    }
 
     @InboundProcessingEvent(beforeBuilder = DocSubmissionBaseEventDescriptionBuilder.class,
             afterReturningBuilder = DocSubmissionBaseEventDescriptionBuilder.class, serviceType = "Document Submission",
@@ -55,12 +64,27 @@ public abstract class AbstractInboundDocSubmission implements InboundDocSubmissi
 
         return response;
     }
+    
+    protected RegistryResponseType sendToAdapter(ProvideAndRegisterDocumentSetRequestType request,
+            AssertionType assertion) {
+        AdapterDocSubmissionProxy proxy = adapterFactory.getAdapterDocSubmissionProxy();
+        return proxy.provideAndRegisterDocumentSetB(request, assertion);
+    }
 
-    private void auditRequestFromNhin(ProvideAndRegisterDocumentSetRequestType request, AssertionType assertion) {
+    protected void auditRequestFromNhin(ProvideAndRegisterDocumentSetRequestType request, AssertionType assertion) {
         auditLogger.auditNhinXDR(request, assertion, null, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION);
     }
 
-    private void auditResponseToNhin(RegistryResponseType response, AssertionType assertion) {
+    protected void auditResponseToNhin(RegistryResponseType response, AssertionType assertion) {
         auditLogger.auditNhinXDRResponse(response, assertion, null, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, false);
     }
+    
+    protected void auditRequestToAdapter(ProvideAndRegisterDocumentSetRequestType request, AssertionType assertion) {
+        auditLogger.auditAdapterXDR(request, assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION);
+    }
+
+    protected void auditResponseFromAdapter(RegistryResponseType response, AssertionType assertion) {
+        auditLogger.auditAdapterXDRResponse(response, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION);
+    }
+    
 }
