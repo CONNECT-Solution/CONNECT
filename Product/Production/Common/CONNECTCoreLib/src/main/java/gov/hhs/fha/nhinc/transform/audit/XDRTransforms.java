@@ -337,20 +337,53 @@ public class XDRTransforms {
 
     }
     
+    /**
+     * Retrieves the community id for auditing when the message being audited is a request message. For example, this
+     * method should be used when the message being audited is an ProvideAndRegister request.
+     * 
+     * @param assertion the assertion containing a homecommunity id
+     * @param target the destination of the original request message
+     * @param direction the direction of the message being auditied
+     * @param _interface the interface (nhin, entity, adapter) of the audited message
+     * @return the community id to use
+     */
     public String getMessageCommunityIdFromRequest(AssertionType assertion, NhinTargetSystemType target,
             String direction, String _interface) {
-        boolean isRequesting = NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION.equalsIgnoreCase(direction);
         
-        return getMessageCommunityId(assertion, target, _interface, isRequesting);
+        // if a request is going outbound, then the current audit is in the requesting side
+        boolean isAuditInRequestingSide = NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION.equalsIgnoreCase(direction);
+        
+        return getMessageCommunityId(assertion, target, _interface, isAuditInRequestingSide);
     }
     
+    /**
+     * Retrieves the community id for auditing when the message being audited is a response message. For example, this
+     * method should be used when the message being audited is an Acknowledgement response of a request.
+     * 
+     * @param assertion the assertion containing a homecommunity id
+     * @param target the destination of the original request message
+     * @param direction the direction of the message being auditied
+     * @param _interface the interface (nhin, entity, adapter) of the audited message
+     * @return the community id to use
+     */
     public String getMessageCommunityIdFromResponse(AssertionType assertion, NhinTargetSystemType target,
             String direction, String _interface) {
-        boolean isRequesting = NhincConstants.AUDIT_LOG_INBOUND_DIRECTION.equalsIgnoreCase(direction);
         
-        return getMessageCommunityId(assertion, target, _interface, isRequesting);
+        // if a response is going inbound, then the current audit is in the requesting side
+        boolean isAuditInRequestingSide = NhincConstants.AUDIT_LOG_INBOUND_DIRECTION.equalsIgnoreCase(direction);
+        
+        return getMessageCommunityId(assertion, target, _interface, isAuditInRequestingSide);
     }
     
+    /**
+     * Retrieves the community id for auditing.
+     * 
+     * @param assertion the assertion containing a homecommunity id
+     * @param target the destination of the original request message
+     * @param _interface the interface (nhin, entity, adapter) of the audited message
+     * @param isRequesting true if the message being audited is in the requesting side
+     * @return the community id to use
+     */
     public String getMessageCommunityId(AssertionType assertion, NhinTargetSystemType target,
             String _interface, boolean isRequesting) {
         String communityId = null;
