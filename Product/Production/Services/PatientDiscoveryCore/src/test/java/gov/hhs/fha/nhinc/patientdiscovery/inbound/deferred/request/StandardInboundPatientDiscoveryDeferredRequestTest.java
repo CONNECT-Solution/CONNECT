@@ -26,8 +26,14 @@
  */
 package gov.hhs.fha.nhinc.patientdiscovery.inbound.deferred.request;
 
-import java.lang.reflect.Method;
-
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertSame;
+import static org.mockito.Matchers.any;
+import static org.mockito.Matchers.eq;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 import gov.hhs.fha.nhinc.aspect.InboundProcessingEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
@@ -40,19 +46,12 @@ import gov.hhs.fha.nhinc.patientdiscovery.adapter.deferred.request.proxy.Adapter
 import gov.hhs.fha.nhinc.patientdiscovery.aspect.MCCIIN000002UV01EventDescriptionBuilder;
 import gov.hhs.fha.nhinc.patientdiscovery.aspect.PRPAIN201305UV02EventDescriptionBuilder;
 
+import java.lang.reflect.Method;
+
 import org.hl7.v3.MCCIIN000002UV01;
 import org.hl7.v3.PRPAIN201305UV02;
 import org.hl7.v3.PRPAIN201306UV02;
 import org.junit.Test;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertSame;
-import static org.mockito.Matchers.any;
-import static org.mockito.Matchers.eq;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
 
 /**
  * @author akong
@@ -89,13 +88,10 @@ public class StandardInboundPatientDiscoveryDeferredRequestTest {
 
         when(adapterProxy.processPatientDiscoveryAsyncReq(request, assertion)).thenReturn(expectedResponse);
 
-        PassthroughInboundPatientDiscoveryDeferredRequest passthroughPatientDiscovery = new PassthroughInboundPatientDiscoveryDeferredRequest(
-                adapterFactory, auditLogger);
-
         when(policyChecker.checkIncomingPolicy(request, assertion)).thenReturn(true);
 
         StandardInboundPatientDiscoveryDeferredRequest standardPatientDiscovery = new StandardInboundPatientDiscoveryDeferredRequest(
-                policyChecker, proxyErrorFactory, passthroughPatientDiscovery, auditLogger);
+                policyChecker, proxyErrorFactory, adapterFactory, auditLogger);
 
         MCCIIN000002UV01 actualResponse = standardPatientDiscovery
                 .respondingGatewayPRPAIN201305UV02(request, assertion);
@@ -125,8 +121,8 @@ public class StandardInboundPatientDiscoveryDeferredRequestTest {
         AdapterPatientDiscoveryDeferredReqErrorProxyObjectFactory proxyErrorFactory = mock(AdapterPatientDiscoveryDeferredReqErrorProxyObjectFactory.class);
         AdapterPatientDiscoveryDeferredReqErrorProxy errorProxy = mock(AdapterPatientDiscoveryDeferredReqErrorProxy.class);
         PatientDiscoveryAuditLogger auditLogger = mock(PatientDiscoveryAuditLogger.class);
-        
-        PassthroughInboundPatientDiscoveryDeferredRequest passthroughPatientDiscovery = mock(PassthroughInboundPatientDiscoveryDeferredRequest.class);
+
+        AdapterPatientDiscoveryDeferredReqProxyObjectFactory adapterProxyFactory = mock(AdapterPatientDiscoveryDeferredReqProxyObjectFactory.class);
 
         when(proxyErrorFactory.create()).thenReturn(errorProxy);
 
@@ -137,7 +133,7 @@ public class StandardInboundPatientDiscoveryDeferredRequestTest {
         when(policyChecker.checkIncomingPolicy(request, assertion)).thenReturn(false);
 
         StandardInboundPatientDiscoveryDeferredRequest standardPatientDiscovery = new StandardInboundPatientDiscoveryDeferredRequest(
-                policyChecker, proxyErrorFactory, passthroughPatientDiscovery, auditLogger);
+                policyChecker, proxyErrorFactory, adapterProxyFactory, auditLogger);
 
         MCCIIN000002UV01 actualResponse = standardPatientDiscovery
                 .respondingGatewayPRPAIN201305UV02(request, assertion);
