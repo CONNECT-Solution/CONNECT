@@ -26,18 +26,16 @@
  */
 package gov.hhs.fha.nhinc.docsubmission.inbound;
 
-import org.apache.log4j.Logger;
-
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.docsubmission.DocSubmissionUtils;
 import gov.hhs.fha.nhinc.docsubmission.MessageGeneratorUtils;
 import gov.hhs.fha.nhinc.docsubmission.XDRAuditLogger;
-import gov.hhs.fha.nhinc.docsubmission.adapter.proxy.AdapterDocSubmissionProxy;
 import gov.hhs.fha.nhinc.docsubmission.adapter.proxy.AdapterDocSubmissionProxyObjectFactory;
 import gov.hhs.fha.nhinc.largefile.LargePayloadException;
-import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
+
+import org.apache.log4j.Logger;
 
 /**
  * @author akong
@@ -46,18 +44,26 @@ import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 public class PassthroughInboundDocSubmission extends AbstractInboundDocSubmission {
 
     private static final Logger LOG = Logger.getLogger(PassthroughInboundDocSubmission.class);
-    private AdapterDocSubmissionProxyObjectFactory adapterFactory = new AdapterDocSubmissionProxyObjectFactory();
-    private DocSubmissionUtils dsUtils = DocSubmissionUtils.getInstance();
     private MessageGeneratorUtils msgUtils = MessageGeneratorUtils.getInstance();
+    private DocSubmissionUtils dsUtils;
     
+    /**
+     * Constructor.
+     */
     public PassthroughInboundDocSubmission() {
-        super();
+        this(new AdapterDocSubmissionProxyObjectFactory(), new XDRAuditLogger(), DocSubmissionUtils.getInstance());
     }
 
-    public PassthroughInboundDocSubmission(AdapterDocSubmissionProxyObjectFactory adapterFactory, XDRAuditLogger auditLogger,
-            DocSubmissionUtils dsUtils) {
-        this.adapterFactory = adapterFactory;
-        this.auditLogger = auditLogger;
+    /**
+     * Constructor with dependency injection of strategy components.
+     * 
+     * @param adapterFactory
+     * @param auditLogger
+     * @param dsUtils
+     */
+    public PassthroughInboundDocSubmission(AdapterDocSubmissionProxyObjectFactory adapterFactory,
+            XDRAuditLogger auditLogger, DocSubmissionUtils dsUtils) {
+        super(adapterFactory, auditLogger);
         this.dsUtils = dsUtils;
     }
 
@@ -74,26 +80,6 @@ public class PassthroughInboundDocSubmission extends AbstractInboundDocSubmissio
         }
 
         return response;
-    }
-
-    private RegistryResponseType sendToAdapter(ProvideAndRegisterDocumentSetRequestType request, AssertionType assertion) {
-
-        auditRequestToAdapter(request, assertion);
-
-        AdapterDocSubmissionProxy proxy = adapterFactory.getAdapterDocSubmissionProxy();
-        RegistryResponseType response = proxy.provideAndRegisterDocumentSetB(request, assertion);
-
-        auditResponseFromAdapter(response, assertion);
-
-        return response;
-    }
-
-    private void auditRequestToAdapter(ProvideAndRegisterDocumentSetRequestType request, AssertionType assertion) {
-        auditLogger.auditAdapterXDR(request, assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION);
-    }
-
-    private void auditResponseFromAdapter(RegistryResponseType response, AssertionType assertion) {
-        auditLogger.auditAdapterXDRResponse(response, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION);
     }
 
 }

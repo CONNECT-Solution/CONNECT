@@ -33,20 +33,17 @@ import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.common.nhinccommon.UrlInfoType;
 import gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType;
 import gov.hhs.fha.nhinc.docsubmission.MessageGeneratorUtils;
-import gov.hhs.fha.nhinc.docsubmission.XDRAuditLogger;
 import gov.hhs.fha.nhinc.docsubmission.aspect.DocSubmissionArgTransformerBuilder;
 import gov.hhs.fha.nhinc.docsubmission.aspect.DocSubmissionBaseEventDescriptionBuilder;
 import gov.hhs.fha.nhinc.docsubmission.entity.deferred.request.OutboundDocSubmissionDeferredRequestDelegate;
 import gov.hhs.fha.nhinc.docsubmission.entity.deferred.request.OutboundDocSubmissionDeferredRequestOrchestratable;
-import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.healthit.nhin.XDRAcknowledgementType;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
 
 public class PassthroughOutboundDocSubmissionDeferredRequest implements OutboundDocSubmissionDeferredRequest {
-    private XDRAuditLogger auditLogger = null;
 
     public PassthroughOutboundDocSubmissionDeferredRequest() {
-        auditLogger = getXDRAuditLogger();
+        
     }
     
     @OutboundProcessingEvent(beforeBuilder = DocSubmissionBaseEventDescriptionBuilder.class,
@@ -62,15 +59,11 @@ public class PassthroughOutboundDocSubmissionDeferredRequest implements Outbound
         RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType request = createRequestForInternalProcessing(
                 body, targetSystem);
 
-        auditRequestToNhin(request, assertion, request.getNhinTargetSystem());
-
         OutboundDocSubmissionDeferredRequestDelegate delegate = getOutboundDocSubmissionDeferredRequestDelegate();
         OutboundDocSubmissionDeferredRequestOrchestratable dsOrchestratable = createOrchestratable(delegate, request,
                 assertion);
         XDRAcknowledgementType response = ((OutboundDocSubmissionDeferredRequestOrchestratable) delegate
                 .process(dsOrchestratable)).getResponse();
-
-        auditResponseFromNhin(response, assertion, request.getNhinTargetSystem());
 
         return response;
     }
@@ -95,24 +88,8 @@ public class PassthroughOutboundDocSubmissionDeferredRequest implements Outbound
 
         return request;
     }
-
-    private void auditRequestToNhin(RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType request,
-            AssertionType assertion, NhinTargetSystemType target) {
-        auditLogger.auditXDR(request, assertion, target, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION);
-    }
-
-    private void auditResponseFromNhin(XDRAcknowledgementType response, AssertionType assertion,
-            NhinTargetSystemType target) {
-        auditLogger.auditAcknowledgement(response, assertion, target, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION,
-                NhincConstants.XDR_REQUEST_ACTION);
-    }
-
+    
     protected OutboundDocSubmissionDeferredRequestDelegate getOutboundDocSubmissionDeferredRequestDelegate() {
         return new OutboundDocSubmissionDeferredRequestDelegate();
     }
-
-    protected XDRAuditLogger getXDRAuditLogger() {
-        return new XDRAuditLogger();
-    }
-
 }

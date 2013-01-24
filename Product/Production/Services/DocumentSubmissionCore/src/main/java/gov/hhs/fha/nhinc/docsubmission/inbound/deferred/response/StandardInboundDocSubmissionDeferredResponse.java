@@ -26,18 +26,19 @@
  */
 package gov.hhs.fha.nhinc.docsubmission.inbound.deferred.response;
 
-import org.apache.log4j.Logger;
-
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.docsubmission.MessageGeneratorUtils;
 import gov.hhs.fha.nhinc.docsubmission.XDRAuditLogger;
 import gov.hhs.fha.nhinc.docsubmission.XDRPolicyChecker;
+import gov.hhs.fha.nhinc.docsubmission.adapter.deferred.response.proxy.AdapterDocSubmissionDeferredResponseProxyObjectFactory;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import gov.hhs.healthit.nhin.XDRAcknowledgementType;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
+
+import org.apache.log4j.Logger;
 
 /**
  * @author akong
@@ -46,36 +47,50 @@ import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 public class StandardInboundDocSubmissionDeferredResponse extends AbstractInboundDocSubmissionDeferredResponse {
 
     private static final Logger LOG = Logger.getLogger(StandardInboundDocSubmissionDeferredResponse.class);
-    private PassthroughInboundDocSubmissionDeferredResponse passthroughDocSubmission = new PassthroughInboundDocSubmissionDeferredResponse();
-    private XDRPolicyChecker policyChecker = new XDRPolicyChecker();
-    private PropertyAccessor propertyAccessor = PropertyAccessor.getInstance();
     private MessageGeneratorUtils msgUtils = MessageGeneratorUtils.getInstance();
-
+    private XDRPolicyChecker policyChecker;
+    private PropertyAccessor propertyAccessor;
+    
+    /**
+     * Constructor.
+     */
     public StandardInboundDocSubmissionDeferredResponse() {
-        super();
+        this(new AdapterDocSubmissionDeferredResponseProxyObjectFactory(), new XDRPolicyChecker(), PropertyAccessor
+                .getInstance(), new XDRAuditLogger());
     }
 
+    /**
+     * Constructor with dependency injection of strategy components.
+     * 
+     * @param adapterFactory
+     * @param policyChecker
+     * @param propertyAccessor
+     * @param auditLogger
+     */
     public StandardInboundDocSubmissionDeferredResponse(
-            PassthroughInboundDocSubmissionDeferredResponse passthroughDocSubmission, XDRPolicyChecker policyChecker,
+            AdapterDocSubmissionDeferredResponseProxyObjectFactory adapterFactory, XDRPolicyChecker policyChecker,
             PropertyAccessor propertyAccessor, XDRAuditLogger auditLogger) {
-        this.passthroughDocSubmission = passthroughDocSubmission;
+        super(adapterFactory, auditLogger);
         this.policyChecker = policyChecker;
-        this.propertyAccessor = propertyAccessor;
-        this.auditLogger = auditLogger;   
+        this.propertyAccessor = propertyAccessor;  
     }
 
     @Override
     XDRAcknowledgementType processDocSubmissionResponse(RegistryResponseType body, AssertionType assertion) {
         XDRAcknowledgementType response;
 
+        auditRequestToAdapter(body, assertion);
+        
         String localHCID = getLocalHCID();
         if (isPolicyValid(body, assertion, localHCID)) {
             LOG.debug("Policy Check Succeeded");
-            response = passthroughDocSubmission.processDocSubmissionResponse(body, assertion);
+            response = sendToAdapter(body, assertion);
         } else {
             LOG.error("Policy Check Failed");
             response = msgUtils.createFailedPolicyCheckXDRAcknowledgementType();
         }
+        
+        auditResponseFromAdapter(response, assertion);
 
         return response;
     }
