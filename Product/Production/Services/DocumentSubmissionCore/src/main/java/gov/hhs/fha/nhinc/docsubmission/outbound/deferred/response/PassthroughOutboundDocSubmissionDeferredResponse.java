@@ -30,25 +30,22 @@ import gov.hhs.fha.nhinc.aspect.OutboundProcessingEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
-import gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayProvideAndRegisterDocumentSetSecuredResponseRequestType;
 import gov.hhs.fha.nhinc.docsubmission.MessageGeneratorUtils;
-import gov.hhs.fha.nhinc.docsubmission.XDRAuditLogger;
 import gov.hhs.fha.nhinc.docsubmission.aspect.DeferredResponseDescriptionBuilder;
 import gov.hhs.fha.nhinc.docsubmission.aspect.DocSubmissionArgTransformerBuilder;
 import gov.hhs.fha.nhinc.docsubmission.entity.deferred.response.OutboundDocSubmissionDeferredResponseDelegate;
 import gov.hhs.fha.nhinc.docsubmission.entity.deferred.response.OutboundDocSubmissionDeferredResponseOrchestratable;
 import gov.hhs.fha.nhinc.docsubmission.nhin.deferred.response.proxy11.NhinDocSubmissionDeferredResponseProxy;
 import gov.hhs.fha.nhinc.docsubmission.nhin.deferred.response.proxy11.NhinDocSubmissionDeferredResponseProxyObjectFactory;
-import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.healthit.nhin.XDRAcknowledgementType;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
 public class PassthroughOutboundDocSubmissionDeferredResponse implements OutboundDocSubmissionDeferredResponse {
-    private XDRAuditLogger auditLogger = null;
+
     private MessageGeneratorUtils msgUtils = MessageGeneratorUtils.getInstance();
 
     public PassthroughOutboundDocSubmissionDeferredResponse() {
-        auditLogger = getXDRAuditLogger();
+        
     }
 
     @OutboundProcessingEvent(beforeBuilder = DeferredResponseDescriptionBuilder.class,
@@ -59,55 +56,25 @@ public class PassthroughOutboundDocSubmissionDeferredResponse implements Outboun
 
         NhinTargetSystemType targetSystem = msgUtils.convertFirstToNhinTargetSystemType(targets);
 
-        RespondingGatewayProvideAndRegisterDocumentSetSecuredResponseRequestType request = createRequestForInternalProcessing(
-                body, targetSystem);
-
-        auditRequestToNhin(request, assertion);
-
         OutboundDocSubmissionDeferredResponseDelegate delegate = getOutboundDocSubmissionDeferredResponseDelegate();
-        OutboundDocSubmissionDeferredResponseOrchestratable dsOrchestratable = createOrchestratable(delegate, request,
-                assertion);
+        OutboundDocSubmissionDeferredResponseOrchestratable dsOrchestratable = createOrchestratable(delegate, body,
+                assertion, targetSystem);
         XDRAcknowledgementType response = ((OutboundDocSubmissionDeferredResponseOrchestratable) delegate
                 .process(dsOrchestratable)).getResponse();
-
-        auditResponseFromNhin(response, assertion);
 
         return response;
     }
 
     private OutboundDocSubmissionDeferredResponseOrchestratable createOrchestratable(
-            OutboundDocSubmissionDeferredResponseDelegate delegate,
-            RespondingGatewayProvideAndRegisterDocumentSetSecuredResponseRequestType request, AssertionType assertion) {
+            OutboundDocSubmissionDeferredResponseDelegate delegate, RegistryResponseType request,
+            AssertionType assertion, NhinTargetSystemType targetSystem) {
         OutboundDocSubmissionDeferredResponseOrchestratable orchestratable = new OutboundDocSubmissionDeferredResponseOrchestratable(
                 delegate);
         orchestratable.setAssertion(assertion);
-        orchestratable.setRequest(request.getRegistryResponse());
-        orchestratable.setTarget(request.getNhinTargetSystem());
+        orchestratable.setRequest(request);
+        orchestratable.setTarget(targetSystem);
 
         return orchestratable;
-    }
-
-    private RespondingGatewayProvideAndRegisterDocumentSetSecuredResponseRequestType createRequestForInternalProcessing(
-            RegistryResponseType body, NhinTargetSystemType targetSystem) {
-        RespondingGatewayProvideAndRegisterDocumentSetSecuredResponseRequestType request = new RespondingGatewayProvideAndRegisterDocumentSetSecuredResponseRequestType();
-        request.setNhinTargetSystem(targetSystem);
-        request.setRegistryResponse(body);
-
-        return request;
-    }
-
-    private void auditRequestToNhin(RespondingGatewayProvideAndRegisterDocumentSetSecuredResponseRequestType request,
-            AssertionType assertion) {
-        auditLogger.auditNhinXDRResponseRequest(request, assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION);
-    }
-
-    private void auditResponseFromNhin(XDRAcknowledgementType response, AssertionType assertion) {
-        auditLogger.auditAcknowledgement(response, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION,
-                NhincConstants.XDR_RESPONSE_ACTION);
-    }
-
-    protected XDRAuditLogger getXDRAuditLogger() {
-        return new XDRAuditLogger();
     }
     
     protected OutboundDocSubmissionDeferredResponseDelegate getOutboundDocSubmissionDeferredResponseDelegate() {

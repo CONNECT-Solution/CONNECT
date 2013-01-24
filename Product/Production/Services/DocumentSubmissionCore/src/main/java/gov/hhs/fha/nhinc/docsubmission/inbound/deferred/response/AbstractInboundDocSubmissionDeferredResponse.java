@@ -56,11 +56,11 @@ public abstract class AbstractInboundDocSubmissionDeferredResponse implements In
     }
 
     private void auditRequestFromNhin(RegistryResponseType body, AssertionType assertion) {
-        auditLogger.auditNhinXDRResponse(body, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION);
+        auditLogger.auditNhinXDRResponse(body, assertion, null, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, false);
     }
 
     private void auditResponseToNhin(XDRAcknowledgementType response, AssertionType assertion) {
-        auditLogger.auditAcknowledgement(response, assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION,
+        auditLogger.auditAcknowledgement(response, assertion, null, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION,
                 NhincConstants.XDR_RESPONSE_ACTION);
     }
 }

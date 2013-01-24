@@ -62,7 +62,7 @@ public class PassthroughOutboundDocSubmissionDeferredRequest implements Outbound
         RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType request = createRequestForInternalProcessing(
                 body, targetSystem);
 
-        auditRequestToNhin(request, assertion);
+        auditRequestToNhin(request, assertion, request.getNhinTargetSystem());
 
         OutboundDocSubmissionDeferredRequestDelegate delegate = getOutboundDocSubmissionDeferredRequestDelegate();
         OutboundDocSubmissionDeferredRequestOrchestratable dsOrchestratable = createOrchestratable(delegate, request,
@@ -70,7 +70,7 @@ public class PassthroughOutboundDocSubmissionDeferredRequest implements Outbound
         XDRAcknowledgementType response = ((OutboundDocSubmissionDeferredRequestOrchestratable) delegate
                 .process(dsOrchestratable)).getResponse();
 
-        auditResponseFromNhin(response, assertion);
+        auditResponseFromNhin(response, assertion, request.getNhinTargetSystem());
 
         return response;
     }
@@ -97,12 +97,13 @@ public class PassthroughOutboundDocSubmissionDeferredRequest implements Outbound
     }
 
     private void auditRequestToNhin(RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType request,
-            AssertionType assertion) {
-        auditLogger.auditXDR(request, assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION);
+            AssertionType assertion, NhinTargetSystemType target) {
+        auditLogger.auditXDR(request, assertion, target, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION);
     }
 
-    private void auditResponseFromNhin(XDRAcknowledgementType response, AssertionType assertion) {
-        auditLogger.auditAcknowledgement(response, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION,
+    private void auditResponseFromNhin(XDRAcknowledgementType response, AssertionType assertion,
+            NhinTargetSystemType target) {
+        auditLogger.auditAcknowledgement(response, assertion, target, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION,
                 NhincConstants.XDR_REQUEST_ACTION);
     }
 

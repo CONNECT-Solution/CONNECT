@@ -35,6 +35,7 @@ import gov.hhs.fha.nhinc.orchestration.Orchestratable;
 import gov.hhs.fha.nhinc.orchestration.OrchestrationStrategy;
 import gov.hhs.healthit.nhin.XDRAcknowledgementType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 
 import org.apache.log4j.Logger;
 
@@ -76,14 +77,14 @@ public class OutboundDocSubmissionDeferredRequestStrategyImpl_g0 implements Orch
     public void execute(OutboundDocSubmissionDeferredRequestOrchestratable message) {
         LOG.debug("Begin OutboundDocSubmissionOrchestratableImpl_g0.process");
 
-        auditRequestToNhin(message.getRequest(), message.getAssertion());
+        auditRequestToNhin(message.getRequest(), message.getAssertion(), message.getTarget());
         
         NhinDocSubmissionDeferredRequestProxy nhincDocSubmission = getNhinDocSubmissionDeferredRequestProxy();
         XDRAcknowledgementType response = nhincDocSubmission.provideAndRegisterDocumentSetBRequest11(
                 message.getRequest(), message.getAssertion(), message.getTarget());
         message.setResponse(response);
 
-        auditResponseFromNhin(response, message.getAssertion());
+        auditResponseFromNhin(response, message.getAssertion(), message.getTarget());
         LOG.debug("End OutboundDocSubmissionDeferredRequestStrategyImpl_g0.process");
     }
 
@@ -100,8 +101,9 @@ public class OutboundDocSubmissionDeferredRequestStrategyImpl_g0 implements Orch
      * @param request
      * @param assertion
      */
-    private void auditRequestToNhin(ProvideAndRegisterDocumentSetRequestType request, AssertionType assertion) {
-        getXDRAuditLogger().auditNhinXDR(request, assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION);
+    private void auditRequestToNhin(ProvideAndRegisterDocumentSetRequestType request, AssertionType assertion,
+            NhinTargetSystemType target) {
+        getXDRAuditLogger().auditNhinXDR(request, assertion, target, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION);
     }
 
     /**
@@ -109,9 +111,10 @@ public class OutboundDocSubmissionDeferredRequestStrategyImpl_g0 implements Orch
      * @param response
      * @param assertion
      */
-    private void auditResponseFromNhin(XDRAcknowledgementType response,  AssertionType assertion) {
-        getXDRAuditLogger().auditAcknowledgement(response, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION,
-                NhincConstants.XDR_REQUEST_ACTION);
+    private void auditResponseFromNhin(XDRAcknowledgementType response, AssertionType assertion,
+            NhinTargetSystemType target) {
+        getXDRAuditLogger().auditAcknowledgement(response, assertion, target,
+                NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.XDR_REQUEST_ACTION);
     }
 
 }

@@ -68,24 +68,25 @@ public class PassthroughOutboundDocSubmission implements OutboundDocSubmission {
         RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType request = createAuditRequest(body, assertion,
                 targetSystem);
 
-        auditRequestToNhin(request, assertion);
+        auditRequestToNhin(request, assertion, request.getNhinTargetSystem());
 
         OutboundDocSubmissionOrchestratable dsOrchestratable = createOrchestratable(dsDelegate, body, targetSystem, assertion);
         RegistryResponseType response = ((OutboundDocSubmissionOrchestratable) dsDelegate.process(dsOrchestratable))
                 .getResponse();
 
-        auditResponseFromNhin(response, assertion);
+        auditResponseFromNhin(response, assertion, request.getNhinTargetSystem());
 
         return response;
     }
 
     private void auditRequestToNhin(RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType request,
-            AssertionType assertion) {
-        auditLogger.auditXDR(request, assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION);
+            AssertionType assertion, NhinTargetSystemType target) {
+        auditLogger.auditXDR(request, assertion, target, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION);
     }
 
-    private void auditResponseFromNhin(RegistryResponseType response, AssertionType assertion) {
-        auditLogger.auditNhinXDRResponse(response, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION);
+    private void auditResponseFromNhin(RegistryResponseType response, AssertionType assertion,
+            NhinTargetSystemType target) {
+        auditLogger.auditNhinXDRResponse(response, assertion, target, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, true);
     }
 
     private OutboundDocSubmissionOrchestratable createOrchestratable(OutboundDocSubmissionDelegate delegate,
