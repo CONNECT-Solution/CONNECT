@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-13, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -24,20 +24,38 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.docquery.outbound;
+package gov.hhs.fha.nhinc.docquery;
 
-import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
-import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
-import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
+import static org.junit.Assert.fail;
+import gov.hhs.fha.nhinc.properties.PropertyAccessor;
+
+import java.io.File;
+import java.net.URISyntaxException;
 
 /**
- * @author akong
- * 
+ * Document Query Unit Test Utility Methods.
  */
-public interface OutboundDocQuery {
+public class DocQueryUnitTestUtil {
 
-    public AdhocQueryResponse respondingGatewayCrossGatewayQuery(AdhocQueryRequest adhocQueryRequest,
-            AssertionType assertion, NhinTargetCommunitiesType targets);
-
+    /**
+     * Used when calling code requires absolute paths to test resources.
+     * @return absolute classpath.
+     */
+    public static File getClassPath() throws URISyntaxException {
+        return new File(DocQueryUnitTestUtil.class.getProtectionDomain().getCodeSource().getLocation().toURI());
+    }
+    
+    /**
+     * Load gateway.properties file from a "local" subdirectory on the test classpath.
+     */
+    public static synchronized void setUpGatewayProperties() {
+        try {
+            PropertyAccessor.getInstance().setPropertyFileLocation("" + getClassPath() + "/local");
+            PropertyAccessor.getInstance().forceRefresh("gateway");
+        } catch (Exception e) {
+            e.printStackTrace();
+            fail(e.getMessage());
+        }
+    }
+    
 }
