@@ -30,8 +30,6 @@ import gov.hhs.fha.nhinc.aspect.OutboundProcessingEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
-import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
-import gov.hhs.fha.nhinc.patientdiscovery.MessageGeneratorUtils;
 import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryAuditor;
 import gov.hhs.fha.nhinc.patientdiscovery.aspect.MCCIIN000002UV01EventDescriptionBuilder;
 import gov.hhs.fha.nhinc.patientdiscovery.aspect.PRPAIN201306UV02EventDescriptionBuilder;
@@ -40,7 +38,6 @@ import gov.hhs.fha.nhinc.patientdiscovery.entity.deferred.response.OutboundPatie
 
 import org.hl7.v3.MCCIIN000002UV01;
 import org.hl7.v3.PRPAIN201306UV02;
-import org.hl7.v3.RespondingGatewayPRPAIN201306UV02RequestType;
 
 /**
  * @author akong
@@ -62,33 +59,12 @@ public abstract class AbstractOutboundPatientDiscoveryDeferredResponse implement
      * gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType)
      */
     @Override
-    @OutboundProcessingEvent(beforeBuilder = PRPAIN201306UV02EventDescriptionBuilder.class, 
-            afterReturningBuilder = MCCIIN000002UV01EventDescriptionBuilder.class, 
-            serviceType = "Patient Discovery Deferred Response", version = "1.0")
+    @OutboundProcessingEvent(beforeBuilder = PRPAIN201306UV02EventDescriptionBuilder.class, afterReturningBuilder = MCCIIN000002UV01EventDescriptionBuilder.class, serviceType = "Patient Discovery Deferred Response", version = "1.0")
     public MCCIIN000002UV01 processPatientDiscoveryAsyncResp(PRPAIN201306UV02 request, AssertionType assertion,
             NhinTargetCommunitiesType target) {
-
-        auditRequestFromAdapter(request, assertion, target);
-
         MCCIIN000002UV01 response = process(request, assertion, target);
 
-        auditResponseToAdapter(response, assertion);
-
         return response;
-    }
-
-    protected void auditRequestFromAdapter(PRPAIN201306UV02 message, AssertionType assertion,
-            NhinTargetCommunitiesType targets) {
-
-        RespondingGatewayPRPAIN201306UV02RequestType request = MessageGeneratorUtils.getInstance()
-                .createRespondingGatewayRequest(message, assertion, targets);
-
-        getAuditLogger().auditEntityDeferred201306(request, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION);
-    }
-
-    protected void auditResponseToAdapter(MCCIIN000002UV01 ack, AssertionType assertion) {
-        getAuditLogger().auditAck(ack, assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION,
-                NhincConstants.AUDIT_LOG_ENTITY_INTERFACE);
     }
 
     protected MCCIIN000002UV01 sendToNhin(OutboundPatientDiscoveryDeferredResponseDelegate delegate,

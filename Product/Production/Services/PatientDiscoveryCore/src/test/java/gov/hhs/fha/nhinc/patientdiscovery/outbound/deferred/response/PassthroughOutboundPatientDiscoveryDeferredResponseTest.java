@@ -32,6 +32,7 @@ import static org.junit.Assert.assertSame;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import gov.hhs.fha.nhinc.aspect.OutboundProcessingEvent;
@@ -77,7 +78,7 @@ public class PassthroughOutboundPatientDiscoveryDeferredResponseTest {
         AssertionType assertion = new AssertionType();
         NhinTargetCommunitiesType target = new NhinTargetCommunitiesType();
         MCCIIN000002UV01 expectedResponse = new MCCIIN000002UV01();
-       
+
         OutboundPatientDiscoveryDeferredResponseDelegate delegate = mock(OutboundPatientDiscoveryDeferredResponseDelegate.class);
         OutboundPatientDiscoveryDeferredResponseOrchestratable returnedOrchestratable = mock(OutboundPatientDiscoveryDeferredResponseOrchestratable.class);
         PatientDiscoveryAuditor auditLogger = mock(PatientDiscoveryAuditor.class);
@@ -97,16 +98,13 @@ public class PassthroughOutboundPatientDiscoveryDeferredResponseTest {
 
         ArgumentCaptor<OutboundPatientDiscoveryDeferredResponseOrchestratable> orchestratableArgument = ArgumentCaptor
                 .forClass(OutboundPatientDiscoveryDeferredResponseOrchestratable.class);
-        verify(delegate).process(orchestratableArgument.capture());        
+        verify(delegate).process(orchestratableArgument.capture());
         assertEquals(request, orchestratableArgument.getValue().getRequest());
 
-        ArgumentCaptor<RespondingGatewayPRPAIN201306UV02RequestType> requestArgument = ArgumentCaptor
-                .forClass(RespondingGatewayPRPAIN201306UV02RequestType.class);
-        verify(auditLogger).auditEntityDeferred201306(requestArgument.capture(), eq(assertion),
-                eq(NhincConstants.AUDIT_LOG_INBOUND_DIRECTION));
-        assertEquals(request, requestArgument.getValue().getPRPAIN201306UV02());
+        verify(auditLogger, never()).auditEntityDeferred201306(any(RespondingGatewayPRPAIN201306UV02RequestType.class),
+                any(AssertionType.class), any(String.class));
 
-        verify(auditLogger).auditAck(actualResponse, assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION,
-                NhincConstants.AUDIT_LOG_ENTITY_INTERFACE);
+        verify(auditLogger, never()).auditAck(any(MCCIIN000002UV01.class), any(AssertionType.class), any(String.class),
+                eq(NhincConstants.AUDIT_LOG_ENTITY_INTERFACE));
     }
 }
