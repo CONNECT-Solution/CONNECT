@@ -30,7 +30,10 @@ import org.apache.log4j.Logger;
 
 import gov.hhs.fha.nhinc.admindistribution.AdminDistributionAuditLogger;
 import gov.hhs.fha.nhinc.admindistribution.AdminDistributionPolicyChecker;
+import gov.hhs.fha.nhinc.admindistribution.AdminDistributionUtils;
+import gov.hhs.fha.nhinc.admindistribution.adapter.proxy.AdapterAdminDistributionProxyObjectFactory;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import oasis.names.tc.emergency.edxl.de._1.EDXLDistribution;
 
 /**
@@ -41,8 +44,7 @@ public class StandardInboundAdminDistribution extends AbstractInboundAdminDistri
 
     private static final Logger LOG = Logger.getLogger(StandardInboundAdminDistribution.class);
     private AdminDistributionPolicyChecker policyChecker = new AdminDistributionPolicyChecker();
-    private PassthroughInboundAdminDistribution passthroughAdminDist = new PassthroughInboundAdminDistribution();
-
+    
     /**
      * Constructor.
      */
@@ -57,18 +59,21 @@ public class StandardInboundAdminDistribution extends AbstractInboundAdminDistri
      * @param policyChecker
      * @param auditLogger
      */
-    public StandardInboundAdminDistribution(PassthroughInboundAdminDistribution passthroughAdminDist,
-            AdminDistributionPolicyChecker policyChecker, AdminDistributionAuditLogger auditLogger) {
-        this.passthroughAdminDist = passthroughAdminDist;
+    public StandardInboundAdminDistribution(AdminDistributionPolicyChecker policyChecker,
+    		AdminDistributionAuditLogger auditLogger, AdapterAdminDistributionProxyObjectFactory adapterFactory,
+    		AdminDistributionUtils adminUtils) {
         this.policyChecker = policyChecker;
         this.auditLogger = auditLogger;
+        this.adapterFactory = adapterFactory;
+        this.adminUtils = adminUtils;
+        
     }
 
     @Override
     void processAdminDistribution(EDXLDistribution body, AssertionType assertion) {
         if (isPolicyValid(body, assertion)) {
-        	passthroughAdminDist.setPassthrough(false);
-            passthroughAdminDist.processAdminDistribution(body, assertion);
+        	auditRequestToAdapter(body, assertion);
+        	sendToAdapter(body, assertion, adminUtils, adapterFactory);
         } else {
             LOG.warn("Invalid policy.  Will not send message to adapter.");
         }
@@ -86,4 +91,8 @@ public class StandardInboundAdminDistribution extends AbstractInboundAdminDistri
         return result;
     }
 
+    private void auditRequestToAdapter(EDXLDistribution body, AssertionType assertion) {
+        auditLogger.auditNhinAdminDist(body, assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION,
+                null, NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE);
+    }
 }

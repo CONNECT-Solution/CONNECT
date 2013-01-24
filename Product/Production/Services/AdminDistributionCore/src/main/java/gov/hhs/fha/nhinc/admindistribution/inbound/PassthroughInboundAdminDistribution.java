@@ -26,15 +26,10 @@
  */
 package gov.hhs.fha.nhinc.admindistribution.inbound;
 
-import org.apache.log4j.Logger;
-
 import gov.hhs.fha.nhinc.admindistribution.AdminDistributionAuditLogger;
 import gov.hhs.fha.nhinc.admindistribution.AdminDistributionUtils;
-import gov.hhs.fha.nhinc.admindistribution.adapter.proxy.AdapterAdminDistributionProxy;
 import gov.hhs.fha.nhinc.admindistribution.adapter.proxy.AdapterAdminDistributionProxyObjectFactory;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.largefile.LargePayloadException;
-import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import oasis.names.tc.emergency.edxl.de._1.EDXLDistribution;
 
 /**
@@ -43,11 +38,6 @@ import oasis.names.tc.emergency.edxl.de._1.EDXLDistribution;
  */
 public class PassthroughInboundAdminDistribution extends AbstractInboundAdminDistribution {
 
-    private static final Logger LOG = Logger.getLogger(PassthroughInboundAdminDistribution.class);
-    private AdminDistributionUtils adminUtils = AdminDistributionUtils.getInstance();
-    private AdapterAdminDistributionProxyObjectFactory adapterFactory = new AdapterAdminDistributionProxyObjectFactory();
-    private Boolean inPassthrough = true;
-    
     /**
      * Constructor.
      */
@@ -69,31 +59,11 @@ public class PassthroughInboundAdminDistribution extends AbstractInboundAdminDis
         this.adapterFactory = adapterFactory;
     }
     
-    public void setPassthrough(Boolean passthrough){
-    	this.inPassthrough = passthrough;
-    }
 
     @Override
     void processAdminDistribution(EDXLDistribution body, AssertionType assertion) {
-        try {
-        	adminUtils.convertDataToFileLocationIfEnabled(body);
-            sendToAdapter(body, assertion);
-        } catch (LargePayloadException lpe) {
-            LOG.error("Failed to retrieve payload document.", lpe);
-        }
-    }
-
-    private void sendToAdapter(EDXLDistribution body, AssertionType assertion) {
-        if(!inPassthrough){	
-        	auditRequestToAdapter(body, assertion);
-        }
-        AdapterAdminDistributionProxy adapterProxy = adapterFactory.getAdapterAdminDistProxy();
-        adapterProxy.sendAlertMessage(body, assertion);
-    }
-
-    private void auditRequestToAdapter(EDXLDistribution body, AssertionType assertion) {
-        auditLogger.auditNhinAdminDist(body, assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION,
-                null, NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE);
+    	sendToAdapter(body, assertion, adminUtils, adapterFactory);
+    	
     }
 
 }
