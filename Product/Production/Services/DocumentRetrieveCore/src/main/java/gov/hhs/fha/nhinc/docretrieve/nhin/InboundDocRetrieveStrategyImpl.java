@@ -59,13 +59,18 @@ public class InboundDocRetrieveStrategyImpl implements InboundDocRetrieveStrateg
             LOG.debug("NhinOrchestratable was null");
             return;
         }
+        
+        if (! message.isPassthru()){
         auditOutboundRequestMessage(message);
+        }
 
         RetrieveDocumentSetResponseType adapterResponse = sendToAdapter(message);
 
         message.setResponse(adapterResponse);
 
+        if(!message.isPassthru()) {
         auditInboundResponseMessage(message);
+        }
 
         LOG.debug("End NhinDocRetrieveOrchestratableImpl_g0.process");
     }
