@@ -26,10 +26,15 @@
  */
 package gov.hhs.fha.nhinc.docquery.inbound;
 
+import gov.hhs.fha.nhinc.common.nhinccommon.AcknowledgementType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.docquery.DocQueryAuditLog;
 import gov.hhs.fha.nhinc.docquery.DocQueryPolicyChecker;
 import gov.hhs.fha.nhinc.docquery.MessageGeneratorUtils;
+import gov.hhs.fha.nhinc.docquery.adapter.proxy.AdapterDocQueryProxy;
+import gov.hhs.fha.nhinc.docquery.adapter.proxy.AdapterDocQueryProxyObjectFactory;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import gov.hhs.fha.nhinc.util.HomeCommunityMap;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
 
@@ -40,16 +45,16 @@ import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
 public class StandardInboundDocQuery extends AbstractInboundDocQuery {
 
     private DocQueryPolicyChecker policyChecker = new DocQueryPolicyChecker();
-    private PassthroughInboundDocQuery passthroughDQ = new PassthroughInboundDocQuery();
+    private AdapterDocQueryProxyObjectFactory adapterFactory = new AdapterDocQueryProxyObjectFactory();
 
     public StandardInboundDocQuery() {
         super();
     }
 
-    public StandardInboundDocQuery(DocQueryPolicyChecker policyChecker, PassthroughInboundDocQuery passthroughDQ,
-            DocQueryAuditLog auditLogger) {
+    public StandardInboundDocQuery(DocQueryPolicyChecker policyChecker,
+            AdapterDocQueryProxyObjectFactory adapterFactory, DocQueryAuditLog auditLogger) {
         this.policyChecker = policyChecker;
-        this.passthroughDQ = passthroughDQ;
+        this.adapterFactory = adapterFactory;
         this.auditLogger = auditLogger;
     }
 
@@ -64,11 +69,17 @@ public class StandardInboundDocQuery extends AbstractInboundDocQuery {
     AdhocQueryResponse processDocQuery(AdhocQueryRequest msg, AssertionType assertion, String requestCommunityID) {
         AdhocQueryResponse resp = null;
 
+        String respondingHcid = HomeCommunityMap.getLocalHomeCommunityId();
+        
+        auditRequestToAdapter(msg, assertion, respondingHcid);            
+
         if (isPolicyValid(msg, assertion)) {
-            resp = sendToAdapter(msg, assertion, requestCommunityID);
+            resp = sendToAdapter(msg, assertion);
         } else {
             resp = MessageGeneratorUtils.getInstance().createPolicyErrorResponse();
         }
+
+        auditRequestFromAdapter(resp, assertion, respondingHcid);
 
         return resp;
     }
@@ -77,8 +88,27 @@ public class StandardInboundDocQuery extends AbstractInboundDocQuery {
         return policyChecker.checkIncomingPolicy(msg, assertion);
     }
 
-    private AdhocQueryResponse sendToAdapter(AdhocQueryRequest msg, AssertionType assertion, String requestCommunityID) {
-        return passthroughDQ.processDocQuery(msg, assertion, requestCommunityID);
+    private AdhocQueryResponse sendToAdapter(AdhocQueryRequest msg, AssertionType assertion) {
+        AdapterDocQueryProxy adapterProxy = adapterFactory.getAdapterDocQueryProxy();
+        return adapterProxy.respondingGatewayCrossGatewayQuery(msg, assertion);
+    }
+
+    private AcknowledgementType auditRequestToAdapter(AdhocQueryRequest msg, AssertionType assertion,
+            String requestCommunityID) {
+        AcknowledgementType ack = auditLogger
+                .auditDQRequest(msg, assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION,
+                        NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE, requestCommunityID);
+
+        return ack;
+    }
+    
+    private AcknowledgementType auditRequestFromAdapter(AdhocQueryResponse response, AssertionType assertion,
+            String requestCommunityID) {
+        AcknowledgementType ack = auditLogger
+                .auditDQResponse(response, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION,
+                        NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE, requestCommunityID);
+
+        return ack;
     }
 
 }
