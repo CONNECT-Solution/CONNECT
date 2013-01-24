@@ -57,10 +57,10 @@ public abstract class AbstractInboundDocSubmission implements InboundDocSubmissi
     }
 
     private void auditRequestFromNhin(ProvideAndRegisterDocumentSetRequestType request, AssertionType assertion) {
-        auditLogger.auditNhinXDR(request, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION);
+        auditLogger.auditNhinXDR(request, assertion, null, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION);
     }
 
     private void auditResponseToNhin(RegistryResponseType response, AssertionType assertion) {
-        auditLogger.auditNhinXDRResponse(response, assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION);
+        auditLogger.auditNhinXDRResponse(response, assertion, null, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, false);
     }
 }

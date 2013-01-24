@@ -26,14 +26,18 @@
  */
 package gov.hhs.fha.nhinc.transform.audit;
 
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
+import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
+import gov.hhs.fha.nhinc.common.nhinccommon.UserType;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
-import java.io.File;
+
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBElement;
-import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
 import javax.xml.transform.stream.StreamSource;
-import oasis.names.tc.ebxml_regrep.xsd.lcm._3.SubmitObjectsRequest;
+
+import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
 /**
  * 
@@ -41,6 +45,10 @@ import oasis.names.tc.ebxml_regrep.xsd.lcm._3.SubmitObjectsRequest;
  */
 public class XDRMessageHelper {
     private static final String XML_FILENAME = "ProvideAndRegisterDocumentSet-bRequest.xml";
+    
+    public static final String CONST_USER_NAME = "userName";
+    public static final String CONST_HC_NAME = "Home Community";
+    public static final String CONST_HC_DESC = "HC Description";
 
     public ProvideAndRegisterDocumentSetRequestType getSampleMessage() {
         ProvideAndRegisterDocumentSetRequestType result = null;
@@ -65,5 +73,39 @@ public class XDRMessageHelper {
         return result;
 
     }
+    
+    public RegistryResponseType createRegistryResponseType() {
+        RegistryResponseType response = new RegistryResponseType();
+        response.setStatus("Success");
+        
+        return response;
+    }
+    
+    public HomeCommunityType createHomeCommunity(String hcid) {
+        HomeCommunityType hc = new HomeCommunityType();
+        hc.setDescription(CONST_HC_DESC);
+        hc.setHomeCommunityId(hcid);
+        hc.setName(CONST_HC_NAME);
+
+        return hc;
+    }
+
+    public AssertionType createAssertion(String hcid) {
+        AssertionType assertion = new AssertionType();
+        assertion.setUserInfo(new UserType());
+        assertion.getUserInfo().setUserName(CONST_USER_NAME);
+        assertion.getUserInfo().setOrg(createHomeCommunity(hcid));
+        assertion.setHomeCommunity(createHomeCommunity(hcid));
+
+        return assertion;
+    }
+    
+    public NhinTargetSystemType createNhinTargetSystem(String hcid) {
+        NhinTargetSystemType nhinTarget = new NhinTargetSystemType(); 
+        nhinTarget.setHomeCommunity(createHomeCommunity(hcid));
+        
+        return nhinTarget;
+    }
+
 
 }
