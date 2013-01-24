@@ -26,25 +26,20 @@
  */
 package gov.hhs.fha.nhinc.admindistribution.inbound;
 
+import static org.mockito.Matchers.eq;
+import static org.mockito.Mockito.doThrow;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 import gov.hhs.fha.nhinc.admindistribution.AdminDistributionAuditLogger;
 import gov.hhs.fha.nhinc.admindistribution.AdminDistributionUtils;
 import gov.hhs.fha.nhinc.admindistribution.adapter.proxy.AdapterAdminDistributionProxy;
 import gov.hhs.fha.nhinc.admindistribution.adapter.proxy.AdapterAdminDistributionProxyObjectFactory;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.largefile.LargePayloadException;
-import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
-
 import oasis.names.tc.emergency.edxl.de._1.EDXLDistribution;
 
 import org.junit.Test;
-
-import static org.mockito.Matchers.anyString;
-import static org.mockito.Mockito.doThrow;
-import static org.mockito.Mockito.eq;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
 
 /**
  * @author akong
@@ -56,27 +51,21 @@ public class PassthroughInboundAdminDistributionTest {
     public void passthroughAdminDistribution() {
         EDXLDistribution request = new EDXLDistribution();
         AssertionType assertion = new AssertionType();
-        NhinTargetSystemType target = null;
-
-        AdminDistributionAuditLogger auditLogger = mock(AdminDistributionAuditLogger.class);
+        
         AdminDistributionUtils adminUtils = mock(AdminDistributionUtils.class);
         AdapterAdminDistributionProxyObjectFactory adapterFactory = mock(AdapterAdminDistributionProxyObjectFactory.class);
         AdapterAdminDistributionProxy adapterProxy = mock(AdapterAdminDistributionProxy.class);
+        AdminDistributionAuditLogger auditLogger = new AdminDistributionAuditLogger();
         
         when(adapterFactory.getAdapterAdminDistProxy()).thenReturn(adapterProxy);
 
-        PassthroughInboundAdminDistribution passthroughAdminDist = new PassthroughInboundAdminDistribution(auditLogger,
-                adminUtils, adapterFactory);
+        PassthroughInboundAdminDistribution passthroughAdminDist = new PassthroughInboundAdminDistribution(auditLogger, 
+        		adminUtils, adapterFactory);
 
         passthroughAdminDist.sendAlertMessage(request, assertion);
 
         verify(adapterProxy).sendAlertMessage(eq(request), eq(assertion));
-
-        verify(auditLogger).auditNhinAdminDist(eq(request), eq(assertion),
-                eq(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION), eq(target), eq(NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE));
-
-        verify(auditLogger).auditNhinAdminDist(eq(request), eq(assertion),
-                eq(NhincConstants.AUDIT_LOG_INBOUND_DIRECTION), eq(target), eq(NhincConstants.AUDIT_LOG_NHIN_INTERFACE));
+        
     }
     
     @Test
@@ -85,14 +74,14 @@ public class PassthroughInboundAdminDistributionTest {
         AssertionType assertion = new AssertionType();
         LargePayloadException exception = new LargePayloadException();
 
-        AdminDistributionAuditLogger auditLogger = mock(AdminDistributionAuditLogger.class);
         AdminDistributionUtils adminUtils = mock(AdminDistributionUtils.class);
         AdapterAdminDistributionProxyObjectFactory adapterFactory = mock(AdapterAdminDistributionProxyObjectFactory.class);
+        AdminDistributionAuditLogger auditLogger = new AdminDistributionAuditLogger();
         
         doThrow(exception).when(adminUtils).convertDataToFileLocationIfEnabled(request);
         
         PassthroughInboundAdminDistribution passthroughAdminDist = new PassthroughInboundAdminDistribution(auditLogger,
-                adminUtils, adapterFactory);
+        		adminUtils, adapterFactory);
 
         passthroughAdminDist.sendAlertMessage(request, assertion);
         
