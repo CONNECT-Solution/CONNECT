@@ -27,12 +27,14 @@
 package gov.hhs.fha.nhinc.patientdiscovery.inbound.deferred.response;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.generic.GenericFactory;
 import gov.hhs.fha.nhinc.patientcorrelation.nhinc.dao.PDDeferredCorrelationDao;
 import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscovery201306PolicyChecker;
 import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscovery201306Processor;
 import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryAuditLogger;
 import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryAuditor;
 import gov.hhs.fha.nhinc.patientdiscovery.PolicyChecker;
+import gov.hhs.fha.nhinc.patientdiscovery.adapter.deferred.response.proxy.AdapterPatientDiscoveryDeferredRespProxy;
 import gov.hhs.fha.nhinc.patientdiscovery.response.ResponseFactory;
 import gov.hhs.fha.nhinc.patientdiscovery.response.ResponseFactory.ResponseModeType;
 import gov.hhs.fha.nhinc.patientdiscovery.response.ResponseMode;
@@ -50,7 +52,6 @@ public class StandardInboundPatientDiscoveryDeferredResponse extends AbstractInb
     private final ResponseFactory responseFactory;
     private final PatientDiscovery201306Processor msgProcessor;
     private final PDDeferredCorrelationDao pdCorrelationDao;
-    private final PassthroughInboundPatientDiscoveryDeferredResponse passthroughPatientDiscovery;
     private final PatientDiscoveryAuditor auditLogger;
     private static final Logger LOG = Logger.getLogger(StandardInboundPatientDiscoveryDeferredResponse.class);
 
@@ -62,7 +63,6 @@ public class StandardInboundPatientDiscoveryDeferredResponse extends AbstractInb
         responseFactory = new ResponseFactory();
         msgProcessor = new PatientDiscovery201306Processor();
         pdCorrelationDao = new PDDeferredCorrelationDao();
-        passthroughPatientDiscovery = new PassthroughInboundPatientDiscoveryDeferredResponse();
         auditLogger = new PatientDiscoveryAuditLogger();
     }
 
@@ -80,15 +80,14 @@ public class StandardInboundPatientDiscoveryDeferredResponse extends AbstractInb
     public StandardInboundPatientDiscoveryDeferredResponse(
             PolicyChecker<RespondingGatewayPRPAIN201306UV02RequestType, PRPAIN201306UV02> policyChecker,
             ResponseFactory responseFactory, PatientDiscovery201306Processor msgProcessor,
+            GenericFactory<AdapterPatientDiscoveryDeferredRespProxy> proxyFactory,
             PDDeferredCorrelationDao pdCorrelationDao,
-            PassthroughInboundPatientDiscoveryDeferredResponse passthroughPatientDiscovery,
             PatientDiscoveryAuditor auditLogger) {
-        
+        super(proxyFactory);
         this.policyChecker = policyChecker;
         this.responseFactory = responseFactory;
         this.msgProcessor = msgProcessor;
         this.pdCorrelationDao = pdCorrelationDao;
-        this.passthroughPatientDiscovery = passthroughPatientDiscovery;
         this.auditLogger = auditLogger;    
     }
 
@@ -113,7 +112,7 @@ public class StandardInboundPatientDiscoveryDeferredResponse extends AbstractInb
                 processResponseMode(request, assertion);
             }
 
-            response = passthroughPatientDiscovery.process(request, assertion);
+            response = sendToAdapter(request, assertion);
         } else {
             ackMsg = "Policy Check Failed";
             LOG.warn(ackMsg);
