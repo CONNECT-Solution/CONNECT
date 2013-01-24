@@ -46,7 +46,8 @@ public class PassthroughInboundAdminDistribution extends AbstractInboundAdminDis
     private static final Logger LOG = Logger.getLogger(PassthroughInboundAdminDistribution.class);
     private AdminDistributionUtils adminUtils = AdminDistributionUtils.getInstance();
     private AdapterAdminDistributionProxyObjectFactory adapterFactory = new AdapterAdminDistributionProxyObjectFactory();
-
+    private Boolean inPassthrough = true;
+    
     /**
      * Constructor.
      */
@@ -67,11 +68,15 @@ public class PassthroughInboundAdminDistribution extends AbstractInboundAdminDis
         this.adminUtils = adminUtils;
         this.adapterFactory = adapterFactory;
     }
+    
+    public void setPassthrough(Boolean passthrough){
+    	this.inPassthrough = passthrough;
+    }
 
     @Override
     void processAdminDistribution(EDXLDistribution body, AssertionType assertion) {
         try {
-            adminUtils.convertDataToFileLocationIfEnabled(body);
+        	adminUtils.convertDataToFileLocationIfEnabled(body);
             sendToAdapter(body, assertion);
         } catch (LargePayloadException lpe) {
             LOG.error("Failed to retrieve payload document.", lpe);
@@ -79,8 +84,9 @@ public class PassthroughInboundAdminDistribution extends AbstractInboundAdminDis
     }
 
     private void sendToAdapter(EDXLDistribution body, AssertionType assertion) {
-        auditRequestToAdapter(body, assertion);
-
+        if(!inPassthrough){	
+        	auditRequestToAdapter(body, assertion);
+        }
         AdapterAdminDistributionProxy adapterProxy = adapterFactory.getAdapterAdminDistProxy();
         adapterProxy.sendAlertMessage(body, assertion);
     }

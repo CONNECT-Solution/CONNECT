@@ -67,6 +67,7 @@ public class StandardInboundAdminDistribution extends AbstractInboundAdminDistri
     @Override
     void processAdminDistribution(EDXLDistribution body, AssertionType assertion) {
         if (isPolicyValid(body, assertion)) {
+        	passthroughAdminDist.setPassthrough(false);
             passthroughAdminDist.processAdminDistribution(body, assertion);
         } else {
             LOG.warn("Invalid policy.  Will not send message to adapter.");

@@ -27,18 +27,14 @@
 package gov.hhs.fha.nhinc.admindistribution.outbound;
 
 import static org.mockito.Matchers.any;
-import static org.mockito.Mockito.eq;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
-import gov.hhs.fha.nhinc.admindistribution.AdminDistributionAuditLogger;
 import gov.hhs.fha.nhinc.admindistribution.entity.OutboundAdminDistributionDelegate;
 import gov.hhs.fha.nhinc.admindistribution.entity.OutboundAdminDistributionOrchestratable;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
-import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewaySendAlertMessageSecuredType;
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewaySendAlertMessageType;
-import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 
 import org.junit.Test;
 
@@ -52,20 +48,13 @@ public class PassthroughOutboundAdminDistributionTest {
         NhinTargetCommunitiesType targetCommunities = new NhinTargetCommunitiesType();
 
         OutboundAdminDistributionDelegate adDelegate = mock(OutboundAdminDistributionDelegate.class);
-        AdminDistributionAuditLogger auditLogger = mock(AdminDistributionAuditLogger.class);
-
-        PassthroughOutboundAdminDistribution passthroughAdmin = new PassthroughOutboundAdminDistribution(adDelegate,
-                auditLogger);
+        
+        PassthroughOutboundAdminDistribution passthroughAdmin = new PassthroughOutboundAdminDistribution(adDelegate);
 
         passthroughAdmin.sendAlertMessage(request, assertion, targetCommunities);
 
         verify(adDelegate).process(any(OutboundAdminDistributionOrchestratable.class));
 
-        verify(auditLogger).auditNhincAdminDist(eq(request.getEDXLDistribution()), eq(assertion),
-                any(NhinTargetSystemType.class), eq(NhincConstants.AUDIT_LOG_INBOUND_DIRECTION));
-        
-        verify(auditLogger).auditNhincAdminDist(eq(request.getEDXLDistribution()), eq(assertion),
-                any(NhinTargetSystemType.class), eq(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION));
     }
     
     @Test
@@ -76,20 +65,13 @@ public class PassthroughOutboundAdminDistributionTest {
         NhinTargetCommunitiesType targetCommunities = new NhinTargetCommunitiesType();
 
         OutboundAdminDistributionDelegate adDelegate = mock(OutboundAdminDistributionDelegate.class);
-        AdminDistributionAuditLogger auditLogger = mock(AdminDistributionAuditLogger.class);
-
-        PassthroughOutboundAdminDistribution passthroughAdmin = new PassthroughOutboundAdminDistribution(adDelegate,
-                auditLogger);
+        
+        PassthroughOutboundAdminDistribution passthroughAdmin = new PassthroughOutboundAdminDistribution(adDelegate);
 
         passthroughAdmin.sendAlertMessage(request, assertion, targetCommunities);
 
         verify(adDelegate).process(any(OutboundAdminDistributionOrchestratable.class));
-
-        verify(auditLogger).auditNhincAdminDist(eq(request.getEDXLDistribution()), eq(assertion),
-                any(NhinTargetSystemType.class), eq(NhincConstants.AUDIT_LOG_INBOUND_DIRECTION));
         
-        verify(auditLogger).auditNhincAdminDist(eq(request.getEDXLDistribution()), eq(assertion),
-                any(NhinTargetSystemType.class), eq(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION));
     }
 
 }
