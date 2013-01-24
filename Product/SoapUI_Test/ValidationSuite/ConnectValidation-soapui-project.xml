@@ -2417,7 +2417,7 @@ pdConfigFileNew.renameTo(new File(dir + "/" + "PatientDiscoveryProxyConfig.xml")
 log.info "Modifying internalConnectionInfo for adapterpatientdiscovery mock."
 
 nhinc.FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", dir, "1.1",
-	"adapterpatientdiscovery", "http://localhost:81/MockPDAdapter", "2.0",
+	"adapterpatientdiscovery", "http://localhost:1720/MockPDAdapter", "2.0",
 	log);
 	</script></con:config></con:testStep>
 <con:testStep name="Patient Discovery" type="request">
@@ -2718,7 +2718,7 @@ nhinc.FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", dir, "1.1
 if(!runMock){
 	testRunner.gotoStepByName("count correlations");
 }
-</script></con:config></con:testStep><con:testStep type="mockresponse" name="Mock Response"><con:settings/><con:config xsi:type="con:MockResponseStep" startStep="Set Up PassThru" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>AdapterPatientDiscoveryBindingSoap</con:interface><con:operation>RespondingGateway_PRPA_IN201305UV02</con:operation><con:path>/MockPDAdapter</con:path><con:port>81</con:port><con:response><con:settings/><con:responseContent><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:hl7-org:v3">
+</script></con:config></con:testStep><con:testStep type="mockresponse" name="Mock Response"><con:settings/><con:config xsi:type="con:MockResponseStep" startStep="Set Up PassThru" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>AdapterPatientDiscoveryBindingSoap</con:interface><con:operation>RespondingGateway_PRPA_IN201305UV02</con:operation><con:path>/MockPDAdapter</con:path><con:port>1720</con:port><con:response><con:settings/><con:responseContent><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:hl7-org:v3">
    <soap:Header/>
    <soap:Body>
    <PRPA_IN201306UV02 xmlns="urn:hl7-org:v3" xmlns:ns2="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:ns3="http://www.w3.org/2005/08/addressing" xmlns:ns4="urn:gov:hhs:fha:nhinc:common:patientcorrelationfacade" ITSVersion="XML_1.0">
@@ -7730,7 +7730,7 @@ pdConfigFileNew.renameTo(new File(dir + "/" + "PatientDiscoveryProxyConfig.xml")
 log.info "Modifying internalConnectionInfo for adapterpatientdiscovery mock."
 
 nhinc.FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", dir, "1.1",
-	"adapterpatientdiscovery", "http://localhost:81/MockPDAdapter", "2.0",
+	"adapterpatientdiscovery", "http://localhost:1720/MockPDAdapter", "2.0",
 	log);
 	</script></con:config></con:testStep>
 <con:testStep name="Patient Discovery" type="request">
@@ -8031,7 +8031,7 @@ nhinc.FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", dir, "1.1
 if(!runMock){
 	testRunner.gotoStepByName("count correlations");
 }
-</script></con:config></con:testStep><con:testStep type="mockresponse" name="Mock Response"><con:settings/><con:config xsi:type="con:MockResponseStep" startStep="Set Up PassThru" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>AdapterPatientDiscoveryBindingSoap</con:interface><con:operation>RespondingGateway_PRPA_IN201305UV02</con:operation><con:path>/MockPDAdapter</con:path><con:port>81</con:port><con:response><con:settings/><con:responseContent><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:hl7-org:v3">
+</script></con:config></con:testStep><con:testStep type="mockresponse" name="Mock Response"><con:settings/><con:config xsi:type="con:MockResponseStep" startStep="Set Up PassThru" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>AdapterPatientDiscoveryBindingSoap</con:interface><con:operation>RespondingGateway_PRPA_IN201305UV02</con:operation><con:path>/MockPDAdapter</con:path><con:port>1720</con:port><con:response><con:settings/><con:responseContent><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:hl7-org:v3">
    <soap:Header/>
    <soap:Body>
    <PRPA_IN201306UV02 xmlns="urn:hl7-org:v3" xmlns:ns2="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:ns3="http://www.w3.org/2005/08/addressing" xmlns:ns4="urn:gov:hhs:fha:nhinc:common:patientcorrelationfacade" ITSVersion="XML_1.0">
