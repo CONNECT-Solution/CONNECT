@@ -30,11 +30,13 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertSame;
 import static org.mockito.Matchers.eq;
+import static org.mockito.Matchers.isNull;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import gov.hhs.fha.nhinc.aspect.InboundProcessingEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.docsubmission.XDRAuditLogger;
 import gov.hhs.fha.nhinc.docsubmission.adapter.deferred.response.proxy.AdapterDocSubmissionDeferredResponseProxy;
 import gov.hhs.fha.nhinc.docsubmission.adapter.deferred.response.proxy.AdapterDocSubmissionDeferredResponseProxyObjectFactory;
@@ -83,10 +85,10 @@ public class PassthroughInboundDocSubmissionDeferredResponseTest {
         verify(auditLogger).auditAdapterAcknowledgement(eq(actualResponse), eq(assertion),
                 eq(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION), eq(NhincConstants.XDR_RESPONSE_ACTION));
 
-        verify(auditLogger).auditNhinXDRResponse(eq(regResponse), eq(assertion),
-                eq(NhincConstants.AUDIT_LOG_INBOUND_DIRECTION));
+        verify(auditLogger).auditNhinXDRResponse(eq(regResponse), eq(assertion), isNull(NhinTargetSystemType.class),
+                eq(NhincConstants.AUDIT_LOG_INBOUND_DIRECTION), eq(false));
 
-        verify(auditLogger).auditAcknowledgement(eq(actualResponse), eq(assertion),
+        verify(auditLogger).auditAcknowledgement(eq(actualResponse), eq(assertion), isNull(NhinTargetSystemType.class),
                 eq(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION), eq(NhincConstants.XDR_RESPONSE_ACTION));
     }
 

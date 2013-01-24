@@ -36,6 +36,7 @@ import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunityType;
+import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.common.nhinccommon.UrlInfoType;
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType;
 import gov.hhs.fha.nhinc.docsubmission.XDRAuditLogger;
@@ -222,10 +223,12 @@ public class StandardOutboundDocSubmissionTest {
                 oneOf(mockXDRLog)
                         .auditXDR(
                                 with(any(gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType.class)),
-                                with(any(AssertionType.class)), with(any(String.class)));
+                                with(any(AssertionType.class)), with(any(NhinTargetSystemType.class)),
+                                with(any(String.class)));
 
                 oneOf(mockXDRLog).auditNhinXDRResponse(with(any(RegistryResponseType.class)),
-                        with(any(AssertionType.class)), with(any(String.class)));
+                        with(any(AssertionType.class)), with(any(NhinTargetSystemType.class)), with(any(String.class)),
+                        with(equal(true)));
             }
         });
     }
@@ -243,7 +246,8 @@ public class StandardOutboundDocSubmissionTest {
                 oneOf(mockXDRLog)
                         .auditXDR(
                                 with(any(gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType.class)),
-                                with(any(AssertionType.class)), with(any(String.class)));
+                                with(any(AssertionType.class)), with(any(NhinTargetSystemType.class)),
+                                with(any(String.class)));
             }
         });
     }

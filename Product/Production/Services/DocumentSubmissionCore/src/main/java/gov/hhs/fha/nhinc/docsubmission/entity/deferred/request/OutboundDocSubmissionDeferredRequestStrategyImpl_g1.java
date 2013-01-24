@@ -35,6 +35,7 @@ import gov.hhs.fha.nhinc.orchestration.Orchestratable;
 import gov.hhs.fha.nhinc.orchestration.OrchestrationStrategy;
 import gov.hhs.healthit.nhin.XDRAcknowledgementType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 
 import org.apache.log4j.Logger;
 
@@ -77,7 +78,7 @@ public class OutboundDocSubmissionDeferredRequestStrategyImpl_g1 implements Orch
     public void execute(OutboundDocSubmissionDeferredRequestOrchestratable message) {
         LOG.debug("Begin OutboundDocSubmissionOrchestratableImpl_g1.process");
 
-        auditRequestToNhin(message.getRequest(), message.getAssertion());
+        auditRequestToNhin(message.getRequest(), message.getAssertion(), message.getTarget());
        
         NhinDocSubmissionDeferredRequestProxy nhincDocSubmission = getNhinDocSubmissionDeferredRequestProxy();
         XDRAcknowledgementType response = new XDRAcknowledgementType();
@@ -85,7 +86,7 @@ public class OutboundDocSubmissionDeferredRequestStrategyImpl_g1 implements Orch
                 message.getAssertion(), message.getTarget()));
         message.setResponse(response);
 
-        auditResponseFromNhin(response, message.getAssertion());
+        auditResponseFromNhin(response, message.getAssertion(), message.getTarget());
         LOG.debug("End OutboundDocSubmissionDeferredRequestStrategyImpl_g1.process");
     }
 
@@ -99,21 +100,25 @@ public class OutboundDocSubmissionDeferredRequestStrategyImpl_g1 implements Orch
 
     /**
      * Creates a generic Audit Log message for a Doc Submission method to the NHIN.
+     * 
      * @param request
      * @param assertion
      */
-    private void auditRequestToNhin(ProvideAndRegisterDocumentSetRequestType request, AssertionType assertion) {
-        getXDRAuditLogger().auditNhinXDR(request, assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION);
+    private void auditRequestToNhin(ProvideAndRegisterDocumentSetRequestType request, AssertionType assertion,
+            NhinTargetSystemType target) {
+        getXDRAuditLogger().auditNhinXDR(request, assertion, target, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION);
     }
 
     /**
      * Creates a generic Audit Log message for a Doc Submission method from the NHIN.
+     * 
      * @param response
      * @param assertion
      */
-    private void auditResponseFromNhin(XDRAcknowledgementType response,  AssertionType assertion) {
-        getXDRAuditLogger().auditAcknowledgement(response, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION,
-                NhincConstants.XDR_REQUEST_ACTION);
+    private void auditResponseFromNhin(XDRAcknowledgementType response, AssertionType assertion,
+            NhinTargetSystemType target) {
+        getXDRAuditLogger().auditAcknowledgement(response, assertion, target,
+                NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.XDR_REQUEST_ACTION);
     }
 
 }

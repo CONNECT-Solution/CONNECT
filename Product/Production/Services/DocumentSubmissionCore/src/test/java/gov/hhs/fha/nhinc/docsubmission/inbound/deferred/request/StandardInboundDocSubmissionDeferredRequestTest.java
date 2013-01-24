@@ -31,6 +31,7 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertSame;
 import static org.mockito.Matchers.anyString;
 import static org.mockito.Matchers.eq;
+import static org.mockito.Matchers.isNull;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -40,6 +41,7 @@ import java.lang.reflect.Method;
 import gov.hhs.fha.nhinc.aspect.InboundProcessingEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
+import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.docsubmission.DocSubmissionUtils;
 import gov.hhs.fha.nhinc.docsubmission.XDRAuditLogger;
 import gov.hhs.fha.nhinc.docsubmission.XDRPolicyChecker;
@@ -109,9 +111,10 @@ public class StandardInboundDocSubmissionDeferredRequestTest {
         verify(auditLogger).auditAdapterAcknowledgement(eq(actualResponse), eq(assertion),
                 eq(NhincConstants.AUDIT_LOG_INBOUND_DIRECTION), eq(NhincConstants.XDR_REQUEST_ACTION));
 
-        verify(auditLogger).auditNhinXDR(eq(request), eq(assertion), eq(NhincConstants.AUDIT_LOG_INBOUND_DIRECTION));
+        verify(auditLogger).auditNhinXDR(eq(request), eq(assertion), isNull(NhinTargetSystemType.class),
+                eq(NhincConstants.AUDIT_LOG_INBOUND_DIRECTION));
 
-        verify(auditLogger).auditAcknowledgement(eq(actualResponse), eq(assertion),
+        verify(auditLogger).auditAcknowledgement(eq(actualResponse), eq(assertion), isNull(NhinTargetSystemType.class),
                 eq(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION), eq(NhincConstants.XDR_REQUEST_ACTION));
     }
 
@@ -151,9 +154,10 @@ public class StandardInboundDocSubmissionDeferredRequestTest {
 
         assertSame(expectedResponse, actualResponse);
 
-        verify(auditLogger).auditNhinXDR(eq(request), eq(assertion), eq(NhincConstants.AUDIT_LOG_INBOUND_DIRECTION));
+        verify(auditLogger).auditNhinXDR(eq(request), eq(assertion), isNull(NhinTargetSystemType.class),
+                eq(NhincConstants.AUDIT_LOG_INBOUND_DIRECTION));
 
-        verify(auditLogger).auditAcknowledgement(eq(actualResponse), eq(assertion),
+        verify(auditLogger).auditAcknowledgement(eq(actualResponse), eq(assertion), isNull(NhinTargetSystemType.class),
                 eq(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION), eq(NhincConstants.XDR_REQUEST_ACTION));
     }
     
@@ -184,9 +188,10 @@ public class StandardInboundDocSubmissionDeferredRequestTest {
 
         assertSame(expectedResponse, actualResponse);
 
-        verify(auditLogger).auditNhinXDR(eq(request), eq(assertion), eq(NhincConstants.AUDIT_LOG_INBOUND_DIRECTION));
+        verify(auditLogger).auditNhinXDR(eq(request), eq(assertion), isNull(NhinTargetSystemType.class),
+                eq(NhincConstants.AUDIT_LOG_INBOUND_DIRECTION));
 
-        verify(auditLogger).auditAcknowledgement(eq(actualResponse), eq(assertion),
+        verify(auditLogger).auditAcknowledgement(eq(actualResponse), eq(assertion), isNull(NhinTargetSystemType.class),
                 eq(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION), eq(NhincConstants.XDR_REQUEST_ACTION));
     }
     
