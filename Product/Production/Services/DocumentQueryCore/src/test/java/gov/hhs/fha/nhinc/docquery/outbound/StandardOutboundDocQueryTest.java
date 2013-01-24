@@ -68,8 +68,8 @@ public class StandardOutboundDocQueryTest {
 
     @Test
     public void testrespondingGatewayCrossGatewayQueryforNullEndPoint() throws Exception {
-        
-        System.setProperty("nhinc.properties.dir", "" + DocQueryUnitTestUtil.getClassPath());
+
+        DocQueryUnitTestUtil.setUpGatewayProperties();
         
         AggregationStrategy strategy = mock(AggregationStrategy.class);
 
@@ -189,4 +189,5 @@ public class StandardOutboundDocQueryTest {
         assertEquals("Document Query", annotation.serviceType());
         assertEquals("", annotation.version());
     }
+    
 }

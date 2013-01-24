@@ -26,7 +26,8 @@
  */
 package gov.hhs.fha.nhinc.docquery;
 
-import gov.hhs.fha.nhinc.docquery.outbound.StandardOutboundDocQueryTest;
+import static org.junit.Assert.fail;
+import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 
 import java.io.File;
 import java.net.URISyntaxException;
@@ -35,13 +36,23 @@ import java.net.URISyntaxException;
  * Document Query Unit Test Utility Methods.
  */
 public class DocQueryUnitTestUtil {
-    
+
     /**
      * Used when calling code requires absolute paths to test resources.
      * @return absolute classpath.
      */
     public static File getClassPath() throws URISyntaxException {
-        return new File(StandardOutboundDocQueryTest.class.getProtectionDomain().getCodeSource().getLocation().toURI());
-    }     
-
+        return new File(DocQueryUnitTestUtil.class.getProtectionDomain().getCodeSource().getLocation().toURI());
+    }
+    
+    public static synchronized void setUpGatewayProperties() {
+        try {
+            PropertyAccessor.getInstance().setPropertyFileLocation("" + getClassPath() + "/local");
+            PropertyAccessor.getInstance().forceRefresh("gateway");
+        } catch (Exception e) {
+            e.printStackTrace();
+            fail(e.getMessage());
+        }
+    }
+    
 }

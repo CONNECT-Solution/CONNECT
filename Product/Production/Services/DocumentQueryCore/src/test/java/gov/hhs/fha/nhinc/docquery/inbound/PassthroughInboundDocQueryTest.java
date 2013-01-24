@@ -73,7 +73,6 @@ public class PassthroughInboundDocQueryTest {
     private static final String SENDING_HCID_HOME = "urn:oid:7.3";
     private static final String SENDING_HCID_HOME_FORMATTED = "7.3";
     
-    
     @Test
     public void hasInboundProcessingEvent() throws Exception {
         Class<PassthroughInboundDocQuery> clazz = PassthroughInboundDocQuery.class;
@@ -109,7 +108,7 @@ public class PassthroughInboundDocQueryTest {
 
     private void passthroughInboundDocQuery(AssertionType assertion, String sendingHcid) throws URISyntaxException {
         
-        System.setProperty("nhinc.properties.dir", "" + DocQueryUnitTestUtil.getClassPath());
+        DocQueryUnitTestUtil.setUpGatewayProperties();
         
         AdhocQueryRequest request = new AdhocQueryRequest();
         AdhocQueryResponse expectedResponse = new AdhocQueryResponse();
