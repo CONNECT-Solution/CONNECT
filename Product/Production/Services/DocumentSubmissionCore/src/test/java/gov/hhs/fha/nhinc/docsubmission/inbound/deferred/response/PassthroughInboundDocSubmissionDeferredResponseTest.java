@@ -29,9 +29,12 @@ package gov.hhs.fha.nhinc.docsubmission.inbound.deferred.response;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertSame;
+import static org.mockito.Matchers.any;
+import static org.mockito.Matchers.anyString;
 import static org.mockito.Matchers.eq;
 import static org.mockito.Matchers.isNull;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import gov.hhs.fha.nhinc.aspect.InboundProcessingEvent;
@@ -79,11 +82,11 @@ public class PassthroughInboundDocSubmissionDeferredResponseTest {
 
         assertSame(expectedResponse, actualResponse);
 
-        verify(auditLogger).auditAdapterXDRResponse(eq(regResponse), eq(assertion),
-                eq(NhincConstants.AUDIT_LOG_INBOUND_DIRECTION));
+        verify(auditLogger, never()).auditAdapterXDRResponse(any(RegistryResponseType.class), any(AssertionType.class),
+                anyString());
 
-        verify(auditLogger).auditAdapterAcknowledgement(eq(actualResponse), eq(assertion),
-                eq(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION), eq(NhincConstants.XDR_RESPONSE_ACTION));
+        verify(auditLogger, never()).auditAdapterAcknowledgement(any(XDRAcknowledgementType.class),
+                any(AssertionType.class), anyString(), anyString());
 
         verify(auditLogger).auditNhinXDRResponse(eq(regResponse), eq(assertion), isNull(NhinTargetSystemType.class),
                 eq(NhincConstants.AUDIT_LOG_INBOUND_DIRECTION), eq(false));
