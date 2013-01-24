@@ -49,15 +49,16 @@ public class StandardInboundDocSubmissionDeferredRequest extends AbstractInbound
 
     private static final Logger LOG = Logger.getLogger(StandardInboundDocSubmissionDeferredRequest.class);
 
-    private XDRPolicyChecker policyChecker = new XDRPolicyChecker();
-    private PropertyAccessor propertyAccessor = PropertyAccessor.getInstance();
-    private AdapterDocSubmissionDeferredRequestErrorProxyObjectFactory errorAdapterFactory = new AdapterDocSubmissionDeferredRequestErrorProxyObjectFactory();
+    private XDRPolicyChecker policyChecker;
+    private PropertyAccessor propertyAccessor;
+    private AdapterDocSubmissionDeferredRequestErrorProxyObjectFactory errorAdapterFactory;
 
     /**
      * Constructor.
      */
     public StandardInboundDocSubmissionDeferredRequest() {
-        super(new AdapterDocSubmissionDeferredRequestProxyObjectFactory(), new XDRAuditLogger());
+        this(new AdapterDocSubmissionDeferredRequestProxyObjectFactory(), new XDRPolicyChecker(), PropertyAccessor
+                .getInstance(), new XDRAuditLogger(), new AdapterDocSubmissionDeferredRequestErrorProxyObjectFactory());
     }
 
     /**

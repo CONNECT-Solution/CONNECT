@@ -45,14 +45,15 @@ public class PassthroughInboundDocSubmissionDeferredRequest extends AbstractInbo
 
     private static final Logger LOG = Logger.getLogger(PassthroughInboundDocSubmissionDeferredRequest.class);
 
-    private DocSubmissionUtils dsUtils = DocSubmissionUtils.getInstance();
     private MessageGeneratorUtils msgUtils = MessageGeneratorUtils.getInstance();
+    private DocSubmissionUtils dsUtils;
 
     /**
      * Constructor.
      */
     public PassthroughInboundDocSubmissionDeferredRequest() {
-        super(new AdapterDocSubmissionDeferredRequestProxyObjectFactory(), new XDRAuditLogger());
+        this(new AdapterDocSubmissionDeferredRequestProxyObjectFactory(), new XDRAuditLogger(), DocSubmissionUtils
+                .getInstance());
     }
 
     /**

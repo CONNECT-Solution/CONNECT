@@ -48,14 +48,15 @@ public class StandardInboundDocSubmission extends AbstractInboundDocSubmission {
 
     private static final Logger LOG = Logger.getLogger(StandardInboundDocSubmission.class);
     private MessageGeneratorUtils msgUtils = MessageGeneratorUtils.getInstance();
-    private PropertyAccessor propertyAccessor = PropertyAccessor.getInstance();
-    private XDRPolicyChecker policyChecker = new XDRPolicyChecker();
+    private PropertyAccessor propertyAccessor;
+    private XDRPolicyChecker policyChecker;
 
     /**
      * Constructor.
      */
     public StandardInboundDocSubmission() {
-        super(new AdapterDocSubmissionProxyObjectFactory(), new XDRAuditLogger());
+        this(new AdapterDocSubmissionProxyObjectFactory(), new XDRPolicyChecker(), PropertyAccessor.getInstance(),
+                new XDRAuditLogger());
     }
 
     /**

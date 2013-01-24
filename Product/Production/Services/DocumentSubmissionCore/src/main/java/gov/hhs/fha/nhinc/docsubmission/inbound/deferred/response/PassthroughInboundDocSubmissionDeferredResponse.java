@@ -42,7 +42,7 @@ public class PassthroughInboundDocSubmissionDeferredResponse extends AbstractInb
      * Constructor.
      */
     public PassthroughInboundDocSubmissionDeferredResponse() {
-        super(new AdapterDocSubmissionDeferredResponseProxyObjectFactory(), new XDRAuditLogger());
+        this(new AdapterDocSubmissionDeferredResponseProxyObjectFactory(), new XDRAuditLogger());
     }
 
     /**

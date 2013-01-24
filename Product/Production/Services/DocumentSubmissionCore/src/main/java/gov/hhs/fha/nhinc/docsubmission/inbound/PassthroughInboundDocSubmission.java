@@ -44,14 +44,14 @@ import org.apache.log4j.Logger;
 public class PassthroughInboundDocSubmission extends AbstractInboundDocSubmission {
 
     private static final Logger LOG = Logger.getLogger(PassthroughInboundDocSubmission.class);
-    private DocSubmissionUtils dsUtils = DocSubmissionUtils.getInstance();
     private MessageGeneratorUtils msgUtils = MessageGeneratorUtils.getInstance();
+    private DocSubmissionUtils dsUtils;
     
     /**
      * Constructor.
      */
     public PassthroughInboundDocSubmission() {
-        super(new AdapterDocSubmissionProxyObjectFactory(), new XDRAuditLogger());
+        this(new AdapterDocSubmissionProxyObjectFactory(), new XDRAuditLogger(), DocSubmissionUtils.getInstance());
     }
 
     /**

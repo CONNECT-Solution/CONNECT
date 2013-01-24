@@ -47,15 +47,16 @@ import org.apache.log4j.Logger;
 public class StandardInboundDocSubmissionDeferredResponse extends AbstractInboundDocSubmissionDeferredResponse {
 
     private static final Logger LOG = Logger.getLogger(StandardInboundDocSubmissionDeferredResponse.class);
-    private XDRPolicyChecker policyChecker = new XDRPolicyChecker();
-    private PropertyAccessor propertyAccessor = PropertyAccessor.getInstance();
     private MessageGeneratorUtils msgUtils = MessageGeneratorUtils.getInstance();
-
+    private XDRPolicyChecker policyChecker;
+    private PropertyAccessor propertyAccessor;
+    
     /**
      * Constructor.
      */
     public StandardInboundDocSubmissionDeferredResponse() {
-        super(new AdapterDocSubmissionDeferredResponseProxyObjectFactory(), new XDRAuditLogger());
+        this(new AdapterDocSubmissionDeferredResponseProxyObjectFactory(), new XDRPolicyChecker(), PropertyAccessor
+                .getInstance(), new XDRAuditLogger());
     }
 
     /**
