@@ -37,7 +37,6 @@
     </taskdef>
 
     <property name="m2.local.repo.path" value="${user.home}/.m2/repository/"/>
-    <property name="deployment.version" value="4.0.0-SNAPSHOT"/>
     <path id="maven-ant-tasks.classpath" path="${thirdparty.dir}/AntExtraLibs/maven-ant-tasks-2.1.3.jar" />
     <typedef resource="org/apache/maven/artifact/ant/antlib.xml" uri="antlib:org.apache.maven.artifact.ant" classpathref="maven-ant-tasks.classpath" />
     <artifact:localRepository path="${m2.local.repo.path}"></artifact:localRepository>
