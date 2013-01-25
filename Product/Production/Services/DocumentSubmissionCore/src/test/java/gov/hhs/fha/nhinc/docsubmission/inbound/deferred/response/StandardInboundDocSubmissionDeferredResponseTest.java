@@ -99,10 +99,10 @@ public class StandardInboundDocSubmissionDeferredResponseTest {
         assertSame(expectedResponse, actualResponse);
 
         verify(auditLogger).auditAdapterXDRResponse(eq(regResponse), eq(assertion),
-                eq(NhincConstants.AUDIT_LOG_INBOUND_DIRECTION));
+                eq(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION));
 
         verify(auditLogger).auditAdapterAcknowledgement(eq(actualResponse), eq(assertion),
-                eq(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION), eq(NhincConstants.XDR_RESPONSE_ACTION));
+                eq(NhincConstants.AUDIT_LOG_INBOUND_DIRECTION), eq(NhincConstants.XDR_RESPONSE_ACTION));
 
         verify(auditLogger).auditNhinXDRResponse(eq(regResponse), eq(assertion), isNull(NhinTargetSystemType.class),
                 eq(NhincConstants.AUDIT_LOG_INBOUND_DIRECTION), eq(false));
