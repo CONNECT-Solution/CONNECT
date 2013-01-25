@@ -29,7 +29,10 @@ package gov.hhs.fha.nhinc.patientdiscovery.inbound.deferred.response;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertSame;
+import static org.mockito.Matchers.any;
+import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import gov.hhs.fha.nhinc.aspect.InboundProcessingEvent;
@@ -92,10 +95,10 @@ public class PassthroughInboundPatientDiscoveryDeferredResponseTest {
         // Verify
         assertSame(expectedResponse, actualResponse);
 
-        verify(auditLogger).auditAdapterDeferred201306(request, assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION);
+        verify(auditLogger, never()).auditAdapterDeferred201306(any(PRPAIN201306UV02.class), any(AssertionType.class), any(String.class));
 
-        verify(auditLogger).auditAck(actualResponse, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION,
-                NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE);
+        verify(auditLogger, never()).auditAck(any(MCCIIN000002UV01.class), any(AssertionType.class), any(String.class),
+                eq(NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE));
 
         verify(auditLogger).auditNhinDeferred201306(request, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION);
 

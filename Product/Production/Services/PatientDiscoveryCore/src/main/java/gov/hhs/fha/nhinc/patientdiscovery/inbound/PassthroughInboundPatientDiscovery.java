@@ -67,11 +67,7 @@ public class PassthroughInboundPatientDiscovery extends AbstractInboundPatientDi
 
     @Override
     PRPAIN201306UV02 process(PRPAIN201305UV02 body, AssertionType assertion) throws PatientDiscoveryException {
-        auditRequestToAdapter(body, assertion);
-
         PRPAIN201306UV02 response = sendToAdapter(body, assertion);
-
-        auditResponseFromAdapter(response, assertion);
 
         return response;
     }

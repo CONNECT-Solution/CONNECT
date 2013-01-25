@@ -63,11 +63,8 @@ public class PassthroughInboundPatientDiscoveryDeferredRequest extends AbstractI
     }
 
     MCCIIN000002UV01 process(PRPAIN201305UV02 request, AssertionType assertion) {
-        auditRequestToAdapter(request, assertion);
 
         MCCIIN000002UV01 response = sendToAdapter(request, assertion);
-
-        auditResponseFromAdapter(response, assertion);
 
         return response;
     }

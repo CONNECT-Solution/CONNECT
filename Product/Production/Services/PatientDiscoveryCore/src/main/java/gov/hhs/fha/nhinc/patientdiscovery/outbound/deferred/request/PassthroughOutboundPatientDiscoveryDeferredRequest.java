@@ -82,12 +82,8 @@ public class PassthroughOutboundPatientDiscoveryDeferredRequest extends Abstract
             serviceType = "Patient Discovery Deferred Request", version = "1.0")
     public MCCIIN000002UV01 processPatientDiscoveryAsyncReq(PRPAIN201305UV02 request, AssertionType assertion,
             NhinTargetCommunitiesType targets) {
-
-        auditRequestFromAdapter(request, assertion);
         
         MCCIIN000002UV01 response = sendToNhin(request, assertion, targets);
-
-        auditResponseToAdapter(response, assertion);
 
         return response;
     }

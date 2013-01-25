@@ -59,17 +59,17 @@ public abstract class AbstractInboundPatientDiscovery implements InboundPatientD
         auditRequestFromNhin(body, assertion);
 
         PRPAIN201306UV02 response = process(body, assertion);
-
-        auditResponseToNhin(response, assertion);
+            
+        auditResponseToNhin(response, assertion);    
 
         return response;
     }
 
-    private void auditRequestFromNhin(PRPAIN201305UV02 body, AssertionType assertion) {
+    protected void auditRequestFromNhin(PRPAIN201305UV02 body, AssertionType assertion) {
         getAuditLogger().auditNhin201305(body, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION);
     }
 
-    private void auditResponseToNhin(PRPAIN201306UV02 response, AssertionType assertion) {
+    protected void auditResponseToNhin(PRPAIN201306UV02 response, AssertionType assertion) {
         getAuditLogger().auditNhin201306(response, assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION);
     }
 
