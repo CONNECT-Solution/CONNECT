@@ -70,11 +70,11 @@ public abstract class AbstractInboundDocSubmissionDeferredResponse implements In
     }
 
     protected void auditRequestToAdapter(RegistryResponseType body, AssertionType assertion) {
-        auditLogger.auditAdapterXDRResponse(body, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION);
+        auditLogger.auditAdapterXDRResponse(body, assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION);
     }
 
     protected void auditResponseFromAdapter(XDRAcknowledgementType response, AssertionType assertion) {
-        auditLogger.auditAdapterAcknowledgement(response, assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION,
+        auditLogger.auditAdapterAcknowledgement(response, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION,
                 NhincConstants.XDR_RESPONSE_ACTION);
     }
 
