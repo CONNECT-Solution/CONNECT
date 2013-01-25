@@ -1,10 +1,9 @@
 <?xml version="1.0"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0                       http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0                       http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
         <groupId>org.connectopensource</groupId>
         <artifactId>Product</artifactId>
-        <version>4.0.0-SNAPSHOT</version>
+        <version>4.0.0-RC1</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
     <artifactId>Production</artifactId>
@@ -185,7 +184,7 @@
                                     <extraarg>-mark-generated</extraarg>
                                     <!-- next two are a pair -->
                                     <extraarg>-wsdlLocation</extraarg>
-                                    <extraarg></extraarg>
+                                    <extraarg />
                                 </extraargs>
                                 <noAddressBinding>true</noAddressBinding>
                             </defaultOptions>
@@ -242,7 +241,7 @@
                         <id>cobertura-instrument</id>
                         <configuration>
                             <skip>${skip.cobertura}</skip>
-                            <instrumentation></instrumentation>
+                            <instrumentation />
                         </configuration>
                         <goals>
                             <goal>clean</goal>
@@ -293,7 +292,7 @@
                                         </goals>
                                     </pluginExecutionFilter>
                                     <action>
-                                        <ignore></ignore>
+                                        <ignore />
                                     </action>
                                 </pluginExecution>
                                 <pluginExecution>
@@ -310,7 +309,7 @@
                                         </goals>
                                     </pluginExecutionFilter>
                                     <action>
-                                        <ignore></ignore>
+                                        <ignore />
                                     </action>
                                 </pluginExecution>
                             </pluginExecutions>
