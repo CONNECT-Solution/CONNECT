@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-13, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -27,28 +27,15 @@
 package gov.hhs.fha.nhinc.docquery.inbound;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertSame;
-import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import gov.hhs.fha.nhinc.aspect.InboundProcessingEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
-import gov.hhs.fha.nhinc.common.nhinccommon.UserType;
 import gov.hhs.fha.nhinc.docquery.DocQueryAuditLog;
 import gov.hhs.fha.nhinc.docquery.DocQueryPolicyChecker;
-import gov.hhs.fha.nhinc.docquery.DocQueryUnitTestUtil;
 import gov.hhs.fha.nhinc.docquery.adapter.proxy.AdapterDocQueryProxy;
 import gov.hhs.fha.nhinc.docquery.adapter.proxy.AdapterDocQueryProxyObjectFactory;
-import gov.hhs.fha.nhinc.docquery.aspect.AdhocQueryRequestDescriptionBuilder;
-import gov.hhs.fha.nhinc.docquery.aspect.AdhocQueryResponseDescriptionBuilder;
 import gov.hhs.fha.nhinc.gateway.aggregator.document.DocumentConstants;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
-
-import java.lang.reflect.Method;
-
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
 
@@ -58,86 +45,37 @@ import org.junit.Test;
  * @author akong
  * 
  */
-public class StandardInboundDocQueryTest {
+public class StandardInboundDocQueryTest extends InboundDocQueryTest {
     
-    /**
-     * Responding gateway home community id (from gateway.properties).
-     */
-    private static final String RESPONDING_HCID_FORMATTED = "1.2";    
-    
-    /**
-     * Sending gateway home community id (from the assertion org/home community).
-     */
-    private static final String SENDING_HCID_ORG = "urn:oid:7.2";
-    private static final String SENDING_HCID_ORG_FORMATTED = "7.2";
-    private static final String SENDING_HCID_HOME = "urn:oid:7.3";
-    private static final String SENDING_HCID_HOME_FORMATTED = "7.3";
+    private static final int NUM_TIMES_TO_INVOKE_ADAPTER_AUDIT = 1;
 
-    
     @Test
     public void hasInboundProcessingEvent() throws Exception {
-        Class<StandardInboundDocQuery> clazz = StandardInboundDocQuery.class;
-        Method method = clazz.getMethod("respondingGatewayCrossGatewayQuery", AdhocQueryRequest.class,
-                AssertionType.class);
-        InboundProcessingEvent annotation = method.getAnnotation(InboundProcessingEvent.class);
-        assertNotNull(annotation);
-        assertEquals(AdhocQueryRequestDescriptionBuilder.class, annotation.beforeBuilder());
-        assertEquals(AdhocQueryResponseDescriptionBuilder.class, annotation.afterReturningBuilder());
-        assertEquals("Document Query", annotation.serviceType());
-        assertEquals("", annotation.version());
+        hasInboundProcessingEvent(StandardInboundDocQuery.class);
     }
 
-    @Test    
+    @Test
     public void standardInboundDocQueryOrgHcid() {
-        standardInboundDocQuery(getMockAssertion(SENDING_HCID_ORG), SENDING_HCID_ORG_FORMATTED);
+        standardInboundDocQueryHomeHcid(SENDING_HCID_ORG, SENDING_HCID_ORG_FORMATTED);        
     }
     
     @Test    
-    public void standardInboundDocQueryHomeHcid() {
-        standardInboundDocQuery(getMockAssertion(SENDING_HCID_HOME), SENDING_HCID_HOME_FORMATTED);
+    public void standardInboundDocQueryHomeHcid() {        
+        standardInboundDocQueryHomeHcid(SENDING_HCID_HOME, SENDING_HCID_HOME_FORMATTED);        
     }    
 
-    private void standardInboundDocQuery(AssertionType assertion, String sendingHcid) {
-        
-        DocQueryUnitTestUtil.setUpGatewayProperties();        
-        
-        AdhocQueryRequest request = new AdhocQueryRequest();
-        AdhocQueryResponse expectedResponse = new AdhocQueryResponse();
+    private void standardInboundDocQueryHomeHcid(String sendingHcid, String sendingHcidFormatted) {
 
-        AdapterDocQueryProxyObjectFactory mockAdapterFactory = mock(AdapterDocQueryProxyObjectFactory.class);
-        AdapterDocQueryProxy mockAdapterProxy = mock(AdapterDocQueryProxy.class);
-        DocQueryAuditLog mockAuditLogger = mock(DocQueryAuditLog.class);
-        DocQueryPolicyChecker policyChecker = mock(DocQueryPolicyChecker.class);
+        AssertionType mockAssertion = getMockAssertion(sendingHcid);
 
-        when(mockAdapterFactory.getAdapterDocQueryProxy()).thenReturn(mockAdapterProxy);
+        StandardInboundDocQuery standardDocQuery = new StandardInboundDocQuery(policyChecker,
+                getMockAdapterFactory(mockAssertion), mockAuditLogger);
 
-        when(mockAdapterProxy.respondingGatewayCrossGatewayQuery(request, assertion)).thenReturn(expectedResponse);
+        when(policyChecker.checkIncomingPolicy(request, mockAssertion)).thenReturn(true);
 
-        when(policyChecker.checkIncomingPolicy(request, assertion)).thenReturn(true);
-
-        StandardInboundDocQuery standardDocQuery = new StandardInboundDocQuery(policyChecker, mockAdapterFactory,
-                mockAuditLogger);
-        AdhocQueryResponse actualResponse = standardDocQuery.respondingGatewayCrossGatewayQuery(request, assertion);
-
-        assertSame(expectedResponse, actualResponse);
-
-        verify(mockAuditLogger).auditDQRequest(eq(request), eq(assertion),
-                eq(NhincConstants.AUDIT_LOG_INBOUND_DIRECTION), eq(NhincConstants.AUDIT_LOG_NHIN_INTERFACE),
-                eq(sendingHcid));
-
-        verify(mockAuditLogger).auditDQRequest(eq(request), eq(assertion),
-                eq(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION), eq(NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE),
-                eq(RESPONDING_HCID_FORMATTED));
-
-        verify(mockAuditLogger).auditDQResponse(eq(actualResponse), eq(assertion),
-                eq(NhincConstants.AUDIT_LOG_INBOUND_DIRECTION), eq(NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE),
-                eq(RESPONDING_HCID_FORMATTED));
-
-        verify(mockAuditLogger).auditDQResponse(eq(actualResponse), eq(assertion),
-                eq(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION), eq(NhincConstants.AUDIT_LOG_NHIN_INTERFACE),
-                eq(sendingHcid));
+        verifyInboundDocQuery(mockAssertion, sendingHcidFormatted, standardDocQuery, NUM_TIMES_TO_INVOKE_ADAPTER_AUDIT);
     }
-
+    
     @Test
     public void failedPolicy() {
         AdhocQueryRequest request = new AdhocQueryRequest();
@@ -164,15 +102,4 @@ public class StandardInboundDocQueryTest {
 
     }
     
-    private AssertionType getMockAssertion(String hcid) {
-        AssertionType assertion = mock(AssertionType.class);
-        UserType user = mock(UserType.class);
-        HomeCommunityType homeCommunity = mock(HomeCommunityType.class);
-        
-        when(assertion.getUserInfo()).thenReturn(user);
-        when(user.getOrg()).thenReturn(homeCommunity);        
-        when(homeCommunity.getHomeCommunityId()).thenReturn(hcid);
-        return assertion; 
-    }
-
 }
