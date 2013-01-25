@@ -28,6 +28,7 @@ package gov.hhs.fha.nhinc.patientdiscovery.inbound.deferred.response;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.generic.GenericFactory;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.patientcorrelation.nhinc.dao.PDDeferredCorrelationDao;
 import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscovery201306PolicyChecker;
 import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscovery201306Processor;
@@ -102,6 +103,8 @@ public class StandardInboundPatientDiscoveryDeferredResponse extends AbstractInb
     MCCIIN000002UV01 process(PRPAIN201306UV02 request, AssertionType assertion) {
         MCCIIN000002UV01 response = new MCCIIN000002UV01();
         String ackMsg = "";
+        
+        auditRequestToAdapter(request, assertion);
 
         if (isPolicyValid(request, assertion)) {
 
@@ -118,6 +121,8 @@ public class StandardInboundPatientDiscoveryDeferredResponse extends AbstractInb
             LOG.warn(ackMsg);
             response = HL7AckTransforms.createAckErrorFrom201306(request, ackMsg);
         }
+        
+        auditResponseFromAdapter(response, assertion);
 
         return response;
     }
@@ -166,5 +171,14 @@ public class StandardInboundPatientDiscoveryDeferredResponse extends AbstractInb
             ResponseMode respProcessor = responseFactory.getResponseMode();
             respProcessor.processResponse(request, assertion, patientId);
         }
+    }
+    
+    protected void auditRequestToAdapter(PRPAIN201306UV02 request, AssertionType assertion) {
+        getAuditLogger().auditAdapterDeferred201306(request, assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION);
+    }
+
+    protected void auditResponseFromAdapter(MCCIIN000002UV01 response, AssertionType assertion) {
+        getAuditLogger().auditAck(response, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION,
+                NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE);
     }
 }

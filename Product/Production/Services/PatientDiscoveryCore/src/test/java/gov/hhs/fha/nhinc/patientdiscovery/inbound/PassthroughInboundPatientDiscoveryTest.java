@@ -30,7 +30,10 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertSame;
 import static org.mockito.Matchers.eq;
+import static org.mockito.Matchers.any;
+import static org.mockito.Mockito.inOrder;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import gov.hhs.fha.nhinc.aspect.InboundProcessingEvent;
@@ -48,6 +51,7 @@ import java.lang.reflect.Method;
 import org.hl7.v3.PRPAIN201305UV02;
 import org.hl7.v3.PRPAIN201306UV02;
 import org.junit.Test;
+import org.mockito.InOrder;
 
 /**
  * @author akong
@@ -58,8 +62,8 @@ public class PassthroughInboundPatientDiscoveryTest {
     @Test
     public void hasInboundProcessingEvent() throws Exception {
         Class<PassthroughInboundPatientDiscovery> clazz = PassthroughInboundPatientDiscovery.class;
-        Method method = clazz.getMethod("respondingGatewayPRPAIN201305UV02", 
-                PRPAIN201305UV02.class, AssertionType.class);
+        Method method = clazz.getMethod("respondingGatewayPRPAIN201305UV02", PRPAIN201305UV02.class,
+                AssertionType.class);
         InboundProcessingEvent annotation = method.getAnnotation(InboundProcessingEvent.class);
         assertNotNull(annotation);
         assertEquals(PRPAIN201305UV02EventDescriptionBuilder.class, annotation.beforeBuilder());
@@ -67,7 +71,7 @@ public class PassthroughInboundPatientDiscoveryTest {
         assertEquals("Patient Discovery", annotation.serviceType());
         assertEquals("1.0", annotation.version());
     }
-    
+
     @Test
     public void passthroughInboundPatientDiscovery() throws PatientDiscoveryException {
         PRPAIN201305UV02 request = new PRPAIN201305UV02();
@@ -90,16 +94,19 @@ public class PassthroughInboundPatientDiscoveryTest {
 
         assertSame(expectedResponse, actualResponse);
 
-        verify(auditLogger).auditNhin201305(eq(request), eq(assertion), eq(NhincConstants.AUDIT_LOG_INBOUND_DIRECTION));
+        InOrder inOrder = inOrder(auditLogger);
 
-        verify(auditLogger).auditNhin201306(eq(actualResponse), eq(assertion),
-                eq(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION));
-
-        verify(auditLogger).auditAdapter201305(eq(request), eq(assertion),
-                eq(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION));
-
-        verify(auditLogger).auditAdapter201306(eq(actualResponse), eq(assertion),
+        inOrder.verify(auditLogger).auditNhin201305(eq(request), eq(assertion),
                 eq(NhincConstants.AUDIT_LOG_INBOUND_DIRECTION));
+
+        inOrder.verify(auditLogger).auditNhin201306(eq(actualResponse), eq(assertion),
+                eq(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION));
+
+        verify(auditLogger, never()).auditAdapter201305(any(PRPAIN201305UV02.class), any(AssertionType.class),
+                any(String.class));
+
+        verify(auditLogger, never()).auditAdapter201306(any(PRPAIN201306UV02.class), any(AssertionType.class),
+                any(String.class));
     }
 
 }
