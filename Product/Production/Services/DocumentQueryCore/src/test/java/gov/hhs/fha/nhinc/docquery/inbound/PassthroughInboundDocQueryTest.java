@@ -26,29 +26,7 @@
  */
 package gov.hhs.fha.nhinc.docquery.inbound;
 
-import java.lang.reflect.Method;
-
-import gov.hhs.fha.nhinc.aspect.InboundProcessingEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.docquery.DocQueryAuditLog;
-import gov.hhs.fha.nhinc.docquery.adapter.proxy.AdapterDocQueryProxy;
-import gov.hhs.fha.nhinc.docquery.adapter.proxy.AdapterDocQueryProxyObjectFactory;
-import gov.hhs.fha.nhinc.docquery.aspect.AdhocQueryRequestDescriptionBuilder;
-import gov.hhs.fha.nhinc.docquery.aspect.AdhocQueryResponseDescriptionBuilder;
-import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertSame;
-
-import static org.mockito.Mockito.any;
-import static org.mockito.Mockito.eq;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
-import static org.mockito.Mockito.verify;
-
-import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
-import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
 
 import org.junit.Test;
 
@@ -56,55 +34,35 @@ import org.junit.Test;
  * @author akong
  * 
  */
-public class PassthroughInboundDocQueryTest {
+public class PassthroughInboundDocQueryTest extends InboundDocQueryTest {
+    
+    private static final int NUM_TIMES_TO_INVOKE_ADAPTER_AUDIT = 0;
     
     @Test
     public void hasInboundProcessingEvent() throws Exception {
-        Class<PassthroughInboundDocQuery> clazz = PassthroughInboundDocQuery.class;
-        Method method = clazz.getMethod("respondingGatewayCrossGatewayQuery", AdhocQueryRequest.class,
-                AssertionType.class);
-        InboundProcessingEvent annotation = method.getAnnotation(InboundProcessingEvent.class);
-        assertNotNull(annotation);
-        assertEquals(AdhocQueryRequestDescriptionBuilder.class, annotation.beforeBuilder());
-        assertEquals(AdhocQueryResponseDescriptionBuilder.class, annotation.afterReturningBuilder());
-        assertEquals("Document Query", annotation.serviceType());
-        assertEquals("", annotation.version());
+        hasInboundProcessingEvent(PassthroughInboundDocQuery.class);
     }
 
     @Test
-    public void passthroughInboundDocQuery() {
-        AdhocQueryRequest request = new AdhocQueryRequest();
-        AssertionType assertion = new AssertionType();
-        AdhocQueryResponse expectedResponse = new AdhocQueryResponse();
-
-        AdapterDocQueryProxyObjectFactory mockAdapterFactory = mock(AdapterDocQueryProxyObjectFactory.class);
-        AdapterDocQueryProxy mockAdapterProxy = mock(AdapterDocQueryProxy.class);
-        DocQueryAuditLog mockAuditLogger = mock(DocQueryAuditLog.class);
-
-        when(mockAdapterFactory.getAdapterDocQueryProxy()).thenReturn(mockAdapterProxy);
-
-        when(mockAdapterProxy.respondingGatewayCrossGatewayQuery(request, assertion)).thenReturn(expectedResponse);
-
-        PassthroughInboundDocQuery passthroughDocQuery = new PassthroughInboundDocQuery(mockAdapterFactory,
-                mockAuditLogger);
-        AdhocQueryResponse actualResponse = passthroughDocQuery.respondingGatewayCrossGatewayQuery(request, assertion);
-        
-        assertSame(expectedResponse, actualResponse);
-
-        verify(mockAuditLogger).auditDQRequest(eq(request), eq(assertion),
-                eq(NhincConstants.AUDIT_LOG_INBOUND_DIRECTION), eq(NhincConstants.AUDIT_LOG_NHIN_INTERFACE),
-                any(String.class));
-
-        verify(mockAuditLogger).auditDQRequest(eq(request), eq(assertion),
-                eq(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION), eq(NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE),
-                any(String.class));
-
-        verify(mockAuditLogger).auditDQResponse(eq(actualResponse), eq(assertion),
-                eq(NhincConstants.AUDIT_LOG_INBOUND_DIRECTION), eq(NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE),
-                any(String.class));
-
-        verify(mockAuditLogger).auditDQResponse(eq(actualResponse), eq(assertion),
-                eq(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION), eq(NhincConstants.AUDIT_LOG_NHIN_INTERFACE),
-                any(String.class));
+    public void passthroughInboundDocQueryOrgHcid() {
+        passthroughInboundDocQueryHomeHcid(SENDING_HCID_ORG, SENDING_HCID_ORG_FORMATTED);        
     }
+    
+    @Test    
+    public void passthroughInboundDocQueryHomeHcid() {        
+        passthroughInboundDocQueryHomeHcid(SENDING_HCID_HOME, SENDING_HCID_HOME_FORMATTED);        
+    }    
+
+    private void passthroughInboundDocQueryHomeHcid(String sendingHcid, String sendingHcidFormatted) {
+
+        AssertionType mockAssertion = getMockAssertion(sendingHcid);
+
+        PassthroughInboundDocQuery passthroughDocQuery = new PassthroughInboundDocQuery(
+                getMockAdapterFactory(mockAssertion), mockAuditLogger);
+
+        verifyInboundDocQuery(mockAssertion, sendingHcidFormatted, passthroughDocQuery,
+                NUM_TIMES_TO_INVOKE_ADAPTER_AUDIT);
+
+    }    
+
 }
