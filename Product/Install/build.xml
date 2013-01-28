@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="CONNECT.Automated.Installer" default="install" basedir="." xmlns:artifact="antlib:org.apache.maven.artifact.ant">
 
+	<taskdef name="xmltask" classname="com.oopsconsultancy.xmltask.ant.XmlTask"
+             classpath="../../ThirdParty/ant/AntExtraLibs/xmltask-1.16.jar"/>
+			 
     <property name="info.log" value="${basedir}/install.info.log" />
     <property name="debug.log" value="${basedir}/install.debug.log" />
 
@@ -27,7 +30,7 @@
     <property name="sql.scripts.dir" value="${basedir}/../DBScripts/nhincdb" />
     <property name="mysql.executable" value="mysql" />
     <property name="glassfish.zip.file" value="${temp.dir}/glassfish-3.1.2.2.zip" />
-
+	
     <taskdef resource="net/sf/antcontrib/antlib.xml">
         <classpath>
             <fileset dir="${thirdparty.dir}/AntExtraLibs">
@@ -37,6 +40,24 @@
     </taskdef>
 
     <property name="m2.local.repo.path" value="${user.home}/.m2/repository/"/>
+	
+	<condition property="deployment.version.set" else="false">
+      <isset property="deployment.version"/>
+    </condition>
+	<if>
+		<equals arg1="${deployment.version.set}" arg2="false" />
+			<then>
+				<xmltask source="../pom.xml">
+					<copy path="//*[local-name() = 'version']/text()" property="deployment.version"/>
+				</xmltask>
+				<echo message="Deployment version set from ../pom.xml."/>
+			</then>
+	<else>
+		<echo message="Deployment version passed in from properties file / command line."/>
+	</else>
+	</if>
+	<echo message="Deployment version set to: ${deployment.version}"/>
+	
     <path id="maven-ant-tasks.classpath" path="${thirdparty.dir}/AntExtraLibs/maven-ant-tasks-2.1.3.jar" />
     <typedef resource="org/apache/maven/artifact/ant/antlib.xml" uri="antlib:org.apache.maven.artifact.ant" classpathref="maven-ant-tasks.classpath" />
     <artifact:localRepository path="${m2.local.repo.path}"></artifact:localRepository>
