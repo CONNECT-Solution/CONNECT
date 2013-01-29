@@ -72,8 +72,8 @@
                 <include name="*.properties" />
                 <exclude name="pom.xml" />
             </zipfileset>
-            <zipfileset prefix="wsdl" dir="SoapUI_Test/target/wsdl/"/>
-            <zipfileset prefix="schemas" dir="SoapUI_Test/target/schemas/"/>
+            <zipfileset prefix="target/wsdl" dir="SoapUI_Test/target/wsdl/"/>
+            <zipfileset prefix="target/schemas" dir="SoapUI_Test/target/schemas/"/>
             <zipfileset prefix="glassfish_templates" dir="./Install/Glassfish/templates" />
             <zipfileset file="${dist.artifact.dir}/version.txt"/>
         </zip>
