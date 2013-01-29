@@ -91,7 +91,6 @@ public class DocumentQueryClient {
         try {
             url = getUrl();
             if (NullChecker.isNotNullish(url)) {
-                // EntityDocQueryPortType port = getPort(url, WS_ADDRESSING_ACTION, null);
 
                 RespondingGatewayCrossGatewayQueryRequestType request = createAdhocQueryRequest(patientSearchData,
                         creationFromDate, creationToDate);

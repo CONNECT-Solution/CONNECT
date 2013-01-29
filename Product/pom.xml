@@ -242,6 +242,16 @@
                 <artifactId>activation</artifactId>
                 <version>1.1.1</version>
             </dependency>
+			<dependency>
+                <groupId>com.sun.faces.extensions</groupId>
+                <artifactId>jsf-extensions-dynamic-faces</artifactId>
+                <version>0.1</version>
+            </dependency>
+			<dependency>
+                <groupId>com.sun.faces.extensions</groupId>
+                <artifactId>jsf-extensions-common</artifactId>
+                <version>0.1</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
     <build>
