@@ -32,6 +32,14 @@
             </modules>
         </profile>
         <profile>
+            <id>webspherece</id>
+            <modules>
+                <module>ear</module>
+                <module>glassfish</module>
+                <module>webspherece</module>
+            </modules>
+        </profile>
+        <profile>
             <id>websphere</id>
             <modules>
                 <module>ear</module>
