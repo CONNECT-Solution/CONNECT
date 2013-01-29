@@ -99,12 +99,10 @@
         <dependency>
             <groupId>com.sun.faces.extensions</groupId>
             <artifactId>jsf-extensions-dynamic-faces</artifactId>
-            <version>0.2</version>
         </dependency>
         <dependency>
             <groupId>com.sun.faces.extensions</groupId>
             <artifactId>jsf-extensions-common</artifactId>
-            <version>0.2</version>
         </dependency>
         <dependency>
             <groupId>com.forgerock.openam</groupId>
@@ -190,7 +188,6 @@
         <dependency>
             <groupId>cglib</groupId>
             <artifactId>cglib-nodep</artifactId>
-            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.jmock</groupId>
