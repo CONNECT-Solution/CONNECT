@@ -52,7 +52,7 @@ import org.nhindirect.xd.transform.impl.DefaultXdsDirectDocumentsTransformer;
 public class SoapDirectEdgeOrchestration {
 
     private XdsDirectDocumentsTransformer xdsDirectDocumentsTransformer = new DefaultXdsDirectDocumentsTransformer();
-    private DirectSender directSender = new DirectAdapterFactory().getDirectSender();
+    private DirectSender directSender;
     private SoapEdgeAuditor auditor = new SoapEdgeAuditorFactory().getAuditor();
     private ToAddressParser toParser = new ToAddressParserFactory().getToParser();
 
@@ -99,7 +99,7 @@ public class SoapDirectEdgeOrchestration {
         FromAddressParser fromParser = new FromAddressParserFactory().getFromParser();
         Address addressFrom = fromParser.parse(context.getDirectFrom(), documents);
 
-        directSender.sendOutboundDirect(addressFrom, addressTo.toArray(new Address[0]), documents,
+        getDirectSender().sendOutboundDirect(addressFrom, addressTo.toArray(new Address[0]), documents,
                 context.getMessageId());
 
         return new XDCommonResponseHelper().createSuccess();
@@ -111,5 +111,16 @@ public class SoapDirectEdgeOrchestration {
 
     public void setToAddressParser(ToAddressParser toParser) {
         this.toParser = toParser;
+    }
+
+    /**
+     * We do this initialization lazily because the spring configuration is an external dependency we don't set up in
+     * the unit test.
+     */
+    private synchronized DirectSender getDirectSender() {
+        if (directSender == null) {
+            directSender = new DirectAdapterFactory().getDirectSender();
+        }
+        return directSender;
     }
 }
