@@ -32,51 +32,18 @@ import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
 
 /**
  * @author akong
- *
+ * 
  */
-public abstract class AdapterRedactionEngineServicePortDescriptor implements ServicePortDescriptor<AdapterComponentRedactionEnginePortType> {
-    private static final String NAMESPACE_URI = "urn:gov:hhs:fha:nhinc:adaptercomponentredaction";
-    private static final String SERVICE_LOCAL_PART = "AdapterComponentRedactionEngineService";
-    private static final String PORT_LOCAL_PART = "AdapterComponentRedactionEnginePortTypeBindingPort";
-    private static final String WSDL_FILE = "AdapterComponentRedactionEngine.wsdl";
-        
-    /* (non-Javadoc)
-     * @see gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor#getNamespaceUri()
-     */
-    @Override
-    public String getNamespaceUri() {
-        return NAMESPACE_URI;
-    }
+public abstract class AdapterRedactionEngineServicePortDescriptor implements
+        ServicePortDescriptor<AdapterComponentRedactionEnginePortType> {
 
-    /* (non-Javadoc)
-     * @see gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor#getServiceLocalPart()
-     */
-    @Override
-    public String getServiceLocalPart() {
-        return SERVICE_LOCAL_PART;
-    }
-
-    /* (non-Javadoc)
-     * @see gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor#getPortLocalPart()
-     */
-    @Override
-    public String getPortLocalPart() {
-        return PORT_LOCAL_PART;
-    }
-
-    /* (non-Javadoc)
-     * @see gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor#getWSDLFileName()
-     */
-    @Override
-    public String getWSDLFileName() {
-        return WSDL_FILE;
-    }
-
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor#getPortClass()
      */
     @Override
     public Class<AdapterComponentRedactionEnginePortType> getPortClass() {
         return AdapterComponentRedactionEnginePortType.class;
-    }    
+    }
 }

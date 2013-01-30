@@ -95,46 +95,6 @@ public class AdapterPatientDiscoverySecuredAsyncRespServicePortDescriptor implem
     /*
      * (non-Javadoc)
      * 
-     * @see gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor#getNamespaceUri()
-     */
-    @Override
-    public String getNamespaceUri() {
-        return "urn:gov:hhs:fha:nhinc:adapterpatientdiscoverysecuredasyncresp";
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor#getServiceLocalPart()
-     */
-    @Override
-    public String getServiceLocalPart() {
-        return "AdapterPatientDiscoverySecuredAsyncResp";
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor#getPortLocalPart()
-     */
-    @Override
-    public String getPortLocalPart() {
-        return "AdapterPatientDiscoverySecuredAsyncRespPortSoap";
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor#getWSDLFileName()
-     */
-    @Override
-    public String getWSDLFileName() {
-        return "AdapterPatientDiscoverySecuredAsyncResp.wsdl";
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
      * @see gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor#getWSAddressingAction()
      */
     @Override

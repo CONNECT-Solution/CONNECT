@@ -27,48 +27,19 @@
 
 package gov.hhs.fha.nhinc.docsubmission.nhin.deferred.request.proxy20.service;
 
-import ihe.iti.xdr._2007.XDRDeferredRequest20PortType;
 import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
+import ihe.iti.xdr._2007.XDRDeferredRequest20PortType;
 
 /**
  * @author akong
- *
+ * 
  */
-public class NhinDocSubmissionDeferredRequestServicePortDescriptor implements ServicePortDescriptor<XDRDeferredRequest20PortType> {
+public class NhinDocSubmissionDeferredRequestServicePortDescriptor implements
+        ServicePortDescriptor<XDRDeferredRequest20PortType> {
 
-    /* (non-Javadoc)
-     * @see gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor#getNamespaceUri()
-     */
-    @Override
-    public String getNamespaceUri() {
-        return "urn:ihe:iti:xdr:2007";
-    }
-
-    /* (non-Javadoc)
-     * @see gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor#getServiceLocalPart()
-     */
-    @Override
-    public String getServiceLocalPart() {
-        return "XDRDeferredRequest20_Service";
-    }
-
-    /* (non-Javadoc)
-     * @see gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor#getPortLocalPart()
-     */
-    @Override
-    public String getPortLocalPart() {
-        return "XDRDeferredRequest20_Port_Soap";
-    }
-
-    /* (non-Javadoc)
-     * @see gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor#getWSDLFileName()
-     */
-    @Override
-    public String getWSDLFileName() {
-        return "NhinXDRDeferredRequest20.wsdl";
-    }
-
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor#getWSAddressingAction()
      */
     @Override
@@ -76,7 +47,9 @@ public class NhinDocSubmissionDeferredRequestServicePortDescriptor implements Se
         return "urn:nhin:Deferred:ProvideAndRegisterDocumentSet-b";
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor#getPortClass()
      */
     @Override

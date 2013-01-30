@@ -27,6 +27,8 @@
 
 package gov.hhs.fha.nhinc.messaging.service.port;
 
+import javax.xml.ws.soap.SOAPBinding;
+
 import org.apache.cxf.jaxws.JaxWsProxyFactoryBean;
 
 /**
@@ -44,7 +46,7 @@ public class CXFServicePortBuilder<T> implements ServicePortBuilder<T> {
 
     protected void configureJaxWsProxyFactory(JaxWsProxyFactoryBean factory) {
         factory.setServiceClass(serviceEndpointClass);
-        factory.setBindingId("http://www.w3.org/2003/05/soap/bindings/HTTP/");
+        factory.setBindingId(SOAPBinding.SOAP12HTTP_BINDING);
     }
 
     @SuppressWarnings("unchecked")

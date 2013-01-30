@@ -29,19 +29,11 @@ package gov.hhs.fha.nhinc.messaging.service.port;
 
 /**
  * @author akong
- *
+ * 
  */
 public interface ServicePortDescriptor<T> {
 
-    public String getNamespaceUri();
-    
-    public String getServiceLocalPart();
-    
-    public String getPortLocalPart();
-    
-    public String getWSDLFileName();
-    
     public String getWSAddressingAction();
-    
+
     public Class<T> getPortClass();
 }

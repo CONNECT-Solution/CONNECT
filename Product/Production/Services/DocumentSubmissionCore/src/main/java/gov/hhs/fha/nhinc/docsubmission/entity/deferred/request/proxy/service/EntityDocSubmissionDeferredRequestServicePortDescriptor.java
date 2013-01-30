@@ -31,61 +31,18 @@ import gov.hhs.fha.nhinc.nhincentityxdr.async.request.EntityXDRAsyncRequestPortT
 
 /**
  * @author zmelnick
- *
+ * 
  */
 public class EntityDocSubmissionDeferredRequestServicePortDescriptor implements
         ServicePortDescriptor<EntityXDRAsyncRequestPortType> {
 
     private static final String NAMESPACE_URI = "urn:gov:hhs:fha:nhinc:nhincentityxdr:async:request";
-    private static final String SERVICE_LOCAL_PART = "EntityXDRAsyncRequest_Service";
-    private static final String PORT_LOCAL_PART = "EntityXDRAsyncRequest_Port";
-    private static final String WSDL_FILE = "EntityXDRRequest.wsdl";
     private static final String WS_ADDRESSING_ACTION = NAMESPACE_URI + ":"
             + "ProvideAndRegisterDocumentSet-bAsyncRequest_RequestMessage";
 
     /*
      * (non-Javadoc)
-     *
-     * @see gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor#getNamespaceUri()
-     */
-    @Override
-    public String getNamespaceUri() {
-        return NAMESPACE_URI;
-    }
-
-    /*
-     * (non-Javadoc)
-     *
-     * @see gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor#getServiceLocalPart()
-     */
-    @Override
-    public String getServiceLocalPart() {
-        return SERVICE_LOCAL_PART;
-    }
-
-    /*
-     * (non-Javadoc)
-     *
-     * @see gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor#getPortLocalPart()
-     */
-    @Override
-    public String getPortLocalPart() {
-        return PORT_LOCAL_PART;
-    }
-
-    /*
-     * (non-Javadoc)
-     *
-     * @see gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor#getWSDLFileName()
-     */
-    @Override
-    public String getWSDLFileName() {
-        return WSDL_FILE;
-    }
-
-    /*
-     * (non-Javadoc)
-     *
+     * 
      * @see gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor#getWSAddressingAction()
      */
     @Override
@@ -95,7 +52,7 @@ public class EntityDocSubmissionDeferredRequestServicePortDescriptor implements
 
     /*
      * (non-Javadoc)
-     *
+     * 
      * @see gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor#getPortClass()
      */
     @Override

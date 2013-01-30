@@ -27,66 +27,21 @@
 
 package gov.hhs.fha.nhinc.docsubmission.nhin.deferred.request.proxy11.service;
 
-import ihe.iti.xdr._2007.XDRDeferredRequestPortType;
-
 import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
+import ihe.iti.xdr._2007.XDRDeferredRequestPortType;
 
 /**
  * @author akong
- *
+ * 
  */
 public class NhinDocSubmissionDeferredRequestServicePortDescriptor implements
         ServicePortDescriptor<XDRDeferredRequestPortType> {
 
-    private static final String NAMESPACE_URI = "urn:ihe:iti:xdr:2007";
-    private static final String SERVICE_LOCAL_PART = "XDRDeferredRequest_Service";
-    private static final String PORT_LOCAL_PART = "XDRDeferredRequest_Port_Soap";
-    private static final String WSDL_FILE_NAME = "NhinXDRDeferredRequest.wsdl";
     private static final String WS_ADDRESSING_ACTION = "urn:ihe:iti:xdr:2007:Deferred:XDRRequestInputMessage";
 
     /*
      * (non-Javadoc)
-     *
-     * @see gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor#getNamespaceUri()
-     */
-    @Override
-    public String getNamespaceUri() {
-        return NAMESPACE_URI;
-    }
-
-    /*
-     * (non-Javadoc)
-     *
-     * @see gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor#getServiceLocalPart()
-     */
-    @Override
-    public String getServiceLocalPart() {
-        return SERVICE_LOCAL_PART;
-    }
-
-    /*
-     * (non-Javadoc)
-     *
-     * @see gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor#getPortLocalPart()
-     */
-    @Override
-    public String getPortLocalPart() {
-        return PORT_LOCAL_PART;
-    }
-
-    /*
-     * (non-Javadoc)
-     *
-     * @see gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor#getWSDLFileName()
-     */
-    @Override
-    public String getWSDLFileName() {
-        return WSDL_FILE_NAME;
-    }
-
-    /*
-     * (non-Javadoc)
-     *
+     * 
      * @see gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor#getWSAddressingAction()
      */
     @Override
@@ -96,7 +51,7 @@ public class NhinDocSubmissionDeferredRequestServicePortDescriptor implements
 
     /*
      * (non-Javadoc)
-     *
+     * 
      * @see gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor#getPortClass()
      */
     @Override

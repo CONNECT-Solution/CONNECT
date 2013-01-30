@@ -31,35 +31,14 @@ import gov.hhs.fha.nhinc.nhinccomponentauditrepository.AuditRepositoryManagerPor
 
 /**
  * @author akong
- *
+ * 
  */
-public class AuditRepositoryUnsecuredServicePortDescriptor extends AbstractServicePortDescriptor<AuditRepositoryManagerPortType> {
+public class AuditRepositoryUnsecuredServicePortDescriptor extends
+        AbstractServicePortDescriptor<AuditRepositoryManagerPortType> {
 
-    /* (non-Javadoc)
-     * @see gov.hhs.fha.messaging.service.port.ServicePortDescriptor#getServiceLocalPart()
-     */
-    @Override
-    public String getServiceLocalPart() {
-        return "AuditRepositoryManagerService";
-    }
-
-    /* (non-Javadoc)
-     * @see gov.hhs.fha.messaging.service.port.ServicePortDescriptor#getPortLocalPart()
-     */
-    @Override
-    public String getPortLocalPart() {
-        return "AuditRepositoryManagerPort";
-    }
-
-    /* (non-Javadoc)
-     * @see gov.hhs.fha.messaging.service.port.ServicePortDescriptor#getWSDLFileName()
-     */
-    @Override
-    public String getWSDLFileName() {
-        return "NhincComponentAuditRepository.wsdl";
-    }
-
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see gov.hhs.fha.messaging.service.port.ServicePortDescriptor#getWSAddressingAction()
      */
     @Override
@@ -67,7 +46,9 @@ public class AuditRepositoryUnsecuredServicePortDescriptor extends AbstractServi
         return "urn:gov:hhs:fha:nhinc:nhinccomponentauditrepository:LogEventRequest";
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see gov.hhs.fha.messaging.service.port.ServicePortDescriptor#getPortClass()
      */
     @Override

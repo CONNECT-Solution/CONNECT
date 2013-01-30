@@ -32,54 +32,14 @@ import gov.hhs.fha.nhinc.nhincentityxdr.async.response.EntityXDRAsyncResponsePor
 
 /**
  * @author akong
- *
+ * 
  */
 public class EntityDocSubmissionDeferredResponseUnsecuredServicePortDescriptor implements
         ServicePortDescriptor<EntityXDRAsyncResponsePortType> {
 
     /*
      * (non-Javadoc)
-     *
-     * @see gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor#getNamespaceUri()
-     */
-    @Override
-    public String getNamespaceUri() {
-        return "urn:gov:hhs:fha:nhinc:nhincentityxdr:async:response";
-    }
-
-    /*
-     * (non-Javadoc)
-     *
-     * @see gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor#getServiceLocalPart()
-     */
-    @Override
-    public String getServiceLocalPart() {
-        return "EntityXDRAsyncResponse_Service";
-    }
-
-    /*
-     * (non-Javadoc)
-     *
-     * @see gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor#getPortLocalPart()
-     */
-    @Override
-    public String getPortLocalPart() {
-        return "EntityXDRAsyncResponse_Port";
-    }
-
-    /*
-     * (non-Javadoc)
-     *
-     * @see gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor#getWSDLFileName()
-     */
-    @Override
-    public String getWSDLFileName() {
-        return "EntityXDRResponse.wsdl";
-    }
-
-    /*
-     * (non-Javadoc)
-     *
+     * 
      * @see gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor#getWSAddressingAction()
      */
     @Override
@@ -89,7 +49,7 @@ public class EntityDocSubmissionDeferredResponseUnsecuredServicePortDescriptor i
 
     /*
      * (non-Javadoc)
-     *
+     * 
      * @see gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor#getPortClass()
      */
     @Override
