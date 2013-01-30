@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services. 
+ * Copyright (c) 2009-2013, United States Government, as represented by the Secretary of Health and Human Services. 
  * All rights reserved. 
  *
  * Redistribution and use in source and binary forms, with or without 
@@ -26,50 +26,33 @@
  */
 package gov.hhs.fha.nhinc.xdcommon;
 
-import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryError;
-import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryErrorList;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
-import org.apache.commons.lang.exception.ExceptionUtils;
+import org.junit.Test;
 
-/**
- * @author mweaver
- * 
- */
-public class XDCommonResponseHelper {
+public class XDCommonResponseHelperTest {
 
-    public enum ErrorCodes {
-        XDSRegistryError, XDSRepositoryError
+    @Test
+    public void responseFromThrowable() {
+        Throwable t = new Throwable("message");
+        t.fillInStackTrace();
+
+        XDCommonResponseHelper helper = new XDCommonResponseHelper();
+        RegistryResponseType response = helper.createError(t);
+        RegistryError registryError = response.getRegistryErrorList().getRegistryError().get(0);
+        assertEquals("message", registryError.getCodeContext());
+        assertEquals(XDCommonResponseHelper.ErrorCodes.XDSRegistryError.toString(), registryError.getErrorCode());
+        assertStackTracePresent(t, registryError);
     }
 
-    public RegistryResponseType createSuccess() {
-        RegistryResponseType response = new RegistryResponseType();
-        response.setStatus(NhincConstants.NHINC_ADHOC_QUERY_SUCCESS_RESPONSE);
-        return response;
+    private void assertStackTracePresent(Throwable t, RegistryError registryError) {
+        StackTraceElement[] stackTrace = t.getStackTrace();
+        for (int i = 0; i < stackTrace.length; ++i) {
+            assertTrue(registryError.getLocation().contains(stackTrace[i].getClassName()));
+            assertTrue(registryError.getLocation().contains(stackTrace[i].getMethodName()));
+        }
     }
-
-    public RegistryResponseType createError(String message) {
-        return createRegistryResponse(message, ErrorCodes.XDSRegistryError, "CONNECT");
-    }
-
-    public RegistryResponseType createError(Throwable e) {
-        return createRegistryResponse(e.getLocalizedMessage(), ErrorCodes.XDSRegistryError,
-                ExceptionUtils.getFullStackTrace(e));
-    }
-
-    private RegistryResponseType createRegistryResponse(String error, ErrorCodes code, String location) {
-        RegistryResponseType response = new RegistryResponseType();
-        response.setStatus(NhincConstants.XDR_ACK_FAILURE_STATUS_MSG);
-
-        RegistryErrorList registryErrorList = new RegistryErrorList();
-        RegistryError registryError = new RegistryError();
-        registryError.setCodeContext(error);
-        registryError.setErrorCode(code.toString());
-        registryError.setLocation(location);
-        registryErrorList.getRegistryError().add(registryError);
-        response.setRegistryErrorList(registryErrorList);
-        return response;
-    }
-
 }
