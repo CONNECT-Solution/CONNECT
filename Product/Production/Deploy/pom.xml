@@ -32,19 +32,19 @@
             </modules>
         </profile>
         <profile>
-            <id>webspherece</id>
+            <id>wasce</id>
             <modules>
                 <module>ear</module>
                 <module>glassfish</module>
-                <module>webspherece</module>
+                <module>wasce</module>
             </modules>
         </profile>
         <profile>
-            <id>websphere</id>
+            <id>was</id>
             <modules>
                 <module>ear</module>
                 <module>glassfish</module>
-                <module>websphere</module>
+                <module>was</module>
             </modules>
         </profile>
         <profile>
