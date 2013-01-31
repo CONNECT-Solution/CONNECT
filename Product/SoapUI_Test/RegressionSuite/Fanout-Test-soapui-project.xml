@@ -1041,24 +1041,25 @@ nhinc.FileUtils.updateSpringConfig(context.findProperty('GatewayPropDir'), "Adap
 nhinc.FileUtils.updateSpringConfig(context.findProperty('GatewayPropDir'), "AdapterMpiConfig.xml", "mpi", "mpiwsunsecured", "mpiwssecured", log);</con:tearDownScript><con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2013-01-23T20:24:57Z</con:value>
+          <con:value>2013-01-25T15:55:04Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2013-01-23T20:34:57Z</con:value>
+          <con:value>2013-01-25T16:05:04Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>01/23/2013 20:24:57</con:value>
+          <con:value>01/25/2013 15:55:04</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2013-02-22T00:00:00Z</con:value>
+          <con:value>2013-02-24T00:00:00Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
     </con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" id="78fe48f8-26da-4ea7-a912-93458c56fe57" keepSession="false" maxResults="0" name="PD happy path passthrough" searchProperties="true" disabled="true">
       <con:description/><con:settings/>
+      <con:testStep type="manualTestStep" name="PD to passthrough"><con:description>Set PD to passthrough, both inbound and outbound</con:description><con:settings/><con:config xsi:type="con:ManualTestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"/></con:testStep>
       <con:testStep name="Modify gateway.properties" type="groovy">
         <con:settings/>
         <con:config><script>nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'), "gateway.properties", "patientDiscoveryPassthrough", "true", log);</script></con:config>
@@ -1081,8 +1082,7 @@ def destDir = context.findProperty( "GatewayPropDir" );
 def destFile = "uddiConnectionInfo.xml";
 
 nhinc.FileUtils.copyFile(sourceDir, sourceFile, destDir, destFile, log);</script></con:config>
-			</con:testStep>
-      <con:testStep name="modify internalConnectionInfo" type="groovy"><con:settings/><con:config><script>def destConfigFileLocation = context.findProperty("GatewayPropDir");
+			</con:testStep><con:testStep name="modify internalConnectionInfo" type="groovy"><con:settings/><con:config><script>def destConfigFileLocation = context.findProperty("GatewayPropDir");
 def mockHost = context.findProperty("mockHost");
 def localHCID = context.findProperty("LocalHCID");
 def adapPDURL = "http://" + mockHost + ":7785/mockPDAdapter";
@@ -2202,8 +2202,7 @@ nhinc.FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFil
             </con:settings>
             <con:encoding>UTF-8</con:encoding>
             <con:endpoint>${#Project#Endpoint-DocQuery}</con:endpoint>
-            <con:request><![CDATA[
-		<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn3="urn:gov:hhs:fha:nhinc:common:nhinccommon">
+            <con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn3="urn:gov:hhs:fha:nhinc:common:nhinccommon">
    <soap:Header/>
    <soap:Body testSuite="Entity_g1" testCase="Document Query">
       <urn:RespondingGateway_CrossGatewayQueryRequest>
@@ -2220,9 +2219,9 @@ nhinc.FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFil
                      <urn2:Value>('urn:oasis:names:tc:ebxml-regrep:StatusType:Approved')</urn2:Value>
                   </urn2:ValueList>
                </urn2:Slot>
-         <urn2:Slot name="$XDSDocumentEntryClassCode">
-            <urn2:ValueList>
-                    <urn2:Value>34133-9</urn2:Value>
+               <urn2:Slot name="$XDSDocumentEntryClassCode">
+                  <urn2:ValueList>
+                     <urn2:Value>34133-9</urn2:Value>
                   </urn2:ValueList>
                </urn2:Slot>
                <urn2:Slot name="$XDSDocumentEntryClassCodeScheme">
@@ -2420,7 +2419,7 @@ nhinc.FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFil
                <urn3:subjectLocalityAddress>158.147.185.168</urn3:subjectLocalityAddress>
                <urn3:subjectLocalityDNSName>cs.myharris.net</urn3:subjectLocalityDNSName>
             </urn3:samlAuthnStatement>
-         <urn3:samlAuthzDecisionStatement xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
+            <urn3:samlAuthzDecisionStatement xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
                <urn3:decision>Permit</urn3:decision>
                <urn3:resource>https://158.147.185.168:8181/SamlReceiveService/SamlProcessWS</urn3:resource>
                <urn3:action>TestSaml</urn3:action>
@@ -2442,10 +2441,18 @@ nhinc.FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFil
             </urn3:samlAuthzDecisionStatement>
          </urn:assertion>
          <urn:NhinTargetCommunities/>
-            <!--urn3:nhinTargetCommunity>
+         <!--urn:NhinTargetCommunities>
+            <urn3:nhinTargetCommunity>
                <urn3:homeCommunity>
                   <urn3:description>${#Project#RemoteHCDescription}</urn3:description>
-                  <urn3:homeCommunityId>${#Project#RemoteHCID}</urn3:homeCommunityId>
+                  <urn3:homeCommunityId>2.2</urn3:homeCommunityId>
+                  <urn3:name>${#Project#RemoteHCDescription}</urn3:name>
+               </urn3:homeCommunity>
+            </urn3:nhinTargetCommunity>
+            <urn3:nhinTargetCommunity>
+               <urn3:homeCommunity>
+                  <urn3:description>${#Project#RemoteHCDescription}</urn3:description>
+                  <urn3:homeCommunityId>3.3</urn3:homeCommunityId>
                   <urn3:name>${#Project#RemoteHCDescription}</urn3:name>
                </urn3:homeCommunity>
             </urn3:nhinTargetCommunity>
@@ -2468,19 +2475,394 @@ nhinc.FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFil
       </con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);</con:setupScript><con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);</con:tearDownScript><con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2013-01-23T20:25:23Z</con:value>
+          <con:value>2013-01-28T13:41:06Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2013-01-23T20:35:23Z</con:value>
+          <con:value>2013-01-28T13:51:06Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>01/23/2013 20:25:23</con:value>
+          <con:value>01/28/2013 13:41:06</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2013-02-22T00:00:00Z</con:value>
+          <con:value>2013-02-27T00:00:00Z</con:value>
+        </con:property>
+      </con:properties>
+      <con:reportParameters/>
+    </con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="DQ no mock passthrough" searchProperties="true" disabled="true">
+      <con:settings/>
+      
+      <con:testStep type="manualTestStep" name="DQ to passthrough"><con:description>Set DQ to passthrough, both inbound and outbound</con:description><con:settings/><con:config xsi:type="con:ManualTestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"/></con:testStep>
+      
+      <con:testStep name="Modify gateway.properties" type="groovy">
+        <con:settings/>
+        <con:config><script>nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'), "gateway.properties", "documentQueryQuerySelf", "false", log);</script></con:config>
+      </con:testStep><con:testStep name="Clear Correlation Table &amp; Add Correlation" type="groovy">
+        <con:settings/>
+        <con:config><script>context.withSql('PatientCorrelationDB') { sql -> 
+  def table = context.findProperty('PatientCorrelationTable')
+  
+  sql.execute('delete from ' + table)
+
+  def localAA = context.findProperty( "LocalAA" )
+  def localPatientID = context.findProperty("LocalPatientID")
+  def remoteAA = context.findProperty( "RemoteAA" )
+  def remotePatientID = context.findProperty("RemotePatientID")
+  def insertSql = "insert into " + table + " (PatientAssigningAuthorityId, PatientId, CorrelatedPatientAssignAuthId, CorrelatedPatientId) " + 
+                   "values (?, ?, ?, ?)"
+//  sql.executeUpdate(insertSql, [remoteAA, remotePatientID, localAA, localPatientID])
+  sql.executeUpdate(insertSql, ["2.2", remotePatientID, localAA, localPatientID])
+  sql.executeUpdate(insertSql, ["3.3", remotePatientID, localAA, localPatientID])
+  sql.executeUpdate(insertSql, ["4.4", remotePatientID, localAA, localPatientID])
+  sql.executeUpdate(insertSql, ["5.5", remotePatientID, localAA, localPatientID])
+  sql.executeUpdate(insertSql, ["6.6", remotePatientID, localAA, localPatientID])
+  sql.executeUpdate(insertSql, ["7.7", remotePatientID, localAA, localPatientID])
+  sql.executeUpdate(insertSql, ["8.8", remotePatientID, localAA, localPatientID])
+  sql.executeUpdate(insertSql, [localAA, localPatientID, "2.2", remotePatientID])
+  sql.executeUpdate(insertSql, [localAA, localPatientID, "3.3", remotePatientID])
+  sql.executeUpdate(insertSql, [localAA, localPatientID, "4.4", remotePatientID])
+}</script></con:config>
+      </con:testStep><con:testStep name="Clear AA Mapping Table &amp; Add Mapping" type="groovy">
+        <con:settings/>
+        <con:config><script>context.withSql('AAMappingDB') { sql -> 
+  def table = context.findProperty('AAMappingTable')
+  
+  sql.execute('delete from ' + table)
+
+  def remoteAA = context.findProperty( "RemoteAA" )
+  def remoteHCID = context.findProperty("RemoteHCID")
+  def insertSql = "insert into " + table + " (assigningauthorityid, homecommunityid) " + 
+                   "values (?, ?)"
+//  sql.executeUpdate(insertSql, [remoteAA, remoteHCID])
+  sql.executeUpdate(insertSql, ["2.2", "2.2"])
+  sql.executeUpdate(insertSql, ["3.3", "3.3"])
+  sql.executeUpdate(insertSql, ["4.4", "4.4"])
+  sql.executeUpdate(insertSql, ["5.5", "5.5"])
+  sql.executeUpdate(insertSql, ["6.6", "6.6"])
+  sql.executeUpdate(insertSql, ["7.7", "7.7"])
+  sql.executeUpdate(insertSql, ["8.8", "8.8"])
+}</script></con:config>
+      </con:testStep><con:testStep name="copy uddiConnectionInfo" type="groovy">
+				<con:settings/>
+				<con:config><script>def sourceDir =  (new com.eviware.soapui.support.GroovyUtils(context)).projectPath;
+def sourceFile = "uddiConnectionInfo_FANOUT.xml";
+def destDir = context.findProperty( "GatewayPropDir" );
+def destFile = "uddiConnectionInfo.xml";
+
+nhinc.FileUtils.copyFile(sourceDir, sourceFile, destDir, destFile, log);</script></con:config>
+			</con:testStep><con:testStep name="modify uddiConnectionInfo" type="groovy"><con:settings/><con:config><script>def destConfigFileLocation = context.findProperty("GatewayPropDir");
+def mockHost = context.findProperty("mockHost");
+def localHCID = context.findProperty("LocalHCID");
+
+def DQURL = "https://" + mockHost + ":8181/Gateway/DocumentQuery/2_0/NhinService/RespondingGateway_Query_Service/DocQuery";
+
+nhinc.FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocation, "1.1", "QueryForDocuments", DQURL, "2.0", log);
+nhinc.FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocation, "2.2", "QueryForDocuments", DQURL, "2.0", log);
+nhinc.FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocation, "3.3", "QueryForDocuments", DQURL, "2.0", log);
+nhinc.FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocation, "4.4", "QueryForDocuments", DQURL, "2.0", log);
+nhinc.FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocation, "5.5", "QueryForDocuments", DQURL, "2.0", log);
+nhinc.FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocation, "6.6", "QueryForDocuments", DQURL, "2.0", log);
+nhinc.FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocation, "7.7", "QueryForDocuments", DQURL, "2.0", log);
+nhinc.FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocation, "8.8", "QueryForDocuments", DQURL, "2.0", log);</script></con:config></con:testStep><con:testStep name="Document Query fanout" type="request">
+        <con:settings/>
+        <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+          <con:interface>EntityDocQueryBindingSoap</con:interface>
+          <con:operation>RespondingGateway_CrossGatewayQuery</con:operation>
+          <con:request name="Document Query fanout">
+            <con:settings>
+              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
+            </con:settings>
+            <con:encoding>UTF-8</con:encoding>
+            <con:endpoint>${#Project#Endpoint-DocQuery}</con:endpoint>
+            <con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn3="urn:gov:hhs:fha:nhinc:common:nhinccommon">
+   <soap:Header/>
+   <soap:Body testSuite="Entity_g1" testCase="Document Query">
+      <urn:RespondingGateway_CrossGatewayQueryRequest>
+         <urn1:AdhocQueryRequest federated="false" startIndex="0" maxResults="-1">
+            <urn1:ResponseOption returnType="LeafClass" returnComposedObjects="false"/>
+            <urn2:AdhocQuery home="urn:oid:1.1" id="urn:uuid:14d4debf-8f97-4251-9a74-a90016b0af0d">
+               <urn2:Slot name="$XDSDocumentEntryPatientId">
+                  <urn2:ValueList>
+                     <urn2:Value>'${#Project#DQPatientID}^^^&amp;${#Project#LocalAA}&amp;ISO'</urn2:Value>
+                  </urn2:ValueList>
+               </urn2:Slot>
+               <urn2:Slot name="$XDSDocumentEntryStatus">
+                  <urn2:ValueList>
+                     <urn2:Value>('urn:oasis:names:tc:ebxml-regrep:StatusType:Approved')</urn2:Value>
+                  </urn2:ValueList>
+               </urn2:Slot>
+               <urn2:Slot name="$XDSDocumentEntryClassCode">
+                  <urn2:ValueList>
+                     <urn2:Value>34133-9</urn2:Value>
+                  </urn2:ValueList>
+               </urn2:Slot>
+               <urn2:Slot name="$XDSDocumentEntryClassCodeScheme">
+                  <urn2:ValueList>
+                     <urn2:Value>2.16.840.1.113883.6.1</urn2:Value>
+                  </urn2:ValueList>
+               </urn2:Slot>
+            </urn2:AdhocQuery>
+         </urn1:AdhocQueryRequest>
+         <urn:assertion>
+            <urn3:address xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
+               <urn3:addressType>
+                  <urn3:code>AddrCode</urn3:code>
+                  <urn3:codeSystem>AddrCodeSyst</urn3:codeSystem>
+                  <urn3:codeSystemName>AddrCodeSystName</urn3:codeSystemName>
+                  <urn3:codeSystemVersion>1.0</urn3:codeSystemVersion>
+                  <urn3:displayName>AddrCode</urn3:displayName>
+                  <urn3:originalText>AddrCode</urn3:originalText>
+               </urn3:addressType>
+               <urn3:city>AddrCity</urn3:city>
+               <urn3:country>AddrCountry</urn3:country>
+               <urn3:state>AddrState</urn3:state>
+               <urn3:streetAddress>AddrStreet</urn3:streetAddress>
+               <urn3:zipCode>AddrZip</urn3:zipCode>
+            </urn3:address>
+            <urn3:dateOfBirth xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">06/04/1959 05:21:00</urn3:dateOfBirth>
+            <urn3:explanationNonClaimantSignature xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">Electronic</urn3:explanationNonClaimantSignature>
+            <urn3:haveSecondWitnessSignature xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">false</urn3:haveSecondWitnessSignature>
+            <urn3:haveSignature xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">false</urn3:haveSignature>
+            <urn3:haveWitnessSignature xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">false</urn3:haveWitnessSignature>
+            <urn3:homeCommunity xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
+               <urn3:description>${#Project#LocalHCDescription}</urn3:description>
+               <urn3:homeCommunityId>${#Project#LocalHCID}</urn3:homeCommunityId>
+               <urn3:name>${#Project#LocalHCDescription}</urn3:name>
+            </urn3:homeCommunity>
+            <urn3:personName xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
+               <urn3:familyName>Smith</urn3:familyName>
+               <urn3:givenName>Sandy</urn3:givenName>
+               <urn3:nameType>
+                  <urn3:code>nameCode</urn3:code>
+                  <urn3:codeSystem>nameCodeSyst</urn3:codeSystem>
+                  <urn3:codeSystemName>nameCodeSystName</urn3:codeSystemName>
+                  <urn3:codeSystemVersion>1.0</urn3:codeSystemVersion>
+                  <urn3:displayName>nameCode</urn3:displayName>
+                  <urn3:originalText>nameCode</urn3:originalText>
+               </urn3:nameType>
+               <urn3:secondNameOrInitials>S</urn3:secondNameOrInitials>
+               <urn3:fullName>Sandy S. Smith</urn3:fullName>
+            </urn3:personName>
+            <urn3:phoneNumber xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
+               <urn3:areaCode>321</urn3:areaCode>
+               <urn3:countryCode>1</urn3:countryCode>
+               <urn3:extension>5436</urn3:extension>
+               <urn3:localNumber>253-6849</urn3:localNumber>
+               <urn3:phoneNumberType>
+                  <urn3:code>phoneCode</urn3:code>
+                  <urn3:codeSystem>phoneCodeSyst</urn3:codeSystem>
+                  <urn3:codeSystemName>phoneCodeSystName</urn3:codeSystemName>
+                  <urn3:codeSystemVersion>1.0</urn3:codeSystemVersion>
+                  <urn3:displayName>phoneCode</urn3:displayName>
+                  <urn3:originalText>phoneCode</urn3:originalText>
+               </urn3:phoneNumberType>
+            </urn3:phoneNumber>
+            <urn3:secondWitnessAddress xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
+               <urn3:addressType>
+                  <urn3:code>AddrCode</urn3:code>
+                  <urn3:codeSystem>AddrCodeSyst</urn3:codeSystem>
+                  <urn3:codeSystemName>AddrCodeSystName</urn3:codeSystemName>
+                  <urn3:codeSystemVersion>1.0</urn3:codeSystemVersion>
+                  <urn3:displayName>AddrCode</urn3:displayName>
+                  <urn3:originalText>AddrCode</urn3:originalText>
+               </urn3:addressType>
+               <urn3:city>Addr2City</urn3:city>
+               <urn3:country>Addr2Country</urn3:country>
+               <urn3:state>Addr2State</urn3:state>
+               <urn3:streetAddress>Addr2Street</urn3:streetAddress>
+               <urn3:zipCode>Addr2Zip</urn3:zipCode>
+            </urn3:secondWitnessAddress>
+            <urn3:secondWitnessName xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
+               <urn3:familyName>Smith</urn3:familyName>
+               <urn3:givenName>Sammy</urn3:givenName>
+               <urn3:nameType>
+                  <urn3:code>nameCode</urn3:code>
+                  <urn3:codeSystem>nameCodeSyst</urn3:codeSystem>
+                  <urn3:codeSystemName>nameCodeSystName</urn3:codeSystemName>
+                  <urn3:codeSystemVersion>1.0</urn3:codeSystemVersion>
+                  <urn3:displayName>nameCode</urn3:displayName>
+                  <urn3:originalText>nameCode</urn3:originalText>
+               </urn3:nameType>
+               <urn3:secondNameOrInitials>s</urn3:secondNameOrInitials>
+               <urn3:fullName>Sammy S. Smith</urn3:fullName>
+            </urn3:secondWitnessName>
+            <urn3:secondWitnessPhone xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
+               <urn3:areaCode>321</urn3:areaCode>
+               <urn3:countryCode>1</urn3:countryCode>
+               <urn3:extension>5424</urn3:extension>
+               <urn3:localNumber>542-6823</urn3:localNumber>
+               <urn3:phoneNumberType>
+                  <urn3:code>phoneCode</urn3:code>
+                  <urn3:codeSystem>phoneCodeSyst</urn3:codeSystem>
+                  <urn3:codeSystemName>phoneCodeSystName</urn3:codeSystemName>
+                  <urn3:codeSystemVersion>1.0</urn3:codeSystemVersion>
+                  <urn3:displayName>phoneCode</urn3:displayName>
+                  <urn3:originalText>phoneCode</urn3:originalText>
+               </urn3:phoneNumberType>
+            </urn3:secondWitnessPhone>
+            <urn3:SSN xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">253-98-7546</urn3:SSN>
+            <urn3:uniquePatientId xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">500000000^^^&amp;1.1&amp;ISO</urn3:uniquePatientId>
+            <urn3:witnessAddress xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
+               <urn3:addressType>
+                  <urn3:code>addrCode</urn3:code>
+                  <urn3:codeSystem>addrCodeSyst</urn3:codeSystem>
+                  <urn3:codeSystemName>addrCodeSystName</urn3:codeSystemName>
+                  <urn3:codeSystemVersion>1.0</urn3:codeSystemVersion>
+                  <urn3:displayName>addrCode</urn3:displayName>
+                  <urn3:originalText>addrCode</urn3:originalText>
+               </urn3:addressType>
+               <urn3:city>Burnell</urn3:city>
+               <urn3:country>USA</urn3:country>
+               <urn3:state>FL</urn3:state>
+               <urn3:streetAddress>825 North</urn3:streetAddress>
+               <urn3:zipCode>32184</urn3:zipCode>
+            </urn3:witnessAddress>
+            <urn3:witnessName xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
+               <urn3:familyName>Smith</urn3:familyName>
+               <urn3:givenName>Scott</urn3:givenName>
+               <urn3:nameType>
+                  <urn3:code>nameCode</urn3:code>
+                  <urn3:codeSystem>nameCodeSyst</urn3:codeSystem>
+                  <urn3:codeSystemName>nameCodeSystName</urn3:codeSystemName>
+                  <urn3:codeSystemVersion>1.0</urn3:codeSystemVersion>
+                  <urn3:displayName>nameCode</urn3:displayName>
+                  <urn3:originalText>nameCode</urn3:originalText>
+               </urn3:nameType>
+               <urn3:secondNameOrInitials>S.</urn3:secondNameOrInitials>
+               <urn3:fullName>Scott S. Smith</urn3:fullName>
+            </urn3:witnessName>
+            <urn3:witnessPhone xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
+               <urn3:areaCode>321</urn3:areaCode>
+               <urn3:countryCode>1</urn3:countryCode>
+               <urn3:extension>8432</urn3:extension>
+               <urn3:localNumber>985-2239</urn3:localNumber>
+               <urn3:phoneNumberType>
+                  <urn3:code>phoneCode</urn3:code>
+                  <urn3:codeSystem>phoneCodeSyst</urn3:codeSystem>
+                  <urn3:codeSystemName>phoneCodeSystName</urn3:codeSystemName>
+                  <urn3:codeSystemVersion>1.0</urn3:codeSystemVersion>
+                  <urn3:displayName>phoneCode</urn3:displayName>
+                  <urn3:originalText>phoneCode</urn3:originalText>
+               </urn3:phoneNumberType>
+            </urn3:witnessPhone>
+            <urn3:userInfo xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
+               <urn3:personName>
+                  <urn3:familyName>Skagerberg</urn3:familyName>
+                  <urn3:givenName>Karl</urn3:givenName>
+                  <urn3:nameType>
+                     <urn3:code>nameCode</urn3:code>
+                     <urn3:codeSystem>nameCodeSyst</urn3:codeSystem>
+                     <urn3:codeSystemName>nameCodeSystName</urn3:codeSystemName>
+                     <urn3:codeSystemVersion>1.0</urn3:codeSystemVersion>
+                     <urn3:displayName>nameCode</urn3:displayName>
+                     <urn3:originalText>nameCode</urn3:originalText>
+                  </urn3:nameType>
+                  <urn3:secondNameOrInitials>S</urn3:secondNameOrInitials>
+                  <urn3:fullName>Kasrl S. Skagerberg</urn3:fullName>
+               </urn3:personName>
+               <urn3:userName>kskagerberg</urn3:userName>
+               <urn3:org>
+                  <urn3:description>${#Project#LocalHCDescription}</urn3:description>
+                  <urn3:homeCommunityId>${#Project#LocalHCID}</urn3:homeCommunityId>
+                  <urn3:name>${#Project#LocalHCDescription}</urn3:name>
+               </urn3:org>
+               <urn3:roleCoded>
+                  <urn3:code>307969004</urn3:code>
+                  <urn3:codeSystem>2.16.840.1.113883.6.96</urn3:codeSystem>
+                  <urn3:codeSystemName>SNOMED_CT</urn3:codeSystemName>
+                  <urn3:codeSystemVersion>1.0</urn3:codeSystemVersion>
+                  <urn3:displayName>Public Health</urn3:displayName>
+                  <urn3:originalText>Public Health</urn3:originalText>
+               </urn3:roleCoded>
+            </urn3:userInfo>
+            <urn3:authorized xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">true</urn3:authorized>
+            <urn3:purposeOfDisclosureCoded xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
+               <urn3:code>PUBLICHEALTH</urn3:code>
+               <urn3:codeSystem>2.16.840.1.113883.3.18.7.1</urn3:codeSystem>
+               <urn3:codeSystemName>nhin-purpose</urn3:codeSystemName>
+               <urn3:codeSystemVersion>1.0</urn3:codeSystemVersion>
+               <urn3:displayName>Use or disclosure of Psychotherapy Notes</urn3:displayName>
+               <urn3:originalText>Use or disclosure of Psychotherapy Notes</urn3:originalText>
+            </urn3:purposeOfDisclosureCoded>
+            <urn3:samlAuthnStatement xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
+               <urn3:authInstant>2009-04-16T13:15:39Z</urn3:authInstant>
+               <urn3:sessionIndex>987</urn3:sessionIndex>
+               <urn3:authContextClassRef>urn:oasis:names:tc:SAML:2.0:ac:classes:X509</urn3:authContextClassRef>
+               <urn3:subjectLocalityAddress>158.147.185.168</urn3:subjectLocalityAddress>
+               <urn3:subjectLocalityDNSName>cs.myharris.net</urn3:subjectLocalityDNSName>
+            </urn3:samlAuthnStatement>
+            <urn3:samlAuthzDecisionStatement xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
+               <urn3:decision>Permit</urn3:decision>
+               <urn3:resource>https://158.147.185.168:8181/SamlReceiveService/SamlProcessWS</urn3:resource>
+               <urn3:action>TestSaml</urn3:action>
+               <urn3:evidence>
+                  <urn3:assertion>
+                     <urn3:id>40df7c0a-ff3e-4b26-baeb-f2910f6d05a9</urn3:id>
+                     <urn3:issueInstant>2009-04-16T13:10:39.093Z</urn3:issueInstant>
+                     <urn3:version>2.0</urn3:version>
+                     <urn3:issuerFormat>urn:oasis:names:tc:SAML:1.1:nameid-format:X509SubjectName</urn3:issuerFormat>
+                     <urn3:issuer>CN=SAML User,OU=Harris,O=HITS,L=Melbourne,ST=FL,C=US</urn3:issuer>
+                     <urn3:conditions>
+                        <urn3:notBefore>2009-04-16T13:10:39.093Z</urn3:notBefore>
+                        <urn3:notOnOrAfter>2009-12-31T12:00:00.000Z</urn3:notOnOrAfter>
+                     </urn3:conditions>
+                     <urn3:accessConsentPolicy>urn:oid:1.2.3.4</urn3:accessConsentPolicy>
+                     <urn3:instanceAccessConsentPolicy>urn:oid:1.2.3.4.123456789</urn3:instanceAccessConsentPolicy>
+                  </urn3:assertion>
+               </urn3:evidence>
+            </urn3:samlAuthzDecisionStatement>
+         </urn:assertion>
+         <!--urn:NhinTargetCommunities/-->
+         <urn:NhinTargetCommunities>
+            <urn3:nhinTargetCommunity>
+               <urn3:homeCommunity>
+                  <urn3:description>${#Project#RemoteHCDescription}</urn3:description>
+                  <urn3:homeCommunityId>2.2</urn3:homeCommunityId>
+                  <urn3:name>${#Project#RemoteHCDescription}</urn3:name>
+               </urn3:homeCommunity>
+            </urn3:nhinTargetCommunity>
+            <urn3:nhinTargetCommunity>
+               <urn3:homeCommunity>
+                  <urn3:description>${#Project#RemoteHCDescription}</urn3:description>
+                  <urn3:homeCommunityId>3.3</urn3:homeCommunityId>
+                  <urn3:name>${#Project#RemoteHCDescription}</urn3:name>
+               </urn3:homeCommunity>
+            </urn3:nhinTargetCommunity>
+         </urn:NhinTargetCommunities>
+      </urn:RespondingGateway_CrossGatewayQueryRequest>
+   </soap:Body>
+</soap:Envelope>]]></con:request>
+            <con:assertion type="SOAP Response"/>
+            <con:assertion type="Schema Compliance">
+              <con:configuration/>
+            </con:assertion>
+            <con:assertion type="SOAP Fault Assertion"/>
+            
+            <con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+            <con:jmsPropertyConfig/>
+            <con:wsaConfig mustUnderstand="NONE" version="200508"/>
+            <con:wsrmConfig version="1.2"/>
+          </con:request>
+        </con:config>
+      </con:testStep><con:testStep type="manualTestStep" name="Check log"><con:description>Check the log for the line:
+WARN   PassthroughOutboundDocQuery     Multiple targets in request message in passthrough mode.  Only sending to target HCID: 2.2.  Not sending request to: 3.3.</con:description><con:settings/><con:config xsi:type="con:ManualTestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"/></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);</con:setupScript><con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);</con:tearDownScript><con:properties>
+        <con:property>
+          <con:name>startDate</con:name>
+          <con:value>2013-01-28T13:41:06Z</con:value>
+        </con:property>
+        <con:property>
+          <con:name>endDate</con:name>
+          <con:value>2013-01-28T13:51:06Z</con:value>
+        </con:property>
+        <con:property>
+          <con:name>sigDate</con:name>
+          <con:value>01/28/2013 13:41:06</con:value>
+        </con:property>
+        <con:property>
+          <con:name>expireDate</con:name>
+          <con:value>2013-02-27T00:00:00Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
