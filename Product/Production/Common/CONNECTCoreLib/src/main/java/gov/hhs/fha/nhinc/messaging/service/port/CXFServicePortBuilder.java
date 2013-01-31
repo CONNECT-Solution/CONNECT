@@ -40,12 +40,12 @@ public class CXFServicePortBuilder<T> implements ServicePortBuilder<T> {
     protected Class<T> serviceEndpointClass;
 
     public CXFServicePortBuilder(ServicePortDescriptor<T> portDescriptor) {
-        super();
         this.serviceEndpointClass = portDescriptor.getPortClass();
     }
 
     protected void configureJaxWsProxyFactory(JaxWsProxyFactoryBean factory) {
         factory.setServiceClass(serviceEndpointClass);
+        // TODO: pull binding id from portDescriptor (if set)
         factory.setBindingId(SOAPBinding.SOAP12HTTP_BINDING);
     }
 

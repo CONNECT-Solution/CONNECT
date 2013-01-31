@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services. 
+ * Copyright (c) 2009-2013, United States Government, as represented by the Secretary of Health and Human Services. 
  * All rights reserved. 
  *
  * Redistribution and use in source and binary forms, with or without 
@@ -24,35 +24,17 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
  */
-
 package gov.hhs.fha.nhinc.messaging.service.port;
 
 import javax.xml.ws.soap.SOAPBinding;
 
 /**
- * @author akong
- * 
+ * Adapter class that forces the SOAP 1.2 binding type.
  */
-public interface ServicePortDescriptor<T> {
+public abstract class SOAP12ServicePortDescriptor<T> implements ServicePortDescriptor<T> {
 
-    /**
-     * @return the addressing action, or <code>null</code> if ws addressis is not applicable
-     */
-    String getWSAddressingAction();
-
-    /**
-     * @return the implementation class. Never <code>null</code>.
-     */
-    Class<T> getPortClass();
-
-    /**
-     * Forces the constructed port to use a particular soap binding. May be null, in which case the port will use the
-     * value found from the port class's annotations.
-     * 
-     * @See {@link SOAPBinding}
-     * 
-     * @return <code>SOAPBinding.SOAP11HTTP_BINDING</code>, <code>SOAPBinding.SOAP12HTTP_BINDING</code>, or
-     *         <code>null</code>.
-     */
-    String getSOAPBindingVersion();
+    @Override
+    public final String getSOAPBindingVersion() {
+        return SOAPBinding.SOAP12HTTP_BINDING;
+    }
 }
