@@ -29,20 +29,8 @@ package gov.hhs.fha.nhinc.admindistribution.entity.proxy.service;
 
 /**
  * @author akong
- *
+ * 
  */
 public class EntityAdminDistributionG1SecuredServicePortDescriptor extends
         EntityAdminDistributionSecuredServicePortDescriptor {
-
-    private static final String WSDL_FILE_G1 = "EntityAdminDistSecured_g1.wsdl";
-
-    /*
-     * (non-Javadoc)
-     *
-     * @see gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor#getWSDLFileName()
-     */
-    @Override
-    public String getWSDLFileName() {
-        return WSDL_FILE_G1;
-    }
 }

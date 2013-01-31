@@ -28,47 +28,17 @@
 package gov.hhs.fha.nhinc.docsubmission.adapter.proxy.service;
 
 import gov.hhs.fha.nhinc.adapterxdr.AdapterXDRPortType;
-import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
+import gov.hhs.fha.nhinc.messaging.service.port.SOAP12ServicePortDescriptor;
 
 /**
  * @author akong
- *
+ * 
  */
-public class AdapterDocSubmissionUnsecuredServicePortDescriptor implements ServicePortDescriptor<AdapterXDRPortType> {
+public class AdapterDocSubmissionUnsecuredServicePortDescriptor extends SOAP12ServicePortDescriptor<AdapterXDRPortType> {
 
-    /* (non-Javadoc)
-     * @see gov.hhs.fha.messaging.service.port.ServicePortDescriptor#getNamespaceUri()
-     */
-    @Override
-    public String getNamespaceUri() {
-        return "urn:gov:hhs:fha:nhinc:adapterxdr";
-    }
-
-    /* (non-Javadoc)
-     * @see gov.hhs.fha.messaging.service.port.ServicePortDescriptor#getServiceLocalPart()
-     */
-    @Override
-    public String getServiceLocalPart() {
-        return "AdapterXDR_Service";
-    }
-
-    /* (non-Javadoc)
-     * @see gov.hhs.fha.messaging.service.port.ServicePortDescriptor#getPortLocalPart()
-     */
-    @Override
-    public String getPortLocalPart() {
-        return "AdapterXDR_Port";
-    }
-
-    /* (non-Javadoc)
-     * @see gov.hhs.fha.messaging.service.port.ServicePortDescriptor#getWSDLFileName()
-     */
-    @Override
-    public String getWSDLFileName() {
-        return "AdapterXDR.wsdl";
-    }
-
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see gov.hhs.fha.messaging.service.port.ServicePortDescriptor#getWSAddressingAction()
      */
     @Override
@@ -76,7 +46,9 @@ public class AdapterDocSubmissionUnsecuredServicePortDescriptor implements Servi
         return "urn:gov:hhs:fha:nhinc:adapterxdr:ProvideAndRegisterDocumentSet-b";
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see gov.hhs.fha.messaging.service.port.ServicePortDescriptor#getPortClass()
      */
     @Override

@@ -29,18 +29,7 @@ package gov.hhs.fha.nhinc.admindistribution.nhin.proxy.service;
 
 /**
  * @author akong
- *
+ * 
  */
 public class NhinAdminDistributionG0ServicePortDescriptor extends NhinAdminDistributionServicePortDescriptor {
-
-    private static final String WSDL_FILE_G0 = "NhinAdminDist.wsdl";
-    
-    /* (non-Javadoc)
-     * @see gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor#getWSDLFileName()
-     */
-    @Override
-    public String getWSDLFileName() {
-        return WSDL_FILE_G0;
-    }
-
 }

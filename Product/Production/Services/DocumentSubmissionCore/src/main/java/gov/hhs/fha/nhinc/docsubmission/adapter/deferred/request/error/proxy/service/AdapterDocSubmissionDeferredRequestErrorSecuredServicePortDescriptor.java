@@ -28,53 +28,20 @@
 package gov.hhs.fha.nhinc.docsubmission.adapter.deferred.request.error.proxy.service;
 
 import gov.hhs.fha.nhinc.adapterxdrrequesterrorsecured.AdapterXDRRequestErrorSecuredPortType;
-import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
+import gov.hhs.fha.nhinc.messaging.service.port.SOAP12ServicePortDescriptor;
 
 /**
  * @author akong
- *
+ * 
  */
-public class AdapterDocSubmissionDeferredRequestErrorSecuredServicePortDescriptor implements ServicePortDescriptor<AdapterXDRRequestErrorSecuredPortType> {
+public class AdapterDocSubmissionDeferredRequestErrorSecuredServicePortDescriptor extends
+        SOAP12ServicePortDescriptor<AdapterXDRRequestErrorSecuredPortType> {
 
-    private static final String NAMESPACE_URI = "urn:gov:hhs:fha:nhinc:adapterxdrrequesterrorsecured";
-    private static final String SERVICE_LOCAL_PART = "AdapterXDRRequestErrorSecured_Service";
-    private static final String PORT_LOCAL_PART = "AdapterXDRRequestErrorSecured_Port_Soap";
-    private static final String WSDL_FILE = "AdapterXDRRequestSecuredError.wsdl";
     private static final String WS_ADDRESSING_ACTION = "urn:gov:hhs:fha:nhinc:adapterxdrrequesterrorsecured:XDRRequestErrorInputMessage";
-    
-    /* (non-Javadoc)
-     * @see gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor#getNamespaceUri()
-     */
-    @Override
-    public String getNamespaceUri() {
-        return NAMESPACE_URI;
-    }
 
-    /* (non-Javadoc)
-     * @see gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor#getServiceLocalPart()
-     */
-    @Override
-    public String getServiceLocalPart() {
-        return SERVICE_LOCAL_PART;
-    }
-
-    /* (non-Javadoc)
-     * @see gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor#getPortLocalPart()
-     */
-    @Override
-    public String getPortLocalPart() {
-        return PORT_LOCAL_PART;
-    }
-
-    /* (non-Javadoc)
-     * @see gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor#getWSDLFileName()
-     */
-    @Override
-    public String getWSDLFileName() {
-        return WSDL_FILE;
-    }
-
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor#getWSAddressingAction()
      */
     @Override
@@ -82,7 +49,9 @@ public class AdapterDocSubmissionDeferredRequestErrorSecuredServicePortDescripto
         return WS_ADDRESSING_ACTION;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor#getPortClass()
      */
     @Override

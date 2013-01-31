@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services. 
+ * Copyright (c) 2009-2013, United States Government, as represented by the Secretary of Health and Human Services. 
  * All rights reserved. 
  *
  * Redistribution and use in source and binary forms, with or without 
@@ -24,48 +24,18 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
  */
+package gov.hhs.fha.nhinc.messaging.service.port;
 
-package gov.hhs.fha.nhinc.notify.adapter.proxy.service;
-
-import gov.hhs.fha.nhinc.adapternotificationconsumersecured.AdapterNotificationConsumerPortSecureType;
-import gov.hhs.fha.nhinc.messaging.service.port.SOAP12ServicePortDescriptor;
+import javax.xml.ws.soap.SOAPBinding;
 
 /**
- * @author akong
- * 
+ * Adapter class that forces the SOAP 1.2 binding type.
  */
-public class HiemNotifyAdapterSecuredServicePortDescriptor extends
-        SOAP12ServicePortDescriptor<AdapterNotificationConsumerPortSecureType> {
-    private static final String WS_ADDRESSING_ACTION = "urn:Notify";
+public abstract class SOAP12ServicePortDescriptor<T> implements ServicePortDescriptor<T> {
 
-    private String wsAddressingAction = WS_ADDRESSING_ACTION;
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor#getWSAddressingAction()
-     */
     @Override
-    public String getWSAddressingAction() {
-        return wsAddressingAction;
+    public final String getSOAPBindingVersion() {
+        return SOAPBinding.SOAP12HTTP_BINDING;
     }
-
-    /**
-     * Sets the Ws-Addressing action associated with this port descriptor.
-     * 
-     * @param action
-     */
-    public void setWSAddressingAction(String action) {
-        wsAddressingAction = action;
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor#getPortClass()
-     */
-    @Override
-    public Class<AdapterNotificationConsumerPortSecureType> getPortClass() {
-        return AdapterNotificationConsumerPortSecureType.class;
-    }
+    
 }

@@ -27,80 +27,36 @@
 
 package gov.hhs.fha.nhinc.unsubscribe.nhin.proxy.service;
 
-import org.oasis_open.docs.wsn.bw_2.SubscriptionManager;
+import gov.hhs.fha.nhinc.messaging.service.port.SOAP12ServicePortDescriptor;
 
-import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
+import org.oasis_open.docs.wsn.bw_2.SubscriptionManager;
 
 /**
  * @author akong
- *
+ * 
  */
-public class NhinHiemUnsubscribeServicePortDescriptor implements ServicePortDescriptor<SubscriptionManager>{
-    
-    private static final String NAMESPACE_URI = "http://docs.oasis-open.org/wsn/bw-2";
-    private static final String SERVICE_LOCAL_PART = "SubscriptionManagerService";
-    private static final String PORT_LOCAL_PART = "SubscriptionManagerPort";
+public class NhinHiemUnsubscribeServicePortDescriptor extends SOAP12ServicePortDescriptor<SubscriptionManager> {
+
     private static final String WS_ADDRESSING_ACTION = "http://docs.oasis-open.org/wsn/bw-2/SubscriptionManager/UnsubscribeRequest";
-    private static final String WSDL_FILE = "NhinSubscription.wsdl";
-    
-    /*
-     * (non-Javadoc)
-     *
-     * @see gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor#getNamespaceUri()
-     */
-    @Override
-    public String getNamespaceUri() {
-        return NAMESPACE_URI;
-    }
 
     /*
      * (non-Javadoc)
-     *
-     * @see gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor#getServiceLocalPart()
-     */
-    @Override
-    public String getServiceLocalPart() {
-        return SERVICE_LOCAL_PART;
-    }
-
-    /*
-     * (non-Javadoc)
-     *
-     * @see gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor#getPortLocalPart()
-     */
-    @Override
-    public String getPortLocalPart() {
-        return PORT_LOCAL_PART;
-    }
-    
-    /*
-     * (non-Javadoc)
-     *
-     * @see gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor#getWSDLFileName()
-     */
-    @Override
-    public String getWSDLFileName() {
-        return WSDL_FILE;
-    }
-
-    /*
-     * (non-Javadoc)
-     *
+     * 
      * @see gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor#getWSAddressingAction()
      */
     @Override
     public String getWSAddressingAction() {
         return WS_ADDRESSING_ACTION;
     }
-    
+
     /*
      * (non-Javadoc)
-     *
+     * 
      * @see gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor#getPortClass()
      */
     @Override
     public Class<SubscriptionManager> getPortClass() {
         return SubscriptionManager.class;
     }
-    
+
 }

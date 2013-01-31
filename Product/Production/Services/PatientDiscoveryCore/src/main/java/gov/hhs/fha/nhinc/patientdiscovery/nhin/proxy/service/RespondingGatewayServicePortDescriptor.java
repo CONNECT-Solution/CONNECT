@@ -82,54 +82,14 @@
  */
 package gov.hhs.fha.nhinc.patientdiscovery.nhin.proxy.service;
 
-import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
+import gov.hhs.fha.nhinc.messaging.service.port.SOAP12ServicePortDescriptor;
 import ihe.iti.xcpd._2009.RespondingGatewayPortType;
 
 /**
  * @author dharley
  * 
  */
-public class RespondingGatewayServicePortDescriptor implements ServicePortDescriptor<RespondingGatewayPortType> {
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor#getNamespaceUri()
-     */
-    @Override
-    public String getNamespaceUri() {
-        return "urn:ihe:iti:xcpd:2009";
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor#getServiceLocalPart()
-     */
-    @Override
-    public String getServiceLocalPart() {
-        return "RespondingGateway_Service";
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor#getPortLocalPart()
-     */
-    @Override
-    public String getPortLocalPart() {
-        return "RespondingGateway_Port_Soap";
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor#getWSDLFileName()
-     */
-    @Override
-    public String getWSDLFileName() {
-        return "NhinPatientDiscovery.wsdl";
-    }
+public class RespondingGatewayServicePortDescriptor extends SOAP12ServicePortDescriptor<RespondingGatewayPortType> {
 
     /*
      * (non-Javadoc)

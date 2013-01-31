@@ -27,21 +27,32 @@
 
 package gov.hhs.fha.nhinc.messaging.service.port;
 
+import javax.xml.ws.soap.SOAPBinding;
+
 /**
  * @author akong
- *
+ * 
  */
 public interface ServicePortDescriptor<T> {
 
-    public String getNamespaceUri();
-    
-    public String getServiceLocalPart();
-    
-    public String getPortLocalPart();
-    
-    public String getWSDLFileName();
-    
-    public String getWSAddressingAction();
-    
-    public Class<T> getPortClass();
+    /**
+     * @return the addressing action, or <code>null</code> if ws address is not applicable
+     */
+    String getWSAddressingAction();
+
+    /**
+     * @return the implementation class. Never <code>null</code>.
+     */
+    Class<T> getPortClass();
+
+    /**
+     * Forces the constructed port to use a particular soap binding. May be null, in which case the port will use the
+     * value found from the port class's annotations.
+     * 
+     * @See {@link SOAPBinding}
+     * 
+     * @return <code>SOAPBinding.SOAP11HTTP_BINDING</code>, <code>SOAPBinding.SOAP12HTTP_BINDING</code>, or
+     *         <code>null</code>.
+     */
+    String getSOAPBindingVersion();
 }

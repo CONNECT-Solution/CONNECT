@@ -27,48 +27,18 @@
 
 package gov.hhs.fha.nhinc.direct.edge.proxy.service;
 
+import gov.hhs.fha.nhinc.messaging.service.port.SOAP12ServicePortDescriptor;
 import ihe.iti.xds_b._2007.DocumentRepositoryPortType;
-import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
 
 /**
  * @author akong
- *
+ * 
  */
-public class DirectEdgeSoapServicePortDescriptor implements ServicePortDescriptor<DocumentRepositoryPortType> {
+public class DirectEdgeSoapServicePortDescriptor extends SOAP12ServicePortDescriptor<DocumentRepositoryPortType> {
 
-    /* (non-Javadoc)
-     * @see gov.hhs.fha.messaging.service.port.ServicePortDescriptor#getNamespaceUri()
-     */
-    @Override
-    public String getNamespaceUri() {
-        return "urn:ihe:iti:xds-b:2007";
-    }
-
-    /* (non-Javadoc)
-     * @see gov.hhs.fha.messaging.service.port.ServicePortDescriptor#getServiceLocalPart()
-     */
-    @Override
-    public String getServiceLocalPart() {
-        return "DocumentRepository_Service";
-    }
-
-    /* (non-Javadoc)
-     * @see gov.hhs.fha.messaging.service.port.ServicePortDescriptor#getPortLocalPart()
-     */
-    @Override
-    public String getPortLocalPart() {
-        return "DocumentRepository_Port_Soap12";
-    }
-
-    /* (non-Javadoc)
-     * @see gov.hhs.fha.messaging.service.port.ServicePortDescriptor#getWSDLFileName()
-     */
-    @Override
-    public String getWSDLFileName() {
-        return "XDS.b_DocumentRepositoryWSDLSynchMTOM.wsdl";
-    }
-
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see gov.hhs.fha.messaging.service.port.ServicePortDescriptor#getWSAddressingAction()
      */
     @Override
@@ -76,7 +46,9 @@ public class DirectEdgeSoapServicePortDescriptor implements ServicePortDescripto
         return "urn:ihe:iti:2007:ProvideAndRegisterDocumentSet-b";
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see gov.hhs.fha.messaging.service.port.ServicePortDescriptor#getPortClass()
      */
     @Override

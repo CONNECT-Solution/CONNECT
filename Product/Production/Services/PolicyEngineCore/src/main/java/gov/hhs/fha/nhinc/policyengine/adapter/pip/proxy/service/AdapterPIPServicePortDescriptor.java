@@ -28,56 +28,21 @@
 package gov.hhs.fha.nhinc.policyengine.adapter.pip.proxy.service;
 
 import gov.hhs.fha.nhinc.adapterpip.AdapterPIPPortType;
-import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
+import gov.hhs.fha.nhinc.messaging.service.port.SOAP12ServicePortDescriptor;
 
 /**
  * @author akong
- *
+ * 
  */
-public abstract class AdapterPIPServicePortDescriptor implements ServicePortDescriptor<AdapterPIPPortType>{
-    
-    private static final String NAMESPACE_URI = "urn:gov:hhs:fha:nhinc:adapterpip";
-    private static final String SERVICE_LOCAL_PART = "AdapterPIP";
-    private static final String PORT_LOCAL_PART = "AdapterPIPPortSoap";
-    private static final String WSDL_FILE = "AdapterPIP.wsdl";
-    
-    /* (non-Javadoc)
-     * @see gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor#getNamespaceUri()
-     */
-    @Override
-    public String getNamespaceUri() {
-        return NAMESPACE_URI;
-    }
+public abstract class AdapterPIPServicePortDescriptor extends SOAP12ServicePortDescriptor<AdapterPIPPortType> {
 
-    /* (non-Javadoc)
-     * @see gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor#getServiceLocalPart()
-     */
-    @Override
-    public String getServiceLocalPart() {
-        return SERVICE_LOCAL_PART;
-    }
-
-    /* (non-Javadoc)
-     * @see gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor#getPortLocalPart()
-     */
-    @Override
-    public String getPortLocalPart() {
-        return PORT_LOCAL_PART;
-    }
-
-    /* (non-Javadoc)
-     * @see gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor#getWSDLFileName()
-     */
-    @Override
-    public String getWSDLFileName() {
-        return WSDL_FILE;
-    }
-
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor#getPortClass()
      */
     @Override
     public Class<AdapterPIPPortType> getPortClass() {
         return AdapterPIPPortType.class;
-    }    
+    }
 }
