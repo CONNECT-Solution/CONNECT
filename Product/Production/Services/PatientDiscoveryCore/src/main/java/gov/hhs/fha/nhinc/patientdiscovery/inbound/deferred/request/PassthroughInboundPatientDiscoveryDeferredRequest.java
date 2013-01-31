@@ -29,7 +29,6 @@ package gov.hhs.fha.nhinc.patientdiscovery.inbound.deferred.request;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryAuditLogger;
 import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryAuditor;
-import gov.hhs.fha.nhinc.patientdiscovery.adapter.deferred.request.proxy.AdapterPatientDiscoveryDeferredReqProxy;
 import gov.hhs.fha.nhinc.patientdiscovery.adapter.deferred.request.proxy.AdapterPatientDiscoveryDeferredReqProxyObjectFactory;
 
 import org.hl7.v3.MCCIIN000002UV01;
@@ -41,17 +40,16 @@ import org.hl7.v3.PRPAIN201305UV02;
  */
 public class PassthroughInboundPatientDiscoveryDeferredRequest extends AbstractInboundPatientDiscoveryDeferredRequest {
 
-    private final AdapterPatientDiscoveryDeferredReqProxyObjectFactory adapterFactory;
-    private final PatientDiscoveryAuditor auditLogger; 
+    private final PatientDiscoveryAuditor auditLogger;
 
     /**
      * Constructor.
      */
     public PassthroughInboundPatientDiscoveryDeferredRequest() {
-        this.adapterFactory = new AdapterPatientDiscoveryDeferredReqProxyObjectFactory();
+        super(new AdapterPatientDiscoveryDeferredReqProxyObjectFactory());
         this.auditLogger = new PatientDiscoveryAuditLogger();
     }
-    
+
     /**
      * Constructor with dependency injection.
      * 
@@ -60,27 +58,19 @@ public class PassthroughInboundPatientDiscoveryDeferredRequest extends AbstractI
      */
     public PassthroughInboundPatientDiscoveryDeferredRequest(
             AdapterPatientDiscoveryDeferredReqProxyObjectFactory adapterFactory, PatientDiscoveryAuditor auditLogger) {
-        this.adapterFactory = adapterFactory;
+        super(adapterFactory);
         this.auditLogger = auditLogger;
     }
 
     MCCIIN000002UV01 process(PRPAIN201305UV02 request, AssertionType assertion) {
-        auditRequestToAdapter(request, assertion);
 
         MCCIIN000002UV01 response = sendToAdapter(request, assertion);
 
-        auditResponseFromAdapter(response, assertion);
-
         return response;
     }
-    
+
     PatientDiscoveryAuditor getAuditLogger() {
         return auditLogger;
-    }
-
-    private MCCIIN000002UV01 sendToAdapter(PRPAIN201305UV02 request, AssertionType assertion) {
-        AdapterPatientDiscoveryDeferredReqProxy proxy = adapterFactory.getAdapterPatientDiscoveryDeferredReqProxy();
-        return proxy.processPatientDiscoveryAsyncReq(request, assertion);
     }
 
 }

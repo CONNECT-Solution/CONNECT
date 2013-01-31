@@ -26,12 +26,10 @@
  */
 package gov.hhs.fha.nhinc.docquery.inbound;
 
-import gov.hhs.fha.nhinc.common.nhinccommon.AcknowledgementType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.docquery.DocQueryAuditLog;
 import gov.hhs.fha.nhinc.docquery.adapter.proxy.AdapterDocQueryProxy;
 import gov.hhs.fha.nhinc.docquery.adapter.proxy.AdapterDocQueryProxyObjectFactory;
-import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
 
@@ -62,32 +60,10 @@ public class PassthroughInboundDocQuery extends AbstractInboundDocQuery {
     @Override
     AdhocQueryResponse processDocQuery(AdhocQueryRequest msg, AssertionType assertion, String communityID) {
 
-        auditRequestToAdapter(msg, assertion, communityID);
-        
         AdapterDocQueryProxy adapterProxy = adapterFactory.getAdapterDocQueryProxy();
         AdhocQueryResponse resp = adapterProxy.respondingGatewayCrossGatewayQuery(msg, assertion);
-
-        auditRequestFromAdapter(resp, assertion, communityID);
 
         return resp;
     }
     
-    private AcknowledgementType auditRequestToAdapter(AdhocQueryRequest msg, AssertionType assertion,
-            String requestCommunityID) {
-        AcknowledgementType ack = auditLogger
-                .auditDQRequest(msg, assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION,
-                        NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE, requestCommunityID);
-
-        return ack;
-    }
-    
-    private AcknowledgementType auditRequestFromAdapter(AdhocQueryResponse response, AssertionType assertion,
-            String requestCommunityID) {
-        AcknowledgementType ack = auditLogger
-                .auditDQResponse(response, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION,
-                        NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE, requestCommunityID);
-
-        return ack;
-    }
-
 }

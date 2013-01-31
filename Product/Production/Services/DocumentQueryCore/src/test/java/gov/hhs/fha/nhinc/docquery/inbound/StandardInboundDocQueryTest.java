@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-13, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -27,106 +27,70 @@
 package gov.hhs.fha.nhinc.docquery.inbound;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertSame;
-
-import java.lang.reflect.Method;
-
-import static org.mockito.Matchers.any;
-import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-
-import org.junit.Test;
-
-import gov.hhs.fha.nhinc.aspect.InboundProcessingEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.docquery.DocQueryAuditLog;
 import gov.hhs.fha.nhinc.docquery.DocQueryPolicyChecker;
 import gov.hhs.fha.nhinc.docquery.adapter.proxy.AdapterDocQueryProxy;
 import gov.hhs.fha.nhinc.docquery.adapter.proxy.AdapterDocQueryProxyObjectFactory;
-import gov.hhs.fha.nhinc.docquery.aspect.AdhocQueryRequestDescriptionBuilder;
-import gov.hhs.fha.nhinc.docquery.aspect.AdhocQueryResponseDescriptionBuilder;
 import gov.hhs.fha.nhinc.gateway.aggregator.document.DocumentConstants;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
 
+import org.junit.Test;
+
 /**
  * @author akong
  * 
  */
-public class StandardInboundDocQueryTest {
+public class StandardInboundDocQueryTest extends InboundDocQueryTest {
     
+    private static final int NUM_TIMES_TO_INVOKE_ADAPTER_AUDIT = 1;
+
     @Test
     public void hasInboundProcessingEvent() throws Exception {
-        Class<StandardInboundDocQuery> clazz = StandardInboundDocQuery.class;
-        Method method = clazz.getMethod("respondingGatewayCrossGatewayQuery", AdhocQueryRequest.class,
-                AssertionType.class);
-        InboundProcessingEvent annotation = method.getAnnotation(InboundProcessingEvent.class);
-        assertNotNull(annotation);
-        assertEquals(AdhocQueryRequestDescriptionBuilder.class, annotation.beforeBuilder());
-        assertEquals(AdhocQueryResponseDescriptionBuilder.class, annotation.afterReturningBuilder());
-        assertEquals("Document Query", annotation.serviceType());
-        assertEquals("", annotation.version());
+        hasInboundProcessingEvent(StandardInboundDocQuery.class);
     }
 
     @Test
-    public void standardInboundDocQuery() {
-        AdhocQueryRequest request = new AdhocQueryRequest();
-        AssertionType assertion = new AssertionType();
-        AdhocQueryResponse expectedResponse = new AdhocQueryResponse();
-
-        AdapterDocQueryProxyObjectFactory mockAdapterFactory = mock(AdapterDocQueryProxyObjectFactory.class);
-        AdapterDocQueryProxy mockAdapterProxy = mock(AdapterDocQueryProxy.class);
-        DocQueryAuditLog mockAuditLogger = mock(DocQueryAuditLog.class);
-        DocQueryPolicyChecker policyChecker = mock(DocQueryPolicyChecker.class);
-
-        when(mockAdapterFactory.getAdapterDocQueryProxy()).thenReturn(mockAdapterProxy);
-
-        when(mockAdapterProxy.respondingGatewayCrossGatewayQuery(request, assertion)).thenReturn(expectedResponse);
-
-        when(policyChecker.checkIncomingPolicy(request, assertion)).thenReturn(true);
-
-        PassthroughInboundDocQuery passthroughDocQuery = new PassthroughInboundDocQuery(mockAdapterFactory,
-                mockAuditLogger);
-
-        StandardInboundDocQuery standardDocQuery = new StandardInboundDocQuery(policyChecker, passthroughDocQuery,
-                mockAuditLogger);
-        AdhocQueryResponse actualResponse = standardDocQuery.respondingGatewayCrossGatewayQuery(request, assertion);
-
-        assertSame(expectedResponse, actualResponse);
-
-        verify(mockAuditLogger).auditDQRequest(eq(request), eq(assertion),
-                eq(NhincConstants.AUDIT_LOG_INBOUND_DIRECTION), eq(NhincConstants.AUDIT_LOG_NHIN_INTERFACE),
-                any(String.class));
-
-        verify(mockAuditLogger).auditDQRequest(eq(request), eq(assertion),
-                eq(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION), eq(NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE),
-                any(String.class));
-
-        verify(mockAuditLogger).auditDQResponse(eq(actualResponse), eq(assertion),
-                eq(NhincConstants.AUDIT_LOG_INBOUND_DIRECTION), eq(NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE),
-                any(String.class));
-
-        verify(mockAuditLogger).auditDQResponse(eq(actualResponse), eq(assertion),
-                eq(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION), eq(NhincConstants.AUDIT_LOG_NHIN_INTERFACE),
-                any(String.class));
+    public void standardInboundDocQueryOrgHcid() {
+        standardInboundDocQueryHomeHcid(SENDING_HCID_ORG, SENDING_HCID_ORG_FORMATTED);        
     }
+    
+    @Test    
+    public void standardInboundDocQueryHomeHcid() {        
+        standardInboundDocQueryHomeHcid(SENDING_HCID_HOME, SENDING_HCID_HOME_FORMATTED);        
+    }    
 
+    private void standardInboundDocQueryHomeHcid(String sendingHcid, String sendingHcidFormatted) {
+
+        AssertionType mockAssertion = getMockAssertion(sendingHcid);
+
+        StandardInboundDocQuery standardDocQuery = new StandardInboundDocQuery(policyChecker,
+                getMockAdapterFactory(mockAssertion), mockAuditLogger);
+
+        when(policyChecker.checkIncomingPolicy(request, mockAssertion)).thenReturn(true);
+
+        verifyInboundDocQuery(mockAssertion, sendingHcidFormatted, standardDocQuery, NUM_TIMES_TO_INVOKE_ADAPTER_AUDIT);
+    }
+    
     @Test
     public void failedPolicy() {
         AdhocQueryRequest request = new AdhocQueryRequest();
         AssertionType assertion = new AssertionType();
 
+        AdapterDocQueryProxyObjectFactory mockAdapterFactory = mock(AdapterDocQueryProxyObjectFactory.class);
+        AdapterDocQueryProxy mockAdapterProxy = mock(AdapterDocQueryProxy.class);
+
         DocQueryAuditLog mockAuditLogger = mock(DocQueryAuditLog.class);
         DocQueryPolicyChecker policyChecker = mock(DocQueryPolicyChecker.class);
-        PassthroughInboundDocQuery passthroughDocQuery = mock(PassthroughInboundDocQuery.class);
+        when(mockAdapterFactory.getAdapterDocQueryProxy()).thenReturn(mockAdapterProxy);
 
         when(policyChecker.checkIncomingPolicy(request, assertion)).thenReturn(false);
 
-        StandardInboundDocQuery standardDocQuery = new StandardInboundDocQuery(policyChecker, passthroughDocQuery,
+        StandardInboundDocQuery standardDocQuery = new StandardInboundDocQuery(policyChecker, mockAdapterFactory,
                 mockAuditLogger);
         AdhocQueryResponse actualResponse = standardDocQuery.respondingGatewayCrossGatewayQuery(request, assertion);
 
@@ -137,4 +101,5 @@ public class StandardInboundDocQueryTest {
                 .getRegistryError().get(0).getSeverity());
 
     }
+    
 }

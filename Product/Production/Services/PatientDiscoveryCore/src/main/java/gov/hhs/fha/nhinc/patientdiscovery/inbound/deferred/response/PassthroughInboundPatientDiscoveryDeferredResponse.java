@@ -28,11 +28,9 @@ package gov.hhs.fha.nhinc.patientdiscovery.inbound.deferred.response;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.generic.GenericFactory;
-import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryAuditLogger;
 import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryAuditor;
 import gov.hhs.fha.nhinc.patientdiscovery.adapter.deferred.response.proxy.AdapterPatientDiscoveryDeferredRespProxy;
-import gov.hhs.fha.nhinc.patientdiscovery.adapter.deferred.response.proxy.AdapterPatientDiscoveryDeferredRespProxyObjectFactory;
 
 import org.hl7.v3.MCCIIN000002UV01;
 import org.hl7.v3.PRPAIN201306UV02;
@@ -43,14 +41,12 @@ import org.hl7.v3.PRPAIN201306UV02;
  */
 public class PassthroughInboundPatientDiscoveryDeferredResponse extends AbstractInboundPatientDiscoveryDeferredResponse {
 
-    private final GenericFactory<AdapterPatientDiscoveryDeferredRespProxy> proxyFactory;
     private final PatientDiscoveryAuditor auditLogger;
 
     /**
      * Constructor.
      */
     public PassthroughInboundPatientDiscoveryDeferredResponse() {
-        proxyFactory = new AdapterPatientDiscoveryDeferredRespProxyObjectFactory();
         auditLogger = new PatientDiscoveryAuditLogger();
     }
 
@@ -62,7 +58,7 @@ public class PassthroughInboundPatientDiscoveryDeferredResponse extends Abstract
      */
     public PassthroughInboundPatientDiscoveryDeferredResponse(
             GenericFactory<AdapterPatientDiscoveryDeferredRespProxy> proxyFactory, PatientDiscoveryAuditor auditLogger) {
-        this.proxyFactory = proxyFactory;
+        super(proxyFactory);
         this.auditLogger = auditLogger;
     }
 
@@ -75,11 +71,7 @@ public class PassthroughInboundPatientDiscoveryDeferredResponse extends Abstract
      */
     @Override
     MCCIIN000002UV01 process(PRPAIN201306UV02 request, AssertionType assertion) {
-        auditRequestToAdapter(request, assertion);
-
         MCCIIN000002UV01 response = sendToAdapter(request, assertion);
-
-        auditResponseFromAdapter(response, assertion);
 
         return response;
     }
@@ -94,21 +86,6 @@ public class PassthroughInboundPatientDiscoveryDeferredResponse extends Abstract
     @Override
     PatientDiscoveryAuditor getAuditLogger() {
         return auditLogger;
-    }
-
-    private MCCIIN000002UV01 sendToAdapter(PRPAIN201306UV02 request, AssertionType assertion) {
-        AdapterPatientDiscoveryDeferredRespProxy proxy = proxyFactory.create();
-
-        return proxy.processPatientDiscoveryAsyncResp(request, assertion);
-    }
-
-    private void auditRequestToAdapter(PRPAIN201306UV02 request, AssertionType assertion) {
-        auditLogger.auditAdapterDeferred201306(request, assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION);
-    }
-
-    private void auditResponseFromAdapter(MCCIIN000002UV01 response, AssertionType assertion) {
-        auditLogger.auditAck(response, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION,
-                NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE);
     }
 
 }

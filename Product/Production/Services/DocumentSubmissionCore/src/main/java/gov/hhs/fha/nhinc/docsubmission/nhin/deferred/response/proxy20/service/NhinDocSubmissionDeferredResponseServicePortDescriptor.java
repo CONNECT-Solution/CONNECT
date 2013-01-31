@@ -27,48 +27,19 @@
 
 package gov.hhs.fha.nhinc.docsubmission.nhin.deferred.response.proxy20.service;
 
+import gov.hhs.fha.nhinc.messaging.service.port.SOAP12ServicePortDescriptor;
 import ihe.iti.xdr._2007.XDRDeferredResponse20PortType;
-import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
 
 /**
  * @author akong
- *
+ * 
  */
-public class NhinDocSubmissionDeferredResponseServicePortDescriptor implements ServicePortDescriptor<XDRDeferredResponse20PortType>{
+public class NhinDocSubmissionDeferredResponseServicePortDescriptor extends
+        SOAP12ServicePortDescriptor<XDRDeferredResponse20PortType> {
 
-    /* (non-Javadoc)
-     * @see gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor#getNamespaceUri()
-     */
-    @Override
-    public String getNamespaceUri() {
-        return "urn:ihe:iti:xdr:2007";
-    }
-
-    /* (non-Javadoc)
-     * @see gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor#getServiceLocalPart()
-     */
-    @Override
-    public String getServiceLocalPart() {
-        return "XDRDeferredResponse20_Service";
-    }
-
-    /* (non-Javadoc)
-     * @see gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor#getPortLocalPart()
-     */
-    @Override
-    public String getPortLocalPart() {
-        return "XDRDeferredResponse20_Port_Soap";
-    }
-
-    /* (non-Javadoc)
-     * @see gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor#getWSDLFileName()
-     */
-    @Override
-    public String getWSDLFileName() {
-        return "NhinXDRDeferredResponse20.wsdl";
-    }
-
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor#getWSAddressingAction()
      */
     @Override
@@ -76,7 +47,9 @@ public class NhinDocSubmissionDeferredResponseServicePortDescriptor implements S
         return "urn:nhin:Deferred:ProvideAndRegisterDocumentSet-bResponse";
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor#getPortClass()
      */
     @Override

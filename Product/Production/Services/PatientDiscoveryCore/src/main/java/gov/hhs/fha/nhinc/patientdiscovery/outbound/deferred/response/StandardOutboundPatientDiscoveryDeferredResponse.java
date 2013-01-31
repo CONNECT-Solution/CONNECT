@@ -52,7 +52,7 @@ import org.hl7.v3.RespondingGatewayPRPAIN201306UV02RequestType;
 public class StandardOutboundPatientDiscoveryDeferredResponse extends AbstractOutboundPatientDiscoveryDeferredResponse {
 
     private final static MessageGeneratorUtils msgUtils = MessageGeneratorUtils.getInstance();
-    
+
     private final PolicyChecker<RespondingGatewayPRPAIN201306UV02RequestType, PRPAIN201306UV02> policyChecker;
     private final PatientDiscovery201306Processor pd201306Processor;
     private final PatientDiscoveryAuditor auditLogger;
@@ -70,7 +70,7 @@ public class StandardOutboundPatientDiscoveryDeferredResponse extends AbstractOu
         delegate = new OutboundPatientDiscoveryDeferredResponseDelegate();
         connectionManager = ConnectionManagerCache.getInstance();
     }
-    
+
     /**
      * Constructor with dependency injection parameters.
      * 
@@ -82,13 +82,13 @@ public class StandardOutboundPatientDiscoveryDeferredResponse extends AbstractOu
      */
     public StandardOutboundPatientDiscoveryDeferredResponse(
             PolicyChecker<RespondingGatewayPRPAIN201306UV02RequestType, PRPAIN201306UV02> policyChecker,
-            PatientDiscovery201306Processor pd201306Processor, PatientDiscoveryAuditor auditLogger, 
+            PatientDiscovery201306Processor pd201306Processor, PatientDiscoveryAuditor auditLogger,
             OutboundPatientDiscoveryDeferredResponseDelegate delegate, ConnectionManagerCache connectionManager) {
         this.policyChecker = policyChecker;
         this.pd201306Processor = pd201306Processor;
         this.auditLogger = auditLogger;
         this.delegate = delegate;
-        this.connectionManager = connectionManager;    
+        this.connectionManager = connectionManager;
     }
 
     /*
@@ -100,9 +100,10 @@ public class StandardOutboundPatientDiscoveryDeferredResponse extends AbstractOu
      * gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType)
      */
     @Override
-    MCCIIN000002UV01 process(PRPAIN201306UV02 body, AssertionType assertion,
-            NhinTargetCommunitiesType targets) {
+    MCCIIN000002UV01 process(PRPAIN201306UV02 body, AssertionType assertion, NhinTargetCommunitiesType targets) {
         MCCIIN000002UV01 ack = new MCCIIN000002UV01();
+
+        auditRequestFromAdapter(body, assertion, targets);
 
         List<UrlInfo> urlInfoList = getTargetEndpoints(targets);
         if (urlInfoList != null) {
@@ -122,11 +123,17 @@ public class StandardOutboundPatientDiscoveryDeferredResponse extends AbstractOu
             ack = HL7AckTransforms.createAckErrorFrom201306(body, "No Targets Found");
         }
 
+        auditResponseToAdapter(ack, assertion);
+
         return ack;
     }
-    
-    /* (non-Javadoc)
-     * @see gov.hhs.fha.nhinc.patientdiscovery.outbound.deferred.response.AbstractOutboundPatientDiscoveryDeferredResponse#getAuditLogger()
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see
+     * gov.hhs.fha.nhinc.patientdiscovery.outbound.deferred.response.AbstractOutboundPatientDiscoveryDeferredResponse
+     * #getAuditLogger()
      */
     @Override
     PatientDiscoveryAuditor getAuditLogger() {
@@ -137,8 +144,8 @@ public class StandardOutboundPatientDiscoveryDeferredResponse extends AbstractOu
         List<UrlInfo> urlInfoList = null;
 
         try {
-            urlInfoList = connectionManager.getEndpointURLFromNhinTargetCommunities(
-                    targetCommunities, NhincConstants.PATIENT_DISCOVERY_DEFERRED_RESP_SERVICE_NAME);
+            urlInfoList = connectionManager.getEndpointURLFromNhinTargetCommunities(targetCommunities,
+                    NhincConstants.PATIENT_DISCOVERY_DEFERRED_RESP_SERVICE_NAME);
         } catch (ConnectionManagerException ex) {
             LOG.error("Failed to obtain target URLs for service "
                     + NhincConstants.PATIENT_DISCOVERY_DEFERRED_RESP_SERVICE_NAME);
@@ -165,5 +172,19 @@ public class StandardOutboundPatientDiscoveryDeferredResponse extends AbstractOu
                 .createNhinTargetSystemType(urlInfo.getUrl(), urlInfo.getHcid());
 
         return sendToNhin(delegate, request.getPRPAIN201306UV02(), request.getAssertion(), targetSystemType);
+    }
+
+    protected void auditRequestFromAdapter(PRPAIN201306UV02 message, AssertionType assertion,
+            NhinTargetCommunitiesType targets) {
+
+        RespondingGatewayPRPAIN201306UV02RequestType request = MessageGeneratorUtils.getInstance()
+                .createRespondingGatewayRequest(message, assertion, targets);
+
+        getAuditLogger().auditEntityDeferred201306(request, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION);
+    }
+
+    protected void auditResponseToAdapter(MCCIIN000002UV01 ack, AssertionType assertion) {
+        getAuditLogger().auditAck(ack, assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION,
+                NhincConstants.AUDIT_LOG_ENTITY_INTERFACE);
     }
 }

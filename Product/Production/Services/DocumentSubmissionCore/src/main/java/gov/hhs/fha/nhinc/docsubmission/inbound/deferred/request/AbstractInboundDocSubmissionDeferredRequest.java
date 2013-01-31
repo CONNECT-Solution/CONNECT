@@ -29,6 +29,8 @@ package gov.hhs.fha.nhinc.docsubmission.inbound.deferred.request;
 import gov.hhs.fha.nhinc.aspect.InboundProcessingEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.docsubmission.XDRAuditLogger;
+import gov.hhs.fha.nhinc.docsubmission.adapter.deferred.request.proxy.AdapterDocSubmissionDeferredRequestProxy;
+import gov.hhs.fha.nhinc.docsubmission.adapter.deferred.request.proxy.AdapterDocSubmissionDeferredRequestProxyObjectFactory;
 import gov.hhs.fha.nhinc.docsubmission.aspect.DocSubmissionBaseEventDescriptionBuilder;
 import gov.hhs.fha.nhinc.docsubmission.aspect.DocSubmissionArgTransformerBuilder;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
@@ -40,7 +42,14 @@ public abstract class AbstractInboundDocSubmissionDeferredRequest implements Inb
     abstract XDRAcknowledgementType processDocSubmissionRequest(ProvideAndRegisterDocumentSetRequestType body,
             AssertionType assertion);
     
-    protected XDRAuditLogger auditLogger = new XDRAuditLogger();
+    private XDRAuditLogger auditLogger;
+    private AdapterDocSubmissionDeferredRequestProxyObjectFactory adapterFactory;
+    
+    public AbstractInboundDocSubmissionDeferredRequest(
+            AdapterDocSubmissionDeferredRequestProxyObjectFactory adapterFactory, XDRAuditLogger auditLogger) {
+        this.adapterFactory = adapterFactory;
+        this.auditLogger = auditLogger;
+    }
     
     @InboundProcessingEvent(beforeBuilder = DocSubmissionBaseEventDescriptionBuilder.class,
             afterReturningBuilder = DocSubmissionArgTransformerBuilder.class, 
@@ -57,13 +66,27 @@ public abstract class AbstractInboundDocSubmissionDeferredRequest implements Inb
 
         return response;
     }
-
-    private void auditRequestFromNhin(ProvideAndRegisterDocumentSetRequestType request, AssertionType assertion) {
-        auditLogger.auditNhinXDR(request, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION);
+    
+    protected XDRAcknowledgementType sendToAdapter(ProvideAndRegisterDocumentSetRequestType body, AssertionType assertion) {
+        AdapterDocSubmissionDeferredRequestProxy proxy = adapterFactory.getAdapterDocSubmissionDeferredRequestProxy();
+        return proxy.provideAndRegisterDocumentSetBRequest(body, assertion);
+    }
+    
+    protected void auditRequestToAdapter(ProvideAndRegisterDocumentSetRequestType request, AssertionType assertion) {
+        auditLogger.auditAdapterXDR(request, assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION);
     }
 
-    private void auditResponseToNhin(XDRAcknowledgementType response, AssertionType assertion) {
-        auditLogger.auditAcknowledgement(response, assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION,
+    protected void auditResponseFromAdapter(XDRAcknowledgementType response, AssertionType assertion) {
+        auditLogger.auditAdapterAcknowledgement(response, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION,
+                NhincConstants.XDR_REQUEST_ACTION);
+    }
+
+    protected void auditRequestFromNhin(ProvideAndRegisterDocumentSetRequestType request, AssertionType assertion) {
+        auditLogger.auditNhinXDR(request, assertion, null, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION);
+    }
+
+    protected void auditResponseToNhin(XDRAcknowledgementType response, AssertionType assertion) {
+        auditLogger.auditAcknowledgement(response, assertion, null, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION,
                 NhincConstants.XDR_REQUEST_ACTION);
     }
 }

@@ -47,11 +47,8 @@
         </copy>
     </target>
 
-    <target name="dist" description="Create the binary distribution">
-        <xmltask source="pom.xml" >
-           <copy path="//*[local-name() = 'version']/text()" property="maven_version"/>
-        </xmltask>
-        <echo message="Building binary distribution for ${maven_version}."/>
+    <target name="dist" description="Create the binary distribution" depends="-maven.version, -git.revision">
+        <echo message="Building binary distribution for maven version=${maven_version}, git version=${repository.version}."/>
         <echo message="Must be run after a mvn build that includes all application server profiles."/>
         <property name="dist.artifact.dir" value="./target" />
         <property name="maven_root" value="${user.home}/.m2/repository/org/connectopensource" />
@@ -59,6 +56,11 @@
 
         <delete dir="${dist.artifact.dir}" failonerror="false" />
         <mkdir dir="${dist.artifact.dir}" />
+
+        <manifest file="${dist.artifact.dir}/version.txt">
+            <attribute name="Maven-Release-Version" value="${maven_version}"/>
+            <attribute name="Git-Repository-Version" value="${repository.version}"/>
+        </manifest>
 
         <zip zipfile="${dist.artifact.dir}/${dist.zip.filename}">
             <zipfileset dir="${maven_root}/" includes="CONNECT*/${maven_version}/CONNECT*${maven_version}.ear" />
@@ -70,7 +72,31 @@
                 <include name="*.properties" />
                 <exclude name="pom.xml" />
             </zipfileset>
+            <zipfileset prefix="target/wsdl" dir="SoapUI_Test/target/wsdl/"/>
+            <zipfileset prefix="target/schemas" dir="SoapUI_Test/target/schemas/"/>
             <zipfileset prefix="glassfish_templates" dir="./Install/Glassfish/templates" />
+            <zipfileset file="${dist.artifact.dir}/version.txt"/>
         </zip>
+    </target>
+
+    <target name="-maven.version" description="Store maven pom version in ${maven_version}.">
+        <xmltask source="pom.xml" >
+           <copy path="//*[local-name() = 'version']/text()" property="maven_version"/>
+        </xmltask>
+    </target>
+
+    <target name="-git.revision" description="Store git revision in ${repository.version}">
+        <exec executable="git" outputproperty="git.revision" failifexecutionfails="false" errorproperty="">
+            <arg value="describe"/>
+            <arg value="--tags"/>
+            <arg value="--always"/>
+            <arg value="HEAD"/>
+        </exec>
+        <condition property="repository.version" value="${git.revision}" else="unknown">
+            <and>
+                <isset property="git.revision"/>
+                <length string="${git.revision}" trim="yes" length="0" when="greater"/>
+            </and>
+        </condition>
     </target>
 </project>

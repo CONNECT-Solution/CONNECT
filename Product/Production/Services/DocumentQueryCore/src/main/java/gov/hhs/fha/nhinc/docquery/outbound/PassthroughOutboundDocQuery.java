@@ -26,9 +26,12 @@
  */
 package gov.hhs.fha.nhinc.docquery.outbound;
 
+import java.util.Iterator;
+
 import gov.hhs.fha.nhinc.aspect.OutboundProcessingEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
+import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunityType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.docquery.MessageGeneratorUtils;
 import gov.hhs.fha.nhinc.docquery.aspect.AdhocQueryRequestDescriptionBuilder;
@@ -46,7 +49,6 @@ public class PassthroughOutboundDocQuery implements OutboundDocQuery {
     private static final Logger LOG = Logger.getLogger(PassthroughOutboundDocQuery.class);
 
     private OutboundDocQueryDelegate delegate = new OutboundDocQueryDelegate();
-
     public PassthroughOutboundDocQuery() {
         super();
     }
@@ -69,8 +71,11 @@ public class PassthroughOutboundDocQuery implements OutboundDocQuery {
             NhinTargetCommunitiesType targets) {
 
         NhinTargetSystemType target = MessageGeneratorUtils.getInstance().convertFirstToNhinTargetSystemType(targets);
-
         String targetHCID = getTargetHCID(target);
+        
+        if(targets.getNhinTargetCommunity().size() > 1){
+        	warnTooManyTargets(targetHCID, targets);
+        }
 
         AdhocQueryResponse response = sendRequestToNwhin(request, assertion, target, targetHCID);
 
@@ -102,4 +107,36 @@ public class PassthroughOutboundDocQuery implements OutboundDocQuery {
 
         return response;
     }
+    
+    private void warnTooManyTargets(String targetHCID, NhinTargetCommunitiesType targets){
+    	StringBuilder stringBuilder = new StringBuilder();
+    	stringBuilder.append("Multiple targets in request message in passthrough mode." +
+    			"  Only sending to target HCID: " + targetHCID + ".");
+    	stringBuilder.append("  Not sending request to: ");
+    	Iterator <NhinTargetCommunityType> communityIterator = targets.getNhinTargetCommunity().iterator();
+    	Boolean first = true;
+    	while(communityIterator.hasNext()){
+    		String nextTarget = communityIterator.next().getHomeCommunity().getHomeCommunityId();
+    		if(!nextTarget.equals(targetHCID)){
+    			if(first){
+        			first = false;
+        		}else {
+        			stringBuilder.append(", ");
+        		}
+    			stringBuilder.append(nextTarget);
+    		}
+    	}
+    	stringBuilder.append(".");
+    	logWarning(stringBuilder.toString());
+    }
+    
+    /**
+     * For unit testing the multiple target warning.
+     * @param warning
+     */
+    protected void logWarning(String warning){
+    	LOG.warn(warning);
+    }
+    
+    
 }

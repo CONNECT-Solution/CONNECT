@@ -83,54 +83,14 @@
 package gov.hhs.fha.nhinc.patientdiscovery.entity.proxy.service;
 
 import gov.hhs.fha.nhinc.entitypatientdiscoverysecured.EntityPatientDiscoverySecuredPortType;
-import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
+import gov.hhs.fha.nhinc.messaging.service.port.SOAP12ServicePortDescriptor;
 
 /**
  * @author dharley
  * 
  */
-public class EntityPatientDiscoverySecuredServicePortDescriptor implements
-        ServicePortDescriptor<EntityPatientDiscoverySecuredPortType> {
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor#getNamespaceUri()
-     */
-    @Override
-    public String getNamespaceUri() {
-        return "urn:gov:hhs:fha:nhinc:entitypatientdiscoverysecured";
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor#getServiceLocalPart()
-     */
-    @Override
-    public String getServiceLocalPart() {
-        return "EntityPatientDiscoverySecured";
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor#getPortLocalPart()
-     */
-    @Override
-    public String getPortLocalPart() {
-        return "EntityPatientDiscoverySecuredPortSoap";
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor#getWSDLFileName()
-     */
-    @Override
-    public String getWSDLFileName() {
-        return "EntityPatientDiscoverySecured.wsdl";
-    }
+public class EntityPatientDiscoverySecuredServicePortDescriptor extends
+        SOAP12ServicePortDescriptor<EntityPatientDiscoverySecuredPortType> {
 
     /*
      * (non-Javadoc)

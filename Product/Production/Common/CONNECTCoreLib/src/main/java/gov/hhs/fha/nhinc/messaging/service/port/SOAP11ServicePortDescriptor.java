@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services. 
+ * Copyright (c) 2009-2013, United States Government, as represented by the Secretary of Health and Human Services. 
  * All rights reserved. 
  *
  * Redistribution and use in source and binary forms, with or without 
@@ -24,22 +24,18 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
  */
+package gov.hhs.fha.nhinc.messaging.service.port;
 
-package gov.hhs.fha.nhinc.auditrepository.nhinc.proxy.service;
-
-import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
-
+import javax.xml.ws.soap.SOAPBinding;
 
 /**
- * @author akong
- *
+ * Adapter class that forces the SOAP 1.1 binding type.
  */
-public abstract class AbstractServicePortDescriptor<T> implements ServicePortDescriptor<T> {
+public abstract class SOAP11ServicePortDescriptor<T> implements ServicePortDescriptor<T> {
 
-    private static final String NAMESPACE_URI = "urn:gov:hhs:fha:nhinc:nhinccomponentauditrepository";
-        
-    public String getNamespaceUri() {
-        return NAMESPACE_URI;
+    @Override
+    public final String getSOAPBindingVersion() {
+        return SOAPBinding.SOAP11HTTP_BINDING;
     }
-        
+    
 }

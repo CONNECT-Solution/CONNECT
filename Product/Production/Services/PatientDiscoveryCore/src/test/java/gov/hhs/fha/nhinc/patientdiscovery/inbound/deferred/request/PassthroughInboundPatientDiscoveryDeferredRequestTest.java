@@ -33,6 +33,8 @@ import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.never;
+import static org.mockito.Matchers.any;
 import gov.hhs.fha.nhinc.aspect.InboundProcessingEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
@@ -95,10 +97,10 @@ public class PassthroughInboundPatientDiscoveryDeferredRequestTest {
         verify(auditLogger).auditAck(eq(actualResponse), eq(assertion),
                 eq(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION), eq(NhincConstants.AUDIT_LOG_NHIN_INTERFACE));
 
-        verify(auditLogger).auditAdapterDeferred201305(eq(request), eq(assertion),
-                eq(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION));
+        verify(auditLogger, never()).auditAdapterDeferred201305(any(PRPAIN201305UV02.class), any(AssertionType.class),
+                any(String.class));
 
-        verify(auditLogger).auditAck(eq(actualResponse), eq(assertion), eq(NhincConstants.AUDIT_LOG_INBOUND_DIRECTION),
+        verify(auditLogger, never()).auditAck(any(MCCIIN000002UV01.class), any(AssertionType.class), any(String.class),
                 eq(NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE));
     }
 }

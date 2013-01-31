@@ -26,27 +26,34 @@
  */
 package gov.hhs.fha.nhinc.transform.audit;
 
-import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
-import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
-import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import org.apache.log4j.Logger;
 import gov.hhs.fha.nhinc.common.auditlog.LogEventRequestType;
-import com.services.nhinc.schema.auditmessage.AuditMessageType.ActiveParticipant;
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
+import gov.hhs.fha.nhinc.common.nhinccommon.UserType;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import gov.hhs.fha.nhinc.transform.marshallers.JAXBContextHandler;
+import gov.hhs.fha.nhinc.util.HomeCommunityMap;
+import gov.hhs.healthit.nhin.XDRAcknowledgementType;
+import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
+
+import java.io.ByteArrayOutputStream;
+
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBElement;
+import javax.xml.bind.Marshaller;
+
+import oasis.names.tc.ebxml_regrep.xsd.rim._3.RegistryObjectListType;
+import oasis.names.tc.ebxml_regrep.xsd.rim._3.RegistryPackageType;
+import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
+
+import org.apache.log4j.Logger;
+
 import com.services.nhinc.schema.auditmessage.AuditMessageType;
+import com.services.nhinc.schema.auditmessage.AuditMessageType.ActiveParticipant;
 import com.services.nhinc.schema.auditmessage.AuditSourceIdentificationType;
 import com.services.nhinc.schema.auditmessage.CodedValueType;
 import com.services.nhinc.schema.auditmessage.EventIdentificationType;
 import com.services.nhinc.schema.auditmessage.ParticipantObjectIdentificationType;
-import gov.hhs.fha.nhinc.common.nhinccommon.UserType;
-import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
-import gov.hhs.fha.nhinc.transform.marshallers.JAXBContextHandler;
-import gov.hhs.healthit.nhin.XDRAcknowledgementType;
-import javax.xml.bind.JAXBElement;
-import oasis.names.tc.ebxml_regrep.xsd.rim._3.RegistryObjectListType;
-import oasis.names.tc.ebxml_regrep.xsd.rim._3.RegistryPackageType;
-import java.io.ByteArrayOutputStream;
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.Marshaller;
 
 /**
  * 
@@ -56,7 +63,7 @@ public class XDRTransforms {
     private static final Logger LOG = Logger.getLogger(XDRTransforms.class);
 
     public LogEventRequestType transformRequestToAuditMsg(ProvideAndRegisterDocumentSetRequestType request,
-            AssertionType assertion, String direction, String _interface) {
+            AssertionType assertion, NhinTargetSystemType target, String direction, String _interface) {
         LogEventRequestType result = null;
         AuditMessageType auditMsg = null;
 
@@ -98,7 +105,8 @@ public class XDRTransforms {
         auditMsg.getParticipantObjectIdentification().add(participantObject);
 
         /* Create the AuditSourceIdentifierType object */
-        AuditSourceIdentificationType auditSource = getAuditSourceIdentificationType(assertion.getUserInfo());
+        String communityId = getMessageCommunityIdFromRequest(assertion, target, direction, _interface);
+        AuditSourceIdentificationType auditSource = getAuditSourceIdentificationType(communityId);
         auditMsg.getAuditSourceIdentification().add(auditSource);
 
         result.setAuditMessage(auditMsg);
@@ -111,7 +119,7 @@ public class XDRTransforms {
 
     public LogEventRequestType transformRequestToAuditMsg(
             gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType request,
-            AssertionType assertion, String direction, String _interface) {
+            AssertionType assertion, NhinTargetSystemType target, String direction, String _interface) {
         LogEventRequestType result = null;
         AuditMessageType auditMsg = null;
 
@@ -156,7 +164,8 @@ public class XDRTransforms {
         auditMsg.getParticipantObjectIdentification().add(participantObject);
 
         /* Create the AuditSourceIdentifierType object */
-        AuditSourceIdentificationType auditSource = getAuditSourceIdentificationType(assertion.getUserInfo());
+        String communityId = getMessageCommunityIdFromRequest(assertion, target, direction, _interface);
+        AuditSourceIdentificationType auditSource = getAuditSourceIdentificationType(communityId);
         auditMsg.getAuditSourceIdentification().add(auditSource);
 
         result.setAuditMessage(auditMsg);
@@ -168,7 +177,7 @@ public class XDRTransforms {
 
     public LogEventRequestType transformRequestToAuditMsg(
             gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType request,
-            AssertionType assertion, String direction, String _interface) {
+            AssertionType assertion, NhinTargetSystemType target, String direction, String _interface) {
         LogEventRequestType result = null;
         AuditMessageType auditMsg = null;
 
@@ -215,7 +224,8 @@ public class XDRTransforms {
         auditMsg.getParticipantObjectIdentification().add(participantObject);
 
         /* Create the AuditSourceIdentifierType object */
-        AuditSourceIdentificationType auditSource = getAuditSourceIdentificationType(assertion.getUserInfo());
+        String communityId = getMessageCommunityIdFromRequest(assertion, target, direction, _interface);
+        AuditSourceIdentificationType auditSource = getAuditSourceIdentificationType(communityId);
         auditMsg.getAuditSourceIdentification().add(auditSource);
 
         result.setAuditMessage(auditMsg);
@@ -227,7 +237,7 @@ public class XDRTransforms {
 
     public LogEventRequestType transformRequestToAuditMsg(
             gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayProvideAndRegisterDocumentSetSecuredResponseRequestType request,
-            AssertionType assertion, String direction, String _interface) {
+            AssertionType assertion, NhinTargetSystemType target, String direction, String _interface) {
         LogEventRequestType result = null;
         AuditMessageType auditMsg = null;
 
@@ -265,57 +275,8 @@ public class XDRTransforms {
         auditMsg.getParticipantObjectIdentification().add(participantObject);
         
         /* Create the AuditSourceIdentifierType object */
-        AuditSourceIdentificationType auditSource = getAuditSourceIdentificationType(assertion.getUserInfo());
-        auditMsg.getAuditSourceIdentification().add(auditSource);
-
-        result.setAuditMessage(auditMsg);
-        result.setDirection(direction);
-        result.setInterface(_interface);
-
-        return result;
-    }
-
-    public LogEventRequestType transformRequestToAuditMsg(
-            gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayProvideAndRegisterDocumentSetSecuredResponseRequestType request,
-            AssertionType assertion, String direction, String _interface) {
-        LogEventRequestType result = null;
-        AuditMessageType auditMsg = null;
-
-        if (request == null) {
-            LOG.error("Requst Object was null");
-            return null;
-        }
-        if (assertion == null) {
-            LOG.error("Assertion was null");
-            return null;
-        }
-
-        // check to see that the required fields are not null
-        boolean missingReqFields = areRequiredResponseFieldsNull(request.getRegistryResponse(), assertion);
-
-        if (missingReqFields) {
-            LOG.error("One or more required fields was missing");
-            return null;
-        }
-
-        result = new LogEventRequestType();
-
-        auditMsg = new AuditMessageType();
-        // Create EventIdentification
-        CodedValueType eventID = getCodedValueTypeForXDRResponse();
-
-        EventIdentificationType oEventIdentificationType = getEventIdentificationType(eventID);
-        auditMsg.setEventIdentification(oEventIdentificationType);
-
-        ActiveParticipant participant = getActiveParticipant(assertion.getUserInfo());
-        auditMsg.getActiveParticipant().add(participant);
-        
-        /* Assign ParticipationObjectIdentification */
-        ParticipantObjectIdentificationType participantObject = getParticipantObjectIdentificationType("");
-        auditMsg.getParticipantObjectIdentification().add(participantObject);
-
-        /* Create the AuditSourceIdentifierType object */
-        AuditSourceIdentificationType auditSource = getAuditSourceIdentificationType(assertion.getUserInfo());
+        String communityId = getMessageCommunityIdFromRequest(assertion, target, direction, _interface);
+        AuditSourceIdentificationType auditSource = getAuditSourceIdentificationType(communityId);
         auditMsg.getAuditSourceIdentification().add(auditSource);
 
         result.setAuditMessage(auditMsg);
@@ -326,7 +287,7 @@ public class XDRTransforms {
     }
 
     public LogEventRequestType transformResponseToAuditMsg(RegistryResponseType response, AssertionType assertion,
-            String direction, String _interface) {
+            NhinTargetSystemType target, String direction, String _interface, boolean isRequesting) {
         LogEventRequestType result = null;
         AuditMessageType auditMsg = null;
 
@@ -364,7 +325,8 @@ public class XDRTransforms {
         auditMsg.getParticipantObjectIdentification().add(participantObject);
 
         /* Create the AuditSourceIdentifierType object */
-        AuditSourceIdentificationType auditSource = getAuditSourceIdentificationType(assertion.getUserInfo());
+        String communityId = getMessageCommunityId(assertion, target, _interface, isRequesting);
+        AuditSourceIdentificationType auditSource = getAuditSourceIdentificationType(communityId);
         auditMsg.getAuditSourceIdentification().add(auditSource);
 
         result.setAuditMessage(auditMsg);
@@ -374,7 +336,76 @@ public class XDRTransforms {
         return result;
 
     }
+    
+    /**
+     * Retrieves the community id for auditing when the message being audited is a request message. For example, this
+     * method should be used when the message being audited is an ProvideAndRegister request.
+     * 
+     * @param assertion the assertion containing a homecommunity id
+     * @param target the destination of the original request message
+     * @param direction the direction of the message being auditied
+     * @param _interface the interface (nhin, entity, adapter) of the audited message
+     * @return the community id to use
+     */
+    public String getMessageCommunityIdFromRequest(AssertionType assertion, NhinTargetSystemType target,
+            String direction, String _interface) {
+        
+        // if a request is going outbound, then the current audit is in the requesting side
+        boolean isAuditInRequestingSide = NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION.equalsIgnoreCase(direction);
+        
+        return getMessageCommunityId(assertion, target, _interface, isAuditInRequestingSide);
+    }
+    
+    /**
+     * Retrieves the community id for auditing when the message being audited is a response message. For example, this
+     * method should be used when the message being audited is an Acknowledgement response of a request.
+     * 
+     * @param assertion the assertion containing a homecommunity id
+     * @param target the destination of the original request message
+     * @param direction the direction of the message being auditied
+     * @param _interface the interface (nhin, entity, adapter) of the audited message
+     * @return the community id to use
+     */
+    public String getMessageCommunityIdFromResponse(AssertionType assertion, NhinTargetSystemType target,
+            String direction, String _interface) {
+        
+        // if a response is going inbound, then the current audit is in the requesting side
+        boolean isAuditInRequestingSide = NhincConstants.AUDIT_LOG_INBOUND_DIRECTION.equalsIgnoreCase(direction);
+        
+        return getMessageCommunityId(assertion, target, _interface, isAuditInRequestingSide);
+    }
+    
+    /**
+     * Retrieves the community id for auditing.
+     * 
+     * @param assertion the assertion containing a homecommunity id
+     * @param target the destination of the original request message
+     * @param _interface the interface (nhin, entity, adapter) of the audited message
+     * @param isRequesting true if the message being audited is in the requesting side
+     * @return the community id to use
+     */
+    public String getMessageCommunityId(AssertionType assertion, NhinTargetSystemType target,
+            String _interface, boolean isRequesting) {
+        String communityId = null;
 
+        if (NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE.equalsIgnoreCase(_interface)
+                || NhincConstants.AUDIT_LOG_ENTITY_INTERFACE.equalsIgnoreCase(_interface)) {
+            communityId = getLocalHomeCommunityId();
+        } else if (NhincConstants.AUDIT_LOG_NHIN_INTERFACE.equalsIgnoreCase(_interface)) {
+            if (isRequesting) {
+                communityId = HomeCommunityMap.getCommunityIdFromTargetSystem(target);
+            } else {
+                communityId = HomeCommunityMap.getHomeCommunityIdFromAssertion(assertion);
+            }
+        }
+
+        return communityId;
+    }
+    
+    protected String getLocalHomeCommunityId() {
+        return HomeCommunityMap.getLocalHomeCommunityId();
+    }
+    
     protected boolean areRequiredXDSfieldsNull(ProvideAndRegisterDocumentSetRequestType body, AssertionType assertion) {
         try {
 
@@ -727,21 +758,8 @@ public class XDRTransforms {
         }
     }
 
-    private AuditSourceIdentificationType getAuditSourceIdentificationType(UserType userInfo) {
-        AuditSourceIdentificationType result;
-
-        String communityId = "";
-        String communityName = "";
-        if (userInfo != null && userInfo.getOrg() != null) {
-            if (userInfo.getOrg().getHomeCommunityId() != null) {
-                communityId = userInfo.getOrg().getHomeCommunityId();
-            }
-            if (userInfo.getOrg().getName() != null) {
-                communityName = userInfo.getOrg().getName();
-            }
-        }
-        result = AuditDataTransformHelper.createAuditSourceIdentification(communityId, communityName);
-        return result;
+    private AuditSourceIdentificationType getAuditSourceIdentificationType(String communityId) {     
+        return AuditDataTransformHelper.createAuditSourceIdentification(communityId, communityId);
     }
 
     private CodedValueType getCodedValueTypeForXDR() {
@@ -815,7 +833,7 @@ public class XDRTransforms {
      * 
      */
     public LogEventRequestType transformAcknowledgementToAuditMsg(XDRAcknowledgementType acknowledgement,
-            AssertionType assertion, String direction, String _interface, String action) {
+            AssertionType assertion, NhinTargetSystemType target, String direction, String _interface, String action) {
         LogEventRequestType result = null;
         AuditMessageType auditMsg = null;
 
@@ -860,7 +878,8 @@ public class XDRTransforms {
         auditMsg.getParticipantObjectIdentification().add(participantObject);
 
         /* Create the AuditSourceIdentifierType object */
-        AuditSourceIdentificationType auditSource = getAuditSourceIdentificationType(assertion.getUserInfo());
+        String communityId = getMessageCommunityIdFromResponse(assertion, target, direction, _interface);
+        AuditSourceIdentificationType auditSource = getAuditSourceIdentificationType(communityId);
         auditMsg.getAuditSourceIdentification().add(auditSource);
 
         result.setAuditMessage(auditMsg);

@@ -1,6 +1,4 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
-                      http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.connectopensource</groupId>
     <artifactId>CONNECTSolution</artifactId>
@@ -21,7 +19,8 @@ By advancing the adoption of interoperable health IT systems and health informat
         <connection>scm:git:git@github.com:${git.username}/CONNECT.git</connection>
         <developerConnection>scm:git:git@github.com:${git.username}/CONNECT.git</developerConnection>
         <url>https://github.com/${git.username}/CONNECT</url>
-    </scm>
+      <tag>HEAD</tag>
+  </scm>
     <modules>
     	<module>ThirdParty</module>
     	<module>Product</module>
@@ -47,9 +46,21 @@ By advancing the adoption of interoperable health IT systems and health informat
                     <artifactId>maven-site-plugin</artifactId>
                     <version>3.1</version>
                 </plugin>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-release-plugin</artifactId>
+                <version>2.4</version>
+        </plugin>
             </plugins>
         </pluginManagement>
         <plugins>
+            <plugin>
+             <groupId>org.apache.maven.plugins</groupId>
+              <artifactId>maven-release-plugin</artifactId>
+              <configuration>
+                    <pushChanges>false</pushChanges>
+              </configuration>
+          </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-site-plugin</artifactId>

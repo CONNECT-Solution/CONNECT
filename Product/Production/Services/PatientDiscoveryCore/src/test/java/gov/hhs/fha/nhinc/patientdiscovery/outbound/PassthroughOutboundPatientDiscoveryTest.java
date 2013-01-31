@@ -30,8 +30,8 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertSame;
 import static org.mockito.Matchers.any;
-import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import gov.hhs.fha.nhinc.aspect.OutboundProcessingEvent;
@@ -39,7 +39,6 @@ import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunityType;
-import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryAuditLogger;
 import gov.hhs.fha.nhinc.patientdiscovery.aspect.PRPAIN201305UV02ArgTransformer;
 import gov.hhs.fha.nhinc.patientdiscovery.aspect.RespondingGatewayPRPAIN201306UV02Builder;
@@ -59,12 +58,12 @@ import org.junit.Test;
  * 
  */
 public class PassthroughOutboundPatientDiscoveryTest {
-    
+
     @Test
     public void hasOutboundProcessingEvent() throws Exception {
         Class<PassthroughOutboundPatientDiscovery> clazz = PassthroughOutboundPatientDiscovery.class;
-        Method method = clazz.getMethod("respondingGatewayPRPAIN201305UV02", RespondingGatewayPRPAIN201305UV02RequestType.class,
-                AssertionType.class);
+        Method method = clazz.getMethod("respondingGatewayPRPAIN201305UV02",
+                RespondingGatewayPRPAIN201305UV02RequestType.class, AssertionType.class);
         OutboundProcessingEvent annotation = method.getAnnotation(OutboundProcessingEvent.class);
         assertNotNull(annotation);
         assertEquals(PRPAIN201305UV02ArgTransformer.class, annotation.beforeBuilder());
@@ -97,11 +96,11 @@ public class PassthroughOutboundPatientDiscoveryTest {
 
         assertSame(outOrchestratable.getResponse(), actualMessage.getCommunityResponse().get(0).getPRPAIN201306UV02());
 
-        verify(auditLogger).auditNhin201305(eq(request.getPRPAIN201305UV02()), eq(assertion),
-                eq(NhincConstants.AUDIT_LOG_INBOUND_DIRECTION));
+        verify(auditLogger, never()).auditEntity201305(any(RespondingGatewayPRPAIN201305UV02RequestType.class),
+                any(AssertionType.class), any(String.class));
 
-        verify(auditLogger).auditEntity201306(eq(actualMessage), eq(assertion),
-                eq(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION));
+        verify(auditLogger, never()).auditEntity201306(any(RespondingGatewayPRPAIN201306UV02ResponseType.class),
+                any(AssertionType.class), any(String.class));
     }
 
     private NhinTargetCommunitiesType createNhinTargetCommunitiesType(String hcid) {

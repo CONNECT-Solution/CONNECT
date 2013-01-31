@@ -31,41 +31,43 @@ import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryError;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryErrorList;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
+import org.apache.commons.lang.exception.ExceptionUtils;
+
 /**
  * @author mweaver
- *
+ * 
  */
 public class XDCommonResponseHelper {
-    
+
     public enum ErrorCodes {
-        XDSRegistryError,
-        XDSRepositoryError
+        XDSRegistryError, XDSRepositoryError
     }
-    
+
     public RegistryResponseType createSuccess() {
         RegistryResponseType response = new RegistryResponseType();
         response.setStatus(NhincConstants.NHINC_ADHOC_QUERY_SUCCESS_RESPONSE);
         return response;
     }
-    
+
     public RegistryResponseType createError(String message) {
         return createRegistryResponse(message, ErrorCodes.XDSRegistryError, "CONNECT");
     }
-    
+
     public RegistryResponseType createError(Throwable e) {
-        return createRegistryResponse(e.getLocalizedMessage(), ErrorCodes.XDSRegistryError, e.getStackTrace().toString());
+        return createRegistryResponse(e.getLocalizedMessage(), ErrorCodes.XDSRegistryError,
+                ExceptionUtils.getFullStackTrace(e));
     }
-    
+
     private RegistryResponseType createRegistryResponse(String error, ErrorCodes code, String location) {
         RegistryResponseType response = new RegistryResponseType();
         response.setStatus(NhincConstants.XDR_ACK_FAILURE_STATUS_MSG);
-        
+
         RegistryErrorList registryErrorList = new RegistryErrorList();
         RegistryError registryError = new RegistryError();
         registryError.setCodeContext(error);
         registryError.setErrorCode(code.toString());
         registryError.setLocation(location);
-        registryErrorList.getRegistryError().add(registryError );
+        registryErrorList.getRegistryError().add(registryError);
         response.setRegistryErrorList(registryErrorList);
         return response;
     }

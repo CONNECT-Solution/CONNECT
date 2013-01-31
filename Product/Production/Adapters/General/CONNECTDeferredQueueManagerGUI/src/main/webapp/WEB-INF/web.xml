@@ -79,4 +79,10 @@
             <is-xml>true</is-xml>
         </jsp-property-group>
     </jsp-config>
+    <resource-ref>
+        <res-ref-name>jdbc/asyncmsgs_datasource</res-ref-name>
+        <res-type>javax.sql.DataSource</res-type>
+        <res-auth>Container</res-auth>
+        <res-sharing-scope>Shareable</res-sharing-scope>
+    </resource-ref>
 </web-app>

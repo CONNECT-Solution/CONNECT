@@ -31,16 +31,14 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertSame;
 import static org.mockito.Matchers.anyString;
 import static org.mockito.Matchers.eq;
+import static org.mockito.Matchers.isNull;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-
-import java.lang.reflect.Method;
-
 import gov.hhs.fha.nhinc.aspect.InboundProcessingEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
-import gov.hhs.fha.nhinc.docsubmission.DocSubmissionUtils;
+import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.docsubmission.XDRAuditLogger;
 import gov.hhs.fha.nhinc.docsubmission.XDRPolicyChecker;
 import gov.hhs.fha.nhinc.docsubmission.adapter.deferred.request.error.proxy.AdapterDocSubmissionDeferredRequestErrorProxy;
@@ -54,6 +52,8 @@ import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import gov.hhs.healthit.nhin.XDRAcknowledgementType;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
+
+import java.lang.reflect.Method;
 
 import org.junit.Test;
 
@@ -76,14 +76,10 @@ public class StandardInboundDocSubmissionDeferredRequestTest {
         AdapterDocSubmissionDeferredRequestProxyObjectFactory adapterFactory = mock(AdapterDocSubmissionDeferredRequestProxyObjectFactory.class);
         AdapterDocSubmissionDeferredRequestProxy adapterProxy = mock(AdapterDocSubmissionDeferredRequestProxy.class);
         XDRAuditLogger auditLogger = mock(XDRAuditLogger.class);
-        DocSubmissionUtils dsUtils = mock(DocSubmissionUtils.class);
 
         when(adapterFactory.getAdapterDocSubmissionDeferredRequestProxy()).thenReturn(adapterProxy);
 
         when(adapterProxy.provideAndRegisterDocumentSetBRequest(request, assertion)).thenReturn(expectedResponse);
-
-        PassthroughInboundDocSubmissionDeferredRequest passthroughDocSubmission = new PassthroughInboundDocSubmissionDeferredRequest(
-                adapterFactory, auditLogger, dsUtils);
 
         PropertyAccessor propertyAccessor = mock(PropertyAccessor.class);
         XDRPolicyChecker policyChecker = mock(XDRPolicyChecker.class);
@@ -96,7 +92,7 @@ public class StandardInboundDocSubmissionDeferredRequestTest {
                 NhincConstants.POLICYENGINE_INBOUND_DIRECTION)).thenReturn(true);
 
         StandardInboundDocSubmissionDeferredRequest standardDocSubmission = new StandardInboundDocSubmissionDeferredRequest(
-                passthroughDocSubmission, policyChecker, propertyAccessor, auditLogger, errorAdapterFactory);
+                adapterFactory, policyChecker, propertyAccessor, auditLogger, errorAdapterFactory);
 
         XDRAcknowledgementType actualResponse = standardDocSubmission.provideAndRegisterDocumentSetBRequest(request,
                 assertion);
@@ -109,9 +105,10 @@ public class StandardInboundDocSubmissionDeferredRequestTest {
         verify(auditLogger).auditAdapterAcknowledgement(eq(actualResponse), eq(assertion),
                 eq(NhincConstants.AUDIT_LOG_INBOUND_DIRECTION), eq(NhincConstants.XDR_REQUEST_ACTION));
 
-        verify(auditLogger).auditNhinXDR(eq(request), eq(assertion), eq(NhincConstants.AUDIT_LOG_INBOUND_DIRECTION));
+        verify(auditLogger).auditNhinXDR(eq(request), eq(assertion), isNull(NhinTargetSystemType.class),
+                eq(NhincConstants.AUDIT_LOG_INBOUND_DIRECTION));
 
-        verify(auditLogger).auditAcknowledgement(eq(actualResponse), eq(assertion),
+        verify(auditLogger).auditAcknowledgement(eq(actualResponse), eq(assertion), isNull(NhinTargetSystemType.class),
                 eq(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION), eq(NhincConstants.XDR_REQUEST_ACTION));
     }
 
@@ -125,7 +122,7 @@ public class StandardInboundDocSubmissionDeferredRequestTest {
         assertion.getHomeCommunity().setHomeCommunityId(senderHCID);
         XDRAcknowledgementType expectedResponse = new XDRAcknowledgementType();
 
-        PassthroughInboundDocSubmissionDeferredRequest passthroughDocSubmission = mock(PassthroughInboundDocSubmissionDeferredRequest.class);
+        AdapterDocSubmissionDeferredRequestProxyObjectFactory adapterFactory = mock(AdapterDocSubmissionDeferredRequestProxyObjectFactory.class);
         PropertyAccessor propertyAccessor = mock(PropertyAccessor.class);
         XDRPolicyChecker policyChecker = mock(XDRPolicyChecker.class);
         XDRAuditLogger auditLogger = mock(XDRAuditLogger.class);
@@ -144,16 +141,17 @@ public class StandardInboundDocSubmissionDeferredRequestTest {
                 .thenReturn(expectedResponse);
 
         StandardInboundDocSubmissionDeferredRequest standardDocSubmission = new StandardInboundDocSubmissionDeferredRequest(
-                passthroughDocSubmission, policyChecker, propertyAccessor, auditLogger, errorAdapterFactory);
+                adapterFactory, policyChecker, propertyAccessor, auditLogger, errorAdapterFactory);
 
         XDRAcknowledgementType actualResponse = standardDocSubmission.provideAndRegisterDocumentSetBRequest(request,
                 assertion);
 
         assertSame(expectedResponse, actualResponse);
 
-        verify(auditLogger).auditNhinXDR(eq(request), eq(assertion), eq(NhincConstants.AUDIT_LOG_INBOUND_DIRECTION));
+        verify(auditLogger).auditNhinXDR(eq(request), eq(assertion), isNull(NhinTargetSystemType.class),
+                eq(NhincConstants.AUDIT_LOG_INBOUND_DIRECTION));
 
-        verify(auditLogger).auditAcknowledgement(eq(actualResponse), eq(assertion),
+        verify(auditLogger).auditAcknowledgement(eq(actualResponse), eq(assertion), isNull(NhinTargetSystemType.class),
                 eq(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION), eq(NhincConstants.XDR_REQUEST_ACTION));
     }
     
@@ -164,7 +162,7 @@ public class StandardInboundDocSubmissionDeferredRequestTest {
         AssertionType assertion = new AssertionType();
         XDRAcknowledgementType expectedResponse = new XDRAcknowledgementType();
 
-        PassthroughInboundDocSubmissionDeferredRequest passthroughDocSubmission = mock(PassthroughInboundDocSubmissionDeferredRequest.class);
+        AdapterDocSubmissionDeferredRequestProxyObjectFactory adapterFactory = mock(AdapterDocSubmissionDeferredRequestProxyObjectFactory.class);
         PropertyAccessor propertyAccessor = mock(PropertyAccessor.class);
         XDRPolicyChecker policyChecker = mock(XDRPolicyChecker.class);
         XDRAuditLogger auditLogger = mock(XDRAuditLogger.class);
@@ -177,16 +175,17 @@ public class StandardInboundDocSubmissionDeferredRequestTest {
                 .thenReturn(expectedResponse);
         
         StandardInboundDocSubmissionDeferredRequest standardDocSubmission = new StandardInboundDocSubmissionDeferredRequest(
-                passthroughDocSubmission, policyChecker, propertyAccessor, auditLogger, errorAdapterFactory);
+                adapterFactory, policyChecker, propertyAccessor, auditLogger, errorAdapterFactory);
 
         XDRAcknowledgementType actualResponse = standardDocSubmission.provideAndRegisterDocumentSetBRequest(request,
                 assertion);
 
         assertSame(expectedResponse, actualResponse);
 
-        verify(auditLogger).auditNhinXDR(eq(request), eq(assertion), eq(NhincConstants.AUDIT_LOG_INBOUND_DIRECTION));
+        verify(auditLogger).auditNhinXDR(eq(request), eq(assertion), isNull(NhinTargetSystemType.class),
+                eq(NhincConstants.AUDIT_LOG_INBOUND_DIRECTION));
 
-        verify(auditLogger).auditAcknowledgement(eq(actualResponse), eq(assertion),
+        verify(auditLogger).auditAcknowledgement(eq(actualResponse), eq(assertion), isNull(NhinTargetSystemType.class),
                 eq(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION), eq(NhincConstants.XDR_REQUEST_ACTION));
     }
     

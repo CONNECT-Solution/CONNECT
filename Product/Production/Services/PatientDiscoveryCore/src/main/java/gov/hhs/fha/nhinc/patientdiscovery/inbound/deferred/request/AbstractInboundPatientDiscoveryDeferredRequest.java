@@ -30,6 +30,8 @@ import gov.hhs.fha.nhinc.aspect.InboundProcessingEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryAuditor;
+import gov.hhs.fha.nhinc.patientdiscovery.adapter.deferred.request.proxy.AdapterPatientDiscoveryDeferredReqProxy;
+import gov.hhs.fha.nhinc.patientdiscovery.adapter.deferred.request.proxy.AdapterPatientDiscoveryDeferredReqProxyObjectFactory;
 import gov.hhs.fha.nhinc.patientdiscovery.aspect.MCCIIN000002UV01EventDescriptionBuilder;
 import gov.hhs.fha.nhinc.patientdiscovery.aspect.PRPAIN201305UV02EventDescriptionBuilder;
 
@@ -38,6 +40,12 @@ import org.hl7.v3.PRPAIN201305UV02;
 
 public abstract class AbstractInboundPatientDiscoveryDeferredRequest implements InboundPatientDiscoveryDeferredRequest {
 
+    private final AdapterPatientDiscoveryDeferredReqProxyObjectFactory adapterFactory;
+    
+    public AbstractInboundPatientDiscoveryDeferredRequest(AdapterPatientDiscoveryDeferredReqProxyObjectFactory factory) {
+        adapterFactory = factory;
+    }
+    
     abstract MCCIIN000002UV01 process(PRPAIN201305UV02 request, AssertionType assertion);
     
     abstract PatientDiscoveryAuditor getAuditLogger();
@@ -61,6 +69,11 @@ public abstract class AbstractInboundPatientDiscoveryDeferredRequest implements 
         auditResponseToNhin(response, assertion);
 
         return response;
+    }
+    
+    protected MCCIIN000002UV01 sendToAdapter(PRPAIN201305UV02 request, AssertionType assertion) {
+        AdapterPatientDiscoveryDeferredReqProxy proxy = adapterFactory.getAdapterPatientDiscoveryDeferredReqProxy();
+        return proxy.processPatientDiscoveryAsyncReq(request, assertion);
     }
 
     private void auditRequestFromNhin(PRPAIN201305UV02 request, AssertionType assertion) {

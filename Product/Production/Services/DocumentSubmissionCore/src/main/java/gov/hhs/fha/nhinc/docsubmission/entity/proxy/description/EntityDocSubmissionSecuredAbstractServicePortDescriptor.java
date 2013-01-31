@@ -27,7 +27,7 @@
 
 package gov.hhs.fha.nhinc.docsubmission.entity.proxy.description;
 
-import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
+import gov.hhs.fha.nhinc.messaging.service.port.SOAP12ServicePortDescriptor;
 import gov.hhs.fha.nhinc.nhincentityxdrsecured.EntityXDRSecuredPortType;
 
 
@@ -35,23 +35,8 @@ import gov.hhs.fha.nhinc.nhincentityxdrsecured.EntityXDRSecuredPortType;
  * @author mweaver
  *
  */
-public abstract class EntityDocSubmissionSecuredAbstractServicePortDescriptor implements ServicePortDescriptor<EntityXDRSecuredPortType> {
+public abstract class EntityDocSubmissionSecuredAbstractServicePortDescriptor extends SOAP12ServicePortDescriptor<EntityXDRSecuredPortType> {
     
-    private static final String NAMESPACE_URI = "urn:gov:hhs:fha:nhinc:nhincentityxdrsecured";
-    private static final String SERVICE_LOCAL_PART = "EntityXDRSecured_Service";
-    private static final String PORT_LOCAL_PART = "EntityXDRSecured_Port";    
-        
-    public String getNamespaceUri() {
-        return NAMESPACE_URI;
-    }
-    
-    public String getServiceLocalPart() {
-        return SERVICE_LOCAL_PART;
-    }
-    
-    public String getPortLocalPart() {
-        return PORT_LOCAL_PART;
-    }
     
     public Class<EntityXDRSecuredPortType> getPortClass() {
         return EntityXDRSecuredPortType.class;

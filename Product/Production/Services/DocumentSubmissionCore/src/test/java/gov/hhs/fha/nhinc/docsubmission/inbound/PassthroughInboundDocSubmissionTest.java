@@ -31,6 +31,7 @@ import java.lang.reflect.Method;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
 import gov.hhs.fha.nhinc.aspect.InboundProcessingEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.docsubmission.DocSubmissionUtils;
 import gov.hhs.fha.nhinc.docsubmission.XDRAuditLogger;
 import gov.hhs.fha.nhinc.docsubmission.adapter.proxy.AdapterDocSubmissionProxy;
@@ -46,11 +47,16 @@ import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertSame;
+import static org.mockito.Matchers.any;
+import static org.mockito.Matchers.anyString;
+import static org.mockito.Matchers.isNull;
 import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.eq;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+
 
 /**
  * @author akong
@@ -81,16 +87,17 @@ public class PassthroughInboundDocSubmissionTest {
 
         assertSame(expectedResponse, actualResponse);
 
-        verify(auditLogger)
-                .auditAdapterXDR(eq(request), eq(assertion), eq(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION));
+        verify(auditLogger, never()).auditAdapterXDR(any(ProvideAndRegisterDocumentSetRequestType.class),
+                any(AssertionType.class), anyString());
 
-        verify(auditLogger).auditAdapterXDRResponse(eq(actualResponse), eq(assertion),
+        verify(auditLogger, never()).auditAdapterXDRResponse(any(RegistryResponseType.class), any(AssertionType.class),
+                anyString());
+
+        verify(auditLogger).auditNhinXDR(eq(request), eq(assertion), isNull(NhinTargetSystemType.class),
                 eq(NhincConstants.AUDIT_LOG_INBOUND_DIRECTION));
 
-        verify(auditLogger).auditNhinXDR(eq(request), eq(assertion), eq(NhincConstants.AUDIT_LOG_INBOUND_DIRECTION));
-
-        verify(auditLogger).auditNhinXDRResponse(eq(actualResponse), eq(assertion),
-                eq(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION));
+        verify(auditLogger).auditNhinXDRResponse(eq(actualResponse), eq(assertion), isNull(NhinTargetSystemType.class),
+                eq(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION), eq(false));
     }
 
     @Test
@@ -115,10 +122,11 @@ public class PassthroughInboundDocSubmissionTest {
         assertEquals("urn:oasis:names:tc:ebxml-regrep:ErrorSeverityType:Error", actualResponse.getRegistryErrorList()
                 .getRegistryError().get(0).getSeverity());
 
-        verify(auditLogger).auditNhinXDR(eq(request), eq(assertion), eq(NhincConstants.AUDIT_LOG_INBOUND_DIRECTION));
+        verify(auditLogger).auditNhinXDR(eq(request), eq(assertion), isNull(NhinTargetSystemType.class),
+                eq(NhincConstants.AUDIT_LOG_INBOUND_DIRECTION));
 
-        verify(auditLogger).auditNhinXDRResponse(eq(actualResponse), eq(assertion),
-                eq(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION));
+        verify(auditLogger).auditNhinXDRResponse(eq(actualResponse), eq(assertion), isNull(NhinTargetSystemType.class),
+                eq(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION), eq(false));
     }
     
     @Test

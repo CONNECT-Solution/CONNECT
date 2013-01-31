@@ -30,14 +30,13 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertSame;
 import static org.mockito.Matchers.any;
-import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import gov.hhs.fha.nhinc.aspect.OutboundProcessingEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
-import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryAuditor;
 import gov.hhs.fha.nhinc.patientdiscovery.aspect.MCCIIN000002UV01EventDescriptionBuilder;
 import gov.hhs.fha.nhinc.patientdiscovery.aspect.PRPAIN201305UV02EventDescriptionBuilder;
@@ -79,23 +78,25 @@ public class PassthroughOutboundPatientDiscoveryDeferredRequestTest {
         PatientDiscoveryAuditor auditLogger = mock(PatientDiscoveryAuditor.class);
         OutboundPatientDiscoveryDeferredRequestDelegate delegate = mock(OutboundPatientDiscoveryDeferredRequestDelegate.class);
         OutboundPatientDiscoveryDeferredRequestOrchestratable returnedOrchestratable = mock(OutboundPatientDiscoveryDeferredRequestOrchestratable.class);
-        
+
         when(returnedOrchestratable.getResponse()).thenReturn(expectedResponse);
-        
-        when(delegate.process(any(OutboundPatientDiscoveryDeferredRequestOrchestratable.class))).thenReturn(returnedOrchestratable);
+
+        when(delegate.process(any(OutboundPatientDiscoveryDeferredRequestOrchestratable.class))).thenReturn(
+                returnedOrchestratable);
 
         PassthroughOutboundPatientDiscoveryDeferredRequest passthroughPatientDiscovery = new PassthroughOutboundPatientDiscoveryDeferredRequest(
                 auditLogger, delegate);
 
         MCCIIN000002UV01 actualResponse = passthroughPatientDiscovery.processPatientDiscoveryAsyncReq(request,
                 assertion, targets);
-        
+
         assertSame(expectedResponse, actualResponse);
-        
-        verify(auditLogger).auditNhinDeferred201305(eq(request), eq(assertion), eq(NhincConstants.AUDIT_LOG_INBOUND_DIRECTION));
-        
-        verify(auditLogger).auditAck(eq(actualResponse), eq(assertion), eq(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION),
-                eq(NhincConstants.AUDIT_LOG_ENTITY_INTERFACE));
+
+        verify(auditLogger, never()).auditNhinDeferred201305(any(PRPAIN201305UV02.class), any(AssertionType.class),
+                any(String.class));
+
+        verify(auditLogger, never()).auditAck(any(MCCIIN000002UV01.class), any(AssertionType.class), any(String.class),
+                any(String.class));
     }
 
 }

@@ -269,9 +269,8 @@ public class AuditRepositoryLogger implements AuditRepositoryDocumentRetrieveLog
             RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType message, AssertionType assertion,
             String direction) {
         LOG.debug("Entering AuditRepositoryLogger.logEntityXDRReq(...)");
-        LogEventRequestType auditMsg = null;
-        auditMsg = xdrAuditTransformer.transformRequestToAuditMsg(message.getProvideAndRegisterDocumentSetRequest(),
-                assertion, direction, NhincConstants.AUDIT_LOG_ENTITY_INTERFACE);
+        LogEventRequestType auditMsg = xdrAuditTransformer.transformRequestToAuditMsg(message.getProvideAndRegisterDocumentSetRequest(),
+                assertion, null, direction, NhincConstants.AUDIT_LOG_ENTITY_INTERFACE);
         LOG.debug("Exiting AuditRepositoryLogger.logEntityXDRReq(...)");
         return auditMsg;
     }
@@ -287,7 +286,8 @@ public class AuditRepositoryLogger implements AuditRepositoryDocumentRetrieveLog
     public LogEventRequestType logAdapterXDRResponse(RegistryResponseType response, AssertionType assertion,
             String direction) {
         LOG.debug("Entering AuditRepositoryLogger.logAdapterXDRResponse(...)");
-        LogEventRequestType auditMsg = null;
+        LogEventRequestType auditMsg = xdrAuditTransformer.transformResponseToAuditMsg(response, assertion, null,
+                direction, NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE, true);
         LOG.debug("Exiting AuditRepositoryLogger.logAdapterXDRResponse(...)");
         return auditMsg;
     }
@@ -303,9 +303,8 @@ public class AuditRepositoryLogger implements AuditRepositoryDocumentRetrieveLog
     public LogEventRequestType logEntityXDRResponse(RegistryResponseType response, AssertionType assertion,
             String direction) {
         LOG.debug("Entering AuditRepositoryLogger.logEntityXDRResponse(...)");
-        LogEventRequestType auditMsg = null;
-            auditMsg = xdrAuditTransformer.transformResponseToAuditMsg(response, assertion, direction,
-                    NhincConstants.AUDIT_LOG_ENTITY_INTERFACE);
+        LogEventRequestType auditMsg = xdrAuditTransformer.transformResponseToAuditMsg(response, assertion, null,
+                direction, NhincConstants.AUDIT_LOG_ENTITY_INTERFACE, true);
         LOG.debug("Exiting AuditRepositoryLogger.logEntityXDRResponse(...)");
         return auditMsg;
     }
@@ -322,9 +321,8 @@ public class AuditRepositoryLogger implements AuditRepositoryDocumentRetrieveLog
             gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayProvideAndRegisterDocumentSetSecuredResponseRequestType response,
             AssertionType assertion, String direction) {
         LOG.debug("Entering AuditRepositoryLogger.logEntityXDRResponse(...)");
-        LogEventRequestType auditMsg = null;
-            auditMsg = xdrAuditTransformer.transformRequestToAuditMsg(response, assertion, direction,
-                    NhincConstants.AUDIT_LOG_ENTITY_INTERFACE);
+        LogEventRequestType auditMsg = xdrAuditTransformer.transformRequestToAuditMsg(response, assertion, null,
+                direction, NhincConstants.AUDIT_LOG_ENTITY_INTERFACE);
         LOG.debug("Exiting AuditRepositoryLogger.logEntityXDRResponse(...)");
         return auditMsg;
     }
@@ -750,17 +748,15 @@ public class AuditRepositoryLogger implements AuditRepositoryDocumentRetrieveLog
      * @return
      */
     public LogEventRequestType logXDRReq(ProvideAndRegisterDocumentSetRequestType message, AssertionType assertion,
-            String direction) {
+            NhinTargetSystemType target, String direction) {
         LOG.debug("Entering AuditRepositoryLogger.logNhinXDRReq(...)");
-        LogEventRequestType auditMsg = null;
-
         if (message == null) {
             LOG.error("Message is null");
             return null;
         }
-            XDRTransforms auditTransformer = new XDRTransforms();
-            auditMsg = auditTransformer.transformRequestToAuditMsg(message, assertion, direction,
-                    NhincConstants.AUDIT_LOG_NHIN_INTERFACE);
+        XDRTransforms auditTransformer = new XDRTransforms();
+        LogEventRequestType auditMsg = auditTransformer.transformRequestToAuditMsg(message, assertion, target, direction,
+                NhincConstants.AUDIT_LOG_NHIN_INTERFACE);
         LOG.debug("Exiting AuditRepositoryLogger.logNhinXDRReq(...)");
         return auditMsg;
     }
@@ -782,6 +778,10 @@ public class AuditRepositoryLogger implements AuditRepositoryDocumentRetrieveLog
             LOG.error("Message is null");
             return null;
         }
+        
+        XDRTransforms auditTransformer = new XDRTransforms();
+        auditMsg = auditTransformer.transformRequestToAuditMsg(message, assertion, null, direction,
+                NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE);
 
         LOG.debug("Exiting AuditRepositoryLogger.logAdapterXDRReq(...)");
         return auditMsg;
@@ -797,12 +797,11 @@ public class AuditRepositoryLogger implements AuditRepositoryDocumentRetrieveLog
      */
     public LogEventRequestType logXDRReq(
             gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType message,
-            AssertionType assertion, String direction) {
+            AssertionType assertion, NhinTargetSystemType target, String direction) {
         LOG.debug("Entering AuditRepositoryLogger.logXDRReq(...)");
-        LogEventRequestType auditMsg = null;
-            XDRTransforms auditTransformer = new XDRTransforms();
-            auditMsg = auditTransformer.transformRequestToAuditMsg(message, assertion, direction,
-                    NhincConstants.AUDIT_LOG_NHIN_INTERFACE);
+        XDRTransforms auditTransformer = new XDRTransforms();
+        LogEventRequestType auditMsg = auditTransformer.transformRequestToAuditMsg(message, assertion, target,
+                direction, NhincConstants.AUDIT_LOG_NHIN_INTERFACE);
         LOG.debug("Exiting AuditRepositoryLogger.logNhinXDRReq(...)");
         return auditMsg;
     }
@@ -816,33 +815,13 @@ public class AuditRepositoryLogger implements AuditRepositoryDocumentRetrieveLog
      * @return
      */
     public LogEventRequestType logNhinXDRResponse(RegistryResponseType message, AssertionType assertion,
-            String direction) {
-        LOG.debug("Entering AuditRepositoryLogger.logNhinXDRReq(...)");
+            NhinTargetSystemType target, String direction, boolean isRequesting) {
+        LOG.debug("Entering AuditRepositoryLogger.logNhinXDRResponse(...)");
         LogEventRequestType auditMsg = null;
             XDRTransforms auditTransformer = new XDRTransforms();
-            auditMsg = auditTransformer.transformResponseToAuditMsg(message, assertion, direction,
-                    NhincConstants.AUDIT_LOG_NHIN_INTERFACE);
-        LOG.debug("Exiting AuditRepositoryLogger.logNhinXDRReq(...)");
-        return auditMsg;
-    }
-
-    /**
-     * Create an audit log for an XDR Response Request at the NHIN interface.
-     * 
-     * @param message The Nhin XDR Response
-     * @param assertion The assertion to be audited
-     * @param direction The direction this message is going (Inbound or Outbound)
-     * @return
-     */
-    public LogEventRequestType logNhinXDRResponseRequest(
-            gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayProvideAndRegisterDocumentSetSecuredResponseRequestType message,
-            AssertionType assertion, String direction) {
-        LOG.debug("Entering AuditRepositoryLogger.logNhinXDRReq(...)");
-        LogEventRequestType auditMsg = null;
-            XDRTransforms auditTransformer = new XDRTransforms();
-            auditMsg = auditTransformer.transformRequestToAuditMsg(message, assertion, direction,
-                    NhincConstants.AUDIT_LOG_NHIN_INTERFACE);
-        LOG.debug("Exiting AuditRepositoryLogger.logNhinXDRReq(...)");
+            auditMsg = auditTransformer.transformResponseToAuditMsg(message, assertion, target, direction,
+                    NhincConstants.AUDIT_LOG_NHIN_INTERFACE, isRequesting);
+        LOG.debug("Exiting AuditRepositoryLogger.logNhinXDRResponse(...)");
         return auditMsg;
     }
 
@@ -877,13 +856,10 @@ public class AuditRepositoryLogger implements AuditRepositoryDocumentRetrieveLog
      * @return
      */
     public LogEventRequestType logAcknowledgement(XDRAcknowledgementType acknowledgement, AssertionType assertion,
-            String direction, String action) {
+            NhinTargetSystemType target, String direction, String action) {
         LOG.debug("Entering AuditRepositoryLogger.logAcknowledgement(...)");
-
-        LogEventRequestType auditMsg = null;
-
-            auditMsg = xdrAuditTransformer.transformAcknowledgementToAuditMsg(acknowledgement, assertion, direction,
-                    NhincConstants.AUDIT_LOG_NHIN_INTERFACE, action);
+        LogEventRequestType auditMsg = xdrAuditTransformer.transformAcknowledgementToAuditMsg(acknowledgement,
+                assertion, target, direction, NhincConstants.AUDIT_LOG_NHIN_INTERFACE, action);
 
         LOG.debug("Exiting AuditRepositoryLogger.logAcknowledgement(...)");
         return auditMsg;
@@ -899,10 +875,10 @@ public class AuditRepositoryLogger implements AuditRepositoryDocumentRetrieveLog
      */
     public LogEventRequestType logAdapterAcknowledgement(XDRAcknowledgementType acknowledgement, AssertionType assertion,
             String direction, String action) {
-        LOG.debug("Entering AuditRepositoryLogger.logAcknowledgement(...)");
-
-        LogEventRequestType auditMsg = null;
-        LOG.debug("Exiting AuditRepositoryLogger.logAcknowledgement(...)");
+        LOG.debug("Entering AuditRepositoryLogger.logAdapterAcknowledgement(...)");        
+        LogEventRequestType auditMsg = xdrAuditTransformer.transformAcknowledgementToAuditMsg(acknowledgement,
+                assertion, null, direction, NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE, action);
+        LOG.debug("Exiting AuditRepositoryLogger.logAdapterAcknowledgement(...)");
         return auditMsg;
     }
 
@@ -917,9 +893,8 @@ public class AuditRepositoryLogger implements AuditRepositoryDocumentRetrieveLog
     public LogEventRequestType logEntityAcknowledgement(XDRAcknowledgementType acknowledgement,
             AssertionType assertion, String direction, String action) {
         LOG.debug("Entering AuditRepositoryLogger.logAcknowledgement(...)");
-        LogEventRequestType auditMsg = null;
-            auditMsg = xdrAuditTransformer.transformAcknowledgementToAuditMsg(acknowledgement, assertion, direction,
-                    NhincConstants.AUDIT_LOG_ENTITY_INTERFACE, action);
+        LogEventRequestType auditMsg = xdrAuditTransformer.transformAcknowledgementToAuditMsg(acknowledgement,
+                assertion, null, direction, NhincConstants.AUDIT_LOG_ENTITY_INTERFACE, action);
         LOG.debug("Exiting AuditRepositoryLogger.logAcknowledgement(...)");
         return auditMsg;
     }

@@ -26,11 +26,12 @@
  */
 package gov.hhs.fha.nhinc.admindistribution.inbound;
 
-import static org.mockito.Matchers.anyString;
 import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.times;
+import static org.mockito.Matchers.any;
 import gov.hhs.fha.nhinc.admindistribution.AdminDistributionAuditLogger;
 import gov.hhs.fha.nhinc.admindistribution.AdminDistributionPolicyChecker;
 import gov.hhs.fha.nhinc.admindistribution.AdminDistributionUtils;
@@ -62,51 +63,47 @@ public class StandardInboundAdminDistributionTest {
         
         when(adapterFactory.getAdapterAdminDistProxy()).thenReturn(adapterProxy);
 
-        PassthroughInboundAdminDistribution passthroughAdminDist = new PassthroughInboundAdminDistribution(auditLogger,
-                adminUtils, adapterFactory);
-
         AdminDistributionPolicyChecker policyChecker = mock(AdminDistributionPolicyChecker.class);
         
         when(policyChecker.checkIncomingPolicy(request, assertion)).thenReturn(true);
 
-        StandardInboundAdminDistribution standardAdminDist = new StandardInboundAdminDistribution(passthroughAdminDist,
-                policyChecker, auditLogger);
+        StandardInboundAdminDistribution standardAdminDist = new StandardInboundAdminDistribution(policyChecker,
+        		auditLogger, adapterFactory, adminUtils);
         
         standardAdminDist.sendAlertMessage(request, assertion);
 
         verify(adapterProxy).sendAlertMessage(eq(request), eq(assertion));
 
         verify(auditLogger).auditNhinAdminDist(eq(request), eq(assertion),
-                eq(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION), eq(target), eq(NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE));
-
-        verify(auditLogger).auditNhinAdminDist(eq(request), eq(assertion),
                 eq(NhincConstants.AUDIT_LOG_INBOUND_DIRECTION), eq(target), eq(NhincConstants.AUDIT_LOG_NHIN_INTERFACE));
+    
+        verify(auditLogger, times(2)).auditNhinAdminDist(any(EDXLDistribution.class),
+        		any(AssertionType.class), any(String.class), any(NhinTargetSystemType.class), 
+        		any(String.class));
     }
     
     @Test
     public void failedPolicyCheck() {
         EDXLDistribution request = new EDXLDistribution();
         AssertionType assertion = new AssertionType();
-        NhinTargetSystemType target = null;
-
+        
         AdminDistributionAuditLogger auditLogger = mock(AdminDistributionAuditLogger.class);
         AdminDistributionUtils adminUtils = mock(AdminDistributionUtils.class);
         AdapterAdminDistributionProxyObjectFactory adapterFactory = mock(AdapterAdminDistributionProxyObjectFactory.class);
         
-        PassthroughInboundAdminDistribution passthroughAdminDist = new PassthroughInboundAdminDistribution(auditLogger,
-                adminUtils, adapterFactory);
-
         AdminDistributionPolicyChecker policyChecker = mock(AdminDistributionPolicyChecker.class);
         
         when(policyChecker.checkIncomingPolicy(request, assertion)).thenReturn(false);
 
-        StandardInboundAdminDistribution standardAdminDist = new StandardInboundAdminDistribution(passthroughAdminDist,
-                policyChecker, auditLogger);
+        StandardInboundAdminDistribution standardAdminDist = new StandardInboundAdminDistribution(policyChecker,
+        		auditLogger, adapterFactory, adminUtils);
         
         standardAdminDist.sendAlertMessage(request, assertion);
         
-        verify(auditLogger).auditNhinAdminDist(eq(request), eq(assertion),
-                eq(NhincConstants.AUDIT_LOG_INBOUND_DIRECTION), eq(target), eq(NhincConstants.AUDIT_LOG_NHIN_INTERFACE));
+        verify(auditLogger, times(1)).auditNhinAdminDist(any(EDXLDistribution.class),
+        		any(AssertionType.class), any(String.class), any(NhinTargetSystemType.class), 
+        		any(String.class));
+            
     }
 
 }

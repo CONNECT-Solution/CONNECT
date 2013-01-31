@@ -1,6 +1,5 @@
 <?xml version="1.0"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>org.connectopensource</groupId>
@@ -33,11 +32,19 @@
             </modules>
         </profile>
         <profile>
-            <id>websphere</id>
+            <id>wasce</id>
             <modules>
                 <module>ear</module>
                 <module>glassfish</module>
-                <module>websphere</module>
+                <module>wasce</module>
+            </modules>
+        </profile>
+        <profile>
+            <id>was</id>
+            <modules>
+                <module>ear</module>
+                <module>glassfish</module>
+                <module>was</module>
             </modules>
         </profile>
         <profile>

@@ -29,9 +29,6 @@ package gov.hhs.fha.nhinc.docsubmission.outbound.deferred.request;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-
-import java.lang.reflect.Method;
-
 import gov.hhs.fha.nhinc.aspect.OutboundProcessingEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
@@ -44,6 +41,9 @@ import gov.hhs.fha.nhinc.docsubmission.entity.deferred.request.OutboundDocSubmis
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.healthit.nhin.XDRAcknowledgementType;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
+
+import java.lang.reflect.Method;
+
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
 import org.jmock.Expectations;
@@ -67,7 +67,6 @@ public class PassthroughOutboundDocSubmissionDeferredRequestTest {
     
     @Test
     public void testProvideAndRegisterDocumentSetB() {
-        expect2MockAudits();
         expectMockDelegateProcessAndReturnValidResponse();
         
         XDRAcknowledgementType response = runProvideAndRegisterDocumentSetBRequest();
@@ -81,7 +80,6 @@ public class PassthroughOutboundDocSubmissionDeferredRequestTest {
         PassthroughOutboundDocSubmissionDeferredRequest passthruOrch = new PassthroughOutboundDocSubmissionDeferredRequest();
         
         assertNotNull(passthruOrch.getOutboundDocSubmissionDeferredRequestDelegate());
-        assertNotNull(passthruOrch.getXDRAuditLogger());
     }
     
     private XDRAcknowledgementType runProvideAndRegisterDocumentSetBRequest() {
@@ -91,20 +89,6 @@ public class PassthroughOutboundDocSubmissionDeferredRequestTest {
         
         PassthroughOutboundDocSubmissionDeferredRequest passthruOrch = createPassthruDocSubmissionDeferredRequestOrchImpl();
         return passthruOrch.provideAndRegisterDocumentSetBAsyncRequest(request, assertion, targetCommunities, null);       
-    }
-    
-    private void expect2MockAudits() {
-        context.checking(new Expectations() {
-            {
-                oneOf(mockXDRLog)
-                        .auditXDR(
-                                with(any(gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType.class)),
-                                with(any(AssertionType.class)), with(any(String.class)));
-
-                oneOf(mockXDRLog).auditAcknowledgement(with(any(XDRAcknowledgementType.class)),
-                        with(any(AssertionType.class)), with(any(String.class)), with(any(String.class)));
-            }
-        });
     }
     
     private void expectMockDelegateProcessAndReturnValidResponse() {
@@ -130,11 +114,7 @@ public class PassthroughOutboundDocSubmissionDeferredRequestTest {
     }
     
     private PassthroughOutboundDocSubmissionDeferredRequest createPassthruDocSubmissionDeferredRequestOrchImpl() {
-        return new PassthroughOutboundDocSubmissionDeferredRequest() {
-            protected XDRAuditLogger getXDRAuditLogger() {
-                return mockXDRLog;
-            }
-            
+        return new PassthroughOutboundDocSubmissionDeferredRequest() {            
             protected OutboundDocSubmissionDeferredRequestDelegate getOutboundDocSubmissionDeferredRequestDelegate() {
                 return mockDelegate;
             }

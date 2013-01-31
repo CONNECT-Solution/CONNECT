@@ -28,10 +28,12 @@ package gov.hhs.fha.nhinc.patientdiscovery.outbound.deferred.request;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import gov.hhs.fha.nhinc.patientdiscovery.MessageGeneratorUtils;
 import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryAuditor;
 
 import org.hl7.v3.MCCIIN000002UV01;
 import org.hl7.v3.PRPAIN201305UV02;
+import org.hl7.v3.RespondingGatewayPRPAIN201305UV02RequestType;
 
 /**
  * @author akong
@@ -43,8 +45,11 @@ public abstract class AbstractOutboundPatientDiscoveryDeferredRequest implements
     abstract PatientDiscoveryAuditor getPatientDiscoveryAuditor();
 
     protected void auditRequestFromAdapter(PRPAIN201305UV02 request, AssertionType assertion) {
-        getPatientDiscoveryAuditor().auditNhinDeferred201305(request, assertion,
-                NhincConstants.AUDIT_LOG_INBOUND_DIRECTION);
+        RespondingGatewayPRPAIN201305UV02RequestType message = MessageGeneratorUtils.getInstance()
+                .createRespondingGatewayRequest(request, assertion, null);
+
+        getPatientDiscoveryAuditor().auditEntityDeferred201305(message, assertion,
+                NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, null);
     }
 
     protected void auditResponseToAdapter(MCCIIN000002UV01 resp, AssertionType assertion) {

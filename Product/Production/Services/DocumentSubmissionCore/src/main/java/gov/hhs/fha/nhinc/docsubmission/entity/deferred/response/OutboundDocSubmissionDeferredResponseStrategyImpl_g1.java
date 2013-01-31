@@ -27,8 +27,12 @@
 
 package gov.hhs.fha.nhinc.docsubmission.entity.deferred.response;
 
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
+import gov.hhs.fha.nhinc.docsubmission.XDRAuditLogger;
 import gov.hhs.fha.nhinc.docsubmission.nhin.deferred.response.proxy20.NhinDocSubmissionDeferredResponseProxy;
 import gov.hhs.fha.nhinc.docsubmission.nhin.deferred.response.proxy20.NhinDocSubmissionDeferredResponseProxyObjectFactory;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.orchestration.Orchestratable;
 import gov.hhs.fha.nhinc.orchestration.OrchestrationStrategy;
 import gov.hhs.healthit.nhin.XDRAcknowledgementType;
@@ -47,6 +51,14 @@ public class OutboundDocSubmissionDeferredResponseStrategyImpl_g1 implements Orc
     protected NhinDocSubmissionDeferredResponseProxy getNhinDocSubmissionDeferredResponseProxy() {
         return new NhinDocSubmissionDeferredResponseProxyObjectFactory().getNhinDocSubmissionDeferredResponseProxy();
     }
+    
+    /**
+     * Gets an instance of the XDRAuditLogger
+     * @return
+     */
+    protected XDRAuditLogger getXDRAuditLogger() {
+        return new XDRAuditLogger();
+    }
 
     @Override
     public void execute(Orchestratable message) {
@@ -60,6 +72,8 @@ public class OutboundDocSubmissionDeferredResponseStrategyImpl_g1 implements Orc
     public void execute(OutboundDocSubmissionDeferredResponseOrchestratable message) {
         LOG.trace("Begin OutboundDocSubmissionOrchestratableImpl_g1.process");
 
+        auditRequestToNhin(message.getRequest(), message.getAssertion(), message.getTarget());
+        
         XDRAcknowledgementType ack = new XDRAcknowledgementType();
         NhinDocSubmissionDeferredResponseProxy nhincDocSubmission = getNhinDocSubmissionDeferredResponseProxy();
         RegistryResponseType response = nhincDocSubmission.provideAndRegisterDocumentSetBDeferredResponse20(
@@ -67,8 +81,21 @@ public class OutboundDocSubmissionDeferredResponseStrategyImpl_g1 implements Orc
 
         ack.setMessage(response);
         message.setResponse(ack);
+        
+        auditResponseFromNhin(ack, message.getAssertion(), message.getTarget());
 
         LOG.trace("End OutboundDocSubmissionDeferredResponseStrategyImpl_g1.process");
+    }
+    
+    private void auditRequestToNhin(RegistryResponseType request, AssertionType assertion, NhinTargetSystemType target) {
+        getXDRAuditLogger().auditNhinXDRResponse(request, assertion, target,
+                NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, true);
+    }
+
+    private void auditResponseFromNhin(XDRAcknowledgementType response, AssertionType assertion,
+            NhinTargetSystemType target) {
+        getXDRAuditLogger().auditAcknowledgement(response, assertion, target,
+                NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.XDR_RESPONSE_ACTION);
     }
 
 }

@@ -31,6 +31,7 @@ import gov.hhs.fha.nhinc.docsubmission.XDRAuditLogger;
 import gov.hhs.fha.nhinc.docsubmission.XDRPolicyChecker;
 import gov.hhs.fha.nhinc.docsubmission.adapter.deferred.request.error.proxy.AdapterDocSubmissionDeferredRequestErrorProxy;
 import gov.hhs.fha.nhinc.docsubmission.adapter.deferred.request.error.proxy.AdapterDocSubmissionDeferredRequestErrorProxyObjectFactory;
+import gov.hhs.fha.nhinc.docsubmission.adapter.deferred.request.proxy.AdapterDocSubmissionDeferredRequestProxyObjectFactory;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
@@ -48,38 +49,54 @@ public class StandardInboundDocSubmissionDeferredRequest extends AbstractInbound
 
     private static final Logger LOG = Logger.getLogger(StandardInboundDocSubmissionDeferredRequest.class);
 
-    private XDRPolicyChecker policyChecker = new XDRPolicyChecker();
-    private PassthroughInboundDocSubmissionDeferredRequest passthroughDSRequest = new PassthroughInboundDocSubmissionDeferredRequest();
-    private PropertyAccessor propertyAccessor = PropertyAccessor.getInstance();
-    private AdapterDocSubmissionDeferredRequestErrorProxyObjectFactory errorAdapterFactory = new AdapterDocSubmissionDeferredRequestErrorProxyObjectFactory();
+    private XDRPolicyChecker policyChecker;
+    private PropertyAccessor propertyAccessor;
+    private AdapterDocSubmissionDeferredRequestErrorProxyObjectFactory errorAdapterFactory;
 
+    /**
+     * Constructor.
+     */
     public StandardInboundDocSubmissionDeferredRequest() {
-        super();
+        this(new AdapterDocSubmissionDeferredRequestProxyObjectFactory(), new XDRPolicyChecker(), PropertyAccessor
+                .getInstance(), new XDRAuditLogger(), new AdapterDocSubmissionDeferredRequestErrorProxyObjectFactory());
     }
 
+    /**
+     * Constructor with dependency injection of strategy components.
+     * 
+     * @param adapterFactory
+     * @param policyChecker
+     * @param propertyAccessor
+     * @param auditLogger
+     * @param errorAdapterFactory
+     */
     public StandardInboundDocSubmissionDeferredRequest(
-            PassthroughInboundDocSubmissionDeferredRequest passthroughDSRequest, XDRPolicyChecker policyChecker,
+            AdapterDocSubmissionDeferredRequestProxyObjectFactory adapterFactory, XDRPolicyChecker policyChecker,
             PropertyAccessor propertyAccessor, XDRAuditLogger auditLogger,
             AdapterDocSubmissionDeferredRequestErrorProxyObjectFactory errorAdapterFactory) {
+        super(adapterFactory, auditLogger);
         this.policyChecker = policyChecker;
-        this.passthroughDSRequest = passthroughDSRequest;
         this.propertyAccessor = propertyAccessor;
-        this.auditLogger = auditLogger;
         this.errorAdapterFactory = errorAdapterFactory;
     }
 
+    @Override
     XDRAcknowledgementType processDocSubmissionRequest(ProvideAndRegisterDocumentSetRequestType body,
             AssertionType assertion) {
         XDRAcknowledgementType response = null;
 
+        auditRequestToAdapter(body, assertion);
+        
         String localHCID = getLocalHCID();
         if (isPolicyValid(body, assertion, localHCID)) {
             LOG.debug("Policy Check Succeeded");
-            response = passthroughDSRequest.processDocSubmissionRequest(body, assertion);
+            response = sendToAdapter(body, assertion);
         } else {
             LOG.error("Policy Check Failed");
             response = sendErrorToAdapter(body, assertion, "Policy Check Failed");
         }
+        
+        auditResponseFromAdapter(response, assertion);
 
         return response;
     }

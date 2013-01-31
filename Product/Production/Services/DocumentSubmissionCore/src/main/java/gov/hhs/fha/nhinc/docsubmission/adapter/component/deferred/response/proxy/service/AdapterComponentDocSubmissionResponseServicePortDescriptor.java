@@ -28,52 +28,20 @@
 package gov.hhs.fha.nhinc.docsubmission.adapter.component.deferred.response.proxy.service;
 
 import gov.hhs.fha.nhinc.adaptercomponentxdrresponse.AdapterComponentXDRResponsePortType;
-import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
+import gov.hhs.fha.nhinc.messaging.service.port.SOAP12ServicePortDescriptor;
 
 /**
  * @author akong
- *
+ * 
  */
-public class AdapterComponentDocSubmissionResponseServicePortDescriptor implements ServicePortDescriptor<AdapterComponentXDRResponsePortType>{
+public class AdapterComponentDocSubmissionResponseServicePortDescriptor extends
+        SOAP12ServicePortDescriptor<AdapterComponentXDRResponsePortType> {
     private static final String NAMESPACE_URI = "urn:gov:hhs:fha:nhinc:adaptercomponentxdrresponse";
-    private static final String SERVICE_LOCAL_PART = "AdapterComponentXDRResponse_Service";
-    private static final String PORT_LOCAL_PART = "AdapterComponentXDRResponse_Port";
-    private static final String WSDL_FILE = "AdapterComponentXDRResponse.wsdl";
     private static final String WS_ADDRESSING_ACTION = NAMESPACE_URI + ":" + "XDRResponseInputMessage";
-    
-    /* (non-Javadoc)
-     * @see gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor#getNamespaceUri()
-     */
-    @Override
-    public String getNamespaceUri() {
-        return NAMESPACE_URI;
-    }
 
-    /* (non-Javadoc)
-     * @see gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor#getServiceLocalPart()
-     */
-    @Override
-    public String getServiceLocalPart() {
-        return SERVICE_LOCAL_PART;
-    }
-
-    /* (non-Javadoc)
-     * @see gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor#getPortLocalPart()
-     */
-    @Override
-    public String getPortLocalPart() {
-        return PORT_LOCAL_PART;
-    }
-
-    /* (non-Javadoc)
-     * @see gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor#getWSDLFileName()
-     */
-    @Override
-    public String getWSDLFileName() {
-        return WSDL_FILE;
-    }
-
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor#getWSAddressingAction()
      */
     @Override
@@ -81,7 +49,9 @@ public class AdapterComponentDocSubmissionResponseServicePortDescriptor implemen
         return WS_ADDRESSING_ACTION;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor#getPortClass()
      */
     @Override

@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2013, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -43,6 +43,7 @@ import javax.mail.Address;
 
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.nhindirect.xd.common.DirectDocuments;
 import org.nhindirect.xd.transform.XdsDirectDocumentsTransformer;
 import org.nhindirect.xd.transform.exception.TransformationException;
@@ -50,15 +51,18 @@ import org.nhindirect.xd.transform.impl.DefaultXdsDirectDocumentsTransformer;
 
 public class SoapDirectEdgeOrchestration {
 
-    private XdsDirectDocumentsTransformer xdsDirectDocumentsTransformer = null;
-    private DirectSender directSender = null;
-    private SoapEdgeAuditor auditor = null;
+    private XdsDirectDocumentsTransformer xdsDirectDocumentsTransformer = new DefaultXdsDirectDocumentsTransformer();
+    private DirectSender directSender;
+    private SoapEdgeAuditor auditor = new SoapEdgeAuditorFactory().getAuditor();
+    private ToAddressParser toParser = new ToAddressParserFactory().getToParser();
 
     /**
      * Handle an incoming ProvideAndRegisterDocumentSetRequestType object and transform to XDM.
      * 
-     * @param prdst The incoming ProvideAndRegisterDocumentSetRequestType object
-     * @param context The values of the ws headers
+     * @param prdst
+     *            The incoming ProvideAndRegisterDocumentSetRequestType object
+     * @param context
+     *            The values of the ws headers
      * @return a RegistryResponseType object
      * @throws Exception
      */
@@ -66,28 +70,31 @@ public class SoapDirectEdgeOrchestration {
             throws Exception {
         RegistryResponseType resp = null;
 
-        getAuditor().audit(SoapEdgeAuditor.PRINCIPAL, SoapEdgeAuditor.REQUESTRECIEVED_CATEGORY,
+        auditor.audit(SoapEdgeAuditor.PRINCIPAL, SoapEdgeAuditor.REQUESTRECIEVED_CATEGORY,
                 SoapEdgeAuditor.REQUESTRECIEVED_MESSAGE, context);
 
         resp = sendMessage(prdst, context);
 
-        getAuditor().audit(SoapEdgeAuditor.PRINCIPAL, SoapEdgeAuditor.RESPONSERETURNED_CATEGORY,
+        auditor.audit(SoapEdgeAuditor.PRINCIPAL, SoapEdgeAuditor.RESPONSERETURNED_CATEGORY,
                 SoapEdgeAuditor.RESPONSERETURNED_MESSAGE, context);
 
         return resp;
     }
 
     /**
-     * @param prdst XDR message to be sent to direct
+     * @param prdst
+     *            XDR message to be sent to direct
      * @return Status of success or failure + error list
      * @throws TransformationException
      */
     protected RegistryResponseType sendMessage(ProvideAndRegisterDocumentSetRequestType prdst, SoapEdgeContext context)
             throws TransformationException {
-        DirectDocuments documents = getDefaultXdsDirectDocumentsTransformer().transform(prdst);
+        DirectDocuments documents = xdsDirectDocumentsTransformer.transform(prdst);
 
-        ToAddressParser toParser = new ToAddressParserFactory().getToParser();
         Set<Address> addressTo = toParser.parse(context.getDirectTo(), documents);
+        if (CollectionUtils.isEmpty(addressTo)) {
+            throw new TransformationException("No 'To' addresses in soap context.", null);
+        }
 
         FromAddressParser fromParser = new FromAddressParserFactory().getFromParser();
         Address addressFrom = fromParser.parse(context.getDirectFrom(), documents);
@@ -98,34 +105,22 @@ public class SoapDirectEdgeOrchestration {
         return new XDCommonResponseHelper().createSuccess();
     }
 
+    protected void setDocumentsTransformer(XdsDirectDocumentsTransformer docTransformer) {
+        xdsDirectDocumentsTransformer = docTransformer;
+    }
+
+    public void setToAddressParser(ToAddressParser toParser) {
+        this.toParser = toParser;
+    }
+
     /**
-     * @return The DirectClient impl
+     * We do this initialization lazily because the spring configuration is an external dependency we don't set up in
+     * the unit test.
      */
-    private DirectSender getDirectSender() {
+    private synchronized DirectSender getDirectSender() {
         if (directSender == null) {
             directSender = new DirectAdapterFactory().getDirectSender();
         }
         return directSender;
     }
-
-    /**
-     * @return The XdsDirectDocumentsTransformer impl
-     */
-    private XdsDirectDocumentsTransformer getDefaultXdsDirectDocumentsTransformer() {
-        if (xdsDirectDocumentsTransformer == null) {
-            xdsDirectDocumentsTransformer = new DefaultXdsDirectDocumentsTransformer();
-        }
-        return xdsDirectDocumentsTransformer;
-    }
-
-    /**
-     * @return The SoapEdgeAuditor impl
-     */
-    private SoapEdgeAuditor getAuditor() {
-        if (auditor == null) {
-            auditor = new SoapEdgeAuditorFactory().getAuditor();
-        }
-        return auditor;
-    }
-
 }
