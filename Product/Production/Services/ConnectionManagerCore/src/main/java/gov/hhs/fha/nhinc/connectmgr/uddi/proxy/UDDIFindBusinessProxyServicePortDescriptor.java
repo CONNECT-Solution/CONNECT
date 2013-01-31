@@ -26,7 +26,7 @@
  */
 package gov.hhs.fha.nhinc.connectmgr.uddi.proxy;
 
-import gov.hhs.fha.nhinc.messaging.service.port.SOAP12ServicePortDescriptor;
+import gov.hhs.fha.nhinc.messaging.service.port.SOAP11ServicePortDescriptor;
 import gov.hhs.fha.nhinc.nhin_uddi_api_v3.UDDIInquiryPortType;
 
 /**
@@ -34,7 +34,7 @@ import gov.hhs.fha.nhinc.nhin_uddi_api_v3.UDDIInquiryPortType;
  * @param <T>
  * 
  */
-public class UDDIFindBusinessProxyServicePortDescriptor extends SOAP12ServicePortDescriptor<UDDIInquiryPortType> {
+public class UDDIFindBusinessProxyServicePortDescriptor extends SOAP11ServicePortDescriptor<UDDIInquiryPortType> {
 
     /*
      * (non-Javadoc)
