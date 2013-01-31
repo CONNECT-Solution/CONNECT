@@ -30,6 +30,7 @@ import gov.hhs.fha.nhinc.cryptostore.StoreUtil;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.FileInputStream;
 import java.security.KeyStore;
 import java.security.KeyStore.PrivateKeyEntry;
 import java.security.KeyStoreException;
