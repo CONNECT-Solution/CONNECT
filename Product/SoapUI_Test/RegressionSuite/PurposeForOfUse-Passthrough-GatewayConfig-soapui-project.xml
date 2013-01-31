@@ -1,14 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<con:soapui-project name="PurposeForOfUse_Entity_GatewayConfig" resourceRoot="${projectDir}" soapui-version="4.5.1" abortOnError="false" runType="SEQUENTIAL" activeEnvironment="Default" xmlns:con="http://eviware.com/soapui/config"><con:settings/><con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:entitydocquery}EntityDocQueryBindingSoap" definition="${projectDir}/../ValidationSuite/target/wsdl/EntityDocQuery.wsdl" name="EntityDocQueryBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<con:soapui-project name="PurposeForOfUse_Passthrough_GatewayConfig" resourceRoot="${projectDir}" soapui-version="4.5.1" abortOnError="false" runType="SEQUENTIAL" activeEnvironment="Default" xmlns:con="http://eviware.com/soapui/config">
+	<con:settings/>
+	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:entitydocquery}EntityDocQueryBindingSoap" definition="${projectDir}/../ValidationSuite/target/wsdl/EntityDocQuery.wsdl" name="EntityDocQueryBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 		<con:settings/>
 
 		<con:endpoints>
 			<con:endpoint>http://localhost:${HttpDefaultPort}/NhinConnect/EntityDocQuery</con:endpoint>
+			<con:endpoint>http://localhost:${HttpDefaultPort}/Gateway/DocumentQuery/2_0/EntityService/EntityDocQueryUnsecured</con:endpoint>
 		</con:endpoints>
-		<con:operation action="urn:RespondingGateway_CrossGatewayQuery" anonymous="optional" bindingOperationName="RespondingGateway_CrossGatewayQuery" inputName="RespondingGateway_CrossGatewayQueryRequest" isOneWay="false" name="RespondingGateway_CrossGatewayQuery" outputName="RespondingGateway_CrossGatewayQueryResponse" receivesAttachments="false" sendsAttachments="false" type="Request-Response">
+		<con:operation action="urn:gov:hhs:fha:nhinc:entitydocquery:RespondingGateway_CrossGatewayQueryRequest" anonymous="optional" bindingOperationName="RespondingGateway_CrossGatewayQuery" inputName="RespondingGateway_CrossGatewayQueryRequest" isOneWay="false" name="RespondingGateway_CrossGatewayQuery" outputName="RespondingGateway_CrossGatewayQueryResponse" receivesAttachments="false" sendsAttachments="false" type="Request-Response">
 			<con:settings/>
 		</con:operation>
-	</con:interface><con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:entitysubscriptionmanagement}EntityNotificationProducerBindingSoap" definition="${projectDir}/../ValidationSuite/target/wsdl/EntitySubscriptionManagement.wsdl" name="EntityNotificationProducerBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	</con:interface>
+	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:entitysubscriptionmanagement}EntityNotificationProducerBindingSoap" definition="${projectDir}/../ValidationSuite/target/wsdl/EntitySubscriptionManagement.wsdl" name="EntityNotificationProducerBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 		<con:settings/>
 
 		<con:endpoints>
@@ -23,16 +27,19 @@
 		<con:operation action="urn:Subscribe" anonymous="optional" bindingOperationName="Subscribe" inputName="SubscribeRequest" isOneWay="false" name="Subscribe" outputName="SubscribeResponse" receivesAttachments="false" sendsAttachments="false" type="Request-Response">
 			<con:settings/>
 		</con:operation>
-	</con:interface><con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:entitydocretrieve}EntityDocRetrieveBindingSoap" definition="${projectDir}/../ValidationSuite/target/wsdl/EntityDocRetrieve.wsdl" name="EntityDocRetrieveBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	</con:interface>
+	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:entitydocretrieve}EntityDocRetrieveBindingSoap" definition="${projectDir}/../ValidationSuite/target/wsdl/EntityDocRetrieve.wsdl" name="EntityDocRetrieveBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 		<con:settings/>
 
 		<con:endpoints>
 			<con:endpoint>http://localhost:${HttpDefaultPort}/NhinConnect/EntityDocRetrieve</con:endpoint>
+			<con:endpoint>http://localhost:${HttpDefaultPort}/Gateway/DocumentRetrieve/2_0/EntityService/EntityDocRetrieve</con:endpoint>
 		</con:endpoints>
-		<con:operation action="urn:RespondingGateway_CrossGatewayRetrieve" anonymous="optional" bindingOperationName="RespondingGateway_CrossGatewayRetrieve" inputName="RespondingGateway_CrossGatewayRetrieveRequest" isOneWay="false" name="RespondingGateway_CrossGatewayRetrieve" outputName="RespondingGateway_CrossGatewayRetrieveResponse" receivesAttachments="false" sendsAttachments="false" type="Request-Response">
+		<con:operation action="urn:gov:hhs:fha:nhinc:entitydocretrieve:RespondingGateway_CrossGatewayRetrieveRequestMessage" anonymous="optional" bindingOperationName="RespondingGateway_CrossGatewayRetrieve" inputName="RespondingGateway_CrossGatewayRetrieveRequest" isOneWay="false" name="RespondingGateway_CrossGatewayRetrieve" outputName="RespondingGateway_CrossGatewayRetrieveResponse" receivesAttachments="false" sendsAttachments="false" type="Request-Response">
 			<con:settings/>
 		</con:operation>
-	</con:interface><con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincentityxdr:async:response}EntityXDRAsyncResponse_Binding" definition="${projectDir}/../ValidationSuite/target/wsdl/EntityXDRResponse.wsdl" name="EntityXDRAsyncResponse_Binding" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	</con:interface>
+	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincentityxdr:async:response}EntityXDRAsyncResponse_Binding" definition="${projectDir}/../ValidationSuite/target/wsdl/EntityXDRResponse.wsdl" name="EntityXDRAsyncResponse_Binding" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 		<con:settings/>
 		<con:endpoints>
 			<con:endpoint>http://localhost:${HttpDefaultPort}/EntityService/EntityXDRAsyncResponse</con:endpoint>
@@ -41,16 +48,19 @@
 		<con:operation action="" anonymous="optional" bindingOperationName="ProvideAndRegisterDocumentSet-bAsyncResponse" inputName="" isOneWay="false" name="ProvideAndRegisterDocumentSet-bAsyncResponse" receivesAttachments="false" sendsAttachments="false" type="Request-Response">
 			<con:settings/>
 		</con:operation>
-	</con:interface><con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:entitypatientdiscovery}EntityPatientDiscoveryBindingSoap" definition="${projectDir}/../ValidationSuite/target/wsdl/EntityPatientDiscovery.wsdl" name="EntityPatientDiscoveryBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	</con:interface>
+	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:entitypatientdiscovery}EntityPatientDiscoveryBindingSoap" definition="${projectDir}/../ValidationSuite/target/wsdl/EntityPatientDiscovery.wsdl" name="EntityPatientDiscoveryBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 		<con:settings/>
 
 		<con:endpoints>
 			<con:endpoint>http://localhost:8080/CONNECTGateway/EntityPatientDiscovery</con:endpoint>
+			<con:endpoint>http://localhost:${HttpDefaultPort}/Gateway/PatientDiscovery/1_0/EntityPatientDiscovery</con:endpoint>
 		</con:endpoints>
-		<con:operation action="urn:RespondingGateway_PRPA_IN201305UV02" bindingOperationName="RespondingGateway_PRPA_IN201305UV02" inputName="RespondingGateway_PRPA_IN201305UV02Request" isOneWay="false" name="RespondingGateway_PRPA_IN201305UV02" outputName="RespondingGateway_PRPA_IN201306UV02Response" receivesAttachments="false" sendsAttachments="false" type="Request-Response">
+		<con:operation action="urn:gov:hhs:fha:nhinc:entitypatientdiscovery:RespondingGateway_PRPA_IN201305UV02RequestMessage" bindingOperationName="RespondingGateway_PRPA_IN201305UV02" inputName="RespondingGateway_PRPA_IN201305UV02Request" isOneWay="false" name="RespondingGateway_PRPA_IN201305UV02" outputName="RespondingGateway_PRPA_IN201306UV02Response" receivesAttachments="false" sendsAttachments="false" type="Request-Response" anonymous="optional">
 			<con:settings/>
 		</con:operation>
-	</con:interface><con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:entitypatientdiscoveryasyncreq}EntityPatientDiscoveryAsyncReqBindingSoap" definition="${projectDir}/../ValidationSuite/target/wsdl/EntityPatientDiscoveryAsyncReq.wsdl" name="EntityPatientDiscoveryAsyncReqBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	</con:interface>
+	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:entitypatientdiscoveryasyncreq}EntityPatientDiscoveryAsyncReqBindingSoap" definition="${projectDir}/../ValidationSuite/target/wsdl/EntityPatientDiscoveryAsyncReq.wsdl" name="EntityPatientDiscoveryAsyncReqBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 		<con:settings/>
 
 		<con:endpoints>
@@ -60,7 +70,8 @@
 		<con:operation action="urn:ProcessPatientDiscoveryAsyncReq" anonymous="optional" bindingOperationName="ProcessPatientDiscoveryAsyncReq" inputName="ProcessPatientDiscoveryAsyncReqAsyncRequest" isOneWay="false" name="ProcessPatientDiscoveryAsyncReq" outputName="ProcessPatientDiscoveryAsyncReqAsyncResponse" receivesAttachments="false" sendsAttachments="false" type="Request-Response">
 			<con:settings/>
 		</con:operation>
-	</con:interface><con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:entitysubscriptionmanagement}EntitySubscriptionManagerBindingSoap" definition="${projectDir}/../ValidationSuite/target/wsdl/EntitySubscriptionManagement.wsdl" name="EntitySubscriptionManagerBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	</con:interface>
+	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:entitysubscriptionmanagement}EntitySubscriptionManagerBindingSoap" definition="${projectDir}/../ValidationSuite/target/wsdl/EntitySubscriptionManagement.wsdl" name="EntitySubscriptionManagerBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 		<con:settings/>
 
 		<con:endpoints>
@@ -70,7 +81,8 @@
 		<con:operation action="urn:Unsubscribe" anonymous="optional" bindingOperationName="Unsubscribe" inputName="UnsubscribeRequest" isOneWay="false" name="Unsubscribe" outputName="UnsubscribeResponse" receivesAttachments="false" sendsAttachments="false" type="Request-Response">
 			<con:settings/>
 		</con:operation>
-	</con:interface><con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincentityxdr:async:request}EntityXDRAsyncRequest_Binding" definition="${projectDir}/../ValidationSuite/target/wsdl/EntityXDRRequest.wsdl" name="EntityXDRAsyncRequest_Binding" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	</con:interface>
+	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincentityxdr:async:request}EntityXDRAsyncRequest_Binding" definition="${projectDir}/../ValidationSuite/target/wsdl/EntityXDRRequest.wsdl" name="EntityXDRAsyncRequest_Binding" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 		<con:settings/>
 
 		<con:endpoints>
@@ -83,7 +95,8 @@
 			<con:settings/>
 
 		</con:operation>
-	</con:interface><con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:entityadmindistribution}AdministrativeDistribution_Binding_Soap12" definition="${projectDir}/../ValidationSuite/target/wsdl/EntityAdminDist_g1.wsdl" name="AdministrativeDistribution_Binding_Soap12_g1" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	</con:interface>
+	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:entityadmindistribution}AdministrativeDistribution_Binding_Soap12" definition="${projectDir}/../ValidationSuite/target/wsdl/EntityAdminDist_g1.wsdl" name="AdministrativeDistribution_Binding_Soap12_g1" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 		<con:settings/>
 		<con:endpoints>
 			<con:endpoint>http://localhost:${HttpDefaultPort}/Gateway/AdminDistribution/2_0/AdministrativeDistribution_Service</con:endpoint>
@@ -91,7 +104,8 @@
 		<con:operation action="urn:oasis:names:tc:emergency:EDXL:DE:1.0:SendAlertMessage" bindingOperationName="SendAlertMessage" inputName="" isOneWay="false" name="SendAlertMessage" sendsAttachments="false" type="One-Way">
 			<con:settings/>
 		</con:operation>
-	</con:interface><con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:entitynotificationconsumer}EntityNotificationConsumerBindingSoap" definition="${projectDir}/../ValidationSuite/target/wsdl/EntityNotificationConsumer.wsdl" name="EntityNotificationConsumerBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	</con:interface>
+	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:entitynotificationconsumer}EntityNotificationConsumerBindingSoap" definition="${projectDir}/../ValidationSuite/target/wsdl/EntityNotificationConsumer.wsdl" name="EntityNotificationConsumerBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 		<con:settings/>
 
 		<con:endpoints>
@@ -106,26 +120,50 @@
 		<con:operation action="urn:Notify" anonymous="optional" bindingOperationName="Notify" inputName="NotifyRequest" isOneWay="false" name="Notify" outputName="NotifyResponse" receivesAttachments="false" sendsAttachments="false" type="Request-Response">
 			<con:settings/>
 		</con:operation>
-	</con:interface><con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="AdministrativeDistribution_Binding_Soap12_g0" type="wsdl" bindingName="{urn:gov:hhs:fha:nhinc:entityadmindistribution}AdministrativeDistribution_Binding_Soap12" soapVersion="1_2" anonymous="optional" definition="${projectDir}/../ValidationSuite/target/wsdl/EntityAdminDist.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:endpoints><con:endpoint>http://localhost:${HttpDefaultPort}/Gateway/AdminDistribution/1_0/AdministrativeDistribution_Service</con:endpoint></con:endpoints><con:operation isOneWay="false" action="urn:oasis:names:tc:emergency:EDXL:DE:1.0:SendAlertMessage" name="SendAlertMessage" bindingOperationName="SendAlertMessage" type="One-Way" inputName="" sendsAttachments="false"><con:settings/></con:operation></con:interface><con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincentityxdr}EntityXDR_Binding" definition="${projectDir}/../target/wsdl/EntityXDR.wsdl" name="EntityXDR_Binding" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	</con:interface>
+	<con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="AdministrativeDistribution_Binding_Soap12_g0" type="wsdl" bindingName="{urn:gov:hhs:fha:nhinc:entityadmindistribution}AdministrativeDistribution_Binding_Soap12" soapVersion="1_2" anonymous="optional" definition="${projectDir}/../ValidationSuite/target/wsdl/EntityAdminDist.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+		<con:settings/>
+		<con:endpoints>
+			<con:endpoint>http://localhost:${HttpDefaultPort}/Gateway/AdminDistribution/1_0/AdministrativeDistribution_Service</con:endpoint>
+		</con:endpoints>
+		<con:operation isOneWay="false" action="urn:oasis:names:tc:emergency:EDXL:DE:1.0:SendAlertMessage" name="SendAlertMessage" bindingOperationName="SendAlertMessage" type="One-Way" inputName="" sendsAttachments="false">
+			<con:settings/>
+		</con:operation>
+	</con:interface>
+	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincentityxdr}EntityXDR_Binding" definition="${projectDir}/../target/wsdl/EntityXDR.wsdl" name="EntityXDR_Binding" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 		<con:settings/>
 
 		<con:endpoints>
-		<con:endpoint>http://localhost:8080/Gateway/DocumentSubmission/1_1/EntityService/EntityDocSubmissionUnsecured</con:endpoint></con:endpoints>
+			<con:endpoint>http://localhost:8080/Gateway/DocumentSubmission/1_1/EntityService/EntityDocSubmissionUnsecured</con:endpoint>
+		</con:endpoints>
 		<con:operation action="" anonymous="optional" bindingOperationName="ProvideAndRegisterDocumentSet-b" inputName="" isOneWay="false" name="ProvideAndRegisterDocumentSet-b" receivesAttachments="false" sendsAttachments="false" type="Request-Response">
 			<con:settings/>
 
 		</con:operation>
-	</con:interface><con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:entitypatientdiscoveryasyncresp}EntityPatientDiscoveryAsyncRespBindingSoap" definition="${projectDir}/../target/wsdl/EntityPatientDiscoveryAsyncResp.wsdl" name="EntityPatientDiscoveryAsyncRespBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	</con:interface>
+	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:entitypatientdiscoveryasyncresp}EntityPatientDiscoveryAsyncRespBindingSoap" definition="${projectDir}/../target/wsdl/EntityPatientDiscoveryAsyncResp.wsdl" name="EntityPatientDiscoveryAsyncRespBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 		<con:settings/>
 
 		<con:endpoints>
-		<con:endpoint>http://localhost:8080/Gateway/PatientDiscovery/1_0/EntityService/EntityPatientDiscoveryDeferredResponseUnsecured</con:endpoint></con:endpoints>
+			<con:endpoint>http://localhost:8080/Gateway/PatientDiscovery/1_0/EntityService/EntityPatientDiscoveryDeferredResponseUnsecured</con:endpoint>
+		</con:endpoints>
 		<con:operation action="" bindingOperationName="ProcessPatientDiscoveryAsyncResp" inputName="ProcessPatientDiscoveryAsyncRespAsyncRequest" isOneWay="false" name="ProcessPatientDiscoveryAsyncResp" outputName="ProcessPatientDiscoveryAsyncRespAsyncResponse" receivesAttachments="false" sendsAttachments="false" type="Request-Response" anonymous="optional">
 			<con:settings/>
 		</con:operation>
-	</con:interface><con:testSuite name="Entity_g1_gateway_True">
+	</con:interface>
+	<con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="AdapterPatientDiscoveryBindingSoap" type="wsdl" bindingName="{urn:gov:hhs:fha:nhinc:adapterpatientdiscovery}AdapterPatientDiscoveryBindingSoap" soapVersion="1_2" anonymous="optional" definition="${projectDir}/../target/wsdl/AdapterPatientDiscovery.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+		<con:settings/>
+		<con:endpoints>
+			<con:endpoint>https://localhost:${HttpsDefaultPort}/Adapter/PatientDiscovery/A_0/AdapterPatientDiscovery</con:endpoint>
+		</con:endpoints>
+		<con:operation isOneWay="false" action="urn:RespondingGateway_PRPA_IN201305UV02" name="RespondingGateway_PRPA_IN201305UV02" bindingOperationName="RespondingGateway_PRPA_IN201305UV02" type="Request-Response" outputName="RespondingGateway_PRPA_IN201306UV02Response" inputName="RespondingGateway_PRPA_IN201305UV02Request" receivesAttachments="false" sendsAttachments="false">
+			<con:settings/>
+		</con:operation>
+	</con:interface>
+	<con:testSuite name="Passthrough_g1_gateway_True">
 		<con:description>Testing for Purpose Of/For Use. This suite sends a request message to the g1 entity interfaces, with the Gateway spring proxy, and purposeForUseEnabled=true in gateway.properties.
-Because this is a g1 test suite, all spec versions are 2011. Messages to 2011 specs do not respect the Purpose Of/For Use settings, and thus PurposeOfUse should be used.</con:description><con:settings/>
+Because this is a g1 test suite, all spec versions are 2011. Messages to 2011 specs do not respect the Purpose Of/For Use settings, and thus PurposeOfUse should be used.</con:description>
+		<con:settings/>
 		<con:runType>SEQUENTIAL</con:runType>
 		<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Document Submission Deferred Req" searchProperties="true" id="4ab9e3e3-a649-44f2-aeb1-5c020c419277">
 			<con:settings/>
@@ -140,10 +178,11 @@ Because this is a g1 test suite, all spec versions are 2011. Messages to 2011 sp
 				</con:settings>
 				<con:encoding>UTF-8</con:encoding>
 				<con:endpoint>${#TestSuite#Endpoint-EntityXDRRequest}</con:endpoint>
-				<con:request><![CDATA[
+				<con:request>
+					<![CDATA[
 					<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" xmlns:urn3="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:urn4="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn5="urn:ihe:iti:xds-b:2007">
    <soap:Header/>
-   <soap:Body testSuite="Entity_g1" testCase="Document Submission Deferred Req">
+   <soap:Body testSuite="Passthrough_g1" testCase="Document Submission Deferred Req">
       <urn:RespondingGateway_ProvideAndRegisterDocumentSetRequest>
          <urn:assertion>
             <urn1:address>
@@ -597,36 +636,45 @@ Because this is a g1 test suite, all spec versions are 2011. Messages to 2011 sp
 						<definition/>
 					</con:configuration>
 				</con:assertion>
-				<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+				<con:credentials>
+					<con:authType>Global HTTP Settings</con:authType>
+				</con:credentials>
+				<con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
 				<con:jmsPropertyConfig/>
 				<con:wsaConfig action="urn:gov:hhs:fha:nhinc:nhincentityxdr:async:request:ProvideAndRegisterDocumentSet-bAsyncRequest_RequestMessage" generateMessageId="true" mustUnderstand="NONE" version="200508"/>
 				<con:wsrmConfig version="1.2"/>
 			</con:request>
 		</con:config>
 	</con:testStep>
-	<con:testStep type="groovy" name="assert PurposeOfUse"><con:settings/><con:config><script/></con:config></con:testStep><con:setupScript/>
-<con:tearDownScript>
+	<con:testStep type="groovy" name="assert PurposeOfUse">
+		<con:settings/>
+		<con:config>
+			<script/>
+		</con:config>
+	</con:testStep>
+	<con:setupScript/>
+	<con:tearDownScript>
 
-</con:tearDownScript>
-<con:properties>
-	<con:property>
-		<con:name>startDate</con:name>
-		<con:value>2012-12-27T22:29:21Z</con:value>
-	</con:property>
-	<con:property>
-		<con:name>endDate</con:name>
-		<con:value>2012-12-27T22:39:21Z</con:value>
-	</con:property>
-	<con:property>
-		<con:name>sigDate</con:name>
-		<con:value>12/27/2012 22:29:21</con:value>
-	</con:property>
-	<con:property>
-		<con:name>expireDate</con:name>
-		<con:value>2013-01-26T00:00:00Z</con:value>
-	</con:property>
-</con:properties>
-<con:reportParameters/>
+	</con:tearDownScript>
+	<con:properties>
+		<con:property>
+			<con:name>startDate</con:name>
+			<con:value>2013-01-31T16:02:36Z</con:value>
+		</con:property>
+		<con:property>
+			<con:name>endDate</con:name>
+			<con:value>2013-01-31T16:12:36Z</con:value>
+		</con:property>
+		<con:property>
+			<con:name>sigDate</con:name>
+			<con:value>01/31/2013 16:02:36</con:value>
+		</con:property>
+		<con:property>
+			<con:name>expireDate</con:name>
+			<con:value>2013-03-02T00:00:00Z</con:value>
+		</con:property>
+	</con:properties>
+	<con:reportParameters/>
 </con:testCase>
 
 
@@ -655,7 +703,8 @@ Because this is a g1 test suite, all spec versions are 2011. Messages to 2011 sp
 		</con:settings>
 		<con:encoding>UTF-8</con:encoding>
 		<con:endpoint>${#TestSuite#Endpoint-DSDeferredResp}</con:endpoint>
-		<con:request><![CDATA[
+		<con:request>
+			<![CDATA[
 			<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:urn3="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0">
    <soap:Header/>
    <soap:Body>
@@ -977,40 +1026,49 @@ Because this is a g1 test suite, all spec versions are 2011. Messages to 2011 sp
 				<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
 			</con:configuration>
 		</con:assertion>
-		<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+		<con:credentials>
+			<con:authType>Global HTTP Settings</con:authType>
+		</con:credentials>
+		<con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
 		<con:jmsPropertyConfig/>
 		<con:wsaConfig mustUnderstand="NONE" version="200508"/>
 		<con:wsrmConfig version="1.2"/>
 	</con:request>
 </con:config>
 </con:testStep>
-<con:testStep type="groovy" name="assert PurposeOfUse"><con:settings/><con:config><script/></con:config></con:testStep><con:setupScript/>
+<con:testStep type="groovy" name="assert PurposeOfUse">
+	<con:settings/>
+	<con:config>
+		<script/>
+	</con:config>
+</con:testStep>
+<con:setupScript/>
 <con:tearDownScript>
 
 </con:tearDownScript>
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2012-12-27T22:29:23Z</con:value>
+		<con:value>2013-01-31T16:02:37Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2012-12-27T22:39:23Z</con:value>
+		<con:value>2013-01-31T16:12:37Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>12/27/2012 22:29:23</con:value>
+		<con:value>01/31/2013 16:02:37</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2013-01-26T00:00:00Z</con:value>
+		<con:value>2013-03-02T00:00:00Z</con:value>
 	</con:property>
 </con:properties>
 </con:testCase>
 <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Document Submission" searchProperties="true" id="032a6d36-8a8e-4870-baab-b5656cf9d770">
 	<con:settings/>
-	
-<con:testStep name="Doc Submission" type="request">
+
+	<con:testStep name="Doc Submission" type="request">
 		<con:settings/>
 		<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 			<con:interface>EntityXDR_Binding</con:interface>
@@ -1021,10 +1079,11 @@ Because this is a g1 test suite, all spec versions are 2011. Messages to 2011 sp
 		</con:settings>
 		<con:encoding>UTF-8</con:encoding>
 		<con:endpoint>http://localhost:8080/Gateway/DocumentSubmission/1_1/EntityService/EntityDocSubmissionUnsecured</con:endpoint>
-		<con:request><![CDATA[
+		<con:request>
+			<![CDATA[
 			<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" xmlns:urn3="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:urn4="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn5="urn:ihe:iti:xds-b:2007">
    <soap:Header/>
-   <soap:Body testSuite="Entity_g1" testCase="Document Submission">
+   <soap:Body testSuite="Passthrough_g1" testCase="Document Submission">
       <urn:RespondingGateway_ProvideAndRegisterDocumentSetRequest>
          <urn:assertion>
             <urn1:address>
@@ -1478,32 +1537,42 @@ Because this is a g1 test suite, all spec versions are 2011. Messages to 2011 sp
 				<definition/>
 			</con:configuration>
 		</con:assertion>
-		<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+		<con:credentials>
+			<con:authType>Global HTTP Settings</con:authType>
+		</con:credentials>
+		<con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
 		<con:jmsPropertyConfig/>
 		<con:wsaConfig action="{urn:gov:hhs:fha:nhinc:nhincentityxdr}ProvideAndRegisterDocumentSet-b" mustUnderstand="NONE" version="200508"/>
 		<con:wsrmConfig version="1.2"/>
 	</con:request>
 </con:config>
-</con:testStep><con:testStep type="groovy" name="assert PurposeOfUse"><con:settings/><con:config><script/></con:config></con:testStep><con:setupScript/>
+</con:testStep>
+<con:testStep type="groovy" name="assert PurposeOfUse">
+	<con:settings/>
+	<con:config>
+		<script/>
+	</con:config>
+</con:testStep>
+<con:setupScript/>
 <con:tearDownScript>
 
 </con:tearDownScript>
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2012-12-27T22:29:24Z</con:value>
+		<con:value>2013-01-31T16:02:38Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2012-12-27T22:39:24Z</con:value>
+		<con:value>2013-01-31T16:12:38Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>12/27/2012 22:29:24</con:value>
+		<con:value>01/31/2013 16:02:38</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2013-01-26T00:00:00Z</con:value>
+		<con:value>2013-03-02T00:00:00Z</con:value>
 	</con:property>
 </con:properties>
 <con:reportParameters/>
@@ -1521,10 +1590,11 @@ Because this is a g1 test suite, all spec versions are 2011. Messages to 2011 sp
 		</con:settings>
 		<con:encoding>UTF-8</con:encoding>
 		<con:endpoint>${#TestSuite#Endpoint-PatientDiscoveryAsyncReq}</con:endpoint>
-		<con:request><![CDATA[
+		<con:request>
+			<![CDATA[
 			<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:hl7-org:v3" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
    <soap:Header/>
-   <soap:Body testSuite="Entity_g1" testCase="Patient Discovery Deferred Req">
+   <soap:Body testSuite="Passthrough_g1" testCase="Patient Discovery Deferred Req">
       <urn:RespondingGateway_PRPA_IN201305UV02Request>
          <urn:PRPA_IN201305UV02 ITSVersion="XML_1.0">
             <urn:id root="1.1" extension="-5a3e95b1:11d1fa33d45:-7f9b"/>
@@ -1816,14 +1886,23 @@ Because this is a g1 test suite, all spec versions are 2011. Messages to 2011 sp
 				<definition/>
 			</con:configuration>
 		</con:assertion>
-		<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+		<con:credentials>
+			<con:authType>Global HTTP Settings</con:authType>
+		</con:credentials>
+		<con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
 		<con:jmsPropertyConfig/>
 		<con:wsaConfig action="urn:gov:hhs:fha:nhinc:entitypatientdiscoveryasyncreq:ProcessPatientDiscoveryAsyncReqAsyncRequest" addDefaultTo="true" messageID="uuid:6666666666.66666.666.66" mustUnderstand="NONE" version="200508"/>
 		<con:wsrmConfig version="1.2"/>
 	</con:request>
 </con:config>
 </con:testStep>
-<con:testStep type="groovy" name="assert PurposeOfUse"><con:settings/><con:config><script/></con:config></con:testStep><con:setupScript/>
+<con:testStep type="groovy" name="assert PurposeOfUse">
+	<con:settings/>
+	<con:config>
+		<script/>
+	</con:config>
+</con:testStep>
+<con:setupScript/>
 <con:tearDownScript>
 
 </con:tearDownScript>
@@ -2090,19 +2169,19 @@ Because this is a g1 test suite, all spec versions are 2011. Messages to 2011 sp
 	</con:property>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2012-12-27T22:29:25Z</con:value>
+		<con:value>2013-01-31T16:02:38Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2012-12-27T22:39:25Z</con:value>
+		<con:value>2013-01-31T16:12:38Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>12/27/2012 22:29:25</con:value>
+		<con:value>01/31/2013 16:02:38</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2013-01-26T00:00:00Z</con:value>
+		<con:value>2013-03-02T00:00:00Z</con:value>
 	</con:property>
 </con:properties>
 <con:reportParameters/>
@@ -2120,10 +2199,11 @@ Because this is a g1 test suite, all spec versions are 2011. Messages to 2011 sp
 		</con:settings>
 		<con:encoding>UTF-8</con:encoding>
 		<con:endpoint>http://localhost:8080/Gateway/PatientDiscovery/1_0/EntityService/EntityPatientDiscoveryDeferredResponseUnsecured</con:endpoint>
-		<con:request><![CDATA[
+		<con:request>
+			<![CDATA[
 			<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:hl7-org:v3" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
    <soap:Header/>
-   <soap:Body testSuite="Entity_g1" testCase="Patient Discovery Deferred Resp">
+   <soap:Body testSuite="Passthrough_g1" testCase="Patient Discovery Deferred Resp">
       <urn:RespondingGateway_PRPA_IN201306UV02Request>
          <urn:PRPA_IN201306UV02 ITSVersion="XML_1.0">
             <urn:id root="2.2" extension="-5a3e95b1:11d1fa33d45:-8e45"/>
@@ -2437,14 +2517,23 @@ Because this is a g1 test suite, all spec versions are 2011. Messages to 2011 sp
 				<definition/>
 			</con:configuration>
 		</con:assertion>
-		<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+		<con:credentials>
+			<con:authType>Global HTTP Settings</con:authType>
+		</con:credentials>
+		<con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
 		<con:jmsPropertyConfig/>
 		<con:wsaConfig mustUnderstand="NONE" version="200508"/>
 		<con:wsrmConfig version="1.2"/>
 	</con:request>
 </con:config>
 </con:testStep>
-<con:testStep type="groovy" name="assert PurposeOfUse"><con:settings/><con:config><script/></con:config></con:testStep><con:setupScript/>
+<con:testStep type="groovy" name="assert PurposeOfUse">
+	<con:settings/>
+	<con:config>
+		<script/>
+	</con:config>
+</con:testStep>
+<con:setupScript/>
 <con:tearDownScript>
 
 </con:tearDownScript>
@@ -2713,26 +2802,27 @@ Because this is a g1 test suite, all spec versions are 2011. Messages to 2011 sp
 		<con:name>DOB</con:name>
 		<con:value>19800516</con:value>
 	</con:property>
-<con:property>
-	<con:name>startDate</con:name>
-	<con:value>2012-12-27T22:29:27Z</con:value>
-</con:property>
-<con:property>
-	<con:name>endDate</con:name>
-	<con:value>2012-12-27T22:39:27Z</con:value>
-</con:property>
-<con:property>
-	<con:name>sigDate</con:name>
-	<con:value>12/27/2012 22:29:27</con:value>
-</con:property>
-<con:property>
-	<con:name>expireDate</con:name>
-	<con:value>2013-01-26T00:00:00Z</con:value>
-</con:property>
+	<con:property>
+		<con:name>startDate</con:name>
+		<con:value>2013-01-31T16:02:39Z</con:value>
+	</con:property>
+	<con:property>
+		<con:name>endDate</con:name>
+		<con:value>2013-01-31T16:12:39Z</con:value>
+	</con:property>
+	<con:property>
+		<con:name>sigDate</con:name>
+		<con:value>01/31/2013 16:02:39</con:value>
+	</con:property>
+	<con:property>
+		<con:name>expireDate</con:name>
+		<con:value>2013-03-02T00:00:00Z</con:value>
+	</con:property>
 </con:properties>
 <con:reportParameters/>
 </con:testCase>
-<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Patient Discovery" searchProperties="true" id="c848d629-c7fc-4320-8cb9-ae2f4a44bcb6">
+
+<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Patient Discovery" searchProperties="true" id="15234773-7d93-46fe-abf4-c547d7ceb15d">
 	<con:settings/>
 	<con:testStep name="clear correlations table" type="groovy">
 		<con:settings/>
@@ -2741,7 +2831,29 @@ Because this is a g1 test suite, all spec versions are 2011. Messages to 2011 sp
 			sql.execute('delete from ' + context.findProperty('PatientCorrelationTable'))
 			}</script>
 	</con:config>
-</con:testStep><con:testStep name="Patient Discovery" type="request">
+</con:testStep>
+<con:testStep type="groovy" name="Set Up PassThru">
+	<con:settings/>
+	<con:config>
+		<script>log.info "Setting Patient Discovery Adapter to unsecured";
+def dir = context.findProperty('GatewayPropDir');
+nhinc.FileUtils.backupFile(dir, "PatientDiscoveryProxyConfig.xml", log);
+def alias = 'adapterpatientdiscovery'
+def aliasName= 'adapterpatientdiscoverywssecured';
+def replaceAlias = 'adapterpatientdiscoverywsunsecured';
+
+nhinc.FileUtils.updateSpringConfig(dir, "PatientDiscoveryProxyConfig.xml",
+	alias, aliasName, replaceAlias, log);
+
+log.info "Modifying internalConnectionInfo for adapterpatientdiscovery mock."
+
+nhinc.FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", dir, "1.1",
+	"adapterpatientdiscovery", "http://localhost:1720/MockPDAdapter", "2.0",
+	log);
+		</script>
+	</con:config>
+</con:testStep>
+<con:testStep name="Patient Discovery" type="request">
 	<con:settings/>
 	<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 		<con:interface>EntityPatientDiscoveryBindingSoap</con:interface>
@@ -2752,10 +2864,11 @@ Because this is a g1 test suite, all spec versions are 2011. Messages to 2011 sp
 	</con:settings>
 	<con:encoding>UTF-8</con:encoding>
 	<con:endpoint>${#TestSuite#Endpoint-PatientDiscovery}</con:endpoint>
-	<con:request><![CDATA[
+	<con:request>
+		<![CDATA[
 		<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:hl7-org:v3" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing">
    <soap:Header/>
-   <soap:Body testSuite="Entity_g1" testCase="Patient Discovery">
+   <soap:Body testSuite="Passthrough_g1" testCase="Patient Discovery">
       <urn:RespondingGateway_PRPA_IN201305UV02Request>
          <urn:PRPA_IN201305UV02 ITSVersion="XML_1.0">
             <urn:id root="1.1" extension="-5a3e95b1:11d1fa33d45:-7f9b"/>
@@ -3028,42 +3141,176 @@ Because this is a g1 test suite, all spec versions are 2011. Messages to 2011 sp
 			<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
 		</con:configuration>
 	</con:assertion>
-	<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+	<con:credentials>
+		<con:authType>Global HTTP Settings</con:authType>
+	</con:credentials>
+	<con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
 	<con:jmsPropertyConfig/>
 	<con:wsaConfig mustUnderstand="NONE" version="200508"/>
 	<con:wsrmConfig version="1.2"/>
 </con:request>
 </con:config>
 </con:testStep>
-<con:testStep name="count correlations (1)" type="groovy">
+<con:testStep type="mockresponse" name="Mock Response">
+	<con:settings/>
+	<con:config xsi:type="con:MockResponseStep" startStep="Patient Discovery" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+		<con:interface>AdapterPatientDiscoveryBindingSoap</con:interface>
+		<con:operation>RespondingGateway_PRPA_IN201305UV02</con:operation>
+		<con:path>/MockPDAdapter</con:path>
+		<con:port>1720</con:port>
+		<con:response>
+			<con:settings/>
+			<con:responseContent>
+				<![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:hl7-org:v3">
+   <soap:Header/>
+   <soap:Body>
+   <PRPA_IN201306UV02 xmlns="urn:hl7-org:v3" xmlns:ns2="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:ns3="http://www.w3.org/2005/08/addressing" xmlns:ns4="urn:gov:hhs:fha:nhinc:common:patientcorrelationfacade" ITSVersion="XML_1.0">
+   <id root="1.1" extension="13318247:13b4e0b839b:-7ff4"/>
+   <creationTime value="20121129212833"/>
+   <interactionId root="2.16.840.1.113883.1.6" extension="PRPA_IN201306UV02"/>
+   <processingCode code="P"/>
+   <processingModeCode code="T"/>
+   <acceptAckCode code="NE"/>
+   <receiver typeCode="RCV">
+   	<device classCode="DEV" determinerCode="INSTANCE">
+   		<id root="1.2.345.678.999"/>
+   		<asAgent classCode="AGNT">
+   			<representedOrganization classCode="ORG" determinerCode="INSTANCE">
+   				<id root="1.1"/>
+   			</representedOrganization>
+   		</asAgent>
+   	</device>
+   </receiver>
+   <sender typeCode="SND">
+   	<device classCode="DEV" determinerCode="INSTANCE">
+   		<id root="2.2"/>
+   		<asAgent classCode="AGNT">
+   			<representedOrganization classCode="ORG" determinerCode="INSTANCE">
+   				<id root="2.2"/>
+   			</representedOrganization>
+   		</asAgent>
+   	</device>
+   </sender>
+   <acknowledgement>
+   	<typeId root="2.16.840.1.113883.1.6" extension="PRPA_IN201305UV02"/>
+   	<typeCode code="AA"/><targetMessage xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+   </acknowledgement>
+   <controlActProcess classCode="CACT" moodCode="EVN">
+   	<code code="PRPA_TE201306UV" codeSystem="2.16.840.1.113883.1.6"/>
+   	<subject typeCode="SUBJ">
+   		<registrationEvent classCode="REG" moodCode="EVN">
+   			<id nullFlavor="NA"/>
+   			<statusCode code="active"/>
+   				<subject1 typeCode="SBJ">
+   					<patient classCode="PAT">
+   						<id root="1.1" extension="D123401"/>
+   						<statusCode code="SD"/>
+   						<patientPerson classCode="PSN" determinerCode="INSTANCE">
+   							<name>
+   								<family partType="FAM">Younger</family>
+   								<given partType="GIV">Gallow</given>
+   							</name>
+   							<telecom value="tel:+1-888-555-1234"/>
+   							<administrativeGenderCode code="M"/>
+   							<birthTime value="19630804"/>
+   							<addr><city>LEESBURG</city><state>VA</state><postalCode>20176</postalCode></addr>
+   							<asOtherIDs classCode="SD">
+   								<id root="2.16.840.1.113883.4.1" extension="999123401"/>
+   								<scopingOrganization classCode="ORG" determinerCode="INSTANCE">
+   									<id root="2.16.840.1.113883.4.1"/>
+   								</scopingOrganization>
+   							</asOtherIDs>
+   						</patientPerson>
+   						<providerOrganization classCode="ORG" determinerCode="INSTANCE">
+   							<id root="1.1"/>
+   							<contactParty xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+   							</providerOrganization>
+   							<subjectOf1>
+   								<queryMatchObservation classCode="CASE" moodCode="EVN">
+   									<code code="IHE_PDQ"/>
+   									<value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="INT" value="100"/>
+   								</queryMatchObservation>
+   							</subjectOf1>
+   						</patient>
+   					</subject1>
+   					<custodian typeCode="CST">
+   						<assignedEntity classCode="ASSIGNED">
+   							<id root="1.1"/>
+   							<code code="NotHealthDataLocator" codeSystem="1.3.6.1.4.1.19376.1.2.27.2"/>
+   						</assignedEntity>
+   					</custodian>
+   				</registrationEvent>
+   			</subject>
+   			<queryAck>
+   				<queryId root="1.1" extension="-abd3453dcd24wkkks545"/>
+   				<queryResponseCode code="OK"/>
+   			</queryAck>
+   			<queryByParameter>
+   				<queryId root="1.1" extension="-abd3453dcd24wkkks545"/>
+   				<statusCode code="new"/>
+   				<responseModalityCode code="R"/>
+   				<responsePriorityCode code="I"/>
+   				<parameterList>
+   					<livingSubjectAdministrativeGender>
+   						<value code="M"/>
+   						<semanticsText representation="TXT"/>
+   					</livingSubjectAdministrativeGender>
+   					<livingSubjectBirthTime>
+   						<value value="19630804"/>
+   						<semanticsText representation="TXT"/>
+   					</livingSubjectBirthTime>
+   					<livingSubjectId>
+   						<value root="1.1" extension="1111"/>
+   						<semanticsText representation="TXT"/>
+   					</livingSubjectId>
+   					<livingSubjectName>
+   						<value>
+   							<family partType="FAM">Younger</family>
+   							<given partType="GIV">Gallow</given>
+                        		</value>
+                        		<semanticsText representation="TXT"/>
+                        	</livingSubjectName>
+                     </parameterList>
+                 </queryByParameter>
+             </controlActProcess>
+     </PRPA_IN201306UV02>
+   </soap:Body>
+</soap:Envelope>]]></con:responseContent>
+			<con:wsaConfig mustUnderstand="NONE" version="200508"/>
+		</con:response>
+	</con:config>
+</con:testStep>
+<con:testStep type="groovy" name="assert PurposeOfUse">
 	<con:settings/>
 	<con:config>
-		<script>context.withSql('PatientCorrelationDB') { sql -> 
-		assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('PatientCorrelationTable'))[0]
-		}</script>
-</con:config>
+		<script/>
+	</con:config>
 </con:testStep>
-<con:testStep type="groovy" name="assert PurposeOfUse"><con:settings/><con:config><script/></con:config></con:testStep>
 <con:setupScript/>
-<con:tearDownScript>
+<con:tearDownScript>def dir = context.findProperty('GatewayPropDir');
+def alias = 'adapterpatientdiscovery';
+def aliasName= 'adapterpatientdiscoverywsunsecured';
+def replaceAlias = 'adapterpatientdiscoverywssecured';
+
+nhinc.FileUtils.updateSpringConfig(dir, "PatientDiscoveryProxyConfig.xml", alias, aliasName, replaceAlias, log);
 
 </con:tearDownScript>
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2012-12-27T22:29:28Z</con:value>
+		<con:value>2013-01-31T15:48:57Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2012-12-27T22:39:28Z</con:value>
+		<con:value>2013-01-31T15:58:57Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>12/27/2012 22:29:28</con:value>
+		<con:value>01/31/2013 15:48:57</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2013-01-26T00:00:00Z</con:value>
+		<con:value>2013-03-02T00:00:00Z</con:value>
 	</con:property>
 </con:properties>
 <con:reportParameters/>
@@ -3071,17 +3318,17 @@ Because this is a g1 test suite, all spec versions are 2011. Messages to 2011 sp
 <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Document Query" searchProperties="true" id="c629d753-540d-4404-afe5-d300d47f4465">
 	<con:settings/>
 
-	
-<con:testStep name="update config" type="groovy">
+
+	<con:testStep name="update config" type="groovy">
 		<con:settings/>
 		<con:config>
 			<script>nhinc.FileUtils.updateProperty(context.findProperty("GatewayPropDir"),"gateway.properties","documentQueryQuerySelf","false", log);</script>
-	</con:config>
-</con:testStep>
-<con:testStep name="Clear Correlation Table &amp; Add Correlation" type="groovy">
-	<con:settings/>
-	<con:config>
-		<script>context.withSql('PatientCorrelationDB') { sql -> 
+		</con:config>
+	</con:testStep>
+	<con:testStep name="Clear Correlation Table &amp; Add Correlation" type="groovy">
+		<con:settings/>
+		<con:config>
+			<script>context.withSql('PatientCorrelationDB') { sql -> 
 		def table = context.findProperty('PatientCorrelationTable')
 
 		sql.execute('delete from ' + table)
@@ -3094,7 +3341,7 @@ Because this is a g1 test suite, all spec versions are 2011. Messages to 2011 sp
 		"values (1, ?, ?, ?, ?)"
 		sql.executeUpdate(insertSql, [localAA, localPatientID, remoteAA, remotePatientID])
 		}</script>
-</con:config>
+	</con:config>
 </con:testStep>
 <con:testStep name="Clear AA Mapping Table &amp; Add Mapping" type="groovy">
 	<con:settings/>
@@ -3124,10 +3371,11 @@ Because this is a g1 test suite, all spec versions are 2011. Messages to 2011 sp
 	</con:settings>
 	<con:encoding>UTF-8</con:encoding>
 	<con:endpoint>${#TestSuite#Endpoint-DocQuery}</con:endpoint>
-	<con:request><![CDATA[
+	<con:request>
+		<![CDATA[
 		<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn3="urn:gov:hhs:fha:nhinc:common:nhinccommon">
    <soap:Header/>
-   <soap:Body testSuite="Entity_g1" testCase="Document Query">
+   <soap:Body testSuite="Passthrough_g1" testCase="Document Query">
       <urn:RespondingGateway_CrossGatewayQueryRequest>
          <urn1:AdhocQueryRequest federated="false" startIndex="0" maxResults="-1">
             <urn1:ResponseOption returnType="LeafClass" returnComposedObjects="false"/>
@@ -3392,13 +3640,23 @@ Because this is a g1 test suite, all spec versions are 2011. Messages to 2011 sp
 				assert (documentID == msgDocID)</scriptText>
 		</con:configuration>
 	</con:assertion>
-	<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+	<con:credentials>
+		<con:authType>Global HTTP Settings</con:authType>
+	</con:credentials>
+	<con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
 	<con:jmsPropertyConfig/>
 	<con:wsaConfig mustUnderstand="NONE" version="200508"/>
 	<con:wsrmConfig version="1.2"/>
 </con:request>
 </con:config>
-</con:testStep><con:testStep type="groovy" name="assert PurposeOfUse"><con:settings/><con:config><script/></con:config></con:testStep><con:setupScript>
+</con:testStep>
+<con:testStep type="groovy" name="assert PurposeOfUse">
+	<con:settings/>
+	<con:config>
+		<script/>
+	</con:config>
+</con:testStep>
+<con:setupScript>
 </con:setupScript>
 <con:tearDownScript>
 
@@ -3406,19 +3664,19 @@ Because this is a g1 test suite, all spec versions are 2011. Messages to 2011 sp
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2012-12-27T22:29:30Z</con:value>
+		<con:value>2013-01-31T16:02:41Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2012-12-27T22:39:30Z</con:value>
+		<con:value>2013-01-31T16:12:41Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>12/27/2012 22:29:30</con:value>
+		<con:value>01/31/2013 16:02:41</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2013-01-26T00:00:00Z</con:value>
+		<con:value>2013-03-02T00:00:00Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>FullPatientID</con:name>
@@ -3441,10 +3699,11 @@ Because this is a g1 test suite, all spec versions are 2011. Messages to 2011 sp
 		</con:settings>
 		<con:encoding>UTF-8</con:encoding>
 		<con:endpoint>${#TestSuite#Endpoint-DocRetrieve}</con:endpoint>
-		<con:request><![CDATA[
+		<con:request>
+			<![CDATA[
 			<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:ihe:iti:xds-b:2007" xmlns:urn2="urn:gov:hhs:fha:nhinc:common:nhinccommon">
    <soap:Header/>
-   <soap:Body testSuite="Entity_g1" testCase="Document Retrieve">
+   <soap:Body testSuite="Passthrough_g1" testCase="Document Retrieve">
       <urn:RespondingGateway_CrossGatewayRetrieveRequest>
          <urn1:RetrieveDocumentSetRequest>
             <urn1:DocumentRequest>
@@ -3709,14 +3968,23 @@ Because this is a g1 test suite, all spec versions are 2011. Messages to 2011 sp
 					assert (docData.size() != 0)</scriptText>
 			</con:configuration>
 		</con:assertion>
-		<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+		<con:credentials>
+			<con:authType>Global HTTP Settings</con:authType>
+		</con:credentials>
+		<con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
 		<con:jmsPropertyConfig/>
 		<con:wsaConfig action="urn:gov:hhs:fha:nhinc:entitydocretrieve/EntityDocRetrievePortType/RespondingGateway_CrossGatewayRetrieveRequest" mustUnderstand="NONE" version="200508"/>
 		<con:wsrmConfig version="1.2"/>
 	</con:request>
 </con:config>
 </con:testStep>
-<con:testStep type="groovy" name="assert PurposeOfUse"><con:settings/><con:config><script/></con:config></con:testStep><con:setupScript/>
+<con:testStep type="groovy" name="assert PurposeOfUse">
+	<con:settings/>
+	<con:config>
+		<script/>
+	</con:config>
+</con:testStep>
+<con:setupScript/>
 <con:tearDownScript>
 
 </con:tearDownScript>
@@ -3727,19 +3995,19 @@ Because this is a g1 test suite, all spec versions are 2011. Messages to 2011 sp
 	</con:property>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2012-12-27T22:29:31Z</con:value>
+		<con:value>2013-01-31T16:02:41Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2012-12-27T22:39:31Z</con:value>
+		<con:value>2013-01-31T16:12:41Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>12/27/2012 22:29:31</con:value>
+		<con:value>01/31/2013 16:02:41</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2013-01-26T00:00:00Z</con:value>
+		<con:value>2013-03-02T00:00:00Z</con:value>
 	</con:property>
 </con:properties>
 <con:reportParameters/>
@@ -3760,10 +4028,11 @@ Because this is a g1 test suite, all spec versions are 2011. Messages to 2011 sp
 		</con:settings>
 		<con:encoding>UTF-8</con:encoding>
 		<con:endpoint>${#TestSuite#Endpoint-EntityAdminDist}</con:endpoint>
-		<con:request><![CDATA[
+		<con:request>
+			<![CDATA[
 			<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:urn2="urn:oasis:names:tc:emergency:EDXL:DE:1.0">
    <soap:Header/>
-   <soap:Body testSuite="Entity_g1" testCase="Admin Distribution">
+   <soap:Body testSuite="Passthrough_g1" testCase="Admin Distribution">
       <urn:RespondingGateway_SendAlertMessage>
          <urn:assertion>
             <urn1:address>
@@ -4093,7 +4362,10 @@ Because this is a g1 test suite, all spec versions are 2011. Messages to 2011 sp
       </urn:RespondingGateway_SendAlertMessage>
    </soap:Body>
 </soap:Envelope>]]></con:request>
-		<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+		<con:credentials>
+			<con:authType>Global HTTP Settings</con:authType>
+		</con:credentials>
+		<con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
 		<con:jmsPropertyConfig/>
 		<con:wsaConfig mustUnderstand="NONE" version="200508"/>
 		<con:wsrmConfig version="1.2"/>
@@ -4103,29 +4375,35 @@ Because this is a g1 test suite, all spec versions are 2011. Messages to 2011 sp
 <con:testStep name="Delay" type="delay">
 	<con:settings/>
 	<con:config>
-		<delay>8000</delay>
+		<delay>1000</delay>
 	</con:config>
 </con:testStep>
-<con:testStep type="groovy" name="assert PurposeOfUse"><con:settings/><con:config><script/></con:config></con:testStep><con:setupScript/>
+<con:testStep type="groovy" name="assert PurposeOfUse">
+	<con:settings/>
+	<con:config>
+		<script/>
+	</con:config>
+</con:testStep>
+<con:setupScript/>
 <con:tearDownScript>
 
 </con:tearDownScript>
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2012-12-27T22:29:34Z</con:value>
+		<con:value>2013-01-31T16:02:42Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2012-12-27T22:39:34Z</con:value>
+		<con:value>2013-01-31T16:12:42Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>12/27/2012 22:29:34</con:value>
+		<con:value>01/31/2013 16:02:42</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2013-01-26T00:00:00Z</con:value>
+		<con:value>2013-03-02T00:00:00Z</con:value>
 	</con:property>
 </con:properties>
 </con:testCase>
@@ -4184,9 +4462,11 @@ nhinc.FileUtils.updateProperty(context.expand(testSuite.project.getPropertyValue
 nhinc.FileUtils.copyFile(context.expand(testSuite.project.resourceRoot), "uddiConnectionInfo_g1.xml", context.expand(testSuite.project.getPropertyValue("GatewayPropDir")), "uddiConnectionInfo.xml", log);</con:setupScript>
 <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.expand(testSuite.project.getPropertyValue("GatewayPropDir")), log);</con:tearDownScript>
 <con:reportParameters/>
-</con:testSuite><con:testSuite name="Entity_g0_gateway_True">
+</con:testSuite>
+<con:testSuite name="Passthrough_g0_gateway_True">
 	<con:description>Testing for Purpose Of/For Use. This suite sends a request message to the g0 entity interfaces, with the Gateway spring proxy, and purposeForUseEnabled=true in gateway.properties.
-Because this is a g0 test suite, all spec versions are 2010. Messages to 2010 specs respect the Purpose Of/For Use settings, and thus PurposeForUse should be used.</con:description><con:settings/>
+Because this is a g0 test suite, all spec versions are 2010. Messages to 2010 specs respect the Purpose Of/For Use settings, and thus PurposeForUse should be used.</con:description>
+	<con:settings/>
 	<con:runType>SEQUENTIAL</con:runType>
 	<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Document Submission Deferred Req" searchProperties="true" id="da050786-bad9-4ee1-b433-38b17b50ccfb">
 		<con:settings/>
@@ -4201,10 +4481,11 @@ Because this is a g0 test suite, all spec versions are 2010. Messages to 2010 sp
 			</con:settings>
 			<con:encoding>UTF-8</con:encoding>
 			<con:endpoint>${#TestSuite#Endpoint-EntityXDRRequest}</con:endpoint>
-			<con:request><![CDATA[
+			<con:request>
+				<![CDATA[
 				<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" xmlns:urn3="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:urn4="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn5="urn:ihe:iti:xds-b:2007">
    <soap:Header/>
-   <soap:Body testSuite="Entity_g0" testCase="Document Submission Deferred Request">
+   <soap:Body testSuite="Passthrough_g0" testCase="Document Submission Deferred Request">
       <urn:RespondingGateway_ProvideAndRegisterDocumentSetRequest>
          <urn:assertion>
             <urn1:address>
@@ -4661,14 +4942,23 @@ Because this is a g0 test suite, all spec versions are 2010. Messages to 2010 sp
 			<con:assertion type="Schema Compliance">
 				<con:configuration/>
 			</con:assertion>
-			<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+			<con:credentials>
+				<con:authType>Global HTTP Settings</con:authType>
+			</con:credentials>
+			<con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
 			<con:jmsPropertyConfig/>
 			<con:wsaConfig action="urn:gov:hhs:fha:nhinc:nhincentityxdr:async:request:ProvideAndRegisterDocumentSet-bAsyncRequest_RequestMessage" generateMessageId="true" mustUnderstand="NONE" version="200508"/>
 			<con:wsrmConfig version="1.2"/>
 		</con:request>
 	</con:config>
 </con:testStep>
-<con:testStep type="groovy" name="assert PurposeForUse"><con:settings/><con:config><script/></con:config></con:testStep><con:setupScript/>
+<con:testStep type="groovy" name="assert PurposeForUse">
+	<con:settings/>
+	<con:config>
+		<script/>
+	</con:config>
+</con:testStep>
+<con:setupScript/>
 <con:tearDownScript/>
 <con:properties>
 	<con:property>
@@ -4703,10 +4993,11 @@ Because this is a g0 test suite, all spec versions are 2010. Messages to 2010 sp
 		</con:settings>
 		<con:encoding>UTF-8</con:encoding>
 		<con:endpoint>${#TestSuite#Endpoint-DSDeferredResp}</con:endpoint>
-		<con:request><![CDATA[
+		<con:request>
+			<![CDATA[
 			<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:urn3="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0">
    <soap:Header/>
-   <soap:Body testSuite="Entity_g0" testCase="Document Submission Deferred Resp">
+   <soap:Body testSuite="Passthrough_g0" testCase="Document Submission Deferred Resp">
       <urn:RespondingGateway_ProvideAndRegisterDocumentSetResponseRequest>
          <urn:assertion>
             <urn1:address>
@@ -5025,14 +5316,23 @@ Because this is a g0 test suite, all spec versions are 2010. Messages to 2010 sp
 				<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
 			</con:configuration>
 		</con:assertion>
-		<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+		<con:credentials>
+			<con:authType>Global HTTP Settings</con:authType>
+		</con:credentials>
+		<con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
 		<con:jmsPropertyConfig/>
 		<con:wsaConfig mustUnderstand="NONE" version="200508"/>
 		<con:wsrmConfig version="1.2"/>
 	</con:request>
 </con:config>
 </con:testStep>
-<con:testStep type="groovy" name="assert PurposeForUse"><con:settings/><con:config><script/></con:config></con:testStep><con:setupScript/>
+<con:testStep type="groovy" name="assert PurposeForUse">
+	<con:settings/>
+	<con:config>
+		<script/>
+	</con:config>
+</con:testStep>
+<con:setupScript/>
 <con:tearDownScript/>
 <con:properties>
 	<con:property>
@@ -5055,8 +5355,8 @@ Because this is a g0 test suite, all spec versions are 2010. Messages to 2010 sp
 </con:testCase>
 <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Document Submission" searchProperties="true" id="f1152344-9b0f-4af2-986f-a9355479a233">
 	<con:settings/>
-	
-<con:testStep name="Doc Submission" type="request">
+
+	<con:testStep name="Doc Submission" type="request">
 		<con:settings/>
 		<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 			<con:interface>EntityXDR_Binding</con:interface>
@@ -5067,9 +5367,10 @@ Because this is a g0 test suite, all spec versions are 2010. Messages to 2010 sp
 		</con:settings>
 		<con:encoding>UTF-8</con:encoding>
 		<con:endpoint>http://localhost:8080/Gateway/DocumentSubmission/1_1/EntityService/EntityDocSubmissionUnsecured</con:endpoint>
-		<con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" xmlns:urn3="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:urn4="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn5="urn:ihe:iti:xds-b:2007">
+		<con:request>
+			<![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" xmlns:urn3="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:urn4="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn5="urn:ihe:iti:xds-b:2007">
    <soap:Header/>
-   <soap:Body testSuite="Entity_g0" testCase="Document Submission">
+   <soap:Body testSuite="Passthrough_g0" testCase="Document Submission">
       <urn:RespondingGateway_ProvideAndRegisterDocumentSetRequest>
          <urn:assertion>
             <urn1:address>
@@ -5523,13 +5824,23 @@ Because this is a g0 test suite, all spec versions are 2010. Messages to 2010 sp
 				<definition/>
 			</con:configuration>
 		</con:assertion>
-		<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+		<con:credentials>
+			<con:authType>Global HTTP Settings</con:authType>
+		</con:credentials>
+		<con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
 		<con:jmsPropertyConfig/>
 		<con:wsaConfig action="{urn:gov:hhs:fha:nhinc:nhincentityxdr}ProvideAndRegisterDocumentSet-b" mustUnderstand="NONE" version="200508"/>
 		<con:wsrmConfig version="1.2"/>
 	</con:request>
 </con:config>
-</con:testStep><con:testStep type="groovy" name="assert PurposeForUse"><con:settings/><con:config><script/></con:config></con:testStep><con:setupScript/>
+</con:testStep>
+<con:testStep type="groovy" name="assert PurposeForUse">
+	<con:settings/>
+	<con:config>
+		<script/>
+	</con:config>
+</con:testStep>
+<con:setupScript/>
 <con:tearDownScript/>
 <con:properties>
 	<con:property>
@@ -5568,10 +5879,11 @@ Because this is a g0 test suite, all spec versions are 2010. Messages to 2010 sp
 		</con:settings>
 		<con:encoding>UTF-8</con:encoding>
 		<con:endpoint>${#TestSuite#Endpoint-PatientDiscoveryAsyncReq}</con:endpoint>
-		<con:request><![CDATA[
+		<con:request>
+			<![CDATA[
 			<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:hl7-org:v3" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
    <soap:Header/>
-   <soap:Body testSuite="Entity_g0" testCase="Patient Discovery Deferred Req">
+   <soap:Body testSuite="Passthrough_g0" testCase="Patient Discovery Deferred Req">
       <urn:RespondingGateway_PRPA_IN201305UV02Request>
          <urn:PRPA_IN201305UV02 ITSVersion="XML_1.0">
             <urn:id root="1.1" extension="-5a3e95b1:11d1fa33d45:-7f9b"/>
@@ -5863,13 +6175,22 @@ Because this is a g0 test suite, all spec versions are 2010. Messages to 2010 sp
 				<definition/>
 			</con:configuration>
 		</con:assertion>
-		<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+		<con:credentials>
+			<con:authType>Global HTTP Settings</con:authType>
+		</con:credentials>
+		<con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
 		<con:jmsPropertyConfig/>
 		<con:wsaConfig action="urn:gov:hhs:fha:nhinc:entitypatientdiscoveryasyncreq:ProcessPatientDiscoveryAsyncReqAsyncRequest" addDefaultTo="true" messageID="uuid:6666666666.66666.666.66" mustUnderstand="NONE" version="200508"/>
 		<con:wsrmConfig version="1.2"/>
 	</con:request>
 </con:config>
-</con:testStep><con:testStep type="groovy" name="assert PurposeForUse"><con:settings/><con:config><script/></con:config></con:testStep>
+</con:testStep>
+<con:testStep type="groovy" name="assert PurposeForUse">
+	<con:settings/>
+	<con:config>
+		<script/>
+	</con:config>
+</con:testStep>
 <con:setupScript/>
 <con:tearDownScript/>
 <con:properties>
@@ -6155,8 +6476,8 @@ Because this is a g0 test suite, all spec versions are 2010. Messages to 2010 sp
 
 <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Patient Discovery Deferred Resp" searchProperties="true" id="054334ca-62c4-45c5-a86f-0c862d619bd4">
 	<con:settings/>
-	
-<con:testStep name="Patient Discovery Deferred Resp" type="request">
+
+	<con:testStep name="Patient Discovery Deferred Resp" type="request">
 		<con:settings/>
 		<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 			<con:interface>EntityPatientDiscoveryAsyncRespBindingSoap</con:interface>
@@ -6167,10 +6488,11 @@ Because this is a g0 test suite, all spec versions are 2010. Messages to 2010 sp
 		</con:settings>
 		<con:encoding>UTF-8</con:encoding>
 		<con:endpoint>http://localhost:8080/Gateway/PatientDiscovery/1_0/EntityService/EntityPatientDiscoveryDeferredResponseUnsecured</con:endpoint>
-		<con:request><![CDATA[
+		<con:request>
+			<![CDATA[
 			<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:hl7-org:v3" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
    <soap:Header/>
-   <soap:Body testSuite="Entity_g0" testCase="Patient Discovery Deferred Resp">
+   <soap:Body testSuite="Passthrough_g0" testCase="Patient Discovery Deferred Resp">
       <urn:RespondingGateway_PRPA_IN201306UV02Request>
          <urn:PRPA_IN201306UV02 ITSVersion="XML_1.0">
             <urn:id root="2.2" extension="-5a3e95b1:11d1fa33d45:-8e45"/>
@@ -6484,13 +6806,23 @@ Because this is a g0 test suite, all spec versions are 2010. Messages to 2010 sp
 				<definition/>
 			</con:configuration>
 		</con:assertion>
-		<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+		<con:credentials>
+			<con:authType>Global HTTP Settings</con:authType>
+		</con:credentials>
+		<con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
 		<con:jmsPropertyConfig/>
 		<con:wsaConfig mustUnderstand="NONE" version="200508"/>
 		<con:wsrmConfig version="1.2"/>
 	</con:request>
 </con:config>
-</con:testStep><con:testStep type="groovy" name="assert PurposeForUse"><con:settings/><con:config><script/></con:config></con:testStep><con:setupScript/>
+</con:testStep>
+<con:testStep type="groovy" name="assert PurposeForUse">
+	<con:settings/>
+	<con:config>
+		<script/>
+	</con:config>
+</con:testStep>
+<con:setupScript/>
 <con:tearDownScript/>
 <con:properties>
 	<con:property>
@@ -6757,26 +7089,27 @@ Because this is a g0 test suite, all spec versions are 2010. Messages to 2010 sp
 		<con:name>DOB</con:name>
 		<con:value>19800516</con:value>
 	</con:property>
-<con:property>
-	<con:name>startDate</con:name>
-	<con:value>2012-12-27T22:35:35Z</con:value>
-</con:property>
-<con:property>
-	<con:name>endDate</con:name>
-	<con:value>2012-12-27T22:45:35Z</con:value>
-</con:property>
-<con:property>
-	<con:name>sigDate</con:name>
-	<con:value>12/27/2012 22:35:35</con:value>
-</con:property>
-<con:property>
-	<con:name>expireDate</con:name>
-	<con:value>2013-01-26T00:00:00Z</con:value>
-</con:property>
+	<con:property>
+		<con:name>startDate</con:name>
+		<con:value>2012-12-27T22:35:35Z</con:value>
+	</con:property>
+	<con:property>
+		<con:name>endDate</con:name>
+		<con:value>2012-12-27T22:45:35Z</con:value>
+	</con:property>
+	<con:property>
+		<con:name>sigDate</con:name>
+		<con:value>12/27/2012 22:35:35</con:value>
+	</con:property>
+	<con:property>
+		<con:name>expireDate</con:name>
+		<con:value>2013-01-26T00:00:00Z</con:value>
+	</con:property>
 </con:properties>
 <con:reportParameters/>
 </con:testCase>
-<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Patient Discovery" searchProperties="true" id="66cf2855-98e0-4dc4-9a36-f9fd3484eec9">
+
+<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Patient Discovery" searchProperties="true">
 	<con:settings/>
 	<con:testStep name="clear correlations table" type="groovy">
 		<con:settings/>
@@ -6784,6 +7117,27 @@ Because this is a g0 test suite, all spec versions are 2010. Messages to 2010 sp
 			<script>context.withSql('PatientCorrelationDB') { sql -> 
 			sql.execute('delete from ' + context.findProperty('PatientCorrelationTable'))
 			}</script>
+	</con:config>
+</con:testStep>
+<con:testStep type="groovy" name="Set Up PassThru">
+	<con:settings/>
+	<con:config>
+		<script>log.info "Setting Patient Discovery Adapter to unsecured";
+def dir = context.findProperty('GatewayPropDir');
+nhinc.FileUtils.backupFile(dir, "PatientDiscoveryProxyConfig.xml", log);
+def alias = 'adapterpatientdiscovery'
+def aliasName= 'adapterpatientdiscoverywssecured';
+def replaceAlias = 'adapterpatientdiscoverywsunsecured';
+
+nhinc.FileUtils.updateSpringConfig(dir, "PatientDiscoveryProxyConfig.xml",
+	alias, aliasName, replaceAlias, log);
+
+log.info "Modifying internalConnectionInfo for adapterpatientdiscovery mock."
+
+nhinc.FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", dir, "1.1",
+	"adapterpatientdiscovery", "http://localhost:1720/MockPDAdapter", "2.0",
+	log);
+		</script>
 	</con:config>
 </con:testStep>
 <con:testStep name="Patient Discovery" type="request">
@@ -6797,10 +7151,11 @@ Because this is a g0 test suite, all spec versions are 2010. Messages to 2010 sp
 	</con:settings>
 	<con:encoding>UTF-8</con:encoding>
 	<con:endpoint>${#TestSuite#Endpoint-PatientDiscovery}</con:endpoint>
-	<con:request><![CDATA[
+	<con:request>
+		<![CDATA[
 		<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:hl7-org:v3" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing">
    <soap:Header/>
-   <soap:Body testSuite="Entity_g0" testCase="Patient Discovery">
+   <soap:Body testSuite="Passthrough_g1" testCase="Patient Discovery">
       <urn:RespondingGateway_PRPA_IN201305UV02Request>
          <urn:PRPA_IN201305UV02 ITSVersion="XML_1.0">
             <urn:id root="1.1" extension="-5a3e95b1:11d1fa33d45:-7f9b"/>
@@ -7073,39 +7428,176 @@ Because this is a g0 test suite, all spec versions are 2010. Messages to 2010 sp
 			<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
 		</con:configuration>
 	</con:assertion>
-	<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+	<con:credentials>
+		<con:authType>Global HTTP Settings</con:authType>
+	</con:credentials>
+	<con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
 	<con:jmsPropertyConfig/>
 	<con:wsaConfig mustUnderstand="NONE" version="200508"/>
 	<con:wsrmConfig version="1.2"/>
 </con:request>
 </con:config>
 </con:testStep>
-<con:testStep name="count correlations (1)" type="groovy">
+<con:testStep type="mockresponse" name="Mock Response">
+	<con:settings/>
+	<con:config xsi:type="con:MockResponseStep" startStep="Patient Discovery" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+		<con:interface>AdapterPatientDiscoveryBindingSoap</con:interface>
+		<con:operation>RespondingGateway_PRPA_IN201305UV02</con:operation>
+		<con:path>/MockPDAdapter</con:path>
+		<con:port>1720</con:port>
+		<con:response>
+			<con:settings/>
+			<con:responseContent>
+				<![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:hl7-org:v3">
+   <soap:Header/>
+   <soap:Body>
+   <PRPA_IN201306UV02 xmlns="urn:hl7-org:v3" xmlns:ns2="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:ns3="http://www.w3.org/2005/08/addressing" xmlns:ns4="urn:gov:hhs:fha:nhinc:common:patientcorrelationfacade" ITSVersion="XML_1.0">
+   <id root="1.1" extension="13318247:13b4e0b839b:-7ff4"/>
+   <creationTime value="20121129212833"/>
+   <interactionId root="2.16.840.1.113883.1.6" extension="PRPA_IN201306UV02"/>
+   <processingCode code="P"/>
+   <processingModeCode code="T"/>
+   <acceptAckCode code="NE"/>
+   <receiver typeCode="RCV">
+   	<device classCode="DEV" determinerCode="INSTANCE">
+   		<id root="1.2.345.678.999"/>
+   		<asAgent classCode="AGNT">
+   			<representedOrganization classCode="ORG" determinerCode="INSTANCE">
+   				<id root="1.1"/>
+   			</representedOrganization>
+   		</asAgent>
+   	</device>
+   </receiver>
+   <sender typeCode="SND">
+   	<device classCode="DEV" determinerCode="INSTANCE">
+   		<id root="2.2"/>
+   		<asAgent classCode="AGNT">
+   			<representedOrganization classCode="ORG" determinerCode="INSTANCE">
+   				<id root="2.2"/>
+   			</representedOrganization>
+   		</asAgent>
+   	</device>
+   </sender>
+   <acknowledgement>
+   	<typeId root="2.16.840.1.113883.1.6" extension="PRPA_IN201305UV02"/>
+   	<typeCode code="AA"/><targetMessage xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+   </acknowledgement>
+   <controlActProcess classCode="CACT" moodCode="EVN">
+   	<code code="PRPA_TE201306UV" codeSystem="2.16.840.1.113883.1.6"/>
+   	<subject typeCode="SUBJ">
+   		<registrationEvent classCode="REG" moodCode="EVN">
+   			<id nullFlavor="NA"/>
+   			<statusCode code="active"/>
+   				<subject1 typeCode="SBJ">
+   					<patient classCode="PAT">
+   						<id root="1.1" extension="D123401"/>
+   						<statusCode code="SD"/>
+   						<patientPerson classCode="PSN" determinerCode="INSTANCE">
+   							<name>
+   								<family partType="FAM">Younger</family>
+   								<given partType="GIV">Gallow</given>
+   							</name>
+   							<telecom value="tel:+1-888-555-1234"/>
+   							<administrativeGenderCode code="M"/>
+   							<birthTime value="19630804"/>
+   							<addr><city>LEESBURG</city><state>VA</state><postalCode>20176</postalCode></addr>
+   							<asOtherIDs classCode="SD">
+   								<id root="2.16.840.1.113883.4.1" extension="999123401"/>
+   								<scopingOrganization classCode="ORG" determinerCode="INSTANCE">
+   									<id root="2.16.840.1.113883.4.1"/>
+   								</scopingOrganization>
+   							</asOtherIDs>
+   						</patientPerson>
+   						<providerOrganization classCode="ORG" determinerCode="INSTANCE">
+   							<id root="1.1"/>
+   							<contactParty xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+   							</providerOrganization>
+   							<subjectOf1>
+   								<queryMatchObservation classCode="CASE" moodCode="EVN">
+   									<code code="IHE_PDQ"/>
+   									<value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="INT" value="100"/>
+   								</queryMatchObservation>
+   							</subjectOf1>
+   						</patient>
+   					</subject1>
+   					<custodian typeCode="CST">
+   						<assignedEntity classCode="ASSIGNED">
+   							<id root="1.1"/>
+   							<code code="NotHealthDataLocator" codeSystem="1.3.6.1.4.1.19376.1.2.27.2"/>
+   						</assignedEntity>
+   					</custodian>
+   				</registrationEvent>
+   			</subject>
+   			<queryAck>
+   				<queryId root="1.1" extension="-abd3453dcd24wkkks545"/>
+   				<queryResponseCode code="OK"/>
+   			</queryAck>
+   			<queryByParameter>
+   				<queryId root="1.1" extension="-abd3453dcd24wkkks545"/>
+   				<statusCode code="new"/>
+   				<responseModalityCode code="R"/>
+   				<responsePriorityCode code="I"/>
+   				<parameterList>
+   					<livingSubjectAdministrativeGender>
+   						<value code="M"/>
+   						<semanticsText representation="TXT"/>
+   					</livingSubjectAdministrativeGender>
+   					<livingSubjectBirthTime>
+   						<value value="19630804"/>
+   						<semanticsText representation="TXT"/>
+   					</livingSubjectBirthTime>
+   					<livingSubjectId>
+   						<value root="1.1" extension="1111"/>
+   						<semanticsText representation="TXT"/>
+   					</livingSubjectId>
+   					<livingSubjectName>
+   						<value>
+   							<family partType="FAM">Younger</family>
+   							<given partType="GIV">Gallow</given>
+                        		</value>
+                        		<semanticsText representation="TXT"/>
+                        	</livingSubjectName>
+                     </parameterList>
+                 </queryByParameter>
+             </controlActProcess>
+     </PRPA_IN201306UV02>
+   </soap:Body>
+</soap:Envelope>]]></con:responseContent>
+			<con:wsaConfig mustUnderstand="NONE" version="200508"/>
+		</con:response>
+	</con:config>
+</con:testStep>
+<con:testStep type="groovy" name="assert PurposeForUse">
 	<con:settings/>
 	<con:config>
-		<script>context.withSql('PatientCorrelationDB') { sql -> 
-		assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('PatientCorrelationTable'))[0]
-		}</script>
-</con:config>
+		<script/>
+	</con:config>
 </con:testStep>
-<con:testStep type="groovy" name="assert PurposeForUse"><con:settings/><con:config><script/></con:config></con:testStep><con:setupScript/>
-<con:tearDownScript/>
+<con:setupScript/>
+<con:tearDownScript>def dir = context.findProperty('GatewayPropDir');
+def alias = 'adapterpatientdiscovery';
+def aliasName= 'adapterpatientdiscoverywsunsecured';
+def replaceAlias = 'adapterpatientdiscoverywssecured';
+
+nhinc.FileUtils.updateSpringConfig(dir, "PatientDiscoveryProxyConfig.xml", alias, aliasName, replaceAlias, log);
+
+</con:tearDownScript>
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2012-12-27T22:35:37Z</con:value>
+		<con:value>2013-01-31T15:48:57Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2012-12-27T22:45:37Z</con:value>
+		<con:value>2013-01-31T15:58:57Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>12/27/2012 22:35:37</con:value>
+		<con:value>01/31/2013 15:48:57</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2013-01-26T00:00:00Z</con:value>
+		<con:value>2013-03-02T00:00:00Z</con:value>
 	</con:property>
 </con:properties>
 <con:reportParameters/>
@@ -7117,12 +7609,12 @@ Because this is a g0 test suite, all spec versions are 2010. Messages to 2010 sp
 		<con:settings/>
 		<con:config>
 			<script>nhinc.FileUtils.updateProperty(context.findProperty("GatewayPropDir"),"gateway.properties","documentQueryQuerySelf","false", log);</script>
-	</con:config>
-</con:testStep>
-<con:testStep name="Clear Correlation Table &amp; Add Correlation" type="groovy">
-	<con:settings/>
-	<con:config>
-		<script>context.withSql('PatientCorrelationDB') { sql -> 
+		</con:config>
+	</con:testStep>
+	<con:testStep name="Clear Correlation Table &amp; Add Correlation" type="groovy">
+		<con:settings/>
+		<con:config>
+			<script>context.withSql('PatientCorrelationDB') { sql -> 
 		def table = context.findProperty('PatientCorrelationTable')
 
 		sql.execute('delete from ' + table)
@@ -7135,7 +7627,7 @@ Because this is a g0 test suite, all spec versions are 2010. Messages to 2010 sp
 		"values (1, ?, ?, ?, ?)"
 		sql.executeUpdate(insertSql, [localAA, localPatientID, remoteAA, remotePatientID])
 		}</script>
-</con:config>
+	</con:config>
 </con:testStep>
 <con:testStep name="Clear AA Mapping Table &amp; Add Mapping" type="groovy">
 	<con:settings/>
@@ -7164,10 +7656,11 @@ Because this is a g0 test suite, all spec versions are 2010. Messages to 2010 sp
 	</con:settings>
 	<con:encoding>UTF-8</con:encoding>
 	<con:endpoint>${#TestSuite#Endpoint-DocQuery}</con:endpoint>
-	<con:request><![CDATA[
+	<con:request>
+		<![CDATA[
 		<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn3="urn:gov:hhs:fha:nhinc:common:nhinccommon">
    <soap:Header/>
-   <soap:Body testSuite="Entity_g0" testCase="Document Query">
+   <soap:Body testSuite="Passthrough_g0" testCase="Document Query">
       <urn:RespondingGateway_CrossGatewayQueryRequest>
          <urn1:AdhocQueryRequest federated="false" startIndex="0" maxResults="-1">
             <urn1:ResponseOption returnType="LeafClass" returnComposedObjects="false"/>
@@ -7432,7 +7925,10 @@ Because this is a g0 test suite, all spec versions are 2010. Messages to 2010 sp
 				assert (documentID == msgDocID)</scriptText>
 		</con:configuration>
 	</con:assertion>
-	<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+	<con:credentials>
+		<con:authType>Global HTTP Settings</con:authType>
+	</con:credentials>
+	<con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
 	<con:jmsPropertyConfig/>
 	<con:wsaConfig mustUnderstand="NONE" version="200508"/>
 	<con:wsrmConfig version="1.2"/>
@@ -7440,7 +7936,13 @@ Because this is a g0 test suite, all spec versions are 2010. Messages to 2010 sp
 </con:config>
 </con:testStep>
 
-<con:testStep type="groovy" name="assert PurposeForUse"><con:settings/><con:config><script/></con:config></con:testStep><con:setupScript>
+<con:testStep type="groovy" name="assert PurposeForUse">
+	<con:settings/>
+	<con:config>
+		<script/>
+	</con:config>
+</con:testStep>
+<con:setupScript>
 </con:setupScript>
 <con:tearDownScript>
 
@@ -7483,10 +7985,11 @@ Because this is a g0 test suite, all spec versions are 2010. Messages to 2010 sp
 		</con:settings>
 		<con:encoding>UTF-8</con:encoding>
 		<con:endpoint>${#TestSuite#Endpoint-DocRetrieve}</con:endpoint>
-		<con:request><![CDATA[
+		<con:request>
+			<![CDATA[
 			<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:ihe:iti:xds-b:2007" xmlns:urn2="urn:gov:hhs:fha:nhinc:common:nhinccommon">
    <soap:Header/>
-   <soap:Body testSuite="Entity_g0" testCase="Document Retrieve">
+   <soap:Body testSuite="Passthrough_g0" testCase="Document Retrieve">
       <urn:RespondingGateway_CrossGatewayRetrieveRequest>
          <urn1:RetrieveDocumentSetRequest>
             <urn1:DocumentRequest>
@@ -7751,14 +8254,23 @@ Because this is a g0 test suite, all spec versions are 2010. Messages to 2010 sp
 					assert (docData.size() != 0)</scriptText>
 			</con:configuration>
 		</con:assertion>
-		<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+		<con:credentials>
+			<con:authType>Global HTTP Settings</con:authType>
+		</con:credentials>
+		<con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
 		<con:jmsPropertyConfig/>
 		<con:wsaConfig action="urn:gov:hhs:fha:nhinc:entitydocretrieve/EntityDocRetrievePortType/RespondingGateway_CrossGatewayRetrieveRequest" mustUnderstand="NONE" version="200508"/>
 		<con:wsrmConfig version="1.2"/>
 	</con:request>
 </con:config>
 </con:testStep>
-<con:testStep type="groovy" name="assert PurposeForUse"><con:settings/><con:config><script/></con:config></con:testStep><con:setupScript/>
+<con:testStep type="groovy" name="assert PurposeForUse">
+	<con:settings/>
+	<con:config>
+		<script/>
+	</con:config>
+</con:testStep>
+<con:setupScript/>
 <con:tearDownScript/>
 <con:properties>
 	<con:property>
@@ -7796,15 +8308,15 @@ Because this is a g0 test suite, all spec versions are 2010. Messages to 2010 sp
 nhinc.FileUtils.updateProperty(destConfigFileLocation, "gateway.properties", "serviceSubscription", "true", log);
 nhinc.FileUtils.updateProperty(destConfigFileLocation, "gateway.properties", "subscriptionPassthrough", "false", log);
 nhinc.FileUtils.updateProperty(destConfigFileLocation, "gateway.properties", "hiem.AdapterSubscriptionMode", "disabled", log);</script>
-	</con:config>
-</con:testStep>
-<con:testStep name="Clear Subscription Table" type="groovy">
-	<con:settings/>
-	<con:config>
-		<script>context.withSql('SubscriptionDB') { sql -> 
+		</con:config>
+	</con:testStep>
+	<con:testStep name="Clear Subscription Table" type="groovy">
+		<con:settings/>
+		<con:config>
+			<script>context.withSql('SubscriptionDB') { sql -> 
 		sql.execute('delete from ' + context.findProperty('SubscriptionTable'))
 		}</script>
-</con:config>
+	</con:config>
 </con:testStep>
 <con:testStep name="Subscribe" type="request">
 	<con:settings/>
@@ -7817,10 +8329,11 @@ nhinc.FileUtils.updateProperty(destConfigFileLocation, "gateway.properties", "hi
 	</con:settings>
 	<con:encoding>UTF-8</con:encoding>
 	<con:endpoint>${#TestSuite#Endpoint-Subscribe}</con:endpoint>
-	<con:request><![CDATA[
+	<con:request>
+		<![CDATA[
 		<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:wsnt="http://docs.oasis-open.org/wsn/b-2" xmlns:wsa="http://www.w3.org/2005/08/addressing" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add1="http://schemas.xmlsoap.org/ws/2004/08/addressing">
    <soap:Header/>
-   <soap:Body testSuite="Entity_g0" testCase="Subscribe">
+   <soap:Body testSuite="Passthrough_g0" testCase="Subscribe">
       <urn:SubscribeRequest>
          <wsnt:Subscribe>
             <wsnt:ConsumerReference>
@@ -8068,7 +8581,10 @@ holder.namespaces["ns5"] = "urn:gov:hhs:fha:nhinc:common:subscriptionb2overridef
 assert holder["//ns4:SubscribeResponse[1]/ns4:SubscriptionReference[1]/ns3:ReferenceParameters[1]/ns5:SubscriptionId[1]"] != null</scriptText>
 		</con:configuration>
 	</con:assertion>
-	<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+	<con:credentials>
+		<con:authType>Global HTTP Settings</con:authType>
+	</con:credentials>
+	<con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
 	<con:jmsPropertyConfig/>
 	<con:wsaConfig action="urn:gov:hhs:fha:nhinc:entitysubscriptionmanagement/EntityNotificationProducerPortType/SubscribeDocumentRequest" mustUnderstand="NONE" version="200508"/>
 	<con:wsrmConfig version="1.2"/>
@@ -8084,7 +8600,13 @@ assert holder["//ns4:SubscribeResponse[1]/ns4:SubscriptionReference[1]/ns3:Refer
 		}</script>
 </con:config>
 </con:testStep>
-<con:testStep type="groovy" name="assert PurposeForUse"><con:settings/><con:config><script/></con:config></con:testStep><con:setupScript>
+<con:testStep type="groovy" name="assert PurposeForUse">
+	<con:settings/>
+	<con:config>
+		<script/>
+	</con:config>
+</con:testStep>
+<con:setupScript>
 </con:setupScript>
 <con:tearDownScript>
 
@@ -8119,15 +8641,15 @@ assert holder["//ns4:SubscribeResponse[1]/ns4:SubscriptionReference[1]/ns3:Refer
 nhinc.FileUtils.updateProperty(destConfigFileLocation,"gateway.properties","serviceSubscription", "true", log);
 nhinc.FileUtils.updateProperty(destConfigFileLocation,"gateway.properties","subscriptionPassthrough", "false", log);
 nhinc.FileUtils.updateProperty(destConfigFileLocation,"gateway.properties","hiem.AdapterSubscriptionMode", "disabled", log);</script>
-	</con:config>
-</con:testStep>
-<con:testStep name="Clear Subscription Table" type="groovy">
-	<con:settings/>
-	<con:config>
-		<script>context.withSql('SubscriptionDB') { sql -> 
+		</con:config>
+	</con:testStep>
+	<con:testStep name="Clear Subscription Table" type="groovy">
+		<con:settings/>
+		<con:config>
+			<script>context.withSql('SubscriptionDB') { sql -> 
 		sql.execute('delete from ' + context.findProperty('SubscriptionTable'))
 		}</script>
-</con:config>
+	</con:config>
 </con:testStep>
 <con:testStep name="Subscribe" type="request">
 	<con:settings/>
@@ -8140,10 +8662,11 @@ nhinc.FileUtils.updateProperty(destConfigFileLocation,"gateway.properties","hiem
 	</con:settings>
 	<con:encoding>UTF-8</con:encoding>
 	<con:endpoint>${#TestSuite#Endpoint-Subscribe}</con:endpoint>
-	<con:request><![CDATA[
+	<con:request>
+		<![CDATA[
 		<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:wsnt="http://docs.oasis-open.org/wsn/b-2" xmlns:wsa="http://www.w3.org/2005/08/addressing" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add1="http://schemas.xmlsoap.org/ws/2004/08/addressing">
    <soap:Header/>
-   <soap:Body testSuite="Entity_g0" testCase="Subscribe (as part of Notify test case)">
+   <soap:Body testSuite="Passthrough_g0" testCase="Subscribe (as part of Notify test case)">
       <urn:SubscribeRequest>
          <wsnt:Subscribe>
             <wsnt:ConsumerReference>
@@ -8378,7 +8901,10 @@ nhinc.FileUtils.updateProperty(destConfigFileLocation,"gateway.properties","hiem
 
 	<con:assertion name="Not SOAP Fault" type="SOAP Fault Assertion"/>
 	<con:assertion name="SOAP Response" type="SOAP Response"/>
-	<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+	<con:credentials>
+		<con:authType>Global HTTP Settings</con:authType>
+	</con:credentials>
+	<con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
 	<con:jmsPropertyConfig/>
 	<con:wsaConfig action="urn:gov:hhs:fha:nhinc:entitysubscriptionmanagement/EntityNotificationProducerPortType/SubscribeDocumentRequest" mustUnderstand="NONE" version="200508"/>
 	<con:wsrmConfig version="1.2"/>
@@ -8416,10 +8942,11 @@ context.testCase.testSuite.project.setPropertyValue( "NotifySubscriptionID", par
 	</con:settings>
 	<con:encoding>UTF-8</con:encoding>
 	<con:endpoint>${#TestSuite#Endpoint-Notify}</con:endpoint>
-	<con:request><![CDATA[
+	<con:request>
+		<![CDATA[
 		<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:b="http://docs.oasis-open.org/wsn/b-2" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:urn2="urn:gov:hhs:fha:nhinc:common:subscriptionb2overridefordocuments" xmlns:urn3="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn4="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:ihe="urn:ihe:iti:xds-b:2007" xmlns:wsa="http://www.w3.org/2005/08/addressing" xmlns:rim="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0">
    <soap:Header/>
-   <soap:Body testSuite="Entity_g0" testCase="Notify">
+   <soap:Body testSuite="Passthrough_g0" testCase="Notify">
       <urn:NotifyRequest>
          <b:Notify>
             <b:NotificationMessage>
@@ -8657,14 +9184,23 @@ context.testCase.testSuite.project.setPropertyValue( "NotifySubscriptionID", par
 		<con:configuration/>
 	</con:assertion>
 	<con:assertion type="SOAP Fault Assertion"/>
-	<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+	<con:credentials>
+		<con:authType>Global HTTP Settings</con:authType>
+	</con:credentials>
+	<con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
 	<con:jmsPropertyConfig/>
 	<con:wsaConfig mustUnderstand="NONE" version="200508"/>
 	<con:wsrmConfig version="1.2"/>
 </con:request>
 </con:config>
 </con:testStep>
-<con:testStep type="groovy" name="assert PurposeForUse"><con:settings/><con:config><script/></con:config></con:testStep><con:setupScript>
+<con:testStep type="groovy" name="assert PurposeForUse">
+	<con:settings/>
+	<con:config>
+		<script/>
+	</con:config>
+</con:testStep>
+<con:setupScript>
 </con:setupScript>
 <con:tearDownScript>
 
@@ -8703,18 +9239,18 @@ context.testCase.testSuite.project.setPropertyValue( "NotifySubscriptionID", par
 nhinc.FileUtils.updateProperty(destConfigFileLocation, "gateway.properties", "serviceSubscription", "true", log);
 nhinc.FileUtils.updateProperty(destConfigFileLocation, "gateway.properties", "subscriptionPassthrough", "false", log);
 nhinc.FileUtils.updateProperty(destConfigFileLocation, "gateway.properties", "hiem.AdapterSubscriptionMode", "disabled", log);</script>
-	</con:config>
-</con:testStep>
-<con:testStep name="Clear Subscription Table" type="groovy">
-	<con:settings/>
-	<con:config>
-		<script>context.withSql('SubscriptionDB') { sql -> 
+		</con:config>
+	</con:testStep>
+	<con:testStep name="Clear Subscription Table" type="groovy">
+		<con:settings/>
+		<con:config>
+			<script>context.withSql('SubscriptionDB') { sql -> 
 		def table = context.findProperty('SubscriptionTable')
 
 		sql.execute('delete from ' + table)
 
 		}</script>
-</con:config>
+	</con:config>
 </con:testStep>
 <con:testStep name="Subscribe" type="request">
 	<con:settings/>
@@ -8727,10 +9263,11 @@ nhinc.FileUtils.updateProperty(destConfigFileLocation, "gateway.properties", "hi
 	</con:settings>
 	<con:encoding>UTF-8</con:encoding>
 	<con:endpoint>${#TestSuite#Endpoint-Subscribe}</con:endpoint>
-	<con:request><![CDATA[
+	<con:request>
+		<![CDATA[
 		<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:wsnt="http://docs.oasis-open.org/wsn/b-2" xmlns:wsa="http://www.w3.org/2005/08/addressing" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add1="http://schemas.xmlsoap.org/ws/2004/08/addressing">
    <soap:Header/>
-   <soap:Body testSuite="Entity_g0" testCase="Subscribe (as part of Unsubscribe test case)">
+   <soap:Body testSuite="Passthrough_g0" testCase="Subscribe (as part of Unsubscribe test case)">
       <urn:SubscribeRequest>
          <wsnt:Subscribe>
             <wsnt:ConsumerReference>
@@ -8963,7 +9500,10 @@ nhinc.FileUtils.updateProperty(destConfigFileLocation, "gateway.properties", "hi
 </soap:Envelope>]]></con:request>
 	<con:assertion type="SOAP Response"/>
 	<con:assertion type="SOAP Fault Assertion"/>
-	<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+	<con:credentials>
+		<con:authType>Global HTTP Settings</con:authType>
+	</con:credentials>
+	<con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
 	<con:jmsPropertyConfig/>
 	<con:wsaConfig action="urn:gov:hhs:fha:nhinc:entitysubscriptionmanagement/EntityNotificationProducerPortType/SubscribeDocumentRequest" mustUnderstand="NONE" version="200508"/>
 	<con:wsrmConfig version="1.2"/>
@@ -9005,13 +9545,14 @@ context.testCase.testSuite.project.setPropertyValue( "UnSubscriptionID", subID )
 	</con:settings>
 	<con:encoding>UTF-8</con:encoding>
 	<con:endpoint>${#TestSuite#Endpoint-Unsubscribe}</con:endpoint>
-	<con:request><![CDATA[
+	<con:request>
+		<![CDATA[
 		<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:nhin="http://www.hhs.gov/healthit/nhin" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:subscription" xmlns:urn2="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing">
    <soap:Header>
       <ns5:SubscriptionId xmlns="http://www.w3.org/2005/08/addressing" xmlns:ns2="http://docs.oasis-open.org/wsn/b-2" xmlns:ns3="http://docs.oasis-open.org/wsrf/bf-2" xmlns:ns4="http://docs.oasis-open.org/wsn/t-1" xmlns:ns5="http://www.hhs.gov/healthit/nhin">${#Project#UnSubscriptionID}</ns5:SubscriptionId>
       <nhinconnect:Info xmlns:nhinconnect="urn:nhinconnect">hello world</nhinconnect:Info>
    </soap:Header>
-   <soap:Body testSuite="Entity_g0" testCase="Unsubscribe">
+   <soap:Body testSuite="Passthrough_g0" testCase="Unsubscribe">
       <urn:UnsubscribeRequest>
          <wsnt:Unsubscribe xmlns:wsnt="http://docs.oasis-open.org/wsn/b-2">
             <nhinconnect:Info xmlns:nhinconnect="urn:nhinconnect">just some data</nhinconnect:Info>
@@ -9242,7 +9783,10 @@ context.testCase.testSuite.project.setPropertyValue( "UnSubscriptionID", subID )
 			<useRegEx>false</useRegEx>
 		</con:configuration>
 	</con:assertion>
-	<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+	<con:credentials>
+		<con:authType>Global HTTP Settings</con:authType>
+	</con:credentials>
+	<con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
 	<con:jmsPropertyConfig/>
 	<con:wsaConfig action="urn:gov:hhs:fha:nhinc:entitysubscriptionmanagement/EntitySubscriptionManagerPortType/UnsubscribeRequest" mustUnderstand="NONE" version="200508"/>
 	<con:wsrmConfig version="1.2"/>
@@ -9257,7 +9801,13 @@ context.testCase.testSuite.project.setPropertyValue( "UnSubscriptionID", subID )
 }</script>
 </con:config>
 </con:testStep>
-<con:testStep type="groovy" name="assert PurposeForUse"><con:settings/><con:config><script/></con:config></con:testStep><con:setupScript>
+<con:testStep type="groovy" name="assert PurposeForUse">
+	<con:settings/>
+	<con:config>
+		<script/>
+	</con:config>
+</con:testStep>
+<con:setupScript>
 </con:setupScript>
 <con:tearDownScript>
 
@@ -9295,10 +9845,11 @@ context.testCase.testSuite.project.setPropertyValue( "UnSubscriptionID", subID )
 		</con:settings>
 		<con:encoding>UTF-8</con:encoding>
 		<con:endpoint>${#TestSuite#Endpoint-EntityAdminDist}</con:endpoint>
-		<con:request><![CDATA[
+		<con:request>
+			<![CDATA[
 			<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:urn2="urn:oasis:names:tc:emergency:EDXL:DE:1.0">
    <soap:Header/>
-   <soap:Body testSuite="Entity_g0" testCase="Admin Distribution">
+   <soap:Body testSuite="Passthrough_g0" testCase="Admin Distribution">
       <urn:RespondingGateway_SendAlertMessage>
          <urn:assertion>
             <urn1:address>
@@ -9628,7 +10179,10 @@ context.testCase.testSuite.project.setPropertyValue( "UnSubscriptionID", subID )
       </urn:RespondingGateway_SendAlertMessage>
    </soap:Body>
 </soap:Envelope>]]></con:request>
-		<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+		<con:credentials>
+			<con:authType>Global HTTP Settings</con:authType>
+		</con:credentials>
+		<con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
 		<con:jmsPropertyConfig/>
 		<con:wsaConfig mustUnderstand="NONE" version="200508"/>
 		<con:wsrmConfig version="1.2"/>
@@ -9638,10 +10192,16 @@ context.testCase.testSuite.project.setPropertyValue( "UnSubscriptionID", subID )
 <con:testStep name="Delay" type="delay">
 	<con:settings/>
 	<con:config>
-		<delay>8000</delay>
+		<delay>1000</delay>
 	</con:config>
 </con:testStep>
-<con:testStep type="groovy" name="assert PurposeForUse"><con:settings/><con:config><script/></con:config></con:testStep><con:setupScript/>
+<con:testStep type="groovy" name="assert PurposeForUse">
+	<con:settings/>
+	<con:config>
+		<script/>
+	</con:config>
+</con:testStep>
+<con:setupScript/>
 <con:tearDownScript>
 </con:tearDownScript>
 <con:properties>
@@ -9719,27 +10279,30 @@ nhinc.FileUtils.updateProperty(context.expand(testSuite.project.getPropertyValue
 nhinc.FileUtils.copyFile(context.expand(testSuite.project.resourceRoot), "uddiConnectionInfo_g0.xml", context.expand(testSuite.project.getPropertyValue("GatewayPropDir")), "uddiConnectionInfo.xml", log);</con:setupScript>
 <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.expand(testSuite.project.getPropertyValue("GatewayPropDir")), log);</con:tearDownScript>
 <con:reportParameters/>
-</con:testSuite><con:testSuite name="Entity_g1_gateway_False">
-		<con:description>Testing for Purpose Of/For Use. This suite sends a request message to the g1 entity interfaces, with the Gateway spring proxy, and purposeForUseEnabled=false in gateway.properties.
-Because this is a g1 test suite, all spec versions are 2011. Messages to 2011 specs do not respect the Purpose Of/For Use settings, and thus PurposeOfUse should be used.</con:description><con:settings/>
-		<con:runType>SEQUENTIAL</con:runType>
-		<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Document Submission Deferred Req" searchProperties="true" id="295d16b1-c34d-4d6f-8641-d8f6f1b565e5">
+</con:testSuite>
+<con:testSuite name="Passthrough_g1_gateway_False">
+	<con:description>Testing for Purpose Of/For Use. This suite sends a request message to the g1 entity interfaces, with the Gateway spring proxy, and purposeForUseEnabled=false in gateway.properties.
+Because this is a g1 test suite, all spec versions are 2011. Messages to 2011 specs do not respect the Purpose Of/For Use settings, and thus PurposeOfUse should be used.</con:description>
+	<con:settings/>
+	<con:runType>SEQUENTIAL</con:runType>
+	<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Document Submission Deferred Req" searchProperties="true" id="295d16b1-c34d-4d6f-8641-d8f6f1b565e5">
+		<con:settings/>
+		<con:testStep name="Doc Submission Deferred Req" type="request">
 			<con:settings/>
-			<con:testStep name="Doc Submission Deferred Req" type="request">
-				<con:settings/>
-				<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-					<con:interface>EntityXDRAsyncRequest_Binding</con:interface>
-					<con:operation>ProvideAndRegisterDocumentSet-bAsyncRequest</con:operation>
-					<con:request incomingWss="" name="Doc Submission Deferred Req" outgoingWss="" useWsAddressing="true" wssPasswordType="">
-						<con:settings>
-							<con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
-				</con:settings>
-				<con:encoding>UTF-8</con:encoding>
-				<con:endpoint>${#TestSuite#Endpoint-EntityXDRRequest}</con:endpoint>
-				<con:request><![CDATA[
+			<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+				<con:interface>EntityXDRAsyncRequest_Binding</con:interface>
+				<con:operation>ProvideAndRegisterDocumentSet-bAsyncRequest</con:operation>
+				<con:request incomingWss="" name="Doc Submission Deferred Req" outgoingWss="" useWsAddressing="true" wssPasswordType="">
+					<con:settings>
+						<con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
+			</con:settings>
+			<con:encoding>UTF-8</con:encoding>
+			<con:endpoint>${#TestSuite#Endpoint-EntityXDRRequest}</con:endpoint>
+			<con:request>
+				<![CDATA[
 					<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" xmlns:urn3="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:urn4="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn5="urn:ihe:iti:xds-b:2007">
    <soap:Header/>
-   <soap:Body testSuite="Entity_g1" testCase="Document Submission Deferred Req">
+   <soap:Body testSuite="Passthrough_g1" testCase="Document Submission Deferred Req">
       <urn:RespondingGateway_ProvideAndRegisterDocumentSetRequest>
          <urn:assertion>
             <urn1:address>
@@ -10177,30 +10740,39 @@ Because this is a g1 test suite, all spec versions are 2011. Messages to 2011 sp
       </urn:RespondingGateway_ProvideAndRegisterDocumentSetRequest>
    </soap:Body>
 </soap:Envelope>]]></con:request>
-				<con:assertion type="SOAP Response"/>
-				<con:assertion type="SOAP Fault Assertion"/>
-				<con:assertion name="Match content of [@status]" type="XPath Match">
-					<con:configuration>
-						<path>declare namespace ns10='http://www.hhs.gov/healthit/nhin';
+			<con:assertion type="SOAP Response"/>
+			<con:assertion type="SOAP Fault Assertion"/>
+			<con:assertion name="Match content of [@status]" type="XPath Match">
+				<con:configuration>
+					<path>declare namespace ns10='http://www.hhs.gov/healthit/nhin';
 							//ns10:XDRAcknowledgement[1]/ns10:message[1]/@status</path>
-						<content>urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:RequestAccepted</content>
-						<allowWildcards>false</allowWildcards>
-						<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
-					</con:configuration>
-				</con:assertion>
-				<con:assertion name="Schema Compliance" type="Schema Compliance">
-					<con:configuration>
-						<definition/>
-					</con:configuration>
-				</con:assertion>
-				<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
-				<con:jmsPropertyConfig/>
-				<con:wsaConfig action="urn:gov:hhs:fha:nhinc:nhincentityxdr:async:request:ProvideAndRegisterDocumentSet-bAsyncRequest_RequestMessage" generateMessageId="true" mustUnderstand="NONE" version="200508"/>
-				<con:wsrmConfig version="1.2"/>
-			</con:request>
-		</con:config>
-	</con:testStep>
-	<con:testStep type="groovy" name="assert PurposeOfUse"><con:settings/><con:config><script/></con:config></con:testStep><con:setupScript/>
+					<content>urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:RequestAccepted</content>
+					<allowWildcards>false</allowWildcards>
+					<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
+				</con:configuration>
+			</con:assertion>
+			<con:assertion name="Schema Compliance" type="Schema Compliance">
+				<con:configuration>
+					<definition/>
+				</con:configuration>
+			</con:assertion>
+			<con:credentials>
+				<con:authType>Global HTTP Settings</con:authType>
+			</con:credentials>
+			<con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+			<con:jmsPropertyConfig/>
+			<con:wsaConfig action="urn:gov:hhs:fha:nhinc:nhincentityxdr:async:request:ProvideAndRegisterDocumentSet-bAsyncRequest_RequestMessage" generateMessageId="true" mustUnderstand="NONE" version="200508"/>
+			<con:wsrmConfig version="1.2"/>
+		</con:request>
+	</con:config>
+</con:testStep>
+<con:testStep type="groovy" name="assert PurposeOfUse">
+	<con:settings/>
+	<con:config>
+		<script/>
+	</con:config>
+</con:testStep>
+<con:setupScript/>
 <con:tearDownScript>
 
 </con:tearDownScript>
@@ -10251,7 +10823,8 @@ Because this is a g1 test suite, all spec versions are 2011. Messages to 2011 sp
 		</con:settings>
 		<con:encoding>UTF-8</con:encoding>
 		<con:endpoint>${#TestSuite#Endpoint-DSDeferredResp}</con:endpoint>
-		<con:request><![CDATA[
+		<con:request>
+			<![CDATA[
 			<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:urn3="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0">
    <soap:Header/>
    <soap:Body>
@@ -10573,14 +11146,23 @@ Because this is a g1 test suite, all spec versions are 2011. Messages to 2011 sp
 				<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
 			</con:configuration>
 		</con:assertion>
-		<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+		<con:credentials>
+			<con:authType>Global HTTP Settings</con:authType>
+		</con:credentials>
+		<con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
 		<con:jmsPropertyConfig/>
 		<con:wsaConfig mustUnderstand="NONE" version="200508"/>
 		<con:wsrmConfig version="1.2"/>
 	</con:request>
 </con:config>
 </con:testStep>
-<con:testStep type="groovy" name="assert PurposeOfUse"><con:settings/><con:config><script/></con:config></con:testStep><con:setupScript/>
+<con:testStep type="groovy" name="assert PurposeOfUse">
+	<con:settings/>
+	<con:config>
+		<script/>
+	</con:config>
+</con:testStep>
+<con:setupScript/>
 <con:tearDownScript>
 
 </con:tearDownScript>
@@ -10605,8 +11187,8 @@ Because this is a g1 test suite, all spec versions are 2011. Messages to 2011 sp
 </con:testCase>
 <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Document Submission" searchProperties="true" id="d0bac6fe-0500-4f40-91e4-920cce219bd0">
 	<con:settings/>
-	
-<con:testStep name="Doc Submission" type="request">
+
+	<con:testStep name="Doc Submission" type="request">
 		<con:settings/>
 		<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 			<con:interface>EntityXDR_Binding</con:interface>
@@ -10617,10 +11199,11 @@ Because this is a g1 test suite, all spec versions are 2011. Messages to 2011 sp
 		</con:settings>
 		<con:encoding>UTF-8</con:encoding>
 		<con:endpoint>http://localhost:8080/Gateway/DocumentSubmission/1_1/EntityService/EntityDocSubmissionUnsecured</con:endpoint>
-		<con:request><![CDATA[
+		<con:request>
+			<![CDATA[
 			<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" xmlns:urn3="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:urn4="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn5="urn:ihe:iti:xds-b:2007">
    <soap:Header/>
-   <soap:Body testSuite="Entity_g1" testCase="Document Submission">
+   <soap:Body testSuite="Passthrough_g1" testCase="Document Submission">
       <urn:RespondingGateway_ProvideAndRegisterDocumentSetRequest>
          <urn:assertion>
             <urn1:address>
@@ -11074,13 +11657,23 @@ Because this is a g1 test suite, all spec versions are 2011. Messages to 2011 sp
 				<definition/>
 			</con:configuration>
 		</con:assertion>
-		<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+		<con:credentials>
+			<con:authType>Global HTTP Settings</con:authType>
+		</con:credentials>
+		<con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
 		<con:jmsPropertyConfig/>
 		<con:wsaConfig action="{urn:gov:hhs:fha:nhinc:nhincentityxdr}ProvideAndRegisterDocumentSet-b" mustUnderstand="NONE" version="200508"/>
 		<con:wsrmConfig version="1.2"/>
 	</con:request>
 </con:config>
-</con:testStep><con:testStep type="groovy" name="assert PurposeOfUse"><con:settings/><con:config><script/></con:config></con:testStep><con:setupScript/>
+</con:testStep>
+<con:testStep type="groovy" name="assert PurposeOfUse">
+	<con:settings/>
+	<con:config>
+		<script/>
+	</con:config>
+</con:testStep>
+<con:setupScript/>
 <con:tearDownScript>
 
 </con:tearDownScript>
@@ -11117,10 +11710,11 @@ Because this is a g1 test suite, all spec versions are 2011. Messages to 2011 sp
 		</con:settings>
 		<con:encoding>UTF-8</con:encoding>
 		<con:endpoint>${#TestSuite#Endpoint-PatientDiscoveryAsyncReq}</con:endpoint>
-		<con:request><![CDATA[
+		<con:request>
+			<![CDATA[
 			<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:hl7-org:v3" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
    <soap:Header/>
-   <soap:Body testSuite="Entity_g1" testCase="Patient Discovery Deferred Req">
+   <soap:Body testSuite="Passthrough_g1" testCase="Patient Discovery Deferred Req">
       <urn:RespondingGateway_PRPA_IN201305UV02Request>
          <urn:PRPA_IN201305UV02 ITSVersion="XML_1.0">
             <urn:id root="1.1" extension="-5a3e95b1:11d1fa33d45:-7f9b"/>
@@ -11412,14 +12006,23 @@ Because this is a g1 test suite, all spec versions are 2011. Messages to 2011 sp
 				<definition/>
 			</con:configuration>
 		</con:assertion>
-		<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+		<con:credentials>
+			<con:authType>Global HTTP Settings</con:authType>
+		</con:credentials>
+		<con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
 		<con:jmsPropertyConfig/>
 		<con:wsaConfig action="urn:gov:hhs:fha:nhinc:entitypatientdiscoveryasyncreq:ProcessPatientDiscoveryAsyncReqAsyncRequest" addDefaultTo="true" messageID="uuid:6666666666.66666.666.66" mustUnderstand="NONE" version="200508"/>
 		<con:wsrmConfig version="1.2"/>
 	</con:request>
 </con:config>
 </con:testStep>
-<con:testStep type="groovy" name="assert PurposeOfUse"><con:settings/><con:config><script/></con:config></con:testStep><con:setupScript/>
+<con:testStep type="groovy" name="assert PurposeOfUse">
+	<con:settings/>
+	<con:config>
+		<script/>
+	</con:config>
+</con:testStep>
+<con:setupScript/>
 <con:tearDownScript>
 
 </con:tearDownScript>
@@ -11716,10 +12319,11 @@ Because this is a g1 test suite, all spec versions are 2011. Messages to 2011 sp
 		</con:settings>
 		<con:encoding>UTF-8</con:encoding>
 		<con:endpoint>http://localhost:8080/Gateway/PatientDiscovery/1_0/EntityService/EntityPatientDiscoveryDeferredResponseUnsecured</con:endpoint>
-		<con:request><![CDATA[
+		<con:request>
+			<![CDATA[
 			<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:hl7-org:v3" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
    <soap:Header/>
-   <soap:Body testSuite="Entity_g1" testCase="Patient Discovery Deferred Resp">
+   <soap:Body testSuite="Passthrough_g1" testCase="Patient Discovery Deferred Resp">
       <urn:RespondingGateway_PRPA_IN201306UV02Request>
          <urn:PRPA_IN201306UV02 ITSVersion="XML_1.0">
             <urn:id root="2.2" extension="-5a3e95b1:11d1fa33d45:-8e45"/>
@@ -12033,14 +12637,23 @@ Because this is a g1 test suite, all spec versions are 2011. Messages to 2011 sp
 				<definition/>
 			</con:configuration>
 		</con:assertion>
-		<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+		<con:credentials>
+			<con:authType>Global HTTP Settings</con:authType>
+		</con:credentials>
+		<con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
 		<con:jmsPropertyConfig/>
 		<con:wsaConfig mustUnderstand="NONE" version="200508"/>
 		<con:wsrmConfig version="1.2"/>
 	</con:request>
 </con:config>
 </con:testStep>
-<con:testStep type="groovy" name="assert PurposeOfUse"><con:settings/><con:config><script/></con:config></con:testStep><con:setupScript/>
+<con:testStep type="groovy" name="assert PurposeOfUse">
+	<con:settings/>
+	<con:config>
+		<script/>
+	</con:config>
+</con:testStep>
+<con:setupScript/>
 <con:tearDownScript>
 
 </con:tearDownScript>
@@ -12309,26 +12922,27 @@ Because this is a g1 test suite, all spec versions are 2011. Messages to 2011 sp
 		<con:name>DOB</con:name>
 		<con:value>19800516</con:value>
 	</con:property>
-<con:property>
-	<con:name>startDate</con:name>
-	<con:value>2012-12-27T22:37:58Z</con:value>
-</con:property>
-<con:property>
-	<con:name>endDate</con:name>
-	<con:value>2012-12-27T22:47:58Z</con:value>
-</con:property>
-<con:property>
-	<con:name>sigDate</con:name>
-	<con:value>12/27/2012 22:37:58</con:value>
-</con:property>
-<con:property>
-	<con:name>expireDate</con:name>
-	<con:value>2013-01-26T00:00:00Z</con:value>
-</con:property>
+	<con:property>
+		<con:name>startDate</con:name>
+		<con:value>2012-12-27T22:37:58Z</con:value>
+	</con:property>
+	<con:property>
+		<con:name>endDate</con:name>
+		<con:value>2012-12-27T22:47:58Z</con:value>
+	</con:property>
+	<con:property>
+		<con:name>sigDate</con:name>
+		<con:value>12/27/2012 22:37:58</con:value>
+	</con:property>
+	<con:property>
+		<con:name>expireDate</con:name>
+		<con:value>2013-01-26T00:00:00Z</con:value>
+	</con:property>
 </con:properties>
 <con:reportParameters/>
 </con:testCase>
-<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Patient Discovery" searchProperties="true" id="af3544c7-1d21-4cc1-9e19-69c79f0ec4f9">
+
+<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Patient Discovery" searchProperties="true">
 	<con:settings/>
 	<con:testStep name="clear correlations table" type="groovy">
 		<con:settings/>
@@ -12337,7 +12951,29 @@ Because this is a g1 test suite, all spec versions are 2011. Messages to 2011 sp
 			sql.execute('delete from ' + context.findProperty('PatientCorrelationTable'))
 			}</script>
 	</con:config>
-</con:testStep><con:testStep name="Patient Discovery" type="request">
+</con:testStep>
+<con:testStep type="groovy" name="Set Up PassThru">
+	<con:settings/>
+	<con:config>
+		<script>log.info "Setting Patient Discovery Adapter to unsecured";
+def dir = context.findProperty('GatewayPropDir');
+nhinc.FileUtils.backupFile(dir, "PatientDiscoveryProxyConfig.xml", log);
+def alias = 'adapterpatientdiscovery'
+def aliasName= 'adapterpatientdiscoverywssecured';
+def replaceAlias = 'adapterpatientdiscoverywsunsecured';
+
+nhinc.FileUtils.updateSpringConfig(dir, "PatientDiscoveryProxyConfig.xml",
+	alias, aliasName, replaceAlias, log);
+
+log.info "Modifying internalConnectionInfo for adapterpatientdiscovery mock."
+
+nhinc.FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", dir, "1.1",
+	"adapterpatientdiscovery", "http://localhost:1720/MockPDAdapter", "2.0",
+	log);
+		</script>
+	</con:config>
+</con:testStep>
+<con:testStep name="Patient Discovery" type="request">
 	<con:settings/>
 	<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 		<con:interface>EntityPatientDiscoveryBindingSoap</con:interface>
@@ -12348,10 +12984,11 @@ Because this is a g1 test suite, all spec versions are 2011. Messages to 2011 sp
 	</con:settings>
 	<con:encoding>UTF-8</con:encoding>
 	<con:endpoint>${#TestSuite#Endpoint-PatientDiscovery}</con:endpoint>
-	<con:request><![CDATA[
+	<con:request>
+		<![CDATA[
 		<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:hl7-org:v3" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing">
    <soap:Header/>
-   <soap:Body testSuite="Entity_g1" testCase="Patient Discovery">
+   <soap:Body testSuite="Passthrough_g1" testCase="Patient Discovery">
       <urn:RespondingGateway_PRPA_IN201305UV02Request>
          <urn:PRPA_IN201305UV02 ITSVersion="XML_1.0">
             <urn:id root="1.1" extension="-5a3e95b1:11d1fa33d45:-7f9b"/>
@@ -12624,42 +13261,176 @@ Because this is a g1 test suite, all spec versions are 2011. Messages to 2011 sp
 			<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
 		</con:configuration>
 	</con:assertion>
-	<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+	<con:credentials>
+		<con:authType>Global HTTP Settings</con:authType>
+	</con:credentials>
+	<con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
 	<con:jmsPropertyConfig/>
 	<con:wsaConfig mustUnderstand="NONE" version="200508"/>
 	<con:wsrmConfig version="1.2"/>
 </con:request>
 </con:config>
 </con:testStep>
-<con:testStep name="count correlations (1)" type="groovy">
+<con:testStep type="mockresponse" name="Mock Response">
+	<con:settings/>
+	<con:config xsi:type="con:MockResponseStep" startStep="Patient Discovery" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+		<con:interface>AdapterPatientDiscoveryBindingSoap</con:interface>
+		<con:operation>RespondingGateway_PRPA_IN201305UV02</con:operation>
+		<con:path>/MockPDAdapter</con:path>
+		<con:port>1720</con:port>
+		<con:response>
+			<con:settings/>
+			<con:responseContent>
+				<![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:hl7-org:v3">
+   <soap:Header/>
+   <soap:Body>
+   <PRPA_IN201306UV02 xmlns="urn:hl7-org:v3" xmlns:ns2="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:ns3="http://www.w3.org/2005/08/addressing" xmlns:ns4="urn:gov:hhs:fha:nhinc:common:patientcorrelationfacade" ITSVersion="XML_1.0">
+   <id root="1.1" extension="13318247:13b4e0b839b:-7ff4"/>
+   <creationTime value="20121129212833"/>
+   <interactionId root="2.16.840.1.113883.1.6" extension="PRPA_IN201306UV02"/>
+   <processingCode code="P"/>
+   <processingModeCode code="T"/>
+   <acceptAckCode code="NE"/>
+   <receiver typeCode="RCV">
+   	<device classCode="DEV" determinerCode="INSTANCE">
+   		<id root="1.2.345.678.999"/>
+   		<asAgent classCode="AGNT">
+   			<representedOrganization classCode="ORG" determinerCode="INSTANCE">
+   				<id root="1.1"/>
+   			</representedOrganization>
+   		</asAgent>
+   	</device>
+   </receiver>
+   <sender typeCode="SND">
+   	<device classCode="DEV" determinerCode="INSTANCE">
+   		<id root="2.2"/>
+   		<asAgent classCode="AGNT">
+   			<representedOrganization classCode="ORG" determinerCode="INSTANCE">
+   				<id root="2.2"/>
+   			</representedOrganization>
+   		</asAgent>
+   	</device>
+   </sender>
+   <acknowledgement>
+   	<typeId root="2.16.840.1.113883.1.6" extension="PRPA_IN201305UV02"/>
+   	<typeCode code="AA"/><targetMessage xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+   </acknowledgement>
+   <controlActProcess classCode="CACT" moodCode="EVN">
+   	<code code="PRPA_TE201306UV" codeSystem="2.16.840.1.113883.1.6"/>
+   	<subject typeCode="SUBJ">
+   		<registrationEvent classCode="REG" moodCode="EVN">
+   			<id nullFlavor="NA"/>
+   			<statusCode code="active"/>
+   				<subject1 typeCode="SBJ">
+   					<patient classCode="PAT">
+   						<id root="1.1" extension="D123401"/>
+   						<statusCode code="SD"/>
+   						<patientPerson classCode="PSN" determinerCode="INSTANCE">
+   							<name>
+   								<family partType="FAM">Younger</family>
+   								<given partType="GIV">Gallow</given>
+   							</name>
+   							<telecom value="tel:+1-888-555-1234"/>
+   							<administrativeGenderCode code="M"/>
+   							<birthTime value="19630804"/>
+   							<addr><city>LEESBURG</city><state>VA</state><postalCode>20176</postalCode></addr>
+   							<asOtherIDs classCode="SD">
+   								<id root="2.16.840.1.113883.4.1" extension="999123401"/>
+   								<scopingOrganization classCode="ORG" determinerCode="INSTANCE">
+   									<id root="2.16.840.1.113883.4.1"/>
+   								</scopingOrganization>
+   							</asOtherIDs>
+   						</patientPerson>
+   						<providerOrganization classCode="ORG" determinerCode="INSTANCE">
+   							<id root="1.1"/>
+   							<contactParty xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+   							</providerOrganization>
+   							<subjectOf1>
+   								<queryMatchObservation classCode="CASE" moodCode="EVN">
+   									<code code="IHE_PDQ"/>
+   									<value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="INT" value="100"/>
+   								</queryMatchObservation>
+   							</subjectOf1>
+   						</patient>
+   					</subject1>
+   					<custodian typeCode="CST">
+   						<assignedEntity classCode="ASSIGNED">
+   							<id root="1.1"/>
+   							<code code="NotHealthDataLocator" codeSystem="1.3.6.1.4.1.19376.1.2.27.2"/>
+   						</assignedEntity>
+   					</custodian>
+   				</registrationEvent>
+   			</subject>
+   			<queryAck>
+   				<queryId root="1.1" extension="-abd3453dcd24wkkks545"/>
+   				<queryResponseCode code="OK"/>
+   			</queryAck>
+   			<queryByParameter>
+   				<queryId root="1.1" extension="-abd3453dcd24wkkks545"/>
+   				<statusCode code="new"/>
+   				<responseModalityCode code="R"/>
+   				<responsePriorityCode code="I"/>
+   				<parameterList>
+   					<livingSubjectAdministrativeGender>
+   						<value code="M"/>
+   						<semanticsText representation="TXT"/>
+   					</livingSubjectAdministrativeGender>
+   					<livingSubjectBirthTime>
+   						<value value="19630804"/>
+   						<semanticsText representation="TXT"/>
+   					</livingSubjectBirthTime>
+   					<livingSubjectId>
+   						<value root="1.1" extension="1111"/>
+   						<semanticsText representation="TXT"/>
+   					</livingSubjectId>
+   					<livingSubjectName>
+   						<value>
+   							<family partType="FAM">Younger</family>
+   							<given partType="GIV">Gallow</given>
+                        		</value>
+                        		<semanticsText representation="TXT"/>
+                        	</livingSubjectName>
+                     </parameterList>
+                 </queryByParameter>
+             </controlActProcess>
+     </PRPA_IN201306UV02>
+   </soap:Body>
+</soap:Envelope>]]></con:responseContent>
+			<con:wsaConfig mustUnderstand="NONE" version="200508"/>
+		</con:response>
+	</con:config>
+</con:testStep>
+<con:testStep type="groovy" name="assert PurposeOfUse">
 	<con:settings/>
 	<con:config>
-		<script>context.withSql('PatientCorrelationDB') { sql -> 
-		assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('PatientCorrelationTable'))[0]
-		}</script>
-</con:config>
+		<script/>
+	</con:config>
 </con:testStep>
-<con:testStep type="groovy" name="assert PurposeOfUse"><con:settings/><con:config><script/></con:config></con:testStep>
 <con:setupScript/>
-<con:tearDownScript>
+<con:tearDownScript>def dir = context.findProperty('GatewayPropDir');
+def alias = 'adapterpatientdiscovery';
+def aliasName= 'adapterpatientdiscoverywsunsecured';
+def replaceAlias = 'adapterpatientdiscoverywssecured';
+
+nhinc.FileUtils.updateSpringConfig(dir, "PatientDiscoveryProxyConfig.xml", alias, aliasName, replaceAlias, log);
 
 </con:tearDownScript>
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2012-12-27T22:37:59Z</con:value>
+		<con:value>2013-01-31T15:48:57Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2012-12-27T22:47:59Z</con:value>
+		<con:value>2013-01-31T15:58:57Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>12/27/2012 22:37:59</con:value>
+		<con:value>01/31/2013 15:48:57</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2013-01-26T00:00:00Z</con:value>
+		<con:value>2013-03-02T00:00:00Z</con:value>
 	</con:property>
 </con:properties>
 <con:reportParameters/>
@@ -12671,12 +13442,12 @@ Because this is a g1 test suite, all spec versions are 2011. Messages to 2011 sp
 		<con:settings/>
 		<con:config>
 			<script>nhinc.FileUtils.updateProperty(context.findProperty("GatewayPropDir"),"gateway.properties","documentQueryQuerySelf","false", log);</script>
-	</con:config>
-</con:testStep>
-<con:testStep name="Clear Correlation Table &amp; Add Correlation" type="groovy">
-	<con:settings/>
-	<con:config>
-		<script>context.withSql('PatientCorrelationDB') { sql -> 
+		</con:config>
+	</con:testStep>
+	<con:testStep name="Clear Correlation Table &amp; Add Correlation" type="groovy">
+		<con:settings/>
+		<con:config>
+			<script>context.withSql('PatientCorrelationDB') { sql -> 
 		def table = context.findProperty('PatientCorrelationTable')
 
 		sql.execute('delete from ' + table)
@@ -12689,7 +13460,7 @@ Because this is a g1 test suite, all spec versions are 2011. Messages to 2011 sp
 		"values (1, ?, ?, ?, ?)"
 		sql.executeUpdate(insertSql, [localAA, localPatientID, remoteAA, remotePatientID])
 		}</script>
-</con:config>
+	</con:config>
 </con:testStep>
 <con:testStep name="Clear AA Mapping Table &amp; Add Mapping" type="groovy">
 	<con:settings/>
@@ -12718,10 +13489,11 @@ Because this is a g1 test suite, all spec versions are 2011. Messages to 2011 sp
 	</con:settings>
 	<con:encoding>UTF-8</con:encoding>
 	<con:endpoint>${#TestSuite#Endpoint-DocQuery}</con:endpoint>
-	<con:request><![CDATA[
+	<con:request>
+		<![CDATA[
 		<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn3="urn:gov:hhs:fha:nhinc:common:nhinccommon">
    <soap:Header/>
-   <soap:Body testSuite="Entity_g1" testCase="Document Query">
+   <soap:Body testSuite="Passthrough_g1" testCase="Document Query">
       <urn:RespondingGateway_CrossGatewayQueryRequest>
          <urn1:AdhocQueryRequest federated="false" startIndex="0" maxResults="-1">
             <urn1:ResponseOption returnType="LeafClass" returnComposedObjects="false"/>
@@ -12986,7 +13758,10 @@ Because this is a g1 test suite, all spec versions are 2011. Messages to 2011 sp
 				assert (documentID == msgDocID)</scriptText>
 		</con:configuration>
 	</con:assertion>
-	<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+	<con:credentials>
+		<con:authType>Global HTTP Settings</con:authType>
+	</con:credentials>
+	<con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
 	<con:jmsPropertyConfig/>
 	<con:wsaConfig mustUnderstand="NONE" version="200508"/>
 	<con:wsrmConfig version="1.2"/>
@@ -12994,7 +13769,13 @@ Because this is a g1 test suite, all spec versions are 2011. Messages to 2011 sp
 </con:config>
 </con:testStep>
 
-<con:testStep type="groovy" name="assert PurposeOfUse"><con:settings/><con:config><script/></con:config></con:testStep><con:setupScript>
+<con:testStep type="groovy" name="assert PurposeOfUse">
+	<con:settings/>
+	<con:config>
+		<script/>
+	</con:config>
+</con:testStep>
+<con:setupScript>
 </con:setupScript>
 <con:tearDownScript>
 
@@ -13037,10 +13818,11 @@ Because this is a g1 test suite, all spec versions are 2011. Messages to 2011 sp
 		</con:settings>
 		<con:encoding>UTF-8</con:encoding>
 		<con:endpoint>${#TestSuite#Endpoint-DocRetrieve}</con:endpoint>
-		<con:request><![CDATA[
+		<con:request>
+			<![CDATA[
 			<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:ihe:iti:xds-b:2007" xmlns:urn2="urn:gov:hhs:fha:nhinc:common:nhinccommon">
    <soap:Header/>
-   <soap:Body testSuite="Entity_g1" testCase="Document Retrieve">
+   <soap:Body testSuite="Passthrough_g1" testCase="Document Retrieve">
       <urn:RespondingGateway_CrossGatewayRetrieveRequest>
          <urn1:RetrieveDocumentSetRequest>
             <urn1:DocumentRequest>
@@ -13305,14 +14087,23 @@ Because this is a g1 test suite, all spec versions are 2011. Messages to 2011 sp
 					assert (docData.size() != 0)</scriptText>
 			</con:configuration>
 		</con:assertion>
-		<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+		<con:credentials>
+			<con:authType>Global HTTP Settings</con:authType>
+		</con:credentials>
+		<con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
 		<con:jmsPropertyConfig/>
 		<con:wsaConfig action="urn:gov:hhs:fha:nhinc:entitydocretrieve/EntityDocRetrievePortType/RespondingGateway_CrossGatewayRetrieveRequest" mustUnderstand="NONE" version="200508"/>
 		<con:wsrmConfig version="1.2"/>
 	</con:request>
 </con:config>
 </con:testStep>
-<con:testStep type="groovy" name="assert PurposeOfUse"><con:settings/><con:config><script/></con:config></con:testStep><con:setupScript/>
+<con:testStep type="groovy" name="assert PurposeOfUse">
+	<con:settings/>
+	<con:config>
+		<script/>
+	</con:config>
+</con:testStep>
+<con:setupScript/>
 <con:tearDownScript>
 
 </con:tearDownScript>
@@ -13356,10 +14147,11 @@ Because this is a g1 test suite, all spec versions are 2011. Messages to 2011 sp
 		</con:settings>
 		<con:encoding>UTF-8</con:encoding>
 		<con:endpoint>${#TestSuite#Endpoint-EntityAdminDist}</con:endpoint>
-		<con:request><![CDATA[
+		<con:request>
+			<![CDATA[
 			<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:urn2="urn:oasis:names:tc:emergency:EDXL:DE:1.0">
    <soap:Header/>
-   <soap:Body testSuite="Entity_g1" testCase="Admin Distribution">
+   <soap:Body testSuite="Passthrough_g1" testCase="Admin Distribution">
       <urn:RespondingGateway_SendAlertMessage>
          <urn:assertion>
             <urn1:address>
@@ -13689,7 +14481,10 @@ Because this is a g1 test suite, all spec versions are 2011. Messages to 2011 sp
       </urn:RespondingGateway_SendAlertMessage>
    </soap:Body>
 </soap:Envelope>]]></con:request>
-		<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+		<con:credentials>
+			<con:authType>Global HTTP Settings</con:authType>
+		</con:credentials>
+		<con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
 		<con:jmsPropertyConfig/>
 		<con:wsaConfig mustUnderstand="NONE" version="200508"/>
 		<con:wsrmConfig version="1.2"/>
@@ -13699,10 +14494,16 @@ Because this is a g1 test suite, all spec versions are 2011. Messages to 2011 sp
 <con:testStep name="Delay" type="delay">
 	<con:settings/>
 	<con:config>
-		<delay>8000</delay>
+		<delay>1000</delay>
 	</con:config>
 </con:testStep>
-<con:testStep type="groovy" name="assert PurposeOfUse"><con:settings/><con:config><script/></con:config></con:testStep><con:setupScript/>
+<con:testStep type="groovy" name="assert PurposeOfUse">
+	<con:settings/>
+	<con:config>
+		<script/>
+	</con:config>
+</con:testStep>
+<con:setupScript/>
 <con:tearDownScript>
 
 </con:tearDownScript>
@@ -13780,9 +14581,11 @@ nhinc.FileUtils.updateProperty(context.expand(testSuite.project.getPropertyValue
 nhinc.FileUtils.copyFile(context.expand(testSuite.project.resourceRoot), "uddiConnectionInfo_g1.xml", context.expand(testSuite.project.getPropertyValue("GatewayPropDir")), "uddiConnectionInfo.xml", log);</con:setupScript>
 <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.expand(testSuite.project.getPropertyValue("GatewayPropDir")), log);</con:tearDownScript>
 <con:reportParameters/>
-</con:testSuite><con:testSuite name="Entity_g0_gateway_False">
+</con:testSuite>
+<con:testSuite name="Passthrough_g0_gateway_False">
 	<con:description>Testing for Purpose Of/For Use. This suite sends a request message to the g0 entity interfaces, with the Gateway spring proxy, and purposeForUseEnabled=false in gateway.properties.
-Because this is a g0 test suite, all spec versions are 2010. Messages to 2010 specs respect the Purpose Of/For Use settings, and thus PurposeOfUse should be used.</con:description><con:settings/>
+Because this is a g0 test suite, all spec versions are 2010. Messages to 2010 specs respect the Purpose Of/For Use settings, and thus PurposeOfUse should be used.</con:description>
+	<con:settings/>
 	<con:runType>SEQUENTIAL</con:runType>
 	<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Document Submission Deferred Req" searchProperties="true" id="0115ad78-10b5-4154-bd31-4753cd35df0b">
 		<con:settings/>
@@ -13797,10 +14600,11 @@ Because this is a g0 test suite, all spec versions are 2010. Messages to 2010 sp
 			</con:settings>
 			<con:encoding>UTF-8</con:encoding>
 			<con:endpoint>${#TestSuite#Endpoint-EntityXDRRequest}</con:endpoint>
-			<con:request><![CDATA[
+			<con:request>
+				<![CDATA[
 				<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" xmlns:urn3="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:urn4="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn5="urn:ihe:iti:xds-b:2007">
    <soap:Header/>
-   <soap:Body testSuite="Entity_g0" testCase="Document Submission Deferred Request">
+   <soap:Body testSuite="Passthrough_g0" testCase="Document Submission Deferred Request">
       <urn:RespondingGateway_ProvideAndRegisterDocumentSetRequest>
          <urn:assertion>
             <urn1:address>
@@ -14257,14 +15061,23 @@ Because this is a g0 test suite, all spec versions are 2010. Messages to 2010 sp
 			<con:assertion type="Schema Compliance">
 				<con:configuration/>
 			</con:assertion>
-			<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+			<con:credentials>
+				<con:authType>Global HTTP Settings</con:authType>
+			</con:credentials>
+			<con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
 			<con:jmsPropertyConfig/>
 			<con:wsaConfig action="urn:gov:hhs:fha:nhinc:nhincentityxdr:async:request:ProvideAndRegisterDocumentSet-bAsyncRequest_RequestMessage" generateMessageId="true" mustUnderstand="NONE" version="200508"/>
 			<con:wsrmConfig version="1.2"/>
 		</con:request>
 	</con:config>
 </con:testStep>
-<con:testStep type="groovy" name="assert PurposeOfUse"><con:settings/><con:config><script/></con:config></con:testStep><con:setupScript/>
+<con:testStep type="groovy" name="assert PurposeOfUse">
+	<con:settings/>
+	<con:config>
+		<script/>
+	</con:config>
+</con:testStep>
+<con:setupScript/>
 <con:tearDownScript/>
 <con:properties>
 	<con:property>
@@ -14299,10 +15112,11 @@ Because this is a g0 test suite, all spec versions are 2010. Messages to 2010 sp
 		</con:settings>
 		<con:encoding>UTF-8</con:encoding>
 		<con:endpoint>${#TestSuite#Endpoint-DSDeferredResp}</con:endpoint>
-		<con:request><![CDATA[
+		<con:request>
+			<![CDATA[
 			<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:urn3="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0">
    <soap:Header/>
-   <soap:Body testSuite="Entity_g0" testCase="Document Submission Deferred Resp">
+   <soap:Body testSuite="Passthrough_g0" testCase="Document Submission Deferred Resp">
       <urn:RespondingGateway_ProvideAndRegisterDocumentSetResponseRequest>
          <urn:assertion>
             <urn1:address>
@@ -14621,14 +15435,23 @@ Because this is a g0 test suite, all spec versions are 2010. Messages to 2010 sp
 				<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
 			</con:configuration>
 		</con:assertion>
-		<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+		<con:credentials>
+			<con:authType>Global HTTP Settings</con:authType>
+		</con:credentials>
+		<con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
 		<con:jmsPropertyConfig/>
 		<con:wsaConfig mustUnderstand="NONE" version="200508"/>
 		<con:wsrmConfig version="1.2"/>
 	</con:request>
 </con:config>
 </con:testStep>
-<con:testStep type="groovy" name="assert PurposeOfUse"><con:settings/><con:config><script/></con:config></con:testStep><con:setupScript/>
+<con:testStep type="groovy" name="assert PurposeOfUse">
+	<con:settings/>
+	<con:config>
+		<script/>
+	</con:config>
+</con:testStep>
+<con:setupScript/>
 <con:tearDownScript/>
 <con:properties>
 	<con:property>
@@ -14651,8 +15474,8 @@ Because this is a g0 test suite, all spec versions are 2010. Messages to 2010 sp
 </con:testCase>
 <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Document Submission" searchProperties="true" id="ec4e3d5d-d902-47cd-a31c-2ece1e231197">
 	<con:settings/>
-	
-<con:testStep name="Doc Submission" type="request">
+
+	<con:testStep name="Doc Submission" type="request">
 		<con:settings/>
 		<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 			<con:interface>EntityXDR_Binding</con:interface>
@@ -14663,9 +15486,10 @@ Because this is a g0 test suite, all spec versions are 2010. Messages to 2010 sp
 		</con:settings>
 		<con:encoding>UTF-8</con:encoding>
 		<con:endpoint>http://localhost:8080/Gateway/DocumentSubmission/1_1/EntityService/EntityDocSubmissionUnsecured</con:endpoint>
-		<con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" xmlns:urn3="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:urn4="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn5="urn:ihe:iti:xds-b:2007">
+		<con:request>
+			<![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" xmlns:urn3="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:urn4="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn5="urn:ihe:iti:xds-b:2007">
    <soap:Header/>
-   <soap:Body testSuite="Entity_g0" testCase="Document Submission">
+   <soap:Body testSuite="Passthrough_g0" testCase="Document Submission">
       <urn:RespondingGateway_ProvideAndRegisterDocumentSetRequest>
          <urn:assertion>
             <urn1:address>
@@ -15119,13 +15943,23 @@ Because this is a g0 test suite, all spec versions are 2010. Messages to 2010 sp
 				<definition/>
 			</con:configuration>
 		</con:assertion>
-		<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+		<con:credentials>
+			<con:authType>Global HTTP Settings</con:authType>
+		</con:credentials>
+		<con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
 		<con:jmsPropertyConfig/>
 		<con:wsaConfig action="{urn:gov:hhs:fha:nhinc:nhincentityxdr}ProvideAndRegisterDocumentSet-b" mustUnderstand="NONE" version="200508"/>
 		<con:wsrmConfig version="1.2"/>
 	</con:request>
 </con:config>
-</con:testStep><con:testStep type="groovy" name="assert PurposeOfUse"><con:settings/><con:config><script/></con:config></con:testStep><con:setupScript/>
+</con:testStep>
+<con:testStep type="groovy" name="assert PurposeOfUse">
+	<con:settings/>
+	<con:config>
+		<script/>
+	</con:config>
+</con:testStep>
+<con:setupScript/>
 <con:tearDownScript/>
 <con:properties>
 	<con:property>
@@ -15164,10 +15998,11 @@ Because this is a g0 test suite, all spec versions are 2010. Messages to 2010 sp
 		</con:settings>
 		<con:encoding>UTF-8</con:encoding>
 		<con:endpoint>${#TestSuite#Endpoint-PatientDiscoveryAsyncReq}</con:endpoint>
-		<con:request><![CDATA[
+		<con:request>
+			<![CDATA[
 			<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:hl7-org:v3" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
    <soap:Header/>
-   <soap:Body testSuite="Entity_g0" testCase="Patient Discovery Deferred Req">
+   <soap:Body testSuite="Passthrough_g0" testCase="Patient Discovery Deferred Req">
       <urn:RespondingGateway_PRPA_IN201305UV02Request>
          <urn:PRPA_IN201305UV02 ITSVersion="XML_1.0">
             <urn:id root="1.1" extension="-5a3e95b1:11d1fa33d45:-7f9b"/>
@@ -15459,13 +16294,22 @@ Because this is a g0 test suite, all spec versions are 2010. Messages to 2010 sp
 				<definition/>
 			</con:configuration>
 		</con:assertion>
-		<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+		<con:credentials>
+			<con:authType>Global HTTP Settings</con:authType>
+		</con:credentials>
+		<con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
 		<con:jmsPropertyConfig/>
 		<con:wsaConfig action="urn:gov:hhs:fha:nhinc:entitypatientdiscoveryasyncreq:ProcessPatientDiscoveryAsyncReqAsyncRequest" addDefaultTo="true" messageID="uuid:6666666666.66666.666.66" mustUnderstand="NONE" version="200508"/>
 		<con:wsrmConfig version="1.2"/>
 	</con:request>
 </con:config>
-</con:testStep><con:testStep type="groovy" name="assert PurposeOfUse"><con:settings/><con:config><script/></con:config></con:testStep>
+</con:testStep>
+<con:testStep type="groovy" name="assert PurposeOfUse">
+	<con:settings/>
+	<con:config>
+		<script/>
+	</con:config>
+</con:testStep>
 <con:setupScript/>
 <con:tearDownScript/>
 <con:properties>
@@ -15751,8 +16595,8 @@ Because this is a g0 test suite, all spec versions are 2010. Messages to 2010 sp
 
 <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Patient Discovery Deferred Resp" searchProperties="true" id="61629982-75a5-4ec3-abba-275d76f8fe58">
 	<con:settings/>
-	
-<con:testStep name="Patient Discovery Deferred Resp" type="request">
+
+	<con:testStep name="Patient Discovery Deferred Resp" type="request">
 		<con:settings/>
 		<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 			<con:interface>EntityPatientDiscoveryAsyncRespBindingSoap</con:interface>
@@ -15763,10 +16607,11 @@ Because this is a g0 test suite, all spec versions are 2010. Messages to 2010 sp
 		</con:settings>
 		<con:encoding>UTF-8</con:encoding>
 		<con:endpoint>http://localhost:8080/Gateway/PatientDiscovery/1_0/EntityService/EntityPatientDiscoveryDeferredResponseUnsecured</con:endpoint>
-		<con:request><![CDATA[
+		<con:request>
+			<![CDATA[
 			<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:hl7-org:v3" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
    <soap:Header/>
-   <soap:Body testSuite="Entity_g0" testCase="Patient Discovery Deferred Resp">
+   <soap:Body testSuite="Passthrough_g0" testCase="Patient Discovery Deferred Resp">
       <urn:RespondingGateway_PRPA_IN201306UV02Request>
          <urn:PRPA_IN201306UV02 ITSVersion="XML_1.0">
             <urn:id root="2.2" extension="-5a3e95b1:11d1fa33d45:-8e45"/>
@@ -16080,13 +16925,23 @@ Because this is a g0 test suite, all spec versions are 2010. Messages to 2010 sp
 				<definition/>
 			</con:configuration>
 		</con:assertion>
-		<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+		<con:credentials>
+			<con:authType>Global HTTP Settings</con:authType>
+		</con:credentials>
+		<con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
 		<con:jmsPropertyConfig/>
 		<con:wsaConfig mustUnderstand="NONE" version="200508"/>
 		<con:wsrmConfig version="1.2"/>
 	</con:request>
 </con:config>
-</con:testStep><con:testStep type="groovy" name="assert PurposeOfUse"><con:settings/><con:config><script/></con:config></con:testStep><con:setupScript/>
+</con:testStep>
+<con:testStep type="groovy" name="assert PurposeOfUse">
+	<con:settings/>
+	<con:config>
+		<script/>
+	</con:config>
+</con:testStep>
+<con:setupScript/>
 <con:tearDownScript/>
 <con:properties>
 	<con:property>
@@ -16353,26 +17208,27 @@ Because this is a g0 test suite, all spec versions are 2010. Messages to 2010 sp
 		<con:name>DOB</con:name>
 		<con:value>19800516</con:value>
 	</con:property>
-<con:property>
-	<con:name>startDate</con:name>
-	<con:value>2012-12-27T22:39:08Z</con:value>
-</con:property>
-<con:property>
-	<con:name>endDate</con:name>
-	<con:value>2012-12-27T22:49:08Z</con:value>
-</con:property>
-<con:property>
-	<con:name>sigDate</con:name>
-	<con:value>12/27/2012 22:39:08</con:value>
-</con:property>
-<con:property>
-	<con:name>expireDate</con:name>
-	<con:value>2013-01-26T00:00:00Z</con:value>
-</con:property>
+	<con:property>
+		<con:name>startDate</con:name>
+		<con:value>2012-12-27T22:39:08Z</con:value>
+	</con:property>
+	<con:property>
+		<con:name>endDate</con:name>
+		<con:value>2012-12-27T22:49:08Z</con:value>
+	</con:property>
+	<con:property>
+		<con:name>sigDate</con:name>
+		<con:value>12/27/2012 22:39:08</con:value>
+	</con:property>
+	<con:property>
+		<con:name>expireDate</con:name>
+		<con:value>2013-01-26T00:00:00Z</con:value>
+	</con:property>
 </con:properties>
 <con:reportParameters/>
 </con:testCase>
-<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Patient Discovery" searchProperties="true" id="df73689f-f4e5-4840-94fe-99c9455a6228">
+
+<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Patient Discovery" searchProperties="true">
 	<con:settings/>
 	<con:testStep name="clear correlations table" type="groovy">
 		<con:settings/>
@@ -16380,6 +17236,27 @@ Because this is a g0 test suite, all spec versions are 2010. Messages to 2010 sp
 			<script>context.withSql('PatientCorrelationDB') { sql -> 
 			sql.execute('delete from ' + context.findProperty('PatientCorrelationTable'))
 			}</script>
+	</con:config>
+</con:testStep>
+<con:testStep type="groovy" name="Set Up PassThru">
+	<con:settings/>
+	<con:config>
+		<script>log.info "Setting Patient Discovery Adapter to unsecured";
+def dir = context.findProperty('GatewayPropDir');
+nhinc.FileUtils.backupFile(dir, "PatientDiscoveryProxyConfig.xml", log);
+def alias = 'adapterpatientdiscovery'
+def aliasName= 'adapterpatientdiscoverywssecured';
+def replaceAlias = 'adapterpatientdiscoverywsunsecured';
+
+nhinc.FileUtils.updateSpringConfig(dir, "PatientDiscoveryProxyConfig.xml",
+	alias, aliasName, replaceAlias, log);
+
+log.info "Modifying internalConnectionInfo for adapterpatientdiscovery mock."
+
+nhinc.FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", dir, "1.1",
+	"adapterpatientdiscovery", "http://localhost:1720/MockPDAdapter", "2.0",
+	log);
+		</script>
 	</con:config>
 </con:testStep>
 <con:testStep name="Patient Discovery" type="request">
@@ -16393,10 +17270,11 @@ Because this is a g0 test suite, all spec versions are 2010. Messages to 2010 sp
 	</con:settings>
 	<con:encoding>UTF-8</con:encoding>
 	<con:endpoint>${#TestSuite#Endpoint-PatientDiscovery}</con:endpoint>
-	<con:request><![CDATA[
+	<con:request>
+		<![CDATA[
 		<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:hl7-org:v3" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing">
    <soap:Header/>
-   <soap:Body testSuite="Entity_g0" testCase="Patient Discovery">
+   <soap:Body testSuite="Passthrough_g1" testCase="Patient Discovery">
       <urn:RespondingGateway_PRPA_IN201305UV02Request>
          <urn:PRPA_IN201305UV02 ITSVersion="XML_1.0">
             <urn:id root="1.1" extension="-5a3e95b1:11d1fa33d45:-7f9b"/>
@@ -16669,39 +17547,176 @@ Because this is a g0 test suite, all spec versions are 2010. Messages to 2010 sp
 			<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
 		</con:configuration>
 	</con:assertion>
-	<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+	<con:credentials>
+		<con:authType>Global HTTP Settings</con:authType>
+	</con:credentials>
+	<con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
 	<con:jmsPropertyConfig/>
 	<con:wsaConfig mustUnderstand="NONE" version="200508"/>
 	<con:wsrmConfig version="1.2"/>
 </con:request>
 </con:config>
 </con:testStep>
-<con:testStep name="count correlations (1)" type="groovy">
+<con:testStep type="mockresponse" name="Mock Response">
+	<con:settings/>
+	<con:config xsi:type="con:MockResponseStep" startStep="Patient Discovery" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+		<con:interface>AdapterPatientDiscoveryBindingSoap</con:interface>
+		<con:operation>RespondingGateway_PRPA_IN201305UV02</con:operation>
+		<con:path>/MockPDAdapter</con:path>
+		<con:port>1720</con:port>
+		<con:response>
+			<con:settings/>
+			<con:responseContent>
+				<![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:hl7-org:v3">
+   <soap:Header/>
+   <soap:Body>
+   <PRPA_IN201306UV02 xmlns="urn:hl7-org:v3" xmlns:ns2="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:ns3="http://www.w3.org/2005/08/addressing" xmlns:ns4="urn:gov:hhs:fha:nhinc:common:patientcorrelationfacade" ITSVersion="XML_1.0">
+   <id root="1.1" extension="13318247:13b4e0b839b:-7ff4"/>
+   <creationTime value="20121129212833"/>
+   <interactionId root="2.16.840.1.113883.1.6" extension="PRPA_IN201306UV02"/>
+   <processingCode code="P"/>
+   <processingModeCode code="T"/>
+   <acceptAckCode code="NE"/>
+   <receiver typeCode="RCV">
+   	<device classCode="DEV" determinerCode="INSTANCE">
+   		<id root="1.2.345.678.999"/>
+   		<asAgent classCode="AGNT">
+   			<representedOrganization classCode="ORG" determinerCode="INSTANCE">
+   				<id root="1.1"/>
+   			</representedOrganization>
+   		</asAgent>
+   	</device>
+   </receiver>
+   <sender typeCode="SND">
+   	<device classCode="DEV" determinerCode="INSTANCE">
+   		<id root="2.2"/>
+   		<asAgent classCode="AGNT">
+   			<representedOrganization classCode="ORG" determinerCode="INSTANCE">
+   				<id root="2.2"/>
+   			</representedOrganization>
+   		</asAgent>
+   	</device>
+   </sender>
+   <acknowledgement>
+   	<typeId root="2.16.840.1.113883.1.6" extension="PRPA_IN201305UV02"/>
+   	<typeCode code="AA"/><targetMessage xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+   </acknowledgement>
+   <controlActProcess classCode="CACT" moodCode="EVN">
+   	<code code="PRPA_TE201306UV" codeSystem="2.16.840.1.113883.1.6"/>
+   	<subject typeCode="SUBJ">
+   		<registrationEvent classCode="REG" moodCode="EVN">
+   			<id nullFlavor="NA"/>
+   			<statusCode code="active"/>
+   				<subject1 typeCode="SBJ">
+   					<patient classCode="PAT">
+   						<id root="1.1" extension="D123401"/>
+   						<statusCode code="SD"/>
+   						<patientPerson classCode="PSN" determinerCode="INSTANCE">
+   							<name>
+   								<family partType="FAM">Younger</family>
+   								<given partType="GIV">Gallow</given>
+   							</name>
+   							<telecom value="tel:+1-888-555-1234"/>
+   							<administrativeGenderCode code="M"/>
+   							<birthTime value="19630804"/>
+   							<addr><city>LEESBURG</city><state>VA</state><postalCode>20176</postalCode></addr>
+   							<asOtherIDs classCode="SD">
+   								<id root="2.16.840.1.113883.4.1" extension="999123401"/>
+   								<scopingOrganization classCode="ORG" determinerCode="INSTANCE">
+   									<id root="2.16.840.1.113883.4.1"/>
+   								</scopingOrganization>
+   							</asOtherIDs>
+   						</patientPerson>
+   						<providerOrganization classCode="ORG" determinerCode="INSTANCE">
+   							<id root="1.1"/>
+   							<contactParty xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+   							</providerOrganization>
+   							<subjectOf1>
+   								<queryMatchObservation classCode="CASE" moodCode="EVN">
+   									<code code="IHE_PDQ"/>
+   									<value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="INT" value="100"/>
+   								</queryMatchObservation>
+   							</subjectOf1>
+   						</patient>
+   					</subject1>
+   					<custodian typeCode="CST">
+   						<assignedEntity classCode="ASSIGNED">
+   							<id root="1.1"/>
+   							<code code="NotHealthDataLocator" codeSystem="1.3.6.1.4.1.19376.1.2.27.2"/>
+   						</assignedEntity>
+   					</custodian>
+   				</registrationEvent>
+   			</subject>
+   			<queryAck>
+   				<queryId root="1.1" extension="-abd3453dcd24wkkks545"/>
+   				<queryResponseCode code="OK"/>
+   			</queryAck>
+   			<queryByParameter>
+   				<queryId root="1.1" extension="-abd3453dcd24wkkks545"/>
+   				<statusCode code="new"/>
+   				<responseModalityCode code="R"/>
+   				<responsePriorityCode code="I"/>
+   				<parameterList>
+   					<livingSubjectAdministrativeGender>
+   						<value code="M"/>
+   						<semanticsText representation="TXT"/>
+   					</livingSubjectAdministrativeGender>
+   					<livingSubjectBirthTime>
+   						<value value="19630804"/>
+   						<semanticsText representation="TXT"/>
+   					</livingSubjectBirthTime>
+   					<livingSubjectId>
+   						<value root="1.1" extension="1111"/>
+   						<semanticsText representation="TXT"/>
+   					</livingSubjectId>
+   					<livingSubjectName>
+   						<value>
+   							<family partType="FAM">Younger</family>
+   							<given partType="GIV">Gallow</given>
+                        		</value>
+                        		<semanticsText representation="TXT"/>
+                        	</livingSubjectName>
+                     </parameterList>
+                 </queryByParameter>
+             </controlActProcess>
+     </PRPA_IN201306UV02>
+   </soap:Body>
+</soap:Envelope>]]></con:responseContent>
+			<con:wsaConfig mustUnderstand="NONE" version="200508"/>
+		</con:response>
+	</con:config>
+</con:testStep>
+<con:testStep type="groovy" name="assert PurposeOfUse">
 	<con:settings/>
 	<con:config>
-		<script>context.withSql('PatientCorrelationDB') { sql -> 
-		assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('PatientCorrelationTable'))[0]
-		}</script>
-</con:config>
+		<script/>
+	</con:config>
 </con:testStep>
-<con:testStep type="groovy" name="assert PurposeOfUse"><con:settings/><con:config><script/></con:config></con:testStep><con:setupScript/>
-<con:tearDownScript/>
+<con:setupScript/>
+<con:tearDownScript>def dir = context.findProperty('GatewayPropDir');
+def alias = 'adapterpatientdiscovery';
+def aliasName= 'adapterpatientdiscoverywsunsecured';
+def replaceAlias = 'adapterpatientdiscoverywssecured';
+
+nhinc.FileUtils.updateSpringConfig(dir, "PatientDiscoveryProxyConfig.xml", alias, aliasName, replaceAlias, log);
+
+</con:tearDownScript>
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2012-12-27T22:39:09Z</con:value>
+		<con:value>2013-01-31T15:48:57Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2012-12-27T22:49:09Z</con:value>
+		<con:value>2013-01-31T15:58:57Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>12/27/2012 22:39:09</con:value>
+		<con:value>01/31/2013 15:48:57</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2013-01-26T00:00:00Z</con:value>
+		<con:value>2013-03-02T00:00:00Z</con:value>
 	</con:property>
 </con:properties>
 <con:reportParameters/>
@@ -16713,12 +17728,12 @@ Because this is a g0 test suite, all spec versions are 2010. Messages to 2010 sp
 		<con:settings/>
 		<con:config>
 			<script>nhinc.FileUtils.updateProperty(context.findProperty("GatewayPropDir"),"gateway.properties","documentQueryQuerySelf","false", log);</script>
-	</con:config>
-</con:testStep>
-<con:testStep name="Clear Correlation Table &amp; Add Correlation" type="groovy">
-	<con:settings/>
-	<con:config>
-		<script>context.withSql('PatientCorrelationDB') { sql -> 
+		</con:config>
+	</con:testStep>
+	<con:testStep name="Clear Correlation Table &amp; Add Correlation" type="groovy">
+		<con:settings/>
+		<con:config>
+			<script>context.withSql('PatientCorrelationDB') { sql -> 
 		def table = context.findProperty('PatientCorrelationTable')
 
 		sql.execute('delete from ' + table)
@@ -16731,7 +17746,7 @@ Because this is a g0 test suite, all spec versions are 2010. Messages to 2010 sp
 		"values (1, ?, ?, ?, ?)"
 		sql.executeUpdate(insertSql, [localAA, localPatientID, remoteAA, remotePatientID])
 		}</script>
-</con:config>
+	</con:config>
 </con:testStep>
 <con:testStep name="Clear AA Mapping Table &amp; Add Mapping" type="groovy">
 	<con:settings/>
@@ -16760,10 +17775,11 @@ Because this is a g0 test suite, all spec versions are 2010. Messages to 2010 sp
 	</con:settings>
 	<con:encoding>UTF-8</con:encoding>
 	<con:endpoint>${#TestSuite#Endpoint-DocQuery}</con:endpoint>
-	<con:request><![CDATA[
+	<con:request>
+		<![CDATA[
 		<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn3="urn:gov:hhs:fha:nhinc:common:nhinccommon">
    <soap:Header/>
-   <soap:Body testSuite="Entity_g0" testCase="Document Query">
+   <soap:Body testSuite="Passthrough_g0" testCase="Document Query">
       <urn:RespondingGateway_CrossGatewayQueryRequest>
          <urn1:AdhocQueryRequest federated="false" startIndex="0" maxResults="-1">
             <urn1:ResponseOption returnType="LeafClass" returnComposedObjects="false"/>
@@ -17028,7 +18044,10 @@ Because this is a g0 test suite, all spec versions are 2010. Messages to 2010 sp
 				assert (documentID == msgDocID)</scriptText>
 		</con:configuration>
 	</con:assertion>
-	<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+	<con:credentials>
+		<con:authType>Global HTTP Settings</con:authType>
+	</con:credentials>
+	<con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
 	<con:jmsPropertyConfig/>
 	<con:wsaConfig mustUnderstand="NONE" version="200508"/>
 	<con:wsrmConfig version="1.2"/>
@@ -17036,7 +18055,13 @@ Because this is a g0 test suite, all spec versions are 2010. Messages to 2010 sp
 </con:config>
 </con:testStep>
 
-<con:testStep type="groovy" name="assert PurposeOfUse"><con:settings/><con:config><script/></con:config></con:testStep><con:setupScript>
+<con:testStep type="groovy" name="assert PurposeOfUse">
+	<con:settings/>
+	<con:config>
+		<script/>
+	</con:config>
+</con:testStep>
+<con:setupScript>
 </con:setupScript>
 <con:tearDownScript>
 
@@ -17079,10 +18104,11 @@ Because this is a g0 test suite, all spec versions are 2010. Messages to 2010 sp
 		</con:settings>
 		<con:encoding>UTF-8</con:encoding>
 		<con:endpoint>${#TestSuite#Endpoint-DocRetrieve}</con:endpoint>
-		<con:request><![CDATA[
+		<con:request>
+			<![CDATA[
 			<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:ihe:iti:xds-b:2007" xmlns:urn2="urn:gov:hhs:fha:nhinc:common:nhinccommon">
    <soap:Header/>
-   <soap:Body testSuite="Entity_g0" testCase="Document Retrieve">
+   <soap:Body testSuite="Passthrough_g0" testCase="Document Retrieve">
       <urn:RespondingGateway_CrossGatewayRetrieveRequest>
          <urn1:RetrieveDocumentSetRequest>
             <urn1:DocumentRequest>
@@ -17347,14 +18373,23 @@ Because this is a g0 test suite, all spec versions are 2010. Messages to 2010 sp
 					assert (docData.size() != 0)</scriptText>
 			</con:configuration>
 		</con:assertion>
-		<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+		<con:credentials>
+			<con:authType>Global HTTP Settings</con:authType>
+		</con:credentials>
+		<con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
 		<con:jmsPropertyConfig/>
 		<con:wsaConfig action="urn:gov:hhs:fha:nhinc:entitydocretrieve/EntityDocRetrievePortType/RespondingGateway_CrossGatewayRetrieveRequest" mustUnderstand="NONE" version="200508"/>
 		<con:wsrmConfig version="1.2"/>
 	</con:request>
 </con:config>
 </con:testStep>
-<con:testStep type="groovy" name="assert PurposeOfUse"><con:settings/><con:config><script/></con:config></con:testStep><con:setupScript/>
+<con:testStep type="groovy" name="assert PurposeOfUse">
+	<con:settings/>
+	<con:config>
+		<script/>
+	</con:config>
+</con:testStep>
+<con:setupScript/>
 <con:tearDownScript/>
 <con:properties>
 	<con:property>
@@ -17392,15 +18427,15 @@ Because this is a g0 test suite, all spec versions are 2010. Messages to 2010 sp
 nhinc.FileUtils.updateProperty(destConfigFileLocation, "gateway.properties", "serviceSubscription", "true", log);
 nhinc.FileUtils.updateProperty(destConfigFileLocation, "gateway.properties", "subscriptionPassthrough", "false", log);
 nhinc.FileUtils.updateProperty(destConfigFileLocation, "gateway.properties", "hiem.AdapterSubscriptionMode", "disabled", log);</script>
-	</con:config>
-</con:testStep>
-<con:testStep name="Clear Subscription Table" type="groovy">
-	<con:settings/>
-	<con:config>
-		<script>context.withSql('SubscriptionDB') { sql -> 
+		</con:config>
+	</con:testStep>
+	<con:testStep name="Clear Subscription Table" type="groovy">
+		<con:settings/>
+		<con:config>
+			<script>context.withSql('SubscriptionDB') { sql -> 
 		sql.execute('delete from ' + context.findProperty('SubscriptionTable'))
 		}</script>
-</con:config>
+	</con:config>
 </con:testStep>
 <con:testStep name="Subscribe" type="request">
 	<con:settings/>
@@ -17413,10 +18448,11 @@ nhinc.FileUtils.updateProperty(destConfigFileLocation, "gateway.properties", "hi
 	</con:settings>
 	<con:encoding>UTF-8</con:encoding>
 	<con:endpoint>${#TestSuite#Endpoint-Subscribe}</con:endpoint>
-	<con:request><![CDATA[
+	<con:request>
+		<![CDATA[
 		<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:wsnt="http://docs.oasis-open.org/wsn/b-2" xmlns:wsa="http://www.w3.org/2005/08/addressing" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add1="http://schemas.xmlsoap.org/ws/2004/08/addressing">
    <soap:Header/>
-   <soap:Body testSuite="Entity_g0" testCase="Subscribe">
+   <soap:Body testSuite="Passthrough_g0" testCase="Subscribe">
       <urn:SubscribeRequest>
          <wsnt:Subscribe>
             <wsnt:ConsumerReference>
@@ -17664,7 +18700,10 @@ holder.namespaces["ns5"] = "urn:gov:hhs:fha:nhinc:common:subscriptionb2overridef
 assert holder["//ns4:SubscribeResponse[1]/ns4:SubscriptionReference[1]/ns3:ReferenceParameters[1]/ns5:SubscriptionId[1]"] != null</scriptText>
 		</con:configuration>
 	</con:assertion>
-	<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+	<con:credentials>
+		<con:authType>Global HTTP Settings</con:authType>
+	</con:credentials>
+	<con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
 	<con:jmsPropertyConfig/>
 	<con:wsaConfig action="urn:gov:hhs:fha:nhinc:entitysubscriptionmanagement/EntityNotificationProducerPortType/SubscribeDocumentRequest" mustUnderstand="NONE" version="200508"/>
 	<con:wsrmConfig version="1.2"/>
@@ -17680,7 +18719,13 @@ assert holder["//ns4:SubscribeResponse[1]/ns4:SubscriptionReference[1]/ns3:Refer
 		}</script>
 </con:config>
 </con:testStep>
-<con:testStep type="groovy" name="assert PurposeOfUse"><con:settings/><con:config><script/></con:config></con:testStep><con:setupScript>
+<con:testStep type="groovy" name="assert PurposeOfUse">
+	<con:settings/>
+	<con:config>
+		<script/>
+	</con:config>
+</con:testStep>
+<con:setupScript>
 </con:setupScript>
 <con:tearDownScript>
 
@@ -17715,15 +18760,15 @@ assert holder["//ns4:SubscribeResponse[1]/ns4:SubscriptionReference[1]/ns3:Refer
 nhinc.FileUtils.updateProperty(destConfigFileLocation,"gateway.properties","serviceSubscription", "true", log);
 nhinc.FileUtils.updateProperty(destConfigFileLocation,"gateway.properties","subscriptionPassthrough", "false", log);
 nhinc.FileUtils.updateProperty(destConfigFileLocation,"gateway.properties","hiem.AdapterSubscriptionMode", "disabled", log);</script>
-	</con:config>
-</con:testStep>
-<con:testStep name="Clear Subscription Table" type="groovy">
-	<con:settings/>
-	<con:config>
-		<script>context.withSql('SubscriptionDB') { sql -> 
+		</con:config>
+	</con:testStep>
+	<con:testStep name="Clear Subscription Table" type="groovy">
+		<con:settings/>
+		<con:config>
+			<script>context.withSql('SubscriptionDB') { sql -> 
 		sql.execute('delete from ' + context.findProperty('SubscriptionTable'))
 		}</script>
-</con:config>
+	</con:config>
 </con:testStep>
 <con:testStep name="Subscribe" type="request">
 	<con:settings/>
@@ -17736,10 +18781,11 @@ nhinc.FileUtils.updateProperty(destConfigFileLocation,"gateway.properties","hiem
 	</con:settings>
 	<con:encoding>UTF-8</con:encoding>
 	<con:endpoint>${#TestSuite#Endpoint-Subscribe}</con:endpoint>
-	<con:request><![CDATA[
+	<con:request>
+		<![CDATA[
 		<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:wsnt="http://docs.oasis-open.org/wsn/b-2" xmlns:wsa="http://www.w3.org/2005/08/addressing" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add1="http://schemas.xmlsoap.org/ws/2004/08/addressing">
    <soap:Header/>
-   <soap:Body testSuite="Entity_g0" testCase="Subscribe (as part of Notify test case)">
+   <soap:Body testSuite="Passthrough_g0" testCase="Subscribe (as part of Notify test case)">
       <urn:SubscribeRequest>
          <wsnt:Subscribe>
             <wsnt:ConsumerReference>
@@ -17974,7 +19020,10 @@ nhinc.FileUtils.updateProperty(destConfigFileLocation,"gateway.properties","hiem
 
 	<con:assertion name="Not SOAP Fault" type="SOAP Fault Assertion"/>
 	<con:assertion name="SOAP Response" type="SOAP Response"/>
-	<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+	<con:credentials>
+		<con:authType>Global HTTP Settings</con:authType>
+	</con:credentials>
+	<con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
 	<con:jmsPropertyConfig/>
 	<con:wsaConfig action="urn:gov:hhs:fha:nhinc:entitysubscriptionmanagement/EntityNotificationProducerPortType/SubscribeDocumentRequest" mustUnderstand="NONE" version="200508"/>
 	<con:wsrmConfig version="1.2"/>
@@ -18012,10 +19061,11 @@ context.testCase.testSuite.project.setPropertyValue( "NotifySubscriptionID", par
 	</con:settings>
 	<con:encoding>UTF-8</con:encoding>
 	<con:endpoint>${#TestSuite#Endpoint-Notify}</con:endpoint>
-	<con:request><![CDATA[
+	<con:request>
+		<![CDATA[
 		<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:b="http://docs.oasis-open.org/wsn/b-2" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:urn2="urn:gov:hhs:fha:nhinc:common:subscriptionb2overridefordocuments" xmlns:urn3="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn4="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:ihe="urn:ihe:iti:xds-b:2007" xmlns:wsa="http://www.w3.org/2005/08/addressing" xmlns:rim="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0">
    <soap:Header/>
-   <soap:Body testSuite="Entity_g0" testCase="Notify">
+   <soap:Body testSuite="Passthrough_g0" testCase="Notify">
       <urn:NotifyRequest>
          <b:Notify>
             <b:NotificationMessage>
@@ -18253,14 +19303,23 @@ context.testCase.testSuite.project.setPropertyValue( "NotifySubscriptionID", par
 		<con:configuration/>
 	</con:assertion>
 	<con:assertion type="SOAP Fault Assertion"/>
-	<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+	<con:credentials>
+		<con:authType>Global HTTP Settings</con:authType>
+	</con:credentials>
+	<con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
 	<con:jmsPropertyConfig/>
 	<con:wsaConfig mustUnderstand="NONE" version="200508"/>
 	<con:wsrmConfig version="1.2"/>
 </con:request>
 </con:config>
 </con:testStep>
-<con:testStep type="groovy" name="assert PurposeOfUse"><con:settings/><con:config><script/></con:config></con:testStep><con:setupScript>
+<con:testStep type="groovy" name="assert PurposeOfUse">
+	<con:settings/>
+	<con:config>
+		<script/>
+	</con:config>
+</con:testStep>
+<con:setupScript>
 </con:setupScript>
 <con:tearDownScript>
 
@@ -18299,18 +19358,18 @@ context.testCase.testSuite.project.setPropertyValue( "NotifySubscriptionID", par
 nhinc.FileUtils.updateProperty(destConfigFileLocation, "gateway.properties", "serviceSubscription", "true", log);
 nhinc.FileUtils.updateProperty(destConfigFileLocation, "gateway.properties", "subscriptionPassthrough", "false", log);
 nhinc.FileUtils.updateProperty(destConfigFileLocation, "gateway.properties", "hiem.AdapterSubscriptionMode", "disabled", log);</script>
-	</con:config>
-</con:testStep>
-<con:testStep name="Clear Subscription Table" type="groovy">
-	<con:settings/>
-	<con:config>
-		<script>context.withSql('SubscriptionDB') { sql -> 
+		</con:config>
+	</con:testStep>
+	<con:testStep name="Clear Subscription Table" type="groovy">
+		<con:settings/>
+		<con:config>
+			<script>context.withSql('SubscriptionDB') { sql -> 
 		def table = context.findProperty('SubscriptionTable')
 
 		sql.execute('delete from ' + table)
 
 		}</script>
-</con:config>
+	</con:config>
 </con:testStep>
 <con:testStep name="Subscribe" type="request">
 	<con:settings/>
@@ -18323,10 +19382,11 @@ nhinc.FileUtils.updateProperty(destConfigFileLocation, "gateway.properties", "hi
 	</con:settings>
 	<con:encoding>UTF-8</con:encoding>
 	<con:endpoint>${#TestSuite#Endpoint-Subscribe}</con:endpoint>
-	<con:request><![CDATA[
+	<con:request>
+		<![CDATA[
 		<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:wsnt="http://docs.oasis-open.org/wsn/b-2" xmlns:wsa="http://www.w3.org/2005/08/addressing" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add1="http://schemas.xmlsoap.org/ws/2004/08/addressing">
    <soap:Header/>
-   <soap:Body testSuite="Entity_g0" testCase="Subscribe (as part of Unsubscribe test case)">
+   <soap:Body testSuite="Passthrough_g0" testCase="Subscribe (as part of Unsubscribe test case)">
       <urn:SubscribeRequest>
          <wsnt:Subscribe>
             <wsnt:ConsumerReference>
@@ -18559,7 +19619,10 @@ nhinc.FileUtils.updateProperty(destConfigFileLocation, "gateway.properties", "hi
 </soap:Envelope>]]></con:request>
 	<con:assertion type="SOAP Response"/>
 	<con:assertion type="SOAP Fault Assertion"/>
-	<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+	<con:credentials>
+		<con:authType>Global HTTP Settings</con:authType>
+	</con:credentials>
+	<con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
 	<con:jmsPropertyConfig/>
 	<con:wsaConfig action="urn:gov:hhs:fha:nhinc:entitysubscriptionmanagement/EntityNotificationProducerPortType/SubscribeDocumentRequest" mustUnderstand="NONE" version="200508"/>
 	<con:wsrmConfig version="1.2"/>
@@ -18601,13 +19664,14 @@ context.testCase.testSuite.project.setPropertyValue( "UnSubscriptionID", subID )
 	</con:settings>
 	<con:encoding>UTF-8</con:encoding>
 	<con:endpoint>${#TestSuite#Endpoint-Unsubscribe}</con:endpoint>
-	<con:request><![CDATA[
+	<con:request>
+		<![CDATA[
 		<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:nhin="http://www.hhs.gov/healthit/nhin" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:subscription" xmlns:urn2="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing">
    <soap:Header>
       <ns5:SubscriptionId xmlns="http://www.w3.org/2005/08/addressing" xmlns:ns2="http://docs.oasis-open.org/wsn/b-2" xmlns:ns3="http://docs.oasis-open.org/wsrf/bf-2" xmlns:ns4="http://docs.oasis-open.org/wsn/t-1" xmlns:ns5="http://www.hhs.gov/healthit/nhin">${#Project#UnSubscriptionID}</ns5:SubscriptionId>
       <nhinconnect:Info xmlns:nhinconnect="urn:nhinconnect">hello world</nhinconnect:Info>
    </soap:Header>
-   <soap:Body testSuite="Entity_g0" testCase="Unsubscribe">
+   <soap:Body testSuite="Passthrough_g0" testCase="Unsubscribe">
       <urn:UnsubscribeRequest>
          <wsnt:Unsubscribe xmlns:wsnt="http://docs.oasis-open.org/wsn/b-2">
             <nhinconnect:Info xmlns:nhinconnect="urn:nhinconnect">just some data</nhinconnect:Info>
@@ -18838,7 +19902,10 @@ context.testCase.testSuite.project.setPropertyValue( "UnSubscriptionID", subID )
 			<useRegEx>false</useRegEx>
 		</con:configuration>
 	</con:assertion>
-	<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+	<con:credentials>
+		<con:authType>Global HTTP Settings</con:authType>
+	</con:credentials>
+	<con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
 	<con:jmsPropertyConfig/>
 	<con:wsaConfig action="urn:gov:hhs:fha:nhinc:entitysubscriptionmanagement/EntitySubscriptionManagerPortType/UnsubscribeRequest" mustUnderstand="NONE" version="200508"/>
 	<con:wsrmConfig version="1.2"/>
@@ -18853,7 +19920,13 @@ context.testCase.testSuite.project.setPropertyValue( "UnSubscriptionID", subID )
 }</script>
 </con:config>
 </con:testStep>
-<con:testStep type="groovy" name="assert PurposeOfUse"><con:settings/><con:config><script/></con:config></con:testStep><con:setupScript>
+<con:testStep type="groovy" name="assert PurposeOfUse">
+	<con:settings/>
+	<con:config>
+		<script/>
+	</con:config>
+</con:testStep>
+<con:setupScript>
 </con:setupScript>
 <con:tearDownScript>
 
@@ -18891,10 +19964,11 @@ context.testCase.testSuite.project.setPropertyValue( "UnSubscriptionID", subID )
 		</con:settings>
 		<con:encoding>UTF-8</con:encoding>
 		<con:endpoint>${#TestSuite#Endpoint-EntityAdminDist}</con:endpoint>
-		<con:request><![CDATA[
+		<con:request>
+			<![CDATA[
 			<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:urn2="urn:oasis:names:tc:emergency:EDXL:DE:1.0">
    <soap:Header/>
-   <soap:Body testSuite="Entity_g0" testCase="Admin Distribution">
+   <soap:Body testSuite="Passthrough_g0" testCase="Admin Distribution">
       <urn:RespondingGateway_SendAlertMessage>
          <urn:assertion>
             <urn1:address>
@@ -19224,7 +20298,10 @@ context.testCase.testSuite.project.setPropertyValue( "UnSubscriptionID", subID )
       </urn:RespondingGateway_SendAlertMessage>
    </soap:Body>
 </soap:Envelope>]]></con:request>
-		<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+		<con:credentials>
+			<con:authType>Global HTTP Settings</con:authType>
+		</con:credentials>
+		<con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
 		<con:jmsPropertyConfig/>
 		<con:wsaConfig mustUnderstand="NONE" version="200508"/>
 		<con:wsrmConfig version="1.2"/>
@@ -19234,10 +20311,16 @@ context.testCase.testSuite.project.setPropertyValue( "UnSubscriptionID", subID )
 <con:testStep name="Delay" type="delay">
 	<con:settings/>
 	<con:config>
-		<delay>8000</delay>
+		<delay>1000</delay>
 	</con:config>
 </con:testStep>
-<con:testStep type="groovy" name="assert PurposeOfUse"><con:settings/><con:config><script/></con:config></con:testStep><con:setupScript/>
+<con:testStep type="groovy" name="assert PurposeOfUse">
+	<con:settings/>
+	<con:config>
+		<script/>
+	</con:config>
+</con:testStep>
+<con:setupScript/>
 <con:tearDownScript>
 </con:tearDownScript>
 <con:properties>
@@ -19315,7 +20398,214 @@ nhinc.FileUtils.updateProperty(context.expand(testSuite.project.getPropertyValue
 nhinc.FileUtils.copyFile(context.expand(testSuite.project.resourceRoot), "uddiConnectionInfo_g0.xml", context.expand(testSuite.project.getPropertyValue("GatewayPropDir")), "uddiConnectionInfo.xml", log);</con:setupScript>
 <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.expand(testSuite.project.getPropertyValue("GatewayPropDir")), log);</con:tearDownScript>
 <con:reportParameters/>
-</con:testSuite><con:properties><con:property><con:name>AAMappingDB</con:name><con:value>assigningauthoritydb</con:value></con:property><con:property><con:name>AAMappingTable</con:name><con:value>aa_to_home_community_mapping</con:value></con:property><con:property><con:name>AsyncMsgDB</con:name><con:value>asyncmsgs</con:value></con:property><con:property><con:name>AsyncMsgTable</con:name><con:value>asyncmsgrepo</con:value></con:property><con:property><con:name>AuditRepoDB</con:name><con:value>auditrepo</con:value></con:property><con:property><con:name>AuditRepoTable</con:name><con:value>auditrepository</con:value></con:property><con:property><con:name>BirthTime</con:name><con:value>19630804</con:value></con:property><con:property><con:name>City</con:name><con:value>Melbourne</con:value></con:property><con:property><con:name>Country</con:name><con:value>US</con:value></con:property><con:property><con:name>DBHost</con:name><con:value>localhost</con:value></con:property><con:property><con:name>DBPass</con:name><con:value>nhincpass</con:value></con:property><con:property><con:name>DBPort</con:name><con:value>3306</con:value></con:property><con:property><con:name>DBUser</con:name><con:value>nhincuser</con:value></con:property><con:property><con:name>DeferredPatientDiscoveryReqMessageID</con:name><con:value>uuid:6666666666.66666.666.66</con:value></con:property><con:property><con:name>DOB</con:name><con:value>19800516</con:value></con:property><con:property><con:name>DQDocID</con:name><con:value>1.123401.55555</con:value></con:property><con:property><con:name>DQPatientID</con:name><con:value>D123401</con:value></con:property><con:property><con:name>DRDocID</con:name><con:value>1.123407.777777</con:value></con:property><con:property><con:name>DRRepoID</con:name><con:value>1</con:value></con:property><con:property><con:name>DynamicDQDocID</con:name><con:value>103.8.9284320.020.3590.75^1266324032288</con:value></con:property><con:property><con:name>ExpirationDate</con:name><con:value>20100520</con:value></con:property><con:property><con:name>FamilyName</con:name><con:value>Younger</con:value></con:property><con:property><con:name>Gender</con:name><con:value>M</con:value></con:property><con:property><con:name>GivenName</con:name><con:value>Gallow</con:value></con:property><con:property><con:name>LocalAA</con:name><con:value>1.1</con:value></con:property><con:property><con:name>LocalHCDescription</con:name><con:value>InternalTest1</con:value></con:property><con:property><con:name>LocalHCID</con:name><con:value>1.1</con:value></con:property><con:property><con:name>LocalPatientID</con:name><con:value>D123401</con:value></con:property><con:property><con:name>NotificationEndpoint</con:name><con:value>https://localhost:8181/Gateway/HIEM/2_0/NhinService/NotificationConsumerService/HiemNotify</con:value></con:property><con:property><con:name>NotifySubscriptionID</con:name><con:value>178591cd-0e44-4df3-922a-fe70db3872db</con:value></con:property><con:property><con:name>NotifySubscriptionManagerEndpointAddress</con:name><con:value>https://localhost:8181/Gateway/HIEM/2_0/NhinService/SubscriptionManagerService/HiemUnsubscribe</con:value></con:property><con:property><con:name>PatientCorrelationDB</con:name><con:value>patientcorrelationdb</con:value></con:property><con:property><con:name>PatientCorrelationTable</con:name><con:value>correlatedidentifiers</con:value></con:property><con:property><con:name>PurposeOfDisclosure</con:name><con:value>Mental</con:value></con:property><con:property><con:name>RemoteAA</con:name><con:value>2.2</con:value></con:property><con:property><con:name>RemoteHCDescription</con:name><con:value>InternalTest2</con:value></con:property><con:property><con:name>RemoteHCID</con:name><con:value>2.2</con:value></con:property><con:property><con:name>RemotePatientID</con:name><con:value>D123401</con:value></con:property><con:property><con:name>SSN</con:name><con:value>123456789</con:value></con:property><con:property><con:name>State</con:name><con:value>FL</con:value></con:property><con:property><con:name>StreetAddress</con:name><con:value>123 Johnson Rd</con:value></con:property><con:property><con:name>SubjectID</con:name><con:value>1111</con:value></con:property><con:property><con:name>SubscribePatientID</con:name><con:value>D123401</con:value></con:property><con:property><con:name>SubscriptionDB</con:name><con:value>subscriptionrepository</con:value></con:property><con:property><con:name>SubscriptionEndpoint</con:name><con:value>https://localhost:8181/Gateway/HIEM/2_0/NhinService/NotificationProducerService/HiemSubscription</con:value></con:property><con:property><con:name>SubscriptionManagerEndpointAddress</con:name><con:value>https://localhost:8181/Gateway/HIEM/2_0/NhinService/SubscriptionManagerService/HiemUnsubscribe</con:value></con:property><con:property><con:name>SubscriptionTable</con:name><con:value>subscription</con:value></con:property><con:property><con:name>UniquePatientId</con:name><con:value>1111^^^&amp;amp;1.1&amp;amp;ISO</con:value></con:property><con:property><con:name>UnSubscriptionID</con:name><con:value>e219ec68-d38b-4379-8c92-e8ee8a07fb7f</con:value></con:property><con:property><con:name>ZipCode</con:name><con:value>12345</con:value></con:property><con:property><con:name>GatewayPropDir</con:name><con:value/></con:property></con:properties><con:afterLoadScript>TimeZone.setDefault(TimeZone.getTimeZone("UTC"))
+</con:testSuite>
+<con:properties>
+	<con:property>
+		<con:name>AAMappingDB</con:name>
+		<con:value>assigningauthoritydb</con:value>
+	</con:property>
+	<con:property>
+		<con:name>AAMappingTable</con:name>
+		<con:value>aa_to_home_community_mapping</con:value>
+	</con:property>
+	<con:property>
+		<con:name>AsyncMsgDB</con:name>
+		<con:value>asyncmsgs</con:value>
+	</con:property>
+	<con:property>
+		<con:name>AsyncMsgTable</con:name>
+		<con:value>asyncmsgrepo</con:value>
+	</con:property>
+	<con:property>
+		<con:name>AuditRepoDB</con:name>
+		<con:value>auditrepo</con:value>
+	</con:property>
+	<con:property>
+		<con:name>AuditRepoTable</con:name>
+		<con:value>auditrepository</con:value>
+	</con:property>
+	<con:property>
+		<con:name>BirthTime</con:name>
+		<con:value>19630804</con:value>
+	</con:property>
+	<con:property>
+		<con:name>City</con:name>
+		<con:value>Melbourne</con:value>
+	</con:property>
+	<con:property>
+		<con:name>Country</con:name>
+		<con:value>US</con:value>
+	</con:property>
+	<con:property>
+		<con:name>DBHost</con:name>
+		<con:value>localhost</con:value>
+	</con:property>
+	<con:property>
+		<con:name>DBPass</con:name>
+		<con:value>nhincpass</con:value>
+	</con:property>
+	<con:property>
+		<con:name>DBPort</con:name>
+		<con:value>3306</con:value>
+	</con:property>
+	<con:property>
+		<con:name>DBUser</con:name>
+		<con:value>nhincuser</con:value>
+	</con:property>
+	<con:property>
+		<con:name>DeferredPatientDiscoveryReqMessageID</con:name>
+		<con:value>uuid:6666666666.66666.666.66</con:value>
+	</con:property>
+	<con:property>
+		<con:name>DOB</con:name>
+		<con:value>19800516</con:value>
+	</con:property>
+	<con:property>
+		<con:name>DQDocID</con:name>
+		<con:value>1.123401.11111</con:value>
+	</con:property>
+	<con:property>
+		<con:name>DQPatientID</con:name>
+		<con:value>D123401</con:value>
+	</con:property>
+	<con:property>
+		<con:name>DRDocID</con:name>
+		<con:value>1.123407.777777</con:value>
+	</con:property>
+	<con:property>
+		<con:name>DRRepoID</con:name>
+		<con:value>1</con:value>
+	</con:property>
+	<con:property>
+		<con:name>DynamicDQDocID</con:name>
+		<con:value>103.8.9284320.020.3590.75^1266324032288</con:value>
+	</con:property>
+	<con:property>
+		<con:name>ExpirationDate</con:name>
+		<con:value>20100520</con:value>
+	</con:property>
+	<con:property>
+		<con:name>FamilyName</con:name>
+		<con:value>Younger</con:value>
+	</con:property>
+	<con:property>
+		<con:name>Gender</con:name>
+		<con:value>M</con:value>
+	</con:property>
+	<con:property>
+		<con:name>GivenName</con:name>
+		<con:value>Gallow</con:value>
+	</con:property>
+	<con:property>
+		<con:name>LocalAA</con:name>
+		<con:value>1.1</con:value>
+	</con:property>
+	<con:property>
+		<con:name>LocalHCDescription</con:name>
+		<con:value>InternalTest1</con:value>
+	</con:property>
+	<con:property>
+		<con:name>LocalHCID</con:name>
+		<con:value>1.1</con:value>
+	</con:property>
+	<con:property>
+		<con:name>LocalPatientID</con:name>
+		<con:value>D123401</con:value>
+	</con:property>
+	<con:property>
+		<con:name>NotificationEndpoint</con:name>
+		<con:value>https://localhost:8181/Gateway/HIEM/2_0/NhinService/NotificationConsumerService/HiemNotify</con:value>
+	</con:property>
+	<con:property>
+		<con:name>NotifySubscriptionID</con:name>
+		<con:value>178591cd-0e44-4df3-922a-fe70db3872db</con:value>
+	</con:property>
+	<con:property>
+		<con:name>NotifySubscriptionManagerEndpointAddress</con:name>
+		<con:value>https://localhost:8181/Gateway/HIEM/2_0/NhinService/SubscriptionManagerService/HiemUnsubscribe</con:value>
+	</con:property>
+	<con:property>
+		<con:name>PatientCorrelationDB</con:name>
+		<con:value>patientcorrelationdb</con:value>
+	</con:property>
+	<con:property>
+		<con:name>PatientCorrelationTable</con:name>
+		<con:value>correlatedidentifiers</con:value>
+	</con:property>
+	<con:property>
+		<con:name>PurposeOfDisclosure</con:name>
+		<con:value>Mental</con:value>
+	</con:property>
+	<con:property>
+		<con:name>RemoteAA</con:name>
+		<con:value>2.2</con:value>
+	</con:property>
+	<con:property>
+		<con:name>RemoteHCDescription</con:name>
+		<con:value>InternalTest2</con:value>
+	</con:property>
+	<con:property>
+		<con:name>RemoteHCID</con:name>
+		<con:value>2.2</con:value>
+	</con:property>
+	<con:property>
+		<con:name>RemotePatientID</con:name>
+		<con:value>D123401</con:value>
+	</con:property>
+	<con:property>
+		<con:name>SSN</con:name>
+		<con:value>123456789</con:value>
+	</con:property>
+	<con:property>
+		<con:name>State</con:name>
+		<con:value>FL</con:value>
+	</con:property>
+	<con:property>
+		<con:name>StreetAddress</con:name>
+		<con:value>123 Johnson Rd</con:value>
+	</con:property>
+	<con:property>
+		<con:name>SubjectID</con:name>
+		<con:value>1111</con:value>
+	</con:property>
+	<con:property>
+		<con:name>SubscribePatientID</con:name>
+		<con:value>D123401</con:value>
+	</con:property>
+	<con:property>
+		<con:name>SubscriptionDB</con:name>
+		<con:value>subscriptionrepository</con:value>
+	</con:property>
+	<con:property>
+		<con:name>SubscriptionEndpoint</con:name>
+		<con:value>https://localhost:8181/Gateway/HIEM/2_0/NhinService/NotificationProducerService/HiemSubscription</con:value>
+	</con:property>
+	<con:property>
+		<con:name>SubscriptionManagerEndpointAddress</con:name>
+		<con:value>https://localhost:8181/Gateway/HIEM/2_0/NhinService/SubscriptionManagerService/HiemUnsubscribe</con:value>
+	</con:property>
+	<con:property>
+		<con:name>SubscriptionTable</con:name>
+		<con:value>subscription</con:value>
+	</con:property>
+	<con:property>
+		<con:name>UniquePatientId</con:name>
+		<con:value>1111^^^&amp;amp;1.1&amp;amp;ISO</con:value>
+	</con:property>
+	<con:property>
+		<con:name>UnSubscriptionID</con:name>
+		<con:value>e219ec68-d38b-4379-8c92-e8ee8a07fb7f</con:value>
+	</con:property>
+	<con:property>
+		<con:name>ZipCode</con:name>
+		<con:value>12345</con:value>
+	</con:property>
+	<con:property>
+		<con:name>GatewayPropDir</con:name>
+		<con:value>c:\glassfish3\glassfish\domains\domain1\config\nhin</con:value>
+	</con:property>
+</con:properties>
+<con:afterLoadScript>TimeZone.setDefault(TimeZone.getTimeZone("UTC"))
 def testRunListener = [
 afterRun: { testRunner, runContext -> },
 afterStep: { testRunner, runContext, result -> },
@@ -19363,4 +20653,8 @@ block(sql)
 } finally {
 sql.close()
 }
-}</con:afterLoadScript><con:wssContainer/><con:beforeRunScript/><con:sensitiveInformation/></con:soapui-project>
+}</con:afterLoadScript>
+<con:wssContainer/>
+<con:beforeRunScript/>
+<con:sensitiveInformation/>
+</con:soapui-project>
