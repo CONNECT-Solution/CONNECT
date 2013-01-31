@@ -28,14 +28,14 @@
 package gov.hhs.fha.nhinc.admindistribution.adapter.proxy.service;
 
 import gov.hhs.fha.nhinc.adapteradmindistribution.AdapterAdministrativeDistributionPortType;
-import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
+import gov.hhs.fha.nhinc.messaging.service.port.SOAP12ServicePortDescriptor;
 
 /**
  * @author akong
  * 
  */
-public class AdapterAdminDistributionUnsecuredServicePortDescriptor implements
-        ServicePortDescriptor<AdapterAdministrativeDistributionPortType> {
+public class AdapterAdminDistributionUnsecuredServicePortDescriptor extends
+        SOAP12ServicePortDescriptor<AdapterAdministrativeDistributionPortType> {
 
     private static final String NAMESPACE_URI = "urn:gov:hhs:fha:nhinc:adapteradmindistribution";
     private static final String WS_ADDRESSING_ACTION = NAMESPACE_URI + ":SendAlertMessage_Message";

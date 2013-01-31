@@ -1,14 +1,14 @@
 package gov.hhs.fha.nhinc.mpi.adapter.component.proxy.service;
 
 import gov.hhs.fha.nhinc.adaptercomponentmpi.AdapterComponentMpiPortType;
-import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
+import gov.hhs.fha.nhinc.messaging.service.port.SOAP12ServicePortDescriptor;
 
 /**
  *
  *
  */
-public class AdapterComponentMpiUnsecuredServicePortDescriptor implements
-        ServicePortDescriptor<AdapterComponentMpiPortType> {
+public class AdapterComponentMpiUnsecuredServicePortDescriptor extends
+        SOAP12ServicePortDescriptor<AdapterComponentMpiPortType> {
 
     private static final String WS_ADDRESSING_ACTION = "urn:gov:hhs:fha:nhinc:adaptercomponentmpi:FindCandidatesRequest";
 

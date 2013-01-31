@@ -36,7 +36,7 @@ import javax.xml.ws.soap.SOAPBinding;
 public interface ServicePortDescriptor<T> {
 
     /**
-     * @return the addressing action, or <code>null</code> if ws addressis is not applicable
+     * @return the addressing action, or <code>null</code> if ws address is not applicable
      */
     String getWSAddressingAction();
 

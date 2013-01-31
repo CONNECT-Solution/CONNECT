@@ -34,9 +34,6 @@ package gov.hhs.fha.nhinc.docsubmission.nhin.proxy.service;
  */
 public class NhinDocSubmission20ServicePortDescriptor extends AbstractServicePortDescriptor {
    
-    public String getWSDLFileName() {
-        return  "NhinXDR20.wsdl";
-    }
     
     public String getWSAddressingAction() {
         return "urn:ihe:iti:2007:ProvideAndRegisterDocumentSet-b";

@@ -27,7 +27,7 @@
 
 package gov.hhs.fha.nhinc.unsubscribe.nhin.proxy.service;
 
-import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
+import gov.hhs.fha.nhinc.messaging.service.port.SOAP12ServicePortDescriptor;
 
 import org.oasis_open.docs.wsn.bw_2.SubscriptionManager;
 
@@ -35,7 +35,7 @@ import org.oasis_open.docs.wsn.bw_2.SubscriptionManager;
  * @author akong
  * 
  */
-public class NhinHiemUnsubscribeServicePortDescriptor implements ServicePortDescriptor<SubscriptionManager> {
+public class NhinHiemUnsubscribeServicePortDescriptor extends SOAP12ServicePortDescriptor<SubscriptionManager> {
 
     private static final String WS_ADDRESSING_ACTION = "http://docs.oasis-open.org/wsn/bw-2/SubscriptionManager/UnsubscribeRequest";
 

@@ -28,13 +28,13 @@
 package gov.hhs.fha.nhinc.docsubmission.adapter.proxy.service;
 
 import gov.hhs.fha.nhinc.adapterxdr.AdapterXDRPortType;
-import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
+import gov.hhs.fha.nhinc.messaging.service.port.SOAP12ServicePortDescriptor;
 
 /**
  * @author akong
  * 
  */
-public class AdapterDocSubmissionUnsecuredServicePortDescriptor implements ServicePortDescriptor<AdapterXDRPortType> {
+public class AdapterDocSubmissionUnsecuredServicePortDescriptor extends SOAP12ServicePortDescriptor<AdapterXDRPortType> {
 
     /*
      * (non-Javadoc)

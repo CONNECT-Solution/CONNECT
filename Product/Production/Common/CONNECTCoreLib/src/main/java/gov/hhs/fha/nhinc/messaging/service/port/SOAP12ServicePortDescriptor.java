@@ -37,4 +37,5 @@ public abstract class SOAP12ServicePortDescriptor<T> implements ServicePortDescr
     public final String getSOAPBindingVersion() {
         return SOAPBinding.SOAP12HTTP_BINDING;
     }
+    
 }

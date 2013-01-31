@@ -26,6 +26,8 @@
  */
 package gov.hhs.fha.nhinc.messaging.service.port;
 
+import javax.xml.ws.soap.SOAPBinding;
+
 
 /**
  * This class is the port descriptor for TestServicePortType and it should only be used for unit testing.
@@ -52,5 +54,10 @@ public class TestServicePortDescriptor implements ServicePortDescriptor<TestServ
     @Override
     public String getWSAddressingAction() {
         return WS_ADDRESSING_ACTION;
+    }
+
+    @Override
+    public String getSOAPBindingVersion() {
+        return SOAPBinding.SOAP12HTTP_BINDING;
     }
 }

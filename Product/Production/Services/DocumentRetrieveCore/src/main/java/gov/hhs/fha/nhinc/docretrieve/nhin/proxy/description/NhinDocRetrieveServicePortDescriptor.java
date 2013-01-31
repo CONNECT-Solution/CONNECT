@@ -3,7 +3,7 @@
  */
 package gov.hhs.fha.nhinc.docretrieve.nhin.proxy.description;
 
-import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
+import gov.hhs.fha.nhinc.messaging.service.port.SOAP12ServicePortDescriptor;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import ihe.iti.xds_b._2007.RespondingGatewayRetrievePortType;
 
@@ -11,7 +11,7 @@ import ihe.iti.xds_b._2007.RespondingGatewayRetrievePortType;
  * @author achidamb
  * 
  */
-public class NhinDocRetrieveServicePortDescriptor implements ServicePortDescriptor<RespondingGatewayRetrievePortType> {
+public class NhinDocRetrieveServicePortDescriptor extends SOAP12ServicePortDescriptor<RespondingGatewayRetrievePortType> {
 
     @Override
     public Class<RespondingGatewayRetrievePortType> getPortClass() {

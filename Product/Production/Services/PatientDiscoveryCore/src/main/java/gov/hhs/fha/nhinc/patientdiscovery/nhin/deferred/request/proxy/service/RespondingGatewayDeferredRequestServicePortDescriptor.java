@@ -82,15 +82,15 @@
  */
 package gov.hhs.fha.nhinc.patientdiscovery.nhin.deferred.request.proxy.service;
 
-import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
+import gov.hhs.fha.nhinc.messaging.service.port.SOAP12ServicePortDescriptor;
 import ihe.iti.xcpd._2009.RespondingGatewayDeferredRequestPortType;
 
 /**
  * @author dharley
  * 
  */
-public class RespondingGatewayDeferredRequestServicePortDescriptor implements
-        ServicePortDescriptor<RespondingGatewayDeferredRequestPortType> {
+public class RespondingGatewayDeferredRequestServicePortDescriptor extends
+        SOAP12ServicePortDescriptor<RespondingGatewayDeferredRequestPortType> {
 
     /*
      * (non-Javadoc)

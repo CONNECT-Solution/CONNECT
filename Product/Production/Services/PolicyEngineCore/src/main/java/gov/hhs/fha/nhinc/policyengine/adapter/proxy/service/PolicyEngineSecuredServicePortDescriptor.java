@@ -28,14 +28,14 @@
 package gov.hhs.fha.nhinc.policyengine.adapter.proxy.service;
 
 import gov.hhs.fha.nhinc.adapterpolicyenginesecured.AdapterPolicyEngineSecuredPortType;
-import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
+import gov.hhs.fha.nhinc.messaging.service.port.SOAP12ServicePortDescriptor;
 
 /**
  * @author akong
  * 
  */
-public class PolicyEngineSecuredServicePortDescriptor implements
-        ServicePortDescriptor<AdapterPolicyEngineSecuredPortType> {
+public class PolicyEngineSecuredServicePortDescriptor extends
+        SOAP12ServicePortDescriptor<AdapterPolicyEngineSecuredPortType> {
 
     /*
      * (non-Javadoc)

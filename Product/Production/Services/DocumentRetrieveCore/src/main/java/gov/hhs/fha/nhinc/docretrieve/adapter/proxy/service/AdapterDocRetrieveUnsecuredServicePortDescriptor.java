@@ -4,14 +4,14 @@
 package gov.hhs.fha.nhinc.docretrieve.adapter.proxy.service;
 
 import gov.hhs.fha.nhinc.adapterdocretrieve.AdapterDocRetrievePortType;
-import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
+import gov.hhs.fha.nhinc.messaging.service.port.SOAP12ServicePortDescriptor;
 
 /**
  * @author mweaver
  * 
  */
-public class AdapterDocRetrieveUnsecuredServicePortDescriptor implements
-        ServicePortDescriptor<AdapterDocRetrievePortType> {
+public class AdapterDocRetrieveUnsecuredServicePortDescriptor extends
+        SOAP12ServicePortDescriptor<AdapterDocRetrievePortType> {
 
     private static final String NAMESPACE_URI = "urn:gov:hhs:fha:nhinc:adapterdocretrieve";
     private static final String WS_ADDRESSING_ACTION = NAMESPACE_URI + ":"

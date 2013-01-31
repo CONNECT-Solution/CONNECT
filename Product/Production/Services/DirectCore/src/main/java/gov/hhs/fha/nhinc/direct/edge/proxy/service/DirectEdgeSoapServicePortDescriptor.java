@@ -27,14 +27,14 @@
 
 package gov.hhs.fha.nhinc.direct.edge.proxy.service;
 
-import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
+import gov.hhs.fha.nhinc.messaging.service.port.SOAP12ServicePortDescriptor;
 import ihe.iti.xds_b._2007.DocumentRepositoryPortType;
 
 /**
  * @author akong
  * 
  */
-public class DirectEdgeSoapServicePortDescriptor implements ServicePortDescriptor<DocumentRepositoryPortType> {
+public class DirectEdgeSoapServicePortDescriptor extends SOAP12ServicePortDescriptor<DocumentRepositoryPortType> {
 
     /*
      * (non-Javadoc)

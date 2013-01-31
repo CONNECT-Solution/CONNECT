@@ -27,15 +27,15 @@
 
 package gov.hhs.fha.nhinc.docsubmission.nhin.deferred.request.proxy20.service;
 
-import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
+import gov.hhs.fha.nhinc.messaging.service.port.SOAP12ServicePortDescriptor;
 import ihe.iti.xdr._2007.XDRDeferredRequest20PortType;
 
 /**
  * @author akong
  * 
  */
-public class NhinDocSubmissionDeferredRequestServicePortDescriptor implements
-        ServicePortDescriptor<XDRDeferredRequest20PortType> {
+public class NhinDocSubmissionDeferredRequestServicePortDescriptor extends
+        SOAP12ServicePortDescriptor<XDRDeferredRequest20PortType> {
 
     /*
      * (non-Javadoc)

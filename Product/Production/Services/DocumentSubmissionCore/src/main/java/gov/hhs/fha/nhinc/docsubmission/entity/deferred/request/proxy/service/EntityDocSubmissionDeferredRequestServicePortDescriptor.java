@@ -26,15 +26,15 @@
  */
 package gov.hhs.fha.nhinc.docsubmission.entity.deferred.request.proxy.service;
 
-import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
+import gov.hhs.fha.nhinc.messaging.service.port.SOAP12ServicePortDescriptor;
 import gov.hhs.fha.nhinc.nhincentityxdr.async.request.EntityXDRAsyncRequestPortType;
 
 /**
  * @author zmelnick
  * 
  */
-public class EntityDocSubmissionDeferredRequestServicePortDescriptor implements
-        ServicePortDescriptor<EntityXDRAsyncRequestPortType> {
+public class EntityDocSubmissionDeferredRequestServicePortDescriptor extends
+        SOAP12ServicePortDescriptor<EntityXDRAsyncRequestPortType> {
 
     private static final String NAMESPACE_URI = "urn:gov:hhs:fha:nhinc:nhincentityxdr:async:request";
     private static final String WS_ADDRESSING_ACTION = NAMESPACE_URI + ":"

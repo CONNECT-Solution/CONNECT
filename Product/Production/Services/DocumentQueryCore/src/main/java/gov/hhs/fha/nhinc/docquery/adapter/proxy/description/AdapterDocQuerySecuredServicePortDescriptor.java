@@ -4,14 +4,14 @@
 package gov.hhs.fha.nhinc.docquery.adapter.proxy.description;
 
 import gov.hhs.fha.nhinc.adapterdocquerysecured.AdapterDocQuerySecuredPortType;
-import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
+import gov.hhs.fha.nhinc.messaging.service.port.SOAP12ServicePortDescriptor;
 
 /**
  * @author mweaver
  * 
  */
-public class AdapterDocQuerySecuredServicePortDescriptor implements
-        ServicePortDescriptor<AdapterDocQuerySecuredPortType> {
+public class AdapterDocQuerySecuredServicePortDescriptor extends
+        SOAP12ServicePortDescriptor<AdapterDocQuerySecuredPortType> {
     private static final String WS_ADDRESSING_ACTION = "urn:gov:hhs:fha:nhinc:"
             + "adapterdocquerysecured:AdapterDocQueryRequestSecuredMessage";
 

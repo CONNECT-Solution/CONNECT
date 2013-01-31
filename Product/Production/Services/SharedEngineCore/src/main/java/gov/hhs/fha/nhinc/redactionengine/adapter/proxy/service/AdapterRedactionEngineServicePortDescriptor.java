@@ -28,14 +28,14 @@
 package gov.hhs.fha.nhinc.redactionengine.adapter.proxy.service;
 
 import gov.hhs.fha.nhinc.adaptercomponentredaction.AdapterComponentRedactionEnginePortType;
-import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
+import gov.hhs.fha.nhinc.messaging.service.port.SOAP12ServicePortDescriptor;
 
 /**
  * @author akong
  * 
  */
-public abstract class AdapterRedactionEngineServicePortDescriptor implements
-        ServicePortDescriptor<AdapterComponentRedactionEnginePortType> {
+public abstract class AdapterRedactionEngineServicePortDescriptor extends
+        SOAP12ServicePortDescriptor<AdapterComponentRedactionEnginePortType> {
 
     /*
      * (non-Javadoc)

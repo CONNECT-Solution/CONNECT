@@ -27,15 +27,15 @@
 
 package gov.hhs.fha.nhinc.docrepository.adapter.proxy.service;
 
-import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
+import gov.hhs.fha.nhinc.messaging.service.port.SOAP12ServicePortDescriptor;
 import ihe.iti.xds_b._2007.DocumentRepositoryPortType;
 
 /**
  * @author akong
  * 
  */
-public class AdapterComponentDocRepositoryServicePortDescriptor implements
-        ServicePortDescriptor<DocumentRepositoryPortType> {
+public class AdapterComponentDocRepositoryServicePortDescriptor extends
+        SOAP12ServicePortDescriptor<DocumentRepositoryPortType> {
     private static final String WS_ADDRESSING_ACTION = "urn:ihe:iti:2007:RetrieveDocumentSet";
 
     /*

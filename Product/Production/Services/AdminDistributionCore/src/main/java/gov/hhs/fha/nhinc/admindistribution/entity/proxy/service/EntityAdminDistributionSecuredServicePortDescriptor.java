@@ -28,14 +28,14 @@
 package gov.hhs.fha.nhinc.admindistribution.entity.proxy.service;
 
 import gov.hhs.fha.nhinc.entityadmindistribution.AdministrativeDistributionSecuredPortType;
-import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
+import gov.hhs.fha.nhinc.messaging.service.port.SOAP12ServicePortDescriptor;
 
 /**
  * @author akong
  * 
  */
-public abstract class EntityAdminDistributionSecuredServicePortDescriptor implements
-        ServicePortDescriptor<AdministrativeDistributionSecuredPortType> {
+public abstract class EntityAdminDistributionSecuredServicePortDescriptor extends
+        SOAP12ServicePortDescriptor<AdministrativeDistributionSecuredPortType> {
     private static final String WS_ADDRESSING_ACTION = "urn:gov:hhs:fha:nhinc:entityadmindistribution:SendAlertMessage_Message";
 
     /*

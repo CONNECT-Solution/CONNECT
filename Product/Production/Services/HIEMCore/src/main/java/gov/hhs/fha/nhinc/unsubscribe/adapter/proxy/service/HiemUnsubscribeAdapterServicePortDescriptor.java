@@ -28,14 +28,14 @@
 package gov.hhs.fha.nhinc.unsubscribe.adapter.proxy.service;
 
 import gov.hhs.fha.nhinc.adaptersubscriptionmanagement.AdapterSubscriptionManagerPortType;
-import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
+import gov.hhs.fha.nhinc.messaging.service.port.SOAP12ServicePortDescriptor;
 
 /**
  * @author akong
  * 
  */
-public class HiemUnsubscribeAdapterServicePortDescriptor implements
-        ServicePortDescriptor<AdapterSubscriptionManagerPortType> {
+public class HiemUnsubscribeAdapterServicePortDescriptor extends
+        SOAP12ServicePortDescriptor<AdapterSubscriptionManagerPortType> {
 
     private static final String WS_ADDRESSING_ACTION = null;
 

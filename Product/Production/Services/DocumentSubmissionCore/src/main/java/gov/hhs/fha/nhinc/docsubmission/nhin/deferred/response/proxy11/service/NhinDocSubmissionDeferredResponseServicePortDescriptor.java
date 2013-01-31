@@ -27,15 +27,15 @@
 
 package gov.hhs.fha.nhinc.docsubmission.nhin.deferred.response.proxy11.service;
 
-import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
+import gov.hhs.fha.nhinc.messaging.service.port.SOAP12ServicePortDescriptor;
 import ihe.iti.xdr._2007.XDRDeferredResponsePortType;
 
 /**
  * @author akong
  * 
  */
-public class NhinDocSubmissionDeferredResponseServicePortDescriptor implements
-        ServicePortDescriptor<XDRDeferredResponsePortType> {
+public class NhinDocSubmissionDeferredResponseServicePortDescriptor extends
+        SOAP12ServicePortDescriptor<XDRDeferredResponsePortType> {
 
     private static final String WS_ADDRESSING_ACTION_G0 = "urn:ihe:iti:xdr:2007:Deferred:XDRResponseInputMessage";
 

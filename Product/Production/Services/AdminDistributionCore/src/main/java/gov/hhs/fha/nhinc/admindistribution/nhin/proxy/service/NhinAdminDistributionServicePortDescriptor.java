@@ -27,15 +27,15 @@
 
 package gov.hhs.fha.nhinc.admindistribution.nhin.proxy.service;
 
-import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
+import gov.hhs.fha.nhinc.messaging.service.port.SOAP12ServicePortDescriptor;
 import gov.hhs.fha.nhinc.nhinadmindistribution.RespondingGatewayAdministrativeDistributionPortType;
 
 /**
  * @author akong
  * 
  */
-public abstract class NhinAdminDistributionServicePortDescriptor implements
-        ServicePortDescriptor<RespondingGatewayAdministrativeDistributionPortType> {
+public abstract class NhinAdminDistributionServicePortDescriptor extends
+        SOAP12ServicePortDescriptor<RespondingGatewayAdministrativeDistributionPortType> {
 
     private static final String WS_ADDRESSING_ACTION = "urn:oasis:names:tc:emergency:EDXL:DE:1.0:SendAlertMessage";
 

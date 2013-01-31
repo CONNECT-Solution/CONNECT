@@ -83,14 +83,14 @@
 package gov.hhs.fha.nhinc.patientdiscovery.entity.proxy.service;
 
 import gov.hhs.fha.nhinc.entitypatientdiscovery.EntityPatientDiscoveryPortType;
-import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
+import gov.hhs.fha.nhinc.messaging.service.port.SOAP12ServicePortDescriptor;
 
 /**
  * @author dharley
  * 
  */
-public class EntityPatientDiscoveryServicePortDescriptor implements
-        ServicePortDescriptor<EntityPatientDiscoveryPortType> {
+public class EntityPatientDiscoveryServicePortDescriptor extends
+        SOAP12ServicePortDescriptor<EntityPatientDiscoveryPortType> {
 
     /*
      * (non-Javadoc)

@@ -28,14 +28,14 @@
 package gov.hhs.fha.nhinc.notify.adapter.proxy.service;
 
 import gov.hhs.fha.nhinc.adapternotificationconsumersecured.AdapterNotificationConsumerPortSecureType;
-import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
+import gov.hhs.fha.nhinc.messaging.service.port.SOAP12ServicePortDescriptor;
 
 /**
  * @author akong
  * 
  */
-public class HiemNotifyAdapterSecuredServicePortDescriptor implements
-        ServicePortDescriptor<AdapterNotificationConsumerPortSecureType> {
+public class HiemNotifyAdapterSecuredServicePortDescriptor extends
+        SOAP12ServicePortDescriptor<AdapterNotificationConsumerPortSecureType> {
     private static final String WS_ADDRESSING_ACTION = "urn:Notify";
 
     private String wsAddressingAction = WS_ADDRESSING_ACTION;

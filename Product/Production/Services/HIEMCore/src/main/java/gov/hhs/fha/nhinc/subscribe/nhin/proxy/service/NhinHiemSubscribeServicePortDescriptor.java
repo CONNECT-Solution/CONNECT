@@ -27,7 +27,7 @@
 
 package gov.hhs.fha.nhinc.subscribe.nhin.proxy.service;
 
-import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
+import gov.hhs.fha.nhinc.messaging.service.port.SOAP12ServicePortDescriptor;
 
 import org.oasis_open.docs.wsn.bw_2.NotificationProducer;
 
@@ -35,7 +35,7 @@ import org.oasis_open.docs.wsn.bw_2.NotificationProducer;
  * @author akong
  * 
  */
-public class NhinHiemSubscribeServicePortDescriptor implements ServicePortDescriptor<NotificationProducer> {
+public class NhinHiemSubscribeServicePortDescriptor extends SOAP12ServicePortDescriptor<NotificationProducer> {
     private static final String WS_ADDRESSING_ACTION = "http://docs.oasis-open.org/wsn/bw-2/NotificationProducer/SubscribeRequest";
 
     /*

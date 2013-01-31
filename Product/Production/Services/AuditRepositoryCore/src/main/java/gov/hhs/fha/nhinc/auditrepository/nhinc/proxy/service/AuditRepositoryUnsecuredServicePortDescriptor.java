@@ -27,6 +27,7 @@
 
 package gov.hhs.fha.nhinc.auditrepository.nhinc.proxy.service;
 
+import gov.hhs.fha.nhinc.messaging.service.port.SOAP12ServicePortDescriptor;
 import gov.hhs.fha.nhinc.nhinccomponentauditrepository.AuditRepositoryManagerPortType;
 
 /**
@@ -34,7 +35,7 @@ import gov.hhs.fha.nhinc.nhinccomponentauditrepository.AuditRepositoryManagerPor
  * 
  */
 public class AuditRepositoryUnsecuredServicePortDescriptor extends
-        AbstractServicePortDescriptor<AuditRepositoryManagerPortType> {
+        SOAP12ServicePortDescriptor<AuditRepositoryManagerPortType> {
 
     /*
      * (non-Javadoc)

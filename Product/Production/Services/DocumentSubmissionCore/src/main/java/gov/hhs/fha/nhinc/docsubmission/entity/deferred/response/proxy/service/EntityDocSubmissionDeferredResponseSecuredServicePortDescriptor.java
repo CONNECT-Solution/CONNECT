@@ -27,15 +27,15 @@
 
 package gov.hhs.fha.nhinc.docsubmission.entity.deferred.response.proxy.service;
 
-import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
+import gov.hhs.fha.nhinc.messaging.service.port.SOAP12ServicePortDescriptor;
 import gov.hhs.fha.nhinc.nhincentityxdrsecured.async.response.EntityXDRSecuredAsyncResponsePortType;
 
 /**
  * @author akong
  * 
  */
-public class EntityDocSubmissionDeferredResponseSecuredServicePortDescriptor implements
-        ServicePortDescriptor<EntityXDRSecuredAsyncResponsePortType> {
+public class EntityDocSubmissionDeferredResponseSecuredServicePortDescriptor extends
+        SOAP12ServicePortDescriptor<EntityXDRSecuredAsyncResponsePortType> {
 
     /*
      * (non-Javadoc)

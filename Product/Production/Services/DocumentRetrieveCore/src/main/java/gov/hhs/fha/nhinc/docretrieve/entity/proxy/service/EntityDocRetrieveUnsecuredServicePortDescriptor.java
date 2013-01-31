@@ -4,14 +4,14 @@
 package gov.hhs.fha.nhinc.docretrieve.entity.proxy.service;
 
 import gov.hhs.fha.nhinc.entitydocretrieve.EntityDocRetrievePortType;
-import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
+import gov.hhs.fha.nhinc.messaging.service.port.SOAP12ServicePortDescriptor;
 
 /**
  * @author mweaver
  * 
  */
-public class EntityDocRetrieveUnsecuredServicePortDescriptor implements
-        ServicePortDescriptor<EntityDocRetrievePortType> {
+public class EntityDocRetrieveUnsecuredServicePortDescriptor extends
+        SOAP12ServicePortDescriptor<EntityDocRetrievePortType> {
 
     private static final String NAMESPACE_URI = "urn:gov:hhs:fha:nhinc:entitydocretrieve";
     private static final String WS_ADDRESSING_ACTION = NAMESPACE_URI + ":RespondingGateway_CrossGatewayRetrieve";

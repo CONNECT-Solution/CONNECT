@@ -28,14 +28,14 @@
 package gov.hhs.fha.nhinc.docsubmission.adapter.deferred.response.proxy.service;
 
 import gov.hhs.fha.nhinc.adapterxdrresponsesecured.AdapterXDRResponseSecuredPortType;
-import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
+import gov.hhs.fha.nhinc.messaging.service.port.SOAP12ServicePortDescriptor;
 
 /**
  * @author akong
  * 
  */
-public class AdapterDocSubmissionDeferredResponseSecuredServicePortDescriptor implements
-        ServicePortDescriptor<AdapterXDRResponseSecuredPortType> {
+public class AdapterDocSubmissionDeferredResponseSecuredServicePortDescriptor extends
+        SOAP12ServicePortDescriptor<AdapterXDRResponseSecuredPortType> {
 
     /*
      * (non-Javadoc)

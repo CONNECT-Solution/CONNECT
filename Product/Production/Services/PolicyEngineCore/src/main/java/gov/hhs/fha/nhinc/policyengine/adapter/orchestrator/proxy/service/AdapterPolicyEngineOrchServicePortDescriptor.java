@@ -28,14 +28,14 @@
 package gov.hhs.fha.nhinc.policyengine.adapter.orchestrator.proxy.service;
 
 import gov.hhs.fha.nhinc.adapterpolicyengineorchestrator.AdapterPolicyEngineOrchestratorPortType;
-import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
+import gov.hhs.fha.nhinc.messaging.service.port.SOAP12ServicePortDescriptor;
 
 /**
  * @author akong
  * 
  */
-public class AdapterPolicyEngineOrchServicePortDescriptor implements
-        ServicePortDescriptor<AdapterPolicyEngineOrchestratorPortType> {
+public class AdapterPolicyEngineOrchServicePortDescriptor extends
+        SOAP12ServicePortDescriptor<AdapterPolicyEngineOrchestratorPortType> {
     private static final String WS_ADDRESSING_ACTION = "urn:gov:hhs:fha:nhinc:adapterpolicyengineorchestrator:CheckPolicyRequest";
 
     /*

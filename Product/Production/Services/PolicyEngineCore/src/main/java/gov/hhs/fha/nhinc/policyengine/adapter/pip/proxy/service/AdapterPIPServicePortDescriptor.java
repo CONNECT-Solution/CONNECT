@@ -28,13 +28,13 @@
 package gov.hhs.fha.nhinc.policyengine.adapter.pip.proxy.service;
 
 import gov.hhs.fha.nhinc.adapterpip.AdapterPIPPortType;
-import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
+import gov.hhs.fha.nhinc.messaging.service.port.SOAP12ServicePortDescriptor;
 
 /**
  * @author akong
  * 
  */
-public abstract class AdapterPIPServicePortDescriptor implements ServicePortDescriptor<AdapterPIPPortType> {
+public abstract class AdapterPIPServicePortDescriptor extends SOAP12ServicePortDescriptor<AdapterPIPPortType> {
 
     /*
      * (non-Javadoc)

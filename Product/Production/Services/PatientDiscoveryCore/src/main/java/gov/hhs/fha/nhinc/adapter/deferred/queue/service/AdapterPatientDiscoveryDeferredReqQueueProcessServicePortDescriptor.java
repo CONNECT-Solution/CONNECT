@@ -83,14 +83,14 @@
 package gov.hhs.fha.nhinc.adapter.deferred.queue.service;
 
 import gov.hhs.fha.nhinc.adapterpatientdiscoveryreqqueueprocess.AdapterPatientDiscoveryDeferredReqQueueProcessPortType;
-import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
+import gov.hhs.fha.nhinc.messaging.service.port.SOAP12ServicePortDescriptor;
 
 /**
  * @author dharley
  * 
  */
-public class AdapterPatientDiscoveryDeferredReqQueueProcessServicePortDescriptor implements
-        ServicePortDescriptor<AdapterPatientDiscoveryDeferredReqQueueProcessPortType> {
+public class AdapterPatientDiscoveryDeferredReqQueueProcessServicePortDescriptor extends
+        SOAP12ServicePortDescriptor<AdapterPatientDiscoveryDeferredReqQueueProcessPortType> {
 
     /*
      * (non-Javadoc)

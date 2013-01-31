@@ -27,14 +27,14 @@
 package gov.hhs.fha.nhinc.docsubmission.adapter.deferred.request.proxy.service;
 
 import gov.hhs.fha.nhinc.adapterxdrrequest.AdapterXDRRequestPortType;
-import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
+import gov.hhs.fha.nhinc.messaging.service.port.SOAP12ServicePortDescriptor;
 
 /**
  * @author zmelnick
  * 
  */
-public class AdapterDocSubmissionDeferredRequestUnsecuredServicePortDescriptor implements
-        ServicePortDescriptor<AdapterXDRRequestPortType> {
+public class AdapterDocSubmissionDeferredRequestUnsecuredServicePortDescriptor extends
+        SOAP12ServicePortDescriptor<AdapterXDRRequestPortType> {
 
     private static final String WS_ADDRESSING_ACTION = "urn:gov:hhs:fha:nhinc:adapterxdrrequest:XDRRequestInputMessage";
 

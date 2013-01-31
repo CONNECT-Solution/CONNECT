@@ -28,14 +28,14 @@
 package gov.hhs.fha.nhinc.docsubmission.adapter.component.proxy.service;
 
 import gov.hhs.fha.nhinc.adaptercomponentxdr.AdapterComponentXDRPortType;
-import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
+import gov.hhs.fha.nhinc.messaging.service.port.SOAP12ServicePortDescriptor;
 
 /**
  * @author akong
  * 
  */
-public class AdapterComponentDocSubmissionServicePortDescriptor implements
-        ServicePortDescriptor<AdapterComponentXDRPortType> {
+public class AdapterComponentDocSubmissionServicePortDescriptor extends
+        SOAP12ServicePortDescriptor<AdapterComponentXDRPortType> {
     private static final String WS_ADDRESSING_ACTION = "urn:gov:hhs:fha:nhinc:adaptercomponentxdr:ProvideAndRegisterDocumentSet-b";
 
     /*

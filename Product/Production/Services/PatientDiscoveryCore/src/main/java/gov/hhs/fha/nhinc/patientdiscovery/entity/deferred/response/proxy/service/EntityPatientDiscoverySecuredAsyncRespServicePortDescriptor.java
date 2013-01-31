@@ -83,14 +83,14 @@
 package gov.hhs.fha.nhinc.patientdiscovery.entity.deferred.response.proxy.service;
 
 import gov.hhs.fha.nhinc.entitypatientdiscoverysecuredasyncresp.EntityPatientDiscoverySecuredAsyncRespPortType;
-import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
+import gov.hhs.fha.nhinc.messaging.service.port.SOAP12ServicePortDescriptor;
 
 /**
  * @author dharley
  * 
  */
-public class EntityPatientDiscoverySecuredAsyncRespServicePortDescriptor implements
-        ServicePortDescriptor<EntityPatientDiscoverySecuredAsyncRespPortType> {
+public class EntityPatientDiscoverySecuredAsyncRespServicePortDescriptor extends
+        SOAP12ServicePortDescriptor<EntityPatientDiscoverySecuredAsyncRespPortType> {
 
     /*
      * (non-Javadoc)
