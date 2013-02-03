@@ -26,19 +26,19 @@
  */
 package gov.hhs.fha.nhinc.connectmgr.uddi.proxy;
 
-import org.apache.log4j.Logger;
+import gov.hhs.fha.nhinc.messaging.client.CONNECTCXFClientUnsecuredNoMTOM;
+import gov.hhs.fha.nhinc.messaging.client.CONNECTClient;
+import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
+import gov.hhs.fha.nhinc.nhin_uddi_api_v3.UDDIInquiryPortType;
 
+import org.apache.log4j.Logger;
 import org.uddi.api_v3.BusinessDetail;
 import org.uddi.api_v3.BusinessList;
 import org.uddi.api_v3.FindBusiness;
 import org.uddi.api_v3.GetBusinessDetail;
 
-import gov.hhs.fha.nhinc.messaging.client.CONNECTClient;
-import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
-import gov.hhs.fha.nhinc.nhin_uddi_api_v3.UDDIInquiryPortType;
-
 /**
- *
+ * 
  * @author richard.ettema
  */
 public class UDDIFindBusinessProxyHPImpl extends UDDIFindBusinessProxyBase {
@@ -46,7 +46,7 @@ public class UDDIFindBusinessProxyHPImpl extends UDDIFindBusinessProxyBase {
     private static final Logger LOG = Logger.getLogger(UDDIFindBusinessProxyHPImpl.class);
 
     /**
-     *
+     * 
      * @return list of businesses from UDDI
      * @throws UDDIFindBusinessException
      */
@@ -62,7 +62,8 @@ public class UDDIFindBusinessProxyHPImpl extends UDDIFindBusinessProxyBase {
             FindBusiness oSearchParams = new FindBusiness();
             oSearchParams.setMaxRows(100);
             ServicePortDescriptor<UDDIInquiryPortType> portDescriptor = new UDDIFindBusinessProxyServicePortDescriptor();
-            CONNECTClient<UDDIInquiryPortType> client = getCONNECTClientUnsecured(portDescriptor, uddiInquiryUrl, null);
+            CONNECTClient<UDDIInquiryPortType> client = new CONNECTCXFClientUnsecuredNoMTOM<UDDIInquiryPortType>(
+                    portDescriptor, uddiInquiryUrl, null);
             oBusinessList = (BusinessList) client.invokePort(UDDIInquiryPortType.class, "findBusiness", oSearchParams);
         } catch (Exception e) {
             String sErrorMessage = "Failed to call 'find_business' web service on the NHIN UDDI server.  Error: "
