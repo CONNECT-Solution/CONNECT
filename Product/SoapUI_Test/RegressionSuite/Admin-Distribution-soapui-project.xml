@@ -38,7 +38,7 @@
   <con:testSuite name="Admin-Distribution">
     <con:settings/>
     <con:runType>SEQUENTIAL</con:runType>
-    <con:testCase failOnError="true" failTestCaseOnErrors="true" id="9487dbd1-53d3-4293-a664-c1bbced799c2" keepSession="false" maxResults="0" name="EntityRequest with a Binary doc" searchProperties="true">
+    <con:testCase failOnError="true" failTestCaseOnErrors="true" id="9487dbd1-53d3-4293-a664-c1bbced799c2" keepSession="false" maxResults="0" name="EntityRequest with a Binary doc" searchProperties="true" disabled="true">
       <con:settings/>
       <con:testStep name="clear audit table" type="groovy"><con:settings/><con:config><script>context.withSql('AuditDB') { sql -> 
   sql.execute('delete from ' + context.findProperty('AuditTable'))
@@ -436,7 +436,7 @@ assert (count == 4);</script></con:config></con:testStep>
       </con:properties>
       <con:reportParameters/>
     <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);</con:tearDownScript></con:testCase>
-    <con:testCase failOnError="true" failTestCaseOnErrors="true" id="febe5a83-a7e4-4b4e-9a43-cb75355caa50" keepSession="false" maxResults="0" name="EntityRequest with XML data" searchProperties="true">
+    <con:testCase failOnError="true" failTestCaseOnErrors="true" id="febe5a83-a7e4-4b4e-9a43-cb75355caa50" keepSession="false" maxResults="0" name="EntityRequest with XML data" searchProperties="true" disabled="true">
       <con:settings/>
       <con:testStep name="clear audit table" type="groovy"><con:settings/><con:config><script>context.withSql('AuditDB') { sql -> 
   sql.execute('delete from ' + context.findProperty('AuditTable'))
@@ -833,7 +833,7 @@ assert (count == 4);</script></con:config></con:testStep><con:setupScript>nhinc.
       </con:properties>
       <con:reportParameters/>
     <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);</con:tearDownScript></con:testCase>
-    <con:testCase failOnError="true" failTestCaseOnErrors="true" id="4064a914-3d3e-43a9-9ee9-4da23586b0e9" keepSession="false" maxResults="0" name="EntityRequest with multiple documents ( XML and Binary )" searchProperties="true">
+    <con:testCase failOnError="true" failTestCaseOnErrors="true" id="4064a914-3d3e-43a9-9ee9-4da23586b0e9" keepSession="false" maxResults="0" name="EntityRequest with multiple documents ( XML and Binary )" searchProperties="true" disabled="true">
       <con:settings/>
       <con:testStep name="clear audit table" type="groovy"><con:settings/><con:config><script>context.withSql('AuditDB') { sql -> 
   sql.execute('delete from ' + context.findProperty('AuditTable'))
@@ -1241,7 +1241,7 @@ assert (count == 4);</script></con:config></con:testStep><con:setupScript>nhinc.
       </con:properties>
       <con:reportParameters/>
     <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);</con:tearDownScript></con:testCase>
-    <con:testCase failOnError="true" failTestCaseOnErrors="true" id="b46af245-7eb5-4d2d-8184-9dfd4a0f9ba1" keepSession="false" maxResults="0" name="EntityRequest with multiple documents ( multiple contentObjects )" searchProperties="true">
+    <con:testCase failOnError="true" failTestCaseOnErrors="true" id="b46af245-7eb5-4d2d-8184-9dfd4a0f9ba1" keepSession="false" maxResults="0" name="EntityRequest with multiple documents ( multiple contentObjects )" searchProperties="true" disabled="true">
       <con:settings/>
       <con:testStep name="clear audit table" type="groovy"><con:settings/><con:config><script>context.withSql('AuditDB') { sql -> 
   sql.execute('delete from ' + context.findProperty('AuditTable'))
@@ -1678,7 +1678,7 @@ assert (count == 4);</script></con:config></con:testStep><con:setupScript>nhinc.
       </con:properties>
       <con:reportParameters/>
     <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);</con:tearDownScript></con:testCase>
-    <con:testCase failOnError="true" failTestCaseOnErrors="true" id="bd07e541-6730-45b7-9800-7e149ac7e486" keepSession="false" maxResults="0" name="EntityRequest without a ContentObject tag" searchProperties="true">
+    <con:testCase failOnError="true" failTestCaseOnErrors="true" id="bd07e541-6730-45b7-9800-7e149ac7e486" keepSession="false" maxResults="0" name="EntityRequest without a ContentObject tag" searchProperties="true" disabled="true">
       <con:settings/>
       <con:testStep name="clear audit table" type="groovy"><con:settings/><con:config><script>context.withSql('AuditDB') { sql -> 
   sql.execute('delete from ' + context.findProperty('AuditTable'))
@@ -2035,7 +2035,7 @@ assert (count == 4);</script></con:config></con:testStep><con:setupScript>nhinc.
       </con:properties>
       <con:reportParameters/>
     <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);</con:tearDownScript></con:testCase>
-    <con:testCase failOnError="true" failTestCaseOnErrors="true" id="360faaee-f3c0-43cb-b37c-c88cdaccd791" keepSession="false" maxResults="0" name="EntityRequest with an empty ContentObject" searchProperties="true">
+    <con:testCase failOnError="true" failTestCaseOnErrors="true" id="360faaee-f3c0-43cb-b37c-c88cdaccd791" keepSession="false" maxResults="0" name="EntityRequest with an empty ContentObject" searchProperties="true" disabled="true">
       <con:settings/>
       <con:testStep name="clear audit table" type="groovy"><con:settings/><con:config><script>context.withSql('AuditDB') { sql -> 
   sql.execute('delete from ' + context.findProperty('AuditTable'))
@@ -2396,7 +2396,7 @@ assert (count == 4);</script></con:config></con:testStep><con:setupScript>nhinc.
       </con:properties>
       <con:reportParameters/>
     <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);</con:tearDownScript></con:testCase>
-    <con:testCase failOnError="true" failTestCaseOnErrors="true" id="b2ddcf67-2269-4ef4-ab64-e016d5f5b690" keepSession="false" maxResults="0" name="EntityRequest sent to multiple targets" searchProperties="true">
+    <con:testCase failOnError="true" failTestCaseOnErrors="true" id="b2ddcf67-2269-4ef4-ab64-e016d5f5b690" keepSession="false" maxResults="0" name="EntityRequest sent to multiple targets" searchProperties="true" disabled="true">
       <con:settings/>
       <con:testStep name="Copy uddiConnectionInfo" type="groovy">
         <con:settings/>
@@ -2808,7 +2808,7 @@ assert (count == 7);</script></con:config></con:testStep><con:setupScript>nhinc.
       </con:properties>
       <con:reportParameters/>
     <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);</con:tearDownScript></con:testCase>
-    <con:testCase failOnError="true" failTestCaseOnErrors="true" id="237d62e0-94dc-48ef-b47e-6e03c8fbfd7b" keepSession="false" maxResults="0" name="EntityRequest - Policy engine deny" searchProperties="true">
+    <con:testCase failOnError="true" failTestCaseOnErrors="true" id="237d62e0-94dc-48ef-b47e-6e03c8fbfd7b" keepSession="false" maxResults="0" name="EntityRequest - Policy engine deny" searchProperties="true" disabled="true">
       <con:settings/>
       <con:testStep name="clear audit table" type="groovy"><con:settings/><con:config><script>context.withSql('AuditDB') { sql -> 
   sql.execute('delete from ' + context.findProperty('AuditTable'))
@@ -3217,7 +3217,7 @@ log.debug("access initial request message");
 def requestTestStep = context.getTestRunner().testCase.getTestStepByName("send request");
 def sourceRequestHolder = groovyUtils.getXmlHolder(requestTestStep.getProperty("Request").value);
 
-sourceRequestHolder.namespaces['ec'] = 'urn:gov:hhs:fha:nhinc:common:nhinccommonproxy';
+sourceRequestHolder.namespaces['ec'] = 'urn:gov:hhs:fha:nhinc:common:nhinccommonentity';
 sourceRequestHolder.namespaces['nc'] = 'urn:gov:hhs:fha:nhinc:common:nhinccommon';
 
 def AssertionCount = sourceRequestHolder["count(" + AssertionXpath + ")"];
@@ -3305,7 +3305,7 @@ log.debug("access initial request message");
 def requestTestStep = context.getTestRunner().testCase.getTestStepByName("send request");
 def sourceRequestHolder = groovyUtils.getXmlHolder(requestTestStep.getProperty("Request").value);
 
-sourceRequestHolder.namespaces['ec'] = 'urn:gov:hhs:fha:nhinc:common:nhinccommonproxy';
+sourceRequestHolder.namespaces['ec'] = 'urn:gov:hhs:fha:nhinc:common:nhinccommonentity';
 sourceRequestHolder.namespaces['nc'] = 'urn:gov:hhs:fha:nhinc:common:nhinccommon';
 
 def AssertionCount = sourceRequestHolder["count(" + AssertionXpath + ")"];
@@ -4196,7 +4196,7 @@ log.debug("access initial request message");
 def requestTestStep = context.getTestRunner().testCase.getTestStepByName("send request");
 def sourceRequestHolder = groovyUtils.getXmlHolder(requestTestStep.getProperty("Request").value);
 
-sourceRequestHolder.namespaces['ec'] = 'urn:gov:hhs:fha:nhinc:common:nhinccommonproxy';
+sourceRequestHolder.namespaces['ec'] = 'urn:gov:hhs:fha:nhinc:common:nhinccommonentity';
 sourceRequestHolder.namespaces['nc'] = 'urn:gov:hhs:fha:nhinc:common:nhinccommon';
 
 def AssertionCount = sourceRequestHolder["count(" + AssertionXpath + ")"];
@@ -4242,7 +4242,7 @@ log.debug("access initial request message");
 def requestTestStep = context.getTestRunner().testCase.getTestStepByName("send request");
 def sourceRequestHolder = groovyUtils.getXmlHolder(requestTestStep.getProperty("Request").value);
 
-sourceRequestHolder.namespaces['ec'] = 'urn:gov:hhs:fha:nhinc:common:nhinccommonproxy';
+sourceRequestHolder.namespaces['ec'] = 'urn:gov:hhs:fha:nhinc:common:nhinccommonentity';
 sourceRequestHolder.namespaces['nc'] = 'urn:gov:hhs:fha:nhinc:common:nhinccommon';
 
 def AssertionCount = sourceRequestHolder["count(" + AssertionXpath + ")"];
@@ -4288,7 +4288,7 @@ log.debug("access initial request message");
 def requestTestStep = context.getTestRunner().testCase.getTestStepByName("send request");
 def sourceRequestHolder = groovyUtils.getXmlHolder(requestTestStep.getProperty("Request").value);
 
-sourceRequestHolder.namespaces['ec'] = 'urn:gov:hhs:fha:nhinc:common:nhinccommonproxy';
+sourceRequestHolder.namespaces['ec'] = 'urn:gov:hhs:fha:nhinc:common:nhinccommonentity';
 sourceRequestHolder.namespaces['nc'] = 'urn:gov:hhs:fha:nhinc:common:nhinccommon';
 
 def AssertionCount = sourceRequestHolder["count(" + AssertionXpath + ")"];
@@ -4333,7 +4333,7 @@ log.debug("access initial request message");
 def requestTestStep = context.getTestRunner().testCase.getTestStepByName("send request");
 def sourceRequestHolder = groovyUtils.getXmlHolder(requestTestStep.getProperty("Request").value);
 
-sourceRequestHolder.namespaces['ec'] = 'urn:gov:hhs:fha:nhinc:common:nhinccommonproxy';
+sourceRequestHolder.namespaces['ec'] = 'urn:gov:hhs:fha:nhinc:common:nhinccommonentity';
 sourceRequestHolder.namespaces['nc'] = 'urn:gov:hhs:fha:nhinc:common:nhinccommon';
 
 def AssertionCount = sourceRequestHolder["count(" + AssertionXpath + ")"];
@@ -4378,7 +4378,7 @@ log.debug("access initial request message");
 def requestTestStep = context.getTestRunner().testCase.getTestStepByName("send request");
 def sourceRequestHolder = groovyUtils.getXmlHolder(requestTestStep.getProperty("Request").value);
 
-sourceRequestHolder.namespaces['ec'] = 'urn:gov:hhs:fha:nhinc:common:nhinccommonproxy';
+sourceRequestHolder.namespaces['ec'] = 'urn:gov:hhs:fha:nhinc:common:nhinccommonentity';
 sourceRequestHolder.namespaces['nc'] = 'urn:gov:hhs:fha:nhinc:common:nhinccommon';
 
 def AssertionCount = sourceRequestHolder["count(" + AssertionXpath + ")"];
@@ -4693,7 +4693,7 @@ assert (count == 1);</script></con:config></con:testStep><con:setupScript>nhinc.
       </con:properties>
       <con:reportParameters/>
     <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);</con:tearDownScript></con:testCase>
-    <con:testCase failOnError="true" failTestCaseOnErrors="true" id="eed4b1bc-9a96-4d4b-9bfd-dc40d9dfdbe7" keepSession="false" maxResults="0" name="EntityRequest - 404 or 500 error" searchProperties="true">
+    <con:testCase failOnError="true" failTestCaseOnErrors="true" id="eed4b1bc-9a96-4d4b-9bfd-dc40d9dfdbe7" keepSession="false" maxResults="0" name="EntityRequest - 404 or 500 error" searchProperties="true" disabled="true">
       <con:settings/>
       <con:testStep name="clear audit table" type="groovy"><con:settings/><con:config><script>context.withSql('AuditDB') { sql -> 
   sql.execute('delete from ' + context.findProperty('AuditTable'))
@@ -5085,7 +5085,7 @@ assert (count == 2);</script></con:config></con:testStep><con:setupScript>nhinc.
       </con:properties>
       <con:reportParameters/>
     <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);</con:tearDownScript></con:testCase>
-    <con:testCase failOnError="true" failTestCaseOnErrors="true" id="e0c96169-f42c-4c42-b566-7950411603be" keepSession="false" maxResults="0" name="NhincProxyRequest with a Binary doc" searchProperties="true" disabled="true">
+    <con:testCase failOnError="true" failTestCaseOnErrors="true" id="e0c96169-f42c-4c42-b566-7950411603be" keepSession="false" maxResults="0" name="NhincProxyRequest with a Binary doc" searchProperties="true">
       <con:settings/>
       <con:testStep name="clear audit table" type="groovy"><con:settings/><con:config><script>context.withSql('AuditDB') { sql -> 
   sql.execute('delete from ' + context.findProperty('AuditTable'))
@@ -5112,7 +5112,7 @@ context.testCase.setPropertyValue('UserId',"${ADUserID}${nowDate}1");</script>
             </con:settings>
             <con:encoding>UTF-8</con:encoding>
             <con:endpoint>${#Project#Endpoint-EntityAdminDist}</con:endpoint>
-            <con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonproxy" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:urn2="urn:oasis:names:tc:emergency:EDXL:DE:1.0">
+            <con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:urn2="urn:oasis:names:tc:emergency:EDXL:DE:1.0">
    <soap:Header/>
    <soap:Body projectName="Admin-Distribution" testCase="NhincProxyRequest with a Binary doc">
       <urn:RespondingGateway_SendAlertMessage>
@@ -5396,16 +5396,15 @@ context.testCase.setPropertyValue('UserId',"${ADUserID}${nowDate}1");</script>
             <!--Optional:-->
             <!--urn1:asyncMessageId>?</urn1:asyncMessageId-->
          </urn:assertion>
-         <urn:nhinTargetSystem>
-            <!--You have a CHOICE of the next 3 items at this level-->
-            
-            <urn1:homeCommunity>
+         <urn:nhinTargetCommunities>
+            <urn1:nhinTargetCommunity>
+               <urn1:homeCommunity>
                <urn1:description>${#Project#LocalHCDescription}</urn1:description>
                <urn1:homeCommunityId>${#Project#LocalHCID}</urn1:homeCommunityId>
                <urn1:name>${#Project#LocalHCDescription}</urn1:name>
             </urn1:homeCommunity>
-            <urn1:url></urn1:url>
-         </urn:nhinTargetSystem>
+            </urn1:nhinTargetCommunity>
+         </urn:nhinTargetCommunities>
          <urn2:EDXLDistribution>
             <urn2:distributionID>633990682441061250</urn2:distributionID>
             <urn2:senderID>actor@2.16.840.1.113883.3.166</urn2:senderID>
@@ -5535,7 +5534,7 @@ assert (count > 0);</script></con:config></con:testStep><con:setupScript>nhinc.F
       </con:properties>
       <con:reportParameters/>
     <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);</con:tearDownScript></con:testCase>
-    <con:testCase failOnError="true" failTestCaseOnErrors="true" id="e10c8690-4f9f-4c68-a67c-1e5f11a66eec" keepSession="false" maxResults="0" name="NhincProxyRequest with XML data" searchProperties="true" disabled="true">
+    <con:testCase failOnError="true" failTestCaseOnErrors="true" id="e10c8690-4f9f-4c68-a67c-1e5f11a66eec" keepSession="false" maxResults="0" name="NhincProxyRequest with XML data" searchProperties="true">
       <con:settings/>
       <con:testStep name="clear audit table" type="groovy"><con:settings/><con:config><script>context.withSql('AuditDB') { sql -> 
   sql.execute('delete from ' + context.findProperty('AuditTable'))
@@ -5563,7 +5562,7 @@ context.testCase.setPropertyValue('UserId',"${ADUserID}${nowDate}1");</script>
             </con:settings>
             <con:encoding>UTF-8</con:encoding>
             <con:endpoint>${#Project#Endpoint-EntityAdminDist}</con:endpoint>
-            <con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonproxy" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:urn2="urn:oasis:names:tc:emergency:EDXL:DE:1.0">
+            <con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:urn2="urn:oasis:names:tc:emergency:EDXL:DE:1.0">
    <soap:Header/>
    <soap:Body projectName="Admin-Distribution" testCase="NhincProxyRequest with XML data">
       <urn:RespondingGateway_SendAlertMessage>
@@ -5847,15 +5846,15 @@ context.testCase.setPropertyValue('UserId',"${ADUserID}${nowDate}1");</script>
             <!--Optional:-->
          </urn:assertion>
          <!--Optional:-->
-         <urn:nhinTargetSystem>
-            <!--You have a CHOICE of the next 3 items at this level-->
-            <urn1:homeCommunity>
+         <urn:nhinTargetCommunities>
+            <urn1:nhinTargetCommunity>
+               <urn1:homeCommunity>
                <urn1:description>${#Project#LocalHCDescription}</urn1:description>
                <urn1:homeCommunityId>${#Project#LocalHCID}</urn1:homeCommunityId>
                <urn1:name>${#Project#LocalHCDescription}</urn1:name>
             </urn1:homeCommunity>
-            <urn1:url></urn1:url>
-         </urn:nhinTargetSystem>
+            </urn1:nhinTargetCommunity>
+         </urn:nhinTargetCommunities>
          <urn2:EDXLDistribution>
             <urn2:distributionID>633990682441061250</urn2:distributionID>
             <urn2:senderID>actor@2.16.840.1.113883.3.166</urn2:senderID>
@@ -5981,7 +5980,7 @@ assert (count > 0);</script></con:config></con:testStep><con:setupScript>nhinc.F
       </con:properties>
       <con:reportParameters/>
     <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);</con:tearDownScript></con:testCase>
-    <con:testCase failOnError="true" failTestCaseOnErrors="true" id="ed85ad92-3732-424e-a5e6-dd6f3bdc24fe" keepSession="false" maxResults="0" name="NhincProxyRequest with multiple documents (multiple contentObjects)" searchProperties="true" disabled="true">
+    <con:testCase failOnError="true" failTestCaseOnErrors="true" id="ed85ad92-3732-424e-a5e6-dd6f3bdc24fe" keepSession="false" maxResults="0" name="NhincProxyRequest with multiple documents (multiple contentObjects)" searchProperties="true">
       <con:settings/>
       <con:testStep name="clear audit table" type="groovy"><con:settings/><con:config><script>context.withSql('AuditDB') { sql -> 
   sql.execute('delete from ' + context.findProperty('AuditTable'))
@@ -6009,7 +6008,7 @@ context.testCase.setPropertyValue('UserId',"${ADUserID}${nowDate}1");</script>
             </con:settings>
             <con:encoding>UTF-8</con:encoding>
             <con:endpoint>${#Project#Endpoint-EntityAdminDist}</con:endpoint>
-            <con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonproxy" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:urn2="urn:oasis:names:tc:emergency:EDXL:DE:1.0">
+            <con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:urn2="urn:oasis:names:tc:emergency:EDXL:DE:1.0">
    <soap:Header/>
    <soap:Body projectName="Admin-Distribution" testCase="NhincProxyRequest with multiple documents (multiple contentObjects)">
       <urn:RespondingGateway_SendAlertMessage>
@@ -6293,14 +6292,15 @@ context.testCase.setPropertyValue('UserId',"${ADUserID}${nowDate}1");</script>
             <!--Optional:-->
          </urn:assertion>
          <!--Optional:-->
-         <urn:nhinTargetSystem>
-            <urn1:homeCommunity>
+         <urn:nhinTargetCommunities>
+            <urn1:nhinTargetCommunity>
+               <urn1:homeCommunity>
                <urn1:description>${#Project#LocalHCDescription}</urn1:description>
                <urn1:homeCommunityId>${#Project#LocalHCID}</urn1:homeCommunityId>
                <urn1:name>${#Project#LocalHCDescription}</urn1:name>
             </urn1:homeCommunity>
-            <urn1:url></urn1:url>
-         </urn:nhinTargetSystem>
+            </urn1:nhinTargetCommunity>
+         </urn:nhinTargetCommunities>
          <urn2:EDXLDistribution>
             <urn2:distributionID>633990682441061250</urn2:distributionID>
             <urn2:senderID>actor@2.16.840.1.113883.3.166</urn2:senderID>
@@ -6469,7 +6469,7 @@ assert (count > 0);</script></con:config></con:testStep><con:setupScript>nhinc.F
       </con:properties>
       <con:reportParameters/>
     <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);</con:tearDownScript></con:testCase>
-    <con:testCase failOnError="true" failTestCaseOnErrors="true" id="9f036a35-2b5f-4432-8dbc-f91db0b4e861" keepSession="false" maxResults="0" name="NhincProxyRequest with multiple documents (XML and Binary)" searchProperties="true" disabled="true">
+    <con:testCase failOnError="true" failTestCaseOnErrors="true" id="9f036a35-2b5f-4432-8dbc-f91db0b4e861" keepSession="false" maxResults="0" name="NhincProxyRequest with multiple documents (XML and Binary)" searchProperties="true">
       <con:settings/>
       <con:testStep name="clear audit table" type="groovy"><con:settings/><con:config><script>context.withSql('AuditDB') { sql -> 
   sql.execute('delete from ' + context.findProperty('AuditTable'))
@@ -6497,7 +6497,7 @@ context.testCase.setPropertyValue('UserId',"${ADUserID}${nowDate}1");</script>
             </con:settings>
             <con:encoding>UTF-8</con:encoding>
             <con:endpoint>${#Project#Endpoint-EntityAdminDist}</con:endpoint>
-            <con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonproxy" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:urn2="urn:oasis:names:tc:emergency:EDXL:DE:1.0">
+            <con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:urn2="urn:oasis:names:tc:emergency:EDXL:DE:1.0">
    <soap:Header/>
    <soap:Body projectName="Admin-Distribution" testCase="NhincProxyRequest with multiple documents (XML and Binary)">
       <urn:RespondingGateway_SendAlertMessage>
@@ -6781,15 +6781,15 @@ context.testCase.setPropertyValue('UserId',"${ADUserID}${nowDate}1");</script>
             <!--Optional:-->
          </urn:assertion>
          <!--Optional:-->
-         <urn:nhinTargetSystem>
-            <!--You have a CHOICE of the next 3 items at this level-->
-            <urn1:homeCommunity>
+         <urn:nhinTargetCommunities>
+            <urn1:nhinTargetCommunity>
+               <urn1:homeCommunity>
                <urn1:description>${#Project#LocalHCDescription}</urn1:description>
                <urn1:homeCommunityId>${#Project#LocalHCID}</urn1:homeCommunityId>
                <urn1:name>${#Project#LocalHCDescription}</urn1:name>
             </urn1:homeCommunity>
-            <urn1:url></urn1:url>
-         </urn:nhinTargetSystem>
+            </urn1:nhinTargetCommunity>
+         </urn:nhinTargetCommunities>
          <urn2:EDXLDistribution>
             <urn2:distributionID>633990682441061250</urn2:distributionID>
             <urn2:senderID>actor@2.16.840.1.113883.3.166</urn2:senderID>
@@ -6926,7 +6926,7 @@ assert (count > 0);</script></con:config></con:testStep><con:setupScript>nhinc.F
       </con:properties>
       <con:reportParameters/>
     <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);</con:tearDownScript></con:testCase>
-    <con:testCase failOnError="true" failTestCaseOnErrors="true" id="73e8702c-7b4b-4eeb-8bba-dbcfc2ddb322" keepSession="false" maxResults="0" name="NhincProxyRequest without a ContentObject" searchProperties="true" disabled="true">
+    <con:testCase failOnError="true" failTestCaseOnErrors="true" id="73e8702c-7b4b-4eeb-8bba-dbcfc2ddb322" keepSession="false" maxResults="0" name="NhincProxyRequest without a ContentObject" searchProperties="true">
       <con:settings/>
       <con:testStep name="clear audit table" type="groovy"><con:settings/><con:config><script>context.withSql('AuditDB') { sql -> 
   sql.execute('delete from ' + context.findProperty('AuditTable'))
@@ -6954,7 +6954,7 @@ context.testCase.setPropertyValue('UserId',"${ADUserID}${nowDate}1");</script>
             </con:settings>
             <con:encoding>UTF-8</con:encoding>
             <con:endpoint>${#Project#Endpoint-EntityAdminDist}</con:endpoint>
-            <con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonproxy" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:urn2="urn:oasis:names:tc:emergency:EDXL:DE:1.0">
+            <con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:urn2="urn:oasis:names:tc:emergency:EDXL:DE:1.0">
    <soap:Header/>
    <soap:Body projectName="Admin-Distribution" testCase="NhincProxyRequest without a ContentObject">
       <urn:RespondingGateway_SendAlertMessage>
@@ -7238,14 +7238,15 @@ context.testCase.setPropertyValue('UserId',"${ADUserID}${nowDate}1");</script>
             <!--Optional:-->
          </urn:assertion>
          <!--Optional:-->
-         <urn:nhinTargetSystem>
-            <urn1:homeCommunity>
+         <urn:nhinTargetCommunities>
+            <urn1:nhinTargetCommunity>
+               <urn1:homeCommunity>
                <urn1:description>${#Project#LocalHCDescription}</urn1:description>
                <urn1:homeCommunityId>${#Project#LocalHCID}</urn1:homeCommunityId>
                <urn1:name>${#Project#LocalHCDescription}</urn1:name>
             </urn1:homeCommunity>
-            <urn1:url></urn1:url>
-         </urn:nhinTargetSystem>
+            </urn1:nhinTargetCommunity>
+         </urn:nhinTargetCommunities>
          <urn2:EDXLDistribution>
             <urn2:distributionID>633990682441061250</urn2:distributionID>
             <urn2:senderID>actor@2.16.840.1.113883.3.166</urn2:senderID>
@@ -7333,7 +7334,7 @@ assert (count > 0);</script></con:config></con:testStep><con:setupScript>nhinc.F
       </con:properties>
       <con:reportParameters/>
     <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);</con:tearDownScript></con:testCase>
-    <con:testCase failOnError="true" failTestCaseOnErrors="true" id="5361bf64-5349-4b98-8d4b-f414271422e0" keepSession="false" maxResults="0" name="NhincProxyRequest with an empty ContentObject" searchProperties="true" disabled="true">
+    <con:testCase failOnError="true" failTestCaseOnErrors="true" id="5361bf64-5349-4b98-8d4b-f414271422e0" keepSession="false" maxResults="0" name="NhincProxyRequest with an empty ContentObject" searchProperties="true">
       <con:settings/>
       <con:testStep name="clear audit table" type="groovy"><con:settings/><con:config><script>context.withSql('AuditDB') { sql -> 
   sql.execute('delete from ' + context.findProperty('AuditTable'))
@@ -7361,7 +7362,7 @@ context.testCase.setPropertyValue('UserId',"${ADUserID}${nowDate}1");</script>
             </con:settings>
             <con:encoding>UTF-8</con:encoding>
             <con:endpoint>${#Project#Endpoint-EntityAdminDist}</con:endpoint>
-            <con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonproxy" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:urn2="urn:oasis:names:tc:emergency:EDXL:DE:1.0">
+            <con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:urn2="urn:oasis:names:tc:emergency:EDXL:DE:1.0">
    <soap:Header/>
    <soap:Body projectName="Admin-Distribution" testCase="NhincProxyRequest with an empty ContentObject">
       <urn:RespondingGateway_SendAlertMessage>
@@ -7645,15 +7646,15 @@ context.testCase.setPropertyValue('UserId',"${ADUserID}${nowDate}1");</script>
             <!--Optional:-->
          </urn:assertion>
          <!--Optional:-->
-         <urn:nhinTargetSystem>
-            <!--You have a CHOICE of the next 3 items at this level-->
-            <urn1:homeCommunity>
+         <urn:nhinTargetCommunities>
+            <urn1:nhinTargetCommunity>
+               <urn1:homeCommunity>
                <urn1:description>${#Project#LocalHCDescription}</urn1:description>
                <urn1:homeCommunityId>${#Project#LocalHCID}</urn1:homeCommunityId>
                <urn1:name>${#Project#LocalHCDescription}</urn1:name>
             </urn1:homeCommunity>
-            <urn1:url></urn1:url>
-         </urn:nhinTargetSystem>
+            </urn1:nhinTargetCommunity>
+         </urn:nhinTargetCommunities>
          <urn2:EDXLDistribution>
             <urn2:distributionID>633990682441061250</urn2:distributionID>
             <urn2:senderID>actor@2.16.840.1.113883.3.166</urn2:senderID>
@@ -7744,7 +7745,7 @@ assert (count > 0);</script></con:config></con:testStep><con:setupScript>nhinc.F
       </con:properties>
       <con:reportParameters/>
     <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);</con:tearDownScript></con:testCase>
-    <con:testCase failOnError="true" failTestCaseOnErrors="true" id="d9e6e4ca-39fd-4d1e-ac8e-f6bb2ef5e63d" keepSession="false" maxResults="0" name="NhincProxyRequest - Policy engine deny" searchProperties="true" disabled="true">
+    <con:testCase failOnError="true" failTestCaseOnErrors="true" id="d9e6e4ca-39fd-4d1e-ac8e-f6bb2ef5e63d" keepSession="false" maxResults="0" name="NhincProxyRequest - Policy engine deny" searchProperties="true">
       <con:settings/>
       <con:testStep name="Set PolicyEngine Mock" type="groovy">
         <con:settings/>
@@ -7768,7 +7769,7 @@ FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", context.findPro
             </con:settings>
             <con:encoding>UTF-8</con:encoding>
             <con:endpoint>${#Project#Endpoint-EntityAdminDist}</con:endpoint>
-            <con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonproxy" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:urn2="urn:oasis:names:tc:emergency:EDXL:DE:1.0">
+            <con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:urn2="urn:oasis:names:tc:emergency:EDXL:DE:1.0">
    <soap:Header/>
    <soap:Body projectName="Admin-Distribution" testCase="NhincProxyRequest with a Binary doc">
       <urn:RespondingGateway_SendAlertMessage>
@@ -8053,14 +8054,15 @@ FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", context.findPro
             <!--urn1:asyncMessageId>?</urn1:asyncMessageId-->
          </urn:assertion>
          <!--Optional:-->
-         <urn:nhinTargetSystem>
-            <urn1:homeCommunity>
+         <urn:nhinTargetCommunities>
+            <urn1:nhinTargetCommunity>
+               <urn1:homeCommunity>
                <urn1:description>${#Project#LocalHCDescription}</urn1:description>
                <urn1:homeCommunityId>${#Project#LocalHCID}</urn1:homeCommunityId>
                <urn1:name>${#Project#LocalHCDescription}</urn1:name>
             </urn1:homeCommunity>
-            <urn1:url></urn1:url>
-         </urn:nhinTargetSystem>
+            </urn1:nhinTargetCommunity>
+         </urn:nhinTargetCommunities>
          <urn2:EDXLDistribution>
             <urn2:distributionID>633990682441061250</urn2:distributionID>
             <urn2:senderID>actor@2.16.840.1.113883.3.166</urn2:senderID>
@@ -8200,7 +8202,7 @@ log.debug("access initial request message");
 def requestTestStep = context.getTestRunner().testCase.getTestStepByName("send request");
 def sourceRequestHolder = groovyUtils.getXmlHolder(requestTestStep.getProperty("Request").value);
 
-sourceRequestHolder.namespaces['ec'] = 'urn:gov:hhs:fha:nhinc:common:nhinccommonproxy';
+sourceRequestHolder.namespaces['ec'] = 'urn:gov:hhs:fha:nhinc:common:nhinccommonentity';
 sourceRequestHolder.namespaces['nc'] = 'urn:gov:hhs:fha:nhinc:common:nhinccommon';
 
 def AssertionCount = sourceRequestHolder["count(" + AssertionXpath + ")"];
@@ -8244,7 +8246,7 @@ log.debug("access initial request message");
 def requestTestStep = context.getTestRunner().testCase.getTestStepByName("send request");
 def sourceRequestHolder = groovyUtils.getXmlHolder(requestTestStep.getProperty("Request").value);
 
-sourceRequestHolder.namespaces['ec'] = 'urn:gov:hhs:fha:nhinc:common:nhinccommonproxy';
+sourceRequestHolder.namespaces['ec'] = 'urn:gov:hhs:fha:nhinc:common:nhinccommonentity';
 sourceRequestHolder.namespaces['nc'] = 'urn:gov:hhs:fha:nhinc:common:nhinccommon';
 
 def AssertionCount = sourceRequestHolder["count(" + AssertionXpath + ")"];
@@ -8288,7 +8290,7 @@ log.debug("access initial request message");
 def requestTestStep = context.getTestRunner().testCase.getTestStepByName("send request");
 def sourceRequestHolder = groovyUtils.getXmlHolder(requestTestStep.getProperty("Request").value);
 
-sourceRequestHolder.namespaces['ec'] = 'urn:gov:hhs:fha:nhinc:common:nhinccommonproxy';
+sourceRequestHolder.namespaces['ec'] = 'urn:gov:hhs:fha:nhinc:common:nhinccommonentity';
 sourceRequestHolder.namespaces['nc'] = 'urn:gov:hhs:fha:nhinc:common:nhinccommon';
 
 def AssertionCount = sourceRequestHolder["count(" + AssertionXpath + ")"];
@@ -8332,7 +8334,7 @@ log.debug("access initial request message");
 def requestTestStep = context.getTestRunner().testCase.getTestStepByName("send request");
 def sourceRequestHolder = groovyUtils.getXmlHolder(requestTestStep.getProperty("Request").value);
 
-sourceRequestHolder.namespaces['ec'] = 'urn:gov:hhs:fha:nhinc:common:nhinccommonproxy';
+sourceRequestHolder.namespaces['ec'] = 'urn:gov:hhs:fha:nhinc:common:nhinccommonentity';
 sourceRequestHolder.namespaces['nc'] = 'urn:gov:hhs:fha:nhinc:common:nhinccommon';
 
 def AssertionCount = sourceRequestHolder["count(" + AssertionXpath + ")"];
@@ -8376,7 +8378,7 @@ log.debug("access initial request message");
 def requestTestStep = context.getTestRunner().testCase.getTestStepByName("send request");
 def sourceRequestHolder = groovyUtils.getXmlHolder(requestTestStep.getProperty("Request").value);
 
-sourceRequestHolder.namespaces['ec'] = 'urn:gov:hhs:fha:nhinc:common:nhinccommonproxy';
+sourceRequestHolder.namespaces['ec'] = 'urn:gov:hhs:fha:nhinc:common:nhinccommonentity';
 sourceRequestHolder.namespaces['nc'] = 'urn:gov:hhs:fha:nhinc:common:nhinccommon';
 
 def AssertionCount = sourceRequestHolder["count(" + AssertionXpath + ")"];
@@ -8420,7 +8422,7 @@ log.debug("access initial request message");
 def requestTestStep = context.getTestRunner().testCase.getTestStepByName("send request");
 def sourceRequestHolder = groovyUtils.getXmlHolder(requestTestStep.getProperty("Request").value);
 
-sourceRequestHolder.namespaces['ec'] = 'urn:gov:hhs:fha:nhinc:common:nhinccommonproxy';
+sourceRequestHolder.namespaces['ec'] = 'urn:gov:hhs:fha:nhinc:common:nhinccommonentity';
 sourceRequestHolder.namespaces['nc'] = 'urn:gov:hhs:fha:nhinc:common:nhinccommon';
 
 def AssertionCount = sourceRequestHolder["count(" + AssertionXpath + ")"];
@@ -8464,7 +8466,7 @@ log.debug("access initial request message");
 def requestTestStep = context.getTestRunner().testCase.getTestStepByName("send request");
 def sourceRequestHolder = groovyUtils.getXmlHolder(requestTestStep.getProperty("Request").value);
 
-sourceRequestHolder.namespaces['ec'] = 'urn:gov:hhs:fha:nhinc:common:nhinccommonproxy';
+sourceRequestHolder.namespaces['ec'] = 'urn:gov:hhs:fha:nhinc:common:nhinccommonentity';
 sourceRequestHolder.namespaces['nc'] = 'urn:gov:hhs:fha:nhinc:common:nhinccommon';
 
 def AssertionCount = sourceRequestHolder["count(" + AssertionXpath + ")"];
@@ -8509,7 +8511,7 @@ log.debug("access initial request message");
 def requestTestStep = context.getTestRunner().testCase.getTestStepByName("send request");
 def sourceRequestHolder = groovyUtils.getXmlHolder(requestTestStep.getProperty("Request").value);
 
-sourceRequestHolder.namespaces['ec'] = 'urn:gov:hhs:fha:nhinc:common:nhinccommonproxy';
+sourceRequestHolder.namespaces['ec'] = 'urn:gov:hhs:fha:nhinc:common:nhinccommonentity';
 sourceRequestHolder.namespaces['nc'] = 'urn:gov:hhs:fha:nhinc:common:nhinccommon';
 
 def AssertionCount = sourceRequestHolder["count(" + AssertionXpath + ")"];
@@ -8553,7 +8555,7 @@ log.debug("access initial request message");
 def requestTestStep = context.getTestRunner().testCase.getTestStepByName("send request");
 def sourceRequestHolder = groovyUtils.getXmlHolder(requestTestStep.getProperty("Request").value);
 
-sourceRequestHolder.namespaces['ec'] = 'urn:gov:hhs:fha:nhinc:common:nhinccommonproxy';
+sourceRequestHolder.namespaces['ec'] = 'urn:gov:hhs:fha:nhinc:common:nhinccommonentity';
 sourceRequestHolder.namespaces['nc'] = 'urn:gov:hhs:fha:nhinc:common:nhinccommon';
 
 def AssertionCount = sourceRequestHolder["count(" + AssertionXpath + ")"];
@@ -8597,7 +8599,7 @@ log.debug("access initial request message");
 def requestTestStep = context.getTestRunner().testCase.getTestStepByName("send request");
 def sourceRequestHolder = groovyUtils.getXmlHolder(requestTestStep.getProperty("Request").value);
 
-sourceRequestHolder.namespaces['ec'] = 'urn:gov:hhs:fha:nhinc:common:nhinccommonproxy';
+sourceRequestHolder.namespaces['ec'] = 'urn:gov:hhs:fha:nhinc:common:nhinccommonentity';
 sourceRequestHolder.namespaces['nc'] = 'urn:gov:hhs:fha:nhinc:common:nhinccommon';
 
 def AssertionCount = sourceRequestHolder["count(" + AssertionXpath + ")"];
@@ -8641,7 +8643,7 @@ log.debug("access initial request message");
 def requestTestStep = context.getTestRunner().testCase.getTestStepByName("send request");
 def sourceRequestHolder = groovyUtils.getXmlHolder(requestTestStep.getProperty("Request").value);
 
-sourceRequestHolder.namespaces['ec'] = 'urn:gov:hhs:fha:nhinc:common:nhinccommonproxy';
+sourceRequestHolder.namespaces['ec'] = 'urn:gov:hhs:fha:nhinc:common:nhinccommonentity';
 sourceRequestHolder.namespaces['nc'] = 'urn:gov:hhs:fha:nhinc:common:nhinccommon';
 
 def AssertionCount = sourceRequestHolder["count(" + AssertionXpath + ")"];
@@ -8686,7 +8688,7 @@ log.debug("access initial request message");
 def requestTestStep = context.getTestRunner().testCase.getTestStepByName("send request");
 def sourceRequestHolder = groovyUtils.getXmlHolder(requestTestStep.getProperty("Request").value);
 
-sourceRequestHolder.namespaces['ec'] = 'urn:gov:hhs:fha:nhinc:common:nhinccommonproxy';
+sourceRequestHolder.namespaces['ec'] = 'urn:gov:hhs:fha:nhinc:common:nhinccommonentity';
 sourceRequestHolder.namespaces['nc'] = 'urn:gov:hhs:fha:nhinc:common:nhinccommon';
 
 def AssertionCount = sourceRequestHolder["count(" + AssertionXpath + ")"];
@@ -8730,7 +8732,7 @@ log.debug("access initial request message");
 def requestTestStep = context.getTestRunner().testCase.getTestStepByName("send request");
 def sourceRequestHolder = groovyUtils.getXmlHolder(requestTestStep.getProperty("Request").value);
 
-sourceRequestHolder.namespaces['ec'] = 'urn:gov:hhs:fha:nhinc:common:nhinccommonproxy';
+sourceRequestHolder.namespaces['ec'] = 'urn:gov:hhs:fha:nhinc:common:nhinccommonentity';
 sourceRequestHolder.namespaces['nc'] = 'urn:gov:hhs:fha:nhinc:common:nhinccommon';
 
 def AssertionCount = sourceRequestHolder["count(" + AssertionXpath + ")"];
@@ -8774,7 +8776,7 @@ log.debug("access initial request message");
 def requestTestStep = context.getTestRunner().testCase.getTestStepByName("send request");
 def sourceRequestHolder = groovyUtils.getXmlHolder(requestTestStep.getProperty("Request").value);
 
-sourceRequestHolder.namespaces['ec'] = 'urn:gov:hhs:fha:nhinc:common:nhinccommonproxy';
+sourceRequestHolder.namespaces['ec'] = 'urn:gov:hhs:fha:nhinc:common:nhinccommonentity';
 sourceRequestHolder.namespaces['nc'] = 'urn:gov:hhs:fha:nhinc:common:nhinccommon';
 
 def AssertionCount = sourceRequestHolder["count(" + AssertionXpath + ")"];
@@ -8818,7 +8820,7 @@ log.debug("access initial request message");
 def requestTestStep = context.getTestRunner().testCase.getTestStepByName("send request");
 def sourceRequestHolder = groovyUtils.getXmlHolder(requestTestStep.getProperty("Request").value);
 
-sourceRequestHolder.namespaces['ec'] = 'urn:gov:hhs:fha:nhinc:common:nhinccommonproxy';
+sourceRequestHolder.namespaces['ec'] = 'urn:gov:hhs:fha:nhinc:common:nhinccommonentity';
 sourceRequestHolder.namespaces['nc'] = 'urn:gov:hhs:fha:nhinc:common:nhinccommon';
 
 def AssertionCount = sourceRequestHolder["count(" + AssertionXpath + ")"];
@@ -8863,7 +8865,7 @@ log.debug("access initial request message");
 def requestTestStep = context.getTestRunner().testCase.getTestStepByName("send request");
 def sourceRequestHolder = groovyUtils.getXmlHolder(requestTestStep.getProperty("Request").value);
 
-sourceRequestHolder.namespaces['ec'] = 'urn:gov:hhs:fha:nhinc:common:nhinccommonproxy';
+sourceRequestHolder.namespaces['ec'] = 'urn:gov:hhs:fha:nhinc:common:nhinccommonentity';
 sourceRequestHolder.namespaces['nc'] = 'urn:gov:hhs:fha:nhinc:common:nhinccommon';
 
 def AssertionCount = sourceRequestHolder["count(" + AssertionXpath + ")"];
@@ -8907,7 +8909,7 @@ log.debug("access initial request message");
 def requestTestStep = context.getTestRunner().testCase.getTestStepByName("send request");
 def sourceRequestHolder = groovyUtils.getXmlHolder(requestTestStep.getProperty("Request").value);
 
-sourceRequestHolder.namespaces['ec'] = 'urn:gov:hhs:fha:nhinc:common:nhinccommonproxy';
+sourceRequestHolder.namespaces['ec'] = 'urn:gov:hhs:fha:nhinc:common:nhinccommonentity';
 sourceRequestHolder.namespaces['nc'] = 'urn:gov:hhs:fha:nhinc:common:nhinccommon';
 
 def AssertionCount = sourceRequestHolder["count(" + AssertionXpath + ")"];
@@ -8952,7 +8954,7 @@ log.debug("access initial request message");
 def requestTestStep = context.getTestRunner().testCase.getTestStepByName("send request");
 def sourceRequestHolder = groovyUtils.getXmlHolder(requestTestStep.getProperty("Request").value);
 
-sourceRequestHolder.namespaces['ec'] = 'urn:gov:hhs:fha:nhinc:common:nhinccommonproxy';
+sourceRequestHolder.namespaces['ec'] = 'urn:gov:hhs:fha:nhinc:common:nhinccommonentity';
 sourceRequestHolder.namespaces['nc'] = 'urn:gov:hhs:fha:nhinc:common:nhinccommon';
 
 def AssertionCount = sourceRequestHolder["count(" + AssertionXpath + ")"];
@@ -8997,7 +8999,7 @@ log.debug("access initial request message");
 def requestTestStep = context.getTestRunner().testCase.getTestStepByName("send request");
 def sourceRequestHolder = groovyUtils.getXmlHolder(requestTestStep.getProperty("Request").value);
 
-sourceRequestHolder.namespaces['ec'] = 'urn:gov:hhs:fha:nhinc:common:nhinccommonproxy';
+sourceRequestHolder.namespaces['ec'] = 'urn:gov:hhs:fha:nhinc:common:nhinccommonentity';
 sourceRequestHolder.namespaces['nc'] = 'urn:gov:hhs:fha:nhinc:common:nhinccommon';
 
 def AssertionCount = sourceRequestHolder["count(" + AssertionXpath + ")"];
@@ -9042,7 +9044,7 @@ log.debug("access initial request message");
 def requestTestStep = context.getTestRunner().testCase.getTestStepByName("send request");
 def sourceRequestHolder = groovyUtils.getXmlHolder(requestTestStep.getProperty("Request").value);
 
-sourceRequestHolder.namespaces['ec'] = 'urn:gov:hhs:fha:nhinc:common:nhinccommonproxy';
+sourceRequestHolder.namespaces['ec'] = 'urn:gov:hhs:fha:nhinc:common:nhinccommonentity';
 sourceRequestHolder.namespaces['nc'] = 'urn:gov:hhs:fha:nhinc:common:nhinccommon';
 
 def AssertionCount = sourceRequestHolder["count(" + AssertionXpath + ")"];
@@ -9087,7 +9089,7 @@ log.debug("access initial request message");
 def requestTestStep = context.getTestRunner().testCase.getTestStepByName("send request");
 def sourceRequestHolder = groovyUtils.getXmlHolder(requestTestStep.getProperty("Request").value);
 
-sourceRequestHolder.namespaces['ec'] = 'urn:gov:hhs:fha:nhinc:common:nhinccommonproxy';
+sourceRequestHolder.namespaces['ec'] = 'urn:gov:hhs:fha:nhinc:common:nhinccommonentity';
 sourceRequestHolder.namespaces['nc'] = 'urn:gov:hhs:fha:nhinc:common:nhinccommon';
 
 def AssertionCount = sourceRequestHolder["count(" + AssertionXpath + ")"];
@@ -9132,7 +9134,7 @@ log.debug("access initial request message");
 def requestTestStep = context.getTestRunner().testCase.getTestStepByName("send request");
 def sourceRequestHolder = groovyUtils.getXmlHolder(requestTestStep.getProperty("Request").value);
 
-sourceRequestHolder.namespaces['ec'] = 'urn:gov:hhs:fha:nhinc:common:nhinccommonproxy';
+sourceRequestHolder.namespaces['ec'] = 'urn:gov:hhs:fha:nhinc:common:nhinccommonentity';
 sourceRequestHolder.namespaces['nc'] = 'urn:gov:hhs:fha:nhinc:common:nhinccommon';
 
 def AssertionCount = sourceRequestHolder["count(" + AssertionXpath + ")"];
@@ -9177,7 +9179,7 @@ log.debug("access initial request message");
 def requestTestStep = context.getTestRunner().testCase.getTestStepByName("send request");
 def sourceRequestHolder = groovyUtils.getXmlHolder(requestTestStep.getProperty("Request").value);
 
-sourceRequestHolder.namespaces['ec'] = 'urn:gov:hhs:fha:nhinc:common:nhinccommonproxy';
+sourceRequestHolder.namespaces['ec'] = 'urn:gov:hhs:fha:nhinc:common:nhinccommonentity';
 sourceRequestHolder.namespaces['nc'] = 'urn:gov:hhs:fha:nhinc:common:nhinccommon';
 
 def AssertionCount = sourceRequestHolder["count(" + AssertionXpath + ")"];
@@ -9223,7 +9225,7 @@ log.debug("access initial request message");
 def requestTestStep = context.getTestRunner().testCase.getTestStepByName("send request");
 def sourceRequestHolder = groovyUtils.getXmlHolder(requestTestStep.getProperty("Request").value);
 
-sourceRequestHolder.namespaces['ec'] = 'urn:gov:hhs:fha:nhinc:common:nhinccommonproxy';
+sourceRequestHolder.namespaces['ec'] = 'urn:gov:hhs:fha:nhinc:common:nhinccommonentity';
 sourceRequestHolder.namespaces['nc'] = 'urn:gov:hhs:fha:nhinc:common:nhinccommon';
 
 def AssertionCount = sourceRequestHolder["count(" + AssertionXpath + ")"];
@@ -9269,7 +9271,7 @@ log.debug("access initial request message");
 def requestTestStep = context.getTestRunner().testCase.getTestStepByName("send request");
 def sourceRequestHolder = groovyUtils.getXmlHolder(requestTestStep.getProperty("Request").value);
 
-sourceRequestHolder.namespaces['ec'] = 'urn:gov:hhs:fha:nhinc:common:nhinccommonproxy';
+sourceRequestHolder.namespaces['ec'] = 'urn:gov:hhs:fha:nhinc:common:nhinccommonentity';
 sourceRequestHolder.namespaces['nc'] = 'urn:gov:hhs:fha:nhinc:common:nhinccommon';
 
 def AssertionCount = sourceRequestHolder["count(" + AssertionXpath + ")"];
@@ -9314,7 +9316,7 @@ log.debug("access initial request message");
 def requestTestStep = context.getTestRunner().testCase.getTestStepByName("send request");
 def sourceRequestHolder = groovyUtils.getXmlHolder(requestTestStep.getProperty("Request").value);
 
-sourceRequestHolder.namespaces['ec'] = 'urn:gov:hhs:fha:nhinc:common:nhinccommonproxy';
+sourceRequestHolder.namespaces['ec'] = 'urn:gov:hhs:fha:nhinc:common:nhinccommonentity';
 sourceRequestHolder.namespaces['nc'] = 'urn:gov:hhs:fha:nhinc:common:nhinccommon';
 
 def AssertionCount = sourceRequestHolder["count(" + AssertionXpath + ")"];
@@ -9359,7 +9361,7 @@ log.debug("access initial request message");
 def requestTestStep = context.getTestRunner().testCase.getTestStepByName("send request");
 def sourceRequestHolder = groovyUtils.getXmlHolder(requestTestStep.getProperty("Request").value);
 
-sourceRequestHolder.namespaces['ec'] = 'urn:gov:hhs:fha:nhinc:common:nhinccommonproxy';
+sourceRequestHolder.namespaces['ec'] = 'urn:gov:hhs:fha:nhinc:common:nhinccommonentity';
 sourceRequestHolder.namespaces['nc'] = 'urn:gov:hhs:fha:nhinc:common:nhinccommon';
 
 def AssertionCount = sourceRequestHolder["count(" + AssertionXpath + ")"];
@@ -9403,7 +9405,7 @@ log.debug("access initial request message");
 def requestTestStep = context.getTestRunner().testCase.getTestStepByName("send request");
 def sourceRequestHolder = groovyUtils.getXmlHolder(requestTestStep.getProperty("Request").value);
 
-sourceRequestHolder.namespaces['ec'] = 'urn:gov:hhs:fha:nhinc:common:nhinccommonproxy';
+sourceRequestHolder.namespaces['ec'] = 'urn:gov:hhs:fha:nhinc:common:nhinccommonentity';
 sourceRequestHolder.namespaces['nc'] = 'urn:gov:hhs:fha:nhinc:common:nhinccommon';
 
 def AssertionCount = sourceRequestHolder["count(" + AssertionXpath + ")"];
@@ -9447,7 +9449,7 @@ log.debug("access initial request message");
 def requestTestStep = context.getTestRunner().testCase.getTestStepByName("send request");
 def sourceRequestHolder = groovyUtils.getXmlHolder(requestTestStep.getProperty("Request").value);
 
-sourceRequestHolder.namespaces['ec'] = 'urn:gov:hhs:fha:nhinc:common:nhinccommonproxy';
+sourceRequestHolder.namespaces['ec'] = 'urn:gov:hhs:fha:nhinc:common:nhinccommonentity';
 sourceRequestHolder.namespaces['nc'] = 'urn:gov:hhs:fha:nhinc:common:nhinccommon';
 
 def AssertionCount = sourceRequestHolder["count(" + AssertionXpath + ")"];
@@ -9491,7 +9493,7 @@ log.debug("access initial request message");
 def requestTestStep = context.getTestRunner().testCase.getTestStepByName("send request");
 def sourceRequestHolder = groovyUtils.getXmlHolder(requestTestStep.getProperty("Request").value);
 
-sourceRequestHolder.namespaces['ec'] = 'urn:gov:hhs:fha:nhinc:common:nhinccommonproxy';
+sourceRequestHolder.namespaces['ec'] = 'urn:gov:hhs:fha:nhinc:common:nhinccommonentity';
 sourceRequestHolder.namespaces['nc'] = 'urn:gov:hhs:fha:nhinc:common:nhinccommon';
 
 def AssertionCount = sourceRequestHolder["count(" + AssertionXpath + ")"];
@@ -9543,7 +9545,7 @@ log.debug("access initial request message");
 def requestTestStep = context.getTestRunner().testCase.getTestStepByName("send request");
 def sourceRequestHolder = groovyUtils.getXmlHolder(requestTestStep.getProperty("Request").value);
 
-sourceRequestHolder.namespaces['ec'] = 'urn:gov:hhs:fha:nhinc:common:nhinccommonproxy';
+sourceRequestHolder.namespaces['ec'] = 'urn:gov:hhs:fha:nhinc:common:nhinccommonentity';
 sourceRequestHolder.namespaces['nc'] = 'urn:gov:hhs:fha:nhinc:common:nhinccommon';
 
 def AssertionCount = sourceRequestHolder["count(" + AssertionXpath + ")"];
@@ -9588,7 +9590,7 @@ log.debug("access initial request message");
 def requestTestStep = context.getTestRunner().testCase.getTestStepByName("send request");
 def sourceRequestHolder = groovyUtils.getXmlHolder(requestTestStep.getProperty("Request").value);
 
-sourceRequestHolder.namespaces['ec'] = 'urn:gov:hhs:fha:nhinc:common:nhinccommonproxy';
+sourceRequestHolder.namespaces['ec'] = 'urn:gov:hhs:fha:nhinc:common:nhinccommonentity';
 sourceRequestHolder.namespaces['nc'] = 'urn:gov:hhs:fha:nhinc:common:nhinccommon';
 
 def AssertionCount = sourceRequestHolder["count(" + AssertionXpath + ")"];
@@ -9671,7 +9673,7 @@ declare namespace ns19='urn:gov:hhs:fha:nhinc:common:nhinccommonadapter';
       </con:properties>
       <con:reportParameters/>
     <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);</con:tearDownScript></con:testCase>
-    <con:testCase failOnError="true" failTestCaseOnErrors="true" id="25050fb5-059d-4875-8ab5-337cd145f06d" keepSession="false" maxResults="0" name="NhincProxyRequest - 404 or 500 error" searchProperties="true" disabled="true">
+    <con:testCase failOnError="true" failTestCaseOnErrors="true" id="25050fb5-059d-4875-8ab5-337cd145f06d" keepSession="false" maxResults="0" name="NhincProxyRequest - 404 or 500 error" searchProperties="true">
       <con:settings/>
       <con:testStep name="Modify endpoint" type="groovy">
         <con:settings/>
@@ -9694,7 +9696,7 @@ FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", context.findPropert
             </con:settings>
             <con:encoding>UTF-8</con:encoding>
             <con:endpoint>${#Project#Endpoint-EntityAdminDist}</con:endpoint>
-            <con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonproxy" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:urn2="urn:oasis:names:tc:emergency:EDXL:DE:1.0">
+            <con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:urn2="urn:oasis:names:tc:emergency:EDXL:DE:1.0">
    <soap:Header/>
    <soap:Body projectName="Admin-Distribution" testCase="NhincProxyRequest with a Binary doc">
       <urn:RespondingGateway_SendAlertMessage>
@@ -9979,14 +9981,15 @@ FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", context.findPropert
             <!--urn1:asyncMessageId>?</urn1:asyncMessageId-->
          </urn:assertion>
          <!--Optional:-->
-         <urn:nhinTargetSystem>
-            <urn1:homeCommunity>
+         <urn:nhinTargetCommunities>
+            <urn1:nhinTargetCommunity>
+               <urn1:homeCommunity>
                <urn1:description>${#Project#LocalHCDescription}</urn1:description>
                <urn1:homeCommunityId>${#Project#LocalHCID}</urn1:homeCommunityId>
                <urn1:name>${#Project#LocalHCDescription}</urn1:name>
             </urn1:homeCommunity>
-            <urn1:url></urn1:url>
-         </urn:nhinTargetSystem>
+            </urn1:nhinTargetCommunity>
+         </urn:nhinTargetCommunities>
          <urn2:EDXLDistribution>
             <urn2:distributionID>633990682441061250</urn2:distributionID>
             <urn2:senderID>actor@2.16.840.1.113883.3.166</urn2:senderID>
