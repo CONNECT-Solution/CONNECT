@@ -84,20 +84,18 @@ Available service profiles which can be excluded from the generated ear (use val
 After CONNECT has been built from the clone directory, you can alter the composition of the CONNECT.ear at any time by turning off any combination of the available profiles as a comma-separated list
 
         $ cd <CONNECT_CLONE_DIR>
-        $ mvn clean package -P \!PD,\!DQ,\!DR -f Product/Production/Deploy/pom.xml
+        $ mvn clean install -P \!PD,\!DQ,\!DR -f Product/Production/Deploy/pom.xml
 
 OR
 
         $ cd Product/Production/Deploy/
-        $ mvn clean package -P \!PD,\!DQ,\!DR
+        $ mvn clean install -P \!PD,\!DQ,\!DR
 
 You can also specify explicitly what services are included in the ear by passing in the individual profiles.  For example, if you only want to include PD:
 
         $ cd Product/Production/Deploy/
-        $ mvn clean package -P PD
+        $ mvn clean install -P PD
         
-__Note__: The ant scripts which deploy the CONNECT ear to glassfish look to the local maven repository for the artifact to deploy, therefore when using these scripts, adopters should use the mvn command "install" as opposed to "package".
-
 ######Altering targeted application server
 For some application server deployments the generated .ear needs different dependencies. This readme describes building and deploying on GlassFish. See the CONNECT wiki for details on other application servers.
 
