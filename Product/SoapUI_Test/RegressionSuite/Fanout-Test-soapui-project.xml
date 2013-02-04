@@ -21,7 +21,195 @@
     <con:operation action="urn:gov:hhs:fha:nhinc:entitydocquery:RespondingGateway_CrossGatewayQueryRequest" anonymous="optional" bindingOperationName="RespondingGateway_CrossGatewayQuery" inputName="RespondingGateway_CrossGatewayQueryRequest" isOneWay="false" name="RespondingGateway_CrossGatewayQuery" outputName="RespondingGateway_CrossGatewayQueryResponse" receivesAttachments="false" sendsAttachments="false" type="Request-Response">
       <con:settings/>
     </con:operation>
-  </con:interface><con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:adaptercomponentmpi}AdapterComponentMpiPortTypeBinding" definition="${projectDir}/../ValidationSuite/target/wsdl/AdapterComponentMpi.wsdl" name="AdapterComponentMpiPortTypeBinding" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:endpoints><con:endpoint>http://localhost:${NhincHttpPort}/NhinConnect/AdapterComponentMpiService</con:endpoint><con:endpoint>http://localhost:${HttpDefaultPort}/Adapter/PatientDiscovery/A_0/AdapterComponentMpiService</con:endpoint></con:endpoints><con:operation action="FindCandidates" anonymous="optional" bindingOperationName="FindCandidates" inputName="FindCandidatesRequest" isOneWay="false" name="FindCandidates" outputName="FindCandidatesResponse" receivesAttachments="false" sendsAttachments="false" type="Request-Response"><con:settings/></con:operation></con:interface><con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:adaptermpi}AdapterMpiPortTypeBinding" definition="${projectDir}/../ValidationSuite/target/wsdl/AdapterMpi.wsdl" name="AdapterMpiPortTypeBinding" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:endpoints><con:endpoint>http://localhost:${NhincHttpPort}/NhinConnect/AdapterMpiService</con:endpoint></con:endpoints><con:operation action="FindCandidates" anonymous="optional" bindingOperationName="FindCandidates" inputName="FindCandidatesRequest" isOneWay="false" name="FindCandidates" outputName="FindCandidatesResponse" receivesAttachments="false" sendsAttachments="false" type="Request-Response"><con:settings/></con:operation></con:interface><con:interface anonymous="optional" bindingName="{urn:ihe:iti:xds-b:2007}DocumentRegistry_Binding_Soap" definition="${projectDir}/../ValidationSuite/target/wsdl/AdapterComponentDocRegistry.wsdl" name="DocumentRegistry_Binding_Soap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:endpoints><con:endpoint>http://localhost:${NhincHttpPort}/DocumentRegistry_Service</con:endpoint></con:endpoints><con:operation action="urn:hl7-org:v3:PRPA_IN201301UV02" anonymous="optional" bindingOperationName="DocumentRegistry_PRPA_IN201301UV02" inputName="" isOneWay="false" name="DocumentRegistry_PRPA_IN201301UV02" receivesAttachments="false" sendsAttachments="false" type="Request-Response"><con:settings/></con:operation><con:operation action="urn:hl7-org:v3:PRPA_IN201302UV02" anonymous="optional" bindingOperationName="DocumentRegistry_PRPA_IN201302UV02" inputName="" isOneWay="false" name="DocumentRegistry_PRPA_IN201302UV02" receivesAttachments="false" sendsAttachments="false" type="Request-Response"><con:settings/></con:operation><con:operation action="urn:hl7-org:v3:PRPA_IN201304UV02" anonymous="optional" bindingOperationName="DocumentRegistry_PRPA_IN201304UV02" inputName="" isOneWay="false" name="DocumentRegistry_PRPA_IN201304UV02" receivesAttachments="false" sendsAttachments="false" type="Request-Response"><con:settings/></con:operation><con:operation action="urn:ihe:iti:2007:RegisterDocumentSet-b" anonymous="optional" bindingOperationName="DocumentRegistry_RegisterDocumentSet-b" inputName="" isOneWay="false" name="DocumentRegistry_RegisterDocumentSet-b" receivesAttachments="false" sendsAttachments="false" type="Request-Response"><con:settings/></con:operation><con:operation action="urn:ihe:iti:2007:RegistryStoredQuery" anonymous="optional" bindingOperationName="DocumentRegistry_RegistryStoredQuery" inputName="" isOneWay="false" name="DocumentRegistry_RegistryStoredQuery" receivesAttachments="false" sendsAttachments="false" type="Request-Response"><con:settings/></con:operation></con:interface><con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:adapterdocquery}AdapterDocQueryBindingSoap" definition="${projectDir}/../ValidationSuite/target/wsdl/AdapterDocQuery.wsdl" name="AdapterDocQueryBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:endpoints><con:endpoint>http://localhost:${HttpDefaultPort}/NhinConnect/AdapterDocQuery</con:endpoint></con:endpoints><con:operation action="urn:RespondingGateway_CrossGatewayQuery" anonymous="optional" bindingOperationName="RespondingGateway_CrossGatewayQuery" inputName="RespondingGateway_CrossGatewayQueryRequest" isOneWay="false" name="RespondingGateway_CrossGatewayQuery" outputName="RespondingGateway_CrossGatewayQueryResponse" receivesAttachments="false" sendsAttachments="false" type="Request-Response"><con:settings/></con:operation></con:interface><con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:adapterpatientdiscovery}AdapterPatientDiscoveryBindingSoap" definition="${projectDir}/../ValidationSuite/target/wsdl/AdapterPatientDiscovery.wsdl" name="AdapterPatientDiscoveryBindingSoap" soapVersion="1_1" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:endpoints><con:endpoint>https://localhost:${HttpsDefaultPort}/NhinConnect/AdapterPatientDiscovery</con:endpoint><con:endpoint>https://PHX-ONC-WTST21:7785/mockAdapterPD</con:endpoint></con:endpoints><con:operation action="urn:RespondingGateway_PRPA_IN201305UV02" anonymous="optional" bindingOperationName="RespondingGateway_PRPA_IN201305UV02" inputName="RespondingGateway_PRPA_IN201305UV02Request" isOneWay="false" name="RespondingGateway_PRPA_IN201305UV02" outputName="RespondingGateway_PRPA_IN201306UV02Response" receivesAttachments="false" sendsAttachments="false" type="Request-Response"><con:settings/></con:operation></con:interface><con:testSuite name="Fanout_Test"><con:settings/><con:runType>SEQUENTIAL</con:runType><con:testCase failOnError="true" failTestCaseOnErrors="true" id="2360032f-7112-4f06-bb4f-f7c5f979bb94" keepSession="false" maxResults="0" name="PD warmup" searchProperties="true">
+  </con:interface><con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:adaptercomponentmpi}AdapterComponentMpiPortTypeBinding" definition="${projectDir}/../ValidationSuite/target/wsdl/AdapterComponentMpi.wsdl" name="AdapterComponentMpiPortTypeBinding" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:endpoints><con:endpoint>http://localhost:${NhincHttpPort}/NhinConnect/AdapterComponentMpiService</con:endpoint><con:endpoint>http://localhost:${HttpDefaultPort}/Adapter/PatientDiscovery/A_0/AdapterComponentMpiService</con:endpoint></con:endpoints><con:operation action="FindCandidates" anonymous="optional" bindingOperationName="FindCandidates" inputName="FindCandidatesRequest" isOneWay="false" name="FindCandidates" outputName="FindCandidatesResponse" receivesAttachments="false" sendsAttachments="false" type="Request-Response"><con:settings/></con:operation></con:interface><con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:adaptermpi}AdapterMpiPortTypeBinding" definition="${projectDir}/../ValidationSuite/target/wsdl/AdapterMpi.wsdl" name="AdapterMpiPortTypeBinding" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:endpoints><con:endpoint>http://localhost:${NhincHttpPort}/NhinConnect/AdapterMpiService</con:endpoint></con:endpoints><con:operation action="FindCandidates" anonymous="optional" bindingOperationName="FindCandidates" inputName="FindCandidatesRequest" isOneWay="false" name="FindCandidates" outputName="FindCandidatesResponse" receivesAttachments="false" sendsAttachments="false" type="Request-Response"><con:settings/></con:operation></con:interface><con:interface anonymous="optional" bindingName="{urn:ihe:iti:xds-b:2007}DocumentRegistry_Binding_Soap" definition="${projectDir}/../ValidationSuite/target/wsdl/AdapterComponentDocRegistry.wsdl" name="DocumentRegistry_Binding_Soap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:endpoints><con:endpoint>http://localhost:${NhincHttpPort}/DocumentRegistry_Service</con:endpoint></con:endpoints><con:operation action="urn:hl7-org:v3:PRPA_IN201301UV02" anonymous="optional" bindingOperationName="DocumentRegistry_PRPA_IN201301UV02" inputName="" isOneWay="false" name="DocumentRegistry_PRPA_IN201301UV02" receivesAttachments="false" sendsAttachments="false" type="Request-Response"><con:settings/></con:operation><con:operation action="urn:hl7-org:v3:PRPA_IN201302UV02" anonymous="optional" bindingOperationName="DocumentRegistry_PRPA_IN201302UV02" inputName="" isOneWay="false" name="DocumentRegistry_PRPA_IN201302UV02" receivesAttachments="false" sendsAttachments="false" type="Request-Response"><con:settings/></con:operation><con:operation action="urn:hl7-org:v3:PRPA_IN201304UV02" anonymous="optional" bindingOperationName="DocumentRegistry_PRPA_IN201304UV02" inputName="" isOneWay="false" name="DocumentRegistry_PRPA_IN201304UV02" receivesAttachments="false" sendsAttachments="false" type="Request-Response"><con:settings/></con:operation><con:operation action="urn:ihe:iti:2007:RegisterDocumentSet-b" anonymous="optional" bindingOperationName="DocumentRegistry_RegisterDocumentSet-b" inputName="" isOneWay="false" name="DocumentRegistry_RegisterDocumentSet-b" receivesAttachments="false" sendsAttachments="false" type="Request-Response"><con:settings/></con:operation><con:operation action="urn:ihe:iti:2007:RegistryStoredQuery" anonymous="optional" bindingOperationName="DocumentRegistry_RegistryStoredQuery" inputName="" isOneWay="false" name="DocumentRegistry_RegistryStoredQuery" receivesAttachments="false" sendsAttachments="false" type="Request-Response"><con:settings/></con:operation></con:interface><con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:adapterdocquery}AdapterDocQueryBindingSoap" definition="${projectDir}/../ValidationSuite/target/wsdl/AdapterDocQuery.wsdl" name="AdapterDocQueryBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:endpoints><con:endpoint>http://localhost:${HttpDefaultPort}/NhinConnect/AdapterDocQuery</con:endpoint></con:endpoints><con:operation action="urn:RespondingGateway_CrossGatewayQuery" anonymous="optional" bindingOperationName="RespondingGateway_CrossGatewayQuery" inputName="RespondingGateway_CrossGatewayQueryRequest" isOneWay="false" name="RespondingGateway_CrossGatewayQuery" outputName="RespondingGateway_CrossGatewayQueryResponse" receivesAttachments="false" sendsAttachments="false" type="Request-Response"><con:settings/><con:call name="XDSRegistryError"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:7784/MockDQResp</con:endpoint><con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonadapter" xmlns:urn1="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn3="urn:gov:hhs:fha:nhinc:common:nhinccommon">
+   <soap:Header/>
+   <soap:Body>
+      <urn:RespondingGateway_CrossGatewayQueryRequest>
+         <urn1:AdhocQueryRequest>
+            <urn1:ResponseOption/>
+            <urn2:AdhocQuery id="?"/>
+         </urn1:AdhocQueryRequest>
+         <urn:assertion>
+            <urn3:address>
+               <urn3:addressType>
+                  <urn3:code>?</urn3:code>
+                  <urn3:codeSystem>?</urn3:codeSystem>
+                  <urn3:codeSystemName>?</urn3:codeSystemName>
+                  <urn3:codeSystemVersion>?</urn3:codeSystemVersion>
+                  <urn3:displayName>?</urn3:displayName>
+                  <urn3:originalText>?</urn3:originalText>
+               </urn3:addressType>
+               <urn3:city>?</urn3:city>
+               <urn3:country>?</urn3:country>
+               <urn3:state>?</urn3:state>
+               <urn3:streetAddress>?</urn3:streetAddress>
+               <urn3:zipCode>?</urn3:zipCode>
+            </urn3:address>
+            <urn3:dateOfBirth>?</urn3:dateOfBirth>
+            <urn3:explanationNonClaimantSignature>?</urn3:explanationNonClaimantSignature>
+            <urn3:haveSecondWitnessSignature>?</urn3:haveSecondWitnessSignature>
+            <urn3:haveSignature>?</urn3:haveSignature>
+            <urn3:haveWitnessSignature>?</urn3:haveWitnessSignature>
+            <urn3:homeCommunity>
+               <urn3:description>?</urn3:description>
+               <urn3:homeCommunityId>?</urn3:homeCommunityId>
+               <urn3:name>?</urn3:name>
+            </urn3:homeCommunity>
+            <urn3:nationalProviderId>?</urn3:nationalProviderId>
+            <urn3:personName>
+               <urn3:familyName>?</urn3:familyName>
+               <urn3:givenName>?</urn3:givenName>
+               <urn3:nameType>
+                  <urn3:code>?</urn3:code>
+                  <urn3:codeSystem>?</urn3:codeSystem>
+                  <urn3:codeSystemName>?</urn3:codeSystemName>
+                  <urn3:codeSystemVersion>?</urn3:codeSystemVersion>
+                  <urn3:displayName>?</urn3:displayName>
+                  <urn3:originalText>?</urn3:originalText>
+               </urn3:nameType>
+               <urn3:secondNameOrInitials>?</urn3:secondNameOrInitials>
+               <urn3:fullName>?</urn3:fullName>
+               <urn3:prefix>?</urn3:prefix>
+               <urn3:suffix>?</urn3:suffix>
+            </urn3:personName>
+            <urn3:phoneNumber>
+               <urn3:areaCode>?</urn3:areaCode>
+               <urn3:countryCode>?</urn3:countryCode>
+               <urn3:extension>?</urn3:extension>
+               <urn3:localNumber>?</urn3:localNumber>
+               <urn3:phoneNumberType>
+                  <urn3:code>?</urn3:code>
+                  <urn3:codeSystem>?</urn3:codeSystem>
+                  <urn3:codeSystemName>?</urn3:codeSystemName>
+                  <urn3:codeSystemVersion>?</urn3:codeSystemVersion>
+                  <urn3:displayName>?</urn3:displayName>
+                  <urn3:originalText>?</urn3:originalText>
+               </urn3:phoneNumberType>
+            </urn3:phoneNumber>
+            <urn3:secondWitnessAddress>
+               <urn3:addressType>
+                  <urn3:code>?</urn3:code>
+                  <urn3:codeSystem>?</urn3:codeSystem>
+                  <urn3:codeSystemName>?</urn3:codeSystemName>
+                  <urn3:codeSystemVersion>?</urn3:codeSystemVersion>
+                  <urn3:displayName>?</urn3:displayName>
+                  <urn3:originalText>?</urn3:originalText>
+               </urn3:addressType>
+               <urn3:city>?</urn3:city>
+               <urn3:country>?</urn3:country>
+               <urn3:state>?</urn3:state>
+               <urn3:streetAddress>?</urn3:streetAddress>
+               <urn3:zipCode>?</urn3:zipCode>
+            </urn3:secondWitnessAddress>
+            <urn3:secondWitnessName>
+               <urn3:familyName>?</urn3:familyName>
+               <urn3:givenName>?</urn3:givenName>
+               <urn3:nameType>
+                  <urn3:code>?</urn3:code>
+                  <urn3:codeSystem>?</urn3:codeSystem>
+                  <urn3:codeSystemName>?</urn3:codeSystemName>
+                  <urn3:codeSystemVersion>?</urn3:codeSystemVersion>
+                  <urn3:displayName>?</urn3:displayName>
+                  <urn3:originalText>?</urn3:originalText>
+               </urn3:nameType>
+               <urn3:secondNameOrInitials>?</urn3:secondNameOrInitials>
+               <urn3:fullName>?</urn3:fullName>
+               <urn3:prefix>?</urn3:prefix>
+               <urn3:suffix>?</urn3:suffix>
+            </urn3:secondWitnessName>
+            <urn3:secondWitnessPhone>
+               <urn3:areaCode>?</urn3:areaCode>
+               <urn3:countryCode>?</urn3:countryCode>
+               <urn3:extension>?</urn3:extension>
+               <urn3:localNumber>?</urn3:localNumber>
+               <urn3:phoneNumberType>
+                  <urn3:code>?</urn3:code>
+                  <urn3:codeSystem>?</urn3:codeSystem>
+                  <urn3:codeSystemName>?</urn3:codeSystemName>
+                  <urn3:codeSystemVersion>?</urn3:codeSystemVersion>
+                  <urn3:displayName>?</urn3:displayName>
+                  <urn3:originalText>?</urn3:originalText>
+               </urn3:phoneNumberType>
+            </urn3:secondWitnessPhone>
+            <urn3:SSN>?</urn3:SSN>
+            <!--1 or more repetitions:-->
+            <urn3:uniquePatientId>?</urn3:uniquePatientId>
+            <urn3:witnessAddress>
+               <urn3:addressType>
+                  <urn3:code>?</urn3:code>
+                  <urn3:codeSystem>?</urn3:codeSystem>
+                  <urn3:codeSystemName>?</urn3:codeSystemName>
+                  <urn3:codeSystemVersion>?</urn3:codeSystemVersion>
+                  <urn3:displayName>?</urn3:displayName>
+                  <urn3:originalText>?</urn3:originalText>
+               </urn3:addressType>
+               <urn3:city>?</urn3:city>
+               <urn3:country>?</urn3:country>
+               <urn3:state>?</urn3:state>
+               <urn3:streetAddress>?</urn3:streetAddress>
+               <urn3:zipCode>?</urn3:zipCode>
+            </urn3:witnessAddress>
+            <urn3:witnessName>
+               <urn3:familyName>?</urn3:familyName>
+               <urn3:givenName>?</urn3:givenName>
+               <urn3:nameType>
+                  <urn3:code>?</urn3:code>
+                  <urn3:codeSystem>?</urn3:codeSystem>
+                  <urn3:codeSystemName>?</urn3:codeSystemName>
+                  <urn3:codeSystemVersion>?</urn3:codeSystemVersion>
+                  <urn3:displayName>?</urn3:displayName>
+                  <urn3:originalText>?</urn3:originalText>
+               </urn3:nameType>
+               <urn3:secondNameOrInitials>?</urn3:secondNameOrInitials>
+               <urn3:fullName>?</urn3:fullName>
+               <urn3:prefix>?</urn3:prefix>
+               <urn3:suffix>?</urn3:suffix>
+            </urn3:witnessName>
+            <urn3:witnessPhone>
+               <urn3:areaCode>?</urn3:areaCode>
+               <urn3:countryCode>?</urn3:countryCode>
+               <urn3:extension>?</urn3:extension>
+               <urn3:localNumber>?</urn3:localNumber>
+               <urn3:phoneNumberType>
+                  <urn3:code>?</urn3:code>
+                  <urn3:codeSystem>?</urn3:codeSystem>
+                  <urn3:codeSystemName>?</urn3:codeSystemName>
+                  <urn3:codeSystemVersion>?</urn3:codeSystemVersion>
+                  <urn3:displayName>?</urn3:displayName>
+                  <urn3:originalText>?</urn3:originalText>
+               </urn3:phoneNumberType>
+            </urn3:witnessPhone>
+            <urn3:userInfo>
+               <urn3:personName>
+                  <urn3:familyName>?</urn3:familyName>
+                  <urn3:givenName>?</urn3:givenName>
+                  <urn3:nameType>
+                     <urn3:code>?</urn3:code>
+                     <urn3:codeSystem>?</urn3:codeSystem>
+                     <urn3:codeSystemName>?</urn3:codeSystemName>
+                     <urn3:codeSystemVersion>?</urn3:codeSystemVersion>
+                     <urn3:displayName>?</urn3:displayName>
+                     <urn3:originalText>?</urn3:originalText>
+                  </urn3:nameType>
+                  <urn3:secondNameOrInitials>?</urn3:secondNameOrInitials>
+                  <urn3:fullName>?</urn3:fullName>
+                  <urn3:prefix>?</urn3:prefix>
+                  <urn3:suffix>?</urn3:suffix>
+               </urn3:personName>
+               <urn3:userName>?</urn3:userName>
+               <urn3:org>
+                  <urn3:description>?</urn3:description>
+                  <urn3:homeCommunityId>?</urn3:homeCommunityId>
+                  <urn3:name>?</urn3:name>
+               </urn3:org>
+            </urn3:userInfo>
+            <urn3:authorized>?</urn3:authorized>
+            <!--1 or more repetitions:-->
+            <urn3:relatesToList>?</urn3:relatesToList>
+         </urn:assertion>
+      </urn:RespondingGateway_CrossGatewayQueryRequest>
+   </soap:Body>
+</soap:Envelope>]]></con:request><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:gov:hhs:fha:nhinc:adapterdocquery/AdapterDocQueryPortType/RespondingGateway_CrossGatewayQueryRequest"/><con:wsrmConfig version="1.2"/></con:call></con:operation></con:interface><con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:adapterpatientdiscovery}AdapterPatientDiscoveryBindingSoap" definition="${projectDir}/../ValidationSuite/target/wsdl/AdapterPatientDiscovery.wsdl" name="AdapterPatientDiscoveryBindingSoap" soapVersion="1_1" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:endpoints><con:endpoint>https://localhost:${HttpsDefaultPort}/NhinConnect/AdapterPatientDiscovery</con:endpoint><con:endpoint>https://PHX-ONC-WTST21:7785/mockAdapterPD</con:endpoint></con:endpoints><con:operation action="urn:RespondingGateway_PRPA_IN201305UV02" anonymous="optional" bindingOperationName="RespondingGateway_PRPA_IN201305UV02" inputName="RespondingGateway_PRPA_IN201305UV02Request" isOneWay="false" name="RespondingGateway_PRPA_IN201305UV02" outputName="RespondingGateway_PRPA_IN201306UV02Response" receivesAttachments="false" sendsAttachments="false" type="Request-Response"><con:settings/></con:operation></con:interface><con:testSuite name="Fanout_Test"><con:settings/><con:runType>SEQUENTIAL</con:runType><con:testCase failOnError="true" failTestCaseOnErrors="true" id="2360032f-7112-4f06-bb4f-f7c5f979bb94" keepSession="false" maxResults="0" name="PD warmup" searchProperties="true">
       <con:settings/>
       
       
@@ -1761,19 +1949,19 @@ nhinc.FileUtils.updateSpringConfig(context.findProperty('GatewayPropDir'), "Adap
 nhinc.FileUtils.updateSpringConfig(context.findProperty('GatewayPropDir'), "AdapterMpiConfig.xml", "mpi", "mpiwsunsecured", "mpiwssecured", log);</con:tearDownScript><con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2013-01-23T20:25:14Z</con:value>
+          <con:value>2013-02-04T17:22:02Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2013-01-23T20:35:14Z</con:value>
+          <con:value>2013-02-04T17:32:02Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>01/23/2013 20:25:14</con:value>
+          <con:value>02/04/2013 17:22:02</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2013-02-22T00:00:00Z</con:value>
+          <con:value>2013-03-06T00:00:00Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -2101,19 +2289,19 @@ assert (documentID == msgDocID)</scriptText>
       </con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);</con:setupScript><con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);</con:tearDownScript><con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2013-01-23T20:25:19Z</con:value>
+          <con:value>2013-02-04T13:57:01Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2013-01-23T20:35:19Z</con:value>
+          <con:value>2013-02-04T14:07:01Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>01/23/2013 20:25:19</con:value>
+          <con:value>02/04/2013 13:57:01</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2013-02-22T00:00:00Z</con:value>
+          <con:value>2013-03-06T00:00:00Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -2475,19 +2663,19 @@ nhinc.FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFil
       </con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);</con:setupScript><con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);</con:tearDownScript><con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2013-01-28T13:41:06Z</con:value>
+          <con:value>2013-02-04T14:04:03Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2013-01-28T13:51:06Z</con:value>
+          <con:value>2013-02-04T14:14:03Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>01/28/2013 13:41:06</con:value>
+          <con:value>02/04/2013 14:04:03</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2013-02-27T00:00:00Z</con:value>
+          <con:value>2013-03-06T00:00:00Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -3339,8 +3527,7 @@ nhinc.FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", destConfi
             </con:settings>
             <con:encoding>UTF-8</con:encoding>
             <con:endpoint>${#Project#Endpoint-DocQuery}</con:endpoint>
-            <con:request><![CDATA[
-		<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn3="urn:gov:hhs:fha:nhinc:common:nhinccommon">
+            <con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn3="urn:gov:hhs:fha:nhinc:common:nhinccommon">
    <soap:Header/>
    <soap:Body testSuite="Entity_g1" testCase="Document Query">
       <urn:RespondingGateway_CrossGatewayQueryRequest>
@@ -3357,9 +3544,9 @@ nhinc.FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", destConfi
                      <urn2:Value>('urn:oasis:names:tc:ebxml-regrep:StatusType:Approved')</urn2:Value>
                   </urn2:ValueList>
                </urn2:Slot>
-         <urn2:Slot name="$XDSDocumentEntryClassCode">
-            <urn2:ValueList>
-                    <urn2:Value>34133-9</urn2:Value>
+               <urn2:Slot name="$XDSDocumentEntryClassCode">
+                  <urn2:ValueList>
+                     <urn2:Value>34133-9</urn2:Value>
                   </urn2:ValueList>
                </urn2:Slot>
                <urn2:Slot name="$XDSDocumentEntryClassCodeScheme">
@@ -3557,7 +3744,7 @@ nhinc.FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", destConfi
                <urn3:subjectLocalityAddress>158.147.185.168</urn3:subjectLocalityAddress>
                <urn3:subjectLocalityDNSName>cs.myharris.net</urn3:subjectLocalityDNSName>
             </urn3:samlAuthnStatement>
-         <urn3:samlAuthzDecisionStatement xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
+            <urn3:samlAuthzDecisionStatement xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
                <urn3:decision>Permit</urn3:decision>
                <urn3:resource>https://158.147.185.168:8181/SamlReceiveService/SamlProcessWS</urn3:resource>
                <urn3:action>TestSaml</urn3:action>
@@ -3579,7 +3766,7 @@ nhinc.FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", destConfi
             </urn3:samlAuthzDecisionStatement>
          </urn:assertion>
          <urn:NhinTargetCommunities/>
-            <!--urn3:nhinTargetCommunity>
+         <!--urn3:nhinTargetCommunity>
                <urn3:homeCommunity>
                   <urn3:description>${#Project#RemoteHCDescription}</urn3:description>
                   <urn3:homeCommunityId>${#Project#RemoteHCID}</urn3:homeCommunityId>
@@ -3591,7 +3778,7 @@ nhinc.FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", destConfi
    </soap:Body>
 </soap:Envelope>]]></con:request>
             <con:assertion type="SOAP Response"/>
-            <con:assertion disabled="true" type="Schema Compliance">
+            <con:assertion type="Schema Compliance">
               <con:configuration/>
             </con:assertion>
             <con:assertion type="SOAP Fault Assertion"/>
@@ -3605,7 +3792,11 @@ def documentID = context.findProperty('DQDocID')
 def msgDocID = holder["//ns1:AdhocQueryResponse[1]/ns3:RegistryObjectList[1]/ns3:ExtrinsicObject[1]/ns3:ExternalIdentifier[@identificationScheme='urn:uuid:2e82c1f6-a085-4c72-9da3-8640a32e42ab']/@value"];
 assert ('1.123401.44444' == msgDocID)</scriptText></con:configuration>
             </con:assertion>
-            <con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+            <con:assertion type="XPath Match" name="RegistryError count"><con:configuration><path>declare namespace ns2='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
+
+count(//ns2:RegistryError)</path><content>5</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion><con:assertion type="XPath Match" name="ExtrinsicObject count"><con:configuration><path>declare namespace ns1='urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0';
+
+count(//ns1:ExtrinsicObject)</path><content>6</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
             <con:jmsPropertyConfig/>
             <con:wsaConfig mustUnderstand="NONE" version="200508"/>
             <con:wsrmConfig version="1.2"/>
@@ -3618,19 +3809,19 @@ testCase.getTestSuite().getProject().getMockServiceByName("mockDQ_all").getMockR
 nhinc.FileUtils.updateSpringConfig(context.findProperty('GatewayPropDir'), "DocumentQueryProxyConfig.xml", "adapterdocquery", "adapterdocquerywsunsecured", "adapterdocquerywssecured", log);</con:tearDownScript><con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2013-01-23T20:25:29Z</con:value>
+          <con:value>2013-02-04T19:34:16Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2013-01-23T20:35:29Z</con:value>
+          <con:value>2013-02-04T19:44:16Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>01/23/2013 20:25:29</con:value>
+          <con:value>02/04/2013 19:34:16</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2013-02-22T00:00:00Z</con:value>
+          <con:value>2013-03-06T00:00:00Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -4658,7 +4849,43 @@ context.root = Math.random()</con:script><con:responseContent><![CDATA[<S:Envelo
       </soap:Reason>
     </soap:Fault>
   </soap:Body>
-</soap:Envelope>]]></con:responseContent><con:wsaConfig action="urn:gov:hhs:fha:nhinc:adapterdocquery/AdapterDocQueryPortType/RespondingGateway_CrossGatewayQueryResponse" mustUnderstand="NONE" version="200508"/></con:response><con:dispatchConfig/></con:mockOperation><con:properties/></con:mockService><con:mockService bindToHostOnly="false" docroot="" host="localhost" name="mockMPI_happy_path" path="/MockMPIResp" port="7783"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.mock.WsdlMockService@require-soap-action">false</con:setting></con:settings><con:mockOperation interface="AdapterComponentMpiPortTypeBinding" name="FindCandidates" operation="FindCandidates"><con:settings/><con:dispatchStyle>QUERY_MATCH</con:dispatchStyle><con:defaultResponse>Gallow</con:defaultResponse><con:response encoding="UTF-8" name="Gallow"><con:settings/><con:script>context.patientid = Math.random()
+</soap:Envelope>]]></con:responseContent><con:wsaConfig action="urn:gov:hhs:fha:nhinc:adapterdocquery/AdapterDocQueryPortType/RespondingGateway_CrossGatewayQueryResponse" mustUnderstand="NONE" version="200508"/></con:response><con:response name="XDSStoredQueryParamNumber error" encoding="UTF-8"><con:settings/><con:responseContent><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:urn1="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0">
+   <soap:Header/>
+   <soap:Body>
+      <urn:AdhocQueryResponse status="urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Failure">
+         <urn1:RegistryErrorList>
+            <urn1:RegistryError codeContext="A parameter which only accepts a single value is coded with multiple values" errorCode="XDSStoredQueryParamNumber" severity="urn:oasis:names:tc:ebxml-regrep:ErrorSeverityType:Error" location="com.vangent.hieos.services.xds.registry.transactions.AdhocQueryRequest"/>
+         </urn1:RegistryErrorList>
+         <urn2:RegistryObjectList></urn2:RegistryObjectList>
+      </urn:AdhocQueryResponse>
+   </soap:Body>
+</soap:Envelope>]]></con:responseContent><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:gov:hhs:fha:nhinc:adapterdocquery/AdapterDocQueryPortType/RespondingGateway_CrossGatewayQueryResponse"/></con:response><con:response name="XDSRegistryError error" encoding="UTF-8"><con:settings/><con:responseContent><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:urn1="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0">
+   <soap:Header/>
+   <soap:Body>
+      <urn:AdhocQueryResponse status="urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Failure">
+         <urn1:RegistryErrorList>
+            <urn1:RegistryError codeContext="A parameter which only accepts a single value is coded with multiple values" errorCode="XDSRegistryError" severity="urn:oasis:names:tc:ebxml-regrep:ErrorSeverityType:Error" location="com.vangent.hieos.services.xds.registry.transactions.AdhocQueryRequest"/>
+         </urn1:RegistryErrorList>
+         <urn2:RegistryObjectList></urn2:RegistryObjectList>
+      </urn:AdhocQueryResponse>
+   </soap:Body>
+</soap:Envelope>]]></con:responseContent><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:gov:hhs:fha:nhinc:adapterdocquery/AdapterDocQueryPortType/RespondingGateway_CrossGatewayQueryResponse"/></con:response><con:response name="XDSStoredQueryMissingParam error" encoding="UTF-8"><con:settings/><con:responseContent><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:urn1="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0">
+   <soap:Header/>
+   <soap:Body>
+      <urn:AdhocQueryResponse status="urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Failure">
+         <urn1:RegistryErrorList>
+            <urn1:RegistryError codeContext="A parameter which only accepts a single value is coded with multiple values" errorCode="XDSStoredQueryMissingParam" severity="urn:oasis:names:tc:ebxml-regrep:ErrorSeverityType:Error" location="com.vangent.hieos.services.xds.registry.transactions.AdhocQueryRequest"/>
+         </urn1:RegistryErrorList>
+         <urn2:RegistryObjectList></urn2:RegistryObjectList>
+      </urn:AdhocQueryResponse>
+   </soap:Body>
+</soap:Envelope>]]></con:responseContent><con:wsaConfig mustUnderstand="NONE" version="200508" action="urn:gov:hhs:fha:nhinc:adapterdocquery/AdapterDocQueryPortType/RespondingGateway_CrossGatewayQueryResponse"/></con:response><con:dispatchConfig xsi:type="con:MockOperationQueryMatchDispatch" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:query><con:name>Soap Fault</con:name><con:query>declare namespace ns='urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0';
+//ns:AdhocQuery[1]/ns:Slot/ns:ValueList/ns:Value/text()</con:query><con:match>'D123401^^^&amp;8.8&amp;ISO'</con:match><con:response>Soap Fault</con:response></con:query><con:query><con:name>Soap Fault 2</con:name><con:query>declare namespace ns='urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0';
+//ns:AdhocQuery[1]/ns:Slot/ns:ValueList/ns:Value/text()</con:query><con:match>'D123401^^^&amp;4.4&amp;ISO'</con:match><con:response>Soap Fault 2</con:response></con:query><con:query><con:name>XDSStoredQueryParamNumber error</con:name><con:query>declare namespace ns='urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0';
+//ns:AdhocQuery[1]/ns:Slot/ns:ValueList/ns:Value/text()</con:query><con:match>'D123401^^^&amp;5.5&amp;ISO'</con:match><con:response>XDSStoredQueryParamNumber error</con:response></con:query><con:query><con:name>XDSRegistryError error</con:name><con:query>declare namespace ns='urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0';
+//ns:AdhocQuery[1]/ns:Slot/ns:ValueList/ns:Value/text()</con:query><con:match>'D123401^^^&amp;2.2&amp;ISO'</con:match><con:response>XDSRegistryError error</con:response></con:query><con:query><con:name>XDSStoredQueryMissingParam error</con:name><con:query>declare namespace ns='urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0';
+//ns:AdhocQuery[1]/ns:Slot/ns:ValueList/ns:Value/text()</con:query><con:match>'D123401^^^&amp;6.6&amp;ISO'</con:match><con:response>XDSStoredQueryMissingParam error</con:response></con:query><con:query><con:name>correct doc</con:name><con:query>declare namespace ns='urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0';
+//ns:AdhocQuery[1]/ns:Slot/ns:ValueList/ns:Value/text()</con:query><con:match>'D123401^^^&amp;7.7&amp;ISO'</con:match><con:response>correct doc</con:response></con:query></con:dispatchConfig></con:mockOperation><con:properties/></con:mockService><con:mockService bindToHostOnly="false" docroot="" host="localhost" name="mockMPI_happy_path" path="/MockMPIResp" port="7783"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.mock.WsdlMockService@require-soap-action">false</con:setting></con:settings><con:mockOperation interface="AdapterComponentMpiPortTypeBinding" name="FindCandidates" operation="FindCandidates"><con:settings/><con:dispatchStyle>QUERY_MATCH</con:dispatchStyle><con:defaultResponse>Gallow</con:defaultResponse><con:response encoding="UTF-8" name="Gallow"><con:settings/><con:script>context.patientid = Math.random()
 context.root = Math.random()</con:script><con:responseContent><![CDATA[<S:Envelope xmlns:S="http://www.w3.org/2003/05/soap-envelope" xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:wsse11="http://docs.oasis-open.org/wss/oasis-wss-wssecurity-secext-1.1.xsd">
    <S:Body>
       <PRPA_IN201306UV02 ITSVersion="XML_1.0" xmlns="urn:hl7-org:v3" xmlns:ns2="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:ns3="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:ns4="urn:gov:hhs:fha:nhinc:common:patientcorrelationfacade">
