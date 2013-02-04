@@ -359,19 +359,19 @@ count(//ns6:AdhocQueryResponse[1]/ns3:RegistryObjectList[1]/ns3:ExtrinsicObject)
       </con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2013-01-11T17:38:14Z</con:value>
+          <con:value>2013-02-04T00:22:38Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2013-01-11T17:48:14Z</con:value>
+          <con:value>2013-02-04T00:32:38Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>01/11/2013 17:38:14</con:value>
+          <con:value>02/04/2013 00:22:38</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2013-02-10T00:00:00Z</con:value>
+          <con:value>2013-03-06T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>FullPatientID</con:name>
@@ -725,7 +725,7 @@ count(//ns6:AdhocQueryResponse[1]/ns3:RegistryObjectList[1]/ns3:ExtrinsicObject)
                 <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
               </con:configuration>
             </con:assertion>
-            <con:assertion type="XPath Match">
+            <con:assertion type="XPath Match" name="Count RegistryError">
               <con:configuration>
                 <path>declare namespace ns9='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
 declare namespace ns7='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
@@ -742,19 +742,19 @@ count(//ns9:AdhocQueryResponse[1]/ns7:RegistryErrorList[1]/ns7:RegistryError)</p
       </con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2013-01-11T17:38:16Z</con:value>
+          <con:value>2013-02-04T00:27:01Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2013-01-11T17:48:16Z</con:value>
+          <con:value>2013-02-04T00:37:01Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>01/11/2013 17:38:16</con:value>
+          <con:value>02/04/2013 00:27:01</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2013-02-10T00:00:00Z</con:value>
+          <con:value>2013-03-06T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>FullPatientID</con:name>
@@ -1102,19 +1102,19 @@ count(//ns6:AdhocQueryResponse[1]/ns3:RegistryObjectList[1]/ns3:ExtrinsicObject)
       </con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2013-01-11T17:38:17Z</con:value>
+          <con:value>2013-02-04T00:22:40Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2013-01-11T17:48:17Z</con:value>
+          <con:value>2013-02-04T00:32:40Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>01/11/2013 17:38:17</con:value>
+          <con:value>02/04/2013 00:22:40</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2013-02-10T00:00:00Z</con:value>
+          <con:value>2013-03-06T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>FullPatientID</con:name>
@@ -1471,19 +1471,19 @@ count(//ns6:AdhocQueryResponse[1]/ns3:RegistryObjectList[1]/ns3:ExtrinsicObject)
       </con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2013-01-11T17:38:19Z</con:value>
+          <con:value>2013-02-04T00:22:41Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2013-01-11T17:48:19Z</con:value>
+          <con:value>2013-02-04T00:32:41Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>01/11/2013 17:38:19</con:value>
+          <con:value>02/04/2013 00:22:41</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2013-02-10T00:00:00Z</con:value>
+          <con:value>2013-03-06T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>FullPatientID</con:name>
@@ -1845,19 +1845,19 @@ count(//ns6:AdhocQueryResponse[1]/ns3:RegistryObjectList[1]/ns3:ExtrinsicObject)
       </con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2013-01-11T17:40:01Z</con:value>
+          <con:value>2013-02-04T00:22:43Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2013-01-11T17:50:01Z</con:value>
+          <con:value>2013-02-04T00:32:43Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>01/11/2013 17:40:01</con:value>
+          <con:value>02/04/2013 00:22:43</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2013-02-10T00:00:00Z</con:value>
+          <con:value>2013-03-06T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>FullPatientID</con:name>

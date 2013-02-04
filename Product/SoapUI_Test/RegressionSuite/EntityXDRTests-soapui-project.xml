@@ -6896,7 +6896,7 @@ assert (count > 0);</script></con:config></con:testStep>
 		</con:property>
 		<con:property>
 			<con:name>Endpoint-XDREntity</con:name>
-			<con:value>http://localhost:8080/Gateway/DocumentSubmission/2_0/EntityService/EntityDocSubmissionUnsecured</con:value>
+			<con:value>http://localhost:8080/Gateway/DocumentSubmission/1_1/EntityService/EntityDocSubmissionUnsecured</con:value>
 		</con:property>
 		<con:property>
 			<con:name>Endpoint-AuditLogQuery</con:name>
