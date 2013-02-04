@@ -84,16 +84,16 @@ Available service profiles which can be excluded from the generated ear (use val
 You can alter the composition of the CONNECT.ear at any time by turning off any combination of the available profiles as a comma-separated list
 
         $ cd <CONNECT_CLONE_DIR>
-        $ mvn clean package -P \!PD,\!DQ,!DR -f Product/Production/Deploy/pom.xml
+        $ mvn clean package -P \!PD,\!DQ,\!DR -f Product/Production/Deploy/pom.xml
 
 OR
 
-        $ cd Product/Production/CONNECT/
-        $ mvn clean package -P \!PD,\!DQ,!DR
+        $ cd Product/Production/Deploy/
+        $ mvn clean package -P \!PD,\!DQ,\!DR
 
 You can also specify explicitly what services are included in the ear by passing in the individual profiles.  For example, if you only want to include PD:
 
-        $ cd Product/Production/CONNECT/
+        $ cd Product/Production/Deploy/
         $ mvn clean package -P PD
 
 ######Altering targeted application server
