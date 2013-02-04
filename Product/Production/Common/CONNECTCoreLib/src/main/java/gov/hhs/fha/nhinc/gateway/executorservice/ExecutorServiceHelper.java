@@ -26,13 +26,14 @@
  */
 package gov.hhs.fha.nhinc.gateway.executorservice;
 
+import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
-import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
+
 import java.io.CharArrayWriter;
 import java.io.PrintWriter;
-import java.util.Map;
 import java.util.HashMap;
+import java.util.Map;
 
 import org.apache.log4j.Logger;
 
@@ -73,7 +74,7 @@ public class ExecutorServiceHelper {
     private ExecutorServiceHelper() {
         try {
             PropertyAccessor propertyAccessor = PropertyAccessor.getInstance();
-            
+
             // get executor service pool sizes
             String concurrentPoolSizeStr = propertyAccessor.getProperty(NhincConstants.GATEWAY_PROPERTY_FILE,
                     NhincConstants.CONCURRENT_POOL_SIZE);
@@ -134,7 +135,8 @@ public class ExecutorServiceHelper {
      * Used to determine if a task should be executed using the large job executor service. If targetListCount >=
      * largejobSizePercent * concurrentPoolSize then it is a large job.
      * 
-     * @param targetListCount is the fan-out count for the task
+     * @param targetListCount
+     *            is the fan-out count for the task
      * @return boolean true if task should be run using large job executor service
      */
     public static boolean checkExecutorTaskIsLarge(int targetListCount) {
@@ -167,21 +169,11 @@ public class ExecutorServiceHelper {
      * @param ex
      */
     public static String getFormattedExceptionInfo(Exception ex, NhinTargetSystemType target, String serviceName) {
-        String err = "EXCEPTION: " + ex.getClass().getCanonicalName() + "\r\n";
+        String err = "EXCEPTION: " + ex.getClass().getCanonicalName() + "\r\nEXCEPTION Cause Message: "
+                + ex.getMessage() + "\r\n";
         Throwable cause = ex.getCause();
         if (cause != null) {
             err += "EXCEPTION Cause: " + cause.getClass().getCanonicalName() + "\r\n";
-            /*if (cause instanceof com.sun.xml.ws.client.ClientTransportException) {
-                try {
-                	NhinEndpointManager nem = new NhinEndpointManager();
-                    NhincConstants.GATEWAY_API_LEVEL apiLevel = nem.getApiVersion(
-                            target.getHomeCommunity().getHomeCommunityId(), serviceName);
-                    String url = (new WebServiceProxyHelper()).getUrlFromTargetSystemByGatewayAPILevel(target,
-                            serviceName, apiLevel);
-                    err += "EXCEPTION Message: Unable to connect to endpoint url=" + url + "\r\n";
-                } catch (Exception e) {
-                }
-            }*/
             err += "EXCEPTION Cause Message: " + cause.getMessage();
         }
         return err;

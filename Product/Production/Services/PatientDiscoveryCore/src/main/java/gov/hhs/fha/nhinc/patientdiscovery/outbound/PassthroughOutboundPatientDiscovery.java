@@ -31,6 +31,7 @@ import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.gateway.executorservice.ExecutorServiceHelper;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import gov.hhs.fha.nhinc.orchestration.OutboundResponseProcessor;
 import gov.hhs.fha.nhinc.patientdiscovery.MessageGeneratorUtils;
 import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryAuditLogger;
 import gov.hhs.fha.nhinc.patientdiscovery.aspect.PRPAIN201305UV02ArgTransformer;
@@ -46,6 +47,8 @@ import org.hl7.v3.PRPAIN201305UV02;
 import org.hl7.v3.PRPAIN201306UV02;
 import org.hl7.v3.RespondingGatewayPRPAIN201305UV02RequestType;
 import org.hl7.v3.RespondingGatewayPRPAIN201306UV02ResponseType;
+
+import com.google.common.base.Optional;
 
 public class PassthroughOutboundPatientDiscovery implements OutboundPatientDiscovery {
 
@@ -91,13 +94,14 @@ public class PassthroughOutboundPatientDiscovery implements OutboundPatientDisco
         // Do nothing. Passthrough does not do fan out.
     }
 
-    private RespondingGatewayPRPAIN201306UV02ResponseType sendToNhin(PRPAIN201305UV02 request,
-            AssertionType assertion, NhinTargetSystemType target) {
+    private RespondingGatewayPRPAIN201306UV02ResponseType sendToNhin(PRPAIN201305UV02 request, AssertionType assertion,
+            NhinTargetSystemType target) {
         PRPAIN201306UV02 response;
 
         try {
             OutboundPatientDiscoveryOrchestratable inMessage = new OutboundPatientDiscoveryOrchestratable(delegate,
-                    null, null, null, assertion, NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME, target, request);
+                    Optional.<OutboundResponseProcessor> absent(), null, null, assertion,
+                    NhincConstants.PATIENT_DISCOVERY_SERVICE_NAME, target, request);
             OutboundPatientDiscoveryOrchestratable outMessage = delegate.process(inMessage);
             response = outMessage.getResponse();
         } catch (Exception ex) {
@@ -120,15 +124,15 @@ public class PassthroughOutboundPatientDiscovery implements OutboundPatientDisco
 
         return gatewayResponse;
     }
-    
+
     private String getHCID(NhinTargetSystemType target) {
         String hcid = null;
         if (target != null && target.getHomeCommunity() != null) {
-            hcid = target.getHomeCommunity().getHomeCommunityId(); 
+            hcid = target.getHomeCommunity().getHomeCommunityId();
         }
-        
+
         return hcid;
-        
+
     }
 
     private PRPAIN201306UV02 generateErrorResponse(NhinTargetSystemType target, PRPAIN201305UV02 request, String error) {

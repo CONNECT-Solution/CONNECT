@@ -26,8 +26,6 @@
  */
 package gov.hhs.fha.nhinc.docquery.outbound;
 
-import java.util.Iterator;
-
 import gov.hhs.fha.nhinc.aspect.OutboundProcessingEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
@@ -39,6 +37,9 @@ import gov.hhs.fha.nhinc.docquery.aspect.AdhocQueryResponseDescriptionBuilder;
 import gov.hhs.fha.nhinc.docquery.entity.OutboundDocQueryDelegate;
 import gov.hhs.fha.nhinc.docquery.entity.OutboundDocQueryOrchestratable;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+
+import java.util.Iterator;
+
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
 
@@ -49,6 +50,7 @@ public class PassthroughOutboundDocQuery implements OutboundDocQuery {
     private static final Logger LOG = Logger.getLogger(PassthroughOutboundDocQuery.class);
 
     private OutboundDocQueryDelegate delegate = new OutboundDocQueryDelegate();
+
     public PassthroughOutboundDocQuery() {
         super();
     }
@@ -60,21 +62,26 @@ public class PassthroughOutboundDocQuery implements OutboundDocQuery {
     /**
      * This method sends a AdhocQueryRequest to the NwHIN to a single gateway.
      * 
-     * @param request the AdhocQueryRequest message to be sent
-     * @param assertion the AssertionType instance received from the adapter
-     * @param target NhinTargetCommunitiesType where DocQuery Request is to be sent. Only the first one is used.
+     * @param request
+     *            the AdhocQueryRequest message to be sent
+     * @param assertion
+     *            the AssertionType instance received from the adapter
+     * @param target
+     *            NhinTargetCommunitiesType where DocQuery Request is to be sent. Only the first one is used.
      * @return AdhocQueryResponse received from the NHIN
      */
     @Override
-    @OutboundProcessingEvent(beforeBuilder = AdhocQueryRequestDescriptionBuilder.class, afterReturningBuilder = AdhocQueryResponseDescriptionBuilder.class, serviceType = "Document Query", version = "")
+    @OutboundProcessingEvent(beforeBuilder = AdhocQueryRequestDescriptionBuilder.class,
+            afterReturningBuilder = AdhocQueryResponseDescriptionBuilder.class, serviceType = "Document Query",
+            version = "")
     public AdhocQueryResponse respondingGatewayCrossGatewayQuery(AdhocQueryRequest request, AssertionType assertion,
             NhinTargetCommunitiesType targets) {
 
         NhinTargetSystemType target = MessageGeneratorUtils.getInstance().convertFirstToNhinTargetSystemType(targets);
         String targetHCID = getTargetHCID(target);
-        
-        if(targets.getNhinTargetCommunity().size() > 1){
-        	warnTooManyTargets(targetHCID, targets);
+
+        if (targets.getNhinTargetCommunity().size() > 1) {
+            warnTooManyTargets(targetHCID, targets);
         }
 
         AdhocQueryResponse response = sendRequestToNwhin(request, assertion, target, targetHCID);
@@ -97,7 +104,7 @@ public class PassthroughOutboundDocQuery implements OutboundDocQuery {
 
         try {
             OutboundDocQueryOrchestratable orchestratable = new OutboundDocQueryOrchestratable(delegate, null, null,
-                    null, assertion, NhincConstants.DOC_QUERY_SERVICE_NAME, target, request);
+                    assertion, NhincConstants.DOC_QUERY_SERVICE_NAME, target, request);
             response = delegate.process(orchestratable).getResponse();
         } catch (Exception ex) {
             String errorMsg = "Error from target homeId = " + targetCommunityID + ". " + ex.getMessage();
@@ -107,36 +114,36 @@ public class PassthroughOutboundDocQuery implements OutboundDocQuery {
 
         return response;
     }
-    
-    private void warnTooManyTargets(String targetHCID, NhinTargetCommunitiesType targets){
-    	StringBuilder stringBuilder = new StringBuilder();
-    	stringBuilder.append("Multiple targets in request message in passthrough mode." +
-    			"  Only sending to target HCID: " + targetHCID + ".");
-    	stringBuilder.append("  Not sending request to: ");
-    	Iterator <NhinTargetCommunityType> communityIterator = targets.getNhinTargetCommunity().iterator();
-    	Boolean first = true;
-    	while(communityIterator.hasNext()){
-    		String nextTarget = communityIterator.next().getHomeCommunity().getHomeCommunityId();
-    		if(!nextTarget.equals(targetHCID)){
-    			if(first){
-        			first = false;
-        		}else {
-        			stringBuilder.append(", ");
-        		}
-    			stringBuilder.append(nextTarget);
-    		}
-    	}
-    	stringBuilder.append(".");
-    	logWarning(stringBuilder.toString());
+
+    private void warnTooManyTargets(String targetHCID, NhinTargetCommunitiesType targets) {
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("Multiple targets in request message in passthrough mode."
+                + "  Only sending to target HCID: " + targetHCID + ".");
+        stringBuilder.append("  Not sending request to: ");
+        Iterator<NhinTargetCommunityType> communityIterator = targets.getNhinTargetCommunity().iterator();
+        Boolean first = true;
+        while (communityIterator.hasNext()) {
+            String nextTarget = communityIterator.next().getHomeCommunity().getHomeCommunityId();
+            if (!nextTarget.equals(targetHCID)) {
+                if (first) {
+                    first = false;
+                } else {
+                    stringBuilder.append(", ");
+                }
+                stringBuilder.append(nextTarget);
+            }
+        }
+        stringBuilder.append(".");
+        logWarning(stringBuilder.toString());
     }
-    
+
     /**
      * For unit testing the multiple target warning.
+     * 
      * @param warning
      */
-    protected void logWarning(String warning){
-    	LOG.warn(warning);
+    protected void logWarning(String warning) {
+        LOG.warn(warning);
     }
-    
-    
+
 }
