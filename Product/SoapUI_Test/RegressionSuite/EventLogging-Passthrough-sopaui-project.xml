@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<con:soapui-project activeEnvironment="Default" name="EventLogging-Entity" resourceRoot="${projectDir}" soapui-version="4.5.1" abortOnError="false" runType="SEQUENTIAL" xmlns:con="http://eviware.com/soapui/config"><con:settings/><con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:entityadmindistribution}AdministrativeDistribution_Binding_Soap12" definition="${projectDir}/../ValidationSuite/target/wsdl/EntityAdminDist_g1.wsdl" name="AdministrativeDistribution_Binding_Soap12_g1" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<con:soapui-project activeEnvironment="Default" name="EventLogging-Passthrough" resourceRoot="${projectDir}" soapui-version="4.5.1" abortOnError="false" runType="SEQUENTIAL" xmlns:con="http://eviware.com/soapui/config"><con:settings/><con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:entityadmindistribution}AdministrativeDistribution_Binding_Soap12" definition="${projectDir}/../ValidationSuite/target/wsdl/EntityAdminDist_g1.wsdl" name="AdministrativeDistribution_Binding_Soap12_g1" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 		<con:settings/>
 		<con:endpoints>
 			<con:endpoint>http://localhost:${HttpDefaultPort}/Gateway/AdminDistribution/2_0/AdministrativeDistribution_Service</con:endpoint>
@@ -127,7 +127,7 @@
 		<con:operation action="urn:gov:hhs:fha:nhinc:entitydocquery:RespondingGateway_CrossGatewayQueryRequest" anonymous="optional" bindingOperationName="RespondingGateway_CrossGatewayQuery" inputName="RespondingGateway_CrossGatewayQueryRequest" isOneWay="false" name="RespondingGateway_CrossGatewayQuery" outputName="RespondingGateway_CrossGatewayQueryResponse" receivesAttachments="false" sendsAttachments="false" type="Request-Response">
 			<con:settings/>
 		</con:operation>
-	</con:interface><con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="AdministrativeDistribution_Binding_Soap12_g0" type="wsdl" bindingName="{urn:gov:hhs:fha:nhinc:entityadmindistribution}AdministrativeDistribution_Binding_Soap12" soapVersion="1_2" anonymous="optional" definition="${projectDir}/../ValidationSuite/target/wsdl/EntityAdminDist.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:endpoints><con:endpoint>http://localhost:${HttpDefaultPort}/Gateway/AdminDistribution/1_0/AdministrativeDistribution_Service</con:endpoint></con:endpoints><con:operation isOneWay="false" action="urn:oasis:names:tc:emergency:EDXL:DE:1.0:SendAlertMessage" name="SendAlertMessage" bindingOperationName="SendAlertMessage" type="One-Way" inputName="" sendsAttachments="false" anonymous="optional"><con:settings/></con:operation></con:interface><con:testSuite name="Entity_g1">
+	</con:interface><con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="AdministrativeDistribution_Binding_Soap12_g0" type="wsdl" bindingName="{urn:gov:hhs:fha:nhinc:entityadmindistribution}AdministrativeDistribution_Binding_Soap12" soapVersion="1_2" anonymous="optional" definition="${projectDir}/../ValidationSuite/target/wsdl/EntityAdminDist.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:endpoints><con:endpoint>http://localhost:${HttpDefaultPort}/Gateway/AdminDistribution/1_0/AdministrativeDistribution_Service</con:endpoint></con:endpoints><con:operation isOneWay="false" action="urn:oasis:names:tc:emergency:EDXL:DE:1.0:SendAlertMessage" name="SendAlertMessage" bindingOperationName="SendAlertMessage" type="One-Way" inputName="" sendsAttachments="false" anonymous="optional"><con:settings/></con:operation></con:interface><con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="AdapterPatientDiscoveryBindingSoap" type="wsdl" bindingName="{urn:gov:hhs:fha:nhinc:adapterpatientdiscovery}AdapterPatientDiscoveryBindingSoap" soapVersion="1_2" anonymous="optional" definition="${projectDir}/../target/wsdl/AdapterPatientDiscovery.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:endpoints><con:endpoint>https://localhost:${HttpsDefaultPort}/Adapter/PatientDiscovery/A_0/AdapterPatientDiscovery</con:endpoint></con:endpoints><con:operation isOneWay="false" action="urn:RespondingGateway_PRPA_IN201305UV02" name="RespondingGateway_PRPA_IN201305UV02" bindingOperationName="RespondingGateway_PRPA_IN201305UV02" type="Request-Response" outputName="RespondingGateway_PRPA_IN201306UV02Response" inputName="RespondingGateway_PRPA_IN201305UV02Request" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation></con:interface><con:testSuite name="g1">
 		<con:settings/>
 		<con:runType>SEQUENTIAL</con:runType>
 		<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Document Submission Deferred Req" searchProperties="true" id="7e685188-254a-4e21-9f18-98674d0f4a82">
@@ -149,7 +149,7 @@
 				<con:request><![CDATA[
 					<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" xmlns:urn3="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:urn4="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn5="urn:ihe:iti:xds-b:2007">
    <soap:Header/>
-   <soap:Body testSuite="Entity_g1" testCase="Document Submission Deferred Req">
+   <soap:Body testSuite="Passthrough_g1" testCase="Document Submission Deferred Req">
       <urn:RespondingGateway_ProvideAndRegisterDocumentSetRequest>
          <urn:assertion>
             <urn1:address>
@@ -629,19 +629,19 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2013-01-11T18:35:11Z</con:value>
+		<con:value>2013-02-03T14:52:55Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2013-01-11T18:45:11Z</con:value>
+		<con:value>2013-02-03T15:02:55Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>01/11/2013 18:35:11</con:value>
+		<con:value>02/03/2013 14:52:55</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2013-02-10T00:00:00Z</con:value>
+		<con:value>2013-03-05T00:00:00Z</con:value>
 	</con:property>
 </con:properties>
 <con:reportParameters/>
@@ -1025,19 +1025,19 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2013-01-11T18:35:12Z</con:value>
+		<con:value>2013-02-03T14:52:57Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2013-01-11T18:45:12Z</con:value>
+		<con:value>2013-02-03T15:02:57Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>01/11/2013 18:35:12</con:value>
+		<con:value>02/03/2013 14:52:57</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2013-02-10T00:00:00Z</con:value>
+		<con:value>2013-03-05T00:00:00Z</con:value>
 	</con:property>
 </con:properties>
 </con:testCase>
@@ -1060,7 +1060,7 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
 		<con:request><![CDATA[
 			<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" xmlns:urn3="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:urn4="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn5="urn:ihe:iti:xds-b:2007">
    <soap:Header/>
-   <soap:Body testSuite="Entity_g1" testCase="Document Submission">
+   <soap:Body testSuite="Passthrough_g1" testCase="Document Submission">
       <urn:RespondingGateway_ProvideAndRegisterDocumentSetRequest>
          <urn:assertion>
             <urn1:address>
@@ -1541,19 +1541,19 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2013-01-11T18:35:13Z</con:value>
+		<con:value>2013-02-03T14:57:00Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2013-01-11T18:45:13Z</con:value>
+		<con:value>2013-02-03T15:07:00Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>01/11/2013 18:35:13</con:value>
+		<con:value>02/03/2013 14:57:00</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2013-02-10T00:00:00Z</con:value>
+		<con:value>2013-03-05T00:00:00Z</con:value>
 	</con:property>
 </con:properties>
 <con:reportParameters/>
@@ -1576,7 +1576,7 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
 		<con:endpoint>${#TestSuite#Endpoint-PatientDiscoveryAsyncReq}</con:endpoint>
 		<con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:hl7-org:v3" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
    <soap:Header/>
-   <soap:Body testSuite="Entity_g1" testCase="Patient Discovery Deferred Req">
+   <soap:Body testSuite="Passthrough_g1" testCase="Patient Discovery Deferred Req">
       <urn:RespondingGateway_PRPA_IN201305UV02Request>
          <urn:PRPA_IN201305UV02 ITSVersion="XML_1.0">
             <urn:id root="1.1" extension="-5a3e95b1:11d1fa33d45:-7f9b"/>
@@ -2155,19 +2155,19 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
 	</con:property>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2013-01-11T18:35:14Z</con:value>
+		<con:value>2013-02-03T14:53:00Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2013-01-11T18:45:14Z</con:value>
+		<con:value>2013-02-03T15:03:00Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>01/11/2013 18:35:14</con:value>
+		<con:value>02/03/2013 14:53:00</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2013-02-10T00:00:00Z</con:value>
+		<con:value>2013-03-05T00:00:00Z</con:value>
 	</con:property>
 </con:properties>
 <con:reportParameters/>
@@ -2196,7 +2196,7 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
       <add:RelatesTo>uuid:6666666666.66666.666.66</add:RelatesTo>
       <add:To>${#TestSuite#Endpoint-PatientDiscoveryAsyncResp}</add:To>
    </soap:Header>
-   <soap:Body testSuite="Entity_g1" testCase="Patient Discovery Deferred Resp">
+   <soap:Body testSuite="Passthrough_g1" testCase="Patient Discovery Deferred Resp">
       <urn:RespondingGateway_PRPA_IN201306UV02Request>
          <urn:PRPA_IN201306UV02 ITSVersion="XML_1.0">
             <urn:id root="2.2" extension="-5a3e95b1:11d1fa33d45:-8e45"/>
@@ -2801,37 +2801,45 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
 	</con:property>
 <con:property>
 	<con:name>startDate</con:name>
-	<con:value>2013-01-11T18:35:15Z</con:value>
+	<con:value>2013-02-03T14:53:01Z</con:value>
 </con:property>
 <con:property>
 	<con:name>endDate</con:name>
-	<con:value>2013-01-11T18:45:15Z</con:value>
+	<con:value>2013-02-03T15:03:01Z</con:value>
 </con:property>
 <con:property>
 	<con:name>sigDate</con:name>
-	<con:value>01/11/2013 18:35:15</con:value>
+	<con:value>02/03/2013 14:53:01</con:value>
 </con:property>
 <con:property>
 	<con:name>expireDate</con:name>
-	<con:value>2013-02-10T00:00:00Z</con:value>
+	<con:value>2013-03-05T00:00:00Z</con:value>
 </con:property>
 </con:properties>
 <con:reportParameters/>
 </con:testCase>
-<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Patient Discovery" searchProperties="true" id="c7e1d2d1-838b-4836-afa3-1c655cf5c329">
+
+<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Patient Discovery" searchProperties="true" id="43a0b161-55f5-4e2a-b24a-d4596ee3627b">
 	<con:settings/>
-	<con:testStep type="groovy" name="Clear Event Logs"><con:settings/><con:config><script>context.withSql('eventdb') { sql -> 
+	
+<con:testStep type="groovy" name="Clear Event Logs"><con:settings/><con:config><script>context.withSql('eventdb') { sql -> 
 	sql.execute('delete from ' + context.findProperty('EventLoggingTable'))
-}</script></con:config></con:testStep>
-	<con:testStep name="clear correlations table" type="groovy">
-		<con:settings/>
-		<con:config>
-			<script>context.withSql('PatientCorrelationDB') { sql -> 
-			sql.execute('delete from ' + context.findProperty('PatientCorrelationTable'))
-			}</script>
-	</con:config>
-</con:testStep>
-<con:testStep name="Patient Discovery" type="request">
+}</script></con:config></con:testStep><con:testStep type="groovy" name="Set Up PassThru"><con:settings/><con:config><script>log.info "Setting Patient Discovery Adapter to unsecured";
+def dir = context.findProperty('GatewayPropDir');
+nhinc.FileUtils.backupFile(dir, "PatientDiscoveryProxyConfig.xml", log);
+def alias = 'adapterpatientdiscovery'
+def aliasName= 'adapterpatientdiscoverywssecured';
+def replaceAlias = 'adapterpatientdiscoverywsunsecured';
+
+nhinc.FileUtils.updateSpringConfig(dir, "PatientDiscoveryProxyConfig.xml",
+	alias, aliasName, replaceAlias, log);
+
+log.info "Modifying internalConnectionInfo for adapterpatientdiscovery mock."
+
+nhinc.FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", dir, "1.1",
+	"adapterpatientdiscovery", "http://localhost:1720/MockPDAdapter", "2.0",
+	log);
+	</script></con:config></con:testStep><con:testStep name="Patient Discovery" type="request">
 	<con:settings/>
 	<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 		<con:interface>EntityPatientDiscoveryBindingSoap</con:interface>
@@ -2842,9 +2850,10 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
 	</con:settings>
 	<con:encoding>UTF-8</con:encoding>
 	<con:endpoint>${#TestSuite#Endpoint-PatientDiscovery}</con:endpoint>
-	<con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:hl7-org:v3" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing">
+	<con:request><![CDATA[
+		<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:hl7-org:v3" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing">
    <soap:Header/>
-   <soap:Body testSuite="Entity_g1" testCase="Patient Discovery">
+   <soap:Body testSuite="Passthrough_g1" testCase="Patient Discovery">
       <urn:RespondingGateway_PRPA_IN201305UV02Request>
          <urn:PRPA_IN201305UV02 ITSVersion="XML_1.0">
             <urn:id root="1.1" extension="-5a3e95b1:11d1fa33d45:-7f9b"/>
@@ -3074,9 +3083,9 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
          <urn:NhinTargetCommunities>
             <urn1:nhinTargetCommunity>
                <urn1:homeCommunity>
-                  <urn1:description>${#Project#RemoteHCDescription}</urn1:description>
-                  <urn1:homeCommunityId>${#Project#RemoteHCID}</urn1:homeCommunityId>
-                  <urn1:name>${#Project#RemoteHCDescription}</urn1:name>
+               <urn1:description>${#Project#RemoteHCDescription}</urn1:description>
+               <urn1:homeCommunityId>${#Project#RemoteHCID}</urn1:homeCommunityId>
+               <urn1:name>${#Project#RemoteHCDescription}</urn1:name>
                </urn1:homeCommunity>
             </urn1:nhinTargetCommunity>
          </urn:NhinTargetCommunities>
@@ -3124,52 +3133,168 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
 </con:request>
 </con:config>
 </con:testStep>
-<con:testStep name="count correlations (1)" type="groovy">
+<con:testStep type="mockresponse" name="Mock Response"><con:settings/><con:config xsi:type="con:MockResponseStep" startStep="Patient Discovery" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>AdapterPatientDiscoveryBindingSoap</con:interface><con:operation>RespondingGateway_PRPA_IN201305UV02</con:operation><con:path>/MockPDAdapter</con:path><con:port>1720</con:port><con:response><con:settings/><con:responseContent><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:hl7-org:v3">
+   <soap:Header/>
+   <soap:Body>
+   <PRPA_IN201306UV02 xmlns="urn:hl7-org:v3" xmlns:ns2="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:ns3="http://www.w3.org/2005/08/addressing" xmlns:ns4="urn:gov:hhs:fha:nhinc:common:patientcorrelationfacade" ITSVersion="XML_1.0">
+   <id root="1.1" extension="13318247:13b4e0b839b:-7ff4"/>
+   <creationTime value="20121129212833"/>
+   <interactionId root="2.16.840.1.113883.1.6" extension="PRPA_IN201306UV02"/>
+   <processingCode code="P"/>
+   <processingModeCode code="T"/>
+   <acceptAckCode code="NE"/>
+   <receiver typeCode="RCV">
+   	<device classCode="DEV" determinerCode="INSTANCE">
+   		<id root="1.2.345.678.999"/>
+   		<asAgent classCode="AGNT">
+   			<representedOrganization classCode="ORG" determinerCode="INSTANCE">
+   				<id root="1.1"/>
+   			</representedOrganization>
+   		</asAgent>
+   	</device>
+   </receiver>
+   <sender typeCode="SND">
+   	<device classCode="DEV" determinerCode="INSTANCE">
+   		<id root="2.2"/>
+   		<asAgent classCode="AGNT">
+   			<representedOrganization classCode="ORG" determinerCode="INSTANCE">
+   				<id root="2.2"/>
+   			</representedOrganization>
+   		</asAgent>
+   	</device>
+   </sender>
+   <acknowledgement>
+   	<typeId root="2.16.840.1.113883.1.6" extension="PRPA_IN201305UV02"/>
+   	<typeCode code="AA"/><targetMessage xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+   </acknowledgement>
+   <controlActProcess classCode="CACT" moodCode="EVN">
+   	<code code="PRPA_TE201306UV" codeSystem="2.16.840.1.113883.1.6"/>
+   	<subject typeCode="SUBJ">
+   		<registrationEvent classCode="REG" moodCode="EVN">
+   			<id nullFlavor="NA"/>
+   			<statusCode code="active"/>
+   				<subject1 typeCode="SBJ">
+   					<patient classCode="PAT">
+   						<id root="1.1" extension="D123401"/>
+   						<statusCode code="SD"/>
+   						<patientPerson classCode="PSN" determinerCode="INSTANCE">
+   							<name>
+   								<family partType="FAM">Younger</family>
+   								<given partType="GIV">Gallow</given>
+   							</name>
+   							<telecom value="tel:+1-888-555-1234"/>
+   							<administrativeGenderCode code="M"/>
+   							<birthTime value="19630804"/>
+   							<addr><city>LEESBURG</city><state>VA</state><postalCode>20176</postalCode></addr>
+   							<asOtherIDs classCode="SD">
+   								<id root="2.16.840.1.113883.4.1" extension="999123401"/>
+   								<scopingOrganization classCode="ORG" determinerCode="INSTANCE">
+   									<id root="2.16.840.1.113883.4.1"/>
+   								</scopingOrganization>
+   							</asOtherIDs>
+   						</patientPerson>
+   						<providerOrganization classCode="ORG" determinerCode="INSTANCE">
+   							<id root="1.1"/>
+   							<contactParty xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+   							</providerOrganization>
+   							<subjectOf1>
+   								<queryMatchObservation classCode="CASE" moodCode="EVN">
+   									<code code="IHE_PDQ"/>
+   									<value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="INT" value="100"/>
+   								</queryMatchObservation>
+   							</subjectOf1>
+   						</patient>
+   					</subject1>
+   					<custodian typeCode="CST">
+   						<assignedEntity classCode="ASSIGNED">
+   							<id root="1.1"/>
+   							<code code="NotHealthDataLocator" codeSystem="1.3.6.1.4.1.19376.1.2.27.2"/>
+   						</assignedEntity>
+   					</custodian>
+   				</registrationEvent>
+   			</subject>
+   			<queryAck>
+   				<queryId root="1.1" extension="-abd3453dcd24wkkks545"/>
+   				<queryResponseCode code="OK"/>
+   			</queryAck>
+   			<queryByParameter>
+   				<queryId root="1.1" extension="-abd3453dcd24wkkks545"/>
+   				<statusCode code="new"/>
+   				<responseModalityCode code="R"/>
+   				<responsePriorityCode code="I"/>
+   				<parameterList>
+   					<livingSubjectAdministrativeGender>
+   						<value code="M"/>
+   						<semanticsText representation="TXT"/>
+   					</livingSubjectAdministrativeGender>
+   					<livingSubjectBirthTime>
+   						<value value="19630804"/>
+   						<semanticsText representation="TXT"/>
+   					</livingSubjectBirthTime>
+   					<livingSubjectId>
+   						<value root="1.1" extension="1111"/>
+   						<semanticsText representation="TXT"/>
+   					</livingSubjectId>
+   					<livingSubjectName>
+   						<value>
+   							<family partType="FAM">Younger</family>
+   							<given partType="GIV">Gallow</given>
+                        		</value>
+                        		<semanticsText representation="TXT"/>
+                        	</livingSubjectName>
+                     </parameterList>
+                 </queryByParameter>
+             </controlActProcess>
+     </PRPA_IN201306UV02>
+   </soap:Body>
+</soap:Envelope>]]></con:responseContent><con:wsaConfig mustUnderstand="NONE" version="200508"/></con:response></con:config></con:testStep>
+<con:testStep type="groovy" name="Verify Event Logs">
 	<con:settings/>
-	<con:config>
-		<script>context.withSql('PatientCorrelationDB') { sql -> 
-		assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('PatientCorrelationTable'))[0]
-		}</script>
-</con:config>
-</con:testStep>
-<con:testStep type="groovy" name="Verify Event Logs"><con:settings/><con:config><script>context.withSql('eventdb') {sql ->
-	assert 14 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable'))[0]
+	<con:config><script>context.withSql('eventdb') {sql ->
+	assert 12 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable'))[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_INBOUND_MESSAGE"')[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_INBOUND_MESSAGE"')[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_INBOUND_PROCESSING"')[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_INBOUND_PROCESSING"')[0]
-	assert 2 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_DELEGATION_TO_ADAPTER"')[0]
-	assert 2 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_DELEGATION_TO_ADAPTER"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_DELEGATION_TO_ADAPTER"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_DELEGATION_TO_ADAPTER"')[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_OUTBOUND_MESSAGE"')[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_OUTBOUND_MESSAGE"')[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_OUTBOUND_PROCESSING"')[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_OUTBOUND_PROCESSING"')[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_INVOCATION_TO_NWHIN"')[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_INVOCATION_TO_NWHIN"')[0]
-}</script></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
-nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);</con:setupScript>
-<con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);</con:tearDownScript>
+}</script></con:config>
+</con:testStep>
+<con:setupScript/>
+<con:tearDownScript>def dir = context.findProperty('GatewayPropDir');
+def alias = 'adapterpatientdiscovery';
+def aliasName= 'adapterpatientdiscoverywsunsecured';
+def replaceAlias = 'adapterpatientdiscoverywssecured';
+
+nhinc.FileUtils.updateSpringConfig(dir, "PatientDiscoveryProxyConfig.xml", alias, aliasName, replaceAlias, log);
+
+</con:tearDownScript>
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2013-01-11T18:35:17Z</con:value>
+		<con:value>2013-01-31T17:18:11Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2013-01-11T18:45:17Z</con:value>
+		<con:value>2013-01-31T17:28:11Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>01/11/2013 18:35:17</con:value>
+		<con:value>01/31/2013 17:18:11</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2013-02-10T00:00:00Z</con:value>
+		<con:value>2013-03-02T00:00:00Z</con:value>
 	</con:property>
 </con:properties>
 <con:reportParameters/>
-</con:testCase>
-<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Document Query" searchProperties="true" id="8271858b-0d6d-4d2f-81e5-d8591b2274ae">
+</con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Document Query" searchProperties="true" id="8271858b-0d6d-4d2f-81e5-d8591b2274ae">
 	<con:settings/>
 	<con:testStep type="groovy" name="Clear Event Logs"><con:settings/><con:config><script>context.withSql('eventdb') { sql -> 
 	sql.execute('delete from ' + context.findProperty('EventLoggingTable'))
@@ -3227,7 +3352,7 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
 	<con:request><![CDATA[
 		<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn3="urn:gov:hhs:fha:nhinc:common:nhinccommon">
    <soap:Header/>
-   <soap:Body testSuite="Entity_g1" testCase="Document Query">
+   <soap:Body testSuite="Passthrough_g1" testCase="Document Query">
       <urn:RespondingGateway_CrossGatewayQueryRequest>
          <urn1:AdhocQueryRequest federated="false" startIndex="0" maxResults="-1">
             <urn1:ResponseOption returnType="LeafClass" returnComposedObjects="false"/>
@@ -3520,19 +3645,19 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2013-01-11T18:35:18Z</con:value>
+		<con:value>2013-02-03T14:53:04Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2013-01-11T18:45:18Z</con:value>
+		<con:value>2013-02-03T15:03:04Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>01/11/2013 18:35:18</con:value>
+		<con:value>02/03/2013 14:53:04</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2013-02-10T00:00:00Z</con:value>
+		<con:value>2013-03-05T00:00:00Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>FullPatientID</con:name>
@@ -3561,7 +3686,7 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
 		<con:request><![CDATA[
 			<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:ihe:iti:xds-b:2007" xmlns:urn2="urn:gov:hhs:fha:nhinc:common:nhinccommon">
    <soap:Header/>
-   <soap:Body testSuite="Entity_g1" testCase="Document Retrieve">
+   <soap:Body testSuite="Passthrough_g1" testCase="Document Retrieve">
       <urn:RespondingGateway_CrossGatewayRetrieveRequest>
          <urn1:RetrieveDocumentSetRequest>
             <urn1:DocumentRequest>
@@ -3857,19 +3982,19 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
 	</con:property>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2013-01-11T18:35:19Z</con:value>
+		<con:value>2013-02-03T14:53:05Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2013-01-11T18:45:19Z</con:value>
+		<con:value>2013-02-03T15:03:05Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>01/11/2013 18:35:19</con:value>
+		<con:value>02/03/2013 14:53:05</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2013-02-10T00:00:00Z</con:value>
+		<con:value>2013-03-05T00:00:00Z</con:value>
 	</con:property>
 </con:properties>
 <con:reportParameters/>
@@ -3908,7 +4033,7 @@ nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'), "gateway.
 	<con:request><![CDATA[
 		<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:wsnt="http://docs.oasis-open.org/wsn/b-2" xmlns:wsa="http://www.w3.org/2005/08/addressing" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add1="http://schemas.xmlsoap.org/ws/2004/08/addressing">
    <soap:Header/>
-   <soap:Body testSuite="Entity_g1" testCase="Subscribe">
+   <soap:Body testSuite="Passthrough_g1" testCase="Subscribe">
       <urn:SubscribeRequest>
          <wsnt:Subscribe>
             <wsnt:ConsumerReference>
@@ -4243,7 +4368,7 @@ nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'), "gateway.
 	<con:request><![CDATA[
 		<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:wsnt="http://docs.oasis-open.org/wsn/b-2" xmlns:wsa="http://www.w3.org/2005/08/addressing" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add1="http://schemas.xmlsoap.org/ws/2004/08/addressing">
    <soap:Header/>
-   <soap:Body testSuite="Entity_g1" testCase="Subscribe (as part of Notify test case)">
+   <soap:Body testSuite="Passthrough_g1" testCase="Subscribe (as part of Notify test case)">
       <urn:SubscribeRequest>
          <wsnt:Subscribe>
             <wsnt:ConsumerReference>
@@ -4519,7 +4644,7 @@ testRunner.testCase.testSuite.project.setPropertyValue( "NotifySubscriptionID", 
 	<con:request><![CDATA[
 		<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:b="http://docs.oasis-open.org/wsn/b-2" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:urn2="urn:gov:hhs:fha:nhinc:common:subscriptionb2overridefordocuments" xmlns:urn3="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn4="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:ihe="urn:ihe:iti:xds-b:2007" xmlns:wsa="http://www.w3.org/2005/08/addressing" xmlns:rim="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0">
    <soap:Header/>
-   <soap:Body testSuite="Entity_g1" testCase="Notify">
+   <soap:Body testSuite="Passthrough_g1" testCase="Notify">
       <urn:NotifyRequest>
          <b:Notify>
             <b:NotificationMessage>
@@ -4842,7 +4967,7 @@ nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'), "gateway.
 	<con:request><![CDATA[
 		<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:wsnt="http://docs.oasis-open.org/wsn/b-2" xmlns:wsa="http://www.w3.org/2005/08/addressing" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add1="http://schemas.xmlsoap.org/ws/2004/08/addressing">
    <soap:Header/>
-   <soap:Body testSuite="Entity_g1" testCase="Subscribe (as part of Unsubscribe test case)">
+   <soap:Body testSuite="Passthrough_g1" testCase="Subscribe (as part of Unsubscribe test case)">
       <urn:SubscribeRequest>
          <wsnt:Subscribe>
             <wsnt:ConsumerReference>
@@ -5123,7 +5248,7 @@ testRunner.testCase.testSuite.project.setPropertyValue( "UnSubscriptionID", subI
       <ns5:SubscriptionId xmlns="http://www.w3.org/2005/08/addressing" xmlns:ns2="http://docs.oasis-open.org/wsn/b-2" xmlns:ns3="http://docs.oasis-open.org/wsrf/bf-2" xmlns:ns4="http://docs.oasis-open.org/wsn/t-1" xmlns:ns5="http://www.hhs.gov/healthit/nhin">${#Project#UnSubscriptionID}</ns5:SubscriptionId>
       <nhinconnect:Info xmlns:nhinconnect="urn:nhinconnect">hello world</nhinconnect:Info>
    </soap:Header>
-   <soap:Body testSuite="Entity_g1" testCase="Unsubscribe">
+   <soap:Body testSuite="Passthrough_g1" testCase="Unsubscribe">
       <urn:UnsubscribeRequest>
          <wsnt:Unsubscribe xmlns:wsnt="http://docs.oasis-open.org/wsn/b-2">
             <nhinconnect:Info xmlns:nhinconnect="urn:nhinconnect">just some data</nhinconnect:Info>
@@ -5425,7 +5550,7 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
 		<con:request><![CDATA[
 			<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:urn2="urn:oasis:names:tc:emergency:EDXL:DE:1.0">
    <soap:Header/>
-   <soap:Body testSuite="Entity_g1" testCase="Admin Distribution">
+   <soap:Body testSuite="Passthrough_g1" testCase="Admin Distribution">
       <urn:RespondingGateway_SendAlertMessage>
          <urn:assertion>
             <urn1:address>
@@ -5764,9 +5889,7 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
 </con:testStep>
 <con:testStep name="Delay" type="delay">
 	<con:settings/>
-	<con:config>
-		<delay>15000</delay>
-	</con:config>
+	<con:config><delay>1000</delay></con:config>
 </con:testStep>
 <con:testStep type="groovy" name="Verify Event Logs"><con:settings/><con:config><script>context.withSql('eventdb') {sql ->
 	assert 12 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable'))[0]
@@ -5788,19 +5911,19 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2013-01-11T18:36:05Z</con:value>
+		<con:value>2013-02-03T14:53:06Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2013-01-11T18:46:05Z</con:value>
+		<con:value>2013-02-03T15:03:06Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>01/11/2013 18:36:05</con:value>
+		<con:value>02/03/2013 14:53:06</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2013-02-10T00:00:00Z</con:value>
+		<con:value>2013-03-05T00:00:00Z</con:value>
 	</con:property>
 </con:properties>
 </con:testCase>
@@ -5857,7 +5980,7 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
 <con:setupScript/>
 <con:tearDownScript/>
 <con:reportParameters/>
-</con:testSuite><con:testSuite name="Entity_g0">
+</con:testSuite><con:testSuite name="g0">
 	<con:settings/>
 	<con:runType>SEQUENTIAL</con:runType>
 	<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Document Submission Deferred Req" searchProperties="true" id="94e4f365-297e-4c77-aba9-1de42c5decb5">
@@ -5879,7 +6002,7 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
 			<con:request><![CDATA[
 				<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" xmlns:urn3="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:urn4="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn5="urn:ihe:iti:xds-b:2007">
    <soap:Header/>
-   <soap:Body testSuite="Entity_g0" testCase="Document Submission Deferred Request">
+   <soap:Body testSuite="Passthrough_g0" testCase="Document Submission Deferred Request">
       <urn:RespondingGateway_ProvideAndRegisterDocumentSetRequest>
          <urn:assertion>
             <urn1:address>
@@ -6363,19 +6486,19 @@ nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.pr
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2013-01-11T18:35:35Z</con:value>
+		<con:value>2013-02-03T14:53:37Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2013-01-11T18:45:35Z</con:value>
+		<con:value>2013-02-03T15:03:37Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>01/11/2013 18:35:35</con:value>
+		<con:value>02/03/2013 14:53:37</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2013-02-10T00:00:00Z</con:value>
+		<con:value>2013-03-05T00:00:00Z</con:value>
 	</con:property>
 </con:properties>
 <con:reportParameters/>
@@ -6399,7 +6522,7 @@ nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.pr
 		<con:request><![CDATA[
 			<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:urn3="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0">
    <soap:Header/>
-   <soap:Body testSuite="Entity_g0" testCase="Document Submission Deferred Resp">
+   <soap:Body testSuite="Passthrough_g0" testCase="Document Submission Deferred Resp">
       <urn:RespondingGateway_ProvideAndRegisterDocumentSetResponseRequest>
          <urn:assertion>
             <urn1:address>
@@ -6745,19 +6868,19 @@ nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.pr
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2013-01-11T18:35:36Z</con:value>
+		<con:value>2013-02-03T14:53:37Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2013-01-11T18:45:36Z</con:value>
+		<con:value>2013-02-03T15:03:37Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>01/11/2013 18:35:36</con:value>
+		<con:value>02/03/2013 14:53:37</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2013-02-10T00:00:00Z</con:value>
+		<con:value>2013-03-05T00:00:00Z</con:value>
 	</con:property>
 </con:properties>
 </con:testCase>
@@ -6779,7 +6902,7 @@ nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.pr
 		<con:endpoint>${#TestSuite#Endpoint-XDREntity}</con:endpoint>
 		<con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" xmlns:urn3="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:urn4="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn5="urn:ihe:iti:xds-b:2007">
    <soap:Header/>
-   <soap:Body testSuite="Entity_g0" testCase="Document Submission">
+   <soap:Body testSuite="Passthrough_g0" testCase="Document Submission">
       <urn:RespondingGateway_ProvideAndRegisterDocumentSetRequest>
          <urn:assertion>
             <urn1:address>
@@ -7260,19 +7383,19 @@ nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.pr
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2013-01-11T18:35:38Z</con:value>
+		<con:value>2013-02-03T14:53:38Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2013-01-11T18:45:38Z</con:value>
+		<con:value>2013-02-03T15:03:38Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>01/11/2013 18:35:38</con:value>
+		<con:value>02/03/2013 14:53:38</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2013-02-10T00:00:00Z</con:value>
+		<con:value>2013-03-05T00:00:00Z</con:value>
 	</con:property>
 </con:properties>
 <con:reportParameters/>
@@ -7300,7 +7423,7 @@ nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.pr
 		<con:request><![CDATA[
 			<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:hl7-org:v3" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
    <soap:Header/>
-   <soap:Body testSuite="Entity_g0" testCase="Patient Discovery Deferred Req">
+   <soap:Body testSuite="Passthrough_g0" testCase="Patient Discovery Deferred Req">
       <urn:RespondingGateway_PRPA_IN201305UV02Request>
          <urn:PRPA_IN201305UV02 ITSVersion="XML_1.0">
             <urn:id root="1.1" extension="-5a3e95b1:11d1fa33d45:-7f9b"/>
@@ -7879,19 +8002,19 @@ nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.pr
 	</con:property>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2013-01-11T18:35:39Z</con:value>
+		<con:value>2013-02-03T14:53:40Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2013-01-11T18:45:39Z</con:value>
+		<con:value>2013-02-03T15:03:40Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>01/11/2013 18:35:39</con:value>
+		<con:value>02/03/2013 14:53:40</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2013-02-10T00:00:00Z</con:value>
+		<con:value>2013-03-05T00:00:00Z</con:value>
 	</con:property>
 </con:properties>
 <con:reportParameters/>
@@ -7921,7 +8044,7 @@ nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.pr
       <add:RelatesTo>uuid:6666666666.66666.666.66</add:RelatesTo>
       <add:To>${#TestSuite#Endpoint-PatientDiscoveryAsyncResp}</add:To>
    </soap:Header>
-   <soap:Body testSuite="Entity_g0" testCase="Patient Discovery Deferred Resp">
+   <soap:Body testSuite="Passthrough_g0" testCase="Patient Discovery Deferred Resp">
       <urn:RespondingGateway_PRPA_IN201306UV02Request>
          <urn:PRPA_IN201306UV02 ITSVersion="XML_1.0">
             <urn:id root="2.2" extension="-5a3e95b1:11d1fa33d45:-8e45"/>
@@ -8526,33 +8649,41 @@ nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.pr
 	</con:property>
 <con:property>
 	<con:name>endDate</con:name>
-	<con:value>2013-01-11T18:45:40Z</con:value>
+	<con:value>2013-02-03T15:03:40Z</con:value>
 </con:property>
 <con:property>
 	<con:name>sigDate</con:name>
-	<con:value>01/11/2013 18:35:40</con:value>
+	<con:value>02/03/2013 14:53:40</con:value>
 </con:property>
 <con:property>
 	<con:name>expireDate</con:name>
-	<con:value>2013-02-10T00:00:00Z</con:value>
+	<con:value>2013-03-05T00:00:00Z</con:value>
 </con:property>
-<con:property><con:name>startDate</con:name><con:value>2013-01-11T18:35:40Z</con:value></con:property></con:properties>
+<con:property><con:name>startDate</con:name><con:value>2013-02-03T14:53:40Z</con:value></con:property></con:properties>
 <con:reportParameters/>
 </con:testCase>
-<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Patient Discovery" searchProperties="true" id="a2f144ec-2c70-4d77-a7ea-81f9a550fee7">
+
+<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Patient Discovery" searchProperties="true" id="8fef28ff-31bd-4a48-a428-0fa0fe894187">
 	<con:settings/>
-	<con:testStep type="groovy" name="Clear Event Logs"><con:settings/><con:config><script>context.withSql('eventdb') { sql -> 
+	
+<con:testStep type="groovy" name="Clear Event Logs"><con:settings/><con:config><script>context.withSql('eventdb') { sql -> 
 	sql.execute('delete from ' + context.findProperty('EventLoggingTable'))
-}</script></con:config></con:testStep>
-	<con:testStep name="clear correlations table" type="groovy">
-		<con:settings/>
-		<con:config>
-			<script>context.withSql('PatientCorrelationDB') { sql -> 
-			sql.execute('delete from ' + context.findProperty('PatientCorrelationTable'))
-			}</script>
-	</con:config>
-</con:testStep>
-<con:testStep name="Patient Discovery" type="request">
+}</script></con:config></con:testStep><con:testStep type="groovy" name="Set Up PassThru"><con:settings/><con:config><script>log.info "Setting Patient Discovery Adapter to unsecured";
+def dir = context.findProperty('GatewayPropDir');
+nhinc.FileUtils.backupFile(dir, "PatientDiscoveryProxyConfig.xml", log);
+def alias = 'adapterpatientdiscovery'
+def aliasName= 'adapterpatientdiscoverywssecured';
+def replaceAlias = 'adapterpatientdiscoverywsunsecured';
+
+nhinc.FileUtils.updateSpringConfig(dir, "PatientDiscoveryProxyConfig.xml",
+	alias, aliasName, replaceAlias, log);
+
+log.info "Modifying internalConnectionInfo for adapterpatientdiscovery mock."
+
+nhinc.FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", dir, "1.1",
+	"adapterpatientdiscovery", "http://localhost:1720/MockPDAdapter", "2.0",
+	log);
+	</script></con:config></con:testStep><con:testStep name="Patient Discovery" type="request">
 	<con:settings/>
 	<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 		<con:interface>EntityPatientDiscoveryBindingSoap</con:interface>
@@ -8566,7 +8697,7 @@ nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.pr
 	<con:request><![CDATA[
 		<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:hl7-org:v3" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing">
    <soap:Header/>
-   <soap:Body testSuite="Entity_g0" testCase="Patient Discovery">
+   <soap:Body testSuite="Passthrough_g1" testCase="Patient Discovery">
       <urn:RespondingGateway_PRPA_IN201305UV02Request>
          <urn:PRPA_IN201305UV02 ITSVersion="XML_1.0">
             <urn:id root="1.1" extension="-5a3e95b1:11d1fa33d45:-7f9b"/>
@@ -8846,52 +8977,168 @@ nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.pr
 </con:request>
 </con:config>
 </con:testStep>
-<con:testStep name="count correlations (1)" type="groovy">
+<con:testStep type="mockresponse" name="Mock Response"><con:settings/><con:config xsi:type="con:MockResponseStep" startStep="Patient Discovery" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>AdapterPatientDiscoveryBindingSoap</con:interface><con:operation>RespondingGateway_PRPA_IN201305UV02</con:operation><con:path>/MockPDAdapter</con:path><con:port>1720</con:port><con:response><con:settings/><con:responseContent><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:hl7-org:v3">
+   <soap:Header/>
+   <soap:Body>
+   <PRPA_IN201306UV02 xmlns="urn:hl7-org:v3" xmlns:ns2="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:ns3="http://www.w3.org/2005/08/addressing" xmlns:ns4="urn:gov:hhs:fha:nhinc:common:patientcorrelationfacade" ITSVersion="XML_1.0">
+   <id root="1.1" extension="13318247:13b4e0b839b:-7ff4"/>
+   <creationTime value="20121129212833"/>
+   <interactionId root="2.16.840.1.113883.1.6" extension="PRPA_IN201306UV02"/>
+   <processingCode code="P"/>
+   <processingModeCode code="T"/>
+   <acceptAckCode code="NE"/>
+   <receiver typeCode="RCV">
+   	<device classCode="DEV" determinerCode="INSTANCE">
+   		<id root="1.2.345.678.999"/>
+   		<asAgent classCode="AGNT">
+   			<representedOrganization classCode="ORG" determinerCode="INSTANCE">
+   				<id root="1.1"/>
+   			</representedOrganization>
+   		</asAgent>
+   	</device>
+   </receiver>
+   <sender typeCode="SND">
+   	<device classCode="DEV" determinerCode="INSTANCE">
+   		<id root="2.2"/>
+   		<asAgent classCode="AGNT">
+   			<representedOrganization classCode="ORG" determinerCode="INSTANCE">
+   				<id root="2.2"/>
+   			</representedOrganization>
+   		</asAgent>
+   	</device>
+   </sender>
+   <acknowledgement>
+   	<typeId root="2.16.840.1.113883.1.6" extension="PRPA_IN201305UV02"/>
+   	<typeCode code="AA"/><targetMessage xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+   </acknowledgement>
+   <controlActProcess classCode="CACT" moodCode="EVN">
+   	<code code="PRPA_TE201306UV" codeSystem="2.16.840.1.113883.1.6"/>
+   	<subject typeCode="SUBJ">
+   		<registrationEvent classCode="REG" moodCode="EVN">
+   			<id nullFlavor="NA"/>
+   			<statusCode code="active"/>
+   				<subject1 typeCode="SBJ">
+   					<patient classCode="PAT">
+   						<id root="1.1" extension="D123401"/>
+   						<statusCode code="SD"/>
+   						<patientPerson classCode="PSN" determinerCode="INSTANCE">
+   							<name>
+   								<family partType="FAM">Younger</family>
+   								<given partType="GIV">Gallow</given>
+   							</name>
+   							<telecom value="tel:+1-888-555-1234"/>
+   							<administrativeGenderCode code="M"/>
+   							<birthTime value="19630804"/>
+   							<addr><city>LEESBURG</city><state>VA</state><postalCode>20176</postalCode></addr>
+   							<asOtherIDs classCode="SD">
+   								<id root="2.16.840.1.113883.4.1" extension="999123401"/>
+   								<scopingOrganization classCode="ORG" determinerCode="INSTANCE">
+   									<id root="2.16.840.1.113883.4.1"/>
+   								</scopingOrganization>
+   							</asOtherIDs>
+   						</patientPerson>
+   						<providerOrganization classCode="ORG" determinerCode="INSTANCE">
+   							<id root="1.1"/>
+   							<contactParty xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:nil="true"/>
+   							</providerOrganization>
+   							<subjectOf1>
+   								<queryMatchObservation classCode="CASE" moodCode="EVN">
+   									<code code="IHE_PDQ"/>
+   									<value xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="INT" value="100"/>
+   								</queryMatchObservation>
+   							</subjectOf1>
+   						</patient>
+   					</subject1>
+   					<custodian typeCode="CST">
+   						<assignedEntity classCode="ASSIGNED">
+   							<id root="1.1"/>
+   							<code code="NotHealthDataLocator" codeSystem="1.3.6.1.4.1.19376.1.2.27.2"/>
+   						</assignedEntity>
+   					</custodian>
+   				</registrationEvent>
+   			</subject>
+   			<queryAck>
+   				<queryId root="1.1" extension="-abd3453dcd24wkkks545"/>
+   				<queryResponseCode code="OK"/>
+   			</queryAck>
+   			<queryByParameter>
+   				<queryId root="1.1" extension="-abd3453dcd24wkkks545"/>
+   				<statusCode code="new"/>
+   				<responseModalityCode code="R"/>
+   				<responsePriorityCode code="I"/>
+   				<parameterList>
+   					<livingSubjectAdministrativeGender>
+   						<value code="M"/>
+   						<semanticsText representation="TXT"/>
+   					</livingSubjectAdministrativeGender>
+   					<livingSubjectBirthTime>
+   						<value value="19630804"/>
+   						<semanticsText representation="TXT"/>
+   					</livingSubjectBirthTime>
+   					<livingSubjectId>
+   						<value root="1.1" extension="1111"/>
+   						<semanticsText representation="TXT"/>
+   					</livingSubjectId>
+   					<livingSubjectName>
+   						<value>
+   							<family partType="FAM">Younger</family>
+   							<given partType="GIV">Gallow</given>
+                        		</value>
+                        		<semanticsText representation="TXT"/>
+                        	</livingSubjectName>
+                     </parameterList>
+                 </queryByParameter>
+             </controlActProcess>
+     </PRPA_IN201306UV02>
+   </soap:Body>
+</soap:Envelope>]]></con:responseContent><con:wsaConfig mustUnderstand="NONE" version="200508"/></con:response></con:config></con:testStep>
+<con:testStep type="groovy" name="Verify Event Logs">
 	<con:settings/>
-	<con:config>
-		<script>context.withSql('PatientCorrelationDB') { sql -> 
-		assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('PatientCorrelationTable'))[0]
-		}</script>
-</con:config>
-</con:testStep>
-<con:testStep type="groovy" name="Verify Event Logs"><con:settings/><con:config><script>context.withSql('eventdb') {sql ->
-	assert 14 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable'))[0]
+	<con:config><script>context.withSql('eventdb') {sql ->
+	assert 12 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable'))[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_INBOUND_MESSAGE"')[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_INBOUND_MESSAGE"')[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_INBOUND_PROCESSING"')[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_INBOUND_PROCESSING"')[0]
-	assert 2 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_DELEGATION_TO_ADAPTER"')[0]
-	assert 2 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_DELEGATION_TO_ADAPTER"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_DELEGATION_TO_ADAPTER"')[0]
+	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_DELEGATION_TO_ADAPTER"')[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_OUTBOUND_MESSAGE"')[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_OUTBOUND_MESSAGE"')[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_OUTBOUND_PROCESSING"')[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_OUTBOUND_PROCESSING"')[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_INVOCATION_TO_NWHIN"')[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_INVOCATION_TO_NWHIN"')[0]
-}</script></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
-nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);</con:setupScript>
-<con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);</con:tearDownScript>
+}</script></con:config>
+</con:testStep>
+<con:setupScript/>
+<con:tearDownScript>def dir = context.findProperty('GatewayPropDir');
+def alias = 'adapterpatientdiscovery';
+def aliasName= 'adapterpatientdiscoverywsunsecured';
+def replaceAlias = 'adapterpatientdiscoverywssecured';
+
+nhinc.FileUtils.updateSpringConfig(dir, "PatientDiscoveryProxyConfig.xml", alias, aliasName, replaceAlias, log);
+
+</con:tearDownScript>
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2013-01-11T18:35:41Z</con:value>
+		<con:value>2013-01-31T17:18:11Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2013-01-11T18:45:41Z</con:value>
+		<con:value>2013-01-31T17:28:11Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>01/11/2013 18:35:41</con:value>
+		<con:value>01/31/2013 17:18:11</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2013-02-10T00:00:00Z</con:value>
+		<con:value>2013-03-02T00:00:00Z</con:value>
 	</con:property>
 </con:properties>
 <con:reportParameters/>
-</con:testCase>
-<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Document Query" searchProperties="true" id="9ef7d334-39f5-4693-a2ce-bc5609f8a972">
+</con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Document Query" searchProperties="true" id="9ef7d334-39f5-4693-a2ce-bc5609f8a972">
 	<con:settings/>
 	<con:testStep type="groovy" name="Clear Event Logs"><con:settings/><con:config><script>context.withSql('eventdb') { sql -> 
 	sql.execute('delete from ' + context.findProperty('EventLoggingTable'))
@@ -8948,7 +9195,7 @@ nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.pr
 	<con:request><![CDATA[
 		<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn3="urn:gov:hhs:fha:nhinc:common:nhinccommon">
    <soap:Header/>
-   <soap:Body testSuite="Entity_g0" testCase="Document Query">
+   <soap:Body testSuite="Passthrough_g0" testCase="Document Query">
       <urn:RespondingGateway_CrossGatewayQueryRequest>
          <urn1:AdhocQueryRequest federated="false" startIndex="0" maxResults="-1">
             <urn1:ResponseOption returnType="LeafClass" returnComposedObjects="false"/>
@@ -9241,19 +9488,19 @@ nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.pr
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2013-01-11T18:35:43Z</con:value>
+		<con:value>2013-02-03T14:53:43Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2013-01-11T18:45:43Z</con:value>
+		<con:value>2013-02-03T15:03:43Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>01/11/2013 18:35:43</con:value>
+		<con:value>02/03/2013 14:53:43</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2013-02-10T00:00:00Z</con:value>
+		<con:value>2013-03-05T00:00:00Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>FullPatientID</con:name>
@@ -9282,7 +9529,7 @@ nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.pr
 		<con:request><![CDATA[
 			<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:ihe:iti:xds-b:2007" xmlns:urn2="urn:gov:hhs:fha:nhinc:common:nhinccommon">
    <soap:Header/>
-   <soap:Body testSuite="Entity_g0" testCase="Document Retrieve">
+   <soap:Body testSuite="Passthrough_g0" testCase="Document Retrieve">
       <urn:RespondingGateway_CrossGatewayRetrieveRequest>
          <urn1:RetrieveDocumentSetRequest>
             <urn1:DocumentRequest>
@@ -9578,19 +9825,19 @@ nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.pr
 	</con:property>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2013-01-11T18:35:44Z</con:value>
+		<con:value>2013-02-03T14:53:43Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2013-01-11T18:45:44Z</con:value>
+		<con:value>2013-02-03T15:03:43Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>01/11/2013 18:35:44</con:value>
+		<con:value>02/03/2013 14:53:43</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2013-02-10T00:00:00Z</con:value>
+		<con:value>2013-03-05T00:00:00Z</con:value>
 	</con:property>
 </con:properties>
 <con:reportParameters/>
@@ -9630,7 +9877,7 @@ nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'), "gateway.
 	<con:request><![CDATA[
 		<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:wsnt="http://docs.oasis-open.org/wsn/b-2" xmlns:wsa="http://www.w3.org/2005/08/addressing" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add1="http://schemas.xmlsoap.org/ws/2004/08/addressing">
    <soap:Header/>
-   <soap:Body testSuite="Entity_g0" testCase="Subscribe">
+   <soap:Body testSuite="Passthrough_g0" testCase="Subscribe">
       <urn:SubscribeRequest>
          <wsnt:Subscribe>
             <wsnt:ConsumerReference>
@@ -9964,7 +10211,7 @@ nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'), "gateway.
 	<con:request><![CDATA[
 		<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:wsnt="http://docs.oasis-open.org/wsn/b-2" xmlns:wsa="http://www.w3.org/2005/08/addressing" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add1="http://schemas.xmlsoap.org/ws/2004/08/addressing">
    <soap:Header/>
-   <soap:Body testSuite="Entity_g0" testCase="Subscribe (as part of Notify test case)">
+   <soap:Body testSuite="Passthrough_g0" testCase="Subscribe (as part of Notify test case)">
       <urn:SubscribeRequest>
          <wsnt:Subscribe>
             <wsnt:ConsumerReference>
@@ -10240,7 +10487,7 @@ context.testCase.testSuite.project.setPropertyValue( "NotifySubscriptionID", par
 	<con:request><![CDATA[
 		<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:b="http://docs.oasis-open.org/wsn/b-2" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:urn2="urn:gov:hhs:fha:nhinc:common:subscriptionb2overridefordocuments" xmlns:urn3="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn4="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:ihe="urn:ihe:iti:xds-b:2007" xmlns:wsa="http://www.w3.org/2005/08/addressing" xmlns:rim="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0">
    <soap:Header/>
-   <soap:Body testSuite="Entity_g0" testCase="Notify">
+   <soap:Body testSuite="Passthrough_g0" testCase="Notify">
       <urn:NotifyRequest>
          <b:Notify>
             <b:NotificationMessage>
@@ -10562,7 +10809,7 @@ nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'), "gateway.
 	<con:request><![CDATA[
 		<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:wsnt="http://docs.oasis-open.org/wsn/b-2" xmlns:wsa="http://www.w3.org/2005/08/addressing" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add1="http://schemas.xmlsoap.org/ws/2004/08/addressing">
    <soap:Header/>
-   <soap:Body testSuite="Entity_g0" testCase="Subscribe (as part of Unsubscribe test case)">
+   <soap:Body testSuite="Passthrough_g0" testCase="Subscribe (as part of Unsubscribe test case)">
       <urn:SubscribeRequest>
          <wsnt:Subscribe>
             <wsnt:ConsumerReference>
@@ -10843,7 +11090,7 @@ context.testCase.testSuite.project.setPropertyValue( "UnSubscriptionID", subID )
       <ns5:SubscriptionId xmlns="http://www.w3.org/2005/08/addressing" xmlns:ns2="http://docs.oasis-open.org/wsn/b-2" xmlns:ns3="http://docs.oasis-open.org/wsrf/bf-2" xmlns:ns4="http://docs.oasis-open.org/wsn/t-1" xmlns:ns5="http://www.hhs.gov/healthit/nhin">${#Project#UnSubscriptionID}</ns5:SubscriptionId>
       <nhinconnect:Info xmlns:nhinconnect="urn:nhinconnect">hello world</nhinconnect:Info>
    </soap:Header>
-   <soap:Body testSuite="Entity_g0" testCase="Unsubscribe">
+   <soap:Body testSuite="Passthrough_g0" testCase="Unsubscribe">
       <urn:UnsubscribeRequest>
          <wsnt:Unsubscribe xmlns:wsnt="http://docs.oasis-open.org/wsn/b-2">
             <nhinconnect:Info xmlns:nhinconnect="urn:nhinconnect">just some data</nhinconnect:Info>
@@ -11145,7 +11392,7 @@ nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.pr
 		<con:request><![CDATA[
 			<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:urn2="urn:oasis:names:tc:emergency:EDXL:DE:1.0">
    <soap:Header/>
-   <soap:Body testSuite="Entity_g0" testCase="Admin Distribution">
+   <soap:Body testSuite="Passthrough_g0" testCase="Admin Distribution">
       <urn:RespondingGateway_SendAlertMessage>
          <urn:assertion>
             <urn1:address>
@@ -11484,9 +11731,7 @@ nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.pr
 </con:testStep>
 <con:testStep name="Delay" type="delay">
 	<con:settings/>
-	<con:config>
-		<delay>15000</delay>
-	</con:config>
+	<con:config><delay>1000</delay></con:config>
 </con:testStep>
 <con:testStep type="groovy" name="Verify Event Logs"><con:settings/><con:config><script>context.withSql('eventdb') {sql ->
 	assert 12 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable'))[0]
@@ -11509,19 +11754,19 @@ nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.pr
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2013-01-11T18:35:46Z</con:value>
+		<con:value>2013-02-03T14:53:44Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2013-01-11T18:45:46Z</con:value>
+		<con:value>2013-02-03T15:03:44Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>01/11/2013 18:35:46</con:value>
+		<con:value>02/03/2013 14:53:44</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2013-02-10T00:00:00Z</con:value>
+		<con:value>2013-03-05T00:00:00Z</con:value>
 	</con:property>
 </con:properties>
 <con:reportParameters/>
@@ -11579,7 +11824,7 @@ nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.pr
 <con:setupScript/>
 <con:tearDownScript/>
 <con:reportParameters/>
-</con:testSuite><con:properties><con:property><con:name>AAMappingDB</con:name><con:value>assigningauthoritydb</con:value></con:property><con:property><con:name>AAMappingTable</con:name><con:value>aa_to_home_community_mapping</con:value></con:property><con:property><con:name>AsyncMsgDB</con:name><con:value>asyncmsgs</con:value></con:property><con:property><con:name>AsyncMsgTable</con:name><con:value>asyncmsgrepo</con:value></con:property><con:property><con:name>AuditRepoDB</con:name><con:value>auditrepo</con:value></con:property><con:property><con:name>AuditRepoTable</con:name><con:value>auditrepository</con:value></con:property><con:property><con:name>BirthTime</con:name><con:value>19630804</con:value></con:property><con:property><con:name>City</con:name><con:value>Melbourne</con:value></con:property><con:property><con:name>Country</con:name><con:value>US</con:value></con:property><con:property><con:name>DBHost</con:name><con:value>localhost</con:value></con:property><con:property><con:name>DBPass</con:name><con:value>nhincpass</con:value></con:property><con:property><con:name>DBPort</con:name><con:value>3306</con:value></con:property><con:property><con:name>DBUser</con:name><con:value>nhincuser</con:value></con:property><con:property><con:name>DeferredPatientDiscoveryReqMessageID</con:name><con:value>uuid:6666666666.66666.666.66</con:value></con:property><con:property><con:name>DOB</con:name><con:value>19800516</con:value></con:property><con:property><con:name>DQDocID</con:name><con:value>1.123401.55555</con:value></con:property><con:property><con:name>DQPatientID</con:name><con:value>D123401</con:value></con:property><con:property><con:name>DRDocID</con:name><con:value>1.123407.777777</con:value></con:property><con:property><con:name>DRRepoID</con:name><con:value>1</con:value></con:property><con:property><con:name>DynamicDQDocID</con:name><con:value>103.8.9284320.020.3590.75^1266324032288</con:value></con:property><con:property><con:name>Endpoint-DocQuery</con:name><con:value>http://localhost:8080/Gateway/DocumentQuery/2_0/EntityService/EntityDocQueryUnsecured</con:value></con:property><con:property><con:name>Endpoint-DocRetrieve</con:name><con:value>http://localhost:8080/Gateway/DocumentRetrieve/2_0/EntityService/EntityDocRetrieve</con:value></con:property><con:property><con:name>Endpoint-DSDeferredResp</con:name><con:value>http://localhost:8080/Gateway/DocumentSubmission/1_1/EntityService/EntityDocSubmissionDeferredResponseUnsecured</con:value></con:property><con:property><con:name>Endpoint-EntityAdminDist</con:name><con:value>http://localhost:8080/Gateway/AdminDistribution/1_0/AdministrativeDistribution_Service</con:value></con:property><con:property><con:name>Endpoint-EntityXDRRequest</con:name><con:value>http://localhost:8080/Gateway/DocumentSubmission/1_1/EntityService/EntityDocSubmissionDeferredRequestUnsecured</con:value></con:property><con:property><con:name>Endpoint-Notify</con:name><con:value>http://localhost:8080/Gateway/HIEM/2_0/EntityNotificationConsumer</con:value></con:property><con:property><con:name>Endpoint-PatientDiscovery</con:name><con:value>http://localhost:8080/Gateway/PatientDiscovery/1_0/EntityPatientDiscovery</con:value></con:property><con:property><con:name>Endpoint-PatientDiscoveryAsyncReq</con:name><con:value>http://localhost:8080/Gateway/PatientDiscovery/1_0/EntityService/EntityPatientDiscoveryDeferredRequestUnsecured</con:value></con:property><con:property><con:name>Endpoint-PatientDiscoveryAsyncResp</con:name><con:value>http://localhost:8080/Gateway/PatientDiscovery/1_0/EntityService/EntityPatientDiscoveryDeferredResponseUnsecured</con:value></con:property><con:property><con:name>Endpoint-Subscribe</con:name><con:value>http://localhost:8080/Gateway/HIEM/2_0/EntityNotificationProducer</con:value></con:property><con:property><con:name>Endpoint-Unsubscribe</con:name><con:value>http://localhost:8080/Gateway/HIEM/2_0/EntitySubscriptionManager</con:value></con:property><con:property><con:name>Endpoint-XDREntity</con:name><con:value>http://localhost:8080/Gateway/DocumentSubmission/1_1/EntityService/EntityDocSubmissionUnsecured</con:value></con:property><con:property><con:name>EventLoggingTable</con:name><con:value>event</con:value></con:property><con:property><con:name>ExpirationDate</con:name><con:value>20100520</con:value></con:property><con:property><con:name>FamilyName</con:name><con:value>Younger</con:value></con:property><con:property><con:name>GatewayPropDir</con:name><con:value>c:\glassfish3\glassfish\domains\domain1\config\nhin</con:value></con:property><con:property><con:name>Gender</con:name><con:value>M</con:value></con:property><con:property><con:name>GivenName</con:name><con:value>Gallow</con:value></con:property><con:property><con:name>LocalAA</con:name><con:value>1.1</con:value></con:property><con:property><con:name>LocalHCDescription</con:name><con:value>InternalTest1</con:value></con:property><con:property><con:name>LocalHCID</con:name><con:value>1.1</con:value></con:property><con:property><con:name>LocalPatientID</con:name><con:value>D123401</con:value></con:property><con:property><con:name>NotificationEndpoint</con:name><con:value>https://localhost:8181/Gateway/HIEM/2_0/NhinService/NotificationConsumerService/HiemNotify</con:value></con:property><con:property><con:name>NotifySubscriptionID</con:name><con:value>f2064549-c802-41be-bb0d-6319c6437072</con:value></con:property><con:property><con:name>NotifySubscriptionManagerEndpointAddress</con:name><con:value>https://localhost:8181/Gateway/HIEM/2_0/NhinService/SubscriptionManagerService/HiemUnsubscribe</con:value></con:property><con:property><con:name>PatientCorrelationDB</con:name><con:value>patientcorrelationdb</con:value></con:property><con:property><con:name>PatientCorrelationTable</con:name><con:value>correlatedidentifiers</con:value></con:property><con:property><con:name>project.name</con:name><con:value>EntityValidation</con:value></con:property><con:property><con:name>PurposeOfDisclosure</con:name><con:value>Mental</con:value></con:property><con:property><con:name>RemoteAA</con:name><con:value>2.2</con:value></con:property><con:property><con:name>RemoteHCDescription</con:name><con:value>InternalTest2</con:value></con:property><con:property><con:name>RemoteHCID</con:name><con:value>2.2</con:value></con:property><con:property><con:name>RemotePatientID</con:name><con:value>D123401</con:value></con:property><con:property><con:name>SSN</con:name><con:value>123456789</con:value></con:property><con:property><con:name>State</con:name><con:value>FL</con:value></con:property><con:property><con:name>StreetAddress</con:name><con:value>123 Johnson Rd</con:value></con:property><con:property><con:name>SubjectID</con:name><con:value>1111</con:value></con:property><con:property><con:name>SubscribePatientID</con:name><con:value>D123401</con:value></con:property><con:property><con:name>SubscriptionDB</con:name><con:value>subscriptionrepository</con:value></con:property><con:property><con:name>SubscriptionEndpoint</con:name><con:value>https://localhost:8181/Gateway/HIEM/2_0/NhinService/NotificationProducerService/HiemSubscription</con:value></con:property><con:property><con:name>SubscriptionManagerEndpointAddress</con:name><con:value>https://localhost:8181/Gateway/HIEM/2_0/NhinService/SubscriptionManagerService/HiemUnsubscribe</con:value></con:property><con:property><con:name>SubscriptionTable</con:name><con:value>subscription</con:value></con:property><con:property><con:name>UniquePatientId</con:name><con:value>1111^^^&amp;amp;1.1&amp;amp;ISO</con:value></con:property><con:property><con:name>UnSubscriptionID</con:name><con:value>664f3c6e-ea88-4dae-a88e-b58661d8c253</con:value></con:property><con:property><con:name>ZipCode</con:name><con:value>12345</con:value></con:property></con:properties><con:afterLoadScript>def propertiesFilename = project.path[0..(project.path.size()-4)] + 'properties'
+</con:testSuite><con:properties><con:property><con:name>AAMappingDB</con:name><con:value>assigningauthoritydb</con:value></con:property><con:property><con:name>AAMappingTable</con:name><con:value>aa_to_home_community_mapping</con:value></con:property><con:property><con:name>AsyncMsgDB</con:name><con:value>asyncmsgs</con:value></con:property><con:property><con:name>AsyncMsgTable</con:name><con:value>asyncmsgrepo</con:value></con:property><con:property><con:name>AuditRepoDB</con:name><con:value>auditrepo</con:value></con:property><con:property><con:name>AuditRepoTable</con:name><con:value>auditrepository</con:value></con:property><con:property><con:name>BirthTime</con:name><con:value>19630804</con:value></con:property><con:property><con:name>City</con:name><con:value>Melbourne</con:value></con:property><con:property><con:name>Country</con:name><con:value>US</con:value></con:property><con:property><con:name>DBHost</con:name><con:value>localhost</con:value></con:property><con:property><con:name>DBPass</con:name><con:value>nhincpass</con:value></con:property><con:property><con:name>DBPort</con:name><con:value>3306</con:value></con:property><con:property><con:name>DBUser</con:name><con:value>nhincuser</con:value></con:property><con:property><con:name>DeferredPatientDiscoveryReqMessageID</con:name><con:value>uuid:6666666666.66666.666.66</con:value></con:property><con:property><con:name>DOB</con:name><con:value>19800516</con:value></con:property><con:property><con:name>DQDocID</con:name><con:value>1.123401.11111</con:value></con:property><con:property><con:name>DQPatientID</con:name><con:value>D123401</con:value></con:property><con:property><con:name>DRDocID</con:name><con:value>1.123407.777777</con:value></con:property><con:property><con:name>DRRepoID</con:name><con:value>1</con:value></con:property><con:property><con:name>DynamicDQDocID</con:name><con:value>103.8.9284320.020.3590.75^1266324032288</con:value></con:property><con:property><con:name>Endpoint-DocQuery</con:name><con:value>http://localhost:8080/Gateway/DocumentQuery/2_0/EntityService/EntityDocQueryUnsecured</con:value></con:property><con:property><con:name>Endpoint-DocRetrieve</con:name><con:value>http://localhost:8080/Gateway/DocumentRetrieve/2_0/EntityService/EntityDocRetrieve</con:value></con:property><con:property><con:name>Endpoint-DSDeferredResp</con:name><con:value>http://localhost:8080/Gateway/DocumentSubmission/1_1/EntityService/EntityDocSubmissionDeferredResponseUnsecured</con:value></con:property><con:property><con:name>Endpoint-EntityAdminDist</con:name><con:value>http://localhost:8080/Gateway/AdminDistribution/1_0/AdministrativeDistribution_Service</con:value></con:property><con:property><con:name>Endpoint-EntityXDRRequest</con:name><con:value>http://localhost:8080/Gateway/DocumentSubmission/1_1/EntityService/EntityDocSubmissionDeferredRequestUnsecured</con:value></con:property><con:property><con:name>Endpoint-Notify</con:name><con:value>http://localhost:8080/Gateway/HIEM/2_0/EntityNotificationConsumer</con:value></con:property><con:property><con:name>Endpoint-PatientDiscovery</con:name><con:value>http://localhost:8080/Gateway/PatientDiscovery/1_0/EntityPatientDiscovery</con:value></con:property><con:property><con:name>Endpoint-PatientDiscoveryAsyncReq</con:name><con:value>http://localhost:8080/Gateway/PatientDiscovery/1_0/EntityService/EntityPatientDiscoveryDeferredRequestUnsecured</con:value></con:property><con:property><con:name>Endpoint-PatientDiscoveryAsyncResp</con:name><con:value>http://localhost:8080/Gateway/PatientDiscovery/1_0/EntityService/EntityPatientDiscoveryDeferredResponseUnsecured</con:value></con:property><con:property><con:name>Endpoint-Subscribe</con:name><con:value>http://localhost:8080/Gateway/HIEM/2_0/EntityNotificationProducer</con:value></con:property><con:property><con:name>Endpoint-Unsubscribe</con:name><con:value>http://localhost:8080/Gateway/HIEM/2_0/EntitySubscriptionManager</con:value></con:property><con:property><con:name>Endpoint-XDREntity</con:name><con:value>http://localhost:8080/Gateway/DocumentSubmission/1_1/EntityService/EntityDocSubmissionUnsecured</con:value></con:property><con:property><con:name>EventLoggingTable</con:name><con:value>event</con:value></con:property><con:property><con:name>ExpirationDate</con:name><con:value>20100520</con:value></con:property><con:property><con:name>FamilyName</con:name><con:value>Younger</con:value></con:property><con:property><con:name>GatewayPropDir</con:name><con:value>c:\glassfish3\glassfish\domains\domain1\config\nhin</con:value></con:property><con:property><con:name>Gender</con:name><con:value>M</con:value></con:property><con:property><con:name>GivenName</con:name><con:value>Gallow</con:value></con:property><con:property><con:name>LocalAA</con:name><con:value>1.1</con:value></con:property><con:property><con:name>LocalHCDescription</con:name><con:value>InternalTest1</con:value></con:property><con:property><con:name>LocalHCID</con:name><con:value>1.1</con:value></con:property><con:property><con:name>LocalPatientID</con:name><con:value>D123401</con:value></con:property><con:property><con:name>NotificationEndpoint</con:name><con:value>https://localhost:8181/Gateway/HIEM/2_0/NhinService/NotificationConsumerService/HiemNotify</con:value></con:property><con:property><con:name>NotifySubscriptionID</con:name><con:value>f2064549-c802-41be-bb0d-6319c6437072</con:value></con:property><con:property><con:name>NotifySubscriptionManagerEndpointAddress</con:name><con:value>https://localhost:8181/Gateway/HIEM/2_0/NhinService/SubscriptionManagerService/HiemUnsubscribe</con:value></con:property><con:property><con:name>PatientCorrelationDB</con:name><con:value>patientcorrelationdb</con:value></con:property><con:property><con:name>PatientCorrelationTable</con:name><con:value>correlatedidentifiers</con:value></con:property><con:property><con:name>project.name</con:name><con:value>EntityValidation</con:value></con:property><con:property><con:name>PurposeOfDisclosure</con:name><con:value>Mental</con:value></con:property><con:property><con:name>RemoteAA</con:name><con:value>2.2</con:value></con:property><con:property><con:name>RemoteHCDescription</con:name><con:value>InternalTest2</con:value></con:property><con:property><con:name>RemoteHCID</con:name><con:value>2.2</con:value></con:property><con:property><con:name>RemotePatientID</con:name><con:value>D123401</con:value></con:property><con:property><con:name>SSN</con:name><con:value>123456789</con:value></con:property><con:property><con:name>State</con:name><con:value>FL</con:value></con:property><con:property><con:name>StreetAddress</con:name><con:value>123 Johnson Rd</con:value></con:property><con:property><con:name>SubjectID</con:name><con:value>1111</con:value></con:property><con:property><con:name>SubscribePatientID</con:name><con:value>D123401</con:value></con:property><con:property><con:name>SubscriptionDB</con:name><con:value>subscriptionrepository</con:value></con:property><con:property><con:name>SubscriptionEndpoint</con:name><con:value>https://localhost:8181/Gateway/HIEM/2_0/NhinService/NotificationProducerService/HiemSubscription</con:value></con:property><con:property><con:name>SubscriptionManagerEndpointAddress</con:name><con:value>https://localhost:8181/Gateway/HIEM/2_0/NhinService/SubscriptionManagerService/HiemUnsubscribe</con:value></con:property><con:property><con:name>SubscriptionTable</con:name><con:value>subscription</con:value></con:property><con:property><con:name>UniquePatientId</con:name><con:value>1111^^^&amp;amp;1.1&amp;amp;ISO</con:value></con:property><con:property><con:name>UnSubscriptionID</con:name><con:value>664f3c6e-ea88-4dae-a88e-b58661d8c253</con:value></con:property><con:property><con:name>ZipCode</con:name><con:value>12345</con:value></con:property></con:properties><con:afterLoadScript>def propertiesFilename = project.path[0..(project.path.size()-4)] + 'properties'
 def propertiesFile = new File(propertiesFilename)
 if (propertiesFile.exists()) {
 	def props = new Properties()

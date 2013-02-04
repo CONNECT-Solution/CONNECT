@@ -11,8 +11,8 @@
       <con:endpoint>http://172.16.50.82:9080/CONNECTGateway/EntityService/EntityDocQueryUnsecured</con:endpoint>
       <con:endpoint>http://DVANHIE3.fedsconnect.org:9080/CONNECTGateway/EntityService/EntityDocQueryUnsecured</con:endpoint>
       <con:endpoint>http://localhost:${HttpDefaultPort}/NhinConnect/EntityDocQuery</con:endpoint>
-    </con:endpoints>
-    <con:operation action="urn:RespondingGateway_CrossGatewayQuery" anonymous="optional" bindingOperationName="RespondingGateway_CrossGatewayQuery" inputName="RespondingGateway_CrossGatewayQueryRequest" isOneWay="false" name="RespondingGateway_CrossGatewayQuery" outputName="RespondingGateway_CrossGatewayQueryResponse" receivesAttachments="false" sendsAttachments="false" type="Request-Response">
+    <con:endpoint>http://localhost:${HttpDefaultPort}/Gateway/DocumentQuery/2_0/EntityService/EntityDocQueryUnsecured</con:endpoint></con:endpoints>
+    <con:operation action="urn:gov:hhs:fha:nhinc:entitydocquery:RespondingGateway_CrossGatewayQueryRequest" anonymous="optional" bindingOperationName="RespondingGateway_CrossGatewayQuery" inputName="RespondingGateway_CrossGatewayQueryRequest" isOneWay="false" name="RespondingGateway_CrossGatewayQuery" outputName="RespondingGateway_CrossGatewayQueryResponse" receivesAttachments="false" sendsAttachments="false" type="Request-Response">
       <con:settings/>
     </con:operation>
   </con:interface>
@@ -404,19 +404,19 @@ declare namespace ns15='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
       <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2012-12-15T02:57:26Z</con:value>
+          <con:value>2013-02-03T21:10:13Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2012-12-15T03:07:26Z</con:value>
+          <con:value>2013-02-03T21:20:13Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>12/15/2012 02:57:26</con:value>
+          <con:value>02/03/2013 21:10:13</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2013-01-14T00:00:00Z</con:value>
+          <con:value>2013-03-05T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>FullPatientID</con:name>
@@ -804,19 +804,19 @@ declare namespace ns15='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
       <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2012-12-15T02:57:27Z</con:value>
+          <con:value>2013-02-03T21:10:14Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2012-12-15T03:07:27Z</con:value>
+          <con:value>2013-02-03T21:20:14Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>12/15/2012 02:57:27</con:value>
+          <con:value>02/03/2013 21:10:14</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2013-01-14T00:00:00Z</con:value>
+          <con:value>2013-03-05T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>FullPatientID</con:name>
@@ -1200,19 +1200,19 @@ declare namespace ns15='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
       <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2012-12-15T02:57:28Z</con:value>
+          <con:value>2013-02-03T21:10:15Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2012-12-15T03:07:28Z</con:value>
+          <con:value>2013-02-03T21:20:15Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>12/15/2012 02:57:28</con:value>
+          <con:value>02/03/2013 21:10:15</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2013-01-14T00:00:00Z</con:value>
+          <con:value>2013-03-05T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>FullPatientID</con:name>
@@ -1621,19 +1621,19 @@ declare namespace ns15='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
       <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2012-12-15T02:57:28Z</con:value>
+          <con:value>2013-02-03T21:10:16Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2012-12-15T03:07:28Z</con:value>
+          <con:value>2013-02-03T21:20:16Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>12/15/2012 02:57:28</con:value>
+          <con:value>02/03/2013 21:10:16</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2013-01-14T00:00:00Z</con:value>
+          <con:value>2013-03-05T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>FullPatientID</con:name>
@@ -2060,19 +2060,19 @@ count(//ns6:AdhocQueryResponse[1]/ns3:RegistryObjectList[1]/ns3:ExtrinsicObject)
       <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2012-12-15T02:57:30Z</con:value>
+          <con:value>2013-02-03T21:10:16Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2012-12-15T03:07:30Z</con:value>
+          <con:value>2013-02-03T21:20:16Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>12/15/2012 02:57:30</con:value>
+          <con:value>02/03/2013 21:10:16</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2013-01-14T00:00:00Z</con:value>
+          <con:value>2013-03-05T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>FullPatientID</con:name>
@@ -2514,19 +2514,19 @@ declare namespace ns8='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
       <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2012-12-15T02:58:30Z</con:value>
+          <con:value>2013-02-03T21:10:19Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2012-12-15T03:08:30Z</con:value>
+          <con:value>2013-02-03T21:20:19Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>12/15/2012 02:58:30</con:value>
+          <con:value>02/03/2013 21:10:19</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2013-01-14T00:00:00Z</con:value>
+          <con:value>2013-03-05T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>FullPatientID</con:name>
@@ -2899,19 +2899,19 @@ context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;$
       <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2012-12-15T02:58:30Z</con:value>
+          <con:value>2013-02-03T21:10:19Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2012-12-15T03:08:30Z</con:value>
+          <con:value>2013-02-03T21:20:19Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>12/15/2012 02:58:30</con:value>
+          <con:value>02/03/2013 21:10:19</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2013-01-14T00:00:00Z</con:value>
+          <con:value>2013-03-05T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>FullPatientID</con:name>
@@ -3295,19 +3295,19 @@ context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;$
       <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2012-12-15T02:58:31Z</con:value>
+          <con:value>2013-02-03T21:10:20Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2012-12-15T03:08:31Z</con:value>
+          <con:value>2013-02-03T21:20:20Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>12/15/2012 02:58:31</con:value>
+          <con:value>02/03/2013 21:10:20</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2013-01-14T00:00:00Z</con:value>
+          <con:value>2013-03-05T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>FullPatientID</con:name>
@@ -3763,19 +3763,19 @@ count(//ns6:AdhocQueryResponse[1]/ns3:RegistryObjectList[1]/ns3:ExtrinsicObject)
       </con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2012-12-15T02:58:32Z</con:value>
+          <con:value>2013-02-03T21:10:21Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2012-12-15T03:08:32Z</con:value>
+          <con:value>2013-02-03T21:20:21Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>12/15/2012 02:58:32</con:value>
+          <con:value>02/03/2013 21:10:21</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2013-01-14T00:00:00Z</con:value>
+          <con:value>2013-03-05T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>FullPatientID</con:name>
@@ -4156,19 +4156,19 @@ FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocat
       </con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2012-12-15T02:58:35Z</con:value>
+          <con:value>2013-02-03T21:10:23Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2012-12-15T03:08:35Z</con:value>
+          <con:value>2013-02-03T21:20:23Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>12/15/2012 02:58:35</con:value>
+          <con:value>02/03/2013 21:10:23</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2013-01-14T00:00:00Z</con:value>
+          <con:value>2013-03-05T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>FullPatientID</con:name>
@@ -4589,19 +4589,19 @@ declare namespace ns15='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
       <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2012-12-15T02:58:35Z</con:value>
+          <con:value>2013-02-03T21:10:23Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2012-12-15T03:08:35Z</con:value>
+          <con:value>2013-02-03T21:20:23Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>12/15/2012 02:58:35</con:value>
+          <con:value>02/03/2013 21:10:23</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2013-01-14T00:00:00Z</con:value>
+          <con:value>2013-03-05T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>FullPatientID</con:name>
@@ -5026,19 +5026,19 @@ declare namespace ns15='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
       <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2012-12-15T02:58:36Z</con:value>
+          <con:value>2013-02-03T21:10:24Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2012-12-15T03:08:36Z</con:value>
+          <con:value>2013-02-03T21:20:24Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>12/15/2012 02:58:36</con:value>
+          <con:value>02/03/2013 21:10:24</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2013-01-14T00:00:00Z</con:value>
+          <con:value>2013-03-05T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>FullPatientID</con:name>
@@ -5565,7 +5565,7 @@ log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
 
 FileUtils.copyFile(sourceDir, sourceFile, destDir, destFile, log);</script></con:config>
       </con:testStep>
-      <con:testStep name="Copy InternalConfigurationInfo" type="groovy">
+      <con:testStep name="Copy InternalConfigurationInfo" type="groovy" disabled="true">
         <con:settings/>
         <con:config><script>import nhinc.FileUtils;
 def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
@@ -5683,7 +5683,7 @@ def NHINGatewayHost = context.findProperty("NHINGatewayHost");
 def mockHost = context.findProperty("mockHost");
 def dQURL = "https://localhost:8181/Gateway/DocumentQuery/2_0/NhinService/RespondingGateway_Query_Service/DocQuery";
 def remoteHCID1 = context.findProperty("UDDIhcid1");
-def remoteHCID3 = context.findProperty("UDDIhcid3");
+def remoteHCID3 = context.findProperty("UDDIhcid4");
 
 FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocation, remoteHCID1, "QueryForDocuments", dQURL, "2.0", log)
 FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocation, remoteHCID3, "QueryForDocuments", dQURL, "2.0", log)</script></con:config>
@@ -5946,7 +5946,7 @@ FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocat
    </soapenv:Body>
 </soapenv:Envelope>]]></con:request>
             <con:assertion type="SOAP Response"/>
-            <con:assertion disabled="true" type="Schema Compliance">
+            <con:assertion type="Schema Compliance">
               <con:configuration/>
             </con:assertion>
             <con:assertion type="SOAP Fault Assertion"/>
@@ -5966,7 +5966,7 @@ FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocat
                 <useRegEx>false</useRegEx>
               </con:configuration>
             </con:assertion>
-            <con:assertion type="XPath Match">
+            <con:assertion type="XPath Match" name="Count ExtrinsicObjects">
               <con:configuration><path>declare namespace ns3='urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0';
 declare namespace ns6='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
 count(//ns6:AdhocQueryResponse[1]/ns3:RegistryObjectList[1]/ns3:ExtrinsicObject)</path><content>1</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration>
@@ -5981,19 +5981,19 @@ count(//ns6:AdhocQueryResponse[1]/ns3:RegistryObjectList[1]/ns3:ExtrinsicObject)
       <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2012-12-15T02:58:36Z</con:value>
+          <con:value>2013-02-04T00:17:18Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2012-12-15T03:08:36Z</con:value>
+          <con:value>2013-02-04T00:27:18Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>12/15/2012 02:58:36</con:value>
+          <con:value>02/04/2013 00:17:18</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2013-01-14T00:00:00Z</con:value>
+          <con:value>2013-03-06T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>FullPatientID</con:name>
@@ -6471,19 +6471,19 @@ count(//ns6:AdhocQueryResponse[1]/ns3:RegistryObjectList[1]/ns3:ExtrinsicObject)
       <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2012-12-15T02:58:37Z</con:value>
+          <con:value>2013-02-03T22:25:26Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2012-12-15T03:08:37Z</con:value>
+          <con:value>2013-02-03T22:35:26Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>12/15/2012 02:58:37</con:value>
+          <con:value>02/03/2013 22:25:26</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2013-01-14T00:00:00Z</con:value>
+          <con:value>2013-03-05T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>FullPatientID</con:name>
@@ -7807,19 +7807,19 @@ declare namespace ns15='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
       </con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2012-12-15T02:59:37Z</con:value>
+          <con:value>2013-02-03T21:10:26Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2012-12-15T03:09:37Z</con:value>
+          <con:value>2013-02-03T21:20:26Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>12/15/2012 02:59:37</con:value>
+          <con:value>02/03/2013 21:10:26</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2013-01-14T00:00:00Z</con:value>
+          <con:value>2013-03-05T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>FullPatientID</con:name>

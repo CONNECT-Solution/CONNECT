@@ -37,7 +37,7 @@
 			<con:endpoint>http://localhost:${HttpDefaultPort}/NhinConnect/EntitySubscriptionManager</con:endpoint>
 			<con:endpoint>http://192.168.25.157:8080/EntitySubscriptionManager/EntityUnsubscribeService</con:endpoint>
 			<con:endpoint>http://localhost:${HttpDefaultPort}/NhinConnect/EntityNotificationProducer</con:endpoint>
-		</con:endpoints>
+		<con:endpoint>http://localhost:${HttpDefaultPort}/Gateway/HIEM/2_0/EntitySubscriptionManager</con:endpoint></con:endpoints>
 		<con:operation action="urn:Unsubscribe" anonymous="optional" bindingOperationName="Unsubscribe" inputName="UnsubscribeRequest" isOneWay="false" name="Unsubscribe" outputName="UnsubscribeResponse" receivesAttachments="false" sendsAttachments="false" type="Request-Response">
 			<con:settings/>
 		</con:operation>
@@ -49,7 +49,7 @@
 			<con:endpoint>http://DVANHIE3.fedsconnect.org:9080/NhinConnect/EntityNotificationProducer</con:endpoint>
 			<con:endpoint>http://MHSNHIE3.fedsconnect.org:9080/NhinConnect/EntityNotificationProducer</con:endpoint>
 			<con:endpoint>http://localhost:${HttpDefaultPort}/NhinConnect/EntityNotificationProducer</con:endpoint>
-		</con:endpoints>
+		<con:endpoint>http://localhost:${HttpDefaultPort}/Gateway/HIEM/2_0/EntityNotificationProducer</con:endpoint></con:endpoints>
 		<con:operation action="urn:SubscribeCdcBioPackage" anonymous="optional" bindingOperationName="SubscribeCdcBioPackage" inputName="SubscribeCdcBioPackageRequest" isOneWay="false" name="SubscribeCdcBioPackage" outputName="SubscribeCdcBioPackageResponse" receivesAttachments="false" sendsAttachments="false" type="Request-Response">
 			<con:settings/>
 		</con:operation>
@@ -66,7 +66,7 @@
 		<con:endpoints>
 			<con:endpoint>http://DVANHIE3.fedsconnect.org:9080/NhinConnect/EntityNotificationConsumer</con:endpoint>
 			<con:endpoint>http://localhost:${HttpDefaultPort}/NhinConnect/EntityNotificationConsumer</con:endpoint>
-		</con:endpoints>
+		<con:endpoint>http://localhost:${HttpDefaultPort}/Gateway/HIEM/2_0/EntityNotificationConsumer</con:endpoint></con:endpoints>
 		<con:operation action="urn:NotifySubscribersOfCdcBioPackage" anonymous="optional" bindingOperationName="NotifySubscribersOfCdcBioPackage" inputName="NotifySubscribersOfCdcBioPackageRequest" isOneWay="false" name="NotifySubscribersOfCdcBioPackage" outputName="NotifySubscribersOfCdcBioPackageResponse" receivesAttachments="false" sendsAttachments="false" type="Request-Response">
 			<con:settings/>
 		</con:operation>
@@ -83,7 +83,7 @@
 		<con:endpoints>
 			<con:endpoint>http://172.16.50.47:8080/CONNECTAdapter/AdapterProxyService/AdapterPolicyEngine</con:endpoint>
 			<con:endpoint>http://localhost:${HttpDefaultPort}/NhinConnect/AdapterPolicyEngine</con:endpoint>
-		</con:endpoints>
+		<con:endpoint>http://localhost:${HttpDefaultPort}/CONNECTAdapter/AdapterProxyService/AdapterPolicyEngine</con:endpoint></con:endpoints>
 		<con:operation action="urn:CheckPolicy" anonymous="optional" bindingOperationName="CheckPolicy" inputName="CheckPolicyRequest" isOneWay="false" name="CheckPolicy" outputName="CheckPolicyResponse" receivesAttachments="false" sendsAttachments="false" type="Request-Response">
 			<con:settings/>
 		</con:operation>
@@ -382,10 +382,10 @@ context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;$
 //ns13:AdhocQueryResponse[1]/@status</path><content>urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Failure</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:assertion type="XPath Match"><con:configuration><path>declare namespace ns12='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
 declare namespace ns13='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
 
-//ns13:AdhocQueryResponse[1]/ns12:RegistryErrorList[1]/ns12:RegistryError[position()&lt;3]/@codeContext</path><content>Policy Check Failed for homeId=1.1 and aaId=1.1</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:assertion type="XPath Match"><con:configuration><path>declare namespace ns12='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
+//ns13:AdhocQueryResponse[1]/ns12:RegistryErrorList[1]/ns12:RegistryError[position()&lt;3]/@codeContext</path><content>Policy check failed.</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion><con:assertion type="XPath Match"><con:configuration><path>declare namespace ns12='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
 declare namespace ns13='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
 
-//ns13:AdhocQueryResponse[1]/ns12:RegistryErrorList[1]/ns12:RegistryError[position()&lt;3]/@codeContext</path><content>Policy Check Failed for homeId=2.2 and aaId=2.2</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/>
+//ns13:AdhocQueryResponse[1]/ns12:RegistryErrorList[1]/ns12:RegistryError[position()&lt;3]/@codeContext</path><content>Policy check failed.</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/>
 						<con:wsrmConfig version="1.2"/>
 					</con:request>
 				</con:config>
@@ -430,19 +430,19 @@ declare namespace ns18='urn:gov:hhs:fha:nhinc:common:nhinccommonadapter';
 			<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2013-01-11T17:42:35Z</con:value>
+					<con:value>2013-02-04T00:42:16Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2013-01-11T17:52:35Z</con:value>
+					<con:value>2013-02-04T00:52:16Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>01/11/2013 17:42:35</con:value>
+					<con:value>02/04/2013 00:42:16</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2013-02-10T00:00:00Z</con:value>
+					<con:value>2013-03-06T00:00:00Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>FullPatientID</con:name>
@@ -686,19 +686,19 @@ declare namespace ns18='urn:gov:hhs:fha:nhinc:common:nhinccommonadapter';
 			<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2013-01-11T17:42:36Z</con:value>
+					<con:value>2013-02-04T00:42:17Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2013-01-11T17:52:36Z</con:value>
+					<con:value>2013-02-04T00:52:17Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>01/11/2013 17:42:36</con:value>
+					<con:value>02/04/2013 00:42:17</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2013-02-10T00:00:00Z</con:value>
+					<con:value>2013-03-06T00:00:00Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>correctedRemoteHCID</con:name>
