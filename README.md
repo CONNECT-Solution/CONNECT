@@ -81,21 +81,21 @@ Available service profiles which can be excluded from the generated ear (use val
 * Document Retrieve (DR)
 * HIEM (HIEM)
 
-You can alter the composition of the CONNECT.ear at any time by turning off any combination of the available profiles as a comma-separated list
+After CONNECT has been built from the clone directory, you can alter the composition of the CONNECT.ear at any time by turning off any combination of the available profiles as a comma-separated list
 
         $ cd <CONNECT_CLONE_DIR>
-        $ mvn clean package -P \!PD,\!DQ,!DR -f Product/Production/Deploy/pom.xml
+        $ mvn clean install -P \!PD,\!DQ,\!DR -f Product/Production/Deploy/pom.xml
 
 OR
 
-        $ cd Product/Production/CONNECT/
-        $ mvn clean package -P \!PD,\!DQ,!DR
+        $ cd Product/Production/Deploy/
+        $ mvn clean install -P \!PD,\!DQ,\!DR
 
 You can also specify explicitly what services are included in the ear by passing in the individual profiles.  For example, if you only want to include PD:
 
-        $ cd Product/Production/CONNECT/
-        $ mvn clean package -P PD
-
+        $ cd Product/Production/Deploy/
+        $ mvn clean install -P PD
+        
 ######Altering targeted application server
 For some application server deployments the generated .ear needs different dependencies. This readme describes building and deploying on GlassFish. See the CONNECT wiki for details on other application servers.
 
