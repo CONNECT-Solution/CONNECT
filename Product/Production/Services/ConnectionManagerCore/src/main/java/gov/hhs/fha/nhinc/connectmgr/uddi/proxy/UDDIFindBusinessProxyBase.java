@@ -35,6 +35,7 @@ import org.uddi.api_v3.GetBusinessDetail;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTCXFClientFactory;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTClient;
+import gov.hhs.fha.nhinc.messaging.client.UDDIBaseClient;
 import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
 import gov.hhs.fha.nhinc.nhin_uddi_api_v3.UDDIInquiryPortType;
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
@@ -88,6 +89,6 @@ public abstract class UDDIFindBusinessProxyBase implements UDDIFindBusinessProxy
     protected CONNECTClient<UDDIInquiryPortType> getCONNECTClientUnsecured(
             ServicePortDescriptor<UDDIInquiryPortType> portDescriptor, String url, AssertionType assertion) {
 
-    return CONNECTCXFClientFactory.getInstance().getCONNECTClientUnsecured(portDescriptor, url, null);
+    return new UDDIBaseClient<UDDIInquiryPortType>(portDescriptor, url);
 }
 }
