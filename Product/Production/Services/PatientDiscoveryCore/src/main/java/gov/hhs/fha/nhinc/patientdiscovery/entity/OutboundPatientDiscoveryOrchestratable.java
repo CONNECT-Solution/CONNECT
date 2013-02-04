@@ -39,6 +39,9 @@ import org.hl7.v3.PRPAIN201305UV02;
 import org.hl7.v3.PRPAIN201306UV02;
 import org.hl7.v3.RespondingGatewayPRPAIN201306UV02ResponseType;
 
+import com.google.common.base.Optional;
+import com.google.common.base.Preconditions;
+
 /**
  * Patient Discovery implementation of OutboundOrchestratableMessage
  * 
@@ -47,7 +50,7 @@ import org.hl7.v3.RespondingGatewayPRPAIN201306UV02ResponseType;
 public class OutboundPatientDiscoveryOrchestratable implements OutboundOrchestratableMessage {
 
     private OutboundDelegate delegate = null;
-    private OutboundResponseProcessor processor = null;
+    private Optional<OutboundResponseProcessor> processor = Optional.absent();
     private AuditTransformer auditTransformer = null;
     private PolicyTransformer policyTransformer = null;
     private AssertionType assertion = null;
@@ -60,9 +63,10 @@ public class OutboundPatientDiscoveryOrchestratable implements OutboundOrchestra
     public OutboundPatientDiscoveryOrchestratable() {
     }
 
-    public OutboundPatientDiscoveryOrchestratable(OutboundDelegate d, OutboundResponseProcessor p, AuditTransformer at,
-            PolicyTransformer pt, AssertionType a, String name, NhinTargetSystemType t, PRPAIN201305UV02 r) {
-
+    public OutboundPatientDiscoveryOrchestratable(OutboundDelegate d, Optional<OutboundResponseProcessor> p,
+            AuditTransformer at, PolicyTransformer pt, AssertionType a, String name, NhinTargetSystemType t,
+            PRPAIN201305UV02 r) {
+        Preconditions.checkNotNull(p);
         this.delegate = d;
         this.processor = p;
         this.auditTransformer = at;
@@ -81,7 +85,7 @@ public class OutboundPatientDiscoveryOrchestratable implements OutboundOrchestra
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
-    public OutboundResponseProcessor getResponseProcessor() {
+    public Optional<OutboundResponseProcessor> getResponseProcessor() {
         return processor;
     }
 
@@ -112,7 +116,7 @@ public class OutboundPatientDiscoveryOrchestratable implements OutboundOrchestra
     public boolean isPassthru() {
         return false;
     }
-    
+
     public PRPAIN201306UV02 getResponse() {
         return response;
     }

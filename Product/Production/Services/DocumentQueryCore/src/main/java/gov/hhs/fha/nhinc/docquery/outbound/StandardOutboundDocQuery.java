@@ -76,13 +76,18 @@ public class StandardOutboundDocQuery implements OutboundDocQuery {
 
     /**
      * 
-     * @param adhocQueryRequest The AdhocQueryRequest message received.
-     * @param assertion Assertion received.
-     * @param targets Target to send request.
+     * @param adhocQueryRequest
+     *            The AdhocQueryRequest message received.
+     * @param assertion
+     *            Assertion received.
+     * @param targets
+     *            Target to send request.
      * @return AdhocQueryResponse from Entity Interface.
      */
     @Override
-    @OutboundProcessingEvent(beforeBuilder = AdhocQueryRequestDescriptionBuilder.class, afterReturningBuilder = AdhocQueryResponseDescriptionBuilder.class, serviceType = "Document Query", version = "")
+    @OutboundProcessingEvent(beforeBuilder = AdhocQueryRequestDescriptionBuilder.class,
+            afterReturningBuilder = AdhocQueryResponseDescriptionBuilder.class, serviceType = "Document Query",
+            version = "")
     public AdhocQueryResponse respondingGatewayCrossGatewayQuery(AdhocQueryRequest adhocQueryRequest,
             AssertionType assertion, NhinTargetCommunitiesType targets) {
         LOG.trace("EntityDocQueryOrchImpl.respondingGatewayCrossGatewayQuery...");
@@ -129,8 +134,10 @@ public class StandardOutboundDocQuery implements OutboundDocQuery {
     /**
      * This method returns Response with RegistryErrorList if there is any failure.
      * 
-     * @param errorCode The ErrorCode that needs to be set to the AdhocQueryResponse (Errorcodes are defined in spec).
-     * @param codeContext The codecontext defines the reason of failure of AdhocQueryRequest.
+     * @param errorCode
+     *            The ErrorCode that needs to be set to the AdhocQueryResponse (Errorcodes are defined in spec).
+     * @param codeContext
+     *            The codecontext defines the reason of failure of AdhocQueryRequest.
      * @return AdhocQueryResponse.
      */
     private AdhocQueryResponse createErrorResponse(String errorCode, String codeContext) {

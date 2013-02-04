@@ -29,17 +29,19 @@ package gov.hhs.fha.nhinc.docquery.entity;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.orchestration.AuditTransformer;
-import gov.hhs.fha.nhinc.orchestration.OutboundDelegate;
-import gov.hhs.fha.nhinc.orchestration.OutboundResponseProcessor;
 import gov.hhs.fha.nhinc.orchestration.OrchestrationContext;
 import gov.hhs.fha.nhinc.orchestration.OrchestrationContextBuilder;
+import gov.hhs.fha.nhinc.orchestration.OutboundDelegate;
+import gov.hhs.fha.nhinc.orchestration.OutboundResponseProcessor;
 import gov.hhs.fha.nhinc.orchestration.PolicyTransformer;
-
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
+
+import com.google.common.base.Optional;
+import com.google.common.base.Preconditions;
 
 /**
  * @author bhumphrey/paul
- *
+ * 
  */
 public abstract class OutboundDocQueryOrchestrationContextBuilder implements OrchestrationContextBuilder {
 
@@ -49,7 +51,7 @@ public abstract class OutboundDocQueryOrchestrationContextBuilder implements Orc
     private PolicyTransformer policyTransformer = null;
     private AuditTransformer auditTransformer = null;
     private OutboundDelegate nhinDelegate = null;
-    private OutboundResponseProcessor nhinProcessor = null;
+    private Optional<OutboundResponseProcessor> nhinProcessor = Optional.absent();
     private String serviceName = "";
 
     @Override
@@ -65,10 +67,11 @@ public abstract class OutboundDocQueryOrchestrationContextBuilder implements Orc
     /**
      * @return OutboundDocQueryStrategy based on specLevel
      */
-     protected abstract OutboundDocQueryStrategy getStrategy();
+    protected abstract OutboundDocQueryStrategy getStrategy();
 
     /**
-     * @param t NhinTarget community passed.
+     * @param t
+     *            NhinTarget community passed.
      */
     public void setTarget(NhinTargetSystemType t) {
         this.target = t;
@@ -82,7 +85,8 @@ public abstract class OutboundDocQueryOrchestrationContextBuilder implements Orc
     }
 
     /**
-     * @param dqRequest AdhocQUery Request received.
+     * @param dqRequest
+     *            AdhocQUery Request received.
      */
     public void setRequest(AdhocQueryRequest dqRequest) {
         this.request = dqRequest;
@@ -103,7 +107,8 @@ public abstract class OutboundDocQueryOrchestrationContextBuilder implements Orc
     }
 
     /**
-     * @param assertionType Assertion received.
+     * @param assertionType
+     *            Assertion received.
      */
     public void setAssertionType(AssertionType assertionType) {
         this.assertionType = assertionType;
@@ -117,7 +122,8 @@ public abstract class OutboundDocQueryOrchestrationContextBuilder implements Orc
     }
 
     /**
-     * @param policyTransformer policyTransformer received.
+     * @param policyTransformer
+     *            policyTransformer received.
      */
     public void setPolicyTransformer(PolicyTransformer policyTransformer) {
         this.policyTransformer = policyTransformer;
@@ -131,7 +137,8 @@ public abstract class OutboundDocQueryOrchestrationContextBuilder implements Orc
     }
 
     /**
-     * @param auditTransformer AuditTransformer to audit.
+     * @param auditTransformer
+     *            AuditTransformer to audit.
      */
     public void setAuditTransformer(AuditTransformer auditTransformer) {
         this.auditTransformer = auditTransformer;
@@ -145,7 +152,8 @@ public abstract class OutboundDocQueryOrchestrationContextBuilder implements Orc
     }
 
     /**
-     * @param nhinDelegate nhinDelegate received.
+     * @param nhinDelegate
+     *            nhinDelegate received.
      */
     public void setNhinDelegate(OutboundDelegate nhinDelegate) {
         this.nhinDelegate = nhinDelegate;
@@ -154,29 +162,33 @@ public abstract class OutboundDocQueryOrchestrationContextBuilder implements Orc
     /**
      * @return outboundDocQueryProcessor.
      */
-    protected OutboundResponseProcessor getAggregator() {
+    protected Optional<OutboundResponseProcessor> getAggregator() {
         return nhinProcessor;
     }
 
     /**
-     * @param processor DocQueryProcessor.
+     * @param processor
+     *            DocQueryProcessor.
      */
-    public void setAggregator(OutboundResponseProcessor processor) {
+    public void setAggregator(Optional<OutboundResponseProcessor> processor) {
+        Preconditions.checkNotNull(processor);
         nhinProcessor = processor;
     }
 
     /**
      * @return outboundDocQueryProcessor.
      */
-    protected OutboundResponseProcessor getProcessor() {
+    protected Optional<OutboundResponseProcessor> getProcessor() {
         return nhinProcessor;
     }
 
     /**
-     * @param processor outboundReponseProcessor.
+     * @param processor
+     *            outboundReponseProcessor.
      */
-    public void setProcessor(OutboundResponseProcessor processor) {
-        this.nhinProcessor = processor;
+    public void setProcessor(Optional<OutboundResponseProcessor> processor) {
+        Preconditions.checkNotNull(processor);
+        nhinProcessor = processor;
     }
 
     /**
@@ -187,7 +199,8 @@ public abstract class OutboundDocQueryOrchestrationContextBuilder implements Orc
     }
 
     /**
-     * @param name ServiceName DocQuery.
+     * @param name
+     *            ServiceName DocQuery.
      */
     public void setServiceName(String name) {
         this.serviceName = name;

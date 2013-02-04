@@ -26,18 +26,20 @@
  */
 package gov.hhs.fha.nhinc.gateway.executorservice;
 
-import java.util.List;
+import gov.hhs.fha.nhinc.orchestration.OutboundOrchestratableMessage;
+import gov.hhs.fha.nhinc.orchestration.OutboundResponseProcessor;
+
 import java.util.ArrayList;
-import java.util.concurrent.Executor;
-import java.util.concurrent.ExecutorCompletionService;
+import java.util.List;
 import java.util.concurrent.CompletionService;
 import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Executor;
+import java.util.concurrent.ExecutorCompletionService;
 import java.util.concurrent.Future;
 
-import gov.hhs.fha.nhinc.orchestration.OutboundResponseProcessor;
-import gov.hhs.fha.nhinc.orchestration.OutboundOrchestratableMessage;
-
 import org.apache.log4j.Logger;
+
+import com.google.common.base.Optional;
 
 /**
  * Main unit of execution Executes a DQ or PD request currently, but could be used to execute any of the Nhin
@@ -112,7 +114,12 @@ public class NhinTaskExecutor<CumulativeResponse extends OutboundOrchestratableM
                         IndividualResponse r = (IndividualResponse) future.get();
                         if (r != null) {
                             // process response
-                            OutboundResponseProcessor processor = r.getResponseProcessor();
+                            Optional<OutboundResponseProcessor> optionalProcessor = r.getResponseProcessor();
+                            if (!optionalProcessor.isPresent()) {
+                                throw new IllegalArgumentException(
+                                        "IndividualResponse.getResponseProcessor returned null");
+                            }
+                            OutboundResponseProcessor processor = optionalProcessor.get();
                             cumulativeResponse = (CumulativeResponse) processor.processNhinResponse(r,
                                     cumulativeResponse);
                         } else {

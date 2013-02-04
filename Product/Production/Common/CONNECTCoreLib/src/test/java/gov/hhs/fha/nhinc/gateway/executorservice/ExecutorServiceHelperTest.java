@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services. 
+ * Copyright (c) 2009-2013, United States Government, as represented by the Secretary of Health and Human Services. 
  * All rights reserved. 
  *
  * Redistribution and use in source and binary forms, with or without 
@@ -24,17 +24,22 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
  */
-package gov.hhs.fha.nhinc.orchestration;
+package gov.hhs.fha.nhinc.gateway.executorservice;
 
-import com.google.common.base.Optional;
+import static org.junit.Assert.assertTrue;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
-/**
- * Used for concurrent task executor based orchestrator implementations
- * 
- * @author paul.eftis
- */
-public interface OutboundOrchestratableMessage extends OutboundOrchestratable {
+import org.junit.Test;
 
-    public Optional<OutboundResponseProcessor> getResponseProcessor();
+public class ExecutorServiceHelperTest {
 
+    @Test
+    public void formattedExceptionIncludesMessage() {
+        Exception e = mock(Exception.class);
+        when(e.getMessage()).thenReturn("message");
+
+        String result = ExecutorServiceHelper.getFormattedExceptionInfo(e, null, null);
+        assertTrue(result.contains("message"));
+    }
 }
