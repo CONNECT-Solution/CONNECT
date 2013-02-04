@@ -26,29 +26,27 @@
  */
 package gov.hhs.fha.nhinc.docquery.entity;
 
-import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
-import gov.hhs.fha.nhinc.orchestration.OutboundOrchestratableMessage;
-import gov.hhs.fha.nhinc.orchestration.OutboundDelegate;
-import gov.hhs.fha.nhinc.orchestration.NhinAggregator;
-import gov.hhs.fha.nhinc.orchestration.OutboundResponseProcessor;
-import gov.hhs.fha.nhinc.orchestration.AuditTransformer;
-import gov.hhs.fha.nhinc.orchestration.PolicyTransformer;
-
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
-
+import gov.hhs.fha.nhinc.orchestration.AuditTransformer;
+import gov.hhs.fha.nhinc.orchestration.NhinAggregator;
+import gov.hhs.fha.nhinc.orchestration.OutboundDelegate;
+import gov.hhs.fha.nhinc.orchestration.OutboundOrchestratableMessage;
+import gov.hhs.fha.nhinc.orchestration.OutboundResponseProcessor;
+import gov.hhs.fha.nhinc.orchestration.PolicyTransformer;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
 
+import com.google.common.base.Optional;
+
 /**
  * Doc Query implementation of OutboundOrchestratableMessage.
- *
+ * 
  * @author paul.eftis
  */
 public class OutboundDocQueryOrchestratable implements OutboundOrchestratableMessage {
 
     private OutboundDelegate delegate = null;
-    private OutboundResponseProcessor processor = null;
     private AuditTransformer auditTransformer = null;
     private PolicyTransformer policyTransformer = null;
     private AssertionType assertion = null;
@@ -60,7 +58,6 @@ public class OutboundDocQueryOrchestratable implements OutboundOrchestratableMes
     private AdhocQueryResponse response = null;
     private NhinAggregator aggregator = null;
 
-
     /**
      * Default Constructor.
      */
@@ -68,29 +65,36 @@ public class OutboundDocQueryOrchestratable implements OutboundOrchestratableMes
     }
 
     /**
-     * @param delegate DocQuery Delegate.
+     * @param delegate
+     *            DocQuery Delegate.
      */
     public OutboundDocQueryOrchestratable(OutboundDelegate delegate) {
         this.delegate = delegate;
     }
 
-    /** Constructor.
-     * @param d Delegate.
-     * @param p outboundResponseProcessor.
-     * @param at AuditTransformer.
-     * @param pt PolicyTransformer.
-     * @param a assertion.
-     * @param name serviceName.
-     * @param t target.
-     * @param r AdhocQUery Request.
+    /**
+     * Constructor.
+     * 
+     * @param d
+     *            Delegate.
+     * @param at
+     *            AuditTransformer.
+     * @param pt
+     *            PolicyTransformer.
+     * @param a
+     *            assertion.
+     * @param name
+     *            serviceName.
+     * @param t
+     *            target.
+     * @param r
+     *            AdhocQUery Request.
      */
-    //CHECKSTYLE:OFF
-    public OutboundDocQueryOrchestratable(OutboundDelegate d, OutboundResponseProcessor p, AuditTransformer at,
-            PolicyTransformer pt, AssertionType a, String name, NhinTargetSystemType t, AdhocQueryRequest r) {
-    //CHECKSTYLE:ON
-
+    // CHECKSTYLE:OFF
+    public OutboundDocQueryOrchestratable(OutboundDelegate d, AuditTransformer at, PolicyTransformer pt,
+            AssertionType a, String name, NhinTargetSystemType t, AdhocQueryRequest r) {
+        // CHECKSTYLE:ON
         this.delegate = d;
-        this.processor = p;
         this.auditTransformer = at;
         this.policyTransformer = pt;
         this.assertion = a;
@@ -98,34 +102,37 @@ public class OutboundDocQueryOrchestratable implements OutboundOrchestratableMes
         this.target = t;
         this.request = r;
     }
-    
-    public OutboundDocQueryOrchestratable(OutboundDelegate d, AssertionType a, String name, NhinTargetSystemType t, AdhocQueryRequest r) {
-        this(d, null, null, null, a, name,  t, r);
+
+    public OutboundDocQueryOrchestratable(OutboundDelegate d, AssertionType a, String name, NhinTargetSystemType t,
+            AdhocQueryRequest r) {
+        this(d, null, null, a, name, t, r);
     }
 
     public OutboundDocQueryOrchestratable(NhinAggregator agg, AssertionType a, String name, AdhocQueryRequest r) {
-    //CHECKSTYLE:ON
-        this(null, null, null, null, a, name, null, r);
+        // CHECKSTYLE:ON
+        this(null, null, null, a, name, null, r);
         this.aggregator = agg;
     }
-    
-    
+
     /**
-     * @param assertion Assertion received.
+     * @param assertion
+     *            Assertion received.
      */
     public void setAssertion(AssertionType assertion) {
         this.assertion = assertion;
     }
 
     /**
-     * @param request AdhocQUery Request.
+     * @param request
+     *            AdhocQUery Request.
      */
     public void setRequest(AdhocQueryRequest request) {
         this.request = request;
     }
 
     /**
-     * @param target NhinTarget info.
+     * @param target
+     *            NhinTarget info.
      */
     public void setTarget(NhinTargetSystemType target) {
         this.target = target;
@@ -139,7 +146,8 @@ public class OutboundDocQueryOrchestratable implements OutboundOrchestratableMes
     }
 
     /**
-     * @param r AdhocQuery Response.
+     * @param r
+     *            AdhocQuery Response.
      */
     public void setResponse(AdhocQueryResponse r) {
         response = r;
@@ -152,7 +160,9 @@ public class OutboundDocQueryOrchestratable implements OutboundOrchestratableMes
         return delegate;
     }
 
-    /**This is not used.
+    /**
+     * This is not used.
+     * 
      * @return Null.
      */
     public NhinAggregator getAggregator() {
@@ -160,10 +170,10 @@ public class OutboundDocQueryOrchestratable implements OutboundOrchestratableMes
     }
 
     /**
-     * @return processor that execute the Response.
+     * @return absent processor. Does not exists for DQ.
      */
-    public OutboundResponseProcessor getResponseProcessor() {
-        return processor;
+    public Optional<OutboundResponseProcessor> getResponseProcessor() {
+        return Optional.absent();
     }
 
     /**
@@ -214,8 +224,5 @@ public class OutboundDocQueryOrchestratable implements OutboundOrchestratableMes
     public boolean isPassthru() {
         return false;
     }
-
-    
-
 
 }

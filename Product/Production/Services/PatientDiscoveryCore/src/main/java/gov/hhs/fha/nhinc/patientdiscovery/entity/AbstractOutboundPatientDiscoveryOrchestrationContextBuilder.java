@@ -26,23 +26,26 @@
  */
 package gov.hhs.fha.nhinc.patientdiscovery.entity;
 
-import org.hl7.v3.PRPAIN201305UV02;
-
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.orchestration.AuditTransformer;
-import gov.hhs.fha.nhinc.orchestration.OutboundDelegate;
-import gov.hhs.fha.nhinc.orchestration.OutboundResponseProcessor;
 import gov.hhs.fha.nhinc.orchestration.OrchestrationContext;
 import gov.hhs.fha.nhinc.orchestration.OrchestrationContextBuilder;
+import gov.hhs.fha.nhinc.orchestration.OutboundDelegate;
+import gov.hhs.fha.nhinc.orchestration.OutboundResponseProcessor;
 import gov.hhs.fha.nhinc.orchestration.PolicyTransformer;
+
+import org.hl7.v3.PRPAIN201305UV02;
+
+import com.google.common.base.Optional;
+import com.google.common.base.Preconditions;
 
 /**
  * @author bhumphrey/paul
  * 
  */
-public abstract class AbstractOutboundPatientDiscoveryOrchestrationContextBuilder implements 
-                                    OrchestrationContextBuilder {
+public abstract class AbstractOutboundPatientDiscoveryOrchestrationContextBuilder implements
+        OrchestrationContextBuilder {
 
     private NhinTargetSystemType target = null;
     private PRPAIN201305UV02 request = null;
@@ -50,7 +53,7 @@ public abstract class AbstractOutboundPatientDiscoveryOrchestrationContextBuilde
     private PolicyTransformer policyTransformer = null;
     private AuditTransformer auditTransformer = null;
     private OutboundDelegate nhinDelegate = null;
-    private OutboundResponseProcessor nhinProcessor = null;
+    private Optional<OutboundResponseProcessor> nhinProcessor = Optional.absent();
     private String serviceName = "";
 
     @Override
@@ -110,20 +113,22 @@ public abstract class AbstractOutboundPatientDiscoveryOrchestrationContextBuilde
         this.nhinDelegate = nhinDelegate;
     }
 
-    protected OutboundResponseProcessor getAggregator() {
+    protected Optional<OutboundResponseProcessor> getAggregator() {
         return nhinProcessor;
     }
 
-    public void setAggregator(OutboundResponseProcessor processor) {
+    public void setAggregator(Optional<OutboundResponseProcessor> processor) {
+        Preconditions.checkNotNull(processor);
         nhinProcessor = processor;
     }
 
-    protected OutboundResponseProcessor getProcessor() {
+    protected Optional<OutboundResponseProcessor> getProcessor() {
         return nhinProcessor;
     }
 
-    public void setProcessor(OutboundResponseProcessor processor) {
-        this.nhinProcessor = processor;
+    public void setProcessor(Optional<OutboundResponseProcessor> processor) {
+        Preconditions.checkNotNull(processor);
+        nhinProcessor = processor;
     }
 
     protected String getServiceName() {

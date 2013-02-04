@@ -36,7 +36,6 @@ import gov.hhs.fha.nhinc.gateway.executorservice.ExecutorServiceHelper;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants.GATEWAY_API_LEVEL;
 import gov.hhs.fha.nhinc.orchestration.Orchestratable;
 import gov.hhs.fha.nhinc.orchestration.OrchestrationStrategy;
-import gov.hhs.fha.nhinc.orchestration.OutboundResponseProcessor;
 import gov.hhs.fha.nhinc.util.HomeCommunityMap;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
@@ -54,6 +53,7 @@ public abstract class OutboundDocQueryStrategy implements OrchestrationStrategy 
 
     private DocQueryAuditLog auditLog = null;
     private NhinDocQueryProxyFactory proxyFactory;
+    private MessageGeneratorUtils messageGeneratorUtils;
     WebServiceProxyHelper webServiceProxyHelper;
 
     /**
@@ -62,6 +62,7 @@ public abstract class OutboundDocQueryStrategy implements OrchestrationStrategy 
     OutboundDocQueryStrategy() {
         proxyFactory = new NhinDocQueryProxyObjectFactory();
         webServiceProxyHelper = new WebServiceProxyHelper();
+        messageGeneratorUtils = MessageGeneratorUtils.getInstance();
     }
 
     /**
@@ -96,14 +97,14 @@ public abstract class OutboundDocQueryStrategy implements OrchestrationStrategy 
      */
     protected void handleError(OutboundDocQueryOrchestratable message, Exception ex) {
         String err = ExecutorServiceHelper.getFormattedExceptionInfo(ex, message.getTarget(), message.getServiceName());
-        OutboundResponseProcessor processor = message.getResponseProcessor();
-        message.setResponse(((OutboundDocQueryOrchestratable) processor.processErrorResponse(message, err))
-                .getResponse());
+        AdhocQueryResponse response = messageGeneratorUtils.createRepositoryErrorResponse(err);
+        message.setResponse(response);
         LOG.debug("executeStrategy returning error response");
     }
 
     /**
-     * @param message contains request message to execute.
+     * @param message
+     *            contains request message to execute.
      */
     public void execute(OutboundDocQueryOrchestratable message) {
 
@@ -115,14 +116,15 @@ public abstract class OutboundDocQueryStrategy implements OrchestrationStrategy 
             handleError(message, ex);
         }
 
-        getAuditLogger().auditOutboundDocQueryStrategyResponse(message.getResponse(), message.getAssertion(), 
+        getAuditLogger().auditOutboundDocQueryStrategyResponse(message.getResponse(), message.getAssertion(),
                 HomeCommunityMap.getCommunityIdFromTargetSystem(message.getTarget()));
     }
 
     /**
      * This method takes Orchestrated message request and returns response.
      * 
-     * @param message DocQueryOrchestartable message from Adapter level a0 passed.
+     * @param message
+     *            DocQueryOrchestartable message from Adapter level a0 passed.
      * @throws Exception
      * @throws ConnectionManagerException
      * @throws IllegalArgumentException
@@ -133,8 +135,7 @@ public abstract class OutboundDocQueryStrategy implements OrchestrationStrategy 
         final String url = getUrl(message.getTarget());
         AdhocQueryResponse response;
         if (StringUtils.isBlank(url)) {
-            response = MessageGeneratorUtils.getInstance().createRepositoryErrorResponse(
-                    "Unable to find any callable targets.");
+            response = messageGeneratorUtils.createRepositoryErrorResponse("Unable to find any callable targets.");
         } else {
             message.getTarget().setUrl(url);
             if (LOG.isDebugEnabled()) {
@@ -164,11 +165,15 @@ public abstract class OutboundDocQueryStrategy implements OrchestrationStrategy 
 
         return webServiceProxyHelper.getUrlFromTargetSystemByGatewayAPILevel(target, getServiceName(), getAPILevel());
     }
-    
+
     protected DocQueryAuditLog getAuditLogger() {
         if (auditLog == null) {
             auditLog = new DocQueryAuditLog();
         }
         return auditLog;
+    }
+
+    protected void setMessageGeneratorUtils(MessageGeneratorUtils messageGeneratorUtils) {
+        this.messageGeneratorUtils = messageGeneratorUtils;
     }
 }
