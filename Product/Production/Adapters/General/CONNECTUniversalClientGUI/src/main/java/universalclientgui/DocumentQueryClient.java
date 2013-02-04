@@ -84,16 +84,14 @@ public class DocumentQueryClient {
      * @param creationToDate
      * @return
      */
-    public List<DocumentInformation> retrieveDocumentsInformation(PatientSearchData patientSearchData,
-            Date creationFromDate, Date creationToDate) {
+    public List<DocumentInformation> retrieveDocumentsInformation(PatientSearchData patientSearchData) {
 
         String url;
         try {
             url = getUrl();
             if (NullChecker.isNotNullish(url)) {
 
-                RespondingGatewayCrossGatewayQueryRequestType request = createAdhocQueryRequest(patientSearchData,
-                        creationFromDate, creationToDate);
+                RespondingGatewayCrossGatewayQueryRequestType request = createAdhocQueryRequest(patientSearchData);
                 NhinTargetCommunitiesType target = new NhinTargetCommunitiesType();
                 request.setNhinTargetCommunities(target);
                 EntityDocQueryProxyWebServiceUnsecuredImpl instance = new EntityDocQueryProxyWebServiceUnsecuredImpl();
@@ -117,8 +115,7 @@ public class DocumentQueryClient {
      * @param creationToDate
      * @return
      */
-    private RespondingGatewayCrossGatewayQueryRequestType createAdhocQueryRequest(PatientSearchData patientSearchData,
-            Date creationFromDate, Date creationToDate) {
+    private RespondingGatewayCrossGatewayQueryRequestType createAdhocQueryRequest(PatientSearchData patientSearchData) {
         AdhocQueryType adhocQuery = new AdhocQueryType();
         adhocQuery.setHome(HOME_ID);
         adhocQuery.setId(ID);
@@ -154,7 +151,7 @@ public class DocumentQueryClient {
 
         ValueListType creationStartTimeValueList = new ValueListType();
 
-        creationStartTimeValueList.getValue().add(formatDate(creationFromDate, HL7_DATE_FORMAT));
+       // creationStartTimeValueList.getValue().add(formatDate(creationFromDate, HL7_DATE_FORMAT));
 
         creationStartTimeSlot.setValueList(creationStartTimeValueList);
         adhocQuery.getSlot().add(creationStartTimeSlot);
@@ -165,7 +162,7 @@ public class DocumentQueryClient {
 
         ValueListType creationEndTimeSlotValueList = new ValueListType();
 
-        creationEndTimeSlotValueList.getValue().add(formatDate(creationToDate, HL7_DATE_FORMAT));
+       // creationEndTimeSlotValueList.getValue().add(formatDate(creationToDate, HL7_DATE_FORMAT));
 
         creationEndTimeSlot.setValueList(creationEndTimeSlotValueList);
         adhocQuery.getSlot().add(creationEndTimeSlot);

@@ -302,6 +302,9 @@ public class Page2 extends AbstractPageBean {
     public void setErrors(String errors) {
         this.errors = errors;
     }
+    private List<DocumentInformation> docInfoList = null;
+    
+    DocumentQueryResults documentQueryResults = new DocumentQueryResults();
 
     // </editor-fold>
     /**
@@ -437,6 +440,10 @@ public class Page2 extends AbstractPageBean {
     // Patient Search Tab Methods
     public String patientSearchTab_action() {
         this.errorMessage.setText("");
+        getSessionBean1().getPatientSearchDataList().clear();
+        this.firstNameField.setText("");
+        this.lastNameField.setText("");
+        this.lastNameField.clearInitialState();
         return null;
     }
 
@@ -657,7 +664,6 @@ public class Page2 extends AbstractPageBean {
         SearchData searchData = (SearchData) getBean("SearchData");
 
         searchData.setPatientID(foundPatient.getPatientId());
-        //searchData.setAssigningAuthorityID(foundPatient.getAssigningAuthorityID());
 
         return null;
     }
@@ -689,7 +695,6 @@ public class Page2 extends AbstractPageBean {
 
     private void initializeSubjectDiscoveryTab() {
         this.getSubjectDiscoveryResultsInfo().setText("Patient Discovery Results (Existing Correlations)");
-        this.getBroadcastInfo().setText("Click to Discover New Correlations.");
         this.getBroadcastInfo2().setText("Warning: This may take several minutes.");
 
         performPatientCorrelation();
@@ -772,30 +777,6 @@ public class Page2 extends AbstractPageBean {
     }
 
     public String broadcastSubjectDiscoveryButton_action() {
-
-//        try {
-
-//            EntitySubjectDiscoveryProxyObjectFactory sdFactory = new EntitySubjectDiscoveryProxyObjectFactory();
-//            EntitySubjectDiscoveryProxy sdProxy = sdFactory.getEntitySubjectDiscoveryProxy();
-//
-//            PIXConsumerPRPAIN201301UVRequestType request = new PIXConsumerPRPAIN201301UVRequestType();
-//            request.setAssertion(getSessionBean1().getAssertionInfo());
-//
-//            String localDeviceId = PropertyAccessor.getProperty(PROPERTY_FILE_NAME_GATEWAY, PROPERTY_FILE_KEY_LOCAL_DEVICE);
-//            String orgId = PropertyAccessor.getProperty(PROPERTY_FILE_NAME_GATEWAY, PROPERTY_FILE_KEY_HOME_COMMUNITY);
-//
-              PatientSearchData foundPatient = getSessionBean1().getFoundPatient();
-             
-//            JAXBElement<PRPAMT201301UV02Person> person = HL7PatientTransforms.create201301PatientPerson(foundPatient.getFirstName(), foundPatient.getLastName(), foundPatient.getGender(), foundPatient.getDob(), foundPatient.getSsn());
-//            //HL7PatientTransforms.create201302PatientPerson(foundPatient.getFirstName(), foundPatient.getLastName(), foundPatient.getGender(), foundPatient.getDob(), foundPatient.getSsn(), null);
-//            PRPAMT201301UV02Patient patient = HL7PatientTransforms.create201301Patient(person, foundPatient.getPatientId(), localDeviceId);
-//            PRPAIN201301UV02 prpain201301 = HL7PRPA201301Transforms.createPRPA201301(patient, localDeviceId, orgId, orgId);
-//            request.setPRPAIN201301UV02(prpain201301);
-//
-//            MCCIIN000002UV01 sdAck = sdProxy.pixConsumerPRPAIN201301UV(request);
-//
-//            if (sdAck != null) {
-
         
 	   SearchData searchData = (SearchData) getBean("SearchData");
 
@@ -812,23 +793,12 @@ public class Page2 extends AbstractPageBean {
             }
         }
 
-
         GregorianCalendar cal = new GregorianCalendar();
         cal.setTimeZone(TimeZone.getTimeZone("GMT"));
         cal.setTimeInMillis(System.currentTimeMillis());
 
         this.getBroadcastInfo().setText("Broadcast sent: " + (cal.get(java.util.Calendar.MONTH) + 1) + "/" + cal.get(java.util.Calendar.DAY_OF_MONTH) + "/" + cal.get(java.util.Calendar.YEAR) + " " + cal.get(java.util.Calendar.HOUR_OF_DAY) + ":" + cal.get(java.util.Calendar.MINUTE) + ":" + cal.get(java.util.Calendar.SECOND) + " GMT");
         this.getBroadcastInfo2().setText("");
-
-//            } else {
-//                this.getBroadcastInfo().setText("Error in broadcast subject discovery");
-//            }
-
-//              return null;
-//        } catch (PropertyAccessException ex) {
-//            Logger.getLogger(Page2.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-
 
         return null;
     }
@@ -840,14 +810,7 @@ public class Page2 extends AbstractPageBean {
     public String getDocQueryResults() {
 
         this.errorMessage.setText("");
-        //SimpleDateFormat dateFormatter = new SimpleDateFormat("MM/dd/yyyy");
-        //System.out.println("Creation Date: " + dateFormatter.format(this.getCreationFromDate().getSelectedDate()));
-
-        if (!isDocumentSearchCriteriaValid()) {
-            LOG.error("Error Message: " + errors);
-            this.errorMessage.setText(errors);
-            return null;
-        }
+        this.getSessionBean1().getPatientCorrelationList().clear();
 
         SearchData searchData = (SearchData) getBean("SearchData");
 
@@ -859,18 +822,14 @@ public class Page2 extends AbstractPageBean {
             }
         }
 
-        //System.out.println("Patient ID: " + currentPatient.getPatientId() + "Assigning Authority ID: " + currentPatient.getAssigningAuthorityID());
-
         if (currentPatient == null) {
             this.errorMessage.setText("Patient information is not available. Please search again.");
         }
 
         DocumentQueryClient docQueryClient = new DocumentQueryClient();
 
-        List<DocumentInformation> docInfoList = docQueryClient.retrieveDocumentsInformation(currentPatient, this.getCreationFromDate().getSelectedDate(),
-                this.getCreationToDate().getSelectedDate());
+        docInfoList = docQueryClient.retrieveDocumentsInformation(currentPatient);
 
-        DocumentQueryResults documentQueryResults = new DocumentQueryResults();
         documentQueryResults.setDocuments(docInfoList);
 
         setBean("DocumentQueryResults", documentQueryResults);
@@ -881,6 +840,9 @@ public class Page2 extends AbstractPageBean {
     public String documentTab_action() {
         // TODO: Replace with your code
         this.errorMessage.setText("");
+        this.docInfoList = null;
+        documentQueryResults.setDocuments(docInfoList);
+        setBean("DocumentQueryResults", documentQueryResults);
         return null;
     }
 
