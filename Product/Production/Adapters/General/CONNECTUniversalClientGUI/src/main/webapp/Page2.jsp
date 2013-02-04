@@ -27,17 +27,21 @@
                                 style="font-family: 'Times New Roman',Times,serif; font-size: 14px" text="Patient Search">
                                 <webuijsf:panelLayout id="patientSearchLayoutPanel" style="height: 537px; position: relative; width: 100%; -rave-layout: grid">
                                     <webuijsf:label id="searchInstruct"
-                                        style="font-family: 'Times New Roman','Times',serif; font-size: 14px; left: 24px; top: 24px; position: absolute" text="Enter the following Patient Search Criteria:"/>
+                                        style="font-family: 'Times New Roman','Times',serif; font-size: 14px; left: 24px; top: 24px; position: absolute" text="Enter search criteria to search for a patient in your own MPI:"/>
                                     <webuijsf:label for="lastNameField" id="lastNameLabel"
-                                        style="font-family: 'Times New Roman','Times',serif; font-size: 14px; left: 48px; top: 72px; position: absolute" text="Last Name:"/>
-                                    <webuijsf:textField binding="#{Page2.lastNameField}" id="lastNameField" style="font-family: 'Times New Roman','Times',serif; font-size: 14px; left: 120px; top: 72px; position: absolute"/>
+                                        style="font-family: 'Times New Roman','Times',serif; font-size: 14px; left: 48px; top: 96px; position: absolute" text="Last Name:"/>
+                                    <webuijsf:textField binding="#{Page2.lastNameField}" id="lastNameField" style="font-family: 'Times New Roman','Times',serif; font-size: 14px; left: 120px; top: 96px; position: absolute"/>
                                     <webuijsf:label id="firstNameLabel"
-                                        style="font-family: 'Times New Roman','Times',serif; font-size: 14px; left: 48px; top: 96px; position: absolute" text="First Name:"/>
-                                    <webuijsf:textField binding="#{Page2.firstNameField}" id="firstNameField" style="font-family: 'Times New Roman','Times',serif; font-size: 14px; left: 120px; top: 96px; position: absolute"/>
+                                        style="font-family: 'Times New Roman','Times',serif; font-size: 14px; left: 48px; top: 120px; position: absolute" text="First Name:"/>
+                                    <webuijsf:textField binding="#{Page2.firstNameField}" id="firstNameField" style="font-family: 'Times New Roman','Times',serif; font-size: 14px; left: 120px; top: 120px; position: absolute"/>
                                     <webuijsf:button actionExpression="#{Page2.patientSearchButton_action}" id="patientSearchButton"
-                                        style="font-family: 'Times New Roman','Times',serif; font-size: 18px; left: 311px; top: 96px; position: absolute; width: 100px" text="Search"/>
+                                        style="font-family: 'Times New Roman','Times',serif; font-size: 18px; left: 311px; top: 120px; position: absolute; width: 100px" text="Search"/>
+                                    <webuijsf:label id="searchText"
+                                        style="font-family: 'Times New Roman','Times',serif; font-size: 14px; left: 24px; top: 50px; position: absolute" text="The system will list your patients, and then you will be able to query for that patient on other systems"/>
+                                    <webuijsf:label id="displayPatientSearch"
+                                        style="font-family: 'Times New Roman','Times',serif; font-size: 14px; left: 24px; top: 150px; position: absolute" text="Click on the patient ID to see detailed patient information from your patient correlation table"/>    
                                     <webuijsf:table augmentTitle="false" id="patientSearchResultTable"
-                                        style="left: 24px; top: 144px; position: absolute; width: 500px" title="Patient Search Results" width="500">
+                                        style="left: 24px; top: 174px; position: absolute; width: 500px" title="Patient Search Results" width="500">
                                         <webuijsf:tableRowGroup id="patientSearchResultTableRowGroup" rows="4" sourceData="#{Page2.patientSearchDataList}" sourceVar="currentRow">
                                             <webuijsf:tableColumn headerText="Patient Id" id="patientSearchPatientIdColm">
                                                <webuijsf:hyperlink actionExpression="#{Page2.patientSelectIdLink_action}" 
@@ -73,7 +77,9 @@
                                 <webuijsf:panelLayout id="subjectDiscoveryLayoutPanel" style="height: 534px; position: relative; width: 100%; -rave-layout: grid">
                                     <webuijsf:staticText binding="#{Page2.subjectDiscoveryResultsInfo}" id="subjectDiscoveryResultsInfo" style="color: black; font-family: 'Times New Roman','Times',serif; font-size: 14px; font-weight: bold; left: 24px; top: 24px; position: absolute"/>
                                     <webuijsf:button actionExpression="#{Page2.broadcastSubjectDiscoveryButton_action}" id="broadcastSubjectDiscoveryButton"
-                                        style="font-family: 'Times New Roman','Times',serif; font-size: 14px; left: 23px; top: 72px; position: absolute" text="Broadcast Patient Discovery"/>
+                                        style="font-family: 'Times New Roman','Times',serif; font-size: 14px; left: 23px; top: 72px; position: absolute" text="Discover Patients"/>
+                                    <webuijsf:label id="searchPatientDiscovery"
+                                        style="font-family: 'Times New Roman','Times',serif; font-size: 14px; left: 24px; top: 95px; position: absolute" text="Click to send a patient discovery message to systems in your UDDI (and/or uddiConnectionInfo.xml file)."/>   
                                     <webuijsf:table augmentTitle="false" id="subjectDiscoveryCoorelationTable" paginateButton="true" paginationControls="true"
                                         style="left: 24px; top: 144px; position: absolute; width: 400px" title="Patient Correlations" width="400">
                                         <webuijsf:tableRowGroup id="patientCorrTableRowGoup" rows="10" sourceData="#{Page2.patientCorrelationList}" sourceVar="currentRow">
@@ -91,21 +97,18 @@
                                             </webuijsf:tableColumn>
                                         </webuijsf:tableRowGroup>
                                     </webuijsf:table>
-                                    <webuijsf:staticText binding="#{Page2.broadcastInfo}" id="broadcastInfo" style="font-family: 'Times New Roman','Times',serif; font-size: 14px; font-weight: bold; left: 216px; top: 96px; position: absolute"/>
+                                    <webuijsf:staticText binding="#{Page2.broadcastInfo}" id="broadcastInfo" style="font-family: 'Times New Roman','Times',serif; font-size: 14px; font-weight: bold; left: 216px; top: 114px; position: absolute"/>
                                     <webuijsf:staticText binding="#{Page2.broadcastInfo2}" id="broadcastInfo2" style="color: red; font-family: 'Times New Roman',Times,serif; font-size: 14px; left: 216px; top: 120px; position: absolute"/>
                                 </webuijsf:panelLayout>
                             </webuijsf:tab>
                             <webuijsf:tab actionExpression="#{Page2.documentTab_action}" binding="#{Page2.documentTab}" disabled="true" id="documentTab"
                                 style="color: gray; font-family: 'Times New Roman',Times,serif; font-size: 14px" text="Documents">
                                 <webuijsf:panelLayout id="layoutPanel3" style="height: 582px; position: relative; width: 100%; -rave-layout: grid">
-                                    <webuijsf:label id="documentSearchLabel"
-                                        style="font-family: 'Times New Roman','Times',serif; font-size: 14px; left: 168px; top: 48px; position: absolute" text="Enter the following Document Search Criteria"/>
-                                    <webuijsf:label id="creationDateLabel"
-                                        style="font-family: 'Times New Roman','Times',serif; font-size: 12px; left: 48px; top: 96px; position: absolute" text="Creation Date Range:"/>
-                                    <webuijsf:calendar binding="#{Page2.creationFromDate}" id="creationDate" style="font-family: 'Times New Roman','Times',serif; font-size: 12px; left: 168px; top: 96px; position: absolute"/>
+                                <webuijsf:label id="docQueryLabel"
+                                        style="font-family: 'Times New Roman','Times',serif; font-size: 14px; left: 48px; top: 48px; position: absolute" text="Click below to find Documents for Patient"/>
                                     <webuijsf:button actionExpression="#{Page2.getDocQueryResults}" id="docQueryButton"
-                                        style="font-family: 'Times New Roman','Times',serif; font-size: 14px; left: 263px; top: 168px; position: absolute; width: 120px" text="Document Query"/>
-                                    <webuijsf:table augmentTitle="false" id="docQueryResults" style="left: 48px; top: 216px; position: absolute; width: 600px"
+                                        style="font-family: 'Times New Roman','Times',serif; font-size: 14px; left: 263px; top: 96px; position: absolute; width: 120px" text="Document Query"/>
+                                    <webuijsf:table augmentTitle="false" id="docQueryResults" style="left: 48px; top: 130px; position: absolute; width: 600px"
                                         title="Document Search Results" width="600">
                                         <webuijsf:tableRowGroup id="docQueryResultsGroup" rows="4" sourceData="#{DocumentQueryResults.documents}" sourceVar="document">
                                             <webuijsf:tableColumn headerText="Document Id" id="documentID">
@@ -126,19 +129,11 @@
                                             </webuijsf:tableColumn>
                                         </webuijsf:tableRowGroup>
                                     </webuijsf:table>
-                                    <webuijsf:calendar binding="#{Page2.creationToDate}" id="calendar1" style="left: 384px; top: 96px; position: absolute"/>
-                                    <webuijsf:label id="label1" style="left: 192px; top: 144px; position: absolute; vertical-align: top" text="Earliest Date"/>
-                                    <webuijsf:label id="label2" style="left: 408px; top: 144px; position: absolute; vertical-align: top" text="Most Recent Date"/>
                                     <webuijsf:staticText binding="#{Page2.errorMessage}" id="patientInfo" style="color: blue; font-family: 'Times New Roman','Times',serif; font-size: 14px; left: 168px; top: 24px; position: absolute"/>
                                 </webuijsf:panelLayout>
                             </webuijsf:tab>
                         </webuijsf:tabSet>
                         <webuijsf:staticText binding="#{Page2.patientInfo}" id="patientInfo" style="color: blue; font-family: 'Times New Roman',Times,serif; font-size: 14px; left: 0px; top: 120px; position: absolute"/>
-                        <webuijsf:button actionExpression="#{Page2.logOutButton_action}" id="logOutButton"
-                            style="font-family: 'Times New Roman','Times',serif; font-size: 14px; height: 24px; left: 613px; top: 120px; position: absolute; width: 120px" text="Log Out"/>
-                        <webuijsf:label id="UCLabel1"
-                            style="color: gray; font-family: 'Arial','Helvetica',sans-serif; font-size: 30px; left: 360px; top: 48px; position: absolute" text="UNIVERSAL CLIENT"/>
-                        <webuijsf:staticText binding="#{Page2.agencyLogo}" id="agencyLogo" style="color: gray; font-family: 'Arial','Helvetica',sans-serif; font-size: 30px; left: 360px; top: 0px; position: absolute"/>
                     </webuijsf:form>
                 </webuijsf:body>
             </webuijsf:html>
