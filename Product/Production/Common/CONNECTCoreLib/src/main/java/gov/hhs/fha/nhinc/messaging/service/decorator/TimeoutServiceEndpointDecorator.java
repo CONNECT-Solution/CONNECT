@@ -32,8 +32,6 @@ import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 
-import javax.xml.ws.BindingProvider;
-
 import org.apache.cxf.transports.http.configuration.HTTPClientPolicy;
 import org.apache.log4j.Logger;
 
@@ -58,9 +56,8 @@ public class TimeoutServiceEndpointDecorator<T> extends ServiceEndpointDecorator
     public void configure() {
         super.configure();
 
-        HTTPClientPolicy httpClientPolicy = (HTTPClientPolicy) ((BindingProvider) getPort())
-                .getRequestContext().get(HTTPClientPolicy.class.getName());
-
+        HTTPClientPolicy httpClientPolicy = getHTTPClientPolicy();
+        
         int timeout = getTimeoutFromConfig();
         httpClientPolicy.setReceiveTimeout(timeout);
         httpClientPolicy.setConnectionTimeout(timeout);

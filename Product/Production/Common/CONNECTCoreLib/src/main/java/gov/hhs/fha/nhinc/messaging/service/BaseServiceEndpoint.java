@@ -27,6 +27,13 @@
 
 package gov.hhs.fha.nhinc.messaging.service;
 
+import java.util.Map;
+
+import javax.xml.ws.BindingProvider;
+import javax.xml.ws.soap.SOAPBinding;
+
+import org.apache.cxf.transports.http.configuration.HTTPClientPolicy;
+
 import gov.hhs.fha.nhinc.messaging.service.ServiceEndpoint;
 
 
@@ -49,5 +56,34 @@ public class BaseServiceEndpoint<T> implements ServiceEndpoint<T> {
     public T getPort() {
         return this.port;
     }
+    
+    final public HTTPClientPolicy getHTTPClientPolicy() {
+        return getHTTPClientPolicy((BindingProvider) getPort());
+    }
+    
+    final public SOAPBinding getSOAPBinding() {
+        return (SOAPBinding) ((BindingProvider) getPort()).getBinding();
+    }
+    
+    
+    /**
+     * Get the {@link HTTPClientPolicy} from the request context of bindingProvider, creates the  {@link HTTPClientPolicy} if null.
+     * 
+     * @param bindingProvider provider to get the {@link HTTPClientPolicy} from
+     * @return the existing {@link HTTPClientPolicy} or a new one.
+     */
+     HTTPClientPolicy getHTTPClientPolicy(BindingProvider bindingProvider) {
+        Map<String, Object> requestContext = bindingProvider.getRequestContext();
+        HTTPClientPolicy httpClientPolicy = (HTTPClientPolicy) requestContext.get(
+                HTTPClientPolicy.class.getName());
+
+        if (httpClientPolicy == null) {
+            httpClientPolicy = new HTTPClientPolicy();
+            requestContext.put(HTTPClientPolicy.class.getName(), httpClientPolicy);
+        }
+
+        return httpClientPolicy;
+    }
+    
 
 }
