@@ -28,18 +28,12 @@
  */
 package gov.hhs.fha.nhinc.messaging.service;
 
-import static junit.framework.Assert.assertFalse;
 import static junit.framework.Assert.assertSame;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
-import static org.mockito.Matchers.eq;
-import static org.mockito.Mockito.CALLS_REAL_METHODS;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-
-import gov.hhs.fha.nhinc.messaging.service.HTTPClientPolicyHelper;
-import gov.hhs.fha.nhinc.messaging.service.decorator.ServiceEndpointDecorator;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -47,6 +41,7 @@ import java.util.Map;
 import javax.xml.ws.BindingProvider;
 
 import org.apache.cxf.transports.http.configuration.HTTPClientPolicy;
+import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
 
@@ -56,55 +51,48 @@ import org.mockito.Mockito;
  */
 public class ServiceEndpointTest {
 
-    @Test
-    public void verifyNewIsCreatedWhenNull() {
-        BindingProvider bindingProvider = mock(BindingProvider.class);
-        Map<String, Object> requestContext = new HashMap<String, Object>();
-        
-        when(bindingProvider.getRequestContext()).thenReturn(requestContext);
-        assertFalse(requestContext.containsKey(HTTPClientPolicy.class.getName()));
-        
-        HTTPClientPolicy httpClientPolicy = HTTPClientPolicyHelper.getHTTPClientPolicy(bindingProvider);
-        assertNotNull(httpClientPolicy);
-        
-        assertTrue(requestContext.containsKey(HTTPClientPolicy.class.getName()));
-        
-        
-    }
-    
-    
-    @Test
-    public void verifyExsistingOneIsUsedWhenPresent() {
-        BindingProvider bindingProvider = mock(BindingProvider.class);
-        Map<String, Object> requestContext = new HashMap<String, Object>();
-        
-        when(bindingProvider.getRequestContext()).thenReturn(requestContext);
-        
-        HTTPClientPolicy realHttpClientPolicy = new HTTPClientPolicy();
-        requestContext.put(HTTPClientPolicy.class.getName(), realHttpClientPolicy);
-        
-        HTTPClientPolicy httpClientPolicy = HTTPClientPolicyHelper.getHTTPClientPolicy(bindingProvider);
-        assertNotNull(httpClientPolicy);
-        
-        assertSame(realHttpClientPolicy, httpClientPolicy);
-        
-    }
-    
-    
-   
-    
-    @Test
-    public void getSOAPBinding() {
-        BaseServiceEndpoint<BindingProvider> serviceEndpoint = (BaseServiceEndpoint<BindingProvider>)
-                mock(BaseServiceEndpoint.class, Mockito.CALLS_REAL_METHODS);
+    BaseServiceEndpoint<BindingProvider> serviceEndpoint;
+    Map<String, Object> requestContext;
+
+    @Before
+    public void setUpTest() {
+        serviceEndpoint = (BaseServiceEndpoint<BindingProvider>) mock(BaseServiceEndpoint.class,
+                Mockito.CALLS_REAL_METHODS);
         BindingProvider bindingProvider = mock(BindingProvider.class);
         serviceEndpoint.port = bindingProvider;
-        
-        
+
+        requestContext = new HashMap<String, Object>();
+        when(serviceEndpoint.port.getRequestContext()).thenReturn(requestContext);
+
+    }
+
+    @Test
+    public void verifyNewIsCreatedWhenNull() {
+
+        HTTPClientPolicy httpClientPolicy = serviceEndpoint.getHTTPClientPolicy();
+        assertNotNull(httpClientPolicy);
+
+        assertTrue(requestContext.containsKey(HTTPClientPolicy.class.getName()));
+
+    }
+
+    @Test
+    public void verifyExsistingOneIsUsedWhenPresent() {
+        HTTPClientPolicy realHttpClientPolicy = new HTTPClientPolicy();
+        requestContext.put(HTTPClientPolicy.class.getName(), realHttpClientPolicy);
+
+        HTTPClientPolicy httpClientPolicy = serviceEndpoint.getHTTPClientPolicy();
+        assertNotNull(httpClientPolicy);
+
+        assertSame(realHttpClientPolicy, httpClientPolicy);
+
+    }
+
+    @Test
+    public void getSOAPBinding() {
+
         serviceEndpoint.getSOAPBinding();
-        
-        
-        verify(bindingProvider).getBinding();
-        
+        verify(serviceEndpoint.port).getBinding();
+
     }
 }
