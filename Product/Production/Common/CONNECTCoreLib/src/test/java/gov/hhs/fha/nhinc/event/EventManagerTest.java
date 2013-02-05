@@ -26,38 +26,26 @@
  */
 package gov.hhs.fha.nhinc.event;
 
-import java.util.Observable;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+import static org.mockito.Mockito.mock;
 
-/**
- * @author zmelnick
- * 
- */
-public class EventManager extends Observable implements EventRecorder, EventLoggerRegistrar {
+import org.junit.Test;
 
-    private EventManager() {
+public class EventManagerTest {
+
+    @Test
+    public void noRegisteredLoggerDisablesRecording() {
+        EventRecorder eventRecorder = EventManager.getInstance();
+        assertFalse(eventRecorder.isRecordEventEnabled());
     }
 
-    private static class EventManagerHolder {
-        public static final EventManager INSTANCE = new EventManager();
-    }
+    @Test
+    public void oneRegisteredLoggerEnabledRecording() {
+        EventLogger mockEventLogger = mock(EventLogger.class);
+        EventManager eventManager = EventManager.getInstance();
+        eventManager.registerLogger(mockEventLogger);
 
-    public static EventManager getInstance() {
-        return EventManagerHolder.INSTANCE;
-    }
-
-    @Override
-    public void recordEvent(Event event) {
-        setChanged();
-        notifyObservers(event);
-    }
-
-    @Override
-    public void registerLogger(EventLogger eventLogger) {
-        addObserver(eventLogger);
-    }
-
-    @Override
-    public boolean isRecordEventEnabled() {
-        return countObservers() > 0;
+        assertTrue(eventManager.isRecordEventEnabled());
     }
 }
