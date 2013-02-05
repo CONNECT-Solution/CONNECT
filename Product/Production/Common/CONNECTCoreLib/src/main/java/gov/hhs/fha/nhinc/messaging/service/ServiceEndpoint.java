@@ -27,6 +27,10 @@
 
 package gov.hhs.fha.nhinc.messaging.service;
 
+import javax.xml.ws.soap.SOAPBinding;
+
+import org.apache.cxf.transports.http.configuration.HTTPClientPolicy;
+
 /**
  * @author akong
  *
@@ -36,5 +40,8 @@ public interface ServiceEndpoint<T> {
     public void configure();
     
     public T getPort();
+
+    public HTTPClientPolicy getHTTPClientPolicy();
     
+    public SOAPBinding getSOAPBinding();
 }

@@ -29,6 +29,10 @@ package gov.hhs.fha.nhinc.messaging.service.decorator;
 
 import gov.hhs.fha.nhinc.messaging.service.ServiceEndpoint;
 
+import javax.xml.ws.soap.SOAPBinding;
+
+import org.apache.cxf.transports.http.configuration.HTTPClientPolicy;
+
 /**
  * @author akong
  * 
@@ -51,4 +55,14 @@ public abstract class ServiceEndpointDecorator<T> implements ServiceEndpoint<T> 
     public T getPort() {
         return decoratedEndpoint.getPort();
     }
+    
+    public HTTPClientPolicy getHTTPClientPolicy() {
+        return decoratedEndpoint.getHTTPClientPolicy();
+    }
+    
+    public SOAPBinding getSOAPBinding() {
+        return decoratedEndpoint.getSOAPBinding();
+    }
+    
+    
 }
