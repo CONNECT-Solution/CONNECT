@@ -77,7 +77,7 @@
                                 <webuijsf:panelLayout id="subjectDiscoveryLayoutPanel" style="height: 534px; position: relative; width: 100%; -rave-layout: grid">
                                     <webuijsf:staticText binding="#{Page2.subjectDiscoveryResultsInfo}" id="subjectDiscoveryResultsInfo" style="color: black; font-family: 'Times New Roman','Times',serif; font-size: 14px; font-weight: bold; left: 24px; top: 24px; position: absolute"/>
                                     <webuijsf:button actionExpression="#{Page2.broadcastSubjectDiscoveryButton_action}" id="broadcastSubjectDiscoveryButton"
-                                        style="font-family: 'Times New Roman','Times',serif; font-size: 14px; left: 23px; top: 72px; position: absolute" text="Discover Patients"/>
+                                        style="font-family: 'Times New Roman','Times',serif; font-size: 14px; left: 23px; top: 72px; position: absolute" text="Discover Patient"/>
                                     <webuijsf:label id="searchPatientDiscovery"
                                         style="font-family: 'Times New Roman','Times',serif; font-size: 14px; left: 24px; top: 95px; position: absolute" text="Click to send a patient discovery message to systems in your UDDI (and/or uddiConnectionInfo.xml file)."/>   
                                     <webuijsf:table augmentTitle="false" id="subjectDiscoveryCoorelationTable" paginateButton="true" paginationControls="true"
