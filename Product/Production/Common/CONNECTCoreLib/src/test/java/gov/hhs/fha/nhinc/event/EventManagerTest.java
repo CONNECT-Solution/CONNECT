@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2013, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -30,9 +30,16 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 
+import org.junit.Before;
 import org.junit.Test;
 
 public class EventManagerTest {
+
+    @Before
+    public void before() {
+        // Other tests add observers, and our tests need a clean slate.
+        EventManager.getInstance().deleteObservers();
+    }
 
     @Test
     public void noRegisteredLoggerDisablesRecording() {

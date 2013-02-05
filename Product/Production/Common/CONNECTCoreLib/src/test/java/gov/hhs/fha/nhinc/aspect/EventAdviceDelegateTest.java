@@ -57,6 +57,7 @@ import gov.hhs.fha.nhinc.event.responder.EndInboundProcessingEvent;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
 
 import org.json.JSONException;
+import org.junit.Before;
 import org.junit.Test;
 import org.mockito.ArgumentMatcher;
 import org.mockito.Mockito;
@@ -68,6 +69,11 @@ public class EventAdviceDelegateTest {
     private static final String DS_SERVICE_TYPE = "Document Submission";
     private static final String DS_VERISON = "2.0";
     private EventFactory eventFactory = new EventFactory();
+
+    @Before
+    public void before() {
+        when(eventRecorder.isRecordEventEnabled()).thenReturn(true);
+    }
 
     @Test
     public void inboundMessageAdviceDelegate() {
