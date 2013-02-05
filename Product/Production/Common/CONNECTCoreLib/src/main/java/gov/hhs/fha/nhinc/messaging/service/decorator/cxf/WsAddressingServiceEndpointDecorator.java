@@ -104,8 +104,7 @@ public class WsAddressingServiceEndpointDecorator<T> extends ServiceEndpointDeco
      * for Soap 1.2, we will ensure that it is not included.
      */
     private void setContentTypeInHTTPHeader() {
-        HTTPClientPolicy httpClientPolicy = (HTTPClientPolicy) bindingProviderPort.getRequestContext().get(
-                HTTPClientPolicy.class.getName());
+        HTTPClientPolicy httpClientPolicy = getHTTPClientPolicy();
 
         String contentType = httpClientPolicy.getContentType();
         if (NullChecker.isNullish(contentType)) {

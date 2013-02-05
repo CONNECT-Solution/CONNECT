@@ -80,8 +80,7 @@ public abstract class CachingCXFServicePortBuilder<T> extends CXFServicePortBuil
 
             getCache().put(serviceEndpointClass, port);
         }
-        ((BindingProvider) port).getRequestContext().put(HTTPClientPolicy.class.getName(), new HTTPClientPolicy());
-
+   
         return port;
     }
 }
