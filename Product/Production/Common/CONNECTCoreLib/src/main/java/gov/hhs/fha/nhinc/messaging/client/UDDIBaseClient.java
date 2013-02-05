@@ -55,6 +55,8 @@ public class UDDIBaseClient<T> implements CONNECTClient<T> {
         serviceEndpoint = new BaseServiceEndpoint<T>(portBuilder.createPort());
         serviceEndpoint = new URLServiceEndpointDecorator<T>(serviceEndpoint, url);
         serviceEndpoint = new TimeoutServiceEndpointDecorator<T>(serviceEndpoint);
+        
+        serviceEndpoint.configure();
 
     }
 
