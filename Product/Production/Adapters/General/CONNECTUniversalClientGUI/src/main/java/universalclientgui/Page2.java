@@ -444,6 +444,7 @@ public class Page2 extends AbstractPageBean {
         this.firstNameField.setText("");
         this.lastNameField.setText("");
         this.lastNameField.clearInitialState();
+        this.patientInfo.setText("");
         return null;
     }
 
@@ -618,6 +619,7 @@ public class Page2 extends AbstractPageBean {
                 getSessionBean1().setFoundPatient(testPatient);
                 foundPatient = testPatient;
 
+                discoverInfoBuf.append("Patient Information Query: ");
                 discoverInfoBuf.append("Name: ");
                 if (!foundPatient.getLastName().isEmpty()) {
                     discoverInfoBuf.append(foundPatient.getLastName() + ", ");
@@ -811,7 +813,7 @@ public class Page2 extends AbstractPageBean {
 
         this.errorMessage.setText("");
         this.getSessionBean1().getPatientCorrelationList().clear();
-
+        this.patientInfo.setText("");
         SearchData searchData = (SearchData) getBean("SearchData");
 
         PatientSearchData currentPatient = null;
@@ -846,25 +848,6 @@ public class Page2 extends AbstractPageBean {
         return null;
     }
 
-    private boolean isDocumentSearchCriteriaValid() {
-        StringBuffer message = new StringBuffer();
-        boolean isValid = true;
-
-        if (this.creationFromDate == null || this.creationToDate == null) {
-            message.append("Earliest Date and Most Recent Date should not be null");
-            isValid = false;
-        } else if (this.creationFromDate.getSelectedDate() == null || this.getCreationToDate().getSelectedDate() == null) {
-            message.append("Earliest Date and Most Recent Date should not be null");
-            isValid = false;
-        } else if (this.creationFromDate.getSelectedDate().after(this.getCreationToDate().getSelectedDate())) {
-            message.append("Earliest Date should not be after Most Recent Date");
-            isValid = false;
-        }
-
-        errors = message.toString();
-
-        return isValid;
-    }
 
     public String displayDocument() throws Exception {
 
