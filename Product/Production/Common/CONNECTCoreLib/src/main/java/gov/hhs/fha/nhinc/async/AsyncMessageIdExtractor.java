@@ -36,6 +36,7 @@ import javax.xml.ws.handler.MessageContext;
 
 import org.apache.cxf.binding.soap.SoapHeader;
 import org.apache.cxf.headers.Header;
+import org.springframework.util.CollectionUtils;
 import org.w3c.dom.Element;
 
 /**
@@ -44,24 +45,33 @@ import org.w3c.dom.Element;
  */
 public class AsyncMessageIdExtractor {
 
-    public Element getSoapHeaderElement(WebServiceContext context, String headerName) {
-        Element element = null;
+    protected Element getSoapHeaderElement(WebServiceContext context, String headerName) {
+        if (context == null) {
+            return null;
+        }
 
         MessageContext mContext = context.getMessageContext();
-        if (context != null && mContext != null) {
-            @SuppressWarnings("unchecked")
-            List<Header> headers = (List<Header>) mContext.get(Header.HEADER_LIST);
+        if (mContext == null) {
+            return null;
+        }
 
-            if (headers != null) {
-                for (Header header : headers) {
-                    if (header.getName().getLocalPart().equalsIgnoreCase(headerName)) {
-                        element = (Element) ((SoapHeader) header).getObject();
-                    }
-                }
+        return getSoapHeaderFromContext(headerName, mContext);
+    }
+
+    private Element getSoapHeaderFromContext(String headerName, MessageContext mContext) {
+        @SuppressWarnings("unchecked")
+        List<Header> headers = (List<Header>) mContext.get(Header.HEADER_LIST);
+        if (CollectionUtils.isEmpty(headers)) {
+            return null;
+        }
+
+        for (Header header : headers) {
+            if (header.getName().getLocalPart().equalsIgnoreCase(headerName)) {
+                return (Element) ((SoapHeader) header).getObject();
             }
         }
 
-        return element;
+        return null;
     }
 
     public String getMessageId(WebServiceContext context) {
