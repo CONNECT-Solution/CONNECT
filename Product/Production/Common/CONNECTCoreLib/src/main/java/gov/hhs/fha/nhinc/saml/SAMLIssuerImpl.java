@@ -28,24 +28,119 @@ package gov.hhs.fha.nhinc.saml;
 
 import java.util.Properties;
 
+import javax.security.auth.callback.CallbackHandler;
+
+import org.apache.log4j.Logger;
 import org.apache.ws.security.WSSecurityException;
+import org.apache.ws.security.components.crypto.Crypto;
+import org.apache.ws.security.saml.SAMLIssuer;
+import org.apache.ws.security.saml.ext.AssertionWrapper;
 
 /**
- * This class extends the default SAMLIssuerImpl to replace the passed in properties with the ones from the nhinc
- * configuration directory. This is to allow the saml properties file to be configurable outside the ear file and is a
- * workaround to a WSS4J bug that expects that file to always be in the classpath. More info can be found here:
- * 
+ * This class replaces the default apache SAML issuer. The differences with the default class are:
+ * <ol>
+ * <li>passed in properties to the constructor are ignored. We always use the propreties from the nhinc configuration
+ * directory. This is to allow the saml properties file to be configurable outside the ear file and is a workaround to a
+ * WSS4J bug that expects that file to always be in the classpath. More info can be found here:
  * https://issues.connectopensource.org/browse/GATEWAY-3306, https://issues.apache.org/jira/browse/WSS-418
+ * <li>We delegate <em>to a static instance</em> for the non-set methods. Setter methods throw exceptions. This static
+ * instance is designed to improve performance, because Crypto initialization is expensive. This only works for
+ * threadsafe Crypto implementations.
+ * </ol>
  */
-public class SAMLIssuerImpl extends org.apache.ws.security.saml.SAMLIssuerImpl {
+public class SAMLIssuerImpl implements SAMLIssuer {
+
+    private static final Logger LOG = Logger.getLogger(SAMLIssuerImpl.class);
+    private static SAMLIssuer DEFAULT_DELEGATE;
+    private SAMLIssuer delegate = DEFAULT_DELEGATE;
+
+    static {
+        try {
+            DEFAULT_DELEGATE = new org.apache.ws.security.saml.SAMLIssuerImpl(SAMLConfigFactory.getInstance()
+                    .getConfiguration());
+        } catch (WSSecurityException e) {
+            LOG.fatal("Could not initialize SAMLIssuerImpl: " + e.getMessage(), e);
+        }
+    }
 
     /**
-     * This constructor replaces the passed in properties with the one read from the nhinc configuration directory.
-     * 
-     * @param prop - this parameter is ignored
+     * @param prop
+     *            - this parameter is ignored
      * @throws WSSecurityException
      */
     public SAMLIssuerImpl(Properties prop) throws WSSecurityException {
-        super(SAMLConfigFactory.getInstance().getConfiguration());
+        // do absolutely nothing
+    }
+
+    public SAMLIssuerImpl() {
+        // do nothing
+    }
+
+    public AssertionWrapper newAssertion() throws WSSecurityException {
+        return delegate.newAssertion();
+    }
+
+    public boolean isSendKeyValue() {
+        return delegate.isSendKeyValue();
+    }
+
+    public boolean isSignAssertion() {
+        return delegate.isSignAssertion();
+    }
+
+    public CallbackHandler getCallbackHandler() {
+        return delegate.getCallbackHandler();
+    }
+
+    public Crypto getIssuerCrypto() {
+        return delegate.getIssuerCrypto();
+    }
+
+    public String getIssuerName() {
+        return delegate.getIssuerName();
+    }
+
+    public String getIssuerKeyName() {
+        return delegate.getIssuerKeyName();
+    }
+
+    public String getIssuerKeyPassword() {
+        return delegate.getIssuerKeyPassword();
+    }
+
+    public void setSendKeyValue(boolean sendKeyValue) {
+        throw new RuntimeException("Setters not supported");
+    }
+
+    public void setSignAssertion(boolean signAssertion) {
+        throw new RuntimeException("Setters not supported");
+    }
+
+    public void setCallbackHandler(CallbackHandler callbackHandler) {
+        throw new RuntimeException("Setters not supported");
+    }
+
+    public void setIssuerCrypto(Crypto issuerCrypto) {
+        throw new RuntimeException("Setters not supported");
+    }
+
+    public void setIssuerName(String issuer) {
+        throw new RuntimeException("Setters not supported");
+    }
+
+    public void setIssuerKeyName(String issuerKeyName) {
+        throw new RuntimeException("Setters not supported");
+    }
+
+    public void setIssuerKeyPassword(String issuerKeyPassword) {
+        throw new RuntimeException("Setters not supported");
+    }
+
+    SAMLIssuer getDelegate() {
+        return delegate;
+    }
+
+    void setDelegate(SAMLIssuer delegate) {
+        this.delegate = delegate;
     }
 }
