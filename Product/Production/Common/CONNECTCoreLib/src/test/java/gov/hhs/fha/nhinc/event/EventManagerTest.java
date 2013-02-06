@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2013, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -26,38 +26,33 @@
  */
 package gov.hhs.fha.nhinc.event;
 
-import java.util.Observable;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+import static org.mockito.Mockito.mock;
 
-/**
- * @author zmelnick
- * 
- */
-public class EventManager extends Observable implements EventRecorder, EventLoggerRegistrar {
+import org.junit.Before;
+import org.junit.Test;
 
-    private EventManager() {
+public class EventManagerTest {
+
+    @Before
+    public void before() {
+        // Other tests add observers, and our tests need a clean slate.
+        EventManager.getInstance().deleteObservers();
     }
 
-    private static class EventManagerHolder {
-        public static final EventManager INSTANCE = new EventManager();
+    @Test
+    public void noRegisteredLoggerDisablesRecording() {
+        EventRecorder eventRecorder = EventManager.getInstance();
+        assertFalse(eventRecorder.isRecordEventEnabled());
     }
 
-    public static EventManager getInstance() {
-        return EventManagerHolder.INSTANCE;
-    }
+    @Test
+    public void oneRegisteredLoggerEnabledRecording() {
+        EventLogger mockEventLogger = mock(EventLogger.class);
+        EventManager eventManager = EventManager.getInstance();
+        eventManager.registerLogger(mockEventLogger);
 
-    @Override
-    public void recordEvent(Event event) {
-        setChanged();
-        notifyObservers(event);
-    }
-
-    @Override
-    public void registerLogger(EventLogger eventLogger) {
-        addObserver(eventLogger);
-    }
-
-    @Override
-    public boolean isRecordEventEnabled() {
-        return countObservers() > 0;
+        assertTrue(eventManager.isRecordEventEnabled());
     }
 }

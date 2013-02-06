@@ -94,11 +94,12 @@ public abstract class BaseEventAdviceDelegate implements EventAdviceDelegate {
     @Override
     public void begin(Object[] args, String serviceType, String version,
             Class<? extends EventDescriptionBuilder> eventDescriptionbuilderClass) {
+        if (eventRecorder != null && eventRecorder.isRecordEventEnabled()) {
+            EventDescriptionBuilder eventDescriptionBuilder = createAndInitializeEventDecriptionBuilder(args,
+                    createEventContextAccessor(serviceType, version), eventDescriptionbuilderClass, null);
 
-        EventDescriptionBuilder eventDescriptionBuilder = createAndInitializeEventDecriptionBuilder(args,
-                createEventContextAccessor(serviceType, version), eventDescriptionbuilderClass, null);
-
-        createAndRecordEvent(getBeginEventBuilder(eventDescriptionBuilder));
+            createAndRecordEvent(getBeginEventBuilder(eventDescriptionBuilder));
+        }
     }
 
     /**
@@ -121,9 +122,11 @@ public abstract class BaseEventAdviceDelegate implements EventAdviceDelegate {
     @Override
     public void end(Object[] args, String serviceType, String version,
             Class<? extends EventDescriptionBuilder> eventDescriptionbuilderClass, Object returnValue) {
-        EventDescriptionBuilder eventDescriptionBuilder = createAndInitializeEventDecriptionBuilder(args,
-                createEventContextAccessor(serviceType, version), eventDescriptionbuilderClass, returnValue);
-        createAndRecordEvent(getEndEventBuilder(eventDescriptionBuilder));
+        if (eventRecorder != null && eventRecorder.isRecordEventEnabled()) {
+            EventDescriptionBuilder eventDescriptionBuilder = createAndInitializeEventDecriptionBuilder(args,
+                    createEventContextAccessor(serviceType, version), eventDescriptionbuilderClass, returnValue);
+            createAndRecordEvent(getEndEventBuilder(eventDescriptionBuilder));
+        }
     }
 
     /*
@@ -133,9 +136,11 @@ public abstract class BaseEventAdviceDelegate implements EventAdviceDelegate {
      */
     @Override
     public void fail(Object[] arguments, Throwable throwable) {
-        ErrorEventBuilder builder = new ErrorEventBuilder();
-        builder.setThrowable(throwable);
-        createAndRecordEvent(builder);
+        if (eventRecorder != null && eventRecorder.isRecordEventEnabled()) {
+            ErrorEventBuilder builder = new ErrorEventBuilder();
+            builder.setThrowable(throwable);
+            createAndRecordEvent(builder);
+        }
     }
 
     /**
