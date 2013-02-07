@@ -39,5 +39,13 @@
     <session-config>
         <session-timeout>60</session-timeout>
     </session-config>
+
+    <resource-ref>
+        <res-ref-name>jdbc/eventdb_datasource</res-ref-name>
+        <res-type>javax.sql.DataSource</res-type>
+        <res-auth>Container</res-auth>
+        <res-sharing-scope>Shareable</res-sharing-scope>
+    </resource-ref>
+
 </web-app>
 
