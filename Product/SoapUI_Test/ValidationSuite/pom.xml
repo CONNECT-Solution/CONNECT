@@ -3,7 +3,7 @@
     <parent>
         <groupId>org.connectopensource</groupId>
         <artifactId>SoapUI_Test</artifactId>
-        <version>4.0.0-SNAPSHOT</version>
+        <version>4.0.0-RC2</version>
     </parent>
     <artifactId>ValidationSuite</artifactId>
     <packaging>jar</packaging>
