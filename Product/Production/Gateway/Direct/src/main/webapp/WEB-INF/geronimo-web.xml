@@ -1,0 +1,25 @@
+<web-app xmlns="http://geronimo.apache.org/xml/ns/j2ee/web-2.0.1" xmlns:sys="http://geronimo.apache.org/xml/ns/deployment-1.2"
+    xmlns:naming="http://geronimo.apache.org/xml/ns/naming-1.2">
+
+    <environment>
+        <moduleId>
+            <artifactId>Direct</artifactId>
+        </moduleId>
+
+        <dependencies>
+            <dependency>
+                <groupId>console.dbpool</groupId>
+                <artifactId>eventdb_pool</artifactId>
+            </dependency>
+        </dependencies>
+
+    </environment>
+
+    <context-root>/CONNECTDirect</context-root>
+
+    <naming:resource-ref>
+        <naming:ref-name>jdbc/eventdb_datasource</naming:ref-name>
+        <naming:resource-link>eventdb_pool</naming:resource-link>
+    </naming:resource-ref>
+
+</web-app>
