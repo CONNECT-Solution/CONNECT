@@ -39,6 +39,7 @@ import gov.hhs.fha.nhinc.aspect.InboundProcessingEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
+import gov.hhs.fha.nhinc.docsubmission.DocSubmissionUtils;
 import gov.hhs.fha.nhinc.docsubmission.XDRAuditLogger;
 import gov.hhs.fha.nhinc.docsubmission.XDRPolicyChecker;
 import gov.hhs.fha.nhinc.docsubmission.adapter.deferred.request.error.proxy.AdapterDocSubmissionDeferredRequestErrorProxy;
@@ -91,8 +92,15 @@ public class StandardInboundDocSubmissionDeferredRequestTest {
         when(policyChecker.checkXDRRequestPolicy(request, assertion, senderHCID, localHCID,
                 NhincConstants.POLICYENGINE_INBOUND_DIRECTION)).thenReturn(true);
 
+        final DocSubmissionUtils mockDocSubmissionUtils = mock(DocSubmissionUtils.class);
+        
         StandardInboundDocSubmissionDeferredRequest standardDocSubmission = new StandardInboundDocSubmissionDeferredRequest(
-                adapterFactory, policyChecker, propertyAccessor, auditLogger, errorAdapterFactory);
+                adapterFactory, policyChecker, propertyAccessor, auditLogger, errorAdapterFactory){
+        	@Override
+        	public DocSubmissionUtils getDocSubmissionUtils(){
+        		return mockDocSubmissionUtils;
+        	}
+        };
 
         XDRAcknowledgementType actualResponse = standardDocSubmission.provideAndRegisterDocumentSetBRequest(request,
                 assertion);
