@@ -3,7 +3,7 @@
     <parent>
         <groupId>org.connectopensource</groupId>
         <artifactId>SoapUI_Test</artifactId>
-        <version>4.0.0-SNAPSHOT</version>
+        <version>4.0.0-RC4</version>
     </parent>
     <artifactId>ValidationSuite</artifactId>
     <packaging>jar</packaging>
@@ -263,12 +263,11 @@
                                             </fileset>
                                         </copy>
 
-                                        <copy file="${project.build.directory}/nhinc-properites-dir/smtp.agent.config.template.xml"
-                                              tofile="${project.build.directory}/nhinc-properites-dir/smtp.agent.config.xml" filtering="yes" overwrite="yes">
+                                        <copy file="${project.build.directory}/nhinc-properites-dir/smtp.agent.config.template.xml" tofile="${project.build.directory}/nhinc-properites-dir/smtp.agent.config.xml" filtering="yes" overwrite="yes">
                                             <filterset>
-                                                <filter token="ANCHOR_STORE_JKS" value="${project.build.directory}/domain1/config/${direct.anchor.store}.jks"/>
-                                                <filter token="PUBLIC_STORE_JKS" value="${project.build.directory}/domain1/config/${direct.trust.store}.jks"/>
-                                                <filter token="PRIVATE_STORE_JKS" value="${project.build.directory}/domain1/config/${direct.key.store}.jks"/>
+                                                <filter token="ANCHOR_STORE_JKS" value="${project.build.directory}/domain1/config/${direct.anchor.store}.jks" />
+                                                <filter token="PUBLIC_STORE_JKS" value="${project.build.directory}/domain1/config/${direct.trust.store}.jks" />
+                                                <filter token="PRIVATE_STORE_JKS" value="${project.build.directory}/domain1/config/${direct.key.store}.jks" />
                                             </filterset>
                                         </copy>
                                     </target>
