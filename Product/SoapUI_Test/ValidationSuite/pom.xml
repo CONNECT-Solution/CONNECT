@@ -231,6 +231,9 @@
                                         <property name="cert.keypass" value="changeit" />
                                         <property name="cert.validity.length" value="365" />
                                         <property name="cert.storepass" value="changeit" />
+                                        <property name="direct.anchor.store" value="anchors" />
+                                        <property name="direct.trust.store" value="example-store" />
+                                        <property name="direct.key.store" value="example-key" />
 
                                         <!-- Direct stores -->
                                         <mkdir dir="${temp.dir}" />
