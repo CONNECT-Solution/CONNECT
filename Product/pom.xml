@@ -251,6 +251,36 @@
                 <artifactId>jsf-extensions-common</artifactId>
                 <version>0.1</version>
             </dependency>
+                <dependency>
+            <groupId>org.connectopensource.thirdparty.com.sun.jsf</groupId>
+            <artifactId>jsfcl</artifactId>
+            <version>1.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.connectopensource.thirdparty.com.sun.jsf</groupId>
+            <artifactId>appbase</artifactId>
+            <version>1.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.connectopensource.thirdparty.com.sun.jsf</groupId>
+            <artifactId>dataprovider</artifactId>
+            <version>1.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.connectopensource.thirdparty.com.sun.jsf</groupId>
+            <artifactId>errorhandler</artifactId>
+            <version>1.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.connectopensource.thirdparty.com.sun.jsf</groupId>
+            <artifactId>webui-jsf</artifactId>
+            <version>1.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.connectopensource.thirdparty.com.sun.jsf</groupId>
+            <artifactId>webui-jsf-suntheme</artifactId>
+            <version>1.0</version>
+        </dependency>
         </dependencies>
     </dependencyManagement>
     <build>
