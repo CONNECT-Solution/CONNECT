@@ -27,11 +27,14 @@
 package gov.hhs.fha.nhinc.docsubmission.inbound.deferred.request;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.docsubmission.DocSubmissionUtils;
+import gov.hhs.fha.nhinc.docsubmission.MessageGeneratorUtils;
 import gov.hhs.fha.nhinc.docsubmission.XDRAuditLogger;
 import gov.hhs.fha.nhinc.docsubmission.XDRPolicyChecker;
 import gov.hhs.fha.nhinc.docsubmission.adapter.deferred.request.error.proxy.AdapterDocSubmissionDeferredRequestErrorProxy;
 import gov.hhs.fha.nhinc.docsubmission.adapter.deferred.request.error.proxy.AdapterDocSubmissionDeferredRequestErrorProxyObjectFactory;
 import gov.hhs.fha.nhinc.docsubmission.adapter.deferred.request.proxy.AdapterDocSubmissionDeferredRequestProxyObjectFactory;
+import gov.hhs.fha.nhinc.largefile.LargePayloadException;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
@@ -89,8 +92,14 @@ public class StandardInboundDocSubmissionDeferredRequest extends AbstractInbound
         
         String localHCID = getLocalHCID();
         if (isPolicyValid(body, assertion, localHCID)) {
-            LOG.debug("Policy Check Succeeded");
-            response = sendToAdapter(body, assertion);
+            try{
+            	LOG.debug("Policy Check Succeeded");
+            	getDocSubmissionUtils().convertDataToFileLocationIfEnabled(body);
+            	response = sendToAdapter(body, assertion);
+            } catch(LargePayloadException lpe){
+            	LOG.error("Failed to retrieve payload document.", lpe);
+                response = MessageGeneratorUtils.getInstance().createXDRAckWithRegistryErrorResponse();
+            }
         } else {
             LOG.error("Policy Check Failed");
             response = sendErrorToAdapter(body, assertion, "Policy Check Failed");
@@ -141,6 +150,10 @@ public class StandardInboundDocSubmissionDeferredRequest extends AbstractInbound
         AdapterDocSubmissionDeferredRequestErrorProxy proxy = errorAdapterFactory
                 .getAdapterDocSubmissionDeferredRequestErrorProxy();
         return proxy.provideAndRegisterDocumentSetBRequestError(body, errMsg, assertion);
+    }
+    
+    public DocSubmissionUtils getDocSubmissionUtils(){
+    	return DocSubmissionUtils.getInstance();
     }
 
 }

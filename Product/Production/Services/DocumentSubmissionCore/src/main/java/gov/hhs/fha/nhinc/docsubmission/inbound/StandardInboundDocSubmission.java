@@ -29,10 +29,12 @@ package gov.hhs.fha.nhinc.docsubmission.inbound;
 import org.apache.log4j.Logger;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.docsubmission.DocSubmissionUtils;
 import gov.hhs.fha.nhinc.docsubmission.MessageGeneratorUtils;
 import gov.hhs.fha.nhinc.docsubmission.XDRAuditLogger;
 import gov.hhs.fha.nhinc.docsubmission.XDRPolicyChecker;
 import gov.hhs.fha.nhinc.docsubmission.adapter.proxy.AdapterDocSubmissionProxyObjectFactory;
+import gov.hhs.fha.nhinc.largefile.LargePayloadException;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
@@ -81,9 +83,14 @@ public class StandardInboundDocSubmission extends AbstractInboundDocSubmission {
         
         String localHCID = getLocalHCID();
         if (isPolicyValid(body, assertion, localHCID)) {
-            auditRequestToAdapter(body, assertion);
-            
-            response = sendToAdapter(body, assertion);
+        	try {
+        		auditRequestToAdapter(body, assertion);
+				getDocSubmissionUtils().convertDataToFileLocationIfEnabled(body);
+				response = sendToAdapter(body, assertion);
+        	} catch (LargePayloadException lpe) {
+        		LOG.error("Failed to retrieve payload document.", lpe);  	
+        		response = MessageGeneratorUtils.getInstance().createRegistryErrorResponse();
+			}
         } else {
             LOG.error("Failed policy check.  Sending error response.");
             response = msgUtils.createFailedPolicyCheckResponse();
@@ -126,6 +133,10 @@ public class StandardInboundDocSubmission extends AbstractInboundDocSubmission {
         }
 
         return localHCID;
+    }
+    
+    public DocSubmissionUtils getDocSubmissionUtils(){
+    	return DocSubmissionUtils.getInstance();
     }
     
 }
