@@ -613,13 +613,19 @@
                             <webModule>
                                 <groupId>org.connectopensource</groupId>
                                 <artifactId>CONNECTConsumerPreferencesProfileGUI</artifactId>
-                                <contextRoot>/</contextRoot>
+                                <contextRoot>/CONNECTConsumerPreferencesProfileGUI</contextRoot>
                                 <excluded>${gui.excluded}</excluded>
                             </webModule>
                             <webModule>
                                 <groupId>org.connectopensource</groupId>
                                 <artifactId>CONNECTDeferredQueueManagerGUI</artifactId>
-                                <contextRoot>/</contextRoot>
+                                <contextRoot>/CONNECTDeferredQueueManagerGUI</contextRoot>
+                                <excluded>${gui.excluded}</excluded>
+                            </webModule>
+                            <webModule>
+                                <groupId>org.connectopensource</groupId>
+                                <artifactId>CONNECTUniversalClientGUI</artifactId>
+                                <contextRoot>/CONNECTUniversalClientGUI</contextRoot>
                                 <excluded>${gui.excluded}</excluded>
                             </webModule>
                         </modules>
@@ -866,6 +872,13 @@
                 <dependency>
                     <groupId>org.connectopensource</groupId>
                     <artifactId>CONNECTDeferredQueueManagerGUI</artifactId>
+                    <version>${project.parent.version}</version>
+                    <type>war</type>
+                    <optional>false</optional>
+                </dependency>
+                <dependency>
+                    <groupId>org.connectopensource</groupId>
+                    <artifactId>CONNECTUniversalClientGUI</artifactId>
                     <version>${project.parent.version}</version>
                     <type>war</type>
                     <optional>false</optional>
