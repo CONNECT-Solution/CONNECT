@@ -101,7 +101,7 @@
                             </execution>
                             <execution>
                                 <id>unpack-nhin-properties</id>
-                                <!-- Using the initialize phase because it 
+                                <!-- Using the initialize phase because it
                                     is before the generate sources phase -->
                                 <phase>process-resources</phase>
                                 <goals>
@@ -111,7 +111,7 @@
                                     <skip>${skip.unpack}</skip>
                                     <artifactItems>
                                         <artifactItem>
-                                            <!-- Artifact that Holds our 
+                                            <!-- Artifact that Holds our
                                                 custom templates -->
                                             <groupId>org.connectopensource</groupId>
                                             <artifactId>Properties</artifactId>
@@ -216,6 +216,64 @@
                                     </target>
                                 </configuration>
                             </execution>
+                            <execution>
+                                <id>setup-direct-smtp-agent-config</id>
+                                <!-- using "compile" because it must come after process-resources (where the properties files are expanded) -->
+                                <phase>compile</phase>
+                                <goals>
+                                    <goal>run</goal>
+                                </goals>
+                                <configuration>
+                                    <target>
+                                        <property name="temp.dir" value="${basedir}/.validationsuite.temp" />
+                                        <property name="cert.key.algorithm" value="RSA" />
+                                        <property name="cert.key.size" value="1024" />
+                                        <property name="cert.keypass" value="changeit" />
+                                        <property name="cert.validity.length" value="365" />
+                                        <property name="cert.storepass" value="changeit" />
+                                        <property name="direct.anchor.store" value="anchors" />
+                                        <property name="direct.trust.store" value="example-store" />
+                                        <property name="direct.key.store" value="example-key" />
+
+                                        <!-- Direct stores -->
+                                        <mkdir dir="${temp.dir}" />
+                                        <delete>
+                                            <fileset dir="${temp.dir}">
+                                                <include name="**/*" />
+                                            </fileset>
+                                        </delete>
+                                        <exec failonerror="true" executable="keytool" dir="${temp.dir}">
+                                            <arg line="-v -genkey -keyalg ${cert.key.algorithm} -keysize ${cert.key.size} -keystore ${direct.key.store}.jks -keypass ${cert.keypass} -storepass ${cert.storepass} -validity ${cert.validity.length} -alias direct.example.com -dname &quot;cn=direct.example.com&quot;" />
+                                        </exec>
+                                        <exec failonerror="true" executable="keytool" dir="${temp.dir}">
+                                            <arg line="-v -export -rfc -alias direct.example.com -file example.cer -keystore ${direct.key.store}.jks -keypass ${cert.keypass} -storepass ${cert.storepass}" />
+                                        </exec>
+                                        <exec failonerror="true" executable="keytool" dir="${temp.dir}">
+                                            <arg line="-v -import -keypass ${cert.keypass} -noprompt -trustcacerts -alias direct.example.com -file example.cer -keystore ${direct.trust.store}.jks -storepass ${cert.storepass}" />
+                                        </exec>
+                                        <!-- Use the same trust store for the anchor store -->
+                                        <exec failonerror="true" executable="keytool" dir="${temp.dir}">
+                                            <arg line="-v -import -keypass ${cert.keypass} -noprompt -trustcacerts -alias direct.example.com -file example.cer -keystore ${direct.anchor.store}.jks -storepass ${cert.storepass}" />
+                                        </exec>
+                                        <copy todir="${project.build.directory}/domain1/config" overwrite="true">
+                                            <fileset dir="${temp.dir}">
+                                                <include name="${direct.key.store}.jks" />
+                                                <include name="${direct.trust.store}.jks" />
+                                                <include name="${direct.anchor.store}.jks" />
+                                            </fileset>
+                                        </copy>
+
+                                        <copy file="${project.build.directory}/nhinc-properites-dir/smtp.agent.config.template.xml"
+                                              tofile="${project.build.directory}/nhinc-properites-dir/smtp.agent.config.xml" filtering="yes" overwrite="yes">
+                                            <filterset>
+                                                <filter token="ANCHOR_STORE_JKS" value="${project.build.directory}/domain1/config/${direct.anchor.store}.jks"/>
+                                                <filter token="PUBLIC_STORE_JKS" value="${project.build.directory}/domain1/config/${direct.trust.store}.jks"/>
+                                                <filter token="PRIVATE_STORE_JKS" value="${project.build.directory}/domain1/config/${direct.key.store}.jks"/>
+                                            </filterset>
+                                        </copy>
+                                    </target>
+                                </configuration>
+                            </execution>
                         </executions>
                     </plugin>
                     <plugin>
@@ -232,7 +290,7 @@
                                     <skip>${skip.unpack}</skip>
                                     <artifactItems>
                                         <artifactItem>
-                                            <!-- Artifact that Holds our 
+                                            <!-- Artifact that Holds our
                                                 SQL scripts -->
                                             <groupId>org.connectopensource</groupId>
                                             <artifactId>DBScripts</artifactId>
