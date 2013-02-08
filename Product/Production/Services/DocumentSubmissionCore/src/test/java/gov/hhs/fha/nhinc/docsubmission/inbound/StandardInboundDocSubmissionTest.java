@@ -38,6 +38,7 @@ import gov.hhs.fha.nhinc.aspect.InboundProcessingEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
+import gov.hhs.fha.nhinc.docsubmission.DocSubmissionUtils;
 import gov.hhs.fha.nhinc.docsubmission.XDRAuditLogger;
 import gov.hhs.fha.nhinc.docsubmission.XDRPolicyChecker;
 import gov.hhs.fha.nhinc.docsubmission.adapter.proxy.AdapterDocSubmissionProxy;
@@ -87,8 +88,15 @@ public class StandardInboundDocSubmissionTest {
         when(policyChecker.checkXDRRequestPolicy(request, assertion, senderHCID, localHCID, 
                 NhincConstants.POLICYENGINE_INBOUND_DIRECTION)).thenReturn(true);
 
+        final DocSubmissionUtils mockDocSubmissionUtils = mock(DocSubmissionUtils.class);
+        
         StandardInboundDocSubmission standardDocSubmission = new StandardInboundDocSubmission(adapterFactory,
-                policyChecker, propertyAccessor, auditLogger);
+                policyChecker, propertyAccessor, auditLogger){
+        	@Override
+        	public DocSubmissionUtils getDocSubmissionUtils(){
+        		return mockDocSubmissionUtils;
+        	}
+        };
 
         RegistryResponseType actualResponse = standardDocSubmission.documentRepositoryProvideAndRegisterDocumentSetB(
                 request, assertion);
