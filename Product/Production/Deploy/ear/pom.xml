@@ -207,7 +207,7 @@
             <version>${project.parent.version}</version>
             <type>war</type>
             <optional>true</optional>
-        </dependency>        
+        </dependency>
         <!-- Shared JARs - In order for the SKINNY WARs to work you must include
             each dependency in the EAR manually and the JARS will be magically removed
             from the WAR's WEB-INF/lib -->
@@ -335,12 +335,12 @@
         <dependency>
             <groupId>com.sun.xml.bind</groupId>
             <artifactId>jaxb-impl</artifactId>
-            <version>2.2.7-b41</version> 
+            <version>2.2.7-b41</version>
         </dependency>
         <dependency>
             <groupId>com.sun.xml.bind</groupId>
             <artifactId>jaxb-xjc</artifactId>
-            <version>2.2.7-b41</version> 
+            <version>2.2.7-b41</version>
         </dependency>
         <!-- Persistence (HBM, MySQL, Connnection Pooling -->
         <!-- Hibernate & cglib-nodep -->
@@ -626,7 +626,7 @@
                         <version>6</version>
                         <defaultLibBundleDir>lib</defaultLibBundleDir>
                         <skinnyWars>true</skinnyWars>
-                        <!-- this causes all archives to be exploded on server 
+                        <!-- this causes all archives to be exploded on server
                             SLOW!!! <includeLibInApplicationXml>true</includeLibInApplicationXml> -->
                     </configuration>
                 </plugin>
@@ -875,7 +875,7 @@
         <profile>
             <id>Direct</id>
             <activation>
-                <activeByDefault>false</activeByDefault>
+                <activeByDefault>true</activeByDefault>
             </activation>
             <properties>
                 <direct.excluded>false</direct.excluded>
@@ -895,6 +895,6 @@
                     <optional>false</optional>
                 </dependency>
             </dependencies>
-        </profile>        
+        </profile>
     </profiles>
 </project>
