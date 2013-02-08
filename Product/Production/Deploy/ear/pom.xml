@@ -1,5 +1,6 @@
 <?xml version="1.0"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>org.connectopensource</groupId>
@@ -12,7 +13,6 @@
     <description>CONNECT EAR - App Server Agnostic EAR</description>
     <properties>
         <skip.unpack>true</skip.unpack>
-        <ad.excluded>true</ad.excluded>
         <ad.excluded>true</ad.excluded>
         <dq.excluded>true</dq.excluded>
         <dr.excluded>true</dr.excluded>
@@ -197,6 +197,13 @@
         </dependency>
         <dependency>
             <groupId>org.connectopensource</groupId>
+            <artifactId>CONNECTUniversalClientGUI</artifactId>
+            <version>${project.parent.version}</version>
+            <type>war</type>
+            <optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>org.connectopensource</groupId>
             <artifactId>DirectCore</artifactId>
             <version>${project.parent.version}</version>
             <optional>true</optional>
@@ -208,9 +215,9 @@
             <type>war</type>
             <optional>true</optional>
         </dependency>
-        <!-- Shared JARs - In order for the SKINNY WARs to work you must include
-            each dependency in the EAR manually and the JARS will be magically removed
-            from the WAR's WEB-INF/lib -->
+        <!-- Shared JARs - In order for the SKINNY WARs to work you must 
+            include each dependency in the EAR manually and the JARS will be magically 
+            removed from the WAR's WEB-INF/lib -->
         <dependency>
             <groupId>org.connectopensource</groupId>
             <artifactId>CONNECTCommonTypesLib</artifactId>
@@ -632,7 +639,7 @@
                         <version>6</version>
                         <defaultLibBundleDir>lib</defaultLibBundleDir>
                         <skinnyWars>true</skinnyWars>
-                        <!-- this causes all archives to be exploded on server
+                        <!-- this causes all archives to be exploded on server 
                             SLOW!!! <includeLibInApplicationXml>true</includeLibInApplicationXml> -->
                     </configuration>
                 </plugin>
