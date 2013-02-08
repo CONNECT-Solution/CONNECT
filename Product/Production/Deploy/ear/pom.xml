@@ -613,13 +613,13 @@
                             <webModule>
                                 <groupId>org.connectopensource</groupId>
                                 <artifactId>CONNECTConsumerPreferencesProfileGUI</artifactId>
-                                <contextRoot>/</contextRoot>
+                                <contextRoot>/gui/consumerPreferencesProfile</contextRoot>
                                 <excluded>${gui.excluded}</excluded>
                             </webModule>
                             <webModule>
                                 <groupId>org.connectopensource</groupId>
                                 <artifactId>CONNECTDeferredQueueManagerGUI</artifactId>
-                                <contextRoot>/</contextRoot>
+                                <contextRoot>/gui/deferredQueueManager</contextRoot>
                                 <excluded>${gui.excluded}</excluded>
                             </webModule>
                         </modules>
