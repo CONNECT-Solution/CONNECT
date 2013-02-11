@@ -27,7 +27,7 @@ Three primary elements make up the CONNECT solution:
 
 History
 -------
-* 4.0 planned February 2013
+* 4.0 released February 2013
 * 3.3 released March 2012
 
 For more information, about CONNECT's history see [HISTORY.md](./CONNECT/HISTORY.md)
