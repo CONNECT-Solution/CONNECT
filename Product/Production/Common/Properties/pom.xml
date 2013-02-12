@@ -12,15 +12,7 @@
     </properties>
     <packaging>jar</packaging>
     <build>
-        <resources>
-            <resource>
-                <directory>${basedir}/${connect.common.properties}/</directory>
-                <includes>
-                    <include>**/*</include>
-                </includes>
-                <filtering>true</filtering>
-            </resource>
-        </resources>
+        
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
