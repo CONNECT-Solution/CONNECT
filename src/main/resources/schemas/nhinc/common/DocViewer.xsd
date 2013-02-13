@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://xml.netbeans.org/schema/docviewer" xmlns:query="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:nhin="urn:gov:hhs:fha:nhinc:common:nhinccommon" targetNamespace="http://xml.netbeans.org/schema/docviewer" elementFormDefault="qualified">
+	<xsd:import namespace="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" schemaLocation="../../ebRS/query.xsd"/>
+	<xsd:import namespace="urn:gov:hhs:fha:nhinc:common:nhinccommon" schemaLocation="../../nhinc/common/NhincCommon.xsd"/>
+	<xsd:element name="DocViewerRequestType">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element ref="query:AdhocQueryRequest"/>
+				<xsd:element name="assertion" type="nhin:AssertionType"/>
+				<xsd:element name="patientId" type="xsd:string"/>
+				<xsd:element name="homeCommunityId" type="xsd:string"/>
+				<xsd:element name="userId" type="xsd:string"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="DocViewerResponseType">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="statusCode" type="xsd:int"/>
+				<xsd:element name="statusDesc" type="xsd:string"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="DocViewerStatusRequestType">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="patientId" type="xsd:string"/>
+				<xsd:element name="userId" type="xsd:string"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:element name="DocViewerStatusResponseType">
+		<xsd:complexType>
+			<xsd:sequence>
+				<xsd:element name="displayObjects" type="tns:retrievedDocumentDisplayObject" nillable="true" minOccurs="0" maxOccurs="unbounded"/>
+			</xsd:sequence>
+		</xsd:complexType>
+	</xsd:element>
+	<xsd:complexType name="retrievedDocumentDisplayObject">
+		<xsd:sequence>
+			<xsd:element name="availableInLocalStore" type="xsd:boolean"/>
+			<xsd:element name="creationDate" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="documentStatus" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="documentTitle" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="documentType" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="hasBeenAccessed" type="xsd:boolean"/>
+			<xsd:element name="orgId" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="organizationName" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="patientId" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="repositoryId" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="requestingUser" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="selected" type="xsd:boolean"/>
+			<xsd:element name="uniqueDocumentId" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="origDocumentId" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="origRespositoryId" type="xsd:string" minOccurs="0"/>
+			<xsd:element name="origHomeCommunityId" type="xsd:string" minOccurs="0"/>
+		</xsd:sequence>
+	</xsd:complexType>
+</xsd:schema>
