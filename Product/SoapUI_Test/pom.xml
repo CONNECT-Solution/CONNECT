@@ -62,7 +62,7 @@
                         <dependency>
                             <groupId>org.connectopensource</groupId>
                             <artifactId>CONNECTCommonTypesLib</artifactId>
-                            <version>${project.version}</version>
+                            <version>4.0.2</version>
                         </dependency>
                         <dependency>
                             <groupId>org.connectopensource</groupId>
@@ -156,7 +156,7 @@
                                 <artifactItem>
                                     <groupId>org.connectopensource</groupId>
                                     <artifactId>CONNECTCommonTypesLib</artifactId>
-                                    <version>${project.parent.version}</version>
+                                    <version>4.0.2</version>
                                     <type>jar</type>
                                 </artifactItem>
                             </artifactItems>
