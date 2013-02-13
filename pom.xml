@@ -1,11 +1,17 @@
 <?xml version="1.0"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.sonatype.oss</groupId>
+        <artifactId>oss-parent</artifactId>
+        <version>7</version>
+    </parent>
     <groupId>org.connectopensource</groupId>
     <version>4.0.2-SNAPSHOT</version>
     <artifactId>CONNECTCommonTypesLib</artifactId>
     <packaging>jar</packaging>
     <name>CONNECT common types</name>
+
 
     <scm>
         <connection>scm:git:git@github.com:${git.username}/Common-Types.git</connection>
@@ -13,6 +19,9 @@
         <url>https://github.com/${git.username}/Common-Types</url>
       <tag>HEAD</tag>
     </scm>
+
+    <developers>
+    </developers>
 
     <prerequisites>
         <maven>3.0.4</maven>
@@ -111,18 +120,6 @@
             </snapshots>
         </pluginRepository>
     </pluginRepositories>
-    <distributionManagement>
-         <repository>
-             <id>5AM-Releases</id>
-             <name>5AM Releases</name>
-            <url>http://nexus.5amsolutions.com/nexus/content/repositories/releases</url>
-         </repository>
-         <snapshotRepository>
-             <id>5AM-Snapshots</id>
-             <name>5AM Snapshots</name>
-             <url>http://nexus.5amsolutions.com/nexus/content/repositories/snapshots</url>
-         </snapshotRepository>
-    </distributionManagement>
     <profiles>
         <profile>
             <id>linux</id>
