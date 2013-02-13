@@ -7,7 +7,7 @@
         <version>7</version>
     </parent>
     <groupId>org.connectopensource</groupId>
-    <version>4.0.2</version>
+    <version>4.0.3-SNAPSHOT</version>
     <artifactId>CONNECTCommonTypesLib</artifactId>
     <packaging>jar</packaging>
     <name>CONNECT common types</name>
@@ -17,7 +17,7 @@
         <connection>scm:git:git@github.com:${git.username}/Common-Types.git</connection>
         <developerConnection>scm:git:git@github.com:${git.username}/Common-Types.git</developerConnection>
         <url>https://github.com/${git.username}/Common-Types</url>
-      <tag>4.0.2</tag>
+      <tag>HEAD</tag>
     </scm>
 
     <developers>
