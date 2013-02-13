@@ -53,7 +53,7 @@ import gov.hhs.fha.nhinc.connectmgr.persistance.dao.UddiConnectionInfoDAOFileImp
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants.ADAPTER_API_LEVEL;
 
 /**
- *
+ * 
  * @author Arthur Kong
  */
 public class ConnectionManagerCacheTest {
@@ -65,7 +65,7 @@ public class ConnectionManagerCacheTest {
     private static String RETRIEVE_DOCUMENTS_NAME = "RetrieveDocuments";
     private static String NHIN_TARGET_ENDPOINT_URL_VALUE = "http://localhost:8080/";
     private static String QUERY_FOR_DOCUMENTS_URL = "https://localhost:8181/QueryForDocuments";
-    private static String QUERY_FOR_DOCUMENTS_NULL_URL ="";
+    private static String QUERY_FOR_DOCUMENTS_NULL_URL = "";
     private static String DOC_QUERY_DEFERRED_NAME = "QueryForDocumentsDeferredRequest";
     private static String QUERY_FOR_DOCUMENTS_DEFERRED_URL = "https://localhost:8181/QueryForDocumentsDeferredRequest";
     private static String QUERY_FOR_DOCUMENTS_URL_22 = "https://server2:8181/QueryForDocuments";
@@ -266,7 +266,6 @@ public class ConnectionManagerCacheTest {
             url = connectionManager.getDefaultEndpointURLByServiceName("2.2", QUERY_FOR_DOCUMENTS_NAME);
             assertTrue(url.equals("https://server4:8181/UddiQueryForDocuments"));
 
-
         } catch (Throwable t) {
             t.printStackTrace();
             fail("Error running testGetAllBusinessEntities test: " + t.getMessage());
@@ -276,9 +275,9 @@ public class ConnectionManagerCacheTest {
     @Test
     public void testGetBusinessEntityByHCID() {
         try {
-        	ConnectionManagerCache connectionManager = createConnectionManager();
-        	assertNotNull(connectionManager.getBusinessEntityByHCID(HCID_1));
-        	assertNotNull(connectionManager.getBusinessEntityByHCID(HCID_2));
+            ConnectionManagerCache connectionManager = createConnectionManager();
+            assertNotNull(connectionManager.getBusinessEntityByHCID(HCID_1));
+            assertNotNull(connectionManager.getBusinessEntityByHCID(HCID_2));
         } catch (Throwable t) {
             t.printStackTrace();
             fail("Error running getBusinessEntityByHCID test: " + t.getMessage());
@@ -349,22 +348,17 @@ public class ConnectionManagerCacheTest {
     }
 
     @Test
-    public void testGetLocalEndpointURLByServiceName() {
-        try {
-            ConnectionManagerCache connectionManager = createConnectionManager();
+    public void testGetLocalEndpointURLByServiceName() throws Exception {
+        ConnectionManagerCache connectionManager = createConnectionManager();
 
-            String url = connectionManager.getInternalEndpointURLByServiceName(QUERY_FOR_DOCUMENTS_NAME);
-            assertEquals(QUERY_FOR_DOCUMENTS_URL, url);
+        String url = connectionManager.getInternalEndpointURLByServiceName(QUERY_FOR_DOCUMENTS_NAME);
+        assertEquals(QUERY_FOR_DOCUMENTS_URL, url);
 
-            url = connectionManager.getInternalEndpointURLByServiceName("serviceNameValue123");
-            assertEquals("", url);
+        url = connectionManager.getInternalEndpointURLByServiceName("serviceNameValue123");
+        assertEquals("", url);
 
-            url = connectionManager.getInternalEndpointURLByServiceName(RETRIEVE_DOCUMENTS_NAME);
-            assertEquals("", url);
-        } catch (Throwable t) {
-            t.printStackTrace();
-            fail("Error running testGetEndpointURLByServiceName test: " + t.getMessage());
-        }
+        url = connectionManager.getInternalEndpointURLByServiceName(RETRIEVE_DOCUMENTS_NAME);
+        assertEquals("", url);
     }
 
     protected NhinTargetSystemType createNhinTargetSystem() {
@@ -493,9 +487,6 @@ public class ConnectionManagerCacheTest {
         }
     }
 
-
-
-
     @Test
     public void testGetEndpointURLFromNhinTargetCommunitiesUniqueness() {
         try {
@@ -511,22 +502,17 @@ public class ConnectionManagerCacheTest {
         }
     }
 
-
     @Test
-    public void testGetAdapterEndpointURL() {
-        try {
+    public void testGetAdapterEndpointURL() throws ConnectionManagerException {
             ConnectionManagerCache connectionManager = createConnectionManager();
 
             String url = connectionManager.getAdapterEndpointURL(QUERY_FOR_DOCUMENTS_NAME, ADAPTER_API_LEVEL.LEVEL_a0);
             assertNull(url);
 
             url = connectionManager.getAdapterEndpointURL(DOC_QUERY_DEFERRED_NAME, ADAPTER_API_LEVEL.LEVEL_a0);
+            assertNotNull(url);
             assertTrue(url.equals(QUERY_FOR_DOCUMENTS_DEFERRED_URL));
-        } catch (Throwable t) {
-            t.printStackTrace();
-            fail("Error running testGetAdapterEndpointURL test: " + t.getMessage());
-        }
-
+        
     }
 
 }

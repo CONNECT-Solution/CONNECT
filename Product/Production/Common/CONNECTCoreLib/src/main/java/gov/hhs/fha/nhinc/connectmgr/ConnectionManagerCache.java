@@ -248,12 +248,12 @@ public class ConnectionManagerCache implements ConnectionManager {
         // --------------------------------------------------
         if (lUDDILastModified != m_lUDDIFileLastModified) {
             forceRefreshUDDICache();
-            LOG.info("UDDI cache was refreshed based on last modified time stamp change.");
+            LOG.debug("UDDI cache was refreshed based on last modified time stamp change.");
         }
 
         if (lInternalLastModified != m_lInternalFileLastModified) {
             forceRefreshInternalConnectCache();
-            LOG.info("Internal connection cache was refreshed based on last modified time stamp change.");
+            LOG.debug("Internal connection cache was refreshed based on last modified time stamp change.");
         }
     }
 
@@ -626,7 +626,7 @@ public class ConnectionManagerCache implements ConnectionManager {
     public String getDefaultEndpointURLByServiceName(String sHomeCommunityId, String sUniformServiceName)
             throws ConnectionManagerException {
     	ConnectionManagerCacheHelper helper = new ConnectionManagerCacheHelper();
-        LOG.debug("begin getEndpointURLByServiceName: " + sHomeCommunityId + " / " + sUniformServiceName);
+        LOG.trace("begin getEndpointURLByServiceName: " + sHomeCommunityId + " / " + sUniformServiceName);
 
         String sEndpointURL = "";
         BusinessEntity oEntity = getBusinessEntityByHCID(sHomeCommunityId);
@@ -646,8 +646,8 @@ public class ConnectionManagerCache implements ConnectionManager {
         	return sEndpointURL;
         }
         
-        if (LOG.isInfoEnabled()) {
-            LOG.info("Attempting to find binding template with spec version (" + highestSpec.toString() + ").");
+        if (LOG.isDebugEnabled()) {
+            LOG.debug("Attempting to find binding template with spec version (" + highestSpec.toString() + ").");
         }
         
         BindingTemplate bindingTemplate = helper.findBindingTemplateByKey(oService, UDDI_SPEC_VERSION_KEY, highestSpec.toString());
@@ -660,11 +660,11 @@ public class ConnectionManagerCache implements ConnectionManager {
         
         sEndpointURL = bindingTemplate.getAccessPoint().getValue();
 
-        if (LOG.isInfoEnabled()) {
-            LOG.info("getEndpointURLByServiceName for home community (" + sHomeCommunityId + ") and service name ("
+        if (LOG.isDebugEnabled()) {
+            LOG.debug("getEndpointURLByServiceName for home community (" + sHomeCommunityId + ") and service name ("
                     + sUniformServiceName + ") returned endpoint address: " + sEndpointURL);
+            LOG.debug("end getEndpointURLByServiceName url = " + sEndpointURL);
         }
-        LOG.debug("end getEndpointURLByServiceName url = " + sEndpointURL);
         return sEndpointURL;
     }
 
@@ -677,11 +677,11 @@ public class ConnectionManagerCache implements ConnectionManager {
         String sEndpointURL = null;
 
         try {
-            LOG.info("Attempting to retrieve property: " + NhincConstants.HOME_COMMUNITY_ID_PROPERTY
+            LOG.debug("Attempting to retrieve property: " + NhincConstants.HOME_COMMUNITY_ID_PROPERTY
                     + " from property file: " + NhincConstants.GATEWAY_PROPERTY_FILE);
             sHomeCommunityId = PropertyAccessor.getInstance().getProperty(NhincConstants.GATEWAY_PROPERTY_FILE,
                     NhincConstants.HOME_COMMUNITY_ID_PROPERTY);
-            LOG.info("Retrieve local home community id: " + sHomeCommunityId);
+            LOG.debug("Retrieve local home community id: " + sHomeCommunityId);
         } catch (PropertyAccessException ex) {
             LOG.error("Error: Failed to retrieve " + NhincConstants.HOME_COMMUNITY_ID_PROPERTY
                     + " from property file: " + NhincConstants.GATEWAY_PROPERTY_FILE);
@@ -745,7 +745,7 @@ public class ConnectionManagerCache implements ConnectionManager {
             for (NhinTargetCommunityType target : targets.getNhinTargetCommunity()) {
                 if (target.getHomeCommunity() != null
                         && NullChecker.isNotNullish(target.getHomeCommunity().getHomeCommunityId())) {
-                    LOG.info("Looking up URL by home community id");
+                    LOG.debug("Looking up URL by home community id");
                     String endpt = getDefaultEndpointURLByServiceName(target.getHomeCommunity().getHomeCommunityId(),
                             serviceName);
 
@@ -758,12 +758,12 @@ public class ConnectionManagerCache implements ConnectionManager {
                 }
 
                 if (target.getRegion() != null) {
-                    LOG.info("Looking up URL by region");
+                    LOG.debug("Looking up URL by region");
                     filterByRegion(endpointUrlSet, target.getRegion(), serviceName);
                 }
 
                 if (target.getList() != null) {
-                    LOG.info("Looking up URL by list");
+                    LOG.debug("Looking up URL by list");
                     LOG.warn("The List target feature has not been implemented yet");
                 }
             }

@@ -13,7 +13,6 @@
     </properties>
     <modules>
         <module>Properties</module>
-        <module>CONNECTCommonTypesLib</module>
         <module>CONNECTCoreLib</module>
         <module>CONNECTCommonWeb</module>
     </modules>
