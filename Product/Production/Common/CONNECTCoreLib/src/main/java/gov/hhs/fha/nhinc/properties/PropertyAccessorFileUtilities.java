@@ -66,6 +66,7 @@ public class PropertyAccessorFileUtilities {
                 LOG.error("Unable to determine the path to the configuration files.  "
                         + "Please make sure that the runtime nhinc.properties.dir system property is set to the absolute location "
                         + "of your CONNECT configuration files.");
+                propertyFileDirAbsolutePath = "";
             }
         }
 
@@ -147,7 +148,7 @@ public class PropertyAccessorFileUtilities {
     private String addFileSeparatorSuffix(String dirPath) {
         if (dirPath != null && !dirPath.endsWith(File.separator)) {
             dirPath = dirPath + File.separator;
-        }
+        } 
         return dirPath;
     }
 

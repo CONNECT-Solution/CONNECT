@@ -281,6 +281,11 @@
             <artifactId>webui-jsf-suntheme</artifactId>
             <version>1.0</version>
         </dependency>
+        <dependency>
+            <groupId>org.connectopensource</groupId>
+            <artifactId>CONNECTCommonTypesLib</artifactId>
+            <version>4.0.2</version>
+        </dependency>
         </dependencies>
     </dependencyManagement>
     <build>

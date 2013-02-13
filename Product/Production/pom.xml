@@ -146,7 +146,7 @@
                                     <!-- Artifact that Holds our custom templates -->
                                     <groupId>org.connectopensource</groupId>
                                     <artifactId>CONNECTCommonTypesLib</artifactId>
-                                    <version>${project.parent.version}</version>
+                                    <version>4.0.2</version>
                                     <type>jar</type>
                                 </artifactItem>
                             </artifactItems>
