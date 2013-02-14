@@ -71,11 +71,11 @@ public abstract class CONNECTOrchestrationBase implements CONNECTOrchestrator {
     @Override
     public Orchestratable process(Orchestratable message) {
         Orchestratable resp = null;
-        LOG.debug("Entering CONNECTNhinOrchestrator for " + message.getServiceName());
         if (message != null) {
+            LOG.debug("Entering CONNECTNhinOrchestrator for " + message.getServiceName());
             resp = processNotNullMessage(message);
+            LOG.debug("Returning from CONNECTNhinOrchestrator for " + message.getServiceName());
         }
-        LOG.debug("Returning from CONNECTNhinOrchestrator for " + message.getServiceName());
         return resp;
     }
 

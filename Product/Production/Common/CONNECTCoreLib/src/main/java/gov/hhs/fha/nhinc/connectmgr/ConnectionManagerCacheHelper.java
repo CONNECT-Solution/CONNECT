@@ -117,7 +117,7 @@ public class ConnectionManagerCacheHelper {
 	 */
 	public BusinessEntity extractBusinessEntity(List<BusinessEntity> oEntities,
 			String sHomeCommunityId) {
-		if ((oEntities == null) || (oEntities == null)
+		if ((oEntities == null) 
 				|| (oEntities.size() <= 0) || (sHomeCommunityId == null)
 				|| (sHomeCommunityId.length() <= 0)) {
 			return null;

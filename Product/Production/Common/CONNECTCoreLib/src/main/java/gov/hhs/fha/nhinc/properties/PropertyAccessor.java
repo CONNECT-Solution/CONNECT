@@ -38,8 +38,6 @@ import java.util.Set;
 public class PropertyAccessor implements IPropertyAcessor {
     private static final String CACHE_REFRESH_DURATION = "CacheRefreshDuration";
     
-    private static PropertyAccessor instance;
-    
     private PropertyFileRefreshHandler refreshHandler;    
     private PropertyFileDAO propertyFileDAO;    
     private PropertyAccessorFileUtilities fileUtilities;
@@ -53,18 +51,19 @@ public class PropertyAccessor implements IPropertyAcessor {
         propertyFileDAO = createPropertyFileDAO();
         fileUtilities = createPropertyAccessorFileUtilities();   
     }
-    
+
+    private static class SingletonHolder { 
+        public static final PropertyAccessor INSTANCE = new PropertyAccessor();
+    }
+
+    // singleton
     public static PropertyAccessor getInstance() {
-        if (instance == null) {
-            instance = new PropertyAccessor();
-        }
-        return instance;
+        return SingletonHolder.INSTANCE;
     }
     
     public static PropertyAccessor getInstance(String propertyFileName) {
-        instance = getInstance();
-        instance.setPropertyFile(propertyFileName);
-        return instance;
+        getInstance().setPropertyFile(propertyFileName);
+        return getInstance();
     } 
     
     /**

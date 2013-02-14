@@ -26,8 +26,12 @@
  */
 package gov.hhs.fha.nhinc.util;
 
+import java.io.UnsupportedEncodingException;
+import org.apache.log4j.Logger;
+
 public class Base64Coder {
 
+    private static final Logger LOG = Logger.getLogger(Base64Coder.class);
     // Mapping table from 6-bit nibbles to Base64 characters.
 
     private static char[] map1 = new char[64];
@@ -66,7 +70,13 @@ public class Base64Coder {
      * @return A String with the Base64 encoded data.
      */
     public static String encodeString(String s) {
-        return new String(encode(s.getBytes()));
+        String encodedString = "";
+        try {
+            encodedString = new String(encode(s.getBytes(StringUtil.UTF8_CHARSET)));
+        } catch (UnsupportedEncodingException ex) {
+            LOG.error("Error converting String to UTF8 format: "+ex.getMessage());
+        }
+        return encodedString;
     }
 
     /**
@@ -116,8 +126,14 @@ public class Base64Coder {
      * @return A String containing the decoded data.
      * @throws IllegalArgumentException if the input is not valid Base64 encoded data.
      */
-    public static String decodeString(String s) {
-        return new String(decode(s));
+    public static String decodeString(String s)  {
+        String decodedData = "";
+        try {
+            decodedData = StringUtil.convertToStringUTF8(decode(s));
+        } catch (UnsupportedEncodingException ex) {
+            LOG.error("Error converting String to UTF8 format: "+ex.getMessage());
+        }
+        return decodedData;
     }
 
     /**

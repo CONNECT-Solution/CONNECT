@@ -30,6 +30,7 @@ package gov.hhs.fha.nhinc.largefile;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
+import gov.hhs.fha.nhinc.util.StringUtil;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -38,6 +39,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.io.UnsupportedEncodingException;
 import java.net.URI;
 import java.net.URISyntaxException;
 
@@ -119,7 +121,7 @@ public class LargeFileUtils {
             closeStreamWithoutException(baos);
         }
 
-        String uriString = new String(baos.toByteArray());
+        String uriString = StringUtil.convertToStringUTF8(baos.toByteArray());
         return new URI(uriString);
     }
 
@@ -218,7 +220,12 @@ public class LargeFileUtils {
      * @throws IOException
      */
     public DataHandler convertToDataHandler(String data) {
-        return convertToDataHandler(data.getBytes());
+        try {
+            return convertToDataHandler(data.getBytes(StringUtil.UTF8_CHARSET));
+        } catch (UnsupportedEncodingException ex) {
+            LOG.error("Error converting String to UTF8 format: "+ex.getMessage());
+            return null;
+        }
     }
 
     /**

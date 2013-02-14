@@ -58,10 +58,10 @@ public class AdhocQueryTransformHelper {
         LOG.debug("begin transformAdhocQueryToCheckPolicy");
 
         CheckPolicyRequestType result = null;
-        if (InboundOutboundChecker.IsInbound(event.getDirection())) {
+        if (event != null && InboundOutboundChecker.IsInbound(event.getDirection())) {
             result = transformAdhocQueryInboundToCheckPolicy(event);
         }
-        if (InboundOutboundChecker.IsOutbound(event.getDirection())) {
+        if (event != null && InboundOutboundChecker.IsOutbound(event.getDirection())) {
             result = transformAdhocQueryOutboundToCheckPolicy(event);
         }
 
@@ -73,10 +73,10 @@ public class AdhocQueryTransformHelper {
         LOG.debug("begin transformAdhocQueryResponseToCheckPolicy");
 
         CheckPolicyRequestType result = null;
-        if (InboundOutboundChecker.IsInbound(event.getDirection())) {
+        if (event != null && InboundOutboundChecker.IsInbound(event.getDirection())) {
             result = transformAdhocQueryResponseInboundToCheckPolicy(event);
         }
-        if (InboundOutboundChecker.IsOutbound(event.getDirection())) {
+        if (event != null && InboundOutboundChecker.IsOutbound(event.getDirection())) {
             result = transformAdhocQueryResponseOutboundToCheckPolicy(event);
         }
 
@@ -87,15 +87,15 @@ public class AdhocQueryTransformHelper {
     private static CheckPolicyRequestType transformAdhocQueryResponseToCheckPolicyBase(AdhocQueryResultEventType event) {
         CheckPolicyRequestType genericPolicyRequest = new CheckPolicyRequestType();
 
-        AdhocQueryResponse docQuery = event.getMessage().getAdhocQueryResponse();
+        //AdhocQueryResponse docQuery = event.getMessage().getAdhocQueryResponse();
 
         RequestType request = new RequestType();
 
-        if (InboundOutboundChecker.IsInbound(event.getDirection())) {
+        if (event != null && InboundOutboundChecker.IsInbound(event.getDirection())) {
             request.setAction(ActionHelper.actionFactory(ACTIONVALUEIN));
         }
 
-        if (InboundOutboundChecker.IsOutbound(event.getDirection())) {
+        if (event != null && InboundOutboundChecker.IsOutbound(event.getDirection())) {
             request.setAction(ActionHelper.actionFactory(ACTIONVALUEOUT));
         }
 
@@ -122,17 +122,24 @@ public class AdhocQueryTransformHelper {
         request.getResource().add(resource);
 
         SubjectHelper subjHelp = new SubjectHelper();
-        SubjectType subject = subjHelp.subjectFactory(event.getSendingHomeCommunity(), event.getMessage()
+        SubjectType subject = null;
+        if (event != null && event.getMessage() != null){
+            subject = subjHelp.subjectFactory(event.getSendingHomeCommunity(), event.getMessage()
                 .getAssertion());
+        }
         request.getSubject().add(subject);
 
         AssertionHelper assertHelp = new AssertionHelper();
-        assertHelp.appendAssertionDataToRequest(request, event.getMessage().getAssertion());
+        if (event != null && event.getMessage() != null){
+            assertHelp.appendAssertionDataToRequest(request, event.getMessage().getAssertion());
+        }
 
         CheckPolicyRequestType policyRequest = new CheckPolicyRequestType();
         policyRequest.setRequest(request);
         genericPolicyRequest.setRequest(request);
-        genericPolicyRequest.setAssertion(event.getMessage().getAssertion());
+        if (event != null && event.getMessage() != null){
+           genericPolicyRequest.setAssertion(event.getMessage().getAssertion());
+        }
         return genericPolicyRequest;
     }
 
@@ -145,21 +152,27 @@ public class AdhocQueryTransformHelper {
             AdhocQueryResultEventType event) {
         CheckPolicyRequestType checkPolicy = transformAdhocQueryResponseToCheckPolicyBase(event);
         AttributeHelper attrHelper = new AttributeHelper();
-        checkPolicy
-                .getRequest()
-                .getResource()
-                .get(0)
-                .getAttribute()
-                .add(attrHelper.attributeFactory(Constants.HomeCommunityAttributeId, Constants.DataTypeString,
-                        CommunityHelper.extractCommunityId(event.getReceivingHomeCommunity())));
+        if (event != null){
+            checkPolicy
+                    .getRequest()
+                    .getResource()
+                    .get(0)
+                    .getAttribute()
+                    .add(attrHelper.attributeFactory(Constants.HomeCommunityAttributeId, Constants.DataTypeString,
+                            CommunityHelper.extractCommunityId(event.getReceivingHomeCommunity())));
+        }
         return checkPolicy;
     }
 
     private static CheckPolicyRequestType transformAdhocQueryToCheckPolicyBase(AdhocQueryRequestEventType event) {
         CheckPolicyRequestType genericPolicyRequest = new CheckPolicyRequestType();
 
-        AdhocQueryRequest docQuery = event.getMessage().getAdhocQueryRequest();
-        AssertionType assertion = event.getMessage().getAssertion();
+        AdhocQueryRequest docQuery = null;
+        AssertionType assertion = null;
+        if (event != null && event.getMessage() != null){
+            docQuery = event.getMessage().getAdhocQueryRequest();
+            assertion = event.getMessage().getAssertion();
+        }
 
         RequestType request = new RequestType();
 
@@ -167,11 +180,11 @@ public class AdhocQueryTransformHelper {
         String sPatientId = extractPatientIdentifierId(docQuery);
         String sStrippedPatientId = PatientIdFormatUtil.parsePatientId(sPatientId);
 
-        if (InboundOutboundChecker.IsInbound(event.getDirection())) {
+        if (event != null && InboundOutboundChecker.IsInbound(event.getDirection())) {
             request.setAction(ActionHelper.actionFactory(ACTIONVALUEIN));
         }
 
-        if (InboundOutboundChecker.IsOutbound(event.getDirection())) {
+        if (event != null && InboundOutboundChecker.IsOutbound(event.getDirection())) {
             request.setAction(ActionHelper.actionFactory(ACTIONVALUEOUT));
             if ((assertion.getUniquePatientId() != null) && (assertion.getUniquePatientId().size() > 0)) {
                 aaId = PatientIdFormatUtil.parseCommunityId(assertion.getUniquePatientId().get(0));
@@ -181,8 +194,9 @@ public class AdhocQueryTransformHelper {
                 LOG.info("Unique patientid is null in the assertion.");
             }
         }
-
-        LOG.debug("transformAdhocQueryToCheckPolicyBase: event direction: " + event.getDirection());
+        if (event != null){
+           LOG.debug("transformAdhocQueryToCheckPolicyBase: event direction: " + event.getDirection());
+        }
         LOG.debug("transformAdhocQueryToCheckPolicyBase: aaId: " + aaId);
         LOG.debug("transformAdhocQueryToCheckPolicyBase: PatientId: " + sStrippedPatientId);
 
@@ -196,17 +210,23 @@ public class AdhocQueryTransformHelper {
         request.getResource().add(resource);
 
         SubjectHelper subjHelp = new SubjectHelper();
-        SubjectType subject = subjHelp.subjectFactory(event.getSendingHomeCommunity(), event.getMessage()
-                .getAssertion());
-        request.getSubject().add(subject);
+        if (event != null && event.getMessage() != null){
+            SubjectType subject = subjHelp.subjectFactory(event.getSendingHomeCommunity(), event.getMessage()
+                    .getAssertion());
+            request.getSubject().add(subject);
+        }
 
         AssertionHelper assertHelp = new AssertionHelper();
-        assertHelp.appendAssertionDataToRequest(request, event.getMessage().getAssertion());
+        if (event != null && event.getMessage() != null){
+            assertHelp.appendAssertionDataToRequest(request, event.getMessage().getAssertion());
+        }
 
         CheckPolicyRequestType policyRequest = new CheckPolicyRequestType();
         policyRequest.setRequest(request);
         genericPolicyRequest.setRequest(request);
-        genericPolicyRequest.setAssertion(event.getMessage().getAssertion());
+        if (event != null && event.getMessage() != null){
+            genericPolicyRequest.setAssertion(event.getMessage().getAssertion());
+        }
         return genericPolicyRequest;
     }
 
@@ -217,13 +237,15 @@ public class AdhocQueryTransformHelper {
     private static CheckPolicyRequestType transformAdhocQueryOutboundToCheckPolicy(AdhocQueryRequestEventType event) {
         CheckPolicyRequestType checkPolicy = transformAdhocQueryToCheckPolicyBase(event);
         AttributeHelper attrHelper = new AttributeHelper();
-        checkPolicy
-                .getRequest()
-                .getResource()
-                .get(0)
-                .getAttribute()
-                .add(attrHelper.attributeFactory(Constants.HomeCommunityAttributeId, Constants.DataTypeString,
-                        CommunityHelper.extractCommunityId(event.getReceivingHomeCommunity())));
+        if (event != null){
+            checkPolicy
+                    .getRequest()
+                    .getResource()
+                    .get(0)
+                    .getAttribute()
+                    .add(attrHelper.attributeFactory(Constants.HomeCommunityAttributeId, Constants.DataTypeString,
+                            CommunityHelper.extractCommunityId(event.getReceivingHomeCommunity())));
+        }
         return checkPolicy;
     }
 

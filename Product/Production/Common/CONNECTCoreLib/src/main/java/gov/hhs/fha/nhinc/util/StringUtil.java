@@ -26,7 +26,10 @@
  */
 package gov.hhs.fha.nhinc.util;
 
+import java.io.FileInputStream;
 import java.io.FileReader;
+import java.io.InputStreamReader;
+import java.io.UnsupportedEncodingException;
 import java.util.StringTokenizer;
 
 /**
@@ -36,6 +39,7 @@ import java.util.StringTokenizer;
  */
 public class StringUtil {
 
+    public static final String UTF8_CHARSET = "UTF-8";
     /**
      * This method reads the entire contents of a text file and returns the contents in a string variable.
      *
@@ -44,10 +48,11 @@ public class StringUtil {
      */
     public static String readTextFile(String sFileName) throws UtilException {
         String sText = "";
-        FileReader frTextFile = null;
+        InputStreamReader frTextFile = null;
 
         try {
-            frTextFile = new FileReader(sFileName);
+            
+            frTextFile = new InputStreamReader(new FileInputStream(sFileName),StringUtil.UTF8_CHARSET);
             char caBuf[] = new char[1024];
             int iLen = 0;
             StringBuffer sbText = new StringBuffer();
@@ -122,5 +127,15 @@ public class StringUtil {
             return sText;
         }
 
+    }
+    /**
+     * Converts a byte array into a Eight-bit Unicode Transformation Format string.
+     *
+     * @param byteArray byte array
+     * @return UTF-8 format string
+     * 
+     */
+    public static String convertToStringUTF8(byte[] byteArray) throws UnsupportedEncodingException {
+             return new String(byteArray,UTF8_CHARSET);
     }
 }

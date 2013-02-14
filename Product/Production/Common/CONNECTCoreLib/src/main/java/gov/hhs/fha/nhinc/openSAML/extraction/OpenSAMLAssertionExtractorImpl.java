@@ -42,6 +42,8 @@ import gov.hhs.fha.nhinc.common.nhinccommon.SamlSignatureType;
 import gov.hhs.fha.nhinc.common.nhinccommon.UserType;
 import gov.hhs.fha.nhinc.cxf.extraction.SAMLExtractorDOM;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import gov.hhs.fha.nhinc.util.StringUtil;
+import java.io.UnsupportedEncodingException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -520,7 +522,12 @@ public class OpenSAMLAssertionExtractorImpl implements SAMLExtractorDOM {
         samlAuthzDecisionStatementEvidenceConditions.setNotBefore(EMPTY_STRING);
         samlAuthzDecisionStatementEvidenceConditions.setNotOnOrAfter(EMPTY_STRING);
 
-        byte[] formRaw = EMPTY_STRING.getBytes();
+        byte[] formRaw = null;
+        try {
+            formRaw = EMPTY_STRING.getBytes(StringUtil.UTF8_CHARSET);
+        } catch (UnsupportedEncodingException ex) {
+            LOG.error("Error converting String to UTF8 format: "+ex.getMessage());
+        }
         assertOut.setSamlSignature(samlSignature);
         samlSignature.setSignatureValue(formRaw);
 

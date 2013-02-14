@@ -98,13 +98,13 @@ public class AdminDistributionTransformHelper {
             return result;
         }
 
-        EDXLDistribution body = message.getEDXLDistribution();
+        //EDXLDistribution body = message.getEDXLDistribution();
         // RequestType request = getRequestType(patDiscReq, event.getAssertion());
         RequestType request = new RequestType();
         AttributeHelper attrHelper = new AttributeHelper();
 
         LOG.debug("transformEntityAlertToCheckPolicy - adding subject");
-        SubjectHelper subjHelp = new SubjectHelper();
+        //SubjectHelper subjHelp = new SubjectHelper();
         // SubjectType subject = subjHelp.subjectFactory(event.getAssertion().getHomeCommunity(), event.getAssertion());
         SubjectType subject = new SubjectType();
         subject.setSubjectCategory(SubjectHelper.SubjectCategory);

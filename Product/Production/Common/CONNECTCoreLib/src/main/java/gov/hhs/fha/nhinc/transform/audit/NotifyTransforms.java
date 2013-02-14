@@ -56,8 +56,10 @@ public class NotifyTransforms {
     public LogEventRequestType transformNhinNotifyRequestToAuditMessage(LogNhinNotifyRequestType message) {
         LogEventRequestType response = new LogEventRequestType();
         AuditMessageType auditMsg = new AuditMessageType();
-        response.setDirection(message.getDirection());
-        response.setInterface(message.getInterface());
+        if (message != null){
+           response.setDirection(message.getDirection());
+           response.setInterface(message.getInterface());
+        }
 
         LOG.info("******************************************************************");
         LOG.info("Entering transformNhinNotifyRequestToAuditMessage() method.");
@@ -90,7 +92,7 @@ public class NotifyTransforms {
         /* Assign AuditSourceIdentification */
 
         String patientId = "";
-        if (NullChecker.isNotNullish(message.getMessage().getAssertion().getUniquePatientId())
+        if (message != null && NullChecker.isNotNullish(message.getMessage().getAssertion().getUniquePatientId())
                 && NullChecker.isNotNullish(message.getMessage().getAssertion().getUniquePatientId().get(0))) {
             patientId = message.getMessage().getAssertion().getUniquePatientId().get(0);
         }
@@ -123,7 +125,9 @@ public class NotifyTransforms {
             Marshaller marshaller = jc.createMarshaller();
             ByteArrayOutputStream baOutStrm = new ByteArrayOutputStream();
             baOutStrm.reset();
-            marshaller.marshal(message.getMessage().getNotify(), baOutStrm);
+            if (message != null){
+                marshaller.marshal(message.getMessage().getNotify(), baOutStrm);
+            }
             LOG.debug("Done marshalling the message.");
 
             participantObject.setParticipantObjectQuery(baOutStrm.toByteArray());
@@ -147,8 +151,10 @@ public class NotifyTransforms {
     public LogEventRequestType transformEntityNotifyResponseToGenericAudit(LogEntityNotifyResponseType message) {
         LogEventRequestType response = new LogEventRequestType();
         AuditMessageType auditMsg = new AuditMessageType();
-        response.setDirection(message.getDirection());
-        response.setInterface(message.getInterface());
+        if (message != null){
+           response.setDirection(message.getDirection());
+           response.setInterface(message.getInterface());
+        }
 
         LOG.info("******************************************************************");
         LOG.info("Entering transformEntityNotifyResponseToGenericAudit() method.");
@@ -181,7 +187,7 @@ public class NotifyTransforms {
         /* Assign AuditSourceIdentification */
 
         String patientId = "";
-        if (NullChecker.isNotNullish(message.getMessage().getAssertion().getUniquePatientId())
+        if (message != null && NullChecker.isNotNullish(message.getMessage().getAssertion().getUniquePatientId())
                 && NullChecker.isNotNullish(message.getMessage().getAssertion().getUniquePatientId().get(0))) {
             patientId = message.getMessage().getAssertion().getUniquePatientId().get(0);
         }

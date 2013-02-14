@@ -55,14 +55,32 @@ public class CMInternalConnectionInfo {
         services = null;
         states = null;
     }
+    
+    @Override
+    public int hashCode() {
+        int hashCode = 0;
+        if (homeCommunityId != null) {
+            hashCode = homeCommunityId.hashCode();
+        } else if (NullChecker.isNotNullish(name)) {
+            hashCode = name.hashCode();
+            if (NullChecker.isNotNullish(description)) {
+                hashCode += description.hashCode();
+            }
+        }
+        return hashCode;
+    }
 
     /**
      * Returns true of the contents of the object are the same as the one passed in.
      * 
-     * @param oCompare The object to compare.
+     * @param object The object to compare.
      * @return TRUE if the contents are the same as the one passed in.
      */
-    public boolean equals(CMInternalConnectionInfo oCompare) {
+    public boolean equals(Object object) {
+        
+        if (!(object instanceof CMInternalConnectionInfo))
+            return false;
+        CMInternalConnectionInfo oCompare = (CMInternalConnectionInfo) object;   
         boolean descMatch = false;
         boolean nameMatch = false;
         boolean hcidMatch = false;

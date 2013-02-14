@@ -579,8 +579,8 @@ public class XDRTransforms {
             Marshaller marshaller = jc.createMarshaller();
             baOutStrm.reset();
 
-            javax.xml.namespace.QName xmlqname = new javax.xml.namespace.QName("urn:ihe:iti:xds-b:2007",
-                    "ProvideAndRegisterDocumentSetRequest");
+            //javax.xml.namespace.QName xmlqname = new javax.xml.namespace.QName("urn:ihe:iti:xds-b:2007",
+            //        "ProvideAndRegisterDocumentSetRequest");
             JAXBElement<ProvideAndRegisterDocumentSetRequestType> element;
 
             // element = new JAXBElement<ProvideAndRegisterDocumentSetRequestType>(xmlqname,

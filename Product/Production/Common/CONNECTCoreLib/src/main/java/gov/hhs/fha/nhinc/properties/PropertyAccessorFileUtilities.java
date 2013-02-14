@@ -35,6 +35,9 @@ import java.util.Properties;
 import org.apache.log4j.Logger;
 
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import gov.hhs.fha.nhinc.util.StringUtil;
+import java.io.FileInputStream;
+import java.io.InputStreamReader;
 
 /**
  * @author akong
@@ -118,9 +121,9 @@ public class PropertyAccessorFileUtilities {
      */
     public Properties loadPropertyFile(File propertyFile) {
         Properties properties = new Properties();
-        FileReader propFile = null;
+        InputStreamReader propFile = null;
         try {
-            propFile = new FileReader(propertyFile);
+            propFile = new InputStreamReader(new FileInputStream(propertyFile),StringUtil.UTF8_CHARSET);
             properties.load(propFile);
         } catch (Exception e) {
             LOG.error("Failed to load property file " + propertyFile);
@@ -131,7 +134,7 @@ public class PropertyAccessorFileUtilities {
         return properties;
     }
 
-    private void closeFileSilently(FileReader reader) {
+    private void closeFileSilently(InputStreamReader reader) {
         try {
             if (reader != null) {
                 reader.close();

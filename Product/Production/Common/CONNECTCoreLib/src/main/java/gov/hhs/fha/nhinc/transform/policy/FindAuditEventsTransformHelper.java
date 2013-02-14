@@ -51,6 +51,7 @@ public class FindAuditEventsTransformHelper {
     public static CheckPolicyRequestType transformFindAuditEventsToCheckPolicy(FindAuditEventsEventType event) {
         CheckPolicyRequestType genericPolicyRequest = new CheckPolicyRequestType();
         RequestType request = new RequestType();
+        genericPolicyRequest.setRequest(request);
 
         if (event != null) {
             if (InboundOutboundChecker.IsInbound(event.getDirection())) {
@@ -89,10 +90,8 @@ public class FindAuditEventsTransformHelper {
             }
             AssertionHelper assertHelp = new AssertionHelper();
             assertHelp.appendAssertionDataToRequest(request, event.getMessage().getAssertion());
+            genericPolicyRequest.setAssertion(event.getMessage().getAssertion());
         }
-
-        genericPolicyRequest.setRequest(request);
-        genericPolicyRequest.setAssertion(event.getMessage().getAssertion());
         return genericPolicyRequest;
     }
 }

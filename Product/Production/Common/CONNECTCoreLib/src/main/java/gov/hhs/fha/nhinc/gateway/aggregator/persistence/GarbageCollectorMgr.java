@@ -127,7 +127,7 @@ public class GarbageCollectorMgr {
             LOG.debug("Running aggregator garbage collection thread now.");
 
             GarbageCollectorThread oCollectorThread = new GarbageCollectorThread(oCal.getTime());
-            oCollectorThread.run();
+            oCollectorThread.start();
             dtLastRun = new Date();
 
         }

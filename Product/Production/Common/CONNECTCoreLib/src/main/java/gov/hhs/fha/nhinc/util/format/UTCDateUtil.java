@@ -155,7 +155,7 @@ public class UTCDateUtil {
                 DateFormat dateFormatter = createDateFormatter(formatString, TimeZone.getTimeZone(TIME_ZONE_UTC));
                 formatted = dateFormatter.format(sourceDate);
             } catch (Throwable t) {
-                LOG.warn("Failed to format a date (" + ((sourceDate == null) ? "null" : sourceDate.toString())
+                LOG.warn("Failed to format a date (" + sourceDate.toString()
                         + ") to a formatted string using the format '" + formatString + "': " + t.getMessage(), t);
             }
         }
