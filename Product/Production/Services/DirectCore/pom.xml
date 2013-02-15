@@ -65,7 +65,11 @@
         <dependency>
             <groupId>javax.mail</groupId>
             <artifactId>mail</artifactId>
-        </dependency>        
+        </dependency>
+        <dependency>
+            <groupId>org.connectopensource</groupId>
+            <artifactId>DirectWebservices</artifactId>
+        </dependency>
     </dependencies>
 
 </project>
