@@ -16,6 +16,10 @@
             <artifactId>AuditRepositoryCore</artifactId>
             <version>${project.parent.version}</version>
         </dependency>
+        <dependency>
+            <groupId>org.connectopensource</groupId>
+            <artifactId>AdminDistributionWebservices</artifactId>
+        </dependency>
     </dependencies>
     <build>
         <plugins>
