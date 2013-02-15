@@ -27,7 +27,6 @@
 package gov.hhs.fha.nhinc.util;
 
 import java.io.FileInputStream;
-import java.io.FileReader;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.util.StringTokenizer;
@@ -40,6 +39,7 @@ import java.util.StringTokenizer;
 public class StringUtil {
 
     public static final String UTF8_CHARSET = "UTF-8";
+
     /**
      * This method reads the entire contents of a text file and returns the contents in a string variable.
      *
@@ -51,8 +51,8 @@ public class StringUtil {
         InputStreamReader frTextFile = null;
 
         try {
-            
-            frTextFile = new InputStreamReader(new FileInputStream(sFileName),StringUtil.UTF8_CHARSET);
+
+            frTextFile = new InputStreamReader(new FileInputStream(sFileName), StringUtil.UTF8_CHARSET);
             char caBuf[] = new char[1024];
             int iLen = 0;
             StringBuffer sbText = new StringBuffer();
@@ -118,7 +118,7 @@ public class StringUtil {
      *
      * @param sText The text containing a CDATA wrapper.
      * @return The text without the CDATA wrapper. If it does not contain a CDATA wrapper, it simply returns the same
-     *         text it was passed.
+     * text it was passed.
      */
     public static String unwrapCdata(String sText) {
         if ((sText != null) && (sText.trim().startsWith("[CDATA[")) && (sText.trim().endsWith("]]"))) {
@@ -128,14 +128,15 @@ public class StringUtil {
         }
 
     }
+
     /**
      * Converts a byte array into a Eight-bit Unicode Transformation Format string.
      *
      * @param byteArray byte array
      * @return UTF-8 format string
-     * 
+     *
      */
     public static String convertToStringUTF8(byte[] byteArray) throws UnsupportedEncodingException {
-             return new String(byteArray,UTF8_CHARSET);
+        return new String(byteArray, UTF8_CHARSET);
     }
 }

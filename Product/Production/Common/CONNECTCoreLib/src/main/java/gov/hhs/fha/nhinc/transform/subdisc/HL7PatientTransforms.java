@@ -243,10 +243,6 @@ public class HL7PatientTransforms {
 
     public static JAXBElement<PRPAMT201310UV02Person> create201310PatientPerson(
             JAXBElement<PRPAMT201301UV02Person> person201301) {
-        // public static JAXBElement<PRPAMT201310UVPerson> create201310PatientPerson(String patFirstName, String
-        // patLastName, String gender, String birthTime, String ssn) {
-        //PRPAMT201301UV02Person origPerson = person201301.getValue();
-        //PRPAMT201310UV02Person newPerson = new PRPAMT201310UV02Person();
 
         TSExplicit birthTime = null;
         CE gender = null;

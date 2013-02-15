@@ -44,13 +44,10 @@ import gov.hhs.fha.nhinc.cxf.extraction.SAMLExtractorDOM;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.util.StringUtil;
 import java.io.UnsupportedEncodingException;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-
 import javax.xml.namespace.QName;
-
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.cxf.common.util.StringUtils;
 import org.apache.log4j.Logger;
@@ -75,7 +72,7 @@ import org.w3c.dom.NodeList;
 
 /**
  * @author mweaver
- * 
+ *
  */
 public class OpenSAMLAssertionExtractorImpl implements SAMLExtractorDOM {
 
@@ -87,9 +84,8 @@ public class OpenSAMLAssertionExtractorImpl implements SAMLExtractorDOM {
 
     /**
      * This method is used to extract the SAML assertion information.
-     * 
-     * @param Element
-     *            element
+     *
+     * @param Element element
      * @return AssertionType
      */
     public final AssertionType extractSAMLAssertion(final Element element) {
@@ -118,15 +114,14 @@ public class OpenSAMLAssertionExtractorImpl implements SAMLExtractorDOM {
 
     /**
      * This method will return the first Assertion encountered in the passed in element.
-     * 
-     * @param element
-     *            the xml element to extract the assertion from
+     *
+     * @param element the xml element to extract the assertion from
      * @return The first encountered Assertion object in the element
      */
     private Assertion extractSaml2Assertion(final Element element) {
 
         if (element.getNamespaceURI().equals(SamlConstants.SAML2_ASSERTION_NS)
-                && element.getLocalName().equals(SamlConstants.SAML2_ASSERTION_TAG)) {
+            && element.getLocalName().equals(SamlConstants.SAML2_ASSERTION_TAG)) {
             return convertToAssertion(element);
         }
 
@@ -135,7 +130,7 @@ public class OpenSAMLAssertionExtractorImpl implements SAMLExtractorDOM {
 
     private Assertion extractSaml2AssertionFromDescendants(final Element element) {
         NodeList assertionNodes = element.getElementsByTagNameNS(SamlConstants.SAML2_ASSERTION_NS,
-                SamlConstants.SAML2_ASSERTION_TAG);
+            SamlConstants.SAML2_ASSERTION_TAG);
 
         if (assertionNodes.getLength() > 0) {
             Node assertionNode = assertionNodes.item(0);
@@ -168,11 +163,9 @@ public class OpenSAMLAssertionExtractorImpl implements SAMLExtractorDOM {
 
     /**
      * This method is used to populate the Attribute Statement.
-     * 
-     * @param saml2Assertion
-     *            saml2 assertion
-     * @param target
-     *            target assertion
+     *
+     * @param saml2Assertion saml2 assertion
+     * @param target target assertion
      */
     private void populateAttributeStatement(final Assertion saml2Assertion, final AssertionType target) {
 
@@ -183,71 +176,71 @@ public class OpenSAMLAssertionExtractorImpl implements SAMLExtractorDOM {
             for (Attribute attribute : attributeStatement.getAttributes()) {
 
                 switch (attribute.getName()) {
-                case NhincConstants.ATTRIBUTE_NAME_SUBJECT_ROLE:
-                    LOG.debug("Extracting Assertion.userInfo.roleCoded:");
-                    populateSubjectRole(attribute, target);
-                    break;
-
-                case NhincConstants.ATTRIBUTE_NAME_PURPOSE_OF_USE:
-                    LOG.debug("Extracting Assertion.purposeOfDisclosure:");
-                    populatePurposeOfUseAttribute(attribute, target);
-                    break;
-
-                case NhincConstants.USERNAME_ATTR:
-                    helper.extractNameParts(attribute, target);
-                    break;
-
-                case NhincConstants.USER_ORG_ATTR:
-                    String orgAttribute = getAttributeValue(attribute);
-                    target.getUserInfo().getOrg().setName(orgAttribute);
-                    LOG.debug("Assertion.userInfo.org.Name = " + orgAttribute);
-                    break;
-
-                case NhincConstants.USER_ORG_ID_ATTR:
-                    String orgIDAttribute = getAttributeValue(attribute);
-                    target.getUserInfo().getOrg().setHomeCommunityId(orgIDAttribute);
-                    LOG.debug("Assertion.userInfo.org.homeCommunityId = " + orgIDAttribute);
-                    break;
-
-                case NhincConstants.ATTRIBUTE_NAME_HCID:
-                    String homeCommunityId = getAttributeValue(attribute);
-                    target.getHomeCommunity().setHomeCommunityId(homeCommunityId);
-                    LOG.debug("Assertion.homeCommunity.homeCommunityId = " + homeCommunityId);
-                    break;
-
-                case NhincConstants.ACCESS_CONSENT_ATTR:
-                    List<String> accessConsentId = transformXMLtoString(attribute.getAttributeValues());
-                    target.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getAccessConsentPolicy()
-                            .addAll(accessConsentId);
-                    LOG.debug("Assertion.SamlAuthzDecisionStatement.Evidence.Assertion.AccessConsentPolicy = "
-                            + accessConsentId);
-                    break;
-
-                case NhincConstants.INST_ACCESS_CONSENT_ATTR:
-                    List<String> instAccessConsentId = transformXMLtoString(attribute.getAttributeValues());
-                    target.getSamlAuthzDecisionStatement().getEvidence().getAssertion()
-                            .getInstanceAccessConsentPolicy().addAll(instAccessConsentId);
-                    LOG.debug("Assertion.SamlAuthzDecisionStatement.Evidence.Assertion.InstanceAccessConsentPolicy = "
-                            + instAccessConsentId);
-                    break;
-
-                case NhincConstants.ATTRIBUTE_NAME_RESOURCE_ID:
-                    if (!StringUtils.isEmpty(attribute.getDOM().getTextContent())) {
-                        String patientId = getAttributeValue(attribute);
-                        target.getUniquePatientId().add(patientId);
-                        LOG.debug("Assertion.uniquePatientId = " + patientId);
+                    case NhincConstants.ATTRIBUTE_NAME_SUBJECT_ROLE:
+                        LOG.debug("Extracting Assertion.userInfo.roleCoded:");
+                        populateSubjectRole(attribute, target);
                         break;
-                    }
 
-                case NhincConstants.ATTRIBUTE_NAME_NPI:
-                    String nationalProviderId = getAttributeValue(attribute);
-                    target.setNationalProviderId(nationalProviderId);
-                    LOG.debug("Assertion.nationalProviderId = " + nationalProviderId);
-                    break;
+                    case NhincConstants.ATTRIBUTE_NAME_PURPOSE_OF_USE:
+                        LOG.debug("Extracting Assertion.purposeOfDisclosure:");
+                        populatePurposeOfUseAttribute(attribute, target);
+                        break;
 
-                default:
-                    LOG.warn("Unrecognized Name Attribute: " + attribute.getName());
-                    break;
+                    case NhincConstants.USERNAME_ATTR:
+                        helper.extractNameParts(attribute, target);
+                        break;
+
+                    case NhincConstants.USER_ORG_ATTR:
+                        String orgAttribute = getAttributeValue(attribute);
+                        target.getUserInfo().getOrg().setName(orgAttribute);
+                        LOG.debug("Assertion.userInfo.org.Name = " + orgAttribute);
+                        break;
+
+                    case NhincConstants.USER_ORG_ID_ATTR:
+                        String orgIDAttribute = getAttributeValue(attribute);
+                        target.getUserInfo().getOrg().setHomeCommunityId(orgIDAttribute);
+                        LOG.debug("Assertion.userInfo.org.homeCommunityId = " + orgIDAttribute);
+                        break;
+
+                    case NhincConstants.ATTRIBUTE_NAME_HCID:
+                        String homeCommunityId = getAttributeValue(attribute);
+                        target.getHomeCommunity().setHomeCommunityId(homeCommunityId);
+                        LOG.debug("Assertion.homeCommunity.homeCommunityId = " + homeCommunityId);
+                        break;
+
+                    case NhincConstants.ACCESS_CONSENT_ATTR:
+                        List<String> accessConsentId = transformXMLtoString(attribute.getAttributeValues());
+                        target.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getAccessConsentPolicy()
+                            .addAll(accessConsentId);
+                        LOG.debug("Assertion.SamlAuthzDecisionStatement.Evidence.Assertion.AccessConsentPolicy = "
+                            + accessConsentId);
+                        break;
+
+                    case NhincConstants.INST_ACCESS_CONSENT_ATTR:
+                        List<String> instAccessConsentId = transformXMLtoString(attribute.getAttributeValues());
+                        target.getSamlAuthzDecisionStatement().getEvidence().getAssertion()
+                            .getInstanceAccessConsentPolicy().addAll(instAccessConsentId);
+                        LOG.debug("Assertion.SamlAuthzDecisionStatement.Evidence.Assertion.InstanceAccessConsentPolicy = "
+                            + instAccessConsentId);
+                        break;
+
+                    case NhincConstants.ATTRIBUTE_NAME_RESOURCE_ID:
+                        if (!StringUtils.isEmpty(attribute.getDOM().getTextContent())) {
+                            String patientId = getAttributeValue(attribute);
+                            target.getUniquePatientId().add(patientId);
+                            LOG.debug("Assertion.uniquePatientId = " + patientId);
+                            break;
+                        }
+
+                    case NhincConstants.ATTRIBUTE_NAME_NPI:
+                        String nationalProviderId = getAttributeValue(attribute);
+                        target.setNationalProviderId(nationalProviderId);
+                        LOG.debug("Assertion.nationalProviderId = " + nationalProviderId);
+                        break;
+
+                    default:
+                        LOG.warn("Unrecognized Name Attribute: " + attribute.getName());
+                        break;
                 }
             }
         }
@@ -272,11 +265,9 @@ public class OpenSAMLAssertionExtractorImpl implements SAMLExtractorDOM {
 
     /**
      * This method is used to populate the Authentication Statement Information.
-     * 
-     * @param saml2Assertion
-     *            saml2 assertion
-     * @param target
-     *            target assertion
+     *
+     * @param saml2Assertion saml2 assertion
+     * @param target target assertion
      */
     private void populateAuthenticationStatement(final Assertion saml2Assertion, final AssertionType target) {
 
@@ -289,7 +280,7 @@ public class OpenSAMLAssertionExtractorImpl implements SAMLExtractorDOM {
         samlAuthnStatement.setAuthInstant(source.getAuthnInstant().toString());
         samlAuthnStatement.setSessionIndex(source.getSessionIndex());
         samlAuthnStatement.setAuthContextClassRef(source.getAuthnContext().getAuthnContextClassRef()
-                .getAuthnContextClassRef().toString());
+            .getAuthnContextClassRef().toString());
 
         if (source.getSubjectLocality() != null) {
             samlAuthnStatement.setSubjectLocalityDNSName(source.getSubjectLocality().getDNSName());
@@ -302,11 +293,9 @@ public class OpenSAMLAssertionExtractorImpl implements SAMLExtractorDOM {
 
     /**
      * This method is used to populate the Subject Information into the target assertion.
-     * 
-     * @param saml2Assertion
-     *            saml2 assertion
-     * @param target
-     *            target assertion
+     *
+     * @param saml2Assertion saml2 assertion
+     * @param target target assertion
      */
     private void populateSubject(final Assertion saml2Assertion, final AssertionType target) {
         LOG.debug("Executing Saml2AssertionExtractor.populateSubject()...");
@@ -326,11 +315,9 @@ public class OpenSAMLAssertionExtractorImpl implements SAMLExtractorDOM {
 
     /**
      * This method is used to populate the Authorization Decision Statement Information.
-     * 
-     * @param saml2Assertion
-     *            saml2 assertion
-     * @param target
-     *            target assertion
+     *
+     * @param saml2Assertion saml2 assertion
+     * @param target target assertion
      */
     private void populateAuthzDecisionStatement(final Assertion saml2Assertion, final AssertionType target) {
 
@@ -365,7 +352,7 @@ public class OpenSAMLAssertionExtractorImpl implements SAMLExtractorDOM {
     }
 
     private void translateEvidenceAssertions(SamlAuthzDecisionStatementEvidenceType targetEvidence,
-            List<Assertion> saml2EvidenceAssertions) {
+        List<Assertion> saml2EvidenceAssertions) {
 
         if (CollectionUtils.isEmpty(saml2EvidenceAssertions)) {
             LOG.trace("Empty/null assertion list");
@@ -388,13 +375,13 @@ public class OpenSAMLAssertionExtractorImpl implements SAMLExtractorDOM {
 
         for (Attribute saml2EvidenceAttribute : saml2EvidenceAttributes) {
             if (saml2EvidenceAttribute.getName().equals(ACCESS_CONSENT_POLICY_ATTRIBUTE_NAME)
-                    && saml2EvidenceAttribute.getAttributeValues().size() > 0) {
+                && saml2EvidenceAttribute.getAttributeValues().size() > 0) {
                 XMLObject xmlObject = saml2EvidenceAttribute.getAttributeValues().get(0);
                 String accessConsent = xmlObject.getDOM().getTextContent();
 
                 targetEvidenceAssertion.getAccessConsentPolicy().add(accessConsent);
             } else if (saml2EvidenceAttribute.getName().equals(INSTANCE_ACCESS_CONSENT_POLICY_ATTRIBUTE_NAME)
-                    && saml2EvidenceAttribute.getAttributeValues().size() > 0) {
+                && saml2EvidenceAttribute.getAttributeValues().size() > 0) {
                 XMLObject xmlObject = saml2EvidenceAttribute.getAttributeValues().get(0);
                 String instanceAccessConsent = xmlObject.getDOM().getTextContent();
 
@@ -420,11 +407,9 @@ public class OpenSAMLAssertionExtractorImpl implements SAMLExtractorDOM {
 
     /**
      * This method is used to construct HL7 PurposeOfUse Attribute, and adds it to the Assertion.
-     * 
-     * @param attribute
-     *            attribute
-     * @param target
-     *            target assertion
+     *
+     * @param attribute attribute
+     * @param target target assertion
      */
     private void populatePurposeOfUseAttribute(final Attribute attribute, final AssertionType target) {
 
@@ -444,9 +429,8 @@ public class OpenSAMLAssertionExtractorImpl implements SAMLExtractorDOM {
     /**
      * Initializes the assertion object to contain empty strings for all values. These are overwritten in the extraction
      * process with real values if they are available
-     * 
-     * @param assertOut
-     *            The Assertion element being written to
+     *
+     * @param assertOut The Assertion element being written to
      */
     private AssertionType initializeAssertion() {
 
@@ -526,7 +510,7 @@ public class OpenSAMLAssertionExtractorImpl implements SAMLExtractorDOM {
         try {
             formRaw = EMPTY_STRING.getBytes(StringUtil.UTF8_CHARSET);
         } catch (UnsupportedEncodingException ex) {
-            LOG.error("Error converting String to UTF8 format: "+ex.getMessage());
+            LOG.error("Error converting String to UTF8 format: " + ex.getMessage());
         }
         assertOut.setSamlSignature(samlSignature);
         samlSignature.setSignatureValue(formRaw);
@@ -540,11 +524,9 @@ public class OpenSAMLAssertionExtractorImpl implements SAMLExtractorDOM {
 
     /**
      * This method is used to construct HL7 Subject Role Attribute, and adds it to the Assertion.
-     * 
-     * @param attribute
-     *            attribute
-     * @param target
-     *            target assertion
+     *
+     * @param attribute attribute
+     * @param target target assertion
      */
     private void populateSubjectRole(final Attribute attribute, final AssertionType target) {
 
@@ -576,18 +558,18 @@ public class OpenSAMLAssertionExtractorImpl implements SAMLExtractorDOM {
             QName key = entry.getKey();
 
             switch (key.getLocalPart()) {
-            case NhincConstants.CE_CODE:
-                ceType.setCode(String.valueOf(entry.getValue()));
-                break;
-            case NhincConstants.CE_CODESYSTEM:
-                ceType.setCodeSystem(String.valueOf(entry.getValue()));
-                break;
-            case NhincConstants.CE_CODESYSTEM_NAME:
-                ceType.setCodeSystemName(String.valueOf(entry.getValue()));
-                break;
-            case NhincConstants.CE_DISPLAYNAME:
-                ceType.setDisplayName(String.valueOf(entry.getValue()));
-                break;
+                case NhincConstants.CE_CODE:
+                    ceType.setCode(String.valueOf(entry.getValue()));
+                    break;
+                case NhincConstants.CE_CODESYSTEM:
+                    ceType.setCodeSystem(String.valueOf(entry.getValue()));
+                    break;
+                case NhincConstants.CE_CODESYSTEM_NAME:
+                    ceType.setCodeSystemName(String.valueOf(entry.getValue()));
+                    break;
+                case NhincConstants.CE_DISPLAYNAME:
+                    ceType.setDisplayName(String.valueOf(entry.getValue()));
+                    break;
             }
         }
     }
