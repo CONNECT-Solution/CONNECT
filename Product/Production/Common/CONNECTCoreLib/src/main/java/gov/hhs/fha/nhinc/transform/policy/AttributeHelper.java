@@ -32,6 +32,8 @@ import oasis.names.tc.xacml._2_0.context.schema.os.SubjectType;
 import oasis.names.tc.xacml._2_0.context.schema.os.AttributeValueType;
 import oasis.names.tc.xacml._2_0.context.schema.os.ResourceType;
 import gov.hhs.fha.nhinc.util.Base64Coder;
+import gov.hhs.fha.nhinc.util.StringUtil;
+import java.io.UnsupportedEncodingException;
 import java.util.List;
 import javax.xml.datatype.XMLGregorianCalendar;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -77,9 +79,13 @@ public class AttributeHelper {
         } else if (value instanceof List) {
             atttibuteValue.getContent().addAll((List<String>) value);
         } else if (value instanceof byte[]) {
-            String sValue = new String((byte[]) value); // Note that JAXB already decoded this. We need to re-encode it.
-            String sEncodedValue = Base64Coder.encodeString(sValue);
-            atttibuteValue.getContent().add(sEncodedValue);
+            try {
+                String sValue = StringUtil.convertToStringUTF8((byte[]) value); // Note that JAXB already decoded this. We need to re-encode it.
+                String sEncodedValue = Base64Coder.encodeString(sValue);
+                atttibuteValue.getContent().add(sEncodedValue);
+            } catch (UnsupportedEncodingException ex) {
+                LOG.error("Error converting String to UTF8 format: "+ex.getMessage());
+            }
         } else if (value instanceof II) {
             II iiValue = (II) value;
             try {

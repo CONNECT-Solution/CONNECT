@@ -26,7 +26,10 @@
  */
 package gov.hhs.fha.nhinc.gateway.aggregator.model;
 
+import gov.hhs.fha.nhinc.util.StringUtil;
+import java.io.UnsupportedEncodingException;
 import java.util.Date;
+import org.apache.log4j.Logger;
 
 /**
  * This class represents one row of the AGGREGATOR.AGG_MESSAGE_RESULTS SQL table.
@@ -43,7 +46,8 @@ public class AggMessageResult {
     private String responseMessageType;
     private byte[] responseMessageAsByteArray;
     private AggTransaction aggTransaction;
-
+    private static final Logger LOG = Logger.getLogger(AggMessageResult.class);
+    
     /**
      * Default constructor.
      */
@@ -129,7 +133,13 @@ public class AggMessageResult {
      * @return The XML message that was received as a response to thie message that went out.
      */
     public String getResponseMessage() {
-        return new String(responseMessageAsByteArray);
+        String responseMessage = "";
+        try {
+            responseMessage = StringUtil.convertToStringUTF8(responseMessageAsByteArray);
+        } catch (UnsupportedEncodingException ex) {
+          LOG.error("Error converting String to UTF8 format: "+ex.getMessage());
+        }
+        return responseMessage;
     }
 
     /**
@@ -139,7 +149,11 @@ public class AggMessageResult {
      * @param responseMessage The XML message that was received as a response to thie message that went out.
      */
     public void setResponseMessage(String responseMessage) {
-        this.responseMessageAsByteArray = responseMessage.getBytes();
+        try {
+            this.responseMessageAsByteArray = responseMessage.getBytes(StringUtil.UTF8_CHARSET);
+        } catch (UnsupportedEncodingException ex) {
+          LOG.error("Error converting String to UTF8 format: "+ex.getMessage());
+        }
     }
 
     /**

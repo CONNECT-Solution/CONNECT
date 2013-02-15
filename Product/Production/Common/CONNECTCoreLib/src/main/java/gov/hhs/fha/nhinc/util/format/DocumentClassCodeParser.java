@@ -70,14 +70,15 @@ public class DocumentClassCodeParser {
                         String singleValue = multiValueString[i];
                         if (singleValue != null) {
                             singleValue = singleValue.trim();
-                        }
-                        if (singleValue.startsWith("'")) {
-                            singleValue = singleValue.substring(1);
-                        }
-                        if (singleValue.endsWith("'")) {
-                            int endTickIndex = singleValue.indexOf("'");
-                            if (endTickIndex != -1) {
-                                singleValue = singleValue.substring(0, endTickIndex);
+                            
+                            if (singleValue.startsWith("'")) {
+                                singleValue = singleValue.substring(1);
+                            }
+                            if (singleValue.endsWith("'")) {
+                                int endTickIndex = singleValue.indexOf("'");
+                                if (endTickIndex != -1) {
+                                    singleValue = singleValue.substring(0, endTickIndex);
+                                }
                             }
                         }
                         resultCollection.add(singleValue);

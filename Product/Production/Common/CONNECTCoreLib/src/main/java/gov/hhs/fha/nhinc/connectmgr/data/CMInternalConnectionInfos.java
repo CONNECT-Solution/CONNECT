@@ -26,6 +26,7 @@
  */
 package gov.hhs.fha.nhinc.connectmgr.data;
 
+import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import java.util.List;
 import java.util.ArrayList;
 
@@ -48,14 +49,28 @@ public class CMInternalConnectionInfos {
     public void clear() {
         internalConnectionInfoList = new ArrayList<CMInternalConnectionInfo>();
     }
+    
+    @Override
+    public int hashCode() {
+        int hashCode = 0;
+        if (internalConnectionInfoList != null) {
+            hashCode = internalConnectionInfoList.hashCode();
+        }
+        return hashCode;
+    }
 
     /**
      * Returns true of the contents of the object are the same as the one passed in.
      * 
-     * @param oCompare The object to compare.
+     * @param object The object to compare.
      * @return TRUE if the contents are the same as the one passed in.
      */
-    public boolean equals(CMInternalConnectionInfos oCompare) {
+    public boolean equals(Object object) {
+        
+        if (!(object instanceof CMInternalConnectionInfos))
+            return false;
+        CMInternalConnectionInfos oCompare = (CMInternalConnectionInfos) object;
+
         if (oCompare.internalConnectionInfoList.size() != this.internalConnectionInfoList.size()) {
             return false;
         }

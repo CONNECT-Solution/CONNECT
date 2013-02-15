@@ -53,6 +53,7 @@ import gov.hhs.fha.nhinc.docrepository.adapter.model.DocumentQueryParams;
 import gov.hhs.fha.nhinc.docrepository.adapter.service.DocumentService;
 
 import gov.hhs.fha.nhinc.policyengine.adapter.pip.XACMLSerializer;
+import gov.hhs.fha.nhinc.util.StringUtil;
 import java.io.ByteArrayInputStream;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Unmarshaller;
@@ -121,7 +122,7 @@ public class AdapterPDPProxyJavaImpl implements AdapterPDPProxy {
                     if (docsSize == 1) {
                         for (Document doc : docs) {
                             byte[] rawData = doc.getRawData();
-                            policyStrRawData = new String(rawData);
+                            policyStrRawData = StringUtil.convertToStringUTF8(rawData);
                             LOG.debug("processPDPRequest - Policy rawData:" + policyStrRawData);
                         }
                     } else if (docsSize < 1) {

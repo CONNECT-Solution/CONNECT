@@ -26,6 +26,8 @@
  */
 package gov.hhs.fha.nhinc.connectmgr.data;
 
+import gov.hhs.fha.nhinc.nhinclib.NullChecker;
+
 
 /**
  * @author Les Westberg
@@ -52,15 +54,32 @@ public class CMInternalConnInfoService {
         endpointURL = "";
         externalService = false;
     }
+    
+    @Override
+    public int hashCode() {
+        int hashCode = 0;
+        if (name != null) {
+            hashCode = name.hashCode();
+        } else if (NullChecker.isNotNullish(endpointURL)) {
+            hashCode = endpointURL.hashCode();
+            if (NullChecker.isNotNullish(description)) {
+                hashCode += description.hashCode();
+            }
+        }
+        return hashCode;
+    }
 
     /**
      * Returns true of the contents of the object are the same as the one passed in.
      * 
-     * @param oCompare The object to compare.
+     * @param object The object to compare.
      * @return TRUE if the contents are the same as the one passed in.
      */
-    public boolean equals(CMInternalConnInfoService oCompare) {
+    public boolean equals(Object object) {
         boolean headerMatch = false;
+        if (!(object instanceof CMInternalConnInfoService))
+            return false;
+        CMInternalConnInfoService oCompare = (CMInternalConnInfoService) object;   
 
         if ((this.name.equalsIgnoreCase(oCompare.name)) && (this.description.equalsIgnoreCase(oCompare.description))
                 && (this.endpointURL.equalsIgnoreCase(oCompare.endpointURL))

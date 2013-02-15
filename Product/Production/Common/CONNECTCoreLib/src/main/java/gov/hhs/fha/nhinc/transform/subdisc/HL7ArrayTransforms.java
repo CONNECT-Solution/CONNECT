@@ -233,6 +233,7 @@ public class HL7ArrayTransforms {
         MCCIMT000100UV01AttentionLine result = null;
 
         if (line != null) {
+            result = new MCCIMT000100UV01AttentionLine();
             result.setKeyWordText(line.getKeyWordText());
             result.setTypeId(line.getTypeId());
             result.setValue(line.getValue());

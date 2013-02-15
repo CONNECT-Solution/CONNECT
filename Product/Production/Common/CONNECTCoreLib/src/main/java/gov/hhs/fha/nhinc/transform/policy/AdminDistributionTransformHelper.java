@@ -26,23 +26,22 @@
  */
 package gov.hhs.fha.nhinc.transform.policy;
 
-import oasis.names.tc.emergency.edxl.de._1.EDXLDistribution;
-import oasis.names.tc.xacml._2_0.context.schema.os.RequestType;
-import oasis.names.tc.xacml._2_0.context.schema.os.ResourceType;
-import oasis.names.tc.xacml._2_0.context.schema.os.SubjectType;
-
-import org.apache.log4j.Logger;
-
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewaySendAlertMessageType;
+import oasis.names.tc.emergency.edxl.de._1.EDXLDistribution;
+import oasis.names.tc.xacml._2_0.context.schema.os.RequestType;
+import oasis.names.tc.xacml._2_0.context.schema.os.ResourceType;
+import oasis.names.tc.xacml._2_0.context.schema.os.SubjectType;
+import org.apache.log4j.Logger;
 
 /**
  *
  * @author dunnek
  */
 public class AdminDistributionTransformHelper {
+
     private static final String ActionInValue = "AdminDistIn";
     private static final String ActionOutValue = "AdminDistOut";
     private static final Logger LOG = Logger.getLogger(AdminDistributionTransformHelper.class);
@@ -73,7 +72,7 @@ public class AdminDistributionTransformHelper {
     }
 
     public CheckPolicyRequestType transformEntityAlertToCheckPolicy(RespondingGatewaySendAlertMessageType message,
-            String target) {
+        String target) {
 
         CheckPolicyRequestType result = new CheckPolicyRequestType();
         if (message == null) {
@@ -84,7 +83,6 @@ public class AdminDistributionTransformHelper {
             LOG.error("target is missing");
             return result;
         }
-
         if (message.getEDXLDistribution() == null) {
             LOG.error("missing body");
             return result;
@@ -98,14 +96,10 @@ public class AdminDistributionTransformHelper {
             return result;
         }
 
-        EDXLDistribution body = message.getEDXLDistribution();
-        // RequestType request = getRequestType(patDiscReq, event.getAssertion());
         RequestType request = new RequestType();
         AttributeHelper attrHelper = new AttributeHelper();
 
         LOG.debug("transformEntityAlertToCheckPolicy - adding subject");
-        SubjectHelper subjHelp = new SubjectHelper();
-        // SubjectType subject = subjHelp.subjectFactory(event.getAssertion().getHomeCommunity(), event.getAssertion());
         SubjectType subject = new SubjectType();
         subject.setSubjectCategory(SubjectHelper.SubjectCategory);
         LOG.debug("transformEntityAlertToCheckPolicy - adding subject");
@@ -113,8 +107,8 @@ public class AdminDistributionTransformHelper {
 
         ResourceType resource = new ResourceType();
         resource.getAttribute().add(
-                attrHelper.attributeFactory(Constants.HomeCommunityAttributeId, Constants.DataTypeString, message
-                        .getAssertion().getHomeCommunity().getHomeCommunityId()));
+            attrHelper.attributeFactory(Constants.HomeCommunityAttributeId, Constants.DataTypeString, message
+            .getAssertion().getHomeCommunity().getHomeCommunityId()));
 
         request.getResource().add(resource);
 
@@ -131,11 +125,8 @@ public class AdminDistributionTransformHelper {
 
     protected SubjectType createSubject(HomeCommunityType hc, AssertionType assertion) {
         SubjectHelper subjHelp = new SubjectHelper();
-        // SubjectType subject = subjHelp.subjectFactory(event.getAssertion().getHomeCommunity(), event.getAssertion());
         SubjectType subject = subjHelp.subjectFactory(hc, assertion);
-
         subject.setSubjectCategory(SubjectHelper.SubjectCategory);
-
         return subject;
     }
 }
