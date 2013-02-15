@@ -30,6 +30,10 @@
             <groupId>commons-lang</groupId>
             <artifactId>commons-lang</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.connectopensource</groupId>
+            <artifactId>DocumentQueryWebservices</artifactId>
+        </dependency>
     </dependencies>
     <build>
     </build>

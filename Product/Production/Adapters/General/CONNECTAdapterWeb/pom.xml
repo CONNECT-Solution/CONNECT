@@ -30,6 +30,11 @@
             <artifactId>DocRepositoryCore</artifactId>
             <version>${project.parent.version}</version>
         </dependency>
+
+        <dependency>
+            <groupId>org.connectopensource</groupId>
+            <artifactId>ComponentWebservices</artifactId>
+        </dependency>
     </dependencies>
     <build>
         <finalName>CONNECTAdapterWeb</finalName>

@@ -11,6 +11,10 @@
     <name>CONNECT Redaction Engine Core</name>
     
     <dependencies>
+    <dependency>
+        <groupId>org.connectopensource</groupId>
+        <artifactId>RedactionEngineWebservices</artifactId>
+    </dependency>
     </dependencies>
     <build>
     </build>

@@ -16,6 +16,10 @@
             <artifactId>clientsdk</artifactId>
             <scope>provided</scope>
         </dependency>
+        <dependency>
+            <groupId>org.connectopensource</groupId>
+            <artifactId>AdapterAuthenticationWebservices</artifactId>
+        </dependency>
     </dependencies>
     <build>
     </build>
