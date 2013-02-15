@@ -61,8 +61,10 @@ public class SubscribeTransforms {
     public LogEventRequestType transformNhinSubscribeRequestToAuditMessage(LogNhinSubscribeRequestType message) {
         LogEventRequestType response = new LogEventRequestType();
         AuditMessageType auditMsg = new AuditMessageType();
-        response.setDirection(message.getDirection());
-        response.setInterface(message.getInterface());
+        if (message != null){
+           response.setDirection(message.getDirection());
+           response.setInterface(message.getInterface());
+        }
 
         LOG.info("******************************************************************");
         LOG.info("Entering transformNhinSubscribeRequestToAuditMessage() method.");
@@ -132,7 +134,9 @@ public class SubscribeTransforms {
             Marshaller marshaller = jc.createMarshaller();
             ByteArrayOutputStream baOutStrm = new ByteArrayOutputStream();
             baOutStrm.reset();
-            marshaller.marshal(message.getMessage().getSubscribe(), baOutStrm);
+            if (message != null){
+                marshaller.marshal(message.getMessage().getSubscribe(), baOutStrm);
+            }
             LOG.debug("Done marshalling the message.");
 
             participantObject.setParticipantObjectQuery(baOutStrm.toByteArray());
@@ -156,8 +160,10 @@ public class SubscribeTransforms {
     public LogEventRequestType transformSubscribeResponseToAuditMessage(LogSubscribeResponseType message) {
         LogEventRequestType response = new LogEventRequestType();
         AuditMessageType auditMsg = new AuditMessageType();
-        response.setDirection(message.getDirection());
-        response.setInterface(message.getInterface());
+        if (message != null){
+           response.setDirection(message.getDirection());
+           response.setInterface(message.getInterface());
+        }
 
         LOG.info("******************************************************************");
         LOG.info("Entering transformSubscribeResponseToAuditMessage() method.");
@@ -214,7 +220,9 @@ public class SubscribeTransforms {
             Marshaller marshaller = jc.createMarshaller();
             ByteArrayOutputStream baOutStrm = new ByteArrayOutputStream();
             baOutStrm.reset();
-            marshaller.marshal(message.getMessage().getSubscribeResponse(), baOutStrm);
+            if (message != null){
+                marshaller.marshal(message.getMessage().getSubscribeResponse(), baOutStrm);
+            }
             LOG.debug("Done marshalling the message.");
 
             participantObject.setParticipantObjectQuery(baOutStrm.toByteArray());

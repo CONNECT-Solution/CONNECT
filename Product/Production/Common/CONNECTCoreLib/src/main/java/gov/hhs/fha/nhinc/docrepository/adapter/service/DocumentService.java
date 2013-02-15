@@ -33,7 +33,9 @@ import gov.hhs.fha.nhinc.docrepository.adapter.dao.EventCodeDao;
 import gov.hhs.fha.nhinc.docrepository.adapter.model.DocumentQueryParams;
 import gov.hhs.fha.nhinc.docrepository.adapter.model.EventCode;
 import gov.hhs.fha.nhinc.docrepository.adapter.model.EventCodeParam;
+import gov.hhs.fha.nhinc.util.StringUtil;
 import gov.hhs.fha.nhinc.util.hash.SHA1HashCode;
+import java.io.UnsupportedEncodingException;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -92,16 +94,19 @@ public class DocumentService {
             // Calculate the hash code.
             // -------------------------
             if (document.getRawData() != null) {
+                String documentStr = "";
                 try {
                     String sHash = "";
-                    sHash = SHA1HashCode.calculateSHA1(new String(document.getRawData()));
+                    documentStr =  StringUtil.convertToStringUTF8(document.getRawData());
+                    sHash = SHA1HashCode.calculateSHA1(documentStr);
                     if (LOG.isDebugEnabled()) {
-                        LOG.debug("Created Hash Code: " + sHash + " for string: " + new String(document.getRawData()));
+                        LOG.debug("Created Hash Code: " + sHash + " for string: " + documentStr);
                     }
                     document.setHash(sHash);
-                } catch (Throwable t) {
+                } 
+                catch (Throwable t) {
                     String sError = "Failed to create SHA-1 Hash code.  Error: " + t.getMessage() + "Data Text: "
-                            + new String(document.getRawData());
+                            + documentStr;
                     LOG.error(sError, t);
                 }
             } else {

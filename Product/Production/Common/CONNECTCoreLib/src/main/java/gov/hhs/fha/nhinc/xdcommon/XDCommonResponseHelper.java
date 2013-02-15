@@ -27,6 +27,7 @@
 package gov.hhs.fha.nhinc.xdcommon;
 
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import java.util.Arrays;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryError;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryErrorList;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;

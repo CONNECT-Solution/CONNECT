@@ -243,14 +243,15 @@ public class HL7PatientTransforms {
 
     public static JAXBElement<PRPAMT201310UV02Person> create201310PatientPerson(
             JAXBElement<PRPAMT201301UV02Person> person201301) {
-        // public static JAXBElement<PRPAMT201310UVPerson> create201310PatientPerson(String patFirstName, String
-        // patLastName, String gender, String birthTime, String ssn) {
-        PRPAMT201301UV02Person origPerson = person201301.getValue();
-        PRPAMT201310UV02Person newPerson = new PRPAMT201310UV02Person();
 
-        TSExplicit birthTime = person201301.getValue().getBirthTime();
-        CE gender = person201301.getValue().getAdministrativeGenderCode();
-        PNExplicit patName = person201301.getValue().getName().get(0);
+        TSExplicit birthTime = null;
+        CE gender = null;
+        PNExplicit patName = null;
+        if (person201301 != null){
+            birthTime = person201301.getValue().getBirthTime();
+            gender = person201301.getValue().getAdministrativeGenderCode();
+            patName = person201301.getValue().getName().get(0);
+        }
         String ssn = null;
         if (person201301 != null
                 && person201301.getValue() != null
@@ -262,7 +263,6 @@ public class HL7PatientTransforms {
                         .getExtension())) {
             ssn = person201301.getValue().getAsOtherIDs().get(0).getId().get(0).getExtension();
         }
-        PRPAMT201310UV02OtherIDs newIds = new PRPAMT201310UV02OtherIDs();
 
         return create201310PatientPerson(patName, gender, birthTime, createPRPAMT201310UVOtherIDs(ssn));
 

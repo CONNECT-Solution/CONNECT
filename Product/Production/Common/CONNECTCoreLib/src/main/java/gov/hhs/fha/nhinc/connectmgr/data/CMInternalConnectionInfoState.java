@@ -49,16 +49,27 @@ public class CMInternalConnectionInfoState {
     public void clear() {
         name = "";
     }
+    @Override
+    public int hashCode() {
+        int hashCode = 0;
+        if (name != null) {
+            hashCode = name.hashCode();
+        }
+        return hashCode;
+    }
 
     /**
      * Returns true of the contents of the object are the same as the one passed in.
      * 
-     * @param oCompare The object to compare.
+     * @param object The object to compare.
      * @return TRUE if the contents are the same as the one passed in.
      */
-    public boolean equals(CMInternalConnectionInfoState oCompare) {
+    public boolean equals(Object object) {
         boolean result = false;
-
+        if (!(object instanceof CMInternalConnectionInfoState))
+            return false;
+        
+        CMInternalConnectionInfoState oCompare = (CMInternalConnectionInfoState) object;
         if (NullChecker.isNullish(oCompare.name) && NullChecker.isNullish(this.name)) {
             result = true;
         } else if (NullChecker.isNullish(oCompare.name) || NullChecker.isNullish(this.name)) {

@@ -315,7 +315,7 @@ public class HL7PRPA201301Transforms {
 
     private static PRPAIN201301UV02MFMIMT700701UV01ControlActProcess copyInformationReceipent(
             PRPAIN201306UV02MFMIMT700711UV01ControlActProcess from, PRPAIN201301UV02MFMIMT700701UV01ControlActProcess to) {
-        if (from != null & from.getInformationRecipient().size() > 0) {
+        if ((from != null) && (from.getInformationRecipient().size() > 0)) {
             to.getInformationRecipient().clear();
             for (MFMIMT700711UV01InformationRecipient item : from.getInformationRecipient()) {
                 to.getInformationRecipient().add(copyInformationRecepient(item));

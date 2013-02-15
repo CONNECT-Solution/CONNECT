@@ -81,16 +81,15 @@ public class ConnectionManagerCache implements ConnectionManager {
     // -------------------------------------------------------
     private static String INTERNAL_CONNECTION_API_LEVEL_KEY = "CONNECT:adapter:apilevel";
    
-    private static ConnectionManagerCache connectionManager = null;
-
     protected ConnectionManagerCache() {
     }
 
+    private static class SingletonHolder { 
+        public static final ConnectionManagerCache INSTANCE = new ConnectionManagerCache();
+    }
+
     public static ConnectionManagerCache getInstance() {
-        if (connectionManager == null) {
-            connectionManager = new ConnectionManagerCache();
-        }
-        return connectionManager;
+        return SingletonHolder.INSTANCE;
     }
 
     protected UddiConnectionInfoDAOFileImpl getUddiConnectionManagerDAO() {

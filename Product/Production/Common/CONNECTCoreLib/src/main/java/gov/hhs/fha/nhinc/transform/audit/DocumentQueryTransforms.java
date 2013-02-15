@@ -87,9 +87,10 @@ public class DocumentQueryTransforms {
             String responseCommunityID) {
         AuditMessageType auditMsg = new AuditMessageType();
         LogEventRequestType response = new LogEventRequestType();
-        response.setDirection(message.getDirection());
-        response.setInterface(message.getInterface());
-
+        if (message != null){
+            response.setDirection(message.getDirection());
+            response.setInterface(message.getInterface());
+        }
         LOG.trace("******************************************************************");
         LOG.trace("Entering transformDocQueryReq2AuditMsg() method.");
         LOG.trace("******************************************************************");
@@ -170,7 +171,9 @@ public class DocumentQueryTransforms {
             Marshaller marshaller = jc.createMarshaller();
             ByteArrayOutputStream baOutStrm = new ByteArrayOutputStream();
             baOutStrm.reset();
-            marshaller.marshal(message.getMessage().getAdhocQueryRequest(), baOutStrm);
+            if (message != null){
+                marshaller.marshal(message.getMessage().getAdhocQueryRequest(), baOutStrm);
+            }
             LOG.debug("Done marshalling the message.");
 
             partObjId.setParticipantObjectQuery(baOutStrm.toByteArray());
@@ -207,9 +210,10 @@ public class DocumentQueryTransforms {
             String requestCommunityID) {
         AuditMessageType auditMsg = new AuditMessageType();
         LogEventRequestType response = new LogEventRequestType();
-        response.setDirection(message.getDirection());
-        response.setInterface(message.getInterface());
-
+        if (message != null){
+           response.setDirection(message.getDirection());
+           response.setInterface(message.getInterface());
+        }
         LOG.trace("******************************************************************");
         LOG.trace("Entering transformDocQueryResp2AuditMsg() method.");
         LOG.trace("******************************************************************");

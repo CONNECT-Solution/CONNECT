@@ -175,7 +175,7 @@ public class AggMessageResultDao {
         if (LOG.isDebugEnabled()) {
             LOG.debug("Completed AggMessageResultDao.findByMessageKey(" + sTransactionId + ", " + sMessageKey + ").  "
                     + "Result was: "
-                    + (((olAggMessageResult == null) && (olAggMessageResult.size() > 0)) ? "not " : "") + "found");
+                    + (((olAggMessageResult != null) && (olAggMessageResult.size() > 0)) ? "" : "not ") + "found");
         }
 
         // Note we should get either 0 or 1 record. There should never be a case when

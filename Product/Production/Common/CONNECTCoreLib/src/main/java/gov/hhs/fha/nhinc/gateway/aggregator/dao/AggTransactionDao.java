@@ -161,7 +161,7 @@ public class AggTransactionDao {
 
             if (LOG.isDebugEnabled()) {
                 LOG.debug("Completed AggTransactionDao.findOlderThan(" + sDateTime + ").  " + "Result was: "
-                        + (((olAggTransaction == null) && (olAggTransaction.size() > 0)) ? "not " : "") + "found");
+                        + (((olAggTransaction != null) && (olAggTransaction.size() > 0)) ? "" : "not ") + "found");
             }
         } finally {
             if (oSession != null) {

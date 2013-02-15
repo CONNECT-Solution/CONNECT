@@ -212,10 +212,13 @@ public class HL7PRPA201306Transforms {
                     + " from property file: " + NhincConstants.GATEWAY_PROPERTY_FILE);
             String sHomeCommunityId = PropertyAccessor.getInstance().getProperty(NhincConstants.GATEWAY_PROPERTY_FILE,
                     NhincConstants.HOME_COMMUNITY_ID_PROPERTY);
-            LOG.info("Retrieve local home community id: " + sHomeCommunityId);
-            // If the property is set, then use this instead of from sending request
-            if (!sHomeCommunityId.isEmpty() && sHomeCommunityId != null)
-                senderOID = sHomeCommunityId;
+            if (sHomeCommunityId != null){
+                LOG.info("Retrieve local home community id: " + sHomeCommunityId);
+                // If the property is set, then use this instead of from sending request
+                if (!sHomeCommunityId.isEmpty()){
+                   senderOID = sHomeCommunityId;
+                }
+            }
         } catch (PropertyAccessException ex) {
             LOG.error("Error: Failed to retrieve " + NhincConstants.HOME_COMMUNITY_ID_PROPERTY
                     + " from property file: " + NhincConstants.GATEWAY_PROPERTY_FILE);

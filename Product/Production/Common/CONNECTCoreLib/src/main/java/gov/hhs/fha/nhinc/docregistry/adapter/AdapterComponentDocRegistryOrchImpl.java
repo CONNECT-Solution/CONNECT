@@ -182,7 +182,7 @@ public class AdapterComponentDocRegistryOrchImpl {
         boolean queryForOnDemandDocs = false;
         boolean registryIdPresent = false;
         DocumentQueryParams params = new DocumentQueryParams();
-        if (getRegistryQueryId().contains(request.getAdhocQuery().getId())) {
+        if ((request != null) && (getRegistryQueryId().contains(request.getAdhocQuery().getId()))) {
             registryIdPresent = true;
         }
         boolean patientIdSlotPresent = false;
@@ -1101,12 +1101,12 @@ public class AdapterComponentDocRegistryOrchImpl {
                         String singleValue = multiValueString[i];
                         if (singleValue != null) {
                             singleValue = singleValue.trim();
-                        }
-                        if (singleValue.startsWith("'")) {
-                            singleValue = singleValue.substring(1);
-                            int endTickIndex = singleValue.indexOf("'");
-                            if (endTickIndex != -1) {
-                                singleValue = singleValue.substring(0, endTickIndex);
+                            if (singleValue.startsWith("'")) {
+                                singleValue = singleValue.substring(1);
+                                int endTickIndex = singleValue.indexOf("'");
+                                if (endTickIndex != -1) {
+                                    singleValue = singleValue.substring(0, endTickIndex);
+                                }
                             }
                         }
                         resultCollection.add(singleValue);

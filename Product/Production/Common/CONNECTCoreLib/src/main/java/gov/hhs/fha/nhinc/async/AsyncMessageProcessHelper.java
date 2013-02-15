@@ -53,6 +53,9 @@ import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.transform.marshallers.JAXBContextHandler;
 import gov.hhs.fha.nhinc.transform.subdisc.HL7AckTransforms;
+import gov.hhs.fha.nhinc.util.StringUtil;
+import java.io.IOException;
+import javax.xml.bind.JAXBException;
 
 /**
  * This class provides methods to manage the async message record during its lifecycle.
@@ -331,11 +334,10 @@ public class AsyncMessageProcessHelper {
             baOutStrm.close();
             marshaller.marshal(oJaxbElement, baOutStrm);
             byte[] buffer = baOutStrm.toByteArray();
-            returnValue = new String(buffer);
-        } catch (Exception e) {
+            returnValue = StringUtil.convertToStringUTF8(buffer);
+        } catch (JAXBException | IOException e) {
             LOG.error("Exception during marshalAssertionTypeObject conversion :" + e, e);
         }
-
         return returnValue;
     }
 

@@ -26,7 +26,9 @@
  */
 package gov.hhs.fha.nhinc.xmlCommon;
 
+import gov.hhs.fha.nhinc.util.StringUtil;
 import java.io.ByteArrayInputStream;
+import java.io.UnsupportedEncodingException;
 
 import javax.xml.namespace.NamespaceContext;
 import javax.xml.xpath.XPathConstants;
@@ -49,7 +51,12 @@ public class XpathHelper {
         javax.xml.xpath.XPathFactory factory = javax.xml.xpath.XPathFactory.newInstance();
         javax.xml.xpath.XPath xpath = factory.newXPath();
 
-        InputSource inputSource = new InputSource(new ByteArrayInputStream(sourceXml.getBytes()));
+        InputSource inputSource = null;
+        try {
+            inputSource = new InputSource(new ByteArrayInputStream(sourceXml.getBytes(StringUtil.UTF8_CHARSET)));
+        } catch (UnsupportedEncodingException ex) {
+            LOG.error("Error converting String to UTF8 format: "+ex.getMessage());
+        }
 
         LOG.debug("perform xpath query (query='" + xpathQuery + "'");
         Node result = null;
