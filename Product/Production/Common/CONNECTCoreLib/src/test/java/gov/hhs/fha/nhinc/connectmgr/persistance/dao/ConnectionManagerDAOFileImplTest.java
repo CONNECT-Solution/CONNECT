@@ -33,11 +33,13 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 
+import org.custommonkey.xmlunit.XMLAssert;
+import org.custommonkey.xmlunit.XMLUnit;
 import org.junit.After;
+import org.junit.AfterClass;
 import org.junit.Before;
-import org.junit.Ignore;
+import org.junit.BeforeClass;
 import org.junit.Test;
-import static org.junit.Assert.*;
 
 public class ConnectionManagerDAOFileImplTest {
 
@@ -46,6 +48,7 @@ public class ConnectionManagerDAOFileImplTest {
             + "<businessEntity businessKey=\"key\">" + "<name xml:lang=\"EN\">BusinessEntity 1</name>"
             + "</businessEntity>" + "<businessEntity businessKey=\"key\">"
             + "<name xml:lang=\"EN\">BusinessEntity 2</name>" + "</businessEntity>" + "</businessDetail>";
+    private static boolean ignoreWhitespaceSavedValue;
     private File tempFile = null;
 
     private String readFile(String file) {
@@ -92,15 +95,25 @@ public class ConnectionManagerDAOFileImplTest {
         }
     }
 
+    @BeforeClass
+    public static void saveXMLUnitWhitespaceSetting() {
+        ignoreWhitespaceSavedValue = XMLUnit.getIgnoreWhitespace();
+        XMLUnit.setIgnoreWhitespace(true);
+    }
+
+    @AfterClass
+    public static void restoreXMLUnitWhitespaceSetting() {
+        XMLUnit.setIgnoreWhitespace(ignoreWhitespaceSavedValue);
+    }
+
     @Test
-    @Ignore
     public void readWriteTest() throws IOException, Exception {
         writeFileWithDelay(tempFile.getPath(), 0);
         InternalConnectionInfoDAOFileImpl dao = InternalConnectionInfoDAOFileImpl.getInstance();
         dao.setFileName(tempFile.getPath());
         dao.saveBusinessDetail(dao.loadBusinessDetail());
         String fileContent = readFile(tempFile.getPath());
-        assertEquals(TEST_CONTENT, fileContent);
+        XMLAssert.assertXMLEqual(TEST_CONTENT, fileContent);
     }
 
     @Test(expected = Exception.class)
