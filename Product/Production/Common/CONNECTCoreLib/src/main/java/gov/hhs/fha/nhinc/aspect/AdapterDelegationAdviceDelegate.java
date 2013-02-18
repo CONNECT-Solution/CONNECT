@@ -38,7 +38,7 @@ import gov.hhs.fha.nhinc.event.EventFactory;
  *
  */
 public class AdapterDelegationAdviceDelegate extends BaseEventAdviceDelegate {
-
+    foo; // breaking build to test jenkins
     private EventFactory eventFactory;
     
     @Override
