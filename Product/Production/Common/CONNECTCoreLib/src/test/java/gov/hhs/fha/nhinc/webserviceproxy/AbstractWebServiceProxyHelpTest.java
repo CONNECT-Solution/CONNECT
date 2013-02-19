@@ -33,10 +33,8 @@ import org.jmock.Expectations;
 import org.jmock.Mockery;
 import org.jmock.api.Action;
 import org.jmock.integration.junit4.JUnit4Mockery;
-import org.junit.Ignore;
 import org.jmock.lib.legacy.ClassImposteriser;
 
-@Ignore
 public abstract class AbstractWebServiceProxyHelpTest {
 
     protected Mockery context = new JUnit4Mockery() {
