@@ -38,8 +38,6 @@
     <os arch="amd64"/>
   </condition>
 
-  <property name="deployment.environment.configuration.dir.name" value="Dev"/>
-
   <property name="deployment.glassfish.admin.port" value="4848"/>
   <property name="deployment.glassfish.instance.port" value="8080"/>
 
