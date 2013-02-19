@@ -68,7 +68,6 @@ import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
@@ -138,8 +137,6 @@ public class AssertionHelperTest {
     /**
      * Test of appendAssertionDataToRequest method, of class AssertionHelper.
      */
-    @Ignore
-    // move this to INtegration test folder
     @Test
     public void testAppendAssertionDataToRequest() {
         RequestType policyRequest = new RequestType();
@@ -772,8 +769,6 @@ public class AssertionHelperTest {
                 "http://www.hhs.gov/healthit/nhin#HomeCommunityId", sourceValue, ANY_URI_DATATYPE);
     }
 
-    @Ignore
-    // MOve to integration test suite commented out by Sri
     @Test
     public void AssertionUniquePatientIdFromAssertionToXacml() {
         AssertionType assertion = createTestAssertion();

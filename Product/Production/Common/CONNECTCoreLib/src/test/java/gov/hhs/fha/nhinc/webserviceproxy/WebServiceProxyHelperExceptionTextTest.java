@@ -27,12 +27,10 @@
 package gov.hhs.fha.nhinc.webserviceproxy;
 
 import static org.junit.Assert.assertEquals;
-import gov.hhs.fha.nhinc.properties.IPropertyAcessor;
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 
 import org.jmock.Expectations;
 import org.jmock.integration.junit4.JMock;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -66,7 +64,6 @@ public class WebServiceProxyHelperExceptionTextTest extends AbstractWebServicePr
      * 
      * @throws PropertyAccessException
      */
-    @Ignore
     @Test
     public void testGetExceptionTextPropertyException() throws PropertyAccessException {
 

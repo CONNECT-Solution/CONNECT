@@ -27,29 +27,25 @@
 package gov.hhs.fha.nhinc.callback;
 
 import static org.junit.Assert.assertTrue;
-
-import java.util.Map;
-
-import gov.hhs.fha.nhinc.connectmgr.NhinEndpointManager;
 import gov.hhs.fha.nhinc.callback.openSAML.CallbackMapProperties;
 import gov.hhs.fha.nhinc.callback.openSAML.CallbackProperties;
-import gov.hhs.fha.nhinc.callback.PurposeOfForDecider;
 import gov.hhs.fha.nhinc.callback.purposeuse.PurposeUseProxy;
+import gov.hhs.fha.nhinc.connectmgr.NhinEndpointManager;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants.GATEWAY_API_LEVEL;
+
+import java.util.Map;
 
 import org.jmock.Expectations;
 import org.jmock.Mockery;
 import org.jmock.integration.junit4.JUnit4Mockery;
 import org.jmock.lib.legacy.ClassImposteriser;
-import org.junit.Ignore;
 import org.junit.Test;
 
 /**
  * @author mweaver
  * 
  */
-@Ignore
 public abstract class AbstractPurposeOfForDeciderMockBaseTest {
 
     protected Mockery context = new JUnit4Mockery() {
@@ -83,7 +79,7 @@ public abstract class AbstractPurposeOfForDeciderMockBaseTest {
     }
 
     /*-----------------Test Methods---------------*/
-    
+
     /**
      * Mock decider returns false, meaning we'll send PurposeOf
      */
@@ -91,12 +87,12 @@ public abstract class AbstractPurposeOfForDeciderMockBaseTest {
     public void testIsPurposeOfg0() {
         expectNoMockEndpointLookups();
         expectMockPurposeUseProxyReturnPurposeFor(false);
-        
+
         CallbackProperties properties = new CallbackMapProperties(createTokenValuesg0());
         assertTrue(!mockPurposeOfForDecider.isPurposeFor(properties));
         context.assertIsSatisfied();
     }
-    
+
     /**
      * Mock decider returns true, meaning we'll send PurposeFor
      */
@@ -104,12 +100,12 @@ public abstract class AbstractPurposeOfForDeciderMockBaseTest {
     public void testIsPurposeForg0() {
         expectNoMockEndpointLookups();
         expectMockPurposeUseProxyReturnPurposeFor(true);
-        
+
         CallbackProperties properties = new CallbackMapProperties(createTokenValuesg0());
         assertTrue(mockPurposeOfForDecider.isPurposeFor(properties));
         context.assertIsSatisfied();
     }
- 
+
     /**
      * g1 (2011 specs), meaning we'll always send PurposeOf
      */
@@ -117,37 +113,37 @@ public abstract class AbstractPurposeOfForDeciderMockBaseTest {
     public void testIsPurposeOfg1() {
         expectNoMockEndpointLookups();
         expectNoMockPurposeUseProxy();
-        
+
         CallbackProperties properties = new CallbackMapProperties(createTokenValuesg1());
         assertTrue(!mockPurposeOfForDecider.isPurposeFor(properties));
         context.assertIsSatisfied();
     }
-    
+
     @Test
     public void testIsPurposeOfg0APILookup() {
         expectMockEndpointLookup(GATEWAY_API_LEVEL.LEVEL_g0);
         expectMockPurposeUseProxyReturnPurposeFor(false);
-        
+
         CallbackProperties properties = new CallbackMapProperties(createTokenValues());
         assertTrue(!mockPurposeOfForDecider.isPurposeFor(properties));
         context.assertIsSatisfied();
     }
-    
+
     @Test
     public void testIsPurposeForg0APILookup() {
         expectMockEndpointLookup(GATEWAY_API_LEVEL.LEVEL_g0);
         expectMockPurposeUseProxyReturnPurposeFor(true);
-        
+
         CallbackProperties properties = new CallbackMapProperties(createTokenValues());
         assertTrue(mockPurposeOfForDecider.isPurposeFor(properties));
         context.assertIsSatisfied();
     }
-    
+
     @Test
     public void testIsPurposeOfg1APILookup() {
         expectMockEndpointLookup(GATEWAY_API_LEVEL.LEVEL_g1);
         expectNoMockPurposeUseProxy();
-        
+
         CallbackProperties properties = new CallbackMapProperties(createTokenValues());
         assertTrue(!mockPurposeOfForDecider.isPurposeFor(properties));
         context.assertIsSatisfied();
@@ -162,7 +158,7 @@ public abstract class AbstractPurposeOfForDeciderMockBaseTest {
         tokenVals.put(NhincConstants.TARGET_API_LEVEL, NhincConstants.GATEWAY_API_LEVEL.LEVEL_g0);
         return tokenVals;
     }
-    
+
     protected Map<String, Object> createTokenValuesg1() {
         Map<String, Object> tokenVals = createTokenValues();
         tokenVals.put(NhincConstants.TARGET_API_LEVEL, NhincConstants.GATEWAY_API_LEVEL.LEVEL_g1);

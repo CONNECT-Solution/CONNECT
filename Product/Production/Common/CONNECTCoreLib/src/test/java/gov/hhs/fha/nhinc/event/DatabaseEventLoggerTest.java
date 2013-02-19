@@ -33,7 +33,6 @@ import org.jmock.Expectations;
 import org.jmock.Mockery;
 import org.jmock.integration.junit4.JUnit4Mockery;
 import org.jmock.lib.legacy.ClassImposteriser;
-import org.junit.Ignore;
 import org.junit.Test;
 
 /**
@@ -77,28 +76,4 @@ public class DatabaseEventLoggerTest {
 
         testDatabaseEventLogger.recordEvent(null, mockEvent);
     }
-
-    @Test
-    @Ignore
-    public void testUpdateWithDatabase() {
-
-        final Event mockEvent = context.mock(Event.class);
-
-        context.checking(new Expectations() {
-            {
-                oneOf(mockEvent).getEventName();
-                will(Expectations.returnValue("eventname"));
-                oneOf(mockEvent).getDescription();
-                will(Expectations.returnValue("description"));
-                oneOf(mockEvent).getMessageID();
-                will(Expectations.returnValue("messageid"));
-                oneOf(mockEvent).getTransactionID();
-                will(Expectations.returnValue("transactionid"));
-            }
-        });
-
-        DatabaseEventLogger testDatabaseEventLogger = new DatabaseEventLogger();
-        testDatabaseEventLogger.recordEvent(null, mockEvent);
-    }
-
 }
