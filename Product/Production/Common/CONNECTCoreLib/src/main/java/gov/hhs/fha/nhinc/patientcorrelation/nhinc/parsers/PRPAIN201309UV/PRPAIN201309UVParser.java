@@ -40,7 +40,7 @@ import org.hl7.v3.PRPAMT201307UV02PatientIdentifier;
 import org.hl7.v3.PRPAMT201307UV02QueryByParameter;
 
 /**
- * 
+ *
  * @author svalluripalli
  */
 public class PRPAIN201309UVParser {
@@ -75,7 +75,7 @@ public class PRPAIN201309UVParser {
             return null;
         }
         PRPAMT201307UV02ParameterList parameterList = (queryByParameter.getValue() != null) ? queryByParameter
-                .getValue().getParameterList() : null;
+            .getValue().getParameterList() : null;
         if (parameterList == null) {
             return null;
         }
@@ -86,7 +86,7 @@ public class PRPAIN201309UVParser {
         LOG.debug("---- Begin PRPAIN201309UVParser.parseHL7PatientPersonFrom201309Message()----");
         PRPAMT201307UV02ParameterList parameterList = parseHL7ParameterListFrom201309Message(message);
         PRPAMT201307UV02PatientIdentifier patientIdentifier = (parameterList.getPatientIdentifier() != null) ? parameterList
-                .getPatientIdentifier().get(0) : null;
+            .getPatientIdentifier().get(0) : null;
         LOG.debug("---- End PRPAIN201309UVParser.parseHL7PatientPersonFrom201309Message()----");
         return patientIdentifier;
     }
@@ -106,7 +106,7 @@ public class PRPAIN201309UVParser {
         return list;
     }
 
-    public static JAXBElement<PRPAMT201307UV02QueryByParameter> ExtractQueryId(PRPAIN201309UV02 message) {
+    public static JAXBElement<PRPAMT201307UV02QueryByParameter> extractQueryId(PRPAIN201309UV02 message) {
         JAXBElement<PRPAMT201307UV02QueryByParameter> queryByParameter = null;
         if (message.getControlActProcess() != null) {
             queryByParameter = message.getControlActProcess().getQueryByParameter();

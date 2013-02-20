@@ -33,12 +33,10 @@ import gov.hhs.fha.nhinc.perfrepo.model.Perfrepository;
 import gov.hhs.fha.nhinc.perfrepo.persistance.HibernateUtil;
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
-
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
-
 import org.apache.log4j.Logger;
 import org.hibernate.Hibernate;
 import org.hibernate.Query;
@@ -48,7 +46,7 @@ import org.hibernate.Transaction;
 
 /**
  * PerfrepositoryDao Class provides methods to query and update Performance Data to/from MySQL Database using Hibernate
- * 
+ *
  * @author richard.ettema
  */
 public class PerfrepositoryDao {
@@ -71,7 +69,7 @@ public class PerfrepositoryDao {
 
     /**
      * Singleton instance returned...
-     * 
+     *
      * @return PerfrepositoryDao
      */
     public static PerfrepositoryDao getPerfrepositoryDaoInstance() {
@@ -80,8 +78,9 @@ public class PerfrepositoryDao {
     }
 
     /**
-     * Insert a single <code>Perfrepository</code> record. The generated id will be available in the perfRecord.
-     * 
+     * Insert a single
+     * <code>Perfrepository</code> record. The generated id will be available in the perfRecord.
+     *
      * @param perfRecord
      * @return boolean
      */
@@ -120,8 +119,9 @@ public class PerfrepositoryDao {
     }
 
     /**
-     * Update a single <code>Perfrepository</code> record.
-     * 
+     * Update a single
+     * <code>Perfrepository</code> record.
+     *
      * @param perfRecord
      * @return boolean
      */
@@ -161,7 +161,7 @@ public class PerfrepositoryDao {
 
     /**
      * This method does a query to the database to get a Performance Log record based on a known id.
-     * 
+     *
      * @param id
      * @return Perfrepository
      */
@@ -197,7 +197,7 @@ public class PerfrepositoryDao {
 
     /**
      * This method does a query to the database to get Performance Log records based on a datetime range.
-     * 
+     *
      * @param beginTime
      * @param endTime
      * @return List
@@ -236,13 +236,11 @@ public class PerfrepositoryDao {
     }
 
     /**
-     * <p>
-     * This method does a query to the database to get the count statistic data from the Performance Log records based
-     * on a datetime range.
-     * <p>
-     * Please note: The returned List will always be populated with three(3) instances of the <code>CountDataType</code>
-     * class; one for each direction: Inbound, Outbound, Error
-     * 
+     * <p> This method does a query to the database to get the count statistic data from the Performance Log records
+     * based on a datetime range. <p> Please note: The returned List will always be populated with three(3) instances of
+     * the
+     * <code>CountDataType</code> class; one for each direction: Inbound, Outbound, Error
+     *
      * @param beginTime
      * @param endTime
      * @return List
@@ -265,9 +263,9 @@ public class PerfrepositoryDao {
 
             // Build the query
             Query sqlQuery = session
-                    .createSQLQuery(
-                            "SELECT direction, COUNT(direction) AS countval FROM perfrepo.perfrepository WHERE time BETWEEN ? AND ? GROUP BY direction")
-                    .addScalar("direction", Hibernate.STRING).addScalar("countval", Hibernate.LONG);
+                .createSQLQuery(
+                "SELECT direction, COUNT(direction) AS countval FROM perfrepo.perfrepository WHERE time BETWEEN ? AND ? GROUP BY direction")
+                .addScalar("direction", Hibernate.STRING).addScalar("countval", Hibernate.LONG);
 
             List<Object[]> result = sqlQuery.setTimestamp(0, beginTime).setTimestamp(1, endTime).list();
 
@@ -284,15 +282,15 @@ public class PerfrepositoryDao {
                 // Initialize the three(3) count data directions
                 CountDataType inboundData = new CountDataType();
                 inboundData.setType(DIRECTION_INBOUND);
-                inboundData.setCount(new Long(0));
+                inboundData.setCount(Long.valueOf(0));
                 inboundData.setExpected(getPerfMonitorExpectedInbound());
                 CountDataType outboundData = new CountDataType();
                 outboundData.setType(DIRECTION_OUTBOUND);
-                outboundData.setCount(new Long(0));
+                outboundData.setCount(Long.valueOf(0));
                 outboundData.setExpected(getPerfMonitorExpectedOutbound());
                 CountDataType errorData = new CountDataType();
                 errorData.setType(DIRECTION_ERROR);
-                errorData.setCount(new Long(0));
+                errorData.setCount(Long.valueOf(0));
                 errorData.setExpected(getPerfMonitorExpectedErrors());
 
                 queryList = new ArrayList<CountDataType>();
@@ -326,7 +324,7 @@ public class PerfrepositoryDao {
     /**
      * This method does a query to the database to get the detail statistic data from the Performance Log records based
      * on a datetime range.
-     * 
+     *
      * @param beginTime
      * @param endTime
      * @return List
@@ -349,12 +347,12 @@ public class PerfrepositoryDao {
 
             // Build the query
             Query sqlQuery = session
-                    .createSQLQuery(
-                            "SELECT servicetype, messagetype, direction, AVG(duration) AS avgduration, MIN(duration) AS minduration, MAX(duration) AS maxduration, COUNT(direction) AS countval FROM perfrepo.perfrepository WHERE UPPER(direction) <> 'ERROR' AND starttime BETWEEN ? AND ? GROUP BY servicetype, messagetype, direction")
-                    .addScalar("servicetype", Hibernate.STRING).addScalar("messagetype", Hibernate.STRING)
-                    .addScalar("direction", Hibernate.STRING).addScalar("avgduration", Hibernate.DOUBLE)
-                    .addScalar("minduration", Hibernate.LONG).addScalar("maxduration", Hibernate.LONG)
-                    .addScalar("countval", Hibernate.LONG);
+                .createSQLQuery(
+                "SELECT servicetype, messagetype, direction, AVG(duration) AS avgduration, MIN(duration) AS minduration, MAX(duration) AS maxduration, COUNT(direction) AS countval FROM perfrepo.perfrepository WHERE UPPER(direction) <> 'ERROR' AND starttime BETWEEN ? AND ? GROUP BY servicetype, messagetype, direction")
+                .addScalar("servicetype", Hibernate.STRING).addScalar("messagetype", Hibernate.STRING)
+                .addScalar("direction", Hibernate.STRING).addScalar("avgduration", Hibernate.DOUBLE)
+                .addScalar("minduration", Hibernate.LONG).addScalar("maxduration", Hibernate.LONG)
+                .addScalar("countval", Hibernate.LONG);
 
             List<Object[]> result = sqlQuery.setTimestamp(0, beginTime).setTimestamp(1, endTime).list();
 
@@ -407,7 +405,7 @@ public class PerfrepositoryDao {
     /**
      * This method does a query to the database to get the error statistic data from the Performance Log records based
      * on a datetime range.
-     * 
+     *
      * @param beginTime
      * @param endTime
      * @return List
@@ -430,12 +428,12 @@ public class PerfrepositoryDao {
 
             // Build the query
             Query sqlQuery = session
-                    .createSQLQuery(
-                            "SELECT servicetype, messagetype, direction, AVG(duration) AS avgduration, MIN(duration) AS minduration, MAX(duration) AS maxduration, COUNT(direction) AS countval FROM perfrepo.perfrepository WHERE UPPER(direction) = 'ERROR' AND starttime BETWEEN ? AND ? GROUP BY servicetype, messagetype, direction")
-                    .addScalar("servicetype", Hibernate.STRING).addScalar("messagetype", Hibernate.STRING)
-                    .addScalar("direction", Hibernate.STRING).addScalar("avgduration", Hibernate.DOUBLE)
-                    .addScalar("minduration", Hibernate.LONG).addScalar("maxduration", Hibernate.LONG)
-                    .addScalar("countval", Hibernate.LONG);
+                .createSQLQuery(
+                "SELECT servicetype, messagetype, direction, AVG(duration) AS avgduration, MIN(duration) AS minduration, MAX(duration) AS maxduration, COUNT(direction) AS countval FROM perfrepo.perfrepository WHERE UPPER(direction) = 'ERROR' AND starttime BETWEEN ? AND ? GROUP BY servicetype, messagetype, direction")
+                .addScalar("servicetype", Hibernate.STRING).addScalar("messagetype", Hibernate.STRING)
+                .addScalar("direction", Hibernate.STRING).addScalar("avgduration", Hibernate.DOUBLE)
+                .addScalar("minduration", Hibernate.LONG).addScalar("maxduration", Hibernate.LONG)
+                .addScalar("countval", Hibernate.LONG);
 
             List<Object[]> result = sqlQuery.setTimestamp(0, beginTime).setTimestamp(1, endTime).list();
 
@@ -487,7 +485,7 @@ public class PerfrepositoryDao {
 
     /**
      * Return gateway property key perf.monitor.expected.inbound value
-     * 
+     *
      * @return String gateway property value
      */
     private static Long getPerfMonitorExpectedInbound() {
@@ -495,18 +493,18 @@ public class PerfrepositoryDao {
         try {
             // Use CONNECT utility class to access gateway.properties
             String inboundString = PropertyAccessor.getInstance().getProperty(NhincConstants.GATEWAY_PROPERTY_FILE,
-                    PERF_EXPECTED_INBOUND);
+                PERF_EXPECTED_INBOUND);
             if (inboundString != null) {
                 inbound = new Long(inboundString);
             }
         } catch (PropertyAccessException pae) {
             LOG.error("Error: Failed to retrieve " + PERF_EXPECTED_INBOUND + " from property file: "
-                    + NhincConstants.GATEWAY_PROPERTY_FILE);
+                + NhincConstants.GATEWAY_PROPERTY_FILE);
             LOG.error(pae.getMessage());
             inbound = null;
         } catch (NumberFormatException nfe) {
             LOG.error("Error: Failed to convert " + PERF_EXPECTED_INBOUND + " from property file: "
-                    + NhincConstants.GATEWAY_PROPERTY_FILE);
+                + NhincConstants.GATEWAY_PROPERTY_FILE);
             LOG.error(nfe.getMessage());
             inbound = null;
         }
@@ -515,7 +513,7 @@ public class PerfrepositoryDao {
 
     /**
      * Return gateway property key perf.monitor.expected.outbound value
-     * 
+     *
      * @return String gateway property value
      */
     private static Long getPerfMonitorExpectedOutbound() {
@@ -523,18 +521,18 @@ public class PerfrepositoryDao {
         try {
             // Use CONNECT utility class to access gateway.properties
             String outboundString = PropertyAccessor.getInstance().getProperty(NhincConstants.GATEWAY_PROPERTY_FILE,
-                    PERF_EXPECTED_OUTBOUND);
+                PERF_EXPECTED_OUTBOUND);
             if (outboundString != null) {
                 outbound = new Long(outboundString);
             }
         } catch (PropertyAccessException pae) {
             LOG.error("Error: Failed to retrieve " + PERF_EXPECTED_OUTBOUND + " from property file: "
-                    + NhincConstants.GATEWAY_PROPERTY_FILE);
+                + NhincConstants.GATEWAY_PROPERTY_FILE);
             LOG.error(pae.getMessage());
             outbound = null;
         } catch (NumberFormatException nfe) {
             LOG.error("Error: Failed to convert " + PERF_EXPECTED_INBOUND + " from property file: "
-                    + NhincConstants.GATEWAY_PROPERTY_FILE);
+                + NhincConstants.GATEWAY_PROPERTY_FILE);
             LOG.error(nfe.getMessage());
             outbound = null;
         }
@@ -543,7 +541,7 @@ public class PerfrepositoryDao {
 
     /**
      * Return gateway property key perf.monitor.expected.errors value
-     * 
+     *
      * @return String gateway property value
      */
     private static Long getPerfMonitorExpectedErrors() {
@@ -551,22 +549,21 @@ public class PerfrepositoryDao {
         try {
             // Use CONNECT utility class to access gateway.properties
             String errorsString = PropertyAccessor.getInstance().getProperty(NhincConstants.GATEWAY_PROPERTY_FILE,
-                    PERF_EXPECTED_ERRORS);
+                PERF_EXPECTED_ERRORS);
             if (errorsString != null) {
                 errors = new Long(errorsString);
             }
         } catch (PropertyAccessException pae) {
             LOG.error("Error: Failed to retrieve " + PERF_EXPECTED_ERRORS + " from property file: "
-                    + NhincConstants.GATEWAY_PROPERTY_FILE);
+                + NhincConstants.GATEWAY_PROPERTY_FILE);
             LOG.error(pae.getMessage());
             errors = null;
         } catch (NumberFormatException nfe) {
             LOG.error("Error: Failed to convert " + PERF_EXPECTED_INBOUND + " from property file: "
-                    + NhincConstants.GATEWAY_PROPERTY_FILE);
+                + NhincConstants.GATEWAY_PROPERTY_FILE);
             LOG.error(nfe.getMessage());
             errors = null;
         }
         return errors;
     }
-
 }

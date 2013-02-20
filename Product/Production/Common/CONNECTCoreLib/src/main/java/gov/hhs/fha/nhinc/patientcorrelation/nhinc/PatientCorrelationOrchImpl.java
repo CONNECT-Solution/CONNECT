@@ -26,22 +26,6 @@
  */
 package gov.hhs.fha.nhinc.patientcorrelation.nhinc;
 
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
-
-import org.hl7.v3.AddPatientCorrelationResponseType;
-import org.hl7.v3.II;
-import org.hl7.v3.PRPAIN201301UV02;
-import org.hl7.v3.PRPAIN201309UV02;
-import org.hl7.v3.PRPAIN201310UV02;
-import org.hl7.v3.PRPAMT201301UV02Patient;
-import org.hl7.v3.PRPAMT201307UV02DataSource;
-import org.hl7.v3.PRPAMT201307UV02ParameterList;
-import org.hl7.v3.PRPAMT201307UV02PatientIdentifier;
-import org.hl7.v3.RetrievePatientCorrelationsResponseType;
-
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.patientcorrelation.nhinc.ack.AckBuilder;
 import gov.hhs.fha.nhinc.patientcorrelation.nhinc.config.ConfigurationManager;
@@ -53,28 +37,42 @@ import gov.hhs.fha.nhinc.patientcorrelation.nhinc.model.QualifiedPatientIdentifi
 import gov.hhs.fha.nhinc.patientcorrelation.nhinc.parsers.PRPAIN201301UV.PRPAIN201301UVParser;
 import gov.hhs.fha.nhinc.patientcorrelation.nhinc.parsers.PRPAIN201309UV.PRPAIN201309UVParser;
 import gov.hhs.fha.nhinc.patientcorrelation.nhinc.parsers.PRPAIN201309UV.PixRetrieveResponseBuilder;
-
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
 import org.apache.log4j.Logger;
+import org.hl7.v3.AddPatientCorrelationResponseType;
+import org.hl7.v3.II;
+import org.hl7.v3.PRPAIN201301UV02;
+import org.hl7.v3.PRPAIN201309UV02;
+import org.hl7.v3.PRPAIN201310UV02;
+import org.hl7.v3.PRPAMT201301UV02Patient;
+import org.hl7.v3.PRPAMT201307UV02DataSource;
+import org.hl7.v3.PRPAMT201307UV02ParameterList;
+import org.hl7.v3.PRPAMT201307UV02PatientIdentifier;
+import org.hl7.v3.RetrievePatientCorrelationsResponseType;
+
 /**
  *
  *
  *
  * @author jhoppesc
  */
-
 public class PatientCorrelationOrchImpl implements PatientCorrelationOrch {
 
     private static final Logger LOG = Logger.getLogger(PatientCorrelationOrchImpl.class);
     private final CorrelatedIdentifiersDao dao;
+
     public PatientCorrelationOrchImpl(CorrelatedIdentifiersDao dao) {
         this.dao = dao;
     }
 
     @Override
     public RetrievePatientCorrelationsResponseType retrievePatientCorrelations(
-            PRPAIN201309UV02 retrievePatientCorrelationsRequest, AssertionType assertion) {
+        PRPAIN201309UV02 retrievePatientCorrelationsRequest, AssertionType assertion) {
         PRPAMT201307UV02PatientIdentifier patIdentifier = PRPAIN201309UVParser
-                .parseHL7PatientPersonFrom201309Message(retrievePatientCorrelationsRequest);
+            .parseHL7PatientPersonFrom201309Message(retrievePatientCorrelationsRequest);
         if (patIdentifier == null) {
             return null;
         }
@@ -93,10 +91,10 @@ public class PatientCorrelationOrchImpl implements PatientCorrelationOrch {
         // only non-expired patient correlation records will be returned
         // expired correlation records will be removed by the following call.
         List<QualifiedPatientIdentifier> qualifiedPatientIdentifiers = dao.retrievePatientCorrelation(
-                inputQualifiedPatientIdentifier, dataSourceList);
+            inputQualifiedPatientIdentifier, dataSourceList);
         List<II> iiList = buildList(qualifiedPatientIdentifiers);
         PRPAIN201310UV02 IN201310 = PixRetrieveResponseBuilder.createPixRetrieveResponse(
-                retrievePatientCorrelationsRequest, iiList);
+            retrievePatientCorrelationsRequest, iiList);
         RetrievePatientCorrelationsResponseType result = new RetrievePatientCorrelationsResponseType();
         result.setPRPAIN201310UV02(IN201310);
         return result;
@@ -104,9 +102,9 @@ public class PatientCorrelationOrchImpl implements PatientCorrelationOrch {
 
     @Override
     public AddPatientCorrelationResponseType addPatientCorrelation(PRPAIN201301UV02 addPatientCorrelationRequest,
-            AssertionType assertion) {
+        AssertionType assertion) {
         PRPAMT201301UV02Patient patient = PRPAIN201301UVParser
-                .ParseHL7PatientPersonFrom201301Message(addPatientCorrelationRequest);
+            .parseHL7PatientPersonFrom201301Message(addPatientCorrelationRequest);
         String patientId = "";
         String patientAssigningAuthId = "";
         String correlatedPatientId = "";
@@ -165,14 +163,14 @@ public class PatientCorrelationOrchImpl implements PatientCorrelationOrch {
         correlatedIdentifers.setCorrelationExpirationDate(newExpirationDate);
         dao.addPatientCorrelation(correlatedIdentifers);
         AddPatientCorrelationResponseType result = new AddPatientCorrelationResponseType();
-        result.setMCCIIN000002UV01(AckBuilder.BuildAck(addPatientCorrelationRequest));
+        result.setMCCIIN000002UV01(AckBuilder.buildAck(addPatientCorrelationRequest));
         return result;
     }
 
     private static List<String> extractDataSourceList(PRPAIN201309UV02 IN201309) {
         List<String> dataSourceStringList = new ArrayList<String>();
         PRPAMT201307UV02ParameterList parameterList = PRPAIN201309UVParser
-                .parseHL7ParameterListFrom201309Message(IN201309);
+            .parseHL7ParameterListFrom201309Message(IN201309);
 
         List<PRPAMT201307UV02DataSource> dataSources = parameterList.getDataSource();
         if (dataSources != null) {

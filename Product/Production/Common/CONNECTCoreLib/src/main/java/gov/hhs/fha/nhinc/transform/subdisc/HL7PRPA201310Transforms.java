@@ -95,8 +95,8 @@ public class HL7PRPA201310Transforms {
         PRPAIN201310UV02 message = new PRPAIN201310UV02();
 
         message.setITSVersion(HL7Constants.ITS_VERSION);
-        message.setId(HL7MessageIdGenerator.GenerateHL7MessageId(localDeviceId));
-        message.setCreationTime(HL7DataTransformHelper.CreationTimeFactory());
+        message.setId(HL7MessageIdGenerator.generateHL7MessageId(localDeviceId));
+        message.setCreationTime(HL7DataTransformHelper.creationTimeFactory());
         message.setInteractionId(HL7DataTransformHelper.IIFactory(HL7Constants.INTERACTION_ID_ROOT,
                 INTERACTION_ID_EXTENSION));
         message.setProcessingCode(HL7DataTransformHelper.CSFactory(PROCESSING_CODE_VALUE));
@@ -201,7 +201,7 @@ public class HL7PRPA201310Transforms {
 
         PRPAMT201307UV02QueryByParameter queryParams = new PRPAMT201307UV02QueryByParameter();
 
-        queryParams.setQueryId(HL7MessageIdGenerator.GenerateHL7MessageId(null));
+        queryParams.setQueryId(HL7MessageIdGenerator.generateHL7MessageId(null));
         queryParams.setStatusCode(HL7DataTransformHelper.CSFactory("new"));
 
         PRPAMT201307UV02ParameterList paramList = new PRPAMT201307UV02ParameterList();

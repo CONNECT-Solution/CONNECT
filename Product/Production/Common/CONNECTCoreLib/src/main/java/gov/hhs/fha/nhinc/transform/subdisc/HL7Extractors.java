@@ -26,18 +26,18 @@
  */
 package gov.hhs.fha.nhinc.transform.subdisc;
 
-import java.util.List;
+import gov.hhs.fha.nhinc.common.nhinccommon.CeType;
+import gov.hhs.fha.nhinc.common.nhinccommon.PersonNameType;
+import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import java.io.Serializable;
 import java.util.Iterator;
+import java.util.List;
 import javax.xml.bind.JAXBElement;
 import org.apache.log4j.Logger;
 import org.hl7.v3.*;
-import gov.hhs.fha.nhinc.common.nhinccommon.PersonNameType;
-import gov.hhs.fha.nhinc.common.nhinccommon.CeType;
-import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 
 /**
- * 
+ *
  * @author MFLYNN02
  */
 public class HL7Extractors {
@@ -227,7 +227,7 @@ public class HL7Extractors {
 
     /**
      * This method translates a List<PN> into an PersonName object.
-     * 
+     *
      * @param The List of PN objects to be translated
      * @param The Person object
      */
@@ -255,7 +255,7 @@ public class HL7Extractors {
 
                 if (contentItem instanceof String) {
                     String strValue = (String) contentItem;
-                    if (nameString != null) {
+                    if (!nameString.equals("")) {
                         nameString += strValue;
                     } else {
                         nameString = strValue;
@@ -300,7 +300,7 @@ public class HL7Extractors {
 
     /**
      * This method translates a List of EN objects to a PersonName object.
-     * 
+     *
      * @param The List<EN> objects to be translated
      * @param The PersonName object
      */
@@ -326,7 +326,7 @@ public class HL7Extractors {
 
                 if (contentItem instanceof String) {
                     String strValue = (String) contentItem;
-                    if (nameString != null) {
+                    if (!nameString.equals("")) {
                         nameString += strValue;
                     } else {
                         nameString = strValue;
@@ -346,7 +346,7 @@ public class HL7Extractors {
             }
             // If text string in HomeCommunity.representativeOrg, then set in familyName
             // else set in element.
-            if (nameString != null) {
+            if (!nameString.equals("")) {
                 LOG.debug("set org name text ");
                 personName.setFamilyName(nameString);
             } else {
@@ -369,13 +369,13 @@ public class HL7Extractors {
 
     public static PRPAMT201301UV02Person ExtractHL7PatientPersonFromHL7Patient(PRPAMT201301UV02Patient patient) {
         JAXBElement<PRPAMT201301UV02Person> patientPersonElement = patient.getPatientPerson();
-        PRPAMT201301UV02Person patientPerson = patientPerson = patientPersonElement.getValue();
+        PRPAMT201301UV02Person patientPerson = patientPersonElement.getValue();
         return patientPerson;
     }
 
     public static PRPAMT201302UV02Person ExtractHL7PatientPersonFromHL7Patient(PRPAMT201302UV02Patient patient) {
         JAXBElement<PRPAMT201302UV02PatientPatientPerson> patientPersonElement = patient.getPatientPerson();
-        PRPAMT201302UV02Person patientPerson = patientPerson = patientPersonElement.getValue();
+        PRPAMT201302UV02Person patientPerson = patientPersonElement.getValue();
         return patientPerson;
     }
 
@@ -397,23 +397,23 @@ public class HL7Extractors {
         String sReceiverOID = null;
 
         if (oPRPAIN201305UV != null
-                && NullChecker.isNotNullish(oPRPAIN201305UV.getReceiver())
-                && oPRPAIN201305UV.getReceiver().get(0) != null
-                && oPRPAIN201305UV.getReceiver().get(0).getDevice() != null
-                && oPRPAIN201305UV.getReceiver().get(0).getDevice().getAsAgent() != null
-                && oPRPAIN201305UV.getReceiver().get(0).getDevice().getAsAgent().getValue() != null
-                && oPRPAIN201305UV.getReceiver().get(0).getDevice().getAsAgent().getValue()
-                        .getRepresentedOrganization() != null
-                && oPRPAIN201305UV.getReceiver().get(0).getDevice().getAsAgent().getValue()
-                        .getRepresentedOrganization().getValue() != null
-                && NullChecker.isNotNullish(oPRPAIN201305UV.getReceiver().get(0).getDevice().getAsAgent().getValue()
-                        .getRepresentedOrganization().getValue().getId())
-                && oPRPAIN201305UV.getReceiver().get(0).getDevice().getAsAgent().getValue()
-                        .getRepresentedOrganization().getValue().getId().get(0) != null
-                && NullChecker.isNotNullish(oPRPAIN201305UV.getReceiver().get(0).getDevice().getAsAgent().getValue()
-                        .getRepresentedOrganization().getValue().getId().get(0).getRoot())) {
+            && NullChecker.isNotNullish(oPRPAIN201305UV.getReceiver())
+            && oPRPAIN201305UV.getReceiver().get(0) != null
+            && oPRPAIN201305UV.getReceiver().get(0).getDevice() != null
+            && oPRPAIN201305UV.getReceiver().get(0).getDevice().getAsAgent() != null
+            && oPRPAIN201305UV.getReceiver().get(0).getDevice().getAsAgent().getValue() != null
+            && oPRPAIN201305UV.getReceiver().get(0).getDevice().getAsAgent().getValue()
+            .getRepresentedOrganization() != null
+            && oPRPAIN201305UV.getReceiver().get(0).getDevice().getAsAgent().getValue()
+            .getRepresentedOrganization().getValue() != null
+            && NullChecker.isNotNullish(oPRPAIN201305UV.getReceiver().get(0).getDevice().getAsAgent().getValue()
+            .getRepresentedOrganization().getValue().getId())
+            && oPRPAIN201305UV.getReceiver().get(0).getDevice().getAsAgent().getValue()
+            .getRepresentedOrganization().getValue().getId().get(0) != null
+            && NullChecker.isNotNullish(oPRPAIN201305UV.getReceiver().get(0).getDevice().getAsAgent().getValue()
+            .getRepresentedOrganization().getValue().getId().get(0).getRoot())) {
             sReceiverOID = oPRPAIN201305UV.getReceiver().get(0).getDevice().getAsAgent().getValue()
-                    .getRepresentedOrganization().getValue().getId().get(0).getRoot();
+                .getRepresentedOrganization().getValue().getId().get(0).getRoot();
         }
 
         return sReceiverOID;
@@ -423,23 +423,22 @@ public class HL7Extractors {
         String sSenderOID = null;
 
         if (oPRPAIN201305UV != null
-                && oPRPAIN201305UV.getSender().getDevice() != null
-                && oPRPAIN201305UV.getSender().getDevice().getAsAgent() != null
-                && oPRPAIN201305UV.getSender().getDevice().getAsAgent().getValue() != null
-                && oPRPAIN201305UV.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization() != null
-                && oPRPAIN201305UV.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization()
-                        .getValue() != null
-                && NullChecker.isNotNullish(oPRPAIN201305UV.getSender().getDevice().getAsAgent().getValue()
-                        .getRepresentedOrganization().getValue().getId())
-                && oPRPAIN201305UV.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization()
-                        .getValue().getId().get(0) != null
-                && NullChecker.isNotNullish(oPRPAIN201305UV.getSender().getDevice().getAsAgent().getValue()
-                        .getRepresentedOrganization().getValue().getId().get(0).getRoot())) {
+            && oPRPAIN201305UV.getSender().getDevice() != null
+            && oPRPAIN201305UV.getSender().getDevice().getAsAgent() != null
+            && oPRPAIN201305UV.getSender().getDevice().getAsAgent().getValue() != null
+            && oPRPAIN201305UV.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization() != null
+            && oPRPAIN201305UV.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization()
+            .getValue() != null
+            && NullChecker.isNotNullish(oPRPAIN201305UV.getSender().getDevice().getAsAgent().getValue()
+            .getRepresentedOrganization().getValue().getId())
+            && oPRPAIN201305UV.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization()
+            .getValue().getId().get(0) != null
+            && NullChecker.isNotNullish(oPRPAIN201305UV.getSender().getDevice().getAsAgent().getValue()
+            .getRepresentedOrganization().getValue().getId().get(0).getRoot())) {
             sSenderOID = oPRPAIN201305UV.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization()
-                    .getValue().getId().get(0).getRoot();
+                .getValue().getId().get(0).getRoot();
         }
 
         return sSenderOID;
     }
-
 }

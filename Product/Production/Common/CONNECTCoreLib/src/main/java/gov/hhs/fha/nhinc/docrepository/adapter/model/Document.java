@@ -31,10 +31,11 @@ import java.util.Set;
 
 /**
  * Data class for a document.
- * 
+ *
  * @author Neil Webb
  */
 public class Document {
+
     private Long documentid;
     private String documentUniqueId;
     private String documentTitle;
@@ -423,7 +424,11 @@ public class Document {
     }
 
     public Date getCreationTime() {
-        return creationTime;
+        if (creationTime == null) {
+            return null;
+        } else {
+            return (Date) creationTime.clone();
+        }
     }
 
     public void setCreationTime(Date creationTime) {
@@ -431,7 +436,11 @@ public class Document {
     }
 
     public Date getServiceStartTime() {
-        return serviceStartTime;
+        if (serviceStartTime == null) {
+            return null;
+        } else {
+            return (Date) serviceStartTime.clone();
+        }
     }
 
     public void setServiceStartTime(Date serviceStartTime) {
@@ -439,7 +448,11 @@ public class Document {
     }
 
     public Date getServiceStopTime() {
-        return serviceStopTime;
+        if (serviceStopTime == null) {
+            return null;
+        } else {
+            return (Date) serviceStopTime.clone();
+        }
     }
 
     public void setServiceStopTime(Date serviceStopTime) {
@@ -479,7 +492,11 @@ public class Document {
     }
 
     public byte[] getRawData() {
-        return rawData;
+        if (rawData == null) {
+            return null;
+        } else {
+            return (byte[]) rawData.clone();
+        }
     }
 
     public void setRawData(byte[] rawData) {
@@ -521,7 +538,7 @@ public class Document {
     /**
      * Getter for a code representing the persistent state of the document. This accessor is only to be used with the
      * persistence layer. Use the isPersistent method to access this property.
-     * 
+     *
      * @return Persistence layer code for persistent flag.
      */
     public int getPersistentCode() {
@@ -531,7 +548,7 @@ public class Document {
     /**
      * Setter for the document's persistence code that is used by the persistence layer. Use the isPersistent method to
      * look up this property.
-     * 
+     *
      * @param persistentCode Persistence layer code for the persistence flag.
      */
     public void setPersistentCode(int persistentCode) {

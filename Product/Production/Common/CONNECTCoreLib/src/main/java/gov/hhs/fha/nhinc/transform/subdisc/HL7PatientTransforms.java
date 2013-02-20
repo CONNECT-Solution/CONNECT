@@ -384,7 +384,7 @@ public class HL7PatientTransforms {
         LOG.debug("begin create Name");
         if (NullChecker.isNotNullish(patFirstName) || NullChecker.isNotNullish(patLastName)) {
             LOG.debug("not nullish");
-            name = HL7DataTransformHelper.CreatePNExplicit(patFirstName, patLastName);
+            name = HL7DataTransformHelper.createPNExplicit(patFirstName, patLastName);
         }
 
         LOG.debug("begin create gender");
@@ -444,7 +444,7 @@ public class HL7PatientTransforms {
             String patLastName, String gender, String birthTime, String ssn) {
         PNExplicit name = null;
         if (NullChecker.isNotNullish(patFirstName) && NullChecker.isNotNullish(patLastName)) {
-            name = HL7DataTransformHelper.CreatePNExplicit(patFirstName, patLastName);
+            name = HL7DataTransformHelper.createPNExplicit(patFirstName, patLastName);
         }
 
         CE genderCode = null;
@@ -500,7 +500,7 @@ public class HL7PatientTransforms {
             String patLastName, String gender, String birthTime, String ssn, II remotePatId) {
         PNExplicit name = null;
         if (NullChecker.isNotNullish(patFirstName) && NullChecker.isNotNullish(patLastName)) {
-            name = HL7DataTransformHelper.CreatePNExplicit(patFirstName, patLastName);
+            name = HL7DataTransformHelper.createPNExplicit(patFirstName, patLastName);
         }
 
         CE genderCode = null;

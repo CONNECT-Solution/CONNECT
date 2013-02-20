@@ -29,55 +29,58 @@ package gov.hhs.fha.nhinc.patientcorrelation.nhinc.model;
 import java.util.Date;
 
 /**
- * 
+ *
  * @author akong
  */
 public class PDDeferredCorrelation {
 
-    private Long Id = null;
-    private String MessageId = null;
-    private String AssigningAuthorityId = null;
-    private String PatientId = null;
-    private Date CreationTime = null;
+    private Long id = null;
+    private String messageId = null;
+    private String assigningAuthorityId = null;
+    private String patientId = null;
+    private Date creationTime = null;
 
     public Long getId() {
-        return Id;
+        return id;
     }
 
     public void setId(Long Id) {
-        this.Id = Id;
+        this.id = Id;
     }
 
     public String getMessageId() {
-        return MessageId;
+        return messageId;
     }
 
     public void setMessageId(String messageId) {
-        this.MessageId = messageId;
+        this.messageId = messageId;
     }
 
     public String getAssigningAuthorityId() {
-        return AssigningAuthorityId;
+        return assigningAuthorityId;
     }
 
     public void setAssigningAuthorityId(String assigningAuthorityId) {
-        this.AssigningAuthorityId = assigningAuthorityId;
+        this.assigningAuthorityId = assigningAuthorityId;
     }
 
     public String getPatientId() {
-        return PatientId;
+        return patientId;
     }
 
     public void setPatientId(String patientId) {
-        this.PatientId = patientId;
+        this.patientId = patientId;
     }
 
     public Date getCreationTime() {
-        return CreationTime;
+        if (creationTime == null) {
+            return null;
+        } else {
+            return (Date) creationTime.clone();
+        }
     }
 
     public void setCreationTime(Date creationTime) {
-        this.CreationTime = creationTime;
+        this.creationTime = creationTime;
     }
-
 }

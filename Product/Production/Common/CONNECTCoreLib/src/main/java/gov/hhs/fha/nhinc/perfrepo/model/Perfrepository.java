@@ -30,7 +30,7 @@ import java.io.Serializable;
 import java.sql.Timestamp;
 
 /**
- * 
+ *
  * @author richard.ettema
  */
 public class Perfrepository implements Serializable {
@@ -42,14 +42,13 @@ public class Perfrepository implements Serializable {
     private String direction;
     private String communityid;
     private Integer status;
-    
     private String version;
     private String payloadType;
     private String size;
     private String correlationId;
     private String otherCommunityId;
     private String errorCode;
-    
+
     /**
      * @return id
      */
@@ -64,8 +63,6 @@ public class Perfrepository implements Serializable {
         this.id = id;
     }
 
-   
-   
     /**
      * @return servicetype
      */
@@ -188,7 +185,12 @@ public class Perfrepository implements Serializable {
      * @return the time
      */
     public Timestamp getTime() {
-        return time;
+        if (time == null) {
+            return null;
+        } else {
+            return (Timestamp) time.clone();
+        }
+
     }
 
     /**
@@ -197,5 +199,4 @@ public class Perfrepository implements Serializable {
     public void setTime(Timestamp time) {
         this.time = time;
     }
-
 }
