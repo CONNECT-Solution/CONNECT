@@ -29,10 +29,11 @@ package gov.hhs.fha.nhinc.patientcorrelation.nhinc.model;
 import java.util.Date;
 
 /**
- * 
+ *
  * @author svalluripalli
  */
 public class CorrelatedIdentifiers {
+
     private Long correlationId;
     private String patientAssigningAuthorityId;
     private String patientId;
@@ -41,7 +42,11 @@ public class CorrelatedIdentifiers {
     private Date correlationExpirationDate;
 
     public Date getCorrelationExpirationDate() {
-        return correlationExpirationDate;
+        if (correlationExpirationDate == null) {
+            return null;
+        } else {
+            return (Date) correlationExpirationDate.clone();
+        }
     }
 
     public void setCorrelationExpirationDate(Date correlationExpirationDate) {

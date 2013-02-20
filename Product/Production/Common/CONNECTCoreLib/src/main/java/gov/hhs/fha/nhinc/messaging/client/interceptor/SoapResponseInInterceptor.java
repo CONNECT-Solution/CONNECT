@@ -24,17 +24,13 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
  */
-
 package gov.hhs.fha.nhinc.messaging.client.interceptor;
 
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-
 import javax.xml.ws.BindingProvider;
-
 import org.apache.cxf.binding.soap.SoapHeader;
 import org.apache.cxf.binding.soap.SoapMessage;
 import org.apache.cxf.binding.soap.interceptor.AbstractSoapInterceptor;
@@ -44,13 +40,16 @@ import org.apache.cxf.headers.Header;
 import org.apache.cxf.interceptor.Fault;
 import org.apache.cxf.message.Message;
 import org.apache.cxf.phase.Phase;
+import org.apache.log4j.Logger;
 import org.w3c.dom.Element;
 
 /**
  * @author akong
- * 
+ *
  */
 public class SoapResponseInInterceptor extends AbstractSoapInterceptor {
+
+    private static final Logger LOG = Logger.getLogger(SoapResponseInInterceptor.class);
 
     public SoapResponseInInterceptor() {
         super(Phase.USER_PROTOCOL);
@@ -81,7 +80,7 @@ public class SoapResponseInInterceptor extends AbstractSoapInterceptor {
 
     /**
      * Adds the response message id obtained by the port to the message context.
-     * 
+     *
      * @param port
      * @param currentMessage
      */
@@ -96,7 +95,7 @@ public class SoapResponseInInterceptor extends AbstractSoapInterceptor {
             if ((responseMsgId != null) && (currentMessage != null)) {
 
                 List<String> responseMsgIdList = (List<String>) currentMessage.getExchange().get(
-                        NhincConstants.RESPONSE_MESSAGE_ID_LIST_KEY);
+                    NhincConstants.RESPONSE_MESSAGE_ID_LIST_KEY);
                 if (responseMsgIdList == null) {
                     responseMsgIdList = new ArrayList<String>();
                 }
@@ -105,9 +104,8 @@ public class SoapResponseInInterceptor extends AbstractSoapInterceptor {
                 currentMessage.getExchange().put(NhincConstants.RESPONSE_MESSAGE_ID_LIST_KEY, responseMsgIdList);
             }
         } catch (Exception e) {
-            // Do nothing
+            // Do nothing, but write it to the log.
+            LOG.warn("Exception ", e);
         }
-
     }
-
 }

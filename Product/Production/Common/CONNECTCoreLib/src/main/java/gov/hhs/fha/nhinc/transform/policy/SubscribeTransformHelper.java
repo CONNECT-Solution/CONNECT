@@ -27,9 +27,8 @@
 package gov.hhs.fha.nhinc.transform.policy;
 
 //import com.sun.jmx.remote.internal.Unmarshal;
-import gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyRequestType;
 import gov.hhs.fha.nhinc.common.eventcommon.SubscribeEventType;
-import gov.hhs.fha.nhinc.common.eventcommon.SubscribeMessageType;
+import gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyRequestType;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.transform.marshallers.JAXBContextHandler;
 import gov.hhs.fha.nhinc.util.format.PatientIdFormatUtil;
@@ -43,13 +42,13 @@ import oasis.names.tc.ebxml_regrep.xsd.rim._3.AdhocQueryType;
 import oasis.names.tc.xacml._2_0.context.schema.os.RequestType;
 import oasis.names.tc.xacml._2_0.context.schema.os.ResourceType;
 import oasis.names.tc.xacml._2_0.context.schema.os.SubjectType;
+import org.apache.log4j.Logger;
 import org.oasis_open.docs.wsn.b_2.Subscribe;
 import org.oasis_open.docs.wsn.b_2.TopicExpressionType;
 import org.w3c.dom.Element;
 
-import org.apache.log4j.Logger;
 /**
- * 
+ *
  * @author svalluripalli
  */
 public class SubscribeTransformHelper {
@@ -63,22 +62,21 @@ public class SubscribeTransformHelper {
 
     public static CheckPolicyRequestType transformSubscribeToCheckPolicy(SubscribeEventType event) {
         CheckPolicyRequestType genericPolicyRequest = new CheckPolicyRequestType();
-        SubscribeMessageType message = event.getMessage();
         RequestType request = new RequestType();
-        if (InboundOutboundChecker.IsInbound(event.getDirection())) {
+        if (InboundOutboundChecker.isInbound(event.getDirection())) {
             request.setAction(ActionHelper.actionFactory(ActionInValue));
         }
-        if (InboundOutboundChecker.IsOutbound(event.getDirection())) {
+        if (InboundOutboundChecker.isOutbound(event.getDirection())) {
             request.setAction(ActionHelper.actionFactory(ActionOutValue));
         }
 
         SubjectHelper subjHelp = new SubjectHelper();
         SubjectType subject = subjHelp.subjectFactory(event.getSendingHomeCommunity(), event.getMessage()
-                .getAssertion());
+            .getAssertion());
         request.getSubject().add(subject);
 
         AdhocQueryRequest adhocReq = new AdhocQueryRequest();
-        AdhocQueryType adhocQuery = new AdhocQueryType();
+        AdhocQueryType adhocQuery = null;
         adhocQuery = getAdhocQuery(event.getMessage().getSubscribe());
         adhocReq.setAdhocQuery(adhocQuery);
         String patId = AdhocQueryTransformHelper.extractPatientIdentifierId(adhocReq);
@@ -89,15 +87,15 @@ public class SubscribeTransformHelper {
 
         if (NullChecker.isNotNullish(assignAuth)) {
             resource.getAttribute().add(
-                    attrHelper.attributeFactory(PatientAssigningAuthorityAttributeId, Constants.DataTypeString,
-                            assignAuth));
+                attrHelper.attributeFactory(PatientAssigningAuthorityAttributeId, Constants.DataTypeString,
+                assignAuth));
         }
 
         if (NullChecker.isNotNullish(patId)) {
             String sStrippedPatientId = PatientIdFormatUtil.parsePatientId(patId);
             LOG.debug("transformSubscribeToCheckPolicy: sStrippedPatientId = " + sStrippedPatientId);
             resource.getAttribute().add(
-                    attrHelper.attributeFactory(PatientIdAttributeId, Constants.DataTypeString, sStrippedPatientId));
+                attrHelper.attributeFactory(PatientIdAttributeId, Constants.DataTypeString, sStrippedPatientId));
         }
 
         setTopic(event, resource);
@@ -117,7 +115,7 @@ public class SubscribeTransformHelper {
         try {
             LOG.debug("######## BEGIN TOPIC EXTRACTION ########");
             JAXBElement<TopicExpressionType> jbElement = (JAXBElement<TopicExpressionType>) event.getMessage()
-                    .getSubscribe().getFilter().getAny().get(0);
+                .getSubscribe().getFilter().getAny().get(0);
             TopicExpressionType topicExpression = jbElement.getValue();
             topic = (String) topicExpression.getContent().get(0);
             LOG.debug("Topic extracted: " + topic);
@@ -127,11 +125,11 @@ public class SubscribeTransformHelper {
         if (NullChecker.isNotNullish(topic)) {
             if (LOG.isDebugEnabled()) {
                 LOG.debug("Adding topic (" + topic + ") as attribute (" + ATTRIBUTE_ID_TOPIC + ") and type: "
-                        + Constants.DataTypeString);
+                    + Constants.DataTypeString);
             }
             AttributeHelper attrHelper = new AttributeHelper();
             resource.getAttribute().add(
-                    attrHelper.attributeFactory(ATTRIBUTE_ID_TOPIC, Constants.DataTypeString, topic));
+                attrHelper.attributeFactory(ATTRIBUTE_ID_TOPIC, Constants.DataTypeString, topic));
         }
     }
 
@@ -154,11 +152,8 @@ public class SubscribeTransformHelper {
                 LOG.debug("Any item was Element");
                 Element element = (Element) anyItem;
                 LOG.debug("SubscribeTransformHelper.getAdhocQuery - element name of any in list: "
-                        + element.getLocalName());
+                    + element.getLocalName());
                 adhocQuery = unmarshalAdhocQuery(element);
-                // Object o = (JAXBElement<oasis.names.tc.ebxml_regrep.xsd.rim._3.AdhocQueryType>) anyItem;
-
-                // Object o = (JAXBElement<oasis.names.tc.ebxml_regrep.xsd.rim._3.AdhocQueryType>) anyItem;
             } else {
                 LOG.debug("Any type did not fit any expected value");
             }
@@ -173,8 +168,6 @@ public class SubscribeTransformHelper {
 
         if (adhocQueryElement == null) {
             LOG.warn("element to unmarshal is null");
-        } else if (contextPath == null) {
-            LOG.warn("no contextPath supplied");
         } else {
             try {
                 LOG.debug("desializing element");
@@ -189,7 +182,7 @@ public class SubscribeTransformHelper {
                 StringReader stringReader = new StringReader(serializedElement);
                 LOG.debug("Calling unmarshal");
                 JAXBElement<AdhocQueryType> jaxbElement = (JAXBElement<AdhocQueryType>) unmarshaller
-                        .unmarshal(stringReader);
+                    .unmarshal(stringReader);
                 LOG.debug("unmarshalled to JAXBElement");
                 unmarshalledObject = jaxbElement.getValue();
                 LOG.debug("end unmarshal");

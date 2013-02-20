@@ -65,7 +65,7 @@ public class CXFSAMLCallbackHandler implements CallbackHandler {
                     SamlTokenCreator creator = new SamlTokenCreator();
 
                     CallbackProperties properties = new CallbackMapProperties(addMessageProperties(
-                            creator.CreateRequestContext(custAssertion, null, null), message));
+                            creator.createRequestContext(custAssertion, null, null), message));
 
                     HOKSAMLAssertionBuilder builder = new HOKSAMLAssertionBuilder();
 

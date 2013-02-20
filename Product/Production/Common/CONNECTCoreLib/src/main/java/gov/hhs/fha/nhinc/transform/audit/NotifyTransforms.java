@@ -30,19 +30,15 @@ import com.services.nhinc.schema.auditmessage.AuditMessageType;
 import com.services.nhinc.schema.auditmessage.AuditSourceIdentificationType;
 import com.services.nhinc.schema.auditmessage.CodedValueType;
 import com.services.nhinc.schema.auditmessage.ParticipantObjectIdentificationType;
-
 import gov.hhs.fha.nhinc.common.auditlog.LogEventRequestType;
 import gov.hhs.fha.nhinc.common.hiemauditlog.LogEntityNotifyResponseType;
 import gov.hhs.fha.nhinc.common.hiemauditlog.LogNhinNotifyRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommon.UserType;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.transform.marshallers.JAXBContextHandler;
-
 import java.io.ByteArrayOutputStream;
-
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Marshaller;
-
 import org.apache.log4j.Logger;
 
 /**
@@ -73,7 +69,7 @@ public class NotifyTransforms {
         }
 
         // Create EventIdentification
-        CodedValueType eventID = new CodedValueType();
+        CodedValueType eventID = null;
         eventID = AuditDataTransformHelper.createEventId(AuditDataTransformConstants.EVENT_ID_CODE_SYS_NAME_NOT,
                 AuditDataTransformConstants.EVENT_ID_DISPLAY_NAME_NOTIFY,
                 AuditDataTransformConstants.EVENT_ID_CODE_SYS_NAME_NOT,
@@ -168,7 +164,7 @@ public class NotifyTransforms {
         }
 
         // Create EventIdentification
-        CodedValueType eventID = new CodedValueType();
+        CodedValueType eventID = null;
         eventID = AuditDataTransformHelper.createEventId(AuditDataTransformConstants.EVENT_ID_CODE_SYS_NAME_NOT,
                 AuditDataTransformConstants.EVENT_ID_DISPLAY_NAME_NOTIFY,
                 AuditDataTransformConstants.EVENT_ID_CODE_SYS_NAME_NOT,

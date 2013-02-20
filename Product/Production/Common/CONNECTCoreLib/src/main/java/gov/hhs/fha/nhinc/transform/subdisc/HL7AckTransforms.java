@@ -185,8 +185,8 @@ public class HL7AckTransforms {
 
         // Create the Ack message header fields
         ackMsg.setITSVersion(HL7Constants.ITS_VERSION);
-        ackMsg.setId(HL7MessageIdGenerator.GenerateHL7MessageId(localDeviceId));
-        ackMsg.setCreationTime(HL7DataTransformHelper.CreationTimeFactory());
+        ackMsg.setId(HL7MessageIdGenerator.generateHL7MessageId(localDeviceId));
+        ackMsg.setCreationTime(HL7DataTransformHelper.creationTimeFactory());
         ackMsg.setInteractionId(HL7DataTransformHelper.IIFactory(HL7Constants.INTERACTION_ID_ROOT, "MCCIIN000002UV01"));
         ackMsg.setProcessingCode(HL7DataTransformHelper.CSFactory("T"));
         ackMsg.setProcessingModeCode(HL7DataTransformHelper.CSFactory("T"));

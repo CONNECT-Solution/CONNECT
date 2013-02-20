@@ -37,39 +37,40 @@ import java.util.Properties;
 public class SAMLConfigFactory {
 
     private static final String SAML_PROPERTIES_FILENAME = "saml";
-    
     private static SAMLConfigFactory INSTANCE = null;
-    
     private Properties configuration = null;
-    
+
     SAMLConfigFactory() {
         this(new PropertyAccessorFileUtilities());
     }
-    
+
     SAMLConfigFactory(PropertyAccessorFileUtilities propFileUtilities) {
         configuration = propFileUtilities.loadPropertyFile(SAML_PROPERTIES_FILENAME);
     }
-    
+
     /**
      * Returns a singleton instance of this factory.
-     * 
+     *
      * @return a singleton instance of this factory.
      */
     public static SAMLConfigFactory getInstance() {
         if (INSTANCE == null) {
             INSTANCE = new SAMLConfigFactory();
         }
-        
+
         return INSTANCE;
     }
-    
+
     /**
      * Returns a cloned copy of the Properties read from saml.properties.
-     * 
+     *
      * @return a cloned copy of the Properties read from saml.properties.
      */
     public Properties getConfiguration() {
-        return (Properties) configuration.clone();
+        if (configuration == null) {
+            return null;
+        } else {
+            return (Properties) configuration.clone();
+        }
     }
-    
 }
