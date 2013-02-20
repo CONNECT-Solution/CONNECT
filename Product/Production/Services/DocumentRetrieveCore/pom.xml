@@ -26,6 +26,10 @@
             <artifactId>SharedEngineCore</artifactId>
             <version>${project.parent.version}</version>
         </dependency>
+        <dependency>
+            <groupId>org.connectopensource</groupId>
+            <artifactId>DocumentRetrieveWebservices</artifactId>
+        </dependency>
     </dependencies>
     <build>
         <plugins>            

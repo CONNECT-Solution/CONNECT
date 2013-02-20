@@ -143,8 +143,7 @@ public class PatientCorrelationOrchImpl implements PatientCorrelationOrch {
             return null;
         }
         correlatedPatientId = ids.get(1).getExtension();
-        if (correlatedPatientId != null & !correlatedPatientId.equals("")) {
-        } else {
+        if ((correlatedPatientId == null) || (correlatedPatientId.equals(""))) {
             LOG.warn("correlatedPatientId was not supplied");
             return null;
         }

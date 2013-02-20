@@ -125,7 +125,7 @@ public class EventCodeDao {
                         criteria.add(Restrictions.eq("eventCode", eventCodeParam.getEventCode()));
                         performQuery = true;
                     }
-                    if (NullChecker.isNotNullish(eventCodeParam.getEventCodeScheme())) {
+                    if ((eventCodeParam != null) && NullChecker.isNotNullish(eventCodeParam.getEventCodeScheme())) {
                         criteria.add(Restrictions.eq("eventCodeScheme", eventCodeParam.getEventCodeScheme()));
                         performQuery = true;
                     }

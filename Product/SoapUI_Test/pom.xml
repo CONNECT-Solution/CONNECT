@@ -1,5 +1,6 @@
 <?xml version="1.0"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>org.connectopensource</groupId>
@@ -62,7 +63,7 @@
                         <dependency>
                             <groupId>org.connectopensource</groupId>
                             <artifactId>CONNECTCommonTypesLib</artifactId>
-                            <version>${project.version}</version>
+                            <version>4.0.2</version>
                         </dependency>
                         <dependency>
                             <groupId>org.connectopensource</groupId>
@@ -156,7 +157,7 @@
                                 <artifactItem>
                                     <groupId>org.connectopensource</groupId>
                                     <artifactId>CONNECTCommonTypesLib</artifactId>
-                                    <version>${project.parent.version}</version>
+                                    <version>4.0.2</version>
                                     <type>jar</type>
                                 </artifactItem>
                             </artifactItems>
@@ -175,99 +176,84 @@
                             <artifactItems>
                                 <artifactItem>
                                     <groupId>org.connectopensource</groupId>
-                                    <artifactId>CONNECTCommonWeb</artifactId>
-                                    <version>${project.parent.version}</version>
-                                    <type>war</type>
+                                    <artifactId>AdapterAuthenticationWebservices</artifactId>
+                                    <version>4.0.2</version>
+                                   
                                 </artifactItem>
                                 <artifactItem>
                                     <groupId>org.connectopensource</groupId>
-                                    <artifactId>AdapterAuthenticationCore</artifactId>
-                                    <version>${project.parent.version}</version>
-                                    <type>jar</type>
+                                    <artifactId>AdminDistributionWebservices</artifactId>
+                                    <version>4.0.2</version>
                                 </artifactItem>
                                 <artifactItem>
                                     <groupId>org.connectopensource</groupId>
-                                    <artifactId>AdminDistributionCore</artifactId>
-                                    <version>${project.parent.version}</version>
-                                    <type>jar</type>
+                                    <artifactId>AuditRepositoryWebservices</artifactId>
+                                    <version>4.0.2</version>
                                 </artifactItem>
                                 <artifactItem>
                                     <groupId>org.connectopensource</groupId>
-                                    <artifactId>AuditRepositoryCore</artifactId>
-                                    <version>${project.parent.version}</version>
-                                    <type>jar</type>
+                                    <artifactId>ComponentWebservices</artifactId>
+                                    <version>4.0.2</version>
                                 </artifactItem>
                                 <artifactItem>
                                     <groupId>org.connectopensource</groupId>
-                                    <artifactId>ConnectionManagerCore</artifactId>
-                                    <version>${project.parent.version}</version>
-                                    <type>jar</type>
+                                    <artifactId>ConnectionManagerWebservices</artifactId>
+                                    <version>4.0.2</version>
                                 </artifactItem>
                                 <artifactItem>
                                     <groupId>org.connectopensource</groupId>
-                                    <artifactId>DocRegistryCore</artifactId>
-                                    <version>${project.parent.version}</version>
-                                    <type>jar</type>
+                                    <artifactId>DirectWebservices</artifactId>
+                                    <version>4.0.2</version>
                                 </artifactItem>
                                 <artifactItem>
                                     <groupId>org.connectopensource</groupId>
-                                    <artifactId>DocRepositoryCore</artifactId>
-                                    <version>${project.parent.version}</version>
-                                    <type>jar</type>
+                                    <artifactId>DocRegistryWebservices</artifactId>
+                                    <version>4.0.2</version>
                                 </artifactItem>
                                 <artifactItem>
                                     <groupId>org.connectopensource</groupId>
-                                    <artifactId>DocumentQueryCore</artifactId>
-                                    <version>${project.parent.version}</version>
-                                    <type>jar</type>
+                                    <artifactId>DocRepositoryWebservices</artifactId>
+                                    <version>4.0.2</version>
                                 </artifactItem>
                                 <artifactItem>
                                     <groupId>org.connectopensource</groupId>
-                                    <artifactId>DocumentRetrieveCore</artifactId>
-                                    <version>${project.parent.version}</version>
-                                    <type>jar</type>
+                                    <artifactId>DocumentQueryWebservices</artifactId>
+                                    <version>4.0.2</version>
                                 </artifactItem>
                                 <artifactItem>
                                     <groupId>org.connectopensource</groupId>
-                                    <artifactId>DocumentSubmissionCore</artifactId>
-                                    <version>${project.parent.version}</version>
-                                    <type>jar</type>
+                                    <artifactId>DocumentRetrieveWebservices</artifactId>
+                                    <version>4.0.2</version>
                                 </artifactItem>
                                 <artifactItem>
                                     <groupId>org.connectopensource</groupId>
-                                    <artifactId>HIEMCore</artifactId>
-                                    <version>${project.parent.version}</version>
-                                    <type>jar</type>
+                                    <artifactId>DocumentSubmissionWebervices</artifactId>
+                                    <version>4.0.2</version>
                                 </artifactItem>
                                 <artifactItem>
                                     <groupId>org.connectopensource</groupId>
-                                    <artifactId>PatientCorrelationCore</artifactId>
-                                    <version>${project.parent.version}</version>
-                                    <type>jar</type>
+                                    <artifactId>HIEMWebservices</artifactId>
+                                    <version>4.0.2</version>
                                 </artifactItem>
                                 <artifactItem>
                                     <groupId>org.connectopensource</groupId>
-                                    <artifactId>PatientDiscoveryCore</artifactId>
-                                    <version>${project.parent.version}</version>
-                                    <type>jar</type>
+                                    <artifactId>PatientCorrelationWebservices</artifactId>
+                                    <version>4.0.2</version>
                                 </artifactItem>
                                 <artifactItem>
                                     <groupId>org.connectopensource</groupId>
-                                    <artifactId>PolicyEngineCore</artifactId>
-                                    <version>${project.parent.version}</version>
-                                    <type>jar</type>
+                                    <artifactId>PatientDiscoveryWebservices</artifactId>
+                                    <version>4.0.2</version>
                                 </artifactItem>
                                 <artifactItem>
                                     <groupId>org.connectopensource</groupId>
-                                    <artifactId>RedactionEngineCore</artifactId>
-                                    <version>${project.parent.version}</version>
-                                    <type>jar</type>
+                                    <artifactId>PolicyEngineWebservices</artifactId>
+                                    <version>4.0.2</version>
                                 </artifactItem>
                                 <artifactItem>
                                     <groupId>org.connectopensource</groupId>
-                                    <artifactId>SharedEngineCore</artifactId>
-                                    <version>${project.parent.version}</version>
-                                    <type>jar</type>
+                                    <artifactId>RedactionEngineWebservices</artifactId>
+                                    <version>4.0.2</version>
                                 </artifactItem>
                             </artifactItems>
                             <includes>**/*.wsdl</includes>
@@ -288,8 +274,10 @@
                         </goals>
                         <configuration>
                             <target>
-                                <copy todir="${project.build.directory}/wsdl" flatten="true">
-                                    <fileset dir="${project.build.directory}/wsdl-extracted">
+                                <copy todir="${project.build.directory}/wsdl"
+                                    flatten="true">
+                                    <fileset
+                                        dir="${project.build.directory}/wsdl-extracted">
                                         <include name="**/*.wsdl" />
                                     </fileset>
                                 </copy>

@@ -56,9 +56,6 @@ public class ExecutorServiceHelper {
 
     private static final Logger LOG = Logger.getLogger(ExecutorServiceHelper.class);
 
-    private static ExecutorServiceHelper instance = null;
-    private static final Object EXSYNC = new Object();
-
     // default pool size is 100
     private static int concurrentPoolSize;
     // default large job pool size is 200
@@ -101,18 +98,13 @@ public class ExecutorServiceHelper {
                 + " largejobPoolSize=" + largejobPoolSize + " largejobSizePercent=" + largejobSizePercent);
     }
 
-    // singleton using double null check pattern
+    private static class SingletonHolder { 
+        public static final ExecutorServiceHelper INSTANCE = new ExecutorServiceHelper();
+    }
+
+    // singleton
     public static ExecutorServiceHelper getInstance() {
-        if (instance != null) {
-            return instance;
-        } else {
-            synchronized (EXSYNC) {
-                if (instance == null) {
-                    instance = new ExecutorServiceHelper();
-                }
-            }
-            return instance;
-        }
+        return SingletonHolder.INSTANCE;
     }
 
     public static int getExecutorPoolSize() {

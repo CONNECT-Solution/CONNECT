@@ -26,9 +26,11 @@
  */
 package gov.hhs.fha.nhinc.properties;
 
+import gov.hhs.fha.nhinc.util.StringUtil;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.util.Properties;
-import java.io.FileWriter;
+import java.io.OutputStreamWriter;
 
 /**
  * This class is used to manage a property file programmtically.
@@ -54,12 +56,13 @@ public class PropertyFileManager {
         }
 
         String sPropFile = PropertyAccessor.getInstance().getPropertyFileLocation(sPropertyFile);
-        FileWriter fwPropFile = null;
+        OutputStreamWriter fwPropFile = null;
         Exception eError = null;
         String sErrorMessage = "";
 
         try {
-            fwPropFile = new FileWriter(sPropFile);
+            fwPropFile = new OutputStreamWriter(new FileOutputStream(sPropFile),StringUtil.UTF8_CHARSET);
+        
             oProps.store(fwPropFile, "");
         } catch (Exception e) {
             sErrorMessage = "Failed to store property file: " + sPropFile + ".  Error: " + e.getMessage();
@@ -93,7 +96,7 @@ public class PropertyFileManager {
 
         try {
             if (fPropFile.exists()) {
-                fPropFile.delete();
+                boolean fileDeleted = fPropFile.delete();
             }
         } catch (Exception e) {
             throw new PropertyAccessException("Failed to delete file: " + sPropFile + ".  Error: " + e.getMessage(), e);

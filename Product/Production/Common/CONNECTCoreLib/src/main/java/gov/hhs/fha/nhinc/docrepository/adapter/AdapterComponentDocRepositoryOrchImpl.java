@@ -42,6 +42,7 @@ import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType.DocumentResponse;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.ArrayList;
@@ -342,10 +343,9 @@ public class AdapterComponentDocRepositoryOrchImpl {
     protected boolean setDocumentResponse(Document doc, DocumentResponse oDocResponse) {
         boolean bHasData = false;
         if ((doc.getRawData() != null) && (doc.getRawData().length > 0)) {
-            String url = new String(doc.getRawData());
-            LOG.info("Raw Data: " + url);
-
             try {
+                String url = StringUtil.convertToStringUTF8(doc.getRawData());
+                LOG.info("Raw Data: " + url);
                 URI uri = new URI(url);
                 File sourceFile = new File(uri);
                 try {                    
@@ -356,7 +356,7 @@ public class AdapterComponentDocRepositoryOrchImpl {
                     LOG.error("Failed to read contents of the file : " + sourceFile.getName() + ". " + ex.getMessage());
                     bHasData = false;
                 }
-            } catch (URISyntaxException e) {
+            } catch (URISyntaxException | UnsupportedEncodingException e) {
                 DataHandler dh = LargeFileUtils.getInstance().convertToDataHandler(doc.getRawData());
                                 
                 oDocResponse.setDocument(dh);
@@ -541,7 +541,7 @@ public class AdapterComponentDocRepositoryOrchImpl {
                             String intendedRecipientPerson = "";
                             String intendedRecipientOrganization = "";
                             if (intendedRecipientValue.indexOf("|") != -1) {
-                                intendedRecipientValue.substring(intendedRecipientValue.indexOf("|") + 1);
+                                //intendedRecipientValue.substring(intendedRecipientValue.indexOf("|") + 1);
                                 intendedRecipientOrganization = intendedRecipientValue.substring(0,
                                         intendedRecipientValue.indexOf("|"));
                             } else {

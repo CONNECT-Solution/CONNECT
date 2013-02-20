@@ -26,11 +26,15 @@
  */
 package gov.hhs.fha.nhinc.util;
 
+import java.io.UnsupportedEncodingException;
+import org.apache.log4j.Logger;
+
 public class Base64Coder {
 
+    private static final Logger LOG = Logger.getLogger(Base64Coder.class);
     // Mapping table from 6-bit nibbles to Base64 characters.
-
     private static char[] map1 = new char[64];
+
     static {
         int i = 0;
 
@@ -50,6 +54,7 @@ public class Base64Coder {
     }
     // Mapping table from Base64 characters to 6-bit nibbles.
     private static byte[] map2 = new byte[128];
+
     static {
         for (int i = 0; i < map2.length; i++) {
             map2[i] = -1;
@@ -60,17 +65,24 @@ public class Base64Coder {
     }
 
     /**
-     * Encodes a string into Base64 format.
-     * No blanks or line breaks are inserted.
+     * Encodes a string into Base64 format. No blanks or line breaks are inserted.
+     *
      * @param s a String to be encoded.
      * @return A String with the Base64 encoded data.
      */
     public static String encodeString(String s) {
-        return new String(encode(s.getBytes()));
+        String encodedString = "";
+        try {
+            encodedString = new String(encode(s.getBytes(StringUtil.UTF8_CHARSET)));
+        } catch (UnsupportedEncodingException ex) {
+            LOG.error("Error converting String to UTF8 format: " + ex.getMessage());
+        }
+        return encodedString;
     }
 
     /**
      * Encodes a byte array into Base64 format. No blanks or line breaks are inserted.
+     *
      * @param in an array containing the data bytes to be encoded.
      * @return A character array with the Base64 encoded data.
      */
@@ -117,7 +129,13 @@ public class Base64Coder {
      * @throws IllegalArgumentException if the input is not valid Base64 encoded data.
      */
     public static String decodeString(String s) {
-        return new String(decode(s));
+        String decodedData = "";
+        try {
+            decodedData = StringUtil.convertToStringUTF8(decode(s));
+        } catch (UnsupportedEncodingException ex) {
+            LOG.error("Error converting String to UTF8 format: " + ex.getMessage());
+        }
+        return decodedData;
     }
 
     /**

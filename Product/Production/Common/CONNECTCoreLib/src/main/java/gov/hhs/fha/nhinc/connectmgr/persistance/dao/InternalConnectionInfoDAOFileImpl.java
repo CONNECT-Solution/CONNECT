@@ -95,7 +95,6 @@ public class InternalConnectionInfoDAOFileImpl extends ConnectionManagerDAOBase 
             resp = super.loadBusinessDetail(file);
         } catch (JAXBException ex) {
             LOG.error("unable to load business entities from " + file.getName(), ex);
-            resp = new BusinessDetail();
             throw new Exception("unable to load business entities from " + file.getName(), ex);
         }
         return resp;

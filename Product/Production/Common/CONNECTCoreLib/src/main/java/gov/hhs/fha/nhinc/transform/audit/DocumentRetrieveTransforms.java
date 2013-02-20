@@ -69,8 +69,10 @@ public class DocumentRetrieveTransforms {
             String responseCommunityID) {
         AuditMessageType auditMsg = new AuditMessageType();
         LogEventRequestType response = new LogEventRequestType();
-        response.setDirection(message.getDirection());
-        response.setInterface(message.getInterface());
+        if (message != null){
+            response.setDirection(message.getDirection());
+            response.setInterface(message.getInterface());
+        }
 
         LOG.info("******************************************************************");
         LOG.info("Entering transformDocRetrieveReq2AuditMsg() method.");
@@ -132,7 +134,7 @@ public class DocumentRetrieveTransforms {
 
         // Create Audit Source Identification Section
         String documentId = null;
-        if (message.getMessage() != null && message.getMessage().getRetrieveDocumentSetRequest() != null
+        if (message != null && message.getMessage() != null && message.getMessage().getRetrieveDocumentSetRequest() != null
                 && message.getMessage().getRetrieveDocumentSetRequest().getDocumentRequest() != null
                 && message.getMessage().getRetrieveDocumentSetRequest().getDocumentRequest().size() > 0) {
             documentId = message.getMessage().getRetrieveDocumentSetRequest().getDocumentRequest().get(0)
@@ -186,8 +188,10 @@ public class DocumentRetrieveTransforms {
             String requestCommunityID) {
         AuditMessageType auditMsg = new AuditMessageType();
         LogEventRequestType response = new LogEventRequestType();
-        response.setDirection(message.getDirection());
-        response.setInterface(message.getInterface());
+        if (message != null){
+            response.setDirection(message.getDirection());
+            response.setInterface(message.getInterface());
+        }
 
         LOG.info("******************************************************************");
         LOG.info("Entering transformDocRetrieveResp2AuditMsg() method.");
@@ -249,7 +253,7 @@ public class DocumentRetrieveTransforms {
 
         // Create Audit Source Identification Section
         String documentId = null;
-        if (message.getMessage() != null && message.getMessage().getRetrieveDocumentSetResponse() != null
+        if (message != null && message.getMessage() != null && message.getMessage().getRetrieveDocumentSetResponse() != null
                 && message.getMessage().getRetrieveDocumentSetResponse().getDocumentResponse() != null
                 && message.getMessage().getRetrieveDocumentSetResponse().getDocumentResponse().size() > 0) {
 

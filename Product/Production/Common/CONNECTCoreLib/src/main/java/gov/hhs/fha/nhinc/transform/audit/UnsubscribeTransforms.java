@@ -58,8 +58,10 @@ public class UnsubscribeTransforms {
     public LogEventRequestType transformNhinUnsubscribeRequestToAuditMessage(LogNhinUnsubscribeRequestType message) {
         LogEventRequestType response = new LogEventRequestType();
         AuditMessageType auditMsg = new AuditMessageType();
-        response.setDirection(message.getDirection());
-        response.setInterface(message.getInterface());
+        if (message != null){
+            response.setDirection(message.getDirection());
+            response.setInterface(message.getInterface());
+        }
 
         LOG.info("******************************************************************");
         LOG.info("Entering transformNhinUnsubscribeRequestToAuditMessage() method.");
@@ -121,10 +123,12 @@ public class UnsubscribeTransforms {
             Marshaller marshaller = jc.createMarshaller();
             ByteArrayOutputStream baOutStrm = new ByteArrayOutputStream();
             baOutStrm.reset();
-            
-            JAXBElement<Unsubscribe> oJaxbElement = new JAXBElement<Unsubscribe>(
+            JAXBElement<Unsubscribe> oJaxbElement = null;
+            if (message != null){
+                oJaxbElement = new JAXBElement<Unsubscribe>(
             		new QName("http://docs.oasis-open.org/wsn/b-2", "Unsubscribe"), Unsubscribe.class , 
             		message.getMessage().getUnsubscribe());
+            }
             baOutStrm.close();
             marshaller.marshal(oJaxbElement, baOutStrm);
             LOG.debug("Done marshalling the message.");
@@ -151,8 +155,10 @@ public class UnsubscribeTransforms {
             gov.hhs.fha.nhinc.common.hiemauditlog.LogUnsubscribeResponseType message) {
         LogEventRequestType response = new LogEventRequestType();
         AuditMessageType auditMsg = new AuditMessageType();
-        response.setDirection(message.getDirection());
-        response.setInterface(message.getInterface());
+        if (message != null){
+           response.setDirection(message.getDirection());
+           response.setInterface(message.getInterface());
+        }
 
         LOG.info("******************************************************************");
         LOG.info("Entering transformUnsubscribeResponseToGenericAudit() method.");
@@ -213,8 +219,9 @@ public class UnsubscribeTransforms {
             Marshaller marshaller = jc.createMarshaller();
             ByteArrayOutputStream baOutStrm = new ByteArrayOutputStream();
             baOutStrm.reset();
-            gov.hhs.fha.nhinc.common.subscription.ObjectFactory factory = new gov.hhs.fha.nhinc.common.subscription.ObjectFactory();
-            marshaller.marshal(message.getMessage().getUnsubscribeResponse(), baOutStrm);
+            if (message != null){
+                marshaller.marshal(message.getMessage().getUnsubscribeResponse(), baOutStrm);
+            }
             LOG.debug("Done marshalling the message.");
 
             participantObject.setParticipantObjectQuery(baOutStrm.toByteArray());

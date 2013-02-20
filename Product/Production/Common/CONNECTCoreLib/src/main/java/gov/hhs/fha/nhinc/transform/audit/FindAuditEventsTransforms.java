@@ -56,8 +56,10 @@ public class FindAuditEventsTransforms {
 
         AuditMessageType auditMsg = new AuditMessageType();
         LogEventRequestType response = new LogEventRequestType();
-        response.setDirection(message.getDirection());
-        response.setInterface(message.getInterface());
+        if (message != null){
+            response.setDirection(message.getDirection());
+            response.setInterface(message.getInterface());
+        }
 
         if (message != null) {
             LOG.info("FAE message is NOT null");
@@ -87,7 +89,7 @@ public class FindAuditEventsTransforms {
             }
             String altUserID = "";
             String userName = "";
-            if (userInfo.getPersonName() != null && NullChecker.isNotNullish(userInfo.getPersonName().getGivenName())
+            if ((userInfo != null) && (userInfo.getPersonName() != null) && NullChecker.isNotNullish(userInfo.getPersonName().getGivenName())
                     && NullChecker.isNotNullish(userInfo.getPersonName().getFamilyName())) {
                 userName = userInfo.getPersonName().getGivenName() + " " + userInfo.getPersonName().getFamilyName();
             }

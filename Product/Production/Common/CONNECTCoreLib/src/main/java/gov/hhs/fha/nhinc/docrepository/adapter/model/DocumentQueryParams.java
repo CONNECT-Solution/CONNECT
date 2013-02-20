@@ -26,6 +26,7 @@
  */
 package gov.hhs.fha.nhinc.docrepository.adapter.model;
 
+import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import java.util.Date;
 import java.util.List;
 
@@ -151,6 +152,17 @@ public class DocumentQueryParams {
     
     public void setOnDemandParams(boolean onDemand) {
         this.onDemand = onDemand;
+    }
+    @Override
+    public int hashCode() {
+        int hashCode = 0;
+        if (NullChecker.isNotNullish(patientId)) {
+            hashCode = patientId.hashCode();
+            if (NullChecker.isNotNullish(classCodes)) {
+                hashCode += classCodes.hashCode();
+            }
+        }
+        return hashCode;
     }
 
     @Override

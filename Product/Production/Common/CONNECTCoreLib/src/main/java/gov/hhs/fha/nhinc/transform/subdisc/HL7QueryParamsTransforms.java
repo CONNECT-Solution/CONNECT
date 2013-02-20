@@ -74,8 +74,11 @@ public class HL7QueryParamsTransforms {
 
     public static PRPAMT201306UV02ParameterList createParamList(PRPAMT201301UV02Patient patient) {
         PRPAMT201306UV02ParameterList paramList = new PRPAMT201306UV02ParameterList();
-        JAXBElement<PRPAMT201301UV02Person> jaxbPerson = patient.getPatientPerson();
-        PRPAMT201301UV02Person person = jaxbPerson.getValue();
+        PRPAMT201301UV02Person person = null;
+        if (patient != null){
+           JAXBElement<PRPAMT201301UV02Person> jaxbPerson = patient.getPatientPerson();
+           person = jaxbPerson.getValue();
+        }
 
         // Set the Subject Gender Code
         if (person != null && person.getAdministrativeGenderCode() != null

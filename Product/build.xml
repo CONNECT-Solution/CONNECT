@@ -35,7 +35,7 @@
         <mkdir dir="${deployment.dir}/ValidationSuite" />
 
         <copy todir="${deployment.dir}/${deployment.environment.configuration.dir.name}" verbose="true" overwrite="true">
-            <fileset dir="${root.project.directory.path}/Production/Common/Properties/${deployment.environment.configuration.dir.name}" />
+            <fileset dir="${root.project.directory.path}/Production/Common/Properties" />
         </copy>
 
         <copy todir="${deployment.interfaces.dir}" verbose="true" overwrite="true">

@@ -137,7 +137,9 @@ public class MailUtils {
             LOG.error("Assertion Error while sending.", e);
             throw e;
         } finally {
-            transport.close();
+            if (transport != null) {
+                transport.close();
+            }
         }
     }
 

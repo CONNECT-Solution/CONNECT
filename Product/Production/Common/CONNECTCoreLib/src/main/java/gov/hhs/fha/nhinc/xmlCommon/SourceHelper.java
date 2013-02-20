@@ -26,6 +26,7 @@
  */
 package gov.hhs.fha.nhinc.xmlCommon;
 
+import gov.hhs.fha.nhinc.util.StringUtil;
 import java.io.ByteArrayOutputStream;
 import javax.xml.transform.Source;
 import javax.xml.transform.Transformer;
@@ -48,7 +49,7 @@ public class SourceHelper {
         Transformer xformer = TransformerFactory.newInstance().newTransformer();
         xformer.transform(source, streamResult);
 
-        String resultXml = new String(bos.toByteArray());
+        String resultXml = StringUtil.convertToStringUTF8(bos.toByteArray());
         Node resultNode = XmlUtility.convertXmlToElement(resultXml);
         return resultNode;
     }

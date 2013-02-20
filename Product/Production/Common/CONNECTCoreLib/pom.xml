@@ -23,7 +23,6 @@
         <dependency>
             <groupId>org.connectopensource</groupId>
             <artifactId>CONNECTCommonTypesLib</artifactId>
-            <version>${project.parent.version}</version>
         </dependency>
         <dependency>
             <groupId>commons-collections</groupId>
@@ -117,7 +116,13 @@
         <dependency>
             <groupId>javax.mail</groupId>
             <artifactId>mail</artifactId>
-        </dependency>                
+        </dependency>
+        <dependency>
+            <groupId>xmlunit</groupId>
+            <artifactId>xmlunit</artifactId>
+            <version>1.4</version>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
 
     <build>

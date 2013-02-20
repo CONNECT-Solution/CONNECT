@@ -35,9 +35,7 @@ import org.jmock.Mockery;
 import org.jmock.api.Action;
 import org.jmock.integration.junit4.JUnit4Mockery;
 import org.jmock.lib.legacy.ClassImposteriser;
-import org.junit.Ignore;
 
-@Ignore
 public class PurposeUseProxyTest {
 
     protected Mockery context = new JUnit4Mockery() {
@@ -48,7 +46,7 @@ public class PurposeUseProxyTest {
 
     final protected IPropertyAcessor mockPropertyAccessor = context.mock(IPropertyAcessor.class);
     final protected CallbackProperties mockCallbackProperties = context.mock(CallbackProperties.class);
-    
+
     protected void setPropertyExpectation(final Action action, final String propertyFile, final String propertyName)
             throws PropertyAccessException {
         context.checking(new Expectations() {

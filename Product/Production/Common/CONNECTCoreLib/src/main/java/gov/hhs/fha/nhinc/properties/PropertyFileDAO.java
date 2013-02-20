@@ -28,11 +28,14 @@
 package gov.hhs.fha.nhinc.properties;
 
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
+import gov.hhs.fha.nhinc.util.StringUtil;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.Hashtable;
 import java.util.Iterator;
 import java.util.Properties;
@@ -71,13 +74,13 @@ public class PropertyFileDAO {
     
     public void loadPropertyFile(File propertyFile, String propertyFileName) throws PropertyAccessException {                       
         Properties properties = new Properties();
-        FileReader propFile = null;
+        InputStreamReader propFile = null;
         try {           
             if (!propertyFile.exists()) {
                 throw new PropertyAccessException("Failed to open property file:'" + propertyFile + "'.  "
                         + "File does not exist.");
             }
-            propFile = new FileReader(propertyFile);
+            propFile = new InputStreamReader(new FileInputStream(propertyFile),StringUtil.UTF8_CHARSET);
             properties.load(propFile);
             
             propertyFilesHashmap.put(propertyFileName, properties);
@@ -201,8 +204,8 @@ public class PropertyFileDAO {
             String sValue = properties.getProperty(sKey);
             if (sValue != null) {
                 sValue = sValue.trim();
+                oRetProps.put(sKey, sValue);
             }
-            oRetProps.put(sKey, sValue);
         }
 
         return oRetProps;

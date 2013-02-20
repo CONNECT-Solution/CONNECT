@@ -40,20 +40,20 @@ import org.apache.log4j.Logger;
 public class HibernateAccessor {
     private static final Logger LOG = Logger.getLogger(HibernateAccessor.class);
 
-    private static HibernateAccessor instance;
-    
     private String propertyFileDir = "";
     private boolean failedToLoadEnvVar = false;
     
     protected HibernateAccessor() {
         loadPropertyFileDir();
     }
-    
+
+    private static class SingletonHolder { 
+        public static final HibernateAccessor INSTANCE = new HibernateAccessor();
+    }
+
+    // singleton
     public static HibernateAccessor getInstance() {
-        if (instance == null) {
-            instance = new HibernateAccessor();
-        }
-        return instance;
+        return SingletonHolder.INSTANCE;
     }
     
     public synchronized File getHibernateFile(String hibernateFileName) throws PropertyAccessException {

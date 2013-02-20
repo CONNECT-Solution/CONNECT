@@ -99,7 +99,7 @@ public class PropertyAccessorFileUtilitiesTest extends AbstractSuppressRootLogge
                 return null;
             }
         };
-        assertNull(fileUtilities.getPropertyFileLocation());
+        assertEquals("", fileUtilities.getPropertyFileLocation());
     }
 
     @Test
