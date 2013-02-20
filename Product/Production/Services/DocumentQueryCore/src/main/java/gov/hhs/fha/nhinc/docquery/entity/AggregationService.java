@@ -47,7 +47,6 @@ import gov.hhs.fha.nhinc.orchestration.OutboundOrchestratable;
 import gov.hhs.fha.nhinc.patientcorrelation.nhinc.parsers.PRPAIN201309UV.PixRetrieveBuilder;
 import gov.hhs.fha.nhinc.patientcorrelation.nhinc.proxy.PatientCorrelationProxyFactory;
 import gov.hhs.fha.nhinc.patientcorrelation.nhinc.proxy.PatientCorrelationProxyObjectFactory;
-import gov.hhs.fha.nhinc.transform.document.DocumentTransformConstants;
 import gov.hhs.fha.nhinc.util.format.PatientIdFormatUtil;
 
 import java.util.ArrayList;
@@ -212,7 +211,7 @@ public class AggregationService {
                 assigningAuthorityIdentifier);
 
         for (SlotType1 slot : request.getAdhocQuery().getSlot()) {
-            if (DocumentTransformConstants.EBXML_DOCENTRY_PATIENT_ID.equals(slot.getName())) {
+            if (NhincConstants.EBXML_DOCENTRY_PATIENT_ID.equals(slot.getName())) {
                 ValueListType slotValueList = new ValueListType();
                 slotValueList.getValue().add(formattedPatientId);
                 slot.setValueList(slotValueList);
