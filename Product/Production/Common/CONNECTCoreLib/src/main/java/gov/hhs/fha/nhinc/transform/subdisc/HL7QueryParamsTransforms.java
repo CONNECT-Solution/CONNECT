@@ -58,7 +58,7 @@ public class HL7QueryParamsTransforms {
             String localDeviceId) {
         PRPAMT201306UV02QueryByParameter params = new PRPAMT201306UV02QueryByParameter();
 
-        params.setQueryId(HL7MessageIdGenerator.GenerateHL7MessageId(localDeviceId));
+        params.setQueryId(HL7MessageIdGenerator.generateHL7MessageId(localDeviceId));
         params.setStatusCode(HL7DataTransformHelper.CSFactory("new"));
         params.setResponseModalityCode(HL7DataTransformHelper.CSFactory("R"));
         params.setResponsePriorityCode(HL7DataTransformHelper.CSFactory("I"));
@@ -144,7 +144,7 @@ public class HL7QueryParamsTransforms {
         PRPAMT201306UV02LivingSubjectName subjectName = new PRPAMT201306UV02LivingSubjectName();
 
         for (PNExplicit name : patientNames) {
-            subjectName.getValue().add(HL7DataTransformHelper.ConvertPNToEN(name));
+            subjectName.getValue().add(HL7DataTransformHelper.convertPNToEN(name));
             ST text = new ST();
             subjectName.setSemanticsText(text);
         }

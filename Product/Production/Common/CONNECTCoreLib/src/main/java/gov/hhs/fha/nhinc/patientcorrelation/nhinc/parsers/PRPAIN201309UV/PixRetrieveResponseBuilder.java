@@ -134,7 +134,7 @@ public class PixRetrieveResponseBuilder {
         controlActProcess.getSubject().add(subject);
 
         JAXBElement<PRPAMT201307UV02QueryByParameter> queryByParameter = PRPAIN201309UVParser
-                .ExtractQueryId(originalRetrievePatientCorrelationsRequest);
+                .extractQueryId(originalRetrievePatientCorrelationsRequest);
         controlActProcess.setQueryByParameter(queryByParameter);
 
         controlActProcess.setQueryAck(createQueryAck(controlActProcess));

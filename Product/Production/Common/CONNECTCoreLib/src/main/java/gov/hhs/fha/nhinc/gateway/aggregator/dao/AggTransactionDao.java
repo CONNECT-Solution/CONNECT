@@ -29,14 +29,11 @@ package gov.hhs.fha.nhinc.gateway.aggregator.dao;
 import gov.hhs.fha.nhinc.gateway.aggregator.AggregatorException;
 import gov.hhs.fha.nhinc.gateway.aggregator.model.AggTransaction;
 import gov.hhs.fha.nhinc.gateway.aggregator.persistence.HibernateUtil;
-
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
 import org.apache.log4j.Logger;
-
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;

@@ -34,7 +34,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-
 import org.apache.log4j.Logger;
 
 /**
@@ -42,6 +41,7 @@ import org.apache.log4j.Logger;
  * @author westbergl
  */
 public class FindAndReplaceFile {
+
     private static final Logger LOG = Logger.getLogger(FindAndReplaceFile.class);
 
     /**
@@ -58,7 +58,7 @@ public class FindAndReplaceFile {
         }
         if (fDst.exists()) {
             // Delete the file first....
-            fDst.delete();
+            boolean deleteSuccess = fDst.delete();
         }
 
         InputStream oIn = null;
@@ -134,7 +134,7 @@ public class FindAndReplaceFile {
                     }
                 } catch (Exception e) {
                     System.out.println("Failed to replace file: " + fDirToLook.getCanonicalPath() + " Error: "
-                            + e.getMessage());
+                        + e.getMessage());
                 }
             }
         }
@@ -183,5 +183,4 @@ public class FindAndReplaceFile {
             System.exit(-1);
         }
     }
-
 }

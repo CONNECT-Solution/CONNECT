@@ -32,14 +32,14 @@ import java.security.NoSuchAlgorithmException;
 
 /**
  * This class is used to compute the SHA1 hash code of a string.
- * 
+ *
  * @author Les Westberg
  */
 public class SHA1HashCode {
 
     /**
      * This method takes a byte array and converts it to a String HEX representation of the byte array.
-     * 
+     *
      * @param data The byte array to be converted.
      * @return The HEX string representation of the byte array.
      */
@@ -62,7 +62,7 @@ public class SHA1HashCode {
 
     /**
      * This method calculates the SHA1 hash code for the given string.
-     * 
+     *
      * @param text The string that is being used to compute the SHA-1 hash code.
      * @return The SHA-1 has code based on the given string.
      * @throws java.security.NoSuchAlgorithmException
@@ -72,7 +72,7 @@ public class SHA1HashCode {
         if (text != null) {
             MessageDigest md;
             md = MessageDigest.getInstance("SHA-1");
-            byte[] sha1hash = new byte[40];
+            byte[] sha1hash = null;
             md.update(text.getBytes("iso-8859-1"), 0, text.length());
             sha1hash = md.digest();
             return convertToHex(sha1hash);

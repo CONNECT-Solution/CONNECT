@@ -30,25 +30,25 @@ import java.sql.Blob;
 import java.util.Date;
 
 /**
- * 
+ *
  * @author JHOPPESC, richard.ettema
  */
 public class AsyncMsgRecord {
 
     private Long Id = null;
-    private String MessageId = null;
-    private Date CreationTime = null;
-    private Date ResponseTime = null;
-    private Long Duration = null;
-    private String ServiceName = null;
-    private String Direction = null;
-    private String CommunityId = null;
-    private String Status = null;
-    private String ResponseType = null;
-    private String Reserved = null;
-    private Blob MsgData = null;
-    private Blob RspData = null;
-    private Blob AckData = null;
+    private String messageId = null;
+    private Date creationTime = null;
+    private Date responseTime = null;
+    private Long duration = null;
+    private String serviceName = null;
+    private String direction = null;
+    private String communityId = null;
+    private String status = null;
+    private String responseType = null;
+    private String reserved = null;
+    private Blob msgData = null;
+    private Blob rspData = null;
+    private Blob ackData = null;
 
     public AsyncMsgRecord() {
     }
@@ -62,107 +62,114 @@ public class AsyncMsgRecord {
     }
 
     public String getMessageId() {
-        return MessageId;
+        return messageId;
     }
 
     public void setMessageId(String MessageId) {
-        this.MessageId = MessageId;
+        this.messageId = MessageId;
     }
 
     public Date getCreationTime() {
-        return CreationTime;
+        if (creationTime == null) {
+            return null;
+        } else {
+            return (Date) creationTime.clone();
+        }
     }
 
     public void setCreationTime(Date CreationTime) {
-        this.CreationTime = CreationTime;
+        this.creationTime = CreationTime;
     }
 
     public Date getResponseTime() {
-        return ResponseTime;
+        if (responseTime == null) {
+            return null;
+        } else {
+            return (Date) responseTime.clone();
+        }
     }
 
     public void setResponseTime(Date ResponseTime) {
-        this.ResponseTime = ResponseTime;
+        this.responseTime = ResponseTime;
     }
 
     public Long getDuration() {
-        return Duration;
+        return duration;
     }
 
     public void setDuration(Long Duration) {
-        this.Duration = Duration;
+        this.duration = Duration;
     }
 
     public String getServiceName() {
-        return ServiceName;
+        return serviceName;
     }
 
     public void setServiceName(String ServiceName) {
-        this.ServiceName = ServiceName;
+        this.serviceName = ServiceName;
     }
 
     public String getDirection() {
-        return Direction;
+        return direction;
     }
 
     public void setDirection(String Direction) {
-        this.Direction = Direction;
+        this.direction = Direction;
     }
 
     public String getCommunityId() {
-        return CommunityId;
+        return communityId;
     }
 
     public void setCommunityId(String CommunityId) {
-        this.CommunityId = CommunityId;
+        this.communityId = CommunityId;
     }
 
     public String getStatus() {
-        return Status;
+        return status;
     }
 
     public void setStatus(String Status) {
-        this.Status = Status;
+        this.status = Status;
     }
 
     public String getResponseType() {
-        return ResponseType;
+        return responseType;
     }
 
     public void setResponseType(String ResponseType) {
-        this.ResponseType = ResponseType;
+        this.responseType = ResponseType;
     }
 
     public String getReserved() {
-        return Reserved;
+        return reserved;
     }
 
     public void setReserved(String Reserved) {
-        this.Reserved = Reserved;
+        this.reserved = Reserved;
     }
 
     public Blob getMsgData() {
-        return MsgData;
+        return msgData;
     }
 
     public void setMsgData(Blob MsgData) {
-        this.MsgData = MsgData;
+        this.msgData = MsgData;
     }
 
     public Blob getRspData() {
-        return RspData;
+        return rspData;
     }
 
     public void setRspData(Blob RspData) {
-        this.RspData = RspData;
+        this.rspData = RspData;
     }
 
     public Blob getAckData() {
-        return AckData;
+        return ackData;
     }
 
     public void setAckData(Blob AckData) {
-        this.AckData = AckData;
+        this.ackData = AckData;
     }
-
 }

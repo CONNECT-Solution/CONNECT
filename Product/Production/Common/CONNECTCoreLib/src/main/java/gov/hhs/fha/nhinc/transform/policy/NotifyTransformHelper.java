@@ -43,10 +43,10 @@ public class NotifyTransformHelper {
     public static CheckPolicyRequestType transformNotifyToCheckPolicy(NotifyEventType event) {
         CheckPolicyRequestType genericPolicyRequest = new CheckPolicyRequestType();
         RequestType request = new RequestType();
-        if (InboundOutboundChecker.IsInbound(event.getDirection())) {
+        if (InboundOutboundChecker.isInbound(event.getDirection())) {
             request.setAction(ActionHelper.actionFactory(ActionInValue));
         }
-        if (InboundOutboundChecker.IsOutbound(event.getDirection())) {
+        if (InboundOutboundChecker.isOutbound(event.getDirection())) {
             request.setAction(ActionHelper.actionFactory(ActionOutValue));
         }
         SubjectHelper subjHelp = new SubjectHelper();

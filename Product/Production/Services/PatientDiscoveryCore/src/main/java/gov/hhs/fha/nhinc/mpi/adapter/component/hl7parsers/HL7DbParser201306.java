@@ -492,7 +492,7 @@ public class HL7DbParser201306 {
         String prefix = personname.getPrefix();
         String suffix = personname.getSuffix();
 
-        name = HL7DataTransformHelper.CreatePNExplicit(firstName, middleName, lastName, prefix, suffix);
+        name = HL7DataTransformHelper.createPNExplicit(firstName, middleName, lastName, prefix, suffix);
 
         return name;
     }

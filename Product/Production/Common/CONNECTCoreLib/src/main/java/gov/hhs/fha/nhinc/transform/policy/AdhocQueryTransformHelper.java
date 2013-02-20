@@ -56,10 +56,10 @@ public class AdhocQueryTransformHelper {
         LOG.debug("begin transformAdhocQueryToCheckPolicy");
 
         CheckPolicyRequestType result = null;
-        if (event != null && InboundOutboundChecker.IsInbound(event.getDirection())) {
+        if (event != null && InboundOutboundChecker.isInbound(event.getDirection())) {
             result = transformAdhocQueryInboundToCheckPolicy(event);
         }
-        if (event != null && InboundOutboundChecker.IsOutbound(event.getDirection())) {
+        if (event != null && InboundOutboundChecker.isOutbound(event.getDirection())) {
             result = transformAdhocQueryOutboundToCheckPolicy(event);
         }
 
@@ -71,10 +71,10 @@ public class AdhocQueryTransformHelper {
         LOG.debug("begin transformAdhocQueryResponseToCheckPolicy");
 
         CheckPolicyRequestType result = null;
-        if (event != null && InboundOutboundChecker.IsInbound(event.getDirection())) {
+        if (event != null && InboundOutboundChecker.isInbound(event.getDirection())) {
             result = transformAdhocQueryResponseInboundToCheckPolicy(event);
         }
-        if (event != null && InboundOutboundChecker.IsOutbound(event.getDirection())) {
+        if (event != null && InboundOutboundChecker.isOutbound(event.getDirection())) {
             result = transformAdhocQueryResponseOutboundToCheckPolicy(event);
         }
 
@@ -87,11 +87,11 @@ public class AdhocQueryTransformHelper {
 
         RequestType request = new RequestType();
 
-        if (event != null && InboundOutboundChecker.IsInbound(event.getDirection())) {
+        if (event != null && InboundOutboundChecker.isInbound(event.getDirection())) {
             request.setAction(ActionHelper.actionFactory(ACTIONVALUEIN));
         }
 
-        if (event != null && InboundOutboundChecker.IsOutbound(event.getDirection())) {
+        if (event != null && InboundOutboundChecker.isOutbound(event.getDirection())) {
             request.setAction(ActionHelper.actionFactory(ACTIONVALUEOUT));
         }
 
@@ -176,11 +176,11 @@ public class AdhocQueryTransformHelper {
         String sPatientId = extractPatientIdentifierId(docQuery);
         String sStrippedPatientId = PatientIdFormatUtil.parsePatientId(sPatientId);
 
-        if (event != null && InboundOutboundChecker.IsInbound(event.getDirection())) {
+        if (event != null && InboundOutboundChecker.isInbound(event.getDirection())) {
             request.setAction(ActionHelper.actionFactory(ACTIONVALUEIN));
         }
 
-        if (event != null && InboundOutboundChecker.IsOutbound(event.getDirection())) {
+        if (event != null && InboundOutboundChecker.isOutbound(event.getDirection())) {
             request.setAction(ActionHelper.actionFactory(ACTIONVALUEOUT));
             if ((assertion.getUniquePatientId() != null) && (assertion.getUniquePatientId().size() > 0)) {
                 aaId = PatientIdFormatUtil.parseCommunityId(assertion.getUniquePatientId().get(0));

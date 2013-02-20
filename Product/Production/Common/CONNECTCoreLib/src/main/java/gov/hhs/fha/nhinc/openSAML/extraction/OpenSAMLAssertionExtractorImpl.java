@@ -88,6 +88,7 @@ public class OpenSAMLAssertionExtractorImpl implements SAMLExtractorDOM {
      * @param Element element
      * @return AssertionType
      */
+    @Override
     public final AssertionType extractSAMLAssertion(final Element element) {
 
         LOG.debug("Executing Saml2AssertionExtractor.extractSamlAssertion()...");
@@ -569,6 +570,8 @@ public class OpenSAMLAssertionExtractorImpl implements SAMLExtractorDOM {
                     break;
                 case NhincConstants.CE_DISPLAYNAME:
                     ceType.setDisplayName(String.valueOf(entry.getValue()));
+                    break;
+                default:
                     break;
             }
         }
