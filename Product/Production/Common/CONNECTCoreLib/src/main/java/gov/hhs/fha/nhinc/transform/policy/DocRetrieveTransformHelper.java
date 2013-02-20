@@ -53,10 +53,10 @@ public class DocRetrieveTransformHelper {
         // DocRetrieveMessageType docRetrieve = event.getMessage();
         RequestType request = new RequestType();
 
-        if (InboundOutboundChecker.IsInbound(event.getDirection())) {
+        if (InboundOutboundChecker.isInbound(event.getDirection())) {
             request.setAction(ActionHelper.actionFactory(ActionInValue));
         }
-        if (InboundOutboundChecker.IsOutbound(event.getDirection())) {
+        if (InboundOutboundChecker.isOutbound(event.getDirection())) {
             request.setAction(ActionHelper.actionFactory(ActionOutValue));
         }
 

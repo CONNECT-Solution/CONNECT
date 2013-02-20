@@ -28,16 +28,16 @@ package gov.hhs.fha.nhinc.transform.subdisc;
 
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import java.io.Serializable;
-import java.util.TimeZone;
 import java.util.GregorianCalendar;
 import java.util.Iterator;
 import java.util.List;
+import java.util.TimeZone;
 import javax.xml.bind.JAXBElement;
 import org.apache.log4j.Logger;
 import org.hl7.v3.*;
 
 /**
- * 
+ *
  * @author Jon Hoppesch
  */
 public class HL7DataTransformHelper {
@@ -134,7 +134,7 @@ public class HL7DataTransformHelper {
         return ts;
     }
 
-    public static TSExplicit CreationTimeFactory() {
+    public static TSExplicit creationTimeFactory() {
         String timestamp = "";
         TSExplicit creationTime = new TSExplicit();
 
@@ -142,11 +142,11 @@ public class HL7DataTransformHelper {
             GregorianCalendar today = new GregorianCalendar(TimeZone.getTimeZone("GMT"));
 
             timestamp = String.valueOf(today.get(GregorianCalendar.YEAR))
-                    + String.valueOf(today.get(GregorianCalendar.MONTH) + 1)
-                    + String.valueOf(today.get(GregorianCalendar.DAY_OF_MONTH))
-                    + String.valueOf(today.get(GregorianCalendar.HOUR_OF_DAY))
-                    + String.valueOf(today.get(GregorianCalendar.MINUTE))
-                    + String.valueOf(today.get(GregorianCalendar.SECOND));
+                + String.valueOf(today.get(GregorianCalendar.MONTH) + 1)
+                + String.valueOf(today.get(GregorianCalendar.DAY_OF_MONTH))
+                + String.valueOf(today.get(GregorianCalendar.HOUR_OF_DAY))
+                + String.valueOf(today.get(GregorianCalendar.MINUTE))
+                + String.valueOf(today.get(GregorianCalendar.SECOND));
         } catch (Exception e) {
             LOG.error("Exception when creating XMLGregorian Date");
             LOG.error(" message: " + e.getMessage());
@@ -160,12 +160,12 @@ public class HL7DataTransformHelper {
         return creationTime;
     }
 
-    public static ENExplicit ConvertPNToEN(PNExplicit pnName) {
+    public static ENExplicit convertPNToEN(PNExplicit pnName) {
         org.hl7.v3.ObjectFactory factory = new org.hl7.v3.ObjectFactory();
         ENExplicit enName = (ENExplicit) (factory.createENExplicit());
         List enNamelist = enName.getContent();
-        EnExplicitFamily familyName = new EnExplicitFamily();
-        EnExplicitGiven givenName = new EnExplicitGiven();
+        EnExplicitFamily familyName = null;
+        EnExplicitGiven givenName = null;
 
         List<Serializable> choice = pnName.getContent();
         Iterator<Serializable> iterSerialObjects = choice.iterator();
@@ -257,7 +257,7 @@ public class HL7DataTransformHelper {
     }
 
     public static ENExplicit createEnExplicit(String firstName, String middleName, String lastName, String title,
-            String suffix) {
+        String suffix) {
         org.hl7.v3.ObjectFactory factory = new org.hl7.v3.ObjectFactory();
         ENExplicit enName = (ENExplicit) (factory.createENExplicit());
         List enNamelist = enName.getContent();
@@ -286,7 +286,7 @@ public class HL7DataTransformHelper {
         return enName;
     }
 
-    public static PNExplicit CreatePNExplicit(String firstName, String lastName) {
+    public static PNExplicit createPNExplicit(String firstName, String lastName) {
         LOG.debug("begin CreatePNExplicit");
         LOG.debug("firstName = " + firstName + "; lastName = " + lastName);
         org.hl7.v3.ObjectFactory factory = new org.hl7.v3.ObjectFactory();
@@ -313,11 +313,11 @@ public class HL7DataTransformHelper {
         return name;
     }
 
-    public static PNExplicit CreatePNExplicit(String firstName, String middleName, String lastName) {
+    public static PNExplicit createPNExplicit(String firstName, String middleName, String lastName) {
         LOG.debug("begin CreatePNExplicit");
         LOG.debug("firstName = " + firstName + "; lastName = " + lastName);
         org.hl7.v3.ObjectFactory factory = new org.hl7.v3.ObjectFactory();
-        PNExplicit name = CreatePNExplicit(firstName, lastName);
+        PNExplicit name = createPNExplicit(firstName, lastName);
         List namelist = name.getContent();
 
         if (NullChecker.isNotNullish(middleName)) {
@@ -332,9 +332,9 @@ public class HL7DataTransformHelper {
         return name;
     }
 
-    public static PNExplicit CreatePNExplicit(String firstName, String middleName, String lastName, String title,
-            String suffix) {
-        PNExplicit result = CreatePNExplicit(firstName, middleName, lastName);
+    public static PNExplicit createPNExplicit(String firstName, String middleName, String lastName, String title,
+        String suffix) {
+        PNExplicit result = createPNExplicit(firstName, middleName, lastName);
         List namelist = result.getContent();
         org.hl7.v3.ObjectFactory factory = new org.hl7.v3.ObjectFactory();
 
@@ -352,7 +352,7 @@ public class HL7DataTransformHelper {
         return result;
     }
 
-    public static ADExplicit CreateADExplicit(boolean notOrdered, String street, String city, String state, String zip) {
+    public static ADExplicit createADExplicit(boolean notOrdered, String street, String city, String state, String zip) {
         ADExplicit result = new ADExplicit();
 
         result.setIsNotOrdered(notOrdered);
@@ -364,12 +364,12 @@ public class HL7DataTransformHelper {
         return result;
     }
 
-    public static ADExplicit CreateADExplicit(String street, String city, String state, String zip) {
-        return CreateADExplicit(false, street, city, state, zip);
+    public static ADExplicit createADExplicit(String street, String city, String state, String zip) {
+        return createADExplicit(false, street, city, state, zip);
     }
 
-    public static ADExplicit CreateADExplicit(boolean notOrdered, String street, String street1, String city,
-            String state, String zip) {
+    public static ADExplicit createADExplicit(boolean notOrdered, String street, String street1, String city,
+        String state, String zip) {
         ADExplicit result = new ADExplicit();
 
         result.setIsNotOrdered(notOrdered);
@@ -382,8 +382,8 @@ public class HL7DataTransformHelper {
         return result;
     }
 
-    public static ADExplicit CreateADExplicit(String street, String street1, String city, String state, String zip) {
-        return CreateADExplicit(false, street, street1, city, state, zip);
+    public static ADExplicit createADExplicit(String street, String street1, String city, String state, String zip) {
+        return createADExplicit(false, street, street1, city, state, zip);
     }
 
     public static TELExplicit createTELExplicit(String value) {
@@ -426,5 +426,4 @@ public class HL7DataTransformHelper {
 
         return result;
     }
-
 }

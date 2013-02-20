@@ -84,8 +84,8 @@ public class HL7PRPA201306Transforms {
 
         LOG.trace("Create the 201306 message header fields");
         result.setITSVersion(HL7Constants.ITS_VERSION);
-        result.setId(HL7MessageIdGenerator.GenerateHL7MessageId(receiverOID));
-        result.setCreationTime(HL7DataTransformHelper.CreationTimeFactory());
+        result.setId(HL7MessageIdGenerator.generateHL7MessageId(receiverOID));
+        result.setCreationTime(HL7DataTransformHelper.creationTimeFactory());
         result.setInteractionId(HL7DataTransformHelper.IIFactory(HL7Constants.INTERACTION_ID_ROOT, "PRPA_IN201306UV02"));
         result.setProcessingCode(HL7DataTransformHelper.CSFactory("P"));
         result.setProcessingModeCode(HL7DataTransformHelper.CSFactory("R"));
@@ -570,7 +570,7 @@ public class HL7PRPA201306Transforms {
     }
 
     protected TSExplicit getHL7CreationTime() {
-        return HL7DataTransformHelper.CreationTimeFactory();
+        return HL7DataTransformHelper.creationTimeFactory();
     }
 
     protected II getHL7InteractionId() {
@@ -578,7 +578,7 @@ public class HL7PRPA201306Transforms {
     }
 
     protected II getHL7MessageId(String receiverOID) {
-        return HL7MessageIdGenerator.GenerateHL7MessageId(receiverOID);
+        return HL7MessageIdGenerator.generateHL7MessageId(receiverOID);
     }
 
     protected CS getHL7ProcessingCode() {

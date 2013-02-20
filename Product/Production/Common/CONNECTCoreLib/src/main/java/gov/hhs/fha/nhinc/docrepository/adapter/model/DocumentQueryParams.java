@@ -32,10 +32,11 @@ import java.util.List;
 
 /**
  * Parameter object for document queries
- * 
+ *
  * @author Neil Webb
  */
 public class DocumentQueryParams {
+
     private String patientId;
     private List<String> classCodes;
     private String classCodeScheme;
@@ -67,7 +68,12 @@ public class DocumentQueryParams {
     }
 
     public Date getCreationTimeFrom() {
-        return creationTimeFrom;
+        if (creationTimeFrom == null) {
+            return null;
+        } else {
+            return (Date) creationTimeFrom.clone();
+        }
+
     }
 
     public void setCreationTimeFrom(Date creationTimeFrom) {
@@ -75,7 +81,11 @@ public class DocumentQueryParams {
     }
 
     public Date getCreationTimeTo() {
-        return creationTimeTo;
+        if (creationTimeTo == null) {
+            return null;
+        } else {
+            return (Date) creationTimeTo.clone();
+        }
     }
 
     public void setCreationTimeTo(Date creationTimeTo) {
@@ -99,7 +109,11 @@ public class DocumentQueryParams {
     }
 
     public Date getServiceStartTimeFrom() {
-        return serviceStartTimeFrom;
+        if (serviceStartTimeFrom == null) {
+            return null;
+        } else {
+            return (Date) serviceStartTimeFrom.clone();
+        }
     }
 
     public void setServiceStartTimeFrom(Date serviceStartTimeFrom) {
@@ -107,7 +121,12 @@ public class DocumentQueryParams {
     }
 
     public Date getServiceStartTimeTo() {
-        return serviceStartTimeTo;
+        if (serviceStartTimeTo == null) {
+            return null;
+        } else {
+            return (Date) serviceStartTimeTo.clone();
+        }
+
     }
 
     public void setServiceStartTimeTo(Date serviceStartTimeTo) {
@@ -115,7 +134,11 @@ public class DocumentQueryParams {
     }
 
     public Date getServiceStopTimeFrom() {
-        return serviceStopTimeFrom;
+        if (serviceStopTimeFrom == null) {
+            return null;
+        } else {
+            return (Date) serviceStopTimeFrom.clone();
+        }
     }
 
     public void setServiceStopTimeFrom(Date serviceStopTimeFrom) {
@@ -123,7 +146,11 @@ public class DocumentQueryParams {
     }
 
     public Date getServiceStopTimeTo() {
-        return serviceStopTimeTo;
+        if (serviceStopTimeTo == null) {
+            return null;
+        } else {
+            return (Date) serviceStopTimeTo.clone();
+        }
     }
 
     public void setServiceStopTimeTo(Date serviceStopTimeTo) {
@@ -145,14 +172,15 @@ public class DocumentQueryParams {
     public void setEventCodeParams(List<EventCodeParam> eventCodeParams) {
         this.eventCodeParams = eventCodeParams;
     }
-    
+
     public boolean getOnDemand() {
         return onDemand;
     }
-    
+
     public void setOnDemandParams(boolean onDemand) {
         this.onDemand = onDemand;
     }
+
     @Override
     public int hashCode() {
         int hashCode = 0;
@@ -167,8 +195,9 @@ public class DocumentQueryParams {
 
     @Override
     public boolean equals(Object obj) {
-        if (obj == null)
+        if (obj == null) {
             return false;
+        }
         if (!this.getClass().equals(obj.getClass())) {
             return false;
         }
@@ -189,49 +218,49 @@ public class DocumentQueryParams {
         if ((this.getClassCodeScheme() == null) && (toCheck.getClassCodeScheme() != null)) {
             return false;
         } else if ((this.getClassCodeScheme() != null)
-                && (!this.getClassCodeScheme().equals(toCheck.getClassCodeScheme()))) {
+            && (!this.getClassCodeScheme().equals(toCheck.getClassCodeScheme()))) {
             return false;
         }
 
         if ((this.getCreationTimeFrom() == null) && (toCheck.getCreationTimeFrom() != null)) {
             return false;
         } else if ((this.getCreationTimeFrom() != null)
-                && (!this.getCreationTimeFrom().equals(toCheck.getCreationTimeFrom()))) {
+            && (!this.getCreationTimeFrom().equals(toCheck.getCreationTimeFrom()))) {
             return false;
         }
 
         if ((this.getCreationTimeTo() == null) && (toCheck.getCreationTimeTo() != null)) {
             return false;
         } else if ((this.getCreationTimeTo() != null)
-                && (!this.getCreationTimeTo().equals(toCheck.getCreationTimeTo()))) {
+            && (!this.getCreationTimeTo().equals(toCheck.getCreationTimeTo()))) {
             return false;
         }
 
         if ((this.getServiceStartTimeFrom() == null) && (toCheck.getServiceStartTimeFrom() != null)) {
             return false;
         } else if ((this.getServiceStartTimeFrom() != null)
-                && (!this.getServiceStartTimeFrom().equals(toCheck.getServiceStartTimeFrom()))) {
+            && (!this.getServiceStartTimeFrom().equals(toCheck.getServiceStartTimeFrom()))) {
             return false;
         }
 
         if ((this.getServiceStartTimeTo() == null) && (toCheck.getServiceStartTimeTo() != null)) {
             return false;
         } else if ((this.getServiceStartTimeTo() != null)
-                && (!this.getServiceStartTimeTo().equals(toCheck.getServiceStartTimeTo()))) {
+            && (!this.getServiceStartTimeTo().equals(toCheck.getServiceStartTimeTo()))) {
             return false;
         }
 
         if ((this.getServiceStopTimeFrom() == null) && (toCheck.getServiceStopTimeFrom() != null)) {
             return false;
         } else if ((this.getServiceStopTimeFrom() != null)
-                && (!this.getServiceStopTimeFrom().equals(toCheck.getServiceStopTimeFrom()))) {
+            && (!this.getServiceStopTimeFrom().equals(toCheck.getServiceStopTimeFrom()))) {
             return false;
         }
 
         if ((this.getServiceStopTimeTo() == null) && (toCheck.getServiceStopTimeTo() != null)) {
             return false;
         } else if ((this.getServiceStopTimeTo() != null)
-                && (!this.getServiceStopTimeTo().equals(toCheck.getServiceStopTimeTo()))) {
+            && (!this.getServiceStopTimeTo().equals(toCheck.getServiceStopTimeTo()))) {
             return false;
         }
 
@@ -244,22 +273,21 @@ public class DocumentQueryParams {
         if ((this.getDocumentUniqueIds() == null) && (toCheck.getDocumentUniqueIds() != null)) {
             return false;
         } else if ((this.getDocumentUniqueIds() != null)
-                && (!this.getDocumentUniqueIds().equals(toCheck.getDocumentUniqueIds()))) {
+            && (!this.getDocumentUniqueIds().equals(toCheck.getDocumentUniqueIds()))) {
             return false;
         }
 
         if ((this.getEventCodeParams() == null) && (toCheck.getEventCodeParams() != null)) {
             return false;
         } else if ((this.getEventCodeParams() != null)
-                && (!this.getEventCodeParams().equals(toCheck.getEventCodeParams()))) {
+            && (!this.getEventCodeParams().equals(toCheck.getEventCodeParams()))) {
             return false;
         }
-        
+
         if (this.getOnDemand() != toCheck.getOnDemand()) {
             return false;
         }
 
         return true;
     }
-
 }

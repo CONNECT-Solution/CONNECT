@@ -29,19 +29,23 @@ package gov.hhs.fha.nhinc.properties;
 import gov.hhs.fha.nhinc.util.StringUtil;
 import java.io.File;
 import java.io.FileOutputStream;
-import java.util.Properties;
 import java.io.OutputStreamWriter;
+import java.util.Properties;
+import org.apache.log4j.Logger;
 
 /**
  * This class is used to manage a property file programmtically.
- * 
+ *
  * @author Les Westberg
  */
 public class PropertyFileManager {
+    
+    private static final Logger LOG = Logger.getLogger(PropertyFileManager.class);
+
     /**
      * This saves out the properties to the specified property file. If the file already exists, it is replaced by the
      * specified one. If it does not exist, it is created.
-     * 
+     *
      * @param sPropertyFile The name of the property file without the ".properties" extension.
      * @param oProps The contents to write out as the property file.
      * @throws PropertyAccessException This exception is thrown if there are any errors.
@@ -50,19 +54,19 @@ public class PropertyFileManager {
         if ((sPropertyFile == null) || (sPropertyFile.length() <= 0)) {
             throw new PropertyAccessException("writePropertyFile called with no property file name.");
         }
-
+        
         if (oProps == null) {
             throw new PropertyAccessException("writePropertyFile called with no property file.");
         }
-
+        
         String sPropFile = PropertyAccessor.getInstance().getPropertyFileLocation(sPropertyFile);
         OutputStreamWriter fwPropFile = null;
         Exception eError = null;
         String sErrorMessage = "";
-
-        try {
-            fwPropFile = new OutputStreamWriter(new FileOutputStream(sPropFile),StringUtil.UTF8_CHARSET);
         
+        try {
+            fwPropFile = new OutputStreamWriter(new FileOutputStream(sPropFile), StringUtil.UTF8_CHARSET);
+            
             oProps.store(fwPropFile, "");
         } catch (Exception e) {
             sErrorMessage = "Failed to store property file: " + sPropFile + ".  Error: " + e.getMessage();
@@ -77,7 +81,7 @@ public class PropertyFileManager {
                 }
             }
         }
-
+        
         if (eError != null) {
             throw new PropertyAccessException(sErrorMessage, eError);
         }
@@ -85,22 +89,23 @@ public class PropertyFileManager {
 
     /**
      * Delete the specified property file.
-     * 
+     *
      * @param sPropertyFile The file to be deleted. This is the name of the property file without the ".properties"
-     *            extension. It must be located in the configured properties directory.
+     * extension. It must be located in the configured properties directory.
      * @throws gov.hhs.fha.nhinc.properties.PropertyAccessException This exception is thrown if there is an error.
      */
     public static void deletePropertyFile(String sPropertyFile) throws PropertyAccessException {
         String sPropFile = PropertyAccessor.getInstance().getPropertyFileLocation(sPropertyFile);
         File fPropFile = new File(sPropFile);
-
+        
         try {
             if (fPropFile.exists()) {
                 boolean fileDeleted = fPropFile.delete();
+                LOG.info("File deleted. fPropFile.delete() returned:" + fileDeleted);
             }
         } catch (Exception e) {
             throw new PropertyAccessException("Failed to delete file: " + sPropFile + ".  Error: " + e.getMessage(), e);
         }
-
+        
     }
 }

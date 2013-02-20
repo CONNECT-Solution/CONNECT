@@ -24,21 +24,19 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
  */
-
 package gov.hhs.fha.nhinc.logging.transaction.model;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
 
 /**
- * 
+ *
  * @author jasonasmith
- * 
+ *
  */
 public class TransactionRepo implements Serializable {
 
     private static final long serialVersionUID = -4477402717133468043L;
-    
     private Long id;
     private String messageId;
     private String transactionId;
@@ -46,14 +44,16 @@ public class TransactionRepo implements Serializable {
 
     /**
      * Get record ID.
-     * @return id   the record id
+     *
+     * @return id the record id
      */
     public Long getId() {
         return id;
     }
-    
+
     /**
      * Set record ID.
+     *
      * @param id sets the record id
      */
     public void setId(Long id) {
@@ -62,6 +62,7 @@ public class TransactionRepo implements Serializable {
 
     /**
      * Get message ID.
+     *
      * @return messageId the messageId
      */
     public String getMessageId() {
@@ -70,6 +71,7 @@ public class TransactionRepo implements Serializable {
 
     /**
      * Set message ID.
+     *
      * @param messageId the value for the messageId
      */
     public void setMessageId(String messageId) {
@@ -78,7 +80,8 @@ public class TransactionRepo implements Serializable {
 
     /**
      * Get transaction ID.
-     * @return transactionId    the transactionID
+     *
+     * @return transactionId the transactionID
      */
     public String getTransactionId() {
         return transactionId;
@@ -86,6 +89,7 @@ public class TransactionRepo implements Serializable {
 
     /**
      * Set transaction ID.
+     *
      * @param transactionId value for the transaction Id
      */
     public void setTransactionId(String transactionId) {
@@ -94,18 +98,23 @@ public class TransactionRepo implements Serializable {
 
     /**
      * Get timestamp.
-     * @return timestamp    the timestamp value
+     *
+     * @return timestamp the timestamp value
      */
     public Timestamp getTime() {
-        return time;
+        if (time == null) {
+            return null;
+        } else {
+            return (Timestamp) time.clone();
+        }
     }
 
     /**
      * Set timestamp.
-     * @param time  the value for the timestamp
+     *
+     * @param time the value for the timestamp
      */
     public void setTime(Timestamp time) {
         this.time = time;
     }
-
 }

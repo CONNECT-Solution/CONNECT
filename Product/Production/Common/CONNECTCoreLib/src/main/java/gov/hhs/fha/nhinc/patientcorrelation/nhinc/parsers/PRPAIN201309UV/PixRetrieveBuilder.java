@@ -232,7 +232,7 @@ public class PixRetrieveBuilder {
             QualifiedSubjectIdentifierType qualifiedSubjectIdentifier) {
         PRPAMT201307UV02PatientIdentifier patientIdentifier = new PRPAMT201307UV02PatientIdentifier();
         patientIdentifier.getValue().add(IIHelper.IIFactory(qualifiedSubjectIdentifier));
-        patientIdentifier.setSemanticsText(SemanticsTextHelper.CreateSemanticsText("Patient.Id"));
+        patientIdentifier.setSemanticsText(SemanticsTextHelper.createSemanticsText("Patient.Id"));
         return patientIdentifier;
     }
 }

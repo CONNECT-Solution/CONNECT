@@ -35,36 +35,37 @@ import org.hl7.v3.PRPAIN201301UV02MFMIMT700701UV01Subject2;
 import org.hl7.v3.PRPAMT201301UV02Patient;
 
 /**
- * 
+ *
  * @author svalluripalli
  */
 public class PRPAIN201301UVParser {
+
     private static final Logger LOG = Logger.getLogger(PRPAIN201301UVParser.class);
 
     /**
      * This method gets the patientPerson from HL7V3 message of type PRPAIN201301UV
-     * 
+     *
      * @param message of type PRPAIN201301UV
      * @return PRPAMT201301UVPerson
      */
-    public static PRPAMT201301UV02Patient ParseHL7PatientPersonFrom201301Message(org.hl7.v3.PRPAIN201301UV02 message) {
+    public static PRPAMT201301UV02Patient parseHL7PatientPersonFrom201301Message(org.hl7.v3.PRPAIN201301UV02 message) {
         // assume one subject for now
-        PRPAMT201301UV02Patient patient = ParseHL7PatientFromMessage(message);
+        PRPAMT201301UV02Patient patient = parseHL7PatientFromMessage(message);
         // PRPAMT201301UVPerson patientPerson = ParseHL7PatientPersonFromHL7Patient(patient);
         return patient;
     }
 
     /**
      * This method extracts Patient of type HL7V3 PRPAMT201301UVPatient from HL7V3 PRPAIN201301UV
-     * 
+     *
      * @param message of type PRPAIN201301UV
      * @return PRPAMT201301UVPatient
      */
-    public static PRPAMT201301UV02Patient ParseHL7PatientFromMessage(org.hl7.v3.PRPAIN201301UV02 message) {
+    public static PRPAMT201301UV02Patient parseHL7PatientFromMessage(org.hl7.v3.PRPAIN201301UV02 message) {
         PRPAMT201301UV02Patient patient = null;
         LOG.info("in ExtractPatient");
 
-        PRPAIN201301UV02MFMIMT700701UV01Subject1 subject = ParseSubjectFromMessage(message);
+        PRPAIN201301UV02MFMIMT700701UV01Subject1 subject = parseSubjectFromMessage(message);
         if (subject == null) {
             return null;
         }
@@ -93,7 +94,7 @@ public class PRPAIN201301UVParser {
         return patient;
     }
 
-    public static PRPAIN201301UV02MFMIMT700701UV01Subject1 ParseSubjectFromMessage(org.hl7.v3.PRPAIN201301UV02 message) {
+    public static PRPAIN201301UV02MFMIMT700701UV01Subject1 parseSubjectFromMessage(org.hl7.v3.PRPAIN201301UV02 message) {
         // assume one subject for now
 
         if (message == null) {

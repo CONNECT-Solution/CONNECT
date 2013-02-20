@@ -41,8 +41,8 @@ public class HL7PRPA201305Transforms {
 
         // Create the 201305 message header fields
         result.setITSVersion(HL7Constants.ITS_VERSION);
-        result.setId(HL7MessageIdGenerator.GenerateHL7MessageId(localDeviceId));
-        result.setCreationTime(HL7DataTransformHelper.CreationTimeFactory());
+        result.setId(HL7MessageIdGenerator.generateHL7MessageId(localDeviceId));
+        result.setCreationTime(HL7DataTransformHelper.creationTimeFactory());
         result.setInteractionId(HL7DataTransformHelper.IIFactory(HL7Constants.INTERACTION_ID_ROOT, "PRPA_IN201305UV02"));
         result.setProcessingCode(HL7DataTransformHelper.CSFactory("P"));
         result.setProcessingModeCode(HL7DataTransformHelper.CSFactory("R"));
