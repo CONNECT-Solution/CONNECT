@@ -46,7 +46,7 @@ public class SamlTokenCreatorTest {
       Logger.getRootLogger().addAppender(appenderMock);
     }
     @Test
-    public void CreateRequestContext() {
+    public void testCreateRequestContext() {
     SamlTokenCreator token = new SamlTokenCreator();
     String url = null;
     String action = null;
