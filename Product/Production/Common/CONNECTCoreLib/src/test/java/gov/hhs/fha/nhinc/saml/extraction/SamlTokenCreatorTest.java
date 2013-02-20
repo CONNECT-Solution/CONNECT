@@ -51,7 +51,7 @@ public class SamlTokenCreatorTest {
     String url = null;
     String action = null;
     Map<String, Object> expectedrequestContext = new HashMap<String, Object>();
-    expectedrequestContext = token.CreateRequestContext(createAssertionInfo(),url,action);
+    expectedrequestContext = token.createRequestContext(createAssertionInfo(),url,action);
     System.out.println(expectedrequestContext);
     testUserName(expectedrequestContext);
     testUserHomeCommunityId(expectedrequestContext);
@@ -94,7 +94,7 @@ public class SamlTokenCreatorTest {
         String url = null;
         String action = null;
         SamlTokenCreator token = new SamlTokenCreator();
-        token.CreateRequestContext(assertion, url, action);
+        token.createRequestContext(assertion, url, action);
         ArgumentCaptor<LoggingEvent> arguments = ArgumentCaptor.forClass(LoggingEvent.class);
         verify(appenderMock).doAppend((LoggingEvent) arguments.capture());
         LoggingEvent loggingEvent = (LoggingEvent) arguments.getValue();
