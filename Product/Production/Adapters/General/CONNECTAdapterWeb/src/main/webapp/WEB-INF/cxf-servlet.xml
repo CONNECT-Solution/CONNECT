@@ -101,11 +101,5 @@ http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
         implementor="gov.hhs.fha.nhinc.adapterauthentication.AdapterAuthenticationService" wsdlLocation="classpath:wsdl/AdapterAuthentication.wsdl">
     </jaxws:endpoint>
             
-    <!-- Entity Performance Log Query -->
     
-    <jaxws:endpoint xmlns:tns="urn:gov:hhs:fha:nhinc:entityperformancelogquery" id="EntityPerformanceLogQuery"
-        address="/EntityPerformanceLogQuery" serviceName="tns:EntityPerformanceLogQuery" endpointName="tns:EntityPerformanceLogQueryPort"
-        implementor="gov.hhs.fha.nhinc.performancequery.entity.EntityPerformanceLogQuery" wsdlLocation="classpath:wsdl/EntityPerformanceLogQuery.wsdl">
-    </jaxws:endpoint>
-
 </beans>
