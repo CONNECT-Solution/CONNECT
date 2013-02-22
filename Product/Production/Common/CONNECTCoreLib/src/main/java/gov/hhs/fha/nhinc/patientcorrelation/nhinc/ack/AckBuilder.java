@@ -38,12 +38,8 @@ public class AckBuilder {
     private static final String AcceptAckCodeValue = "NE";
     private static final String ITSVersion = "XML_1.0";
     private static final String InteractionIdExtension = "MCCI_IN000002UV01";
-    private static final String MoodCodeValue = "EVN";
-    private static final String PatientClassCode = "PAT";
-    private static final String PatientStatusCode = "active";
     private static final String ProcessingCodeValue = "P";
     private static final String ProcessingModeCode = "R";
-    private static final String SubjectTypeCode = "SUBJ";
 
     public static MCCIIN000002UV01 buildAck(PRPAIN201301UV02 originalMessage) {
         II receiverId = null;
@@ -53,7 +49,6 @@ public class AckBuilder {
 
         if (originalMessage != null) {
             if ((originalMessage.getSender() != null) && (originalMessage.getSender().getDevice() != null)
-                && (originalMessage.getSender().getDevice().getId() != null)
                 && (originalMessage.getSender().getDevice().getId().size() > 0)) {
                 receiverId = originalMessage.getSender().getDevice().getId().get(0);
             }
