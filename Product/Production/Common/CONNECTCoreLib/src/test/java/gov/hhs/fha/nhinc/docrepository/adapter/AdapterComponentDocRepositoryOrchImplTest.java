@@ -358,13 +358,20 @@ public class AdapterComponentDocRepositoryOrchImplTest {
     	final String XDS_INTENDED_PERSON = "Person";
     	final String XDS_LANGUAGE_CODE = "Language Code";
     	final String XDS_LEGAL_AUTHENTICATOR = "Legal Authenticator";
+    	
     	final String CREATION_TIME_STRING = "100000";
     	final long CREATION_TIME = 100000L;
-    	Date mockTimeDate = mock(Date.class);
+    	Date createTimeDate = new Date();
+    	createTimeDate.setTime(CREATION_TIME);
     	final String START_TIME_STRING = "120000";
     	final String STOP_TIME_STRING = "240000";
     	final long START_TIME = 120000L;
+    	Date startTimeDate = new Date();
+    	startTimeDate.setTime(START_TIME);
     	final long STOP_TIME = 240000L;
+    	Date stopTimeDate = new Date();
+    	stopTimeDate.setTime(STOP_TIME);
+    	
     	final String XDS_PATIENT_ID = "'Patient_ID_2'";
     	final String XDS_PATIENT_ID_NO_QUOTES = "Patient_ID_2";
     	HashMap<String,DataHandler> docMap = mock(HashMap.class);
@@ -454,12 +461,9 @@ public class AdapterComponentDocRepositoryOrchImplTest {
     			XDS_LEGAL_AUTHENTICATOR, CREATION_TIME_STRING, START_TIME_STRING, STOP_TIME_STRING,
     			XDS_PATIENT_ID);
     	
-    	when(utcDateUtil.parseUTCDateOptionalTimeZone(CREATION_TIME_STRING)).thenReturn(mockTimeDate);
-    	when(mockTimeDate.getTime()).thenReturn(CREATION_TIME, START_TIME, STOP_TIME);
-    	
-    	when(utcDateUtil.parseUTCDateOptionalTimeZone(START_TIME_STRING)).thenReturn(mockTimeDate);
-    	
-    	when(utcDateUtil.parseUTCDateOptionalTimeZone(STOP_TIME_STRING)).thenReturn(mockTimeDate);
+    	when(utcDateUtil.parseUTCDateOptionalTimeZone(CREATION_TIME_STRING)).thenReturn(createTimeDate);
+    	when(utcDateUtil.parseUTCDateOptionalTimeZone(START_TIME_STRING)).thenReturn(startTimeDate);
+    	when(utcDateUtil.parseUTCDateOptionalTimeZone(STOP_TIME_STRING)).thenReturn(stopTimeDate);
     	
     	when(extrinsicObject.getId()).thenReturn(DOC_UNIQUE_ID);
     	when(docMap.get(DOC_UNIQUE_ID)).thenReturn(dataHandler);
