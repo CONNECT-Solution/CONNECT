@@ -418,7 +418,7 @@
         <dependency>
             <groupId>org.apache.ws.security</groupId>
             <artifactId>wss4j</artifactId>
-            <version>1.6.8</version>
+            <version>1.6.9</version>
         </dependency>
         <dependency>
             <groupId>org.apache.santuario</groupId>

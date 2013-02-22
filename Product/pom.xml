@@ -11,7 +11,7 @@
     <name>CONNECT Product</name>
     <properties>
         <checkstyle.skip>false</checkstyle.skip>
-        <cxf.version>2.7.1</cxf.version>
+        <cxf.version>2.7.3</cxf.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <connect.common.properties>Dev</connect.common.properties>
         <skip.cobertura>false</skip.cobertura>
