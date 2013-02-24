@@ -77,27 +77,31 @@ public class PatientCorrelationOrchImpl implements PatientCorrelationOrch {
             return null;
         }
         List<II> listII = patIdentifier.getValue();
-        if (listII == null) {
+        if (listII.isEmpty()) {
             LOG.warn("patient identifier was null");
             return null;
         }
-        if (listII.get(0) == null) {
-            LOG.warn("patient identifier(0) was null");
-            return null;
-        }
+        
         II inputPatientId = listII.get(0);
         List<String> dataSourceList = extractDataSourceList(retrievePatientCorrelationsRequest);
         QualifiedPatientIdentifier inputQualifiedPatientIdentifier = qualifiedPatientIdentifierFactory(inputPatientId);
         // only non-expired patient correlation records will be returned
         // expired correlation records will be removed by the following call.
-        List<QualifiedPatientIdentifier> qualifiedPatientIdentifiers = dao.retrievePatientCorrelation(
-            inputQualifiedPatientIdentifier, dataSourceList);
+        List<QualifiedPatientIdentifier> qualifiedPatientIdentifiers = retrieveQualifiedPatientIdentifiers(inputQualifiedPatientIdentifier,
+                dataSourceList);
         List<II> iiList = buildList(qualifiedPatientIdentifiers);
         PRPAIN201310UV02 IN201310 = PixRetrieveResponseBuilder.createPixRetrieveResponse(
             retrievePatientCorrelationsRequest, iiList);
         RetrievePatientCorrelationsResponseType result = new RetrievePatientCorrelationsResponseType();
         result.setPRPAIN201310UV02(IN201310);
         return result;
+    }
+    
+    protected List<QualifiedPatientIdentifier> retrieveQualifiedPatientIdentifiers(QualifiedPatientIdentifier inputQualifiedPatientIdentifier,
+            List<String> dataSourceList) {
+        List<QualifiedPatientIdentifier> qualifiedPatientIdentifiers = dao.retrievePatientCorrelation(
+                inputQualifiedPatientIdentifier, dataSourceList);
+        return qualifiedPatientIdentifiers;
     }
 
     @Override
@@ -114,10 +118,6 @@ public class PatientCorrelationOrchImpl implements PatientCorrelationOrch {
             return null;
         }
         List<II> ids = patient.getId();
-        if (ids == null) {
-            LOG.warn("id's were null");
-            return null;
-        }
 
         if (ids.get(0) == null) {
             LOG.warn("id(0) was null");
@@ -173,7 +173,7 @@ public class PatientCorrelationOrchImpl implements PatientCorrelationOrch {
             .parseHL7ParameterListFrom201309Message(IN201309);
 
         List<PRPAMT201307UV02DataSource> dataSources = parameterList.getDataSource();
-        if (dataSources != null) {
+        if (!dataSources.isEmpty()) {
             for (PRPAMT201307UV02DataSource datasource : dataSources) {
                 for (II value : datasource.getValue()) {
                     dataSourceStringList.add(value.getRoot());
