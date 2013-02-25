@@ -1,8 +1,11 @@
 package gov.hhs.fha.nhinc.saml.extraction;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertThat;
 
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -12,9 +15,12 @@ import java.util.Set;
 
 import org.apache.log4j.Appender;
 import org.apache.log4j.spi.LoggingEvent;
+import org.hl7.v3.CE;
+import org.hl7.v3.RespondingGatewayPRPAIN201305UV02RequestType;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.ArgumentCaptor;
+import static org.mockito.Mockito.when;
 import org.apache.log4j.Logger;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
@@ -28,10 +34,10 @@ import gov.hhs.fha.nhinc.common.nhinccommon.SamlAuthzDecisionStatementEvidenceTy
 import gov.hhs.fha.nhinc.common.nhinccommon.SamlAuthzDecisionStatementType;
 import gov.hhs.fha.nhinc.common.nhinccommon.SamlIssuerType;
 import gov.hhs.fha.nhinc.common.nhinccommon.UserType;
-
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.nullValue;
 
 /**
  * @author achidambaram
@@ -101,6 +107,57 @@ public class SamlTokenCreatorTest {
         assertThat(loggingEvent.getRenderedMessage().toString(), 
                 is("Error: samlSendOperation input assertion is null"));
     }
+    
+    @Test
+    public void createRequestContextUserNameNull() {
+        AssertionType assertion = new AssertionType();
+        UserType userInfo = new UserType();
+        PersonNameType person = null;
+        userInfo.setPersonName(person);
+        assertion.setUserInfo(userInfo);
+        String url = null;
+        String action = null;
+        SamlTokenCreator token = new SamlTokenCreator();
+        Map<String, Object> expectedrequestContext = new HashMap<String, Object>();
+        expectedrequestContext = token.createRequestContext(assertion,url,action);
+        assertFalse(expectedrequestContext.containsKey("userName"));
+    }
+    
+    @Test
+    public void createRequestContextUserInfoOrgNull() {
+        AssertionType assertion = new AssertionType();
+        UserType userInfo = new UserType();
+        HomeCommunityType home = new HomeCommunityType();
+        userInfo.setOrg(home);
+        assertion.setUserInfo(userInfo);
+        String url = null;
+        String action = null;
+        SamlTokenCreator token = new SamlTokenCreator();
+        Map<String, Object> expectedrequestContext = new HashMap<String, Object>();
+        expectedrequestContext = token.createRequestContext(assertion,url,action);
+        assertFalse(expectedrequestContext.containsKey("userOrganization"));
+    }
+    
+    @Test
+    public void createRequestContextUserInfoRoleCodedNull() {
+        AssertionType assertion = new AssertionType();
+        UserType userInfo = new UserType();
+        HomeCommunityType home = new HomeCommunityType();
+        home.setHomeCommunityId("1.1");
+        home.setName("CONNECT");
+        userInfo.setOrg(home);
+        CeType ce = new CeType();
+        userInfo.setRoleCoded(ce);
+        assertion.setUserInfo(userInfo);
+        String url = null;
+        String action = null;
+        SamlTokenCreator token = new SamlTokenCreator();
+        Map<String, Object> expectedrequestContext = new HashMap<String, Object>();
+        expectedrequestContext = token.createRequestContext(assertion,url,action);
+        assertFalse(expectedrequestContext.containsKey("userRoleCode"));
+    }
+    
+    
     
     private void testAssertionIssuerFormat(Map<String,Object>expectedrequestContext) {
         String assertionIssuerFormat = "assertionIssuerFormat";

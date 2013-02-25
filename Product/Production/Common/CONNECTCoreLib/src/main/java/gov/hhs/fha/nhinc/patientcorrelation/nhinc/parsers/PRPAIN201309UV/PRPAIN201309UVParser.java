@@ -85,7 +85,7 @@ public class PRPAIN201309UVParser {
     public static PRPAMT201307UV02PatientIdentifier parseHL7PatientPersonFrom201309Message(PRPAIN201309UV02 message) {
         LOG.debug("---- Begin PRPAIN201309UVParser.parseHL7PatientPersonFrom201309Message()----");
         PRPAMT201307UV02ParameterList parameterList = parseHL7ParameterListFrom201309Message(message);
-        PRPAMT201307UV02PatientIdentifier patientIdentifier = (parameterList.getPatientIdentifier() != null) ? parameterList
+        PRPAMT201307UV02PatientIdentifier patientIdentifier = (parameterList.getPatientIdentifier().size() > 0) ? parameterList
             .getPatientIdentifier().get(0) : null;
         LOG.debug("---- End PRPAIN201309UVParser.parseHL7PatientPersonFrom201309Message()----");
         return patientIdentifier;
