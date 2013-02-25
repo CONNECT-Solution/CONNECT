@@ -26,16 +26,15 @@
  */
 package gov.hhs.fha.nhinc.docrepository.adapter.service;
 
-import gov.hhs.fha.nhinc.nhinclib.NullChecker;
-import gov.hhs.fha.nhinc.docrepository.adapter.model.Document;
 import gov.hhs.fha.nhinc.docrepository.adapter.dao.DocumentDao;
 import gov.hhs.fha.nhinc.docrepository.adapter.dao.EventCodeDao;
+import gov.hhs.fha.nhinc.docrepository.adapter.model.Document;
 import gov.hhs.fha.nhinc.docrepository.adapter.model.DocumentQueryParams;
 import gov.hhs.fha.nhinc.docrepository.adapter.model.EventCode;
 import gov.hhs.fha.nhinc.docrepository.adapter.model.EventCodeParam;
+import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.util.StringUtil;
 import gov.hhs.fha.nhinc.util.hash.SHA1HashCode;
-import java.io.UnsupportedEncodingException;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -52,7 +51,9 @@ import org.apache.log4j.Logger;
  */
 public class DocumentService {
     private static final Logger LOG = Logger.getLogger(DocumentService.class);
-
+    private DocumentDao documentDao = new DocumentDao();
+    private EventCodeDao eventCodeDao = new EventCodeDao();
+    
     /**
      * Save a document record.
      * 
@@ -70,7 +71,7 @@ public class DocumentService {
                     // Delete existing event codes
                     Set<EventCode> eventCodes = ecDoc.getEventCodes();
                     if ((eventCodes != null) && !eventCodes.isEmpty()) {
-                        EventCodeDao eventCodeDao = new EventCodeDao();
+                        EventCodeDao eventCodeDao = getEventCodeDao();
                         for (EventCode eventCode : eventCodes) {
                             eventCodeDao.delete(eventCode);
                             eventCode.setEventCodeId(null);
@@ -115,7 +116,7 @@ public class DocumentService {
             }
         }
 
-        DocumentDao dao = new DocumentDao();
+        DocumentDao dao = getDocumentDao();
         dao.save(document);
     }
 
@@ -127,7 +128,7 @@ public class DocumentService {
      */
     public void deleteDocument(Document document) throws DocumentServiceException {
         LOG.debug("Deleting a document");
-        DocumentDao dao = new DocumentDao();
+        DocumentDao dao = getDocumentDao();
 
         if ((document != null) && (document.getDocumentid() == null) && (document.getDocumentUniqueId() != null)) {
             // Query by unique id and delete if only one exists.
@@ -160,7 +161,7 @@ public class DocumentService {
      * @return Retrieved document
      */
     public Document getDocument(Long documentId) {
-        DocumentDao dao = new DocumentDao();
+        DocumentDao dao = getDocumentDao();
         return dao.findById(documentId);
     }
 
@@ -170,7 +171,7 @@ public class DocumentService {
      * @return All document records
      */
     public List<Document> getAllDocuments() {
-        DocumentDao dao = new DocumentDao();
+        DocumentDao dao = getDocumentDao();
         return dao.findAll();
     }
 
@@ -182,7 +183,7 @@ public class DocumentService {
      */
     public List<Document> documentQuery(DocumentQueryParams params) {
         List<Document> documents = new ArrayList<Document>();
-        DocumentDao dao = new DocumentDao();
+        DocumentDao dao = getDocumentDao();
         List<Document> queryMatchDocs = dao.findDocuments(params);
         List<Document> eventCodeMatchDocs = null;
         if ((params != null) && NullChecker.isNotNullish(params.getEventCodeParams())) {
@@ -206,7 +207,7 @@ public class DocumentService {
         List<Document> documents = new ArrayList<Document>();
         Set<Document> documentSet = new HashSet<Document>();
         if (NullChecker.isNotNullish(eventCodeParams)) {
-            EventCodeDao eventCodeDao = new EventCodeDao();
+            EventCodeDao eventCodeDao = getEventCodeDao();
             Set<EventCode> eventCodesAggregate = new HashSet<EventCode>();
             for (EventCodeParam eventCodeParam : eventCodeParams) {
                 List<EventCode> eventCodes = eventCodeDao.eventCodeQuery(eventCodeParam);
@@ -257,4 +258,14 @@ public class DocumentService {
         }
         return containsDoc;
     }
+    
+    protected DocumentDao getDocumentDao(){
+    	return documentDao;
+    }
+    
+    protected EventCodeDao getEventCodeDao(){
+    	return eventCodeDao;
+    }
+    
+    
 }
