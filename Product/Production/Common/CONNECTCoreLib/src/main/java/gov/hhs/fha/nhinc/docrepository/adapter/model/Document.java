@@ -432,7 +432,11 @@ public class Document {
     }
 
     public void setCreationTime(Date creationTime) {
-        this.creationTime = creationTime;
+        if (creationTime != null) {
+            this.creationTime = (Date) creationTime.clone();
+        } else {
+            this.creationTime = null;
+        }
     }
 
     public Date getServiceStartTime() {
@@ -444,7 +448,11 @@ public class Document {
     }
 
     public void setServiceStartTime(Date serviceStartTime) {
-        this.serviceStartTime = serviceStartTime;
+        if (serviceStartTime != null) {
+            this.serviceStartTime = (Date) serviceStartTime.clone();
+        } else {
+            this.serviceStartTime = null;
+        }
     }
 
     public Date getServiceStopTime() {
@@ -456,7 +464,11 @@ public class Document {
     }
 
     public void setServiceStopTime(Date serviceStopTime) {
-        this.serviceStopTime = serviceStopTime;
+        if (serviceStopTime != null) {
+            this.serviceStopTime = (Date) serviceStopTime.clone();
+        } else {
+            this.serviceStopTime = null;
+        }
     }
 
     public String getStatus() {
@@ -500,7 +512,11 @@ public class Document {
     }
 
     public void setRawData(byte[] rawData) {
-        this.rawData = rawData;
+        if (rawData != null) {
+            this.rawData = (byte[]) rawData.clone();
+        } else {
+            this.rawData = null;
+        }
     }
 
     public boolean isOnDemand() {

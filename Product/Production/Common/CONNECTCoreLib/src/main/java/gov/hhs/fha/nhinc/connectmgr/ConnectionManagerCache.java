@@ -635,7 +635,7 @@ public class ConnectionManagerCache implements ConnectionManager {
             return sEndpointURL;
         }
         List<UDDI_SPEC_VERSION> specVersions = helper.getSpecVersions(oService);
-        if (specVersions == null) {
+        if (specVersions.isEmpty()) {
             return sEndpointURL;
         }
         UDDI_SPEC_VERSION highestSpec = helper.getHighestUDDISpecVersion(specVersions);

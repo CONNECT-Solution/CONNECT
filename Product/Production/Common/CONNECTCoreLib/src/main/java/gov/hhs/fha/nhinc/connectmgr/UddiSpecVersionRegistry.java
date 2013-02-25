@@ -84,7 +84,7 @@ public class UddiSpecVersionRegistry {
         return false;
     }
     
-    private class transactionWrapper {
+    private static class transactionWrapper {
     	private HashMap<NhincConstants.NHIN_SERVICE_NAMES, HashMap<GATEWAY_API_LEVEL, ArrayList<UDDI_SPEC_VERSION>>> apiToSpecMap = null;
     	private HashMap<NhincConstants.NHIN_SERVICE_NAMES, HashMap<UDDI_SPEC_VERSION, GATEWAY_API_LEVEL>> specToApiMap = null;
     	

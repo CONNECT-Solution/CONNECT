@@ -50,7 +50,11 @@ public class CorrelatedIdentifiers {
     }
 
     public void setCorrelationExpirationDate(Date correlationExpirationDate) {
-        this.correlationExpirationDate = correlationExpirationDate;
+        if (correlationExpirationDate != null) {
+            this.correlationExpirationDate = (Date) correlationExpirationDate.clone();
+        } else {
+            this.correlationExpirationDate = null;
+        }
     }
 
     public String getCorrelatedPatientAssigningAuthorityId() {

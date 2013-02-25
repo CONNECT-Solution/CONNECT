@@ -101,11 +101,10 @@ public class AggTransaction {
      * @return The date and time that this transaction was started.
      */
     public Date getTransactionStartTime() {
-        if (transactionStartTime==null){
+        if (transactionStartTime == null) {
             return null;
-        }
-        else{
-        return (Date) transactionStartTime.clone();
+        } else {
+            return (Date) transactionStartTime.clone();
         }
     }
 
@@ -115,7 +114,11 @@ public class AggTransaction {
      * @param transactionStartTime The date and time that this transaction was started.
      */
     public void setTransactionStartTime(Date transactionStartTime) {
-        this.transactionStartTime = transactionStartTime;
+        if (transactionStartTime != null) {
+            this.transactionStartTime = (Date) transactionStartTime.clone();
+        } else {
+            this.transactionStartTime = null;
+        }
     }
 
     /**

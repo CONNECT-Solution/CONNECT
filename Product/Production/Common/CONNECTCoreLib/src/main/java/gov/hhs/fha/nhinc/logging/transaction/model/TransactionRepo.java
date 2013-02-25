@@ -115,6 +115,10 @@ public class TransactionRepo implements Serializable {
      * @param time the value for the timestamp
      */
     public void setTime(Timestamp time) {
-        this.time = time;
+        if (time != null) {
+            this.time = (Timestamp) time.clone();
+        } else {
+            this.time = null;
+        }
     }
 }
