@@ -1,0 +1,325 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<businessDetail xmlns="urn:uddi-org:api_v3" xmlns:ns2="http://www.w3.org/2000/09/xmldsig#">
+    <businessEntity businessKey="uddi:nhincnode:1.1">
+        <name xml:lang="en">DoD</name>
+        <businessServices>
+
+            <!--  Query for Documents  -->
+
+            <businessService serviceKey="uddi:nhincnode:QueryForDocuments" businessKey="uddi:testnhieonenode:1.1">
+                <name xml:lang="en">QueryForDocuments</name>
+                <bindingTemplates>
+                    <bindingTemplate bindingKey="uddi:nhincnode:QueryForDocuments" serviceKey="uddi:nhincnode:QueryForDocuments">
+                        <accessPoint useType="endPoint">https://localhost:8181/Gateway/DocumentQuery/2_0/NhinService/RespondingGateway_Query_Service/DocQuery</accessPoint>
+                        <categoryBag>
+                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="2.0"/>
+                        </categoryBag>
+                    </bindingTemplate>
+                </bindingTemplates>
+                <categoryBag>
+                    <keyedReference tModelKey="uddi:nhin:standard-servicenames" keyName="QueryForDocuments" keyValue="QueryForDocuments"/>
+                </categoryBag>
+            </businessService>
+
+            <!--  Retrieve Documents  -->
+
+            <businessService serviceKey="uddi:nhincnode:RetrieveDocuments" businessKey="uddi:testnhieonenode:1.1">
+                <name xml:lang="en">RetrieveDocuments</name>
+                <bindingTemplates>
+                    <bindingTemplate bindingKey="uddi:nhincnode:RetrieveDocuments" serviceKey="uddi:nhincnode:RetrieveDocuments">
+                        <accessPoint useType="endPoint">https://localhost:8181/Gateway/DocumentRetrieve/2_0/NhinService/RespondingGateway_Retrieve_Service/DocRetrieve</accessPoint>
+                        <categoryBag>
+                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="2.0"/>
+                        </categoryBag>
+                    </bindingTemplate>
+					<bindingTemplate bindingKey="uddi:nhincnode:RetrieveDocuments" serviceKey="uddi:nhincnode:RetrieveDocuments">
+                        <accessPoint useType="endPoint">https://localhost:8181/Gateway/DocumentRetrieve/3_0/NhinService/RespondingGateway_Retrieve_Service/DocRetrieve</accessPoint>
+                        <categoryBag>
+                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="3.0"/>
+                        </categoryBag>
+                    </bindingTemplate>
+                </bindingTemplates>
+                <categoryBag>
+                    <keyedReference tModelKey="uddi:nhin:standard-servicenames" keyName="RetrieveDocuments" keyValue="RetrieveDocuments"/>
+                </categoryBag>
+            </businessService>
+
+            <!--  HIEM  -->
+
+            <businessService serviceKey="uddi:nhincnode:notificationproducer" businessKey="uddi:testnhieonenode:1.1">
+                <name xml:lang="en">HIEM</name>
+                <bindingTemplates>
+                    <bindingTemplate bindingKey="uddi:nhincnode:notificationproducer" serviceKey="uddi:nhincnode:notificationproducer">
+                        <accessPoint useType="endPoint">https://localhost:8181/Gateway/HIEM/2_0/NhinService/NotificationProducerService/HiemSubscription</accessPoint>
+                        <categoryBag>
+                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="2.0"/>
+                        </categoryBag>
+                    </bindingTemplate>
+                </bindingTemplates>
+                <categoryBag>
+                    <keyedReference tModelKey="uddi:nhin:standard-servicenames" keyName="notificationproducer" keyValue="notificationproducer"/>
+                </categoryBag>
+            </businessService>
+            <businessService serviceKey="uddi:nhincnode:notificationconsumer" businessKey="uddi:testnhieonenode:1.1">
+                <name xml:lang="en">notificationconsumer</name>
+                <bindingTemplates>
+                    <bindingTemplate bindingKey="uddi:nhincnode:notificationconsumer" serviceKey="uddi:nhincnode:notificationconsumer">
+                        <accessPoint useType="endPoint">https://localhost:8181/Gateway/HIEM/2_0/NhinService/NotificationConsumerService/HiemNotify</accessPoint>
+                        <categoryBag>
+                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="2.0"/>
+                        </categoryBag>
+                    </bindingTemplate>
+                </bindingTemplates>
+                <categoryBag>
+                    <keyedReference tModelKey="uddi:nhin:standard-servicenames" keyName="notificationconsumer" keyValue="notificationconsumer"/>
+                </categoryBag>
+            </businessService>
+            <businessService serviceKey="uddi:nhincnode:subscriptionmanager" businessKey="uddi:testnhieonenode:1.1">
+                <name xml:lang="en">subscriptionmanager</name>
+                <bindingTemplates>
+                    <bindingTemplate bindingKey="uddi:nhincnode:subscriptionmanager" serviceKey="uddi:nhincnode:subscriptionmanager">
+                        <accessPoint useType="endPoint">https://localhost:8181/Gateway/HIEM/2_0/NhinService/SubscriptionManagerService/HiemUnsubscribe</accessPoint>
+                        <categoryBag>
+                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="2.0"/>
+                        </categoryBag>
+                    </bindingTemplate>
+                </bindingTemplates>
+                <categoryBag>
+                    <keyedReference tModelKey="uddi:nhin:standard-servicenames" keyName="subscriptionmanager" keyValue="subscriptionmanager"/>
+                </categoryBag>
+            </businessService>
+
+            <!--  PatientDiscovery  -->
+
+            <businessService serviceKey="uddi:nhincnode:PatientDiscovery" businessKey="uddi:testnhieonenode:1.1">
+                <name xml:lang="en">PatientDiscovery</name>
+                <bindingTemplates>
+                    <bindingTemplate bindingKey="uddi:nhincnode:PatientDiscovery" serviceKey="uddi:nhincnode:PatientDiscovery">
+                        <accessPoint useType="endPoint">https://localhost:8181/Gateway/PatientDiscovery/1_0/NhinService/NhinPatientDiscovery</accessPoint>
+                        <categoryBag>
+                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="2.0"/>
+                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="1.0"/>
+                        </categoryBag>
+                    </bindingTemplate>
+                </bindingTemplates>
+                <categoryBag>
+                    <keyedReference tModelKey="uddi:nhin:standard-servicenames" keyName="PatientDiscovery" keyValue="PatientDiscovery"/>
+                </categoryBag>
+            </businessService>
+            <businessService serviceKey="uddi:nhincnode:PatientDiscoveryDeferredReq" businessKey="uddi:testnhieonenode:1.1">
+                <name xml:lang="en">PatientDiscoveryDeferredReq</name>
+                <bindingTemplates>
+                    <bindingTemplate bindingKey="uddi:nhincnode:PatientDiscoveryDeferredReq" serviceKey="uddi:nhincnode:PatientDiscoveryDeferredReq">
+                        <accessPoint useType="endPoint">https://localhost:8181/Gateway/PatientDiscovery/1_0/NhinService/NhinPatientDiscoveryAsyncReq</accessPoint>
+                        <categoryBag>
+                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="2.0"/>
+                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="1.0"/>
+                        </categoryBag>
+                    </bindingTemplate>
+                </bindingTemplates>
+                <categoryBag>
+                    <keyedReference tModelKey="uddi:nhin:standard-servicenames" keyName="PatientDiscoveryDeferredReq" keyValue="PatientDiscoveryDeferredReq"/>
+                </categoryBag>
+            </businessService>
+            <businessService serviceKey="uddi:nhincnode:PatientDiscoveryDeferredResp" businessKey="uddi:testnhieonenode:1.1">
+                <name xml:lang="en">PatientDiscoveryDeferredResp</name>
+                <bindingTemplates>
+                    <bindingTemplate bindingKey="uddi:nhincnode:PatientDiscoveryDeferredResp" serviceKey="uddi:nhincnode:PatientDiscoveryDeferredResp">
+                        <accessPoint useType="endPoint">https://localhost:8181/Gateway/PatientDiscovery/1_0/NhinService/NhinPatientDiscoveryAsyncResp</accessPoint>
+                        <categoryBag>
+                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="2.0"/>
+                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="1.0"/>
+                        </categoryBag>
+                    </bindingTemplate>
+                </bindingTemplates>
+                <categoryBag>
+                    <keyedReference tModelKey="uddi:nhin:standard-servicenames" keyName="PatientDiscoveryDeferredResp" keyValue="PatientDiscoveryDeferredResp"/>
+                </categoryBag>
+            </businessService>
+
+            <!--  Document Submission  -->
+
+            <businessService serviceKey="uddi:nhincnode:DocSubmission" businessKey="uddi:testnhieonenode:1.1">
+                <name xml:lang="en">DocSubmission</name>
+                <bindingTemplates>
+                    <bindingTemplate bindingKey="uddi:nhincnode:DocSubmission" serviceKey="uddi:nhincnode:DocSubmission">
+                        <accessPoint useType="endPoint">https://localhost:8181/Gateway/DocumentSubmission/1_1/DocumentRepositoryXDR_Service</accessPoint>
+                        <categoryBag>
+                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="1.1"/>
+                        </categoryBag>
+                    </bindingTemplate>
+					 <bindingTemplate bindingKey="uddi:nhincnode:DocSubmission" serviceKey="uddi:nhincnode:DocSubmission">
+	                        <accessPoint useType="endPoint">https://localhost:8181/Gateway/DocumentSubmission/2_0/DocumentRepositoryXDR_Service</accessPoint>
+	                        <categoryBag>
+	                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="2.0"/>
+	                        </categoryBag>
+	                    </bindingTemplate>
+                </bindingTemplates>
+                <categoryBag>
+                    <keyedReference tModelKey="uddi:nhin:standard-servicenames" keyName="DocSubmission" keyValue="DocSubmission"/>
+                </categoryBag>
+            </businessService>
+            <businessService serviceKey="uddi:nhincnode:DocSubmissionDeferredReq" businessKey="uddi:testnhieonenode:1.1">
+                <name xml:lang="en">DocSubmissionDeferredReq</name>
+                <bindingTemplates>
+                    <bindingTemplate bindingKey="uddi:nhincnode:DocSubmissionDeferredReq" serviceKey="uddi:nhincnode:DocSubmissionDeferredReq">
+                        <accessPoint useType="endPoint">https://localhost:8181/Gateway/DocumentSubmission/1_1/NhinService/XDRRequest_Service</accessPoint>
+                        <categoryBag>
+                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="1.1"/>
+                        </categoryBag>
+                    </bindingTemplate>
+					<bindingTemplate bindingKey="uddi:nhincnode:DocSubmissionDeferredReq" serviceKey="uddi:nhincnode:DocSubmissionDeferredReq">
+                        <accessPoint useType="endPoint">https://localhost:8181/Gateway/DocumentSubmission/2_0/NhinService/XDRRequest_Service</accessPoint>
+                        <categoryBag>
+                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="2.0"/>
+                        </categoryBag>
+                    </bindingTemplate>
+                </bindingTemplates>
+                <categoryBag>
+                    <keyedReference tModelKey="uddi:nhin:standard-servicenames" keyName="DocSubmissionDeferredReq" keyValue="DocSubmissionDeferredReq"/>
+                </categoryBag>
+            </businessService>
+            <businessService serviceKey="uddi:nhincnode:DocSubmissionDeferredResp" businessKey="uddi:testnhieonenode:1.1">
+                <name xml:lang="en">DocSubmissionDeferredResp</name>
+                <bindingTemplates>
+                    <bindingTemplate bindingKey="uddi:nhincnode:DocSubmissionDeferredResp" serviceKey="uddi:nhincnode:DocSubmissionDeferredResp">
+                        <accessPoint useType="endPoint">https://localhost:8181/Gateway/DocumentSubmission/1_1/NhinService/XDRResponse_Service</accessPoint>
+                        <categoryBag>
+                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="1.1"/>
+                        </categoryBag>
+                    </bindingTemplate>
+					<bindingTemplate bindingKey="uddi:nhincnode:DocSubmissionDeferredResp" serviceKey="uddi:nhincnode:DocSubmissionDeferredResp">
+                        <accessPoint useType="endPoint">https://localhost:8181/Gateway/DocumentSubmission/2_0/NhinService/XDRResponse_Service</accessPoint>
+                        <categoryBag>
+                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="2.0"/>
+                        </categoryBag>
+                    </bindingTemplate>
+                </bindingTemplates>
+                <categoryBag>
+                    <keyedReference tModelKey="uddi:nhin:standard-servicenames" keyName="DocSubmissionDeferredResp" keyValue="DocSubmissionDeferredResp"/>
+                </categoryBag>
+            </businessService>
+
+            <!--  Administrative Distribution  -->
+
+            <businessService serviceKey="uddi:nhincnode:AdminDistribution" businessKey="uddi:testnhieonenode:1.1">
+                <name xml:lang="en">AdminDistribution</name>
+                <bindingTemplates>
+                    <bindingTemplate bindingKey="uddi:nhincnode:AdminDistribution" serviceKey="uddi:nhincnode:AdminDistribution">
+                        <accessPoint useType="endPoint">https://localhost:8181/Gateway/AdminDistribution/1_0/NhinService/NhinAdminDist</accessPoint>
+                        <categoryBag>
+                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="1.0"/>
+                        </categoryBag>
+                    </bindingTemplate>
+					<bindingTemplate bindingKey="uddi:nhincnode:AdminDistribution" serviceKey="uddi:nhincnode:AdminDistribution">
+                        <accessPoint useType="endPoint">https://localhost:8181/Gateway/AdminDistribution/2_0/NhinService/NhinAdminDist</accessPoint>
+                        <categoryBag>
+                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="2.0"/>
+                        </categoryBag>
+                    </bindingTemplate>
+                </bindingTemplates>
+                <categoryBag>
+                    <keyedReference tModelKey="uddi:nhin:standard-servicenames" keyName="AdminDistribution" keyValue="AdminDistribution"/>
+                </categoryBag>
+            </businessService>
+        </businessServices>
+        <identifierBag>
+            <keyedReference tModelKey="uddi:nhin:nhie:homecommunityid" keyName="" keyValue="1.1"/>
+        </identifierBag>
+        <categoryBag>
+            <keyedReference tModelKey="uddi:uddi.org:ubr:categorization:iso3166" keyName="New York" keyValue="US-NY"/>
+            <keyedReference tModelKey="uddi:uddi.org:ubr:categorization:iso3166" keyName="Virginia" keyValue="US-VA"/>
+        </categoryBag>
+    </businessEntity>
+
+			<!-- Gateway 2.2 -->
+	
+	<businessEntity businessKey="uddi:nhincnode:2.2">
+        <name xml:lang="en">DoD</name>
+		<businessServices>
+		    <businessService serviceKey="uddi:nhincnode:QueryForDocuments" businessKey="uddi:testnhieonenode:2.2">
+                <name xml:lang="en">QueryForDocuments</name>
+                <bindingTemplates>
+                    <bindingTemplate bindingKey="uddi:nhincnode:QueryForDocuments" serviceKey="uddi:nhincnode:QueryForDocuments">
+                        <accessPoint useType="endPoint">https://localhost:8181/Gateway/DocumentQuery/2_0/NhinService/RespondingGateway_Query_Service/DocQuery</accessPoint>
+                        <categoryBag>
+                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="2.0"/>
+                        </categoryBag>
+                    </bindingTemplate>
+                </bindingTemplates>
+                <categoryBag>
+                    <keyedReference tModelKey="uddi:nhin:standard-servicenames" keyName="QueryForDocuments" keyValue="QueryForDocuments"/>
+                </categoryBag>
+            </businessService>
+        </businessServices>
+		
+        <identifierBag>
+            <keyedReference tModelKey="uddi:nhin:nhie:homecommunityid" keyName="" keyValue="2.2"/>
+        </identifierBag>
+        <categoryBag>
+            <keyedReference tModelKey="uddi:uddi.org:ubr:categorization:iso3166" keyName="Virginia" keyValue="US-VA"/>
+        </categoryBag>
+    </businessEntity>
+
+		<!-- Gateway 4.4 -->
+	
+	<businessEntity businessKey="uddi:nhincnode:4.4">
+        <name xml:lang="en">DoD</name>
+		<businessServices>
+        </businessServices>
+		
+        <identifierBag>
+            <keyedReference tModelKey="uddi:nhin:nhie:homecommunityid" keyName="" keyValue="4.4"/>
+        </identifierBag>
+        <categoryBag>
+            <keyedReference tModelKey="uddi:uddi.org:ubr:categorization:iso3166" keyName="Virginia" keyValue="US-VA"/>
+        </categoryBag>
+    </businessEntity>
+
+		<!-- Gateway 5.5 -->
+	
+	<businessEntity businessKey="uddi:nhincnode:5.5">
+        <name xml:lang="en">DoD</name>
+		<businessServices>
+        </businessServices>
+		
+        <identifierBag>
+            <keyedReference tModelKey="uddi:nhin:nhie:homecommunityid" keyName="" keyValue="5.5"/>
+        </identifierBag>
+        <categoryBag>
+            <keyedReference tModelKey="uddi:uddi.org:ubr:categorization:iso3166" keyName="Virginia" keyValue="US-VA"/>
+        </categoryBag>
+    </businessEntity>
+
+		<!-- Gateway 6.6 -->
+	
+	<businessEntity businessKey="uddi:nhincnode:6.6">
+        <name xml:lang="en">DoD</name>
+		<businessServices>
+        </businessServices>
+		
+        <identifierBag>
+            <keyedReference tModelKey="uddi:nhin:nhie:homecommunityid" keyName="" keyValue="6.6"/>
+        </identifierBag>
+        <categoryBag>
+            <keyedReference tModelKey="uddi:uddi.org:ubr:categorization:iso3166" keyName="Florida" keyValue="US-FL"/>
+        </categoryBag>
+    </businessEntity>
+
+		<!-- Gateway 7.7 -->
+	
+	<businessEntity businessKey="uddi:nhincnode:7.7">
+        <name xml:lang="en">DoD</name>
+		<businessServices>
+        </businessServices>
+		
+        <identifierBag>
+            <keyedReference tModelKey="uddi:nhin:nhie:homecommunityid" keyName="" keyValue="7.7"/>
+        </identifierBag>
+        <categoryBag>
+            <keyedReference tModelKey="uddi:uddi.org:ubr:categorization:iso3166" keyName="Virginia" keyValue="US-VA"/>
+			<keyedReference tModelKey="uddi:uddi.org:ubr:categorization:iso3166" keyName="Florida" keyValue="US-FL"/>
+			<keyedReference tModelKey="uddi:uddi.org:ubr:categorization:iso3166" keyName="Georgia" keyValue="US-GA"/>
+        </categoryBag>
+    </businessEntity>
+</businessDetail>

@@ -25,6 +25,7 @@
     <modules>
         <module>FileUtils</module>
         <module>ValidationSuite</module>
+        <module>RegressionSuite</module>
     </modules>
     <dependencies>
         <dependency>
