@@ -26,16 +26,15 @@
  */
 package gov.hhs.fha.nhinc.gateway.aggregator.model;
 
-import org.junit.*;
-
 import java.util.Date;
-
+import org.junit.*;
 import static org.junit.Assert.*;
 
 /**
  * Created by User: ralph Date: May 17, 2010 Time: 4:12:00 PM
  */
 public class AggMessageResultTest {
+
     @BeforeClass
     public static void setUpClass() throws Exception {
     }
@@ -133,7 +132,7 @@ public class AggMessageResultTest {
 
         messageResult.setResponseMessageAsByteArray(message);
 
-        assertEquals(messageResult.getResponseMessageAsByteArray(), message);
+        assertArrayEquals(messageResult.getResponseMessageAsByteArray(), message);
     }
 
     @Test
@@ -148,5 +147,4 @@ public class AggMessageResultTest {
 
         assertEquals(messageResult.getAggTransaction(), aggTrans);
     }
-
 }

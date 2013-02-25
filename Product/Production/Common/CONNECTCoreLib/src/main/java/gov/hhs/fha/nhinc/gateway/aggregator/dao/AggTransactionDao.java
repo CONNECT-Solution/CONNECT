@@ -1,4 +1,4 @@
-/*
+    /*
  * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services. 
  * All rights reserved. 
  *
@@ -128,12 +128,12 @@ public class AggTransactionDao {
         List<AggTransaction> olAggTransaction = new ArrayList<AggTransaction>();
         SimpleDateFormat oFormat = new SimpleDateFormat("MM/dd/yyyy.HH:mm:ss");
 
-        String sDateTime = oFormat.format(dtDateTime);
-        if (sDateTime == null) {
+        if (dtDateTime == null) {
             String sErrorMessage = "AggTransactionDao.findOlderThan(dtDateTime) must be called with a valid date/time but dtDateTime was null.";
             LOG.error(sErrorMessage);
             throw new AggregatorException(sErrorMessage);
         }
+        String sDateTime = oFormat.format(dtDateTime);
 
         if (LOG.isDebugEnabled()) {
             LOG.debug("Performing AggTransactionDao.findOlderThan(" + sDateTime + ").");

@@ -195,7 +195,7 @@ public abstract class ComponentProxyObjectFactory {
      * This class is an inner class to put the ApplicationContext, and last modified time together so that they can be
      * put in the map.
      */
-    protected class LocalApplicationContextInfo {
+    protected static class LocalApplicationContextInfo {
         private ApplicationContext applicationContext = null;
         private long configLastModified = -1L;
 

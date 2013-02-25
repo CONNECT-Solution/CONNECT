@@ -77,7 +77,11 @@ public class DocumentQueryParams {
     }
 
     public void setCreationTimeFrom(Date creationTimeFrom) {
-        this.creationTimeFrom = creationTimeFrom;
+        if (creationTimeFrom != null) {
+            this.creationTimeFrom = (Date) creationTimeFrom.clone();
+        } else {
+            this.creationTimeFrom = null;
+        }
     }
 
     public Date getCreationTimeTo() {
@@ -89,7 +93,11 @@ public class DocumentQueryParams {
     }
 
     public void setCreationTimeTo(Date creationTimeTo) {
-        this.creationTimeTo = creationTimeTo;
+        if (creationTimeTo != null) {
+            this.creationTimeTo = (Date) creationTimeTo.clone();
+        } else {
+            this.creationTimeTo = null;
+        }
     }
 
     public List<String> getDocumentUniqueIds() {
@@ -117,7 +125,11 @@ public class DocumentQueryParams {
     }
 
     public void setServiceStartTimeFrom(Date serviceStartTimeFrom) {
-        this.serviceStartTimeFrom = serviceStartTimeFrom;
+        if (serviceStartTimeFrom != null) {
+            this.serviceStartTimeFrom = (Date) serviceStartTimeFrom.clone();
+        } else {
+            this.serviceStartTimeFrom = null;
+        }
     }
 
     public Date getServiceStartTimeTo() {
@@ -130,7 +142,11 @@ public class DocumentQueryParams {
     }
 
     public void setServiceStartTimeTo(Date serviceStartTimeTo) {
-        this.serviceStartTimeTo = serviceStartTimeTo;
+        if (serviceStartTimeTo != null) {
+            this.serviceStartTimeTo = (Date) serviceStartTimeTo.clone();
+        } else {
+            this.serviceStartTimeTo = null;
+        }
     }
 
     public Date getServiceStopTimeFrom() {
@@ -142,7 +158,11 @@ public class DocumentQueryParams {
     }
 
     public void setServiceStopTimeFrom(Date serviceStopTimeFrom) {
-        this.serviceStopTimeFrom = serviceStopTimeFrom;
+        if (serviceStopTimeFrom != null) {
+            this.serviceStopTimeFrom = (Date) serviceStopTimeFrom.clone();
+        } else {
+            this.serviceStopTimeFrom = null;
+        }
     }
 
     public Date getServiceStopTimeTo() {
@@ -154,7 +174,11 @@ public class DocumentQueryParams {
     }
 
     public void setServiceStopTimeTo(Date serviceStopTimeTo) {
-        this.serviceStopTimeTo = serviceStopTimeTo;
+        if (serviceStopTimeTo != null) {
+            this.serviceStopTimeTo = (Date) serviceStopTimeTo.clone();
+        } else {
+            this.serviceStopTimeTo = null;
+        }
     }
 
     public List<String> getStatuses() {
