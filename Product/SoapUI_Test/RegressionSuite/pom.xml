@@ -4,7 +4,7 @@
 	<parent>
 		<groupId>org.connectopensource</groupId>
 		<artifactId>SoapUI_Test</artifactId>
-		<version>4.0.0-SNAPSHOT</version>
+		<version>4.1.0-SNAPSHOT</version>
 	</parent>
 	<artifactId>RegressionSuite</artifactId>
 	<packaging>pom</packaging>
@@ -19,9 +19,9 @@
 		<module>AdapterRegistryErrorListMissingTest</module>
 		<module>Admin-Distribution-Passthrough</module>
 		<module>Admin-Distribution-Standard</module>
-		<module>AuditLogging-Passthrough</module-->
+		<module>AuditLogging-Passthrough</module>
 		<module>AuditLogging-Standard</module>
-		<!--module>ConnectionManagerTest</module>
+		<module>ConnectionManagerTest</module>
 		<module>DocQueryAdditionalStoredQueries</module>
 		<module>DocQueryErrorCodes</module>
 		<module>DocQueryFanoutTestTarget</module>
