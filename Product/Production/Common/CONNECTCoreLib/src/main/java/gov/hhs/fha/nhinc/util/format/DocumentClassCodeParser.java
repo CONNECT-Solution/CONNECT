@@ -99,24 +99,23 @@ public class DocumentClassCodeParser {
     }
 
     public static String buildDocumentClassCodeItem(List<String> documentClassCodeList) {
-        String buffer = "";
-
+        StringBuffer buffer = new StringBuffer();
         if ((documentClassCodeList != null) && (documentClassCodeList.size() > 0)) {
-            buffer = "(";
+            buffer.append("(");
             for (String documentClassCode : documentClassCodeList) {
                 documentClassCode = documentClassCode.trim();
-                if (NullChecker.isNotNullish(buffer)) {
-                    buffer = buffer + "'" + documentClassCode + "'" + ",";
+                if (NullChecker.isNotNullish(buffer.toString())) {
+                    buffer.append("'").append(documentClassCode).append("'").append(",");
                 }
             }
-            if (buffer.endsWith(",")) {
-                buffer = buffer.substring(0, buffer.length() - 1);
+            if (buffer.toString().endsWith(",")) {
+                buffer = buffer.deleteCharAt(buffer.length() - 1);
             }
-            buffer = buffer + ")";
+            buffer.append(")");
         }
-        if (buffer.contentEquals("()")) {
-            buffer = "";
+        if (buffer.toString().contentEquals("()")) {
+            return "";
         }
-        return buffer;
+        return buffer.toString();
     }
 }

@@ -128,7 +128,11 @@ public class AggMessageResult {
      * @param messageOutTime The date and time that the message went out.
      */
     public void setMessageOutTime(Date messageOutTime) {
-        this.messageOutTime = messageOutTime;
+        if (messageOutTime != null) {
+            this.messageOutTime = (Date) messageOutTime.clone();
+        } else {
+            this.messageOutTime = null;
+        }
     }
 
     /**
@@ -167,7 +171,11 @@ public class AggMessageResult {
      * @return A byte array containing the response message to be aggregated.
      */
     public byte[] getResponseMessageAsByteArray() {
-       return responseMessageAsByteArray;
+        if (responseMessageAsByteArray == null) {
+            return null;
+        } else {
+            return (byte[]) responseMessageAsByteArray.clone();
+        }
     }
 
     /**
@@ -177,7 +185,7 @@ public class AggMessageResult {
      *
      */
     public void setResponseMessageAsByteArray(byte[] responseMessage) {
-        this.responseMessageAsByteArray = responseMessage;
+        this.responseMessageAsByteArray = ((byte[]) responseMessage.clone());
     }
 
     /**
@@ -218,7 +226,11 @@ public class AggMessageResult {
      * @param responseReceivedTime The date and time that the response was received by the aggregator.
      */
     public void setResponseReceivedTime(Date responseReceivedTime) {
-        this.responseReceivedTime = responseReceivedTime;
+        if (responseReceivedTime != null) {
+            this.responseReceivedTime = (Date) responseReceivedTime.clone();
+        } else {
+            this.responseReceivedTime = null;
+        }
     }
 
     /**

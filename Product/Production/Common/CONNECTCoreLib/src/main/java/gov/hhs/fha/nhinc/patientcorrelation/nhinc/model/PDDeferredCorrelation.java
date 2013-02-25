@@ -81,6 +81,10 @@ public class PDDeferredCorrelation {
     }
 
     public void setCreationTime(Date creationTime) {
-        this.creationTime = creationTime;
+        if (creationTime != null) {
+            this.creationTime = (Date) creationTime.clone();
+        } else {
+            this.creationTime = null;
+        }
     }
 }

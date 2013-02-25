@@ -145,6 +145,8 @@ public class AdapterPDPProxyJavaImpl implements AdapterPDPProxy {
             } else {
                 LOG.info("processPDPRequest - Service Type is null");
             }
+        } catch (RuntimeException e) {
+            throw e;
         } catch (Exception ex) {
             effect = EffectType.DENY;
             LOG.error("Exception occured while retrieving documents");

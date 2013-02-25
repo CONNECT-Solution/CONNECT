@@ -43,7 +43,11 @@ public class GarbageCollectorThread extends Thread {
      * Construct a garbage collector that will clean anything older than the specified date.
      */
     public GarbageCollectorThread(Date dtPivotDate) {
-        pivotDate = dtPivotDate;
+        if (dtPivotDate != null) {
+            this.pivotDate = (Date) dtPivotDate.clone();
+        } else {
+            this.pivotDate = null;
+        }
     }
 
     /**

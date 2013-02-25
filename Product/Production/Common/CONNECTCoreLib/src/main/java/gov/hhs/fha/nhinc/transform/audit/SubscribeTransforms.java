@@ -303,7 +303,7 @@ public class SubscribeTransforms {
         return formattedPatientId;
     }
 
-    private class PatientInfo {
+    private static class PatientInfo {
 
         private String communityId;
         private String communityName;

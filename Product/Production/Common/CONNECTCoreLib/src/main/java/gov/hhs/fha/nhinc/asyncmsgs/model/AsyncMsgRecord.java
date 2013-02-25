@@ -77,8 +77,12 @@ public class AsyncMsgRecord {
         }
     }
 
-    public void setCreationTime(Date CreationTime) {
-        this.creationTime = CreationTime;
+    public void setCreationTime(Date creationTime) {
+        if (creationTime != null) {
+            this.creationTime = (Date) creationTime.clone();
+        } else {
+            this.creationTime = null;
+        }
     }
 
     public Date getResponseTime() {
@@ -89,8 +93,12 @@ public class AsyncMsgRecord {
         }
     }
 
-    public void setResponseTime(Date ResponseTime) {
-        this.responseTime = ResponseTime;
+    public void setResponseTime(Date responseTime) {
+        if (responseTime != null) {
+            this.responseTime = (Date) responseTime.clone();
+        } else {
+            this.responseTime = null;
+        }
     }
 
     public Long getDuration() {

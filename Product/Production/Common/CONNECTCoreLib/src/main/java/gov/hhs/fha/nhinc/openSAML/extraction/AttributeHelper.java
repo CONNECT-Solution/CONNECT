@@ -7,10 +7,8 @@ import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.CeType;
 import gov.hhs.fha.nhinc.common.nhinccommon.PersonNameType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import org.apache.log4j.Logger;
 import org.opensaml.saml2.core.Attribute;
 import org.opensaml.xml.XMLObject;
@@ -22,22 +20,20 @@ import org.w3c.dom.NodeList;
 
 /**
  * @author mweaver
- * 
+ *
  */
 public class AttributeHelper {
+
     private static final Logger LOG = Logger.getLogger(AttributeHelper.class);
 
     /**
      * The value of the UserRole and PurposeOfUse attributes are formatted according to the specifications of an
      * nhin:CodedElement. This method parses that expected structure to obtain the code, codeSystem, codeSystemName, and
      * the displayName attributes of that element.
-     * 
-     * @param attrib
-     *            The Attribute that has the UserRole or PurposeOfUse as its value
-     * @param assertOut
-     *            The Assertion element being written to
-     * @param codeId
-     *            Identifies which coded element this is parsing
+     *
+     * @param attrib The Attribute that has the UserRole or PurposeOfUse as its value
+     * @param assertOut The Assertion element being written to
+     * @param codeId Identifies which coded element this is parsing
      */
     public CeType extractNhinCodedElement(Attribute attrib, String codeId) {
         LOG.debug("Entering AttributeHelper.extractNhinCodedElement...");
@@ -64,12 +60,12 @@ public class AttributeHelper {
                 nodelist = elem.getDOM().getChildNodes();
             } else {
                 LOG.error("The value for the " + codeId + " attribute is a: " + attrVals.get(0).getClass()
-                        + " expected an XSAnyImpl");
+                    + " expected an XSAnyImpl");
             }
             if ((nodelist != null) && (nodelist.getLength() > 0)) {
                 int numNodes = nodelist.getLength();
                 for (int idx = 0; idx < numNodes; idx++) {
-                    if (nodelist.item(idx) instanceof Node) {
+                    if (nodelist.item(idx) != null) {
                         Node node = nodelist.item(idx);
                         NamedNodeMap attrMap = node.getAttributes();
                         if ((attrMap != null) && (attrMap.getLength() > 0)) {
@@ -77,7 +73,7 @@ public class AttributeHelper {
                             for (int attrIdx = 0; attrIdx < numMapNodes; attrIdx++) {
                                 Node attrNode = attrMap.item(attrIdx);
                                 if ((attrNode != null) && (attrNode.getNodeName() != null)
-                                        && (!attrNode.getNodeName().isEmpty())) {
+                                    && (!attrNode.getNodeName().isEmpty())) {
                                     if (attrNode.getNodeName().equalsIgnoreCase(NhincConstants.CE_CODE_ID)) {
                                         ce.setCode(attrNode.getNodeValue());
                                         if (LOG.isTraceEnabled()) {
@@ -127,9 +123,8 @@ public class AttributeHelper {
     /**
      * This method takes an attribute and extracts the string value of the attribute. If the attribute has multiple
      * values, then it concatenates all of the values.
-     * 
-     * @param attrib
-     *            The attribute containing the string value.
+     *
+     * @param attrib The attribute containing the string value.
      * @return The string value (or if there are multiple values, the concatenated string value.)
      */
     public String extractAttributeValueString(Attribute attrib) {
@@ -163,11 +158,9 @@ public class AttributeHelper {
      * The value of the UserName attribute is assumed to be a user's name in plain text. The name parts are extracted in
      * this method as the first word constitutes the first name, the last word constitutes the last name and all other
      * text in between these words constitute the middle name.
-     * 
-     * @param attrib
-     *            The Attribute that has the user name as its value
-     * @param assertOut
-     *            The Assertion element being written to
+     *
+     * @param attrib The Attribute that has the user name as its value
+     * @param assertOut The Assertion element being written to
      */
     public void extractNameParts(Attribute attrib, AssertionType assertOut) {
         LOG.debug("Entering AttributeHelper.extractNameParts...");
@@ -229,7 +222,7 @@ public class AttributeHelper {
                 personName.setSecondNameOrInitials(midName.toString());
                 if (LOG.isTraceEnabled()) {
                     LOG.trace("Assertion.userInfo.personName.secondNameOrInitials = "
-                            + personName.getSecondNameOrInitials());
+                        + personName.getSecondNameOrInitials());
                 }
             }
         } else {
