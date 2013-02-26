@@ -35,7 +35,7 @@ import static org.junit.Assert.fail;
 import static org.mockito.Mockito.mock;
 import gov.hhs.fha.nhinc.event.BaseDescriptionBuilderTest;
 import gov.hhs.fha.nhinc.event.EventDescription;
-import gov.hhs.fha.nhinc.gateway.aggregator.document.DocumentConstants;
+import gov.hhs.fha.nhinc.document.DocumentConstants;
 
 import java.util.List;
 
