@@ -29,7 +29,7 @@
 package gov.hhs.fha.nhinc.docquery.aspect;
 
 import gov.hhs.fha.nhinc.event.BaseEventDescriptionBuilder;
-import gov.hhs.fha.nhinc.gateway.aggregator.document.DocumentConstants;
+import gov.hhs.fha.nhinc.document.DocumentConstants;
 import gov.hhs.fha.nhinc.util.JaxbDocumentUtils;
 import gov.hhs.fha.nhinc.util.NhincCollections;
 

@@ -36,7 +36,7 @@ import org.apache.log4j.Logger;
 import com.google.common.base.Function;
 import com.google.common.base.Optional;
 
-import gov.hhs.fha.nhinc.gateway.aggregator.document.DocumentConstants;
+import gov.hhs.fha.nhinc.document.DocumentConstants;
 import gov.hhs.fha.nhinc.util.JaxbDocumentUtils;
 
 /**

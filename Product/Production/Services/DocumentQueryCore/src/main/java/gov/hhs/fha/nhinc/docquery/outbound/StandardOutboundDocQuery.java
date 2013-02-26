@@ -38,7 +38,7 @@ import gov.hhs.fha.nhinc.docquery.entity.AggregationStrategy;
 import gov.hhs.fha.nhinc.docquery.entity.OutboundDocQueryAggregate;
 import gov.hhs.fha.nhinc.docquery.entity.OutboundDocQueryAggregator;
 import gov.hhs.fha.nhinc.docquery.entity.OutboundDocQueryOrchestratable;
-import gov.hhs.fha.nhinc.gateway.aggregator.document.DocumentConstants;
+import gov.hhs.fha.nhinc.document.DocumentConstants;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.orchestration.OutboundOrchestratable;
 import gov.hhs.fha.nhinc.util.HomeCommunityMap;
