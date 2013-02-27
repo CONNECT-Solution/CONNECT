@@ -5460,7 +5460,7 @@ if(passthruValue != null){
 		<con:wsrmConfig version="1.2"/>
 	</con:request>
 </con:config>
-</con:testStep><con:testStep type="delay" name="Delay"><con:settings/><con:config><delay>1000</delay></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
+</con:testStep><con:testStep type="delay" name="Delay"><con:settings/><con:config><delay>10000</delay></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
 nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);</con:setupScript>
 <con:tearDownScript>def dir = context.findProperty('GatewayPropDir');
 nhinc.FileUtils.restoreConfiguration(dir, log);
@@ -10741,7 +10741,7 @@ if(passthruValue != null){
 		<con:wsrmConfig version="1.2"/>
 	</con:request>
 </con:config>
-</con:testStep><con:testStep type="delay" name="Delay"><con:settings/><con:config><delay>1000</delay></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
+</con:testStep><con:testStep type="delay" name="Delay"><con:settings/><con:config><delay>10000</delay></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
 nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);</con:setupScript>
 <con:tearDownScript>def dir = context.findProperty('GatewayPropDir');
 nhinc.FileUtils.restoreConfiguration(dir, log);
