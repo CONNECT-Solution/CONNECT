@@ -25,23 +25,6 @@
            datasource-classname="com.mysql.jdbc.jdbc2.optional.MysqlDataSource"
            res-type="javax.sql.DataSource"
            wrap-jdbc-objects="false"
-           name="aggregator_pool"
-           min-pool-size="1"
-           max-pool-size="10">
-      <property name="URL" value="jdbc:mysql://localhost/aggregator" />
-      <property name="driverClass" value="com.mysql.jdbc.Driver" />
-      <property name="portNumber" value="3306" />
-      <property name="databaseName" value="aggregator" />
-      <property name="User" value="nhincuser" />
-      <property name="Password" value="nhincpass" />
-      <property name="serverName" value="localhost" />
-    </jdbc-connection-pool>
-    <jdbc-resource pool-name="aggregator_pool" jndi-name="jdbc/aggregator_datasource" enabled="true" object-type="user"/>
-
-    <jdbc-connection-pool connection-validation-method="auto-commit"
-           datasource-classname="com.mysql.jdbc.jdbc2.optional.MysqlDataSource"
-           res-type="javax.sql.DataSource"
-           wrap-jdbc-objects="false"
            name="assigningauthoritydb_pool"
            min-pool-size="1"
            max-pool-size="10">
@@ -156,23 +139,6 @@
       <property name="serverName" value="localhost" />
     </jdbc-connection-pool>
     <jdbc-resource pool-name="patientdb_pool" jndi-name="jdbc/patientdb_datasource" enabled="true" object-type="user"/>
-
-    <jdbc-connection-pool connection-validation-method="auto-commit"
-           datasource-classname="com.mysql.jdbc.jdbc2.optional.MysqlDataSource"
-           res-type="javax.sql.DataSource"
-           wrap-jdbc-objects="false"
-           name="perfrepo_pool"
-           min-pool-size="1"
-           max-pool-size="10">
-      <property name="URL" value="jdbc:mysql://localhost/perfrepo" />
-      <property name="driverClass" value="com.mysql.jdbc.Driver" />
-      <property name="portNumber" value="3306" />
-      <property name="databaseName" value="perfrepo" />
-      <property name="User" value="nhincuser" />
-      <property name="Password" value="nhincpass" />
-      <property name="serverName" value="localhost" />
-    </jdbc-connection-pool>
-    <jdbc-resource pool-name="perfrepo_pool" jndi-name="jdbc/perfrepo_datasource" enabled="true" object-type="user"/>
 
     <jdbc-connection-pool connection-validation-method="auto-commit"
            datasource-classname="com.mysql.jdbc.jdbc2.optional.MysqlDataSource"
@@ -549,7 +515,6 @@
       <resource-ref ref="jdbc/__TimerPool"></resource-ref>
       <resource-ref ref="jdbc/__CallFlowPool"></resource-ref>
       <resource-ref ref="jdbc/__default"></resource-ref>
-      <resource-ref ref="jdbc/aggregator_datasource"></resource-ref>
       <resource-ref ref="jdbc/assigningauthoritydb_datasource"></resource-ref>
       <resource-ref ref="jdbc/asyncmsgs_datasource"></resource-ref>
       <resource-ref ref="jdbc/auditrepo_datasource"></resource-ref>
@@ -557,7 +522,6 @@
       <resource-ref ref="jdbc/docrepository_datasource"></resource-ref>
       <resource-ref ref="jdbc/subscriptionrepository_datasource"></resource-ref>
       <resource-ref ref="jdbc/patientdb_datasource"></resource-ref>
-      <resource-ref ref="jdbc/perfrepo_datasource"></resource-ref>
       <resource-ref ref="jdbc/transrepo_datasource"></resource-ref>
       <resource-ref ref="jdbc/eventdb_datasource"></resource-ref>
     </server>

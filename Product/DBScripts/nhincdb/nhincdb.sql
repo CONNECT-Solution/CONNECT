@@ -1,30 +1,6 @@
 -- create application user
 CREATE USER nhincuser IDENTIFIED BY 'nhincpass';
 
--- begin aggregator creation
-CREATE DATABASE aggregator;
-
-CREATE TABLE aggregator.agg_transaction (
-    TransactionId VARCHAR(32) NOT NULL COMMENT 'This will be a UUID',
-    ServiceType VARCHAR(64) NOT NULL,
-    TransactionStartTime DATETIME COMMENT 'Format of YYYYMMDDHHMMSS',
-  PRIMARY KEY(TransactionId)
-);
-
-CREATE TABLE aggregator.agg_message_results (
-    MessageId VARCHAR(32) NOT NULL COMMENT 'This will be a UUID.',
-    TransactionId VARCHAR(32) NOT NULL COMMENT 'This will be a UUID. - Foreign Key to the agg_transaction table.',
-    MessageKey VARCHAR(1000) NOT NULL COMMENT 'This is the key used to tie the response to the original request.',
-    MessageOutTime DATETIME COMMENT 'This is the date/time when the outbound request was recorded.  Format of YYYYMMDDHHMMSS',
-    ResponseReceivedTime DATETIME COMMENT 'This is the date/time when the response was recorded.  Format of YYYYMMDDHHMMSS',
-    ResponseMessageType VARCHAR(100) COMMENT 'This is the name of the outer layer JAXB class for the response message.',
-    ResponseMessage LONGTEXT COMMENT 'The response message in XML - Based on marshalling using JAXB',
-  PRIMARY KEY (MessageId)
-);
-
-GRANT SELECT,INSERT,UPDATE,DELETE ON aggregator.* to nhincuser;
--- end aggregator creation
-
 -- begin assigning authority
 CREATE DATABASE assigningauthoritydb;
 
@@ -299,30 +275,6 @@ COMMENT = 'Phone Numbers';
 
 GRANT SELECT,INSERT,UPDATE,DELETE ON patientdb.* to nhincuser;
 -- end patientdb
-
--- begin perfrepo
-CREATE DATABASE perfrepo;
-
-CREATE TABLE perfrepo.perfrepository (
-  id BIGINT NOT NULL AUTO_INCREMENT,
-  time TIMESTAMP NULL,
-  servicetype VARCHAR(255) NULL,
-  messagetype VARCHAR(10) NULL,
-  direction VARCHAR(10) NULL,
-  communityid VARCHAR(255) NULL,
-  status INT NULL DEFAULT 0,
-  version VARCHAR(10),
-  size VARCHAR(10),
-  payloadtype VARCHAR(10),
-  correlationid VARCHAR(255),
-  othercommunityid VARCHAR(255),
-  errorcode VARCHAR(10),
- PRIMARY KEY (id),
-  UNIQUE INDEX id_UNIQUE (id ASC) )
-COMMENT = 'Performance Monitor Repository';
-
-GRANT SELECT,INSERT,UPDATE,DELETE ON perfrepo.* to nhincuser;
--- end perfrepo
 
 -- begin transrepo
 
