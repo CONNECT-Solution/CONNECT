@@ -1,6 +1,6 @@
 -- create application user
 CREATE USER nhincuser IDENTIFIED BY nhincpass;
-GRANT ALL PRIVILEGES to nhincuser;;
+GRANT ALL PRIVILEGES to nhincuser;
 
 CREATE TABLE nhincuser.aa_to_home_community_mapping (
   id number(10) NOT NULL,
