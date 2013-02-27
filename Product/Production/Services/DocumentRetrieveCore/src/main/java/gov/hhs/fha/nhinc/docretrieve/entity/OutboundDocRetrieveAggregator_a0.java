@@ -28,7 +28,7 @@ package gov.hhs.fha.nhinc.docretrieve.entity;
 
 import gov.hhs.fha.nhinc.docretrieve.DocRetrieveFileUtils;
 import gov.hhs.fha.nhinc.docretrieve.util.DocRetrieveStatusUtil;
-import gov.hhs.fha.nhinc.gateway.aggregator.document.DocumentConstants;
+import gov.hhs.fha.nhinc.document.DocumentConstants;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.orchestration.NhinAggregator;

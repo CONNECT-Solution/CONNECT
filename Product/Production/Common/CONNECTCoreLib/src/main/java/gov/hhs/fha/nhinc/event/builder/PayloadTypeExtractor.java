@@ -26,7 +26,7 @@
  */
 package gov.hhs.fha.nhinc.event.builder;
 
-import gov.hhs.fha.nhinc.gateway.aggregator.document.DocumentConstants;
+import gov.hhs.fha.nhinc.document.DocumentConstants;
 import gov.hhs.fha.nhinc.util.JaxbDocumentUtils;
 
 import javax.xml.bind.JAXBElement;

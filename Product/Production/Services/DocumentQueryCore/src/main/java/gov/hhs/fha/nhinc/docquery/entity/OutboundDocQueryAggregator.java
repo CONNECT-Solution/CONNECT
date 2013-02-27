@@ -29,7 +29,7 @@
 package gov.hhs.fha.nhinc.docquery.entity;
 
 import gov.hhs.fha.nhinc.docquery.MessageGeneratorUtils;
-import gov.hhs.fha.nhinc.gateway.aggregator.document.DocumentConstants;
+import gov.hhs.fha.nhinc.document.DocumentConstants;
 import gov.hhs.fha.nhinc.orchestration.NhinAggregator;
 import gov.hhs.fha.nhinc.orchestration.OutboundOrchestratable;
 
