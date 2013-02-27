@@ -5,8 +5,6 @@ DELETE FROM mysql.user WHERE User = 'nhincuser';
 
 DROP DATABASE IF EXISTS subscriptionrepository;
 
-DROP DATABASE IF EXISTS aggregator;
-
 DROP DATABASE IF EXISTS assigningauthoritydb;
 
 DROP DATABASE IF EXISTS auditrepo;
@@ -24,8 +22,6 @@ DROP DATABASE IF EXISTS asyncmsgs;
 DROP DATABASE IF EXISTS logging;
 
 DROP DATABASE IF EXISTS patientdb;
-
-DROP DATABASE IF EXISTS perfrepo;
 
 DROP DATABASE IF EXISTS transrepo;
 

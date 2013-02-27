@@ -1,25 +1,6 @@
 -- create application user
 CREATE USER nhincuser IDENTIFIED BY nhincpass;
-GRANT ALL PRIVILEGES to nhincuser;;
-
-
-CREATE TABLE nhincuser.agg_transaction (
-    TransactionId varchar2(32) NOT NULL,
-    ServiceType varchar2(64) NOT NULL,
-    TransactionStartTime DATE,
-  PRIMARY KEY(TransactionId)
-);
-
-CREATE TABLE nhincuser.agg_message_results (
-    MessageId VARCHAR2(32) NOT NULL,
-    TransactionId VARCHAR2(32) NOT NULL,
-    MessageKey VARCHAR2(1000) NOT NULL,
-    MessageOutTime DATE,
-    ResponseReceivedTime DATE,
-    ResponseMessageType VARCHAR2(100),
-    ResponseMessage BLOB,
-  PRIMARY KEY (MessageId)
-);
+GRANT ALL PRIVILEGES to nhincuser;
 
 CREATE TABLE nhincuser.aa_to_home_community_mapping (
   id number(10) NOT NULL,
@@ -212,20 +193,5 @@ CREATE TABLE nhincuser.phonenumber (
   value varchar2(64) NULL,
   PRIMARY KEY (phonenumberId)
 );
-
-
-CREATE TABLE nhincuser.perfrepository (
-  id number(11) NOT NULL,
-  starttime TIMESTAMP NULL,
-  stoptime TIMESTAMP NULL,
-  duration BIGINT NULL,
-  servicetype varchar2(45) NULL,
-  messagetype varchar2(10) NULL,
-  direction varchar2(10) NULL,
-  communityid varchar2(255) NULL,
-  status number(2) NULL DEFAULT 0,
-  PRIMARY KEY (id)
-);
-
 
 commit;
