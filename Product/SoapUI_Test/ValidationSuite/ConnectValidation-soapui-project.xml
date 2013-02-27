@@ -5,7 +5,7 @@
 		<con:settings/>
 
 		<con:endpoints>
-		<con:endpoint>http://localhost:8080/Gateway/DocumentQuery/2_0/EntityService/EntityDocQueryUnsecured</con:endpoint><con:endpoint>${#Project#DQ_EntityEndpoint}</con:endpoint></con:endpoints>
+		<con:endpoint>http://localhost:8080/Gateway/DocumentQuery/2_0/EntityService/EntityDocQueryUnsecured</con:endpoint></con:endpoints>
 		<con:operation action="urn:gov:hhs:fha:nhinc:entitydocquery:RespondingGateway_CrossGatewayQueryRequest" anonymous="optional" bindingOperationName="RespondingGateway_CrossGatewayQuery" inputName="RespondingGateway_CrossGatewayQueryRequest" isOneWay="false" name="RespondingGateway_CrossGatewayQuery" outputName="RespondingGateway_CrossGatewayQueryResponse" receivesAttachments="false" sendsAttachments="false" type="Request-Response">
 			<con:settings/>
 		</con:operation>
@@ -15,7 +15,7 @@
 		<con:settings/>
 
 		<con:endpoints>
-		<con:endpoint>http://localhost:8080/Gateway/DocumentRetrieve/3_0/EntityService/EntityDocRetrieve</con:endpoint><con:endpoint>${#Project#DR_EntityEndpoint_g1}</con:endpoint><con:endpoint>${#Project#DR_EntityEndpoint_g0}</con:endpoint></con:endpoints>
+		<con:endpoint>http://localhost:8080/Gateway/DocumentRetrieve/3_0/EntityService/EntityDocRetrieve</con:endpoint><con:endpoint>http://localhost:8080/Gateway/DocumentRetrieve/2_0/EntityService/EntityDocRetrieve</con:endpoint></con:endpoints>
 		<con:operation action="urn:gov:hhs:fha:nhinc:entitydocretrieve:RespondingGateway_CrossGatewayRetrieveRequestMessage" anonymous="optional" bindingOperationName="RespondingGateway_CrossGatewayRetrieve" inputName="RespondingGateway_CrossGatewayRetrieveRequest" isOneWay="false" name="RespondingGateway_CrossGatewayRetrieve" outputName="RespondingGateway_CrossGatewayRetrieveResponse" receivesAttachments="false" sendsAttachments="false" type="Request-Response">
 			<con:settings/>
 		</con:operation>
@@ -64,7 +64,7 @@
 		<con:settings/>
 
 		<con:endpoints>
-		<con:endpoint>http://localhost:8080/Gateway/DocumentSubmission/2_0/EntityService/EntityDocSubmissionDeferredRequestUnsecured</con:endpoint><con:endpoint>${#Project#DSDefReq_EntityEndpoint_g1}</con:endpoint><con:endpoint>${#Project#DSDefReq_EntityEndpoint_g0}</con:endpoint></con:endpoints>
+		<con:endpoint>http://localhost:8080/Gateway/DocumentSubmission/1_1/EntityService/EntityDocSubmissionDeferredRequestUnsecured</con:endpoint></con:endpoints>
 		<con:operation action="" anonymous="optional" bindingOperationName="ProvideAndRegisterDocumentSet-bAsyncRequest" inputName="" isOneWay="false" name="ProvideAndRegisterDocumentSet-bAsyncRequest" receivesAttachments="false" sendsAttachments="false" type="Request-Response">
 			<con:settings/>
 
@@ -74,7 +74,7 @@
 		<con:settings/>
 
 		<con:endpoints>
-		<con:endpoint>http://localhost:8080/Gateway/PatientDiscovery/1_0/EntityService/EntityPatientDiscoveryDeferredRequestUnsecured</con:endpoint><con:endpoint>${#Project#PDDefReq_EntityEndpoint}</con:endpoint></con:endpoints>
+		<con:endpoint>http://localhost:8080/Gateway/PatientDiscovery/1_0/EntityService/EntityPatientDiscoveryDeferredRequestUnsecured</con:endpoint></con:endpoints>
 		<con:operation action="" anonymous="optional" bindingOperationName="ProcessPatientDiscoveryAsyncReq" inputName="ProcessPatientDiscoveryAsyncReqAsyncRequest" isOneWay="false" name="ProcessPatientDiscoveryAsyncReq" outputName="ProcessPatientDiscoveryAsyncReqAsyncResponse" receivesAttachments="false" sendsAttachments="false" type="Request-Response">
 			<con:settings/>
 		</con:operation>
@@ -83,7 +83,7 @@
 		<con:settings/>
 
 		<con:endpoints>
-		<con:endpoint>http://localhost:8080/Gateway/PatientDiscovery/1_0/EntityService/EntityPatientDiscoveryDeferredResponseUnsecured</con:endpoint><con:endpoint>${#Project#PDDefResp_EntityEndpoint}</con:endpoint></con:endpoints>
+		<con:endpoint>http://localhost:8080/Gateway/PatientDiscovery/1_0/EntityService/EntityPatientDiscoveryDeferredResponseUnsecured</con:endpoint></con:endpoints>
 		<con:operation action="" bindingOperationName="ProcessPatientDiscoveryAsyncResp" inputName="ProcessPatientDiscoveryAsyncRespAsyncRequest" isOneWay="false" name="ProcessPatientDiscoveryAsyncResp" outputName="ProcessPatientDiscoveryAsyncRespAsyncResponse" receivesAttachments="false" sendsAttachments="false" type="Request-Response" anonymous="optional">
 			<con:settings/>
 		</con:operation>
@@ -92,7 +92,7 @@
 		<con:settings/>
 
 		<con:endpoints>
-		<con:endpoint>http://localhost:8080/Gateway/DocumentSubmission/2_0/EntityService/EntityDocSubmissionUnsecured</con:endpoint><con:endpoint>${#Project#DS_EntityEndpoint_g1}</con:endpoint><con:endpoint>${#Project#DS_EntityEndpoint_g0}</con:endpoint></con:endpoints>
+		<con:endpoint>http://localhost:8080/Gateway/DocumentSubmission/2_0/EntityService/EntityDocSubmissionUnsecured</con:endpoint><con:endpoint>http://localhost:8080/Gateway/DocumentSubmission/1_1/EntityService/EntityDocSubmissionUnsecured</con:endpoint></con:endpoints>
 		<con:operation action="" anonymous="optional" bindingOperationName="ProvideAndRegisterDocumentSet-b" inputName="" isOneWay="false" name="ProvideAndRegisterDocumentSet-b" receivesAttachments="false" sendsAttachments="false" type="Request-Response">
 			<con:settings/>
 
@@ -102,7 +102,7 @@
 		<con:settings/>
 
 		<con:endpoints>
-		<con:endpoint>http://localhost:8080/Gateway/PatientDiscovery/1_0/EntityPatientDiscovery</con:endpoint><con:endpoint>${#Project#PD_EntityEndpoint}</con:endpoint></con:endpoints>
+		<con:endpoint>http://localhost:8080/Gateway/PatientDiscovery/1_0/EntityPatientDiscovery</con:endpoint></con:endpoints>
 		<con:operation action="urn:gov:hhs:fha:nhinc:entitypatientdiscovery:RespondingGateway_PRPA_IN201305UV02RequestMessage" bindingOperationName="RespondingGateway_PRPA_IN201305UV02" inputName="RespondingGateway_PRPA_IN201305UV02Request" isOneWay="false" name="RespondingGateway_PRPA_IN201305UV02" outputName="RespondingGateway_PRPA_IN201306UV02Response" receivesAttachments="false" sendsAttachments="false" type="Request-Response" anonymous="optional">
 			<con:settings/>
 		</con:operation>
@@ -113,7 +113,7 @@
 
 		<con:endpoints>
 			
-		<con:endpoint>http://localhost:8080/Gateway/AdminDistribution/1_0/AdministrativeDistribution_Service</con:endpoint><con:endpoint>${#Project#AD_EntityEndpoint_g0}</con:endpoint></con:endpoints>
+		<con:endpoint>http://localhost:8080/Gateway/AdminDistribution/1_0/AdministrativeDistribution_Service</con:endpoint></con:endpoints>
 		<con:operation action="urn:oasis:names:tc:emergency:EDXL:DE:1.0:SendAlertMessage" anonymous="optional" bindingOperationName="SendAlertMessage" inputName="" isOneWay="false" name="SendAlertMessage" sendsAttachments="false" type="One-Way">
 			<con:settings/>
 
@@ -123,7 +123,7 @@
 	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincentityxdr:async:response}EntityXDRAsyncResponse_Binding" definition="${projectDir}/../target/wsdl/EntityXDRResponse.wsdl" name="EntityXDRAsyncResponse_Binding" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 		<con:settings/>
 		<con:endpoints>
-		<con:endpoint>http://localhost:8080/Gateway/DocumentSubmission/2_0/EntityService/EntityDocSubmissionDeferredResponseUnsecured</con:endpoint><con:endpoint>${#Project#DSDefResp_EntityEndpoint_g1}</con:endpoint><con:endpoint>${#Project#DSDefResp_EntityEndpoint_g0}</con:endpoint></con:endpoints>
+		<con:endpoint>http://localhost:8080/Gateway/DocumentSubmission/2_0/EntityService/EntityDocSubmissionDeferredResponseUnsecured</con:endpoint><con:endpoint>http://localhost:8080/Gateway/DocumentSubmission/1_1/EntityService/EntityDocSubmissionDeferredResponseUnsecured</con:endpoint></con:endpoints>
 		<con:operation action="" anonymous="optional" bindingOperationName="ProvideAndRegisterDocumentSet-bAsyncResponse" inputName="" isOneWay="false" name="ProvideAndRegisterDocumentSet-bAsyncResponse" receivesAttachments="false" sendsAttachments="false" type="Request-Response">
 			<con:settings/>
 		</con:operation>
@@ -134,7 +134,7 @@
 		<con:settings/>
 		<con:endpoints>
 			<con:endpoint>http://localhost:8080/Gateway/AdminDistribution/2_0/AdministrativeDistribution_Service</con:endpoint>
-		<con:endpoint>${#Project#AD_EntityEndpoint_g1}</con:endpoint></con:endpoints>
+		</con:endpoints>
 		<con:operation action="urn:oasis:names:tc:emergency:EDXL:DE:1.0:SendAlertMessage" bindingOperationName="SendAlertMessage" inputName="" isOneWay="false" name="SendAlertMessage" sendsAttachments="false" type="One-Way">
 			<con:settings/>
 		</con:operation>
@@ -177,8 +177,8 @@ if(passthruValue != null){
 							<con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
 				</con:settings>
 				<con:encoding>UTF-8</con:encoding>
-				<con:endpoint>${#Project#DSDefReq_EntityEndpoint_g1}</con:endpoint>
-				<con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" xmlns:urn3="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:urn4="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn5="urn:ihe:iti:xds-b:2007">
+				
+				<con:endpoint>http://localhost:8080/Gateway/DocumentSubmission/1_1/EntityService/EntityDocSubmissionDeferredRequestUnsecured</con:endpoint><con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" xmlns:urn3="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:urn4="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn5="urn:ihe:iti:xds-b:2007">
    <soap:Header/>
    <soap:Body testSuite="Entity_g1" testCase="Document Submission Deferred Req">
       <urn:RespondingGateway_ProvideAndRegisterDocumentSetRequest>
@@ -655,19 +655,19 @@ if(context.findProperty("PassThruOn").toBoolean()){
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2013-01-03T16:11:42Z</con:value>
+		<con:value>2013-02-27T01:07:17Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2013-01-03T16:21:42Z</con:value>
+		<con:value>2013-02-27T01:17:17Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>01/03/2013 16:11:42</con:value>
+		<con:value>02/27/2013 01:07:17</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2013-02-02T00:00:00Z</con:value>
+		<con:value>2013-03-29T00:00:00Z</con:value>
 	</con:property>
 <con:property><con:name>PassThruOn</con:name><con:value>false</con:value></con:property></con:properties>
 <con:reportParameters/>
@@ -721,8 +721,8 @@ if(passthruValue != null){
 					<con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
 		</con:settings>
 		<con:encoding>UTF-8</con:encoding>
-		<con:endpoint>${#Project#DSDefResp_EntityEndpoint_g1}</con:endpoint>
-		<con:request><![CDATA[
+		
+		<con:endpoint>http://localhost:8080/Gateway/DocumentSubmission/2_0/EntityService/EntityDocSubmissionDeferredResponseUnsecured</con:endpoint><con:request><![CDATA[
 			<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:urn3="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0">
    <soap:Header/>
    <soap:Body>
@@ -1055,19 +1055,19 @@ if(context.findProperty("PassThruOn").toBoolean()){
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2013-01-03T16:14:29Z</con:value>
+		<con:value>2013-02-27T01:07:42Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2013-01-03T16:24:29Z</con:value>
+		<con:value>2013-02-27T01:17:42Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>01/03/2013 16:14:29</con:value>
+		<con:value>02/27/2013 01:07:42</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2013-02-02T00:00:00Z</con:value>
+		<con:value>2013-03-29T00:00:00Z</con:value>
 	</con:property>
 <con:property><con:name>PassThruOn</con:name><con:value>false</con:value></con:property></con:properties>
 </con:testCase>
@@ -1106,8 +1106,8 @@ if(passthruValue != null){
 					<con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
 		</con:settings>
 		<con:encoding>UTF-8</con:encoding>
-		<con:endpoint>${#Project#DS_EntityEndpoint_g1}</con:endpoint>
-		<con:request><![CDATA[
+		
+		<con:endpoint>http://localhost:8080/Gateway/DocumentSubmission/2_0/EntityService/EntityDocSubmissionUnsecured</con:endpoint><con:request><![CDATA[
 			<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" xmlns:urn3="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:urn4="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn5="urn:ihe:iti:xds-b:2007">
    <soap:Header/>
    <soap:Body testSuite="Entity_g1" testCase="Document Submission">
@@ -1580,19 +1580,19 @@ if(context.findProperty("PassThruOn").toBoolean()){
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2013-01-03T16:16:31Z</con:value>
+		<con:value>2013-02-27T01:07:45Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2013-01-03T16:26:31Z</con:value>
+		<con:value>2013-02-27T01:17:45Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>01/03/2013 16:16:31</con:value>
+		<con:value>02/27/2013 01:07:45</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2013-02-02T00:00:00Z</con:value>
+		<con:value>2013-03-29T00:00:00Z</con:value>
 	</con:property>
 <con:property><con:name>PassThruOn</con:name><con:value>false</con:value></con:property></con:properties>
 <con:reportParameters/>
@@ -1632,8 +1632,8 @@ if(passthruValue != null){
 					<con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
 		</con:settings>
 		<con:encoding>UTF-8</con:encoding>
-		<con:endpoint>${#Project#PDDefReq_EntityEndpoint}</con:endpoint>
-		<con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:hl7-org:v3" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
+		
+		<con:endpoint>http://localhost:8080/Gateway/PatientDiscovery/1_0/EntityService/EntityPatientDiscoveryDeferredRequestUnsecured</con:endpoint><con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:hl7-org:v3" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
    <soap:Header/>
    <soap:Body testSuite="Entity_g1" testCase="Patient Discovery Deferred Req">
       <urn:RespondingGateway_PRPA_IN201305UV02Request>
@@ -1940,19 +1940,19 @@ if(context.findProperty("PassThruOn").toBoolean()){
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2013-01-03T18:19:30Z</con:value>
+		<con:value>2013-02-27T01:07:49Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2013-01-03T18:29:30Z</con:value>
+		<con:value>2013-02-27T01:17:49Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>01/03/2013 18:19:30</con:value>
+		<con:value>02/27/2013 01:07:49</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2013-02-02T00:00:00Z</con:value>
+		<con:value>2013-03-29T00:00:00Z</con:value>
 	</con:property>
 <con:property><con:name>PassThruOn</con:name><con:value>false</con:value></con:property></con:properties>
 <con:reportParameters/>
@@ -1992,8 +1992,8 @@ if(passthruValue != null){
 					<con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
 		</con:settings>
 		<con:encoding>UTF-8</con:encoding>
-		<con:endpoint>${#Project#PDDefResp_EntityEndpoint}</con:endpoint>
-		<con:request><![CDATA[
+		
+		<con:endpoint>http://localhost:8080/Gateway/PatientDiscovery/1_0/EntityService/EntityPatientDiscoveryDeferredResponseUnsecured</con:endpoint><con:request><![CDATA[
 			<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:hl7-org:v3" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
    <soap:Header/>
    <soap:Body testSuite="Entity_g1" testCase="Patient Discovery Deferred Resp">
@@ -2326,19 +2326,19 @@ if(context.findProperty("PassThruOn").toBoolean()){
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2013-01-03T18:21:19Z</con:value>
+		<con:value>2013-02-27T01:08:01Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2013-01-03T18:31:19Z</con:value>
+		<con:value>2013-02-27T01:18:01Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>01/03/2013 18:21:19</con:value>
+		<con:value>02/27/2013 01:08:01</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2013-02-02T00:00:00Z</con:value>
+		<con:value>2013-03-29T00:00:00Z</con:value>
 	</con:property>
 <con:property><con:name>PassThruOn</con:name><con:value>false</con:value></con:property></con:properties>
 <con:reportParameters/>
@@ -2430,8 +2430,8 @@ nhinc.FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", dir, "1.1
 				<con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
 	</con:settings>
 	<con:encoding>UTF-8</con:encoding>
-	<con:endpoint>${#Project#PD_EntityEndpoint}</con:endpoint>
-	<con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:hl7-org:v3" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing">
+	
+	<con:endpoint>http://localhost:8080/Gateway/PatientDiscovery/1_0/EntityPatientDiscovery</con:endpoint><con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:hl7-org:v3" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing">
    <soap:Header/>
    <soap:Body testSuite="Entity_g1" testCase="Patient Discovery">
       <urn:RespondingGateway_PRPA_IN201305UV02Request>
@@ -2856,19 +2856,19 @@ if(context.findProperty("PassThruOn").toBoolean()){
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2013-01-03T18:22:53Z</con:value>
+		<con:value>2013-02-27T01:08:04Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2013-01-03T18:32:53Z</con:value>
+		<con:value>2013-02-27T01:18:04Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>01/03/2013 18:22:53</con:value>
+		<con:value>02/27/2013 01:08:04</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2013-02-02T00:00:00Z</con:value>
+		<con:value>2013-03-29T00:00:00Z</con:value>
 	</con:property>
 <con:property><con:name>PassThruOn</con:name><con:value>false</con:value></con:property></con:properties>
 <con:reportParameters/>
@@ -2950,8 +2950,8 @@ if(passthruValue != null){
 				<con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
 	</con:settings>
 	<con:encoding>UTF-8</con:encoding>
-	<con:endpoint>${#Project#DQ_EntityEndpoint}</con:endpoint>
-	<con:request><![CDATA[
+	
+	<con:endpoint>http://localhost:8080/Gateway/DocumentQuery/2_0/EntityService/EntityDocQueryUnsecured</con:endpoint><con:request><![CDATA[
 		<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn3="urn:gov:hhs:fha:nhinc:common:nhinccommon">
    <soap:Header/>
    <soap:Body testSuite="Entity_g1" testCase="Document Query">
@@ -3241,19 +3241,19 @@ if(context.findProperty("PassThruOn").toBoolean()){
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2013-01-03T18:26:25Z</con:value>
+		<con:value>2013-02-27T01:08:10Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2013-01-03T18:36:25Z</con:value>
+		<con:value>2013-02-27T01:18:10Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>01/03/2013 18:26:25</con:value>
+		<con:value>02/27/2013 01:08:10</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2013-02-02T00:00:00Z</con:value>
+		<con:value>2013-03-29T00:00:00Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>FullPatientID</con:name>
@@ -3298,8 +3298,8 @@ if(passthruValue != null){
 					<con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
 		</con:settings>
 		<con:encoding>UTF-8</con:encoding>
-		<con:endpoint>${#Project#DR_EntityEndpoint_g1}</con:endpoint>
-		<con:request><![CDATA[
+		
+		<con:endpoint>http://localhost:8080/Gateway/DocumentRetrieve/3_0/EntityService/EntityDocRetrieve</con:endpoint><con:request><![CDATA[
 			<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:ihe:iti:xds-b:2007" xmlns:urn2="urn:gov:hhs:fha:nhinc:common:nhinccommon">
    <soap:Header/>
    <soap:Body testSuite="Entity_g1" testCase="Document Retrieve">
@@ -3587,19 +3587,19 @@ if(context.findProperty("PassThruOn").toBoolean()){
 	</con:property>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2013-01-03T18:28:34Z</con:value>
+		<con:value>2013-02-27T01:08:13Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2013-01-03T18:38:34Z</con:value>
+		<con:value>2013-02-27T01:18:13Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>01/03/2013 18:28:34</con:value>
+		<con:value>02/27/2013 01:08:13</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2013-02-02T00:00:00Z</con:value>
+		<con:value>2013-03-29T00:00:00Z</con:value>
 	</con:property>
 <con:property><con:name>PassThruOn</con:name><con:value>false</con:value></con:property></con:properties>
 <con:reportParameters/>
@@ -5120,8 +5120,8 @@ if(passthruValue != null){
 					<con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
 		</con:settings>
 		<con:encoding>UTF-8</con:encoding>
-		<con:endpoint>${#Project#AD_EntityEndpoint_g1}</con:endpoint>
-		<con:request><![CDATA[
+		
+		<con:endpoint>http://localhost:8080/Gateway/AdminDistribution/2_0/AdministrativeDistribution_Service</con:endpoint><con:request><![CDATA[
 			<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:urn2="urn:oasis:names:tc:emergency:EDXL:DE:1.0">
    <soap:Header/>
    <soap:Body testSuite="Entity_g1" testCase="Admin Distribution">
@@ -5470,19 +5470,19 @@ if(context.findProperty("PassThruOn").toBoolean()){
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2013-01-03T18:33:22Z</con:value>
+		<con:value>2013-02-27T01:08:16Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2013-01-03T18:43:22Z</con:value>
+		<con:value>2013-02-27T01:18:16Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>01/03/2013 18:33:22</con:value>
+		<con:value>02/27/2013 01:08:16</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2013-02-02T00:00:00Z</con:value>
+		<con:value>2013-03-29T00:00:00Z</con:value>
 	</con:property>
 <con:property><con:name>PassThruOn</con:name><con:value>false</con:value></con:property></con:properties>
 </con:testCase>
@@ -5529,8 +5529,8 @@ if(passthruValue != null){
 						<con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
 			</con:settings>
 			<con:encoding>UTF-8</con:encoding>
-			<con:endpoint>${#Project#DSDefReq_EntityEndpoint_g0}</con:endpoint>
-			<con:request><![CDATA[
+			
+			<con:endpoint>http://localhost:8080/Gateway/DocumentSubmission/1_1/EntityService/EntityDocSubmissionDeferredRequestUnsecured</con:endpoint><con:request><![CDATA[
 				<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" xmlns:urn3="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:urn4="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn5="urn:ihe:iti:xds-b:2007">
    <soap:Header/>
    <soap:Body testSuite="Entity_g0" testCase="Document Submission Deferred Request">
@@ -6007,19 +6007,19 @@ if(context.findProperty("PassThruOn").toBoolean()){
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2013-01-03T18:45:25Z</con:value>
+		<con:value>2013-02-27T01:13:51Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2013-01-03T18:55:25Z</con:value>
+		<con:value>2013-02-27T01:23:51Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>01/03/2013 18:45:25</con:value>
+		<con:value>02/27/2013 01:13:51</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2013-02-02T00:00:00Z</con:value>
+		<con:value>2013-03-29T00:00:00Z</con:value>
 	</con:property>
 <con:property><con:name>PassThruOn</con:name><con:value>false</con:value></con:property></con:properties>
 <con:reportParameters/>
@@ -6059,8 +6059,8 @@ if(passthruValue != null){
 					<con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
 		</con:settings>
 		<con:encoding>UTF-8</con:encoding>
-		<con:endpoint>${#Project#DSDefResp_EntityEndpoint_g0}</con:endpoint>
-		<con:request><![CDATA[
+		
+		<con:endpoint>http://localhost:8080/Gateway/DocumentSubmission/1_1/EntityService/EntityDocSubmissionDeferredResponseUnsecured</con:endpoint><con:request><![CDATA[
 			<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:urn3="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0">
    <soap:Header/>
    <soap:Body testSuite="Entity_g0" testCase="Document Submission Deferred Resp">
@@ -6398,19 +6398,19 @@ if(context.findProperty("PassThruOn").toBoolean()){
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2013-01-03T18:45:26Z</con:value>
+		<con:value>2013-02-27T01:13:52Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2013-01-03T18:55:26Z</con:value>
+		<con:value>2013-02-27T01:23:52Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>01/03/2013 18:45:26</con:value>
+		<con:value>02/27/2013 01:13:52</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2013-02-02T00:00:00Z</con:value>
+		<con:value>2013-03-29T00:00:00Z</con:value>
 	</con:property>
 <con:property><con:name>PassThruOn</con:name><con:value>false</con:value></con:property></con:properties>
 </con:testCase>
@@ -6449,8 +6449,8 @@ if(passthruValue != null){
 					<con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
 		</con:settings>
 		<con:encoding>UTF-8</con:encoding>
-		<con:endpoint>${#Project#DS_EntityEndpoint_g0}</con:endpoint>
-		<con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" xmlns:urn3="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:urn4="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn5="urn:ihe:iti:xds-b:2007">
+		
+		<con:endpoint>http://localhost:8080/Gateway/DocumentSubmission/1_1/EntityService/EntityDocSubmissionUnsecured</con:endpoint><con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:lcm:3.0" xmlns:urn3="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:urn4="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn5="urn:ihe:iti:xds-b:2007">
    <soap:Header/>
    <soap:Body testSuite="Entity_g0" testCase="Document Submission">
       <urn:RespondingGateway_ProvideAndRegisterDocumentSetRequest>
@@ -6922,19 +6922,19 @@ if(context.findProperty("PassThruOn").toBoolean()){
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2013-01-03T18:45:27Z</con:value>
+		<con:value>2013-02-27T01:13:53Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2013-01-03T18:55:27Z</con:value>
+		<con:value>2013-02-27T01:23:53Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>01/03/2013 18:45:27</con:value>
+		<con:value>02/27/2013 01:13:53</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2013-02-02T00:00:00Z</con:value>
+		<con:value>2013-03-29T00:00:00Z</con:value>
 	</con:property>
 <con:property><con:name>PassThruOn</con:name><con:value>false</con:value></con:property></con:properties>
 <con:reportParameters/>
@@ -6978,8 +6978,8 @@ if(passthruValue != null){
 					<con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
 		</con:settings>
 		<con:encoding>UTF-8</con:encoding>
-		<con:endpoint>${#Project#PDDefReq_EntityEndpoint}</con:endpoint>
-		<con:request><![CDATA[
+		
+		<con:endpoint>http://localhost:8080/Gateway/PatientDiscovery/1_0/EntityService/EntityPatientDiscoveryDeferredRequestUnsecured</con:endpoint><con:request><![CDATA[
 			<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:hl7-org:v3" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
    <soap:Header/>
    <soap:Body testSuite="Entity_g0" testCase="Patient Discovery Deferred Req">
@@ -7284,7 +7284,7 @@ nhinc.FileUtils.restoreConfiguration(dir, log);
 if(context.findProperty("PassThruOn").toBoolean()){
 	nhinc.FileUtils.restoreFile(dir, "PolicyEngineProxyConfig.xml", log);
 }</con:tearDownScript>
-<con:properties><con:property><con:name>PassThruOn</con:name><con:value>false</con:value></con:property><con:property><con:name>startDate</con:name><con:value>2013-01-03T18:45:29Z</con:value></con:property><con:property><con:name>endDate</con:name><con:value>2013-01-03T18:55:29Z</con:value></con:property><con:property><con:name>sigDate</con:name><con:value>01/03/2013 18:45:29</con:value></con:property><con:property><con:name>expireDate</con:name><con:value>2013-02-02T00:00:00Z</con:value></con:property></con:properties><con:reportParameters/>
+<con:properties><con:property><con:name>PassThruOn</con:name><con:value>false</con:value></con:property><con:property><con:name>startDate</con:name><con:value>2013-02-27T01:13:54Z</con:value></con:property><con:property><con:name>endDate</con:name><con:value>2013-02-27T01:23:54Z</con:value></con:property><con:property><con:name>sigDate</con:name><con:value>02/27/2013 01:13:54</con:value></con:property><con:property><con:name>expireDate</con:name><con:value>2013-03-29T00:00:00Z</con:value></con:property></con:properties><con:reportParameters/>
 </con:testCase>
 
 <con:testCase failOnError="true" failTestCaseOnErrors="true" id="a873f53b-f81b-4529-b866-ccad8f7a0e4a" keepSession="false" maxResults="0" name="Patient Discovery Deferred Resp" searchProperties="true">
@@ -7322,8 +7322,8 @@ if(passthruValue != null){
 					<con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
 		</con:settings>
 		<con:encoding>UTF-8</con:encoding>
-		<con:endpoint>${#Project#PDDefResp_EntityEndpoint}</con:endpoint>
-		<con:request><![CDATA[
+		
+		<con:endpoint>http://localhost:8080/Gateway/PatientDiscovery/1_0/EntityService/EntityPatientDiscoveryDeferredResponseUnsecured</con:endpoint><con:request><![CDATA[
 			<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:hl7-org:v3" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
    <soap:Header/>
    <soap:Body testSuite="Entity_g0" testCase="Patient Discovery Deferred Resp">
@@ -7653,7 +7653,7 @@ nhinc.FileUtils.restoreConfiguration(dir, log);
 if(context.findProperty("PassThruOn").toBoolean()){
 	nhinc.FileUtils.restoreFile(dir, "PolicyEngineProxyConfig.xml", log);
 }</con:tearDownScript>
-<con:properties><con:property><con:name>PassThruOn</con:name><con:value>false</con:value></con:property><con:property><con:name>startDate</con:name><con:value>2013-01-03T18:45:30Z</con:value></con:property><con:property><con:name>endDate</con:name><con:value>2013-01-03T18:55:30Z</con:value></con:property><con:property><con:name>sigDate</con:name><con:value>01/03/2013 18:45:30</con:value></con:property><con:property><con:name>expireDate</con:name><con:value>2013-02-02T00:00:00Z</con:value></con:property></con:properties><con:reportParameters/>
+<con:properties><con:property><con:name>PassThruOn</con:name><con:value>false</con:value></con:property><con:property><con:name>startDate</con:name><con:value>2013-02-27T01:13:55Z</con:value></con:property><con:property><con:name>endDate</con:name><con:value>2013-02-27T01:23:55Z</con:value></con:property><con:property><con:name>sigDate</con:name><con:value>02/27/2013 01:13:55</con:value></con:property><con:property><con:name>expireDate</con:name><con:value>2013-03-29T00:00:00Z</con:value></con:property></con:properties><con:reportParameters/>
 </con:testCase>
 <con:testCase failOnError="true" failTestCaseOnErrors="true" id="db617e16-46c1-4f66-9e29-bac17e0a5a44" keepSession="false" maxResults="0" name="Patient Discovery" searchProperties="true">
 	<con:settings/>
@@ -7743,8 +7743,8 @@ nhinc.FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", dir, "1.1
 				<con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
 	</con:settings>
 	<con:encoding>UTF-8</con:encoding>
-	<con:endpoint>${#Project#PD_EntityEndpoint}</con:endpoint>
-	<con:request><![CDATA[
+	
+	<con:endpoint>http://localhost:8080/Gateway/PatientDiscovery/1_0/EntityPatientDiscovery</con:endpoint><con:request><![CDATA[
 		<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:hl7-org:v3" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing">
    <soap:Header/>
    <soap:Body testSuite="Entity_g0" testCase="Patient Discovery">
@@ -8166,7 +8166,7 @@ if(context.findProperty("PassThruOn").toBoolean()){
 	nhinc.FileUtils.restoreFile(dir, "PolicyEngineProxyConfig.xml", log);
 	nhinc.FileUtils.restoreFile(dir, "PatientDiscoveryProxyConfig.xml", log);
 }</con:tearDownScript>
-<con:properties><con:property><con:name>PassThruOn</con:name><con:value>false</con:value></con:property><con:property><con:name>startDate</con:name><con:value>2013-01-03T18:45:32Z</con:value></con:property><con:property><con:name>endDate</con:name><con:value>2013-01-03T18:55:32Z</con:value></con:property><con:property><con:name>sigDate</con:name><con:value>01/03/2013 18:45:32</con:value></con:property><con:property><con:name>expireDate</con:name><con:value>2013-02-02T00:00:00Z</con:value></con:property></con:properties><con:reportParameters/>
+<con:properties><con:property><con:name>PassThruOn</con:name><con:value>false</con:value></con:property><con:property><con:name>startDate</con:name><con:value>2013-02-27T01:13:56Z</con:value></con:property><con:property><con:name>endDate</con:name><con:value>2013-02-27T01:23:56Z</con:value></con:property><con:property><con:name>sigDate</con:name><con:value>02/27/2013 01:13:56</con:value></con:property><con:property><con:name>expireDate</con:name><con:value>2013-03-29T00:00:00Z</con:value></con:property></con:properties><con:reportParameters/>
 </con:testCase>
 <con:testCase failOnError="true" failTestCaseOnErrors="true" id="a9707ab4-3b2c-484c-a302-24ab8377c2a4" keepSession="false" maxResults="0" name="Document Query" searchProperties="true">
 	<con:settings/>
@@ -8245,8 +8245,8 @@ if(passthruValue != null){
 				<con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
 	</con:settings>
 	<con:encoding>UTF-8</con:encoding>
-	<con:endpoint>${#Project#DQ_EntityEndpoint}</con:endpoint>
-	<con:request><![CDATA[
+	
+	<con:endpoint>http://localhost:8080/Gateway/DocumentQuery/2_0/EntityService/EntityDocQueryUnsecured</con:endpoint><con:request><![CDATA[
 		<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn3="urn:gov:hhs:fha:nhinc:common:nhinccommon">
    <soap:Header/>
    <soap:Body testSuite="Entity_g0" testCase="Document Query">
@@ -8538,7 +8538,7 @@ if(context.findProperty("PassThruOn").toBoolean()){
 		<con:name>FullPatientID</con:name>
 		<con:value>'D123401^^^&amp;amp;1.1&amp;amp;ISO'</con:value>
 	</con:property>
-<con:property><con:name>PassThruOn</con:name><con:value>false</con:value></con:property><con:property><con:name>startDate</con:name><con:value>2013-01-03T18:45:34Z</con:value></con:property><con:property><con:name>endDate</con:name><con:value>2013-01-03T18:55:34Z</con:value></con:property><con:property><con:name>sigDate</con:name><con:value>01/03/2013 18:45:34</con:value></con:property><con:property><con:name>expireDate</con:name><con:value>2013-02-02T00:00:00Z</con:value></con:property></con:properties>
+<con:property><con:name>PassThruOn</con:name><con:value>false</con:value></con:property><con:property><con:name>startDate</con:name><con:value>2013-02-27T01:13:58Z</con:value></con:property><con:property><con:name>endDate</con:name><con:value>2013-02-27T01:23:58Z</con:value></con:property><con:property><con:name>sigDate</con:name><con:value>02/27/2013 01:13:58</con:value></con:property><con:property><con:name>expireDate</con:name><con:value>2013-03-29T00:00:00Z</con:value></con:property></con:properties>
 <con:reportParameters/>
 </con:testCase>
 <con:testCase failOnError="true" failTestCaseOnErrors="true" id="3a630f37-d9fc-4fd2-bc44-bc0b04246222" keepSession="false" maxResults="0" name="Document Retrieve" searchProperties="true">
@@ -8577,8 +8577,8 @@ if(passthruValue != null){
 					<con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
 		</con:settings>
 		<con:encoding>UTF-8</con:encoding>
-		<con:endpoint>${#Project#DR_EntityEndpoint_g0}</con:endpoint>
-		<con:request><![CDATA[
+		
+		<con:endpoint>http://localhost:8080/Gateway/DocumentRetrieve/2_0/EntityService/EntityDocRetrieve</con:endpoint><con:request><![CDATA[
 			<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:ihe:iti:xds-b:2007" xmlns:urn2="urn:gov:hhs:fha:nhinc:common:nhinccommon">
    <soap:Header/>
    <soap:Body testSuite="Entity_g0" testCase="Document Retrieve">
@@ -8866,19 +8866,19 @@ if(context.findProperty("PassThruOn").toBoolean()){
 	</con:property>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2013-01-03T18:45:35Z</con:value>
+		<con:value>2013-02-27T01:13:59Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2013-01-03T18:55:35Z</con:value>
+		<con:value>2013-02-27T01:23:59Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>01/03/2013 18:45:35</con:value>
+		<con:value>02/27/2013 01:13:59</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2013-02-02T00:00:00Z</con:value>
+		<con:value>2013-03-29T00:00:00Z</con:value>
 	</con:property>
 <con:property><con:name>PassThruOn</con:name><con:value>false</con:value></con:property></con:properties>
 <con:reportParameters/>
@@ -10401,8 +10401,8 @@ if(passthruValue != null){
 					<con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
 		</con:settings>
 		<con:encoding>UTF-8</con:encoding>
-		<con:endpoint>${#Project#AD_EntityEndpoint_g0}</con:endpoint>
-		<con:request><![CDATA[
+		
+		<con:endpoint>http://localhost:8080/Gateway/AdminDistribution/1_0/AdministrativeDistribution_Service</con:endpoint><con:request><![CDATA[
 			<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:urn2="urn:oasis:names:tc:emergency:EDXL:DE:1.0">
    <soap:Header/>
    <soap:Body testSuite="Entity_g0" testCase="Admin Distribution">
@@ -10751,19 +10751,19 @@ if(context.findProperty("PassThruOn").toBoolean()){
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2013-01-03T18:45:37Z</con:value>
+		<con:value>2013-02-27T01:14:00Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2013-01-03T18:55:37Z</con:value>
+		<con:value>2013-02-27T01:24:00Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>01/03/2013 18:45:37</con:value>
+		<con:value>02/27/2013 01:14:00</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2013-02-02T00:00:00Z</con:value>
+		<con:value>2013-03-29T00:00:00Z</con:value>
 	</con:property>
 <con:property><con:name>PassThruOn</con:name><con:value>false</con:value></con:property></con:properties>
 <con:reportParameters/>
@@ -10783,22 +10783,19 @@ if(context.findProperty("PassThruOn").toBoolean()){
 
 
 	
+	
 	<con:property><con:name>AAMappingDB</con:name><con:value>assigningauthoritydb</con:value></con:property>
+
+
+
+
+
+
+
+
+
 	<con:property><con:name>AAMappingTable</con:name><con:value>aa_to_home_community_mapping</con:value></con:property>
-
-
-
-
-
-
-
-
-
-	<con:property><con:name>AsyncMsgDB</con:name><con:value>asyncmsgs</con:value></con:property>
-	<con:property><con:name>AsyncMsgTable</con:name><con:value>asyncmsgrepo</con:value></con:property><con:property>
-		<con:name>AuditRepoDB</con:name>
-		<con:value>auditrepo</con:value>
-	</con:property>
+	
 	
 	
 	
@@ -10810,21 +10807,15 @@ if(context.findProperty("PassThruOn").toBoolean()){
 
 
 
-	<con:property><con:name>AuditRepoTable</con:name><con:value>auditrepository</con:value></con:property><con:property><con:name>BirthTime</con:name><con:value>19630804</con:value></con:property><con:property><con:name>City</con:name><con:value>Melbourne</con:value></con:property><con:property>
-		<con:name>Country</con:name>
-		<con:value>US</con:value>
-	</con:property>
+	<con:property><con:name>AsyncMsgDB</con:name><con:value>asyncmsgs</con:value></con:property><con:property><con:name>AsyncMsgTable</con:name><con:value>asyncmsgrepo</con:value></con:property><con:property><con:name>AuditRepoDB</con:name><con:value>auditrepo</con:value></con:property><con:property><con:name>AuditRepoTable</con:name><con:value>auditrepository</con:value></con:property>
 	
 	
 	
-	<con:property><con:name>DateOfSignature</con:name><con:value>20080520</con:value></con:property><con:property><con:name>DBHost</con:name><con:value>localhost</con:value></con:property><con:property><con:name>DBPass</con:name><con:value>nhincpass</con:value></con:property>
+	<con:property><con:name>BirthTime</con:name><con:value>19630804</con:value></con:property><con:property><con:name>City</con:name><con:value>Melbourne</con:value></con:property><con:property><con:name>Country</con:name><con:value>US</con:value></con:property><con:property><con:name>DateOfSignature</con:name><con:value>20080520</con:value></con:property>
 	
 	
-	<con:property><con:name>DBPort</con:name><con:value>3306</con:value></con:property><con:property><con:name>DBUser</con:name><con:value>nhincuser</con:value></con:property><con:property><con:name>DeferredPatientDiscoveryReqMessageID</con:name><con:value>uuid:6666666666.66666.666.66</con:value></con:property>
-	<con:property><con:name>DOB</con:name><con:value>19800516</con:value></con:property><con:property>
-		<con:name>DQDocID</con:name>
-		<con:value>1.123401.55555</con:value>
-	</con:property>
+	<con:property><con:name>DBHost</con:name><con:value>localhost</con:value></con:property>
+	<con:property><con:name>DBPass</con:name><con:value>nhincpass</con:value></con:property><con:property><con:name>DBPort</con:name><con:value>3306</con:value></con:property><con:property><con:name>DBUser</con:name><con:value>nhincuser</con:value></con:property><con:property><con:name>DeferredPatientDiscoveryReqMessageID</con:name><con:value>uuid:6666666666.66666.666.66</con:value></con:property>
 	
 	
 	
@@ -10834,8 +10825,8 @@ if(context.findProperty("PassThruOn").toBoolean()){
 
 
 
-	<con:property><con:name>DQPatientID</con:name><con:value>D123401</con:value></con:property><con:property><con:name>DRDocID</con:name><con:value>1.123407.777777</con:value></con:property><con:property><con:name>DRRepoID</con:name><con:value>1</con:value></con:property>
-	<con:property><con:name>DynamicDQDocID</con:name><con:value>103.8.9284320.020.3590.75^1266324032288</con:value></con:property>
+	<con:property><con:name>DOB</con:name><con:value>19800516</con:value></con:property>
+	<con:property><con:name>DQDocID</con:name><con:value>1.123401.55555</con:value></con:property>
 
 
 	
@@ -10874,18 +10865,15 @@ if(context.findProperty("PassThruOn").toBoolean()){
 	
 	
 	
-	<con:property><con:name>ExpirationDate</con:name><con:value>20100520</con:value></con:property>
 	
-	<con:property><con:name>FamilyName</con:name><con:value>Younger</con:value></con:property><con:property><con:name>GatewayPropDir</con:name><con:value/></con:property><con:property><con:name>Gender</con:name><con:value>M</con:value></con:property>
 	
-	<con:property><con:name>GivenName</con:name><con:value>Gallow</con:value></con:property><con:property><con:name>LocalAA</con:name><con:value>1.1</con:value></con:property><con:property>
-		<con:name>LocalHCDescription</con:name>
-		<con:value>InternalTest1</con:value>
-	</con:property>
+	<con:property><con:name>DQPatientID</con:name><con:value>D123401</con:value></con:property><con:property><con:name>DQPTDocID</con:name><con:value>1.123401.11111</con:value></con:property><con:property><con:name>DRDocID</con:name><con:value>1.123407.777777</con:value></con:property><con:property><con:name>DRRepoID</con:name><con:value>1</con:value></con:property>
 	
 	
 	
-	<con:property><con:name>LocalHCID</con:name><con:value>1.1</con:value></con:property><con:property><con:name>LocalPatientID</con:name><con:value>D123401</con:value></con:property><con:property><con:name>NotificationEndpoint</con:name><con:value>https://localhost:8181/Gateway/HIEM/2_0/NhinService/NotificationConsumerService/HiemNotify</con:value></con:property>
+	
+	
+	<con:property><con:name>DynamicDQDocID</con:name><con:value>103.8.9284320.020.3590.75^1266324032288</con:value></con:property><con:property><con:name>ExpirationDate</con:name><con:value>20100520</con:value></con:property><con:property><con:name>FamilyName</con:name><con:value>Younger</con:value></con:property><con:property><con:name>GatewayPropDir</con:name><con:value>c:\glassfish3\glassfish\domains\domain1\config\nhin</con:value></con:property><con:property><con:name>Gender</con:name><con:value>M</con:value></con:property><con:property><con:name>GivenName</con:name><con:value>Gallow</con:value></con:property><con:property><con:name>LocalAA</con:name><con:value>1.1</con:value></con:property><con:property><con:name>LocalHCDescription</con:name><con:value>InternalTest1</con:value></con:property><con:property><con:name>LocalHCID</con:name><con:value>1.1</con:value></con:property><con:property><con:name>LocalPatientID</con:name><con:value>D123401</con:value></con:property><con:property><con:name>NotificationEndpoint</con:name><con:value>https://localhost:8181/Gateway/HIEM/2_0/NhinService/NotificationConsumerService/HiemNotify</con:value></con:property>
 
 
 	
@@ -10894,42 +10882,30 @@ if(context.findProperty("PassThruOn").toBoolean()){
 
 
 
-	<con:property><con:name>NotifySubscriptionID</con:name><con:value>24085385-ef54-4aaf-b027-d5896689be24</con:value></con:property><con:property><con:name>NotifySubscriptionManagerEndpointAddress</con:name><con:value>https://localhost:8181/Gateway/HIEM/2_0/NhinService/SubscriptionManagerService/HiemUnsubscribe</con:value></con:property><con:property><con:name>PatientCorrelationDB</con:name><con:value>patientcorrelationdb</con:value></con:property><con:property>
-		<con:name>PatientCorrelationTable</con:name>
-		<con:value>correlatedidentifiers</con:value>
-	</con:property>
-	<con:property><con:name>project.name</con:name><con:value>EntityValidation</con:value></con:property><con:property>
-		<con:name>PurposeOfDisclosure</con:name>
-		<con:value>Mental</con:value>
-	</con:property>
 	
 	
-	<con:property><con:name>RemoteAA</con:name><con:value>2.2</con:value></con:property>
+	
+	
+	
 	
 
 
 
 
 
-	<con:property><con:name>RemoteHCDescription</con:name><con:value>InternalTest2</con:value></con:property><con:property><con:name>RemoteHCID</con:name><con:value>2.2</con:value></con:property><con:property><con:name>RemotePatientID</con:name><con:value>D123401</con:value></con:property><con:property>
-		<con:name>SSN</con:name>
-		<con:value>123456789</con:value>
-	</con:property>
-	
-	
-	<con:property><con:name>State</con:name><con:value>FL</con:value></con:property>
-	<con:property><con:name>StreetAddress</con:name><con:value>123 Johnson Rd</con:value></con:property>
-	<con:property><con:name>SubjectID</con:name><con:value>1111</con:value></con:property>
 	
 	
 	
-	<con:property><con:name>SubscribePatientID</con:name><con:value>D123401</con:value></con:property><con:property><con:name>SubscriptionDB</con:name><con:value>subscriptionrepository</con:value></con:property><con:property><con:name>SubscriptionManagerEndpointAddress</con:name><con:value>https://localhost:8181/Gateway/HIEM/2_0/NhinService/SubscriptionManagerService/HiemUnsubscribe</con:value></con:property>
 	
-	<con:property><con:name>SubscriptionTable</con:name><con:value>subscription</con:value></con:property><con:property><con:name>UniquePatientId</con:name><con:value>1111^^^&amp;amp;1.1&amp;amp;ISO</con:value></con:property><con:property><con:name>UnSubscriptionID</con:name><con:value>6deec8e7-6e6c-4269-91c2-69cb777ab8b0</con:value></con:property><con:property>
-		<con:name>ZipCode</con:name>
-		<con:value>12345</con:value>
-	</con:property>
-<con:property><con:name>DQPTDocID</con:name><con:value>1.123401.11111</con:value></con:property><con:property><con:name>DSDefReq_EntityEndpoint_g0</con:name><con:value>http://localhost:8080/Gateway/DocumentSubmission/1_1/EntityService/EntityDocSubmissionDeferredRequestUnsecured</con:value></con:property><con:property><con:name>DSDefReq_EntityEndpoint_g1</con:name><con:value>http://localhost:8080/Gateway/DocumentSubmission/2_0/EntityService/EntityDocSubmissionDeferredRequestUnsecured</con:value></con:property><con:property><con:name>DSDefResp_EntityEndpoint_g1</con:name><con:value>http://localhost:8080/Gateway/DocumentSubmission/2_0/EntityService/EntityDocSubmissionDeferredResponseUnsecured</con:value></con:property><con:property><con:name>DSDefResp_EntityEndpoint_g0</con:name><con:value>http://localhost:8080/Gateway/DocumentSubmission/1_1/EntityService/EntityDocSubmissionDeferredResponseUnsecured</con:value></con:property><con:property><con:name>DS_EntityEndpoint_g1</con:name><con:value>http://localhost:8080/Gateway/DocumentSubmission/2_0/EntityService/EntityDocSubmissionUnsecured</con:value></con:property><con:property><con:name>DS_EntityEndpoint_g0</con:name><con:value>http://localhost:8080/Gateway/DocumentSubmission/1_1/EntityService/EntityDocSubmissionUnsecured</con:value></con:property><con:property><con:name>PDDefReq_EntityEndpoint</con:name><con:value>http://localhost:8080/Gateway/PatientDiscovery/1_0/EntityService/EntityPatientDiscoveryDeferredRequestUnsecured</con:value></con:property><con:property><con:name>PDDefResp_EntityEndpoint</con:name><con:value>http://localhost:8080/Gateway/PatientDiscovery/1_0/EntityService/EntityPatientDiscoveryDeferredResponseUnsecured</con:value></con:property><con:property><con:name>PD_EntityEndpoint</con:name><con:value>http://localhost:8080/Gateway/PatientDiscovery/1_0/EntityPatientDiscovery</con:value></con:property><con:property><con:name>DQ_EntityEndpoint</con:name><con:value>http://localhost:8080/Gateway/DocumentQuery/2_0/EntityService/EntityDocQueryUnsecured</con:value></con:property><con:property><con:name>DR_EntityEndpoint_g0</con:name><con:value>http://localhost:8080/Gateway/DocumentRetrieve/2_0/EntityService/EntityDocRetrieve</con:value></con:property><con:property><con:name>DR_EntityEndpoint_g1</con:name><con:value>http://localhost:8080/Gateway/DocumentRetrieve/3_0/EntityService/EntityDocRetrieve</con:value></con:property><con:property><con:name>AD_EntityEndpoint_g0</con:name><con:value>http://localhost:8080/Gateway/AdminDistribution/1_0/AdministrativeDistribution_Service</con:value></con:property><con:property><con:name>AD_EntityEndpoint_g1</con:name><con:value>http://localhost:8080/Gateway/AdminDistribution/2_0/AdministrativeDistribution_Service</con:value></con:property></con:properties>
+	<con:property><con:name>NotifySubscriptionID</con:name><con:value>24085385-ef54-4aaf-b027-d5896689be24</con:value></con:property>
+	<con:property><con:name>NotifySubscriptionManagerEndpointAddress</con:name><con:value>https://localhost:8181/Gateway/HIEM/2_0/NhinService/SubscriptionManagerService/HiemUnsubscribe</con:value></con:property>
+	
+	
+	
+	<con:property><con:name>PatientCorrelationDB</con:name><con:value>patientcorrelationdb</con:value></con:property><con:property><con:name>PatientCorrelationTable</con:name><con:value>correlatedidentifiers</con:value></con:property>
+	
+	<con:property><con:name>project.name</con:name><con:value>EntityValidation</con:value></con:property><con:property><con:name>PurposeOfDisclosure</con:name><con:value>Mental</con:value></con:property><con:property><con:name>RemoteAA</con:name><con:value>2.2</con:value></con:property><con:property><con:name>RemoteHCDescription</con:name><con:value>InternalTest2</con:value></con:property><con:property><con:name>RemoteHCID</con:name><con:value>2.2</con:value></con:property>
+<con:property><con:name>RemotePatientID</con:name><con:value>D123401</con:value></con:property><con:property><con:name>SSN</con:name><con:value>123456789</con:value></con:property><con:property><con:name>State</con:name><con:value>FL</con:value></con:property><con:property><con:name>StreetAddress</con:name><con:value>123 Johnson Rd</con:value></con:property><con:property><con:name>SubjectID</con:name><con:value>1111</con:value></con:property><con:property><con:name>SubscribePatientID</con:name><con:value>D123401</con:value></con:property><con:property><con:name>SubscriptionDB</con:name><con:value>subscriptionrepository</con:value></con:property><con:property><con:name>SubscriptionManagerEndpointAddress</con:name><con:value>https://localhost:8181/Gateway/HIEM/2_0/NhinService/SubscriptionManagerService/HiemUnsubscribe</con:value></con:property><con:property><con:name>SubscriptionTable</con:name><con:value>subscription</con:value></con:property><con:property><con:name>UniquePatientId</con:name><con:value>1111^^^&amp;amp;1.1&amp;amp;ISO</con:value></con:property><con:property><con:name>UnSubscriptionID</con:name><con:value>6deec8e7-6e6c-4269-91c2-69cb777ab8b0</con:value></con:property><con:property><con:name>ZipCode</con:name><con:value>12345</con:value></con:property></con:properties>
 <con:afterLoadScript>def propertiesFilename = project.path[0..(project.path.size()-4)] + 'properties'
 def propertiesFile = new File(propertiesFilename)
 if (propertiesFile.exists()) {
