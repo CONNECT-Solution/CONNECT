@@ -1,4 +1,5 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <parent>
         <groupId>org.connectopensource</groupId>
         <artifactId>General</artifactId>
@@ -8,7 +9,7 @@
     <artifactId>CONNECTUniversalClientGUI</artifactId>
     <packaging>war</packaging>
     <name>CONNECT Universal Client GUI</name>
-    
+
     <dependencies>
         <dependency>
             <groupId>org.connectopensource</groupId>
@@ -81,13 +82,13 @@
             <groupId>com.sun.faces.extensions</groupId>
             <artifactId>jsf-extensions-common</artifactId>
         </dependency>
-   
-           <dependency>
+
+        <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <scope>test</scope>
         </dependency>
-        
+
         <dependency>
             <groupId>org.jmock</groupId>
             <artifactId>jmock-legacy</artifactId>
@@ -103,10 +104,79 @@
             <artifactId>slf4j-log4j12</artifactId>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>commons-fileupload</groupId>
+            <artifactId>commons-fileupload</artifactId>
+            <version>1.2.2</version>
+        </dependency>
     </dependencies>
     <build>
         <finalName>${project.artifactId}</finalName>
         <plugins>
+            <plugin>
+                <groupId>org.eclipse.jetty</groupId>
+                <artifactId>jetty-maven-plugin</artifactId>
+                <version>9.0.0.RC0</version>
+                <dependencies>
+                    <dependency>
+                        <groupId>com.sun.faces</groupId>
+                        <artifactId>jsf-api</artifactId>
+                        <version>2.0.8</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>com.sun.faces</groupId>
+                        <artifactId>jsf-impl</artifactId>
+                        <version>2.0.8</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>mysql</groupId>
+                        <artifactId>mysql-connector-java</artifactId>
+                        <version>5.1.17</version>
+                    </dependency>
+                </dependencies>
+            </plugin>
         </plugins>
     </build>
+    <profiles>
+        <profile>
+            <id>testing</id>
+            <properties>
+                <nhinc.properties.dir>${project.build.directory}/nhinc-properites-dir/</nhinc.properties.dir>
+            </properties>
+            <build>
+                <plugins>
+                    <plugin>
+                        <!-- Used to pull XSD files from the JAR -->
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-dependency-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>unpack-nhin-properties</id>
+                                <!-- Using the initialize phase because it 
+                                    is before the generate sources phase -->
+                                <phase>process-resources</phase>
+                                <goals>
+                                    <goal>unpack</goal>
+                                </goals>
+                                <configuration>
+                                    <artifactItems>
+                                        <artifactItem>
+                                            <!-- Artifact that Holds our 
+                                                custom templates -->
+                                            <groupId>org.connectopensource</groupId>
+                                            <artifactId>Properties</artifactId>
+                                            <version>${project.parent.version}</version>
+                                            <type>jar</type>
+                                        </artifactItem>
+                                    </artifactItems>
+                                    <includes>**/*</includes>
+                                    <outputDirectory>${nhinc.properties.dir}</outputDirectory>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
 </project>
