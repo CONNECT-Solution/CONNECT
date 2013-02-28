@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<!DOCTYPE Configure PUBLIC "-//Mort Bay Consulting//DTD Configure//EN" "http://www.eclipse.org/jetty/configure_9_0.dtd">
+<Configure id="localhost" class="org.eclipse.jetty.webapp.WebAppContext">
+    <New id="assigningauthoritydb_datasource" class="org.eclipse.jetty.plus.jndi.Resource">
+        <Arg></Arg>
+        <Arg>jdbc/assigningauthoritydb_datasource</Arg>
+        <Arg>
+            <New class="com.mysql.jdbc.jdbc2.optional.MysqlConnectionPoolDataSource">
+                <Set name="Url">jdbc:mysql://localhost:3306/assigningauthoritydb</Set>
+                <Set name="User">nhincuser</Set>
+                <Set name="Password">nhincpass</Set>
+            </New>
+        </Arg>
+    </New>
+</Configure>
+
+
+
+  
