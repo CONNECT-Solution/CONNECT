@@ -694,10 +694,10 @@ public class Page2 extends AbstractPageBean {
                 }
                 this.patientInfo.setText(discoverInfoBuf.toString());
 
-                activateSubjectDiscoveryTab();
+//                activateSubjectDiscoveryTab();
                 initializeSubjectDiscoveryTab();
-                activateDocumentTab();
-                this.getClientTabSet().setSelected("subjectDiscoveryTab");
+//                activateDocumentTab();
+//                this.getClientTabSet().setSelected("subjectDiscoveryTab");
 
                 // We found it - leave the loop
                 break;
