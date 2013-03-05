@@ -49,6 +49,7 @@
 		<module>NHINCReceivingXDRAsyncRequestTests</module>
 		<module>NHINCReceivingXDRAsyncResponseTests</module>
 		<module>PatientCorrelation</module>
+		<module>PatientDiscoveryDB</module>
 		<module>PatientDiscoveryInternalErrorMessagIdTest</module>
 		<module>PD-Sync-entity</module>
 		<module>QueryByState</module>
