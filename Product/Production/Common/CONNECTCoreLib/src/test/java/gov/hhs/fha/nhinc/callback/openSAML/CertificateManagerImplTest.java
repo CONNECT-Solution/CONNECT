@@ -3,40 +3,30 @@
  */
 package gov.hhs.fha.nhinc.callback.openSAML;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
+import static org.mockito.Mockito.mock;
+import gov.hhs.fha.nhinc.util.AbstractSuppressRootLoggerTest;
 
 import java.security.PrivateKey;
 import java.security.cert.X509Certificate;
 import java.security.interfaces.RSAPublicKey;
 import java.util.HashMap;
 
-import org.apache.log4j.ConsoleAppender;
-import org.apache.log4j.Level;
-import org.apache.log4j.Logger;
-import org.apache.log4j.PatternLayout;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
-
-import static org.mockito.Mockito.mock;
 
 /**
  * @author mweaver/jsmith
  * 
  */
-public class CertificateManagerImplTest {
+public class CertificateManagerImplTest extends AbstractSuppressRootLoggerTest{
 
 	private CertificateManagerImpl certManager;
 	private final String KEY_STORE_PATH = "src/test/resources/gov/hhs/fha/nhinc/callback/gateway.jks";
 	private final String TRUST_STORE_PATH = "src/test/resources/gov/hhs/fha/nhinc/callback/cacerts.jks";
-
-	@BeforeClass
-	public static void setLogging() {
-		Logger rootLogger = Logger.getRootLogger();
-		rootLogger.setLevel(Level.ERROR);
-		rootLogger.addAppender(new ConsoleAppender(new PatternLayout(
-				"%-6r [%p] %c - %m%n")));
-	}
 
 	@Before
 	public void setUp() {

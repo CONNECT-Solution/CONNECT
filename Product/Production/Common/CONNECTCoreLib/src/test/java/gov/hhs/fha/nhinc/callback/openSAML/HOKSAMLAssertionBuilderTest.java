@@ -7,8 +7,10 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
-
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants.GATEWAY_API_LEVEL;
+import gov.hhs.fha.nhinc.util.AbstractSuppressRootLoggerTest;
 
 import java.math.BigInteger;
 import java.security.InvalidKeyException;
@@ -31,45 +33,33 @@ import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
-import org.apache.log4j.ConsoleAppender;
-import org.apache.log4j.Level;
-import org.apache.log4j.Logger;
-import org.apache.log4j.PatternLayout;
 import org.joda.time.DateTime;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import org.opensaml.saml2.core.Attribute;
-import org.opensaml.saml2.core.DecisionTypeEnumeration;
 import org.opensaml.saml2.core.Action;
 import org.opensaml.saml2.core.Assertion;
+import org.opensaml.saml2.core.Attribute;
 import org.opensaml.saml2.core.AttributeStatement;
 import org.opensaml.saml2.core.AuthnStatement;
 import org.opensaml.saml2.core.AuthzDecisionStatement;
 import org.opensaml.saml2.core.Conditions;
+import org.opensaml.saml2.core.DecisionTypeEnumeration;
 import org.opensaml.saml2.core.Evidence;
 import org.opensaml.saml2.core.Issuer;
 import org.opensaml.saml2.core.Subject;
 import org.w3c.dom.Element;
 
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
-
 /**
  * @author bhumphrey
  * 
  */
-public class HOKSAMLAssertionBuilderTest {
+public class HOKSAMLAssertionBuilderTest extends AbstractSuppressRootLoggerTest{
 
 	private static RSAPublicKey publicKey;
 	private static PrivateKey privateKey;
 
 	@BeforeClass
 	static public void setUp() throws NoSuchAlgorithmException {
-
-		Logger rootLogger = Logger.getRootLogger();
-		rootLogger.setLevel(Level.INFO);
-		rootLogger.addAppender(new ConsoleAppender(new PatternLayout(
-				"%-6r [%p] %c - %m%n")));
 
 		KeyPairGenerator keyGen;
 		keyGen = KeyPairGenerator.getInstance("RSA");

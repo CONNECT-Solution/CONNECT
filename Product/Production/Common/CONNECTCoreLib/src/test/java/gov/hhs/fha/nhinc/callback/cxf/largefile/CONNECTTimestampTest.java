@@ -4,26 +4,22 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
+import gov.hhs.fha.nhinc.util.AbstractSuppressRootLoggerTest;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.TimeZone;
 
-import org.apache.log4j.ConsoleAppender;
-import org.apache.log4j.Level;
-import org.apache.log4j.Logger;
-import org.apache.log4j.PatternLayout;
 import org.apache.ws.security.WSConstants;
 import org.apache.ws.security.WSSecurityException;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.Text;
 
-public class CONNECTTimestampTest {
+public class CONNECTTimestampTest extends AbstractSuppressRootLoggerTest{
 
 	private static Element timestampElement = mock(Element.class);
 	private static final String CREATE_TIME = "2013-01-01T01:00:05.000Z";
@@ -37,14 +33,6 @@ public class CONNECTTimestampTest {
 
 	private SimpleDateFormat dateFormat = new SimpleDateFormat(
 			"yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
-
-	@BeforeClass
-	public static void logSetUp() {
-		Logger rootLogger = Logger.getRootLogger();
-		rootLogger.setLevel(Level.DEBUG);
-		rootLogger.addAppender(new ConsoleAppender(new PatternLayout(
-				"%-6r [%p] %c - %m%n")));
-	}
 
 	@Before
 	public void setUp() {

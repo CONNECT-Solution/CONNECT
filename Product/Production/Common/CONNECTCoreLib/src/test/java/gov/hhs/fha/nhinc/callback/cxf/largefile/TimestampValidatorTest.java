@@ -5,6 +5,8 @@ import static org.junit.Assert.assertNotNull;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
+import gov.hhs.fha.nhinc.util.AbstractSuppressRootLoggerTest;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -28,18 +30,10 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.Text;
 
-public class TimestampValidatorTest {
+public class TimestampValidatorTest extends AbstractSuppressRootLoggerTest{
 
 	private SimpleDateFormat dateFormat = new SimpleDateFormat(
 			"yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
-
-	@BeforeClass
-	public static void logSetUp() {
-		Logger rootLogger = Logger.getRootLogger();
-		rootLogger.setLevel(Level.ERROR);
-		rootLogger.addAppender(new ConsoleAppender(new PatternLayout(
-				"%-6r [%p] %c - %m%n")));
-	}
 
 	@Before
 	public void setUp() {
