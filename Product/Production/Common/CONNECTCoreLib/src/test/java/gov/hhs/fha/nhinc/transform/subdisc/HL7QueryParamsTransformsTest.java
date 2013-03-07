@@ -2,7 +2,6 @@ package gov.hhs.fha.nhinc.transform.subdisc;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,44 +24,44 @@ import org.junit.Test;
 
 /**
  * @author achidambaram
- *
+ * 
  */
 public class HL7QueryParamsTransformsTest {
-    
+
     @Test
-    public void  createTelecom() {
+    public void createTelecom() {
         PRPAMT201306UV02PatientTelecom telecom = null;
         HL7QueryParamsTransforms queryTransforms = new HL7QueryParamsTransforms();
         telecom = queryTransforms.createTelecom(createTELList());
         assertEquals(telecom.getValue().get(0).getValue(), "CONNECT TEL");
     }
-    
+
     @Test
-    public void  createTelecomTELExplicitListNull() {
+    public void createTelecomTELExplicitListNull() {
         PRPAMT201306UV02PatientTelecom telecom = null;
         HL7QueryParamsTransforms queryTransforms = new HL7QueryParamsTransforms();
         List<TELExplicit> telList = null;
         telecom = queryTransforms.createTelecom(telList);
         assertNull(telecom);
     }
-    
+
     @Test
-    public void  createAddressNull() {
+    public void createAddressNull() {
         PRPAMT201306UV02PatientAddress patientAddress = new PRPAMT201306UV02PatientAddress();
         HL7QueryParamsTransforms queryTransforms = new HL7QueryParamsTransforms();
         List<ADExplicit> patientAddressList = null;
         patientAddress = queryTransforms.createAddress(patientAddressList);
         assertNull(patientAddress);
     }
-    
+
     @Test
-    public void  createAddress() {
+    public void createAddress() {
         PRPAMT201306UV02PatientAddress patientAddress = new PRPAMT201306UV02PatientAddress();
         HL7QueryParamsTransforms queryTransforms = new HL7QueryParamsTransforms();
         patientAddress = queryTransforms.createAddress(patientAddressList());
         assertEquals(patientAddress.getValue().get(0).getUse().get(0), "12601, FairLakes");
     }
-    
+
     @Test
     public void createParamList() {
         PRPAMT201306UV02ParameterList parameterList = null;
@@ -71,15 +70,15 @@ public class HL7QueryParamsTransformsTest {
         assertEquals(parameterList.getLivingSubjectAdministrativeGender().get(0).getValue().get(0).getCode(), "CONNECT");
         assertEquals(parameterList.getLivingSubjectBirthTime().get(0).getValue().get(0).getValue(), "12-10-1955");
     }
-    
-    public void  createName() {
+
+    public void createName() {
         PRPAMT201306UV02LivingSubjectName subjectName = null;
         List<PNExplicit> patientNames = null;
         HL7QueryParamsTransforms queryTransforms = new HL7QueryParamsTransforms();
         subjectName = queryTransforms.createName(patientNames);
         assertNull(subjectName);
     }
-    
+
     private PRPAMT201301UV02Patient createPRPAMT201301UV02Patient() {
         org.hl7.v3.PRPAMT201301UV02Patient patient = new PRPAMT201301UV02Patient();
         PRPAMT201301UV02Person patientPerson = new PRPAMT201301UV02Person();
@@ -100,23 +99,22 @@ public class HL7QueryParamsTransformsTest {
         patientPerson.getAddr().add(createADExplicit());
         patientPerson.setDeterminerCode("INSTANCE");
         patientPerson.setAdministrativeGenderCode(createCE());
-        
-        
+
         return patient;
     }
-    
+
     private TSExplicit createTSExplicit() {
         TSExplicit ts = new TSExplicit();
         ts.setValue("12-10-1955");
         return ts;
     }
-    
-    private CE createCE(){
+
+    private CE createCE() {
         CE ce = new CE();
         ce.setCode("CONNECT");
         return ce;
     }
-    
+
     private II createII() {
         II ii = new II();
         ii.setAssigningAuthorityName("CONNECT");
@@ -124,35 +122,35 @@ public class HL7QueryParamsTransformsTest {
         ii.setRoot("1.1");
         return ii;
     }
-    
+
     private static String getFirstName() {
         String firstName = "Gallow";
         return firstName;
     }
-    
+
     private static String getLastName() {
         String lastName = "Younger";
         return lastName;
     }
-    
+
     private List<ADExplicit> patientAddressList() {
         List<ADExplicit> patientAddressList = new ArrayList<ADExplicit>();
         patientAddressList.add(createADExplicit());
         return patientAddressList;
     }
-    
+
     private ADExplicit createADExplicit() {
         ADExplicit ad = new ADExplicit();
         ad.getUse().add("12601, FairLakes");
         return ad;
     }
-    
+
     private List<TELExplicit> createTELList() {
         List<TELExplicit> telList = new ArrayList<TELExplicit>();
         telList.add(createTELExplicit());
         return telList;
     }
-    
+
     private TELExplicit createTELExplicit() {
         TELExplicit tel = new TELExplicit();
         tel.setValue("CONNECT TEL");

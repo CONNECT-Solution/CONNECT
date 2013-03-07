@@ -54,6 +54,7 @@ public class HL7DataTransformHelperTest {
         assertEquals(ii.getExtension(), "1.16.17.19");
     }
 
+    @Test
     public void IIFactory() {
         String root = "1.1";
         String extension = "1.16.17.19";
@@ -61,7 +62,7 @@ public class HL7DataTransformHelperTest {
         II ii = new II();
         ii = helper.IIFactory(root, extension);
         assertEquals(ii.getRoot(), "1.1");
-        assertEquals(ii.getExtension(), "D123401");
+        assertEquals(ii.getExtension(), "1.16.17.19");
         assertNull(ii.getAssigningAuthorityName());
     }
 
@@ -310,11 +311,11 @@ public class HL7DataTransformHelperTest {
                 }
             }
         }
-            assertNull(familyName);
-            assertEquals(prefix.getContent(), title);
-            assertEquals(suf.getContent(), suffix);
+        assertNull(familyName);
+        assertEquals(prefix.getContent(), title);
+        assertEquals(suf.getContent(), suffix);
     }
-    
+
     @Test
     public void createEnExplicitWhenPrefixNull() {
         String firstName = "Gallow";
@@ -353,11 +354,11 @@ public class HL7DataTransformHelperTest {
                 }
             }
         }
-            assertEquals(familyName.getContent(), lastName);
-            assertNull(prefix);
-            assertEquals(suf.getContent(), suffix);
+        assertEquals(familyName.getContent(), lastName);
+        assertNull(prefix);
+        assertEquals(suf.getContent(), suffix);
     }
-    
+
     @Test
     public void createEnExplicitWhenSuffixNull() {
         String firstName = "Gallow";
@@ -396,10 +397,11 @@ public class HL7DataTransformHelperTest {
                 }
             }
         }
-            assertEquals(familyName.getContent(), lastName);
-            assertEquals(prefix.getContent(), title);
-            assertNull(suf);
+        assertEquals(familyName.getContent(), lastName);
+        assertEquals(prefix.getContent(), title);
+        assertNull(suf);
     }
+
     @Test
     public void createADExplicit() {
         String street = "12601 FairLakes Circle";
@@ -407,11 +409,11 @@ public class HL7DataTransformHelperTest {
         String state = "VA";
         String zip = "22102";
         HL7DataTransformHelper helper = new HL7DataTransformHelper();
-        ADExplicit result = helper.createADExplicit(street, city, state, zip); 
+        ADExplicit result = helper.createADExplicit(street, city, state, zip);
         assertNotNull(result.getUse());
         assertEquals(result.getUse().size(), 4);
     }
-    
+
     @Test
     public void createADExplicitWithStreet1() {
         String street = "12601 FairLakes Circle";
@@ -424,7 +426,7 @@ public class HL7DataTransformHelperTest {
         assertNotNull(result.getUse());
         assertEquals(result.getUse().size(), 5);
     }
-    
+
     @Test
     public void createTELExplicit() {
         String value = "210-340-6780";
@@ -433,7 +435,7 @@ public class HL7DataTransformHelperTest {
         te = helper.createTELExplicit(value);
         assertEquals(te.getValue(), value);
     }
-    
+
     @Test
     public void convertPNToEN() {
         HL7DataTransformHelper helper = new HL7DataTransformHelper();
@@ -473,7 +475,7 @@ public class HL7DataTransformHelperTest {
                 }
             }
         }
-        assertEquals(familyName.getContent(),lastName);
+        assertEquals(familyName.getContent(), lastName);
         assertEquals(prefixEx.getContent(), prefix);
         assertEquals(sufEx.getContent(), suffix);
     }

@@ -17,10 +17,10 @@ import org.junit.Test;
 
 /**
  * @author achidambaram
- *
+ * 
  */
 public class HL7PRPA201302TransformsTest {
-    
+
     @Test
     public void createPRPA201302() {
         PRPAMT201301UV02Patient patient = createPRPAMT201301UV02Patient();
@@ -34,7 +34,7 @@ public class HL7PRPA201302TransformsTest {
         assertEquals(result.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1()
                 .getPatient().getId().get(0).getExtension(), "1.16.17.19");
     }
-    
+
     @Test
     public void createPRPA201302ForPRPAMT201310UV02() {
         PRPAMT201310UV02Patient patient = createPRPAMT201310UV02Patient();
@@ -48,8 +48,7 @@ public class HL7PRPA201302TransformsTest {
         assertEquals(result.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1()
                 .getPatient().getId().get(0).getExtension(), "1.16.17.19");
     }
-    
-    
+
     private PRPAMT201310UV02Patient createPRPAMT201310UV02Patient() {
         org.hl7.v3.PRPAMT201310UV02Patient patient = new PRPAMT201310UV02Patient();
         PRPAMT201310UV02Person patientPerson = new PRPAMT201310UV02Person();
@@ -62,7 +61,7 @@ public class HL7PRPA201302TransformsTest {
 
         patientPerson.setDeterminerCode("INSTANCE");
         patientPerson.setAdministrativeGenderCode(createCE());
-        
+
         PNExplicit patientName = new PNExplicit();
         patientName.getContent().add(getFirstName());
         patientName.getContent().add(getLastName());
@@ -70,7 +69,7 @@ public class HL7PRPA201302TransformsTest {
         patientPerson.getName().add(patientName);
         return patient;
     }
-    
+
     private PRPAMT201301UV02Patient createPRPAMT201301UV02Patient() {
         org.hl7.v3.PRPAMT201301UV02Patient patient = new PRPAMT201301UV02Patient();
         PRPAMT201301UV02Person patientPerson = new PRPAMT201301UV02Person();
@@ -83,7 +82,7 @@ public class HL7PRPA201302TransformsTest {
 
         patientPerson.setDeterminerCode("INSTANCE");
         patientPerson.setAdministrativeGenderCode(createCE());
-        
+
         PNExplicit patientName = new PNExplicit();
         patientName.getContent().add(getFirstName());
         patientName.getContent().add(getLastName());
@@ -91,28 +90,28 @@ public class HL7PRPA201302TransformsTest {
         patientPerson.getName().add(patientName);
         return patient;
     }
-    
+
     private static String getFirstName() {
         String firstName = "Gallow";
         return firstName;
     }
-    
+
     private static String getLastName() {
         String lastName = "Younger";
         return lastName;
     }
-    
+
     private static String getNameType() {
         String nameType = "PNExplicitNameType";
         return nameType;
     }
-    
-    private CE createCE(){
+
+    private CE createCE() {
         CE ce = new CE();
         ce.setCode("CONNECT");
         return ce;
     }
-    
+
     private II createII() {
         II ii = new II();
         ii.setAssigningAuthorityName("CONNECT");

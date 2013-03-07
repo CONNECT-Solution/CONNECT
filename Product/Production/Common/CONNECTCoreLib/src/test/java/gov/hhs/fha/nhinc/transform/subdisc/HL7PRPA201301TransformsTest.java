@@ -19,7 +19,6 @@ import org.hl7.v3.MCCIMT000100UV01AttentionLine;
 import org.hl7.v3.MCCIMT000100UV01Device;
 import org.hl7.v3.MCCIMT000100UV01Organization;
 import org.hl7.v3.MCCIMT000100UV01Receiver;
-import org.hl7.v3.MCCIMT000100UV01Sender;
 import org.hl7.v3.MCCIMT000300UV01Agent;
 import org.hl7.v3.MCCIMT000300UV01AttentionLine;
 import org.hl7.v3.MCCIMT000300UV01Device;
@@ -170,24 +169,25 @@ public class HL7PRPA201301TransformsTest {
         assertEquals(request.getControlActProcess().getAuthorOrPerformer().get(0).getAssignedDevice().getValue()
                 .getId().get(0).getExtension(), "1.16.17.19");
     }
-    
+
     @Test
     public void createPRPA201301RequestNullforPRPAIN201306UV02() {
         String localDeviceId = "1.1";
         HL7PRPA201301Transforms transforms = new HL7PRPA201301Transforms();
         PRPAIN201306UV02 req = null;
-        assertNull(transforms.createPRPA201301(req,localDeviceId));
+        assertNull(transforms.createPRPA201301(req, localDeviceId));
     }
-    
+
     @Test
     public void copyControlActProcess2() {
         String localDeviceId = "1.1";
         HL7PRPA201301Transforms transforms = new HL7PRPA201301Transforms();
-        PRPAIN201301UV02MFMIMT700701UV01ControlActProcess cap = transforms.copyControlActProcess2(createPRPAIN201306UV02ControlActProcess(), localDeviceId);
-        assertEquals(cap.getAuthorOrPerformer().get(0).getAssignedDevice().getValue()
-                .getId().get(0).getExtension(), "1.16.17.19");
+        PRPAIN201301UV02MFMIMT700701UV01ControlActProcess cap = transforms.copyControlActProcess2(
+                createPRPAIN201306UV02ControlActProcess(), localDeviceId);
+        assertEquals(cap.getAuthorOrPerformer().get(0).getAssignedDevice().getValue().getId().get(0).getExtension(),
+                "1.16.17.19");
     }
-    
+
     @Test
     public void createPRPA201301RequestForPRPAIN201306WhenContolActIdNull() {
         String localDeviceId = "1.1";
@@ -224,7 +224,7 @@ public class HL7PRPA201301TransformsTest {
         String localDeviceId = "1.1";
         HL7PRPA201301Transforms transforms = new HL7PRPA201301Transforms();
         PRPAIN201306UV02 request = new PRPAIN201306UV02();
-        PRPAIN201306UV02MFMIMT700711UV01ControlActProcess controlActProcess =  new PRPAIN201306UV02MFMIMT700711UV01ControlActProcess();
+        PRPAIN201306UV02MFMIMT700711UV01ControlActProcess controlActProcess = new PRPAIN201306UV02MFMIMT700711UV01ControlActProcess();
         controlActProcess.setTypeId(createII());
         controlActProcess.setQueryByParameter(createQueryByParameter());
         request.setControlActProcess(controlActProcess);
@@ -242,13 +242,13 @@ public class HL7PRPA201301TransformsTest {
         result = transforms.createPRPA201301(request, localDeviceId);
         assertNull(result.getControlActProcess());
     }
-    
+
     @Test
     public void createPRPA201301RequestForPRPAIN201306WhenAuthorOrPerformerNull() {
         String localDeviceId = "1.1";
         HL7PRPA201301Transforms transforms = new HL7PRPA201301Transforms();
         PRPAIN201306UV02 request = new PRPAIN201306UV02();
-        PRPAIN201306UV02MFMIMT700711UV01ControlActProcess controlActProcess =  new PRPAIN201306UV02MFMIMT700711UV01ControlActProcess();
+        PRPAIN201306UV02MFMIMT700711UV01ControlActProcess controlActProcess = new PRPAIN201306UV02MFMIMT700711UV01ControlActProcess();
         MFMIMT700711UV01AuthorOrPerformer authorOrPerformer = new MFMIMT700711UV01AuthorOrPerformer();
         authorOrPerformer.setAssignedDevice(createPRPAIN201305UV02AssignedDevice());
         authorOrPerformer.setAssignedPerson(createPRPAIN201305UV02AssignedPerson());
@@ -271,7 +271,7 @@ public class HL7PRPA201301TransformsTest {
         request.setSender(createPRPAIN201306UV02Sender());
         return request;
     }
-    
+
     private MCCIMT000300UV01Sender createPRPAIN201306UV02Sender() {
         String SenderOID = "1.1";
         MCCIMT000300UV01Sender sender = new MCCIMT000300UV01Sender();
@@ -296,7 +296,7 @@ public class HL7PRPA201301TransformsTest {
         sender.setDevice(device);
         return sender;
     }
-    
+
     private MCCIMT000300UV01Receiver createMCCIMT000300UV01Receiver() {
         MCCIMT000300UV01Receiver receiver = new MCCIMT000300UV01Receiver();
         MCCIMT000300UV01Device device = new MCCIMT000300UV01Device();
@@ -335,8 +335,8 @@ public class HL7PRPA201301TransformsTest {
         controlActProcess.getInformationRecipient().add(createInformationReceipent());
         return controlActProcess;
     }
-    
-    private MFMIMT700711UV01InformationRecipient  createInformationReceipent() {
+
+    private MFMIMT700711UV01InformationRecipient createInformationReceipent() {
         MFMIMT700711UV01InformationRecipient recipient = new MFMIMT700711UV01InformationRecipient();
         recipient.setAssignedPerson(createAssignedPerson());
         return recipient;
@@ -354,14 +354,14 @@ public class HL7PRPA201301TransformsTest {
         authorOrPerformer.getTemplateId().add(createII());
         return authorOrPerformer;
     }
-    
+
     private MFMIMT700711UV01DataEnterer createPRPAIN201306UV02DataEnterer() {
         MFMIMT700711UV01DataEnterer dataEnterer = new MFMIMT700711UV01DataEnterer();
         dataEnterer.setAssignedPerson(createAssignedPerson());
         dataEnterer.setTypeId(createII());
         return dataEnterer;
     }
-    
+
     private MCCIMT000300UV01AttentionLine createPRPAIN201306UV02AttentionLine() {
         MCCIMT000300UV01AttentionLine attentionLine = new MCCIMT000300UV01AttentionLine();
         attentionLine.getRealmCode().add(createCS());

@@ -51,62 +51,61 @@ import org.junit.Test;
 
 /**
  * @author achidamb
- *
+ * 
  */
 public class HL7AckTransformsTest {
-    
-    /** This method verifies that Sender OID = Receiver OID in case if message failure 
-     * occurs before sending to Nwhin. This unit test is created as part of Gateway-3178.
+
+    /**
+     * This method verifies that Sender OID = Receiver OID in case if message failure occurs before sending to Nwhin.
+     * This unit test is created as part of Gateway-3178.
      */
-    
-     @Test
-     public void testCreateAckFrom201305WhenRequestNull() {
-         PRPAIN201305UV02 request = null;
-         String ackMsgText = null;
-         HL7AckTransforms ackTransform = new HL7AckTransforms();
-         assertNull(ackTransform.createAckFrom201305(request, ackMsgText).getAcceptAckCode());       
-     }
-     
-     @Test
-     public void testCreateAckFrom201305WhenMsgIdNull() {
-         String senderOID = "1.1";
-         PRPAIN201305UV02 request = createPRPAIN201305UV02(senderOID);
-         String ackMsgText = null;
-         HL7AckTransforms ackTransform = new HL7AckTransforms();
-         assertNotNull(ackTransform.createAckFrom201305(request, ackMsgText).getId().getRoot());       
-     }
-     
-     @Test
-     public void testCreateAckFrom201305() {
-         String senderOID = "1.1";
-         PRPAIN201305UV02 request = createPRPAIN201305UV02(senderOID);
-         setMessageId(request);
-         String ackMsgText = "HL7 AckMessage";
-         HL7AckTransforms ackTransform = new HL7AckTransforms();
-         MCCIIN000002UV01 ack = ackTransform.createAckFrom201305(request, ackMsgText);
-         assertNotNull(ack.getAcknowledgement().get(0)
-                 .getAcknowledgementDetail().get(0).getText()); 
-         assertEquals(ack.getReceiver().get(0).getDevice().getAsAgent().getValue().getRepresentedOrganization()
-                 .getValue().getId().get(0).getRoot(), "1.1");
-         assertEquals(ack.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue()
-                 .getId().get(0).getRoot(), "2.2");
-     }
-     
-     
-     /* Tests for createAckErrorFrom201305 method of HL7AckTransforms */
-     
-     @Test
+
+    @Test
+    public void testCreateAckFrom201305WhenRequestNull() {
+        PRPAIN201305UV02 request = null;
+        String ackMsgText = null;
+        HL7AckTransforms ackTransform = new HL7AckTransforms();
+        assertNull(ackTransform.createAckFrom201305(request, ackMsgText).getAcceptAckCode());
+    }
+
+    @Test
+    public void testCreateAckFrom201305WhenMsgIdNull() {
+        String senderOID = "1.1";
+        PRPAIN201305UV02 request = createPRPAIN201305UV02(senderOID);
+        String ackMsgText = null;
+        HL7AckTransforms ackTransform = new HL7AckTransforms();
+        assertNotNull(ackTransform.createAckFrom201305(request, ackMsgText).getId().getRoot());
+    }
+
+    @Test
+    public void testCreateAckFrom201305() {
+        String senderOID = "1.1";
+        PRPAIN201305UV02 request = createPRPAIN201305UV02(senderOID);
+        setMessageId(request);
+        String ackMsgText = "HL7 AckMessage";
+        HL7AckTransforms ackTransform = new HL7AckTransforms();
+        MCCIIN000002UV01 ack = ackTransform.createAckFrom201305(request, ackMsgText);
+        assertNotNull(ack.getAcknowledgement().get(0).getAcknowledgementDetail().get(0).getText());
+        assertEquals(ack.getReceiver().get(0).getDevice().getAsAgent().getValue().getRepresentedOrganization()
+                .getValue().getId().get(0).getRoot(), "1.1");
+        assertEquals(ack.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue()
+                .getId().get(0).getRoot(), "2.2");
+    }
+
+    /* Tests for createAckErrorFrom201305 method of HL7AckTransforms */
+
+    @Test
     public void checkOIDOfInitiatorErrorMessage() {
-        
+
         MCCIIN000002UV01 ack = new MCCIIN000002UV01();
         String SenderOID = "1.1";
         String ackMsg = "No targets were found for the Patient Discovery Request";
-        ack = HL7AckTransforms.createAckErrorFrom201305(createPRPAIN201305UV02(SenderOID), ackMsg) ;
-        assertEquals("1.1", ack.getReceiver().get(0).getDevice().getAsAgent().getValue()
-                .getRepresentedOrganization().getValue().getId().get(0).getRoot());
-        
+        ack = HL7AckTransforms.createAckErrorFrom201305(createPRPAIN201305UV02(SenderOID), ackMsg);
+        assertEquals("1.1", ack.getReceiver().get(0).getDevice().getAsAgent().getValue().getRepresentedOrganization()
+                .getValue().getId().get(0).getRoot());
+
     }
-    
+
     @Test
     public void testCreateAckErrorFrom201305WhenRequestNull() {
         PRPAIN201305UV02 request = null;
@@ -114,7 +113,7 @@ public class HL7AckTransformsTest {
         HL7AckTransforms ackTransform = new HL7AckTransforms();
         assertNull(ackTransform.createAckErrorFrom201305(request, ackMsgText).getAcceptAckCode());
     }
-    
+
     @Test
     public void testCreateAckErrorFrom201305WhenMessageIdNull() {
         String senderOID = "1.1";
@@ -123,7 +122,7 @@ public class HL7AckTransformsTest {
         HL7AckTransforms ackTransform = new HL7AckTransforms();
         assertNotNull(ackTransform.createAckErrorFrom201305(request, ackMsgText).getId().getRoot());
     }
-    
+
     @Test
     public void testCreateAckErrorFrom201305WhenMsgTxtNull() {
         String senderOID = "1.1";
@@ -134,7 +133,7 @@ public class HL7AckTransformsTest {
         assertTrue(ackTransform.createAckErrorFrom201305(request, ackMsgText).getAcknowledgement().get(0)
                 .getAcknowledgementDetail().isEmpty());
     }
-    
+
     @Test
     public void testCreateAckErrorFrom201305WhenMsgTxtandmsgIdNull() {
         String senderOID = "1.1";
@@ -144,16 +143,16 @@ public class HL7AckTransformsTest {
         MCCIIN000002UV01 ack = ackTransform.createAckErrorFrom201305(request, ackMsgText);
         assertTrue(ack.getAcknowledgement().isEmpty());
     }
-    
+
     @Test
     public void createAckFrom201306WhenrequestNull() {
         PRPAIN201306UV02 request = null;
         String ackMsgText = null;
         HL7AckTransforms ackTransform = new HL7AckTransforms();
-        assertNull(ackTransform.createAckFrom201306(request, ackMsgText).getAcceptAckCode());  
-        
+        assertNull(ackTransform.createAckFrom201306(request, ackMsgText).getAcceptAckCode());
+
     }
-    
+
     @Test
     public void testCreateAckFrom201306WhenMessageIdNull() {
         PRPAIN201306UV02 request = createPRPAIN201306UV02();
@@ -161,7 +160,7 @@ public class HL7AckTransformsTest {
         HL7AckTransforms ackTransform = new HL7AckTransforms();
         assertNotNull(ackTransform.createAckFrom201306(request, ackMsgText).getId().getRoot());
     }
-    
+
     @Test
     public void testCreateAckFrom201306() {
         PRPAIN201306UV02 request = createPRPAIN201306UV02();
@@ -169,23 +168,22 @@ public class HL7AckTransformsTest {
         String ackMsgText = "HL7 AckMessage";
         HL7AckTransforms ackTransform = new HL7AckTransforms();
         MCCIIN000002UV01 ack = ackTransform.createAckFrom201306(request, ackMsgText);
-        assertNotNull(ack.getAcknowledgement().get(0)
-                .getAcknowledgementDetail().get(0).getText());
-        assertEquals(ack.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId()
-                .get(0).getRoot(), "1.1");
+        assertNotNull(ack.getAcknowledgement().get(0).getAcknowledgementDetail().get(0).getText());
+        assertEquals(ack.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue()
+                .getId().get(0).getRoot(), "1.1");
         assertEquals(ack.getReceiver().get(0).getDevice().getAsAgent().getValue().getRepresentedOrganization()
                 .getValue().getId().get(0).getRoot(), "2.2");
     }
-    
+
     @Test
     public void createAckErrorFrom201306WhenrequestNull() {
         PRPAIN201306UV02 request = null;
         String ackMsgText = null;
         HL7AckTransforms ackTransform = new HL7AckTransforms();
-        assertNull(ackTransform.createAckErrorFrom201306(request, ackMsgText).getAcceptAckCode());  
-        
+        assertNull(ackTransform.createAckErrorFrom201306(request, ackMsgText).getAcceptAckCode());
+
     }
-    
+
     @Test
     public void testCreateAckErrorFrom201306WhenMessageIdNull() {
         PRPAIN201306UV02 request = createPRPAIN201306UV02();
@@ -193,7 +191,7 @@ public class HL7AckTransformsTest {
         HL7AckTransforms ackTransform = new HL7AckTransforms();
         assertNotNull(ackTransform.createAckErrorFrom201306(request, ackMsgText).getId().getRoot());
     }
-    
+
     @Test
     public void testCreateAckErrorFrom201306() {
         PRPAIN201306UV02 request = createPRPAIN201306UV02();
@@ -201,18 +199,18 @@ public class HL7AckTransformsTest {
         String ackMsgText = "HL7 AckMessage";
         HL7AckTransforms ackTransform = new HL7AckTransforms();
         assertNotNull(ackTransform.createAckErrorFrom201306(request, ackMsgText).getAcknowledgement().get(0)
-                .getAcknowledgementDetail().get(0).getText());       
+                .getAcknowledgementDetail().get(0).getText());
     }
-    
+
     private PRPAIN201306UV02 createPRPAIN201306UV02() {
         String SenderOID = "2.2";
-        PRPAIN201306UV02 request = new  PRPAIN201306UV02();
+        PRPAIN201306UV02 request = new PRPAIN201306UV02();
         MCCIMT000300UV01Sender sender = new MCCIMT000300UV01Sender();
         MCCIMT000300UV01Device device = new MCCIMT000300UV01Device();
         MCCIMT000300UV01Receiver receiver = new MCCIMT000300UV01Receiver();
         II e = new II();
         e.setRoot(SenderOID);
-        
+
         MCCIMT000300UV01Agent agentVal = new MCCIMT000300UV01Agent();
 
         MCCIMT000300UV01Organization repOrgVal = new MCCIMT000300UV01Organization();
@@ -228,7 +226,7 @@ public class HL7AckTransformsTest {
         device.setAsAgent(agent);
         sender.setDevice(device);
         request.setSender(sender);
-        
+
         MCCIMT000300UV01Device receiverDevice = new MCCIMT000300UV01Device();
         II rec = new II();
         rec.setRoot("1.1");
@@ -241,13 +239,14 @@ public class HL7AckTransformsTest {
         repOrgReceiver.setValue(repOrgValReceiver);
         agentValReceiver.setRepresentedOrganization(repOrgReceiver);
 
-        JAXBElement<MCCIMT000300UV01Agent> agentReceiver = oJaxbObjectFactory.createMCCIMT000300UV01DeviceAsAgent(agentValReceiver);
+        JAXBElement<MCCIMT000300UV01Agent> agentReceiver = oJaxbObjectFactory
+                .createMCCIMT000300UV01DeviceAsAgent(agentValReceiver);
         receiverDevice.setAsAgent(agentReceiver);
         receiver.setDevice(receiverDevice);
         request.getReceiver().add(receiver);
         return request;
     }
-    
+
     private PRPAIN201305UV02 createPRPAIN201305UV02(String SenderOID) {
         PRPAIN201305UV02 request = new PRPAIN201305UV02();
         MCCIMT000100UV01Sender sender = new MCCIMT000100UV01Sender();
@@ -270,7 +269,7 @@ public class HL7AckTransformsTest {
         device.setAsAgent(agent);
         sender.setDevice(device);
         request.setSender(sender);
-        
+
         MCCIMT000100UV01Device receiverDevice = new MCCIMT000100UV01Device();
         II rec = new II();
         rec.setRoot("2.2");
@@ -283,14 +282,15 @@ public class HL7AckTransformsTest {
         repOrgReceiver.setValue(repOrgValReceiver);
         agentValReceiver.setRepresentedOrganization(repOrgReceiver);
 
-        JAXBElement<MCCIMT000100UV01Agent> agentReceiver = oJaxbObjectFactory.createMCCIMT000100UV01DeviceAsAgent(agentValReceiver);
+        JAXBElement<MCCIMT000100UV01Agent> agentReceiver = oJaxbObjectFactory
+                .createMCCIMT000100UV01DeviceAsAgent(agentValReceiver);
         receiverDevice.setAsAgent(agentReceiver);
         MCCIMT000100UV01Receiver receiver = new MCCIMT000100UV01Receiver();
         receiver.setDevice(receiverDevice);
         request.getReceiver().add(receiver);
         return request;
     }
-    
+
     private II createII() {
         II ii = new II();
         ii.setAssigningAuthorityName("CONNECT");
@@ -298,12 +298,12 @@ public class HL7AckTransformsTest {
         ii.setRoot("1.1");
         return ii;
     }
-    
+
     private PRPAIN201305UV02 setMessageId(PRPAIN201305UV02 request) {
         request.setId(createII());
         return request;
     }
-    
+
     private PRPAIN201306UV02 setMessageId(PRPAIN201306UV02 request) {
         request.setId(createII());
         return request;

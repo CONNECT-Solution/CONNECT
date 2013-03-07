@@ -9,12 +9,12 @@ import org.junit.Test;
 
 /**
  * @author achidambaram
- *
+ * 
  */
 public class HL7SenderTransformsTest {
-    
+
     @Test
-    public void  createMCCIMT000200UV01Sender() {
+    public void createMCCIMT000200UV01Sender() {
         MCCIMT000200UV01Sender sender = null;
         String OID = null;
         HL7SenderTransforms transforms = new HL7SenderTransforms();
@@ -23,9 +23,9 @@ public class HL7SenderTransformsTest {
         assertNull(sender.getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId().get(0)
                 .getRoot());
     }
-    
+
     @Test
-    public void  createMCCIMT000100UV01Sender() {
+    public void createMCCIMT000100UV01Sender() {
         MCCIMT000100UV01Sender sender = null;
         String OID = null;
         HL7SenderTransforms transforms = new HL7SenderTransforms();
@@ -34,9 +34,9 @@ public class HL7SenderTransformsTest {
         assertNull(sender.getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId().get(0)
                 .getRoot());
     }
-    
+
     @Test
-    public void  createMCCIMT000300UV01Sender() {
+    public void createMCCIMT000300UV01Sender() {
         MCCIMT000300UV01Sender sender = null;
         String OID = null;
         HL7SenderTransforms transforms = new HL7SenderTransforms();
