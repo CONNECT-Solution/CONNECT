@@ -3266,15 +3266,15 @@ nhinc.FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", dir, "1.1
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_INVOCATION_TO_NWHIN"')[0]
 }</script></con:config>
 </con:testStep>
-<con:setupScript/>
+<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
+nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot)+'/../', context.findProperty('GatewayPropDir'), log);</con:setupScript>
 <con:tearDownScript>def dir = context.findProperty('GatewayPropDir');
 def alias = 'adapterpatientdiscovery';
 def aliasName= 'adapterpatientdiscoverywsunsecured';
 def replaceAlias = 'adapterpatientdiscoverywssecured';
 
 nhinc.FileUtils.updateSpringConfig(dir, "PatientDiscoveryProxyConfig.xml", alias, aliasName, replaceAlias, log);
-
-</con:tearDownScript>
+nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);</con:tearDownScript>
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
@@ -9110,15 +9110,15 @@ nhinc.FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", dir, "1.1
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_INVOCATION_TO_NWHIN"')[0]
 }</script></con:config>
 </con:testStep>
-<con:setupScript/>
+<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
+nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot)+'/../', context.findProperty('GatewayPropDir'), log);</con:setupScript>
 <con:tearDownScript>def dir = context.findProperty('GatewayPropDir');
 def alias = 'adapterpatientdiscovery';
 def aliasName= 'adapterpatientdiscoverywsunsecured';
 def replaceAlias = 'adapterpatientdiscoverywssecured';
 
 nhinc.FileUtils.updateSpringConfig(dir, "PatientDiscoveryProxyConfig.xml", alias, aliasName, replaceAlias, log);
-
-</con:tearDownScript>
+nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);</con:tearDownScript>
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
@@ -11378,7 +11378,7 @@ nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.pr
 	<con:testStep type="groovy" name="Clear Event Logs"><con:settings/><con:config><script>context.withSql('eventdb') { sql -> 
 	sql.execute('delete from ' + context.findProperty('EventLoggingTable'))
 }</script></con:config></con:testStep>
-	<con:testStep name="Admin Distribution" type="request">
+	<con:testStep name="Admin Distribution" type="request" disabled="true">
 		<con:settings/>
 		<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 			<con:interface>AdministrativeDistribution_Binding_Soap12_g0</con:interface>

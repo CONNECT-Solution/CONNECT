@@ -5274,8 +5274,7 @@ declare namespace adapter='urn:gov:hhs:fha:nhinc:common:nhinccommonadapter';
 				<con:config>
 					<script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
 
-//def destConfigFileLocation = context.findProperty("NHINGatewayConfigDir");
-def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
+def destConfigFileLocation = context.findProperty("GatewayPropDir");
 def NHINGatewayHost = context.findProperty("NHINGatewayHost");
 def mockHost = context.findProperty("mockHost");
 def XDRServiceURL = "https://" + NHINGatewayHost + ":8181/CONNECTNhinServicesWeb/DocumentRepositoryXDR_Service";
@@ -5283,8 +5282,8 @@ def mockXDRURL = "https://" + mockHost + ":11222/mockXDR";
 def LocalHCID = context.findProperty( "LocalHCID" );
 def RemoteHCID = context.findProperty( "RemoteHCID" );
 
-FileUtils.CreateOrUpdateConnection(destConfigFileLocation, RemoteHCID, "serviceXDR", mockXDRURL, context, log)
-//FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "mockxdr", mockXDRURL, context, log)</script>
+nhinc.FileUtils.CreateOrUpdateConnection(destConfigFileLocation, RemoteHCID, "serviceXDR", mockXDRURL, context, log)
+//nhinc.FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "mockxdr", mockXDRURL, context, log)</script>
 				</con:config>
 			</con:testStep>
 			<con:testStep name="EntiityRequestMsg - XDR" type="request">
@@ -5808,8 +5807,7 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation, RemoteHCID, "serviceX
 				<con:config>
 					<script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
 
-//def destConfigFileLocation = context.findProperty("NHINGatewayConfigDir");
-def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
+def destConfigFileLocation = context.findProperty("GatewayPropDir");
 def NHINGatewayHost = context.findProperty("NHINGatewayHost");
 def mockHost = context.findProperty("mockHost");
 def XDRServiceURL = "https://" + NHINGatewayHost + ":8181/CONNECTNhinServicesWeb/DocumentRepositoryXDR_Service";
@@ -5817,8 +5815,8 @@ def mockXDRURL = "http://" + mockHost + ":11230/mockXDR";
 def LocalHCID = context.findProperty( "LocalHCID" );
 def RemoteHCID = context.findProperty( "RemoteHCID" );
 
-FileUtils.CreateOrUpdateConnection(destConfigFileLocation, RemoteHCID, "serviceXDR", XDRServiceURL, context, log)
-FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "mockxdr", mockXDRURL, context, log)</script>
+nhinc.FileUtils.CreateOrUpdateConnection(destConfigFileLocation, RemoteHCID, "serviceXDR", XDRServiceURL, context, log)
+nhinc.FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "mockxdr", mockXDRURL, context, log)</script>
 				</con:config>
 			</con:testStep>
 			<con:testStep name="EntiityRequestMsg - XDR" type="request">
@@ -6324,7 +6322,7 @@ FileUtils.CreateOrUpdateConnection(destConfigFileLocation, LocalHCID, "mockxdr",
 			<con:reportParameters/>
 			<con:tearDownScript>FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
 		</con:testCase>
-		<con:testCase failOnError="true" failTestCaseOnErrors="true" id="a83d4d4f-cf93-41e9-abf8-19e76d2bccf0" keepSession="false" maxResults="0" name="Audit Log Check" searchProperties="true">
+		<con:testCase failOnError="true" failTestCaseOnErrors="true" id="a83d4d4f-cf93-41e9-abf8-19e76d2bccf0" keepSession="false" maxResults="0" name="Audit Log Check" searchProperties="true" disabled="true">
 			<con:settings/>
 			<con:testStep name="clear audit table" type="groovy"><con:settings/><con:config><script>context.withSql('AuditDB') { sql -> 
   sql.execute('delete from ' + context.findProperty('AuditTable'))
