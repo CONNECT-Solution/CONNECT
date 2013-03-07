@@ -56,7 +56,6 @@ public class HL7Extractors {
             LOG.info("controlActProcess is null - no patient");
             return null;
         }
-        // HL7Parser.PrintId(controlActProcess.getId(), "controlActProcess");
 
         List<PRPAIN201301UV02MFMIMT700701UV01Subject1> subjects = controlActProcess.getSubject();
         if ((subjects == null) || (subjects.size() == 0)) {
@@ -241,7 +240,7 @@ public class HL7Extractors {
             personName.setNameType(nameType);
         }
         // Name parts
-        if (names.size() > 0 && names.get(0).getContent() != null) {
+        if (names.size() > 0 && (!names.get(0).getContent().isEmpty())) {
             List<Serializable> choice = names.get(0).getContent();
             Iterator<Serializable> iterSerialObjects = choice.iterator();
 

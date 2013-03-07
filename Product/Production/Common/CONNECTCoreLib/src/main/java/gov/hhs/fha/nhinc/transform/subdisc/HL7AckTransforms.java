@@ -117,7 +117,7 @@ public class HL7AckTransforms {
     public static MCCIIN000002UV01 createAckFrom201306(PRPAIN201306UV02 request, String ackMsgText) {
         MCCIIN000002UV01 ack = new MCCIIN000002UV01();
         II msgId = new II();
-
+         
         if (request != null) {
             // Extract the message id
             if (request.getId() != null) {
@@ -241,12 +241,9 @@ public class HL7AckTransforms {
     public static MCCIMT000200UV01TargetMessage createTargetMessage(II msgId) {
         MCCIMT000200UV01TargetMessage targetMsg = new MCCIMT000200UV01TargetMessage();
 
-        if (msgId != null) {
             LOG.debug("Setting original message id, root: " + msgId.getRoot() + ", extension: " + msgId.getExtension());
             targetMsg.setId(msgId);
-        }
-
-        return targetMsg;
+            return targetMsg;
     }
 
     /**
@@ -274,14 +271,12 @@ public class HL7AckTransforms {
             ackDetail.setTypeCode(AcknowledgementDetailType.fromValue(ACK_DETAIL_TYPE_CODE_INFO));
         }
 
-        if (NullChecker.isNotNullish(msgText)) {
             // Set the acknowledge message text
             EDExplicit msg = new EDExplicit();
 
             LOG.debug("Setting ack message text: " + msgText);
             msg.getContent().add(msgText);
             ackDetail.setText(msg);
-        }
 
         return ackDetail;
     }

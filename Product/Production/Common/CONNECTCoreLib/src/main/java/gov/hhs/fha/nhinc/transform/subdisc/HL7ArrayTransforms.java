@@ -64,7 +64,7 @@ import org.hl7.v3.PRPAMT201310UV02Patient;
 public class HL7ArrayTransforms {
 
     public static PRPAIN201301UV02 copyNullFlavors(PRPAIN201305UV02 from, PRPAIN201301UV02 to) {
-        if (from.getNullFlavor() != null) {
+        if (!from.getNullFlavor().isEmpty()) {
             to.getNullFlavor().clear();
             for (String item : from.getNullFlavor()) {
                 to.getNullFlavor().add(item);
@@ -75,7 +75,7 @@ public class HL7ArrayTransforms {
     }
 
     public static PRPAIN201301UV02 copyNullFlavors(PRPAIN201306UV02 from, PRPAIN201301UV02 to) {
-        if (from.getNullFlavor() != null) {
+        if (!from.getNullFlavor().isEmpty()) {
             to.getNullFlavor().clear();
             for (String item : from.getNullFlavor()) {
                 to.getNullFlavor().add(item);
@@ -87,7 +87,7 @@ public class HL7ArrayTransforms {
 
     public static MFMIMT700701UV01InformationRecipient copyNullFlavors(MFMIMT700711UV01InformationRecipient from,
             MFMIMT700701UV01InformationRecipient to) {
-        if (from.getNullFlavor() != null) {
+        if (!from.getNullFlavor().isEmpty()) {
             to.getNullFlavor().clear();
             for (String item : from.getNullFlavor()) {
                 to.getNullFlavor().add(item);
@@ -98,7 +98,7 @@ public class HL7ArrayTransforms {
     }
 
     public static ENExplicit copyNullFlavors(PNExplicit from, ENExplicit to) {
-        if (from.getNullFlavor() != null) {
+        if (!from.getNullFlavor().isEmpty()) {
             to.getNullFlavor().clear();
             for (String item : from.getNullFlavor()) {
                 to.getNullFlavor().add(item);
@@ -109,7 +109,7 @@ public class HL7ArrayTransforms {
     }
 
     public static PNExplicit copyNullFlavors(ENExplicit from, PNExplicit to) {
-        if (from.getNullFlavor() != null) {
+        if (!from.getNullFlavor().isEmpty()) {
             to.getNullFlavor().clear();
             for (String item : from.getNullFlavor()) {
                 to.getNullFlavor().add(item);
@@ -121,7 +121,7 @@ public class HL7ArrayTransforms {
 
     public static MCCIMT000100UV01AttentionLine copyNullFlavors(MCCIMT000300UV01AttentionLine from,
             MCCIMT000100UV01AttentionLine to) {
-        if (from.getNullFlavor() != null) {
+        if (!from.getNullFlavor().isEmpty()) {
             to.getNullFlavor().clear();
             for (String item : from.getNullFlavor()) {
                 to.getNullFlavor().add(item);
@@ -132,7 +132,7 @@ public class HL7ArrayTransforms {
     }
 
     public static PRPAMT201301UV02Person copyNullFlavors(PRPAMT201306UV02ParameterList from, PRPAMT201301UV02Person to) {
-        if (from.getNullFlavor() != null) {
+        if (!from.getNullFlavor().isEmpty()) {
             to.getNullFlavor().clear();
             for (String item : from.getNullFlavor()) {
                 to.getNullFlavor().add(item);
@@ -144,7 +144,7 @@ public class HL7ArrayTransforms {
 
     public static MFMIMT700701UV01DataEnterer copyNullFlavors(MFMIMT700711UV01DataEnterer from,
             MFMIMT700701UV01DataEnterer to) {
-        if (from.getNullFlavor() != null) {
+        if (!from.getNullFlavor().isEmpty()) {
             to.getNullFlavor().clear();
             for (String item : from.getNullFlavor()) {
                 to.getNullFlavor().add(item);
@@ -156,7 +156,7 @@ public class HL7ArrayTransforms {
 
     public static MFMIMT700701UV01DataEnterer copyNullFlavors(QUQIMT021001UV01DataEnterer from,
             MFMIMT700701UV01DataEnterer to) {
-        if (from.getNullFlavor() != null) {
+        if (!from.getNullFlavor().isEmpty()) {
             to.getNullFlavor().clear();
             for (String item : from.getNullFlavor()) {
                 to.getNullFlavor().add(item);
@@ -168,7 +168,7 @@ public class HL7ArrayTransforms {
 
     public static PRPAIN201301UV02MFMIMT700701UV01ControlActProcess copyNullFlavors(
             PRPAIN201306UV02MFMIMT700711UV01ControlActProcess from, PRPAIN201301UV02MFMIMT700701UV01ControlActProcess to) {
-        if (from.getNullFlavor() != null) {
+        if (!from.getNullFlavor().isEmpty()) {
             to.getNullFlavor().clear();
             for (String item : from.getNullFlavor()) {
                 to.getNullFlavor().add(item);
@@ -180,7 +180,7 @@ public class HL7ArrayTransforms {
 
     public static PRPAIN201301UV02MFMIMT700701UV01ControlActProcess copyNullFlavors(
             PRPAIN201305UV02QUQIMT021001UV01ControlActProcess from, PRPAIN201301UV02MFMIMT700701UV01ControlActProcess to) {
-        if (from.getNullFlavor() != null) {
+        if (!from.getNullFlavor().isEmpty()) {
             to.getNullFlavor().clear();
             for (String item : from.getNullFlavor()) {
                 to.getNullFlavor().add(item);
@@ -192,7 +192,7 @@ public class HL7ArrayTransforms {
 
     public static MFMIMT700701UV01AuthorOrPerformer copyNullFlavors(MFMIMT700711UV01AuthorOrPerformer from,
             MFMIMT700701UV01AuthorOrPerformer to) {
-        if (from.getNullFlavor() != null) {
+        if (!from.getNullFlavor().isEmpty()) {
             to.getNullFlavor().clear();
             for (String item : from.getNullFlavor()) {
                 to.getNullFlavor().add(item);
@@ -204,7 +204,7 @@ public class HL7ArrayTransforms {
 
     public static MFMIMT700701UV01AuthorOrPerformer copyNullFlavors(QUQIMT021001UV01AuthorOrPerformer from,
             MFMIMT700701UV01AuthorOrPerformer to) {
-        if (from.getNullFlavor() != null) {
+        if (!from.getNullFlavor().isEmpty()) {
             to.getNullFlavor().clear();
             for (String item : from.getNullFlavor()) {
                 to.getNullFlavor().add(item);
@@ -218,7 +218,7 @@ public class HL7ArrayTransforms {
         if (to == null) {
             to = new PRPAIN201301UV02();
         }
-        if (from.getAttentionLine() != null) {
+        if (!from.getAttentionLine().isEmpty()) {
             to.getAttentionLine().clear();
             for (MCCIMT000300UV01AttentionLine line : from.getAttentionLine()) {
 
@@ -250,7 +250,7 @@ public class HL7ArrayTransforms {
         if (to == null) {
             to = new PRPAIN201301UV02();
         }
-        if (from.getAttentionLine() != null) {
+        if (!from.getAttentionLine().isEmpty()) {
             to.getAttentionLine().clear();
             for (MCCIMT000100UV01AttentionLine line : from.getAttentionLine()) {
                 to.getAttentionLine().add(line);
@@ -264,7 +264,7 @@ public class HL7ArrayTransforms {
         if (to == null) {
             to = new PRPAIN201301UV02();
         }
-        if (from.getReceiver() != null) {
+        if (!from.getReceiver().isEmpty()) {
             to.getReceiver().clear();
             for (MCCIMT000300UV01Receiver rec : from.getReceiver()) {
                 to.getReceiver().add(copyReceiver(rec));
@@ -330,9 +330,9 @@ public class HL7ArrayTransforms {
         if (to == null) {
             to = new PRPAIN201301UV02();
         }
-        if (from.getReceiver() != null) {
+        if (!from.getReceiver().isEmpty()) {
             to.getReceiver().clear();
-            for (MCCIMT000100UV01Receiver rec : to.getReceiver()) {
+            for (MCCIMT000100UV01Receiver rec : from.getReceiver()) {
                 to.getReceiver().add(rec);
             }
         }
@@ -446,7 +446,7 @@ public class HL7ArrayTransforms {
 
     public static PRPAMT201301UV02Patient copyIIs(PRPAMT201310UV02Patient from, PRPAMT201301UV02Patient to) {
         if (from != null) {
-            to.getTemplateId().clear();
+            to.getId().clear();
 
             for (II id : from.getId()) {
                 to.getId().add(id);
