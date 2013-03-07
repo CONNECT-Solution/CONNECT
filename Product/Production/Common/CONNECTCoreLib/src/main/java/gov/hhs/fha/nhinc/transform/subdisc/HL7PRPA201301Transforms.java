@@ -183,9 +183,7 @@ public class HL7PRPA201301Transforms {
 
         result.setSecurityText(original.getSecurityText());
 
-        if (original.getControlActProcess() != null) {
-            result.setControlActProcess(copyControlActProcess(original.getControlActProcess(), localDeviceId));
-        }
+        result.setControlActProcess(copyControlActProcess(original.getControlActProcess(), localDeviceId));
 
         result = HL7ArrayTransforms.copyNullFlavors(original, result);
         result = HL7ArrayTransforms.copyRealmCodes(original, result);
@@ -381,13 +379,13 @@ public class HL7PRPA201301Transforms {
                 result.getAuthorOrPerformer().add(newItem);
             }
         }
-        if (original.getId() != null) {
+        if (!original.getId().isEmpty()) {
             result.getId().clear();
             for (II item : original.getId()) {
                 result.getId().add(item);
             }
         }
-        if (original.getDataEnterer() != null) {
+        if (!original.getDataEnterer().isEmpty()) {
             result.getDataEnterer().clear();
             for (QUQIMT021001UV01DataEnterer item : original.getDataEnterer()) {
                 MFMIMT700701UV01DataEnterer newItem = copyDataEnterer(item);
@@ -395,7 +393,7 @@ public class HL7PRPA201301Transforms {
             }
         }
 
-        if (original.getRealmCode() != null) {
+        if (!original.getRealmCode().isEmpty()) {
             for (CS item : original.getRealmCode()) {
                 result.getRealmCode().add(item);
             }
@@ -450,12 +448,12 @@ public class HL7PRPA201301Transforms {
 
         result = HL7ArrayTransforms.copyNullFlavors(orig, result);
 
-        if (orig.getRealmCode() != null) {
+        if (!orig.getRealmCode().isEmpty()) {
             for (CS item : orig.getRealmCode()) {
                 result.getRealmCode().add(item);
             }
         }
-        if (orig.getTemplateId() != null) {
+        if (!orig.getTemplateId().isEmpty()) {
             for (II item : orig.getTemplateId()) {
                 result.getTemplateId().add(item);
             }
