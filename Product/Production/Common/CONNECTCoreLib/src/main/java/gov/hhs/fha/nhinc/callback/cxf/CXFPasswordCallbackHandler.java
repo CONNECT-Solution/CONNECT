@@ -31,6 +31,10 @@ public class CXFPasswordCallbackHandler implements CallbackHandler {
     public CXFPasswordCallbackHandler() {
         keystorePassword = System.getProperty(SYSTEM_PROPERTY_KEYSTORE_PASSWORD);
     }
+    
+    public CXFPasswordCallbackHandler(String keystorePassword){
+    	this.keystorePassword = keystorePassword;
+    }
 
     /**
      * It attempts to get the password from the private alias/passwords map.
@@ -41,18 +45,20 @@ public class CXFPasswordCallbackHandler implements CallbackHandler {
      * @throws UnsupportedCallbackException exception encountered in executing callbacks
      */
     public final void handle(final Callback[] callbacks) throws IOException, UnsupportedCallbackException {
-        LOG.debug("Executing CXFPasswordCallbackHandler.handle() ... ");
-        for (Callback callback : callbacks) {
-            WSPasswordCallback pc = (WSPasswordCallback) callback;
-
-            if (keystorePassword == null || keystorePassword.isEmpty()) {
-                throw new IOException("keystore password was not provided. Please provide the system property: "
-                        + SYSTEM_PROPERTY_KEYSTORE_PASSWORD);
-            }
-            pc.setPassword(keystorePassword);
-
+        LOG.trace("Executing CXFPasswordCallbackHandler.handle() ... ");
+        
+        if (keystorePassword == null || keystorePassword.isEmpty()) {
+            throw new IOException("keystore password was not provided. Please provide the system property: "
+                    + SYSTEM_PROPERTY_KEYSTORE_PASSWORD);
         }
-        LOG.debug("end CXFPasswordCallbackHandler.handle() ... ");
+        
+        for (Callback callback : callbacks) {
+            if(callback instanceof WSPasswordCallback){
+            	WSPasswordCallback pc = (WSPasswordCallback) callback;
+            	pc.setPassword(keystorePassword);
+            }
+        }
+        LOG.trace("end CXFPasswordCallbackHandler.handle() ... ");
     }
 
 }
