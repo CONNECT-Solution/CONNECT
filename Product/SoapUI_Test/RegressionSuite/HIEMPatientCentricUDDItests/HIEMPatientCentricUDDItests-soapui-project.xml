@@ -105,9 +105,7 @@ def projectPropPath = groovyUtils.projectPath
 
 def sourceDir = projectPropPath;
 def sourceFile = "hiemConfiguration.xml";
-//def destDir = context.findProperty( "NHINGatewayConfigDir" );
 def destDir = context.findProperty("GatewayPropDir");;
-//def destDir = context.expand( '${#Env#NHINC_PROPERTIES_DIR}' );;
 def destFile = "hiemTopicConfiguration.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
@@ -460,9 +458,7 @@ def projectPropPath = groovyUtils.projectPath
 
 def sourceDir = projectPropPath;
 def sourceFile = "hiemConfiguration.xml";
-//def destDir = context.findProperty( "NHINGatewayConfigDir" );
 def destDir = context.findProperty("GatewayPropDir");;
-//def destDir = context.expand( '${#Env#NHINC_PROPERTIES_DIR}' );;
 def destFile = "hiemTopicConfiguration.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
@@ -831,9 +827,7 @@ def projectPropPath = groovyUtils.projectPath
 
 def sourceDir = projectPropPath;
 def sourceFile = "hiemConfiguration.xml";
-//def destDir = context.findProperty( "NHINGatewayConfigDir" );
 def destDir = context.findProperty("GatewayPropDir");;
-//def destDir = context.expand( '${#Env#NHINC_PROPERTIES_DIR}' );;
 def destFile = "hiemTopicConfiguration.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
@@ -1234,9 +1228,7 @@ def projectPropPath = groovyUtils.projectPath
 
 def sourceDir = projectPropPath;
 def sourceFile = "hiemConfiguration.xml";
-//def destDir = context.findProperty( "NHINGatewayConfigDir" );
 def destDir = context.findProperty("GatewayPropDir");;
-//def destDir = context.expand( '${#Env#NHINC_PROPERTIES_DIR}' );;
 def destFile = "hiemTopicConfiguration.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
@@ -1606,9 +1598,7 @@ def projectPropPath = groovyUtils.projectPath
 
 def sourceDir = projectPropPath;
 def sourceFile = "hiemConfiguration.xml";
-//def destDir = context.findProperty( "NHINGatewayConfigDir" );
 def destDir = context.findProperty("GatewayPropDir");;
-//def destDir = context.expand( '${#Env#NHINC_PROPERTIES_DIR}' );;
 def destFile = "hiemTopicConfiguration.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
@@ -2027,9 +2017,7 @@ def projectPropPath = groovyUtils.projectPath
 
 def sourceDir = projectPropPath;
 def sourceFile = "hiemConfiguration.xml";
-//def destDir = context.findProperty( "NHINGatewayConfigDir" );
 def destDir = context.findProperty("GatewayPropDir");;
-//def destDir = context.expand( '${#Env#NHINC_PROPERTIES_DIR}' );;
 def destFile = "hiemTopicConfiguration.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
@@ -2416,9 +2404,7 @@ def projectPropPath = groovyUtils.projectPath
 
 def sourceDir = projectPropPath;
 def sourceFile = "hiemConfiguration.xml";
-//def destDir = context.findProperty( "NHINGatewayConfigDir" );
 def destDir = context.findProperty("GatewayPropDir");;
-//def destDir = context.expand( '${#Env#NHINC_PROPERTIES_DIR}' );;
 def destFile = "hiemTopicConfiguration.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
@@ -2840,9 +2826,7 @@ def projectPropPath = groovyUtils.projectPath
 
 def sourceDir = projectPropPath;
 def sourceFile = "hiemConfiguration.xml";
-//def destDir = context.findProperty( "NHINGatewayConfigDir" );
 def destDir = context.findProperty("GatewayPropDir");;
-//def destDir = context.expand( '${#Env#NHINC_PROPERTIES_DIR}' );;
 def destFile = "hiemTopicConfiguration.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
@@ -3222,9 +3206,7 @@ def projectPropPath = groovyUtils.projectPath
 
 def sourceDir = projectPropPath;
 def sourceFile = "hiemConfiguration.xml";
-//def destDir = context.findProperty( "NHINGatewayConfigDir" );
 def destDir = context.findProperty("GatewayPropDir");;
-//def destDir = context.expand( '${#Env#NHINC_PROPERTIES_DIR}' );;
 def destFile = "hiemTopicConfiguration.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
@@ -3585,9 +3567,7 @@ def projectPropPath = groovyUtils.projectPath
 
 def sourceDir = projectPropPath;
 def sourceFile = "hiemConfiguration.xml";
-//def destDir = context.findProperty( "NHINGatewayConfigDir" );
 def destDir = context.findProperty("GatewayPropDir");;
-//def destDir = context.expand( '${#Env#NHINC_PROPERTIES_DIR}' );;
 def destFile = "hiemTopicConfiguration.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
@@ -3973,9 +3953,7 @@ def projectPropPath = groovyUtils.projectPath
 
 def sourceDir = projectPropPath;
 def sourceFile = "hiemConfiguration.xml";
-//def destDir = context.findProperty( "NHINGatewayConfigDir" );
 def destDir = context.findProperty("GatewayPropDir");;
-//def destDir = context.expand( '${#Env#NHINC_PROPERTIES_DIR}' );;
 def destFile = "hiemTopicConfiguration.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
@@ -4347,9 +4325,7 @@ def projectPropPath = groovyUtils.projectPath
 
 def sourceDir = projectPropPath;
 def sourceFile = "hiemConfiguration.xml";
-//def destDir = context.findProperty( "NHINGatewayConfigDir" );
 def destDir = context.findProperty("GatewayPropDir");;
-//def destDir = context.expand( '${#Env#NHINC_PROPERTIES_DIR}' );;
 def destFile = "hiemTopicConfiguration.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
@@ -4737,9 +4713,7 @@ def projectPropPath = groovyUtils.projectPath
 
 def sourceDir = projectPropPath;
 def sourceFile = "hiemConfiguration.xml";
-//def destDir = context.findProperty( "NHINGatewayConfigDir" );
 def destDir = context.findProperty("GatewayPropDir");;
-//def destDir = context.expand( '${#Env#NHINC_PROPERTIES_DIR}' );;
 def destFile = "hiemTopicConfiguration.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
@@ -5178,9 +5152,7 @@ def projectPropPath = groovyUtils.projectPath
 
 def sourceDir = projectPropPath;
 def sourceFile = "hiemConfiguration.xml";
-//def destDir = context.findProperty( "NHINGatewayConfigDir" );
 def destDir = context.findProperty("GatewayPropDir");;
-//def destDir = context.expand( '${#Env#NHINC_PROPERTIES_DIR}' );;
 def destFile = "hiemTopicConfiguration.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
@@ -5555,9 +5527,7 @@ def projectPropPath = groovyUtils.projectPath
 
 def sourceDir = projectPropPath;
 def sourceFile = "hiemConfiguration.xml";
-//def destDir = context.findProperty( "NHINGatewayConfigDir" );
 def destDir = context.findProperty("GatewayPropDir");;
-//def destDir = context.expand( '${#Env#NHINC_PROPERTIES_DIR}' );;
 def destFile = "hiemTopicConfiguration.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
@@ -5943,9 +5913,7 @@ def projectPropPath = groovyUtils.projectPath
 
 def sourceDir = projectPropPath;
 def sourceFile = "hiemConfiguration.xml";
-//def destDir = context.findProperty( "NHINGatewayConfigDir" );
 def destDir = context.findProperty("GatewayPropDir");;
-//def destDir = context.expand( '${#Env#NHINC_PROPERTIES_DIR}' );;
 def destFile = "hiemTopicConfiguration.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
@@ -6377,9 +6345,7 @@ def projectPropPath = groovyUtils.projectPath
 
 def sourceDir = projectPropPath;
 def sourceFile = "hiemConfiguration.xml";
-//def destDir = context.findProperty( "NHINGatewayConfigDir" );
 def destDir = context.findProperty("GatewayPropDir");;
-//def destDir = context.expand( '${#Env#NHINC_PROPERTIES_DIR}' );;
 def destFile = "hiemTopicConfiguration.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
@@ -6798,9 +6764,7 @@ def projectPropPath = groovyUtils.projectPath
 
 def sourceDir = projectPropPath;
 def sourceFile = "hiemConfiguration.xml";
-//def destDir = context.findProperty( "NHINGatewayConfigDir" );
 def destDir = context.findProperty("GatewayPropDir");;
-//def destDir = context.expand( '${#Env#NHINC_PROPERTIES_DIR}' );;
 def destFile = "hiemTopicConfiguration.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );

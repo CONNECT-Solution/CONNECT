@@ -45,23 +45,7 @@ FileUtils.copyFile(sourceDir, sourceFile, destDir, destFile, log);</script></con
       </con:testStep>
       <con:testStep name="update config" type="groovy">
         <con:settings/>
-        <con:config><script>//def destConfigFileLocation = dataSource.getPropertyValue("NHINGatewayConfigDir");
-def destConfigFileLocation = context.findProperty("GatewayPropDir");
-
-void UpdateProperty(String directory, String filename, String propertyKey, String propertyValue,context,log) {
-			  
-   log.info("begin UpdateProperty; directory='" + directory + "';filename='" + filename + "';key='" + propertyKey + "';value='" + propertyValue + "';");
-   File file = new File(directory,filename);
-   Properties properties = new Properties();
-   FileInputStream frPropFile = new FileInputStream(file);
-   properties.load(frPropFile);
-   properties.setProperty(propertyKey, propertyValue);
-   FileOutputStream fwPropFile = new FileOutputStream(file);
-   properties.store(fwPropFile, "**DO NOT CHECK IN** - written by groovy script FileUtils.groovy->UpdateProperty");
-   properties = null;
-}
-
-nhinc.FileUtils.updateProperty(destConfigFileLocation,"gateway.properties","documentQueryQuerySelf","false",log);</script></con:config>
+        <con:config><script>nhinc.FileUtils.updateProperty(context.findProperty("GatewayPropDir"), "gateway.properties", "documentQueryQuerySelf", "false", log);</script></con:config>
       </con:testStep>
       <con:testStep name="Generate patient ID for Doc Query" type="groovy">
         <con:settings/>
@@ -450,23 +434,7 @@ FileUtils.copyFile(sourceDir, sourceFile, destDir, destFile, log);</script></con
       </con:testStep>
       <con:testStep name="update config" type="groovy">
         <con:settings/>
-        <con:config><script>//def destConfigFileLocation = dataSource.getPropertyValue("NHINGatewayConfigDir");
-def destConfigFileLocation = context.findProperty("GatewayPropDir");
-
-void UpdateProperty(String directory, String filename, String propertyKey, String propertyValue,context,log) {
-			  
-   log.info("begin UpdateProperty; directory='" + directory + "';filename='" + filename + "';key='" + propertyKey + "';value='" + propertyValue + "';");
-   File file = new File(directory,filename);
-   Properties properties = new Properties();
-   FileInputStream frPropFile = new FileInputStream(file);
-   properties.load(frPropFile);
-   properties.setProperty(propertyKey, propertyValue);
-   FileOutputStream fwPropFile = new FileOutputStream(file);
-   properties.store(fwPropFile, "**DO NOT CHECK IN** - written by groovy script FileUtils.groovy->UpdateProperty");
-   properties = null;
-}
-
-nhinc.FileUtils.updateProperty(destConfigFileLocation,"gateway.properties","documentQueryQuerySelf","false",log);</script></con:config>
+        <con:config><script>nhinc.FileUtils.updateProperty(context.findProperty("GatewayPropDir"), "gateway.properties", "documentQueryQuerySelf", "false", log);</script></con:config>
       </con:testStep>
       <con:testStep name="Generate patient ID for Doc Query" type="groovy">
         <con:settings/>
@@ -850,23 +818,7 @@ FileUtils.copyFile(sourceDir, sourceFile, destDir, destFile, log);</script></con
       </con:testStep>
       <con:testStep name="update config" type="groovy">
         <con:settings/>
-        <con:config><script>//def destConfigFileLocation = dataSource.getPropertyValue("NHINGatewayConfigDir");
-def destConfigFileLocation = context.findProperty("GatewayPropDir");
-
-void UpdateProperty(String directory, String filename, String propertyKey, String propertyValue,context,log) {
-			  
-   log.info("begin UpdateProperty; directory='" + directory + "';filename='" + filename + "';key='" + propertyKey + "';value='" + propertyValue + "';");
-   File file = new File(directory,filename);
-   Properties properties = new Properties();
-   FileInputStream frPropFile = new FileInputStream(file);
-   properties.load(frPropFile);
-   properties.setProperty(propertyKey, propertyValue);
-   FileOutputStream fwPropFile = new FileOutputStream(file);
-   properties.store(fwPropFile, "**DO NOT CHECK IN** - written by groovy script FileUtils.groovy->UpdateProperty");
-   properties = null;
-}
-
-nhinc.FileUtils.updateProperty(destConfigFileLocation,"gateway.properties","documentQueryQuerySelf","false",log);</script></con:config>
+        <con:config><script>nhinc.FileUtils.updateProperty(context.findProperty("GatewayPropDir"), "gateway.properties", "documentQueryQuerySelf", "false", log);</script></con:config>
       </con:testStep>
       <con:testStep name="Generate patient ID for Doc Query" type="groovy">
         <con:settings/>
@@ -1246,23 +1198,7 @@ FileUtils.copyFile(sourceDir, sourceFile, destDir, destFile, log);</script></con
       </con:testStep>
       <con:testStep name="update config" type="groovy">
         <con:settings/>
-        <con:config><script>//def destConfigFileLocation = dataSource.getPropertyValue("NHINGatewayConfigDir");
-def destConfigFileLocation = context.findProperty("GatewayPropDir");
-
-void UpdateProperty(String directory, String filename, String propertyKey, String propertyValue,context,log) {
-			  
-   log.info("begin UpdateProperty; directory='" + directory + "';filename='" + filename + "';key='" + propertyKey + "';value='" + propertyValue + "';");
-   File file = new File(directory,filename);
-   Properties properties = new Properties();
-   FileInputStream frPropFile = new FileInputStream(file);
-   properties.load(frPropFile);
-   properties.setProperty(propertyKey, propertyValue);
-   FileOutputStream fwPropFile = new FileOutputStream(file);
-   properties.store(fwPropFile, "**DO NOT CHECK IN** - written by groovy script FileUtils.groovy->UpdateProperty");
-   properties = null;
-}
-
-nhinc.FileUtils.updateProperty(destConfigFileLocation,"gateway.properties","documentQueryQuerySelf","false",log);</script></con:config>
+        <con:config><script>nhinc.FileUtils.updateProperty(context.findProperty("GatewayPropDir"), "gateway.properties", "documentQueryQuerySelf", "false", log);</script></con:config>
       </con:testStep>
       <con:testStep name="Generate patient ID for Doc Query" type="groovy">
         <con:settings/>
@@ -1667,23 +1603,7 @@ FileUtils.copyFile(sourceDir, sourceFile, destDir, destFile, log);</script></con
       </con:testStep>
       <con:testStep name="update config - gateway.properties" type="groovy">
         <con:settings/>
-        <con:config><script>//def destConfigFileLocation = dataSource.getPropertyValue("NHINGatewayConfigDir");
-def destConfigFileLocation = context.findProperty("GatewayPropDir");
-
-void UpdateProperty(String directory, String filename, String propertyKey, String propertyValue,context,log) {
-			  
-   log.info("begin UpdateProperty; directory='" + directory + "';filename='" + filename + "';key='" + propertyKey + "';value='" + propertyValue + "';");
-   File file = new File(directory,filename);
-   Properties properties = new Properties();
-   FileInputStream frPropFile = new FileInputStream(file);
-   properties.load(frPropFile);
-   properties.setProperty(propertyKey, propertyValue);
-   FileOutputStream fwPropFile = new FileOutputStream(file);
-   properties.store(fwPropFile, "**DO NOT CHECK IN** - written by groovy script FileUtils.groovy->UpdateProperty");
-   properties = null;
-}
-
-nhinc.FileUtils.updateProperty(destConfigFileLocation,"gateway.properties","documentQueryQuerySelf","false",log);</script></con:config>
+        <con:config><script>nhinc.FileUtils.updateProperty(context.findProperty("GatewayPropDir"), "gateway.properties", "documentQueryQuerySelf", "false", log);</script></con:config>
       </con:testStep>
       <con:testStep name="Generate patient ID for Doc Query" type="groovy">
         <con:settings/>
@@ -2560,23 +2480,7 @@ FileUtils.copyFile(sourceDir, sourceFile, destDir, destFile, log);</script></con
       </con:testStep>
       <con:testStep name="update config" type="groovy">
         <con:settings/>
-        <con:config><script>//def destConfigFileLocation = dataSource.getPropertyValue("NHINGatewayConfigDir");
-def destConfigFileLocation = context.findProperty("GatewayPropDir");
-
-void UpdateProperty(String directory, String filename, String propertyKey, String propertyValue,context,log) {
-			  
-   log.info("begin UpdateProperty; directory='" + directory + "';filename='" + filename + "';key='" + propertyKey + "';value='" + propertyValue + "';");
-   File file = new File(directory,filename);
-   Properties properties = new Properties();
-   FileInputStream frPropFile = new FileInputStream(file);
-   properties.load(frPropFile);
-   properties.setProperty(propertyKey, propertyValue);
-   FileOutputStream fwPropFile = new FileOutputStream(file);
-   properties.store(fwPropFile, "**DO NOT CHECK IN** - written by groovy script FileUtils.groovy->UpdateProperty");
-   properties = null;
-}
-
-nhinc.FileUtils.updateProperty(destConfigFileLocation,"gateway.properties","documentQueryQuerySelf","false",log);</script></con:config>
+        <con:config><script>nhinc.FileUtils.updateProperty(context.findProperty("GatewayPropDir"), "gateway.properties", "documentQueryQuerySelf", "false", log);</script></con:config>
       </con:testStep>
       <con:testStep name="Generate patient ID for Doc Query" type="groovy">
         <con:settings/>
@@ -2945,23 +2849,7 @@ FileUtils.copyFile(sourceDir, sourceFile, destDir, destFile, log);</script></con
       </con:testStep>
       <con:testStep name="update config" type="groovy">
         <con:settings/>
-        <con:config><script>//def destConfigFileLocation = dataSource.getPropertyValue("NHINGatewayConfigDir");
-def destConfigFileLocation = context.findProperty("GatewayPropDir");
-
-void UpdateProperty(String directory, String filename, String propertyKey, String propertyValue,context,log) {
-			  
-   log.info("begin UpdateProperty; directory='" + directory + "';filename='" + filename + "';key='" + propertyKey + "';value='" + propertyValue + "';");
-   File file = new File(directory,filename);
-   Properties properties = new Properties();
-   FileInputStream frPropFile = new FileInputStream(file);
-   properties.load(frPropFile);
-   properties.setProperty(propertyKey, propertyValue);
-   FileOutputStream fwPropFile = new FileOutputStream(file);
-   properties.store(fwPropFile, "**DO NOT CHECK IN** - written by groovy script FileUtils.groovy->UpdateProperty");
-   properties = null;
-}
-
-nhinc.FileUtils.updateProperty(destConfigFileLocation,"gateway.properties","documentQueryQuerySelf","false",log);</script></con:config>
+        <con:config><script>nhinc.FileUtils.updateProperty(context.findProperty("GatewayPropDir"), "gateway.properties", "documentQueryQuerySelf", "false", log);</script></con:config>
       </con:testStep>
       <con:testStep name="Generate patient ID for Doc Query" type="groovy">
         <con:settings/>
@@ -3321,23 +3209,7 @@ context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;$
       
       <con:testStep name="update config - gateway.properties" type="groovy">
         <con:settings/>
-        <con:config><script>//def destConfigFileLocation = dataSource.getPropertyValue("NHINGatewayConfigDir");
-def destConfigFileLocation = context.findProperty("GatewayPropDir");
-
-void UpdateProperty(String directory, String filename, String propertyKey, String propertyValue,context,log) {
-			  
-   log.info("begin UpdateProperty; directory='" + directory + "';filename='" + filename + "';key='" + propertyKey + "';value='" + propertyValue + "';");
-   File file = new File(directory,filename);
-   Properties properties = new Properties();
-   FileInputStream frPropFile = new FileInputStream(file);
-   properties.load(frPropFile);
-   properties.setProperty(propertyKey, propertyValue);
-   FileOutputStream fwPropFile = new FileOutputStream(file);
-   properties.store(fwPropFile, "**DO NOT CHECK IN** - written by groovy script FileUtils.groovy->UpdateProperty");
-   properties = null;
-}
-
-nhinc.FileUtils.updateProperty(destConfigFileLocation,"gateway.properties","documentQueryQuerySelf","false",log);</script></con:config>
+        <con:config><script>nhinc.FileUtils.updateProperty(context.findProperty("GatewayPropDir"), "gateway.properties", "documentQueryQuerySelf", "false", log);</script></con:config>
       </con:testStep>
       <con:testStep name="Copy uddiConnectionInfo" type="groovy">
         <con:settings/>
@@ -3809,23 +3681,7 @@ FileUtils.copyFile(sourceDir, sourceFile, destDir, destFile, log);</script></con
       </con:testStep>
       <con:testStep name="update config" type="groovy">
         <con:settings/>
-        <con:config><script>//def destConfigFileLocation = dataSource.getPropertyValue("NHINGatewayConfigDir");
-def destConfigFileLocation = context.findProperty("GatewayPropDir");
-
-void UpdateProperty(String directory, String filename, String propertyKey, String propertyValue,context,log) {
-			  
-   log.info("begin UpdateProperty; directory='" + directory + "';filename='" + filename + "';key='" + propertyKey + "';value='" + propertyValue + "';");
-   File file = new File(directory,filename);
-   Properties properties = new Properties();
-   FileInputStream frPropFile = new FileInputStream(file);
-   properties.load(frPropFile);
-   properties.setProperty(propertyKey, propertyValue);
-   FileOutputStream fwPropFile = new FileOutputStream(file);
-   properties.store(fwPropFile, "**DO NOT CHECK IN** - written by groovy script FileUtils.groovy->UpdateProperty");
-   properties = null;
-}
-
-nhinc.FileUtils.updateProperty(destConfigFileLocation,"gateway.properties","documentQueryQuerySelf","false",log);</script></con:config>
+        <con:config><script>nhinc.FileUtils.updateProperty(context.findProperty("GatewayPropDir"), "gateway.properties", "documentQueryQuerySelf", "false", log);</script></con:config>
       </con:testStep>
       <con:testStep name="Generate patient ID for Doc Query" type="groovy">
         <con:settings/>
@@ -4221,23 +4077,7 @@ FileUtils.copyFile(sourceDir, sourceFile, destDir, destFile, log);</script></con
       </con:testStep>
       <con:testStep name="update config" type="groovy">
         <con:settings/>
-        <con:config><script>//def destConfigFileLocation = dataSource.getPropertyValue("NHINGatewayConfigDir");
-def destConfigFileLocation = context.findProperty("GatewayPropDir");
-
-void UpdateProperty(String directory, String filename, String propertyKey, String propertyValue,context,log) {
-			  
-   log.info("begin UpdateProperty; directory='" + directory + "';filename='" + filename + "';key='" + propertyKey + "';value='" + propertyValue + "';");
-   File file = new File(directory,filename);
-   Properties properties = new Properties();
-   FileInputStream frPropFile = new FileInputStream(file);
-   properties.load(frPropFile);
-   properties.setProperty(propertyKey, propertyValue);
-   FileOutputStream fwPropFile = new FileOutputStream(file);
-   properties.store(fwPropFile, "**DO NOT CHECK IN** - written by groovy script FileUtils.groovy->UpdateProperty");
-   properties = null;
-}
-
-nhinc.FileUtils.updateProperty(destConfigFileLocation,"gateway.properties","documentQueryQuerySelf","false",log);</script></con:config>
+        <con:config><script>nhinc.FileUtils.updateProperty(context.findProperty("GatewayPropDir"), "gateway.properties", "documentQueryQuerySelf", "false", log);</script></con:config>
       </con:testStep>
       <con:testStep name="Generate patient ID for Doc Query" type="groovy">
         <con:settings/>
@@ -4654,23 +4494,7 @@ FileUtils.copyFile(sourceDir, sourceFile, destDir, destFile, log);</script></con
       </con:testStep>
       <con:testStep name="update config" type="groovy">
         <con:settings/>
-        <con:config><script>//def destConfigFileLocation = dataSource.getPropertyValue("NHINGatewayConfigDir");
-def destConfigFileLocation = context.findProperty("GatewayPropDir");
-
-void UpdateProperty(String directory, String filename, String propertyKey, String propertyValue,context,log) {
-			  
-   log.info("begin UpdateProperty; directory='" + directory + "';filename='" + filename + "';key='" + propertyKey + "';value='" + propertyValue + "';");
-   File file = new File(directory,filename);
-   Properties properties = new Properties();
-   FileInputStream frPropFile = new FileInputStream(file);
-   properties.load(frPropFile);
-   properties.setProperty(propertyKey, propertyValue);
-   FileOutputStream fwPropFile = new FileOutputStream(file);
-   properties.store(fwPropFile, "**DO NOT CHECK IN** - written by groovy script FileUtils.groovy->UpdateProperty");
-   properties = null;
-}
-
-nhinc.FileUtils.updateProperty(destConfigFileLocation,"gateway.properties","documentQueryQuerySelf","false",log);</script></con:config>
+        <con:config><script>nhinc.FileUtils.updateProperty(context.findProperty("GatewayPropDir"), "gateway.properties", "documentQueryQuerySelf", "false", log);</script></con:config>
       </con:testStep>
       <con:testStep name="Generate patient ID for Doc Query" type="groovy">
         <con:settings/>
@@ -5062,8 +4886,7 @@ def projectPropPath = groovyUtils.projectPath
 
 def sourceDir = projectPropPath;
 def sourceFile = "UDDIcopy-uddiConnectionInfo.xml";
-//def destDir = context.findProperty( "NHINGatewayConfigDir" );
-def destDir = System.env['NHINC_PROPERTIES_DIR'];
+def destDir = context.findProperty( "GatewayPropDir" );
 def destFile = "uddiConnectionInfo.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
@@ -5083,8 +4906,7 @@ def projectPropPath = groovyUtils.projectPath
 
 def sourceDir = projectPropPath;
 def sourceFile = "UDDIcopy-internalConnectionInfo.xml";
-//def destDir = context.findProperty( "NHINGatewayConfigDir" );
-def destDir = System.env['NHINC_PROPERTIES_DIR'];
+def destDir = context.findProperty( "GatewayPropDir" );
 def destFile = "internalConnectionInfo.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
@@ -5095,23 +4917,7 @@ FileUtils.copyFile(sourceDir, sourceFile, destDir, destFile, context, log);</scr
       <con:testStep name="update config - gateway.properties" type="groovy">
         <con:settings/>
         <con:config>
-          <script>//def destConfigFileLocation = dataSource.getPropertyValue("NHINGatewayConfigDir");
-def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
-
-void UpdateProperty(String directory, String filename, String propertyKey, String propertyValue,context,log) {
-			  
-   log.info("begin UpdateProperty; directory='" + directory + "';filename='" + filename + "';key='" + propertyKey + "';value='" + propertyValue + "';");
-   File file = new File(directory,filename);
-   Properties properties = new Properties();
-   FileInputStream frPropFile = new FileInputStream(file);
-   properties.load(frPropFile);
-   properties.setProperty(propertyKey, propertyValue);
-   FileOutputStream fwPropFile = new FileOutputStream(file);
-   properties.store(fwPropFile, "**DO NOT CHECK IN** - written by groovy script FileUtils.groovy->UpdateProperty");
-   properties = null;
-}
-
-UpdateProperty(destConfigFileLocation,"gateway.properties","documentQueryQuerySelf","false",context,log);</script>
+          <script>nhinc.FileUtils.updateProperty(context.findProperty("GatewayPropDir"), "gateway.properties", "documentQueryQuerySelf", "false", log);</script>
         </con:config>
       </con:testStep>
       <con:testStep name="Generate patient ID for Doc Query" type="groovy">
@@ -5210,13 +5016,12 @@ context.withSql('PatientCorrelationDB') { sql ->
         <con:settings/>
         <con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
 
-def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
 def NHINGatewayHost = context.findProperty("NHINGatewayHost");
 def mockHost = context.findProperty("mockHost");
 def dQURL = "https://localhost:8181/Gateway/DocumentQuery/2_0/NhinService/RespondingGateway_Query_Service/DocQuery";
 def remoteHCID = context.findProperty( "UDDIhcid1" );
 
-FileUtils.CreateOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocation, remoteHCID, "QueryForDocuments", dQURL, "2.0", context, log)</script></con:config>
+nhinc.FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", context.findProperty("GatewayPropDir"), remoteHCID, "QueryForDocuments", dQURL, "2.0", log);</script></con:config>
       </con:testStep>
       <con:testStep name="Document Query" type="request">
         <con:settings/>
@@ -5535,13 +5340,8 @@ count(//ns6:AdhocQueryResponse[1]/ns3:RegistryObjectList[1]/ns3:ExtrinsicObject)
         </con:property>
       </con:properties>
       <con:reportParameters/>
-    <con:tearDownScript>//FileUtils.restoreToMasterConfiguration(context, log);
-
-def sourceDir = System.env['NHINC_PROPERTIES_DIR'] + "/master/";
-def sourceFile = "uddiConnectionInfo.xml";
-def destDir = System.env['NHINC_PROPERTIES_DIR'];
-def destFile = "uddiConnectionInfo.xml";
-//FileUtils.copyFile(sourceDir, sourceFile, destDir, destFile, context, log);</con:tearDownScript></con:testCase>
+    <con:tearDownScript>nhinc.FileUtils.restoreToMasterConfiguration(context, log);
+</con:tearDownScript></con:testCase>
     <con:testCase failOnError="true" failTestCaseOnErrors="true" id="b673cce6-4e31-401e-8fb0-1b98f7e35455" keepSession="false" maxResults="0" name="State Alt Path - Region and associated HCID in target xml results in one response" searchProperties="true">
       <con:settings/>
       
@@ -5587,23 +5387,7 @@ FileUtils.copyFile(sourceDir, sourceFile, destDir, destFile, log);</script></con
       <con:testStep name="update config - gateway.properties" type="groovy">
         <con:settings/>
         <con:config><script>
-//def destConfigFileLocation = dataSource.getPropertyValue("NHINGatewayConfigDir");
-def destConfigFileLocation = context.findProperty("GatewayPropDir");
-
-void UpdateProperty(String directory, String filename, String propertyKey, String propertyValue,context,log) {
-			  
-   log.info("begin UpdateProperty; directory='" + directory + "';filename='" + filename + "';key='" + propertyKey + "';value='" + propertyValue + "';");
-   File file = new File(directory,filename);
-   Properties properties = new Properties();
-   FileInputStream frPropFile = new FileInputStream(file);
-   properties.load(frPropFile);
-   properties.setProperty(propertyKey, propertyValue);
-   FileOutputStream fwPropFile = new FileOutputStream(file);
-   properties.store(fwPropFile, "**DO NOT CHECK IN** - written by groovy script FileUtils.groovy->UpdateProperty");
-   properties = null;
-}
-
-nhinc.FileUtils.updateProperty(destConfigFileLocation,"gateway.properties","documentQueryQuerySelf","false",log);</script></con:config>
+nhinc.FileUtils.updateProperty(context.findProperty("GatewayPropDir"), "gateway.properties", "documentQueryQuerySelf", "false", log);</script></con:config>
       </con:testStep>
       <con:testStep name="Generate patient ID for Doc Query" type="groovy">
         <con:settings/>
@@ -6046,23 +5830,7 @@ FileUtils.copyFile(sourceDir, sourceFile, destDir, destFile, log);</script></con
       </con:testStep>
       <con:testStep name="update config - gateway.properties" type="groovy">
         <con:settings/>
-        <con:config><script>//def destConfigFileLocation = dataSource.getPropertyValue("NHINGatewayConfigDir");
-def destConfigFileLocation = context.findProperty("GatewayPropDir");
-
-void UpdateProperty(String directory, String filename, String propertyKey, String propertyValue,context,log) {
-			  
-   log.info("begin UpdateProperty; directory='" + directory + "';filename='" + filename + "';key='" + propertyKey + "';value='" + propertyValue + "';");
-   File file = new File(directory,filename);
-   Properties properties = new Properties();
-   FileInputStream frPropFile = new FileInputStream(file);
-   properties.load(frPropFile);
-   properties.setProperty(propertyKey, propertyValue);
-   FileOutputStream fwPropFile = new FileOutputStream(file);
-   properties.store(fwPropFile, "**DO NOT CHECK IN** - written by groovy script FileUtils.groovy->UpdateProperty");
-   properties = null;
-}
-
-nhinc.FileUtils.updateProperty(destConfigFileLocation,"gateway.properties","documentQueryQuerySelf","false",log);</script></con:config>
+        <con:config><script>nhinc.FileUtils.updateProperty(context.findProperty("GatewayPropDir"), "gateway.properties", "documentQueryQuerySelf", "false", log);</script></con:config>
       </con:testStep>
       <con:testStep name="Generate patient ID for Doc Query" type="groovy">
         <con:settings/>
@@ -6507,8 +6275,7 @@ def projectPropPath = groovyUtils.projectPath
 
 def sourceDir = projectPropPath;
 def sourceFile = "UDDIcopy-uddiConnectionInfo.xml";
-//def destDir = context.findProperty( "NHINGatewayConfigDir" );
-def destDir = System.env['NHINC_PROPERTIES_DIR'];
+def destDir = context.findProperty( "GatewayPropDir" );
 def destFile = "uddiConnectionInfo.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
@@ -6519,23 +6286,7 @@ FileUtils.copyFile(sourceDir, sourceFile, destDir, destFile, context, log);</scr
       <con:testStep name="update config - gateway.properties" type="groovy">
         <con:settings/>
         <con:config>
-          <script>//def destConfigFileLocation = dataSource.getPropertyValue("NHINGatewayConfigDir");
-def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
-
-void UpdateProperty(String directory, String filename, String propertyKey, String propertyValue,context,log) {
-			  
-   log.info("begin UpdateProperty; directory='" + directory + "';filename='" + filename + "';key='" + propertyKey + "';value='" + propertyValue + "';");
-   File file = new File(directory,filename);
-   Properties properties = new Properties();
-   FileInputStream frPropFile = new FileInputStream(file);
-   properties.load(frPropFile);
-   properties.setProperty(propertyKey, propertyValue);
-   FileOutputStream fwPropFile = new FileOutputStream(file);
-   properties.store(fwPropFile, "**DO NOT CHECK IN** - written by groovy script FileUtils.groovy->UpdateProperty");
-   properties = null;
-}
-
-UpdateProperty(destConfigFileLocation,"gateway.properties","documentQueryQuerySelf","false",context,log);</script>
+          <script>nhinc.FileUtils.updateProperty(context.findProperty("GatewayPropDir"), "gateway.properties", "documentQueryQuerySelf", "false", log);</script>
         </con:config>
       </con:testStep>
       <con:testStep name="Generate patient ID for Doc Query" type="groovy">
@@ -6610,13 +6361,12 @@ context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;$
         <con:settings/>
         <con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
 
-def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
 def NHINGatewayHost = context.findProperty("NHINGatewayHost");
 def mockHost = context.findProperty("mockHost");
 def dQURL = "https://localhost:8181/Gateway/DocumentQuery/2_0/NhinService/RespondingGateway_Query_Service/DocQuery";
 def remoteHCID = context.findProperty( "UDDIhcid1" );
 
-FileUtils.CreateOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocation, remoteHCID, "QueryForDocuments", dQURL, "2.0", context, log)</script></con:config>
+nhinc.FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", context.findProperty("GatewayPropDir"), remoteHCID, "QueryForDocuments", dQURL, "2.0", log);</script></con:config>
       </con:testStep>
       <con:testStep name="Document Query" type="request">
         <con:settings/>
@@ -6916,13 +6666,8 @@ count(//ns6:AdhocQueryResponse[1]/ns3:RegistryObjectList[1]/ns3:ExtrinsicObject)
         </con:property>
       </con:properties>
       <con:reportParameters/>
-    <con:tearDownScript>FileUtils.restoreToMasterConfiguration(context, log);
-
-def sourceDir = System.env['NHINC_PROPERTIES_DIR'] + "/master/";
-def sourceFile = "uddiConnectionInfo.xml";
-def destDir = System.env['NHINC_PROPERTIES_DIR'];
-def destFile = "uddiConnectionInfo.xml";
-FileUtils.copyFile(sourceDir, sourceFile, destDir, destFile, context, log);</con:tearDownScript></con:testCase>
+    <con:tearDownScript>nhinc.FileUtils.restoreToMasterConfiguration(context, log);
+</con:tearDownScript></con:testCase>
     <con:testCase disabled="true" failOnError="true" failTestCaseOnErrors="true" id="5c44df01-4f70-48d3-8930-a31ac9100e8e" keepSession="false" maxResults="0" name="HCID Happy Path - Correlation for HCID IN UDDI file/target XML" searchProperties="true">
       <con:settings/>
       
@@ -6938,8 +6683,7 @@ def projectPropPath = groovyUtils.projectPath
 
 def sourceDir = projectPropPath;
 def sourceFile = "UDDIcopy-uddiConnectionInfo.xml";
-//def destDir = context.findProperty( "NHINGatewayConfigDir" );
-def destDir = System.env['NHINC_PROPERTIES_DIR'];
+def destDir = context.findProperty( "GatewayPropDir" );
 def destFile = "uddiConnectionInfo.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
@@ -6950,23 +6694,7 @@ FileUtils.copyFile(sourceDir, sourceFile, destDir, destFile, context, log);</scr
       <con:testStep name="update config - gateway.properties" type="groovy">
         <con:settings/>
         <con:config>
-          <script>//def destConfigFileLocation = dataSource.getPropertyValue("NHINGatewayConfigDir");
-def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
-
-void UpdateProperty(String directory, String filename, String propertyKey, String propertyValue,context,log) {
-			  
-   log.info("begin UpdateProperty; directory='" + directory + "';filename='" + filename + "';key='" + propertyKey + "';value='" + propertyValue + "';");
-   File file = new File(directory,filename);
-   Properties properties = new Properties();
-   FileInputStream frPropFile = new FileInputStream(file);
-   properties.load(frPropFile);
-   properties.setProperty(propertyKey, propertyValue);
-   FileOutputStream fwPropFile = new FileOutputStream(file);
-   properties.store(fwPropFile, "**DO NOT CHECK IN** - written by groovy script FileUtils.groovy->UpdateProperty");
-   properties = null;
-}
-
-UpdateProperty(destConfigFileLocation,"gateway.properties","documentQueryQuerySelf","false",context,log);</script>
+          <script>nhinc.FileUtils.updateProperty(context.findProperty("GatewayPropDir"), "gateway.properties", "documentQueryQuerySelf", "false", log);</script>
         </con:config>
       </con:testStep>
       <con:testStep name="Generate patient ID for Doc Query" type="groovy">
@@ -7041,13 +6769,12 @@ context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;$
         <con:settings/>
         <con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
 
-def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
 def NHINGatewayHost = context.findProperty("NHINGatewayHost");
 def mockHost = context.findProperty("mockHost");
 def dQURL = "https://localhost:8181/Gateway/DocumentQuery/2_0/NhinService/RespondingGateway_Query_Service/DocQuery";
 def remoteHCID = context.findProperty( "UDDIhcid1" );
 
-FileUtils.CreateOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocation, remoteHCID, "QueryForDocuments", dQURL, "2.0", context, log)</script></con:config>
+nhinc.FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", context.findProperty("GatewayPropDir"), remoteHCID, "QueryForDocuments", dQURL, "2.0", log);</script></con:config>
       </con:testStep>
       <con:testStep name="Document Query" type="request">
         <con:settings/>
@@ -7363,13 +7090,8 @@ count(//ns6:AdhocQueryResponse[1]/ns3:RegistryObjectList[1]/ns3:ExtrinsicObject)
         </con:property>
       </con:properties>
       <con:reportParameters/>
-    <con:tearDownScript>FileUtils.restoreToMasterConfiguration(context, log);
-
-def sourceDir = System.env['NHINC_PROPERTIES_DIR'] + "/master/";
-def sourceFile = "uddiConnectionInfo.xml";
-def destDir = System.env['NHINC_PROPERTIES_DIR'];
-def destFile = "uddiConnectionInfo.xml";
-FileUtils.copyFile(sourceDir, sourceFile, destDir, destFile, context, log);</con:tearDownScript></con:testCase>
+    <con:tearDownScript>nhinc.FileUtils.restoreToMasterConfiguration(context, log);
+</con:tearDownScript></con:testCase>
     <con:testCase failOnError="true" failTestCaseOnErrors="true" id="7c286477-8a88-4aad-ab67-d6968f946de2" keepSession="false" maxResults="0" name="State Happy Path - Correlation for HCID not in UDDI file/target XML" searchProperties="true">
       <con:settings/>
       
@@ -7414,23 +7136,7 @@ FileUtils.copyFile(sourceDir, sourceFile, destDir, destFile, log);</script></con
       </con:testStep>
       <con:testStep name="update config" type="groovy">
         <con:settings/>
-        <con:config><script>//def destConfigFileLocation = dataSource.getPropertyValue("NHINGatewayConfigDir");
-def destConfigFileLocation = context.findProperty("GatewayPropDir");
-
-void UpdateProperty(String directory, String filename, String propertyKey, String propertyValue,context,log) {
-			  
-   log.info("begin UpdateProperty; directory='" + directory + "';filename='" + filename + "';key='" + propertyKey + "';value='" + propertyValue + "';");
-   File file = new File(directory,filename);
-   Properties properties = new Properties();
-   FileInputStream frPropFile = new FileInputStream(file);
-   properties.load(frPropFile);
-   properties.setProperty(propertyKey, propertyValue);
-   FileOutputStream fwPropFile = new FileOutputStream(file);
-   properties.store(fwPropFile, "**DO NOT CHECK IN** - written by groovy script FileUtils.groovy->UpdateProperty");
-   properties = null;
-}
-
-nhinc.FileUtils.updateProperty(destConfigFileLocation,"gateway.properties","documentQueryQuerySelf","false",log);</script></con:config>
+        <con:config><script>nhinc.FileUtils.updateProperty(context.findProperty("GatewayPropDir"), "gateway.properties", "documentQueryQuerySelf", "false", log);</script></con:config>
       </con:testStep>
       <con:testStep name="Generate patient ID for Doc Query" type="groovy">
         <con:settings/>

@@ -2810,8 +2810,8 @@ log.info "SENT: ${sentMD5}, RECEIVED: ${receiveMD5}"
 assert ( sentMD5 == receiveMD5 );
 </script></con:config></con:testStep><con:testStep type="groovy" name="Delete Received File"><con:settings/><con:config><script>def fileName = context.findProperty('ReceiverPath') + File.separator + context.findProperty('ReceivedFileName');
 new File(fileName).delete();</script></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
-//nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot)+'/../', context.findProperty('GatewayPropDir'), log);</con:setupScript>
-<con:tearDownScript>//nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);</con:tearDownScript>
+nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot)+'/../', context.findProperty('GatewayPropDir'), log);</con:setupScript>
+<con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);</con:tearDownScript>
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
