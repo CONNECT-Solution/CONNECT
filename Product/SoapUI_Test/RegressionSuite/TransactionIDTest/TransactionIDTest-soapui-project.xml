@@ -6851,9 +6851,8 @@ testRunner.testCase.testSuite.project.setPropertyValue( "NotifySubscriptionID", 
 		assert 3 == sql.firstRow('select count(*) from ' + context.findProperty('TransactionRepoTable') + ' where transactionId = "' + context.findProperty('TransactionID') + '"')[0]
 		
 		}</script></con:config>
-</con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
-nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot)+'/../', context.findProperty('GatewayPropDir'), log);</con:setupScript>
-<con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);</con:tearDownScript>
+</con:testStep><con:setupScript/>
+<con:tearDownScript/>
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>

@@ -5,13 +5,13 @@
 		<con:settings/>
 		
 		<con:endpoints>
-			<con:endpoint>http://localhost:${HttpDefaultPort}/PatientCorrelationService</con:endpoint>
-			<con:endpoint>http://ATHC-GFAS:8080/PatientCorrelationService</con:endpoint>
-			<con:endpoint>http://172.16.50.82:9080/PatientCorrelationService</con:endpoint>
-			<con:endpoint>http://172.16.50.54:9080/PatientCorrelationService</con:endpoint>
+			
+			
+			
+			
 			<con:endpoint>${#Project#PatientCorrelationEndpoint}</con:endpoint>
-			<con:endpoint>http://localhost:${NhincHttpPort}/PatientCorrelationService</con:endpoint>
-		<con:endpoint>http://localhost:${HttpDefaultPort}/CONNECTGateway/GatewayService/PatientCorrelationServiceUnsecured</con:endpoint></con:endpoints>
+			
+		</con:endpoints>
 		<con:operation action="urn:gov:hhs:fha:nhinc:nhinccomponentpatientcorrelation:AddPatientCorrelationRequestMessage" anonymous="optional" bindingOperationName="AddPatientCorrelation" inputName="AddPatientCorrelationRequest" isOneWay="false" name="AddPatientCorrelation" outputName="AddPatientCorrelationResponse" receivesAttachments="false" sendsAttachments="false" type="Request-Response">
 			<con:settings/>
 			
@@ -3157,7 +3157,7 @@ FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
 </soapenv:Envelope>]]></con:request>
 						<con:assertion type="SOAP Response"/>
 						<con:assertion type="SOAP Fault Assertion"/>
-						<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:wsaConfig mustUnderstand="NONE" version="200508"/>
+						<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/>
 						<con:wsrmConfig version="1.2"/>
 					</con:request>
 				</con:config>
@@ -3471,8 +3471,7 @@ def projectPropPath = groovyUtils.projectPath
 
 def sourceDir = projectPropPath;
 def sourceFile = "PCConfiguration_Main.xml";
-def destDir = context.findProperty( "GatewayConfigurationDirectory" );
-//def destDir = context.expand( '${#Env#NHINC_PROPERTIES_DIR}' );;
+def destDir = context.findProperty("GatewayPropDir" );
 def destFile = "PCConfiguration.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
@@ -3789,10 +3788,7 @@ def projectPropPath = groovyUtils.projectPath
 
 def sourceDir = projectPropPath;
 def sourceFile = "PCConfiguration_Main.xml";
-//def dataSource = testRunner.testCase.getTestStepByName( "Test Case Properties" );
-def destDir = context.findProperty( "GatewayConfigurationDirectory" );
-//def destDir = dataSource.getPropertyValue( "GatewayConfigurationDirectory" );
-//def destDir = context.expand( '${#Env#NHINC_PROPERTIES_DIR}' );;
+def destDir = context.findProperty("GatewayPropDir" );
 def destFile = "PCConfiguration.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
@@ -4109,10 +4105,7 @@ def projectPropPath = groovyUtils.projectPath
 
 def sourceDir = projectPropPath;
 def sourceFile = "PCConfiguration_Main.xml";
-//def dataSource = testRunner.testCase.getTestStepByName( "Test Case Properties" );
-def destDir = context.findProperty( "GatewayConfigurationDirectory" );
-//def destDir = dataSource.getPropertyValue( "GatewayConfigurationDirectory" );
-//def destDir = context.expand( '${#Env#NHINC_PROPERTIES_DIR}' );;
+def destDir = context.findProperty("GatewayPropDir" );
 def destFile = "PCConfiguration.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
@@ -4616,10 +4609,7 @@ def projectPropPath = groovyUtils.projectPath
 
 def sourceDir = projectPropPath;
 def sourceFile = "PCConfiguration_Main.xml";
-//def dataSource = testRunner.testCase.getTestStepByName( "Test Case Properties" );
-def destDir = context.findProperty( "GatewayConfigurationDirectory" );
-//def destDir = dataSource.getPropertyValue( "GatewayConfigurationDirectory" );
-//def destDir = context.expand( '${#Env#NHINC_PROPERTIES_DIR}' );;
+def destDir = context.findProperty("GatewayPropDir" );
 def destFile = "PCConfiguration.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
@@ -5123,10 +5113,7 @@ def projectPropPath = groovyUtils.projectPath
 
 def sourceDir = projectPropPath;
 def sourceFile = "PCConfiguration_Main.xml";
-//def dataSource = testRunner.testCase.getTestStepByName( "Test Case Properties" );
-def destDir = context.findProperty( "GatewayConfigurationDirectory" );
-//def destDir = dataSource.getPropertyValue( "GatewayConfigurationDirectory" );
-//def destDir = context.expand( '${#Env#NHINC_PROPERTIES_DIR}' );;
+def destDir = context.findProperty("GatewayPropDir" );
 def destFile = "PCConfiguration.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
@@ -5611,10 +5598,7 @@ def projectPropPath = groovyUtils.projectPath
 
 def sourceDir = projectPropPath;
 def sourceFile = "PCConfiguration_Main.xml";
-//def dataSource = testRunner.testCase.getTestStepByName( "Test Case Properties" );
-def destDir = context.findProperty( "GatewayConfigurationDirectory" );
-//def destDir = dataSource.getPropertyValue( "GatewayConfigurationDirectory" );
-//def destDir = context.expand( '${#Env#NHINC_PROPERTIES_DIR}' );;
+def destDir = context.findProperty("GatewayPropDir" );
 def destFile = "PCConfiguration.xml";
 
 log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );

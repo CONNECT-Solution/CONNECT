@@ -1382,9 +1382,6 @@ declare namespace ns4='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
 				<con:settings/>
 				<con:config><script>import nhinc.FileUtils;
 def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
-//def dataSource = testRunner.testCase.getTestStepByName( "Test Case Properties" );
-//def destConfigFileLocation = dataSource.getPropertyValue("NHINGatewayConfigDir");
-def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
 def NHINGatewayHost = context.findProperty("NHINGatewayHost");
 def mockHost = context.findProperty("mockHost");
 def adapterxdsbdocregistryURL = "http://" + NHINGatewayHost + ":18088/mockDocQuery";
@@ -2737,9 +2734,6 @@ declare namespace ns4='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
 				<con:settings/>
 				<con:config><script>import nhinc.FileUtils;
 def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
-//def dataSource = testRunner.testCase.getTestStepByName( "Test Case Properties" );
-//def destConfigFileLocation = dataSource.getPropertyValue("NHINGatewayConfigDir");
-def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
 def NHINGatewayHost = context.findProperty("NHINGatewayHost");
 def mockHost = context.findProperty("mockHost");
 def adapterxdsbdocregistryURL = "http://" + NHINGatewayHost + ":18088/mockDocQuery";
@@ -4093,9 +4087,6 @@ declare namespace ns4='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
 				<con:settings/>
 				<con:config><script>import nhinc.FileUtils;
 def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
-//def dataSource = testRunner.testCase.getTestStepByName( "Test Case Properties" );
-//def destConfigFileLocation = dataSource.getPropertyValue("NHINGatewayConfigDir");
-def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
 def NHINGatewayHost = context.findProperty("NHINGatewayHost");
 def mockHost = context.findProperty("mockHost");
 def adapterxdsbdocregistryURL = "http://" + NHINGatewayHost + ":18088/mockDocQuery";
@@ -5434,9 +5425,6 @@ declare namespace ns4='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
 				<con:settings/>
 				<con:config><script>import nhinc.FileUtils;
 def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
-//def dataSource = testRunner.testCase.getTestStepByName( "Test Case Properties" );
-//def destConfigFileLocation = dataSource.getPropertyValue("NHINGatewayConfigDir");
-def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
 def NHINGatewayHost = context.findProperty("NHINGatewayHost");
 def mockHost = context.findProperty("mockHost");
 def adapterxdsbdocregistryURL = "http://" + NHINGatewayHost + ":18088/mockDocQuery";
@@ -6820,9 +6808,6 @@ declare namespace ns4='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
 				<con:settings/>
 				<con:config><script>import nhinc.FileUtils;
 def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
-//def dataSource = testRunner.testCase.getTestStepByName( "Test Case Properties" );
-//def destConfigFileLocation = dataSource.getPropertyValue("NHINGatewayConfigDir");
-def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
 def NHINGatewayHost = context.findProperty("NHINGatewayHost");
 def mockHost = context.findProperty("mockHost");
 def adapterxdsbdocregistryURL = "http://" + NHINGatewayHost + ":18088/mockDocQuery";
@@ -8161,9 +8146,6 @@ declare namespace ns4='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
 				<con:settings/>
 				<con:config><script>import nhinc.FileUtils;
 def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
-//def dataSource = testRunner.testCase.getTestStepByName( "Test Case Properties" );
-//def destConfigFileLocation = dataSource.getPropertyValue("NHINGatewayConfigDir");
-def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
 def NHINGatewayHost = context.findProperty("NHINGatewayHost");
 def mockHost = context.findProperty("mockHost");
 def adapterxdsbdocregistryURL = "http://" + NHINGatewayHost + ":18088/mockDocQuery";
@@ -9502,9 +9484,6 @@ declare namespace ns4='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
 				<con:settings/>
 				<con:config><script>import nhinc.FileUtils;
 def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
-//def dataSource = testRunner.testCase.getTestStepByName( "Test Case Properties" );
-//def destConfigFileLocation = dataSource.getPropertyValue("NHINGatewayConfigDir");
-def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
 def NHINGatewayHost = context.findProperty("NHINGatewayHost");
 def mockHost = context.findProperty("mockHost");
 def adapterxdsbdocregistryURL = "http://" + NHINGatewayHost + ":18088/mockDocQuery";
@@ -10843,9 +10822,6 @@ declare namespace ns4='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
 				<con:settings/>
 				<con:config><script>import nhinc.FileUtils;
 def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
-//def dataSource = testRunner.testCase.getTestStepByName( "Test Case Properties" );
-//def destConfigFileLocation = dataSource.getPropertyValue("NHINGatewayConfigDir");
-def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
 def NHINGatewayHost = context.findProperty("NHINGatewayHost");
 def mockHost = context.findProperty("mockHost");
 def adapterxdsbdocregistryURL = "http://" + NHINGatewayHost + ":18088/mockDocQuery";
@@ -12199,9 +12175,6 @@ declare namespace ns4='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
 				<con:settings/>
 				<con:config><script>import nhinc.FileUtils;
 def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
-//def dataSource = testRunner.testCase.getTestStepByName( "Test Case Properties" );
-//def destConfigFileLocation = dataSource.getPropertyValue("NHINGatewayConfigDir");
-def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
 def NHINGatewayHost = context.findProperty("NHINGatewayHost");
 def mockHost = context.findProperty("mockHost");
 def adapterxdsbdocregistryURL = "http://" + NHINGatewayHost + ":18088/mockDocQuery";
@@ -13540,9 +13513,6 @@ declare namespace ns4='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
 				<con:settings/>
 				<con:config><script>import nhinc.FileUtils;
 def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
-//def dataSource = testRunner.testCase.getTestStepByName( "Test Case Properties" );
-//def destConfigFileLocation = dataSource.getPropertyValue("NHINGatewayConfigDir");
-def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
 def NHINGatewayHost = context.findProperty("NHINGatewayHost");
 def mockHost = context.findProperty("mockHost");
 def adapterxdsbdocregistryURL = "http://" + NHINGatewayHost + ":18088/mockDocQuery";
@@ -14881,9 +14851,6 @@ declare namespace ns4='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
 				<con:settings/>
 				<con:config><script>import nhinc.FileUtils;
 def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
-//def dataSource = testRunner.testCase.getTestStepByName( "Test Case Properties" );
-//def destConfigFileLocation = dataSource.getPropertyValue("NHINGatewayConfigDir");
-def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
 def NHINGatewayHost = context.findProperty("NHINGatewayHost");
 def mockHost = context.findProperty("mockHost");
 def adapterxdsbdocregistryURL = "http://" + NHINGatewayHost + ":18088/mockDocQuery";
@@ -16222,9 +16189,6 @@ declare namespace ns4='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
 				<con:settings/>
 				<con:config><script>import nhinc.FileUtils;
 def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
-//def dataSource = testRunner.testCase.getTestStepByName( "Test Case Properties" );
-//def destConfigFileLocation = dataSource.getPropertyValue("NHINGatewayConfigDir");
-def destConfigFileLocation = System.env['NHINC_PROPERTIES_DIR'];
 def NHINGatewayHost = context.findProperty("NHINGatewayHost");
 def mockHost = context.findProperty("mockHost");
 def adapterxdsbdocregistryURL = "http://" + NHINGatewayHost + ":18088/mockDocQuery";
