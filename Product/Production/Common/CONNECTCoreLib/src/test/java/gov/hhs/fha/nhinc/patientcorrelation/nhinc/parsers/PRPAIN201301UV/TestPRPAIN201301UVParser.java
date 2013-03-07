@@ -62,22 +62,16 @@ public class TestPRPAIN201301UVParser {
     public void ParseSubjectFromMessageWhenMessageNull() {
         PRPAIN201301UVParser parser = new PRPAIN201301UVParser();
         PRPAIN201301UV02 message = null;
-        parser.parseSubjectFromMessage(message);
-        ArgumentCaptor<LoggingEvent> arguments = ArgumentCaptor.forClass(LoggingEvent.class);
-        verify(appenderMock).doAppend((LoggingEvent) arguments.capture());
-        LoggingEvent loggingEvent = (LoggingEvent) arguments.getValue();
-        assertThat(loggingEvent.getRenderedMessage().toString(), is("message is null - no patient"));
+        PRPAIN201301UV02MFMIMT700701UV01Subject1 subject1= parser.parseSubjectFromMessage(message);
+        assertNull(subject1);
     }
 
     @Test
     public void ParseSubjectFromMessageWhenControlActProcessNull() {
         PRPAIN201301UVParser parser = new PRPAIN201301UVParser();
         PRPAIN201301UV02 message = new PRPAIN201301UV02();
-        parser.parseSubjectFromMessage(message);
-        ArgumentCaptor<LoggingEvent> arguments = ArgumentCaptor.forClass(LoggingEvent.class);
-        verify(appenderMock).doAppend((LoggingEvent) arguments.capture());
-        LoggingEvent loggingEvent = (LoggingEvent) arguments.getValue();
-        assertThat(loggingEvent.getRenderedMessage().toString(), is("controlActProcess is null - no patient"));
+        PRPAIN201301UV02MFMIMT700701UV01Subject1 subject1= parser.parseSubjectFromMessage(message);
+        assertNull(subject1);
     }
 
     @Test
@@ -87,11 +81,8 @@ public class TestPRPAIN201301UVParser {
         PRPAIN201301UV02MFMIMT700701UV01ControlActProcess controlActProcess = new PRPAIN201301UV02MFMIMT700701UV01ControlActProcess();
         controlActProcess.setTypeId(createTypeId());
         message.setControlActProcess(controlActProcess);
-        parser.parseSubjectFromMessage(message);
-        ArgumentCaptor<LoggingEvent> arguments = ArgumentCaptor.forClass(LoggingEvent.class);
-        verify(appenderMock).doAppend((LoggingEvent) arguments.capture());
-        LoggingEvent loggingEvent = (LoggingEvent) arguments.getValue();
-        assertThat(loggingEvent.getRenderedMessage().toString(), is("subjects is blank/null - no patient"));
+        PRPAIN201301UV02MFMIMT700701UV01Subject1 subject1= parser.parseSubjectFromMessage(message);
+        assertNull(subject1);
     }
 
     @Test
