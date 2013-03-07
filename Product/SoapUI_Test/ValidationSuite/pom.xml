@@ -29,9 +29,61 @@
             <build>
                 <plugins>
                     <plugin>
-                        <groupId>com.github.redfish4ktc.soapui</groupId>
-                        <artifactId>maven-soapui-extension-plugin</artifactId>
-                        <executions>
+                    <groupId>com.github.redfish4ktc.soapui</groupId>
+                    <artifactId>maven-soapui-extension-plugin</artifactId>
+                    <version>4.5.1.2</version>
+                    <dependencies>
+                        <dependency>
+                            <groupId>mysql</groupId>
+                            <artifactId>mysql-connector-java</artifactId>
+                            <version>5.1.6</version>
+                        </dependency>
+                        <dependency>
+                            <groupId>org.connectopensource</groupId>
+                            <artifactId>CONNECTCommonTypesLib</artifactId>
+                            <version>4.0.2</version>
+                        </dependency>
+                        <dependency>
+                            <groupId>org.connectopensource</groupId>
+                            <artifactId>FileUtils</artifactId>
+                            <version>4.1.0-SNAPSHOT</version>
+                        </dependency>
+                    </dependencies>
+                    <configuration>
+                        <settingsFile>${basedir}/src/main/resources/soapui-settings.xml</settingsFile>
+                        <outputFolder>${basedir}/target/soapui/output/</outputFolder>
+                        <soapuiProperties>
+                            <property>
+                                <name>soapui.logroot</name>
+                                <value>${project.build.directory}/soapui/my_custom_logs/</value>
+                            </property>
+                            <property>
+                                <name>soapui.scripting.library</name>
+                                <value>${basedir}/src/main/resources/groovy_scripts</value>
+                            </property>
+                            <property>
+                                <name>soapui.ext.libraries</name>
+                                <value>${basedir}/src/main/resources/ext</value>
+                            </property>
+                        </soapuiProperties>
+                        <exportAll>true</exportAll>
+                        <printReport>true</printReport>
+                        <junitReport>true</junitReport>
+                        <coverage>false</coverage>
+                        <testFailIgnore>${soapui.testFailIgnore}</testFailIgnore>
+                        <saveAfterRun>false</saveAfterRun>
+                        <host>${host}:${port}</host>
+                        <testSuite>${test.suite}</testSuite>
+                        <testCase>${test.case}</testCase>
+                        <projectProperties>
+                            <value>GatewayPropDir=${properties.dir}</value>
+                            <value>DBHost=${db.host}</value>
+                            <value>DBPass=${db.password}</value>
+                            <value>DBPort=${db.port}</value>
+                            <value>DBUser=${db.user}</value>
+                        </projectProperties>
+                    </configuration>
+                    <executions>
                             <execution>
                                 <id>ConnectValidation-soapui-project.xml</id>
                                 <phase>integration-test</phase>
@@ -51,7 +103,7 @@
                                 </goals>
                             </execution>
                         </executions>
-                    </plugin>
+                </plugin>
                 </plugins>
             </build>
         </profile>

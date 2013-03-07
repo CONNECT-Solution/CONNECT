@@ -1,0 +1,409 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:soapui-project activeEnvironment="Default" name="PatientDiscoveryDB" resourceRoot="" soapui-version="4.5.1" xmlns:con="http://eviware.com/soapui/config"><con:settings/><con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="AdapterPatientDiscoveryBindingSoap" type="wsdl" bindingName="{urn:gov:hhs:fha:nhinc:adapterpatientdiscovery}AdapterPatientDiscoveryBindingSoap" soapVersion="1_2" anonymous="optional" definition="${projectDir}/../target/wsdl/AdapterPatientDiscovery.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:endpoints><con:endpoint>https://localhost:${HttpsDefaultPort}/Adapter/PatientDiscovery/A_0/AdapterPatientDiscovery</con:endpoint></con:endpoints><con:operation isOneWay="false" action="urn:RespondingGateway_PRPA_IN201305UV02" name="RespondingGateway_PRPA_IN201305UV02" bindingOperationName="RespondingGateway_PRPA_IN201305UV02" type="Request-Response" outputName="RespondingGateway_PRPA_IN201306UV02Response" inputName="RespondingGateway_PRPA_IN201305UV02Request" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation></con:interface><con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:entitypatientdiscovery}EntityPatientDiscoveryBindingSoap" definition="${projectDir}/../target/wsdl/EntityPatientDiscovery.wsdl" name="EntityPatientDiscoveryBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+		<con:settings/>
+
+		<con:endpoints>
+		<con:endpoint>http://192.168.36.3:9080/Gateway/PatientDiscovery/1_0/EntityPatientDiscovery</con:endpoint><con:endpoint>${#Project#PD_EntityEndpoint}</con:endpoint></con:endpoints>
+		<con:operation action="urn:gov:hhs:fha:nhinc:entitypatientdiscovery:RespondingGateway_PRPA_IN201305UV02RequestMessage" bindingOperationName="RespondingGateway_PRPA_IN201305UV02" inputName="RespondingGateway_PRPA_IN201305UV02Request" isOneWay="false" name="RespondingGateway_PRPA_IN201305UV02" outputName="RespondingGateway_PRPA_IN201306UV02Response" receivesAttachments="false" sendsAttachments="false" type="Request-Response" anonymous="optional">
+			<con:settings/>
+		</con:operation>
+	</con:interface><con:testSuite name="PD_DB"><con:description>Tests the patientdb functionality. Patient information can be looked up by the adapter in either 
+mpi.xml or in the database. The option is controlled by the bean mpichecker in the file
+AdapterMpiConfig.xml.</con:description><con:settings/><con:runType>SEQUENTIAL</con:runType><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Patient Discovery" searchProperties="true">
+	<con:settings/>
+	<con:testStep name="clear correlations table" type="groovy">
+		<con:settings/>
+		<con:config>
+			<script>context.withSql('PatientCorrelationDB') { sql -> 
+			sql.execute('delete from ' + context.findProperty('PatientCorrelationTable'))
+			}</script>
+	</con:config>
+</con:testStep>
+
+<con:testStep name="Patient Discovery" type="request">
+	<con:settings/>
+	<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+		<con:interface>EntityPatientDiscoveryBindingSoap</con:interface>
+		<con:operation>RespondingGateway_PRPA_IN201305UV02</con:operation>
+		<con:request name="Patient Discovery">
+			<con:settings>
+				<con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
+	</con:settings>
+	<con:encoding>UTF-8</con:encoding>
+	
+	<con:endpoint>http://localhost:8080/Gateway/PatientDiscovery/1_0/EntityPatientDiscovery</con:endpoint><con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:hl7-org:v3" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing">
+   <soap:Header/>
+   <soap:Body testSuite="Entity_g1" testCase="Patient Discovery">
+      <urn:RespondingGateway_PRPA_IN201305UV02Request>
+         <urn:PRPA_IN201305UV02 ITSVersion="XML_1.0">
+            <urn:id root="1.1" extension="-5a3e95b1:11d1fa33d45:-7f9b"/>
+            <urn:creationTime value="20091116084800"/>
+            <urn:interactionId root="2.16.840.1.113883.1.6" extension="PRPA_IN201305UV02"/>
+            <urn:processingCode code="T"/>
+            <urn:processingModeCode code="T"/>
+            <urn:acceptAckCode code="AL"/>
+            <urn:receiver typeCode="RCV">
+               <urn:device classCode="DEV" determinerCode="INSTANCE">
+                  <urn:id root="1.2.345.678.999"/>
+                  <urn:asAgent classCode="AGNT">
+                     <urn:representedOrganization classCode="ORG" determinerCode="INSTANCE">
+                        <urn:id root="${#Project#RemoteHCID}"/>
+                     </urn:representedOrganization>
+                  </urn:asAgent>
+               </urn:device>
+            </urn:receiver>
+            <urn:sender typeCode="SND">
+               <urn:device classCode="DEV" determinerCode="INSTANCE">
+                  <urn:id root="1.2.345.678.999"/>
+                  <urn:asAgent classCode="AGNT">
+                     <urn:representedOrganization classCode="ORG" determinerCode="INSTANCE">
+                        <urn:id root="${#Project#LocalHCID}"/>
+                     </urn:representedOrganization>
+                  </urn:asAgent>
+               </urn:device>
+            </urn:sender>
+            <urn:controlActProcess classCode="CACT" moodCode="EVN">
+               <urn:authorOrPerformer typeCode="AUT">
+                  <urn:assignedDevice>
+                     <urn:id root="${#Project#LocalAA}"/>
+                  </urn:assignedDevice>
+               </urn:authorOrPerformer>
+               <urn:queryByParameter>
+                  <urn:queryId root="${#Project#LocalHCID}" extension="-abd3453dcd24wkkks545"/>
+                  <urn:statusCode code="new"/>
+                  <urn:responseModalityCode code="R"/>
+                  <urn:responsePriorityCode code="I"/>
+                  <urn:parameterList>
+                     <urn:livingSubjectAdministrativeGender>
+                        <urn:value code="${#Project#Gender}"/>
+                        <urn:semanticsText representation="TXT">LivingSubject.administrativeGender</urn:semanticsText>
+                     </urn:livingSubjectAdministrativeGender>
+                     <urn:livingSubjectBirthTime>
+                        <urn:value value="${#Project#BirthTime}"/>
+                        <urn:semanticsText representation="TXT">LivingSubject.birthTime</urn:semanticsText>
+                     </urn:livingSubjectBirthTime>
+                     <urn:livingSubjectName>
+                        <urn:value>
+                           <urn:family partType="FAM">${#Project#FamilyName}</urn:family>
+                           <urn:given partType="GIV">${#Project#GivenName}</urn:given>
+                        </urn:value>
+                        <urn:semanticsText representation="TXT">LivingSubject.name</urn:semanticsText>
+                     </urn:livingSubjectName>
+                     <urn:livingSubjectId>
+                        <urn:value root="${#Project#LocalAA}" extension="${#Project#SubjectID}"/>
+                        <urn:semanticsText representation="TXT"/>
+                     </urn:livingSubjectId>
+                  </urn:parameterList>
+               </urn:queryByParameter>
+            </urn:controlActProcess>
+         </urn:PRPA_IN201305UV02>
+         <urn:assertion>
+            <urn1:address>
+               <urn1:addressType>
+                  <urn1:code>W</urn1:code>
+               </urn1:addressType>
+               <urn1:city>${#Project#City}</urn1:city>
+               <urn1:country>${#Project#Country}</urn1:country>
+               <urn1:state>${#Project#State}</urn1:state>
+               <urn1:streetAddress>${#Project#StreetAddress}</urn1:streetAddress>
+               <urn1:zipCode>${#Project#ZipCode}</urn1:zipCode>
+            </urn1:address>
+            <urn1:dateOfBirth>${#Project#DOB}</urn1:dateOfBirth>
+            <urn1:explanationNonClaimantSignature>NEEDED</urn1:explanationNonClaimantSignature>
+            <urn1:haveSecondWitnessSignature>true</urn1:haveSecondWitnessSignature>
+            <urn1:haveSignature>true</urn1:haveSignature>
+            <urn1:haveWitnessSignature>true</urn1:haveWitnessSignature>
+            <urn1:homeCommunity>
+               <urn1:description>${#Project#LocalHCDescription}</urn1:description>
+               <urn1:homeCommunityId>${#Project#LocalHCID}</urn1:homeCommunityId>
+               <urn1:name>${#Project#LocalHCDescription}</urn1:name>
+            </urn1:homeCommunity>
+            <urn1:personName>
+               <urn1:familyName>${#Project#FamilyName}</urn1:familyName>
+               <urn1:givenName>${#Project#GivenName}</urn1:givenName>
+               <urn1:nameType>
+                  <urn1:code>G</urn1:code>
+               </urn1:nameType>
+               <urn1:secondNameOrInitials>FJ</urn1:secondNameOrInitials>
+               <urn1:fullName>Joe Smith</urn1:fullName>
+               <urn1:prefix>Mr</urn1:prefix>
+            </urn1:personName>
+            <urn1:phoneNumber>
+               <urn1:areaCode>123</urn1:areaCode>
+               <urn1:countryCode>1</urn1:countryCode>
+               <urn1:extension>1234</urn1:extension>
+               <urn1:localNumber>3456789</urn1:localNumber>
+               <urn1:phoneNumberType>
+                  <urn1:code>W</urn1:code>
+               </urn1:phoneNumberType>
+            </urn1:phoneNumber>
+            <urn1:secondWitnessAddress>
+               <urn1:addressType>
+                  <urn1:code>W</urn1:code>
+               </urn1:addressType>
+               <urn1:city>Melbourne</urn1:city>
+               <urn1:country>US</urn1:country>
+               <urn1:state>FL</urn1:state>
+               <urn1:streetAddress>123 Johnson Rd</urn1:streetAddress>
+               <urn1:zipCode>12345</urn1:zipCode>
+            </urn1:secondWitnessAddress>
+            <urn1:secondWitnessName>
+               <urn1:familyName>Hughes</urn1:familyName>
+               <urn1:givenName>Howie</urn1:givenName>
+               <urn1:nameType>
+                  <urn1:code>G</urn1:code>
+               </urn1:nameType>
+               <urn1:secondNameOrInitials>HH</urn1:secondNameOrInitials>
+               <urn1:fullName>Howie Hughes</urn1:fullName>
+               <urn1:prefix>Dr</urn1:prefix>
+            </urn1:secondWitnessName>
+            <urn1:secondWitnessPhone>
+               <urn1:areaCode>123</urn1:areaCode>
+               <urn1:countryCode>1</urn1:countryCode>
+               <urn1:extension>1546</urn1:extension>
+               <urn1:localNumber>4567892</urn1:localNumber>
+               <urn1:phoneNumberType>
+                  <urn1:code>W</urn1:code>
+               </urn1:phoneNumberType>
+            </urn1:secondWitnessPhone>
+            <urn1:SSN>${#Project#SSN}</urn1:SSN>
+            <urn1:uniquePatientId>${#Project#UniquePatientId}</urn1:uniquePatientId>
+            <urn1:witnessAddress>
+               <urn1:addressType>
+                  <urn1:code>W</urn1:code>
+               </urn1:addressType>
+               <urn1:city>Frankfort</urn1:city>
+               <urn1:country>US</urn1:country>
+               <urn1:state>MN</urn1:state>
+               <urn1:streetAddress>432 Jackson St</urn1:streetAddress>
+               <urn1:zipCode>65498</urn1:zipCode>
+            </urn1:witnessAddress>
+            <urn1:witnessName>
+               <urn1:familyName>Ugble</urn1:familyName>
+               <urn1:givenName>Gary</urn1:givenName>
+               <urn1:nameType>
+                  <urn1:code>G</urn1:code>
+               </urn1:nameType>
+               <urn1:secondNameOrInitials>GU</urn1:secondNameOrInitials>
+               <urn1:fullName>Gary Ugble</urn1:fullName>
+               <urn1:prefix>Mr</urn1:prefix>
+            </urn1:witnessName>
+            <urn1:witnessPhone>
+               <urn1:areaCode>987</urn1:areaCode>
+               <urn1:countryCode>1</urn1:countryCode>
+               <urn1:extension>6549</urn1:extension>
+               <urn1:localNumber>2222222</urn1:localNumber>
+               <urn1:phoneNumberType>
+                  <urn1:code>H</urn1:code>
+               </urn1:phoneNumberType>
+            </urn1:witnessPhone>
+            <urn1:userInfo>
+               <urn1:personName>
+                  <urn1:familyName>Anderson</urn1:familyName>
+                  <urn1:givenName>Wilma</urn1:givenName>
+                  <urn1:nameType>
+                     <urn1:code>G</urn1:code>
+                  </urn1:nameType>
+                  <urn1:secondNameOrInitials>WA</urn1:secondNameOrInitials>
+                  <urn1:fullName>Wilma Anderson</urn1:fullName>
+                  <urn1:prefix>Mrs</urn1:prefix>
+               </urn1:personName>
+               <urn1:userName>wanderson</urn1:userName>
+               <urn1:org>
+                  <urn1:description>${#Project#LocalHCDescription}</urn1:description>
+                  <urn1:homeCommunityId>${#Project#LocalHCID}</urn1:homeCommunityId>
+                  <urn1:name>${#Project#LocalHCDescription}</urn1:name>
+               </urn1:org>
+               <urn1:roleCoded>
+                  <urn1:code>307969004</urn1:code>
+                  <urn1:codeSystem>2.16.840.1.113883.6.96</urn1:codeSystem>
+                  <urn1:codeSystemName>SNOMED_CT</urn1:codeSystemName>
+                  <urn1:codeSystemVersion>1.0</urn1:codeSystemVersion>
+                  <urn1:displayName>Public Health</urn1:displayName>
+                  <urn1:originalText>Public Health</urn1:originalText>
+               </urn1:roleCoded>
+            </urn1:userInfo>
+            <urn1:authorized>true</urn1:authorized>
+            <urn1:purposeOfDisclosureCoded>
+               <urn1:code>PUBLICHEALTH</urn1:code>
+               <urn1:codeSystem>2.16.840.1.113883.3.18.7.1</urn1:codeSystem>
+               <urn1:codeSystemName>nhin-purpose</urn1:codeSystemName>
+               <urn1:codeSystemVersion>1.0</urn1:codeSystemVersion>
+               <urn1:displayName>Use or disclosure of Psychotherapy Notes</urn1:displayName>
+               <urn1:originalText>Use or disclosure of Psychotherapy Notes</urn1:originalText>
+            </urn1:purposeOfDisclosureCoded>
+            <urn1:samlAuthnStatement>
+               <urn1:authInstant>2009-04-16T13:15:39Z</urn1:authInstant>
+               <urn1:sessionIndex>987</urn1:sessionIndex>
+               <urn1:authContextClassRef>urn:oasis:names:tc:SAML:2.0:ac:classes:X509</urn1:authContextClassRef>
+               <urn1:subjectLocalityAddress>158.147.185.168</urn1:subjectLocalityAddress>
+               <urn1:subjectLocalityDNSName>cs.myharris.net</urn1:subjectLocalityDNSName>
+            </urn1:samlAuthnStatement>
+            <urn1:samlAuthzDecisionStatement>
+               <urn1:decision>Permit</urn1:decision>
+               <urn1:resource>https://158.147.185.168:8181/SamlReceiveService/SamlProcessWS</urn1:resource>
+               <urn1:action>TestSaml</urn1:action>
+               <urn1:evidence>
+                  <urn1:assertion>
+                     <urn1:id>40df7c0a-ff3e-4b26-baeb-f2910f6d05a9</urn1:id>
+                     <urn1:issueInstant>2009-04-16T13:10:39.093Z</urn1:issueInstant>
+                     <urn1:version>2.0</urn1:version>
+                     <urn1:issuerFormat>urn:oasis:names:tc:SAML:1.1:nameid-format:X509SubjectName</urn1:issuerFormat>
+                     <urn1:issuer>CN=SAML User,OU=Harris,O=HITS,L=Melbourne,ST=FL,C=US</urn1:issuer>
+                     <urn1:conditions>
+                        <urn1:notBefore>2009-04-16T13:10:39.093Z</urn1:notBefore>
+                        <urn1:notOnOrAfter>2009-12-31T12:00:00.000Z</urn1:notOnOrAfter>
+                     </urn1:conditions>
+                     <urn1:accessConsentPolicy>Claim-Ref-1234</urn1:accessConsentPolicy>
+                     <urn1:instanceAccessConsentPolicy>Claim-Instance-1</urn1:instanceAccessConsentPolicy>
+                  </urn1:assertion>
+               </urn1:evidence>
+            </urn1:samlAuthzDecisionStatement>
+         </urn:assertion>
+         <urn:NhinTargetCommunities>
+            <urn1:nhinTargetCommunity>
+               <urn1:homeCommunity>
+               <urn1:description>${#Project#RemoteHCDescription}</urn1:description>
+               <urn1:homeCommunityId>${#Project#RemoteHCID}</urn1:homeCommunityId>
+               <urn1:name>${#Project#RemoteHCDescription}</urn1:name>
+               </urn1:homeCommunity>
+            </urn1:nhinTargetCommunity>
+         </urn:NhinTargetCommunities>
+      </urn:RespondingGateway_PRPA_IN201305UV02Request>
+   </soap:Body>
+</soap:Envelope>]]></con:request>
+	<con:assertion type="SOAP Response"/>
+	<con:assertion disabled="true" type="Schema Compliance">
+		<con:configuration>
+			<definition/>
+		</con:configuration>
+	</con:assertion>
+	<con:assertion type="SOAP Fault Assertion"/>
+	<con:assertion name="Check for existance of [ns3:controlActProcess]" type="XPath Match">
+		<con:configuration>
+			<path>declare namespace ns3='urn:hl7-org:v3';
+				exists( //ns3:PRPA_IN201306UV02/ns3:controlActProcess)</path>
+			<content>true</content>
+			<allowWildcards>false</allowWildcards>
+			<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
+		</con:configuration>
+	</con:assertion>
+	<con:assertion name="Given Name XPath Match" type="XPath Match">
+		<con:configuration>
+			<path>declare namespace ns1='urn:hl7-org:v3';
+				//ns1:PRPA_IN201306UV02[1]/ns1:controlActProcess[1]/ns1:subject[1]/ns1:registrationEvent[1]/ns1:subject1[1]/ns1:patient[1]/ns1:patientPerson[1]/ns1:name[1]/ns1:given[1]</path>
+			<content>${#Project#GivenName}</content>
+			<allowWildcards>false</allowWildcards>
+			<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
+		</con:configuration>
+	</con:assertion>
+	<con:assertion name="Family Name XPath Match" type="XPath Match">
+		<con:configuration>
+			<path>declare namespace ns1='urn:hl7-org:v3';
+				//ns1:PRPA_IN201306UV02[1]/ns1:controlActProcess[1]/ns1:subject[1]/ns1:registrationEvent[1]/ns1:subject1[1]/ns1:patient[1]/ns1:patientPerson[1]/ns1:name[1]/ns1:family[1]</path>
+			<content>${#Project#FamilyName}</content>
+			<allowWildcards>false</allowWildcards>
+			<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
+		</con:configuration>
+	</con:assertion>
+	<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+	<con:jmsPropertyConfig/>
+	<con:wsaConfig mustUnderstand="NONE" version="200508"/>
+	<con:wsrmConfig version="1.2"/>
+</con:request>
+</con:config>
+</con:testStep>
+<con:testStep name="count correlations" type="groovy">
+	<con:settings/>
+	<con:config><script>def pdCorrelations = 1;
+
+if(context.findProperty("PassThruOn").toBoolean()) {
+	pdCorrelations = 0;
+}
+
+log.info "Assert ${pdCorrelations} number of correlations"
+
+context.withSql('PatientCorrelationDB') { sql -> 
+		assert pdCorrelations == sql.firstRow('select count(*) from ' + context.findProperty('PatientCorrelationTable'))[0]
+		}</script></con:config>
+</con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
+nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);</con:setupScript>
+<con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);</con:tearDownScript>
+<con:properties>
+	<con:property>
+		<con:name>startDate</con:name>
+		<con:value>2013-02-27T01:08:04Z</con:value>
+	</con:property>
+	<con:property>
+		<con:name>endDate</con:name>
+		<con:value>2013-02-27T01:18:04Z</con:value>
+	</con:property>
+	<con:property>
+		<con:name>sigDate</con:name>
+		<con:value>02/27/2013 01:08:04</con:value>
+	</con:property>
+	<con:property>
+		<con:name>expireDate</con:name>
+		<con:value>2013-03-29T00:00:00Z</con:value>
+	</con:property>
+</con:properties>
+<con:reportParameters/>
+</con:testCase><con:properties/><con:setupScript>nhinc.FileUtils.updateSpringConfig(context.expand(testSuite.project.getPropertyValue("GatewayPropDir")), "AdapterMpiConfig.xml", "mpichecker", "mpixmljava", "mpidbjava", log);</con:setupScript><con:tearDownScript>nhinc.FileUtils.updateSpringConfig(context.expand(testSuite.project.getPropertyValue("GatewayPropDir")), "AdapterMpiConfig.xml", "mpichecker", "mpidbjava", "mpixmljava", log);</con:tearDownScript></con:testSuite><con:properties><con:property><con:name>AAMappingDB</con:name><con:value>assigningauthoritydb</con:value></con:property><con:property><con:name>AAMappingTable</con:name><con:value>aa_to_home_community_mapping</con:value></con:property><con:property><con:name>AsyncMsgDB</con:name><con:value>asyncmsgs</con:value></con:property><con:property><con:name>AsyncMsgTable</con:name><con:value>asyncmsgrepo</con:value></con:property><con:property><con:name>AuditRepoDB</con:name><con:value>auditrepo</con:value></con:property><con:property><con:name>AuditRepoTable</con:name><con:value>auditrepository</con:value></con:property><con:property><con:name>BirthTime</con:name><con:value>19630804</con:value></con:property><con:property><con:name>City</con:name><con:value>Melbourne</con:value></con:property><con:property><con:name>Country</con:name><con:value>US</con:value></con:property><con:property><con:name>DateOfSignature</con:name><con:value>20080520</con:value></con:property><con:property><con:name>DBHost</con:name><con:value>localhost</con:value></con:property><con:property><con:name>DBPass</con:name><con:value>nhincpass</con:value></con:property><con:property><con:name>DBPort</con:name><con:value>3306</con:value></con:property><con:property><con:name>DBUser</con:name><con:value>nhincuser</con:value></con:property><con:property><con:name>DeferredPatientDiscoveryReqMessageID</con:name><con:value>uuid:6666666666.66666.666.66</con:value></con:property><con:property><con:name>DOB</con:name><con:value>19800516</con:value></con:property><con:property><con:name>DQDocID</con:name><con:value>1.123401.55555</con:value></con:property><con:property><con:name>DQPatientID</con:name><con:value>D123401</con:value></con:property><con:property><con:name>DQPTDocID</con:name><con:value>1.123401.11111</con:value></con:property><con:property><con:name>DRDocID</con:name><con:value>1.123407.777777</con:value></con:property><con:property><con:name>DRRepoID</con:name><con:value>1</con:value></con:property><con:property><con:name>DynamicDQDocID</con:name><con:value>103.8.9284320.020.3590.75^1266324032288</con:value></con:property><con:property><con:name>ExpirationDate</con:name><con:value>20100520</con:value></con:property><con:property><con:name>FamilyName</con:name><con:value>Younger</con:value></con:property><con:property><con:name>GatewayPropDir</con:name><con:value>c:\glassfish3\glassfish\domains\domain1\config\nhin</con:value></con:property><con:property><con:name>Gender</con:name><con:value>M</con:value></con:property><con:property><con:name>GivenName</con:name><con:value>Gallow</con:value></con:property><con:property><con:name>LocalAA</con:name><con:value>1.1</con:value></con:property><con:property><con:name>LocalHCDescription</con:name><con:value>InternalTest1</con:value></con:property><con:property><con:name>LocalHCID</con:name><con:value>1.1</con:value></con:property><con:property><con:name>LocalPatientID</con:name><con:value>D123401</con:value></con:property><con:property><con:name>NotificationEndpoint</con:name><con:value>https://localhost:8181/Gateway/HIEM/2_0/NhinService/NotificationConsumerService/HiemNotify</con:value></con:property><con:property><con:name>NotifySubscriptionID</con:name><con:value>24085385-ef54-4aaf-b027-d5896689be24</con:value></con:property><con:property><con:name>NotifySubscriptionManagerEndpointAddress</con:name><con:value>https://localhost:8181/Gateway/HIEM/2_0/NhinService/SubscriptionManagerService/HiemUnsubscribe</con:value></con:property><con:property><con:name>PatientCorrelationDB</con:name><con:value>patientcorrelationdb</con:value></con:property><con:property><con:name>PatientCorrelationTable</con:name><con:value>correlatedidentifiers</con:value></con:property><con:property><con:name>project.name</con:name><con:value>EntityValidation</con:value></con:property><con:property><con:name>PurposeOfDisclosure</con:name><con:value>Mental</con:value></con:property><con:property><con:name>RemoteAA</con:name><con:value>2.2</con:value></con:property><con:property><con:name>RemoteHCDescription</con:name><con:value>InternalTest2</con:value></con:property><con:property><con:name>RemoteHCID</con:name><con:value>2.2</con:value></con:property><con:property><con:name>RemotePatientID</con:name><con:value>D123401</con:value></con:property><con:property><con:name>SSN</con:name><con:value>123456789</con:value></con:property><con:property><con:name>State</con:name><con:value>FL</con:value></con:property><con:property><con:name>StreetAddress</con:name><con:value>123 Johnson Rd</con:value></con:property><con:property><con:name>SubjectID</con:name><con:value>1111</con:value></con:property><con:property><con:name>SubscribePatientID</con:name><con:value>D123401</con:value></con:property><con:property><con:name>SubscriptionDB</con:name><con:value>subscriptionrepository</con:value></con:property><con:property><con:name>SubscriptionManagerEndpointAddress</con:name><con:value>https://localhost:8181/Gateway/HIEM/2_0/NhinService/SubscriptionManagerService/HiemUnsubscribe</con:value></con:property><con:property><con:name>SubscriptionTable</con:name><con:value>subscription</con:value></con:property><con:property><con:name>UniquePatientId</con:name><con:value>1111^^^&amp;amp;1.1&amp;amp;ISO</con:value></con:property><con:property><con:name>UnSubscriptionID</con:name><con:value>6deec8e7-6e6c-4269-91c2-69cb777ab8b0</con:value></con:property><con:property><con:name>ZipCode</con:name><con:value>12345</con:value></con:property></con:properties><con:afterLoadScript>def propertiesFilename = project.path[0..(project.path.size()-4)] + 'properties'
+def propertiesFile = new File(propertiesFilename)
+if (propertiesFile.exists()) {
+	def props = new Properties()
+	props.load(new FileInputStream(propertiesFile))
+	props.each { key, value ->
+	    project.setPropertyValue(key, value)
+	}
+}
+
+TimeZone.setDefault(TimeZone.getTimeZone("UTC"))
+def testRunListener = [
+afterRun: { testRunner, runContext -> },
+afterStep: { testRunner, runContext, result -> },
+beforeStep: { testRunner, runContext -> },
+beforeStep: { testRunner, runContext, testStep -> },
+beforeRun: { testRunner, runContext -> 
+use (org.codehaus.groovy.runtime.TimeCategory) {
+def startDate = 5.minutes.ago
+def endDate = 5.minutes.from.now
+def expireDate = 30.days.from.now
+
+def df = "yyyy-MM-dd'T'HH:mm:ss'Z'"
+def dfSig = "MM/dd/yyyy' 'HH:mm:ss"
+
+runContext.testCase.setPropertyValue("startDate", startDate.format(df))
+runContext.testCase.setPropertyValue("endDate", endDate.format(df))
+runContext.testCase.setPropertyValue("sigDate", startDate.format(dfSig))
+runContext.testCase.setPropertyValue("expireDate", expireDate.format(df))
+}
+}   
+] as com.eviware.soapui.model.testsuite.TestRunListener
+
+project.testSuiteList*.testCaseList.flatten()*.addTestRunListener(testRunListener)
+
+
+
+com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext.metaClass.findProperty = { propertyName ->
+return delegate.getProperty(propertyName) ?:
+delegate.testCase.getPropertyValue(propertyName) ?:
+delegate.testCase.testSuite.getPropertyValue(propertyName) ?:
+delegate.testCase.testSuite.project.getPropertyValue(propertyName)
+}
+
+com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext.metaClass.withSql = { dbOrPropertyName, block ->
+def dbName = delegate.findProperty(dbOrPropertyName) ?: dbOrPropertyName
+def host = delegate.findProperty('DBHost')
+def port = delegate.findProperty('DBPort')
+def user = delegate.findProperty('DBUser')
+def pass = delegate.findProperty('DBPass')
+
+def connectString = "jdbc:mysql://${host}:${port}/${dbName}"
+def sql = groovy.sql.Sql.newInstance(connectString, user, pass, "com.mysql.jdbc.Driver");
+try {
+block(sql)
+} finally {
+sql.close()
+}
+}</con:afterLoadScript><con:wssContainer/><con:sensitiveInformation/></con:soapui-project>

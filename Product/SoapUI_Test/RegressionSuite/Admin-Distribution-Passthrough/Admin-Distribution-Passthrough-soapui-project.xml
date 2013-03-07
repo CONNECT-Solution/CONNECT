@@ -942,6 +942,463 @@ assert (count > 0);</script></con:config></con:testStep><con:setupScript>nhinc.F
       </con:properties>
       <con:reportParameters/>
     <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);</con:tearDownScript></con:testCase>
+    <con:testCase failOnError="true" failTestCaseOnErrors="true" id="9f036a35-2b5f-4432-8dbc-f91db0b4e861" keepSession="false" maxResults="0" name="NhincProxyRequest with multiple documents (XML and Binary)" searchProperties="true">
+      <con:settings/>
+      <con:testStep name="clear audit table" type="groovy"><con:settings/><con:config><script>context.withSql('AuditDB') { sql -> 
+  sql.execute('delete from ' + context.findProperty('AuditTable'))
+}</script></con:config></con:testStep>
+      <con:testStep name="Set User ID" type="groovy">
+        <con:settings/>
+        <con:config>
+          <script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
+
+def ADUserID = context.findProperty( "ADUserID" );
+
+def nowDate = new Date();
+context.testCase.setPropertyValue('UserId',"${ADUserID}${nowDate}1");</script>
+        </con:config>
+      </con:testStep>
+      
+      <con:testStep name="NhincRequest" type="request">
+        <con:settings/>
+        <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+          <con:interface>NhincAdminDist_Binding_Soap12</con:interface>
+          <con:operation>SendAlertMessage</con:operation>
+          <con:request name="NhincRequest">
+            <con:settings>
+              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
+            </con:settings>
+            <con:encoding>UTF-8</con:encoding>
+            <con:endpoint>${#Project#Endpoint-EntityAdminDist}</con:endpoint>
+            <con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:urn2="urn:oasis:names:tc:emergency:EDXL:DE:1.0">
+   <soap:Header/>
+   <soap:Body projectName="Admin-Distribution" testCase="NhincProxyRequest with multiple documents (XML and Binary)">
+      <urn:RespondingGateway_SendAlertMessage>
+         <urn:assertion>
+            <urn1:address>
+               <urn1:addressType>
+                  <urn1:code>AddrCode</urn1:code>
+                  <urn1:codeSystem>AddrCodeSyst</urn1:codeSystem>
+                  <urn1:codeSystemName>AddrCodeSystName</urn1:codeSystemName>
+                  <urn1:codeSystemVersion>1.0</urn1:codeSystemVersion>
+                  <urn1:displayName>AddrCode</urn1:displayName>
+                  <urn1:originalText>AddrCode</urn1:originalText>
+                  <!--Zero or more repetitions:-->
+                  <urn1:translation/>
+               </urn1:addressType>
+               <urn1:city>AddrCity</urn1:city>
+               <urn1:country>AddrCountry</urn1:country>
+               <urn1:state>AddrState</urn1:state>
+               <urn1:streetAddress>AddrStreet</urn1:streetAddress>
+               <urn1:zipCode>AddrZip</urn1:zipCode>
+            </urn1:address>
+            <urn1:dateOfBirth>06/04/1959 05:21:00</urn1:dateOfBirth>
+            <urn1:explanationNonClaimantSignature>Electronic</urn1:explanationNonClaimantSignature>
+            <urn1:haveSecondWitnessSignature>false</urn1:haveSecondWitnessSignature>
+            <urn1:haveSignature>false</urn1:haveSignature>
+            <urn1:haveWitnessSignature>false</urn1:haveWitnessSignature>
+            <urn1:homeCommunity>
+               <urn1:description>${#Project#RemoteHCDescription}</urn1:description>
+               <urn1:homeCommunityId>${#Project#RemoteHCID}</urn1:homeCommunityId>
+               <urn1:name>${#Project#RemoteHCDescription}</urn1:name>
+            </urn1:homeCommunity>
+            <urn1:personName>
+               <urn1:familyName>Smith</urn1:familyName>
+               <urn1:givenName>Sandy</urn1:givenName>
+               <urn1:nameType>
+                  <urn1:code>nameCode</urn1:code>
+                  <urn1:codeSystem>nameCodeSyst</urn1:codeSystem>
+                  <urn1:codeSystemName>nameCodeSystName</urn1:codeSystemName>
+                  <urn1:codeSystemVersion>1.0</urn1:codeSystemVersion>
+                  <urn1:displayName>nameCode</urn1:displayName>
+                  <urn1:originalText>nameCode</urn1:originalText>
+                  <!--Zero or more repetitions:-->
+                  <urn1:translation/>
+               </urn1:nameType>
+               <urn1:secondNameOrInitials>S</urn1:secondNameOrInitials>
+               <urn1:fullName>Sandy S. Smith</urn1:fullName>
+               <urn1:prefix>?</urn1:prefix>
+               <urn1:suffix>?</urn1:suffix>
+            </urn1:personName>
+            <urn1:phoneNumber>
+               <urn1:areaCode>321</urn1:areaCode>
+               <urn1:countryCode>1</urn1:countryCode>
+               <urn1:extension>5436</urn1:extension>
+               <urn1:localNumber>253-6849</urn1:localNumber>
+               <urn1:phoneNumberType>
+                  <urn1:code>phoneCode</urn1:code>
+                  <urn1:codeSystem>phoneCodeSyst</urn1:codeSystem>
+                  <urn1:codeSystemName>phoneCodeSystName</urn1:codeSystemName>
+                  <urn1:codeSystemVersion>1.0</urn1:codeSystemVersion>
+                  <urn1:displayName>phoneCode</urn1:displayName>
+                  <urn1:originalText>phoneCode</urn1:originalText>
+                  <!--Zero or more repetitions:-->
+                  <urn1:translation/>
+               </urn1:phoneNumberType>
+            </urn1:phoneNumber>
+            <urn1:secondWitnessAddress>
+               <urn1:addressType>
+                  <urn1:code>AddrCode</urn1:code>
+                  <urn1:codeSystem>AddrCodeSyst</urn1:codeSystem>
+                  <urn1:codeSystemName>AddrCodeSystName</urn1:codeSystemName>
+                  <urn1:codeSystemVersion>1.0</urn1:codeSystemVersion>
+                  <urn1:displayName>AddrCode</urn1:displayName>
+                  <urn1:originalText>AddrCode</urn1:originalText>
+                  <!--Zero or more repetitions:-->
+                  <urn1:translation/>
+               </urn1:addressType>
+               <urn1:city>Addr2City</urn1:city>
+               <urn1:country>Addr2Country</urn1:country>
+               <urn1:state>Addr2State</urn1:state>
+               <urn1:streetAddress>Addr2Street</urn1:streetAddress>
+               <urn1:zipCode>Addr2Zip</urn1:zipCode>
+            </urn1:secondWitnessAddress>
+            <urn1:secondWitnessName>
+               <urn1:familyName>Smith</urn1:familyName>
+               <urn1:givenName>Sammy</urn1:givenName>
+               <urn1:nameType>
+                  <urn1:code>nameCode</urn1:code>
+                  <urn1:codeSystem>nameCodeSyst</urn1:codeSystem>
+                  <urn1:codeSystemName>nameCodeSystName</urn1:codeSystemName>
+                  <urn1:codeSystemVersion>1.0</urn1:codeSystemVersion>
+                  <urn1:displayName>nameCode</urn1:displayName>
+                  <urn1:originalText>nameCode</urn1:originalText>
+                  <!--Zero or more repetitions:-->
+                  <urn1:translation/>
+               </urn1:nameType>
+               <urn1:secondNameOrInitials>s</urn1:secondNameOrInitials>
+               <urn1:fullName>Sammy S. Smith</urn1:fullName>
+               <urn1:prefix>?</urn1:prefix>
+               <urn1:suffix>?</urn1:suffix>
+            </urn1:secondWitnessName>
+            <urn1:secondWitnessPhone>
+               <urn1:areaCode>321</urn1:areaCode>
+               <urn1:countryCode>1</urn1:countryCode>
+               <urn1:extension>5424</urn1:extension>
+               <urn1:localNumber>542-6823</urn1:localNumber>
+               <urn1:phoneNumberType>
+                  <urn1:code>phoneCode</urn1:code>
+                  <urn1:codeSystem>phoneCodeSyst</urn1:codeSystem>
+                  <urn1:codeSystemName>phoneCodeSystName</urn1:codeSystemName>
+                  <urn1:codeSystemVersion>1.0</urn1:codeSystemVersion>
+                  <urn1:displayName>phoneCode</urn1:displayName>
+                  <urn1:originalText>phoneCode</urn1:originalText>
+                  <!--Zero or more repetitions:-->
+                  <urn1:translation/>
+               </urn1:phoneNumberType>
+            </urn1:secondWitnessPhone>
+            <urn1:SSN>253987546</urn1:SSN>
+            <!--1 or more repetitions:-->
+            <urn1:uniquePatientId>500000000^^^&amp;1.1&amp;ISO</urn1:uniquePatientId>
+            <urn1:witnessAddress>
+               <urn1:addressType>
+                  <urn1:code>addrCode</urn1:code>
+                  <urn1:codeSystem>addrCodeSyst</urn1:codeSystem>
+                  <urn1:codeSystemName>addrCodeSystName</urn1:codeSystemName>
+                  <urn1:codeSystemVersion>1.0</urn1:codeSystemVersion>
+                  <urn1:displayName>addrCode</urn1:displayName>
+                  <urn1:originalText>addrCode</urn1:originalText>
+                  <!--Zero or more repetitions:-->
+                  <urn1:translation/>
+               </urn1:addressType>
+               <urn1:city>Burnell</urn1:city>
+               <urn1:country>USA</urn1:country>
+               <urn1:state>FL</urn1:state>
+               <urn1:streetAddress>825 North</urn1:streetAddress>
+               <urn1:zipCode>32184</urn1:zipCode>
+            </urn1:witnessAddress>
+            <urn1:witnessName>
+               <urn1:familyName>Smith</urn1:familyName>
+               <urn1:givenName>Scott</urn1:givenName>
+               <urn1:nameType>
+                  <urn1:code>nameCode</urn1:code>
+                  <urn1:codeSystem>nameCodeSyst</urn1:codeSystem>
+                  <urn1:codeSystemName>nameCodeSystName</urn1:codeSystemName>
+                  <urn1:codeSystemVersion>1.0</urn1:codeSystemVersion>
+                  <urn1:displayName>nameCode</urn1:displayName>
+                  <urn1:originalText>nameCode</urn1:originalText>
+                  <!--Zero or more repetitions:-->
+                  <urn1:translation/>
+               </urn1:nameType>
+               <urn1:secondNameOrInitials>S.</urn1:secondNameOrInitials>
+               <urn1:fullName>Scott S. Smith</urn1:fullName>
+               <urn1:prefix>?</urn1:prefix>
+               <urn1:suffix>?</urn1:suffix>
+            </urn1:witnessName>
+            <urn1:witnessPhone>
+               <urn1:areaCode>321</urn1:areaCode>
+               <urn1:countryCode>1</urn1:countryCode>
+               <urn1:extension>8432</urn1:extension>
+               <urn1:localNumber>985-2239</urn1:localNumber>
+               <urn1:phoneNumberType>
+                  <urn1:code>phoneCode</urn1:code>
+                  <urn1:codeSystem>phoneCodeSyst</urn1:codeSystem>
+                  <urn1:codeSystemName>phoneCodeSystName</urn1:codeSystemName>
+                  <urn1:codeSystemVersion>1.0</urn1:codeSystemVersion>
+                  <urn1:displayName>phoneCode</urn1:displayName>
+                  <urn1:originalText>phoneCode</urn1:originalText>
+                  <!--Zero or more repetitions:-->
+                  <urn1:translation/>
+               </urn1:phoneNumberType>
+            </urn1:witnessPhone>
+            <urn1:userInfo>
+               <urn1:personName>
+                  <urn1:familyName>Skagerberg</urn1:familyName>
+                  <urn1:givenName>Karl</urn1:givenName>
+                  <urn1:nameType>
+                     <urn1:code>nameCode</urn1:code>
+                     <urn1:codeSystem>nameCodeSyst</urn1:codeSystem>
+                     <urn1:codeSystemName>nameCodeSystName</urn1:codeSystemName>
+                     <urn1:codeSystemVersion>1.0</urn1:codeSystemVersion>
+                     <urn1:displayName>nameCode</urn1:displayName>
+                     <urn1:originalText>nameCode</urn1:originalText>
+                     <!--Zero or more repetitions:-->
+                     <urn1:translation/>
+                  </urn1:nameType>
+                  <urn1:secondNameOrInitials>S</urn1:secondNameOrInitials>
+                  <urn1:fullName>Kasrl S. Skagerberg</urn1:fullName>
+                  <urn1:prefix>?</urn1:prefix>
+                  <urn1:suffix>?</urn1:suffix>
+               </urn1:personName>
+               <urn1:userName>${#TestCase#UserId}</urn1:userName>
+               <urn1:org>
+                  <urn1:description>${#Project#RemoteHCDescription}</urn1:description>
+                  <urn1:homeCommunityId>${#Project#RemoteHCID}</urn1:homeCommunityId>
+                  <urn1:name>${#Project#RemoteHCDescription}</urn1:name>
+               </urn1:org>
+               <!--Optional:-->
+               <urn1:roleCoded>
+                  <urn1:code>80584001</urn1:code>
+                  <urn1:codeSystem>2.16.840.1.113883.6.96</urn1:codeSystem>
+                  <urn1:codeSystemName>SNOMED_CT</urn1:codeSystemName>
+                  <urn1:codeSystemVersion>1.0</urn1:codeSystemVersion>
+                  <urn1:displayName>Psychiatrist</urn1:displayName>
+                  <urn1:originalText>Psychiatrist</urn1:originalText>
+                  <!--Zero or more repetitions:-->
+                  <urn1:translation/>
+               </urn1:roleCoded>
+            </urn1:userInfo>
+            <urn1:authorized>true</urn1:authorized>
+            <!--Optional:-->
+            <urn1:purposeOfDisclosureCoded>
+               <urn1:code>PSYCHOTHERAPY</urn1:code>
+               <urn1:codeSystem>2.16.840.1.113883.3.18.7.1</urn1:codeSystem>
+               <urn1:codeSystemName>nhin-purpose</urn1:codeSystemName>
+               <urn1:codeSystemVersion>1.0</urn1:codeSystemVersion>
+               <urn1:displayName>Use or disclosure of Psychotherapy Notes</urn1:displayName>
+               <urn1:originalText>Psychotherapy Notes</urn1:originalText>
+               <!--Zero or more repetitions:-->
+               <urn1:translation/>
+            </urn1:purposeOfDisclosureCoded>
+            <!--Optional:-->
+            <urn1:samlAuthnStatement>
+               <!--Optional:-->
+               <urn1:authInstant>2009-09-01T13:00:00.000Z</urn1:authInstant>
+               <!--Optional:-->
+               <urn1:sessionIndex>mySessionIndex</urn1:sessionIndex>
+               <!--Optional:-->
+               <urn1:authContextClassRef>myContextClassRef</urn1:authContextClassRef>
+               <!--Optional:-->
+               <urn1:subjectLocalityAddress>mySubjectLocalityAddress</urn1:subjectLocalityAddress>
+               <!--Optional:-->
+               <urn1:subjectLocalityDNSName>mySubjectLocalityDns</urn1:subjectLocalityDNSName>
+            </urn1:samlAuthnStatement>
+            <!--Optional:-->
+            <urn1:samlAuthzDecisionStatement>
+               <!--Optional:-->
+               <urn1:decision>Permit</urn1:decision>
+               <!--Optional:-->
+               <urn1:resource>myAuthzDecisionStatementResource</urn1:resource>
+               <!--Optional:-->
+               <urn1:action>myAuthzDecisionStatementAction</urn1:action>
+               <!--Optional:-->
+               <urn1:evidence>
+                  <!--Optional:-->
+                  <urn1:assertion>
+                     <!--Optional:-->
+                     <urn1:id>AuthzDecisionStatementEvidenceAssertionId</urn1:id>
+                     <!--Optional:-->
+                     <urn1:issueInstant>2009-09-02T14:00:00.000Z</urn1:issueInstant>
+                     <!--Optional:-->
+                     <urn1:version>2.0</urn1:version>
+                     <!--Optional:-->
+                     <urn1:issuer>CN=Mr Saml User,OU=SU,O=Mr SAML Org,L=Chantilly,ST=VA,C=US</urn1:issuer>
+                     <!--Optional:-->
+                     <urn1:issuerFormat>urn:oasis:names:tc:SAML:1.1:nameid-format:X509SubjectName</urn1:issuerFormat>
+                     <!--Optional:-->
+                     <urn1:conditions>
+                        <!--Optional:-->
+                        <urn1:notBefore>2001-01-01T01:00:00.000Z</urn1:notBefore>
+                        <!--Optional:-->
+                        <urn1:notOnOrAfter>2009-05-06T14:00:00.000Z</urn1:notOnOrAfter>
+                     </urn1:conditions>
+                     <!--Optional:-->
+                     <urn1:accessConsentPolicy>urn:oid:1.2.3.4</urn1:accessConsentPolicy>
+                     <!--Optional:-->
+                     <urn1:instanceAccessConsentPolicy>urn:oid:1.2.3.4.123456789</urn1:instanceAccessConsentPolicy>
+                  </urn1:assertion>
+               </urn1:evidence>
+            </urn1:samlAuthzDecisionStatement>
+            <!--Optional:-->
+            <urn1:samlSignature>
+               <!--Optional:-->
+               <urn1:keyInfo>
+                  <!--Optional:-->
+                  <urn1:rsaKeyValueModulus>cid:921853060605</urn1:rsaKeyValueModulus>
+                  <!--Optional:-->
+                  <urn1:rsaKeyValueExponent>cid:507157468547</urn1:rsaKeyValueExponent>
+               </urn1:keyInfo>
+               <!--Optional:-->
+               <urn1:signatureValue>cid:175264679488</urn1:signatureValue>
+            </urn1:samlSignature>
+            <!--Optional:-->
+         </urn:assertion>
+         <!--Optional:-->
+         <urn:nhinTargetCommunities>
+            <urn1:nhinTargetCommunity>
+               <urn1:homeCommunity>
+               <urn1:description>${#Project#LocalHCDescription}</urn1:description>
+               <urn1:homeCommunityId>${#Project#LocalHCID}</urn1:homeCommunityId>
+               <urn1:name>${#Project#LocalHCDescription}</urn1:name>
+            </urn1:homeCommunity>
+            </urn1:nhinTargetCommunity>
+         </urn:nhinTargetCommunities>
+         <urn2:EDXLDistribution>
+            <urn2:distributionID>633990682441061250</urn2:distributionID>
+            <urn2:senderID>actor@2.16.840.1.113883.3.166</urn2:senderID>
+            <urn2:dateTimeSent>2010-08-14T12:18:13.512375-08:00</urn2:dateTimeSent>
+            <urn2:distributionStatus>Actual</urn2:distributionStatus>
+            <urn2:distributionType>Update</urn2:distributionType>
+            <urn2:combinedConfidentiality>Public</urn2:combinedConfidentiality>
+            <!--Optional:-->
+            <urn2:language>?</urn2:language>
+            <!--Zero or more repetitions:-->
+            <urn2:senderRole>
+               <urn2:valueListUrn>?</urn2:valueListUrn>
+               <!--1 or more repetitions:-->
+               <urn2:value>?</urn2:value>
+            </urn2:senderRole>
+            <!--Zero or more repetitions:-->
+            <urn2:recipientRole>
+               <urn2:valueListUrn>?</urn2:valueListUrn>
+               <!--1 or more repetitions:-->
+               <urn2:value>?</urn2:value>
+            </urn2:recipientRole>
+            <!--Zero or more repetitions:-->
+            <urn2:keyword>
+               <urn2:valueListUrn>?</urn2:valueListUrn>
+               <!--1 or more repetitions:-->
+               <urn2:value>?</urn2:value>
+            </urn2:keyword>
+            <!--Zero or more repetitions:-->
+            <urn2:distributionReference>?</urn2:distributionReference>
+            <!--Zero or more repetitions:-->
+            <urn2:explicitAddress>
+               <urn2:explicitAddressScheme>modified_IHEIntendedRecipient</urn2:explicitAddressScheme>
+               <!--1 or more repetitions:-->
+               <urn2:explicitAddressValue>^^^^^^^^^2.16.840.1.113883.3.166|0000000001</urn2:explicitAddressValue>
+            </urn2:explicitAddress>
+            <!--Zero or more repetitions:-->
+            <urn2:targetArea>
+               <!--Zero or more repetitions:-->
+               <urn2:circle>?</urn2:circle>
+               <!--Zero or more repetitions:-->
+               <urn2:polygon>?</urn2:polygon>
+               <!--Zero or more repetitions:-->
+               <urn2:country>?</urn2:country>
+               <!--Zero or more repetitions:-->
+               <urn2:subdivision>?</urn2:subdivision>
+               <!--Zero or more repetitions:-->
+               <urn2:locCodeUN>?</urn2:locCodeUN>
+            </urn2:targetArea>
+            <!--Zero or more repetitions:-->
+            <urn2:contentObject>
+               <!--Optional:-->
+               <urn2:contentDescription>PH Alert Message</urn2:contentDescription>
+               <!--Zero or more repetitions:-->
+               <urn2:contentKeyword>
+                  <urn2:valueListUrn>?</urn2:valueListUrn>
+                  <!--1 or more repetitions:-->
+                  <urn2:value>?</urn2:value>
+               </urn2:contentKeyword>
+               <!--Optional:-->
+               <urn2:incidentID>TEST</urn2:incidentID>
+               <!--Optional:-->
+               <urn2:incidentDescription>This is a test message</urn2:incidentDescription>
+               <!--Zero or more repetitions:-->
+               <urn2:originatorRole>
+                  <urn2:valueListUrn>?</urn2:valueListUrn>
+                  <!--1 or more repetitions:-->
+                  <urn2:value>?</urn2:value>
+               </urn2:originatorRole>
+               <!--Zero or more repetitions:-->
+               <urn2:consumerRole>
+                  <urn2:valueListUrn>?</urn2:valueListUrn>
+                  <!--1 or more repetitions:-->
+                  <urn2:value>?</urn2:value>
+               </urn2:consumerRole>
+               <!--Optional:-->
+               <urn2:confidentiality>Public</urn2:confidentiality>
+               <urn2:xmlContent>
+                  <!--Zero or more repetitions:-->
+                  <urn2:keyXMLContent>
+                     <!--You may enter ANY elements at this point-->
+                  </urn2:keyXMLContent>
+                  <!--Zero or more repetitions:-->
+                  <urn2:embeddedXMLContent>
+                     <Test>with XML data</Test>
+                  </urn2:embeddedXMLContent>
+               </urn2:xmlContent>
+               <urn2:nonXMLContent>
+                  <urn2:mimeType>application/pdf</urn2:mimeType>
+                  <!--Optional:-->
+                  <urn2:size>19</urn2:size>
+                  <!--Optional:-->
+                  <urn2:digest>?</urn2:digest>
+                  <!--Optional:-->
+                  <urn2:uri>?</urn2:uri>
+                  <!--Optional:-->
+                  <urn2:contentData>LDLIHAPIISDALKDF902383K1182K4J49DFNF3KR0482HJ1029F393</urn2:contentData>
+               </urn2:nonXMLContent>
+            </urn2:contentObject>
+         </urn2:EDXLDistribution>
+      </urn:RespondingGateway_SendAlertMessage>
+   </soap:Body>
+</soap:Envelope>]]></con:request>
+            <con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+            <con:jmsPropertyConfig/>
+            <con:wsaConfig mustUnderstand="NONE" version="200508"/>
+            <con:wsrmConfig version="1.2"/>
+          </con:request>
+        </con:config>
+      </con:testStep><con:testStep name="Delay" type="delay"><con:settings/><con:config><delay>1000</delay></con:config></con:testStep><con:testStep name="verify audit events" type="groovy"><con:settings/><con:config><script>def count = context.withSql('AuditDB') { sql -> 
+	sql.firstRow('select count(*) from ' + context.findProperty('AuditTable')).'count(*)'
+}
+//log.info "Count: " + count;
+assert (count > 0);</script></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
+        <con:property>
+          <con:name>startDate</con:name>
+          <con:value>2012-12-17T03:07:47Z</con:value>
+        </con:property>
+        <con:property>
+          <con:name>endDate</con:name>
+          <con:value>2012-12-17T03:17:47Z</con:value>
+        </con:property>
+        <con:property>
+          <con:name>sigDate</con:name>
+          <con:value>12/17/2012 03:07:47</con:value>
+        </con:property>
+        <con:property>
+          <con:name>expireDate</con:name>
+          <con:value>2013-01-16T00:00:00Z</con:value>
+        </con:property>
+        <con:property>
+          <con:name>UserId</con:name>
+          <con:value>admindistMon Dec 17 03:12:47 UTC 20121</con:value>
+        </con:property>
+      </con:properties>
+      <con:reportParameters/>
+    <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);</con:tearDownScript></con:testCase>
     <con:testCase failOnError="true" failTestCaseOnErrors="true" id="ed85ad92-3732-424e-a5e6-dd6f3bdc24fe" keepSession="false" maxResults="0" name="NhincProxyRequest with multiple documents (multiple contentObjects)" searchProperties="true">
       <con:settings/>
       <con:testStep name="clear audit table" type="groovy"><con:settings/><con:config><script>context.withSql('AuditDB') { sql -> 
@@ -1427,463 +1884,6 @@ assert (count > 0);</script></con:config></con:testStep><con:setupScript>nhinc.F
         <con:property>
           <con:name>UserId</con:name>
           <con:value>admindistMon Dec 17 03:12:46 UTC 20121</con:value>
-        </con:property>
-      </con:properties>
-      <con:reportParameters/>
-    <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);</con:tearDownScript></con:testCase>
-    <con:testCase failOnError="true" failTestCaseOnErrors="true" id="9f036a35-2b5f-4432-8dbc-f91db0b4e861" keepSession="false" maxResults="0" name="NhincProxyRequest with multiple documents (XML and Binary)" searchProperties="true">
-      <con:settings/>
-      <con:testStep name="clear audit table" type="groovy"><con:settings/><con:config><script>context.withSql('AuditDB') { sql -> 
-  sql.execute('delete from ' + context.findProperty('AuditTable'))
-}</script></con:config></con:testStep>
-      <con:testStep name="Set User ID" type="groovy">
-        <con:settings/>
-        <con:config>
-          <script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
-
-def ADUserID = context.findProperty( "ADUserID" );
-
-def nowDate = new Date();
-context.testCase.setPropertyValue('UserId',"${ADUserID}${nowDate}1");</script>
-        </con:config>
-      </con:testStep>
-      
-      <con:testStep name="NhincRequest" type="request">
-        <con:settings/>
-        <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-          <con:interface>NhincAdminDist_Binding_Soap12</con:interface>
-          <con:operation>SendAlertMessage</con:operation>
-          <con:request name="NhincRequest">
-            <con:settings>
-              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
-            </con:settings>
-            <con:encoding>UTF-8</con:encoding>
-            <con:endpoint>${#Project#Endpoint-EntityAdminDist}</con:endpoint>
-            <con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:urn2="urn:oasis:names:tc:emergency:EDXL:DE:1.0">
-   <soap:Header/>
-   <soap:Body projectName="Admin-Distribution" testCase="NhincProxyRequest with multiple documents (XML and Binary)">
-      <urn:RespondingGateway_SendAlertMessage>
-         <urn:assertion>
-            <urn1:address>
-               <urn1:addressType>
-                  <urn1:code>AddrCode</urn1:code>
-                  <urn1:codeSystem>AddrCodeSyst</urn1:codeSystem>
-                  <urn1:codeSystemName>AddrCodeSystName</urn1:codeSystemName>
-                  <urn1:codeSystemVersion>1.0</urn1:codeSystemVersion>
-                  <urn1:displayName>AddrCode</urn1:displayName>
-                  <urn1:originalText>AddrCode</urn1:originalText>
-                  <!--Zero or more repetitions:-->
-                  <urn1:translation/>
-               </urn1:addressType>
-               <urn1:city>AddrCity</urn1:city>
-               <urn1:country>AddrCountry</urn1:country>
-               <urn1:state>AddrState</urn1:state>
-               <urn1:streetAddress>AddrStreet</urn1:streetAddress>
-               <urn1:zipCode>AddrZip</urn1:zipCode>
-            </urn1:address>
-            <urn1:dateOfBirth>06/04/1959 05:21:00</urn1:dateOfBirth>
-            <urn1:explanationNonClaimantSignature>Electronic</urn1:explanationNonClaimantSignature>
-            <urn1:haveSecondWitnessSignature>false</urn1:haveSecondWitnessSignature>
-            <urn1:haveSignature>false</urn1:haveSignature>
-            <urn1:haveWitnessSignature>false</urn1:haveWitnessSignature>
-            <urn1:homeCommunity>
-               <urn1:description>${#Project#RemoteHCDescription}</urn1:description>
-               <urn1:homeCommunityId>${#Project#RemoteHCID}</urn1:homeCommunityId>
-               <urn1:name>${#Project#RemoteHCDescription}</urn1:name>
-            </urn1:homeCommunity>
-            <urn1:personName>
-               <urn1:familyName>Smith</urn1:familyName>
-               <urn1:givenName>Sandy</urn1:givenName>
-               <urn1:nameType>
-                  <urn1:code>nameCode</urn1:code>
-                  <urn1:codeSystem>nameCodeSyst</urn1:codeSystem>
-                  <urn1:codeSystemName>nameCodeSystName</urn1:codeSystemName>
-                  <urn1:codeSystemVersion>1.0</urn1:codeSystemVersion>
-                  <urn1:displayName>nameCode</urn1:displayName>
-                  <urn1:originalText>nameCode</urn1:originalText>
-                  <!--Zero or more repetitions:-->
-                  <urn1:translation/>
-               </urn1:nameType>
-               <urn1:secondNameOrInitials>S</urn1:secondNameOrInitials>
-               <urn1:fullName>Sandy S. Smith</urn1:fullName>
-               <urn1:prefix>?</urn1:prefix>
-               <urn1:suffix>?</urn1:suffix>
-            </urn1:personName>
-            <urn1:phoneNumber>
-               <urn1:areaCode>321</urn1:areaCode>
-               <urn1:countryCode>1</urn1:countryCode>
-               <urn1:extension>5436</urn1:extension>
-               <urn1:localNumber>253-6849</urn1:localNumber>
-               <urn1:phoneNumberType>
-                  <urn1:code>phoneCode</urn1:code>
-                  <urn1:codeSystem>phoneCodeSyst</urn1:codeSystem>
-                  <urn1:codeSystemName>phoneCodeSystName</urn1:codeSystemName>
-                  <urn1:codeSystemVersion>1.0</urn1:codeSystemVersion>
-                  <urn1:displayName>phoneCode</urn1:displayName>
-                  <urn1:originalText>phoneCode</urn1:originalText>
-                  <!--Zero or more repetitions:-->
-                  <urn1:translation/>
-               </urn1:phoneNumberType>
-            </urn1:phoneNumber>
-            <urn1:secondWitnessAddress>
-               <urn1:addressType>
-                  <urn1:code>AddrCode</urn1:code>
-                  <urn1:codeSystem>AddrCodeSyst</urn1:codeSystem>
-                  <urn1:codeSystemName>AddrCodeSystName</urn1:codeSystemName>
-                  <urn1:codeSystemVersion>1.0</urn1:codeSystemVersion>
-                  <urn1:displayName>AddrCode</urn1:displayName>
-                  <urn1:originalText>AddrCode</urn1:originalText>
-                  <!--Zero or more repetitions:-->
-                  <urn1:translation/>
-               </urn1:addressType>
-               <urn1:city>Addr2City</urn1:city>
-               <urn1:country>Addr2Country</urn1:country>
-               <urn1:state>Addr2State</urn1:state>
-               <urn1:streetAddress>Addr2Street</urn1:streetAddress>
-               <urn1:zipCode>Addr2Zip</urn1:zipCode>
-            </urn1:secondWitnessAddress>
-            <urn1:secondWitnessName>
-               <urn1:familyName>Smith</urn1:familyName>
-               <urn1:givenName>Sammy</urn1:givenName>
-               <urn1:nameType>
-                  <urn1:code>nameCode</urn1:code>
-                  <urn1:codeSystem>nameCodeSyst</urn1:codeSystem>
-                  <urn1:codeSystemName>nameCodeSystName</urn1:codeSystemName>
-                  <urn1:codeSystemVersion>1.0</urn1:codeSystemVersion>
-                  <urn1:displayName>nameCode</urn1:displayName>
-                  <urn1:originalText>nameCode</urn1:originalText>
-                  <!--Zero or more repetitions:-->
-                  <urn1:translation/>
-               </urn1:nameType>
-               <urn1:secondNameOrInitials>s</urn1:secondNameOrInitials>
-               <urn1:fullName>Sammy S. Smith</urn1:fullName>
-               <urn1:prefix>?</urn1:prefix>
-               <urn1:suffix>?</urn1:suffix>
-            </urn1:secondWitnessName>
-            <urn1:secondWitnessPhone>
-               <urn1:areaCode>321</urn1:areaCode>
-               <urn1:countryCode>1</urn1:countryCode>
-               <urn1:extension>5424</urn1:extension>
-               <urn1:localNumber>542-6823</urn1:localNumber>
-               <urn1:phoneNumberType>
-                  <urn1:code>phoneCode</urn1:code>
-                  <urn1:codeSystem>phoneCodeSyst</urn1:codeSystem>
-                  <urn1:codeSystemName>phoneCodeSystName</urn1:codeSystemName>
-                  <urn1:codeSystemVersion>1.0</urn1:codeSystemVersion>
-                  <urn1:displayName>phoneCode</urn1:displayName>
-                  <urn1:originalText>phoneCode</urn1:originalText>
-                  <!--Zero or more repetitions:-->
-                  <urn1:translation/>
-               </urn1:phoneNumberType>
-            </urn1:secondWitnessPhone>
-            <urn1:SSN>253987546</urn1:SSN>
-            <!--1 or more repetitions:-->
-            <urn1:uniquePatientId>500000000^^^&amp;1.1&amp;ISO</urn1:uniquePatientId>
-            <urn1:witnessAddress>
-               <urn1:addressType>
-                  <urn1:code>addrCode</urn1:code>
-                  <urn1:codeSystem>addrCodeSyst</urn1:codeSystem>
-                  <urn1:codeSystemName>addrCodeSystName</urn1:codeSystemName>
-                  <urn1:codeSystemVersion>1.0</urn1:codeSystemVersion>
-                  <urn1:displayName>addrCode</urn1:displayName>
-                  <urn1:originalText>addrCode</urn1:originalText>
-                  <!--Zero or more repetitions:-->
-                  <urn1:translation/>
-               </urn1:addressType>
-               <urn1:city>Burnell</urn1:city>
-               <urn1:country>USA</urn1:country>
-               <urn1:state>FL</urn1:state>
-               <urn1:streetAddress>825 North</urn1:streetAddress>
-               <urn1:zipCode>32184</urn1:zipCode>
-            </urn1:witnessAddress>
-            <urn1:witnessName>
-               <urn1:familyName>Smith</urn1:familyName>
-               <urn1:givenName>Scott</urn1:givenName>
-               <urn1:nameType>
-                  <urn1:code>nameCode</urn1:code>
-                  <urn1:codeSystem>nameCodeSyst</urn1:codeSystem>
-                  <urn1:codeSystemName>nameCodeSystName</urn1:codeSystemName>
-                  <urn1:codeSystemVersion>1.0</urn1:codeSystemVersion>
-                  <urn1:displayName>nameCode</urn1:displayName>
-                  <urn1:originalText>nameCode</urn1:originalText>
-                  <!--Zero or more repetitions:-->
-                  <urn1:translation/>
-               </urn1:nameType>
-               <urn1:secondNameOrInitials>S.</urn1:secondNameOrInitials>
-               <urn1:fullName>Scott S. Smith</urn1:fullName>
-               <urn1:prefix>?</urn1:prefix>
-               <urn1:suffix>?</urn1:suffix>
-            </urn1:witnessName>
-            <urn1:witnessPhone>
-               <urn1:areaCode>321</urn1:areaCode>
-               <urn1:countryCode>1</urn1:countryCode>
-               <urn1:extension>8432</urn1:extension>
-               <urn1:localNumber>985-2239</urn1:localNumber>
-               <urn1:phoneNumberType>
-                  <urn1:code>phoneCode</urn1:code>
-                  <urn1:codeSystem>phoneCodeSyst</urn1:codeSystem>
-                  <urn1:codeSystemName>phoneCodeSystName</urn1:codeSystemName>
-                  <urn1:codeSystemVersion>1.0</urn1:codeSystemVersion>
-                  <urn1:displayName>phoneCode</urn1:displayName>
-                  <urn1:originalText>phoneCode</urn1:originalText>
-                  <!--Zero or more repetitions:-->
-                  <urn1:translation/>
-               </urn1:phoneNumberType>
-            </urn1:witnessPhone>
-            <urn1:userInfo>
-               <urn1:personName>
-                  <urn1:familyName>Skagerberg</urn1:familyName>
-                  <urn1:givenName>Karl</urn1:givenName>
-                  <urn1:nameType>
-                     <urn1:code>nameCode</urn1:code>
-                     <urn1:codeSystem>nameCodeSyst</urn1:codeSystem>
-                     <urn1:codeSystemName>nameCodeSystName</urn1:codeSystemName>
-                     <urn1:codeSystemVersion>1.0</urn1:codeSystemVersion>
-                     <urn1:displayName>nameCode</urn1:displayName>
-                     <urn1:originalText>nameCode</urn1:originalText>
-                     <!--Zero or more repetitions:-->
-                     <urn1:translation/>
-                  </urn1:nameType>
-                  <urn1:secondNameOrInitials>S</urn1:secondNameOrInitials>
-                  <urn1:fullName>Kasrl S. Skagerberg</urn1:fullName>
-                  <urn1:prefix>?</urn1:prefix>
-                  <urn1:suffix>?</urn1:suffix>
-               </urn1:personName>
-               <urn1:userName>${#TestCase#UserId}</urn1:userName>
-               <urn1:org>
-                  <urn1:description>${#Project#RemoteHCDescription}</urn1:description>
-                  <urn1:homeCommunityId>${#Project#RemoteHCID}</urn1:homeCommunityId>
-                  <urn1:name>${#Project#RemoteHCDescription}</urn1:name>
-               </urn1:org>
-               <!--Optional:-->
-               <urn1:roleCoded>
-                  <urn1:code>80584001</urn1:code>
-                  <urn1:codeSystem>2.16.840.1.113883.6.96</urn1:codeSystem>
-                  <urn1:codeSystemName>SNOMED_CT</urn1:codeSystemName>
-                  <urn1:codeSystemVersion>1.0</urn1:codeSystemVersion>
-                  <urn1:displayName>Psychiatrist</urn1:displayName>
-                  <urn1:originalText>Psychiatrist</urn1:originalText>
-                  <!--Zero or more repetitions:-->
-                  <urn1:translation/>
-               </urn1:roleCoded>
-            </urn1:userInfo>
-            <urn1:authorized>true</urn1:authorized>
-            <!--Optional:-->
-            <urn1:purposeOfDisclosureCoded>
-               <urn1:code>PSYCHOTHERAPY</urn1:code>
-               <urn1:codeSystem>2.16.840.1.113883.3.18.7.1</urn1:codeSystem>
-               <urn1:codeSystemName>nhin-purpose</urn1:codeSystemName>
-               <urn1:codeSystemVersion>1.0</urn1:codeSystemVersion>
-               <urn1:displayName>Use or disclosure of Psychotherapy Notes</urn1:displayName>
-               <urn1:originalText>Psychotherapy Notes</urn1:originalText>
-               <!--Zero or more repetitions:-->
-               <urn1:translation/>
-            </urn1:purposeOfDisclosureCoded>
-            <!--Optional:-->
-            <urn1:samlAuthnStatement>
-               <!--Optional:-->
-               <urn1:authInstant>2009-09-01T13:00:00.000Z</urn1:authInstant>
-               <!--Optional:-->
-               <urn1:sessionIndex>mySessionIndex</urn1:sessionIndex>
-               <!--Optional:-->
-               <urn1:authContextClassRef>myContextClassRef</urn1:authContextClassRef>
-               <!--Optional:-->
-               <urn1:subjectLocalityAddress>mySubjectLocalityAddress</urn1:subjectLocalityAddress>
-               <!--Optional:-->
-               <urn1:subjectLocalityDNSName>mySubjectLocalityDns</urn1:subjectLocalityDNSName>
-            </urn1:samlAuthnStatement>
-            <!--Optional:-->
-            <urn1:samlAuthzDecisionStatement>
-               <!--Optional:-->
-               <urn1:decision>Permit</urn1:decision>
-               <!--Optional:-->
-               <urn1:resource>myAuthzDecisionStatementResource</urn1:resource>
-               <!--Optional:-->
-               <urn1:action>myAuthzDecisionStatementAction</urn1:action>
-               <!--Optional:-->
-               <urn1:evidence>
-                  <!--Optional:-->
-                  <urn1:assertion>
-                     <!--Optional:-->
-                     <urn1:id>AuthzDecisionStatementEvidenceAssertionId</urn1:id>
-                     <!--Optional:-->
-                     <urn1:issueInstant>2009-09-02T14:00:00.000Z</urn1:issueInstant>
-                     <!--Optional:-->
-                     <urn1:version>2.0</urn1:version>
-                     <!--Optional:-->
-                     <urn1:issuer>CN=Mr Saml User,OU=SU,O=Mr SAML Org,L=Chantilly,ST=VA,C=US</urn1:issuer>
-                     <!--Optional:-->
-                     <urn1:issuerFormat>urn:oasis:names:tc:SAML:1.1:nameid-format:X509SubjectName</urn1:issuerFormat>
-                     <!--Optional:-->
-                     <urn1:conditions>
-                        <!--Optional:-->
-                        <urn1:notBefore>2001-01-01T01:00:00.000Z</urn1:notBefore>
-                        <!--Optional:-->
-                        <urn1:notOnOrAfter>2009-05-06T14:00:00.000Z</urn1:notOnOrAfter>
-                     </urn1:conditions>
-                     <!--Optional:-->
-                     <urn1:accessConsentPolicy>urn:oid:1.2.3.4</urn1:accessConsentPolicy>
-                     <!--Optional:-->
-                     <urn1:instanceAccessConsentPolicy>urn:oid:1.2.3.4.123456789</urn1:instanceAccessConsentPolicy>
-                  </urn1:assertion>
-               </urn1:evidence>
-            </urn1:samlAuthzDecisionStatement>
-            <!--Optional:-->
-            <urn1:samlSignature>
-               <!--Optional:-->
-               <urn1:keyInfo>
-                  <!--Optional:-->
-                  <urn1:rsaKeyValueModulus>cid:921853060605</urn1:rsaKeyValueModulus>
-                  <!--Optional:-->
-                  <urn1:rsaKeyValueExponent>cid:507157468547</urn1:rsaKeyValueExponent>
-               </urn1:keyInfo>
-               <!--Optional:-->
-               <urn1:signatureValue>cid:175264679488</urn1:signatureValue>
-            </urn1:samlSignature>
-            <!--Optional:-->
-         </urn:assertion>
-         <!--Optional:-->
-         <urn:nhinTargetCommunities>
-            <urn1:nhinTargetCommunity>
-               <urn1:homeCommunity>
-               <urn1:description>${#Project#LocalHCDescription}</urn1:description>
-               <urn1:homeCommunityId>${#Project#LocalHCID}</urn1:homeCommunityId>
-               <urn1:name>${#Project#LocalHCDescription}</urn1:name>
-            </urn1:homeCommunity>
-            </urn1:nhinTargetCommunity>
-         </urn:nhinTargetCommunities>
-         <urn2:EDXLDistribution>
-            <urn2:distributionID>633990682441061250</urn2:distributionID>
-            <urn2:senderID>actor@2.16.840.1.113883.3.166</urn2:senderID>
-            <urn2:dateTimeSent>2010-08-14T12:18:13.512375-08:00</urn2:dateTimeSent>
-            <urn2:distributionStatus>Actual</urn2:distributionStatus>
-            <urn2:distributionType>Update</urn2:distributionType>
-            <urn2:combinedConfidentiality>Public</urn2:combinedConfidentiality>
-            <!--Optional:-->
-            <urn2:language>?</urn2:language>
-            <!--Zero or more repetitions:-->
-            <urn2:senderRole>
-               <urn2:valueListUrn>?</urn2:valueListUrn>
-               <!--1 or more repetitions:-->
-               <urn2:value>?</urn2:value>
-            </urn2:senderRole>
-            <!--Zero or more repetitions:-->
-            <urn2:recipientRole>
-               <urn2:valueListUrn>?</urn2:valueListUrn>
-               <!--1 or more repetitions:-->
-               <urn2:value>?</urn2:value>
-            </urn2:recipientRole>
-            <!--Zero or more repetitions:-->
-            <urn2:keyword>
-               <urn2:valueListUrn>?</urn2:valueListUrn>
-               <!--1 or more repetitions:-->
-               <urn2:value>?</urn2:value>
-            </urn2:keyword>
-            <!--Zero or more repetitions:-->
-            <urn2:distributionReference>?</urn2:distributionReference>
-            <!--Zero or more repetitions:-->
-            <urn2:explicitAddress>
-               <urn2:explicitAddressScheme>modified_IHEIntendedRecipient</urn2:explicitAddressScheme>
-               <!--1 or more repetitions:-->
-               <urn2:explicitAddressValue>^^^^^^^^^2.16.840.1.113883.3.166|0000000001</urn2:explicitAddressValue>
-            </urn2:explicitAddress>
-            <!--Zero or more repetitions:-->
-            <urn2:targetArea>
-               <!--Zero or more repetitions:-->
-               <urn2:circle>?</urn2:circle>
-               <!--Zero or more repetitions:-->
-               <urn2:polygon>?</urn2:polygon>
-               <!--Zero or more repetitions:-->
-               <urn2:country>?</urn2:country>
-               <!--Zero or more repetitions:-->
-               <urn2:subdivision>?</urn2:subdivision>
-               <!--Zero or more repetitions:-->
-               <urn2:locCodeUN>?</urn2:locCodeUN>
-            </urn2:targetArea>
-            <!--Zero or more repetitions:-->
-            <urn2:contentObject>
-               <!--Optional:-->
-               <urn2:contentDescription>PH Alert Message</urn2:contentDescription>
-               <!--Zero or more repetitions:-->
-               <urn2:contentKeyword>
-                  <urn2:valueListUrn>?</urn2:valueListUrn>
-                  <!--1 or more repetitions:-->
-                  <urn2:value>?</urn2:value>
-               </urn2:contentKeyword>
-               <!--Optional:-->
-               <urn2:incidentID>TEST</urn2:incidentID>
-               <!--Optional:-->
-               <urn2:incidentDescription>This is a test message</urn2:incidentDescription>
-               <!--Zero or more repetitions:-->
-               <urn2:originatorRole>
-                  <urn2:valueListUrn>?</urn2:valueListUrn>
-                  <!--1 or more repetitions:-->
-                  <urn2:value>?</urn2:value>
-               </urn2:originatorRole>
-               <!--Zero or more repetitions:-->
-               <urn2:consumerRole>
-                  <urn2:valueListUrn>?</urn2:valueListUrn>
-                  <!--1 or more repetitions:-->
-                  <urn2:value>?</urn2:value>
-               </urn2:consumerRole>
-               <!--Optional:-->
-               <urn2:confidentiality>Public</urn2:confidentiality>
-               <urn2:xmlContent>
-                  <!--Zero or more repetitions:-->
-                  <urn2:keyXMLContent>
-                     <!--You may enter ANY elements at this point-->
-                  </urn2:keyXMLContent>
-                  <!--Zero or more repetitions:-->
-                  <urn2:embeddedXMLContent>
-                     <Test>with XML data</Test>
-                  </urn2:embeddedXMLContent>
-               </urn2:xmlContent>
-               <urn2:nonXMLContent>
-                  <urn2:mimeType>application/pdf</urn2:mimeType>
-                  <!--Optional:-->
-                  <urn2:size>19</urn2:size>
-                  <!--Optional:-->
-                  <urn2:digest>?</urn2:digest>
-                  <!--Optional:-->
-                  <urn2:uri>?</urn2:uri>
-                  <!--Optional:-->
-                  <urn2:contentData>LDLIHAPIISDALKDF902383K1182K4J49DFNF3KR0482HJ1029F393</urn2:contentData>
-               </urn2:nonXMLContent>
-            </urn2:contentObject>
-         </urn2:EDXLDistribution>
-      </urn:RespondingGateway_SendAlertMessage>
-   </soap:Body>
-</soap:Envelope>]]></con:request>
-            <con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
-            <con:jmsPropertyConfig/>
-            <con:wsaConfig mustUnderstand="NONE" version="200508"/>
-            <con:wsrmConfig version="1.2"/>
-          </con:request>
-        </con:config>
-      </con:testStep><con:testStep name="Delay" type="delay"><con:settings/><con:config><delay>1000</delay></con:config></con:testStep><con:testStep name="verify audit events" type="groovy"><con:settings/><con:config><script>def count = context.withSql('AuditDB') { sql -> 
-	sql.firstRow('select count(*) from ' + context.findProperty('AuditTable')).'count(*)'
-}
-//log.info "Count: " + count;
-assert (count > 0);</script></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
-        <con:property>
-          <con:name>startDate</con:name>
-          <con:value>2012-12-17T03:07:47Z</con:value>
-        </con:property>
-        <con:property>
-          <con:name>endDate</con:name>
-          <con:value>2012-12-17T03:17:47Z</con:value>
-        </con:property>
-        <con:property>
-          <con:name>sigDate</con:name>
-          <con:value>12/17/2012 03:07:47</con:value>
-        </con:property>
-        <con:property>
-          <con:name>expireDate</con:name>
-          <con:value>2013-01-16T00:00:00Z</con:value>
-        </con:property>
-        <con:property>
-          <con:name>UserId</con:name>
-          <con:value>admindistMon Dec 17 03:12:47 UTC 20121</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -2707,7 +2707,418 @@ assert (count > 0);</script></con:config></con:testStep><con:setupScript>nhinc.F
       </con:properties>
       <con:reportParameters/>
     <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);</con:tearDownScript></con:testCase>
-    <con:testCase failOnError="true" failTestCaseOnErrors="true" id="d9e6e4ca-39fd-4d1e-ac8e-f6bb2ef5e63d" keepSession="false" maxResults="0" name="NhincProxyRequest - Policy engine deny" searchProperties="true">
+    <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="NhincProxyRequest sent to multiple targets" searchProperties="true" id="2e54cb90-6d7c-433f-a904-92915e38bd79">
+      <con:settings/>
+      <con:testStep name="Copy uddiConnectionInfo" type="groovy">
+        <con:settings/>
+        <con:config><script>def sourceDir = (new com.eviware.soapui.support.GroovyUtils(context)).projectPath;
+
+nhinc.FileUtils.copyFile(sourceDir, "uddiConnectionInfo_AD_multitarget.xml", context.findProperty("GatewayPropDir"), "uddiConnectionInfo.xml", log);</script></con:config>
+      </con:testStep>
+      <con:testStep name="clear audit table" type="groovy"><con:settings/><con:config><script>context.withSql('AuditDB') { sql -> 
+  sql.execute('delete from ' + context.findProperty('AuditTable'))
+}</script></con:config></con:testStep>
+      
+      <con:testStep name="Set User ID" type="groovy">
+        <con:settings/>
+        <con:config>
+          <script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
+
+def ADUserID = context.findProperty( "ADUserID" );
+
+def nowDate = new Date();
+context.testCase.setPropertyValue('UserId',"${ADUserID}${nowDate}1");</script>
+        </con:config>
+      </con:testStep><con:testStep name="AdminDist Request" type="request">
+        <con:settings/>
+        <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+          <con:interface>AdministrativeDistribution_Binding_Soap12</con:interface>
+          <con:operation>SendAlertMessage</con:operation>
+          <con:request name="AdminDist Request">
+            <con:settings>
+              <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
+            </con:settings>
+            <con:encoding>UTF-8</con:encoding>
+            <con:endpoint>${#Project#Endpoint-EntityAdminDist}</con:endpoint>
+            <con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:urn2="urn:oasis:names:tc:emergency:EDXL:DE:1.0">
+   <soap:Header/>
+   <soap:Body projectName="Admin-Distribution" testCase="EntityRequest with a Binary doc">
+      <urn:RespondingGateway_SendAlertMessage>
+         <urn:assertion>
+            <urn1:address>
+               <urn1:addressType>
+                  <urn1:code>AddrCode</urn1:code>
+                  <urn1:codeSystem>AddrCodeSyst</urn1:codeSystem>
+                  <urn1:codeSystemName>AddrCodeSystName</urn1:codeSystemName>
+                  <urn1:codeSystemVersion>1.0</urn1:codeSystemVersion>
+                  <urn1:displayName>AddrCode</urn1:displayName>
+                  <urn1:originalText>AddrCode</urn1:originalText>
+               </urn1:addressType>
+               <urn1:city>AddrCity</urn1:city>
+               <urn1:country>AddrCountry</urn1:country>
+               <urn1:state>AddrState</urn1:state>
+               <urn1:streetAddress>AddrStreet</urn1:streetAddress>
+               <urn1:zipCode>AddrZip</urn1:zipCode>
+            </urn1:address>
+            <urn1:dateOfBirth>06/04/1959 05:21:00</urn1:dateOfBirth>
+            <urn1:explanationNonClaimantSignature>Electronic</urn1:explanationNonClaimantSignature>
+            <urn1:haveSecondWitnessSignature>false</urn1:haveSecondWitnessSignature>
+            <urn1:haveSignature>false</urn1:haveSignature>
+            <urn1:haveWitnessSignature>false</urn1:haveWitnessSignature>
+            <urn1:homeCommunity>
+               <urn1:description>${#Project#LocalHCDescription}</urn1:description>
+               <urn1:homeCommunityId>${#Project#LocalHCID}</urn1:homeCommunityId>
+               <urn1:name>${#Project#LocalHCDescription}</urn1:name>
+            </urn1:homeCommunity>
+            <urn1:personName>
+               <urn1:familyName>Smith</urn1:familyName>
+               <urn1:givenName>Sandy</urn1:givenName>
+               <urn1:nameType>
+                  <urn1:code>nameCode</urn1:code>
+                  <urn1:codeSystem>nameCodeSyst</urn1:codeSystem>
+                  <urn1:codeSystemName>nameCodeSystName</urn1:codeSystemName>
+                  <urn1:codeSystemVersion>1.0</urn1:codeSystemVersion>
+                  <urn1:displayName>nameCode</urn1:displayName>
+                  <urn1:originalText>nameCode</urn1:originalText>
+               </urn1:nameType>
+               <urn1:secondNameOrInitials>S</urn1:secondNameOrInitials>
+               <urn1:fullName>Sandy S. Smith</urn1:fullName>
+            </urn1:personName>
+            <urn1:phoneNumber>
+               <urn1:areaCode>321</urn1:areaCode>
+               <urn1:countryCode>1</urn1:countryCode>
+               <urn1:extension>5436</urn1:extension>
+               <urn1:localNumber>253-6849</urn1:localNumber>
+               <urn1:phoneNumberType>
+                  <urn1:code>phoneCode</urn1:code>
+                  <urn1:codeSystem>phoneCodeSyst</urn1:codeSystem>
+                  <urn1:codeSystemName>phoneCodeSystName</urn1:codeSystemName>
+                  <urn1:codeSystemVersion>1.0</urn1:codeSystemVersion>
+                  <urn1:displayName>phoneCode</urn1:displayName>
+                  <urn1:originalText>phoneCode</urn1:originalText>
+               </urn1:phoneNumberType>
+            </urn1:phoneNumber>
+            <urn1:secondWitnessAddress>
+               <urn1:addressType>
+                  <urn1:code>AddrCode</urn1:code>
+                  <urn1:codeSystem>AddrCodeSyst</urn1:codeSystem>
+                  <urn1:codeSystemName>AddrCodeSystName</urn1:codeSystemName>
+                  <urn1:codeSystemVersion>1.0</urn1:codeSystemVersion>
+                  <urn1:displayName>AddrCode</urn1:displayName>
+                  <urn1:originalText>AddrCode</urn1:originalText>
+               </urn1:addressType>
+               <urn1:city>Addr2City</urn1:city>
+               <urn1:country>Addr2Country</urn1:country>
+               <urn1:state>Addr2State</urn1:state>
+               <urn1:streetAddress>Addr2Street</urn1:streetAddress>
+               <urn1:zipCode>Addr2Zip</urn1:zipCode>
+            </urn1:secondWitnessAddress>
+            <urn1:secondWitnessName>
+               <urn1:familyName>Smith</urn1:familyName>
+               <urn1:givenName>Sammy</urn1:givenName>
+               <urn1:nameType>
+                  <urn1:code>nameCode</urn1:code>
+                  <urn1:codeSystem>nameCodeSyst</urn1:codeSystem>
+                  <urn1:codeSystemName>nameCodeSystName</urn1:codeSystemName>
+                  <urn1:codeSystemVersion>1.0</urn1:codeSystemVersion>
+                  <urn1:displayName>nameCode</urn1:displayName>
+                  <urn1:originalText>nameCode</urn1:originalText>
+               </urn1:nameType>
+               <urn1:secondNameOrInitials>s</urn1:secondNameOrInitials>
+               <urn1:fullName>Sammy S. Smith</urn1:fullName>
+            </urn1:secondWitnessName>
+            <urn1:secondWitnessPhone>
+               <urn1:areaCode>321</urn1:areaCode>
+               <urn1:countryCode>1</urn1:countryCode>
+               <urn1:extension>5424</urn1:extension>
+               <urn1:localNumber>542-6823</urn1:localNumber>
+               <urn1:phoneNumberType>
+                  <urn1:code>phoneCode</urn1:code>
+                  <urn1:codeSystem>phoneCodeSyst</urn1:codeSystem>
+                  <urn1:codeSystemName>phoneCodeSystName</urn1:codeSystemName>
+                  <urn1:codeSystemVersion>1.0</urn1:codeSystemVersion>
+                  <urn1:displayName>phoneCode</urn1:displayName>
+                  <urn1:originalText>phoneCode</urn1:originalText>
+               </urn1:phoneNumberType>
+            </urn1:secondWitnessPhone>
+            <urn1:SSN>253987546</urn1:SSN>
+            <!--1 or more repetitions:-->
+            <urn1:uniquePatientId>500000000^^^&amp;1.1&amp;ISO</urn1:uniquePatientId>
+            <urn1:witnessAddress>
+               <urn1:addressType>
+                  <urn1:code>addrCode</urn1:code>
+                  <urn1:codeSystem>addrCodeSyst</urn1:codeSystem>
+                  <urn1:codeSystemName>addrCodeSystName</urn1:codeSystemName>
+                  <urn1:codeSystemVersion>1.0</urn1:codeSystemVersion>
+                  <urn1:displayName>addrCode</urn1:displayName>
+                  <urn1:originalText>addrCode</urn1:originalText>
+               </urn1:addressType>
+               <urn1:city>Burnell</urn1:city>
+               <urn1:country>USA</urn1:country>
+               <urn1:state>FL</urn1:state>
+               <urn1:streetAddress>825 North</urn1:streetAddress>
+               <urn1:zipCode>32184</urn1:zipCode>
+            </urn1:witnessAddress>
+            <urn1:witnessName>
+               <urn1:familyName>Smith</urn1:familyName>
+               <urn1:givenName>Scott</urn1:givenName>
+               <urn1:nameType>
+                  <urn1:code>nameCode</urn1:code>
+                  <urn1:codeSystem>nameCodeSyst</urn1:codeSystem>
+                  <urn1:codeSystemName>nameCodeSystName</urn1:codeSystemName>
+                  <urn1:codeSystemVersion>1.0</urn1:codeSystemVersion>
+                  <urn1:displayName>nameCode</urn1:displayName>
+                  <urn1:originalText>nameCode</urn1:originalText>
+               </urn1:nameType>
+               <urn1:secondNameOrInitials>S.</urn1:secondNameOrInitials>
+               <urn1:fullName>Scott S. Smith</urn1:fullName>
+            </urn1:witnessName>
+            <urn1:witnessPhone>
+               <urn1:areaCode>321</urn1:areaCode>
+               <urn1:countryCode>1</urn1:countryCode>
+               <urn1:extension>8432</urn1:extension>
+               <urn1:localNumber>985-2239</urn1:localNumber>
+               <urn1:phoneNumberType>
+                  <urn1:code>phoneCode</urn1:code>
+                  <urn1:codeSystem>phoneCodeSyst</urn1:codeSystem>
+                  <urn1:codeSystemName>phoneCodeSystName</urn1:codeSystemName>
+                  <urn1:codeSystemVersion>1.0</urn1:codeSystemVersion>
+                  <urn1:displayName>phoneCode</urn1:displayName>
+                  <urn1:originalText>phoneCode</urn1:originalText>
+               </urn1:phoneNumberType>
+            </urn1:witnessPhone>
+            <urn1:userInfo>
+               <urn1:personName>
+                  <urn1:familyName>Skagerberg</urn1:familyName>
+                  <urn1:givenName>Karl</urn1:givenName>
+                  <urn1:nameType>
+                     <urn1:code>nameCode</urn1:code>
+                     <urn1:codeSystem>nameCodeSyst</urn1:codeSystem>
+                     <urn1:codeSystemName>nameCodeSystName</urn1:codeSystemName>
+                     <urn1:codeSystemVersion>1.0</urn1:codeSystemVersion>
+                     <urn1:displayName>nameCode</urn1:displayName>
+                     <urn1:originalText>nameCode</urn1:originalText>
+                  </urn1:nameType>
+                  <urn1:secondNameOrInitials>S</urn1:secondNameOrInitials>
+                  <urn1:fullName>Kasrl S. Skagerberg</urn1:fullName>
+               </urn1:personName>
+               <urn1:userName>${#TestCase#UserId}</urn1:userName>
+               <urn1:org>
+                  <urn1:description>${#Project#LocalHCDescription}</urn1:description>
+                  <urn1:homeCommunityId>${#Project#LocalHCID}</urn1:homeCommunityId>
+                  <urn1:name>${#Project#LocalHCDescription}</urn1:name>
+               </urn1:org>
+               <urn1:roleCoded>
+                  <urn1:code>80584001</urn1:code>
+                  <urn1:codeSystem>2.16.840.1.113883.6.96</urn1:codeSystem>
+                  <urn1:codeSystemName>SNOMED_CT</urn1:codeSystemName>
+                  <urn1:codeSystemVersion>1.0</urn1:codeSystemVersion>
+                  <urn1:displayName>Psychiatrist</urn1:displayName>
+                  <urn1:originalText>Psychiatrist</urn1:originalText>
+               </urn1:roleCoded>
+            </urn1:userInfo>
+            <urn1:authorized>true</urn1:authorized>
+            <urn1:purposeOfDisclosureCoded>
+               <urn1:code>PSYCHOTHERAPY</urn1:code>
+               <urn1:codeSystem>2.16.840.1.113883.3.18.7.1</urn1:codeSystem>
+               <urn1:codeSystemName>nhin-purpose</urn1:codeSystemName>
+               <urn1:codeSystemVersion>1.0</urn1:codeSystemVersion>
+               <urn1:displayName>Use or disclosure of Psychotherapy Notes</urn1:displayName>
+               <urn1:originalText>Psychotherapy Notes</urn1:originalText>
+            </urn1:purposeOfDisclosureCoded>
+            <!--urn1:claimFormRef>Ref-Clm-123</urn1:claimFormRef-->
+            <!--urn1:claimFormRaw>YWVvbGlhbQ==</urn1:claimFormRaw-->
+            <urn1:samlAuthnStatement>
+               <urn1:authInstant>2009-09-01T13:00:00.000Z</urn1:authInstant>
+               <urn1:sessionIndex>mySessionIndex</urn1:sessionIndex>
+               <urn1:authContextClassRef>myContextClassRef</urn1:authContextClassRef>
+               <urn1:subjectLocalityAddress>mySubjectLocalityAddress</urn1:subjectLocalityAddress>
+               <urn1:subjectLocalityDNSName>mySubjectLocalityDns</urn1:subjectLocalityDNSName>
+            </urn1:samlAuthnStatement>
+            <urn1:samlAuthzDecisionStatement>
+               <urn1:decision>Permit</urn1:decision>
+               <urn1:resource>myAuthzDecisionStatementResource</urn1:resource>
+               <urn1:action>myAuthzDecisionStatementAction</urn1:action>
+               <urn1:evidence>
+                  <urn1:assertion>
+                     <urn1:id>AuthzDecisionStatementEvidenceAssertionId</urn1:id>
+                     <urn1:issueInstant>2009-09-02T14:00:00.000Z</urn1:issueInstant>
+                     <urn1:version>2.0</urn1:version>
+                     <urn1:issuer>CN=Mr Saml User,OU=SU,O=Mr SAML Org,L=Chantilly,ST=VA,C=US</urn1:issuer>
+                     <urn1:issuerFormat>urn:oasis:names:tc:SAML:1.1:nameid-format:X509SubjectName</urn1:issuerFormat>
+                     <urn1:conditions>
+                        <urn1:notBefore>2001-01-01T01:00:00.000Z</urn1:notBefore>
+                        <urn1:notOnOrAfter>2009-05-06T14:00:00.000Z</urn1:notOnOrAfter>
+                     </urn1:conditions>
+                     <urn1:accessConsentPolicy>urn:oid:1.2.3.4</urn1:accessConsentPolicy>
+                     <urn1:instanceAccessConsentPolicy>urn:oid:1.2.3.4.123456789</urn1:instanceAccessConsentPolicy>
+                  </urn1:assertion>
+               </urn1:evidence>
+            </urn1:samlAuthzDecisionStatement>
+            <urn1:samlSignature>
+               <!--Optional:-->
+               <urn1:keyInfo>
+                  <!--Optional:-->
+                  <urn1:rsaKeyValueModulus>cid:921853060605</urn1:rsaKeyValueModulus>
+                  <!--Optional:-->
+                  <urn1:rsaKeyValueExponent>cid:507157468547</urn1:rsaKeyValueExponent>
+               </urn1:keyInfo>
+               <!--Optional:-->
+               <urn1:signatureValue>cid:175264679488</urn1:signatureValue>
+            </urn1:samlSignature>
+            <!--Optional:-->
+            <!--urn1:asyncMessageId>?</urn1:asyncMessageId-->
+         </urn:assertion>
+         <!--Optional:-->
+         <urn:nhinTargetCommunities>
+            <!--1 or more repetitions:-->
+            <urn1:nhinTargetCommunity>
+               <urn1:homeCommunity>
+                  <urn1:description>${#Project#RemoteHCDescription}</urn1:description>
+                  <urn1:homeCommunityId>${#Project#RemoteHCID}</urn1:homeCommunityId>
+                  <urn1:name>${#Project#RemoteHCDescription}</urn1:name>
+               </urn1:homeCommunity>
+               <urn1:list>?</urn1:list>
+               <urn1:region>?</urn1:region>
+            </urn1:nhinTargetCommunity>
+            <urn1:nhinTargetCommunity>
+               <urn1:homeCommunity>
+                  <urn1:description>${#Project#RemoteHCDescription}</urn1:description>
+                  <urn1:homeCommunityId>${#Project#RemoteHCID2}</urn1:homeCommunityId>
+                  <urn1:name>${#Project#RemoteHCDescription}</urn1:name>
+               </urn1:homeCommunity>
+               <urn1:list>?</urn1:list>
+               <urn1:region>?</urn1:region>
+            </urn1:nhinTargetCommunity>
+         </urn:nhinTargetCommunities>
+         <urn2:EDXLDistribution>
+            <urn2:distributionID>633990682441061250</urn2:distributionID>
+            <urn2:senderID>actor@2.16.840.1.113883.3.166</urn2:senderID>
+            <urn2:dateTimeSent>2010-08-14T12:18:13.512375-08:00</urn2:dateTimeSent>
+            <urn2:distributionStatus>Actual</urn2:distributionStatus>
+            <urn2:distributionType>Update</urn2:distributionType>
+            <urn2:combinedConfidentiality>Public</urn2:combinedConfidentiality>
+            <!--Optional:-->
+            <urn2:language>?</urn2:language>
+            <!--Zero or more repetitions:-->
+            <urn2:senderRole>
+               <urn2:valueListUrn>?</urn2:valueListUrn>
+               <!--1 or more repetitions:-->
+               <urn2:value>?</urn2:value>
+            </urn2:senderRole>
+            <!--Zero or more repetitions:-->
+            <urn2:recipientRole>
+               <urn2:valueListUrn>?</urn2:valueListUrn>
+               <!--1 or more repetitions:-->
+               <urn2:value>?</urn2:value>
+            </urn2:recipientRole>
+            <!--Zero or more repetitions:-->
+            <urn2:keyword>
+               <urn2:valueListUrn>?</urn2:valueListUrn>
+               <!--1 or more repetitions:-->
+               <urn2:value>?</urn2:value>
+            </urn2:keyword>
+            <!--Zero or more repetitions:-->
+            <urn2:distributionReference>?</urn2:distributionReference>
+            <!--Zero or more repetitions:-->
+            <urn2:explicitAddress>
+               <urn2:explicitAddressScheme>modified_IHEIntendedRecipient</urn2:explicitAddressScheme>
+               <!--1 or more repetitions:-->
+               <urn2:explicitAddressValue>^^^^^^^^^2.16.840.1.113883.3.166|0000000001</urn2:explicitAddressValue>
+            </urn2:explicitAddress>
+            <!--Zero or more repetitions:-->
+            <urn2:targetArea>
+               <!--Zero or more repetitions:-->
+               <urn2:circle>?</urn2:circle>
+               <!--Zero or more repetitions:-->
+               <urn2:polygon>?</urn2:polygon>
+               <!--Zero or more repetitions:-->
+               <urn2:country>?</urn2:country>
+               <!--Zero or more repetitions:-->
+               <urn2:subdivision>?</urn2:subdivision>
+               <!--Zero or more repetitions:-->
+               <urn2:locCodeUN>?</urn2:locCodeUN>
+            </urn2:targetArea>
+            <!--Zero or more repetitions:-->
+            <urn2:contentObject>
+               <!--Optional:-->
+               <urn2:contentDescription>PH Alert Message</urn2:contentDescription>
+               <!--Zero or more repetitions:-->
+               <urn2:contentKeyword>
+                  <urn2:valueListUrn>?</urn2:valueListUrn>
+                  <!--1 or more repetitions:-->
+                  <urn2:value>?</urn2:value>
+               </urn2:contentKeyword>
+               <!--Optional:-->
+               <urn2:incidentID>TEST</urn2:incidentID>
+               <!--Optional:-->
+               <urn2:incidentDescription>This is a test message</urn2:incidentDescription>
+               <!--Zero or more repetitions:-->
+               <urn2:originatorRole>
+                  <urn2:valueListUrn>?</urn2:valueListUrn>
+                  <!--1 or more repetitions:-->
+                  <urn2:value>?</urn2:value>
+               </urn2:originatorRole>
+               <!--Zero or more repetitions:-->
+               <urn2:consumerRole>
+                  <urn2:valueListUrn>?</urn2:valueListUrn>
+                  <!--1 or more repetitions:-->
+                  <urn2:value>?</urn2:value>
+               </urn2:consumerRole>
+               <!--Optional:-->
+               <urn2:confidentiality>Public</urn2:confidentiality>
+               <!--You have a CHOICE of the next 2 items at this level-->
+		<urn2:nonXMLContent>
+                  <urn2:mimeType>application/pdf</urn2:mimeType>
+                  <!--Optional:-->
+                  <urn2:size>19</urn2:size>
+                  <!--Optional:-->
+                  <urn2:digest>?</urn2:digest>
+                  <!--Optional:-->
+                  <urn2:uri>?</urn2:uri>
+                  <!--Optional:-->
+                  <urn2:contentData>LDLIHAPIISDALKDF902383K1182K4J49DFNF3KR0482HJ1029F393</urn2:contentData>
+               </urn2:nonXMLContent>
+               <!--You may enter ANY elements at this point-->
+            </urn2:contentObject>
+         </urn2:EDXLDistribution>
+      </urn:RespondingGateway_SendAlertMessage>
+   </soap:Body>
+</soap:Envelope>]]></con:request>
+            <con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+            <con:jmsPropertyConfig/>
+            <con:wsaConfig mustUnderstand="NONE" version="200508"/>
+            <con:wsrmConfig version="1.2"/>
+          </con:request>
+        </con:config>
+      </con:testStep><con:testStep name="Delay" type="delay"><con:settings/><con:config><delay>10000</delay></con:config></con:testStep><con:testStep name="verify audit events" type="groovy"><con:settings/><con:config><script>def count = context.withSql('AuditDB') { sql -> 
+	sql.firstRow('select count(*) from ' + context.findProperty('AuditTable')).'count(*)'
+}
+//log.info "Count: " + count;
+assert (count == 7);</script></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
+        <con:property>
+          <con:name>startDate</con:name>
+          <con:value>2013-03-06T00:00:10Z</con:value>
+        </con:property>
+        <con:property>
+          <con:name>endDate</con:name>
+          <con:value>2013-03-06T00:10:10Z</con:value>
+        </con:property>
+        <con:property>
+          <con:name>sigDate</con:name>
+          <con:value>03/06/2013 00:00:10</con:value>
+        </con:property>
+        <con:property>
+          <con:name>expireDate</con:name>
+          <con:value>2013-04-05T00:00:00Z</con:value>
+        </con:property>
+        <con:property>
+          <con:name>UserId</con:name>
+          <con:value>admindistWed Mar 06 00:07:54 UTC 20131</con:value>
+        </con:property>
+      </con:properties>
+      <con:reportParameters/>
+    <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);</con:tearDownScript></con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" id="d9e6e4ca-39fd-4d1e-ac8e-f6bb2ef5e63d" keepSession="false" maxResults="0" name="NhincProxyRequest - Policy engine deny" searchProperties="true">
       <con:settings/>
       <con:testStep name="Set PolicyEngine Mock" type="groovy">
         <con:settings/>

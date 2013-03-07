@@ -97,7 +97,7 @@ public class HL7CustodianTransforms {
         return custodian;
     }
 
-    private static String getDefaultLocalDeviceId() {
+    protected static String getDefaultLocalDeviceId() {
         String defaultLocalId = "";
 
         try {

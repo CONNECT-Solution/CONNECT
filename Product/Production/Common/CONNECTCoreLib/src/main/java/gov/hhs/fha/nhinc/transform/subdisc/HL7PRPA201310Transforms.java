@@ -217,9 +217,7 @@ public class HL7PRPA201310Transforms {
     private static MFMIMT700711UV01QueryAck createMFMIMT700711UV01QueryAck(PRPAMT201307UV02QueryByParameter queryParam) {
         MFMIMT700711UV01QueryAck queryAck = new MFMIMT700711UV01QueryAck();
 
-        if (queryParam != null) {
-            queryAck.setQueryId(queryParam.getQueryId());
-        }
+        queryAck.setQueryId(queryParam.getQueryId());
         queryAck.setQueryResponseCode(HL7DataTransformHelper.CSFactory(CONTROL_QUERY_RESPONSE_CODE));
         return queryAck;
     }

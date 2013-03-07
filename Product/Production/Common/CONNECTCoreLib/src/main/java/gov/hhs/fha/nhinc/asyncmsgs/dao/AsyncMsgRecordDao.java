@@ -87,19 +87,14 @@ public class AsyncMsgRecordDao {
         Session sess = null;
 
         try {
-            SessionFactory fact = HibernateUtil.getSessionFactory();
-            if (fact != null) {
-                sess = fact.openSession();
-                if (sess != null) {
-                    Query query = sess.getNamedQuery("queryByMessageIdAndDirection");
-                    query.setParameter("MessageId", messageId);
-                    query.setParameter("Direction", direction);
-                    asyncMsgRecs = query.list();
-                } else {
-                    LOG.error("Failed to obtain a session from the sessionFactory");
-                }
+            sess = getSession();
+            if (sess != null) {
+                Query query = sess.getNamedQuery("queryByMessageIdAndDirection");
+                query.setParameter("MessageId", messageId);
+                query.setParameter("Direction", direction);
+                asyncMsgRecs = query.list();
             } else {
-                LOG.error("Session factory was null");
+                LOG.error("Failed to obtain a session from the sessionFactory");
             }
 
             if (LOG.isDebugEnabled()) {
@@ -134,19 +129,14 @@ public class AsyncMsgRecordDao {
         Session sess = null;
 
         try {
-            SessionFactory fact = HibernateUtil.getSessionFactory();
-            if (fact != null) {
-                sess = fact.openSession();
-                if (sess != null) {
-                    Query query = sess.getNamedQuery("queryByMessageIdAndServiceName");
-                    query.setParameter("MessageId", messageId);
-                    query.setParameter("ServiceName", serviceName);
-                    asyncMsgRecs = query.list();
-                } else {
-                    LOG.error("Failed to obtain a session from the sessionFactory");
-                }
+            sess = getSession();
+            if (sess != null) {
+                Query query = sess.getNamedQuery("queryByMessageIdAndServiceName");
+                query.setParameter("MessageId", messageId);
+                query.setParameter("ServiceName", serviceName);
+                asyncMsgRecs = query.list();
             } else {
-                LOG.error("Session factory was null");
+                LOG.error("Failed to obtain a session from the sessionFactory");
             }
 
             if (LOG.isDebugEnabled()) {
@@ -179,18 +169,13 @@ public class AsyncMsgRecordDao {
         Session sess = null;
 
         try {
-            SessionFactory fact = HibernateUtil.getSessionFactory();
-            if (fact != null) {
-                sess = fact.openSession();
-                if (sess != null) {
-                    Query query = sess.getNamedQuery("queryByTime");
-                    query.setParameter("CreationTime", timestamp);
-                    asyncMsgRecs = query.list();
-                } else {
-                    LOG.error("Failed to obtain a session from the sessionFactory");
-                }
+            sess = getSession();
+            if (sess != null) {
+                Query query = sess.getNamedQuery("queryByTime");
+                query.setParameter("CreationTime", timestamp);
+                asyncMsgRecs = query.list();
             } else {
-                LOG.error("Session factory was null");
+                LOG.error("Failed to obtain a session from the sessionFactory");
             }
 
             if (LOG.isDebugEnabled()) {
@@ -224,18 +209,13 @@ public class AsyncMsgRecordDao {
         Session sess = null;
 
         try {
-            SessionFactory fact = HibernateUtil.getSessionFactory();
-            if (fact != null) {
-                sess = fact.openSession();
-                if (sess != null) {
-                    Query query = sess.getNamedQuery("queryForExpired");
-                    query.setParameter("CreationTime", timestamp);
-                    asyncMsgRecs = query.list();
-                } else {
-                    LOG.error("Failed to obtain a session from the sessionFactory");
-                }
+            sess = getSession();
+            if (sess != null) {
+                Query query = sess.getNamedQuery("queryForExpired");
+                query.setParameter("CreationTime", timestamp);
+                asyncMsgRecs = query.list();
             } else {
-                LOG.error("Session factory was null");
+                LOG.error("Failed to obtain a session from the sessionFactory");
             }
 
             if (LOG.isDebugEnabled()) {
@@ -267,17 +247,12 @@ public class AsyncMsgRecordDao {
         Session sess = null;
 
         try {
-            SessionFactory fact = HibernateUtil.getSessionFactory();
-            if (fact != null) {
-                sess = fact.openSession();
-                if (sess != null) {
-                    Query query = sess.getNamedQuery("queryForDeferredQueueProcessing");
-                    asyncMsgRecs = query.list();
-                } else {
-                    LOG.error("Failed to obtain a session from the sessionFactory");
-                }
+            sess = getSession();
+            if (sess != null) {
+                Query query = sess.getNamedQuery("queryForDeferredQueueProcessing");
+                asyncMsgRecs = query.list();
             } else {
-                LOG.error("Session factory was null");
+                LOG.error("Failed to obtain a session from the sessionFactory");
             }
 
             if (LOG.isDebugEnabled()) {
@@ -310,17 +285,12 @@ public class AsyncMsgRecordDao {
         Session sess = null;
 
         try {
-            SessionFactory fact = HibernateUtil.getSessionFactory();
-            if (fact != null) {
-                sess = fact.openSession();
-                if (sess != null) {
-                    Query query = sess.getNamedQuery("queryForDeferredQueueSelected");
-                    asyncMsgRecs = query.list();
-                } else {
-                    LOG.error("Failed to obtain a session from the sessionFactory");
-                }
+            sess = getSession();
+            if (sess != null) {
+                Query query = sess.getNamedQuery("queryForDeferredQueueSelected");
+                asyncMsgRecs = query.list();
             } else {
-                LOG.error("Session factory was null");
+                LOG.error("Failed to obtain a session from the sessionFactory");
             }
 
             if (LOG.isDebugEnabled()) {
@@ -354,66 +324,61 @@ public class AsyncMsgRecordDao {
         Session sess = null;
 
         try {
-            SessionFactory fact = HibernateUtil.getSessionFactory();
-            if (fact != null) {
-                sess = fact.openSession();
-                if (sess != null) {
-                    // Instantiate Criteria class and populate based on non-null queryCriteria attributes
-                    boolean criteriaPopulated = false;
-                    Criteria criteria = sess.createCriteria(AsyncMsgRecord.class);
+            sess = getSession();
+            if (sess != null) {
+                // Instantiate Criteria class and populate based on non-null queryCriteria attributes
+                boolean criteriaPopulated = false;
+                Criteria criteria = sess.createCriteria(AsyncMsgRecord.class);
 
-                    if (queryCriteria.getCreationBeginTime() != null) {
-                        Date date = XMLDateUtil.gregorian2date(queryCriteria.getCreationBeginTime());
-                        criteria.add(Restrictions.ge("CreationTime", date));
-                        criteriaPopulated = true;
-                    }
-                    if (queryCriteria.getCreationEndTime() != null) {
-                        Date date = XMLDateUtil.gregorian2date(queryCriteria.getCreationEndTime());
-                        criteria.add(Restrictions.le("CreationTime", date));
-                        criteriaPopulated = true;
-                    }
-                    if (queryCriteria.getResponseBeginTime() != null) {
-                        Date date = XMLDateUtil.gregorian2date(queryCriteria.getResponseBeginTime());
-                        criteria.add(Restrictions.ge("ResponseTime", date));
-                        criteriaPopulated = true;
-                    }
-                    if (queryCriteria.getResponseEndTime() != null) {
-                        Date date = XMLDateUtil.gregorian2date(queryCriteria.getResponseEndTime());
-                        criteria.add(Restrictions.le("ResponseTime", date));
-                        criteriaPopulated = true;
-                    }
-                    if (queryCriteria.getServiceName() != null && queryCriteria.getServiceName().size() > 0) {
-                        criteria.add(Restrictions.in("ServiceName", queryCriteria.getServiceName()));
-                        criteriaPopulated = true;
-                    }
-                    if (queryCriteria.getDirection() != null) {
-                        criteria.add(Restrictions.eq("Direction", queryCriteria.getDirection()));
-                        criteriaPopulated = true;
-                    }
-                    if (queryCriteria.getCommunityId() != null && queryCriteria.getCommunityId().size() > 0) {
-                        criteria.add(Restrictions.in("CommunityId", queryCriteria.getCommunityId()));
-                        criteriaPopulated = true;
-                    }
-                    if (queryCriteria.getStatus() != null && queryCriteria.getStatus().size() > 0) {
-                        criteria.add(Restrictions.in("Status", queryCriteria.getStatus()));
-                        criteriaPopulated = true;
-                    }
-                    if (queryCriteria.getResponseType() != null) {
-                        criteria.add(Restrictions.eq("ResponseType", queryCriteria.getResponseType()));
-                        criteriaPopulated = true;
-                    }
+                if (queryCriteria.getCreationBeginTime() != null) {
+                    Date date = XMLDateUtil.gregorian2date(queryCriteria.getCreationBeginTime());
+                    criteria.add(Restrictions.ge("CreationTime", date));
+                    criteriaPopulated = true;
+                }
+                if (queryCriteria.getCreationEndTime() != null) {
+                    Date date = XMLDateUtil.gregorian2date(queryCriteria.getCreationEndTime());
+                    criteria.add(Restrictions.le("CreationTime", date));
+                    criteriaPopulated = true;
+                }
+                if (queryCriteria.getResponseBeginTime() != null) {
+                    Date date = XMLDateUtil.gregorian2date(queryCriteria.getResponseBeginTime());
+                    criteria.add(Restrictions.ge("ResponseTime", date));
+                    criteriaPopulated = true;
+                }
+                if (queryCriteria.getResponseEndTime() != null) {
+                    Date date = XMLDateUtil.gregorian2date(queryCriteria.getResponseEndTime());
+                    criteria.add(Restrictions.le("ResponseTime", date));
+                    criteriaPopulated = true;
+                }
+                if (queryCriteria.getServiceName() != null && queryCriteria.getServiceName().size() > 0) {
+                    criteria.add(Restrictions.in("ServiceName", queryCriteria.getServiceName()));
+                    criteriaPopulated = true;
+                }
+                if (queryCriteria.getDirection() != null) {
+                    criteria.add(Restrictions.eq("Direction", queryCriteria.getDirection()));
+                    criteriaPopulated = true;
+                }
+                if (queryCriteria.getCommunityId() != null && queryCriteria.getCommunityId().size() > 0) {
+                    criteria.add(Restrictions.in("CommunityId", queryCriteria.getCommunityId()));
+                    criteriaPopulated = true;
+                }
+                if (queryCriteria.getStatus() != null && queryCriteria.getStatus().size() > 0) {
+                    criteria.add(Restrictions.in("Status", queryCriteria.getStatus()));
+                    criteriaPopulated = true;
+                }
+                if (queryCriteria.getResponseType() != null) {
+                    criteria.add(Restrictions.eq("ResponseType", queryCriteria.getResponseType()));
+                    criteriaPopulated = true;
+                }
 
-                    // If at least one queryCriteria value was populated, get the results
-                    if (criteriaPopulated) {
-                        asyncMsgRecs = criteria.list();
-                    } else {
-                        LOG.error("No query criteria defined.  At least one criteria value must be defined.");
-                    }
+                // If at least one queryCriteria value was populated, get the results
+                if (criteriaPopulated) {
+                    asyncMsgRecs = criteria.list();
                 } else {
-                    LOG.error("Failed to obtain a session from the sessionFactory");
+                    LOG.error("No query criteria defined.  At least one criteria value must be defined.");
                 }
             } else {
-                LOG.error("Session factory was null");
+                LOG.error("Failed to obtain a session from the sessionFactory");
             }
 
             if (LOG.isDebugEnabled()) {
@@ -451,8 +416,7 @@ public class AsyncMsgRecordDao {
             AsyncMsgRecord dbRecord = null;
 
             try {
-                SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
-                session = sessionFactory.openSession();
+                session = getSession();
                 tx = session.beginTransaction();
 
                 LOG.info("Inserting Record...");
@@ -493,17 +457,12 @@ public class AsyncMsgRecordDao {
         Session sess = null;
         Transaction trans = null;
         try {
-            SessionFactory fact = HibernateUtil.getSessionFactory();
-            if (fact != null) {
-                sess = fact.openSession();
-                if (sess != null) {
-                    trans = sess.beginTransaction();
-                    sess.saveOrUpdate(asyncMsgRecord);
-                } else {
-                    LOG.error("Failed to obtain a session from the sessionFactory");
-                }
+            sess = getSession();
+            if (sess != null) {
+                trans = sess.beginTransaction();
+                sess.saveOrUpdate(asyncMsgRecord);
             } else {
-                LOG.error("Session factory was null");
+                LOG.error("Failed to obtain a session from the sessionFactory");
             }
         } finally {
             if (trans != null) {
@@ -536,28 +495,23 @@ public class AsyncMsgRecordDao {
         Session sess = null;
         Transaction trans = null;
         try {
-            SessionFactory fact = HibernateUtil.getSessionFactory();
-            if (fact != null) {
-                sess = fact.openSession();
-                if (sess != null) {
-                    trans = sess.beginTransaction();
+            sess = getSession();
+            if (sess != null) {
+                trans = sess.beginTransaction();
 
-                    int size = asyncMsgRecs.size();
-                    AsyncMsgRecord dbRecord = null;
+                int size = asyncMsgRecs.size();
+                AsyncMsgRecord dbRecord = null;
 
-                    LOG.info("Saving Records...");
+                LOG.info("Saving Records...");
 
-                    for (int i = 0; i < size; i++) {
-                        dbRecord = asyncMsgRecs.get(i);
-                        sess.saveOrUpdate(dbRecord);
-                    }
-
-                    LOG.info("AsyncMsgRecord List Saved successfully...");
-                } else {
-                    LOG.error("Failed to obtain a session from the sessionFactory");
+                for (int i = 0; i < size; i++) {
+                    dbRecord = asyncMsgRecs.get(i);
+                    sess.saveOrUpdate(dbRecord);
                 }
+
+                LOG.info("AsyncMsgRecord List Saved successfully...");
             } else {
-                LOG.error("Session factory was null");
+                LOG.error("Failed to obtain a session from the sessionFactory");
             }
         } finally {
             if (trans != null) {
@@ -590,17 +544,12 @@ public class AsyncMsgRecordDao {
         Session sess = null;
         Transaction trans = null;
         try {
-            SessionFactory fact = HibernateUtil.getSessionFactory();
-            if (fact != null) {
-                sess = fact.openSession();
-                if (sess != null) {
-                    trans = sess.beginTransaction();
-                    sess.delete(asyncMsgRecord);
-                } else {
-                    LOG.error("Failed to obtain a session from the sessionFactory");
-                }
+            sess = getSession();
+            if (sess != null) {
+                trans = sess.beginTransaction();
+                sess.delete(asyncMsgRecord);
             } else {
-                LOG.error("Session factory was null");
+                LOG.error("Failed to obtain a session from the sessionFactory");
             }
         } finally {
             if (trans != null) {
@@ -686,5 +635,16 @@ public class AsyncMsgRecordDao {
         Date expirationValue = currentTime.getTime();
 
         return expirationValue;
+    }
+
+    protected Session getSession() {
+        Session session = null;
+        SessionFactory fact = HibernateUtil.getSessionFactory();
+        if (fact != null) {
+            session = fact.openSession();
+        } else {
+            LOG.error("Session is null");
+        }
+        return session;
     }
 }
