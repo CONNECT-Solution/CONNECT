@@ -26,20 +26,107 @@
  */
 package gov.hhs.fha.nhinc.gateway.executorservice;
 
-import static org.junit.Assert.assertTrue;
+import java.util.HashMap;
+import java.util.Map;
+import static org.junit.Assert.*;
+import org.junit.Test;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-import org.junit.Test;
-
 public class ExecutorServiceHelperTest {
+
+    public ExecutorServiceHelperTest() {
+        ExecutorServiceHelper.getInstance();
+    }
 
     @Test
     public void formattedExceptionIncludesMessage() {
         Exception e = mock(Exception.class);
         when(e.getMessage()).thenReturn("message");
-
         String result = ExecutorServiceHelper.getFormattedExceptionInfo(e, null, null);
         assertTrue(result.contains("message"));
+    }
+
+    /**
+     * Test of getInstance method, of class ExecutorServiceHelper.
+     */
+    @Test
+    public void testGetInstance() {
+        System.out.println("getInstance");
+        ExecutorServiceHelper result = ExecutorServiceHelper.getInstance();
+        assertNotNull(result);
+    }
+
+    /**
+     * Test of getExecutorPoolSize method, of class ExecutorServiceHelper.
+     */
+    @Test
+    public void testGetExecutorPoolSize() {
+        System.out.println("getExecutorPoolSize");
+        //default Pool Size
+        int expResult = 100;
+        int result = ExecutorServiceHelper.getExecutorPoolSize();
+        assertEquals(expResult, result);
+    }
+
+    /**
+     * Test of getLargeJobExecutorPoolSize method, of class ExecutorServiceHelper.
+     */
+    @Test
+    public void testGetLargeJobExecutorPoolSize() {
+        System.out.println("getLargeJobExecutorPoolSize");
+        //default value
+        int expResult = 200;
+        int result = ExecutorServiceHelper.getLargeJobExecutorPoolSize();
+        assertEquals(expResult, result);
+    }
+
+    /**
+     * Test of getLargeJobPercentage method, of class ExecutorServiceHelper.
+     */
+    @Test
+    public void testGetLargeJobPercentage() {
+        System.out.println("getLargeJobPercentage");
+        double expResult = .75;
+        double result = ExecutorServiceHelper.getLargeJobPercentage();
+        assertEquals(expResult, result, 0.0);
+    }
+
+    /**
+     * Test of getTimeoutValues method, of class ExecutorServiceHelper.
+     */
+    @Test
+    public void testGetTimeoutValues() {
+        System.out.println("getTimeoutValues");
+        //set the default values
+        Map expResult = new HashMap();
+        Map result = ExecutorServiceHelper.getTimeoutValues();
+        assertEquals(expResult, result);
+    }
+
+    /**
+     * Test of checkExecutorTaskIsLarge method, of class ExecutorServiceHelper.
+     */
+    @Test
+    public void testCheckExecutorTaskIsLarge() {
+        System.out.println("checkExecutorTaskIsLarge");
+        int targetListCount = 100;
+        boolean expResult = true;
+        boolean result = ExecutorServiceHelper.checkExecutorTaskIsLarge(targetListCount);
+        assertEquals(expResult, result);
+        targetListCount = 60;
+        expResult = false;
+        result = ExecutorServiceHelper.checkExecutorTaskIsLarge(targetListCount);
+        assertEquals(expResult, result);
+    }
+
+    /**
+     * Test of outputCompleteException method, of class ExecutorServiceHelper.
+     */
+    @Test
+    public void testOutputCompleteException() {
+        System.out.println("outputCompleteException");
+        Exception ex = new Exception("Test Error", new Throwable("Detailed Error Message"));
+        ExecutorServiceHelper.outputCompleteException(ex);
     }
 }
