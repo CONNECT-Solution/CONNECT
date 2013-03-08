@@ -31,8 +31,17 @@ public class CONNECTSamlAssertionValidator extends SamlAssertionValidator {
 			.getLogger(CONNECTSamlAssertionValidator.class);
 
 	private static final String ALLOW_NO_SUBJECT_ASSERTION_PROP = "allowNoSubjectAssertion";
-	private static final String ALLOW_NO_SUBJECT_ASSERTION_ID = "saml2-core-spec-validator-allow-no-subject-assertion";
-
+	private static final String ALLOW_NO_SUBJECT_ASSERTION_ID = "saml2-core-spec-validator-allow-no-subject-assertion"; 
+	private PropertyAccessor propertyAccessor;
+	
+	public CONNECTSamlAssertionValidator(){
+		propertyAccessor = PropertyAccessor.getInstance();
+	}
+	
+	public CONNECTSamlAssertionValidator(PropertyAccessor propertyAccessor){
+		this.propertyAccessor = propertyAccessor;
+	}
+	
 	/**
 	 * Validate the assertion against schemas/profiles
 	 */
@@ -71,7 +80,7 @@ public class CONNECTSamlAssertionValidator extends SamlAssertionValidator {
 
 	protected ValidatorSuite getSaml2SpecValidator() {
 		try {
-			Boolean allowNoSubjectAssertion = PropertyAccessor.getInstance()
+			Boolean allowNoSubjectAssertion = propertyAccessor
 					.getPropertyBoolean(NhincConstants.GATEWAY_PROPERTY_FILE,
 							ALLOW_NO_SUBJECT_ASSERTION_PROP);
 
@@ -126,7 +135,7 @@ public class CONNECTSamlAssertionValidator extends SamlAssertionValidator {
 	protected Credential verifySignedAssertion(AssertionWrapper assertion,
 			RequestData data) throws WSSecurityException {
 		Credential trustCredential = new Credential();
-
+		
 		SAMLKeyInfo samlKeyInfo = assertion.getSignatureKeyInfo();
 		X509Certificate[] certs = samlKeyInfo.getCerts();
 		PublicKey publicKey = samlKeyInfo.getPublicKey();
