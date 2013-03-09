@@ -26,56 +26,96 @@
  */
 package gov.hhs.fha.nhinc.callback.purposeuse;
 
+import gov.hhs.fha.nhinc.callback.openSAML.CallbackProperties;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import gov.hhs.fha.nhinc.properties.IPropertyAcessor;
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 
 import org.jmock.Expectations;
 import org.junit.Assert;
+import org.junit.Ignore;
 import org.junit.Test;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 public class PurposeUseProxyCommunityImplTest extends PurposeUseProxyTest {
 
-    @Test
-    public void testPurposeForEnabledWhenHcidTrue() throws PropertyAccessException {
-        PurposeUseProxy testPurposeUseProxy = new PurposeUseProxyCommunityImpl(mockPropertyAccessor);
-        String hcid = "1234";
-        setPropertyExpectation(Expectations.returnValue(null), NhincConstants.GATEWAY_PROPERTY_FILE,
-                "purposeForUseEnabled");
-        setPropertyExpectation(Expectations.returnValue("true"), "purposeUse", hcid);
-        setTargetHcidExpectation(Expectations.returnValue(hcid));
-        Assert.assertTrue(testPurposeUseProxy.isPurposeForUseEnabled(mockCallbackProperties));
-    }
+	@Test
+	public void testPurposeForEnabledWhenHcidTrue()
+			throws PropertyAccessException {
+		PurposeUseProxy testPurposeUseProxy = new PurposeUseProxyCommunityImpl(
+				mockPropertyAccessor);
+		String hcid = "1234";
+		setPropertyExpectation(Expectations.returnValue(null),
+				NhincConstants.GATEWAY_PROPERTY_FILE, "purposeForUseEnabled");
+		setPropertyExpectation(Expectations.returnValue("true"), "purposeUse",
+				hcid);
+		setTargetHcidExpectation(Expectations.returnValue(hcid));
+		Assert.assertTrue(testPurposeUseProxy
+				.isPurposeForUseEnabled(mockCallbackProperties));
+	}
 
-    @Test
-    public void testPurposeForDisabledWhenHcidFalse() throws PropertyAccessException {
-        PurposeUseProxy testPurposeUseProxy = new PurposeUseProxyCommunityImpl(mockPropertyAccessor);
-        String hcid = "1234";
-        setPropertyExpectation(Expectations.returnValue("true"), NhincConstants.GATEWAY_PROPERTY_FILE,
-                "purposeForUseEnabled");
-        setPropertyExpectation(Expectations.returnValue("false"), "purposeUse", hcid);
-        setTargetHcidExpectation(Expectations.returnValue(hcid));
-        Assert.assertFalse(testPurposeUseProxy.isPurposeForUseEnabled(mockCallbackProperties));
-    }
-    
-    @Test
-    public void testPurposeForDisabledWhenHcidPointless() throws PropertyAccessException {
-        PurposeUseProxy testPurposeUseProxy = new PurposeUseProxyCommunityImpl(mockPropertyAccessor);
-        String hcid = "1234";
-        setPropertyExpectation(Expectations.returnValue("true"), NhincConstants.GATEWAY_PROPERTY_FILE,
-                "purposeForUseEnabled");
-        setPropertyExpectation(Expectations.returnValue("my cat's name is mittens."), "purposeUse", hcid);
-        setTargetHcidExpectation(Expectations.returnValue(hcid));
-        Assert.assertFalse(testPurposeUseProxy.isPurposeForUseEnabled(mockCallbackProperties));
-    }
-    
-    @Test
-    public void testPurposeForDisabledWhenHcidMissing() throws PropertyAccessException {
-        PurposeUseProxy testPurposeUseProxy = new PurposeUseProxyCommunityImpl(mockPropertyAccessor);
-        String hcid = "1234";
-        setPropertyExpectation(Expectations.returnValue("true"), NhincConstants.GATEWAY_PROPERTY_FILE,
-                "purposeForUseEnabled");
-        setPropertyExpectation(Expectations.returnValue(null), "purposeUse", hcid);
-        setTargetHcidExpectation(Expectations.returnValue(hcid));
-        Assert.assertFalse(testPurposeUseProxy.isPurposeForUseEnabled(mockCallbackProperties));
-    }
+	@Test
+	public void testPurposeForDisabledWhenHcidFalse()
+			throws PropertyAccessException {
+		PurposeUseProxy testPurposeUseProxy = new PurposeUseProxyCommunityImpl(
+				mockPropertyAccessor);
+		String hcid = "1234";
+		setPropertyExpectation(Expectations.returnValue("true"),
+				NhincConstants.GATEWAY_PROPERTY_FILE, "purposeForUseEnabled");
+		setPropertyExpectation(Expectations.returnValue("false"), "purposeUse",
+				hcid);
+		setTargetHcidExpectation(Expectations.returnValue(hcid));
+		Assert.assertFalse(testPurposeUseProxy
+				.isPurposeForUseEnabled(mockCallbackProperties));
+	}
+
+	@Test
+	public void testPurposeForDisabledWhenHcidPointless()
+			throws PropertyAccessException {
+		PurposeUseProxy testPurposeUseProxy = new PurposeUseProxyCommunityImpl(
+				mockPropertyAccessor);
+		String hcid = "1234";
+		setPropertyExpectation(Expectations.returnValue("true"),
+				NhincConstants.GATEWAY_PROPERTY_FILE, "purposeForUseEnabled");
+		setPropertyExpectation(
+				Expectations.returnValue("my cat's name is mittens."),
+				"purposeUse", hcid);
+		setTargetHcidExpectation(Expectations.returnValue(hcid));
+		Assert.assertFalse(testPurposeUseProxy
+				.isPurposeForUseEnabled(mockCallbackProperties));
+	}
+
+	@Test
+	public void testPurposeForDisabledWhenHcidMissing()
+			throws PropertyAccessException {
+		PurposeUseProxy testPurposeUseProxy = new PurposeUseProxyCommunityImpl(
+				mockPropertyAccessor);
+		String hcid = "1234";
+		setPropertyExpectation(Expectations.returnValue("true"),
+				NhincConstants.GATEWAY_PROPERTY_FILE, "purposeForUseEnabled");
+		setPropertyExpectation(Expectations.returnValue(null), "purposeUse",
+				hcid);
+		setTargetHcidExpectation(Expectations.returnValue(hcid));
+		Assert.assertFalse(testPurposeUseProxy
+				.isPurposeForUseEnabled(mockCallbackProperties));
+	}
+
+	@Test
+	public void testPurposeForUseEnabled_Exception()
+			throws PropertyAccessException {
+		String hcid = "1234";
+		IPropertyAcessor propAccessor = mock(IPropertyAcessor.class);
+		PurposeUseProxy testPurposeUseProxy = new PurposeUseProxyCommunityImpl(
+				propAccessor);
+		CallbackProperties callbackProps = mock(CallbackProperties.class);
+
+		when(callbackProps.getTargetHomeCommunityId()).thenReturn(hcid);
+		when(propAccessor.getProperty("purposeUse", hcid)).thenThrow(
+				new PropertyAccessException());
+
+		Assert.assertFalse(testPurposeUseProxy
+				.isPurposeForUseEnabled(callbackProps));
+	}
+
 }
