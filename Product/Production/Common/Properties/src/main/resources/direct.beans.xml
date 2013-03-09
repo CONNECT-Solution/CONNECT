@@ -14,7 +14,7 @@
 
     <!-- Set up the Direct SMTP Agent -->
     <bean id="smtpAgent" class="org.nhindirect.gateway.smtp.SmtpAgentFactory" factory-method="createAgent">
-        <constructor-arg type="java.net.URL" value="file://${nhinc.properties.dir}/smtp.agent.config.xml" />        
+        <constructor-arg type="java.net.URL" value="file:///${nhinc.properties.dir}/smtp.agent.config.xml" />        
     </bean>
 
     <!-- Set up 4 mail clients, for both internal and external, sending and receiving. -->
