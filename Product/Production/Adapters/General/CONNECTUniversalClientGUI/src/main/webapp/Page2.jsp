@@ -23,7 +23,7 @@
          <div class="container">
             <webuijsf:image height="100" id="connectImage"
                url="/resources/connect.GIF" width="312" />
-               
+
             <webuijsf:panelLayout>
                <webuijsf:panelGroup
                   rendered="#{not empty Page2.patientInfo.text}">
@@ -43,6 +43,27 @@
                         id="errorMessage" />
                   </div>
                </webuijsf:panelGroup>
+
+               <webuijsf:panelGroup
+                  rendered="#{not empty Page2.broadcastInfo.text}">
+                  <div class="alert alert-info">
+                     <a class="close" data-dismiss="alert">x</a>
+                     <webuijsf:staticText
+                        binding="#{Page2.broadcastInfo}"
+                        id="broadcastInfo" />
+                  </div>
+               </webuijsf:panelGroup>
+
+               <webuijsf:panelGroup
+                  rendered="#{not empty Page2.broadcastInfo2.text}">
+                  <div class="alert alert-block">
+                     <a class="close" data-dismiss="alert">x</a>
+                     <webuijsf:staticText
+                        binding="#{Page2.broadcastInfo2}"
+                        id="broadcastInfo2" />
+                  </div>
+               </webuijsf:panelGroup>
+
             </webuijsf:panelLayout>
 
             <ul class="nav nav-tabs">
@@ -147,9 +168,10 @@
                         <webuijsf:button
                            actionExpression="#{Page2.broadcastSubjectDiscoveryButton_action}"
                            id="broadcastSubjectDiscoveryButton"
-                           text="Discover Patient" />
+                           text="Discover Patient" styleClass="btn" />
                         <webuijsf:label id="searchPatientDiscovery"
-                           text="Click to send a patient discovery message to systems in your UDDI (and/or uddiConnectionInfo.xml file)." />
+                           text="Click to send a patient discovery message to systems in your UDDI (and/or uddiConnectionInfo.xml file)."
+                           styleClass="help-block" />
                         <webuijsf:table augmentTitle="false"
                            id="subjectDiscoveryCoorelationTable"
                            paginateButton="true"
@@ -190,21 +212,15 @@
                               </webuijsf:tableColumn>
                            </webuijsf:tableRowGroup>
                         </webuijsf:table>
-                        <webuijsf:staticText
-                           binding="#{Page2.broadcastInfo}"
-                           id="broadcastInfo" />
-                        <webuijsf:staticText
-                           binding="#{Page2.broadcastInfo2}"
-                           id="broadcastInfo2" />
                      </webuijsf:panelLayout>
                   </div>
                   <div class="tab-pane" id="documentTab">
                      <webuijsf:panelLayout id="layoutPanel3">
                         <webuijsf:label id="docQueryLabel"
-                           text="Click below to find Documents for Patient" />
+                           text="Click below to find Documents for Patient" styleClass="help-block"/>
                         <webuijsf:button
                            actionExpression="#{Page2.getDocQueryResults}"
-                           id="docQueryButton" text="Document Query" />
+                           id="docQueryButton" text="Document Query" styleClass="btn"/>
                         <webuijsf:table augmentTitle="false"
                            id="docQueryResults"
                            title="Document Search Results"
@@ -248,16 +264,10 @@
                               </webuijsf:tableColumn>
                            </webuijsf:tableRowGroup>
                         </webuijsf:table>
-                        <webuijsf:staticText
-                           binding="#{Page2.errorMessage}"
-                           id="patientInfo" />
                      </webuijsf:panelLayout>
                   </div>
                </div>
-
-
             </webuijsf:form>
-
          </div>
       </webuijsf:body>
       </webuijsf:html>

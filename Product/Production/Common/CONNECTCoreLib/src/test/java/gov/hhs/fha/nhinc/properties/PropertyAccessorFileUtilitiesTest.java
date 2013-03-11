@@ -112,7 +112,6 @@ public class PropertyAccessorFileUtilitiesTest extends AbstractSuppressRootLogge
             }
         };
         assertTrue(fileUtilities.getPropertyFileLocation().endsWith(File.separator));
-        verify(getMockAppender()).doAppend(any((LoggingEvent.class)));
     }
 
     private PropertyAccessorFileUtilities createPropertyAccessorFileUtilities() {

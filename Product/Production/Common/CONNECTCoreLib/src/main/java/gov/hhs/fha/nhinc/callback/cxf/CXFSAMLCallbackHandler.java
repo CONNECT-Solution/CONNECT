@@ -32,8 +32,13 @@ public class CXFSAMLCallbackHandler implements CallbackHandler {
     private static final Logger LOG = Logger.getLogger(CXFSAMLCallbackHandler.class);
 
     public static final String HOK_CONFIRM = "urn:oasis:names:tc:SAML:2.0:cm:holder-of-key";
-
+    private HOKSAMLAssertionBuilder builder = new HOKSAMLAssertionBuilder();
+    
     public CXFSAMLCallbackHandler() {
+    }
+    
+    public CXFSAMLCallbackHandler(HOKSAMLAssertionBuilder builder){
+    	this.builder = builder;
     }
 
     /*
@@ -43,13 +48,13 @@ public class CXFSAMLCallbackHandler implements CallbackHandler {
      */
     @Override
     public void handle(Callback[] callbacks) throws IOException, UnsupportedCallbackException {
-        LOG.debug("CXFSAMLCallbackHandler.handle begin");
+        LOG.trace("CXFSAMLCallbackHandler.handle begin");
         for (Callback callback : callbacks) {
             if (callback instanceof SAMLCallback) {
 
                 try {
 
-                    Message message = PhaseInterceptorChain.getCurrentMessage();
+                    Message message = getCurrentMessage();
 
                     Object obj = message.get("assertion");
 
@@ -67,15 +72,13 @@ public class CXFSAMLCallbackHandler implements CallbackHandler {
                     CallbackProperties properties = new CallbackMapProperties(addMessageProperties(
                             creator.createRequestContext(custAssertion, null, null), message));
 
-                    HOKSAMLAssertionBuilder builder = new HOKSAMLAssertionBuilder();
-
                     oSAMLCallback.setAssertionElement(builder.build(properties));
                 } catch (Exception e) {
                     LOG.error("failed to create saml", e);
                 }
             }
         }
-        LOG.debug("CXFSAMLCallbackHandler.handle end");
+        LOG.trace("CXFSAMLCallbackHandler.handle end");
     }
     
     /**
@@ -96,6 +99,10 @@ public class CXFSAMLCallbackHandler implements CallbackHandler {
     
     private void addPropertyFromMessage(Map<String, Object> propertiesMap, Message message, String key) {
         propertiesMap.put(key, message.get(key));
+    }
+    
+    protected Message getCurrentMessage(){
+    	return PhaseInterceptorChain.getCurrentMessage();
     }
 }
 

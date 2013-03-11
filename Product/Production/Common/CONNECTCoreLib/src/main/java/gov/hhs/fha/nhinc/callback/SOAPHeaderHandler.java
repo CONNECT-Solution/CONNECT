@@ -83,7 +83,7 @@ public class SOAPHeaderHandler implements SOAPHandler<SOAPMessageContext> {
                 LOG.debug("Will not adjust messageID on inbound request");
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            LOG.error(e.getMessage());
         }
 
         return true;
@@ -102,7 +102,7 @@ public class SOAPHeaderHandler implements SOAPHandler<SOAPMessageContext> {
         String messageId = null;
         messageId = (String) messageContext.get(MESSAGE_ID_CONTEXT);
         if (NullChecker.isNullish(messageId)) {
-            messageId = AddressingHeaderCreator.generateMessageId();
+            messageId = generateMessageId();
         } else if (illegalUUID(messageId, "uuid:")) {
             messageId = "urn:" + messageId;
 		} else if (!legalMessageId(messageId)) {
@@ -180,5 +180,9 @@ public class SOAPHeaderHandler implements SOAPHandler<SOAPMessageContext> {
      */
     public void close(MessageContext context) {
         LOG.debug("SoapHeaderHandler.close");
+    }
+    
+    protected String generateMessageId(){
+    	return AddressingHeaderCreator.generateMessageId();
     }
 }
