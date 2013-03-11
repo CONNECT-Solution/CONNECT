@@ -40,6 +40,7 @@ import java.security.UnrecoverableEntryException;
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
 import java.security.interfaces.RSAPublicKey;
+import java.util.HashMap;
 
 import org.apache.log4j.Logger;
 
@@ -51,8 +52,15 @@ public class CertificateManagerImpl implements CertificateManager {
     private static final Logger LOG = Logger.getLogger(CertificateManagerImpl.class);
 
     private KeyStore keyStore = null;
-
     private KeyStore trustStore = null;
+    
+    public static final String TRUST_STORE_TYPE_KEY = "javax.net.ssl.trustStoreType";
+	public static final String TRUST_STORE_PASSWORD_KEY = "javax.net.ssl.trustStorePassword";
+	public static final String TRUST_STORE_KEY = "javax.net.ssl.trustStore";
+	public static final  String KEY_STORE_TYPE_KEY = "javax.net.ssl.keyStoreType";
+    public static final String KEY_STORE_PASSWORD_KEY = "javax.net.ssl.keyStorePassword";
+    public static final String KEY_STORE_KEY = "javax.net.ssl.keyStore";
+    
 
     private CertificateManagerImpl() {
         try {
@@ -64,7 +72,6 @@ public class CertificateManagerImpl implements CertificateManager {
             }
         } catch (Exception e) {
             LOG.error("unable to initialize keystores", e);
-            e.printStackTrace();
         }
     }
 
@@ -72,6 +79,26 @@ public class CertificateManagerImpl implements CertificateManager {
         return new CertificateManagerImpl();
     }
 
+    /**
+     * For Unit testing, to pass in testable system properties to the instance.
+     * @param keyStoreProperties
+     * @param trustStoreProperties
+     * @return
+     */
+    static CertificateManager getInstance(final HashMap<String, String> keyStoreProperties,
+    		final HashMap<String,String> trustStoreProperties) {
+    	return new CertificateManagerImpl(){
+    		@Override
+    		protected HashMap<String, String> getKeyStoreSystemProperties(){
+    			return keyStoreProperties;
+    		}
+    		@Override
+    		protected HashMap<String, String> getTrustStoreSystemProperties(){
+    			return trustStoreProperties;
+    		}
+    	};
+    }
+    
     /**
      * @return the keyStore
      */
@@ -98,9 +125,11 @@ public class CertificateManagerImpl implements CertificateManager {
         LOG.debug("SamlCallbackHandler.initKeyStore() -- Begin");
 
         InputStream is = null;
-        String storeType = System.getProperty("javax.net.ssl.keyStoreType");
-        String password = System.getProperty("javax.net.ssl.keyStorePassword");
-        String storeLoc = System.getProperty("javax.net.ssl.keyStore");
+        
+        HashMap<String, String> keyStoreProperties = getKeyStoreSystemProperties();
+        String storeType = keyStoreProperties.get(KEY_STORE_TYPE_KEY);
+        String password = keyStoreProperties.get(KEY_STORE_PASSWORD_KEY);
+        String storeLoc = keyStoreProperties.get(KEY_STORE_KEY);
 
         if (storeType == null) {
             LOG.error("javax.net.ssl.keyStoreType is not defined");
@@ -152,9 +181,11 @@ public class CertificateManagerImpl implements CertificateManager {
         LOG.debug("SamlCallbackHandler.initTrustStore() -- Begin");
 
         InputStream is = null;
-        String storeType = System.getProperty("javax.net.ssl.trustStoreType");
-        String password = System.getProperty("javax.net.ssl.trustStorePassword");
-        String storeLoc = System.getProperty("javax.net.ssl.trustStore");
+        
+        HashMap<String, String> trustStoreProperties = getTrustStoreSystemProperties();
+        String storeType = trustStoreProperties.get(TRUST_STORE_TYPE_KEY);
+        String password = trustStoreProperties.get(TRUST_STORE_PASSWORD_KEY);
+        String storeLoc = trustStoreProperties.get(TRUST_STORE_KEY);
 
         if (storeType == null) {
             LOG.error("javax.net.ssl.trustStoreType is not defined in domain.xml");
@@ -219,7 +250,7 @@ public class CertificateManagerImpl implements CertificateManager {
 
         String client_key_alias = StoreUtil.getInstance().getPrivateKeyAlias();
         if (client_key_alias != null) {
-            String password = System.getProperty("javax.net.ssl.keyStorePassword");
+            String password = getKeyStoreSystemProperties().get(KEY_STORE_PASSWORD_KEY);
             if (password != null) {
                 try {
                     pkEntry = (KeyStore.PrivateKeyEntry) keyStore.getEntry(client_key_alias,
@@ -263,6 +294,22 @@ public class CertificateManagerImpl implements CertificateManager {
 
         }
         return null;
+    }
+    
+    protected HashMap<String, String> getTrustStoreSystemProperties(){
+    	HashMap<String, String> map = new HashMap<String, String>();
+    	map.put(TRUST_STORE_KEY, System.getProperty(TRUST_STORE_KEY));
+    	map.put(TRUST_STORE_PASSWORD_KEY, System.getProperty(TRUST_STORE_PASSWORD_KEY));
+    	map.put(TRUST_STORE_TYPE_KEY, System.getProperty(TRUST_STORE_TYPE_KEY));
+    	return map;
+    }
+    
+    protected HashMap<String, String> getKeyStoreSystemProperties(){
+    	HashMap<String, String> map = new HashMap<String, String>();
+    	map.put(KEY_STORE_KEY, System.getProperty(KEY_STORE_KEY));
+    	map.put(KEY_STORE_TYPE_KEY, System.getProperty(KEY_STORE_TYPE_KEY));
+    	map.put(KEY_STORE_PASSWORD_KEY, System.getProperty(KEY_STORE_PASSWORD_KEY));
+    	return map;
     }
 
 }
