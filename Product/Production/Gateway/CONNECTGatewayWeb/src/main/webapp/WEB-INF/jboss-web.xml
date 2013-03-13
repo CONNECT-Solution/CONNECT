@@ -1,4 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <jboss-web>
-    <context-root>CONNECTGateway</context-root>
-    <class-loading java2ClassLoadingCompliance='true'/>
+    <resource-ref>
+        <res-ref-name>jdbc/auditrepo_datasource</res-ref-name>
+        <jndi-name>java:/jdbc/auditrepo_datasource</jndi-name>
+        <res-type>javax.sql.DataSource</res-type>
+        <res-auth>Container</res-auth>
+    </resource-ref>
+    <resource-ref>
+        <res-ref-name>jdbc/patientcorrelationdb_datasource</res-ref-name>
+        <jndi-name>java:/jdbc/patientcorrelationdb_datasource</jndi-name>
+        <res-type>javax.sql.DataSource</res-type>
+        <res-auth>Container</res-auth>
+    </resource-ref>
+    <resource-ref>
+        <res-ref-name>jdbc/assigningauthoritydb_datasource</res-ref-name>
+        <jndi-name>java:/jdbc/assigningauthoritydb_datasource</jndi-name>
+        <res-type>javax.sql.DataSource</res-type>
+        <res-auth>Container</res-auth>
+    </resource-ref>
 </jboss-web>

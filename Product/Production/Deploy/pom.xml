@@ -55,6 +55,14 @@
                 <module>weblogic</module>
             </modules>
         </profile>
+        <profile>
+            <id>jboss7</id>
+            <modules>
+                <module>ear</module>
+                <module>glassfish</module>
+                <module>jboss7</module>
+            </modules>
+        </profile>
         
     </profiles>
 </project>

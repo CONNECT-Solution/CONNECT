@@ -1,4 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <jboss-web>
-    <context-root>Adapter/DocumentQuery/A_0</context-root>
-    <class-loading java2ClassLoadingCompliance='true'/>
+   
+    <resource-ref>
+        <res-ref-name>jdbc/docrepository_datasource</res-ref-name>
+        <jndi-name>java:/jdbc/docrepository_datasource</jndi-name>
+        <res-type>javax.sql.DataSource</res-type>
+        <res-auth>Container</res-auth>
+    </resource-ref>
+    
+    
 </jboss-web>
