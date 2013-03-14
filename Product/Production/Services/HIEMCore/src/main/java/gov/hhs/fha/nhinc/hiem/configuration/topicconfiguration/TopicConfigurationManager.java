@@ -159,8 +159,7 @@ public class TopicConfigurationManager {
 
         topicConfigurations = TopicConfigurationsXML.deserialize(sTopicConfigXml);
 
-        if (topicConfigurations != null) {
-        } else {
+        if (topicConfigurations == null) {
             LOG.warn("No topic configuration information was found in: " + m_sInternalXMLFileDir);
         }
     }
