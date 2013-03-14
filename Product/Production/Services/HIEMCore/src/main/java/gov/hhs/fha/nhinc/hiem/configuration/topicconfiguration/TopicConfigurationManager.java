@@ -56,10 +56,9 @@ public class TopicConfigurationManager {
     private static String m_sPropertyFileDir = "";
     private static String m_sInternalXMLFileDir = "";
     private static String m_sFileSeparator = System.getProperty("file.separator");
-    private static final String m_sFailedEnvVarMessage = "Unable to access environment variable: NHINC_PROPERTIES_DIR.";
+    private static final String m_sFailedEnvVarMessage = "Unable to access system variable: nhinc.properties.dir.";
     private static boolean m_bFailedToLoadEnvVar = false;
-    private static boolean m_bInternalLoaded = false;
-
+    
     static {
         String sValue = PropertyAccessor.getInstance().getPropertyFileLocation();
         if ((sValue != null) && (sValue.length() > 0)) {
@@ -161,7 +160,6 @@ public class TopicConfigurationManager {
         topicConfigurations = TopicConfigurationsXML.deserialize(sTopicConfigXml);
 
         if (topicConfigurations != null) {
-            m_bInternalLoaded = true;
         } else {
             LOG.warn("No topic configuration information was found in: " + m_sInternalXMLFileDir);
         }
