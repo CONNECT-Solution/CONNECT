@@ -31,7 +31,6 @@ import gov.hhs.fha.nhinc.direct.edge.proxy.DirectEdgeProxyObjectFactory;
 import gov.hhs.fha.nhinc.direct.event.DirectEventLogger;
 import gov.hhs.fha.nhinc.mail.MailSender;
 
-import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 
 import org.apache.log4j.Logger;
@@ -89,8 +88,8 @@ public abstract class DirectAdapter {
             NHINDAddressCollection collection = DirectAdapterUtils.getNhindRecipients(mimeMessage);
             result = smtpAgent.processMessage(mimeMessage, collection,
                     DirectAdapterUtils.getNhindSender(mimeMessage));
-        } catch (MessagingException e) {
-            String errorString = "Error occurred while extracting addresses.";
+        } catch (Exception e) {
+            String errorString = "Error occurred while processing message.";
             LOG.error(errorString, e);
             throw new DirectException(errorString, e, mimeMessage);
         }
