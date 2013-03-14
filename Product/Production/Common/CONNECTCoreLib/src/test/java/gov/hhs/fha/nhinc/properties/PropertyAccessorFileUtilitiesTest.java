@@ -30,14 +30,11 @@ package gov.hhs.fha.nhinc.properties;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
-import static org.mockito.Matchers.any;
-import static org.mockito.Mockito.verify;
 import gov.hhs.fha.nhinc.util.AbstractSuppressRootLoggerTest;
 
 import java.io.File;
 import java.net.URL;
 
-import org.apache.log4j.spi.LoggingEvent;
 import org.jmock.Mockery;
 import org.jmock.integration.junit4.JUnit4Mockery;
 import org.jmock.lib.legacy.ClassImposteriser;
@@ -91,27 +88,12 @@ public class PropertyAccessorFileUtilitiesTest extends AbstractSuppressRootLogge
     }
 
     @Test
-    public void testNoEnvironmentSet() {
+    public void testNoSystemVariableSet() {
         System.clearProperty("nhinc.properties.dir");
 
-        PropertyAccessorFileUtilities fileUtilities = new PropertyAccessorFileUtilities() {
-            protected String getNhincPropertyDirValueFromSysEnv() {
-                return null;
-            }
-        };
-        assertEquals("", fileUtilities.getPropertyFileLocation());
-    }
-
-    @Test
-    public void testSystemEnvironmentSet() {
-        System.clearProperty("nhinc.properties.dir");
-
-        PropertyAccessorFileUtilities fileUtilities = new PropertyAccessorFileUtilities() {
-            protected String getNhincPropertyDirValueFromSysEnv() {
-                return "/config/";
-            }
-        };
-        assertTrue(fileUtilities.getPropertyFileLocation().endsWith(File.separator));
+        PropertyAccessorFileUtilities fileUtilities = 
+        		new PropertyAccessorFileUtilities();
+        assertNull(fileUtilities.getPropertyFileLocation());
     }
 
     private PropertyAccessorFileUtilities createPropertyAccessorFileUtilities() {
