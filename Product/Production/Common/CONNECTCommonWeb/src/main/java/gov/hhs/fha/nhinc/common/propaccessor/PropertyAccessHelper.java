@@ -259,7 +259,7 @@ public class PropertyAccessHelper {
 
     /**
      * This method will return the location of the property files. Essentially it will return the value in the
-     * NHINC_PROPERTIES_DIR environment variable.
+     * nhinc.properties.dir system variable.
      * 
      * @param input Nothing important - just need this unique for document literal binding.
      * @return The path and location of the property files.
