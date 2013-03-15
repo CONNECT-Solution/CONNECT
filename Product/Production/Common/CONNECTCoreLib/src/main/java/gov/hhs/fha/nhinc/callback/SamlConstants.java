@@ -95,6 +95,7 @@ public class SamlConstants {
     public static final String USER_ROLE_ATTR = "urn:oasis:names:tc:xacml:2.0:subject:role";
     public static final String PURPOSE_ROLE_ATTR = "urn:oasis:names:tc:xspa:1.0:subject:purposeofuse";
     public static final String PATIENT_ID_ATTR = "urn:oasis:names:tc:xacml:2.0:resource:resource-id";
+    public static final String ATTRIBUTE_NAME_NPI = "urn:oasis:names:tc:xspa:2.0:subject:npi";
     public static final String ACCESS_CONSENT_ATTR = "AccessConsentPolicy";
     public static final String INST_ACCESS_CONSENT_ATTR = "InstanceAccessConsentPolicy";
     public static final String CE_CODE_ID = "code";
