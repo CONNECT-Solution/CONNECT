@@ -183,6 +183,7 @@ if(passthruValue != null){
    <soap:Body testSuite="Entity_g1" testCase="Document Submission Deferred Req">
       <urn:RespondingGateway_ProvideAndRegisterDocumentSetRequest>
          <urn:assertion>
+            <urn1:nationalProviderId>1234567890</urn1:nationalProviderId>                  
             <urn1:address>
                <urn1:addressType>
                   <urn1:code>AddrCode</urn1:code>
@@ -728,6 +729,7 @@ if(passthruValue != null){
    <soap:Body>
       <urn:RespondingGateway_ProvideAndRegisterDocumentSetResponseRequest>
          <urn:assertion>
+            <urn1:nationalProviderId>1234567890</urn1:nationalProviderId>         
             <urn1:address>
                <urn1:addressType>
                   <urn1:code>AddrCode</urn1:code>
@@ -1113,6 +1115,7 @@ if(passthruValue != null){
    <soap:Body testSuite="Entity_g1" testCase="Document Submission">
       <urn:RespondingGateway_ProvideAndRegisterDocumentSetRequest>
          <urn:assertion>
+            <urn1:nationalProviderId>1234567890</urn1:nationalProviderId>         
             <urn1:address>
                <urn1:addressType>
                   <urn1:code>AddrCode</urn1:code>
@@ -1700,6 +1703,7 @@ if(passthruValue != null){
             </urn:controlActProcess>
          </urn:PRPA_IN201305UV02>
          <urn:assertion>
+            <urn1:nationalProviderId>1234567890</urn1:nationalProviderId>         
             <urn1:address>
                <urn1:addressType>
                   <urn1:code>W</urn1:code>
@@ -2104,6 +2108,7 @@ if(passthruValue != null){
             </urn:controlActProcess>
          </urn:PRPA_IN201306UV02>
          <urn:assertion>
+            <urn1:nationalProviderId>1234567890</urn1:nationalProviderId>         
             <urn1:address>
                <urn1:addressType>
                   <urn1:code>W</urn1:code>
@@ -2498,6 +2503,7 @@ nhinc.FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", dir, "1.1
             </urn:controlActProcess>
          </urn:PRPA_IN201305UV02>
          <urn:assertion>
+            <urn1:nationalProviderId>1234567890</urn1:nationalProviderId>         
             <urn1:address>
                <urn1:addressType>
                   <urn1:code>W</urn1:code>
@@ -2982,6 +2988,7 @@ if(passthruValue != null){
             </urn2:AdhocQuery>
          </urn1:AdhocQueryRequest>
          <urn:assertion>
+            <urn1:nationalProviderId>1234567890</urn1:nationalProviderId>         
             <urn3:address xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
                <urn3:addressType>
                   <urn3:code>AddrCode</urn3:code>
@@ -3312,6 +3319,7 @@ if(passthruValue != null){
             </urn1:DocumentRequest>
          </urn1:RetrieveDocumentSetRequest>
          <urn:assertion>
+            <urn1:nationalProviderId>1234567890</urn1:nationalProviderId>         
             <urn2:address xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
                <urn2:addressType>
                   <urn2:code>AddrCode</urn2:code>
@@ -3646,6 +3654,7 @@ nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'), "gateway.
             </wsnt:Filter>
          </wsnt:Subscribe>
          <urn:assertion>
+            <urn1:nationalProviderId>1234567890</urn1:nationalProviderId>         
             <nccommon:address xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">
                <nccommon:addressType>
                   <nccommon:code>AddrCode</nccommon:code>
@@ -3964,6 +3973,7 @@ nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'), "gateway.
             </wsnt:Filter>
          </wsnt:Subscribe>
          <urn:assertion>
+            <urn1:nationalProviderId>1234567890</urn1:nationalProviderId>         
             <nccommon:address xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">
                <nccommon:addressType>
                   <nccommon:code>AddrCode</nccommon:code>
@@ -4251,6 +4261,7 @@ testRunner.testCase.testSuite.project.setPropertyValue( "NotifySubscriptionID", 
             </b:NotificationMessage>
          </b:Notify>
          <urn:Assertion>
+            <urn1:nationalProviderId>1234567890</urn1:nationalProviderId>         
             <urn4:address>
                <urn4:addressType>
                   <urn4:code>AddrCode</urn4:code>
@@ -4546,6 +4557,7 @@ nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'), "gateway.
             </wsnt:Filter>
          </wsnt:Subscribe>
          <urn:assertion>
+            <urn1:nationalProviderId>1234567890</urn1:nationalProviderId>         
             <nccommon:address xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">
                <nccommon:addressType>
                   <nccommon:code>AddrCode</nccommon:code>
@@ -4822,6 +4834,7 @@ testRunner.testCase.testSuite.project.setPropertyValue( "UnSubscriptionID", subI
             <nhinconnect:Info xmlns:nhinconnect="urn:nhinconnect">just some data</nhinconnect:Info>
          </wsnt:Unsubscribe>
          <urn:assertion>
+            <urn1:nationalProviderId>1234567890</urn1:nationalProviderId>         
             <nccommon:address xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">
                <nccommon:addressType>
                   <nccommon:code>AddrCode</nccommon:code>
@@ -5127,6 +5140,7 @@ if(passthruValue != null){
    <soap:Body testSuite="Entity_g1" testCase="Admin Distribution">
       <urn:RespondingGateway_SendAlertMessage>
          <urn:assertion>
+            <urn1:nationalProviderId>1234567890</urn1:nationalProviderId>         
             <urn1:address>
                <urn1:addressType>
                   <urn1:code>AddrCode</urn1:code>
@@ -5536,6 +5550,7 @@ if(passthruValue != null){
    <soap:Body testSuite="Entity_g0" testCase="Document Submission Deferred Request">
       <urn:RespondingGateway_ProvideAndRegisterDocumentSetRequest>
          <urn:assertion>
+            <urn1:nationalProviderId>1234567890</urn1:nationalProviderId>         
             <urn1:address>
                <urn1:addressType>
                   <urn1:code>AddrCode</urn1:code>
@@ -6066,6 +6081,7 @@ if(passthruValue != null){
    <soap:Body testSuite="Entity_g0" testCase="Document Submission Deferred Resp">
       <urn:RespondingGateway_ProvideAndRegisterDocumentSetResponseRequest>
          <urn:assertion>
+            <urn1:nationalProviderId>1234567890</urn1:nationalProviderId>         
             <urn1:address>
                <urn1:addressType>
                   <urn1:code>AddrCode</urn1:code>
@@ -6455,6 +6471,7 @@ if(passthruValue != null){
    <soap:Body testSuite="Entity_g0" testCase="Document Submission">
       <urn:RespondingGateway_ProvideAndRegisterDocumentSetRequest>
          <urn:assertion>
+            <urn1:nationalProviderId>1234567890</urn1:nationalProviderId>         
             <urn1:address>
                <urn1:addressType>
                   <urn1:code>AddrCode</urn1:code>
@@ -7047,6 +7064,7 @@ if(passthruValue != null){
             </urn:controlActProcess>
          </urn:PRPA_IN201305UV02>
          <urn:assertion>
+            <urn1:nationalProviderId>1234567890</urn1:nationalProviderId>         
             <urn1:address>
                <urn1:addressType>
                   <urn1:code>W</urn1:code>
@@ -7434,6 +7452,7 @@ if(passthruValue != null){
             </urn:controlActProcess>
          </urn:PRPA_IN201306UV02>
          <urn:assertion>
+            <urn1:nationalProviderId>1234567890</urn1:nationalProviderId>         
             <urn1:address>
                <urn1:addressType>
                   <urn1:code>W</urn1:code>
@@ -7812,6 +7831,7 @@ nhinc.FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", dir, "1.1
             </urn:controlActProcess>
          </urn:PRPA_IN201305UV02>
          <urn:assertion>
+            <urn1:nationalProviderId>1234567890</urn1:nationalProviderId>         
             <urn1:address>
                <urn1:addressType>
                   <urn1:code>W</urn1:code>
@@ -8277,6 +8297,7 @@ if(passthruValue != null){
             </urn2:AdhocQuery>
          </urn1:AdhocQueryRequest>
          <urn:assertion>
+            <urn1:nationalProviderId>1234567890</urn1:nationalProviderId>         
             <urn3:address xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
                <urn3:addressType>
                   <urn3:code>AddrCode</urn3:code>
@@ -8591,6 +8612,7 @@ if(passthruValue != null){
             </urn1:DocumentRequest>
          </urn1:RetrieveDocumentSetRequest>
          <urn:assertion>
+            <urn1:nationalProviderId>1234567890</urn1:nationalProviderId>         
             <urn2:address xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
                <urn2:addressType>
                   <urn2:code>AddrCode</urn2:code>
@@ -8927,6 +8949,7 @@ nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'), "gateway.
             </wsnt:Filter>
          </wsnt:Subscribe>
          <urn:assertion>
+            <urn1:nationalProviderId>1234567890</urn1:nationalProviderId>         
             <nccommon:address xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">
                <nccommon:addressType>
                   <nccommon:code>AddrCode</nccommon:code>
@@ -9245,6 +9268,7 @@ nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'), "gateway.
             </wsnt:Filter>
          </wsnt:Subscribe>
          <urn:assertion>
+            <urn1:nationalProviderId>1234567890</urn1:nationalProviderId>         
             <nccommon:address xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">
                <nccommon:addressType>
                   <nccommon:code>AddrCode</nccommon:code>
@@ -9532,6 +9556,7 @@ context.testCase.testSuite.project.setPropertyValue( "NotifySubscriptionID", par
             </b:NotificationMessage>
          </b:Notify>
          <urn:Assertion>
+            <urn1:nationalProviderId>1234567890</urn1:nationalProviderId>         
             <urn4:address>
                <urn4:addressType>
                   <urn4:code>AddrCode</urn4:code>
@@ -9827,6 +9852,7 @@ nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'), "gateway.
             </wsnt:Filter>
          </wsnt:Subscribe>
          <urn:assertion>
+            <urn1:nationalProviderId>1234567890</urn1:nationalProviderId>         
             <nccommon:address xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">
                <nccommon:addressType>
                   <nccommon:code>AddrCode</nccommon:code>
@@ -10103,6 +10129,7 @@ context.testCase.testSuite.project.setPropertyValue( "UnSubscriptionID", subID )
             <nhinconnect:Info xmlns:nhinconnect="urn:nhinconnect">just some data</nhinconnect:Info>
          </wsnt:Unsubscribe>
          <urn:assertion>
+            <urn1:nationalProviderId>1234567890</urn1:nationalProviderId>         
             <nccommon:address xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">
                <nccommon:addressType>
                   <nccommon:code>AddrCode</nccommon:code>
@@ -10408,6 +10435,7 @@ if(passthruValue != null){
    <soap:Body testSuite="Entity_g0" testCase="Admin Distribution">
       <urn:RespondingGateway_SendAlertMessage>
          <urn:assertion>
+            <urn1:nationalProviderId>1234567890</urn1:nationalProviderId>         
             <urn1:address>
                <urn1:addressType>
                   <urn1:code>AddrCode</urn1:code>
