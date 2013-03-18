@@ -878,7 +878,7 @@
         <profile>
             <id>Direct</id>
             <activation>
-                <activeByDefault>true</activeByDefault>
+                <activeByDefault>false</activeByDefault>
             </activation>
             <properties>
                 <direct.excluded>false</direct.excluded>
