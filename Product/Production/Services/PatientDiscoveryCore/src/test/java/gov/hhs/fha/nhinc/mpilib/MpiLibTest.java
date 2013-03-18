@@ -26,6 +26,8 @@
  */
 package gov.hhs.fha.nhinc.mpilib;
 
+import static org.junit.Assert.assertEquals;
+
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -62,11 +64,11 @@ public class MpiLibTest {
     public void getZeroPatients() {
         System.out.println("getZeroPatients");
         MiniMpi mpi = MiniMpi.getInstance("testMPI.xml");
-        mpi.reset();
-
+        
         int expResult = 0;
         Patients patientlist = mpi.getPatients();
         int result = patientlist.size();
+        assertEquals(result, expResult);
     }
 
     /*
