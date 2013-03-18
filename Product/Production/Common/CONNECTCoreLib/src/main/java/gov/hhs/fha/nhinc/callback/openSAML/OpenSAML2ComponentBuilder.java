@@ -453,6 +453,10 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
         return createAttribute(null, SamlConstants.PATIENT_ID_ATTR, null, Arrays.asList(patientId));
     }
 
+    public Attribute createNPIAttribute(String npi) {
+        return createAttribute(null, SamlConstants.ATTRIBUTE_NAME_NPI, null, Arrays.asList(npi));
+    }
+
     public List<AttributeStatement> createHomeCommunitAttributeStatement(String communityId) {
         List<AttributeStatement> statements = new ArrayList<AttributeStatement>();
         Attribute attribute = createHomeCommunityAttribute(communityId);
