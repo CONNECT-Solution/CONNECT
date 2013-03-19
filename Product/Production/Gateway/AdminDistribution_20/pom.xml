@@ -3,7 +3,7 @@
     <parent>
         <groupId>org.connectopensource</groupId>
         <artifactId>Gateway</artifactId>
-        <version>4.0.1-RC1</version>
+        <version>4.0.1-RC2</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
     <artifactId>AdminDistribution_20</artifactId>
