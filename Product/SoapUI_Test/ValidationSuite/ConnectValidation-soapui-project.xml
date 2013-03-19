@@ -2988,7 +2988,7 @@ if(passthruValue != null){
             </urn2:AdhocQuery>
          </urn1:AdhocQueryRequest>
          <urn:assertion>
-            <urn1:nationalProviderId>1234567890</urn1:nationalProviderId>         
+            <urn3:nationalProviderId>1234567890</urn3:nationalProviderId>         
             <urn3:address xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
                <urn3:addressType>
                   <urn3:code>AddrCode</urn3:code>
@@ -3319,7 +3319,7 @@ if(passthruValue != null){
             </urn1:DocumentRequest>
          </urn1:RetrieveDocumentSetRequest>
          <urn:assertion>
-            <urn1:nationalProviderId>1234567890</urn1:nationalProviderId>         
+            <urn2:nationalProviderId>1234567890</urn2:nationalProviderId>         
             <urn2:address xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
                <urn2:addressType>
                   <urn2:code>AddrCode</urn2:code>
@@ -4261,7 +4261,7 @@ testRunner.testCase.testSuite.project.setPropertyValue( "NotifySubscriptionID", 
             </b:NotificationMessage>
          </b:Notify>
          <urn:Assertion>
-            <urn1:nationalProviderId>1234567890</urn1:nationalProviderId>         
+            <urn4:nationalProviderId>1234567890</urn4:nationalProviderId>         
             <urn4:address>
                <urn4:addressType>
                   <urn4:code>AddrCode</urn4:code>
@@ -4834,7 +4834,7 @@ testRunner.testCase.testSuite.project.setPropertyValue( "UnSubscriptionID", subI
             <nhinconnect:Info xmlns:nhinconnect="urn:nhinconnect">just some data</nhinconnect:Info>
          </wsnt:Unsubscribe>
          <urn:assertion>
-            <urn1:nationalProviderId>1234567890</urn1:nationalProviderId>         
+            <urn2:nationalProviderId>1234567890</urn2:nationalProviderId>         
             <nccommon:address xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">
                <nccommon:addressType>
                   <nccommon:code>AddrCode</nccommon:code>
@@ -8297,7 +8297,7 @@ if(passthruValue != null){
             </urn2:AdhocQuery>
          </urn1:AdhocQueryRequest>
          <urn:assertion>
-            <urn1:nationalProviderId>1234567890</urn1:nationalProviderId>         
+            <urn3:nationalProviderId>1234567890</urn3:nationalProviderId>         
             <urn3:address xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
                <urn3:addressType>
                   <urn3:code>AddrCode</urn3:code>
@@ -8612,7 +8612,7 @@ if(passthruValue != null){
             </urn1:DocumentRequest>
          </urn1:RetrieveDocumentSetRequest>
          <urn:assertion>
-            <urn1:nationalProviderId>1234567890</urn1:nationalProviderId>         
+            <urn2:nationalProviderId>1234567890</urn2:nationalProviderId>         
             <urn2:address xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
                <urn2:addressType>
                   <urn2:code>AddrCode</urn2:code>
@@ -9556,7 +9556,7 @@ context.testCase.testSuite.project.setPropertyValue( "NotifySubscriptionID", par
             </b:NotificationMessage>
          </b:Notify>
          <urn:Assertion>
-            <urn1:nationalProviderId>1234567890</urn1:nationalProviderId>         
+            <urn4:nationalProviderId>1234567890</urn4:nationalProviderId>         
             <urn4:address>
                <urn4:addressType>
                   <urn4:code>AddrCode</urn4:code>
@@ -10129,7 +10129,7 @@ context.testCase.testSuite.project.setPropertyValue( "UnSubscriptionID", subID )
             <nhinconnect:Info xmlns:nhinconnect="urn:nhinconnect">just some data</nhinconnect:Info>
          </wsnt:Unsubscribe>
          <urn:assertion>
-            <urn1:nationalProviderId>1234567890</urn1:nationalProviderId>         
+            <urn2:nationalProviderId>1234567890</urn2:nationalProviderId>         
             <nccommon:address xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon">
                <nccommon:addressType>
                   <nccommon:code>AddrCode</nccommon:code>
