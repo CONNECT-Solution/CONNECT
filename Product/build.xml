@@ -64,6 +64,7 @@
 
         <zip zipfile="${dist.artifact.dir}/${dist.zip.filename}">
             <zipfileset dir="${maven_root}/" includes="CONNECT*/${maven_version}/CONNECT*${maven_version}.ear" />
+        	<zipfileset file="${user.home}/.m2/repository/mysql/mysql-connector-java/5.1.10/mysql-connector-java-5.1.10.jar" />
             <zipfileset prefix="Properties" src="${maven_root}/Properties/${maven_version}/Properties-${maven_version}.jar" excludes="**/META-INF/**/*" />
             <zipfileset prefix="DBScripts" src="${maven_root}/DBScripts/${maven_version}/DBScripts-${maven_version}.jar" excludes="**/META-INF/**/*" />
             <zipfileset prefix="ValidationSuite" dir="SoapUI_Test/ValidationSuite">
