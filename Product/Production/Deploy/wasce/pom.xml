@@ -5,7 +5,7 @@
     <parent>
         <groupId>org.connectopensource</groupId>
         <artifactId>Deploy</artifactId>
-        <version>4.0.1-RC1</version>
+        <version>4.0.1-RC2</version>
     </parent>
     <artifactId>CONNECT-WASCE</artifactId>
     <packaging>ear</packaging>
