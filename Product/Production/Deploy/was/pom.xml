@@ -10,6 +10,12 @@
     <packaging>ear</packaging>
     <name>CONNECT IBM WebSphere Enterprise EAR</name>
     <dependencies>
+        <dependency>
+            <groupId>org.connectopensource</groupId>
+            <artifactId>CONNECT</artifactId>
+            <version>${project.parent.version}</version>
+            <type>pom</type>
+        </dependency>
       <dependency>
         <groupId>org.apache.servicemix.bundles</groupId>
         <artifactId>org.apache.servicemix.bundles.saaj-impl</artifactId>
