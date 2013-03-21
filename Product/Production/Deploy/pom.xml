@@ -20,6 +20,7 @@
         <module>gui-dependencies</module>
         <module>hiem-dependencies</module>
         <module>pd-dependencies</module>
+        <module>ear</module>
 
         <module>ear/glassfish</module>
     </modules>
