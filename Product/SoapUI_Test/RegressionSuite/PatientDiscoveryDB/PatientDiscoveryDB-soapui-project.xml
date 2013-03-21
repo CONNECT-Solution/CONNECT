@@ -9,7 +9,7 @@
 		</con:operation>
 	</con:interface><con:testSuite name="PD_DB"><con:description>Tests the patientdb functionality. Patient information can be looked up by the adapter in either 
 mpi.xml or in the database. The option is controlled by the bean mpichecker in the file
-AdapterMpiConfig.xml.</con:description><con:settings/><con:runType>SEQUENTIAL</con:runType><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Patient Discovery" searchProperties="true">
+AdapterMpiConfig.xml.</con:description><con:settings/><con:runType>SEQUENTIAL</con:runType><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Patient Discovery" searchProperties="true" id="309c17cb-e8a9-4af4-a212-f006f9ccfa76">
 	<con:settings/>
 	<con:testStep name="clear correlations table" type="groovy">
 		<con:settings/>
@@ -315,9 +315,7 @@ AdapterMpiConfig.xml.</con:description><con:settings/><con:runType>SEQUENTIAL</c
 </con:testStep>
 <con:testStep name="count correlations" type="groovy">
 	<con:settings/>
-	<con:config><script>log.info "Assert ${pdCorrelations} number of correlations"
-
-context.withSql('PatientCorrelationDB') { sql -> 
+	<con:config><script>context.withSql('PatientCorrelationDB') { sql -> 
 		assert 2 == sql.firstRow('select count(*) from ' + context.findProperty('PatientCorrelationTable'))[0]
 		}</script></con:config>
 </con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
@@ -326,19 +324,19 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2013-02-27T01:08:04Z</con:value>
+		<con:value>2013-03-19T18:03:14Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2013-02-27T01:18:04Z</con:value>
+		<con:value>2013-03-19T18:13:14Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>02/27/2013 01:08:04</con:value>
+		<con:value>03/19/2013 18:03:14</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2013-03-29T00:00:00Z</con:value>
+		<con:value>2013-04-18T00:00:00Z</con:value>
 	</con:property>
 </con:properties>
 <con:reportParameters/>

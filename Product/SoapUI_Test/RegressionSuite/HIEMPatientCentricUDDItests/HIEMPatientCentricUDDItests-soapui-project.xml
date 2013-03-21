@@ -402,23 +402,23 @@ FileUtils.updateProperty(context.findProperty("GatewayPropDir"),"gateway.propert
 			<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2012-12-16T17:50:23Z</con:value>
+					<con:value>2013-03-19T18:25:50Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2012-12-16T18:00:23Z</con:value>
+					<con:value>2013-03-19T18:35:50Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>12/16/2012 17:50:23</con:value>
+					<con:value>03/19/2013 18:25:50</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2013-01-15T00:00:00Z</con:value>
+					<con:value>2013-04-18T00:00:00Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>date</con:name>
-					<con:value>01/15/2013 00:00:00</con:value>
+					<con:value>04/18/2013 00:00:00</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
@@ -771,23 +771,23 @@ nhinc.FileUtils.updateProperty(context.findProperty("GatewayPropDir"),"gateway.p
 			<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2012-11-28T20:23:39Z</con:value>
+					<con:value>2013-03-19T18:25:50Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2012-11-28T20:33:39Z</con:value>
+					<con:value>2013-03-19T18:35:50Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>11/28/2012 20:23:39</con:value>
+					<con:value>03/19/2013 18:25:50</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2012-12-28T00:00:00Z</con:value>
+					<con:value>2013-04-18T00:00:00Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>date</con:name>
-					<con:value>12/28/2012 00:00:00</con:value>
+					<con:value>04/18/2013 00:00:00</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
@@ -1172,23 +1172,23 @@ nhinc.FileUtils.updateProperty(context.findProperty("GatewayPropDir"),"gateway.p
 			<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2012-11-28T20:23:40Z</con:value>
+					<con:value>2013-03-19T18:25:51Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2012-11-28T20:33:40Z</con:value>
+					<con:value>2013-03-19T18:35:51Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>11/28/2012 20:23:40</con:value>
+					<con:value>03/19/2013 18:25:51</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2012-12-28T00:00:00Z</con:value>
+					<con:value>2013-04-18T00:00:00Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>date</con:name>
-					<con:value>12/28/2012 00:00:00</con:value>
+					<con:value>04/18/2013 00:00:00</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
@@ -1542,23 +1542,23 @@ nhinc.FileUtils.updateProperty(context.findProperty("GatewayPropDir"),"gateway.p
 			<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2012-11-28T20:23:40Z</con:value>
+					<con:value>2013-03-19T18:25:51Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2012-11-28T20:33:40Z</con:value>
+					<con:value>2013-03-19T18:35:51Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>11/28/2012 20:23:40</con:value>
+					<con:value>03/19/2013 18:25:51</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2012-12-28T00:00:00Z</con:value>
+					<con:value>2013-04-18T00:00:00Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>date</con:name>
-					<con:value>12/28/2012 00:00:00</con:value>
+					<con:value>04/18/2013 00:00:00</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
@@ -1961,23 +1961,23 @@ nhinc.FileUtils.updateProperty(context.findProperty("GatewayPropDir"),"gateway.p
 			<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2012-11-28T20:23:44Z</con:value>
+					<con:value>2013-03-19T18:25:51Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2012-11-28T20:33:44Z</con:value>
+					<con:value>2013-03-19T18:35:51Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>11/28/2012 20:23:44</con:value>
+					<con:value>03/19/2013 18:25:51</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2012-12-28T00:00:00Z</con:value>
+					<con:value>2013-04-18T00:00:00Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>date</con:name>
-					<con:value>12/28/2012 00:00:00</con:value>
+					<con:value>04/18/2013 00:00:00</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
@@ -2348,23 +2348,23 @@ nhinc.FileUtils.updateProperty(context.findProperty("GatewayPropDir"),"gateway.p
 			<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2012-11-28T20:23:47Z</con:value>
+					<con:value>2013-03-19T18:25:51Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2012-11-28T20:33:47Z</con:value>
+					<con:value>2013-03-19T18:35:51Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>11/28/2012 20:23:47</con:value>
+					<con:value>03/19/2013 18:25:51</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2012-12-28T00:00:00Z</con:value>
+					<con:value>2013-04-18T00:00:00Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>date</con:name>
-					<con:value>12/28/2012 00:00:00</con:value>
+					<con:value>04/18/2013 00:00:00</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
@@ -2770,23 +2770,23 @@ sql.executeUpdate(insertSql, [2, localAA, localPatientID, uddiVA3, remotePatient
 			<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2012-11-28T20:23:50Z</con:value>
+					<con:value>2013-03-19T18:25:52Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2012-11-28T20:33:50Z</con:value>
+					<con:value>2013-03-19T18:35:52Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>11/28/2012 20:23:50</con:value>
+					<con:value>03/19/2013 18:25:52</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2012-12-28T00:00:00Z</con:value>
+					<con:value>2013-04-18T00:00:00Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>date</con:name>
-					<con:value>12/28/2012 00:00:00</con:value>
+					<con:value>04/18/2013 00:00:00</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
@@ -3150,23 +3150,23 @@ sql.executeUpdate(insertSql, [1, localAA, localPatientID, uddiVA1, remotePatient
 			<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2012-11-28T20:23:53Z</con:value>
+					<con:value>2013-03-19T18:25:52Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2012-11-28T20:33:53Z</con:value>
+					<con:value>2013-03-19T18:35:52Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>11/28/2012 20:23:53</con:value>
+					<con:value>03/19/2013 18:25:52</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2012-12-28T00:00:00Z</con:value>
+					<con:value>2013-04-18T00:00:00Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>date</con:name>
-					<con:value>12/28/2012 00:00:00</con:value>
+					<con:value>04/18/2013 00:00:00</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
@@ -3511,23 +3511,23 @@ nhinc.FileUtils.updateProperty(context.findProperty("GatewayPropDir"),"gateway.p
 			<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2012-11-28T20:23:55Z</con:value>
+					<con:value>2013-03-19T18:25:52Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2012-11-28T20:33:55Z</con:value>
+					<con:value>2013-03-19T18:35:52Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>11/28/2012 20:23:55</con:value>
+					<con:value>03/19/2013 18:25:52</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2012-12-28T00:00:00Z</con:value>
+					<con:value>2013-04-18T00:00:00Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>date</con:name>
-					<con:value>12/28/2012 00:00:00</con:value>
+					<con:value>04/18/2013 00:00:00</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
@@ -3897,23 +3897,23 @@ nhinc.FileUtils.updateProperty(context.findProperty("GatewayPropDir"),"gateway.p
 			<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2012-11-28T20:23:56Z</con:value>
+					<con:value>2013-03-19T18:25:52Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2012-11-28T20:33:56Z</con:value>
+					<con:value>2013-03-19T18:35:52Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>11/28/2012 20:23:56</con:value>
+					<con:value>03/19/2013 18:25:52</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2012-12-28T00:00:00Z</con:value>
+					<con:value>2013-04-18T00:00:00Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>date</con:name>
-					<con:value>12/28/2012 00:00:00</con:value>
+					<con:value>04/18/2013 00:00:00</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
@@ -4269,23 +4269,23 @@ nhinc.FileUtils.updateProperty(context.findProperty("GatewayPropDir"),"gateway.p
 			<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2012-11-28T20:24:00Z</con:value>
+					<con:value>2013-03-19T18:25:53Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2012-11-28T20:34:00Z</con:value>
+					<con:value>2013-03-19T18:35:53Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>11/28/2012 20:24:00</con:value>
+					<con:value>03/19/2013 18:25:53</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2012-12-28T00:00:00Z</con:value>
+					<con:value>2013-04-18T00:00:00Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>date</con:name>
-					<con:value>12/28/2012 00:00:00</con:value>
+					<con:value>04/18/2013 00:00:00</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
@@ -4657,23 +4657,23 @@ nhinc.FileUtils.updateProperty(context.findProperty("GatewayPropDir"),"gateway.p
 			<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2012-11-28T20:24:01Z</con:value>
+					<con:value>2013-03-19T18:25:53Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2012-11-28T20:34:01Z</con:value>
+					<con:value>2013-03-19T18:35:53Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>11/28/2012 20:24:01</con:value>
+					<con:value>03/19/2013 18:25:53</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2012-12-28T00:00:00Z</con:value>
+					<con:value>2013-04-18T00:00:00Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>date</con:name>
-					<con:value>12/28/2012 00:00:00</con:value>
+					<con:value>04/18/2013 00:00:00</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
@@ -5096,23 +5096,23 @@ FileUtils.InitializeNHINCProperties(context, log);
 			<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2012-11-28T20:24:03Z</con:value>
+					<con:value>2013-03-19T18:25:53Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2012-11-28T20:34:03Z</con:value>
+					<con:value>2013-03-19T18:35:53Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>11/28/2012 20:24:03</con:value>
+					<con:value>03/19/2013 18:25:53</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2012-12-28T00:00:00Z</con:value>
+					<con:value>2013-04-18T00:00:00Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>date</con:name>
-					<con:value>12/28/2012 00:00:00</con:value>
+					<con:value>04/18/2013 00:00:00</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
@@ -5471,23 +5471,23 @@ FileUtils.InitializeNHINCProperties(context, log);
 			<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2012-11-28T20:24:04Z</con:value>
+					<con:value>2013-03-19T18:25:53Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2012-11-28T20:34:04Z</con:value>
+					<con:value>2013-03-19T18:35:53Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>11/28/2012 20:24:04</con:value>
+					<con:value>03/19/2013 18:25:53</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2012-12-28T00:00:00Z</con:value>
+					<con:value>2013-04-18T00:00:00Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>date</con:name>
-					<con:value>12/28/2012 00:00:00</con:value>
+					<con:value>04/18/2013 00:00:00</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
@@ -5857,23 +5857,23 @@ nhinc.FileUtils.updateProperty(context.findProperty("GatewayPropDir"),"gateway.p
 			<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2012-11-28T20:24:06Z</con:value>
+					<con:value>2013-03-19T18:25:54Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2012-11-28T20:34:06Z</con:value>
+					<con:value>2013-03-19T18:35:54Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>11/28/2012 20:24:06</con:value>
+					<con:value>03/19/2013 18:25:54</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2012-12-28T00:00:00Z</con:value>
+					<con:value>2013-04-18T00:00:00Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>date</con:name>
-					<con:value>12/28/2012 00:00:00</con:value>
+					<con:value>04/18/2013 00:00:00</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
@@ -6289,23 +6289,23 @@ context.withSql('PatientCorrelationDB') { sql ->
 			<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2012-11-28T20:24:08Z</con:value>
+					<con:value>2013-03-19T18:25:54Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2012-11-28T20:34:08Z</con:value>
+					<con:value>2013-03-19T18:35:54Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>11/28/2012 20:24:08</con:value>
+					<con:value>03/19/2013 18:25:54</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2012-12-28T00:00:00Z</con:value>
+					<con:value>2013-04-18T00:00:00Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>date</con:name>
-					<con:value>12/28/2012 00:00:00</con:value>
+					<con:value>04/18/2013 00:00:00</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
@@ -6708,23 +6708,23 @@ nhinc.FileUtils.updateProperty(context.findProperty("GatewayPropDir"),"gateway.p
 			<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2012-11-28T20:24:11Z</con:value>
+					<con:value>2013-03-19T18:25:54Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2012-11-28T20:34:11Z</con:value>
+					<con:value>2013-03-19T18:35:54Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>11/28/2012 20:24:11</con:value>
+					<con:value>03/19/2013 18:25:54</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2012-12-28T00:00:00Z</con:value>
+					<con:value>2013-04-18T00:00:00Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>date</con:name>
-					<con:value>12/28/2012 00:00:00</con:value>
+					<con:value>04/18/2013 00:00:00</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
@@ -7162,23 +7162,23 @@ context.withSql('PatientCorrelationDB') { sql ->
 			<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2012-11-28T20:24:13Z</con:value>
+					<con:value>2013-03-19T18:25:54Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2012-11-28T20:34:13Z</con:value>
+					<con:value>2013-03-19T18:35:54Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>11/28/2012 20:24:13</con:value>
+					<con:value>03/19/2013 18:25:54</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2012-12-28T00:00:00Z</con:value>
+					<con:value>2013-04-18T00:00:00Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>date</con:name>
-					<con:value>12/28/2012 00:00:00</con:value>
+					<con:value>04/18/2013 00:00:00</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>

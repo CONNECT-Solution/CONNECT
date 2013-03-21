@@ -490,19 +490,19 @@ declare namespace ns18='urn:gov:hhs:fha:nhinc:common:nhinccommonadapter';
 			<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2012-11-28T20:31:50Z</con:value>
+					<con:value>2013-03-19T18:22:52Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2012-11-28T20:41:50Z</con:value>
+					<con:value>2013-03-19T18:32:52Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>11/28/2012 20:31:50</con:value>
+					<con:value>03/19/2013 18:22:52</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2012-12-28T00:00:00Z</con:value>
+					<con:value>2013-04-18T00:00:00Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>FullPatientID</con:name>
@@ -840,19 +840,19 @@ declare namespace ns18='urn:gov:hhs:fha:nhinc:common:nhinccommonadapter';
 				</con:property>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2012-11-28T20:32:34Z</con:value>
+					<con:value>2013-03-19T18:20:47Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2012-11-28T20:42:34Z</con:value>
+					<con:value>2013-03-19T18:30:47Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>11/28/2012 20:32:34</con:value>
+					<con:value>03/19/2013 18:20:47</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2012-12-28T00:00:00Z</con:value>
+					<con:value>2013-04-18T00:00:00Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>CorrectedLocalHCID</con:name>

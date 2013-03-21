@@ -45,7 +45,6 @@
 		<module>HIEMPatientCentricUDDItests</module>
 		<module>HIEMTestsforUDDI</module>
 		<module>NHINCPatientDiscoveryMAA</module>
-		<module>NhincPolicyEngineTest</module>
 		<module>NHINCReceivingXDRAsyncRequestTests</module>
 		<module>NHINCReceivingXDRAsyncResponseTests</module>
 		<module>PatientCorrelation</module>

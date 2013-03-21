@@ -289,9 +289,9 @@ exists( //ns3:PRPA_IN201306UV02/ns3:controlActProcess)</path><content>true</cont
 
 //ns1:PRPA_IN201306UV02[1]/ns1:interactionId[1]/@extension</path><content>PRPA_IN201306UV02</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion><con:assertion type="XPath Match" name="check for error event"><con:configuration><path>declare namespace ns1='urn:hl7-org:v3';
 
-//ns1:detectedIssueEvent/ns1:code/@code</path><content>AUTHORIZATION</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion><con:assertion type="XPath Match" name="check for error text"><con:configuration><path>declare namespace ns1='urn:hl7-org:v3';
+//ns1:detectedIssueEvent/ns1:code/@code</path><content>ActAdministrativeDetectedIssueCode</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion><con:assertion type="XPath Match" name="check for error text"><con:configuration><path>declare namespace ns1='urn:hl7-org:v3';
 
-//ns1:detectedIssueEvent/ns1:code/@displayName</path><content>The user is not authorized.</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+//ns1:detectedIssueManagement/ns1:text/text()</path><content>Policy Check Failed for homeId=2.2</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
 	<con:jmsPropertyConfig/>
 	<con:wsaConfig mustUnderstand="NONE" version="200508"/>
 	<con:wsrmConfig version="1.2"/>
