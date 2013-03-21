@@ -3,7 +3,7 @@
     <parent>
         <groupId>org.connectopensource</groupId>
         <artifactId>Services</artifactId>
-        <version>4.0.1-RC2</version>
+        <version>4.0.1-RC3</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
     <artifactId>DocumentQueryCore</artifactId>
