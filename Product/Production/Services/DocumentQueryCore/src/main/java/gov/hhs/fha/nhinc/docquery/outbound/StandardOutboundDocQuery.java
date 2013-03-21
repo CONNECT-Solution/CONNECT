@@ -30,6 +30,7 @@ import gov.hhs.fha.nhinc.aspect.OutboundProcessingEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
 import gov.hhs.fha.nhinc.docquery.DocQueryAuditLog;
+import gov.hhs.fha.nhinc.docquery.DocQueryPolicyChecker;
 import gov.hhs.fha.nhinc.docquery.MessageGeneratorUtils;
 import gov.hhs.fha.nhinc.docquery.aspect.AdhocQueryRequestDescriptionBuilder;
 import gov.hhs.fha.nhinc.docquery.aspect.AdhocQueryResponseDescriptionBuilder;
@@ -43,6 +44,7 @@ import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.orchestration.OutboundOrchestratable;
 import gov.hhs.fha.nhinc.util.HomeCommunityMap;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
@@ -56,38 +58,36 @@ public class StandardOutboundDocQuery implements OutboundDocQuery {
     private AggregationStrategy strategy;
     private AggregationService fanoutService;
     private DocQueryAuditLog auditLog = null;
+    private DocQueryPolicyChecker policyChecker;
 
     /**
      * Add default constructor that is used by test cases Note that implementations should always use constructor that
      * takes the executor services as input.
      */
     public StandardOutboundDocQuery() {
-        this(new AggregationStrategy(), new AggregationService());
+        this(new AggregationStrategy(), new AggregationService(), new DocQueryPolicyChecker());
     }
 
     /**
      * @param strategy
      */
-    StandardOutboundDocQuery(AggregationStrategy strategy, AggregationService fanoutService) {
+    StandardOutboundDocQuery(AggregationStrategy strategy, AggregationService fanoutService,
+            DocQueryPolicyChecker policyChecker) {
         super();
         this.strategy = strategy;
         this.fanoutService = fanoutService;
+        this.policyChecker = policyChecker;
     }
 
     /**
      * 
-     * @param adhocQueryRequest
-     *            The AdhocQueryRequest message received.
-     * @param assertion
-     *            Assertion received.
-     * @param targets
-     *            Target to send request.
+     * @param adhocQueryRequest The AdhocQueryRequest message received.
+     * @param assertion Assertion received.
+     * @param targets Target to send request.
      * @return AdhocQueryResponse from Entity Interface.
      */
     @Override
-    @OutboundProcessingEvent(beforeBuilder = AdhocQueryRequestDescriptionBuilder.class,
-            afterReturningBuilder = AdhocQueryResponseDescriptionBuilder.class, serviceType = "Document Query",
-            version = "")
+    @OutboundProcessingEvent(beforeBuilder = AdhocQueryRequestDescriptionBuilder.class, afterReturningBuilder = AdhocQueryResponseDescriptionBuilder.class, serviceType = "Document Query", version = "")
     public AdhocQueryResponse respondingGatewayCrossGatewayQuery(AdhocQueryRequest adhocQueryRequest,
             AssertionType assertion, NhinTargetCommunitiesType targets) {
         LOG.trace("EntityDocQueryOrchImpl.respondingGatewayCrossGatewayQuery...");
@@ -111,17 +111,36 @@ public class StandardOutboundDocQuery implements OutboundDocQuery {
 
             aggregate.setRequest(request);
 
-            aggregate.setAggregateRequests(aggregateRequests);
+            // Policy check
+            List<OutboundOrchestratable> permittedPerPolicy = new ArrayList<OutboundOrchestratable>();
+            for (OutboundOrchestratable o : aggregateRequests) {
+                if (o instanceof OutboundDocQueryOrchestratable) {
+                    if (policyCheck(((OutboundDocQueryOrchestratable) o).getRequest(), o.getAssertion())) {
+                        permittedPerPolicy.add(o);
+                    }
+                }
+            }
 
-            strategy.execute(aggregate);
+            if (!permittedPerPolicy.isEmpty()) {
+                aggregate.setAggregateRequests(permittedPerPolicy);
 
-            response = request.getResponse();
+                strategy.execute(aggregate);
+
+                response = request.getResponse();
+            } else {
+                response = new AdhocQueryResponse();
+                response.setStatus(NhincConstants.NHINC_ADHOC_QUERY_SUCCESS_RESPONSE);
+            }
         }
 
         auditResponseToAdapter(response, assertion, sendingHCID);
 
         return response;
 
+    }
+
+    private boolean policyCheck(AdhocQueryRequest message, AssertionType assertion) {
+        return policyChecker.checkOutgoingPolicy(message, assertion);
     }
 
     protected DocQueryAuditLog getAuditLogger() {
@@ -134,10 +153,8 @@ public class StandardOutboundDocQuery implements OutboundDocQuery {
     /**
      * This method returns Response with RegistryErrorList if there is any failure.
      * 
-     * @param errorCode
-     *            The ErrorCode that needs to be set to the AdhocQueryResponse (Errorcodes are defined in spec).
-     * @param codeContext
-     *            The codecontext defines the reason of failure of AdhocQueryRequest.
+     * @param errorCode The ErrorCode that needs to be set to the AdhocQueryResponse (Errorcodes are defined in spec).
+     * @param codeContext The codecontext defines the reason of failure of AdhocQueryRequest.
      * @return AdhocQueryResponse.
      */
     private AdhocQueryResponse createErrorResponse(String errorCode, String codeContext) {
