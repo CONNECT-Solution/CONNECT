@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <con:soapui-project abortOnError="false" name="DocQueryAdditionalStoredQueries" resourceRoot="${projectDir}" runType="SEQUENTIAL" soapui-version="4.5.1" activeEnvironment="Default" xmlns:con="http://eviware.com/soapui/config">
-	<con:settings/>
+	<con:description>Run tests with gateway in passthrough mode.</con:description><con:settings/>
 	
 	<con:interface anonymous="optional" bindingName="{urn:ihe:iti:xds-b:2007}DocumentRegistry_Binding_Soap" definition="../../target/wsdl/AdapterComponentDocRegistry.wsdl" name="DocumentRegistry_Binding_Soap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 		<con:settings/>
@@ -24,7 +24,7 @@
 			<con:settings/>
 		</con:operation>
 	</con:interface>
-	<con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="EntityDocQueryBindingSoap" type="wsdl" bindingName="{urn:gov:hhs:fha:nhinc:entitydocquery}EntityDocQueryBindingSoap" soapVersion="1_2" anonymous="optional" definition="../../target/wsdl/EntityDocQuery.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:endpoints><con:endpoint>http://localhost:${HttpDefaultPort}/Gateway/DocumentQuery/2_0/EntityService/EntityDocQueryUnsecured</con:endpoint></con:endpoints><con:operation isOneWay="false" action="urn:RespondingGateway_CrossGatewayQuery" name="RespondingGateway_CrossGatewayQuery" bindingOperationName="RespondingGateway_CrossGatewayQuery" type="Request-Response" outputName="RespondingGateway_CrossGatewayQueryResponse" inputName="RespondingGateway_CrossGatewayQueryRequest" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation></con:interface><con:testSuite name="DocQueryAdditionalStoredQueries TestSuite">
+	<con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="EntityDocQueryBindingSoap" type="wsdl" bindingName="{urn:gov:hhs:fha:nhinc:entitydocquery}EntityDocQueryBindingSoap" soapVersion="1_2" anonymous="optional" definition="../../target/wsdl/EntityDocQuery.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:endpoints><con:endpoint>http://localhost:${HttpDefaultPort}/Gateway/DocumentQuery/2_0/EntityService/EntityDocQueryUnsecured</con:endpoint></con:endpoints><con:operation isOneWay="false" action="urn:gov:hhs:fha:nhinc:entitydocquery:RespondingGateway_CrossGatewayQueryRequest" name="RespondingGateway_CrossGatewayQuery" bindingOperationName="RespondingGateway_CrossGatewayQuery" type="Request-Response" outputName="RespondingGateway_CrossGatewayQueryResponse" inputName="RespondingGateway_CrossGatewayQueryRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/></con:operation></con:interface><con:testSuite name="DocQueryAdditionalStoredQueries TestSuite">
 		<con:settings/>
 		<con:runType>SEQUENTIAL</con:runType>
 		<con:testCase failOnError="true" failTestCaseOnErrors="true" id="ee1ec787-c05a-4c25-b5cc-64bbb7629169" keepSession="false" maxResults="0" name="findDocumentsTestCase" searchProperties="true">
@@ -1358,19 +1358,19 @@ declare namespace ns4='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
 			<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2012-12-15T02:02:53Z</con:value>
+					<con:value>2013-03-19T16:53:23Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2012-12-15T02:12:53Z</con:value>
+					<con:value>2013-03-19T17:03:23Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>12/15/2012 02:02:53</con:value>
+					<con:value>03/19/2013 16:53:23</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2013-01-14T00:00:00Z</con:value>
+					<con:value>2013-04-18T00:00:00Z</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
@@ -2710,19 +2710,19 @@ declare namespace ns4='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
 			<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2012-12-15T02:02:56Z</con:value>
+					<con:value>2013-03-19T16:53:25Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2012-12-15T02:12:56Z</con:value>
+					<con:value>2013-03-19T17:03:25Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>12/15/2012 02:02:56</con:value>
+					<con:value>03/19/2013 16:53:25</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2013-01-14T00:00:00Z</con:value>
+					<con:value>2013-04-18T00:00:00Z</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
@@ -4063,19 +4063,19 @@ declare namespace ns4='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
 			<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2012-12-15T02:02:58Z</con:value>
+					<con:value>2013-03-19T16:53:26Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2012-12-15T02:12:58Z</con:value>
+					<con:value>2013-03-19T17:03:26Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>12/15/2012 02:02:58</con:value>
+					<con:value>03/19/2013 16:53:26</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2013-01-14T00:00:00Z</con:value>
+					<con:value>2013-04-18T00:00:00Z</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
@@ -5401,19 +5401,19 @@ declare namespace ns4='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
 			<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2012-12-15T02:02:59Z</con:value>
+					<con:value>2013-03-19T16:53:27Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2012-12-15T02:12:59Z</con:value>
+					<con:value>2013-03-19T17:03:27Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>12/15/2012 02:02:59</con:value>
+					<con:value>03/19/2013 16:53:27</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2013-01-14T00:00:00Z</con:value>
+					<con:value>2013-04-18T00:00:00Z</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
@@ -6784,19 +6784,19 @@ declare namespace ns4='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
 			<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2012-12-15T02:03:01Z</con:value>
+					<con:value>2013-03-19T16:53:28Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2012-12-15T02:13:01Z</con:value>
+					<con:value>2013-03-19T17:03:28Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>12/15/2012 02:03:01</con:value>
+					<con:value>03/19/2013 16:53:28</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2013-01-14T00:00:00Z</con:value>
+					<con:value>2013-04-18T00:00:00Z</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
@@ -8122,19 +8122,19 @@ declare namespace ns4='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
 			<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2012-12-15T02:03:03Z</con:value>
+					<con:value>2013-03-19T16:53:29Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2012-12-15T02:13:03Z</con:value>
+					<con:value>2013-03-19T17:03:29Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>12/15/2012 02:03:03</con:value>
+					<con:value>03/19/2013 16:53:29</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2013-01-14T00:00:00Z</con:value>
+					<con:value>2013-04-18T00:00:00Z</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
@@ -9460,19 +9460,19 @@ declare namespace ns4='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
 			<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2012-12-15T02:03:05Z</con:value>
+					<con:value>2013-03-19T16:53:30Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2012-12-15T02:13:05Z</con:value>
+					<con:value>2013-03-19T17:03:30Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>12/15/2012 02:03:05</con:value>
+					<con:value>03/19/2013 16:53:30</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2013-01-14T00:00:00Z</con:value>
+					<con:value>2013-04-18T00:00:00Z</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
@@ -10798,19 +10798,19 @@ declare namespace ns4='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
 			<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2012-12-15T02:03:07Z</con:value>
+					<con:value>2013-03-19T16:53:32Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2012-12-15T02:13:07Z</con:value>
+					<con:value>2013-03-19T17:03:32Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>12/15/2012 02:03:07</con:value>
+					<con:value>03/19/2013 16:53:32</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2013-01-14T00:00:00Z</con:value>
+					<con:value>2013-04-18T00:00:00Z</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
@@ -12151,19 +12151,19 @@ declare namespace ns4='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
 			<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2012-12-15T02:03:09Z</con:value>
+					<con:value>2013-03-19T16:53:33Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2012-12-15T02:13:09Z</con:value>
+					<con:value>2013-03-19T17:03:33Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>12/15/2012 02:03:09</con:value>
+					<con:value>03/19/2013 16:53:33</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2013-01-14T00:00:00Z</con:value>
+					<con:value>2013-04-18T00:00:00Z</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
@@ -13489,19 +13489,19 @@ declare namespace ns4='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
 			<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2012-12-15T02:03:11Z</con:value>
+					<con:value>2013-03-19T16:53:34Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2012-12-15T02:13:11Z</con:value>
+					<con:value>2013-03-19T17:03:34Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>12/15/2012 02:03:11</con:value>
+					<con:value>03/19/2013 16:53:34</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2013-01-14T00:00:00Z</con:value>
+					<con:value>2013-04-18T00:00:00Z</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
@@ -14827,19 +14827,19 @@ declare namespace ns4='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
 			<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2012-12-15T02:03:13Z</con:value>
+					<con:value>2013-03-19T16:53:35Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2012-12-15T02:13:13Z</con:value>
+					<con:value>2013-03-19T17:03:35Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>12/15/2012 02:03:13</con:value>
+					<con:value>03/19/2013 16:53:35</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2013-01-14T00:00:00Z</con:value>
+					<con:value>2013-04-18T00:00:00Z</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
@@ -16165,19 +16165,19 @@ declare namespace ns4='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
 			<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2012-12-15T02:03:15Z</con:value>
+					<con:value>2013-03-19T16:53:36Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2012-12-15T02:13:15Z</con:value>
+					<con:value>2013-03-19T17:03:36Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>12/15/2012 02:03:15</con:value>
+					<con:value>03/19/2013 16:53:36</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2013-01-14T00:00:00Z</con:value>
+					<con:value>2013-04-18T00:00:00Z</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
@@ -17503,19 +17503,19 @@ declare namespace ns4='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
 			<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2012-12-15T02:03:17Z</con:value>
+					<con:value>2013-03-19T16:53:37Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2012-12-15T02:13:17Z</con:value>
+					<con:value>2013-03-19T17:03:37Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>12/15/2012 02:03:17</con:value>
+					<con:value>03/19/2013 16:53:37</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2013-01-14T00:00:00Z</con:value>
+					<con:value>2013-04-18T00:00:00Z</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
@@ -17528,7 +17528,7 @@ declare namespace ns4='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
 	<con:properties>
 		<con:property><con:name>AuditPatientID</con:name><con:value>D123401</con:value></con:property>
 		
-		<con:property><con:name>Endpoint-DocQuery</con:name><con:value>http://localhost:8080/Gateway/DocumentQuery/2_0/EntityService/EntityDocQueryUnsecured</con:value></con:property><con:property><con:name>GatewayPropDir</con:name><con:value>c:\glassfish3\glassfish\domains\domain1\config\nhin</con:value></con:property>
+		<con:property><con:name>Endpoint-DocQuery</con:name><con:value>http://localhost:8080/Gateway/DocumentQuery/2_0/EntityService/EntityDocQueryUnsecured</con:value></con:property><con:property><con:name>GatewayPropDir</con:name><con:value/></con:property>
 		
 		
 		
