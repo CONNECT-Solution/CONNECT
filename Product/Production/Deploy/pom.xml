@@ -1,5 +1,6 @@
 <?xml version="1.0"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>org.connectopensource</groupId>
@@ -9,6 +10,19 @@
     <artifactId>Deploy</artifactId>
     <packaging>pom</packaging>
     <name>CONNECT Deployment</name>
+    <modules>
+        <module>ear-dependencies</module>
+        <module>ad-dependencies</module>
+        <module>direct-dependencies</module>
+        <module>dq-dependencies</module>
+        <module>dr-dependencies</module>
+        <module>ds-dependencies</module>
+        <module>gui-dependencies</module>
+        <module>hiem-dependencies</module>
+        <module>pd-dependencies</module>
+
+        <module>ear/glassfish</module>
+    </modules>
     <build>
         <pluginManagement>
             <plugins>
@@ -21,48 +35,31 @@
         </pluginManagement>
     </build>
     <profiles>
-        <profile>
-            <id>glassfish</id>
-            <activation>
-                <activeByDefault>true</activeByDefault>
-            </activation>
-            <modules>
-                <module>ear</module>
-                <module>glassfish</module>
-            </modules>
-        </profile>
+
         <profile>
             <id>wasce</id>
             <modules>
-                <module>ear</module>
-                <module>glassfish</module>
-                <module>wasce</module>
+                <module>ear/wasce</module>
             </modules>
         </profile>
         <profile>
             <id>was</id>
             <modules>
-                <module>ear</module>
-                <module>glassfish</module>
-                <module>was</module>
+                <module>ear/was</module>
             </modules>
         </profile>
         <profile>
             <id>weblogic</id>
             <modules>
-                <module>ear</module>
-                <module>glassfish</module>
-                <module>weblogic</module>
+                <module>ear/weblogic</module>
             </modules>
         </profile>
         <profile>
             <id>jboss7</id>
             <modules>
-                <module>ear</module>
-                <module>glassfish</module>
-                <module>jboss7</module>
+                <module>ear/jboss7</module>
             </modules>
         </profile>
-        
+
     </profiles>
 </project>
