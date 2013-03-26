@@ -29,7 +29,8 @@
                 <configuration>
                     <version>6</version>
                     <defaultLibBundleDir>lib</defaultLibBundleDir>
-                    <includeLibInApplicationXml>true</includeLibInApplicationXml>
+                    <includeLibInApplicationXml>false</includeLibInApplicationXml>
+                    <skinnyWars>true</skinnyWars>
                     <packagingExcludes>
                         lib/jetty*,
                         lib/log4j*,

@@ -39,7 +39,7 @@
                 <configuration>
                     <defaultLibBundleDir>lib</defaultLibBundleDir>
                     <skinnyWars>true</skinnyWars>
-                    <includeLibInApplicationXml>true</includeLibInApplicationXml>
+                    <includeLibInApplicationXml>false</includeLibInApplicationXml>
                     <packagingExcludes>
                         lib/geronimo-stax-api-*.jar
                         lib/jsr173-*.jar
