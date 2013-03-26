@@ -1146,7 +1146,7 @@ public class PatientDiscoveryTransforms {
             communityId = requestMessage.getReceiver().get(0).getDevice().getAsAgent().getValue()
                 .getRepresentedOrganization().getValue().getId().get(0).getRoot();
         } catch (NullPointerException | IndexOutOfBoundsException e) {
-            LOG.debug("could not obtain HCID from Receiver RepresentedOrganization.", e);
+            LOG.debug("could not obtain HCID from Receiver RepresentedOrganization.");
         }
 
         // If represented organization is empty or null, check the device id
@@ -1154,7 +1154,7 @@ public class PatientDiscoveryTransforms {
             try {
                 communityId = requestMessage.getReceiver().get(0).getDevice().getId().get(0).getRoot();
             } catch (NullPointerException | IndexOutOfBoundsException e) {
-                LOG.debug("could not obtain HCID from Receiver Device Id.", e);
+                LOG.debug("could not obtain HCID from Receiver Device Id.");
             }
         }
 
@@ -1170,7 +1170,7 @@ public class PatientDiscoveryTransforms {
             communityId = requestMessage.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization()
                 .getValue().getId().get(0).getRoot();
         } catch (NullPointerException | IndexOutOfBoundsException e) {
-            LOG.debug("could not obtain HCID from Sender RepresentedOrganization.", e);
+            LOG.debug("could not obtain HCID from Sender RepresentedOrganization.");
         }
 
         // If represented organization is empty or null, check the device id
@@ -1178,7 +1178,7 @@ public class PatientDiscoveryTransforms {
             try {
                 communityId = requestMessage.getSender().getDevice().getId().get(0).getRoot();
             } catch (NullPointerException | IndexOutOfBoundsException e) {
-                LOG.debug("could not obtain HCID from Sender Device Id.", e);
+                LOG.debug("could not obtain HCID from Sender Device Id.");
             }
         }
 
@@ -1229,7 +1229,7 @@ public class PatientDiscoveryTransforms {
             communityId = responseMessage.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization()
                 .getValue().getId().get(0).getRoot();
         } catch (NullPointerException | IndexOutOfBoundsException e) {
-            LOG.debug("could not obtain HCID from Sender RepresentedOrganization.", e);
+            LOG.debug("could not obtain HCID from Sender RepresentedOrganization.");
         }
 
         // If represented organization is empty or null, check the device id
@@ -1237,7 +1237,7 @@ public class PatientDiscoveryTransforms {
             try {
                 communityId = responseMessage.getSender().getDevice().getId().get(0).getRoot();
             } catch (NullPointerException | IndexOutOfBoundsException e) {
-                LOG.debug("could not obtain HCID from Sender Device Id.", e);
+                LOG.debug("could not obtain HCID from Sender Device Id.");
             }
         }
 
@@ -1257,7 +1257,7 @@ public class PatientDiscoveryTransforms {
             communityId = responseMessage.getReceiver().get(0).getDevice().getAsAgent().getValue()
                 .getRepresentedOrganization().getValue().getId().get(0).getRoot();
         } catch (NullPointerException | IndexOutOfBoundsException e) {
-            LOG.debug("could not obtain HCID from Receiver RepresentedOrganization.", e);
+            LOG.debug("could not obtain HCID from Receiver RepresentedOrganization.");
         }
 
         // If represented organization is empty or null, check the device id
@@ -1265,7 +1265,7 @@ public class PatientDiscoveryTransforms {
             try {
                 communityId = responseMessage.getReceiver().get(0).getDevice().getId().get(0).getRoot();
             } catch (NullPointerException | IndexOutOfBoundsException e) {
-                LOG.debug("could not obtain HCID from Receiver Device Id.", e);
+                LOG.debug("could not obtain HCID from Receiver Device Id.");
             }
         }
 
@@ -1313,7 +1313,7 @@ public class PatientDiscoveryTransforms {
             communityId = ackMessage.getReceiver().get(0).getDevice().getAsAgent().getValue()
                 .getRepresentedOrganization().getValue().getId().get(0).getRoot();
         } catch (NullPointerException | IndexOutOfBoundsException e) {
-            LOG.debug("could not obtain HCID from Receiver RepresentedOrganization.", e);
+            LOG.debug("could not obtain HCID from Receiver RepresentedOrganization.");
         }
 
         // If represented organization is empty or null, check the device id
@@ -1321,7 +1321,7 @@ public class PatientDiscoveryTransforms {
             try {
                 communityId = ackMessage.getReceiver().get(0).getDevice().getId().get(0).getRoot();
             } catch (NullPointerException | IndexOutOfBoundsException e) {
-                LOG.debug("could not obtain HCID from Receiver Device Id.", e);
+                LOG.debug("could not obtain HCID from Receiver Device Id.");
             }
         }
 
@@ -1341,7 +1341,7 @@ public class PatientDiscoveryTransforms {
             communityId = ackMessage.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization()
                 .getValue().getId().get(0).getRoot();
         } catch (NullPointerException | IndexOutOfBoundsException e) {
-            LOG.debug("could not obtain HCID from Sender RepresentedOrganization.", e);
+            LOG.debug("could not obtain HCID from Sender RepresentedOrganization.");
         }
 
         // If represented organization is empty or null, check the device id
@@ -1349,7 +1349,7 @@ public class PatientDiscoveryTransforms {
             try {
                 communityId = ackMessage.getSender().getDevice().getId().get(0).getRoot();
             } catch (NullPointerException | IndexOutOfBoundsException e) {
-                LOG.debug("could not obtain HCID from Sender Device Id.", e);
+                LOG.debug("could not obtain HCID from Sender Device Id.");
             }
         }
 

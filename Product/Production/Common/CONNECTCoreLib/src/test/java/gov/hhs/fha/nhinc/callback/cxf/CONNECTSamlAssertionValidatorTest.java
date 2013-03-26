@@ -1,8 +1,10 @@
 package gov.hhs.fha.nhinc.callback.cxf;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -11,13 +13,18 @@ import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 
+import java.security.PublicKey;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.xml.namespace.QName;
 
 import org.apache.ws.security.WSSecurityException;
+import org.apache.ws.security.saml.SAMLKeyInfo;
 import org.apache.ws.security.saml.ext.AssertionWrapper;
+import org.apache.ws.security.validate.Credential;
+import org.apache.ws.security.components.crypto.Crypto;
+import org.apache.ws.security.handler.RequestData;
 import org.joda.time.DateTime;
 import org.junit.Test;
 import org.opensaml.common.SAMLVersion;
@@ -126,6 +133,7 @@ public class CONNECTSamlAssertionValidatorTest {
 	}
 
 	@Test
+	@SuppressWarnings("rawtypes")
 	public void testGetSaml2AllowNoSubjectAssertionSpecValidator() {
 		CONNECTSamlAssertionValidator connectValidator = new CONNECTSamlAssertionValidator();
 		ValidatorSuite specValidators = connectValidator
@@ -160,4 +168,115 @@ public class CONNECTSamlAssertionValidatorTest {
 		validator = connectValidator.getSaml2SpecValidator();
 		assertNull(validator);
 	}
+
+	@Test
+	public void testValidate() throws WSSecurityException {
+		final List<Boolean> checkedSignedAssertion = new ArrayList<>();
+		Credential credential = new Credential();
+		final String SECRET_KEY = "secret";
+		credential.setSecretKey(SECRET_KEY.getBytes());
+		RequestData data = mock(RequestData.class);
+		AssertionWrapper assertion = mock(AssertionWrapper.class);
+		credential.setAssertion(assertion);
+
+		List<String> methods = new ArrayList<>();
+		final String METHOD_NAME = "urn:oasis:names:tc:SAML:" + "TESTING"
+				+ ":cm:holder-of-key";
+		methods.add(METHOD_NAME);
+
+		SAMLKeyInfo keyInfo = mock(SAMLKeyInfo.class);
+		org.opensaml.saml2.core.Assertion saml2Assertion = mock(org.opensaml.saml2.core.Assertion.class);
+		org.opensaml.saml2.core.Conditions conditions = mock(org.opensaml.saml2.core.Conditions.class);
+		DateTime testDate = new DateTime();
+
+		// For validate() calls
+		when(assertion.getConfirmationMethods()).thenReturn(methods);
+		when(assertion.getSubjectKeyInfo()).thenReturn(keyInfo);
+		when(assertion.isSigned()).thenReturn(true);
+		// For checkConditions() calls
+		when(assertion.getSamlVersion()).thenReturn(SAMLVersion.VERSION_20);
+		when(assertion.getSaml2()).thenReturn(saml2Assertion, saml2Assertion,
+				saml2Assertion, null);
+		when(saml2Assertion.getConditions()).thenReturn(conditions);
+		when(conditions.getNotOnOrAfter()).thenReturn(testDate.plusDays(1));
+		when(conditions.getNotBefore()).thenReturn(testDate.minusSeconds(5));
+
+		CONNECTSamlAssertionValidator validator = new CONNECTSamlAssertionValidator() {
+			@Override
+			protected void checkSignedAssertion(AssertionWrapper assertion,
+					RequestData data) throws WSSecurityException {
+				checkedSignedAssertion.add(true);
+			}
+		};
+
+		Credential resultCredential = validator.validate(credential, data);
+
+		assertFalse(checkedSignedAssertion.isEmpty());
+		assertTrue(checkedSignedAssertion.get(0).booleanValue());
+		String resultSecretKey = new String(resultCredential.getSecretKey());
+		assertEquals(resultSecretKey, SECRET_KEY);
+
+	}
+
+	@Test
+	public void testCheckSignedAssertion_HappyPath() throws WSSecurityException {
+		AssertionWrapper assertion = mock(AssertionWrapper.class);
+		RequestData data = mock(RequestData.class);
+
+		SAMLKeyInfo keyInfo = mock(SAMLKeyInfo.class);
+		PublicKey publicKey = mock(PublicKey.class);
+		Crypto crypto = mock(Crypto.class);
+
+		when(assertion.getSignatureKeyInfo()).thenReturn(keyInfo);
+		when(keyInfo.getPublicKey()).thenReturn(publicKey);
+		when(data.getSigCrypto()).thenReturn(crypto);
+		when(crypto.verifyTrust(publicKey)).thenReturn(true);
+
+		CONNECTSamlAssertionValidator validator = new CONNECTSamlAssertionValidator();
+
+		validator.checkSignedAssertion(assertion, data);
+
+		assertNotNull(assertion.getSignatureKeyInfo().getPublicKey());
+		assertNull(assertion.getSignatureKeyInfo().getCerts());
+	}
+
+	@Test
+	public void testCheckSignedAssertion_ChainCertError()
+			throws WSSecurityException {
+		AssertionWrapper assertion = mock(AssertionWrapper.class);
+		RequestData data = mock(RequestData.class);
+
+		SAMLKeyInfo keyInfo = mock(SAMLKeyInfo.class);
+		PublicKey publicKey = mock(PublicKey.class);
+		Crypto crypto = mock(Crypto.class);
+
+		when(assertion.getSignatureKeyInfo()).thenReturn(keyInfo);
+		when(keyInfo.getPublicKey()).thenReturn(publicKey);
+		when(data.getSigCrypto()).thenReturn(crypto);
+
+		// Return false here for Chain Cert Error
+		when(crypto.verifyTrust(publicKey)).thenReturn(false);
+
+		CONNECTSamlAssertionValidator validator = new CONNECTSamlAssertionValidator();
+
+		validator.checkSignedAssertion(assertion, data);
+
+		assertNotNull(assertion.getSignatureKeyInfo().getPublicKey());
+		assertNull(assertion.getSignatureKeyInfo().getCerts());
+	}
+
+	@Test(expected = WSSecurityException.class)
+	public void testCheckSignedAssertion_Exception() throws WSSecurityException {
+		AssertionWrapper assertion = mock(AssertionWrapper.class);
+		RequestData data = mock(RequestData.class);
+
+		SAMLKeyInfo keyInfo = mock(SAMLKeyInfo.class);
+
+		when(assertion.getSignatureKeyInfo()).thenReturn(keyInfo);
+
+		CONNECTSamlAssertionValidator validator = new CONNECTSamlAssertionValidator();
+
+		validator.checkSignedAssertion(assertion, data);
+	}
+
 }
