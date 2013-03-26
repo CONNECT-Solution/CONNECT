@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.connectopensource</groupId>
+        <artifactId>Deploy</artifactId>
+        <version>4.0.1-RC3</version>
+    </parent>
+    <artifactId>hiem-dependencies</artifactId>
+    <packaging>pom</packaging>
+    <name>HIEM - Dependencies</name>
+    <description>HIEM- Dependencies</description>
+    <dependencies>
+        <dependency>
+            <groupId>org.connectopensource</groupId>
+            <artifactId>HIEM_20</artifactId>
+            <version>${project.parent.version}</version>
+            <type>war</type>
+            <optional>false</optional>
+        </dependency>
+        <dependency>
+            <groupId>org.connectopensource</groupId>
+            <artifactId>HIEMCore</artifactId>
+            <version>${project.parent.version}</version>
+            <optional>false</optional>
+        </dependency>
+    </dependencies>
+</project>

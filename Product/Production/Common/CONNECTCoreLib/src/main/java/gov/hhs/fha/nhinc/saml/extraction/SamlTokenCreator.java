@@ -62,6 +62,11 @@ public class SamlTokenCreator {
         Map<String, Object> requestContext = new HashMap<String, Object>();
 
         if (assertion != null) {
+            String NPI = assertion.getNationalProviderId();
+            if (NullChecker.isNotNullish(NPI)) {
+                requestContext.put(NhincConstants.ATTRIBUTE_NAME_NPI, NPI);
+            }
+
             UserType userInfo = assertion.getUserInfo();
             if (userInfo != null) {
                 if (NullChecker.isNotNullish(userInfo.getUserName())) {
@@ -290,7 +295,7 @@ public class SamlTokenCreator {
 
         if (LOG.isTraceEnabled()) {
             LOG.trace("Request Context:");
-            Set<Entry<String,Object>> allKeys = requestContext.entrySet();
+            Set<Entry<String, Object>> allKeys = requestContext.entrySet();
             for (Entry<String, Object> keyValue : allKeys) {
                 LOG.trace(keyValue.getKey() + " = " + keyValue.getValue());
             }

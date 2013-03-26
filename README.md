@@ -79,7 +79,8 @@ Available service profiles which can be excluded from the generated ear (use val
 * Document Query (DQ)
 * Document Submission (DS)
 * Document Retrieve (DR)
-* HIEM (HIEM)
+* Direct(Direct)
+* CONNECTUniversalClientGUI, CONNECTConsumerPreferencesProfileGUI, CONNECTDeferredQueueManagerGUI (GUI)
 
 After CONNECT has been built from the clone directory, you can alter the composition of the CONNECT.ear at any time by turning off any combination of the available profiles as a comma-separated list
 

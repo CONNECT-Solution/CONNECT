@@ -361,31 +361,17 @@ context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;$
             <!--urn3:claimFormRef>Ref-Clm-123</urn3:claimFormRef-->
             <!--urn3:claimFormRaw>YWVvbGlhbQ==</urn3:claimFormRaw-->
          </urn:assertion>
-         <urn:NhinTargetCommunities>
-            <urn3:nhinTargetCommunity>
-               <urn3:homeCommunity>
-                  <urn3:description>${#Project#RemoteHCDescription}</urn3:description>
-                  <urn3:homeCommunityId>${#Project#RemoteHCID}</urn3:homeCommunityId>
-                  <urn3:name>${#Project#RemoteHCDescription}</urn3:name>
-               </urn3:homeCommunity>
-            </urn3:nhinTargetCommunity>
-         </urn:NhinTargetCommunities>
+         <urn:NhinTargetCommunities />
       </urn:RespondingGateway_CrossGatewayQueryRequest>
    </soapenv:Body>
 </soapenv:Envelope>]]></con:request>
 						<con:assertion type="SOAP Response"/>
 						
 						<con:assertion type="SOAP Fault Assertion"/>
-						<con:assertion type="XPath Match"><con:configuration><path>declare namespace ns13='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
+						<con:assertion type="XPath Match"><con:configuration><path>declare namespace ns3='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
 
 
-//ns13:AdhocQueryResponse[1]/@status</path><content>urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Failure</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration></con:assertion><con:assertion type="XPath Match"><con:configuration><path>declare namespace ns12='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
-declare namespace ns13='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
-
-//ns13:AdhocQueryResponse[1]/ns12:RegistryErrorList[1]/ns12:RegistryError[position()&lt;3]/@codeContext</path><content>Policy check failed.</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion><con:assertion type="XPath Match"><con:configuration><path>declare namespace ns12='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
-declare namespace ns13='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
-
-//ns13:AdhocQueryResponse[1]/ns12:RegistryErrorList[1]/ns12:RegistryError[position()&lt;3]/@codeContext</path><content>Policy check failed.</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/>
+//ns3:AdhocQueryResponse[1]/@status</path><content>urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Success</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/>
 						<con:wsrmConfig version="1.2"/>
 					</con:request>
 				</con:config>
@@ -430,19 +416,19 @@ declare namespace ns18='urn:gov:hhs:fha:nhinc:common:nhinccommonadapter';
 			<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2013-02-04T00:42:16Z</con:value>
+					<con:value>2013-03-21T19:50:14Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2013-02-04T00:52:16Z</con:value>
+					<con:value>2013-03-21T20:00:14Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>02/04/2013 00:42:16</con:value>
+					<con:value>03/21/2013 19:50:14</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2013-03-06T00:00:00Z</con:value>
+					<con:value>2013-04-20T00:00:00Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>FullPatientID</con:name>
@@ -686,19 +672,19 @@ declare namespace ns18='urn:gov:hhs:fha:nhinc:common:nhinccommonadapter';
 			<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2013-02-04T00:42:17Z</con:value>
+					<con:value>2013-03-20T20:06:50Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2013-02-04T00:52:17Z</con:value>
+					<con:value>2013-03-20T20:16:50Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>02/04/2013 00:42:17</con:value>
+					<con:value>03/20/2013 20:06:50</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2013-03-06T00:00:00Z</con:value>
+					<con:value>2013-04-19T00:00:00Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>correctedRemoteHCID</con:name>
@@ -1652,7 +1638,7 @@ log.info "SubscriptionID: " + subscriptionID;				</script></con:config>
 		
 		
 		
-		<con:property><con:name>GatewayPropDir</con:name><con:value>c:\glassfish3\glassfish\domains\domain1\config\nhin</con:value></con:property><con:property><con:name>LocalAA</con:name><con:value>1.1</con:value></con:property><con:property><con:name>LocalConfigDir</con:name><con:value>C:/SelfTest/EndToEndSelfTest</con:value></con:property>
+		<con:property><con:name>GatewayPropDir</con:name><con:value/></con:property><con:property><con:name>LocalAA</con:name><con:value>1.1</con:value></con:property><con:property><con:name>LocalConfigDir</con:name><con:value>C:/SelfTest/EndToEndSelfTest</con:value></con:property>
 		
 		
 		

@@ -303,7 +303,8 @@
 	</con:interface>
 	
 	<con:testSuite name="NHINCReceivingXDRAsyncRequestTestSuite">
-		<con:settings/>
+		<con:description>This test needs to be run with DS Deferred Request Outbound set to passthrough, and the inbound set to standard.
+This is because the test is designed to hit the mock step on the inbound side.</con:description><con:settings/>
 		<con:runType>SEQUENTIAL</con:runType>
 		<con:testCase failOnError="true" failTestCaseOnErrors="true" id="efe18e9c-abde-4520-992e-154eca409f45" keepSession="false" maxResults="0" name="PolicyCheckDeny" searchProperties="true">
 			<con:settings/>
@@ -2277,19 +2278,19 @@ declare namespace adapter='urn:gov:hhs:fha:nhinc:common:nhinccommonadapter';
 			<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2012-12-20T01:46:58Z</con:value>
+					<con:value>2013-03-21T15:01:12Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2012-12-20T01:56:58Z</con:value>
+					<con:value>2013-03-21T15:11:12Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>12/20/2012 01:46:58</con:value>
+					<con:value>03/21/2013 15:01:12</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2013-01-19T00:00:00Z</con:value>
+					<con:value>2013-04-20T00:00:00Z</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
@@ -4270,19 +4271,19 @@ declare namespace adapter='urn:gov:hhs:fha:nhinc:common:nhinccommonadapter';
 			<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2012-12-20T01:47:01Z</con:value>
+					<con:value>2013-03-21T15:01:14Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2012-12-20T01:57:01Z</con:value>
+					<con:value>2013-03-21T15:11:14Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>12/20/2012 01:47:01</con:value>
+					<con:value>03/21/2013 15:01:14</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2013-01-19T00:00:00Z</con:value>
+					<con:value>2013-04-20T00:00:00Z</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
@@ -4799,23 +4800,23 @@ assert (count > 0);</script></con:config></con:testStep>
 				</con:property>
 				<con:property>
 					<con:name>XDRUserId</con:name>
-					<con:value>XDR Request Inbound UserThu Dec 20 01:52:04 UTC 2012</con:value>
+					<con:value>XDR Request Inbound UserThu Mar 21 15:06:15 UTC 2013</con:value>
 				</con:property>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2012-12-20T01:47:04Z</con:value>
+					<con:value>2013-03-21T15:01:15Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2012-12-20T01:57:04Z</con:value>
+					<con:value>2013-03-21T15:11:15Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>12/20/2012 01:47:04</con:value>
+					<con:value>03/21/2013 15:01:15</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2013-01-19T00:00:00Z</con:value>
+					<con:value>2013-04-20T00:00:00Z</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>

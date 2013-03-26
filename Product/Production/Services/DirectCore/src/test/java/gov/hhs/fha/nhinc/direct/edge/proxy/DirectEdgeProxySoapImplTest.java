@@ -119,7 +119,6 @@ public class DirectEdgeProxySoapImplTest {
     @Test
     @Ignore
     public void testSendWithMockedObjects() throws Exception {
-        System.out.println("NHINC_PROPERTIES_DIR: " + System.getenv(NhincConstants.NHINC_PROPERTIES_DIR));
         mockClient = mock(CONNECTClient.class);
         when(
                 mockClient.invokePort(eq(DocumentRepositoryPortType.class),

@@ -1998,19 +1998,19 @@ declare namespace adapter='urn:gov:hhs:fha:nhinc:common:nhinccommonadapter';
 			</con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2013-02-04T01:50:17Z</con:value>
+					<con:value>2013-03-19T17:30:49Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2013-02-04T02:00:17Z</con:value>
+					<con:value>2013-03-19T17:40:49Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>02/04/2013 01:50:17</con:value>
+					<con:value>03/19/2013 17:30:49</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2013-03-06T00:00:00Z</con:value>
+					<con:value>2013-04-18T00:00:00Z</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
@@ -2520,23 +2520,23 @@ assert (count > 0);</script></con:config></con:testStep><con:setupScript>nhinc.F
 				</con:property>
 				<con:property>
 					<con:name>XDRUserId</con:name>
-					<con:value>XDR Request Inbound UserWed Dec 19 00:40:44 UTC 2012</con:value>
+					<con:value>XDR Request Inbound UserTue Mar 19 17:35:51 UTC 2013</con:value>
 				</con:property>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2012-12-19T00:35:44Z</con:value>
+					<con:value>2013-03-19T17:30:51Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2012-12-19T00:45:44Z</con:value>
+					<con:value>2013-03-19T17:40:51Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>12/19/2012 00:35:44</con:value>
+					<con:value>03/19/2013 17:30:51</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2013-01-18T00:00:00Z</con:value>
+					<con:value>2013-04-18T00:00:00Z</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
@@ -2778,19 +2778,19 @@ assert (count > 0);</script></con:config></con:testStep><con:setupScript>nhinc.F
 			<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2012-12-19T00:07:59Z</con:value>
+					<con:value>2013-03-19T17:30:52Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2012-12-19T00:17:59Z</con:value>
+					<con:value>2013-03-19T17:40:52Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>12/19/2012 00:07:59</con:value>
+					<con:value>03/19/2013 17:30:52</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2013-01-18T00:00:00Z</con:value>
+					<con:value>2013-04-18T00:00:00Z</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
@@ -4559,19 +4559,19 @@ declare namespace adapter='urn:gov:hhs:fha:nhinc:common:nhinccommonadapter';
 			<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2012-12-19T00:32:26Z</con:value>
+					<con:value>2013-03-19T17:30:55Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2012-12-19T00:42:26Z</con:value>
+					<con:value>2013-03-19T17:40:55Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>12/19/2012 00:32:26</con:value>
+					<con:value>03/19/2013 17:30:55</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2013-01-18T00:00:00Z</con:value>
+					<con:value>2013-04-18T00:00:00Z</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
@@ -4880,23 +4880,23 @@ assert (count > 0);</script></con:config></con:testStep><con:setupScript>nhinc.F
 				</con:property>
 				<con:property>
 					<con:name>XDRUserId</con:name>
-					<con:value>XDR Request Inbound UserWed Dec 19 00:13:05 UTC 2012</con:value>
+					<con:value>XDR Request Inbound UserTue Mar 19 17:35:57 UTC 2013</con:value>
 				</con:property>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2012-12-19T00:08:04Z</con:value>
+					<con:value>2013-03-19T17:30:57Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2012-12-19T00:18:04Z</con:value>
+					<con:value>2013-03-19T17:40:57Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>12/19/2012 00:08:04</con:value>
+					<con:value>03/19/2013 17:30:57</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2013-01-18T00:00:00Z</con:value>
+					<con:value>2013-04-18T00:00:00Z</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>

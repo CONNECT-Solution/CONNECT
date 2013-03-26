@@ -217,6 +217,7 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
         statements.addAll(createPatientIdAttributeStatements(properties));
         statements.addAll(createUserRoleStatements(properties));
         statements.addAll(createPurposeOfUseStatements(properties));
+        statements.addAll(createNPIAttributeStatements(properties));
 
         statements.addAll(createAuthenicationDecsionStatements(properties, subject));
 
@@ -596,6 +597,33 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
                 .createAttributeStatement(Arrays.asList(attribute)));
         } else {
             LOG.debug("patient id is missing");
+        }
+        return statements;
+
+    }
+
+    /**
+     * Creates the Attribute statements for NPI
+     *
+     * @param factory The factory object used to assist in the construction of the SAML Assertion token
+     * @return The listing of all Attribute statements
+     */
+    static List<AttributeStatement> createNPIAttributeStatements(
+        CallbackProperties properties) {
+
+        List<AttributeStatement> statements = new ArrayList<AttributeStatement>();
+        Attribute attribute;
+
+        // Set the NPI Attribute
+        final String npi = properties.getNPI();
+        if (npi != null) {
+            attribute = OpenSAML2ComponentBuilder.getInstance()
+                .createNPIAttribute(npi);
+
+            statements.addAll(OpenSAML2ComponentBuilder.getInstance()
+                .createAttributeStatement(Arrays.asList(attribute)));
+        } else {
+            LOG.debug("npi is missing");
         }
         return statements;
 

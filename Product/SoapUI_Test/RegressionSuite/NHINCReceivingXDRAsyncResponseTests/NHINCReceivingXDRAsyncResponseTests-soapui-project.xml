@@ -15,7 +15,8 @@
 	</con:interface>
 	
 	<con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="EntityXDRAsyncResponse_Binding" type="wsdl" bindingName="{urn:gov:hhs:fha:nhinc:nhincentityxdr:async:response}EntityXDRAsyncResponse_Binding" soapVersion="1_2" anonymous="optional" definition="../../target/wsdl/EntityXDRResponse.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:endpoints><con:endpoint>http://localhost:8080/Gateway/DocumentSubmission/1_1/EntityService/EntityDocSubmissionDeferredResponseUnsecured</con:endpoint><con:endpoint>http://localhost:${HttpDefaultPort}/Gateway/DocumentSubmission/1_1/EntityService/EntityDocSubmissionDeferredResponseUnsecured</con:endpoint></con:endpoints><con:operation isOneWay="false" action="" name="ProvideAndRegisterDocumentSet-bAsyncResponse" bindingOperationName="ProvideAndRegisterDocumentSet-bAsyncResponse" type="Request-Response" inputName="" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/></con:operation></con:interface><con:testSuite name="NHINCReceivingXDRAsyncResponseTestSuite">
-		<con:settings/>
+		<con:description>This test needs to be run with DS Deferred Response Outbound set to passthrough, and the inbound set to standard.
+This is because the test is designed to hit the mock step on the inbound side.</con:description><con:settings/>
 		<con:runType>SEQUENTIAL</con:runType>
 		<con:testCase failOnError="true" failTestCaseOnErrors="true" id="fdb42956-4a19-4f9c-a87c-26e594bc6e7a" keepSession="false" maxResults="0" name="PolicyCheckPermit" searchProperties="true">
 			<con:settings/>
@@ -222,6 +223,33 @@ nhinc.FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", destConfi
                </urn1:org>
             </urn1:userInfo>
             <urn1:authorized>authorized</urn1:authorized>
+            <urn1:samlAuthnStatement>
+               <urn1:authInstant>2009-04-16T13:15:39Z</urn1:authInstant>
+               <urn1:sessionIndex>987</urn1:sessionIndex>
+               <urn1:authContextClassRef>urn:oasis:names:tc:SAML:2.0:ac:classes:X509</urn1:authContextClassRef>
+               <urn1:subjectLocalityAddress>158.147.185.168</urn1:subjectLocalityAddress>
+               <urn1:subjectLocalityDNSName>cs.myharris.net</urn1:subjectLocalityDNSName>
+            </urn1:samlAuthnStatement>
+            <urn1:samlAuthzDecisionStatement>
+               <urn1:decision>Permit</urn1:decision>
+               <urn1:resource>https://158.147.185.168:8181/SamlReceiveService/SamlProcessWS</urn1:resource>
+               <urn1:action>TestSaml</urn1:action>
+               <urn1:evidence>
+                  <urn1:assertion>
+                     <urn1:id>40df7c0a-ff3e-4b26-baeb-f2910f6d05a9</urn1:id>
+                     <urn1:issueInstant>2009-04-16T13:10:39.093Z</urn1:issueInstant>
+                     <urn1:version>2.0</urn1:version>
+                     <urn1:issuerFormat>urn:oasis:names:tc:SAML:1.1:nameid-format:X509SubjectName</urn1:issuerFormat>
+                     <urn1:issuer>CN=SAML User,OU=Harris,O=HITS,L=Melbourne,ST=FL,C=US</urn1:issuer>
+                     <urn1:conditions>
+                        <urn1:notBefore>2009-04-16T13:10:39.093Z</urn1:notBefore>
+                        <urn1:notOnOrAfter>2009-12-31T12:00:00.000Z</urn1:notOnOrAfter>
+                     </urn1:conditions>
+                     <urn1:accessConsentPolicy>Claim-Ref-1234</urn1:accessConsentPolicy>
+                     <urn1:instanceAccessConsentPolicy>Claim-Instance-1</urn1:instanceAccessConsentPolicy>
+                  </urn1:assertion>
+               </urn1:evidence>
+            </urn1:samlAuthzDecisionStatement>
          </urn:assertion>
          <urn:nhinTargetCommunities>
             <urn1:nhinTargetCommunity>
@@ -1757,19 +1785,19 @@ declare namespace adapter='urn:gov:hhs:fha:nhinc:common:nhinccommonadapter';
 			<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2012-12-20T01:36:51Z</con:value>
+					<con:value>2013-03-21T15:21:55Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2012-12-20T01:46:51Z</con:value>
+					<con:value>2013-03-21T15:31:55Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>12/20/2012 01:36:51</con:value>
+					<con:value>03/21/2013 15:21:55</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2013-01-19T00:00:00Z</con:value>
+					<con:value>2013-04-20T00:00:00Z</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
@@ -1980,6 +2008,33 @@ nhinc.FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", destConfi
                </urn1:org>
             </urn1:userInfo>
             <urn1:authorized>authorized</urn1:authorized>
+            <urn1:samlAuthnStatement>
+               <urn1:authInstant>2009-04-16T13:15:39Z</urn1:authInstant>
+               <urn1:sessionIndex>987</urn1:sessionIndex>
+               <urn1:authContextClassRef>urn:oasis:names:tc:SAML:2.0:ac:classes:X509</urn1:authContextClassRef>
+               <urn1:subjectLocalityAddress>158.147.185.168</urn1:subjectLocalityAddress>
+               <urn1:subjectLocalityDNSName>cs.myharris.net</urn1:subjectLocalityDNSName>
+            </urn1:samlAuthnStatement>
+            <urn1:samlAuthzDecisionStatement>
+               <urn1:decision>Permit</urn1:decision>
+               <urn1:resource>https://158.147.185.168:8181/SamlReceiveService/SamlProcessWS</urn1:resource>
+               <urn1:action>TestSaml</urn1:action>
+               <urn1:evidence>
+                  <urn1:assertion>
+                     <urn1:id>40df7c0a-ff3e-4b26-baeb-f2910f6d05a9</urn1:id>
+                     <urn1:issueInstant>2009-04-16T13:10:39.093Z</urn1:issueInstant>
+                     <urn1:version>2.0</urn1:version>
+                     <urn1:issuerFormat>urn:oasis:names:tc:SAML:1.1:nameid-format:X509SubjectName</urn1:issuerFormat>
+                     <urn1:issuer>CN=SAML User,OU=Harris,O=HITS,L=Melbourne,ST=FL,C=US</urn1:issuer>
+                     <urn1:conditions>
+                        <urn1:notBefore>2009-04-16T13:10:39.093Z</urn1:notBefore>
+                        <urn1:notOnOrAfter>2009-12-31T12:00:00.000Z</urn1:notOnOrAfter>
+                     </urn1:conditions>
+                     <urn1:accessConsentPolicy>Claim-Ref-1234</urn1:accessConsentPolicy>
+                     <urn1:instanceAccessConsentPolicy>Claim-Instance-1</urn1:instanceAccessConsentPolicy>
+                  </urn1:assertion>
+               </urn1:evidence>
+            </urn1:samlAuthzDecisionStatement>
          </urn:assertion>
          <urn:nhinTargetCommunities>
             <urn1:nhinTargetCommunity>
@@ -3515,19 +3570,19 @@ declare namespace adapter='urn:gov:hhs:fha:nhinc:common:nhinccommonadapter';
 			<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2012-12-20T02:05:51Z</con:value>
+					<con:value>2013-03-21T15:21:57Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2012-12-20T02:15:51Z</con:value>
+					<con:value>2013-03-21T15:31:57Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>12/20/2012 02:05:51</con:value>
+					<con:value>03/21/2013 15:21:57</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2013-01-19T00:00:00Z</con:value>
+					<con:value>2013-04-20T00:00:00Z</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
@@ -3811,19 +3866,19 @@ context.testCase.setPropertyValue('XDRUserId',"${UserID}${nowDate}");</script>
 assert (count > 0);</script></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2012-12-20T01:36:55Z</con:value>
+					<con:value>2013-03-21T15:21:58Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2012-12-20T01:46:55Z</con:value>
+					<con:value>2013-03-21T15:31:58Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>12/20/2012 01:36:55</con:value>
+					<con:value>03/21/2013 15:21:58</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2013-01-19T00:00:00Z</con:value>
+					<con:value>2013-04-20T00:00:00Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>FullPatientID</con:name>
@@ -3831,7 +3886,7 @@ assert (count > 0);</script></con:config></con:testStep><con:setupScript>nhinc.F
 				</con:property>
 				<con:property>
 					<con:name>XDRUserId</con:name>
-					<con:value>XDR Request Inbound UserThu Dec 20 01:41:56 UTC 2012</con:value>
+					<con:value>XDR Request Inbound UserThu Mar 21 15:26:58 UTC 2013</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>

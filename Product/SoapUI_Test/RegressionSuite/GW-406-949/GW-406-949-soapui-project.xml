@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<con:soapui-project name="GW-406/949" resourceRoot="" soapui-version="4.5.1" activeEnvironment="Default" abortOnError="false" runType="SEQUENTIAL" xmlns:con="http://eviware.com/soapui/config"><con:settings/><con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="EntityPatientDiscoveryBindingSoap" type="wsdl" bindingName="{urn:gov:hhs:fha:nhinc:entitypatientdiscovery}EntityPatientDiscoveryBindingSoap" soapVersion="1_2" anonymous="optional" definition="../../target/wsdl/EntityPatientDiscovery.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<con:soapui-project name="GW-406/949" resourceRoot="${projectDir}" soapui-version="4.5.1" activeEnvironment="Default" abortOnError="false" runType="SEQUENTIAL" xmlns:con="http://eviware.com/soapui/config"><con:settings/><con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="EntityPatientDiscoveryBindingSoap" type="wsdl" bindingName="{urn:gov:hhs:fha:nhinc:entitypatientdiscovery}EntityPatientDiscoveryBindingSoap" soapVersion="1_2" anonymous="optional" definition="../../target/wsdl/EntityPatientDiscovery.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <con:settings/>
     
     <con:endpoints>
@@ -320,19 +320,19 @@ declare namespace ns2='urn:hl7-org:v3';
       </con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);</con:setupScript><con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);</con:tearDownScript><con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2013-02-04T01:42:50Z</con:value>
+          <con:value>2013-03-19T18:27:23Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2013-02-04T01:52:50Z</con:value>
+          <con:value>2013-03-19T18:37:23Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>02/04/2013 01:42:50</con:value>
+          <con:value>03/19/2013 18:27:23</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2013-03-06T00:00:00Z</con:value>
+          <con:value>2013-04-18T00:00:00Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
