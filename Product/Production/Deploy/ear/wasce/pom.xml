@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>org.connectopensource</groupId>
+        <artifactId>ear</artifactId>
+        <version>4.0.1-RC3</version>
+    </parent>
+    <artifactId>CONNECT-WASCE</artifactId>
+    <packaging>ear</packaging>
+    <name>CONNECT IBM WebSphere CE EAR</name>
+    <dependencies>
+       
+        <dependency>
+            <groupId>com.sun.xml.messaging.saaj</groupId>
+            <artifactId>saaj-impl</artifactId>
+            <version>1.3.18</version>
+        </dependency>
+    </dependencies>
+
+
+    <build>
+        <finalName>${project.artifactId}</finalName>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-ear-plugin</artifactId>
+                <configuration>
+                    <version>6</version>
+                    <defaultLibBundleDir>lib</defaultLibBundleDir>
+                    <includeLibInApplicationXml>false</includeLibInApplicationXml>
+                    <skinnyWars>true</skinnyWars>
+                    <packagingExcludes>
+                        lib/jetty*,
+                        lib/log4j*,
+                        lib/js*,
+                        lib/jul-to-slf4j*,
+                        lib/mimepull*,
+                        lib/velocity-1.5*,
+                        lib/xercesImpl-2.10.0.jar,
+                        lib/xml-apis-*,
+                        lib/activation-*.jar
+                    </packagingExcludes>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>

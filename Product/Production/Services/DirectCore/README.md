@@ -1,9 +1,85 @@
+Direct Overview
+===============
+The CONNECT 4.1 implementation of Direct has several interconnecting parts. This is an overview of
+how those parts interact and their basic configuration. Further details regarding configurations can be
+found in subsequent sections of this readme.
+
+Direct is a secure email standard as described by RFC 5322. The Direct Project requires Health
+Information Service Providers (HISPs) to support SMTP as the Backbone Protocol to provide a common
+transport standard among all HISPs. Sources and Destinations communicate with the HISPs, who
+in turn exchange with one another. CONNECT provides the technical capabilities as a HISP, and so
+it implements SMTP using the Direct Project specifications that allow HISPs to communicate to one
+another, and in addition it supports Edge Protocols that allow clients to communicate with the HISP.
+
+A typical flow of a Direct message would involve a Source client -> Source's HISP -> Destination's HISP -> Destination's Client.
+For example, a Source client initiates a message using the SOAP+XDR edge protocol
+that is sent via the Source's HISP (the CONNECT instance) to the Destination's HISP, A Message
+Disposition Notification (MDN) is sent from the Destination's HISP and received by the Source's HISP as
+an acknowledgement of receipt by the Destination's HISP. Similarly, when acting as a Destination's HISP
+(again, the CONNECT instance), Direct messages that are received can be made available via the Edge
+Protocol to the Destination client, and an MDN notification acknowledging the receipt by the Destination's
+HISP is sent to the Source's HISP. There are two primary Edge Protocols: STMP and SOAP. Let's
+consider the SMTP edge first as we describe the configuration and components.
+
+The implementation of Direct using the SMTP Edge Protocol requires two mail servers: the internal server
+and the external server. The internal mail server is user-facing and acts as an initiation point for users
+within the Source to send Direct messages. It is referred to as the SMTP Edge Client. The external server
+is public-facing and is responsible for exchange of SMTP-based Direct messages between HISPs. The
+external server is utilized only by the HISP (the CONNECT instance) and is invisible to the end-user. The
+CONNECT instance is the intermediary that connects the two mail servers.
+
+Two pollers run at regular intervals that check for any new emails to process. One poller checks the
+internal mail server for any emails from the Source, and another checks the external mail server for any
+emails from other HISPs.
+
+It is useful to look at an example of how CONNECT 4.1 would send a Direct message in this scenario. A
+Direct message is initiated as an email sent from a mailbox on the internal mail server. The internal poller
+checks the internal mail server and picks up the outgoing message. CONNECT processes (encryption, logging, etc.)
+the message and then sends it to the Destination's HISP via the external mail server.
+
+On the other side, when CONNECT is receiving a message, the external poller checks the external mail
+server and picks up the incoming message. CONNECT processes (decryption, logging, etc.) the message
+and then sends it to the internal mail server for use by the Destination. A key action on the receiving side
+is that the Destination HISP sends an MDN Processed notification upon successful receipt, decryption
+and trust validation of a Direct message, That MDN arrives in the Source's HISP's external email server.
+The MDN is handled in the same manner as any other incoming message and ultimately arrives at the
+internal mail server. While the Applicability Statement indicates that additional MDNs may be sent to
+indicate further progress processing the message, they are not required and were not included in this
+release of CONNECT. 
+
+A second Edge Protocol is available. It is the SOAP Edge Protocol and it acts in
+the same way as any other CONNECT adapter. A URL endpoint is provisioned in the CONNECT gateway
+that accepts SOAP XDR messages. The gateway processes the message and sends it out as an SMTP
+Direct message via the external mailbox, in the same manner as with the SMTP Edge Protocol. In this
+case it is possible that there is no internal mail server at all. Messages could be only initiated via SOAP.
+However, note that as long as both Edge Protocols are available, a Direct message can be initiated with
+either Edge Protocol and this is a valid use case. (A third, Java Edge Protocol exists as described in the
+Direct readme. However it is outside the scope of this introduction.)
+
+Just as outgoing messages can utilize the SOAP Edge Protocol, so can incoming Direct messages.
+CONNECT is configured to use a particular Edge Protocol for incoming messages via a Spring
+configuration. It is not possible to use multiple Edge Protocols simultaneously for incoming messages.
+The gateway utilizes only the Edge Protocol specified in the Spring configuration file for receiving Direct
+messages. The URL to which the gateway sends messages is specified just as any other adapter URL in
+internalConnectionInfo.xml.
+
+As mentioned above, the gateway processes messages regardless of which Edge Protocol initiates the message. In addition to providing security for the messages, the gateway also
+performs two types of logging; Audit logging and Event logging. Audit logging is implemented via the Direct
+Java Reference Implementations log4j audit messages. Event Logging is an easy way to determine if a Direct 
+message has been processed fully and if the MDN has been received. Please see the CONNECT Event Logging
+documentation for more details (3rd link below).
+
+References:  
+https://developer.connectopensource.org/display/CONNECTWIKI/Approach+for+Direct+Implementation
+https://developer.connectopensource.org/display/CONNECT40/Direct+Integration 
+https://developer.connectopensource.org/display/CONNECT40/Direct
+
 Setting up CONNECT as a Direct HISP
 ===================================
 
 ###Security Policy Files
 
-This is now a 4.0 prerequisite -- see main README
+This is now a 4.1 prerequisite -- see main README
 
 Download the jars from:
 

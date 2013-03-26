@@ -352,19 +352,19 @@ exists( //ns3:PRPA_IN201306UV02/ns3:controlActProcess/ns3:reasonOf/ns3:detectedI
 <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"),log);</con:setupScript><con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"),log);</con:tearDownScript><con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2013-01-11T20:06:46Z</con:value>
+		<con:value>2013-03-19T17:34:45Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2013-01-11T20:16:46Z</con:value>
+		<con:value>2013-03-19T17:44:45Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>01/11/2013 20:06:46</con:value>
+		<con:value>03/19/2013 17:34:45</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2013-02-10T00:00:00Z</con:value>
+		<con:value>2013-04-18T00:00:00Z</con:value>
 	</con:property>
 </con:properties>
 <con:reportParameters/>
@@ -666,7 +666,7 @@ nhinc.FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFil
 				<con:wsrmConfig version="1.2"/>
 			</con:request>
 		</con:config>
-	</con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"),log);</con:setupScript><con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"),log);</con:tearDownScript><con:properties><con:property><con:name>startDate</con:name><con:value>2013-01-11T20:06:47Z</con:value></con:property><con:property><con:name>endDate</con:name><con:value>2013-01-11T20:16:47Z</con:value></con:property><con:property><con:name>sigDate</con:name><con:value>01/11/2013 20:06:47</con:value></con:property><con:property><con:name>expireDate</con:name><con:value>2013-02-10T00:00:00Z</con:value></con:property></con:properties></con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="PD Deferred Response" searchProperties="true" id="2a1cb79a-a1bc-454c-8ebb-bde2d50155e9" disabled="true"><con:settings/><con:testStep type="groovy" name="Update uddiConnectionInfo">
+	</con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"),log);</con:setupScript><con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"),log);</con:tearDownScript><con:properties><con:property><con:name>startDate</con:name><con:value>2013-03-19T17:34:46Z</con:value></con:property><con:property><con:name>endDate</con:name><con:value>2013-03-19T17:44:46Z</con:value></con:property><con:property><con:name>sigDate</con:name><con:value>03/19/2013 17:34:46</con:value></con:property><con:property><con:name>expireDate</con:name><con:value>2013-04-18T00:00:00Z</con:value></con:property></con:properties></con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="PD Deferred Response" searchProperties="true" id="2a1cb79a-a1bc-454c-8ebb-bde2d50155e9" disabled="true"><con:settings/><con:testStep type="groovy" name="Update uddiConnectionInfo">
 				<con:settings/>
 				<con:config><script>def destConfigFileLocation = context.findProperty("GatewayPropDir");
 def HCID2 = context.findProperty("RemoteHCID");

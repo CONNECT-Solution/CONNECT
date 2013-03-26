@@ -1,17 +1,15 @@
 /**
- * 
+ *
  */
 package gov.hhs.fha.nhinc.callback.openSAML;
 
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants.GATEWAY_API_LEVEL;
-
 import java.util.List;
-
 import org.joda.time.DateTime;
 
 /**
  * @author bhumphrey
- * 
+ *
  */
 public interface CallbackProperties {
 
@@ -72,7 +70,7 @@ public interface CallbackProperties {
 
     /**
      * @return Evidence ID
-     */ 
+     */
     public String getEvidenceID();
 
     /**
@@ -195,4 +193,8 @@ public interface CallbackProperties {
      */
     public String getServiceName();
 
+    /**
+     * @return
+     */
+    public String getNPI();
 }

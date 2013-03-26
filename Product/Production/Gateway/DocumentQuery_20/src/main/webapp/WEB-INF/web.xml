@@ -32,33 +32,6 @@
         <url-pattern>/*</url-pattern>
     </servlet-mapping>
 
-    <!-- security-constraint>
-        <web-resource-collection>
-            <web-resource-name>DocQuery</web-resource-name>
-            <url-pattern>/NhinService/RespondingGateway_Query_Service/DocQuery</url-pattern>
-        </web-resource-collection>
-        <web-resource-collection>
-            <web-resource-name>EntityDocQuerySecured</web-resource-name>
-            <url-pattern>/EntityService/EntityDocQuerySecured</url-pattern>
-        </web-resource-collection>
-        <web-resource-collection>
-            <web-resource-name>NhincProxyDocQuerySecured</web-resource-name>
-            <url-pattern>/EntityService/NhincProxyDocQuerySecured</url-pattern>
-        </web-resource-collection>
-        <web-resource-collection>
-            <web-resource-name>NhincProxyDocRetrieveSecured</web-resource-name>
-            <url-pattern>/EntityService/NhincProxyDocRetrieveSecured</url-pattern>
-        </web-resource-collection>
-        <user-data-constraint>
-            <transport-guarantee>CONFIDENTIAL</transport-guarantee>
-        </user-data-constraint>
-    </security-constraint -->
-
-    <login-config>
-        <auth-method>CLIENT-CERT</auth-method>
-        <realm-name>certificate</realm-name>
-    </login-config>
-
     <session-config>
         <session-timeout>30</session-timeout>
     </session-config>
@@ -68,12 +41,6 @@
     
     <resource-ref>
         <res-ref-name>jdbc/assigningauthoritydb_datasource</res-ref-name>
-        <res-type>javax.sql.DataSource</res-type>
-        <res-auth>Container</res-auth>
-        <res-sharing-scope>Shareable</res-sharing-scope>
-    </resource-ref>
-    <resource-ref>
-        <res-ref-name>jdbc/perfrepo_datasource</res-ref-name>
         <res-type>javax.sql.DataSource</res-type>
         <res-auth>Container</res-auth>
         <res-sharing-scope>Shareable</res-sharing-scope>

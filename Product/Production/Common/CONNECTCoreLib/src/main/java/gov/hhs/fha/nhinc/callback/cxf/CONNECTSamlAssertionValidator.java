@@ -5,6 +5,7 @@ import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 
 import java.security.PublicKey;
 import java.security.cert.X509Certificate;
+import java.util.List;
 
 import javax.xml.namespace.QName;
 
@@ -13,6 +14,7 @@ import org.apache.ws.security.WSSecurityException;
 import org.apache.ws.security.handler.RequestData;
 import org.apache.ws.security.saml.SAMLKeyInfo;
 import org.apache.ws.security.saml.ext.AssertionWrapper;
+import org.apache.ws.security.saml.ext.OpenSAMLUtil;
 import org.apache.ws.security.validate.Credential;
 import org.apache.ws.security.validate.SamlAssertionValidator;
 import org.opensaml.xml.validation.ValidationException;
@@ -31,17 +33,17 @@ public class CONNECTSamlAssertionValidator extends SamlAssertionValidator {
 			.getLogger(CONNECTSamlAssertionValidator.class);
 
 	private static final String ALLOW_NO_SUBJECT_ASSERTION_PROP = "allowNoSubjectAssertion";
-	private static final String ALLOW_NO_SUBJECT_ASSERTION_ID = "saml2-core-spec-validator-allow-no-subject-assertion"; 
+	private static final String ALLOW_NO_SUBJECT_ASSERTION_ID = "saml2-core-spec-validator-allow-no-subject-assertion";
 	private PropertyAccessor propertyAccessor;
-	
-	public CONNECTSamlAssertionValidator(){
+
+	public CONNECTSamlAssertionValidator() {
 		propertyAccessor = PropertyAccessor.getInstance();
 	}
-	
-	public CONNECTSamlAssertionValidator(PropertyAccessor propertyAccessor){
+
+	public CONNECTSamlAssertionValidator(PropertyAccessor propertyAccessor) {
 		this.propertyAccessor = propertyAccessor;
 	}
-	
+
 	/**
 	 * Validate the assertion against schemas/profiles
 	 */
@@ -120,40 +122,70 @@ public class CONNECTSamlAssertionValidator extends SamlAssertionValidator {
 				.getValidatorSuite("saml2-core-spec-validator");
 	}
 
-	/**
-	 * Verify trust in the signature of a signed Assertion. This method is
-	 * separate so that the user can override if if they want.
+	/*
+	 * (non-Javadoc)
 	 * 
-	 * @param assertion
-	 *            The signed Assertion
-	 * @param data
-	 *            The RequestData context
-	 * @return A Credential instance
-	 * @throws WSSecurityException
+	 * @see org.apache.ws.security.validate.SamlAssertionValidator(
+	 * org.apache.ws.security.validate.Credential,
+	 * org.apache.ws.security.handler.RequestData)
 	 */
 	@Override
-	protected Credential verifySignedAssertion(AssertionWrapper assertion,
+	public Credential validate(Credential credential, RequestData data)
+			throws WSSecurityException {
+		if (credential == null || credential.getAssertion() == null) {
+			throw new WSSecurityException(WSSecurityException.FAILURE,
+					"noCredential");
+		}
+		AssertionWrapper assertion = credential.getAssertion();
+
+		// Check HOK requirements
+		String confirmMethod = null;
+		List<String> methods = assertion.getConfirmationMethods();
+		if (methods != null && methods.size() > 0) {
+			confirmMethod = methods.get(0);
+		}
+		if (OpenSAMLUtil.isMethodHolderOfKey(confirmMethod)) {
+			if (assertion.getSubjectKeyInfo() == null) {
+				LOG.debug("There is no Subject KeyInfo to match the holder-of-key subject conf method");
+				throw new WSSecurityException(WSSecurityException.FAILURE,
+						"noKeyInSAMLToken");
+			}
+			// The assertion must have been signed for HOK
+			if (!assertion.isSigned()) {
+				LOG.debug("A holder-of-key assertion must be signed");
+				throw new WSSecurityException(WSSecurityException.FAILURE,
+						"invalidSAMLsecurity");
+			}
+		}
+
+		// Check conditions
+		checkConditions(assertion);
+
+		// Validate the assertion against schemas/profiles
+		validateAssertion(assertion);
+
+		checkSignedAssertion(assertion, data);
+
+		return credential;
+	}
+
+	protected void checkSignedAssertion(AssertionWrapper assertion,
 			RequestData data) throws WSSecurityException {
-		Credential trustCredential = new Credential();
-		
+
 		SAMLKeyInfo samlKeyInfo = assertion.getSignatureKeyInfo();
 		X509Certificate[] certs = samlKeyInfo.getCerts();
 		PublicKey publicKey = samlKeyInfo.getPublicKey();
 
-		trustCredential.setPublicKey(publicKey);
-		trustCredential.setCertificates(certs);
 		try {
-			trustCredential = super.validate(trustCredential, data);
-		} catch (WSSecurityException exc) {
+			super.verifySignedAssertion(assertion, data);
+		} catch (WSSecurityException e) {
 			if (certs == null && publicKey != null) {
 				LOG.warn("Could not establish trust of the signature's public key because no matching public key "
 						+ "exists in the truststore. Please see GATEWAY-3146 for more details.");
 			} else {
-				throw exc;
+				throw e;
 			}
 		}
-
-		return trustCredential;
 	}
 
 }

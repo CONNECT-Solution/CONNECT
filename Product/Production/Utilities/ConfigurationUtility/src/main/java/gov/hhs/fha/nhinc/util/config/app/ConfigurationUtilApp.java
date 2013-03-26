@@ -26,7 +26,6 @@
  */
 package gov.hhs.fha.nhinc.util.config.app;
 
-import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import java.io.File;
 import java.io.FilenameFilter;
 
@@ -47,12 +46,6 @@ public class ConfigurationUtilApp {
     static {
         String propertyFileDirAbsolutePath = System.getProperty("nhinc.properties.dir");
 
-        if (propertyFileDirAbsolutePath == null) {
-            LOG.warn("The runtime property nhinc.properties.dir is not set!!!  "
-                    + "Looking for the environment variable NHINC_PROPERTIES_DIR as a fall back.  "
-                    + "Please set the runtime nhinc.properties.dir system property in your configuration files.");
-            propertyFileDirAbsolutePath = System.getenv(NhincConstants.NHINC_PROPERTIES_DIR);
-        }
         DEFAULT_CONFIG_FILE_DIRECTORY = propertyFileDirAbsolutePath;
     }
 

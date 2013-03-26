@@ -51,7 +51,11 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.mail.Address;
+import javax.mail.Message.RecipientType;
 import javax.mail.MessagingException;
+import javax.mail.internet.AddressException;
+import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
 import org.junit.Test;
@@ -259,5 +263,41 @@ public class DirectAdapterTest extends AbstractDirectMailClientTest {
         assertEquals("Event at index: " + eventIndex + " --> " + event.getDescription(), eventType.toString(),
                 event.getEventName());
         eventIndex++;
+    }
+    
+    @SuppressWarnings("unchecked")
+    @Test(expected = DirectException.class)
+    public void testExceptionHandlingMessagingException() throws MessagingException {
+        DirectAdapter instance = new DirectAdapter(extMailSender, mockSmtpAgent, null) {
+            // this abstract class has no abstract methods so...
+        };
+        
+        MimeMessage mockMessage = mock(MimeMessage.class);
+        when(mockMessage.getRecipients(any(RecipientType.class))).thenReturn(getMockAddresses());
+        when(mockMessage.getFrom()).thenReturn(getMockAddresses());
+        when(mockSmtpAgent.processMessage(any(MimeMessage.class), any(NHINDAddressCollection.class),
+                any(NHINDAddress.class))).thenThrow(MessagingException.class);
+        instance.process(mockMessage);
+    }
+    
+    @SuppressWarnings("unchecked")
+    @Test(expected = DirectException.class)
+    public void testExceptionHandlingException() throws MessagingException {
+        DirectAdapter instance = new DirectAdapter(extMailSender, mockSmtpAgent, null) {
+            // this abstract class has no abstract methods so...
+        };
+        
+        MimeMessage mockMessage = mock(MimeMessage.class);
+        when(mockMessage.getRecipients(any(RecipientType.class))).thenReturn(getMockAddresses());
+        when(mockMessage.getFrom()).thenReturn(getMockAddresses());
+        when(mockSmtpAgent.processMessage(any(MimeMessage.class), any(NHINDAddressCollection.class),
+                any(NHINDAddress.class))).thenThrow(Exception.class);
+        instance.process(mockMessage);
+    }
+    
+    private Address[] getMockAddresses() throws AddressException {
+        Address[] addresses = new Address[1];
+        addresses[0] = new InternetAddress("test@direct.example.com");
+        return addresses;
     }
 }

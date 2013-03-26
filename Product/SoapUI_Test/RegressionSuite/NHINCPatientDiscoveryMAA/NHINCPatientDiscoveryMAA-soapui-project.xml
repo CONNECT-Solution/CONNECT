@@ -317,7 +317,7 @@ exists( //ns3:PRPA_IN201306UV02/ns3:controlActProcess)</path>
 		</con:config>
 	</con:testStep>
 	<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);</con:tearDownScript>
-	<con:properties><con:property><con:name>startDate</con:name><con:value>2013-01-11T19:01:24Z</con:value></con:property><con:property><con:name>endDate</con:name><con:value>2013-01-11T19:11:24Z</con:value></con:property><con:property><con:name>sigDate</con:name><con:value>01/11/2013 19:01:24</con:value></con:property><con:property><con:name>expireDate</con:name><con:value>2013-02-10T00:00:00Z</con:value></con:property></con:properties>
+	<con:properties><con:property><con:name>startDate</con:name><con:value>2013-03-19T18:24:45Z</con:value></con:property><con:property><con:name>endDate</con:name><con:value>2013-03-19T18:34:45Z</con:value></con:property><con:property><con:name>sigDate</con:name><con:value>03/19/2013 18:24:45</con:value></con:property><con:property><con:name>expireDate</con:name><con:value>2013-04-18T00:00:00Z</con:value></con:property></con:properties>
 </con:testCase>
 <con:properties/>
 </con:testSuite>
