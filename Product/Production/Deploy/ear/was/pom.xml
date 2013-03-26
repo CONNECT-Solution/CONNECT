@@ -30,7 +30,7 @@
                     <version>6</version>
                     <defaultLibBundleDir>lib</defaultLibBundleDir>
                     <skinnyWars>true</skinnyWars>
-                    <includeLibInApplicationXml>true</includeLibInApplicationXml>
+                    <includeLibInApplicationXml>false</includeLibInApplicationXml>
                     <packagingExcludes>
                         lib/jetty*,
                         lib/log4j-over-slf4j*.jar,
