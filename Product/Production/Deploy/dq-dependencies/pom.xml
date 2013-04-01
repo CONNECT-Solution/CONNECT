@@ -5,7 +5,7 @@
     <parent>
         <groupId>org.connectopensource</groupId>
         <artifactId>Deploy</artifactId>
-        <version>4.0.1-RC3</version>
+        <version>4.2.0-SNAPSHOT</version>
     </parent>
     <artifactId>dq-dependencies</artifactId>
     <packaging>pom</packaging>
