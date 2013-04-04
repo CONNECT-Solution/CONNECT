@@ -29,9 +29,16 @@ package gov.hhs.fha.nhinc.policyengine.adapter.orchestrator.proxy;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyResponseType;
+import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.policyengine.adapter.orchestrator.AdapterPolicyEngineOrchestratorImpl;
+import gov.hhs.fha.nhinc.policyengine.adapter.orchestrator.util.policyEngineUtil;
 
-import org.apache.log4j.Logger;;
+import oasis.names.tc.xacml._2_0.context.schema.os.DecisionType;
+import oasis.names.tc.xacml._2_0.context.schema.os.ResultType;
+
+import org.apache.log4j.Logger;
+
+;
 
 /**
  * This is the concrete implementation for the Java based call to the AdapterPolicyEngineOrchestrator.
@@ -55,7 +62,11 @@ public class AdapterPolicyEngineOrchProxyJavaImpl implements AdapterPolicyEngine
         AdapterPolicyEngineOrchestratorImpl oOrchestratorImpl = new AdapterPolicyEngineOrchestratorImpl();
 
         try {
-            oResponse = oOrchestratorImpl.checkPolicy(checkPolicyRequest, assertion);
+            policyEngineUtil util = new policyEngineUtil();
+            oResponse = util.checkkAssertionAttributeStatement(assertion);
+            if (oResponse.getResponse().getResult().isEmpty()) {
+                   oResponse = oOrchestratorImpl.checkPolicy(checkPolicyRequest, assertion);
+            }
         } catch (Exception e) {
             String sErrorMessage = "Error occurred calling AdapterPolicyEngineOrchProxyJavaImpl.checkPolicy.  Error: "
                     + e.getMessage();
@@ -66,5 +77,7 @@ public class AdapterPolicyEngineOrchProxyJavaImpl implements AdapterPolicyEngine
         LOG.trace("End AdapterPolicyEngineOrchProxyJavaImpl.checkPolicy");
         return oResponse;
     }
+
+    
 
 }
