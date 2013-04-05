@@ -62,11 +62,7 @@ public class AdapterPolicyEngineOrchProxyJavaImpl implements AdapterPolicyEngine
         AdapterPolicyEngineOrchestratorImpl oOrchestratorImpl = new AdapterPolicyEngineOrchestratorImpl();
 
         try {
-            policyEngineUtil util = new policyEngineUtil();
-            oResponse = util.checkkAssertionAttributeStatement(assertion);
-            if (oResponse.getResponse().getResult().isEmpty()) {
                    oResponse = oOrchestratorImpl.checkPolicy(checkPolicyRequest, assertion);
-            }
         } catch (Exception e) {
             String sErrorMessage = "Error occurred calling AdapterPolicyEngineOrchProxyJavaImpl.checkPolicy.  Error: "
                     + e.getMessage();
