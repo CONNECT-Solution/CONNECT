@@ -54,6 +54,11 @@
 		<meta key="impltype" value="java"/>
 		<meta key="default" value="true"/>
 	</bean> 
+	
+	<bean lazy-init="true" class="gov.hhs.fha.nhinc.policyengine.adapter.orchestrator.proxy.AdapterPolicyEngineOrchProxySAMLJavaImpl" id="adapterpolicyengineorchestratorsamljava" name="adapterpolicyengineorchestratorsamljava"> 
+		<meta key="impltype" value="java"/>
+		<meta key="default" value="true"/>
+	</bean> 
 
 	<!-- Unsecured web service Implementation -->
 	<bean lazy-init="true" class="gov.hhs.fha.nhinc.policyengine.adapter.orchestrator.proxy.AdapterPolicyEngineOrchProxyWebServiceUnsecuredImpl" id="adapterpolicyengineorchestratorwsunsecured" name="adapterpolicyengineorchestratorwsunsecured"> 

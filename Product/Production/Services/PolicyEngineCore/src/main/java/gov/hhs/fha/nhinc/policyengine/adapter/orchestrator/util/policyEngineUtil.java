@@ -1,6 +1,9 @@
 package gov.hhs.fha.nhinc.policyengine.adapter.orchestrator.util;
 
+import org.apache.commons.lang.StringUtils;
+
 import oasis.names.tc.xacml._2_0.context.schema.os.DecisionType;
+import oasis.names.tc.xacml._2_0.context.schema.os.ResponseType;
 import oasis.names.tc.xacml._2_0.context.schema.os.ResultType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyResponseType;
@@ -16,73 +19,100 @@ public class policyEngineUtil {
         CheckPolicyResponseType oResponse = new CheckPolicyResponseType();
         if (assertion != null) {
             if (assertion.getPersonName() != null) {
-                if (assertion.getPersonName().getFamilyName() == null) {
+                if (StringUtils.isBlank(assertion.getPersonName().getFamilyName())) {
                     oResponse = createResponseWithDENY(oResponse);
                     return oResponse;
                 }
-                if (assertion.getPersonName().getSecondNameOrInitials() == null) {
+                if (StringUtils.isBlank(assertion.getPersonName().getSecondNameOrInitials())) {
                     oResponse = createResponseWithDENY(oResponse);
                     return oResponse;
                 }
-                if (assertion.getPersonName().getGivenName() == null) {
+                if (StringUtils.isBlank(assertion.getPersonName().getGivenName())) {
                     oResponse = createResponseWithDENY(oResponse);
                     return oResponse;
                 }
             }
+            else {
+                oResponse = createResponseWithDENY(oResponse);
+                return oResponse;
+            }
             if (assertion.getUserInfo() != null) {
                 if (assertion.getUserInfo().getOrg() != null) {
-                    if (assertion.getUserInfo().getOrg().getName() == null) {
+                    if (StringUtils.isBlank(assertion.getUserInfo().getOrg().getName())) {
                         oResponse = createResponseWithDENY(oResponse);
                         return oResponse;
                     }
                 }
                 if (assertion.getUserInfo().getRoleCoded() != null) {
-                    if (assertion.getUserInfo().getRoleCoded().getCode() == null) {
+                    if (StringUtils.isBlank(assertion.getUserInfo().getRoleCoded().getCode())) {
                         oResponse = createResponseWithDENY(oResponse);
                         return oResponse;
                     }
-                    if (assertion.getUserInfo().getRoleCoded().getCodeSystem() == null) {
+                    if (StringUtils.isBlank(assertion.getUserInfo().getRoleCoded().getCodeSystem())) {
                         oResponse = createResponseWithDENY(oResponse);
                         return oResponse;
                     }
-                    if (assertion.getUserInfo().getRoleCoded().getDisplayName() == null) {
+                    if (StringUtils.isBlank(assertion.getUserInfo().getRoleCoded().getDisplayName())) {
                         oResponse = createResponseWithDENY(oResponse);
                         return oResponse;
                     }
                 }
+            }
+            else {
+                oResponse = createResponseWithDENY(oResponse);
+                return oResponse;
             }
             if (assertion.getPurposeOfDisclosureCoded() != null) {
-                if (assertion.getPurposeOfDisclosureCoded().getCode() == null) {
+                if (StringUtils.isBlank(assertion.getPurposeOfDisclosureCoded().getCode())) {
                     oResponse = createResponseWithDENY(oResponse);
                     return oResponse;
                 }
-                if (assertion.getPurposeOfDisclosureCoded().getCodeSystem() == null) {
+                if (StringUtils.isBlank(assertion.getPurposeOfDisclosureCoded().getCodeSystem())) {
                     oResponse = createResponseWithDENY(oResponse);
                     return oResponse;
                 }
-                if (assertion.getPurposeOfDisclosureCoded().getCodeSystemName() == null) {
+                if (StringUtils.isBlank(assertion.getPurposeOfDisclosureCoded().getCodeSystemName())) {
                     oResponse = createResponseWithDENY(oResponse);
                     return oResponse;
                 }
-                if (assertion.getPurposeOfDisclosureCoded().getDisplayName() == null) {
+                if (StringUtils.isBlank(assertion.getPurposeOfDisclosureCoded().getDisplayName())) {
                     oResponse = createResponseWithDENY(oResponse);
                     return oResponse;
                 }
+            }
+            else {
+                oResponse = createResponseWithDENY(oResponse);
+                return oResponse;
             }
             if (assertion.getHomeCommunity() != null) {
-                if (assertion.getHomeCommunity().getHomeCommunityId() == null) {
+                if (StringUtils.isBlank(assertion.getHomeCommunity().getHomeCommunityId())) {
                     oResponse = createResponseWithDENY(oResponse);
                     return oResponse;
                 }
             }
+            else {
+                oResponse = createResponseWithDENY(oResponse);
+                return oResponse;
+            }
         }
+        else {
+            oResponse = createResponseWithDENY(oResponse);
+            return oResponse;
+        }
+        ResponseType Response = new ResponseType();
+        ResultType oResult = new ResultType();
+        oResult.setDecision(DecisionType.PERMIT);
+        Response.getResult().add(oResult);
+        oResponse.setResponse(Response);
         return oResponse;
     }
     
     private CheckPolicyResponseType createResponseWithDENY(CheckPolicyResponseType response) {
+        ResponseType Response = new ResponseType();
         ResultType oResult = new ResultType();
         oResult.setDecision(DecisionType.DENY);
-        response.getResponse().getResult().add(oResult);
+        Response.getResult().add(oResult);
+        response.setResponse(Response);
         return response;
     }
 }
