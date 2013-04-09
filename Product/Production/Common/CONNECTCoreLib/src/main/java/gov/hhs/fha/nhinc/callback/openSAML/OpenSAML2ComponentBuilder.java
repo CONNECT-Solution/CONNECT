@@ -569,4 +569,17 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
             Arrays.asList(attributeValue));
 
     }
+
+    /**
+     * @param organizationId
+     * @return
+     */
+    public List<AttributeStatement> createOrganizationIdAttributeStatement(String organizationId) {
+        List<AttributeStatement> statements = new ArrayList<AttributeStatement>();
+        Attribute attribute = createAttribute(null, SamlConstants.USER_ORG_ID_ATTR, null, Arrays.asList(organizationId));
+
+        statements.addAll(OpenSAML2ComponentBuilder.getInstance().createAttributeStatement(Arrays.asList(attribute)));
+
+        return statements;
+    }
 }

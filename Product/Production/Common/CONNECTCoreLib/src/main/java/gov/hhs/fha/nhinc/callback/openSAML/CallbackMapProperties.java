@@ -268,6 +268,14 @@ public class CallbackMapProperties implements CallbackProperties {
     public String getUserOrganization() {
         return getNullSafeString(SamlConstants.USER_ORG_PROP);
     }
+    
+    /* (non-Javadoc)
+     * @see gov.hhs.fha.nhinc.callback.openSAML.CallbackProperties#getUserOrganization()
+     */
+    @Override
+    public String getUserOrganizationId() {
+        return getNullSafeString(SamlConstants.USER_ORG_ID_PROP);
+    }
 
     /* (non-Javadoc)
      * @see gov.hhs.fha.nhinc.callback.openSAML.CallbackProperties#getHomeCommunity()
