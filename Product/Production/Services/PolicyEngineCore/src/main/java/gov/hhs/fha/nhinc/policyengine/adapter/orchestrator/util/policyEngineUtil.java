@@ -14,7 +14,7 @@ import gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyResponseType;
  */
 public class policyEngineUtil {
 
-    public CheckPolicyResponseType checkkAssertionAttributeStatement(AssertionType assertion) {
+    public CheckPolicyResponseType checkAssertionAttributeStatement(AssertionType assertion) {
 
         CheckPolicyResponseType oResponse = new CheckPolicyResponseType();
         if (assertion != null) {
@@ -42,6 +42,10 @@ public class policyEngineUtil {
                         oResponse = createResponseWithDENY(oResponse);
                         return oResponse;
                     }
+                    if (StringUtils.isBlank(assertion.getUserInfo().getOrg().getHomeCommunityId())) {
+                        oResponse = createResponseWithDENY(oResponse);
+                        return oResponse;
+                    }
                 }
                 if (assertion.getUserInfo().getRoleCoded() != null) {
                     if (StringUtils.isBlank(assertion.getUserInfo().getRoleCoded().getCode())) {
@@ -49,6 +53,10 @@ public class policyEngineUtil {
                         return oResponse;
                     }
                     if (StringUtils.isBlank(assertion.getUserInfo().getRoleCoded().getCodeSystem())) {
+                        oResponse = createResponseWithDENY(oResponse);
+                        return oResponse;
+                    }
+                    if (StringUtils.isBlank(assertion.getUserInfo().getRoleCoded().getCodeSystemName())) {
                         oResponse = createResponseWithDENY(oResponse);
                         return oResponse;
                     }
