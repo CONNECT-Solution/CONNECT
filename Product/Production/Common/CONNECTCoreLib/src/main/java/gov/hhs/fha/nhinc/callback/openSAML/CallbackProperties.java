@@ -197,4 +197,9 @@ public interface CallbackProperties {
      * @return
      */
     public String getNPI();
+
+    /**
+     * @return
+     */
+    String getUserOrganizationId();
 }

@@ -520,6 +520,13 @@ public class HOKSAMLAssertionBuilderTest extends AbstractSuppressRootLoggerTest 
             public String getNPI() {
                 return "npi";
             }
+
+            @Override
+            public String getUserOrganizationId() {
+                // TODO Auto-generated method stub
+                return "orgId";
+            }
+            
         };
     }
 }

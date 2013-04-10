@@ -38,7 +38,7 @@
 	
 	<!-- Beans defined : Adapter Policy Engine Orchestrator -->
 	
-	<alias alias="adapterpolicyengineorchestrator" name="adapterpolicyengineorchestratorjava" />
+	<alias alias="adapterpolicyengineorchestrator" name="adapterpolicyengineorchestratorsamljava" />
 
 	<!-- No-op Implementation -->
 	<bean lazy-init="true" class="gov.hhs.fha.nhinc.policyengine.adapter.orchestrator.proxy.AdapterPolicyEngineOrchProxyPermitNoOpImpl" id="adapterpolicyengineorchestratornoop" name="adapterpolicyengineorchestratornoop"> 
@@ -51,6 +51,11 @@
 
 	<!-- Java Implementation -->
 	<bean lazy-init="true" class="gov.hhs.fha.nhinc.policyengine.adapter.orchestrator.proxy.AdapterPolicyEngineOrchProxyJavaImpl" id="adapterpolicyengineorchestratorjava" name="adapterpolicyengineorchestratorjava"> 
+		<meta key="impltype" value="java"/>
+		<meta key="default" value="true"/>
+	</bean> 
+	
+	<bean lazy-init="true" class="gov.hhs.fha.nhinc.policyengine.adapter.orchestrator.proxy.AdapterPolicyEngineOrchProxySAMLJavaImpl" id="adapterpolicyengineorchestratorsamljava" name="adapterpolicyengineorchestratorsamljava"> 
 		<meta key="impltype" value="java"/>
 		<meta key="default" value="true"/>
 	</bean> 

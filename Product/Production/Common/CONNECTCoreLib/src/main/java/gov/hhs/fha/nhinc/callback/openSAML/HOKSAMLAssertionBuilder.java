@@ -11,6 +11,7 @@ import java.security.PublicKey;
 import java.security.cert.X509Certificate;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
@@ -36,7 +37,7 @@ import org.w3c.dom.Element;
 
 /**
  * @author bhumphrey
- *
+ * 
  */
 public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
 
@@ -57,7 +58,7 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
 
     /**
      * Creates the "Holder-of-Key" variant of the SAML Assertion token.
-     *
+     * 
      * @return The Assertion element
      * @throws Exception
      */
@@ -67,8 +68,7 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
         Element signedAssertion = null;
         try {
             Assertion assertion = null;
-            assertion = OpenSAML2ComponentBuilder.getInstance()
-                .createAssertion();
+            assertion = OpenSAML2ComponentBuilder.getInstance().createAssertion();
 
             // create the assertion id
             // Per GATEWAY-847 the id attribute should not be allowed to start
@@ -88,9 +88,7 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
             // set issuer
             assertion.setIssuer(createIssuer(properties));
 
-
-            X509Certificate certificate = certificateManager
-                .getDefaultCertificate();
+            X509Certificate certificate = certificateManager.getDefaultCertificate();
             PublicKey publicKey = certificateManager.getDefaultPublicKey();
 
             // set subject
@@ -99,9 +97,7 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
 
             // add attribute statements
             Subject evidenceSubject = createEvidenceSubject(properties, certificate, publicKey);
-            assertion.getStatements().addAll(
-                createAttributeStatements(properties, evidenceSubject));
-
+            assertion.getStatements().addAll(createAttributeStatements(properties, evidenceSubject));
 
             PrivateKey privateKey = certificateManager.getDefaultPrivateKey();
             // sign the message
@@ -120,15 +116,14 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
      * @param certificate
      * @throws Exception
      */
-    static Element sign(Assertion assertion, X509Certificate certificate,
-        PrivateKey privateKey, PublicKey publicKey) throws Exception {
-        Signature signature = OpenSAML2ComponentBuilder.getInstance()
-            .createSignature(certificate, privateKey, publicKey);
+    static Element sign(Assertion assertion, X509Certificate certificate, PrivateKey privateKey, PublicKey publicKey)
+            throws Exception {
+        Signature signature = OpenSAML2ComponentBuilder.getInstance().createSignature(certificate, privateKey,
+                publicKey);
         assertion.setSignature(signature);
 
         // marshall Assertion Java class into XML
-        MarshallerFactory marshallerFactory = Configuration
-            .getMarshallerFactory();
+        MarshallerFactory marshallerFactory = Configuration.getMarshallerFactory();
         Marshaller marshaller = marshallerFactory.getMarshaller(assertion);
         Element assertionElement = marshaller.marshall(assertion);
         try {
@@ -151,17 +146,14 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
             LOG.debug("Setting Assertion Issuer to: " + sIssuer);
 
             if (isValidNameidFormat(format)) {
-                issuer = OpenSAML2ComponentBuilder.getInstance()
-                    .createIssuer(format, sIssuer);
+                issuer = OpenSAML2ComponentBuilder.getInstance().createIssuer(format, sIssuer);
             } else {
                 LOG.debug("Not in valid listing of formats: Using default issuer");
-                issuer = OpenSAML2ComponentBuilder.getInstance()
-                    .createDefaultIssuer();
+                issuer = OpenSAML2ComponentBuilder.getInstance().createDefaultIssuer();
             }
         } else {
             LOG.debug("Assertion issuer not defined: Using default issuer");
-            issuer = OpenSAML2ComponentBuilder.getInstance()
-                .createDefaultIssuer();
+            issuer = OpenSAML2ComponentBuilder.getInstance().createDefaultIssuer();
         }
         return issuer;
     }
@@ -173,15 +165,14 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
      * @throws Exception
      */
     static Subject createSubject(CallbackProperties properties, X509Certificate certificate, PublicKey publicKey)
-        throws Exception {
+            throws Exception {
         String x509Name = "UID=" + properties.getUsername();
 
         return createSubject(x509Name, certificate, publicKey);
     }
 
-    static Subject createEvidenceSubject(CallbackProperties properties, X509Certificate certificate,
-        PublicKey publicKey)
-        throws Exception {
+    static Subject createEvidenceSubject(CallbackProperties properties, X509Certificate certificate, PublicKey publicKey)
+            throws Exception {
         String evidenceSubject = properties.getEvidenceSubject();
         if (NullChecker.isNullish(evidenceSubject)) {
             evidenceSubject = properties.getUsername();
@@ -192,11 +183,9 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
         return createSubject(x509Name, certificate, publicKey);
     }
 
-    static Subject createSubject(String x509Name, X509Certificate certificate, PublicKey publicKey)
-        throws Exception {
+    static Subject createSubject(String x509Name, X509Certificate certificate, PublicKey publicKey) throws Exception {
         Subject subject;
-        subject = OpenSAML2ComponentBuilder.getInstance().createSubject(x509Name,
-            certificate, publicKey);
+        subject = OpenSAML2ComponentBuilder.getInstance().createSubject(x509Name, certificate, publicKey);
         return subject;
     }
 
@@ -204,15 +193,14 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
      * @return
      */
     @SuppressWarnings("unchecked")
-    static List<Statement> createAttributeStatements(
-        CallbackProperties properties, Subject subject) {
+    static List<Statement> createAttributeStatements(CallbackProperties properties, Subject subject) {
         List<Statement> statements = new ArrayList<Statement>();
 
         statements.addAll(createAuthenicationStatements(properties));
 
-
         statements.addAll(createUserNameAttributeStatements(properties));
         statements.addAll(createOrganizationAttributeStatements(properties));
+        statements.addAll(createOrganizationIdAttributeStatements(properties));
         statements.addAll(createHomeCommunityIdAttributeStatements(properties));
         statements.addAll(createPatientIdAttributeStatements(properties));
         statements.addAll(createUserRoleStatements(properties));
@@ -224,8 +212,28 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
         return statements;
     }
 
-    static List<AuthnStatement> createAuthenicationStatements(
-        CallbackProperties properties) {
+    /**
+     * @param properties
+     * @return
+     */
+    static Collection<? extends Statement> createOrganizationIdAttributeStatements(CallbackProperties properties) {
+        LOG.debug("SamlCallbackHandler.createOrganizationIdAttributeStatements() -- Begin");
+        List<AttributeStatement> statements = Collections.emptyList();
+
+        // Set the Organization ID Attribute
+
+        final String organizationId = properties.getUserOrganizationId();
+        if (organizationId != null) {
+
+            statements = OpenSAML2ComponentBuilder.getInstance().createOrganizationIdAttributeStatement(organizationId);
+        } else {
+            LOG.debug("Home Community ID is missing");
+        }
+
+        return statements;
+    }
+
+    static List<AuthnStatement> createAuthenicationStatements(CallbackProperties properties) {
 
         List<AuthnStatement> authnStatements = new ArrayList<AuthnStatement>();
 
@@ -247,9 +255,8 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
         String inetAddr = properties.getSubjectLocality();
         String dnsName = properties.getSubjectLocality();
 
-        AuthnStatement authnStatement = OpenSAML2ComponentBuilder.getInstance()
-            .createAuthenicationStatements(cntxCls, sessionIndex,
-            authInstant, inetAddr, dnsName);
+        AuthnStatement authnStatement = OpenSAML2ComponentBuilder.getInstance().createAuthenicationStatements(cntxCls,
+                sessionIndex, authInstant, inetAddr, dnsName);
 
         authnStatements.add(authnStatement);
 
@@ -259,8 +266,8 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
     /**
      * @return
      */
-    static List<AuthzDecisionStatement> createAuthenicationDecsionStatements(
-        CallbackProperties properties, Subject subject) {
+    static List<AuthzDecisionStatement> createAuthenicationDecsionStatements(CallbackProperties properties,
+            Subject subject) {
         List<AuthzDecisionStatement> authDecisionStatements = new ArrayList<AuthzDecisionStatement>();
 
         Boolean hasAuthzStmt = properties.getAuthenicationStatementExists();
@@ -286,9 +293,8 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
 
             Evidence evidence = createEvidence(properties, subject);
 
-            authDecisionStatements.add(OpenSAML2ComponentBuilder.getInstance()
-                .createAuthzDecisionStatement(resource, decision, action,
-                evidence));
+            authDecisionStatements.add(OpenSAML2ComponentBuilder.getInstance().createAuthzDecisionStatement(resource,
+                    decision, action, evidence));
         }
 
         return authDecisionStatements;
@@ -297,7 +303,7 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
     /**
      * Creates the Evidence element that encompasses the Assertion defining the authorization form needed in cases where
      * evidence of authorization to access the medical records must be provided along with the message request.
-     *
+     * 
      * @param factory The factory object used to assist in the construction of the SAML Assertion token
      * @param issueInstant The calendar representing the time of Assertion issuance
      * @return The Evidence element
@@ -313,12 +319,13 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
 
         String issuer = properties.getEvidenceIssuer();
 
-        return buildEvidence(evAssertionID, issueInstant, format, beginValidTime, endValidTime, issuer, statements, subject);
+        return buildEvidence(evAssertionID, issueInstant, format, beginValidTime, endValidTime, issuer, statements,
+                subject);
     }
 
-    public static Evidence buildEvidence(String evAssertionID, DateTime issueInstant,
-        String format, DateTime beginValidTime, DateTime endValidTime, String issuer,
-        List<AttributeStatement> statements, Subject subject) {
+    public static Evidence buildEvidence(String evAssertionID, DateTime issueInstant, String format,
+            DateTime beginValidTime, DateTime endValidTime, String issuer, List<AttributeStatement> statements,
+            Subject subject) {
         DateTime now = new DateTime();
 
         List<Assertion> evidenceAssertions = new ArrayList<Assertion>();
@@ -361,10 +368,9 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
         }
 
         Conditions conditions = OpenSAML2ComponentBuilder.getInstance().createConditions(beginValidTime, endValidTime,
-            null);
+                null);
 
-        Assertion evidenceAssertion = OpenSAML2ComponentBuilder.getInstance()
-            .createAssertion(evAssertionID);
+        Assertion evidenceAssertion = OpenSAML2ComponentBuilder.getInstance().createAssertion(evAssertionID);
 
         evidenceAssertion.getAttributeStatements().addAll(statements);
         evidenceAssertion.setConditions(conditions);
@@ -383,23 +389,21 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
     /**
      * Creates the Attribute Statements needed for the Evidence element. These include the Attributes for the Access
      * Consent Policy and the Instance Access Consent Policy
-     *
+     * 
      * @param factory The factory object used to assist in the construction of the SAML Assertion token
      * @return The listing of the attribute statements for the Evidence element
      */
-    static List<AttributeStatement> createEvidenceStatements(
-        CallbackProperties properties) {
+    static List<AttributeStatement> createEvidenceStatements(CallbackProperties properties) {
         LOG.debug("SamlCallbackHandler.createEvidenceStatements() -- Begin");
 
         List accessConstentValues = properties.getEvidenceAccessConstent();
-        List evidenceInstanceAccessConsentValues = properties
-            .getEvidenceInstantAccessConsent();
+        List evidenceInstanceAccessConsentValues = properties.getEvidenceInstantAccessConsent();
 
         return createEvidenceStatements(accessConstentValues, evidenceInstanceAccessConsentValues);
     }
 
     public static List<AttributeStatement> createEvidenceStatements(List accessConstentValues,
-        List evidenceInstanceAccessConsentValues) {
+            List evidenceInstanceAccessConsentValues) {
         List<AttributeStatement> statements = null;
         if (accessConstentValues == null) {
             LOG.debug("No Access Consent found for Evidence");
@@ -410,9 +414,8 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
             LOG.debug("No Instance Access Consent found for Evidence");
         }
 
-        statements = OpenSAML2ComponentBuilder.getInstance()
-            .createEvidenceStatements(accessConstentValues,
-            evidenceInstanceAccessConsentValues, NHIN_NS);
+        statements = OpenSAML2ComponentBuilder.getInstance().createEvidenceStatements(accessConstentValues,
+                evidenceInstanceAccessConsentValues, NHIN_NS);
 
         LOG.debug("SamlCallbackHandler.createEvidenceStatements() -- End");
         return statements;
@@ -420,10 +423,9 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
 
     /**
      * Creates the Attribute statements for UserName.
-     *
+     * 
      */
-    static List<AttributeStatement> createUserNameAttributeStatements(
-        CallbackProperties properties) {
+    static List<AttributeStatement> createUserNameAttributeStatements(CallbackProperties properties) {
 
         List<AttributeStatement> statements = new ArrayList<AttributeStatement>();
         List<Attribute> attributes = new ArrayList<Attribute>();
@@ -437,15 +439,13 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
 
             userNameValues.add(nameConstruct);
 
-            attributes.add(OpenSAML2ComponentBuilder.getInstance()
-                .createAttribute(null, SamlConstants.USERNAME_ATTR, null,
-                userNameValues));
+            attributes.add(OpenSAML2ComponentBuilder.getInstance().createAttribute(null, SamlConstants.USERNAME_ATTR,
+                    null, userNameValues));
         } else {
             LOG.warn("No information provided to fill in user name attribute");
         }
         if (!attributes.isEmpty()) {
-            statements.addAll(OpenSAML2ComponentBuilder.getInstance()
-                .createAttributeStatement(attributes));
+            statements.addAll(OpenSAML2ComponentBuilder.getInstance().createAttributeStatement(attributes));
         }
 
         return statements;
@@ -453,12 +453,11 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
 
     /**
      * Creates the Attribute statements UserRole
-     *
+     * 
      * @param factory The factory object used to assist in the construction of the SAML Assertion token
      * @return The listing of all Attribute statements
      */
-    static List<AttributeStatement> createUserRoleStatements(
-        CallbackProperties properties) {
+    static List<AttributeStatement> createUserRoleStatements(CallbackProperties properties) {
         List<AttributeStatement> statements = new ArrayList<AttributeStatement>();
         List<Attribute> attributes = new ArrayList<Attribute>();
 
@@ -469,13 +468,11 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
         String userSystemName = properties.getUserSystemName();
         String userDisplay = properties.getUserDisplay();
 
-        attributes.add(OpenSAML2ComponentBuilder.getInstance()
-            .createUserRoleAttribute(userCode, userSystem, userSystemName,
-            userDisplay));
+        attributes.add(OpenSAML2ComponentBuilder.getInstance().createUserRoleAttribute(userCode, userSystem,
+                userSystemName, userDisplay));
 
         if (!attributes.isEmpty()) {
-            statements.addAll(OpenSAML2ComponentBuilder.getInstance()
-                .createAttributeStatement(attributes));
+            statements.addAll(OpenSAML2ComponentBuilder.getInstance().createAttributeStatement(attributes));
         }
 
         return statements;
@@ -484,12 +481,11 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
 
     /**
      * Creates the Attribute statements PurposeOfUse
-     *
+     * 
      * @param factory The factory object used to assist in the construction of the SAML Assertion token
      * @return The listing of all Attribute statements
      */
-    static List<AttributeStatement> createPurposeOfUseStatements(
-        CallbackProperties properties) {
+    static List<AttributeStatement> createPurposeOfUseStatements(CallbackProperties properties) {
         List<AttributeStatement> statements = null;
 
         final String purposeCode = properties.getPurposeCode();
@@ -498,20 +494,18 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
         final String purposeDisplay = properties.getPurposeDisplay();
 
         /*
-         * Gateway-347 - Support for both values will remain until NHIN Specs
-         * updated Determine whether to use PurposeOfUse or PuposeForUse
+         * Gateway-347 - Support for both values will remain until NHIN Specs updated Determine whether to use
+         * PurposeOfUse or PuposeForUse
          */
 
         // Call out to the purpose decider to determine whether to use purposeofuse or purposeforuse.
         PurposeOfForDecider pd = new PurposeOfForDecider();
         if (pd.isPurposeFor(properties)) {
-            statements = OpenSAML2ComponentBuilder.getInstance()
-                .createPurposeForUseAttributeStatements(purposeCode, purposeSystem,
-                purposeSystemName, purposeDisplay);
+            statements = OpenSAML2ComponentBuilder.getInstance().createPurposeForUseAttributeStatements(purposeCode,
+                    purposeSystem, purposeSystemName, purposeDisplay);
         } else {
-            statements = OpenSAML2ComponentBuilder.getInstance()
-                .createPurposeOfUseAttributeStatements(purposeCode, purposeSystem,
-                purposeSystemName, purposeDisplay);
+            statements = OpenSAML2ComponentBuilder.getInstance().createPurposeOfUseAttributeStatements(purposeCode,
+                    purposeSystem, purposeSystemName, purposeDisplay);
         }
 
         return statements;
@@ -519,12 +513,11 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
 
     /**
      * Creates the Attribute statements for UserName, UserOrganization, UserRole, and PurposeOfUse
-     *
+     * 
      * @param factory The factory object used to assist in the construction of the SAML Assertion token
      * @return The listing of all Attribute statements
      */
-    static List<AttributeStatement> createOrganizationAttributeStatements(
-        CallbackProperties properties) {
+    static List<AttributeStatement> createOrganizationAttributeStatements(CallbackProperties properties) {
 
         LOG.debug("SamlCallbackHandler.addAssertStatements() -- Begin");
         List<AttributeStatement> statements = new ArrayList<AttributeStatement>();
@@ -533,14 +526,12 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
         // Set the User Organization ID Attribute
         final String organizationId = properties.getUserOrganization();
         if (organizationId != null) {
-            attributes.add(OpenSAML2ComponentBuilder.getInstance()
-                .createAttribute(null, SamlConstants.USER_ORG_ATTR, null,
-                Arrays.asList(organizationId)));
+            attributes.add(OpenSAML2ComponentBuilder.getInstance().createAttribute(null, SamlConstants.USER_ORG_ATTR,
+                    null, Arrays.asList(organizationId)));
         }
 
         if (!attributes.isEmpty()) {
-            statements.addAll(OpenSAML2ComponentBuilder.getInstance()
-                .createAttributeStatement(attributes));
+            statements.addAll(OpenSAML2ComponentBuilder.getInstance().createAttributeStatement(attributes));
         }
 
         LOG.debug("SamlCallbackHandler.addAssertStatements() -- End");
@@ -550,12 +541,11 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
 
     /**
      * Creates the Attribute statements for UserName, UserOrganization, UserRole, and PurposeOfUse
-     *
+     * 
      * @param factory The factory object used to assist in the construction of the SAML Assertion token
      * @return The listing of all Attribute statements
      */
-    static List<AttributeStatement> createHomeCommunityIdAttributeStatements(
-        CallbackProperties properties) {
+    static List<AttributeStatement> createHomeCommunityIdAttributeStatements(CallbackProperties properties) {
 
         LOG.debug("SamlCallbackHandler.addAssertStatements() -- Begin");
         List<AttributeStatement> statements = Collections.EMPTY_LIST;
@@ -565,8 +555,7 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
         final String communityId = properties.getHomeCommunity();
         if (communityId != null) {
 
-            statements = OpenSAML2ComponentBuilder.getInstance()
-                .createHomeCommunitAttributeStatement(communityId);
+            statements = OpenSAML2ComponentBuilder.getInstance().createHomeCommunitAttributeStatement(communityId);
         } else {
             LOG.debug("Home Community ID is missing");
         }
@@ -577,12 +566,11 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
 
     /**
      * Creates the Attribute statements for UserName, UserOrganization, UserRole, and PurposeOfUse
-     *
+     * 
      * @param factory The factory object used to assist in the construction of the SAML Assertion token
      * @return The listing of all Attribute statements
      */
-    static List<AttributeStatement> createPatientIdAttributeStatements(
-        CallbackProperties properties) {
+    static List<AttributeStatement> createPatientIdAttributeStatements(CallbackProperties properties) {
 
         List<AttributeStatement> statements = new ArrayList<AttributeStatement>();
         Attribute attribute;
@@ -590,11 +578,10 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
         // Set the Patient ID Attribute
         final String patientId = properties.getPatientID();
         if (patientId != null) {
-            attribute = OpenSAML2ComponentBuilder.getInstance()
-                .createPatientIDAttribute(patientId);
+            attribute = OpenSAML2ComponentBuilder.getInstance().createPatientIDAttribute(patientId);
 
             statements.addAll(OpenSAML2ComponentBuilder.getInstance()
-                .createAttributeStatement(Arrays.asList(attribute)));
+                    .createAttributeStatement(Arrays.asList(attribute)));
         } else {
             LOG.debug("patient id is missing");
         }
@@ -604,12 +591,11 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
 
     /**
      * Creates the Attribute statements for NPI
-     *
+     * 
      * @param factory The factory object used to assist in the construction of the SAML Assertion token
      * @return The listing of all Attribute statements
      */
-    static List<AttributeStatement> createNPIAttributeStatements(
-        CallbackProperties properties) {
+    static List<AttributeStatement> createNPIAttributeStatements(CallbackProperties properties) {
 
         List<AttributeStatement> statements = new ArrayList<AttributeStatement>();
         Attribute attribute;
@@ -617,11 +603,10 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
         // Set the NPI Attribute
         final String npi = properties.getNPI();
         if (npi != null) {
-            attribute = OpenSAML2ComponentBuilder.getInstance()
-                .createNPIAttribute(npi);
+            attribute = OpenSAML2ComponentBuilder.getInstance().createNPIAttribute(npi);
 
             statements.addAll(OpenSAML2ComponentBuilder.getInstance()
-                .createAttributeStatement(Arrays.asList(attribute)));
+                    .createAttributeStatement(Arrays.asList(attribute)));
         } else {
             LOG.debug("npi is missing");
         }
