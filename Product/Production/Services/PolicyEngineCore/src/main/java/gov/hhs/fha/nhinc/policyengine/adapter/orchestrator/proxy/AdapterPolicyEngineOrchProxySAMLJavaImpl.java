@@ -18,7 +18,7 @@ public class AdapterPolicyEngineOrchProxySAMLJavaImpl implements AdapterPolicyEn
     public CheckPolicyResponseType checkPolicy(CheckPolicyRequestType checkPolicyRequest, AssertionType assertion) {
         CheckPolicyResponseType oResponse = new CheckPolicyResponseType();
         policyEngineUtil util = new policyEngineUtil();
-        oResponse = util.checkkAssertionAttributeStatement(assertion);
+        oResponse = util.checkAssertionAttributeStatement(assertion);
         return oResponse;
     }
 
