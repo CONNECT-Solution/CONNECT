@@ -17,7 +17,7 @@ public class policyEngineUtil {
 
     private static final Logger LOG = Logger.getLogger(policyEngineUtil.class);
 
-    public CheckPolicyResponseType checkkAssertionAttributeStatement(AssertionType assertion) {
+    public CheckPolicyResponseType checkAssertionAttributeStatement(AssertionType assertion) {
         CheckPolicyResponseType oResponse = new CheckPolicyResponseType();
         if (assertion != null) {
             if (assertion.getUserInfo() != null) {
