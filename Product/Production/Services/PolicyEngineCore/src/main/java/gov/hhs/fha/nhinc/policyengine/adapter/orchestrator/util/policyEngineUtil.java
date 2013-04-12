@@ -50,6 +50,11 @@ public class policyEngineUtil {
                         LOG.debug("assertion.getUserInfo().getOrg().getName() Check Failed");
                         return oResponse;
                     }
+                    if (StringUtils.isBlank(assertion.getUserInfo().getOrg().getHomeCommunityId())) {
+                        oResponse = createResponseWithDENY(oResponse);
+                        LOG.debug("assertion.getUserInfo().getOrg().getHomeCommunityId() Check Failed");
+                        return oResponse;
+                    }
                 }
                 if (assertion.getUserInfo().getRoleCoded() != null) {
                     if (StringUtils.isBlank(assertion.getUserInfo().getRoleCoded().getCode())) {
@@ -60,6 +65,11 @@ public class policyEngineUtil {
                     if (StringUtils.isBlank(assertion.getUserInfo().getRoleCoded().getCodeSystem())) {
                         oResponse = createResponseWithDENY(oResponse);
                         LOG.debug("assertion.getUserInfo().getRoleCoded().getCodeSystem() Check Failed");
+                        return oResponse;
+                    }
+                    if (StringUtils.isBlank(assertion.getUserInfo().getRoleCoded().getCodeSystemName())) {
+                        oResponse = createResponseWithDENY(oResponse);
+                        LOG.debug("assertion.getUserInfo().getRoleCoded().getCodeSystemName() Check Failed");
                         return oResponse;
                     }
                     if (StringUtils.isBlank(assertion.getUserInfo().getRoleCoded().getDisplayName())) {
