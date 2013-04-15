@@ -122,83 +122,82 @@
                                 <artifactItem>
                                     <groupId>org.connectopensource</groupId>
                                     <artifactId>AdapterAuthenticationWebservices</artifactId>
-                                    <version>4.0.2</version>
-                                   
+                                    <version>4.0.3</version>
                                 </artifactItem>
                                 <artifactItem>
                                     <groupId>org.connectopensource</groupId>
                                     <artifactId>AdminDistributionWebservices</artifactId>
-                                    <version>4.0.2</version>
+                                    <version>4.0.3</version>
                                 </artifactItem>
                                 <artifactItem>
                                     <groupId>org.connectopensource</groupId>
                                     <artifactId>AuditRepositoryWebservices</artifactId>
-                                    <version>4.0.2</version>
+                                    <version>4.0.3</version>
                                 </artifactItem>
                                 <artifactItem>
                                     <groupId>org.connectopensource</groupId>
                                     <artifactId>ComponentWebservices</artifactId>
-                                    <version>4.0.2</version>
+                                    <version>4.0.3</version>
                                 </artifactItem>
                                 <artifactItem>
                                     <groupId>org.connectopensource</groupId>
                                     <artifactId>ConnectionManagerWebservices</artifactId>
-                                    <version>4.0.2</version>
+                                    <version>4.0.3</version>
                                 </artifactItem>
                                 <artifactItem>
                                     <groupId>org.connectopensource</groupId>
                                     <artifactId>DirectWebservices</artifactId>
-                                    <version>4.0.2</version>
+                                    <version>4.0.3</version>
                                 </artifactItem>
                                 <artifactItem>
                                     <groupId>org.connectopensource</groupId>
                                     <artifactId>DocRegistryWebservices</artifactId>
-                                    <version>4.0.2</version>
+                                    <version>4.0.3</version>
                                 </artifactItem>
                                 <artifactItem>
                                     <groupId>org.connectopensource</groupId>
                                     <artifactId>DocRepositoryWebservices</artifactId>
-                                    <version>4.0.2</version>
+                                    <version>4.0.3</version>
                                 </artifactItem>
                                 <artifactItem>
                                     <groupId>org.connectopensource</groupId>
                                     <artifactId>DocumentQueryWebservices</artifactId>
-                                    <version>4.0.2</version>
+                                    <version>4.0.3</version>
                                 </artifactItem>
                                 <artifactItem>
                                     <groupId>org.connectopensource</groupId>
                                     <artifactId>DocumentRetrieveWebservices</artifactId>
-                                    <version>4.0.2</version>
+                                    <version>4.0.3</version>
                                 </artifactItem>
                                 <artifactItem>
                                     <groupId>org.connectopensource</groupId>
                                     <artifactId>DocumentSubmissionWebervices</artifactId>
-                                    <version>4.0.2</version>
+                                    <version>4.0.3</version>
                                 </artifactItem>
                                 <artifactItem>
                                     <groupId>org.connectopensource</groupId>
                                     <artifactId>HIEMWebservices</artifactId>
-                                    <version>4.0.2</version>
+                                    <version>4.0.3</version>
                                 </artifactItem>
                                 <artifactItem>
                                     <groupId>org.connectopensource</groupId>
                                     <artifactId>PatientCorrelationWebservices</artifactId>
-                                    <version>4.0.2</version>
+                                    <version>4.0.3</version>
                                 </artifactItem>
                                 <artifactItem>
                                     <groupId>org.connectopensource</groupId>
                                     <artifactId>PatientDiscoveryWebservices</artifactId>
-                                    <version>4.0.2</version>
+                                    <version>4.0.3</version>
                                 </artifactItem>
                                 <artifactItem>
                                     <groupId>org.connectopensource</groupId>
                                     <artifactId>PolicyEngineWebservices</artifactId>
-                                    <version>4.0.2</version>
+                                    <version>4.0.3</version>
                                 </artifactItem>
                                 <artifactItem>
                                     <groupId>org.connectopensource</groupId>
                                     <artifactId>RedactionEngineWebservices</artifactId>
-                                    <version>4.0.2</version>
+                                    <version>4.0.3</version>
                                 </artifactItem>
                             </artifactItems>
                             <includes>**/*.wsdl</includes>
