@@ -51,12 +51,8 @@ public class AsyncMessageIdExtractorTest {
     public void pullsFirstSoapHeader() {
         List<Header> headers = new ArrayList<Header>();
         Element mockElement = addHeader(headers, "local");
-        Element mockElement1 = addHeader(headers, "local"); // 2nd add, shouldn't be returned
-
         WebServiceContext mockServiceContext = createContextWithHeaders(headers);
-
         AsyncMessageIdExtractor extractor = new AsyncMessageIdExtractor();
-
         Element extractedElement = extractor.getSoapHeaderElement(mockServiceContext, "local");
         assertSame(mockElement, extractedElement);
     }
