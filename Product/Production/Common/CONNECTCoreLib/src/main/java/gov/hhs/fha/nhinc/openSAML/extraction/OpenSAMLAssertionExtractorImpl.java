@@ -1,28 +1,28 @@
 /*
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services. 
- * All rights reserved. 
+ * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
+ * All rights reserved.
  *
- * Redistribution and use in source and binary forms, with or without 
- * modification, are permitted provided that the following conditions are met: 
- *     * Redistributions of source code must retain the above 
- *       copyright notice, this list of conditions and the following disclaimer. 
- *     * Redistributions in binary form must reproduce the above copyright 
- *       notice, this list of conditions and the following disclaimer in the documentation 
- *       and/or other materials provided with the distribution. 
- *     * Neither the name of the United States Government nor the 
- *       names of its contributors may be used to endorse or promote products 
- *       derived from this software without specific prior written permission. 
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ *     * Redistributions of source code must retain the above
+ *       copyright notice, this list of conditions and the following disclaimer.
+ *     * Redistributions in binary form must reproduce the above copyright
+ *       notice, this list of conditions and the following disclaimer in the documentation
+ *       and/or other materials provided with the distribution.
+ *     * Neither the name of the United States Government nor the
+ *       names of its contributors may be used to endorse or promote products
+ *       derived from this software without specific prior written permission.
  *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
- * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
- * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
- * DISCLAIMED. IN NO EVENT SHALL THE UNITED STATES GOVERNMENT BE LIABLE FOR ANY 
- * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES 
- * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; 
- * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND 
- * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT 
- * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
- * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+ * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ * DISCLAIMED. IN NO EVENT SHALL THE UNITED STATES GOVERNMENT BE LIABLE FOR ANY
+ * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+ * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+ * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 package gov.hhs.fha.nhinc.openSAML.extraction;
 
@@ -176,72 +176,62 @@ public class OpenSAMLAssertionExtractorImpl implements SAMLExtractorDOM {
         for (AttributeStatement attributeStatement : saml2Assertion.getAttributeStatements()) {
             for (Attribute attribute : attributeStatement.getAttributes()) {
 
-                switch (attribute.getName()) {
-                    case NhincConstants.ATTRIBUTE_NAME_SUBJECT_ROLE:
-                        LOG.debug("Extracting Assertion.userInfo.roleCoded:");
-                        populateSubjectRole(attribute, target);
-                        break;
 
-                    case NhincConstants.ATTRIBUTE_NAME_PURPOSE_OF_USE:
+                if (attribute.getName().equals(NhincConstants.ATTRIBUTE_NAME_SUBJECT_ROLE)) {
+                    LOG.debug("Extracting Assertion.userInfo.roleCoded:");
+                    populateSubjectRole(attribute, target);
+
+                } else if (attribute.getName().equals(NhincConstants.ATTRIBUTE_NAME_PURPOSE_OF_USE)) {
                         LOG.debug("Extracting Assertion.purposeOfDisclosure:");
-                        populatePurposeOfUseAttribute(attribute, target);
-                        break;
+                    populatePurposeOfUseAttribute(attribute, target);
 
-                    case NhincConstants.USERNAME_ATTR:
-                        helper.extractNameParts(attribute, target);
-                        break;
+                } else if (attribute.getName().equals(NhincConstants.USERNAME_ATTR)) {
+                    helper.extractNameParts(attribute, target);
 
-                    case NhincConstants.USER_ORG_ATTR:
-                        String orgAttribute = getAttributeValue(attribute);
-                        target.getUserInfo().getOrg().setName(orgAttribute);
-                        LOG.debug("Assertion.userInfo.org.Name = " + orgAttribute);
-                        break;
+                } else if (attribute.getName().equals(NhincConstants.USER_ORG_ATTR)) {
+                    String orgAttribute = getAttributeValue(attribute);
+                    target.getUserInfo().getOrg().setName(orgAttribute);
+                    LOG.debug("Assertion.userInfo.org.Name = " + orgAttribute);
 
-                    case NhincConstants.USER_ORG_ID_ATTR:
-                        String orgIDAttribute = getAttributeValue(attribute);
-                        target.getUserInfo().getOrg().setHomeCommunityId(orgIDAttribute);
-                        LOG.debug("Assertion.userInfo.org.homeCommunityId = " + orgIDAttribute);
-                        break;
+                } else if (attribute.getName().equals(NhincConstants.USER_ORG_ID_ATTR)) {
+                    String orgIDAttribute = getAttributeValue(attribute);
+                    target.getUserInfo().getOrg().setHomeCommunityId(orgIDAttribute);
+                    LOG.debug("Assertion.userInfo.org.homeCommunityId = " + orgIDAttribute);
 
-                    case NhincConstants.ATTRIBUTE_NAME_HCID:
-                        String homeCommunityId = getAttributeValue(attribute);
-                        target.getHomeCommunity().setHomeCommunityId(homeCommunityId);
-                        LOG.debug("Assertion.homeCommunity.homeCommunityId = " + homeCommunityId);
-                        break;
+                } else if (attribute.getName().equals(NhincConstants.ATTRIBUTE_NAME_HCID)) {
+                    String homeCommunityId = getAttributeValue(attribute);
+                    target.getHomeCommunity().setHomeCommunityId(homeCommunityId);
+                    LOG.debug("Assertion.homeCommunity.homeCommunityId = " + homeCommunityId);
 
-                    case NhincConstants.ACCESS_CONSENT_ATTR:
-                        List<String> accessConsentId = transformXMLtoString(attribute.getAttributeValues());
-                        target.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getAccessConsentPolicy()
-                            .addAll(accessConsentId);
-                        LOG.debug("Assertion.SamlAuthzDecisionStatement.Evidence.Assertion.AccessConsentPolicy = "
-                            + accessConsentId);
-                        break;
+                } else if (attribute.getName().equals(NhincConstants.ACCESS_CONSENT_ATTR)) {
+                    List<String> accessConsentId = transformXMLtoString(attribute.getAttributeValues());
+                    target.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getAccessConsentPolicy()
+                        .addAll(accessConsentId);
+                    LOG.debug("Assertion.SamlAuthzDecisionStatement.Evidence.Assertion.AccessConsentPolicy = "
+                        + accessConsentId);
 
-                    case NhincConstants.INST_ACCESS_CONSENT_ATTR:
-                        List<String> instAccessConsentId = transformXMLtoString(attribute.getAttributeValues());
-                        target.getSamlAuthzDecisionStatement().getEvidence().getAssertion()
-                            .getInstanceAccessConsentPolicy().addAll(instAccessConsentId);
-                        LOG.debug("Assertion.SamlAuthzDecisionStatement.Evidence.Assertion.InstanceAccessConsentPolicy = "
-                            + instAccessConsentId);
-                        break;
+                } else if (attribute.getName().equals(NhincConstants.INST_ACCESS_CONSENT_ATTR)) {
+                    List<String> instAccessConsentId = transformXMLtoString(attribute.getAttributeValues());
+                    target.getSamlAuthzDecisionStatement().getEvidence().getAssertion()
+                        .getInstanceAccessConsentPolicy().addAll(instAccessConsentId);
+                    LOG.debug("Assertion.SamlAuthzDecisionStatement.Evidence.Assertion.InstanceAccessConsentPolicy = "
+                        + instAccessConsentId);
 
-                    case NhincConstants.ATTRIBUTE_NAME_RESOURCE_ID:
-                        if (!StringUtils.isEmpty(attribute.getDOM().getTextContent())) {
-                            String patientId = getAttributeValue(attribute);
-                            target.getUniquePatientId().add(patientId);
-                            LOG.debug("Assertion.uniquePatientId = " + patientId);
-                            break;
-                        }
+                } else if (attribute.getName().equals(NhincConstants.ATTRIBUTE_NAME_RESOURCE_ID)) {
+                    if (!StringUtils.isEmpty(attribute.getDOM().getTextContent())) {
+                        String patientId = getAttributeValue(attribute);
+                        target.getUniquePatientId().add(patientId);
+                        LOG.debug("Assertion.uniquePatientId = " + patientId);
+                    }
 
-                    case NhincConstants.ATTRIBUTE_NAME_NPI:
-                        String nationalProviderId = getAttributeValue(attribute);
-                        target.setNationalProviderId(nationalProviderId);
-                        LOG.debug("Assertion.nationalProviderId = " + nationalProviderId);
-                        break;
+                } else if (attribute.getName().equals(NhincConstants.ATTRIBUTE_NAME_NPI)) {
+                    String nationalProviderId = getAttributeValue(attribute);
+                    target.setNationalProviderId(nationalProviderId);
+                    LOG.debug("Assertion.nationalProviderId = " + nationalProviderId);
 
-                    default:
-                        LOG.warn("Unrecognized Name Attribute: " + attribute.getName());
-                        break;
+                } else {
+                    LOG.warn("Unrecognized Name Attribute: " + attribute.getName());
+
                 }
             }
         }
@@ -558,21 +548,17 @@ public class OpenSAMLAssertionExtractorImpl implements SAMLExtractorDOM {
 
             QName key = entry.getKey();
 
-            switch (key.getLocalPart()) {
-                case NhincConstants.CE_CODE:
-                    ceType.setCode(String.valueOf(entry.getValue()));
-                    break;
-                case NhincConstants.CE_CODESYSTEM:
-                    ceType.setCodeSystem(String.valueOf(entry.getValue()));
-                    break;
-                case NhincConstants.CE_CODESYSTEM_NAME:
-                    ceType.setCodeSystemName(String.valueOf(entry.getValue()));
-                    break;
-                case NhincConstants.CE_DISPLAYNAME:
-                    ceType.setDisplayName(String.valueOf(entry.getValue()));
-                    break;
-                default:
-                    break;
+            if (key.getLocalPart().equals(NhincConstants.CE_CODE)) {
+                ceType.setCode(String.valueOf(entry.getValue()));
+
+            } else if (key.getLocalPart().equals(NhincConstants.CE_CODESYSTEM)) {
+                ceType.setCodeSystem(String.valueOf(entry.getValue()));
+
+            } else if (key.getLocalPart().equals(NhincConstants.CE_CODESYSTEM_NAME)) {
+                ceType.setCodeSystemName(String.valueOf(entry.getValue()));
+
+            } else if (key.getLocalPart().equals(NhincConstants.CE_DISPLAYNAME)) {
+                ceType.setDisplayName(String.valueOf(entry.getValue()));
             }
         }
     }

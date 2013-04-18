@@ -21,8 +21,8 @@
         <cobertura.check.haltOnFailure>false</cobertura.check.haltOnFailure>
         <cobertura.totalBranchRate>85</cobertura.totalBranchRate>
         <cobertura.totalLineRate>85</cobertura.totalLineRate>
-        <compiler.source>1.7</compiler.source>
-        <compiler.target>1.7</compiler.target>
+        <compiler.source>1.6</compiler.source>
+        <compiler.target>1.6</compiler.target>
     </properties>
     <modules>
         <module>build-tools</module>
@@ -284,87 +284,87 @@
         <dependency>
             <groupId>org.connectopensource</groupId>
             <artifactId>CONNECTCommonTypesLib</artifactId>
-            <version>4.0.2</version>
+            <version>4.0.4</version>
         </dependency>
         <dependency>
             <groupId>org.connectopensource</groupId>
             <artifactId>AdapterAuthenticationWebservices</artifactId>
-            <version>4.0.2</version>
+            <version>4.0.3</version>
         </dependency>
         <dependency>
             <groupId>org.connectopensource</groupId>
             <artifactId>AdminDistributionWebservices</artifactId>
-            <version>4.0.2</version>
+            <version>4.0.3</version>
         </dependency>
         <dependency>
             <groupId>org.connectopensource</groupId>
             <artifactId>AuditRepositoryWebservices</artifactId>
-            <version>4.0.2</version>
+            <version>4.0.3</version>
         </dependency>
         <dependency>
             <groupId>org.connectopensource</groupId>
             <artifactId>ComponentWebservices</artifactId>
-            <version>4.0.2</version>
+            <version>4.0.3</version>
         </dependency>
         <dependency>
             <groupId>org.connectopensource</groupId>
             <artifactId>ConnectionManagerWebservices</artifactId>
-            <version>4.0.2</version>
+            <version>4.0.3</version>
         </dependency>
          <dependency>
             <groupId>org.connectopensource</groupId>
             <artifactId>DirectWebservices</artifactId>
-            <version>4.0.2</version>
+            <version>4.0.3</version>
         </dependency>
          <dependency>
             <groupId>org.connectopensource</groupId>
             <artifactId>DocRegistryWebservices</artifactId>
-            <version>4.0.2</version>
+            <version>4.0.3</version>
         </dependency>
         <dependency>
             <groupId>org.connectopensource</groupId>
             <artifactId>DocRepositoryWebservices</artifactId>
-            <version>4.0.2</version>
+            <version>4.0.3</version>
         </dependency>
           <dependency>
             <groupId>org.connectopensource</groupId>
             <artifactId>DocumentQueryWebservices</artifactId>
-            <version>4.0.2</version>
+            <version>4.0.3</version>
         </dependency>
         <dependency>
             <groupId>org.connectopensource</groupId>
             <artifactId>DocumentRetrieveWebservices</artifactId>
-            <version>4.0.2</version>
+            <version>4.0.3</version>
         </dependency>
           <dependency>
             <groupId>org.connectopensource</groupId>
             <artifactId>DocumentSubmissionWebervices</artifactId>
-            <version>4.0.2</version>
+            <version>4.0.3</version>
         </dependency>
           <dependency>
             <groupId>org.connectopensource</groupId>
             <artifactId>HIEMWebservices</artifactId>
-            <version>4.0.2</version>
+            <version>4.0.3</version>
         </dependency>
          <dependency>
             <groupId>org.connectopensource</groupId>
             <artifactId>PatientCorrelationWebservices</artifactId>
-            <version>4.0.2</version>
+            <version>4.0.3</version>
         </dependency>
         <dependency>
             <groupId>org.connectopensource</groupId>
             <artifactId>PatientDiscoveryWebservices</artifactId>
-            <version>4.0.2</version>
+            <version>4.0.3</version>
         </dependency>
         <dependency>
             <groupId>org.connectopensource</groupId>
             <artifactId>PolicyEngineWebservices</artifactId>
-            <version>4.0.2</version>
+            <version>4.0.3</version>
         </dependency>
         <dependency>
             <groupId>org.connectopensource</groupId>
             <artifactId>RedactionEngineWebservices</artifactId>
-            <version>4.0.2</version>
+            <version>4.0.3</version>
         </dependency>
         </dependencies>
     </dependencyManagement>
@@ -398,6 +398,10 @@
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-surefire-plugin</artifactId>
                     <version>2.13</version>
+                <configuration>
+                    <argLine>-XX:MaxPermSize=1012m</argLine>
+                </configuration>
+                   
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>

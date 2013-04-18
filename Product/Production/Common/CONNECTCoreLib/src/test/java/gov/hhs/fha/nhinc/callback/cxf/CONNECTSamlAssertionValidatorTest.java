@@ -171,7 +171,7 @@ public class CONNECTSamlAssertionValidatorTest {
 
 	@Test
 	public void testValidate() throws WSSecurityException {
-		final List<Boolean> checkedSignedAssertion = new ArrayList<>();
+		final List<Boolean> checkedSignedAssertion = new ArrayList<Boolean>();
 		Credential credential = new Credential();
 		final String SECRET_KEY = "secret";
 		credential.setSecretKey(SECRET_KEY.getBytes());
@@ -179,7 +179,7 @@ public class CONNECTSamlAssertionValidatorTest {
 		AssertionWrapper assertion = mock(AssertionWrapper.class);
 		credential.setAssertion(assertion);
 
-		List<String> methods = new ArrayList<>();
+		List<String> methods = new ArrayList<String>();
 		final String METHOD_NAME = "urn:oasis:names:tc:SAML:" + "TESTING"
 				+ ":cm:holder-of-key";
 		methods.add(METHOD_NAME);
