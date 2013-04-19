@@ -296,7 +296,12 @@ public class AdapterComponentDocRepositoryOrchImpl {
                     LOG.error("Failed to read contents of the file : " + sourceFile.getName() + ". " + ex.getMessage());
                     bHasData = false;
                 }
-            } catch (URISyntaxException | UnsupportedEncodingException e) {
+            } catch (URISyntaxException ue) {
+                DataHandler dh = getLargeFileUtils().convertToDataHandler(doc.getRawData());
+                                
+                oDocResponse.setDocument(dh);
+                bHasData = true;
+            } catch (UnsupportedEncodingException e) {
                 DataHandler dh = getLargeFileUtils().convertToDataHandler(doc.getRawData());
                                 
                 oDocResponse.setDocument(dh);

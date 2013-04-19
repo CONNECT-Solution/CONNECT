@@ -166,7 +166,7 @@ public class MailUtils {
     @SuppressWarnings("unchecked")
     public static void logHeaders(final MimeMessage mimeMessage) {
         if (LOG.isDebugEnabled()) {
-            Enumeration<String> headerLines = Collections.emptyEnumeration();
+            Enumeration<String> headerLines = null;
             try {
                 headerLines = mimeMessage.getAllHeaderLines();
             } catch (MessagingException e) {

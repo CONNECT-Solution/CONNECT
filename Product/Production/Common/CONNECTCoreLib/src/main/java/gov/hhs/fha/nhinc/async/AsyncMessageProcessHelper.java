@@ -335,9 +335,12 @@ public class AsyncMessageProcessHelper {
             marshaller.marshal(oJaxbElement, baOutStrm);
             byte[] buffer = baOutStrm.toByteArray();
             returnValue = StringUtil.convertToStringUTF8(buffer);
-        } catch (JAXBException | IOException e) {
+        } catch (JAXBException je) {
+            LOG.error("Exception during marshalAssertionTypeObject conversion :" + je, je);
+        } catch (IOException e) {
             LOG.error("Exception during marshalAssertionTypeObject conversion :" + e, e);
         }
+        
         return returnValue;
     }
 

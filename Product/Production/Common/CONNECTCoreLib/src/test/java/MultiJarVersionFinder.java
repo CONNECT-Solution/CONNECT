@@ -109,7 +109,7 @@ public class MultiJarVersionFinder {
 
                 Set<String> curVersions = map.get(library);
                 if (curVersions == null) {
-                    curVersions = new HashSet<>();
+                    curVersions = new HashSet();
                     map.put(library, curVersions);
                 }
                 curVersions.add(version);

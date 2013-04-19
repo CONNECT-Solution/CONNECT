@@ -64,13 +64,11 @@ public class AsyncMessageIdExtractor {
         if (CollectionUtils.isEmpty(headers)) {
             return null;
         }
-
         for (Header header : headers) {
             if (header.getName().getLocalPart().equalsIgnoreCase(headerName)) {
                 return (Element) ((SoapHeader) header).getObject();
             }
         }
-
         return null;
     }
 

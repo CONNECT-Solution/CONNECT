@@ -1145,16 +1145,20 @@ public class PatientDiscoveryTransforms {
         try {
             communityId = requestMessage.getReceiver().get(0).getDevice().getAsAgent().getValue()
                 .getRepresentedOrganization().getValue().getId().get(0).getRoot();
-        } catch (NullPointerException | IndexOutOfBoundsException e) {
-            LOG.debug("could not obtain HCID from Receiver RepresentedOrganization.");
+        } catch (NullPointerException ne) {
+            LOG.debug("could not obtain HCID from Receiver RepresentedOrganization.", ne);
+        } catch (IndexOutOfBoundsException e) {
+            LOG.debug("could not obtain HCID from Receiver RepresentedOrganization.", e);
         }
 
         // If represented organization is empty or null, check the device id
         if (StringUtils.isBlank(communityId)) {
             try {
                 communityId = requestMessage.getReceiver().get(0).getDevice().getId().get(0).getRoot();
-            } catch (NullPointerException | IndexOutOfBoundsException e) {
-                LOG.debug("could not obtain HCID from Receiver Device Id.");
+            } catch (NullPointerException ne) {
+                LOG.debug("could not obtain HCID from Receiver Device Id.", ne);
+            } catch (IndexOutOfBoundsException e) {
+                LOG.debug("could not obtain HCID from Receiver Device Id.", e);
             }
         }
 
@@ -1169,16 +1173,20 @@ public class PatientDiscoveryTransforms {
         try {
             communityId = requestMessage.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization()
                 .getValue().getId().get(0).getRoot();
-        } catch (NullPointerException | IndexOutOfBoundsException e) {
-            LOG.debug("could not obtain HCID from Sender RepresentedOrganization.");
+        } catch (NullPointerException ne) {
+            LOG.debug("could not obtain HCID from Sender RepresentedOrganization.", ne);
+        } catch (IndexOutOfBoundsException e) {
+            LOG.debug("could not obtain HCID from Sender RepresentedOrganization.", e);
         }
 
         // If represented organization is empty or null, check the device id
         if (StringUtils.isBlank(communityId)) {
             try {
                 communityId = requestMessage.getSender().getDevice().getId().get(0).getRoot();
-            } catch (NullPointerException | IndexOutOfBoundsException e) {
-                LOG.debug("could not obtain HCID from Sender Device Id.");
+            } catch (NullPointerException ne) {
+                LOG.debug("could not obtain HCID from Sender Device Id.", ne);
+            } catch (IndexOutOfBoundsException e) {
+                LOG.debug("could not obtain HCID from Sender Device Id.", e);
             }
         }
 
@@ -1228,16 +1236,20 @@ public class PatientDiscoveryTransforms {
         try {
             communityId = responseMessage.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization()
                 .getValue().getId().get(0).getRoot();
-        } catch (NullPointerException | IndexOutOfBoundsException e) {
-            LOG.debug("could not obtain HCID from Sender RepresentedOrganization.");
+        } catch (NullPointerException ne) {
+            LOG.debug("could not obtain HCID from Sender RepresentedOrganization.", ne);
+        } catch (IndexOutOfBoundsException e) {
+            LOG.debug("could not obtain HCID from Sender RepresentedOrganization.", e);
         }
 
         // If represented organization is empty or null, check the device id
         if (StringUtils.isBlank(communityId)) {
             try {
                 communityId = responseMessage.getSender().getDevice().getId().get(0).getRoot();
-            } catch (NullPointerException | IndexOutOfBoundsException e) {
-                LOG.debug("could not obtain HCID from Sender Device Id.");
+            } catch (NullPointerException ne) {
+                LOG.debug("could not obtain HCID from Sender Device Id.", ne);
+            } catch (IndexOutOfBoundsException e) {
+                LOG.debug("could not obtain HCID from Sender Device Id.", e);
             }
         }
 
@@ -1256,16 +1268,20 @@ public class PatientDiscoveryTransforms {
         try {
             communityId = responseMessage.getReceiver().get(0).getDevice().getAsAgent().getValue()
                 .getRepresentedOrganization().getValue().getId().get(0).getRoot();
-        } catch (NullPointerException | IndexOutOfBoundsException e) {
-            LOG.debug("could not obtain HCID from Receiver RepresentedOrganization.");
+        } catch (NullPointerException ne) {
+            LOG.debug("could not obtain HCID from Receiver RepresentedOrganization.", ne);
+        } catch (IndexOutOfBoundsException e) {
+            LOG.debug("could not obtain HCID from Receiver RepresentedOrganization.", e);
         }
 
         // If represented organization is empty or null, check the device id
         if (StringUtils.isBlank(communityId)) {
             try {
                 communityId = responseMessage.getReceiver().get(0).getDevice().getId().get(0).getRoot();
-            } catch (NullPointerException | IndexOutOfBoundsException e) {
-                LOG.debug("could not obtain HCID from Receiver Device Id.");
+            } catch (NullPointerException ne) {
+                LOG.debug("could not obtain HCID from Receiver Device Id.", ne);
+            } catch (IndexOutOfBoundsException e) {
+                LOG.debug("could not obtain HCID from Receiver Device Id.", e);
             }
         }
 
@@ -1312,17 +1328,22 @@ public class PatientDiscoveryTransforms {
         try {
             communityId = ackMessage.getReceiver().get(0).getDevice().getAsAgent().getValue()
                 .getRepresentedOrganization().getValue().getId().get(0).getRoot();
-        } catch (NullPointerException | IndexOutOfBoundsException e) {
-            LOG.debug("could not obtain HCID from Receiver RepresentedOrganization.");
+        } catch (NullPointerException ne) {
+            LOG.debug("could not obtain HCID from Receiver RepresentedOrganization.", ne);
+        } catch (IndexOutOfBoundsException e) {
+            LOG.debug("could not obtain HCID from Receiver RepresentedOrganization.", e);
         }
 
         // If represented organization is empty or null, check the device id
         if (StringUtils.isBlank(communityId)) {
             try {
                 communityId = ackMessage.getReceiver().get(0).getDevice().getId().get(0).getRoot();
-            } catch (NullPointerException | IndexOutOfBoundsException e) {
-                LOG.debug("could not obtain HCID from Receiver Device Id.");
+            } catch (NullPointerException ne) {
+                LOG.debug("could not obtain HCID from Receiver Device Id.", ne);
+            } catch (IndexOutOfBoundsException e) {
+                LOG.debug("could not obtain HCID from Receiver Device Id.", e);
             }
+
         }
 
         if (StringUtils.isBlank(communityId)) {
@@ -1340,17 +1361,22 @@ public class PatientDiscoveryTransforms {
         try {
             communityId = ackMessage.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization()
                 .getValue().getId().get(0).getRoot();
-        } catch (NullPointerException | IndexOutOfBoundsException e) {
-            LOG.debug("could not obtain HCID from Sender RepresentedOrganization.");
+        } catch (NullPointerException ne) {
+            LOG.debug("could not obtain HCID from Sender RepresentedOrganization.", ne);
+        } catch (IndexOutOfBoundsException e) {
+            LOG.debug("could not obtain HCID from Sender RepresentedOrganization.", e);
         }
 
         // If represented organization is empty or null, check the device id
         if (StringUtils.isBlank(communityId)) {
             try {
                 communityId = ackMessage.getSender().getDevice().getId().get(0).getRoot();
-            } catch (NullPointerException | IndexOutOfBoundsException e) {
-                LOG.debug("could not obtain HCID from Sender Device Id.");
+            } catch (NullPointerException ne) {
+                LOG.debug("could not obtain HCID from Sender Device Id.", ne);
+            } catch (IndexOutOfBoundsException e) {
+                LOG.debug("could not obtain HCID from Sender Device Id.", e);
             }
+
         }
 
         if (StringUtils.isBlank(communityId)) {
