@@ -218,7 +218,7 @@
                             <excluded>${gui.excluded}</excluded>
                         </webModule>
                     </modules>
-                    <version>6</version>
+                    <version>5</version>
                     <defaultLibBundleDir>lib</defaultLibBundleDir>
                     <skinnyWars>true</skinnyWars>
                     <!-- this causes all archives to be exploded on server 
