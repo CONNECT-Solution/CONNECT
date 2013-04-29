@@ -4,5 +4,8 @@
     <dependencies>
       <module name="org.connectopensource.configuration" />
     </dependencies>
+    <resources>
+      <resource-root path="lib/bcprov-jdk15-1.45.jar" use-physical-code-source="true"/>
+    </resources>
   </deployment>
 </jboss-deployment-structure>
