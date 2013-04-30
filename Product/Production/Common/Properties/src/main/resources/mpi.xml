@@ -21,6 +21,9 @@
                             <void property="zip">
                                 <string>20176</string>
                             </void>
+                            <void property="country">
+                                <string>US</string>
+                            </void>
                         </object>
                     </void>
                 </void>
