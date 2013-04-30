@@ -37,6 +37,7 @@ public class Address {
     private String city = "";
     private String state = "";
     private String zip = "";
+    private String country = "";
 
     /**
      * @return the Street1 value from this Address
@@ -107,4 +108,20 @@ public class Address {
     public String getZip() {
         return zip;
     }
+
+    /**
+     * @return the country
+     */
+    public String getCountry() {
+        return country;
+    }
+
+    /**
+     * @param country the country to set
+     */
+    public void setCountry(String country) {
+        this.country = country;
+    }
+    
+    
 }
