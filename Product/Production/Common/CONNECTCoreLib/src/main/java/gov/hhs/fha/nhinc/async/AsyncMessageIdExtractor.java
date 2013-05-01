@@ -96,7 +96,7 @@ public class AsyncMessageIdExtractor {
         List<String> relatesToId = new ArrayList<String>();
 
         Element element = getSoapHeaderElement(context, NhincConstants.HEADER_RELATESTO);
-        if (element != null) {
+        if (element != null && element.getFirstChild() != null) {
             relatesToId.add(element.getFirstChild().getNodeValue());
         }
 
