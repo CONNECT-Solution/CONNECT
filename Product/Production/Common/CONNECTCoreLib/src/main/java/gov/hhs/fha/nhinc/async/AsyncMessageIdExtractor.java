@@ -34,6 +34,7 @@ import java.util.List;
 import javax.xml.ws.WebServiceContext;
 import javax.xml.ws.handler.MessageContext;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.cxf.binding.soap.SoapHeader;
 import org.apache.cxf.headers.Header;
 import org.springframework.util.CollectionUtils;
@@ -76,9 +77,7 @@ public class AsyncMessageIdExtractor {
         String messageId = null;
 
         Element element = getSoapHeaderElement(context, NhincConstants.HEADER_MESSAGEID);
-        if (element != null) {
-            messageId = element.getFirstChild().getNodeValue();
-        }
+        messageId = getFirstChildNodeValue(element);
 
         return messageId;
     }
@@ -96,9 +95,7 @@ public class AsyncMessageIdExtractor {
         List<String> relatesToId = new ArrayList<String>();
 
         Element element = getSoapHeaderElement(context, NhincConstants.HEADER_RELATESTO);
-        if (element != null && element.getFirstChild() != null) {
-            relatesToId.add(element.getFirstChild().getNodeValue());
-        }
+        relatesToId.add(getFirstChildNodeValue(element));
 
         return relatesToId;
     }
@@ -107,10 +104,16 @@ public class AsyncMessageIdExtractor {
         String action = null;
 
         Element element = getSoapHeaderElement(context, NhincConstants.WS_SOAP_HEADER_ACTION);
-        if (element != null) {
-            action = element.getFirstChild().getNodeValue();
-        }
+        action = getFirstChildNodeValue(element);
 
         return action;
+    }
+    
+    protected String getFirstChildNodeValue(Element element) {
+        String value = StringUtils.EMPTY;
+        if (element != null && element.getFirstChild() != null) {
+            value = element.getFirstChild().getNodeValue();
+        }
+        return value;
     }
 }
