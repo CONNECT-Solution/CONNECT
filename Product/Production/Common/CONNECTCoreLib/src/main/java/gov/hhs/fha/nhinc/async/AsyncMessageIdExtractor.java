@@ -74,7 +74,7 @@ public class AsyncMessageIdExtractor {
     }
 
     public String getMessageId(WebServiceContext context) {
-        String messageId = null;
+        String messageId = StringUtils.EMPTY;
 
         Element element = getSoapHeaderElement(context, NhincConstants.HEADER_MESSAGEID);
         messageId = getFirstChildNodeValue(element);
@@ -85,7 +85,7 @@ public class AsyncMessageIdExtractor {
     public String getOrCreateAsyncMessageId(WebServiceContext context) {
         String messageId = getMessageId(context);
 
-        if (messageId == null) {
+        if (StringUtils.isBlank(messageId)) {
             messageId = AddressingHeaderCreator.generateMessageId();
         }
         return messageId;
@@ -101,7 +101,7 @@ public class AsyncMessageIdExtractor {
     }
 
     public String getAction(WebServiceContext context) {
-        String action = null;
+        String action = StringUtils.EMPTY;
 
         Element element = getSoapHeaderElement(context, NhincConstants.WS_SOAP_HEADER_ACTION);
         action = getFirstChildNodeValue(element);
