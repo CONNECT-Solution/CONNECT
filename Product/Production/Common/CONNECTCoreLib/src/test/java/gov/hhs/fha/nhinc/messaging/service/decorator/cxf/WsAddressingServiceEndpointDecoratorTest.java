@@ -78,6 +78,48 @@ public class WsAddressingServiceEndpointDecoratorTest {
 
         assertEquals(messageIdWithPrefix, addressingProps.getMessageID().getValue());
     }
+    
+    @Test
+    public void verifyNullRelatesTo() {
+        String wsAddressingTo = "wsAddressingTo";
+        String wsAddressingAction = "wsAddressingAction";
+        String messageId = "urn:uuid:messageId";
+        AssertionType assertion = new AssertionType();
+        assertion.setMessageId(messageId);
+
+        CONNECTClient<TestServicePortType> client = createClient(wsAddressingTo, wsAddressingAction, assertion);
+
+        BindingProvider bindingProviderPort = (BindingProvider) client.getPort();
+
+        AddressingPropertiesImpl addressingProps = (AddressingPropertiesImpl) bindingProviderPort.getRequestContext()
+                .get(JAXWSAConstants.CLIENT_ADDRESSING_PROPERTIES);
+
+        assertEquals(wsAddressingTo, addressingProps.getTo().getValue());
+        assertEquals(wsAddressingAction, addressingProps.getAction().getValue());
+        assertEquals(messageId, addressingProps.getMessageID().getValue());
+        assertEquals(null, addressingProps.getRelatesTo());
+    }
+    
+    @Test
+    public void verifyEmptyRelatesTo() {
+        String wsAddressingTo = "wsAddressingTo";
+        String wsAddressingAction = "wsAddressingAction";
+        String messageId = "urn:uuid:messageId";
+        AssertionType assertion = new AssertionType();
+        assertion.setMessageId(messageId);
+
+        CONNECTClient<TestServicePortType> client = createClient(wsAddressingTo, wsAddressingAction, assertion);
+
+        BindingProvider bindingProviderPort = (BindingProvider) client.getPort();
+
+        AddressingPropertiesImpl addressingProps = (AddressingPropertiesImpl) bindingProviderPort.getRequestContext()
+                .get(JAXWSAConstants.CLIENT_ADDRESSING_PROPERTIES);
+
+        assertEquals(wsAddressingTo, addressingProps.getTo().getValue());
+        assertEquals(wsAddressingAction, addressingProps.getAction().getValue());
+        assertEquals(messageId, addressingProps.getMessageID().getValue());
+        assertEquals(null, addressingProps.getRelatesTo());
+    }
 
     /**
      * This method will verify the client is configured with the passed in WS-Addressing values. Note that the messageId
