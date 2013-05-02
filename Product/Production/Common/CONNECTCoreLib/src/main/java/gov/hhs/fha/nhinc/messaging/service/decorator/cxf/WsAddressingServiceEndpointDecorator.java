@@ -35,6 +35,7 @@ import gov.hhs.fha.nhinc.wsa.WSAHeaderHelper;
 
 import javax.xml.ws.BindingProvider;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.cxf.transports.http.configuration.HTTPClientPolicy;
 import org.apache.cxf.ws.addressing.AttributedURIType;
 import org.apache.cxf.ws.addressing.JAXWSAConstants;
@@ -85,7 +86,7 @@ public class WsAddressingServiceEndpointDecorator<T> extends ServiceEndpointDeco
         }
         String sMessageId = getMessageId();
 
-        if (sRelatesTo != null) {
+        if (!StringUtils.isBlank(sRelatesTo)) {
             RelatesToType relatesTo = new RelatesToType();
             relatesTo.setValue(sRelatesTo);
             maps.setRelatesTo(relatesTo);
