@@ -14,7 +14,7 @@ http://www.springframework.org/schema/aop http://www.springframework.org/schema/
         <property name="ignoreResourceNotFound" value="true"/>
         <property name="locations">
             <list>
-                <value>classpath:documentquery.properties</value>
+                <value>classpath:documentquery20.properties</value>
                 <value>file:///${nhinc.properties.dir}/gateway.properties</value>
                 <value>classpath:documentquery-test.properties</value>
             </list>
@@ -23,19 +23,19 @@ http://www.springframework.org/schema/aop http://www.springframework.org/schema/
 
     <bean id="nhinDQ" class="gov.hhs.fha.nhinc.docquery._20.nhin.DocQuery">
         <property name="inboundDocQuery">
-            <bean class="${docquery.inboundDocQuery}" />
+            <bean class="${docquery.20.inboundDocQuery}" />
         </property>
     </bean>
 
     <bean id="entityDQUnsecured" class="gov.hhs.fha.nhinc.docquery._20.entity.EntityDocQueryUnsecured">
         <property name="outboundDocQuery">
-            <bean class="${docquery.outboundDocQuery}" />
+            <bean class="${docquery.20.outboundDocQuery}" />
         </property>
     </bean>
 
     <bean id="entityDQSecured" class="gov.hhs.fha.nhinc.docquery._20.entity.EntityDocQuerySecured">
         <property name="outboundDocQuery">
-            <bean class="${docquery.outboundDocQuery}" />
+            <bean class="${docquery.20.outboundDocQuery}" />
         </property>
     </bean>
 

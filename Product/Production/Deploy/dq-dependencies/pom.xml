@@ -22,6 +22,13 @@
         </dependency>
         <dependency>
             <groupId>org.connectopensource</groupId>
+            <artifactId>DocumentQuery_30</artifactId>
+            <version>${project.parent.version}</version>
+            <type>war</type>
+            <optional>false</optional>
+        </dependency>
+        <dependency>
+            <groupId>org.connectopensource</groupId>
             <artifactId>DocumentQuery_a0</artifactId>
             <version>${project.parent.version}</version>
             <type>war</type>

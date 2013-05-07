@@ -147,6 +147,12 @@
                         </webModule>
                         <webModule>
                             <groupId>org.connectopensource</groupId>
+                            <artifactId>DocumentQuery_30</artifactId>
+                            <contextRoot>/Gateway/DocumentQuery/3_0</contextRoot>
+                            <excluded>${dq.excluded}</excluded>
+                        </webModule>
+                        <webModule>
+                            <groupId>org.connectopensource</groupId>
                             <artifactId>DocumentQuery_a0</artifactId>
                             <contextRoot>/Adapter/DocumentQuery/A_0</contextRoot>
                             <excluded>${dq.excluded}</excluded>
