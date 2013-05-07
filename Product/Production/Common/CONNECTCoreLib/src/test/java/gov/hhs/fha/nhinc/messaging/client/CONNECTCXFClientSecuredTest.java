@@ -100,7 +100,6 @@ public class CONNECTCXFClientSecuredTest {
         
         // default configuration
         timeoutTest.verifyTimeoutIsSet(client);
-        mtomTest.verifyMTOMEnabled(client);
         responseTest.verifySoapResponseInInterceptor(client);
         urlTest.verifyURLConfiguration(client, url);
 
