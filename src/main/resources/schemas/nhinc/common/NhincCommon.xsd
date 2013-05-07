@@ -48,9 +48,10 @@
             <xsd:element name="samlAuthnStatement" type="tns:SamlAuthnStatementType" minOccurs="0"/>
             <xsd:element name="samlAuthzDecisionStatement" type="tns:SamlAuthzDecisionStatementType" minOccurs="0"/>
             <xsd:element name="samlSignature" type="tns:SamlSignatureType" minOccurs="0"/>
-                        <xsd:element name="samlIssuer" type="tns:SamlIssuerType" minOccurs="0"/>
-                        <xsd:element name="messageId" type="xsd:string" minOccurs="0"/>
-                        <xsd:element name="relatesToList" type="xsd:string" minOccurs="0" maxOccurs="unbounded"/>
+            <xsd:element name="samlIssuer" type="tns:SamlIssuerType" minOccurs="0"/>
+            <xsd:element name="messageId" type="xsd:string" minOccurs="0"/>
+            <xsd:element name="relatesToList" type="xsd:string" minOccurs="0" maxOccurs="unbounded"/>
+            <xsd:element name="implementsSpecVersion" type="xsd:string" minOccurs="0" />
         </xsd:sequence>
     </xsd:complexType>
     <xsd:element name="Assertion" type="tns:AssertionType"/>
@@ -152,9 +153,9 @@
     <xsd:element name="Ce" type="tns:CeType"/>
     <xsd:complexType name="HomeCommunityType">
         <xsd:sequence>
-            <xsd:element name="description" type="xsd:string"/>
+            <xsd:element name="description" type="xsd:string" minOccurs="0"/>
             <xsd:element name="homeCommunityId" type="xsd:string"/>
-            <xsd:element name="name" type="xsd:string"/>
+            <xsd:element name="name" type="xsd:string" minOccurs="0"/>
         </xsd:sequence>
     </xsd:complexType>
     <xsd:element name="HomeCommunity" type="tns:HomeCommunityType"/>
@@ -257,8 +258,9 @@
     <xsd:complexType name="NhinTargetCommunityType">
         <xsd:sequence>
             <xsd:element name="homeCommunity" type="tns:HomeCommunityType"/>
-            <xsd:element name="list" type="xsd:string"/>
-            <xsd:element name="region" type="xsd:string"/>
+            <xsd:element name="list" type="xsd:string" minOccurs="0"/>
+            <xsd:element name="region" type="xsd:string" minOccurs="0"/>
+            <xsd:element name="useSpecVersion" type="xsd:string" minOccurs="0"/>
         </xsd:sequence>
     </xsd:complexType>
     <xsd:complexType name="NhinTargetCommunitiesType">
