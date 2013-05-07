@@ -1,0 +1,69 @@
+<web-app xmlns="http://geronimo.apache.org/xml/ns/j2ee/web-2.0.1" xmlns:sys="http://geronimo.apache.org/xml/ns/deployment-1.2"
+    xmlns:naming="http://geronimo.apache.org/xml/ns/naming-1.2">
+
+    <environment>
+        <moduleId>
+            <artifactId>DocumentQuery30</artifactId>
+        </moduleId>
+
+        <dependencies>
+            <dependency>
+                <groupId>console.dbpool</groupId>
+                <artifactId>patientcorrelationdb_pool</artifactId>
+            </dependency>
+            <dependency>
+                <groupId>console.dbpool</groupId>
+                <artifactId>docrepository_pool</artifactId>
+            </dependency>
+            <dependency>
+                <groupId>console.dbpool</groupId>
+                <artifactId>assigningauthoritydb_pool</artifactId>
+            </dependency>
+            <dependency>
+                <groupId>console.dbpool</groupId>
+                <artifactId>perfrepo_pool</artifactId>
+            </dependency>
+            <dependency>
+                <groupId>console.dbpool</groupId>
+                <artifactId>transrepo_pool</artifactId>
+            </dependency>
+            <dependency>
+                <groupId>console.dbpool</groupId>
+                <artifactId>eventdb_pool</artifactId>
+            </dependency>
+        </dependencies>
+
+    </environment>
+
+    <context-root>Gateway/DocumentQuery/3_0</context-root>
+
+    <naming:resource-ref>
+        <naming:ref-name>jdbc/patientcorrelationdb_datasource</naming:ref-name>
+        <naming:resource-link>patientcorrelationdb_pool</naming:resource-link>
+    </naming:resource-ref>
+
+    <naming:resource-ref>
+        <naming:ref-name>jdbc/docrepository_datasource</naming:ref-name>
+        <naming:resource-link>docrepository_pool</naming:resource-link>
+    </naming:resource-ref>
+
+    <naming:resource-ref>
+        <naming:ref-name>jdbc/assigningauthoritydb_datasource</naming:ref-name>
+        <naming:resource-link>assigningauthoritydb_pool</naming:resource-link>
+    </naming:resource-ref>
+
+    <naming:resource-ref>
+        <naming:ref-name>jdbc/perfrepo_datasource</naming:ref-name>
+        <naming:resource-link>perfrepo_pool</naming:resource-link>
+    </naming:resource-ref>
+
+    <naming:resource-ref>
+        <naming:ref-name>jdbc/transrepo_datasource</naming:ref-name>
+        <naming:resource-link>transrepo_pool</naming:resource-link>
+    </naming:resource-ref>
+
+    <naming:resource-ref>
+        <naming:ref-name>jdbc/eventdb_datasource</naming:ref-name>
+        <naming:resource-link>eventdb_pool</naming:resource-link>
+    </naming:resource-ref>
+</web-app>
