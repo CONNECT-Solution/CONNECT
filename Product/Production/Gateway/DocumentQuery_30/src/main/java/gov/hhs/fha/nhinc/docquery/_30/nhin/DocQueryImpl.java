@@ -29,6 +29,7 @@ package gov.hhs.fha.nhinc.docquery._30.nhin;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.docquery.inbound.InboundDocQuery;
 import gov.hhs.fha.nhinc.messaging.server.BaseService;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants.UDDI_SPEC_VERSION;
 
 import javax.xml.ws.WebServiceContext;
 
@@ -44,6 +45,9 @@ public class DocQueryImpl extends BaseService {
 
     public AdhocQueryResponse respondingGatewayCrossGatewayQuery(AdhocQueryRequest body, WebServiceContext context) {
         AssertionType assertion = getAssertion(context, null);
+        if (assertion != null) {
+            assertion.setImplementsSpecVersion(UDDI_SPEC_VERSION.SPEC_3_0.toString());
+        }
 
         return inboundDocQuery.respondingGatewayCrossGatewayQuery(body, assertion);
     }

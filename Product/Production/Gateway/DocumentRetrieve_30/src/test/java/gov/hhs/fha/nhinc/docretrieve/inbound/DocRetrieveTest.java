@@ -30,42 +30,71 @@ package gov.hhs.fha.nhinc.docretrieve.inbound;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.same;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
-
-import java.lang.reflect.Method;
-
 import gov.hhs.fha.nhinc.aspect.InboundMessageEvent;
 import gov.hhs.fha.nhinc.aspect.InboundProcessingEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.docretrieve.aspect.RetrieveDocumentSetRequestTypeDescriptionBuilder;
 import gov.hhs.fha.nhinc.docretrieve.aspect.RetrieveDocumentSetResponseTypeDescriptionBuilder;
-import gov.hhs.fha.nhinc.docretrieve.inbound.DocRetrieve;
-import gov.hhs.fha.nhinc.docretrieve.inbound.InboundDocRetrieve;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
 
+import java.lang.reflect.Method;
+
+import javax.xml.ws.WebServiceContext;
+
+import org.apache.commons.lang.StringUtils;
 import org.junit.Test;
 
 /**
  * @author bhumphrey
- *
+ * 
  */
 public class DocRetrieveTest {
-    
+
     @Test
     public void delegatesToService() {
         DocRetrieve docRetrieve = new DocRetrieve();
         RetrieveDocumentSetRequestType body = new RetrieveDocumentSetRequestType();
         InboundDocRetrieve service = mock(InboundDocRetrieve.class);
         docRetrieve.setInboundDocRetrieve(service);
-        
+
         docRetrieve.respondingGatewayCrossGatewayRetrieve(body);
-        
+
         verify(service).respondingGatewayCrossGatewayRetrieve(same(body), any(AssertionType.class));
     }
-    
+
+    @Test
+    public void testImplementsSpecVersion() {
+        final AssertionType assertion = new AssertionType();
+        DocRetrieve docRetrieve = new DocRetrieve() {
+
+            /*
+             * (non-Javadoc)
+             * 
+             * @see gov.hhs.fha.nhinc.messaging.server.BaseService#getAssertion(javax.xml.ws.WebServiceContext,
+             * gov.hhs.fha.nhinc.common.nhinccommon.AssertionType)
+             */
+            @Override
+            protected AssertionType getAssertion(WebServiceContext context, AssertionType oAssertionIn) {
+                return assertion;
+            }
+        };
+        RetrieveDocumentSetRequestType body = new RetrieveDocumentSetRequestType();
+        InboundDocRetrieve service = mock(InboundDocRetrieve.class);
+        docRetrieve.setInboundDocRetrieve(service);
+
+        docRetrieve.respondingGatewayCrossGatewayRetrieve(body);
+
+        verify(service).respondingGatewayCrossGatewayRetrieve(same(body), any(AssertionType.class));
+        assertTrue(!StringUtils.isBlank(assertion.getImplementsSpecVersion()));
+        assertEquals(NhincConstants.UDDI_SPEC_VERSION.SPEC_3_0.toString(), assertion.getImplementsSpecVersion());
+    }
+
     @Test
     public void hasInboundMessageEvent() throws Exception {
         Class<DocRetrieve> clazz = DocRetrieve.class;
@@ -77,12 +106,12 @@ public class DocRetrieveTest {
         assertEquals("Retrieve Document", annotation.serviceType());
         assertEquals("3.0", annotation.version());
     }
-    
+
     @Test
     public void hasInboundProcessingEventStandard() throws Exception {
         Class<StandardInboundDocRetrieve> clazz = StandardInboundDocRetrieve.class;
-        Method method = clazz.getMethod("respondingGatewayCrossGatewayRetrieve",
-                RetrieveDocumentSetRequestType.class, AssertionType.class);
+        Method method = clazz.getMethod("respondingGatewayCrossGatewayRetrieve", RetrieveDocumentSetRequestType.class,
+                AssertionType.class);
         InboundProcessingEvent annotation = method.getAnnotation(InboundProcessingEvent.class);
         assertNotNull(annotation);
         assertEquals(RetrieveDocumentSetRequestTypeDescriptionBuilder.class, annotation.beforeBuilder());
@@ -90,12 +119,12 @@ public class DocRetrieveTest {
         assertEquals("Retrieve Document", annotation.serviceType());
         assertEquals("", annotation.version());
     }
-    
+
     @Test
     public void hasInboundProcessingEventPassthrough() throws Exception {
         Class<PassthroughInboundDocRetrieve> clazz = PassthroughInboundDocRetrieve.class;
-        Method method = clazz.getMethod("respondingGatewayCrossGatewayRetrieve",
-                RetrieveDocumentSetRequestType.class, AssertionType.class);
+        Method method = clazz.getMethod("respondingGatewayCrossGatewayRetrieve", RetrieveDocumentSetRequestType.class,
+                AssertionType.class);
         InboundProcessingEvent annotation = method.getAnnotation(InboundProcessingEvent.class);
         assertNotNull(annotation);
         assertEquals(RetrieveDocumentSetRequestTypeDescriptionBuilder.class, annotation.beforeBuilder());
