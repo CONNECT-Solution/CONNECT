@@ -71,8 +71,7 @@ public class CONNECTCXFClientSecured<T> extends CONNECTCXFClient<T> {
                 wsAddressingActionId, assertion);
         serviceEndpoint = new SoapHeaderServiceEndPointDecorator<T>(serviceEndpoint, subscriptionId);
         
-        if (NhincConstants.NHIN_ADMIN_DIST_SERVICE_NAME.equals(serviceName) ||
-                NhincConstants.NHINC_XDR_REQUEST_SERVICE_NAME.equals(serviceName) ||
+        if (NhincConstants.NHINC_XDR_REQUEST_SERVICE_NAME.equals(serviceName) ||
                 NhincConstants.NHINC_XDR_RESPONSE_SERVICE_NAME.equals(serviceName) ||
                 NhincConstants.NHINC_XDR_SERVICE_NAME.equals(serviceName) ||
                 NhincConstants.DOC_RETRIEVE_SERVICE_NAME.equals(serviceName)) {
