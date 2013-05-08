@@ -12,6 +12,7 @@
         <module>AdminDistribution_10</module>
         <module>AdminDistribution_20</module>
         <module>DocumentQuery_20</module>
+        <module>DocumentQuery_30</module>
         <module>DocumentRetrieve_20</module>
         <module>DocumentRetrieve_30</module>
         <module>DocumentSubmission_11</module>
