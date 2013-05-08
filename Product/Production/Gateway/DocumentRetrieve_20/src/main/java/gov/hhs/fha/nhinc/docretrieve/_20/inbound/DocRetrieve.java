@@ -27,16 +27,17 @@
 package gov.hhs.fha.nhinc.docretrieve._20.inbound;
 
 import gov.hhs.fha.nhinc.aspect.InboundMessageEvent;
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.docretrieve.aspect.RetrieveDocumentSetRequestTypeDescriptionBuilder;
 import gov.hhs.fha.nhinc.docretrieve.aspect.RetrieveDocumentSetResponseTypeDescriptionBuilder;
 import gov.hhs.fha.nhinc.docretrieve.inbound.InboundDocRetrieve;
 import gov.hhs.fha.nhinc.messaging.server.BaseService;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 
 import javax.annotation.Resource;
 import javax.xml.ws.BindingType;
 import javax.xml.ws.WebServiceContext;
 import javax.xml.ws.soap.Addressing;
-
 
 @BindingType(value = "http://www.w3.org/2003/05/soap/bindings/HTTP/")
 @Addressing(enabled = true)
@@ -53,12 +54,15 @@ public class DocRetrieve extends BaseService implements ihe.iti.xds_b._2007.Resp
      * ._2007.RetrieveDocumentSetRequestType)
      */
     @Override
-    @InboundMessageEvent(beforeBuilder = RetrieveDocumentSetRequestTypeDescriptionBuilder.class, 
-            afterReturningBuilder = RetrieveDocumentSetResponseTypeDescriptionBuilder.class, 
-            serviceType = "Retrieve Document", version = "2.0")
+    @InboundMessageEvent(beforeBuilder = RetrieveDocumentSetRequestTypeDescriptionBuilder.class, afterReturningBuilder = RetrieveDocumentSetResponseTypeDescriptionBuilder.class, serviceType = "Retrieve Document", version = "2.0")
     public ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType respondingGatewayCrossGatewayRetrieve(
             ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType body) {
-        return service.respondingGatewayCrossGatewayRetrieve(body, getAssertion(context, null));
+        AssertionType assertion = getAssertion(context, null);
+        if (assertion != null) {
+            assertion.setImplementsSpecVersion(NhincConstants.UDDI_SPEC_VERSION.SPEC_2_0.toString());
+        }
+        
+        return service.respondingGatewayCrossGatewayRetrieve(body, assertion);
     }
 
     /**

@@ -26,23 +26,20 @@
  */
 package gov.hhs.fha.nhinc.docretrieve.inbound;
 
-
-import gov.hhs.fha.nhinc.messaging.server.BaseService;
-
-
 import gov.hhs.fha.nhinc.aspect.InboundMessageEvent;
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.docretrieve.aspect.RetrieveDocumentSetRequestTypeDescriptionBuilder;
 import gov.hhs.fha.nhinc.docretrieve.aspect.RetrieveDocumentSetResponseTypeDescriptionBuilder;
-
+import gov.hhs.fha.nhinc.messaging.server.BaseService;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import ihe.iti.xds_b._2007.RespondingGatewayRetrievePortType;
+import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
+import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
 
 import javax.annotation.Resource;
 import javax.xml.ws.BindingType;
 import javax.xml.ws.WebServiceContext;
 import javax.xml.ws.soap.Addressing;
-
-import ihe.iti.xds_b._2007.RespondingGatewayRetrievePortType;
-import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
-import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
 
 /**
  * 
@@ -51,21 +48,25 @@ import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
 @BindingType(value = "http://www.w3.org/2003/05/soap/bindings/HTTP/")
 @Addressing(enabled = true)
 public class DocRetrieve extends BaseService implements RespondingGatewayRetrievePortType {
-    
+
     private WebServiceContext context;
-    
+
     private InboundDocRetrieve service;
 
     /**
      * The web service implementation for Document Retrieve.
+     * 
      * @param body the message of the request
      * @return the document set of the retrieve
      */
-    @InboundMessageEvent(beforeBuilder = RetrieveDocumentSetRequestTypeDescriptionBuilder.class,
-            afterReturningBuilder = RetrieveDocumentSetResponseTypeDescriptionBuilder.class, 
-            serviceType = "Retrieve Document",version = "3.0")
+    @InboundMessageEvent(beforeBuilder = RetrieveDocumentSetRequestTypeDescriptionBuilder.class, afterReturningBuilder = RetrieveDocumentSetResponseTypeDescriptionBuilder.class, serviceType = "Retrieve Document", version = "3.0")
     public RetrieveDocumentSetResponseType respondingGatewayCrossGatewayRetrieve(RetrieveDocumentSetRequestType body) {
-        return service.respondingGatewayCrossGatewayRetrieve(body, getAssertion(context, null));
+        AssertionType assertion = getAssertion(context, null);
+        if (assertion != null) {
+            assertion.setImplementsSpecVersion(NhincConstants.UDDI_SPEC_VERSION.SPEC_3_0.toString());
+        }
+        
+        return service.respondingGatewayCrossGatewayRetrieve(body, assertion);
     }
 
     /**
