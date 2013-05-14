@@ -85,7 +85,8 @@ public class NhinDocRetrieveProxyWebServiceSecuredImpl implements NhinDocRetriev
                     CONNECTClient<RespondingGatewayRetrievePortType> client = CONNECTClientFactory.getInstance()
                             .getCONNECTClientSecured(portDescriptor, assertion, url,
                                     targetSystem.getHomeCommunity().getHomeCommunityId(), NhincConstants.DOC_RETRIEVE_SERVICE_NAME);
-
+                    client.supportMtom();
+                    
                     response = (RetrieveDocumentSetResponseType) client.invokePort(
                             RespondingGatewayRetrievePortType.class, "respondingGatewayCrossGatewayRetrieve", request);
                 } else {

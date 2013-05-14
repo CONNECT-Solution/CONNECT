@@ -28,13 +28,11 @@
 package gov.hhs.fha.nhinc.messaging.client;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.messaging.service.decorator.MTOMServiceEndpointDecorator;
 import gov.hhs.fha.nhinc.messaging.service.decorator.SAMLServiceEndpointDecorator;
 import gov.hhs.fha.nhinc.messaging.service.decorator.cxf.SoapHeaderServiceEndPointDecorator;
 import gov.hhs.fha.nhinc.messaging.service.decorator.cxf.WsAddressingServiceEndpointDecorator;
 import gov.hhs.fha.nhinc.messaging.service.port.CachingCXFSecuredServicePortBuilder;
 import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
-import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 
 /**
  * @author akong
@@ -70,13 +68,6 @@ public class CONNECTCXFClientSecured<T> extends CONNECTCXFClient<T> {
         serviceEndpoint = new WsAddressingServiceEndpointDecorator<T>(serviceEndpoint, wsAddressingTo,
                 wsAddressingActionId, assertion);
         serviceEndpoint = new SoapHeaderServiceEndPointDecorator<T>(serviceEndpoint, subscriptionId);
-        
-        if (NhincConstants.NHINC_XDR_REQUEST_SERVICE_NAME.equals(serviceName) ||
-                NhincConstants.NHINC_XDR_RESPONSE_SERVICE_NAME.equals(serviceName) ||
-                NhincConstants.NHINC_XDR_SERVICE_NAME.equals(serviceName) ||
-                NhincConstants.DOC_RETRIEVE_SERVICE_NAME.equals(serviceName)) {
-            serviceEndpoint = new MTOMServiceEndpointDecorator<T>(serviceEndpoint);
-        }
     }
 
 }

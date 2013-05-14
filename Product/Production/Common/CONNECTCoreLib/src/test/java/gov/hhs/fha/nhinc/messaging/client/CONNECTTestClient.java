@@ -28,6 +28,7 @@ package gov.hhs.fha.nhinc.messaging.client;
 
 import gov.hhs.fha.nhinc.messaging.service.BaseServiceEndpoint;
 import gov.hhs.fha.nhinc.messaging.service.ServiceEndpoint;
+import gov.hhs.fha.nhinc.messaging.service.decorator.MTOMServiceEndpointDecorator;
 import gov.hhs.fha.nhinc.messaging.service.port.CachingCXFSecuredServicePortBuilder;
 import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
 
@@ -68,5 +69,13 @@ public class CONNECTTestClient<T> implements CONNECTClient<T> {
     @Override
     public Object invokePort(Class<T> portClass, String methodName, Object operationInput) throws Exception {
         return null;
+    }
+
+    /* (non-Javadoc)
+     * @see gov.hhs.fha.nhinc.messaging.client.CONNECTClient#supportMtom()
+     */
+    @Override
+    public void supportMtom() {
+        serviceEndpoint = new MTOMServiceEndpointDecorator<T>(serviceEndpoint);
     }
 }

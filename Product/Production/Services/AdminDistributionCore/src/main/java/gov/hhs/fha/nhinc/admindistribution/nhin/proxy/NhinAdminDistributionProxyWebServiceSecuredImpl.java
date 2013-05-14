@@ -42,6 +42,7 @@ import gov.hhs.fha.nhinc.messaging.client.CONNECTClient;
 import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
 import gov.hhs.fha.nhinc.nhinadmindistribution.RespondingGatewayAdministrativeDistributionPortType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants.GATEWAY_API_LEVEL;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 
@@ -147,6 +148,9 @@ public class NhinAdminDistributionProxyWebServiceSecuredImpl implements NhinAdmi
                 CONNECTClient<RespondingGatewayAdministrativeDistributionPortType> client = getCONNECTClientSecured(
                         portDescriptor, url, assertion, target.getHomeCommunity().getHomeCommunityId(), 
                         NhincConstants.NHIN_ADMIN_DIST_SERVICE_NAME );
+                if (apiLevel == GATEWAY_API_LEVEL.LEVEL_g1) {
+                    client.supportMtom();
+                }
 
                 client.invokePort(RespondingGatewayAdministrativeDistributionPortType.class, "sendAlertMessage", body);
             } catch (Exception ex) {

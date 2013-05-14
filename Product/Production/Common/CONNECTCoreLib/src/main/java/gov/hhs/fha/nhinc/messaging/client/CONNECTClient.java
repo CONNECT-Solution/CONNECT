@@ -37,5 +37,7 @@ public interface CONNECTClient<T> {
     public T getPort();
 
     public Object invokePort(Class<T> portClass, String methodName, Object operationInput) throws Exception;
+    
+    public void supportMtom();
 
 }

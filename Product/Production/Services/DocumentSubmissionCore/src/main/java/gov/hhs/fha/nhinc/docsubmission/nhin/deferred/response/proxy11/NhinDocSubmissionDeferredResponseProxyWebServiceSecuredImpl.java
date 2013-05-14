@@ -72,8 +72,10 @@ public class NhinDocSubmissionDeferredResponseProxyWebServiceSecuredImpl impleme
             ServicePortDescriptor<XDRDeferredResponsePortType> portDescriptor, String url, AssertionType assertion,
               String target, String serviceName) {
 
-        return CONNECTClientFactory.getInstance().getCONNECTClientSecured(portDescriptor, assertion, url, target,
+        CONNECTClient<XDRDeferredResponsePortType> client = CONNECTClientFactory.getInstance().getCONNECTClientSecured(portDescriptor, assertion, url, target,
                 serviceName);
+        client.supportMtom();
+        return client;
     }
 
     @NwhinInvocationEvent(beforeBuilder = DeferredResponseDescriptionBuilder.class,

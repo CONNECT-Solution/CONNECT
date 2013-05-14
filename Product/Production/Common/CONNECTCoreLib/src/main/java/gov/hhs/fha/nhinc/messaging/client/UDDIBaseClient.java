@@ -70,5 +70,13 @@ public class UDDIBaseClient<T> implements CONNECTClient<T> {
         return response;
     }
 
+    /* (non-Javadoc)
+     * @see gov.hhs.fha.nhinc.messaging.client.CONNECTClient#supportMtom()
+     */
+    @Override
+    public void supportMtom() {
+        // Do nothing, UDDI doesn't support Mtom.   
+    }
+
     
 }
