@@ -27,6 +27,8 @@
 
 package gov.hhs.fha.nhinc.messaging.client;
 
+import org.apache.log4j.Logger;
+
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.messaging.service.decorator.SAMLServiceEndpointDecorator;
 import gov.hhs.fha.nhinc.messaging.service.decorator.cxf.SoapHeaderServiceEndPointDecorator;
@@ -40,6 +42,8 @@ import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
  */
 public class CONNECTCXFClientSecured<T> extends CONNECTCXFClient<T> {
 
+    private static final Logger LOG = Logger.getLogger(CONNECTCXFClientSecured.class);
+    
     CONNECTCXFClientSecured(ServicePortDescriptor<T> portDescriptor, String url, AssertionType assertion,
             String wsAddressingTo, String SoapHeader) {
         super(portDescriptor, url, assertion, new CachingCXFSecuredServicePortBuilder<T>(portDescriptor));
@@ -70,4 +74,11 @@ public class CONNECTCXFClientSecured<T> extends CONNECTCXFClient<T> {
         serviceEndpoint = new SoapHeaderServiceEndPointDecorator<T>(serviceEndpoint, subscriptionId);
     }
 
+    /* (non-Javadoc)
+     * @see gov.hhs.fha.nhinc.messaging.client.CONNECTCXFClient#enableWSA(gov.hhs.fha.nhinc.common.nhinccommon.AssertionType, java.lang.String, java.lang.String)
+     */
+    @Override
+    public void enableWSA(AssertionType assertion, String wsAddressingTo, String wsAddressingActionId) {
+        LOG.warn("Web Service Addressing is already enabled on secure clients - No action taken.");
+    }
 }

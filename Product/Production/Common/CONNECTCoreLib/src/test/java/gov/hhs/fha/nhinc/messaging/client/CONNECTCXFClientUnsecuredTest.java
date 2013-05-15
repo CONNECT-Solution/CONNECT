@@ -86,6 +86,23 @@ public class CONNECTCXFClientUnsecuredTest {
         responseTest.verifySoapResponseInInterceptor(client);
         urlTest.verifyURLConfiguration(client, url);
     }
+    
+    @Test
+    public void testEnableMtom() {
+        String url = "url";
+        AssertionType assertion = new AssertionType();
+
+        CONNECTClient<TestServicePortType> client = createClient(url, assertion);
+        client.enableMtom();
+        
+        // default configuration
+        timeoutTest.verifyTimeoutIsSet(client);
+        responseTest.verifySoapResponseInInterceptor(client);
+        urlTest.verifyURLConfiguration(client, url);
+        
+        // test mtom
+        mtomTest.verifyMTOMEnabled(client);
+    }
 
     private CONNECTClient<TestServicePortType> createClient(String url, AssertionType assertion) {
         return CONNECTClientFactory.getInstance().getCONNECTClientUnsecured(new TestServicePortDescriptor(), url,

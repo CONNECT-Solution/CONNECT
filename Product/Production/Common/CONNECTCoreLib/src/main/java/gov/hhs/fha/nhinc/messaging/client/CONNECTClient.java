@@ -27,6 +27,8 @@
 
 package gov.hhs.fha.nhinc.messaging.client;
 
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+
 
 /**
  * @author akong
@@ -38,6 +40,8 @@ public interface CONNECTClient<T> {
 
     public Object invokePort(Class<T> portClass, String methodName, Object operationInput) throws Exception;
     
-    public void supportMtom();
+    public void enableMtom();
+    
+    public void enableWSA(AssertionType assertion, String wsAddressingTo, String wsAddressingActionId);
 
 }

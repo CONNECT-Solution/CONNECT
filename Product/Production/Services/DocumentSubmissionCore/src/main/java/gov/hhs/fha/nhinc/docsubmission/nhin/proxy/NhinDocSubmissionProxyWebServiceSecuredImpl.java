@@ -92,7 +92,7 @@ public class NhinDocSubmissionProxyWebServiceSecuredImpl implements NhinDocSubmi
                     .getCONNECTClientSecured(portDescriptor, assertion, url,
                             targetSystem.getHomeCommunity().getHomeCommunityId(),
                             NhincConstants.NHINC_XDR_SERVICE_NAME);
-            client.supportMtom();
+            client.enableMtom();
 
             response = (RegistryResponseType) client.invokePort(DocumentRepositoryXDRPortType.class,
                     "documentRepositoryProvideAndRegisterDocumentSetB", request);

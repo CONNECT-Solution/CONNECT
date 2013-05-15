@@ -149,7 +149,7 @@ public class NhinAdminDistributionProxyWebServiceSecuredImpl implements NhinAdmi
                         portDescriptor, url, assertion, target.getHomeCommunity().getHomeCommunityId(), 
                         NhincConstants.NHIN_ADMIN_DIST_SERVICE_NAME );
                 if (apiLevel == GATEWAY_API_LEVEL.LEVEL_g1) {
-                    client.supportMtom();
+                    client.enableMtom();
                 }
 
                 client.invokePort(RespondingGatewayAdministrativeDistributionPortType.class, "sendAlertMessage", body);

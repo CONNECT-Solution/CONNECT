@@ -74,7 +74,7 @@ public class NhinDocSubmissionDeferredResponseProxyWebServiceSecuredImpl impleme
 
         CONNECTClient<XDRDeferredResponse20PortType> client = CONNECTCXFClientFactory.getInstance().getCONNECTClientSecured(portDescriptor, assertion, url, target,
                 serviceName);
-        client.supportMtom();
+        client.enableMtom();
         return client;
     }
 

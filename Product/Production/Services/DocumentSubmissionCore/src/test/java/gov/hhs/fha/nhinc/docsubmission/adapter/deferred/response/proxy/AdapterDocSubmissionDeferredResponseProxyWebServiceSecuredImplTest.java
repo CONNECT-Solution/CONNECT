@@ -108,7 +108,7 @@ public class AdapterDocSubmissionDeferredResponseProxyWebServiceSecuredImplTest 
          * @see gov.hhs.fha.nhinc.messaging.client.CONNECTClient#supportMtom()
          */
         @Override
-        public void supportMtom() {
+        public void enableMtom() {
 
         }
     }
