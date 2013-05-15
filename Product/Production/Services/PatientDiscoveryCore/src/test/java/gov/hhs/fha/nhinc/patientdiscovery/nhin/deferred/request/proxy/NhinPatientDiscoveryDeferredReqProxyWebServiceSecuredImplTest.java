@@ -28,11 +28,18 @@ package gov.hhs.fha.nhinc.patientdiscovery.nhin.deferred.request.proxy;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.verify;
 import gov.hhs.fha.nhinc.aspect.NwhinInvocationEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
-import gov.hhs.fha.nhinc.patientdiscovery.aspect.PRPAIN201305UV02EventDescriptionBuilder;
+import gov.hhs.fha.nhinc.messaging.client.CONNECTClient;
+import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
 import gov.hhs.fha.nhinc.patientdiscovery.aspect.MCCIIN000002UV01EventDescriptionBuilder;
+import gov.hhs.fha.nhinc.patientdiscovery.aspect.PRPAIN201305UV02EventDescriptionBuilder;
+import ihe.iti.xcpd._2009.RespondingGatewayDeferredRequestPortType;
+
 import java.lang.reflect.Method;
 
 import org.hl7.v3.PRPAIN201305UV02;
@@ -40,14 +47,27 @@ import org.junit.Test;
 
 /**
  * @author achidamb
- *
+ * 
  */
 public class NhinPatientDiscoveryDeferredReqProxyWebServiceSecuredImplTest {
+
+    @SuppressWarnings("unchecked")
+    private final CONNECTClient<RespondingGatewayDeferredRequestPortType> client = mock(CONNECTClient.class);
+    private NhinTargetSystemType target;
+    private PRPAIN201305UV02 request;
+    private AssertionType assertion;
+
+    @Test
+    public void testNoMtom() throws Exception {
+        NhinPatientDiscoveryDeferredReqProxyWebServiceSecuredImpl impl = getImpl();
+        impl.respondingGatewayPRPAIN201305UV02(request, assertion, target);
+        verify(client, never()).enableMtom();
+    }
+
     @Test
     public void hasNwhinInvocationEvent() throws Exception {
-        Class<NhinPatientDiscoveryDeferredReqProxyWebServiceSecuredImpl> clazz = 
-                NhinPatientDiscoveryDeferredReqProxyWebServiceSecuredImpl.class;
-        Method method = clazz.getMethod("respondingGatewayPRPAIN201305UV02", PRPAIN201305UV02.class, 
+        Class<NhinPatientDiscoveryDeferredReqProxyWebServiceSecuredImpl> clazz = NhinPatientDiscoveryDeferredReqProxyWebServiceSecuredImpl.class;
+        Method method = clazz.getMethod("respondingGatewayPRPAIN201305UV02", PRPAIN201305UV02.class,
                 AssertionType.class, NhinTargetSystemType.class);
         NwhinInvocationEvent annotation = method.getAnnotation(NwhinInvocationEvent.class);
         assertNotNull(annotation);
@@ -57,4 +77,26 @@ public class NhinPatientDiscoveryDeferredReqProxyWebServiceSecuredImplTest {
         assertEquals("1.0", annotation.version());
     }
 
+    /**
+     * @return
+     */
+    private NhinPatientDiscoveryDeferredReqProxyWebServiceSecuredImpl getImpl() {
+        return new NhinPatientDiscoveryDeferredReqProxyWebServiceSecuredImpl() {
+
+            /*
+             * (non-Javadoc)
+             * 
+             * @see gov.hhs.fha.nhinc.patientdiscovery.nhin.proxy.NhinPatientDiscoveryProxyWebServiceSecuredImpl#
+             * getCONNECTSecuredClient(gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType,
+             * gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor, java.lang.String,
+             * gov.hhs.fha.nhinc.common.nhinccommon.AssertionType)
+             */
+            @Override
+            protected CONNECTClient<RespondingGatewayDeferredRequestPortType> getCONNECTSecuredClient(
+                    ServicePortDescriptor<RespondingGatewayDeferredRequestPortType> portDescriptor,
+                    AssertionType assertion, String url, NhinTargetSystemType target) {
+                return client;
+            }
+        };
+    }
 }

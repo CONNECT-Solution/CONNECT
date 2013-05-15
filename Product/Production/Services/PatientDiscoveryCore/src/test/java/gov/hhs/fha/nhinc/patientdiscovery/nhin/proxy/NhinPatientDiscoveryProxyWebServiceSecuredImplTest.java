@@ -28,9 +28,14 @@ package gov.hhs.fha.nhinc.patientdiscovery.nhin.proxy;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.verify;
 import gov.hhs.fha.nhinc.aspect.NwhinInvocationEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
+import gov.hhs.fha.nhinc.messaging.client.CONNECTClient;
+import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
 import gov.hhs.fha.nhinc.patientdiscovery.aspect.PRPAIN201305UV02EventDescriptionBuilder;
 import gov.hhs.fha.nhinc.patientdiscovery.aspect.PRPAIN201306UV02EventDescriptionBuilder;
 import ihe.iti.xcpd._2009.RespondingGatewayPortType;
@@ -66,6 +71,11 @@ public class NhinPatientDiscoveryProxyWebServiceSecuredImplTest {
     };
     final Service mockService = context.mock(Service.class);
     final RespondingGatewayPortType mockPort = context.mock(RespondingGatewayPortType.class);
+    @SuppressWarnings("unchecked")
+    private final CONNECTClient<RespondingGatewayPortType> client = mock(CONNECTClient.class);
+    private NhinTargetSystemType target;
+    private PRPAIN201305UV02 request;
+    private AssertionType assertion;
 
     public NhinPatientDiscoveryProxyWebServiceSecuredImplTest() {
     }
@@ -85,11 +95,10 @@ public class NhinPatientDiscoveryProxyWebServiceSecuredImplTest {
     @After
     public void tearDown() {
     }
-    
+
     @Test
     public void hasNwhinInvocationEvent() throws Exception {
-        Class<NhinPatientDiscoveryProxyWebServiceSecuredImpl> clazz = 
-                NhinPatientDiscoveryProxyWebServiceSecuredImpl.class;
+        Class<NhinPatientDiscoveryProxyWebServiceSecuredImpl> clazz = NhinPatientDiscoveryProxyWebServiceSecuredImpl.class;
         Method method = clazz.getMethod("respondingGatewayPRPAIN201305UV02", PRPAIN201305UV02.class,
                 AssertionType.class, NhinTargetSystemType.class);
         NwhinInvocationEvent annotation = method.getAnnotation(NwhinInvocationEvent.class);
@@ -100,4 +109,32 @@ public class NhinPatientDiscoveryProxyWebServiceSecuredImplTest {
         assertEquals("1.0", annotation.version());
     }
 
+    @Test
+    public void testNoMtom() throws Exception {
+        NhinPatientDiscoveryProxyWebServiceSecuredImpl impl = getImpl();
+        impl.respondingGatewayPRPAIN201305UV02(request, assertion, target);
+        verify(client, never()).enableMtom();
+    }
+
+    /**
+     * @return
+     */
+    private NhinPatientDiscoveryProxyWebServiceSecuredImpl getImpl() {
+        return new NhinPatientDiscoveryProxyWebServiceSecuredImpl() {
+
+            /*
+             * (non-Javadoc)
+             * 
+             * @see gov.hhs.fha.nhinc.patientdiscovery.nhin.proxy.NhinPatientDiscoveryProxyWebServiceSecuredImpl#
+             * getCONNECTSecuredClient(gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType,
+             * gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor, java.lang.String,
+             * gov.hhs.fha.nhinc.common.nhinccommon.AssertionType)
+             */
+            @Override
+            protected CONNECTClient<RespondingGatewayPortType> getCONNECTSecuredClient(NhinTargetSystemType target,
+                    ServicePortDescriptor<RespondingGatewayPortType> portDescriptor, String url, AssertionType assertion) {
+                return client;
+            }
+        };
+    }
 }
