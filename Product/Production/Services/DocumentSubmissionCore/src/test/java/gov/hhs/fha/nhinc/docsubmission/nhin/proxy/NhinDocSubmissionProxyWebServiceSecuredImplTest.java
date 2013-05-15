@@ -28,11 +28,18 @@ package gov.hhs.fha.nhinc.docsubmission.nhin.proxy;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
 import gov.hhs.fha.nhinc.aspect.NwhinInvocationEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
+import gov.hhs.fha.nhinc.docsubmission.DocSubmissionUtils;
 import gov.hhs.fha.nhinc.docsubmission.aspect.DocSubmissionBaseEventDescriptionBuilder;
+import gov.hhs.fha.nhinc.messaging.client.CONNECTClient;
+import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants.GATEWAY_API_LEVEL;
+import ihe.iti.xdr._2007.DocumentRepositoryXDRPortType;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
 
 import java.lang.reflect.Method;
@@ -41,14 +48,37 @@ import org.junit.Test;
 
 /**
  * @author achidamb
- *
+ * 
  */
 public class NhinDocSubmissionProxyWebServiceSecuredImplTest {
+
+    @SuppressWarnings("unchecked")
+    private final CONNECTClient<DocumentRepositoryXDRPortType> client = mock(CONNECTClient.class);
+    private final DocSubmissionUtils utils = mock(DocSubmissionUtils.class);
+    private ProvideAndRegisterDocumentSetRequestType request = mock(ProvideAndRegisterDocumentSetRequestType.class);
+    private AssertionType assertion = mock(AssertionType.class);
+
+    @Test
+    public void testG0() {
+        NhinDocSubmissionProxyWebServiceSecuredImpl impl = getImpl();
+        NhinTargetSystemType targetSystem = getNhinTargetSystemType("1.1");
+        impl.provideAndRegisterDocumentSetB(request, assertion, targetSystem, GATEWAY_API_LEVEL.LEVEL_g0);
+        verify(client).enableMtom();
+    }
+
+    @Test
+    public void testG1() {
+        NhinDocSubmissionProxyWebServiceSecuredImpl impl = getImpl();
+        NhinTargetSystemType targetSystem = getNhinTargetSystemType("1.1");
+        impl.provideAndRegisterDocumentSetB(request, assertion, targetSystem, GATEWAY_API_LEVEL.LEVEL_g1);
+        verify(client).enableMtom();
+    }
+
     @Test
     public void hasNwhinInvocationEvent() throws Exception {
         Class<NhinDocSubmissionProxyWebServiceSecuredImpl> clazz = NhinDocSubmissionProxyWebServiceSecuredImpl.class;
-        Method method = clazz.getMethod("provideAndRegisterDocumentSetB", 
-                ProvideAndRegisterDocumentSetRequestType.class, AssertionType.class, NhinTargetSystemType.class, 
+        Method method = clazz.getMethod("provideAndRegisterDocumentSetB",
+                ProvideAndRegisterDocumentSetRequestType.class, AssertionType.class, NhinTargetSystemType.class,
                 GATEWAY_API_LEVEL.class);
         NwhinInvocationEvent annotation = method.getAnnotation(NwhinInvocationEvent.class);
         assertNotNull(annotation);
@@ -56,6 +86,44 @@ public class NhinDocSubmissionProxyWebServiceSecuredImplTest {
         assertEquals(DocSubmissionBaseEventDescriptionBuilder.class, annotation.afterReturningBuilder());
         assertEquals("Document Submission", annotation.serviceType());
         assertEquals("", annotation.version());
+    }
+
+    private NhinDocSubmissionProxyWebServiceSecuredImpl getImpl() {
+        return new NhinDocSubmissionProxyWebServiceSecuredImpl() {
+
+            /*
+             * (non-Javadoc)
+             * 
+             * @see gov.hhs.fha.nhinc.docsubmission.nhin.proxy.NhinDocSubmissionProxyWebServiceSecuredImpl#
+             * getCONNECTClientSecured(gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor,
+             * gov.hhs.fha.nhinc.common.nhinccommon.AssertionType, java.lang.String, java.lang.String, java.lang.String)
+             */
+            @Override
+            protected CONNECTClient<DocumentRepositoryXDRPortType> getCONNECTClientSecured(
+                    ServicePortDescriptor<DocumentRepositoryXDRPortType> portDescriptor, AssertionType assertion,
+                    String url, String targetHomeCommunityId, String serviceName) {
+                return client;
+            }
+
+            /*
+             * (non-Javadoc)
+             * 
+             * @see gov.hhs.fha.nhinc.docsubmission.nhin.deferred.request.proxy11.
+             * NhinDocSubmissionDeferredRequestProxyWebServiceSecuredImpl#getDocSubmissionUtils()
+             */
+            @Override
+            protected DocSubmissionUtils getDocSubmissionUtils() {
+                return utils;
+            }
+        };
+    }
+    
+    private NhinTargetSystemType getNhinTargetSystemType(String sHcid) {
+        NhinTargetSystemType targetSystem = new NhinTargetSystemType();
+        HomeCommunityType hcid = new HomeCommunityType();
+        hcid.setHomeCommunityId(sHcid);
+        targetSystem.setHomeCommunity(hcid);
+        return targetSystem;
     }
 
 }

@@ -28,11 +28,18 @@ package gov.hhs.fha.nhinc.docsubmission.nhin.deferred.response.proxy11;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
 import gov.hhs.fha.nhinc.aspect.NwhinInvocationEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
+import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException;
 import gov.hhs.fha.nhinc.docsubmission.aspect.DeferredResponseDescriptionBuilder;
 import gov.hhs.fha.nhinc.docsubmission.aspect.DocSubmissionArgTransformerBuilder;
+import gov.hhs.fha.nhinc.messaging.client.CONNECTClient;
+import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
+import ihe.iti.xdr._2007.XDRDeferredResponsePortType;
 
 import java.lang.reflect.Method;
 
@@ -45,6 +52,12 @@ import org.junit.Test;
  * 
  */
 public class NhinDocSubmissionDeferredResponseProxyWebServiceSecuredImplTest {
+
+    @SuppressWarnings("unchecked")
+    private final CONNECTClient<XDRDeferredResponsePortType> client = mock(CONNECTClient.class);
+    private RegistryResponseType request = mock(RegistryResponseType.class);
+    private AssertionType assertion;
+
     @Test
     public void hasNwhinInvocationEvent() throws Exception {
         Class<NhinDocSubmissionDeferredResponseProxyWebServiceSecuredImpl> clazz = NhinDocSubmissionDeferredResponseProxyWebServiceSecuredImpl.class;
@@ -58,4 +71,54 @@ public class NhinDocSubmissionDeferredResponseProxyWebServiceSecuredImplTest {
         assertEquals("", annotation.version());
     }
 
+    @Test
+    public void testMtom() {
+        NhinDocSubmissionDeferredResponseProxyWebServiceSecuredImpl impl = getImpl();
+        impl.provideAndRegisterDocumentSetBDeferredResponse11(request, assertion, getTarget("1.1"));
+        verify(client).enableMtom();
+    }
+
+    /**
+     * @param hcidValue
+     * @return
+     */
+    private NhinTargetSystemType getTarget(String hcidValue) {
+        NhinTargetSystemType target = new NhinTargetSystemType();
+        HomeCommunityType hcid = new HomeCommunityType();
+        hcid.setHomeCommunityId(hcidValue);
+        target.setHomeCommunity(hcid);
+        return target;
+    }
+
+    /**
+     * @return
+     */
+    private NhinDocSubmissionDeferredResponseProxyWebServiceSecuredImpl getImpl() {
+        return new NhinDocSubmissionDeferredResponseProxyWebServiceSecuredImpl() {
+
+            /*
+             * (non-Javadoc)
+             * 
+             * @see gov.hhs.fha.nhinc.docsubmission.nhin.deferred.response.proxy11.
+             * NhinDocSubmissionDeferredResponseProxyWebServiceSecuredImpl
+             * #getCONNECTClientSecured(gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor,
+             * java.lang.String, gov.hhs.fha.nhinc.common.nhinccommon.AssertionType, java.lang.String, java.lang.String)
+             */
+            @Override
+            protected CONNECTClient<XDRDeferredResponsePortType> getCONNECTClientSecured(
+                    ServicePortDescriptor<XDRDeferredResponsePortType> portDescriptor, String url,
+                    AssertionType assertion, String target, String serviceName) {
+                return client;
+            }
+            
+            /* (non-Javadoc)
+             * @see gov.hhs.fha.nhinc.docsubmission.nhin.deferred.response.proxy11.NhinDocSubmissionDeferredResponseProxyWebServiceSecuredImpl#getUrl(gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType)
+             */
+            @Override
+            protected String getUrl(NhinTargetSystemType target) throws IllegalArgumentException,
+                    ConnectionManagerException, Exception {
+                return "endpoint";
+            }
+        };
+    }
 }

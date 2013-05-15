@@ -29,6 +29,7 @@ package gov.hhs.fha.nhinc.docsubmission.nhin.deferred.response.proxy11;
 import gov.hhs.fha.nhinc.aspect.NwhinInvocationEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
+import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException;
 import gov.hhs.fha.nhinc.docsubmission.MessageGeneratorUtils;
 import gov.hhs.fha.nhinc.docsubmission.aspect.DeferredResponseDescriptionBuilder;
 import gov.hhs.fha.nhinc.docsubmission.aspect.DocSubmissionArgTransformerBuilder;
@@ -74,7 +75,6 @@ public class NhinDocSubmissionDeferredResponseProxyWebServiceSecuredImpl impleme
 
         CONNECTClient<XDRDeferredResponsePortType> client = CONNECTClientFactory.getInstance().getCONNECTClientSecured(portDescriptor, assertion, url, target,
                 serviceName);
-        client.enableMtom();
         return client;
     }
 
@@ -86,8 +86,7 @@ public class NhinDocSubmissionDeferredResponseProxyWebServiceSecuredImpl impleme
         LOG.debug("Begin provideAndRegisterDocumentSetBDeferredResponse");
         XDRAcknowledgementType response = null;
         try {
-            String url = oProxyHelper.getUrlFromTargetSystemByGatewayAPILevel(target,
-                    NhincConstants.NHINC_XDR_RESPONSE_SERVICE_NAME, GATEWAY_API_LEVEL.LEVEL_g0);
+            String url = getUrl(target);
 
             if (request == null) {
                 LOG.error("Message was null");
@@ -96,6 +95,7 @@ public class NhinDocSubmissionDeferredResponseProxyWebServiceSecuredImpl impleme
                 CONNECTClient<XDRDeferredResponsePortType> client = getCONNECTClientSecured(portDescriptor, url,
                         assertion, target.getHomeCommunity().getHomeCommunityId(),
                         NhincConstants.NHINC_XDR_RESPONSE_SERVICE_NAME);
+                client.enableMtom();
 
                 response = (XDRAcknowledgementType) client.invokePort(XDRDeferredResponsePortType.class,
                         "provideAndRegisterDocumentSetBDeferredResponse", request);
@@ -107,6 +107,17 @@ public class NhinDocSubmissionDeferredResponseProxyWebServiceSecuredImpl impleme
 
         LOG.debug("End provideAndRegisterDocumentSetBDeferredResponse");
         return response;
+    }
+
+    /**
+     * @return
+     * @throws Exception 
+     * @throws ConnectionManagerException 
+     * @throws IllegalArgumentException 
+     */
+    protected String getUrl(NhinTargetSystemType target) throws IllegalArgumentException, ConnectionManagerException, Exception {
+        return oProxyHelper.getUrlFromTargetSystemByGatewayAPILevel(target,
+                NhincConstants.NHINC_XDR_RESPONSE_SERVICE_NAME, GATEWAY_API_LEVEL.LEVEL_g0);
     }
 
 }

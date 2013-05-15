@@ -35,14 +35,13 @@ import gov.hhs.fha.nhinc.docsubmission.aspect.DocSubmissionBaseEventDescriptionB
 import gov.hhs.fha.nhinc.docsubmission.nhin.proxy.service.NhinDocSubmission20ServicePortDescriptor;
 import gov.hhs.fha.nhinc.docsubmission.nhin.proxy.service.NhinDocSubmissionServicePortDescriptor;
 import gov.hhs.fha.nhinc.largefile.LargePayloadException;
-import gov.hhs.fha.nhinc.messaging.client.CONNECTCXFClientFactory;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTClient;
+import gov.hhs.fha.nhinc.messaging.client.CONNECTClientFactory;
 import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 import ihe.iti.xdr._2007.DocumentRepositoryXDRPortType;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
-
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
 import org.apache.log4j.Logger;
@@ -52,7 +51,7 @@ public class NhinDocSubmissionProxyWebServiceSecuredImpl implements NhinDocSubmi
     private WebServiceProxyHelper proxyHelper = null;
 
     public NhinDocSubmissionProxyWebServiceSecuredImpl() {
-    	proxyHelper = new WebServiceProxyHelper();
+        proxyHelper = new WebServiceProxyHelper();
     }
 
     protected DocSubmissionUtils getDocSubmissionUtils() {
@@ -73,9 +72,14 @@ public class NhinDocSubmissionProxyWebServiceSecuredImpl implements NhinDocSubmi
         }
     }
 
-    @NwhinInvocationEvent(beforeBuilder = DocSubmissionBaseEventDescriptionBuilder.class,
-            afterReturningBuilder = DocSubmissionBaseEventDescriptionBuilder.class, serviceType = "Document Submission",
-            version = "")
+    protected CONNECTClient<DocumentRepositoryXDRPortType> getCONNECTClientSecured(
+            ServicePortDescriptor<DocumentRepositoryXDRPortType> portDescriptor, AssertionType assertion, String url,
+            String targetHomeCommunityId, String serviceName) {
+        return CONNECTClientFactory.getInstance().getCONNECTClientSecured(portDescriptor, assertion, url,
+                targetHomeCommunityId, serviceName);
+    }
+
+    @NwhinInvocationEvent(beforeBuilder = DocSubmissionBaseEventDescriptionBuilder.class, afterReturningBuilder = DocSubmissionBaseEventDescriptionBuilder.class, serviceType = "Document Submission", version = "")
     public RegistryResponseType provideAndRegisterDocumentSetB(ProvideAndRegisterDocumentSetRequestType request,
             AssertionType assertion, NhinTargetSystemType targetSystem, NhincConstants.GATEWAY_API_LEVEL apiLevel) {
         LOG.debug("Begin provideAndRegisterDocumentSetB");
@@ -88,10 +92,8 @@ public class NhinDocSubmissionProxyWebServiceSecuredImpl implements NhinDocSubmi
 
             ServicePortDescriptor<DocumentRepositoryXDRPortType> portDescriptor = getServicePortDescriptor(apiLevel);
 
-            CONNECTClient<DocumentRepositoryXDRPortType> client = CONNECTCXFClientFactory.getInstance()
-                    .getCONNECTClientSecured(portDescriptor, assertion, url,
-                            targetSystem.getHomeCommunity().getHomeCommunityId(),
-                            NhincConstants.NHINC_XDR_SERVICE_NAME);
+            CONNECTClient<DocumentRepositoryXDRPortType> client = getCONNECTClientSecured(portDescriptor, assertion,
+                    url, targetSystem.getHomeCommunity().getHomeCommunityId(), NhincConstants.NHINC_XDR_SERVICE_NAME);
             client.enableMtom();
 
             response = (RegistryResponseType) client.invokePort(DocumentRepositoryXDRPortType.class,
