@@ -29,6 +29,7 @@ package gov.hhs.fha.nhinc.docretrieve.nhin.proxy;
 import gov.hhs.fha.nhinc.aspect.NwhinInvocationEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
+import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException;
 import gov.hhs.fha.nhinc.docretrieve.MessageGenerator;
 import gov.hhs.fha.nhinc.docretrieve.aspect.RetrieveDocumentSetRequestTypeDescriptionBuilder;
 import gov.hhs.fha.nhinc.docretrieve.aspect.RetrieveDocumentSetResponseTypeDescriptionBuilder;
@@ -45,6 +46,7 @@ import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
 
 import org.apache.log4j.Logger;
+
 /**
  * 
  * 
@@ -62,9 +64,7 @@ public class NhinDocRetrieveProxyWebServiceSecuredImpl implements NhinDocRetriev
      * @param targetSystem The target system where the message is being sent to.
      * @return The document(s) that were retrieved.
      */
-    @NwhinInvocationEvent(beforeBuilder = RetrieveDocumentSetRequestTypeDescriptionBuilder.class,
-            afterReturningBuilder = RetrieveDocumentSetResponseTypeDescriptionBuilder.class, 
-            serviceType = "Retrieve Document", version = "")
+    @NwhinInvocationEvent(beforeBuilder = RetrieveDocumentSetRequestTypeDescriptionBuilder.class, afterReturningBuilder = RetrieveDocumentSetResponseTypeDescriptionBuilder.class, serviceType = "Retrieve Document", version = "")
     public RetrieveDocumentSetResponseType respondingGatewayCrossGatewayRetrieve(
             RetrieveDocumentSetRequestType request, AssertionType assertion, NhinTargetSystemType targetSystem,
             GATEWAY_API_LEVEL level) {
@@ -75,18 +75,16 @@ public class NhinDocRetrieveProxyWebServiceSecuredImpl implements NhinDocRetriev
         try {
             if (request != null) {
                 LOG.debug("Before target system URL look up.");
-                url = oProxyHelper.getUrlFromTargetSystemByGatewayAPILevel(targetSystem, sServiceName, level);
+                url = getUrl(targetSystem, sServiceName, level);
                 LOG.debug("After target system URL look up. URL for service: " + sServiceName + " is: " + url);
 
                 if (NullChecker.isNotNullish(url)) {
-                    ServicePortDescriptor<RespondingGatewayRetrievePortType> portDescriptor = 
-                            getServicePortDescriptor(NhincConstants.GATEWAY_API_LEVEL.LEVEL_g0);
+                    ServicePortDescriptor<RespondingGatewayRetrievePortType> portDescriptor = getServicePortDescriptor(NhincConstants.GATEWAY_API_LEVEL.LEVEL_g0);
 
-                    CONNECTClient<RespondingGatewayRetrievePortType> client = CONNECTClientFactory.getInstance()
-                            .getCONNECTClientSecured(portDescriptor, assertion, url,
-                                    targetSystem.getHomeCommunity().getHomeCommunityId(), NhincConstants.DOC_RETRIEVE_SERVICE_NAME);
+                    CONNECTClient<RespondingGatewayRetrievePortType> client = getCONNECTClientSecured(portDescriptor,
+                            assertion, url, targetSystem);
                     client.enableMtom();
-                    
+
                     response = (RetrieveDocumentSetResponseType) client.invokePort(
                             RespondingGatewayRetrievePortType.class, "respondingGatewayCrossGatewayRetrieve", request);
                 } else {
@@ -106,6 +104,20 @@ public class NhinDocRetrieveProxyWebServiceSecuredImpl implements NhinDocRetriev
         return response;
     }
 
+    /**
+     * @param targetSystem 
+     * @param sServiceName 
+     * @param level 
+     * @param level 
+     * @return
+     * @throws Exception 
+     * @throws ConnectionManagerException 
+     * @throws IllegalArgumentException 
+     */
+    protected String getUrl(NhinTargetSystemType targetSystem, String sServiceName, GATEWAY_API_LEVEL level) throws IllegalArgumentException, ConnectionManagerException, Exception {
+        return oProxyHelper.getUrlFromTargetSystemByGatewayAPILevel(targetSystem, sServiceName, level);
+    }
+
     public ServicePortDescriptor<RespondingGatewayRetrievePortType> getServicePortDescriptor(
             NhincConstants.GATEWAY_API_LEVEL apiLevel) {
         switch (apiLevel) {
@@ -114,5 +126,19 @@ public class NhinDocRetrieveProxyWebServiceSecuredImpl implements NhinDocRetriev
         default:
             return new NhinDocRetrieveServicePortDescriptor();
         }
+    }
+
+    /**
+     * @param portDescriptor
+     * @param assertion
+     * @param url
+     * @param target
+     * @return
+     */
+    protected CONNECTClient<RespondingGatewayRetrievePortType> getCONNECTClientSecured(
+            ServicePortDescriptor<RespondingGatewayRetrievePortType> portDescriptor, AssertionType assertion,
+            String url, NhinTargetSystemType target) {
+        return CONNECTClientFactory.getInstance().getCONNECTClientSecured(portDescriptor, assertion, url,
+                target.getHomeCommunity().getHomeCommunityId(), NhincConstants.DOC_RETRIEVE_SERVICE_NAME);
     }
 }
