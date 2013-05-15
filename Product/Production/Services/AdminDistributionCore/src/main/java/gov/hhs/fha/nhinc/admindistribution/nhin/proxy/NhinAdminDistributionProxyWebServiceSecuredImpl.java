@@ -45,9 +45,6 @@ import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants.GATEWAY_API_LEVEL;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
-
-import javax.xml.ws.BindingProvider;
-
 import oasis.names.tc.emergency.edxl.de._1.EDXLDistribution;
 
 import org.apache.log4j.Logger;
@@ -81,8 +78,7 @@ public class NhinAdminDistributionProxyWebServiceSecuredImpl implements NhinAdmi
     /**
      * This method returns ServicePortDescriptor for AdminDist based on gateway apiLevel.
      * 
-     * @param apiLevel
-     *            gateway apiLevel received (g0/g1).
+     * @param apiLevel gateway apiLevel received (g0/g1).
      * @return NhinAdminDistributionPortDescriptor based on g0/g1 impl
      */
     public ServicePortDescriptor<RespondingGatewayAdministrativeDistributionPortType> getServicePortDescriptor(
@@ -98,38 +94,29 @@ public class NhinAdminDistributionProxyWebServiceSecuredImpl implements NhinAdmi
     /**
      * This method returns CXFClient to implement AdminDist Secured Service.
      * 
-     * @param portDescriptor
-     *            Comprises of
-     * @param url
-     *            target community url to send the message.
-     * @param assertion
-     *            Assertion received.
+     * @param portDescriptor Comprises of
+     * @param url target community url to send the message.
+     * @param assertion Assertion received.
      * @return CXFClient to implement Secured Service.
      */
     protected CONNECTClient<RespondingGatewayAdministrativeDistributionPortType> getCONNECTClientSecured(
             ServicePortDescriptor<RespondingGatewayAdministrativeDistributionPortType> portDescriptor, String url,
             AssertionType assertion, String target, String serviceName) {
 
-        return CONNECTCXFClientFactory.getInstance().getCONNECTClientSecured(portDescriptor, assertion, url, 
-                target, serviceName);
+        return CONNECTCXFClientFactory.getInstance().getCONNECTClientSecured(portDescriptor, assertion, url, target,
+                serviceName);
     }
 
     /**
      * This method implements sendAlertMessage for AdminDist.
      * 
-     * @param body
-     *            Emergency Message Distribution Element transaction messgae body.
-     * @param assertion
-     *            Assertion received.
-     * @param target
-     *            NhinTargetCommunity received.
-     * @param apiLevel
-     *            gateway apiLevel (g0/g1).
+     * @param body Emergency Message Distribution Element transaction messgae body.
+     * @param assertion Assertion received.
+     * @param target NhinTargetCommunity received.
+     * @param apiLevel gateway apiLevel (g0/g1).
      */
     @Override
-    @NwhinInvocationEvent(beforeBuilder = EDXLDistributionEventDescriptionBuilder.class,
-            afterReturningBuilder = DefaultEventDescriptionBuilder.class, serviceType = "Admin Distribution",
-            version = "")
+    @NwhinInvocationEvent(beforeBuilder = EDXLDistributionEventDescriptionBuilder.class, afterReturningBuilder = DefaultEventDescriptionBuilder.class, serviceType = "Admin Distribution", version = "")
     public void sendAlertMessage(EDXLDistribution body, AssertionType assertion, NhinTargetSystemType target,
             NhincConstants.GATEWAY_API_LEVEL apiLevel) {
         LOG.debug("begin sendAlertMessage");
@@ -146,8 +133,8 @@ public class NhinAdminDistributionProxyWebServiceSecuredImpl implements NhinAdmi
                 ServicePortDescriptor<RespondingGatewayAdministrativeDistributionPortType> portDescriptor = getServicePortDescriptor(apiLevel);
 
                 CONNECTClient<RespondingGatewayAdministrativeDistributionPortType> client = getCONNECTClientSecured(
-                        portDescriptor, url, assertion, target.getHomeCommunity().getHomeCommunityId(), 
-                        NhincConstants.NHIN_ADMIN_DIST_SERVICE_NAME );
+                        portDescriptor, url, assertion, target.getHomeCommunity().getHomeCommunityId(),
+                        NhincConstants.NHIN_ADMIN_DIST_SERVICE_NAME);
                 if (apiLevel == GATEWAY_API_LEVEL.LEVEL_g1) {
                     client.enableMtom();
                 }
@@ -166,17 +153,14 @@ public class NhinAdminDistributionProxyWebServiceSecuredImpl implements NhinAdmi
     /**
      * This method audits the AdminDist Service at Nhin interface.
      * 
-     * @param message
-     *            Emergency Message Distribution Element transaction message.
-     * @param assertion
-     *            Assertion received.
-     * @param direction
-     *            The direction can be eigther outbound or inbound.
+     * @param message Emergency Message Distribution Element transaction message.
+     * @param assertion Assertion received.
+     * @param direction The direction can be eigther outbound or inbound.
      */
     protected void auditMessage(EDXLDistribution message, AssertionType assertion, String direction,
-    		NhinTargetSystemType target) {
-        AcknowledgementType ack = getLogger().auditNhinAdminDist(message, assertion, direction,
-                target, NhincConstants.AUDIT_LOG_NHIN_INTERFACE);
+            NhinTargetSystemType target) {
+        AcknowledgementType ack = getLogger().auditNhinAdminDist(message, assertion, direction, target,
+                NhincConstants.AUDIT_LOG_NHIN_INTERFACE);
         if (ack != null) {
             LOG.debug("ack: " + ack.getMessage());
         }
