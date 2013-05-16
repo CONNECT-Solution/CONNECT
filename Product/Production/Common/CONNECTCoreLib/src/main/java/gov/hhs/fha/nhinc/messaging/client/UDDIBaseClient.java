@@ -28,10 +28,12 @@
  */
 package gov.hhs.fha.nhinc.messaging.client;
 
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.messaging.service.BaseServiceEndpoint;
 import gov.hhs.fha.nhinc.messaging.service.ServiceEndpoint;
 import gov.hhs.fha.nhinc.messaging.service.decorator.TimeoutServiceEndpointDecorator;
 import gov.hhs.fha.nhinc.messaging.service.decorator.URLServiceEndpointDecorator;
+import gov.hhs.fha.nhinc.messaging.service.decorator.cxf.WsAddressingServiceEndpointDecorator;
 import gov.hhs.fha.nhinc.messaging.service.port.CXFServicePortBuilder;
 import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
@@ -68,6 +70,22 @@ public class UDDIBaseClient<T> implements CONNECTClient<T> {
     public Object invokePort(Class<T> portClass, String methodName, Object operationInput) throws Exception {
         Object response = proxyHelper.invokePort(getPort(), portClass, methodName, operationInput);
         return response;
+    }
+
+    /* (non-Javadoc)
+     * @see gov.hhs.fha.nhinc.messaging.client.CONNECTClient#supportMtom()
+     */
+    @Override
+    public void enableMtom() {
+        // Do nothing, UDDI doesn't support Mtom.   
+    }
+
+    /* (non-Javadoc)
+     * @see gov.hhs.fha.nhinc.messaging.client.CONNECTClient#enableWSA(gov.hhs.fha.nhinc.common.nhinccommon.AssertionType, java.lang.String, java.lang.String)
+     */
+    @Override
+    public void enableWSA(AssertionType assertion, String wsAddressingTo, String wsAddressingActionId) {
+        serviceEndpoint = new WsAddressingServiceEndpointDecorator<T>(serviceEndpoint, wsAddressingTo, wsAddressingActionId, assertion);
     }
 
     

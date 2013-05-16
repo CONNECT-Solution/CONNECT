@@ -85,6 +85,11 @@ public class AdapterAdminDistributionProxyWebServiceSecuredImpl implements Adapt
 
         return CONNECTCXFClientFactory.getInstance().getCONNECTClientSecured(portDescriptor, url, assertion);
     }
+    
+    protected String getUrl() {
+        return adminDistributionHelper.getAdapterUrl(NhincConstants.ADAPTER_ADMIN_DIST_SECURED_SERVICE_NAME,
+                ADAPTER_API_LEVEL.LEVEL_a0);
+    }
 
     /**
      * This method implements SendAlertMessage for AdminDist.
@@ -99,8 +104,7 @@ public class AdapterAdminDistributionProxyWebServiceSecuredImpl implements Adapt
             version = "")
     public void sendAlertMessage(EDXLDistribution body, AssertionType assertion) {
         LOG.debug("Begin sendAlertMessage");
-        String url = adminDistributionHelper.getAdapterUrl(NhincConstants.ADAPTER_ADMIN_DIST_SECURED_SERVICE_NAME,
-                ADAPTER_API_LEVEL.LEVEL_a0);
+        String url = getUrl();
 
         if (NullChecker.isNotNullish(url)) {
             try {
@@ -111,6 +115,7 @@ public class AdapterAdminDistributionProxyWebServiceSecuredImpl implements Adapt
 
                 CONNECTClient<AdapterAdministrativeDistributionSecuredPortType> client = getCONNECTClientSecured(
                         portDescriptor, url, assertion);
+                client.enableMtom();
 
                 client.invokePort(AdapterAdministrativeDistributionSecuredPortType.class, "sendAlertMessage", message);
             } catch (Exception ex) {

@@ -34,14 +34,14 @@ import gov.hhs.fha.nhinc.aspect.AdapterDelegationEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.RespondingGatewaySendAlertMessageType;
 import gov.hhs.fha.nhinc.event.DefaultEventDescriptionBuilder;
-import gov.hhs.fha.nhinc.messaging.client.CONNECTCXFClientFactory;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTClient;
+import gov.hhs.fha.nhinc.messaging.client.CONNECTClientFactory;
 import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants.ADAPTER_API_LEVEL;
-import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import oasis.names.tc.emergency.edxl.de._1.EDXLDistribution;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 
 /**
@@ -70,38 +70,35 @@ public class AdapterAdminDistributionProxyWebServiceUnsecuredImpl implements Ada
     /**
      * This method returns CXFClient to implement AdpaterAdmin Dist Unsecured Service.
      * 
-     * @param portDescriptor
-     *            comprises of NameSpaceUri, WSDLFile to read,Port, ServiceName and WS_ADDRESSING_ACTION.
-     * @param url
-     *            targetCommunity Url received.
-     * @param assertion
-     *            Assertion received.
+     * @param portDescriptor comprises of NameSpaceUri, WSDLFile to read,Port, ServiceName and WS_ADDRESSING_ACTION.
+     * @param url targetCommunity Url received.
+     * @param assertion Assertion received.
      * @return CXFClient for AdapterAdminDist Unsecured Service.
      */
     protected CONNECTClient<AdapterAdministrativeDistributionPortType> getCONNECTClientUnsecured(
             ServicePortDescriptor<AdapterAdministrativeDistributionPortType> portDescriptor, String url,
             AssertionType assertion) {
 
-        return CONNECTCXFClientFactory.getInstance().getCONNECTClientUnsecured(portDescriptor, url, assertion);
+        return CONNECTClientFactory.getInstance().getCONNECTClientUnsecured(portDescriptor, url, assertion);
+    }
+    
+    protected String getUrl() {
+        return adminDistributionHelper.getAdapterUrl(NhincConstants.ADAPTER_ADMIN_DIST_SERVICE_NAME,
+                ADAPTER_API_LEVEL.LEVEL_a0);
     }
 
     /**
      * This method implements SendAlertMessage for AdminDist.
      * 
-     * @param body
-     *            Emergency Message Distribution Element transaction message body received.
-     * @param assertion
-     *            Assertion received.
+     * @param body Emergency Message Distribution Element transaction message body received.
+     * @param assertion Assertion received.
      */
-    @AdapterDelegationEvent(beforeBuilder = EDXLDistributionEventDescriptionBuilder.class,
-            afterReturningBuilder = DefaultEventDescriptionBuilder.class, serviceType = "Admin Distribution",
-            version = "")
+    @AdapterDelegationEvent(beforeBuilder = EDXLDistributionEventDescriptionBuilder.class, afterReturningBuilder = DefaultEventDescriptionBuilder.class, serviceType = "Admin Distribution", version = "")
     public void sendAlertMessage(EDXLDistribution body, AssertionType assertion) {
         LOG.debug("Begin sendAlertMessage");
-        String url = adminDistributionHelper.getAdapterUrl(NhincConstants.ADAPTER_ADMIN_DIST_SERVICE_NAME,
-                ADAPTER_API_LEVEL.LEVEL_a0);
+        String url = getUrl();
 
-        if (NullChecker.isNotNullish(url)) {
+        if (!StringUtils.isBlank(url)) {
             try {
 
                 RespondingGatewaySendAlertMessageType message = new RespondingGatewaySendAlertMessageType();
@@ -112,6 +109,7 @@ public class AdapterAdminDistributionProxyWebServiceUnsecuredImpl implements Ada
 
                 CONNECTClient<AdapterAdministrativeDistributionPortType> client = getCONNECTClientUnsecured(
                         portDescriptor, url, assertion);
+                client.enableMtom();
 
                 client.invokePort(AdapterAdministrativeDistributionPortType.class, "sendAlertMessage", message);
             } catch (Exception ex) {

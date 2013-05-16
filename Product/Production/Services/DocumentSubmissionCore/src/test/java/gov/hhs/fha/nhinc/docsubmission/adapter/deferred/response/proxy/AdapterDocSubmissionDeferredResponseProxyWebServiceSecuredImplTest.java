@@ -101,11 +101,28 @@ public class AdapterDocSubmissionDeferredResponseProxyWebServiceSecuredImplTest 
             response.setMessage(regResp);
             return response;
         }
+
+        /*
+         * (non-Javadoc)
+         * 
+         * @see gov.hhs.fha.nhinc.messaging.client.CONNECTClient#supportMtom()
+         */
+        @Override
+        public void enableMtom() {
+
+        }
+
+        /* (non-Javadoc)
+         * @see gov.hhs.fha.nhinc.messaging.client.CONNECTClient#enableWSA(gov.hhs.fha.nhinc.common.nhinccommon.AssertionType, java.lang.String, java.lang.String)
+         */
+        @Override
+        public void enableWSA(AssertionType assertion, String wsAddressingTo, String wsAddressingActionId) {
+            
+        }
     }
 
     private WebServiceProxyHelper createMockWebServiceProxyHelper(final String url) {
         return new WebServiceProxyHelper() {
-           
 
             @Override
             public String getAdapterEndPointFromConnectionManager(String sServiceName) {
@@ -117,7 +134,6 @@ public class AdapterDocSubmissionDeferredResponseProxyWebServiceSecuredImplTest 
     private AdapterDocSubmissionDeferredResponseProxyWebServiceSecuredImpl createWebServiceProxy(
             final WebServiceProxyHelper proxyHelper) {
         return new AdapterDocSubmissionDeferredResponseProxyWebServiceSecuredImpl() {
-            
 
             @Override
             protected WebServiceProxyHelper createWebServiceProxyHelper() {
@@ -142,8 +158,6 @@ public class AdapterDocSubmissionDeferredResponseProxyWebServiceSecuredImplTest 
         WebServiceProxyHelper proxyHelper = createMockWebServiceProxyHelper("url");
         AdapterDocSubmissionDeferredResponseProxyWebServiceSecuredImpl adapterXDRResponseWebServiceProxy = createWebServiceProxy(proxyHelper);
 
-       
-
         RegistryResponseType body = new RegistryResponseType();
         AssertionType assertion = new AssertionType();
         XDRAcknowledgementType result = adapterXDRResponseWebServiceProxy.provideAndRegisterDocumentSetBResponse(body,
@@ -158,8 +172,6 @@ public class AdapterDocSubmissionDeferredResponseProxyWebServiceSecuredImplTest 
     public void testProvideAndRegisterDocumentSetBResponseFailureCase() {
         WebServiceProxyHelper proxyHelper = createMockWebServiceProxyHelper(null);
         AdapterDocSubmissionDeferredResponseProxyWebServiceSecuredImpl adapterXDRResponseWebServiceProxy = createWebServiceProxy(proxyHelper);
-
-       
 
         RegistryResponseType body = new RegistryResponseType();
         AssertionType assertion = new AssertionType();

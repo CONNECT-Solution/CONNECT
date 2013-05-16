@@ -28,11 +28,17 @@ package gov.hhs.fha.nhinc.docquery.nhin.proxy;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.verify;
 import gov.hhs.fha.nhinc.aspect.NwhinInvocationEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.docquery.aspect.AdhocQueryRequestDescriptionBuilder;
 import gov.hhs.fha.nhinc.docquery.aspect.AdhocQueryResponseDescriptionBuilder;
+import gov.hhs.fha.nhinc.messaging.client.CONNECTClient;
+import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
 import ihe.iti.xds_b._2007.RespondingGatewayQueryPortType;
 
 import java.lang.reflect.Method;
@@ -63,6 +69,11 @@ public class NhinDocQueryWebServiceProxyTest {
     final Service mockService = context.mock(Service.class);
     final RespondingGatewayQueryPortType mockPort = context.mock(RespondingGatewayQueryPortType.class);
 
+    @SuppressWarnings("unchecked")
+    private CONNECTClient<RespondingGatewayQueryPortType> client = mock(CONNECTClient.class);
+    private AdhocQueryRequest request;
+    private AssertionType assertion;
+
     @Test
     public void hasBeginOutboundProcessingEvent() throws Exception {
         Class<NhinDocQueryProxyWebServiceSecuredImpl> clazz = NhinDocQueryProxyWebServiceSecuredImpl.class;
@@ -74,5 +85,48 @@ public class NhinDocQueryWebServiceProxyTest {
         assertEquals(AdhocQueryResponseDescriptionBuilder.class, annotation.afterReturningBuilder());
         assertEquals("Document Query", annotation.serviceType());
         assertEquals("", annotation.version());
+    }
+
+    @Test
+    public void testNoMtom() throws Exception {
+        NhinDocQueryProxyWebServiceSecuredImpl impl = getImpl();
+        NhinTargetSystemType target = getTarget("1.1");
+        impl.respondingGatewayCrossGatewayQuery(request, assertion, target);
+        verify(client, never()).enableMtom();
+    }
+
+    /**
+     * @param hcidValue
+     * @return
+     */
+    private NhinTargetSystemType getTarget(String hcidValue) {
+        NhinTargetSystemType target = new NhinTargetSystemType();
+        HomeCommunityType hcid = new HomeCommunityType();
+        hcid.setHomeCommunityId(hcidValue);
+        target.setHomeCommunity(hcid);
+        return target;
+    }
+
+    /**
+     * @return
+     */
+    private NhinDocQueryProxyWebServiceSecuredImpl getImpl() {
+        return new NhinDocQueryProxyWebServiceSecuredImpl() {
+            /*
+             * (non-Javadoc)
+             * 
+             * @see
+             * gov.hhs.fha.nhinc.docquery.nhin.proxy.NhinDocQueryProxyWebServiceSecuredImpl#getCONNECTClientSecured(
+             * gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor,
+             * gov.hhs.fha.nhinc.common.nhinccommon.AssertionType, java.lang.String,
+             * gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType)
+             */
+            @Override
+            public CONNECTClient<RespondingGatewayQueryPortType> getCONNECTClientSecured(
+                    ServicePortDescriptor<RespondingGatewayQueryPortType> portDescriptor, AssertionType assertion,
+                    String url, NhinTargetSystemType target) {
+                return client;
+            }
+        };
     }
 }
