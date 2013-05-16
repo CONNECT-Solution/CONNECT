@@ -100,7 +100,6 @@ public class CONNECTCXFClientSecuredTest {
         
         // default configuration
         timeoutTest.verifyTimeoutIsSet(client);
-        mtomTest.verifyMTOMEnabled(client);
         responseTest.verifySoapResponseInInterceptor(client);
         urlTest.verifyURLConfiguration(client, url);
 
@@ -110,6 +109,36 @@ public class CONNECTCXFClientSecuredTest {
         addressTest.verifyAddressingProperties(client, wsAddressingTo, portDescriptor.getWSAddressingAction(),
                 messageId, relatesTo);
         securityTest.verifyWsSecurityProperties(client);
+    }
+    
+    @Test
+    public void testEnableMtom() {
+        String url = "url";
+        String wsAddressingTo = "wsAddressingTo";
+        String messageId = "urn:uuid:messageId";
+        String relatesTo = "relatesTo";
+        AssertionType assertion = new AssertionType();
+        assertion.setMessageId(messageId);
+        assertion.getRelatesToList().add(relatesTo);
+        ServicePortDescriptor<TestServicePortType> portDescriptor = new TestServicePortDescriptor();
+
+        CONNECTClient<TestServicePortType> client = createClient(url, assertion, wsAddressingTo);
+        client.enableMtom();
+        
+        // default configuration
+        timeoutTest.verifyTimeoutIsSet(client);
+        responseTest.verifySoapResponseInInterceptor(client);
+        urlTest.verifyURLConfiguration(client, url);
+
+        // secured configuration
+        samlTest.verifySAMLConfiguration(client, assertion);
+        tlsTest.verifyTLSConfiguration(client);
+        addressTest.verifyAddressingProperties(client, wsAddressingTo, portDescriptor.getWSAddressingAction(),
+                messageId, relatesTo);
+        securityTest.verifyWsSecurityProperties(client);
+        
+        // mtom configuration
+        mtomTest.verifyMTOMEnabled(client);
     }
 
     private CONNECTClient<TestServicePortType> createClient(String url, AssertionType assertion, String wsAddressingTo) {

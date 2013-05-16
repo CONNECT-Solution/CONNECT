@@ -30,10 +30,16 @@ package gov.hhs.fha.nhinc.admindistribution.adapter.proxy;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
+import gov.hhs.fha.nhinc.adapteradmindistribution.AdapterAdministrativeDistributionPortType;
+import gov.hhs.fha.nhinc.adapteradmindistribution.AdapterAdministrativeDistributionSecuredPortType;
 import gov.hhs.fha.nhinc.admindistribution.aspect.EDXLDistributionEventDescriptionBuilder;
 import gov.hhs.fha.nhinc.aspect.AdapterDelegationEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.event.DefaultEventDescriptionBuilder;
+import gov.hhs.fha.nhinc.messaging.client.CONNECTClient;
+import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
 
 import java.lang.reflect.Method;
 
@@ -42,6 +48,27 @@ import oasis.names.tc.emergency.edxl.de._1.EDXLDistribution;
 import org.junit.Test;
 
 public class AdapterAdminDistributionProxyTest {
+
+    @SuppressWarnings("unchecked")
+    private final CONNECTClient<AdapterAdministrativeDistributionSecuredPortType> secureClient = mock(CONNECTClient.class);
+    @SuppressWarnings("unchecked")
+    private final CONNECTClient<AdapterAdministrativeDistributionPortType> client = mock(CONNECTClient.class);
+    private EDXLDistribution request = mock(EDXLDistribution.class);
+    private AssertionType assertion = mock(AssertionType.class);
+
+    @Test
+    public void testSecuredForMtom() {
+        AdapterAdminDistributionProxyWebServiceSecuredImpl impl = getSecuredImpl();
+        impl.sendAlertMessage(request, assertion);
+        verify(secureClient).enableMtom();
+    }
+
+    @Test
+    public void testUnsecuredForMtom() {
+        AdapterAdminDistributionProxyWebServiceUnsecuredImpl impl = getUnsecuredImpl();
+        impl.sendAlertMessage(request, assertion);
+        verify(client).enableMtom();
+    }
 
     @Test
     public void hasEventAnnotation() throws Exception {
@@ -57,5 +84,65 @@ public class AdapterAdminDistributionProxyTest {
             assertEquals("Admin Distribution", annotation.serviceType());
             assertEquals("", annotation.version());
         }
+    }
+
+    private AdapterAdminDistributionProxyWebServiceSecuredImpl getSecuredImpl() {
+        return new AdapterAdminDistributionProxyWebServiceSecuredImpl() {
+
+            /*
+             * (non-Javadoc)
+             * 
+             * @see #getCONNECTClientSecured(gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor,
+             * java.lang.String, gov.hhs.fha.nhinc.common.nhinccommon.AssertionType)
+             */
+            @Override
+            protected CONNECTClient<AdapterAdministrativeDistributionSecuredPortType> getCONNECTClientSecured(
+                    ServicePortDescriptor<AdapterAdministrativeDistributionSecuredPortType> portDescriptor, String url,
+                    AssertionType assertion) {
+                return secureClient;
+            }
+
+            /*
+             * (non-Javadoc)
+             * 
+             * @see
+             * gov.hhs.fha.nhinc.admindistribution.adapter.proxy.AdapterAdminDistributionProxyWebServiceSecuredImpl#
+             * getHelper()
+             */
+            @Override
+            protected String getUrl() {
+                return "endpoint";
+            }
+        };
+    }
+
+    private AdapterAdminDistributionProxyWebServiceUnsecuredImpl getUnsecuredImpl() {
+        return new AdapterAdminDistributionProxyWebServiceUnsecuredImpl() {
+
+            /*
+             * (non-Javadoc)
+             * 
+             * @see #getCONNECTClientSecured(gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor,
+             * java.lang.String, gov.hhs.fha.nhinc.common.nhinccommon.AssertionType)
+             */
+            @Override
+            protected CONNECTClient<AdapterAdministrativeDistributionPortType> getCONNECTClientUnsecured(
+                    ServicePortDescriptor<AdapterAdministrativeDistributionPortType> portDescriptor, String url,
+                    AssertionType assertion) {
+                return client;
+            }
+
+            /*
+             * (non-Javadoc)
+             * 
+             * @see
+             * gov.hhs.fha.nhinc.admindistribution.adapter.proxy.AdapterAdminDistributionProxyWebServiceSecuredImpl#
+             * getHelper()
+             */
+            @Override
+            protected String getUrl() {
+                return "endpoint";
+            }
+        };
     }
 }

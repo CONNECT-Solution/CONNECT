@@ -76,6 +76,13 @@ public class NhinDocQueryProxyWebServiceSecuredImpl implements NhinDocQueryProxy
             return new NhinDocQueryServicePortDescriptor();
         }
     }
+    
+    public CONNECTClient<RespondingGatewayQueryPortType> getCONNECTClientSecured(ServicePortDescriptor<RespondingGatewayQueryPortType> portDescriptor, AssertionType assertion, String url,
+            NhinTargetSystemType target) {
+        return CONNECTClientFactory.getInstance()
+                .getCONNECTClientSecured(portDescriptor, assertion, url,
+                        target.getHomeCommunity().getHomeCommunityId(), NhincConstants.DOC_QUERY_SERVICE_NAME);
+    }
 
     /**
      * Calls the respondingGatewayCrossGatewayQuery method of the web service.
@@ -106,9 +113,8 @@ public class NhinDocQueryProxyWebServiceSecuredImpl implements NhinDocQueryProxy
 
             ServicePortDescriptor<RespondingGatewayQueryPortType> portDescriptor = getServicePortDescriptor(NhincConstants.GATEWAY_API_LEVEL.LEVEL_g0);
 
-            CONNECTClient<RespondingGatewayQueryPortType> client = CONNECTClientFactory.getInstance()
-                    .getCONNECTClientSecured(portDescriptor, assertion, url,
-                            target.getHomeCommunity().getHomeCommunityId(), NhincConstants.DOC_QUERY_SERVICE_NAME);
+            CONNECTClient<RespondingGatewayQueryPortType> client = getCONNECTClientSecured(portDescriptor, assertion, url,
+                            target);
 
             return (AdhocQueryResponse) client.invokePort(RespondingGatewayQueryPortType.class,
                     "respondingGatewayCrossGatewayQuery", request);

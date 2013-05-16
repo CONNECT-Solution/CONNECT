@@ -26,8 +26,11 @@
  */
 package gov.hhs.fha.nhinc.messaging.client;
 
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.messaging.service.BaseServiceEndpoint;
 import gov.hhs.fha.nhinc.messaging.service.ServiceEndpoint;
+import gov.hhs.fha.nhinc.messaging.service.decorator.MTOMServiceEndpointDecorator;
+import gov.hhs.fha.nhinc.messaging.service.decorator.cxf.WsAddressingServiceEndpointDecorator;
 import gov.hhs.fha.nhinc.messaging.service.port.CachingCXFSecuredServicePortBuilder;
 import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
 
@@ -68,5 +71,21 @@ public class CONNECTTestClient<T> implements CONNECTClient<T> {
     @Override
     public Object invokePort(Class<T> portClass, String methodName, Object operationInput) throws Exception {
         return null;
+    }
+
+    /* (non-Javadoc)
+     * @see gov.hhs.fha.nhinc.messaging.client.CONNECTClient#supportMtom()
+     */
+    @Override
+    public void enableMtom() {
+        serviceEndpoint = new MTOMServiceEndpointDecorator<T>(serviceEndpoint);
+    }
+
+    /* (non-Javadoc)
+     * @see gov.hhs.fha.nhinc.messaging.client.CONNECTClient#enableWSA(gov.hhs.fha.nhinc.common.nhinccommon.AssertionType, java.lang.String, java.lang.String)
+     */
+    @Override
+    public void enableWSA(AssertionType assertion, String wsAddressingTo, String wsAddressingActionId) {
+        serviceEndpoint = new WsAddressingServiceEndpointDecorator<T>(serviceEndpoint, wsAddressingTo, wsAddressingActionId, assertion);
     }
 }

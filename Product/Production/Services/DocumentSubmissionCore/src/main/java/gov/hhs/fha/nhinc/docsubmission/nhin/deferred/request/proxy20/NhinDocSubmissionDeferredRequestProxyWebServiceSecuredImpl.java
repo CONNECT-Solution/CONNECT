@@ -72,8 +72,9 @@ public class NhinDocSubmissionDeferredRequestProxyWebServiceSecuredImpl implemen
             ServicePortDescriptor<XDRDeferredRequest20PortType> portDescriptor, String url, AssertionType assertion,
              String target, String serviceName) {
 
-        return CONNECTCXFClientFactory.getInstance().getCONNECTClientSecured(portDescriptor, assertion, url, target,
+        CONNECTClient<XDRDeferredRequest20PortType> client = CONNECTCXFClientFactory.getInstance().getCONNECTClientSecured(portDescriptor, assertion, url, target,
                 serviceName);
+        return client;
     }
 
     @NwhinInvocationEvent(beforeBuilder = DocSubmissionBaseEventDescriptionBuilder.class,
@@ -98,6 +99,7 @@ public class NhinDocSubmissionDeferredRequestProxyWebServiceSecuredImpl implemen
                 CONNECTClient<XDRDeferredRequest20PortType> client = getCONNECTClientSecured(portDescriptor, url,
                         assertion, targetSystem.getHomeCommunity().getHomeCommunityId(),
                         NhincConstants.NHINC_XDR_REQUEST_SERVICE_NAME);
+                client.enableMtom();
 
                 response = (RegistryResponseType) client.invokePort(XDRDeferredRequest20PortType.class,
                         "provideAndRegisterDocumentSetBDeferredRequest", request);

@@ -28,26 +28,49 @@ package gov.hhs.fha.nhinc.docsubmission.nhin.deferred.request.proxy11;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-
-import java.lang.reflect.Method;
-
-import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.verify;
 import gov.hhs.fha.nhinc.aspect.NwhinInvocationEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
+import gov.hhs.fha.nhinc.docsubmission.DocSubmissionUtils;
 import gov.hhs.fha.nhinc.docsubmission.aspect.DocSubmissionArgTransformerBuilder;
 import gov.hhs.fha.nhinc.docsubmission.aspect.DocSubmissionBaseEventDescriptionBuilder;
+import gov.hhs.fha.nhinc.docsubmission.nhin.deferred.request.proxy11.NhinDocSubmissionDeferredRequestProxyWebServiceSecuredImpl;
+import gov.hhs.fha.nhinc.messaging.client.CONNECTClient;
+import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
+import ihe.iti.xdr._2007.XDRDeferredRequestPortType;
+import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
+
+import java.lang.reflect.Method;
 
 import org.junit.Test;
 
 public class NhinDocSubmissionDeferredRequestProxyWebServiceSecuredImplTest {
+
+    @SuppressWarnings("unchecked")
+    private final CONNECTClient<XDRDeferredRequestPortType> client = mock(CONNECTClient.class);
+    private final DocSubmissionUtils utils = mock(DocSubmissionUtils.class);
+    private ProvideAndRegisterDocumentSetRequestType request = mock(ProvideAndRegisterDocumentSetRequestType.class);
+    private AssertionType assertion = mock(AssertionType.class);
+
+    @Test
+    public void test() {
+        NhinDocSubmissionDeferredRequestProxyWebServiceSecuredImpl impl = getImpl();
+        NhinTargetSystemType targetSystem = new NhinTargetSystemType();
+        HomeCommunityType hcid = new HomeCommunityType();
+        hcid.setHomeCommunityId("1.1");
+        targetSystem.setHomeCommunity(hcid);
+        impl.provideAndRegisterDocumentSetBRequest11(request, assertion, targetSystem);
+        verify(client).enableMtom();
+    }
+
     @Test
     public void hasNwhinInvocationEvent() throws Exception {
-        Class<NhinDocSubmissionDeferredRequestProxyWebServiceSecuredImpl> clazz = 
-                NhinDocSubmissionDeferredRequestProxyWebServiceSecuredImpl.class;
+        Class<NhinDocSubmissionDeferredRequestProxyWebServiceSecuredImpl> clazz = NhinDocSubmissionDeferredRequestProxyWebServiceSecuredImpl.class;
         Method method = clazz.getMethod("provideAndRegisterDocumentSetBRequest11",
-                ProvideAndRegisterDocumentSetRequestType.class, AssertionType.class
-                 ,NhinTargetSystemType.class);
+                ProvideAndRegisterDocumentSetRequestType.class, AssertionType.class, NhinTargetSystemType.class);
         NwhinInvocationEvent annotation = method.getAnnotation(NwhinInvocationEvent.class);
         assertNotNull(annotation);
         assertEquals(DocSubmissionBaseEventDescriptionBuilder.class, annotation.beforeBuilder());
@@ -56,4 +79,30 @@ public class NhinDocSubmissionDeferredRequestProxyWebServiceSecuredImplTest {
         assertEquals("", annotation.version());
     }
 
+    private NhinDocSubmissionDeferredRequestProxyWebServiceSecuredImpl getImpl() {
+        return new NhinDocSubmissionDeferredRequestProxyWebServiceSecuredImpl() {
+            /*
+             * (non-Javadoc)
+             * 
+             * @see gov.hhs.fha.nhinc.docsubmission.nhin.deferred.request.proxy20.
+             * NhinDocSubmissionDeferredRequestProxyWebServiceSecuredImpl
+             * #getCONNECTClientSecured(gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor,
+             * java.lang.String, gov.hhs.fha.nhinc.common.nhinccommon.AssertionType, java.lang.String, java.lang.String)
+             */
+            @Override
+            protected CONNECTClient<XDRDeferredRequestPortType> getCONNECTClientSecured(
+                    ServicePortDescriptor<XDRDeferredRequestPortType> portDescriptor, String url,
+                    AssertionType assertion, String target, String serviceName) {
+                return client;
+            }
+            
+            /* (non-Javadoc)
+             * @see gov.hhs.fha.nhinc.docsubmission.nhin.deferred.request.proxy11.NhinDocSubmissionDeferredRequestProxyWebServiceSecuredImpl#getDocSubmissionUtils()
+             */
+            @Override
+            protected DocSubmissionUtils getDocSubmissionUtils() {
+                return utils;
+            }
+        };
+    }
 }
