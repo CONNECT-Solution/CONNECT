@@ -55,7 +55,7 @@ public class CONNECTCXFClientSecured<T> extends CONNECTCXFClient<T> {
     CONNECTCXFClientSecured(ServicePortDescriptor<T> portDescriptor, AssertionType assertion, String url,
             String targetHomeCommunityId, String serviceName) {
         super(portDescriptor, url, assertion, new CachingCXFSecuredServicePortBuilder<T>(portDescriptor));
-        decorateEndpoint(assertion, null, portDescriptor.getWSAddressingAction(), null, targetHomeCommunityId,
+        decorateEndpoint(assertion, url, portDescriptor.getWSAddressingAction(), null, targetHomeCommunityId,
                 serviceName);
 
         serviceEndpoint.configure();
