@@ -111,6 +111,14 @@ public class AdapterDocSubmissionDeferredResponseProxyWebServiceSecuredImplTest 
         public void enableMtom() {
 
         }
+
+        /* (non-Javadoc)
+         * @see gov.hhs.fha.nhinc.messaging.client.CONNECTClient#enableWSA(gov.hhs.fha.nhinc.common.nhinccommon.AssertionType, java.lang.String, java.lang.String)
+         */
+        @Override
+        public void enableWSA(AssertionType assertion, String wsAddressingTo, String wsAddressingActionId) {
+            
+        }
     }
 
     private WebServiceProxyHelper createMockWebServiceProxyHelper(final String url) {
