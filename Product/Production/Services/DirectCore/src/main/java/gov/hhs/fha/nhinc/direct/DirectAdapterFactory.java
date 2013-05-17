@@ -26,21 +26,21 @@
  */
 package gov.hhs.fha.nhinc.direct;
 
+import gov.hhs.fha.nhinc.mail.ManageTaskScheduler;
 import gov.hhs.fha.nhinc.proxy.ComponentProxyFactory;
-
 import org.apache.log4j.Logger;
 
 /**
  * Direct Client Factory responsible for {@link DirectAdapter}.
  */
 public class DirectAdapterFactory {
-    
+
     private static final Logger LOG = Logger.getLogger(DirectAdapterFactory.class);
-    
     private static final String CONFIG_FILE_NAME = "direct.appcontext.xml";
     private static final String BEAN_NAME_RECEIVER = "directReceiver";
     private static final String BEAN_NAME_SENDER = "directSender";
-    
+    private static final String BEAN_NAME_MANAGE_TASK_SCHEDULER = "manageTaskScheduler";
+
     /**
      * Register Handlers will invoke getInstance, thereby loading the spring context and task scheduler for polling mail
      * servers.
@@ -49,14 +49,14 @@ public class DirectAdapterFactory {
         LOG.debug("Registering handlers...");
         getDirectReceiver();
     }
-    
+
     /**
      * @return a {@link DirectReceiver} from the factory.
      */
     public DirectReceiver getDirectReceiver() {
         return new ComponentProxyFactory(CONFIG_FILE_NAME).getInstance(BEAN_NAME_RECEIVER, DirectReceiver.class);
     }
-    
+
     /**
      * @return a {@link DirectSender} from the factory.
      */
@@ -64,4 +64,17 @@ public class DirectAdapterFactory {
         return new ComponentProxyFactory(CONFIG_FILE_NAME).getInstance(BEAN_NAME_SENDER, DirectSender.class);
     }
 
+    /**
+     * Stop the default Spring Direct TaskScheduler
+     *
+     */
+    public void stopTaskScheduler() {
+        LOG.debug("stop the Spring Task Scheduler...");
+        //get the manage bean scheduler
+        ManageTaskScheduler manageTaskScheduler = (ManageTaskScheduler) (new ComponentProxyFactory(CONFIG_FILE_NAME)).getInstance(BEAN_NAME_MANAGE_TASK_SCHEDULER, ManageTaskScheduler.class);
+        //call the bean clean to shutdown the spring default task scheduler
+        if (manageTaskScheduler != null) {
+            manageTaskScheduler.clean();
+        }
+    }
 }

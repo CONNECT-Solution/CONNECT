@@ -20,6 +20,8 @@
         <task:scheduled ref="outboundMessagePoller" method="poll" cron="0,30 * * * * *"/>
         <task:scheduled ref="inboundMessagePoller" method="poll" cron="15,45 * * * * *"/>
     </task:scheduled-tasks>
-    <task:scheduler id="directScheduler" / -->
-     
+    <task:scheduler id="directScheduler" />
+    <bean id="manageTaskScheduler" class="gov.hhs.fha.nhinc.mail.ManageTaskScheduler" init-method="init" destroy-method="clean">
+        <constructor-arg ref="directScheduler"/>
+    </bean-->
 </beans>
