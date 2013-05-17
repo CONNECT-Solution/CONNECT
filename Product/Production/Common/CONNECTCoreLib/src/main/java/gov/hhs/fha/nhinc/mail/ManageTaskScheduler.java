@@ -24,38 +24,56 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.direct.servlet;
+package gov.hhs.fha.nhinc.mail;
 
-import gov.hhs.fha.nhinc.direct.DirectAdapterFactory;
-
-import javax.servlet.ServletConfig;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
-
+import gov.hhs.fha.nhinc.event.persistence.HibernateUtil;
 import org.apache.log4j.Logger;
+import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler;
 
 /**
- * Web Application initialization for Direct.
+ * Class to Manage the Spring Task Scheduler
+ *
+ * @author Naresh Subramanyan
  */
-public class InitServlet extends HttpServlet {
+public class ManageTaskScheduler {
 
-    private static final long serialVersionUID = -2548417535183464693L;
-    private static final Logger LOG = Logger.getLogger(InitServlet.class);
+    private static final Logger LOG = Logger.getLogger(ManageTaskScheduler.class);
+    private ThreadPoolTaskScheduler scheduler;
 
     /**
-     * {@inheritDoc}
+     * Constructor
+     *
+     *
      */
-    @Override
-    public void init(ServletConfig config) throws ServletException {
-        super.init(config);
-        LOG.debug("Direct InitServlet start...");
-        new DirectAdapterFactory().registerHandlers();        
+    public ManageTaskScheduler(ThreadPoolTaskScheduler scheduler) {
+        this.scheduler = scheduler;
     }
 
-    @Override
-    public void destroy() {
-        super.destroy();
-        //Stops the Spring Direct Task Scheduler Thread
-        new DirectAdapterFactory().stopTaskScheduler();
+    /**
+     * Method is called when spring initializes the class
+     *
+     * @throws Exception
+     */
+    public void init() throws Exception {
+        LOG.info("Inside init method -->TaskScheduler Instance:" + scheduler);
+        //Initialize the HibernateUtil within the appserver context
+        if (HibernateUtil.getSessionFactory() != null) {
+            LOG.info("Inside init method --> HibernateUtil.getSessionFactory()..getClass().getName():" + HibernateUtil.getSessionFactory().getClass().getName());
+        } else {
+            LOG.info("Inside init method --> HibernateUtil.getSessionFactory():" + HibernateUtil.getSessionFactory());
+        }
+    }
+
+    /**
+     * Method is called to shutdown the Spring default ThreadPoolTaskScheduler
+     *
+     */
+    public void clean() {
+        System.out.println("Inside clean method -->TaskScheduler Instance:" + scheduler);
+        LOG.info("Inside clean method -->TaskScheduler Instance:" + scheduler);
+        //shutdown the scheduler thread if its running
+        if (scheduler != null) {
+            scheduler.shutdown();
+        }
     }
 }
