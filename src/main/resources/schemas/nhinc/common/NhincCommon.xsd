@@ -215,11 +215,14 @@
     </xsd:complexType>
     <xsd:element name="CreateEPRRequest" type="tns:CreateEPRRequestType"/>
     <xsd:complexType name="NhinTargetSystemType">
-        <xsd:choice>
-            <xsd:element name="epr" type="addr:EndpointReferenceType"/>
-            <xsd:element name="homeCommunity" type="tns:HomeCommunityType"/>
-            <xsd:element name="url" type="xsd:string"/>
-        </xsd:choice>
+        <xsd:sequence>
+            <xsd:choice>
+                <xsd:element name="epr" type="addr:EndpointReferenceType"/>
+                <xsd:element name="homeCommunity" type="tns:HomeCommunityType"/>
+                <xsd:element name="url" type="xsd:string"/>
+            </xsd:choice>
+            <xsd:element name="useSpecVersion" type="xsd:string" minOccurs="0"/>
+        </xsd:sequence>
     </xsd:complexType>
     <xsd:element name="NhinTargetSystem" type="tns:NhinTargetSystemType"/>
     <xsd:complexType name="ResponseType">
@@ -260,12 +263,12 @@
             <xsd:element name="homeCommunity" type="tns:HomeCommunityType"/>
             <xsd:element name="list" type="xsd:string" minOccurs="0"/>
             <xsd:element name="region" type="xsd:string" minOccurs="0"/>
-            <xsd:element name="useSpecVersion" type="xsd:string" minOccurs="0"/>
         </xsd:sequence>
     </xsd:complexType>
     <xsd:complexType name="NhinTargetCommunitiesType">
         <xsd:sequence>
             <xsd:element name="nhinTargetCommunity" type="tns:NhinTargetCommunityType" maxOccurs="unbounded"/>
+            <xsd:element name="useSpecVersion" type="xsd:string" minOccurs="0"/>
         </xsd:sequence>
     </xsd:complexType>
     <xsd:element name="NhinTargetCommunities" type="tns:NhinTargetCommunitiesType"/>
