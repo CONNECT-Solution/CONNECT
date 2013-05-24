@@ -27,7 +27,6 @@
 package gov.hhs.fha.nhinc.xdcommon;
 
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
-import java.util.Arrays;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryError;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryErrorList;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
@@ -53,6 +52,14 @@ public class XDCommonResponseHelper {
     public RegistryResponseType createError(String message) {
         return createRegistryResponse(message, ErrorCodes.XDSRegistryError, "CONNECT");
     }
+    
+    public RegistryResponseType createError(String message, ErrorCodes code) {
+        return createRegistryResponse(message, code, "CONNECT");
+    }
+    
+    public RegistryResponseType createError(String message, ErrorCodes code, String location) {
+        return createRegistryResponse(message, code, location);
+    } 
 
     public RegistryResponseType createError(Throwable e) {
         return createRegistryResponse(e.getLocalizedMessage(), ErrorCodes.XDSRegistryError,

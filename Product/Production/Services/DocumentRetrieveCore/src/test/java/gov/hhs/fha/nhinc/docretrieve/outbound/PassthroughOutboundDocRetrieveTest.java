@@ -38,6 +38,7 @@ import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
 import gov.hhs.fha.nhinc.docretrieve.aspect.RetrieveDocumentSetRequestTypeDescriptionBuilder;
 import gov.hhs.fha.nhinc.docretrieve.aspect.RetrieveDocumentSetResponseTypeDescriptionBuilder;
 import gov.hhs.fha.nhinc.docretrieve.entity.OutboundDocRetrieveOrchestratable;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants.ADAPTER_API_LEVEL;
 import gov.hhs.fha.nhinc.orchestration.CONNECTOutboundOrchestrator;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
@@ -47,16 +48,16 @@ import java.lang.reflect.Method;
 import org.junit.Test;
 
 /**
- * @author achidamb
- *
+ * @author achidamb, mweaver
+ * 
  */
-public class PassthroughOutboundDocRetrieveTest {
-    
+public class PassthroughOutboundDocRetrieveTest extends AbstractOutboundDocRetrieveTest {
+
     @Test
     public void hasOutboundProcessingEvent() throws Exception {
         Class<PassthroughOutboundDocRetrieve> clazz = PassthroughOutboundDocRetrieve.class;
         Method method = clazz.getMethod("respondingGatewayCrossGatewayRetrieve", RetrieveDocumentSetRequestType.class,
-                AssertionType.class, NhinTargetCommunitiesType.class);
+                AssertionType.class, NhinTargetCommunitiesType.class, ADAPTER_API_LEVEL.class);
         OutboundProcessingEvent annotation = method.getAnnotation(OutboundProcessingEvent.class);
         assertNotNull(annotation);
         assertEquals(RetrieveDocumentSetRequestTypeDescriptionBuilder.class, annotation.beforeBuilder());
@@ -71,19 +72,27 @@ public class PassthroughOutboundDocRetrieveTest {
         AssertionType assertion = new AssertionType();
         NhinTargetCommunitiesType targets = new NhinTargetCommunitiesType();
         RetrieveDocumentSetResponseType expectedResponse = new RetrieveDocumentSetResponseType();
-        
+
         CONNECTOutboundOrchestrator orchestrator = mock(CONNECTOutboundOrchestrator.class);
         OutboundDocRetrieveOrchestratable orchResponse = mock(OutboundDocRetrieveOrchestratable.class);
-        
+
         when(orchestrator.process(any(OutboundDocRetrieveOrchestratable.class))).thenReturn(orchResponse);
-        
+
         when(orchResponse.getResponse()).thenReturn(expectedResponse);
 
         PassthroughOutboundDocRetrieve outboundDocRetrieve = new PassthroughOutboundDocRetrieve(orchestrator);
-        
+
         RetrieveDocumentSetResponseType actualResponse = outboundDocRetrieve.respondingGatewayCrossGatewayRetrieve(
-                request, assertion, targets);
-        
-        assertSame(expectedResponse, actualResponse);      
+                request, assertion, targets, ADAPTER_API_LEVEL.LEVEL_a0);
+
+        assertSame(expectedResponse, actualResponse);
+    }
+
+    /* (non-Javadoc)
+     * @see gov.hhs.fha.nhinc.docretrieve.outbound.AbstractOutboundDocRetrieveTest#getOutboundDocRetrieve(gov.hhs.fha.nhinc.orchestration.CONNECTOutboundOrchestrator)
+     */
+    @Override
+    protected OutboundDocRetrieve getOutboundDocRetrieve(CONNECTOutboundOrchestrator orchestrator) {
+        return new PassthroughOutboundDocRetrieve(orchestrator);
     }
 }

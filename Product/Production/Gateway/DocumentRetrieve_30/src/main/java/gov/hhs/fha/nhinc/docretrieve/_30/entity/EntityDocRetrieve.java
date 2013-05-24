@@ -14,6 +14,7 @@ import gov.hhs.fha.nhinc.docretrieve.aspect.RetrieveDocumentSetTransformingBuild
 import gov.hhs.fha.nhinc.docretrieve.outbound.OutboundDocRetrieve;
 import gov.hhs.fha.nhinc.entitydocretrieve.EntityDocRetrievePortType;
 import gov.hhs.fha.nhinc.messaging.server.BaseService;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants.ADAPTER_API_LEVEL;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
 
 import javax.annotation.Resource;
@@ -38,7 +39,7 @@ public class EntityDocRetrieve extends BaseService implements EntityDocRetrieveP
         AssertionType assertion = getAssertion(context, request.getAssertion());
 
         return outboundDocRetrieve.respondingGatewayCrossGatewayRetrieve(request.getRetrieveDocumentSetRequest(),
-                assertion, request.getNhinTargetCommunities());
+                assertion, request.getNhinTargetCommunities(), ADAPTER_API_LEVEL.LEVEL_a1);
     }
 
     @Resource

@@ -37,6 +37,7 @@ import gov.hhs.fha.nhinc.docretrieve.aspect.RetrieveDocumentSetResponseTypeDescr
 import gov.hhs.fha.nhinc.docretrieve.entity.OutboundDocRetrieveDelegate;
 import gov.hhs.fha.nhinc.docretrieve.entity.OutboundDocRetrieveOrchestratable;
 import gov.hhs.fha.nhinc.docretrieve.entity.OutboundPassthroughDocRetrieveOrchestratable;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants.ADAPTER_API_LEVEL;
 import gov.hhs.fha.nhinc.orchestration.CONNECTOutboundOrchestrator;
 import gov.hhs.fha.nhinc.util.MessageGeneratorUtils;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
@@ -46,10 +47,10 @@ import java.io.IOException;
 
 import org.apache.log4j.Logger;
 
-public class PassthroughOutboundDocRetrieve implements OutboundDocRetrieve {
+public class PassthroughOutboundDocRetrieve extends AbstractOutboundDocRetrieve implements OutboundDocRetrieve {
 
     private static final Logger LOG = Logger.getLogger(PassthroughOutboundDocRetrieve.class);
-    
+
     private final CONNECTOutboundOrchestrator orchestrator;
 
     /**
@@ -58,7 +59,7 @@ public class PassthroughOutboundDocRetrieve implements OutboundDocRetrieve {
     public PassthroughOutboundDocRetrieve() {
         orchestrator = new CONNECTOutboundOrchestrator();
     }
-    
+
     /**
      * Constructor with dependency injection parameters.
      * 
@@ -76,29 +77,34 @@ public class PassthroughOutboundDocRetrieve implements OutboundDocRetrieve {
      * ._2007.RetrieveDocumentSetRequestType, gov.hhs.fha.nhinc.common.nhinccommon.AssertionType)
      */
     @Override
-    @OutboundProcessingEvent(beforeBuilder = RetrieveDocumentSetRequestTypeDescriptionBuilder.class, 
-            afterReturningBuilder = RetrieveDocumentSetResponseTypeDescriptionBuilder.class, 
-            serviceType = "Retrieve Document", version = "")
-    public RetrieveDocumentSetResponseType respondingGatewayCrossGatewayRetrieve(RetrieveDocumentSetRequestType request,
-            AssertionType assertion, NhinTargetCommunitiesType targets) {
-        
-        NhinTargetSystemType targetSystem = MessageGeneratorUtils.getInstance().convertFirstToNhinTargetSystemType(
-                targets);
+    @OutboundProcessingEvent(beforeBuilder = RetrieveDocumentSetRequestTypeDescriptionBuilder.class, afterReturningBuilder = RetrieveDocumentSetResponseTypeDescriptionBuilder.class, serviceType = "Retrieve Document", version = "")
+    public RetrieveDocumentSetResponseType respondingGatewayCrossGatewayRetrieve(
+            RetrieveDocumentSetRequestType request, AssertionType assertion, NhinTargetCommunitiesType targets,
+            ADAPTER_API_LEVEL entityAPILevel) {
 
-        OutboundDocRetrieveDelegate delegate = new OutboundDocRetrieveDelegate();
-        OutboundDocRetrieveOrchestratable orchestratable = new OutboundPassthroughDocRetrieveOrchestratable(null, null,
-                delegate, null, request, assertion, targetSystem);
+        RetrieveDocumentSetResponseType response = null;
+        if (validateGuidance(targets, entityAPILevel)) {
 
-        OutboundDocRetrieveOrchestratable orchResponse = (OutboundDocRetrieveOrchestratable) orchestrator
-                .process(orchestratable);
-        RetrieveDocumentSetResponseType response = orchResponse.getResponse();
+            NhinTargetSystemType targetSystem = MessageGeneratorUtils.getInstance().convertFirstToNhinTargetSystemType(
+                    targets);
 
-        try {
-            DocRetrieveFileUtils.getInstance().streamDocumentsToFileSystemIfEnabled(response);
-        } catch (IOException ioe) {
-            LOG.error("Failed to save documents to file system.", ioe);
-            response = MessageGenerator.getInstance().createRegistryResponseError(
-                    "Adapter Document Retrieve Processing: " + ioe.getLocalizedMessage());
+            OutboundDocRetrieveDelegate delegate = new OutboundDocRetrieveDelegate();
+            OutboundDocRetrieveOrchestratable orchestratable = new OutboundPassthroughDocRetrieveOrchestratable(null,
+                    null, delegate, null, request, assertion, targetSystem);
+
+            OutboundDocRetrieveOrchestratable orchResponse = (OutboundDocRetrieveOrchestratable) orchestrator
+                    .process(orchestratable);
+            response = orchResponse.getResponse();
+
+            try {
+                DocRetrieveFileUtils.getInstance().streamDocumentsToFileSystemIfEnabled(response);
+            } catch (IOException ioe) {
+                LOG.error("Failed to save documents to file system.", ioe);
+                response = MessageGenerator.getInstance().createRegistryResponseError(
+                        "Adapter Document Retrieve Processing: " + ioe.getLocalizedMessage());
+            }
+        } else {
+            response = createGuidanceErrorResponse(entityAPILevel);
         }
 
         return response;
