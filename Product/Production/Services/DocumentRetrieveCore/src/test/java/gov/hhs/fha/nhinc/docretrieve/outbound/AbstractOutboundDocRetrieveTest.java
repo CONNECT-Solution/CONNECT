@@ -72,6 +72,40 @@ public abstract class AbstractOutboundDocRetrieveTest {
                 targets, ADAPTER_API_LEVEL.LEVEL_a1);
         validateSuccessResponse(resp);
     }
+    
+    @Test
+    public void testNoGuidanceOnA1Interface() {
+        String guidance = null;
+
+        CONNECTOutboundOrchestrator orchestrator = mock(CONNECTOutboundOrchestrator.class);
+        when(orchestrator.process(any(Orchestratable.class))).thenReturn(getSuccessOrchResult());
+        OutboundDocRetrieve instance = getOutboundDocRetrieve(orchestrator);
+
+        RetrieveDocumentSetRequestType request = mock(RetrieveDocumentSetRequestType.class);
+        AssertionType assertion = mock(AssertionType.class);
+        NhinTargetCommunitiesType targets = getTargetWithGuidance(guidance);
+
+        RetrieveDocumentSetResponseType resp = instance.respondingGatewayCrossGatewayRetrieve(request, assertion,
+                targets, ADAPTER_API_LEVEL.LEVEL_a1);
+        validateSuccessResponse(resp);
+    }
+    
+    @Test
+    public void testNoGuidanceOnA0Interface() {
+        String guidance = null;
+
+        CONNECTOutboundOrchestrator orchestrator = mock(CONNECTOutboundOrchestrator.class);
+        when(orchestrator.process(any(Orchestratable.class))).thenReturn(getSuccessOrchResult());
+        OutboundDocRetrieve instance = getOutboundDocRetrieve(orchestrator);
+
+        RetrieveDocumentSetRequestType request = mock(RetrieveDocumentSetRequestType.class);
+        AssertionType assertion = mock(AssertionType.class);
+        NhinTargetCommunitiesType targets = getTargetWithGuidance(guidance);
+
+        RetrieveDocumentSetResponseType resp = instance.respondingGatewayCrossGatewayRetrieve(request, assertion,
+                targets, ADAPTER_API_LEVEL.LEVEL_a0);
+        validateSuccessResponse(resp);
+    }
 
     @Test
     public void test20GuidanceOnA0Interface() {

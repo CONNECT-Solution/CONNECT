@@ -71,6 +71,7 @@ public class PassthroughOutboundDocRetrieveTest extends AbstractOutboundDocRetri
         RetrieveDocumentSetRequestType request = new RetrieveDocumentSetRequestType();
         AssertionType assertion = new AssertionType();
         NhinTargetCommunitiesType targets = new NhinTargetCommunitiesType();
+        targets.setUseSpecVersion("2.0");
         RetrieveDocumentSetResponseType expectedResponse = new RetrieveDocumentSetResponseType();
 
         CONNECTOutboundOrchestrator orchestrator = mock(CONNECTOutboundOrchestrator.class);

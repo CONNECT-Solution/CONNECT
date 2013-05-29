@@ -3,6 +3,8 @@
  */
 package gov.hhs.fha.nhinc.docretrieve.outbound;
 
+import org.apache.commons.lang.StringUtils;
+
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants.ADAPTER_API_LEVEL;
@@ -29,11 +31,22 @@ public class AbstractOutboundDocRetrieve {
      * @return
      */
     protected boolean validateGuidance(NhinTargetCommunitiesType targets, ADAPTER_API_LEVEL entityAPILevel) {
-        boolean valid = true;
+        boolean valid = false;
         String guidance = targets.getUseSpecVersion();
+        
+        if (StringUtils.isBlank(guidance)) {
+            // assume guidance
+            if (ADAPTER_API_LEVEL.LEVEL_a0.equals(entityAPILevel)) {
+                guidance = "2.0";
+            } else {
+                guidance = "3.0";
+            }
+        }
 
-        if ("3.0".equals(guidance) && entityAPILevel.equals(ADAPTER_API_LEVEL.LEVEL_a0)) {
-            valid = false;
+        if (("3.0".equals(guidance) || ("2.0".equals(guidance))) && entityAPILevel.equals(ADAPTER_API_LEVEL.LEVEL_a1)) {
+            valid = true;
+        } else if ("2.0".equals(guidance) && entityAPILevel.equals(ADAPTER_API_LEVEL.LEVEL_a0)) {
+            valid = true;
         }
         return valid;
     }
