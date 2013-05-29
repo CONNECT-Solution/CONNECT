@@ -300,6 +300,9 @@ The following example schedules the outbound message poller against the internal
 	    <task:scheduled ref="inboundMessagePoller" method="poll" cron="15,45 * * * * *"/>
 	</task:scheduled-tasks>
 	<task:scheduler id="directScheduler" />
+    <bean id="manageTaskScheduler" class="gov.hhs.fha.nhinc.mail.ManageTaskScheduler" init-method="init" destroy-method="clean">
+        <constructor-arg ref="directScheduler"/>
+    </bean>
 
 __Links:__  
 [http://static.springsource.org/spring/docs/3.0.x/reference/scheduling.html](http://static.springsource.org/spring/docs/3.0.x/reference/scheduling.html)  
