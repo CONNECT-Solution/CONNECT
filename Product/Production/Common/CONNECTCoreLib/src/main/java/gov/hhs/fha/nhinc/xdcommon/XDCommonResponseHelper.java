@@ -39,6 +39,8 @@ import org.apache.commons.lang.exception.ExceptionUtils;
  */
 public class XDCommonResponseHelper {
 
+    public static final String CONNECT_LOCATION = "CONNECT";
+    
     public enum ErrorCodes {
         XDSRegistryError, XDSRepositoryError
     }
@@ -50,11 +52,11 @@ public class XDCommonResponseHelper {
     }
 
     public RegistryResponseType createError(String message) {
-        return createRegistryResponse(message, ErrorCodes.XDSRegistryError, "CONNECT");
+        return createRegistryResponse(message, ErrorCodes.XDSRegistryError, CONNECT_LOCATION);
     }
     
     public RegistryResponseType createError(String message, ErrorCodes code) {
-        return createRegistryResponse(message, code, "CONNECT");
+        return createRegistryResponse(message, code, CONNECT_LOCATION);
     }
     
     public RegistryResponseType createError(String message, ErrorCodes code, String location) {
