@@ -29,6 +29,8 @@ package gov.hhs.fha.nhinc.docretrieve.nhin.proxy;
 import gov.hhs.fha.nhinc.aspect.NwhinInvocationEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
+import gov.hhs.fha.nhinc.connectmgr.ConnectionManager;
+import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException;
 import gov.hhs.fha.nhinc.docretrieve.MessageGenerator;
 import gov.hhs.fha.nhinc.docretrieve.aspect.RetrieveDocumentSetRequestTypeDescriptionBuilder;
@@ -39,12 +41,13 @@ import gov.hhs.fha.nhinc.messaging.client.CONNECTClientFactory;
 import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants.GATEWAY_API_LEVEL;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants.UDDI_SPEC_VERSION;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
-import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 import ihe.iti.xds_b._2007.RespondingGatewayRetrievePortType;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 
 /**
@@ -55,7 +58,6 @@ import org.apache.log4j.Logger;
 public class NhinDocRetrieveProxyWebServiceSecuredImpl implements NhinDocRetrieveProxy {
 
     private static final Logger LOG = Logger.getLogger(NhinDocRetrieveProxyWebServiceSecuredImpl.class);
-    private WebServiceProxyHelper oProxyHelper = new WebServiceProxyHelper();
 
     /**
      * Retrieve the document(s) specified in the request.
@@ -105,17 +107,27 @@ public class NhinDocRetrieveProxyWebServiceSecuredImpl implements NhinDocRetriev
     }
 
     /**
-     * @param targetSystem 
-     * @param sServiceName 
-     * @param level 
-     * @param level 
+     * @param targetSystem
+     * @param sServiceName
+     * @param level
+     * @param level
      * @return
-     * @throws Exception 
-     * @throws ConnectionManagerException 
-     * @throws IllegalArgumentException 
+     * @throws Exception
+     * @throws ConnectionManagerException
+     * @throws IllegalArgumentException
      */
-    protected String getUrl(NhinTargetSystemType targetSystem, String sServiceName, GATEWAY_API_LEVEL level) throws IllegalArgumentException, ConnectionManagerException, Exception {
-        return oProxyHelper.getUrlFromTargetSystemByGatewayAPILevel(targetSystem, sServiceName, level);
+    protected String getUrl(NhinTargetSystemType targetSystem, String sServiceName, GATEWAY_API_LEVEL level)
+            throws IllegalArgumentException, ConnectionManagerException, Exception {
+        if (StringUtils.isBlank(targetSystem.getUseSpecVersion())) {
+            throw new IllegalArgumentException("Required specification version guidance was null.");
+        }
+        UDDI_SPEC_VERSION version = UDDI_SPEC_VERSION.fromString(targetSystem.getUseSpecVersion());
+        return getCMInstance().getEndpointURLByServiceNameSpecVersion(
+                targetSystem.getHomeCommunity().getHomeCommunityId(), sServiceName, version);
+    }
+
+    protected ConnectionManager getCMInstance() {
+        return ConnectionManagerCache.getInstance();
     }
 
     public ServicePortDescriptor<RespondingGatewayRetrievePortType> getServicePortDescriptor(

@@ -58,7 +58,7 @@ public class OutboundStandardDocRetrieveOrchestrator extends CONNECTOutboundOrch
                     rdMessage.getAuditTransformer(), rdMessage.getNhinDelegate(), rdMessage.getAggregator());
             newMessage.setRequest(rdRequest);
             newMessage.setAssertion(message.getAssertion());
-            newMessage.setTarget(buildHomeCommunity(docRequest.getHomeCommunityId()));
+            newMessage.setTarget(buildHomeCommunity(docRequest.getHomeCommunityId(), rdMessage.getTarget().getUseSpecVersion()));
 
             // Process and aggregate
             NhinAggregator agg = rdMessage.getAggregator();
@@ -68,11 +68,12 @@ public class OutboundStandardDocRetrieveOrchestrator extends CONNECTOutboundOrch
         return message;
     }
 
-    private NhinTargetSystemType buildHomeCommunity(String homeCommunityId) {
+    private NhinTargetSystemType buildHomeCommunity(String homeCommunityId, String guidance) {
         NhinTargetSystemType nhinTargetSystem = new NhinTargetSystemType();
         HomeCommunityType homeCommunity = new HomeCommunityType();
         homeCommunity.setHomeCommunityId(homeCommunityId);
         nhinTargetSystem.setHomeCommunity(homeCommunity);
+        nhinTargetSystem.setUseSpecVersion(guidance);
         return nhinTargetSystem;
     }
 

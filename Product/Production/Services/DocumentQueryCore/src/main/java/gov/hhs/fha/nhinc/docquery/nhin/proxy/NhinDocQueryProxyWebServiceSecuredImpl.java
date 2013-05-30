@@ -29,6 +29,7 @@ package gov.hhs.fha.nhinc.docquery.nhin.proxy;
 import gov.hhs.fha.nhinc.aspect.NwhinInvocationEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
+import gov.hhs.fha.nhinc.connectmgr.ConnectionManager;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
 import gov.hhs.fha.nhinc.docquery.aspect.AdhocQueryRequestDescriptionBuilder;
 import gov.hhs.fha.nhinc.docquery.aspect.AdhocQueryResponseDescriptionBuilder;
@@ -37,12 +38,14 @@ import gov.hhs.fha.nhinc.messaging.client.CONNECTClient;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTClientFactory;
 import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants.UDDI_SPEC_VERSION;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 import ihe.iti.xds_b._2007.RespondingGatewayQueryPortType;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 
 /**
@@ -62,8 +65,7 @@ public class NhinDocQueryProxyWebServiceSecuredImpl implements NhinDocQueryProxy
     }
 
     /**
-     * @param apiLevel
-     *            The gateway apiLevel to be implemented for webService (g0,g1)
+     * @param apiLevel The gateway apiLevel to be implemented for webService (g0,g1)
      * @return NhinDocQueryServicePortDescriptor Comprises of NameSpaceUri,ServiceName,Port,WSDLFile and
      *         WSAddressingAction.
      */
@@ -76,45 +78,47 @@ public class NhinDocQueryProxyWebServiceSecuredImpl implements NhinDocQueryProxy
             return new NhinDocQueryServicePortDescriptor();
         }
     }
-    
-    public CONNECTClient<RespondingGatewayQueryPortType> getCONNECTClientSecured(ServicePortDescriptor<RespondingGatewayQueryPortType> portDescriptor, AssertionType assertion, String url,
+
+    public CONNECTClient<RespondingGatewayQueryPortType> getCONNECTClientSecured(
+            ServicePortDescriptor<RespondingGatewayQueryPortType> portDescriptor, AssertionType assertion, String url,
             NhinTargetSystemType target) {
-        return CONNECTClientFactory.getInstance()
-                .getCONNECTClientSecured(portDescriptor, assertion, url,
-                        target.getHomeCommunity().getHomeCommunityId(), NhincConstants.DOC_QUERY_SERVICE_NAME);
+        return CONNECTClientFactory.getInstance().getCONNECTClientSecured(portDescriptor, assertion, url,
+                target.getHomeCommunity().getHomeCommunityId(), NhincConstants.DOC_QUERY_SERVICE_NAME);
+    }
+
+    protected ConnectionManager getCMInstance() {
+        return ConnectionManagerCache.getInstance();
     }
 
     /**
      * Calls the respondingGatewayCrossGatewayQuery method of the web service.
      * 
-     * @param request
-     *            The AdhocQuery Request received.
-     * @param assertion
-     *            Assertion received.
-     * @param target
-     *            NhinTarget community to forward DocQuery Request.
-     * @throws Exception
-     *             Throws Exception.
+     * @param request The AdhocQuery Request received.
+     * @param assertion Assertion received.
+     * @param target NhinTarget community to forward DocQuery Request.
+     * @throws Exception Throws Exception.
      * @return The AdhocQUery response from the web service.
      */
-    @NwhinInvocationEvent(beforeBuilder = AdhocQueryRequestDescriptionBuilder.class,
-            afterReturningBuilder = AdhocQueryResponseDescriptionBuilder.class, serviceType = "Document Query",
-            version = "")
+    @NwhinInvocationEvent(beforeBuilder = AdhocQueryRequestDescriptionBuilder.class, afterReturningBuilder = AdhocQueryResponseDescriptionBuilder.class, serviceType = "Document Query", version = "")
     public AdhocQueryResponse respondingGatewayCrossGatewayQuery(AdhocQueryRequest request, AssertionType assertion,
             NhinTargetSystemType target) throws Exception {
         try {
             String url = target.getUrl();
             if (NullChecker.isNullish(url)) {
-                url = ConnectionManagerCache.getInstance().getDefaultEndpointURLByServiceName(
-                        target.getHomeCommunity().getHomeCommunityId(), NhincConstants.DOC_QUERY_SERVICE_NAME);
+                if (StringUtils.isBlank(target.getUseSpecVersion())) {
+                    throw new Exception("Required specification version guidance was null.");
+                }
+                UDDI_SPEC_VERSION version = UDDI_SPEC_VERSION.fromString(target.getUseSpecVersion());
+                url = getCMInstance().getEndpointURLByServiceNameSpecVersion(
+                        target.getHomeCommunity().getHomeCommunityId(), NhincConstants.DOC_QUERY_SERVICE_NAME, version);
                 LOG.debug("After target system URL look up. URL for service: " + NhincConstants.DOC_QUERY_SERVICE_NAME
                         + " is: " + url);
             }
 
             ServicePortDescriptor<RespondingGatewayQueryPortType> portDescriptor = getServicePortDescriptor(NhincConstants.GATEWAY_API_LEVEL.LEVEL_g0);
 
-            CONNECTClient<RespondingGatewayQueryPortType> client = getCONNECTClientSecured(portDescriptor, assertion, url,
-                            target);
+            CONNECTClient<RespondingGatewayQueryPortType> client = getCONNECTClientSecured(portDescriptor, assertion,
+                    url, target);
 
             return (AdhocQueryResponse) client.invokePort(RespondingGatewayQueryPortType.class,
                     "respondingGatewayCrossGatewayQuery", request);

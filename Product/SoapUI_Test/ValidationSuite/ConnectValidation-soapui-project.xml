@@ -3329,7 +3329,7 @@ if(passthruValue != null){
       <urn:RespondingGateway_CrossGatewayRetrieveRequest>
          <urn1:RetrieveDocumentSetRequest>
             <urn1:DocumentRequest>
-               <urn1:HomeCommunityId>urn:oid:${#Project#RemoteHCID}</urn1:HomeCommunityId>
+               <urn1:HomeCommunityId>${#Project#RemoteHCID}</urn1:HomeCommunityId>
                <urn1:RepositoryUniqueId>${#Project#DRRepoID}</urn1:RepositoryUniqueId>
                <urn1:DocumentUniqueId>${#Project#DRDocID}</urn1:DocumentUniqueId>
             </urn1:DocumentRequest>
@@ -8638,7 +8638,7 @@ if(passthruValue != null){
       <urn:RespondingGateway_CrossGatewayRetrieveRequest>
          <urn1:RetrieveDocumentSetRequest>
             <urn1:DocumentRequest>
-               <urn1:HomeCommunityId>urn:oid:${#Project#RemoteHCID}</urn1:HomeCommunityId>
+               <urn1:HomeCommunityId>${#Project#RemoteHCID}</urn1:HomeCommunityId>
                <urn1:RepositoryUniqueId>${#Project#DRRepoID}</urn1:RepositoryUniqueId>
                <urn1:DocumentUniqueId>${#Project#DRDocID}</urn1:DocumentUniqueId>
             </urn1:DocumentRequest>

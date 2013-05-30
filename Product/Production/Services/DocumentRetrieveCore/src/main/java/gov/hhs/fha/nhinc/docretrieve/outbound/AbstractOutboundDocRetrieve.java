@@ -41,6 +41,7 @@ public class AbstractOutboundDocRetrieve {
             } else {
                 guidance = "3.0";
             }
+            targets.setUseSpecVersion(guidance);
         }
 
         if (("3.0".equals(guidance) || ("2.0".equals(guidance))) && entityAPILevel.equals(ADAPTER_API_LEVEL.LEVEL_a1)) {

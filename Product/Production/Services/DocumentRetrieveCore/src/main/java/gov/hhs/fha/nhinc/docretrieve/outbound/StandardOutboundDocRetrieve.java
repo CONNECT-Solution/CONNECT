@@ -29,6 +29,7 @@ package gov.hhs.fha.nhinc.docretrieve.outbound;
 import gov.hhs.fha.nhinc.aspect.OutboundProcessingEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
+import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.docretrieve.aspect.RetrieveDocumentSetRequestTypeDescriptionBuilder;
 import gov.hhs.fha.nhinc.docretrieve.aspect.RetrieveDocumentSetResponseTypeDescriptionBuilder;
 import gov.hhs.fha.nhinc.docretrieve.entity.OutboundDocRetrieveAggregator_a0;
@@ -44,6 +45,7 @@ import gov.hhs.fha.nhinc.orchestration.CONNECTOutboundOrchestrator;
 import gov.hhs.fha.nhinc.orchestration.NhinAggregator;
 import gov.hhs.fha.nhinc.orchestration.OutboundDelegate;
 import gov.hhs.fha.nhinc.orchestration.PolicyTransformer;
+import gov.hhs.fha.nhinc.util.MessageGeneratorUtils;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
 
@@ -86,8 +88,10 @@ public class StandardOutboundDocRetrieve extends AbstractOutboundDocRetrieve imp
             AuditTransformer at = new OutboundDocRetrieveAuditTransformer_a0();
             OutboundDelegate nd = new OutboundDocRetrieveDelegate();
             NhinAggregator na = new OutboundDocRetrieveAggregator_a0();
+            NhinTargetSystemType target = MessageGeneratorUtils.getInstance().convertFirstToNhinTargetSystemType(
+                    targets);
             OutboundDocRetrieveOrchestratable orchestratable = new OutboundStandardDocRetrieveOrchestratable(pt, at,
-                    nd, na, body, assertion, null);
+                    nd, na, body, assertion, target);
             OutboundDocRetrieveOrchestratable orchResponse = (OutboundDocRetrieveOrchestratable) orchestrator
                     .process(orchestratable);
             response = orchResponse.getResponse();
