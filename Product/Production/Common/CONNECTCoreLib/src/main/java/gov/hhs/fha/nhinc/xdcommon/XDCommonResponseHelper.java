@@ -77,6 +77,7 @@ public class XDCommonResponseHelper {
         registryError.setCodeContext(error);
         registryError.setErrorCode(code.toString());
         registryError.setLocation(location);
+        registryError.setSeverity(NhincConstants.XDS_REGISTRY_ERROR_SEVERITY_ERROR);
         registryErrorList.getRegistryError().add(registryError);
         response.setRegistryErrorList(registryErrorList);
         return response;
