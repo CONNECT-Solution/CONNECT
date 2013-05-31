@@ -92,6 +92,7 @@ public class EntityDocQueryImpl extends BaseService {
         AdhocQueryResponse response = null;
 
         try {
+            targets.setUseSpecVersion("3.0");
             response = outboundDocQuery.respondingGatewayCrossGatewayQuery(request, assertion, targets);
         } catch (Exception e) {
             LOG.error("Failed to send request to Nwhin.", e);
