@@ -421,7 +421,7 @@ if(context.findProperty("PassThruOn").toBoolean()){
 		<con:name>FullPatientID</con:name>
 		<con:value>'D123401^^^&amp;amp;1.1&amp;amp;ISO'</con:value>
 	</con:property>
-<con:property><con:name>PassThruOn</con:name><con:value>false</con:value></con:property><con:property><con:name>startDate</con:name><con:value>2013-05-22T19:36:28Z</con:value></con:property><con:property><con:name>endDate</con:name><con:value>2013-05-22T19:46:28Z</con:value></con:property><con:property><con:name>sigDate</con:name><con:value>05/22/2013 19:36:28</con:value></con:property><con:property><con:name>expireDate</con:name><con:value>2013-06-21T00:00:00Z</con:value></con:property></con:properties>
+<con:property><con:name>PassThruOn</con:name><con:value>false</con:value></con:property><con:property><con:name>startDate</con:name><con:value>2013-06-03T12:37:17Z</con:value></con:property><con:property><con:name>endDate</con:name><con:value>2013-06-03T12:47:17Z</con:value></con:property><con:property><con:name>sigDate</con:name><con:value>06/03/2013 12:37:17</con:value></con:property><con:property><con:name>expireDate</con:name><con:value>2013-07-03T00:00:00Z</con:value></con:property></con:properties>
 <con:reportParameters/>
 </con:testCase>
 <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="DQ_20Guidance" searchProperties="true" id="02554cc1-0e5c-461c-bfc9-5304dbdff93e">
@@ -502,8 +502,7 @@ if(passthruValue != null){
 	</con:settings>
 	<con:encoding>UTF-8</con:encoding>
 	
-	<con:endpoint>${#Project#DQ_EntityEndpoint_g0}</con:endpoint><con:request><![CDATA[
-		<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn3="urn:gov:hhs:fha:nhinc:common:nhinccommon">
+	<con:endpoint>${#Project#DQ_EntityEndpoint_g0}</con:endpoint><con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn3="urn:gov:hhs:fha:nhinc:common:nhinccommon">
    <soap:Header/>
    <soap:Body testSuite="Entity_g0" testCase="Document Query">
       <urn:RespondingGateway_CrossGatewayQueryRequest>
@@ -520,9 +519,9 @@ if(passthruValue != null){
                      <urn2:Value>('urn:oasis:names:tc:ebxml-regrep:StatusType:Approved')</urn2:Value>
                   </urn2:ValueList>
                </urn2:Slot>
-         <urn2:Slot name="$XDSDocumentEntryClassCode">
-            <urn2:ValueList>
-                    <urn2:Value>34133-9</urn2:Value>
+               <urn2:Slot name="$XDSDocumentEntryClassCode">
+                  <urn2:ValueList>
+                     <urn2:Value>34133-9</urn2:Value>
                   </urn2:ValueList>
                </urn2:Slot>
                <urn2:Slot name="$XDSDocumentEntryClassCodeScheme">
@@ -533,7 +532,7 @@ if(passthruValue != null){
             </urn2:AdhocQuery>
          </urn1:AdhocQueryRequest>
          <urn:assertion>
-            <urn3:nationalProviderId>1234567890</urn3:nationalProviderId>         
+            <urn3:nationalProviderId>1234567890</urn3:nationalProviderId>
             <urn3:address xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
                <urn3:addressType>
                   <urn3:code>AddrCode</urn3:code>
@@ -721,7 +720,7 @@ if(passthruValue != null){
                <urn3:subjectLocalityAddress>158.147.185.168</urn3:subjectLocalityAddress>
                <urn3:subjectLocalityDNSName>cs.myharris.net</urn3:subjectLocalityDNSName>
             </urn3:samlAuthnStatement>
-         <urn3:samlAuthzDecisionStatement xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
+            <urn3:samlAuthzDecisionStatement xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
                <urn3:decision>Permit</urn3:decision>
                <urn3:resource>https://158.147.185.168:8181/SamlReceiveService/SamlProcessWS</urn3:resource>
                <urn3:action>TestSaml</urn3:action>
@@ -748,9 +747,9 @@ if(passthruValue != null){
                   <urn3:description>${#Project#RemoteHCDescription}</urn3:description>
                   <urn3:homeCommunityId>${#Project#RemoteHCID}</urn3:homeCommunityId>
                   <urn3:name>${#Project#RemoteHCDescription}</urn3:name>
-               </urn3:homeCommunity>
-               <urn3:useSpecVersion>2.0</urn3:useSpecVersion>
+               </urn3:homeCommunity>
             </urn3:nhinTargetCommunity>
+            <urn3:useSpecVersion>2.0</urn3:useSpecVersion>
          </urn:NhinTargetCommunities>
       </urn:RespondingGateway_CrossGatewayQueryRequest>
    </soap:Body>
@@ -1206,7 +1205,7 @@ if(passthruValue != null){
       <urn:RespondingGateway_CrossGatewayRetrieveRequest>
          <urn1:RetrieveDocumentSetRequest>
             <urn1:DocumentRequest>
-               <urn1:HomeCommunityId>urn:oid:${#Project#RemoteHCID}</urn1:HomeCommunityId>
+               <urn1:HomeCommunityId>${#Project#RemoteHCID}</urn1:HomeCommunityId>
                <urn1:RepositoryUniqueId>${#Project#DRRepoID}</urn1:RepositoryUniqueId>
                <urn1:DocumentUniqueId>${#Project#DRDocID}</urn1:DocumentUniqueId>
             </urn1:DocumentRequest>
@@ -1488,19 +1487,19 @@ if(context.findProperty("PassThruOn").toBoolean()){
 	</con:property>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2013-05-22T19:37:14Z</con:value>
+		<con:value>2013-06-03T12:37:59Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2013-05-22T19:47:14Z</con:value>
+		<con:value>2013-06-03T12:47:59Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>05/22/2013 19:37:14</con:value>
+		<con:value>06/03/2013 12:37:59</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2013-06-21T00:00:00Z</con:value>
+		<con:value>2013-07-03T00:00:00Z</con:value>
 	</con:property>
 <con:property><con:name>PassThruOn</con:name><con:value>false</con:value></con:property></con:properties>
 <con:reportParameters/>
@@ -1541,20 +1540,19 @@ if(passthruValue != null){
 		</con:settings>
 		<con:encoding>UTF-8</con:encoding>
 		
-		<con:endpoint>${#Project#DR_EntityEndpoint_g0}</con:endpoint><con:request><![CDATA[
-			<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:ihe:iti:xds-b:2007" xmlns:urn2="urn:gov:hhs:fha:nhinc:common:nhinccommon">
+		<con:endpoint>${#Project#DR_EntityEndpoint_g0}</con:endpoint><con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:ihe:iti:xds-b:2007" xmlns:urn2="urn:gov:hhs:fha:nhinc:common:nhinccommon">
    <soap:Header/>
    <soap:Body testSuite="Entity_g0" testCase="Document Retrieve">
       <urn:RespondingGateway_CrossGatewayRetrieveRequest>
          <urn1:RetrieveDocumentSetRequest>
             <urn1:DocumentRequest>
-               <urn1:HomeCommunityId>urn:oid:${#Project#RemoteHCID}</urn1:HomeCommunityId>
+               <urn1:HomeCommunityId>${#Project#RemoteHCID}</urn1:HomeCommunityId>
                <urn1:RepositoryUniqueId>${#Project#DRRepoID}</urn1:RepositoryUniqueId>
                <urn1:DocumentUniqueId>${#Project#DRDocID}</urn1:DocumentUniqueId>
             </urn1:DocumentRequest>
          </urn1:RetrieveDocumentSetRequest>
          <urn:assertion>
-            <urn2:nationalProviderId>1234567890</urn2:nationalProviderId>         
+            <urn2:nationalProviderId>1234567890</urn2:nationalProviderId>
             <urn2:address xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
                <urn2:addressType>
                   <urn2:code>AddrCode</urn2:code>
@@ -1770,8 +1768,8 @@ if(passthruValue != null){
                   <urn2:homeCommunityId>${#Project#RemoteHCID}</urn2:homeCommunityId>
                   <urn2:name>${#Project#RemoteHCDescription}</urn2:name>
                </urn2:homeCommunity>
-               <urn3:useSpecVersion>2.0</urn3:useSpecVersion>
             </urn2:nhinTargetCommunity>
+            <urn2:useSpecVersion>2.0</urn2:useSpecVersion>
          </urn:NhinTargetCommunities>
       </urn:RespondingGateway_CrossGatewayRetrieveRequest>
    </soap:Body>
@@ -2113,8 +2111,8 @@ if(passthruValue != null){
                   <urn2:homeCommunityId>${#Project#RemoteHCID}</urn2:homeCommunityId>
                   <urn2:name>${#Project#RemoteHCDescription}</urn2:name>
                </urn2:homeCommunity>
-               <urn3:useSpecVersion>3.0</urn3:useSpecVersion>
             </urn2:nhinTargetCommunity>
+            <urn2:useSpecVersion>3.0</urn2:useSpecVersion>
          </urn:NhinTargetCommunities>
       </urn:RespondingGateway_CrossGatewayRetrieveRequest>
    </soap:Body>
@@ -2129,7 +2127,7 @@ if(passthruValue != null){
 		
 		
 		
-		<con:assertion type="Simple Contains" name="Contains"><con:configuration><token>RegistryErrorList</token><ignoreCase>true</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:assertion type="Simple Contains" name="Contains error message"><con:configuration><token>Unsupported guidance for API level </token><ignoreCase>true</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:assertion type="Simple Contains" name="Contains fail status"><con:configuration><token>urn:oasis:names:tc:ebxml-regrep:ErrorSeverityType:Error</token><ignoreCase>true</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+		<con:assertion type="Simple Contains" name="Contains"><con:configuration><token>RegistryErrorList</token><ignoreCase>true</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:assertion type="Simple Contains" name="Contains error message"><con:configuration><token>Unsupported guidance for API level.</token><ignoreCase>true</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:assertion type="Simple Contains" name="Contains fail status"><con:configuration><token>urn:oasis:names:tc:ebxml-regrep:ErrorSeverityType:Error</token><ignoreCase>true</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
 		<con:jmsPropertyConfig/>
 		<con:wsaConfig action="urn:gov:hhs:fha:nhinc:entitydocretrieve/EntityDocRetrievePortType/RespondingGateway_CrossGatewayRetrieveRequest" mustUnderstand="NONE" version="200508"/>
 		<con:wsrmConfig version="1.2"/>
@@ -2883,8 +2881,8 @@ if(passthruValue != null){
                   <urn3:homeCommunityId>${#Project#RemoteHCID}</urn3:homeCommunityId>
                   <urn3:name>${#Project#RemoteHCDescription}</urn3:name>
                </urn3:homeCommunity>
-               <urn3:useSpecVersion>3.0</urn3:useSpecVersion>
             </urn3:nhinTargetCommunity>
+            <urn3:useSpecVersion>3.0</urn3:useSpecVersion>
          </urn:NhinTargetCommunities>
       </urn:RespondingGateway_CrossGatewayQueryRequest>
    </soap:Body>
@@ -3264,8 +3262,8 @@ if(passthruValue != null){
                   <urn3:homeCommunityId>${#Project#RemoteHCID}</urn3:homeCommunityId>
                   <urn3:name>${#Project#RemoteHCDescription}</urn3:name>
                </urn3:homeCommunity>
-               <urn3:useSpecVersion>2.0</urn3:useSpecVersion>
             </urn3:nhinTargetCommunity>
+            <urn3:useSpecVersion>2.0</urn3:useSpecVersion>
          </urn:NhinTargetCommunities>
       </urn:RespondingGateway_CrossGatewayQueryRequest>
    </soap:Body>
@@ -3340,7 +3338,7 @@ if(passthruValue != null){
       <urn:RespondingGateway_CrossGatewayRetrieveRequest>
          <urn1:RetrieveDocumentSetRequest>
             <urn1:DocumentRequest>
-               <urn1:HomeCommunityId>urn:oid:${#Project#RemoteHCID}</urn1:HomeCommunityId>
+               <urn1:HomeCommunityId>${#Project#RemoteHCID}</urn1:HomeCommunityId>
                <urn1:RepositoryUniqueId>${#Project#DRRepoID}</urn1:RepositoryUniqueId>
                <urn1:DocumentUniqueId>${#Project#DRDocID}</urn1:DocumentUniqueId>
             </urn1:DocumentRequest>
@@ -3904,8 +3902,8 @@ if(passthruValue != null){
                   <urn2:homeCommunityId>${#Project#RemoteHCID}</urn2:homeCommunityId>
                   <urn2:name>${#Project#RemoteHCDescription}</urn2:name>
                </urn2:homeCommunity>
-               <urn3:useSpecVersion>3.0</urn3:useSpecVersion>
             </urn2:nhinTargetCommunity>
+            <urn2:useSpecVersion>3.0</urn2:useSpecVersion>
          </urn:NhinTargetCommunities>
       </urn:RespondingGateway_CrossGatewayRetrieveRequest>
    </soap:Body>
@@ -3917,35 +3915,10 @@ if(passthruValue != null){
 				<definition/>
 			</con:configuration>
 		</con:assertion>
-		<con:assertion name="Doc Repository ID" type="XPath Match">
-			<con:configuration>
-				<path>declare namespace ns5='urn:ihe:iti:xds-b:2007';
-					//ns5:RetrieveDocumentSetResponse[1]/ns5:DocumentResponse[1]/ns5:RepositoryUniqueId[1]</path>
-				<content>${#Project#DRRepoID}</content>
-				<allowWildcards>false</allowWildcards>
-				<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
-			</con:configuration>
-		</con:assertion>
-		<con:assertion name="Doc ID" type="XPath Match">
-			<con:configuration>
-				<path>declare namespace ns5='urn:ihe:iti:xds-b:2007';
-					//ns5:RetrieveDocumentSetResponse[1]/ns5:DocumentResponse[1]/ns5:DocumentUniqueId[1]</path>
-				<content>${#Project#DRDocID}</content>
-				<allowWildcards>false</allowWildcards>
-				<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
-			</con:configuration>
-		</con:assertion>
-		<con:assertion name="Document Data" type="GroovyScriptAssertion">
-			<con:configuration>
-				<scriptText>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
-					def holder = groovyUtils.getXmlHolder( messageExchange.responseContent )
-					holder.namespaces["ns"]="urn:ihe:iti:xds-b:2007"
-					def docData = holder["//ns:RetrieveDocumentSetResponse[1]/ns:DocumentResponse[1]/ns:Document[1]"]
-					log.info docData.toString()
-					assert (docData.size() != 0)</scriptText>
-			</con:configuration>
-		</con:assertion>
-		<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+		
+		
+		
+		<con:assertion type="Simple Contains" name="Contains"><con:configuration><token>Unsupported guidance for API level.</token><ignoreCase>true</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:assertion type="Simple Contains" name="Contains status"><con:configuration><token>urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Failure</token><ignoreCase>true</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:assertion type="Simple Contains" name="Contains error location"><con:configuration><token>Entity Document Retrieve LEVEL_a0</token><ignoreCase>true</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:assertion type="Simple Contains" name="Contains severity"><con:configuration><token>urn:oasis:names:tc:ebxml-regrep:ErrorSeverityType:Error</token><ignoreCase>true</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
 		<con:jmsPropertyConfig/>
 		<con:wsaConfig action="urn:gov:hhs:fha:nhinc:entitydocretrieve/EntityDocRetrievePortType/RespondingGateway_CrossGatewayRetrieveRequest" mustUnderstand="NONE" version="200508"/>
 		<con:wsrmConfig version="1.2"/>
@@ -4018,20 +3991,19 @@ if(passthruValue != null){
 		</con:settings>
 		<con:encoding>UTF-8</con:encoding>
 		
-		<con:endpoint>${#Project#DR_EntityEndpoint_g0}</con:endpoint><con:request><![CDATA[
-			<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:ihe:iti:xds-b:2007" xmlns:urn2="urn:gov:hhs:fha:nhinc:common:nhinccommon">
+		<con:endpoint>${#Project#DR_EntityEndpoint_g0}</con:endpoint><con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:ihe:iti:xds-b:2007" xmlns:urn2="urn:gov:hhs:fha:nhinc:common:nhinccommon">
    <soap:Header/>
    <soap:Body testSuite="Entity_g0" testCase="Document Retrieve">
       <urn:RespondingGateway_CrossGatewayRetrieveRequest>
          <urn1:RetrieveDocumentSetRequest>
             <urn1:DocumentRequest>
-               <urn1:HomeCommunityId>urn:oid:${#Project#RemoteHCID}</urn1:HomeCommunityId>
+               <urn1:HomeCommunityId>${#Project#RemoteHCID}</urn1:HomeCommunityId>
                <urn1:RepositoryUniqueId>${#Project#DRRepoID}</urn1:RepositoryUniqueId>
                <urn1:DocumentUniqueId>${#Project#DRDocID}</urn1:DocumentUniqueId>
             </urn1:DocumentRequest>
          </urn1:RetrieveDocumentSetRequest>
          <urn:assertion>
-            <urn2:nationalProviderId>1234567890</urn2:nationalProviderId>         
+            <urn2:nationalProviderId>1234567890</urn2:nationalProviderId>
             <urn2:address xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
                <urn2:addressType>
                   <urn2:code>AddrCode</urn2:code>
@@ -4247,8 +4219,8 @@ if(passthruValue != null){
                   <urn2:homeCommunityId>${#Project#RemoteHCID}</urn2:homeCommunityId>
                   <urn2:name>${#Project#RemoteHCDescription}</urn2:name>
                </urn2:homeCommunity>
-               <urn3:useSpecVersion>2.0</urn3:useSpecVersion>
             </urn2:nhinTargetCommunity>
+            <urn2:useSpecVersion>2.0</urn2:useSpecVersion>
          </urn:NhinTargetCommunities>
       </urn:RespondingGateway_CrossGatewayRetrieveRequest>
    </soap:Body>
@@ -4263,7 +4235,7 @@ if(passthruValue != null){
 		
 		
 		
-		<con:assertion type="Simple Contains" name="Contains"><con:configuration><token>RegistryErrorList</token><ignoreCase>true</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:assertion type="Simple Contains" name="Contains error message"><con:configuration><token>Unsupported guidance for API level </token><ignoreCase>true</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:assertion type="Simple Contains" name="Contains fail status"><con:configuration><token>urn:oasis:names:tc:ebxml-regrep:ErrorSeverityType:Error</token><ignoreCase>true</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+		<con:assertion type="Simple Contains" name="Contains"><con:configuration><token>RegistryErrorList</token><ignoreCase>true</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:assertion type="Simple Contains" name="Contains error message"><con:configuration><token>No matching target endpoint for guidance: 2.0</token><ignoreCase>true</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:assertion type="Simple Contains" name="Contains fail status"><con:configuration><token>urn:oasis:names:tc:ebxml-regrep:ErrorSeverityType:Error</token><ignoreCase>true</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
 		<con:jmsPropertyConfig/>
 		<con:wsaConfig action="urn:gov:hhs:fha:nhinc:entitydocretrieve/EntityDocRetrievePortType/RespondingGateway_CrossGatewayRetrieveRequest" mustUnderstand="NONE" version="200508"/>
 		<con:wsrmConfig version="1.2"/>
@@ -4327,7 +4299,7 @@ if(context.findProperty("PassThruOn").toBoolean()){
 
 
 
-<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="DQ_NoGuidance" searchProperties="true">
+<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="DQ_NoGuidance" searchProperties="true" id="d05176e1-f897-496c-a3e6-3014f9d574f0">
 	<con:settings/>
 
 	<con:testStep type="groovy" name="Check Passthru"><con:settings/><con:config><script>import nhinc.FileUtils;
@@ -4717,7 +4689,7 @@ if(context.findProperty("PassThruOn").toBoolean()){
 <con:property><con:name>PassThruOn</con:name><con:value>false</con:value></con:property></con:properties>
 <con:reportParameters/>
 </con:testCase>
-<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="DQ_30Guidance" searchProperties="true">
+<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="DQ_30Guidance" searchProperties="true" id="88c65e31-2780-4e72-a74c-6dd79c2279dc">
 	<con:settings/>
 
 	<con:testStep type="groovy" name="Check Passthru"><con:settings/><con:config><script>import nhinc.FileUtils;
@@ -4795,8 +4767,7 @@ if(passthruValue != null){
 	</con:settings>
 	<con:encoding>UTF-8</con:encoding>
 	
-	<con:endpoint>${#Project#DQ_EntityEndpoint_g1}</con:endpoint><con:request><![CDATA[
-		<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn3="urn:gov:hhs:fha:nhinc:common:nhinccommon">
+	<con:endpoint>${#Project#DQ_EntityEndpoint_g1}</con:endpoint><con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn3="urn:gov:hhs:fha:nhinc:common:nhinccommon">
    <soap:Header/>
    <soap:Body testSuite="Entity_g1" testCase="Document Query">
       <urn:RespondingGateway_CrossGatewayQueryRequest>
@@ -4813,9 +4784,9 @@ if(passthruValue != null){
                      <urn2:Value>('urn:oasis:names:tc:ebxml-regrep:StatusType:Approved')</urn2:Value>
                   </urn2:ValueList>
                </urn2:Slot>
-         <urn2:Slot name="$XDSDocumentEntryClassCode">
-            <urn2:ValueList>
-                    <urn2:Value>34133-9</urn2:Value>
+               <urn2:Slot name="$XDSDocumentEntryClassCode">
+                  <urn2:ValueList>
+                     <urn2:Value>34133-9</urn2:Value>
                   </urn2:ValueList>
                </urn2:Slot>
                <urn2:Slot name="$XDSDocumentEntryClassCodeScheme">
@@ -4826,7 +4797,7 @@ if(passthruValue != null){
             </urn2:AdhocQuery>
          </urn1:AdhocQueryRequest>
          <urn:assertion>
-            <urn3:nationalProviderId>1234567890</urn3:nationalProviderId>         
+            <urn3:nationalProviderId>1234567890</urn3:nationalProviderId>
             <urn3:address xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
                <urn3:addressType>
                   <urn3:code>AddrCode</urn3:code>
@@ -5014,7 +4985,7 @@ if(passthruValue != null){
                <urn3:subjectLocalityAddress>158.147.185.168</urn3:subjectLocalityAddress>
                <urn3:subjectLocalityDNSName>cs.myharris.net</urn3:subjectLocalityDNSName>
             </urn3:samlAuthnStatement>
-         <urn3:samlAuthzDecisionStatement xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
+            <urn3:samlAuthzDecisionStatement xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
                <urn3:decision>Permit</urn3:decision>
                <urn3:resource>https://158.147.185.168:8181/SamlReceiveService/SamlProcessWS</urn3:resource>
                <urn3:action>TestSaml</urn3:action>
@@ -5042,8 +5013,8 @@ if(passthruValue != null){
                   <urn3:homeCommunityId>${#Project#RemoteHCID}</urn3:homeCommunityId>
                   <urn3:name>${#Project#RemoteHCDescription}</urn3:name>
                </urn3:homeCommunity>
-               <urn3:useSpecVersion>3.0</urn3:useSpecVersion>
             </urn3:nhinTargetCommunity>
+            <urn3:useSpecVersion>3.0</urn3:useSpecVersion>
          </urn:NhinTargetCommunities>
       </urn:RespondingGateway_CrossGatewayQueryRequest>
    </soap:Body>
@@ -5095,7 +5066,7 @@ if(context.findProperty("PassThruOn").toBoolean()){
 
 
 
-<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="DQ_20Guidance" searchProperties="true">
+<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="DQ_20Guidance" searchProperties="true" id="8367bbc4-b2f9-43b7-afdd-2b938ea434a4">
 	<con:settings/>
 
 	<con:testStep type="groovy" name="Check Passthru"><con:settings/><con:config><script>import nhinc.FileUtils;
@@ -5173,8 +5144,7 @@ if(passthruValue != null){
 	</con:settings>
 	<con:encoding>UTF-8</con:encoding>
 	
-	<con:endpoint>${#Project#DQ_EntityEndpoint_g1}</con:endpoint><con:request><![CDATA[
-		<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn3="urn:gov:hhs:fha:nhinc:common:nhinccommon">
+	<con:endpoint>${#Project#DQ_EntityEndpoint_g1}</con:endpoint><con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn3="urn:gov:hhs:fha:nhinc:common:nhinccommon">
    <soap:Header/>
    <soap:Body testSuite="Entity_g1" testCase="Document Query">
       <urn:RespondingGateway_CrossGatewayQueryRequest>
@@ -5191,9 +5161,9 @@ if(passthruValue != null){
                      <urn2:Value>('urn:oasis:names:tc:ebxml-regrep:StatusType:Approved')</urn2:Value>
                   </urn2:ValueList>
                </urn2:Slot>
-         <urn2:Slot name="$XDSDocumentEntryClassCode">
-            <urn2:ValueList>
-                    <urn2:Value>34133-9</urn2:Value>
+               <urn2:Slot name="$XDSDocumentEntryClassCode">
+                  <urn2:ValueList>
+                     <urn2:Value>34133-9</urn2:Value>
                   </urn2:ValueList>
                </urn2:Slot>
                <urn2:Slot name="$XDSDocumentEntryClassCodeScheme">
@@ -5204,7 +5174,7 @@ if(passthruValue != null){
             </urn2:AdhocQuery>
          </urn1:AdhocQueryRequest>
          <urn:assertion>
-            <urn3:nationalProviderId>1234567890</urn3:nationalProviderId>         
+            <urn3:nationalProviderId>1234567890</urn3:nationalProviderId>
             <urn3:address xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
                <urn3:addressType>
                   <urn3:code>AddrCode</urn3:code>
@@ -5392,7 +5362,7 @@ if(passthruValue != null){
                <urn3:subjectLocalityAddress>158.147.185.168</urn3:subjectLocalityAddress>
                <urn3:subjectLocalityDNSName>cs.myharris.net</urn3:subjectLocalityDNSName>
             </urn3:samlAuthnStatement>
-         <urn3:samlAuthzDecisionStatement xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
+            <urn3:samlAuthzDecisionStatement xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
                <urn3:decision>Permit</urn3:decision>
                <urn3:resource>https://158.147.185.168:8181/SamlReceiveService/SamlProcessWS</urn3:resource>
                <urn3:action>TestSaml</urn3:action>
@@ -5420,8 +5390,8 @@ if(passthruValue != null){
                   <urn3:homeCommunityId>${#Project#RemoteHCID}</urn3:homeCommunityId>
                   <urn3:name>${#Project#RemoteHCDescription}</urn3:name>
                </urn3:homeCommunity>
-               <urn3:useSpecVersion>2.0</urn3:useSpecVersion>
             </urn3:nhinTargetCommunity>
+            <urn3:useSpecVersion>2.0</urn3:useSpecVersion>
          </urn:NhinTargetCommunities>
       </urn:RespondingGateway_CrossGatewayQueryRequest>
    </soap:Body>
@@ -5485,7 +5455,7 @@ if(context.findProperty("PassThruOn").toBoolean()){
 	</con:property>
 <con:property><con:name>PassThruOn</con:name><con:value>false</con:value></con:property></con:properties>
 <con:reportParameters/>
-</con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="DR_NoGuidance" searchProperties="true">
+</con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="DR_NoGuidance" searchProperties="true" id="29f3444a-b145-4f86-a976-9efd5d4f50c2">
 	<con:settings/>
 	<con:testStep type="groovy" name="Check Passthru"><con:settings/><con:config><script>import nhinc.FileUtils;
 def dir = context.findProperty('GatewayPropDir');
@@ -5529,7 +5499,7 @@ if(passthruValue != null){
       <urn:RespondingGateway_CrossGatewayRetrieveRequest>
          <urn1:RetrieveDocumentSetRequest>
             <urn1:DocumentRequest>
-               <urn1:HomeCommunityId>urn:oid:${#Project#RemoteHCID}</urn1:HomeCommunityId>
+               <urn1:HomeCommunityId>${#Project#RemoteHCID}</urn1:HomeCommunityId>
                <urn1:RepositoryUniqueId>${#Project#DRRepoID}</urn1:RepositoryUniqueId>
                <urn1:DocumentUniqueId>${#Project#DRDocID}</urn1:DocumentUniqueId>
             </urn1:DocumentRequest>
@@ -5827,7 +5797,7 @@ if(context.findProperty("PassThruOn").toBoolean()){
 	</con:property>
 <con:property><con:name>PassThruOn</con:name><con:value>false</con:value></con:property></con:properties>
 <con:reportParameters/>
-</con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="DR_30Guidance" searchProperties="true">
+</con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="DR_30Guidance" searchProperties="true" id="fcb7e0fd-67cd-4193-bc82-3eb278d5ae81">
 	<con:settings/>
 	<con:testStep type="groovy" name="Check Passthru"><con:settings/><con:config><script>import nhinc.FileUtils;
 def dir = context.findProperty('GatewayPropDir');
@@ -5871,7 +5841,7 @@ if(passthruValue != null){
       <urn:RespondingGateway_CrossGatewayRetrieveRequest>
          <urn1:RetrieveDocumentSetRequest>
             <urn1:DocumentRequest>
-               <urn1:HomeCommunityId>urn:oid:${#Project#RemoteHCID}</urn1:HomeCommunityId>
+               <urn1:HomeCommunityId>${#Project#RemoteHCID}</urn1:HomeCommunityId>
                <urn1:RepositoryUniqueId>${#Project#DRRepoID}</urn1:RepositoryUniqueId>
                <urn1:DocumentUniqueId>${#Project#DRDocID}</urn1:DocumentUniqueId>
             </urn1:DocumentRequest>
@@ -6093,8 +6063,8 @@ if(passthruValue != null){
                   <urn2:homeCommunityId>${#Project#RemoteHCID}</urn2:homeCommunityId>
                   <urn2:name>${#Project#RemoteHCDescription}</urn2:name>
                </urn2:homeCommunity>
-               <urn3:useSpecVersion>3.0</urn3:useSpecVersion>
             </urn2:nhinTargetCommunity>
+            <urn2:useSpecVersion>3.0</urn2:useSpecVersion>
          </urn:NhinTargetCommunities>
       </urn:RespondingGateway_CrossGatewayRetrieveRequest>
    </soap:Body>
@@ -6145,7 +6115,7 @@ if(context.findProperty("PassThruOn").toBoolean()){
 	</con:property>
 <con:property><con:name>PassThruOn</con:name><con:value>false</con:value></con:property></con:properties>
 <con:reportParameters/>
-</con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="DR_20Guidance" searchProperties="true">
+</con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="DR_20Guidance" searchProperties="true" id="ecac02ff-e361-40ad-b446-bb7d66b82c04">
 	<con:settings/>
 	<con:testStep type="groovy" name="Check Passthru"><con:settings/><con:config><script>import nhinc.FileUtils;
 def dir = context.findProperty('GatewayPropDir');
@@ -6189,7 +6159,7 @@ if(passthruValue != null){
       <urn:RespondingGateway_CrossGatewayRetrieveRequest>
          <urn1:RetrieveDocumentSetRequest>
             <urn1:DocumentRequest>
-               <urn1:HomeCommunityId>urn:oid:${#Project#RemoteHCID}</urn1:HomeCommunityId>
+               <urn1:HomeCommunityId>${#Project#RemoteHCID}</urn1:HomeCommunityId>
                <urn1:RepositoryUniqueId>${#Project#DRRepoID}</urn1:RepositoryUniqueId>
                <urn1:DocumentUniqueId>${#Project#DRDocID}</urn1:DocumentUniqueId>
             </urn1:DocumentRequest>
@@ -6411,8 +6381,8 @@ if(passthruValue != null){
                   <urn2:homeCommunityId>${#Project#RemoteHCID}</urn2:homeCommunityId>
                   <urn2:name>${#Project#RemoteHCDescription}</urn2:name>
                </urn2:homeCommunity>
-               <urn3:useSpecVersion>2.0</urn3:useSpecVersion>
             </urn2:nhinTargetCommunity>
+            <urn2:useSpecVersion>2.0</urn2:useSpecVersion>
          </urn:NhinTargetCommunities>
       </urn:RespondingGateway_CrossGatewayRetrieveRequest>
    </soap:Body>
@@ -6515,7 +6485,7 @@ if(context.findProperty("PassThruOn").toBoolean()){
 
 
 
-<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="DQ_20Guidance" searchProperties="true">
+<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="DQ_20Guidance" searchProperties="true" id="e130ede2-64e3-4a7f-bfac-bb555776323e">
 	<con:settings/>
 
 	<con:testStep type="groovy" name="Check Passthru"><con:settings/><con:config><script>import nhinc.FileUtils;
@@ -6593,8 +6563,7 @@ if(passthruValue != null){
 	</con:settings>
 	<con:encoding>UTF-8</con:encoding>
 	
-	<con:endpoint>${#Project#DQ_EntityEndpoint_g1}</con:endpoint><con:request><![CDATA[
-		<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn3="urn:gov:hhs:fha:nhinc:common:nhinccommon">
+	<con:endpoint>${#Project#DQ_EntityEndpoint_g1}</con:endpoint><con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn3="urn:gov:hhs:fha:nhinc:common:nhinccommon">
    <soap:Header/>
    <soap:Body testSuite="Entity_g1" testCase="Document Query">
       <urn:RespondingGateway_CrossGatewayQueryRequest>
@@ -6611,9 +6580,9 @@ if(passthruValue != null){
                      <urn2:Value>('urn:oasis:names:tc:ebxml-regrep:StatusType:Approved')</urn2:Value>
                   </urn2:ValueList>
                </urn2:Slot>
-         <urn2:Slot name="$XDSDocumentEntryClassCode">
-            <urn2:ValueList>
-                    <urn2:Value>34133-9</urn2:Value>
+               <urn2:Slot name="$XDSDocumentEntryClassCode">
+                  <urn2:ValueList>
+                     <urn2:Value>34133-9</urn2:Value>
                   </urn2:ValueList>
                </urn2:Slot>
                <urn2:Slot name="$XDSDocumentEntryClassCodeScheme">
@@ -6624,7 +6593,7 @@ if(passthruValue != null){
             </urn2:AdhocQuery>
          </urn1:AdhocQueryRequest>
          <urn:assertion>
-            <urn3:nationalProviderId>1234567890</urn3:nationalProviderId>         
+            <urn3:nationalProviderId>1234567890</urn3:nationalProviderId>
             <urn3:address xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
                <urn3:addressType>
                   <urn3:code>AddrCode</urn3:code>
@@ -6812,7 +6781,7 @@ if(passthruValue != null){
                <urn3:subjectLocalityAddress>158.147.185.168</urn3:subjectLocalityAddress>
                <urn3:subjectLocalityDNSName>cs.myharris.net</urn3:subjectLocalityDNSName>
             </urn3:samlAuthnStatement>
-         <urn3:samlAuthzDecisionStatement xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
+            <urn3:samlAuthzDecisionStatement xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
                <urn3:decision>Permit</urn3:decision>
                <urn3:resource>https://158.147.185.168:8181/SamlReceiveService/SamlProcessWS</urn3:resource>
                <urn3:action>TestSaml</urn3:action>
@@ -6840,8 +6809,8 @@ if(passthruValue != null){
                   <urn3:homeCommunityId>${#Project#RemoteHCID}</urn3:homeCommunityId>
                   <urn3:name>${#Project#RemoteHCDescription}</urn3:name>
                </urn3:homeCommunity>
-               <urn3:useSpecVersion>2.0</urn3:useSpecVersion>
             </urn3:nhinTargetCommunity>
+            <urn3:useSpecVersion>2.0</urn3:useSpecVersion>
          </urn:NhinTargetCommunities>
       </urn:RespondingGateway_CrossGatewayQueryRequest>
    </soap:Body>
@@ -7258,19 +7227,19 @@ if(context.findProperty("PassThruOn").toBoolean()){
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2013-02-27T01:08:10Z</con:value>
+		<con:value>2013-06-03T13:09:06Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2013-02-27T01:18:10Z</con:value>
+		<con:value>2013-06-03T13:19:06Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>02/27/2013 01:08:10</con:value>
+		<con:value>06/03/2013 13:09:06</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2013-03-29T00:00:00Z</con:value>
+		<con:value>2013-07-03T00:00:00Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>FullPatientID</con:name>
@@ -7283,7 +7252,7 @@ if(context.findProperty("PassThruOn").toBoolean()){
 
 
 
-<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="DQ_30Guidance" searchProperties="true">
+<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="DQ_30Guidance" searchProperties="true" id="efa2573a-fbf9-4fa8-b4e8-39df891541c8">
 	<con:settings/>
 
 	<con:testStep type="groovy" name="Check Passthru"><con:settings/><con:config><script>import nhinc.FileUtils;
@@ -7361,8 +7330,7 @@ if(passthruValue != null){
 	</con:settings>
 	<con:encoding>UTF-8</con:encoding>
 	
-	<con:endpoint>${#Project#DQ_EntityEndpoint_g1}</con:endpoint><con:request><![CDATA[
-		<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn3="urn:gov:hhs:fha:nhinc:common:nhinccommon">
+	<con:endpoint>${#Project#DQ_EntityEndpoint_g1}</con:endpoint><con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn3="urn:gov:hhs:fha:nhinc:common:nhinccommon">
    <soap:Header/>
    <soap:Body testSuite="Entity_g1" testCase="Document Query">
       <urn:RespondingGateway_CrossGatewayQueryRequest>
@@ -7379,9 +7347,9 @@ if(passthruValue != null){
                      <urn2:Value>('urn:oasis:names:tc:ebxml-regrep:StatusType:Approved')</urn2:Value>
                   </urn2:ValueList>
                </urn2:Slot>
-         <urn2:Slot name="$XDSDocumentEntryClassCode">
-            <urn2:ValueList>
-                    <urn2:Value>34133-9</urn2:Value>
+               <urn2:Slot name="$XDSDocumentEntryClassCode">
+                  <urn2:ValueList>
+                     <urn2:Value>34133-9</urn2:Value>
                   </urn2:ValueList>
                </urn2:Slot>
                <urn2:Slot name="$XDSDocumentEntryClassCodeScheme">
@@ -7392,7 +7360,7 @@ if(passthruValue != null){
             </urn2:AdhocQuery>
          </urn1:AdhocQueryRequest>
          <urn:assertion>
-            <urn3:nationalProviderId>1234567890</urn3:nationalProviderId>         
+            <urn3:nationalProviderId>1234567890</urn3:nationalProviderId>
             <urn3:address xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
                <urn3:addressType>
                   <urn3:code>AddrCode</urn3:code>
@@ -7580,7 +7548,7 @@ if(passthruValue != null){
                <urn3:subjectLocalityAddress>158.147.185.168</urn3:subjectLocalityAddress>
                <urn3:subjectLocalityDNSName>cs.myharris.net</urn3:subjectLocalityDNSName>
             </urn3:samlAuthnStatement>
-         <urn3:samlAuthzDecisionStatement xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
+            <urn3:samlAuthzDecisionStatement xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
                <urn3:decision>Permit</urn3:decision>
                <urn3:resource>https://158.147.185.168:8181/SamlReceiveService/SamlProcessWS</urn3:resource>
                <urn3:action>TestSaml</urn3:action>
@@ -7608,8 +7576,8 @@ if(passthruValue != null){
                   <urn3:homeCommunityId>${#Project#RemoteHCID}</urn3:homeCommunityId>
                   <urn3:name>${#Project#RemoteHCDescription}</urn3:name>
                </urn3:homeCommunity>
-               <urn3:useSpecVersion>3.0</urn3:useSpecVersion>
             </urn3:nhinTargetCommunity>
+            <urn3:useSpecVersion>3.0</urn3:useSpecVersion>
          </urn:NhinTargetCommunities>
       </urn:RespondingGateway_CrossGatewayQueryRequest>
    </soap:Body>
@@ -7710,20 +7678,19 @@ if(passthruValue != null){
 		</con:settings>
 		<con:encoding>UTF-8</con:encoding>
 		
-		<con:endpoint>${#Project#DR_EntityEndpoint_g1}</con:endpoint><con:request><![CDATA[
-			<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:ihe:iti:xds-b:2007" xmlns:urn2="urn:gov:hhs:fha:nhinc:common:nhinccommon">
+		<con:endpoint>${#Project#DR_EntityEndpoint_g1}</con:endpoint><con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:ihe:iti:xds-b:2007" xmlns:urn2="urn:gov:hhs:fha:nhinc:common:nhinccommon">
    <soap:Header/>
    <soap:Body testSuite="Entity_g1" testCase="Document Retrieve">
       <urn:RespondingGateway_CrossGatewayRetrieveRequest>
          <urn1:RetrieveDocumentSetRequest>
             <urn1:DocumentRequest>
-               <urn1:HomeCommunityId>urn:oid:${#Project#RemoteHCID}</urn1:HomeCommunityId>
+               <urn1:HomeCommunityId>${#Project#RemoteHCID}</urn1:HomeCommunityId>
                <urn1:RepositoryUniqueId>${#Project#DRRepoID}</urn1:RepositoryUniqueId>
                <urn1:DocumentUniqueId>${#Project#DRDocID}</urn1:DocumentUniqueId>
             </urn1:DocumentRequest>
          </urn1:RetrieveDocumentSetRequest>
          <urn:assertion>
-            <urn2:nationalProviderId>1234567890</urn2:nationalProviderId>         
+            <urn2:nationalProviderId>1234567890</urn2:nationalProviderId>
             <urn2:address xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
                <urn2:addressType>
                   <urn2:code>AddrCode</urn2:code>
@@ -7999,23 +7966,23 @@ if(context.findProperty("PassThruOn").toBoolean()){
 	</con:property>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2013-02-27T01:08:13Z</con:value>
+		<con:value>2013-06-03T13:09:08Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2013-02-27T01:18:13Z</con:value>
+		<con:value>2013-06-03T13:19:08Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>02/27/2013 01:08:13</con:value>
+		<con:value>06/03/2013 13:09:08</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2013-03-29T00:00:00Z</con:value>
+		<con:value>2013-07-03T00:00:00Z</con:value>
 	</con:property>
 <con:property><con:name>PassThruOn</con:name><con:value>false</con:value></con:property></con:properties>
 <con:reportParameters/>
-</con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="DR_20Guidance" searchProperties="true">
+</con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="DR_20Guidance" searchProperties="true" id="173c454d-c50e-444c-8bc3-8e9476f19d70">
 	<con:settings/>
 	<con:testStep type="groovy" name="Check Passthru"><con:settings/><con:config><script>import nhinc.FileUtils;
 def dir = context.findProperty('GatewayPropDir');
@@ -8059,7 +8026,7 @@ if(passthruValue != null){
       <urn:RespondingGateway_CrossGatewayRetrieveRequest>
          <urn1:RetrieveDocumentSetRequest>
             <urn1:DocumentRequest>
-               <urn1:HomeCommunityId>urn:oid:${#Project#RemoteHCID}</urn1:HomeCommunityId>
+               <urn1:HomeCommunityId>${#Project#RemoteHCID}</urn1:HomeCommunityId>
                <urn1:RepositoryUniqueId>${#Project#DRRepoID}</urn1:RepositoryUniqueId>
                <urn1:DocumentUniqueId>${#Project#DRDocID}</urn1:DocumentUniqueId>
             </urn1:DocumentRequest>
@@ -8281,8 +8248,8 @@ if(passthruValue != null){
                   <urn2:homeCommunityId>${#Project#RemoteHCID}</urn2:homeCommunityId>
                   <urn2:name>${#Project#RemoteHCDescription}</urn2:name>
                </urn2:homeCommunity>
-               <urn3:useSpecVersion>2.0</urn3:useSpecVersion>
             </urn2:nhinTargetCommunity>
+            <urn2:useSpecVersion>2.0</urn2:useSpecVersion>
          </urn:NhinTargetCommunities>
       </urn:RespondingGateway_CrossGatewayRetrieveRequest>
    </soap:Body>
@@ -8333,7 +8300,7 @@ if(context.findProperty("PassThruOn").toBoolean()){
 	</con:property>
 <con:property><con:name>PassThruOn</con:name><con:value>false</con:value></con:property></con:properties>
 <con:reportParameters/>
-</con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="DR_30Guidance" searchProperties="true">
+</con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="DR_30Guidance" searchProperties="true" id="a783edff-c86c-4d1b-b469-b1979c1682ea">
 	<con:settings/>
 	<con:testStep type="groovy" name="Check Passthru"><con:settings/><con:config><script>import nhinc.FileUtils;
 def dir = context.findProperty('GatewayPropDir');
@@ -8377,7 +8344,7 @@ if(passthruValue != null){
       <urn:RespondingGateway_CrossGatewayRetrieveRequest>
          <urn1:RetrieveDocumentSetRequest>
             <urn1:DocumentRequest>
-               <urn1:HomeCommunityId>urn:oid:${#Project#RemoteHCID}</urn1:HomeCommunityId>
+               <urn1:HomeCommunityId>${#Project#RemoteHCID}</urn1:HomeCommunityId>
                <urn1:RepositoryUniqueId>${#Project#DRRepoID}</urn1:RepositoryUniqueId>
                <urn1:DocumentUniqueId>${#Project#DRDocID}</urn1:DocumentUniqueId>
             </urn1:DocumentRequest>
@@ -8599,8 +8566,8 @@ if(passthruValue != null){
                   <urn2:homeCommunityId>${#Project#RemoteHCID}</urn2:homeCommunityId>
                   <urn2:name>${#Project#RemoteHCDescription}</urn2:name>
                </urn2:homeCommunity>
-               <urn3:useSpecVersion>3.0</urn3:useSpecVersion>
             </urn2:nhinTargetCommunity>
+            <urn2:useSpecVersion>3.0</urn2:useSpecVersion>
          </urn:NhinTargetCommunities>
       </urn:RespondingGateway_CrossGatewayRetrieveRequest>
    </soap:Body>
