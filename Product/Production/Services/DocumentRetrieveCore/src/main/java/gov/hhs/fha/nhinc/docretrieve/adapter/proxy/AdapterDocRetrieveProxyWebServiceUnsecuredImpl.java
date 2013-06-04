@@ -26,10 +26,10 @@
  */
 package gov.hhs.fha.nhinc.docretrieve.adapter.proxy;
 
-import gov.hhs.fha.nhinc.common.nhinccommonadapter.RespondingGatewayCrossGatewayRetrieveRequestType;
 import gov.hhs.fha.nhinc.adapterdocretrieve.AdapterDocRetrievePortType;
 import gov.hhs.fha.nhinc.aspect.AdapterDelegationEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.common.nhinccommonadapter.RespondingGatewayCrossGatewayRetrieveRequestType;
 import gov.hhs.fha.nhinc.docretrieve.adapter.proxy.service.AdapterDocRetrieveUnsecuredServicePortDescriptor;
 import gov.hhs.fha.nhinc.docretrieve.aspect.RetrieveDocumentSetRequestTypeDescriptionBuilder;
 import gov.hhs.fha.nhinc.docretrieve.aspect.RetrieveDocumentSetResponseTypeDescriptionBuilder;
@@ -40,41 +40,38 @@ import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
-import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
-
 import org.apache.log4j.Logger;
 
 /**
  * This is the unsecured web service implementation of the Adapter Doc Retrieve component proxy.
- * 
+ *
  * @author Neil Webb, Les Westberg
  */
-public class AdapterDocRetrieveProxyWebServiceUnsecuredImpl implements AdapterDocRetrieveProxy {
+public class AdapterDocRetrieveProxyWebServiceUnsecuredImpl extends BaseAdapterDocRetrieveProxy {
 
     private static final Logger LOG = Logger.getLogger(AdapterDocRetrieveProxyWebServiceUnsecuredImpl.class);
-    private WebServiceProxyHelper oProxyHelper = new WebServiceProxyHelper();
 
     /**
      * Retrieve the document(s)
-     * 
+     *
      * @param request The identifiers for the document(s) to be retrieved.
      * @param assertion The assertion data.
      * @return The document(s) that were retrieved.
      */
     @AdapterDelegationEvent(beforeBuilder = RetrieveDocumentSetRequestTypeDescriptionBuilder.class,
-            afterReturningBuilder = RetrieveDocumentSetResponseTypeDescriptionBuilder.class, 
-            serviceType = "Retrieve Document", version = "")
+    afterReturningBuilder = RetrieveDocumentSetResponseTypeDescriptionBuilder.class,
+    serviceType = "Retrieve Document", version = "")
+    @Override
     public RetrieveDocumentSetResponseType retrieveDocumentSet(RetrieveDocumentSetRequestType request,
-            AssertionType assertion) {
+        AssertionType assertion) {
         String url = null;
         RetrieveDocumentSetResponseType response = new RetrieveDocumentSetResponseType();
-        String sServiceName = NhincConstants.ADAPTER_DOC_RETRIEVE_SERVICE_NAME;
 
         try {
             if (request != null) {
                 LOG.debug("Before target system URL look up.");
-                url = oProxyHelper.getAdapterEndPointFromConnectionManager(sServiceName);
-                LOG.debug("After target system URL look up. URL for service: " + sServiceName + " is: " + url);
+                url = getEndPointFromConnectionManagerByAdapterAPILevel(assertion);
+                LOG.debug("After target system URL look up. URL for service: " + NhincConstants.ADAPTER_DOC_RETRIEVE_SERVICE_NAME + " is: " + url);
 
                 if (NullChecker.isNotNullish(url)) {
                     RespondingGatewayCrossGatewayRetrieveRequestType oUnsecuredRequest = new RespondingGatewayCrossGatewayRetrieveRequestType();
@@ -88,27 +85,27 @@ public class AdapterDocRetrieveProxyWebServiceUnsecuredImpl implements AdapterDo
                     ServicePortDescriptor<AdapterDocRetrievePortType> portDescriptor = new AdapterDocRetrieveUnsecuredServicePortDescriptor();
 
                     CONNECTClient<AdapterDocRetrievePortType> client = getCONNECTClientUnsecured(portDescriptor, url,
-                            assertion);
+                        assertion);
 
                     response = (RetrieveDocumentSetResponseType) client.invokePort(AdapterDocRetrievePortType.class,
-                            "respondingGatewayCrossGatewayRetrieve", oUnsecuredRequest);
+                        "respondingGatewayCrossGatewayRetrieve", oUnsecuredRequest);
 
                 } else {
-                    LOG.error("Failed to call the web service (" + sServiceName + ").  The URL is null.");
+                    LOG.error("Failed to call the web service (" + NhincConstants.ADAPTER_DOC_RETRIEVE_SERVICE_NAME + ").  The URL is null.");
                 }
             } else {
-                LOG.error("Failed to call the web service (" + sServiceName + ").  The input parameter is null.");
+                LOG.error("Failed to call the web service (" + NhincConstants.ADAPTER_DOC_RETRIEVE_SERVICE_NAME + ").  The input parameter is null.");
             }
         } catch (Exception e) {
-            LOG.error("Failed to call the web service (" + sServiceName + ").  An unexpected exception occurred.  "
-                    + "Exception: " + e.getMessage(), e);
+            LOG.error("Failed to call the web service (" + NhincConstants.ADAPTER_DOC_RETRIEVE_SERVICE_NAME + ").  An unexpected exception occurred.  "
+                + "Exception: " + e.getMessage(), e);
         }
 
         return response;
     }
 
     protected CONNECTClient<AdapterDocRetrievePortType> getCONNECTClientUnsecured(
-            ServicePortDescriptor<AdapterDocRetrievePortType> portDescriptor, String url, AssertionType assertion) {
+        ServicePortDescriptor<AdapterDocRetrievePortType> portDescriptor, String url, AssertionType assertion) {
 
         return CONNECTCXFClientFactory.getInstance().getCONNECTClientUnsecured(portDescriptor, url, assertion);
     }
