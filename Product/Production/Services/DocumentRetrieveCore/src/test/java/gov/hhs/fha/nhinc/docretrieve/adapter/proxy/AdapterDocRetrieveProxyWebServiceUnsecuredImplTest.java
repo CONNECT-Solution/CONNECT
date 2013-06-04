@@ -75,17 +75,17 @@ public class AdapterDocRetrieveProxyWebServiceUnsecuredImplTest {
 
         //for 2010
         assertion.setImplementsSpecVersion(NhincConstants.UDDI_SPEC_VERSION.SPEC_2_0.toString());
-        url = impl.getEndPointFromConnectionManagerByAdapterAPILevel(assertion);
+        url = impl.getEndPointFromConnectionManagerByAdapterAPILevel(assertion, NhincConstants.ADAPTER_DOC_RETRIEVE_SERVICE_NAME);
         assertEquals(a0_URL, url);
 
         //for 2011
         assertion.setImplementsSpecVersion(NhincConstants.UDDI_SPEC_VERSION.SPEC_3_0.toString());
-        url = impl.getEndPointFromConnectionManagerByAdapterAPILevel(assertion);
+        url = impl.getEndPointFromConnectionManagerByAdapterAPILevel(assertion, NhincConstants.ADAPTER_DOC_RETRIEVE_SERVICE_NAME);
         assertEquals(a1_URL, url);
 
         //if ImplementsSpecVersion is null
         assertion.setImplementsSpecVersion(null);
-        url = impl.getEndPointFromConnectionManagerByAdapterAPILevel(assertion);
+        url = impl.getEndPointFromConnectionManagerByAdapterAPILevel(assertion, NhincConstants.ADAPTER_DOC_RETRIEVE_SERVICE_NAME);
         assertEquals(a1_URL, url);
     }
 }

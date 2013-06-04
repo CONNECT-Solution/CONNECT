@@ -81,7 +81,7 @@ public class AdapterDocQueryProxyWebServiceUnsecuredImpl extends BaseAdapterDocQ
         String url = null;
         try {
             //get the Adopter Endpoint URL
-            url = getEndPointFromConnectionManagerByAdapterAPILevel(assertion);
+            url = getEndPointFromConnectionManagerByAdapterAPILevel(assertion, NhincConstants.ADAPTER_DOC_QUERY_SERVICE_NAME);
             //Call the service
             if (NullChecker.isNotNullish(url)) {
                 LOG.debug("getEndPointFromConnectionManagerByAdapterAPILevel:" + url);

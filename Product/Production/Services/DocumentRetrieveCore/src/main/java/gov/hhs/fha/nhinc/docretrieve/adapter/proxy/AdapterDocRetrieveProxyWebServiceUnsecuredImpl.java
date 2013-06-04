@@ -70,7 +70,7 @@ public class AdapterDocRetrieveProxyWebServiceUnsecuredImpl extends BaseAdapterD
         try {
             if (request != null) {
                 LOG.debug("Before target system URL look up.");
-                url = getEndPointFromConnectionManagerByAdapterAPILevel(assertion);
+                url = getEndPointFromConnectionManagerByAdapterAPILevel(assertion, NhincConstants.ADAPTER_DOC_RETRIEVE_SERVICE_NAME);
                 LOG.debug("After target system URL look up. URL for service: " + NhincConstants.ADAPTER_DOC_RETRIEVE_SERVICE_NAME + " is: " + url);
 
                 if (NullChecker.isNotNullish(url)) {

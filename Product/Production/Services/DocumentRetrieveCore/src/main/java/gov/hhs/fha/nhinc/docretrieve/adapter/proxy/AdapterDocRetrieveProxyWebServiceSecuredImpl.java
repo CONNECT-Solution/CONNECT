@@ -47,7 +47,7 @@ import org.apache.log4j.Logger;
  * @author Neil Webb, Les Westberg
  */
 public class AdapterDocRetrieveProxyWebServiceSecuredImpl extends BaseAdapterDocRetrieveProxy {
-    
+
     private static final Logger LOG = Logger.getLogger(AdapterDocRetrieveProxyWebServiceSecuredImpl.class);
 
     /**
@@ -65,14 +65,14 @@ public class AdapterDocRetrieveProxyWebServiceSecuredImpl extends BaseAdapterDoc
         AssertionType assertion) {
         String url = null;
         RetrieveDocumentSetResponseType response = new RetrieveDocumentSetResponseType();
-        
+
         try {
             if (request != null) {
                 LOG.debug("Before target system URL look up.");
-                
-                url = getEndPointFromConnectionManagerByAdapterAPILevel(assertion);
+
+                url = getEndPointFromConnectionManagerByAdapterAPILevel(assertion, NhincConstants.ADAPTER_DOC_RETRIEVE_SECURED_SERVICE_NAME);
                 LOG.debug("After target system URL look up. URL for service: " + NhincConstants.ADAPTER_DOC_RETRIEVE_SECURED_SERVICE_NAME + " is: " + url);
-                
+
                 if (NullChecker.isNotNullish(url)) {
                     ServicePortDescriptor<AdapterDocRetrieveSecuredPortType> portDescriptor =
                         new AdapterDocRetrieveSecuredServicePortDescriptor();
@@ -90,13 +90,13 @@ public class AdapterDocRetrieveProxyWebServiceSecuredImpl extends BaseAdapterDoc
             LOG.error("Failed to call the web service (" + NhincConstants.ADAPTER_DOC_RETRIEVE_SECURED_SERVICE_NAME + ").  An unexpected exception occurred.  "
                 + "Exception: " + e.getMessage(), e);
         }
-        
+
         return response;
     }
-    
+
     protected CONNECTClient<AdapterDocRetrieveSecuredPortType> getCONNECTClientSecured(
         ServicePortDescriptor<AdapterDocRetrieveSecuredPortType> portDescriptor, String url, AssertionType assertion) {
-        
+
         return CONNECTCXFClientFactory.getInstance().getCONNECTClientSecured(portDescriptor, url, assertion);
     }
 }

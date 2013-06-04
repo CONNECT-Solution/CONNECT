@@ -44,6 +44,8 @@ public class AdapterDocQueryProxyWebServiceImplsTest {
 
     private BaseAdapterDocQueryProxy[] proxies = new BaseAdapterDocQueryProxy[]{
         new AdapterDocQueryProxyWebServiceSecuredImpl(), new AdapterDocQueryProxyWebServiceUnsecuredImpl()};
+    
+    private String[] serciveNames = {NhincConstants.ADAPTER_DOC_QUERY_SECURED_SERVICE_NAME,NhincConstants.ADAPTER_DOC_QUERY_SERVICE_NAME};
 
     @Test
     public void hasDefaultAdapterHelper() {
@@ -85,20 +87,19 @@ public class AdapterDocQueryProxyWebServiceImplsTest {
             AssertionType assertion = new AssertionType();
             BaseAdapterDocQueryProxy impl = proxies[i];
             impl.setWebServiceProxyHelper(proxyMock);
-
             //for 2010
             assertion.setImplementsSpecVersion(NhincConstants.UDDI_SPEC_VERSION.SPEC_2_0.toString());
-            url = impl.getEndPointFromConnectionManagerByAdapterAPILevel(assertion);
+            url = impl.getEndPointFromConnectionManagerByAdapterAPILevel(assertion,serciveNames[i]);
             assertEquals(a0_URL, url);
 
             //for 2011
             assertion.setImplementsSpecVersion(NhincConstants.UDDI_SPEC_VERSION.SPEC_3_0.toString());
-            url = impl.getEndPointFromConnectionManagerByAdapterAPILevel(assertion);
+            url = impl.getEndPointFromConnectionManagerByAdapterAPILevel(assertion,serciveNames[i]);
             assertEquals(a1_URL, url);
 
             //if ImplementsSpecVersion is null
             assertion.setImplementsSpecVersion(null);
-            url = impl.getEndPointFromConnectionManagerByAdapterAPILevel(assertion);
+            url = impl.getEndPointFromConnectionManagerByAdapterAPILevel(assertion,serciveNames[i]);
             assertEquals(a1_URL, url);
         }
     }
