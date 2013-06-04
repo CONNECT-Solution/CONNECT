@@ -11477,19 +11477,18 @@ assert request["//add:MessageID/text()"] == response["//add:RelatesTo/text()"];<
 
 (AdapterXDRRequest)
 2. Check the content Type in DS Adapter Outbound Message
-  A) Search the log file and look for http://localhost:8080/Adapter/DocumentSubmission/A_0/AdapterService/AdapterDocSubmissionDeferredRequestUnsecured (replace the localhost with server ip address if its different) Outbound Message, Inbound Message
+  A) Search the log file and look for http://localhost:8080/Adapter/DocumentSubmission/A_0/AdapterDocSubmissionUnsecured (replace the localhost with server ip address if its different) Outbound Message, Inbound Message
   B) Should be able to see the following in the content type --> Content-Type: multipart/related; type="application/xop+xml" and Content-Type: application/xop+xml;
 
 (AdapterComponentXDRRequest)
 3. Check the content Type in DS Adapter Outbound Message
-  A) Search the log file and lookhttp://localhost:8080/Adapter/DocumentSubmission/A_0/AdapterComponentXDRRequest_Service (replace the localhost with server ip address if its different) Outbound Message, Inbound Message
+  A) Search the log file and look for http://localhost:8080/Adapter/DocumentSubmission/A_0/AdapterComponentXDRRequest_Service (replace the localhost with server ip address if its different) Outbound Message, Inbound Message
   B) Should be able to see the following in the content type --> Content-Type: multipart/related; type="application/xop+xml" and Content-Type: application/xop+xml;
 
 (AdapterXDRRequestSecured)
-4. Change the "Adapter Interface" in DocumentSubmissionDeferredRequestProxyConfig.xml to adapterxdrrequestwsunsecured and Check the content Type in AD Adapter Outbound Message
-  A) Search the log file and lookhttps://localhost:8181/Adapter/DocumentSubmission/A_0/AdapterService/AdapterDocSubmissionDeferredRequestSecured (replace the localhost with server ip address if its different) Outbound Message, Inbound Message
-  B) Should be able to see the following in the content type --> Content-Type: multipart/related; type="application/xop+xml" and Content-Type: application/xop+xml;
-</con:description><con:settings/><con:config xsi:type="con:ManualTestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:expectedResult>Should be able to see the following in the content type --> Content-Type: multipart/related; type="application/xop+xml" and Content-Type: application/xop+xml;</con:expectedResult></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
+4. Change the "Adapter Interface" in DocumentSubmissionDeferredRequestProxyConfig.xml to adapterxdrrequestwssecured and Check the content Type in AD Adapter Outbound Message
+  A) Search the log file and look for https://localhost:8181/Adapter/DocumentSubmission/A_0/AdapterService/AdapterDocSubmissionDeferredRequestSecured (replace the localhost with server ip address if its different) Outbound Message, Inbound Message
+  B) Should be able to see the following in the content type --> Content-Type: multipart/related; type="application/xop+xml" and Content-Type: application/xop+xml;</con:description><con:settings/><con:config xsi:type="con:ManualTestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:expectedResult>Should be able to see the following in the content type --> Content-Type: multipart/related; type="application/xop+xml" and Content-Type: application/xop+xml;</con:expectedResult></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
 nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);</con:setupScript>
 <con:tearDownScript>def dir = context.findProperty('GatewayPropDir');
 nhinc.FileUtils.restoreConfiguration(dir, log);
@@ -11870,21 +11869,21 @@ if(context.findProperty("PassThruOn").toBoolean()){
 </con:config>
 </con:testStep><con:testStep type="manualTestStep" name="Manual TestStep - Validate Logs"><con:description>(NhinXDRDeferredResponse20)
 1. Check the content Type in Nhin Outbound and Inbound Message
-  A) Search the log file and look forhttps://localhost:8181/Gateway/DocumentSubmission/2_0/NhinService/XDRResponse_Service (replace the localhost with server ip address if its different) Outbound Message, Inbound Message
+  A) Search the log file and look for https://localhost:8181/Gateway/DocumentSubmission/2_0/NhinService/XDRResponse_Service (replace the localhost with server ip address if its different) Outbound Message, Inbound Message
   B) Should be able to see the following in the content type --> Content-Type: multipart/related; type="application/xop+xml" and Content-Type: application/xop+xml;
 
 (AdapterXDRResponse)
 2. Check the content Type in DS Adapter Outbound Message
-  A) Search the log file and look for http://localhost:8080/Adapter/DocumentSubmission/A_0/AdapterService/AdapterDocSubmissionDeferredResponseUnsecured (replace the localhost with server ip address if its different) Outbound Message, Inbound Message
+  A) Search the log file and look for http://localhost:8080/Adapter/DocumentSubmission/A_0/AdapterService/AdapterDocSubmissionDeferredResponse (replace the localhost with server ip address if its different) Outbound Message, Inbound Message
   B) Should be able to see the following in the content type --> Content-Type: multipart/related; type="application/xop+xml" and Content-Type: application/xop+xml;
 
 (AdapterComponentXDRResponset)
 3. Check the content Type in DS Adapter Outbound Message
-  A) Search the log file and look https://localhost:8181/Adapter/DocumentSubmission/A_0/AdapterService/AdapterDocSubmissionDeferredResponseSecured (replace the localhost with server ip address if its different) Outbound Message, Inbound Message
+  A) Search the log file and look http://localhost:8080/Adapter/DocumentSubmission/A_0/AdapterComponentXDRResponse_Service (replace the localhost with server ip address if its different) Outbound Message, Inbound Message
   B) Should be able to see the following in the content type --> Content-Type: multipart/related; type="application/xop+xml" and Content-Type: application/xop+xml;
 
 (AdapterXDRResponseSecured)
-4. Change the "Adapter Interface" in DocumentSubmissionDeferredResponseProxyConfig.xml to adapterxdrresponsewsunsecured and Check the content Type in AD Adapter Outbound Message
+4. Change the "Adapter Interface" in DocumentSubmissionDeferredResponseProxyConfig.xml to adapterxdrresponsewsSecured and Check the content Type in AD Adapter Outbound Message
   A) Search the log file and look https://localhost:8181/Adapter/DocumentSubmission/A_0/AdapterService/AdapterDocSubmissionDeferredResponseSecured (replace the localhost with server ip address if its different) Outbound Message, Inbound Message
   B) Should be able to see the following in the content type --> Content-Type: multipart/related; type="application/xop+xml" and Content-Type: application/xop+xml;
 </con:description><con:settings/><con:config xsi:type="con:ManualTestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:expectedResult>Should be able to see the following in the content type --> Content-Type: multipart/related; type="application/xop+xml" and Content-Type: application/xop+xml;</con:expectedResult></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
@@ -12398,7 +12397,7 @@ if(context.findProperty("PassThruOn").toBoolean()){
 
 (AdapterXDR)
 2. Check the content Type in DS Adapter Outbound Message
-  A) Search the log file and look for http://localhost:8080/Adapter/DocumentSubmission/A_0/AdapterDocSubmission (replace the localhost with server ip address if its different) Outbound Message, Inbound Message
+  A) Search the log file and look for http://localhost:8080/Adapter/DocumentSubmission/A_0/AdapterDocSubmissionUnsecured (replace the localhost with server ip address if its different) Outbound Message, Inbound Message
   B) Should be able to see the following in the content type --> Content-Type: multipart/related; type="application/xop+xml" and Content-Type: application/xop+xml;
 
 (AdapterComponentXDR)
@@ -12407,7 +12406,7 @@ if(context.findProperty("PassThruOn").toBoolean()){
   B) Should be able to see the following in the content type --> Content-Type: multipart/related; type="application/xop+xml" and Content-Type: application/xop+xml;
 
 (AdapterXDRSecured)
-4. Change the "Adapter Interface" in DocumentSubmissionProxyConfig.xml to adapterdocsubmissionwsunsecured and Check the content Type in AD Adapter Outbound Message
+4. Change the "Adapter Interface" in DocumentSubmissionProxyConfig.xml to adapterdocsubmissionwssecured and Check the content Type in AD Adapter Outbound Message
   A) Search the log file and look for https://localhost:8181/Adapter/DocumentSubmission/A_0/AdapterService/AdapterDocSubmissionDeferredRequestSecured (replace the localhost with server ip address if its different) Outbound Message, Inbound Message
   B) Should be able to see the following in the content type --> Content-Type: multipart/related; type="application/xop+xml" and Content-Type: application/xop+xml;
 
@@ -12947,17 +12946,17 @@ assert request["//add:MessageID/text()"] == response["//add:RelatesTo/text()"];<
 
 (AdapterXDRRequest)
 2. Check the content Type in DS Adapter Outbound Message
-  A) Search the log file and look for http://localhost:8080/Adapter/DocumentSubmission/A_0/AdapterService/AdapterDocSubmissionDeferredRequestUnsecured (replace the localhost with server ip address if its different) Outbound Message, Inbound Message
+  A) Search the log file and look for http://localhost:8080/Adapter/DocumentSubmission/A_0/AdapterDocSubmissionUnsecured (replace the localhost with server ip address if its different) Outbound Message, Inbound Message
   B) Should be able to see the following in the content type --> Content-Type: multipart/related; type="application/xop+xml" and Content-Type: application/xop+xml;
 
 (AdapterComponentXDRRequest)
 3. Check the content Type in DS Adapter Outbound Message
-  A) Search the log file and lookhttp://localhost:8080/Adapter/DocumentSubmission/A_0/AdapterComponentXDRRequest_Service (replace the localhost with server ip address if its different) Outbound Message, Inbound Message
+  A) Search the log file and look  http://localhost:8080/Adapter/DocumentSubmission/A_0/AdapterComponentXDRRequest_Service (replace the localhost with server ip address if its different) Outbound Message, Inbound Message
   B) Should be able to see the following in the content type --> Content-Type: multipart/related; type="application/xop+xml" and Content-Type: application/xop+xml;
 
 (AdapterXDRRequestSecured)
-4. Change the "Adapter Interface" in DocumentSubmissionDeferredRequestProxyConfig.xml to adapterxdrrequestwsunsecured and Check the content Type in AD Adapter Outbound Message
-  A) Search the log file and lookhttps://localhost:8181/Adapter/DocumentSubmission/A_0/AdapterService/AdapterDocSubmissionDeferredRequestSecured (replace the localhost with server ip address if its different) Outbound Message, Inbound Message
+4. Change the "Adapter Interface" in DocumentSubmissionDeferredRequestProxyConfig.xml to adapterxdrrequestwssecured and Check the content Type in AD Adapter Outbound Message
+  A) Search the log file and look https://localhost:8181/Adapter/DocumentSubmission/A_0/AdapterService/AdapterDocSubmissionDeferredRequestSecured (replace the localhost with server ip address if its different) Outbound Message, Inbound Message
   B) Should be able to see the following in the content type --> Content-Type: multipart/related; type="application/xop+xml" and Content-Type: application/xop+xml;
 </con:description><con:settings/><con:config xsi:type="con:ManualTestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:expectedResult>Should be able to see the following in the content type --> Content-Type: multipart/related; type="application/xop+xml" and Content-Type: application/xop+xml;</con:expectedResult></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
 nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);</con:setupScript>
@@ -13331,17 +13330,17 @@ if(context.findProperty("PassThruOn").toBoolean()){
 </con:config>
 </con:testStep><con:testStep type="manualTestStep" name="Manual TestStep - Validate logs"><con:description>(NhinXDRDeferredResponse)
 1. Check the content Type in Nhin Outbound and Inbound Message
-  A) Search the log file and look forhttps://localhost:8181/Gateway/DocumentSubmission/2_0/NhinService/XDRResponse_Service (replace the localhost with server ip address if its different) Outbound Message, Inbound Message
+  A) Search the log file and look for https://localhost:8181/Gateway/DocumentSubmission/2_0/NhinService/XDRResponse_Service (replace the localhost with server ip address if its different) Outbound Message, Inbound Message
   B) Should be able to see the following in the content type --> Content-Type: multipart/related; type="application/xop+xml" and Content-Type: application/xop+xml;
 
 (AdapterXDRResponse)
 2. Check the content Type in DS Adapter Outbound Message
-  A) Search the log file and look for http://localhost:8080/Adapter/DocumentSubmission/A_0/AdapterService/AdapterDocSubmissionDeferredResponseUnsecured (replace the localhost with server ip address if its different) Outbound Message, Inbound Message
+  A) Search the log file and look for http://localhost:8080/Adapter/DocumentSubmission/A_0/AdapterService/AdapterDocSubmissionDeferredResponse (replace the localhost with server ip address if its different) Outbound Message, Inbound Message
   B) Should be able to see the following in the content type --> Content-Type: multipart/related; type="application/xop+xml" and Content-Type: application/xop+xml;
 
 (AdapterComponentXDRResponset)
 3. Check the content Type in DS Adapter Outbound Message
-  A) Search the log file and look https://localhost:8181/Adapter/DocumentSubmission/A_0/AdapterService/AdapterDocSubmissionDeferredResponseSecured (replace the localhost with server ip address if its different) Outbound Message, Inbound Message
+  A) Search the log file and look http://localhost:8080/Adapter/DocumentSubmission/A_0/AdapterComponentXDRResponse_Service (replace the localhost with server ip address if its different) Outbound Message, Inbound Message
   B) Should be able to see the following in the content type --> Content-Type: multipart/related; type="application/xop+xml" and Content-Type: application/xop+xml;
 
 (AdapterXDRResponseSecured)
@@ -13858,7 +13857,7 @@ if(context.findProperty("PassThruOn").toBoolean()){
 
 (AdapterXDR)
 2. Check the content Type in DS Adapter Outbound Message
-  A) Search the log file and look for http://localhost:8080/Adapter/DocumentSubmission/A_0/AdapterDocSubmission (replace the localhost with server ip address if its different) Outbound Message, Inbound Message
+  A) Search the log file and look for http://localhost:8080/Adapter/DocumentSubmission/A_0/AdapterDocSubmissionUnsecured (replace the localhost with server ip address if its different) Outbound Message, Inbound Message
   B) Should be able to see the following in the content type --> Content-Type: multipart/related; type="application/xop+xml" and Content-Type: application/xop+xml;
 
 (AdapterComponentXDR)
