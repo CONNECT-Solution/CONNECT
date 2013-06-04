@@ -40,6 +40,7 @@ import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
 import gov.hhs.fha.nhinc.docretrieve.aspect.RetrieveDocumentSetRequestTypeDescriptionBuilder;
 import gov.hhs.fha.nhinc.docretrieve.aspect.RetrieveDocumentSetResponseTypeDescriptionBuilder;
 import gov.hhs.fha.nhinc.docretrieve.entity.OutboundDocRetrieveOrchestratable;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants.ADAPTER_API_LEVEL;
 import gov.hhs.fha.nhinc.orchestration.CONNECTOutboundOrchestrator;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
@@ -52,13 +53,13 @@ import org.junit.Test;
  * @author achidamb
  *
  */
-public class StandardOutboundDocRetrieveTest {
+public class StandardOutboundDocRetrieveTest extends AbstractOutboundDocRetrieveTest {
     
     @Test
     public void hasOutboundProcessingEvent() throws Exception {
         Class<StandardOutboundDocRetrieve> clazz = StandardOutboundDocRetrieve.class;
         Method method = clazz.getMethod("respondingGatewayCrossGatewayRetrieve", RetrieveDocumentSetRequestType.class,
-                AssertionType.class, NhinTargetCommunitiesType.class);
+                AssertionType.class, NhinTargetCommunitiesType.class, ADAPTER_API_LEVEL.class);
         OutboundProcessingEvent annotation = method.getAnnotation(OutboundProcessingEvent.class);
         assertNotNull(annotation);
         assertEquals(RetrieveDocumentSetRequestTypeDescriptionBuilder.class, annotation.beforeBuilder());
@@ -72,6 +73,7 @@ public class StandardOutboundDocRetrieveTest {
         RetrieveDocumentSetRequestType request = new RetrieveDocumentSetRequestType();
         AssertionType assertion = new AssertionType();
         NhinTargetCommunitiesType targets = new NhinTargetCommunitiesType();
+        targets.setUseSpecVersion("2.0");
         RetrieveDocumentSetResponseType expectedResponse = new RetrieveDocumentSetResponseType();
         
         CONNECTOutboundOrchestrator orchestrator = mock(CONNECTOutboundOrchestrator.class);
@@ -84,8 +86,16 @@ public class StandardOutboundDocRetrieveTest {
         StandardOutboundDocRetrieve outboundDocRetrieve = new StandardOutboundDocRetrieve(orchestrator);
         
         RetrieveDocumentSetResponseType actualResponse = outboundDocRetrieve.respondingGatewayCrossGatewayRetrieve(
-                request, assertion, targets);
+                request, assertion, targets, ADAPTER_API_LEVEL.LEVEL_a0);
         
         assertSame(expectedResponse, actualResponse);      
+    }
+    
+    /* (non-Javadoc)
+     * @see gov.hhs.fha.nhinc.docretrieve.outbound.AbstractOutboundDocRetrieveTest#getOutboundDocRetrieve(gov.hhs.fha.nhinc.orchestration.CONNECTOutboundOrchestrator)
+     */
+    @Override
+    protected OutboundDocRetrieve getOutboundDocRetrieve(CONNECTOutboundOrchestrator orchestrator) {
+        return new PassthroughOutboundDocRetrieve(orchestrator);
     }
 }

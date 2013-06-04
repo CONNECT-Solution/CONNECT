@@ -31,14 +31,18 @@ import static org.junit.Assert.assertNotNull;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.any;
 import gov.hhs.fha.nhinc.aspect.NwhinInvocationEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
+import gov.hhs.fha.nhinc.connectmgr.ConnectionManager;
+import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
 import gov.hhs.fha.nhinc.docquery.aspect.AdhocQueryRequestDescriptionBuilder;
 import gov.hhs.fha.nhinc.docquery.aspect.AdhocQueryResponseDescriptionBuilder;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTClient;
 import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants.UDDI_SPEC_VERSION;
 import ihe.iti.xds_b._2007.RespondingGatewayQueryPortType;
 
 import java.lang.reflect.Method;
@@ -71,6 +75,7 @@ public class NhinDocQueryWebServiceProxyTest {
 
     @SuppressWarnings("unchecked")
     private CONNECTClient<RespondingGatewayQueryPortType> client = mock(CONNECTClient.class);
+    private ConnectionManagerCache cache = mock(ConnectionManagerCache.class);
     private AdhocQueryRequest request;
     private AssertionType assertion;
 
@@ -94,6 +99,14 @@ public class NhinDocQueryWebServiceProxyTest {
         impl.respondingGatewayCrossGatewayQuery(request, assertion, target);
         verify(client, never()).enableMtom();
     }
+    
+    @Test
+    public void testUsingGuidance() throws Exception {
+        NhinDocQueryProxyWebServiceSecuredImpl impl = getImpl();
+        NhinTargetSystemType target = getTarget("1.1");
+        impl.respondingGatewayCrossGatewayQuery(request, assertion, target);
+        verify(cache).getEndpointURLByServiceNameSpecVersion(any(String.class), any(String.class), any(UDDI_SPEC_VERSION.class));
+    }
 
     /**
      * @param hcidValue
@@ -104,6 +117,7 @@ public class NhinDocQueryWebServiceProxyTest {
         HomeCommunityType hcid = new HomeCommunityType();
         hcid.setHomeCommunityId(hcidValue);
         target.setHomeCommunity(hcid);
+        target.setUseSpecVersion("2.0");
         return target;
     }
 
@@ -126,6 +140,14 @@ public class NhinDocQueryWebServiceProxyTest {
                     ServicePortDescriptor<RespondingGatewayQueryPortType> portDescriptor, AssertionType assertion,
                     String url, NhinTargetSystemType target) {
                 return client;
+            }
+            
+            /* (non-Javadoc)
+             * @see gov.hhs.fha.nhinc.docquery.nhin.proxy.NhinDocQueryProxyWebServiceSecuredImpl#getCMInstance()
+             */
+            @Override
+            protected ConnectionManager getCMInstance() {
+                return cache;
             }
         };
     }

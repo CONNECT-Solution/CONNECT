@@ -38,6 +38,7 @@ import javax.xml.ws.WebServiceContext;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 
 public class EntityDocQueryImpl extends BaseService {
@@ -92,6 +93,9 @@ public class EntityDocQueryImpl extends BaseService {
         AdhocQueryResponse response = null;
 
         try {
+            if (targets != null && StringUtils.isBlank(targets.getUseSpecVersion())) {
+                targets.setUseSpecVersion("3.0");
+            }
             response = outboundDocQuery.respondingGatewayCrossGatewayQuery(request, assertion, targets);
         } catch (Exception e) {
             LOG.error("Failed to send request to Nwhin.", e);

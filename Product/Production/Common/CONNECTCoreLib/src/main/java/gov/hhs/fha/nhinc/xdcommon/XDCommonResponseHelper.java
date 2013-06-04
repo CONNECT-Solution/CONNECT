@@ -27,11 +27,11 @@
 package gov.hhs.fha.nhinc.xdcommon;
 
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
-import java.util.Arrays;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryError;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryErrorList;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.exception.ExceptionUtils;
 
 /**
@@ -40,6 +40,8 @@ import org.apache.commons.lang.exception.ExceptionUtils;
  */
 public class XDCommonResponseHelper {
 
+    public static final String CONNECT_LOCATION = "CONNECT";
+    
     public enum ErrorCodes {
         XDSRegistryError, XDSRepositoryError
     }
@@ -51,8 +53,16 @@ public class XDCommonResponseHelper {
     }
 
     public RegistryResponseType createError(String message) {
-        return createRegistryResponse(message, ErrorCodes.XDSRegistryError, "CONNECT");
+        return createRegistryResponse(message, ErrorCodes.XDSRegistryError, CONNECT_LOCATION);
     }
+    
+    public RegistryResponseType createError(String message, ErrorCodes code) {
+        return createRegistryResponse(message, code, CONNECT_LOCATION);
+    }
+    
+    public RegistryResponseType createError(String message, ErrorCodes code, String location) {
+        return createRegistryResponse(message, code, location);
+    } 
 
     public RegistryResponseType createError(Throwable e) {
         return createRegistryResponse(e.getLocalizedMessage(), ErrorCodes.XDSRegistryError,
@@ -66,8 +76,9 @@ public class XDCommonResponseHelper {
         RegistryErrorList registryErrorList = new RegistryErrorList();
         RegistryError registryError = new RegistryError();
         registryError.setCodeContext(error);
-        registryError.setErrorCode(code.toString());
-        registryError.setLocation(location);
+        registryError.setErrorCode(StringUtils.trim(code.toString()));
+        registryError.setLocation(StringUtils.trim(location));
+        registryError.setSeverity(NhincConstants.XDS_REGISTRY_ERROR_SEVERITY_ERROR);
         registryErrorList.getRegistryError().add(registryError);
         response.setRegistryErrorList(registryErrorList);
         return response;

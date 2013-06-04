@@ -30,18 +30,23 @@ package gov.hhs.fha.nhinc.docretrieve.nhin.proxy;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.mockito.Matchers.any;
+import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 import gov.hhs.fha.nhinc.aspect.NwhinInvocationEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
-import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException;
+import gov.hhs.fha.nhinc.connectmgr.ConnectionManager;
+import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
 import gov.hhs.fha.nhinc.docretrieve.aspect.RetrieveDocumentSetRequestTypeDescriptionBuilder;
 import gov.hhs.fha.nhinc.docretrieve.aspect.RetrieveDocumentSetResponseTypeDescriptionBuilder;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTClient;
 import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants.GATEWAY_API_LEVEL;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants.UDDI_SPEC_VERSION;
 import ihe.iti.xds_b._2007.RespondingGatewayRetrievePortType;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
 
@@ -57,6 +62,7 @@ public class NhinDocRetrieveProxyWebServiceSecuredImplTest {
 
     @SuppressWarnings("unchecked")
     private CONNECTClient<RespondingGatewayRetrievePortType> client = mock(CONNECTClient.class);
+    private ConnectionManagerCache cache = mock(ConnectionManagerCache.class);
     private RetrieveDocumentSetRequestType request = mock(RetrieveDocumentSetRequestType.class);
     private AssertionType assertion;
 
@@ -76,7 +82,9 @@ public class NhinDocRetrieveProxyWebServiceSecuredImplTest {
     @Test
     public void testMtomg0() throws Exception {
         NhinDocRetrieveProxyWebServiceSecuredImpl impl = getImpl();
-        NhinTargetSystemType target = getTarget("1.1");
+        NhinTargetSystemType target = getTarget("1.1", "2.0");
+        when(cache.getEndpointURLByServiceNameSpecVersion(anyString(), anyString(), any(UDDI_SPEC_VERSION.class)))
+                .thenReturn("endpoint");
         impl.respondingGatewayCrossGatewayRetrieve(request, assertion, target, GATEWAY_API_LEVEL.LEVEL_g0);
         verify(client).enableMtom();
     }
@@ -84,20 +92,39 @@ public class NhinDocRetrieveProxyWebServiceSecuredImplTest {
     @Test
     public void testMtomg1() throws Exception {
         NhinDocRetrieveProxyWebServiceSecuredImpl impl = getImpl();
-        NhinTargetSystemType target = getTarget("1.1");
+        NhinTargetSystemType target = getTarget("1.1", "2.0");
+        when(cache.getEndpointURLByServiceNameSpecVersion(anyString(), anyString(), any(UDDI_SPEC_VERSION.class)))
+                .thenReturn("endpoint");
         impl.respondingGatewayCrossGatewayRetrieve(request, assertion, target, GATEWAY_API_LEVEL.LEVEL_g1);
         verify(client).enableMtom();
+    }
+
+    @Test
+    public void testGuidanceg0() throws Exception {
+        NhinDocRetrieveProxyWebServiceSecuredImpl impl = getImpl();
+        NhinTargetSystemType target = getTarget("1.1", "3.0");
+        impl.respondingGatewayCrossGatewayRetrieve(request, assertion, target, GATEWAY_API_LEVEL.LEVEL_g0);
+        verify(cache).getEndpointURLByServiceNameSpecVersion(anyString(), anyString(), any(UDDI_SPEC_VERSION.class));
+    }
+
+    @Test
+    public void testGuidanceg1() throws Exception {
+        NhinDocRetrieveProxyWebServiceSecuredImpl impl = getImpl();
+        NhinTargetSystemType target = getTarget("1.1", "3.0");
+        impl.respondingGatewayCrossGatewayRetrieve(request, assertion, target, GATEWAY_API_LEVEL.LEVEL_g1);
+        verify(cache).getEndpointURLByServiceNameSpecVersion(anyString(), anyString(), any(UDDI_SPEC_VERSION.class));
     }
 
     /**
      * @param hcidValue
      * @return
      */
-    private NhinTargetSystemType getTarget(String hcidValue) {
+    private NhinTargetSystemType getTarget(String hcidValue, String specVersion) {
         NhinTargetSystemType target = new NhinTargetSystemType();
         HomeCommunityType hcid = new HomeCommunityType();
         hcid.setHomeCommunityId(hcidValue);
         target.setHomeCommunity(hcid);
+        target.setUseSpecVersion(specVersion);
         return target;
     }
 
@@ -126,15 +153,11 @@ public class NhinDocRetrieveProxyWebServiceSecuredImplTest {
             /*
              * (non-Javadoc)
              * 
-             * @see
-             * gov.hhs.fha.nhinc.docretrieve.nhin.proxy.NhinDocRetrieveProxyWebServiceSecuredImpl#getUrl(gov.hhs.fha
-             * .nhinc.common.nhinccommon.NhinTargetSystemType, java.lang.String,
-             * gov.hhs.fha.nhinc.nhinclib.NhincConstants.GATEWAY_API_LEVEL)
+             * @see gov.hhs.fha.nhinc.docretrieve.nhin.proxy.NhinDocRetrieveProxyWebServiceSecuredImpl#getCMInstance()
              */
             @Override
-            protected String getUrl(NhinTargetSystemType targetSystem, String sServiceName, GATEWAY_API_LEVEL level)
-                    throws IllegalArgumentException, ConnectionManagerException, Exception {
-                return "endpoint";
+            protected ConnectionManager getCMInstance() {
+                return cache;
             }
         };
     }

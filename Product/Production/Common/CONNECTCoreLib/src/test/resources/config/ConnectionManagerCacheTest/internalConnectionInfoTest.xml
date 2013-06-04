@@ -33,6 +33,21 @@
 					<keyedReference tModelKey="uddi:nhin:standard-servicenames" keyName="QueryForDocumentsDeferredRequest" keyValue="QueryForDocumentsDeferredRequest"/>
 				</categoryBag>
 			</businessService>
+            <businessService serviceKey="uddi:testnhincnode:RetrieveDocuments" businessKey="uddi:testnhieonenode:1.1">
+                <name xml:lang="en">RetrieveDocuments</name>
+                <bindingTemplates>
+                    <bindingTemplate bindingKey="uddi:testnhincnode:RetrieveDocuments" serviceKey="uddi:testnhincnode:RetrieveDocuments">
+                        <accessPoint useType="endPoint">https://localhost:8181/RetrieveDocuments</accessPoint>
+                        <categoryBag>
+                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="1.0"/>
+                        </categoryBag>
+                    </bindingTemplate>
+                </bindingTemplates>
+                <categoryBag>
+                    <keyedReference tModelKey="uddi:nhin:standard-servicenames" keyName="RetrieveDocument" keyValue="RetrieveDocument"/>
+                    <keyedReference tModelKey="uddi:nhin:standard-servicenames" keyName="RetrieveDocuments" keyValue="RetrieveDocuments"/>
+                </categoryBag>
+            </businessService>
 		</businessServices>
 		<identifierBag>
 			<keyedReference tModelKey="uddi:nhin:nhie:homecommunityid" keyName="" keyValue="1.1"/>

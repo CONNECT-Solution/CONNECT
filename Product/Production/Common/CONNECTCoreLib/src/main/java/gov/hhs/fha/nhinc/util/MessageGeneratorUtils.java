@@ -79,6 +79,7 @@ public class MessageGeneratorUtils {
 
         if (targets != null && targets.getNhinTargetCommunity() != null && targets.getNhinTargetCommunity().size() > 0) {
             nhinTargetSystem.setHomeCommunity(targets.getNhinTargetCommunity().get(0).getHomeCommunity());
+            nhinTargetSystem.setUseSpecVersion(targets.getUseSpecVersion());
         }
 
         return nhinTargetSystem;

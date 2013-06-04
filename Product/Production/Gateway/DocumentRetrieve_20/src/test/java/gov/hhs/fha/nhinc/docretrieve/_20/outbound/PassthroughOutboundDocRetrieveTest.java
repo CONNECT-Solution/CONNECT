@@ -41,6 +41,7 @@ import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
 import gov.hhs.fha.nhinc.docretrieve.aspect.RetrieveDocumentSetRequestTypeDescriptionBuilder;
 import gov.hhs.fha.nhinc.docretrieve.aspect.RetrieveDocumentSetResponseTypeDescriptionBuilder;
 import gov.hhs.fha.nhinc.docretrieve.entity.OutboundDocRetrieveOrchestratable;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants.ADAPTER_API_LEVEL;
 import gov.hhs.fha.nhinc.orchestration.CONNECTOutboundOrchestrator;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
@@ -58,7 +59,7 @@ public class PassthroughOutboundDocRetrieveTest {
     public void hasOutboundProcessingEvent() throws Exception {
         Class<PassthroughOutboundDocRetrieve> clazz = PassthroughOutboundDocRetrieve.class;
         Method method = clazz.getMethod("respondingGatewayCrossGatewayRetrieve", RetrieveDocumentSetRequestType.class,
-                AssertionType.class, NhinTargetCommunitiesType.class);
+                AssertionType.class, NhinTargetCommunitiesType.class, ADAPTER_API_LEVEL.class);
         OutboundProcessingEvent annotation = method.getAnnotation(OutboundProcessingEvent.class);
         assertNotNull(annotation);
         assertEquals(RetrieveDocumentSetRequestTypeDescriptionBuilder.class, annotation.beforeBuilder());
@@ -87,7 +88,7 @@ public class PassthroughOutboundDocRetrieveTest {
         PassthroughOutboundDocRetrieve outboundDocRetrieve = new PassthroughOutboundDocRetrieve(orchestrator);
         
         RetrieveDocumentSetResponseType actualResponse = outboundDocRetrieve.respondingGatewayCrossGatewayRetrieve(
-                request, assertion, targets);
+                request, assertion, targets, ADAPTER_API_LEVEL.LEVEL_a0);
         
         // Verify that the response is DR20 spec compliant
         assertEquals(2, actualResponse.getDocumentResponse().size());

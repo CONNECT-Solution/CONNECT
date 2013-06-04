@@ -40,7 +40,6 @@ import gov.hhs.fha.nhinc.util.HomeCommunityMap;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
 
-import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 
 /**
@@ -103,8 +102,7 @@ public abstract class OutboundDocQueryStrategy implements OrchestrationStrategy 
     }
 
     /**
-     * @param message
-     *            contains request message to execute.
+     * @param message contains request message to execute.
      */
     public void execute(OutboundDocQueryOrchestratable message) {
 
@@ -123,8 +121,7 @@ public abstract class OutboundDocQueryStrategy implements OrchestrationStrategy 
     /**
      * This method takes Orchestrated message request and returns response.
      * 
-     * @param message
-     *            DocQueryOrchestartable message from Adapter level a0 passed.
+     * @param message DocQueryOrchestartable message from Adapter level a0 passed.
      * @throws Exception
      * @throws ConnectionManagerException
      * @throws IllegalArgumentException
@@ -132,20 +129,9 @@ public abstract class OutboundDocQueryStrategy implements OrchestrationStrategy 
     public void executeStrategy(OutboundDocQueryOrchestratable message) throws IllegalArgumentException,
             ConnectionManagerException, Exception {
 
-        final String url = getUrl(message.getTarget());
         AdhocQueryResponse response;
-        if (StringUtils.isBlank(url)) {
-            response = messageGeneratorUtils.createRepositoryErrorResponse("Unable to find any callable targets.");
-        } else {
-            message.getTarget().setUrl(url);
-            if (LOG.isDebugEnabled()) {
-                LOG.debug("executeStrategy sending nhin doc query request to " + " target hcid="
-                        + message.getTarget().getHomeCommunity().getHomeCommunityId() + " at url=" + url);
-            }
-
-            response = proxyFactory.getNhinDocQueryProxy().respondingGatewayCrossGatewayQuery(message.getRequest(),
-                    message.getAssertion(), message.getTarget());
-        }
+        response = proxyFactory.getNhinDocQueryProxy().respondingGatewayCrossGatewayQuery(message.getRequest(),
+                message.getAssertion(), message.getTarget());
 
         message.setResponse(response);
 
