@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services. 
+ * Copyright (c) 2009-2013, United States Government, as represented by the Secretary of Health and Human Services. 
  * All rights reserved. 
  *
  * Redistribution and use in source and binary forms, with or without 
@@ -37,9 +37,12 @@ import java.util.Set;
 
 import org.uddi.api_v3.BusinessEntity;
 
+/**
+ * 
+ * @author msw
+ */
 public interface ConnectionManager {
 
-    
     /**
      * This method will return a list of all business entities that are known by the connection manager.
      * 
@@ -138,6 +141,19 @@ public interface ConnectionManager {
      */
     public String getDefaultEndpointURLByServiceName(String sHomeCommunityId, String sUniformServiceName)
             throws ConnectionManagerException;
+
+    /**
+     * This method returns url for a specified service and home community id .
+     * 
+     * @param sHomeCommunityId The home community ID of the gateway that is being looked up.
+     * @param sUniformServiceName The name of the service to locate.
+     * @param version The version of the service to locate.
+     * @return The URL for only the requested service at the specified home community. If the service is not found, then
+     *         null is returned.
+     * @throws ConnectionManagerException
+     */
+    public String getEndpointURLByServiceNameSpecVersion(String sHomeCommunityId, String sUniformServiceName,
+            UDDI_SPEC_VERSION version) throws ConnectionManagerException;
 
     /**
      * This method returns a local url for a specified service.

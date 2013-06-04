@@ -33,6 +33,7 @@ import gov.hhs.fha.nhinc.docretrieve.aspect.RetrieveDocumentSetResponseTypeDescr
 import gov.hhs.fha.nhinc.docretrieve.outbound.OutboundDocRetrieve;
 import gov.hhs.fha.nhinc.entitydocretrievesecured.EntityDocRetrieveSecuredPortType;
 import gov.hhs.fha.nhinc.messaging.server.BaseService;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants.ADAPTER_API_LEVEL;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
 
@@ -41,22 +42,20 @@ import javax.xml.ws.BindingType;
 import javax.xml.ws.WebServiceContext;
 import javax.xml.ws.soap.Addressing;
 
-
 @BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
 @Addressing(enabled = true)
 public class EntityDocRetrieveSecured extends BaseService implements EntityDocRetrieveSecuredPortType {
 
     private OutboundDocRetrieve outboundDocRetrieve;
-    
+
     private WebServiceContext context;
 
-    @OutboundMessageEvent(beforeBuilder = RetrieveDocumentSetRequestTypeDescriptionBuilder.class,
-            afterReturningBuilder = RetrieveDocumentSetResponseTypeDescriptionBuilder.class, 
-            serviceType = "Retrieve Document",version = "2.0")
+    @OutboundMessageEvent(beforeBuilder = RetrieveDocumentSetRequestTypeDescriptionBuilder.class, afterReturningBuilder = RetrieveDocumentSetResponseTypeDescriptionBuilder.class, serviceType = "Retrieve Document", version = "2.0")
     public RetrieveDocumentSetResponseType respondingGatewayCrossGatewayRetrieve(RetrieveDocumentSetRequestType body) {
         AssertionType assertion = getAssertion(context, null);
-        
-        return outboundDocRetrieve.respondingGatewayCrossGatewayRetrieve(body, assertion, null);
+
+        return outboundDocRetrieve.respondingGatewayCrossGatewayRetrieve(body, assertion, null,
+                ADAPTER_API_LEVEL.LEVEL_a0);
     }
 
     @Resource

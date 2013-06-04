@@ -26,7 +26,6 @@
  */
 package gov.hhs.fha.nhinc.docquery.entity;
 
-import static org.junit.Assert.assertEquals;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.mock;
@@ -70,27 +69,6 @@ public class OutboundDocQueryStrategyTest {
 
         verify(mockUtils).createRepositoryErrorResponse(any(String.class));
         verify(message).setResponse(mockResponse);
-    }
-
-    @Test
-    public void verifyBadTargetsErrorForAllStrategies() throws Exception {
-        verifyBadTargetsError(getOutboundDocQueryStrategyG0());
-        verifyBadTargetsError(getOutboundDocQueryStrategyG1());
-    }
-
-    private void verifyBadTargetsError(OutboundDocQueryStrategy strategy) throws Exception {
-
-        OutboundDocQueryOrchestratable message = new OutboundDocQueryOrchestratable();
-        message.setTarget(new NhinTargetSystemType());
-        message.getTarget().setUrl("");
-
-        strategy.executeStrategy(message);
-
-        assertEquals("urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Failure", message.getResponse().getStatus());
-        assertEquals("Unable to find any callable targets.", message.getResponse().getRegistryErrorList()
-                .getRegistryError().get(0).getCodeContext());
-        assertEquals("XDSRepositoryError", message.getResponse().getRegistryErrorList().getRegistryError().get(0)
-                .getErrorCode());
     }
 
     /**

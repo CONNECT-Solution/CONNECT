@@ -112,7 +112,13 @@ public class NhincConstants {
             throw new IllegalArgumentException("No enum constant " + valueString);
         }
     };
-
+    
+    // Initiating multispec errors
+    public static final String INIT_MULTISPEC_ERROR_UNSUPPORTED_GUIDANCE = "Unsupported guidance for API level.";
+    public static final String INIT_MULTISPEC_ERROR_NO_MATCHING_ENDPOINT = "No matching target endpoint for guidance: ";
+    public static final String INIT_MULTISPEC_LOC_ENTITY_DR = "Entity Document Retrieve ";
+    public static final String INIT_MULTISPEC_LOC_ENTITY_DQ = "Entity Document Query ";
+    
     public static final String SERVICE_NAME = "serviceName";
 
     // Property File Constants

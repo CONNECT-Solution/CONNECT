@@ -144,6 +144,7 @@ public class AggregationService {
                 HomeCommunityType targetCommunity = standardOutboundDocQueryHelper.lookupHomeCommunityId(id.getRoot(),
                         qualSubId.getAssigningAuthorityIdentifier());
                 target.setHomeCommunity(targetCommunity);
+                target.setUseSpecVersion(targets.getUseSpecVersion());
 
                 AdhocQueryRequest childRequest = cloneRequest(adhocQueryRequest);
                 setPatientIdOnRequest(childRequest, id.getExtension(), id.getRoot());
