@@ -2901,7 +2901,7 @@ if(context.findProperty("PassThruOn").toBoolean()){
 	<con:testStep type="groovy" name="Check Passthru"><con:settings/><con:config><script>import nhinc.FileUtils;
 def dir = context.findProperty('GatewayPropDir');
 def file = "gateway.properties";
-def passthruProp = "docquery.inboundDocQuery";
+def passthruProp = "docquery.30.inboundDocQuery";
 
 def passthruValue = FileUtils.readProperty(dir, file, passthruProp, log);
 log.info "Passthrough property value = ${passthruValue}";
@@ -8226,7 +8226,7 @@ if(context.findProperty("PassThruOn").toBoolean()){
 	<con:testStep type="groovy" name="Check Passthru"><con:settings/><con:config><script>import nhinc.FileUtils;
 def dir = context.findProperty('GatewayPropDir');
 def file = "gateway.properties";
-def passthruProp = "docquery.inboundDocQuery";
+def passthruProp = "docquery.20.inboundDocQuery";
 
 def passthruValue = FileUtils.readProperty(dir, file, passthruProp, log);
 log.info "Passthrough property value = ${passthruValue}";
