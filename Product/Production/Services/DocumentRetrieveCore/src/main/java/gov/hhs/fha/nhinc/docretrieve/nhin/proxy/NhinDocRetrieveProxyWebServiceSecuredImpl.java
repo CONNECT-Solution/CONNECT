@@ -49,6 +49,8 @@ import ihe.iti.xds_b._2007.RespondingGatewayRetrievePortType;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
 
+import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
+
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 
@@ -99,7 +101,10 @@ public class NhinDocRetrieveProxyWebServiceSecuredImpl implements NhinDocRetriev
             }
         } catch (ConnectionManagerException e) {
             XDCommonResponseHelper helper = new XDCommonResponseHelper();
-            helper.createError(e.getLocalizedMessage(), ErrorCodes.XDSRepositoryError, NhincConstants.INIT_MULTISPEC_LOC_ENTITY_DR);
+            RegistryResponseType error = helper.createError(e.getLocalizedMessage(), ErrorCodes.XDSRepositoryError, NhincConstants.INIT_MULTISPEC_LOC_ENTITY_DR);
+            
+            response = new RetrieveDocumentSetResponseType();
+            response.setRegistryResponse(error);
 
         } catch (Exception e) {
             LOG.error("Failed to call the web service (" + sServiceName + ").  An unexpected exception occurred.  "
