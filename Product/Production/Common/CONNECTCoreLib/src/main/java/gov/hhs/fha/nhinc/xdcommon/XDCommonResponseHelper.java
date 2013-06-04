@@ -31,6 +31,7 @@ import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryError;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryErrorList;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.exception.ExceptionUtils;
 
 /**
@@ -75,8 +76,8 @@ public class XDCommonResponseHelper {
         RegistryErrorList registryErrorList = new RegistryErrorList();
         RegistryError registryError = new RegistryError();
         registryError.setCodeContext(error);
-        registryError.setErrorCode(code.toString());
-        registryError.setLocation(location);
+        registryError.setErrorCode(StringUtils.trim(code.toString()));
+        registryError.setLocation(StringUtils.trim(location));
         registryError.setSeverity(NhincConstants.XDS_REGISTRY_ERROR_SEVERITY_ERROR);
         registryErrorList.getRegistryError().add(registryError);
         response.setRegistryErrorList(registryErrorList);

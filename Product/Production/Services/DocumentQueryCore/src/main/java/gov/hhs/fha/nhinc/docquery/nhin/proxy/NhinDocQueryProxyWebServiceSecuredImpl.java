@@ -31,6 +31,7 @@ import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManager;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
+import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException;
 import gov.hhs.fha.nhinc.docquery.aspect.AdhocQueryRequestDescriptionBuilder;
 import gov.hhs.fha.nhinc.docquery.aspect.AdhocQueryResponseDescriptionBuilder;
 import gov.hhs.fha.nhinc.docquery.nhin.proxy.description.NhinDocQueryServicePortDescriptor;
@@ -41,9 +42,12 @@ import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants.UDDI_SPEC_VERSION;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
+import gov.hhs.fha.nhinc.xdcommon.XDCommonResponseHelper;
+import gov.hhs.fha.nhinc.xdcommon.XDCommonResponseHelper.ErrorCodes;
 import ihe.iti.xds_b._2007.RespondingGatewayQueryPortType;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
+import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
@@ -102,6 +106,7 @@ public class NhinDocQueryProxyWebServiceSecuredImpl implements NhinDocQueryProxy
     @NwhinInvocationEvent(beforeBuilder = AdhocQueryRequestDescriptionBuilder.class, afterReturningBuilder = AdhocQueryResponseDescriptionBuilder.class, serviceType = "Document Query", version = "")
     public AdhocQueryResponse respondingGatewayCrossGatewayQuery(AdhocQueryRequest request, AssertionType assertion,
             NhinTargetSystemType target) throws Exception {
+        AdhocQueryResponse response = null;
         try {
             String url = target.getUrl();
             if (NullChecker.isNullish(url)) {
@@ -120,12 +125,21 @@ public class NhinDocQueryProxyWebServiceSecuredImpl implements NhinDocQueryProxy
             CONNECTClient<RespondingGatewayQueryPortType> client = getCONNECTClientSecured(portDescriptor, assertion,
                     url, target);
 
-            return (AdhocQueryResponse) client.invokePort(RespondingGatewayQueryPortType.class,
+            response = (AdhocQueryResponse) client.invokePort(RespondingGatewayQueryPortType.class,
                     "respondingGatewayCrossGatewayQuery", request);
+
+        } catch (ConnectionManagerException e) {
+            XDCommonResponseHelper helper = new XDCommonResponseHelper();
+            RegistryResponseType registryError = helper.createError(e.getLocalizedMessage(), ErrorCodes.XDSRepositoryError, NhincConstants.INIT_MULTISPEC_LOC_ENTITY_DR);
+            
+            response = new AdhocQueryResponse();
+            response.setStatus(registryError.getStatus());
+            response.setRegistryErrorList(registryError.getRegistryErrorList());
 
         } catch (Exception ex) {
             LOG.error("Error calling respondingGatewayCrossGatewayQuery: " + ex.getMessage(), ex);
             throw ex;
         }
+        return response;
     }
 }
