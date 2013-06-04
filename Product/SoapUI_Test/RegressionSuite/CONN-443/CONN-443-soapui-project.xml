@@ -421,7 +421,7 @@ if(context.findProperty("PassThruOn").toBoolean()){
 		<con:name>FullPatientID</con:name>
 		<con:value>'D123401^^^&amp;amp;1.1&amp;amp;ISO'</con:value>
 	</con:property>
-<con:property><con:name>PassThruOn</con:name><con:value>false</con:value></con:property><con:property><con:name>startDate</con:name><con:value>2013-06-03T12:37:17Z</con:value></con:property><con:property><con:name>endDate</con:name><con:value>2013-06-03T12:47:17Z</con:value></con:property><con:property><con:name>sigDate</con:name><con:value>06/03/2013 12:37:17</con:value></con:property><con:property><con:name>expireDate</con:name><con:value>2013-07-03T00:00:00Z</con:value></con:property></con:properties>
+<con:property><con:name>PassThruOn</con:name><con:value>true</con:value></con:property><con:property><con:name>startDate</con:name><con:value>2013-06-04T17:41:23Z</con:value></con:property><con:property><con:name>endDate</con:name><con:value>2013-06-04T17:51:23Z</con:value></con:property><con:property><con:name>sigDate</con:name><con:value>06/04/2013 17:41:23</con:value></con:property><con:property><con:name>expireDate</con:name><con:value>2013-07-04T00:00:00Z</con:value></con:property></con:properties>
 <con:reportParameters/>
 </con:testCase>
 <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="DQ_20Guidance" searchProperties="true" id="02554cc1-0e5c-461c-bfc9-5304dbdff93e">
@@ -747,7 +747,8 @@ if(passthruValue != null){
                   <urn3:description>${#Project#RemoteHCDescription}</urn3:description>
                   <urn3:homeCommunityId>${#Project#RemoteHCID}</urn3:homeCommunityId>
                   <urn3:name>${#Project#RemoteHCDescription}</urn3:name>
-               </urn3:homeCommunity>
+               </urn3:homeCommunity>
+
             </urn3:nhinTargetCommunity>
             <urn3:useSpecVersion>2.0</urn3:useSpecVersion>
          </urn:NhinTargetCommunities>
@@ -795,7 +796,7 @@ if(context.findProperty("PassThruOn").toBoolean()){
 		<con:name>FullPatientID</con:name>
 		<con:value>'D123401^^^&amp;amp;1.1&amp;amp;ISO'</con:value>
 	</con:property>
-<con:property><con:name>PassThruOn</con:name><con:value>false</con:value></con:property><con:property><con:name>startDate</con:name><con:value>2013-02-27T01:13:58Z</con:value></con:property><con:property><con:name>endDate</con:name><con:value>2013-02-27T01:23:58Z</con:value></con:property><con:property><con:name>sigDate</con:name><con:value>02/27/2013 01:13:58</con:value></con:property><con:property><con:name>expireDate</con:name><con:value>2013-03-29T00:00:00Z</con:value></con:property></con:properties>
+<con:property><con:name>PassThruOn</con:name><con:value>true</con:value></con:property><con:property><con:name>startDate</con:name><con:value>2013-06-04T17:41:25Z</con:value></con:property><con:property><con:name>endDate</con:name><con:value>2013-06-04T17:51:25Z</con:value></con:property><con:property><con:name>sigDate</con:name><con:value>06/04/2013 17:41:25</con:value></con:property><con:property><con:name>expireDate</con:name><con:value>2013-07-04T00:00:00Z</con:value></con:property></con:properties>
 <con:reportParameters/>
 </con:testCase>
 
@@ -882,8 +883,7 @@ if(passthruValue != null){
 	</con:settings>
 	<con:encoding>UTF-8</con:encoding>
 	
-	<con:endpoint>${#Project#DQ_EntityEndpoint_g0}</con:endpoint><con:request><![CDATA[
-		<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn3="urn:gov:hhs:fha:nhinc:common:nhinccommon">
+	<con:endpoint>${#Project#DQ_EntityEndpoint_g0}</con:endpoint><con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0" xmlns:urn3="urn:gov:hhs:fha:nhinc:common:nhinccommon">
    <soap:Header/>
    <soap:Body testSuite="Entity_g0" testCase="Document Query">
       <urn:RespondingGateway_CrossGatewayQueryRequest>
@@ -900,9 +900,9 @@ if(passthruValue != null){
                      <urn2:Value>('urn:oasis:names:tc:ebxml-regrep:StatusType:Approved')</urn2:Value>
                   </urn2:ValueList>
                </urn2:Slot>
-         <urn2:Slot name="$XDSDocumentEntryClassCode">
-            <urn2:ValueList>
-                    <urn2:Value>34133-9</urn2:Value>
+               <urn2:Slot name="$XDSDocumentEntryClassCode">
+                  <urn2:ValueList>
+                     <urn2:Value>34133-9</urn2:Value>
                   </urn2:ValueList>
                </urn2:Slot>
                <urn2:Slot name="$XDSDocumentEntryClassCodeScheme">
@@ -913,7 +913,7 @@ if(passthruValue != null){
             </urn2:AdhocQuery>
          </urn1:AdhocQueryRequest>
          <urn:assertion>
-            <urn3:nationalProviderId>1234567890</urn3:nationalProviderId>         
+            <urn3:nationalProviderId>1234567890</urn3:nationalProviderId>
             <urn3:address xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
                <urn3:addressType>
                   <urn3:code>AddrCode</urn3:code>
@@ -1101,7 +1101,7 @@ if(passthruValue != null){
                <urn3:subjectLocalityAddress>158.147.185.168</urn3:subjectLocalityAddress>
                <urn3:subjectLocalityDNSName>cs.myharris.net</urn3:subjectLocalityDNSName>
             </urn3:samlAuthnStatement>
-         <urn3:samlAuthzDecisionStatement xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
+            <urn3:samlAuthzDecisionStatement xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
                <urn3:decision>Permit</urn3:decision>
                <urn3:resource>https://158.147.185.168:8181/SamlReceiveService/SamlProcessWS</urn3:resource>
                <urn3:action>TestSaml</urn3:action>
@@ -1159,7 +1159,7 @@ if(context.findProperty("PassThruOn").toBoolean()){
 		<con:name>FullPatientID</con:name>
 		<con:value>'D123401^^^&amp;amp;1.1&amp;amp;ISO'</con:value>
 	</con:property>
-<con:property><con:name>PassThruOn</con:name><con:value>false</con:value></con:property><con:property><con:name>startDate</con:name><con:value>2013-02-27T01:13:58Z</con:value></con:property><con:property><con:name>endDate</con:name><con:value>2013-02-27T01:23:58Z</con:value></con:property><con:property><con:name>sigDate</con:name><con:value>02/27/2013 01:13:58</con:value></con:property><con:property><con:name>expireDate</con:name><con:value>2013-03-29T00:00:00Z</con:value></con:property></con:properties>
+<con:property><con:name>PassThruOn</con:name><con:value>true</con:value></con:property><con:property><con:name>startDate</con:name><con:value>2013-06-04T17:41:26Z</con:value></con:property><con:property><con:name>endDate</con:name><con:value>2013-06-04T17:51:26Z</con:value></con:property><con:property><con:name>sigDate</con:name><con:value>06/04/2013 17:41:26</con:value></con:property><con:property><con:name>expireDate</con:name><con:value>2013-07-04T00:00:00Z</con:value></con:property></con:properties>
 <con:reportParameters/>
 </con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" id="3a630f37-d9fc-4fd2-bc44-bc0b04246222" keepSession="false" maxResults="0" name="DR_NoGuidance" searchProperties="true">
 	<con:settings/>
@@ -1487,21 +1487,21 @@ if(context.findProperty("PassThruOn").toBoolean()){
 	</con:property>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2013-06-03T12:37:59Z</con:value>
+		<con:value>2013-06-04T17:41:27Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2013-06-03T12:47:59Z</con:value>
+		<con:value>2013-06-04T17:51:27Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>06/03/2013 12:37:59</con:value>
+		<con:value>06/04/2013 17:41:27</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2013-07-03T00:00:00Z</con:value>
+		<con:value>2013-07-04T00:00:00Z</con:value>
 	</con:property>
-<con:property><con:name>PassThruOn</con:name><con:value>false</con:value></con:property></con:properties>
+<con:property><con:name>PassThruOn</con:name><con:value>true</con:value></con:property></con:properties>
 <con:reportParameters/>
 </con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="DR_20Guidance" searchProperties="true" id="54125e91-c08e-406e-b6ca-66c7c58f00ea">
 	<con:settings/>
@@ -1829,21 +1829,21 @@ if(context.findProperty("PassThruOn").toBoolean()){
 	</con:property>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2013-02-27T01:13:59Z</con:value>
+		<con:value>2013-06-04T17:41:28Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2013-02-27T01:23:59Z</con:value>
+		<con:value>2013-06-04T17:51:28Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>02/27/2013 01:13:59</con:value>
+		<con:value>06/04/2013 17:41:28</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2013-03-29T00:00:00Z</con:value>
+		<con:value>2013-07-04T00:00:00Z</con:value>
 	</con:property>
-<con:property><con:name>PassThruOn</con:name><con:value>false</con:value></con:property></con:properties>
+<con:property><con:name>PassThruOn</con:name><con:value>true</con:value></con:property></con:properties>
 <con:reportParameters/>
 </con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="DR_30Guidance" searchProperties="true" id="2a5681b7-e348-49aa-915d-982c373ee916">
 	<con:settings/>
@@ -2147,21 +2147,21 @@ if(context.findProperty("PassThruOn").toBoolean()){
 	</con:property>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2013-02-27T01:13:59Z</con:value>
+		<con:value>2013-06-04T17:41:29Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2013-02-27T01:23:59Z</con:value>
+		<con:value>2013-06-04T17:51:29Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>02/27/2013 01:13:59</con:value>
+		<con:value>06/04/2013 17:41:29</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2013-03-29T00:00:00Z</con:value>
+		<con:value>2013-07-04T00:00:00Z</con:value>
 	</con:property>
-<con:property><con:name>PassThruOn</con:name><con:value>false</con:value></con:property></con:properties>
+<con:property><con:name>PassThruOn</con:name><con:value>true</con:value></con:property></con:properties>
 <con:reportParameters/>
 </con:testCase><con:properties/>
 <con:setupScript/>
@@ -2517,25 +2517,8 @@ if(passthruValue != null){
 		<con:configuration/>
 	</con:assertion>
 	<con:assertion type="SOAP Fault Assertion"/>
-	<con:assertion name="DocID Match" type="GroovyScriptAssertion">
-		<con:configuration><scriptText>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
-				def holder = groovyUtils.getXmlHolder( messageExchange.responseContent );
-				holder.namespaces["ns1"] = "urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0";
-				holder.namespaces["ns3"] = "urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0";
-
-				def passThruOn = context.findProperty('PassThruOn').toBoolean();
-				def documentID = null;
-				if(passThruOn){
-					documentID = context.findProperty('DQPTDocID');
-				}else {
-					documentID = context.findProperty('DQDocID')
-				}
-
-				log.info("Doc ID used: " + documentID);
-				def msgDocID = holder["//ns1:AdhocQueryResponse[1]/ns3:RegistryObjectList[1]/ns3:ExtrinsicObject[1]/ns3:ExternalIdentifier[@identificationScheme='urn:uuid:2e82c1f6-a085-4c72-9da3-8640a32e42ab']/@value"];
-				assert (documentID == msgDocID)</scriptText></con:configuration>
-	</con:assertion>
-	<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+	
+	<con:assertion type="Simple Contains" name="Contains"><con:configuration><token>urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Failure</token><ignoreCase>false</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:assertion type="Simple Contains" name="Contains Error Context"><con:configuration><token>No matching target endpoint for guidance: 2.0</token><ignoreCase>false</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:assertion type="Simple Contains" name="Contains severity"><con:configuration><token>urn:oasis:names:tc:ebxml-regrep:ErrorSeverityType:Error</token><ignoreCase>false</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:assertion type="Simple Contains" name="Contains Location"><con:configuration><token>Entity Document Retrieve</token><ignoreCase>false</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
 	<con:jmsPropertyConfig/>
 	<con:wsaConfig mustUnderstand="NONE" version="200508"/>
 	<con:wsrmConfig version="1.2"/>
@@ -2553,7 +2536,7 @@ if(context.findProperty("PassThruOn").toBoolean()){
 		<con:name>FullPatientID</con:name>
 		<con:value>'D123401^^^&amp;amp;1.1&amp;amp;ISO'</con:value>
 	</con:property>
-<con:property><con:name>PassThruOn</con:name><con:value>false</con:value></con:property><con:property><con:name>startDate</con:name><con:value>2013-02-27T01:13:58Z</con:value></con:property><con:property><con:name>endDate</con:name><con:value>2013-02-27T01:23:58Z</con:value></con:property><con:property><con:name>sigDate</con:name><con:value>02/27/2013 01:13:58</con:value></con:property><con:property><con:name>expireDate</con:name><con:value>2013-03-29T00:00:00Z</con:value></con:property></con:properties>
+<con:property><con:name>PassThruOn</con:name><con:value>true</con:value></con:property><con:property><con:name>startDate</con:name><con:value>2013-06-04T17:41:36Z</con:value></con:property><con:property><con:name>endDate</con:name><con:value>2013-06-04T17:51:36Z</con:value></con:property><con:property><con:name>sigDate</con:name><con:value>06/04/2013 17:41:36</con:value></con:property><con:property><con:name>expireDate</con:name><con:value>2013-07-04T00:00:00Z</con:value></con:property></con:properties>
 <con:reportParameters/>
 </con:testCase>
 <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="DQ_30Guidance" searchProperties="true" id="78f221f4-9cea-41d3-901f-3044861523dc">
@@ -2928,7 +2911,7 @@ if(context.findProperty("PassThruOn").toBoolean()){
 		<con:name>FullPatientID</con:name>
 		<con:value>'D123401^^^&amp;amp;1.1&amp;amp;ISO'</con:value>
 	</con:property>
-<con:property><con:name>PassThruOn</con:name><con:value>false</con:value></con:property><con:property><con:name>startDate</con:name><con:value>2013-02-27T01:13:58Z</con:value></con:property><con:property><con:name>endDate</con:name><con:value>2013-02-27T01:23:58Z</con:value></con:property><con:property><con:name>sigDate</con:name><con:value>02/27/2013 01:13:58</con:value></con:property><con:property><con:name>expireDate</con:name><con:value>2013-03-29T00:00:00Z</con:value></con:property></con:properties>
+<con:property><con:name>PassThruOn</con:name><con:value>true</con:value></con:property><con:property><con:name>startDate</con:name><con:value>2013-06-04T17:41:37Z</con:value></con:property><con:property><con:name>endDate</con:name><con:value>2013-06-04T17:51:37Z</con:value></con:property><con:property><con:name>sigDate</con:name><con:value>06/04/2013 17:41:37</con:value></con:property><con:property><con:name>expireDate</con:name><con:value>2013-07-04T00:00:00Z</con:value></con:property></con:properties>
 <con:reportParameters/>
 </con:testCase>
 
@@ -3292,7 +3275,7 @@ if(context.findProperty("PassThruOn").toBoolean()){
 		<con:name>FullPatientID</con:name>
 		<con:value>'D123401^^^&amp;amp;1.1&amp;amp;ISO'</con:value>
 	</con:property>
-<con:property><con:name>PassThruOn</con:name><con:value>false</con:value></con:property><con:property><con:name>startDate</con:name><con:value>2013-02-27T01:13:58Z</con:value></con:property><con:property><con:name>endDate</con:name><con:value>2013-02-27T01:23:58Z</con:value></con:property><con:property><con:name>sigDate</con:name><con:value>02/27/2013 01:13:58</con:value></con:property><con:property><con:name>expireDate</con:name><con:value>2013-03-29T00:00:00Z</con:value></con:property></con:properties>
+<con:property><con:name>PassThruOn</con:name><con:value>true</con:value></con:property><con:property><con:name>startDate</con:name><con:value>2013-06-04T17:41:39Z</con:value></con:property><con:property><con:name>endDate</con:name><con:value>2013-06-04T17:51:39Z</con:value></con:property><con:property><con:name>sigDate</con:name><con:value>06/04/2013 17:41:39</con:value></con:property><con:property><con:name>expireDate</con:name><con:value>2013-07-04T00:00:00Z</con:value></con:property></con:properties>
 <con:reportParameters/>
 </con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="DR_NoGuidance" searchProperties="true" id="0447a19e-d258-47b0-80e2-b521b18c5464">
 	<con:settings/>
@@ -3572,35 +3555,10 @@ if(passthruValue != null){
 				<definition/>
 			</con:configuration>
 		</con:assertion>
-		<con:assertion name="Doc Repository ID" type="XPath Match">
-			<con:configuration>
-				<path>declare namespace ns5='urn:ihe:iti:xds-b:2007';
-					//ns5:RetrieveDocumentSetResponse[1]/ns5:DocumentResponse[1]/ns5:RepositoryUniqueId[1]</path>
-				<content>${#Project#DRRepoID}</content>
-				<allowWildcards>false</allowWildcards>
-				<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
-			</con:configuration>
-		</con:assertion>
-		<con:assertion name="Doc ID" type="XPath Match">
-			<con:configuration>
-				<path>declare namespace ns5='urn:ihe:iti:xds-b:2007';
-					//ns5:RetrieveDocumentSetResponse[1]/ns5:DocumentResponse[1]/ns5:DocumentUniqueId[1]</path>
-				<content>${#Project#DRDocID}</content>
-				<allowWildcards>false</allowWildcards>
-				<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
-			</con:configuration>
-		</con:assertion>
-		<con:assertion name="Document Data" type="GroovyScriptAssertion">
-			<con:configuration>
-				<scriptText>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
-					def holder = groovyUtils.getXmlHolder( messageExchange.responseContent )
-					holder.namespaces["ns"]="urn:ihe:iti:xds-b:2007"
-					def docData = holder["//ns:RetrieveDocumentSetResponse[1]/ns:DocumentResponse[1]/ns:Document[1]"]
-					log.info docData.toString()
-					assert (docData.size() != 0)</scriptText>
-			</con:configuration>
-		</con:assertion>
-		<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+		
+		
+		
+		<con:assertion type="Simple Contains" name="Contains"><con:configuration><token>urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Failure</token><ignoreCase>false</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:assertion type="Simple Contains" name="Contains context"><con:configuration><token>No matching target endpoint for guidance: 2.0</token><ignoreCase>false</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:assertion type="Simple Contains" name="Contains severity"><con:configuration><token>urn:oasis:names:tc:ebxml-regrep:ErrorSeverityType:Error</token><ignoreCase>false</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:assertion type="Simple Contains" name="Contains location"><con:configuration><token>Entity Document Retrieve</token><ignoreCase>false</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
 		<con:jmsPropertyConfig/>
 		<con:wsaConfig action="urn:gov:hhs:fha:nhinc:entitydocretrieve/EntityDocRetrievePortType/RespondingGateway_CrossGatewayRetrieveRequest" mustUnderstand="NONE" version="200508"/>
 		<con:wsrmConfig version="1.2"/>
@@ -3620,21 +3578,21 @@ if(context.findProperty("PassThruOn").toBoolean()){
 	</con:property>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2013-02-27T01:13:59Z</con:value>
+		<con:value>2013-06-04T17:41:40Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2013-02-27T01:23:59Z</con:value>
+		<con:value>2013-06-04T17:51:40Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>02/27/2013 01:13:59</con:value>
+		<con:value>06/04/2013 17:41:40</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2013-03-29T00:00:00Z</con:value>
+		<con:value>2013-07-04T00:00:00Z</con:value>
 	</con:property>
-<con:property><con:name>PassThruOn</con:name><con:value>false</con:value></con:property></con:properties>
+<con:property><con:name>PassThruOn</con:name><con:value>true</con:value></con:property></con:properties>
 <con:reportParameters/>
 </con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="DR_30Guidance" searchProperties="true" id="0500a735-4f1f-4880-93cd-668bf03dcc63">
 	<con:settings/>
@@ -3938,21 +3896,21 @@ if(context.findProperty("PassThruOn").toBoolean()){
 	</con:property>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2013-02-27T01:13:59Z</con:value>
+		<con:value>2013-06-04T17:41:40Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2013-02-27T01:23:59Z</con:value>
+		<con:value>2013-06-04T17:51:40Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>02/27/2013 01:13:59</con:value>
+		<con:value>06/04/2013 17:41:40</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2013-03-29T00:00:00Z</con:value>
+		<con:value>2013-07-04T00:00:00Z</con:value>
 	</con:property>
-<con:property><con:name>PassThruOn</con:name><con:value>false</con:value></con:property></con:properties>
+<con:property><con:name>PassThruOn</con:name><con:value>true</con:value></con:property></con:properties>
 <con:reportParameters/>
 </con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="DR_20Guidance" searchProperties="true" id="efeee199-5e55-4d4f-9809-030c7e04efee">
 	<con:settings/>
@@ -4235,7 +4193,7 @@ if(passthruValue != null){
 		
 		
 		
-		<con:assertion type="Simple Contains" name="Contains"><con:configuration><token>RegistryErrorList</token><ignoreCase>true</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:assertion type="Simple Contains" name="Contains error message"><con:configuration><token>No matching target endpoint for guidance: 2.0</token><ignoreCase>true</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:assertion type="Simple Contains" name="Contains fail status"><con:configuration><token>urn:oasis:names:tc:ebxml-regrep:ErrorSeverityType:Error</token><ignoreCase>true</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+		<con:assertion type="Simple Contains" name="Contains"><con:configuration><token>RegistryErrorList</token><ignoreCase>true</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:assertion type="Simple Contains" name="Contains error message"><con:configuration><token>No matching target endpoint for guidance: 2.0</token><ignoreCase>true</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:assertion type="Simple Contains" name="Contains fail status"><con:configuration><token>urn:oasis:names:tc:ebxml-regrep:ErrorSeverityType:Error</token><ignoreCase>true</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:assertion type="Simple Contains" name="Contains severity"><con:configuration><token>urn:oasis:names:tc:ebxml-regrep:ErrorSeverityType:Error</token><ignoreCase>false</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:assertion type="Simple Contains" name="Contains location"><con:configuration><token>Entity Document Retrieve</token><ignoreCase>false</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
 		<con:jmsPropertyConfig/>
 		<con:wsaConfig action="urn:gov:hhs:fha:nhinc:entitydocretrieve/EntityDocRetrievePortType/RespondingGateway_CrossGatewayRetrieveRequest" mustUnderstand="NONE" version="200508"/>
 		<con:wsrmConfig version="1.2"/>
@@ -4255,21 +4213,21 @@ if(context.findProperty("PassThruOn").toBoolean()){
 	</con:property>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2013-02-27T01:13:59Z</con:value>
+		<con:value>2013-06-04T17:41:40Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2013-02-27T01:23:59Z</con:value>
+		<con:value>2013-06-04T17:51:40Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>02/27/2013 01:13:59</con:value>
+		<con:value>06/04/2013 17:41:40</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2013-03-29T00:00:00Z</con:value>
+		<con:value>2013-07-04T00:00:00Z</con:value>
 	</con:property>
-<con:property><con:name>PassThruOn</con:name><con:value>false</con:value></con:property></con:properties>
+<con:property><con:name>PassThruOn</con:name><con:value>true</con:value></con:property></con:properties>
 <con:reportParameters/>
 </con:testCase><con:properties/>
 <con:setupScript/>
@@ -4634,25 +4592,8 @@ if(passthruValue != null){
 		<con:configuration/>
 	</con:assertion>
 	<con:assertion type="SOAP Fault Assertion"/>
-	<con:assertion name="DocID Match" type="GroovyScriptAssertion">
-		<con:configuration><scriptText>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
-				def holder = groovyUtils.getXmlHolder( messageExchange.responseContent );
-				holder.namespaces["ns1"] = "urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0";
-				holder.namespaces["ns3"] = "urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0";
-
-				def passThruOn = context.findProperty('PassThruOn').toBoolean();
-				def documentID = null;
-				if(passThruOn){
-					documentID = context.findProperty('DQPTDocID');
-				}else {
-					documentID = context.findProperty('DQDocID')
-				}
-
-				log.info("Doc ID used: " + documentID);
-				def msgDocID = holder["//ns1:AdhocQueryResponse[1]/ns3:RegistryObjectList[1]/ns3:ExtrinsicObject[1]/ns3:ExternalIdentifier[@identificationScheme='urn:uuid:2e82c1f6-a085-4c72-9da3-8640a32e42ab']/@value"];
-				assert (documentID == msgDocID)</scriptText></con:configuration>
-	</con:assertion>
-	<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+	
+	<con:assertion type="Simple Contains" name="Contains"><con:configuration><token>urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Failure</token><ignoreCase>true</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:assertion type="Simple Contains" name="Contains context"><con:configuration><token>No matching target endpoint for guidance: 3.0</token><ignoreCase>false</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:assertion type="Simple Contains" name="Contains location"><con:configuration><token>Entity Document Retrieve</token><ignoreCase>false</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:assertion type="Simple Contains" name="Contains severity"><con:configuration><token>urn:oasis:names:tc:ebxml-regrep:ErrorSeverityType:Error</token><ignoreCase>false</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
 	<con:jmsPropertyConfig/>
 	<con:wsaConfig mustUnderstand="NONE" version="200508"/>
 	<con:wsrmConfig version="1.2"/>
@@ -4668,25 +4609,25 @@ if(context.findProperty("PassThruOn").toBoolean()){
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2013-02-27T01:08:10Z</con:value>
+		<con:value>2013-06-04T17:43:25Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2013-02-27T01:18:10Z</con:value>
+		<con:value>2013-06-04T17:53:25Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>02/27/2013 01:08:10</con:value>
+		<con:value>06/04/2013 17:43:25</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2013-03-29T00:00:00Z</con:value>
+		<con:value>2013-07-04T00:00:00Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>FullPatientID</con:name>
 		<con:value>'D123401^^^&amp;amp;1.1&amp;amp;ISO'</con:value>
 	</con:property>
-<con:property><con:name>PassThruOn</con:name><con:value>false</con:value></con:property></con:properties>
+<con:property><con:name>PassThruOn</con:name><con:value>true</con:value></con:property></con:properties>
 <con:reportParameters/>
 </con:testCase>
 <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="DQ_30Guidance" searchProperties="true" id="88c65e31-2780-4e72-a74c-6dd79c2279dc">
@@ -5041,25 +4982,25 @@ if(context.findProperty("PassThruOn").toBoolean()){
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2013-02-27T01:08:10Z</con:value>
+		<con:value>2013-06-04T17:43:26Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2013-02-27T01:18:10Z</con:value>
+		<con:value>2013-06-04T17:53:26Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>02/27/2013 01:08:10</con:value>
+		<con:value>06/04/2013 17:43:26</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2013-03-29T00:00:00Z</con:value>
+		<con:value>2013-07-04T00:00:00Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>FullPatientID</con:name>
 		<con:value>'D123401^^^&amp;amp;1.1&amp;amp;ISO'</con:value>
 	</con:property>
-<con:property><con:name>PassThruOn</con:name><con:value>false</con:value></con:property></con:properties>
+<con:property><con:name>PassThruOn</con:name><con:value>true</con:value></con:property></con:properties>
 <con:reportParameters/>
 </con:testCase>
 
@@ -5435,25 +5376,25 @@ if(context.findProperty("PassThruOn").toBoolean()){
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2013-02-27T01:08:10Z</con:value>
+		<con:value>2013-06-04T17:43:26Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2013-02-27T01:18:10Z</con:value>
+		<con:value>2013-06-04T17:53:26Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>02/27/2013 01:08:10</con:value>
+		<con:value>06/04/2013 17:43:26</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2013-03-29T00:00:00Z</con:value>
+		<con:value>2013-07-04T00:00:00Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>FullPatientID</con:name>
 		<con:value>'D123401^^^&amp;amp;1.1&amp;amp;ISO'</con:value>
 	</con:property>
-<con:property><con:name>PassThruOn</con:name><con:value>false</con:value></con:property></con:properties>
+<con:property><con:name>PassThruOn</con:name><con:value>true</con:value></con:property></con:properties>
 <con:reportParameters/>
 </con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="DR_NoGuidance" searchProperties="true" id="29f3444a-b145-4f86-a976-9efd5d4f50c2">
 	<con:settings/>
@@ -5492,8 +5433,7 @@ if(passthruValue != null){
 		</con:settings>
 		<con:encoding>UTF-8</con:encoding>
 		
-		<con:endpoint>${#Project#DR_EntityEndpoint_g1}</con:endpoint><con:request><![CDATA[
-			<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:ihe:iti:xds-b:2007" xmlns:urn2="urn:gov:hhs:fha:nhinc:common:nhinccommon">
+		<con:endpoint>${#Project#DR_EntityEndpoint_g1}</con:endpoint><con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:ihe:iti:xds-b:2007" xmlns:urn2="urn:gov:hhs:fha:nhinc:common:nhinccommon">
    <soap:Header/>
    <soap:Body testSuite="Entity_g1" testCase="Document Retrieve">
       <urn:RespondingGateway_CrossGatewayRetrieveRequest>
@@ -5505,7 +5445,7 @@ if(passthruValue != null){
             </urn1:DocumentRequest>
          </urn1:RetrieveDocumentSetRequest>
          <urn:assertion>
-            <urn2:nationalProviderId>1234567890</urn2:nationalProviderId>         
+            <urn2:nationalProviderId>1234567890</urn2:nationalProviderId>
             <urn2:address xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
                <urn2:addressType>
                   <urn2:code>AddrCode</urn2:code>
@@ -5733,35 +5673,10 @@ if(passthruValue != null){
 				<definition/>
 			</con:configuration>
 		</con:assertion>
-		<con:assertion name="Doc Repository ID" type="XPath Match">
-			<con:configuration>
-				<path>declare namespace ns5='urn:ihe:iti:xds-b:2007';
-					//ns5:RetrieveDocumentSetResponse[1]/ns5:DocumentResponse[1]/ns5:RepositoryUniqueId[1]</path>
-				<content>${#Project#DRRepoID}</content>
-				<allowWildcards>false</allowWildcards>
-				<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
-			</con:configuration>
-		</con:assertion>
-		<con:assertion name="Doc ID" type="XPath Match">
-			<con:configuration>
-				<path>declare namespace ns5='urn:ihe:iti:xds-b:2007';
-					//ns5:RetrieveDocumentSetResponse[1]/ns5:DocumentResponse[1]/ns5:DocumentUniqueId[1]</path>
-				<content>${#Project#DRDocID}</content>
-				<allowWildcards>false</allowWildcards>
-				<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
-			</con:configuration>
-		</con:assertion>
-		<con:assertion name="Document Data" type="GroovyScriptAssertion">
-			<con:configuration>
-				<scriptText>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
-					def holder = groovyUtils.getXmlHolder( messageExchange.responseContent )
-					holder.namespaces["ns"]="urn:ihe:iti:xds-b:2007"
-					def docData = holder["//ns:RetrieveDocumentSetResponse[1]/ns:DocumentResponse[1]/ns:Document[1]"]
-					log.info docData.toString()
-					assert (docData.size() != 0)</scriptText>
-			</con:configuration>
-		</con:assertion>
-		<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+		
+		
+		
+		<con:assertion type="Simple Contains" name="Contains"><con:configuration><token>urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Failure</token><ignoreCase>false</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:assertion type="Simple Contains" name="Contains context"><con:configuration><token>No matching target endpoint for guidance: 3.0</token><ignoreCase>false</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:assertion type="Simple Contains" name="Contains severity"><con:configuration><token>urn:oasis:names:tc:ebxml-regrep:ErrorSeverityType:Error</token><ignoreCase>false</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:assertion type="Simple Contains" name="Contains location"><con:configuration><token>Entity Document Retrieve</token><ignoreCase>false</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
 		<con:jmsPropertyConfig/>
 		<con:wsaConfig action="urn:gov:hhs:fha:nhinc:entitydocretrieve/EntityDocRetrievePortType/RespondingGateway_CrossGatewayRetrieveRequest" mustUnderstand="NONE" version="200508"/>
 		<con:wsrmConfig version="1.2"/>
@@ -5781,21 +5696,21 @@ if(context.findProperty("PassThruOn").toBoolean()){
 	</con:property>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2013-02-27T01:08:13Z</con:value>
+		<con:value>2013-06-04T17:43:28Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2013-02-27T01:18:13Z</con:value>
+		<con:value>2013-06-04T17:53:28Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>02/27/2013 01:08:13</con:value>
+		<con:value>06/04/2013 17:43:28</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2013-03-29T00:00:00Z</con:value>
+		<con:value>2013-07-04T00:00:00Z</con:value>
 	</con:property>
-<con:property><con:name>PassThruOn</con:name><con:value>false</con:value></con:property></con:properties>
+<con:property><con:name>PassThruOn</con:name><con:value>true</con:value></con:property></con:properties>
 <con:reportParameters/>
 </con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="DR_30Guidance" searchProperties="true" id="fcb7e0fd-67cd-4193-bc82-3eb278d5ae81">
 	<con:settings/>
@@ -6079,7 +5994,7 @@ if(passthruValue != null){
 		
 		
 		
-		<con:assertion type="Simple Contains" name="Contains"><con:configuration><token>RegistryErrorList</token><ignoreCase>true</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:assertion type="Simple Contains" name="Contains error message"><con:configuration><token>No matching target endpoint for guidance</token><ignoreCase>true</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:assertion type="Simple Contains" name="Contains fail status"><con:configuration><token>urn:oasis:names:tc:ebxml-regrep:ErrorSeverityType:Error</token><ignoreCase>true</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+		<con:assertion type="Simple Contains" name="Contains"><con:configuration><token>RegistryErrorList</token><ignoreCase>true</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:assertion type="Simple Contains" name="Contains error message"><con:configuration><token>No matching target endpoint for guidance: 3.0</token><ignoreCase>true</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:assertion type="Simple Contains" name="Contains fail status"><con:configuration><token>urn:oasis:names:tc:ebxml-regrep:ErrorSeverityType:Error</token><ignoreCase>true</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:assertion type="Simple Contains" name="Contains severity"><con:configuration><token>urn:oasis:names:tc:ebxml-regrep:ErrorSeverityType:Error</token><ignoreCase>false</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:assertion type="Simple Contains" name="Contains location"><con:configuration><token>Entity Document Retrieve</token><ignoreCase>false</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
 		<con:jmsPropertyConfig/>
 		<con:wsaConfig action="urn:gov:hhs:fha:nhinc:entitydocretrieve/EntityDocRetrievePortType/RespondingGateway_CrossGatewayRetrieveRequest" mustUnderstand="NONE" version="200508"/>
 		<con:wsrmConfig version="1.2"/>
@@ -6099,21 +6014,21 @@ if(context.findProperty("PassThruOn").toBoolean()){
 	</con:property>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2013-02-27T01:08:13Z</con:value>
+		<con:value>2013-06-04T17:43:28Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2013-02-27T01:18:13Z</con:value>
+		<con:value>2013-06-04T17:53:28Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>02/27/2013 01:08:13</con:value>
+		<con:value>06/04/2013 17:43:28</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2013-03-29T00:00:00Z</con:value>
+		<con:value>2013-07-04T00:00:00Z</con:value>
 	</con:property>
-<con:property><con:name>PassThruOn</con:name><con:value>false</con:value></con:property></con:properties>
+<con:property><con:name>PassThruOn</con:name><con:value>true</con:value></con:property></con:properties>
 <con:reportParameters/>
 </con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="DR_20Guidance" searchProperties="true" id="ecac02ff-e361-40ad-b446-bb7d66b82c04">
 	<con:settings/>
@@ -6442,21 +6357,21 @@ if(context.findProperty("PassThruOn").toBoolean()){
 	</con:property>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2013-02-27T01:08:13Z</con:value>
+		<con:value>2013-06-04T17:43:29Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2013-02-27T01:18:13Z</con:value>
+		<con:value>2013-06-04T17:53:29Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>02/27/2013 01:08:13</con:value>
+		<con:value>06/04/2013 17:43:29</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2013-03-29T00:00:00Z</con:value>
+		<con:value>2013-07-04T00:00:00Z</con:value>
 	</con:property>
-<con:property><con:name>PassThruOn</con:name><con:value>false</con:value></con:property></con:properties>
+<con:property><con:name>PassThruOn</con:name><con:value>true</con:value></con:property></con:properties>
 <con:reportParameters/>
 </con:testCase><con:properties/>
 <con:setupScript/>
@@ -6837,25 +6752,25 @@ if(context.findProperty("PassThruOn").toBoolean()){
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2013-02-27T01:08:10Z</con:value>
+		<con:value>2013-06-04T17:43:39Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2013-02-27T01:18:10Z</con:value>
+		<con:value>2013-06-04T17:53:39Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>02/27/2013 01:08:10</con:value>
+		<con:value>06/04/2013 17:43:39</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2013-03-29T00:00:00Z</con:value>
+		<con:value>2013-07-04T00:00:00Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>FullPatientID</con:name>
 		<con:value>'D123401^^^&amp;amp;1.1&amp;amp;ISO'</con:value>
 	</con:property>
-<con:property><con:name>PassThruOn</con:name><con:value>false</con:value></con:property></con:properties>
+<con:property><con:name>PassThruOn</con:name><con:value>true</con:value></con:property></con:properties>
 <con:reportParameters/>
 </con:testCase>
 <con:testCase failOnError="true" failTestCaseOnErrors="true" id="801f7f15-5164-41c3-907f-9c0a9db42262" keepSession="false" maxResults="0" name="DQ_NoGuidance" searchProperties="true">
@@ -7227,25 +7142,25 @@ if(context.findProperty("PassThruOn").toBoolean()){
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2013-06-03T13:09:06Z</con:value>
+		<con:value>2013-06-04T17:43:39Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2013-06-03T13:19:06Z</con:value>
+		<con:value>2013-06-04T17:53:39Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>06/03/2013 13:09:06</con:value>
+		<con:value>06/04/2013 17:43:39</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2013-07-03T00:00:00Z</con:value>
+		<con:value>2013-07-04T00:00:00Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>FullPatientID</con:name>
 		<con:value>'D123401^^^&amp;amp;1.1&amp;amp;ISO'</con:value>
 	</con:property>
-<con:property><con:name>PassThruOn</con:name><con:value>false</con:value></con:property></con:properties>
+<con:property><con:name>PassThruOn</con:name><con:value>true</con:value></con:property></con:properties>
 <con:reportParameters/>
 </con:testCase>
 
@@ -7621,25 +7536,25 @@ if(context.findProperty("PassThruOn").toBoolean()){
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2013-02-27T01:08:10Z</con:value>
+		<con:value>2013-06-04T17:43:41Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2013-02-27T01:18:10Z</con:value>
+		<con:value>2013-06-04T17:53:41Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>02/27/2013 01:08:10</con:value>
+		<con:value>06/04/2013 17:43:41</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2013-03-29T00:00:00Z</con:value>
+		<con:value>2013-07-04T00:00:00Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>FullPatientID</con:name>
 		<con:value>'D123401^^^&amp;amp;1.1&amp;amp;ISO'</con:value>
 	</con:property>
-<con:property><con:name>PassThruOn</con:name><con:value>false</con:value></con:property></con:properties>
+<con:property><con:name>PassThruOn</con:name><con:value>true</con:value></con:property></con:properties>
 <con:reportParameters/>
 </con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" id="08c7914d-69d5-40a5-951d-5774a8836aad" keepSession="false" maxResults="0" name="DR_NoGuidance" searchProperties="true">
 	<con:settings/>
@@ -7966,21 +7881,21 @@ if(context.findProperty("PassThruOn").toBoolean()){
 	</con:property>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2013-06-03T13:09:08Z</con:value>
+		<con:value>2013-06-04T17:43:43Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2013-06-03T13:19:08Z</con:value>
+		<con:value>2013-06-04T17:53:43Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>06/03/2013 13:09:08</con:value>
+		<con:value>06/04/2013 17:43:43</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2013-07-03T00:00:00Z</con:value>
+		<con:value>2013-07-04T00:00:00Z</con:value>
 	</con:property>
-<con:property><con:name>PassThruOn</con:name><con:value>false</con:value></con:property></con:properties>
+<con:property><con:name>PassThruOn</con:name><con:value>true</con:value></con:property></con:properties>
 <con:reportParameters/>
 </con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="DR_20Guidance" searchProperties="true" id="173c454d-c50e-444c-8bc3-8e9476f19d70">
 	<con:settings/>
@@ -8264,7 +8179,7 @@ if(passthruValue != null){
 		
 		
 		
-		<con:assertion type="Simple Contains" name="Contains"><con:configuration><token>RegistryErrorList</token><ignoreCase>true</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:assertion type="Simple Contains" name="Contains error message"><con:configuration><token>No matching target endpoint for guidance</token><ignoreCase>true</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+		<con:assertion type="Simple Contains" name="Contains"><con:configuration><token>RegistryErrorList</token><ignoreCase>true</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:assertion type="Simple Contains" name="Contains error message"><con:configuration><token>No matching target endpoint for guidance: 2.0</token><ignoreCase>true</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:assertion type="Simple Contains" name="Contains status"><con:configuration><token>urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Failure</token><ignoreCase>false</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:assertion type="Simple Contains" name="Contains severity"><con:configuration><token>urn:oasis:names:tc:ebxml-regrep:ErrorSeverityType:Error</token><ignoreCase>false</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:assertion type="Simple Contains" name="Contains location"><con:configuration><token>Entity Document Retrieve</token><ignoreCase>false</ignoreCase><useRegEx>false</useRegEx></con:configuration></con:assertion><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
 		<con:jmsPropertyConfig/>
 		<con:wsaConfig action="urn:gov:hhs:fha:nhinc:entitydocretrieve/EntityDocRetrievePortType/RespondingGateway_CrossGatewayRetrieveRequest" mustUnderstand="NONE" version="200508"/>
 		<con:wsrmConfig version="1.2"/>
@@ -8284,21 +8199,21 @@ if(context.findProperty("PassThruOn").toBoolean()){
 	</con:property>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2013-02-27T01:08:13Z</con:value>
+		<con:value>2013-06-04T17:43:44Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2013-02-27T01:18:13Z</con:value>
+		<con:value>2013-06-04T17:53:44Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>02/27/2013 01:08:13</con:value>
+		<con:value>06/04/2013 17:43:44</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2013-03-29T00:00:00Z</con:value>
+		<con:value>2013-07-04T00:00:00Z</con:value>
 	</con:property>
-<con:property><con:name>PassThruOn</con:name><con:value>false</con:value></con:property></con:properties>
+<con:property><con:name>PassThruOn</con:name><con:value>true</con:value></con:property></con:properties>
 <con:reportParameters/>
 </con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="DR_30Guidance" searchProperties="true" id="a783edff-c86c-4d1b-b469-b1979c1682ea">
 	<con:settings/>
@@ -8627,21 +8542,21 @@ if(context.findProperty("PassThruOn").toBoolean()){
 	</con:property>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2013-02-27T01:08:13Z</con:value>
+		<con:value>2013-06-04T17:43:44Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2013-02-27T01:18:13Z</con:value>
+		<con:value>2013-06-04T17:53:44Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>02/27/2013 01:08:13</con:value>
+		<con:value>06/04/2013 17:43:44</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2013-03-29T00:00:00Z</con:value>
+		<con:value>2013-07-04T00:00:00Z</con:value>
 	</con:property>
-<con:property><con:name>PassThruOn</con:name><con:value>false</con:value></con:property></con:properties>
+<con:property><con:name>PassThruOn</con:name><con:value>true</con:value></con:property></con:properties>
 <con:reportParameters/>
 </con:testCase><con:properties/>
 <con:setupScript/>
@@ -8779,7 +8694,7 @@ if(context.findProperty("PassThruOn").toBoolean()){
 	
 	
 	
-<con:property><con:name>AAMappingDB</con:name><con:value>assigningauthoritydb</con:value></con:property><con:property><con:name>AAMappingTable</con:name><con:value>aa_to_home_community_mapping</con:value></con:property><con:property><con:name>AuditRepoDB</con:name><con:value>auditrepo</con:value></con:property><con:property><con:name>AuditRepoTable</con:name><con:value>auditrepository</con:value></con:property><con:property><con:name>BirthTime</con:name><con:value>19630804</con:value></con:property><con:property><con:name>City</con:name><con:value>Melbourne</con:value></con:property><con:property><con:name>Country</con:name><con:value>US</con:value></con:property><con:property><con:name>DateOfSignature</con:name><con:value>20080520</con:value></con:property><con:property><con:name>DBHost</con:name><con:value>localhost</con:value></con:property><con:property><con:name>DBPass</con:name><con:value>nhincpass</con:value></con:property><con:property><con:name>DBPort</con:name><con:value>3306</con:value></con:property><con:property><con:name>DBUser</con:name><con:value>nhincuser</con:value></con:property><con:property><con:name>DOB</con:name><con:value>19800516</con:value></con:property><con:property><con:name>DQDocID</con:name><con:value>1.123401.55555</con:value></con:property><con:property><con:name>DQPatientID</con:name><con:value>D123401</con:value></con:property><con:property><con:name>DQPTDocID</con:name><con:value>1.123401.11111</con:value></con:property><con:property><con:name>DRDocID</con:name><con:value>1.123407.777777</con:value></con:property><con:property><con:name>DRRepoID</con:name><con:value>1</con:value></con:property><con:property><con:name>DynamicDQDocID</con:name><con:value>103.8.9284320.020.3590.75^1266324032288</con:value></con:property><con:property><con:name>ExpirationDate</con:name><con:value>20100520</con:value></con:property><con:property><con:name>FamilyName</con:name><con:value>Younger</con:value></con:property><con:property><con:name>GatewayPropDir</con:name><con:value/></con:property><con:property><con:name>Gender</con:name><con:value>M</con:value></con:property><con:property><con:name>GivenName</con:name><con:value>Gallow</con:value></con:property><con:property><con:name>LocalAA</con:name><con:value>1.1</con:value></con:property><con:property><con:name>LocalHCDescription</con:name><con:value>InternalTest1</con:value></con:property><con:property><con:name>LocalHCID</con:name><con:value>1.1</con:value></con:property><con:property><con:name>LocalPatientID</con:name><con:value>D123401</con:value></con:property><con:property><con:name>PatientCorrelationDB</con:name><con:value>patientcorrelationdb</con:value></con:property><con:property><con:name>PatientCorrelationTable</con:name><con:value>correlatedidentifiers</con:value></con:property><con:property><con:name>project.name</con:name><con:value>EntityValidation</con:value></con:property><con:property><con:name>PurposeOfDisclosure</con:name><con:value>Mental</con:value></con:property><con:property><con:name>RemoteAA</con:name><con:value>2.2</con:value></con:property><con:property><con:name>RemoteHCDescription</con:name><con:value>InternalTest2</con:value></con:property><con:property><con:name>RemoteHCID</con:name><con:value>2.2</con:value></con:property><con:property><con:name>RemotePatientID</con:name><con:value>D123401</con:value></con:property><con:property><con:name>SSN</con:name><con:value>123456789</con:value></con:property><con:property><con:name>State</con:name><con:value>FL</con:value></con:property><con:property><con:name>StreetAddress</con:name><con:value>123 Johnson Rd</con:value></con:property><con:property><con:name>SubjectID</con:name><con:value>1111</con:value></con:property><con:property><con:name>UniquePatientId</con:name><con:value>1111^^^&amp;amp;1.1&amp;amp;ISO</con:value></con:property><con:property><con:name>UnSubscriptionID</con:name><con:value>6deec8e7-6e6c-4269-91c2-69cb777ab8b0</con:value></con:property><con:property><con:name>ZipCode</con:name><con:value>12345</con:value></con:property><con:property><con:name>DQ_EntityEndpoint_g1</con:name><con:value>http://localhost:8080/Gateway/DocumentQuery/3_0/EntityService/EntityDocQueryUnsecured</con:value></con:property><con:property><con:name>DQ_EntityEndpoint_g0</con:name><con:value>http://localhost:8080/Gateway/DocumentQuery/2_0/EntityService/EntityDocQueryUnsecured</con:value></con:property><con:property><con:name>DR_EntityEndpoint_g0</con:name><con:value>http://localhost:8080/Gateway/DocumentRetrieve/2_0/EntityService/EntityDocRetrieve</con:value></con:property><con:property><con:name>DR_EntityEndpoint_g1</con:name><con:value>http://localhost:8080/Gateway/DocumentRetrieve/3_0/EntityService/EntityDocRetrieve</con:value></con:property></con:properties>
+<con:property><con:name>AAMappingDB</con:name><con:value>assigningauthoritydb</con:value></con:property><con:property><con:name>AAMappingTable</con:name><con:value>aa_to_home_community_mapping</con:value></con:property><con:property><con:name>AuditRepoDB</con:name><con:value>auditrepo</con:value></con:property><con:property><con:name>AuditRepoTable</con:name><con:value>auditrepository</con:value></con:property><con:property><con:name>BirthTime</con:name><con:value>19630804</con:value></con:property><con:property><con:name>City</con:name><con:value>Melbourne</con:value></con:property><con:property><con:name>Country</con:name><con:value>US</con:value></con:property><con:property><con:name>DateOfSignature</con:name><con:value>20080520</con:value></con:property><con:property><con:name>DBHost</con:name><con:value>localhost</con:value></con:property><con:property><con:name>DBPass</con:name><con:value>nhincpass</con:value></con:property><con:property><con:name>DBPort</con:name><con:value>3306</con:value></con:property><con:property><con:name>DBUser</con:name><con:value>nhincuser</con:value></con:property><con:property><con:name>DOB</con:name><con:value>19800516</con:value></con:property><con:property><con:name>DQDocID</con:name><con:value>1.123401.55555</con:value></con:property><con:property><con:name>DQPatientID</con:name><con:value>D123401</con:value></con:property><con:property><con:name>DQPTDocID</con:name><con:value>1.123401.55555</con:value></con:property><con:property><con:name>DRDocID</con:name><con:value>1.123407.777777</con:value></con:property><con:property><con:name>DRRepoID</con:name><con:value>1</con:value></con:property><con:property><con:name>DynamicDQDocID</con:name><con:value>103.8.9284320.020.3590.75^1266324032288</con:value></con:property><con:property><con:name>ExpirationDate</con:name><con:value>20100520</con:value></con:property><con:property><con:name>FamilyName</con:name><con:value>Younger</con:value></con:property><con:property><con:name>GatewayPropDir</con:name><con:value>D:/glassfish3/glassfish/domains/domain1/config/nhin</con:value></con:property><con:property><con:name>Gender</con:name><con:value>M</con:value></con:property><con:property><con:name>GivenName</con:name><con:value>Gallow</con:value></con:property><con:property><con:name>LocalAA</con:name><con:value>1.1</con:value></con:property><con:property><con:name>LocalHCDescription</con:name><con:value>InternalTest1</con:value></con:property><con:property><con:name>LocalHCID</con:name><con:value>1.1</con:value></con:property><con:property><con:name>LocalPatientID</con:name><con:value>D123401</con:value></con:property><con:property><con:name>PatientCorrelationDB</con:name><con:value>patientcorrelationdb</con:value></con:property><con:property><con:name>PatientCorrelationTable</con:name><con:value>correlatedidentifiers</con:value></con:property><con:property><con:name>project.name</con:name><con:value>EntityValidation</con:value></con:property><con:property><con:name>PurposeOfDisclosure</con:name><con:value>Mental</con:value></con:property><con:property><con:name>RemoteAA</con:name><con:value>2.2</con:value></con:property><con:property><con:name>RemoteHCDescription</con:name><con:value>InternalTest2</con:value></con:property><con:property><con:name>RemoteHCID</con:name><con:value>2.2</con:value></con:property><con:property><con:name>RemotePatientID</con:name><con:value>D123401</con:value></con:property><con:property><con:name>SSN</con:name><con:value>123456789</con:value></con:property><con:property><con:name>State</con:name><con:value>FL</con:value></con:property><con:property><con:name>StreetAddress</con:name><con:value>123 Johnson Rd</con:value></con:property><con:property><con:name>SubjectID</con:name><con:value>1111</con:value></con:property><con:property><con:name>UniquePatientId</con:name><con:value>1111^^^&amp;amp;1.1&amp;amp;ISO</con:value></con:property><con:property><con:name>UnSubscriptionID</con:name><con:value>6deec8e7-6e6c-4269-91c2-69cb777ab8b0</con:value></con:property><con:property><con:name>ZipCode</con:name><con:value>12345</con:value></con:property><con:property><con:name>DQ_EntityEndpoint_g1</con:name><con:value>http://localhost:8080/Gateway/DocumentQuery/3_0/EntityService/EntityDocQueryUnsecured</con:value></con:property><con:property><con:name>DQ_EntityEndpoint_g0</con:name><con:value>http://localhost:8080/Gateway/DocumentQuery/2_0/EntityService/EntityDocQueryUnsecured</con:value></con:property><con:property><con:name>DR_EntityEndpoint_g0</con:name><con:value>http://localhost:8080/Gateway/DocumentRetrieve/2_0/EntityService/EntityDocRetrieve</con:value></con:property><con:property><con:name>DR_EntityEndpoint_g1</con:name><con:value>http://localhost:8080/Gateway/DocumentRetrieve/3_0/EntityService/EntityDocRetrieve</con:value></con:property></con:properties>
 <con:afterLoadScript>def propertiesFilename = project.path[0..(project.path.size()-4)] + 'properties'
 def propertiesFile = new File(propertiesFilename)
 if (propertiesFile.exists()) {
