@@ -40,52 +40,51 @@ import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
-
 import org.apache.log4j.Logger;
 
 /**
- * 
+ *
  * @author jhoppesc
  */
 public class AdapterDocQueryProxyWebServiceUnsecuredImpl extends BaseAdapterDocQueryProxy {
+
     private static final Logger LOG = Logger.getLogger(AdapterDocQueryProxyWebServiceUnsecuredImpl.class);
 
     /**
-     * @param apiLevel
-     *            Adapter ApiLevel Param.
+     * @param apiLevel Adapter ApiLevel Param.
      * @return Adapter Apilevel to be implemented (a0 or a1).
      */
     public ServicePortDescriptor<AdapterDocQueryPortType> getServicePortDescriptor(
-            NhincConstants.ADAPTER_API_LEVEL apiLevel) {
+        NhincConstants.ADAPTER_API_LEVEL apiLevel) {
         switch (apiLevel) {
-        case LEVEL_a0:
-            return new AdapterDocQueryServicePortDescriptor();
-        default:
-            return new AdapterDocQueryServicePortDescriptor();
+            case LEVEL_a0:
+                return new AdapterDocQueryServicePortDescriptor();
+            default:
+                return new AdapterDocQueryServicePortDescriptor();
         }
     }
 
     /**
      * The respondingGatewayCrossGatewayQuery method returns AdhocQueryResponse from Adapter interface.
-     * 
-     * @param msg
-     *            The AdhocQueryRequest message.
-     * @param assertion
-     *            Assertion received.
+     *
+     * @param msg The AdhocQueryRequest message.
+     * @param assertion Assertion received.
      * @return AdhocQuery Response from Adapter interface.
      */
     @AdapterDelegationEvent(beforeBuilder = AdhocQueryRequestDescriptionBuilder.class,
-            afterReturningBuilder = AdhocQueryResponseDescriptionBuilder.class, serviceType = "Document Query",
-            version = "")
+    afterReturningBuilder = AdhocQueryResponseDescriptionBuilder.class, serviceType = "Document Query",
+    version = "")
+    @Override
     public AdhocQueryResponse respondingGatewayCrossGatewayQuery(AdhocQueryRequest msg, AssertionType assertion) {
         LOG.debug("Begin respondingGatewayCrossGatewayQuery");
         AdhocQueryResponse response = null;
-
+        String url = null;
         try {
-            String url = getWebServiceProxyHelper().getAdapterEndPointFromConnectionManager(
-                    NhincConstants.ADAPTER_DOC_QUERY_SERVICE_NAME);
+            //get the Adopter Endpoint URL
+            url = getEndPointFromConnectionManagerByAdapterAPILevel(assertion, NhincConstants.ADAPTER_DOC_QUERY_SERVICE_NAME);
+            //Call the service
             if (NullChecker.isNotNullish(url)) {
-
+                LOG.debug("getEndPointFromConnectionManagerByAdapterAPILevel:" + url);
                 if (msg == null) {
                     LOG.error("Message was null");
                 } else if (assertion == null) {
@@ -97,14 +96,14 @@ public class AdapterDocQueryProxyWebServiceUnsecuredImpl extends BaseAdapterDocQ
                     ServicePortDescriptor<AdapterDocQueryPortType> portDescriptor = getServicePortDescriptor(NhincConstants.ADAPTER_API_LEVEL.LEVEL_a0);
 
                     CONNECTClient<AdapterDocQueryPortType> client = CONNECTClientFactory.getInstance()
-                            .getCONNECTClientUnsecured(portDescriptor, url, assertion);
+                        .getCONNECTClientUnsecured(portDescriptor, url, assertion);
 
                     response = (AdhocQueryResponse) client.invokePort(AdapterDocQueryPortType.class,
-                            "respondingGatewayCrossGatewayQuery", request);
+                        "respondingGatewayCrossGatewayQuery", request);
                 }
             } else {
                 LOG.error("Failed to call the web service (" + NhincConstants.ADAPTER_DOC_QUERY_SERVICE_NAME
-                        + ").  The URL is null.");
+                    + ").  The URL is null.");
             }
         } catch (Exception ex) {
             LOG.error("Error sending Adapter Doc Query Unsecured message: " + ex.getMessage(), ex);
@@ -114,5 +113,4 @@ public class AdapterDocQueryProxyWebServiceUnsecuredImpl extends BaseAdapterDocQ
         LOG.debug("End respondingGatewayCrossGatewayQuery");
         return response;
     }
-
 }

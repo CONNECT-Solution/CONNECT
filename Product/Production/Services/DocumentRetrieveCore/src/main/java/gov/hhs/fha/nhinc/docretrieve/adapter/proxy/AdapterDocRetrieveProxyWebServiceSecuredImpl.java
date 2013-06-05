@@ -26,11 +26,6 @@
  */
 package gov.hhs.fha.nhinc.docretrieve.adapter.proxy;
 
-import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
-import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
-
-import org.apache.log4j.Logger;
-
 import gov.hhs.fha.nhinc.adapterdocretrievesecured.AdapterDocRetrieveSecuredPortType;
 import gov.hhs.fha.nhinc.aspect.AdapterDelegationEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
@@ -42,17 +37,18 @@ import gov.hhs.fha.nhinc.messaging.client.CONNECTClient;
 import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
-import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
+import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
+import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
+import org.apache.log4j.Logger;
 
 /**
  * This is the secured web service implementation of the Adapter Doc Retrieve component proxy.
  *
  * @author Neil Webb, Les Westberg
  */
-public class AdapterDocRetrieveProxyWebServiceSecuredImpl implements AdapterDocRetrieveProxy {
+public class AdapterDocRetrieveProxyWebServiceSecuredImpl extends BaseAdapterDocRetrieveProxy {
 
     private static final Logger LOG = Logger.getLogger(AdapterDocRetrieveProxyWebServiceSecuredImpl.class);
-    private final WebServiceProxyHelper oProxyHelper = new WebServiceProxyHelper();
 
     /**
      * Retrieve the document(s)
@@ -63,44 +59,43 @@ public class AdapterDocRetrieveProxyWebServiceSecuredImpl implements AdapterDocR
      */
     @Override
     @AdapterDelegationEvent(beforeBuilder = RetrieveDocumentSetRequestTypeDescriptionBuilder.class,
-    afterReturningBuilder = RetrieveDocumentSetResponseTypeDescriptionBuilder.class, 
+    afterReturningBuilder = RetrieveDocumentSetResponseTypeDescriptionBuilder.class,
     serviceType = "Retrieve Document", version = "")
     public RetrieveDocumentSetResponseType retrieveDocumentSet(RetrieveDocumentSetRequestType request,
-            AssertionType assertion) {
+        AssertionType assertion) {
         String url = null;
         RetrieveDocumentSetResponseType response = new RetrieveDocumentSetResponseType();
-        String sServiceName = NhincConstants.ADAPTER_DOC_RETRIEVE_SECURED_SERVICE_NAME;
 
         try {
             if (request != null) {
                 LOG.debug("Before target system URL look up.");
 
-                url = oProxyHelper.getAdapterEndPointFromConnectionManager(sServiceName);
-                LOG.debug("After target system URL look up. URL for service: " + sServiceName + " is: " + url);
+                url = getEndPointFromConnectionManagerByAdapterAPILevel(assertion, NhincConstants.ADAPTER_DOC_RETRIEVE_SECURED_SERVICE_NAME);
+                LOG.debug("After target system URL look up. URL for service: " + NhincConstants.ADAPTER_DOC_RETRIEVE_SECURED_SERVICE_NAME + " is: " + url);
 
                 if (NullChecker.isNotNullish(url)) {
-                    ServicePortDescriptor<AdapterDocRetrieveSecuredPortType> portDescriptor = 
-                            new AdapterDocRetrieveSecuredServicePortDescriptor();
+                    ServicePortDescriptor<AdapterDocRetrieveSecuredPortType> portDescriptor =
+                        new AdapterDocRetrieveSecuredServicePortDescriptor();
                     CONNECTClient<AdapterDocRetrieveSecuredPortType> client = getCONNECTClientSecured(portDescriptor,
-                            url, assertion);
+                        url, assertion);
                     response = (RetrieveDocumentSetResponseType) client.invokePort(
-                            AdapterDocRetrieveSecuredPortType.class, "respondingGatewayCrossGatewayRetrieve", request);
+                        AdapterDocRetrieveSecuredPortType.class, "respondingGatewayCrossGatewayRetrieve", request);
                 } else {
-                    LOG.error("Failed to call the web service (" + sServiceName + ").  The URL is null.");
+                    LOG.error("Failed to call the web service (" + NhincConstants.ADAPTER_DOC_RETRIEVE_SECURED_SERVICE_NAME + ").  The URL is null.");
                 }
             } else {
-                LOG.error("Failed to call the web service (" + sServiceName + ").  The input parameter is null.");
+                LOG.error("Failed to call the web service (" + NhincConstants.ADAPTER_DOC_RETRIEVE_SECURED_SERVICE_NAME + ").  The input parameter is null.");
             }
         } catch (Exception e) {
-            LOG.error("Failed to call the web service (" + sServiceName + ").  An unexpected exception occurred.  "
-                    + "Exception: " + e.getMessage(), e);
+            LOG.error("Failed to call the web service (" + NhincConstants.ADAPTER_DOC_RETRIEVE_SECURED_SERVICE_NAME + ").  An unexpected exception occurred.  "
+                + "Exception: " + e.getMessage(), e);
         }
 
         return response;
     }
 
     protected CONNECTClient<AdapterDocRetrieveSecuredPortType> getCONNECTClientSecured(
-            ServicePortDescriptor<AdapterDocRetrieveSecuredPortType> portDescriptor, String url, AssertionType assertion) {
+        ServicePortDescriptor<AdapterDocRetrieveSecuredPortType> portDescriptor, String url, AssertionType assertion) {
 
         return CONNECTCXFClientFactory.getInstance().getCONNECTClientSecured(portDescriptor, url, assertion);
     }

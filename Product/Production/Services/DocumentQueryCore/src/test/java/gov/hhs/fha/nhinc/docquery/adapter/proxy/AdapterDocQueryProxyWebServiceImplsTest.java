@@ -26,19 +26,26 @@
  */
 package gov.hhs.fha.nhinc.docquery.adapter.proxy;
 
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
+import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertEquals;
+import org.junit.Test;
+import static org.mockito.Matchers.any;
+import static org.mockito.Matchers.eq;
 import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
-
-import org.junit.Test;
 
 public class AdapterDocQueryProxyWebServiceImplsTest {
 
-    private BaseAdapterDocQueryProxy[] proxies = new BaseAdapterDocQueryProxy[] {
-            new AdapterDocQueryProxyWebServiceSecuredImpl(), new AdapterDocQueryProxyWebServiceUnsecuredImpl() };
+    private BaseAdapterDocQueryProxy[] proxies = new BaseAdapterDocQueryProxy[]{
+        new AdapterDocQueryProxyWebServiceSecuredImpl(), new AdapterDocQueryProxyWebServiceUnsecuredImpl()};
+    
+    private String[] serciveNames = {NhincConstants.ADAPTER_DOC_QUERY_SECURED_SERVICE_NAME,NhincConstants.ADAPTER_DOC_QUERY_SERVICE_NAME};
 
     @Test
     public void hasDefaultAdapterHelper() {
@@ -53,16 +60,47 @@ public class AdapterDocQueryProxyWebServiceImplsTest {
     public void adapterHelperCreatesErrorResponse() throws Exception {
         for (int i = 0; i < proxies.length; ++i) {
             BaseAdapterDocQueryProxy impl = proxies[i];
-
             WebServiceProxyHelper proxyMock = mock(WebServiceProxyHelper.class);
             when(proxyMock.getAdapterEndPointFromConnectionManager(anyString())).thenThrow(RuntimeException.class);
+            when(proxyMock.getEndPointFromConnectionManagerByAdapterAPILevel(anyString(), any(NhincConstants.ADAPTER_API_LEVEL.class))).thenThrow(RuntimeException.class);
             impl.setWebServiceProxyHelper(proxyMock);
-
             AdapterHelper helper = mock(AdapterHelper.class);
             impl.setAdapterHelper(helper);
+            AdhocQueryResponse response = impl.respondingGatewayCrossGatewayQuery(null, null);
+            assertEquals(response, helper.createErrorResponse());
+        }
+    }
 
-            impl.respondingGatewayCrossGatewayQuery(null, null);
-            verify(helper).createErrorResponse();
+    @Test
+    public void checkEndpointURLBasedOnImplementsSpecVersion() throws Exception {
+        final String a0_URL = "a0 URL";
+        final String a1_URL = "a1 URL";
+        String url = null;
+
+        WebServiceProxyHelper proxyMock = mock(WebServiceProxyHelper.class);
+        when(proxyMock.getAdapterEndPointFromConnectionManager(anyString())).thenReturn(a1_URL);
+        when(proxyMock.getEndPointFromConnectionManagerByAdapterAPILevel(anyString(), eq(NhincConstants.ADAPTER_API_LEVEL.LEVEL_a0))).thenReturn(a0_URL);
+        when(proxyMock.getEndPointFromConnectionManagerByAdapterAPILevel(anyString(), eq(NhincConstants.ADAPTER_API_LEVEL.LEVEL_a1))).thenReturn(a1_URL);
+        //check for bot secured and unsecured endpoints
+        for (int i = 0; i < proxies.length; ++i) {
+            //instance of assertion type
+            AssertionType assertion = new AssertionType();
+            BaseAdapterDocQueryProxy impl = proxies[i];
+            impl.setWebServiceProxyHelper(proxyMock);
+            //for 2010
+            assertion.setImplementsSpecVersion(NhincConstants.UDDI_SPEC_VERSION.SPEC_2_0.toString());
+            url = impl.getEndPointFromConnectionManagerByAdapterAPILevel(assertion,serciveNames[i]);
+            assertEquals(a0_URL, url);
+
+            //for 2011
+            assertion.setImplementsSpecVersion(NhincConstants.UDDI_SPEC_VERSION.SPEC_3_0.toString());
+            url = impl.getEndPointFromConnectionManagerByAdapterAPILevel(assertion,serciveNames[i]);
+            assertEquals(a1_URL, url);
+
+            //if ImplementsSpecVersion is null
+            assertion.setImplementsSpecVersion(null);
+            url = impl.getEndPointFromConnectionManagerByAdapterAPILevel(assertion,serciveNames[i]);
+            assertEquals(a1_URL, url);
         }
     }
 }
