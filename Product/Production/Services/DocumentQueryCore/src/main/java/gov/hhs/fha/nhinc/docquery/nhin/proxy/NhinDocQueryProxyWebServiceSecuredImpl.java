@@ -47,6 +47,7 @@ import gov.hhs.fha.nhinc.xdcommon.XDCommonResponseHelper.ErrorCodes;
 import ihe.iti.xds_b._2007.RespondingGatewayQueryPortType;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
+import oasis.names.tc.ebxml_regrep.xsd.rim._3.RegistryObjectListType;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
 import org.apache.commons.lang.StringUtils;
@@ -130,9 +131,11 @@ public class NhinDocQueryProxyWebServiceSecuredImpl implements NhinDocQueryProxy
 
         } catch (ConnectionManagerException e) {
             XDCommonResponseHelper helper = new XDCommonResponseHelper();
-            RegistryResponseType registryError = helper.createError(e.getLocalizedMessage(), ErrorCodes.XDSRepositoryError, NhincConstants.INIT_MULTISPEC_LOC_ENTITY_DR);
-            
+            RegistryResponseType registryError = helper.createError(e.getLocalizedMessage(),
+                    ErrorCodes.XDSRepositoryError, NhincConstants.INIT_MULTISPEC_LOC_ENTITY_DR);
+
             response = new AdhocQueryResponse();
+            response.setRegistryObjectList(new RegistryObjectListType());
             response.setStatus(registryError.getStatus());
             response.setRegistryErrorList(registryError.getRegistryErrorList());
 
