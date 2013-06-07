@@ -26,10 +26,6 @@
  */
 package gov.hhs.fha.nhinc.docsubmission.adapter.component.deferred.response.proxy;
 
-import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
-
-import org.apache.log4j.Logger;
-
 import gov.hhs.fha.nhinc.adaptercomponentxdrresponse.AdapterComponentXDRResponsePortType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterRegistryResponseType;
@@ -41,19 +37,22 @@ import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 import gov.hhs.healthit.nhin.XDRAcknowledgementType;
+import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
+import org.apache.log4j.Logger;
 
 /**
  *
  * @author dunnek, Les Westberg
  */
 public class AdapterComponentDocSubmissionResponseProxyWebServiceUnsecuredImpl implements
-        AdapterComponentDocSubmissionResponseProxy {
+    AdapterComponentDocSubmissionResponseProxy {
+
     private static final Logger LOG = Logger.getLogger(AdapterComponentDocSubmissionResponseProxyWebServiceUnsecuredImpl.class);
     private final WebServiceProxyHelper oProxyHelper = new WebServiceProxyHelper();
 
     protected CONNECTClient<AdapterComponentXDRResponsePortType> getCONNECTClientUnsecured(
-            ServicePortDescriptor<AdapterComponentXDRResponsePortType> portDescriptor, String url,
-            AssertionType assertion) {
+        ServicePortDescriptor<AdapterComponentXDRResponsePortType> portDescriptor, String url,
+        AssertionType assertion) {
 
         return CONNECTCXFClientFactory.getInstance().getCONNECTClientUnsecured(portDescriptor, url, assertion);
     }
@@ -67,7 +66,7 @@ public class AdapterComponentDocSubmissionResponseProxyWebServiceUnsecuredImpl i
      */
     @Override
     public XDRAcknowledgementType provideAndRegisterDocumentSetBResponse(RegistryResponseType body,
-            AssertionType assertion) {
+        AssertionType assertion) {
         String endpointUrl = null;
         XDRAcknowledgementType response = new XDRAcknowledgementType();
         String sServiceName = NhincConstants.ADAPTER_COMPONENT_XDR_RESPONSE_SERVICE_NAME;
@@ -84,13 +83,13 @@ public class AdapterComponentDocSubmissionResponseProxyWebServiceUnsecuredImpl i
                     adaptResponse.setRegistryResponse(body);
 
                     ServicePortDescriptor<AdapterComponentXDRResponsePortType> portDescriptor =
-                            new AdapterComponentDocSubmissionResponseServicePortDescriptor();
+                        new AdapterComponentDocSubmissionResponseServicePortDescriptor();
 
                     CONNECTClient<AdapterComponentXDRResponsePortType> client = getCONNECTClientUnsecured(
-                            portDescriptor, endpointUrl, assertion);
-
+                        portDescriptor, endpointUrl, assertion);
+                    client.enableMtom();
                     response = (XDRAcknowledgementType) client.invokePort(AdapterComponentXDRResponsePortType.class,
-                            "provideAndRegisterDocumentSetBResponse", adaptResponse);
+                        "provideAndRegisterDocumentSetBResponse", adaptResponse);
                 } else {
                     LOG.error("Failed to call the web service (" + sServiceName + ").  The URL is null.");
                 }
@@ -99,9 +98,8 @@ public class AdapterComponentDocSubmissionResponseProxyWebServiceUnsecuredImpl i
             }
         } catch (Exception e) {
             LOG.error("Failed to call the web service (" + sServiceName + ").  An unexpected exception occurred.  "
-                    + "Exception: " + e.getMessage(), e);
+                + "Exception: " + e.getMessage(), e);
         }
-
         return response;
     }
 }

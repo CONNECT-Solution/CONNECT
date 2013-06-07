@@ -26,11 +26,6 @@
  */
 package gov.hhs.fha.nhinc.docsubmission.adapter.component.proxy;
 
-import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
-import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
-
-import org.apache.log4j.Logger;
-
 import gov.hhs.fha.nhinc.adaptercomponentxdr.AdapterComponentXDRPortType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterProvideAndRegisterDocumentSetRequestType;
@@ -41,12 +36,16 @@ import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
+import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
+import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
+import org.apache.log4j.Logger;
 
 /**
  *
  * @author jhoppesc
  */
 public class AdapterComponentDocSubmissionProxyWebServiceUnsecuredImpl implements AdapterComponentDocSubmissionProxy {
+
     private static final Logger LOG = Logger.getLogger(AdapterComponentDocSubmissionProxyWebServiceUnsecuredImpl.class);
     private WebServiceProxyHelper oProxyHelper = null;
 
@@ -59,20 +58,20 @@ public class AdapterComponentDocSubmissionProxyWebServiceUnsecuredImpl implement
     }
 
     protected CONNECTClient<AdapterComponentXDRPortType> getCONNECTClientUnsecured(
-            ServicePortDescriptor<AdapterComponentXDRPortType> portDescriptor, String url, AssertionType assertion) {
+        ServicePortDescriptor<AdapterComponentXDRPortType> portDescriptor, String url, AssertionType assertion) {
 
         return CONNECTCXFClientFactory.getInstance().getCONNECTClientUnsecured(portDescriptor, url, assertion);
     }
 
     @Override
     public RegistryResponseType provideAndRegisterDocumentSetB(ProvideAndRegisterDocumentSetRequestType msg,
-            AssertionType assertion) {
+        AssertionType assertion) {
         LOG.debug("Begin provideAndRegisterDocumentSetB");
         RegistryResponseType response = null;
 
         try {
             String url = oProxyHelper
-                    .getAdapterEndPointFromConnectionManager(NhincConstants.ADAPTER_COMPONENT_XDR_SERVICE_NAME);
+                .getAdapterEndPointFromConnectionManager(NhincConstants.ADAPTER_COMPONENT_XDR_SERVICE_NAME);
             if (NullChecker.isNotNullish(url)) {
 
                 if (msg == null) {
@@ -87,23 +86,21 @@ public class AdapterComponentDocSubmissionProxyWebServiceUnsecuredImpl implement
                     ServicePortDescriptor<AdapterComponentXDRPortType> portDescriptor = new AdapterComponentDocSubmissionServicePortDescriptor();
 
                     CONNECTClient<AdapterComponentXDRPortType> client = getCONNECTClientUnsecured(portDescriptor, url,
-                            assertion);
-
+                        assertion);
+                    client.enableMtom();
                     response = (RegistryResponseType) client.invokePort(AdapterComponentXDRPortType.class,
-                            "provideAndRegisterDocumentSetb", request);
+                        "provideAndRegisterDocumentSetb", request);
                 }
             } else {
                 LOG.error("Failed to call the web service (" + NhincConstants.ADAPTER_COMPONENT_XDR_SERVICE_NAME
-                        + ").  The URL is null.");
+                    + ").  The URL is null.");
             }
         } catch (Exception ex) {
             LOG.error("Error sending Adapter Component Doc Submission Unsecured message: " + ex.getMessage(), ex);
             response = new RegistryResponseType();
             response.setStatus("urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Failure");
         }
-
         LOG.debug("End provideAndRegisterDocumentSetB");
         return response;
     }
-
 }
