@@ -40,7 +40,6 @@ import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
-
 import org.apache.log4j.Logger;
 
 /**
@@ -59,9 +58,16 @@ public class AdapterDocSubmissionProxyWebServiceUnsecuredImpl implements Adapter
         return new WebServiceProxyHelper();
     }
 
+    /**
+     *
+     * @param msg
+     * @param assertion
+     * @return
+     */
     @AdapterDelegationEvent(beforeBuilder = DocSubmissionBaseEventDescriptionBuilder.class,
             afterReturningBuilder = DocSubmissionBaseEventDescriptionBuilder.class, serviceType = "Document Submission",
             version = "")
+    @Override
     public RegistryResponseType provideAndRegisterDocumentSetB(ProvideAndRegisterDocumentSetRequestType msg,
             AssertionType assertion) {
         LOG.debug("Begin provideAndRegisterDocumentSetB");
@@ -79,7 +85,7 @@ public class AdapterDocSubmissionProxyWebServiceUnsecuredImpl implements Adapter
                 
                 CONNECTClient<AdapterXDRPortType> client = CONNECTClientFactory.getInstance()
                         .getCONNECTClientUnsecured(portDescriptor, url, assertion);
-                
+                client.enableMtom();
                 response = (RegistryResponseType) client.invokePort(AdapterXDRPortType.class,
                         "provideAndRegisterDocumentSetb", request);
                             

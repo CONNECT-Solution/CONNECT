@@ -90,7 +90,7 @@ public class AdapterDocSubmissionDeferredResponseProxyWebServiceUnsecuredImpl im
 
                 CONNECTClient<AdapterXDRResponsePortType> client = getCONNECTClientUnsecured(portDescriptor, url,
                         assertion);
-
+                client.enableMtom(); 
                 response = (XDRAcknowledgementType) client.invokePort(AdapterXDRResponsePortType.class,
                         "provideAndRegisterDocumentSetBResponse", wsRequest);
             } else {

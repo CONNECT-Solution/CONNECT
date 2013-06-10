@@ -84,7 +84,7 @@ public class AdapterDocSubmissionDeferredResponseProxyWebServiceSecuredImpl impl
 
                 CONNECTClient<AdapterXDRResponseSecuredPortType> client = getCONNECTClientSecured(portDescriptor, url,
                         assertion);
-
+                client.enableMtom();
                 response = (XDRAcknowledgementType) client.invokePort(AdapterXDRResponseSecuredPortType.class,
                         "provideAndRegisterDocumentSetBResponse", regResponse);
             } else {
