@@ -26,10 +26,6 @@
  */
 package gov.hhs.fha.nhinc.docsubmission.adapter.deferred.request.proxy;
 
-import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
-
-import org.apache.log4j.Logger;
-
 import gov.hhs.fha.nhinc.adapterxdrrequest.AdapterXDRRequestPortType;
 import gov.hhs.fha.nhinc.aspect.AdapterDelegationEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
@@ -37,13 +33,15 @@ import gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterProvideAndRegisterDocu
 import gov.hhs.fha.nhinc.docsubmission.adapter.deferred.request.proxy.service.AdapterDocSubmissionDeferredRequestUnsecuredServicePortDescriptor;
 import gov.hhs.fha.nhinc.docsubmission.aspect.DocSubmissionArgTransformerBuilder;
 import gov.hhs.fha.nhinc.docsubmission.aspect.DocSubmissionBaseEventDescriptionBuilder;
-import gov.hhs.fha.nhinc.messaging.client.CONNECTClient;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTCXFClientFactory;
+import gov.hhs.fha.nhinc.messaging.client.CONNECTClient;
 import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 import gov.hhs.healthit.nhin.XDRAcknowledgementType;
+import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -68,10 +66,17 @@ public class AdapterDocSubmissionDeferredRequestProxyWebServiceUnsecuredImpl imp
                 assertion);
     }
 
+    /**
+     *
+     * @param request
+     * @param assertion
+     * @return
+     */
     @AdapterDelegationEvent(beforeBuilder = DocSubmissionBaseEventDescriptionBuilder.class,
             afterReturningBuilder = DocSubmissionArgTransformerBuilder.class, 
             serviceType = "Document Submission Deferred Request",
             version = "")
+    @Override
     public XDRAcknowledgementType provideAndRegisterDocumentSetBRequest(
             ProvideAndRegisterDocumentSetRequestType request, AssertionType assertion) {
         LOG.debug("Begin AdapterDocSubmissionDeferredRequestProxyWebServiceUnsecuredImpl.provideAndRegisterDocumentSetBRequest");
@@ -92,6 +97,7 @@ public class AdapterDocSubmissionDeferredRequestProxyWebServiceUnsecuredImpl imp
                 ServicePortDescriptor<AdapterXDRRequestPortType> portDescriptor = new AdapterDocSubmissionDeferredRequestUnsecuredServicePortDescriptor();
                 CONNECTClient<AdapterXDRRequestPortType> client = getCONNECTClientUnsecured(portDescriptor, destURL,
                         assertion);
+                client.enableMtom();
                 response = (XDRAcknowledgementType) client.invokePort(AdapterXDRRequestPortType.class,
                         "provideAndRegisterDocumentSetBRequest", wsRequest);
             } else {

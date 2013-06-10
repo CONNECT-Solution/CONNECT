@@ -86,7 +86,7 @@ public class AdapterDocRetrieveProxyWebServiceUnsecuredImpl extends BaseAdapterD
 
                     CONNECTClient<AdapterDocRetrievePortType> client = getCONNECTClientUnsecured(portDescriptor, url,
                         assertion);
-
+                    client.enableMtom();
                     response = (RetrieveDocumentSetResponseType) client.invokePort(AdapterDocRetrievePortType.class,
                         "respondingGatewayCrossGatewayRetrieve", oUnsecuredRequest);
 

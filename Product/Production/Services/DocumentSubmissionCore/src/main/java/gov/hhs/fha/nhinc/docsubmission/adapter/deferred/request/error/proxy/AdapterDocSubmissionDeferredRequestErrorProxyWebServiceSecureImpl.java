@@ -41,17 +41,16 @@ import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 import gov.hhs.healthit.nhin.XDRAcknowledgementType;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
-
 import org.apache.log4j.Logger;
 
 /**
- * 
+ *
  * @author JHOPPESC
  */
 public class AdapterDocSubmissionDeferredRequestErrorProxyWebServiceSecureImpl implements
-        AdapterDocSubmissionDeferredRequestErrorProxy {
-    private static final Logger LOG = Logger.getLogger(AdapterDocSubmissionDeferredRequestErrorProxyWebServiceSecureImpl.class);
+    AdapterDocSubmissionDeferredRequestErrorProxy {
 
+    private static final Logger LOG = Logger.getLogger(AdapterDocSubmissionDeferredRequestErrorProxyWebServiceSecureImpl.class);
     private WebServiceProxyHelper oProxyHelper = null;
 
     public AdapterDocSubmissionDeferredRequestErrorProxyWebServiceSecureImpl() {
@@ -63,18 +62,19 @@ public class AdapterDocSubmissionDeferredRequestErrorProxyWebServiceSecureImpl i
     }
 
     protected CONNECTClient<AdapterXDRRequestErrorSecuredPortType> getCONNECTClientSecured(
-            ServicePortDescriptor<AdapterXDRRequestErrorSecuredPortType> portDescriptor, String url,
-            AssertionType assertion) {
+        ServicePortDescriptor<AdapterXDRRequestErrorSecuredPortType> portDescriptor, String url,
+        AssertionType assertion) {
 
         return CONNECTCXFClientFactory.getInstance().getCONNECTClientSecured(portDescriptor, url, assertion);
     }
 
     @AdapterDelegationEvent(beforeBuilder = DocSubmissionBaseEventDescriptionBuilder.class,
-            afterReturningBuilder = DocSubmissionArgTransformerBuilder.class, 
-            serviceType = "Document Submission Deferred Request",
-            version = "")
+    afterReturningBuilder = DocSubmissionArgTransformerBuilder.class,
+    serviceType = "Document Submission Deferred Request",
+    version = "")
+    @Override
     public XDRAcknowledgementType provideAndRegisterDocumentSetBRequestError(
-            ProvideAndRegisterDocumentSetRequestType request, String errorMessage, AssertionType assertion) {
+        ProvideAndRegisterDocumentSetRequestType request, String errorMessage, AssertionType assertion) {
         LOG.debug("Begin AdapterDocSubmissionDeferredRequestErrorProxyWebServiceSecureImpl.provideAndRegisterDocumentSetBRequestError");
         XDRAcknowledgementType response = null;
         String serviceName = NhincConstants.ADAPTER_XDR_SECURED_ASYNC_REQ_ERROR_SERVICE_NAME;
@@ -92,10 +92,10 @@ public class AdapterDocSubmissionDeferredRequestErrorProxyWebServiceSecureImpl i
                 ServicePortDescriptor<AdapterXDRRequestErrorSecuredPortType> portDescriptor = new AdapterDocSubmissionDeferredRequestErrorSecuredServicePortDescriptor();
 
                 CONNECTClient<AdapterXDRRequestErrorSecuredPortType> client = getCONNECTClientSecured(portDescriptor,
-                        url, assertion);
-
+                    url, assertion);
+                client.enableMtom();
                 response = (XDRAcknowledgementType) client.invokePort(AdapterXDRRequestErrorSecuredPortType.class,
-                        "provideAndRegisterDocumentSetBRequestError", wsRequest);
+                    "provideAndRegisterDocumentSetBRequestError", wsRequest);
             } else {
                 LOG.error("Failed to call the web service (" + serviceName + ").  The URL is null.");
             }

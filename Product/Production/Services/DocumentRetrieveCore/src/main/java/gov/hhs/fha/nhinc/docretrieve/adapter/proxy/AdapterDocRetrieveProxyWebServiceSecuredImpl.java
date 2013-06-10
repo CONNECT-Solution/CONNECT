@@ -78,6 +78,7 @@ public class AdapterDocRetrieveProxyWebServiceSecuredImpl extends BaseAdapterDoc
                         new AdapterDocRetrieveSecuredServicePortDescriptor();
                     CONNECTClient<AdapterDocRetrieveSecuredPortType> client = getCONNECTClientSecured(portDescriptor,
                         url, assertion);
+                    client.enableMtom();
                     response = (RetrieveDocumentSetResponseType) client.invokePort(
                         AdapterDocRetrieveSecuredPortType.class, "respondingGatewayCrossGatewayRetrieve", request);
                 } else {

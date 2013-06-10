@@ -37,37 +37,37 @@ import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 import gov.hhs.healthit.nhin.XDRAcknowledgementType;
-
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
-
 import org.apache.log4j.Logger;
+
 /**
- * 
+ *
  * @author dunnek, Les Westberg
  */
 public class AdapterComponentDocSubmissionRequestProxyWebServiceUnsecuredImpl implements
-        AdapterComponentDocSubmissionRequestProxy {
+    AdapterComponentDocSubmissionRequestProxy {
 
     private static final Logger LOG = Logger.getLogger(AdapterComponentDocSubmissionRequestProxyWebServiceUnsecuredImpl.class);
     private WebServiceProxyHelper oProxyHelper = new WebServiceProxyHelper();
 
     protected CONNECTClient<AdapterComponentXDRRequestPortType> getCONNECTClientUnsecured(
-            ServicePortDescriptor<AdapterComponentXDRRequestPortType> portDescriptor, String url,
-            AssertionType assertion) {
+        ServicePortDescriptor<AdapterComponentXDRRequestPortType> portDescriptor, String url,
+        AssertionType assertion) {
 
         return CONNECTCXFClientFactory.getInstance().getCONNECTClientUnsecured(portDescriptor, url, assertion);
     }
 
     /**
      * Receive document deferred document submission request.
-     * 
+     *
      * @param body The doc submission message.
      * @param assertion The assertion information.
      * @param url The URL
      * @return The ACK
      */
+    @Override
     public XDRAcknowledgementType provideAndRegisterDocumentSetBRequest(ProvideAndRegisterDocumentSetRequestType body,
-            AssertionType assertion) {
+        AssertionType assertion) {
         String endpointUrl = null;
         XDRAcknowledgementType response = new XDRAcknowledgementType();
         String sServiceName = NhincConstants.ADAPTER_COMPONENT_XDR_REQUEST_SERVICE_NAME;
@@ -87,10 +87,10 @@ public class AdapterComponentDocSubmissionRequestProxyWebServiceUnsecuredImpl im
                     ServicePortDescriptor<AdapterComponentXDRRequestPortType> portDescriptor = new AdapterComponentDocSubmissionRequestServicePortDescriptor();
 
                     CONNECTClient<AdapterComponentXDRRequestPortType> client = getCONNECTClientUnsecured(
-                            portDescriptor, endpointUrl, assertion);
-
+                        portDescriptor, endpointUrl, assertion);
+                    client.enableMtom();
                     response = (XDRAcknowledgementType) client.invokePort(AdapterComponentXDRRequestPortType.class,
-                            "provideAndRegisterDocumentSetBRequest", request);
+                        "provideAndRegisterDocumentSetBRequest", request);
                 } else {
                     LOG.error("Failed to call the web service (" + sServiceName + ").  The URL is null.");
                 }
@@ -99,10 +99,9 @@ public class AdapterComponentDocSubmissionRequestProxyWebServiceUnsecuredImpl im
             }
         } catch (Exception e) {
             LOG.error("Failed to call the web service (" + sServiceName + ").  An unexpected exception occurred.  "
-                    + "Exception: " + e.getMessage(), e);
+                + "Exception: " + e.getMessage(), e);
         }
 
         return response;
     }
-
 }
