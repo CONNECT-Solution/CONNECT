@@ -41,8 +41,8 @@ def replaceName = 'adapterdocretrievewsunsecured';
 	
 nhinc.FileUtils.updateSpringConfig(dir, "DocumentRetrieveProxyConfig.xml", alias, aliasName, replaceName, log);
 
-nhinc.FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", dir, "1.1",
-	"adapterdocretrieve", "http://localhost:1720/MockDRAdapter", "2.0",
+nhinc.FileUtils.configureConnection("internalConnectionInfo.xml", dir, "1.1",
+	"adapterdocretrieve", "http://localhost:1720/MockDRAdapter", "LEVEL_a0",
 	log);</script></con:config>
 </con:testStep><con:testStep name="Document Retrieve" type="request">
 		<con:settings/>
@@ -360,8 +360,8 @@ def replaceName = 'adapterdocretrievewsunsecured';
 	
 nhinc.FileUtils.updateSpringConfig(dir, "DocumentRetrieveProxyConfig.xml", alias, aliasName, replaceName, log);
 
-nhinc.FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", dir, "1.1",
-	"adapterdocretrieve", "http://localhost:1720/MockDRAdapter", "3.0",
+nhinc.FileUtils.configureConnection("internalConnectionInfo.xml", dir, "1.1",
+	"adapterdocretrieve", "http://localhost:1720/MockDRAdapter", "LEVEL_a1",
 	log);</script></con:config>
 </con:testStep><con:testStep name="Document Retrieve" type="request">
 		<con:settings/>
@@ -679,8 +679,8 @@ def replaceName = 'adapterdocretrievewsunsecured';
 	
 nhinc.FileUtils.updateSpringConfig(dir, "DocumentRetrieveProxyConfig.xml", alias, aliasName, replaceName, log);
 
-nhinc.FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", dir, "1.1",
-	"adapterdocretrieve", "http://localhost:1720/MockDRAdapter", "2.0",
+nhinc.FileUtils.configureConnection("internalConnectionInfo.xml", dir, "1.1",
+	"adapterdocretrieve", "http://localhost:1720/MockDRAdapter", "LEVEL_a0",
 	log);</script></con:config>
 </con:testStep><con:testStep name="Document Retrieve" type="request">
 		<con:settings/>
@@ -998,8 +998,8 @@ def replaceName = 'adapterdocretrievewsunsecured';
 	
 nhinc.FileUtils.updateSpringConfig(dir, "DocumentRetrieveProxyConfig.xml", alias, aliasName, replaceName, log);
 
-nhinc.FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", dir, "1.1",
-	"adapterdocretrieve", "http://localhost:1720/MockDRAdapter", "2.0",
+nhinc.FileUtils.configureConnection("internalConnectionInfo.xml", dir, "1.1",
+	"adapterdocretrieve", "http://localhost:1720/MockDRAdapter", "LEVEL_a0",
 	log);</script></con:config>
 </con:testStep><con:testStep name="Document Retrieve" type="request">
 		<con:settings/>
@@ -1317,8 +1317,8 @@ def replaceName = 'adapterdocretrievewsunsecured';
 	
 nhinc.FileUtils.updateSpringConfig(dir, "DocumentRetrieveProxyConfig.xml", alias, aliasName, replaceName, log);
 
-nhinc.FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", dir, "1.1",
-	"adapterdocretrieve", "http://localhost:1720/MockDRAdapter", "3.0",
+nhinc.FileUtils.configureConnection("internalConnectionInfo.xml", dir, "1.1",
+	"adapterdocretrieve", "http://localhost:1720/MockDRAdapter", "LEVEL_a1",
 	log);</script></con:config>
 </con:testStep><con:testStep name="Document Retrieve" type="request">
 		<con:settings/>
@@ -1636,8 +1636,8 @@ def replaceName = 'adapterdocretrievewsunsecured';
 	
 nhinc.FileUtils.updateSpringConfig(dir, "DocumentRetrieveProxyConfig.xml", alias, aliasName, replaceName, log);
 
-nhinc.FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", dir, "1.1",
-	"adapterdocretrieve", "http://localhost:1720/MockDRAdapter", "3.0",
+nhinc.FileUtils.configureConnection("internalConnectionInfo.xml", dir, "1.1",
+	"adapterdocretrieve", "http://localhost:1720/MockDRAdapter", "LEVEL_a1",
 	log);</script></con:config>
 </con:testStep><con:testStep name="Document Retrieve" type="request">
 		<con:settings/>
@@ -1955,8 +1955,8 @@ def replaceName = 'adapterdocretrievewsunsecured';
 	
 nhinc.FileUtils.updateSpringConfig(dir, "DocumentRetrieveProxyConfig.xml", alias, aliasName, replaceName, log);
 
-nhinc.FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", dir, "1.1",
-	"adapterdocretrieve", "http://localhost:1720/MockDRAdapter", "2.0",
+nhinc.FileUtils.configureConnection("internalConnectionInfo.xml", dir, "1.1",
+	"adapterdocretrieve", "http://localhost:1720/MockDRAdapter", "LEVEL_a0",
 	log);</script></con:config>
 </con:testStep><con:testStep name="Document Retrieve" type="request">
 		<con:settings/>
@@ -2274,8 +2274,8 @@ def replaceName = 'adapterdocretrievewsunsecured';
 	
 nhinc.FileUtils.updateSpringConfig(dir, "DocumentRetrieveProxyConfig.xml", alias, aliasName, replaceName, log);
 
-nhinc.FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", dir, "1.1",
-	"adapterdocretrieve", "http://localhost:1720/MockDRAdapter", "3.0",
+nhinc.FileUtils.configureConnection("internalConnectionInfo.xml", dir, "1.1",
+	"adapterdocretrieve", "http://localhost:1720/MockDRAdapter", "LEVEL_a1",
 	log);</script></con:config>
 </con:testStep><con:testStep name="Document Retrieve" type="request">
 		<con:settings/>
@@ -2593,8 +2593,8 @@ def replaceName = 'adapterdocretrievewsunsecured';
 	
 nhinc.FileUtils.updateSpringConfig(dir, "DocumentRetrieveProxyConfig.xml", alias, aliasName, replaceName, log);
 
-nhinc.FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", dir, "1.1",
-	"adapterdocretrieve", "http://localhost:1720/MockDRAdapter", "3.0",
+nhinc.FileUtils.configureConnection("internalConnectionInfo.xml", dir, "1.1",
+	"adapterdocretrieve", "http://localhost:1720/MockDRAdapter", "LEVEL_a1",
 	log);</script></con:config>
 </con:testStep><con:testStep name="Document Retrieve" type="request">
 		<con:settings/>
@@ -2912,8 +2912,8 @@ def replaceName = 'adapterdocretrievewsunsecured';
 	
 nhinc.FileUtils.updateSpringConfig(dir, "DocumentRetrieveProxyConfig.xml", alias, aliasName, replaceName, log);
 
-nhinc.FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", dir, "1.1",
-	"adapterdocretrieve", "http://localhost:1720/MockDRAdapter", "2.0",
+nhinc.FileUtils.configureConnection("internalConnectionInfo.xml", dir, "1.1",
+	"adapterdocretrieve", "http://localhost:1720/MockDRAdapter", "LEVEL_a0",
 	log);</script></con:config>
 </con:testStep><con:testStep name="Document Retrieve" type="request">
 		<con:settings/>
