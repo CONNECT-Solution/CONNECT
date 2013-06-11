@@ -489,8 +489,8 @@ def replaceName = 'adapterdocquerywsunsecured';
 	
 nhinc.FileUtils.updateSpringConfig(dir, "DocumentQueryProxyConfig.xml", alias, aliasName, replaceName, log);
 
-nhinc.FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", dir, "1.1",
-	"adapterdocquery", "http://localhost:1720/MockDQAdapter", "2.0",
+nhinc.FileUtils.configureConnection("internalConnectionInfo.xml", dir, "1.1",
+	"adapterdocquery", "http://localhost:1720/MockDQAdapter", "LEVEL_a0",
 	log);</script></con:config>
 </con:testStep>
 <con:testStep name="Clear Correlation Table &amp; Add Correlation" type="groovy">
@@ -1001,19 +1001,19 @@ if(context.findProperty("PassThruOn").toBoolean()){
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2013-06-10T17:41:22Z</con:value>
+		<con:value>2013-06-11T19:51:25Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2013-06-10T17:51:22Z</con:value>
+		<con:value>2013-06-11T20:01:25Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>06/10/2013 17:41:22</con:value>
+		<con:value>06/11/2013 19:51:25</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2013-07-10T00:00:00Z</con:value>
+		<con:value>2013-07-11T00:00:00Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>FullPatientID</con:name>
@@ -1044,8 +1044,8 @@ def replaceName = 'adapterdocquerywsunsecured';
 	
 nhinc.FileUtils.updateSpringConfig(dir, "DocumentQueryProxyConfig.xml", alias, aliasName, replaceName, log);
 
-nhinc.FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", dir, "1.1",
-	"adapterdocquery", "http://localhost:1720/MockDQAdapter", "3.0",
+nhinc.FileUtils.configureConnection("internalConnectionInfo.xml", dir, "1.1",
+	"adapterdocquery", "http://localhost:1720/MockDQAdapter", "LEVEL_a1",
 	log);</script></con:config>
 </con:testStep>
 <con:testStep name="Clear Correlation Table &amp; Add Correlation" type="groovy">
@@ -1556,19 +1556,19 @@ if(context.findProperty("PassThruOn").toBoolean()){
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2013-06-10T17:41:24Z</con:value>
+		<con:value>2013-06-11T19:51:27Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2013-06-10T17:51:24Z</con:value>
+		<con:value>2013-06-11T20:01:27Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>06/10/2013 17:41:24</con:value>
+		<con:value>06/11/2013 19:51:27</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2013-07-10T00:00:00Z</con:value>
+		<con:value>2013-07-11T00:00:00Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>FullPatientID</con:name>
@@ -1620,8 +1620,8 @@ def replaceName = 'adapterdocquerywsunsecured';
 	
 nhinc.FileUtils.updateSpringConfig(dir, "DocumentQueryProxyConfig.xml", alias, aliasName, replaceName, log);
 
-nhinc.FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", dir, "1.1",
-	"adapterdocquery", "http://localhost:1720/MockDQAdapter", "2.0",
+nhinc.FileUtils.configureConnection("internalConnectionInfo.xml", dir, "1.1",
+	"adapterdocquery", "http://localhost:1720/MockDQAdapter", "LEVEL_a0",
 	log);</script></con:config>
 </con:testStep>
 <con:testStep name="Clear Correlation Table &amp; Add Correlation" type="groovy">
@@ -2132,19 +2132,19 @@ if(context.findProperty("PassThruOn").toBoolean()){
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2013-06-10T17:41:26Z</con:value>
+		<con:value>2013-06-11T19:51:30Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2013-06-10T17:51:26Z</con:value>
+		<con:value>2013-06-11T20:01:30Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>06/10/2013 17:41:26</con:value>
+		<con:value>06/11/2013 19:51:30</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2013-07-10T00:00:00Z</con:value>
+		<con:value>2013-07-11T00:00:00Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>FullPatientID</con:name>
@@ -2175,8 +2175,8 @@ def replaceName = 'adapterdocquerywsunsecured';
 	
 nhinc.FileUtils.updateSpringConfig(dir, "DocumentQueryProxyConfig.xml", alias, aliasName, replaceName, log);
 
-nhinc.FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", dir, "1.1",
-	"adapterdocquery", "http://localhost:1720/MockDQAdapter", "2.0",
+nhinc.FileUtils.configureConnection("internalConnectionInfo.xml", dir, "1.1",
+	"adapterdocquery", "http://localhost:1720/MockDQAdapter", "LEVEL_a0",
 	log);</script></con:config>
 </con:testStep>
 <con:testStep name="Clear Correlation Table &amp; Add Correlation" type="groovy">
@@ -2687,19 +2687,19 @@ if(context.findProperty("PassThruOn").toBoolean()){
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2013-06-10T17:41:29Z</con:value>
+		<con:value>2013-06-11T19:51:32Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2013-06-10T17:51:29Z</con:value>
+		<con:value>2013-06-11T20:01:32Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>06/10/2013 17:41:29</con:value>
+		<con:value>06/11/2013 19:51:32</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2013-07-10T00:00:00Z</con:value>
+		<con:value>2013-07-11T00:00:00Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>FullPatientID</con:name>
@@ -2751,8 +2751,8 @@ def replaceName = 'adapterdocquerywsunsecured';
 	
 nhinc.FileUtils.updateSpringConfig(dir, "DocumentQueryProxyConfig.xml", alias, aliasName, replaceName, log);
 
-nhinc.FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", dir, "1.1",
-	"adapterdocquery", "http://localhost:1720/MockDQAdapter", "3.0",
+nhinc.FileUtils.configureConnection("internalConnectionInfo.xml", dir, "1.1",
+	"adapterdocquery", "http://localhost:1720/MockDQAdapter", "LEVEL_a1",
 	log);</script></con:config>
 </con:testStep>
 <con:testStep name="Clear Correlation Table &amp; Add Correlation" type="groovy">
@@ -3263,19 +3263,19 @@ if(context.findProperty("PassThruOn").toBoolean()){
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2013-06-10T17:41:31Z</con:value>
+		<con:value>2013-06-11T19:51:34Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2013-06-10T17:51:31Z</con:value>
+		<con:value>2013-06-11T20:01:34Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>06/10/2013 17:41:31</con:value>
+		<con:value>06/11/2013 19:51:34</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2013-07-10T00:00:00Z</con:value>
+		<con:value>2013-07-11T00:00:00Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>FullPatientID</con:name>
@@ -3306,8 +3306,8 @@ def replaceName = 'adapterdocquerywsunsecured';
 	
 nhinc.FileUtils.updateSpringConfig(dir, "DocumentQueryProxyConfig.xml", alias, aliasName, replaceName, log);
 
-nhinc.FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", dir, "1.1",
-	"adapterdocquery", "http://localhost:1720/MockDQAdapter", "3.0",
+nhinc.FileUtils.configureConnection("internalConnectionInfo.xml", dir, "1.1",
+	"adapterdocquery", "http://localhost:1720/MockDQAdapter", "LEVEL_a1",
 	log);</script></con:config>
 </con:testStep>
 <con:testStep name="Clear Correlation Table &amp; Add Correlation" type="groovy">
@@ -3818,19 +3818,19 @@ if(context.findProperty("PassThruOn").toBoolean()){
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2013-06-10T17:41:33Z</con:value>
+		<con:value>2013-06-11T19:51:36Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2013-06-10T17:51:33Z</con:value>
+		<con:value>2013-06-11T20:01:36Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>06/10/2013 17:41:33</con:value>
+		<con:value>06/11/2013 19:51:36</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2013-07-10T00:00:00Z</con:value>
+		<con:value>2013-07-11T00:00:00Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>FullPatientID</con:name>
@@ -3882,8 +3882,8 @@ def replaceName = 'adapterdocquerywsunsecured';
 	
 nhinc.FileUtils.updateSpringConfig(dir, "DocumentQueryProxyConfig.xml", alias, aliasName, replaceName, log);
 
-nhinc.FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", dir, "1.1",
-	"adapterdocquery", "http://localhost:1720/MockDQAdapter", "2.0",
+nhinc.FileUtils.configureConnection("internalConnectionInfo.xml", dir, "1.1",
+	"adapterdocquery", "http://localhost:1720/MockDQAdapter", "LEVEL_a0",
 	log);</script></con:config>
 </con:testStep>
 <con:testStep name="Clear Correlation Table &amp; Add Correlation" type="groovy">
@@ -4394,19 +4394,19 @@ if(context.findProperty("PassThruOn").toBoolean()){
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2013-06-10T17:41:35Z</con:value>
+		<con:value>2013-06-11T19:51:38Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2013-06-10T17:51:35Z</con:value>
+		<con:value>2013-06-11T20:01:38Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>06/10/2013 17:41:35</con:value>
+		<con:value>06/11/2013 19:51:38</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2013-07-10T00:00:00Z</con:value>
+		<con:value>2013-07-11T00:00:00Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>FullPatientID</con:name>
@@ -4464,8 +4464,8 @@ def replaceName = 'adapterdocquerywsunsecured';
 	
 nhinc.FileUtils.updateSpringConfig(dir, "DocumentQueryProxyConfig.xml", alias, aliasName, replaceName, log);
 
-nhinc.FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", dir, "1.1",
-	"adapterdocquery", "http://localhost:1720/MockDQAdapter", "3.0",
+nhinc.FileUtils.configureConnection("internalConnectionInfo.xml", dir, "1.1",
+	"adapterdocquery", "http://localhost:1720/MockDQAdapter", "LEVEL_a1",
 	log);</script></con:config>
 </con:testStep>
 <con:testStep name="Clear Correlation Table &amp; Add Correlation" type="groovy">
@@ -4976,19 +4976,19 @@ if(context.findProperty("PassThruOn").toBoolean()){
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2013-06-10T17:41:37Z</con:value>
+		<con:value>2013-06-11T19:51:40Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2013-06-10T17:51:37Z</con:value>
+		<con:value>2013-06-11T20:01:40Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>06/10/2013 17:41:37</con:value>
+		<con:value>06/11/2013 19:51:40</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2013-07-10T00:00:00Z</con:value>
+		<con:value>2013-07-11T00:00:00Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>FullPatientID</con:name>
@@ -5046,8 +5046,8 @@ def replaceName = 'adapterdocquerywsunsecured';
 	
 nhinc.FileUtils.updateSpringConfig(dir, "DocumentQueryProxyConfig.xml", alias, aliasName, replaceName, log);
 
-nhinc.FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", dir, "1.1",
-	"adapterdocquery", "http://localhost:1720/MockDQAdapter", "3.0",
+nhinc.FileUtils.configureConnection("internalConnectionInfo.xml", dir, "1.1",
+	"adapterdocquery", "http://localhost:1720/MockDQAdapter", "LEVEL_a1",
 	log);</script></con:config>
 </con:testStep>
 <con:testStep name="Clear Correlation Table &amp; Add Correlation" type="groovy">
@@ -5558,19 +5558,19 @@ if(context.findProperty("PassThruOn").toBoolean()){
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2013-06-10T17:41:39Z</con:value>
+		<con:value>2013-06-11T19:51:42Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2013-06-10T17:51:39Z</con:value>
+		<con:value>2013-06-11T20:01:42Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>06/10/2013 17:41:39</con:value>
+		<con:value>06/11/2013 19:51:42</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2013-07-10T00:00:00Z</con:value>
+		<con:value>2013-07-11T00:00:00Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>FullPatientID</con:name>
@@ -5628,8 +5628,8 @@ def replaceName = 'adapterdocquerywsunsecured';
 	
 nhinc.FileUtils.updateSpringConfig(dir, "DocumentQueryProxyConfig.xml", alias, aliasName, replaceName, log);
 
-nhinc.FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", dir, "1.1",
-	"adapterdocquery", "http://localhost:1720/MockDQAdapter", "2.0",
+nhinc.FileUtils.configureConnection("internalConnectionInfo.xml", dir, "1.1",
+	"adapterdocquery", "http://localhost:1720/MockDQAdapter", "LEVEL_a0",
 	log);</script></con:config>
 </con:testStep>
 <con:testStep name="Clear Correlation Table &amp; Add Correlation" type="groovy">
@@ -6140,19 +6140,19 @@ if(context.findProperty("PassThruOn").toBoolean()){
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2013-06-10T17:41:41Z</con:value>
+		<con:value>2013-06-11T19:51:44Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2013-06-10T17:51:41Z</con:value>
+		<con:value>2013-06-11T20:01:44Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>06/10/2013 17:41:41</con:value>
+		<con:value>06/11/2013 19:51:44</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2013-07-10T00:00:00Z</con:value>
+		<con:value>2013-07-11T00:00:00Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>FullPatientID</con:name>
