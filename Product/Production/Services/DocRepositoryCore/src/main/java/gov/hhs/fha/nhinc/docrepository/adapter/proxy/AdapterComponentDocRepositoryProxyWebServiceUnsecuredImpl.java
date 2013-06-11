@@ -83,7 +83,7 @@ public class AdapterComponentDocRepositoryProxyWebServiceUnsecuredImpl implement
 
                 CONNECTClient<DocumentRepositoryPortType> client = getCONNECTClientUnsecured(portDescriptor, url,
                     assertion);
-
+                client.enableMtom();
                 response = (RetrieveDocumentSetResponseType) client.invokePort(DocumentRepositoryPortType.class,
                     "documentRepositoryRetrieveDocumentSet", msg);
             }
