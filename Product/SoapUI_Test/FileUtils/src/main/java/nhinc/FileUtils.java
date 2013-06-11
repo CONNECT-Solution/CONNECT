@@ -25,6 +25,7 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 
 /**
@@ -560,6 +561,205 @@ public class FileUtils {
 							+ e.getMessage(), e);
 		}
 	}
+	
+	   /**
+     * Creates or edits an endpoint in the given connection info file in the 
+     * given CONNECT config directory.
+     * @param fileName File name of config file to be updated.
+     * @param directory Directory of config file to be updated.
+     * @param communityId Home Community ID of endpoint update.
+     * @param serviceName The name of the CONNECT service that is getting
+     * updated/added.
+     * @param serviceUrl URL of service for updating/adding.
+     * @param endpointVersion The default spec version.
+     * @param log SoapUI logger.
+     */
+    public static void configureConnection(String fileName,
+            String directory, String communityId, String serviceName,
+            String serviceUrl, String endpointVersion, Logger log) {
+
+        log.info("begin CreateOrUpdateConnection; directory='" + directory
+                + "';community id='" + communityId + "';service name='"
+                + serviceName + "';service url='" + serviceUrl + "';");
+
+        String fullPath = directory + "/" + fileName;
+        log.info("Path to connection info file: " + fullPath);
+        boolean serviceNodeFound = false;
+        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+        factory.setNamespaceAware(true);
+        Document doc = null;
+        try {
+            DocumentBuilder builder = factory.newDocumentBuilder();
+            doc = builder.parse(fullPath);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return;
+        }
+
+        Element businessDetail = (Element) doc.getElementsByTagName(
+                "businessDetail").item(0);
+        NodeList businessEntities = businessDetail
+                .getElementsByTagName("businessEntity");
+
+        for (int i = 0; i < businessEntities.getLength(); i++) {
+            Element businessEntity = (Element) businessEntities.item(i);
+            String communityIdValue = businessEntity
+                    .getAttribute("businessKey");
+            if (communityIdValue.equals("uddi:nhincnode:" + communityId)) {
+                Element services = (Element) businessEntity
+                        .getElementsByTagName("businessServices").item(0);
+                NodeList serviceList = services
+                        .getElementsByTagName("businessService");
+                serviceNodeFound = false;
+
+                for (int serviceNodeIndex = 0; serviceNodeIndex < serviceList
+                        .getLength(); serviceNodeIndex++) {
+                    Element serviceElement = (Element) serviceList
+                            .item(serviceNodeIndex);
+                    String name = serviceElement.getElementsByTagName("name")
+                            .item(0).getTextContent();
+                    if (serviceName.equals(name)) {
+                        log.info("Found service: " + serviceName);
+                        serviceNodeFound = true;
+                        Element bindingTemplates = (Element) serviceElement
+                                .getElementsByTagName("bindingTemplates").item(
+                                        0);
+                        NodeList bindingTemplatesList = bindingTemplates
+                                .getElementsByTagName("bindingTemplate");
+                        Element latestVersionBindingTemplate = null;
+
+                        if (bindingTemplatesList.getLength() > 1) {
+                            for (int bindingNodeIndex = 0; bindingNodeIndex < bindingTemplatesList
+                                    .getLength(); bindingNodeIndex++) {
+                                Element currBindingTemplate = (Element) bindingTemplatesList
+                                        .item(bindingNodeIndex);
+                                Element bindingCategoryBag = (Element) currBindingTemplate
+                                        .getElementsByTagName("categoryBag")
+                                        .item(0);
+                                Element bindingKeyedRef = (Element) bindingCategoryBag
+                                        .getElementsByTagName("keyedReference")
+                                        .item(0);
+                                String currVersionString = bindingKeyedRef
+                                        .getAttribute("keyValue");
+                                if (StringUtils.equalsIgnoreCase(currVersionString, endpointVersion)) {
+                                    latestVersionBindingTemplate = currBindingTemplate;
+                                }
+                            }
+                        } else {
+                            latestVersionBindingTemplate = (Element) bindingTemplatesList
+                                    .item(0);
+                        }
+
+                        if (latestVersionBindingTemplate != null) {
+                            Element accessPoint = (Element) latestVersionBindingTemplate
+                                    .getElementsByTagName("accessPoint")
+                                    .item(0);
+                            if (!serviceUrl
+                                    .equals(accessPoint.getTextContent())) {
+                                accessPoint.setTextContent(serviceUrl);
+                                log.info("AccessPoint Found, set to "
+                                        + serviceUrl);
+                            }
+                        }
+                        break;
+                    }
+
+                }
+                if (!serviceNodeFound) {
+                    log.info("Service not found for: " + communityId
+                            + ".  Adding HCID and service");
+                    // Create new service and add it to the services node
+                    try {
+                        Element serviceElement = doc.createElementNS(
+                                "urn:uddi-org:api_v3", "businessService");
+                        serviceElement.setAttribute("serviceKey",
+                                "uddi:nhincnode:" + serviceName);
+                        serviceElement.setAttribute("businessKey",
+                                "uddi:nhincnode:" + communityId);
+
+                        Element name = doc.createElementNS(
+                                "urn:uddi-org:api_v3", "name");
+                        name.setAttribute("xml:lang", "en");
+                        name.setTextContent(serviceName);
+                        serviceElement.appendChild(name);
+
+                        Element bindingTemplates = doc.createElementNS(
+                                "urn:uddi-org:api_v3", "bindingTemplates");
+                        Element bindingTemplate = doc.createElementNS(
+                                "urn:uddi-org:api_v3", "bindingTemplate");
+                        bindingTemplate.setAttribute("bindingKey",
+                                "uddi:nhincnode:" + serviceName);
+                        bindingTemplate.setAttribute("serviceKey",
+                                "uddi:nhincnode:" + serviceName);
+                        Element accessPoint = doc.createElementNS(
+                                "urn:uddi-org:api_v3", "accessPoint");
+                        accessPoint.setAttribute("useType", "endPoint");
+                        accessPoint.setTextContent(serviceUrl);
+                        Element btCategoryBags = doc.createElementNS(
+                                "urn:uddi-org:api_v3", "categoryBag");
+
+                        if (serviceName.toLowerCase().contains("adapter")) {
+                            Element keyedRefAdap = doc.createElementNS(
+                                    "urn:uddi-org:api_v3", "keyedReference");
+                            keyedRefAdap.setAttribute("tModelKey",
+                                    "CONNECT:adapter:apilevel");
+                            keyedRefAdap.setAttribute("keyName", "");
+                            keyedRefAdap.setAttribute("keyValue", "LEVEL_a0");
+                            btCategoryBags.appendChild(keyedRefAdap);
+                        } else {
+                            Element btKeyedReference = doc.createElementNS(
+                                    "urn:uddi-org:api_v3", "keyedReference");
+                            btKeyedReference.setAttribute("keyName", "");
+                            btKeyedReference.setAttribute("tModelKey",
+                                    "uddi:nhin:versionofservice");
+                            btKeyedReference.setAttribute("keyValue",
+                                    endpointVersion);
+                            btCategoryBags.appendChild(btKeyedReference);
+                        }
+                        bindingTemplate.appendChild(accessPoint);
+                        bindingTemplate.appendChild(btCategoryBags);
+                        bindingTemplates.appendChild(bindingTemplate);
+
+                        Element categoryBag = doc.createElementNS(
+                                "urn:uddi-org:api_v3", "categoryBag");
+                        Element keyedReference = doc.createElementNS(
+                                "urn:uddi-org:api_v3", "keyedReference");
+                        keyedReference.setAttribute("tModelKey",
+                                "uddi:nhin:standard-servicenames");
+                        keyedReference.setAttribute("keyName", serviceName);
+                        keyedReference.setAttribute("keyValue", serviceName);
+                        categoryBag.appendChild(keyedReference);
+
+                        serviceElement.appendChild(bindingTemplates);
+                        serviceElement.appendChild(categoryBag);
+
+                        services.appendChild(serviceElement);
+                    } catch (Exception ex) {
+                        log.error(ex.getMessage());
+                    }
+                }
+                break;
+            }
+        }
+        try {
+            Transformer transformer = TransformerFactory.newInstance()
+                    .newTransformer();
+            transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+
+            // initialize StreamResult with File object to save to file
+            DOMSource source = new DOMSource(doc);
+            FileOutputStream fileOutput = new FileOutputStream(fullPath);
+            StreamResult stream = new StreamResult(fileOutput);
+            transformer.transform(source, stream);
+            // fileOutput.finalize();
+            fileOutput.close();
+            log.info("Done createorupdate: " + fileName);
+        } catch (Exception e) {
+            log.error(
+                    "Exception writing out connection info file: "
+                            + e.getMessage(), e);
+        }
+    }
 	
 	/**
 	 * Copies a list of configuration values to a temporary directory.
