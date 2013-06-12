@@ -28,6 +28,7 @@ package gov.hhs.fha.nhinc.messaging.client;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
+import org.apache.commons.lang.StringUtils;
 
 /**
  * @author akong
@@ -52,8 +53,8 @@ public class CONNECTCXFClientFactory extends CONNECTClientFactory {
     public <T> CONNECTClient<T> getCONNECTClientSecured(ServicePortDescriptor<T> portDescriptor, String url,
         AssertionType assertion, String wsAddressingTo, String subscriptionId) {
         String wsAddressingToValue = wsAddressingTo;
-        //use the url if the wsaddressing is null
-        if (wsAddressingToValue == null) {
+        //use the url if the wsaddressing is null or blank
+        if (StringUtils.isBlank(wsAddressingToValue)) {
             wsAddressingToValue = url;
         }
         return new CONNECTCXFClientSecured<T>(portDescriptor, url, assertion, wsAddressingToValue, subscriptionId);
