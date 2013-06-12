@@ -24,7 +24,6 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
  */
-
 package gov.hhs.fha.nhinc.messaging.client;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
@@ -32,15 +31,16 @@ import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
 
 /**
  * @author akong
- * 
+ *
  */
 public class CONNECTCXFClientFactory extends CONNECTClientFactory {
 
     /**
      * Returns a CONNECTClient configured for secured invocation.
      */
+    @Override
     public <T> CONNECTClient<T> getCONNECTClientSecured(ServicePortDescriptor<T> portDescriptor, String url,
-            AssertionType assertion) {
+        AssertionType assertion) {
         return getCONNECTClientSecured(portDescriptor, url, assertion, null, null);
     }
 
@@ -48,26 +48,33 @@ public class CONNECTCXFClientFactory extends CONNECTClientFactory {
      * Returns a CONNECTClient configured for secured invocation. This method allows Ws-Addressing parameters to be
      * passed for HIEM use.
      */
+    @Override
     public <T> CONNECTClient<T> getCONNECTClientSecured(ServicePortDescriptor<T> portDescriptor, String url,
-            AssertionType assertion, String wsAddressingTo, String subscriptionId) {
-        return new CONNECTCXFClientSecured<T>(portDescriptor, url, assertion, wsAddressingTo, subscriptionId);
+        AssertionType assertion, String wsAddressingTo, String subscriptionId) {
+        String wsAddressingToValue = wsAddressingTo;
+        //use the url if the wsaddressing is null
+        if (wsAddressingToValue == null) {
+            wsAddressingToValue = url;
+        }
+        return new CONNECTCXFClientSecured<T>(portDescriptor, url, assertion, wsAddressingToValue, subscriptionId);
     }
 
     /**
      * Returns a CONNECTClient configured for secured invocation. This method allows the target hcid and service name to
-     * be passed to be used for purpose of/purpose for logic.  
+     * be passed to be used for purpose of/purpose for logic.
      */
+    @Override
     public <T> CONNECTClient<T> getCONNECTClientSecured(ServicePortDescriptor<T> portDescriptor,
-            AssertionType assertion, String url, String targetHomeCommunityId, String serviceName) {
+        AssertionType assertion, String url, String targetHomeCommunityId, String serviceName) {
         return new CONNECTCXFClientSecured<T>(portDescriptor, assertion, url, targetHomeCommunityId, serviceName);
     }
 
     /**
      * Returns a CONNECTClient configured for unsecured invocation.
      */
+    @Override
     public <T> CONNECTClient<T> getCONNECTClientUnsecured(ServicePortDescriptor<T> portDescriptor, String url,
-            AssertionType assertion) {
+        AssertionType assertion) {
         return new CONNECTCXFClientUnsecured<T>(portDescriptor, url, assertion);
     }
-
 }
