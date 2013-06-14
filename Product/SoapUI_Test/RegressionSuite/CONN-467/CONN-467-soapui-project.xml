@@ -6134,7 +6134,7 @@ assert request["//add:MessageID/text()"] == response["//add:RelatesTo/text()"];<
   B) Look for Soap Header and within Soap Header WSA-To should populate as shown <To xmlns="http://www.w3.org/2005/08/addressing">https://localhost:8181/Gateway/DocumentSubmission/1_1/NhinService/XDRRequest_Service</To>
   
 </con:description><con:settings/><con:config xsi:type="con:ManualTestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:expectedResult>Result should display the following within To tag "xmlns="http://www.w3.org/2005/08/addressing">https://localhost:8181/Gateway/DocumentSubmission/1_1/NhinService/XDRRequest_Service"</con:expectedResult></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);  
-nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);</con:setupScript>
+nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);</con:setupScript>
 <con:tearDownScript>def dir = context.findProperty('GatewayPropDir');
 nhinc.FileUtils.restoreConfiguration(dir, log); 
 </con:tearDownScript>
@@ -6537,7 +6537,7 @@ if(passthruValue != null){
   B) Look for Soap Header and within Soap Header WSA-To should populate as shown <To xmlns="http://www.w3.org/2005/08/addressing">https://localhost:8181/Gateway/DocumentSubmission/1_1/NhinService/XDRResponse_Service</To>
   
 </con:description><con:settings/><con:config xsi:type="con:ManualTestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:expectedResult>Result should display the following within To tag "xmlns="http://www.w3.org/2005/08/addressing">https://localhost:8181/Gateway/DocumentSubmission/1_1/NhinService/XDRResponse_Service"</con:expectedResult></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);  
-nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);</con:setupScript>
+nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);</con:setupScript>
 <con:tearDownScript>def dir = context.findProperty('GatewayPropDir');
 nhinc.FileUtils.restoreConfiguration(dir, log); 
 </con:tearDownScript>
@@ -7073,7 +7073,7 @@ if(passthruValue != null){
   B) Look for Soap Header and within Soap Header WSA-To should populate as shown <To xmlns="http://www.w3.org/2005/08/addressing">https://localhost:8181/Gateway/DocumentSubmission/1_1/DocumentRepositoryXDR_Service</To>
   
 </con:description><con:settings/><con:config xsi:type="con:ManualTestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:expectedResult>Result should display the following within To tag "xmlns="http://www.w3.org/2005/08/addressing">https://localhost:8181/Gateway/DocumentSubmission/1_1/DocumentRepositoryXDR_Service"</con:expectedResult></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);  
-nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);</con:setupScript>
+nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);</con:setupScript>
 <con:tearDownScript>def dir = context.findProperty('GatewayPropDir');
 nhinc.FileUtils.restoreConfiguration(dir, log); 
 </con:tearDownScript>
@@ -7458,7 +7458,7 @@ assert request["//add:MessageID/text()"] == response["//add:RelatesTo/text()"];<
   B) Look for Soap Header and within Soap Header WSA-To should populate as shown <To xmlns="http://www.w3.org/2005/08/addressing">https://localhost:8181/Gateway/PatientDiscovery/1_0/NhinService/NhinPatientDiscoveryAsyncReq</To>
   
 </con:description><con:settings/><con:config xsi:type="con:ManualTestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:expectedResult>Result should display the following within To tag "xmlns="http://www.w3.org/2005/08/addressing">https://localhost:8181/Gateway/PatientDiscovery/1_0/NhinService/NhinPatientDiscoveryAsyncReq"</con:expectedResult></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);  
-nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);</con:setupScript>
+nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);</con:setupScript>
 <con:tearDownScript>def dir = context.findProperty('GatewayPropDir');
 nhinc.FileUtils.restoreConfiguration(dir, log); 
 </con:tearDownScript>
@@ -7847,7 +7847,7 @@ if(passthruValue != null){
   B) Look for Soap Header and within Soap Header WSA-To should populate as shown <To xmlns="http://www.w3.org/2005/08/addressing">https://localhost:8181/Gateway/PatientDiscovery/1_0/NhinService/NhinPatientDiscoveryAsyncResp</To>
   
 </con:description><con:settings/><con:config xsi:type="con:ManualTestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:expectedResult>Result should display the following within To tag "xmlns="http://www.w3.org/2005/08/addressing">https://localhost:8181/Gateway/PatientDiscovery/1_0/NhinService/NhinPatientDiscoveryAsyncResp"</con:expectedResult></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);  
-nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);</con:setupScript>
+nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);</con:setupScript>
 <con:tearDownScript>def dir = context.findProperty('GatewayPropDir');
 nhinc.FileUtils.restoreConfiguration(dir, log); 
 </con:tearDownScript>
@@ -8371,7 +8371,7 @@ context.withSql('PatientCorrelationDB') { sql ->
   B) Look for Soap Header and within Soap Header WSA-To should populate as shown <To xmlns="http://www.w3.org/2005/08/addressing">https://localhost:8181/Gateway/PatientDiscovery/1_0/NhinService/NhinPatientDiscovery</To>
   
 </con:description><con:settings/><con:config xsi:type="con:ManualTestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:expectedResult>Result should display the following within To tag "xmlns="http://www.w3.org/2005/08/addressing">https://localhost:8181/Gateway/PatientDiscovery/1_0/NhinService/NhinPatientDiscovery"</con:expectedResult></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);  
-nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);</con:setupScript>
+nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);</con:setupScript>
 <con:tearDownScript>def dir = context.findProperty('GatewayPropDir');
 nhinc.FileUtils.restoreConfiguration(dir, log); 
 </con:tearDownScript>
@@ -8751,7 +8751,7 @@ if(passthruValue != null){
   B) Look for Soap Header and within Soap Header WSA-To should populate as shown <To xmlns="http://www.w3.org/2005/08/addressing">https://localhost:8181/Gateway/DocumentQuery/2_0/NhinService/RespondingGateway_Query_Service/DocQuery</To>
   
 </con:description><con:settings/><con:config xsi:type="con:ManualTestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:expectedResult>Result should display the following within To tag "xmlns="http://www.w3.org/2005/08/addressing">https://localhost:8181/Gateway/DocumentQuery/2_0/NhinService/RespondingGateway_Query_Service/DocQuery"</con:expectedResult></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);  
-nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);</con:setupScript>
+nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);</con:setupScript>
 <con:tearDownScript>def dir = context.findProperty('GatewayPropDir');
 nhinc.FileUtils.restoreConfiguration(dir, log); 
 </con:tearDownScript>
@@ -9089,7 +9089,7 @@ if(passthruValue != null){
   B) Look for Soap Header and within Soap Header WSA-To should populate as shown <To xmlns="http://www.w3.org/2005/08/addressing">https://localhost:8181/Gateway/DocumentRetrieve/2_0/NhinService/RespondingGateway_Retrieve_Service/DocRetrieve</To>
   
 </con:description><con:settings/><con:config xsi:type="con:ManualTestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:expectedResult>Result should display the following within To tag "xmlns="http://www.w3.org/2005/08/addressing">https://localhost:8181/Gateway/DocumentRetrieve/2_0/NhinService/RespondingGateway_Retrieve_Service/DocRetrieve"</con:expectedResult></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);  
-nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);</con:setupScript>
+nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);</con:setupScript>
 <con:tearDownScript>def dir = context.findProperty('GatewayPropDir');
 nhinc.FileUtils.restoreConfiguration(dir, log); 
 </con:tearDownScript>
@@ -10995,7 +10995,7 @@ if(passthruValue != null){
   B) Look for Soap Header and within Soap Header WSA-To should populate as shown <To xmlns="http://www.w3.org/2005/08/addressing">https://localhost:8181/Gateway/AdminDistribution/1_0/NhinService/NhinAdminDist</To>
   
 </con:description><con:settings/><con:config xsi:type="con:ManualTestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:expectedResult>Result should display the following within To tag "xmlns="http://www.w3.org/2005/08/addressing">https://localhost:8181/Gateway/AdminDistribution/1_0/NhinService/NhinAdminDist"</con:expectedResult></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);  
-nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);</con:setupScript>
+nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);</con:setupScript>
 <con:tearDownScript>def dir = context.findProperty('GatewayPropDir');
 nhinc.FileUtils.restoreConfiguration(dir, log); 
 </con:tearDownScript>
