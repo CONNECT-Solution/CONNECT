@@ -112,6 +112,10 @@ public class PropertyAccessor implements IPropertyAcessor {
     public synchronized boolean getPropertyBoolean(String propertyName) throws PropertyAccessException {
     	return getPropertyBoolean(propertyFileName, propertyName);
     }
+    
+    public void setProperty(String propertyFileName, String key, String value) throws PropertyAccessException {
+        propertyFileDAO.setProperty(propertyFileName, key, value);
+    }
 
     /**
      * This will return true if the property value is: T, t, or any case combination of "TRUE" and it will return false

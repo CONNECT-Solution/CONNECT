@@ -110,6 +110,13 @@ public class PropertyFileDAO {
 
         return null;
     }
+    
+    public void setProperty(String propertyFileName, String key, String value) throws PropertyAccessException {
+        Properties props = propertyFilesHashmap.get(propertyFileName);
+        if (props != null) {
+            props.setProperty(key, value);
+        }
+    }
 
     public boolean getPropertyBoolean(String propertyFileName, String propertyName) throws PropertyAccessException {
         Properties properties = propertyFilesHashmap.get(propertyFileName);
