@@ -27,6 +27,7 @@
 package gov.hhs.fha.nhinc.configuration;
 
 import gov.hhs.fha.nhinc.configuration.jmx.Configuration;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 
 import java.lang.management.ManagementFactory;
 
@@ -58,12 +59,12 @@ public class InitServlet extends HttpServlet {
     public void init() throws ServletException {
         super.init();
 
-        String enableJMX = System.getProperty("org.connectopensource.enablejmx");
+        String enableJMX = System.getProperty(NhincConstants.JMX_ENABLED_SYSTEM_PROPERTY);
         if ("true".equalsIgnoreCase(enableJMX)) {
             MBeanServer mbs = ManagementFactory.getPlatformMBeanServer();
             ObjectName name = null;
             try {
-                name = new ObjectName("org.connectopensource.mbeans:type=Configuration");
+                name = new ObjectName(NhincConstants.JMX_CONFIGURATION_BEAN_NAME);
                 Configuration mbean = new Configuration();
                 mbs.registerMBean(mbean, name);
             } catch (MalformedObjectNameException e) {

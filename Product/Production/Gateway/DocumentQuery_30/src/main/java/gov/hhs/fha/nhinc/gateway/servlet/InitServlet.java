@@ -29,6 +29,7 @@ package gov.hhs.fha.nhinc.gateway.servlet;
 import gov.hhs.fha.nhinc.configuration.jmx.DocumentQuery30WebServices;
 import gov.hhs.fha.nhinc.configuration.jmx.WebServicesMXBean;
 import gov.hhs.fha.nhinc.gateway.executorservice.ExecutorServiceHelper;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 
 import java.lang.management.ManagementFactory;
 import java.util.concurrent.ExecutorService;
@@ -88,12 +89,12 @@ public class InitServlet extends HttpServlet{
         executor = Executors.newFixedThreadPool(ExecutorServiceHelper.getInstance().getExecutorPoolSize());
         largeJobExecutor = Executors.newFixedThreadPool(ExecutorServiceHelper.getInstance().getLargeJobExecutorPoolSize());
         
-        String enableJMX = System.getProperty("org.connectopensource.enablejmx");
+        String enableJMX = System.getProperty(NhincConstants.JMX_ENABLED_SYSTEM_PROPERTY);
         if ("true".equalsIgnoreCase(enableJMX)) {
             MBeanServer mbs = ManagementFactory.getPlatformMBeanServer();
             ObjectName name = null;
             try {
-                name = new ObjectName("org.connectopensource.mbeans:type=DocumentQuery30WebServices");
+                name = new ObjectName(NhincConstants.JMX_DOCUMENT_QUERY_30_BEAN_NAME);
                 WebServicesMXBean mbean = new DocumentQuery30WebServices(config.getServletContext());
                 mbs.registerMBean(mbean, name);
             } catch (MalformedObjectNameException e) {
