@@ -29,6 +29,8 @@ package gov.hhs.fha.nhinc.configuration.jmx;
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 
+import org.apache.log4j.Logger;
+
 /**
  * The Class Configuration.
  * 
@@ -36,6 +38,9 @@ import gov.hhs.fha.nhinc.properties.PropertyAccessor;
  */
 public class Configuration implements ConfigurationMBean {
 
+    private static final Logger LOG = Logger.getLogger(Configuration.class);
+    private static final String ERROR_ACCESSING_PROPERTY_FILE = "Error accessing property file: ";
+    
     /**
      * Instantiates a new configuration.
      */
@@ -52,8 +57,7 @@ public class Configuration implements ConfigurationMBean {
         try {
             value = PropertyAccessor.getInstance().getProperty(propertyFileName, key);
         } catch (PropertyAccessException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+            LOG.error(generatePropertyAccessErrorMsg(propertyFileName), e);
         }
         return value;
     }
@@ -66,8 +70,7 @@ public class Configuration implements ConfigurationMBean {
         try {
             PropertyAccessor.getInstance().setProperty(propertyFileName, key, value);
         } catch (PropertyAccessException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+            LOG.error(generatePropertyAccessErrorMsg(propertyFileName), e);
         }
     }
 
@@ -78,8 +81,19 @@ public class Configuration implements ConfigurationMBean {
      */
     @Override
     public void persistConfiguration() {
-        // TODO Auto-generated method stub
-
+        throw new RuntimeException("Method not implemented");
     }
-
+    
+    /**
+     * Generate property access error msg.
+     *
+     * @param file the name of the file
+     * @return the error message string
+     */
+    private String generatePropertyAccessErrorMsg(String file) {
+        StringBuilder sb = new StringBuilder();
+        sb.append(ERROR_ACCESSING_PROPERTY_FILE);
+        sb.append(file);
+        return sb.toString();
+    }
 }
