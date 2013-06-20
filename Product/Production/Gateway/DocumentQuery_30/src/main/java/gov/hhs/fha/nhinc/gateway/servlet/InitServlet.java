@@ -27,133 +27,130 @@
 package gov.hhs.fha.nhinc.gateway.servlet;
 
 import gov.hhs.fha.nhinc.configuration.jmx.DocumentQuery30WebServices;
-import gov.hhs.fha.nhinc.configuration.jmx.WebServicesMXBean;
+import gov.hhs.fha.nhinc.gateway.AbstractJMXEnabledServlet;
 import gov.hhs.fha.nhinc.gateway.executorservice.ExecutorServiceHelper;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 
-import java.lang.management.ManagementFactory;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-import javax.management.InstanceAlreadyExistsException;
-import javax.management.MBeanRegistrationException;
-import javax.management.MBeanServer;
-import javax.management.MalformedObjectNameException;
-import javax.management.NotCompliantMBeanException;
-import javax.management.ObjectName;
 import javax.servlet.ServletConfig;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
 
 import org.apache.log4j.Logger;
 
 /**
- * Started on webapplication init, creates the main ExecutorService and CamelContext instances
- * Note the following:
- * 1.  Main ExecutorService creates a new thread pool of size specified on construction,
- * independent/in addition to glassfish thread pool(s) set in domain.xml.
- * 2. ExecutorService automatically handles any thread death condition and creates a
- * new thread in this case
- *
- * 3. Also creates a second largeJobExecutor with a fixed size thread pool
- * (largeJobExecutor is used for TaskExecutors that get a callable list of size
- * comparable to the size of the main ExecutorService)
- *
+ * Started on webapplication init, creates the main ExecutorService and CamelContext instances Note the following: 1.
+ * Main ExecutorService creates a new thread pool of size specified on construction, independent/in addition to
+ * glassfish thread pool(s) set in domain.xml. 2. ExecutorService automatically handles any thread death condition and
+ * creates a new thread in this case
+ * 
+ * 3. Also creates a second largeJobExecutor with a fixed size thread pool (largeJobExecutor is used for TaskExecutors
+ * that get a callable list of size comparable to the size of the main ExecutorService)
+ * 
+ * 4. See {@link gov.fha.hhs.nhinc.gateway.AbstractJMXEnabledServlet} for JMX init and destroy functionality.
+ * 
  * @author paul.eftis, msw
  */
-public class InitServlet extends HttpServlet{
+public class InitServlet extends AbstractJMXEnabledServlet {
 
-    /**
-     * 
-     */
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = -4229185731377926278L;
 
+    /** The Constant LOG. */
     private static final Logger LOG = Logger.getLogger(InitServlet.class);
-
-    /** The Constant UNABLE_TO_REGISTER_MBEAN_MSG. */
-    private static final String UNABLE_TO_REGISTER_MBEAN_MSG = "Unable to register MBean: ";
 
     /** The Constant MBEAN_NAME. */
     private static final String MBEAN_NAME = NhincConstants.JMX_DOCUMENT_QUERY_30_BEAN_NAME;
 
+    /** The executor. */
     private static ExecutorService executor = null;
-    private static ExecutorService largeJobExecutor = null;
     
+    /** The large job executor. */
+    private static ExecutorService largeJobExecutor = null;
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see gov.hhs.fha.nhinc.gateway.AbstractJMXEnabledServlet#getMBeanName()
+     */
+    @Override
+    public String getMBeanName() {
+        return MBEAN_NAME;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see gov.hhs.fha.nhinc.gateway.AbstractJMXEnabledServlet#getMBeanInstance(javax.servlet.ServletContext)
+     */
+    @Override
+    public Object getMBeanInstance(ServletContext sc) {
+        return new DocumentQuery30WebServices(sc);
+    }
 
     /**
      * Initializes the servlet with parallel fanout executors as well as the DocumentQuery30WebServices JMX bean.
-     *
+     * 
      * @param config the config
      * @throws ServletException the servlet exception
      * @see javax.servlet.GenericServlet#init(javax.servlet.ServletConfig)
      */
     @Override
     @SuppressWarnings("static-access")
-    public void init(ServletConfig config) throws ServletException{
-        super.init(config);
+    public void init(ServletConfig config) throws ServletException {
         LOG.debug("InitServlet start...");
         executor = Executors.newFixedThreadPool(ExecutorServiceHelper.getInstance().getExecutorPoolSize());
-        largeJobExecutor = Executors.newFixedThreadPool(ExecutorServiceHelper.getInstance().getLargeJobExecutorPoolSize());
+        largeJobExecutor = Executors.newFixedThreadPool(ExecutorServiceHelper.getInstance()
+                .getLargeJobExecutorPoolSize());
         
-        String enableJMX = System.getProperty(NhincConstants.JMX_ENABLED_SYSTEM_PROPERTY);
-        if ("true".equalsIgnoreCase(enableJMX)) {
-            MBeanServer mbs = ManagementFactory.getPlatformMBeanServer();
-            ObjectName name = null;
-            try {
-                name = new ObjectName(MBEAN_NAME);
-                WebServicesMXBean mbean = new DocumentQuery30WebServices(config.getServletContext());
-                mbs.registerMBean(mbean, name);
-            } catch (MalformedObjectNameException e) {
-                LOG.error(getErrorMessage(), e);
-                throw new ServletException(e);
-            } catch (InstanceAlreadyExistsException e) {
-                LOG.error(getErrorMessage(), e);
-                throw new ServletException(e);
-            } catch (MBeanRegistrationException e) {
-                LOG.error(getErrorMessage(), e);
-                throw new ServletException(e);
-            } catch (NotCompliantMBeanException e) {
-                LOG.error(getErrorMessage(), e);
-                throw new ServletException(e);
-            }
-        }
+        super.init(config);
     }
 
-
-    public static ExecutorService getExecutorService(){
+    /**
+     * Gets the executor service.
+     *
+     * @return the executor service
+     */
+    public static ExecutorService getExecutorService() {
         return executor;
     }
 
-
-    public static ExecutorService getLargeJobExecutorService(){
+    /**
+     * Gets the large job executor service.
+     *
+     * @return the large job executor service
+     */
+    public static ExecutorService getLargeJobExecutorService() {
         return largeJobExecutor;
     }
-    
-    @Override
-    public void destroy(){
-        LOG.debug("InitServlet shutdown stopping executor(s)....");
-        if(executor != null){
-            try{
-                executor.shutdown();
-            }catch(Exception e){}
-        }
-        if(largeJobExecutor != null){
-            try{
-                largeJobExecutor.shutdown();
-            }catch(Exception e){}
-        }
-    }
-    
+
     /**
-     * Gets the error message.
-     *
-     * @return the error message
+     * Servlet destroy method. Since we don't want to hault the serlvet from coming down we are not propogating errors
+     * which are caught in this method.
+     * 
+     * @see javax.servlet.GenericServlet#destroy()
      */
-    private String getErrorMessage() {
-        StringBuilder sb = new StringBuilder();
-        sb.append(UNABLE_TO_REGISTER_MBEAN_MSG);
-        sb.append(MBEAN_NAME);
-        return sb.toString();
+    @Override
+    public void destroy() {
+        LOG.debug("InitServlet shutdown stopping executor(s)....");
+        if (executor != null) {
+            try {
+                executor.shutdown();
+            } catch (Exception e) {
+                LOG.error("Error shutting down executor.", e);
+            }
+        }
+        if (largeJobExecutor != null) {
+            try {
+                largeJobExecutor.shutdown();
+            } catch (Exception e) {
+                LOG.error("Error shutting down large jobs executor.", e);
+            }
+        }
+
+        super.destroy();
     }
-    
+
 }

@@ -27,83 +27,41 @@
 package gov.hhs.fha.nhinc.configuration;
 
 import gov.hhs.fha.nhinc.configuration.jmx.Configuration;
+import gov.hhs.fha.nhinc.gateway.AbstractJMXEnabledServlet;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 
-import java.lang.management.ManagementFactory;
-
-import javax.management.InstanceAlreadyExistsException;
-import javax.management.MBeanRegistrationException;
-import javax.management.MBeanServer;
-import javax.management.MalformedObjectNameException;
-import javax.management.NotCompliantMBeanException;
-import javax.management.ObjectName;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
-
-import org.apache.log4j.Logger;
+import javax.servlet.ServletContext;
 
 /**
  * The Class InitServlet.
  * 
  * @author msw
  */
-public class InitServlet extends HttpServlet {
+public class InitServlet extends AbstractJMXEnabledServlet {
 
     /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 7738036165392946446L;
-    
-    /** The Constant LOG. */
-    private static final Logger LOG = Logger.getLogger(InitServlet.class);
-    
-    /** The Constant UNABLE_TO_REGISTER_MBEAN_MSG. */
-    private static final String UNABLE_TO_REGISTER_MBEAN_MSG = "Unable to register MBean: ";
-    
+
     /** The Constant MBEAN_NAME. */
     private static final String MBEAN_NAME = NhincConstants.JMX_CONFIGURATION_BEAN_NAME;
 
-    /**
-     * Init method for starting up the Configuration MBean.
-     *
-     * @throws ServletException the servlet exception
-     * @see javax.servlet.GenericServlet#init()
+    /*
+     * (non-Javadoc)
+     * 
+     * @see gov.hhs.fha.nhinc.gateway.AbstractJMXEnabledServlet#getMBeanName()
      */
     @Override
-    public void init() throws ServletException {
-        super.init();
-
-        String enableJMX = System.getProperty(MBEAN_NAME);
-        if ("true".equalsIgnoreCase(enableJMX)) {
-            MBeanServer mbs = ManagementFactory.getPlatformMBeanServer();
-            ObjectName name = null;
-            try {
-                name = new ObjectName(NhincConstants.JMX_CONFIGURATION_BEAN_NAME);
-                Configuration mbean = new Configuration();
-                mbs.registerMBean(mbean, name);
-            } catch (MalformedObjectNameException e) {
-                LOG.error(getErrorMessage(), e);
-                throw new ServletException(e);
-            } catch (InstanceAlreadyExistsException e) {
-                LOG.error(getErrorMessage(), e);
-                throw new ServletException(e);
-            } catch (MBeanRegistrationException e) {
-                LOG.error(getErrorMessage(), e);
-                throw new ServletException(e);
-            } catch (NotCompliantMBeanException e) {
-                LOG.error(getErrorMessage(), e);
-                throw new ServletException(e);
-            }
-        }
+    public String getMBeanName() {
+        return MBEAN_NAME;
     }
-    
-    /**
-     * Gets the error message.
-     *
-     * @return the error message
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see gov.hhs.fha.nhinc.gateway.AbstractJMXEnabledServlet#getMBeanInstance(javax.servlet.ServletContext)
      */
-    private String getErrorMessage() {
-        StringBuilder sb = new StringBuilder();
-        sb.append(UNABLE_TO_REGISTER_MBEAN_MSG);
-        sb.append(MBEAN_NAME);
-        return sb.toString();
+    @Override
+    public Object getMBeanInstance(ServletContext sc) {
+        return new Configuration();
     }
 }
