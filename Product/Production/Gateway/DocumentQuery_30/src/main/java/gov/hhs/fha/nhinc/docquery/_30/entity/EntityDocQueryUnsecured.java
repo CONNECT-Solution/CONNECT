@@ -61,4 +61,11 @@ public class EntityDocQueryUnsecured implements gov.hhs.fha.nhinc.entitydocquery
     public void setOutboundDocQuery(OutboundDocQuery outboundDocQuery) {
         this.outboundDocQuery = outboundDocQuery;
     }
+
+    /**
+     * @return
+     */
+    public OutboundDocQuery getOutboundDocQuery() {
+        return this.outboundDocQuery;
+    }
 }

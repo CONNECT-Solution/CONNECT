@@ -26,11 +26,20 @@
  */
 package gov.hhs.fha.nhinc.gateway.servlet;
 
+import gov.hhs.fha.nhinc.configuration.jmx.DocumentQuery30WebServices;
+import gov.hhs.fha.nhinc.configuration.jmx.WebServicesMXBean;
 import gov.hhs.fha.nhinc.gateway.executorservice.ExecutorServiceHelper;
 
+import java.lang.management.ManagementFactory;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+import javax.management.InstanceAlreadyExistsException;
+import javax.management.MBeanRegistrationException;
+import javax.management.MBeanServer;
+import javax.management.MalformedObjectNameException;
+import javax.management.NotCompliantMBeanException;
+import javax.management.ObjectName;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -71,6 +80,29 @@ public class InitServlet extends HttpServlet{
         LOG.debug("InitServlet start...");
         executor = Executors.newFixedThreadPool(ExecutorServiceHelper.getInstance().getExecutorPoolSize());
         largeJobExecutor = Executors.newFixedThreadPool(ExecutorServiceHelper.getInstance().getLargeJobExecutorPoolSize());
+        
+        String enableJMX = System.getProperty("org.connectopensource.enablejmx");
+        if ("true".equalsIgnoreCase(enableJMX)) {
+            MBeanServer mbs = ManagementFactory.getPlatformMBeanServer();
+            ObjectName name = null;
+            try {
+                name = new ObjectName("org.connectopensource.mbeans:type=DocumentQuery30WebServices");
+                WebServicesMXBean mbean = new DocumentQuery30WebServices(config.getServletContext());
+                mbs.registerMBean(mbean, name);
+            } catch (MalformedObjectNameException e) {
+                e.printStackTrace();
+                throw new ServletException(e);
+            } catch (InstanceAlreadyExistsException e) {
+                e.printStackTrace();
+                throw new ServletException(e);
+            } catch (MBeanRegistrationException e) {
+                e.printStackTrace();
+                throw new ServletException(e);
+            } catch (NotCompliantMBeanException e) {
+                e.printStackTrace();
+                throw new ServletException(e);
+            }
+        }
     }
 
 
