@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services. 
+ * Copyright (c) 2009-2013, United States Government, as represented by the Secretary of Health and Human Services. 
  * All rights reserved. 
  *
  * Redistribution and use in source and binary forms, with or without 
@@ -58,7 +58,7 @@ import org.apache.log4j.Logger;
  * (largeJobExecutor is used for TaskExecutors that get a callable list of size
  * comparable to the size of the main ExecutorService)
  *
- * @author paul.eftis
+ * @author paul.eftis, msw
  */
 public class InitServlet extends HttpServlet{
 
@@ -73,6 +73,13 @@ public class InitServlet extends HttpServlet{
     private static ExecutorService largeJobExecutor = null;
     
 
+    /**
+     * Initializes the servlet with parallel fanout executors as well as the DocumentQuery30WebServices JMX bean.
+     *
+     * @param config the config
+     * @throws ServletException the servlet exception
+     * @see javax.servlet.GenericServlet#init(javax.servlet.ServletConfig)
+     */
     @Override
     @SuppressWarnings("static-access")
     public void init(ServletConfig config) throws ServletException{

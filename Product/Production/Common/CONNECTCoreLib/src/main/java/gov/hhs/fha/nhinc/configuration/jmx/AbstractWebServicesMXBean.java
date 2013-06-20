@@ -32,11 +32,12 @@ import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
 /**
- * The Class AbstractWebServicesMXBean.
+ * The Class AbstractWebServicesMXBean. This abstract class provides some common methods for retrieving beans and
+ * dependencies as well as some methods which must be overriden to provide bean names.
  * 
  * @author msw
  */
-public abstract class AbstractWebServicesMXBean {
+public abstract class AbstractWebServicesMXBean implements WebServicesMXBean {
 
     /** The ServletContext. */
     private ServletContext sc;
@@ -76,7 +77,7 @@ public abstract class AbstractWebServicesMXBean {
      * application context.
      * 
      * @param <T> the generic type
-     * @param beanType the bean type
+     * @param beanType the generic bean type
      * @param beanName the bean name
      * @return the t
      */
@@ -92,7 +93,7 @@ public abstract class AbstractWebServicesMXBean {
      * the class loader.
      * 
      * @param <T> the generic type
-     * @param dependencyType the dependency type
+     * @param dependencyType the generic dependency type
      * @param className the class name
      * @return the t
      * @throws InstantiationException the instantiation exception
@@ -106,7 +107,9 @@ public abstract class AbstractWebServicesMXBean {
     }
 
     /**
-     * Configure inbound implementation.
+     * Configure inbound implementation. This method is abstract because subclass implementations must use actual types
+     * as opposed to the type parameters use in {@link #retrieveBean(Class, String)} and
+     * {@link #retrieveDependency(Class, String)}.
      * 
      * @param className the class name
      * @throws InstantiationException the instantiation exception
@@ -117,7 +120,9 @@ public abstract class AbstractWebServicesMXBean {
             IllegalAccessException, ClassNotFoundException;
 
     /**
-     * Configure outbound implementation.
+     * Configure outbound implementation. This method is abstract because subclass implementations must use actual types
+     * as opposed to the type parameters use in {@link #retrieveBean(Class, String)} and
+     * {@link #retrieveDependency(Class, String)}.
      * 
      * @param className the class name
      * @throws InstantiationException the instantiation exception

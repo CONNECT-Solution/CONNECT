@@ -36,43 +36,44 @@ import javax.servlet.ServletContext;
 
 /**
  * The Class DocumentQuery30WebServices.
- *
+ * 
  * @author msw
  */
-public class DocumentQuery30WebServices extends AbstractWebServicesMXBean implements WebServicesMXBean {
+public class DocumentQuery30WebServices extends AbstractWebServicesMXBean {
 
     /** The Constant NHIN_DQ_BEAN_NAME. */
     private static final String NHIN_DQ_BEAN_NAME = "nhinDQ";
-    
+
     /** The Constant ENTITY_UNSECURED_DQ_BEAN_NAME. */
     private static final String ENTITY_UNSECURED_DQ_BEAN_NAME = "entityDQUnsecured";
-    
+
     /** The Constant ENTITY_SECURED_DQ_BEAN_NAME. */
     private static final String ENTITY_SECURED_DQ_BEAN_NAME = "entityDQSecured";
 
     /** The Constant DEFAULT_INBOUND_STANDARD_IMPL_CLASS_NAME. */
     public static final String DEFAULT_INBOUND_STANDARD_IMPL_CLASS_NAME = "gov.hhs.fha.nhinc.docquery.inbound.StandardInboundDocQuery";
-    
+
     /** The Constant DEFAULT_INBOUND_PASSTHRU_IMPL_CLASS_NAME. */
     public static final String DEFAULT_INBOUND_PASSTHRU_IMPL_CLASS_NAME = "gov.hhs.fha.nhinc.docquery.inbound.PassthroughInboundDocQuery";
-    
+
     /** The Constant DEFAULT_OUTBOUND_STANDARD_IMPL_CLASS_NAME. */
     public static final String DEFAULT_OUTBOUND_STANDARD_IMPL_CLASS_NAME = "gov.hhs.fha.nhinc.docquery.outbound.StandardOutboundDocQuery";
-    
+
     /** The Constant DEFAULT_OUTBOUND_PASSTHRU_IMPL_CLASS_NAME. */
     public static final String DEFAULT_OUTBOUND_PASSTHRU_IMPL_CLASS_NAME = "gov.hhs.fha.nhinc.docquery.outbound.PassthroughOutboundDocQuery";
 
     /**
      * Instantiates a new document query30 web services.
-     *
+     * 
      * @param sc the sc
      */
     public DocumentQuery30WebServices(ServletContext sc) {
         super(sc);
     }
 
-
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see gov.hhs.fha.nhinc.configuration.jmx.AbstractWebServicesMXBean#getNhinBeanName()
      */
     @Override
@@ -164,9 +165,19 @@ public class DocumentQuery30WebServices extends AbstractWebServicesMXBean implem
         configureOutboundImplementation(DEFAULT_OUTBOUND_PASSTHRU_IMPL_CLASS_NAME);
     }
 
-    /* (non-Javadoc)
+    /**
+     * Configure inbound implementation. The inbound orchestration implementation provided via the className param is
+     * set on the Nhin interface bean. This method uses specific types and passes them to the generic
+     * {@link gov.hhs.fha.nhinc.configuration.jmx.AbstractWebServicesMXBean#retrieveBean(Class, String)} and
+     * {@link gov.hhs.fha.nhinc.configuration.jmx.AbstractWebServicesMXBean#retrieveDependency(Class, String)} methods.
+     * 
+     * @param className the class name
+     * @throws InstantiationException the instantiation exception
+     * @throws IllegalAccessException the illegal access exception
+     * @throws ClassNotFoundException the class not found exception
      * @see gov.hhs.fha.nhinc.configuration.jmx.AbstractWebServicesMXBean#configureInboundImplementation(java.lang.String)
      */
+    @Override
     protected void configureInboundImplementation(String className) throws InstantiationException,
             IllegalAccessException, ClassNotFoundException {
         DocQuery docQuery = null;
@@ -177,9 +188,19 @@ public class DocumentQuery30WebServices extends AbstractWebServicesMXBean implem
         docQuery.setInboundDocQuery(inboundDocQuery);
     }
 
-    /* (non-Javadoc)
+    /**
+     * Configure outbound implementation. The outbound orchestration implementation provided via the className param is
+     * set on the Nhin interface bean. This method uses specific types and passes them to the generic
+     * {@link gov.hhs.fha.nhinc.configuration.jmx.AbstractWebServicesMXBean#retrieveBean(Class, String)} and
+     * {@link gov.hhs.fha.nhinc.configuration.jmx.AbstractWebServicesMXBean#retrieveDependency(Class, String)} methods.
+     * 
+     * @param className the class name
+     * @throws InstantiationException the instantiation exception
+     * @throws IllegalAccessException the illegal access exception
+     * @throws ClassNotFoundException the class not found exception
      * @see gov.hhs.fha.nhinc.configuration.jmx.AbstractWebServicesMXBean#configureOutboundImplementation(java.lang.String)
      */
+    @Override
     protected void configureOutboundImplementation(String className) throws InstantiationException,
             IllegalAccessException, ClassNotFoundException {
         EntityDocQueryUnsecured entityUnsecuredDocQuery = null;
