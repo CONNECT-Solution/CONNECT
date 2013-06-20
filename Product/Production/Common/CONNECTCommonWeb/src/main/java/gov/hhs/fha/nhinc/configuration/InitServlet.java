@@ -40,6 +40,8 @@ import javax.management.ObjectName;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 
+import org.apache.log4j.Logger;
+
 /**
  * The Class InitServlet.
  * 
@@ -49,17 +51,27 @@ public class InitServlet extends HttpServlet {
 
     /** The Constant serialVersionUID. */
     private static final long serialVersionUID = 7738036165392946446L;
+    
+    /** The Constant LOG. */
+    private static final Logger LOG = Logger.getLogger(InitServlet.class);
+    
+    /** The Constant UNABLE_TO_REGISTER_MBEAN_MSG. */
+    private static final String UNABLE_TO_REGISTER_MBEAN_MSG = "Unable to register MBean: ";
+    
+    /** The Constant MBEAN_NAME. */
+    private static final String MBEAN_NAME = NhincConstants.JMX_CONFIGURATION_BEAN_NAME;
 
     /**
      * Init method for starting up the Configuration MBean.
-     * 
+     *
+     * @throws ServletException the servlet exception
      * @see javax.servlet.GenericServlet#init()
      */
     @Override
     public void init() throws ServletException {
         super.init();
 
-        String enableJMX = System.getProperty(NhincConstants.JMX_ENABLED_SYSTEM_PROPERTY);
+        String enableJMX = System.getProperty(MBEAN_NAME);
         if ("true".equalsIgnoreCase(enableJMX)) {
             MBeanServer mbs = ManagementFactory.getPlatformMBeanServer();
             ObjectName name = null;
@@ -68,18 +80,30 @@ public class InitServlet extends HttpServlet {
                 Configuration mbean = new Configuration();
                 mbs.registerMBean(mbean, name);
             } catch (MalformedObjectNameException e) {
-                e.printStackTrace();
+                LOG.error(getErrorMessage(), e);
                 throw new ServletException(e);
             } catch (InstanceAlreadyExistsException e) {
-                e.printStackTrace();
+                LOG.error(getErrorMessage(), e);
                 throw new ServletException(e);
             } catch (MBeanRegistrationException e) {
-                e.printStackTrace();
+                LOG.error(getErrorMessage(), e);
                 throw new ServletException(e);
             } catch (NotCompliantMBeanException e) {
-                e.printStackTrace();
+                LOG.error(getErrorMessage(), e);
                 throw new ServletException(e);
             }
         }
+    }
+    
+    /**
+     * Gets the error message.
+     *
+     * @return the error message
+     */
+    private String getErrorMessage() {
+        StringBuilder sb = new StringBuilder();
+        sb.append(UNABLE_TO_REGISTER_MBEAN_MSG);
+        sb.append(MBEAN_NAME);
+        return sb.toString();
     }
 }

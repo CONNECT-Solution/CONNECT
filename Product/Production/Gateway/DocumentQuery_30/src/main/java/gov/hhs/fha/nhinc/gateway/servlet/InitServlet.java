@@ -70,6 +70,12 @@ public class InitServlet extends HttpServlet{
 
     private static final Logger LOG = Logger.getLogger(InitServlet.class);
 
+    /** The Constant UNABLE_TO_REGISTER_MBEAN_MSG. */
+    private static final String UNABLE_TO_REGISTER_MBEAN_MSG = "Unable to register MBean: ";
+
+    /** The Constant MBEAN_NAME. */
+    private static final String MBEAN_NAME = NhincConstants.JMX_DOCUMENT_QUERY_30_BEAN_NAME;
+
     private static ExecutorService executor = null;
     private static ExecutorService largeJobExecutor = null;
     
@@ -94,20 +100,20 @@ public class InitServlet extends HttpServlet{
             MBeanServer mbs = ManagementFactory.getPlatformMBeanServer();
             ObjectName name = null;
             try {
-                name = new ObjectName(NhincConstants.JMX_DOCUMENT_QUERY_30_BEAN_NAME);
+                name = new ObjectName(MBEAN_NAME);
                 WebServicesMXBean mbean = new DocumentQuery30WebServices(config.getServletContext());
                 mbs.registerMBean(mbean, name);
             } catch (MalformedObjectNameException e) {
-                e.printStackTrace();
+                LOG.error(getErrorMessage(), e);
                 throw new ServletException(e);
             } catch (InstanceAlreadyExistsException e) {
-                e.printStackTrace();
+                LOG.error(getErrorMessage(), e);
                 throw new ServletException(e);
             } catch (MBeanRegistrationException e) {
-                e.printStackTrace();
+                LOG.error(getErrorMessage(), e);
                 throw new ServletException(e);
             } catch (NotCompliantMBeanException e) {
-                e.printStackTrace();
+                LOG.error(getErrorMessage(), e);
                 throw new ServletException(e);
             }
         }
@@ -122,8 +128,6 @@ public class InitServlet extends HttpServlet{
     public static ExecutorService getLargeJobExecutorService(){
         return largeJobExecutor;
     }
-
-    
     
     @Override
     public void destroy(){
@@ -138,6 +142,18 @@ public class InitServlet extends HttpServlet{
                 largeJobExecutor.shutdown();
             }catch(Exception e){}
         }
+    }
+    
+    /**
+     * Gets the error message.
+     *
+     * @return the error message
+     */
+    private String getErrorMessage() {
+        StringBuilder sb = new StringBuilder();
+        sb.append(UNABLE_TO_REGISTER_MBEAN_MSG);
+        sb.append(MBEAN_NAME);
+        return sb.toString();
     }
     
 }
