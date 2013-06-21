@@ -24,11 +24,12 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
  */
-package gov.hhs.fha.nhinc.configuration.jmx;
+package gov.hhs.fha.nhinc.docquery.configuration.jmx;
 
-import gov.hhs.fha.nhinc.docquery._30.entity.EntityDocQuerySecured;
-import gov.hhs.fha.nhinc.docquery._30.entity.EntityDocQueryUnsecured;
-import gov.hhs.fha.nhinc.docquery._30.nhin.DocQuery;
+import gov.hhs.fha.nhinc.docquery._20.entity.EntityDocQuerySecured;
+import gov.hhs.fha.nhinc.docquery._20.entity.EntityDocQueryUnsecured;
+import gov.hhs.fha.nhinc.docquery._20.nhin.DocQuery;
+import gov.hhs.fha.nhinc.docquery.configuration.jmx.AbstractDQWebServicesMXBean;
 import gov.hhs.fha.nhinc.docquery.inbound.InboundDocQuery;
 import gov.hhs.fha.nhinc.docquery.outbound.OutboundDocQuery;
 
@@ -39,130 +40,15 @@ import javax.servlet.ServletContext;
  * 
  * @author msw
  */
-public class DocumentQuery30WebServices extends AbstractWebServicesMXBean {
-
-    /** The Constant NHIN_DQ_BEAN_NAME. */
-    private static final String NHIN_DQ_BEAN_NAME = "nhinDQ";
-
-    /** The Constant ENTITY_UNSECURED_DQ_BEAN_NAME. */
-    private static final String ENTITY_UNSECURED_DQ_BEAN_NAME = "entityDQUnsecured";
-
-    /** The Constant ENTITY_SECURED_DQ_BEAN_NAME. */
-    private static final String ENTITY_SECURED_DQ_BEAN_NAME = "entityDQSecured";
-
-    /** The Constant DEFAULT_INBOUND_STANDARD_IMPL_CLASS_NAME. */
-    public static final String DEFAULT_INBOUND_STANDARD_IMPL_CLASS_NAME = "gov.hhs.fha.nhinc.docquery.inbound.StandardInboundDocQuery";
-
-    /** The Constant DEFAULT_INBOUND_PASSTHRU_IMPL_CLASS_NAME. */
-    public static final String DEFAULT_INBOUND_PASSTHRU_IMPL_CLASS_NAME = "gov.hhs.fha.nhinc.docquery.inbound.PassthroughInboundDocQuery";
-
-    /** The Constant DEFAULT_OUTBOUND_STANDARD_IMPL_CLASS_NAME. */
-    public static final String DEFAULT_OUTBOUND_STANDARD_IMPL_CLASS_NAME = "gov.hhs.fha.nhinc.docquery.outbound.StandardOutboundDocQuery";
-
-    /** The Constant DEFAULT_OUTBOUND_PASSTHRU_IMPL_CLASS_NAME. */
-    public static final String DEFAULT_OUTBOUND_PASSTHRU_IMPL_CLASS_NAME = "gov.hhs.fha.nhinc.docquery.outbound.PassthroughOutboundDocQuery";
+public class DocumentQuery20WebServices extends AbstractDQWebServicesMXBean {
 
     /**
      * Instantiates a new document query30 web services.
      * 
      * @param sc the sc
      */
-    public DocumentQuery30WebServices(ServletContext sc) {
+    public DocumentQuery20WebServices(ServletContext sc) {
         super(sc);
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see gov.hhs.fha.nhinc.configuration.jmx.AbstractWebServicesMXBean#getNhinBeanName()
-     */
-    @Override
-    protected String getNhinBeanName() {
-        return NHIN_DQ_BEAN_NAME;
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see gov.hhs.fha.nhinc.configuration.jmx.AbstractWebServicesMXBean#getEntityUnsecuredBeanName()
-     */
-    @Override
-    protected String getEntityUnsecuredBeanName() {
-        return ENTITY_UNSECURED_DQ_BEAN_NAME;
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see gov.hhs.fha.nhinc.configuration.jmx.AbstractWebServicesMXBean#getEntitySecuredBeanName()
-     */
-    @Override
-    protected String getEntitySecuredBeanName() {
-        return ENTITY_SECURED_DQ_BEAN_NAME;
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see gov.hhs.fha.nhinc.configuration.jmx.WebServicesMXBean#configureInboundImpl(java.lang.String)
-     */
-    @Override
-    public void configureInboundImpl(String className) throws InstantiationException, IllegalAccessException,
-            ClassNotFoundException {
-        configureInboundImplementation(className);
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see gov.hhs.fha.nhinc.configuration.jmx.WebServicesMXBean#configureInboundStd()
-     */
-    @Override
-    public void configureInboundStd() throws InstantiationException, IllegalAccessException, ClassNotFoundException {
-        configureInboundImplementation(DEFAULT_INBOUND_STANDARD_IMPL_CLASS_NAME);
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see gov.hhs.fha.nhinc.configuration.jmx.WebServicesMXBean#configureInboundPassthru()
-     */
-    @Override
-    public void configureInboundPassthru() throws InstantiationException, IllegalAccessException,
-            ClassNotFoundException {
-        configureInboundImplementation(DEFAULT_INBOUND_PASSTHRU_IMPL_CLASS_NAME);
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see gov.hhs.fha.nhinc.configuration.jmx.WebServicesMXBean#configureOutboundImpl(java.lang.String)
-     */
-    @Override
-    public void configureOutboundImpl(String className) throws InstantiationException, IllegalAccessException,
-            ClassNotFoundException {
-        configureOutboundImplementation(className);
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see gov.hhs.fha.nhinc.configuration.jmx.WebServicesMXBean#configureOutboundStd()
-     */
-    @Override
-    public void configureOutboundStd() throws InstantiationException, IllegalAccessException, ClassNotFoundException {
-        configureOutboundImplementation(DEFAULT_OUTBOUND_STANDARD_IMPL_CLASS_NAME);
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see gov.hhs.fha.nhinc.configuration.jmx.WebServicesMXBean#configureOutboundPassthru()
-     */
-    @Override
-    public void configureOutboundPassthru() throws InstantiationException, IllegalAccessException,
-            ClassNotFoundException {
-        configureOutboundImplementation(DEFAULT_OUTBOUND_PASSTHRU_IMPL_CLASS_NAME);
     }
 
     /**

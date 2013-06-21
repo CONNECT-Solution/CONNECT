@@ -26,7 +26,7 @@
  */
 package gov.hhs.fha.nhinc.gateway.servlet;
 
-import gov.hhs.fha.nhinc.configuration.jmx.DocumentQuery30WebServices;
+import gov.hhs.fha.nhinc.docquery.configuration.jmx.DocumentQuery30WebServices;
 import gov.hhs.fha.nhinc.gateway.AbstractJMXEnabledServlet;
 import gov.hhs.fha.nhinc.gateway.executorservice.ExecutorServiceHelper;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
@@ -91,11 +91,11 @@ public class InitServlet extends AbstractJMXEnabledServlet {
     }
 
     /**
-     * Initializes the servlet with parallel fanout executors as well as the DocumentQuery30WebServices JMX bean.
+     * Initializes the servlet with parallel fanout executors as well as calling super.init().
      * 
      * @param config the config
      * @throws ServletException the servlet exception
-     * @see javax.servlet.GenericServlet#init(javax.servlet.ServletConfig)
+     * @see gov.fha.hhs.nhinc.gateway.AbstractJMXEnabledServlet#init(javax.servlet.ServletConfig)
      */
     @Override
     @SuppressWarnings("static-access")
@@ -128,9 +128,9 @@ public class InitServlet extends AbstractJMXEnabledServlet {
 
     /**
      * Servlet destroy method. Since we don't want to hault the serlvet from coming down we are not propogating errors
-     * which are caught in this method.
+     * which are caught in this method. 
      * 
-     * @see javax.servlet.GenericServlet#destroy()
+     * @see gov.fha.hhs.nhinc.gateway.AbstractJMXEnabledServlet#destroy()
      */
     @Override
     public void destroy() {
