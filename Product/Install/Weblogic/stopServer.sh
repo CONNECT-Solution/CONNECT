@@ -4,6 +4,6 @@
 # Stop the Management Server. The following parameters are passed:
 # param 1 --> Server Name
 # param 2 --> Admin URL
-/nhin/weblogic/user_projects/domains/base_domain/bin/stopManagedWebLogic.sh $1 $ADMIN_URL 
+$WLS_DOMAIN_HOME/bin/stopManagedWebLogic.sh $1 $WLS_ADMIN_URL 
 # Stop the Admin Server
-/nhin/weblogic/user_projects/domains/base_domain/bin/stopWebLogic.sh
+$WLS_DOMAIN_HOME/bin/stopWebLogic.sh

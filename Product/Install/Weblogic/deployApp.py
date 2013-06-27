@@ -18,5 +18,5 @@ serverConfig()
 cd('Servers\server1')
 ls()
 # Deploy application
-deploy(applicationName, applactionEARFileName, serverName,block='true')
+deploy(applicationName, applactionEARFileName, targets='server1',block='true')
 

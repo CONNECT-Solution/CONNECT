@@ -4,5 +4,5 @@
 . /nhin/CI/setVariables.sh
 
 
-/home2/gfish/IBM/WebSphere/AppServer/profiles/AppSrv02/bin/wsadmin.sh -f /nhin/CI/unDeployApp.jacl $APPLICATION_NAME
+${WEBSPHERE_PROFILE_DIR}/bin/wsadmin.sh -f /nhin/CI/unDeployApp.jacl $APPLICATION_NAME
 

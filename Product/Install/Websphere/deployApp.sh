@@ -8,5 +8,4 @@
 . /nhin/CI/setVariables.sh
 
 echo $EARFILENAME  
-/home2/gfish/IBM/WebSphere/AppServer/profiles/AppSrv02/bin/wsadmin.sh -f /nhin/CI/deployApp.jacl $EARFILENAME $APPLICATION_NAME $1 $2 $3 
-
+$WEBSPHERE_PROFILE_DIR/bin/wsadmin.sh -f /nhin/CI/deployApp.jacl $EARFILENAME $APPLICATION_NAME $1 $2 $3 

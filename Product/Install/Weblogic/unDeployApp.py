@@ -17,6 +17,6 @@ cd('Servers\server1')
 ls()
 
 # Deploy application
-undeploy(applicationName, timeout=60000)
+undeploy(applicationName, targets='server1', timeout=60000)
 
 

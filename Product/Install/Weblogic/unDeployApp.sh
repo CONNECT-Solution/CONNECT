@@ -8,5 +8,5 @@
 # param 4 --> Application Name
 # param 5 --> Server Name
 
-/nhin/weblogic/wlserver/common/bin/wlst.sh /nhin/CI/unDeployApp.py $ADMIN_USERNAME $ADMIN_PASSWORD $ADMIN_URL $APPLICATION_NAME $1
+$WL_HOME/common/bin/wlst.sh /nhin/CI/unDeployApp.py $ADMIN_USERNAME $ADMIN_PASSWORD $WLS_ADMIN_URL $APPLICATION_NAME $1
 

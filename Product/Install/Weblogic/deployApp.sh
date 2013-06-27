@@ -8,6 +8,7 @@
 # param 4 --> Application Name
 # param 5 --> Server Name
 # param 6 --> ear File Name  
-/nhin/weblogic/wlserver/common/bin/wlst.sh /nhin/CI/deployApp.py $ADMIN_USERNAME $ADMIN_PASSWORD $ADMIN_URL $APPLICATION_NAME $1 $EARFILENAME
 
-sleep 120
+echo $ADMIN_USERNAME $ADMIN_PASSWORD $WLS_ADMIN_URL $APPLICATION_NAME $1 $EARFILENAME 
+$WL_HOME/common/bin/wlst.sh /nhin/CI/deployApp.py $ADMIN_USERNAME $ADMIN_PASSWORD $WLS_ADMIN_URL $APPLICATION_NAME $1 $EARFILENAME
+
