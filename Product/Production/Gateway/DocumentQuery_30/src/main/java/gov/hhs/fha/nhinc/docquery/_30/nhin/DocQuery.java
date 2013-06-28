@@ -42,7 +42,7 @@ import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
 
 /**
  * 
- * @author Neil Webb
+ * @author Neil Webb, msw
  */
 @BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
 @Addressing(enabled = true)
@@ -72,5 +72,14 @@ public class DocQuery implements RespondingGatewayQueryPortType {
 
     public void setInboundDocQuery(InboundDocQuery inboundDocQuery) {
         this.inboundDocQuery = inboundDocQuery;
+    }
+
+    /**
+     * Gets the inbound doc query dependency.
+     *
+     * @return the inbound doc query
+     */
+    public InboundDocQuery getInboundDocQuery() {
+        return this.inboundDocQuery;
     }
 }

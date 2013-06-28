@@ -73,4 +73,13 @@ public class DocQuery implements RespondingGatewayQueryPortType {
     public void setInboundDocQuery(InboundDocQuery inboundDocQuery) {
         this.inboundDocQuery = inboundDocQuery;
     }
+
+    /**
+     * Gets the inbound doc query dependency.
+     *
+     * @return the inbound doc query
+     */
+    public InboundDocQuery getInboundDocQuery() {
+        return this.inboundDocQuery;
+    }
 }

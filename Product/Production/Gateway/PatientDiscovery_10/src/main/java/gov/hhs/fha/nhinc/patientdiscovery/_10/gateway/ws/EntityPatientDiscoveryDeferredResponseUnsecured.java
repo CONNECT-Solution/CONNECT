@@ -77,4 +77,13 @@ public class EntityPatientDiscoveryDeferredResponseUnsecured extends BaseService
         this.outboundPatientDiscoveryResponse = outboundPatientDiscoveryResponse;
     }
 
+    /**
+     * Gets the outbound patient discovery.
+     *
+     * @return the outbound patient discovery
+     */
+    public OutboundPatientDiscoveryDeferredResponse getOutboundPatientDiscovery() {
+        return this.outboundPatientDiscoveryResponse;
+    }
+
 }

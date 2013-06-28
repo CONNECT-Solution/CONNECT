@@ -64,9 +64,7 @@ public class NhinPatientDiscoveryDeferredRequest extends BaseService implements
      * @param body the request message from the Nhin
      * @return the response message to the Nhin
      */
-    @InboundMessageEvent(beforeBuilder = PRPAIN201305UV02EventDescriptionBuilder.class, 
-            afterReturningBuilder = MCCIIN000002UV01EventDescriptionBuilder.class, 
-            serviceType = "Patient Discovery Deferred Request", version = "1.0")
+    @InboundMessageEvent(beforeBuilder = PRPAIN201305UV02EventDescriptionBuilder.class, afterReturningBuilder = MCCIIN000002UV01EventDescriptionBuilder.class, serviceType = "Patient Discovery Deferred Request", version = "1.0")
     public MCCIIN000002UV01 respondingGatewayDeferredPRPAIN201305UV02(PRPAIN201305UV02 body) {
         AssertionType assertion = getAssertion(context, null);
 
@@ -80,6 +78,15 @@ public class NhinPatientDiscoveryDeferredRequest extends BaseService implements
 
     public void setInboundPatientDiscoveryRequest(InboundPatientDiscoveryDeferredRequest inboundPatientDiscoveryRequest) {
         this.inboundPatientDiscoveryRequest = inboundPatientDiscoveryRequest;
+    }
+
+    /**
+     * Gets the inbound patient discovery.
+     * 
+     * @return the inbound patient discovery
+     */
+    public InboundPatientDiscoveryDeferredRequest getInboundPatientDiscovery() {
+        return this.inboundPatientDiscoveryRequest;
     }
 
 }

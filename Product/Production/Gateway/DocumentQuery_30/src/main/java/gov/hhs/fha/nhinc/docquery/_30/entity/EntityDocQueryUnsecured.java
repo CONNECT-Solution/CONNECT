@@ -39,6 +39,11 @@ import javax.xml.ws.soap.Addressing;
 
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
 
+/**
+ * The Class EntityDocQueryUnsecured.
+ * 
+ * @author msw
+ */
 @BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
 @Addressing(enabled = true)
 public class EntityDocQueryUnsecured implements gov.hhs.fha.nhinc.entitydocquery.EntityDocQueryPortType {
@@ -60,5 +65,14 @@ public class EntityDocQueryUnsecured implements gov.hhs.fha.nhinc.entitydocquery
 
     public void setOutboundDocQuery(OutboundDocQuery outboundDocQuery) {
         this.outboundDocQuery = outboundDocQuery;
+    }
+
+    /**
+     * Gets the outbound doc query dependency.
+     *
+     * @return the outbound doc query
+     */
+    public OutboundDocQuery getOutboundDocQuery() {
+        return this.outboundDocQuery;
     }
 }

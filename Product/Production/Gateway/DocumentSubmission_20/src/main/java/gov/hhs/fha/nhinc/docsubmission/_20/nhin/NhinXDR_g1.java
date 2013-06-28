@@ -76,4 +76,13 @@ public class NhinXDR_g1 implements DocumentRepositoryXDRPortType {
         this.context = context;
     }
 
+    /**
+     * Gets the inbound doc submission.
+     *
+     * @return the inbound doc submission
+     */
+    public InboundDocSubmission getInboundDocSubmission() {
+        return this.inboundDocSubmission;
+    }
+
 }

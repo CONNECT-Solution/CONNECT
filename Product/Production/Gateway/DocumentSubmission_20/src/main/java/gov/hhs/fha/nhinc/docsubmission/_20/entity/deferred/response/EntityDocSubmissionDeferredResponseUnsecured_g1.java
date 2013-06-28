@@ -64,4 +64,13 @@ public class EntityDocSubmissionDeferredResponseUnsecured_g1 implements EntityXD
     public void setOutboundDocSubmissionResponse(OutboundDocSubmissionDeferredResponse outboundDocSubmissionResponse) {
         this.outboundDocSubmissionResponse = outboundDocSubmissionResponse;
     }
+
+    /**
+     * Gets the outbound doc submission.
+     *
+     * @return the outbound doc submission
+     */
+    public OutboundDocSubmissionDeferredResponse getOutboundDocSubmission() {
+        return this.outboundDocSubmissionResponse;
+    }
 }

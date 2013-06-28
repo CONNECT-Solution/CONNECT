@@ -66,4 +66,13 @@ public class NhinAdministrativeDistribution extends BaseService implements
     public void setInboundAdminDistribution(InboundAdminDistribution inboundAdminDist) {
         this.inboundAdminDist = inboundAdminDist;
     }
+
+    /**
+     * Gets the inbound admin distribution.
+     *
+     * @return the inbound admin distribution
+     */
+    public InboundAdminDistribution getInboundAdminDistribution() {
+        return this.inboundAdminDist;
+    }
 }

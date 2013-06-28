@@ -50,4 +50,13 @@ public class EntityDocRetrieve extends BaseService implements EntityDocRetrieveP
     public void setOutboundDocRetrieve(OutboundDocRetrieve outboundDocRetrieve) {
         this.outboundDocRetrieve = outboundDocRetrieve;
     }
+
+    /**
+     * Gets the outbound doc retrieve.
+     *
+     * @return the outbound doc retrieve
+     */
+    public OutboundDocRetrieve getOutboundDocRetrieve() {
+        return this.outboundDocRetrieve;
+    }
 }

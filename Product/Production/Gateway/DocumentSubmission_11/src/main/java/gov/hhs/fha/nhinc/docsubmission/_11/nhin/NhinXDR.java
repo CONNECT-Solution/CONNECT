@@ -88,4 +88,13 @@ public class NhinXDR implements ihe.iti.xdr._2007.DocumentRepositoryXDRPortType 
         this.context = context;
     }
 
+    /**
+     * Gets the inbound doc submission.
+     *
+     * @return the inbound doc submission
+     */
+    public InboundDocSubmission getInboundDocSubmission() {
+        return this.inboundDocSubmission;
+    }
+
 }

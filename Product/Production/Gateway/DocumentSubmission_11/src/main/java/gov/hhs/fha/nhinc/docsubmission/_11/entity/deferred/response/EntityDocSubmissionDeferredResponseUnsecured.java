@@ -66,4 +66,13 @@ public class EntityDocSubmissionDeferredResponseUnsecured implements EntityXDRAs
     public void setOutboundDocSubmissionResponse(OutboundDocSubmissionDeferredResponse outboundDocSubmissionResponse) {
         this.outboundDocSubmissionResponse = outboundDocSubmissionResponse;
     }
+
+    /**
+     * Gets the outbound doc submission.
+     *
+     * @return the outbound doc submission
+     */
+    public OutboundDocSubmissionDeferredResponse getOutboundDocSubmission() {
+        return this.outboundDocSubmissionResponse;
+    }
 }
