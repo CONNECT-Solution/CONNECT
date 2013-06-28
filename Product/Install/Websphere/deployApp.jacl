@@ -1,0 +1,30 @@
+# Assign command line arguments to local variable
+set earFileName [lindex $argv 0]
+
+set applicationName [lindex $argv 1]
+
+set serverName [lindex $argv 2]
+
+set cellName [lindex $argv 3]
+
+set nodeName [lindex $argv 4]
+
+#Install the app
+$AdminApp install $earFileName {-appname CONNECT-WAS -defaultbinding.virtual.host default_host -usedefaultbindings}
+
+# Save the action
+$AdminConfig save
+
+#Change the classloader to PARENT_LAST
+set aDeployment [$AdminConfig getid /Deployment:$applicationName/]
+set aAppDeploy [$AdminConfig showAttribute $aDeployment deployedObject]
+set aClassloader [$AdminConfig showAttribute $aAppDeploy  classloader]
+$AdminConfig modify $aClassloader {{mode PARENT_LAST}}
+$AdminConfig save
+
+#Start the application
+set appManager [$AdminControl queryNames cell=$cellName,node=$nodeName,type=ApplicationManager,process=$serverName,*]
+
+$AdminControl invoke $appManager startApplication $applicationName 
+$AdminConfig save
+

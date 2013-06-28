@@ -1,0 +1,7 @@
+# set command line variables to local variables
+set applicationName [lindex $argv 0] 
+puts $applicationName 
+# Uninstall the application
+$AdminApp uninstall $applicationName
+$AdminConfig save
+
