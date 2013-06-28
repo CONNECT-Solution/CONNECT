@@ -3196,7 +3196,7 @@ nhinc.FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFil
 </con:testCase>
 
 
-<con:testCase failOnError="true" failTestCaseOnErrors="true" id="9324f41a-5d01-4528-9520-206957d72ffc" keepSession="false" maxResults="0" name="DQ a1 interface with 2011 Guidance and target available with 2.0 endpoint" searchProperties="true">
+<con:testCase failOnError="true" failTestCaseOnErrors="true" id="9324f41a-5d01-4528-9520-206957d72ffc" keepSession="false" maxResults="0" name="DQ a1 interface with 2011 Guidance and target available with 3.0 endpoint" searchProperties="true">
 	<con:settings/>
 
 	<con:testStep name="Copy uddiConnectionInfo" type="groovy">
