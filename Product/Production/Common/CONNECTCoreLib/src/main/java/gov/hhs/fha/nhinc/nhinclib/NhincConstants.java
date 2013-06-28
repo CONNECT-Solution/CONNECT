@@ -449,6 +449,13 @@ public class NhincConstants {
     public static final String XDS_REGISTRY_ERROR_SEVERITY_ERROR = "urn:oasis:names:tc:ebxml-regrep:ErrorSeverityType:Error";
 
 	public static final String DIRECT_SOAP_EDGE_SERVICE_NAME = "directsoapedge";
+	
+	// JMX configurations
+    public static final String JMX_ENABLED_SYSTEM_PROPERTY = "org.connectopensource.enablejmx";
+    public static final String JMX_CONFIGURATION_BEAN_NAME = "org.connectopensource.mbeans:type=Configuration";
+    public static final String JMX_DOCUMENT_QUERY_30_BEAN_NAME = "org.connectopensource.mbeans:type=DocumentQuery30WebServices";
+    public static final String JMX_DOCUMENT_QUERY_20_BEAN_NAME = "org.connectopensource.mbeans:type=DocumentQuery20WebServices";
+    public static final String JMX_PATIENT_DISCOVERY_10_BEAN_NAME = "org.connectopensource.mbeans:type=PatientDiscovery10WebServices";
 
     /* -- End Document Retrieve deferred Service Name -- */
     private NhincConstants() {
