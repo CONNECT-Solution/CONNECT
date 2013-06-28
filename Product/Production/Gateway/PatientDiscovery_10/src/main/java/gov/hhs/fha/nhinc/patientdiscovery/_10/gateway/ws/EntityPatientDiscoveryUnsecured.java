@@ -78,4 +78,13 @@ public class EntityPatientDiscoveryUnsecured extends BaseService implements Enti
         this.context = context;
     }
 
+    /**
+     * Gets the outbound patient discovery.
+     *
+     * @return the outbound patient discovery
+     */
+    public OutboundPatientDiscovery getOutboundPatientDiscovery() {
+        return this.outboundPatientDiscovery;
+    }
+
 }

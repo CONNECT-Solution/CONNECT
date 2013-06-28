@@ -83,4 +83,13 @@ public class DocRetrieve extends BaseService implements RespondingGatewayRetriev
     public void setInboundDocRetrieve(InboundDocRetrieve service) {
         this.service = service;
     }
+
+    /**
+     * Gets the inbound doc retrieve.
+     *
+     * @return the inbound doc retrieve
+     */
+    public InboundDocRetrieve getInboundDocRetrieve() {
+        return this.service;
+    }
 }

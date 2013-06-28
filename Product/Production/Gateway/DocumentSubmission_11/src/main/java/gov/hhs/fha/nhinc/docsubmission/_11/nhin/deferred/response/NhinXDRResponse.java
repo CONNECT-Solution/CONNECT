@@ -74,4 +74,13 @@ public class NhinXDRResponse implements ihe.iti.xdr._2007.XDRDeferredResponsePor
         this.context = context;
     }
 
+    /**
+     * Gets the inbound doc submission.
+     *
+     * @return the inbound doc submission
+     */
+    public InboundDocSubmissionDeferredResponse getInboundDocSubmission() {
+        return this.inboundDocSubmissionResponse;
+    }
+
 }

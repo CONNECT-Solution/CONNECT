@@ -82,4 +82,13 @@ public class NhinPatientDiscoveryDeferredResponse extends BaseService implements
         this.inboundPatientDiscoveryResponse = inboundPatientDiscoveryResponse;
     }
 
+    /**
+     * Gets the inbound patient discovery.
+     *
+     * @return the inbound patient discovery
+     */
+    public InboundPatientDiscoveryDeferredResponse getInboundPatientDiscovery() {
+        return this.inboundPatientDiscoveryResponse;
+    }
+
 }

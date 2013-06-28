@@ -71,4 +71,13 @@ public class NhinXDRRequest implements ihe.iti.xdr._2007.XDRDeferredRequestPortT
         this.context = context;
     }
 
+    /**
+     * Gets the inbound doc submission.
+     *
+     * @return the inbound doc submission
+     */
+    public InboundDocSubmissionDeferredRequest getInboundDocSubmission() {
+        return this.inboundDocSubmissionRequest;
+    }
+
 }

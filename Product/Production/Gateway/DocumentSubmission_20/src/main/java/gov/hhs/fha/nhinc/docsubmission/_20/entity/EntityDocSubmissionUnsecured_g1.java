@@ -64,4 +64,13 @@ public class EntityDocSubmissionUnsecured_g1 implements gov.hhs.fha.nhinc.nhince
     public void setOutboundDocSubmission(OutboundDocSubmission outboundDocSubmission) {
         this.outboundDocSubmission = outboundDocSubmission;
     }
+
+    /**
+     * Gets the outbound doc submission.
+     *
+     * @return the outbound doc submission
+     */
+    public OutboundDocSubmission getOutboundDocSubmission() {
+        return this.outboundDocSubmission;
+    }
 }

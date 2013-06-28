@@ -65,4 +65,13 @@ public class EntityAdministrativeDistribution_g1 extends BaseService implements 
     public void setOutboundAdminDistribution(OutboundAdminDistribution outboundAdminDist) {
         this.outboundAdminDist = outboundAdminDist;
     }
+
+    /**
+     * Gets the outbound admin distribution.
+     *
+     * @return the outbound admin distribution
+     */
+    public OutboundAdminDistribution getOutboundAdminDistribution() {
+        return this.outboundAdminDist;
+    }
 }
