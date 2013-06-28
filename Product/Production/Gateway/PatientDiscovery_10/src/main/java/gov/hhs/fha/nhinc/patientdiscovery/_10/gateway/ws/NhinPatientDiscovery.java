@@ -92,4 +92,13 @@ public class NhinPatientDiscovery extends BaseService implements RespondingGatew
     public void setInboundPatientDiscovery(InboundPatientDiscovery inboundPatientDiscovery) {
         this.inboundPatientDiscovery = inboundPatientDiscovery;
     }
+
+    /**
+     * Gets the inbound patient discovery dependency.
+     *
+     * @return the inbound patient discovery
+     */
+    public InboundPatientDiscovery getInboundPatientDiscovery() {
+        return this.inboundPatientDiscovery;
+    }
 }

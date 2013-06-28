@@ -80,4 +80,13 @@ public class DocRetrieve extends BaseService implements ihe.iti.xds_b._2007.Resp
         this.service = service;
     }
 
+    /**
+     * Gets the inbound doc retrieve.
+     *
+     * @return the inbound doc retrieve
+     */
+    public InboundDocRetrieve getInboundDocRetrieve() {
+        return this.service;
+    }
+
 }

@@ -1,0 +1,176 @@
+/*
+ * Copyright (c) 2009-2013, United States Government, as represented by the Secretary of Health and Human Services. 
+ * All rights reserved. 
+ *
+ * Redistribution and use in source and binary forms, with or without 
+ * modification, are permitted provided that the following conditions are met: 
+ *     * Redistributions of source code must retain the above 
+ *       copyright notice, this list of conditions and the following disclaimer. 
+ *     * Redistributions in binary form must reproduce the above copyright 
+ *       notice, this list of conditions and the following disclaimer in the documentation 
+ *       and/or other materials provided with the distribution. 
+ *     * Neither the name of the United States Government nor the 
+ *       names of its contributors may be used to endorse or promote products 
+ *       derived from this software without specific prior written permission. 
+ *
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
+ * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
+ * DISCLAIMED. IN NO EVENT SHALL THE UNITED STATES GOVERNMENT BE LIABLE FOR ANY 
+ * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES 
+ * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; 
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND 
+ * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT 
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
+ */
+package gov.hhs.fha.nhinc.docquery.configuration.jmx;
+
+import gov.hhs.fha.nhinc.docquery._20.entity.EntityDocQuerySecured;
+import gov.hhs.fha.nhinc.docquery._20.entity.EntityDocQueryUnsecured;
+import gov.hhs.fha.nhinc.docquery._20.nhin.DocQuery;
+import gov.hhs.fha.nhinc.docquery.inbound.InboundDocQuery;
+import gov.hhs.fha.nhinc.docquery.outbound.OutboundDocQuery;
+
+import javax.servlet.ServletContext;
+
+/**
+ * The Class DocumentQuery30WebServices.
+ * 
+ * @author msw
+ */
+public class DocumentQuery20WebServices extends AbstractDQWebServicesMXBean {
+
+    /**
+     * Instantiates a new document query30 web services.
+     * 
+     * @param sc the sc
+     */
+    public DocumentQuery20WebServices(ServletContext sc) {
+        super(sc);
+    }
+
+    /**
+     * Configure inbound implementation. The inbound orchestration implementation provided via the className param is
+     * set on the Nhin interface bean. This method uses specific types and passes them to the generic
+     * {@link gov.hhs.fha.nhinc.configuration.jmx.AbstractWebServicesMXBean#retrieveBean(Class, String)} and
+     * {@link gov.hhs.fha.nhinc.configuration.jmx.AbstractWebServicesMXBean#retrieveDependency(Class, String)} methods.
+     * 
+     * @param className the class name
+     * @throws InstantiationException the instantiation exception
+     * @throws IllegalAccessException the illegal access exception
+     * @throws ClassNotFoundException the class not found exception
+     * @see gov.hhs.fha.nhinc.configuration.jmx.AbstractWebServicesMXBean#configureInboundImplementation(java.lang.String)
+     */
+    @Override
+    public void configureInboundImpl(String className) throws InstantiationException, IllegalAccessException,
+            ClassNotFoundException {
+        DocQuery docQuery = null;
+        InboundDocQuery inboundDocQuery = null;
+
+        docQuery = retrieveBean(DocQuery.class, getNhinBeanName());
+        inboundDocQuery = retrieveDependency(InboundDocQuery.class, className);
+        docQuery.setInboundDocQuery(inboundDocQuery);
+    }
+
+    /**
+     * Configure outbound implementation. The outbound orchestration implementation provided via the className param is
+     * set on the Nhin interface bean. This method uses specific types and passes them to the generic
+     * {@link gov.hhs.fha.nhinc.configuration.jmx.AbstractWebServicesMXBean#retrieveBean(Class, String)} and
+     * {@link gov.hhs.fha.nhinc.configuration.jmx.AbstractWebServicesMXBean#retrieveDependency(Class, String)} methods.
+     * 
+     * @param className the class name
+     * @throws InstantiationException the instantiation exception
+     * @throws IllegalAccessException the illegal access exception
+     * @throws ClassNotFoundException the class not found exception
+     * @see gov.hhs.fha.nhinc.configuration.jmx.AbstractWebServicesMXBean#configureOutboundImplementation(java.lang.String)
+     */
+    @Override
+    public void configureOutboundImpl(String className) throws InstantiationException, IllegalAccessException,
+            ClassNotFoundException {
+        EntityDocQueryUnsecured entityUnsecuredDocQuery = null;
+        EntityDocQuerySecured entitySecuredDocQuery = null;
+        OutboundDocQuery outboundDocQuery = null;
+
+        entityUnsecuredDocQuery = retrieveBean(EntityDocQueryUnsecured.class, getEntityUnsecuredBeanName());
+        entitySecuredDocQuery = retrieveBean(EntityDocQuerySecured.class, getEntitySecuredBeanName());
+        outboundDocQuery = retrieveDependency(OutboundDocQuery.class, className);
+
+        entityUnsecuredDocQuery.setOutboundDocQuery(outboundDocQuery);
+        entitySecuredDocQuery.setOutboundDocQuery(outboundDocQuery);
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see gov.hhs.fha.nhinc.configuration.jmx.WebServicesMXBean#isInboundPassthru()
+     */
+    @Override
+    public boolean isInboundPassthru() {
+        boolean isPassthru = false;
+        DocQuery docQuery = retrieveBean(DocQuery.class, getNhinBeanName());
+        InboundDocQuery inboundDocQuery = docQuery.getInboundDocQuery();
+        if (DEFAULT_INBOUND_PASSTHRU_IMPL_CLASS_NAME.equals(inboundDocQuery.getClass().getName())) {
+            isPassthru = true;
+        }
+        return isPassthru;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see gov.hhs.fha.nhinc.configuration.jmx.WebServicesMXBean#isOutboundPassthru()
+     */
+    @Override
+    public boolean isOutboundPassthru() {
+        boolean isPassthru = false;
+        EntityDocQueryUnsecured entityDocQuery = retrieveBean(EntityDocQueryUnsecured.class,
+                getEntityUnsecuredBeanName());
+        OutboundDocQuery outboundDocQuery = entityDocQuery.getOutboundDocQuery();
+        if (DEFAULT_OUTBOUND_PASSTHRU_IMPL_CLASS_NAME.equals(outboundDocQuery.getClass().getName())) {
+            isPassthru = true;
+        }
+        return isPassthru;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see gov.hhs.fha.nhinc.configuration.jmx.AbstractWebServicesMXBean#getInboundStandardClassName()
+     */
+    @Override
+    protected String getInboundStandardClassName() {
+        return DEFAULT_INBOUND_STANDARD_IMPL_CLASS_NAME;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see gov.hhs.fha.nhinc.configuration.jmx.AbstractWebServicesMXBean#getInboundPassthruClassName()
+     */
+    @Override
+    protected String getInboundPassthruClassName() {
+        return DEFAULT_INBOUND_PASSTHRU_IMPL_CLASS_NAME;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see gov.hhs.fha.nhinc.configuration.jmx.AbstractWebServicesMXBean#getOutboundStandardClassName()
+     */
+    @Override
+    protected String getOutboundStandardClassName() {
+        return DEFAULT_OUTBOUND_STANDARD_IMPL_CLASS_NAME;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see gov.hhs.fha.nhinc.configuration.jmx.AbstractWebServicesMXBean#getOutboundPassthruClassName()
+     */
+    @Override
+    protected String getOutboundPassthruClassName() {
+        return DEFAULT_OUTBOUND_PASSTHRU_IMPL_CLASS_NAME;
+    }
+
+}

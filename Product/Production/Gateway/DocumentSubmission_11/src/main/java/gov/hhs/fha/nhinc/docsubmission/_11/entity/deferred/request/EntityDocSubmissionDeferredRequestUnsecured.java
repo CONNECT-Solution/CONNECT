@@ -65,4 +65,13 @@ public class EntityDocSubmissionDeferredRequestUnsecured implements EntityXDRAsy
     public void setOutboundDocSubmissionRequest(OutboundDocSubmissionDeferredRequest outboundDocSubmissionRequest) {
         this.outboundDocSubmissionRequest = outboundDocSubmissionRequest;
     }
+
+    /**
+     * Gets the outbound doc submission.
+     *
+     * @return the outbound doc submission
+     */
+    public OutboundDocSubmissionDeferredRequest getOutboundDocSubmission() {
+        return this.outboundDocSubmissionRequest;
+    }
 }

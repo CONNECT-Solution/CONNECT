@@ -62,4 +62,13 @@ public class NhinXDRResponse20 implements ihe.iti.xdr._2007.XDRDeferredResponse2
     public void setContext(WebServiceContext context) {
         this.context = context;
     }
+
+    /**
+     * Gets the inbound doc submission.
+     *
+     * @return the inbound doc submission
+     */
+    public InboundDocSubmissionDeferredResponse getInboundDocSubmission() {
+        return this.inboundDocSubmissionResponse;
+    }
 }
