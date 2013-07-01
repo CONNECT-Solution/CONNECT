@@ -39,7 +39,7 @@ import javax.servlet.ServletContext;
  * 
  * @author msw
  */
-public class DocumentSubmissionDefResponse20WebServices extends AbstractDSDeferredReqWebServicesMXBean {
+public class DocumentSubmissionDefResponse20WebServices extends AbstractDSDeferredRespWebServicesMXBean {
 
     /** The Constant NHIN_DS_BEAN_NAME. */
     private static final String NHIN_DS_BEAN_NAME = "nhinXDRDeferredResponse_g1";
