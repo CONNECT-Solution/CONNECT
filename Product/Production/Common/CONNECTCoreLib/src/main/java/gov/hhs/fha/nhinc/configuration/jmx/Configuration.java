@@ -38,7 +38,10 @@ import org.apache.log4j.Logger;
  */
 public class Configuration implements ConfigurationMBean {
 
+    /** The Constant LOG. */
     private static final Logger LOG = Logger.getLogger(Configuration.class);
+    
+    /** The Constant ERROR_ACCESSING_PROPERTY_FILE. */
     private static final String ERROR_ACCESSING_PROPERTY_FILE = "Error accessing property file: ";
     
     /**
@@ -95,5 +98,23 @@ public class Configuration implements ConfigurationMBean {
         sb.append(ERROR_ACCESSING_PROPERTY_FILE);
         sb.append(file);
         return sb.toString();
+    }
+
+    /* (non-Javadoc)
+     * @see gov.hhs.fha.nhinc.configuration.IConfiguration#setPassthruMode()
+     */
+    @Override
+    public void setPassthruMode() throws InstantiationException, IllegalAccessException, ClassNotFoundException {
+        PassthruMXBeanRegistry registry = PassthruMXBeanRegistry.getInstance();
+        registry.setPassthruMode();
+    }
+
+    /* (non-Javadoc)
+     * @see gov.hhs.fha.nhinc.configuration.IConfiguration#setStandardMode()
+     */
+    @Override
+    public void setStandardMode() throws InstantiationException, IllegalAccessException, ClassNotFoundException {
+        PassthruMXBeanRegistry registry = PassthruMXBeanRegistry.getInstance();
+        registry.setStandardMode();
     }
 }

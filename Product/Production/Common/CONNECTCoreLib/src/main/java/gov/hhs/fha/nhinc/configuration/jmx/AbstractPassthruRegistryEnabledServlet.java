@@ -24,53 +24,44 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
  */
-package gov.hhs.fha.nhinc.configuration;
+package gov.hhs.fha.nhinc.configuration.jmx;
 
-// TODO: Auto-generated Javadoc
+import java.util.Set;
+
+import javax.servlet.ServletConfig;
+import javax.servlet.ServletContext;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+
 /**
- * The Interface IConfiguration.
+ * The Class AbstractPassthruRegistryEnabledServlet.
  *
  * @author msw
  */
-public interface IConfiguration {
+public abstract class AbstractPassthruRegistryEnabledServlet extends HttpServlet {
     
-    /**
-     * Gets a property.
-     *
-     * @param propertyFileName the property file name
-     * @param key the property key
-     * @return the property value
-     */
-    public String getProperty(String propertyFileName, String key);
-    
-    /**
-     * Sets a property value.
-     *
-     * @param propertyFileName the property file name
-     * @param key the property key
-     * @param value the property value
-     */
-    public void setProperty(String propertyFileName, String key, String value);
-    
-    /**
-     * Persist configuration.
-     */
-    public void persistConfiguration();
-    
-    /**
-     * Sets the gateway in passthru orchestration mode.
-     * @throws ClassNotFoundException 
-     * @throws IllegalAccessException 
-     * @throws InstantiationException 
-     */
-    public void setPassthruMode() throws InstantiationException, IllegalAccessException, ClassNotFoundException;
-    
-    /**
-     * Sets the gateway in standard orchestration mode.
-     * @throws ClassNotFoundException 
-     * @throws IllegalAccessException 
-     * @throws InstantiationException 
-     */
-    public void setStandardMode() throws InstantiationException, IllegalAccessException, ClassNotFoundException;
+    /** The Constant serialVersionUID. */
+    private static final long serialVersionUID = -5625529428719161152L;
 
+    /**
+     * Gets the web service mx bean.
+     *
+     * @return the web service mx bean
+     */
+    public abstract Set<WebServicesMXBean> getWebServiceMXBean(ServletContext sc);
+    
+    /**
+     * Add a WebServiceMXBean to the Passthru registry.
+     * 
+     * @see javax.servlet.GenericServlet#init()
+     */
+    @Override
+    public void init(ServletConfig config) throws ServletException {
+        PassthruMXBeanRegistry registry = PassthruMXBeanRegistry.getInstance();
+        for (WebServicesMXBean bean : getWebServiceMXBean(config.getServletContext())) {
+            registry.registerWebServiceMXBean(bean);
+        }
+        
+        super.init(config);
+    }
 }

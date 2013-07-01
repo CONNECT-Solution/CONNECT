@@ -209,7 +209,7 @@ public abstract class AbstractWebServicesMXBean implements WebServicesMXBean {
      */
     @Override
     public void configureOutboundStd() throws InstantiationException, IllegalAccessException, ClassNotFoundException {
-        configureOutboundImpl(getInboundStandardClassName());
+        configureOutboundImpl(getOutboundStandardClassName());
     }
 
 }

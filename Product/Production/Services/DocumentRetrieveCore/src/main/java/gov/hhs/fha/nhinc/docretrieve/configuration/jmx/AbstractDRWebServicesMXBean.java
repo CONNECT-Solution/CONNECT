@@ -40,13 +40,13 @@ import gov.hhs.fha.nhinc.configuration.jmx.AbstractWebServicesMXBean;
 public abstract class AbstractDRWebServicesMXBean extends AbstractWebServicesMXBean {
 
     /** The Constant NHIN_DR_BEAN_NAME. */
-    private static final String NHIN_DR_BEAN_NAME = "nhinDR";
+    private static final String NHIN_DR_BEAN_NAME = "inboundDocRetrieve";
 
     /** The Constant ENTITY_UNSECURED_DR_BEAN_NAME. */
-    private static final String ENTITY_UNSECURED_DR_BEAN_NAME = "entityDRUnsecured";
+    private static final String ENTITY_UNSECURED_DR_BEAN_NAME = "entityDocRetrieveUnsecured";
 
     /** The Constant ENTITY_SECURED_DR_BEAN_NAME. */
-    private static final String ENTITY_SECURED_DR_BEAN_NAME = "entityDRSecured";
+    private static final String ENTITY_SECURED_DR_BEAN_NAME = "entityDocRetrieveSecured";
 
     /** The Constant DEFAULT_INBOUND_STANDARD_IMPL_CLASS_NAME. */
     public static final String DEFAULT_INBOUND_STANDARD_IMPL_CLASS_NAME = "gov.hhs.fha.nhinc.docretrieve.inbound.StandardInboundDocRetrieve";
