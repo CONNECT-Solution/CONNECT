@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services. 
+ * Copyright (c) 2009-2013, United States Government, as represented by the Secretary of Health and Human Services. 
  * All rights reserved. 
  *
  * Redistribution and use in source and binary forms, with or without 
@@ -26,14 +26,21 @@
  */
 package gov.hhs.fha.nhinc.gateway.servlet;
 
+import gov.hhs.fha.nhinc.configuration.jmx.AbstractPassthruRegistryEnabledServlet;
+import gov.hhs.fha.nhinc.configuration.jmx.WebServicesMXBean;
 import gov.hhs.fha.nhinc.gateway.executorservice.ExecutorServiceHelper;
+import gov.hhs.fha.nhinc.patientdiscovery.configuration.jmx.PatientDiscovery10WebServices;
+import gov.hhs.fha.nhinc.patientdiscovery.configuration.jmx.PatientDiscoveryDeferredReq10WebServices;
+import gov.hhs.fha.nhinc.patientdiscovery.configuration.jmx.PatientDiscoveryDeferredResp10WebServices;
 
+import java.util.HashSet;
+import java.util.Set;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 import javax.servlet.ServletConfig;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
 
 import org.apache.log4j.Logger;
 
@@ -44,40 +51,68 @@ import org.apache.log4j.Logger;
  * creates a new thread in this case
  * 
  * 3. Also creates a second largeJobExecutor with a fixed size thread pool (largeJobExecutor is used for TaskExecutors
- * that get a callable list of size comparable to the size of the main ExecutorService)
+ * that get a callable list of size comparable to the size of the main ExecutorService).
  * 
- * @author paul.eftis
+ * 4. See {@link gov.fha.hhs.nhinc.gateway.AbstractJMXEnabledServlet} for JMX init and destroy functionality.
+ * 
+ * @author paul.eftis, msw
  */
-public class InitServlet extends HttpServlet {
+public class InitServlet extends AbstractPassthruRegistryEnabledServlet {
 
-    /**
-	 * 
-	 */
+    /** The Constant serialVersionUID. */
     private static final long serialVersionUID = -4229185731377926278L;
 
+    /** The Constant LOG. */
     private static final Logger LOG = Logger.getLogger(InitServlet.class);
 
+    /** The executor. */
     private static ExecutorService executor = null;
+
+    /** The large job executor. */
     private static ExecutorService largeJobExecutor = null;
 
+    /**
+     * Initializes the servlet with parallel fanout executors as well as calling super.init().
+     * 
+     * @param config the config
+     * @throws ServletException the servlet exception
+     * @see gov.fha.hhs.nhinc.gateway.AbstractJMXEnabledServlet#init(javax.servlet.ServletConfig)
+     */
     @Override
     @SuppressWarnings("static-access")
     public void init(ServletConfig config) throws ServletException {
-        super.init(config);
         LOG.debug("InitServlet start...");
         executor = Executors.newFixedThreadPool(ExecutorServiceHelper.getInstance().getExecutorPoolSize());
         largeJobExecutor = Executors.newFixedThreadPool(ExecutorServiceHelper.getInstance()
                 .getLargeJobExecutorPoolSize());
+
+        super.init(config);
     }
 
+    /**
+     * Gets the executor service.
+     * 
+     * @return the executor service
+     */
     public static ExecutorService getExecutorService() {
         return executor;
     }
 
+    /**
+     * Gets the large job executor service.
+     * 
+     * @return the large job executor service
+     */
     public static ExecutorService getLargeJobExecutorService() {
         return largeJobExecutor;
     }
 
+    /**
+     * Destroys the servlet. Since we don't want to halt the servlet destroy process, we don't propagate any exceptions
+     * through this method.
+     * 
+     * @see gov.hhs.fha.nhinc.gateway.AbstractJMXEnabledServlet#destroy()
+     */
     @Override
     public void destroy() {
         LOG.debug("InitServlet shutdown stopping executor(s)....");
@@ -85,14 +120,30 @@ public class InitServlet extends HttpServlet {
             try {
                 executor.shutdown();
             } catch (Exception e) {
+                LOG.error("Error shutting down executor.", e);
             }
         }
         if (largeJobExecutor != null) {
             try {
                 largeJobExecutor.shutdown();
             } catch (Exception e) {
+                LOG.error("Error shutting down large job executor.", e);
             }
         }
+
+        super.destroy();
+    }
+
+    /* (non-Javadoc)
+     * @see gov.hhs.fha.nhinc.configuration.jmx.AbstractPassthruRegistryEnabledServlet#getWebServiceMXBean(javax.servlet.ServletContext)
+     */
+    @Override
+    public Set<WebServicesMXBean> getWebServiceMXBean(ServletContext sc) {
+        Set<WebServicesMXBean> beans = new HashSet<WebServicesMXBean>();
+        beans.add(new PatientDiscovery10WebServices(sc));
+        beans.add(new PatientDiscoveryDeferredReq10WebServices(sc));
+        beans.add(new PatientDiscoveryDeferredResp10WebServices(sc));
+        return beans;
     }
 
 }

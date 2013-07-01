@@ -7,6 +7,12 @@
         <servlet-class>org.apache.cxf.transport.servlet.CXFServlet</servlet-class>
         <load-on-startup>1</load-on-startup>
     </servlet>
+    
+    <servlet>
+        <servlet-name>PassthruMXBean</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.docsubmission._20.gateway.InitServlet</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
 
     <context-param>
         <param-name>contextConfigLocation</param-name>

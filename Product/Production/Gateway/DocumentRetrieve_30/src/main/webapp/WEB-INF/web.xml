@@ -8,6 +8,12 @@
         <load-on-startup>1</load-on-startup>
     </servlet>
 
+    <servlet>
+        <servlet-name>PassthruMXBean</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.docretrieve._30.gateway.InitServlet</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    
     <servlet-mapping>
         <servlet-name>cxf</servlet-name>
         <url-pattern>/*</url-pattern>
