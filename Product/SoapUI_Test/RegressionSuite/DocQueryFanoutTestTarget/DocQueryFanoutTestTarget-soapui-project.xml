@@ -383,7 +383,7 @@ nhinc.FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFil
 				holder.namespaces["ns12"] = "urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0";
 	
 
-				def assertError = "Unable to find any callable targets."
+				def assertError = "No endpoint available for HCID: 4.4."
 				def error = holder["//ns1:AdhocQueryResponse[1]/ns12:RegistryErrorList[1]/ns12:RegistryError[1]/@codeContext"];
 				log.info("Number of Errors: " + error);
 				assert (assertError.equals(error));</scriptText></con:configuration></con:assertion><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
@@ -804,7 +804,7 @@ nhinc.FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFil
 				holder.namespaces["ns12"] = "urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0";
 	
 
-				def assertError = "Unable to find any callable targets."
+				def assertError = "No endpoint available for HCID: 4.4."
 				def error = holder["//ns1:AdhocQueryResponse[1]/ns12:RegistryErrorList[1]/ns12:RegistryError/@codeContext"];
 				log.info("Number of Errors: " + error);
 				assert (assertError.equals(error));</scriptText></con:configuration></con:assertion><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
@@ -1578,7 +1578,7 @@ nhinc.FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFil
 				holder.namespaces["ns12"] = "urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0";
 	
 
-				def assertError = "Unable to find any callable targets."
+				def assertError = "No endpoint available for HCID: 4.4."
 				def error = holder["//ns1:AdhocQueryResponse[1]/ns12:RegistryErrorList[1]/ns12:RegistryError[1]/@codeContext"];
 				log.info("Error: " + error);
 				assert (assertError.equals(error));</scriptText></con:configuration></con:assertion><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>

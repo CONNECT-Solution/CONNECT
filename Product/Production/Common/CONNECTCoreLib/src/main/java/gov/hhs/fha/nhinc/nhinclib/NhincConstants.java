@@ -118,6 +118,7 @@ public class NhincConstants {
     public static final String INIT_MULTISPEC_ERROR_NO_MATCHING_ENDPOINT = "No matching target endpoint for guidance: ";
     public static final String INIT_MULTISPEC_LOC_ENTITY_DR = "Entity Document Retrieve ";
     public static final String INIT_MULTISPEC_LOC_ENTITY_DQ = "Entity Document Query ";
+    public static final String INIT_MULTISPEC_ERROR_NO_ENDPOINT_AVAILABLE = "No endpoint available for HCID: ";
     
     public static final String SERVICE_NAME = "serviceName";
 
