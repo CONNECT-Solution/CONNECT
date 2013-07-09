@@ -37,6 +37,8 @@ import java.util.List;
 import gov.hhs.fha.nhinc.docrepository.adapter.model.EventCode;
 import gov.hhs.fha.nhinc.docrepository.adapter.model.EventCodeParam;
 
+import oasis.names.tc.ebxml_regrep.xsd.rim._3.SlotType1;
+
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -66,6 +68,18 @@ public class EventCodeDaoTest {
 			protected SessionFactory getSessionFactory() {
 				return sessionFactory;
 			}
+			
+			@Override
+            protected String toSql(Session session, Criteria criteria) {
+                String sql = null;
+			    return sql;
+            }
+			
+			protected List<Long> gteDocuemntIds(List<EventCode> eventCodes) {
+			    List<Long> DocumentIds = new ArrayList<Long>();
+			    return DocumentIds;
+			}
+			
 		};
 
 		when(session.beginTransaction()).thenReturn(transaction);
@@ -90,13 +104,14 @@ public class EventCodeDaoTest {
 		EventCodeParam eventCodeParam = new EventCodeParam();
 		eventCodeParam.setEventCode("Event Code");
 		eventCodeParam.setEventCodeScheme("Event Code Scheme");
+		List<SlotType1> slots = null;
 		Criteria criteria = mock(Criteria.class);
 
 		when(session.createCriteria(EventCode.class)).thenReturn(criteria);
 		when(criteria.list()).thenReturn(eventCodeList);
 
 		List<EventCode> resultEventCodes = eventCodeDao
-				.eventCodeQuery(eventCodeParam);
+				.eventCodeQuery(slots);
 
 		assertEquals(resultEventCodes.size(), 1);
 		assertEquals(resultEventCodes.get(0).getEventCodeId(),
