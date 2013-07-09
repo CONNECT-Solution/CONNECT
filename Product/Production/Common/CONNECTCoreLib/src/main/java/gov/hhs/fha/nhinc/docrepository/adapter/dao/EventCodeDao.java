@@ -179,7 +179,7 @@ public class EventCodeDao {
                                                 orCondition.add(andCondition);
                                                 eventCodesList.add(innereventCode);
                                                 eventCodeSchemeList.add(innereventCodeScheme);
-                                                hashMap.put(innereventCode, Integer.toString(eventCodeSlotSize));
+                                                hashMap.put((innereventCode+"^^"+innereventCodeScheme), Integer.toString(eventCodeSlotSize));
                                             }
                                         } else {
                                             String eventCode = getEventCode(classCodes.get(j), "eventCode");
@@ -188,7 +188,7 @@ public class EventCodeDao {
                                                     Restrictions.eq("eventCodeScheme", eventCodeScheme)));
                                             eventCodesList.add(eventCode);
                                             eventCodeSchemeList.add(eventCodeScheme);
-                                            hashMap.put(eventCode, Integer.toString(eventCodeSlotSize));
+                                            hashMap.put((eventCode+"^^"+eventCodeScheme), Integer.toString(eventCodeSlotSize));
                                         }
                                     }
                                 }
@@ -202,11 +202,11 @@ public class EventCodeDao {
                             Projections.sqlGroupProjection("documentid", groupBy, alias, types)));
 
                     criteria.add(Subqueries.propertyIn("document", subCriteria));
-                    criteria.addOrder(Order.asc("documentid"));
+                    criteria.addOrder(Order.asc("document"));
                     sql = toSql(sess, criteria);
                     eventCodes = criteria.list();
                     List<Long> DocumentIds = new ArrayList<Long>();
-                    DocumentIds = gteDocuemntIds(eventCodes);
+                    DocumentIds = getDocumentIds(eventCodes);
                     List<Long> uniqueDocumentIds = new ArrayList<Long>();
                     uniqueDocumentIds = getUniqueDocumentIds(DocumentIds);
                     boolean present = false;
@@ -218,7 +218,9 @@ public class EventCodeDao {
                         }
                     }
                     eventCodes = resultEventCodesList(documentNotPresent, eventCodes);
-
+                    if (eventCodes == null) {
+                        eventCodes = new ArrayList<EventCode>();
+                    }
                 } else {
                     LOG.error("Failed to obtain a session from the sessionFactory");
                 }
@@ -239,7 +241,7 @@ public class EventCodeDao {
         return eventCodes;
     }
     
-    protected List<Long> gteDocuemntIds(List<EventCode> eventCodes) {
+    protected List<Long> getDocumentIds(List<EventCode> eventCodes) {
         List<Long> DocumentIds = new ArrayList<Long>();
         for (int i = 0; i < eventCodes.size(); i++) {
             DocumentIds.add(eventCodes.get(i).getDocument().getDocumentid());
@@ -303,7 +305,8 @@ public class EventCodeDao {
             String key = (String) entry.getKey();
             String value = (String) entry.getValue();
             for (int j = 0; j < eventCodes.size(); j++) {
-                if ((slotIndex == Integer.parseInt(value)) && (eventCodes.get(j).getEventCode().equals(key))) {
+                if ((slotIndex == Integer.parseInt(value)) && ((eventCodes.get(j).getEventCode()+"^^"
+                  +eventCodes.get(j).getEventCodeScheme()).equals(key))) {
                     Long extractedDocumentid = eventCodes.get(j).getDocument().getDocumentid();
                     if (extractedDocumentid.equals(documentId)) {
                         doucmentPresent = true;

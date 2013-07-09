@@ -75,7 +75,7 @@ public class EventCodeDaoTest {
 			    return sql;
             }
 			
-			protected List<Long> gteDocuemntIds(List<EventCode> eventCodes) {
+			protected List<Long> getDocumentIds(List<EventCode> eventCodes) {
 			    List<Long> DocumentIds = new ArrayList<Long>();
 			    return DocumentIds;
 			}
