@@ -41,7 +41,10 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import oasis.names.tc.ebxml_regrep.xsd.rim._3.SlotType1;
+
 import org.apache.log4j.Logger;
+
 
 
 /**
@@ -187,11 +190,12 @@ public class DocumentService {
         List<Document> queryMatchDocs = dao.findDocuments(params);
         List<Document> eventCodeMatchDocs = null;
         if ((params != null) && NullChecker.isNotNullish(params.getEventCodeParams())) {
-            eventCodeMatchDocs = queryByEventCode(params.getEventCodeParams());
-            if (NullChecker.isNotNullish(queryMatchDocs)) {
+            eventCodeMatchDocs = queryByEventCode(params.getEventCodeParams(), params.getSlots());
+            if (NullChecker.isNotNullish(queryMatchDocs) && NullChecker.isNotNullish(eventCodeMatchDocs)) {
                 // Both doc parameter and event code query doc matches found. Return union of collections
                 documents = createUnion(queryMatchDocs, eventCodeMatchDocs);
-            } else {
+            } 
+            else {
                 // Only event code match docs found.
                 documents = eventCodeMatchDocs;
             }
@@ -203,21 +207,15 @@ public class DocumentService {
         return documents;
     }
 
-    private List<Document> queryByEventCode(List<EventCodeParam> eventCodeParams) {
+    protected List<Document> queryByEventCode(List<EventCodeParam> eventCodeParams, List<SlotType1> slots) {
+        List<EventCode> eventCodes = new ArrayList<EventCode>();
         List<Document> documents = new ArrayList<Document>();
         Set<Document> documentSet = new HashSet<Document>();
         if (NullChecker.isNotNullish(eventCodeParams)) {
             EventCodeDao eventCodeDao = getEventCodeDao();
-            Set<EventCode> eventCodesAggregate = new HashSet<EventCode>();
-            for (EventCodeParam eventCodeParam : eventCodeParams) {
-                List<EventCode> eventCodes = eventCodeDao.eventCodeQuery(eventCodeParam);
-                if (NullChecker.isNotNullish(eventCodes)) {
-                    eventCodesAggregate.addAll(eventCodes);
-                }
-            }
-
-            if (eventCodesAggregate != null) {
-                for (EventCode ec : eventCodesAggregate) {
+            eventCodes = eventCodeDao.eventCodeQuery(slots);  
+             if (eventCodes != null && (!eventCodes.isEmpty())) {
+                for (EventCode ec : eventCodes) {
                     if (ec != null) {
                         documentSet.add(ec.getDocument());
                     }
@@ -241,7 +239,6 @@ public class DocumentService {
                 }
             }
         }
-
         return docUnion;
     }
 

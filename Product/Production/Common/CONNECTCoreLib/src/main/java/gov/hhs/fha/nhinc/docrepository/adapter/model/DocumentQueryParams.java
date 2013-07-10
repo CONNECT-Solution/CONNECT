@@ -30,6 +30,12 @@ import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import java.util.Date;
 import java.util.List;
 
+import oasis.names.tc.ebxml_regrep.xsd.rim._3.SlotType1;
+
+import org.hibernate.Criteria;
+import org.hibernate.criterion.Criterion;
+import org.hibernate.criterion.DetachedCriteria;
+
 /**
  * Parameter object for document queries
  *
@@ -50,9 +56,24 @@ public class DocumentQueryParams {
     private List<String> documentUniqueIds;
     private List<EventCodeParam> eventCodeParams;
     private boolean onDemand = false;
+    private List<SlotType1> slots;
 
     public List<String> getClassCodes() {
         return classCodes;
+    }
+
+    /**
+     * @return the slots
+     */
+    public List<SlotType1> getSlots() {
+        return slots;
+    }
+
+    /**
+     * @param slots the slots to set
+     */
+    public void setSlots(List<SlotType1> slots) {
+        this.slots = slots;
     }
 
     public void setClassCodes(List<String> classCodes) {
@@ -311,7 +332,8 @@ public class DocumentQueryParams {
         if (this.getOnDemand() != toCheck.getOnDemand()) {
             return false;
         }
-
+        
         return true;
     }
+
 }
