@@ -38,6 +38,7 @@ log.info "Passthrough property value = ${passthruValue}";
 
 if(passthruValue != null){
 	testRunner.testCase.setPropertyValue("PassThruOn", "true");
+	log.info(testRunner.testCase.getPropertyValue("PassThruOn"))
 	FileUtils.backupFile(dir, "PolicyEngineProxyConfig.xml", log);
 	//Updating PolicyEngine for passthrough
 	def alias = 'adapterpep';
@@ -47,7 +48,7 @@ if(passthruValue != null){
 	FileUtils.updateSpringConfig(dir, "PolicyEngineProxyConfig.xml", alias,
 		aliasName, replaceName, log);
 	
-	testRunner.gotoStepByName("Document Query");
+	testRunner.gotoStepByName("clear EventCode Table; Add EventCodes");
 	
 } else {
 	testRunner.testCase.setPropertyValue("PassThruOn", "false");
@@ -101,7 +102,25 @@ if(passthruValue != null){
 		def table = context.findProperty('EventCodeTable')
 
 		sql.execute('delete from ' + table)
-
+		def passThruOn = context.findProperty('PassThruOn').toBoolean();
+		log.info("passThru: " + passThruOn);
+        if(passThruOn){
+		def eventCodeIdPT1 = context.findProperty("eventcodeidpt1" )
+		def documentIdPT1 = context.findProperty("documentidpt1")
+		def eventCodePT1 = context.findProperty("EventCodept1")
+		def eventCodeSchemePT1 = context.findProperty("EventCodeSchemept1")
+		def eventCodeDisplayNamePT1 = context.findProperty("EventCodeDiplayNamept1")
+		def eventCodeIdPT2 = context.findProperty( "eventcodeidpt2" )
+		def documentIdPT2 = context.findProperty("documentidpt2")
+		def eventCodePT2 = context.findProperty("EventCodept2")
+		def eventCodeSchemePT2 = context.findProperty("EventCodeSchemept2")
+		def eventCodeDisplayNamePT2 = context.findProperty("EventCodeDiplayNamept2")
+		def insertSql = "insert into " + table + " (eventcodeid, documentid, EventCode, EventCodeScheme, EventCodeDisplayName) " + 
+		"values (?, ?, ?, ?, ?)"
+		sql.executeUpdate(insertSql, [eventCodeIdPT1, documentIdPT1, eventCodePT1, eventCodeSchemePT1, eventCodeDisplayNamePT1])
+		sql.executeUpdate(insertSql, [eventCodeIdPT2, documentIdPT2, eventCodePT2, eventCodeSchemePT2, eventCodeDisplayNamePT2])
+		}
+		else {
 		def eventCodeId1 = context.findProperty("eventcodeid1" )
 		def documentId1 = context.findProperty("documentid1")
 		def eventCode1 = context.findProperty("EventCode1")
@@ -112,11 +131,12 @@ if(passthruValue != null){
 		def eventCode2 = context.findProperty("EventCode2")
 		def eventCodeScheme2 = context.findProperty("EventCodeScheme2")
 		def eventCodeDisplayName2 = context.findProperty("EventCodeDiplayName2")
+		
 		def insertSql = "insert into " + table + " (eventcodeid, documentid, EventCode, EventCodeScheme, EventCodeDisplayName) " + 
 		"values (?, ?, ?, ?, ?)"
 		sql.executeUpdate(insertSql, [eventCodeId1, documentId1, eventCode1, eventCodeScheme1, eventCodeDisplayName1])
 		sql.executeUpdate(insertSql, [eventCodeId2, documentId2, eventCode2, eventCodeScheme2, eventCodeDisplayName2])
-		
+		}
 		}</script>
 </con:config>
 </con:testStep>
@@ -478,7 +498,7 @@ if(passthruValue != null){
 	FileUtils.updateSpringConfig(dir, "PolicyEngineProxyConfig.xml", alias,
 		aliasName, replaceName, log);
 	
-	testRunner.gotoStepByName("Document Query");
+	testRunner.gotoStepByName("clear EventCode Table; Add EventCodes");
 	
 } else {
 	testRunner.testCase.setPropertyValue("PassThruOn", "false");
@@ -532,7 +552,19 @@ if(passthruValue != null){
 		def table = context.findProperty('EventCodeTable')
 
 		sql.execute('delete from ' + table)
-
+		def passThruOn = context.findProperty('PassThruOn').toBoolean();
+		
+        if(passThruOn){
+		def eventCodeIdPT1 = context.findProperty("eventcodeidpt1" )
+		def documentIdPT1 = context.findProperty("documentidpt1")
+		def eventCodePT1 = context.findProperty("EventCodept1")
+		def eventCodeSchemePT1 = context.findProperty("EventCodeSchemept1")
+		def eventCodeDisplayNamePT1 = context.findProperty("EventCodeDiplayNamept1")
+		def insertSql = "insert into " + table + " (eventcodeid, documentid, EventCode, EventCodeScheme, EventCodeDisplayName) " + 
+		"values (?, ?, ?, ?, ?)"
+		sql.executeUpdate(insertSql, [eventCodeIdPT1, documentIdPT1, eventCodePT1, eventCodeSchemePT1, eventCodeDisplayNamePT1])
+		}
+		else {
 		def eventCodeId1 = context.findProperty( "eventcodeid1" )
 		def documentId1 = context.findProperty("documentid1")
 		def eventCode1 = context.findProperty("EventCode1")
@@ -541,6 +573,7 @@ if(passthruValue != null){
 		def insertSql = "insert into " + table + " (eventcodeid, documentid, EventCode, EventCodeScheme, EventCodeDisplayName) " + 
 		"values (?, ?, ?, ?, ?)"
 		sql.executeUpdate(insertSql, [eventCodeId1, documentId1, eventCode1, eventCodeScheme1, eventCodeDisplayName1])
+		}
 		}</script>
 </con:config>
 </con:testStep>
@@ -893,7 +926,7 @@ if(passthruValue != null){
 	FileUtils.updateSpringConfig(dir, "PolicyEngineProxyConfig.xml", alias,
 		aliasName, replaceName, log);
 	
-	testRunner.gotoStepByName("Document Query");
+	testRunner.gotoStepByName("clear EventCode Table; Add EventCodes");
 	
 } else {
 	testRunner.testCase.setPropertyValue("PassThruOn", "false");
@@ -947,7 +980,20 @@ if(passthruValue != null){
 		def table = context.findProperty('EventCodeTable')
 
 		sql.execute('delete from ' + table)
-
+		
+		def passThruOn = context.findProperty('PassThruOn').toBoolean();
+		
+		if(passThruOn){
+		def eventCodeIdPT1 = context.findProperty("eventcodeidpt1" )
+		def documentIdPT1 = context.findProperty("documentidpt1")
+		def eventCodePT1 = context.findProperty("EventCodept1")
+		def eventCodeSchemePT1 = context.findProperty("EventCodeSchemept1")
+		def eventCodeDisplayNamePT1 = context.findProperty("EventCodeDiplayNamept1")
+		def insertSql = "insert into " + table + " (eventcodeid, documentid, EventCode, EventCodeScheme, EventCodeDisplayName) " + 
+		"values (?, ?, ?, ?, ?)"
+		sql.executeUpdate(insertSql, [eventCodeIdPT1, documentIdPT1, eventCodePT1, eventCodeSchemePT1, eventCodeDisplayNamePT1])
+		}
+        else {
 		def eventCodeId1 = context.findProperty( "eventcodeid1" )
 		def documentId1 = context.findProperty("documentid1")
 		def eventCode1 = context.findProperty("EventCode1")
@@ -956,6 +1002,7 @@ if(passthruValue != null){
 		def insertSql = "insert into " + table + " (eventcodeid, documentid, EventCode, EventCodeScheme, EventCodeDisplayName) " + 
 		"values (?, ?, ?, ?, ?)"
 		sql.executeUpdate(insertSql, [eventCodeId1, documentId1, eventCode1, eventCodeScheme1, eventCodeDisplayName1])
+		}
 		}</script>
 </con:config>
 </con:testStep>
@@ -1310,7 +1357,7 @@ if(passthruValue != null){
 	FileUtils.updateSpringConfig(dir, "PolicyEngineProxyConfig.xml", alias,
 		aliasName, replaceName, log);
 	
-	testRunner.gotoStepByName("Document Query");
+	testRunner.gotoStepByName("clear EventCode Table; Add EventCodes");
 	
 } else {
 	testRunner.testCase.setPropertyValue("PassThruOn", "false");
@@ -1364,7 +1411,20 @@ if(passthruValue != null){
 		def table = context.findProperty('EventCodeTable')
 
 		sql.execute('delete from ' + table)
-
+		
+		def passThruOn = context.findProperty('PassThruOn').toBoolean();
+		
+        if(passThruOn){
+		def eventCodeIdPT1 = context.findProperty("eventcodeidpt1" )
+		def documentIdPT1 = context.findProperty("documentidpt1")
+		def eventCodePT1 = context.findProperty("EventCodept1")
+		def eventCodeSchemePT1 = context.findProperty("EventCodeSchemept1")
+		def eventCodeDisplayNamePT1 = context.findProperty("EventCodeDiplayNamept1")
+		def insertSql = "insert into " + table + " (eventcodeid, documentid, EventCode, EventCodeScheme, EventCodeDisplayName) " + 
+		"values (?, ?, ?, ?, ?)"
+		sql.executeUpdate(insertSql, [eventCodeIdPT1, documentIdPT1, eventCodePT1, eventCodeSchemePT1, eventCodeDisplayNamePT1])
+		}
+		else {
 		def eventCodeId1 = context.findProperty( "eventcodeid1" )
 		def documentId1 = context.findProperty("documentid1")
 		def eventCode1 = context.findProperty("EventCode1")
@@ -1373,6 +1433,7 @@ if(passthruValue != null){
 		def insertSql = "insert into " + table + " (eventcodeid, documentid, EventCode, EventCodeScheme, EventCodeDisplayName) " + 
 		"values (?, ?, ?, ?, ?)"
 		sql.executeUpdate(insertSql, [eventCodeId1, documentId1, eventCode1, eventCodeScheme1, eventCodeDisplayName1])
+		}
 		}</script>
 </con:config>
 </con:testStep>
@@ -1729,7 +1790,7 @@ if(passthruValue != null){
 	FileUtils.updateSpringConfig(dir, "PolicyEngineProxyConfig.xml", alias,
 		aliasName, replaceName, log);
 	
-	testRunner.gotoStepByName("Document Query");
+	testRunner.gotoStepByName("clear EventCode Table; Add EventCodes");
 	
 } else {
 	testRunner.testCase.setPropertyValue("PassThruOn", "false");
@@ -1764,9 +1825,39 @@ if(passthruValue != null){
 	<con:config>
 		<script>context.withSql('docrepositoryDB') { sql -> 
 		def table = context.findProperty('EventCodeTable')
-
+        
 		sql.execute('delete from ' + table)
-
+		def passThruOn = context.findProperty('PassThruOn').toBoolean();
+		
+		if (passThruOn ) {
+		def eventCodeIdPT1 = context.findProperty( "eventcodeidpt1" )
+		def documentIdPT1 = context.findProperty("documentidpt1")
+		def eventCodePT1 = context.findProperty("EventCodept1")
+		def eventCodeSchemePT1 = context.findProperty("EventCodeSchemept1")
+		def eventCodeDisplayNamePT1 = context.findProperty("EventCodeDiplayNamept1")
+		def eventCodeIdPT2 = context.findProperty( "eventcodeidpt2" )
+		def documentIdPT2 = context.findProperty("documentidpt2")
+		def eventCodePT2 = context.findProperty("EventCodept2")
+		def eventCodeSchemePT2 = context.findProperty("EventCodeSchemept2")
+		def eventCodeDisplayNamePT2 = context.findProperty("EventCodeDiplayNamept2")
+		def eventCodeIdPT3 = context.findProperty( "eventcodeidpt3" )
+		def documentIdPT3 = context.findProperty("documentidpt3")
+		def eventCodePT3 = context.findProperty("EventCodept3")
+		def eventCodeSchemePT3 = context.findProperty("EventCodeSchemept3")
+		def eventCodeDisplayNamePT3 = context.findProperty("EventCodeDiplayNamept3")
+		def eventCodeIdPT4 = context.findProperty( "eventcodeidpt4" )
+		def documentIdPT4 = context.findProperty("documentidpt4")
+		def eventCodePT4 = context.findProperty("EventCodept4")
+		def eventCodeSchemePT4 = context.findProperty("EventCodeSchemept4")
+		def eventCodeDisplayNamePT4 = context.findProperty("EventCodeDiplayNamept4")
+		def insertSql = "insert into " + table + " (eventcodeid, documentid, EventCode, EventCodeScheme, EventCodeDisplayName) " + 
+		"values (?, ?, ?, ?, ?)"
+		sql.executeUpdate(insertSql, [eventCodeIdPT1, documentIdPT1, eventCodePT1, eventCodeSchemePT1, eventCodeDisplayNamePT1])
+		sql.executeUpdate(insertSql, [eventCodeIdPT2, documentIdPT2, eventCodePT2, eventCodeSchemePT2, eventCodeDisplayNamePT2])
+		sql.executeUpdate(insertSql, [eventCodeIdPT3, documentIdPT3, eventCodePT3, eventCodeSchemePT3, eventCodeDisplayNamePT3])
+		sql.executeUpdate(insertSql, [eventCodeIdPT4, documentIdPT4, eventCodePT4, eventCodeSchemePT4, eventCodeDisplayNamePT4])
+        }
+		else {
 		def eventCodeId1 = context.findProperty( "eventcodeid1" )
 		def documentId1 = context.findProperty("documentid1")
 		def eventCode1 = context.findProperty("EventCode1")
@@ -1793,6 +1884,7 @@ if(passthruValue != null){
 		sql.executeUpdate(insertSql, [eventCodeId2, documentId2, eventCode2, eventCodeScheme2, eventCodeDisplayName2])
 		sql.executeUpdate(insertSql, [eventCodeId3, documentId3, eventCode3, eventCodeScheme3, eventCodeDisplayName3])
 		sql.executeUpdate(insertSql, [eventCodeId4, documentId4, eventCode4, eventCodeScheme4, eventCodeDisplayName4])
+		}
 		}</script>
 </con:config>
 </con:testStep>
@@ -2159,7 +2251,7 @@ if(passthruValue != null){
 	FileUtils.updateSpringConfig(dir, "PolicyEngineProxyConfig.xml", alias,
 		aliasName, replaceName, log);
 	
-	testRunner.gotoStepByName("Document Query");
+	testRunner.gotoStepByName("clear EventCode Table; Add EventCodes");
 	
 } else {
 	testRunner.testCase.setPropertyValue("PassThruOn", "false");
@@ -2196,7 +2288,31 @@ if(passthruValue != null){
 		def table = context.findProperty('EventCodeTable')
 
 		sql.execute('delete from ' + table)
-
+		def passThruOn = context.findProperty('PassThruOn').toBoolean();
+		
+        if (passThruOn ) {
+		def eventCodeIdPT1 = context.findProperty( "eventcodeidpt1" )
+		def documentIdPT1 = context.findProperty("documentidpt1")
+		def eventCodePT1 = context.findProperty("EventCodept1")
+		def eventCodeSchemePT1 = context.findProperty("EventCodeSchemept1")
+		def eventCodeDisplayNamePT1 = context.findProperty("EventCodeDiplayNamept1")
+		def eventCodeIdPT3 = context.findProperty( "eventcodeidpt3" )
+		def documentIdPT3 = context.findProperty("documentidpt3")
+		def eventCodePT3 = context.findProperty("EventCodept3")
+		def eventCodeSchemePT3 = context.findProperty("EventCodeSchemept3")
+		def eventCodeDisplayNamePT3 = context.findProperty("EventCodeDiplayNamept3")
+		def eventCodeIdPT4 = context.findProperty( "eventcodeidpt4" )
+		def documentIdPT4 = context.findProperty("documentidpt4")
+		def eventCodePT4 = context.findProperty("EventCodept4")
+		def eventCodeSchemePT4 = context.findProperty("EventCodeSchemept4")
+		def eventCodeDisplayNamePT4 = context.findProperty("EventCodeDiplayNamept4")
+		def insertSql = "insert into " + table + " (eventcodeid, documentid, EventCode, EventCodeScheme, EventCodeDisplayName) " + 
+		"values (?, ?, ?, ?, ?)"
+		sql.executeUpdate(insertSql, [eventCodeIdPT1, documentIdPT1, eventCodePT1, eventCodeSchemePT1, eventCodeDisplayNamePT1])
+		sql.executeUpdate(insertSql, [eventCodeIdPT3, documentIdPT3, eventCodePT3, eventCodeSchemePT3, eventCodeDisplayNamePT3])
+		sql.executeUpdate(insertSql, [eventCodeIdPT4, documentIdPT4, eventCodePT4, eventCodeSchemePT4, eventCodeDisplayNamePT4])
+        }
+		else {
 		def eventCodeId1 = context.findProperty( "eventcodeid1" )
 		def documentId1 = context.findProperty("documentid1")
 		def eventCode1 = context.findProperty("EventCode1")
@@ -2217,6 +2333,7 @@ if(passthruValue != null){
 		sql.executeUpdate(insertSql, [eventCodeId1, documentId1, eventCode1, eventCodeScheme1, eventCodeDisplayName1])
 		sql.executeUpdate(insertSql, [eventCodeId3, documentId3, eventCode3, eventCodeScheme3, eventCodeDisplayName3])
 		sql.executeUpdate(insertSql, [eventCodeId4, documentId4, eventCode4, eventCodeScheme4, eventCodeDisplayName4])
+		}
 		}</script>
 </con:config>
 </con:testStep>
@@ -2562,7 +2679,7 @@ if(context.findProperty("PassThruOn").toBoolean()){
 	
 	<con:property><con:name>DBPort</con:name><con:value>3306</con:value></con:property><con:property><con:name>DBUser</con:name><con:value>nhincuser</con:value></con:property>
 	
-	<con:property><con:name>DQDocID</con:name><con:value>1.123401.11111</con:value></con:property><con:property><con:name>DQPatientID</con:name><con:value>D123401</con:value></con:property><con:property><con:name>Endpoint-DocQuery</con:name><con:value>http://localhost:8080/Gateway/DocumentQuery/2_0/EntityService/EntityDocQueryUnsecured</con:value></con:property><con:property><con:name>GatewayPropDir</con:name><con:value/></con:property><con:property><con:name>LocalAA</con:name><con:value>1.1</con:value></con:property><con:property><con:name>LocalHCDescription</con:name><con:value>InternalTest1</con:value></con:property><con:property><con:name>LocalHCID</con:name><con:value>1.1</con:value></con:property><con:property><con:name>LocalPatientID</con:name><con:value>D123401</con:value></con:property><con:property><con:name>MockHost</con:name><con:value>localhost</con:value></con:property><con:property><con:name>NHINGatewayHost</con:name><con:value>localhost</con:value></con:property><con:property><con:name>PatientCorrelationDB</con:name><con:value>patientcorrelationdb</con:value></con:property><con:property><con:name>PatientCorrelationTable</con:name><con:value>correlatedidentifiers</con:value></con:property><con:property><con:name>Region1</con:name><con:value>US-VA</con:value></con:property>
+	<con:property><con:name>DQDocID</con:name><con:value>1.123401.66666</con:value></con:property><con:property><con:name>DQPTDocID</con:name><con:value>1.123401.11111</con:value></con:property><con:property><con:name>DQPatientID</con:name><con:value>D123401</con:value></con:property><con:property><con:name>Endpoint-DocQuery</con:name><con:value>http://localhost:8080/Gateway/DocumentQuery/2_0/EntityService/EntityDocQueryUnsecured</con:value></con:property><con:property><con:name>GatewayPropDir</con:name><con:value/></con:property><con:property><con:name>LocalAA</con:name><con:value>1.1</con:value></con:property><con:property><con:name>LocalHCDescription</con:name><con:value>InternalTest1</con:value></con:property><con:property><con:name>LocalHCID</con:name><con:value>1.1</con:value></con:property><con:property><con:name>LocalPatientID</con:name><con:value>D123401</con:value></con:property><con:property><con:name>MockHost</con:name><con:value>localhost</con:value></con:property><con:property><con:name>NHINGatewayHost</con:name><con:value>localhost</con:value></con:property><con:property><con:name>PatientCorrelationDB</con:name><con:value>patientcorrelationdb</con:value></con:property><con:property><con:name>PatientCorrelationTable</con:name><con:value>correlatedidentifiers</con:value></con:property><con:property><con:name>Region1</con:name><con:value>US-VA</con:value></con:property>
 	
 	
 	<con:property><con:name>docrepositoryDB</con:name><con:value>docrepository</con:value></con:property><con:property><con:name>EventCodeTable</con:name><con:value>eventcode</con:value></con:property>
@@ -2601,7 +2718,24 @@ if(context.findProperty("PassThruOn").toBoolean()){
 	
 	<con:property><con:name>eventcodeid4</con:name><con:value>4</con:value></con:property><con:property><con:name>documentid4</con:name><con:value>41</con:value></con:property>
 	<con:property><con:name>EventCode4</con:name><con:value>T-41000</con:value></con:property><con:property><con:name>EventCodeScheme4</con:name><con:value>SNM3</con:value></con:property>
-	<con:property><con:name>EventCodeDisplayName4</con:name><con:value>Display</con:value></con:property></con:properties>
+	<con:property><con:name>EventCodeDisplayName4</con:name><con:value>Display</con:value></con:property>
+	
+	
+	<con:property><con:name>eventcodeidpt1</con:name><con:value>1</con:value></con:property><con:property><con:name>documentidpt1</con:name><con:value>36</con:value></con:property>
+	<con:property><con:name>EventCodept1</con:name><con:value>T-32000</con:value></con:property><con:property><con:name>EventCodeSchemept1</con:name><con:value>SNM3</con:value></con:property>
+	<con:property><con:name>EventCodeDisplayNamept1</con:name><con:value>Display</con:value></con:property>
+	
+	<con:property><con:name>eventcodeidpt2</con:name><con:value>2</con:value></con:property><con:property><con:name>documentidpt2</con:name><con:value>36</con:value></con:property>
+	<con:property><con:name>EventCodept2</con:name><con:value>T-32001</con:value></con:property><con:property><con:name>EventCodeSchemept2</con:name><con:value>SNM3</con:value></con:property>
+	<con:property><con:name>EventCodeDisplayNamept2</con:name><con:value>Display</con:value></con:property>
+	
+	<con:property><con:name>eventcodeidpt3</con:name><con:value>3</con:value></con:property><con:property><con:name>documentidpt3</con:name><con:value>36</con:value></con:property>
+	<con:property><con:name>EventCodept3</con:name><con:value>T-40000</con:value></con:property><con:property><con:name>EventCodeSchemept3</con:name><con:value>SNM3</con:value></con:property>
+	<con:property><con:name>EventCodeDisplayNamept3</con:name><con:value>Display</con:value></con:property>
+	
+	<con:property><con:name>eventcodeidpt4</con:name><con:value>4</con:value></con:property><con:property><con:name>documentidpt4</con:name><con:value>36</con:value></con:property>
+	<con:property><con:name>EventCodept4</con:name><con:value>T-41000</con:value></con:property><con:property><con:name>EventCodeSchemept4</con:name><con:value>SNM3</con:value></con:property>
+	<con:property><con:name>EventCodeDisplayNamept4</con:name><con:value>Display</con:value></con:property></con:properties>
 <con:afterLoadScript>def propertiesFile = new File(new File(project.path).parent, 'DQEntryCodeValueList.properties')
 	if (propertiesFile.exists()) {
 	def props = new Properties()
