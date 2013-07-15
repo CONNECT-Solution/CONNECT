@@ -68,7 +68,7 @@
             <artifactId>commons-logging</artifactId>
         </dependency>
         <dependency>
-            <groupId>com.forgerock.openam</groupId>
+            <groupId>org.forgerock.openam</groupId>
             <artifactId>clientsdk</artifactId>
             <scope>provided</scope>
         </dependency>

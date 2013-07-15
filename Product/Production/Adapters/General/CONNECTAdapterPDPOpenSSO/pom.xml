@@ -38,19 +38,13 @@
             <version>3.0.7.RELEASE</version>
         </dependency>
         <dependency>
-            <groupId>com.forgerock.openam</groupId>
+            <groupId>org.forgerock.openam</groupId>
             <artifactId>clientsdk</artifactId>
             <version>${openam.version}</version>
             <scope>provided</scope>
         </dependency>
-<!--         <dependency>
-            <groupId>com.forgerock.openam</groupId>
-            <artifactId>sharedlib</artifactId>
-            <version>${openam.version}</version>
-            <scope>provided</scope>
-        </dependency> -->
         <dependency>
-            <groupId>com.forgerock.openam</groupId>
+            <groupId>org.forgerock.openam</groupId>
             <artifactId>fedlib</artifactId>
             <version>${openam.version}</version>
             <scope>provided</scope>
@@ -65,7 +59,7 @@
     <repositories>
         <repository>
             <id>forgerock</id>
-            <url>http://repo.forgerock.org</url>
+            <url>http://maven.forgerock.org/repo/releases</url>
         </repository>
     </repositories>
 </project>
