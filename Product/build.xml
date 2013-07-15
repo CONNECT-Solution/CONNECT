@@ -67,6 +67,7 @@
         	<zipfileset file="${user.home}/.m2/repository/mysql/mysql-connector-java/5.1.10/mysql-connector-java-5.1.10.jar" />
             <zipfileset prefix="Properties" src="${maven_root}/Properties/${maven_version}/Properties-${maven_version}.jar" excludes="**/META-INF/**/*" />
             <zipfileset prefix="DBScripts" src="${maven_root}/DBScripts/${maven_version}/DBScripts-${maven_version}.jar" excludes="**/META-INF/**/*" />
+            <zipfileset prefix="FileUtils" file="${maven_root}/FileUtils/${maven_version}/FileUtils-${maven_version}.jar" />
             <zipfileset prefix="ValidationSuite" dir="SoapUI_Test/ValidationSuite">
                 <include name="src/test/resources/chaincerts/**" />
                 <include name="*.xml" />
