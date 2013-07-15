@@ -120,7 +120,7 @@
                 <version>1.1.1</version>
             </dependency>
             <dependency>
-                <groupId>com.forgerock.openam</groupId>
+                <groupId>org.forgerock.openam</groupId>
                 <artifactId>clientsdk</artifactId>
                 <version>10.0.0</version>
             </dependency>
@@ -494,7 +494,7 @@
         </repository>
         <repository>
             <id>forgerock</id>
-            <url>http://repo.forgerock.org</url>
+            <url>http://maven.forgerock.org/repo/releases</url>
             <snapshots>
                 <enabled>false</enabled>
             </snapshots>
