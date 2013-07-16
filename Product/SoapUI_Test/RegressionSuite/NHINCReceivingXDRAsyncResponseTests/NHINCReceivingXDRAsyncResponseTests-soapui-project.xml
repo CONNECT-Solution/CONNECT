@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <con:soapui-project abortOnError="false" name="NHINCReceivingXDRAsyncResponseTests" resourceRoot="${projectDir}" runType="SEQUENTIAL" soapui-version="4.5.1" activeEnvironment="Default" xmlns:con="http://eviware.com/soapui/config">
-	<con:settings/>
+	<con:description>This suite tests the inbound DS deferred response service. This suite is standard mode only as there are tests for policy and auditing.
+
+Set the GatewayPropsDir property to the config/nhin of the gateway under test.</con:description><con:settings/>
 	
 	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:adapterpolicyengine}AdapterPolicyEngineBindingSoap" definition="../../target/wsdl/AdapterPolicyEngine.wsdl" name="AdapterPolicyEngineBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 		<con:settings/>
@@ -1785,19 +1787,19 @@ declare namespace adapter='urn:gov:hhs:fha:nhinc:common:nhinccommonadapter';
 			<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2013-03-21T15:21:55Z</con:value>
+					<con:value>2013-07-16T15:21:51Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2013-03-21T15:31:55Z</con:value>
+					<con:value>2013-07-16T15:31:51Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>03/21/2013 15:21:55</con:value>
+					<con:value>07/16/2013 15:21:51</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2013-04-20T00:00:00Z</con:value>
+					<con:value>2013-08-15T00:00:00Z</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
@@ -3570,19 +3572,19 @@ declare namespace adapter='urn:gov:hhs:fha:nhinc:common:nhinccommonadapter';
 			<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2013-03-21T15:21:57Z</con:value>
+					<con:value>2013-07-16T15:21:52Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2013-03-21T15:31:57Z</con:value>
+					<con:value>2013-07-16T15:31:52Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>03/21/2013 15:21:57</con:value>
+					<con:value>07/16/2013 15:21:52</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2013-04-20T00:00:00Z</con:value>
+					<con:value>2013-08-15T00:00:00Z</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
@@ -3626,206 +3628,307 @@ context.testCase.setPropertyValue('XDRUserId',"${UserID}${nowDate}");</script>
 						</con:settings>
 						<con:encoding>UTF-8</con:encoding>
 						<con:endpoint>http://localhost:8080/Gateway/DocumentSubmission/1_1/EntityService/EntityDocSubmissionDeferredResponseUnsecured</con:endpoint>
-						<con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:add="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:urn3="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0">
+						<con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:urn2="urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0" xmlns:urn3="urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0">
    <soap:Header xmlns:add="http://www.w3.org/2005/08/addressing">
       <add:Action>urn:gov:hhs:fha:nhinc:nhincproxyxdr:async:response:ProvideAndRegisterDocumentSet-bAsyncResponse_Request</add:Action>
       <add:MessageID>uuid:12bcfc1e-f422-4d1d-af99-ff83d050313e</add:MessageID>
       <add:RelatesTo>uuid:6666666666.66666.666.66</add:RelatesTo>
       <add:To>http://localhost:8080/CONNECTAdapter/EntityProxyService/NhincProxyXDRResponse</add:To>
-   </soap:Header>
-   <soap:Body projectName="NHINCReceivingAsyncResponseTests" testCase="PolicyCheckPermit">
+   <soap:Body testSuite="Entity_g0" testCase="Document Submission Deferred Resp">
       <urn:RespondingGateway_ProvideAndRegisterDocumentSetResponseRequest>
          <urn:assertion>
+            <urn1:nationalProviderId>1234567890</urn1:nationalProviderId>
             <urn1:address>
                <urn1:addressType>
-                  <urn1:code>W</urn1:code>
-                  <urn1:codeSystem>?</urn1:codeSystem>
-                  <urn1:codeSystemName>?</urn1:codeSystemName>
-                  <urn1:codeSystemVersion>?</urn1:codeSystemVersion>
-                  <urn1:displayName>?</urn1:displayName>
-                  <urn1:originalText>?</urn1:originalText>
+                  <urn1:code>AddrCode</urn1:code>
+                  <urn1:codeSystem>AddrCodeSyst</urn1:codeSystem>
+                  <urn1:codeSystemName>AddrCodeSystName</urn1:codeSystemName>
+                  <urn1:codeSystemVersion>1.0</urn1:codeSystemVersion>
+                  <urn1:displayName>AddrCode</urn1:displayName>
+                  <urn1:originalText>AddrCode</urn1:originalText>
+                  <!--Zero or more repetitions:-->
+                  <urn1:translation/>
                </urn1:addressType>
-               <urn1:city>Melbourne</urn1:city>
-               <urn1:country>US</urn1:country>
-               <urn1:state>FL</urn1:state>
-               <urn1:streetAddress>123 Johnson Rd</urn1:streetAddress>
-               <urn1:zipCode>12345</urn1:zipCode>
+               <urn1:city>AddrCity</urn1:city>
+               <urn1:country>AddrCountry</urn1:country>
+               <urn1:state>AddrState</urn1:state>
+               <urn1:streetAddress>AddrStreet</urn1:streetAddress>
+               <urn1:zipCode>AddrZip</urn1:zipCode>
             </urn1:address>
-            <urn1:dateOfBirth>19800516</urn1:dateOfBirth>
-            <urn1:explanationNonClaimantSignature>NEEDED</urn1:explanationNonClaimantSignature>
-            <urn1:haveSecondWitnessSignature>true</urn1:haveSecondWitnessSignature>
-            <urn1:haveSignature>true</urn1:haveSignature>
-            <urn1:haveWitnessSignature>true</urn1:haveWitnessSignature>
+            <urn1:dateOfBirth>06/04/1959 05:21:00</urn1:dateOfBirth>
+            <urn1:explanationNonClaimantSignature>Electronic</urn1:explanationNonClaimantSignature>
+            <urn1:haveSecondWitnessSignature>false</urn1:haveSecondWitnessSignature>
+            <urn1:haveSignature>false</urn1:haveSignature>
+            <urn1:haveWitnessSignature>false</urn1:haveWitnessSignature>
             <urn1:homeCommunity>
-               <urn1:description>${#Project#RemoteHCDescription}</urn1:description>
-               <urn1:homeCommunityId>${#Project#RemoteHCID}</urn1:homeCommunityId>
-               <urn1:name>${#Project#RemoteHCDescription}</urn1:name>
+               <urn1:description>${#Project#LocalHCDescription}</urn1:description>
+               <urn1:homeCommunityId>${#Project#LocalHCID}</urn1:homeCommunityId>
+               <urn1:name>${#Project#LocalHCDescription}</urn1:name>
             </urn1:homeCommunity>
             <urn1:personName>
                <urn1:familyName>Smith</urn1:familyName>
-               <urn1:givenName>Joe</urn1:givenName>
+               <urn1:givenName>Sandy</urn1:givenName>
                <urn1:nameType>
-                  <urn1:code>G</urn1:code>
-                  <urn1:codeSystem>?</urn1:codeSystem>
-                  <urn1:codeSystemName>?</urn1:codeSystemName>
-                  <urn1:codeSystemVersion>?</urn1:codeSystemVersion>
-                  <urn1:displayName>?</urn1:displayName>
-                  <urn1:originalText>?</urn1:originalText>
+                  <urn1:code>nameCode</urn1:code>
+                  <urn1:codeSystem>nameCodeSyst</urn1:codeSystem>
+                  <urn1:codeSystemName>nameCodeSystName</urn1:codeSystemName>
+                  <urn1:codeSystemVersion>1.0</urn1:codeSystemVersion>
+                  <urn1:displayName>nameCode</urn1:displayName>
+                  <urn1:originalText>nameCode</urn1:originalText>
+                  <!--Zero or more repetitions:-->
+                  <urn1:translation/>
                </urn1:nameType>
-               <urn1:secondNameOrInitials>FJ</urn1:secondNameOrInitials>
-               <urn1:fullName>Joe Smith</urn1:fullName>
-               <urn1:prefix>Mr</urn1:prefix>
+               <urn1:secondNameOrInitials>S</urn1:secondNameOrInitials>
+               <urn1:fullName>Sandy S. Smith</urn1:fullName>
+               <urn1:prefix>Ms.</urn1:prefix>
                <urn1:suffix>?</urn1:suffix>
             </urn1:personName>
             <urn1:phoneNumber>
-               <urn1:areaCode>123</urn1:areaCode>
+               <urn1:areaCode>321</urn1:areaCode>
                <urn1:countryCode>1</urn1:countryCode>
-               <urn1:extension>1234</urn1:extension>
-               <urn1:localNumber>3456789</urn1:localNumber>
+               <urn1:extension>5436</urn1:extension>
+               <urn1:localNumber>253-6849</urn1:localNumber>
                <urn1:phoneNumberType>
-                  <urn1:code>W</urn1:code>
-                  <urn1:codeSystem>?</urn1:codeSystem>
-                  <urn1:codeSystemName>?</urn1:codeSystemName>
-                  <urn1:codeSystemVersion>?</urn1:codeSystemVersion>
-                  <urn1:displayName>?</urn1:displayName>
-                  <urn1:originalText>?</urn1:originalText>
+                  <urn1:code>phoneCode</urn1:code>
+                  <urn1:codeSystem>phoneCodeSyst</urn1:codeSystem>
+                  <urn1:codeSystemName>phoneCodeSystName</urn1:codeSystemName>
+                  <urn1:codeSystemVersion>1.0</urn1:codeSystemVersion>
+                  <urn1:displayName>phoneCode</urn1:displayName>
+                  <urn1:originalText>phoneCode</urn1:originalText>
+                  <!--Zero or more repetitions:-->
+                  <urn1:translation/>
                </urn1:phoneNumberType>
             </urn1:phoneNumber>
             <urn1:secondWitnessAddress>
                <urn1:addressType>
-                  <urn1:code>W</urn1:code>
-                  <urn1:codeSystem>?</urn1:codeSystem>
-                  <urn1:codeSystemName>?</urn1:codeSystemName>
-                  <urn1:codeSystemVersion>?</urn1:codeSystemVersion>
-                  <urn1:displayName>?</urn1:displayName>
-                  <urn1:originalText>?</urn1:originalText>
+                  <urn1:code>AddrCode</urn1:code>
+                  <urn1:codeSystem>AddrCodeSyst</urn1:codeSystem>
+                  <urn1:codeSystemName>AddrCodeSystName</urn1:codeSystemName>
+                  <urn1:codeSystemVersion>1.0</urn1:codeSystemVersion>
+                  <urn1:displayName>AddrCode</urn1:displayName>
+                  <urn1:originalText>AddrCode</urn1:originalText>
+                  <!--Zero or more repetitions:-->
+                  <urn1:translation/>
                </urn1:addressType>
-               <urn1:city>Melbourne</urn1:city>
-               <urn1:country>US</urn1:country>
-               <urn1:state>FL</urn1:state>
-               <urn1:streetAddress>123 Johnson Rd</urn1:streetAddress>
-               <urn1:zipCode>12345</urn1:zipCode>
+               <urn1:city>Addr2City</urn1:city>
+               <urn1:country>Addr2Country</urn1:country>
+               <urn1:state>Addr2State</urn1:state>
+               <urn1:streetAddress>Addr2Street</urn1:streetAddress>
+               <urn1:zipCode>Addr2Zip</urn1:zipCode>
             </urn1:secondWitnessAddress>
             <urn1:secondWitnessName>
-               <urn1:familyName>Hughes</urn1:familyName>
-               <urn1:givenName>Howie</urn1:givenName>
+               <urn1:familyName>Smith</urn1:familyName>
+               <urn1:givenName>Sammy</urn1:givenName>
                <urn1:nameType>
-                  <urn1:code>G</urn1:code>
-                  <urn1:codeSystem>?</urn1:codeSystem>
-                  <urn1:codeSystemName>?</urn1:codeSystemName>
-                  <urn1:codeSystemVersion>?</urn1:codeSystemVersion>
-                  <urn1:displayName>?</urn1:displayName>
-                  <urn1:originalText>?</urn1:originalText>
+                  <urn1:code>nameCode</urn1:code>
+                  <urn1:codeSystem>nameCodeSyst</urn1:codeSystem>
+                  <urn1:codeSystemName>nameCodeSystName</urn1:codeSystemName>
+                  <urn1:codeSystemVersion>1.0</urn1:codeSystemVersion>
+                  <urn1:displayName>nameCode</urn1:displayName>
+                  <urn1:originalText>nameCode</urn1:originalText>
+                  <!--Zero or more repetitions:-->
+                  <urn1:translation/>
                </urn1:nameType>
-               <urn1:secondNameOrInitials>HH</urn1:secondNameOrInitials>
-               <urn1:fullName>Howie Hughes</urn1:fullName>
-               <urn1:prefix>Dr</urn1:prefix>
-               <urn1:suffix>?</urn1:suffix>
+               <urn1:secondNameOrInitials>s</urn1:secondNameOrInitials>
+               <urn1:fullName>Sammy S. Smith</urn1:fullName>
+               <urn1:prefix>Mr.</urn1:prefix>
             </urn1:secondWitnessName>
             <urn1:secondWitnessPhone>
-               <urn1:areaCode>123</urn1:areaCode>
+               <urn1:areaCode>321</urn1:areaCode>
                <urn1:countryCode>1</urn1:countryCode>
-               <urn1:extension>1546</urn1:extension>
-               <urn1:localNumber>4567892</urn1:localNumber>
+               <urn1:extension>5424</urn1:extension>
+               <urn1:localNumber>542-6823</urn1:localNumber>
                <urn1:phoneNumberType>
-                  <urn1:code>W</urn1:code>
-                  <urn1:codeSystem>?</urn1:codeSystem>
-                  <urn1:codeSystemName>?</urn1:codeSystemName>
-                  <urn1:codeSystemVersion>?</urn1:codeSystemVersion>
-                  <urn1:displayName>?</urn1:displayName>
-                  <urn1:originalText>?</urn1:originalText>
+                  <urn1:code>phoneCode</urn1:code>
+                  <urn1:codeSystem>phoneCodeSyst</urn1:codeSystem>
+                  <urn1:codeSystemName>phoneCodeSystName</urn1:codeSystemName>
+                  <urn1:codeSystemVersion>1.0</urn1:codeSystemVersion>
+                  <urn1:displayName>phoneCode</urn1:displayName>
+                  <urn1:originalText>phoneCode</urn1:originalText>
+                  <!--Zero or more repetitions:-->
+                  <urn1:translation/>
                </urn1:phoneNumberType>
             </urn1:secondWitnessPhone>
-            <urn1:SSN>123456789</urn1:SSN>
+            <urn1:SSN>253-98-7546</urn1:SSN>
             <!--1 or more repetitions:-->
-            <urn1:uniquePatientId>1234^^^&amp;amp;1.1&amp;amp;ISO</urn1:uniquePatientId>
+            <urn1:uniquePatientId>500000000^^^&amp;1.1&amp;ISO</urn1:uniquePatientId>
             <urn1:witnessAddress>
                <urn1:addressType>
-                  <urn1:code>W</urn1:code>
-                  <urn1:codeSystem>?</urn1:codeSystem>
-                  <urn1:codeSystemName>?</urn1:codeSystemName>
-                  <urn1:codeSystemVersion>?</urn1:codeSystemVersion>
-                  <urn1:displayName>?</urn1:displayName>
-                  <urn1:originalText>?</urn1:originalText>
+                  <urn1:code>addrCode</urn1:code>
+                  <urn1:codeSystem>addrCodeSyst</urn1:codeSystem>
+                  <urn1:codeSystemName>addrCodeSystName</urn1:codeSystemName>
+                  <urn1:codeSystemVersion>1.0</urn1:codeSystemVersion>
+                  <urn1:displayName>?addrCode</urn1:displayName>
+                  <urn1:originalText>addrCode</urn1:originalText>
+                  <!--Zero or more repetitions:-->
+                  <urn1:translation/>
                </urn1:addressType>
-               <urn1:city>Frankfort</urn1:city>
-               <urn1:country>US</urn1:country>
-               <urn1:state>MN</urn1:state>
-               <urn1:streetAddress>432 Jackson St</urn1:streetAddress>
-               <urn1:zipCode>65498</urn1:zipCode>
+               <urn1:city>Burnell</urn1:city>
+               <urn1:country>USA</urn1:country>
+               <urn1:state>FL</urn1:state>
+               <urn1:streetAddress>825 North</urn1:streetAddress>
+               <urn1:zipCode>32184</urn1:zipCode>
             </urn1:witnessAddress>
             <urn1:witnessName>
-               <urn1:familyName>Ugble</urn1:familyName>
-               <urn1:givenName>Gary</urn1:givenName>
+               <urn1:familyName>Smith</urn1:familyName>
+               <urn1:givenName>Scott</urn1:givenName>
                <urn1:nameType>
-                  <urn1:code>G</urn1:code>
-                  <urn1:codeSystem>?</urn1:codeSystem>
-                  <urn1:codeSystemName>?</urn1:codeSystemName>
-                  <urn1:codeSystemVersion>?</urn1:codeSystemVersion>
-                  <urn1:displayName>?</urn1:displayName>
-                  <urn1:originalText>?</urn1:originalText>
+                  <urn1:code>nameCode</urn1:code>
+                  <urn1:codeSystem>nameCodeSyst</urn1:codeSystem>
+                  <urn1:codeSystemName>nameCodeSystName</urn1:codeSystemName>
+                  <urn1:codeSystemVersion>1.0</urn1:codeSystemVersion>
+                  <urn1:displayName>nameCode</urn1:displayName>
+                  <urn1:originalText>nameCode</urn1:originalText>
+                  <!--Zero or more repetitions:-->
+                  <urn1:translation/>
                </urn1:nameType>
-               <urn1:secondNameOrInitials>GU</urn1:secondNameOrInitials>
-               <urn1:fullName>Gary Ugble</urn1:fullName>
-               <urn1:prefix>Mr</urn1:prefix>
+               <urn1:secondNameOrInitials>S</urn1:secondNameOrInitials>
+               <urn1:fullName>Scott S. Smith</urn1:fullName>
+               <urn1:prefix>Mr.</urn1:prefix>
                <urn1:suffix>?</urn1:suffix>
             </urn1:witnessName>
             <urn1:witnessPhone>
-               <urn1:areaCode>987</urn1:areaCode>
+               <urn1:areaCode>321</urn1:areaCode>
                <urn1:countryCode>1</urn1:countryCode>
-               <urn1:extension>6549</urn1:extension>
-               <urn1:localNumber>2222222</urn1:localNumber>
+               <urn1:extension>8432</urn1:extension>
+               <urn1:localNumber>985-2239</urn1:localNumber>
                <urn1:phoneNumberType>
-                  <urn1:code>H</urn1:code>
-                  <urn1:codeSystem>?</urn1:codeSystem>
-                  <urn1:codeSystemName>?</urn1:codeSystemName>
-                  <urn1:codeSystemVersion>?</urn1:codeSystemVersion>
-                  <urn1:displayName>?</urn1:displayName>
-                  <urn1:originalText>?</urn1:originalText>
+                  <urn1:code>phoneCode</urn1:code>
+                  <urn1:codeSystem>phoneCodeSyst</urn1:codeSystem>
+                  <urn1:codeSystemName>phoneCodeSystName</urn1:codeSystemName>
+                  <urn1:codeSystemVersion>1.0</urn1:codeSystemVersion>
+                  <urn1:displayName>phoneCode</urn1:displayName>
+                  <urn1:originalText>phoneCode</urn1:originalText>
+                  <!--Zero or more repetitions:-->
+                  <urn1:translation/>
                </urn1:phoneNumberType>
             </urn1:witnessPhone>
             <urn1:userInfo>
                <urn1:personName>
-                  <urn1:familyName>Anderson</urn1:familyName>
-                  <urn1:givenName>Wilma</urn1:givenName>
+                  <urn1:familyName>SkagerBerg</urn1:familyName>
+                  <urn1:givenName>Karl</urn1:givenName>
                   <urn1:nameType>
-                     <urn1:code>G</urn1:code>
-                     <urn1:codeSystem>?</urn1:codeSystem>
-                     <urn1:codeSystemName>?</urn1:codeSystemName>
-                     <urn1:codeSystemVersion>?</urn1:codeSystemVersion>
-                     <urn1:displayName>?</urn1:displayName>
-                     <urn1:originalText>?</urn1:originalText>
+                     <urn1:code>nameCode</urn1:code>
+                     <urn1:codeSystem>nameCodeSyst</urn1:codeSystem>
+                     <urn1:codeSystemName>nameCodeSystName</urn1:codeSystemName>
+                     <urn1:codeSystemVersion>1.0</urn1:codeSystemVersion>
+                     <urn1:displayName>nameCode</urn1:displayName>
+                     <urn1:originalText>nameCode</urn1:originalText>
+                     <!--Zero or more repetitions:-->
+                     <urn1:translation/>
                   </urn1:nameType>
-                  <urn1:secondNameOrInitials>WA</urn1:secondNameOrInitials>
-                  <urn1:fullName>Wilma Anderson</urn1:fullName>
-                  <urn1:prefix>Mrs</urn1:prefix>
+                  <urn1:secondNameOrInitials>S</urn1:secondNameOrInitials>
+                  <urn1:fullName>Karl S. Skagerberg</urn1:fullName>
+                  <urn1:prefix>?</urn1:prefix>
                   <urn1:suffix>?</urn1:suffix>
                </urn1:personName>
-               <urn1:userName>${#TestCase#XDRUserId}</urn1:userName>
+               <urn1:userName>kskagerb</urn1:userName>
                <urn1:org>
                   <urn1:description>${#Project#RemoteHCDescription}</urn1:description>
                   <urn1:homeCommunityId>${#Project#RemoteHCID}</urn1:homeCommunityId>
                   <urn1:name>${#Project#RemoteHCDescription}</urn1:name>
                </urn1:org>
+               <!--Optional:-->
+               <urn1:roleCoded>
+                  <urn1:code>307969004</urn1:code>
+                  <urn1:codeSystem>2.16.840.1.113883.6.96</urn1:codeSystem>
+                  <urn1:codeSystemName>SNOMED_CT</urn1:codeSystemName>
+                  <urn1:codeSystemVersion>1.0</urn1:codeSystemVersion>
+                  <urn1:displayName>Public Health</urn1:displayName>
+                  <urn1:originalText>Public Health</urn1:originalText>
+                  <!--Zero or more repetitions:-->
+                  <urn1:translation/>
+               </urn1:roleCoded>
             </urn1:userInfo>
-            <urn1:authorized>authorized</urn1:authorized>
+            <urn1:authorized>true</urn1:authorized>
+            <!--Optional:-->
+            <urn1:purposeOfDisclosureCoded>
+               <urn1:code>PUBLICHEALTHKIERAN</urn1:code>
+               <urn1:codeSystem>2.16.840.1.113883.3.18.7.1</urn1:codeSystem>
+               <urn1:codeSystemName>nhin-purpose</urn1:codeSystemName>
+               <urn1:codeSystemVersion>1.0</urn1:codeSystemVersion>
+               <urn1:displayName>Use or disclosure of Psychotherapy notes</urn1:displayName>
+               <urn1:originalText>Use or disclosure of Psychotherapy notes</urn1:originalText>
+               <!--Zero or more repetitions:-->
+               <urn1:translation/>
+            </urn1:purposeOfDisclosureCoded>
+            <urn1:samlAuthnStatement>
+               <urn1:authInstant>2009-04-16T13:15:39Z</urn1:authInstant>
+               <urn1:sessionIndex>987</urn1:sessionIndex>
+               <urn1:authContextClassRef>urn:oasis:names:tc:SAML:2.0:ac:classes:X509</urn1:authContextClassRef>
+               <urn1:subjectLocalityAddress>158.147.185.168</urn1:subjectLocalityAddress>
+               <urn1:subjectLocalityDNSName>cs.myharris.net</urn1:subjectLocalityDNSName>
+            </urn1:samlAuthnStatement>
+            <urn1:samlAuthzDecisionStatement>
+               <urn1:decision>Permit</urn1:decision>
+               <urn1:resource>https://158.147.185.168:8181/SamlReceiveService/SamlProcessWS</urn1:resource>
+               <urn1:action>TestSaml</urn1:action>
+               <urn1:evidence>
+                  <urn1:assertion>
+                     <urn1:id>40df7c0a-ff3e-4b26-baeb-f2910f6d05a9</urn1:id>
+                     <urn1:issueInstant>2009-04-16T13:10:39.093Z</urn1:issueInstant>
+                     <!--Optional:-->
+                     <urn1:version>2.0</urn1:version>
+                     <!--Optional:-->
+                     <urn1:issuer>CN=SAML User,OU=Harris,0=HITS,L=Melbourne,ST=FL,C=US</urn1:issuer>
+                     <!--Optional:-->
+                     <urn1:issuerFormat>urn:oasis:names:tc:SAML:1.1:nameid-format:X509SubjectName</urn1:issuerFormat>
+                     <!--Optional:-->
+                     <urn1:conditions>
+                        <!--Optional:-->
+                        <urn1:notBefore>2009-04-16T13:10:39.093Z</urn1:notBefore>
+                        <!--Optional:-->
+                        <urn1:notOnOrAfter>2009-12-31T12:00:00.000Z</urn1:notOnOrAfter>
+                     </urn1:conditions>
+                     <!--Zero or more repetitions:-->
+                     <urn1:accessConsentPolicy>Claim-Ref-1234</urn1:accessConsentPolicy>
+                     <!--Zero or more repetitions:-->
+                     <urn1:instanceAccessConsentPolicy>Claim-Instance-1</urn1:instanceAccessConsentPolicy>
+                  </urn1:assertion>
+               </urn1:evidence>
+            </urn1:samlAuthzDecisionStatement>
+            <!--Optional:-->
+            <urn1:samlSignature>
+               <!--Optional:-->
+               <urn1:keyInfo>
+                  <!--Optional:-->
+                  <urn1:rsaKeyValueModulus>cid:721645965035</urn1:rsaKeyValueModulus>
+                  <!--Optional:-->
+                  <urn1:rsaKeyValueExponent>cid:146207300753</urn1:rsaKeyValueExponent>
+               </urn1:keyInfo>
+               <!--Optional:-->
+               <urn1:signatureValue>cid:783710993742</urn1:signatureValue>
+            </urn1:samlSignature>
+            <!--Optional:-->
+            <urn1:samlIssuer>
+               <!--Optional:-->
+               <urn1:issuer>?</urn1:issuer>
+               <!--Optional:-->
+               <urn1:issuerFormat>?</urn1:issuerFormat>
+            </urn1:samlIssuer>
+            <!--Optional:-->
+            <urn1:messageId>?</urn1:messageId>
+            <!--1 or more repetitions:-->
+            <urn1:relatesToList>uuid:088a26e8-6b03-4bf8-84f1-737dc94be2e0</urn1:relatesToList>
          </urn:assertion>
+         <!--Optional:-->
          <urn:nhinTargetCommunities>
+            <!--1 or more repetitions:-->
             <urn1:nhinTargetCommunity>
                <urn1:homeCommunity>
-               <urn1:description>${#Project#RemoteHCDescription}</urn1:description>
-               <urn1:homeCommunityId>${#Project#RemoteHCID}</urn1:homeCommunityId>
-               <urn1:name>${#Project#RemoteHCDescription}</urn1:name>
-            </urn1:homeCommunity>
+                  <urn1:description>${#Project#RemoteHCDescription}</urn1:description>
+                  <urn1:homeCommunityId>${#Project#RemoteHCID}</urn1:homeCommunityId>
+                  <urn1:name>${#Project#RemoteHCDescription}</urn1:name>
+               </urn1:homeCommunity>
             </urn1:nhinTargetCommunity>
          </urn:nhinTargetCommunities>
-         <urn:RegistryResponse status="?" requestId="?">
+         <urn:RegistryResponse status="urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Success" requestId="?">
             <!--Optional:-->
             <urn2:ResponseSlotList>
                <!--Zero or more repetitions:-->
                <urn3:Slot name="?" slotType="?">
                   <urn3:ValueList>
-                     <urn3:Value>ABC</urn3:Value>
+                     <urn3:Value>?</urn3:Value>
                   </urn3:ValueList>
                </urn3:Slot>
             </urn2:ResponseSlotList>
@@ -3866,19 +3969,19 @@ context.testCase.setPropertyValue('XDRUserId',"${UserID}${nowDate}");</script>
 assert (count > 0);</script></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2013-03-21T15:21:58Z</con:value>
+					<con:value>2013-07-16T15:21:54Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2013-03-21T15:31:58Z</con:value>
+					<con:value>2013-07-16T15:31:54Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>03/21/2013 15:21:58</con:value>
+					<con:value>07/16/2013 15:21:54</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2013-04-20T00:00:00Z</con:value>
+					<con:value>2013-08-15T00:00:00Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>FullPatientID</con:name>
@@ -3886,7 +3989,7 @@ assert (count > 0);</script></con:config></con:testStep><con:setupScript>nhinc.F
 				</con:property>
 				<con:property>
 					<con:name>XDRUserId</con:name>
-					<con:value>XDR Request Inbound UserThu Mar 21 15:26:58 UTC 2013</con:value>
+					<con:value>XDR Request Inbound UserTue Jul 16 15:26:54 UTC 2013</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
