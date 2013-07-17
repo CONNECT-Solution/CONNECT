@@ -156,9 +156,9 @@ if(passthruValue != null){
 	testRunner.testCase.setPropertyValue("PassThruOn", "true");
 	FileUtils.backupFile(dir, "PolicyEngineProxyConfig.xml", log);
 	//Updating PolicyEngine for passthrough
-	def alias = 'adapterpep';
-	def aliasName = 'adapterpepjava';
-	def replaceName = 'adapterpepnoopdeny';
+	def alias = 'adapterpolicyengineorchestrator';
+	def aliasName = 'adapterpolicyengineorchestratorsamljava';
+	def replaceName = 'adapterpolicyengineorchestratornoopdeny';
 	
 	FileUtils.updateSpringConfig(dir, "PolicyEngineProxyConfig.xml", alias,
 		aliasName, replaceName, log);
@@ -656,21 +656,21 @@ if(context.findProperty("PassThruOn").toBoolean()){
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2013-02-27T01:07:17Z</con:value>
+		<con:value>2013-07-17T18:31:13Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2013-02-27T01:17:17Z</con:value>
+		<con:value>2013-07-17T18:41:13Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>02/27/2013 01:07:17</con:value>
+		<con:value>07/17/2013 18:31:13</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2013-03-29T00:00:00Z</con:value>
+		<con:value>2013-08-16T00:00:00Z</con:value>
 	</con:property>
-<con:property><con:name>PassThruOn</con:name><con:value>false</con:value></con:property></con:properties>
+<con:property><con:name>PassThruOn</con:name><con:value>true</con:value></con:property></con:properties>
 <con:reportParameters/>
 </con:testCase>
 
@@ -701,9 +701,9 @@ if(passthruValue != null){
 	testRunner.testCase.setPropertyValue("PassThruOn", "true");
 	FileUtils.backupFile(dir, "PolicyEngineProxyConfig.xml", log);
 	//Updating PolicyEngine for passthrough
-	def alias = 'adapterpep';
-	def aliasName = 'adapterpepjava';
-	def replaceName = 'adapterpepnoopdeny';
+	def alias = 'adapterpolicyengineorchestrator';
+	def aliasName = 'adapterpolicyengineorchestratorsamljava';
+	def replaceName = 'adapterpolicyengineorchestratornoopdeny';
 	
 	FileUtils.updateSpringConfig(dir, "PolicyEngineProxyConfig.xml", alias,
 		aliasName, replaceName, log);
@@ -1057,21 +1057,21 @@ if(context.findProperty("PassThruOn").toBoolean()){
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2013-02-27T01:07:42Z</con:value>
+		<con:value>2013-07-17T18:31:39Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2013-02-27T01:17:42Z</con:value>
+		<con:value>2013-07-17T18:41:39Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>02/27/2013 01:07:42</con:value>
+		<con:value>07/17/2013 18:31:39</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2013-03-29T00:00:00Z</con:value>
+		<con:value>2013-08-16T00:00:00Z</con:value>
 	</con:property>
-<con:property><con:name>PassThruOn</con:name><con:value>false</con:value></con:property></con:properties>
+<con:property><con:name>PassThruOn</con:name><con:value>true</con:value></con:property></con:properties>
 </con:testCase>
 <con:testCase failOnError="true" failTestCaseOnErrors="true" id="fa57d83c-8474-4625-9186-b3902fdda4ab" keepSession="false" maxResults="0" name="Document Submission" searchProperties="true">
 	<con:settings/>
@@ -1087,9 +1087,9 @@ if(passthruValue != null){
 	testRunner.testCase.setPropertyValue("PassThruOn", "true");
 	FileUtils.backupFile(dir, "PolicyEngineProxyConfig.xml", log);
 	//Updating PolicyEngine for passthrough
-	def alias = 'adapterpep';
-	def aliasName = 'adapterpepjava';
-	def replaceName = 'adapterpepnoopdeny';
+	def alias = 'adapterpolicyengineorchestrator';
+	def aliasName = 'adapterpolicyengineorchestratorsamljava';
+	def replaceName = 'adapterpolicyengineorchestratornoopdeny';
 	
 	FileUtils.updateSpringConfig(dir, "PolicyEngineProxyConfig.xml", alias,
 		aliasName, replaceName, log);
@@ -1583,21 +1583,21 @@ if(context.findProperty("PassThruOn").toBoolean()){
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2013-02-27T01:07:45Z</con:value>
+		<con:value>2013-07-17T18:31:41Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2013-02-27T01:17:45Z</con:value>
+		<con:value>2013-07-17T18:41:41Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>02/27/2013 01:07:45</con:value>
+		<con:value>07/17/2013 18:31:41</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2013-03-29T00:00:00Z</con:value>
+		<con:value>2013-08-16T00:00:00Z</con:value>
 	</con:property>
-<con:property><con:name>PassThruOn</con:name><con:value>false</con:value></con:property></con:properties>
+<con:property><con:name>PassThruOn</con:name><con:value>true</con:value></con:property></con:properties>
 <con:reportParameters/>
 </con:testCase>
 <con:testCase failOnError="true" failTestCaseOnErrors="true" id="62ebf4c2-b4e0-4465-b715-df30e72f945a" keepSession="false" maxResults="0" name="Patient Discovery Deferred Req" searchProperties="true">
@@ -1614,9 +1614,9 @@ if(passthruValue != null){
 	testRunner.testCase.setPropertyValue("PassThruOn", "true");
 	FileUtils.backupFile(dir, "PolicyEngineProxyConfig.xml", log);
 	//Updating PolicyEngine for passthrough
-	def alias = 'adapterpep';
-	def aliasName = 'adapterpepjava';
-	def replaceName = 'adapterpepnoopdeny';
+	def alias = 'adapterpolicyengineorchestrator';
+	def aliasName = 'adapterpolicyengineorchestratorsamljava';
+	def replaceName = 'adapterpolicyengineorchestratornoopdeny';
 	
 	FileUtils.updateSpringConfig(dir, "PolicyEngineProxyConfig.xml", alias,
 		aliasName, replaceName, log);
@@ -1952,21 +1952,21 @@ if(context.findProperty("PassThruOn").toBoolean()){
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2013-02-27T01:07:49Z</con:value>
+		<con:value>2013-07-17T18:31:42Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2013-02-27T01:17:49Z</con:value>
+		<con:value>2013-07-17T18:41:42Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>02/27/2013 01:07:49</con:value>
+		<con:value>07/17/2013 18:31:42</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2013-03-29T00:00:00Z</con:value>
+		<con:value>2013-08-16T00:00:00Z</con:value>
 	</con:property>
-<con:property><con:name>PassThruOn</con:name><con:value>false</con:value></con:property></con:properties>
+<con:property><con:name>PassThruOn</con:name><con:value>true</con:value></con:property></con:properties>
 <con:reportParameters/>
 </con:testCase>
 <con:testCase failOnError="true" failTestCaseOnErrors="true" id="e98901ca-10ae-4725-ac64-5b2bd8da2b3e" keepSession="false" maxResults="0" name="Patient Discovery Deferred Resp" searchProperties="true">
@@ -1983,9 +1983,9 @@ if(passthruValue != null){
 	testRunner.testCase.setPropertyValue("PassThruOn", "true");
 	FileUtils.backupFile(dir, "PolicyEngineProxyConfig.xml", log);
 	//Updating PolicyEngine for passthrough
-	def alias = 'adapterpep';
-	def aliasName = 'adapterpepjava';
-	def replaceName = 'adapterpepnoopdeny';
+	def alias = 'adapterpolicyengineorchestrator';
+	def aliasName = 'adapterpolicyengineorchestratorsamljava';
+	def replaceName = 'adapterpolicyengineorchestratornoopdeny';
 	
 	FileUtils.updateSpringConfig(dir, "PolicyEngineProxyConfig.xml", alias,
 		aliasName, replaceName, log);
@@ -2347,21 +2347,21 @@ if(context.findProperty("PassThruOn").toBoolean()){
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2013-02-27T01:08:01Z</con:value>
+		<con:value>2013-07-17T18:31:49Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2013-02-27T01:18:01Z</con:value>
+		<con:value>2013-07-17T18:41:49Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>02/27/2013 01:08:01</con:value>
+		<con:value>07/17/2013 18:31:49</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2013-03-29T00:00:00Z</con:value>
+		<con:value>2013-08-16T00:00:00Z</con:value>
 	</con:property>
-<con:property><con:name>PassThruOn</con:name><con:value>false</con:value></con:property></con:properties>
+<con:property><con:name>PassThruOn</con:name><con:value>true</con:value></con:property></con:properties>
 <con:reportParameters/>
 </con:testCase>
 <con:testCase failOnError="true" failTestCaseOnErrors="true" id="fe917e9c-4e89-4ce8-9828-05b542fb1be0" keepSession="false" maxResults="0" name="Patient Discovery" searchProperties="true">
@@ -2386,12 +2386,12 @@ if(passthruValue != null){
 	testRunner.testCase.setPropertyValue("PassThruOn", "true");
 	FileUtils.backupFile(dir, "PolicyEngineProxyConfig.xml", log);
 	//Updating PolicyEngine for passthrough
-	def alias = 'adapterpep';
-	def aliasName = 'adapterpepjava';
-	def aliasReplace = 'adapterpepnoopdeny';
+	def alias = 'adapterpolicyengineorchestrator';
+	def aliasName = 'adapterpolicyengineorchestratorsamljava';
+	def replaceName = 'adapterpolicyengineorchestratornoopdeny';
 	
 	FileUtils.updateSpringConfig(dir, "PolicyEngineProxyConfig.xml", alias,
-		aliasName, aliasReplace, log);
+		aliasName, replaceName, log);
 	/**def ln = System.getProperty('line.separator');
 	def policyEngineFile = new File(dir + "/" + "PolicyEngineProxyConfig.xml");
 	def policyEngineFileNew = new File(dir + "/" + "PolicyEngineProxyConfig.xml.NEW");
@@ -2878,21 +2878,21 @@ if(context.findProperty("PassThruOn").toBoolean()){
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2013-02-27T01:08:04Z</con:value>
+		<con:value>2013-07-17T18:31:50Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2013-02-27T01:18:04Z</con:value>
+		<con:value>2013-07-17T18:41:50Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>02/27/2013 01:08:04</con:value>
+		<con:value>07/17/2013 18:31:50</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2013-03-29T00:00:00Z</con:value>
+		<con:value>2013-08-16T00:00:00Z</con:value>
 	</con:property>
-<con:property><con:name>PassThruOn</con:name><con:value>false</con:value></con:property></con:properties>
+<con:property><con:name>PassThruOn</con:name><con:value>true</con:value></con:property></con:properties>
 <con:reportParameters/>
 </con:testCase>
 <con:testCase failOnError="true" failTestCaseOnErrors="true" id="801f7f15-5164-41c3-907f-9c0a9db42262" keepSession="false" maxResults="0" name="Document Query" searchProperties="true">
@@ -2910,9 +2910,9 @@ if(passthruValue != null){
 	testRunner.testCase.setPropertyValue("PassThruOn", "true");
 	FileUtils.backupFile(dir, "PolicyEngineProxyConfig.xml", log);
 	//Updating PolicyEngine for passthrough
-	def alias = 'adapterpep';
-	def aliasName = 'adapterpepjava';
-	def replaceName = 'adapterpepnoopdeny';
+	def alias = 'adapterpolicyengineorchestrator';
+	def aliasName = 'adapterpolicyengineorchestratorsamljava';
+	def replaceName = 'adapterpolicyengineorchestratornoopdeny';
 	
 	FileUtils.updateSpringConfig(dir, "PolicyEngineProxyConfig.xml", alias,
 		aliasName, replaceName, log);
@@ -3264,25 +3264,25 @@ if(context.findProperty("PassThruOn").toBoolean()){
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2013-02-27T01:08:10Z</con:value>
+		<con:value>2013-07-17T18:31:53Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2013-02-27T01:18:10Z</con:value>
+		<con:value>2013-07-17T18:41:53Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>02/27/2013 01:08:10</con:value>
+		<con:value>07/17/2013 18:31:53</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2013-03-29T00:00:00Z</con:value>
+		<con:value>2013-08-16T00:00:00Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>FullPatientID</con:name>
 		<con:value>'D123401^^^&amp;amp;1.1&amp;amp;ISO'</con:value>
 	</con:property>
-<con:property><con:name>PassThruOn</con:name><con:value>false</con:value></con:property></con:properties>
+<con:property><con:name>PassThruOn</con:name><con:value>true</con:value></con:property></con:properties>
 <con:reportParameters/>
 </con:testCase>
 <con:testCase failOnError="true" failTestCaseOnErrors="true" id="08c7914d-69d5-40a5-951d-5774a8836aad" keepSession="false" maxResults="0" name="Document Retrieve" searchProperties="true">
@@ -3299,9 +3299,9 @@ if(passthruValue != null){
 	testRunner.testCase.setPropertyValue("PassThruOn", "true");
 	FileUtils.backupFile(dir, "PolicyEngineProxyConfig.xml", log);
 	//Updating PolicyEngine for passthrough
-	def alias = 'adapterpep';
-	def aliasName = 'adapterpepjava';
-	def replaceName = 'adapterpepnoopdeny';
+	def alias = 'adapterpolicyengineorchestrator';
+	def aliasName = 'adapterpolicyengineorchestratorsamljava';
+	def replaceName = 'adapterpolicyengineorchestratornoopdeny';
 	
 	FileUtils.updateSpringConfig(dir, "PolicyEngineProxyConfig.xml", alias,
 		aliasName, replaceName, log);
@@ -3611,21 +3611,21 @@ if(context.findProperty("PassThruOn").toBoolean()){
 	</con:property>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2013-02-27T01:08:13Z</con:value>
+		<con:value>2013-07-17T18:31:55Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2013-02-27T01:18:13Z</con:value>
+		<con:value>2013-07-17T18:41:55Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>02/27/2013 01:08:13</con:value>
+		<con:value>07/17/2013 18:31:55</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2013-03-29T00:00:00Z</con:value>
+		<con:value>2013-08-16T00:00:00Z</con:value>
 	</con:property>
-<con:property><con:name>PassThruOn</con:name><con:value>false</con:value></con:property></con:properties>
+<con:property><con:name>PassThruOn</con:name><con:value>true</con:value></con:property></con:properties>
 <con:reportParameters/>
 </con:testCase>
 <con:testCase failOnError="true" failTestCaseOnErrors="true" id="447c3431-e74d-48fa-ab20-3c2be4600b82" keepSession="false" maxResults="0" name="Subscribe" searchProperties="true" disabled="true">
@@ -5128,9 +5128,9 @@ if(passthruValue != null){
 	testRunner.testCase.setPropertyValue("PassThruOn", "true");
 	FileUtils.backupFile(dir, "PolicyEngineProxyConfig.xml", log);
 	//Updating PolicyEngine for passthrough
-	def alias = 'adapterpep';
-	def aliasName = 'adapterpepjava';
-	def replaceName = 'adapterpepnoopdeny';
+	def alias = 'adapterpolicyengineorchestrator';
+	def aliasName = 'adapterpolicyengineorchestratorsamljava';
+	def replaceName = 'adapterpolicyengineorchestratornoopdeny';
 	
 	FileUtils.updateSpringConfig(dir, "PolicyEngineProxyConfig.xml", alias,
 		aliasName, replaceName, log);
@@ -5500,21 +5500,21 @@ if(context.findProperty("PassThruOn").toBoolean()){
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2013-02-27T01:08:16Z</con:value>
+		<con:value>2013-07-17T18:31:56Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2013-02-27T01:18:16Z</con:value>
+		<con:value>2013-07-17T18:41:56Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>02/27/2013 01:08:16</con:value>
+		<con:value>07/17/2013 18:31:56</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2013-03-29T00:00:00Z</con:value>
+		<con:value>2013-08-16T00:00:00Z</con:value>
 	</con:property>
-<con:property><con:name>PassThruOn</con:name><con:value>false</con:value></con:property></con:properties>
+<con:property><con:name>PassThruOn</con:name><con:value>true</con:value></con:property></con:properties>
 </con:testCase>
 <con:properties/>
 <con:setupScript/>
@@ -5538,9 +5538,9 @@ if(passthruValue != null){
 	testRunner.testCase.setPropertyValue("PassThruOn", "true");
 	FileUtils.backupFile(dir, "PolicyEngineProxyConfig.xml", log);
 	//Updating PolicyEngine for passthrough
-	def alias = 'adapterpep';
-	def aliasName = 'adapterpepjava';
-	def replaceName = 'adapterpepnoopdeny';
+	def alias = 'adapterpolicyengineorchestrator';
+	def aliasName = 'adapterpolicyengineorchestratorsamljava';
+	def replaceName = 'adapterpolicyengineorchestratornoopdeny';
 	
 	FileUtils.updateSpringConfig(dir, "PolicyEngineProxyConfig.xml", alias,
 		aliasName, replaceName, log);
@@ -6038,21 +6038,21 @@ if(context.findProperty("PassThruOn").toBoolean()){
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2013-02-27T01:13:51Z</con:value>
+		<con:value>2013-07-17T18:32:10Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2013-02-27T01:23:51Z</con:value>
+		<con:value>2013-07-17T18:42:10Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>02/27/2013 01:13:51</con:value>
+		<con:value>07/17/2013 18:32:10</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2013-03-29T00:00:00Z</con:value>
+		<con:value>2013-08-16T00:00:00Z</con:value>
 	</con:property>
-<con:property><con:name>PassThruOn</con:name><con:value>false</con:value></con:property></con:properties>
+<con:property><con:name>PassThruOn</con:name><con:value>true</con:value></con:property></con:properties>
 <con:reportParameters/>
 </con:testCase>
 <con:testCase failOnError="true" failTestCaseOnErrors="true" id="2622180a-2230-4df7-8f36-e1c9ad29bba8" keepSession="false" maxResults="0" name="Document Submission Deferred Resp" searchProperties="true">
@@ -6069,9 +6069,9 @@ if(passthruValue != null){
 	testRunner.testCase.setPropertyValue("PassThruOn", "true");
 	FileUtils.backupFile(dir, "PolicyEngineProxyConfig.xml", log);
 	//Updating PolicyEngine for passthrough
-	def alias = 'adapterpep';
-	def aliasName = 'adapterpepjava';
-	def replaceName = 'adapterpepnoopdeny';
+	def alias = 'adapterpolicyengineorchestrator';
+	def aliasName = 'adapterpolicyengineorchestratorsamljava';
+	def replaceName = 'adapterpolicyengineorchestratornoopdeny';
 	
 	FileUtils.updateSpringConfig(dir, "PolicyEngineProxyConfig.xml", alias,
 		aliasName, replaceName, log);
@@ -6430,21 +6430,21 @@ if(context.findProperty("PassThruOn").toBoolean()){
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2013-02-27T01:13:52Z</con:value>
+		<con:value>2013-07-17T18:32:12Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2013-02-27T01:23:52Z</con:value>
+		<con:value>2013-07-17T18:42:12Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>02/27/2013 01:13:52</con:value>
+		<con:value>07/17/2013 18:32:12</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2013-03-29T00:00:00Z</con:value>
+		<con:value>2013-08-16T00:00:00Z</con:value>
 	</con:property>
-<con:property><con:name>PassThruOn</con:name><con:value>false</con:value></con:property></con:properties>
+<con:property><con:name>PassThruOn</con:name><con:value>true</con:value></con:property></con:properties>
 </con:testCase>
 <con:testCase failOnError="true" failTestCaseOnErrors="true" id="6d469896-2c35-4890-ae94-1750cd08214e" keepSession="false" maxResults="0" name="Document Submission" searchProperties="true">
 	<con:settings/>
@@ -6460,9 +6460,9 @@ if(passthruValue != null){
 	testRunner.testCase.setPropertyValue("PassThruOn", "true");
 	FileUtils.backupFile(dir, "PolicyEngineProxyConfig.xml", log);
 	//Updating PolicyEngine for passthrough
-	def alias = 'adapterpep';
-	def aliasName = 'adapterpepjava';
-	def replaceName = 'adapterpepnoopdeny';
+	def alias = 'adapterpolicyengineorchestrator';
+	def aliasName = 'adapterpolicyengineorchestratorsamljava';
+	def replaceName = 'adapterpolicyengineorchestratornoopdeny';
 	
 	FileUtils.updateSpringConfig(dir, "PolicyEngineProxyConfig.xml", alias,
 		aliasName, replaceName, log);
@@ -6955,21 +6955,21 @@ if(context.findProperty("PassThruOn").toBoolean()){
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2013-02-27T01:13:53Z</con:value>
+		<con:value>2013-07-17T18:32:13Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2013-02-27T01:23:53Z</con:value>
+		<con:value>2013-07-17T18:42:13Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>02/27/2013 01:13:53</con:value>
+		<con:value>07/17/2013 18:32:13</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2013-03-29T00:00:00Z</con:value>
+		<con:value>2013-08-16T00:00:00Z</con:value>
 	</con:property>
-<con:property><con:name>PassThruOn</con:name><con:value>false</con:value></con:property></con:properties>
+<con:property><con:name>PassThruOn</con:name><con:value>true</con:value></con:property></con:properties>
 <con:reportParameters/>
 </con:testCase>
 
@@ -6990,9 +6990,9 @@ if(passthruValue != null){
 	testRunner.testCase.setPropertyValue("PassThruOn", "true");
 	FileUtils.backupFile(dir, "PolicyEngineProxyConfig.xml", log);
 	//Updating PolicyEngine for passthrough
-	def alias = 'adapterpep';
-	def aliasName = 'adapterpepjava';
-	def replaceName = 'adapterpepnoopdeny';
+	def alias = 'adapterpolicyengineorchestrator';
+	def aliasName = 'adapterpolicyengineorchestratorsamljava';
+	def replaceName = 'adapterpolicyengineorchestratornoopdeny';
 	
 	FileUtils.updateSpringConfig(dir, "PolicyEngineProxyConfig.xml", alias,
 		aliasName, replaceName, log);
@@ -7326,7 +7326,7 @@ nhinc.FileUtils.restoreConfiguration(dir, log);
 if(context.findProperty("PassThruOn").toBoolean()){
 	nhinc.FileUtils.restoreFile(dir, "PolicyEngineProxyConfig.xml", log);
 }</con:tearDownScript>
-<con:properties><con:property><con:name>PassThruOn</con:name><con:value>false</con:value></con:property><con:property><con:name>startDate</con:name><con:value>2013-02-27T01:13:54Z</con:value></con:property><con:property><con:name>endDate</con:name><con:value>2013-02-27T01:23:54Z</con:value></con:property><con:property><con:name>sigDate</con:name><con:value>02/27/2013 01:13:54</con:value></con:property><con:property><con:name>expireDate</con:name><con:value>2013-03-29T00:00:00Z</con:value></con:property></con:properties><con:reportParameters/>
+<con:properties><con:property><con:name>PassThruOn</con:name><con:value>true</con:value></con:property><con:property><con:name>startDate</con:name><con:value>2013-07-17T18:32:13Z</con:value></con:property><con:property><con:name>endDate</con:name><con:value>2013-07-17T18:42:13Z</con:value></con:property><con:property><con:name>sigDate</con:name><con:value>07/17/2013 18:32:13</con:value></con:property><con:property><con:name>expireDate</con:name><con:value>2013-08-16T00:00:00Z</con:value></con:property></con:properties><con:reportParameters/>
 </con:testCase>
 
 <con:testCase failOnError="true" failTestCaseOnErrors="true" id="a873f53b-f81b-4529-b866-ccad8f7a0e4a" keepSession="false" maxResults="0" name="Patient Discovery Deferred Resp" searchProperties="true">
@@ -7343,9 +7343,9 @@ if(passthruValue != null){
 	testRunner.testCase.setPropertyValue("PassThruOn", "true");
 	FileUtils.backupFile(dir, "PolicyEngineProxyConfig.xml", log);
 	//Updating PolicyEngine for passthrough
-	def alias = 'adapterpep';
-	def aliasName = 'adapterpepjava';
-	def replaceName = 'adapterpepnoopdeny';
+	def alias = 'adapterpolicyengineorchestrator';
+	def aliasName = 'adapterpolicyengineorchestratorsamljava';
+	def replaceName = 'adapterpolicyengineorchestratornoopdeny';
 	
 	FileUtils.updateSpringConfig(dir, "PolicyEngineProxyConfig.xml", alias,
 		aliasName, replaceName, log);
@@ -7704,7 +7704,7 @@ nhinc.FileUtils.restoreConfiguration(dir, log);
 if(context.findProperty("PassThruOn").toBoolean()){
 	nhinc.FileUtils.restoreFile(dir, "PolicyEngineProxyConfig.xml", log);
 }</con:tearDownScript>
-<con:properties><con:property><con:name>PassThruOn</con:name><con:value>false</con:value></con:property><con:property><con:name>startDate</con:name><con:value>2013-02-27T01:13:55Z</con:value></con:property><con:property><con:name>endDate</con:name><con:value>2013-02-27T01:23:55Z</con:value></con:property><con:property><con:name>sigDate</con:name><con:value>02/27/2013 01:13:55</con:value></con:property><con:property><con:name>expireDate</con:name><con:value>2013-03-29T00:00:00Z</con:value></con:property></con:properties><con:reportParameters/>
+<con:properties><con:property><con:name>PassThruOn</con:name><con:value>true</con:value></con:property><con:property><con:name>startDate</con:name><con:value>2013-07-17T18:32:14Z</con:value></con:property><con:property><con:name>endDate</con:name><con:value>2013-07-17T18:42:14Z</con:value></con:property><con:property><con:name>sigDate</con:name><con:value>07/17/2013 18:32:14</con:value></con:property><con:property><con:name>expireDate</con:name><con:value>2013-08-16T00:00:00Z</con:value></con:property></con:properties><con:reportParameters/>
 </con:testCase>
 <con:testCase failOnError="true" failTestCaseOnErrors="true" id="db617e16-46c1-4f66-9e29-bac17e0a5a44" keepSession="false" maxResults="0" name="Patient Discovery" searchProperties="true">
 	<con:settings/>
@@ -7728,12 +7728,12 @@ if(passthruValue != null){
 	testRunner.testCase.setPropertyValue("PassThruOn", "true");
 	FileUtils.backupFile(dir, "PolicyEngineProxyConfig.xml", log);
 	//Updating PolicyEngine for passthrough
-	def alias = 'adapterpep';
-	def aliasName = 'adapterpepjava';
-	def aliasReplace = 'adapterpepnoopdeny';
+	def alias = 'adapterpolicyengineorchestrator';
+	def aliasName = 'adapterpolicyengineorchestratorsamljava';
+	def replaceName = 'adapterpolicyengineorchestratornoopdeny';
 	
 	FileUtils.updateSpringConfig(dir, "PolicyEngineProxyConfig.xml", alias,
-		aliasName, aliasReplace, log);
+		aliasName, replaceName, log);
 	/**def ln = System.getProperty('line.separator');
 	def policyEngineFile = new File(dir + "/" + "PolicyEngineProxyConfig.xml");
 	def policyEngineFileNew = new File(dir + "/" + "PolicyEngineProxyConfig.xml.NEW");
@@ -8218,7 +8218,7 @@ if(context.findProperty("PassThruOn").toBoolean()){
 	nhinc.FileUtils.restoreFile(dir, "PolicyEngineProxyConfig.xml", log);
 	nhinc.FileUtils.restoreFile(dir, "PatientDiscoveryProxyConfig.xml", log);
 }</con:tearDownScript>
-<con:properties><con:property><con:name>PassThruOn</con:name><con:value>false</con:value></con:property><con:property><con:name>startDate</con:name><con:value>2013-02-27T01:13:56Z</con:value></con:property><con:property><con:name>endDate</con:name><con:value>2013-02-27T01:23:56Z</con:value></con:property><con:property><con:name>sigDate</con:name><con:value>02/27/2013 01:13:56</con:value></con:property><con:property><con:name>expireDate</con:name><con:value>2013-03-29T00:00:00Z</con:value></con:property></con:properties><con:reportParameters/>
+<con:properties><con:property><con:name>PassThruOn</con:name><con:value>true</con:value></con:property><con:property><con:name>startDate</con:name><con:value>2013-07-17T18:32:15Z</con:value></con:property><con:property><con:name>endDate</con:name><con:value>2013-07-17T18:42:15Z</con:value></con:property><con:property><con:name>sigDate</con:name><con:value>07/17/2013 18:32:15</con:value></con:property><con:property><con:name>expireDate</con:name><con:value>2013-08-16T00:00:00Z</con:value></con:property></con:properties><con:reportParameters/>
 </con:testCase>
 <con:testCase failOnError="true" failTestCaseOnErrors="true" id="a9707ab4-3b2c-484c-a302-24ab8377c2a4" keepSession="false" maxResults="0" name="Document Query" searchProperties="true">
 	<con:settings/>
@@ -8235,9 +8235,9 @@ if(passthruValue != null){
 	testRunner.testCase.setPropertyValue("PassThruOn", "true");
 	FileUtils.backupFile(dir, "PolicyEngineProxyConfig.xml", log);
 	//Updating PolicyEngine for passthrough
-	def alias = 'adapterpep';
-	def aliasName = 'adapterpepjava';
-	def replaceName = 'adapterpepnoopdeny';
+	def alias = 'adapterpolicyengineorchestrator';
+	def aliasName = 'adapterpolicyengineorchestratorsamljava';
+	def replaceName = 'adapterpolicyengineorchestratornoopdeny';
 	
 	FileUtils.updateSpringConfig(dir, "PolicyEngineProxyConfig.xml", alias,
 		aliasName, replaceName, log);
@@ -8591,7 +8591,7 @@ if(context.findProperty("PassThruOn").toBoolean()){
 		<con:name>FullPatientID</con:name>
 		<con:value>'D123401^^^&amp;amp;1.1&amp;amp;ISO'</con:value>
 	</con:property>
-<con:property><con:name>PassThruOn</con:name><con:value>false</con:value></con:property><con:property><con:name>startDate</con:name><con:value>2013-02-27T01:13:58Z</con:value></con:property><con:property><con:name>endDate</con:name><con:value>2013-02-27T01:23:58Z</con:value></con:property><con:property><con:name>sigDate</con:name><con:value>02/27/2013 01:13:58</con:value></con:property><con:property><con:name>expireDate</con:name><con:value>2013-03-29T00:00:00Z</con:value></con:property></con:properties>
+<con:property><con:name>PassThruOn</con:name><con:value>true</con:value></con:property><con:property><con:name>startDate</con:name><con:value>2013-07-17T18:32:16Z</con:value></con:property><con:property><con:name>endDate</con:name><con:value>2013-07-17T18:42:16Z</con:value></con:property><con:property><con:name>sigDate</con:name><con:value>07/17/2013 18:32:16</con:value></con:property><con:property><con:name>expireDate</con:name><con:value>2013-08-16T00:00:00Z</con:value></con:property></con:properties>
 <con:reportParameters/>
 </con:testCase>
 <con:testCase failOnError="true" failTestCaseOnErrors="true" id="3a630f37-d9fc-4fd2-bc44-bc0b04246222" keepSession="false" maxResults="0" name="Document Retrieve" searchProperties="true">
@@ -8608,9 +8608,9 @@ if(passthruValue != null){
 	testRunner.testCase.setPropertyValue("PassThruOn", "true");
 	FileUtils.backupFile(dir, "PolicyEngineProxyConfig.xml", log);
 	//Updating PolicyEngine for passthrough
-	def alias = 'adapterpep';
-	def aliasName = 'adapterpepjava';
-	def replaceName = 'adapterpepnoopdeny';
+	def alias = 'adapterpolicyengineorchestrator';
+	def aliasName = 'adapterpolicyengineorchestratorsamljava';
+	def replaceName = 'adapterpolicyengineorchestratornoopdeny';
 	
 	FileUtils.updateSpringConfig(dir, "PolicyEngineProxyConfig.xml", alias,
 		aliasName, replaceName, log);
@@ -8920,21 +8920,21 @@ if(context.findProperty("PassThruOn").toBoolean()){
 	</con:property>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2013-02-27T01:13:59Z</con:value>
+		<con:value>2013-07-17T18:32:16Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2013-02-27T01:23:59Z</con:value>
+		<con:value>2013-07-17T18:42:16Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>02/27/2013 01:13:59</con:value>
+		<con:value>07/17/2013 18:32:16</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2013-03-29T00:00:00Z</con:value>
+		<con:value>2013-08-16T00:00:00Z</con:value>
 	</con:property>
-<con:property><con:name>PassThruOn</con:name><con:value>false</con:value></con:property></con:properties>
+<con:property><con:name>PassThruOn</con:name><con:value>true</con:value></con:property></con:properties>
 <con:reportParameters/>
 </con:testCase>
 
@@ -10439,9 +10439,9 @@ if(passthruValue != null){
 	testRunner.testCase.setPropertyValue("PassThruOn", "true");
 	FileUtils.backupFile(dir, "PolicyEngineProxyConfig.xml", log);
 	//Updating PolicyEngine for passthrough
-	def alias = 'adapterpep';
-	def aliasName = 'adapterpepjava';
-	def replaceName = 'adapterpepnoopdeny';
+	def alias = 'adapterpolicyengineorchestrator';
+	def aliasName = 'adapterpolicyengineorchestratorsamljava';
+	def replaceName = 'adapterpolicyengineorchestratornoopdeny';
 	
 	FileUtils.updateSpringConfig(dir, "PolicyEngineProxyConfig.xml", alias,
 		aliasName, replaceName, log);
@@ -10811,21 +10811,21 @@ if(context.findProperty("PassThruOn").toBoolean()){
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2013-02-27T01:14:00Z</con:value>
+		<con:value>2013-07-17T18:32:17Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2013-02-27T01:24:00Z</con:value>
+		<con:value>2013-07-17T18:42:17Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>02/27/2013 01:14:00</con:value>
+		<con:value>07/17/2013 18:32:17</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2013-03-29T00:00:00Z</con:value>
+		<con:value>2013-08-16T00:00:00Z</con:value>
 	</con:property>
-<con:property><con:name>PassThruOn</con:name><con:value>false</con:value></con:property></con:properties>
+<con:property><con:name>PassThruOn</con:name><con:value>true</con:value></con:property></con:properties>
 <con:reportParameters/>
 </con:testCase>
 <con:properties/>
