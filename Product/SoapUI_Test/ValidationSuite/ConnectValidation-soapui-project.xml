@@ -156,9 +156,9 @@ if(passthruValue != null){
 	testRunner.testCase.setPropertyValue("PassThruOn", "true");
 	FileUtils.backupFile(dir, "PolicyEngineProxyConfig.xml", log);
 	//Updating PolicyEngine for passthrough
-	def alias = 'adapterpep';
-	def aliasName = 'adapterpepjava';
-	def replaceName = 'adapterpepnoopdeny';
+	def alias = 'adapterpolicyengineorchestrator';
+	def aliasName = 'adapterpolicyengineorchestratorsamljava';
+	def replaceName = 'adapterpolicyengineorchestratornoopdeny';
 	
 	FileUtils.updateSpringConfig(dir, "PolicyEngineProxyConfig.xml", alias,
 		aliasName, replaceName, log);
@@ -701,9 +701,9 @@ if(passthruValue != null){
 	testRunner.testCase.setPropertyValue("PassThruOn", "true");
 	FileUtils.backupFile(dir, "PolicyEngineProxyConfig.xml", log);
 	//Updating PolicyEngine for passthrough
-	def alias = 'adapterpep';
-	def aliasName = 'adapterpepjava';
-	def replaceName = 'adapterpepnoopdeny';
+	def alias = 'adapterpolicyengineorchestrator';
+	def aliasName = 'adapterpolicyengineorchestratorsamljava';
+	def replaceName = 'adapterpolicyengineorchestratornoopdeny';
 	
 	FileUtils.updateSpringConfig(dir, "PolicyEngineProxyConfig.xml", alias,
 		aliasName, replaceName, log);
@@ -1087,9 +1087,9 @@ if(passthruValue != null){
 	testRunner.testCase.setPropertyValue("PassThruOn", "true");
 	FileUtils.backupFile(dir, "PolicyEngineProxyConfig.xml", log);
 	//Updating PolicyEngine for passthrough
-	def alias = 'adapterpep';
-	def aliasName = 'adapterpepjava';
-	def replaceName = 'adapterpepnoopdeny';
+	def alias = 'adapterpolicyengineorchestrator';
+	def aliasName = 'adapterpolicyengineorchestratorsamljava';
+	def replaceName = 'adapterpolicyengineorchestratornoopdeny';
 	
 	FileUtils.updateSpringConfig(dir, "PolicyEngineProxyConfig.xml", alias,
 		aliasName, replaceName, log);
@@ -1614,9 +1614,9 @@ if(passthruValue != null){
 	testRunner.testCase.setPropertyValue("PassThruOn", "true");
 	FileUtils.backupFile(dir, "PolicyEngineProxyConfig.xml", log);
 	//Updating PolicyEngine for passthrough
-	def alias = 'adapterpep';
-	def aliasName = 'adapterpepjava';
-	def replaceName = 'adapterpepnoopdeny';
+	def alias = 'adapterpolicyengineorchestrator';
+	def aliasName = 'adapterpolicyengineorchestratorsamljava';
+	def replaceName = 'adapterpolicyengineorchestratornoopdeny';
 	
 	FileUtils.updateSpringConfig(dir, "PolicyEngineProxyConfig.xml", alias,
 		aliasName, replaceName, log);
@@ -1983,9 +1983,9 @@ if(passthruValue != null){
 	testRunner.testCase.setPropertyValue("PassThruOn", "true");
 	FileUtils.backupFile(dir, "PolicyEngineProxyConfig.xml", log);
 	//Updating PolicyEngine for passthrough
-	def alias = 'adapterpep';
-	def aliasName = 'adapterpepjava';
-	def replaceName = 'adapterpepnoopdeny';
+	def alias = 'adapterpolicyengineorchestrator';
+	def aliasName = 'adapterpolicyengineorchestratorsamljava';
+	def replaceName = 'adapterpolicyengineorchestratornoopdeny';
 	
 	FileUtils.updateSpringConfig(dir, "PolicyEngineProxyConfig.xml", alias,
 		aliasName, replaceName, log);
@@ -2386,9 +2386,9 @@ if(passthruValue != null){
 	testRunner.testCase.setPropertyValue("PassThruOn", "true");
 	FileUtils.backupFile(dir, "PolicyEngineProxyConfig.xml", log);
 	//Updating PolicyEngine for passthrough
-	def alias = 'adapterpep';
-	def aliasName = 'adapterpepjava';
-	def aliasReplace = 'adapterpepnoopdeny';
+	def alias = 'adapterpolicyengineorchestrator';
+	def aliasName = 'adapterpolicyengineorchestratorsamljava';
+	def replaceName = 'adapterpolicyengineorchestratornoopdeny';
 	
 	FileUtils.updateSpringConfig(dir, "PolicyEngineProxyConfig.xml", alias,
 		aliasName, aliasReplace, log);
@@ -2910,9 +2910,9 @@ if(passthruValue != null){
 	testRunner.testCase.setPropertyValue("PassThruOn", "true");
 	FileUtils.backupFile(dir, "PolicyEngineProxyConfig.xml", log);
 	//Updating PolicyEngine for passthrough
-	def alias = 'adapterpep';
-	def aliasName = 'adapterpepjava';
-	def replaceName = 'adapterpepnoopdeny';
+	def alias = 'adapterpolicyengineorchestrator';
+	def aliasName = 'adapterpolicyengineorchestratorsamljava';
+	def replaceName = 'adapterpolicyengineorchestratornoopdeny';
 	
 	FileUtils.updateSpringConfig(dir, "PolicyEngineProxyConfig.xml", alias,
 		aliasName, replaceName, log);
@@ -3299,9 +3299,9 @@ if(passthruValue != null){
 	testRunner.testCase.setPropertyValue("PassThruOn", "true");
 	FileUtils.backupFile(dir, "PolicyEngineProxyConfig.xml", log);
 	//Updating PolicyEngine for passthrough
-	def alias = 'adapterpep';
-	def aliasName = 'adapterpepjava';
-	def replaceName = 'adapterpepnoopdeny';
+	def alias = 'adapterpolicyengineorchestrator';
+	def aliasName = 'adapterpolicyengineorchestratorsamljava';
+	def replaceName = 'adapterpolicyengineorchestratornoopdeny';
 	
 	FileUtils.updateSpringConfig(dir, "PolicyEngineProxyConfig.xml", alias,
 		aliasName, replaceName, log);
@@ -5128,9 +5128,9 @@ if(passthruValue != null){
 	testRunner.testCase.setPropertyValue("PassThruOn", "true");
 	FileUtils.backupFile(dir, "PolicyEngineProxyConfig.xml", log);
 	//Updating PolicyEngine for passthrough
-	def alias = 'adapterpep';
-	def aliasName = 'adapterpepjava';
-	def replaceName = 'adapterpepnoopdeny';
+	def alias = 'adapterpolicyengineorchestrator';
+	def aliasName = 'adapterpolicyengineorchestratorsamljava';
+	def replaceName = 'adapterpolicyengineorchestratornoopdeny';
 	
 	FileUtils.updateSpringConfig(dir, "PolicyEngineProxyConfig.xml", alias,
 		aliasName, replaceName, log);
@@ -5538,9 +5538,9 @@ if(passthruValue != null){
 	testRunner.testCase.setPropertyValue("PassThruOn", "true");
 	FileUtils.backupFile(dir, "PolicyEngineProxyConfig.xml", log);
 	//Updating PolicyEngine for passthrough
-	def alias = 'adapterpep';
-	def aliasName = 'adapterpepjava';
-	def replaceName = 'adapterpepnoopdeny';
+	def alias = 'adapterpolicyengineorchestrator';
+	def aliasName = 'adapterpolicyengineorchestratorsamljava';
+	def replaceName = 'adapterpolicyengineorchestratornoopdeny';
 	
 	FileUtils.updateSpringConfig(dir, "PolicyEngineProxyConfig.xml", alias,
 		aliasName, replaceName, log);
@@ -6069,9 +6069,9 @@ if(passthruValue != null){
 	testRunner.testCase.setPropertyValue("PassThruOn", "true");
 	FileUtils.backupFile(dir, "PolicyEngineProxyConfig.xml", log);
 	//Updating PolicyEngine for passthrough
-	def alias = 'adapterpep';
-	def aliasName = 'adapterpepjava';
-	def replaceName = 'adapterpepnoopdeny';
+	def alias = 'adapterpolicyengineorchestrator';
+	def aliasName = 'adapterpolicyengineorchestratorsamljava';
+	def replaceName = 'adapterpolicyengineorchestratornoopdeny';
 	
 	FileUtils.updateSpringConfig(dir, "PolicyEngineProxyConfig.xml", alias,
 		aliasName, replaceName, log);
@@ -6460,9 +6460,9 @@ if(passthruValue != null){
 	testRunner.testCase.setPropertyValue("PassThruOn", "true");
 	FileUtils.backupFile(dir, "PolicyEngineProxyConfig.xml", log);
 	//Updating PolicyEngine for passthrough
-	def alias = 'adapterpep';
-	def aliasName = 'adapterpepjava';
-	def replaceName = 'adapterpepnoopdeny';
+	def alias = 'adapterpolicyengineorchestrator';
+	def aliasName = 'adapterpolicyengineorchestratorsamljava';
+	def replaceName = 'adapterpolicyengineorchestratornoopdeny';
 	
 	FileUtils.updateSpringConfig(dir, "PolicyEngineProxyConfig.xml", alias,
 		aliasName, replaceName, log);
@@ -6990,9 +6990,9 @@ if(passthruValue != null){
 	testRunner.testCase.setPropertyValue("PassThruOn", "true");
 	FileUtils.backupFile(dir, "PolicyEngineProxyConfig.xml", log);
 	//Updating PolicyEngine for passthrough
-	def alias = 'adapterpep';
-	def aliasName = 'adapterpepjava';
-	def replaceName = 'adapterpepnoopdeny';
+	def alias = 'adapterpolicyengineorchestrator';
+	def aliasName = 'adapterpolicyengineorchestratorsamljava';
+	def replaceName = 'adapterpolicyengineorchestratornoopdeny';
 	
 	FileUtils.updateSpringConfig(dir, "PolicyEngineProxyConfig.xml", alias,
 		aliasName, replaceName, log);
@@ -7343,9 +7343,9 @@ if(passthruValue != null){
 	testRunner.testCase.setPropertyValue("PassThruOn", "true");
 	FileUtils.backupFile(dir, "PolicyEngineProxyConfig.xml", log);
 	//Updating PolicyEngine for passthrough
-	def alias = 'adapterpep';
-	def aliasName = 'adapterpepjava';
-	def replaceName = 'adapterpepnoopdeny';
+	def alias = 'adapterpolicyengineorchestrator';
+	def aliasName = 'adapterpolicyengineorchestratorsamljava';
+	def replaceName = 'adapterpolicyengineorchestratornoopdeny';
 	
 	FileUtils.updateSpringConfig(dir, "PolicyEngineProxyConfig.xml", alias,
 		aliasName, replaceName, log);
@@ -7728,9 +7728,9 @@ if(passthruValue != null){
 	testRunner.testCase.setPropertyValue("PassThruOn", "true");
 	FileUtils.backupFile(dir, "PolicyEngineProxyConfig.xml", log);
 	//Updating PolicyEngine for passthrough
-	def alias = 'adapterpep';
-	def aliasName = 'adapterpepjava';
-	def aliasReplace = 'adapterpepnoopdeny';
+	def alias = 'adapterpolicyengineorchestrator';
+	def aliasName = 'adapterpolicyengineorchestratorsamljava';
+	def replaceName = 'adapterpolicyengineorchestratornoopdeny';
 	
 	FileUtils.updateSpringConfig(dir, "PolicyEngineProxyConfig.xml", alias,
 		aliasName, aliasReplace, log);
@@ -8235,9 +8235,9 @@ if(passthruValue != null){
 	testRunner.testCase.setPropertyValue("PassThruOn", "true");
 	FileUtils.backupFile(dir, "PolicyEngineProxyConfig.xml", log);
 	//Updating PolicyEngine for passthrough
-	def alias = 'adapterpep';
-	def aliasName = 'adapterpepjava';
-	def replaceName = 'adapterpepnoopdeny';
+	def alias = 'adapterpolicyengineorchestrator';
+	def aliasName = 'adapterpolicyengineorchestratorsamljava';
+	def replaceName = 'adapterpolicyengineorchestratornoopdeny';
 	
 	FileUtils.updateSpringConfig(dir, "PolicyEngineProxyConfig.xml", alias,
 		aliasName, replaceName, log);
@@ -8608,9 +8608,9 @@ if(passthruValue != null){
 	testRunner.testCase.setPropertyValue("PassThruOn", "true");
 	FileUtils.backupFile(dir, "PolicyEngineProxyConfig.xml", log);
 	//Updating PolicyEngine for passthrough
-	def alias = 'adapterpep';
-	def aliasName = 'adapterpepjava';
-	def replaceName = 'adapterpepnoopdeny';
+	def alias = 'adapterpolicyengineorchestrator';
+	def aliasName = 'adapterpolicyengineorchestratorsamljava';
+	def replaceName = 'adapterpolicyengineorchestratornoopdeny';
 	
 	FileUtils.updateSpringConfig(dir, "PolicyEngineProxyConfig.xml", alias,
 		aliasName, replaceName, log);
@@ -10439,9 +10439,9 @@ if(passthruValue != null){
 	testRunner.testCase.setPropertyValue("PassThruOn", "true");
 	FileUtils.backupFile(dir, "PolicyEngineProxyConfig.xml", log);
 	//Updating PolicyEngine for passthrough
-	def alias = 'adapterpep';
-	def aliasName = 'adapterpepjava';
-	def replaceName = 'adapterpepnoopdeny';
+	def alias = 'adapterpolicyengineorchestrator';
+	def aliasName = 'adapterpolicyengineorchestratorsamljava';
+	def replaceName = 'adapterpolicyengineorchestratornoopdeny';
 	
 	FileUtils.updateSpringConfig(dir, "PolicyEngineProxyConfig.xml", alias,
 		aliasName, replaceName, log);
