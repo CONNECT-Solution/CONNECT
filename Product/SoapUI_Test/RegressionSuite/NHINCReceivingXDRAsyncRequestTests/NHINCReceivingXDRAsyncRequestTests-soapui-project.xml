@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <con:soapui-project abortOnError="false" name="NHINCReceivingXDRAsyncRequestTests" resourceRoot="${projectDir}" runType="SEQUENTIAL" soapui-version="4.5.1" activeEnvironment="Default" xmlns:con="http://eviware.com/soapui/config">
-	<con:settings/>
+	<con:description>This suite tests inbound DS deferred request messages. This suite is standard mode only because it tests audit and policy logic.
+
+Set the GatewayPropsDir to the config/nhin directory of the gateway under test.</con:description><con:settings/>
 	
 	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:adapterpolicyengine}AdapterPolicyEngineBindingSoap" definition="../../target/wsdl/AdapterPolicyEngine.wsdl" name="AdapterPolicyEngineBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 		<con:settings/>
@@ -2278,19 +2280,19 @@ declare namespace adapter='urn:gov:hhs:fha:nhinc:common:nhinccommonadapter';
 			<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2013-03-21T15:01:12Z</con:value>
+					<con:value>2013-07-16T14:57:59Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2013-03-21T15:11:12Z</con:value>
+					<con:value>2013-07-16T15:07:59Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>03/21/2013 15:01:12</con:value>
+					<con:value>07/16/2013 14:57:59</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2013-04-20T00:00:00Z</con:value>
+					<con:value>2013-08-15T00:00:00Z</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
@@ -4271,19 +4273,19 @@ declare namespace adapter='urn:gov:hhs:fha:nhinc:common:nhinccommonadapter';
 			<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2013-03-21T15:01:14Z</con:value>
+					<con:value>2013-07-16T14:58:34Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2013-03-21T15:11:14Z</con:value>
+					<con:value>2013-07-16T15:08:34Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>03/21/2013 15:01:14</con:value>
+					<con:value>07/16/2013 14:58:34</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2013-04-20T00:00:00Z</con:value>
+					<con:value>2013-08-15T00:00:00Z</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
@@ -4800,23 +4802,23 @@ assert (count > 0);</script></con:config></con:testStep>
 				</con:property>
 				<con:property>
 					<con:name>XDRUserId</con:name>
-					<con:value>XDR Request Inbound UserThu Mar 21 15:06:15 UTC 2013</con:value>
+					<con:value>XDR Request Inbound UserTue Jul 16 15:03:39 UTC 2013</con:value>
 				</con:property>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2013-03-21T15:01:15Z</con:value>
+					<con:value>2013-07-16T14:58:39Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2013-03-21T15:11:15Z</con:value>
+					<con:value>2013-07-16T15:08:39Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>03/21/2013 15:01:15</con:value>
+					<con:value>07/16/2013 14:58:39</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2013-04-20T00:00:00Z</con:value>
+					<con:value>2013-08-15T00:00:00Z</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
