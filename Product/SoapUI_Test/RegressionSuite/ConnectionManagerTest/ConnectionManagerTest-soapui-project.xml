@@ -929,13 +929,8 @@ declare namespace ns3='urn:gov:hhs:fha:nhinc:common:nhinccommon';
 </soap:Envelope>]]></con:request>
 		<con:assertion type="SOAP Fault Assertion"/>
 		<con:assertion type="XPath Match">
-			<con:configuration>
-				<path>declare namespace ns2='urn:gov:hhs:fha:nhinc:common:connectionmanagerinfo';
-//ns2:GetInternalEndpointURLByServiceNameResponse</path>
-				<content>https://localhost:8181/Gateway/DocumentQuery/2_0/NhinService/RespondingGateway_Query_Service/DocQuery</content>
-				<allowWildcards>false</allowWildcards>
-				<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
-			</con:configuration>
+			<con:configuration><path>declare namespace ns2='urn:gov:hhs:fha:nhinc:common:connectionmanagerinfo';
+//ns2:GetInternalEndpointURLByServiceNameResponse</path><content>https://localhost:8181/Gateway/DocumentQuery/3_0/NhinService/RespondingGateway_Query_Service/DocQuery</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration>
 		</con:assertion>
 		<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
 		<con:jmsPropertyConfig/>
