@@ -6834,7 +6834,7 @@ if(passthruValue != null){
                   </urn1:assertion>
                </urn1:evidence>
             </urn1:samlAuthzDecisionStatement>
-			<urn1:relatesToList>/urn1:relatesToList>
+			<urn1:relatesToList></urn1:relatesToList>
          </urn:assertion>
 
          <urn:nhinTargetCommunities>
