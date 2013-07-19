@@ -405,6 +405,7 @@ testRunner.testCase.testSuite.setPropertyValue("TransactionID", "urn:uuid:".conc
             </urn:controlActProcess>
          </urn:PRPA_IN201305UV02>
          <urn:assertion>
+            <urn1:nationalProviderId>1234567890</urn1:nationalProviderId>
             <urn1:address>
                <urn1:addressType>
                   <urn1:code>W</urn1:code>
@@ -2158,6 +2159,7 @@ testRunner.testCase.testSuite.setPropertyValue("TransactionID", TransactionID);
             </urn:controlActProcess>
          </urn:PRPA_IN201305UV02>
          <urn:assertion>
+            <urn1:nationalProviderId>1234567890</urn1:nationalProviderId>
             <urn1:address>
                <urn1:addressType>
                   <urn1:code>W</urn1:code>
@@ -2288,6 +2290,14 @@ testRunner.testCase.testSuite.setPropertyValue("TransactionID", TransactionID);
                </urn1:roleCoded>
             </urn1:userInfo>
             <urn1:authorized>authorized</urn1:authorized>
+            <urn1:purposeOfDisclosureCoded>
+               <urn1:code>PUBLICHEALTHKIERAN</urn1:code>
+               <urn1:codeSystem>2.16.840.1.113883.3.18.7.1</urn1:codeSystem>
+               <urn1:codeSystemName>nhin-purpose</urn1:codeSystemName>
+               <urn1:codeSystemVersion>1.0</urn1:codeSystemVersion>
+               <urn1:displayName>Use or disclosure of Psychotherapy Notes</urn1:displayName>
+               <urn1:originalText>Use or disclosure of Psychotherapy Notes</urn1:originalText>
+            </urn1:purposeOfDisclosureCoded>
             <!--Optional:-->
             <urn1:samlAuthnStatement>
                <urn1:authInstant>2009-04-16T13:15:39Z</urn1:authInstant>
@@ -2513,6 +2523,7 @@ assert request["//add:MessageID/text()"] == response["//add:RelatesTo/text()"];<
             </urn:controlActProcess>
          </urn:PRPA_IN201306UV02>
          <urn:assertion>
+            <urn1:nationalProviderId>1234567890</urn1:nationalProviderId>
             <urn1:address>
                <urn1:addressType>
                   <urn1:code>W</urn1:code>
@@ -2643,6 +2654,14 @@ assert request["//add:MessageID/text()"] == response["//add:RelatesTo/text()"];<
                </urn1:roleCoded>
             </urn1:userInfo>
             <urn1:authorized>authorized</urn1:authorized>
+            <urn1:purposeOfDisclosureCoded>
+               <urn1:code>PUBLICHEALTHKIERAN</urn1:code>
+               <urn1:codeSystem>2.16.840.1.113883.3.18.7.1</urn1:codeSystem>
+               <urn1:codeSystemName>nhin-purpose</urn1:codeSystemName>
+               <urn1:codeSystemVersion>1.0</urn1:codeSystemVersion>
+               <urn1:displayName>Use or disclosure of Psychotherapy Notes</urn1:displayName>
+               <urn1:originalText>Use or disclosure of Psychotherapy Notes</urn1:originalText>
+            </urn1:purposeOfDisclosureCoded>
             <urn1:samlAuthnStatement>
                <urn1:authInstant>2009-04-16T13:15:39Z</urn1:authInstant>
                <urn1:sessionIndex>987</urn1:sessionIndex>
@@ -3662,6 +3681,7 @@ testRunner.testCase.testSuite.setPropertyValue("TransactionID2", TransactionID2)
             </urn:controlActProcess>
          </urn:PRPA_IN201305UV02>
          <urn:assertion>
+            <urn1:nationalProviderId>1234567890</urn1:nationalProviderId>
             <urn1:address>
                <urn1:addressType>
                   <urn1:code>W</urn1:code>
@@ -3792,6 +3812,14 @@ testRunner.testCase.testSuite.setPropertyValue("TransactionID2", TransactionID2)
                </urn1:roleCoded>
             </urn1:userInfo>
             <urn1:authorized>authorized</urn1:authorized>
+            <urn1:purposeOfDisclosureCoded>
+               <urn1:code>PUBLICHEALTHKIERAN</urn1:code>
+               <urn1:codeSystem>2.16.840.1.113883.3.18.7.1</urn1:codeSystem>
+               <urn1:codeSystemName>nhin-purpose</urn1:codeSystemName>
+               <urn1:codeSystemVersion>1.0</urn1:codeSystemVersion>
+               <urn1:displayName>Use or disclosure of Psychotherapy Notes</urn1:displayName>
+               <urn1:originalText>Use or disclosure of Psychotherapy Notes</urn1:originalText>
+            </urn1:purposeOfDisclosureCoded>
             <!--Optional:-->
             <urn1:samlAuthnStatement>
                <urn1:authInstant>2009-04-16T13:15:39Z</urn1:authInstant>
@@ -3974,6 +4002,7 @@ assert request["//add:MessageID/text()"] == response["//add:RelatesTo/text()"];<
             </urn:controlActProcess>
          </urn:PRPA_IN201305UV02>
          <urn:assertion>
+            <urn1:nationalProviderId>1234567890</urn1:nationalProviderId>
             <urn1:address>
                <urn1:addressType>
                   <urn1:code>W</urn1:code>
@@ -4104,6 +4133,14 @@ assert request["//add:MessageID/text()"] == response["//add:RelatesTo/text()"];<
                </urn1:roleCoded>
             </urn1:userInfo>
             <urn1:authorized>authorized</urn1:authorized>
+            <urn1:purposeOfDisclosureCoded>
+               <urn1:code>PUBLICHEALTHKIERAN</urn1:code>
+               <urn1:codeSystem>2.16.840.1.113883.3.18.7.1</urn1:codeSystem>
+               <urn1:codeSystemName>nhin-purpose</urn1:codeSystemName>
+               <urn1:codeSystemVersion>1.0</urn1:codeSystemVersion>
+               <urn1:displayName>Use or disclosure of Psychotherapy Notes</urn1:displayName>
+               <urn1:originalText>Use or disclosure of Psychotherapy Notes</urn1:originalText>
+            </urn1:purposeOfDisclosureCoded>
             <!--Optional:-->
             <urn1:samlAuthnStatement>
                <urn1:authInstant>2009-04-16T13:15:39Z</urn1:authInstant>
@@ -4330,6 +4367,7 @@ assert request["//add:MessageID/text()"] == response["//add:RelatesTo/text()"];<
             </urn:controlActProcess>
          </urn:PRPA_IN201306UV02>
          <urn:assertion>
+            <urn1:nationalProviderId>1234567890</urn1:nationalProviderId> 
             <urn1:address>
                <urn1:addressType>
                   <urn1:code>W</urn1:code>
@@ -4460,6 +4498,14 @@ assert request["//add:MessageID/text()"] == response["//add:RelatesTo/text()"];<
                </urn1:roleCoded>
             </urn1:userInfo>
             <urn1:authorized>authorized</urn1:authorized>
+            <urn1:purposeOfDisclosureCoded>
+               <urn1:code>PUBLICHEALTHKIERAN</urn1:code>
+               <urn1:codeSystem>2.16.840.1.113883.3.18.7.1</urn1:codeSystem>
+               <urn1:codeSystemName>nhin-purpose</urn1:codeSystemName>
+               <urn1:codeSystemVersion>1.0</urn1:codeSystemVersion>
+               <urn1:displayName>Use or disclosure of Psychotherapy Notes</urn1:displayName>
+               <urn1:originalText>Use or disclosure of Psychotherapy Notes</urn1:originalText>
+            </urn1:purposeOfDisclosureCoded>
             <urn1:samlAuthnStatement>
                <urn1:authInstant>2009-04-16T13:15:39Z</urn1:authInstant>
                <urn1:sessionIndex>987</urn1:sessionIndex>

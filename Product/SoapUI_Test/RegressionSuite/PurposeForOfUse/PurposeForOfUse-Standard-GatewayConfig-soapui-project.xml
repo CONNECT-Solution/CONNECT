@@ -1650,6 +1650,7 @@ Because this is a g1 test suite, all spec versions are 2011. Messages to 2011 sp
             </urn:controlActProcess>
          </urn:PRPA_IN201305UV02>
          <urn:assertion>
+            <urn1:nationalProviderId>1234567890</urn1:nationalProviderId> 
             <urn1:address>
                <urn1:addressType>
                   <urn1:code>W</urn1:code>
@@ -1780,6 +1781,14 @@ Because this is a g1 test suite, all spec versions are 2011. Messages to 2011 sp
                </urn1:roleCoded>
             </urn1:userInfo>
             <urn1:authorized>authorized</urn1:authorized>
+            <urn1:purposeOfDisclosureCoded>
+               <urn1:code>PUBLICHEALTHKIERAN</urn1:code>
+               <urn1:codeSystem>2.16.840.1.113883.3.18.7.1</urn1:codeSystem>
+               <urn1:codeSystemName>nhin-purpose</urn1:codeSystemName>
+               <urn1:codeSystemVersion>1.0</urn1:codeSystemVersion>
+               <urn1:displayName>Use or disclosure of Psychotherapy Notes</urn1:displayName>
+               <urn1:originalText>Use or disclosure of Psychotherapy Notes</urn1:originalText>
+            </urn1:purposeOfDisclosureCoded>
             <!--Optional:-->
             <urn1:samlAuthnStatement>
                <urn1:authInstant>2009-04-16T13:15:39Z</urn1:authInstant>
@@ -2302,6 +2311,7 @@ Because this is a g1 test suite, all spec versions are 2011. Messages to 2011 sp
             </urn:controlActProcess>
          </urn:PRPA_IN201306UV02>
          <urn:assertion>
+            <urn1:nationalProviderId>1234567890</urn1:nationalProviderId>
             <urn1:address>
                <urn1:addressType>
                   <urn1:code>W</urn1:code>
@@ -2432,6 +2442,14 @@ Because this is a g1 test suite, all spec versions are 2011. Messages to 2011 sp
                </urn1:roleCoded>
             </urn1:userInfo>
             <urn1:authorized>authorized</urn1:authorized>
+            <urn1:purposeOfDisclosureCoded>
+               <urn1:code>PUBLICHEALTHKIERAN</urn1:code>
+               <urn1:codeSystem>2.16.840.1.113883.3.18.7.1</urn1:codeSystem>
+               <urn1:codeSystemName>nhin-purpose</urn1:codeSystemName>
+               <urn1:codeSystemVersion>1.0</urn1:codeSystemVersion>
+               <urn1:displayName>Use or disclosure of Psychotherapy Notes</urn1:displayName>
+               <urn1:originalText>Use or disclosure of Psychotherapy Notes</urn1:originalText>
+            </urn1:purposeOfDisclosureCoded>
             <urn1:samlAuthnStatement>
                <urn1:authInstant>2009-04-16T13:15:39Z</urn1:authInstant>
                <urn1:sessionIndex>987</urn1:sessionIndex>
@@ -2902,6 +2920,7 @@ Because this is a g1 test suite, all spec versions are 2011. Messages to 2011 sp
             </urn:controlActProcess>
          </urn:PRPA_IN201305UV02>
          <urn:assertion>
+            <urn1:nationalProviderId>1234567890</urn1:nationalProviderId>
             <urn1:address>
                <urn1:addressType>
                   <urn1:code>W</urn1:code>
@@ -4273,7 +4292,7 @@ Because this is a g1 test suite, all spec versions are 2011. Messages to 2011 sp
 	</con:property>
 	<con:property>
 		<con:name>Endpoint-DocQuery</con:name>
-		<con:value>http://localhost:8080/Gateway/DocumentQuery/2_0/EntityService/EntityDocQueryUnsecured</con:value>
+		<con:value>http://localhost:8080/Gateway/DocumentQuery/3_0/EntityService/EntityDocQueryUnsecured</con:value>
 	</con:property>
 	<con:property>
 		<con:name>Endpoint-Notify</con:name>
@@ -5791,6 +5810,7 @@ Because this is a g0 test suite, all spec versions are 2010. Messages to 2010 sp
             </urn:controlActProcess>
          </urn:PRPA_IN201305UV02>
          <urn:assertion>
+            <urn1:nationalProviderId>1234567890</urn1:nationalProviderId>
             <urn1:address>
                <urn1:addressType>
                   <urn1:code>W</urn1:code>
@@ -5921,6 +5941,14 @@ Because this is a g0 test suite, all spec versions are 2010. Messages to 2010 sp
                </urn1:roleCoded>
             </urn1:userInfo>
             <urn1:authorized>authorized</urn1:authorized>
+            <urn1:purposeOfDisclosureCoded>
+               <urn1:code>PUBLICHEALTHKIERAN</urn1:code>
+               <urn1:codeSystem>2.16.840.1.113883.3.18.7.1</urn1:codeSystem>
+               <urn1:codeSystemName>nhin-purpose</urn1:codeSystemName>
+               <urn1:codeSystemVersion>1.0</urn1:codeSystemVersion>
+               <urn1:displayName>Use or disclosure of Psychotherapy Notes</urn1:displayName>
+               <urn1:originalText>Use or disclosure of Psychotherapy Notes</urn1:originalText>
+            </urn1:purposeOfDisclosureCoded>
             <!--Optional:-->
             <urn1:samlAuthnStatement>
                <urn1:authInstant>2009-04-16T13:15:39Z</urn1:authInstant>
@@ -6443,6 +6471,7 @@ Because this is a g0 test suite, all spec versions are 2010. Messages to 2010 sp
             </urn:controlActProcess>
          </urn:PRPA_IN201306UV02>
          <urn:assertion>
+            <urn1:nationalProviderId>1234567890</urn1:nationalProviderId>
             <urn1:address>
                <urn1:addressType>
                   <urn1:code>W</urn1:code>
@@ -6573,6 +6602,14 @@ Because this is a g0 test suite, all spec versions are 2010. Messages to 2010 sp
                </urn1:roleCoded>
             </urn1:userInfo>
             <urn1:authorized>authorized</urn1:authorized>
+            <urn1:purposeOfDisclosureCoded>
+               <urn1:code>PUBLICHEALTHKIERAN</urn1:code>
+               <urn1:codeSystem>2.16.840.1.113883.3.18.7.1</urn1:codeSystem>
+               <urn1:codeSystemName>nhin-purpose</urn1:codeSystemName>
+               <urn1:codeSystemVersion>1.0</urn1:codeSystemVersion>
+               <urn1:displayName>Use or disclosure of Psychotherapy Notes</urn1:displayName>
+               <urn1:originalText>Use or disclosure of Psychotherapy Notes</urn1:originalText>
+            </urn1:purposeOfDisclosureCoded>
             <urn1:samlAuthnStatement>
                <urn1:authInstant>2009-04-16T13:15:39Z</urn1:authInstant>
                <urn1:sessionIndex>987</urn1:sessionIndex>
@@ -7041,6 +7078,7 @@ Because this is a g0 test suite, all spec versions are 2010. Messages to 2010 sp
             </urn:controlActProcess>
          </urn:PRPA_IN201305UV02>
          <urn:assertion>
+            <urn1:nationalProviderId>1234567890</urn1:nationalProviderId>
             <urn1:address>
                <urn1:addressType>
                   <urn1:code>W</urn1:code>
@@ -11472,6 +11510,7 @@ Because this is a g1 test suite, all spec versions are 2011. Messages to 2011 sp
             </urn:controlActProcess>
          </urn:PRPA_IN201305UV02>
          <urn:assertion>
+            <urn1:nationalProviderId>1234567890</urn1:nationalProviderId>
             <urn1:address>
                <urn1:addressType>
                   <urn1:code>W</urn1:code>
@@ -11602,6 +11641,14 @@ Because this is a g1 test suite, all spec versions are 2011. Messages to 2011 sp
                </urn1:roleCoded>
             </urn1:userInfo>
             <urn1:authorized>authorized</urn1:authorized>
+            <urn1:purposeOfDisclosureCoded>
+               <urn1:code>PUBLICHEALTHKIERAN</urn1:code>
+               <urn1:codeSystem>2.16.840.1.113883.3.18.7.1</urn1:codeSystem>
+               <urn1:codeSystemName>nhin-purpose</urn1:codeSystemName>
+               <urn1:codeSystemVersion>1.0</urn1:codeSystemVersion>
+               <urn1:displayName>Use or disclosure of Psychotherapy Notes</urn1:displayName>
+               <urn1:originalText>Use or disclosure of Psychotherapy Notes</urn1:originalText>
+            </urn1:purposeOfDisclosureCoded>
             <!--Optional:-->
             <urn1:samlAuthnStatement>
                <urn1:authInstant>2009-04-16T13:15:39Z</urn1:authInstant>
@@ -12124,6 +12171,7 @@ Because this is a g1 test suite, all spec versions are 2011. Messages to 2011 sp
             </urn:controlActProcess>
          </urn:PRPA_IN201306UV02>
          <urn:assertion>
+            <urn1:nationalProviderId>1234567890</urn1:nationalProviderId>         
             <urn1:address>
                <urn1:addressType>
                   <urn1:code>W</urn1:code>
@@ -12254,6 +12302,14 @@ Because this is a g1 test suite, all spec versions are 2011. Messages to 2011 sp
                </urn1:roleCoded>
             </urn1:userInfo>
             <urn1:authorized>authorized</urn1:authorized>
+            <urn1:purposeOfDisclosureCoded>
+               <urn1:code>PUBLICHEALTHKIERAN</urn1:code>
+               <urn1:codeSystem>2.16.840.1.113883.3.18.7.1</urn1:codeSystem>
+               <urn1:codeSystemName>nhin-purpose</urn1:codeSystemName>
+               <urn1:codeSystemVersion>1.0</urn1:codeSystemVersion>
+               <urn1:displayName>Use or disclosure of Psychotherapy Notes</urn1:displayName>
+               <urn1:originalText>Use or disclosure of Psychotherapy Notes</urn1:originalText>
+            </urn1:purposeOfDisclosureCoded>
             <urn1:samlAuthnStatement>
                <urn1:authInstant>2009-04-16T13:15:39Z</urn1:authInstant>
                <urn1:sessionIndex>987</urn1:sessionIndex>
@@ -12724,6 +12780,7 @@ Because this is a g1 test suite, all spec versions are 2011. Messages to 2011 sp
             </urn:controlActProcess>
          </urn:PRPA_IN201305UV02>
          <urn:assertion>
+            <urn1:nationalProviderId>1234567890</urn1:nationalProviderId> 
             <urn1:address>
                <urn1:addressType>
                   <urn1:code>W</urn1:code>
@@ -14094,7 +14151,7 @@ Because this is a g1 test suite, all spec versions are 2011. Messages to 2011 sp
 	</con:property>
 	<con:property>
 		<con:name>Endpoint-DocQuery</con:name>
-		<con:value>http://localhost:8080/Gateway/DocumentQuery/2_0/EntityService/EntityDocQueryUnsecured</con:value>
+		<con:value>http://localhost:8080/Gateway/DocumentQuery/3_0/EntityService/EntityDocQueryUnsecured</con:value>
 	</con:property>
 	<con:property>
 		<con:name>Endpoint-Notify</con:name>
@@ -15612,6 +15669,7 @@ Because this is a g0 test suite, all spec versions are 2010. Messages to 2010 sp
             </urn:controlActProcess>
          </urn:PRPA_IN201305UV02>
          <urn:assertion>
+            <urn1:nationalProviderId>1234567890</urn1:nationalProviderId>
             <urn1:address>
                <urn1:addressType>
                   <urn1:code>W</urn1:code>
@@ -15742,6 +15800,14 @@ Because this is a g0 test suite, all spec versions are 2010. Messages to 2010 sp
                </urn1:roleCoded>
             </urn1:userInfo>
             <urn1:authorized>authorized</urn1:authorized>
+            <urn1:purposeOfDisclosureCoded>
+               <urn1:code>PUBLICHEALTHKIERAN</urn1:code>
+               <urn1:codeSystem>2.16.840.1.113883.3.18.7.1</urn1:codeSystem>
+               <urn1:codeSystemName>nhin-purpose</urn1:codeSystemName>
+               <urn1:codeSystemVersion>1.0</urn1:codeSystemVersion>
+               <urn1:displayName>Use or disclosure of Psychotherapy Notes</urn1:displayName>
+               <urn1:originalText>Use or disclosure of Psychotherapy Notes</urn1:originalText>
+            </urn1:purposeOfDisclosureCoded>
             <!--Optional:-->
             <urn1:samlAuthnStatement>
                <urn1:authInstant>2009-04-16T13:15:39Z</urn1:authInstant>
@@ -16264,6 +16330,7 @@ Because this is a g0 test suite, all spec versions are 2010. Messages to 2010 sp
             </urn:controlActProcess>
          </urn:PRPA_IN201306UV02>
          <urn:assertion>
+            <urn1:nationalProviderId>1234567890</urn1:nationalProviderId>
             <urn1:address>
                <urn1:addressType>
                   <urn1:code>W</urn1:code>
@@ -16394,6 +16461,14 @@ Because this is a g0 test suite, all spec versions are 2010. Messages to 2010 sp
                </urn1:roleCoded>
             </urn1:userInfo>
             <urn1:authorized>authorized</urn1:authorized>
+            <urn1:purposeOfDisclosureCoded>
+               <urn1:code>PUBLICHEALTHKIERAN</urn1:code>
+               <urn1:codeSystem>2.16.840.1.113883.3.18.7.1</urn1:codeSystem>
+               <urn1:codeSystemName>nhin-purpose</urn1:codeSystemName>
+               <urn1:codeSystemVersion>1.0</urn1:codeSystemVersion>
+               <urn1:displayName>Use or disclosure of Psychotherapy Notes</urn1:displayName>
+               <urn1:originalText>Use or disclosure of Psychotherapy Notes</urn1:originalText>
+            </urn1:purposeOfDisclosureCoded>
             <urn1:samlAuthnStatement>
                <urn1:authInstant>2009-04-16T13:15:39Z</urn1:authInstant>
                <urn1:sessionIndex>987</urn1:sessionIndex>
@@ -16862,6 +16937,7 @@ Because this is a g0 test suite, all spec versions are 2010. Messages to 2010 sp
             </urn:controlActProcess>
          </urn:PRPA_IN201305UV02>
          <urn:assertion>
+            <urn1:nationalProviderId>1234567890</urn1:nationalProviderId>
             <urn1:address>
                <urn1:addressType>
                   <urn1:code>W</urn1:code>
