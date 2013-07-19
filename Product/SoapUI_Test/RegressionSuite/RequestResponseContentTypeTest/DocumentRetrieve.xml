@@ -4327,7 +4327,7 @@ if(context.findProperty("PassThruOn").toBoolean()){
 </con:config>
 </con:testStep><con:testStep type="manualTestStep" name="Manual TestStep - Verify logs"><con:description>(NhinDocRetrieve (g0))
 1. Check the content Type in Nhin Outbound and Inbound Message
-  A) Search the log file and look for https://localhost:8181/Gateway/DocumentRetrieve/3_0/NhinService/RespondingGateway_Retrieve_Service/DocRetrieve (replace the localhost with server ip address if its different) Outbound Message, Inbound Message
+  A) Search the log file and look for https://localhost:8181/Gateway/DocumentRetrieve/2_0/NhinService/RespondingGateway_Retrieve_Service/DocRetrieve (replace the localhost with server ip address if its different) Outbound Message, Inbound Message
   B) Should be able to see the following in the content type --> Content-Type: multipart/related; type="application/xop+xml" and Content-Type: application/xop+xml;
 
 (AdapterDocRetrieveSecured)
