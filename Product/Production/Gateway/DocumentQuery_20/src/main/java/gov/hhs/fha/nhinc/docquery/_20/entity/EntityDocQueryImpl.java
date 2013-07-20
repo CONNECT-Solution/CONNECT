@@ -95,6 +95,9 @@ public class EntityDocQueryImpl extends BaseService {
         try {
             if (targets != null && StringUtils.isBlank(targets.getUseSpecVersion())) {
                 targets.setUseSpecVersion("2.0");
+            } else {
+                targets = new NhinTargetCommunitiesType();
+                targets.setUseSpecVersion("2.0");
             }
             response = outboundDocQuery.respondingGatewayCrossGatewayQuery(request, assertion, targets);
         } catch (Exception e) {
