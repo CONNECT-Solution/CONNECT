@@ -93,8 +93,10 @@ public class EntityDocQueryImpl extends BaseService {
         AdhocQueryResponse response = null;
 
         try {
-            if (targets != null && StringUtils.isBlank(targets.getUseSpecVersion())) {
-                targets.setUseSpecVersion("2.0");
+            if (targets != null) {
+                if (StringUtils.isBlank(targets.getUseSpecVersion())) {
+                    targets.setUseSpecVersion("2.0");
+                }
             } else {
                 targets = new NhinTargetCommunitiesType();
                 targets.setUseSpecVersion("2.0");
