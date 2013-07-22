@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<con:soapui-project abortOnError="false" name="DocRegistryAndRepository" resourceRoot="${projectDir}" runType="SEQUENTIAL" soapui-version="4.5.1" activeEnvironment="Default" xmlns:con="http://eviware.com/soapui/config">
+<con:soapui-project abortOnError="false" name="DocRegistryAndRepository" resourceRoot="${projectDir}" runType="SEQUENTIAL" soapui-version="3.5.1" activeEnvironment="Default" xmlns:con="http://eviware.com/soapui/config">
 	<con:settings/>
 	<con:interface anonymous="optional" bindingName="{urn:ihe:iti:xds-b:2007}DocumentRepository_Binding" definition="../../target/wsdl/AdapterComponentDocRepository.wsdl" name="DocumentRepository_Binding" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 		<con:settings/>
 		
-		<con:endpoints>
+		<con:definitionCache/><con:endpoints>
 			<con:endpoint>http://localhost:${NhincHttpPort}/DocumentRepository_Service_Soap12</con:endpoint>
 			<con:endpoint>${#Project#Endpoint-DocRepository}</con:endpoint>
 		<con:endpoint>http://localhost:${NhincHttpPort}/DocumentRepository_Service</con:endpoint></con:endpoints>
@@ -19,7 +19,7 @@
 	<con:interface anonymous="optional" bindingName="{urn:ihe:iti:xds-b:2007}DocumentRegistry_Binding_Soap" definition="../../target/wsdl/AdapterComponentDocRegistry.wsdl" name="DocumentRegistry_Binding_Soap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 		<con:settings/>
 		
-		<con:endpoints>
+		<con:definitionCache/><con:endpoints>
 			<con:endpoint>http://localhost:8080/DocumentRegistry_Service</con:endpoint>
 			<con:endpoint>http://localhost:${NhincHttpPort}/DocumentRegistry_Service</con:endpoint>
 		</con:endpoints>
@@ -55,7 +55,7 @@
   def table1 = context.findProperty('EventCodeTable')
   def col1 = context.findProperty('EventCol')
   def val1 = context.findProperty('EventVal')
-
+ 
   sql.execute('delete from ' + table1 + ' where ' + col1 + ' = ' + val1 )
   sql.execute("delete from " + table + " where " + col + " = " + val )
 }
@@ -336,7 +336,7 @@
   def col1 = context.findProperty('EventCol')
   def val1 = context.findProperty('EventVal')
 
-  sql.execute('delete from ' + table1 + ' where ' + col1 + ' = ' + val1 )
+  sql.execute('delete from ' + table1 + ' where ' + col1 + ' = ' + val1)
   sql.execute("delete from " + table + " where " + col + " = " + val )
 }
 					</script>
@@ -535,10 +535,10 @@
                         <rim:LocalizedString value="Summarization of Episode Note"/>
                      </rim:Name>
                   </rim:Classification>
-                  <rim:Classification classificationScheme="urn:uuid:2c6b8cb7-8b2a-4051-b291-b1ae6a575ef4" classifiedObject="Document01" nodeRepresentation="DocQueryTestEventCodeValue">
+                  <rim:Classification classificationScheme="urn:uuid:2c6b8cb7-8b2a-4051-b291-b1ae6a575ef4" classifiedObject="Document01" nodeRepresentation="T-32000">
                      <rim:Slot name="codingScheme">
                         <rim:ValueList>
-                           <rim:Value>EventCodeSchemeValue</rim:Value>
+                           <rim:Value>SNM3</rim:Value>
                         </rim:ValueList>
                      </rim:Slot>
                      <rim:Name>
@@ -810,7 +810,7 @@ declare namespace ns4='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
          <urn1:AdhocQuery id="urn:uuid:14d4debf-8f97-4251-9a74-a90016b0af0d" home="1.1">
             <urn1:Slot name="$XDSDocumentEntryEventCodeList">
                <urn1:ValueList>
-                  <urn1:Value>DocQueryTestEventCodeValue</urn1:Value>
+                  <urn1:Value>('T-32000^^SNM3')</urn1:Value>
                </urn1:ValueList>
             </urn1:Slot>
             <urn1:Slot name="$XDSDocumentEntryPatientId">
@@ -899,17 +899,12 @@ declare namespace ns4='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
          <urn1:AdhocQuery id="urn:uuid:14d4debf-8f97-4251-9a74-a90016b0af0d" home="1.1">
             <urn1:Slot name="$XDSDocumentEntryEventCodeList">
                <urn1:ValueList>
-                  <urn1:Value>DocQueryTestEventCodeValue</urn1:Value>
+                  <urn1:Value>('T-32000^^SNM3')</urn1:Value>
                </urn1:ValueList>
             </urn1:Slot>
             <urn1:Slot name="$XDSDocumentEntryPatientId">
                <urn1:ValueList>
                   <urn1:Value>12344321dqtst^^^&amp;1.3.6.1.4.1.21367.2005.3.7&amp;ISO</urn1:Value>
-               </urn1:ValueList>
-            </urn1:Slot>
-            <urn1:Slot name="$XDSDocumentEntryEventCodeListScheme">
-               <urn1:ValueList>
-                  <urn1:Value>EventCodeSchemeValue</urn1:Value>
                </urn1:ValueList>
             </urn1:Slot>
          </urn1:AdhocQuery>
@@ -1030,7 +1025,9 @@ count(//ns4:AdhocQueryResponse[1]/ns2:RegistryObjectList[1]/ns2:ExtrinsicObject)
 
   def table1 = context.findProperty('EventCodeTable')
   def col1 = context.findProperty('EventCol')
-  def val1 = context.findProperty('EventVal1')
+  def col2 = context.findProperty('EventCol1')
+  def val1 = context.findProperty('EventVal')
+  def val2 = context.findProperty('EventVal2');
 
   sql.execute('delete from ' + table1 + ' where ' + col1 + ' = ' + val1 )
   sql.execute("delete from " + table + " where " + col + " = " + val )
@@ -1079,7 +1076,7 @@ count(//ns4:AdhocQueryResponse[1]/ns2:RegistryObjectList[1]/ns2:ExtrinsicObject)
 		
 		
 		
-	<con:property><con:name>EventCodeTable</con:name><con:value>eventcode</con:value></con:property><con:property><con:name>EventCol</con:name><con:value>EventCode</con:value></con:property><con:property><con:name>EventVal</con:name><con:value>'ProvideAndRegisterTestEventCodeValue'</con:value></con:property><con:property><con:name>EventVal1</con:name><con:value>'DocQueryTestEventCodeValue'</con:value></con:property><con:property><con:name>GatewayPropDir</con:name><con:value>c:\glassfish3\glassfish\domains\domain1\config\nhin</con:value></con:property></con:properties>
+	<con:property><con:name>EventCodeTable</con:name><con:value>eventcode</con:value></con:property><con:property><con:name>EventCol</con:name><con:value>EventCode</con:value></con:property><con:property><con:name>EventCol1</con:name><con:value>EventCodeScheme</con:value></con:property><con:property><con:name>EventVal</con:name><con:value>'ProvideAndRegisterTestEventCodeValue'</con:value></con:property><con:property><con:name>EventVal1</con:name><con:value>'DocQueryTestEventCodeValue'</con:value></con:property><con:property><con:name>EventVal2</con:name><con:value>'SNM3'</con:value></con:property><con:property><con:name>GatewayPropDir</con:name><con:value/></con:property></con:properties>
 	<con:afterLoadScript>def propertiesFilename = project.path[0..(project.path.size()-4)] + 'properties'
 def propertiesFile = new File(propertiesFilename)
 if (propertiesFile.exists()) {
