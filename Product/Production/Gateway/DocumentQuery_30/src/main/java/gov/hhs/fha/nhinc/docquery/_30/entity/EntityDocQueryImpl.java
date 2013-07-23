@@ -94,7 +94,7 @@ public class EntityDocQueryImpl extends BaseService {
         AdhocQueryResponse response = null;
 
         try {
-            if (targets != null) {
+            if (targets == null) {
                 targets = new ObjectFactory().createNhinTargetCommunitiesType();
             }
             
