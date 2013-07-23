@@ -28,6 +28,7 @@ package gov.hhs.fha.nhinc.docquery._30.entity;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
+import gov.hhs.fha.nhinc.common.nhinccommon.ObjectFactory;
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayCrossGatewayQueryRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayCrossGatewayQuerySecuredRequestType;
 import gov.hhs.fha.nhinc.docquery.outbound.OutboundDocQuery;
@@ -93,7 +94,11 @@ public class EntityDocQueryImpl extends BaseService {
         AdhocQueryResponse response = null;
 
         try {
-            if (targets != null && StringUtils.isBlank(targets.getUseSpecVersion())) {
+            if (targets == null) {
+                targets = new ObjectFactory().createNhinTargetCommunitiesType();
+            }
+            
+            if (StringUtils.isBlank(targets.getUseSpecVersion())) {
                 targets.setUseSpecVersion("3.0");
             }
             response = outboundDocQuery.respondingGatewayCrossGatewayQuery(request, assertion, targets);
