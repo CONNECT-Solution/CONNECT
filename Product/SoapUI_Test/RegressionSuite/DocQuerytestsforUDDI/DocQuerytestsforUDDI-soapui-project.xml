@@ -1538,7 +1538,7 @@ declare namespace ns15='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
                 <path>declare namespace ns16='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
 declare namespace ns15='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
 //ns16:AdhocQueryResponse[1]/ns15:RegistryErrorList[1]/ns15:RegistryError[1]/@errorCode</path>
-                <content>XDSRepositoryError</content>
+                <content>XDSRegistryError</content>
                 <allowWildcards>false</allowWildcards>
                 <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
               </con:configuration>
@@ -1546,7 +1546,7 @@ declare namespace ns15='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
             <con:assertion name="codeContext" type="XPath Match">
               <con:configuration><path>declare namespace ns16='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
 declare namespace ns15='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
-//ns16:AdhocQueryResponse[1]/ns15:RegistryErrorList[1]/ns15:RegistryError[1]/@codeContext</path><content>Unable to find any callable targets.</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration>
+//ns16:AdhocQueryResponse[1]/ns15:RegistryErrorList[1]/ns15:RegistryError[1]/@codeContext</path><content>No endpoint available for HCID: 8.8.</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration>
             </con:assertion>
             <con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/>
             <con:wsrmConfig version="1.2"/>
@@ -4834,12 +4834,12 @@ declare namespace ns15='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
             <con:assertion name="errorCode" type="XPath Match">
               <con:configuration><path>declare namespace ns16='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
 declare namespace ns15='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
-//ns16:AdhocQueryResponse[1]/ns15:RegistryErrorList[1]/ns15:RegistryError[1]/@errorCode</path><content>XDSRepositoryError</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration>
+//ns16:AdhocQueryResponse[1]/ns15:RegistryErrorList[1]/ns15:RegistryError[1]/@errorCode</path><content>XDSRegistryError</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration>
             </con:assertion>
             <con:assertion name="codeContext" type="XPath Match">
               <con:configuration><path>declare namespace ns16='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
 declare namespace ns15='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
-//ns16:AdhocQueryResponse[1]/ns15:RegistryErrorList[1]/ns15:RegistryError[1]/@codeContext</path><content>Unable to find any callable targets.</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration>
+//ns16:AdhocQueryResponse[1]/ns15:RegistryErrorList[1]/ns15:RegistryError[1]/@codeContext</path><content>No endpoint available for HCID: 8.8.</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration>
             </con:assertion>
             <con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/>
             <con:wsrmConfig version="1.2"/>
@@ -7382,7 +7382,7 @@ FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocat
                   <urn3:code>phoneCode</urn3:code>
                   <urn3:codeSystem>phoneCodeSyst</urn3:codeSystem>
                   <urn3:codeSystemName>phoneCodeSystName</urn3:codeSystemName>
-                  <urn3:codeSystemVersion>1.0</urn3:codeSystemVersion>
+                  <urn3:codeSystemVersion>1.0</urn3:codeSystemVersion>s
                   <urn3:displayName>phoneCode</urn3:displayName>
                   <urn3:originalText>phoneCode</urn3:originalText>
                </urn3:phoneNumberType>
@@ -7501,12 +7501,12 @@ declare namespace ns15='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
             <con:assertion name="errorCode" type="XPath Match">
               <con:configuration><path>declare namespace ns16='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
 declare namespace ns15='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
-//ns16:AdhocQueryResponse[1]/ns15:RegistryErrorList[1]/ns15:RegistryError[1]/@errorCode</path><content>XDSRepositoryError</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration>
+//ns16:AdhocQueryResponse[1]/ns15:RegistryErrorList[1]/ns15:RegistryError[1]/@errorCode</path><content>XDSRegistryError</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration>
             </con:assertion>
             <con:assertion name="codeContext" type="XPath Match">
               <con:configuration><path>declare namespace ns16='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
 declare namespace ns15='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
-//ns16:AdhocQueryResponse[1]/ns15:RegistryErrorList[1]/ns15:RegistryError[1]/@codeContext</path><content>Unable to find any callable targets.</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration>
+//ns16:AdhocQueryResponse[1]/ns15:RegistryErrorList[1]/ns15:RegistryError[1]/@codeContext</path><content>No endpoint available for HCID: 9.9.</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration>
             </con:assertion>
             <con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/>
             <con:wsrmConfig version="1.2"/>
