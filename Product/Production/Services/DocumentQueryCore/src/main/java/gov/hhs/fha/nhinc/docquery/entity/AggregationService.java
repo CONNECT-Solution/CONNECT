@@ -59,7 +59,6 @@ import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.SlotType1;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.ValueListType;
 
-import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.log4j.Logger;
@@ -114,45 +113,58 @@ public class AggregationService {
             AssertionType assertion, NhinTargetCommunitiesType targets) {
         List<OutboundOrchestratable> list = new ArrayList<OutboundOrchestratable>();
 
-        QualifiedSubjectIdentifierType qualSubId = getQualifiedSubjectIndentifer(adhocQueryRequest);
+        try {
 
-        RetrievePatientCorrelationsRequestType patientCorrelationReq = new RetrievePatientCorrelationsRequestType();
-        patientCorrelationReq.setQualifiedPatientIdentifier(qualSubId);
+            QualifiedSubjectIdentifierType qualSubId = getQualifiedSubjectIndentifer(adhocQueryRequest);
 
-        patientCorrelationReq.setAssertion(assertion);
+            RetrievePatientCorrelationsRequestType patientCorrelationReq = new RetrievePatientCorrelationsRequestType();
+            patientCorrelationReq.setQualifiedPatientIdentifier(qualSubId);
 
-        RetrievePatientCorrelationsResponseType results = patientCorrelationProxyFactory.getPatientCorrelationProxy()
-                .retrievePatientCorrelations(pixRetrieveBuilder.createPixRetrieve(patientCorrelationReq), assertion);
+            patientCorrelationReq.setAssertion(assertion);
 
-        List<II> identities = Collections.emptyList();
-        if (hasIdentities(results)) {
-            identities = results.getPRPAIN201310UV02().getControlActProcess().getSubject().get(0)
-                    .getRegistrationEvent().getSubject1().getPatient().getId();
-        }
+            for (UrlInfo urlInfo : connectionManager.getEndpointURLFromNhinTargetCommunities(targets,
+                    NhincConstants.DOC_QUERY_SERVICE_NAME)) {
+                patientCorrelationReq.getTargetHomeCommunity().add(urlInfo.getHcid());
+            }
 
-        Set<II> uniqueIdentities = removeDuplicates(identities);
+            RetrievePatientCorrelationsResponseType results = patientCorrelationProxyFactory
+                    .getPatientCorrelationProxy().retrievePatientCorrelations(
+                            pixRetrieveBuilder.createPixRetrieve(patientCorrelationReq), assertion);
 
-        for (II id : uniqueIdentities) {
-            NhinTargetSystemType target = new NhinTargetSystemType();
-            HomeCommunityType targetCommunity = standardOutboundDocQueryHelper.lookupHomeCommunityId(id.getRoot(),
-                    qualSubId.getAssigningAuthorityIdentifier());
-            target.setHomeCommunity(targetCommunity);
-            target.setUseSpecVersion(targets.getUseSpecVersion());
+            List<II> identities = Collections.emptyList();
+            if (hasIdentities(results)) {
+                identities = results.getPRPAIN201310UV02().getControlActProcess().getSubject().get(0)
+                        .getRegistrationEvent().getSubject1().getPatient().getId();
+            }
 
-            AdhocQueryRequest childRequest = cloneRequest(adhocQueryRequest);
-            setPatientIdOnRequest(childRequest, id.getExtension(), id.getRoot());
+            Set<II> uniqueIdentities = removeDuplicates(identities);
 
-            // set the home community id to the target hcid
-            setTargetHomeCommunityId(childRequest, target.getHomeCommunity().getHomeCommunityId());
+            for (II id : uniqueIdentities) {
+                NhinTargetSystemType target = new NhinTargetSystemType();
+                HomeCommunityType targetCommunity = standardOutboundDocQueryHelper.lookupHomeCommunityId(id.getRoot(),
+                        qualSubId.getAssigningAuthorityIdentifier());
+                target.setHomeCommunity(targetCommunity);
+                target.setUseSpecVersion(targets.getUseSpecVersion());
 
-            AssertionType newAssertion = createNewAssertion(assertion, uniqueIdentities.size());
+                AdhocQueryRequest childRequest = cloneRequest(adhocQueryRequest);
+                setPatientIdOnRequest(childRequest, id.getExtension(), id.getRoot());
 
-            transactionLogger.logTransactionFromRelatedMessageId(assertion.getMessageId(), newAssertion.getMessageId());
+                // set the home community id to the target hcid
+                setTargetHomeCommunityId(childRequest, target.getHomeCommunity().getHomeCommunityId());
 
-            OutboundDocQueryOrchestratable orchestratable = new OutboundDocQueryOrchestratable(delegate, newAssertion,
-                    NhincConstants.DOC_QUERY_SERVICE_NAME, target, childRequest);
+                AssertionType newAssertion = createNewAssertion(assertion, uniqueIdentities.size());
 
-            list.add(orchestratable);
+                transactionLogger.logTransactionFromRelatedMessageId(assertion.getMessageId(),
+                        newAssertion.getMessageId());
+
+                OutboundDocQueryOrchestratable orchestratable = new OutboundDocQueryOrchestratable(delegate,
+                        newAssertion, NhincConstants.DOC_QUERY_SERVICE_NAME, target, childRequest);
+
+                list.add(orchestratable);
+            }
+
+        } catch (ConnectionManagerException e) {
+            LOG.error(e);
         }
 
         return list;
@@ -231,10 +243,10 @@ public class AggregationService {
     protected AdhocQueryRequest cloneRequest(AdhocQueryRequest request) {
         return MessageGeneratorUtils.getInstance().clone(request);
     }
-
+    
     /**
-     * Creates a new assertion with a new message id if there's more than one outbound targets. Otherwise use the same
-     * message id passed into the assertion.
+     * Creates a new assertion with a new message id if there's more than one outbound targets.  Otherwise
+     * use the same message id passed into the assertion.
      * 
      * @param assertion - the assertion to clone
      * @param numTargets - number of outbound targets
@@ -247,10 +259,10 @@ public class AggregationService {
         } else {
             newAssertion = MessageGeneratorUtils.getInstance().cloneWithNewMsgId(assertion);
         }
-
+        
         return newAssertion;
     }
-
+    
     protected Set<II> removeDuplicates(List<II> iiArray) {
         // remove duplicates
         Set<ComparableII> comparableIISet = new HashSet<ComparableII>();
@@ -284,8 +296,12 @@ public class AggregationService {
 
         @Override
         public int hashCode() {
-            int hashCode = new HashCodeBuilder(17, 37).append(ii.getExtension()).append(ii.getRoot())
-                    .append(ii.getAssigningAuthorityName()).append(ii.isDisplayable()).toHashCode();
+            int hashCode = new HashCodeBuilder(17, 37)
+                    .append(ii.getExtension())
+                    .append(ii.getRoot())
+                    .append(ii.getAssigningAuthorityName())
+                    .append(ii.isDisplayable())
+                    .toHashCode();
 
             return hashCode;
         }
@@ -303,10 +319,12 @@ public class AggregationService {
             }
 
             ComparableII otherId = (ComparableII) obj;
-            return new EqualsBuilder().append(ii.getExtension(), otherId.getII().getExtension())
+            return new EqualsBuilder()
+                    .append(ii.getExtension(), otherId.getII().getExtension())
                     .append(ii.getRoot(), otherId.getII().getRoot())
                     .append(ii.getAssigningAuthorityName(), otherId.getII().getAssigningAuthorityName())
-                    .append(ii.isDisplayable(), otherId.getII().isDisplayable()).isEquals();
+                    .append(ii.isDisplayable(), otherId.getII().isDisplayable())
+                    .isEquals();
         }
 
     }
