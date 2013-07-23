@@ -1,24 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<con:soapui-project abortOnError="false" name="DocQuerytestsforUDDI" resourceRoot="${projectDir}" runType="SEQUENTIAL" soapui-version="4.5.1" activeEnvironment="Default" xmlns:con="http://eviware.com/soapui/config">
-	<con:settings/>
-	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:entitydocquery}EntityDocQueryBindingSoap" definition="../../target/wsdl/EntityDocQuery.wsdl" name="EntityDocQueryBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-		<con:settings/>
-		<con:endpoints>
-			<con:endpoint>http://localhost:${HttpDefaultPort}/Gateway/DocumentQuery/2_0/EntityService/EntityDocQueryUnsecured</con:endpoint>
-		</con:endpoints>
-		<con:operation action="urn:gov:hhs:fha:nhinc:entitydocquery:RespondingGateway_CrossGatewayQueryRequest" anonymous="optional" bindingOperationName="RespondingGateway_CrossGatewayQuery" inputName="RespondingGateway_CrossGatewayQueryRequest" isOneWay="false" name="RespondingGateway_CrossGatewayQuery" outputName="RespondingGateway_CrossGatewayQueryResponse" receivesAttachments="false" sendsAttachments="false" type="Request-Response">
-			<con:settings/>
-		</con:operation>
-	</con:interface>
-	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:entitydocquery}EntityDocQueryBindingSoap" definition="../../target/wsdl/EntityDocQuery.wsdl" name="EntityDocQueryBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-		<con:settings/>
-		<con:endpoints>
-			<con:endpoint>http://localhost:${HttpDefaultPort}/Gateway/DocumentQuery/3_0/EntityService/EntityDocQueryUnsecured</con:endpoint>
-		</con:endpoints>
-		<con:operation action="urn:gov:hhs:fha:nhinc:entitydocquery:RespondingGateway_CrossGatewayQueryRequest" anonymous="optional" bindingOperationName="RespondingGateway_CrossGatewayQuery" inputName="RespondingGateway_CrossGatewayQueryRequest" isOneWay="false" name="RespondingGateway_CrossGatewayQuery" outputName="RespondingGateway_CrossGatewayQueryResponse" receivesAttachments="false" sendsAttachments="false" type="Request-Response">
-			<con:settings/>
-		</con:operation>
-	</con:interface>
+<con:soapui-project abortOnError="false" name="DocQueryTestsForUDDI" resourceRoot="${projectDir}" runType="SEQUENTIAL" soapui-version="4.5.1" activeEnvironment="Default" xmlns:con="http://eviware.com/soapui/config">
+  <con:description/><con:settings/>
+  <con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:entitydocquery}EntityDocQueryBindingSoap" definition="../../target/wsdl/EntityDocQuery.wsdl" name="EntityDocQueryBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <con:settings/>
+    
+    <con:endpoints>
+      <con:endpoint>http://localhost:${HttpDefaultPort}/CONNECTGateway/EntityService/EntityDocQueryUnsecured</con:endpoint>
+      <con:endpoint>http://ATHC-GFAS:9080/CONNECTGateway/EntityService/EntityDocQueryUnsecured</con:endpoint>
+      <con:endpoint>http://172.16.50.54:9080/CONNECTGateway/EntityService/EntityDocQueryUnsecured</con:endpoint>
+      <con:endpoint>http://172.16.50.82:9080/CONNECTGateway/EntityService/EntityDocQueryUnsecured</con:endpoint>
+      <con:endpoint>http://DVANHIE3.fedsconnect.org:9080/CONNECTGateway/EntityService/EntityDocQueryUnsecured</con:endpoint>
+      <con:endpoint>http://localhost:${HttpDefaultPort}/NhinConnect/EntityDocQuery</con:endpoint>
+    <con:endpoint>http://localhost:${HttpDefaultPort}/Gateway/DocumentQuery/2_0/EntityService/EntityDocQueryUnsecured</con:endpoint></con:endpoints>
+    <con:operation action="urn:gov:hhs:fha:nhinc:entitydocquery:RespondingGateway_CrossGatewayQueryRequest" anonymous="optional" bindingOperationName="RespondingGateway_CrossGatewayQuery" inputName="RespondingGateway_CrossGatewayQueryRequest" isOneWay="false" name="RespondingGateway_CrossGatewayQuery" outputName="RespondingGateway_CrossGatewayQueryResponse" receivesAttachments="false" sendsAttachments="false" type="Request-Response">
+      <con:settings/>
+    </con:operation>
+  </con:interface>
   
   <con:testSuite name="DocQueryTestsForUDDI TestSuite">
     <con:settings/>
@@ -494,16 +491,15 @@ context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;$
   
   def insertSql = "insert into " + table + " (id, assigningauthorityid, homecommunityid) " + 
                    "values (1, ?, ?)"
-  sql.executeUpdate(insertSql, [remoteAA, remoteHCID])
-  sql.executeUpdate(insertSql, [aa1, hcid1])
-  sql.executeUpdate(insertSql, [aa2, hcid2])
-  sql.executeUpdate(insertSql, [aa3, hcid3])
-  sql.executeUpdate(insertSql, [aa4, hcid4])
+  //sql.executeUpdate(insertSql, [remoteAA, remoteHCID])
+  //sql.executeUpdate(insertSql, [aa1, hcid1])
+  //sql.executeUpdate(insertSql, [aa2, hcid2])
+  //sql.executeUpdate(insertSql, [aa3, hcid3])
+  //sql.executeUpdate(insertSql, [aa4, hcid4])
   sql.executeUpdate(insertSql, [testaa, testhcid])
   
 }</script></con:config>
       </con:testStep>
-	
       <con:testStep name="Document Query" type="request">
         <con:settings/>
         <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
@@ -763,7 +759,7 @@ context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;$
             <con:assertion type="XPath Match">
               <con:configuration><path>declare namespace ns16='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
 declare namespace ns15='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
-//ns16:AdhocQueryResponse[1]/ns15:RegistryErrorList[1]/ns15:RegistryError[1]/@codeContext</path><content>No endpoint available for HCID: 8.8.</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration>
+//ns16:AdhocQueryResponse[1]/ns15:RegistryErrorList[1]/ns15:RegistryError[1]/@codeContext</path><content>Unable to find any callable targets.</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration>
             </con:assertion>
             <con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
             <con:jmsPropertyConfig/>
@@ -1542,7 +1538,7 @@ declare namespace ns15='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
                 <path>declare namespace ns16='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
 declare namespace ns15='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
 //ns16:AdhocQueryResponse[1]/ns15:RegistryErrorList[1]/ns15:RegistryError[1]/@errorCode</path>
-                <content>XDSRegistryError</content>
+                <content>XDSRepositoryError</content>
                 <allowWildcards>false</allowWildcards>
                 <ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
               </con:configuration>
@@ -1550,7 +1546,7 @@ declare namespace ns15='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
             <con:assertion name="codeContext" type="XPath Match">
               <con:configuration><path>declare namespace ns16='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
 declare namespace ns15='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
-//ns16:AdhocQueryResponse[1]/ns15:RegistryErrorList[1]/ns15:RegistryError[1]/@codeContext</path><content>No endpoint available for HCID: 8.8.</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration>
+//ns16:AdhocQueryResponse[1]/ns15:RegistryErrorList[1]/ns15:RegistryError[1]/@codeContext</path><content>Unable to find any callable targets.</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration>
             </con:assertion>
             <con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/>
             <con:wsrmConfig version="1.2"/>
@@ -1627,24 +1623,26 @@ context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;$
   sql.execute('delete from ' + table)
 }</script>
         </con:config>
-		</con:testStep>
-	<con:testStep name="Add Correlation for HCID not in the UDDI" type="groovy">
-		<con:settings/>
-		<con:config><script>context.withSql('PatientCorrelationDB') { sql -> 
-			def table = context.findProperty('PatientCorrelationTable')
+      </con:testStep>
+      <con:testStep name="Add Correlation for HCID in the UDDI" type="groovy">
+        <con:settings/>
+        <con:config>
+          <script>context.withSql('PatientCorrelationDB') { sql -> 
+  def table = context.findProperty('PatientCorrelationTable')
 
-			def localAA = context.findProperty( "LocalAA" )	
-			def localPatientID = context.findProperty("LocalPatientID")
-			def remoteAA1 = context.findProperty( "UDDIhcid1" )
-			def remoteAA3 = context.findProperty( "RemoteHCID" )
-			def remotePatientID = context.findProperty("RemotePatientID")
-			def insertSql = "insert into " + table + " (correlationId, PatientAssigningAuthorityId, PatientId, CorrelatedPatientAssignAuthId, CorrelatedPatientId) " + 
-			"values (?, ?, ?, ?, ?)"
-			sql.executeUpdate(insertSql, [1, localAA, localPatientID, remoteAA1, remotePatientID])
-			sql.executeUpdate(insertSql, [2, localAA, localPatientID, remoteAA3, remotePatientID])
-
-			}</script></con:config>
-</con:testStep>
+  def localAA = context.findProperty( "LocalAA" )	
+  def localPatientID = context.findProperty("LocalPatientID")
+  def uddiVA1 = context.findProperty( "UDDIhcid1" )
+   def uddiVA3 = context.findProperty( "UDDIhcid3" )
+  def remotePatientID = context.findProperty("RemotePatientID")
+  def insertSql = "insert into " + table + " (correlationId, PatientAssigningAuthorityId, PatientId, CorrelatedPatientAssignAuthId, CorrelatedPatientId) " + 
+                   "values (?, ?, ?, ?, ?)"
+                 
+sql.executeUpdate(insertSql, [1, localAA, localPatientID, uddiVA1, remotePatientID])
+sql.executeUpdate(insertSql, [2, localAA, localPatientID, uddiVA3, remotePatientID])
+}</script>
+        </con:config>
+      </con:testStep>
       <con:testStep name="Clear AA Mapping Table &amp; Add Mapping" type="groovy">
         <con:settings/>
         <con:config>
@@ -1659,28 +1657,40 @@ context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;$
   def hcid2 = context.findProperty("UDDIhcid2")
   def hcid3 = context.findProperty("UDDIhcid3")
   def hcid4 = context.findProperty("UDDIhcid4")
-  def hcid9 = context.findProperty("UDDIhcid9")
   def testhcid = context.findProperty("testHCID")
   def aa1 = context.findProperty("UDDIaa1")
   def aa2 = context.findProperty("UDDIaa2")
   def aa3 = context.findProperty("UDDIaa3")
   def aa4 = context.findProperty("UDDIaa4")
-  def aa9 = context.findProperty("UDDIaa9")
   def testaa = context.findProperty("testAA")
   
   def insertSql = "insert into " + table + " (id, assigningauthorityid, homecommunityid) " + 
-                   "values (?, ?, ?)"
-  sql.executeUpdate(insertSql, [1,remoteAA, remoteHCID])
-  sql.executeUpdate(insertSql, [1,aa1, hcid1])
-  sql.executeUpdate(insertSql, [1,aa2, hcid2])
-  sql.executeUpdate(insertSql, [1,aa3, hcid3])
-  sql.executeUpdate(insertSql, [1,aa4, hcid4])
-  sql.executeUpdate(insertSql, [1,aa9, hcid9])
-  sql.executeUpdate(insertSql, [1,testaa, testhcid])
+                   "values (1, ?, ?)"
+  sql.executeUpdate(insertSql, [remoteAA, remoteHCID])
+  sql.executeUpdate(insertSql, [aa1, hcid1])
+  sql.executeUpdate(insertSql, [aa2, hcid2])
+  sql.executeUpdate(insertSql, [aa3, hcid3])
+  sql.executeUpdate(insertSql, [aa4, hcid4])
+  sql.executeUpdate(insertSql, [testaa, testhcid])
   
 }</script>
         </con:config>
-		</con:testStep>
+      </con:testStep>
+      <con:testStep name="update config - uddiConnectionInfo" type="groovy">
+        <con:settings/>
+        <con:config><script>import nhinc.FileUtils;
+def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
+
+def destConfigFileLocation = context.findProperty("GatewayPropDir");
+def NHINGatewayHost = context.findProperty("NHINGatewayHost");
+def mockHost = context.findProperty("mockHost");
+def dQURL = "https://localhost:8181/Gateway/DocumentQuery/2_0/NhinService/RespondingGateway_Query_Service/DocQuery";
+def remoteHCID1 = context.findProperty("UDDIhcid1");
+def remoteHCID3 = context.findProperty("UDDIhcid3");
+
+FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocation, remoteHCID1, "QueryForDocuments", dQURL, "2.0", log)
+FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocation, remoteHCID3, "QueryForDocuments", dQURL, "2.0", log)</script></con:config>
+      </con:testStep>
       <con:testStep name="Document Query" type="request">
         <con:settings/>
         <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
@@ -1958,7 +1968,7 @@ context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;$
             <con:assertion type="XPath Match">
               <con:configuration><path>declare namespace ns3='urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0';
 declare namespace ns6='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
-count(//ns6:AdhocQueryResponse[1]/ns3:RegistryObjectList[1]/ns3:ExtrinsicObject)</path><content>3</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration>
+count(//ns6:AdhocQueryResponse[1]/ns3:RegistryObjectList[1]/ns3:ExtrinsicObject)</path><content>2</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration>
             </con:assertion>
             <con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/>
             <con:wsrmConfig version="1.2"/>
@@ -4824,12 +4834,12 @@ declare namespace ns15='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
             <con:assertion name="errorCode" type="XPath Match">
               <con:configuration><path>declare namespace ns16='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
 declare namespace ns15='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
-//ns16:AdhocQueryResponse[1]/ns15:RegistryErrorList[1]/ns15:RegistryError[1]/@errorCode</path><content>XDSRegistryError</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration>
+//ns16:AdhocQueryResponse[1]/ns15:RegistryErrorList[1]/ns15:RegistryError[1]/@errorCode</path><content>XDSRepositoryError</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration>
             </con:assertion>
             <con:assertion name="codeContext" type="XPath Match">
               <con:configuration><path>declare namespace ns16='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
 declare namespace ns15='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
-//ns16:AdhocQueryResponse[1]/ns15:RegistryErrorList[1]/ns15:RegistryError[1]/@codeContext</path><content>No endpoint available for HCID: 8.8.</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration>
+//ns16:AdhocQueryResponse[1]/ns15:RegistryErrorList[1]/ns15:RegistryError[1]/@codeContext</path><content>Unable to find any callable targets.</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration>
             </con:assertion>
             <con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/>
             <con:wsrmConfig version="1.2"/>
@@ -7491,12 +7501,12 @@ declare namespace ns15='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
             <con:assertion name="errorCode" type="XPath Match">
               <con:configuration><path>declare namespace ns16='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
 declare namespace ns15='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
-//ns16:AdhocQueryResponse[1]/ns15:RegistryErrorList[1]/ns15:RegistryError[1]/@errorCode</path><content>XDSRegistryError</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration>
+//ns16:AdhocQueryResponse[1]/ns15:RegistryErrorList[1]/ns15:RegistryError[1]/@errorCode</path><content>XDSRepositoryError</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration>
             </con:assertion>
             <con:assertion name="codeContext" type="XPath Match">
               <con:configuration><path>declare namespace ns16='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
 declare namespace ns15='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
-//ns16:AdhocQueryResponse[1]/ns15:RegistryErrorList[1]/ns15:RegistryError[1]/@codeContext</path><content>No endpoint available for HCID: 9.9.</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration>
+//ns16:AdhocQueryResponse[1]/ns15:RegistryErrorList[1]/ns15:RegistryError[1]/@codeContext</path><content>Unable to find any callable targets.</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration>
             </con:assertion>
             <con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508"/>
             <con:wsrmConfig version="1.2"/>
@@ -7587,7 +7597,7 @@ declare namespace ns15='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
     <con:property><con:name>testAA</con:name><con:value>8.8</con:value></con:property><con:property><con:name>testHCDescription</con:name><con:value>Test HCID</con:value></con:property>
     
     
-    <con:property><con:name>testHCID</con:name><con:value>8.8</con:value></con:property><con:property><con:name>UDDI4</con:name><con:value>4.4</con:value></con:property><con:property><con:name>UDDIhcid1</con:name><con:value>4.4</con:value></con:property><con:property><con:name>UDDIaa2</con:name><con:value>5.5</con:value></con:property><con:property><con:name>UDDIaa3</con:name><con:value>6.6</con:value></con:property><con:property><con:name>UDDIaa4</con:name><con:value>7.7</con:value></con:property><con:property><con:name>UDDIdc3description</con:name><con:value>UDDI Test3</con:value></con:property><con:property><con:name>UDDIhc1description</con:name><con:value>UDDI Test1</con:value></con:property><con:property><con:name>UDDIaa9</con:name><con:value>9.9</con:value></con:property>
+    <con:property><con:name>testHCID</con:name><con:value>8.8</con:value></con:property><con:property><con:name>UDDI4</con:name><con:value>4.4</con:value></con:property><con:property><con:name>UDDIaa1</con:name><con:value>4.4</con:value></con:property><con:property><con:name>UDDIaa2</con:name><con:value>5.5</con:value></con:property><con:property><con:name>UDDIaa3</con:name><con:value>6.6</con:value></con:property><con:property><con:name>UDDIaa4</con:name><con:value>7.7</con:value></con:property><con:property><con:name>UDDIdc3description</con:name><con:value>UDDI Test3</con:value></con:property><con:property><con:name>UDDIhc1description</con:name><con:value>UDDI Test1</con:value></con:property>
     
     
     
@@ -7595,7 +7605,7 @@ declare namespace ns15='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
     
     
     
-    <con:property><con:name>UDDIhc2description</con:name><con:value>UDDI Test2</con:value></con:property><con:property><con:name>UDDIhc9description</con:name><con:value>UDDI Test9</con:value></con:property><con:property><con:name>UDDIhc4description</con:name><con:value>UDDI Test4</con:value></con:property>
+    <con:property><con:name>UDDIhc2description</con:name><con:value>UDDI Test2</con:value></con:property><con:property><con:name>UDDIhc3description</con:name><con:value>UDDI Test3</con:value></con:property><con:property><con:name>UDDIhc4description</con:name><con:value>UDDI Test4</con:value></con:property>
     
     
     
