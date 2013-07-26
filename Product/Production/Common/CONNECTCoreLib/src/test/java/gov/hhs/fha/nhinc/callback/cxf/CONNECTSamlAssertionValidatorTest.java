@@ -29,17 +29,15 @@ import org.joda.time.DateTime;
 import org.junit.Test;
 import org.opensaml.common.SAMLVersion;
 import org.opensaml.saml1.core.Statement;
+import org.opensaml.saml2.core.NameID;
 import org.opensaml.saml2.core.Subject;
 import org.opensaml.xml.validation.Validator;
 import org.opensaml.xml.validation.ValidatorSuite;
 
-import com.sun.identity.saml.common.SAMLException;
-
 public class CONNECTSamlAssertionValidatorTest {
 
 	@Test
-	public void testValidateAssertionSaml1() throws WSSecurityException,
-			SAMLException {
+	public void testValidateAssertionSaml1() throws WSSecurityException {
 		org.opensaml.saml1.core.Assertion saml1Assertion = mock(org.opensaml.saml1.core.Assertion.class);
 		AssertionWrapper assertion = new AssertionWrapper(saml1Assertion);
 		QName assertionQName = new QName(
@@ -98,6 +96,8 @@ public class CONNECTSamlAssertionValidatorTest {
 		when(saml2Assertion.getIssueInstant()).thenReturn(dateTime);
 		Subject subject = mock(Subject.class);
 		when(saml2Assertion.getSubject()).thenReturn(subject);
+		NameID name = mock(NameID.class);
+		when(subject.getNameID()).thenReturn(name);
 
 		CONNECTSamlAssertionValidator validator = new CONNECTSamlAssertionValidator() {
 			@Override
@@ -108,7 +108,7 @@ public class CONNECTSamlAssertionValidatorTest {
 
 		validator.validateAssertion(assertion);
 
-		verify(saml2Assertion, times(2)).getOrderedChildren();
+		verify(saml2Assertion, times(3)).getOrderedChildren();
 	}
 
 	@Test(expected = WSSecurityException.class)
