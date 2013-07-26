@@ -101,6 +101,7 @@ public class CONNECTSamlAssertionValidatorTest {
 		NameID name = mock(NameID.class);
 		when(subject.getNameID()).thenReturn(name);
 		when(name.getFormat()).thenReturn(NhincConstants.AUTH_FRWK_NAME_ID_FORMAT_X509);
+		when(name.getValue()).thenReturn(NhincConstants.SAML_DEFAULT_ISSUER_NAME);
 
 		CONNECTSamlAssertionValidator validator = new CONNECTSamlAssertionValidator() {
 			@Override

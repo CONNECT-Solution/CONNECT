@@ -63,6 +63,7 @@ public class Saml2ExchangeAuthFrameworkValidatorTest {
         when(assertion.getSubject()).thenReturn(subject);
         when(subject.getNameID()).thenReturn(name);
         when(name.getFormat()).thenReturn(NhincConstants.AUTH_FRWK_NAME_ID_FORMAT_X509);
+        when(name.getValue()).thenReturn(NhincConstants.SAML_DEFAULT_ISSUER_NAME);
         when(assertion.getIssuer()).thenReturn(issuer);
         when(issuer.getFormat()).thenReturn(NhincConstants.AUTH_FRWK_NAME_ID_FORMAT_X509);
         when(issuer.getValue()).thenReturn(NhincConstants.SAML_DEFAULT_ISSUER_NAME);
@@ -87,6 +88,7 @@ public class Saml2ExchangeAuthFrameworkValidatorTest {
         when(assertion.getSubject()).thenReturn(subject);
         when(subject.getNameID()).thenReturn(name);
         when(name.getFormat()).thenReturn(NhincConstants.AUTH_FRWK_NAME_ID_FORMAT_EMAIL_ADDRESS);
+        when(name.getValue()).thenReturn("example@example.org");
         when(assertion.getIssuer()).thenReturn(issuer);
         when(issuer.getFormat()).thenReturn(NhincConstants.AUTH_FRWK_NAME_ID_FORMAT_EMAIL_ADDRESS);
         when(issuer.getValue()).thenReturn("example@example.org");
@@ -226,6 +228,56 @@ public class Saml2ExchangeAuthFrameworkValidatorTest {
         validator.validate(assertion);
     }
 
+    /**
+     * Test validate happy path.
+     * 
+     * @throws ValidationException the validation exception
+     */
+    @Test(expected = ValidationException.class)
+    public void testValidateSubjectX509InvalidValue() throws ValidationException {
+        Saml2ExchangeAuthFrameworkValidator validator = new Saml2ExchangeAuthFrameworkValidator();
+
+        Assertion assertion = mock(Assertion.class);
+        Subject subject = mock(Subject.class);
+        NameID name = mock(NameID.class);
+        Issuer issuer = mock(Issuer.class);
+
+        when(assertion.getSubject()).thenReturn(subject);
+        when(subject.getNameID()).thenReturn(name);
+        when(name.getFormat()).thenReturn(NhincConstants.AUTH_FRWK_NAME_ID_FORMAT_X509);
+        when(name.getValue()).thenReturn("not a valid X509 name.");
+        when(assertion.getIssuer()).thenReturn(issuer);
+        when(issuer.getFormat()).thenReturn(NhincConstants.AUTH_FRWK_NAME_ID_FORMAT_X509);
+        when(issuer.getValue()).thenReturn(NhincConstants.SAML_DEFAULT_ISSUER_NAME);
+
+        validator.validate(assertion);
+    }
+    
+    /**
+     * Test validate happy path.
+     * 
+     * @throws ValidationException the validation exception
+     */
+    @Test(expected = ValidationException.class)
+    public void testValidateSubjectEmailInvalidValue() throws ValidationException {
+        Saml2ExchangeAuthFrameworkValidator validator = new Saml2ExchangeAuthFrameworkValidator();
+
+        Assertion assertion = mock(Assertion.class);
+        Subject subject = mock(Subject.class);
+        NameID name = mock(NameID.class);
+        Issuer issuer = mock(Issuer.class);
+
+        when(assertion.getSubject()).thenReturn(subject);
+        when(subject.getNameID()).thenReturn(name);
+        when(name.getFormat()).thenReturn(NhincConstants.AUTH_FRWK_NAME_ID_FORMAT_EMAIL_ADDRESS);
+        when(name.getValue()).thenReturn("not a valid email address.");
+        when(assertion.getIssuer()).thenReturn(issuer);
+        when(issuer.getFormat()).thenReturn(NhincConstants.AUTH_FRWK_NAME_ID_FORMAT_X509);
+        when(issuer.getValue()).thenReturn(NhincConstants.SAML_DEFAULT_ISSUER_NAME);
+
+        validator.validate(assertion);
+    }
+    
     /**
      * Generate issuer.
      *

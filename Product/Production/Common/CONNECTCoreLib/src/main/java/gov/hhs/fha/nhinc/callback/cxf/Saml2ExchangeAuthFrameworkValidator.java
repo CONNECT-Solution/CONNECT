@@ -111,6 +111,8 @@ public class Saml2ExchangeAuthFrameworkValidator extends AssertionSpecValidator 
                 && !NhincConstants.AUTH_FRWK_NAME_ID_FORMAT_X509.equals(format)) {
             throw new ValidationException("Subject Name Id format must be x509 or Email.");
         }
+        
+        validateNameIdFormatValue(format, name.getValue());
     }
 
     /**
