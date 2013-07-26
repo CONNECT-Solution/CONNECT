@@ -91,6 +91,7 @@ public class CONNECTSamlAssertionValidatorTest {
 		org.opensaml.saml2.core.Issuer issuer = mock(org.opensaml.saml2.core.Issuer.class);
 		when(issuer.getFormat()).thenReturn(NhincConstants.AUTH_FRWK_NAME_ID_FORMAT_X509);
 		when(saml2Assertion.getIssuer()).thenReturn(issuer);
+		when(issuer.getValue()).thenReturn(NhincConstants.SAML_DEFAULT_ISSUER_NAME);
 		when(saml2Assertion.getVersion()).thenReturn(SAMLVersion.VERSION_20);
 		when(saml2Assertion.getID()).thenReturn("Assertion_ID");
 		DateTime dateTime = new DateTime();

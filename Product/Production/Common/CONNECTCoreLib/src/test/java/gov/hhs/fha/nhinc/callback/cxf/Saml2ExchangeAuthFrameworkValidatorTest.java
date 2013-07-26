@@ -65,6 +65,7 @@ public class Saml2ExchangeAuthFrameworkValidatorTest {
         when(name.getFormat()).thenReturn(NhincConstants.AUTH_FRWK_NAME_ID_FORMAT_X509);
         when(assertion.getIssuer()).thenReturn(issuer);
         when(issuer.getFormat()).thenReturn(NhincConstants.AUTH_FRWK_NAME_ID_FORMAT_X509);
+        when(issuer.getValue()).thenReturn(NhincConstants.SAML_DEFAULT_ISSUER_NAME);
 
         validator.validate(assertion);
     }
@@ -155,9 +156,9 @@ public class Saml2ExchangeAuthFrameworkValidatorTest {
 
     /**
      * Test validate no name subject. This tests DIL test case 3.411.
-     * 
+     *
      * @throws ValidationException the validation exception
-     * @throws ConfigurationException 
+     * @throws ConfigurationException the configuration exception
      */
     @Test(expected = ValidationException.class)
     public void testValidateIssuerNotEmailAddress() throws ValidationException, ConfigurationException {
@@ -176,7 +177,39 @@ public class Saml2ExchangeAuthFrameworkValidatorTest {
 
         validator.validate(assertion);
     }
+    
+    /**
+     * Test validate no name subject. This tests DIL test case 3.412.
+     *
+     * @throws ValidationException the validation exception
+     * @throws ConfigurationException the configuration exception
+     */
+    @Test(expected = ValidationException.class)
+    public void testValidateIssuerNotX509SubjectName() throws ValidationException, ConfigurationException {
+        Saml2ExchangeAuthFrameworkValidator validator = new Saml2ExchangeAuthFrameworkValidator();
 
+        Assertion assertion = mock(Assertion.class);
+        Subject subject = mock(Subject.class);
+        NameID name = mock(NameID.class);
+        Issuer issuer = generateIssuer(NhincConstants.AUTH_FRWK_NAME_ID_FORMAT_X509,
+                "this is obviously not an x509 subject name....okkk?");
+
+        when(assertion.getSubject()).thenReturn(subject);
+        when(subject.getNameID()).thenReturn(name);
+        when(name.getFormat()).thenReturn(NhincConstants.AUTH_FRWK_NAME_ID_FORMAT_X509);
+        when(assertion.getIssuer()).thenReturn(issuer);
+
+        validator.validate(assertion);
+    }
+
+    /**
+     * Generate issuer.
+     *
+     * @param format the format
+     * @param value the value
+     * @return the issuer
+     * @throws ConfigurationException the configuration exception
+     */
     protected Issuer generateIssuer(String format, String value) throws ConfigurationException {
         OpensamlObjectBuilderUtil util = new OpensamlObjectBuilderUtil();
 

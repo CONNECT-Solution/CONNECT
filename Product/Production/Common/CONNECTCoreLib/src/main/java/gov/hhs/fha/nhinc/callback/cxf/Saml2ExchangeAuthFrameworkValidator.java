@@ -29,6 +29,10 @@ package gov.hhs.fha.nhinc.callback.cxf;
 import java.util.LinkedList;
 import java.util.List;
 
+import javax.naming.InvalidNameException;
+import javax.naming.Name;
+import javax.naming.ldap.LdapName;
+
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 
 import org.apache.commons.lang.StringUtils;
@@ -37,10 +41,12 @@ import org.opensaml.saml2.core.Issuer;
 import org.opensaml.saml2.core.NameID;
 import org.opensaml.saml2.core.Subject;
 import org.opensaml.saml2.core.validator.AssertionSpecValidator;
+import org.opensaml.xml.security.x509.PKIXX509CredentialTrustEngine;
 import org.opensaml.xml.validation.ValidationException;
 import org.opensaml.xml.validation.ValidatorSuite;
 
 import org.apache.commons.validator.routines.EmailValidator;
+import org.apache.log4j.Logger;
 /**
  * The Class Saml2ExchangeAuthFrameworkValidator.
  * 
@@ -48,6 +54,9 @@ import org.apache.commons.validator.routines.EmailValidator;
  */
 public class Saml2ExchangeAuthFrameworkValidator extends AssertionSpecValidator {
 
+    /** The Constant LOG. */
+    private static final Logger LOG = Logger.getLogger(Saml2ExchangeAuthFrameworkValidator.class);
+    
     /**
      * (non-Javadoc).
      * 
@@ -106,6 +115,13 @@ public class Saml2ExchangeAuthFrameworkValidator extends AssertionSpecValidator 
             EmailValidator validator = EmailValidator.getInstance();
             if (!validator.isValid(value)) {
                 throw new ValidationException("Not a valid email address.");
+            }
+        } else if (NhincConstants.AUTH_FRWK_NAME_ID_FORMAT_X509.equals(format)) {
+            try {
+            Name name = new LdapName(value);
+            } catch(Exception e) {
+                LOG.info("Validation of X509 Subject Name failed:", e);
+                throw new ValidationException("Not a valid X509 Subject Name.");
             }
         }
     }
