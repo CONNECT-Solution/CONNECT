@@ -26,21 +26,24 @@
  */
 package gov.hhs.fha.nhinc.callback.cxf;
 
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+
 import org.opensaml.saml2.core.Assertion;
+import org.opensaml.saml2.core.NameID;
 import org.opensaml.saml2.core.Subject;
 import org.opensaml.saml2.core.validator.AssertionSpecValidator;
 import org.opensaml.xml.validation.ValidationException;
 
 /**
  * The Class Saml2ExchangeAuthFrameworkValidator.
- *
+ * 
  * @author msw
  */
 public class Saml2ExchangeAuthFrameworkValidator extends AssertionSpecValidator {
 
     /**
      * (non-Javadoc).
-     *
+     * 
      * @param assertion the assertion
      * @throws ValidationException the validation exception
      * @see org.opensaml.saml2.core.validator.AssertionSpecValidator#validate(org.opensaml.saml2.core.Assertion)
@@ -48,22 +51,29 @@ public class Saml2ExchangeAuthFrameworkValidator extends AssertionSpecValidator 
     @Override
     public void validate(Assertion assertion) throws ValidationException {
         super.validate(assertion);
-        
+
         validateSubject(assertion.getSubject());
     }
-    
+
     /**
      * Checks that the subject is valid (checks for the presence of a name id).
-     *
+     * 
      * @param subject the subject
      * @return true if Subject is valid, false otherwise.
      * @throws ValidationException the validation exception
      */
     private boolean validateSubject(Subject subject) throws ValidationException {
-        if (subject == null || subject.getNameID() == null) {
+        NameID name = subject.getNameID();
+        if (subject == null || name == null) {
             throw new ValidationException("Subject is empty or invalid.");
         }
-        
+
+        String format = name.getFormat();
+        if (!NhincConstants.AUTH_FRWK_NAME_ID_FORMAT_EMAIL_ADDRESS.equals(format)
+                && !NhincConstants.AUTH_FRWK_NAME_ID_FORMAT_X509.equals(format)) {
+            throw new ValidationException("Subject Name Id format must be x509 or Email.");
+        }
+
         return true;
     }
 }

@@ -28,6 +28,7 @@ package gov.hhs.fha.nhinc.callback.cxf;
 
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 
 import org.junit.Test;
 import org.opensaml.saml2.core.Assertion;
@@ -57,9 +58,30 @@ public class Saml2ExchangeAuthFrameworkValidatorTest {
         
         when(assertion.getSubject()).thenReturn(subject);
         when(subject.getNameID()).thenReturn(name);
+        when(name.getFormat()).thenReturn(NhincConstants.AUTH_FRWK_NAME_ID_FORMAT_X509);
         
         validator.validate(assertion);
-    } 
+    }
+    
+    /**
+     * Test validate no name subject. This tests DIL test case 3.421.
+     *
+     * @throws ValidationException the validation exception
+     */
+    @Test
+    public void testValidate2() throws ValidationException {
+        Saml2ExchangeAuthFrameworkValidator validator = new Saml2ExchangeAuthFrameworkValidator();
+        
+        Assertion assertion = mock(Assertion.class);
+        Subject subject = mock(Subject.class);
+        NameID name = mock(NameID.class);
+        
+        when(assertion.getSubject()).thenReturn(subject);
+        when(subject.getNameID()).thenReturn(name);
+        when(name.getFormat()).thenReturn(NhincConstants.AUTH_FRWK_NAME_ID_FORMAT_EMAIL_ADDRESS);
+        
+        validator.validate(assertion);
+    }
     
     /**
      * Test validate no name subject. This tests DIL test case 3.421.
@@ -74,6 +96,26 @@ public class Saml2ExchangeAuthFrameworkValidatorTest {
         Subject subject = mock(Subject.class);
         
         when(assertion.getSubject()).thenReturn(subject);
+        
+        validator.validate(assertion);
+    }
+    
+    /**
+     * Test validate no name subject. This tests DIL test case 3.422.
+     *
+     * @throws ValidationException the validation exception
+     */
+    @Test(expected = ValidationException.class)
+    public void testValidateSubjectWrongFormat() throws ValidationException {
+        Saml2ExchangeAuthFrameworkValidator validator = new Saml2ExchangeAuthFrameworkValidator();
+        
+        Assertion assertion = mock(Assertion.class);
+        Subject subject = mock(Subject.class);
+        NameID name = mock(NameID.class);
+        
+        when(assertion.getSubject()).thenReturn(subject);
+        when(subject.getNameID()).thenReturn(name);
+        when(name.getFormat()).thenReturn("wrong value");
         
         validator.validate(assertion);
     }
