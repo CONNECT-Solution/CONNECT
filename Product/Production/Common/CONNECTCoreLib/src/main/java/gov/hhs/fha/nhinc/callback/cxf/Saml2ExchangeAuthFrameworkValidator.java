@@ -101,11 +101,11 @@ public class Saml2ExchangeAuthFrameworkValidator extends AssertionSpecValidator 
      * @throws ValidationException the validation exception
      */
     protected void validateSubject(Subject subject) throws ValidationException {
-        NameID name = subject.getNameID();
-        if (subject == null || name == null) {
+        if (subject == null || subject.getNameID() == null) {
             throw new ValidationException("Subject is empty or invalid.");
         }
 
+        NameID name = subject.getNameID();
         String format = name.getFormat();
         if (!NhincConstants.AUTH_FRWK_NAME_ID_FORMAT_EMAIL_ADDRESS.equals(format)
                 && !NhincConstants.AUTH_FRWK_NAME_ID_FORMAT_X509.equals(format)) {
