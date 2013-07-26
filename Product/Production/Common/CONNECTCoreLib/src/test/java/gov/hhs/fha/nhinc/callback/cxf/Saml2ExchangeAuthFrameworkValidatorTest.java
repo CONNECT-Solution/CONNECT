@@ -112,7 +112,7 @@ public class Saml2ExchangeAuthFrameworkValidatorTest {
     }
 
     /**
-     * Test validate no name subject. This tests DIL test case 3.422.
+     * Test validate subject name format is not valid. This tests DIL test case 3.422.
      * 
      * @throws ValidationException the validation exception
      */
@@ -132,7 +132,7 @@ public class Saml2ExchangeAuthFrameworkValidatorTest {
     }
 
     /**
-     * Test validate no name subject. This tests DIL test case 3.410.
+     * Test validate no name issuer format. This tests DIL test case 3.410.
      * 
      * @throws ValidationException the validation exception
      */
@@ -155,7 +155,7 @@ public class Saml2ExchangeAuthFrameworkValidatorTest {
     }
 
     /**
-     * Test validate no name subject. This tests DIL test case 3.411.
+     * Test validate issuer is not a valid Email Address. This tests DIL test case 3.411.
      *
      * @throws ValidationException the validation exception
      * @throws ConfigurationException the configuration exception
@@ -179,7 +179,7 @@ public class Saml2ExchangeAuthFrameworkValidatorTest {
     }
     
     /**
-     * Test validate no name subject. This tests DIL test case 3.412.
+     * Test validate issuer is not a valid X509 Subject Name. This tests DIL test case 3.412.
      *
      * @throws ValidationException the validation exception
      * @throws ConfigurationException the configuration exception
@@ -193,6 +193,30 @@ public class Saml2ExchangeAuthFrameworkValidatorTest {
         NameID name = mock(NameID.class);
         Issuer issuer = generateIssuer(NhincConstants.AUTH_FRWK_NAME_ID_FORMAT_X509,
                 "this is obviously not an x509 subject name....okkk?");
+
+        when(assertion.getSubject()).thenReturn(subject);
+        when(subject.getNameID()).thenReturn(name);
+        when(name.getFormat()).thenReturn(NhincConstants.AUTH_FRWK_NAME_ID_FORMAT_X509);
+        when(assertion.getIssuer()).thenReturn(issuer);
+
+        validator.validate(assertion);
+    }
+    
+    /**
+     * Test validate issuer is not a valid Windows Domain Name. This tests DIL test case 3.413.
+     *
+     * @throws ValidationException the validation exception
+     * @throws ConfigurationException the configuration exception
+     */
+    @Test(expected = ValidationException.class)
+    public void testValidateIssuerNotWindowsDomainName() throws ValidationException, ConfigurationException {
+        Saml2ExchangeAuthFrameworkValidator validator = new Saml2ExchangeAuthFrameworkValidator();
+
+        Assertion assertion = mock(Assertion.class);
+        Subject subject = mock(Subject.class);
+        NameID name = mock(NameID.class);
+        Issuer issuer = generateIssuer(NhincConstants.AUTH_FRWK_NAME_ID_FORMAT_WINDOWS_NAME,
+                "this is obviously not an windows domain name....okkk?");
 
         when(assertion.getSubject()).thenReturn(subject);
         when(subject.getNameID()).thenReturn(name);

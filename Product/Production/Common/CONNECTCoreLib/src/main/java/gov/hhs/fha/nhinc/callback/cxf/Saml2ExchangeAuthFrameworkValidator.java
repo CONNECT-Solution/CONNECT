@@ -47,6 +47,7 @@ import org.opensaml.xml.validation.ValidatorSuite;
 
 import org.apache.commons.validator.routines.EmailValidator;
 import org.apache.log4j.Logger;
+
 /**
  * The Class Saml2ExchangeAuthFrameworkValidator.
  * 
@@ -57,6 +58,12 @@ public class Saml2ExchangeAuthFrameworkValidator extends AssertionSpecValidator 
     /** The Constant LOG. */
     private static final Logger LOG = Logger.getLogger(Saml2ExchangeAuthFrameworkValidator.class);
     
+    /** The Constant invalidDomainNameChars. */
+    private static final char[] invalidDomainNameChars = { '\\', '/', ':', '*', '?', '\"', '<', '>', '|'};
+    
+    /** The Constant invalidUserNameChars. */
+    private static final char[] invalidUserNameChars = { ';', ':', '\"', '<', '>', '*', '+', '=', '\\', '|', '?', ','};
+
     /**
      * (non-Javadoc).
      * 
@@ -74,9 +81,9 @@ public class Saml2ExchangeAuthFrameworkValidator extends AssertionSpecValidator 
 
     /**
      * Validate issuer.
-     * 
+     *
      * @param issuer the issuer
-     * @throws ValidationException
+     * @throws ValidationException the validation exception
      */
     protected void validateIssuer(Issuer issuer) throws ValidationException {
         if (StringUtils.isBlank(issuer.getFormat())) {
@@ -107,8 +114,11 @@ public class Saml2ExchangeAuthFrameworkValidator extends AssertionSpecValidator 
     }
 
     /**
-     * @param format
-     * @param value
+     * Validate name id format value.
+     *
+     * @param format the format
+     * @param value the value
+     * @throws ValidationException the validation exception
      */
     protected void validateNameIdFormatValue(String format, String value) throws ValidationException {
         if (NhincConstants.AUTH_FRWK_NAME_ID_FORMAT_EMAIL_ADDRESS.equals(format)) {
@@ -118,10 +128,35 @@ public class Saml2ExchangeAuthFrameworkValidator extends AssertionSpecValidator 
             }
         } else if (NhincConstants.AUTH_FRWK_NAME_ID_FORMAT_X509.equals(format)) {
             try {
-            Name name = new LdapName(value);
-            } catch(Exception e) {
+                Name name = new LdapName(value);
+            } catch (Exception e) {
                 LOG.info("Validation of X509 Subject Name failed:", e);
                 throw new ValidationException("Not a valid X509 Subject Name.");
+            }
+        } else if (NhincConstants.AUTH_FRWK_NAME_ID_FORMAT_WINDOWS_NAME.equals(format)) {
+            String[] parts = StringUtils.split(value, "\\");
+
+            if (parts.length > 2) {
+                throw new ValidationException("Invalid Windows Domain Name format: multiple backslashes.");
+            }
+
+            String domainName = null;
+            String userName = null;
+            if (parts.length == 1) {
+                userName = parts[0];
+            } else {
+                domainName = parts[0];
+                userName = parts[1];
+            }
+
+            if (StringUtils.containsAny(domainName, invalidDomainNameChars)) {
+                throw new ValidationException(
+                        "Invalid Windows Domain Name format: domain name contains invalid characters.");
+            }
+            
+            if (StringUtils.containsAny(userName, invalidUserNameChars)) {
+                throw new ValidationException(
+                        "Invalid Windows Domain Name format: user name contains invalid characters.");
             }
         }
     }
