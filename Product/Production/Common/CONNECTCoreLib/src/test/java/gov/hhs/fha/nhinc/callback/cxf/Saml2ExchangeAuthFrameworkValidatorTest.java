@@ -28,6 +28,7 @@ package gov.hhs.fha.nhinc.callback.cxf;
 
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
+import gov.hhs.fha.nhinc.callback.openSAML.OpensamlObjectBuilderUtil;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 
 import org.junit.Test;
@@ -35,119 +36,155 @@ import org.opensaml.saml2.core.Assertion;
 import org.opensaml.saml2.core.Issuer;
 import org.opensaml.saml2.core.NameID;
 import org.opensaml.saml2.core.Subject;
+import org.opensaml.xml.ConfigurationException;
 import org.opensaml.xml.validation.ValidationException;
 
 /**
  * The Class Saml2ExchangeAuthFrameworkValidatorTest.
- *
+ * 
  * @author msw
  */
 public class Saml2ExchangeAuthFrameworkValidatorTest {
 
     /**
      * Test validate happy path.
-     *
+     * 
      * @throws ValidationException the validation exception
      */
     @Test
     public void testValidate() throws ValidationException {
         Saml2ExchangeAuthFrameworkValidator validator = new Saml2ExchangeAuthFrameworkValidator();
-        
+
         Assertion assertion = mock(Assertion.class);
         Subject subject = mock(Subject.class);
         NameID name = mock(NameID.class);
         Issuer issuer = mock(Issuer.class);
-        
+
         when(assertion.getSubject()).thenReturn(subject);
         when(subject.getNameID()).thenReturn(name);
         when(name.getFormat()).thenReturn(NhincConstants.AUTH_FRWK_NAME_ID_FORMAT_X509);
         when(assertion.getIssuer()).thenReturn(issuer);
         when(issuer.getFormat()).thenReturn(NhincConstants.AUTH_FRWK_NAME_ID_FORMAT_X509);
-        
+
         validator.validate(assertion);
     }
-    
+
     /**
      * Test validate a different happy path.
-     *
+     * 
      * @throws ValidationException the validation exception
      */
     @Test
     public void testValidate2() throws ValidationException {
         Saml2ExchangeAuthFrameworkValidator validator = new Saml2ExchangeAuthFrameworkValidator();
-        
+
         Assertion assertion = mock(Assertion.class);
         Subject subject = mock(Subject.class);
         NameID name = mock(NameID.class);
         Issuer issuer = mock(Issuer.class);
-        
+
         when(assertion.getSubject()).thenReturn(subject);
         when(subject.getNameID()).thenReturn(name);
         when(name.getFormat()).thenReturn(NhincConstants.AUTH_FRWK_NAME_ID_FORMAT_EMAIL_ADDRESS);
         when(assertion.getIssuer()).thenReturn(issuer);
         when(issuer.getFormat()).thenReturn(NhincConstants.AUTH_FRWK_NAME_ID_FORMAT_EMAIL_ADDRESS);
-        
+        when(issuer.getValue()).thenReturn("example@example.org");
+
         validator.validate(assertion);
     }
-    
+
     /**
      * Test validate no name subject. This tests DIL test case 3.421.
-     *
+     * 
      * @throws ValidationException the validation exception
      */
     @Test(expected = ValidationException.class)
     public void testValidateNoNameSubject() throws ValidationException {
         Saml2ExchangeAuthFrameworkValidator validator = new Saml2ExchangeAuthFrameworkValidator();
-        
+
         Assertion assertion = mock(Assertion.class);
         Subject subject = mock(Subject.class);
-        
+
         when(assertion.getSubject()).thenReturn(subject);
-        
+
         validator.validate(assertion);
     }
-    
+
     /**
      * Test validate no name subject. This tests DIL test case 3.422.
-     *
+     * 
      * @throws ValidationException the validation exception
      */
     @Test(expected = ValidationException.class)
     public void testValidateSubjectWrongFormat() throws ValidationException {
         Saml2ExchangeAuthFrameworkValidator validator = new Saml2ExchangeAuthFrameworkValidator();
-        
+
         Assertion assertion = mock(Assertion.class);
         Subject subject = mock(Subject.class);
         NameID name = mock(NameID.class);
-        
+
         when(assertion.getSubject()).thenReturn(subject);
         when(subject.getNameID()).thenReturn(name);
         when(name.getFormat()).thenReturn("wrong value");
-        
+
         validator.validate(assertion);
     }
-    
+
     /**
      * Test validate no name subject. This tests DIL test case 3.410.
-     *
+     * 
      * @throws ValidationException the validation exception
      */
     @Test(expected = ValidationException.class)
     public void testValidateIssuerNoFormat() throws ValidationException {
         Saml2ExchangeAuthFrameworkValidator validator = new Saml2ExchangeAuthFrameworkValidator();
-        
+
         Assertion assertion = mock(Assertion.class);
         Subject subject = mock(Subject.class);
         NameID name = mock(NameID.class);
         Issuer issuer = mock(Issuer.class);
-        
+
         when(assertion.getSubject()).thenReturn(subject);
         when(subject.getNameID()).thenReturn(name);
         when(name.getFormat()).thenReturn(NhincConstants.AUTH_FRWK_NAME_ID_FORMAT_EMAIL_ADDRESS);
         when(assertion.getIssuer()).thenReturn(issuer);
         when(issuer.getFormat()).thenReturn(null);
-        
+
         validator.validate(assertion);
+    }
+
+    /**
+     * Test validate no name subject. This tests DIL test case 3.411.
+     * 
+     * @throws ValidationException the validation exception
+     * @throws ConfigurationException 
+     */
+    @Test(expected = ValidationException.class)
+    public void testValidateIssuerNotEmailAddress() throws ValidationException, ConfigurationException {
+        Saml2ExchangeAuthFrameworkValidator validator = new Saml2ExchangeAuthFrameworkValidator();
+
+        Assertion assertion = mock(Assertion.class);
+        Subject subject = mock(Subject.class);
+        NameID name = mock(NameID.class);
+        Issuer issuer = generateIssuer(NhincConstants.AUTH_FRWK_NAME_ID_FORMAT_EMAIL_ADDRESS,
+                "this is obviously not an email address....okkk?");
+
+        when(assertion.getSubject()).thenReturn(subject);
+        when(subject.getNameID()).thenReturn(name);
+        when(name.getFormat()).thenReturn(NhincConstants.AUTH_FRWK_NAME_ID_FORMAT_EMAIL_ADDRESS);
+        when(assertion.getIssuer()).thenReturn(issuer);
+
+        validator.validate(assertion);
+    }
+
+    protected Issuer generateIssuer(String format, String value) throws ConfigurationException {
+        OpensamlObjectBuilderUtil util = new OpensamlObjectBuilderUtil();
+
+        Issuer issuer = (Issuer) util.createOpenSAMLObject(Issuer.DEFAULT_ELEMENT_NAME);
+
+        issuer.setFormat(format);
+        issuer.setValue(value);
+        return issuer;
     }
 
 }

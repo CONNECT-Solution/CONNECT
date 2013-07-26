@@ -26,6 +26,9 @@
  */
 package gov.hhs.fha.nhinc.callback.cxf;
 
+import java.util.LinkedList;
+import java.util.List;
+
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 
 import org.apache.commons.lang.StringUtils;
@@ -35,7 +38,9 @@ import org.opensaml.saml2.core.NameID;
 import org.opensaml.saml2.core.Subject;
 import org.opensaml.saml2.core.validator.AssertionSpecValidator;
 import org.opensaml.xml.validation.ValidationException;
+import org.opensaml.xml.validation.ValidatorSuite;
 
+import org.apache.commons.validator.routines.EmailValidator;
 /**
  * The Class Saml2ExchangeAuthFrameworkValidator.
  * 
@@ -60,14 +65,16 @@ public class Saml2ExchangeAuthFrameworkValidator extends AssertionSpecValidator 
 
     /**
      * Validate issuer.
-     *
+     * 
      * @param issuer the issuer
-     * @throws ValidationException 
+     * @throws ValidationException
      */
     protected void validateIssuer(Issuer issuer) throws ValidationException {
         if (StringUtils.isBlank(issuer.getFormat())) {
             throw new ValidationException("Issuer format cannot be blank.");
         }
+
+        validateNameIdFormatValue(issuer.getFormat(), issuer.getValue());
     }
 
     /**
@@ -87,6 +94,19 @@ public class Saml2ExchangeAuthFrameworkValidator extends AssertionSpecValidator 
         if (!NhincConstants.AUTH_FRWK_NAME_ID_FORMAT_EMAIL_ADDRESS.equals(format)
                 && !NhincConstants.AUTH_FRWK_NAME_ID_FORMAT_X509.equals(format)) {
             throw new ValidationException("Subject Name Id format must be x509 or Email.");
+        }
+    }
+
+    /**
+     * @param format
+     * @param value
+     */
+    protected void validateNameIdFormatValue(String format, String value) throws ValidationException {
+        if (NhincConstants.AUTH_FRWK_NAME_ID_FORMAT_EMAIL_ADDRESS.equals(format)) {
+            EmailValidator validator = EmailValidator.getInstance();
+            if (!validator.isValid(value)) {
+                throw new ValidationException("Not a valid email address.");
+            }
         }
     }
 }
