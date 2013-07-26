@@ -86,7 +86,7 @@ public class Saml2ExchangeAuthFrameworkValidator extends AssertionSpecValidator 
      * @throws ValidationException the validation exception
      */
     protected void validateIssuer(Issuer issuer) throws ValidationException {
-        if (StringUtils.isBlank(issuer.getFormat())) {
+        if (issuer == null || StringUtils.isBlank(issuer.getFormat())) {
             throw new ValidationException("Issuer format cannot be blank.");
         }
 
