@@ -20,11 +20,11 @@ import java.util.List;
 import javax.xml.namespace.QName;
 
 import org.apache.ws.security.WSSecurityException;
+import org.apache.ws.security.components.crypto.Crypto;
+import org.apache.ws.security.handler.RequestData;
 import org.apache.ws.security.saml.SAMLKeyInfo;
 import org.apache.ws.security.saml.ext.AssertionWrapper;
 import org.apache.ws.security.validate.Credential;
-import org.apache.ws.security.components.crypto.Crypto;
-import org.apache.ws.security.handler.RequestData;
 import org.joda.time.DateTime;
 import org.junit.Test;
 import org.opensaml.common.SAMLVersion;
@@ -89,6 +89,7 @@ public class CONNECTSamlAssertionValidatorTest {
 
 		when(saml2Assertion.getElementQName()).thenReturn(assertionQName);
 		org.opensaml.saml2.core.Issuer issuer = mock(org.opensaml.saml2.core.Issuer.class);
+		when(issuer.getFormat()).thenReturn(NhincConstants.AUTH_FRWK_NAME_ID_FORMAT_X509);
 		when(saml2Assertion.getIssuer()).thenReturn(issuer);
 		when(saml2Assertion.getVersion()).thenReturn(SAMLVersion.VERSION_20);
 		when(saml2Assertion.getID()).thenReturn("Assertion_ID");

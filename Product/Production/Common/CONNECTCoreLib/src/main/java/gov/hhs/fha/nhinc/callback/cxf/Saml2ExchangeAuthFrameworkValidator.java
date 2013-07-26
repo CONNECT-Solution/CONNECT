@@ -28,7 +28,9 @@ package gov.hhs.fha.nhinc.callback.cxf;
 
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 
+import org.apache.commons.lang.StringUtils;
 import org.opensaml.saml2.core.Assertion;
+import org.opensaml.saml2.core.Issuer;
 import org.opensaml.saml2.core.NameID;
 import org.opensaml.saml2.core.Subject;
 import org.opensaml.saml2.core.validator.AssertionSpecValidator;
@@ -53,6 +55,19 @@ public class Saml2ExchangeAuthFrameworkValidator extends AssertionSpecValidator 
         super.validate(assertion);
 
         validateSubject(assertion.getSubject());
+        validateIssuer(assertion.getIssuer());
+    }
+
+    /**
+     * Validate issuer.
+     *
+     * @param issuer the issuer
+     * @throws ValidationException 
+     */
+    protected void validateIssuer(Issuer issuer) throws ValidationException {
+        if (StringUtils.isBlank(issuer.getFormat())) {
+            throw new ValidationException("Issuer format cannot be blank.");
+        }
     }
 
     /**
@@ -62,7 +77,7 @@ public class Saml2ExchangeAuthFrameworkValidator extends AssertionSpecValidator 
      * @return true if Subject is valid, false otherwise.
      * @throws ValidationException the validation exception
      */
-    private boolean validateSubject(Subject subject) throws ValidationException {
+    protected void validateSubject(Subject subject) throws ValidationException {
         NameID name = subject.getNameID();
         if (subject == null || name == null) {
             throw new ValidationException("Subject is empty or invalid.");
@@ -73,7 +88,5 @@ public class Saml2ExchangeAuthFrameworkValidator extends AssertionSpecValidator 
                 && !NhincConstants.AUTH_FRWK_NAME_ID_FORMAT_X509.equals(format)) {
             throw new ValidationException("Subject Name Id format must be x509 or Email.");
         }
-
-        return true;
     }
 }

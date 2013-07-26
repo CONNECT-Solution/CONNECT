@@ -32,6 +32,7 @@ import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 
 import org.junit.Test;
 import org.opensaml.saml2.core.Assertion;
+import org.opensaml.saml2.core.Issuer;
 import org.opensaml.saml2.core.NameID;
 import org.opensaml.saml2.core.Subject;
 import org.opensaml.xml.validation.ValidationException;
@@ -44,7 +45,7 @@ import org.opensaml.xml.validation.ValidationException;
 public class Saml2ExchangeAuthFrameworkValidatorTest {
 
     /**
-     * Test validate no name subject. This tests DIL test case 3.421.
+     * Test validate happy path.
      *
      * @throws ValidationException the validation exception
      */
@@ -55,16 +56,19 @@ public class Saml2ExchangeAuthFrameworkValidatorTest {
         Assertion assertion = mock(Assertion.class);
         Subject subject = mock(Subject.class);
         NameID name = mock(NameID.class);
+        Issuer issuer = mock(Issuer.class);
         
         when(assertion.getSubject()).thenReturn(subject);
         when(subject.getNameID()).thenReturn(name);
         when(name.getFormat()).thenReturn(NhincConstants.AUTH_FRWK_NAME_ID_FORMAT_X509);
+        when(assertion.getIssuer()).thenReturn(issuer);
+        when(issuer.getFormat()).thenReturn(NhincConstants.AUTH_FRWK_NAME_ID_FORMAT_X509);
         
         validator.validate(assertion);
     }
     
     /**
-     * Test validate no name subject. This tests DIL test case 3.421.
+     * Test validate a different happy path.
      *
      * @throws ValidationException the validation exception
      */
@@ -75,10 +79,13 @@ public class Saml2ExchangeAuthFrameworkValidatorTest {
         Assertion assertion = mock(Assertion.class);
         Subject subject = mock(Subject.class);
         NameID name = mock(NameID.class);
+        Issuer issuer = mock(Issuer.class);
         
         when(assertion.getSubject()).thenReturn(subject);
         when(subject.getNameID()).thenReturn(name);
         when(name.getFormat()).thenReturn(NhincConstants.AUTH_FRWK_NAME_ID_FORMAT_EMAIL_ADDRESS);
+        when(assertion.getIssuer()).thenReturn(issuer);
+        when(issuer.getFormat()).thenReturn(NhincConstants.AUTH_FRWK_NAME_ID_FORMAT_EMAIL_ADDRESS);
         
         validator.validate(assertion);
     }
@@ -116,6 +123,29 @@ public class Saml2ExchangeAuthFrameworkValidatorTest {
         when(assertion.getSubject()).thenReturn(subject);
         when(subject.getNameID()).thenReturn(name);
         when(name.getFormat()).thenReturn("wrong value");
+        
+        validator.validate(assertion);
+    }
+    
+    /**
+     * Test validate no name subject. This tests DIL test case 3.410.
+     *
+     * @throws ValidationException the validation exception
+     */
+    @Test(expected = ValidationException.class)
+    public void testValidateIssuerNoFormat() throws ValidationException {
+        Saml2ExchangeAuthFrameworkValidator validator = new Saml2ExchangeAuthFrameworkValidator();
+        
+        Assertion assertion = mock(Assertion.class);
+        Subject subject = mock(Subject.class);
+        NameID name = mock(NameID.class);
+        Issuer issuer = mock(Issuer.class);
+        
+        when(assertion.getSubject()).thenReturn(subject);
+        when(subject.getNameID()).thenReturn(name);
+        when(name.getFormat()).thenReturn(NhincConstants.AUTH_FRWK_NAME_ID_FORMAT_EMAIL_ADDRESS);
+        when(assertion.getIssuer()).thenReturn(issuer);
+        when(issuer.getFormat()).thenReturn(null);
         
         validator.validate(assertion);
     }
