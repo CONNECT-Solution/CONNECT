@@ -20,26 +20,24 @@ import java.util.List;
 import javax.xml.namespace.QName;
 
 import org.apache.ws.security.WSSecurityException;
+import org.apache.ws.security.components.crypto.Crypto;
+import org.apache.ws.security.handler.RequestData;
 import org.apache.ws.security.saml.SAMLKeyInfo;
 import org.apache.ws.security.saml.ext.AssertionWrapper;
 import org.apache.ws.security.validate.Credential;
-import org.apache.ws.security.components.crypto.Crypto;
-import org.apache.ws.security.handler.RequestData;
 import org.joda.time.DateTime;
 import org.junit.Test;
 import org.opensaml.common.SAMLVersion;
 import org.opensaml.saml1.core.Statement;
+import org.opensaml.saml2.core.NameID;
 import org.opensaml.saml2.core.Subject;
 import org.opensaml.xml.validation.Validator;
 import org.opensaml.xml.validation.ValidatorSuite;
 
-import com.sun.identity.saml.common.SAMLException;
-
 public class CONNECTSamlAssertionValidatorTest {
 
 	@Test
-	public void testValidateAssertionSaml1() throws WSSecurityException,
-			SAMLException {
+	public void testValidateAssertionSaml1() throws WSSecurityException {
 		org.opensaml.saml1.core.Assertion saml1Assertion = mock(org.opensaml.saml1.core.Assertion.class);
 		AssertionWrapper assertion = new AssertionWrapper(saml1Assertion);
 		QName assertionQName = new QName(
@@ -91,13 +89,19 @@ public class CONNECTSamlAssertionValidatorTest {
 
 		when(saml2Assertion.getElementQName()).thenReturn(assertionQName);
 		org.opensaml.saml2.core.Issuer issuer = mock(org.opensaml.saml2.core.Issuer.class);
+		when(issuer.getFormat()).thenReturn(NhincConstants.AUTH_FRWK_NAME_ID_FORMAT_X509);
 		when(saml2Assertion.getIssuer()).thenReturn(issuer);
+		when(issuer.getValue()).thenReturn(NhincConstants.SAML_DEFAULT_ISSUER_NAME);
 		when(saml2Assertion.getVersion()).thenReturn(SAMLVersion.VERSION_20);
 		when(saml2Assertion.getID()).thenReturn("Assertion_ID");
 		DateTime dateTime = new DateTime();
 		when(saml2Assertion.getIssueInstant()).thenReturn(dateTime);
 		Subject subject = mock(Subject.class);
 		when(saml2Assertion.getSubject()).thenReturn(subject);
+		NameID name = mock(NameID.class);
+		when(subject.getNameID()).thenReturn(name);
+		when(name.getFormat()).thenReturn(NhincConstants.AUTH_FRWK_NAME_ID_FORMAT_X509);
+		when(name.getValue()).thenReturn(NhincConstants.SAML_DEFAULT_ISSUER_NAME);
 
 		CONNECTSamlAssertionValidator validator = new CONNECTSamlAssertionValidator() {
 			@Override
@@ -108,7 +112,7 @@ public class CONNECTSamlAssertionValidatorTest {
 
 		validator.validateAssertion(assertion);
 
-		verify(saml2Assertion, times(2)).getOrderedChildren();
+		verify(saml2Assertion, times(3)).getOrderedChildren();
 	}
 
 	@Test(expected = WSSecurityException.class)
