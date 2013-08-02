@@ -67,5 +67,9 @@ public class Saml2AllowNoSubjectAssertionSpecValidator extends Saml2ExchangeAuth
         if (assertion.getAuthzDecisionStatements().size() > 0 && assertion.getSubject() == null) {
             throw new ValidationException("Assertions containing AuthzDecisionStatements require a Subject");
         }
+        
+        if (assertion.getSubject() != null) {
+            validateSubject(assertion.getSubject());
+        }
     }
 }
