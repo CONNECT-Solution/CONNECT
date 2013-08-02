@@ -15,6 +15,7 @@ import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 
 import java.security.PublicKey;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import javax.xml.namespace.QName;
@@ -105,8 +106,8 @@ public class CONNECTSamlAssertionValidatorTest {
 
 		CONNECTSamlAssertionValidator validator = new CONNECTSamlAssertionValidator() {
 			@Override
-			protected ValidatorSuite getSaml2SpecValidator() {
-				return getSaml2AssertionSpecValidator();
+			protected Collection<ValidatorSuite> getSaml2SpecValidators() {
+				return getSaml2DefaultAssertionSpecValidators();
 			}
 		};
 
@@ -128,8 +129,8 @@ public class CONNECTSamlAssertionValidatorTest {
 
 		CONNECTSamlAssertionValidator validator = new CONNECTSamlAssertionValidator() {
 			@Override
-			protected ValidatorSuite getSaml2SpecValidator() {
-				return getSaml2AssertionSpecValidator();
+			protected Collection<ValidatorSuite> getSaml2SpecValidators() {
+				return getSaml2DefaultAssertionSpecValidators();
 			}
 		};
 
@@ -156,7 +157,7 @@ public class CONNECTSamlAssertionValidatorTest {
 		CONNECTSamlAssertionValidator connectValidator = new CONNECTSamlAssertionValidator(
 				propAccessor) {
 			@Override
-			protected ValidatorSuite getSaml2AssertionSpecValidator() {
+			protected Collection<ValidatorSuite> getSaml2DefaultAssertionSpecValidators() {
 				return null;
 			}
 		};
@@ -166,11 +167,16 @@ public class CONNECTSamlAssertionValidatorTest {
 						NhincConstants.GATEWAY_PROPERTY_FILE,
 						"allowNoSubjectAssertion")).thenReturn(true, false);
 
-		ValidatorSuite validator = connectValidator.getSaml2SpecValidator();
-		assertEquals(validator.getId(),
-				"saml2-core-spec-validator-allow-no-subject-assertion");
-		validator = connectValidator.getSaml2SpecValidator();
-		assertNull(validator);
+		Collection<ValidatorSuite> validators = connectValidator.getSaml2SpecValidators();
+		ValidatorSuite validator = null;
+		for (ValidatorSuite v : validators) {
+		    if ("saml2-core-spec-validator-allow-no-subject-assertion".equals(v.getId())) {
+		        validator = v;
+		    }
+		}
+		assertNotNull(validator);
+		validators = connectValidator.getSaml2SpecValidators();
+		assertNull(validators);
 	}
 
 	@Test
