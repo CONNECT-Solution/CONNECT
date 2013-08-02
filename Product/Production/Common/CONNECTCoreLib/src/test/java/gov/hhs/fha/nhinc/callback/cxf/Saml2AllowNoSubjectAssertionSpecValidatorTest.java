@@ -1,5 +1,7 @@
 package gov.hhs.fha.nhinc.callback.cxf;
 
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,6 +10,7 @@ import org.opensaml.saml2.core.Assertion;
 import org.opensaml.saml2.core.AttributeStatement;
 import org.opensaml.saml2.core.AuthnStatement;
 import org.opensaml.saml2.core.AuthzDecisionStatement;
+import org.opensaml.saml2.core.Issuer;
 import org.opensaml.saml2.core.Statement;
 import org.opensaml.saml2.core.Subject;
 import org.opensaml.xml.validation.ValidationException;
@@ -37,6 +40,8 @@ public class Saml2AllowNoSubjectAssertionSpecValidatorTest {
 		List<AuthzDecisionStatement> authzDecisionStatementList = new ArrayList<AuthzDecisionStatement>();
 		authzDecisionStatementList.add(authzDecisionStatement);
 		Subject subject = mock(Subject.class);
+		Issuer issuer = mock(Issuer.class);
+		
 
 		when(assertion.getStatements()).thenReturn(statementList);
 		when(assertion.getAuthnStatements()).thenReturn(authnStatementList);
@@ -44,6 +49,9 @@ public class Saml2AllowNoSubjectAssertionSpecValidatorTest {
 		when(assertion.getAuthzDecisionStatements()).thenReturn(
 				authzDecisionStatementList);
 		when(assertion.getSubject()).thenReturn(subject);
+		when(assertion.getIssuer()).thenReturn(issuer);
+        when(issuer.getFormat()).thenReturn(NhincConstants.AUTH_FRWK_NAME_ID_FORMAT_X509);
+        when(issuer.getValue()).thenReturn(NhincConstants.SAML_DEFAULT_ISSUER_NAME);
 
 		validator.validate(assertion);
 

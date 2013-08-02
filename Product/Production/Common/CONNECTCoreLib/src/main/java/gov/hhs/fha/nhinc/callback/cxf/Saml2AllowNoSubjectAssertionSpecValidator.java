@@ -28,26 +28,28 @@
 package gov.hhs.fha.nhinc.callback.cxf;
 
 import org.opensaml.saml2.core.Assertion;
-import org.opensaml.saml2.core.validator.AssertionSpecValidator;
 import org.opensaml.xml.validation.ValidationException;
 
 /**
- * Checks {@link org.opensaml.saml2.core.Assertion} for Spec compliance.  This validator relaxes the rules by not
- * checking for the existence of Subject when the Assertion contains AttributeStatements.  This is required for
+ * Checks {@link org.opensaml.saml2.core.Assertion} for Spec compliance. This validator relaxes the rules by not
+ * checking for the existence of Subject when the Assertion contains AttributeStatements. This is required for
  * interoperability with previous CONNECT gateways.
  */
-public class Saml2AllowNoSubjectAssertionSpecValidator extends AssertionSpecValidator {
+public class Saml2AllowNoSubjectAssertionSpecValidator extends Saml2ExchangeAuthFrameworkValidator {
 
+    /**
+     * Instantiates a new saml2 allow no subject assertion spec validator.
+     */
     public Saml2AllowNoSubjectAssertionSpecValidator() {
-        super();       
+        super();
     }
-    
+
     /**
      * Checks that the Subject element is present when required, but does not check for the existence of Subject when
      * the Assertion contains AttributeStatements.
-     * 
-     * @param assertion
-     * @throws ValidationException
+     *
+     * @param assertion the assertion
+     * @throws ValidationException the validation exception
      */
     @Override
     protected void validateSubject(Assertion assertion) throws ValidationException {
