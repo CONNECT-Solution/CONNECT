@@ -1,0 +1,1158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<java version="1.6.0_13" class="java.beans.XMLDecoder">
+    <object class="gov.hhs.fha.nhinc.mpilib.Patients">
+	
+	<void method="add">
+            <object class="gov.hhs.fha.nhinc.mpilib.Patient">
+                <void property="addresses">
+                    <void method="add">
+                        <object class="gov.hhs.fha.nhinc.mpilib.Address">
+                            <void property="street1">
+                                <string>4000 Minor St</string>
+                            </void>
+                            <void property="street2">
+                                <string></string>
+                            </void>
+                            <void property="city">
+                                <string>Jacksonville</string>
+                            </void>
+                            <void property="state">
+                                <string>FL</string>
+                            </void>
+                            <void property="zip">
+                                <string>32099</string>
+                            </void>
+							<void property="country">
+                                <string>USA</string>
+                            </void>
+                        </object>
+                    </void>
+					<void method="add">
+                        <object class="gov.hhs.fha.nhinc.mpilib.Address">
+                            <void property="street1">
+                                <string></string>
+                            </void>
+                            <void property="street2">
+                                <string></string>
+                            </void>
+                            <void property="city">
+                                <string></string>
+                            </void>
+                            <void property="state">
+                                <string></string>
+                            </void>
+                            <void property="zip">
+                                <string></string>
+                            </void>
+							<void property="country">
+                                <string>USA</string>
+                            </void>
+                        </object>
+                    </void>
+                </void>
+				<void property="phoneNumbers">
+                    <void method="add">
+                        <object class="gov.hhs.fha.nhinc.mpilib.PhoneNumber">
+                            <void property="phoneNumber">
+                                <string>tel:+1-904-900-3444</string>
+                            </void>
+                        </object>
+                    </void>
+					<void method="add">
+                        <object class="gov.hhs.fha.nhinc.mpilib.PhoneNumber">
+                            <void property="phoneNumber">
+                                <string></string>
+                            </void>
+                        </object>
+                    </void>
+                </void>
+                <void property="dateOfBirth">
+                    <string>19700525</string>
+                </void>
+                <void property="gender">
+                    <string>F</string>
+                </void>
+				<void property="sSN">
+                    <string>666660005</string>
+                </void>
+                <void property="identifiers">
+                    <void method="add">
+                        <object class="gov.hhs.fha.nhinc.mpilib.Identifier">
+                            <void property="id">
+                                <string>alpha5</string>
+                            </void>
+                            <void property="organizationId">
+                                <string>209.251.180.228.0</string>
+                            </void>
+                        </object>
+                    </void>
+                </void>
+                <void property="names">
+                    <void method="add">
+                        <object class="gov.hhs.fha.nhinc.mpilib.PersonName">
+                            <void property="firstName">
+                                <string>Heather</string>
+                            </void>
+                            <void property="lastName">
+                                <string>Williams</string>
+                            </void>
+                            <void property="middleName">
+                                <string>L</string>
+                            </void>
+                            <void property="title">
+                                <string></string>
+                            </void>
+                        </object>
+                    </void>
+                </void>
+            </object>
+        </void>
+		
+		<void method="add">
+            <object class="gov.hhs.fha.nhinc.mpilib.Patient">
+                <void property="addresses">
+                    <void method="add">
+                        <object class="gov.hhs.fha.nhinc.mpilib.Address">
+                            <void property="street1">
+                                <string>555 Rainbow Ct</string>
+                            </void>
+                            <void property="street2">
+                                <string></string>
+                            </void>
+                            <void property="city">
+                                <string>Nashville</string>
+                            </void>
+                            <void property="state">
+                                <string>TN</string>
+                            </void>
+                            <void property="zip">
+                                <string>37201</string>
+                            </void>
+							<void property="country">
+                                <string>USA</string>
+                            </void>
+                        </object>
+                    </void>
+					<void method="add">
+                        <object class="gov.hhs.fha.nhinc.mpilib.Address">
+                            <void property="street1">
+                                <string></string>
+                            </void>
+                            <void property="street2">
+                                <string></string>
+                            </void>
+                            <void property="city">
+                                <string></string>
+                            </void>
+                            <void property="state">
+                                <string></string>
+                            </void>
+                            <void property="zip">
+                                <string></string>
+                            </void>
+							<void property="country">
+                                <string>USA</string>
+                            </void>
+                        </object>
+                    </void>
+                </void>
+				<void property="phoneNumbers">
+                    <void method="add">
+                        <object class="gov.hhs.fha.nhinc.mpilib.PhoneNumber">
+                            <void property="phoneNumber">
+                                <string>tel:+1-615-232-1212</string>
+                            </void>
+                        </object>
+                    </void>
+					<void method="add">
+                        <object class="gov.hhs.fha.nhinc.mpilib.PhoneNumber">
+                            <void property="phoneNumber">
+                                <string></string>
+                            </void>
+                        </object>
+                    </void>
+                </void>
+                <void property="dateOfBirth">
+                    <string>19590612</string>
+                </void>
+                <void property="gender">
+                    <string>M</string>
+                </void>
+                <void property="identifiers">
+                    <void method="add">
+                        <object class="gov.hhs.fha.nhinc.mpilib.Identifier">
+                            <void property="id">
+                                <string>alpha15</string>
+                            </void>
+                            <void property="organizationId">
+                                <string>209.251.180.228.0</string>
+                            </void>
+                        </object>
+                    </void>
+                </void>
+                <void property="names">
+                    <void method="add">
+                        <object class="gov.hhs.fha.nhinc.mpilib.PersonName">
+                            <void property="firstName">
+                                <string>Timothy</string>
+                            </void>
+                            <void property="lastName">
+                                <string>Oliver</string>
+                            </void>
+                            <void property="middleName">
+                                <string>Steven</string>
+                            </void>
+                            <void property="title">
+                                <string></string>
+                            </void>
+                        </object>
+                    </void>
+                </void>
+            </object>
+        </void>
+		
+		<void method="add">
+            <object class="gov.hhs.fha.nhinc.mpilib.Patient">
+                <void property="addresses">
+                    <void method="add">
+                        <object class="gov.hhs.fha.nhinc.mpilib.Address">
+                            <void property="street1">
+                                <string>4000 Minor St</string>
+                            </void>
+                            <void property="street2">
+                                <string></string>
+                            </void>
+                            <void property="city">
+                                <string>Sacramento</string>
+                            </void>
+                            <void property="state">
+                                <string>CA</string>
+                            </void>
+                            <void property="zip">
+                                <string>94203</string>
+                            </void>
+							<void property="country">
+                                <string>USA</string>
+                            </void>
+                        </object>
+                    </void>
+					<void method="add">
+                        <object class="gov.hhs.fha.nhinc.mpilib.Address">
+                            <void property="street1">
+                                <string></string>
+                            </void>
+                            <void property="street2">
+                                <string></string>
+                            </void>
+                            <void property="city">
+                                <string></string>
+                            </void>
+                            <void property="state">
+                                <string></string>
+                            </void>
+                            <void property="zip">
+                                <string></string>
+                            </void>
+							<void property="country">
+                                <string>USA</string>
+                            </void>
+                        </object>
+                    </void>
+                </void>
+				<void property="phoneNumbers">
+                    <void method="add">
+                        <object class="gov.hhs.fha.nhinc.mpilib.PhoneNumber">
+                            <void property="phoneNumber">
+                                <string>tel:+1-418-801-2121</string>
+                            </void>
+                        </object>
+                    </void>
+					<void method="add">
+                        <object class="gov.hhs.fha.nhinc.mpilib.PhoneNumber">
+                            <void property="phoneNumber">
+                                <string></string>
+                            </void>
+                        </object>
+                    </void>
+                </void>
+                <void property="dateOfBirth">
+                    <string>19570423</string>
+                </void>
+                <void property="gender">
+                    <string>M</string>
+                </void>
+                <void property="identifiers">
+                    <void method="add">
+                        <object class="gov.hhs.fha.nhinc.mpilib.Identifier">
+                            <void property="id">
+                                <string>alpha19</string>
+                            </void>
+                            <void property="organizationId">
+                                <string>209.251.180.228.0</string>
+                            </void>
+                        </object>
+                    </void>
+                </void>
+                <void property="names">
+                    <void method="add">
+                        <object class="gov.hhs.fha.nhinc.mpilib.PersonName">
+                            <void property="firstName">
+                                <string>John</string>
+                            </void>
+                            <void property="lastName">
+                                <string>Smith</string>
+                            </void>
+                            <void property="middleName">
+                                <string>P</string>
+                            </void>
+                            <void property="title">
+                                <string></string>
+                            </void>
+                        </object>
+                    </void>
+                </void>
+            </object>
+        </void>
+		
+				<void method="add">
+            <object class="gov.hhs.fha.nhinc.mpilib.Patient">
+                <void property="addresses">
+                    <void method="add">
+                        <object class="gov.hhs.fha.nhinc.mpilib.Address">
+                            <void property="street1">
+                                <string>59 Fort Drive</string>
+                            </void>
+                            <void property="street2">
+                                <string></string>
+                            </void>
+                            <void property="city">
+                                <string>Atlanta</string>
+                            </void>
+                            <void property="state">
+                                <string>GA</string>
+                            </void>
+                            <void property="zip">
+                                <string>30317</string>
+                            </void>
+							<void property="country">
+                                <string>USA</string>
+                            </void>
+                        </object>
+                    </void>
+                </void>
+                <void property="dateOfBirth">
+                    <string>19600323</string>
+                </void>
+                <void property="gender">
+                    <string>M</string>
+                </void>
+                <void property="sSN">
+                    <string>666-66-0023</string>
+                </void>
+                <void property="phoneNumbers">
+                    <void method="add">
+                        <object class="gov.hhs.fha.nhinc.mpilib.PhoneNumber">
+                            <void property="phoneNumber">
+                                <string>tel:+1-404-989-0333</string>
+                            </void>
+                        </object>
+                    </void>
+					 <void method="add">
+                        <object class="gov.hhs.fha.nhinc.mpilib.PhoneNumber">
+                            <void property="phoneNumber">
+                                <string>tel:+1-404-909-2223</string>
+                            </void>
+                        </object>
+                    </void>
+                </void>
+                <void property="identifiers">
+                    <void method="add">
+                        <object class="gov.hhs.fha.nhinc.mpilib.Identifier">
+                            <void property="id">
+                                <string>alpha23</string>
+                            </void>
+                            <void property="organizationId">
+                                <string>209.251.180.228.0</string>
+                            </void>
+                        </object>
+                    </void>
+                </void>
+                <void property="names">
+                    <void method="add">
+                        <object class="gov.hhs.fha.nhinc.mpilib.PersonName">
+                            <void property="firstName">
+                                <string>Peter</string>
+                            </void>
+                            <void property="lastName">
+                                <string>Barrows</string>
+                            </void>
+                            <void property="middleName">
+                                <string>Martin</string>
+                            </void>
+                            <void property="title">
+                                <string></string>
+                            </void>
+                        </object>
+                    </void>
+                </void>
+            </object>
+        </void>
+		
+				<void method="add">
+            <object class="gov.hhs.fha.nhinc.mpilib.Patient">
+                <void property="addresses">
+                    <void method="add">
+                        <object class="gov.hhs.fha.nhinc.mpilib.Address">
+                            <void property="street1">
+                                <string>450 Lake Drive</string>
+                            </void>
+                            <void property="street2">
+                                <string></string>
+                            </void>
+                            <void property="city">
+                                <string>Bakersfield</string>
+                            </void>
+                            <void property="state">
+                                <string>CA</string>
+                            </void>
+                            <void property="zip">
+                                <string>93301</string>
+                            </void>
+							<void property="country">
+                                <string>USA</string>
+                            </void>
+                        </object>
+                    </void>
+                </void>
+                <void property="dateOfBirth">
+                    <string>19730220</string>
+                </void>
+                <void property="gender">
+                    <string>M</string>
+                </void>
+                <void property="sSN">
+                    <string>666-66-0026</string>
+                </void>
+                <void property="phoneNumbers">
+                    <void method="add">
+                        <object class="gov.hhs.fha.nhinc.mpilib.PhoneNumber">
+                            <void property="phoneNumber">
+                                <string>tel:+1-661-989-0988</string>
+                            </void>
+                        </object>
+                    </void>
+					 <void method="add">
+                        <object class="gov.hhs.fha.nhinc.mpilib.PhoneNumber">
+                            <void property="phoneNumber">
+                                <string>tel:+1-661-989-0333</string>
+                            </void>
+                        </object>
+                    </void>
+                </void>
+                <void property="identifiers">
+                    <void method="add">
+                        <object class="gov.hhs.fha.nhinc.mpilib.Identifier">
+                            <void property="id">
+                                <string>alpha26</string>
+                            </void>
+                            <void property="organizationId">
+                                <string>209.251.180.228.0</string>
+                            </void>
+                        </object>
+                    </void>
+                </void>
+                <void property="names">
+                    <void method="add">
+                        <object class="gov.hhs.fha.nhinc.mpilib.PersonName">
+                            <void property="firstName">
+                                <string>William</string>
+                            </void>
+                            <void property="lastName">
+                                <string>Morgan</string>
+                            </void>
+                            <void property="middleName">
+                                <string></string>
+                            </void>
+                            <void property="title">
+                                <string></string>
+                            </void>
+                        </object>
+                    </void>
+                </void>
+            </object>
+        </void>
+		
+		<void method="add">
+            <object class="gov.hhs.fha.nhinc.mpilib.Patient">
+                <void property="addresses">
+                    <void method="add">
+                        <object class="gov.hhs.fha.nhinc.mpilib.Address">
+                            <void property="street1">
+                                <string>3489 Mountain Lane</string>
+                            </void>
+                            <void property="street2">
+                                <string></string>
+                            </void>
+                            <void property="city">
+                                <string>Ashburn</string>
+                            </void>
+                            <void property="state">
+                                <string>VA</string>
+                            </void>
+                            <void property="zip">
+                                <string>20147</string>
+                            </void>
+							<void property="country">
+                                <string>USA</string>
+                            </void>
+                        </object>
+                    </void>
+                </void>
+                <void property="dateOfBirth">
+                    <string>19831212</string>
+                </void>
+                <void property="gender">
+                    <string>F</string>
+                </void>
+                <void property="sSN">
+                    <string>666-66-0039</string>
+                </void>
+                <void property="phoneNumbers">
+                    <void method="add">
+                        <object class="gov.hhs.fha.nhinc.mpilib.PhoneNumber">
+                            <void property="phoneNumber">
+                                <string>tel:+1-703-231-9000</string>
+                            </void>
+                        </object>
+                    </void>
+					 <void method="add">
+                        <object class="gov.hhs.fha.nhinc.mpilib.PhoneNumber">
+                            <void property="phoneNumber">
+                                <string>tel:+1-703-231-4001</string>
+                            </void>
+                        </object>
+                    </void>
+                </void>
+                <void property="identifiers">
+                    <void method="add">
+                        <object class="gov.hhs.fha.nhinc.mpilib.Identifier">
+                            <void property="id">
+                                <string>alpha39</string>
+                            </void>
+                            <void property="organizationId">
+                                <string>209.251.180.228.0</string>
+                            </void>
+                        </object>
+                    </void>
+                </void>
+                <void property="names">
+                    <void method="add">
+                        <object class="gov.hhs.fha.nhinc.mpilib.PersonName">
+                            <void property="firstName">
+                                <string>Claudia</string>
+                            </void>
+                            <void property="lastName">
+                                <string>Genuardi</string>
+                            </void>
+                            <void property="middleName">
+                                <string></string>
+                            </void>
+                            <void property="title">
+                                <string></string>
+                            </void>
+                        </object>
+                    </void>
+                </void>
+            </object>
+        </void>
+		
+				<void method="add">
+            <object class="gov.hhs.fha.nhinc.mpilib.Patient">
+                <void property="addresses">
+                    <void method="add">
+                        <object class="gov.hhs.fha.nhinc.mpilib.Address">
+                            <void property="street1">
+                                <string>255 Flower Drive</string>
+                            </void>
+                            <void property="street2">
+                                <string></string>
+                            </void>
+                            <void property="city">
+                                <string>Buford</string>
+                            </void>
+                            <void property="state">
+                                <string>GA</string>
+                            </void>
+                            <void property="zip">
+                                <string>30518</string>
+                            </void>
+							<void property="country">
+                                <string>USA</string>
+                            </void>
+                        </object>
+                    </void>
+                </void>
+                <void property="dateOfBirth">
+                    <string>19140822</string>
+                </void>
+                <void property="gender">
+                    <string>M</string>
+                </void>
+                <void property="sSN">
+                    <string>666-66-0042</string>
+                </void>
+                <void property="phoneNumbers">
+                    <void method="add">
+                        <object class="gov.hhs.fha.nhinc.mpilib.PhoneNumber">
+                            <void property="phoneNumber">
+                                <string>tel:+1-987-200-2900</string>
+                            </void>
+                        </object>
+                    </void>
+					 <void method="add">
+                        <object class="gov.hhs.fha.nhinc.mpilib.PhoneNumber">
+                            <void property="phoneNumber">
+                                <string>tel:+1-987-398-3434</string>
+                            </void>
+                        </object>
+                    </void>
+                </void>
+                <void property="identifiers">
+                    <void method="add">
+                        <object class="gov.hhs.fha.nhinc.mpilib.Identifier">
+                            <void property="id">
+                                <string>alpha42</string>
+                            </void>
+                            <void property="organizationId">
+                                <string>209.251.180.228.0</string>
+                            </void>
+                        </object>
+                    </void>
+                </void>
+                <void property="names">
+                    <void method="add">
+                        <object class="gov.hhs.fha.nhinc.mpilib.PersonName">
+                            <void property="firstName">
+                                <string>Peter</string>
+                            </void>
+                            <void property="lastName">
+                                <string>Parker</string>
+                            </void>
+                            <void property="middleName">
+                                <string></string>
+                            </void>
+                            <void property="title">
+                                <string></string>
+                            </void>
+                        </object>
+                    </void>
+                </void>
+            </object>
+        </void>
+		
+				<void method="add">
+            <object class="gov.hhs.fha.nhinc.mpilib.Patient">
+                <void property="addresses">
+                    <void method="add">
+                        <object class="gov.hhs.fha.nhinc.mpilib.Address">
+                            <void property="street1">
+                                <string>901 Jug Street</string>
+                            </void>
+                            <void property="street2">
+                                <string></string>
+                            </void>
+                            <void property="city">
+                                <string>Kill Devil Hills</string>
+                            </void>
+                            <void property="state">
+                                <string>NC</string>
+                            </void>
+                            <void property="zip">
+                                <string>27948</string>
+                            </void>
+							<void property="country">
+                                <string>USA</string>
+                            </void>
+                        </object>
+                    </void>
+                </void>
+                <void property="dateOfBirth">
+                    <string>19910901</string>
+                </void>
+                <void property="gender">
+                    <string>M</string>
+                </void>
+                <void property="sSN">
+                    <string>666-66-0045</string>
+                </void>
+                <void property="phoneNumbers">
+                    <void method="add">
+                        <object class="gov.hhs.fha.nhinc.mpilib.PhoneNumber">
+                            <void property="phoneNumber">
+                                <string>tel:+1-252-881-0986</string>
+                            </void>
+                        </object>
+                    </void>
+					 <void method="add">
+                        <object class="gov.hhs.fha.nhinc.mpilib.PhoneNumber">
+                            <void property="phoneNumber">
+                                <string>tel:+1-252-881-0001</string>
+                            </void>
+                        </object>
+                    </void>
+                </void>
+                <void property="identifiers">
+                    <void method="add">
+                        <object class="gov.hhs.fha.nhinc.mpilib.Identifier">
+                            <void property="id">
+                                <string>alpha45</string>
+                            </void>
+                            <void property="organizationId">
+                                <string>209.251.180.228.0</string>
+                            </void>
+                        </object>
+                    </void>
+                </void>
+                <void property="names">
+                    <void method="add">
+                        <object class="gov.hhs.fha.nhinc.mpilib.PersonName">
+                            <void property="firstName">
+                                <string>Cesar</string>
+                            </void>
+                            <void property="lastName">
+                                <string>Ferro</string>
+                            </void>
+                            <void property="middleName">
+                                <string></string>
+                            </void>
+                            <void property="title">
+                                <string></string>
+                            </void>
+                        </object>
+                    </void>
+                </void>
+            </object>
+        </void>
+		
+				<void method="add">
+            <object class="gov.hhs.fha.nhinc.mpilib.Patient">
+                <void property="addresses">
+                    <void method="add">
+                        <object class="gov.hhs.fha.nhinc.mpilib.Address">
+                            <void property="street1">
+                                <string>4000 Minor St</string>
+                            </void>
+                            <void property="street2">
+                                <string></string>
+                            </void>
+                            <void property="city">
+                                <string>Phoenix</string>
+                            </void>
+                            <void property="state">
+                                <string>AZ</string>
+                            </void>
+                            <void property="zip">
+                                <string>85001</string>
+                            </void>
+							<void property="country">
+                                <string>USA</string>
+                            </void>
+                        </object>
+                    </void>
+                </void>
+                <void property="dateOfBirth">
+                    <string>19400807</string>
+                </void>
+                <void property="gender">
+                    <string>F</string>
+                </void>
+                <void property="sSN">
+                    <string></string>
+                </void>
+                <void property="phoneNumbers">
+                    <void method="add">
+                        <object class="gov.hhs.fha.nhinc.mpilib.PhoneNumber">
+                            <void property="phoneNumber">
+                                <string>tel:+1-408-454-9800</string>
+                            </void>
+                        </object>
+                    </void>
+					 <void method="add">
+                        <object class="gov.hhs.fha.nhinc.mpilib.PhoneNumber">
+                            <void property="phoneNumber">
+                                <string></string>
+                            </void>
+                        </object>
+                    </void>
+                </void>
+                <void property="identifiers">
+                    <void method="add">
+                        <object class="gov.hhs.fha.nhinc.mpilib.Identifier">
+                            <void property="id">
+                                <string>alpha8</string>
+                            </void>
+                            <void property="organizationId">
+                                <string>209.251.180.228.0</string>
+                            </void>
+                        </object>
+                    </void>
+                </void>
+                <void property="names">
+                    <void method="add">
+                        <object class="gov.hhs.fha.nhinc.mpilib.PersonName">
+                            <void property="firstName">
+                                <string>Jennifer</string>
+                            </void>
+                            <void property="lastName">
+                                <string>Fleming</string>
+                            </void>
+                            <void property="middleName">
+                                <string></string>
+                            </void>
+                            <void property="title">
+                                <string></string>
+                            </void>
+                        </object>
+                    </void>
+                </void>
+            </object>
+        </void>
+		
+				<void method="add">
+            <object class="gov.hhs.fha.nhinc.mpilib.Patient">
+                <void property="addresses">
+                    <void method="add">
+                        <object class="gov.hhs.fha.nhinc.mpilib.Address">
+                            <void property="street1">
+                                <string>4000 Minor St</string>
+                            </void>
+                            <void property="street2">
+                                <string></string>
+                            </void>
+                            <void property="city">
+                                <string>Denver</string>
+                            </void>
+                            <void property="state">
+                                <string>CO</string>
+                            </void>
+                            <void property="zip">
+                                <string>80221</string>
+                            </void>
+							<void property="country">
+                                <string>USA</string>
+                            </void>
+                        </object>
+                    </void>
+                </void>
+                <void property="dateOfBirth">
+                    <string>19301122</string>
+                </void>
+                <void property="gender">
+                    <string>F</string>
+                </void>
+                <void property="sSN">
+                    <string></string>
+                </void>
+                <void property="phoneNumbers">
+                    <void method="add">
+                        <object class="gov.hhs.fha.nhinc.mpilib.PhoneNumber">
+                            <void property="phoneNumber">
+                                <string>tel:+1-303-555-9876</string>
+                            </void>
+                        </object>
+                    </void>
+					 <void method="add">
+                        <object class="gov.hhs.fha.nhinc.mpilib.PhoneNumber">
+                            <void property="phoneNumber">
+                                <string></string>
+                            </void>
+                        </object>
+                    </void>
+                </void>
+                <void property="identifiers">
+                    <void method="add">
+                        <object class="gov.hhs.fha.nhinc.mpilib.Identifier">
+                            <void property="id">
+                                <string>alpha11</string>
+                            </void>
+                            <void property="organizationId">
+                                <string>209.251.180.228.0</string>
+                            </void>
+                        </object>
+                    </void>
+                </void>
+                <void property="names">
+                    <void method="add">
+                        <object class="gov.hhs.fha.nhinc.mpilib.PersonName">
+                            <void property="firstName">
+                                <string>Linda</string>
+                            </void>
+                            <void property="lastName">
+                                <string>Nelson</string>
+                            </void>
+                            <void property="middleName">
+                                <string></string>
+                            </void>
+                            <void property="title">
+                                <string></string>
+                            </void>
+                        </object>
+                    </void>
+                </void>
+            </object>
+        </void>
+		
+		<void method="add">
+            <object class="gov.hhs.fha.nhinc.mpilib.Patient">
+                <void property="addresses">
+                    <void method="add">
+                        <object class="gov.hhs.fha.nhinc.mpilib.Address">
+                            <void property="street1">
+                                <string>3489 Mountain Lane</string>
+                            </void>
+                            <void property="street2">
+                                <string></string>
+                            </void>
+                            <void property="city">
+                                <string>Ashburn</string>
+                            </void>
+                            <void property="state">
+                                <string>VA</string>
+                            </void>
+                            <void property="zip">
+                                <string>20147</string>
+                            </void>
+							<void property="country">
+                                <string>USA</string>
+                            </void>
+                        </object>
+                    </void>
+                </void>
+                <void property="dateOfBirth">
+                    <string>19750702</string>
+                </void>
+                <void property="gender">
+                    <string>F</string>
+                </void>
+                <void property="sSN">
+                    <string>666-66-0031</string>
+                </void>
+                <void property="phoneNumbers">
+                    <void method="add">
+                        <object class="gov.hhs.fha.nhinc.mpilib.PhoneNumber">
+                            <void property="phoneNumber">
+                                <string>tel:+1-703-231-9000</string>
+                            </void>
+                        </object>
+                    </void>
+					 <void method="add">
+                        <object class="gov.hhs.fha.nhinc.mpilib.PhoneNumber">
+                            <void property="phoneNumber">
+                                <string>tel:+1-703-231-4001</string>
+                            </void>
+                        </object>
+                    </void>
+                </void>
+                <void property="identifiers">
+                    <void method="add">
+                        <object class="gov.hhs.fha.nhinc.mpilib.Identifier">
+                            <void property="id">
+                                <string>alpha31</string>
+                            </void>
+                            <void property="organizationId">
+                                <string>209.251.180.228.0</string>
+                            </void>
+                        </object>
+                    </void>
+                </void>
+                <void property="names">
+                    <void method="add">
+                        <object class="gov.hhs.fha.nhinc.mpilib.PersonName">
+                            <void property="firstName">
+                                <string>Ellen</string>
+                            </void>
+                            <void property="lastName">
+                                <string>Reagan</string>
+                            </void>
+                            <void property="middleName">
+                                <string></string>
+                            </void>
+                            <void property="title">
+                                <string></string>
+                            </void>
+                        </object>
+                    </void>
+                </void>
+            </object>
+        </void>
+		
+		<void method="add">
+            <object class="gov.hhs.fha.nhinc.mpilib.Patient">
+                <void property="addresses">
+                    <void method="add">
+                        <object class="gov.hhs.fha.nhinc.mpilib.Address">
+                            <void property="street1">
+                                <string>290 Jackson Lane</string>
+                            </void>
+                            <void property="street2">
+                                <string></string>
+                            </void>
+                            <void property="city">
+                                <string>Boulder</string>
+                            </void>
+                            <void property="state">
+                                <string>CO</string>
+                            </void>
+                            <void property="zip">
+                                <string>80301</string>
+                            </void>
+							<void property="country">
+                                <string>USA</string>
+                            </void>
+                        </object>
+                    </void>
+                </void>
+                <void property="dateOfBirth">
+                    <string>19600210</string>
+                </void>
+                <void property="gender">
+                    <string>M</string>
+                </void>
+                <void property="sSN">
+                    <string></string>
+                </void>
+                <void property="phoneNumbers">
+                    <void method="add">
+                        <object class="gov.hhs.fha.nhinc.mpilib.PhoneNumber">
+                            <void property="phoneNumber">
+                                <string>tel:+1-303-454-0909</string>
+                            </void>
+                        </object>
+                    </void>
+					 <void method="add">
+                        <object class="gov.hhs.fha.nhinc.mpilib.PhoneNumber">
+                            <void property="phoneNumber">
+                                <string></string>
+                            </void>
+                        </object>
+                    </void>
+                </void>
+                <void property="identifiers">
+                    <void method="add">
+                        <object class="gov.hhs.fha.nhinc.mpilib.Identifier">
+                            <void property="id">
+                                <string>alpha2</string>
+                            </void>
+                            <void property="organizationId">
+                                <string>209.251.180.228.0</string>
+                            </void>
+                        </object>
+                    </void>
+                </void>
+                <void property="names">
+                    <void method="add">
+                        <object class="gov.hhs.fha.nhinc.mpilib.PersonName">
+                            <void property="firstName">
+                                <string>Robert</string>
+                            </void>
+                            <void property="lastName">
+                                <string>Carson</string>
+                            </void>
+                            <void property="middleName">
+                                <string>M</string>
+                            </void>
+                            <void property="title">
+                                <string></string>
+                            </void>
+                        </object>
+                    </void>
+                </void>
+            </object>
+        </void>
+		
+		<void method="add">
+            <object class="gov.hhs.fha.nhinc.mpilib.Patient">
+                <void property="addresses">
+                    <void method="add">
+                        <object class="gov.hhs.fha.nhinc.mpilib.Address">
+                            <void property="street1">
+                                <string>809 First Ave</string>
+                            </void>
+                            <void property="street2">
+                                <string></string>
+                            </void>
+                            <void property="city">
+                                <string>Springfield</string>
+                            </void>
+                            <void property="state">
+                                <string>MO</string>
+                            </void>
+                            <void property="zip">
+                                <string>65801</string>
+                            </void>
+							<void property="country">
+                                <string>USA</string>
+                            </void>
+                        </object>
+                    </void>
+                </void>
+                <void property="dateOfBirth">
+                    <string>19831017</string>
+                </void>
+                <void property="gender">
+                    <string>F</string>
+                </void>
+                <void property="sSN">
+                    <string></string>
+                </void>
+                <void property="phoneNumbers">
+                    <void method="add">
+                        <object class="gov.hhs.fha.nhinc.mpilib.PhoneNumber">
+                            <void property="phoneNumber">
+                                <string>tel:+1-987-200-2900</string>
+                            </void>
+                        </object>
+                    </void>
+					 <void method="add">
+                        <object class="gov.hhs.fha.nhinc.mpilib.PhoneNumber">
+                            <void property="phoneNumber">
+                                <string></string>
+                            </void>
+                        </object>
+                    </void>
+                </void>
+                <void property="identifiers">
+                    <void method="add">
+                        <object class="gov.hhs.fha.nhinc.mpilib.Identifier">
+                            <void property="id">
+                                <string>alpha10</string>
+                            </void>
+                            <void property="organizationId">
+                                <string>209.251.180.228.0</string>
+                            </void>
+                        </object>
+                    </void>
+                </void>
+                <void property="names">
+                    <void method="add">
+                        <object class="gov.hhs.fha.nhinc.mpilib.PersonName">
+                            <void property="firstName">
+                                <string>Amy</string>
+                            </void>
+                            <void property="lastName">
+                                <string>Davidson</string>
+                            </void>
+                            <void property="middleName">
+                                <string>C</string>
+                            </void>
+                            <void property="title">
+                                <string></string>
+                            </void>
+                        </object>
+                    </void>
+                </void>
+            </object>
+        </void>
+
+    </object>
+</java>
