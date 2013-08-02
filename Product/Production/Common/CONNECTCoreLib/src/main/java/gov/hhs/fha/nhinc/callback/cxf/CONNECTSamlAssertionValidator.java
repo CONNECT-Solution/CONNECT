@@ -31,6 +31,9 @@ import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 
 import java.security.PublicKey;
 import java.security.cert.X509Certificate;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -49,7 +52,7 @@ import org.opensaml.xml.validation.ValidatorSuite;
 
 /**
  * The Class CONNECTSamlAssertionValidator.
- *
+ * 
  * {@inheritDoc}
  * 
  * In addition, this class can be configured to allow Assertions with No Subjects. This is required for interoperability
@@ -62,10 +65,10 @@ public class CONNECTSamlAssertionValidator extends SamlAssertionValidator {
 
     /** The Constant ALLOW_NO_SUBJECT_ASSERTION_PROP. */
     private static final String ALLOW_NO_SUBJECT_ASSERTION_PROP = "allowNoSubjectAssertion";
-    
+
     /** The Constant ALLOW_NO_SUBJECT_ASSERTION_ID. */
     private static final String ALLOW_NO_SUBJECT_ASSERTION_ID = "saml2-core-spec-validator-allow-no-subject-assertion";
-    
+
     /** The Constant EXCHANGE_AUTH_FRWK_VALIDATOR_SUITE. */
     private static final String EXCHANGE_AUTH_FRWK_VALIDATOR_SUITE = "exchange-authorization-framework-validator-suite";
 
@@ -81,7 +84,7 @@ public class CONNECTSamlAssertionValidator extends SamlAssertionValidator {
 
     /**
      * Instantiates a new cONNECT saml assertion validator.
-     *
+     * 
      * @param propertyAccessor the property accessor
      */
     public CONNECTSamlAssertionValidator(PropertyAccessor propertyAccessor) {
@@ -90,7 +93,7 @@ public class CONNECTSamlAssertionValidator extends SamlAssertionValidator {
 
     /**
      * Validate the assertion against schemas/profiles.
-     *
+     * 
      * @param assertion the assertion
      * @throws WSSecurityException the wS security exception
      */
@@ -109,8 +112,7 @@ public class CONNECTSamlAssertionValidator extends SamlAssertionValidator {
         } else if (assertion.getSaml2() != null) {
             List<ValidatorSuite> validators = new LinkedList<ValidatorSuite>();
             validators.add(org.opensaml.Configuration.getValidatorSuite("saml2-core-schema-validator"));
-            validators.add(getSaml2SpecValidator());
-            validators.add(getExchangeAuthFrameworkValidatorSuite());
+            validators.addAll(getSaml2SpecValidators());
 
             try {
                 for (ValidatorSuite v : validators) {
@@ -125,7 +127,7 @@ public class CONNECTSamlAssertionValidator extends SamlAssertionValidator {
 
     /**
      * Gets the exchange auth framework validator suite.
-     *
+     * 
      * @return the exchange auth framework validator suite
      */
     protected ValidatorSuite getExchangeAuthFrameworkValidatorSuite() {
@@ -142,19 +144,19 @@ public class CONNECTSamlAssertionValidator extends SamlAssertionValidator {
     }
 
     /**
-     * Gets the saml2 spec validator.
-     *
-     * @return the saml2 spec validator
+     * Gets the saml2 spec validators.
+     * 
+     * @return the saml2 spec validators
      */
-    protected ValidatorSuite getSaml2SpecValidator() {
+    protected Collection<ValidatorSuite> getSaml2SpecValidators() {
         try {
             Boolean allowNoSubjectAssertion = propertyAccessor.getPropertyBoolean(NhincConstants.GATEWAY_PROPERTY_FILE,
                     ALLOW_NO_SUBJECT_ASSERTION_PROP);
 
             if (allowNoSubjectAssertion) {
-                return getSaml2AllowNoSubjectAssertionSpecValidator();
+                return getSaml2AllowNoSubjectAssertionSpecValidators();
             } else {
-                return getSaml2AssertionSpecValidator();
+                return getSaml2DefaultAssertionSpecValidators();
             }
 
         } catch (Exception e) {
@@ -164,8 +166,17 @@ public class CONNECTSamlAssertionValidator extends SamlAssertionValidator {
     }
 
     /**
-     * Gets the saml2 allow no subject assertion spec validator.
+     * Gets the saml2 allow no subject assertion spec validators.
      *
+     * @return the saml2 allow no subject assertion spec validators
+     */
+    protected Collection<ValidatorSuite> getSaml2AllowNoSubjectAssertionSpecValidators() {
+        return Collections.singleton(getSaml2AllowNoSubjectAssertionSpecValidator());
+    }
+
+    /**
+     * Gets the saml2 allow no subject assertion spec validator.
+     * 
      * @return the saml2 allow no subject assertion spec validator
      */
     protected ValidatorSuite getSaml2AllowNoSubjectAssertionSpecValidator() {
@@ -183,11 +194,15 @@ public class CONNECTSamlAssertionValidator extends SamlAssertionValidator {
 
     /**
      * Gets the saml2 assertion spec validator.
-     *
+     * 
      * @return the saml2 assertion spec validator
      */
-    protected ValidatorSuite getSaml2AssertionSpecValidator() {
-        return org.opensaml.Configuration.getValidatorSuite("saml2-core-spec-validator");
+    protected Collection<ValidatorSuite> getSaml2DefaultAssertionSpecValidators() {
+        Collection<ValidatorSuite> suites = new HashSet<ValidatorSuite>();
+        suites.add(org.opensaml.Configuration
+                .getValidatorSuite("saml2-core-spec-validator"));
+        suites.add(getExchangeAuthFrameworkValidatorSuite());
+        return suites;
     }
 
     /*
@@ -234,7 +249,7 @@ public class CONNECTSamlAssertionValidator extends SamlAssertionValidator {
 
     /**
      * Check signed assertion.
-     *
+     * 
      * @param assertion the assertion
      * @param data the data
      * @throws WSSecurityException the wS security exception
