@@ -11,6 +11,7 @@ import org.opensaml.saml2.core.AttributeStatement;
 import org.opensaml.saml2.core.AuthnStatement;
 import org.opensaml.saml2.core.AuthzDecisionStatement;
 import org.opensaml.saml2.core.Issuer;
+import org.opensaml.saml2.core.NameID;
 import org.opensaml.saml2.core.Statement;
 import org.opensaml.saml2.core.Subject;
 import org.opensaml.xml.validation.ValidationException;
@@ -41,6 +42,7 @@ public class Saml2AllowNoSubjectAssertionSpecValidatorTest {
 		authzDecisionStatementList.add(authzDecisionStatement);
 		Subject subject = mock(Subject.class);
 		Issuer issuer = mock(Issuer.class);
+		NameID name = mock(NameID.class);
 		
 
 		when(assertion.getStatements()).thenReturn(statementList);
@@ -49,6 +51,9 @@ public class Saml2AllowNoSubjectAssertionSpecValidatorTest {
 		when(assertion.getAuthzDecisionStatements()).thenReturn(
 				authzDecisionStatementList);
 		when(assertion.getSubject()).thenReturn(subject);
+		when(subject.getNameID()).thenReturn(name);
+        when(name.getFormat()).thenReturn(NhincConstants.AUTH_FRWK_NAME_ID_FORMAT_X509);
+        when(name.getValue()).thenReturn(NhincConstants.SAML_DEFAULT_ISSUER_NAME);
 		when(assertion.getIssuer()).thenReturn(issuer);
         when(issuer.getFormat()).thenReturn(NhincConstants.AUTH_FRWK_NAME_ID_FORMAT_X509);
         when(issuer.getValue()).thenReturn(NhincConstants.SAML_DEFAULT_ISSUER_NAME);
