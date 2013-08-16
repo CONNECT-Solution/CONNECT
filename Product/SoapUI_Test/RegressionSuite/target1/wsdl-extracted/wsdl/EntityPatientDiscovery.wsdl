@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions xmlns:tns="urn:gov:hhs:fha:nhinc:entitypatientdiscovery" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:hl7="urn:hl7-org:v3" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd"
+xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl"
+name="EntityPatientDiscovery" targetNamespace="urn:gov:hhs:fha:nhinc:entitypatientdiscovery">
+	<wsdl:documentation>
+     WSDL for Entity interface of Patient Discovery
+    </wsdl:documentation>
+	<wsdl:types>
+		<xsd:schema elementFormDefault="qualified" targetNamespace="urn:hl7-org:v3" xmlns:hl7="urn:hl7-org:v3">
+			<!-- Include the message schema -->
+			<xsd:include schemaLocation="classpath:schemas/nhinc/hl7/RespondingGateway_PRPA_IN201305UV02Request.xsd"/>
+			<xsd:include schemaLocation="classpath:schemas/nhinc/hl7/RespondingGateway_PRPA_IN201306UV02Response.xsd"/>
+		</xsd:schema>
+	</wsdl:types>
+	<wsdl:message name="RespondingGateway_PRPA_IN201305UV02RequestMessage">
+		<wsdl:part name="RespondingGateway_PRPA_IN201305UV02Request" element="hl7:RespondingGateway_PRPA_IN201305UV02Request"/>
+	</wsdl:message>
+	<wsdl:message name="RespondingGateway_PRPA_IN201306UV02ResponseMessage">
+		<wsdl:part name="RespondingGateway_PRPA_IN201306UV02Response" element="hl7:RespondingGateway_PRPA_IN201306UV02Response"/>
+	</wsdl:message>
+	<wsdl:portType name="EntityPatientDiscoveryPortType">
+		<wsdl:operation name="RespondingGateway_PRPA_IN201305UV02">
+			<wsdl:input name="RespondingGateway_PRPA_IN201305UV02Request" message="tns:RespondingGateway_PRPA_IN201305UV02RequestMessage"
+                        wsaw:Action="urn:gov:hhs:fha:nhinc:entitypatientdiscovery:RespondingGateway_PRPA_IN201305UV02RequestMessage"/>
+			<wsdl:output name="RespondingGateway_PRPA_IN201306UV02Response" message="tns:RespondingGateway_PRPA_IN201306UV02ResponseMessage"
+                            wsaw:Action="urn:gov:hhs:fha:nhinc:entitypatientdiscovery:RespondingGateway_PRPA_IN201306UV02ResponseMessage"/>
+		</wsdl:operation>
+	</wsdl:portType>
+	<wsdl:binding name="EntityPatientDiscoveryBindingSoap" type="tns:EntityPatientDiscoveryPortType">
+		<soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+		<wsp:PolicyReference URI="#Entity_PatientDiscovery_SoapPolicy"/>
+		<wsdl:operation name="RespondingGateway_PRPA_IN201305UV02">
+			<soap:operation soapAction="urn:gov:hhs:fha:nhinc:entitypatientdiscovery:RespondingGateway_PRPA_IN201305UV02RequestMessage"/>
+			<wsdl:input name="RespondingGateway_PRPA_IN201305UV02Request">
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output name="RespondingGateway_PRPA_IN201306UV02Response">
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>
+	<wsdl:service name="EntityPatientDiscovery">
+		<wsdl:port name="EntityPatientDiscoveryPortSoap" binding="tns:EntityPatientDiscoveryBindingSoap">
+			<soap:address location="http://localhost:${HttpDefaultPort}/Gateway/PatientDiscovery/1_0/EntityPatientDiscovery"/>
+		</wsdl:port>
+	</wsdl:service>
+	<wsp:Policy wsu:Id="Entity_PatientDiscovery_SoapPolicy">
+	        <wsp:ExactlyOne>
+	            <wsp:All>
+                    </wsp:All>
+                </wsp:ExactlyOne>
+        </wsp:Policy>        
+</wsdl:definitions>

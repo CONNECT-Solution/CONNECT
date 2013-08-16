@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            targetNamespace="urn:gov:hhs:fha:nhinc:common:hiemauditlog"
+            xmlns:tns="urn:gov:hhs:fha:nhinc:common:hiemauditlog"
+            elementFormDefault="qualified"
+            xmlns:hiemauditlog="urn:gov:hhs:fha:nhinc:common:hiemauditlog"
+            xmlns:auditlog="urn:gov:hhs:fha:nhinc:common:auditlog"
+            xmlns:nccommon="urn:gov:hhs:fha:nhinc:common:nhinccommon"
+            xmlns:wsnt="http://docs.oasis-open.org/wsn/b-2" 
+            xmlns:nccommonorch="urn:gov:hhs:fha:nhinc:common:nhinccommoninternalorch" 
+            xmlns:ns3="urn:gov:hhs:fha:nhinc:common:subscriptionb2overridefordocuments" 
+            xmlns:ns1="urn:gov:hhs:fha:nhinc:common:subscriptionb2overrideforcdc">
+    <xsd:import namespace="urn:gov:hhs:fha:nhinc:common:nhinccommon" 
+                schemaLocation="../common/NhincCommon.xsd"/>
+    <xsd:import schemaLocation="../common/NhincCommonInternalOrch.xsd" 
+                namespace="urn:gov:hhs:fha:nhinc:common:nhinccommoninternalorch"/>
+    <xsd:import schemaLocation="../../docs.oasis-open.org/wsn/b-2.xsd" 
+                namespace="http://docs.oasis-open.org/wsn/b-2"/>
+    <xsd:import schemaLocation="../common/SubscriptionB2OverrideForDocuments.xsd" 
+                namespace="urn:gov:hhs:fha:nhinc:common:subscriptionb2overridefordocuments"/>
+    <xsd:import schemaLocation="../common/SubscriptionB2OverrideForCdc.xsd" 
+                namespace="urn:gov:hhs:fha:nhinc:common:subscriptionb2overrideforcdc"/>
+    <xsd:import schemaLocation="../common/AuditLog.xsd" 
+                namespace="urn:gov:hhs:fha:nhinc:common:auditlog"/>
+    <xsd:complexType name="LogNhinSubscribeRequestType">
+        <xsd:sequence>
+            <xsd:element name="message" type="nccommonorch:SubscribeRequestType">
+            </xsd:element>
+            <xsd:element ref="auditlog:direction"/>
+            <xsd:element ref="auditlog:interface"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="LogNhinSubscribeRequest" type="hiemauditlog:LogNhinSubscribeRequestType"/>
+    <xsd:complexType name="LogSubscribeResponseType">
+        <xsd:sequence>
+            <xsd:element name="message" type="hiemauditlog:SubscribeResponseMessageType">
+            </xsd:element>
+            <xsd:element ref="auditlog:direction"/>
+            <xsd:element ref="auditlog:interface"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="LogSubscribeResponse" type="hiemauditlog:LogSubscribeResponseType"/>
+    <xsd:complexType name="SubscribeResponseMessageType">
+        <xsd:sequence>
+            <xsd:element ref="wsnt:SubscribeResponse"/>
+            <xsd:element name="assertion" type="nccommon:AssertionType">
+            </xsd:element>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="LogNhinNotifyRequestType">
+        <xsd:sequence>
+            <xsd:element name="message" type="nccommonorch:NotifyRequestType">
+            </xsd:element>
+            <xsd:element ref="auditlog:direction"/>
+            <xsd:element ref="auditlog:interface"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="LogNhinNotifyRequest" type="hiemauditlog:LogNhinNotifyRequestType"/>
+    <xsd:complexType name="LogNhinUnsubscribeRequestType">
+        <xsd:sequence>
+            <xsd:element name="message" type="nccommonorch:UnsubscribeRequestType">
+            </xsd:element>
+            <xsd:element ref="auditlog:direction"/>
+            <xsd:element ref="auditlog:interface"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="LogNhinUnsubscribeRequest" type="hiemauditlog:LogNhinUnsubscribeRequestType"/>
+    <xsd:complexType name="UnsubscribeResponseMessageType">
+        <xsd:sequence>
+            <xsd:element ref="wsnt:UnsubscribeResponse"/>
+            <xsd:element name="assertion" type="nccommon:AssertionType">
+            </xsd:element>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="LogUnsubscribeResponseType">
+        <xsd:sequence>
+            <xsd:element name="message" type="hiemauditlog:UnsubscribeResponseMessageType">
+            </xsd:element>
+            <xsd:element ref="auditlog:direction"/>
+            <xsd:element ref="auditlog:interface"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="LogUnsubscribeResponse" type="hiemauditlog:LogUnsubscribeResponseType"/>
+    <xsd:complexType name="EntityDocumentSubscribeRequestMessageType">
+        <xsd:sequence>
+            <xsd:element name="subscribe" type="ns3:SubscribeDocumentType">
+            </xsd:element>
+            <xsd:element name="assertion" type="nccommon:AssertionType">
+            </xsd:element>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="EntityCdcSubscribeRequestMessageType">
+        <xsd:sequence>
+            <xsd:element name="subscribe" type="ns1:SubscribeCdcBioPackageType">
+            </xsd:element>
+            <xsd:element name="assertion" type="nccommon:AssertionType">
+            </xsd:element>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="EntityUnsubscribeRequestMessageType">
+        <xsd:sequence>
+            <xsd:element ref="wsnt:Unsubscribe"/>
+            <xsd:element name="assertion" type="nccommon:AssertionType">
+            </xsd:element>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="EntityDocumentNotifyRequestMessageType">
+        <xsd:sequence>
+            <xsd:element name="notify" type="ns3:NotifyDocumentType">
+            </xsd:element>
+            <xsd:element name="assertion" type="nccommon:AssertionType">
+            </xsd:element>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="EntityCdcNotifyRequestMessageType">
+        <xsd:sequence>
+            <xsd:element name="notify" type="ns1:NotifyCdcBioPackageType">
+            </xsd:element>
+            <xsd:element name="assertion" type="nccommon:AssertionType">
+            </xsd:element>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="EntityNotifyResponseMessageType">
+        <xsd:sequence>
+            <xsd:element name="ack" type="nccommon:AcknowledgementType">
+            </xsd:element>
+            <xsd:element name="assertion" type="nccommon:AssertionType">
+            </xsd:element>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="LogEntityDocumentSubscribeRequestType">
+        <xsd:sequence>
+            <xsd:element name="message" type="hiemauditlog:EntityDocumentSubscribeRequestMessageType">
+            </xsd:element>
+            <xsd:element ref="auditlog:direction"/>
+            <xsd:element ref="auditlog:interface"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="LogEntityDocumentSubscribeRequest" type="hiemauditlog:LogEntityDocumentSubscribeRequestType"/>
+    <xsd:complexType name="LogEntityCdcSubscribeRequestType">
+        <xsd:sequence>
+            <xsd:element name="message" type="hiemauditlog:EntityCdcSubscribeRequestMessageType">
+            </xsd:element>
+            <xsd:element ref="auditlog:direction"/>
+            <xsd:element ref="auditlog:interface"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="LogEntityCdcSubscribeRequest" type="hiemauditlog:LogEntityCdcSubscribeRequestType"/>
+    <xsd:complexType name="LogEntityDocumentNotifyRequestType">
+        <xsd:sequence>
+            <xsd:element name="message" type="hiemauditlog:EntityDocumentNotifyRequestMessageType">
+            </xsd:element>
+            <xsd:element ref="auditlog:direction"/>
+            <xsd:element ref="auditlog:interface"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="LogEntityDocumentNotifyRequest" type="hiemauditlog:LogEntityDocumentNotifyRequestType"/>
+    <xsd:complexType name="LogEntityCdcNotifyRequestType">
+        <xsd:sequence>
+            <xsd:element name="message" type="hiemauditlog:EntityCdcNotifyRequestMessageType">
+            </xsd:element>
+            <xsd:element ref="auditlog:direction"/>
+            <xsd:element ref="auditlog:interface"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="LogEntityCdcNotifyRequest" type="hiemauditlog:LogEntityCdcNotifyRequestType"/>
+    <xsd:complexType name="LogEntityUnsubscribeRequestType">
+        <xsd:sequence>
+            <xsd:element name="message" type="hiemauditlog:EntityUnsubscribeRequestMessageType">
+            </xsd:element>
+            <xsd:element ref="auditlog:direction"/>
+            <xsd:element ref="auditlog:interface"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="LogEntityUnsubscribeRequest" type="hiemauditlog:LogEntityUnsubscribeRequestType"/>
+    <xsd:complexType name="LogEntityNotifyResponseType">
+        <xsd:sequence>
+            <xsd:element name="message" type="hiemauditlog:EntityNotifyResponseMessageType">
+            </xsd:element>
+            <xsd:element ref="auditlog:direction"/>
+            <xsd:element ref="auditlog:interface"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:element name="LogEntityNotifyResponse" type="hiemauditlog:LogEntityNotifyResponseType"/>
+</xsd:schema>

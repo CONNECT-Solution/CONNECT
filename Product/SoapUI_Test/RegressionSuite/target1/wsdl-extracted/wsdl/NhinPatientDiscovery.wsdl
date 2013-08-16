@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions xmlns:tns="urn:ihe:iti:xcpd:2009"
+    xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap12/"
+    xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+    xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:hl7="urn:hl7-org:v3"
+    xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy"
+    xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd"
+    xmlns:wsaws="http://www.w3.org/2005/08/addressing"
+    xmlns:sp="http://docs.oasis-open.org/ws-sx/ws-securitypolicy/200702"
+    xmlns:sc="http://schemas.sun.com/2006/03/wss/server"
+    xmlns:wspp="http://java.sun.com/xml/ns/wsit/policy"
+    xmlns:nhin="http://www.hhs.gov/healthit/nhin"
+    name="XCPDRespondingGateway" targetNamespace="urn:ihe:iti:xcpd:2009">
+    <wsdl:documentation>
+     Example WSDL for XCPD Responding Gateway
+    </wsdl:documentation>
+    <wsdl:types>
+        <xsd:schema elementFormDefault="qualified" targetNamespace="urn:hl7-org:v3" xmlns:hl7="urn:hl7-org:v3">
+            <!-- Include the message schema -->
+            <xsd:include schemaLocation="classpath:schemas/HL7V3/NE2008/multicacheschemas/PRPA_IN201305UV02.xsd"/>
+        </xsd:schema>
+        <xsd:schema elementFormDefault="qualified" targetNamespace="urn:hl7-org:v3" xmlns:hl7="urn:hl7-org:v3">
+            <!-- Include the message schema -->
+            <xsd:include schemaLocation="classpath:schemas/HL7V3/NE2008/multicacheschemas/PRPA_IN201306UV02.xsd"/>
+        </xsd:schema>
+        <xsd:schema targetNamespace="urn:gov:hhs:fha:nhinc:adaptermpi">
+             <xsd:import schemaLocation="classpath:schemas/nhin/PatientDiscoveryFault.xsd" namespace="http://www.hhs.gov/healthit/nhin"/>
+        </xsd:schema>
+    </wsdl:types>
+    <wsdl:message name="PRPA_IN201305UV02_Message">
+        <wsdl:part name="Body" element="hl7:PRPA_IN201305UV02"/>
+    </wsdl:message>
+    <wsdl:message name="PRPA_IN201306UV02_Message">
+        <wsdl:part name="Body" element="hl7:PRPA_IN201306UV02"/>
+    </wsdl:message>
+    <wsdl:message name="PRPA_IN201305UV02_Fault">
+        <wsdl:part name="PatientDiscoveryFault" element="nhin:PatientDiscoveryFault"/>
+    </wsdl:message>
+    <wsdl:portType name="RespondingGateway_PortType">
+        <wsdl:operation name="RespondingGateway_PRPA_IN201305UV02">
+            <wsdl:input message="tns:PRPA_IN201305UV02_Message" wsaw:Action="urn:hl7-org:v3:PRPA_IN201305UV02:CrossGatewayPatientDiscovery"/>
+            <wsdl:output message="tns:PRPA_IN201306UV02_Message" wsaw:Action="urn:hl7-org:v3:PRPA_IN201306UV02:CrossGatewayPatientDiscovery"/>
+            <wsdl:fault name="PRPA_IN201305UV02_Fault" message="tns:PRPA_IN201305UV02_Fault"/>
+        </wsdl:operation>
+    </wsdl:portType>
+    <wsdl:binding name="RespondingGateway_Binding_Soap" type="tns:RespondingGateway_PortType">
+        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <wsp:PolicyReference URI="#RespondingGateway_Binding_SoapPolicy"/>
+        <wsdl:operation name="RespondingGateway_PRPA_IN201305UV02">
+            <soap:operation soapAction="urn:hl7-org:v3:PRPA_IN201305UV02:CrossGatewayPatientDiscovery"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+                <wsp:PolicyReference URI="#RespondingGateway_Binding_Soap_Input_Policy"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+                <wsp:PolicyReference URI="#RespondingGateway_Binding_Soap_Output_Policy"/>
+            </wsdl:output>
+            <wsdl:fault name="PRPA_IN201305UV02_Fault">
+            <soap:fault name="PRPA_IN201305UV02_Fault" use="literal"/>
+            <wsp:PolicyReference URI="#RespondingGateway_Binding_Soap_Output_Policy"/>
+            </wsdl:fault>
+        </wsdl:operation>
+    </wsdl:binding>
+    <wsdl:service name="RespondingGateway_Service">
+        <wsdl:port name="RespondingGateway_Port_Soap" binding="tns:RespondingGateway_Binding_Soap">
+            <soap:address location="https://localhost:${HttpsDefaultPort}/Gateway/PatientDiscovery/1_0/NhinService/NhinPatientDiscovery"/>
+        </wsdl:port>
+    </wsdl:service>
+    <wsp:Policy wsu:Id="RespondingGateway_Binding_SoapPolicy">
+        <wsp:ExactlyOne>
+            <wsp:All>
+<!--                <wsaws:UsingAddressing xmlns:wsaws="http://www.w3.org/2006/05/addressing/wsdl"/> -->
+                <sp:TransportBinding>
+                    <wsp:Policy>
+                        <sp:TransportToken>
+                            <wsp:Policy>
+                                <sp:HttpsToken>
+                                    <wsp:Policy>
+                                        <sp:RequireClientCertificate/>
+                                    </wsp:Policy>
+                                </sp:HttpsToken>
+                            </wsp:Policy>
+                        </sp:TransportToken>
+                        <sp:Layout>
+                            <wsp:Policy>
+                                <sp:Strict/>
+                            </wsp:Policy>
+                        </sp:Layout>
+                        <sp:IncludeTimestamp/>
+                        <sp:AlgorithmSuite>
+                            <wsp:Policy>
+                                <sp:Basic256 />
+                                <sp:Basic192 />
+                                <sp:Basic128 />
+                                <sp:TripleDes />
+                                <sp:Basic256Rsa15 />
+                                <sp:Basic192Rsa15 />
+                                <sp:Basic128Rsa15 />
+                                <sp:TripleDesRsa15 />
+                                <sp:Basic256Sha256 />
+                                <sp:Basic192Sha256 />
+                                <sp:Basic128Sha256 />
+                                <sp:TripleDesSha256 />
+                                <sp:Basic256Sha256Rsa15 />
+                                <sp:Basic192Sha256Rsa15 />
+                                <sp:Basic128Sha256Rsa15 />
+                                <sp:TripleDesSha256Rsa15 />
+                            </wsp:Policy>
+                        </sp:AlgorithmSuite>
+                    </wsp:Policy>
+                </sp:TransportBinding>
+                <sp:EndorsingSupportingTokens>
+                    <wsp:Policy>
+                        <sp:SamlToken sp:IncludeToken="http://docs.oasis-open.org/ws-sx/ws-securitypolicy/200702/IncludeToken/AlwaysToRecipient">
+                            <wsp:Policy>
+                                <sp:WssSamlV20Token11/>
+                            </wsp:Policy>
+                        </sp:SamlToken>
+                    </wsp:Policy>
+                </sp:EndorsingSupportingTokens>
+                <sp:Wss11>
+                    <wsp:Policy>
+                        <sp:MustSupportRefKeyIdentifier/>
+                        <sp:MustSupportRefIssuerSerial/>
+                        <sp:RequireSignatureConfirmation/>
+                    </wsp:Policy>
+                </sp:Wss11>
+            </wsp:All>
+        </wsp:ExactlyOne>
+    </wsp:Policy>
+    <wsp:Policy wsu:Id="RespondingGateway_Binding_Soap_Input_Policy">
+        <wsp:ExactlyOne>
+            <wsp:All>
+            </wsp:All>
+        </wsp:ExactlyOne>
+    </wsp:Policy>
+    <wsp:Policy wsu:Id="RespondingGateway_Binding_Soap_Output_Policy">
+        <wsp:ExactlyOne>
+            <wsp:All>
+            </wsp:All>
+        </wsp:ExactlyOne>
+    </wsp:Policy>
+</wsdl:definitions>
