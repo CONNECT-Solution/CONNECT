@@ -95,11 +95,17 @@ public class SamlConstants {
     public static final String USER_ROLE_ATTR = "urn:oasis:names:tc:xacml:2.0:subject:role";
     public static final String PURPOSE_ROLE_ATTR = "urn:oasis:names:tc:xspa:1.0:subject:purposeofuse";
     public static final String PATIENT_ID_ATTR = "urn:oasis:names:tc:xacml:2.0:resource:resource-id";
+    public static final String ATTRIBUTE_NAME_NPI = "urn:oasis:names:tc:xspa:2.0:subject:npi";
     public static final String ACCESS_CONSENT_ATTR = "AccessConsentPolicy";
     public static final String INST_ACCESS_CONSENT_ATTR = "InstanceAccessConsentPolicy";
     public static final String CE_CODE_ID = "code";
     public static final String CE_CODESYS_ID = "codeSystem";
     public static final String CE_CODESYSNAME_ID = "codeSystemName";
     public static final String CE_DISPLAYNAME_ID = "displayName";
-
+    public static final String SAML2_ASSERTION_NS = "urn:oasis:names:tc:SAML:2.0:assertion";
+    public static final String SAML2_ASSERTION_TAG = "Assertion";
+    public static final String XML_SIGNATURE_NS = "http://www.w3.org/2000/09/xmldsig#";
+    public static final String DIGEST_VALUE_TAG = "DigestValue";
+    public static final String SIGNATURE_TAG = "Signature";
+    public static final String SIGNATURE_VALUE_TAG = "SignatureValue";
 }

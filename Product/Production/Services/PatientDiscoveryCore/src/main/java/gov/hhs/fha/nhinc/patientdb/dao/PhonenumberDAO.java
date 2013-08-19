@@ -31,8 +31,7 @@ import gov.hhs.fha.nhinc.patientdb.persistence.HibernateUtil;
 
 import java.util.List;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -48,7 +47,7 @@ import org.hibernate.criterion.Expression;
 
 public class PhonenumberDAO {
 
-    private static Log log = LogFactory.getLog(PhonenumberDAO.class);
+    private static final Logger LOG = Logger.getLogger(PhonenumberDAO.class);
 
     private static PhonenumberDAO phonenumberDAO = new PhonenumberDAO();
 
@@ -59,7 +58,7 @@ public class PhonenumberDAO {
 
     private PhonenumberDAO() {
 
-        log.info("PhonenumberDAO - Initialized");
+        LOG.info("PhonenumberDAO - Initialized");
 
     }
 
@@ -72,7 +71,7 @@ public class PhonenumberDAO {
 
     public static PhonenumberDAO getPhonenumberDAOInstance() {
 
-        log.debug("getPhonenumberDAOInstance()..");
+        LOG.debug("getPhonenumberDAOInstance()..");
 
         return phonenumberDAO;
 
@@ -97,7 +96,7 @@ public class PhonenumberDAO {
 
     public boolean create(Phonenumber phonenumberRecord) {
 
-        log.debug("PhonenumberDAO.create() - Begin");
+        LOG.debug("PhonenumberDAO.create() - Begin");
 
         Session session = null;
 
@@ -115,11 +114,11 @@ public class PhonenumberDAO {
 
                 tx = session.beginTransaction();
 
-                log.info("Inserting Record...");
+                LOG.info("Inserting Record...");
 
                 session.persist(phonenumberRecord);
 
-                log.info("Phonenumber Inserted seccussfully...");
+                LOG.info("Phonenumber Inserted seccussfully...");
 
                 tx.commit();
 
@@ -133,7 +132,7 @@ public class PhonenumberDAO {
 
                 }
 
-                log.error("Exception during insertion caused by :" + e.getMessage(), e);
+                LOG.error("Exception during insertion caused by :" + e.getMessage(), e);
 
             } finally {
 
@@ -149,7 +148,7 @@ public class PhonenumberDAO {
 
         }
 
-        log.debug("PhonenumberDAO.create() - End");
+        LOG.debug("PhonenumberDAO.create() - End");
 
         return result;
 
@@ -168,13 +167,13 @@ public class PhonenumberDAO {
 
     public Phonenumber read(Long id) {
 
-        log.debug("PhonenumberDAO.read() - Begin");
+        LOG.debug("PhonenumberDAO.read() - Begin");
 
         if (id == null) {
 
-            log.info("-- id Parameter is required for Phonenumber Query --");
+            LOG.info("-- id Parameter is required for Phonenumber Query --");
 
-            log.debug("PhonenumberDAO.read() - End");
+            LOG.debug("PhonenumberDAO.read() - End");
 
             return null;
 
@@ -192,7 +191,7 @@ public class PhonenumberDAO {
 
             session = sessionFactory.openSession();
 
-            log.info("Reading Record...");
+            LOG.info("Reading Record...");
 
             // Build the criteria
 
@@ -210,7 +209,7 @@ public class PhonenumberDAO {
 
         } catch (Exception e) {
 
-            log.error("Exception during read occured due to :" + e.getMessage(), e);
+            LOG.error("Exception during read occured due to :" + e.getMessage(), e);
 
         } finally {
 
@@ -226,7 +225,7 @@ public class PhonenumberDAO {
 
         }
 
-        log.debug("PhonenumberDAO.read() - End");
+        LOG.debug("PhonenumberDAO.read() - End");
 
         return foundRecord;
 
@@ -243,7 +242,7 @@ public class PhonenumberDAO {
 
     public boolean update(Phonenumber phonenumberRecord) {
 
-        log.debug("PhonenumberDAO.update() - Begin");
+        LOG.debug("PhonenumberDAO.update() - Begin");
 
         Session session = null;
 
@@ -261,11 +260,11 @@ public class PhonenumberDAO {
 
                 tx = session.beginTransaction();
 
-                log.info("Updating Record...");
+                LOG.info("Updating Record...");
 
                 session.saveOrUpdate(phonenumberRecord);
 
-                log.info("Phonenumber Updated seccussfully...");
+                LOG.info("Phonenumber Updated seccussfully...");
 
                 tx.commit();
 
@@ -279,7 +278,7 @@ public class PhonenumberDAO {
 
                 }
 
-                log.error("Exception during update caused by :" + e.getMessage(), e);
+                LOG.error("Exception during update caused by :" + e.getMessage(), e);
 
             } finally {
 
@@ -295,7 +294,7 @@ public class PhonenumberDAO {
 
         }
 
-        log.debug("PhonenumberDAO.update() - End");
+        LOG.debug("PhonenumberDAO.update() - End");
 
         return result;
 
@@ -310,7 +309,7 @@ public class PhonenumberDAO {
 
     public void delete(Phonenumber phonenumberRecord) {
 
-        log.debug("PhonenumberDAO.delete() - Begin");
+        LOG.debug("PhonenumberDAO.delete() - Begin");
 
         Session session = null;
 
@@ -320,7 +319,7 @@ public class PhonenumberDAO {
 
             session = sessionFactory.openSession();
 
-            log.info("Deleting Record...");
+            LOG.info("Deleting Record...");
 
             // Delete the Phonenumber record
 
@@ -328,7 +327,7 @@ public class PhonenumberDAO {
 
         } catch (Exception e) {
 
-            log.error("Exception during delete occured due to :" + e.getMessage(), e);
+            LOG.error("Exception during delete occured due to :" + e.getMessage(), e);
 
         } finally {
 
@@ -344,7 +343,7 @@ public class PhonenumberDAO {
 
         }
 
-        log.debug("PhonenumberDAO.delete() - End");
+        LOG.debug("PhonenumberDAO.delete() - End");
 
     }
 
@@ -367,13 +366,13 @@ public class PhonenumberDAO {
 
     public List<Phonenumber> findPatientPhonenumbers(Long patientId) {
 
-        log.debug("PhonenumberDAO.findPatientPhonenumbers() - Begin");
+        LOG.debug("PhonenumberDAO.findPatientPhonenumbers() - Begin");
 
         if (patientId == null) {
 
-            log.info("-- patientId Parameter is required for Phonenumber Query --");
+            LOG.info("-- patientId Parameter is required for Phonenumber Query --");
 
-            log.debug("PhonenumberDAO.findPatientPhonenumbers() - End");
+            LOG.debug("PhonenumberDAO.findPatientPhonenumbers() - End");
 
             return null;
 
@@ -389,7 +388,7 @@ public class PhonenumberDAO {
 
             session = sessionFactory.openSession();
 
-            log.info("Reading Record...");
+            LOG.info("Reading Record...");
 
             // Build the criteria
 
@@ -401,7 +400,7 @@ public class PhonenumberDAO {
 
         } catch (Exception e) {
 
-            log.error("Exception during read occured due to :" + e.getMessage(), e);
+            LOG.error("Exception during read occured due to :" + e.getMessage(), e);
 
         } finally {
 
@@ -417,7 +416,7 @@ public class PhonenumberDAO {
 
         }
 
-        log.debug("PhonenumberDAO.findPatientPhonenumbers() - End");
+        LOG.debug("PhonenumberDAO.findPatientPhonenumbers() - End");
 
         return queryList;
 

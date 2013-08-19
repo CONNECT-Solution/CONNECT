@@ -29,24 +29,35 @@ package gov.hhs.fha.nhinc.messaging.service.decorator;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.messaging.service.ServiceEndpoint;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 
 import java.util.Map;
 
 /**
  * @author bhumphrey
  * @param <T>
- *
+ * 
  */
 public class SAMLServiceEndpointDecorator<T> extends ServiceEndpointDecorator<T> {
 
     private AssertionType assertion;
-    
-    /**
-     * @param decoratored
-     */
+    private String targetHomeCommunityId = null;
+    private String serviceName = null;
+
     public SAMLServiceEndpointDecorator(ServiceEndpoint<T> decoratoredEndpoint, AssertionType assertion) {
         super(decoratoredEndpoint);
         this.assertion = assertion;
+    }
+
+    /**
+     * @param decoratored
+     */
+    public SAMLServiceEndpointDecorator(ServiceEndpoint<T> decoratoredEndpoint, AssertionType assertion,
+            String targetHomeCommunityId, String serviceName) {
+        super(decoratoredEndpoint);
+        this.assertion = assertion;
+        this.targetHomeCommunityId = targetHomeCommunityId;
+        this.serviceName = serviceName;
     }
 
     @Override
@@ -54,6 +65,12 @@ public class SAMLServiceEndpointDecorator<T> extends ServiceEndpointDecorator<T>
         super.configure();
         Map<String, Object> requestContext = ((javax.xml.ws.BindingProvider) getPort()).getRequestContext();
         requestContext.put("assertion", assertion);
+        if (targetHomeCommunityId != null) {
+            requestContext.put(NhincConstants.WS_SOAP_TARGET_HOME_COMMUNITY_ID, targetHomeCommunityId);
+        }
+        if (serviceName != null) {
+            requestContext.put(NhincConstants.ACTION_PROP, serviceName);
+        }
     }
-        
+
 }

@@ -33,8 +33,7 @@ import gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyRequestType;
 import gov.hhs.fha.nhinc.policyengine.adapter.orchestrator.proxy.AdapterPolicyEngineOrchProxy;
 import gov.hhs.fha.nhinc.policyengine.adapter.orchestrator.proxy.AdapterPolicyEngineOrchProxyObjectFactory;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 
 /**
  * This class is the implementation of the AdapterPolicyEngine. It is the entry point from the Gateway to the Adapter
@@ -43,7 +42,7 @@ import org.apache.commons.logging.LogFactory;
  * @author Les Westberg
  */
 public class AdapterPolicyEngineProcessorImpl implements AdapterPolicyEngineProcessor {
-    private static Log log = LogFactory.getLog(AdapterPolicyEngineProcessorImpl.class);
+    private static final Logger LOG = Logger.getLogger(AdapterPolicyEngineProcessorImpl.class);
 
     /**
      * Given a request to check the access policy, this service will interface with the Adapter PEP to determine if
@@ -61,7 +60,7 @@ public class AdapterPolicyEngineProcessorImpl implements AdapterPolicyEngineProc
 
         try {
             if (oOrchProxy != null) {
-                log.debug("AdapterPolicyEngineOrchProxy selected: " + oOrchProxy.getClass());
+                LOG.debug("AdapterPolicyEngineOrchProxy selected: " + oOrchProxy.getClass());
                 oCheckPolicyResp = oOrchProxy.checkPolicy(checkPolicyRequest, assertion);
             } else {
                 throw new Exception("AdapterPolicyEngineOrchProxy was null.");
@@ -69,7 +68,7 @@ public class AdapterPolicyEngineProcessorImpl implements AdapterPolicyEngineProc
         } catch (Exception e) {
             String sMessage = "Error occurred calling AdapterPolicyEngineOrchProxy.checkPolicy.  Error: "
                     + e.getMessage();
-            log.error(sMessage, e);
+            LOG.error(sMessage, e);
             throw new AdapterPolicyEngineException(sMessage, e);
         }
         return oCheckPolicyResp;

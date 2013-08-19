@@ -41,32 +41,33 @@ import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 import oasis.names.tc.emergency.edxl.de._1.EDXLDistribution;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 
 /**
  * 
  * @author dunnek
  */
 public class EntityAdminDistributionProxyWebServiceSecuredImpl {
-    private Log log = null;
+    private static final Logger LOG = Logger.getLogger(EntityAdminDistributionProxyWebServiceSecuredImpl.class);
 
-    public EntityAdminDistributionProxyWebServiceSecuredImpl() {
-        log = createLogger();
-    }
-
-    private Log createLogger() {
-        return LogFactory.getLog(getClass());
-    }
-
+    /**
+     * @return instance of AdminDistributionHelper.
+     */
     protected AdminDistributionHelper getHelper() {
         return new AdminDistributionHelper();
     }
 
+    /**
+     * @return instance of WebServiceProxyHelper.
+     */
     protected WebServiceProxyHelper getWebServiceProxyHelper() {
         return new WebServiceProxyHelper();
     }
 
+    /**This method returns EntityAdminDistributionSecuredServicePortDescriptor based on gateway apiLevel. 
+     * @param apiLevel gateway apiLevel received (g0/g1).
+     * @return instance of EntityAdminDistributionSecuredServicePortDescriptor based on gateway apiLevel. 
+     */
     public ServicePortDescriptor<AdministrativeDistributionSecuredPortType> getServicePortDescriptor(
             NhincConstants.GATEWAY_API_LEVEL apiLevel) {
         switch (apiLevel) {
@@ -77,6 +78,12 @@ public class EntityAdminDistributionProxyWebServiceSecuredImpl {
         }
     }
 
+    /** This method returns CXFClient to implement AdminDist Secured Service.
+     * @param portDescriptor comprises of NameSpaceUri, WSDL File, Port, ServiceName  and WS_ADDRESSING_ACTION.
+     * @param url target community url .
+     * @param assertion Assertion received.
+     * @return CXFClient to implement AdminDist Secured Service.
+     */
     protected CONNECTClient<AdministrativeDistributionSecuredPortType> getCONNECTClientSecured(
             ServicePortDescriptor<AdministrativeDistributionSecuredPortType> portDescriptor, String url,
             AssertionType assertion) {
@@ -84,31 +91,39 @@ public class EntityAdminDistributionProxyWebServiceSecuredImpl {
         return CONNECTCXFClientFactory.getInstance().getCONNECTClientSecured(portDescriptor, url, assertion);
     }
 
+    /** This method implements sendAlertMessage from initiater to responder.
+     * @param body Emergency Message Distribution Element transaction message body received.
+     * @param assertion Assertion received.
+     * @param target NhinTargetCommunity receievd.
+     * @param apiLevel gateway apiLevel received (g0/g1).
+     */
     public void sendAlertMessage(EDXLDistribution body, AssertionType assertion, NhinTargetCommunitiesType target,
             NhincConstants.GATEWAY_API_LEVEL apiLevel) {
-        log.debug("begin sendAlertMessage");
+        LOG.debug("begin sendAlertMessage");
         AdminDistributionHelper helper = getHelper();
         String hcid = helper.getLocalCommunityId();
         String url = helper.getUrl(hcid, NhincConstants.ENTITY_ADMIN_DIST_SECURED_SERVICE_NAME, apiLevel);
 
         if (NullChecker.isNotNullish(url)) {
             try {
-                RespondingGatewaySendAlertMessageSecuredType message = new RespondingGatewaySendAlertMessageSecuredType();
+                RespondingGatewaySendAlertMessageSecuredType message = 
+                        new RespondingGatewaySendAlertMessageSecuredType();
                 message.setEDXLDistribution(body);
                 message.setNhinTargetCommunities(target);
 
-                ServicePortDescriptor<AdministrativeDistributionSecuredPortType> portDescriptor = getServicePortDescriptor(apiLevel);
+                ServicePortDescriptor<AdministrativeDistributionSecuredPortType> portDescriptor = 
+                        getServicePortDescriptor(apiLevel);
 
                 CONNECTClient<AdministrativeDistributionSecuredPortType> client = getCONNECTClientSecured(
                         portDescriptor, url, assertion);
 
                 client.invokePort(AdministrativeDistributionSecuredPortType.class, "sendAlertMessage", message);
             } catch (Exception ex) {
-                log.error("Failed to call the web service (" + NhincConstants.ENTITY_ADMIN_DIST_SECURED_SERVICE_NAME
+                LOG.error("Failed to call the web service (" + NhincConstants.ENTITY_ADMIN_DIST_SECURED_SERVICE_NAME
                         + ").  An unexpected exception occurred.  " + "Exception: " + ex.getMessage(), ex);
             }
         } else {
-            log.error("Failed to call the web service (" + NhincConstants.ADAPTER_ADMIN_DIST_SECURED_SERVICE_NAME
+            LOG.error("Failed to call the web service (" + NhincConstants.ADAPTER_ADMIN_DIST_SECURED_SERVICE_NAME
                     + ").  The URL is null.");
         }
     }

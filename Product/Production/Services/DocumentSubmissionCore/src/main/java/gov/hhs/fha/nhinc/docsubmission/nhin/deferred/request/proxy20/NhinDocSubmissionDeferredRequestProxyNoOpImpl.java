@@ -29,11 +29,12 @@ package gov.hhs.fha.nhinc.docsubmission.nhin.deferred.request.proxy20;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 
+import gov.hhs.fha.nhinc.aspect.NwhinInvocationEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
+import gov.hhs.fha.nhinc.docsubmission.aspect.DocSubmissionBaseEventDescriptionBuilder;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 
 /**
@@ -41,13 +42,17 @@ import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
  * @author JHOPPESC
  */
 public class NhinDocSubmissionDeferredRequestProxyNoOpImpl implements NhinDocSubmissionDeferredRequestProxy {
-    private static Log log = LogFactory.getLog(NhinDocSubmissionDeferredRequestProxyNoOpImpl.class);
+    private static final Logger LOG = Logger.getLogger(NhinDocSubmissionDeferredRequestProxyNoOpImpl.class);
 
 	@Override
+	@NwhinInvocationEvent(beforeBuilder = DocSubmissionBaseEventDescriptionBuilder.class,
+    afterReturningBuilder = DocSubmissionBaseEventDescriptionBuilder.class, 
+    serviceType = "Document Submission Deferred Request",
+    version = "")
 	public RegistryResponseType provideAndRegisterDocumentSetBRequest20(
 			ProvideAndRegisterDocumentSetRequestType request,
 			AssertionType assertion, NhinTargetSystemType targetSystem) {
-        log.debug("Using NoOp Implementation for Nhin Doc Submission Deferred Request Service");
+        LOG.trace("Using NoOp Implementation for Nhin Doc Submission Deferred Request Service");
         RegistryResponseType regResp = new RegistryResponseType();
         regResp.setStatus(NhincConstants.XDR_ACK_STATUS_MSG);
         return regResp;

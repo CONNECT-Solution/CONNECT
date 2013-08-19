@@ -28,7 +28,7 @@ package gov.hhs.fha.nhinc.docrepository.adapter.proxy;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.docrepository.adapter.proxy.service.AdapterComponentDocRepositoryServicePortDescriptor;
-import gov.hhs.fha.nhinc.gateway.aggregator.document.DocumentConstants;
+import gov.hhs.fha.nhinc.document.DocumentConstants;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTCXFClientFactory;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTClient;
 import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
@@ -41,26 +41,19 @@ import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryError;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 
 /**
- * 
+ *
  * @author rayj
  */
 public class AdapterComponentDocRepositoryProxyWebServiceUnsecuredImpl implements AdapterComponentDocRepositoryProxy {
 
-    private Log log = null;
+    private static final Logger LOG = Logger.getLogger(AdapterComponentDocRepositoryProxyWebServiceUnsecuredImpl.class);
     private WebServiceProxyHelper oProxyHelper = null;
 
     public AdapterComponentDocRepositoryProxyWebServiceUnsecuredImpl() {
-        log = createLogger();
         oProxyHelper = createWebServiceProxyHelper();
-    }
-
-    protected Log createLogger() {
-        return LogFactory.getLog(getClass());
     }
 
     protected WebServiceProxyHelper createWebServiceProxyHelper() {
@@ -68,34 +61,34 @@ public class AdapterComponentDocRepositoryProxyWebServiceUnsecuredImpl implement
     }
 
     protected CONNECTClient<DocumentRepositoryPortType> getCONNECTClientUnsecured(
-            ServicePortDescriptor<DocumentRepositoryPortType> portDescriptor, String url, AssertionType assertion) {
+        ServicePortDescriptor<DocumentRepositoryPortType> portDescriptor, String url, AssertionType assertion) {
 
         return CONNECTCXFClientFactory.getInstance().getCONNECTClientUnsecured(portDescriptor, url, assertion);
     }
 
     public RetrieveDocumentSetResponseType retrieveDocument(RetrieveDocumentSetRequestType msg, AssertionType assertion) {
-        log.debug("Begin retrieveDocument");
+        LOG.debug("Begin retrieveDocument");
         RetrieveDocumentSetResponseType response = null;
 
         try {
             String xdsbHomeCommunityId = PropertyAccessor.getInstance().getProperty(
-                    NhincConstants.ADAPTER_PROPERTY_FILE_NAME, NhincConstants.XDS_HOME_COMMUNITY_ID_PROPERTY);
+                NhincConstants.ADAPTER_PROPERTY_FILE_NAME, NhincConstants.XDS_HOME_COMMUNITY_ID_PROPERTY);
             String url = oProxyHelper.getAdapterEndPointFromConnectionManager(xdsbHomeCommunityId,
-                    NhincConstants.ADAPTER_DOC_REPOSITORY_SERVICE_NAME);
+                NhincConstants.ADAPTER_DOC_REPOSITORY_SERVICE_NAME);
 
             if (msg == null) {
-                log.error("Message was null");
+                LOG.error("Message was null");
             } else {
                 ServicePortDescriptor<DocumentRepositoryPortType> portDescriptor = new AdapterComponentDocRepositoryServicePortDescriptor();
 
                 CONNECTClient<DocumentRepositoryPortType> client = getCONNECTClientUnsecured(portDescriptor, url,
-                        assertion);
-
+                    assertion);
+                client.enableMtom();
                 response = (RetrieveDocumentSetResponseType) client.invokePort(DocumentRepositoryPortType.class,
-                        "documentRepositoryRetrieveDocumentSet", msg);
+                    "documentRepositoryRetrieveDocumentSet", msg);
             }
         } catch (Exception ex) {
-            log.error("Error sending Adapter Component Doc Repository Unsecured message: " + ex.getMessage(), ex);
+            LOG.error("Error sending Adapter Component Doc Repository Unsecured message: " + ex.getMessage(), ex);
             response = new RetrieveDocumentSetResponseType();
             RegistryResponseType regResp = new RegistryResponseType();
 
@@ -109,35 +102,34 @@ public class AdapterComponentDocRepositoryProxyWebServiceUnsecuredImpl implement
             response.setRegistryResponse(regResp);
         }
 
-        log.debug("End retrieveDocument");
+        LOG.debug("End retrieveDocument");
         return response;
     }
 
     public RegistryResponseType provideAndRegisterDocumentSet(ProvideAndRegisterDocumentSetRequestType msg,
-            AssertionType assertion) {
+        AssertionType assertion) {
         RegistryResponseType response = null;
-        
+
         try {
             String xdsbHomeCommunityId = PropertyAccessor.getInstance().getProperty(
-                    NhincConstants.ADAPTER_PROPERTY_FILE_NAME, NhincConstants.XDS_HOME_COMMUNITY_ID_PROPERTY);
+                NhincConstants.ADAPTER_PROPERTY_FILE_NAME, NhincConstants.XDS_HOME_COMMUNITY_ID_PROPERTY);
             String url = oProxyHelper.getAdapterEndPointFromConnectionManager(xdsbHomeCommunityId,
-                    NhincConstants.ADAPTER_DOC_REPOSITORY_SERVICE_NAME);
+                NhincConstants.ADAPTER_DOC_REPOSITORY_SERVICE_NAME);
 
             if (msg == null) {
-                log.error("Message was null");
+                LOG.error("Message was null");
             } else {
                 ServicePortDescriptor<DocumentRepositoryPortType> portDescriptor = new AdapterComponentDocRepositoryServicePortDescriptor();
 
                 CONNECTClient<DocumentRepositoryPortType> client = getCONNECTClientUnsecured(portDescriptor, url,
-                        assertion);
-
+                    assertion);
+                client.enableMtom();
                 response = (RegistryResponseType) client.invokePort(DocumentRepositoryPortType.class,
-                        "documentRepositoryProvideAndRegisterDocumentSetB", msg);
+                    "documentRepositoryProvideAndRegisterDocumentSetB", msg);
             }
         } catch (Exception ex) {
-            log.error("Error sending message to the adapter document repository: " + ex.getMessage(), ex);
+            LOG.error("Error sending message to the adapter document repository: " + ex.getMessage(), ex);
         }
         return response;
     }
-
 }

@@ -31,8 +31,8 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.TimeZone;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+
+import org.apache.log4j.Logger;
 
 /**
  * Date utility for UTC dates.
@@ -44,17 +44,9 @@ public class UTCDateUtil {
     public static final String DATE_ONLY_FORMAT = "yyyyMMdd";
     public static final String DATE_FORMAT_UTC = "yyyyMMddHHmmss";
     public static final String DATE_FORMAT_FULL = DATE_FORMAT_UTC + "Z";
-
     private static final String TIME_ZONE_UTC = "UTC";
-    private Log log = null;
-
-    public UTCDateUtil() {
-        log = createLogger();
-    }
-
-    protected Log createLogger() {
-        return ((log != null) ? log : LogFactory.getLog(getClass()));
-    }
+    
+    private static final Logger LOG = Logger.getLogger(UTCDateUtil.class);
 
     /**
      * Parse a date string as a UTC date. The date may optionally have a time zone which will be used if present.
@@ -95,8 +87,8 @@ public class UTCDateUtil {
      */
     public Date parseDate(String dateString, String dateFormat, TimeZone timeZone) {
         // Candidate to move to a super class for other format types
-        if (log.isDebugEnabled()) {
-            log.debug("Parsing (" + dateString + ") using format string (" + dateFormat + ") and time zone ("
+        if (LOG.isDebugEnabled()) {
+            LOG.debug("Parsing (" + dateString + ") using format string (" + dateFormat + ") and time zone ("
                     + ((timeZone == null) ? "none" : timeZone.getDisplayName()) + ").");
         }
         Date parsed = null;
@@ -106,10 +98,10 @@ public class UTCDateUtil {
                 DateFormat formatter = createDateFormatter(formatString, timeZone);
                 parsed = formatter.parse(dateString);
                 if (parsed != null) {
-                    log.debug("Date parsed successfully");
+                    LOG.debug("Date parsed successfully");
                 }
             } catch (Throwable t) {
-                log.warn("Error parsing '" + dateString + "' using format: '" + dateFormat + "'", t);
+                LOG.warn("Error parsing '" + dateString + "' using format: '" + dateFormat + "'", t);
             }
         }
         return parsed;
@@ -148,8 +140,8 @@ public class UTCDateUtil {
         if ((dateString != null) && (dateFormat != null) && (dateString.length() > 0)
                 && (dateString.length() < dateFormat.length())) {
             formatString = dateFormat.substring(0, dateString.length());
-            if (log.isDebugEnabled()) {
-                log.debug("New dateFormat: " + dateFormat);
+            if (LOG.isDebugEnabled()) {
+                LOG.debug("New dateFormat: " + dateFormat);
             }
         }
         return formatString;
@@ -163,7 +155,7 @@ public class UTCDateUtil {
                 DateFormat dateFormatter = createDateFormatter(formatString, TimeZone.getTimeZone(TIME_ZONE_UTC));
                 formatted = dateFormatter.format(sourceDate);
             } catch (Throwable t) {
-                log.warn("Failed to format a date (" + ((sourceDate == null) ? "null" : sourceDate.toString())
+                LOG.warn("Failed to format a date (" + sourceDate.toString()
                         + ") to a formatted string using the format '" + formatString + "': " + t.getMessage(), t);
             }
         }

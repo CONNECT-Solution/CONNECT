@@ -26,30 +26,40 @@
  */
 package gov.hhs.fha.nhinc.admindistribution.nhin.proxy;
 
-import oasis.names.tc.emergency.edxl.de._1.EDXLDistribution;
+import gov.hhs.fha.nhinc.admindistribution.aspect.EDXLDistributionEventDescriptionBuilder;
+import gov.hhs.fha.nhinc.aspect.NwhinInvocationEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
+import gov.hhs.fha.nhinc.event.DefaultEventDescriptionBuilder;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import oasis.names.tc.emergency.edxl.de._1.EDXLDistribution;
+
+import org.apache.log4j.Logger;
 
 /**
  * 
  * @author dunnek
  */
 public class NhinAdminDistributionProxyNoOpImpl implements NhinAdminDistributionProxy {
-    private Log log = null;
+    private static final Logger LOG = Logger.getLogger(NhinAdminDistributionProxyNoOpImpl.class);
 
-    public NhinAdminDistributionProxyNoOpImpl() {
-        log = createLogger();
-    }
-
-    protected Log createLogger() {
-        return LogFactory.getLog(getClass());
-    }
-
+    /**
+     * This method does not do any implementation.
+     * 
+     * @param body
+     *            Emergency Message Distribution Element transaction messgae body.
+     * @param assertion
+     *            Assertion received.
+     * @param target
+     *            NhinTargetCommunity received.
+     * @param apiLevel
+     *            gateway apiLevel (g0/g1).
+     */
+    @NwhinInvocationEvent(beforeBuilder = EDXLDistributionEventDescriptionBuilder.class,
+            afterReturningBuilder = DefaultEventDescriptionBuilder.class, serviceType = "Admin Distribution",
+            version = "")
     public void sendAlertMessage(EDXLDistribution body, AssertionType assertion, NhinTargetSystemType target,
             NhincConstants.GATEWAY_API_LEVEL apiLevel) {
-        log.info("begin send alert");
+        LOG.info("begin send alert");
     }
 }

@@ -28,47 +28,18 @@
 package gov.hhs.fha.nhinc.docsubmission.adapter.proxy.service;
 
 import gov.hhs.fha.nhinc.adapterxdrsecured.AdapterXDRSecuredPortType;
-import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
+import gov.hhs.fha.nhinc.messaging.service.port.SOAP12ServicePortDescriptor;
 
 /**
  * @author akong
- *
+ * 
  */
-public class AdapterDocSubmissionSecuredServicePortDescriptor implements ServicePortDescriptor<AdapterXDRSecuredPortType> {
+public class AdapterDocSubmissionSecuredServicePortDescriptor extends
+        SOAP12ServicePortDescriptor<AdapterXDRSecuredPortType> {
 
-    /* (non-Javadoc)
-     * @see gov.hhs.fha.messaging.service.port.ServicePortDescriptor#getNamespaceUri()
-     */
-    @Override
-    public String getNamespaceUri() {
-        return "urn:gov:hhs:fha:nhinc:adapterxdrsecured";
-    }
-
-    /* (non-Javadoc)
-     * @see gov.hhs.fha.messaging.service.port.ServicePortDescriptor#getServiceLocalPart()
-     */
-    @Override
-    public String getServiceLocalPart() {
-        return "AdapterXDRSecured_Service";
-    }
-
-    /* (non-Javadoc)
-     * @see gov.hhs.fha.messaging.service.port.ServicePortDescriptor#getPortLocalPart()
-     */
-    @Override
-    public String getPortLocalPart() {
-        return "AdapterXDRSecured_Port";
-    }
-
-    /* (non-Javadoc)
-     * @see gov.hhs.fha.messaging.service.port.ServicePortDescriptor#getWSDLFileName()
-     */
-    @Override
-    public String getWSDLFileName() {
-        return "AdapterXDRSecured.wsdl";
-    }
-
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see gov.hhs.fha.messaging.service.port.ServicePortDescriptor#getWSAddressingAction()
      */
     @Override
@@ -76,7 +47,9 @@ public class AdapterDocSubmissionSecuredServicePortDescriptor implements Service
         return "urn:gov:hhs:fha:nhinc:adapterxdrsecured:ProvideAndRegisterDocumentSet-b";
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see gov.hhs.fha.messaging.service.port.ServicePortDescriptor#getPortClass()
      */
     @Override

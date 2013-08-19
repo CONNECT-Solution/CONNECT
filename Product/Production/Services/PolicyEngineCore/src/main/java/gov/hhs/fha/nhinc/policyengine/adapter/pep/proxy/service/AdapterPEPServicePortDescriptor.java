@@ -28,52 +28,18 @@
 package gov.hhs.fha.nhinc.policyengine.adapter.pep.proxy.service;
 
 import gov.hhs.fha.nhinc.adapterpep.AdapterPEPPortType;
-import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
+import gov.hhs.fha.nhinc.messaging.service.port.SOAP12ServicePortDescriptor;
 
 /**
  * @author akong
- *
+ * 
  */
-public class AdapterPEPServicePortDescriptor implements ServicePortDescriptor<AdapterPEPPortType> {
-    private static final String NAMESPACE_URI = "urn:gov:hhs:fha:nhinc:adapterpep";
-    private static final String SERVICE_LOCAL_PART = "AdapterPEP";
-    private static final String PORT_LOCAL_PART = "AdapterPEPPortSoap";
-    private static final String WSDL_FILE = "AdapterPEP.wsdl";
+public class AdapterPEPServicePortDescriptor extends SOAP12ServicePortDescriptor<AdapterPEPPortType> {
     private static final String WS_ADDRESSING_ACTION = "urn:gov:hhs:fha:nhinc:adapterpep:CheckPolicyRequest";
-    
-    /* (non-Javadoc)
-     * @see gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor#getNamespaceUri()
-     */
-    @Override
-    public String getNamespaceUri() {
-        return NAMESPACE_URI;
-    }
 
-    /* (non-Javadoc)
-     * @see gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor#getServiceLocalPart()
-     */
-    @Override
-    public String getServiceLocalPart() {
-        return SERVICE_LOCAL_PART;
-    }
-
-    /* (non-Javadoc)
-     * @see gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor#getPortLocalPart()
-     */
-    @Override
-    public String getPortLocalPart() {
-        return PORT_LOCAL_PART;
-    }
-
-    /* (non-Javadoc)
-     * @see gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor#getWSDLFileName()
-     */
-    @Override
-    public String getWSDLFileName() {
-        return WSDL_FILE;
-    }
-
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor#getWSAddressingAction()
      */
     @Override
@@ -81,11 +47,13 @@ public class AdapterPEPServicePortDescriptor implements ServicePortDescriptor<Ad
         return WS_ADDRESSING_ACTION;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor#getPortClass()
      */
     @Override
     public Class<AdapterPEPPortType> getPortClass() {
         return AdapterPEPPortType.class;
-    }    
+    }
 }

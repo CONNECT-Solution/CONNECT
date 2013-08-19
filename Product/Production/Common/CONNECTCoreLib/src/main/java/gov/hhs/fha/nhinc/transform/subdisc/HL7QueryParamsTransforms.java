@@ -58,7 +58,7 @@ public class HL7QueryParamsTransforms {
             String localDeviceId) {
         PRPAMT201306UV02QueryByParameter params = new PRPAMT201306UV02QueryByParameter();
 
-        params.setQueryId(HL7MessageIdGenerator.GenerateHL7MessageId(localDeviceId));
+        params.setQueryId(HL7MessageIdGenerator.generateHL7MessageId(localDeviceId));
         params.setStatusCode(HL7DataTransformHelper.CSFactory("new"));
         params.setResponseModalityCode(HL7DataTransformHelper.CSFactory("R"));
         params.setResponsePriorityCode(HL7DataTransformHelper.CSFactory("I"));
@@ -74,8 +74,11 @@ public class HL7QueryParamsTransforms {
 
     public static PRPAMT201306UV02ParameterList createParamList(PRPAMT201301UV02Patient patient) {
         PRPAMT201306UV02ParameterList paramList = new PRPAMT201306UV02ParameterList();
-        JAXBElement<PRPAMT201301UV02Person> jaxbPerson = patient.getPatientPerson();
-        PRPAMT201301UV02Person person = jaxbPerson.getValue();
+        PRPAMT201301UV02Person person = null;
+        if (patient != null){
+           JAXBElement<PRPAMT201301UV02Person> jaxbPerson = patient.getPatientPerson();
+           person = jaxbPerson.getValue();
+        }
 
         // Set the Subject Gender Code
         if (person != null && person.getAdministrativeGenderCode() != null
@@ -141,7 +144,7 @@ public class HL7QueryParamsTransforms {
         PRPAMT201306UV02LivingSubjectName subjectName = new PRPAMT201306UV02LivingSubjectName();
 
         for (PNExplicit name : patientNames) {
-            subjectName.getValue().add(HL7DataTransformHelper.ConvertPNToEN(name));
+            subjectName.getValue().add(HL7DataTransformHelper.convertPNToEN(name));
             ST text = new ST();
             subjectName.setSemanticsText(text);
         }

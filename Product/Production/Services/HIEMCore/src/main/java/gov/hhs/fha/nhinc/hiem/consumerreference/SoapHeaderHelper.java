@@ -35,8 +35,7 @@ import javax.xml.soap.SOAPException;
 import javax.xml.soap.SOAPHeader;
 import javax.xml.ws.WebServiceContext;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 
@@ -46,7 +45,7 @@ import org.w3c.dom.Node;
  */
 public class SoapHeaderHelper {
     
-    private static Log log = LogFactory.getLog(SoapHeaderHelper.class);
+    private static final Logger LOG = Logger.getLogger(SoapHeaderHelper.class);
     
     public SoapMessageElements getSoapHeaderElements(WebServiceContext context) {
         return getSoapHeaderElements(context, NhincConstants.HTTP_REQUEST_ATTRIBUTE_SOAPMESSAGE);
@@ -56,42 +55,42 @@ public class SoapHeaderHelper {
         SoapMessageElements referenceParameters = null;
         SOAPHeader header = null;
         try {
-            log.debug("extract soapheader");
+            LOG.debug("extract soapheader");
             SoapUtil soaputil = new SoapUtil();
             header = soaputil.extractSoapHeader(context, messageContextAttributeName);
-            log.debug("Header:"+header.toString());
+            LOG.debug("Header:"+header.toString());
         } catch (SOAPException ex) {
-            log.error("failed to extract soapheader", ex);
+            LOG.error("failed to extract soapheader", ex);
         }
 
-        log.debug(XmlUtility.formatElementForLogging("soapheader", header));
+        LOG.debug(XmlUtility.formatElementForLogging("soapheader", header));
 
         if (header != null) {
-            log.debug("converting soap header to reference parameters elements");
+            LOG.debug("converting soap header to reference parameters elements");
             referenceParameters = getSoapHeaderElements(header);
-            log.debug("extracted " + referenceParameters.getElements().size() + " reference parameter(s)");
+            LOG.debug("extracted " + referenceParameters.getElements().size() + " reference parameter(s)");
         } else {
-            log.warn("unable to extract soap header - assume no reference parameters");
+            LOG.warn("unable to extract soap header - assume no reference parameters");
         }
         return referenceParameters;
     }
 
     public SoapMessageElements getSoapHeaderElements(Element soapHeader) {
-        log.debug("initialize reference parameters from soap header");
+        LOG.debug("initialize reference parameters from soap header");
         SoapMessageElements elements = new SoapMessageElements();
         if (soapHeader != null) {
             for (int i = 0; i < soapHeader.getChildNodes().getLength(); i++) {
                 Node node = soapHeader.getChildNodes().item(i);
                 if (node instanceof Element) {
                     Element singleSoapHeader = (Element) node;
-                    log.debug("single soap header: [" + XmlUtility.serializeElementIgnoreFaults(singleSoapHeader) + "]");
+                    LOG.debug("single soap header: [" + XmlUtility.serializeElementIgnoreFaults(singleSoapHeader) + "]");
                     elements.getElements().add(singleSoapHeader);
                 }
             }
         }
-        log.debug("reference parameters elements found = " + elements.getElements().size());
+        LOG.debug("reference parameters elements found = " + elements.getElements().size());
         for ( Element element : elements.getElements())
-           log.debug("Elements are :"+element.toString());
+           LOG.debug("Elements are :"+element.toString());
         return elements;
     }
 

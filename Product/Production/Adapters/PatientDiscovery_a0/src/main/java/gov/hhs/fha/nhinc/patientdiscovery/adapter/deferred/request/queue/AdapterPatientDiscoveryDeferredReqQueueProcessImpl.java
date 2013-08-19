@@ -30,9 +30,9 @@ import gov.hhs.fha.nhinc.gateway.adapterpatientdiscoveryreqqueueprocess.PatientD
 import gov.hhs.fha.nhinc.gateway.adapterpatientdiscoveryreqqueueprocess.PatientDiscoveryDeferredReqQueueProcessResponseType;
 import gov.hhs.fha.nhinc.gateway.adapterpatientdiscoveryreqqueueprocess.SuccessOrFailType;
 import gov.hhs.fha.nhinc.transform.subdisc.HL7AckTransforms;
+
 import javax.xml.ws.WebServiceContext;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+
 import org.hl7.v3.MCCIIN000002UV01;
 
 /**
@@ -40,8 +40,6 @@ import org.hl7.v3.MCCIIN000002UV01;
  * @author mastan.ketha
  */
 public class AdapterPatientDiscoveryDeferredReqQueueProcessImpl {
-
-    private static Log log = LogFactory.getLog(AdapterPatientDiscoveryDeferredReqQueueProcessImpl.class);
 
     protected AdapterPatientDiscoveryDeferredReqQueueProcessOrchImpl getAdapterPatientDiscoveryDeferredReqQueueProcessOrchImpl() {
         return new AdapterPatientDiscoveryDeferredReqQueueProcessOrchImpl();

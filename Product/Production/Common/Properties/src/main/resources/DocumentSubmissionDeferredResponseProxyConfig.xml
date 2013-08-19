@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:context="http://www.springframework.org/schema/context"
+    xsi:schemaLocation="
+http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
+http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+">
+<!-- 
+	The beans available in this file must be identified in the "description" element for the Spring configuration application. Beans are listed between braces 
+	in the description separated with a comma like the following sample: {somebean,anotherbean}
+-->
+	<description>Beans included in this file: {adaptercomponentdocsubmissionresponse,adapterxdrresponse,entityxdrasyncresp,nhinxdrresponse,nhinxdrresponse20,passthruxdrasyncresp}</description>
+
+    <aop:aspectj-autoproxy proxy-target-class="true" />
+    <context:annotation-config />
+
+    <import resource="classpath:CONNECT-context.xml"/>
+    <import resource="classpath:eventlogging.xml"/>
+
+    <!-- Beans defined for adaptercomponentdocsubmissionresponse -->
+
+    <alias alias="adaptercomponentdocsubmissionresponse" name="adaptercomponentdocsubmissionresponsewsunsecured" />
+
+	<!-- No-op Implementation -->
+	<bean lazy-init="true" class="gov.hhs.fha.nhinc.docsubmission.adapter.component.deferred.response.proxy.AdapterComponentDocSubmissionResponseProxyNoOpImpl" id="adaptercomponentdocsubmissionresponsenoop" name="adaptercomponentdocsubmissionresponsenoop"> 
+		<meta key="impltype" value="noop"/>
+	</bean> 
+
+	<!-- Java Implementation -->
+	<bean lazy-init="true" class="gov.hhs.fha.nhinc.docsubmission.adapter.component.deferred.response.proxy.AdapterComponentDocSubmissionResponseProxyJavaImpl" id="adaptercomponentdocsubmissionresponsejava" name="adaptercomponentdocsubmissionresponsejava"> 
+		<meta key="impltype" value="java"/>
+	</bean> 
+
+	<!-- Unsecured web service Implementation -->
+	<bean lazy-init="true" class="gov.hhs.fha.nhinc.docsubmission.adapter.component.deferred.response.proxy.AdapterComponentDocSubmissionResponseProxyWebServiceUnsecuredImpl" id="adaptercomponentdocsubmissionresponsewsunsecured" name="adaptercomponentdocsubmissionresponsewsunsecured"> 
+		<meta key="impltype" value="wsunsecured"/>
+		<meta key="default" value="true"/>
+	</bean>
+
+
+
+    <!-- Beans defined for adapterxdrresponse -->
+    
+    <alias alias="adapterxdrresponse" name="adapterxdrresponsewssecured" />
+    
+    <!-- No-op Implementation -->
+	<bean lazy-init="true" class="gov.hhs.fha.nhinc.docsubmission.adapter.deferred.response.proxy.AdapterDocSubmissionDeferredResponseProxyNoOpImpl" id="adapterxdrresponsenoop" name="adapterxdrresponsenoop"> 
+		<meta key="impltype" value="noop"/>
+	</bean> 
+
+	<!-- Java Implementation -->
+	<bean lazy-init="true" class="gov.hhs.fha.nhinc.docsubmission.adapter.deferred.response.proxy.AdapterDocSubmissionDeferredResponseProxyJavaImpl" id="adapterxdrresponsejava" name="adapterxdrresponsejava"> 
+		<meta key="impltype" value="java"/>
+	</bean> 
+
+	<!-- Secured web service Implementation -->
+    <bean lazy-init="true" class="gov.hhs.fha.nhinc.docsubmission.adapter.deferred.response.proxy.AdapterDocSubmissionDeferredResponseProxyWebServiceSecuredImpl" id="adapterxdrresponsewssecured" name="adapterxdrresponsewssecured"> 
+		<meta key="impltype" value="wssecured"/>
+		<meta key="default" value="true"/>
+	</bean> 
+
+	<!-- Unsecured web service Implementation -->
+	<bean lazy-init="true" class="gov.hhs.fha.nhinc.docsubmission.adapter.deferred.response.proxy.AdapterDocSubmissionDeferredResponseProxyWebServiceUnsecuredImpl" id="adapterxdrresponsewsunsecured" name="adapterxdrresponsewsunsecured"> 
+		<meta key="impltype" value="wsunsecured"/>
+	</bean> 
+
+
+
+    <!-- Beans defined for entityxdrasyncresp -->
+
+    <alias alias="entityxdrasyncresp" name="entityxdrasyncrespwssecured" />
+	
+    <!-- No-op Implementation -->
+	<bean lazy-init="true" class="gov.hhs.fha.nhinc.docsubmission.entity.deferred.response.proxy.EntityDocSubmissionDeferredResponseProxyNoOpImpl" id="entityxdrasyncrespnoop" name="entityxdrasyncrespnoop"> 
+		<meta key="impltype" value="noop"/>
+	</bean> 
+
+	<!-- Java Implementation -->
+	<bean lazy-init="true" class="gov.hhs.fha.nhinc.docsubmission.entity.deferred.response.proxy.EntityDocSubmissionDeferredResponseProxyJavaImpl" id="entityxdrasyncrespjava" name="entityxdrasyncrespjava"> 
+		<meta key="impltype" value="java"/>
+	</bean> 
+
+	<!-- Secured web service Implementation -->
+    <bean lazy-init="true" class="gov.hhs.fha.nhinc.docsubmission.entity.deferred.response.proxy.EntityDocSubmissionDeferredResponseProxyWebServiceSecuredImpl" id="entityxdrasyncrespwssecured" name="entityxdrasyncrespwssecured"> 
+		<meta key="impltype" value="wssecured"/>
+		<meta key="default" value="true"/>
+	</bean> 
+
+	<!-- Unsecured web service Implementation -->
+	<bean lazy-init="true" class="gov.hhs.fha.nhinc.docsubmission.entity.deferred.response.proxy.EntityDocSubmissionDeferredResponseProxyWebServiceUnsecuredImpl" id="entityxdrasyncrespwsunsecured" name="entityxdrasyncrespwsunsecured"> 
+		<meta key="impltype" value="wsunsecured"/>
+	</bean> 
+	
+	
+	
+	<!-- Beans defined for nhinxdrresponse11 -->
+	
+	<alias alias="nhinxdrresponse" name="nhinxdrresponsewssecured" />
+	
+	<!-- No-op Implementation -->
+	<bean lazy-init="true" class="gov.hhs.fha.nhinc.docsubmission.nhin.deferred.response.proxy11.NhinDocSubmissionDeferredResponseProxyNoOpImpl" id="nhinxdrresponsenoop" name="nhinxdrresponsenoop"> 
+		<meta key="impltype" value="noop"/>
+	</bean> 
+
+	<!-- Secured web service Implementation -->
+    <bean lazy-init="true" class="gov.hhs.fha.nhinc.docsubmission.nhin.deferred.response.proxy11.NhinDocSubmissionDeferredResponseProxyWebServiceSecuredImpl" id="nhinxdrresponsewssecured" name="nhinxdrresponsewssecured"> 
+		<meta key="impltype" value="wssecured"/>
+		<meta key="default" value="true"/>
+	</bean>
+	
+	
+	
+	<!-- Beans defined for nhinxdrresponse20 -->
+	
+	<alias alias="nhinxdrresponse20" name="nhinxdrresponse20wssecured" />
+
+    <!-- No-op Implementation -->
+	<bean lazy-init="true" class="gov.hhs.fha.nhinc.docsubmission.nhin.deferred.response.proxy20.NhinDocSubmissionDeferredResponseProxyNoOpImpl" id="nhinxdrresponse20noop" name="nhinxdrresponse20noop"> 
+		<meta key="impltype" value="noop"/>
+	</bean> 
+
+	<!-- Secured web service Implementation -->
+    <bean lazy-init="true" class="gov.hhs.fha.nhinc.docsubmission.nhin.deferred.response.proxy20.NhinDocSubmissionDeferredResponseProxyWebServiceSecuredImpl" id="nhinxdrresponse20wssecured" name="nhinxdrresponse20wssecured"> 
+		<meta key="impltype" value="wssecured"/>
+		<meta key="default" value="true"/>
+	</bean>
+	
+	
+	<aop:aspectj-autoproxy />    
+</beans>

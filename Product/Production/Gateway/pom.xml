@@ -1,10 +1,8 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
-                      http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
         <groupId>org.connectopensource</groupId>
         <artifactId>Production</artifactId>
-        <version>4.0.0-SNAPSHOT</version>
+        <version>4.3.0-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
     <artifactId>Gateway</artifactId>
@@ -14,6 +12,7 @@
         <module>AdminDistribution_10</module>
         <module>AdminDistribution_20</module>
         <module>DocumentQuery_20</module>
+        <module>DocumentQuery_30</module>
         <module>DocumentRetrieve_20</module>
         <module>DocumentRetrieve_30</module>
         <module>DocumentSubmission_11</module>
@@ -21,6 +20,7 @@
         <module>HIEM_20</module>
         <module>PatientDiscovery_10</module>
         <module>CONNECTGatewayWeb</module>
+        <module>Direct</module>
     </modules>
     <properties>
         <skip.unpack>false</skip.unpack>
@@ -35,13 +35,6 @@
         <dependency>
             <groupId>org.connectopensource</groupId>
             <artifactId>CONNECTCommonTypesLib</artifactId>
-            <version>${project.parent.version}</version>
-            <exclusions>
-                <exclusion>
-                    <artifactId>activation</artifactId>
-                    <groupId>javax.activation</groupId>
-                </exclusion>
-            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.connectopensource</groupId>
@@ -59,9 +52,17 @@
             </exclusions>
         </dependency>
         <dependency>
+              <groupId>javax</groupId>
+              <artifactId>javaee-api</artifactId>
+              <scope>provided</scope>
+          </dependency>
+        <dependency>
             <groupId>commons-lang</groupId>
             <artifactId>commons-lang</artifactId>
-            <version>2.6</version>
+        </dependency>
+         <dependency>
+            <groupId>commons-logging</groupId>
+            <artifactId>commons-logging</artifactId>
         </dependency>
         <dependency>
             <groupId>commons-collections</groupId>
@@ -70,7 +71,40 @@
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-api</artifactId>
-            <version>1.6.4</version>
         </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.jmock</groupId>
+            <artifactId>jmock</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.jmock</groupId>
+            <artifactId>jmock-legacy</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.jmock</groupId>
+            <artifactId>jmock-junit4</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-log4j12</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-test</artifactId>
+        </dependency> 
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-all</artifactId>
+            <scope>test</scope>
+        </dependency>  
     </dependencies>
 </project>

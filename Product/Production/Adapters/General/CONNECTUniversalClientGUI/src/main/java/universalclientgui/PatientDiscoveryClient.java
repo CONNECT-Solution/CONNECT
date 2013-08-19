@@ -28,12 +28,9 @@
 package universalclientgui;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException;
-import gov.hhs.fha.nhinc.entitypatientdiscovery.EntityPatientDiscoveryPortType;
-import gov.hhs.fha.nhinc.messaging.client.CONNECTClient;
-import gov.hhs.fha.nhinc.messaging.client.CONNECTClientFactory;
-import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.patientdiscovery.entity.proxy.EntityPatientDiscoveryProxyWebServiceUnsecuredImpl;
@@ -44,16 +41,12 @@ import gov.hhs.fha.nhinc.transform.subdisc.HL7PatientTransforms;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 
 import javax.xml.bind.JAXBElement;
-import javax.xml.ws.Service;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 import org.hl7.v3.PRPAIN201305UV02;
 import org.hl7.v3.PRPAMT201301UV02Patient;
 import org.hl7.v3.PRPAMT201301UV02Person;
 import org.hl7.v3.RespondingGatewayPRPAIN201305UV02RequestType;
-
-import universalclientgui.service.EntityPatientDiscoveryServicePortDescriptor;
 
 /**
  * 
@@ -66,16 +59,8 @@ public class PatientDiscoveryClient {
     private static final String PROPERTY_FILE_KEY_HOME_COMMUNITY = "localHomeCommunityId";
     private static final String SERVICE_NAME = NhincConstants.ENTITY_PATIENT_DISCOVERY_SERVICE_NAME;
 
-    private static Log log = null;
+    private static final Logger LOG = Logger.getLogger(PatientDiscoveryClient.class);
    
-
-    private Log getLog() {
-        if (log == null) {
-            log = LogFactory.getLog(getClass());
-        }
-        return log;
-    }
-
     /**
      * Retrieve the local home community id
      * 
@@ -106,7 +91,9 @@ public class PatientDiscoveryClient {
         try {
 
             RespondingGatewayPRPAIN201305UV02RequestType request = new RespondingGatewayPRPAIN201305UV02RequestType();
+            NhinTargetCommunitiesType target = new NhinTargetCommunitiesType();
             request.setAssertion(assertion);
+            request.setNhinTargetCommunities(target);
 
             String orgId = getHomeCommunityId();
 
@@ -120,11 +107,11 @@ public class PatientDiscoveryClient {
             	EntityPatientDiscoveryProxyWebServiceUnsecuredImpl instance = new EntityPatientDiscoveryProxyWebServiceUnsecuredImpl();
                 instance.respondingGatewayPRPAIN201305UV02(request201305, assertion, request.getNhinTargetCommunities());
             } else {
-                log.error("Error getting URL for: " + SERVICE_NAME + "url is null");
+                LOG.error("Error getting URL for: " + SERVICE_NAME + "url is null");
             }
 
         } catch (Exception ex) {
-            getLog().error("Exception in patient discovery", ex);
+            LOG.error("Exception in patient discovery", ex);
         }
     }
 
@@ -148,7 +135,7 @@ public class PatientDiscoveryClient {
             localDeviceId = PropertyAccessor.getInstance().getProperty(PROPERTY_FILE_NAME,
                     PROPERTY_FILE_KEY_LOCAL_DEVICE);
         } catch (PropertyAccessException ex) {
-            getLog().error(ex);
+            LOG.error(ex);
         }
 
         JAXBElement<PRPAMT201301UV02Person> person = HL7PatientTransforms.create201301PatientPerson(

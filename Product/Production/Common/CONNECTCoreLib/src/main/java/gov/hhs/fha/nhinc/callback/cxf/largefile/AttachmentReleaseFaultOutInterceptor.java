@@ -68,7 +68,7 @@ public class AttachmentReleaseFaultOutInterceptor extends AbstractPhaseIntercept
                 if (ds instanceof AttachmentDataSource) {
                     AttachmentDataSource ads = (AttachmentDataSource) ds;
                     ads.release();
-                    LargeFileUtils.getInstance().closeStreamWithoutException(ads.getInputStream());
+                    getLargeFileUtils().closeStreamWithoutException(ads.getInputStream());
                 }
             }
         }
@@ -80,6 +80,10 @@ public class AttachmentReleaseFaultOutInterceptor extends AbstractPhaseIntercept
         }
 
         return null;
+    }
+    
+    protected LargeFileUtils getLargeFileUtils(){
+    	return LargeFileUtils.getInstance();
     }
 
 }

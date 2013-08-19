@@ -32,29 +32,27 @@ package gov.hhs.fha.nhinc.subscription.filters.documentfilter;
 //import gov.hhs.fha.nhinc.util.format.PatientIdFormatUtil;
 //import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType.DocumentRequest;
 //import java.util.List;
-//import java.util.logging.Level;
-//import java.util.logging.Logger;
 //import javax.xml.bind.JAXBElement;
 import gov.hhs.fha.nhinc.common.nhinccommon.QualifiedSubjectIdentifierType;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.util.format.PatientIdFormatUtil;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType.DocumentRequest;
+
 import java.util.List;
+
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.ClassificationType;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.ExternalIdentifierType;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.ExtrinsicObjectType;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.IdentifiableType;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.RegistryObjectListType;
-import oasis.names.tc.ebxml_regrep.xsd.rim._3.SlotType1;
-
+import org.apache.log4j.Logger;
 /**
  * 
  * @author rayj
  */
 public class DocumentMetadataHelper {
 
-    private static org.apache.commons.logging.Log log = org.apache.commons.logging.LogFactory
-            .getLog(DocumentMetadataHelper.class);
+    private static final Logger LOG = Logger.getLogger(DocumentMetadataHelper.class);
 
     public static ExtrinsicObjectType findMatchingDocumentMetadata(RegistryObjectListType documentMetadatas,
             DocumentRequest document) {
@@ -93,7 +91,7 @@ public class DocumentMetadataHelper {
         try {
             repositoryId = AdhocQueryHelper.findSlotValue(documentMetadata.getSlot(), Constants.RepositoryIdSlotName);
         } catch (MultipleSlotValuesFoundException ex) {
-            log.error(ex);
+            LOG.error(ex);
         }
         return repositoryId;
     }

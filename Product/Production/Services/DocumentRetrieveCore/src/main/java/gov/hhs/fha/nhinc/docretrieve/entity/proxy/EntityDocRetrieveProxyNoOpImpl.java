@@ -30,27 +30,19 @@ import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+
+import org.apache.log4j.Logger;
 
 /**
  * 
  * @author dunnek
  */
 public class EntityDocRetrieveProxyNoOpImpl implements EntityDocRetrieveProxy {
-    private static org.apache.commons.logging.Log log = null;
-
-    public EntityDocRetrieveProxyNoOpImpl() {
-        log = createLogger();
-    }
-
-    protected Log createLogger() {
-        return LogFactory.getLog(getClass());
-    }
+    private static final Logger LOG = Logger.getLogger(EntityDocRetrieveProxyNoOpImpl.class);
 
     public RetrieveDocumentSetResponseType respondingGatewayCrossGatewayRetrieve(RetrieveDocumentSetRequestType body,
             AssertionType assertion, NhinTargetCommunitiesType targets) {
-        log.debug("begin respondingGatewayCrossGatewayRetrieve()");
+        LOG.trace("begin respondingGatewayCrossGatewayRetrieve()");
         return new RetrieveDocumentSetResponseType();
     }
 

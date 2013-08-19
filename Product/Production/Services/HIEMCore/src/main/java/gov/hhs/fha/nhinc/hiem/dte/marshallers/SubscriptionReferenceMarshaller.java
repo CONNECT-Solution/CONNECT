@@ -26,12 +26,8 @@
  */
 package gov.hhs.fha.nhinc.hiem.dte.marshallers;
 
-import gov.hhs.fha.nhinc.xmlCommon.XmlUtility;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.xml.bind.JAXBElement;
-import org.oasis_open.docs.wsn.b_2.Notify;
-import org.oasis_open.docs.wsn.b_2.Subscribe;
+
 import org.w3._2005._08.addressing.EndpointReferenceType;
 import org.w3c.dom.Element;
 

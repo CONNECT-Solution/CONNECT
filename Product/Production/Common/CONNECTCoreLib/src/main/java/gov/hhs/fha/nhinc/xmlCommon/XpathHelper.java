@@ -26,21 +26,18 @@
  */
 package gov.hhs.fha.nhinc.xmlCommon;
 
-import gov.hhs.fha.nhinc.nhinclib.NullChecker;
+import gov.hhs.fha.nhinc.util.StringUtil;
 import java.io.ByteArrayInputStream;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.io.UnsupportedEncodingException;
+
 import javax.xml.namespace.NamespaceContext;
 import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathExpressionException;
-import org.w3c.dom.*;
-import org.w3c.dom.bootstrap.DOMImplementationRegistry;
-import org.w3c.dom.ls.DOMImplementationLS;
-import org.w3c.dom.ls.LSException;
-import org.w3c.dom.ls.LSSerializer;
+
+import org.apache.log4j.Logger;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
 import org.xml.sax.InputSource;
-import org.w3c.dom.ls.LSInput;
-import org.w3c.dom.ls.LSParser;
 
 /**
  * 
@@ -48,24 +45,20 @@ import org.w3c.dom.ls.LSParser;
  */
 public class XpathHelper {
 
-    private static org.apache.commons.logging.Log log = org.apache.commons.logging.LogFactory.getLog(XpathHelper.class);
+    private static final Logger LOG = Logger.getLogger(XpathHelper.class);
 
     public static Node performXpathQuery(String sourceXml, String xpathQuery) throws XPathExpressionException {
-        return performXpathQuery(sourceXml, xpathQuery, null);
-    }
-
-    public static Node performXpathQuery(String sourceXml, String xpathQuery, NamespaceContext namespaceContext)
-            throws XPathExpressionException {
         javax.xml.xpath.XPathFactory factory = javax.xml.xpath.XPathFactory.newInstance();
         javax.xml.xpath.XPath xpath = factory.newXPath();
 
-        if (namespaceContext != null) {
-            xpath.setNamespaceContext(namespaceContext);
+        InputSource inputSource = null;
+        try {
+            inputSource = new InputSource(new ByteArrayInputStream(sourceXml.getBytes(StringUtil.UTF8_CHARSET)));
+        } catch (UnsupportedEncodingException ex) {
+            LOG.error("Error converting String to UTF8 format: "+ex.getMessage());
         }
 
-        InputSource inputSource = new InputSource(new ByteArrayInputStream(sourceXml.getBytes()));
-
-        log.debug("perform xpath query (query='" + xpathQuery + "'");
+        LOG.debug("perform xpath query (query='" + xpathQuery + "'");
         Node result = null;
         if (XmlUtfHelper.isUtf16(sourceXml)) {
             try {
@@ -73,14 +66,14 @@ public class XpathHelper {
             } catch (Exception ex) {
                 // Exception may be due to the encoding of the message being incorrect.
                 // retry using UTF-8
-                log.warn("failed to perform xpath query - retrying with UTF-8");
+                LOG.warn("failed to perform xpath query - retrying with UTF-8");
                 sourceXml = XmlUtfHelper.convertToUtf8(sourceXml);
-                result = performXpathQuery(sourceXml, xpathQuery, namespaceContext);
+                result = performXpathQuery(sourceXml, xpathQuery);
             }
         } else {
             result = (Node) xpath.evaluate(xpathQuery, inputSource, XPathConstants.NODE);
         }
-        log.debug("xpath query complete [result?=" + result + "]");
+        LOG.debug("xpath query complete [result?=" + result + "]");
         return result;
     }
 
@@ -97,7 +90,7 @@ public class XpathHelper {
             xpath.setNamespaceContext(namespaceContext);
         }
 
-        log.debug("About to perform xpath query (query='" + xpathQuery + "'");
+        LOG.debug("About to perform xpath query (query='" + xpathQuery + "'");
         Node result = (Node) xpath.evaluate(xpathQuery, sourceElement, XPathConstants.NODE);
         return result;
     }

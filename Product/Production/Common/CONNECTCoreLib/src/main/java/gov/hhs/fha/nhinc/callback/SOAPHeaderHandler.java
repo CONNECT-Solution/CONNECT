@@ -40,8 +40,7 @@ import javax.xml.ws.handler.MessageContext;
 import javax.xml.ws.handler.soap.SOAPHandler;
 import javax.xml.ws.handler.soap.SOAPMessageContext;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 
 import gov.hhs.fha.nhinc.async.AddressingHeaderCreator;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
@@ -52,7 +51,7 @@ import gov.hhs.fha.nhinc.nhinclib.NullChecker;
  */
 public class SOAPHeaderHandler implements SOAPHandler<SOAPMessageContext> {
 
-    private static Log log = LogFactory.getLog(SOAPHeaderHandler.class);
+    private static final Logger LOG = Logger.getLogger(SOAPHeaderHandler.class);
     private static final String WSA_NS = "http://www.w3.org/2005/08/addressing";
     private static final String MESSAGE_ID_CONTEXT = "com.sun.xml.ws.addressing.response.messageID";
     private static final String MESSAGE_ID = "MessageID";
@@ -63,7 +62,7 @@ public class SOAPHeaderHandler implements SOAPHandler<SOAPMessageContext> {
      */
     @Override
     public Set<QName> getHeaders() {
-        log.debug("SoapHeaderHandler.getHeaders");
+        LOG.debug("SoapHeaderHandler.getHeaders");
         return Collections.emptySet();
     }
 
@@ -72,7 +71,7 @@ public class SOAPHeaderHandler implements SOAPHandler<SOAPMessageContext> {
      */
     @Override
     public boolean handleMessage(SOAPMessageContext messageContext) {
-        log.debug("Entering SOAPHeaderHandler.handleMessage");
+        LOG.debug("Entering SOAPHeaderHandler.handleMessage");
         Boolean isOutboundMessage = (Boolean) messageContext.get(MessageContext.MESSAGE_OUTBOUND_PROPERTY);
         try {
             SOAPMessage oMessage = messageContext.getMessage();
@@ -81,10 +80,10 @@ public class SOAPHeaderHandler implements SOAPHandler<SOAPMessageContext> {
             if (isOutboundMessage.booleanValue() && (!messageContext.containsKey(MESSAGE_ID_CONTEXT))) {
                 adjustMessageId(messageContext, oHeader);
             } else {
-                log.debug("Will not adjust messageID on inbound request");
+                LOG.debug("Will not adjust messageID on inbound request");
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            LOG.error(e.getMessage());
         }
 
         return true;
@@ -103,7 +102,7 @@ public class SOAPHeaderHandler implements SOAPHandler<SOAPMessageContext> {
         String messageId = null;
         messageId = (String) messageContext.get(MESSAGE_ID_CONTEXT);
         if (NullChecker.isNullish(messageId)) {
-            messageId = AddressingHeaderCreator.generateMessageId();
+            messageId = generateMessageId();
         } else if (illegalUUID(messageId, "uuid:")) {
             messageId = "urn:" + messageId;
 		} else if (!legalMessageId(messageId)) {
@@ -171,7 +170,7 @@ public class SOAPHeaderHandler implements SOAPHandler<SOAPMessageContext> {
      * @return
      */
     public boolean handleFault(SOAPMessageContext context) {
-        log.warn("SoapHeaderHandler.handleFault");
+        LOG.warn("SoapHeaderHandler.handleFault");
         return true;
     }
 
@@ -180,6 +179,10 @@ public class SOAPHeaderHandler implements SOAPHandler<SOAPMessageContext> {
      * @param context
      */
     public void close(MessageContext context) {
-        log.debug("SoapHeaderHandler.close");
+        LOG.debug("SoapHeaderHandler.close");
+    }
+    
+    protected String generateMessageId(){
+    	return AddressingHeaderCreator.generateMessageId();
     }
 }

@@ -31,13 +31,12 @@ import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.docsubmission.nhin.proxy.NhinDocSubmissionProxy;
-import gov.hhs.fha.nhinc.gateway.aggregator.document.DocumentConstants;
+import gov.hhs.fha.nhinc.document.DocumentConstants;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.orchestration.OrchestrationStrategy;
 
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
-import org.apache.commons.logging.Log;
 import org.jmock.Expectations;
 import org.jmock.Mockery;
 import org.jmock.integration.junit4.JUnit4Mockery;
@@ -51,12 +50,10 @@ public class OutboundDocSubmissionStrategyTest {
             setImposteriser(ClassImposteriser.INSTANCE);
         }
     };
-    final Log mockLog = context.mock(Log.class);
     final NhinDocSubmissionProxy mockProxy = context.mock(NhinDocSubmissionProxy.class);
 
     @Test
     public void testExecute_g0() {
-        allowAnyMockLogging();
         expectMockProxyInvokeWithG0();
 
         testExecute(createOutboundDocSubmissionStrategyImpl_g0());
@@ -66,7 +63,6 @@ public class OutboundDocSubmissionStrategyTest {
 
     @Test
     public void testExecute_g1() {
-        allowAnyMockLogging();
         expectMockProxyInvokeWithG1();
 
         testExecute(createOutboundDocSubmissionStrategyImpl_g1());
@@ -86,20 +82,10 @@ public class OutboundDocSubmissionStrategyTest {
     @Test
     public void testGetters() {
         OutboundDocSubmissionStrategyImpl_g0 strategy_g0 = createOutboundDocSubmissionStrategyImpl_g0();
-        assertNotNull(strategy_g0.getLogger());
         assertNotNull(strategy_g0.getNhinDocSubmissionProxy());
 
         OutboundDocSubmissionStrategyImpl_g1 strategy_g1 = createOutboundDocSubmissionStrategyImpl_g1();
-        assertNotNull(strategy_g1.getLogger());
         assertNotNull(strategy_g1.getNhinDocSubmissionProxy());
-    }
-
-    private void allowAnyMockLogging() {
-        context.checking(new Expectations() {
-            {
-                ignoring(mockLog);
-            }
-        });
     }
 
     private void expectMockProxyInvokeWithG0() {
@@ -131,10 +117,6 @@ public class OutboundDocSubmissionStrategyTest {
 
     private OutboundDocSubmissionStrategyImpl_g0 createOutboundDocSubmissionStrategyImpl_g0() {
         return new OutboundDocSubmissionStrategyImpl_g0() {
-            protected Log getLogger() {
-                return mockLog;
-            }
-
             protected NhinDocSubmissionProxy getNhinDocSubmissionProxy() {
                 return mockProxy;
             }
@@ -143,10 +125,6 @@ public class OutboundDocSubmissionStrategyTest {
 
     private OutboundDocSubmissionStrategyImpl_g1 createOutboundDocSubmissionStrategyImpl_g1() {
         return new OutboundDocSubmissionStrategyImpl_g1() {
-            protected Log getLogger() {
-                return mockLog;
-            }
-
             protected NhinDocSubmissionProxy getNhinDocSubmissionProxy() {
                 return mockProxy;
             }

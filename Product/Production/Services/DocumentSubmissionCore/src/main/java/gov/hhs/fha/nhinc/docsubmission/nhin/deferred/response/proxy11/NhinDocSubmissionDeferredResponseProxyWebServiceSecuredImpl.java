@@ -26,9 +26,13 @@
  */
 package gov.hhs.fha.nhinc.docsubmission.nhin.deferred.response.proxy11;
 
+import gov.hhs.fha.nhinc.aspect.NwhinInvocationEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
+import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException;
 import gov.hhs.fha.nhinc.docsubmission.MessageGeneratorUtils;
+import gov.hhs.fha.nhinc.docsubmission.aspect.DeferredResponseDescriptionBuilder;
+import gov.hhs.fha.nhinc.docsubmission.aspect.DocSubmissionArgTransformerBuilder;
 import gov.hhs.fha.nhinc.docsubmission.nhin.deferred.response.proxy11.service.NhinDocSubmissionDeferredResponseServicePortDescriptor;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTClient;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTClientFactory;
@@ -39,12 +43,9 @@ import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 import gov.hhs.healthit.nhin.XDRAcknowledgementType;
 import ihe.iti.xdr._2007.XDRDeferredResponsePortType;
 
-import javax.xml.ws.BindingProvider;
-
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 
 /**
  * 
@@ -52,17 +53,12 @@ import org.apache.commons.logging.LogFactory;
  */
 public class NhinDocSubmissionDeferredResponseProxyWebServiceSecuredImpl implements
         NhinDocSubmissionDeferredResponseProxy {
-    private Log log = null;
+    private static final Logger LOG = Logger.getLogger(NhinDocSubmissionDeferredResponseProxyWebServiceSecuredImpl.class);
 
     private WebServiceProxyHelper oProxyHelper = null;
 
     public NhinDocSubmissionDeferredResponseProxyWebServiceSecuredImpl() {
-        log = createLogger();
         oProxyHelper = createWebServiceProxyHelper();
-    }
-
-    protected Log createLogger() {
-        return LogFactory.getLog(getClass());
     }
 
     protected WebServiceProxyHelper createWebServiceProxyHelper() {
@@ -74,41 +70,54 @@ public class NhinDocSubmissionDeferredResponseProxyWebServiceSecuredImpl impleme
     }
 
     protected CONNECTClient<XDRDeferredResponsePortType> getCONNECTClientSecured(
-            ServicePortDescriptor<XDRDeferredResponsePortType> portDescriptor, String url, AssertionType assertion) {
+            ServicePortDescriptor<XDRDeferredResponsePortType> portDescriptor, String url, AssertionType assertion,
+              String target, String serviceName) {
 
-        return CONNECTClientFactory.getInstance().getCONNECTClientSecured(portDescriptor, url, assertion);
+        CONNECTClient<XDRDeferredResponsePortType> client = CONNECTClientFactory.getInstance().getCONNECTClientSecured(portDescriptor, assertion, url, target,
+                serviceName);
+        return client;
     }
 
+    @NwhinInvocationEvent(beforeBuilder = DeferredResponseDescriptionBuilder.class,
+            afterReturningBuilder = DocSubmissionArgTransformerBuilder.class,
+            serviceType = "Document Submission Deferred Response", version = "")
     public XDRAcknowledgementType provideAndRegisterDocumentSetBDeferredResponse11(RegistryResponseType request,
             AssertionType assertion, NhinTargetSystemType target) {
-        log.debug("Begin provideAndRegisterDocumentSetBDeferredResponse");
+        LOG.debug("Begin provideAndRegisterDocumentSetBDeferredResponse");
         XDRAcknowledgementType response = null;
         try {
-            String url = oProxyHelper.getUrlFromTargetSystemByGatewayAPILevel(target,
-                    NhincConstants.NHINC_XDR_RESPONSE_SERVICE_NAME, GATEWAY_API_LEVEL.LEVEL_g0);
+            String url = getUrl(target);
 
             if (request == null) {
-                log.error("Message was null");
+                LOG.error("Message was null");
             } else {
                 ServicePortDescriptor<XDRDeferredResponsePortType> portDescriptor = new NhinDocSubmissionDeferredResponseServicePortDescriptor();
                 CONNECTClient<XDRDeferredResponsePortType> client = getCONNECTClientSecured(portDescriptor, url,
-                        assertion);
-
-                WebServiceProxyHelper wsHelper = new WebServiceProxyHelper();
-                wsHelper.addTargetCommunity((BindingProvider) client.getPort(), target);
-                wsHelper.addServiceName((BindingProvider) client.getPort(),
+                        assertion, target.getHomeCommunity().getHomeCommunityId(),
                         NhincConstants.NHINC_XDR_RESPONSE_SERVICE_NAME);
+                client.enableMtom();
 
                 response = (XDRAcknowledgementType) client.invokePort(XDRDeferredResponsePortType.class,
                         "provideAndRegisterDocumentSetBDeferredResponse", request);
             }
         } catch (Exception ex) {
-            log.error("Error calling provideAndRegisterDocumentSetBDeferredResponse: " + ex.getMessage(), ex);
+            LOG.error("Error calling provideAndRegisterDocumentSetBDeferredResponse: " + ex.getMessage(), ex);
             response = getMessageGeneratorUtils().createRegistryErrorXDRAcknowledgementType(ex.getMessage());
         }
 
-        log.debug("End provideAndRegisterDocumentSetBDeferredResponse");
+        LOG.debug("End provideAndRegisterDocumentSetBDeferredResponse");
         return response;
+    }
+
+    /**
+     * @return
+     * @throws Exception 
+     * @throws ConnectionManagerException 
+     * @throws IllegalArgumentException 
+     */
+    protected String getUrl(NhinTargetSystemType target) throws IllegalArgumentException, ConnectionManagerException, Exception {
+        return oProxyHelper.getUrlFromTargetSystemByGatewayAPILevel(target,
+                NhincConstants.NHINC_XDR_RESPONSE_SERVICE_NAME, GATEWAY_API_LEVEL.LEVEL_g0);
     }
 
 }

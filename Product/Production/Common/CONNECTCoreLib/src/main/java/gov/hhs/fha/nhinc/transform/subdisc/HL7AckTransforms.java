@@ -26,10 +26,11 @@
  */
 package gov.hhs.fha.nhinc.transform.subdisc;
 
+import java.util.List;
+
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import org.hl7.v3.*;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 
 /**
  * 
@@ -37,7 +38,7 @@ import org.apache.commons.logging.LogFactory;
  */
 public class HL7AckTransforms {
 
-    private static Log log = LogFactory.getLog(HL7AckTransforms.class);
+    private static final Logger LOG = Logger.getLogger(HL7AckTransforms.class);
 
     public static final String ACK_DETAIL_TYPE_CODE_ERROR = "E";
     public static final String ACK_DETAIL_TYPE_CODE_INFO = "I";
@@ -45,7 +46,7 @@ public class HL7AckTransforms {
     public static final String ACK_TYPE_CODE_ERROR = "CE";
 
     /**
-     * Create acknowledgement accept message from patient discovery request.
+     * Create acknowledgment accept message from patient discovery request.
      * 
      * @param request
      * @param ackMsgText
@@ -54,8 +55,6 @@ public class HL7AckTransforms {
     public static MCCIIN000002UV01 createAckFrom201305(PRPAIN201305UV02 request, String ackMsgText) {
         MCCIIN000002UV01 ack = new MCCIIN000002UV01();
         II msgId = new II();
-        String senderOID = null;
-        String receiverOID = null;
 
         if (request != null) {
             // Extract the message id
@@ -64,40 +63,10 @@ public class HL7AckTransforms {
             }
 
             // Set the sender OID to the receiver OID from the original message
-            if (NullChecker.isNotNullish(request.getReceiver())
-                    && request.getReceiver().get(0) != null
-                    && request.getReceiver().get(0).getDevice() != null
-                    && request.getReceiver().get(0).getDevice().getAsAgent() != null
-                    && request.getReceiver().get(0).getDevice().getAsAgent().getValue() != null
-                    && request.getReceiver().get(0).getDevice().getAsAgent().getValue().getRepresentedOrganization() != null
-                    && request.getReceiver().get(0).getDevice().getAsAgent().getValue().getRepresentedOrganization()
-                            .getValue() != null
-                    && NullChecker.isNotNullish(request.getReceiver().get(0).getDevice().getAsAgent().getValue()
-                            .getRepresentedOrganization().getValue().getId())
-                    && request.getReceiver().get(0).getDevice().getAsAgent().getValue().getRepresentedOrganization()
-                            .getValue().getId().get(0) != null
-                    && NullChecker.isNotNullish(request.getReceiver().get(0).getDevice().getAsAgent().getValue()
-                            .getRepresentedOrganization().getValue().getId().get(0).getRoot())) {
-                senderOID = request.getReceiver().get(0).getDevice().getAsAgent().getValue()
-                        .getRepresentedOrganization().getValue().getId().get(0).getRoot();
-            }
+            String senderOID = getMCCIMT000100UV01RepresentedOrganizationRootOID(request.getReceiver());
 
             // Set the receiver OID to the sender OID from the original message
-            if (request.getSender() != null
-                    && request.getSender().getDevice() != null
-                    && request.getSender().getDevice().getAsAgent() != null
-                    && request.getSender().getDevice().getAsAgent().getValue() != null
-                    && request.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization() != null
-                    && request.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue() != null
-                    && NullChecker.isNotNullish(request.getSender().getDevice().getAsAgent().getValue()
-                            .getRepresentedOrganization().getValue().getId())
-                    && request.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue()
-                            .getId().get(0) != null
-                    && NullChecker.isNotNullish(request.getSender().getDevice().getAsAgent().getValue()
-                            .getRepresentedOrganization().getValue().getId().get(0).getRoot())) {
-                receiverOID = request.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization()
-                        .getValue().getId().get(0).getRoot();
-            }
+            String receiverOID = getMCCIMT000100UV01RepresentedOrganizationRootOID(request.getSender());
 
             // Create the ack message
             ack = HL7AckTransforms.createAckMessage(null, msgId, ACK_TYPE_CODE_ACCEPT, ackMsgText, senderOID,
@@ -106,9 +75,10 @@ public class HL7AckTransforms {
 
         return ack;
     }
+    
 
     /**
-     * Create acknowledgement error message from patient discovery request.
+     * Create acknowledgment error message from patient discovery request.
      * 
      * @param request
      * @param ackMsgText
@@ -117,8 +87,6 @@ public class HL7AckTransforms {
     public static MCCIIN000002UV01 createAckErrorFrom201305(PRPAIN201305UV02 request, String ackMsgText) {
         MCCIIN000002UV01 ack = new MCCIIN000002UV01();
         II msgId = new II();
-        String senderOID = null;
-        String receiverOID = null;
 
         if (request != null) {
             // Extract the message id
@@ -127,41 +95,10 @@ public class HL7AckTransforms {
             }
 
             // Set the sender OID to the receiver OID from the original message
-            if (NullChecker.isNotNullish(request.getReceiver())
-                    && request.getReceiver().get(0) != null
-                    && request.getReceiver().get(0).getDevice() != null
-                    && request.getReceiver().get(0).getDevice().getAsAgent() != null
-                    && request.getReceiver().get(0).getDevice().getAsAgent().getValue() != null
-                    && request.getReceiver().get(0).getDevice().getAsAgent().getValue().getRepresentedOrganization() != null
-                    && request.getReceiver().get(0).getDevice().getAsAgent().getValue().getRepresentedOrganization()
-                            .getValue() != null
-                    && NullChecker.isNotNullish(request.getReceiver().get(0).getDevice().getAsAgent().getValue()
-                            .getRepresentedOrganization().getValue().getId())
-                    && request.getReceiver().get(0).getDevice().getAsAgent().getValue().getRepresentedOrganization()
-                            .getValue().getId().get(0) != null
-                    && NullChecker.isNotNullish(request.getReceiver().get(0).getDevice().getAsAgent().getValue()
-                            .getRepresentedOrganization().getValue().getId().get(0).getRoot())) {
-                senderOID = request.getReceiver().get(0).getDevice().getAsAgent().getValue()
-                        .getRepresentedOrganization().getValue().getId().get(0).getRoot();
-            }
+            String senderOID = getMCCIMT000100UV01RepresentedOrganizationRootOID(request.getSender());
 
             // Set the receiver OID to the sender OID from the original message
-            if (request.getSender() != null
-                    && request.getSender().getDevice() != null
-                    && request.getSender().getDevice().getAsAgent() != null
-                    && request.getSender().getDevice().getAsAgent().getValue() != null
-                    && request.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization() != null
-                    && request.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue() != null
-                    && NullChecker.isNotNullish(request.getSender().getDevice().getAsAgent().getValue()
-                            .getRepresentedOrganization().getValue().getId())
-                    && request.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue()
-                            .getId().get(0) != null
-                    && NullChecker.isNotNullish(request.getSender().getDevice().getAsAgent().getValue()
-                            .getRepresentedOrganization().getValue().getId().get(0).getRoot())) {
-                receiverOID = request.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization()
-                        .getValue().getId().get(0).getRoot();
-            }
-
+            String receiverOID = senderOID;
             // Create the ack message
             ack = HL7AckTransforms.createAckMessage(null, msgId, ACK_TYPE_CODE_ERROR, ackMsgText, senderOID,
                     receiverOID);
@@ -171,7 +108,7 @@ public class HL7AckTransforms {
     }
 
     /**
-     * Create acknowledgement accept message from patient discovery response.
+     * Create acknowledgment accept message from patient discovery response.
      * 
      * @param request
      * @param ackMsgText
@@ -180,9 +117,7 @@ public class HL7AckTransforms {
     public static MCCIIN000002UV01 createAckFrom201306(PRPAIN201306UV02 request, String ackMsgText) {
         MCCIIN000002UV01 ack = new MCCIIN000002UV01();
         II msgId = new II();
-        String senderOID = null;
-        String receiverOID = null;
-
+         
         if (request != null) {
             // Extract the message id
             if (request.getId() != null) {
@@ -190,40 +125,10 @@ public class HL7AckTransforms {
             }
 
             // Set the sender OID to the receiver OID from the original message
-            if (NullChecker.isNotNullish(request.getReceiver())
-                    && request.getReceiver().get(0) != null
-                    && request.getReceiver().get(0).getDevice() != null
-                    && request.getReceiver().get(0).getDevice().getAsAgent() != null
-                    && request.getReceiver().get(0).getDevice().getAsAgent().getValue() != null
-                    && request.getReceiver().get(0).getDevice().getAsAgent().getValue().getRepresentedOrganization() != null
-                    && request.getReceiver().get(0).getDevice().getAsAgent().getValue().getRepresentedOrganization()
-                            .getValue() != null
-                    && NullChecker.isNotNullish(request.getReceiver().get(0).getDevice().getAsAgent().getValue()
-                            .getRepresentedOrganization().getValue().getId())
-                    && request.getReceiver().get(0).getDevice().getAsAgent().getValue().getRepresentedOrganization()
-                            .getValue().getId().get(0) != null
-                    && NullChecker.isNotNullish(request.getReceiver().get(0).getDevice().getAsAgent().getValue()
-                            .getRepresentedOrganization().getValue().getId().get(0).getRoot())) {
-                senderOID = request.getReceiver().get(0).getDevice().getAsAgent().getValue()
-                        .getRepresentedOrganization().getValue().getId().get(0).getRoot();
-            }
+            String senderOID = getMCCIMT000300UV01RepresentedOrganizationRootOID(request.getReceiver());
 
             // Set the receiver OID to the sender OID from the original message
-            if (request.getSender() != null
-                    && request.getSender().getDevice() != null
-                    && request.getSender().getDevice().getAsAgent() != null
-                    && request.getSender().getDevice().getAsAgent().getValue() != null
-                    && request.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization() != null
-                    && request.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue() != null
-                    && NullChecker.isNotNullish(request.getSender().getDevice().getAsAgent().getValue()
-                            .getRepresentedOrganization().getValue().getId())
-                    && request.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue()
-                            .getId().get(0) != null
-                    && NullChecker.isNotNullish(request.getSender().getDevice().getAsAgent().getValue()
-                            .getRepresentedOrganization().getValue().getId().get(0).getRoot())) {
-                receiverOID = request.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization()
-                        .getValue().getId().get(0).getRoot();
-            }
+            String receiverOID = getMCCIMT000300UV01RepresentedOrganizationRootOID(request.getSender());
 
             // Create the ack message
             ack = HL7AckTransforms.createAckMessage(null, msgId, ACK_TYPE_CODE_ACCEPT, ackMsgText, senderOID,
@@ -234,7 +139,7 @@ public class HL7AckTransforms {
     }
 
     /**
-     * Create acknowledgement accept message from patient discovery response.
+     * Create acknowledgment accept message from patient discovery response.
      * 
      * @param request
      * @param ackMsgText
@@ -243,8 +148,6 @@ public class HL7AckTransforms {
     public static MCCIIN000002UV01 createAckErrorFrom201306(PRPAIN201306UV02 request, String ackMsgText) {
         MCCIIN000002UV01 ack = new MCCIIN000002UV01();
         II msgId = new II();
-        String senderOID = null;
-        String receiverOID = null;
 
         if (request != null) {
             // Extract the message id
@@ -253,40 +156,10 @@ public class HL7AckTransforms {
             }
 
             // Set the sender OID to the receiver OID from the original message
-            if (NullChecker.isNotNullish(request.getReceiver())
-                    && request.getReceiver().get(0) != null
-                    && request.getReceiver().get(0).getDevice() != null
-                    && request.getReceiver().get(0).getDevice().getAsAgent() != null
-                    && request.getReceiver().get(0).getDevice().getAsAgent().getValue() != null
-                    && request.getReceiver().get(0).getDevice().getAsAgent().getValue().getRepresentedOrganization() != null
-                    && request.getReceiver().get(0).getDevice().getAsAgent().getValue().getRepresentedOrganization()
-                            .getValue() != null
-                    && NullChecker.isNotNullish(request.getReceiver().get(0).getDevice().getAsAgent().getValue()
-                            .getRepresentedOrganization().getValue().getId())
-                    && request.getReceiver().get(0).getDevice().getAsAgent().getValue().getRepresentedOrganization()
-                            .getValue().getId().get(0) != null
-                    && NullChecker.isNotNullish(request.getReceiver().get(0).getDevice().getAsAgent().getValue()
-                            .getRepresentedOrganization().getValue().getId().get(0).getRoot())) {
-                senderOID = request.getReceiver().get(0).getDevice().getAsAgent().getValue()
-                        .getRepresentedOrganization().getValue().getId().get(0).getRoot();
-            }
+            String senderOID = getMCCIMT000300UV01RepresentedOrganizationRootOID(request.getReceiver());
 
             // Set the receiver OID to the sender OID from the original message
-            if (request.getSender() != null
-                    && request.getSender().getDevice() != null
-                    && request.getSender().getDevice().getAsAgent() != null
-                    && request.getSender().getDevice().getAsAgent().getValue() != null
-                    && request.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization() != null
-                    && request.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue() != null
-                    && NullChecker.isNotNullish(request.getSender().getDevice().getAsAgent().getValue()
-                            .getRepresentedOrganization().getValue().getId())
-                    && request.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue()
-                            .getId().get(0) != null
-                    && NullChecker.isNotNullish(request.getSender().getDevice().getAsAgent().getValue()
-                            .getRepresentedOrganization().getValue().getId().get(0).getRoot())) {
-                receiverOID = request.getSender().getDevice().getAsAgent().getValue().getRepresentedOrganization()
-                        .getValue().getId().get(0).getRoot();
-            }
+            String receiverOID = getMCCIMT000300UV01RepresentedOrganizationRootOID(request.getSender());
 
             // Create the ack message
             ack = HL7AckTransforms.createAckMessage(null, msgId, ACK_TYPE_CODE_ERROR, ackMsgText, senderOID,
@@ -297,7 +170,7 @@ public class HL7AckTransforms {
     }
 
     /**
-     * Create acknowledgement message based on specific data values.
+     * Create acknowledgment message based on specific data values.
      * 
      * @param localDeviceId
      * @param origMsgId
@@ -310,21 +183,10 @@ public class HL7AckTransforms {
             String msgText, String senderOID, String receiverOID) {
         MCCIIN000002UV01 ackMsg = new MCCIIN000002UV01();
 
-        // Validate input parameters
-        if (NullChecker.isNullish(senderOID)) {
-            log.error("Failed to specify a sender OID");
-            return null;
-        }
-
-        if (NullChecker.isNullish(receiverOID)) {
-            log.error("Failed to specify a receiver OID");
-            return null;
-        }
-
         // Create the Ack message header fields
         ackMsg.setITSVersion(HL7Constants.ITS_VERSION);
-        ackMsg.setId(HL7MessageIdGenerator.GenerateHL7MessageId(localDeviceId));
-        ackMsg.setCreationTime(HL7DataTransformHelper.CreationTimeFactory());
+        ackMsg.setId(HL7MessageIdGenerator.generateHL7MessageId(localDeviceId));
+        ackMsg.setCreationTime(HL7DataTransformHelper.creationTimeFactory());
         ackMsg.setInteractionId(HL7DataTransformHelper.IIFactory(HL7Constants.INTERACTION_ID_ROOT, "MCCIIN000002UV01"));
         ackMsg.setProcessingCode(HL7DataTransformHelper.CSFactory("T"));
         ackMsg.setProcessingModeCode(HL7DataTransformHelper.CSFactory("T"));
@@ -336,11 +198,11 @@ public class HL7AckTransforms {
         // Create the Receiver
         ackMsg.getReceiver().add(HL7ReceiverTransforms.createMCCIMT000200UV01Receiver(receiverOID));
 
-        // Create Acknowledgement section if an original message id or message text was specified
+        // Create Acknowledgment section if an original message id or message text was specified
         if (NullChecker.isNotNullish(msgText)
                 || (origMsgId != null && NullChecker.isNotNullish(origMsgId.getRoot()) && NullChecker
                         .isNotNullish(origMsgId.getExtension()))) {
-            log.debug("Adding Acknowledgement Section");
+            LOG.debug("Adding Acknowledgement Section");
             ackMsg.getAcknowledgement().add(createAcknowledgement(origMsgId, ackTypeCode, msgText));
         }
 
@@ -348,7 +210,7 @@ public class HL7AckTransforms {
     }
 
     /**
-     * Create acknowledgement element based on specific data values.
+     * Create acknowledgment element based on specific data values.
      * 
      * @param msgId
      * @param msgText
@@ -379,12 +241,9 @@ public class HL7AckTransforms {
     public static MCCIMT000200UV01TargetMessage createTargetMessage(II msgId) {
         MCCIMT000200UV01TargetMessage targetMsg = new MCCIMT000200UV01TargetMessage();
 
-        if (msgId != null) {
-            log.debug("Setting original message id, root: " + msgId.getRoot() + ", extension: " + msgId.getExtension());
+            LOG.debug("Setting original message id, root: " + msgId.getRoot() + ", extension: " + msgId.getExtension());
             targetMsg.setId(msgId);
-        }
-
-        return targetMsg;
+            return targetMsg;
     }
 
     /**
@@ -412,16 +271,99 @@ public class HL7AckTransforms {
             ackDetail.setTypeCode(AcknowledgementDetailType.fromValue(ACK_DETAIL_TYPE_CODE_INFO));
         }
 
-        if (NullChecker.isNotNullish(msgText)) {
             // Set the acknowledge message text
             EDExplicit msg = new EDExplicit();
 
-            log.debug("Setting ack message text: " + msgText);
+            LOG.debug("Setting ack message text: " + msgText);
             msg.getContent().add(msgText);
             ackDetail.setText(msg);
-        }
 
         return ackDetail;
+    }
+
+    private static String getMCCIMT000100UV01RepresentedOrganizationRootOID(List<MCCIMT000100UV01Receiver> receiverList) {
+        String root = null;
+        if (NullChecker.isNotNullish(receiverList)
+                && receiverList.get(0) != null
+                && receiverList.get(0).getDevice() != null
+                && receiverList.get(0).getDevice().getAsAgent() != null
+                && receiverList.get(0).getDevice().getAsAgent().getValue() != null
+                && receiverList.get(0).getDevice().getAsAgent().getValue().getRepresentedOrganization() != null
+                && receiverList.get(0).getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue() != null
+                && NullChecker.isNotNullish(receiverList.get(0).getDevice().getAsAgent().getValue()
+                        .getRepresentedOrganization().getValue().getId())
+                && receiverList.get(0).getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue()
+                        .getId().get(0) != null
+                && NullChecker.isNotNullish(receiverList.get(0).getDevice().getAsAgent().getValue()
+                        .getRepresentedOrganization().getValue().getId().get(0).getRoot())) {
+            root = receiverList.get(0).getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue()
+                    .getId().get(0).getRoot();
+        }
+
+        return root;
+    }
+
+    private static String getMCCIMT000100UV01RepresentedOrganizationRootOID(MCCIMT000100UV01Sender sender) {
+        String root = null;
+        if (sender != null
+                && sender.getDevice() != null
+                && sender.getDevice().getAsAgent() != null
+                && sender.getDevice().getAsAgent().getValue() != null
+                && sender.getDevice().getAsAgent().getValue().getRepresentedOrganization() != null
+                && sender.getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue() != null
+                && NullChecker.isNotNullish(sender.getDevice().getAsAgent().getValue().getRepresentedOrganization()
+                        .getValue().getId())
+                && sender.getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId().get(0) != null
+                && NullChecker.isNotNullish(sender.getDevice().getAsAgent().getValue().getRepresentedOrganization()
+                        .getValue().getId().get(0).getRoot())) {
+            root = sender.getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId().get(0)
+                    .getRoot();
+        }
+
+        return root;
+    }
+
+    private static String getMCCIMT000300UV01RepresentedOrganizationRootOID(List<MCCIMT000300UV01Receiver> receiverList) {
+        String root = null;
+        if (NullChecker.isNotNullish(receiverList)
+                && receiverList.get(0) != null
+                && receiverList.get(0).getDevice() != null
+                && receiverList.get(0).getDevice().getAsAgent() != null
+                && receiverList.get(0).getDevice().getAsAgent().getValue() != null
+                && receiverList.get(0).getDevice().getAsAgent().getValue().getRepresentedOrganization() != null
+                && receiverList.get(0).getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue() != null
+                && NullChecker.isNotNullish(receiverList.get(0).getDevice().getAsAgent().getValue()
+                        .getRepresentedOrganization().getValue().getId())
+                && receiverList.get(0).getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue()
+                        .getId().get(0) != null
+                && NullChecker.isNotNullish(receiverList.get(0).getDevice().getAsAgent().getValue()
+                        .getRepresentedOrganization().getValue().getId().get(0).getRoot())) {
+            root = receiverList.get(0).getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue()
+                    .getId().get(0).getRoot();
+        }
+
+        return root;
+    }
+
+    private static String getMCCIMT000300UV01RepresentedOrganizationRootOID(MCCIMT000300UV01Sender sender) {
+        String root = null;
+        if (sender != null
+                && sender.getDevice() != null
+                && sender.getDevice().getAsAgent() != null
+                && sender.getDevice().getAsAgent().getValue() != null
+                && sender.getDevice().getAsAgent().getValue().getRepresentedOrganization() != null
+                && sender.getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue() != null
+                && NullChecker.isNotNullish(sender.getDevice().getAsAgent().getValue().getRepresentedOrganization()
+                        .getValue().getId())
+                && sender.getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue()
+                        .getId().get(0) != null
+                && NullChecker.isNotNullish(sender.getDevice().getAsAgent().getValue().getRepresentedOrganization()
+                        .getValue().getId().get(0).getRoot())) {
+            root = sender.getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId().get(0)
+                    .getRoot();
+        }
+
+        return root;
     }
 
 }

@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+    xmlns:aop="http://www.springframework.org/schema/aop"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xsi:schemaLocation="
+http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
+http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+">
+
+    <aop:aspectj-autoproxy proxy-target-class="true" />
+    <context:annotation-config/>
+    
+     <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="ignoreResourceNotFound" value="true"/>
+        <property name="locations">
+            <list>
+                <value>classpath:patientdiscovery.properties</value>
+                <value>file:///${nhinc.properties.dir}/gateway.properties</value>
+                <value>classpath:patientdiscovery-test.properties</value>
+            </list>
+        </property>
+    </bean>
+    
+    <bean id="nhinPD"
+        class="gov.hhs.fha.nhinc.patientdiscovery._10.gateway.ws.NhinPatientDiscovery">        
+        <property name="inboundPatientDiscovery">
+            <bean class="${patientDiscovery.inboundPatientDiscovery}" />
+        </property>
+    </bean>
+    
+    <bean id="entityPDSecured"
+        class="gov.hhs.fha.nhinc.patientdiscovery._10.gateway.ws.EntityPatientDiscoverySecured">
+        <property name="outboundPatientDiscovery">
+            <bean class="${patientDiscovery.outboundPatientDiscovery}" />
+        </property>
+    </bean>
+
+    <bean id="entityPDUnsecured"
+        class="gov.hhs.fha.nhinc.patientdiscovery._10.gateway.ws.EntityPatientDiscoveryUnsecured">
+        <property name="outboundPatientDiscovery">
+            <bean class="${patientDiscovery.outboundPatientDiscovery}" />
+        </property>
+    </bean>
+    
+
+    <bean id="nhinPDReq"
+        class="gov.hhs.fha.nhinc.patientdiscovery._10.gateway.ws.NhinPatientDiscoveryDeferredRequest">
+        <property name="inboundPatientDiscoveryRequest">
+            <bean class="${patientDiscovery.inboundPatientDiscoveryRequest}" />
+        </property>
+    </bean>
+    
+    <bean id="entityPDReqSecured"
+        class="gov.hhs.fha.nhinc.patientdiscovery._10.gateway.ws.EntityPatientDiscoveryDeferredRequestSecured">
+        <property name="outboundPatientDiscoveryRequest">
+            <bean class="${patientDiscovery.outboundPatientDiscoveryRequest}" />
+        </property>
+    </bean>
+
+    <bean id="entityPDReqUnsecured"
+        class="gov.hhs.fha.nhinc.patientdiscovery._10.gateway.ws.EntityPatientDiscoveryDeferredRequestUnsecured">
+        <property name="outboundPatientDiscoveryRequest">
+            <bean class="${patientDiscovery.outboundPatientDiscoveryRequest}" />
+        </property>
+    </bean>
+    
+    
+    <bean id="nhinPDResp"
+        class="gov.hhs.fha.nhinc.patientdiscovery._10.gateway.ws.NhinPatientDiscoveryDeferredResponse">
+        <property name="inboundPatientDiscoveryResponse">
+            <bean class="${patientDiscovery.inboundPatientDiscoveryResponse}" />
+        </property>
+    </bean>
+        
+    <bean id="entityPDRespUnsecured"
+        class="gov.hhs.fha.nhinc.patientdiscovery._10.gateway.ws.EntityPatientDiscoveryDeferredResponseUnsecured">
+        <property name="outboundPatientDiscoveryResponse">
+            <bean class="${patientDiscovery.outboundPatientDiscoveryResponse}" />
+        </property>
+    </bean>
+        
+    <bean id="entityPDRespSecured"
+        class="gov.hhs.fha.nhinc.patientdiscovery._10.gateway.ws.EntityPatientDiscoveryDeferredResponseSecured">
+        <property name="outboundPatientDiscoveryResponse">
+            <bean class="${patientDiscovery.outboundPatientDiscoveryResponse}" />
+        </property>
+    </bean>
+        
+    <bean id="SOAPHeaderHandler" class="gov.hhs.fha.nhinc.callback.SOAPHeaderHandler" />
+    <bean id="TransactionHandler" class="gov.hhs.fha.nhinc.logging.transaction.TransactionHandler" />
+    
+</beans>

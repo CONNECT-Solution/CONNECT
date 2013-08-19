@@ -27,25 +27,24 @@
 package gov.hhs.fha.nhinc.xmlCommon;
 
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
 import javax.xml.namespace.NamespaceContext;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.xpath.XPathExpressionException;
 
+import org.apache.log4j.Logger;
 import org.w3c.dom.DOMException;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
-import org.w3c.dom.bootstrap.DOMImplementationRegistry;
 import org.w3c.dom.ls.DOMImplementationLS;
 import org.w3c.dom.ls.LSException;
-import org.w3c.dom.ls.LSSerializer;
 import org.w3c.dom.ls.LSInput;
 import org.w3c.dom.ls.LSParser;
+import org.w3c.dom.ls.LSSerializer;
 
 /**
  * 
@@ -53,7 +52,7 @@ import org.w3c.dom.ls.LSParser;
  */
 public class XmlUtility {
 
-    private static org.apache.commons.logging.Log log = org.apache.commons.logging.LogFactory.getLog(XmlUtility.class);
+    private static final Logger LOG = Logger.getLogger(XmlUtility.class);
 
     public static String getNodeValue(Node node) {
         String value = null;
@@ -65,7 +64,7 @@ public class XmlUtility {
         }
         return value;
     }
-    
+
     protected static DOMImplementationLS getDOMImplementationLS(Node node) {
         Document document = node.getOwnerDocument();
         return (DOMImplementationLS) document.getImplementation();
@@ -105,7 +104,7 @@ public class XmlUtility {
         try {
             serializedElement = serializeElement(element);
         } catch (Exception ex) {
-            Logger.getLogger(XmlUtility.class.getName()).log(Level.SEVERE, null, ex);
+            LOG.error("Error in serializeElementIgnoreFaults(): ", ex);
             serializedElement = "???";
         }
         return serializedElement;
@@ -128,7 +127,7 @@ public class XmlUtility {
         try {
             serializedNode = serializeNode(node);
         } catch (Exception ex) {
-            Logger.getLogger(XmlUtility.class.getName()).log(Level.SEVERE, null, ex);
+            LOG.error("Error in serializeNodeIgnoreFaults: ", ex);
             serializedNode = "???";
         }
         return serializedNode;
@@ -144,20 +143,6 @@ public class XmlUtility {
      */
     public static Node performXpathQuery(String sourceXml, String xpathQuery) throws XPathExpressionException {
         return XpathHelper.performXpathQuery(sourceXml, xpathQuery);
-    }
-
-    /**
-     * @deprecated Use {@link XpathHelper} instead
-     * @param sourceXml
-     * @param xpathQuery
-     * @param namespaceContext
-     * @return
-     * @throws javax.xml.xpath.XPathExpressionException
-     */
-    @Deprecated
-    public static Node performXpathQuery(String sourceXml, String xpathQuery, NamespaceContext namespaceContext)
-            throws XPathExpressionException {
-        return XpathHelper.performXpathQuery(sourceXml, xpathQuery, namespaceContext);
     }
 
     /**
@@ -194,7 +179,7 @@ public class XmlUtility {
                 } catch (Exception ex) {
                     // Exception may be due to the encoding of the message being incorrect.
                     // retry using UTF-8
-                    log.warn("failed to perform xml to element - retrying with UTF-8");
+                    LOG.warn("failed to perform xml to element - retrying with UTF-8");
                     xml = XmlUtfHelper.convertToUtf8(xml);
                     element = convertXmlToElementWorker(xml);
                 }
@@ -204,7 +189,7 @@ public class XmlUtility {
         }
         return element;
     }
-    
+
     private static Element initializeElement() {
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         DocumentBuilder builder = null;
@@ -213,7 +198,7 @@ public class XmlUtility {
             builder = factory.newDocumentBuilder();
             document = builder.newDocument();
         } catch (ParserConfigurationException e) {
-            log.error("Error creating dom document builder", e);
+            LOG.error("Error creating dom document builder", e);
         }
 
         return document.createElement("init");

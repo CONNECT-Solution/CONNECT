@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<java version="1.6.0_13" class="java.beans.XMLDecoder">
+    <object class="gov.hhs.fha.nhinc.mpilib.Patients">
+        <void method="add">
+            <object class="gov.hhs.fha.nhinc.mpilib.Patient">
+                <void property="addresses">
+                    <void method="add">
+                        <object class="gov.hhs.fha.nhinc.mpilib.Address">
+                            <void property="street1">
+                                <string></string>
+                            </void>
+                            <void property="street2">
+                                <string></string>
+                            </void>
+                            <void property="city">
+                                <string>LEESBURG</string>
+                            </void>
+                            <void property="state">
+                                <string>VA</string>
+                            </void>
+                            <void property="zip">
+                                <string>20176</string>
+                            </void>
+                            <void property="country">
+                                <string>US</string>
+                            </void>
+                        </object>
+                    </void>
+                </void>
+                <void property="dateOfBirth">
+                    <string>19630804</string>
+                </void>
+                <void property="gender">
+                    <string>M</string>
+                </void>
+                <void property="sSN">
+                    <string>999123401</string>
+                </void>
+                <void property="phoneNumbers">
+                    <void method="add">
+                        <object class="gov.hhs.fha.nhinc.mpilib.PhoneNumber">
+                            <void property="phoneNumber">
+                                <string>tel:+1-888-555-1234</string>
+                            </void>
+                        </object>
+                    </void>
+                </void>
+                <void property="identifiers">
+                    <void method="add">
+                        <object class="gov.hhs.fha.nhinc.mpilib.Identifier">
+                            <void property="id">
+                                <string>D123401</string>
+                            </void>
+                            <void property="organizationId">
+                                <string>1.1</string>
+                            </void>
+                        </object>
+                    </void>
+                    <void method="add">
+                        <object class="gov.hhs.fha.nhinc.mpilib.Identifier">
+                            <void property="id">
+                                <string>500000000</string>
+                            </void>
+                            <void property="organizationId">
+                                <string>2.2</string>
+                            </void>
+                        </object>
+                    </void>
+                </void>
+                <void property="names">
+                    <void method="add">
+                        <object class="gov.hhs.fha.nhinc.mpilib.PersonName">
+                            <void property="firstName">
+                                <string>Gallow</string>
+                            </void>
+                            <void property="lastName">
+                                <string>Younger</string>
+                            </void>
+                            <void property="middleName">
+                                <string></string>
+                            </void>
+                            <void property="title">
+                                <string></string>
+                            </void>
+                            <void property="suffix">
+                                <string></string>
+                            </void>
+                        </object>
+                    </void>
+                </void>
+            </object>
+        </void>
+    </object>
+</java>

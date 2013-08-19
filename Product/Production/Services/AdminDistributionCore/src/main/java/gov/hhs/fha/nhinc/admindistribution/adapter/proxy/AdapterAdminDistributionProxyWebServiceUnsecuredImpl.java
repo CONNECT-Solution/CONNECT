@@ -29,18 +29,20 @@ package gov.hhs.fha.nhinc.admindistribution.adapter.proxy;
 import gov.hhs.fha.nhinc.adapteradmindistribution.AdapterAdministrativeDistributionPortType;
 import gov.hhs.fha.nhinc.admindistribution.AdminDistributionHelper;
 import gov.hhs.fha.nhinc.admindistribution.adapter.proxy.service.AdapterAdminDistributionUnsecuredServicePortDescriptor;
+import gov.hhs.fha.nhinc.admindistribution.aspect.EDXLDistributionEventDescriptionBuilder;
+import gov.hhs.fha.nhinc.aspect.AdapterDelegationEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.RespondingGatewaySendAlertMessageType;
-import gov.hhs.fha.nhinc.messaging.client.CONNECTCXFClientFactory;
+import gov.hhs.fha.nhinc.event.DefaultEventDescriptionBuilder;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTClient;
+import gov.hhs.fha.nhinc.messaging.client.CONNECTClientFactory;
 import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants.ADAPTER_API_LEVEL;
-import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import oasis.names.tc.emergency.edxl.de._1.EDXLDistribution;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.commons.lang.StringUtils;
+import org.apache.log4j.Logger;
 
 /**
  * 
@@ -48,51 +50,73 @@ import org.apache.commons.logging.LogFactory;
  */
 public class AdapterAdminDistributionProxyWebServiceUnsecuredImpl implements AdapterAdminDistributionProxy {
 
-    private Log log = null;
+    private static final Logger LOG = Logger.getLogger(AdapterAdminDistributionProxyWebServiceUnsecuredImpl.class);
     private AdminDistributionHelper adminDistributionHelper;
 
+    /**
+     * Constructor.
+     */
     public AdapterAdminDistributionProxyWebServiceUnsecuredImpl() {
-        log = createLogger();
         adminDistributionHelper = getHelper();
     }
 
-    protected Log createLogger() {
-        return LogFactory.getLog(getClass());
-    }
-
+    /**
+     * @return an instance of AdminDistributionHelper.
+     */
     protected AdminDistributionHelper getHelper() {
         return new AdminDistributionHelper();
     }
 
+    /**
+     * This method returns CXFClient to implement AdpaterAdmin Dist Unsecured Service.
+     * 
+     * @param portDescriptor comprises of NameSpaceUri, WSDLFile to read,Port, ServiceName and WS_ADDRESSING_ACTION.
+     * @param url targetCommunity Url received.
+     * @param assertion Assertion received.
+     * @return CXFClient for AdapterAdminDist Unsecured Service.
+     */
     protected CONNECTClient<AdapterAdministrativeDistributionPortType> getCONNECTClientUnsecured(
-            ServicePortDescriptor<AdapterAdministrativeDistributionPortType> portDescriptor, String url, AssertionType assertion) {
+            ServicePortDescriptor<AdapterAdministrativeDistributionPortType> portDescriptor, String url,
+            AssertionType assertion) {
 
-        return CONNECTCXFClientFactory.getInstance().getCONNECTClientUnsecured(portDescriptor, url, assertion);
+        return CONNECTClientFactory.getInstance().getCONNECTClientUnsecured(portDescriptor, url, assertion);
+    }
+    
+    protected String getUrl() {
+        return adminDistributionHelper.getAdapterUrl(NhincConstants.ADAPTER_ADMIN_DIST_SERVICE_NAME,
+                ADAPTER_API_LEVEL.LEVEL_a0);
     }
 
+    /**
+     * This method implements SendAlertMessage for AdminDist.
+     * 
+     * @param body Emergency Message Distribution Element transaction message body received.
+     * @param assertion Assertion received.
+     */
+    @AdapterDelegationEvent(beforeBuilder = EDXLDistributionEventDescriptionBuilder.class, afterReturningBuilder = DefaultEventDescriptionBuilder.class, serviceType = "Admin Distribution", version = "")
     public void sendAlertMessage(EDXLDistribution body, AssertionType assertion) {
-        log.debug("Begin sendAlertMessage");
-        String url = adminDistributionHelper.getAdapterUrl(NhincConstants.ADAPTER_ADMIN_DIST_SERVICE_NAME,
-                ADAPTER_API_LEVEL.LEVEL_a0);
+        LOG.debug("Begin sendAlertMessage");
+        String url = getUrl();
 
-        if (NullChecker.isNotNullish(url)) {
+        if (!StringUtils.isBlank(url)) {
             try {
 
                 RespondingGatewaySendAlertMessageType message = new RespondingGatewaySendAlertMessageType();
                 message.setEDXLDistribution(body);
                 message.setAssertion(assertion);
-                
+
                 ServicePortDescriptor<AdapterAdministrativeDistributionPortType> portDescriptor = new AdapterAdminDistributionUnsecuredServicePortDescriptor();
 
-                CONNECTClient<AdapterAdministrativeDistributionPortType> client = getCONNECTClientUnsecured(portDescriptor, url, assertion);
+                CONNECTClient<AdapterAdministrativeDistributionPortType> client = getCONNECTClientUnsecured(
+                        portDescriptor, url, assertion);
+                client.enableMtom();
 
-                client.invokePort(AdapterAdministrativeDistributionPortType.class, "sendAlertMessage",
-                        message);
+                client.invokePort(AdapterAdministrativeDistributionPortType.class, "sendAlertMessage", message);
             } catch (Exception ex) {
-                log.error("Unable to send message: " + ex.getMessage(), ex);
+                LOG.error("Unable to send message: " + ex.getMessage(), ex);
             }
         } else {
-            log.error("Failed to call the web service (" + NhincConstants.ADAPTER_ADMIN_DIST_SERVICE_NAME
+            LOG.error("Failed to call the web service (" + NhincConstants.ADAPTER_ADMIN_DIST_SERVICE_NAME
                     + ").  The URL is null.");
         }
     }

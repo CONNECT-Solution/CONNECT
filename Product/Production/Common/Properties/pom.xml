@@ -1,24 +1,26 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
-                      http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
         <groupId>org.connectopensource</groupId>
         <artifactId>Common</artifactId>
-        <version>4.0.0-SNAPSHOT</version>
+        <version>4.3.0-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
     <artifactId>Properties</artifactId>
     <name>${project.artifactId}</name>
+    <properties>
+        <log4jDefaultLevel>INFO</log4jDefaultLevel>
+    </properties>
     <packaging>jar</packaging>
     <build>
-        <resources>
-            <resource>
-                <directory>${basedir}/${connect.common.properties}/</directory>
-                <includes>
-                    <include>**/*</include>
-                </includes>
-            </resource>
-        </resources>
+    <resources>
+        <resource>
+            <directory>src/main/resources</directory>
+            <excludes>
+                <exclude>**/direct*</exclude>
+                <exclude>**/Direct*</exclude>
+            </excludes>
+        </resource>
+    </resources>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -62,23 +64,18 @@
                     <skip>true</skip>
                 </configuration>
             </plugin>
-            <plugin>
-                <artifactId>maven-remote-resources-plugin</artifactId>
-                <version>1.3</version>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>bundle</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <configuration>
-                    <resourcesDirectory>${basedir}/${connect.common.properties}/</resourcesDirectory>
-                    <includes>
-                        <include>**/*.*</include>
-                    </includes>
-                </configuration>
-            </plugin>
         </plugins>
     </build>
+    <profiles>
+        <profile>
+            <id>Direct</id>
+            <build>
+                <resources>
+                    <resource>
+                        <directory>src/main/resources</directory>
+                    </resource>
+               </resources>
+            </build>
+       </profile>
+    </profiles>
 </project>

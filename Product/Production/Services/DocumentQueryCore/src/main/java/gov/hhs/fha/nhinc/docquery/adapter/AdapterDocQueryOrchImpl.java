@@ -26,47 +26,46 @@
  */
 package gov.hhs.fha.nhinc.docquery.adapter;
 
-import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
-import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
-import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryError;
-import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryErrorList;
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.docregistry.adapter.proxy.AdapterComponentDocRegistryProxy;
 import gov.hhs.fha.nhinc.docregistry.adapter.proxy.AdapterComponentDocRegistryProxyObjectFactory;
-import gov.hhs.fha.nhinc.gateway.aggregator.document.DocumentConstants;
+import gov.hhs.fha.nhinc.document.DocumentConstants;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.redactionengine.adapter.proxy.AdapterRedactionEngineProxy;
 import gov.hhs.fha.nhinc.redactionengine.adapter.proxy.AdapterRedactionEngineProxyObjectFactory;
+import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
+import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
+import oasis.names.tc.ebxml_regrep.xsd.rim._3.RegistryObjectListType;
+import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryError;
+import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryErrorList;
+
+import org.apache.log4j.Logger;
 
 /**
- *
+ * 
  * @author jhoppesc
  */
 public class AdapterDocQueryOrchImpl {
-    private Log log = null;
+    private static final Logger LOG = Logger.getLogger(AdapterDocQueryOrchImpl.class);
     private static final String ERROR_CODE_CONTEXT = AdapterDocQueryOrchImpl.class.getName();
     private static final String ERROR_VALUE = "Input has null value";
 
+    /**
+     * constructor.
+     */
     public AdapterDocQueryOrchImpl() {
-        log = createLogger();
-    }
-
-    protected Log createLogger() {
-        return LogFactory.getLog(getClass());
     }
 
     /**
-     *
+     * 
      * @param request
+     *            The AdhocQUeryRequest message.
      * @param assertion
-     * @return AdhocQueryResponse
+     *            Assertion received.
+     * @return AdhocQueryResponse The AdhocQuery response received.
      */
     public AdhocQueryResponse respondingGatewayCrossGatewayQuery(AdhocQueryRequest request, AssertionType assertion) {
-        log.debug("Enter AdapterDocQueryOrchImpl.respondingGatewayCrossGatewayQuery()");
+        LOG.debug("Enter AdapterDocQueryOrchImpl.respondingGatewayCrossGatewayQuery()");
         AdhocQueryResponse response = null;
         try {
             if (request != null) {
@@ -87,6 +86,7 @@ public class AdapterDocQueryOrchImpl {
             } else {
                 RegistryErrorList errorList = new RegistryErrorList();
                 response = new AdhocQueryResponse();
+                response.setRegistryObjectList(new RegistryObjectListType());
                 response.setStatus(DocumentConstants.XDS_QUERY_RESPONSE_STATUS_FAILURE);
 
                 RegistryError e = new RegistryError();
@@ -95,28 +95,41 @@ public class AdapterDocQueryOrchImpl {
                 e.setValue(ERROR_VALUE);
                 e.setSeverity(NhincConstants.XDS_REGISTRY_ERROR_SEVERITY_ERROR);
                 e.setCodeContext(ERROR_CODE_CONTEXT);
+                e.setErrorCode(DocumentConstants.XDS_ERRORCODE_REPOSITORY_ERROR);
             }
         } catch (Exception exp) {
-            log.error(exp.getMessage());
+            LOG.error(exp.getMessage());
             exp.printStackTrace();
         }
-        log.debug("End AdapterDocQueryOrchImpl.respondingGatewayCrossGatewayQuery()");
+        LOG.debug("End AdapterDocQueryOrchImpl.respondingGatewayCrossGatewayQuery()");
         return response;
 
     }
 
+    /**
+     * @param queryRequest
+     *            The AdhocRequest message send to RedactionEngine.
+     * @param queryResponse
+     *            The AdhocQueryResponse received from AdapterComponentDocRegistry.
+     * @param assertion
+     *            Assertion received.
+     * @return redactionEngine AdhocQueryResponse.
+     */
     protected AdhocQueryResponse callRedactionEngine(AdhocQueryRequest queryRequest, AdhocQueryResponse queryResponse,
             AssertionType assertion) {
         AdhocQueryResponse response = null;
         if (queryResponse == null) {
-            log.warn("Did not call redaction engine because the query response was null.");
+            LOG.warn("Did not call redaction engine because the query response was null.");
         } else {
-            log.debug("Calling Redaction Engine");
+            LOG.debug("Calling Redaction Engine");
             response = getRedactionEngineProxy().filterAdhocQueryResults(queryRequest, queryResponse, assertion);
         }
         return response;
     }
 
+    /**
+     * @return RedactionEngineProxy.
+     */
     protected AdapterRedactionEngineProxy getRedactionEngineProxy() {
         return new AdapterRedactionEngineProxyObjectFactory().getRedactionEngineProxy();
     }

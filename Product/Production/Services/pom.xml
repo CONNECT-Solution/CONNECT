@@ -1,10 +1,8 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
-                      http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
         <groupId>org.connectopensource</groupId>
         <artifactId>Production</artifactId>
-        <version>4.0.0-SNAPSHOT</version>
+        <version>4.3.0-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
     <artifactId>Services</artifactId>
@@ -26,6 +24,7 @@
         <module>DocumentQueryCore</module>
         <module>AdminDistributionCore</module>
         <module>SharedEngineCore</module>
+        <module>DirectCore</module>
     </modules>
     <properties>
         <skip.unpack>false</skip.unpack>
@@ -41,12 +40,18 @@
         <dependency>
             <groupId>org.connectopensource</groupId>
             <artifactId>CONNECTCommonTypesLib</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.connectopensource</groupId>
+            <artifactId>CONNECTCoreLib</artifactId>
             <version>${project.parent.version}</version>
         </dependency>
         <dependency>
             <groupId>org.connectopensource</groupId>
             <artifactId>CONNECTCoreLib</artifactId>
             <version>${project.parent.version}</version>
+            <type>test-jar</type>
+            <scope>test</scope>
         </dependency>
     </dependencies>
 </project>

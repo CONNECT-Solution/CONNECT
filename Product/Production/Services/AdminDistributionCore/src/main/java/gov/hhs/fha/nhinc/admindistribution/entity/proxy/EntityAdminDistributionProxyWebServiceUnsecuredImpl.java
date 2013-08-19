@@ -40,28 +40,28 @@ import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import oasis.names.tc.emergency.edxl.de._1.EDXLDistribution;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 
 /**
  * 
  * @author dunnek
  */
+
 public class EntityAdminDistributionProxyWebServiceUnsecuredImpl {
-    private Log log = null;
+    private static final Logger LOG = Logger.getLogger(EntityAdminDistributionProxyWebServiceUnsecuredImpl.class);
 
-    public EntityAdminDistributionProxyWebServiceUnsecuredImpl() {
-        log = createLogger();
-    }
-
-    private Log createLogger() {
-        return LogFactory.getLog(getClass());
-    }
-
+    /**
+     * @return instance of AdminDistributionHelper.
+     */
     protected AdminDistributionHelper getHelper() {
         return new AdminDistributionHelper();
     }
 
+    
+    /**This method returns EntityAdminDistributionSecuredServicePortDescriptor based on gateway apiLevel. 
+     * @param apiLevel gateway apiLevel received (g0/g1).
+     * @return instance of EntityAdminDistributionSecuredServicePortDescriptor based on gateway apiLevel. 
+     */
     public ServicePortDescriptor<AdministrativeDistributionPortType> getServicePortDescriptor(
             NhincConstants.GATEWAY_API_LEVEL apiLevel) {
         switch (apiLevel) {
@@ -72,6 +72,12 @@ public class EntityAdminDistributionProxyWebServiceUnsecuredImpl {
         }
     }
 
+    /** This method returns CXFClient to implement AdminDist Unsecured Service.
+     * @param portDescriptor comprises of NameSpaceUri, WSDL File, Port, ServiceName  and WS_ADDRESSING_ACTION.
+     * @param url target community url .
+     * @param assertion Assertion received.
+     * @return CXFClient to implement AdminDist Unsecured Service.
+     */
     protected CONNECTClient<AdministrativeDistributionPortType> getCONNECTClientUnsecured(
             ServicePortDescriptor<AdministrativeDistributionPortType> portDescriptor, String url,
             AssertionType assertion) {
@@ -79,9 +85,15 @@ public class EntityAdminDistributionProxyWebServiceUnsecuredImpl {
         return CONNECTCXFClientFactory.getInstance().getCONNECTClientUnsecured(portDescriptor, url, assertion);
     }
 
+    /** This method implements sendAlertMessage from initiater to responder.
+     * @param body Emergency Message Distribution Element transaction message body received.
+     * @param assertion Assertion received.
+     * @param target NhinTargetCommunity receievd.
+     * @param apiLevel gateway apiLevel received (g0/g1).
+     */
     public void sendAlertMessage(EDXLDistribution body, AssertionType assertion, NhinTargetCommunitiesType target,
             NhincConstants.GATEWAY_API_LEVEL apiLevel) {
-        log.debug("begin sendAlertMessage");
+        LOG.debug("begin sendAlertMessage");
 
         AdminDistributionHelper helper = getHelper();
         String hcid = helper.getLocalCommunityId();
@@ -94,17 +106,18 @@ public class EntityAdminDistributionProxyWebServiceUnsecuredImpl {
                 message.setNhinTargetCommunities(target);
                 message.setAssertion(assertion);
                 
-                ServicePortDescriptor<AdministrativeDistributionPortType> portDescriptor = getServicePortDescriptor(apiLevel);
+                ServicePortDescriptor<AdministrativeDistributionPortType> portDescriptor = 
+                        getServicePortDescriptor(apiLevel);
 
                 CONNECTClient<AdministrativeDistributionPortType> client = getCONNECTClientUnsecured(
                         portDescriptor, url, assertion);
 
                 client.invokePort(AdministrativeDistributionPortType.class, "sendAlertMessage", message);
             } catch (Exception ex) {
-                log.error("Unable to send message: " + ex.getMessage(), ex);
+                LOG.error("Unable to send message: " + ex.getMessage(), ex);
             }
         } else {
-            log.error("Failed to call the web service (" + NhincConstants.ADAPTER_ADMIN_DIST_SERVICE_NAME
+            LOG.error("Failed to call the web service (" + NhincConstants.ADAPTER_ADMIN_DIST_SERVICE_NAME
                     + ").  The URL is null.");
         }
     }

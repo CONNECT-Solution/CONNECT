@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services. 
+ * Copyright (c) 2009-2013, United States Government, as represented by the Secretary of Health and Human Services. 
  * All rights reserved. 
  *
  * Redistribution and use in source and binary forms, with or without 
@@ -34,16 +34,16 @@ import java.util.Set;
 
 /**
  * This class is a POJO class that is used to access properties within a property file.
+ * 
+ * @author msw
  */
 public class PropertyAccessor implements IPropertyAcessor {
     private static final String CACHE_REFRESH_DURATION = "CacheRefreshDuration";
     
-    private static PropertyAccessor instance;
-    
     private PropertyFileRefreshHandler refreshHandler;    
     private PropertyFileDAO propertyFileDAO;    
     private PropertyAccessorFileUtilities fileUtilities;
-    private String propertyFileName;
+    private String propertyFileName = "gateway";
     
     /**
      * Default constructor.
@@ -53,18 +53,19 @@ public class PropertyAccessor implements IPropertyAcessor {
         propertyFileDAO = createPropertyFileDAO();
         fileUtilities = createPropertyAccessorFileUtilities();   
     }
-    
+
+    private static class SingletonHolder { 
+        public static final PropertyAccessor INSTANCE = new PropertyAccessor();
+    }
+
+    // singleton
     public static PropertyAccessor getInstance() {
-        if (instance == null) {
-            instance = new PropertyAccessor();
-        }
-        return instance;
+        return SingletonHolder.INSTANCE;
     }
     
     public static PropertyAccessor getInstance(String propertyFileName) {
-        instance = getInstance();
-        instance.setPropertyFile(propertyFileName);
-        return instance;
+        getInstance().setPropertyFile(propertyFileName);
+        return getInstance();
     } 
     
     /**
@@ -112,6 +113,18 @@ public class PropertyAccessor implements IPropertyAcessor {
     
     public synchronized boolean getPropertyBoolean(String propertyName) throws PropertyAccessException {
     	return getPropertyBoolean(propertyFileName, propertyName);
+    }
+    
+    /**
+     * Sets a property.
+     *
+     * @param propertyFileName the property file name
+     * @param key the property key
+     * @param value the property value
+     * @throws PropertyAccessException the property access exception
+     */
+    public void setProperty(String propertyFileName, String key, String value) throws PropertyAccessException {
+        propertyFileDAO.setProperty(propertyFileName, key, value);
     }
 
     /**

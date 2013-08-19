@@ -26,12 +26,8 @@
  */
 package gov.hhs.fha.nhinc.mpi.adapter.proxy;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-import org.hl7.v3.PRPAIN201305UV02;
-import org.hl7.v3.PRPAIN201306UV02;
-
 import gov.hhs.fha.nhinc.adaptermpi.AdapterMpiSecuredPortType;
+import gov.hhs.fha.nhinc.aspect.AdapterDelegationEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTCXFClientFactory;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTClient;
@@ -40,38 +36,32 @@ import gov.hhs.fha.nhinc.mpi.adapter.proxy.service.AdapterMpiSecuredServicePortD
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryException;
+import gov.hhs.fha.nhinc.patientdiscovery.aspect.PRPAIN201305UV02EventDescriptionBuilder;
+import gov.hhs.fha.nhinc.patientdiscovery.aspect.PRPAIN201306UV02EventDescriptionBuilder;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
+
+import org.apache.log4j.Logger;
+import org.hl7.v3.PRPAIN201305UV02;
+import org.hl7.v3.PRPAIN201306UV02;
 
 /**
  * Proxy to call the secured AdapterMPI interface.
- *
+ * 
  */
 public class AdapterMpiProxyWebServiceSecuredImpl implements AdapterMpiProxy {
 
-    private Log log = null;
+    private static final Logger LOG = Logger.getLogger(AdapterMpiProxyWebServiceSecuredImpl.class);
     private final WebServiceProxyHelper oProxyHelper = new WebServiceProxyHelper();
 
     /**
-     * Default constructor.
-     */
-    public AdapterMpiProxyWebServiceSecuredImpl() {
-        log = createLogger();
-    }
-
-    /**
-     * Creates the log object for logging.
-     *
-     * @return The log object.
-     */
-    protected Log createLogger() {
-        return ((log != null) ? log : LogFactory.getLog(getClass()));
-    }
-
-    /**
      * Method to get a Secured CONNECT Client.
-     * @param portDescriptor the portDescriptor
-     * @param url the intended URL
-     * @param assertion the assertion
+     * 
+     * @param portDescriptor
+     *            the portDescriptor
+     * @param url
+     *            the intended URL
+     * @param assertion
+     *            the assertion
      * @return a CONNECTClient of type AdapterMpiSecuredPortType
      */
     protected CONNECTClient<AdapterMpiSecuredPortType> getCONNECTClientSecured(
@@ -82,13 +72,18 @@ public class AdapterMpiProxyWebServiceSecuredImpl implements AdapterMpiProxy {
 
     /**
      * Find the matching candidates from the MPI.
-     *
-     * @param request The information to use for matching.
-     * @param assertion The assertion data.
+     * 
+     * @param request
+     *            The information to use for matching.
+     * @param assertion
+     *            The assertion data.
      * @return The matches that are found.
      * @throws PatientDiscoveryException
      */
     @Override
+    @AdapterDelegationEvent(beforeBuilder = PRPAIN201305UV02EventDescriptionBuilder.class,
+            afterReturningBuilder = PRPAIN201306UV02EventDescriptionBuilder.class,
+            serviceType = "Patient Discovery MPI", version = "1.0")
     public PRPAIN201306UV02 findCandidates(PRPAIN201305UV02 request, AssertionType assertion)
             throws PatientDiscoveryException {
         String url = null;
@@ -100,23 +95,21 @@ public class AdapterMpiProxyWebServiceSecuredImpl implements AdapterMpiProxy {
                 url = oProxyHelper.getAdapterEndPointFromConnectionManager(sServiceName);
 
                 if (NullChecker.isNotNullish(url)) {
-                    ServicePortDescriptor<AdapterMpiSecuredPortType> portDescriptor =
-                            new AdapterMpiSecuredServicePortDescriptor();
+                    ServicePortDescriptor<AdapterMpiSecuredPortType> portDescriptor = new AdapterMpiSecuredServicePortDescriptor();
 
-                    CONNECTClient<AdapterMpiSecuredPortType> client =
-                            getCONNECTClientSecured(portDescriptor, url, assertion);
+                    CONNECTClient<AdapterMpiSecuredPortType> client = getCONNECTClientSecured(portDescriptor, url,
+                            assertion);
 
-                    response =
-                            (PRPAIN201306UV02) client.invokePort(AdapterMpiSecuredPortType.class, "findCandidates",
-                                    request);
+                    response = (PRPAIN201306UV02) client.invokePort(AdapterMpiSecuredPortType.class, "findCandidates",
+                            request);
                 } else {
-                    log.error("Failed to call the web service (" + sServiceName + ").  The URL is null.");
+                    LOG.error("Failed to call the web service (" + sServiceName + ").  The URL is null.");
                 }
             } else {
-                log.error("Failed to call the web service (" + sServiceName + ").  The input parameter is null.");
+                LOG.error("Failed to call the web service (" + sServiceName + ").  The input parameter is null.");
             }
         } catch (Exception e) {
-            log.error("Failed to call the web service (" + sServiceName + ").  An unexpected exception occurred.  "
+            LOG.error("Failed to call the web service (" + sServiceName + ").  An unexpected exception occurred.  "
                     + "Exception: " + e.getMessage(), e);
             throw new PatientDiscoveryException(e.fillInStackTrace());
         }

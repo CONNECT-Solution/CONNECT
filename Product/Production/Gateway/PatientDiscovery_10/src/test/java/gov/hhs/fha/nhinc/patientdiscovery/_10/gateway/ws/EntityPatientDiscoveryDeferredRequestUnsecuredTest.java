@@ -26,84 +26,29 @@
  */
 package gov.hhs.fha.nhinc.patientdiscovery._10.gateway.ws;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertSame;
-import gov.hhs.fha.nhinc.patientdiscovery._10.entity.deferred.request.EntityPatientDiscoveryDeferredRequestImpl;
+import gov.hhs.fha.nhinc.aspect.OutboundMessageEvent;
+import gov.hhs.fha.nhinc.patientdiscovery.aspect.MCCIIN000002UV01EventDescriptionBuilder;
+import gov.hhs.fha.nhinc.patientdiscovery.aspect.PRPAIN201305UV02ArgTransformer;
 
-import javax.xml.ws.WebServiceContext;
+import java.lang.reflect.Method;
 
-import org.hl7.v3.MCCIIN000002UV01;
 import org.hl7.v3.RespondingGatewayPRPAIN201305UV02RequestType;
-import org.jmock.Expectations;
-import org.jmock.Mockery;
-import org.jmock.integration.junit4.JUnit4Mockery;
-import org.jmock.lib.legacy.ClassImposteriser;
 import org.junit.Test;
 
 public class EntityPatientDiscoveryDeferredRequestUnsecuredTest {
-    Mockery context = new JUnit4Mockery() {
-        {
-            setImposteriser(ClassImposteriser.INSTANCE);
-        }
-    };
-
+    
     @Test
-    public void testDefaultConstructor() {
-        EntityPatientDiscoveryDeferredRequestUnsecured ws = new EntityPatientDiscoveryDeferredRequestUnsecured();
-        assertNotNull(ws);
-    }
-
-    @Test
-    public void testMockService() {
-        final PatientDiscoveryServiceFactory mockFactory = context.mock(PatientDiscoveryServiceFactory.class);
-        final RespondingGatewayPRPAIN201305UV02RequestType mockRequest = context
-                .mock(RespondingGatewayPRPAIN201305UV02RequestType.class);
-        final MCCIIN000002UV01 expectedResponse = context.mock(MCCIIN000002UV01.class);
-
-        final EntityPatientDiscoveryDeferredRequestImpl mockService = context
-                .mock(EntityPatientDiscoveryDeferredRequestImpl.class);
-
-        context.checking(new Expectations() {
-            {
-                oneOf(mockService).processPatientDiscoveryAsyncRequestUnsecured(with(same(mockRequest)),
-                        with(any(WebServiceContext.class)));
-                will(returnValue(expectedResponse));
-
-                oneOf(mockFactory).getEntityPatientDiscoveryDeferredRequestImpl();
-                will(returnValue(mockService));
-            }
-        });
-
-        EntityPatientDiscoveryDeferredRequestUnsecured ws = new EntityPatientDiscoveryDeferredRequestUnsecured(
-                mockFactory);
-
-        MCCIIN000002UV01 actualResponse = ws.processPatientDiscoveryAsyncReq(mockRequest);
-
-        assertSame(expectedResponse, actualResponse);
-    }
-
-    @Test
-    public void testNullService() {
-        final PatientDiscoveryServiceFactory mockFactory = context.mock(PatientDiscoveryServiceFactory.class);
-        final RespondingGatewayPRPAIN201305UV02RequestType mockRequest = context
-                .mock(RespondingGatewayPRPAIN201305UV02RequestType.class);
-
-        context.checking(new Expectations() {
-            {
-
-                oneOf(mockFactory).getEntityPatientDiscoveryDeferredRequestImpl();
-                will(returnValue(null));
-
-            }
-        });
-
-        EntityPatientDiscoveryDeferredRequestUnsecured ws = new EntityPatientDiscoveryDeferredRequestUnsecured(
-                mockFactory);
-
-        MCCIIN000002UV01 actualResponse = ws.processPatientDiscoveryAsyncReq(mockRequest);
-
-        assertNull(actualResponse);
-
+    public void hasOutboundMessageEvent() throws Exception {
+        Class<EntityPatientDiscoveryDeferredRequestUnsecured> clazz = EntityPatientDiscoveryDeferredRequestUnsecured.class;
+        Method method = clazz.getMethod("processPatientDiscoveryAsyncReq",
+                RespondingGatewayPRPAIN201305UV02RequestType.class);
+        OutboundMessageEvent annotation = method.getAnnotation(OutboundMessageEvent.class);
+        assertNotNull(annotation);
+        assertEquals(PRPAIN201305UV02ArgTransformer.class, annotation.beforeBuilder());
+        assertEquals(MCCIIN000002UV01EventDescriptionBuilder.class, annotation.afterReturningBuilder());
+        assertEquals("Patient Discovery Deferred Request", annotation.serviceType());
+        assertEquals("1.0", annotation.version());
     }
 }

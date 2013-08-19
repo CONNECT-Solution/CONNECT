@@ -26,29 +26,58 @@
  */
 package gov.hhs.fha.nhinc.docsubmission._11.nhin.deferred.request;
 
+import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
+import gov.hhs.fha.nhinc.aspect.InboundMessageEvent;
+import gov.hhs.fha.nhinc.docsubmission.aspect.DocSubmissionArgTransformerBuilder;
+import gov.hhs.fha.nhinc.docsubmission.aspect.DocSubmissionBaseEventDescriptionBuilder;
+import gov.hhs.fha.nhinc.docsubmission.inbound.deferred.request.InboundDocSubmissionDeferredRequest;
+import gov.hhs.healthit.nhin.XDRAcknowledgementType;
+
 import javax.annotation.Resource;
 import javax.xml.ws.BindingType;
 import javax.xml.ws.WebServiceContext;
 import javax.xml.ws.soap.Addressing;
 
-/**
- * 
- * @author JHOPPESC
- */
+
 @BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
 @Addressing(enabled = true)
 public class NhinXDRRequest implements ihe.iti.xdr._2007.XDRDeferredRequestPortType {
-    @Resource
+
     private WebServiceContext context;
+    private InboundDocSubmissionDeferredRequest inboundDocSubmissionRequest;
 
     /**
-     * The web service implemenation for Document Submission request.
+     * The web service implementation for Document Submission request.
+     * 
      * @param body The message of the request
-     * @return an acknowledgement
+     * @return an acknowledgment
      */
-    public gov.hhs.healthit.nhin.XDRAcknowledgementType provideAndRegisterDocumentSetBDeferredRequest(
-            ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType body) {
-        return new NhinDocSubmissionDeferredRequestImpl().provideAndRegisterDocumentSetBRequest(body, context);
+    @Override
+    @InboundMessageEvent(serviceType = "Document Submission Deferred Request", version = "1.1", 
+            beforeBuilder = DocSubmissionBaseEventDescriptionBuilder.class, 
+            afterReturningBuilder = DocSubmissionArgTransformerBuilder.class)
+    public XDRAcknowledgementType provideAndRegisterDocumentSetBDeferredRequest(
+            ProvideAndRegisterDocumentSetRequestType body) {
+        return new NhinDocSubmissionDeferredRequestImpl(inboundDocSubmissionRequest)
+                .provideAndRegisterDocumentSetBRequest(body, context);
+    }
+
+    public void setInboundDocSubmissionRequest(InboundDocSubmissionDeferredRequest inboundDocSubmissionRequest) {
+        this.inboundDocSubmissionRequest = inboundDocSubmissionRequest;
+    }
+
+    @Resource
+    public void setContext(WebServiceContext context) {
+        this.context = context;
+    }
+
+    /**
+     * Gets the inbound doc submission.
+     *
+     * @return the inbound doc submission
+     */
+    public InboundDocSubmissionDeferredRequest getInboundDocSubmission() {
+        return this.inboundDocSubmissionRequest;
     }
 
 }

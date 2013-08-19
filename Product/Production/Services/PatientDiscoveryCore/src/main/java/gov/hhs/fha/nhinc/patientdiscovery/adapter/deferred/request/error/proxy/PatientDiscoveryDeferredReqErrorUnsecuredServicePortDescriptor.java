@@ -83,54 +83,14 @@
 package gov.hhs.fha.nhinc.patientdiscovery.adapter.deferred.request.error.proxy;
 
 import gov.hhs.fha.nhinc.adapterpatientdiscoveryasyncreqerror.AdapterPatientDiscoveryAsyncReqErrorPortType;
-import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
+import gov.hhs.fha.nhinc.messaging.service.port.SOAP12ServicePortDescriptor;
 
 /**
  * @author dharley
  * 
  */
-public class PatientDiscoveryDeferredReqErrorUnsecuredServicePortDescriptor implements
-        ServicePortDescriptor<AdapterPatientDiscoveryAsyncReqErrorPortType> {
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor#getNamespaceUri()
-     */
-    @Override
-    public String getNamespaceUri() {
-        return "urn:gov:hhs:fha:nhinc:adapterpatientdiscoveryasyncreqerror";
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor#getServiceLocalPart()
-     */
-    @Override
-    public String getServiceLocalPart() {
-        return "AdapterPatientDiscoveryAsyncReqError";
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor#getPortLocalPart()
-     */
-    @Override
-    public String getPortLocalPart() {
-        return "AdapterPatientDiscoveryAsyncReqErrorPortSoap";
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor#getWSDLFileName()
-     */
-    @Override
-    public String getWSDLFileName() {
-        return "AdapterPatientDiscoveryAsyncReqError.wsdl";
-    }
+public class PatientDiscoveryDeferredReqErrorUnsecuredServicePortDescriptor extends
+        SOAP12ServicePortDescriptor<AdapterPatientDiscoveryAsyncReqErrorPortType> {
 
     /*
      * (non-Javadoc)

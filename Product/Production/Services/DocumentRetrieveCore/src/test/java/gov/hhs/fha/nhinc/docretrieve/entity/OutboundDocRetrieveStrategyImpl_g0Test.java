@@ -63,7 +63,6 @@ public class OutboundDocRetrieveStrategyImpl_g0Test {
      */
     @Test
     public void testExecute() {
-        System.out.println("execute");
         OutboundDocRetrieveOrchestratable message = null;
         OutboundDocRetrieveStrategyImpl_g0 instance = new OutboundDocRetrieveStrategyImpl_g0();
         instance.execute(message);

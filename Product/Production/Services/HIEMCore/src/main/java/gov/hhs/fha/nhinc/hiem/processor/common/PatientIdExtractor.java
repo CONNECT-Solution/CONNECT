@@ -32,22 +32,20 @@ import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.util.format.PatientIdFormatUtil;
 import gov.hhs.fha.nhinc.xmlCommon.XmlUtility;
 import gov.hhs.fha.nhinc.xmlCommon.XpathHelper;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.xml.xpath.XPathExpressionException;
 import org.oasis_open.docs.wsn.bw_2.SubscribeCreationFailedFault;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import gov.hhs.fha.nhinc.hiem.processor.faults.SoapFaultFactory;
 
+import org.apache.log4j.Logger;
 /**
  * Utility for extracting a patient id
  * 
  * @author Neil Webb
  */
 public class PatientIdExtractor {
-    private static org.apache.commons.logging.Log log = org.apache.commons.logging.LogFactory
-            .getLog(PatientIdExtractor.class);
+    private static final Logger LOG = Logger.getLogger(PatientIdExtractor.class);
 
     /**
      * Extract a patient identifier from an element
@@ -59,23 +57,23 @@ public class PatientIdExtractor {
      */
     public QualifiedSubjectIdentifierType extractPatientIdentifier(Element subscribeElement,
             TopicConfigurationEntry topicConfig) throws SubscribeCreationFailedFault {
-        log.debug("begin extractPatientIdentifier");
+        LOG.debug("begin extractPatientIdentifier");
         QualifiedSubjectIdentifierType patientIdentifier = null;
-        if (log.isDebugEnabled()) {
-            log.debug("Subscribe Patient id location: " + topicConfig.getPatientIdentifierSubscribeLocation());
-            log.debug("Subscribe element: " + XmlUtility.serializeElementIgnoreFaults(subscribeElement));
+        if (LOG.isDebugEnabled()) {
+            LOG.debug("Subscribe Patient id location: " + topicConfig.getPatientIdentifierSubscribeLocation());
+            LOG.debug("Subscribe element: " + XmlUtility.serializeElementIgnoreFaults(subscribeElement));
         }
         String serializedPatientIdentifier = extractPatientId(subscribeElement,
                 topicConfig.getPatientIdentifierSubscribeLocation());
-        log.debug("Extracted patient identifier: " + serializedPatientIdentifier);
+        LOG.debug("Extracted patient identifier: " + serializedPatientIdentifier);
 
         if (NullChecker.isNotNullish(serializedPatientIdentifier)) {
             patientIdentifier = new QualifiedSubjectIdentifierType();
             patientIdentifier.setAssigningAuthorityIdentifier(PatientIdFormatUtil
                     .parseCommunityId(serializedPatientIdentifier));
             patientIdentifier.setSubjectIdentifier(PatientIdFormatUtil.parsePatientId(serializedPatientIdentifier));
-            log.debug("Extracted Patient id: " + patientIdentifier.getSubjectIdentifier());
-            log.debug("Extracted Assigning Authority: " + patientIdentifier.getAssigningAuthorityIdentifier());
+            LOG.debug("Extracted Patient id: " + patientIdentifier.getSubjectIdentifier());
+            LOG.debug("Extracted Assigning Authority: " + patientIdentifier.getAssigningAuthorityIdentifier());
         }
 
         if ((patientIdentifier == null) && topicConfig.isPatientRequired()) {
@@ -85,7 +83,7 @@ public class PatientIdExtractor {
     }
 
     private String extractPatientId(Element subscribeElement, String patientIdentifierLocation) {
-        log.debug("Begin extractPatientId");
+        LOG.debug("Begin extractPatientId");
         String patientId = null;
         if (NullChecker.isNotNullish(patientIdentifierLocation)) {
             try {
@@ -94,10 +92,10 @@ public class PatientIdExtractor {
                     patientId = XmlUtility.getNodeValue(targetNode);
                 }
             } catch (XPathExpressionException ex) {
-                Logger.getLogger(PatientIdExtractor.class.getName()).log(Level.SEVERE, null, ex);
+                LOG.error("Error extracting patient ID: ", ex);
             }
         }
-        log.debug("End extractPatientId - patient id: '" + patientId + "'");
+        LOG.debug("End extractPatientId - patient id: '" + patientId + "'");
         return patientId;
     }
 }

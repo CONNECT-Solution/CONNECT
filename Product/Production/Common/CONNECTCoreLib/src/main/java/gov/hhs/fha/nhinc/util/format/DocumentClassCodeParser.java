@@ -30,14 +30,15 @@ import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.log4j.Logger;
+
 /**
  * 
  * @author rayj
  */
 public class DocumentClassCodeParser {
 
-    private static org.apache.commons.logging.Log log = org.apache.commons.logging.LogFactory
-            .getLog(DocumentClassCodeParser.class);
+    private static final Logger LOG = Logger.getLogger(DocumentClassCodeParser.class);
 
     public static List<String> parseFormattedParameter(List<String> rawList) {
         List<String> normalizedList = new ArrayList<String>();
@@ -69,26 +70,27 @@ public class DocumentClassCodeParser {
                         String singleValue = multiValueString[i];
                         if (singleValue != null) {
                             singleValue = singleValue.trim();
-                        }
-                        if (singleValue.startsWith("'")) {
-                            singleValue = singleValue.substring(1);
-                        }
-                        if (singleValue.endsWith("'")) {
-                            int endTickIndex = singleValue.indexOf("'");
-                            if (endTickIndex != -1) {
-                                singleValue = singleValue.substring(0, endTickIndex);
+                            
+                            if (singleValue.startsWith("'")) {
+                                singleValue = singleValue.substring(1);
+                            }
+                            if (singleValue.endsWith("'")) {
+                                int endTickIndex = singleValue.indexOf("'");
+                                if (endTickIndex != -1) {
+                                    singleValue = singleValue.substring(0, endTickIndex);
+                                }
                             }
                         }
                         resultCollection.add(singleValue);
-                        if (log.isDebugEnabled()) {
-                            log.debug("Added single value: " + singleValue + " to query parameters");
+                        if (LOG.isDebugEnabled()) {
+                            LOG.debug("Added single value: " + singleValue + " to query parameters");
                         }
                     }
                 }
             } else {
                 resultCollection.add(paramFormattedString);
-                if (log.isDebugEnabled()) {
-                    log.debug("No wrapper on status - adding status: " + paramFormattedString + " to query parameters");
+                if (LOG.isDebugEnabled()) {
+                    LOG.debug("No wrapper on status - adding status: " + paramFormattedString + " to query parameters");
                 }
             }
         }
@@ -97,24 +99,23 @@ public class DocumentClassCodeParser {
     }
 
     public static String buildDocumentClassCodeItem(List<String> documentClassCodeList) {
-        String buffer = "";
-
+        StringBuffer buffer = new StringBuffer();
         if ((documentClassCodeList != null) && (documentClassCodeList.size() > 0)) {
-            buffer = "(";
+            buffer.append("(");
             for (String documentClassCode : documentClassCodeList) {
                 documentClassCode = documentClassCode.trim();
-                if (NullChecker.isNotNullish(buffer)) {
-                    buffer = buffer + "'" + documentClassCode + "'" + ",";
+                if (NullChecker.isNotNullish(buffer.toString())) {
+                    buffer.append("'").append(documentClassCode).append("'").append(",");
                 }
             }
-            if (buffer.endsWith(",")) {
-                buffer = buffer.substring(0, buffer.length() - 1);
+            if (buffer.toString().endsWith(",")) {
+                buffer = buffer.deleteCharAt(buffer.length() - 1);
             }
-            buffer = buffer + ")";
+            buffer.append(")");
         }
-        if (buffer.contentEquals("()")) {
-            buffer = "";
+        if (buffer.toString().contentEquals("()")) {
+            return "";
         }
-        return buffer;
+        return buffer.toString();
     }
 }

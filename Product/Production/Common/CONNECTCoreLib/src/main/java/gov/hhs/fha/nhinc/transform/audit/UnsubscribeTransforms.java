@@ -26,67 +26,64 @@
  */
 package gov.hhs.fha.nhinc.transform.audit;
 
-import gov.hhs.fha.nhinc.common.auditlog.LogEventRequestType;
-import gov.hhs.fha.nhinc.common.hiemauditlog.LogNhinUnsubscribeRequestType;
-import gov.hhs.fha.nhinc.common.nhinccommon.UserType;
-import gov.hhs.fha.nhinc.transform.marshallers.JAXBContextHandler;
-
-import java.io.ByteArrayOutputStream;
-
-import javax.xml.bind.JAXBContext;
-import javax.xml.bind.JAXBElement;
-import javax.xml.bind.Marshaller;
-import javax.xml.namespace.QName;
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-import org.oasis_open.docs.wsn.b_2.ObjectFactory;
-import org.oasis_open.docs.wsn.b_2.Unsubscribe;
-
 import com.services.nhinc.schema.auditmessage.AuditMessageType;
 import com.services.nhinc.schema.auditmessage.AuditSourceIdentificationType;
 import com.services.nhinc.schema.auditmessage.CodedValueType;
 import com.services.nhinc.schema.auditmessage.ParticipantObjectIdentificationType;
+import gov.hhs.fha.nhinc.common.auditlog.LogEventRequestType;
+import gov.hhs.fha.nhinc.common.hiemauditlog.LogNhinUnsubscribeRequestType;
+import gov.hhs.fha.nhinc.common.nhinccommon.UserType;
+import gov.hhs.fha.nhinc.transform.marshallers.JAXBContextHandler;
+import java.io.ByteArrayOutputStream;
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBElement;
+import javax.xml.bind.Marshaller;
+import javax.xml.namespace.QName;
+import org.apache.log4j.Logger;
+import org.oasis_open.docs.wsn.b_2.Unsubscribe;
 
 /**
  * Transforms for unsubscribe messages
- * 
+ *
  * @author Neil Webb
  */
 public class UnsubscribeTransforms {
-    private static Log log = LogFactory.getLog(SubscribeTransforms.class);
+
+    private static final Logger LOG = Logger.getLogger(SubscribeTransforms.class);
 
     public LogEventRequestType transformNhinUnsubscribeRequestToAuditMessage(LogNhinUnsubscribeRequestType message) {
         LogEventRequestType response = new LogEventRequestType();
         AuditMessageType auditMsg = new AuditMessageType();
-        response.setDirection(message.getDirection());
-        response.setInterface(message.getInterface());
+        if (message != null) {
+            response.setDirection(message.getDirection());
+            response.setInterface(message.getInterface());
+        }
 
-        log.info("******************************************************************");
-        log.info("Entering transformNhinUnsubscribeRequestToAuditMessage() method.");
-        log.info("******************************************************************");
+        LOG.info("******************************************************************");
+        LOG.info("Entering transformNhinUnsubscribeRequestToAuditMessage() method.");
+        LOG.info("******************************************************************");
 
         // Extract UserInfo from Message.Assertion
         UserType userInfo = new UserType();
         if (message != null && message.getMessage() != null && message.getMessage().getAssertion() != null
-                && message.getMessage().getAssertion().getUserInfo() != null) {
+            && message.getMessage().getAssertion().getUserInfo() != null) {
             userInfo = message.getMessage().getAssertion().getUserInfo();
         }
 
         // Create EventIdentification
-        CodedValueType eventID = new CodedValueType();
+        CodedValueType eventID = null;
         eventID = AuditDataTransformHelper.createEventId(AuditDataTransformConstants.EVENT_ID_CODE_SYS_NAME_SUB,
-                AuditDataTransformConstants.EVENT_ID_DISPLAY_NAME_SUBSCRIBE,
-                AuditDataTransformConstants.EVENT_ID_CODE_SYS_NAME_SUB,
-                AuditDataTransformConstants.EVENT_ID_DISPLAY_NAME_SUBSCRIBE);
+            AuditDataTransformConstants.EVENT_ID_DISPLAY_NAME_SUBSCRIBE,
+            AuditDataTransformConstants.EVENT_ID_CODE_SYS_NAME_SUB,
+            AuditDataTransformConstants.EVENT_ID_DISPLAY_NAME_SUBSCRIBE);
         auditMsg.setEventIdentification(AuditDataTransformHelper.createEventIdentification(
-                AuditDataTransformConstants.EVENT_ACTION_CODE_CREATE,
-                AuditDataTransformConstants.EVENT_OUTCOME_INDICATOR_SUCCESS, eventID));
+            AuditDataTransformConstants.EVENT_ACTION_CODE_CREATE,
+            AuditDataTransformConstants.EVENT_OUTCOME_INDICATOR_SUCCESS, eventID));
 
         // Create Active Participant Section
         if (userInfo != null) {
             AuditMessageType.ActiveParticipant participant = AuditDataTransformHelper.createActiveParticipantFromUser(
-                    userInfo, true);
+                userInfo, true);
             auditMsg.getActiveParticipant().add(participant);
         }
 
@@ -107,79 +104,83 @@ public class UnsubscribeTransforms {
         }
 
         AuditSourceIdentificationType auditSource = AuditDataTransformHelper.createAuditSourceIdentification(
-                communityId, communityName);
+            communityId, communityName);
         auditMsg.getAuditSourceIdentification().add(auditSource);
 
         /* Assign ParticipationObjectIdentification */
         ParticipantObjectIdentificationType participantObject = AuditDataTransformHelper
-                .createParticipantObjectIdentification(patientId);
+            .createParticipantObjectIdentification(patientId);
 
         // Fill in the message field with the contents of the event message
         try {
             JAXBContextHandler oHandler = new JAXBContextHandler();
             JAXBContext jc = oHandler.getJAXBContext("org.oasis_open.docs.wsn.b_2");
-            
+
             Marshaller marshaller = jc.createMarshaller();
             ByteArrayOutputStream baOutStrm = new ByteArrayOutputStream();
             baOutStrm.reset();
-            
-            JAXBElement<Unsubscribe> oJaxbElement = new JAXBElement<Unsubscribe>(
-            		new QName("http://docs.oasis-open.org/wsn/b-2", "Unsubscribe"), Unsubscribe.class , 
-            		message.getMessage().getUnsubscribe());
+            JAXBElement<Unsubscribe> oJaxbElement = null;
+            if (message != null) {
+                oJaxbElement = new JAXBElement<Unsubscribe>(
+                    new QName("http://docs.oasis-open.org/wsn/b-2", "Unsubscribe"), Unsubscribe.class,
+                    message.getMessage().getUnsubscribe());
+            }
             baOutStrm.close();
             marshaller.marshal(oJaxbElement, baOutStrm);
-            log.debug("Done marshalling the message.");
+            LOG.debug("Done marshalling the message.");
 
             participantObject.setParticipantObjectQuery(baOutStrm.toByteArray());
 
         } catch (Exception e) {
             e.printStackTrace();
-            log.error("EXCEPTION when marshalling unsubscribe request: " + e);
+            LOG.error("EXCEPTION when marshalling unsubscribe request: " + e);
             throw new RuntimeException();
         }
         auditMsg.getParticipantObjectIdentification().add(participantObject);
 
         response.setAuditMessage(auditMsg);
 
-        log.info("******************************************************************");
-        log.info("Exiting transformNhinUnsubscribeRequestToAuditMessage() method.");
-        log.info("******************************************************************");
+        LOG.info("******************************************************************");
+        LOG.info("Exiting transformNhinUnsubscribeRequestToAuditMessage() method.");
+        LOG.info("******************************************************************");
 
         return response;
     }
 
     public LogEventRequestType transformUnsubscribeResponseToGenericAudit(
-            gov.hhs.fha.nhinc.common.hiemauditlog.LogUnsubscribeResponseType message) {
+        gov.hhs.fha.nhinc.common.hiemauditlog.LogUnsubscribeResponseType message) {
         LogEventRequestType response = new LogEventRequestType();
         AuditMessageType auditMsg = new AuditMessageType();
-        response.setDirection(message.getDirection());
-        response.setInterface(message.getInterface());
+        if (message != null) {
+            response.setDirection(message.getDirection());
+            response.setInterface(message.getInterface());
+        }
 
-        log.info("******************************************************************");
-        log.info("Entering transformUnsubscribeResponseToGenericAudit() method.");
-        log.info("******************************************************************");
+        LOG.info("******************************************************************");
+        LOG.info("Entering transformUnsubscribeResponseToGenericAudit() method.");
+        LOG.info("******************************************************************");
 
         // Extract UserInfo from Message.Assertion
         UserType userInfo = new UserType();
         if (message != null && message.getMessage() != null && message.getMessage().getAssertion() != null
-                && message.getMessage().getAssertion().getUserInfo() != null) {
+            && message.getMessage().getAssertion().getUserInfo() != null) {
             userInfo = message.getMessage().getAssertion().getUserInfo();
         }
 
         // Create EventIdentification
-        CodedValueType eventID = new CodedValueType();
+        CodedValueType eventID = null;
         eventID = AuditDataTransformHelper.createEventId(AuditDataTransformConstants.EVENT_ID_CODE_SYS_NAME_SUB,
-                AuditDataTransformConstants.EVENT_ID_DISPLAY_NAME_SUBSCRIBE,
-                AuditDataTransformConstants.EVENT_ID_CODE_SYS_NAME_SUB,
-                AuditDataTransformConstants.EVENT_ID_DISPLAY_NAME_SUBSCRIBE);
+            AuditDataTransformConstants.EVENT_ID_DISPLAY_NAME_SUBSCRIBE,
+            AuditDataTransformConstants.EVENT_ID_CODE_SYS_NAME_SUB,
+            AuditDataTransformConstants.EVENT_ID_DISPLAY_NAME_SUBSCRIBE);
         auditMsg.setEventIdentification(AuditDataTransformHelper.createEventIdentification(
-                AuditDataTransformConstants.EVENT_ACTION_CODE_CREATE,
-                AuditDataTransformConstants.EVENT_OUTCOME_INDICATOR_SUCCESS, eventID));
+            AuditDataTransformConstants.EVENT_ACTION_CODE_CREATE,
+            AuditDataTransformConstants.EVENT_OUTCOME_INDICATOR_SUCCESS, eventID));
 
         // Create Active Participant Section
         if (userInfo != null) {
             AuditMessageType.ActiveParticipant participant = AuditDataTransformHelper.createActiveParticipantFromUser(
-                    userInfo, true);
+                userInfo, true);
             auditMsg.getActiveParticipant().add(participant);
         }
 
@@ -200,12 +201,12 @@ public class UnsubscribeTransforms {
         }
 
         AuditSourceIdentificationType auditSource = AuditDataTransformHelper.createAuditSourceIdentification(
-                communityId, communityName);
+            communityId, communityName);
         auditMsg.getAuditSourceIdentification().add(auditSource);
 
         /* Assign ParticipationObjectIdentification */
         ParticipantObjectIdentificationType participantObject = AuditDataTransformHelper
-                .createParticipantObjectIdentification(patientId);
+            .createParticipantObjectIdentification(patientId);
 
         // Fill in the message field with the contents of the event message
         try { // org.oasis_open.docs.wsn.b_2
@@ -214,26 +215,26 @@ public class UnsubscribeTransforms {
             Marshaller marshaller = jc.createMarshaller();
             ByteArrayOutputStream baOutStrm = new ByteArrayOutputStream();
             baOutStrm.reset();
-            gov.hhs.fha.nhinc.common.subscription.ObjectFactory factory = new gov.hhs.fha.nhinc.common.subscription.ObjectFactory();
-            marshaller.marshal(message.getMessage().getUnsubscribeResponse(), baOutStrm);
-            log.debug("Done marshalling the message.");
+            if (message != null) {
+                marshaller.marshal(message.getMessage().getUnsubscribeResponse(), baOutStrm);
+            }
+            LOG.debug("Done marshalling the message.");
 
             participantObject.setParticipantObjectQuery(baOutStrm.toByteArray());
 
         } catch (Exception e) {
             e.printStackTrace();
-            log.error("EXCEPTION when marshalling unsubscribe response: " + e);
+            LOG.error("EXCEPTION when marshalling unsubscribe response: " + e);
             throw new RuntimeException();
         }
         auditMsg.getParticipantObjectIdentification().add(participantObject);
 
         response.setAuditMessage(auditMsg);
 
-        log.info("******************************************************************");
-        log.info("Exiting transformUnsubscribeResponseToGenericAudit() method.");
-        log.info("******************************************************************");
+        LOG.info("******************************************************************");
+        LOG.info("Exiting transformUnsubscribeResponseToGenericAudit() method.");
+        LOG.info("******************************************************************");
 
         return response;
     }
-
 }

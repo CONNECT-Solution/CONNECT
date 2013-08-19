@@ -37,7 +37,6 @@ import org.jmock.integration.junit4.JMock;
 import org.jmock.integration.junit4.JUnit4Mockery;
 import org.junit.runner.RunWith;
 import org.jmock.Mockery;
-import org.apache.commons.logging.Log;
 import org.junit.Ignore;
 
 /**
@@ -98,14 +97,7 @@ public class XACMLSerializerTest {
      */
     @Test
     public void testDeserializeAndSerialize() {
-        final Log mockLog = context.mock(Log.class);
-
-        XACMLSerializer oSerializer = new XACMLSerializer() {
-            @Override
-            protected Log createLogger() {
-                return mockLog;
-            }
-        };
+        XACMLSerializer oSerializer = new XACMLSerializer();
 
         try {
             PolicyType oConsentXACML = oSerializer.deserializeConsentXACMLDoc(XACML_EXAMPLE_1);

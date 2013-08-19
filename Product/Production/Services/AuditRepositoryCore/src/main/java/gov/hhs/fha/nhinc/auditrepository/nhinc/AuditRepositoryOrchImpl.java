@@ -51,8 +51,7 @@ import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 import javax.xml.datatype.XMLGregorianCalendar;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 import org.hibernate.Hibernate;
 
 import com.services.nhinc.schema.auditmessage.AuditMessageType;
@@ -61,6 +60,7 @@ import com.services.nhinc.schema.auditmessage.AuditSourceIdentificationType;
 import com.services.nhinc.schema.auditmessage.EventIdentificationType;
 import com.services.nhinc.schema.auditmessage.FindAuditEventsResponseType;
 import com.services.nhinc.schema.auditmessage.FindAuditEventsType;
+import com.services.nhinc.schema.auditmessage.ObjectFactory;
 import com.services.nhinc.schema.auditmessage.ParticipantObjectIdentificationType;
 
 /**
@@ -68,7 +68,7 @@ import com.services.nhinc.schema.auditmessage.ParticipantObjectIdentificationTyp
  * @author mflynn02
  */
 public class AuditRepositoryOrchImpl {
-    private static Log log = LogFactory.getLog(AuditRepositoryOrchImpl.class);
+    private static final Logger LOG = Logger.getLogger(AuditRepositoryOrchImpl.class);
     private static AuditRepositoryDAO auditLogDao = AuditRepositoryDAO.getAuditRepositoryDAOInstance();
     private static String logStatus = "";
 
@@ -76,19 +76,19 @@ public class AuditRepositoryOrchImpl {
      * constructor.
      */
     public AuditRepositoryOrchImpl() {
-        log.debug("AuditRepositoryOrchImpl Initialized");
+        LOG.debug("AuditRepositoryOrchImpl Initialized");
     }
 
     /**
      * This method is the actual implementation method for AuditLogMgr Service to Log the AuditEvents and responses the
      * status of logging.
      * 
-     * @param mess
-     * @param assertion
+     * @param mess the message
+     * @param assertion the assertion
      * @return gov.hhs.fha.nhinc.common.nhinccommon.AcknowledgementType
      */
     public AcknowledgementType logAudit(LogEventSecureRequestType mess, AssertionType assertion) {
-        log.debug("AuditRepositoryOrchImpl.logAudit() -- Begin");
+        LOG.debug("AuditRepositoryOrchImpl.logAudit() -- Begin");
         AcknowledgementType response = null;
 
         ActiveParticipant activeParticipant = null;
@@ -125,7 +125,7 @@ public class AuditRepositoryOrchImpl {
         if (auditSourceIdentificationList != null && auditSourceIdentificationList.size() > 0) {
             AuditSourceIdentificationType auditSourceIdentification = auditSourceIdentificationList.get(0);
             eventCommunityId = auditSourceIdentification.getAuditSourceID();
-            log.debug("auditSourceID : " + eventCommunityId);
+            LOG.debug("auditSourceID : " + eventCommunityId);
             if (eventCommunityId != null && !eventCommunityId.equals("")) {
                 auditRec.setCommunityId(eventCommunityId);
             } else {
@@ -152,25 +152,25 @@ public class AuditRepositoryOrchImpl {
         auditRec.setMessageType(mess.getInterface() + " " + mess.getDirection());
         auditRec.setMessage(getBlobFromAuditMessage(mess.getAuditMessage()));
 
-        XMLGregorianCalendar XMLCalDate = eventIdentification.getEventDateTime();
-        if (XMLCalDate != null) {
-            eventTimeStamp = convertXMLGregorianCalendarToDate(XMLCalDate);
+        XMLGregorianCalendar xMLCalDate = eventIdentification.getEventDateTime();
+        if (xMLCalDate != null) {
+            eventTimeStamp = convertXMLGregorianCalendarToDate(xMLCalDate);
             auditRec.setTimeStamp(eventTimeStamp);
         }
 
-        List<AuditRepositoryRecord> auditRecList = new ArrayList();
+        List<AuditRepositoryRecord> auditRecList = new ArrayList<AuditRepositoryRecord>();
         auditRecList.add(auditRec);
-        log.debug("AuditRepositoryOrchImpl.logAudit() -- Calling auditLogDao to insert record into database.");
+        LOG.debug("AuditRepositoryOrchImpl.logAudit() -- Calling auditLogDao to insert record into database.");
         boolean result = auditLogDao.insertAuditRepository(auditRecList);
-        log.debug("AuditRepositoryOrchImpl.logAudit() -- Done calling auditLogDao to insert record into database.");
+        LOG.debug("AuditRepositoryOrchImpl.logAudit() -- Done calling auditLogDao to insert record into database.");
 
         response = new AcknowledgementType();
-        if (result == true) {
+        if (result) {
             response.setMessage("Created Log Message in Database...");
         } else {
             response.setMessage("Unable to create Log Message in Database...");
         }
-        log.debug("AuditRepositoryOrchImpl.logAudit() -- End");
+        LOG.debug("AuditRepositoryOrchImpl.logAudit() -- End");
         return response;
     }
 
@@ -182,34 +182,35 @@ public class AuditRepositoryOrchImpl {
             Marshaller marshaller = jc.createMarshaller();
             ByteArrayOutputStream baOutStrm = new ByteArrayOutputStream();
             baOutStrm.reset();
-            com.services.nhinc.schema.auditmessage.ObjectFactory factory = new com.services.nhinc.schema.auditmessage.ObjectFactory();
-            JAXBElement oJaxbElement = factory.createAuditMessage(mess);
+            ObjectFactory factory = new ObjectFactory();
+            JAXBElement<AuditMessageType> oJaxbElement = factory.createAuditMessage(mess);
             baOutStrm.close();
             marshaller.marshal(oJaxbElement, baOutStrm);
             byte[] buffer = baOutStrm.toByteArray();
             eventMessage = Hibernate.createBlob(buffer);
         } catch (Exception e) {
-            log.error("Exception during Blob conversion :" + e.getMessage());
+            LOG.error("Exception during Blob conversion :" + e.getMessage());
             e.printStackTrace();
         }
         return eventMessage;
     }
 
     /**
-     * This is the actual implementation for AuditLogMgr Service for AuditQuery returns the AuditEventsReponse
+     * This is the actual implementation for AuditLogMgr Service for AuditQuery returns the AuditEventsReponse.
      * 
-     * @param query
-     * @return FindAuditEventsResponseType
+     * @param query the query
+     * @param assertion the assertion
+     * @return the found FindAuditEventsResponseType 
      */
     public FindCommunitiesAndAuditEventsResponseType findAudit(FindAuditEventsType query, AssertionType assertion) {
-        log.debug("AuditRepositoryOrchImpl.findAudit() -- Begin");
+        LOG.debug("AuditRepositoryOrchImpl.findAudit() -- Begin");
 
         if (logStatus.equals("")) {
             logStatus = "on";
         }
 
         if (logStatus.equalsIgnoreCase("off")) {
-            log.info("Enable Audit Logging Before Making Query by changing the "
+            LOG.info("Enable Audit Logging Before Making Query by changing the "
                     + "value in 'auditlogchoice' properties file");
             return null;
         }
@@ -230,24 +231,24 @@ public class AuditRepositoryOrchImpl {
 
         List<AuditRepositoryRecord> responseList = auditLogDao.queryAuditRepositoryOnCriteria(userId, patientId,
                 beginDate, endDate);
-        log.debug("after query call to logDAO.");
+        LOG.debug("after query call to logDAO.");
         /* if (responseList != null && responseList.size() > 0) { */
-        log.debug("responseList is not NULL ");
+        LOG.debug("responseList is not NULL ");
         auditEvents = buildAuditReponseType(responseList);
         /* } */
 
-        log.debug("AuditRepositoryOrchImpl.findAudit() -- End");
+        LOG.debug("AuditRepositoryOrchImpl.findAudit() -- End");
         return auditEvents;
     }
 
     /**
-     * This method builds the Actual Response from each of the EventLogList coming from Database
+     * This method builds the Actual Response from each of the EventLogList coming from Database.
      * 
      * @param eventsList
      * @return CommunitiesAndFindAdutiEventResponse
      */
     private FindCommunitiesAndAuditEventsResponseType buildAuditReponseType(List<AuditRepositoryRecord> auditRecList) {
-        log.debug("AuditRepositoryOrchImpl.buildAuditResponseType -- Begin");
+        LOG.debug("AuditRepositoryOrchImpl.buildAuditResponseType -- Begin");
         FindCommunitiesAndAuditEventsResponseType auditResType = new FindCommunitiesAndAuditEventsResponseType();
         FindAuditEventsResponseType response = new FindAuditEventsResponseType();
         AuditMessageType auditMessageType = null;
@@ -271,14 +272,14 @@ public class AuditRepositoryOrchImpl {
                     String tempCommunity = auditMessageType.getAuditSourceIdentification().get(0).getAuditSourceID();
                     if (!auditResType.getCommunities().contains(tempCommunity)) {
                         auditResType.getCommunities().add(tempCommunity);
-                        log.debug("Adding community " + tempCommunity);
+                        LOG.debug("Adding community " + tempCommunity);
                     }
                 }
             }
         }
 
         auditResType.setFindAuditEventResponse(response);
-        log.debug("AuditRepositoryOrchImpl.buildAuditResponseType -- End");
+        LOG.debug("AuditRepositoryOrchImpl.buildAuditResponseType -- End");
         return auditResType;
     }
 
@@ -289,7 +290,7 @@ public class AuditRepositoryOrchImpl {
      * @return AuditMessageType
      */
     private AuditMessageType unMarshallBlobToAuditMess(Blob auditBlob) {
-        log.debug("AuditRepositoryOrchImpl.unMarshallBlobToAuditMess -- Begin");
+        LOG.debug("AuditRepositoryOrchImpl.unMarshallBlobToAuditMess -- Begin");
         AuditMessageType auditMessageType = null;
         try {
             if (auditBlob != null && ((int) auditBlob.length()) > 0) {
@@ -301,10 +302,10 @@ public class AuditRepositoryOrchImpl {
                 auditMessageType = (AuditMessageType) jaxEle.getValue();
             }
         } catch (Exception e) {
-            log.error("Blob to Audit Message Conversion Error : " + e.getMessage());
+            LOG.error("Blob to Audit Message Conversion Error : " + e.getMessage());
             e.printStackTrace();
         }
-        log.debug("AuditRepositoryOrchImpl.unMarshallBlobToAuditMess -- End");
+        LOG.debug("AuditRepositoryOrchImpl.unMarshallBlobToAuditMess -- End");
         return auditMessageType;
     }
 
@@ -316,10 +317,10 @@ public class AuditRepositoryOrchImpl {
      */
     private Date convertXMLGregorianCalendarToDate(XMLGregorianCalendar xmlCalDate) {
         Calendar cal = Calendar.getInstance(Locale.getDefault());
-        log.info("cal.getTime() -> " + cal.getTime());
+        LOG.info("cal.getTime() -> " + cal.getTime());
         cal.setTime(xmlCalDate.toGregorianCalendar().getTime());
         Date eventDate = cal.getTime();
-        log.info("eventDate -> " + eventDate);
+        LOG.info("eventDate -> " + eventDate);
         return eventDate;
     }
 

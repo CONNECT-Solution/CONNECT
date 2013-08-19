@@ -29,8 +29,11 @@ package gov.hhs.fha.nhinc.admindistribution.adapter.proxy;
 import gov.hhs.fha.nhinc.adapteradmindistribution.AdapterAdministrativeDistributionSecuredPortType;
 import gov.hhs.fha.nhinc.admindistribution.AdminDistributionHelper;
 import gov.hhs.fha.nhinc.admindistribution.adapter.proxy.service.AdapterAdminDistributionSecuredServicePortDescriptor;
+import gov.hhs.fha.nhinc.admindistribution.aspect.EDXLDistributionEventDescriptionBuilder;
+import gov.hhs.fha.nhinc.aspect.AdapterDelegationEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.RespondingGatewaySendAlertMessageSecuredType;
+import gov.hhs.fha.nhinc.event.DefaultEventDescriptionBuilder;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTCXFClientFactory;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTClient;
 import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
@@ -40,8 +43,7 @@ import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 import oasis.names.tc.emergency.edxl.de._1.EDXLDistribution;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 
 /**
  * 
@@ -49,33 +51,60 @@ import org.apache.commons.logging.LogFactory;
  */
 public class AdapterAdminDistributionProxyWebServiceSecuredImpl implements AdapterAdminDistributionProxy {
 
-    private Log log = null;
+    private static final Logger LOG = Logger.getLogger(AdapterAdminDistributionProxyWebServiceSecuredImpl.class);
     private AdminDistributionHelper adminDistributionHelper;
 
+    /**
+     * Constructor.
+     */
     public AdapterAdminDistributionProxyWebServiceSecuredImpl() {
-        log = createLogger();
         adminDistributionHelper = getHelper();
     }
 
-    protected Log createLogger() {
-        return LogFactory.getLog(getClass());
-    }
-    
+    /**
+     * @return an instance of AdminDistributionHelper.
+     */
     protected AdminDistributionHelper getHelper() {
         return new AdminDistributionHelper();
     }
 
+    /**
+     * This method returns CXFClient to implement AdpaterAdmin Dist Secured Service.
+     * 
+     * @param portDescriptor
+     *            comprises of NameSpaceUri, WSDLFile to read,Port, ServiceName and WS_ADDRESSING_ACTION.
+     * @param url
+     *            targetCommunity Url received.
+     * @param assertion
+     *            Assertion received.
+     * @return CXFClient for AdapterAdminDist Secured Service.
+     */
     protected CONNECTClient<AdapterAdministrativeDistributionSecuredPortType> getCONNECTClientSecured(
             ServicePortDescriptor<AdapterAdministrativeDistributionSecuredPortType> portDescriptor, String url,
             AssertionType assertion) {
 
         return CONNECTCXFClientFactory.getInstance().getCONNECTClientSecured(portDescriptor, url, assertion);
     }
-
-    public void sendAlertMessage(EDXLDistribution body, AssertionType assertion) {
-        log.debug("Begin sendAlertMessage");
-        String url = adminDistributionHelper.getAdapterUrl(NhincConstants.ADAPTER_ADMIN_DIST_SECURED_SERVICE_NAME,
+    
+    protected String getUrl() {
+        return adminDistributionHelper.getAdapterUrl(NhincConstants.ADAPTER_ADMIN_DIST_SECURED_SERVICE_NAME,
                 ADAPTER_API_LEVEL.LEVEL_a0);
+    }
+
+    /**
+     * This method implements SendAlertMessage for AdminDist.
+     * 
+     * @param body
+     *            Emergency Message Distribution Element transaction message body received.
+     * @param assertion
+     *            Assertion received.
+     */
+    @AdapterDelegationEvent(beforeBuilder = EDXLDistributionEventDescriptionBuilder.class,
+            afterReturningBuilder = DefaultEventDescriptionBuilder.class, serviceType = "Admin Distribution",
+            version = "")
+    public void sendAlertMessage(EDXLDistribution body, AssertionType assertion) {
+        LOG.debug("Begin sendAlertMessage");
+        String url = getUrl();
 
         if (NullChecker.isNotNullish(url)) {
             try {
@@ -86,17 +115,21 @@ public class AdapterAdminDistributionProxyWebServiceSecuredImpl implements Adapt
 
                 CONNECTClient<AdapterAdministrativeDistributionSecuredPortType> client = getCONNECTClientSecured(
                         portDescriptor, url, assertion);
+                client.enableMtom();
 
                 client.invokePort(AdapterAdministrativeDistributionSecuredPortType.class, "sendAlertMessage", message);
             } catch (Exception ex) {
-                log.error("Unable to send message: " + ex.getMessage(), ex);
+                LOG.error("Unable to send message: " + ex.getMessage(), ex);
             }
         } else {
-            log.error("Failed to call the web service (" + NhincConstants.ADAPTER_ADMIN_DIST_SECURED_SERVICE_NAME
+            LOG.error("Failed to call the web service (" + NhincConstants.ADAPTER_ADMIN_DIST_SECURED_SERVICE_NAME
                     + ").  The URL is null.");
         }
     }
 
+    /**
+     * @return an instance of webServiceProxyHelper.
+     */
     protected WebServiceProxyHelper getWebServiceProxyHelper() {
         return new WebServiceProxyHelper();
     }

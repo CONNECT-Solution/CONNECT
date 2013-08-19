@@ -33,11 +33,13 @@ import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.largefile.LargeFileUtils;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.healthit.nhin.XDRAcknowledgementType;
+
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType.Document;
+
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+
+import org.apache.log4j.Logger;
 
 /**
  * This is the Java implementation for the AdapterComponentXDRRequest service. This is intended to be overridden by the
@@ -46,7 +48,7 @@ import org.apache.commons.logging.LogFactory;
  * @author Les Westberg
  */
 public class AdapterComponentDocSubmissionRequestOrchImpl {
-    private static Log log = LogFactory.getLog(AdapterComponentDocSubmissionRequestOrchImpl.class);
+    private static final Logger LOG = Logger.getLogger(AdapterComponentDocSubmissionRequestOrchImpl.class);
 
     /**
      * This method receives the document information
@@ -59,7 +61,7 @@ public class AdapterComponentDocSubmissionRequestOrchImpl {
     // This is a dummy adapter - ignoring the URL parameter in interest of not updating the interface
     public XDRAcknowledgementType provideAndRegisterDocumentSetBRequest(ProvideAndRegisterDocumentSetRequestType body,
             AssertionType assertion) {
-        log.debug("Entering AdapterComponentXDRRequestOrchImpl.provideAndRegisterDocumentSetBRequest");
+        LOG.debug("Entering AdapterComponentXDRRequestOrchImpl.provideAndRegisterDocumentSetBRequest");
         
         processRequest(body);
         
@@ -78,14 +80,14 @@ public class AdapterComponentDocSubmissionRequestOrchImpl {
             try {
                 if (fileUtils.isParsePayloadAsFileLocationEnabled()) {
                     URI payloadURI = fileUtils.parseBase64DataAsUri(doc.getValue());
-                    log.debug("Payload Location ===> " + payloadURI.toString());
+                    LOG.debug("Payload Location ===> " + payloadURI.toString());
                 } else {
-                    log.debug("Closing request input streams.");
+                    LOG.debug("Closing request input streams.");
                     LargeFileUtils.getInstance().closeStreamWithoutException(
                             doc.getValue().getDataSource().getInputStream());
                 }
             } catch (Exception ioe) {
-                log.error("Failed to close input stream", ioe);
+                LOG.error("Failed to close input stream", ioe);
             }
         }
     }

@@ -33,20 +33,20 @@ import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.healthit.nhin.XDRAcknowledgementType;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+
+import org.apache.log4j.Logger;
 
 /**
  * 
  * @author jhoppesc
  */
 public class EntityDocSubmissionDeferredRequestProxyNoOpImpl implements EntityDocSubmissionDeferredRequestProxy {
-    private static Log log = LogFactory.getLog(EntityDocSubmissionDeferredRequestProxyNoOpImpl.class);
+    private static final Logger LOG = Logger.getLogger(EntityDocSubmissionDeferredRequestProxyNoOpImpl.class);
 
     public XDRAcknowledgementType provideAndRegisterDocumentSetBAsyncRequest(
             ProvideAndRegisterDocumentSetRequestType request, AssertionType assertion,
             NhinTargetCommunitiesType targets, UrlInfoType urlInfo) {
-        log.debug("Using NoOp Implementation for Entity Doc Submission Deferred Request Service");
+        LOG.trace("Using NoOp Implementation for Entity Doc Submission Deferred Request Service");
         XDRAcknowledgementType ack = new XDRAcknowledgementType();
         RegistryResponseType regResp = new RegistryResponseType();
         regResp.setStatus(NhincConstants.XDR_ACK_STATUS_MSG);

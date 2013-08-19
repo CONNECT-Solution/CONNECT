@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:context="http://www.springframework.org/schema/context"
+    xsi:schemaLocation="
+http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
+http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+">
+<!-- 
+	The beans available in this file must be identified in the "description" element for the Spring configuration application. Beans are listed between braces 
+	in the description separated with a comma like the following sample: {somebean,anotherbean}
+-->
+	<description>Beans included in this file: {adapterpatientdiscoveryasyncreqerror,adapterpatientdiscoveryasyncreq,adapterpatientdiscoveryasyncreqqueue,entitypatientdiscoveryasyncreq,nhinpatientdiscoveryasyncreq,passthrupatientdiscoveryasyncreq}</description>
+ 
+    <aop:aspectj-autoproxy proxy-target-class="true" />
+    <context:annotation-config />
+
+    <import resource="classpath:CONNECT-context.xml"/>
+    <import resource="classpath:eventlogging.xml"/>
+
+    <!-- Beans defined : Adapter Error interface -->
+    
+    <alias alias="adapterpatientdiscoveryasyncreqerror" name="adapterpatientdiscoveryasyncreqerrorwssecured" />
+    
+	<!-- No-op Implementation -->
+	<bean lazy-init="true" class="gov.hhs.fha.nhinc.patientdiscovery.adapter.deferred.request.error.proxy.AdapterPatientDiscoveryDeferredReqErrorProxyNoOpImpl" id="adapterpatientdiscoveryasyncreqerrornoop" name="adapterpatientdiscoveryasyncreqerrornoop"> 
+		<meta key="impltype" value="noop"/>
+	</bean> 
+
+	<!-- Java Implementation -->
+	<bean lazy-init="true" class="gov.hhs.fha.nhinc.patientdiscovery.adapter.deferred.request.error.proxy.AdapterPatientDiscoveryDeferredReqErrorProxyJavaImpl" id="adapterpatientdiscoveryasyncreqerrorjava" name="adapterpatientdiscoveryasyncreqerrorjava"> 
+		<meta key="impltype" value="java"/>
+	</bean> 
+
+	<!-- Secured web service Implementation -->
+    <bean lazy-init="true" class="gov.hhs.fha.nhinc.patientdiscovery.adapter.deferred.request.error.proxy.AdapterPatientDiscoveryDeferredReqErrorProxyWebServiceSecuredImpl" id="adapterpatientdiscoveryasyncreqerrorwssecured" name="adapterpatientdiscoveryasyncreqerrorwssecured"> 
+		<meta key="impltype" value="wssecured"/>
+		<meta key="default" value="true"/>
+	</bean> 
+
+	<!-- Unsecured web service Implementation -->
+	<bean lazy-init="true" class="gov.hhs.fha.nhinc.patientdiscovery.adapter.deferred.request.error.proxy.AdapterPatientDiscoveryDeferredReqErrorProxyWebServiceUnsecuredImpl" id="adapterpatientdiscoveryasyncreqerrorwsunsecured" name="adapterpatientdiscoveryasyncreqerrorwsunsecured"> 
+		<meta key="impltype" value="wsunsecured"/>
+	</bean>
+
+
+
+    <!-- Beans defined : Adapter interface -->
+    
+    <alias alias="adapterpatientdiscoveryasyncreq" name="adapterpatientdiscoveryasyncreqwssecured" />
+	
+	<!-- No-op Implementation -->
+	<bean lazy-init="true" class="gov.hhs.fha.nhinc.patientdiscovery.adapter.deferred.request.proxy.AdapterPatientDiscoveryDeferredReqProxyNoOpImpl" id="adapterpatientdiscoveryasyncreqnoop" name="adapterpatientdiscoveryasyncreqnoop"> 
+		<meta key="impltype" value="noop"/>
+	</bean> 
+
+	<!-- Java Implementation -->
+	<bean lazy-init="true" class="gov.hhs.fha.nhinc.patientdiscovery.adapter.deferred.request.proxy.AdapterPatientDiscoveryDeferredReqProxyJavaImpl" id="adapterpatientdiscoveryasyncreqjava" name="adapterpatientdiscoveryasyncreqjava"> 
+		<meta key="impltype" value="java"/>
+	</bean> 
+
+	<!-- Secured web service Implementation -->
+    <bean lazy-init="true" class="gov.hhs.fha.nhinc.patientdiscovery.adapter.deferred.request.proxy.AdapterPatientDiscoveryDeferredReqProxyWebServiceSecuredImpl" id="adapterpatientdiscoveryasyncreqwssecured" name="adapterpatientdiscoveryasyncreqwssecured"> 
+		<meta key="impltype" value="wssecured"/>
+		<meta key="default" value="true"/>
+	</bean> 
+
+	<!-- Unsecured web service Implementation -->
+	<bean lazy-init="true" class="gov.hhs.fha.nhinc.patientdiscovery.adapter.deferred.request.proxy.AdapterPatientDiscoveryDeferredReqProxyWebServiceUnsecuredImpl" id="adapterpatientdiscoveryasyncreqwsunsecured" name="adapterpatientdiscoveryasyncreqwsunsecured"> 
+		<meta key="impltype" value="wsunsecured"/>
+	</bean>
+	
+	
+	
+	<!-- Beans defined for Adapter queue interface -->
+	
+	<alias alias="adapterpatientdiscoveryasyncreqqueue" name="adapterpatientdiscoveryasyncreqqueuejava" />
+
+	<!-- Java Implementation -->
+	<bean lazy-init="true" class="gov.hhs.fha.nhinc.patientdiscovery.adapter.deferred.request.queue.proxy.AdapterPatientDiscoveryAsyncReqQueueProxyJavaImpl" id="adapterpatientdiscoveryasyncreqqueuejava" name="adapterpatientdiscoveryasyncreqqueuejava"> 
+		<meta key="impltype" value="java"/>
+	</bean> 
+    
+    
+    
+	<!-- Beans defined: Entity interface -->
+	
+	<alias alias="entitypatientdiscoveryasyncreq" name="entitypatientdiscoveryasyncreqwssecured" />
+	
+    <!-- No-op Implementation -->
+	<bean lazy-init="true" class="gov.hhs.fha.nhinc.patientdiscovery.entity.deferred.request.proxy.EntityPatientDiscoveryDeferredRequestProxyNoOpImpl" id="entitypatientdiscoveryasyncreqnoop" name="entitypatientdiscoveryasyncreqnoop"> 
+		<meta key="impltype" value="noop"/>
+	</bean> 
+
+	<!-- Java Implementation -->
+	<bean lazy-init="true" class="gov.hhs.fha.nhinc.patientdiscovery.entity.deferred.request.proxy.EntityPatientDiscoveryDeferredRequestProxyJavaImpl" id="entitypatientdiscoveryasyncreqjava" name="entitypatientdiscoveryasyncreqjava"> 
+		<meta key="impltype" value="java"/>
+	</bean> 
+
+	<!-- Secured web service Implementation -->
+    <bean lazy-init="true" class="gov.hhs.fha.nhinc.patientdiscovery.entity.deferred.request.proxy.EntityPatientDiscoveryDeferredRequestProxyWebServiceSecuredImpl" id="entitypatientdiscoveryasyncreqwssecured" name="entitypatientdiscoveryasyncreqwssecured"> 
+		<meta key="impltype" value="wssecured"/>
+		<meta key="default" value="true"/>
+	</bean> 
+
+	<!-- Unsecured web service Implementation -->
+	<bean lazy-init="true" class="gov.hhs.fha.nhinc.patientdiscovery.entity.deferred.request.proxy.EntityPatientDiscoveryDeferredRequestProxyWebServiceUnsecuredImpl" id="entitypatientdiscoveryasyncreqwsunsecured" name="entitypatientdiscoveryasyncreqwsunsecured"> 
+		<meta key="impltype" value="wsunsecured"/>
+	</bean> 
+	
+	
+	
+	<!-- Beans defined : Nhin interface -->
+	
+	<alias alias="nhinpatientdiscoveryasyncreq" name="nhinpatientdiscoveryasyncreqwssecured" />
+
+    <!-- No-op Implementation -->
+	<bean lazy-init="true" class="gov.hhs.fha.nhinc.patientdiscovery.nhin.deferred.request.proxy.NhinPatientDiscoveryDeferredReqProxyNoOpImpl" id="nhinpatientdiscoveryasyncreqnoop" name="nhinpatientdiscoveryasyncreqnoop"> 
+		<meta key="impltype" value="noop"/>
+	</bean> 
+
+	<!-- Secured web service Implementation -->
+    <bean lazy-init="true" class="gov.hhs.fha.nhinc.patientdiscovery.nhin.deferred.request.proxy.NhinPatientDiscoveryDeferredReqProxyWebServiceSecuredImpl" id="nhinpatientdiscoveryasyncreqwssecured" name="nhinpatientdiscoveryasyncreqwssecured"> 
+		<meta key="impltype" value="wssecured"/>
+		<meta key="default" value="true"/>
+	</bean>
+   
+</beans>

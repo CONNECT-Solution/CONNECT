@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
+
+<!-- 
+	The beans available in this file must be identified in the "description" element for the Spring configuration application. Beans are listed between braces 
+	in the description separated with a comma like the following sample: {somebean,anotherbean}
+-->
+	<description>Beans included in this file: {directedgeclient}</description>
+	<import resource="direct.beans.xml"/>
+
+   	<alias alias="directedgeclient" name="directedgeclientsmtp" />
+
+	<!-- No-op Implementation -->
+	<bean lazy-init="true" class="gov.hhs.fha.nhinc.direct.edge.proxy.DirectEdgeProxyNoOpImpl" id="directedgeclientnoop" name="directedgeclientnoop"> 
+		<meta key="impltype" value="noop"/>
+	</bean>
+
+	<!-- Java Implementation -->
+	<bean lazy-init="true" class="gov.hhs.fha.nhinc.direct.edge.proxy.DirectEdgeProxyJavaImpl" id="directedgeclientjava" name="directedgeclientjava"> 
+		<meta key="impltype" value="java"/>
+	</bean>
+
+	<!-- Unsecured web service Implementation -->
+    <bean lazy-init="true" class="gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper" id="proxyHelper" name="proxyHelper"/> 
+	<bean lazy-init="true" class="gov.hhs.fha.nhinc.direct.edge.proxy.DirectEdgeProxySoapImpl" id="directedgeclientsoap" name="directedgeclientsoap">
+        <meta key="impltype" value="soap"/>
+        <constructor-arg><ref bean="proxyHelper" /></constructor-arg>
+	</bean>
+    
+    <!-- SMTP Implementation -->
+    <bean lazy-init="true" class="gov.hhs.fha.nhinc.direct.edge.proxy.DirectEdgeProxySmtpImpl" id="directedgeclientsmtp" name="directedgeclientsmtp"> 
+        <meta key="impltype" value="smtp"/>        
+        <constructor-arg><ref bean="intMailSender" /></constructor-arg>
+    </bean> 
+
+</beans>

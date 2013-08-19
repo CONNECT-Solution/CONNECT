@@ -26,10 +26,8 @@
  */
 package gov.hhs.fha.nhinc.hiem.dte;
 
-import gov.hhs.fha.nhinc.xmlCommon.XmlUtility;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.xml.bind.JAXBElement;
+
 import org.w3._2005._08.addressing.EndpointReferenceType;
 import org.w3c.dom.Element;
 

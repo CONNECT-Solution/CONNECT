@@ -31,8 +31,7 @@ import gov.hhs.fha.nhinc.docrepository.adapter.model.DocumentQueryParams;
 import gov.hhs.fha.nhinc.docrepository.adapter.service.DocumentService;
 import java.util.ArrayList;
 import java.util.List;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 
 /**
  * This class implements the policy engine PAP (Policy Access Point).
@@ -41,7 +40,7 @@ import org.apache.commons.logging.LogFactory;
  */
 public class AdapterPAPImpl {
 
-    private static Log log = LogFactory.getLog(AdapterPAPImpl.class);
+    private static final Logger LOG = Logger.getLogger(AdapterPAPImpl.class);
 
     /**
      * Get the Access Consent Policy (ACP) document for the patient.
@@ -50,11 +49,11 @@ public class AdapterPAPImpl {
      * @return <code>Document</code>
      */
     public Document getPolicyDocumentByPatientId(String patientId) {
-        log.info("Begin AdapterPAPImpl.getPolicyDocument(...)");
+        LOG.info("Begin AdapterPAPImpl.getPolicyDocument(...)");
         Document document = new Document();
         try {
             DocumentQueryParams params = new DocumentQueryParams();
-            log.debug("patientid:" + patientId);
+            LOG.debug("patientid:" + patientId);
             params.setPatientId(patientId);
             List<String> classCodeValues = new ArrayList<String>();
             classCodeValues.add(AdapterPAPConstants.DOCUMENT_CLASS_CODE);
@@ -65,15 +64,15 @@ public class AdapterPAPImpl {
             if (docs != null) {
                 docsSize = docs.size();
             }
-            log.debug("Document size:" + String.valueOf(docsSize));
+            LOG.debug("Document size:" + String.valueOf(docsSize));
             if (docsSize > 0) {
                 document = docs.get(0);
             }
         } catch (Exception ex) {
-            log.error("Exception occured while retrieving documents");
-            log.error(ex.getMessage());
+            LOG.error("Exception occured while retrieving documents");
+            LOG.error(ex.getMessage());
         }
-        log.info("End AdapterPAPImpl.getPolicyDocument(...)");
+        LOG.info("End AdapterPAPImpl.getPolicyDocument(...)");
         return document;
     }
 
@@ -84,16 +83,16 @@ public class AdapterPAPImpl {
      * @return <code>Document</code>
      */
     public Document getPolicyDocumentByDocId(Long documentId) {
-        log.info("Begin AdapterPAPImpl.getPolicyDocumentByDocId(...)");
+        LOG.info("Begin AdapterPAPImpl.getPolicyDocumentByDocId(...)");
         Document document = new Document();
         try {
             DocumentService service = new DocumentService();
             document = service.getDocument(documentId);
         } catch (Exception ex) {
-            log.error("Exception occured while retrieving documents");
-            log.error(ex.getMessage());
+            LOG.error("Exception occured while retrieving documents");
+            LOG.error(ex.getMessage());
         }
-        log.info("End AdapterPAPImpl.getPolicyDocumentByDocId(...)");
+        LOG.info("End AdapterPAPImpl.getPolicyDocumentByDocId(...)");
         return document;
     }
 
@@ -105,11 +104,11 @@ public class AdapterPAPImpl {
      * @return true - success; false - failure
      */
     public boolean savePolicyDocument(Document document) {
-        log.info("Begin AdapterPAPImpl.savePolicyDocument(...)");
+        LOG.info("Begin AdapterPAPImpl.savePolicyDocument(...)");
         boolean isDocSaved = false;
         try {
             if (document == null) {
-                log.warn("AdapterPAPImpl - Document is null");
+                LOG.warn("AdapterPAPImpl - Document is null");
             } else {
                 DocumentService service = new DocumentService();
                 service.saveDocument(document);
@@ -117,10 +116,10 @@ public class AdapterPAPImpl {
             }
 
         } catch (Exception ex) {
-            log.error("Exception occured while saving document");
-            log.error(ex.getMessage());
+            LOG.error("Exception occured while saving document");
+            LOG.error(ex.getMessage());
         }
-        log.info("End AdapterPAPImpl.savePolicyDocument(...)");
+        LOG.info("End AdapterPAPImpl.savePolicyDocument(...)");
         return isDocSaved;
     }
 
@@ -131,7 +130,7 @@ public class AdapterPAPImpl {
      * @return true - success; false - failure
      */
     public boolean deletePolicyDocument(Document document) {
-        log.info("Begin AdapterPAPImpl.deletePolicyDocument(...)");
+        LOG.info("Begin AdapterPAPImpl.deletePolicyDocument(...)");
         boolean isDocSaved = false;
 
         try {
@@ -139,10 +138,10 @@ public class AdapterPAPImpl {
             service.deleteDocument(document);
             isDocSaved = true;
         } catch (Exception ex) {
-            log.error("Exception occured while deleting document");
-            log.error(ex.getMessage());
+            LOG.error("Exception occured while deleting document");
+            LOG.error(ex.getMessage());
         }
-        log.info("End AdapterPAPImpl.deletePolicyDocument(...)");
+        LOG.info("End AdapterPAPImpl.deletePolicyDocument(...)");
         return isDocSaved;
 
     }

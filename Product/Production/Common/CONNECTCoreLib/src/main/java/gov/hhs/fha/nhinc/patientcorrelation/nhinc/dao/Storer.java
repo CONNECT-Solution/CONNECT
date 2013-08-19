@@ -27,17 +27,13 @@
 package gov.hhs.fha.nhinc.patientcorrelation.nhinc.dao;
 
 import gov.hhs.fha.nhinc.patientcorrelation.nhinc.model.CorrelatedIdentifiers;
-import gov.hhs.fha.nhinc.patientcorrelation.nhinc.model.QualifiedPatientIdentifier;
 import gov.hhs.fha.nhinc.patientcorrelation.nhinc.persistence.HibernateUtil;
-import java.util.List;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-import org.hibernate.Criteria;
+
+import org.apache.log4j.Logger;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
-import org.hibernate.criterion.Expression;
 
 /**
  * 
@@ -45,22 +41,22 @@ import org.hibernate.criterion.Expression;
  */
 public class Storer {
 
-    static Log log = LogFactory.getLog(Storer.class);
+    private static final Logger LOG = Logger.getLogger(Storer.class);
 
     public static void addPatientCorrelation(CorrelatedIdentifiers correlatedIdentifers) {
-        log.info("patient correlation add requested");
+        LOG.info("patient correlation add requested");
         if (!Retriever.doesCorrelationExist(correlatedIdentifers)) {
             localAddPatientCorrelation(correlatedIdentifers);
         } else if (correlatedIdentifers.getCorrelationExpirationDate() != null) {
-            log.info("updating expiration date");
+            LOG.info("updating expiration date");
             localUpdatePatientCorrelation(correlatedIdentifers);
         } else {
-            log.info("Correlation already exists, no store needed");
+            LOG.info("Correlation already exists, no store needed");
         }
     }
 
     private static void localUpdatePatientCorrelation(CorrelatedIdentifiers correlatedIdentifers) {
-        log.debug("-- Begin CorrelatedIdentifiersDao.localUpdatePatientCorrelation() ---");
+        LOG.debug("-- Begin CorrelatedIdentifiersDao.localUpdatePatientCorrelation() ---");
         Session sess = null;
         Transaction trans = null;
         CorrelatedIdentifiers singleRecord = Retriever.retrieveSinglePatientCorrelation(correlatedIdentifers);
@@ -74,29 +70,29 @@ public class Storer {
                 trans = sess.beginTransaction();
                 sess.saveOrUpdate(singleRecord);
             } else {
-                log.error("Session factory was null");
+                LOG.error("Session factory was null");
             }
         } finally {
             if (trans != null) {
                 try {
                     trans.commit();
                 } catch (Throwable t) {
-                    log.error("Failed to commit transaction: " + t.getMessage(), t);
+                    LOG.error("Failed to commit transaction: " + t.getMessage(), t);
                 }
             }
             if (sess != null) {
                 try {
                     sess.close();
                 } catch (Throwable t) {
-                    log.error("Failed to close session: " + t.getMessage(), t);
+                    LOG.error("Failed to close session: " + t.getMessage(), t);
                 }
             }
         }
-        log.debug("-- End CorrelatedIdentifiersDao.localUpdatePatientCorrelation() ---");
+        LOG.debug("-- End CorrelatedIdentifiersDao.localUpdatePatientCorrelation() ---");
     }
 
     private static void localAddPatientCorrelation(CorrelatedIdentifiers correlatedIdentifers) {
-        log.debug("-- Begin CorrelatedIdentifiersDao.addPatientCorrelation() ---");
+        LOG.debug("-- Begin CorrelatedIdentifiersDao.addPatientCorrelation() ---");
         Session sess = null;
         Transaction trans = null;
 
@@ -107,29 +103,29 @@ public class Storer {
                 trans = sess.beginTransaction();
                 sess.saveOrUpdate(correlatedIdentifers);
             } else {
-                log.error("Session factory was null");
+                LOG.error("Session factory was null");
             }
         } finally {
             if (trans != null) {
                 try {
                     trans.commit();
                 } catch (Throwable t) {
-                    log.error("Failed to commit transaction: " + t.getMessage(), t);
+                    LOG.error("Failed to commit transaction: " + t.getMessage(), t);
                 }
             }
             if (sess != null) {
                 try {
                     sess.close();
                 } catch (Throwable t) {
-                    log.error("Failed to close session: " + t.getMessage(), t);
+                    LOG.error("Failed to close session: " + t.getMessage(), t);
                 }
             }
         }
-        log.debug("-- End CorrelatedIdentifiersDao.addPatientCorrelation() ---");
+        LOG.debug("-- End CorrelatedIdentifiersDao.addPatientCorrelation() ---");
     }
 
     public static void removePatientCorrelation(CorrelatedIdentifiers correlatedIdentifers) {
-        log.debug("-- Begin CorrelatedIdentifiersDao.removePatientCorrelation() ---");
+        LOG.debug("-- Begin CorrelatedIdentifiersDao.removePatientCorrelation() ---");
         Session sess = null;
         Transaction trans = null;
         boolean result = false;
@@ -155,10 +151,10 @@ public class Storer {
                         result = true;
                     }
                 } else {
-                    log.error("Unable to create session...");
+                    LOG.error("Unable to create session...");
                 }
             } else {
-                log.error("Unable to create Factory...");
+                LOG.error("Unable to create Factory...");
             }
         } catch (HibernateException exp) {
             exp.printStackTrace();
@@ -167,17 +163,17 @@ public class Storer {
                 try {
                     trans.rollback();
                 } catch (Throwable t) {
-                    log.error("Failed to commit transaction: " + t.getMessage(), t);
+                    LOG.error("Failed to commit transaction: " + t.getMessage(), t);
                 }
             }
             if (sess != null) {
                 try {
                     sess.close();
                 } catch (Throwable t) {
-                    log.error("Failed to close session: " + t.getMessage(), t);
+                    LOG.error("Failed to close session: " + t.getMessage(), t);
                 }
             }
         }
-        log.debug("-- End CorrelatedIdentifiersDao.removePatientCorrelation() ---");
+        LOG.debug("-- End CorrelatedIdentifiersDao.removePatientCorrelation() ---");
     }
 }

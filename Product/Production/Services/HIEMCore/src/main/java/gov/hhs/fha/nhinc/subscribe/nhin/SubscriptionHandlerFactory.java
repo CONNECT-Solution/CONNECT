@@ -30,8 +30,8 @@ import gov.hhs.fha.nhinc.hiem.configuration.ConfigurationManager;
 import gov.hhs.fha.nhinc.hiem.processor.faults.ConfigurationException;
 import gov.hhs.fha.nhinc.hiem.processor.faults.SoapFaultFactory;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+
+import org.apache.log4j.Logger;
 import org.oasis_open.docs.wsn.bw_2.SubscribeCreationFailedFault;
 
 /**
@@ -41,14 +41,14 @@ import org.oasis_open.docs.wsn.bw_2.SubscribeCreationFailedFault;
  */
 public class SubscriptionHandlerFactory {
     // Child adapter subscription mode
-    private static Log log = LogFactory.getLog(SubscriptionHandlerFactory.class);
+    private static final Logger LOG = Logger.getLogger(SubscriptionHandlerFactory.class);
 
     public SubscriptionHandler getSubscriptionHandler() throws SubscribeCreationFailedFault, ConfigurationException {
         SubscriptionHandler subscriptionHandler = null;
 
         ConfigurationManager config = new ConfigurationManager();
         String childAdapterSubscriptionMode = config.getAdapterSubscriptionMode();
-        log.debug("child adapter subscription mode = " + childAdapterSubscriptionMode);
+        LOG.debug("child adapter subscription mode = " + childAdapterSubscriptionMode);
         if (NhincConstants.HIEM_ADAPTER_SUBSCRIPTION_MODE_CREATE_CHILD_SUBSCRIPTIONS
                 .equals(childAdapterSubscriptionMode)) {
             subscriptionHandler = new ChildSubscriptionModeSubscriptionHandler();
@@ -61,7 +61,7 @@ public class SubscriptionHandlerFactory {
         } else {
             throw new SoapFaultFactory().getUnknownSubscriptionServiceAdapterModeFault(childAdapterSubscriptionMode);
         }
-        log.debug("subscriptionHandler = " + subscriptionHandler.toString());
+        LOG.debug("subscriptionHandler = " + subscriptionHandler.toString());
         return subscriptionHandler;
     }
 }

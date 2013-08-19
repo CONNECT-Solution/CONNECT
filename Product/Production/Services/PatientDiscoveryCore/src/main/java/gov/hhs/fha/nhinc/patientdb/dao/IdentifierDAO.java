@@ -31,8 +31,7 @@ import gov.hhs.fha.nhinc.patientdb.persistence.HibernateUtil;
 
 import java.util.List;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -48,7 +47,7 @@ import org.hibernate.criterion.Expression;
 
 public class IdentifierDAO {
 
-    private static Log log = LogFactory.getLog(IdentifierDAO.class);
+    private static final Logger LOG = Logger.getLogger(IdentifierDAO.class);
 
     private static IdentifierDAO identifierDAO = new IdentifierDAO();
 
@@ -59,7 +58,7 @@ public class IdentifierDAO {
 
     private IdentifierDAO() {
 
-        log.info("IdentifierDAO - Initialized");
+        LOG.info("IdentifierDAO - Initialized");
 
     }
 
@@ -72,7 +71,7 @@ public class IdentifierDAO {
 
     public static IdentifierDAO getIdentifierDAOInstance() {
 
-        log.debug("getIdentifierDAOInstance()..");
+        LOG.debug("getIdentifierDAOInstance()..");
 
         return identifierDAO;
 
@@ -97,7 +96,7 @@ public class IdentifierDAO {
 
     public boolean create(Identifier identifierRecord) {
 
-        log.debug("IdentifierDAO.create() - Begin");
+        LOG.debug("IdentifierDAO.create() - Begin");
 
         Session session = null;
 
@@ -115,11 +114,11 @@ public class IdentifierDAO {
 
                 tx = session.beginTransaction();
 
-                log.info("Inserting Record...");
+                LOG.info("Inserting Record...");
 
                 session.persist(identifierRecord);
 
-                log.info("Identifier Inserted seccussfully...");
+                LOG.info("Identifier Inserted seccussfully...");
 
                 tx.commit();
 
@@ -133,7 +132,7 @@ public class IdentifierDAO {
 
                 }
 
-                log.error("Exception during insertion caused by :" + e.getMessage(), e);
+                LOG.error("Exception during insertion caused by :" + e.getMessage(), e);
 
             } finally {
 
@@ -149,7 +148,7 @@ public class IdentifierDAO {
 
         }
 
-        log.debug("IdentifierDAO.create() - End");
+        LOG.debug("IdentifierDAO.create() - End");
 
         return result;
 
@@ -168,13 +167,13 @@ public class IdentifierDAO {
 
     public Identifier read(Long id) {
 
-        log.debug("IdentifierDAO.read() - Begin");
+        LOG.debug("IdentifierDAO.read() - Begin");
 
         if (id == null) {
 
-            log.info("-- id Parameter is required for Identifier Query --");
+            LOG.info("-- id Parameter is required for Identifier Query --");
 
-            log.debug("IdentifierDAO.read() - End");
+            LOG.debug("IdentifierDAO.read() - End");
 
             return null;
 
@@ -192,7 +191,7 @@ public class IdentifierDAO {
 
             session = sessionFactory.openSession();
 
-            log.info("Reading Record...");
+            LOG.info("Reading Record...");
 
             // Build the criteria
 
@@ -210,7 +209,7 @@ public class IdentifierDAO {
 
         } catch (Exception e) {
 
-            log.error("Exception during read occured due to :" + e.getMessage(), e);
+            LOG.error("Exception during read occured due to :" + e.getMessage(), e);
 
         } finally {
 
@@ -226,7 +225,7 @@ public class IdentifierDAO {
 
         }
 
-        log.debug("IdentifierDAO.read() - End");
+        LOG.debug("IdentifierDAO.read() - End");
 
         return foundRecord;
 
@@ -243,7 +242,7 @@ public class IdentifierDAO {
 
     public boolean update(Identifier identifierRecord) {
 
-        log.debug("IdentifierDAO.update() - Begin");
+        LOG.debug("IdentifierDAO.update() - Begin");
 
         Session session = null;
 
@@ -261,11 +260,11 @@ public class IdentifierDAO {
 
                 tx = session.beginTransaction();
 
-                log.info("Updating Record...");
+                LOG.info("Updating Record...");
 
                 session.saveOrUpdate(identifierRecord);
 
-                log.info("Identifier Updated seccussfully...");
+                LOG.info("Identifier Updated seccussfully...");
 
                 tx.commit();
 
@@ -279,7 +278,7 @@ public class IdentifierDAO {
 
                 }
 
-                log.error("Exception during update caused by :" + e.getMessage(), e);
+                LOG.error("Exception during update caused by :" + e.getMessage(), e);
 
             } finally {
 
@@ -295,7 +294,7 @@ public class IdentifierDAO {
 
         }
 
-        log.debug("IdentifierDAO.update() - End");
+        LOG.debug("IdentifierDAO.update() - End");
 
         return result;
 
@@ -310,7 +309,7 @@ public class IdentifierDAO {
 
     public void delete(Identifier identifierRecord) {
 
-        log.debug("IdentifierDAO.delete() - Begin");
+        LOG.debug("IdentifierDAO.delete() - Begin");
 
         Session session = null;
 
@@ -320,7 +319,7 @@ public class IdentifierDAO {
 
             session = sessionFactory.openSession();
 
-            log.info("Deleting Record...");
+            LOG.info("Deleting Record...");
 
             // Delete the Identifier record
 
@@ -328,7 +327,7 @@ public class IdentifierDAO {
 
         } catch (Exception e) {
 
-            log.error("Exception during delete occured due to :" + e.getMessage(), e);
+            LOG.error("Exception during delete occured due to :" + e.getMessage(), e);
 
         } finally {
 
@@ -344,7 +343,7 @@ public class IdentifierDAO {
 
         }
 
-        log.debug("IdentifierDAO.delete() - End");
+        LOG.debug("IdentifierDAO.delete() - End");
 
     }
 

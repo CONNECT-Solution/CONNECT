@@ -14,6 +14,25 @@
         <load-on-startup>1</load-on-startup>
     </servlet>
 
+    <context-param>
+      <param-name>contextConfigLocation</param-name>
+      <param-value>
+      classpath:CONNECT-interceptor-beans.xml 
+      classpath:CONNECT-context.xml
+      classpath:eventlogging.xml
+      classpath:/patientdiscovery/_10/applicationContext.xml
+      classpath:/patientdiscovery/_10/webservices.xml
+      </param-value>
+      
+   </context-param>
+
+   <listener>
+      <listener-class>
+         org.springframework.web.context.ContextLoaderListener
+      </listener-class>
+   </listener>
+
+
     <servlet-mapping>
         <servlet-name>cxf</servlet-name>
         <url-pattern>/*</url-pattern>
@@ -29,12 +48,6 @@
     
     <resource-ref>
         <res-ref-name>jdbc/assigningauthoritydb_datasource</res-ref-name>
-        <res-type>javax.sql.DataSource</res-type>
-        <res-auth>Container</res-auth>
-        <res-sharing-scope>Shareable</res-sharing-scope>
-    </resource-ref>
-    <resource-ref>
-        <res-ref-name>jdbc/perfrepo_datasource</res-ref-name>
         <res-type>javax.sql.DataSource</res-type>
         <res-auth>Container</res-auth>
         <res-sharing-scope>Shareable</res-sharing-scope>
@@ -62,5 +75,11 @@
         <res-type>javax.sql.DataSource</res-type>
         <res-auth>Container</res-auth>
         <res-sharing-scope>Shareable</res-sharing-scope>
-    </resource-ref>    
+    </resource-ref>
+        <resource-ref>
+        <res-ref-name>jdbc/eventdb_datasource</res-ref-name>
+        <res-type>javax.sql.DataSource</res-type>
+        <res-auth>Container</res-auth>
+        <res-sharing-scope>Shareable</res-sharing-scope>
+    </resource-ref>
 </web-app>

@@ -30,18 +30,18 @@ import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.docregistry.adapter.AdapterComponentDocRegistryOrchImpl;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+
+import org.apache.log4j.Logger;
 
 /**
  * 
  * @author jhoppesc
  */
 public class AdapterComponentDocRegistryProxyJavaImpl implements AdapterComponentDocRegistryProxy {
-    private static Log log = LogFactory.getLog(AdapterComponentDocRegistryProxyJavaImpl.class);
+    private static final Logger LOG = Logger.getLogger(AdapterComponentDocRegistryProxyJavaImpl.class);
 
     public AdhocQueryResponse registryStoredQuery(AdhocQueryRequest request, AssertionType assertion) {
-        log.debug("Using Java Implementation for Adapter Component Doc Registry Service");
+        LOG.trace("Using Java Implementation for Adapter Component Doc Registry Service");
         return new AdapterComponentDocRegistryOrchImpl().registryStoredQuery(request);
     }
 

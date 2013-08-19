@@ -30,8 +30,8 @@ import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import java.io.PrintWriter;
 import java.io.StringWriter;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+
+import org.apache.log4j.Logger;
 
 /**
  * This class is responsible for handling the work that is done each time the timer goes off; i.e. processing the
@@ -41,24 +41,16 @@ import org.apache.commons.logging.LogFactory;
  */
 public class DeferredQueueTimerTask {
 
-    private static Log log = null;
+    private static final Logger LOG = Logger.getLogger(DeferredQueueTimerTask.class);
     private static final String GATEWAY_PROPERTY_FILE = "gateway";
     private static final String DEFERRED_QUEUE_SWITCH_PROPERTY = "DeferredQueueProcessActive";
-
-    public DeferredQueueTimerTask() {
-        log = createLogger();
-    }
-
-    protected Log createLogger() {
-        return ((log != null) ? log : LogFactory.getLog(getClass()));
-    }
 
     protected void forceDeferredQueueProcess() {
         try {
             DeferredQueueManagerHelper helper = new DeferredQueueManagerHelper();
             helper.forceProcess();
         } catch (DeferredQueueException ex) {
-            log.error("DeferredQueueTimerTask DeferredQueueException thrown.", ex);
+            LOG.error("DeferredQueueTimerTask DeferredQueueException thrown.", ex);
 
             StringWriter stackTrace = new StringWriter();
             ex.printStackTrace(new PrintWriter(stackTrace));
@@ -78,16 +70,16 @@ public class DeferredQueueTimerTask {
             bQueueActive = PropertyAccessor.getInstance().getPropertyBoolean(GATEWAY_PROPERTY_FILE, DEFERRED_QUEUE_SWITCH_PROPERTY);
 
             if (bQueueActive) {
-                log.debug("Start: DeferredQueueTimerTask.run method - processing queue entries.");
+                LOG.debug("Start: DeferredQueueTimerTask.run method - processing queue entries.");
 
                 forceDeferredQueueProcess();
 
-                log.debug("Done: DeferredQueueTimerTask.run method - processing queue entries.");
+                LOG.debug("Done: DeferredQueueTimerTask.run method - processing queue entries.");
             } else {
-                log.debug("DeferredQueueTimerTask is disabled by the DeferredQueueRefreshActive property.");
+                LOG.debug("DeferredQueueTimerTask is disabled by the DeferredQueueRefreshActive property.");
             }
         } catch (PropertyAccessException ex) {
-            log.error("DeferredQueueTimerTask.run method unable to read DeferredQueueRefreshActive property.", ex);
+            LOG.error("DeferredQueueTimerTask.run method unable to read DeferredQueueRefreshActive property.", ex);
         }
     }
 

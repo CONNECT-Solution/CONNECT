@@ -26,20 +26,26 @@
  */
 package gov.hhs.fha.nhinc.docrepository.adapter.service;
 
-import gov.hhs.fha.nhinc.nhinclib.NullChecker;
-import gov.hhs.fha.nhinc.docrepository.adapter.model.Document;
 import gov.hhs.fha.nhinc.docrepository.adapter.dao.DocumentDao;
 import gov.hhs.fha.nhinc.docrepository.adapter.dao.EventCodeDao;
+import gov.hhs.fha.nhinc.docrepository.adapter.model.Document;
 import gov.hhs.fha.nhinc.docrepository.adapter.model.DocumentQueryParams;
 import gov.hhs.fha.nhinc.docrepository.adapter.model.EventCode;
 import gov.hhs.fha.nhinc.docrepository.adapter.model.EventCodeParam;
+import gov.hhs.fha.nhinc.nhinclib.NullChecker;
+import gov.hhs.fha.nhinc.util.StringUtil;
 import gov.hhs.fha.nhinc.util.hash.SHA1HashCode;
+
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+
+import oasis.names.tc.ebxml_regrep.xsd.rim._3.SlotType1;
+
+import org.apache.log4j.Logger;
+
+
 
 /**
  * Persistence service for Document records
@@ -47,26 +53,28 @@ import org.apache.commons.logging.LogFactory;
  * @author Neil Webb
  */
 public class DocumentService {
-    private static Log log = LogFactory.getLog(DocumentService.class);
-
+    private static final Logger LOG = Logger.getLogger(DocumentService.class);
+    private DocumentDao documentDao = new DocumentDao();
+    private EventCodeDao eventCodeDao = new EventCodeDao();
+    
     /**
      * Save a document record.
      * 
      * @param document Document object to save.
      */
     public void saveDocument(Document document) {
-        log.debug("Saving a document");
+        LOG.debug("Saving a document");
         if (document != null) {
             if (document.getDocumentid() != null) {
-                if (log.isDebugEnabled()) {
-                    log.debug("Performing an update for document: " + document.getDocumentid().longValue());
+                if (LOG.isDebugEnabled()) {
+                    LOG.debug("Performing an update for document: " + document.getDocumentid().longValue());
                 }
                 Document ecDoc = getDocument(document.getDocumentid());
                 if (ecDoc != null) {
                     // Delete existing event codes
                     Set<EventCode> eventCodes = ecDoc.getEventCodes();
                     if ((eventCodes != null) && !eventCodes.isEmpty()) {
-                        EventCodeDao eventCodeDao = new EventCodeDao();
+                        EventCodeDao eventCodeDao = getEventCodeDao();
                         for (EventCode eventCode : eventCodes) {
                             eventCodeDao.delete(eventCode);
                             eventCode.setEventCodeId(null);
@@ -84,31 +92,34 @@ public class DocumentService {
                     }
                 }
             } else {
-                log.debug("Performing an insert");
+                LOG.debug("Performing an insert");
             }
 
             // Calculate the hash code.
             // -------------------------
             if (document.getRawData() != null) {
+                String documentStr = "";
                 try {
                     String sHash = "";
-                    sHash = SHA1HashCode.calculateSHA1(new String(document.getRawData()));
-                    if (log.isDebugEnabled()) {
-                        log.debug("Created Hash Code: " + sHash + " for string: " + new String(document.getRawData()));
+                    documentStr =  StringUtil.convertToStringUTF8(document.getRawData());
+                    sHash = SHA1HashCode.calculateSHA1(documentStr);
+                    if (LOG.isDebugEnabled()) {
+                        LOG.debug("Created Hash Code: " + sHash + " for string: " + documentStr);
                     }
                     document.setHash(sHash);
-                } catch (Throwable t) {
+                } 
+                catch (Throwable t) {
                     String sError = "Failed to create SHA-1 Hash code.  Error: " + t.getMessage() + "Data Text: "
-                            + new String(document.getRawData());
-                    log.error(sError, t);
+                            + documentStr;
+                    LOG.error(sError, t);
                 }
             } else {
                 document.setHash("");
-                log.warn("No SHA-1 Hash Code created because document was null.");
+                LOG.warn("No SHA-1 Hash Code created because document was null.");
             }
         }
 
-        DocumentDao dao = new DocumentDao();
+        DocumentDao dao = getDocumentDao();
         dao.save(document);
     }
 
@@ -119,8 +130,8 @@ public class DocumentService {
      * @throws DocumentServiceException
      */
     public void deleteDocument(Document document) throws DocumentServiceException {
-        log.debug("Deleting a document");
-        DocumentDao dao = new DocumentDao();
+        LOG.debug("Deleting a document");
+        DocumentDao dao = getDocumentDao();
 
         if ((document != null) && (document.getDocumentid() == null) && (document.getDocumentUniqueId() != null)) {
             // Query by unique id and delete if only one exists.
@@ -153,7 +164,7 @@ public class DocumentService {
      * @return Retrieved document
      */
     public Document getDocument(Long documentId) {
-        DocumentDao dao = new DocumentDao();
+        DocumentDao dao = getDocumentDao();
         return dao.findById(documentId);
     }
 
@@ -163,7 +174,7 @@ public class DocumentService {
      * @return All document records
      */
     public List<Document> getAllDocuments() {
-        DocumentDao dao = new DocumentDao();
+        DocumentDao dao = getDocumentDao();
         return dao.findAll();
     }
 
@@ -175,15 +186,16 @@ public class DocumentService {
      */
     public List<Document> documentQuery(DocumentQueryParams params) {
         List<Document> documents = new ArrayList<Document>();
-        DocumentDao dao = new DocumentDao();
+        DocumentDao dao = getDocumentDao();
         List<Document> queryMatchDocs = dao.findDocuments(params);
         List<Document> eventCodeMatchDocs = null;
         if ((params != null) && NullChecker.isNotNullish(params.getEventCodeParams())) {
-            eventCodeMatchDocs = queryByEventCode(params.getEventCodeParams());
-            if (NullChecker.isNotNullish(queryMatchDocs)) {
+            eventCodeMatchDocs = queryByEventCode(params.getEventCodeParams(), params.getSlots());
+            if (NullChecker.isNotNullish(queryMatchDocs) && NullChecker.isNotNullish(eventCodeMatchDocs)) {
                 // Both doc parameter and event code query doc matches found. Return union of collections
                 documents = createUnion(queryMatchDocs, eventCodeMatchDocs);
-            } else {
+            } 
+            else {
                 // Only event code match docs found.
                 documents = eventCodeMatchDocs;
             }
@@ -195,21 +207,15 @@ public class DocumentService {
         return documents;
     }
 
-    private List<Document> queryByEventCode(List<EventCodeParam> eventCodeParams) {
+    protected List<Document> queryByEventCode(List<EventCodeParam> eventCodeParams, List<SlotType1> slots) {
+        List<EventCode> eventCodes = new ArrayList<EventCode>();
         List<Document> documents = new ArrayList<Document>();
         Set<Document> documentSet = new HashSet<Document>();
         if (NullChecker.isNotNullish(eventCodeParams)) {
-            EventCodeDao eventCodeDao = new EventCodeDao();
-            Set<EventCode> eventCodesAggregate = new HashSet<EventCode>();
-            for (EventCodeParam eventCodeParam : eventCodeParams) {
-                List<EventCode> eventCodes = eventCodeDao.eventCodeQuery(eventCodeParam);
-                if (NullChecker.isNotNullish(eventCodes)) {
-                    eventCodesAggregate.addAll(eventCodes);
-                }
-            }
-
-            if (eventCodesAggregate != null) {
-                for (EventCode ec : eventCodesAggregate) {
+            EventCodeDao eventCodeDao = getEventCodeDao();
+            eventCodes = eventCodeDao.eventCodeQuery(slots);  
+             if (eventCodes != null && (!eventCodes.isEmpty())) {
+                for (EventCode ec : eventCodes) {
                     if (ec != null) {
                         documentSet.add(ec.getDocument());
                     }
@@ -233,7 +239,6 @@ public class DocumentService {
                 }
             }
         }
-
         return docUnion;
     }
 
@@ -250,4 +255,14 @@ public class DocumentService {
         }
         return containsDoc;
     }
+    
+    protected DocumentDao getDocumentDao(){
+    	return documentDao;
+    }
+    
+    protected EventCodeDao getEventCodeDao(){
+    	return eventCodeDao;
+    }
+    
+    
 }

@@ -26,9 +26,12 @@
  */
 package gov.hhs.fha.nhinc.patientdiscovery.entity;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import gov.hhs.fha.nhinc.orchestration.OutboundResponseProcessor;
+
+import org.apache.log4j.Logger;
 import org.hl7.v3.RespondingGatewayPRPAIN201306UV02ResponseType;
+
+import com.google.common.base.Optional;
 
 /**
  * Helper methods for PD Processing to create a new cumulativeResponse object for a particular spec level and to
@@ -38,7 +41,7 @@ import org.hl7.v3.RespondingGatewayPRPAIN201306UV02ResponseType;
  */
 public class OutboundPatientDiscoveryProcessorHelper {
 
-    private static Log log = LogFactory.getLog(OutboundPatientDiscoveryProcessorHelper.class);
+    private static final Logger LOG = Logger.getLogger(OutboundPatientDiscoveryProcessorHelper.class);
 
     /**
      * constructs a new OutboundPatientDiscoveryOrchestratable object with associated new cumulativeResponse
@@ -49,14 +52,14 @@ public class OutboundPatientDiscoveryProcessorHelper {
     public static OutboundPatientDiscoveryOrchestratable createNewCumulativeResponse(
             OutboundPatientDiscoveryOrchestratable request) {
 
-        OutboundPatientDiscoveryOrchestratable cumulativeResponse = new OutboundPatientDiscoveryOrchestratable(
-                null, null, null, null, request.getAssertion(), request.getServiceName(), request.getTarget(),
-                request.getRequest());
+        OutboundPatientDiscoveryOrchestratable cumulativeResponse = new OutboundPatientDiscoveryOrchestratable(null,
+                Optional.<OutboundResponseProcessor> absent(), null, null, request.getAssertion(),
+                request.getServiceName(), request.getTarget(), request.getRequest());
 
         // create new cumulativeResponse object
         RespondingGatewayPRPAIN201306UV02ResponseType newResponse = new RespondingGatewayPRPAIN201306UV02ResponseType();
         cumulativeResponse.setCumulativeResponse(newResponse);
-        log.debug("EntityPatientDiscoveryProcessorHelper constructed initial cumulativeResponse");
+        LOG.debug("EntityPatientDiscoveryProcessorHelper constructed initial cumulativeResponse");
         return cumulativeResponse;
     }
 }

@@ -27,23 +27,24 @@
 package gov.hhs.fha.nhinc.patientdiscovery.entity;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
-import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunityType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.gateway.executorservice.ExecutorServiceHelper;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.orchestration.OutboundOrchestratable;
 import gov.hhs.fha.nhinc.orchestration.OutboundOrchestratableMessage;
 import gov.hhs.fha.nhinc.orchestration.OutboundResponseProcessor;
+import gov.hhs.fha.nhinc.patientdiscovery.MessageGeneratorUtils;
 import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscovery201306Processor;
 import gov.hhs.fha.nhinc.patientdiscovery.response.ResponseFactory;
 import gov.hhs.fha.nhinc.patientdiscovery.response.ResponseParams;
 import gov.hhs.fha.nhinc.transform.subdisc.HL7PRPA201306Transforms;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 import org.hl7.v3.CommunityPRPAIN201306UV02ResponseType;
 import org.hl7.v3.PRPAIN201306UV02;
 import org.hl7.v3.ProxyPRPAIN201305UVProxySecuredRequestType;
+
+import com.google.common.base.Optional;
 
 /**
  * 
@@ -51,7 +52,9 @@ import org.hl7.v3.ProxyPRPAIN201305UVProxySecuredRequestType;
  */
 public class OutboundPatientDiscoveryProcessor implements OutboundResponseProcessor {
 
-    private static Log log = LogFactory.getLog(OutboundPatientDiscoveryProcessor.class);
+    private static final Logger LOG = Logger.getLogger(OutboundPatientDiscoveryProcessor.class);
+
+    private MessageGeneratorUtils msgUtils = MessageGeneratorUtils.getInstance();
 
     private NhincConstants.GATEWAY_API_LEVEL cumulativeSpecLevel = null;
     private int count = 0;
@@ -70,19 +73,19 @@ public class OutboundPatientDiscoveryProcessor implements OutboundResponseProces
             OutboundOrchestratableMessage cumulativeResponse) {
 
         count++;
-        log.debug("EntityPatientDiscoveryProcessor::processNhinResponse count=" + count);
+        LOG.debug("EntityPatientDiscoveryProcessor::processNhinResponse count=" + count);
 
         OutboundOrchestratableMessage response = null;
         if (cumulativeResponse == null) {
             switch (cumulativeSpecLevel) {
             case LEVEL_g0: {
-                log.debug("EntityPatientDiscoveryProcessor::processNhinResponse createNewCumulativeResponse");
+                LOG.debug("EntityPatientDiscoveryProcessor::processNhinResponse createNewCumulativeResponse");
                 cumulativeResponse = OutboundPatientDiscoveryProcessorHelper
                         .createNewCumulativeResponse((OutboundPatientDiscoveryOrchestratable) individual);
                 break;
             }
             default: {
-                log.debug("EntityPatientDiscoveryProcessor::processNhinResponse unknown cumulativeSpecLevel.");
+                LOG.debug("EntityPatientDiscoveryProcessor::processNhinResponse unknown cumulativeSpecLevel.");
                 cumulativeResponse = OutboundPatientDiscoveryProcessorHelper
                         .createNewCumulativeResponse((OutboundPatientDiscoveryOrchestratable) individual);
                 break;
@@ -93,7 +96,7 @@ public class OutboundPatientDiscoveryProcessor implements OutboundResponseProces
         if (individual == null) {
             // can't get here as NhinCallableRequest will always return something
             // but if we ever do, log it and return cumulativeResponse passed in
-            log.error("EntityPatientDiscoveryProcessor::handleNhinResponse individual received was null!!!");
+            LOG.error("EntityPatientDiscoveryProcessor::handleNhinResponse individual received was null!!!");
             response = cumulativeResponse;
         } else {
             OutboundOrchestratableMessage individualResponse = processResponse(individual);
@@ -117,26 +120,26 @@ public class OutboundPatientDiscoveryProcessor implements OutboundResponseProces
     public OutboundOrchestratableMessage processResponse(OutboundOrchestratableMessage individualResponse) {
         try {
             if (individualResponse instanceof OutboundPatientDiscoveryOrchestratable) {
-                log.debug("EntityPatientDiscoveryProcessor::processResponse for start count=" + count);
+                LOG.debug("EntityPatientDiscoveryProcessor::processResponse for start count=" + count);
 
                 OutboundPatientDiscoveryOrchestratable individual = (OutboundPatientDiscoveryOrchestratable) individualResponse;
-                OutboundPatientDiscoveryOrchestratable responseOrch = new OutboundPatientDiscoveryOrchestratable(
-                        null, individual.getResponseProcessor(), null, null, individual.getAssertion(),
+                OutboundPatientDiscoveryOrchestratable responseOrch = new OutboundPatientDiscoveryOrchestratable(null,
+                        individual.getResponseProcessor(), null, null, individual.getAssertion(),
                         individual.getServiceName(), individual.getTarget(), individual.getRequest());
-                
+
                 ProxyPRPAIN201305UVProxySecuredRequestType request = createRequestFromOrchestratable(individual);
-                
+
                 PRPAIN201306UV02 response = processResponse(individual, request);
-                
+
                 responseOrch.setResponse(response);
 
                 // store the AA to HCID mapping
                 new PatientDiscovery201306Processor().storeMapping(responseOrch.getResponse());
-                
-                log.debug("EntityPatientDiscoveryProcessor::processResponse done count=" + count);
-                return responseOrch;            
+
+                LOG.debug("EntityPatientDiscoveryProcessor::processResponse done count=" + count);
+                return responseOrch;
             } else {
-                log.error("EntityPatientDiscoveryProcessor::processResponse individualResponse received was unknown!!!");
+                LOG.error("EntityPatientDiscoveryProcessor::processResponse individualResponse received was unknown!!!");
                 throw new Exception(
                         "EntityPatientDiscoveryProcessor::processResponse individualResponse received was unknown!!!");
             }
@@ -146,26 +149,28 @@ public class OutboundPatientDiscoveryProcessor implements OutboundResponseProces
                 OutboundPatientDiscoveryOrchestratable individual = (OutboundPatientDiscoveryOrchestratable) individualResponse;
                 OutboundOrchestratableMessage response = processErrorResponse(individual,
                         "Exception processing response.  Exception message=" + ex.getMessage());
-                return response;            
+                return response;
             } else {
                 // can do nothing if we ever get here other than return what was passed in
                 return individualResponse;
             }
         }
     }
-    
-    protected PRPAIN201306UV02 processResponse(OutboundPatientDiscoveryOrchestratable orch, ProxyPRPAIN201305UVProxySecuredRequestType request) {
+
+    protected PRPAIN201306UV02 processResponse(OutboundPatientDiscoveryOrchestratable orch,
+            ProxyPRPAIN201305UVProxySecuredRequestType request) {
         ResponseParams params = new ResponseParams();
         params.assertion = orch.getAssertion();
         params.origRequest = request;
         params.response = orch.getResponse();
-        
+
         // process response (store correlation and handle trust/verify mode)
         ResponseFactory rFactory = new ResponseFactory();
         return rFactory.getResponseMode().processResponse(params);
     }
-    
-    protected ProxyPRPAIN201305UVProxySecuredRequestType createRequestFromOrchestratable(OutboundPatientDiscoveryOrchestratable orch) {        
+
+    protected ProxyPRPAIN201305UVProxySecuredRequestType createRequestFromOrchestratable(
+            OutboundPatientDiscoveryOrchestratable orch) {
         ProxyPRPAIN201305UVProxySecuredRequestType request = new ProxyPRPAIN201305UVProxySecuredRequestType();
         request.setPRPAIN201305UV02(orch.getRequest());
 
@@ -175,7 +180,7 @@ public class OutboundPatientDiscoveryProcessor implements OutboundResponseProces
         target.setHomeCommunity(home);
         target.setUrl(orch.getTarget().getUrl());
         request.setNhinTargetSystem(target);
-        
+
         return request;
     }
 
@@ -183,8 +188,10 @@ public class OutboundPatientDiscoveryProcessor implements OutboundResponseProces
      * Aggregates an individual PD response into the cumulative response Note that all response aggregation exceptions
      * are caught here and handled by returning a PD response with the error/exception and hcid for response
      * 
-     * @param individual is individual PD response
-     * @param cumulative is current cumulative PD response
+     * @param individual
+     *            is individual PD response
+     * @param cumulative
+     *            is current cumulative PD response
      * @return cumulative response with individual added
      */
     @SuppressWarnings("static-access")
@@ -196,15 +203,16 @@ public class OutboundPatientDiscoveryProcessor implements OutboundResponseProces
 
                 OutboundPatientDiscoveryOrchestratable cumulativeResponse = (OutboundPatientDiscoveryOrchestratable) cumulative;
                 OutboundPatientDiscoveryOrchestratable individualResponse = (OutboundPatientDiscoveryOrchestratable) individual;
-                addResponseToCumulativeResponse(individualResponse, cumulativeResponse);               
+                addResponseToCumulativeResponse(individualResponse, cumulativeResponse);
 
-                OutboundPatientDiscoveryOrchestratable response = new OutboundPatientDiscoveryOrchestratable(
-                        null, null, null, null, cumulativeResponse.getAssertion(), cumulativeResponse.getServiceName(),
-                        cumulativeResponse.getTarget(), cumulativeResponse.getRequest());
+                OutboundPatientDiscoveryOrchestratable response = new OutboundPatientDiscoveryOrchestratable(null,
+                        Optional.<OutboundResponseProcessor> absent(), null, null, cumulativeResponse.getAssertion(),
+                        cumulativeResponse.getServiceName(), cumulativeResponse.getTarget(),
+                        cumulativeResponse.getRequest());
                 response.setCumulativeResponse(cumulativeResponse.getCumulativeResponse());
-                return response;            
+                return response;
             } else {
-                log.error("EntityPatientDiscoveryProcessor::aggregateResponse cumulativeResponse received was unknown.");
+                LOG.error("EntityPatientDiscoveryProcessor::aggregateResponse cumulativeResponse received was unknown.");
                 throw new Exception(
                         "EntityPatientDiscoveryProcessor::aggregateResponse cumulativeResponse received was unknown.");
             }
@@ -213,16 +221,16 @@ public class OutboundPatientDiscoveryProcessor implements OutboundResponseProces
             // add error response for exception to cumulativeResponse
             if (cumulative instanceof OutboundPatientDiscoveryOrchestratable) {
                 OutboundPatientDiscoveryOrchestratable cumulativeResponse = (OutboundPatientDiscoveryOrchestratable) cumulative;
-                
+
                 String hcid = individual.getTarget().getHomeCommunity().getHomeCommunityId();
                 CommunityPRPAIN201306UV02ResponseType communityResponse = createCommunityPRPAIN201306UV02ResponseType(hcid);
-                                
+
                 PRPAIN201306UV02 pdErrorResponse = (new HL7PRPA201306Transforms()).createPRPA201306ForErrors(
-                        individual.getRequest(), "Exception aggregating response from target homeId="
-                                + hcid + ".  Exception message=" + e.getMessage());
+                        individual.getRequest(), "Exception aggregating response from target homeId=" + hcid
+                                + ".  Exception message=" + e.getMessage());
                 communityResponse.setPRPAIN201306UV02(pdErrorResponse);
                 cumulativeResponse.getCumulativeResponse().getCommunityResponse().add(communityResponse);
-                return cumulativeResponse;           
+                return cumulativeResponse;
             } else {
                 // can do nothing if we ever get here other than return what was passed in
                 return cumulative;
@@ -231,40 +239,36 @@ public class OutboundPatientDiscoveryProcessor implements OutboundResponseProces
     }
 
     protected CommunityPRPAIN201306UV02ResponseType createCommunityPRPAIN201306UV02ResponseType(String hcid) {
-        NhinTargetCommunityType target = new NhinTargetCommunityType();
-        HomeCommunityType home = new HomeCommunityType();
-        home.setHomeCommunityId(hcid);
-        target.setHomeCommunity(home);
-        
-        CommunityPRPAIN201306UV02ResponseType communityResponse = new CommunityPRPAIN201306UV02ResponseType();
-        communityResponse.setNhinTargetCommunity(target);
-                
-        return communityResponse;
-    }
-    
-    /**
-     * General error handler that calls appropriate error handler based on request
-     * 
-     * @param request is initial request
-     * @param error is String with error message
-     * @return
-     */
-    public OutboundOrchestratableMessage processErrorResponse(OutboundOrchestratableMessage request, String error) {
-        log.debug("EntityPatientDiscoveryProcessor::processErrorResponse error=" + error);
-        return processError((OutboundPatientDiscoveryOrchestratable) request, error);        
+        return msgUtils.createCommunityPRPAIN201306UV02ResponseType(hcid);
     }
 
     /**
-     * Generates an OutboundPatientDiscoveryOrchestratable response with an error response that contains
-     * target hcid that produced error as well as error string passed in
+     * General error handler that calls appropriate error handler based on request
      * 
-     * @param request is initial request
-     * @param error is String with error message
+     * @param request
+     *            is initial request
+     * @param error
+     *            is String with error message
+     * @return
+     */
+    public OutboundOrchestratableMessage processErrorResponse(OutboundOrchestratableMessage request, String error) {
+        LOG.debug("EntityPatientDiscoveryProcessor::processErrorResponse error=" + error);
+        return processError((OutboundPatientDiscoveryOrchestratable) request, error);
+    }
+
+    /**
+     * Generates an OutboundPatientDiscoveryOrchestratable response with an error response that contains target hcid
+     * that produced error as well as error string passed in
+     * 
+     * @param request
+     *            is initial request
+     * @param error
+     *            is String with error message
      * @return OutboundPatientDiscoveryOrchestratable with error response
      */
     public OutboundPatientDiscoveryOrchestratable processError(OutboundPatientDiscoveryOrchestratable request,
             String error) {
-        log.debug("EntityPatientDiscoveryProcessor::processError error=" + error);
+        LOG.debug("EntityPatientDiscoveryProcessor::processError error=" + error);
         OutboundPatientDiscoveryOrchestratable response = new OutboundPatientDiscoveryOrchestratable(null,
                 request.getResponseProcessor(), null, null, request.getAssertion(), request.getServiceName(),
                 request.getTarget(), request.getRequest());
@@ -286,11 +290,11 @@ public class OutboundPatientDiscoveryProcessor implements OutboundResponseProces
         if (current != null) {
 
             String hcid = individual.getTarget().getHomeCommunity().getHomeCommunityId();
-            CommunityPRPAIN201306UV02ResponseType communityResponse = createCommunityPRPAIN201306UV02ResponseType(hcid); 
+            CommunityPRPAIN201306UV02ResponseType communityResponse = createCommunityPRPAIN201306UV02ResponseType(hcid);
             communityResponse.setPRPAIN201306UV02(current);
-            
+
             cumulativeResponse.getCumulativeResponse().getCommunityResponse().add(communityResponse);
-            log.debug("EntityPatientDiscoveryProcessor::aggregateResponse combine next response done cumulativeResponse count="
+            LOG.debug("EntityPatientDiscoveryProcessor::aggregateResponse combine next response done cumulativeResponse count="
                     + count);
         } else {
             throw new Exception(

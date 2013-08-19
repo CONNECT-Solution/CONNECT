@@ -29,22 +29,40 @@ package gov.hhs.fha.nhinc.messaging.service.decorator;
 
 import gov.hhs.fha.nhinc.messaging.service.ServiceEndpoint;
 
+import javax.xml.ws.soap.SOAPBinding;
+
+import org.apache.cxf.transports.http.configuration.HTTPClientPolicy;
+
 /**
  * @author akong
- *
+ * 
  */
-public abstract class ServiceEndpointDecorator <T> implements ServiceEndpoint<T>{
-    protected ServiceEndpoint<T> decoratedEndpoint; 
-    
-    public ServiceEndpointDecorator (ServiceEndpoint<T> decoratedEndpoint) {
+public abstract class ServiceEndpointDecorator<T> implements ServiceEndpoint<T> {
+    protected ServiceEndpoint<T> decoratedEndpoint;
+
+    public ServiceEndpointDecorator(ServiceEndpoint<T> decoratedEndpoint) {
         this.decoratedEndpoint = decoratedEndpoint;
     }
-    
+
+    /**
+     * This method will configure the service endpoint according to the decorator. Any implementation of this method
+     * must take into account that the endpoint may be a static resource.
+     */
     public void configure() {
         decoratedEndpoint.configure();
     }
-    
+
     public T getPort() {
         return decoratedEndpoint.getPort();
     }
+    
+    public HTTPClientPolicy getHTTPClientPolicy() {
+        return decoratedEndpoint.getHTTPClientPolicy();
+    }
+    
+    public SOAPBinding getSOAPBinding() {
+        return decoratedEndpoint.getSOAPBinding();
+    }
+    
+    
 }

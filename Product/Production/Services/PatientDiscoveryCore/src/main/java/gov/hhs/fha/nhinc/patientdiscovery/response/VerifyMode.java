@@ -39,8 +39,7 @@ import gov.hhs.fha.nhinc.transform.subdisc.HL7PatientTransforms;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 import org.hl7.v3.II;
 import org.hl7.v3.PRPAIN201305UV02;
 import org.hl7.v3.PRPAIN201306UV02;
@@ -55,11 +54,10 @@ import org.hl7.v3.PRPAMT201310UV02Patient;
  */
 public class VerifyMode implements ResponseMode {
 
-    private Log log = null;
+    private static final Logger LOG = Logger.getLogger(VerifyMode.class);
 
     public VerifyMode() {
         super();
-        log = createLogger();
     }
 
     public PRPAIN201306UV02 processResponse(ResponseParams params) {
@@ -70,8 +68,8 @@ public class VerifyMode implements ResponseMode {
         return processResponse(requestMsg, response, assertion);
     }
 
-    public PRPAIN201306UV02 processResponse(II localPatientId, PRPAIN201306UV02 response, AssertionType assertion) {
-        log.debug("begin processResponse");
+    public PRPAIN201306UV02 processResponse(PRPAIN201306UV02 response, AssertionType assertion, II localPatientId) {
+        LOG.debug("begin processResponse");
 
         PRPAIN201306UV02 result = response;
 
@@ -83,17 +81,17 @@ public class VerifyMode implements ResponseMode {
 
         if (patId != null && NullChecker.isNotNullish(patId.getExtension())
                 && NullChecker.isNotNullish(patId.getRoot())) {
-            log.debug("patient exists locally, adding correlation");
+            LOG.debug("patient exists locally, adding correlation");
             getTrustMode().processResponse(response, assertion, patId);
         } else {
-            log.warn("Patient does not exist locally, correlation not added");
+            LOG.warn("Patient does not exist locally, correlation not added");
         }
         return result;
     }
 
     public PRPAIN201306UV02 processResponse(PRPAIN201305UV02 requestMsg, PRPAIN201306UV02 response,
             AssertionType assertion) {
-        log.debug("begin processResponse");
+        LOG.debug("begin processResponse");
 
         PRPAIN201306UV02 result = response;
 
@@ -101,20 +99,16 @@ public class VerifyMode implements ResponseMode {
 
         if (patId != null && NullChecker.isNotNullish(patId.getExtension())
                 && NullChecker.isNotNullish(patId.getRoot())) {
-            log.debug("patient exists locally, adding correlation");
+            LOG.debug("patient exists locally, adding correlation");
             getTrustMode().processResponse(response, assertion, patId);
         } else {
-            log.warn("Patient does not exist locally, correlation not added");
+            LOG.warn("Patient does not exist locally, correlation not added");
         }
         return result;
     }
 
     protected TrustMode getTrustMode() {
         return new TrustMode();
-    }
-
-    protected Log createLogger() {
-        return ((log != null) ? log : LogFactory.getLog(getClass()));
     }
 
     protected String getLocalHomeCommunityId() {
@@ -124,7 +118,7 @@ public class VerifyMode implements ResponseMode {
             result = PropertyAccessor.getInstance().getProperty(NhincConstants.GATEWAY_PROPERTY_FILE,
                     NhincConstants.HOME_COMMUNITY_ID_PROPERTY);
         } catch (Exception ex) {
-            log.error(ex.getMessage(), ex);
+            LOG.error(ex.getMessage(), ex);
         }
         return result;
     }
@@ -197,7 +191,7 @@ public class VerifyMode implements ResponseMode {
                         .getParameterList().getLivingSubjectId())) {
             requestSubjectIds = requestMsg.getControlActProcess().getQueryByParameter().getValue().getParameterList()
                     .getLivingSubjectId();
-            log.debug("query - original Request Ids " + requestSubjectIds.size());
+            LOG.debug("query - original Request Ids " + requestSubjectIds.size());
 
             for (PRPAMT201306UV02LivingSubjectId livingPatId : requestSubjectIds) {
                 for (II id : livingPatId.getValue()) {
@@ -224,7 +218,7 @@ public class VerifyMode implements ResponseMode {
 
             if (mpiResult != null) {
                 try {
-                    log.debug("Received result from mpi.");
+                    LOG.debug("Received result from mpi.");
                     if ((mpiResult.getControlActProcess() != null)
                             && NullChecker.isNotNullish(mpiResult.getControlActProcess().getSubject())) {
                         for (PRPAIN201306UV02MFMIMT700711UV01Subject1 subj1 : mpiResult.getControlActProcess()
@@ -238,7 +232,7 @@ public class VerifyMode implements ResponseMode {
                         }
                     }
                     if (mpiIds != null) {
-                        log.debug("mpiIds size: " + mpiIds.size());
+                        LOG.debug("mpiIds size: " + mpiIds.size());
                     }
 
                     requestIdsSearch: for (II id : localPatientIds) {
@@ -251,7 +245,7 @@ public class VerifyMode implements ResponseMode {
                     }
 
                 } catch (Exception ex) {
-                    log.error(ex.getMessage(), ex);
+                    LOG.error(ex.getMessage(), ex);
                     patId = null;
                 }
             }
@@ -274,7 +268,7 @@ public class VerifyMode implements ResponseMode {
                 }
             }
         } catch (Exception ex) {
-            log.error(ex.getMessage(), ex);
+            LOG.error(ex.getMessage(), ex);
         }
 
         return result;
@@ -300,8 +294,8 @@ public class VerifyMode implements ResponseMode {
         if (localId != null && remoteId != null) {
             String localExt = localId.getExtension();
             String localRoot = localId.getRoot();
-            log.debug("Comparing Root: " + localRoot + " to " + remoteId.getRoot());
-            log.debug("Comparing Ext: " + localExt + " to " + remoteId.getExtension());
+            LOG.debug("Comparing Root: " + localRoot + " to " + remoteId.getRoot());
+            LOG.debug("Comparing Ext: " + localExt + " to " + remoteId.getExtension());
             if (remoteId.getExtension().equalsIgnoreCase(localExt) && remoteId.getRoot().equalsIgnoreCase(localRoot)) {
                 result = true;
             }
@@ -318,15 +312,15 @@ public class VerifyMode implements ResponseMode {
             // Query the MPI to see if the patient is found
             AdapterMpiProxyObjectFactory mpiFactory = new AdapterMpiProxyObjectFactory();
             AdapterMpiProxy mpiProxy = mpiFactory.getAdapterMpiProxy();
-            log.info("Sending query to the Secured MPI");
+            LOG.info("Sending query to the Secured MPI");
             try {
 				queryResults = mpiProxy.findCandidates(query, assertion);
 			} catch (PatientDiscoveryException e) {
-				log.error("Error queries MPI in verify mode.", e);
+				LOG.error("Error queries MPI in verify mode.", e);
 			}
 
         } else {
-            log.error("MPI Request is null");
+            LOG.error("MPI Request is null");
             queryResults = null;
         }
 

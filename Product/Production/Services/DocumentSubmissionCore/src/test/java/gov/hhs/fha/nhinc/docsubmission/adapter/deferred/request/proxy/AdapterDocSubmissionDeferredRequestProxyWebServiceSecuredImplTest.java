@@ -27,14 +27,24 @@
 package gov.hhs.fha.nhinc.docsubmission.adapter.deferred.request.proxy;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import gov.hhs.fha.nhinc.adapterxdrrequestsecured.AdapterXDRRequestSecuredPortType;
+import gov.hhs.fha.nhinc.aspect.AdapterDelegationEvent;
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.docsubmission.aspect.DocSubmissionArgTransformerBuilder;
+import gov.hhs.fha.nhinc.docsubmission.aspect.DocSubmissionBaseEventDescriptionBuilder;
+import gov.hhs.fha.nhinc.messaging.client.CONNECTClient;
+import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import gov.hhs.healthit.nhin.XDRAcknowledgementType;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
+
+import java.lang.reflect.Method;
 
 import javax.xml.ws.Service;
 
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
-import org.apache.commons.logging.Log;
-import org.jmock.Expectations;
 import org.jmock.Mockery;
 import org.jmock.lib.legacy.ClassImposteriser;
 import org.junit.After;
@@ -43,15 +53,8 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import gov.hhs.fha.nhinc.adapterxdrrequestsecured.AdapterXDRRequestSecuredPortType;
-import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.messaging.client.CONNECTClient;
-import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
-import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
-import gov.hhs.healthit.nhin.XDRAcknowledgementType;
-
 /**
- *
+ * 
  * @author patlollav
  */
 public class AdapterDocSubmissionDeferredRequestProxyWebServiceSecuredImplTest {
@@ -74,7 +77,7 @@ public class AdapterDocSubmissionDeferredRequestProxyWebServiceSecuredImplTest {
     public void tearDown() {
     }
 
-    class CONNECTClientMock extends CONNECTClient<AdapterXDRRequestSecuredPortType> {
+    class CONNECTClientMock implements CONNECTClient<AdapterXDRRequestSecuredPortType> {
 
         @Override
         public AdapterXDRRequestSecuredPortType getPort() {
@@ -82,13 +85,31 @@ public class AdapterDocSubmissionDeferredRequestProxyWebServiceSecuredImplTest {
         }
 
         @Override
-        public Object invokePort(Class<AdapterXDRRequestSecuredPortType> portClass, String methodName, Object operationInput)
-                throws Exception {
+        public Object invokePort(Class<AdapterXDRRequestSecuredPortType> portClass, String methodName,
+                Object operationInput) throws Exception {
             XDRAcknowledgementType response = new XDRAcknowledgementType();
             RegistryResponseType regResp = new RegistryResponseType();
             regResp.setStatus(NhincConstants.XDR_ACK_STATUS_MSG);
             response.setMessage(regResp);
             return response;
+        }
+
+        /*
+         * (non-Javadoc)
+         * 
+         * @see gov.hhs.fha.nhinc.messaging.client.CONNECTClient#supportMtom()
+         */
+        @Override
+        public void enableMtom() {
+
+        }
+
+        /* (non-Javadoc)
+         * @see gov.hhs.fha.nhinc.messaging.client.CONNECTClient#enableWSA(gov.hhs.fha.nhinc.common.nhinccommon.AssertionType, java.lang.String, java.lang.String)
+         */
+        @Override
+        public void enableWSA(AssertionType assertion, String wsAddressingTo, String wsAddressingActionId) {
+            
         }
     }
 
@@ -106,17 +127,11 @@ public class AdapterDocSubmissionDeferredRequestProxyWebServiceSecuredImplTest {
             }
         };
 
-        final Log mockLogger = mockery.mock(Log.class);
         mockery.mock(AdapterXDRRequestSecuredPortType.class);
         mockery.mock(Service.class);
-        final CONNECTClient<AdapterXDRRequestSecuredPortType> mockClient= new CONNECTClientMock();
+        final CONNECTClient<AdapterXDRRequestSecuredPortType> mockClient = new CONNECTClientMock();
 
         AdapterDocSubmissionDeferredRequestProxyWebServiceSecuredImpl adapterXDRRequestWebServiceProxy = new AdapterDocSubmissionDeferredRequestProxyWebServiceSecuredImpl() {
-            @Override
-            protected Log createLogger() {
-                return mockLogger;
-            }
-
 
             @Override
             protected CONNECTClient<AdapterXDRRequestSecuredPortType> getCONNECTClientSecured(
@@ -125,13 +140,6 @@ public class AdapterDocSubmissionDeferredRequestProxyWebServiceSecuredImplTest {
                 return mockClient;
             }
         };
-
-        mockery.checking(new Expectations() {
-            {
-                allowing(mockLogger).isDebugEnabled();
-                allowing(mockLogger).debug(with(any(String.class)));
-            }
-        });
 
         ProvideAndRegisterDocumentSetRequestType iheMsg = new ProvideAndRegisterDocumentSetRequestType();
         AssertionType assertion = new AssertionType();
@@ -154,17 +162,11 @@ public class AdapterDocSubmissionDeferredRequestProxyWebServiceSecuredImplTest {
             }
         };
 
-        final Log mockLogger = mockery.mock(Log.class);
         mockery.mock(AdapterXDRRequestSecuredPortType.class);
         mockery.mock(Service.class);
-        final CONNECTClient<AdapterXDRRequestSecuredPortType> mockClient= new CONNECTClientMock();
+        final CONNECTClient<AdapterXDRRequestSecuredPortType> mockClient = new CONNECTClientMock();
 
         AdapterDocSubmissionDeferredRequestProxyWebServiceSecuredImpl adapterXDRRequestWebServiceProxy = new AdapterDocSubmissionDeferredRequestProxyWebServiceSecuredImpl() {
-            @Override
-            protected Log createLogger() {
-                return mockLogger;
-            }
-
 
             @Override
             protected CONNECTClient<AdapterXDRRequestSecuredPortType> getCONNECTClientSecured(
@@ -174,18 +176,23 @@ public class AdapterDocSubmissionDeferredRequestProxyWebServiceSecuredImplTest {
             }
         };
 
-        mockery.checking(new Expectations() {
-            {
-                allowing(mockLogger).isDebugEnabled();
-                allowing(mockLogger).debug(with(any(String.class)));
-                allowing(mockLogger).error(with(any(String.class)));
-            }
-        });
-
         ProvideAndRegisterDocumentSetRequestType iheMsg = new ProvideAndRegisterDocumentSetRequestType();
         AssertionType assertion = new AssertionType();
         XDRAcknowledgementType result = adapterXDRRequestWebServiceProxy.provideAndRegisterDocumentSetBRequest(iheMsg,
                 assertion);
         assertEquals(NhincConstants.XDR_ACK_STATUS_MSG, result.getMessage().getStatus());
+    }
+
+    @Test
+    public void hasAdapterDelegationEvent() throws Exception {
+        Class<AdapterDocSubmissionDeferredRequestProxyWebServiceSecuredImpl> clazz = AdapterDocSubmissionDeferredRequestProxyWebServiceSecuredImpl.class;
+        Method method = clazz.getMethod("provideAndRegisterDocumentSetBRequest",
+                ProvideAndRegisterDocumentSetRequestType.class, AssertionType.class);
+        AdapterDelegationEvent annotation = method.getAnnotation(AdapterDelegationEvent.class);
+        assertNotNull(annotation);
+        assertEquals(DocSubmissionBaseEventDescriptionBuilder.class, annotation.beforeBuilder());
+        assertEquals(DocSubmissionArgTransformerBuilder.class, annotation.afterReturningBuilder());
+        assertEquals("Document Submission Deferred Request", annotation.serviceType());
+        assertEquals("", annotation.version());
     }
 }

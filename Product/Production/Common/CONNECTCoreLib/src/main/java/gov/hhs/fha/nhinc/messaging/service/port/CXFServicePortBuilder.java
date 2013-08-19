@@ -29,6 +29,7 @@ package gov.hhs.fha.nhinc.messaging.service.port;
 
 import org.apache.cxf.jaxws.JaxWsProxyFactoryBean;
 
+
 /**
  * @author akong
  * 
@@ -36,15 +37,23 @@ import org.apache.cxf.jaxws.JaxWsProxyFactoryBean;
 public class CXFServicePortBuilder<T> implements ServicePortBuilder<T> {
 
     protected Class<T> serviceEndpointClass;
-
+    protected String optionalBindingId;
+    
     public CXFServicePortBuilder(ServicePortDescriptor<T> portDescriptor) {
-        super();
         this.serviceEndpointClass = portDescriptor.getPortClass();
+        this.optionalBindingId = portDescriptor.getSOAPBindingVersion();
     }
 
     protected void configureJaxWsProxyFactory(JaxWsProxyFactoryBean factory) {
         factory.setServiceClass(serviceEndpointClass);
-        factory.setBindingId("http://www.w3.org/2003/05/soap/bindings/HTTP/");
+       
+        setOptionalSOAPBinding(factory, optionalBindingId);
+        
+    }
+
+    static void setOptionalSOAPBinding(JaxWsProxyFactoryBean factory, String binding) {
+        if(binding != null)
+            factory.setBindingId(binding);
     }
 
     @SuppressWarnings("unchecked")

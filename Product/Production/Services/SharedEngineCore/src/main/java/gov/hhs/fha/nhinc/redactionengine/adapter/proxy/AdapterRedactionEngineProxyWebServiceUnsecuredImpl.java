@@ -44,24 +44,18 @@ import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 
 /**
  * 
  * @author Neil Webb
  */
 public class AdapterRedactionEngineProxyWebServiceUnsecuredImpl implements AdapterRedactionEngineProxy {
-    private Log log = null;
+    private static final Logger LOG = Logger.getLogger(AdapterRedactionEngineProxyWebServiceUnsecuredImpl.class);
     private WebServiceProxyHelper oProxyHelper = null;
 
     public AdapterRedactionEngineProxyWebServiceUnsecuredImpl() {
-        log = createLogger();
         oProxyHelper = createWebServiceProxyHelper();
-    }
-
-    protected Log createLogger() {
-        return LogFactory.getLog(getClass());
     }
 
     protected WebServiceProxyHelper createWebServiceProxyHelper() {
@@ -77,7 +71,7 @@ public class AdapterRedactionEngineProxyWebServiceUnsecuredImpl implements Adapt
 
     public AdhocQueryResponse filterAdhocQueryResults(AdhocQueryRequest adhocQueryRequest,
             AdhocQueryResponse adhocQueryResponse, AssertionType assertion) {
-        log.debug("Begin filterAdhocQueryResults");
+        LOG.debug("Begin filterAdhocQueryResults");
         AdhocQueryResponse response = null;
 
         try {
@@ -85,9 +79,9 @@ public class AdapterRedactionEngineProxyWebServiceUnsecuredImpl implements Adapt
             String url = oProxyHelper.getAdapterEndPointFromConnectionManager(serviceName);
             if (NullChecker.isNotNullish(url)) {
                 if (adhocQueryRequest == null) {
-                    log.error("adhocQueryRequest was null");
+                    LOG.error("adhocQueryRequest was null");
                 } else if (adhocQueryResponse == null) {
-                    log.error("adhocQueryResponse was null");
+                    LOG.error("adhocQueryResponse was null");
                 } else {
                     FilterDocQueryResultsRequestType filterDocQueryResultsRequest = new FilterDocQueryResultsRequestType();
                     filterDocQueryResultsRequest.setAdhocQueryRequest(adhocQueryRequest);
@@ -103,20 +97,20 @@ public class AdapterRedactionEngineProxyWebServiceUnsecuredImpl implements Adapt
                     response = filteredResponse.getAdhocQueryResponse();
                 }
             } else {
-                log.error("Failed to call the web service (" + serviceName + ").  The URL is null.");
+                LOG.error("Failed to call the web service (" + serviceName + ").  The URL is null.");
             }
         } catch (Exception ex) {
-            log.error("Error calling filterDocQueryResults: " + ex.getMessage(), ex);
+            LOG.error("Error calling filterDocQueryResults: " + ex.getMessage(), ex);
         }
 
-        log.debug("End respondingGatewayCrossGatewayQuery");
+        LOG.debug("End respondingGatewayCrossGatewayQuery");
         return response;
     }
 
     public RetrieveDocumentSetResponseType filterRetrieveDocumentSetResults(
             RetrieveDocumentSetRequestType retrieveDocumentSetRequest,
             RetrieveDocumentSetResponseType retrieveDocumentSetResponse, AssertionType assertion) {
-        log.debug("Begin filterAdhocQueryResults");
+        LOG.debug("Begin filterAdhocQueryResults");
         RetrieveDocumentSetResponseType response = null;
 
         try {
@@ -124,9 +118,9 @@ public class AdapterRedactionEngineProxyWebServiceUnsecuredImpl implements Adapt
             String url = oProxyHelper.getAdapterEndPointFromConnectionManager(serviceName);
             if (NullChecker.isNotNullish(url)) {                
                 if (retrieveDocumentSetRequest == null) {
-                    log.error("retrieveDocumentSetRequest was null");
+                    LOG.error("retrieveDocumentSetRequest was null");
                 } else if (retrieveDocumentSetResponse == null) {
-                    log.error("retrieveDocumentSetResponse was null");
+                    LOG.error("retrieveDocumentSetResponse was null");
                 } else {
                     FilterDocRetrieveResultsRequestType filterDocRetrieveResultsRequest = new FilterDocRetrieveResultsRequestType();
                     filterDocRetrieveResultsRequest.setRetrieveDocumentSetRequest(retrieveDocumentSetRequest);
@@ -142,13 +136,13 @@ public class AdapterRedactionEngineProxyWebServiceUnsecuredImpl implements Adapt
                     response = filteredResponse.getRetrieveDocumentSetResponse();
                 }
             } else {
-                log.error("Failed to call the web service (" + serviceName + ").  The URL is null.");
+                LOG.error("Failed to call the web service (" + serviceName + ").  The URL is null.");
             }
         } catch (Exception ex) {
-            log.error("Error calling filterDocRetrieveResults: " + ex.getMessage(), ex);
+            LOG.error("Error calling filterDocRetrieveResults: " + ex.getMessage(), ex);
         }
 
-        log.debug("End respondingGatewayCrossGatewayQuery");
+        LOG.debug("End respondingGatewayCrossGatewayQuery");
         return response;
 
     }

@@ -1,10 +1,8 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
-                      http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
         <groupId>org.connectopensource</groupId>
         <artifactId>General</artifactId>
-        <version>4.0.0-SNAPSHOT</version>
+        <version>4.3.0-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
     <artifactId>CONNECTAdapterPDPOpenSSO</artifactId>
@@ -40,19 +38,13 @@
             <version>3.0.7.RELEASE</version>
         </dependency>
         <dependency>
-            <groupId>com.forgerock.openam</groupId>
+            <groupId>org.forgerock.openam</groupId>
             <artifactId>clientsdk</artifactId>
             <version>${openam.version}</version>
             <scope>provided</scope>
         </dependency>
-<!--         <dependency>
-            <groupId>com.forgerock.openam</groupId>
-            <artifactId>sharedlib</artifactId>
-            <version>${openam.version}</version>
-            <scope>provided</scope>
-        </dependency> -->
         <dependency>
-            <groupId>com.forgerock.openam</groupId>
+            <groupId>org.forgerock.openam</groupId>
             <artifactId>fedlib</artifactId>
             <version>${openam.version}</version>
             <scope>provided</scope>
@@ -67,7 +59,7 @@
     <repositories>
         <repository>
             <id>forgerock</id>
-            <url>http://repo.forgerock.org</url>
+            <url>http://maven.forgerock.org/repo/releases</url>
         </repository>
     </repositories>
 </project>

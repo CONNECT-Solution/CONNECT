@@ -34,9 +34,11 @@ import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.orchestration.Orchestratable;
 import gov.hhs.fha.nhinc.orchestration.OrchestrationStrategy;
 import gov.hhs.healthit.nhin.XDRAcknowledgementType;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
+
+import org.apache.log4j.Logger;
+
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
 
 /**
@@ -45,21 +47,7 @@ import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
  */
 public class OutboundDocSubmissionDeferredRequestStrategyImpl_g1 implements OrchestrationStrategy {
 
-    private static Log log = LogFactory.getLog(OutboundDocSubmissionDeferredRequestStrategyImpl_g1.class);
-
-    /**
-     * Generic construcor method.
-     */
-    public OutboundDocSubmissionDeferredRequestStrategyImpl_g1() {
-    }
-
-    /**
-     * Returns the log object.
-     * @return
-     */
-    protected Log getLogger() {
-        return log;
-    }
+    private static final Logger LOG = Logger.getLogger(OutboundDocSubmissionDeferredRequestStrategyImpl_g1.class);
 
     /**
      * Returns the Nhin Proxy object for Deferred Doc Submission.
@@ -78,7 +66,7 @@ public class OutboundDocSubmissionDeferredRequestStrategyImpl_g1 implements Orch
         if (message instanceof OutboundDocSubmissionDeferredRequestOrchestratable) {
             execute((OutboundDocSubmissionDeferredRequestOrchestratable) message);
         } else {
-            getLogger().error("Not an OutboundDocSubmissionDeferredRequestOrchestratable.");
+            LOG.error("Not an OutboundDocSubmissionDeferredRequestOrchestratable.");
         }
     }
 
@@ -88,9 +76,9 @@ public class OutboundDocSubmissionDeferredRequestStrategyImpl_g1 implements Orch
      * @param message
      */
     public void execute(OutboundDocSubmissionDeferredRequestOrchestratable message) {
-        getLogger().debug("Begin OutboundDocSubmissionOrchestratableImpl_g1.process");
+        LOG.debug("Begin OutboundDocSubmissionOrchestratableImpl_g1.process");
 
-        auditRequestToNhin(message.getRequest(), message.getAssertion());
+        auditRequestToNhin(message.getRequest(), message.getAssertion(), message.getTarget());
        
         NhinDocSubmissionDeferredRequestProxy nhincDocSubmission = getNhinDocSubmissionDeferredRequestProxy();
         XDRAcknowledgementType response = new XDRAcknowledgementType();
@@ -98,8 +86,8 @@ public class OutboundDocSubmissionDeferredRequestStrategyImpl_g1 implements Orch
                 message.getAssertion(), message.getTarget()));
         message.setResponse(response);
 
-        auditResponseFromNhin(response, message.getAssertion());
-        getLogger().debug("End OutboundDocSubmissionDeferredRequestStrategyImpl_g1.process");
+        auditResponseFromNhin(response, message.getAssertion(), message.getTarget());
+        LOG.debug("End OutboundDocSubmissionDeferredRequestStrategyImpl_g1.process");
     }
 
     /**
@@ -112,21 +100,25 @@ public class OutboundDocSubmissionDeferredRequestStrategyImpl_g1 implements Orch
 
     /**
      * Creates a generic Audit Log message for a Doc Submission method to the NHIN.
+     * 
      * @param request
      * @param assertion
      */
-    private void auditRequestToNhin(ProvideAndRegisterDocumentSetRequestType request, AssertionType assertion) {
-        getXDRAuditLogger().auditNhinXDR(request, assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION);
+    private void auditRequestToNhin(ProvideAndRegisterDocumentSetRequestType request, AssertionType assertion,
+            NhinTargetSystemType target) {
+        getXDRAuditLogger().auditNhinXDR(request, assertion, target, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION);
     }
 
     /**
      * Creates a generic Audit Log message for a Doc Submission method from the NHIN.
+     * 
      * @param response
      * @param assertion
      */
-    private void auditResponseFromNhin(XDRAcknowledgementType response,  AssertionType assertion) {
-        getXDRAuditLogger().auditAcknowledgement(response, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION,
-                NhincConstants.XDR_REQUEST_ACTION);
+    private void auditResponseFromNhin(XDRAcknowledgementType response, AssertionType assertion,
+            NhinTargetSystemType target) {
+        getXDRAuditLogger().auditAcknowledgement(response, assertion, target,
+                NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.XDR_REQUEST_ACTION);
     }
 
 }

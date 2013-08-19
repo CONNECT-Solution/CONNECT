@@ -28,7 +28,6 @@ package gov.hhs.fha.nhinc.patientdiscovery.nhin.proxy;
 
 import static org.junit.Assert.*;
 
-import org.apache.commons.logging.Log;
 import org.jmock.Expectations;
 import org.jmock.Mockery;
 import org.jmock.integration.junit4.JMock;
@@ -44,19 +43,13 @@ import org.springframework.context.ApplicationContext;
 @RunWith(JMock.class)
 public class NhinPatientDiscoveryProxyObjectFactoryTest {
     Mockery context = new JUnit4Mockery();
-
-    final Log mockLog = context.mock(Log.class);
     final NhinPatientDiscoveryProxy mockProxy = context.mock(NhinPatientDiscoveryProxy.class);
 
     @Test
     public void testGetNhinPatientDiscoveryProxyHappy() {
         final ApplicationContext mockContext = context.mock(ApplicationContext.class);
         NhinPatientDiscoveryProxyObjectFactory proxyFactory = new NhinPatientDiscoveryProxyObjectFactory() {
-            @Override
-            protected Log createLogger() {
-                return mockLog;
-            }
-
+            
             @Override
             protected ApplicationContext getContext() {
                 return mockContext;

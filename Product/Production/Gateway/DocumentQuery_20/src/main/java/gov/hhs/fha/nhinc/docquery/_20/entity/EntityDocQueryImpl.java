@@ -28,83 +28,84 @@ package gov.hhs.fha.nhinc.docquery._20.entity;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
+import gov.hhs.fha.nhinc.common.nhinccommon.ObjectFactory;
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayCrossGatewayQueryRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayCrossGatewayQuerySecuredRequestType;
-import gov.hhs.fha.nhinc.cxf.extraction.SAML2AssertionExtractor;
-import gov.hhs.fha.nhinc.docquery.entity.EntityDocQueryOrchImpl;
-import gov.hhs.fha.nhinc.gateway.servlet.InitServlet;
+import gov.hhs.fha.nhinc.docquery.outbound.OutboundDocQuery;
+import gov.hhs.fha.nhinc.messaging.server.BaseService;
 
 import javax.xml.ws.WebServiceContext;
 
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.commons.lang.StringUtils;
+import org.apache.log4j.Logger;
 
+public class EntityDocQueryImpl extends BaseService {
 
-class EntityDocQueryImpl {
+    private static final Logger LOG = Logger.getLogger(EntityDocQueryImpl.class);
+    private OutboundDocQuery outboundDocQuery;
 
-    private Log log = null;
-
-    public EntityDocQueryImpl() {
-        log = createLogger();
+    /**
+     * Constructor.
+     * 
+     * @param outboundDocQuery
+     */
+    public EntityDocQueryImpl(OutboundDocQuery outboundDocQuery) {
+        this.outboundDocQuery = outboundDocQuery;
     }
 
-    protected Log createLogger() {
-        return ((log != null) ? log : LogFactory.getLog(getClass()));
-    }
-    
-    public AdhocQueryResponse respondingGatewayCrossGatewayQuerySecured(RespondingGatewayCrossGatewayQuerySecuredRequestType request, WebServiceContext context) {
-        log.info("Begin respondingGatewayCrossGatewayQuerySecured(RespondingGatewayCrossGatewayQuerySecuredRequestType, WebServiceContext)");
-        EntityDocQueryOrchImpl implOrch = createEntityDocQueryOrchImpl();
-        AdhocQueryResponse response = null;
+    /**
+     * Sends  the request  to the Nwhin. This method is invoked by the secured  outbound interface and the assertion object
+     * is read from the webservice context.
+     * 
+     * @param request
+     * @param context
+     * @return AdhocQueryResponse
+     */
+    public AdhocQueryResponse respondingGatewayCrossGatewayQuerySecured(
+            RespondingGatewayCrossGatewayQuerySecuredRequestType request, WebServiceContext context) {
 
-        try {
-            if (request != null) {
-                AdhocQueryRequest adhocQueryRequest = request.getAdhocQueryRequest();
-                NhinTargetCommunitiesType targets = request.getNhinTargetCommunities();
-                response = implOrch.respondingGatewayCrossGatewayQuery( adhocQueryRequest, SAML2AssertionExtractor.getInstance().extractSamlAssertion(context), targets);
-            } else {
-                log.error("Failed to call the web orchestration (" + implOrch.getClass()
-                        + ".respondingGatewayCrossGatewayQuery).  The input parameter is null.");
-            }
-        } catch (Exception e) {
-            log.error(
-                    "Failed to call the web orchestration (" + implOrch.getClass()
-                    + ".respondingGatewayCrossGatewayQuery).  An unexpected exception occurred.  "
-                    + "Exception: " + e.getMessage(), e);
-        }
-        return response;
+        AssertionType assertion = getAssertion(context, null);
+
+        return respondingGatewayCrossGatewayQuery(request.getAdhocQueryRequest(), assertion,
+                request.getNhinTargetCommunities());
     }
 
-    AdhocQueryResponse respondingGatewayCrossGatewayQueryUnsecured(
+    /**
+     * Sends the request to the Nwhin. This method is invoked by the unsecured outbound interface and the assertion
+     * object is read from the request object itself.
+     * 
+     * @param request
+     * @param context
+     * @return AdhocQueryResponse
+     */
+    public AdhocQueryResponse respondingGatewayCrossGatewayQueryUnsecured(
             RespondingGatewayCrossGatewayQueryRequestType request, WebServiceContext context) {
-        log.info("Begin respondingGatewayCrossGatewayQueryUnsecured(RespondingGatewayCrossGatewayQuerySecuredRequestType, WebServiceContext)");
-        EntityDocQueryOrchImpl implOrch = createEntityDocQueryOrchImpl();
+
+        return respondingGatewayCrossGatewayQuery(request.getAdhocQueryRequest(), request.getAssertion(),
+                request.getNhinTargetCommunities());
+    }
+
+    private AdhocQueryResponse respondingGatewayCrossGatewayQuery(AdhocQueryRequest request, AssertionType assertion,
+            NhinTargetCommunitiesType targets) {
+
         AdhocQueryResponse response = null;
 
         try {
-            if (request != null) {
-                AdhocQueryRequest adhocQueryRequest = request.getAdhocQueryRequest();
-                NhinTargetCommunitiesType targets = request.getNhinTargetCommunities();
-                AssertionType assertIn = request.getAssertion();
-                response = implOrch.respondingGatewayCrossGatewayQuery( adhocQueryRequest, assertIn, targets);
-            } else {
-                log.error("Failed to call the web orchestration (" + implOrch.getClass()
-                        + ".respondingGatewayCrossGatewayQuery).  The input parameter is null.");
+            if (targets == null) {
+                targets = new ObjectFactory().createNhinTargetCommunitiesType();
             }
+            
+            if (StringUtils.isBlank(targets.getUseSpecVersion())) {
+                targets.setUseSpecVersion("2.0");
+            }
+            response = outboundDocQuery.respondingGatewayCrossGatewayQuery(request, assertion, targets);
         } catch (Exception e) {
-            log.error(
-                    "Failed to call the web orchestration (" + implOrch.getClass()
-                    + ".respondingGatewayCrossGatewayQuery).  An unexpected exception occurred.  "
-                    + "Exception: " + e.getMessage(), e);
+            LOG.error("Failed to send request to Nwhin.", e);
         }
-        return response;
-    }
 
-    private EntityDocQueryOrchImpl createEntityDocQueryOrchImpl() {
-        // create the orch impl and pass in references to the executor services
-        return new EntityDocQueryOrchImpl(InitServlet.getExecutorService(), InitServlet.getLargeJobExecutorService());
+        return response;
     }
 }

@@ -26,8 +26,7 @@
  */
 package gov.hhs.fha.nhinc.transform.audit;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 
 import com.services.nhinc.schema.auditmessage.AuditMessageType;
 import com.services.nhinc.schema.auditmessage.AuditSourceIdentificationType;
@@ -49,7 +48,7 @@ import java.util.List;
  * @author MFLYNN02
  */
 public class DocumentRetrieveTransforms {
-    private static Log log = LogFactory.getLog(DocumentRetrieveTransforms.class);
+    private static final Logger LOG = Logger.getLogger(DocumentRetrieveTransforms.class);
 
     /**
      * 
@@ -70,12 +69,14 @@ public class DocumentRetrieveTransforms {
             String responseCommunityID) {
         AuditMessageType auditMsg = new AuditMessageType();
         LogEventRequestType response = new LogEventRequestType();
-        response.setDirection(message.getDirection());
-        response.setInterface(message.getInterface());
+        if (message != null){
+            response.setDirection(message.getDirection());
+            response.setInterface(message.getInterface());
+        }
 
-        log.info("******************************************************************");
-        log.info("Entering transformDocRetrieveReq2AuditMsg() method.");
-        log.info("******************************************************************");
+        LOG.info("******************************************************************");
+        LOG.info("Entering transformDocRetrieveReq2AuditMsg() method.");
+        LOG.info("******************************************************************");
 
         // Extract UserInfo from Message.Assertion
         UserType userInfo = new UserType();
@@ -117,7 +118,7 @@ public class DocumentRetrieveTransforms {
                 && message.getMessage().getAssertion().getUniquePatientId() != null
                 && message.getMessage().getAssertion().getUniquePatientId().size() > 0) {
             uniquePatientId = message.getMessage().getAssertion().getUniquePatientId().get(0);
-            log.debug("=====>>>>> Create Audit Source Identification Section --> Assertion Unique Patient Id is ["
+            LOG.debug("=====>>>>> Create Audit Source Identification Section --> Assertion Unique Patient Id is ["
                     + uniquePatientId + "]");
         }
 
@@ -133,7 +134,7 @@ public class DocumentRetrieveTransforms {
 
         // Create Audit Source Identification Section
         String documentId = null;
-        if (message.getMessage() != null && message.getMessage().getRetrieveDocumentSetRequest() != null
+        if (message != null && message.getMessage() != null && message.getMessage().getRetrieveDocumentSetRequest() != null
                 && message.getMessage().getRetrieveDocumentSetRequest().getDocumentRequest() != null
                 && message.getMessage().getRetrieveDocumentSetRequest().getDocumentRequest().size() > 0) {
             documentId = message.getMessage().getRetrieveDocumentSetRequest().getDocumentRequest().get(0)
@@ -143,9 +144,9 @@ public class DocumentRetrieveTransforms {
                     .getDocumentRequest();
             for (DocumentRequest documentRequest : documentRequestList) {
                 if (documentRequest != null) {
-                    log.debug("=====>>>>> Create Audit Source Identification Section --> DocumentRequest.documentUniqueId is ["
+                    LOG.debug("=====>>>>> Create Audit Source Identification Section --> DocumentRequest.documentUniqueId is ["
                             + documentRequest.getDocumentUniqueId() + "]");
-                    log.debug("=====>>>>> Create Audit Source Identification Section --> DocumentRequest.homeCommunityId is ["
+                    LOG.debug("=====>>>>> Create Audit Source Identification Section --> DocumentRequest.homeCommunityId is ["
                             + documentRequest.getHomeCommunityId() + "]");
                 }
             }
@@ -160,9 +161,9 @@ public class DocumentRetrieveTransforms {
         }
         auditMsg.getParticipantObjectIdentification().add(partObjId);
 
-        log.info("******************************************************************");
-        log.info("Exiting transformDocRetrieveReq2AuditMsg() method.");
-        log.info("******************************************************************");
+        LOG.info("******************************************************************");
+        LOG.info("Exiting transformDocRetrieveReq2AuditMsg() method.");
+        LOG.info("******************************************************************");
 
         response.setAuditMessage(auditMsg);
         return response;
@@ -187,12 +188,14 @@ public class DocumentRetrieveTransforms {
             String requestCommunityID) {
         AuditMessageType auditMsg = new AuditMessageType();
         LogEventRequestType response = new LogEventRequestType();
-        response.setDirection(message.getDirection());
-        response.setInterface(message.getInterface());
+        if (message != null){
+            response.setDirection(message.getDirection());
+            response.setInterface(message.getInterface());
+        }
 
-        log.info("******************************************************************");
-        log.info("Entering transformDocRetrieveResp2AuditMsg() method.");
-        log.info("******************************************************************");
+        LOG.info("******************************************************************");
+        LOG.info("Entering transformDocRetrieveResp2AuditMsg() method.");
+        LOG.info("******************************************************************");
 
         // Extract UserInfo from Message.Assertion
         UserType userInfo = new UserType();
@@ -234,7 +237,7 @@ public class DocumentRetrieveTransforms {
                 && message.getMessage().getAssertion().getUniquePatientId() != null
                 && message.getMessage().getAssertion().getUniquePatientId().size() > 0) {
             uniquePatientId = message.getMessage().getAssertion().getUniquePatientId().get(0);
-            log.debug("=====>>>>> Create Audit Source Identification Section --> Assertion Unique Patient Id is ["
+            LOG.debug("=====>>>>> Create Audit Source Identification Section --> Assertion Unique Patient Id is ["
                     + uniquePatientId + "]");
         }
 
@@ -250,7 +253,7 @@ public class DocumentRetrieveTransforms {
 
         // Create Audit Source Identification Section
         String documentId = null;
-        if (message.getMessage() != null && message.getMessage().getRetrieveDocumentSetResponse() != null
+        if (message != null && message.getMessage() != null && message.getMessage().getRetrieveDocumentSetResponse() != null
                 && message.getMessage().getRetrieveDocumentSetResponse().getDocumentResponse() != null
                 && message.getMessage().getRetrieveDocumentSetResponse().getDocumentResponse().size() > 0) {
 
@@ -261,9 +264,9 @@ public class DocumentRetrieveTransforms {
                     .getDocumentResponse();
             for (DocumentResponse documentResponse : documentResponseList) {
                 if (documentResponse != null) {
-                    log.debug("=====>>>>> Create Audit Source Identification Section --> DocumentResponse.documentUniqueId is ["
+                    LOG.debug("=====>>>>> Create Audit Source Identification Section --> DocumentResponse.documentUniqueId is ["
                             + documentResponse.getDocumentUniqueId() + "]");
-                    log.debug("=====>>>>> Create Audit Source Identification Section --> DocumentResponse.homeCommunityId is ["
+                    LOG.debug("=====>>>>> Create Audit Source Identification Section --> DocumentResponse.homeCommunityId is ["
                             + documentResponse.getHomeCommunityId() + "]");
                 }
             }
@@ -279,9 +282,9 @@ public class DocumentRetrieveTransforms {
 
         auditMsg.getParticipantObjectIdentification().add(partObjId);
 
-        log.info("******************************************************************");
-        log.info("Exiting transformDocRetrieveResp2AuditMsg() method.");
-        log.info("******************************************************************");
+        LOG.info("******************************************************************");
+        LOG.info("Exiting transformDocRetrieveResp2AuditMsg() method.");
+        LOG.info("******************************************************************");
 
         response.setAuditMessage(auditMsg);
         return response;

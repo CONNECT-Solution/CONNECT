@@ -26,8 +26,7 @@
  */
 package gov.hhs.fha.nhinc.mpilib;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 
@@ -36,7 +35,7 @@ import gov.hhs.fha.nhinc.nhinclib.NullChecker;
  * @author rayj
  */
 public class PersonName implements java.io.Serializable {
-    private static Log log = LogFactory.getLog(PersonName.class);
+    private static final Logger LOG = Logger.getLogger(PersonName.class);
     private String lastName = "";
     private String firstName = "";
     private String middleName = "";
@@ -47,7 +46,7 @@ public class PersonName implements java.io.Serializable {
      * Public constructor for PersonName.
      */
     public PersonName() {
-        log.debug("PersonName Initialized");
+        LOG.debug("PersonName Initialized");
     }
 
     /**

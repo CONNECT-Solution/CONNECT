@@ -28,11 +28,17 @@ package gov.hhs.fha.nhinc.transform.marshallers;
 
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.xmlCommon.XmlUtility;
+
+import java.io.IOException;
 import java.io.StringReader;
 import java.io.StringWriter;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBElement;
+import javax.xml.namespace.QName;
+
 import org.w3c.dom.Element;
+
+import org.apache.log4j.Logger;
 
 /**
  * 
@@ -40,37 +46,73 @@ import org.w3c.dom.Element;
  */
 public class Marshaller {
 
-    private static org.apache.commons.logging.Log log = org.apache.commons.logging.LogFactory.getLog(Marshaller.class);
+    private static final Logger LOG = Logger.getLogger(Marshaller.class);
 
     public Element marshal(Object object, String contextPath) {
         Element element = null;
-        log.debug("begin marshal");
+        LOG.debug("begin marshal");
         if (object == null) {
-            log.warn("object to marshall is null");
+            LOG.warn("object to marshall is null");
         } else if (NullChecker.isNullish(contextPath)) {
-            log.warn("no contextPath supplied");
+            LOG.warn("no contextPath supplied");
         } else {
             try {
-                log.debug("get instance of JAXBContext [contextPath='" + contextPath + "']");
+                LOG.debug("get instance of JAXBContext [contextPath='" + contextPath + "']");
                 JAXBContextHandler oHandler = new JAXBContextHandler();
                 JAXBContext jc = oHandler.getJAXBContext(contextPath);
-                log.debug("get instance of marshaller");
+                LOG.debug("get instance of marshaller");
                 javax.xml.bind.Marshaller marshaller = jc.createMarshaller();
                 StringWriter stringWriter = new StringWriter();
-                log.debug("Calling marshal");
+                LOG.debug("Calling marshal");
                 marshaller.marshal(object, stringWriter);
-                log.debug("string writer writing to string");
+                LOG.debug("string writer writing to string");
                 String xml = stringWriter.toString();
-                log.debug("Marshaled xml=[" + xml + "]");
+                LOG.debug("Marshaled xml=[" + xml + "]");
                 if (NullChecker.isNotNullish(xml)) {
                     element = XmlUtility.convertXmlToElement(xml);
                 }
             } catch (Exception e) {
                 // "java.security.PrivilegedActionException: java.lang.ClassNotFoundException: com.sun.xml.bind.v2.ContextFactory"
-                log.error("Failed to marshall: " + e.getMessage(), e);
+                LOG.error("Failed to marshall: " + e.getMessage(), e);
                 element = null;
             }
         }
+        return element;
+    }
+
+    /**
+     * Marshalls the passed in XML Bean object into an XML Element.  
+     * 
+     * @param object - the XML bean to be marshalled
+     * @param contextPath - The name of the context. (i.e. "org.hl7.v3").
+     * @param qname - the qualified name of the XML (i.e. "urn:org:hl7:v3")
+     * @return the XML Element
+     */
+    @SuppressWarnings({ "rawtypes", "unchecked" })
+    public Element marshal(Object object, String contextPath, QName qname) {
+        Element element = null;
+        StringWriter stringWriter = new StringWriter();
+
+        try {
+            JAXBContextHandler oHandler = new JAXBContextHandler();
+            JAXBContext jc = oHandler.getJAXBContext(contextPath);
+
+            javax.xml.bind.Marshaller marshaller = jc.createMarshaller();
+            
+            marshaller.marshal(new JAXBElement(qname, object.getClass(), object), stringWriter);
+            
+            element = XmlUtility.convertXmlToElement(stringWriter.toString());
+        } catch (Exception e) {
+            LOG.error("Failed to marshall: " + e.getMessage(), e);
+            element = null;
+        } finally {
+            try {
+                stringWriter.close();
+            } catch (IOException ioe) {
+                // close quietly
+            }
+        }
+
         return element;
     }
 
@@ -85,31 +127,31 @@ public class Marshaller {
 
     public Object unmarshal(Element element, String contextPath) {
         Object unmarshalledObject = null;
-        log.debug("begin unmarshal");
+        LOG.debug("begin unmarshal");
 
         if (element == null) {
-            log.warn("element to unmarshal is null");
+            LOG.warn("element to unmarshal is null");
         } else if (contextPath == null) {
-            log.warn("no contextPath supplied");
+            LOG.warn("no contextPath supplied");
         } else {
             try {
-                log.debug("desializing element");
+                LOG.debug("desializing element");
                 String serializedElement = XmlUtility.serializeElement(element);
-                log.debug("serializedElement=[" + serializedElement + "]");
-                log.debug("get instance of JAXBContext [contextPath='" + contextPath + "']");
+                LOG.debug("serializedElement=[" + serializedElement + "]");
+                LOG.debug("get instance of JAXBContext [contextPath='" + contextPath + "']");
                 JAXBContextHandler oHandler = new JAXBContextHandler();
                 JAXBContext jc = oHandler.getJAXBContext(contextPath);
-                log.debug("get instance of unmarshaller");
+                LOG.debug("get instance of unmarshaller");
                 javax.xml.bind.Unmarshaller unmarshaller = jc.createUnmarshaller();
-                log.debug("init stringReader");
+                LOG.debug("init stringReader");
                 StringReader stringReader = new StringReader(serializedElement);
-                log.debug("Calling unmarshal");
+                LOG.debug("Calling unmarshal");
                 unmarshalledObject = unmarshaller.unmarshal(stringReader);
-                log.debug("end unmarshal");
+                LOG.debug("end unmarshal");
             } catch (Exception e) {
                 // "java.security.PrivilegedActionException: java.lang.ClassNotFoundException: com.sun.xml.bind.v2.ContextFactory"
                 // use jaxb element
-                log.error("Failed to unmarshall: " + e.getMessage(), e);
+                LOG.error("Failed to unmarshall: " + e.getMessage(), e);
                 unmarshalledObject = null;
             }
         }
@@ -122,7 +164,7 @@ public class Marshaller {
         try {
             element = XmlUtility.convertXmlToElement(xml);
         } catch (Exception ex) {
-            log.warn("failed to parse xml", ex);
+            LOG.warn("failed to parse xml", ex);
         }
         return unmarshal(element, contextPath);
     }

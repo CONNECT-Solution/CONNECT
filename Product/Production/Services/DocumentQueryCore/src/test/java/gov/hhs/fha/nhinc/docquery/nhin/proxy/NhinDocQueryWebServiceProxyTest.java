@@ -26,18 +26,37 @@
  */
 package gov.hhs.fha.nhinc.docquery.nhin.proxy;
 
-import gov.hhs.fha.nhinc.docquery.nhin.proxy.NhinDocQueryProxyWebServiceSecuredImpl;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.any;
+import gov.hhs.fha.nhinc.aspect.NwhinInvocationEvent;
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
+import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
+import gov.hhs.fha.nhinc.connectmgr.ConnectionManager;
+import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
+import gov.hhs.fha.nhinc.docquery.aspect.AdhocQueryRequestDescriptionBuilder;
+import gov.hhs.fha.nhinc.docquery.aspect.AdhocQueryResponseDescriptionBuilder;
+import gov.hhs.fha.nhinc.messaging.client.CONNECTClient;
+import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants.UDDI_SPEC_VERSION;
 import ihe.iti.xds_b._2007.RespondingGatewayQueryPortType;
+
+import java.lang.reflect.Method;
+
 import javax.xml.ws.Service;
-import org.apache.commons.logging.Log;
-import org.jmock.Expectations;
+
+import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
+
 import org.jmock.Mockery;
 import org.jmock.integration.junit4.JMock;
 import org.jmock.integration.junit4.JUnit4Mockery;
 import org.jmock.lib.legacy.ClassImposteriser;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import static org.junit.Assert.*;
 
 /**
  * 
@@ -51,27 +70,85 @@ public class NhinDocQueryWebServiceProxyTest {
         }
     };
 
-    final Log mockLog = context.mock(Log.class);
     final Service mockService = context.mock(Service.class);
     final RespondingGatewayQueryPortType mockPort = context.mock(RespondingGatewayQueryPortType.class);
 
-    @Test
-    public void testCreateLogger() {
-        try {
-            NhinDocQueryProxyWebServiceSecuredImpl sut = new NhinDocQueryProxyWebServiceSecuredImpl() {
-                @Override
-                protected Log createLogger() {
-                    return mockLog;
-                }
+    @SuppressWarnings("unchecked")
+    private CONNECTClient<RespondingGatewayQueryPortType> client = mock(CONNECTClient.class);
+    private ConnectionManagerCache cache = mock(ConnectionManagerCache.class);
+    private AdhocQueryRequest request;
+    private AssertionType assertion;
 
-            };
-            Log log = sut.createLogger();
-            assertNotNull("Log was null", log);
-        } catch (Throwable t) {
-            System.out.println("Error running testCreateLogger test: " + t.getMessage());
-            t.printStackTrace();
-            fail("Error running testCreateLogger test: " + t.getMessage());
-        }
+    @Test
+    public void hasBeginOutboundProcessingEvent() throws Exception {
+        Class<NhinDocQueryProxyWebServiceSecuredImpl> clazz = NhinDocQueryProxyWebServiceSecuredImpl.class;
+        Method method = clazz.getMethod("respondingGatewayCrossGatewayQuery", AdhocQueryRequest.class,
+                AssertionType.class, NhinTargetSystemType.class);
+        NwhinInvocationEvent annotation = method.getAnnotation(NwhinInvocationEvent.class);
+        assertNotNull(annotation);
+        assertEquals(AdhocQueryRequestDescriptionBuilder.class, annotation.beforeBuilder());
+        assertEquals(AdhocQueryResponseDescriptionBuilder.class, annotation.afterReturningBuilder());
+        assertEquals("Document Query", annotation.serviceType());
+        assertEquals("", annotation.version());
     }
 
+    @Test
+    public void testNoMtom() throws Exception {
+        NhinDocQueryProxyWebServiceSecuredImpl impl = getImpl();
+        NhinTargetSystemType target = getTarget("1.1");
+        impl.respondingGatewayCrossGatewayQuery(request, assertion, target);
+        verify(client, never()).enableMtom();
+    }
+    
+    @Test
+    public void testUsingGuidance() throws Exception {
+        NhinDocQueryProxyWebServiceSecuredImpl impl = getImpl();
+        NhinTargetSystemType target = getTarget("1.1");
+        impl.respondingGatewayCrossGatewayQuery(request, assertion, target);
+        verify(cache).getEndpointURLByServiceNameSpecVersion(any(String.class), any(String.class), any(UDDI_SPEC_VERSION.class));
+    }
+
+    /**
+     * @param hcidValue
+     * @return
+     */
+    private NhinTargetSystemType getTarget(String hcidValue) {
+        NhinTargetSystemType target = new NhinTargetSystemType();
+        HomeCommunityType hcid = new HomeCommunityType();
+        hcid.setHomeCommunityId(hcidValue);
+        target.setHomeCommunity(hcid);
+        target.setUseSpecVersion("2.0");
+        return target;
+    }
+
+    /**
+     * @return
+     */
+    private NhinDocQueryProxyWebServiceSecuredImpl getImpl() {
+        return new NhinDocQueryProxyWebServiceSecuredImpl() {
+            /*
+             * (non-Javadoc)
+             * 
+             * @see
+             * gov.hhs.fha.nhinc.docquery.nhin.proxy.NhinDocQueryProxyWebServiceSecuredImpl#getCONNECTClientSecured(
+             * gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor,
+             * gov.hhs.fha.nhinc.common.nhinccommon.AssertionType, java.lang.String,
+             * gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType)
+             */
+            @Override
+            public CONNECTClient<RespondingGatewayQueryPortType> getCONNECTClientSecured(
+                    ServicePortDescriptor<RespondingGatewayQueryPortType> portDescriptor, AssertionType assertion,
+                    String url, NhinTargetSystemType target) {
+                return client;
+            }
+            
+            /* (non-Javadoc)
+             * @see gov.hhs.fha.nhinc.docquery.nhin.proxy.NhinDocQueryProxyWebServiceSecuredImpl#getCMInstance()
+             */
+            @Override
+            protected ConnectionManager getCMInstance() {
+                return cache;
+            }
+        };
+    }
 }

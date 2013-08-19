@@ -26,10 +26,11 @@
  */
 package gov.hhs.fha.nhinc.adapter.cppgui.servicefacade;
 
-import gov.hhs.fha.nhinc.adapter.cppgui.valueobject.PatientVO;
-import gov.hhs.fha.nhinc.adapter.cppgui.valueobject.PatientPreferencesVO;
+import gov.hhs.fha.nhinc.adapter.cppgui.CPPConstants;
+import gov.hhs.fha.nhinc.adapter.cppgui.ConsumerPreferencesSearchCriteria;
 import gov.hhs.fha.nhinc.adapter.cppgui.valueobject.FineGrainedPolicyCriterionVO;
-import gov.hhs.fha.nhinc.adapter.cppgui.*;
+import gov.hhs.fha.nhinc.adapter.cppgui.valueobject.PatientPreferencesVO;
+import gov.hhs.fha.nhinc.adapter.cppgui.valueobject.PatientVO;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.CeType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.FineGrainedPolicyCriteriaType;
@@ -41,10 +42,8 @@ import gov.hhs.fha.nhinc.common.nhinccommonadapter.StorePtConsentRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.StorePtConsentResponseType;
 import gov.hhs.fha.nhinc.policyengine.adapter.pip.proxy.AdapterPIPProxy;
 import gov.hhs.fha.nhinc.policyengine.adapter.pip.proxy.AdapterPIPProxyObjectFactory;
-import java.util.ArrayList;
-import java.util.List;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+
+import org.apache.log4j.Logger;
 
 /**
  * 
@@ -52,7 +51,7 @@ import org.apache.commons.logging.LogFactory;
  */
 public class AdapterPIPFacade {
 
-    private static Log log = LogFactory.getLog(AdapterPIPFacade.class);
+    private static final Logger LOG = Logger.getLogger(AdapterPIPFacade.class);
 
     public String saveConsumerPreferences(StorePtConsentRequestType consentRequest) {
         AdapterPIPProxy adapterPIPProxy = getAdapterPIPProxy();
@@ -64,7 +63,7 @@ public class AdapterPIPFacade {
         StorePtConsentResponseType consentResponse = adapterPIPProxy.storePtConsent(consentRequest, assertion);
 
         if (consentResponse != null) {
-            log.debug("Save Consumer PReference Status: " + consentResponse.getStatus());
+            LOG.debug("Save Consumer PReference Status: " + consentResponse.getStatus());
             return consentResponse.getStatus();
         }
 
@@ -184,8 +183,8 @@ public class AdapterPIPFacade {
         StorePtConsentRequestType consentRequest = new StorePtConsentRequestType();
         PatientPreferencesType patientPreference = new PatientPreferencesType();
 
-        log.debug("createStorePtConsentRequestType - patientVO.getPatientID(): " + patientVO.getPatientID());
-        log.debug("createStorePtConsentRequestType - patientVO.getAssigningAuthorityID(): "
+        LOG.debug("createStorePtConsentRequestType - patientVO.getPatientID(): " + patientVO.getPatientID());
+        LOG.debug("createStorePtConsentRequestType - patientVO.getAssigningAuthorityID(): "
                 + patientVO.getAssigningAuthorityID());
 
         patientPreference.setPatientId(patientVO.getPatientID());

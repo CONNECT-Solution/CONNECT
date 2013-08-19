@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project name="CONNECT.Automated.Installer" default="install" basedir="." xmlns:artifact="antlib:org.apache.maven.artifact.ant">
 
+	<taskdef name="xmltask" classname="com.oopsconsultancy.xmltask.ant.XmlTask"
+             classpath="../../ThirdParty/ant/AntExtraLibs/xmltask-1.16.jar"/>
+			 
     <property name="info.log" value="${basedir}/install.info.log" />
     <property name="debug.log" value="${basedir}/install.debug.log" />
 
@@ -20,14 +23,14 @@
     <fail unless="properties.file.exists" message="Did not find properties file ${properties.file}" />
 
     <property file="${properties.file}" />
-    <property name="thirdparty.dir" location="${CONNECT.Automated.Installer.basedir}/../../ThirdParty" />
+    <property name="thirdparty.dir" location="${CONNECT.Automated.Installer.basedir}/../../ThirdParty/ant" />
     <property name="glassfish.install.dir" value="${glassfish.install.dir.root}/${glassfish.install.dir.name}" />
     <property name="temp.dir" value="${basedir}/.installer.temp" />
     <property name="glassfish.install.ant.script" value="${glassfish.install.dir}/setup.xml" />
     <property name="sql.scripts.dir" value="${basedir}/../DBScripts/nhincdb" />
     <property name="mysql.executable" value="mysql" />
     <property name="glassfish.zip.file" value="${temp.dir}/glassfish-3.1.2.2.zip" />
-
+	
     <taskdef resource="net/sf/antcontrib/antlib.xml">
         <classpath>
             <fileset dir="${thirdparty.dir}/AntExtraLibs">
@@ -36,9 +39,25 @@
         </classpath>
     </taskdef>
 
-    <property name="skip.do-to-projects" value="true"/>
     <property name="m2.local.repo.path" value="${user.home}/.m2/repository/"/>
-    <property name="deployment.version" value="4.0.0-SNAPSHOT"/>
+	
+	<condition property="deployment.version.set" else="false">
+      <isset property="deployment.version"/>
+    </condition>
+	<if>
+		<equals arg1="${deployment.version.set}" arg2="false" />
+			<then>
+				<xmltask source="../pom.xml">
+					<copy path="//*[local-name() = 'version']/text()" property="deployment.version"/>
+				</xmltask>
+				<echo message="Deployment version set from ../pom.xml."/>
+			</then>
+	<else>
+		<echo message="Deployment version passed in from properties file / command line."/>
+	</else>
+	</if>
+	<echo message="Deployment version set to: ${deployment.version}"/>
+	
     <path id="maven-ant-tasks.classpath" path="${thirdparty.dir}/AntExtraLibs/maven-ant-tasks-2.1.3.jar" />
     <typedef resource="org/apache/maven/artifact/ant/antlib.xml" uri="antlib:org.apache.maven.artifact.ant" classpathref="maven-ant-tasks.classpath" />
     <artifact:localRepository path="${m2.local.repo.path}"></artifact:localRepository>
@@ -46,6 +65,7 @@
         <dependency groupId="org.connectopensource" artifactId="Properties" version="${deployment.version}" type="jar" scope="runtime">
             <exclusion groupId="commons-logging" artifactId="commons-logging"/>
             <exclusion groupId="log4j" artifactId="log4j"/>
+            <exclusion groupId="com.google.guava" artifactId="guava"/>
             </dependency>
         <localRepository path="${m2.local.repo.path}"/>
     </artifact:dependencies>
@@ -161,10 +181,30 @@
         <exec failonerror="true" executable="keytool" dir="${temp.dir}">
             <arg line="-v -import -keypass ${cert.keypass} -noprompt -trustcacerts -alias ${cert.cn} -file ${cert.cn}.cer -keystore ${cert.store.name}.jks -storepass ${cert.storepass}" />
         </exec>
+	<!-- Direct stores -->
+        <exec failonerror="true" executable="keytool" dir="${temp.dir}">
+            <arg line="-v -genkey -keyalg ${cert.key.algorithm} -keysize ${cert.key.size} -keystore ${direct.key.store}.jks -keypass ${cert.keypass} -storepass ${cert.storepass} -validity ${cert.validity.length} -alias direct.example.com -dname &quot;cn=direct.example.com&quot;" />
+        </exec>
+        <exec failonerror="true" executable="keytool" dir="${temp.dir}">
+            <arg line="-v -export -rfc -alias direct.example.com -file example.cer -keystore ${direct.key.store}.jks -keypass ${cert.keypass} -storepass ${cert.storepass}" />
+        </exec>
+        <exec failonerror="true" executable="keytool" dir="${temp.dir}">
+            <arg line="-v -import -keypass ${cert.keypass} -noprompt -trustcacerts -alias direct.example.com -file example.cer -keystore ${direct.trust.store}.jks -storepass ${cert.storepass}" />
+        </exec>
+	<!-- Use the same trust store for the anchor store -->
+        <exec failonerror="true" executable="keytool" dir="${temp.dir}">
+            <arg line="-v -import -keypass ${cert.keypass} -noprompt -trustcacerts -alias direct.example.com -file example.cer -keystore ${direct.anchor.store}.jks -storepass ${cert.storepass}" />
+        </exec>
+        <!-- exec failonerror="true" executable="keytool" dir="${temp.dir}">
+            <arg line="-v -genkey -keystore ${direct.anchor.store}.jks -keypass ${cert.keypass} -storepass ${cert.storepass} -alias direct.example.com -dname &quot;cn=direct.example.com o=example.com CA&quot;" />
+        </exec -->
         <copy todir="${glassfish.install.dir}/glassfish/domains/domain1/config" overwrite="true">
             <fileset dir="${temp.dir}">
                 <include name="${cert.keystore.name}.jks" />
                 <include name="${cert.store.name}.jks" />
+		<include name="${direct.key.store}.jks" />
+		<include name="${direct.trust.store}.jks" />
+		<include name="${direct.anchor.store}.jks" />
             </fileset>
         </copy>
     </target>

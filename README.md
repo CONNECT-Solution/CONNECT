@@ -11,6 +11,7 @@ CONNECT can be used to:
 
 * Set up a health information exchange within an organization
 * Tie a health information exchange into a regional network of health information exchanges using Nationwide Health Information Network standards
+* Send and receive Direct messages, see: [Setting up CONNECT as a Direct HISP](https://github.com/CONNECT-Solution/CONNECT/blob/CONNECT_integration/Product/Production/Services/DirectCore/README.md)
 
 By advancing the adoption of interoperable health IT systems and health information exchanges, the country will better be able to achieve the goal of making sure all citizens have electronic health records by 2014. Health data will be able to follow a patient across the street or across the country.
 
@@ -26,7 +27,7 @@ Three primary elements make up the CONNECT solution:
 
 History
 -------
-* 4.0 planned February 2013
+* 4.0 released February 2013
 * 3.3 released March 2012
 
 For more information, about CONNECT's history see [HISTORY.md](./CONNECT/HISTORY.md)
@@ -36,6 +37,8 @@ Getting Started
 ###Prerequisites
 Before you get started, you'll need the following installed and set up:
 * [Java (JDK) 7](http://www.oracle.com/technetwork/java/javase/downloads/index.html)
+* [Java Cryptography Extension (JCE) Unlimited Strength Jurisdiction Policy Files](http://www.oracle.com/technetwork/java/javase/downloads/jce-7-download-432124.html)
+  * Install under $JAVA_HOME/jre/lib/security
 * [Maven 3.0.4+](http://maven.apache.org/download.html)    See [installation instructions](http://maven.apache.org/download.html#Installation).
 * [MySQL 5.1.x](http://dev.mysql.com/downloads/mysql/5.1.html#downloads)
 * [Eclipse Juno](http://www.eclipse.org/downloads/)
@@ -60,31 +63,13 @@ Everyone:
         $ cd <CONNECT_CLONE_DIR>
         $ mvn clean install
 
-###Generate Eclipse Projects
-After you have built from source you can create all of the Eclipse Project files
-
-        $ cd <CONNECT_CLONE_DIR>
-        $ mvn eclipse:clean eclipse:eclipse
-
-Before launching eclipse, execute the following to set up the M2_REPO var used in lib dependencies
-
-        $ mvn eclipse:configure-workspace -Declipse.workspace=/path/to/your/workspace
-
-When complete, open Eclipse then click on the following:
-
-        File --> Import --> 'Existing Projects into workspace'
-
-and choose the clone repo directory (\<CONNECT_CLONE_DIR\>), e.g. CONNECT. You may also need to repeat these steps and choose additional directories:
-* \<CONNECT_CLONE_DIR\>/Product
-* \<CONNECT_CLONE_DIR\>/Product/Production
-
 ####Building an ear
 All services profiles are active by default, so to build an ear containing all services, just execute:
 
         $ cd <CONNECT_CLONE_DIR>
         $ mvn clean install
 
-If you want to exclude a service, in this case PD, you can turn off the profile by adding a "!" to the name of the service profile you'd like to exclude (needs to be escaped with "\" char on *NIX) platforms:
+If you want to exclude a service, in this case Patient Discovery, you can turn off the profile by adding a "!" to the name of the service profile you'd like to exclude (needs to be escaped with "\" char on *NIX) platforms:
 
         $ mvn clean install -P \!PD
 
@@ -94,27 +79,26 @@ Available service profiles which can be excluded from the generated ear (use val
 * Document Query (DQ)
 * Document Submission (DS)
 * Document Retrieve (DR)
-* HIEM (HIEM)
+* Direct(Direct)
+* CONNECTUniversalClientGUI, CONNECTConsumerPreferencesProfileGUI, CONNECTDeferredQueueManagerGUI (GUI)
 
-You can alter the composition of the CONNECT.ear at any time by turning off any combination of the available profiles as a comma-separated list
+After CONNECT has been built from the clone directory, you can alter the composition of the CONNECT.ear at any time by turning off any combination of the available profiles as a comma-separated list
 
         $ cd <CONNECT_CLONE_DIR>
-        $ mvn clean package -P \!PD,\!DQ,!DR -f Product/Production/Deploy/pom.xml
+        $ mvn clean install -P \!PD,\!DQ,\!DR -f Product/Production/Deploy/pom.xml
 
 OR
 
-        $ cd Product/Production/CONNECT/
-        $ mvn clean package -P \!PD,\!DQ,!DR
+        $ cd Product/Production/Deploy/
+        $ mvn clean install -P \!PD,\!DQ,\!DR
 
+You can also specify explicitly what services are included in the ear by passing in the individual profiles.  For example, if you only want to include PD:
+
+        $ cd Product/Production/Deploy/
+        $ mvn clean install -P PD
+        
 ######Altering targeted application server
-For some application server deployments the generated .ear needs different dependencies. The following profiles are available to control which type of .ear is generated (use value within parentheses):
-* GlassFish v3.1.2.2 (glassfish)
-* WebSphere Application Server Community Edition v3.0.0.2 (websphere)
-
-This profile options are used just like above. As an example to generate a WebSphere specific .ear with only Patient Discovery.
-
-        $ cd <CONNECT_CLONE_DIR>
-        $ mvn clean install -P \!AD,\!DQ,\!DS,\!RD,\!HIEM,websphere
+For some application server deployments the generated .ear needs different dependencies. This readme describes building and deploying on GlassFish. See the CONNECT wiki for details on other application servers.
 
 ###Setup Glassfish, MySQL & Deploy CONNECT
 These steps will install and configure a Glassfish Application Server, prepare your MySQL databases and deploy CONNECT for use. Lets get started.
@@ -164,6 +148,17 @@ Lastly, we're going to install the Glassfish Application Server
 
         $ ant install
 
+####Chain of Trust Certificates
+Unlike testing with the embedded glassfish and chain of trust certificates, 'ant install' generates self signed certificates at deploy time. In order to switch over to chain of trust certs follow these directions (it is recommended to back up your self signed certs first):
+
+        $ asadmin stop-domain domain1
+        $ cp <CONNECT_CLONE_DIR>/Product/SoapUI_Test/ValidationSuite/src/test/resources/chaincerts/*.jks <GLASSFISH_HOME>/domains/domain1/config/
+        $ asadmin start-domain domain1
+        
+The certificates that come in the CONNECT source do not include a Certificate Revocation List, therefore the following `domain.xml` properties need to be set to false:
+
+        <jvm-options>-Dcom.sun.net.ssl.checkRevocation=false</jvm-options>
+        <jvm-options>-Dcom.sun.security.enableCRLDP=false</jvm-options>
 
 ####Deploy to GlassFish
 Navigate to the <CONNECT_CLONE_DIR>/Product/Install directory
@@ -178,7 +173,7 @@ TK
 Testing
 -------
 ###Run the Validation Suite as part of install
-At the end of the mvn install process, an embedded GlassFish instance will start and the Validation Suite will run against it:
+At the end of the mvn install process, an embedded GlassFish instance will start and the Validation Suite will run against it. The maven scripts automatically stand up the embedded glassfish using trust chain certificates:
 
         $ cd <CONNECT_CLONE_DIR>/Product/SoapUI_Test/ValidationSuite
         $ mvn clean install
@@ -193,17 +188,12 @@ Several properties can be passed for mvn verify:
 
         -Dstandalone -- must be passed in for standalone testing
         -Dproperties.dir=<gateway config dir> -- for GlassFish this is <GlassFish home>/domains/domain1/config/nhin; there is an equivalent in WebSphere 
-        -Dhost=<machine name or IP address to act as the requesting gateway> -- defaults to localhost, but can be passed in to test on remote machines
-        -Dport=<####> -- defaults to 8080; the unsecured port
-        -Dsecured.port=<####> -- defaults to 8181; the secured port, used for defining HIEM response endpoints
         -Ddb.host=<machine name or IP address of the MySQL server> --  defaults to localhost
         -Ddb.port=<####> -- defaults to 3306
         -Ddb.user=<database user name> -- defaults to nhincuser
         -Ddb.password=<database password> -- defaults to nhincpass
         -Dtest.suite=<g0 or g1>
         -Dtest.case=<test case name> -- one of "Document Submission Deferred Req", "Document Submission Deferred Resp", "Document Submission", "Patient Discovery Deferred Req", "Patient Discovery Deferred Resp", "Patient Discovery", "Document Query", "Document Retrieve", "Subscribe", "Notify", "Unsubscribe", "Admin Distribution"
-        -Dentity.skip -- pass in to skip Entity testing
-        -Dmsgproxy.skip -- pass in to skip MsgProxy testing
 		
 Alternatively, any of these properties can be set in your maven settings.xml file, and they will be propagated to all your builds.  Here is an example showing the mysql.root.password property set to a non-default value:
 
@@ -222,7 +212,7 @@ Run the Validation Suite project files MsgProxyValidation-soapui-project.xml and
 ##Setting up SoapUI
 Install SoapUI v4.5.1.
 
-Copy the MySQL jdbc driver mydql-connector-java-5.1.10.jar from the Maven repository directory .m2/repository/mysql/mysql-connector-java/5.1.10 to <SoapUI home>/bin/ext.
+Copy the MySQL jdbc driver mysql-connector-java-5.1.10.jar from the Maven repository directory .m2/repository/mysql/mysql-connector-java/5.1.10 to <SoapUI home>/bin/ext.
 
 Copy the file FileUtils-4.0.0-SNAPSHOT.jar (or similarly named) to <SoapUI home>/bin/ext.
 

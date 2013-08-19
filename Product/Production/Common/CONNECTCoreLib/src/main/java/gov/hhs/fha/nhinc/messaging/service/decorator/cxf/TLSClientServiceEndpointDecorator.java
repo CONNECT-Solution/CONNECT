@@ -42,22 +42,41 @@ import org.apache.cxf.transport.http.HTTPConduit;
  */
 public class TLSClientServiceEndpointDecorator<T> extends ServiceEndpointDecorator<T> {
 
+    private TLSClientParametersFactory tlsClientFactory;
+
     /**
+     * Constructor.
+     * 
      * @param decoratored
-     * @param assertion 
-     * @param url 
+     * @param assertion
+     * @param url
      */
     public TLSClientServiceEndpointDecorator(ServiceEndpoint<T> decoratoredEndpoint) {
-        super(decoratoredEndpoint);
+        this(decoratoredEndpoint, TLSClientParametersFactory.getInstance());
     }
 
+    /**
+     * Constructor with dependency injection parameters.
+     * 
+     * @param decoratoredEndpoint
+     * @param paramFactory
+     */
+    public TLSClientServiceEndpointDecorator(ServiceEndpoint<T> decoratoredEndpoint,
+            TLSClientParametersFactory tlsClientFactory) {
+        super(decoratoredEndpoint);
+        this.tlsClientFactory = tlsClientFactory;
+    }
+
+    /**
+     * This call is not thread safe if the port is a shared instance as it modifies the HTTP Conduit.
+     */
     @Override
     public void configure() {
-
         super.configure();
         Client client = ClientProxy.getClient(getPort());
         HTTPConduit conduit = (HTTPConduit) client.getConduit();
-        TLSClientParameters tlsCP = TLSClientParametersFactory.getInstance().getTLSClientParameters();
+        TLSClientParameters tlsCP = tlsClientFactory.getTLSClientParameters();
+        
         conduit.setTlsClientParameters(tlsCP);
     }
 

@@ -29,18 +29,16 @@ package gov.hhs.fha.nhinc.hiem.processor.common;
 import gov.hhs.fha.nhinc.subscription.repository.data.HiemSubscriptionItem;
 import gov.hhs.fha.nhinc.subscription.repository.service.SubscriptionRepositoryException;
 import gov.hhs.fha.nhinc.subscription.repository.service.HiemSubscriptionRepositoryService;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import org.w3._2005._08.addressing.EndpointReferenceType;
 
+import org.w3._2005._08.addressing.EndpointReferenceType;
+import org.apache.log4j.Logger;
 /**
  * Store a subscription item to the subscription repository
  * 
  * @author Neil Webb
  */
 public class SubscriptionStorage {
-    private static org.apache.commons.logging.Log log = org.apache.commons.logging.LogFactory
-            .getLog(SubscriptionStorage.class);
+    private static final Logger LOG = Logger.getLogger(SubscriptionStorage.class);
 
     /**
      * Store a subscription item to the subscription repository.
@@ -53,13 +51,13 @@ public class SubscriptionStorage {
         if (subscriptionItem != null) {
             try {
                 HiemSubscriptionRepositoryService service = new HiemSubscriptionRepositoryService();
-                log.debug("Calling SubscriptionRepositoryService.saveSubscriptionToConnect");
+                LOG.debug("Calling SubscriptionRepositoryService.saveSubscriptionToConnect");
                 epr = service.saveSubscriptionToConnect(subscriptionItem);
             } catch (Exception ex) {
-                Logger.getLogger(SubscriptionStorage.class.getName()).log(Level.SEVERE, null, ex);
+                LOG.error("Error storing subscription item: ", ex);
             }
         } else {
-            log.debug("Subscription item was null in storeSubscriptionItem");
+            LOG.debug("Subscription item was null in storeSubscriptionItem");
         }
         return epr;
     }
@@ -73,13 +71,13 @@ public class SubscriptionStorage {
         if (subscriptionItem != null) {
             try {
                 HiemSubscriptionRepositoryService service = new HiemSubscriptionRepositoryService();
-                log.debug("Calling SubscriptionRepositoryService.saveSubscriptionToExternal");
+                LOG.debug("Calling SubscriptionRepositoryService.saveSubscriptionToExternal");
                 service.saveSubscriptionToExternal(subscriptionItem);
             } catch (SubscriptionRepositoryException ex) {
-                Logger.getLogger(SubscriptionStorage.class.getName()).log(Level.SEVERE, null, ex);
+                LOG.error("Error storing external subscription item: ", ex);
             }
         } else {
-            log.debug("Subscription item was null in storeExternalSubscriptionItem");
+            LOG.debug("Subscription item was null in storeExternalSubscriptionItem");
         }
     }
 }

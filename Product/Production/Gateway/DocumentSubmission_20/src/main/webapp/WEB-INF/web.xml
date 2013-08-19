@@ -1,21 +1,34 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app version="2.5" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
-    
-    <!-- <context-param>
-        <param-name>contextConfigLocation</param-name>
-        <param-value>WEB-INF/DS-server-beans.xml</param-value>
-    </context-param>
-    
-    <listener>
-        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
-    </listener> -->
-    
+
     <servlet>
         <servlet-name>cxf</servlet-name>
         <servlet-class>org.apache.cxf.transport.servlet.CXFServlet</servlet-class>
         <load-on-startup>1</load-on-startup>
     </servlet>
+    
+    <servlet>
+        <servlet-name>PassthruMXBean</servlet-name>
+        <servlet-class>gov.hhs.fha.nhinc.docsubmission._20.gateway.InitServlet</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+
+    <context-param>
+        <param-name>contextConfigLocation</param-name>
+        <param-value>
+      classpath:CONNECT-interceptor-beans.xml 
+      classpath:CONNECT-context.xml
+      classpath:eventlogging.xml
+      classpath:/docsubmission/_20/applicationContext.xml
+      classpath:/docsubmission/_20/webservices.xml
+      </param-value>
+
+    </context-param>
+
+    <listener>
+        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+    </listener>
 
     <servlet-mapping>
         <servlet-name>cxf</servlet-name>
@@ -28,15 +41,16 @@
     <welcome-file-list>
         <welcome-file>index.jsp</welcome-file>
     </welcome-file-list>
-    
+
+   
     <resource-ref>
-        <res-ref-name>jdbc/perfrepo_datasource</res-ref-name>
+        <res-ref-name>jdbc/transrepo_datasource</res-ref-name>
         <res-type>javax.sql.DataSource</res-type>
         <res-auth>Container</res-auth>
         <res-sharing-scope>Shareable</res-sharing-scope>
     </resource-ref>
     <resource-ref>
-        <res-ref-name>jdbc/transrepo_datasource</res-ref-name>
+        <res-ref-name>jdbc/eventdb_datasource</res-ref-name>
         <res-type>javax.sql.DataSource</res-type>
         <res-auth>Container</res-auth>
         <res-sharing-scope>Shareable</res-sharing-scope>

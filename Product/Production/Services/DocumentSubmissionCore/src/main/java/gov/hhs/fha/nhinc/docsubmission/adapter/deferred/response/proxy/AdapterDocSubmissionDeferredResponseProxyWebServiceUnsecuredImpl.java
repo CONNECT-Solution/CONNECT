@@ -27,9 +27,12 @@
 package gov.hhs.fha.nhinc.docsubmission.adapter.deferred.response.proxy;
 
 import gov.hhs.fha.nhinc.adapterxdrresponse.AdapterXDRResponsePortType;
+import gov.hhs.fha.nhinc.aspect.AdapterDelegationEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterRegistryResponseType;
 import gov.hhs.fha.nhinc.docsubmission.adapter.deferred.response.proxy.service.AdapterDocSubmissionDeferredResponseUnsecuredServicePortDescriptor;
+import gov.hhs.fha.nhinc.docsubmission.aspect.DeferredResponseDescriptionBuilder;
+import gov.hhs.fha.nhinc.docsubmission.aspect.DocSubmissionArgTransformerBuilder;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTClient;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTClientFactory;
 import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
@@ -39,8 +42,7 @@ import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 import gov.hhs.healthit.nhin.XDRAcknowledgementType;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 
 /**
  * 
@@ -48,38 +50,36 @@ import org.apache.commons.logging.LogFactory;
  */
 public class AdapterDocSubmissionDeferredResponseProxyWebServiceUnsecuredImpl implements
         AdapterDocSubmissionDeferredResponseProxy {
-    private Log log = null;
+    private static final Logger LOG = Logger.getLogger(AdapterDocSubmissionDeferredResponseProxyWebServiceUnsecuredImpl.class);
     private WebServiceProxyHelper oProxyHelper = null;
 
     public AdapterDocSubmissionDeferredResponseProxyWebServiceUnsecuredImpl() {
-        log = createLogger();
         oProxyHelper = createWebServiceProxyHelper();
-    }
-
-    protected Log createLogger() {
-        return LogFactory.getLog(this.getClass());
     }
 
     protected WebServiceProxyHelper createWebServiceProxyHelper() {
         return new WebServiceProxyHelper();
     }
-    
+
     protected CONNECTClient<AdapterXDRResponsePortType> getCONNECTClientUnsecured(
             ServicePortDescriptor<AdapterXDRResponsePortType> portDescriptor, String url, AssertionType assertion) {
-        
-        return CONNECTClientFactory.getInstance().getCONNECTClientUnsecured(portDescriptor, url, assertion);
-    } 
 
+        return CONNECTClientFactory.getInstance().getCONNECTClientUnsecured(portDescriptor, url, assertion);
+    }
+
+    @AdapterDelegationEvent(beforeBuilder = DeferredResponseDescriptionBuilder.class,
+            afterReturningBuilder = DocSubmissionArgTransformerBuilder.class,
+            serviceType = "Document Submission Deferred Response", version = "")
     public XDRAcknowledgementType provideAndRegisterDocumentSetBResponse(RegistryResponseType regResponse,
             AssertionType assertion) {
-        log.debug("Begin AdapterDocSubmissionDeferredResponseProxyWebServiceUnsecuredImpl.provideAndRegisterDocumentSetBResponse");
+        LOG.debug("Begin AdapterDocSubmissionDeferredResponseProxyWebServiceUnsecuredImpl.provideAndRegisterDocumentSetBResponse");
         XDRAcknowledgementType response = null;
         String serviceName = NhincConstants.ADAPTER_XDR_RESPONSE_SERVICE_NAME;
 
         try {
-            log.debug("Before target system URL look up.");
+            LOG.debug("Before target system URL look up.");
             String url = oProxyHelper.getAdapterEndPointFromConnectionManager(serviceName);
-            log.debug("After target system URL look up. URL for service: " + serviceName + " is: " + url);
+            LOG.debug("After target system URL look up. URL for service: " + serviceName + " is: " + url);
 
             if (NullChecker.isNotNullish(url)) {
                 AdapterRegistryResponseType wsRequest = new AdapterRegistryResponseType();
@@ -88,19 +88,20 @@ public class AdapterDocSubmissionDeferredResponseProxyWebServiceUnsecuredImpl im
 
                 ServicePortDescriptor<AdapterXDRResponsePortType> portDescriptor = new AdapterDocSubmissionDeferredResponseUnsecuredServicePortDescriptor();
 
-                CONNECTClient<AdapterXDRResponsePortType> client = getCONNECTClientUnsecured(portDescriptor, url, assertion);
-
+                CONNECTClient<AdapterXDRResponsePortType> client = getCONNECTClientUnsecured(portDescriptor, url,
+                        assertion);
+                client.enableMtom(); 
                 response = (XDRAcknowledgementType) client.invokePort(AdapterXDRResponsePortType.class,
                         "provideAndRegisterDocumentSetBResponse", wsRequest);
             } else {
-                log.error("Failed to call the web service (" + serviceName + ").  The URL is null.");
+                LOG.error("Failed to call the web service (" + serviceName + ").  The URL is null.");
             }
         } catch (Exception ex) {
-            log.error("Error: Failed to retrieve url for service: " + serviceName + " for local home community");
-            log.error(ex.getMessage(), ex);
+            LOG.error("Error: Failed to retrieve url for service: " + serviceName + " for local home community");
+            LOG.error(ex.getMessage(), ex);
         }
 
-        log.debug("End AdapterDocSubmissionDeferredResponseProxyWebServiceUnsecuredImpl.provideAndRegisterDocumentSetBResponse");
+        LOG.debug("End AdapterDocSubmissionDeferredResponseProxyWebServiceUnsecuredImpl.provideAndRegisterDocumentSetBResponse");
         return response;
     }
 }

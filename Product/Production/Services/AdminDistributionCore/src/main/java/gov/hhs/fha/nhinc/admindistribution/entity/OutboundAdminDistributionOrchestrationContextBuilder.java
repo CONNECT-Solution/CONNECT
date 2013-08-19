@@ -33,8 +33,7 @@ import gov.hhs.fha.nhinc.orchestration.OutboundOrchestratable;
 import gov.hhs.fha.nhinc.orchestration.OutboundDelegate;
 import gov.hhs.fha.nhinc.orchestration.OrchestrationContext;
 import gov.hhs.fha.nhinc.orchestration.OrchestrationContextBuilder;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+
 
 /**
  * 
@@ -42,51 +41,76 @@ import org.apache.commons.logging.LogFactory;
  */
 public abstract class OutboundAdminDistributionOrchestrationContextBuilder implements OrchestrationContextBuilder {
 
-    private static Log log = LogFactory.getLog(OutboundAdminDistributionOrchestrationContextBuilder.class);
-
     private RespondingGatewaySendAlertMessageType request;
     private AssertionType assertionType;
     private OutboundDelegate nhinDelegate;
     private NhinTargetSystemType targetSystem;
 
+    /** 
+     * Implement OrchestrationContext build() in the implemntation classes.
+     * @return OrchestrationContext.
+     */
     public abstract OrchestrationContext build();
 
+    /**
+     * @return assertionType AssertionType assertionType received.
+     */
     public AssertionType getAssertionType() {
         return assertionType;
     }
 
+    /**
+     * @param assertionType AssertionType assertionType received.
+     */
     public void setAssertionType(AssertionType assertionType) {
         this.assertionType = assertionType;
     }
 
+    /**
+     * @return nhinDelegate.
+     */
     public OutboundDelegate getNhinDelegate() {
         return nhinDelegate;
     }
 
+    /**
+     * @param nhinDelegate OutboundDelegate nhinDelegate received.
+     */
     public void setNhinDelegate(OutboundDelegate nhinDelegate) {
         this.nhinDelegate = nhinDelegate;
     }
 
+    /**
+     * @return SendAlertMessage received.
+     */
     public RespondingGatewaySendAlertMessageType getRequest() {
         return request;
     }
 
+    /**
+     * @param request SendAlertMessage Request.
+     */
     public void setRequest(RespondingGatewaySendAlertMessageType request) {
         this.request = request;
     }
 
+    /**
+     * @return NhinTargetSystem targetSystem.
+     */
     public NhinTargetSystemType getTargetSystem() {
         return targetSystem;
     }
 
+    /**
+     * @param targetSystem NhinTargetSystemType targetSystem received.
+     */
     public void setTargetSystem(NhinTargetSystemType targetSystem) {
         this.targetSystem = targetSystem;
     }
 
-    public Log getLog() {
-        return log;
-    }
-
+    /** This method gets and sets assertion,request and target info from orchestartable message.
+     * @param message outboundOrchestratable message.
+     */
     public void init(OutboundOrchestratable message) {
         setAssertionType(message.getAssertion());
         setRequest(((OutboundAdminDistributionOrchestratable) message).getRequest());

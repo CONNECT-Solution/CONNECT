@@ -29,15 +29,15 @@ package gov.hhs.fha.nhinc.adapterauthentication.proxy;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.AuthenticateUserRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.AuthenticateUserResponseType;
 import gov.hhs.fha.nhinc.adapterauthentication.AdapterAuthenticationImpl;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+
+import org.apache.log4j.Logger;
 
 /**
  * This is the concrete implementation for the Java based call to the AdapterAuthentication.
  */
 public class AdapterAuthenticationJavaProxy implements AdapterAuthenticationProxy {
 
-    private static Log log = LogFactory.getLog(AdapterAuthenticationJavaProxy.class);
+    private static final Logger LOG = Logger.getLogger(AdapterAuthenticationJavaProxy.class);
 
     /**
      * Given a request to authenticate a user, this service will determine if this is an identifiable user within
@@ -58,7 +58,7 @@ public class AdapterAuthenticationJavaProxy implements AdapterAuthenticationProx
         } catch (Exception ex) {
             String message = "Error occurred calling AdapterAuthenticationJavaProxy.authenticateUser.  Error: "
                     + ex.getMessage();
-            log.error(message, ex);
+            LOG.error(message, ex);
             throw new RuntimeException(message, ex);
         }
 

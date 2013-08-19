@@ -17,8 +17,7 @@ import javax.security.auth.callback.Callback;
 import javax.security.auth.callback.CallbackHandler;
 import javax.security.auth.callback.UnsupportedCallbackException;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 import org.apache.cxf.message.Message;
 import org.apache.cxf.phase.PhaseInterceptorChain;
 import org.apache.ws.security.saml.ext.SAMLCallback;
@@ -30,11 +29,16 @@ import org.opensaml.common.SAMLVersion;
  */
 public class CXFSAMLCallbackHandler implements CallbackHandler {
 
-    private static Log log = LogFactory.getLog(CXFSAMLCallbackHandler.class);
+    private static final Logger LOG = Logger.getLogger(CXFSAMLCallbackHandler.class);
 
     public static final String HOK_CONFIRM = "urn:oasis:names:tc:SAML:2.0:cm:holder-of-key";
-
+    private HOKSAMLAssertionBuilder builder = new HOKSAMLAssertionBuilder();
+    
     public CXFSAMLCallbackHandler() {
+    }
+    
+    public CXFSAMLCallbackHandler(HOKSAMLAssertionBuilder builder){
+    	this.builder = builder;
     }
 
     /*
@@ -44,13 +48,13 @@ public class CXFSAMLCallbackHandler implements CallbackHandler {
      */
     @Override
     public void handle(Callback[] callbacks) throws IOException, UnsupportedCallbackException {
-        log.debug("CXFSAMLCallbackHandler.handle begin");
+        LOG.trace("CXFSAMLCallbackHandler.handle begin");
         for (Callback callback : callbacks) {
             if (callback instanceof SAMLCallback) {
 
                 try {
 
-                    Message message = PhaseInterceptorChain.getCurrentMessage();
+                    Message message = getCurrentMessage();
 
                     Object obj = message.get("assertion");
 
@@ -66,17 +70,15 @@ public class CXFSAMLCallbackHandler implements CallbackHandler {
                     SamlTokenCreator creator = new SamlTokenCreator();
 
                     CallbackProperties properties = new CallbackMapProperties(addMessageProperties(
-                            creator.CreateRequestContext(custAssertion, null, null), message));
-
-                    HOKSAMLAssertionBuilder builder = new HOKSAMLAssertionBuilder();
+                            creator.createRequestContext(custAssertion, null, null), message));
 
                     oSAMLCallback.setAssertionElement(builder.build(properties));
                 } catch (Exception e) {
-                    log.error("failed to create saml", e);
+                    LOG.error("failed to create saml", e);
                 }
             }
         }
-        log.debug("CXFSAMLCallbackHandler.handle end");
+        LOG.trace("CXFSAMLCallbackHandler.handle end");
     }
     
     /**
@@ -90,13 +92,17 @@ public class CXFSAMLCallbackHandler implements CallbackHandler {
         
         addPropertyFromMessage(propertiesMap, message, NhincConstants.WS_SOAP_TARGET_HOME_COMMUNITY_ID);
         addPropertyFromMessage(propertiesMap, message, NhincConstants.TARGET_API_LEVEL);
-        addPropertyFromMessage(propertiesMap, message, NhincConstants.SERVICE_NAME);
+        addPropertyFromMessage(propertiesMap, message, NhincConstants.ACTION_PROP);
         
         return propertiesMap;                
     }
     
     private void addPropertyFromMessage(Map<String, Object> propertiesMap, Message message, String key) {
         propertiesMap.put(key, message.get(key));
+    }
+    
+    protected Message getCurrentMessage(){
+    	return PhaseInterceptorChain.getCurrentMessage();
     }
 }
 

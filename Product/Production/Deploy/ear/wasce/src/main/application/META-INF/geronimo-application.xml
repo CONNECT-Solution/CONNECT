@@ -1,0 +1,47 @@
+<app:application
+    xmlns:app="http://geronimo.apache.org/xml/ns/j2ee/application-2.0"
+    xmlns:sys="http://geronimo.apache.org/xml/ns/deployment-1.2"
+    xmlns:sec="http://geronimo.apache.org/xml/ns/security-2.0"
+    xmlns:conn="http://geronimo.apache.org/xml/ns/j2ee/connector-1.2"
+    application-name="CONNECT">
+    <sys:environment>
+        <sys:moduleId>
+            <sys:groupId>org.connectopensource</sys:groupId>
+            <sys:artifactId>CONNECT</sys:artifactId>
+            <sys:version>4.0</sys:version>
+            <sys:type>ear</sys:type>
+        </sys:moduleId>
+        
+        <sys:dependencies>
+            <sys:dependency>
+                <sys:groupId>org.apache.geronimo.configs</sys:groupId>
+                <sys:artifactId>sharedlib</sys:artifactId>
+            </sys:dependency>
+        </sys:dependencies>
+
+        <sys:hidden-classes>
+            <sys:filter>org.apache.cxf</sys:filter>
+            <sys:filter>org.apache.geronimo.webservices</sys:filter>
+            <sys:filter>org.apache.jcp</sys:filter>
+            <sys:filter>org.apache.ws</sys:filter>
+            <sys:filter>org.apache.xerces</sys:filter>
+            <sys:filter>org.apache.xml</sys:filter>
+            <sys:filter>javax.xml.ws</sys:filter>
+            <sys:filter>javax.xml.soap</sys:filter>
+            <sys:filter>javax.xml.crypto</sys:filter>
+            <sys:filter>com.sun.xml.messaging</sys:filter>
+            <sys:filter>org.springframework</sys:filter>
+            <sys:filter>antlr</sys:filter>
+            <sys:filter>net.sf.cglib</sys:filter>
+            <sys:filter>org.hibernate</sys:filter>
+            <sys:filter>org.objectweb.asm</sys:filter>
+            <sys:filter>com.ctc.wstx</sys:filter>
+            <sys:filter>org.codehaus.stax2</sys:filter>
+            <sys:filter>org.uddi.api_v3</sys:filter>
+        </sys:hidden-classes>
+
+        <sys:inverse-classloading />
+
+    </sys:environment>
+
+</app:application>

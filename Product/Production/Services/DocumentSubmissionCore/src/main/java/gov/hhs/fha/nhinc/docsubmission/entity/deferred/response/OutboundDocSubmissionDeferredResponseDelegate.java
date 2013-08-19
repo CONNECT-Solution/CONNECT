@@ -26,8 +26,7 @@
  */
 package gov.hhs.fha.nhinc.docsubmission.entity.deferred.response;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 
 import gov.hhs.fha.nhinc.docsubmission.orchestration.OrchestrationContextFactory;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
@@ -42,7 +41,7 @@ import gov.hhs.fha.nhinc.orchestration.OutboundOrchestratable;
  */
 public class OutboundDocSubmissionDeferredResponseDelegate implements OutboundDelegate {
 
-    private static Log log = LogFactory.getLog(OutboundDocSubmissionDeferredResponseDelegate.class);
+    private static final Logger LOG = Logger.getLogger(OutboundDocSubmissionDeferredResponseDelegate.class);
 
     public Orchestratable process(Orchestratable message) {
         if (message instanceof OutboundOrchestratable) {
@@ -53,9 +52,9 @@ public class OutboundDocSubmissionDeferredResponseDelegate implements OutboundDe
 
     @Override
     public OutboundOrchestratable process(OutboundOrchestratable message) {
-        getLogger().debug("begin process");
+        LOG.debug("begin process");
         if (message instanceof OutboundDocSubmissionDeferredResponseOrchestratable) {
-            getLogger().debug("processing DS deferred response orchestratable ");
+            LOG.debug("processing DS deferred response orchestratable ");
             OutboundDocSubmissionDeferredResponseOrchestratable dsMessage = (OutboundDocSubmissionDeferredResponseOrchestratable) message;
 
             OrchestrationContextBuilder contextBuilder = getOrchestrationContextFactory().getBuilder(
@@ -70,12 +69,8 @@ public class OutboundDocSubmissionDeferredResponseDelegate implements OutboundDe
             }
             return (OutboundOrchestratable) contextBuilder.build().execute();
         }
-        getLogger().error("message is not an instance of OutboundDocSubmissionDeferredResponseOrchestratable!");
+        LOG.error("message is not an instance of OutboundDocSubmissionDeferredResponseOrchestratable!");
         return null;
-    }
-
-    protected Log getLogger() {
-        return log;
     }
 
     protected OrchestrationContextFactory getOrchestrationContextFactory() {

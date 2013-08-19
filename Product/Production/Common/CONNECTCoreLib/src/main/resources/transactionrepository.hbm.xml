@@ -12,8 +12,12 @@
     <id name="id">
       <generator class="native"/>
     </id>
-    <property column="time" name="time"/>
+    <property column="transactionTime" name="time"/>
     <property column="messageId" name="messageId"/>
     <property column="transactionId" name="transactionId"/>
   </class>
-</hibernate-mapping>
+  
+  <query name="findTransactionByMessageId">
+    <![CDATA[FROM TransactionRepo tr WHERE tr.messageId = :messageId]]>
+  </query>
+ </hibernate-mapping>

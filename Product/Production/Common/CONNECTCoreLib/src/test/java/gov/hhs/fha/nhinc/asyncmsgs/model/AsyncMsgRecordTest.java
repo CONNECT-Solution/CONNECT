@@ -36,7 +36,7 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 /**
- * 
+ *
  * @author JHOPPESC
  */
 public class AsyncMsgRecordTest {
@@ -182,33 +182,75 @@ public class AsyncMsgRecordTest {
         assertNull(result);
     }
 
-    // /**
-    // * Test of getMsgData and setMsgData methods, of class AsyncMsgRecord.
-    // */
-    // @Test
-    // public void testSetGetMsgData() {
-    // System.out.println("testSetGetMsgData");
-    // AsyncMsgRecord instance = new AsyncMsgRecord();
-    // Blob expResult = null;
-    // instance.setMsgData(expResult);
-    //
-    // Blob result = instance.getMsgData();
-    //
-    // assertEquals(expResult, result);
-    // }
-
     /**
      * Test of getMsgData method, of class AsyncMsgRecord.
      */
     @Test
     public void testGetInitMsgData() {
         System.out.println("testGetInitMsgData");
-
         AsyncMsgRecord instance = new AsyncMsgRecord();
-
         Blob result = instance.getMsgData();
-
         assertNull(result);
     }
 
+    @Test
+    public void testGetDirection() {
+        System.out.println("testGetDirection");
+        AsyncMsgRecord instance = new AsyncMsgRecord();
+        String result = instance.getDirection();
+        assertNull(result);
+    }
+
+    @Test
+    public void testGetStatus() {
+        System.out.println("testGetStatus");
+        AsyncMsgRecord instance = new AsyncMsgRecord();
+        instance.setStatus("Test");
+        String result = instance.getStatus();
+        assertEquals(result, "Test");
+    }
+
+    @Test
+    public void testGetResponseType() {
+        System.out.println("testGetResponseType");
+        AsyncMsgRecord instance = new AsyncMsgRecord();
+        instance.setResponseType("Success");
+        String result = instance.getResponseType();
+        assertEquals(result, "Success");
+    }
+
+    @Test
+    public void testGetReserved() {
+        System.out.println("testGetResponseType");
+        AsyncMsgRecord instance = new AsyncMsgRecord();
+        instance.setReserved("T");
+        String result = instance.getReserved();
+        assertEquals(result, "T");
+    }
+
+    @Test
+    public void testGetRspData() {
+        System.out.println("testGetRspData");
+        AsyncMsgRecord instance = new AsyncMsgRecord();
+        Blob result = instance.getRspData();
+        assertNull(result);
+    }
+
+    @Test
+    public void testGetDuration() {
+        System.out.println("testGetDuration");
+        AsyncMsgRecord instance = new AsyncMsgRecord();
+        Long value = Long.valueOf("30");
+        instance.setDuration(value);
+        Long result = instance.getDuration();
+        assertEquals(result, value);
+    }
+
+    @Test
+    public void testGetAckData() {
+        System.out.println("testGetAckData");
+        AsyncMsgRecord instance = new AsyncMsgRecord();
+        Blob result = instance.getAckData();
+        assertNull(result);
+    }
 }

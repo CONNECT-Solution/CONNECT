@@ -33,12 +33,11 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 
 public final class Format {
 
-    private static final Log log = LogFactory.getLog("gov.hhs.fha.nhinc.util.Format");
+    private static final Logger LOG = Logger.getLogger("gov.hhs.fha.nhinc.util.Format");
 
     public static final String MMDDYYYY_DATEFORMAT = "MMddyyyy";
     public static final String MMDDYYYYHHMMSS_DATEFORMAT = "MMddyyyy HH:mm:ss";
@@ -62,8 +61,8 @@ public final class Format {
     public static boolean isValidDateString(String dateStr, String format) {
         boolean isValidDate = false;
 
-        if (log.isDebugEnabled()) {
-            log.debug("=== isValidDateString('" + dateStr + "','" + format + "') ===");
+        if (LOG.isDebugEnabled()) {
+            LOG.debug("=== isValidDateString('" + dateStr + "','" + format + "') ===");
         }
 
         try {
@@ -72,12 +71,12 @@ public final class Format {
                 isValidDate = true;
             }
         } catch (Exception e) {
-            log.debug(e);
+            LOG.debug(e);
             isValidDate = false;
         }
 
-        if (log.isDebugEnabled()) {
-            log.debug("=== isValidDateString('" + dateStr + "','" + format + "') = " + isValidDate + " ===");
+        if (LOG.isDebugEnabled()) {
+            LOG.debug("=== isValidDateString('" + dateStr + "','" + format + "') = " + isValidDate + " ===");
         }
 
         return isValidDate;
@@ -106,13 +105,13 @@ public final class Format {
 
                 if (strict && ((pos.getIndex() < format.length()) || date.length() != format.length())) {
                     // no-op
-                    if (log.isDebugEnabled()) {
-                        log.debug("Strict Formatting Failed! [format='" + format + "'; date='" + date + "'; strict="
+                    if (LOG.isDebugEnabled()) {
+                        LOG.debug("Strict Formatting Failed! [format='" + format + "'; date='" + date + "'; strict="
                                 + strict + "]");
                     }
                 } else {
-                    if (log.isDebugEnabled()) {
-                        log.debug("parseDate = " + parseDate + "[format='" + format + "'; date='" + date + "'; strict="
+                    if (LOG.isDebugEnabled()) {
+                        LOG.debug("parseDate = " + parseDate + "[format='" + format + "'; date='" + date + "'; strict="
                                 + strict + "]");
                     }
                     if (parseDate != null) {
@@ -150,13 +149,13 @@ public final class Format {
 
                 if (strict && ((pos.getIndex() < format.length()) || date.length() != format.length())) {
                     // no-op
-                    if (log.isDebugEnabled()) {
-                        log.debug("Strict Formatting Failed! [format='" + format + "'; date='" + date + "'; strict="
+                    if (LOG.isDebugEnabled()) {
+                        LOG.debug("Strict Formatting Failed! [format='" + format + "'; date='" + date + "'; strict="
                                 + strict + "]");
                     }
                 } else {
-                    if (log.isDebugEnabled()) {
-                        log.debug("parseDate = " + parseDate + "[format='" + format + "'; date='" + date + "'; strict="
+                    if (LOG.isDebugEnabled()) {
+                        LOG.debug("parseDate = " + parseDate + "[format='" + format + "'; date='" + date + "'; strict="
                                 + strict + "]");
                     }
                     if (parseDate != null) {

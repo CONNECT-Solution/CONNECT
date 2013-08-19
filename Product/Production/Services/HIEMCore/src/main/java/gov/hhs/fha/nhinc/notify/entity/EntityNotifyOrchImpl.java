@@ -52,16 +52,13 @@ import gov.hhs.fha.nhinc.xmlCommon.XmlUtility;
 
 import java.io.ByteArrayInputStream;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathExpressionException;
 
 import oasis.names.tc.xacml._2_0.context.schema.os.DecisionType;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 import org.oasis_open.docs.wsn.b_2.Notify;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -70,23 +67,7 @@ import org.xml.sax.InputSource;
 
 public class EntityNotifyOrchImpl {
 
-    private static Log log = LogFactory.getLog(EntityNotifyOrchImpl.class);
-
-    /**
-     * Generic constructor.
-     */
-    public EntityNotifyOrchImpl() {
-        log = getLogger();
-    }
-
-    /**
-     * Return the logger.
-     * 
-     * @return the logger
-     */
-    protected Log getLogger() {
-        return log;
-    }
+    private static final Logger LOG = Logger.getLogger(EntityNotifyOrchImpl.class);
 
     /**
      * This method performs the entity orchestration for an notify at the entity.
@@ -100,7 +81,7 @@ public class EntityNotifyOrchImpl {
 
         auditRequestFromAdapter(notify, assertion);
 
-        log.debug("Received Notify: " + rawNotifyXml);
+        LOG.debug("Received Notify: " + rawNotifyXml);
 
         auditInputMessage(notify, assertion,
                 NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.AUDIT_LOG_ENTITY_INTERFACE);
@@ -112,7 +93,7 @@ public class EntityNotifyOrchImpl {
                     Node notificationMessageNode = notificationMessageNodes.item(i);
                     processSingleNotify(notificationMessageNode, assertion);
                 } catch (XPathExpressionException ex) {
-                    log.error("failed to process notify", ex);
+                    LOG.error("failed to process notify", ex);
                 }
             }
         }
@@ -125,7 +106,7 @@ public class EntityNotifyOrchImpl {
 
         if (notificationMessageNode != null) {
             String nodeName = notificationMessageNode.getLocalName();
-            log.debug("Node name: " + nodeName);
+            LOG.debug("Node name: " + nodeName);
             if (notificationMessageNode instanceof Element) {
                 Element notificationMessageElement = (Element) notificationMessageNode;
                 HiemSubscriptionRepositoryService serviceDAO = new HiemSubscriptionRepositoryService();
@@ -135,37 +116,37 @@ public class EntityNotifyOrchImpl {
                     List<HiemSubscriptionItem> subscriptions = serviceDAO.RetrieveByNotificationMessage(
                             notificationMessageElement, "gateway");
                     if (subscriptions != null) {
-                        log.info("found " + subscriptions.size() + " matching subscriptions");
+                        LOG.info("found " + subscriptions.size() + " matching subscriptions");
 
                         for (HiemSubscriptionItem subscription : subscriptions) {
                             String subscriptionRef = subscription.getSubscriptionReferenceXML();
                             String parentSubscriptionRef = subscription.getParentSubscriptionReferenceXML();
                             
-                            log.info("processing subscription.  SubscriptionReference=[" + subscriptionRef + "]");
+                            LOG.info("processing subscription.  SubscriptionReference=[" + subscriptionRef + "]");
                             if (parentSubscriptionRef != null) {
-                                log.info("has parent - retrieving [" + parentSubscriptionRef + "]");
+                                LOG.info("has parent - retrieving [" + parentSubscriptionRef + "]");
                                 subscription = serviceDAO.retrieveByLocalSubscriptionReference(parentSubscriptionRef);
                             }
                             String endpoint = findNotifyEndpoint(subscription);
-                            log.info("endpoint=" + endpoint);
+                            LOG.info("endpoint=" + endpoint);
 
-                            log.debug("extracting reference parameters from consumer reference");
+                            LOG.debug("extracting reference parameters from consumer reference");
                             ReferenceParametersHelper referenceParametersHelper = new ReferenceParametersHelper();
                             SoapMessageElements referenceParametersElements = referenceParametersHelper
                                     .createReferenceParameterElementsFromConsumerReference(subscription
                                             .getSubscribeXML());
-                            log.debug("extracted reference parameters from consumer reference");
+                            LOG.debug("extracted reference parameters from consumer reference");
 
                             NhinTargetSystemType targetSystem = new NhinTargetSystemType();
                             targetSystem.setUrl(endpoint);
 
-                            log.debug("building notify");
+                            LOG.debug("building notify");
                             Element subscriptionReferenceElement = null;
                             try {
                                 subscriptionReferenceElement = XmlUtility.convertXmlToElement(subscription
                                         .getSubscriptionReferenceXML());
                             } catch (Exception ex) {
-                                Logger.getLogger(EntityNotifyOrchImpl.class.getName()).log(Level.SEVERE, null, ex);
+                                LOG.error("Error getting subscription reference element:" + ex.getMessage(), ex);
                             }
                             NotifyBuilder builder = new NotifyBuilder();
                             Notify notifyElement = builder.buildNotifyFromSubscribe(notificationMessageElement,
@@ -175,14 +156,14 @@ public class EntityNotifyOrchImpl {
                         }
                     }
                 } catch (SubscriptionRepositoryException ex) {
-                    log.error("Error collecting subscription records: " + ex.getMessage(), ex);
+                    LOG.error("Error collecting subscription records: " + ex.getMessage(), ex);
                 }
             }
         }
     }
 
     private String findNotifyEndpoint(HiemSubscriptionItem subscription) {
-        log.debug("Begin findNotifyEndpoint");
+        LOG.debug("Begin findNotifyEndpoint");
         String endpoint = "";
         if (subscription != null) {
             String rawSubscribeXml = subscription.getSubscribeXML();
@@ -193,14 +174,14 @@ public class EntityNotifyOrchImpl {
                     Node addressNode = XmlUtility.performXpathQuery(rawSubscribeXml, xpathQuery);
                     if (addressNode != null) {
                         endpoint = XmlUtility.getNodeValue(addressNode);
-                        log.debug("Endpoint extracted from subscribe message: " + endpoint);
+                        LOG.debug("Endpoint extracted from subscribe message: " + endpoint);
                     }
                 } catch (XPathExpressionException ex) {
-                    log.error("Error extracting the endpoint from a subscribe message: " + ex.getMessage(), ex);
+                    LOG.error("Error extracting the endpoint from a subscribe message: " + ex.getMessage(), ex);
                 }
             }
         }
-        log.debug("End findNotifyEndpoint");
+        LOG.debug("End findNotifyEndpoint");
         return endpoint;
     }
 
@@ -210,24 +191,24 @@ public class EntityNotifyOrchImpl {
             javax.xml.xpath.XPathFactory factory = javax.xml.xpath.XPathFactory.newInstance();
             javax.xml.xpath.XPath xpath = factory.newXPath();
             InputSource inputSource = new InputSource(new ByteArrayInputStream(rawNotifyXml.getBytes()));
-            log.debug("About to perform notification message node xpath query");
+            LOG.debug("About to perform notification message node xpath query");
 
             msgNodes = (NodeList) xpath.evaluate("//*[local-name()='Notify']/*[local-name()='NotificationMessage']",
                     inputSource, XPathConstants.NODESET);
             if ((msgNodes != null) && (msgNodes.getLength() > 0)) {
-                log.debug("Message node list was not null/empty");
+                LOG.debug("Message node list was not null/empty");
                 for (int i = 0; i < msgNodes.getLength(); i++) {
                     Node childNode = msgNodes.item(i);
                     if (childNode != null) {
                         String nodeName = childNode.getLocalName();
-                        log.debug("Node name: " + nodeName);
+                        LOG.debug("Node name: " + nodeName);
                     }
                 }
             } else {
-                log.debug("Message node or first child was null");
+                LOG.debug("Message node or first child was null");
             }
         } catch (XPathExpressionException ex) {
-            log.error(
+            LOG.error(
                     "XPathExpressionException exception encountered loading the notify message body: "
                             + ex.getMessage(), ex);
         }
@@ -241,7 +222,7 @@ public class EntityNotifyOrchImpl {
      * @param assertion The assertion to be audited
      */
     private void auditRequestFromAdapter(Notify request, AssertionType assertion) {
-        log.debug("In EntitysubscribeOrchImpl.auditInputMessage");
+        LOG.debug("In EntitysubscribeOrchImpl.auditInputMessage");
 
         try {
             AuditRepositoryLogger auditLogger = new AuditRepositoryLogger();
@@ -259,7 +240,7 @@ public class EntityNotifyOrchImpl {
                 proxy.auditLog(auditLogMsg, assertion);
             }
         } catch (Throwable t) {
-            log.error("Error logging subscribe message: " + t.getMessage(), t);
+            LOG.error("Error logging subscribe message: " + t.getMessage(), t);
         }
     }
 
@@ -274,17 +255,17 @@ public class EntityNotifyOrchImpl {
     private void sendRequestToTarget(Notify request, SoapMessageElements referenceParameters,
             AssertionType assertion, NhinTargetSystemType targetSystem) {
         if (isPolicyValid(request, assertion)) {
-            log.info("Policy check successful");
+            LOG.info("Policy check successful");
             // send request to nhin proxy
             try {
                 sendToNhinProxy(request, referenceParameters, assertion, targetSystem);
             } catch (Exception e) {
                 // TODO nhinResponse = createFailedNhinSendResponse(hcid);
                 String hcid = targetSystem.getHomeCommunity().getHomeCommunityId();
-                log.error("Fault encountered while trying to send message to the nhin " + hcid, e);
+                LOG.error("Fault encountered while trying to send message to the nhin " + hcid, e);
             }
         } else {
-            log.error("Failed policy check.  Sending error response.");
+            LOG.error("Failed policy check.  Sending error response.");
         }
     }
 
@@ -345,7 +326,7 @@ public class EntityNotifyOrchImpl {
      * @return
      */
     private boolean isPolicyValid(Notify notifyRequest, AssertionType assertion) {
-        log.debug("In HiemNotifyImpl.checkPolicy");
+        LOG.debug("In HiemNotifyImpl.checkPolicy");
         boolean policyIsValid = false;
 
         NotifyEventType policyCheckReq = new NotifyEventType();
@@ -366,7 +347,7 @@ public class EntityNotifyOrchImpl {
             policyIsValid = true;
         }
 
-        log.debug("Finished HiemNotifyImpl.checkPolicy - valid: " + policyIsValid);
+        LOG.debug("Finished HiemNotifyImpl.checkPolicy - valid: " + policyIsValid);
         return policyIsValid;
     }
 
@@ -395,7 +376,7 @@ public class EntityNotifyOrchImpl {
     */
     private void auditInputMessage(Notify notify, AssertionType assertion, String direction,
             String logInterface) {
-        log.debug("In NhinHiemNotifyWebServiceProxy.auditInputMessage");
+        LOG.debug("In NhinHiemNotifyWebServiceProxy.auditInputMessage");
         try {
             AuditRepositoryLogger auditLogger = new AuditRepositoryLogger();
 
@@ -412,7 +393,7 @@ public class EntityNotifyOrchImpl {
                 proxy.auditLog(auditLogMsg, assertion);
             }
         } catch (Throwable t) {
-            log.error("Error logging subscribe message: " + t.getMessage(), t);
+            LOG.error("Error logging subscribe message: " + t.getMessage(), t);
         }
     }
 }

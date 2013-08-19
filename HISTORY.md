@@ -1,8 +1,39 @@
+## CONNECT 4.0 Release
+
+**Increased gateway throughput, targeting increased numbers of Patient Discovery, Query for Documents, Retrieve Documents, Administrative Distribution, and Document Submission supported transactions**
+To support more widespread health data exchange, national programs roll out plans, and support meeting Meaningful Use 2 CONNECT 4.0 has become more efficient with increased ability to process significantly larger transaction volumes for production services.  The architectural modifications and refactoring of code during work on major features, maintenance, bug fixes, and targeted technical debt helped achieve these new levels of performance.  CONNECT 4.0 also allows for better utilization of the adopter infrastructure contributing to better efficiency and throughput.
+
+**Exchange and process large payload sizes of up to 1 GB while meeting throughput requirements**
+CONNECT 4.0 supports larger transaction sizes from current levels to over one gigabyte.  This increased capability will increase the ability to incorporate expanded exchange needs of additional adopters and use cases where larger data exchanges are required.  This functionality has been architected and developed to meet throughput requirements and maintain a positive impact on gateway performance when handling larger payloads and transactions.
+
+**Ability to deploy on additional application servers such as WebSphere and WebLogic to meet individual environment needs**
+Run CONNECT 4.0 on additional application servers such as WebSphere and WebLogic to meet unique IT environment needs and redesigning CONNECT to be deployable with other application servers expanding deployment options.  This enhancement also provides a model for the community to add support for additional application servers.  This allows adopters to use their preferred app servers and take advantage of internal sysadmin expertise for things like security, scalability, etc.
+
+CONNECT achieved the ability to work with alternative application servers by removing its dependency on Metro web service stack. CONNECT previously was tightly integrated with Metro, as part of this feature CONNECT was decoupled from Metro.  With the design approach taken CONNECT developed clean components not limited to which web service stack implementation can be used with CONNECT. However, for Release 4.0 CONNECT will be implemented using Apache CXF for its web service stack but the messaging component is open for extension.  CXF was selected due to several key benefits it provides which can be seen by following the links below.
+
+**Capture and utilize more comprehensive event logging and metric data with enhanced logging capabilities**
+CONNECT adopters shall have the ability to get more comprehensive event logging and metric data (counts and duration) using improved logging in CONNECT on deployed services.  Allowing adopters to better understand usage and deployment performance as well as provide insight into exchange partner performance. This feature will support better planning, utilization, and management of CONNECT deployment.  It will also provide an opportunity to use external automated monitoring tools. Usage information can be utilized for any dynamic scaling based on load.
+
+**Transaction Logging across messages**
+This feature will determine the state of a transaction across messages to better troubleshoot and analyze the operations of deployment, gateway, and exchange partner gateways.  This feature provides a more holistic view of a complete transaction with any given exchange partner.  Each implementer will have increased insight for troubleshooting and issue resolution.  This feature will also provide more input for transaction management and planning.
+
+**Ability to Support the Direct Project Messages**
+This feature will support Direct messages to allow for flexible adoption paths, to increase the number of potential exchange partners, and to deploy part of the ONC 2014 Standards & Certification Criteria (S&CC). Adopters are provided functionality to support both eHealth Exchange and the Direct Project transactions through one deployment. The incorporation of this feature in CONNECT offers a flexible built-in growth or migration path for additional use cases while supporting expanding federal, commercial, and state and regional HIE needs. 
+
+**Support for some Meaningful Use 2 Objectives**
+Core Meaningful Use 2 objectives related to the secure electronic exchange of health information are supported through CONNECT 4.0 functionality of the Direct Project specifications and NwHIN exchange specifications covering two transports for MU2 (i.e. electronically sending and receiving patient data, transition of care, registering immunization information, public health reporting, and patient access to data).
+
+**Build Refinements and Introduction of Maven**
+One key component of CONNECT 4.0 was the continued refactoring and modularization of the code base and how these refinements would contribute to improvements in the build process to better support the CONNECT community.  These refinements have allowed for more isolation of what is built in the JAR. This makes the build process faster and more efficient and allows for quicker identifications for build and code issues. The new approach will be more IDE agnostic and easier to use with everyone’s development environments.
+
+By introducing this new build system based on dependency management (Maven), this supports convention over configuration with less things to configure and provides consistency for the community with uniformity in its layout.  With Maven there is a whole ecosystem of plugins, static analysis for code reviews, code coverage and sub-modules, and tools for dependency checks.  Maven also provides robust tools for reporting on builds.
+
+**Integration and Validation Testing Enhancements**
+CONNECT 4.0 also contains significant testing enhancements.  There is increased automation and in code coverage of unit tests; these improvements are due to the greater modularity and breaking out of tests for these modular components. In order to maintain consistency with how CONNECT implements tests, the set-up is the same, which removes machine to machine inconsistency.  Embedded GlassFish in the testing process ensures everyone uses the same environment for testing.  An ability was also added to execute tests by service for more targeted testing capabilities as well as a new, more logical organization in using Message Proxy versus Entity. 
+
+
+
 ## CONNECT 3.3 Release
-CONNECT 3.3 is now generally available, and this version of the open source health information exchange software is all about making the software easier for you to use today and well into the future!
-
-
-CONNECT 3.3 includes multiple enhancements, including:
 
 * New features
 * Performance improvements

@@ -28,71 +28,28 @@
 package gov.hhs.fha.nhinc.notify.adapter.proxy.service;
 
 import gov.hhs.fha.nhinc.adapternotificationconsumersecured.AdapterNotificationConsumerPortSecureType;
-import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
+import gov.hhs.fha.nhinc.messaging.service.port.SOAP12ServicePortDescriptor;
 
 /**
  * @author akong
- *
+ * 
  */
-public class HiemNotifyAdapterSecuredServicePortDescriptor implements ServicePortDescriptor<AdapterNotificationConsumerPortSecureType> {
-    private static final String NAMESPACE_URI = "urn:gov:hhs:fha:nhinc:adapternotificationconsumersecured";
-    private static final String SERVICE_LOCAL_PART = "AdapterNotificationConsumerSecured";
-    private static final String PORT_LOCAL_PART = "AdapterNotificationConsumerPortSecureSoap";
-    private static final String WSDL_FILE = "AdapterNotificationConsumerSecured.wsdl";
+public class HiemNotifyAdapterSecuredServicePortDescriptor extends
+        SOAP12ServicePortDescriptor<AdapterNotificationConsumerPortSecureType> {
     private static final String WS_ADDRESSING_ACTION = "urn:Notify";
-    
+
     private String wsAddressingAction = WS_ADDRESSING_ACTION;
-    
-    /*
-     * (non-Javadoc)
-     *
-     * @see gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor#getNamespaceUri()
-     */
-    @Override
-    public String getNamespaceUri() {
-        return NAMESPACE_URI;
-    }
 
     /*
      * (non-Javadoc)
-     *
-     * @see gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor#getServiceLocalPart()
-     */
-    @Override
-    public String getServiceLocalPart() {
-        return SERVICE_LOCAL_PART;
-    }
-
-    /*
-     * (non-Javadoc)
-     *
-     * @see gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor#getPortLocalPart()
-     */
-    @Override
-    public String getPortLocalPart() {
-        return PORT_LOCAL_PART;
-    }
-    
-    /*
-     * (non-Javadoc)
-     *
-     * @see gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor#getWSDLFileName()
-     */
-    @Override
-    public String getWSDLFileName() {
-        return WSDL_FILE;
-    }
-
-    /*
-     * (non-Javadoc)
-     *
+     * 
      * @see gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor#getWSAddressingAction()
      */
     @Override
     public String getWSAddressingAction() {
         return wsAddressingAction;
     }
-    
+
     /**
      * Sets the Ws-Addressing action associated with this port descriptor.
      * 
@@ -101,10 +58,10 @@ public class HiemNotifyAdapterSecuredServicePortDescriptor implements ServicePor
     public void setWSAddressingAction(String action) {
         wsAddressingAction = action;
     }
-    
+
     /*
      * (non-Javadoc)
-     *
+     * 
      * @see gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor#getPortClass()
      */
     @Override

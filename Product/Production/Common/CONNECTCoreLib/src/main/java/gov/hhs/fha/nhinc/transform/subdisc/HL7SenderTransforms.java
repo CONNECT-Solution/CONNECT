@@ -27,8 +27,7 @@
 package gov.hhs.fha.nhinc.transform.subdisc;
 
 import javax.xml.bind.JAXBElement;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 import org.hl7.v3.CommunicationFunctionType;
 import org.hl7.v3.EntityClassDevice;
 import org.hl7.v3.II;
@@ -51,7 +50,7 @@ import org.hl7.v3.MCCIMT000300UV01Sender;
  */
 public class HL7SenderTransforms {
 
-    private static Log log = LogFactory.getLog(HL7SenderTransforms.class);
+    private static final Logger LOG = Logger.getLogger(HL7SenderTransforms.class);
 
     /**
      * Create sender element. The passed OID will be used as the HL7 device application id and the organization home
@@ -73,7 +72,7 @@ public class HL7SenderTransforms {
         MCCIMT000200UV01Device senderDevice = new MCCIMT000200UV01Device();
         senderDevice.setDeterminerCode(HL7Constants.SENDER_DETERMINER_CODE);
         senderDevice.setClassCode(EntityClassDevice.DEV);
-        log.debug("Setting sender device id (applicationId) to " + OID);
+        LOG.debug("Setting sender device id (applicationId) to " + OID);
         senderDevice.getId().add(HL7DataTransformHelper.IIFactory(OID));
 
         MCCIMT000200UV01Agent agent = new MCCIMT000200UV01Agent();
@@ -121,7 +120,7 @@ public class HL7SenderTransforms {
         MCCIMT000100UV01Device senderDevice = new MCCIMT000100UV01Device();
         senderDevice.setDeterminerCode(HL7Constants.SENDER_DETERMINER_CODE);
         senderDevice.setClassCode(EntityClassDevice.DEV);
-        log.debug("Setting sender device id (applicationId) to " + OID);
+        LOG.debug("Setting sender device id (applicationId) to " + OID);
         senderDevice.getId().add(HL7DataTransformHelper.IIFactory(OID));
 
         MCCIMT000100UV01Agent agent = new MCCIMT000100UV01Agent();
@@ -169,7 +168,7 @@ public class HL7SenderTransforms {
         MCCIMT000300UV01Device senderDevice = new MCCIMT000300UV01Device();
         senderDevice.setDeterminerCode(HL7Constants.SENDER_DETERMINER_CODE);
         senderDevice.setClassCode(EntityClassDevice.DEV);
-        log.debug("Setting sender device id (applicationId) to " + OID);
+        LOG.debug("Setting sender device id (applicationId) to " + OID);
         senderDevice.getId().add(HL7DataTransformHelper.IIFactory(OID));
 
         MCCIMT000300UV01Agent agent = new MCCIMT000300UV01Agent();

@@ -33,8 +33,8 @@ import java.math.BigInteger;
 
 import javax.xml.bind.JAXBElement;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
+
 import org.hl7.v3.ActClassControlAct;
 import org.hl7.v3.ActRelationshipMitigates;
 import org.hl7.v3.BinaryDataEncoding;
@@ -76,24 +76,16 @@ import gov.hhs.fha.nhinc.properties.PropertyAccessException;
  */
 public class HL7PRPA201306Transforms {
 
-    private static Log log = LogFactory.getLog(HL7PRPA201306Transforms.class);
-    private Log nonStaticLog = null;
-
-    /**
-     * default constructor
-     */
-    public HL7PRPA201306Transforms() {
-        nonStaticLog = createLogger();
-    }
+    private static final Logger LOG = Logger.getLogger(HL7PRPA201306Transforms.class);
 
     public static PRPAIN201306UV02 createPRPA201306(PRPAMT201301UV02Patient patient, String senderOID,
             String receiverAAID, String receiverOID, String localDeviceId, PRPAIN201305UV02 query) {
         PRPAIN201306UV02 result = new PRPAIN201306UV02();
 
-        log.debug("Create the 201306 message header fields");
+        LOG.trace("Create the 201306 message header fields");
         result.setITSVersion(HL7Constants.ITS_VERSION);
-        result.setId(HL7MessageIdGenerator.GenerateHL7MessageId(receiverOID));
-        result.setCreationTime(HL7DataTransformHelper.CreationTimeFactory());
+        result.setId(HL7MessageIdGenerator.generateHL7MessageId(receiverOID));
+        result.setCreationTime(HL7DataTransformHelper.creationTimeFactory());
         result.setInteractionId(HL7DataTransformHelper.IIFactory(HL7Constants.INTERACTION_ID_ROOT, "PRPA_IN201306UV02"));
         result.setProcessingCode(HL7DataTransformHelper.CSFactory("P"));
         result.setProcessingModeCode(HL7DataTransformHelper.CSFactory("R"));
@@ -102,14 +94,14 @@ public class HL7PRPA201306Transforms {
         result.getAcknowledgement().add(createAck(query));
 
         // Create the Receiver
-        log.debug("Create the Receiver");
+        LOG.trace("Create the Receiver");
         result.getReceiver().add(HL7ReceiverTransforms.createMCCIMT000300UV01Receiver(receiverOID));
 
         // Create the Sender
-        log.debug("Create the Sender");
+        LOG.trace("Create the Sender");
         result.setSender(HL7SenderTransforms.createMCCIMT000300UV01Sender(senderOID));
 
-        log.debug("Create the ControlActProcess");
+        LOG.trace("Create the ControlActProcess");
         result.setControlActProcess(createQUQIMT021001UV01ControlActProcess(patient, localDeviceId, query,
                 receiverAAID, receiverOID));
 
@@ -126,22 +118,22 @@ public class HL7PRPA201306Transforms {
      */
     public PRPAIN201306UV02 createPRPA201306ForPatientNotFound(PRPAIN201305UV02 oRequest) {
 
-        addLogDebug("*** Entering createPRPA201306ForPatientNotFound() method ***");
+        LOG.trace("*** Entering createPRPA201306ForPatientNotFound() method ***");
         if (oRequest == null) {
-            addLogError("The incomming patient discovery request, PRPAIN201305UV02, message was null.");
+            LOG.error("The incomming patient discovery request, PRPAIN201305UV02, message was null.");
             return null;
         } // else continue
 
         boolean bRequiredFieldsAreNull = areIncommingRequiredPRPAIN201305FieldsNull(oRequest);
         if (bRequiredFieldsAreNull) {
-            addLogError("One or more required fields from the patient discovery request "
+            LOG.error("One or more required fields from the patient discovery request "
                     + "for the patient not found scenario are null.");
             return null;
         }
 
         PRPAIN201306UV02 result = new PRPAIN201306UV02();
 
-        addLogDebug("Create the 201306 message header fields");
+        LOG.trace("Create the 201306 message header fields");
         result.setITSVersion(HL7Constants.ITS_VERSION);
         // extract the receiverOID from the request message - it will become the sender
         String sReceiverOIDFromMessage = getReceiverOIDFromPRPAIN201305UV02Request(oRequest);
@@ -161,20 +153,20 @@ public class HL7PRPA201306Transforms {
         result.getAcknowledgement().add(createAck(oRequest));
 
         // Create the Receiver
-        addLogDebug("Create the Receiver");
+        LOG.trace("Create the Receiver");
         result.getReceiver().add(HL7ReceiverTransforms.createMCCIMT000300UV01Receiver(receiverOID));
 
         // Create the Sender
-        addLogDebug("Create the Sender");
+        LOG.trace("Create the Sender");
         result.setSender(HL7SenderTransforms.createMCCIMT000300UV01Sender(senderOID));
 
         // from spec - case 4
         // OK (data found, no errors) is returned in QueryAck.queryResponseCode (control act wrapper)
         // There is no RegistrationEvent returned in the response
-        addLogDebug("Create the ControlActProcess");
+        LOG.trace("Create the ControlActProcess");
         result.setControlActProcess(createQUQIMT021001UV01ControlActProcessWithNoRegistrationEvent(oRequest));
 
-        addLogDebug("*** Exiting createPRPA201306ForPatientNotFound() method ***");
+        LOG.trace("*** Exiting createPRPA201306ForPatientNotFound() method ***");
         return result;
     }
 
@@ -187,26 +179,26 @@ public class HL7PRPA201306Transforms {
      */
     public PRPAIN201306UV02 createPRPA201306ForErrors(PRPAIN201305UV02 oRequest, String sErrorCode) {
 
-        addLogDebug("*** Entering createPRPA201306ForErrors() method ***");
+        LOG.trace("*** Entering createPRPA201306ForErrors() method ***");
         if (oRequest == null) {
-            addLogError("The incomming patient discovery request, PRPAIN201305UV02, message was null.");
+            LOG.error("The incomming patient discovery request, PRPAIN201305UV02, message was null.");
             return null;
         } // else continue
 
         boolean bRequiredFieldsAreNull = areIncommingRequiredPRPAIN201305FieldsNull(oRequest);
         if (bRequiredFieldsAreNull) {
-            addLogError("One or more required fields from the patient discovery request are null.");
+            LOG.error("One or more required fields from the patient discovery request are null.");
             return null;
         }
 
         if (NullChecker.isNullish(sErrorCode)) {
-            addLogError("The sErrorCode parameter was null.");
+            LOG.error("The sErrorCode parameter was null.");
             return null;
         }
 
         PRPAIN201306UV02 result = new PRPAIN201306UV02();
 
-        addLogDebug("Create the 201306 message header fields");
+        LOG.trace("Create the 201306 message header fields");
         result.setITSVersion(HL7Constants.ITS_VERSION);
 
         // extract the receiverOID from the request message - it will become the sender
@@ -216,18 +208,21 @@ public class HL7PRPA201306Transforms {
         // Update 3.1.1: use the current home community id as defined in gateway.properties
         // If message fails to leave local community then senderid and receiverid will match
         try {
-            log.info("Attempting to retrieve property: " + NhincConstants.HOME_COMMUNITY_ID_PROPERTY
+            LOG.info("Attempting to retrieve property: " + NhincConstants.HOME_COMMUNITY_ID_PROPERTY
                     + " from property file: " + NhincConstants.GATEWAY_PROPERTY_FILE);
             String sHomeCommunityId = PropertyAccessor.getInstance().getProperty(NhincConstants.GATEWAY_PROPERTY_FILE,
                     NhincConstants.HOME_COMMUNITY_ID_PROPERTY);
-            log.info("Retrieve local home community id: " + sHomeCommunityId);
-            // If the property is set, then use this instead of from sending request
-            if (!sHomeCommunityId.isEmpty() && sHomeCommunityId != null)
-                senderOID = sHomeCommunityId;
+            if (sHomeCommunityId != null){
+                LOG.info("Retrieve local home community id: " + sHomeCommunityId);
+                // If the property is set, then use this instead of from sending request
+                if (!sHomeCommunityId.isEmpty()){
+                   senderOID = sHomeCommunityId;
+                }
+            }
         } catch (PropertyAccessException ex) {
-            log.error("Error: Failed to retrieve " + NhincConstants.HOME_COMMUNITY_ID_PROPERTY
+            LOG.error("Error: Failed to retrieve " + NhincConstants.HOME_COMMUNITY_ID_PROPERTY
                     + " from property file: " + NhincConstants.GATEWAY_PROPERTY_FILE);
-            log.error(ex.getMessage());
+            LOG.error(ex.getMessage());
         }
 
         // extract the senderOID from the request - it will become the receiver
@@ -246,16 +241,16 @@ public class HL7PRPA201306Transforms {
         result.getAcknowledgement().add(createAck(oRequest));
 
         // Create the Receiver
-        addLogDebug("Create the Receiver");
+        LOG.trace("Create the Receiver");
         result.getReceiver().add(HL7ReceiverTransforms.createMCCIMT000300UV01Receiver(receiverOID));
 
         // Create the Sender
-        addLogDebug("Create the Sender");
+        LOG.trace("Create the Sender");
         result.setSender(HL7SenderTransforms.createMCCIMT000300UV01Sender(senderOID));
 
         // from spec - case 5
         // There is no RegistrationEvent returned in the response
-        addLogDebug("Create the ControlActProcess");
+        LOG.trace("Create the ControlActProcess");
         PRPAIN201306UV02MFMIMT700711UV01ControlActProcess oControlActProcess = createQUQIMT021001UV01ControlActProcessWithNoRegistrationEvent(oRequest);
         // QE (application error) is returned in QueryAck.queryResponseCode (control act wrapper)
         oControlActProcess.getQueryAck().getQueryResponseCode().setCode(HL7Constants.QUERY_ACK_QE);
@@ -265,7 +260,7 @@ public class HL7PRPA201306Transforms {
 
         result.setControlActProcess(oControlActProcess);
 
-        addLogDebug("*** Exiting createPRPA201306ForErrors() method ***");
+        LOG.trace("*** Exiting createPRPA201306ForErrors() method ***");
         return result;
     }
 
@@ -280,7 +275,7 @@ public class HL7PRPA201306Transforms {
      */
     public PRPAIN201306UV02 createPRPA201306ForErrors(PRPAIN201305UV02 oRequest, String sErrorCode, String sErrorText) {
 
-        addLogDebug("*** Entering createPRPA201306ForErrors() method ***");
+        LOG.trace("*** Entering createPRPA201306ForErrors() method ***");
         PRPAIN201306UV02 result = createPRPA201306ForErrors(oRequest, sErrorCode);
 
         //set the detectedIssueEvent
@@ -295,7 +290,7 @@ public class HL7PRPA201306Transforms {
             }
         }
 
-        addLogDebug("*** Exiting createPRPA201306ForErrors() method ***");
+        LOG.trace("*** Exiting createPRPA201306ForErrors() method ***");
         return result;
     }
 
@@ -311,19 +306,19 @@ public class HL7PRPA201306Transforms {
         if (patient != null && NullChecker.isNotNullish(patient.getId()) && patient.getId().get(0) != null
                 && NullChecker.isNotNullish(patient.getId().get(0).getExtension())
                 && NullChecker.isNotNullish(patient.getId().get(0).getRoot())) {
-            log.debug("Add the Subject");
+            LOG.trace("Add the Subject");
             controlActProcess.getSubject().add(
                     createSubject(patient, query, patient.getId().get(0).getExtension(), patient.getId().get(0)
                             .getRoot(), orgId));
         }
 
-        log.debug("Add the Query Ack");
+        LOG.trace("Add the Query Ack");
         controlActProcess.setQueryAck(createQueryAck(query));
 
         // Add in query parameters
         if (query.getControlActProcess() != null && query.getControlActProcess().getQueryByParameter() != null
                 && query.getControlActProcess().getQueryByParameter().getValue() != null) {
-            log.debug("Add Query By Parameter");
+            LOG.trace("Add Query By Parameter");
             controlActProcess.setQueryByParameter(query.getControlActProcess().getQueryByParameter());
         }
 
@@ -338,14 +333,14 @@ public class HL7PRPA201306Transforms {
 
         controlActProcess
                 .setCode(HL7DataTransformHelper.CDFactory("PRPA_TE201306UV", HL7Constants.INTERACTION_ID_ROOT));
-        log.debug("Add the Subject");
+        LOG.trace("Add the Subject");
         controlActProcess.getSubject().add(createSubjectWithNoRegistrationEvent());
-        log.debug("Add the Query Ack");
+        LOG.trace("Add the Query Ack");
         controlActProcess.setQueryAck(createQueryAck(query));
         // Add in query parameters
         if (query.getControlActProcess() != null && query.getControlActProcess().getQueryByParameter() != null
                 && query.getControlActProcess().getQueryByParameter().getValue() != null) {
-            log.debug("Add Query By Parameter");
+            LOG.trace("Add Query By Parameter");
             controlActProcess.setQueryByParameter(query.getControlActProcess().getQueryByParameter());
         }
 
@@ -354,14 +349,14 @@ public class HL7PRPA201306Transforms {
 
     public static MFMIMT700711UV01QueryAck createQueryAck(PRPAIN201305UV02 query) {
         MFMIMT700711UV01QueryAck result = new MFMIMT700711UV01QueryAck();
-        log.debug("Begin CreateQueryAck");
+        LOG.trace("Begin CreateQueryAck");
 
         if (query.getControlActProcess() != null && query.getControlActProcess().getQueryByParameter() != null
                 && query.getControlActProcess().getQueryByParameter().getValue() != null
                 && query.getControlActProcess().getQueryByParameter().getValue().getQueryId() != null) {
             result.setQueryId(query.getControlActProcess().getQueryByParameter().getValue().getQueryId());
         } else {
-            log.debug("No QueryByParameters");
+            LOG.trace("No QueryByParameters");
         }
 
         CS respCode = new CS();
@@ -380,7 +375,7 @@ public class HL7PRPA201306Transforms {
         remainQuanity.setValue(BigInteger.valueOf(0));
         result.setResultRemainingQuantity(remainQuanity);
 
-        log.debug("end CreateQueryAck");
+        LOG.trace("end CreateQueryAck");
         return result;
     }
 
@@ -419,7 +414,7 @@ public class HL7PRPA201306Transforms {
 
         regEvent.setStatusCode(statusCode);
 
-        log.debug("Setting Subject1");
+        LOG.trace("Setting Subject1");
         regEvent.setSubject1(createSubject2(patient, query, patientId, aaID));
 
         regEvent.setCustodian(createCustodian(orgId));
@@ -431,7 +426,7 @@ public class HL7PRPA201306Transforms {
             PRPAIN201305UV02 query, String patId, String orgId) {
         PRPAIN201306UV02MFMIMT700711UV01Subject2 subject = new PRPAIN201306UV02MFMIMT700711UV01Subject2();
         subject.setTypeCode(ParticipationTargetSubject.SBJ);
-        log.debug("patientID = " + patId);
+        LOG.debug("patientID = " + patId);
         PRPAMT201310UV02Patient pat310 = HL7PatientTransforms.create201310Patient(patient, patId, orgId);
 
         pat310.setProviderOrganization(createProviderOrg(patient));
@@ -440,7 +435,7 @@ public class HL7PRPA201306Transforms {
         pat310.getSubjectOf1().add(createSubjectOf1());
 
         // Add in patient
-        log.debug("set patient");
+        LOG.trace("set patient");
         subject.setPatient(pat310);
 
         return subject;
@@ -574,17 +569,8 @@ public class HL7PRPA201306Transforms {
 
     }
 
-    /**
-     * Instantiating log4j logger
-     * 
-     * @return
-     */
-    protected Log createLogger() {
-        return ((nonStaticLog != null) ? nonStaticLog : LogFactory.getLog(getClass()));
-    }
-
     protected TSExplicit getHL7CreationTime() {
-        return HL7DataTransformHelper.CreationTimeFactory();
+        return HL7DataTransformHelper.creationTimeFactory();
     }
 
     protected II getHL7InteractionId() {
@@ -592,7 +578,7 @@ public class HL7PRPA201306Transforms {
     }
 
     protected II getHL7MessageId(String receiverOID) {
-        return HL7MessageIdGenerator.GenerateHL7MessageId(receiverOID);
+        return HL7MessageIdGenerator.generateHL7MessageId(receiverOID);
     }
 
     protected CS getHL7ProcessingCode() {
@@ -615,59 +601,32 @@ public class HL7PRPA201306Transforms {
         return sSenderOIDFromMessage;
     }
 
-    /**
-     * add an info statement/message to the log file
-     * 
-     * @param message
-     */
-    private void addLogInfo(String message) {
-        nonStaticLog.info(message);
-    }
-
-    /**
-     * add a debug statement to the log file
-     * 
-     * @param message
-     */
-    private void addLogDebug(String message) {
-        nonStaticLog.debug(message);
-    }
-
-    /**
-     * add an error message/statement to the log file
-     * 
-     * @param message
-     */
-    private void addLogError(String message) {
-        nonStaticLog.error(message);
-    }
-
     protected boolean areIncommingRequiredPRPAIN201305FieldsNull(PRPAIN201305UV02 oRequest) {
 
         // check receiverOID
         boolean bReceiverFieldsNull = areReceiverFieldsNull(oRequest);
         if (bReceiverFieldsNull) {
-            addLogError("One or more request receiver fields are null or empty.");
+            LOG.error("One or more request receiver fields are null or empty.");
             return true;
         }
 
         // check senderOID
         boolean bSenderFieldsNull = areSenderFieldsNull(oRequest);
         if (bSenderFieldsNull) {
-            addLogError("One or more request sender fields are null or empty.");
+            LOG.error("One or more request sender fields are null or empty.");
             return true;
         }
 
         // check controlActProcess fields
         boolean bControlActProcessFieldsNull = areControlActProcessFieldsNull(oRequest);
         if (bControlActProcessFieldsNull) {
-            addLogError("One or more ControlActProcess fields from the incomming request were null.");
+            LOG.error("One or more ControlActProcess fields from the incomming request were null.");
             return true;
         }
 
         // check interactionId
         if (oRequest.getInteractionId() == null) {
-            addLogError("The InteractionId object from the incomming request message is null.");
+            LOG.error("The InteractionId object from the incomming request message is null.");
             return true;
         }
 
@@ -676,32 +635,32 @@ public class HL7PRPA201306Transforms {
 
     protected boolean areReceiverFieldsNull(PRPAIN201305UV02 oRequest) {
         if (NullChecker.isNullish(oRequest.getReceiver())) {
-            addLogError("The list of receiver objects from the incomming request " + "message were null or empty.");
+            LOG.error("The list of receiver objects from the incomming request " + "message were null or empty.");
             return true;
         }
 
         if (oRequest.getReceiver().get(0) == null) {
-            addLogError("The request's receiver object is null.");
+            LOG.error("The request's receiver object is null.");
             return true;
         }
 
         if (oRequest.getReceiver().get(0).getDevice() == null) {
-            addLogError("The request's receiver device object is null.");
+            LOG.error("The request's receiver device object is null.");
             return true;
         }
 
         if (NullChecker.isNullish(oRequest.getReceiver().get(0).getDevice().getId())) {
-            addLogError("The list of device ids from the receiver object were null or empty.");
+            LOG.error("The list of device ids from the receiver object were null or empty.");
             return true;
         }
 
         if (oRequest.getReceiver().get(0).getDevice().getId().get(0) == null) {
-            addLogError("The device II id object is null.");
+            LOG.error("The device II id object is null.");
             return true;
         }
 
         if (NullChecker.isNullish(oRequest.getReceiver().get(0).getDevice().getId().get(0).getRoot())) {
-            addLogError("The device II id getRoot value is null.");
+            LOG.error("The device II id getRoot value is null.");
             return true;
         }
         // all fields are ok return false for null value check
@@ -710,27 +669,27 @@ public class HL7PRPA201306Transforms {
 
     protected boolean areSenderFieldsNull(PRPAIN201305UV02 oRequest) {
         if (oRequest.getSender() == null) {
-            addLogError("The sender object from the incomming request message was null.");
+            LOG.error("The sender object from the incomming request message was null.");
             return true;
         }
 
         if (oRequest.getSender().getDevice() == null) {
-            addLogError("The request's sender device object is null.");
+            LOG.error("The request's sender device object is null.");
             return true;
         }
 
         if (NullChecker.isNullish(oRequest.getSender().getDevice().getId())) {
-            addLogError("The list of device ids from the sender object were null or empty.");
+            LOG.error("The list of device ids from the sender object were null or empty.");
             return true;
         }
 
         if (oRequest.getSender().getDevice().getId().get(0) == null) {
-            addLogError("The sender device id (II) object is null.");
+            LOG.error("The sender device id (II) object is null.");
             return true;
         }
 
         if (NullChecker.isNullish(oRequest.getSender().getDevice().getId().get(0).getRoot())) {
-            addLogError("The device id value (i.e. II.getRoot() or "
+            LOG.error("The device id value (i.e. II.getRoot() or "
                     + "oRequest.getSender().getDevice().getId().get(0).getRoot()) is null.");
             return true;
         }
@@ -740,16 +699,16 @@ public class HL7PRPA201306Transforms {
 
     protected boolean areControlActProcessFieldsNull(PRPAIN201305UV02 oRequest) {
         if (oRequest.getControlActProcess() == null) {
-            addLogError("The controlActProcess object from the incomming request message is null.");
+            LOG.error("The controlActProcess object from the incomming request message is null.");
             return true;
         } else if (oRequest.getControlActProcess().getQueryByParameter() == null) {
-            addLogError("The JAXB queryByParameter object in the request's controlActProcess object is null.");
+            LOG.error("The JAXB queryByParameter object in the request's controlActProcess object is null.");
             return true;
         } else if (oRequest.getControlActProcess().getQueryByParameter().getValue() == null) {
-            addLogError("The queryByParameter object in the request's controlActProcess object is null.");
+            LOG.error("The queryByParameter object in the request's controlActProcess object is null.");
             return true;
         } else if (oRequest.getControlActProcess().getQueryByParameter().getValue().getQueryId() == null) {
-            addLogError("The queryId object in the request's controlActProcess object is null.");
+            LOG.error("The queryId object in the request's controlActProcess object is null.");
             return true;
         } // else all is well, fields are not null; return false
         return false;

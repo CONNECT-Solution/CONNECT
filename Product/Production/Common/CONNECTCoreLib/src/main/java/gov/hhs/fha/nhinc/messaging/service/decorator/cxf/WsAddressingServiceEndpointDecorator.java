@@ -35,16 +35,13 @@ import gov.hhs.fha.nhinc.wsa.WSAHeaderHelper;
 
 import javax.xml.ws.BindingProvider;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-import org.apache.cxf.endpoint.Client;
-import org.apache.cxf.frontend.ClientProxy;
-import org.apache.cxf.transport.http.HTTPConduit;
+import org.apache.commons.lang.StringUtils;
 import org.apache.cxf.transports.http.configuration.HTTPClientPolicy;
 import org.apache.cxf.ws.addressing.AttributedURIType;
 import org.apache.cxf.ws.addressing.JAXWSAConstants;
 import org.apache.cxf.ws.addressing.RelatesToType;
 import org.apache.cxf.ws.addressing.impl.AddressingPropertiesImpl;
+import org.apache.log4j.Logger;
 
 /**
  * @author akong and young weezy
@@ -52,23 +49,15 @@ import org.apache.cxf.ws.addressing.impl.AddressingPropertiesImpl;
  */
 public class WsAddressingServiceEndpointDecorator<T> extends ServiceEndpointDecorator<T> {
 
-    private Log log = null;
+    private static final Logger LOG = Logger.getLogger(WsAddressingServiceEndpointDecorator.class);
 
     private BindingProvider bindingProviderPort;
     private AddressingPropertiesImpl maps;
     private AssertionType assertion;
 
-    /**
-     * 
-     * @param decoratoredEndpoint
-     * @param wsAddressingTo
-     * @param wsAddressingAction
-     * @param assertion
-     */
     public WsAddressingServiceEndpointDecorator(ServiceEndpoint<T> decoratoredEndpoint, String wsAddressingTo,
             String wsAddressingAction, AssertionType assertion) {
         super(decoratoredEndpoint);
-        log = createLogger();
 
         this.bindingProviderPort = (BindingProvider) decoratedEndpoint.getPort();
         this.assertion = assertion;
@@ -97,7 +86,7 @@ public class WsAddressingServiceEndpointDecorator<T> extends ServiceEndpointDeco
         }
         String sMessageId = getMessageId();
 
-        if (sRelatesTo != null) {
+        if (!StringUtils.isBlank(sRelatesTo)) {
             RelatesToType relatesTo = new RelatesToType();
             relatesTo.setValue(sRelatesTo);
             maps.setRelatesTo(relatesTo);
@@ -107,11 +96,7 @@ public class WsAddressingServiceEndpointDecorator<T> extends ServiceEndpointDeco
         messageId.setValue(sMessageId);
         maps.setMessageID(messageId);
 
-        bindingProviderPort.getRequestContext().put(JAXWSAConstants.CLIENT_ADDRESSING_PROPERTIES, maps);        
-    }
-
-    protected Log createLogger() {
-        return LogFactory.getLog(getClass());
+        bindingProviderPort.getRequestContext().put(JAXWSAConstants.CLIENT_ADDRESSING_PROPERTIES, maps);
     }
 
     /**
@@ -120,9 +105,7 @@ public class WsAddressingServiceEndpointDecorator<T> extends ServiceEndpointDeco
      * for Soap 1.2, we will ensure that it is not included.
      */
     private void setContentTypeInHTTPHeader() {
-        Client client = ClientProxy.getClient(getPort());
-        HTTPConduit conduit = (HTTPConduit) client.getConduit();
-        HTTPClientPolicy httpClientPolicy = conduit.getClient();
+        HTTPClientPolicy httpClientPolicy = getHTTPClientPolicy();
 
         String contentType = httpClientPolicy.getContentType();
         if (NullChecker.isNullish(contentType)) {
@@ -149,8 +132,7 @@ public class WsAddressingServiceEndpointDecorator<T> extends ServiceEndpointDeco
 
     /**
      * This method retrieves the message identifier stored in the assertion If the message ID is null or empty, this
-     * method will generate a new UUID to use for the message ID. This will also modify the assertion to contain the new
-     * id if necessary.
+     * method will generate a new UUID to use for the message ID. 
      * 
      * @return The message identifier
      */
@@ -164,13 +146,9 @@ public class WsAddressingServiceEndpointDecorator<T> extends ServiceEndpointDeco
 
         if (NullChecker.isNullish(messageId)) {
             messageId = wsaHelper.generateMessageID();
-            log.warn("Assertion did not contain a message ID.  Generating one now...  Message ID = " + messageId);
+            LOG.warn("Assertion did not contain a message ID.  Generating one now...  Message ID = " + messageId);
         } else {
             messageId = wsaHelper.fixMessageIDPrefix(messageId);
-        }
-
-        if (assertion != null) {
-            assertion.setMessageId(messageId);
         }
 
         return messageId;

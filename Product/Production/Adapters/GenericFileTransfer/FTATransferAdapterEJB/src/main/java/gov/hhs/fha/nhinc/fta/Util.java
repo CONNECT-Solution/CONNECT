@@ -27,8 +27,7 @@
 package gov.hhs.fha.nhinc.fta;
 
 import javax.xml.datatype.DatatypeConfigurationException;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 import gov.hhs.fha.nhinc.common.ftaconfigmanager.*;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.PersonNameType;
@@ -60,7 +59,7 @@ import javax.xml.datatype.XMLGregorianCalendar;
  */
 public class Util {
 
-    private static Log log = LogFactory.getLog(Util.class);
+    private static final Logger LOG = Logger.getLogger(Util.class);
     private static final String ADAPTER_PROPERTY_FILE = "adapter";
     private static final String DATE_FORMAT_NOW = "MM/dd/yyyy HH:mm:ss";
 
@@ -77,7 +76,7 @@ public class Util {
 
             result = Util.convertToString(payload.payload);
         } catch (Exception ex) {
-            log.error(ex.getMessage(), ex);
+            LOG.error(ex.getMessage(), ex);
         }
 
         return result;
@@ -100,9 +99,9 @@ public class Util {
             payload.payload = (Util.convertToByte(contents));
 
             marshaller.marshal(payload, doc);
-            log.info(doc.getNodeValue());
+            LOG.info(doc.getNodeValue());
         } catch (Exception ex) {
-            log.error(ex.getMessage(), ex);
+            LOG.error(ex.getMessage(), ex);
         }
         return doc.getDocumentElement();
 
@@ -121,9 +120,9 @@ public class Util {
 
             element = marshaller.marshal(topicType);
 
-            log.info(element.getTextContent());
+            LOG.info(element.getTextContent());
         } catch (Exception ex) {
-            log.error(ex.getMessage(), ex);
+            LOG.error(ex.getMessage(), ex);
         }
         return element;
 
@@ -142,12 +141,12 @@ public class Util {
             dbf.setNamespaceAware(true);
             doc = dbf.newDocumentBuilder().parse(new InputSource(new StringReader(contents)));
 
-            log.info(doc.getDocumentElement());
-            log.info(doc.getDocumentElement().getAttributeNode("Dialect").getNodeValue());
+            LOG.info(doc.getDocumentElement());
+            LOG.info(doc.getDocumentElement().getAttributeNode("Dialect").getNodeValue());
 
             topic = (TopicExpressionType) um.unmarshal(doc.getDocumentElement());
         } catch (Exception ex) {
-            log.error(ex.getMessage(), ex);
+            LOG.error(ex.getMessage(), ex);
         }
         return topic;
 
@@ -326,7 +325,7 @@ public class Util {
             XMLGregorianCalendar xmlDate = xmlDateFactory.newXMLGregorianCalendar(cal);
             retDate = xmlDate.toXMLFormat();
         } catch (DatatypeConfigurationException ex) {
-            log.error("****** UTIL THROWABLE: " + ex.getMessage(), ex);
+            LOG.error("****** UTIL THROWABLE: " + ex.getMessage(), ex);
         }
         return retDate;
     }
@@ -340,7 +339,7 @@ public class Util {
             XMLGregorianCalendar xmlDate = xmlDateFactory.newXMLGregorianCalendar(cal);
             retDate = xmlDate.toXMLFormat();
         } catch (DatatypeConfigurationException ex) {
-            log.error("****** UTIL THROWABLE: " + ex.getMessage(), ex);
+            LOG.error("****** UTIL THROWABLE: " + ex.getMessage(), ex);
         }
         return retDate;
     }
@@ -351,7 +350,7 @@ public class Util {
         try {
             rc = value.getBytes("UTF8");
         } catch (Exception ex) {
-            log.error("****** UTIL THROWABLE: " + ex.getMessage(), ex);
+            LOG.error("****** UTIL THROWABLE: " + ex.getMessage(), ex);
         }
 
         return rc;
@@ -364,7 +363,7 @@ public class Util {
         try {
             rc = new String(value, 0, value.length, "UTF8");// in string
         } catch (Exception ex) {
-            log.error("****** UTIL THROWABLE: " + ex.getMessage(), ex);
+            LOG.error("****** UTIL THROWABLE: " + ex.getMessage(), ex);
         }
         return rc;
     }
@@ -388,7 +387,7 @@ public class Util {
             }
         } catch (IOException ex) {
             ex.printStackTrace();
-            log.error("****** FTATimerTask THROWABLE: " + ex.getMessage(), ex);
+            LOG.error("****** FTATimerTask THROWABLE: " + ex.getMessage(), ex);
         }
 
         return contents.toString();

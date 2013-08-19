@@ -31,8 +31,8 @@ import gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyResponseType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyRequestType;
 import gov.hhs.fha.nhinc.policyengine.adapter.pep.proxy.AdapterPEPProxy;
 import gov.hhs.fha.nhinc.policyengine.adapter.pep.proxy.AdapterPEPProxyObjectFactory;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+
+import org.apache.log4j.Logger;
 
 /**
  * This class is the Java implementation of the AdapterPolicyEngineOrchestrator. It is orchestrates a call to the policy
@@ -42,7 +42,7 @@ import org.apache.commons.logging.LogFactory;
  */
 public class AdapterPolicyEngineOrchestratorImpl {
 
-    private static Log log = LogFactory.getLog(AdapterPolicyEngineOrchestratorImpl.class);
+    private static final Logger LOG = Logger.getLogger(AdapterPolicyEngineOrchestratorImpl.class);
 
     /**
      * Given a request to check the access policy, this service will interface with the Adapter PEP to determine if
@@ -56,13 +56,13 @@ public class AdapterPolicyEngineOrchestratorImpl {
 
         AdapterPEPProxyObjectFactory factory = new AdapterPEPProxyObjectFactory();
         AdapterPEPProxy adapterPEPProxy = factory.getAdapterPEPProxy();
-        log.debug("AdapterPEP Proxy selected: " + adapterPEPProxy.getClass());
+        LOG.debug("AdapterPEP Proxy selected: " + adapterPEPProxy.getClass());
 
         try {
             checkPolicyResp = adapterPEPProxy.checkPolicy(checkPolicyRequest, assertion);
         } catch (Exception ex) {
             String message = "Error occurred calling AdapterPEPImpl.checkPolicy.  Error: " + ex.getMessage();
-            log.error(message, ex);
+            LOG.error(message, ex);
             throw new RuntimeException(message, ex);
         }
         return checkPolicyResp;

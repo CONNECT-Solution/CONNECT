@@ -27,10 +27,8 @@
 package gov.hhs.fha.nhinc.logging.transaction;
 
 import gov.hhs.fha.nhinc.logging.transaction.dao.TransactionDAO;
-import gov.hhs.fha.nhinc.logging.transaction.model.TransactionRepo;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 
-import java.sql.Timestamp;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
@@ -46,9 +44,7 @@ import javax.xml.ws.handler.MessageContext;
 import javax.xml.ws.handler.soap.SOAPHandler;
 import javax.xml.ws.handler.soap.SOAPMessageContext;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-import org.apache.log4j.MDC;
+import org.apache.log4j.Logger;
 
 /**
  * @author bhumphrey/jasonasmith
@@ -61,20 +57,13 @@ public class TransactionHandler implements SOAPHandler<SOAPMessageContext> {
      */
     private static final QName TRANSACTION_QNAME = new QName("http://connectopensource.org/transaction/",
             "TransactionID");
-    private static final Log LOG = LogFactory.getLog(TransactionHandler.class);
+    private static final Logger LOG = Logger.getLogger(TransactionHandler.class);
     private static final String WSA_NS_2005 = "http://www.w3.org/2005/08/addressing";
     private static final String WSA_NS_2004 = "http://www.w3.org/2004/08/addressing";
     private static final String MESSAGE_ID = "MessageID";
     private static final String RELATESTO_ID = "RelatesTo";
-
-    /**
-     * Get the logger.
-     * @return the class Log
-     */
-    protected Log getLogger() {
-        return LOG;
-    }
-
+    
+   
     /*
      * (non-Javadoc)
      * 
@@ -83,7 +72,7 @@ public class TransactionHandler implements SOAPHandler<SOAPMessageContext> {
     @Override
     public boolean handleMessage(SOAPMessageContext context) {
 
-        getLogger().debug("TransactionHandler handleMessage() START ");
+        LOG.debug("TransactionHandler handleMessage() START ");
         
         String messageId = null;
         String transactionId = null;
@@ -106,11 +95,11 @@ public class TransactionHandler implements SOAPHandler<SOAPMessageContext> {
             	currentWSA = WSA_NS_2004;
             }
             
-            getLogger().debug("TransactionHandler handleMessage() WSA namespace = " + currentWSA);
+            LOG.debug("TransactionHandler handleMessage() WSA namespace = " + currentWSA);
 
             if (messageIdElement != null) {
                 messageId = messageIdElement.getTextContent();
-                getLogger().debug("TransactionHandler.handleMessage() messageId= " + messageId);
+                LOG.debug("TransactionHandler.handleMessage() messageId= " + messageId);
 
                 SOAPElement transactionIdElement = getFirstChild(soapHeader, TRANSACTION_QNAME);
 
@@ -120,7 +109,7 @@ public class TransactionHandler implements SOAPHandler<SOAPMessageContext> {
                 // Checks if the repeatable RelatesTo value in the message has a transactionID
                 if (NullChecker.isNullish(transactionId)) {
                    
-                    getLogger().debug("TransactionHandler.handleMessage() Looking up on RelatesTo");
+                    LOG.debug("TransactionHandler.handleMessage() Looking up on RelatesTo");
                     Iterator<SOAPElement> iter = getAllChildren(soapHeader, currentWSA, RELATESTO_ID);
                     transactionId = iterateThroughRelatesTo(iter, messageId);
                 }
@@ -134,7 +123,7 @@ public class TransactionHandler implements SOAPHandler<SOAPMessageContext> {
             }
 
         } catch (SOAPException e) {
-            getLogger().error(e);
+            LOG.error(e);
         }
         return true;
     }
@@ -146,21 +135,7 @@ public class TransactionHandler implements SOAPHandler<SOAPMessageContext> {
      * @param transactionId The transactionId fromthe SOAPHeader
      */
     protected void createTransactionRecord(String messageId, String transactionId) {
-        if (NullChecker.isNotNullish(messageId) && NullChecker.isNotNullish(transactionId)) {
-            TransactionRepo transRepo = new TransactionRepo();
-            Long newId = null;
-
-            transRepo.setMessageId(messageId);
-            transRepo.setTransactionId(transactionId);
-            transRepo.setTime(this.createTimestamp());
-
-            if (TransactionDAO.getTransactionDAOInstance().insertIntoTransactionRepo(transRepo)) {
-                newId = transRepo.getId();
-                getLogger().info("TransactionHandler.createTransactionId() - New Transaction Log Id = " + newId);
-            } else {
-                getLogger().warn("TransactionHandler.createTransactionId() - ERROR Inserting New Record.");
-            }
-        }
+        new TransactionLogger().createTransactionRecord(messageId, transactionId);
     }
 
     /**
@@ -170,13 +145,7 @@ public class TransactionHandler implements SOAPHandler<SOAPMessageContext> {
      * @return transactionId The transactionId from the DAO lookup
      */
     protected String getTransactionId(String id) {
-        String transactionId = null;
-        
-        if(NullChecker.isNotNullish(id)) {
-            transactionId = TransactionDAO.getTransactionDAOInstance().getTransactionId(id);
-        }
-            
-        return transactionId;
+        return TransactionDAO.getInstance().getTransactionId(id);
     }
 
     /**
@@ -186,20 +155,14 @@ public class TransactionHandler implements SOAPHandler<SOAPMessageContext> {
      * @param messageId The messageId for the message
      */
     protected void enableMdcLogging(String transactionId, String messageId) {
-        if (NullChecker.isNotNullish(transactionId)) {
-            getLogger().info("found transaction-id " + transactionId + "for message id: " + messageId);
-            MDC.put("message-id", messageId);
-            MDC.put("transaction-id", transactionId);
-        } else {
-            getLogger().info("no transaction-id for message id: " + messageId);
-        }
+        new TransactionLogger().enableMdcLogging(transactionId, messageId);
     }
 
     private String checkTransactionIdFromMessage(SOAPElement transactionIdElement, String messageId){
         String transactionId = null;
         if (transactionIdElement != null) {
             transactionId = transactionIdElement.getTextContent();
-            getLogger().debug("TransactionHandler TransactionId found: " + transactionId);
+            LOG.debug("TransactionHandler TransactionId found: " + transactionId);
             if (getTransactionId(messageId) == null) {
                 createTransactionRecord(messageId, transactionId);
             } // else transactionId is already persisted
@@ -219,7 +182,7 @@ public class TransactionHandler implements SOAPHandler<SOAPMessageContext> {
                 SOAPElement relatesToIdElement = iter.next();
                 if (relatesToIdElement != null) {
                     relatesToId = relatesToIdElement.getTextContent();
-                    getLogger().debug("TransactionHandler.handleMessage() RelatesTo: " + relatesToId);
+                    LOG.debug("TransactionHandler.handleMessage() RelatesTo: " + relatesToId);
                     transactionId = getTransactionId(relatesToId);
                     
                     if (NullChecker.isNotNullish(transactionId)) {    
@@ -265,15 +228,6 @@ public class TransactionHandler implements SOAPHandler<SOAPMessageContext> {
         return iter;
     }
 
-    /**
-     * Returns a timestamp, down to the millisecond.
-     * 
-     * @return timestamp The created timestamp
-     */
-    private Timestamp createTimestamp() {
-        return new Timestamp(System.currentTimeMillis());
-    }
-
     /*
      * (non-Javadoc)
      * 
@@ -281,7 +235,7 @@ public class TransactionHandler implements SOAPHandler<SOAPMessageContext> {
      */
     @Override
     public boolean handleFault(SOAPMessageContext context) {
-        getLogger().warn("TransactionHandler.handleFault");
+        LOG.warn("TransactionHandler.handleFault");
         return true;
     }
 
@@ -292,7 +246,7 @@ public class TransactionHandler implements SOAPHandler<SOAPMessageContext> {
      */
     @Override
     public void close(MessageContext context) {
-        getLogger().debug("TransactionHandler.close");
+        LOG.debug("TransactionHandler.close");
     }
 
     /*

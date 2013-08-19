@@ -31,8 +31,7 @@ import gov.hhs.fha.nhinc.messaging.server.BaseService;
 
 import javax.xml.ws.WebServiceContext;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 import org.hl7.v3.PRPAIN201306UV02;
 import org.hl7.v3.RespondingGatewayPRPAIN201305UV02RequestType;
 
@@ -42,7 +41,7 @@ import org.hl7.v3.RespondingGatewayPRPAIN201305UV02RequestType;
  * @author jhoppesc, Les Westberg
  */
 public class AdapterPatientDiscoveryImpl extends BaseService {
-    private static Log log = LogFactory.getLog(AdapterPatientDiscoveryImpl.class);
+    private static final Logger LOG = Logger.getLogger(AdapterPatientDiscoveryImpl.class);
 
     /**
      * This method is called by the secure and unsecure Adapter Secure and unsecure web service. It calls the
@@ -55,7 +54,7 @@ public class AdapterPatientDiscoveryImpl extends BaseService {
      */
     public PRPAIN201306UV02 respondingGatewayPRPAIN201305UV02(Boolean bIsSecure,
             RespondingGatewayPRPAIN201305UV02RequestType request, WebServiceContext context) {
-        log.debug("Entering AdapterPatientDiscoveryImpl.respondingGatewayPRPAIN201305UV02");
+        LOG.debug("Entering AdapterPatientDiscoveryImpl.respondingGatewayPRPAIN201305UV02");
 
         AssertionType assertion = null;
         if ((bIsSecure) && (context != null)) {
@@ -68,7 +67,7 @@ public class AdapterPatientDiscoveryImpl extends BaseService {
         PRPAIN201306UV02 response = oOrchestrator.respondingGatewayPRPAIN201305UV02(request, assertion);
 
         // Send response back to the initiating Gateway
-        log.debug("Exiting AdapterPatientDiscoveryImpl.respondingGatewayPRPAIN201305UV02");
+        LOG.debug("Exiting AdapterPatientDiscoveryImpl.respondingGatewayPRPAIN201305UV02");
         return response;
     }
 }

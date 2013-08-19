@@ -41,7 +41,6 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
-import org.apache.commons.logging.Log;
 import org.jmock.Mockery;
 import org.jmock.integration.junit4.JMock;
 import org.jmock.integration.junit4.JUnit4Mockery;
@@ -534,14 +533,7 @@ public class CdaPdfExtractorTest {
      */
     @Test
     public void testExtractBinaryDocumentPolicyCriteria() {
-        final Log mockLog = context.mock(Log.class);
-
-        CdaPdfExtractor oExtractor = new CdaPdfExtractor() {
-            @Override
-            protected Log createLogger() {
-                return mockLog;
-            }
-        };
+        CdaPdfExtractor oExtractor = new CdaPdfExtractor();
 
         // Test Policy 1
         // --------------

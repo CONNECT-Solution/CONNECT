@@ -27,10 +27,12 @@
 package gov.hhs.fha.nhinc.docregistry.adapter.proxy;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.document.DocumentConstants;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import oasis.names.tc.ebxml_regrep.xsd.rim._3.RegistryObjectListType;
+
+import org.apache.log4j.Logger;
 
 /**
  * 
@@ -38,10 +40,13 @@ import org.apache.commons.logging.LogFactory;
  */
 public class AdapterComponentDocRegistryProxyNoOpImpl implements AdapterComponentDocRegistryProxy {
 
-    private static Log log = LogFactory.getLog(AdapterComponentDocRegistryProxyNoOpImpl.class);
+    private static final Logger LOG = Logger.getLogger(AdapterComponentDocRegistryProxyNoOpImpl.class);
 
     public AdhocQueryResponse registryStoredQuery(AdhocQueryRequest request, AssertionType assertion) {
-        log.debug("Using NoOp Implementation for Adapter Component Doc Registry Service");
-        return new AdhocQueryResponse();
+        LOG.trace("Using NoOp Implementation for Adapter Component Doc Registry Service");
+        AdhocQueryResponse response = new AdhocQueryResponse();
+        response.setRegistryObjectList(new RegistryObjectListType());
+        response.setStatus(DocumentConstants.XDS_QUERY_RESPONSE_STATUS_SUCCESS);
+        return response;
     }
 }

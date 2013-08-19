@@ -38,62 +38,45 @@ import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 import gov.hhs.healthit.nhin.XDRAcknowledgementType;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 
 /**
- * 
+ *
  * @author dunnek, Les Westberg
  */
 public class AdapterComponentDocSubmissionRequestProxyWebServiceUnsecuredImpl implements
-        AdapterComponentDocSubmissionRequestProxy {
+    AdapterComponentDocSubmissionRequestProxy {
 
-    private Log log = null;
+    private static final Logger LOG = Logger.getLogger(AdapterComponentDocSubmissionRequestProxyWebServiceUnsecuredImpl.class);
     private WebServiceProxyHelper oProxyHelper = new WebServiceProxyHelper();
 
-    /**
-     * Default constructor.
-     */
-    public AdapterComponentDocSubmissionRequestProxyWebServiceUnsecuredImpl() {
-        log = createLogger();
-    }
-
-    /**
-     * Creates the log object for logging.
-     * 
-     * @return The log object.
-     */
-    protected Log createLogger() {
-        return ((log != null) ? log : LogFactory.getLog(getClass()));
-    }
-
     protected CONNECTClient<AdapterComponentXDRRequestPortType> getCONNECTClientUnsecured(
-            ServicePortDescriptor<AdapterComponentXDRRequestPortType> portDescriptor, String url,
-            AssertionType assertion) {
+        ServicePortDescriptor<AdapterComponentXDRRequestPortType> portDescriptor, String url,
+        AssertionType assertion) {
 
         return CONNECTCXFClientFactory.getInstance().getCONNECTClientUnsecured(portDescriptor, url, assertion);
     }
 
     /**
      * Receive document deferred document submission request.
-     * 
+     *
      * @param body The doc submission message.
      * @param assertion The assertion information.
      * @param url The URL
      * @return The ACK
      */
+    @Override
     public XDRAcknowledgementType provideAndRegisterDocumentSetBRequest(ProvideAndRegisterDocumentSetRequestType body,
-            AssertionType assertion) {
+        AssertionType assertion) {
         String endpointUrl = null;
         XDRAcknowledgementType response = new XDRAcknowledgementType();
         String sServiceName = NhincConstants.ADAPTER_COMPONENT_XDR_REQUEST_SERVICE_NAME;
 
         try {
             if (body != null) {
-                log.debug("Before target system URL look up.");
+                LOG.debug("Before target system URL look up.");
                 endpointUrl = oProxyHelper.getAdapterEndPointFromConnectionManager(sServiceName);
-                log.debug("After target system URL look up. URL for service: " + sServiceName + " is: " + endpointUrl);
+                LOG.debug("After target system URL look up. URL for service: " + sServiceName + " is: " + endpointUrl);
 
                 if (NullChecker.isNotNullish(endpointUrl)) {
                     AdapterProvideAndRegisterDocumentSetRequestType request = new AdapterProvideAndRegisterDocumentSetRequestType();
@@ -104,22 +87,21 @@ public class AdapterComponentDocSubmissionRequestProxyWebServiceUnsecuredImpl im
                     ServicePortDescriptor<AdapterComponentXDRRequestPortType> portDescriptor = new AdapterComponentDocSubmissionRequestServicePortDescriptor();
 
                     CONNECTClient<AdapterComponentXDRRequestPortType> client = getCONNECTClientUnsecured(
-                            portDescriptor, endpointUrl, assertion);
-
+                        portDescriptor, endpointUrl, assertion);
+                    client.enableMtom();
                     response = (XDRAcknowledgementType) client.invokePort(AdapterComponentXDRRequestPortType.class,
-                            "provideAndRegisterDocumentSetBRequest", request);
+                        "provideAndRegisterDocumentSetBRequest", request);
                 } else {
-                    log.error("Failed to call the web service (" + sServiceName + ").  The URL is null.");
+                    LOG.error("Failed to call the web service (" + sServiceName + ").  The URL is null.");
                 }
             } else {
-                log.error("Failed to call the web service (" + sServiceName + ").  The input parameter is null.");
+                LOG.error("Failed to call the web service (" + sServiceName + ").  The input parameter is null.");
             }
         } catch (Exception e) {
-            log.error("Failed to call the web service (" + sServiceName + ").  An unexpected exception occurred.  "
-                    + "Exception: " + e.getMessage(), e);
+            LOG.error("Failed to call the web service (" + sServiceName + ").  An unexpected exception occurred.  "
+                + "Exception: " + e.getMessage(), e);
         }
 
         return response;
     }
-
 }

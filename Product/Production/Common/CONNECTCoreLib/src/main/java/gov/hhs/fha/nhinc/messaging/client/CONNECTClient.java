@@ -27,45 +27,21 @@
 
 package gov.hhs.fha.nhinc.messaging.client;
 
-import gov.hhs.fha.nhinc.messaging.service.BaseServiceEndpoint;
-import gov.hhs.fha.nhinc.messaging.service.ServiceEndpoint;
-import gov.hhs.fha.nhinc.messaging.service.decorator.MTOMServiceEndpointDecorator;
-import gov.hhs.fha.nhinc.messaging.service.decorator.TimeoutServiceEndpointDecorator;
-import gov.hhs.fha.nhinc.messaging.service.decorator.URLServiceEndpointDecorator;
-import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 
 
 /**
  * @author akong
- *
+ * 
  */
-public abstract class CONNECTClient<T> {
+public interface CONNECTClient<T> {
 
-    private  WebServiceProxyHelper proxyHelper;
+    public T getPort();
+
+    public Object invokePort(Class<T> portClass, String methodName, Object operationInput) throws Exception;
     
-    protected CONNECTClient() {
-        proxyHelper = new WebServiceProxyHelper();
-    }
+    public void enableMtom();
     
-    public abstract T getPort();
-    
-    public Object invokePort(Class<T> portClass, String methodName, Object operationInput) throws Exception {        
-        return proxyHelper.invokePort(getPort(), portClass, methodName, operationInput);        
-    }
-    
-    /**
-     * Configures the given port with properties common to all ports.
-     * 
-     * @param port
-     * @param url
-     * @return
-     */
-    protected ServiceEndpoint<T> configureBasePort(T port, String url) {
-        ServiceEndpoint<T> serviceEndpoint = new BaseServiceEndpoint<T>(port);
-        serviceEndpoint = new URLServiceEndpointDecorator<T>(serviceEndpoint, url);        
-        serviceEndpoint = new TimeoutServiceEndpointDecorator<T>(serviceEndpoint);
-        serviceEndpoint = new MTOMServiceEndpointDecorator<T>(serviceEndpoint);
-        
-        return serviceEndpoint;
-    }
+    public void enableWSA(AssertionType assertion, String wsAddressingTo, String wsAddressingActionId);
+
 }

@@ -34,8 +34,8 @@ import gov.hhs.fha.nhinc.util.format.XMLDateUtil;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+
+import org.apache.log4j.Logger;
 import com.sun.webui.jsf.model.Option;
 
 /**
@@ -44,7 +44,7 @@ import com.sun.webui.jsf.model.Option;
  */
 public class DeferredQueueManagerFacade implements DeferredGUIConstants {
 
-    private static Log log = LogFactory.getLog(DeferredQueueManagerFacade.class);
+    private static final Logger LOG = Logger.getLogger(DeferredQueueManagerFacade.class);
 
     protected AsyncMsgRecordDao getAsyncMsgRecordDao() {
         AsyncMsgRecordDao dao = new AsyncMsgRecordDao();
@@ -52,7 +52,7 @@ public class DeferredQueueManagerFacade implements DeferredGUIConstants {
     }
 
     public List<AsyncMsgRecord> queryQueueRecords(QueryDeferredQueueRequestType queryCriteria) {
-        log.debug("Performing DeferredQueueManagerFacade:: queryQueueRecords API.");
+        LOG.debug("Performing DeferredQueueManagerFacade:: queryQueueRecords API.");
 
         AsyncMsgRecordDao asyncMsgRecordDao = getAsyncMsgRecordDao();
         List<AsyncMsgRecord> asyncMsgRecs = asyncMsgRecordDao.queryByCriteria(queryCriteria);
@@ -61,7 +61,7 @@ public class DeferredQueueManagerFacade implements DeferredGUIConstants {
     }
 
     public List<AsyncMsgRecord> queryForDeferredQueueProcessing() {
-        log.debug("Performing DeferredQueueManagerFacade:: queryForDeferredQueueProcessing API.");
+        LOG.debug("Performing DeferredQueueManagerFacade:: queryForDeferredQueueProcessing API.");
 
         AsyncMsgRecordDao asyncMsgRecordDao = getAsyncMsgRecordDao();
         List<AsyncMsgRecord> asyncMsgRecs = asyncMsgRecordDao.queryForDeferredQueueProcessing();
@@ -70,7 +70,7 @@ public class DeferredQueueManagerFacade implements DeferredGUIConstants {
     }
 
     public List<AsyncMsgRecord> queryForDeferredQueueSelected() {
-        log.debug("Performing DeferredQueueManagerFacade:: queryForDeferredQueueSelected API.");
+        LOG.debug("Performing DeferredQueueManagerFacade:: queryForDeferredQueueSelected API.");
 
         AsyncMsgRecordDao asyncMsgRecordDao = getAsyncMsgRecordDao();
         List<AsyncMsgRecord> asyncMsgRecs = asyncMsgRecordDao.queryForDeferredQueueSelected();
@@ -79,7 +79,7 @@ public class DeferredQueueManagerFacade implements DeferredGUIConstants {
     }
 
     public List<AsyncMsgRecord> queryBySearchCriteria(Date startDate, Date stopDate, String status) {
-        log.debug("Performing DeferredQueueManagerFacade:: queryByGivenSearchCriteria API.");
+        LOG.debug("Performing DeferredQueueManagerFacade:: queryByGivenSearchCriteria API.");
 
         AsyncMsgRecordDao asyncMsgRecordDao = getAsyncMsgRecordDao();
         QueryDeferredQueueRequestType queryCriteria = new QueryDeferredQueueRequestType();
@@ -92,7 +92,7 @@ public class DeferredQueueManagerFacade implements DeferredGUIConstants {
     }
 
     public List<Option> queryForDeferredQueueStatuses() {
-        log.debug("Performing DeferredQueueManagerFacade:: queryForDeferredQueueStatuses API.");
+        LOG.debug("Performing DeferredQueueManagerFacade:: queryForDeferredQueueStatuses API.");
         List<Option> statuses = loadDeferredQueueStatuses();
         return statuses;
     }

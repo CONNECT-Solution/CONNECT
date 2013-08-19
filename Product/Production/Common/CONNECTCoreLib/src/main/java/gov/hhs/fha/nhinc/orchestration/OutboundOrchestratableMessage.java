@@ -26,6 +26,8 @@
  */
 package gov.hhs.fha.nhinc.orchestration;
 
+import com.google.common.base.Optional;
+
 /**
  * Used for concurrent task executor based orchestrator implementations
  * 
@@ -33,6 +35,6 @@ package gov.hhs.fha.nhinc.orchestration;
  */
 public interface OutboundOrchestratableMessage extends OutboundOrchestratable {
 
-    public OutboundResponseProcessor getResponseProcessor();
+    public Optional<OutboundResponseProcessor> getResponseProcessor();
 
 }

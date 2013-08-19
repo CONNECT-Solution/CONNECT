@@ -26,52 +26,43 @@
  */
 package gov.hhs.fha.nhinc.mpi.adapter.proxy;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-import org.hl7.v3.PRPAIN201305UV02;
-import org.hl7.v3.PRPAIN201306UV02;
-
+import gov.hhs.fha.nhinc.aspect.AdapterDelegationEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.mpi.adapter.AdapterMpiOrchImpl;
+import gov.hhs.fha.nhinc.patientdiscovery.aspect.PRPAIN201305UV02EventDescriptionBuilder;
+import gov.hhs.fha.nhinc.patientdiscovery.aspect.PRPAIN201306UV02EventDescriptionBuilder;
+
+import org.apache.log4j.Logger;
+import org.hl7.v3.PRPAIN201305UV02;
+import org.hl7.v3.PRPAIN201306UV02;
 
 /**
  * This class is used as a java implementation for calling the Adapter MPI. Obviously in order to use the java
  * implementation the caller and the MPI must be on the same system.
- *
+ * 
  * @author Les Westberg
  */
 public class AdapterMpiProxyJavaImpl implements AdapterMpiProxy {
-    private Log log = null;
-
-    /**
-     * Default constructor.
-     */
-    public AdapterMpiProxyJavaImpl() {
-        log = createLogger();
-    }
-
-    /**
-     * Creates the log object for logging.
-     *
-     * @return The log object.
-     */
-    protected Log createLogger() {
-        return ((log != null) ? log : LogFactory.getLog(getClass()));
-    }
+    private static final Logger LOG = Logger.getLogger(AdapterMpiProxyJavaImpl.class);
 
     /**
      * Find the matching candidates from the MPI.
-     *
-     * @param findCandidatesRequest The information to use for matching.
-     * @param assertion The assertion data.
+     * 
+     * @param findCandidatesRequest
+     *            The information to use for matching.
+     * @param assertion
+     *            The assertion data.
      * @return The matches that are found.
      */
     @Override
+    @AdapterDelegationEvent(beforeBuilder = PRPAIN201305UV02EventDescriptionBuilder.class,
+            afterReturningBuilder = PRPAIN201306UV02EventDescriptionBuilder.class,
+            serviceType = "Patient Discovery MPI", version = "1.0")
     public PRPAIN201306UV02 findCandidates(PRPAIN201305UV02 findCandidatesRequest, AssertionType assertion) {
-        log.debug("Entering AdapterMpiProxyJavaImpl.findCandidates");
+        LOG.trace("Entering AdapterMpiProxyJavaImpl.findCandidates");
         AdapterMpiOrchImpl oOrchestrator = new AdapterMpiOrchImpl();
         PRPAIN201306UV02 response = oOrchestrator.query(findCandidatesRequest, assertion);
-        log.debug("Leaving AdapterMpiProxyJavaImpl.findCandidates");
+        LOG.trace("Leaving AdapterMpiProxyJavaImpl.findCandidates");
         return response;
     }
 }

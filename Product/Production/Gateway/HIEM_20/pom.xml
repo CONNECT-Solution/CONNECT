@@ -1,9 +1,8 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <parent>
         <groupId>org.connectopensource</groupId>
         <artifactId>Gateway</artifactId>
-        <version>4.0.0-SNAPSHOT</version>
+        <version>4.3.0-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
     <artifactId>HIEM_20</artifactId>
@@ -21,8 +20,37 @@
         <finalName>${project.artifactId}</finalName>
         <plugins>
             <plugin>
+                <!-- Used to pull gateway.properties file from the shared 
+                    resource JAR -->
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>unpack-test-resources</id>
+                        <!-- Using the initialize phase because it is before 
+                            the generate sources phase -->
+                        <phase>initialize</phase>
+                        <goals>
+                            <goal>unpack</goal>
+                        </goals>
+                        <configuration>
+                            <artifactItems>
+                                <artifactItem>
+                                    <!-- Artifact that Holds our custom templates -->
+                                    <groupId>org.connectopensource</groupId>
+                                    <artifactId>Properties</artifactId>
+                                    <version>${project.parent.version}</version>
+                                    <type>jar</type>
+                                </artifactItem>
+                            </artifactItems>
+                            <includes>AuditRepositoryProxyConfig.xml</includes>
+                            <outputDirectory>${project.build.directory}/test-classes/</outputDirectory>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
                 <artifactId>maven-war-plugin</artifactId>
-                <version>2.2</version>
                 <configuration>
                     <packagingExcludes>WEB-INF/classes/xml-resources/**</packagingExcludes>
                     <webResources>

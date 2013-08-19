@@ -32,16 +32,16 @@ import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayCrossGatewayR
 import gov.hhs.fha.nhinc.docretrieve.entity.proxy.service.EntityDocRetrieveUnsecuredServicePortDescriptor;
 import gov.hhs.fha.nhinc.entitydocretrieve.EntityDocRetrieve;
 import gov.hhs.fha.nhinc.entitydocretrieve.EntityDocRetrievePortType;
-import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
-import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTCXFClientFactory;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTClient;
 import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
+import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
+import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
+
+import org.apache.log4j.Logger;
 
 /**
  * 
@@ -49,15 +49,7 @@ import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
  */
 public class EntityDocRetrieveProxyWebServiceUnsecuredImpl implements EntityDocRetrieveProxy {
 
-    private static org.apache.commons.logging.Log log = null;
-
-    public EntityDocRetrieveProxyWebServiceUnsecuredImpl() {
-        log = createLogger();
-    }
-
-    protected Log createLogger() {
-        return LogFactory.getLog(getClass());
-    }
+    private static final Logger LOG = Logger.getLogger(EntityDocRetrieveProxyWebServiceUnsecuredImpl.class);
 
     protected EntityDocRetrieve getWebService() {
         return new EntityDocRetrieve();
@@ -79,10 +71,10 @@ public class EntityDocRetrieveProxyWebServiceUnsecuredImpl implements EntityDocR
             CONNECTClient<EntityDocRetrievePortType> client = getCONNECTClientUnsecured(portDescriptor, url, assertion);            
 
             try {
-                log.debug("invoke port");
+                LOG.debug("invoke port");
                 response = (RetrieveDocumentSetResponseType) client.invokePort(EntityDocRetrievePortType.class, "respondingGatewayCrossGatewayRetrieve", message);
             } catch (Exception ex) {
-                log.error("Failed to call the web service (" + serviceName + ").  An unexpected exception occurred.  "
+                LOG.error("Failed to call the web service (" + serviceName + ").  An unexpected exception occurred.  "
                         + "Exception: " + ex.getMessage(), ex);
             }
         }
@@ -95,8 +87,8 @@ public class EntityDocRetrieveProxyWebServiceUnsecuredImpl implements EntityDocR
         try {
             result = this.getWebServiceProxyHelper().getUrlLocalHomeCommunity(serviceName);
         } catch (Exception ex) {
-            log.warn("Unable to retreive url for service: " + serviceName);
-            log.warn("Error: " + ex.getMessage(), ex);
+            LOG.warn("Unable to retreive url for service: " + serviceName);
+            LOG.warn("Error: " + ex.getMessage(), ex);
         }
 
         return result;

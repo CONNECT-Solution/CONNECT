@@ -1,14 +1,12 @@
 <?xml version="1.0"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0                       http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
         <groupId>org.connectopensource</groupId>
         <artifactId>Product</artifactId>
-        <version>4.0.0-SNAPSHOT</version>
+        <version>4.3.0-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
     <artifactId>Production</artifactId>
-    <name>${project.artifactId}</name>
     <packaging>pom</packaging>
     <properties>
         <skip.unpack>true</skip.unpack>
@@ -36,6 +34,10 @@
             <artifactId>log4j</artifactId>
         </dependency>
         <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+        </dependency>
+        <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <scope>test</scope>
@@ -55,126 +57,53 @@
             <artifactId>jmock-junit4</artifactId>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-all</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>net.sourceforge.saxon</groupId>
+            <artifactId>saxonhe</artifactId>
+            <version>9.2.1.5</version>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
     <build>
-        <!-- Caution: If <resources> or <testResources> is overridden by
-            a child POM then all <resource> and <testResouce> elements will need to be
-            placed within the child POM that overrides the <resourcs> or <testResources> -->
-        <resources>
-            <resource>
-                <directory>${basedir}/src/main/resources</directory>
-                <includes>
-                    <include>**/*</include>
-                </includes>
-                <excludes>
-                    <exclude>.gitignore</exclude>
-                    <exclude>xml-resources/</exclude>
-                    <!-- will be removed -->
-                </excludes>
-            </resource>
-            <resource>
-                <directory>${basedir}/src/main/resources</directory>
-                <includes>
-                    <include>wsdl/**/*.wsdl</include>
-                    <include>*.wsdl</include>
-                </includes>
-                <targetPath>${project.build.directory}/wsdl2java-sources</targetPath>
-            </resource>
-            <resource>
-                <!-- This is used to exclude the maven-remote-resources-plugin
-                    content of <id>unpack-xsd-files</id> so it is NOT included in the archive
-                    generated / packaged -->
-                <directory>${project.build.directory}/wsdl2java-sources</directory>
-                <excludes>
-                    <exclude>**/*</exclude>
-                </excludes>
-            </resource>
-        </resources>
-        <testResources>
-            <testResource>
-                <directory>${basedir}/src/test/resources</directory>
-                <includes>
-                    <include>**/*</include>
-                </includes>
-            </testResource>
-        </testResources>
+       
         <plugins>
             <plugin>
-                <artifactId>maven-remote-resources-plugin</artifactId>
-                <version>1.3</version>
+                <!-- Used to pull XSD files from the JAR -->
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
                 <executions>
                     <execution>
                         <id>unpack-gateway-properties</id>
-                        <phase>process-test-resources</phase>
+                        <!-- Using the initialize phase because it is before 
+                            the generate sources phase -->
+                        <phase>initialize</phase>
                         <goals>
-                            <goal>process</goal>
-                        </goals>
-                        <configuration>
-                            <attached>true</attached>
-                            <resourceBundles>
-                                <resourceBundle>org.connectopensource:Properties:${project.parent.version}</resourceBundle>
-                            </resourceBundles>
-                            <outputDirectory>${project.build.directory}/test-classes/</outputDirectory>
-                        </configuration>
-                    </execution>
-                    <execution>
-                        <id>unpack-xsd-files</id>
-                        <phase>process-resources</phase>
-                        <goals>
-                            <goal>process</goal>
+                            <goal>unpack</goal>
                         </goals>
                         <configuration>
                             <skip>${skip.unpack}</skip>
-                            <attached>true</attached>
-                            <resourceBundles>
-                                <resourceBundle>org.connectopensource:CONNECTCommonTypesLib:${project.parent.version}</resourceBundle>
-                            </resourceBundles>
-                            <outputDirectory>${project.build.directory}/wsdl2java-sources/</outputDirectory>
+                            <artifactItems>
+                                <artifactItem>
+                                    <!-- Artifact that Holds our custom templates -->
+                                    <groupId>org.connectopensource</groupId>
+                                    <artifactId>Properties</artifactId>
+                                    <version>${project.parent.version}</version>
+                                    <type>jar</type>
+                                </artifactItem>
+                            </artifactItems>
+                            <includes>gateway.properties</includes>
+                            <outputDirectory>${project.build.directory}/test-classes/</outputDirectory>
                         </configuration>
                     </execution>
+                    
                 </executions>
             </plugin>
-            <plugin>
-                <groupId>org.apache.cxf</groupId>
-                <artifactId>cxf-codegen-plugin</artifactId>
-                <version>${cxf.version}</version>
-                <dependencies>
-                </dependencies>
-                <executions>
-                    <execution>
-                        <phase>process-resources</phase>
-                        <configuration>
-                            <fork>once</fork>
-                            <encoding>UTF-8</encoding>
-                            <sourceRoot>${project.build.directory}/generated-sources</sourceRoot>
-                            <classesDirectory>${project.build.directory}/wsdl2java-sources/</classesDirectory>
-                            <wsdlRoot>${project.build.directory}/wsdl2java-sources/</wsdlRoot>
-                            <includes>
-                                <include>**/wsdl/*.wsdl</include>
-                            </includes>
-                            <defaultOptions>
-                                <extraargs>
-                                    <extraarg>-verbose</extraarg>
-                                    <extraarg>-all</extraarg>
-                                    <extraarg>-dns</extraarg>
-                                    <extraarg>false</extraarg>
-                                    <extraarg>-noTypes</extraarg>
-                                    <extraarg>-mark-generated</extraarg>
-                                    <!-- next two are a pair -->
-                                    <extraarg>-wsdlLocation</extraarg>
-                                    <extraarg></extraarg>
-                                </extraargs>
-                                <!-- <bindingFiles> <bindingFile>${basedir}/src/main/resources/sun-jaxb.episode</bindingFile>
-                                    </bindingFiles> -->
-                                <noAddressBinding>true</noAddressBinding>
-                            </defaultOptions>
-                        </configuration>
-                        <goals>
-                            <goal>wsdl2java</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
+           
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>build-helper-maven-plugin</artifactId>
@@ -197,9 +126,8 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <version>2.12.3</version>
                 <configuration>
-                    <argLine>-XX:-UseSplitVerifier</argLine>
+                    <argLine>-XX:MaxPermSize=1012m -XX:-UseSplitVerifier</argLine>
                     <systemProperties>
                         <property>
                             <name>com.sun.aas.instanceRoot</name>
@@ -217,14 +145,12 @@
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>cobertura-maven-plugin</artifactId>
-                <version>2.5.2</version>
                 <executions>
                     <execution>
                         <id>cobertura-instrument</id>
                         <configuration>
-                            <skip>${skip.cobertura)</skip>
-                            <instrumentation>
-                            </instrumentation>
+                            <skip>${skip.cobertura}</skip>
+                            <instrumentation />
                         </configuration>
                         <goals>
                             <goal>clean</goal>
@@ -233,7 +159,7 @@
                     <execution>
                         <id>cobertura-check</id>
                         <configuration>
-                            <skip>${skip.cobertura)</skip>
+                            <skip>${skip.cobertura}</skip>
                             <check>
                                 <haltOnFailure>${cobertura.check.haltOnFailure}</haltOnFailure>
                                 <totalBranchRate>${cobertura.totalBranchRate}</totalBranchRate>
@@ -248,5 +174,58 @@
                 </executions>
             </plugin>
         </plugins>
+        <pluginManagement>
+            <plugins>
+                <!--This plugin's configuration is used to store Eclipse 
+                    m2e settings only. It has no influence on the Maven build itself. -->
+                <plugin>
+                    <groupId>org.eclipse.m2e</groupId>
+                    <artifactId>lifecycle-mapping</artifactId>
+                    <version>1.0.0</version>
+                    <configuration>
+                        <lifecycleMappingMetadata>
+                            <pluginExecutions>
+                                <pluginExecution>
+                                    <pluginExecutionFilter>
+                                        <groupId>
+                                            org.apache.maven.plugins
+                                        </groupId>
+                                        <artifactId>
+                                            maven-dependency-plugin
+                                        </artifactId>
+                                        <versionRange>
+                                            [2.5.1,)
+                                        </versionRange>
+                                        <goals>
+                                            <goal>unpack</goal>
+                                        </goals>
+                                    </pluginExecutionFilter>
+                                    <action>
+                                        <ignore />
+                                    </action>
+                                </pluginExecution>
+                                <pluginExecution>
+                                    <pluginExecutionFilter>
+                                        <groupId>org.apache.cxf</groupId>
+                                        <artifactId>
+                                            cxf-codegen-plugin
+                                        </artifactId>
+                                        <versionRange>
+                                            [2.6.0,)
+                                        </versionRange>
+                                        <goals>
+                                            <goal>wsdl2java</goal>
+                                        </goals>
+                                    </pluginExecutionFilter>
+                                    <action>
+                                        <ignore />
+                                    </action>
+                                </pluginExecution>
+                            </pluginExecutions>
+                        </lifecycleMappingMetadata>
+                    </configuration>
+                </plugin>
+            </plugins>
+        </pluginManagement>
     </build>
 </project>

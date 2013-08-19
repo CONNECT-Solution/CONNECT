@@ -26,13 +26,16 @@
  */
 package gov.hhs.fha.nhinc.patientdiscovery.adapter.proxy;
 
+import gov.hhs.fha.nhinc.aspect.AdapterDelegationEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.patientdiscovery.adapter.AdapterPatientDiscoveryOrchImpl;
+import gov.hhs.fha.nhinc.patientdiscovery.aspect.PRPAIN201305UV02EventDescriptionBuilder;
+import gov.hhs.fha.nhinc.patientdiscovery.aspect.PRPAIN201306UV02EventDescriptionBuilder;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 import org.hl7.v3.PRPAIN201306UV02;
 import org.hl7.v3.RespondingGatewayPRPAIN201305UV02RequestType;
+import org.hl7.v3.PRPAIN201305UV02;
 
 /**
  * This class is the java implementation of the AdapterPatientDiscovery component proxy.
@@ -41,23 +44,7 @@ import org.hl7.v3.RespondingGatewayPRPAIN201305UV02RequestType;
  */
 public class AdapterPatientDiscoveryProxyJavaImpl implements AdapterPatientDiscoveryProxy {
 
-    private Log log = null;
-
-    /**
-     * Default constructor.
-     */
-    public AdapterPatientDiscoveryProxyJavaImpl() {
-        log = createLogger();
-    }
-
-    /**
-     * Creates the log object for logging.
-     * 
-     * @return The log object.
-     */
-    protected Log createLogger() {
-        return ((log != null) ? log : LogFactory.getLog(getClass()));
-    }
+    private static final Logger LOG = Logger.getLogger(AdapterPatientDiscoveryProxyJavaImpl.class);
 
     /**
      * This calls the java implementation for this method.
@@ -66,14 +53,18 @@ public class AdapterPatientDiscoveryProxyJavaImpl implements AdapterPatientDisco
      * @param assertion The assertion information to go with the message.
      * @return The response from the web service.
      */
-    public PRPAIN201306UV02 respondingGatewayPRPAIN201305UV02(org.hl7.v3.PRPAIN201305UV02 body, AssertionType assertion) {
-        log.debug("Entering AdapterPatientDiscoveryProxyJavaImpl.respondingGatewayPRPAIN201305UV02");
+    
+    @AdapterDelegationEvent(beforeBuilder = PRPAIN201305UV02EventDescriptionBuilder.class,
+            afterReturningBuilder = PRPAIN201306UV02EventDescriptionBuilder.class, serviceType = "Patient Discovery",
+            version = "1.0")
+    public PRPAIN201306UV02 respondingGatewayPRPAIN201305UV02(PRPAIN201305UV02 body, AssertionType assertion) {
+        LOG.debug("Entering AdapterPatientDiscoveryProxyJavaImpl.respondingGatewayPRPAIN201305UV02");
         AdapterPatientDiscoveryOrchImpl oOrchestrator = new AdapterPatientDiscoveryOrchImpl();
         RespondingGatewayPRPAIN201305UV02RequestType request = new RespondingGatewayPRPAIN201305UV02RequestType();
         request.setAssertion(assertion);
         request.setPRPAIN201305UV02(body);
         request.setNhinTargetCommunities(null);
-        log.debug("Leaving AdapterPatientDiscoveryProxyJavaImpl.respondingGatewayPRPAIN201305UV02");
+        LOG.debug("Leaving AdapterPatientDiscoveryProxyJavaImpl.respondingGatewayPRPAIN201305UV02");
         return oOrchestrator.respondingGatewayPRPAIN201305UV02(request, assertion);
 
     }

@@ -26,34 +26,32 @@
  */
 package gov.hhs.fha.nhinc.docsubmission.adapter.deferred.response.proxy;
 
+import gov.hhs.fha.nhinc.aspect.AdapterDelegationEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.docsubmission.adapter.deferred.response.AdapterDocSubmissionDeferredResponseOrchImpl;
+import gov.hhs.fha.nhinc.docsubmission.aspect.DeferredResponseDescriptionBuilder;
+import gov.hhs.fha.nhinc.docsubmission.aspect.DocSubmissionArgTransformerBuilder;
 import gov.hhs.healthit.nhin.XDRAcknowledgementType;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+
+import org.apache.log4j.Logger;
 
 /**
  * 
  * @author Neil Webb
  */
 public class AdapterDocSubmissionDeferredResponseProxyJavaImpl implements AdapterDocSubmissionDeferredResponseProxy {
-    private Log log = null;
+    private static final Logger LOG = Logger.getLogger(AdapterDocSubmissionDeferredResponseProxyJavaImpl.class);
 
-    public AdapterDocSubmissionDeferredResponseProxyJavaImpl() {
-        log = createLogger();
-    }
-
-    protected Log createLogger() {
-        return LogFactory.getLog(getClass());
-    }
-
+    @AdapterDelegationEvent(beforeBuilder = DeferredResponseDescriptionBuilder.class,
+            afterReturningBuilder = DocSubmissionArgTransformerBuilder.class,
+            serviceType = "Document Submission Deferred Response", version = "")
     public XDRAcknowledgementType provideAndRegisterDocumentSetBResponse(RegistryResponseType regResponse,
             AssertionType assertion) {
-        log.debug("Begin AdapterDocSubmissionDeferredResponseProxyJavaImpl.provideAndRegisterDocumentSetBResponse");
+        LOG.trace("Begin AdapterDocSubmissionDeferredResponseProxyJavaImpl.provideAndRegisterDocumentSetBResponse");
         XDRAcknowledgementType ack = new AdapterDocSubmissionDeferredResponseOrchImpl()
                 .provideAndRegisterDocumentSetBResponse(regResponse, assertion);
-        log.debug("End AdapterDocSubmissionDeferredResponseProxyJavaImpl.provideAndRegisterDocumentSetBResponse");
+        LOG.trace("End AdapterDocSubmissionDeferredResponseProxyJavaImpl.provideAndRegisterDocumentSetBResponse");
         return ack;
     }
 }

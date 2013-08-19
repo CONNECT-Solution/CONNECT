@@ -27,13 +27,20 @@
 
 package gov.hhs.fha.nhinc.docsubmission.entity.deferred.response;
 
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
+import gov.hhs.fha.nhinc.common.nhinccommonproxy.RespondingGatewayProvideAndRegisterDocumentSetSecuredResponseRequestType;
+import gov.hhs.fha.nhinc.docsubmission.XDRAuditLogger;
 import gov.hhs.fha.nhinc.docsubmission.nhin.deferred.response.proxy11.NhinDocSubmissionDeferredResponseProxy;
 import gov.hhs.fha.nhinc.docsubmission.nhin.deferred.response.proxy11.NhinDocSubmissionDeferredResponseProxyObjectFactory;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.orchestration.Orchestratable;
 import gov.hhs.fha.nhinc.orchestration.OrchestrationStrategy;
 import gov.hhs.healthit.nhin.XDRAcknowledgementType;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+
+import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
+
+import org.apache.log4j.Logger;
 
 /**
  *
@@ -41,17 +48,18 @@ import org.apache.commons.logging.LogFactory;
  */
 public class OutboundDocSubmissionDeferredResponseStrategyImpl_g0 implements OrchestrationStrategy {
 
-    private static Log log = LogFactory.getLog(OutboundDocSubmissionDeferredResponseStrategyImpl_g0.class);
-
-    public OutboundDocSubmissionDeferredResponseStrategyImpl_g0() {
-    }
-
-    protected Log getLogger() {
-        return log;
-    }
+    private static final Logger LOG = Logger.getLogger(OutboundDocSubmissionDeferredResponseStrategyImpl_g0.class);
 
     protected NhinDocSubmissionDeferredResponseProxy getNhinDocSubmissionDeferredResponseProxy() {
         return new NhinDocSubmissionDeferredResponseProxyObjectFactory().getNhinDocSubmissionDeferredResponseProxy();
+    }
+    
+    /**
+     * Gets an instance of the XDRAuditLogger
+     * @return
+     */
+    protected XDRAuditLogger getXDRAuditLogger() {
+        return new XDRAuditLogger();
     }
     
     @Override
@@ -59,19 +67,34 @@ public class OutboundDocSubmissionDeferredResponseStrategyImpl_g0 implements Orc
         if (message instanceof OutboundDocSubmissionDeferredResponseOrchestratable) {
             execute((OutboundDocSubmissionDeferredResponseOrchestratable) message);
         } else {
-            getLogger().error("Not an OutboundDocSubmissionDeferredResponseOrchestratable.");
+            LOG.error("Not an OutboundDocSubmissionDeferredResponseOrchestratable.");
         }
     }
 
     public void execute(OutboundDocSubmissionDeferredResponseOrchestratable message) {
-        getLogger().debug("Begin OutboundDocSubmissionOrchestratableImpl_g0.process");
+        LOG.debug("Begin OutboundDocSubmissionOrchestratableImpl_g0.process");
+        
+        auditRequestToNhin(message.getRequest(), message.getAssertion(), message.getTarget());
 
         NhinDocSubmissionDeferredResponseProxy nhincDocSubmission = getNhinDocSubmissionDeferredResponseProxy();
         XDRAcknowledgementType response = nhincDocSubmission.provideAndRegisterDocumentSetBDeferredResponse11(
                 message.getRequest(), message.getAssertion(), message.getTarget());
         message.setResponse(response);
+        
+        auditResponseFromNhin(response, message.getAssertion(), message.getTarget());
 
-        getLogger().debug("End OutboundDocSubmissionDeferredResponseStrategyImpl_g0.process");
+        LOG.debug("End OutboundDocSubmissionDeferredResponseStrategyImpl_g0.process");
+    }
+    
+    private void auditRequestToNhin(RegistryResponseType request, AssertionType assertion, NhinTargetSystemType target) {
+        getXDRAuditLogger().auditNhinXDRResponse(request, assertion, target,
+                NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, true);
+    }
+
+    private void auditResponseFromNhin(XDRAcknowledgementType response, AssertionType assertion,
+            NhinTargetSystemType target) {
+        getXDRAuditLogger().auditAcknowledgement(response, assertion, target,
+                NhincConstants.AUDIT_LOG_INBOUND_DIRECTION, NhincConstants.XDR_RESPONSE_ACTION);
     }
 
 }

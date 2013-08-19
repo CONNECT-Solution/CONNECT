@@ -29,7 +29,6 @@ package gov.hhs.fha.nhinc.docretrieve.adapter;
 import gov.hhs.fha.nhinc.redactionengine.adapter.proxy.AdapterRedactionEngineProxy;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
-import org.apache.commons.logging.Log;
 import org.jmock.Expectations;
 import org.jmock.Mockery;
 import org.jmock.integration.junit4.JMock;
@@ -50,37 +49,12 @@ public class AdapterDocRetrieveOrchImplTest {
             setImposteriser(ClassImposteriser.INSTANCE);
         }
     };
-    final Log mockLog = context.mock(Log.class);
     final AdapterRedactionEngineProxy mockRedactionEngineProxy = context.mock(AdapterRedactionEngineProxy.class);
-
-    @Test
-    public void testCreateLogger() {
-        try {
-            AdapterDocRetrieveOrchImpl docRetrieveImpl = new AdapterDocRetrieveOrchImpl() {
-                @Override
-                protected Log createLogger() {
-                    return mockLog;
-                }
-            };
-
-            Log log = docRetrieveImpl.createLogger();
-            assertNotNull("Log was null", log);
-        } catch (Throwable t) {
-            System.out.println("Error running testCreateLogger test: " + t.getMessage());
-            t.printStackTrace();
-            fail("Error running testCreateLogger test: " + t.getMessage());
-        }
-    }
 
     @Test
     public void testRedactionEngineProxy() {
         try {
             AdapterDocRetrieveOrchImpl docRetrieveImpl = new AdapterDocRetrieveOrchImpl() {
-                @Override
-                protected Log createLogger() {
-                    return mockLog;
-                }
-
                 @Override
                 protected AdapterRedactionEngineProxy getRedactionEngineProxy() {
                     return mockRedactionEngineProxy;

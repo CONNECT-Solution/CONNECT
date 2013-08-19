@@ -26,51 +26,41 @@
  */
 package gov.hhs.fha.nhinc.docquery.adapter.proxy;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.fail;
+import gov.hhs.fha.nhinc.aspect.AdapterDelegationEvent;
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.docquery.aspect.AdhocQueryRequestDescriptionBuilder;
+import gov.hhs.fha.nhinc.docquery.aspect.AdhocQueryResponseDescriptionBuilder;
 
-import javax.xml.ws.Service;
+import java.lang.reflect.Method;
 
-import org.apache.commons.logging.Log;
-import org.jmock.Mockery;
-import org.jmock.integration.junit4.JUnit4Mockery;
-import org.jmock.lib.legacy.ClassImposteriser;
+import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
+
 import org.junit.Test;
 
-import gov.hhs.fha.nhinc.adapterdocquerysecured.AdapterDocQuerySecuredPortType;
-
 /**
- *
+ * 
  * @author Neil Webb
  */
 public class AdapterDocQueryWebServiceProxyTest {
-    Mockery context = new JUnit4Mockery() {
-        {
-            setImposteriser(ClassImposteriser.INSTANCE);
-        }
-    };
-
-    final Log mockLog = context.mock(Log.class);
-    final Service mockService = context.mock(Service.class);
-    final AdapterDocQuerySecuredPortType mockPort = context.mock(AdapterDocQuerySecuredPortType.class);
 
     @Test
-    public void testCreateLogger() {
-        try {
-            AdapterDocQueryProxyWebServiceSecuredImpl sut = new AdapterDocQueryProxyWebServiceSecuredImpl() {
-                @Override
-                protected Log createLogger() {
-                    return mockLog;
-                }
-
-            };
-            Log log = sut.createLogger();
-            assertNotNull("Log was null", log);
-        } catch (Throwable t) {
-            System.out.println("Error running testCreateLogger test: " + t.getMessage());
-            t.printStackTrace();
-            fail("Error running testCreateLogger test: " + t.getMessage());
-        }
+    public void hasAdapterDelegationEvent() throws Exception {
+        assertAdapterDelegationEvent(AdapterDocQueryProxyJavaImpl.class);
+        assertAdapterDelegationEvent(AdapterDocQueryProxyNoOpImpl.class);
+        assertAdapterDelegationEvent(AdapterDocQueryProxyWebServiceSecuredImpl.class);
+        assertAdapterDelegationEvent(AdapterDocQueryProxyWebServiceUnsecuredImpl.class);
     }
 
+    private void assertAdapterDelegationEvent(Class<? extends AdapterDocQueryProxy> clazz) throws NoSuchMethodException {
+        Method method = clazz.getMethod("respondingGatewayCrossGatewayQuery", AdhocQueryRequest.class,
+                AssertionType.class);
+        AdapterDelegationEvent annotation = method.getAnnotation(AdapterDelegationEvent.class);
+        assertNotNull(annotation);
+        assertEquals(AdhocQueryRequestDescriptionBuilder.class, annotation.beforeBuilder());
+        assertEquals(AdhocQueryResponseDescriptionBuilder.class, annotation.afterReturningBuilder());
+        assertEquals("Document Query", annotation.serviceType());
+        assertEquals("", annotation.version());
+    }
 }

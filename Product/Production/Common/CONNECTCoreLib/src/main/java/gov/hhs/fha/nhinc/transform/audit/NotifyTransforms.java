@@ -39,8 +39,7 @@ import gov.hhs.fha.nhinc.transform.marshallers.JAXBContextHandler;
 import java.io.ByteArrayOutputStream;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Marshaller;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 
 /**
  * 
@@ -48,17 +47,19 @@ import org.apache.commons.logging.LogFactory;
  */
 public class NotifyTransforms {
 
-    private static Log log = LogFactory.getLog(NotifyTransforms.class);
+    private static final Logger LOG = Logger.getLogger(NotifyTransforms.class);
 
     public LogEventRequestType transformNhinNotifyRequestToAuditMessage(LogNhinNotifyRequestType message) {
         LogEventRequestType response = new LogEventRequestType();
         AuditMessageType auditMsg = new AuditMessageType();
-        response.setDirection(message.getDirection());
-        response.setInterface(message.getInterface());
+        if (message != null){
+           response.setDirection(message.getDirection());
+           response.setInterface(message.getInterface());
+        }
 
-        log.info("******************************************************************");
-        log.info("Entering transformNhinNotifyRequestToAuditMessage() method.");
-        log.info("******************************************************************");
+        LOG.info("******************************************************************");
+        LOG.info("Entering transformNhinNotifyRequestToAuditMessage() method.");
+        LOG.info("******************************************************************");
 
         // Extract UserInfo from Message.Assertion
         UserType userInfo = new UserType();
@@ -68,7 +69,7 @@ public class NotifyTransforms {
         }
 
         // Create EventIdentification
-        CodedValueType eventID = new CodedValueType();
+        CodedValueType eventID = null;
         eventID = AuditDataTransformHelper.createEventId(AuditDataTransformConstants.EVENT_ID_CODE_SYS_NAME_NOT,
                 AuditDataTransformConstants.EVENT_ID_DISPLAY_NAME_NOTIFY,
                 AuditDataTransformConstants.EVENT_ID_CODE_SYS_NAME_NOT,
@@ -87,7 +88,7 @@ public class NotifyTransforms {
         /* Assign AuditSourceIdentification */
 
         String patientId = "";
-        if (NullChecker.isNotNullish(message.getMessage().getAssertion().getUniquePatientId())
+        if (message != null && NullChecker.isNotNullish(message.getMessage().getAssertion().getUniquePatientId())
                 && NullChecker.isNotNullish(message.getMessage().getAssertion().getUniquePatientId().get(0))) {
             patientId = message.getMessage().getAssertion().getUniquePatientId().get(0);
         }
@@ -120,23 +121,25 @@ public class NotifyTransforms {
             Marshaller marshaller = jc.createMarshaller();
             ByteArrayOutputStream baOutStrm = new ByteArrayOutputStream();
             baOutStrm.reset();
-            marshaller.marshal(message.getMessage().getNotify(), baOutStrm);
-            log.debug("Done marshalling the message.");
+            if (message != null){
+                marshaller.marshal(message.getMessage().getNotify(), baOutStrm);
+            }
+            LOG.debug("Done marshalling the message.");
 
             participantObject.setParticipantObjectQuery(baOutStrm.toByteArray());
 
         } catch (Exception e) {
             e.printStackTrace();
-            log.error("EXCEPTION when marshalling Nhin Notify Request : " + e);
+            LOG.error("EXCEPTION when marshalling Nhin Notify Request : " + e);
             throw new RuntimeException();
         }
         auditMsg.getParticipantObjectIdentification().add(participantObject);
 
         response.setAuditMessage(auditMsg);
 
-        log.info("******************************************************************");
-        log.info("Exiting transformNhinNotifyRequestToAuditMessage() method.");
-        log.info("******************************************************************");
+        LOG.info("******************************************************************");
+        LOG.info("Exiting transformNhinNotifyRequestToAuditMessage() method.");
+        LOG.info("******************************************************************");
 
         return response;
     }
@@ -144,12 +147,14 @@ public class NotifyTransforms {
     public LogEventRequestType transformEntityNotifyResponseToGenericAudit(LogEntityNotifyResponseType message) {
         LogEventRequestType response = new LogEventRequestType();
         AuditMessageType auditMsg = new AuditMessageType();
-        response.setDirection(message.getDirection());
-        response.setInterface(message.getInterface());
+        if (message != null){
+           response.setDirection(message.getDirection());
+           response.setInterface(message.getInterface());
+        }
 
-        log.info("******************************************************************");
-        log.info("Entering transformEntityNotifyResponseToGenericAudit() method.");
-        log.info("******************************************************************");
+        LOG.info("******************************************************************");
+        LOG.info("Entering transformEntityNotifyResponseToGenericAudit() method.");
+        LOG.info("******************************************************************");
 
         // Extract UserInfo from Message.Assertion
         UserType userInfo = new UserType();
@@ -159,7 +164,7 @@ public class NotifyTransforms {
         }
 
         // Create EventIdentification
-        CodedValueType eventID = new CodedValueType();
+        CodedValueType eventID = null;
         eventID = AuditDataTransformHelper.createEventId(AuditDataTransformConstants.EVENT_ID_CODE_SYS_NAME_NOT,
                 AuditDataTransformConstants.EVENT_ID_DISPLAY_NAME_NOTIFY,
                 AuditDataTransformConstants.EVENT_ID_CODE_SYS_NAME_NOT,
@@ -178,7 +183,7 @@ public class NotifyTransforms {
         /* Assign AuditSourceIdentification */
 
         String patientId = "";
-        if (NullChecker.isNotNullish(message.getMessage().getAssertion().getUniquePatientId())
+        if (message != null && NullChecker.isNotNullish(message.getMessage().getAssertion().getUniquePatientId())
                 && NullChecker.isNotNullish(message.getMessage().getAssertion().getUniquePatientId().get(0))) {
             patientId = message.getMessage().getAssertion().getUniquePatientId().get(0);
         }
@@ -207,9 +212,9 @@ public class NotifyTransforms {
 
         response.setAuditMessage(auditMsg);
 
-        log.info("******************************************************************");
-        log.info("Exiting transformEntityNotifyResponseToGenericAudit() method.");
-        log.info("******************************************************************");
+        LOG.info("******************************************************************");
+        LOG.info("Exiting transformEntityNotifyResponseToGenericAudit() method.");
+        LOG.info("******************************************************************");
         return response;
     }
 }

@@ -29,8 +29,7 @@ package gov.hhs.fha.nhinc.admindistribution;
 import oasis.names.tc.emergency.edxl.de._1.EDXLDistribution;
 import oasis.names.tc.xacml._2_0.context.schema.os.DecisionType;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyRequestType;
@@ -46,18 +45,15 @@ import gov.hhs.fha.nhinc.policyengine.adapter.proxy.PolicyEngineProxyObjectFacto
  */
 public class AdminDistributionPolicyChecker {
 
-    private Log log = null;
+    private static final Logger LOG = Logger.getLogger(AdminDistributionPolicyChecker.class);
 
-    public AdminDistributionPolicyChecker() {
-        log = createLogger();
-    }
-
-    protected Log createLogger() {
-        return LogFactory.getLog(getClass());
-    }
-
+    /**
+     * @param request SendAlertMessage Request received.
+     * @param target Nhin Target
+     * @return true if checkPolicy is Permit; else denied.
+     */
     public boolean checkOutgoingPolicy(RespondingGatewaySendAlertMessageType request, String target) {
-        log.debug("checking the policy engine for the new request to a target community");
+        LOG.debug("checking the policy engine for the new request to a target community");
 
         gov.hhs.fha.nhinc.transform.policy.AdminDistributionTransformHelper policyHelper;
 
@@ -68,8 +64,13 @@ public class AdminDistributionPolicyChecker {
         return invokePolicyEngine(checkPolicyRequest);
     }
 
+    /**This method checks the incoming policy and returns boolean.
+     * @param request Emergency Message Distribution Element transaction message request.
+     * @param assertion Assertion received.
+     * @return true or false.
+     */
     public boolean checkIncomingPolicy(EDXLDistribution request, AssertionType assertion) {
-        log.debug("checking the policy engine for the new request to a target community");
+        LOG.debug("checking the policy engine for the new request to a target community");
 
         gov.hhs.fha.nhinc.transform.policy.AdminDistributionTransformHelper policyHelper;
 
@@ -80,10 +81,14 @@ public class AdminDistributionPolicyChecker {
         return invokePolicyEngine(checkPolicyRequest);
     }
 
+    /**This method returns boolean and true if policycheck is Permit; else denied.
+     * @param policyCheckReq CheckPolicyRequestType request received.
+     * @return boolean true if Permit;else denied.
+     */
     protected boolean invokePolicyEngine(CheckPolicyRequestType policyCheckReq) {
         boolean policyIsValid = false;
 
-        log.debug("start invokePolicyEngine");
+        LOG.debug("start invokePolicyEngine");
         /* invoke check policy */
         PolicyEngineProxyObjectFactory policyEngFactory = new PolicyEngineProxyObjectFactory();
         PolicyEngineProxy policyProxy = policyEngFactory.getPolicyEngineProxy();
@@ -96,10 +101,10 @@ public class AdminDistributionPolicyChecker {
         /* if response='permit' */
         if (policyResp.getResponse() != null && NullChecker.isNotNullish(policyResp.getResponse().getResult())
                 && policyResp.getResponse().getResult().get(0).getDecision() == DecisionType.PERMIT) {
-            log.debug("Policy engine check returned permit.");
+            LOG.debug("Policy engine check returned permit.");
             policyIsValid = true;
         } else {
-            log.debug("Policy engine check returned deny.");
+            LOG.debug("Policy engine check returned deny.");
             policyIsValid = false;
         }
 

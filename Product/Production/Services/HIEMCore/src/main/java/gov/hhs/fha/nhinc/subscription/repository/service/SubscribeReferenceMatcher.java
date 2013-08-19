@@ -26,16 +26,15 @@
  */
 package gov.hhs.fha.nhinc.subscription.repository.service;
 
-import gov.hhs.fha.nhinc.hiem.dte.SubscriptionReferenceHelper;
 import gov.hhs.fha.nhinc.hiem.dte.marshallers.EndpointReferenceMarshaller;
 import gov.hhs.fha.nhinc.hiem.dte.marshallers.SubscriptionReferenceMarshaller;
 import gov.hhs.fha.nhinc.xmlCommon.XmlUtility;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+
 import org.w3._2005._08.addressing.AttributedURIType;
+import org.w3._2005._08.addressing.EndpointReferenceType;
 import org.w3._2005._08.addressing.ReferenceParametersType;
 import org.w3c.dom.Element;
-import org.w3._2005._08.addressing.EndpointReferenceType;
+import org.apache.log4j.Logger;
 
 /**
  * 
@@ -43,19 +42,18 @@ import org.w3._2005._08.addressing.EndpointReferenceType;
  */
 public class SubscribeReferenceMatcher {
 
-    private static org.apache.commons.logging.Log log = org.apache.commons.logging.LogFactory
-            .getLog(SubscribeReferenceMatcher.class);
+    private static final Logger LOG = Logger.getLogger(SubscribeReferenceMatcher.class);
 
     public boolean isSubscriptionReferenceMatch(String prototypeSubscriptionReferenceXml,
             String possibleMatchSubscriptionReferenceXml) {
         boolean result = false;
-        log.debug("isSubscriptionReferenceMatch (xml)");
+        LOG.debug("isSubscriptionReferenceMatch (xml)");
         Element element1 = null;
         Element element2 = null;
         try {
-            log.debug("parsing prototypeSubscriptionReferenceXml: [" + prototypeSubscriptionReferenceXml + "]");
+            LOG.debug("parsing prototypeSubscriptionReferenceXml: [" + prototypeSubscriptionReferenceXml + "]");
             element1 = XmlUtility.convertXmlToElement(prototypeSubscriptionReferenceXml);
-            log.debug("parsing possibleMatchSubscriptionReferenceXml: [" + possibleMatchSubscriptionReferenceXml + "]");
+            LOG.debug("parsing possibleMatchSubscriptionReferenceXml: [" + possibleMatchSubscriptionReferenceXml + "]");
             element2 = XmlUtility.convertXmlToElement(possibleMatchSubscriptionReferenceXml);
         } catch (Exception ex) {
             throw new IllegalArgumentException("Malformed xml while processing isSubscriptionReferenceMatch", ex);
@@ -67,10 +65,10 @@ public class SubscribeReferenceMatcher {
 
     public boolean isSubscriptionReferenceMatch(Element prototypeSubscriptionReferenceElement,
             Element possibleMatchSubscriptionReferenceElement) {
-        log.debug("isSubscriptionReferenceMatch");
-        log.debug("prototypeSubscriptionReferenceElement: ["
+        LOG.debug("isSubscriptionReferenceMatch");
+        LOG.debug("prototypeSubscriptionReferenceElement: ["
                 + XmlUtility.serializeElementIgnoreFaults(prototypeSubscriptionReferenceElement) + "]");
-        log.debug("possibleMatchSubscriptionReferenceElement: ["
+        LOG.debug("possibleMatchSubscriptionReferenceElement: ["
                 + XmlUtility.serializeElementIgnoreFaults(possibleMatchSubscriptionReferenceElement) + "]");
 
         SubscriptionReferenceMarshaller marshaller = new SubscriptionReferenceMarshaller();
@@ -85,80 +83,80 @@ public class SubscribeReferenceMatcher {
     public boolean isSubscriptionReferenceMatch(EndpointReferenceType prototypeSubscriptionReference,
             EndpointReferenceType possibleMatchSubscriptionReference) {
         boolean match = true;
-        log.debug("isSubscriptionReferenceMatch");
+        LOG.debug("isSubscriptionReferenceMatch");
 
         try {
             EndpointReferenceMarshaller marshaller = new EndpointReferenceMarshaller();
-            log.debug(XmlUtility.formatElementForLogging("prototypeSubscriptionReference",
+            LOG.debug(XmlUtility.formatElementForLogging("prototypeSubscriptionReference",
                     marshaller.marshal(prototypeSubscriptionReference)));
-            log.debug(XmlUtility.formatElementForLogging("possibleMatchSubscriptionReference",
+            LOG.debug(XmlUtility.formatElementForLogging("possibleMatchSubscriptionReference",
                     marshaller.marshal(possibleMatchSubscriptionReference)));
         } catch (Exception ex) {
-            log.debug("failed to output endpoint references");
+            LOG.debug("failed to output endpoint references");
         }
 
         if (prototypeSubscriptionReference == null) {
-            log.warn("comparing subscription references, input 1 is null");
+            LOG.warn("comparing subscription references, input 1 is null");
             match = false;
         } else if (possibleMatchSubscriptionReference == null) {
-            log.warn("comparing subscription references, input 2 is null");
+            LOG.warn("comparing subscription references, input 2 is null");
             match = false;
         } else {
-            log.debug("check address");
+            LOG.debug("check address");
             match = match
                     && isMatch(prototypeSubscriptionReference.getAddress(),
                             possibleMatchSubscriptionReference.getAddress());
-            log.debug("match=" + match);
-            log.debug("check reference parameters");
+            LOG.debug("match=" + match);
+            LOG.debug("check reference parameters");
             match = match
                     && isMatch(prototypeSubscriptionReference.getReferenceParameters(),
                             possibleMatchSubscriptionReference.getReferenceParameters());
-            log.debug("match=" + match);
+            LOG.debug("match=" + match);
         }
         return match;
     }
 
     private boolean isMatch(ReferenceParametersType prototype, ReferenceParametersType possibleMatch) {
-        log.debug("begin isMatch on reference parameters");
+        LOG.debug("begin isMatch on reference parameters");
         boolean isMatch = true;
         for (Object prototypeReferenceParameter : prototype.getAny()) {
-            log.debug("checking reference parameter [" + prototypeReferenceParameter.toString() + "]");
+            LOG.debug("checking reference parameter [" + prototypeReferenceParameter.toString() + "]");
             if (prototypeReferenceParameter instanceof Element) {
                 Element prototypeReferenceParameterElement = (Element) prototypeReferenceParameter;
-                log.debug("reference parameter element ["
+                LOG.debug("reference parameter element ["
                         + XmlUtility.serializeElementIgnoreFaults(prototypeReferenceParameterElement) + "]");
                 boolean foundMatchingReferenceParameter = false;
                 for (Object possibleMatchReferenceParameter : possibleMatch.getAny()) {
                     Element possibleMatchReferenceParameterElement = (Element) possibleMatchReferenceParameter;
-                    log.debug("trying to find matching reference parameter [["
+                    LOG.debug("trying to find matching reference parameter [["
                             + XmlUtility.serializeElementIgnoreFaults(prototypeReferenceParameterElement) + "]==["
                             + XmlUtility.serializeElementIgnoreFaults(possibleMatchReferenceParameterElement) + "]");
 
-                    log.debug("check node name");
+                    LOG.debug("check node name");
                     boolean matchOnNodeName = isMatch(prototypeReferenceParameterElement.getLocalName(),
                             possibleMatchReferenceParameterElement.getLocalName());
 
-                    log.debug("check node namespace");
+                    LOG.debug("check node namespace");
                     boolean matchOnNamespaceUri = isMatch(prototypeReferenceParameterElement.getNamespaceURI(),
                             possibleMatchReferenceParameterElement.getNamespaceURI());
 
-                    log.debug("check node value");
+                    LOG.debug("check node value");
                     boolean matchOnNodeValue = isMatch(XmlUtility.getNodeValue(prototypeReferenceParameterElement),
                             XmlUtility.getNodeValue(possibleMatchReferenceParameterElement));
 
                     if (matchOnNodeName && matchOnNodeValue && matchOnNamespaceUri) {
-                        log.debug("found match");
+                        LOG.debug("found match");
                         foundMatchingReferenceParameter = true;
                         break;
                     }
                 }
-                log.debug("found match=" + foundMatchingReferenceParameter);
+                LOG.debug("found match=" + foundMatchingReferenceParameter);
                 if (!foundMatchingReferenceParameter) {
                     isMatch = false;
                 }
             }
         }
-        log.debug("isMatch=" + isMatch);
+        LOG.debug("isMatch=" + isMatch);
         return isMatch;
     }
 
@@ -173,7 +171,7 @@ public class SubscribeReferenceMatcher {
             match = prototype.trim().contentEquals(possibleMatch.trim());
         }
 
-        log.debug("[" + prototype + "]==[" + possibleMatch + "] = [" + match + "]");
+        LOG.debug("[" + prototype + "]==[" + possibleMatch + "] = [" + match + "]");
         return match;
     }
 
@@ -185,9 +183,9 @@ public class SubscribeReferenceMatcher {
             match = false;
         } else {
             match = isMatch(prototype.getValue(), possibleMatch.getValue());
-            log.debug("[" + prototype.getValue() + "]==[" + possibleMatch.getValue() + "] = [" + match + "]");
+            LOG.debug("[" + prototype.getValue() + "]==[" + possibleMatch.getValue() + "] = [" + match + "]");
         }
-        log.debug("[" + prototype + "]==[" + possibleMatch + "] = [" + match + "]");
+        LOG.debug("[" + prototype + "]==[" + possibleMatch + "] = [" + match + "]");
 
         return match;
     }

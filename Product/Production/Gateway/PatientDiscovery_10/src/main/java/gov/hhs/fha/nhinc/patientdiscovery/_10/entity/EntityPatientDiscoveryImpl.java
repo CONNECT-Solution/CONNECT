@@ -28,96 +28,24 @@ package gov.hhs.fha.nhinc.patientdiscovery._10.entity;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.gateway.servlet.InitServlet;
-import gov.hhs.fha.nhinc.messaging.server.BaseService;
-import gov.hhs.fha.nhinc.patientdiscovery.entity.EntityPatientDiscoveryOrchImpl;
-import gov.hhs.fha.nhinc.perfrepo.PerformanceManager;
+import gov.hhs.fha.nhinc.patientdiscovery.outbound.OutboundPatientDiscovery;
 
-import javax.xml.ws.WebServiceContext;
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import org.hl7.v3.RespondingGatewayPRPAIN201305UV02RequestType;
 import org.hl7.v3.RespondingGatewayPRPAIN201306UV02ResponseType;
 
+public class EntityPatientDiscoveryImpl {
 
-/**
- *
- * @author shawc
- */
-public class EntityPatientDiscoveryImpl extends BaseService {
+    private OutboundPatientDiscovery outboundPatientDiscovery;
 
-    private Log log = null;
-
-    public EntityPatientDiscoveryImpl() {
-        log = createLogger();
-    }
-
-    protected Log createLogger() {
-        return ((log != null) ? log : LogFactory.getLog(getClass()));
-    }
-
-    protected EntityPatientDiscoveryOrchImpl getEntityPatientDiscoveryProcessor() {
-        // create the orch impl and pass in references to the executor services
-        return new EntityPatientDiscoveryOrchImpl(InitServlet.getExecutorService(),
+    public EntityPatientDiscoveryImpl(OutboundPatientDiscovery outboundPatientDiscovery) {
+        this.outboundPatientDiscovery = outboundPatientDiscovery;
+        this.outboundPatientDiscovery.setExecutorService(InitServlet.getExecutorService(),
                 InitServlet.getLargeJobExecutorService());
     }
 
-    protected PerformanceManager getPerformanceManager() {
-        return PerformanceManager.getPerformanceManagerInstance();
-    }
-
     public RespondingGatewayPRPAIN201306UV02ResponseType respondingGatewayPRPAIN201305UV02(
-            RespondingGatewayPRPAIN201305UV02RequestType request, WebServiceContext context) {
+            RespondingGatewayPRPAIN201305UV02RequestType request, AssertionType assertion) {
 
-        log.debug("Entering EntityPatientDiscoverySecuredImpl.respondingGatewayPRPAIN201305UV02...");
-
-        RespondingGatewayPRPAIN201306UV02ResponseType response = null;
-
-        if (request == null) {
-            log.error("The incomming request was null.");
-        } else if (context == null) {
-            log.error("The incomming WebServiceContext parameter was null.");
-            return null;
-        } else {
-            AssertionType assertion = extractAssertion(context);
-
-            EntityPatientDiscoveryOrchImpl processor = getEntityPatientDiscoveryProcessor();
-            if (processor != null) {
-                response = processor.respondingGatewayPRPAIN201305UV02(request, assertion);
-            } else {
-                log.error("The EntityPatientDiscoveryProcessor was null.");
-            }
-        }
-
-        log.debug("Exiting EntityPatientDiscoverySecuredImpl.respondingGatewayPRPAIN201305UV02...");
-        return response;
+        return outboundPatientDiscovery.respondingGatewayPRPAIN201305UV02(request, assertion);
     }
-
-   
-
-    public RespondingGatewayPRPAIN201306UV02ResponseType respondingGatewayPRPAIN201305UV02(
-            RespondingGatewayPRPAIN201305UV02RequestType respondingGatewayPRPAIN201305UV02Request) {
-
-        log.debug("Begin EntityPatientDiscoveryUnsecuredImpl.respondingGatewayPRPAIN201305UV02...");
-
-        RespondingGatewayPRPAIN201306UV02ResponseType response = null;
-
-        if (respondingGatewayPRPAIN201305UV02Request == null) {
-            log.warn("RespondingGatewayPRPAIN201305UV02RequestType was null.");
-        } else {
-            EntityPatientDiscoveryOrchImpl processor = getEntityPatientDiscoveryProcessor();
-            if (processor != null) {
-                response = processor.respondingGatewayPRPAIN201305UV02(respondingGatewayPRPAIN201305UV02Request,
-                        respondingGatewayPRPAIN201305UV02Request.getAssertion());
-            } else {
-                log.warn("EntityPatientDiscoveryProcessor was null.");
-            }
-        }
-
-        log.debug("End EntityPatientDiscoveryUnsecuredImpl.respondingGatewayPRPAIN201305UV02...");
-
-        return response;
-    }
-
-  
 }

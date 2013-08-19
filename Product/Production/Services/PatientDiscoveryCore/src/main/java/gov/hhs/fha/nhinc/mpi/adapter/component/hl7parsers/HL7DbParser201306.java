@@ -33,8 +33,7 @@ import java.util.TimeZone;
 
 import javax.xml.bind.JAXBElement;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 import org.hl7.v3.ADExplicit;
 import org.hl7.v3.ActClassControlAct;
 import org.hl7.v3.AdxpExplicitCity;
@@ -96,19 +95,19 @@ import gov.hhs.fha.nhinc.util.format.UTCDateUtil;
  */
 public class HL7DbParser201306 {
 
-    private static Log log = LogFactory.getLog(HL7Parser201306.class);
+    private static final Logger LOG = Logger.getLogger(HL7Parser201306.class);
     private static final String PROPERTY_FILE = "adapter";
     private static final String PROPERTY_NAME = "assigningAuthorityId";
 
     /**
-     * Method to build a PRPAIN201306UV02 froma given list of Patients and a PRPAIN201305UV02 object.
+     * Method to build a PRPAIN201306UV02 from a given list of Patients and a PRPAIN201305UV02 object.
      *
      * @param patients A list of patients from which to build the PRPAIN201306UV02 for.
      * @param query the requesting PRPAIN201305UV02 object
      * @return a PRPAIN201306UV02 response object
      */
     public static PRPAIN201306UV02 buildMessageFromMpiPatients(List<Patient> patients, PRPAIN201305UV02 query) {
-        log.debug("Entering HL7Parser201306.BuildMessageFromMpiPatients method...");
+        LOG.trace("Entering HL7Parser201306.BuildMessageFromMpiPatients method...");
 
         PRPAIN201306UV02 msg = new PRPAIN201306UV02();
 
@@ -119,7 +118,7 @@ public class HL7DbParser201306 {
         try {
             id.setRoot(PropertyAccessor.getInstance().getProperty(PROPERTY_FILE, PROPERTY_NAME));
         } catch (PropertyAccessException e) {
-            log.error(
+            LOG.error(
                     "PropertyAccessException - Default Assigning Authority property not defined in adapter.properties",
                     e);
             // CONNECT environment corrupt; return error response
@@ -141,8 +140,8 @@ public class HL7DbParser201306 {
                             + String.valueOf(today.get(GregorianCalendar.MINUTE))
                             + String.valueOf(today.get(GregorianCalendar.SECOND));
         } catch (Exception e) {
-            log.error("Exception when creating XMLGregorian Date");
-            log.error(" message: " + e.getMessage());
+            LOG.error("Exception when creating XMLGregorian Date");
+            LOG.error(" message: " + e.getMessage());
         }
 
         TSExplicit creationTime = new TSExplicit();
@@ -176,7 +175,7 @@ public class HL7DbParser201306 {
 
         msg.setControlActProcess(createControlActProcess(patients, query));
 
-        log.debug("Exiting HL7Parser201306.BuildMessageFromMpiPatient method...");
+        LOG.trace("Exiting HL7Parser201306.BuildMessageFromMpiPatient method...");
         return msg;
     }
 
@@ -198,7 +197,7 @@ public class HL7DbParser201306 {
                 controlActProcess.getSubject().add(createSubject(patient));
             }
         } else {
-            log.info("createControlActProcess - No patients found to create subject");
+            LOG.info("createControlActProcess - No patients found to create subject");
         }
 
         // Add in query parameters
@@ -371,13 +370,13 @@ public class HL7DbParser201306 {
 
             if (patient.getIdentifiers().get(0).getOrganizationId() != null
                     && patient.getIdentifiers().get(0).getOrganizationId().length() > 0) {
-                log.info("Setting Patient Id root in 201306: " + patient.getIdentifiers().get(0).getOrganizationId());
+                LOG.info("Setting Patient Id root in 201306: " + patient.getIdentifiers().get(0).getOrganizationId());
                 id.setRoot(patient.getIdentifiers().get(0).getOrganizationId());
             }
 
             if (patient.getIdentifiers().get(0).getId() != null
                     && patient.getIdentifiers().get(0).getId().length() > 0) {
-                log.info("Setting Patient Id extension in 201306: " + patient.getIdentifiers().get(0).getId());
+                LOG.info("Setting Patient Id extension in 201306: " + patient.getIdentifiers().get(0).getId());
                 id.setExtension(patient.getIdentifiers().get(0).getId());
             }
         }
@@ -451,7 +450,7 @@ public class HL7DbParser201306 {
             II ssn = new II();
             ssn.setExtension(patient.getSsn());
             ssn.setRoot("2.16.840.1.113883.4.1");
-            log.info("Setting Patient SSN in 201306: " + patient.getSsn());
+            LOG.info("Setting Patient SSN in 201306: " + patient.getSsn());
             otherIds.getId().add(ssn);
 
             COCTMT150002UV01Organization scopingOrg = new COCTMT150002UV01Organization();
@@ -470,7 +469,7 @@ public class HL7DbParser201306 {
         TSExplicit birthTime = new TSExplicit();
 
         if (patient.getDateOfBirth() != null) {
-            log.info("Setting Patient Birthday in 201306: " + patient.getDateOfBirth());
+            LOG.info("Setting Patient Birthday in 201306: " + patient.getDateOfBirth());
             UTCDateUtil utcDateUtil = new UTCDateUtil();
             // Format for date only, no time portion
             birthTime.setValue(utcDateUtil.formatUTCDateOnly(patient.getDateOfBirth()));
@@ -493,7 +492,7 @@ public class HL7DbParser201306 {
         String prefix = personname.getPrefix();
         String suffix = personname.getSuffix();
 
-        name = HL7DataTransformHelper.CreatePNExplicit(firstName, middleName, lastName, prefix, suffix);
+        name = HL7DataTransformHelper.createPNExplicit(firstName, middleName, lastName, prefix, suffix);
 
         return name;
     }
@@ -502,7 +501,7 @@ public class HL7DbParser201306 {
         CE gender = new CE();
 
         if (patient.getGender() != null && patient.getGender().length() > 0) {
-            log.info("Setting Patient Gender in 201306: " + patient.getGender());
+            LOG.info("Setting Patient Gender in 201306: " + patient.getGender());
             gender.setCode(patient.getGender());
         }
         return gender;
@@ -552,7 +551,7 @@ public class HL7DbParser201306 {
         MCCIMT000300UV01Device receiverDevice = new MCCIMT000300UV01Device();
         receiverDevice.setDeterminerCode(HL7Constants.RECEIVER_DETERMINER_CODE);
         receiverDevice.setClassCode(EntityClassDevice.DEV);
-        log.debug("Setting receiver device id (applicationId) to query sender's device id " + app);
+        LOG.debug("Setting receiver device id (applicationId) to query sender's device id " + app);
         receiverDevice.getId().add(HL7DataTransformHelper.IIFactory(app));
 
         MCCIMT000300UV01Agent agent = new MCCIMT000300UV01Agent();
@@ -612,7 +611,7 @@ public class HL7DbParser201306 {
         MCCIMT000300UV01Device senderDevice = new MCCIMT000300UV01Device();
         senderDevice.setDeterminerCode(HL7Constants.SENDER_DETERMINER_CODE);
         senderDevice.setClassCode(EntityClassDevice.DEV);
-        log.debug("Setting sender device id (applicationId) to query receiver's device id " + app);
+        LOG.debug("Setting sender device id (applicationId) to query receiver's device id " + app);
         senderDevice.getId().add(HL7DataTransformHelper.IIFactory(app));
 
         MCCIMT000300UV01Agent agent = new MCCIMT000300UV01Agent();

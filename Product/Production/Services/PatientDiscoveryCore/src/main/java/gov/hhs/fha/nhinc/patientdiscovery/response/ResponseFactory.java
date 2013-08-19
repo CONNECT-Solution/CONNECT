@@ -28,8 +28,7 @@ package gov.hhs.fha.nhinc.patientdiscovery.response;
 
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 
 /**
  * 
@@ -39,30 +38,28 @@ public class ResponseFactory {
     public static final String RESPONSE_MODE_VERIFY = "verify";
     public static final String RESPONSE_MODE_TRUST = "trust";
     public static final String RESPONSE_MODE_PASSTHRU = "passthrough";
-    public static final int VERIFY_MODE = 0;
-    public static final int TRUST_MODE = 1;
-    public static final int PASSTHRU_MODE = 2;
-    private Log log = null;
 
-    public ResponseFactory() {
-        log = createLogger();
-    }
+    public static enum ResponseModeType {
+        VERIFY, TRUST, PASSTHROUGH
+    };
+
+    private static final Logger LOG = Logger.getLogger(ResponseFactory.class);
 
     public ResponseMode getResponseMode() {
         ResponseMode result = null;
 
-        int mode = getResponseModeType();
+        ResponseModeType mode = getResponseModeType();
 
         switch (mode) {
-        case (VERIFY_MODE): {
+        case VERIFY: {
             result = new VerifyMode();
             break;
         }
-        case TRUST_MODE: {
+        case TRUST: {
             result = new TrustMode();
             break;
         }
-        case PASSTHRU_MODE: {
+        case PASSTHROUGH: {
             result = new PassThruMode();
             break;
         }
@@ -74,43 +71,30 @@ public class ResponseFactory {
         return result;
     }
 
-    protected Log createLogger() {
-        return ((log != null) ? log : LogFactory.getLog(getClass()));
-    }
-
     protected String getModeProperty() {
         String result = "";
 
         try {
             result = PropertyAccessor.getInstance().getProperty("gateway", "patientDiscoveryResponseMode");
         } catch (Exception ex) {
-            log.error(ex.getMessage(), ex);
+            LOG.error(ex.getMessage(), ex);
         }
 
         return result;
     }
 
-    public int getResponseModeType() {
-        int result = 0;
+    public ResponseModeType getResponseModeType() {
+        ResponseModeType result = ResponseModeType.VERIFY;
 
         try {
             String property = getModeProperty();
-            if (property == null) {
-                result = VERIFY_MODE;
-            } else if (property.equalsIgnoreCase(RESPONSE_MODE_VERIFY)) {
-                result = VERIFY_MODE;
-            } else if (property.equalsIgnoreCase(RESPONSE_MODE_TRUST)) {
-                result = TRUST_MODE;
+            if (property.equalsIgnoreCase(RESPONSE_MODE_TRUST)) {
+                result = ResponseModeType.TRUST;
             } else if (property.equalsIgnoreCase(RESPONSE_MODE_PASSTHRU)) {
-                result = PASSTHRU_MODE;
-            } else {
-                // unknown mode, use default response mode
-                result = VERIFY_MODE;
-            }
-
+                result = ResponseModeType.PASSTHROUGH;
+            } 
         } catch (Exception ex) {
-            log.error(ex.getMessage(), ex);
-            result = VERIFY_MODE;
+            LOG.error(ex.getMessage(), ex);            
         }
 
         return result;

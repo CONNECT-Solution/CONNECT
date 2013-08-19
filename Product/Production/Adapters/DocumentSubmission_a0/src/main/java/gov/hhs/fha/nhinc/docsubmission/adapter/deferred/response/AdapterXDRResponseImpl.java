@@ -32,30 +32,26 @@ import gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterRegistryResponseType;
 import gov.hhs.fha.nhinc.cxf.extraction.SAML2AssertionExtractor;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.healthit.nhin.XDRAcknowledgementType;
+
 import java.util.List;
+
 import javax.xml.ws.WebServiceContext;
+
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+
+import org.apache.log4j.Logger;
 
 /**
  * 
  * @author dunnek
  */
 public class AdapterXDRResponseImpl {
-    private Log log = null;
-
-    public AdapterXDRResponseImpl() {
-        log = createLogger();
-    }
-
-    protected Log createLogger() {
-        return LogFactory.getLog(getClass());
-    }
+    private static final Logger LOG = Logger.getLogger(AdapterXDRResponseImpl.class);
+    private AsyncMessageIdExtractor extractor = new AsyncMessageIdExtractor();
 
     public XDRAcknowledgementType provideAndRegisterDocumentSetBResponse(AdapterRegistryResponseType body,
             WebServiceContext context) {
-        log.debug("Begin AdapterXDRResponseImpl.provideAndRegisterDocumentSetBResponse(unsecured)");
+        LOG.debug("Begin AdapterXDRResponseImpl.provideAndRegisterDocumentSetBResponse(unsecured)");
         XDRAcknowledgementType response = null;
 
         RegistryResponseType regResponse = null;
@@ -67,20 +63,20 @@ public class AdapterXDRResponseImpl {
         assertion = getAssertion(context, assertion);
         response = provideAndRegisterDocumentSetBResponse(regResponse, assertion);
 
-        log.debug("End AdapterXDRResponseImpl.provideAndRegisterDocumentSetBResponse(unsecured)");
+        LOG.debug("End AdapterXDRResponseImpl.provideAndRegisterDocumentSetBResponse(unsecured)");
         return response;
     }
 
     public XDRAcknowledgementType provideAndRegisterDocumentSetBResponse(RegistryResponseType body,
             WebServiceContext context) {
-        log.debug("Begin AdapterXDRResponseImpl.provideAndRegisterDocumentSetBResponse(secured)");
+        LOG.debug("Begin AdapterXDRResponseImpl.provideAndRegisterDocumentSetBResponse(secured)");
         XDRAcknowledgementType response = null;
 
         AssertionType assertion = null;
         assertion = getAssertion(context, assertion);
         response = provideAndRegisterDocumentSetBResponse(body, assertion);
 
-        log.debug("End AdapterXDRResponseImpl.provideAndRegisterDocumentSetBResponse(secured)");
+        LOG.debug("End AdapterXDRResponseImpl.provideAndRegisterDocumentSetBResponse(secured)");
         return response;
     }
 
@@ -94,10 +90,10 @@ public class AdapterXDRResponseImpl {
 
         // Extract the message id value from the WS-Addressing Header and place it in the Assertion Class
         if (assertion != null) {
-            assertion.setMessageId(AsyncMessageIdExtractor.GetAsyncMessageId(context));
-            List<String> relatesToList = AsyncMessageIdExtractor.GetAsyncRelatesTo(context);
+            assertion.setMessageId(extractor.getOrCreateAsyncMessageId(context));
+            List<String> relatesToList = extractor.getAsyncRelatesTo(context);
             if (NullChecker.isNotNullish(relatesToList)) {
-                assertion.getRelatesToList().add(AsyncMessageIdExtractor.GetAsyncRelatesTo(context).get(0));
+                assertion.getRelatesToList().add(relatesToList.get(0));
             }
         }
 
@@ -106,7 +102,7 @@ public class AdapterXDRResponseImpl {
 
     protected XDRAcknowledgementType provideAndRegisterDocumentSetBResponse(RegistryResponseType regResponse,
             AssertionType assertion) {
-        log.debug("Begin AdapterXDRResponseImpl.provideAndRegisterDocumentSetBResponse");
+        LOG.debug("Begin AdapterXDRResponseImpl.provideAndRegisterDocumentSetBResponse");
         return new AdapterDocSubmissionDeferredResponseOrchImpl().provideAndRegisterDocumentSetBResponse(regResponse,
                 assertion);
     }

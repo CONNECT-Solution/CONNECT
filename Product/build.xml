@@ -1,518 +1,104 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project name="NHINC" default="ci" basedir=".">
+<project name="NHINC" basedir=".">
 
-    <import file="build/build.targets.xml"/>
-    <import file="dist.targets.xml"/>
+    <taskdef name="xmltask" classname="com.oopsconsultancy.xmltask.ant.XmlTask"
+             classpath="../ThirdParty/ant/AntExtraLibs/xmltask-1.16.jar"/>
 
-    <condition property="progress-filepath" value="${temp.directory.path}/ant-progress.txt">
+    <property environment="env" />
+
+    <script language="javascript">
+        <![CDATA[
+      importClass(java.io.File);
+      var codeLinePath = new File(self.getLocation().getFileName()).getParentFile().getParent();
+      project.setProperty("codeline.directory.path", codeLinePath);
+     ]]>
+    </script>
+
+    <property name="root.project.directory.path" value="${codeline.directory.path}/Product" />
+
+    <import file="./Install/deploy.xml" />
+    
+    <condition property="progress-filepath" value="${java.io.tmpdir}/ant-progress.txt">
         <not>
             <isset property="progress-filepath" />
         </not>
     </condition>
 
-    <target name="ci" depends="clean, static.analysis, dist, unittest.run"/>
-    <target name="dev.ci" depends="quick.clean, static.analysis, quick.package.create, unittest.run"/>
-    <target name="dev" depends="quick.clean, quick.package.create"/>
-    <target name="dev.test" depends="quick.clean, quick.package.create, unittest.run"/>
-
-    <target name="coverage.bless" description="Will take all existing coverage failures and enter them as exceptions in each project's coverage.thresholds.xml file.">
-        <var name="do-to-target" value="coverage.bless" />
-        <antcall target="do-to-projects" />
-    </target>
-
-    <target name="source.compile" description="Compile all projects: run ant help for more info...">
-        <var name="do-to-target" value="just.source.compile" />
-        <antcall target="do-to-projects" />
-    </target>
-
-    <target name="quick.source.compile">
-        <var name="do-to-target" value="just.quick.source.compile" />
-        <antcall target="do-to-projects" />
-    </target>
-
-    <target name="package.create" description="Create the jar|war|ear for all projects: run ant help for more info..." depends="check.project.count">
-        <var name="do-to-target" value="just.package.create" />
-        <antcall target="do-to-projects" />
-    </target>
-
-    <target name="quick.package.create">
-        <var name="do-to-target" value="just.quick.package.create" />
-        <antcall target="do-to-projects" />
-    </target>
-
-    <target name="clean" description="Clean all projects: run ant help for more info..." depends="clean.ivy.cache, quick.clean">
-        <call target="junit.clean" />
-        <call target="coverage.clean" />
-        <call target="checkstyle.clean" />
-        <var name="do-to-target" value="just.clean" />
-        <antcall target="do-to-projects" />
-    </target>
-
-    <target name="quick.clean">
-        <property name="skip.ivy.clean" value="true"/>
-        <call target="junit.clean" />
-        <call target="coverage.clean" />
-        <call target="checkstyle.clean" />
-        <var name="do-to-target" value="just.quick.clean" />
-        <antcall target="do-to-projects" />
-    </target>
-
-    <target name="clean.ivy.cache" unless="skip.ivy.clean">
-        <call target="ivy.clean.project.cache" />
-    </target>
-
-    <target name="just.clean"  description="please call clean, at the Product level clean now works like just.clean worked...">
-        <fail message="please call clean, at the Product level clean now works like just.clean worked..."/>
-    </target>
-
-    <target name="just.source.compile"  description="please call source.compile, at the Product level source.compile now works like just.source.compile worked...">
-        <fail message="please call source.compile, at the Product level source.compile now works like just.source.compile worked..."/>
-    </target>
-
-    <target name="just.unittest.run" description="please call unittest.run, at the Product level unittest.run now works like just.unittest.run worked...">
-        <fail message="please call unittest.run, at the Product level unittest.run now works like just.unittest.run worked..."/>
-    </target>
-
-    <target name="unittest.write.report" description="write html unit test reports in each projects' directory unit-test-reports...">
-        <junitreportplus reportfile="${basedir}/unit-test-reports/UnitTests.xml" testtype="unit">
-            <xmlreports>
-                <fileset dir="${basedir}">
-                    <include name="**/unit-test-reports/TEST-*.xml" />
-                </fileset>
-            </xmlreports>
-        </junitreportplus>
-    </target>
-
-    <target name="just.integrationtest.run" description="please call integrationtest.run, at the Product level integrationtest.run now works like just.integrationtest.run worked...">
-        <fail message="please call integrationtest.run, at the Product level integrationtest.run now works like just.integrationtest.run worked..."/>
-    </target>
-
-    <target name="just.webtest.run" description="please call webtest.run, at the Product level webtest.run now works like just.webtest.run worked...">
-        <fail message="please call webtest.run, at the Product level webtest.run now works like just.webtest.run worked..."/>
-    </target>
-
-    <target name="just.package.create" description="please call package.create, at the Product level package.create now works like just.package.create worked...">
-        <fail message="please call package.create, at the Product level package.create now works like just.package.create worked..."/>
-    </target>
-
     <target name="deploy" depends="copy.deployable.artifacts" description="Deploy all projects: run ant help for more info...">
-        <call target="deploy.to.production"/>
+        <antcall target="deploy.to.production" />
     </target>
 
     <target name="copy.deployable.artifacts">
-        <delete dir="${deployment.binaries.dir}"/>
-        <mkdir dir="${deployment.binaries.dir}"/>
-        <delete dir="${deployment.dir}/ValidationSuite"/>
-        <mkdir dir="${deployment.dir}/ValidationSuite"/>
-        <runtarget target="create.deploy.list.xml"/>
+        <delete dir="${deployment.binaries.dir}" />
+        <mkdir dir="${deployment.binaries.dir}" />
+        <delete dir="${deployment.dir}/ValidationSuite" />
+        <mkdir dir="${deployment.dir}/ValidationSuite" />
 
         <copy todir="${deployment.dir}/${deployment.environment.configuration.dir.name}" verbose="true" overwrite="true">
-            <fileset dir="${root.project.directory.path}/Production/Common/Properties/${deployment.environment.configuration.dir.name}"/>
+            <fileset dir="${root.project.directory.path}/Production/Common/Properties" />
         </copy>
 
         <copy todir="${deployment.interfaces.dir}" verbose="true" overwrite="true">
-            <fileset dir="${root.project.directory.path}/Production/Common/Interfaces/src"/>
+            <fileset dir="${root.project.directory.path}/Production/Common/Interfaces/src" />
         </copy>
 
         <copy todir="${deployment.dir}/ValidationSuite" verbose="true" overwrite="true">
             <fileset dir="${root.project.directory.path}/SoapUI_Test/ValidationSuite" />
         </copy>
-
-        <var name="do-to-target" value="copy.deployable.artifacts"/>
-        <antcall target="do-to-projects"/>
     </target>
 
-    <target name="just.deploy"  description="please call deploy, at the Product level deploy now works like just.deploy worked...">
-        <fail message="please call deploy, at the Product level deploy now works like just.deploy worked..."/>
+    <target name="dist" description="Create the binary distribution" depends="-maven.version, -git.revision">
+        <echo message="Building binary distribution for maven version=${maven_version}, git version=${repository.version}."/>
+        <echo message="Must be run after a mvn build that includes all application server profiles."/>
+        <property name="dist.artifact.dir" value="./target" />
+        <property name="maven_root" value="${user.home}/.m2/repository/org/connectopensource" />
+        <property name="dist.zip.filename" value="CONNECT-${maven_version}.zip" />
+
+        <delete dir="${dist.artifact.dir}" failonerror="false" />
+        <mkdir dir="${dist.artifact.dir}" />
+
+        <manifest file="${dist.artifact.dir}/version.txt">
+            <attribute name="Maven-Release-Version" value="${maven_version}"/>
+            <attribute name="Git-Repository-Version" value="${repository.version}"/>
+        </manifest>
+
+        <zip zipfile="${dist.artifact.dir}/${dist.zip.filename}">
+            <zipfileset dir="${maven_root}/" includes="CONNECT*/${maven_version}/CONNECT*${maven_version}.ear" />
+        	<zipfileset file="${user.home}/.m2/repository/mysql/mysql-connector-java/5.1.10/mysql-connector-java-5.1.10.jar" />
+            <zipfileset prefix="Properties" src="${maven_root}/Properties/${maven_version}/Properties-${maven_version}.jar" excludes="**/META-INF/**/*" />
+            <zipfileset prefix="DBScripts" src="${maven_root}/DBScripts/${maven_version}/DBScripts-${maven_version}.jar" excludes="**/META-INF/**/*" />
+            <zipfileset prefix="FileUtils" file="${maven_root}/FileUtils/${maven_version}/FileUtils-${maven_version}.jar" />
+            <zipfileset prefix="ValidationSuite" dir="SoapUI_Test/ValidationSuite">
+                <include name="src/test/resources/chaincerts/**" />
+                <include name="*.xml" />
+                <include name="*.properties" />
+                <exclude name="pom.xml" />
+            </zipfileset>
+            <zipfileset prefix="target/wsdl" dir="SoapUI_Test/target/wsdl/"/>
+            <zipfileset prefix="target/schemas" dir="SoapUI_Test/target/schemas/"/>
+            <zipfileset prefix="glassfish_templates" dir="./Install/GlassFish/templates" />
+            <zipfileset file="${dist.artifact.dir}/version.txt"/>
+        </zip>
     </target>
 
-    <target name="redeploy" depends="undeploy,deploy"/>
-
-    <target name="undeploy"  description="Undeploy all projects: run ant help for more info...">
-        <runtarget target="undeploy.from.production"/>
-    </target>
-
-    <target name="coverage.write.report" description="write html coverage reports in each projects' directory coverage-reports...">
-        <delete dir="${basedir}/coverage-reports" />
-        <mkdir dir="${basedir}/coverage-reports" />
-        <cobertura-merge datafile="${basedir}/coverage-reports/coverage.ser">
-            <fileset dir="${basedir}">
-                <include name="**/*.ser" />
-            </fileset>
-        </cobertura-merge>
-        <property name="coverage.temp.source" value="${temp.directory.path}/coverage-source"/>
-        <delete dir="${coverage.temp.source}"/>
-        <mkdir dir="${coverage.temp.source}"/>
-
-        <for param="source.dir">
-            <path>
-                <dirset dir="${basedir}">
-                    <include name="Production/**/src/main/java"/>
-                </dirset>
-            </path>
-            <sequential>
-                <copy todir="${coverage.temp.source}">
-                    <fileset dir="@{source.dir}">
-                        <include name="**/*.java"/>
-                    </fileset>
-                </copy>
-            </sequential>
-        </for>
-
-        <cobertura-report
-            format="xml"
-            datafile="${basedir}/coverage-reports/coverage.ser"
-            destdir="${basedir}/coverage-reports"
-            srcdir="${coverage.temp.source}"
-        />
-        <cobertura-report
-            format="html"
-            datafile="${basedir}/coverage-reports/coverage.ser"
-            destdir="${basedir}/coverage-reports"
-            srcdir="${coverage.temp.source}"
-        />
-    </target>
-
-    <target name="soapui.run" description="Run the SoapUI tests for the projects: run ant help for more info...">
-        <var name="do-to-target" value="soapui.run" />
-        <antcall target="do-to-projects" />
-
-        <junitreportplus reportfile="${basedir}/soapui-test-reports/SoapUITests.xml" testtype="soapui">
-            <xmlreports>
-                <fileset dir="${basedir}">
-                    <include name="**/soapui-test-reports/**/TEST-*.xml" />
-                </fileset>
-            </xmlreports>
-        </junitreportplus>
-    </target>
-
-    <target name="webtest.run" description="Run the Selenium JUnit tests for the projects: run ant help for more info...">
-        <var name="do-to-target" value="just.webtest.run" />
-        <antcall target="do-to-projects" />
-
-        <junitreportplus reportfile="${basedir}/web-test-reports/WebTests.xml" testtype="web">
-            <xmlreports>
-                <fileset dir="${basedir}">
-                    <include name="**/web-test-reports/TEST-*.xml" />
-                </fileset>
-            </xmlreports>
-        </junitreportplus>
-    </target>
-
-    <target name="integrationtest.run" description="Run the JUnit Integration tests for the projects: run ant help for more info...">
-        <call target="-coverage.product.prep"/>
-        <var name="do-to-target" value="just.integrationtest.run" />
-        <antcall target="do-to-projects" />
-
-        <junitreportplus reportfile="${basedir}/integration-test-reports/IntegrationTests.xml" testtype="integration">
-            <xmlreports>
-                <fileset dir="${basedir}">
-                    <include name="**/integration-test-reports/TEST-*.xml" />
-                </fileset>
-            </xmlreports>
-        </junitreportplus>
-        <call target="-coverage.product.check"/>
-    </target>
-
-    <target name="unittest.run" description="Run the JUnit tests for the projects: run ant help for more info...">
-        <call target="-coverage.product.prep"/>
-        <call target="-unittest.product.prep"/>
-        <var name="do-to-target" value="just.unittest.run" />
-        <antcall target="do-to-projects" />
-        <call target="unittest.write.master.html.report"/>
-        <call target="-unittest.product.check"/>
-        <call target="coverage.write.report"/>
-        <call target="-coverage.product.check"/>
-    </target>
-
-    <target name="unittest.write.master.html.report">
-        <delete dir="${basedir}/unit-test-reports"/>
-        <mkdir dir="${basedir}/unit-test-reports"/>
-        <junitreportplus reportfile="${basedir}/unit-test-reports/UnitTests.xml" testtype="unit">
-            <xmlreports>
-                <fileset dir="${basedir}">
-                    <include name="**/TEST-*.xml" />
-                </fileset>
-            </xmlreports>
-        </junitreportplus>
-    </target>
-
-    <target name="copyright.add" description="Clean all projects: run ant help for more info...">
-        <var name="do-to-target" value="copyright.add" />
-        <antcall target="do-to-projects" />
-    </target>
-
-    <target name="help">
-        <echo taskname="help">
-      run ant -p for the short help (ignore the target that start with: 'build.targets.')
-
-      This project will iterate over all the projects listed in ${basedir}/projects.xml
-      and execute all targets specificed.
-
-      Targets available in this project:
-
-      clean - deletes all transient directories and files for each project.
-
-      source.compile - if out-of-date compiles all projects listed in the projects.xml.
-
-      package.create - if out-of-date creates jar/war/ear files for all projects listed in the projects.xml.
-
-      unittest.run - executes all the unit tests in projects that have unit tests and are marked as having unit tests.
-      Checks that both line and branch coverage rates are meet for all classes.
-      The default minimum rates, percents required are ${coverage.threshold.linerate}% line coverage
-      and ${coverage.threshold.branchrate}% branch coverage.  Exceptions to the default rates are maintained
-      in the file ${coverage.thresholds.file}.
-
-      unittest.write.report - Writes an html report for each project to [project directory]/unit-test-reports/index.html.
-
-      coverage.write.report - Writes an html report for each project to [project directory]/coverage-reports/index.html.
-
-      coverage.bless - Will take all existing coverage failures and enter them as exceptions in each project's coverage.thresholds.xml file.
-
-      integrationtest.run - executes all integration tests in projects that have integration tests and are marked as having integration tests.
-      Writes an html report for each project to [project directory]/coverage-reports/index.html.
-      Checks that both line and branch coverage rates are meet for all classes.
-      The default minimum rates, percents required are ${coverage.threshold.linerate}% line coverage
-      and ${coverage.threshold.branchrate}% branch coverage.  Exceptions to the default rates are maintained
-      in the file ${coverage.thresholds.file}.
-
-      webtest.run - executes all web tests in projects that have web tests and are marked as having web tests.
-
-      just.webtest.run - does what webtest.run does minus the compilation.
-
-      soapui.run - executes all soapui project files found in all projects that have the property soapui.hasTests set to true.  A soapui
-      project file has the format of *-soapui-project.xml.
-
-      coverage.write.report - merges all coverage information and writes a single html report to ${basedir}/coverage-reports/index.html.
-
-      deploy - calls package.create then deploys the project's package if the property deploy.isDeployable is set to true.
-
-      undeploy - undeploys the project's package if the property deploy.isDeployable is set to true.
-
-      redeploy - calls undeploy the deploy.
-    </echo>
-    </target>
-
-    <target name="check.project.count">
-        <var name="project.count" value="0" />
-        <var name="to.build.count" value="0" />
-        <xmltask source="${basedir}/projects.xml">
-            <call path="/projects/project">
-                <param name="should.build" path="should.build/text()" />
-                <actions>
-                    <if>
-                        <istrue value="@{should.build}"/>
-                        <then>
-                            <math result="to.build.count" operand1="${to.build.count}" operation="+" operand2="1" datatype="int" />
-                        </then>
-                    </if>
-                    <math result="project.count" operand1="${project.count}" operation="+" operand2="1" datatype="int" />
-                </actions>
-            </call>
+    <target name="-maven.version" description="Store maven pom version in ${maven_version}.">
+        <xmltask source="pom.xml" >
+           <copy path="//*[local-name() = 'version']/text()" property="maven_version"/>
         </xmltask>
-        <script language="javascript">
-            <![CDATA[
-        var projectcount = parseInt(project.getProperty('project.count'));
-        var tobuildcount = parseInt(project.getProperty('to.build.count'));
-        project.setProperty('project.count.greater.than.zero', projectcount > 1);
-        project.setProperty('to.build.count.greater.than.zero', tobuildcount > 0);
-      ]]>
-    </script>
-        <echo message="project.count =${project.count}=."/>
-        <echo message="to.build.count =${to.build.count}=."/>
-        <if>
+    </target>
+
+    <target name="-git.revision" description="Store git revision in ${repository.version}">
+        <exec executable="git" outputproperty="git.revision" failifexecutionfails="false" errorproperty="">
+            <arg value="describe"/>
+            <arg value="--tags"/>
+            <arg value="--always"/>
+            <arg value="HEAD"/>
+        </exec>
+        <condition property="repository.version" value="${git.revision}" else="unknown">
             <and>
-                <istrue value="${project.count.greater.than.zero}"/>
-                <istrue value="${to.build.count.greater.than.zero}"/>
+                <isset property="git.revision"/>
+                <length string="${git.revision}" trim="yes" length="0" when="greater"/>
             </and>
-            <then>
-                <echo message="project.count =${project.count}=."/>
-                <echo message="to.build.count =${to.build.count}=."/>
-            </then>
-            <else>
-                <fail message="No projects to build."/>
-            </else>
-        </if>
+        </condition>
     </target>
-
-    <target name="do-to-projects" depends="check.project.count" unless="skip.do-to-projects" description="calls the target specified in the property do-to-target on all the projects.">
-        <property name="current.project.count" value="0" />
-        <xmltask source="${basedir}/projects.xml">
-            <call path="/projects/project">
-                <param name="project.name" path="name/text()" />
-                <param name="project.directory" path="directory/text()" />
-                <param name="should.build" path="should.build/text()" />
-                <actions>
-                    <if>
-                        <istrue value="@{should.build}"/>
-                        <then>
-                            <math result="current.project.count" operand1="${current.project.count}" operation="+" operand2="1" datatype="int" />
-                            <echo message=" ******************** Start @{project.name} ${do-to-target} project ${current.project.count} of ${to.build.count} *************************" file="${progress-filepath}" level="info"/>
-                            <echo message=" ******************** Start @{project.name} ${do-to-target} project ${current.project.count} of ${to.build.count} *************************" level="info"/>
-                            <project name="@{project.name}" dir="${basedir}/@{project.directory}" file="build.xml" target="${do-to-target}" order="${current.project.count}"/>
-                            <echo message=" ******************** End @{project.name} ${do-to-target} project ${current.project.count} of ${to.build.count} *************************" file="${progress-filepath}" level="info"/>
-                            <echo message=" ******************** End @{project.name} ${do-to-target} project ${current.project.count} of ${to.build.count} *************************" level="info"/>
-                        </then>
-                    </if>
-                </actions>
-            </call>
-        </xmltask>
-    </target>
-
-    <target name="ear.create" description="creates a classpath for all required jar|war files and packages them in ear">
-        <!-- clear deployment directory -->
-        <if>
-            <available file=".ant-deploy-staging" type="dir" />
-            <then>
-                <delete dir=".ant-deploy-staging"/>
-            </then>
-        </if>
-        <!-- delete old ear file -->
-        <if>
-            <available file=".ant-deploy-ear/CONNECT.ear" />
-            <then>
-                <delete file=".ant-deploy-ear/CONNECT.ear"/>
-            </then>
-        </if>
-
-
-        <copy tofile=".ant-deploy-staging/META-INF/application.xml" file="application.template.xml"/>
-
-        <property name="thirdparty.home" location="../ThirdParty" />
-        <property name="common.home" location="Production/Common" />
-
-        <property name="cxf.home" location="${thirdparty.home}/CXF" />
-        <property name="spring.home" location="${thirdparty.home}/SpringFramework" />
-        <property name="core.lib" location="${common.home}/CONNECTCoreLib/dist/debug" />
-        <property name="common.lib" location="${common.home}/CONNECTCommonTypesLib/dist/debug" />
-        <property name="opensaml.home" location="${thirdparty.home}/openSAML" />
-        <property name="hibernate.home" location="${thirdparty.home}/HibernateLibraries" />
-        <property name="mysql.home" location="${thirdparty.home}/MySQLDB" />
-        <property name="xstream.home" location="${thirdparty.home}/XStream" />
-
-        <path id="ear.libs">
-            <fileset dir="${cxf.home}">
-                <include name="aopalliance-1.0.jar" />
-                <include name="commons-collections-3.2.1.jar" />
-                <include name="commons-lang-2.6.jar" />
-                <include name="commons-logging-1.1.1.jar" />
-                <include name="cxf-2.6.0.jar" />
-                <include name="ehcache-core-2.5.1.jar" />
-                <include name="jaxb-xjc-2.2.5.jar" />
-                <include name="jaxb-api-2.2.6.jar" />
-                <include name="jaxb-impl-2.2.5.jar" />
-                <include name="joda-time-1.6.2.jar" />
-                <include name="neethi-3.0.2.jar" />
-                <include name="opensaml-2.5.1-1.jar" />
-                <include name="openws-1.4.2-1.jar" />
-                <include name="saaj-impl-1.3.18.jar" />
-                <include name="saaj-api-1.3.4.jar" />
-                <include name="slf4j-jdk14-1.6.2.jar" />
-                <include name="spring-aop-3.0.7.RELEASE.jar" />
-                <include name="spring-asm-3.0.7.RELEASE.jar" />
-                <include name="spring-beans-3.0.7.RELEASE.jar" />
-                <include name="spring-context-3.0.7.RELEASE.jar" />
-                <include name="spring-core-3.0.7.RELEASE.jar" />
-                <include name="spring-expression-3.0.7.RELEASE.jar" />
-                <include name="velocity-1.7.jar" />
-                <include name="woodstox-core-asl-4.1.2.jar" />
-                <include name="wsdl4j-1.6.2.jar" />
-                <include name="wss4j-1.6.5.jar" />
-                <include name="xml-resolver-1.2.jar" />
-                <include name="xmlschema-core-2.0.2.jar" />
-                <include name="xmlbeans-2.5.0.jar" />
-                <include name="xmlsec-1.5.1.jar" />
-                <include name="xmltooling-1.3.2-1.jar" />
-            </fileset>
-            <filelist dir="${opensaml.home}">
-                <file name="slf4j-api-1.6.4.jar" />
-                <file name="esapi-2.0.1.jar" />
-            </filelist>
-            <fileset dir="${hibernate.home}">
-                <include name="jdbc2_0-stdext.jar" />
-                <include name="asm-attrs.jar" />
-                <include name="dom4j-1.6.1.jar" />
-                <include name="jta.jar" />
-                <include name="cglib-2.1.3.jar" />
-                <include name="hibernate3.jar" />
-            </fileset>
-
-            <fileset dir="${mysql.home}">
-                <include name="mysql-connector-java-5.1.8-bin.jar" />
-            </fileset>
-
-            <fileset dir="${xstream.home}">
-                <include name="commons-lang-license.txt" />
-                <include name="glib-license.txt" />
-                <include name="jdom-license.txt" />
-                <include name="jdom-1.0.jar" />
-                <include name="jettison-1.0-RC2.jar" />
-                <include name="jettison-license.txt" />
-                <include name="xom-license.txt" />
-                <include name="xstream-benchmark-1.3.jar" />
-                <include name="wstx-asl-3.2.3.jar" />
-                <include name="xpp3-license.txt" />
-                <include name="xml-writer-0.2.jar" />
-                <include name="xpp3_min-1.1.4c.jar" />
-                <include name="xom-1.1.jar" />
-                <include name="xstream-1.3.jar" />
-            </fileset>
-            <filelist dir="${opensaml.home}">
-                <file name="esapi-2.0.1.jar" />
-            </filelist>
-            <filelist dir="${spring.home}">
-                <file name="spring.jar" />
-            </filelist>
-            <filelist dir="${core.lib}">
-                <file name="CONNECTCoreLib.jar" />
-            </filelist>
-            <filelist dir="${common.lib}">
-                <file name="CONNECTCommonTypesLib.jar" />
-            </filelist>
-        </path>
-
-        <copy todir=".ant-deploy-staging" flatten="true" overwrite="true">
-            <path refid="ear.libs" />
-        </copy>
-
-        <xmltask source="${basedir}/projects.xml">
-            <call path="/projects/project">
-                <param name="project.name" path="name/text()" />
-                <param name="project.directory" path="directory/text()" />
-                <param name="should.deploy" path="should.deploy/text()" />
-                <param name="context.root" path="context.root/text()" />
-                <param name="dist.type" path="dist.type/text()" />
-                <actions>
-                    <if>
-                        <istrue value="@{should.deploy}"/>
-                        <then>
-                            <var name="project.war" value="${basedir}/@{project.directory}" />
-                            <antcall target="-ear.copy.war" />
-
-                            <replace file=".ant-deploy-staging/META-INF/application.xml">
-                                <replacetoken>
-                                    <![CDATA[</application>]]></replacetoken>
-                                <replacevalue>
-                                    <![CDATA[    <module>
-                                    <web>
-                                        <web-uri>@{project.name}.war</web-uri>
-                                        <context-root>@{context.root}</context-root>
-                                    </web>
-                                </module>
-                            </application>]]></replacevalue>
-                    </replace>
-                </then>
-            </if>
-        </actions>
-    </call>
-</xmltask>
-
-<!-- create ear file -->
-<mkdir dir=".ant-deploy-ear"/>
-
-<var name="dist.type" value="ear" />
-<var name="dist.file" value="CONNECT.ear" />
-<antcall target="-package.recreate" />
-</target>
-
 </project>

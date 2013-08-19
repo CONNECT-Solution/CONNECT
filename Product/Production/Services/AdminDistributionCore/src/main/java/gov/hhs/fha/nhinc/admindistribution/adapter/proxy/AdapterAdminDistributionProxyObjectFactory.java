@@ -26,6 +26,8 @@
  */
 package gov.hhs.fha.nhinc.admindistribution.adapter.proxy;
 
+import org.apache.log4j.Logger;
+
 import gov.hhs.fha.nhinc.proxy.ComponentProxyObjectFactory;
 
 /**
@@ -34,7 +36,8 @@ import gov.hhs.fha.nhinc.proxy.ComponentProxyObjectFactory;
  */
 public class AdapterAdminDistributionProxyObjectFactory extends ComponentProxyObjectFactory {
 
-    private static final String CONFIG_FILE_NAME = "AdminDistProxyConfig.xml";
+    private static final Logger LOG = Logger.getLogger(AdapterAdminDistributionProxyObjectFactory.class);
+	private static final String CONFIG_FILE_NAME = "AdminDistProxyConfig.xml";
     private static final String BEAN_NAME_ADAPTER_ADMIN_DIST = "adapteradmindist";
 
     @Override
@@ -42,10 +45,13 @@ public class AdapterAdminDistributionProxyObjectFactory extends ComponentProxyOb
         return CONFIG_FILE_NAME;
     }
 
+    /**
+     * @return AdapterAdminDist Bean to instantiate from Spring Proxy File.
+     */
     public AdapterAdminDistributionProxy getAdapterAdminDistProxy() {
-        log.debug("Begin getAdapterAdminDistProxy()");
+        LOG.debug("Begin getAdapterAdminDistProxy()");
 
-        log.debug("Getting bean");
+        LOG.debug("Getting bean");
         return getBean(BEAN_NAME_ADAPTER_ADMIN_DIST, AdapterAdminDistributionProxy.class);
 
     }

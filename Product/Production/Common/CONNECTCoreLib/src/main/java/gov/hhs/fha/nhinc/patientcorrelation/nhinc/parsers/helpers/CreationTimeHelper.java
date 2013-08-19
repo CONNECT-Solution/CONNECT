@@ -26,28 +26,25 @@
  */
 package gov.hhs.fha.nhinc.patientcorrelation.nhinc.parsers.helpers;
 
-import org.hl7.v3.TSExplicit;
-import java.util.Calendar;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
+import org.hl7.v3.TSExplicit;
 
 /**
- * 
+ *
  * @author rayj
  */
 public class CreationTimeHelper {
+
     public static final String DateFormat = "yyyyMMDDhhmmss";
 
     public static TSExplicit getCreationTime() {
         TSExplicit time = new TSExplicit();
         String formattedTime;
         try {
-            Calendar cal = Calendar.getInstance();
-            Date now = new Date();
-            String dateString = now.toString();
             SimpleDateFormat sdf = new SimpleDateFormat(DateFormat);
-
-            formattedTime = sdf.format(now);
+            formattedTime = sdf.format(new Date());
             time.setValue(formattedTime);
         } catch (Exception ex) {
             System.out.print(ex);
@@ -55,5 +52,4 @@ public class CreationTimeHelper {
 
         return time;
     }
-
 }

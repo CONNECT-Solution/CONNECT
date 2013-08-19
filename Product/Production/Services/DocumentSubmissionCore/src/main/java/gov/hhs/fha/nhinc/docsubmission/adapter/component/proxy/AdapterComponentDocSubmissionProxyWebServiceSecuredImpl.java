@@ -37,27 +37,20 @@ import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
-
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 
 /**
- * 
- * 
+ *
+ *
  * @author Neil Webb
  */
 public class AdapterComponentDocSubmissionProxyWebServiceSecuredImpl implements AdapterComponentDocSubmissionProxy {
 
-    private Log log = null;
+    private static final Logger LOG = Logger.getLogger(AdapterComponentDocSubmissionProxyWebServiceSecuredImpl.class);
     private WebServiceProxyHelper oProxyHelper = null;
 
     public AdapterComponentDocSubmissionProxyWebServiceSecuredImpl() {
-        log = createLogger();
         oProxyHelper = createWebServiceProxyHelper();
-    }
-
-    protected Log createLogger() {
-        return LogFactory.getLog(getClass());
     }
 
     protected WebServiceProxyHelper createWebServiceProxyHelper() {
@@ -65,43 +58,43 @@ public class AdapterComponentDocSubmissionProxyWebServiceSecuredImpl implements 
     }
 
     protected CONNECTClient<AdapterComponentXDRSecuredPortType> getCONNECTClientSecured(
-            ServicePortDescriptor<AdapterComponentXDRSecuredPortType> portDescriptor, String url,
-            AssertionType assertion) {
+        ServicePortDescriptor<AdapterComponentXDRSecuredPortType> portDescriptor, String url,
+        AssertionType assertion) {
 
         return CONNECTCXFClientFactory.getInstance().getCONNECTClientSecured(portDescriptor, url, assertion);
     }
 
+    @Override
     public RegistryResponseType provideAndRegisterDocumentSetB(ProvideAndRegisterDocumentSetRequestType msg,
-            AssertionType assertion) {
+        AssertionType assertion) {
         RegistryResponseType response = null;
 
         try {
             String url = oProxyHelper
-                    .getAdapterEndPointFromConnectionManager(NhincConstants.ADAPTER_COMPONENT_XDR_SECURED_SERVICE_NAME);
+                .getAdapterEndPointFromConnectionManager(NhincConstants.ADAPTER_COMPONENT_XDR_SECURED_SERVICE_NAME);
             if (NullChecker.isNotNullish(url)) {
 
                 if (msg == null) {
-                    log.error("Message was null");
+                    LOG.error("Message was null");
                 } else {
 
                     ServicePortDescriptor<AdapterComponentXDRSecuredPortType> portDescriptor = new AdapterComponentDocSubmissionSecuredServicePortDescriptor();
 
                     CONNECTClient<AdapterComponentXDRSecuredPortType> client = getCONNECTClientSecured(portDescriptor,
-                            url, assertion);
-
+                        url, assertion);
+                    client.enableMtom();
                     response = (RegistryResponseType) client.invokePort(AdapterComponentXDRSecuredPortType.class,
-                            "provideAndRegisterDocumentSetb", msg);
+                        "provideAndRegisterDocumentSetb", msg);
                 }
             } else {
-                log.error("Failed to call the web service ("
-                        + NhincConstants.ADAPTER_COMPONENT_XDR_SECURED_SERVICE_NAME + ").  The URL is null.");
+                LOG.error("Failed to call the web service ("
+                    + NhincConstants.ADAPTER_COMPONENT_XDR_SECURED_SERVICE_NAME + ").  The URL is null.");
             }
         } catch (Exception ex) {
-            log.error("Error sending Adapter Component Doc Submission Secured message: " + ex.getMessage(), ex);
+            LOG.error("Error sending Adapter Component Doc Submission Secured message: " + ex.getMessage(), ex);
             response = new RegistryResponseType();
             response.setStatus("urn:oasis:names:tc:ebxml-regrep:ResponseStatusType:Failure");
         }
-
         return response;
     }
 }

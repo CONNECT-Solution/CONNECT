@@ -26,17 +26,19 @@
  */
 package gov.hhs.fha.nhinc.async;
 
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.xml.ws.WebServiceContext;
 import javax.xml.ws.handler.MessageContext;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.cxf.binding.soap.SoapHeader;
 import org.apache.cxf.headers.Header;
+import org.springframework.util.CollectionUtils;
 import org.w3c.dom.Element;
-
-import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 
 /**
  * 
@@ -44,46 +46,74 @@ import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
  */
 public class AsyncMessageIdExtractor {
 
-    public static String GetAsyncMessageId(WebServiceContext context) {
-        String messageId = null;
-
-        MessageContext mContext = context.getMessageContext();
-        if (context != null && mContext != null) {
-            List<Header> headers = (List<Header>) mContext.get(Header.HEADER_LIST);
-
-            if (headers != null) {
-                for (Header header : headers) {
-                    if (header.getName().getLocalPart().equalsIgnoreCase(NhincConstants.HEADER_MESSAGEID)) {
-                        Element element = (Element) ((SoapHeader) header).getObject();
-                        messageId = element.getFirstChild().getNodeValue();
-                    }
-                }
-            }
+    protected Element getSoapHeaderElement(WebServiceContext context, String headerName) {
+        if (context == null) {
+            return null;
         }
 
-        if (messageId == null) {
+        MessageContext mContext = context.getMessageContext();
+        if (mContext == null) {
+            return null;
+        }
+
+        return getSoapHeaderFromContext(headerName, mContext);
+    }
+
+    private Element getSoapHeaderFromContext(String headerName, MessageContext mContext) {
+        @SuppressWarnings("unchecked")
+        List<Header> headers = (List<Header>) mContext.get(Header.HEADER_LIST);
+        if (CollectionUtils.isEmpty(headers)) {
+            return null;
+        }
+        for (Header header : headers) {
+            if (header.getName().getLocalPart().equalsIgnoreCase(headerName)) {
+                return (Element) ((SoapHeader) header).getObject();
+            }
+        }
+        return null;
+    }
+
+    public String getMessageId(WebServiceContext context) {
+        String messageId = null;
+
+        Element element = getSoapHeaderElement(context, NhincConstants.HEADER_MESSAGEID);
+        messageId = getFirstChildNodeValue(element);
+
+        return messageId;
+    }
+
+    public String getOrCreateAsyncMessageId(WebServiceContext context) {
+        String messageId = getMessageId(context);
+
+        if (StringUtils.isBlank(messageId)) {
             messageId = AddressingHeaderCreator.generateMessageId();
         }
         return messageId;
     }
 
-    public static List<String> GetAsyncRelatesTo(WebServiceContext context) {
+    public List<String> getAsyncRelatesTo(WebServiceContext context) {
         List<String> relatesToId = new ArrayList<String>();
 
-        MessageContext mContext = context.getMessageContext();
-        if (context != null && mContext != null) {
-            List<Header> headers = (List<Header>) mContext.get(Header.HEADER_LIST);
-
-            if (headers != null) {
-                for (Header header : headers) {
-                    if (header.getName().getLocalPart().equalsIgnoreCase(NhincConstants.HEADER_RELATESTO)) {
-                        Element element = (Element) ((SoapHeader) header).getObject();
-                        relatesToId.add(element.getFirstChild().getNodeValue());
-                    }
-                }
-            }
-        }
+        Element element = getSoapHeaderElement(context, NhincConstants.HEADER_RELATESTO);
+        relatesToId.add(getFirstChildNodeValue(element));
 
         return relatesToId;
+    }
+
+    public String getAction(WebServiceContext context) {
+        String action = null;
+
+        Element element = getSoapHeaderElement(context, NhincConstants.WS_SOAP_HEADER_ACTION);
+        action = getFirstChildNodeValue(element);
+
+        return action;
+    }
+    
+    protected String getFirstChildNodeValue(Element element) {
+        String value = null;
+        if (element != null && element.getFirstChild() != null) {
+            value = element.getFirstChild().getNodeValue();
+        }
+        return value;
     }
 }

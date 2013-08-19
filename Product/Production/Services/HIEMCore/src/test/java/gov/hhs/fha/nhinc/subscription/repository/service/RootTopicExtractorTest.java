@@ -26,22 +26,11 @@
  */
 package gov.hhs.fha.nhinc.subscription.repository.service;
 
+import static org.junit.Assert.assertEquals;
 import gov.hhs.fha.nhinc.subscription.repository.roottopicextractor.RootTopicExtractor;
-import java.io.IOException;
-import java.io.StringReader;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
+
 import org.junit.Ignore;
 import org.junit.Test;
-import org.w3c.dom.*;
-import org.xml.sax.InputSource;
-import org.xml.sax.SAXException;
-import static org.junit.Assert.*;
 
 /**
  * 
@@ -49,9 +38,6 @@ import static org.junit.Assert.*;
  */
 @Ignore
 public class RootTopicExtractorTest {
-
-    private static org.apache.commons.logging.Log log = org.apache.commons.logging.LogFactory
-            .getLog(RootTopicExtractorTest.class);
 
     public RootTopicExtractorTest() {
     }
@@ -157,8 +143,8 @@ public class RootTopicExtractorTest {
         RootTopicExtractor rootTopicExtractor = new RootTopicExtractor();
         String extractedRootTopic = null;
         extractedRootTopic = rootTopicExtractor.extractRootTopicFromSubscribeXml(subscribe);
-        log.debug("extracted root topic: " + extractedRootTopic);
-        log.debug("expected root topic: " + expectedRootTopic);
+        System.out.println("extracted root topic: " + extractedRootTopic);
+        System.out.println("expected root topic: " + expectedRootTopic);
         assertEquals(expectedRootTopic, extractedRootTopic);
     }
 }

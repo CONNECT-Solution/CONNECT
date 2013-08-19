@@ -30,8 +30,7 @@ import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
 
 import javax.xml.ws.WebServiceContext;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterProvideAndRegisterDocumentSetRequestType;
@@ -43,19 +42,11 @@ import gov.hhs.healthit.nhin.XDRAcknowledgementType;
  * @author dunnek
  */
 public class AdapterXDRRequestImpl extends BaseService {
-    private Log log = null;
-
-    public AdapterXDRRequestImpl() {
-        log = createLogger();
-    }
-
-    protected Log createLogger() {
-        return LogFactory.getLog(getClass());
-    }
+    private static final Logger LOG = Logger.getLogger(AdapterXDRRequestImpl.class);
 
     public XDRAcknowledgementType provideAndRegisterDocumentSetBRequest(
             AdapterProvideAndRegisterDocumentSetRequestType body, WebServiceContext context) {
-        log.debug("Begin AdapterXDRRequestImpl.provideAndRegisterDocumentSetBRequest(unsecure)");
+        LOG.debug("Begin AdapterXDRRequestImpl.provideAndRegisterDocumentSetBRequest(unsecure)");
         XDRAcknowledgementType response = null;
 
         ProvideAndRegisterDocumentSetRequestType request = null;
@@ -67,14 +58,14 @@ public class AdapterXDRRequestImpl extends BaseService {
         assertion = getAssertion(context, assertion);
 
         response = provideAndRegisterDocumentSetBRequest(request, assertion);
-        log.debug("End AdapterXDRRequestImpl.provideAndRegisterDocumentSetBRequest(unsecure)");
+        LOG.debug("End AdapterXDRRequestImpl.provideAndRegisterDocumentSetBRequest(unsecure)");
         return response;
     }
 
     public XDRAcknowledgementType provideAndRegisterDocumentSetBRequest(
             gov.hhs.fha.nhinc.common.nhinccommonadapter.AdapterProvideAndRegisterDocumentSetSecuredRequestType body,
             WebServiceContext context) {
-        log.debug("Begin AdapterXDRRequestImpl.provideAndRegisterDocumentSetBRequest(secure)");
+        LOG.debug("Begin AdapterXDRRequestImpl.provideAndRegisterDocumentSetBRequest(secure)");
         XDRAcknowledgementType response = null;
 
         ProvideAndRegisterDocumentSetRequestType request = null;
@@ -85,7 +76,7 @@ public class AdapterXDRRequestImpl extends BaseService {
         assertion = getAssertion(context, assertion);
 
         response = provideAndRegisterDocumentSetBRequest(request, assertion);
-        log.debug("End AdapterXDRRequestImpl.provideAndRegisterDocumentSetBRequest(secure)");
+        LOG.debug("End AdapterXDRRequestImpl.provideAndRegisterDocumentSetBRequest(secure)");
         return response;
     }
 

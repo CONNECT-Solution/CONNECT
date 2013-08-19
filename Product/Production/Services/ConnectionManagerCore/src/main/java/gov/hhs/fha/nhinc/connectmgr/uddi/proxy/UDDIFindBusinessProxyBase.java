@@ -26,8 +26,8 @@
  */
 package gov.hhs.fha.nhinc.connectmgr.uddi.proxy;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
+
 import org.uddi.api_v3.BusinessDetail;
 import org.uddi.api_v3.BusinessList;
 import org.uddi.api_v3.GetBusinessDetail;
@@ -35,6 +35,7 @@ import org.uddi.api_v3.GetBusinessDetail;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTCXFClientFactory;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTClient;
+import gov.hhs.fha.nhinc.messaging.client.UDDIBaseClient;
 import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
 import gov.hhs.fha.nhinc.nhin_uddi_api_v3.UDDIInquiryPortType;
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
@@ -46,7 +47,7 @@ import gov.hhs.fha.nhinc.properties.PropertyAccessor;
  */
 public abstract class UDDIFindBusinessProxyBase implements UDDIFindBusinessProxy {
 
-    private static Log log = LogFactory.getLog(UDDIFindBusinessProxyBase.class);
+    private static final Logger LOG = Logger.getLogger(UDDIFindBusinessProxyBase.class);
 
     // URL for the UDDI Server.
     protected String uddiInquiryUrl = "";
@@ -79,7 +80,7 @@ public abstract class UDDIFindBusinessProxyBase implements UDDIFindBusinessProxy
         } catch (PropertyAccessException e) {
             String sErrorMessage = "Failed to retrieve properties from " + GATEWAY_PROPFILE_NAME
                     + ".properties file.  Error: " + e.getMessage();
-            log.error(sErrorMessage, e);
+            LOG.error(sErrorMessage, e);
             throw new UDDIFindBusinessException(sErrorMessage, e);
         }
 
@@ -88,6 +89,6 @@ public abstract class UDDIFindBusinessProxyBase implements UDDIFindBusinessProxy
     protected CONNECTClient<UDDIInquiryPortType> getCONNECTClientUnsecured(
             ServicePortDescriptor<UDDIInquiryPortType> portDescriptor, String url, AssertionType assertion) {
 
-    return CONNECTCXFClientFactory.getInstance().getCONNECTClientUnsecured(portDescriptor, url, null);
+    return new UDDIBaseClient<UDDIInquiryPortType>(portDescriptor, url);
 }
 }

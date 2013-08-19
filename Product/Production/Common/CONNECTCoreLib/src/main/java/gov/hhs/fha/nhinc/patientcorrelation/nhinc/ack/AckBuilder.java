@@ -30,7 +30,7 @@ import gov.hhs.fha.nhinc.patientcorrelation.nhinc.parsers.helpers.*;
 import org.hl7.v3.*;
 
 /**
- * 
+ *
  * @author rayj
  */
 public class AckBuilder {
@@ -38,14 +38,10 @@ public class AckBuilder {
     private static final String AcceptAckCodeValue = "NE";
     private static final String ITSVersion = "XML_1.0";
     private static final String InteractionIdExtension = "MCCI_IN000002UV01";
-    private static final String MoodCodeValue = "EVN";
-    private static final String PatientClassCode = "PAT";
-    private static final String PatientStatusCode = "active";
     private static final String ProcessingCodeValue = "P";
     private static final String ProcessingModeCode = "R";
-    private static final String SubjectTypeCode = "SUBJ";
 
-    public static MCCIIN000002UV01 BuildAck(PRPAIN201301UV02 originalMessage) {
+    public static MCCIIN000002UV01 buildAck(PRPAIN201301UV02 originalMessage) {
         II receiverId = null;
         II senderId = null;
         String acknowledgementTypeCode = "CA";
@@ -53,8 +49,7 @@ public class AckBuilder {
 
         if (originalMessage != null) {
             if ((originalMessage.getSender() != null) && (originalMessage.getSender().getDevice() != null)
-                    && (originalMessage.getSender().getDevice().getId() != null)
-                    && (originalMessage.getSender().getDevice().getId().size() > 0)) {
+                && (originalMessage.getSender().getDevice().getId().size() > 0)) {
                 receiverId = originalMessage.getSender().getDevice().getId().get(0);
             }
 
@@ -63,13 +58,13 @@ public class AckBuilder {
 
         senderId = IIHelper.IIFactory(Configuration.getMyCommunityId(), null);
 
-        MCCIIN000002UV01 ack = BuildAck(receiverId, senderId, acknowledgementTypeCode, originalMessageId);
+        MCCIIN000002UV01 ack = buildAck(receiverId, senderId, acknowledgementTypeCode, originalMessageId);
         return ack;
 
     }
 
-    public static MCCIIN000002UV01 BuildAck(II receiverId, II senderId, String acknowledgementTypeCode,
-            II originalMessageId) {
+    public static MCCIIN000002UV01 buildAck(II receiverId, II senderId, String acknowledgementTypeCode,
+        II originalMessageId) {
         MCCIIN000002UV01 message = new MCCIIN000002UV01();
 
         message.setITSVersion(ITSVersion);

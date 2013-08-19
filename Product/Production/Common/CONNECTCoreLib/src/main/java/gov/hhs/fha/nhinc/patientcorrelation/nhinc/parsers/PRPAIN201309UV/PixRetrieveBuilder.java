@@ -62,6 +62,8 @@ import org.hl7.v3.XParticipationAuthorPerformer;
  * @author rayj
  */
 public class PixRetrieveBuilder {
+    
+    private AssigningAuthorityHomeCommunityMappingHelper aaMappingHelper;
 
     public static final String ControlActProcessCode = "PRPA_TE201309UV";
     private static final String AcceptAckCodeValue = "AL";
@@ -71,7 +73,29 @@ public class PixRetrieveBuilder {
     private static final String ITSVersion = "XML_1.0";
     private static final String MoodCodeValue = "EVN";
 
-    public static PRPAIN201309UV02 createPixRetrieve(
+    
+    
+    /**
+     * 
+     */
+    public PixRetrieveBuilder() {
+        aaMappingHelper = new AssigningAuthorityHomeCommunityMappingHelper();
+    }
+    
+    
+    
+
+    /**
+     * @param aaMappingHelper
+     */
+    public PixRetrieveBuilder(AssigningAuthorityHomeCommunityMappingHelper aaMappingHelper) {
+        this.aaMappingHelper = aaMappingHelper;
+    }
+
+
+
+
+    public  PRPAIN201309UV02 createPixRetrieve(
             RetrievePatientCorrelationsRequestType retrievePatientCorrelationsRequest) {
         List<String> targetAssigningAuthorities = extractTargetAssigningAuthorities(retrievePatientCorrelationsRequest);
         PRPAIN201309UV02 pixRetrieve = createTransmissionWrapper("1.1", null);
@@ -88,7 +112,7 @@ public class PixRetrieveBuilder {
         return pixRetrieve;
     }
 
-    private static List<String> extractTargetAssigningAuthorities(
+    private  List<String> extractTargetAssigningAuthorities(
             RetrievePatientCorrelationsRequestType retrievePatientCorrelationsRequest) {
         // if assigning authorities are present, use those. If not, convert home community to assigning authority
         List<String> targetAssigningAuthorities = retrievePatientCorrelationsRequest.getTargetAssigningAuthority();
@@ -96,7 +120,7 @@ public class PixRetrieveBuilder {
         if (NullChecker.isNullish(targetAssigningAuthorities)) {
             List<String> targetHomeCommunities = retrievePatientCorrelationsRequest.getTargetHomeCommunity();
             if (NullChecker.isNotNullish(targetHomeCommunities)) {
-                targetAssigningAuthorities = AssigningAuthorityHomeCommunityMappingHelper
+                targetAssigningAuthorities = aaMappingHelper
                         .lookupAssigningAuthorities(targetHomeCommunities);
             }
         }
@@ -208,7 +232,7 @@ public class PixRetrieveBuilder {
             QualifiedSubjectIdentifierType qualifiedSubjectIdentifier) {
         PRPAMT201307UV02PatientIdentifier patientIdentifier = new PRPAMT201307UV02PatientIdentifier();
         patientIdentifier.getValue().add(IIHelper.IIFactory(qualifiedSubjectIdentifier));
-        patientIdentifier.setSemanticsText(SemanticsTextHelper.CreateSemanticsText("Patient.Id"));
+        patientIdentifier.setSemanticsText(SemanticsTextHelper.createSemanticsText("Patient.Id"));
         return patientIdentifier;
     }
 }

@@ -26,49 +26,40 @@
  */
 package gov.hhs.fha.nhinc.util.format;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.fail;
+
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.TimeZone;
+
+import org.junit.Before;
 import org.junit.Test;
-import static org.junit.Assert.*;
-import org.jmock.Expectations;
-import org.jmock.Mockery;
-import org.jmock.integration.junit4.JMock;
-import org.jmock.integration.junit4.JUnit4Mockery;
-import org.apache.commons.logging.Log;
-import org.junit.runner.RunWith;
 
 /**
  * Test cases for the UTCDateUtil Class
  * 
  * @author Neil Webb
  */
-@RunWith(JMock.class)
-public class UTCDateUtilTest {
-    Mockery context = new JUnit4Mockery();
 
-    @Test
+public class UTCDateUtilTest {
+    
+	private SimpleDateFormat sd;
+	
+	@Before
+    public void setUp() {
+		sd = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+	    sd.setTimeZone(TimeZone.getTimeZone("GMT"));
+	}
+	
+	@Test
     public void testParseUTCDateStringWithAMHour() {
         try {
-            // Create mock objects
-            final Log mockLog = context.mock(Log.class);
-
             // Create SUT instance
-            UTCDateUtil utcDateUtil = new UTCDateUtil() {
-                @Override
-                protected Log createLogger() {
-                    return mockLog;
-                }
-            };
-
-            // Set Expectations
-            context.checking(new Expectations() {
-                {
-                    allowing(mockLog).debug(with(any(String.class)));
-                    allowing(mockLog).isDebugEnabled();
-                }
-            });
+            UTCDateUtil utcDateUtil = new UTCDateUtil();
 
             // Exercise test
             String dateString = "19650123010334";
@@ -86,24 +77,8 @@ public class UTCDateUtilTest {
     @Test
     public void testParseUTCDateStringWithPMHour() {
         try {
-            // Create mock objects
-            final Log mockLog = context.mock(Log.class);
-
             // Create SUT instance
-            UTCDateUtil utcDateUtil = new UTCDateUtil() {
-                @Override
-                protected Log createLogger() {
-                    return mockLog;
-                }
-            };
-
-            // Set Expectations
-            context.checking(new Expectations() {
-                {
-                    allowing(mockLog).debug(with(any(String.class)));
-                    allowing(mockLog).isDebugEnabled();
-                }
-            });
+            UTCDateUtil utcDateUtil = new UTCDateUtil();
 
             // Exercise test
             String dateString = "19650123140334";
@@ -112,7 +87,7 @@ public class UTCDateUtilTest {
             Date expectedDate = createUTCDate(1965, 1, 23, 14, 3, 34);
             assertNotNull("Expected date was null", expectedDate);
             assertEquals("Expected date not equal", expectedDate, parsedDate);
-            System.out.println("GMT String of parsed date: " + parsedDate.toGMTString());
+            System.out.println("GMT String of parsed date: " + sd.format(parsedDate));
         } catch (Throwable t) {
             t.printStackTrace();
             fail(t.getMessage());
@@ -122,32 +97,16 @@ public class UTCDateUtilTest {
     @Test
     public void testParseUTCDateStringWithTZPrevDay() {
         try {
-            // Create mock objects
-            final Log mockLog = context.mock(Log.class);
-
             // Create SUT instance
-            UTCDateUtil utcDateUtil = new UTCDateUtil() {
-                @Override
-                protected Log createLogger() {
-                    return mockLog;
-                }
-            };
-
-            // Set Expectations
-            context.checking(new Expectations() {
-                {
-                    allowing(mockLog).debug(with(any(String.class)));
-                    allowing(mockLog).isDebugEnabled();
-                }
-            });
+            UTCDateUtil utcDateUtil = new UTCDateUtil();
 
             // Exercise test
             String dateString = "19650122200234-0700";
             Date parsedDate = utcDateUtil.parseUTCDateOptionalTimeZone(dateString);
             assertNotNull("Parsed date was null", parsedDate);
             Date expectedDate = createUTCDate(1965, 1, 23, 3, 2, 34);
-            System.out.println("Expected date: " + expectedDate.toGMTString());
-            System.out.println("Parsed date: " + parsedDate.toGMTString());
+            System.out.println("Expected date: " + sd.format(expectedDate));
+            System.out.println("Parsed date: " + sd.format(parsedDate));
             assertNotNull("Expected date was null", expectedDate);
             assertEquals("Parsed date not equal", expectedDate, parsedDate);
         } catch (Throwable t) {
@@ -159,24 +118,8 @@ public class UTCDateUtilTest {
     @Test
     public void testParseUTCDateStringWithAMHourAndTZ() {
         try {
-            // Create mock objects
-            final Log mockLog = context.mock(Log.class);
-
             // Create SUT instance
-            UTCDateUtil utcDateUtil = new UTCDateUtil() {
-                @Override
-                protected Log createLogger() {
-                    return mockLog;
-                }
-            };
-
-            // Set Expectations
-            context.checking(new Expectations() {
-                {
-                    allowing(mockLog).debug(with(any(String.class)));
-                    allowing(mockLog).isDebugEnabled();
-                }
-            });
+            UTCDateUtil utcDateUtil = new UTCDateUtil();
 
             // Exercise test
             String dateString = "19650123010234-0700";
@@ -194,24 +137,8 @@ public class UTCDateUtilTest {
     @Test
     public void testParseUTCDateStringWithCrossAMPMHourAndTZ() {
         try {
-            // Create mock objects
-            final Log mockLog = context.mock(Log.class);
-
             // Create SUT instance
-            UTCDateUtil utcDateUtil = new UTCDateUtil() {
-                @Override
-                protected Log createLogger() {
-                    return mockLog;
-                }
-            };
-
-            // Set Expectations
-            context.checking(new Expectations() {
-                {
-                    allowing(mockLog).debug(with(any(String.class)));
-                    allowing(mockLog).isDebugEnabled();
-                }
-            });
+            UTCDateUtil utcDateUtil = new UTCDateUtil();
 
             // Exercise test
             String dateString = "19650123080234-0700";
@@ -229,24 +156,8 @@ public class UTCDateUtilTest {
     @Test
     public void testParseUTCDateStringWithCrossYearTZ() {
         try {
-            // Create mock objects
-            final Log mockLog = context.mock(Log.class);
-
             // Create SUT instance
-            UTCDateUtil utcDateUtil = new UTCDateUtil() {
-                @Override
-                protected Log createLogger() {
-                    return mockLog;
-                }
-            };
-
-            // Set Expectations
-            context.checking(new Expectations() {
-                {
-                    allowing(mockLog).debug(with(any(String.class)));
-                    allowing(mockLog).isDebugEnabled();
-                }
-            });
+            UTCDateUtil utcDateUtil = new UTCDateUtil();
 
             // Exercise test
             String dateString = "19641231200234-0700";
@@ -264,24 +175,8 @@ public class UTCDateUtilTest {
     @Test
     public void testFormatUTCDateAM() {
         try {
-            // Create mock objects
-            final Log mockLog = context.mock(Log.class);
-
             // Create SUT instance
-            UTCDateUtil utcDateUtil = new UTCDateUtil() {
-                @Override
-                protected Log createLogger() {
-                    return mockLog;
-                }
-            };
-
-            // Set Expectations
-            context.checking(new Expectations() {
-                {
-                    allowing(mockLog).debug(with(any(String.class)));
-                    allowing(mockLog).isDebugEnabled();
-                }
-            });
+            UTCDateUtil utcDateUtil = new UTCDateUtil();
 
             // Exercise test
             Date sourceDate = createUTCDate(1984, 3, 5, 2, 5, 59);
@@ -298,24 +193,8 @@ public class UTCDateUtilTest {
     @Test
     public void testFormatUTCDatePM() {
         try {
-            // Create mock objects
-            final Log mockLog = context.mock(Log.class);
-
-            // Create SUT instance
-            UTCDateUtil utcDateUtil = new UTCDateUtil() {
-                @Override
-                protected Log createLogger() {
-                    return mockLog;
-                }
-            };
-
-            // Set Expectations
-            context.checking(new Expectations() {
-                {
-                    allowing(mockLog).debug(with(any(String.class)));
-                    allowing(mockLog).isDebugEnabled();
-                }
-            });
+        	// Create SUT instance
+            UTCDateUtil utcDateUtil = new UTCDateUtil();
 
             // Exercise test
             Date sourceDate = createUTCDate(1984, 3, 5, 21, 5, 59);

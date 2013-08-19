@@ -53,8 +53,7 @@ import gov.hhs.fha.nhinc.subscription.repository.service.SubscriptionRepositoryF
 import gov.hhs.fha.nhinc.subscription.repository.service.SubscriptionRepositoryService;
 import java.util.ArrayList;
 import java.util.List;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 
 /**
  * Base class for subscription repository helpers
@@ -62,7 +61,7 @@ import org.apache.commons.logging.LogFactory;
  * @author Neil Webb
  */
 public abstract class BaseSubscriptionRepositoryHelper {
-    private static Log log = LogFactory.getLog(BaseSubscriptionRepositoryHelper.class);
+    private static final Logger LOG = Logger.getLogger(BaseSubscriptionRepositoryHelper.class);
     protected SubscriptionRepositoryService subscriptionRepositoryService = null;
     protected gov.hhs.fha.nhinc.common.subscription.ObjectFactory subscriptionRepositoryObjFact = null;
 
@@ -139,16 +138,16 @@ public abstract class BaseSubscriptionRepositoryHelper {
         SubscriptionReference subscriptionReference = loadSubscriptionReference(subscriptionReferenceType);
 
         if (subscriptionReference != null) {
-            if (log.isDebugEnabled()) {
-                log.debug("#### Retrieving subscription item by subscription reference.");
-                log.debug("Subscription manager endpoint address: "
+            if (LOG.isDebugEnabled()) {
+                LOG.debug("#### Retrieving subscription item by subscription reference.");
+                LOG.debug("Subscription manager endpoint address: "
                         + subscriptionReference.getSubscriptionManagerEndpointAddress());
                 if (subscriptionReference.getReferenceParameters() != null) {
                     for (ReferenceParameter refParam : subscriptionReference.getReferenceParameters()) {
-                        log.debug("Ref param namespace: " + refParam.getNamespace());
-                        log.debug("Ref param namespace prefix: " + refParam.getNamespacePrefix());
-                        log.debug("Ref param element name: " + refParam.getElementName());
-                        log.debug("Ref param value: " + refParam.getValue());
+                        LOG.debug("Ref param namespace: " + refParam.getNamespace());
+                        LOG.debug("Ref param namespace prefix: " + refParam.getNamespacePrefix());
+                        LOG.debug("Ref param element name: " + refParam.getElementName());
+                        LOG.debug("Ref param value: " + refParam.getValue());
                     }
 
                 }
@@ -162,11 +161,11 @@ public abstract class BaseSubscriptionRepositoryHelper {
         // Transform to subscription item type
         if ((record != null) && (record.getSubscription() != null)) {
             subscriptionItemType = loadSubscriptionItemType(record.getSubscription());
-            log.debug("Subscription item retrieved");
+            LOG.debug("Subscription item retrieved");
         } else {
             // Return an empty subscription item until fault handling is added
             subscriptionItemType = new gov.hhs.fha.nhinc.common.subscription.SubscriptionItemType();
-            log.debug("No subscription item was retrieved");
+            LOG.debug("No subscription item was retrieved");
         }
         return subscriptionItemType;
     }

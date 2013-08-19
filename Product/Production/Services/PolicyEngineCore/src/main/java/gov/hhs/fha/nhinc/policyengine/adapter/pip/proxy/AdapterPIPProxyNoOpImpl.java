@@ -34,8 +34,8 @@ import gov.hhs.fha.nhinc.common.nhinccommonadapter.RetrievePtConsentByPtIdRespon
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.StorePtConsentRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.StorePtConsentResponseType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.PatientPreferencesType;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+
+import org.apache.log4j.Logger;
 
 /**
  * This is a "NoOp" implementation of the AdapterPIPProxy interface. It will return empty response objects.
@@ -43,15 +43,7 @@ import org.apache.commons.logging.LogFactory;
  * @author Les Westberg
  */
 public class AdapterPIPProxyNoOpImpl implements AdapterPIPProxy {
-    private Log log = null;
-
-    public AdapterPIPProxyNoOpImpl() {
-        log = createLogger();
-    }
-
-    protected Log createLogger() {
-        return LogFactory.getLog(getClass());
-    }
+    private static final Logger LOG = Logger.getLogger(AdapterPIPProxyNoOpImpl.class);
 
     /**
      * NO-OP implementation of the RetrievePtConsentByPtId operation. It will return a message with the same assigning
@@ -62,7 +54,7 @@ public class AdapterPIPProxyNoOpImpl implements AdapterPIPProxy {
      */
     public RetrievePtConsentByPtIdResponseType retrievePtConsentByPtId(RetrievePtConsentByPtIdRequestType request,
             AssertionType assertion) {
-        log.debug("Begin AdapterPIPProxyNoOpImpl.retrievePtConsentByPtId");
+        LOG.trace("Begin AdapterPIPProxyNoOpImpl.retrievePtConsentByPtId");
         RetrievePtConsentByPtIdResponseType oResponse = new RetrievePtConsentByPtIdResponseType();
         PatientPreferencesType oPref = new PatientPreferencesType();
         oResponse.setPatientPreferences(oPref);
@@ -81,7 +73,7 @@ public class AdapterPIPProxyNoOpImpl implements AdapterPIPProxy {
 
         oPref.setOptIn(false);
 
-        log.debug("End AdapterPIPProxyNoOpImpl.retrievePtConsentByPtId");
+        LOG.trace("End AdapterPIPProxyNoOpImpl.retrievePtConsentByPtId");
         return oResponse;
     }
 
@@ -94,14 +86,14 @@ public class AdapterPIPProxyNoOpImpl implements AdapterPIPProxy {
      */
     public RetrievePtConsentByPtDocIdResponseType retrievePtConsentByPtDocId(
             RetrievePtConsentByPtDocIdRequestType request, AssertionType assertion) {
-        log.debug("Begin AdapterPIPProxyNoOpImpl.retrievePtConsentByPtDocId");
+        LOG.trace("Begin AdapterPIPProxyNoOpImpl.retrievePtConsentByPtDocId");
         RetrievePtConsentByPtDocIdResponseType oResponse = new RetrievePtConsentByPtDocIdResponseType();
         PatientPreferencesType oPref = new PatientPreferencesType();
         oResponse.setPatientPreferences(oPref);
         oPref.setAssigningAuthority("");
         oPref.setPatientId("");
         oPref.setOptIn(false);
-        log.debug("End AdapterPIPProxyNoOpImpl.retrievePtConsentByPtDocId");
+        LOG.trace("End AdapterPIPProxyNoOpImpl.retrievePtConsentByPtDocId");
         return oResponse;
     }
 
@@ -112,10 +104,10 @@ public class AdapterPIPProxyNoOpImpl implements AdapterPIPProxy {
      * @return Always returns "SUCCESS".
      */
     public StorePtConsentResponseType storePtConsent(StorePtConsentRequestType request, AssertionType assertion) {
-        log.debug("Begin AdapterPIPProxyNoOpImpl.storePtConsent");
+        LOG.trace("Begin AdapterPIPProxyNoOpImpl.storePtConsent");
         StorePtConsentResponseType oResponse = new StorePtConsentResponseType();
         oResponse.setStatus("SUCCESS");
-        log.debug("End AdapterPIPProxyNoOpImpl.storePtConsent");
+        LOG.trace("End AdapterPIPProxyNoOpImpl.storePtConsent");
         return oResponse;
     }
 

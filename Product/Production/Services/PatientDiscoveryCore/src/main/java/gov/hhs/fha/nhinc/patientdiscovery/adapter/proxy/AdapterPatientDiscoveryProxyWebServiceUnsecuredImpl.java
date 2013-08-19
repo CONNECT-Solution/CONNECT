@@ -27,6 +27,7 @@
 package gov.hhs.fha.nhinc.patientdiscovery.adapter.proxy;
 
 import gov.hhs.fha.nhinc.adapterpatientdiscovery.AdapterPatientDiscoveryPortType;
+import gov.hhs.fha.nhinc.aspect.AdapterDelegationEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTClient;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTClientFactory;
@@ -35,12 +36,14 @@ import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryException;
 import gov.hhs.fha.nhinc.patientdiscovery.adapter.proxy.service.AdapterPatientDiscoveryServicePortDescriptor;
+import gov.hhs.fha.nhinc.patientdiscovery.aspect.PRPAIN201305UV02EventDescriptionBuilder;
+import gov.hhs.fha.nhinc.patientdiscovery.aspect.PRPAIN201306UV02EventDescriptionBuilder;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 import org.hl7.v3.PRPAIN201306UV02;
 import org.hl7.v3.RespondingGatewayPRPAIN201305UV02RequestType;
+import org.hl7.v3.PRPAIN201305UV02;
 
 /**
  * 
@@ -48,24 +51,8 @@ import org.hl7.v3.RespondingGatewayPRPAIN201305UV02RequestType;
  */
 public class AdapterPatientDiscoveryProxyWebServiceUnsecuredImpl implements AdapterPatientDiscoveryProxy {
 
-    private Log log = null;
+    private static final Logger LOG = Logger.getLogger(AdapterPatientDiscoveryProxyWebServiceUnsecuredImpl.class);
     private WebServiceProxyHelper oProxyHelper = new WebServiceProxyHelper();
-
-    /**
-     * Default constructor.
-     */
-    public AdapterPatientDiscoveryProxyWebServiceUnsecuredImpl() {
-        log = createLogger();
-    }
-
-    /**
-     * Creates the log object for logging.
-     * 
-     * @return The log object.
-     */
-    protected Log createLogger() {
-        return ((log != null) ? log : LogFactory.getLog(getClass()));
-    }
 
     /**
      * This calls the unsecured web service for this method.
@@ -75,7 +62,10 @@ public class AdapterPatientDiscoveryProxyWebServiceUnsecuredImpl implements Adap
      * @return The response from the web service.
      * @throws PatientDiscoveryException
      */
-    public PRPAIN201306UV02 respondingGatewayPRPAIN201305UV02(org.hl7.v3.PRPAIN201305UV02 body, AssertionType assertion)
+    @AdapterDelegationEvent(beforeBuilder = PRPAIN201305UV02EventDescriptionBuilder.class,
+            afterReturningBuilder = PRPAIN201306UV02EventDescriptionBuilder.class, serviceType = "Patient Discovery",
+            version = "1.0")
+    public PRPAIN201306UV02 respondingGatewayPRPAIN201305UV02(PRPAIN201305UV02 body, AssertionType assertion)
             throws PatientDiscoveryException {
         String url = null;
         PRPAIN201306UV02 response = new PRPAIN201306UV02();
@@ -83,17 +73,19 @@ public class AdapterPatientDiscoveryProxyWebServiceUnsecuredImpl implements Adap
 
         try {
             if (body != null) {
-                log.debug("Before target system URL look up.");
+                LOG.debug("Before target system URL look up.");
                 url = oProxyHelper.getAdapterEndPointFromConnectionManager(sServiceName);
-                log.debug("After target system URL look up. URL for service: " + sServiceName + " is: " + url);
+                LOG.debug("After target system URL look up. URL for service: " + sServiceName + " is: " + url);
 
                 if (NullChecker.isNotNullish(url)) {
-                    RespondingGatewayPRPAIN201305UV02RequestType request = new RespondingGatewayPRPAIN201305UV02RequestType();
+                    RespondingGatewayPRPAIN201305UV02RequestType request = 
+                            new RespondingGatewayPRPAIN201305UV02RequestType();
                     request.setAssertion(assertion);
                     request.setPRPAIN201305UV02(body);
                     request.setNhinTargetCommunities(null);
 
-                    ServicePortDescriptor<AdapterPatientDiscoveryPortType> portDescriptor = new AdapterPatientDiscoveryServicePortDescriptor();
+                    ServicePortDescriptor<AdapterPatientDiscoveryPortType> portDescriptor = 
+                            new AdapterPatientDiscoveryServicePortDescriptor();
                     CONNECTClient<AdapterPatientDiscoveryPortType> client = CONNECTClientFactory.getInstance()
                             .getCONNECTClientUnsecured(portDescriptor, url, assertion);
 
@@ -108,7 +100,7 @@ public class AdapterPatientDiscoveryProxyWebServiceUnsecuredImpl implements Adap
                         + ").  The input parameter is null.");
             }
         } catch (Exception e) {
-            log.error("Failed to call the web service (" + sServiceName + ").  An unexpected exception occurred.  "
+            LOG.error("Failed to call the web service (" + sServiceName + ").  An unexpected exception occurred.  "
                     + "Exception: " + e.getMessage(), e);
             throw new PatientDiscoveryException(e.fillInStackTrace());
         }

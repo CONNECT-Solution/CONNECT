@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<metadata>
+  <groupId>javax.transaction</groupId>
+  <artifactId>jta</artifactId>
+  <versioning>
+    <release>1.0.1B</release>
+    <versions>
+      <version>1.0.1B</version>
+    </versions>
+    <lastUpdated>20130121205621</lastUpdated>
+  </versioning>
+</metadata>

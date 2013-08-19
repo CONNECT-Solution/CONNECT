@@ -26,14 +26,15 @@
  */
 package gov.hhs.fha.nhinc.gateway.executorservice;
 
+import gov.hhs.fha.nhinc.orchestration.OutboundDelegate;
+import gov.hhs.fha.nhinc.orchestration.OutboundOrchestratableMessage;
+import gov.hhs.fha.nhinc.orchestration.OutboundResponseProcessor;
+
 import java.util.concurrent.Callable;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 
-import gov.hhs.fha.nhinc.orchestration.OutboundOrchestratableMessage;
-import gov.hhs.fha.nhinc.orchestration.OutboundDelegate;
-import gov.hhs.fha.nhinc.orchestration.OutboundResponseProcessor;
+import com.google.common.base.Preconditions;
 
 /**
  * CallableRequest is basically what is executed (i.e. the Runnable) Uses generics for Response (which represents object
@@ -47,17 +48,15 @@ import gov.hhs.fha.nhinc.orchestration.OutboundResponseProcessor;
 public class NhinCallableRequest<Response extends OutboundOrchestratableMessage> implements Callable<Response> {
 
     private OutboundDelegate client = null;
-    private OutboundResponseProcessor processor = null;
+    private OutboundResponseProcessor processor;
     private OutboundOrchestratableMessage entityRequest = null;
-    
+    private static final Logger LOG = Logger.getLogger(NhinCallableRequest.class);
+
     public NhinCallableRequest(OutboundOrchestratableMessage orch) {
+        Preconditions.checkArgument(orch.getResponseProcessor().isPresent());
         this.client = orch.getDelegate();
-        this.processor = orch.getResponseProcessor();
+        this.processor = orch.getResponseProcessor().get();
         this.entityRequest = orch;
-    }
-    
-    protected Log getLogger() {
-        return LogFactory.getLog(getClass());
     }
 
     /**
@@ -79,7 +78,7 @@ public class NhinCallableRequest<Response extends OutboundOrchestratableMessage>
                 throw new Exception("NhinDelegate is null!!!");
             }
         } catch (Exception e) {
-            getLogger().error("Failed to process callable request.", e);
+            LOG.error("Failed to process callable request.", e);
             response = (Response) processor.processErrorResponse(entityRequest, e.getMessage());
         }
         return response;

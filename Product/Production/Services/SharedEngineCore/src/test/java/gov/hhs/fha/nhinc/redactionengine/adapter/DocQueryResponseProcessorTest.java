@@ -26,11 +26,18 @@
  */
 package gov.hhs.fha.nhinc.redactionengine.adapter;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.fail;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.PatientPreferencesType;
 import gov.hhs.fha.nhinc.policyengine.adapter.pip.CDAConstants;
+
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
+
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.AdhocQueryType;
@@ -40,7 +47,7 @@ import oasis.names.tc.ebxml_regrep.xsd.rim._3.ExtrinsicObjectType;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.RegistryObjectListType;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.SlotType1;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.ValueListType;
-import org.apache.commons.logging.Log;
+
 import org.jmock.Expectations;
 import org.jmock.Mockery;
 import org.jmock.integration.junit4.JMock;
@@ -48,7 +55,6 @@ import org.jmock.integration.junit4.JUnit4Mockery;
 import org.jmock.lib.legacy.ClassImposteriser;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import static org.junit.Assert.*;
 
 /**
  * 
@@ -61,39 +67,14 @@ public class DocQueryResponseProcessorTest {
             setImposteriser(ClassImposteriser.INSTANCE);
         }
     };
-    final Log mockLog = context.mock(Log.class);
     final PatientConsentHelper mockPatientConsentHelper = context.mock(PatientConsentHelper.class);
     final AdhocQueryRequest mockAdhocQueryRequest = context.mock(AdhocQueryRequest.class);
     final AdhocQueryResponse mockAdhocQueryResponse = context.mock(AdhocQueryResponse.class);
 
     @Test
-    public void testCreateLogger() {
-        try {
-            DocQueryResponseProcessor processor = new DocQueryResponseProcessor() {
-                @Override
-                protected Log createLogger() {
-                    return mockLog;
-                }
-            };
-
-            Log log = processor.createLogger();
-            assertNotNull("Log was null", log);
-        } catch (Throwable t) {
-            System.out.println("Error running testCreateLogger test: " + t.getMessage());
-            t.printStackTrace();
-            fail("Error running testCreateLogger test: " + t.getMessage());
-        }
-    }
-
-    @Test
     public void testGetPatientConsentHelper() {
         try {
             DocQueryResponseProcessor processor = new DocQueryResponseProcessor() {
-                @Override
-                protected Log createLogger() {
-                    return mockLog;
-                }
-
                 @Override
                 protected PatientConsentHelper getPatientConsentHelper() {
                     return mockPatientConsentHelper;
@@ -112,17 +93,8 @@ public class DocQueryResponseProcessorTest {
     @Test
     public void testGetPatientIdBeforeSet() {
         try {
-            DocQueryResponseProcessor processor = new DocQueryResponseProcessor() {
-                @Override
-                protected Log createLogger() {
-                    return mockLog;
-                }
-            };
-            context.checking(new Expectations() {
-                {
-                    allowing(mockLog).debug(with(any(String.class)));
-                }
-            });
+            DocQueryResponseProcessor processor = new DocQueryResponseProcessor();
+
             assertNull("Patient identifier", processor.getPatientId());
         } catch (Throwable t) {
             System.out.println("Error running testGetPatientIdBeforeSet test: " + t.getMessage());
@@ -135,17 +107,8 @@ public class DocQueryResponseProcessorTest {
     @Test
     public void testSetPatientId() {
         try {
-            DocQueryResponseProcessor processor = new DocQueryResponseProcessor() {
-                @Override
-                protected Log createLogger() {
-                    return mockLog;
-                }
-            };
-            context.checking(new Expectations() {
-                {
-                    allowing(mockLog).debug(with(any(String.class)));
-                }
-            });
+            DocQueryResponseProcessor processor = new DocQueryResponseProcessor();
+
             processor.setPatientId("test_patient_id");
             assertEquals("Patient identifier", "test_patient_id", processor.getPatientId());
         } catch (Throwable t) {
@@ -159,17 +122,8 @@ public class DocQueryResponseProcessorTest {
     @Test
     public void testGetAssigningAuthorityIdBeforeSet() {
         try {
-            DocQueryResponseProcessor processor = new DocQueryResponseProcessor() {
-                @Override
-                protected Log createLogger() {
-                    return mockLog;
-                }
-            };
-            context.checking(new Expectations() {
-                {
-                    allowing(mockLog).debug(with(any(String.class)));
-                }
-            });
+            DocQueryResponseProcessor processor = new DocQueryResponseProcessor();
+
             assertNull("Assigning authority id", processor.getAssigningAuthorityId());
         } catch (Throwable t) {
             System.out.println("Error running testGetAssigningAuthorityIdBeforeSet test: " + t.getMessage());
@@ -182,17 +136,8 @@ public class DocQueryResponseProcessorTest {
     @Test
     public void testSetAssigningAuthorityId() {
         try {
-            DocQueryResponseProcessor processor = new DocQueryResponseProcessor() {
-                @Override
-                protected Log createLogger() {
-                    return mockLog;
-                }
-            };
-            context.checking(new Expectations() {
-                {
-                    allowing(mockLog).debug(with(any(String.class)));
-                }
-            });
+            DocQueryResponseProcessor processor = new DocQueryResponseProcessor();
+
             processor.setAssigningAuthorityId("test_assigning_authority_id");
             assertEquals("Assigning authority id", "test_assigning_authority_id", processor.getAssigningAuthorityId());
         } catch (Throwable t) {
@@ -205,17 +150,8 @@ public class DocQueryResponseProcessorTest {
     @Test
     public void testGetHomeCommunityIdBeforeSet() {
         try {
-            DocQueryResponseProcessor processor = new DocQueryResponseProcessor() {
-                @Override
-                protected Log createLogger() {
-                    return mockLog;
-                }
-            };
-            context.checking(new Expectations() {
-                {
-                    allowing(mockLog).debug(with(any(String.class)));
-                }
-            });
+            DocQueryResponseProcessor processor = new DocQueryResponseProcessor();
+
             assertNull("Home Community id", processor.getHomeCommunityId());
         } catch (Throwable t) {
             System.out.println("Error running testGetHomeCommunityIdBeforeSet test: " + t.getMessage());
@@ -228,17 +164,8 @@ public class DocQueryResponseProcessorTest {
     @Test
     public void testSetHomeCommunityIdId() {
         try {
-            DocQueryResponseProcessor processor = new DocQueryResponseProcessor() {
-                @Override
-                protected Log createLogger() {
-                    return mockLog;
-                }
-            };
-            context.checking(new Expectations() {
-                {
-                    allowing(mockLog).debug(with(any(String.class)));
-                }
-            });
+            DocQueryResponseProcessor processor = new DocQueryResponseProcessor();
+
             processor.setHomeCommunityId("test_homeCommunity_id");
             assertEquals("Home community id", "test_homeCommunity_id", processor.getHomeCommunityId());
         } catch (Throwable t) {
@@ -261,11 +188,6 @@ public class DocQueryResponseProcessorTest {
 
             DocQueryResponseProcessor processor = new DocQueryResponseProcessor() {
                 @Override
-                protected Log createLogger() {
-                    return mockLog;
-                }
-
-                @Override
                 protected PatientConsentHelper getPatientConsentHelper() {
                     return mockPatientConsentHelper;
                 }
@@ -276,11 +198,7 @@ public class DocQueryResponseProcessorTest {
                     return mockAdhocQueryResponse;
                 }
             };
-            context.checking(new Expectations() {
-                {
-                    allowing(mockLog).debug(with(any(String.class)));
-                }
-            });
+
             List<String> slotValues = processor.extractSlotValues(slots, "$XDSDocumentEntryPatientId");
             assertNotNull("Slot values was null", slotValues);
             assertEquals("Slot values was empty", 1, slotValues.size());
@@ -305,11 +223,6 @@ public class DocQueryResponseProcessorTest {
 
             DocQueryResponseProcessor processor = new DocQueryResponseProcessor() {
                 @Override
-                protected Log createLogger() {
-                    return mockLog;
-                }
-
-                @Override
                 protected PatientConsentHelper getPatientConsentHelper() {
                     return mockPatientConsentHelper;
                 }
@@ -320,11 +233,7 @@ public class DocQueryResponseProcessorTest {
                     return mockAdhocQueryResponse;
                 }
             };
-            context.checking(new Expectations() {
-                {
-                    allowing(mockLog).debug(with(any(String.class)));
-                }
-            });
+
             List<String> slotValues = processor.extractSlotValues(slots, "NoMatchSlotName");
             assertNull("Slot values was not null", slotValues);
         } catch (Throwable t) {
@@ -341,11 +250,6 @@ public class DocQueryResponseProcessorTest {
 
             DocQueryResponseProcessor processor = new DocQueryResponseProcessor() {
                 @Override
-                protected Log createLogger() {
-                    return mockLog;
-                }
-
-                @Override
                 protected PatientConsentHelper getPatientConsentHelper() {
                     return mockPatientConsentHelper;
                 }
@@ -356,11 +260,7 @@ public class DocQueryResponseProcessorTest {
                     return mockAdhocQueryResponse;
                 }
             };
-            context.checking(new Expectations() {
-                {
-                    allowing(mockLog).debug(with(any(String.class)));
-                }
-            });
+
             List<String> slotValues = processor.extractSlotValues(slots, "NoMatchSlotName");
             assertNull("Slot values was not null", slotValues);
         } catch (Throwable t) {
@@ -377,11 +277,6 @@ public class DocQueryResponseProcessorTest {
 
             DocQueryResponseProcessor processor = new DocQueryResponseProcessor() {
                 @Override
-                protected Log createLogger() {
-                    return mockLog;
-                }
-
-                @Override
                 protected PatientConsentHelper getPatientConsentHelper() {
                     return mockPatientConsentHelper;
                 }
@@ -392,11 +287,7 @@ public class DocQueryResponseProcessorTest {
                     return mockAdhocQueryResponse;
                 }
             };
-            context.checking(new Expectations() {
-                {
-                    allowing(mockLog).debug(with(any(String.class)));
-                }
-            });
+
             List<String> slotValues = processor.extractSlotValues(slots, "$XDSDocumentEntryPatientId");
             assertNull("Slot values was not null", slotValues);
         } catch (Throwable t) {
@@ -418,11 +309,6 @@ public class DocQueryResponseProcessorTest {
 
             DocQueryResponseProcessor processor = new DocQueryResponseProcessor() {
                 @Override
-                protected Log createLogger() {
-                    return mockLog;
-                }
-
-                @Override
                 protected PatientConsentHelper getPatientConsentHelper() {
                     return mockPatientConsentHelper;
                 }
@@ -433,11 +319,7 @@ public class DocQueryResponseProcessorTest {
                     return mockAdhocQueryResponse;
                 }
             };
-            context.checking(new Expectations() {
-                {
-                    allowing(mockLog).debug(with(any(String.class)));
-                }
-            });
+
             List<String> slotValues = processor.extractSlotValues(slots, "$XDSDocumentEntryPatientId");
             assertNull("Slot values was not null", slotValues);
         } catch (Throwable t) {
@@ -460,11 +342,6 @@ public class DocQueryResponseProcessorTest {
 
             DocQueryResponseProcessor processor = new DocQueryResponseProcessor() {
                 @Override
-                protected Log createLogger() {
-                    return mockLog;
-                }
-
-                @Override
                 protected PatientConsentHelper getPatientConsentHelper() {
                     return mockPatientConsentHelper;
                 }
@@ -475,11 +352,7 @@ public class DocQueryResponseProcessorTest {
                     return mockAdhocQueryResponse;
                 }
             };
-            context.checking(new Expectations() {
-                {
-                    allowing(mockLog).debug(with(any(String.class)));
-                }
-            });
+
             List<String> slotValues = processor.extractSlotValues(slots, "$XDSDocumentEntryPatientId");
             assertNull("Slot values was not null", slotValues);
         } catch (Throwable t) {
@@ -499,11 +372,6 @@ public class DocQueryResponseProcessorTest {
 
             DocQueryResponseProcessor processor = new DocQueryResponseProcessor() {
                 @Override
-                protected Log createLogger() {
-                    return mockLog;
-                }
-
-                @Override
                 protected PatientConsentHelper getPatientConsentHelper() {
                     return mockPatientConsentHelper;
                 }
@@ -514,11 +382,7 @@ public class DocQueryResponseProcessorTest {
                     return mockAdhocQueryResponse;
                 }
             };
-            context.checking(new Expectations() {
-                {
-                    allowing(mockLog).debug(with(any(String.class)));
-                }
-            });
+
             List<String> slotValues = processor.extractSlotValues(slots, "$XDSDocumentEntryPatientId");
             assertNull("Slot values was not null", slotValues);
         } catch (Throwable t) {
@@ -540,11 +404,6 @@ public class DocQueryResponseProcessorTest {
 
             DocQueryResponseProcessor processor = new DocQueryResponseProcessor() {
                 @Override
-                protected Log createLogger() {
-                    return mockLog;
-                }
-
-                @Override
                 protected PatientConsentHelper getPatientConsentHelper() {
                     return mockPatientConsentHelper;
                 }
@@ -555,11 +414,7 @@ public class DocQueryResponseProcessorTest {
                     return mockAdhocQueryResponse;
                 }
             };
-            context.checking(new Expectations() {
-                {
-                    allowing(mockLog).debug(with(any(String.class)));
-                }
-            });
+
             List<String> slotValues = processor.extractSlotValues(slots, "$XDSDocumentEntryPatientId");
             assertNull("Slot values was not null", slotValues);
         } catch (Throwable t) {
@@ -583,11 +438,6 @@ public class DocQueryResponseProcessorTest {
 
             DocQueryResponseProcessor processor = new DocQueryResponseProcessor() {
                 @Override
-                protected Log createLogger() {
-                    return mockLog;
-                }
-
-                @Override
                 protected PatientConsentHelper getPatientConsentHelper() {
                     return mockPatientConsentHelper;
                 }
@@ -598,11 +448,7 @@ public class DocQueryResponseProcessorTest {
                     return mockAdhocQueryResponse;
                 }
             };
-            context.checking(new Expectations() {
-                {
-                    allowing(mockLog).debug(with(any(String.class)));
-                }
-            });
+
             List<String> slotValues = processor.extractSlotValues(slots, "$XDSDocumentEntryPatientId");
             assertNotNull("Slot values was null", slotValues);
             assertEquals("Slot values count", 2, slotValues.size());
@@ -631,11 +477,6 @@ public class DocQueryResponseProcessorTest {
 
             DocQueryResponseProcessor processor = new DocQueryResponseProcessor() {
                 @Override
-                protected Log createLogger() {
-                    return mockLog;
-                }
-
-                @Override
                 protected PatientConsentHelper getPatientConsentHelper() {
                     return mockPatientConsentHelper;
                 }
@@ -646,11 +487,7 @@ public class DocQueryResponseProcessorTest {
                     return mockAdhocQueryResponse;
                 }
             };
-            context.checking(new Expectations() {
-                {
-                    allowing(mockLog).debug(with(any(String.class)));
-                }
-            });
+
             processor.extractIdentifiers(adhocQueryRequest);
             assertNotNull("Patient identifier null", processor.getPatientId());
             assertNotNull("Assigning authority id null", processor.getAssigningAuthorityId());
@@ -672,11 +509,6 @@ public class DocQueryResponseProcessorTest {
 
             DocQueryResponseProcessor processor = new DocQueryResponseProcessor() {
                 @Override
-                protected Log createLogger() {
-                    return mockLog;
-                }
-
-                @Override
                 protected PatientConsentHelper getPatientConsentHelper() {
                     return mockPatientConsentHelper;
                 }
@@ -687,12 +519,6 @@ public class DocQueryResponseProcessorTest {
                     return mockAdhocQueryResponse;
                 }
             };
-            context.checking(new Expectations() {
-                {
-                    allowing(mockLog).debug(with(any(String.class)));
-                    one(mockLog).warn("AdhocQueryRequest was null.");
-                }
-            });
 
             processor.extractIdentifiers(adhocQueryRequest);
             assertNull("Patient identifier", processor.getPatientId());
@@ -714,11 +540,6 @@ public class DocQueryResponseProcessorTest {
 
             DocQueryResponseProcessor processor = new DocQueryResponseProcessor() {
                 @Override
-                protected Log createLogger() {
-                    return mockLog;
-                }
-
-                @Override
                 protected PatientConsentHelper getPatientConsentHelper() {
                     return mockPatientConsentHelper;
                 }
@@ -729,11 +550,7 @@ public class DocQueryResponseProcessorTest {
                     return mockAdhocQueryResponse;
                 }
             };
-            context.checking(new Expectations() {
-                {
-                    allowing(mockLog).debug(with(any(String.class)));
-                }
-            });
+
             processor.extractIdentifiers(adhocQueryRequest);
             assertNull("Patient identifier", processor.getPatientId());
             assertNull("Assigning authority id", processor.getAssigningAuthorityId());
@@ -754,11 +571,6 @@ public class DocQueryResponseProcessorTest {
 
             DocQueryResponseProcessor processor = new DocQueryResponseProcessor() {
                 @Override
-                protected Log createLogger() {
-                    return mockLog;
-                }
-
-                @Override
                 protected PatientConsentHelper getPatientConsentHelper() {
                     return mockPatientConsentHelper;
                 }
@@ -769,11 +581,7 @@ public class DocQueryResponseProcessorTest {
                     return mockAdhocQueryResponse;
                 }
             };
-            context.checking(new Expectations() {
-                {
-                    allowing(mockLog).debug(with(any(String.class)));
-                }
-            });
+
             processor.extractIdentifiers(adhocQueryRequest);
             assertNull("Patient identifier was not null", processor.getPatientId());
             assertNull("Assigning authority id was not null", processor.getAssigningAuthorityId());
@@ -793,11 +601,6 @@ public class DocQueryResponseProcessorTest {
 
             DocQueryResponseProcessor processor = new DocQueryResponseProcessor() {
                 @Override
-                protected Log createLogger() {
-                    return mockLog;
-                }
-
-                @Override
                 protected PatientConsentHelper getPatientConsentHelper() {
                     return mockPatientConsentHelper;
                 }
@@ -808,11 +611,7 @@ public class DocQueryResponseProcessorTest {
                     return mockAdhocQueryResponse;
                 }
             };
-            context.checking(new Expectations() {
-                {
-                    allowing(mockLog).debug(with(any(String.class)));
-                }
-            });
+
             processor.extractIdentifiers(adhocQueryRequest);
             assertNull("HomeCommunity id was not null", processor.getHomeCommunityId());
         } catch (Throwable t) {
@@ -832,11 +631,6 @@ public class DocQueryResponseProcessorTest {
 
             DocQueryResponseProcessor processor = new DocQueryResponseProcessor() {
                 @Override
-                protected Log createLogger() {
-                    return mockLog;
-                }
-
-                @Override
                 protected PatientConsentHelper getPatientConsentHelper() {
                     return mockPatientConsentHelper;
                 }
@@ -847,11 +641,7 @@ public class DocQueryResponseProcessorTest {
                     return mockAdhocQueryResponse;
                 }
             };
-            context.checking(new Expectations() {
-                {
-                    allowing(mockLog).debug(with(any(String.class)));
-                }
-            });
+
             processor.extractIdentifiers(adhocQueryRequest);
             assertNotNull("HomeCommunity id was null", processor.getHomeCommunityId());
             assertEquals("Home community id", "7.7", processor.getHomeCommunityId());
@@ -878,7 +668,6 @@ public class DocQueryResponseProcessorTest {
 
             context.checking(new Expectations() {
                 {
-                    allowing(mockLog).debug(with(any(String.class)));
                     one(mockPatientConsentHelper).retrievePatientConsentbyPatientId(with(aNonNull(String.class)),
                             with(aNonNull(String.class)));
                 }
@@ -897,12 +686,7 @@ public class DocQueryResponseProcessorTest {
     @Test
     public void filterAdhocQueryResultsNullAdhocQueryRequest() {
         try {
-            context.checking(new Expectations() {
-                {
-                    allowing(mockLog).debug(with(any(String.class)));
-                    one(mockLog).warn("AdhocQueryRequest was null.");
-                }
-            });
+
             AdhocQueryResponse response = testFilterAdhocQueryResults(null, mockAdhocQueryResponse,
                     mockPatientConsentHelper);
             assertNull("AdhocQueryResponse was not null", response);
@@ -916,12 +700,7 @@ public class DocQueryResponseProcessorTest {
     @Test
     public void filterAdhocQueryResultsNullAdhocQueryResponse() {
         try {
-            context.checking(new Expectations() {
-                {
-                    allowing(mockLog).debug(with(any(String.class)));
-                    one(mockLog).warn("AdhocQueryResponse was null.");
-                }
-            });
+
             AdhocQueryResponse response = testFilterAdhocQueryResults(mockAdhocQueryRequest, null,
                     mockPatientConsentHelper);
             assertNull("AdhocQueryResponse was not null", response);
@@ -935,12 +714,7 @@ public class DocQueryResponseProcessorTest {
     @Test
     public void filterAdhocQueryResultsNullPatientConsentHelper() {
         try {
-            context.checking(new Expectations() {
-                {
-                    allowing(mockLog).debug(with(any(String.class)));
-                    one(mockLog).warn("PatientConsentHelper was null.");
-                }
-            });
+
             AdhocQueryResponse response = testFilterAdhocQueryResults(mockAdhocQueryRequest, mockAdhocQueryResponse,
                     null);
             assertNull("AdhocQueryResponse was not null", response);
@@ -961,12 +735,7 @@ public class DocQueryResponseProcessorTest {
                     return null;
                 }
             };
-            context.checking(new Expectations() {
-                {
-                    allowing(mockLog).debug(with(any(String.class)));
-                    one(mockLog).warn("PatientPreferences was null.");
-                }
-            });
+
             AdhocQueryResponse response = testFilterAdhocQueryResults(mockAdhocQueryRequest, mockAdhocQueryResponse,
                     patientConsentHelper);
             assertNull("AdhocQueryResponse was not null", response);
@@ -981,11 +750,6 @@ public class DocQueryResponseProcessorTest {
             AdhocQueryResponse adhocQueryResponse, final PatientConsentHelper patientConsentHelper) {
         AdhocQueryResponse response = null;
         DocQueryResponseProcessor processor = new DocQueryResponseProcessor() {
-            @Override
-            protected Log createLogger() {
-                return mockLog;
-            }
-
             @Override
             protected PatientConsentHelper getPatientConsentHelper() {
                 return patientConsentHelper;
@@ -1020,19 +784,7 @@ public class DocQueryResponseProcessorTest {
             patientIdSlot.setValueList(valueList);
             valueList.getValue().add("'ABC123321CBA^^^&9.8.7.6.5.4.3.2.1&ISO'");
 
-            context.checking(new Expectations() {
-                {
-                    allowing(mockLog).debug(with(any(String.class)));
-                    one(mockLog).info("Not a patient-centric query.");
-                }
-            });
-
             DocQueryResponseProcessor processor = new DocQueryResponseProcessor() {
-                @Override
-                protected Log createLogger() {
-                    return mockLog;
-                }
-
                 @Override
                 protected PatientConsentHelper getPatientConsentHelper() {
                     return mockPatientConsentHelper;
@@ -1077,19 +829,7 @@ public class DocQueryResponseProcessorTest {
             patientIdSlot.setValueList(valueList);
             valueList.getValue().add("'ABC123321CBA^^^&9.8.7.6.5.4.3.2.1&ISO'");
 
-            context.checking(new Expectations() {
-                {
-                    allowing(mockLog).debug(with(any(String.class)));
-                    one(mockLog).info("Not a patient-centric query.");
-                }
-            });
-
             DocQueryResponseProcessor processor = new DocQueryResponseProcessor() {
-                @Override
-                protected Log createLogger() {
-                    return mockLog;
-                }
-
                 @Override
                 protected PatientConsentHelper getPatientConsentHelper() {
                     return mockPatientConsentHelper;
@@ -1141,12 +881,6 @@ public class DocQueryResponseProcessorTest {
 
             PatientPreferencesType patientPreferences = new PatientPreferencesType();
 
-            context.checking(new Expectations() {
-                {
-                    allowing(mockLog).debug(with(any(String.class)));
-                    allowing(mockLog).info(with(any(String.class)));
-                }
-            });
             AdhocQueryResponse response = testFilterResults(adhocQueryResponse, patientPreferences, true);
 
             assertNotNull("AdhocQueryResponse was null", response);
@@ -1186,12 +920,6 @@ public class DocQueryResponseProcessorTest {
 
             PatientPreferencesType patientPreferences = new PatientPreferencesType();
 
-            context.checking(new Expectations() {
-                {
-                    allowing(mockLog).debug(with(any(String.class)));
-                    allowing(mockLog).info(with(any(String.class)));
-                }
-            });
             AdhocQueryResponse response = testFilterResults(adhocQueryResponse, patientPreferences, true);
 
             assertNotNull("AdhocQueryResponse was null", response);
@@ -1225,16 +953,11 @@ public class DocQueryResponseProcessorTest {
 
             PatientPreferencesType patientPreferences = new PatientPreferencesType();
 
-            context.checking(new Expectations() {
-                {
-                    allowing(mockLog).debug(with(any(String.class)));
-                    allowing(mockLog).info(with(any(String.class)));
-                }
-            });
             AdhocQueryResponse response = testFilterResults(adhocQueryResponse, patientPreferences, false);
 
             assertNotNull("AdhocQueryResponse was null", response);
-            assertNull("RegistryObjectList was not null", response.getRegistryObjectList());
+            assertNotNull("RegistryObjectList was null", response.getRegistryObjectList());
+            assertEquals(0, response.getRegistryObjectList().getIdentifiable().size());
             assertEquals("Result count", 0L, response.getTotalResultCount().longValue());
         } catch (Throwable t) {
             System.out.println("Error running testFilterResultsNotAllowed test: " + t.getMessage());
@@ -1249,12 +972,6 @@ public class DocQueryResponseProcessorTest {
             AdhocQueryResponse adhocQueryResponse = null;
             PatientPreferencesType patientPreferences = new PatientPreferencesType();
 
-            context.checking(new Expectations() {
-                {
-                    allowing(mockLog).debug(with(any(String.class)));
-                    allowing(mockLog).warn("AdhocQueryResponse was null.");
-                }
-            });
             AdhocQueryResponse response = testFilterResults(adhocQueryResponse, patientPreferences, true);
 
             assertNull("AdhocQueryResponse was not null", response);
@@ -1271,12 +988,6 @@ public class DocQueryResponseProcessorTest {
             AdhocQueryResponse adhocQueryResponse = new AdhocQueryResponse();
             PatientPreferencesType patientPreferences = new PatientPreferencesType();
 
-            context.checking(new Expectations() {
-                {
-                    allowing(mockLog).debug(with(any(String.class)));
-                    allowing(mockLog).info("RegistryObjectList was null.");
-                }
-            });
             AdhocQueryResponse response = testFilterResults(adhocQueryResponse, patientPreferences, true);
 
             assertNotNull("AdhocQueryResponse was null", response);
@@ -1301,12 +1012,6 @@ public class DocQueryResponseProcessorTest {
 
             PatientPreferencesType patientPreferences = new PatientPreferencesType();
 
-            context.checking(new Expectations() {
-                {
-                    allowing(mockLog).debug(with(any(String.class)));
-                    allowing(mockLog).info(with(any(String.class)));
-                }
-            });
             AdhocQueryResponse response = testFilterResults(adhocQueryResponse, patientPreferences, true);
 
             assertNotNull("AdhocQueryResponse was null", response);
@@ -1337,12 +1042,6 @@ public class DocQueryResponseProcessorTest {
 
             PatientPreferencesType patientPreferences = new PatientPreferencesType();
 
-            context.checking(new Expectations() {
-                {
-                    allowing(mockLog).debug(with(any(String.class)));
-                    allowing(mockLog).info(with(any(String.class)));
-                }
-            });
             AdhocQueryResponse response = testFilterResults(adhocQueryResponse, patientPreferences, true);
 
             assertNotNull("AdhocQueryResponse was null", response);
@@ -1360,11 +1059,6 @@ public class DocQueryResponseProcessorTest {
             PatientPreferencesType patientPreferences, final boolean docAllowedFlag) {
         AdhocQueryResponse response = null;
         DocQueryResponseProcessor processor = new DocQueryResponseProcessor() {
-            @Override
-            protected Log createLogger() {
-                return mockLog;
-            }
-
             @Override
             protected PatientConsentHelper getPatientConsentHelper() {
                 return mockPatientConsentHelper;
@@ -1394,11 +1088,6 @@ public class DocQueryResponseProcessorTest {
 
             adhocQueryResponse.setTotalResultCount(BigInteger.ONE);
 
-            context.checking(new Expectations() {
-                {
-                    allowing(mockLog).debug(with(any(String.class)));
-                }
-            });
             AdhocQueryResponse response = testFilterResultsNonPatientCentric(adhocQueryResponse);
 
             assertNotNull("AdhocQueryResponse was not null", response);
@@ -1415,12 +1104,6 @@ public class DocQueryResponseProcessorTest {
         try {
             AdhocQueryResponse adhocQueryResponse = null;
 
-            context.checking(new Expectations() {
-                {
-                    allowing(mockLog).debug(with(any(String.class)));
-                    one(mockLog).warn("AdhocQueryResponse was null.");
-                }
-            });
             AdhocQueryResponse response = testFilterResultsNonPatientCentric(adhocQueryResponse);
 
             assertNull("AdhocQueryResponse was not null", response);
@@ -1436,16 +1119,11 @@ public class DocQueryResponseProcessorTest {
         try {
             AdhocQueryResponse adhocQueryResponse = new AdhocQueryResponse();
 
-            context.checking(new Expectations() {
-                {
-                    allowing(mockLog).debug(with(any(String.class)));
-                    one(mockLog).info("RegistryObjectList was null.");
-                }
-            });
             AdhocQueryResponse response = testFilterResultsNonPatientCentric(adhocQueryResponse);
 
             assertNotNull("AdhocQueryResponse was null", response);
-            assertNull("RegistryObjectList was not null", response.getRegistryObjectList());
+            assertNotNull("RegistryObjectList was null", response.getRegistryObjectList());
+            assertEquals(0, response.getRegistryObjectList().getIdentifiable().size());
         } catch (Throwable t) {
             System.out.println("Error running testFilterResultsNonPatientCentricNullRegistryObjectList test: "
                     + t.getMessage());
@@ -1457,11 +1135,6 @@ public class DocQueryResponseProcessorTest {
     private AdhocQueryResponse testFilterResultsNonPatientCentric(AdhocQueryResponse adhocQueryResponse) {
         AdhocQueryResponse response = null;
         DocQueryResponseProcessor processor = new DocQueryResponseProcessor() {
-            @Override
-            protected Log createLogger() {
-                return mockLog;
-            }
-
             @Override
             protected PatientConsentHelper getPatientConsentHelper() {
                 return mockPatientConsentHelper;
@@ -1480,17 +1153,7 @@ public class DocQueryResponseProcessorTest {
             extId.setIdentificationScheme(CDAConstants.DOCUMENT_ID_IDENT_SCHEME);
             extId.setValue("test_doc_id");
 
-            DocQueryResponseProcessor processor = new DocQueryResponseProcessor() {
-                @Override
-                protected Log createLogger() {
-                    return mockLog;
-                }
-            };
-            context.checking(new Expectations() {
-                {
-                    allowing(mockLog).debug(with(any(String.class)));
-                }
-            });
+            DocQueryResponseProcessor processor = new DocQueryResponseProcessor();
             String extractedDocumentId = processor.extractDocumentId(extObject);
 
             assertNotNull("Extracted document id was null", extractedDocumentId);
@@ -1507,17 +1170,7 @@ public class DocQueryResponseProcessorTest {
         try {
             ExtrinsicObjectType extObject = new ExtrinsicObjectType();
 
-            DocQueryResponseProcessor processor = new DocQueryResponseProcessor() {
-                @Override
-                protected Log createLogger() {
-                    return mockLog;
-                }
-            };
-            context.checking(new Expectations() {
-                {
-                    allowing(mockLog).debug(with(any(String.class)));
-                }
-            });
+            DocQueryResponseProcessor processor = new DocQueryResponseProcessor();
             String extractedDocumentId = processor.extractDocumentId(extObject);
 
             assertNull("Extracted document id was not null", extractedDocumentId);
@@ -1536,17 +1189,7 @@ public class DocQueryResponseProcessorTest {
             extObject.getExternalIdentifier().add(extId);
             extId.setValue("test_doc_id");
 
-            DocQueryResponseProcessor processor = new DocQueryResponseProcessor() {
-                @Override
-                protected Log createLogger() {
-                    return mockLog;
-                }
-            };
-            context.checking(new Expectations() {
-                {
-                    allowing(mockLog).debug(with(any(String.class)));
-                }
-            });
+            DocQueryResponseProcessor processor = new DocQueryResponseProcessor();
             String extractedDocumentId = processor.extractDocumentId(extObject);
 
             assertNull("Extracted document id was not null", extractedDocumentId);
@@ -1566,17 +1209,7 @@ public class DocQueryResponseProcessorTest {
             extId.setIdentificationScheme(CDAConstants.DOCUMENT_ID_IDENT_SCHEME + "bad");
             extId.setValue("test_doc_id");
 
-            DocQueryResponseProcessor processor = new DocQueryResponseProcessor() {
-                @Override
-                protected Log createLogger() {
-                    return mockLog;
-                }
-            };
-            context.checking(new Expectations() {
-                {
-                    allowing(mockLog).debug(with(any(String.class)));
-                }
-            });
+            DocQueryResponseProcessor processor = new DocQueryResponseProcessor();
             String extractedDocumentId = processor.extractDocumentId(extObject);
 
             assertNull("Extracted document id was not null", extractedDocumentId);
@@ -1595,17 +1228,7 @@ public class DocQueryResponseProcessorTest {
             extObject.getExternalIdentifier().add(extId);
             extId.setIdentificationScheme(CDAConstants.DOCUMENT_ID_IDENT_SCHEME);
 
-            DocQueryResponseProcessor processor = new DocQueryResponseProcessor() {
-                @Override
-                protected Log createLogger() {
-                    return mockLog;
-                }
-            };
-            context.checking(new Expectations() {
-                {
-                    allowing(mockLog).debug(with(any(String.class)));
-                }
-            });
+            DocQueryResponseProcessor processor = new DocQueryResponseProcessor();
             String extractedDocumentId = processor.extractDocumentId(extObject);
 
             assertNull("Extracted document id was not null", extractedDocumentId);
@@ -1625,17 +1248,7 @@ public class DocQueryResponseProcessorTest {
             extId.setIdentificationScheme(CDAConstants.DOCUMENT_ID_IDENT_SCHEME);
             extId.setValue("");
 
-            DocQueryResponseProcessor processor = new DocQueryResponseProcessor() {
-                @Override
-                protected Log createLogger() {
-                    return mockLog;
-                }
-            };
-            context.checking(new Expectations() {
-                {
-                    allowing(mockLog).debug(with(any(String.class)));
-                }
-            });
+            DocQueryResponseProcessor processor = new DocQueryResponseProcessor();
             String extractedDocumentId = processor.extractDocumentId(extObject);
 
             assertNull("Extracted document id was not null", extractedDocumentId);
@@ -1657,17 +1270,7 @@ public class DocQueryResponseProcessorTest {
             slot.setValueList(valueList);
             valueList.getValue().add("5");
 
-            DocQueryResponseProcessor processor = new DocQueryResponseProcessor() {
-                @Override
-                protected Log createLogger() {
-                    return mockLog;
-                }
-            };
-            context.checking(new Expectations() {
-                {
-                    allowing(mockLog).debug(with(any(String.class)));
-                }
-            });
+            DocQueryResponseProcessor processor = new DocQueryResponseProcessor();
             String repositoryId = processor.extractRepositoryId(extObject);
 
             assertNotNull("Extracted repository id was null", repositoryId);
@@ -1687,17 +1290,8 @@ public class DocQueryResponseProcessorTest {
             extObject.getSlot().add(slot);
             slot.setName(CDAConstants.SLOT_NAME_REPOSITORY_UNIQUE_ID);
 
-            DocQueryResponseProcessor processor = new DocQueryResponseProcessor() {
-                @Override
-                protected Log createLogger() {
-                    return mockLog;
-                }
-            };
-            context.checking(new Expectations() {
-                {
-                    allowing(mockLog).debug(with(any(String.class)));
-                }
-            });
+            DocQueryResponseProcessor processor = new DocQueryResponseProcessor();
+
             String repositoryId = processor.extractRepositoryId(extObject);
 
             assertNull("Extracted repository id was not null", repositoryId);
@@ -1719,17 +1313,7 @@ public class DocQueryResponseProcessorTest {
             slot.setValueList(valueList);
             valueList.getValue().add("5");
 
-            DocQueryResponseProcessor processor = new DocQueryResponseProcessor() {
-                @Override
-                protected Log createLogger() {
-                    return mockLog;
-                }
-            };
-            context.checking(new Expectations() {
-                {
-                    allowing(mockLog).debug(with(any(String.class)));
-                }
-            });
+            DocQueryResponseProcessor processor = new DocQueryResponseProcessor();
             String repositoryId = processor.extractRepositoryId(extObject);
 
             assertNull("Extracted repository id was not null", repositoryId);
@@ -1749,17 +1333,7 @@ public class DocQueryResponseProcessorTest {
             typeCodeClassification.setClassificationScheme("urn:uuid:f0306f51-975f-434e-a61c-c59651d33983");
             typeCodeClassification.setNodeRepresentation("123-abc");
 
-            DocQueryResponseProcessor processor = new DocQueryResponseProcessor() {
-                @Override
-                protected Log createLogger() {
-                    return mockLog;
-                }
-            };
-            context.checking(new Expectations() {
-                {
-                    allowing(mockLog).debug(with(any(String.class)));
-                }
-            });
+            DocQueryResponseProcessor processor = new DocQueryResponseProcessor();
             String documentType = processor.extractDocumentType(extObject);
 
             assertNotNull("Extracted document type was null", documentType);
@@ -1775,17 +1349,7 @@ public class DocQueryResponseProcessorTest {
     public void testExtractDocumentTypeNoClassifications() {
         try {
             ExtrinsicObjectType extObject = new ExtrinsicObjectType();
-            DocQueryResponseProcessor processor = new DocQueryResponseProcessor() {
-                @Override
-                protected Log createLogger() {
-                    return mockLog;
-                }
-            };
-            context.checking(new Expectations() {
-                {
-                    allowing(mockLog).debug(with(any(String.class)));
-                }
-            });
+            DocQueryResponseProcessor processor = new DocQueryResponseProcessor();
             String documentType = processor.extractDocumentType(extObject);
 
             assertNull("Extracted document type was not null", documentType);
@@ -1805,17 +1369,7 @@ public class DocQueryResponseProcessorTest {
             typeCodeClassification.setClassificationScheme("urn:uuid:f0306f51-975f-434e-a61c-c59651d33983z");
             typeCodeClassification.setNodeRepresentation("123-abc");
 
-            DocQueryResponseProcessor processor = new DocQueryResponseProcessor() {
-                @Override
-                protected Log createLogger() {
-                    return mockLog;
-                }
-            };
-            context.checking(new Expectations() {
-                {
-                    allowing(mockLog).debug(with(any(String.class)));
-                }
-            });
+            DocQueryResponseProcessor processor = new DocQueryResponseProcessor();
             String documentType = processor.extractDocumentType(extObject);
 
             assertNull("Extracted document type was not null", documentType);
@@ -1837,18 +1391,12 @@ public class DocQueryResponseProcessorTest {
 
             DocQueryResponseProcessor processor = new DocQueryResponseProcessor() {
                 @Override
-                protected Log createLogger() {
-                    return mockLog;
-                }
-
-                @Override
                 protected PatientConsentHelper getPatientConsentHelper() {
                     return mockPatientConsentHelper;
                 }
             };
             context.checking(new Expectations() {
                 {
-                    allowing(mockLog).debug(with(any(String.class)));
                     one(mockPatientConsentHelper).retrievePatientConsentbyDocumentId(with(any(String.class)),
                             with(any(String.class)), with(any(String.class)));
                 }
@@ -1868,18 +1416,8 @@ public class DocQueryResponseProcessorTest {
         try {
             ExtrinsicObjectType extObject = null;
 
-            DocQueryResponseProcessor processor = new DocQueryResponseProcessor() {
-                @Override
-                protected Log createLogger() {
-                    return mockLog;
-                }
-            };
-            context.checking(new Expectations() {
-                {
-                    allowing(mockLog).debug(with(any(String.class)));
-                    allowing(mockLog).error("Extrinsic Object was null.");
-                }
-            });
+            DocQueryResponseProcessor processor = new DocQueryResponseProcessor();
+
             PatientPreferencesType patientPreferences = processor.retrievePatientPreferencesForDocument(extObject);
 
             assertNull("Extracted patient preferences was not null", patientPreferences);
@@ -1902,11 +1440,6 @@ public class DocQueryResponseProcessorTest {
 
             DocQueryResponseProcessor processor = new DocQueryResponseProcessor() {
                 @Override
-                protected Log createLogger() {
-                    return mockLog;
-                }
-
-                @Override
                 protected PatientConsentHelper getPatientConsentHelper() {
                     PatientConsentHelper patientConsentHelper = new PatientConsentHelper() {
                         @Override
@@ -1918,11 +1451,6 @@ public class DocQueryResponseProcessorTest {
                     return patientConsentHelper;
                 }
             };
-            context.checking(new Expectations() {
-                {
-                    allowing(mockLog).debug(with(any(String.class)));
-                }
-            });
             PatientPreferencesType patientPreferences = processor.retrievePatientPreferencesForDocument(extObject);
 
             assertNull("Extracted patient preferences was not null", patientPreferences);
@@ -1947,11 +1475,6 @@ public class DocQueryResponseProcessorTest {
 
             DocQueryResponseProcessor processor = new DocQueryResponseProcessor() {
                 @Override
-                protected Log createLogger() {
-                    return mockLog;
-                }
-
-                @Override
                 protected PatientConsentHelper getPatientConsentHelper() {
                     return mockPatientConsentHelper;
                 }
@@ -1963,7 +1486,6 @@ public class DocQueryResponseProcessorTest {
             };
             context.checking(new Expectations() {
                 {
-                    allowing(mockLog).debug(with(any(String.class)));
                     one(mockPatientConsentHelper).documentSharingAllowed(with(aNonNull(String.class)),
                             with(aNonNull(PatientPreferencesType.class)));
                 }

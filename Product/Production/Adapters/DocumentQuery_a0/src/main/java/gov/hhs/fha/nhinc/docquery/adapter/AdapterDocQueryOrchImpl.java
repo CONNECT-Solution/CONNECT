@@ -13,29 +13,21 @@ import gov.hhs.fha.nhinc.redactionengine.adapter.proxy.AdapterRedactionEnginePro
 import gov.hhs.fha.nhinc.redactionengine.adapter.proxy.AdapterRedactionEngineProxyObjectFactory;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
+import oasis.names.tc.ebxml_regrep.xsd.rim._3.RegistryObjectListType;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryError;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryErrorList;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 
 /**
  * 
  * @author jhoppesc
  */
 public class AdapterDocQueryOrchImpl {
-    private Log log = null;
+    private static final Logger LOG = Logger.getLogger(AdapterDocQueryOrchImpl.class);
     private static final String ERROR_CODE_CONTEXT = AdapterDocQueryOrchImpl.class.getName();
     private static final String ERROR_VALUE = "Input has null value";
     private static final String ERROR_SEVERITY = "Error";
-
-    public AdapterDocQueryOrchImpl() {
-        log = createLogger();
-    }
-
-    protected Log createLogger() {
-        return LogFactory.getLog(getClass());
-    }
 
     /**
      * 
@@ -44,7 +36,7 @@ public class AdapterDocQueryOrchImpl {
      * @return AdhocQueryResponse
      */
     public AdhocQueryResponse respondingGatewayCrossGatewayQuery(AdhocQueryRequest request, AssertionType assertion) {
-        log.debug("Enter AdapterDocQueryOrchImpl.respondingGatewayCrossGatewayQuery()");
+        LOG.debug("Enter AdapterDocQueryOrchImpl.respondingGatewayCrossGatewayQuery()");
         AdhocQueryResponse response = null;
         try {
             if (request != null) {
@@ -65,6 +57,7 @@ public class AdapterDocQueryOrchImpl {
             } else {
                 RegistryErrorList errorList = new RegistryErrorList();
                 response = new AdhocQueryResponse();
+                response.setRegistryObjectList(new RegistryObjectListType());
                 RegistryError e = new RegistryError();
                 errorList.getRegistryError().add(e);
                 response.setRegistryErrorList(errorList);
@@ -73,10 +66,10 @@ public class AdapterDocQueryOrchImpl {
                 e.setCodeContext(ERROR_CODE_CONTEXT);
             }
         } catch (Exception exp) {
-            log.error(exp.getMessage());
+            LOG.error(exp.getMessage());
             exp.printStackTrace();
         }
-        log.debug("End AdapterDocQueryOrchImpl.respondingGatewayCrossGatewayQuery()");
+        LOG.debug("End AdapterDocQueryOrchImpl.respondingGatewayCrossGatewayQuery()");
         return response;
 
     }
@@ -85,9 +78,9 @@ public class AdapterDocQueryOrchImpl {
             AssertionType assertion) {
         AdhocQueryResponse response = null;
         if (queryResponse == null) {
-            log.warn("Did not call redaction engine because the query response was null.");
+            LOG.warn("Did not call redaction engine because the query response was null.");
         } else {
-            log.debug("Calling Redaction Engine");
+            LOG.debug("Calling Redaction Engine");
             response = getRedactionEngineProxy().filterAdhocQueryResults(queryRequest, queryResponse, assertion);
         }
         return response;

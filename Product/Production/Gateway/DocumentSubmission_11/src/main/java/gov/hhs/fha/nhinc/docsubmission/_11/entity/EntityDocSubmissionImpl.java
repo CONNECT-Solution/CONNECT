@@ -1,114 +1,85 @@
 /*
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services. 
- * All rights reserved. 
+ * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
+ * All rights reserved.
  *
- * Redistribution and use in source and binary forms, with or without 
- * modification, are permitted provided that the following conditions are met: 
- *     * Redistributions of source code must retain the above 
- *       copyright notice, this list of conditions and the following disclaimer. 
- *     * Redistributions in binary form must reproduce the above copyright 
- *       notice, this list of conditions and the following disclaimer in the documentation 
- *       and/or other materials provided with the distribution. 
- *     * Neither the name of the United States Government nor the 
- *       names of its contributors may be used to endorse or promote products 
- *       derived from this software without specific prior written permission. 
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ *     * Redistributions of source code must retain the above
+ *       copyright notice, this list of conditions and the following disclaimer.
+ *     * Redistributions in binary form must reproduce the above copyright
+ *       notice, this list of conditions and the following disclaimer in the documentation
+ *       and/or other materials provided with the distribution.
+ *     * Neither the name of the United States Government nor the
+ *       names of its contributors may be used to endorse or promote products
+ *       derived from this software without specific prior written permission.
  *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
- * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
- * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
- * DISCLAIMED. IN NO EVENT SHALL THE UNITED STATES GOVERNMENT BE LIABLE FOR ANY 
- * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES 
- * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; 
- * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND 
- * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT 
- * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
- * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+ * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ * DISCLAIMED. IN NO EVENT SHALL THE UNITED STATES GOVERNMENT BE LIABLE FOR ANY
+ * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+ * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+ * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 package gov.hhs.fha.nhinc.docsubmission._11.entity;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
-import gov.hhs.fha.nhinc.common.nhinccommon.UrlInfoType;
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayProvideAndRegisterDocumentSetRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType;
-import gov.hhs.fha.nhinc.cxf.extraction.SAML2AssertionExtractor;
-import gov.hhs.fha.nhinc.docsubmission.entity.EntityDocSubmissionOrchImpl;
-import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
+import gov.hhs.fha.nhinc.docsubmission.outbound.OutboundDocSubmission;
+import gov.hhs.fha.nhinc.messaging.server.BaseService;
+
 import javax.xml.ws.WebServiceContext;
+
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 
-class EntityDocSubmissionImpl {
+import org.apache.log4j.Logger;
 
-    private Log log = null;
+class EntityDocSubmissionImpl extends BaseService {
 
-    public EntityDocSubmissionImpl() {
-        log = createLogger();
+    private static final Logger LOG = Logger.getLogger(EntityDocSubmissionImpl.class);
+
+    private OutboundDocSubmission outboundDocSubmission;
+
+    public EntityDocSubmissionImpl(OutboundDocSubmission outboundDocSubmission) {
+        this.outboundDocSubmission = outboundDocSubmission;
     }
-
-    protected Log createLogger() {
-        return ((log != null) ? log : LogFactory.getLog(getClass()));
-    }
-
 
     RegistryResponseType provideAndRegisterDocumentSetBUnsecured(
             RespondingGatewayProvideAndRegisterDocumentSetRequestType request, WebServiceContext context) {
-        log.info("Begin EntityDocSubmissionImpl.provideAndRegisterDocumentSetBUnsecured(RespondingGatewayProvideAndRegisterDocumentSetRequestType, WebServiceContext)");
-        EntityDocSubmissionOrchImpl implOrch = createEntityDocSubmissionOrchImpl();
+
         RegistryResponseType response = null;
 
         try {
-            if (request != null) {
-                ProvideAndRegisterDocumentSetRequestType msg = request.getProvideAndRegisterDocumentSetRequest();
-                NhinTargetCommunitiesType targets = request.getNhinTargetCommunities();
-                AssertionType assertIn = request.getAssertion();
-                UrlInfoType urlInfo = request.getUrl();  
-                response = implOrch.provideAndRegisterDocumentSetB( msg, assertIn, targets, urlInfo);
-            } else {
-                log.error("Failed to call the web orchestration (" + implOrch.getClass()
-                        + ".provideAndRegisterDocumentSetB).  The input parameter is null.");
-            }
+            response = outboundDocSubmission.provideAndRegisterDocumentSetB(
+                    request.getProvideAndRegisterDocumentSetRequest(), request.getAssertion(),
+                    request.getNhinTargetCommunities(), request.getUrl());
+
         } catch (Exception e) {
-            log.error(
-                    "Failed to call the web orchestration (" + implOrch.getClass()
-                            + ".provideAndRegisterDocumentSetB).  An unexpected exception occurred.  " + "Exception: "
-                            + e.getMessage(), e);
+            LOG.error("Failed to send request to Nwhin.", e);
         }
-        log.info("End EntityDocSubmissionImpl.provideAndRegisterDocumentSetBUnsecured with response: " + response);
+
         return response;
     }
 
     RegistryResponseType provideAndRegisterDocumentSetBSecured(
             RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType request, WebServiceContext context) {
-        log.info("Begin EntityDocSubmissionImpl.provideAndRegisterDocumentSetBSecured(RespondingGatewayProvideAndRegisterDocumentSetSecuredRequestType, WebServiceContext)");
-        EntityDocSubmissionOrchImpl implOrch = createEntityDocSubmissionOrchImpl();
+
         RegistryResponseType response = null;
 
         try {
-            if (request != null) {
-                ProvideAndRegisterDocumentSetRequestType msg = request.getProvideAndRegisterDocumentSetRequest();
-                NhinTargetCommunitiesType targets = request.getNhinTargetCommunities();
-                UrlInfoType urlInfo = request.getUrl();
-                
-                AssertionType assertion = SAML2AssertionExtractor.getInstance().extractSamlAssertion(context);
-                response = implOrch.provideAndRegisterDocumentSetB( msg, assertion, targets, urlInfo);
-            } else {
-                log.error("Failed to call the web orchestration (" + implOrch.getClass()
-                        + ".provideAndRegisterDocumentSetB).  The input parameter is null.");
-            }
+            AssertionType assertion = getAssertion(context, null);
+            response = outboundDocSubmission.provideAndRegisterDocumentSetB(
+                    request.getProvideAndRegisterDocumentSetRequest(), assertion, request.getNhinTargetCommunities(),
+                    request.getUrl());
+
         } catch (Exception e) {
-            log.error(
-                    "Failed to call the web orchestration (" + implOrch.getClass()
-                            + ".provideAndRegisterDocumentSetB).  An unexpected exception occurred.  " + "Exception: "
-                            + e.getMessage(), e);
+            LOG.error("Failed to send request to Nwhin.", e);
         }
-        log.info("End EntityDocSubmissionImpl.provideAndRegisterDocumentSetBSecured with response: " + response);
 
         return response;
-    }
-
-    private EntityDocSubmissionOrchImpl createEntityDocSubmissionOrchImpl() {
-        return new EntityDocSubmissionOrchImpl();
     }
 }

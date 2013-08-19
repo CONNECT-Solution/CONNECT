@@ -31,37 +31,35 @@ import gov.hhs.fha.nhinc.admindistribution.nhin.proxy.NhinAdminDistributionProxy
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.orchestration.Orchestratable;
 import gov.hhs.fha.nhinc.orchestration.OrchestrationStrategy;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+
+import org.apache.log4j.Logger;
 
 /**
  * 
  * @author nnguyen
  */
+//CHECKSTYLE:OFF
 public class OutboundAdminDistributionStrategyImpl_g0 implements OrchestrationStrategy {
+//CHECKSTYLE:ON
 
-    private static Log log = LogFactory.getLog(OutboundAdminDistributionStrategyImpl_g0.class);
-
-    public OutboundAdminDistributionStrategyImpl_g0() {
-    }
-
-    private Log getLogger() {
-        return log;
-    }
+    private static final Logger LOG = Logger.getLogger(OutboundAdminDistributionStrategyImpl_g0.class);
 
     @Override
     public void execute(Orchestratable message) {
         if (message instanceof OutboundAdminDistributionOrchestratable) {
             execute((OutboundAdminDistributionOrchestratable) message);
         } else {
-            getLogger().error("Not an EntityAdminDistributionOrchestratable.");
+            LOG.error("Not an EntityAdminDistributionOrchestratable.");
         }
     }
 
+    /**This method processs the AdminDist Orchestratable message and forwards to Nhin.
+     * @param message OutboundAdminDistOrchestartable mseeage received.
+     */
     public void execute(OutboundAdminDistributionOrchestratable message) {
-        getLogger().debug("Begin NhinAdminDistributionOrchestratableImpl_g0.process");
+        LOG.debug("Begin NhinAdminDistributionOrchestratableImpl_g0.process");
         if (message == null) {
-            getLogger().debug("EntityAdminDistributionOrchestratable was null");
+            LOG.debug("EntityAdminDistributionOrchestratable was null");
             return;
         }
 
@@ -72,10 +70,10 @@ public class OutboundAdminDistributionStrategyImpl_g0 implements OrchestrationSt
             nhincAdminDist.sendAlertMessage(message.getRequest().getEDXLDistribution(), message.getRequest()
                     .getAssertion(), message.getTarget(), NhincConstants.GATEWAY_API_LEVEL.LEVEL_g0);
         } else {
-            getLogger().error(
+            LOG.error(
                     "NhinAdminDistributionImpl_g0 AdapterDelegateImpl.process received a message "
                             + "which was not of type NhinAdminDistributionOrchestratableImpl_g0.");
         }
-        getLogger().debug("End NhinAdminDistributionOrchestratableImpl_g0.process");
+        LOG.debug("End NhinAdminDistributionOrchestratableImpl_g0.process");
     }
 }

@@ -41,8 +41,8 @@ import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 //import gov.hhs.fha.nhinc.saml.extraction.SamlTokenCreator;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+
+import org.apache.log4j.Logger;
 
 /**
  * 
@@ -50,15 +50,7 @@ import org.apache.commons.logging.LogFactory;
  */
 public class EntityDocRetrieveProxyWebServiceSecuredImpl implements EntityDocRetrieveProxy {
 
-    private static org.apache.commons.logging.Log log = null;
-
-    public EntityDocRetrieveProxyWebServiceSecuredImpl() {
-        log = createLogger();
-    }
-
-    protected Log createLogger() {
-        return LogFactory.getLog(getClass());
-    }
+    private static final Logger LOG = Logger.getLogger(EntityDocRetrieveProxyWebServiceSecuredImpl.class);
 
     protected EntityDocRetrieveSecured getWebService() {
         return new EntityDocRetrieveSecured();
@@ -88,10 +80,10 @@ public class EntityDocRetrieveProxyWebServiceSecuredImpl implements EntityDocRet
             CONNECTClient<EntityDocRetrieveSecuredPortType> client = getCONNECTClientSecured(portDescriptor, url, assertion);
 
             try {
-                log.debug("invoke port");
+                LOG.debug("invoke port");
                 response = (RetrieveDocumentSetResponseType) client.invokePort(EntityDocRetrieveSecuredPortType.class, "provideAndRegisterDocumentSetb", message);
             } catch (Exception ex) {
-                log.error("Failed to call the web service (" + serviceName + ").  An unexpected exception occurred.  "
+                LOG.error("Failed to call the web service (" + serviceName + ").  An unexpected exception occurred.  "
                         + "Exception: " + ex.getMessage(), ex);
             }
         }
@@ -104,8 +96,8 @@ public class EntityDocRetrieveProxyWebServiceSecuredImpl implements EntityDocRet
         try {
             result = this.getWebServiceProxyHelper().getUrlLocalHomeCommunity(serviceName);
         } catch (Exception ex) {
-            log.warn("Unable to retreive url for service: " + serviceName);
-            log.warn("Error: " + ex.getMessage(), ex);
+            LOG.warn("Unable to retreive url for service: " + serviceName);
+            LOG.warn("Error: " + ex.getMessage(), ex);
         }
 
         return result;

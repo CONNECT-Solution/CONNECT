@@ -53,6 +53,7 @@ public class DocQueryPolicyChecker {
      * Checks to see if the security policy will permit the query to be executed.
      * 
      * @param message The AdhocQuery request message.
+     * @param assertion Assertion received.
      * @return Returns true if the security policy permits the query; false if denied.
      */
     public boolean checkIncomingPolicy(AdhocQueryRequest message, AssertionType assertion) {
@@ -70,6 +71,12 @@ public class DocQueryPolicyChecker {
         return checkPolicy(policyReq, assertion);
     }
 
+    /**
+     * checks the outgoing policy for the Query. 
+     * @param message The AdhocQuery request message.
+     * @param assertion Assertion received.
+     * @return Returns true if the security policy permits the query; false if denied.
+     */
     public boolean checkOutgoingPolicy(AdhocQueryRequest message, AssertionType assertion) {
         // convert the request message to an object recognized by the policy engine
         AdhocQueryRequestMessageType request = new AdhocQueryRequestMessageType();
@@ -85,6 +92,12 @@ public class DocQueryPolicyChecker {
         return checkPolicy(policyReq, assertion);
     }
 
+    /**
+     * Chceks Incoming Response security policy.
+     * @param message The AdhocQuery request message.
+     * @param assertion Assertion received.
+     * @return Returns true if the security policy permits the query; false if denied.
+     */
     public boolean checkIncomingResponsePolicy(AdhocQueryResponse message, AssertionType assertion) {
         // convert the request message to an object recognized by the policy engine
         AdhocQueryResponseMessageType request = new AdhocQueryResponseMessageType();
@@ -100,6 +113,13 @@ public class DocQueryPolicyChecker {
         return checkPolicy(policyReq, assertion);
     }
 
+    /**
+     * Chceks outgoing Response security policy.
+     * @param message The AdhocQuery request message.
+     * @param assertion Assertion received.
+     * @param receiverHcid target communityID.
+     * @return Returns true if the security policy permits the query; false if denied.
+     */
     public boolean checkOutgoingResponsePolicy(AdhocQueryResponse message, AssertionType assertion,
             HomeCommunityType receiverHcid) {
         // convert the request message to an object recognized by the policy engine
@@ -118,6 +138,13 @@ public class DocQueryPolicyChecker {
         return checkPolicy(policyReq, assertion);
     }
 
+    /**
+     * Chceks outgoing Request security policy.
+     * @param message The AdhocQuery request message.
+     * @param assertion Assertion received.
+     * @param receiverHcid target communityID.
+     * @return Returns true if the security policy permits the query; false if denied.
+     */
     public boolean checkOutgoingRequestPolicy(AdhocQueryRequest message, AssertionType assertion,
             HomeCommunityType receiverHcid) {
         // convert the request message to an object recognized by the policy engine
@@ -136,6 +163,12 @@ public class DocQueryPolicyChecker {
         return checkPolicy(policyReq, assertion);
     }
 
+    /**
+     * Build PolicyRequest.
+     * @param policyCheckReq policyCheckRequest received.
+     * @param assertion Assertion received.
+     * @return policyReq built.
+     */
     protected CheckPolicyRequestType buildPolicyRequest(AdhocQueryRequestEventType policyCheckReq,
             AssertionType assertion) {
         // call the policy engine to check the permission on the request
@@ -144,6 +177,12 @@ public class DocQueryPolicyChecker {
         return policyReq;
     }
 
+    /**
+     * Build PolicyRequest.
+     * @param policyCheckResult policyCheckRequest received.
+     * @param assertion Assertion received.
+     * @return policyReq built.
+     */
     protected CheckPolicyRequestType buildPolicyRequest(AdhocQueryResultEventType policyCheckResult,
             AssertionType assertion) {
         // call the policy engine to check the permission on the request
@@ -153,10 +192,10 @@ public class DocQueryPolicyChecker {
     }
 
     /**
-     * check the policy engine's response, return true if response = permit
+     * check the policy engine's response, return true if response = permit.
      * 
-     * @param policyCheckReq
-     * @param assertion
+     * @param policyReq policyreq received.
+     * @param assertion Assertion received.
      * @return return true if response = permit
      */
     protected boolean checkPolicy(CheckPolicyRequestType policyReq, AssertionType assertion) {
@@ -164,14 +203,25 @@ public class DocQueryPolicyChecker {
         return validatePolicyResponse(policyResp);
     }
 
+    /**
+     * @return PolicyEngineChecker.
+     */
     protected PolicyEngineChecker getPolicyChecker() {
         return new PolicyEngineChecker();
     }
 
+    /**
+     * @return policyEngine Bean instantiated.
+     */
     protected PolicyEngineProxy getPolicyEngine() {
         return (new PolicyEngineProxyObjectFactory()).getPolicyEngineProxy();
     }
 
+    /**
+     * This method validates Policy in the Response.
+     * @param policyResp policyResponse received.
+     * @return true if Permit; else false.
+     */
     protected boolean validatePolicyResponse(CheckPolicyResponseType policyResp) {
         return policyResp.getResponse() != null && NullChecker.isNotNullish(policyResp.getResponse().getResult())
                 && policyResp.getResponse().getResult().get(0).getDecision() == DecisionType.PERMIT;

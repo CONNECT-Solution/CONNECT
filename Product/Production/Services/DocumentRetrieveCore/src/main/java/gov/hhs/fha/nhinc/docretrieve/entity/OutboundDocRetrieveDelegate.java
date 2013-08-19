@@ -36,8 +36,7 @@ import gov.hhs.fha.nhinc.orchestration.OutboundDelegate;
 import gov.hhs.fha.nhinc.orchestration.OutboundOrchestratable;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 
 /**
  * 
@@ -45,10 +44,7 @@ import org.apache.commons.logging.LogFactory;
  */
 public class OutboundDocRetrieveDelegate implements OutboundDelegate {
 
-    private static Log log = LogFactory.getLog(OutboundDocRetrieveDelegate.class);
-
-    public OutboundDocRetrieveDelegate() {
-    }
+    private static final Logger LOG = Logger.getLogger(OutboundDocRetrieveDelegate.class);
 
     @Override
     public Orchestratable process(Orchestratable message) {
@@ -78,7 +74,7 @@ public class OutboundDocRetrieveDelegate implements OutboundDelegate {
 
             resp = (OutboundOrchestratable) context.execute();
         } catch (Throwable t) {
-            log.error("Error occured sending doc query to NHIN target: " + t.getMessage(), t);
+            LOG.error("Error occured sending doc query to NHIN target: " + t.getMessage(), t);
             createErrorResponse(message, "Processing NHIN Proxy document retrieve");
         }
         return resp;
@@ -86,7 +82,7 @@ public class OutboundDocRetrieveDelegate implements OutboundDelegate {
 
     protected void createErrorResponse(OutboundDocRetrieveOrchestratable message, String errorCode) {
         if (message == null) {
-            getLogger().debug("NhinOrchestratable was null");
+            LOG.debug("NhinOrchestratable was null");
             return;
         }
 
@@ -94,10 +90,6 @@ public class OutboundDocRetrieveDelegate implements OutboundDelegate {
                 .createRegistryResponseError(errorCode);
 
         message.setResponse(response);
-    }
-
-    private Log getLogger() {
-        return log;
     }
 
     @Override

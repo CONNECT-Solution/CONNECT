@@ -26,30 +26,33 @@
  */
 package gov.hhs.fha.nhinc.docretrieve.nhin.proxy;
 
+import gov.hhs.fha.nhinc.aspect.NwhinInvocationEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
+import gov.hhs.fha.nhinc.connectmgr.ConnectionManager;
+import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
+import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException;
 import gov.hhs.fha.nhinc.docretrieve.MessageGenerator;
+import gov.hhs.fha.nhinc.docretrieve.aspect.RetrieveDocumentSetRequestTypeDescriptionBuilder;
+import gov.hhs.fha.nhinc.docretrieve.aspect.RetrieveDocumentSetResponseTypeDescriptionBuilder;
 import gov.hhs.fha.nhinc.docretrieve.nhin.proxy.description.NhinDocRetrieveServicePortDescriptor;
-import gov.hhs.fha.nhinc.gateway.aggregator.document.DocumentConstants;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTClient;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTClientFactory;
 import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants.GATEWAY_API_LEVEL;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants.UDDI_SPEC_VERSION;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
-import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
+import gov.hhs.fha.nhinc.xdcommon.XDCommonResponseHelper;
+import gov.hhs.fha.nhinc.xdcommon.XDCommonResponseHelper.ErrorCodes;
 import ihe.iti.xds_b._2007.RespondingGatewayRetrievePortType;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
 
-import javax.xml.ws.BindingProvider;
-
-import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryError;
-import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryErrorList;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.commons.lang.StringUtils;
+import org.apache.log4j.Logger;
 
 /**
  * 
@@ -58,24 +61,7 @@ import org.apache.commons.logging.LogFactory;
  */
 public class NhinDocRetrieveProxyWebServiceSecuredImpl implements NhinDocRetrieveProxy {
 
-    private Log log = null;
-    private WebServiceProxyHelper oProxyHelper = new WebServiceProxyHelper();
-
-    /**
-     * Default constructor.
-     */
-    public NhinDocRetrieveProxyWebServiceSecuredImpl() {
-        log = createLogger();
-    }
-
-    /**
-     * Creates the log object for logging.
-     * 
-     * @return The log object.
-     */
-    protected Log createLogger() {
-        return ((log != null) ? log : LogFactory.getLog(getClass()));
-    }
+    private static final Logger LOG = Logger.getLogger(NhinDocRetrieveProxyWebServiceSecuredImpl.class);
 
     /**
      * Retrieve the document(s) specified in the request.
@@ -84,6 +70,7 @@ public class NhinDocRetrieveProxyWebServiceSecuredImpl implements NhinDocRetriev
      * @param targetSystem The target system where the message is being sent to.
      * @return The document(s) that were retrieved.
      */
+    @NwhinInvocationEvent(beforeBuilder = RetrieveDocumentSetRequestTypeDescriptionBuilder.class, afterReturningBuilder = RetrieveDocumentSetResponseTypeDescriptionBuilder.class, serviceType = "Retrieve Document", version = "")
     public RetrieveDocumentSetResponseType respondingGatewayCrossGatewayRetrieve(
             RetrieveDocumentSetRequestType request, AssertionType assertion, NhinTargetSystemType targetSystem,
             GATEWAY_API_LEVEL level) {
@@ -93,31 +80,34 @@ public class NhinDocRetrieveProxyWebServiceSecuredImpl implements NhinDocRetriev
 
         try {
             if (request != null) {
-                log.debug("Before target system URL look up.");
-                url = oProxyHelper.getUrlFromTargetSystemByGatewayAPILevel(targetSystem, sServiceName, level);
-                log.debug("After target system URL look up. URL for service: " + sServiceName + " is: " + url);
+                LOG.debug("Before target system URL look up.");
+                url = getUrl(targetSystem, sServiceName, level);
+                LOG.debug("After target system URL look up. URL for service: " + sServiceName + " is: " + url);
 
                 if (NullChecker.isNotNullish(url)) {
                     ServicePortDescriptor<RespondingGatewayRetrievePortType> portDescriptor = getServicePortDescriptor(NhincConstants.GATEWAY_API_LEVEL.LEVEL_g0);
 
-                    CONNECTClient<RespondingGatewayRetrievePortType> client = CONNECTClientFactory.getInstance()
-                            .getCONNECTClientSecured(portDescriptor, url, assertion);
-
-                    WebServiceProxyHelper wsHelper = new WebServiceProxyHelper();
-                    wsHelper.addTargetCommunity((BindingProvider) client.getPort(), targetSystem);
-                    wsHelper.addServiceName((BindingProvider) client.getPort(),
-                            NhincConstants.DOC_RETRIEVE_SERVICE_NAME);
+                    CONNECTClient<RespondingGatewayRetrievePortType> client = getCONNECTClientSecured(portDescriptor,
+                            assertion, url, targetSystem);
+                    client.enableMtom();
 
                     response = (RetrieveDocumentSetResponseType) client.invokePort(
                             RespondingGatewayRetrievePortType.class, "respondingGatewayCrossGatewayRetrieve", request);
                 } else {
-                    log.error("Failed to call the web service (" + sServiceName + ").  The URL is null.");
+                    LOG.error("Failed to call the web service (" + sServiceName + ").  The URL is null.");
                 }
             } else {
-                log.error("Failed to call the web service (" + sServiceName + ").  The input parameter is null.");
+                LOG.error("Failed to call the web service (" + sServiceName + ").  The input parameter is null.");
             }
+        } catch (ConnectionManagerException e) {
+            XDCommonResponseHelper helper = new XDCommonResponseHelper();
+            RegistryResponseType error = helper.createError(e.getLocalizedMessage(), ErrorCodes.XDSRepositoryError, NhincConstants.INIT_MULTISPEC_LOC_ENTITY_DR);
+            
+            response = new RetrieveDocumentSetResponseType();
+            response.setRegistryResponse(error);
+
         } catch (Exception e) {
-            log.error("Failed to call the web service (" + sServiceName + ").  An unexpected exception occurred.  "
+            LOG.error("Failed to call the web service (" + sServiceName + ").  An unexpected exception occurred.  "
                     + "Exception: " + e.getMessage(), e);
 
             response = MessageGenerator.getInstance().createRegistryResponseError(
@@ -125,6 +115,30 @@ public class NhinDocRetrieveProxyWebServiceSecuredImpl implements NhinDocRetriev
         }
 
         return response;
+    }
+
+    /**
+     * @param targetSystem
+     * @param sServiceName
+     * @param level
+     * @param level
+     * @return
+     * @throws Exception
+     * @throws ConnectionManagerException
+     * @throws IllegalArgumentException
+     */
+    protected String getUrl(NhinTargetSystemType targetSystem, String sServiceName, GATEWAY_API_LEVEL level)
+            throws IllegalArgumentException, ConnectionManagerException, Exception {
+        if (StringUtils.isBlank(targetSystem.getUseSpecVersion())) {
+            throw new IllegalArgumentException("Required specification version guidance was null.");
+        }
+        UDDI_SPEC_VERSION version = UDDI_SPEC_VERSION.fromString(targetSystem.getUseSpecVersion());
+        return getCMInstance().getEndpointURLByServiceNameSpecVersion(
+                targetSystem.getHomeCommunity().getHomeCommunityId(), sServiceName, version);
+    }
+
+    protected ConnectionManager getCMInstance() {
+        return ConnectionManagerCache.getInstance();
     }
 
     public ServicePortDescriptor<RespondingGatewayRetrievePortType> getServicePortDescriptor(
@@ -135,5 +149,19 @@ public class NhinDocRetrieveProxyWebServiceSecuredImpl implements NhinDocRetriev
         default:
             return new NhinDocRetrieveServicePortDescriptor();
         }
+    }
+
+    /**
+     * @param portDescriptor
+     * @param assertion
+     * @param url
+     * @param target
+     * @return
+     */
+    protected CONNECTClient<RespondingGatewayRetrievePortType> getCONNECTClientSecured(
+            ServicePortDescriptor<RespondingGatewayRetrievePortType> portDescriptor, AssertionType assertion,
+            String url, NhinTargetSystemType target) {
+        return CONNECTClientFactory.getInstance().getCONNECTClientSecured(portDescriptor, assertion, url,
+                target.getHomeCommunity().getHomeCommunityId(), NhincConstants.DOC_RETRIEVE_SERVICE_NAME);
     }
 }

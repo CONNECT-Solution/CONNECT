@@ -26,35 +26,34 @@
  */
 package gov.hhs.fha.nhinc.docsubmission.adapter.deferred.request.proxy;
 
+import gov.hhs.fha.nhinc.aspect.AdapterDelegationEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.docsubmission.adapter.deferred.request.AdapterDocSubmissionDeferredRequestOrchImpl;
+import gov.hhs.fha.nhinc.docsubmission.aspect.DocSubmissionArgTransformerBuilder;
+import gov.hhs.fha.nhinc.docsubmission.aspect.DocSubmissionBaseEventDescriptionBuilder;
 import gov.hhs.healthit.nhin.XDRAcknowledgementType;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+
+import org.apache.log4j.Logger;
 
 /**
  * 
  * @author Neil Webb
  */
 public class AdapterDocSubmissionDeferredRequestProxyJavaImpl implements AdapterDocSubmissionDeferredRequestProxy {
-    private Log log = null;
+    private static final Logger LOG = Logger.getLogger(AdapterDocSubmissionDeferredRequestProxyJavaImpl.class);
 
-    public AdapterDocSubmissionDeferredRequestProxyJavaImpl() {
-        log = createLogger();
-    }
-
-    protected Log createLogger() {
-        return LogFactory.getLog(this.getClass());
-    }
-
+    @AdapterDelegationEvent(beforeBuilder = DocSubmissionBaseEventDescriptionBuilder.class,
+            afterReturningBuilder = DocSubmissionArgTransformerBuilder.class, 
+            serviceType = "Document Submission Deferred Request",
+            version = "")
     public XDRAcknowledgementType provideAndRegisterDocumentSetBRequest(
             ProvideAndRegisterDocumentSetRequestType request, AssertionType assertion) {
-        log.debug("Begin AdapterDocSubmissionDeferredRequestProxyJavaImpl.provideAndRegisterDocumentSetBRequest");
+        LOG.trace("Begin AdapterDocSubmissionDeferredRequestProxyJavaImpl.provideAndRegisterDocumentSetBRequest");
         XDRAcknowledgementType response = new AdapterDocSubmissionDeferredRequestOrchImpl()
                 .provideAndRegisterDocumentSetBRequest(request, assertion);
 
-        log.debug("End AdapterDocSubmissionDeferredRequestProxyJavaImpl.provideAndRegisterDocumentSetBRequest");
+        LOG.trace("End AdapterDocSubmissionDeferredRequestProxyJavaImpl.provideAndRegisterDocumentSetBRequest");
         return response;
     }
 

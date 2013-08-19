@@ -27,14 +27,8 @@
 package gov.hhs.fha.nhinc.subscription.repository.dialectalgorithms.full;
 
 import gov.hhs.fha.nhinc.subscription.repository.topicfilter.ITopicFilterStrategy;
-import gov.hhs.fha.nhinc.xmlCommon.NamespaceContextMapperFromNode;
-import gov.hhs.fha.nhinc.xmlCommon.XmlUtility;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.xml.namespace.NamespaceContext;
-import javax.xml.xpath.XPathExpressionException;
+
 import org.w3c.dom.Element;
-import org.w3c.dom.Node;
 
 /**
  * 

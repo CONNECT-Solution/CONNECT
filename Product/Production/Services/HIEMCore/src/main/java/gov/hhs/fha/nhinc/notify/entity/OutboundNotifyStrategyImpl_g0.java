@@ -31,18 +31,13 @@ import gov.hhs.fha.nhinc.notify.nhin.proxy.NhinHiemNotifyProxyObjectFactory;
 import gov.hhs.fha.nhinc.orchestration.Orchestratable;
 import gov.hhs.fha.nhinc.orchestration.OrchestrationStrategy;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 
 class OutboundNotifyStrategyImpl_g0 implements OrchestrationStrategy {
 
-    private static Log log = LogFactory.getLog(OutboundNotifyStrategyImpl_g0.class);
+    private static final Logger LOG = Logger.getLogger(OutboundNotifyStrategyImpl_g0.class);
 
     public OutboundNotifyStrategyImpl_g0() {
-    }
-
-    protected Log getLogger() {
-        return log;
     }
     
     protected NhinHiemNotifyProxy getNhinNotifyProxy() {
@@ -54,21 +49,21 @@ class OutboundNotifyStrategyImpl_g0 implements OrchestrationStrategy {
         if (message instanceof OutboundNotifyOrchestratable) {
             execute((OutboundNotifyOrchestratable) message);
         } else {
-            getLogger().error("Not an OutboundDocSubmissionOrchestratable.");
+            LOG.error("Not an OutboundDocSubmissionOrchestratable.");
         }
     }
 
     public void execute(OutboundNotifyOrchestratable message) {
-        getLogger().debug("Begin OutboundDocSubmissionOrchestratableImpl_g0.process");
+        LOG.debug("Begin OutboundDocSubmissionOrchestratableImpl_g0.process");
 
         NhinHiemNotifyProxy nhincNotify = getNhinNotifyProxy();
         try {
         	nhincNotify.notify(message.getRequest(), message.getReferenceParameters(),
         			message.getAssertion(), message.getTarget());
 		} catch (Exception e) {
-			log.error("Failure to process nhin Subscribe message.", e);
+			LOG.error("Failure to process nhin Subscribe message.", e);
 		}
 
-        getLogger().debug("End OutboundDocSubmissionOrchestratableImpl_g0.process");
+        LOG.debug("End OutboundDocSubmissionOrchestratableImpl_g0.process");
     }
 }

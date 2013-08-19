@@ -26,27 +26,33 @@
  */
 package gov.hhs.fha.nhinc.admindistribution.adapter.proxy;
 
-import oasis.names.tc.emergency.edxl.de._1.EDXLDistribution;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import gov.hhs.fha.nhinc.admindistribution.aspect.EDXLDistributionEventDescriptionBuilder;
+import gov.hhs.fha.nhinc.aspect.AdapterDelegationEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.event.DefaultEventDescriptionBuilder;
+import oasis.names.tc.emergency.edxl.de._1.EDXLDistribution;
+
+import org.apache.log4j.Logger;
 
 /**
  * 
  * @author dunnek
  */
 public class AdapterAdminDistributionProxyNoOpImpl implements AdapterAdminDistributionProxy {
-    private Log log = null;
+    private static final Logger LOG = Logger.getLogger(AdapterAdminDistributionProxyNoOpImpl.class);
 
-    public AdapterAdminDistributionProxyNoOpImpl() {
-        log = createLogger();
-    }
-
-    protected Log createLogger() {
-        return LogFactory.getLog(getClass());
-    }
-
+    /**
+     * This method does not implement anything.
+     * 
+     * @param body
+     *            Emergency Message Distribution Element transaction message body received.
+     * @param assertion
+     *            Assertion received.
+     */
+    @AdapterDelegationEvent(beforeBuilder = EDXLDistributionEventDescriptionBuilder.class,
+            afterReturningBuilder = DefaultEventDescriptionBuilder.class, serviceType = "Admin Distribution",
+            version = "")
     public void sendAlertMessage(EDXLDistribution body, AssertionType assertion) {
-        log.debug("Begin sendAlertMessage");
+        LOG.debug("Begin sendAlertMessage");
     }
 }

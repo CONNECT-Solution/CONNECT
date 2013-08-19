@@ -38,8 +38,6 @@ import gov.hhs.fha.nhinc.patientcorrelation.nhinc.parsers.helpers.UniqueIdHelper
 import java.util.List;
 import org.hl7.v3.*;
 import javax.xml.bind.JAXBElement;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 
 /**
  * 
@@ -47,7 +45,6 @@ import org.apache.commons.logging.LogFactory;
  */
 public class PixRetrieveResponseBuilder {
 
-    private static Log log = LogFactory.getLog(PixRetrieveResponseBuilder.class);
     private static String CODE = "CA";
     private static String MoodCode = "EVN";
     private static String ControlActProcessCode = "PRPA_TE201310UV";
@@ -137,7 +134,7 @@ public class PixRetrieveResponseBuilder {
         controlActProcess.getSubject().add(subject);
 
         JAXBElement<PRPAMT201307UV02QueryByParameter> queryByParameter = PRPAIN201309UVParser
-                .ExtractQueryId(originalRetrievePatientCorrelationsRequest);
+                .extractQueryId(originalRetrievePatientCorrelationsRequest);
         controlActProcess.setQueryByParameter(queryByParameter);
 
         controlActProcess.setQueryAck(createQueryAck(controlActProcess));

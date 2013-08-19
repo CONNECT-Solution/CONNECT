@@ -40,6 +40,8 @@ import org.hl7.v3.PRPAIN201305UV02;
  * @author JHOPPESC
  */
 public class AdapterPatientDiscoveryDeferredRequestImpl {
+    private AsyncMessageIdExtractor extractor = new AsyncMessageIdExtractor();
+    
     public MCCIIN000002UV01 processPatientDiscoveryAsyncReq(PRPAIN201305UV02 request, WebServiceContext context) {
         AssertionType assertion = getAssertion(context, null);
 
@@ -62,14 +64,14 @@ public class AdapterPatientDiscoveryDeferredRequestImpl {
     private AssertionType getAssertion(WebServiceContext context, AssertionType oAssertionIn) {
         AssertionType assertion = null;
         if (oAssertionIn == null) {
-            assertion =  SAML2AssertionExtractor.getInstance().extractSamlAssertion(context);
+            assertion = SAML2AssertionExtractor.getInstance().extractSamlAssertion(context);
         } else {
             assertion = oAssertionIn;
         }
 
         // Extract the message id value from the WS-Addressing Header and place it in the Assertion Class
         if (assertion != null) {
-            assertion.setMessageId(AsyncMessageIdExtractor.GetAsyncMessageId(context));
+            assertion.setMessageId(extractor.getOrCreateAsyncMessageId(context));
         }
 
         return assertion;

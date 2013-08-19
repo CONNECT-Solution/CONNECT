@@ -29,18 +29,22 @@ package gov.hhs.fha.nhinc.docsubmission.nhin.deferred.request.proxy11;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
+import gov.hhs.fha.nhinc.aspect.NwhinInvocationEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
+import gov.hhs.fha.nhinc.docsubmission.aspect.DocSubmissionBaseEventDescriptionBuilder;
+import gov.hhs.fha.nhinc.docsubmission.aspect.DocSubmissionArgTransformerBuilder;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.healthit.nhin.XDRAcknowledgementType;
+
+import org.apache.log4j.Logger;
 
 /**
  *
  * @author JHOPPESC
  */
 public class NhinDocSubmissionDeferredRequestProxyNoOpImpl implements NhinDocSubmissionDeferredRequestProxy {
-    private static org.apache.commons.logging.Log log = org.apache.commons.logging.LogFactory
-            .getLog(NhinDocSubmissionDeferredRequestProxyNoOpImpl.class);
+    private static final Logger LOG = Logger.getLogger(NhinDocSubmissionDeferredRequestProxyNoOpImpl.class);
 
     /*
      * (non-Javadoc)
@@ -50,9 +54,13 @@ public class NhinDocSubmissionDeferredRequestProxyNoOpImpl implements NhinDocSub
      * gov.hhs.fha.nhinc.common.nhinccommon.AssertionType, gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType)
      */
     @Override
+    @NwhinInvocationEvent(beforeBuilder = DocSubmissionBaseEventDescriptionBuilder.class,
+    afterReturningBuilder = DocSubmissionArgTransformerBuilder.class, 
+    serviceType = "Document Submission Deferred Request",
+    version = "")
     public XDRAcknowledgementType provideAndRegisterDocumentSetBRequest11(
             ProvideAndRegisterDocumentSetRequestType request, AssertionType assertion, NhinTargetSystemType targetSystem) {
-        log.debug("Using NoOp Implementation for Nhin Doc Submission Deferred Request Service");
+        LOG.debug("Using NoOp Implementation for Nhin Doc Submission Deferred Request Service");
         XDRAcknowledgementType ack = new XDRAcknowledgementType();
         RegistryResponseType regResp = new RegistryResponseType();
         regResp.setStatus(NhincConstants.XDR_ACK_STATUS_MSG);

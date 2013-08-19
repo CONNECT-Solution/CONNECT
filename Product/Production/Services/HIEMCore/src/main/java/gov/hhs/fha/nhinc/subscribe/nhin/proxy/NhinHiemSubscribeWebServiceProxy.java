@@ -40,8 +40,7 @@ import gov.hhs.fha.nhinc.nhinclib.NhincConstants.GATEWAY_API_LEVEL;
 import gov.hhs.fha.nhinc.subscribe.nhin.proxy.service.NhinHiemSubscribeServicePortDescriptor;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 import org.oasis_open.docs.wsn.b_2.Subscribe;
 import org.oasis_open.docs.wsn.b_2.SubscribeResponse;
 import org.oasis_open.docs.wsn.bw_2.NotificationProducer;
@@ -52,7 +51,7 @@ import org.oasis_open.docs.wsn.bw_2.NotificationProducer;
  */
 public class NhinHiemSubscribeWebServiceProxy implements NhinHiemSubscribeProxy {
 
-    private static Log log = LogFactory.getLog(NhinHiemSubscribeWebServiceProxy.class);
+    private static final Logger LOG = Logger.getLogger(NhinHiemSubscribeWebServiceProxy.class);
 
     protected CONNECTClient<NotificationProducer> getCONNECTClientSecured(
             ServicePortDescriptor<NotificationProducer> portDescriptor, String url, AssertionType assertion) {
@@ -70,9 +69,9 @@ public class NhinHiemSubscribeWebServiceProxy implements NhinHiemSubscribeProxy 
                     NhincConstants.HIEM_SUBSCRIBE_SERVICE_NAME);
 
             if (NullChecker.isNullish(url)) {
-                log.error("The URL for service: " + NhincConstants.HIEM_SUBSCRIBE_SERVICE_NAME + " is null");
+                LOG.error("The URL for service: " + NhincConstants.HIEM_SUBSCRIBE_SERVICE_NAME + " is null");
             } else if (target == null) {
-                log.error("Target system passed into the proxy is null");
+                LOG.error("Target system passed into the proxy is null");
             } else {
                 ServicePortDescriptor<NotificationProducer> portDescriptor = new NhinHiemSubscribeServicePortDescriptor();
 
@@ -88,7 +87,7 @@ public class NhinHiemSubscribeWebServiceProxy implements NhinHiemSubscribeProxy 
             }
 
         } catch (Exception ex) {
-            log.error("Error sending subscribe to remote gateway.", ex);
+            LOG.error("Error sending subscribe to remote gateway.", ex);
         }
 
         return response;

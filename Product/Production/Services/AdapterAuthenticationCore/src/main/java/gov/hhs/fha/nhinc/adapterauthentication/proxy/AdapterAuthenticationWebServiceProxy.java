@@ -37,27 +37,19 @@ import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 
 /**
  * This is the concrete implementation for the Web based call to the AdapterAuthentication.
  */
 public class AdapterAuthenticationWebServiceProxy implements AdapterAuthenticationProxy {
 
-    private static Log log = null;
+    private static final Logger LOG = Logger.getLogger(AdapterAuthenticationWebServiceProxy.class);
     private static String ADAPTER_AUTH_SERVICE_NAME = "adapterauthentication";
     private WebServiceProxyHelper proxyHelper = null;
 
     public AdapterAuthenticationWebServiceProxy() {
-        if (log == null) {
-            log = createLogger();
-        }
         proxyHelper = createWebServiceProxyHelper();
-    }
-
-    protected Log createLogger() {
-        return LogFactory.getLog(getClass());
     }
 
     protected WebServiceProxyHelper createWebServiceProxyHelper() {
@@ -80,7 +72,7 @@ public class AdapterAuthenticationWebServiceProxy implements AdapterAuthenticati
      */
     public AuthenticateUserResponseType authenticateUser(AuthenticateUserRequestType authenticateUserRequest) {
 
-        log.debug("Begin authenticateUser");
+        LOG.debug("Begin authenticateUser");
         AuthenticateUserResponseType authResp = null;
 
         try {
@@ -89,7 +81,7 @@ public class AdapterAuthenticationWebServiceProxy implements AdapterAuthenticati
             if (NullChecker.isNotNullish(url)) {
 
                 if (authenticateUserRequest == null) {
-                    log.error("Request was null");
+                    LOG.error("Request was null");
                 } else {
                     ServicePortDescriptor<AdapterAuthenticationPortType> portDescriptor = new AdapterAuthenticationServicePortDescriptor();
                     CONNECTClient<AdapterAuthenticationPortType> client = getCONNECTClientUnsecured(portDescriptor,
@@ -99,16 +91,16 @@ public class AdapterAuthenticationWebServiceProxy implements AdapterAuthenticati
                             "authenticateUser", authenticateUserRequest);
                 }
             } else {
-                log.error("Failed to call the web service (" + ADAPTER_AUTH_SERVICE_NAME + ").  The URL is null.");
+                LOG.error("Failed to call the web service (" + ADAPTER_AUTH_SERVICE_NAME + ").  The URL is null.");
             }
         } catch (Exception ex) {
             String message = "Error occurred calling AdapterAuthenticationWebServiceProxy.authenticateUser.  Error: "
                     + ex.getMessage();
-            log.error(message, ex);
+            LOG.error(message, ex);
             throw new RuntimeException(message, ex);
         }
 
-        log.debug("End authenticateUser");
+        LOG.debug("End authenticateUser");
         return authResp;
     }
 }

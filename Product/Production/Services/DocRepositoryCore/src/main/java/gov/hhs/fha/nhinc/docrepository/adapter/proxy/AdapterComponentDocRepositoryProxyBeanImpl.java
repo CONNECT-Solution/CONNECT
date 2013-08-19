@@ -27,7 +27,7 @@
 package gov.hhs.fha.nhinc.docrepository.adapter.proxy;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.gateway.aggregator.document.DocumentConstants;
+import gov.hhs.fha.nhinc.document.DocumentConstants;
 import gov.hhs.fha.nhinc.largefile.LargeFileUtils;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
@@ -35,8 +35,7 @@ import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType.DocumentResponse;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 
 /**
  * 
@@ -44,7 +43,7 @@ import org.apache.commons.logging.LogFactory;
  */
 public class AdapterComponentDocRepositoryProxyBeanImpl implements AdapterComponentDocRepositoryProxy {
 
-    private static Log log = LogFactory.getLog(AdapterComponentDocRepositoryProxyBeanImpl.class);
+    private static final Logger LOG = Logger.getLogger(AdapterComponentDocRepositoryProxyBeanImpl.class);
 
     private String hcid;
     private String repositoryId;
@@ -54,13 +53,13 @@ public class AdapterComponentDocRepositoryProxyBeanImpl implements AdapterCompon
     
     public RetrieveDocumentSetResponseType retrieveDocument(RetrieveDocumentSetRequestType request,
             AssertionType assertion) {
-        log.debug("Using Bean Implementation for Adapter Component Doc Repository Service");
+        LOG.debug("Using Bean Implementation for Adapter Component Doc Repository Service");
         return createRetrieveDocumentSetResponseType();
     }
 
     public RegistryResponseType provideAndRegisterDocumentSet(ProvideAndRegisterDocumentSetRequestType body,
             AssertionType assertion) {
-        log.debug("Using Bean Implementation for Adapter Component Doc Repository Service");
+        LOG.debug("Using Bean Implementation for Adapter Component Doc Repository Service");
         return new RegistryResponseType();
     }
 

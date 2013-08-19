@@ -45,8 +45,7 @@ import java.util.List;
 
 import javax.xml.bind.JAXBElement;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 import org.hl7.v3.COCTMT090300UV01AssignedDevice;
 import org.hl7.v3.II;
 import org.hl7.v3.MCAIMT900001UV01DetectedIssueEvent;
@@ -67,7 +66,9 @@ import org.hl7.v3.XParticipationAuthorPerformer;
  */
 public class PatientDiscovery201305Processor implements PatientDiscoveryProcessor {
 
-    private static Log log = LogFactory.getLog(PatientDiscovery201305Processor.class);
+    private static final Logger LOG = Logger.getLogger(PatientDiscovery201305Processor.class);
+    
+    private MessageGeneratorUtils msgUtils = MessageGeneratorUtils.getInstance();
 
     /*
      * (non-Javadoc)
@@ -105,14 +106,14 @@ public class PatientDiscovery201305Processor implements PatientDiscoveryProcesso
                     response = addAuthorOrPerformer(response);
                 } else {
                     // Policy check on all matching patient ids has failed
-                    log.warn("Policy Check Failed");
+                    LOG.warn("Policy Check Failed");
                     response = addPolicyDenyReasonOf(response);
                 }
             } else {
-                log.warn("No match is found by local MPI");
+                LOG.warn("No match is found by local MPI");
             }
         } else {
-            log.warn("Response from local MPI is null; generating empty response");
+            LOG.warn("Response from local MPI is null; generating empty response");
             response = createEmpty201306(senderOID, receiverOID, request);
             response = addValidationReasonOf(response);
         }
@@ -129,26 +130,26 @@ public class PatientDiscovery201305Processor implements PatientDiscoveryProcesso
         if (response != null && response.getControlActProcess() != null
                 && NullChecker.isNotNullish(response.getControlActProcess().getSubject())) {
             pRPAINSubjects = response.getControlActProcess().getSubject();
-            log.debug("checkPolicy - Before policy Check-Subjects size: " + pRPAINSubjects.size());
+            LOG.debug("checkPolicy - Before policy Check-Subjects size: " + pRPAINSubjects.size());
         } else {
-            log.debug("checkPolicy - Before policy Check-response/subjects is null");
+            LOG.debug("checkPolicy - Before policy Check-response/subjects is null");
         }
 
         List<PRPAIN201306UV02MFMIMT700711UV01Subject1> delPRPAINSubjects = new ArrayList<PRPAIN201306UV02MFMIMT700711UV01Subject1>();
         for (PRPAIN201306UV02MFMIMT700711UV01Subject1 pRPAINSubject : pRPAINSubjects) {
             int pRPAINSubjectInd = response.getControlActProcess().getSubject().indexOf(pRPAINSubject);
-            log.debug("checkPolicy - SubjectIndex: " + pRPAINSubjectInd);
+            LOG.debug("checkPolicy - SubjectIndex: " + pRPAINSubjectInd);
 
             PRPAIN201306UV02MFMIMT700711UV01Subject1 subjReplaced = response.getControlActProcess().getSubject()
                     .set(0, pRPAINSubject);
             response.getControlActProcess().getSubject().set(pRPAINSubjectInd, subjReplaced);
 
             // Extract patient for current subject and perform policy check
-            patId = NhinPatientDiscoveryUtils.extractPatientIdFromSubject(pRPAINSubject);
+            patId = msgUtils.extractPatientIdFromSubject(pRPAINSubject);
             if (policyChecker.check201305Policy(response, patId, assertion)) {
-                log.debug("checkPolicy -policy returns permit for patient: " + pRPAINSubjectInd);
+                LOG.debug("checkPolicy -policy returns permit for patient: " + pRPAINSubjectInd);
             } else {
-                log.debug("checkPolicy -policy returns deny for patient: " + pRPAINSubjectInd);
+                LOG.debug("checkPolicy -policy returns deny for patient: " + pRPAINSubjectInd);
                 delPRPAINSubjects.add(pRPAINSubject);
             }
 
@@ -159,7 +160,7 @@ public class PatientDiscovery201305Processor implements PatientDiscoveryProcesso
         if (response != null && response.getControlActProcess() != null
                 && NullChecker.isNotNullish(response.getControlActProcess().getSubject())
                 && NullChecker.isNotNullish(delPRPAINSubjects)) {
-            log.debug("checkPolicy - removing policy denied subjects. Ploicy denied subjects size:"
+            LOG.debug("checkPolicy - removing policy denied subjects. Ploicy denied subjects size:"
                     + delPRPAINSubjects.size());
             response.getControlActProcess().getSubject().removeAll(delPRPAINSubjects);
         }
@@ -167,12 +168,12 @@ public class PatientDiscovery201305Processor implements PatientDiscoveryProcesso
         if (response != null && response.getControlActProcess() != null
                 && NullChecker.isNotNullish(response.getControlActProcess().getSubject())) {
             pRPAINSubjects = response.getControlActProcess().getSubject();
-            log.debug("checkPolicy - after policy Check-Subjects size: " + pRPAINSubjects.size());
+            LOG.debug("checkPolicy - after policy Check-Subjects size: " + pRPAINSubjects.size());
             if (pRPAINSubjects.size() > 0) {
                 isPermit = true;
             }
         } else {
-            log.debug("checkPolicy - after policy Check-response/subjects is null");
+            LOG.debug("checkPolicy - after policy Check-response/subjects is null");
         }
         // ************************************************************************************************
 
@@ -187,9 +188,9 @@ public class PatientDiscovery201305Processor implements PatientDiscoveryProcesso
         if (response != null && response.getControlActProcess() != null
                 && NullChecker.isNotNullish(response.getControlActProcess().getSubject())) {
             isSubjectEmpty = false;
-            log.debug("checkEmptySubject - Check-response/subjects is not null");
+            LOG.debug("checkEmptySubject - Check-response/subjects is not null");
         } else {
-            log.debug("checkEmptySubject - Check-response/subjects is null");
+            LOG.debug("checkEmptySubject - Check-response/subjects is null");
         }
         return isSubjectEmpty;
     }
@@ -214,7 +215,7 @@ public class PatientDiscovery201305Processor implements PatientDiscoveryProcesso
             boolean result = mappingDao.storeMapping(hcid, assigningAuthority);
 
             if (result == false) {
-                log.warn("Failed to store home community - assigning authority mapping");
+                LOG.warn("Failed to store home community - assigning authority mapping");
             }
 
         }
@@ -227,24 +228,24 @@ public class PatientDiscovery201305Processor implements PatientDiscoveryProcesso
      * @return
      */
     public void storeLocalMapping(RespondingGatewayPRPAIN201305UV02RequestType request) {
-        log.debug("Begin storeLocalMapping");
+        LOG.debug("Begin storeLocalMapping");
 
         String hcid = HomeCommunityMap.getLocalHomeCommunityId();
-        log.debug("Begin storeLocalMapping: hcid" + hcid);
+        LOG.debug("Begin storeLocalMapping: hcid" + hcid);
 
         II patId = extractPatientIdFrom201305(request.getPRPAIN201305UV02());
 
         AssigningAuthorityHomeCommunityMappingDAO mappingDao = new AssigningAuthorityHomeCommunityMappingDAO();
 
         if (mappingDao == null || patId == null) {
-            log.warn("AssigningAuthorityHomeCommunityMappingDAO or Local Patient Id was null. Mapping was not stored.");
+            LOG.warn("AssigningAuthorityHomeCommunityMappingDAO or Local Patient Id was null. Mapping was not stored.");
         } else {
             if (!mappingDao.storeMapping(hcid, patId.getRoot())) {
-                log.warn("Failed to store home community - assigning authority mapping");
+                LOG.warn("Failed to store home community - assigning authority mapping");
             }
         }
 
-        log.debug("End storeLocalMapping");
+        LOG.debug("End storeLocalMapping");
     }
 
     protected PRPAIN201306UV02 queryMpi(PRPAIN201305UV02 query, AssertionType assertion) throws PatientDiscoveryException {
@@ -258,11 +259,11 @@ public class PatientDiscovery201305Processor implements PatientDiscoveryProcesso
             // Query the MPI to see if the patient is found
             AdapterMpiProxyObjectFactory mpiFactory = new AdapterMpiProxyObjectFactory();
             AdapterMpiProxy mpiProxy = mpiFactory.getAdapterMpiProxy();
-            log.info("Sending query to the Secured MPI");
+            LOG.info("Sending query to the Secured MPI");
             queryResults = mpiProxy.findCandidates(query, assertion);
 
         } else {
-            log.error("MPI Request is null");
+            LOG.error("MPI Request is null");
             queryResults = null;
         }
 
@@ -321,7 +322,7 @@ public class PatientDiscovery201305Processor implements PatientDiscoveryProcesso
                 patCorrelationProxy.addPatientCorrelation(request, assertion);
             }
         } else {
-            log.error("Null parameter passed to createPatientCorrelation method, no correlation created");
+            LOG.error("Null parameter passed to createPatientCorrelation method, no correlation created");
         }
     }
 
@@ -357,7 +358,7 @@ public class PatientDiscovery201305Processor implements PatientDiscoveryProcesso
                             .getRegistrationEvent().getSubject1().getPatient().getId().get(0).getExtension());
                     localPatId.setRoot(queryResult.getControlActProcess().getSubject().get(i).getRegistrationEvent()
                             .getSubject1().getPatient().getId().get(0).getRoot());
-                    log.debug("local AA " + i + ": " + localPatId.getRoot() + ", pId " + ": "
+                    LOG.debug("local AA " + i + ": " + localPatId.getRoot() + ", pId " + ": "
                             + localPatId.getExtension());
                 }
 
@@ -385,8 +386,8 @@ public class PatientDiscovery201305Processor implements PatientDiscoveryProcesso
                                 .getPatient().getId().add(localPatId);
                         request.getControlActProcess().getSubject().get(0).getRegistrationEvent().getSubject1()
                                 .getPatient().getId().add(remotePatient);
-                        log.debug("Local AA " + i + ": " + localPatId.getRoot() + ", pId: " + localPatId.getExtension());
-                        log.debug("Remote AA: " + remotePatient.getRoot() + ", pId: " + remotePatient.getExtension());
+                        LOG.debug("Local AA " + i + ": " + localPatId.getRoot() + ", pId: " + localPatId.getExtension());
+                        LOG.debug("Remote AA: " + remotePatient.getRoot() + ", pId: " + remotePatient.getExtension());
 
                         if ((remotePatient != null) && (remotePatient.getRoot() != null)
                                 && (remotePatient.getExtension() != null)) {
@@ -395,17 +396,17 @@ public class PatientDiscovery201305Processor implements PatientDiscoveryProcesso
                                     .getPatientCorrelationProxy();
                             patCorrelationProxy.addPatientCorrelation(request, assertion);
                         } else {
-                            log.error("Remote patient identifiers are null. Could not correlate the patient identifiers.");
+                            LOG.error("Remote patient identifiers are null. Could not correlate the patient identifiers.");
                         }
                     } else {
-                        log.error("Request (PRPAIN201301UV02) or remote patient identifiers are null. Could not correlate the patient identifiers.");
+                        LOG.error("Request (PRPAIN201301UV02) or remote patient identifiers are null. Could not correlate the patient identifiers.");
                     }
                 } else {
-                    log.error("Local patient identifiers are null. Could not correlate the patient identifiers.");
+                    LOG.error("Local patient identifiers are null. Could not correlate the patient identifiers.");
                 }
             }
         } else {
-            log.error("Null parameter passed to createPatientCorrelation method, no correlation created");
+            LOG.error("Null parameter passed to createPatientCorrelation method, no correlation created");
         }
     }
 
@@ -447,7 +448,7 @@ public class PatientDiscovery201305Processor implements PatientDiscoveryProcesso
                 }
             }
         } catch (Exception ex) {
-            log.error(ex.getMessage(), ex);
+            LOG.error(ex.getMessage(), ex);
             patId = null;
         }
 
@@ -463,9 +464,9 @@ public class PatientDiscovery201305Processor implements PatientDiscoveryProcesso
             MCCIMT000100UV01Receiver oNewReceiver = HL7ReceiverTransforms
                     .createMCCIMT000100UV01Receiver(targetCommunityId);
             newRequest.getReceiver().add(oNewReceiver);
-            log.debug("Created a new request for target communityId: " + targetCommunityId);
+            LOG.debug("Created a new request for target communityId: " + targetCommunityId);
         } else {
-            log.error("A null input paramter was passed to the method: createNewRequest in class: PatientDiscovery201305Processor");
+            LOG.error("A null input paramter was passed to the method: createNewRequest in class: PatientDiscovery201305Processor");
             return null;
         }
 

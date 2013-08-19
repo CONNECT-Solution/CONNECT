@@ -27,12 +27,12 @@
 package gov.hhs.fha.nhinc.callback.purposeuse;
 
 import gov.hhs.fha.nhinc.callback.openSAML.CallbackProperties;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.properties.IPropertyAcessor;
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 
 /**
  * 
@@ -40,7 +40,7 @@ import org.apache.commons.logging.LogFactory;
  */
 public class PurposeUseProxyCommunityImpl implements PurposeUseProxy {
 
-    private static Log log = LogFactory.getLog(PurposeUseProxyCommunityImpl.class);
+    private static final Logger LOG = Logger.getLogger(PurposeUseProxyCommunityImpl.class);
     
     private static final String PURPOSE_FOR_USE_PROPERTY_FILE = "purposeUse";
     private final IPropertyAcessor propertyAccessor;
@@ -70,7 +70,11 @@ public class PurposeUseProxyCommunityImpl implements PurposeUseProxy {
 
         // check configured hcid value in purpose for use properties file
         String targetHomeCommunityId = callbackProperties.getTargetHomeCommunityId();
+        
         if (targetHomeCommunityId != null) {
+        	if(targetHomeCommunityId.startsWith(NhincConstants.HCID_PREFIX)) {
+                targetHomeCommunityId = targetHomeCommunityId.replace(NhincConstants.HCID_PREFIX, "");
+            }
             return isPurposeForUseEnabled(targetHomeCommunityId);
         }
 
@@ -91,9 +95,9 @@ public class PurposeUseProxyCommunityImpl implements PurposeUseProxy {
                 match = true;
             }
         } catch (PropertyAccessException ex) {
-            log.error("Error: Failed to retrieve (homeCommunityId) " + homeCommunityId + " from property file: "
+            LOG.error("Error: Failed to retrieve (homeCommunityId) " + homeCommunityId + " from property file: "
                     + PURPOSE_FOR_USE_PROPERTY_FILE);
-            log.error(ex.getMessage());
+            LOG.error(ex.getMessage());
         }
         return match;
     }

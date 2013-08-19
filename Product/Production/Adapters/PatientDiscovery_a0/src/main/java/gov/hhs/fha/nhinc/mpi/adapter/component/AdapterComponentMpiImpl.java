@@ -31,8 +31,7 @@ import gov.hhs.fha.nhinc.cxf.extraction.SAML2AssertionExtractor;
 
 import javax.xml.ws.WebServiceContext;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 import org.hl7.v3.PRPAIN201305UV02;
 import org.hl7.v3.PRPAIN201306UV02;
 
@@ -44,7 +43,7 @@ import org.hl7.v3.PRPAIN201306UV02;
  */
 public class AdapterComponentMpiImpl {
 
-    private static Log log = LogFactory.getLog(AdapterComponentMpiImpl.class);
+    private static final Logger LOG = Logger.getLogger(AdapterComponentMpiImpl.class);
 
     /**
      * Perform a look up on the MPI.
@@ -56,7 +55,7 @@ public class AdapterComponentMpiImpl {
      */
     public PRPAIN201306UV02 query(boolean bIsSecure, org.hl7.v3.PRPAIN201305UV02 findCandidatesRequest,
             WebServiceContext context) {
-        log.debug("Entering AdapterComponentMpiImpl.query - secured");
+        LOG.debug("Entering AdapterComponentMpiImpl.query - secured");
 
         AssertionType assertion = null;
         if ((bIsSecure) && (context != null)) {
@@ -69,12 +68,12 @@ public class AdapterComponentMpiImpl {
         PRPAIN201306UV02 response = oOrchestrator.findCandidates(findCandidatesRequest, assertion);
 
         // Send response back to the initiating Gateway
-        log.debug("Exiting AdapterComponentMpiImpl.query - secured");
+        LOG.debug("Exiting AdapterComponentMpiImpl.query - secured");
         return response;
     }
 
     public PRPAIN201306UV02 query(PRPAIN201305UV02 findCandidatesRequest, AssertionType assertionFromBody) {
-        log.debug("Entering AdapterComponentMpiImpl.query - unsecured");
+        LOG.debug("Entering AdapterComponentMpiImpl.query - unsecured");
 
         AssertionType assertion = null;
         if (assertionFromBody != null) {
@@ -87,7 +86,7 @@ public class AdapterComponentMpiImpl {
         PRPAIN201306UV02 response = oOrchestrator.findCandidates(findCandidatesRequest, assertion);
 
         // Send response back to the initiating Gateway
-        log.debug("Exiting AdapterComponentMpiImpl.query - unsecured");
+        LOG.debug("Exiting AdapterComponentMpiImpl.query - unsecured");
         return response;
     }
 }

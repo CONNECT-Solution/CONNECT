@@ -5,11 +5,25 @@
     <parent>
         <groupId>org.connectopensource</groupId>
         <artifactId>Production</artifactId>
-        <version>4.0.0-SNAPSHOT</version>
+        <version>4.3.0-SNAPSHOT</version>
     </parent>
     <artifactId>Deploy</artifactId>
     <packaging>pom</packaging>
     <name>CONNECT Deployment</name>
+    <modules>
+        <module>ear-dependencies</module>
+        <module>ad-dependencies</module>
+        <module>direct-dependencies</module>
+        <module>dq-dependencies</module>
+        <module>dr-dependencies</module>
+        <module>ds-dependencies</module>
+        <module>gui-dependencies</module>
+        <module>hiem-dependencies</module>
+        <module>pd-dependencies</module>
+        <module>ear</module>
+
+        <module>ear/glassfish</module>
+    </modules>
     <build>
         <pluginManagement>
             <plugins>
@@ -22,32 +36,31 @@
         </pluginManagement>
     </build>
     <profiles>
+
         <profile>
-            <id>glassfish</id>
-            <activation>
-                <activeByDefault>true</activeByDefault>
-            </activation>
+            <id>wasce</id>
             <modules>
-                <module>ear</module>
-                <module>glassfish</module>
+                <module>ear/wasce</module>
             </modules>
         </profile>
         <profile>
-            <id>websphere</id>
+            <id>was</id>
             <modules>
-                <module>ear</module>
-                <module>glassfish</module>
-                <module>websphere</module>
+                <module>ear/was</module>
             </modules>
         </profile>
         <profile>
             <id>weblogic</id>
             <modules>
-                <module>ear</module>
-                <module>glassfish</module>
-                <module>weblogic</module>
+                <module>ear/weblogic</module>
             </modules>
         </profile>
-        
+        <profile>
+            <id>jboss7</id>
+            <modules>
+                <module>ear/jboss7</module>
+            </modules>
+        </profile>
+
     </profiles>
 </project>

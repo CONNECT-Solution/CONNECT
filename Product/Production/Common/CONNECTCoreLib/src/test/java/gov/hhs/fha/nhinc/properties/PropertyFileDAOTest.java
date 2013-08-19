@@ -27,19 +27,21 @@
 
 package gov.hhs.fha.nhinc.properties;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
+
 import java.io.File;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.Properties;
 import java.util.Set;
 
-import org.apache.commons.logging.Log;
-import org.jmock.Expectations;
 import org.jmock.Mockery;
 import org.jmock.integration.junit4.JUnit4Mockery;
 import org.jmock.lib.legacy.ClassImposteriser;
 import org.junit.Test;
-import static org.junit.Assert.*;
 
 /**
  * @author akong
@@ -54,7 +56,6 @@ public class PropertyFileDAOTest {
             setImposteriser(ClassImposteriser.INSTANCE);
         }
     };
-    final Log mockLog = context.mock(Log.class);
             
     @Test
     public void testLoadPropertyFile() throws PropertyAccessException {
@@ -122,8 +123,6 @@ public class PropertyFileDAOTest {
     @Test(expected=PropertyAccessException.class)
     public void testGetPropertyLong_BadValue() throws PropertyAccessException {
         PropertyFileDAO propDAO = loadTestProperties();
-        setMockLogExpectationsToIgnoreAllLogs();
-        
         propDAO.getPropertyLong(TEST_PROPERTIES_NAME, "longErrorTest");        
     }
     
@@ -139,20 +138,6 @@ public class PropertyFileDAOTest {
         PropertyFileDAO propDAO = loadTestProperties();
 
         propDAO.getPropertyLong("nonexistant", "nonexistantfield");        
-    }
-    
-    @Test
-    public void testPrintToLog() throws PropertyAccessException {
-        PropertyFileDAO propDAO = loadTestProperties();
-        
-        context.checking(new Expectations() {
-            {
-                atLeast(1).of(mockLog).info(with(any(String.class)));
-            }
-        });      
-        
-        propDAO.printToLog(TEST_PROPERTIES_NAME);
-        propDAO.printToLog("nonexistant");  
     }
     
     @Test
@@ -194,23 +179,11 @@ public class PropertyFileDAOTest {
     
     private PropertyFileDAO loadTestProperties() throws PropertyAccessException {
         File propertyFile = getFile("/config/PropertyAccessorTest/gatewaytest.properties");
-        PropertyFileDAO propDAO = new PropertyFileDAO() {
-            protected Log getLogger() {
-                return mockLog;
-            }
-        };
+        PropertyFileDAO propDAO = new PropertyFileDAO();
                 
         propDAO.loadPropertyFile(propertyFile, TEST_PROPERTIES_NAME);
         
         return propDAO;
-    }
-    
-    private void setMockLogExpectationsToIgnoreAllLogs() {     
-        context.checking(new Expectations() {
-            {
-                ignoring(mockLog);
-            }
-        });
     }
        
 }

@@ -26,39 +26,64 @@
  */
 package gov.hhs.fha.nhinc.patientdiscovery._10.gateway.ws;
 
+import gov.hhs.fha.nhinc.aspect.OutboundMessageEvent;
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.entitypatientdiscoveryasyncresp.EntityPatientDiscoveryAsyncRespPortType;
+import gov.hhs.fha.nhinc.messaging.server.BaseService;
+import gov.hhs.fha.nhinc.patientdiscovery.aspect.MCCIIN000002UV01EventDescriptionBuilder;
+import gov.hhs.fha.nhinc.patientdiscovery.aspect.RespondingGatewayPRPAIN201306UV02Builder;
+import gov.hhs.fha.nhinc.patientdiscovery.outbound.deferred.response.OutboundPatientDiscoveryDeferredResponse;
+
 import javax.annotation.Resource;
 import javax.xml.ws.BindingType;
 import javax.xml.ws.WebServiceContext;
 import javax.xml.ws.soap.Addressing;
 
+import org.hl7.v3.MCCIIN000002UV01;
 import org.hl7.v3.RespondingGatewayPRPAIN201306UV02RequestType;
 
-/**
- * 
- * @author Neil Webb
- */
+
 @Addressing(enabled = true)
 @BindingType(value = javax.xml.ws.soap.SOAPBinding.SOAP12HTTP_BINDING)
-public class EntityPatientDiscoveryDeferredResponseUnsecured extends PatientDiscoveryBase implements gov.hhs.fha.nhinc.entitypatientdiscoveryasyncresp.EntityPatientDiscoveryAsyncRespPortType {
-    @Resource
+public class EntityPatientDiscoveryDeferredResponseUnsecured extends BaseService implements
+        EntityPatientDiscoveryAsyncRespPortType {
+
+    private OutboundPatientDiscoveryDeferredResponse outboundPatientDiscoveryResponse;
+
     private WebServiceContext context;
 
     public EntityPatientDiscoveryDeferredResponseUnsecured() {
         super();
     }
 
-    public EntityPatientDiscoveryDeferredResponseUnsecured(PatientDiscoveryServiceFactory serviceFactory) {
-        super(serviceFactory);
+    @OutboundMessageEvent(beforeBuilder = RespondingGatewayPRPAIN201306UV02Builder.class,
+            afterReturningBuilder =  MCCIIN000002UV01EventDescriptionBuilder.class, 
+            serviceType = "Patient Discovery Deferred Response",
+            version = "1.0")
+    public MCCIIN000002UV01 processPatientDiscoveryAsyncResp(RespondingGatewayPRPAIN201306UV02RequestType request) {
+        AssertionType assertion = getAssertion(context, request.getAssertion());
+
+        return outboundPatientDiscoveryResponse.processPatientDiscoveryAsyncResp(request.getPRPAIN201306UV02(),
+                assertion, request.getNhinTargetCommunities());
     }
 
-    public org.hl7.v3.MCCIIN000002UV01 processPatientDiscoveryAsyncResp(
-            RespondingGatewayPRPAIN201306UV02RequestType processPatientDiscoveryAsyncRespAsyncRequest) {
-        return getServiceFactory().getEntityPatientDiscoveryDeferredResponseImpl().processPatientDiscoveryAsyncResp(
-                processPatientDiscoveryAsyncRespAsyncRequest, getWebServiceContext());
+    @Resource
+    public void setContext(WebServiceContext context) {
+        this.context = context;
     }
 
-    protected WebServiceContext getWebServiceContext() {
-        return context;
+    public void setOutboundPatientDiscoveryResponse(
+            OutboundPatientDiscoveryDeferredResponse outboundPatientDiscoveryResponse) {
+        this.outboundPatientDiscoveryResponse = outboundPatientDiscoveryResponse;
+    }
+
+    /**
+     * Gets the outbound patient discovery.
+     *
+     * @return the outbound patient discovery
+     */
+    public OutboundPatientDiscoveryDeferredResponse getOutboundPatientDiscovery() {
+        return this.outboundPatientDiscoveryResponse;
     }
 
 }

@@ -28,7 +28,7 @@
 package gov.hhs.fha.nhinc.messaging.client;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
-import gov.hhs.fha.nhinc.messaging.service.ServiceEndpoint;
+import gov.hhs.fha.nhinc.messaging.service.port.CachingCXFUnsecuredServicePortBuilder;
 import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
 
 /**
@@ -36,10 +36,9 @@ import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
  * 
  */
 public class CONNECTCXFClientUnsecured<T>  extends CONNECTCXFClient<T>  {
-
  
     CONNECTCXFClientUnsecured(ServicePortDescriptor<T> portDescriptor, String url, AssertionType assertion) {
-        super(portDescriptor, url, assertion);
+        super(portDescriptor, url, assertion, new CachingCXFUnsecuredServicePortBuilder<T>(portDescriptor));
 
         serviceEndpoint.configure();
     }

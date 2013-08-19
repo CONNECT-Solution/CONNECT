@@ -35,8 +35,7 @@ import gov.hhs.fha.nhinc.redactionengine.adapter.proxy.AdapterRedactionEnginePro
 import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 
 /**
  * 
@@ -44,15 +43,7 @@ import org.apache.commons.logging.LogFactory;
  */
 public class AdapterDocRetrieveOrchImpl {
 
-    private Log log = null;
-
-    public AdapterDocRetrieveOrchImpl() {
-        log = createLogger();
-    }
-
-    protected Log createLogger() {
-        return LogFactory.getLog(getClass());
-    }
+    private static final Logger LOG = Logger.getLogger(AdapterDocRetrieveOrchImpl.class);
 
     /**
      * 
@@ -62,7 +53,7 @@ public class AdapterDocRetrieveOrchImpl {
      */
     public RetrieveDocumentSetResponseType respondingGatewayCrossGatewayRetrieve(RetrieveDocumentSetRequestType body,
             AssertionType assertion) {
-        log.debug("Enter AdapterDocRetrieveSecuredImpl.respondingGatewayCrossGatewayRetrieve()");
+        LOG.trace("Enter AdapterDocRetrieveSecuredImpl.respondingGatewayCrossGatewayRetrieve()");
         RetrieveDocumentSetResponseType response = null;
 
         try {
@@ -73,10 +64,10 @@ public class AdapterDocRetrieveOrchImpl {
             response = callRedactionEngine(body, response, assertion);
         } catch (Throwable t) {
             String errorMsg = "Error processing an adapter document retrieve message: " + t.getMessage();
-            log.error(errorMsg, t);
+            LOG.error(errorMsg, t);
             response = MessageGenerator.getInstance().createRegistryResponseError(errorMsg);
         }
-        log.debug("Leaving AdapterDocRetrieveSecuredImpl.respondingGatewayCrossGatewayRetrieve()");
+        LOG.trace("Leaving AdapterDocRetrieveSecuredImpl.respondingGatewayCrossGatewayRetrieve()");
         return response;
     }
 
@@ -84,7 +75,7 @@ public class AdapterDocRetrieveOrchImpl {
             RetrieveDocumentSetResponseType retrieveResponse, AssertionType assertion) {
         RetrieveDocumentSetResponseType response = null;
         if (retrieveResponse == null) {
-            log.warn("Did not call redaction engine because the retrieve response was null.");
+            LOG.warn("Did not call redaction engine because the retrieve response was null.");
         } else {
             response = getRedactionEngineProxy().filterRetrieveDocumentSetResults(retrieveRequest, retrieveResponse,
                     assertion);

@@ -35,8 +35,7 @@ import java.util.List;
 import oasis.names.tc.xacml._2_0.context.schema.os.RequestType;
 import oasis.names.tc.xacml._2_0.context.schema.os.ResourceType;
 import oasis.names.tc.xacml._2_0.context.schema.os.SubjectType;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 
 /**
  * 
@@ -44,7 +43,7 @@ import org.apache.commons.logging.LogFactory;
  */
 public class DocRetrieveTransformHelper {
 
-    private static Log log = LogFactory.getLog(DocRetrieveTransformHelper.class);
+    private static final Logger LOG = Logger.getLogger(DocRetrieveTransformHelper.class);
     private static final String ActionInValue = "DocumentRetrieveIn";
     private static final String ActionOutValue = "DocumentRetrieveOut";
 
@@ -54,10 +53,10 @@ public class DocRetrieveTransformHelper {
         // DocRetrieveMessageType docRetrieve = event.getMessage();
         RequestType request = new RequestType();
 
-        if (InboundOutboundChecker.IsInbound(event.getDirection())) {
+        if (InboundOutboundChecker.isInbound(event.getDirection())) {
             request.setAction(ActionHelper.actionFactory(ActionInValue));
         }
-        if (InboundOutboundChecker.IsOutbound(event.getDirection())) {
+        if (InboundOutboundChecker.isOutbound(event.getDirection())) {
             request.setAction(ActionHelper.actionFactory(ActionOutValue));
         }
 
@@ -87,9 +86,9 @@ public class DocRetrieveTransformHelper {
         String homeCommunityId = documentRequest.getHomeCommunityId();
         String repositoryUniqueId = documentRequest.getRepositoryUniqueId();
         String documentId = documentRequest.getDocumentUniqueId();
-        log.debug("getResource - homeCommunityId: " + homeCommunityId);
-        log.debug("getResource - repositoryUniqueId: " + repositoryUniqueId);
-        log.debug("getResource - documentId: " + documentId);
+        LOG.debug("getResource - homeCommunityId: " + homeCommunityId);
+        LOG.debug("getResource - repositoryUniqueId: " + repositoryUniqueId);
+        LOG.debug("getResource - documentId: " + documentId);
         ResourceType resource = new ResourceType();
         AttributeHelper attrHelper = new AttributeHelper();
         resource.getAttribute().add(

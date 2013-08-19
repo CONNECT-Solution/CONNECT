@@ -26,13 +26,16 @@
  */
 package gov.hhs.fha.nhinc.docsubmission.adapter.deferred.request.error.proxy;
 
+import gov.hhs.fha.nhinc.aspect.AdapterDelegationEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.docsubmission.aspect.DocSubmissionArgTransformerBuilder;
+import gov.hhs.fha.nhinc.docsubmission.aspect.DocSubmissionBaseEventDescriptionBuilder;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.healthit.nhin.XDRAcknowledgementType;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+
+import org.apache.log4j.Logger;
 
 /**
  * 
@@ -40,24 +43,20 @@ import org.apache.commons.logging.LogFactory;
  */
 public class AdapterDocSubmissionDeferredRequestErrorProxyNoOpImpl implements
         AdapterDocSubmissionDeferredRequestErrorProxy {
-    private Log log = null;
+    private static final Logger LOG = Logger.getLogger(AdapterDocSubmissionDeferredRequestErrorProxyNoOpImpl.class);
 
-    public AdapterDocSubmissionDeferredRequestErrorProxyNoOpImpl() {
-        log = createLogger();
-    }
-
-    protected Log createLogger() {
-        return LogFactory.getLog(getClass());
-    }
-
+    @AdapterDelegationEvent(beforeBuilder = DocSubmissionBaseEventDescriptionBuilder.class,
+            afterReturningBuilder = DocSubmissionArgTransformerBuilder.class, 
+            serviceType = "Document Submission Deferred Request",
+            version = "")
     public XDRAcknowledgementType provideAndRegisterDocumentSetBRequestError(
             ProvideAndRegisterDocumentSetRequestType request, String errorMessage, AssertionType assertion) {
-        log.debug("Begin AdapterDocSubmissionDeferredRequestErrorProxyNoOpImpl.provideAndRegisterDocumentSetBRequestError");
+        LOG.trace("Begin AdapterDocSubmissionDeferredRequestErrorProxyNoOpImpl.provideAndRegisterDocumentSetBRequestError");
         XDRAcknowledgementType ack = new XDRAcknowledgementType();
         RegistryResponseType regResp = new RegistryResponseType();
         regResp.setStatus(NhincConstants.XDR_ACK_STATUS_MSG);
         ack.setMessage(regResp);
-        log.debug("End AdapterDocSubmissionDeferredRequestErrorProxyNoOpImpl.provideAndRegisterDocumentSetBRequestError");
+        LOG.trace("End AdapterDocSubmissionDeferredRequestErrorProxyNoOpImpl.provideAndRegisterDocumentSetBRequestError");
         return ack;
     }
 }

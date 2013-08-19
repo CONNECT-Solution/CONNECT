@@ -30,13 +30,12 @@ package gov.hhs.fha.nhinc.docsubmission.entity.deferred.request;
 import static org.junit.Assert.*;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
-import gov.hhs.fha.nhinc.gateway.aggregator.document.DocumentConstants;
+import gov.hhs.fha.nhinc.document.DocumentConstants;
 import gov.hhs.fha.nhinc.orchestration.OrchestrationStrategy;
 import gov.hhs.healthit.nhin.XDRAcknowledgementType;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
-import org.apache.commons.logging.Log;
 import org.jmock.Expectations;
 import org.jmock.Mockery;
 import org.jmock.integration.junit4.JUnit4Mockery;
@@ -53,7 +52,6 @@ public class OutboundDocSubmissionDeferredRequestStrategyTest {
             setImposteriser(ClassImposteriser.INSTANCE);
         }
     };
-    final Log mockLog = context.mock(Log.class);
     final gov.hhs.fha.nhinc.docsubmission.nhin.deferred.request.proxy11.NhinDocSubmissionDeferredRequestProxy mockProxy11 = context
     .mock(gov.hhs.fha.nhinc.docsubmission.nhin.deferred.request.proxy11.NhinDocSubmissionDeferredRequestProxy.class, "G0 Proxy");
 
@@ -62,7 +60,6 @@ public class OutboundDocSubmissionDeferredRequestStrategyTest {
 
     @Test
     public void testExecute_g0() {
-        allowAnyMockLogging();
         expectMockProxyInvokeWith11();
 
         testExecute(createOutboundDocSubmissionDeferredRequestStrategyImpl_g0());
@@ -70,7 +67,6 @@ public class OutboundDocSubmissionDeferredRequestStrategyTest {
 
     @Test
     public void testExecute_g1() {
-        allowAnyMockLogging();
         expectMockProxyInvokeWith20();
 
         testExecute(createOutboundDocSubmissionDeferredRequestStrategyImpl_g1());
@@ -79,11 +75,9 @@ public class OutboundDocSubmissionDeferredRequestStrategyTest {
     @Test
     public void testGetters() {
         OutboundDocSubmissionDeferredRequestStrategyImpl_g0 strategy_g0 = createOutboundDocSubmissionDeferredRequestStrategyImpl_g0();
-        assertNotNull(strategy_g0.getLogger());
         assertNotNull(strategy_g0.getNhinDocSubmissionDeferredRequestProxy());
 
         OutboundDocSubmissionDeferredRequestStrategyImpl_g1 strategy_g1 = createOutboundDocSubmissionDeferredRequestStrategyImpl_g1();
-        assertNotNull(strategy_g1.getLogger());
         assertNotNull(strategy_g1.getNhinDocSubmissionDeferredRequestProxy());
     }
 
@@ -95,14 +89,6 @@ public class OutboundDocSubmissionDeferredRequestStrategyTest {
         strategy.execute(message);
         assertEquals(DocumentConstants.XDS_SUBMISSION_RESPONSE_STATUS_SUCCESS, message.getResponse().getMessage()
                 .getStatus());
-    }
-
-    private void allowAnyMockLogging() {
-        context.checking(new Expectations() {
-            {
-                ignoring(mockLog);
-            }
-        });
     }
 
     private void expectMockProxyInvokeWith11() {
@@ -145,10 +131,6 @@ public class OutboundDocSubmissionDeferredRequestStrategyTest {
 
     private OutboundDocSubmissionDeferredRequestStrategyImpl_g0 createOutboundDocSubmissionDeferredRequestStrategyImpl_g0() {
         return new OutboundDocSubmissionDeferredRequestStrategyImpl_g0() {
-            protected Log getLogger() {
-                return mockLog;
-            }
-
             protected gov.hhs.fha.nhinc.docsubmission.nhin.deferred.request.proxy11.NhinDocSubmissionDeferredRequestProxy getNhinDocSubmissionDeferredRequestProxy() {
                 return mockProxy11;
             }
@@ -157,10 +139,6 @@ public class OutboundDocSubmissionDeferredRequestStrategyTest {
 
     private OutboundDocSubmissionDeferredRequestStrategyImpl_g1 createOutboundDocSubmissionDeferredRequestStrategyImpl_g1() {
         return new OutboundDocSubmissionDeferredRequestStrategyImpl_g1() {
-            protected Log getLogger() {
-                return mockLog;
-            }
-
             protected gov.hhs.fha.nhinc.docsubmission.nhin.deferred.request.proxy20.NhinDocSubmissionDeferredRequestProxy getNhinDocSubmissionDeferredRequestProxy() {
                 return mockProxy20;
             }

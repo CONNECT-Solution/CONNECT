@@ -46,9 +46,6 @@ import org.w3c.dom.ls.LSParser;
 @Ignore
 public class RootTopicExtractorFromNotifyTest {
 
-    private static org.apache.commons.logging.Log log = org.apache.commons.logging.LogFactory
-            .getLog(RootTopicExtractorFromNotifyTest.class);
-
     public RootTopicExtractorFromNotifyTest() {
     }
 
@@ -132,13 +129,13 @@ public class RootTopicExtractorFromNotifyTest {
         RootTopicExtractor rootTopicExtractor = new RootTopicExtractor();
         String extractedRootTopic = null;
         extractedRootTopic = rootTopicExtractor.extractRootTopicFromNotificationMessageXml(notificationMessage);
-        log.debug("extracted root topic (xml): " + extractedRootTopic);
-        log.debug("expected root topic       : " + expectedRootTopic);
+        System.out.println("extracted root topic (xml): " + extractedRootTopic);
+        System.out.println("expected root topic       : " + expectedRootTopic);
         assertEquals(expectedRootTopic, extractedRootTopic);
         extractedRootTopic = rootTopicExtractor
                 .extractRootTopicFromNotificationMessageElement(notificationMessageElement);
-        log.debug("extracted root topic (element): " + extractedRootTopic);
-        log.debug("expected root topic           : " + expectedRootTopic);
+        System.out.println("extracted root topic (element): " + extractedRootTopic);
+        System.out.println("expected root topic           : " + expectedRootTopic);
         assertEquals(expectedRootTopic, extractedRootTopic);
     }
 }

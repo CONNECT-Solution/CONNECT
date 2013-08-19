@@ -31,7 +31,7 @@ import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
-import org.apache.commons.logging.Log;
+
 import org.jmock.Expectations;
 import org.jmock.Mockery;
 import org.jmock.integration.junit4.JMock;
@@ -53,7 +53,6 @@ public class AdapterRedactionEngineOrchImplTest {
             setImposteriser(ClassImposteriser.INSTANCE);
         }
     };
-    final Log mockLog = context.mock(Log.class);
     final RedactionEngine mockRedactionEngine = context.mock(RedactionEngine.class);
     final AdhocQueryRequest mockAdhocQueryRequest = context.mock(AdhocQueryRequest.class);
     final AdhocQueryResponse mockAdhocQueryResponse = context.mock(AdhocQueryResponse.class);
@@ -61,37 +60,9 @@ public class AdapterRedactionEngineOrchImplTest {
     final RetrieveDocumentSetResponseType mockResponse = context.mock(RetrieveDocumentSetResponseType.class);
 
     @Test
-    public void testCreateLogger() {
-        try {
-            AdapterRedactionEngineOrchImpl javaProxy = new AdapterRedactionEngineOrchImpl() {
-                @Override
-                protected Log createLogger() {
-                    return mockLog;
-                }
-
-                @Override
-                protected RedactionEngine getRedactionEngine() {
-                    return mockRedactionEngine;
-                }
-            };
-            Log log = javaProxy.createLogger();
-            assertNotNull("Log was null", log);
-        } catch (Throwable t) {
-            System.out.println("Error running testCreateLogger test: " + t.getMessage());
-            t.printStackTrace();
-            fail("Error running testCreateLogger test: " + t.getMessage());
-        }
-    }
-
-    @Test
     public void testGetRedactionEngine() {
         try {
             AdapterRedactionEngineOrchImpl javaProxy = new AdapterRedactionEngineOrchImpl() {
-                @Override
-                protected Log createLogger() {
-                    return mockLog;
-                }
-
                 @Override
                 protected RedactionEngine getRedactionEngine() {
                     return mockRedactionEngine;
@@ -111,19 +82,12 @@ public class AdapterRedactionEngineOrchImplTest {
         try {
             AdapterRedactionEngineOrch javaProxy = new AdapterRedactionEngineOrchImpl() {
                 @Override
-                protected Log createLogger() {
-                    return mockLog;
-                }
-
-                @Override
                 protected RedactionEngine getRedactionEngine() {
                     return mockRedactionEngine;
                 }
             };
             context.checking(new Expectations() {
                 {
-                    allowing(mockLog).isDebugEnabled();
-                    allowing(mockLog).debug(with(any(String.class)));
                     oneOf(mockRedactionEngine).filterAdhocQueryResults(with(aNonNull(AdhocQueryRequest.class)),
                             with(aNonNull(AdhocQueryResponse.class)));
                 }
@@ -147,19 +111,12 @@ public class AdapterRedactionEngineOrchImplTest {
 
             AdapterRedactionEngineOrch javaProxy = new AdapterRedactionEngineOrchImpl() {
                 @Override
-                protected Log createLogger() {
-                    return mockLog;
-                }
-
-                @Override
                 protected RedactionEngine getRedactionEngine() {
                     return mockRedactionEngine;
                 }
             };
             context.checking(new Expectations() {
                 {
-                    allowing(mockLog).isDebugEnabled();
-                    allowing(mockLog).debug(with(any(String.class)));
                     oneOf(mockRedactionEngine).filterAdhocQueryResults(with(aNull(AdhocQueryRequest.class)),
                             with(aNull(AdhocQueryResponse.class)));
                 }
@@ -180,22 +137,10 @@ public class AdapterRedactionEngineOrchImplTest {
 
             AdapterRedactionEngineOrch javaProxy = new AdapterRedactionEngineOrchImpl() {
                 @Override
-                protected Log createLogger() {
-                    return mockLog;
-                }
-
-                @Override
                 protected RedactionEngine getRedactionEngine() {
                     return null;
                 }
             };
-            context.checking(new Expectations() {
-                {
-                    allowing(mockLog).isDebugEnabled();
-                    allowing(mockLog).debug(with(any(String.class)));
-                    allowing(mockLog).warn(with(any(String.class)));
-                }
-            });
 
             AdhocQueryResponse response = javaProxy.filterAdhocQueryResults(mockAdhocQueryRequest,
                     mockAdhocQueryResponse);
@@ -212,19 +157,12 @@ public class AdapterRedactionEngineOrchImplTest {
         try {
             AdapterRedactionEngineOrch javaProxy = new AdapterRedactionEngineOrchImpl() {
                 @Override
-                protected Log createLogger() {
-                    return mockLog;
-                }
-
-                @Override
                 protected RedactionEngine getRedactionEngine() {
                     return mockRedactionEngine;
                 }
             };
             context.checking(new Expectations() {
                 {
-                    allowing(mockLog).isDebugEnabled();
-                    allowing(mockLog).debug(with(any(String.class)));
                     oneOf(mockRedactionEngine).filterRetrieveDocumentSetResults(
                             with(aNonNull(RetrieveDocumentSetRequestType.class)),
                             with(aNonNull(RetrieveDocumentSetResponseType.class)));
@@ -249,19 +187,12 @@ public class AdapterRedactionEngineOrchImplTest {
 
             AdapterRedactionEngineOrch javaProxy = new AdapterRedactionEngineOrchImpl() {
                 @Override
-                protected Log createLogger() {
-                    return mockLog;
-                }
-
-                @Override
                 protected RedactionEngine getRedactionEngine() {
                     return mockRedactionEngine;
                 }
             };
             context.checking(new Expectations() {
                 {
-                    allowing(mockLog).isDebugEnabled();
-                    allowing(mockLog).debug(with(any(String.class)));
                     oneOf(mockRedactionEngine).filterRetrieveDocumentSetResults(
                             with(aNull(RetrieveDocumentSetRequestType.class)),
                             with(aNull(RetrieveDocumentSetResponseType.class)));
@@ -283,22 +214,10 @@ public class AdapterRedactionEngineOrchImplTest {
         try {
             AdapterRedactionEngineOrch javaProxy = new AdapterRedactionEngineOrchImpl() {
                 @Override
-                protected Log createLogger() {
-                    return mockLog;
-                }
-
-                @Override
                 protected RedactionEngine getRedactionEngine() {
                     return null;
                 }
             };
-            context.checking(new Expectations() {
-                {
-                    allowing(mockLog).isDebugEnabled();
-                    allowing(mockLog).debug(with(any(String.class)));
-                    allowing(mockLog).warn(with(any(String.class)));
-                }
-            });
 
             RetrieveDocumentSetResponseType response = javaProxy.filterRetrieveDocumentSetResults(mockRequest,
                     mockResponse);

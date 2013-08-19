@@ -32,11 +32,13 @@ import gov.hhs.fha.nhinc.common.nhinccommonadapter.FilterDocQueryResultsRequestT
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.FilterDocQueryResultsResponseType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.FilterDocRetrieveResultsRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.FilterDocRetrieveResultsResponseType;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
+
 import javax.xml.ws.WebServiceContext;
+
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
+
+import org.apache.log4j.Logger;
 
 /**
  * 
@@ -44,30 +46,23 @@ import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
  */
 public class AdapterComponentRedactionEngineImpl {
 
-    private Log log = null;
-
-    public AdapterComponentRedactionEngineImpl() {
-        log = createLogger();
-    }
-
-    protected Log createLogger() {
-        return LogFactory.getLog(getClass());
-    }
-
+    private static final Logger LOG = Logger.getLogger(AdapterComponentRedactionEngineImpl.class);
+    private AsyncMessageIdExtractor extractor = new AsyncMessageIdExtractor();
+    
     public FilterDocQueryResultsResponseType filterDocQueryResults(
             FilterDocQueryResultsRequestType filterDocQueryResultsRequest, WebServiceContext context) {
-        log.debug("Begin filterDocQueryResults");
+        LOG.debug("Begin filterDocQueryResults");
         FilterDocQueryResultsResponseType response = null;
         AssertionType assertion = getAssertion(context);
 
         if (filterDocQueryResultsRequest == null) {
-            log.warn("FilterDocQueryResultsRequestType was null");
+            LOG.warn("FilterDocQueryResultsRequestType was null");
         } else {
             AdhocQueryResponse adhocQueryResponse = invokeRedactionEngineForQuery(filterDocQueryResultsRequest);
             response = new FilterDocQueryResultsResponseType();
             response.setAdhocQueryResponse(adhocQueryResponse);
         }
-        log.debug("end filterDocQueryResults");
+        LOG.debug("end filterDocQueryResults");
         return response;
     }
 
@@ -77,7 +72,7 @@ public class AdapterComponentRedactionEngineImpl {
         AssertionType assertion = getAssertion(context);
 
         if (filterDocRetrieveResultsRequest == null) {
-            log.warn("FilterDocRetrieveResultsRequestType was null");
+            LOG.warn("FilterDocRetrieveResultsRequestType was null");
         } else {
             RetrieveDocumentSetResponseType retrieveDocSetResonse = invokeRedactionEngineForRetrieve(filterDocRetrieveResultsRequest);
             response = new FilterDocRetrieveResultsResponseType();
@@ -90,8 +85,7 @@ public class AdapterComponentRedactionEngineImpl {
         AssertionType assertion = new AssertionType();
 
         // Extract the relates to value from the WS-Addressing Header and place it in the Assertion Class
-        AsyncMessageIdExtractor msgIdExtractor = new AsyncMessageIdExtractor();
-        assertion.setMessageId(msgIdExtractor.GetAsyncMessageId(context));
+        assertion.setMessageId(extractor.getOrCreateAsyncMessageId(context));
 
         return assertion;
     }

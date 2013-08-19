@@ -42,8 +42,7 @@ import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.notify.adapter.proxy.service.HiemNotifyAdapterSecuredServicePortDescriptor;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 import org.oasis_open.docs.wsn.b_2.Notify;
 import org.w3c.dom.Element;
 
@@ -54,7 +53,7 @@ import org.w3c.dom.Element;
  */
 public class HiemNotifyAdapterWebServiceProxySecured implements HiemNotifyAdapterProxy {
 
-    private static Log log = LogFactory.getLog(HiemNotifyAdapterWebServiceProxySecured.class);
+    private static final Logger LOG = Logger.getLogger(HiemNotifyAdapterWebServiceProxySecured.class);
     private static WebServiceProxyHelper oProxyHelper = null;
 
     public Element notify(Element notifyElement, SoapMessageElements referenceParametersElements,
@@ -83,7 +82,7 @@ public class HiemNotifyAdapterWebServiceProxySecured implements HiemNotifyAdapte
             NhincCommonAcknowledgementMarshaller acknowledgementMarshaller = new NhincCommonAcknowledgementMarshaller();
             responseElement = acknowledgementMarshaller.marshal(response);
         } else {
-            log.error("Failed to call the web service (" + NhincConstants.HIEM_NOTIFY_ADAPTER_SERVICE_SECURED_NAME
+            LOG.error("Failed to call the web service (" + NhincConstants.HIEM_NOTIFY_ADAPTER_SERVICE_SECURED_NAME
                     + ").  The URL is null.");
         }
 
@@ -105,7 +104,7 @@ public class HiemNotifyAdapterWebServiceProxySecured implements HiemNotifyAdapte
             AssertionType assertion, String wsAddressingTo) {
 
         return CONNECTCXFClientFactory.getInstance().getCONNECTClientSecured(portDescriptor, url, assertion,
-                wsAddressingTo);
+                wsAddressingTo, null);
     }
 
     protected WebServiceProxyHelper getWebServiceProxyHelper() {

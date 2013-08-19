@@ -1,30 +1,6 @@
 -- create application user
 CREATE USER nhincuser IDENTIFIED BY 'nhincpass';
 
--- begin aggregator creation
-CREATE DATABASE aggregator;
-
-CREATE TABLE aggregator.agg_transaction (
-    TransactionId VARCHAR(32) NOT NULL COMMENT 'This will be a UUID',
-    ServiceType VARCHAR(64) NOT NULL,
-    TransactionStartTime DATETIME COMMENT 'Format of YYYYMMDDHHMMSS',
-  PRIMARY KEY(TransactionId)
-);
-
-CREATE TABLE aggregator.agg_message_results (
-    MessageId VARCHAR(32) NOT NULL COMMENT 'This will be a UUID.',
-    TransactionId VARCHAR(32) NOT NULL COMMENT 'This will be a UUID. - Foreign Key to the agg_transaction table.',
-    MessageKey VARCHAR(1000) NOT NULL COMMENT 'This is the key used to tie the response to the original request.',
-    MessageOutTime DATETIME COMMENT 'This is the date/time when the outbound request was recorded.  Format of YYYYMMDDHHMMSS',
-    ResponseReceivedTime DATETIME COMMENT 'This is the date/time when the response was recorded.  Format of YYYYMMDDHHMMSS',
-    ResponseMessageType VARCHAR(100) COMMENT 'This is the name of the outer layer JAXB class for the response message.',
-    ResponseMessage LONGTEXT COMMENT 'The response message in XML - Based on marshalling using JAXB',
-  PRIMARY KEY (MessageId)
-);
-
-GRANT SELECT,INSERT,UPDATE,DELETE ON aggregator.* to nhincuser;
--- end aggregator creation
-
 -- begin assigning authority
 CREATE DATABASE assigningauthoritydb;
 
@@ -300,30 +276,6 @@ COMMENT = 'Phone Numbers';
 GRANT SELECT,INSERT,UPDATE,DELETE ON patientdb.* to nhincuser;
 -- end patientdb
 
--- begin perfrepo
-CREATE DATABASE perfrepo;
-
-CREATE TABLE perfrepo.perfrepository (
-  id BIGINT NOT NULL AUTO_INCREMENT,
-  time TIMESTAMP NULL,
-  servicetype VARCHAR(255) NULL,
-  messagetype VARCHAR(10) NULL,
-  direction VARCHAR(10) NULL,
-  communityid VARCHAR(255) NULL,
-  status INT NULL DEFAULT 0,
-  version VARCHAR(10),
-  size VARCHAR(10),
-  payloadtype VARCHAR(10),
-  correlationid VARCHAR(255),
-  othercommunityid VARCHAR(255),
-  errorcode VARCHAR(10),
- PRIMARY KEY (id),
-  UNIQUE INDEX id_UNIQUE (id ASC) )
-COMMENT = 'Performance Monitor Repository';
-
-GRANT SELECT,INSERT,UPDATE,DELETE ON perfrepo.* to nhincuser;
--- end perfrepo
-
 -- begin transrepo
 
 CREATE DATABASE transrepo;
@@ -332,12 +284,32 @@ CREATE TABLE transrepo.transactionrepository (
     id BIGINT NOT NULL AUTO_INCREMENT,
     transactionId VARCHAR(100) NOT NULL,
     messageId VARCHAR(100) NOT NULL,
-    time TIMESTAMP NULL,
+    transactionTime TIMESTAMP NULL,
     PRIMARY KEY (id),
+    INDEX messageId_idx (messageId),
     UNIQUE transID_UNIQUE (transactionId, messageId) )
 COMMENT = 'Message Transaction Repository';
 
 GRANT SELECT,INSERT,UPDATE,DELETE ON transrepo.* to nhincuser;
 -- end transrepo
+
+-- begin eventdb
+
+CREATE DATABASE eventdb;
+
+CREATE TABLE eventdb.event (
+  id BIGINT NOT NULL AUTO_INCREMENT,
+  name VARCHAR(100) NOT NULL,
+  description longtext,
+  transactionId VARCHAR(100),
+  messageId VARCHAR(100),
+  eventTime TIMESTAMP,
+  PRIMARY KEY (id) )
+COMMENT = 'Event Logging';
+
+GRANT SELECT,INSERT,UPDATE,DELETE ON eventdb.* to nhincuser;
+GRANT SELECT,INSERT,UPDATE,DELETE ON *.* TO 'nhincuser'@'localhost' IDENTIFIED BY 'nhincpass' WITH GRANT OPTION;
+GRANT SELECT,INSERT,UPDATE,DELETE ON *.* TO 'nhincuser'@'127.0.0.1' IDENTIFIED BY 'nhincpass' WITH GRANT OPTION;
+-- end eventdb
 
 FLUSH PRIVILEGES;

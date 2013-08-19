@@ -26,21 +26,29 @@
  */
 package gov.hhs.fha.nhinc.docsubmission.nhin.deferred.response.proxy11;
 
+import gov.hhs.fha.nhinc.aspect.NwhinInvocationEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
+import gov.hhs.fha.nhinc.docsubmission.aspect.DeferredResponseDescriptionBuilder;
+import gov.hhs.fha.nhinc.docsubmission.aspect.DocSubmissionArgTransformerBuilder;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.healthit.nhin.XDRAcknowledgementType;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
+import org.apache.log4j.Logger;
 /**
- *
+ * 
  * @author JHOPPESC
  */
 public class NhinDocSubmissionDeferredResponseProxyNoOpImpl implements NhinDocSubmissionDeferredResponseProxy {
-    private static org.apache.commons.logging.Log log = org.apache.commons.logging.LogFactory.getLog(NhinDocSubmissionDeferredResponseProxyNoOpImpl.class);
+    private static final Logger LOG = Logger.getLogger(NhinDocSubmissionDeferredResponseProxyNoOpImpl.class);
 
-    public XDRAcknowledgementType provideAndRegisterDocumentSetBDeferredResponse11(RegistryResponseType body, AssertionType assertion, NhinTargetSystemType target) {
-        log.debug("Using NoOp Implementation for Nhin Doc Submission Deferred Response Service");
+    @NwhinInvocationEvent(beforeBuilder = DeferredResponseDescriptionBuilder.class,
+            afterReturningBuilder = DocSubmissionArgTransformerBuilder.class,
+            serviceType = "Document Submission Deferred Response", version = "")
+    public XDRAcknowledgementType provideAndRegisterDocumentSetBDeferredResponse11(RegistryResponseType body,
+            AssertionType assertion, NhinTargetSystemType target) {
+        LOG.debug("Using NoOp Implementation for Nhin Doc Submission Deferred Response Service");
         XDRAcknowledgementType ack = new XDRAcknowledgementType();
         RegistryResponseType regResp = new RegistryResponseType();
         regResp.setStatus(NhincConstants.XDR_RESP_ACK_STATUS_MSG);

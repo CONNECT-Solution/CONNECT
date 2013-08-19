@@ -38,8 +38,7 @@ import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.policyengine.adapter.orchestrator.proxy.service.AdapterPolicyEngineOrchServicePortDescriptor;
 import gov.hhs.fha.nhinc.webserviceproxy.WebServiceProxyHelper;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 
 /**
  * This is the concrete implementation for the web service based call to the AdapterPolicyEngineOrchestrator.
@@ -47,16 +46,11 @@ import org.apache.commons.logging.LogFactory;
  * @author Les Westberg
  */
 public class AdapterPolicyEngineOrchProxyWebServiceUnsecuredImpl implements AdapterPolicyEngineOrchProxy {
-    private Log log = null;
+    private static final Logger LOG = Logger.getLogger(AdapterPolicyEngineOrchProxyWebServiceUnsecuredImpl.class);
     private WebServiceProxyHelper oProxyHelper = null;
 
     public AdapterPolicyEngineOrchProxyWebServiceUnsecuredImpl() {
-        log = createLogger();
         oProxyHelper = createWebServiceProxyHelper();
-    }
-
-    protected Log createLogger() {
-        return LogFactory.getLog(getClass());
     }
 
     protected WebServiceProxyHelper createWebServiceProxyHelper() {
@@ -78,14 +72,14 @@ public class AdapterPolicyEngineOrchProxyWebServiceUnsecuredImpl implements Adap
      * @return The response which contains the access decision
      */
     public CheckPolicyResponseType checkPolicy(CheckPolicyRequestType checkPolicyRequest, AssertionType assertion) {
-        log.debug("Begin AdapterPolicyEngineOrchProxyWebServiceUnsecuredImpl.checkPolicy");
+        LOG.debug("Begin AdapterPolicyEngineOrchProxyWebServiceUnsecuredImpl.checkPolicy");
         CheckPolicyResponseType oResponse = new CheckPolicyResponseType();
         String serviceName = NhincConstants.ADAPTER_POLICY_ENGINE_ORCHESTRATOR_SERVICE_NAME;
 
         try {
-            log.debug("Before target system URL look up.");
+            LOG.debug("Before target system URL look up.");
             String url = oProxyHelper.getAdapterEndPointFromConnectionManager(serviceName);
-            log.debug("After target system URL look up. URL for service: " + serviceName + " is: " + url);
+            LOG.debug("After target system URL look up. URL for service: " + serviceName + " is: " + url);
 
             if (NullChecker.isNotNullish(url)) {
                 ServicePortDescriptor<AdapterPolicyEngineOrchestratorPortType> portDescriptor = new AdapterPolicyEngineOrchServicePortDescriptor();
@@ -95,16 +89,16 @@ public class AdapterPolicyEngineOrchProxyWebServiceUnsecuredImpl implements Adap
                 oResponse = (CheckPolicyResponseType) client.invokePort(
                         AdapterPolicyEngineOrchestratorPortType.class, "checkPolicy", checkPolicyRequest);
             } else {
-                log.error("Failed to call the web service (" + serviceName + ").  The URL is null.");
+                LOG.error("Failed to call the web service (" + serviceName + ").  The URL is null.");
             }
         } catch (Exception e) {
             String sErrorMessage = "Error occurred calling AdapterPolicyEngineOrchProxyWebServiceUnsecuredImpl.checkPolicy.  Error: "
                     + e.getMessage();
-            log.error(sErrorMessage, e);
+            LOG.error(sErrorMessage, e);
             throw new RuntimeException(sErrorMessage, e);
         }
 
-        log.debug("End AdapterPolicyEngineOrchProxyWebServiceUnsecuredImpl.checkPolicy");
+        LOG.debug("End AdapterPolicyEngineOrchProxyWebServiceUnsecuredImpl.checkPolicy");
         return oResponse;
     }
 

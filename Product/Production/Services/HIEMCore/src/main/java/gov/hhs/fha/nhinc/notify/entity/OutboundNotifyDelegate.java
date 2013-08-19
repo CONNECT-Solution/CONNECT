@@ -31,13 +31,12 @@ import gov.hhs.fha.nhinc.orchestration.Orchestratable;
 import gov.hhs.fha.nhinc.orchestration.OutboundDelegate;
 import gov.hhs.fha.nhinc.orchestration.OutboundOrchestratable;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 
 
 public class OutboundNotifyDelegate implements OutboundDelegate {
 
-    private static Log log = LogFactory.getLog(OutboundNotifyDelegate.class);
+    private static final Logger LOG = Logger.getLogger(OutboundNotifyDelegate.class);
 
     /**
      * The generic process method to build and execute the Orchestratable.
@@ -58,9 +57,9 @@ public class OutboundNotifyDelegate implements OutboundDelegate {
      */
     @Override
     public OutboundOrchestratable process(OutboundOrchestratable message) {
-        getLogger().debug("begin process");
+        LOG.debug("begin process");
         if (message instanceof OutboundNotifyOrchestratable) {
-            getLogger().debug("processing Notify orchestratable ");
+            LOG.debug("processing Notify orchestratable ");
             OutboundNotifyOrchestratable dsMessage = (OutboundNotifyOrchestratable) message;
 
             //Notify does not get sent based on UDDI or spec version
@@ -70,7 +69,7 @@ public class OutboundNotifyDelegate implements OutboundDelegate {
             
             return (OutboundOrchestratable) contextBuilder.build().execute();
         }
-        getLogger().error("message is not an instance of OutboundNotifyOrchestratable!");
+        LOG.error("message is not an instance of OutboundNotifyOrchestratable!");
         return null;
     }
 
@@ -80,14 +79,6 @@ public class OutboundNotifyDelegate implements OutboundDelegate {
      */
     protected OrchestrationContextFactory getOrchestrationContextFactory() {
         return OrchestrationContextFactory.getInstance();
-    }
-
-    /**
-     * Return the logger.
-     * @return the logger
-     */
-    protected Log getLogger() {
-        return log;
     }
 
 	/* (non-Javadoc)

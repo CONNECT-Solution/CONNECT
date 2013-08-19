@@ -31,8 +31,7 @@ import gov.hhs.fha.nhinc.patientdb.persistence.HibernateUtil;
 
 import java.util.List;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -48,7 +47,7 @@ import org.hibernate.criterion.Expression;
 
 public class PersonnameDAO {
 
-    private static Log log = LogFactory.getLog(PersonnameDAO.class);
+    private static final Logger LOG = Logger.getLogger(PersonnameDAO.class);
 
     private static PersonnameDAO personnameDAO = new PersonnameDAO();
 
@@ -59,7 +58,7 @@ public class PersonnameDAO {
 
     private PersonnameDAO() {
 
-        log.info("PersonnameDAO - Initialized");
+        LOG.info("PersonnameDAO - Initialized");
 
     }
 
@@ -72,7 +71,7 @@ public class PersonnameDAO {
 
     public static PersonnameDAO getPersonnameDAOInstance() {
 
-        log.debug("getPersonnameDAOInstance()..");
+        LOG.debug("getPersonnameDAOInstance()..");
 
         return personnameDAO;
 
@@ -97,7 +96,7 @@ public class PersonnameDAO {
 
     public boolean create(Personname personnameRecord) {
 
-        log.debug("PersonnameDAO.create() - Begin");
+        LOG.debug("PersonnameDAO.create() - Begin");
 
         Session session = null;
 
@@ -115,11 +114,11 @@ public class PersonnameDAO {
 
                 tx = session.beginTransaction();
 
-                log.info("Inserting Record...");
+                LOG.info("Inserting Record...");
 
                 session.persist(personnameRecord);
 
-                log.info("Personname Inserted seccussfully...");
+                LOG.info("Personname Inserted seccussfully...");
 
                 tx.commit();
 
@@ -133,7 +132,7 @@ public class PersonnameDAO {
 
                 }
 
-                log.error("Exception during insertion caused by :" + e.getMessage(), e);
+                LOG.error("Exception during insertion caused by :" + e.getMessage(), e);
 
             } finally {
 
@@ -149,7 +148,7 @@ public class PersonnameDAO {
 
         }
 
-        log.debug("PersonnameDAO.create() - End");
+        LOG.debug("PersonnameDAO.create() - End");
 
         return result;
 
@@ -168,13 +167,13 @@ public class PersonnameDAO {
 
     public Personname read(Long id) {
 
-        log.debug("PersonnameDAO.read() - Begin");
+        LOG.debug("PersonnameDAO.read() - Begin");
 
         if (id == null) {
 
-            log.info("-- id Parameter is required for Personname Query --");
+            LOG.info("-- id Parameter is required for Personname Query --");
 
-            log.debug("PersonnameDAO.read() - End");
+            LOG.debug("PersonnameDAO.read() - End");
 
             return null;
 
@@ -192,7 +191,7 @@ public class PersonnameDAO {
 
             session = sessionFactory.openSession();
 
-            log.info("Reading Record...");
+            LOG.info("Reading Record...");
 
             // Build the criteria
 
@@ -210,7 +209,7 @@ public class PersonnameDAO {
 
         } catch (Exception e) {
 
-            log.error("Exception during read occured due to :" + e.getMessage(), e);
+            LOG.error("Exception during read occured due to :" + e.getMessage(), e);
 
         } finally {
 
@@ -226,7 +225,7 @@ public class PersonnameDAO {
 
         }
 
-        log.debug("PersonnameDAO.read() - End");
+        LOG.debug("PersonnameDAO.read() - End");
 
         return foundRecord;
 
@@ -243,7 +242,7 @@ public class PersonnameDAO {
 
     public boolean update(Personname personnameRecord) {
 
-        log.debug("PersonnameDAO.update() - Begin");
+        LOG.debug("PersonnameDAO.update() - Begin");
 
         Session session = null;
 
@@ -261,11 +260,11 @@ public class PersonnameDAO {
 
                 tx = session.beginTransaction();
 
-                log.info("Updating Record...");
+                LOG.info("Updating Record...");
 
                 session.saveOrUpdate(personnameRecord);
 
-                log.info("Personname Updated seccussfully...");
+                LOG.info("Personname Updated seccussfully...");
 
                 tx.commit();
 
@@ -279,7 +278,7 @@ public class PersonnameDAO {
 
                 }
 
-                log.error("Exception during update caused by :" + e.getMessage(), e);
+                LOG.error("Exception during update caused by :" + e.getMessage(), e);
 
             } finally {
 
@@ -295,7 +294,7 @@ public class PersonnameDAO {
 
         }
 
-        log.debug("PersonnameDAO.update() - End");
+        LOG.debug("PersonnameDAO.update() - End");
 
         return result;
 
@@ -310,7 +309,7 @@ public class PersonnameDAO {
 
     public void delete(Personname personnameRecord) {
 
-        log.debug("PersonnameDAO.delete() - Begin");
+        LOG.debug("PersonnameDAO.delete() - Begin");
 
         Session session = null;
 
@@ -320,7 +319,7 @@ public class PersonnameDAO {
 
             session = sessionFactory.openSession();
 
-            log.info("Deleting Record...");
+            LOG.info("Deleting Record...");
 
             // Delete the Personname record
 
@@ -328,7 +327,7 @@ public class PersonnameDAO {
 
         } catch (Exception e) {
 
-            log.error("Exception during delete occured due to :" + e.getMessage(), e);
+            LOG.error("Exception during delete occured due to :" + e.getMessage(), e);
 
         } finally {
 
@@ -344,7 +343,7 @@ public class PersonnameDAO {
 
         }
 
-        log.debug("PersonnameDAO.delete() - End");
+        LOG.debug("PersonnameDAO.delete() - End");
 
     }
 
@@ -367,13 +366,13 @@ public class PersonnameDAO {
 
     public List<Personname> findPatientPersonnames(Long patientId) {
 
-        log.debug("PersonnameDAO.findPatientPersonnames() - Begin");
+        LOG.debug("PersonnameDAO.findPatientPersonnames() - Begin");
 
         if (patientId == null) {
 
-            log.info("-- patientId Parameter is required for Personname Query --");
+            LOG.info("-- patientId Parameter is required for Personname Query --");
 
-            log.debug("PersonnameDAO.findPatientPersonnames() - End");
+            LOG.debug("PersonnameDAO.findPatientPersonnames() - End");
 
             return null;
 
@@ -389,7 +388,7 @@ public class PersonnameDAO {
 
             session = sessionFactory.openSession();
 
-            log.info("Reading Record...");
+            LOG.info("Reading Record...");
 
             // Build the criteria
 
@@ -401,7 +400,7 @@ public class PersonnameDAO {
 
         } catch (Exception e) {
 
-            log.error("Exception during read occured due to :" + e.getMessage(), e);
+            LOG.error("Exception during read occured due to :" + e.getMessage(), e);
 
         } finally {
 
@@ -417,7 +416,7 @@ public class PersonnameDAO {
 
         }
 
-        log.debug("PersonnameDAO.findPatientPersonnames() - End");
+        LOG.debug("PersonnameDAO.findPatientPersonnames() - End");
 
         return queryList;
 

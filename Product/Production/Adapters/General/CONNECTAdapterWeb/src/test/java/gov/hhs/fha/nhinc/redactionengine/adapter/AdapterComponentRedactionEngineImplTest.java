@@ -36,7 +36,7 @@ import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
 import javax.xml.ws.WebServiceContext;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
-import org.apache.commons.logging.Log;
+
 import org.jmock.Expectations;
 import org.jmock.Mockery;
 import org.jmock.integration.junit4.JMock;
@@ -57,59 +57,19 @@ public class AdapterComponentRedactionEngineImplTest {
             setImposteriser(ClassImposteriser.INSTANCE);
         }
     };
-    final Log mockLog = context.mock(Log.class);
     final WebServiceContext mockContext = context.mock(WebServiceContext.class);
-
-    @Test
-    public void testCreateLogger() {
-        try {
-            AdapterComponentRedactionEngineImpl redactionEngine = new AdapterComponentRedactionEngineImpl() {
-                @Override
-                protected Log createLogger() {
-                    return mockLog;
-                }
-
-                @Override
-                protected AssertionType getAssertion(WebServiceContext context) {
-                    return new AssertionType();
-                }
-
-            };
-            context.checking(new Expectations() {
-                {
-                    allowing(mockLog).isDebugEnabled();
-                    allowing(mockLog).debug(with(any(String.class)));
-                }
-            });
-            assertNotNull("Logger was null", redactionEngine.createLogger());
-        } catch (Throwable t) {
-            System.out.println("Error running testFilterDocQueryResults: " + t.getMessage());
-            t.printStackTrace();
-            fail("Error running testFilterDocQueryResults: " + t.getMessage());
-        }
-    }
 
     @Test
     public void testFilterDocQueryResultsHappy() {
         try {
             AdapterComponentRedactionEngineImpl redactionEngine = new AdapterComponentRedactionEngineImpl() {
                 @Override
-                protected Log createLogger() {
-                    return mockLog;
-                }
-
-                @Override
                 protected AssertionType getAssertion(WebServiceContext context) {
                     return new AssertionType();
                 }
 
             };
-            context.checking(new Expectations() {
-                {
-                    allowing(mockLog).isDebugEnabled();
-                    allowing(mockLog).debug(with(any(String.class)));
-                }
-            });
+            
             FilterDocQueryResultsRequestType filterDocQueryResultsRequest = new FilterDocQueryResultsRequestType();
             AdhocQueryRequest adhocQueryRequest = new AdhocQueryRequest();
             AdhocQueryResponse adhocQueryResponse = new AdhocQueryResponse();
@@ -132,22 +92,11 @@ public class AdapterComponentRedactionEngineImplTest {
         try {
             AdapterComponentRedactionEngineImpl redactionEngine = new AdapterComponentRedactionEngineImpl() {
                 @Override
-                protected Log createLogger() {
-                    return mockLog;
-                }
-
-                @Override
                 protected AssertionType getAssertion(WebServiceContext context) {
                     return new AssertionType();
                 }
             };
-            context.checking(new Expectations() {
-                {
-                    allowing(mockLog).isDebugEnabled();
-                    allowing(mockLog).debug(with(any(String.class)));
-                    allowing(mockLog).warn(with(any(String.class)));
-                }
-            });
+            
             FilterDocQueryResultsRequestType filterDocQueryResultsRequest = null;
             FilterDocQueryResultsResponseType response = redactionEngine.filterDocQueryResults(
                     filterDocQueryResultsRequest, mockContext);
@@ -164,11 +113,6 @@ public class AdapterComponentRedactionEngineImplTest {
         try {
             AdapterComponentRedactionEngineImpl redactionEngine = new AdapterComponentRedactionEngineImpl() {
                 @Override
-                protected Log createLogger() {
-                    return mockLog;
-                }
-
-                @Override
                 protected AssertionType getAssertion(WebServiceContext context) {
                     return new AssertionType();
                 }
@@ -180,12 +124,6 @@ public class AdapterComponentRedactionEngineImplTest {
                 }
 
             };
-            context.checking(new Expectations() {
-                {
-                    allowing(mockLog).isDebugEnabled();
-                    allowing(mockLog).debug(with(any(String.class)));
-                }
-            });
             FilterDocQueryResultsRequestType filterDocQueryResultsRequest = new FilterDocQueryResultsRequestType();
             AdhocQueryRequest adhocQueryRequest = new AdhocQueryRequest();
             AdhocQueryResponse adhocQueryResponse = new AdhocQueryResponse();
@@ -208,11 +146,6 @@ public class AdapterComponentRedactionEngineImplTest {
         try {
             AdapterComponentRedactionEngineImpl redactionEngine = new AdapterComponentRedactionEngineImpl() {
                 @Override
-                protected Log createLogger() {
-                    return mockLog;
-                }
-
-                @Override
                 protected AssertionType getAssertion(WebServiceContext context) {
                     return new AssertionType();
                 }
@@ -224,12 +157,6 @@ public class AdapterComponentRedactionEngineImplTest {
                 }
 
             };
-            context.checking(new Expectations() {
-                {
-                    allowing(mockLog).isDebugEnabled();
-                    allowing(mockLog).debug(with(any(String.class)));
-                }
-            });
             FilterDocQueryResultsRequestType filterDocQueryResultsRequest = new FilterDocQueryResultsRequestType();
             AdhocQueryRequest adhocQueryRequest = null;
             AdhocQueryResponse adhocQueryResponse = new AdhocQueryResponse();
@@ -252,11 +179,6 @@ public class AdapterComponentRedactionEngineImplTest {
         try {
             AdapterComponentRedactionEngineImpl redactionEngine = new AdapterComponentRedactionEngineImpl() {
                 @Override
-                protected Log createLogger() {
-                    return mockLog;
-                }
-
-                @Override
                 protected AssertionType getAssertion(WebServiceContext context) {
                     return new AssertionType();
                 }
@@ -268,12 +190,6 @@ public class AdapterComponentRedactionEngineImplTest {
                 }
 
             };
-            context.checking(new Expectations() {
-                {
-                    allowing(mockLog).isDebugEnabled();
-                    allowing(mockLog).debug(with(any(String.class)));
-                }
-            });
             FilterDocQueryResultsRequestType filterDocQueryResultsRequest = new FilterDocQueryResultsRequestType();
             AdhocQueryRequest adhocQueryRequest = new AdhocQueryRequest();
             AdhocQueryResponse adhocQueryResponse = null;
@@ -296,11 +212,6 @@ public class AdapterComponentRedactionEngineImplTest {
         try {
             AdapterComponentRedactionEngineImpl redactionEngine = new AdapterComponentRedactionEngineImpl() {
                 @Override
-                protected Log createLogger() {
-                    return mockLog;
-                }
-
-                @Override
                 protected AssertionType getAssertion(WebServiceContext context) {
                     return new AssertionType();
                 }
@@ -312,12 +223,6 @@ public class AdapterComponentRedactionEngineImplTest {
                 }
 
             };
-            context.checking(new Expectations() {
-                {
-                    allowing(mockLog).isDebugEnabled();
-                    allowing(mockLog).debug(with(any(String.class)));
-                }
-            });
             FilterDocRetrieveResultsRequestType filterDocRetrieveResultsRequest = new FilterDocRetrieveResultsRequestType();
             RetrieveDocumentSetRequestType retrieveDocRequest = new RetrieveDocumentSetRequestType();
             RetrieveDocumentSetResponseType retreiveDocResponse = new RetrieveDocumentSetResponseType();
@@ -340,11 +245,6 @@ public class AdapterComponentRedactionEngineImplTest {
         try {
             AdapterComponentRedactionEngineImpl redactionEngine = new AdapterComponentRedactionEngineImpl() {
                 @Override
-                protected Log createLogger() {
-                    return mockLog;
-                }
-
-                @Override
                 protected AssertionType getAssertion(WebServiceContext context) {
                     return new AssertionType();
                 }
@@ -356,13 +256,6 @@ public class AdapterComponentRedactionEngineImplTest {
                 }
 
             };
-            context.checking(new Expectations() {
-                {
-                    allowing(mockLog).isDebugEnabled();
-                    allowing(mockLog).debug(with(any(String.class)));
-                    allowing(mockLog).warn(with(any(String.class)));
-                }
-            });
             FilterDocRetrieveResultsRequestType filterDocRetrieveResultsRequest = null;
 
             FilterDocRetrieveResultsResponseType response = redactionEngine.filterDocRetrieveResults(
@@ -380,11 +273,6 @@ public class AdapterComponentRedactionEngineImplTest {
         try {
             AdapterComponentRedactionEngineImpl redactionEngine = new AdapterComponentRedactionEngineImpl() {
                 @Override
-                protected Log createLogger() {
-                    return mockLog;
-                }
-
-                @Override
                 protected AssertionType getAssertion(WebServiceContext context) {
                     return new AssertionType();
                 }
@@ -396,12 +284,6 @@ public class AdapterComponentRedactionEngineImplTest {
                 }
 
             };
-            context.checking(new Expectations() {
-                {
-                    allowing(mockLog).isDebugEnabled();
-                    allowing(mockLog).debug(with(any(String.class)));
-                }
-            });
             FilterDocRetrieveResultsRequestType filterDocRetrieveResultsRequest = new FilterDocRetrieveResultsRequestType();
             RetrieveDocumentSetRequestType retrieveDocRequest = new RetrieveDocumentSetRequestType();
             RetrieveDocumentSetResponseType retreiveDocResponse = new RetrieveDocumentSetResponseType();
@@ -424,11 +306,6 @@ public class AdapterComponentRedactionEngineImplTest {
         try {
             AdapterComponentRedactionEngineImpl redactionEngine = new AdapterComponentRedactionEngineImpl() {
                 @Override
-                protected Log createLogger() {
-                    return mockLog;
-                }
-
-                @Override
                 protected AssertionType getAssertion(WebServiceContext context) {
                     return new AssertionType();
                 }
@@ -440,12 +317,6 @@ public class AdapterComponentRedactionEngineImplTest {
                 }
 
             };
-            context.checking(new Expectations() {
-                {
-                    allowing(mockLog).isDebugEnabled();
-                    allowing(mockLog).debug(with(any(String.class)));
-                }
-            });
             FilterDocRetrieveResultsRequestType filterDocRetrieveResultsRequest = new FilterDocRetrieveResultsRequestType();
             RetrieveDocumentSetRequestType retrieveDocRequest = null;
             RetrieveDocumentSetResponseType retreiveDocResponse = new RetrieveDocumentSetResponseType();
@@ -468,11 +339,6 @@ public class AdapterComponentRedactionEngineImplTest {
         try {
             AdapterComponentRedactionEngineImpl redactionEngine = new AdapterComponentRedactionEngineImpl() {
                 @Override
-                protected Log createLogger() {
-                    return mockLog;
-                }
-
-                @Override
                 protected AssertionType getAssertion(WebServiceContext context) {
                     return new AssertionType();
                 }
@@ -484,12 +350,6 @@ public class AdapterComponentRedactionEngineImplTest {
                 }
 
             };
-            context.checking(new Expectations() {
-                {
-                    allowing(mockLog).isDebugEnabled();
-                    allowing(mockLog).debug(with(any(String.class)));
-                }
-            });
             FilterDocRetrieveResultsRequestType filterDocRetrieveResultsRequest = new FilterDocRetrieveResultsRequestType();
             RetrieveDocumentSetRequestType retrieveDocRequest = new RetrieveDocumentSetRequestType();
             RetrieveDocumentSetResponseType retreiveDocResponse = null;

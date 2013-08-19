@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+         
+<beans xmlns="http://www.springframework.org/schema/beans"   
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"  
+    xmlns:p="http://www.springframework.org/schema/p"   
+    xmlns:context="http://www.springframework.org/schema/context"  
+    xmlns:util="http://www.springframework.org/schema/util"  
+    xmlns:task="http://www.springframework.org/schema/task"  
+    xsi:schemaLocation="  
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd  
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd  
+        http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd
+        http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task.xsd"> 
+
+    <!-- Set up the Direct SMTP Agent -->
+    <bean id="smtpAgent" class="org.nhindirect.gateway.smtp.SmtpAgentFactory" factory-method="createAgent">
+        <constructor-arg type="java.net.URL" value="classpath:/smtp.agent.config.xml" />        
+    </bean>
+
+    <!-- Set up 4 mail clients, for both internal and external, sending and receiving. -->
+    <bean id="intMailSender" class="gov.hhs.fha.nhinc.mail.SmtpMailSender">
+        <constructor-arg><ref bean="internalMailProperties" /></constructor-arg>
+    </bean>
+    <bean id="intMailReceiver" class="gov.hhs.fha.nhinc.mail.ImapMailReceiver">
+        <constructor-arg><ref bean="internalMailProperties" /></constructor-arg>
+    </bean>
+    <bean id="extMailSender" class="gov.hhs.fha.nhinc.mail.SmtpMailSender">
+        <constructor-arg><ref bean="externalMailProperties" /></constructor-arg>
+    </bean>
+    <bean id="extMailReceiver" class="gov.hhs.fha.nhinc.mail.ImapMailReceiver">
+        <constructor-arg><ref bean="externalMailProperties" /></constructor-arg>
+    </bean>
+
+    <!-- Direct Event Logger for injection -->
+    <bean id="directEventLogger" class="gov.hhs.fha.nhinc.direct.event.DirectEventLogger" factory-method="getInstance"
+        scope="singleton" />
+        
+    <!-- Statically inject direct event logger for exception handling -->
+    <bean name="staticDirectExceptionInitializer" 
+          class="org.springframework.beans.factory.config.MethodInvokingFactoryBean">
+        <property name="staticMethod" value="gov.hhs.fha.nhinc.direct.DirectException.setDirectEventLogger"/>
+        <property name="arguments">
+            <list><ref bean="directEventLogger"/></list>
+       </property>
+    </bean>
+    
+    <!-- Set up the Direct Adapters - Sending and Receiving -->
+    <bean id="directSender" class="gov.hhs.fha.nhinc.direct.DirectSenderImpl">
+        <constructor-arg><ref bean="extMailSender" /></constructor-arg>
+        <constructor-arg><ref bean="smtpAgent" /></constructor-arg>
+        <constructor-arg ref="directEventLogger" />
+    </bean>
+    <bean id="directReceiver" class="gov.hhs.fha.nhinc.direct.DirectReceiverImpl">
+        <constructor-arg><ref bean="extMailSender" /></constructor-arg>
+        <constructor-arg><ref bean="smtpAgent" /></constructor-arg>
+        <constructor-arg ref="directEventLogger" />
+    </bean>
+
+    <!-- Set up message handlers -->
+    <bean id="outboundMessageHandler" class="gov.hhs.fha.nhinc.direct.DirectOutboundMsgHandler">
+        <constructor-arg><ref bean="directSender" /></constructor-arg>
+    </bean>
+    <bean id="inboundMessageHandler" class="gov.hhs.fha.nhinc.direct.DirectInboundMsgHandler">
+        <constructor-arg><ref bean="directReceiver" /></constructor-arg>
+    </bean>
+    
+    <!-- Set up message pollers (receiver + handler) -->
+    <bean id="outboundMessagePoller" class="gov.hhs.fha.nhinc.direct.DirectMailPoller">
+        <constructor-arg><ref bean="intMailReceiver" /></constructor-arg>
+        <constructor-arg><ref bean="outboundMessageHandler" /></constructor-arg>        
+    </bean>
+    <bean id="inboundMessagePoller" class="gov.hhs.fha.nhinc.direct.DirectMailPoller">
+        <constructor-arg><ref bean="extMailReceiver" /></constructor-arg>
+        <constructor-arg><ref bean="inboundMessageHandler" /></constructor-arg>        
+    </bean>    
+
+    <util:properties id="internalMailProperties" location="classpath:/test.mail.internal.properties" />
+    <util:properties id="externalMailProperties" location="classpath:/test.mail.external.properties" />
+    
+    <!-- Set up polling for inbound and outbound direct messages -->
+    <task:scheduled-tasks scheduler="directScheduler">
+        <task:scheduled ref="outboundMessagePoller" method="poll" cron="*/1 * * * * *"/>
+        <task:scheduled ref="inboundMessagePoller" method="poll" cron="*/1 * * * * *"/>
+    </task:scheduled-tasks>
+    <task:scheduler id="directScheduler" />
+    
+</beans>

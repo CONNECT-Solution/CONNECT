@@ -27,59 +27,19 @@
 
 package gov.hhs.fha.nhinc.docsubmission.entity.deferred.response.proxy.service;
 
-import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
+import gov.hhs.fha.nhinc.messaging.service.port.SOAP12ServicePortDescriptor;
 import gov.hhs.fha.nhinc.nhincentityxdrsecured.async.response.EntityXDRSecuredAsyncResponsePortType;
 
 /**
  * @author akong
- *
+ * 
  */
-public class EntityDocSubmissionDeferredResponseSecuredServicePortDescriptor implements
-        ServicePortDescriptor<EntityXDRSecuredAsyncResponsePortType> {
+public class EntityDocSubmissionDeferredResponseSecuredServicePortDescriptor extends
+        SOAP12ServicePortDescriptor<EntityXDRSecuredAsyncResponsePortType> {
 
     /*
      * (non-Javadoc)
-     *
-     * @see gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor#getNamespaceUri()
-     */
-    @Override
-    public String getNamespaceUri() {
-        return "urn:gov:hhs:fha:nhinc:nhincentityxdrsecured:async:response";
-    }
-
-    /*
-     * (non-Javadoc)
-     *
-     * @see gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor#getServiceLocalPart()
-     */
-    @Override
-    public String getServiceLocalPart() {
-        return "EntityXDRSecuredAsyncResponse_Service";
-    }
-
-    /*
-     * (non-Javadoc)
-     *
-     * @see gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor#getPortLocalPart()
-     */
-    @Override
-    public String getPortLocalPart() {
-        return "EntityXDRSecuredAsyncResponse_Port";
-    }
-
-    /*
-     * (non-Javadoc)
-     *
-     * @see gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor#getWSDLFileName()
-     */
-    @Override
-    public String getWSDLFileName() {
-        return "EntityXDRSecuredResponse.wsdl";
-    }
-
-    /*
-     * (non-Javadoc)
-     *
+     * 
      * @see gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor#getWSAddressingAction()
      */
     @Override
@@ -89,7 +49,7 @@ public class EntityDocSubmissionDeferredResponseSecuredServicePortDescriptor imp
 
     /*
      * (non-Javadoc)
-     *
+     * 
      * @see gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor#getPortClass()
      */
     @Override

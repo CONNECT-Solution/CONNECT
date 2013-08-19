@@ -33,12 +33,8 @@ import com.services.nhinc.schema.auditmessage.ParticipantObjectIdentificationTyp
 import gov.hhs.fha.nhinc.common.auditlog.LogEventRequestType;
 import gov.hhs.fha.nhinc.common.hiemauditlog.LogNhinSubscribeRequestType;
 import gov.hhs.fha.nhinc.common.hiemauditlog.LogSubscribeResponseType;
-import org.oasis_open.docs.wsn.b_2.Subscribe;
-
 import gov.hhs.fha.nhinc.common.nhinccommon.UserType;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
-import gov.hhs.fha.nhinc.transform.audit.AuditDataTransformConstants;
-import gov.hhs.fha.nhinc.transform.audit.AuditDataTransformHelper;
 import gov.hhs.fha.nhinc.transform.marshallers.JAXBContextHandler;
 import gov.hhs.fha.nhinc.util.format.PatientIdFormatUtil;
 import java.io.ByteArrayOutputStream;
@@ -48,49 +44,52 @@ import javax.xml.bind.JAXBElement;
 import javax.xml.bind.Marshaller;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.AdhocQueryType;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.SlotType1;
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
+import org.oasis_open.docs.wsn.b_2.Subscribe;
 
 /**
  * Transforms for subscribe messages.
- * 
+ *
  * @author webbn
  */
 public class SubscribeTransforms {
-    private static Log log = LogFactory.getLog(SubscribeTransforms.class);
+
+    private static final Logger LOG = Logger.getLogger(SubscribeTransforms.class);
     private static final String SLOT_NAME_PATIENT_ID = "$XDSDocumentEntryPatientId";
 
     public LogEventRequestType transformNhinSubscribeRequestToAuditMessage(LogNhinSubscribeRequestType message) {
         LogEventRequestType response = new LogEventRequestType();
         AuditMessageType auditMsg = new AuditMessageType();
-        response.setDirection(message.getDirection());
-        response.setInterface(message.getInterface());
+        if (message != null) {
+            response.setDirection(message.getDirection());
+            response.setInterface(message.getInterface());
+        }
 
-        log.info("******************************************************************");
-        log.info("Entering transformNhinSubscribeRequestToAuditMessage() method.");
-        log.info("******************************************************************");
+        LOG.info("******************************************************************");
+        LOG.info("Entering transformNhinSubscribeRequestToAuditMessage() method.");
+        LOG.info("******************************************************************");
 
         // Extract UserInfo from Message.Assertion
         UserType userInfo = new UserType();
         if (message != null && message.getMessage() != null && message.getMessage().getAssertion() != null
-                && message.getMessage().getAssertion().getUserInfo() != null) {
+            && message.getMessage().getAssertion().getUserInfo() != null) {
             userInfo = message.getMessage().getAssertion().getUserInfo();
         }
 
         // Create EventIdentification
-        CodedValueType eventID = new CodedValueType();
+        CodedValueType eventID = null;
         eventID = AuditDataTransformHelper.createEventId(AuditDataTransformConstants.EVENT_ID_CODE_SYS_NAME_SUB,
-                AuditDataTransformConstants.EVENT_ID_DISPLAY_NAME_SUBSCRIBE,
-                AuditDataTransformConstants.EVENT_ID_CODE_SYS_NAME_SUB,
-                AuditDataTransformConstants.EVENT_ID_DISPLAY_NAME_SUBSCRIBE);
+            AuditDataTransformConstants.EVENT_ID_DISPLAY_NAME_SUBSCRIBE,
+            AuditDataTransformConstants.EVENT_ID_CODE_SYS_NAME_SUB,
+            AuditDataTransformConstants.EVENT_ID_DISPLAY_NAME_SUBSCRIBE);
         auditMsg.setEventIdentification(AuditDataTransformHelper.createEventIdentification(
-                AuditDataTransformConstants.EVENT_ACTION_CODE_CREATE,
-                AuditDataTransformConstants.EVENT_OUTCOME_INDICATOR_SUCCESS, eventID));
+            AuditDataTransformConstants.EVENT_ACTION_CODE_CREATE,
+            AuditDataTransformConstants.EVENT_OUTCOME_INDICATOR_SUCCESS, eventID));
 
         // Create Active Participant Section
         if (userInfo != null) {
             AuditMessageType.ActiveParticipant participant = AuditDataTransformHelper.createActiveParticipantFromUser(
-                    userInfo, true);
+                userInfo, true);
             auditMsg.getActiveParticipant().add(participant);
         }
 
@@ -119,38 +118,40 @@ public class SubscribeTransforms {
         }
 
         AuditSourceIdentificationType auditSource = AuditDataTransformHelper.createAuditSourceIdentification(
-                communityId, communityName);
+            communityId, communityName);
         auditMsg.getAuditSourceIdentification().add(auditSource);
 
         /* Assign ParticipationObjectIdentification */
         ParticipantObjectIdentificationType participantObject = AuditDataTransformHelper
-                .createParticipantObjectIdentification(patientId);
+            .createParticipantObjectIdentification(patientId);
 
         // Fill in the message field with the contents of the event message
         try {
             JAXBContextHandler oHandler = new JAXBContextHandler();
             JAXBContext jc = oHandler.getJAXBContext(org.oasis_open.docs.wsn.b_2.ObjectFactory.class,
-                    oasis.names.tc.ebxml_regrep.xsd.rim._3.ObjectFactory.class);
+                oasis.names.tc.ebxml_regrep.xsd.rim._3.ObjectFactory.class);
             Marshaller marshaller = jc.createMarshaller();
             ByteArrayOutputStream baOutStrm = new ByteArrayOutputStream();
             baOutStrm.reset();
-            marshaller.marshal(message.getMessage().getSubscribe(), baOutStrm);
-            log.debug("Done marshalling the message.");
+            if (message != null) {
+                marshaller.marshal(message.getMessage().getSubscribe(), baOutStrm);
+            }
+            LOG.debug("Done marshalling the message.");
 
             participantObject.setParticipantObjectQuery(baOutStrm.toByteArray());
 
         } catch (Exception e) {
             e.printStackTrace();
-            log.error("EXCEPTION when marshalling subscribe request: " + e);
+            LOG.error("EXCEPTION when marshalling subscribe request: " + e);
             throw new RuntimeException();
         }
         auditMsg.getParticipantObjectIdentification().add(participantObject);
 
         response.setAuditMessage(auditMsg);
 
-        log.info("******************************************************************");
-        log.info("Exiting transformNhinSubscribeRequestToAuditMessage() method.");
-        log.info("******************************************************************");
+        LOG.info("******************************************************************");
+        LOG.info("Exiting transformNhinSubscribeRequestToAuditMessage() method.");
+        LOG.info("******************************************************************");
 
         return response;
     }
@@ -158,34 +159,36 @@ public class SubscribeTransforms {
     public LogEventRequestType transformSubscribeResponseToAuditMessage(LogSubscribeResponseType message) {
         LogEventRequestType response = new LogEventRequestType();
         AuditMessageType auditMsg = new AuditMessageType();
-        response.setDirection(message.getDirection());
-        response.setInterface(message.getInterface());
+        if (message != null) {
+            response.setDirection(message.getDirection());
+            response.setInterface(message.getInterface());
+        }
 
-        log.info("******************************************************************");
-        log.info("Entering transformSubscribeResponseToAuditMessage() method.");
-        log.info("******************************************************************");
+        LOG.info("******************************************************************");
+        LOG.info("Entering transformSubscribeResponseToAuditMessage() method.");
+        LOG.info("******************************************************************");
 
         // Extract UserInfo from Message.Assertion
         UserType userInfo = new UserType();
         if (message != null && message.getMessage() != null && message.getMessage().getAssertion() != null
-                && message.getMessage().getAssertion().getUserInfo() != null) {
+            && message.getMessage().getAssertion().getUserInfo() != null) {
             userInfo = message.getMessage().getAssertion().getUserInfo();
         }
 
         // Create EventIdentification
-        CodedValueType eventID = new CodedValueType();
+        CodedValueType eventID = null;
         eventID = AuditDataTransformHelper.createEventId(AuditDataTransformConstants.EVENT_ID_CODE_SYS_NAME_SUB,
-                AuditDataTransformConstants.EVENT_ID_DISPLAY_NAME_SUBSCRIBE,
-                AuditDataTransformConstants.EVENT_ID_CODE_SYS_NAME_SUB,
-                AuditDataTransformConstants.EVENT_ID_DISPLAY_NAME_SUBSCRIBE);
+            AuditDataTransformConstants.EVENT_ID_DISPLAY_NAME_SUBSCRIBE,
+            AuditDataTransformConstants.EVENT_ID_CODE_SYS_NAME_SUB,
+            AuditDataTransformConstants.EVENT_ID_DISPLAY_NAME_SUBSCRIBE);
         auditMsg.setEventIdentification(AuditDataTransformHelper.createEventIdentification(
-                AuditDataTransformConstants.EVENT_ACTION_CODE_CREATE,
-                AuditDataTransformConstants.EVENT_OUTCOME_INDICATOR_SUCCESS, eventID));
+            AuditDataTransformConstants.EVENT_ACTION_CODE_CREATE,
+            AuditDataTransformConstants.EVENT_OUTCOME_INDICATOR_SUCCESS, eventID));
 
         // Create Active Participant Section
         if (userInfo != null) {
             AuditMessageType.ActiveParticipant participant = AuditDataTransformHelper.createActiveParticipantFromUser(
-                    userInfo, true);
+                userInfo, true);
             auditMsg.getActiveParticipant().add(participant);
         }
 
@@ -201,13 +204,13 @@ public class SubscribeTransforms {
         }
 
         AuditSourceIdentificationType auditSource = AuditDataTransformHelper.createAuditSourceIdentification(
-                communityId, communityName);
+            communityId, communityName);
         auditMsg.getAuditSourceIdentification().add(auditSource);
 
         String patientId = "unknown";
         /* Assign ParticipationObjectIdentification */
         ParticipantObjectIdentificationType participantObject = AuditDataTransformHelper
-                .createParticipantObjectIdentification(patientId);
+            .createParticipantObjectIdentification(patientId);
 
         // Fill in the message field with the contents of the event message
         try {
@@ -216,22 +219,24 @@ public class SubscribeTransforms {
             Marshaller marshaller = jc.createMarshaller();
             ByteArrayOutputStream baOutStrm = new ByteArrayOutputStream();
             baOutStrm.reset();
-            marshaller.marshal(message.getMessage().getSubscribeResponse(), baOutStrm);
-            log.debug("Done marshalling the message.");
+            if (message != null) {
+                marshaller.marshal(message.getMessage().getSubscribeResponse(), baOutStrm);
+            }
+            LOG.debug("Done marshalling the message.");
 
             participantObject.setParticipantObjectQuery(baOutStrm.toByteArray());
         } catch (Exception e) {
             e.printStackTrace();
-            log.error("EXCEPTION when marshalling subscribe response: " + e);
+            LOG.error("EXCEPTION when marshalling subscribe response: " + e);
             throw new RuntimeException();
         }
         auditMsg.getParticipantObjectIdentification().add(participantObject);
 
         response.setAuditMessage(auditMsg);
 
-        log.info("******************************************************************");
-        log.info("Exiting transformSubscribeResponseToAuditMessage() method.");
-        log.info("******************************************************************");
+        LOG.info("******************************************************************");
+        LOG.info("Exiting transformSubscribeResponseToAuditMessage() method.");
+        LOG.info("******************************************************************");
 
         return response;
     }
@@ -253,27 +258,27 @@ public class SubscribeTransforms {
 
     private AdhocQueryType getAdhocQuery(Subscribe nhinSubscribe) {
         AdhocQueryType adhocQuery = null;
-        log.info("begin getAdhocQuery");
+        LOG.info("begin getAdhocQuery");
         List<Object> any = nhinSubscribe.getAny();
-        log.info("found " + any.size() + " any item(s)");
+        LOG.info("found " + any.size() + " any item(s)");
 
         for (Object anyItem : any) {
-            log.info("anyItem=" + anyItem);
+            LOG.info("anyItem=" + anyItem);
             if (anyItem instanceof oasis.names.tc.ebxml_regrep.xsd.rim._3.AdhocQueryType) {
                 adhocQuery = (AdhocQueryType) anyItem;
             }
             if (anyItem instanceof JAXBElement) {
-                log.info("jaxbelement.getValue=" + ((JAXBElement) anyItem).getValue());
+                LOG.info("jaxbelement.getValue=" + ((JAXBElement) anyItem).getValue());
                 if (((JAXBElement) anyItem).getValue() instanceof AdhocQueryType) {
                     adhocQuery = (AdhocQueryType) ((JAXBElement) anyItem).getValue();
                 } else {
-                    log.warn("unhandled anyitem jaxbelement value " + ((JAXBElement) anyItem).getValue());
+                    LOG.warn("unhandled anyitem jaxbelement value " + ((JAXBElement) anyItem).getValue());
                 }
             } else {
-                log.warn("unhandled anyitem " + anyItem);
+                LOG.warn("unhandled anyitem " + anyItem);
             }
         }
-        log.info("end getAdhocQuery");
+        LOG.info("end getAdhocQuery");
         return adhocQuery;
     }
 
@@ -298,7 +303,7 @@ public class SubscribeTransforms {
         return formattedPatientId;
     }
 
-    private class PatientInfo {
+    private static class PatientInfo {
 
         private String communityId;
         private String communityName;
@@ -328,5 +333,4 @@ public class SubscribeTransforms {
             return patientId;
         }
     }
-
 }

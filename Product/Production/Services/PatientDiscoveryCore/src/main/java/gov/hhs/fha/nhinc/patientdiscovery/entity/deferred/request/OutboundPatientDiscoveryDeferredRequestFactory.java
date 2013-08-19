@@ -29,8 +29,7 @@ package gov.hhs.fha.nhinc.patientdiscovery.entity.deferred.request;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.orchestration.OrchestrationContextBuilder;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 
 /**
  * @author akong
@@ -38,7 +37,7 @@ import org.apache.commons.logging.LogFactory;
  */
 public class OutboundPatientDiscoveryDeferredRequestFactory {
 
-    private static Log log = LogFactory.getLog(OutboundPatientDiscoveryDeferredRequestFactory.class);
+    private static final Logger LOG = Logger.getLogger(OutboundPatientDiscoveryDeferredRequestFactory.class);
 
     private static OutboundPatientDiscoveryDeferredRequestFactory instance = new OutboundPatientDiscoveryDeferredRequestFactory();
 
@@ -50,7 +49,7 @@ public class OutboundPatientDiscoveryDeferredRequestFactory {
         case LEVEL_g0:
             return new OutboundPatientDiscoveryDeferredRequestOrchestrationContextBuilder_g0();
         default:
-            log.warn("Unexpected api level received " + apiLevel.toString() + ".  Defaulting to g0");
+            LOG.warn("Unexpected api level received " + apiLevel.toString() + ".  Defaulting to g0");
             return new OutboundPatientDiscoveryDeferredRequestOrchestrationContextBuilder_g0();
         }
     }

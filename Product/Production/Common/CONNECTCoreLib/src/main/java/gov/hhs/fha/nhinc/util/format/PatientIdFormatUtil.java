@@ -26,8 +26,7 @@
  */
 package gov.hhs.fha.nhinc.util.format;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+import org.apache.log4j.Logger;
 
 /**
  * Format utility for patient identifiers.
@@ -36,7 +35,7 @@ import org.apache.commons.logging.LogFactory;
  */
 public class PatientIdFormatUtil {
 
-    private static Log log = LogFactory.getLog(PatientIdFormatUtil.class);
+    private static final Logger LOG = Logger.getLogger(PatientIdFormatUtil.class);
 
     /**
      * Parse an optionally HL7 encoded patient identifier. If the patient identifier is not HL7 encoded, the original id
@@ -46,15 +45,15 @@ public class PatientIdFormatUtil {
      * @return Parsed patient id
      */
     public static String parsePatientId(String receivedPatientId) {
-        log.debug("Parsing patient id: " + receivedPatientId);
+        LOG.debug("Parsing patient id: " + receivedPatientId);
         String patientId = receivedPatientId;
         if ((patientId != null) && (patientId.length() > 0)) {
             patientId = stripQuotesFromPatientId(patientId);
             int componentIndex = patientId.indexOf("^");
-            log.debug("Index: " + componentIndex);
+            LOG.debug("Index: " + componentIndex);
             if (componentIndex != -1) {
                 patientId = patientId.substring(0, componentIndex);
-                log.debug("Parsed patient id: " + patientId);
+                LOG.debug("Parsed patient id: " + patientId);
             }
         }
         return patientId;
@@ -67,7 +66,7 @@ public class PatientIdFormatUtil {
      * @return patientId
      */
     public static String stripQuotesFromPatientId(String patientId) {
-        log.debug("stripQuotesFromPatientId - Parsing patient id: " + patientId);
+        LOG.debug("stripQuotesFromPatientId - Parsing patient id: " + patientId);
 
         if ((patientId != null) && (patientId.length() > 0)) {
             // In some cases we see a quote - in others we do not. So lets strip them off if we see them.
@@ -82,7 +81,7 @@ public class PatientIdFormatUtil {
                 patientId = sbPatientId.toString();
             }
         }
-        log.debug("stripQuotesFromPatientId - Parsed patient id: " + patientId);
+        LOG.debug("stripQuotesFromPatientId - Parsed patient id: " + patientId);
         return patientId;
     }
 
@@ -94,7 +93,7 @@ public class PatientIdFormatUtil {
      * @return Parsed community id
      */
     public static String parseCommunityId(String encodedPatientId) {
-        log.debug("Parsing community id: " + encodedPatientId);
+        LOG.debug("Parsing community id: " + encodedPatientId);
         String communityId = null;
         if ((encodedPatientId != null) && (encodedPatientId.length() > 0)) {
             String workingCommunityId = encodedPatientId;
@@ -102,10 +101,10 @@ public class PatientIdFormatUtil {
 
             // First remove the first components
             int componentIndex = workingCommunityId.lastIndexOf("^");
-            log.debug("Index: " + componentIndex);
+            LOG.debug("Index: " + componentIndex);
             if ((componentIndex != -1) && (workingCommunityId.length() > (componentIndex + 1))) {
                 workingCommunityId = workingCommunityId.substring(componentIndex + 1);
-                log.debug("Working community id after first components removed: " + workingCommunityId);
+                LOG.debug("Working community id after first components removed: " + workingCommunityId);
 
                 if (workingCommunityId.startsWith("&")) {
                     workingCommunityId = workingCommunityId.substring(1);
@@ -137,11 +136,11 @@ public class PatientIdFormatUtil {
             sLocalHomeCommunityId = sLocalHomeCommunityId.substring("urn:oid:".length());
         }
         String encodedPatientId = null;
-        log.debug("Creating HL7 encoded patient id for patient id: " + patientId + ", home community id: "
+        LOG.debug("Creating HL7 encoded patient id for patient id: " + patientId + ", home community id: "
                 + sLocalHomeCommunityId);
         if (patientId != null) {
             encodedPatientId = "'" + patientId + "^^^&" + sLocalHomeCommunityId + "&ISO" + "'";
-            log.debug("HL7 encoded patient id: " + encodedPatientId);
+            LOG.debug("HL7 encoded patient id: " + encodedPatientId);
         }
         return encodedPatientId;
     }

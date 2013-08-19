@@ -26,32 +26,34 @@
  */
 package gov.hhs.fha.nhinc.docquery.entity;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
-
 import gov.hhs.fha.nhinc.docquery.orchestration.OrchestrationContextFactory;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.orchestration.Orchestratable;
 import gov.hhs.fha.nhinc.orchestration.OutboundDelegate;
 import gov.hhs.fha.nhinc.orchestration.OutboundOrchestratable;
 
+import org.apache.log4j.Logger;
+
 /**
- * Doc Query implementation of OutboundDelegate
+ * Doc Query implementation of OutboundDelegate.
  *
  * @author paul.eftis
  */
 public class OutboundDocQueryDelegate implements OutboundDelegate {
 
-    private static Log log = LogFactory.getLog(OutboundDocQueryDelegate.class);
+    private static final Logger LOG = Logger.getLogger(OutboundDocQueryDelegate.class);
 
+    /**
+     * Default constructor.
+     */
     public OutboundDocQueryDelegate() {
     }
 
     @Override
     public Orchestratable process(Orchestratable message) {
-        getLogger().debug("NhinDocQueryDelegate::process Orchestratable");
+        LOG.debug("NhinDocQueryDelegate::process Orchestratable");
         if (message == null) {
-            getLogger().error("NhinDocQueryDelegate Orchestratable was null!!!");
+            LOG.error("NhinDocQueryDelegate Orchestratable was null!!!");
             return null;
         }
         if (message instanceof OutboundDocQueryOrchestratable) {
@@ -65,16 +67,20 @@ public class OutboundDocQueryDelegate implements OutboundDelegate {
         if (message instanceof OutboundDocQueryOrchestratable) {
             return process((OutboundDocQueryOrchestratable) message);
         }
-        getLogger().error("NhinDocQueryDelegate message is not an instance of EntityDocQueryOrchestratable!");
+        LOG.error("NhinDocQueryDelegate message is not an instance of EntityDocQueryOrchestratable!");
         return null;
     }
 
+    /**
+     * @param message Orchestarted message send to outbound.
+     * @return response Response received from Nhin.
+     */
     public OutboundDocQueryOrchestratable process(OutboundDocQueryOrchestratable message) {
-        getLogger().debug("NhinDocQueryDelegate::process EntityDocQueryOrchestratable");
+        LOG.debug("NhinDocQueryDelegate::process EntityDocQueryOrchestratable");
 
-        OutboundDocQueryOrchestrationContextBuilder contextBuilder = (OutboundDocQueryOrchestrationContextBuilder) OrchestrationContextFactory
-                .getInstance().getBuilder(message.getTarget().getHomeCommunity(), NhincConstants.NHIN_SERVICE_NAMES.DOCUMENT_QUERY);
-
+        OutboundDocQueryOrchestrationContextBuilder contextBuilder =
+           (OutboundDocQueryOrchestrationContextBuilder) OrchestrationContextFactory.getInstance().
+           getBuilder(message.getTarget().getHomeCommunity(), NhincConstants.NHIN_SERVICE_NAMES.DOCUMENT_QUERY);
         contextBuilder.setAssertionType(message.getAssertion());
         contextBuilder.setRequest(message.getRequest());
         contextBuilder.setTarget(message.getTarget());
@@ -86,26 +92,21 @@ public class OutboundDocQueryDelegate implements OutboundDelegate {
         OutboundDocQueryOrchestratable response = (OutboundDocQueryOrchestratable) contextBuilder.build().execute();
 
         if (response instanceof OutboundDocQueryOrchestratable_a0) {
-            getLogger().debug("NhinDocQueryDelegate::process returning a0 result");
-        } else if (response instanceof OutboundDocQueryOrchestratable_a0) {
-            getLogger().debug("NhinDocQueryDelegate::process returning a1 result");
+            LOG.debug("NhinDocQueryDelegate::process returning a0 result");
+        } else if (response instanceof OutboundDocQueryOrchestratable_a1) {
+            LOG.debug("NhinDocQueryDelegate::process returning a1 result");
         } else {
-            getLogger().error("NhinDocQueryDelegate::process has unknown response!!!");
+            LOG.error("NhinDocQueryDelegate::process has unknown response!!!");
         }
         return response;
     }
 
-    private Log getLogger() {
-        return log;
+   
+
+    @Override
+    public void createErrorResponse(OutboundOrchestratable message, String error) {
+        // TODO Auto-generated method stub
+
     }
-
-	/* (non-Javadoc)
-	 * @see gov.hhs.fha.nhinc.orchestration.OutboundDelegate#createErrorResponse(gov.hhs.fha.nhinc.orchestration.OutboundOrchestratable, java.lang.String)
-	 */
-	@Override
-	public void createErrorResponse(OutboundOrchestratable message, String error) {
-		// TODO Auto-generated method stub
-
-	}
 
 }
