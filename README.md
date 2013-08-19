@@ -212,9 +212,9 @@ Run the Validation Suite project files MsgProxyValidation-soapui-project.xml and
 ##Setting up SoapUI
 Install SoapUI v4.5.1.
 
-Copy the MySQL jdbc driver mysql-connector-java-5.1.10.jar from the Maven repository directory .m2/repository/mysql/mysql-connector-java/5.1.10 to {SoapUI hom}/bin/ext.
+Copy the MySQL jdbc driver mysql-connector-java-5.1.10.jar from the Maven repository directory .m2/repository/mysql/mysql-connector-java/5.1.10 to {$SoapUI_home}/bin/ext.
 
-Copy the file FileUtils-4.0.0-SNAPSHOT.jar (or similarly named) to {SoapUI home}/bin/ext.
+Copy the file FileUtils-4.0.0-SNAPSHOT.jar (or similarly named) to {$SoapUI_home}/bin/ext.
 
 
 Documentation
