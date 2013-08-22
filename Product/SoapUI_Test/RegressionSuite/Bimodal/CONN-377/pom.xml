@@ -6,9 +6,9 @@
         <artifactId>Bimodal</artifactId>
         <version>4.3.0-SNAPSHOT</version>
     </parent>
-    <artifactId>EntityDocRetrieve</artifactId>
+    <artifactId>CONN-377</artifactId>
     <packaging>jar</packaging>
-    <name>Maven 3 soapUI EntityDocRetrieve</name>
+    <name>Maven 3 soapUI CONN-377</name>
     <properties>
     </properties>
     <pluginRepositories>
@@ -76,13 +76,13 @@
                     </configuration>
                 <executions>
                     <execution>
-                        <id>EntityDocRetrieve-soapui-project</id>
+                        <id>CONN-377-soapui-project</id>
                         <phase>integration-test</phase>
                         <goals>
                             <goal>test</goal>
                         </goals>
                         <configuration>
-                            <projectFile>${basedir}/EntityDocRetrieve-soapui-project.xml</projectFile>
+                            <projectFile>${basedir}/CONN-377-soapui-project.xml</projectFile>
                             <outputFolder>${project.build.directory}/soapui/output</outputFolder>
                         </configuration>
                     </execution>
