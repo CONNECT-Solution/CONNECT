@@ -6,9 +6,9 @@
         <artifactId>Standard</artifactId>
         <version>4.3.0-SNAPSHOT</version>
     </parent>
-    <artifactId>AuditLogging-Standard</artifactId>
+    <artifactId>PatientDiscoveryInternalErrorMessageIdTest</artifactId>
     <packaging>jar</packaging>
-    <name>Maven 3 soapUI AuditLogging-Standard</name>
+    <name>Maven 3 soapUI PatientDiscoveryInternalErrorMessageIdTest</name>
     <properties>
     </properties>
     <pluginRepositories>
@@ -76,13 +76,13 @@
                     </configuration>
                 <executions>
                     <execution>
-                        <id>AuditLogging-Standard-soapui-project</id>
+                        <id>PatientDiscoveryInternalErrorMessageIdTest-soapui-project</id>
                         <phase>integration-test</phase>
                         <goals>
                             <goal>test</goal>
                         </goals>
                         <configuration>
-                            <projectFile>${basedir}/AuditLogging-Standard-soapui-project.xml</projectFile>
+                            <projectFile>${basedir}/PatientDiscoveryInternalErrorMessageIdTest-soapui-project.xml</projectFile>
                             <outputFolder>${project.build.directory}/soapui/output</outputFolder>
                         </configuration>
                     </execution>
