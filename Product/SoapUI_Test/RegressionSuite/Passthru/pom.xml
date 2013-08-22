@@ -3,12 +3,12 @@
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>org.connectopensource</groupId>
-		<artifactId>SoapUI_Test</artifactId>
+		<artifactId>RegressionSuite</artifactId>
 		<version>4.3.0-SNAPSHOT</version>
 	</parent>
-	<artifactId>RegressionSuite</artifactId>
+	<artifactId>Passthru</artifactId>
 	<packaging>pom</packaging>
-	<name>Maven 3 soapUI RegressionSuite</name>
+	<name>Maven 3 soapUI Passthru Regression Tests</name>
 	<properties>
 		<soapui.testFailIgnore>true</soapui.testFailIgnore>
 	</properties>
@@ -20,12 +20,16 @@
                     <name>regression</name>
                 </property>
             </activation>
-            <modules>
-		        <module>startEmbedded</module>
-                <module>Bimodal</module>
-                <module>Passthru</module>
-                <module>stopEmbedded</module>
-            </modules>
-	   </profile>
+        <modules>
+            <module>Admin-Distribution-Passthrough</module>
+            <module>AuditLogging-Passthrough</module>
+            <module>DocQueryAdditionalStoredQueries</module>
+            <module>DocQueryRetrieveSelfTest</module>
+            <module>DocQueryXDSErrors</module>
+            <!--module>EventLogging-Passthrough</module-->
+            <module>NHINCReceivingXDRAsyncRequestTests</module>
+            <module>NHINCReceivingXDRAsyncResponseTests</module>
+        </modules>
+	</profile>
     </profiles>
 </project>
