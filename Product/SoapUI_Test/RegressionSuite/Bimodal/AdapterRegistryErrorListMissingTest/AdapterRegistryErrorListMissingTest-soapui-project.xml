@@ -8458,7 +8458,7 @@ declare namespace ns12='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
   </soap:Body>
 </soap:Envelope>]]></con:responseContent><con:wsaConfig mustUnderstand="NONE" version="200508"/></con:response></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
 nhinc.FileUtils.updateSpringConfig(context.findProperty('GatewayPropDir'), "DocumentRetrieveProxyConfig.xml", "adapterdocretrieve", "adapterdocretrievewssecured", "adapterdocretrievewsunsecured", log);</con:setupScript><con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);
-nhinc.FileUtils.updateSpringConfig(context.findProperty('GatewayPropDir'), "DocumentRetrieveProxyConfig.xml", "adapterdocretrieve", "adapterdocretrievewsunsecured", "adapterdocretrievewssecured", log);</con:tearDownScript><con:properties>
+</con:tearDownScript><con:properties>
 	<con:property>
 		<con:name>CorrectedRemoteHCID</con:name>
 		<con:value>urn:oid:2.2</con:value>
@@ -8754,7 +8754,7 @@ declare namespace ns12='urn:oasis:names:tc:ebxml-regrep:xsd:rs:3.0';
 </con:config>
 </con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
 nhinc.FileUtils.updateSpringConfig(context.findProperty('GatewayPropDir'), "AdapterRedactionEngineProxyConfig.xml", "adapterredactionengine", "adapterredactionenginenoop", "bad_name", log);</con:setupScript><con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);
-nhinc.FileUtils.updateSpringConfig(context.findProperty('GatewayPropDir'), "AdapterRedactionEngineProxyConfig.xml", "adapterredactionengine", "bad_name", "adapterredactionenginenoop", log);</con:tearDownScript><con:properties>
+</con:tearDownScript><con:properties>
 	<con:property>
 		<con:name>CorrectedRemoteHCID</con:name>
 		<con:value>urn:oid:2.2</con:value>
