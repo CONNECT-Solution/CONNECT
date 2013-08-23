@@ -210,7 +210,7 @@ public class HomeCommunityMap {
                 && body.getDocumentRequest().get(0) != null) {
             responseCommunityID = body.getDocumentRequest().get(0).getHomeCommunityId();
         }
-        return formatHomeCommunityId(responseCommunityID);
+        return getHomeCommunityIdWithPrefix(responseCommunityID);
     }
 
     /**
@@ -234,7 +234,7 @@ public class HomeCommunityMap {
      * @param communityId the community id string to format
      * @return the formatted community id
      */
-    private static String formatHomeCommunityId(String communityId) {
+    public static String formatHomeCommunityId(String communityId) {
         if (communityId != null) {
             LOG.debug("communityId prior to remove urn:oid" + communityId);
             if (communityId.startsWith("urn:oid:")) {
@@ -261,5 +261,19 @@ public class HomeCommunityMap {
 
         return sHomeCommunity;
     }
-
+    /**
+     * Returns the home community id by with 'urn:oid:' prefix if it doesn't exists.
+     *
+     * @param communityId the community id string to format
+     * @return the formatted community id
+     */
+    public static String getHomeCommunityIdWithPrefix(String communityId) {
+        if (communityId != null) {
+            LOG.debug("communityId prior to adding urn:oid" + communityId);
+            if (!communityId.startsWith("urn:oid:")) {
+                communityId = "urn:oid:"+communityId;
+            }
+        }
+        return communityId;
+    }
 }

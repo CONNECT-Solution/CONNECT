@@ -35,6 +35,7 @@ import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryAuditor;
 import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryPolicyChecker;
 import gov.hhs.fha.nhinc.saml.extraction.SamlTokenCreator;
 import gov.hhs.fha.nhinc.transform.subdisc.HL7PRPA201306Transforms;
+import gov.hhs.fha.nhinc.util.HomeCommunityMap;
 import ihe.iti.xcpd._2009.RespondingGatewayPortType;
 import ihe.iti.xcpd._2009.RespondingGatewayService;
 import java.util.Map;
@@ -148,9 +149,9 @@ public class PDClient<Target extends UrlInfo, Request extends RespondingGatewayP
                     && newRequest.getPRPAIN201305UV02().getReceiver().get(0).getDevice().getId().get(0) != null) {
 
                     newRequest.getPRPAIN201305UV02().getReceiver().get(0).getDevice().getId().get(0).setRoot(
-                        target.getHcid());
+                        HomeCommunityMap.formatHomeCommunityId(target.getHcid()));
                     LOG.debug(Thread.currentThread().getName() + " set Receiver.Device.Id.Root of "
-                        + "PRPAIN201305UV02 request to hcid=" + target.getHcid());
+                        + "PRPAIN201305UV02 request to hcid=" + HomeCommunityMap.formatHomeCommunityId(target.getHcid()));
                 }
 
                 LOG.debug(Thread.currentThread().getName() + " calling serviceAddress=" + serviceAddress
