@@ -50,7 +50,7 @@ import org.uddi.api_v3.Name;
 import static org.junit.Assert.*;
 
 /**
- * 
+ *
  * @author Arthur Kong
  */
 public class HomeCommunityMapTest {
@@ -89,7 +89,7 @@ public class HomeCommunityMapTest {
                 protected ConnectionManagerCache getConnectionManagerCache() {
                     return mockConnectionManager;
                 }
-                
+
                 @Override
                 protected ConnectionManagerCacheHelper getConnectionManagerCacheHelper() {
                     return mockConnectionManagerHelper;
@@ -197,7 +197,7 @@ public class HomeCommunityMapTest {
         assertion.setUserInfo(null);
         communityId = HomeCommunityMap.getCommunityIdFromAssertion(assertion);
         assertEquals("1.1", communityId);
-        
+
         UserType info = new UserType();
         HomeCommunityType org1 = new HomeCommunityType();
         org1.setHomeCommunityId("");
@@ -208,8 +208,6 @@ public class HomeCommunityMapTest {
         communityId = HomeCommunityMap.getCommunityIdFromAssertion(assertion);
         assertEquals("1.1", communityId);
     }
-    
-    
 
     @Test
     public void testGetCommunityIdForDeferredQDRequest() {
@@ -248,7 +246,7 @@ public class HomeCommunityMapTest {
         docRequest.setHomeCommunityId("1.1");
         doc.getDocumentRequest().add(docRequest);
         communityId = HomeCommunityMap.getCommunityIdForRDRequest(doc);
-        assertEquals("1.1", communityId);
+        assertEquals("urn:oid:1.1", communityId);
     }
 
     @Test
