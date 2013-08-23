@@ -12,6 +12,7 @@ import gov.hhs.fha.nhinc.common.auditlog.LogEventRequestType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AcknowledgementType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.orchestration.Orchestratable;
 import gov.hhs.fha.nhinc.orchestration.OrchestrationStrategy;
 import gov.hhs.fha.nhinc.util.HomeCommunityMap;
@@ -44,7 +45,14 @@ public abstract class OutboundDocRetrieveStrategyBase implements OrchestrationSt
 
         if (message instanceof OutboundDocRetrieveOrchestratable) {
             OutboundDocRetrieveOrchestratable NhinDRMessage = (OutboundDocRetrieveOrchestratable) message;
+            //Append urn:oid to the home community id if its not present
             String requestCommunityID = HomeCommunityMap.getCommunityIdForRDRequest(NhinDRMessage.getRequest());
+
+            //Assign the modified request community id value to the request
+            if (NhinDRMessage.getRequest() != null && NullChecker.isNotNullish(NhinDRMessage.getRequest().getDocumentRequest())
+                && NhinDRMessage.getRequest().getDocumentRequest().get(0) != null) {
+               NhinDRMessage.getRequest().getDocumentRequest().get(0).setHomeCommunityId(requestCommunityID);
+            }
 
             LOG.debug("Calling audit log for doc retrieve request (a0) sent to nhin (g0)");
             auditRequestMessage(NhinDRMessage.getRequest(), NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION,
