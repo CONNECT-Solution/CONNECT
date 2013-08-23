@@ -17,7 +17,9 @@ import gov.hhs.fha.nhinc.orchestration.Orchestratable;
 import gov.hhs.fha.nhinc.orchestration.OrchestrationStrategy;
 import gov.hhs.fha.nhinc.util.HomeCommunityMap;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
+import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType.DocumentRequest;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
+import java.util.List;
 
 import org.apache.log4j.Logger;
 
@@ -48,10 +50,16 @@ public abstract class OutboundDocRetrieveStrategyBase implements OrchestrationSt
             //Append urn:oid to the home community id if its not present
             String requestCommunityID = HomeCommunityMap.getCommunityIdForRDRequest(NhinDRMessage.getRequest());
 
-            //Assign the modified request community id value to the request
-            if (NhinDRMessage.getRequest() != null && NullChecker.isNotNullish(NhinDRMessage.getRequest().getDocumentRequest())
-                && NhinDRMessage.getRequest().getDocumentRequest().get(0) != null) {
-               NhinDRMessage.getRequest().getDocumentRequest().get(0).setHomeCommunityId(requestCommunityID);
+            //Assign the modified request community id value to the requests
+            if (NhinDRMessage.getRequest() != null && NullChecker.isNotNullish(NhinDRMessage.getRequest().getDocumentRequest())) {
+                List<DocumentRequest> documentRequestList = NhinDRMessage.getRequest().getDocumentRequest();
+                //loop through the request list and set the HCID
+                for (int i = 0; i < documentRequestList.size(); i++) {
+                    DocumentRequest documentRequest = NhinDRMessage.getRequest().getDocumentRequest().get(i);
+                    if ( documentRequest!= null){
+                        documentRequest.setHomeCommunityId(HomeCommunityMap.getHomeCommunityIdWithPrefix(documentRequest.getHomeCommunityId()));
+                    }
+                }
             }
 
             LOG.debug("Calling audit log for doc retrieve request (a0) sent to nhin (g0)");
