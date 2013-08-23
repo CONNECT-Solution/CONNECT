@@ -24,7 +24,7 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
  */
-package gov.hhs.fha.nhinc.docretrieve.configuraton.jmx;
+package gov.hhs.fha.nhinc.docretrieve.configuration.jmx;
 
 import gov.hhs.fha.nhinc.docretrieve._20.entity.EntityDocRetrieve;
 import gov.hhs.fha.nhinc.docretrieve._20.entity.EntityDocRetrieveSecured;
@@ -43,7 +43,7 @@ import javax.servlet.ServletContext;
 public class DocumentRetrieve20WebServices extends AbstractDRWebServicesMXBean {
 
     /** The Constant DEFAULT_OUTBOUND_STANDARD_IMPL_CLASS_NAME. */
-    public static final String DEFAULT_OUTBOUND_PASSTHRU_IMPL_CLASS_NAME = "gov.hhs.fha.nhinc.docretrieve.outbound.PassthroughOutboundDocRetrieve";
+    public static final String DEFAULT_OUTBOUND_PASSTHRU_IMPL_CLASS_NAME = "gov.hhs.fha.nhinc.docretrieve._20.outbound.PassthroughOutboundDocRetrieve";
 
     /**
      * Instantiates a new document retrieve30 web services.
