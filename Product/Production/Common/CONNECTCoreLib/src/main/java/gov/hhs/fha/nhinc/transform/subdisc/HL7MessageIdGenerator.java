@@ -29,6 +29,7 @@ package gov.hhs.fha.nhinc.transform.subdisc;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
+import gov.hhs.fha.nhinc.util.HomeCommunityMap;
 import org.apache.log4j.Logger;
 import org.hl7.v3.*;
 
@@ -55,8 +56,8 @@ public class HL7MessageIdGenerator {
             myDeviceId = getDefaultLocalDeviceId();
         }
 
-        LOG.debug("Using local device id " + myDeviceId);
-        messageId.setRoot(myDeviceId);
+        LOG.debug("Using local device id " + HomeCommunityMap.formatHomeCommunityId(myDeviceId));
+        messageId.setRoot(HomeCommunityMap.formatHomeCommunityId(myDeviceId));
         messageId.setExtension(generateMessageId());
         return messageId;
     }

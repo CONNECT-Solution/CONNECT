@@ -30,6 +30,7 @@ import gov.hhs.fha.nhinc.mpilib.Identifier;
 import gov.hhs.fha.nhinc.mpilib.Identifiers;
 import gov.hhs.fha.nhinc.mpilib.Patient;
 import gov.hhs.fha.nhinc.mpilib.PersonName;
+import gov.hhs.fha.nhinc.util.HomeCommunityMap;
 
 import java.io.Serializable;
 import java.util.Iterator;
@@ -57,7 +58,7 @@ import org.hl7.v3.PRPAMT201301UV02Person;
 import org.hl7.v3.TSExplicit;
 
 /**
- * 
+ *
  * @author rayj
  */
 public class HL7Parser201301 {
@@ -78,7 +79,7 @@ public class HL7Parser201301 {
         } else {
             LOG.info("person.getAdministrativeGenderCode().getCode()=" + person.getAdministrativeGenderCode().getCode());
             LOG.info("person.getAdministrativeGenderCode().getDisplayName()="
-                    + person.getAdministrativeGenderCode().getDisplayName());
+                + person.getAdministrativeGenderCode().getDisplayName());
             genderCode = person.getAdministrativeGenderCode().getCode();
         }
         return genderCode;
@@ -106,7 +107,7 @@ public class HL7Parser201301 {
 
         LOG.info("patientPerson.getName().size() " + person.getName().size());
         if (person.getName() != null && person.getName().size() > 0 && person.getName().get(0) != null
-                && person.getName().get(0).getContent() != null) {
+            && person.getName().get(0).getContent() != null) {
 
             List<Serializable> choice = person.getName().get(0).getContent();
             LOG.info("choice.size()=" + choice.size());
@@ -183,7 +184,7 @@ public class HL7Parser201301 {
             id.setId(patientid.getExtension());
             id.setOrganizationId(patientid.getRoot());
             LOG.info("Created id from patient identifier [organization=" + id.getOrganizationId() + "][id="
-                    + id.getId() + "]");
+                + id.getId() + "]");
             ids.add(id);
         }
 
@@ -193,7 +194,7 @@ public class HL7Parser201301 {
             id.setId(personid.getExtension());
             id.setOrganizationId(personid.getRoot());
             LOG.info("Created id from person identifier [organization=" + id.getOrganizationId() + "][id=" + id.getId()
-                    + "]");
+                + "]");
             ids.add(id);
         }
 
@@ -205,7 +206,7 @@ public class HL7Parser201301 {
                     id.setId(otherPersonId.getExtension());
                     id.setOrganizationId(otherPersonId.getRoot());
                     LOG.info("Created id from person other identifier [organization=" + id.getOrganizationId()
-                            + "][id=" + id.getId() + "]");
+                        + "][id=" + id.getId() + "]");
                     ids.add(id);
                 }
             }
@@ -301,7 +302,7 @@ public class HL7Parser201301 {
 
     public static Patient ExtractMpiPatientFromHL7Patient(PRPAMT201301UV02Patient patient) {
         PRPAMT201301UV02Person patientPerson = ExtractHL7PatientPersonFromHL7Patient(patient);
-        Patient mpiPatient = new Patient();        
+        Patient mpiPatient = new Patient();
         mpiPatient.getNames().add(ExtractPersonName(patientPerson));
         mpiPatient.setGender(ExtractGender(patientPerson));
         String birthdateString = ExtractBirthdate(patientPerson);
@@ -329,7 +330,7 @@ public class HL7Parser201301 {
         PRPAMT201301UV02Person patientPerson = new PRPAMT201301UV02Person();
         javax.xml.namespace.QName xmlqname = new javax.xml.namespace.QName("urn:hl7-org:v3", "patientPerson");
         JAXBElement<PRPAMT201301UV02Person> patientPersonElement = new JAXBElement<PRPAMT201301UV02Person>(xmlqname,
-                PRPAMT201301UV02Person.class, patientPerson);
+            PRPAMT201301UV02Person.class, patientPerson);
         patient.setPatientPerson(patientPersonElement);
         patientPersonElement.setValue(patientPerson);
         PRPAIN201301UV02MFMIMT700701UV01ControlActProcess controlActProcess = new PRPAIN201301UV02MFMIMT700701UV01ControlActProcess();
@@ -352,12 +353,12 @@ public class HL7Parser201301 {
         PNExplicit name = (PNExplicit) (factory.createPNExplicit());
         List namelist = name.getContent();
 
-        
+
         PersonName mpiPatientName = null;
         if (mpiPatient.getNames().size() > 0) {
             mpiPatientName = mpiPatient.getNames().get(0);
         }
-        
+
         if (mpiPatientName != null && mpiPatientName.getLastName().length() > 0) {
             LOG.info("familyName >" + mpiPatientName.getLastName() + "<");
             EnExplicitFamily familyName = new EnExplicitFamily();
@@ -379,14 +380,14 @@ public class HL7Parser201301 {
 
         for (Identifier resultPatientId : mpiPatient.getIdentifiers()) {
             II id = new II();
-            id.setRoot(resultPatientId.getOrganizationId());
+            id.setRoot(HomeCommunityMap.formatHomeCommunityId(resultPatientId.getOrganizationId()));
             id.setExtension(resultPatientId.getId());
             patient.getId().add(id);
         }
 
         Identifier resultPatientId = mpiPatient.getIdentifiers().get(0);
         II id = new II();
-        id.setRoot(resultPatientId.getOrganizationId());
+        id.setRoot(HomeCommunityMap.formatHomeCommunityId(resultPatientId.getOrganizationId()));
         MCCIMT000100UV01Device device = new MCCIMT000100UV01Device();
         MCCIMT000100UV01Sender sender = new MCCIMT000100UV01Sender();
         device.getId().add(id);
