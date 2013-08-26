@@ -26,28 +26,21 @@
  */
 package gov.hhs.fha.nhinc.callback.cxf;
 
-import java.util.LinkedList;
-import java.util.List;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 
-import javax.naming.InvalidNameException;
 import javax.naming.Name;
 import javax.naming.ldap.LdapName;
 
-import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
-
 import org.apache.commons.lang.StringUtils;
+import org.apache.log4j.Logger;
 import org.opensaml.saml2.core.Assertion;
 import org.opensaml.saml2.core.Issuer;
 import org.opensaml.saml2.core.NameID;
 import org.opensaml.saml2.core.Subject;
 import org.opensaml.saml2.core.validator.AssertionSpecValidator;
-import org.opensaml.xml.security.x509.PKIXX509CredentialTrustEngine;
 import org.opensaml.xml.validation.ValidationException;
-import org.opensaml.xml.validation.ValidatorSuite;
 
 import org.apache.commons.validator.routines.EmailValidator;
-import org.apache.log4j.Logger;
-
 /**
  * The Class Saml2ExchangeAuthFrameworkValidator.
  * 
@@ -57,12 +50,12 @@ public class Saml2ExchangeAuthFrameworkValidator extends AssertionSpecValidator 
 
     /** The Constant LOG. */
     private static final Logger LOG = Logger.getLogger(Saml2ExchangeAuthFrameworkValidator.class);
-    
+
     /** The Constant invalidDomainNameChars. */
-    private static final char[] invalidDomainNameChars = { '\\', '/', ':', '*', '?', '\"', '<', '>', '|'};
-    
+    private static final char[] invalidDomainNameChars = { '\\', '/', ':', '*', '?', '\"', '<', '>', '|' };
+
     /** The Constant invalidUserNameChars. */
-    private static final char[] invalidUserNameChars = { ';', ':', '\"', '<', '>', '*', '+', '=', '\\', '|', '?', ','};
+    private static final char[] invalidUserNameChars = { ';', ':', '\"', '<', '>', '*', '+', '=', '\\', '|', '?', ',' };
 
     /**
      * (non-Javadoc).
@@ -75,13 +68,25 @@ public class Saml2ExchangeAuthFrameworkValidator extends AssertionSpecValidator 
     public void validate(Assertion assertion) throws ValidationException {
         super.validate(assertion);
 
-        validateSubject(assertion.getSubject());
+        validateSubject(assertion);
         validateIssuer(assertion.getIssuer());
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.opensaml.saml2.core.validator.AssertionSpecValidator#validateSubject(org.opensaml.saml2.core.Assertion)
+     */
+    @Override
+    protected void validateSubject(Assertion assertion) throws ValidationException {
+        validateSubject(assertion.getSubject());
+
+        super.validateSubject(assertion);
     }
 
     /**
      * Validate issuer.
-     *
+     * 
      * @param issuer the issuer
      * @throws ValidationException the validation exception
      */
@@ -111,13 +116,13 @@ public class Saml2ExchangeAuthFrameworkValidator extends AssertionSpecValidator 
                 && !NhincConstants.AUTH_FRWK_NAME_ID_FORMAT_X509.equals(format)) {
             throw new ValidationException("Subject Name Id format must be x509 or Email.");
         }
-        
+
         validateNameIdFormatValue(format, name.getValue());
     }
 
     /**
      * Validate name id format value.
-     *
+     * 
      * @param format the format
      * @param value the value
      * @throws ValidationException the validation exception
@@ -155,7 +160,7 @@ public class Saml2ExchangeAuthFrameworkValidator extends AssertionSpecValidator 
                 throw new ValidationException(
                         "Invalid Windows Domain Name format: domain name contains invalid characters.");
             }
-            
+
             if (StringUtils.containsAny(userName, invalidUserNameChars)) {
                 throw new ValidationException(
                         "Invalid Windows Domain Name format: user name contains invalid characters.");

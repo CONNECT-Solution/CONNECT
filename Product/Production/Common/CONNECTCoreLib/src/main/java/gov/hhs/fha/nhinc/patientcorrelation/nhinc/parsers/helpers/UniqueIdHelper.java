@@ -26,10 +26,11 @@
  */
 package gov.hhs.fha.nhinc.patientcorrelation.nhinc.parsers.helpers;
 
+import gov.hhs.fha.nhinc.util.HomeCommunityMap;
 import org.hl7.v3.II;
 
 /**
- * 
+ *
  * @author rayj
  */
 public class UniqueIdHelper {
@@ -39,7 +40,7 @@ public class UniqueIdHelper {
         String value;
 
         value = generateUID();
-        uniqueId.setRoot(root); // todo: refactor
+        uniqueId.setRoot(HomeCommunityMap.formatHomeCommunityId(root)); // todo: refactor
         uniqueId.setExtension(value);
 
         return uniqueId;

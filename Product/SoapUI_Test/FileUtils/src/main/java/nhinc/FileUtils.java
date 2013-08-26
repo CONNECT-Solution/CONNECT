@@ -35,11 +35,6 @@ import org.apache.log4j.Logger;
  *
  */
 public class FileUtils {
-
-	static String[] backupFiles = { "hiemTopicConfiguration.xml",
-			"internalConnectionInfo.xml", "PCConfiguration.xml",
-			"uddiConnectionInfo.xml", "XDSUniqueIds.properties",
-			"gateway.properties", "adapter.properties", "purposeUse.properties" };
 	
 	static final String TEMP_DIR = "prop_temp";
 
@@ -774,9 +769,9 @@ public class FileUtils {
 
 			backupDir.mkdir();
 
-			for (String fileName : backupFiles) {
-				copyFile(confDir.getAbsolutePath(), fileName,
-						backupDir.getAbsolutePath(), fileName, log);
+			for (File file : confDir.listFiles()) {
+				copyFile(confDir.getAbsolutePath(), file.getName(),
+						backupDir.getAbsolutePath(), file.getName(), log);
 			}
 		} catch (Throwable e) {
 			log.error(e.getMessage());
@@ -799,12 +794,12 @@ public class FileUtils {
 			File backupDir = new File(configDir, TEMP_DIR);
 			File confDir = new File(configDir);
 
-			for (String fileName : backupFiles) {
-				copyFile(backupDir.getAbsolutePath(), fileName,
-						confDir.getAbsolutePath(), fileName, log);
+			for (File file : backupDir.listFiles()) {
+				copyFile(backupDir.getAbsolutePath(), file.getName(),
+						confDir.getAbsolutePath(), file.getName(), log);
 				if (optionDel == true) {
 					File tmpFile = new File(backupDir.getAbsolutePath(),
-							fileName);
+							file.getName());
 					tmpFile.delete();
 				}
 			}

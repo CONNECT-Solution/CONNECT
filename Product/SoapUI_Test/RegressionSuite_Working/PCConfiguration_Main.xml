@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<Configuration >
-        <expirations>
-                <expiration assigningAuthority='1.1' unit='YEAR'>10</expiration>
-                <expiration assigningAuthority='2.2' unit='YEAR'>1</expiration>
-                <expiration assigningAuthority='4.4' unit='YEAR'>-1</expiration>
-        </expirations>
-</Configuration>

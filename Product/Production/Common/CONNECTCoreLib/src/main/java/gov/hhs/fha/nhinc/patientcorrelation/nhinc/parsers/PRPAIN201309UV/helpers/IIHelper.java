@@ -27,10 +27,11 @@
 package gov.hhs.fha.nhinc.patientcorrelation.nhinc.parsers.PRPAIN201309UV.helpers;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.QualifiedSubjectIdentifierType;
+import gov.hhs.fha.nhinc.util.HomeCommunityMap;
 import org.hl7.v3.II;
 
 /**
- * 
+ *
  * @author rayj
  */
 public class IIHelper {
@@ -48,13 +49,13 @@ public class IIHelper {
     public static II IIFactory(String root, String extension) {
         II ii = new II();
         ii.setExtension(extension);
-        ii.setRoot(root);
+        ii.setRoot(HomeCommunityMap.formatHomeCommunityId(root));
         return ii;
 
     }
 
     public static II IIFactory(QualifiedSubjectIdentifierType qualifiedSubjectIdentifier) {
         return IIFactory(qualifiedSubjectIdentifier.getAssigningAuthorityIdentifier(),
-                qualifiedSubjectIdentifier.getSubjectIdentifier());
+            qualifiedSubjectIdentifier.getSubjectIdentifier());
     }
 }

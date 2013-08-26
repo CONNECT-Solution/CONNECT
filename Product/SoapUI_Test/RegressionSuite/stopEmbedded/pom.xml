@@ -1,0 +1,53 @@
+<?xml version="1.0"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>org.connectopensource</groupId>
+		<artifactId>RegressionSuite</artifactId>
+		<version>4.2.0-SNAPSHOT</version>
+	</parent>
+	<artifactId>stopEmbedded</artifactId>
+	<packaging>jar</packaging>
+	<name>Stop Embedded Glassfish</name>
+	<properties>
+		<soapui.testFailIgnore>true</soapui.testFailIgnore>
+	</properties>
+	<profiles>
+	<profile>
+            <id>embedded-testing</id>
+            <activation>
+                <property>
+                    <name>!standalone</name>
+                </property>
+            </activation>
+            <properties>
+                <properties.dir>${project.build.directory}/nhinc-properites-dir</properties.dir>
+            </properties>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.glassfish.embedded</groupId>
+                        <artifactId>maven-embedded-glassfish-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>glassfish-undeploy</id>
+                                <phase>post-integration-test</phase>
+                                <goals>
+                                    <goal>undeploy</goal>
+                                </goals>
+                            </execution>
+                            <execution>
+                                <id>stop-glassfish</id>
+                                <phase>post-integration-test</phase>
+                                <goals>
+                                    <goal>stop</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
+</project>
+
