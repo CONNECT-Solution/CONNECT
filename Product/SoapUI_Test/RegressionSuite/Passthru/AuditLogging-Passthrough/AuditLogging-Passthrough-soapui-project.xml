@@ -659,24 +659,60 @@
 }</script></con:config>
 </con:testStep>
 <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
-nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot)+'/../', context.findProperty('GatewayPropDir'), log);</con:setupScript>
-<con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);</con:tearDownScript>
+nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot)+'/../', context.findProperty('GatewayPropDir'), log);
+
+import javax.management.remote.JMXConnectorFactory as JmxFactory
+import javax.management.remote.JMXServiceURL as JmxUrl
+import javax.management.remote.*;
+
+def username = context.findProperty("ASUsername");
+def password = context.findProperty("ASPassword");
+def jmxHost = context.findProperty("JMXHost");
+def jmxPort = context.findProperty("JMXPort");
+
+// use jmx to set passthru mode
+def env = [
+(JMXConnector.CREDENTIALS): (String[])[username, password]
+]
+def serverUrl = 'service:jmx:rmi://' + jmxHost + ':' + jmxPort + '/jndi/rmi://' + jmxHost + ':' + jmxPort + '/jmxrmi';
+def server = JmxFactory.connect(new JmxUrl(serverUrl), env).MBeanServerConnection
+def config = new GroovyMBean(server, 'org.connectopensource.mbeans:type=Configuration');
+config.setPassthruMode();</con:setupScript>
+<con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);
+
+import javax.management.remote.JMXConnectorFactory as JmxFactory
+import javax.management.remote.JMXServiceURL as JmxUrl
+import javax.management.remote.*;
+
+def username = context.findProperty("ASUsername");
+def password = context.findProperty("ASPassword");
+def jmxHost = context.findProperty("JMXHost");
+def jmxPort = context.findProperty("JMXPort");
+
+// use jmx to set passthru mode
+def env = [
+(JMXConnector.CREDENTIALS): (String[])[username, password]
+]
+def serverUrl = 'service:jmx:rmi://' + jmxHost + ':' + jmxPort + '/jndi/rmi://' + jmxHost + ':' + jmxPort + '/jmxrmi';
+def server = JmxFactory.connect(new JmxUrl(serverUrl), env).MBeanServerConnection
+def config = new GroovyMBean(server, 'org.connectopensource.mbeans:type=Configuration');
+config.setStandardMode();</con:tearDownScript>
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2013-01-25T15:28:57Z</con:value>
+		<con:value>2013-08-27T22:30:44Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2013-01-25T15:38:57Z</con:value>
+		<con:value>2013-08-27T22:40:44Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>01/25/2013 15:28:57</con:value>
+		<con:value>08/27/2013 22:30:44</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2013-02-24T00:00:00Z</con:value>
+		<con:value>2013-09-26T00:00:00Z</con:value>
 	</con:property>
 </con:properties>
 <con:reportParameters/>
@@ -1063,24 +1099,60 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
 </con:config>
 </con:testStep>
 <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
-nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot)+'/../', context.findProperty('GatewayPropDir'), log);</con:setupScript>
-<con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);</con:tearDownScript>
+nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot)+'/../', context.findProperty('GatewayPropDir'), log);
+
+import javax.management.remote.JMXConnectorFactory as JmxFactory
+import javax.management.remote.JMXServiceURL as JmxUrl
+import javax.management.remote.*;
+
+def username = context.findProperty("ASUsername");
+def password = context.findProperty("ASPassword");
+def jmxHost = context.findProperty("JMXHost");
+def jmxPort = context.findProperty("JMXPort");
+
+// use jmx to set passthru mode
+def env = [
+(JMXConnector.CREDENTIALS): (String[])[username, password]
+]
+def serverUrl = 'service:jmx:rmi://' + jmxHost + ':' + jmxPort + '/jndi/rmi://' + jmxHost + ':' + jmxPort + '/jmxrmi';
+def server = JmxFactory.connect(new JmxUrl(serverUrl), env).MBeanServerConnection
+def config = new GroovyMBean(server, 'org.connectopensource.mbeans:type=Configuration');
+config.setPassthruMode();</con:setupScript>
+<con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);
+
+import javax.management.remote.JMXConnectorFactory as JmxFactory
+import javax.management.remote.JMXServiceURL as JmxUrl
+import javax.management.remote.*;
+
+def username = context.findProperty("ASUsername");
+def password = context.findProperty("ASPassword");
+def jmxHost = context.findProperty("JMXHost");
+def jmxPort = context.findProperty("JMXPort");
+
+// use jmx to set passthru mode
+def env = [
+(JMXConnector.CREDENTIALS): (String[])[username, password]
+]
+def serverUrl = 'service:jmx:rmi://' + jmxHost + ':' + jmxPort + '/jndi/rmi://' + jmxHost + ':' + jmxPort + '/jmxrmi';
+def server = JmxFactory.connect(new JmxUrl(serverUrl), env).MBeanServerConnection
+def config = new GroovyMBean(server, 'org.connectopensource.mbeans:type=Configuration');
+config.setStandardMode();</con:tearDownScript>
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2013-01-25T15:28:58Z</con:value>
+		<con:value>2013-08-27T22:30:45Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2013-01-25T15:38:58Z</con:value>
+		<con:value>2013-08-27T22:40:45Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>01/25/2013 15:28:58</con:value>
+		<con:value>08/27/2013 22:30:45</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2013-02-24T00:00:00Z</con:value>
+		<con:value>2013-09-26T00:00:00Z</con:value>
 	</con:property>
 </con:properties>
 </con:testCase>
@@ -1587,24 +1659,60 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
 </con:config>
 </con:testStep>
 <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
-nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot)+'/../', context.findProperty('GatewayPropDir'), log);</con:setupScript>
-<con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);</con:tearDownScript>
+nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot)+'/../', context.findProperty('GatewayPropDir'), log);
+
+import javax.management.remote.JMXConnectorFactory as JmxFactory
+import javax.management.remote.JMXServiceURL as JmxUrl
+import javax.management.remote.*;
+
+def username = context.findProperty("ASUsername");
+def password = context.findProperty("ASPassword");
+def jmxHost = context.findProperty("JMXHost");
+def jmxPort = context.findProperty("JMXPort");
+
+// use jmx to set passthru mode
+def env = [
+(JMXConnector.CREDENTIALS): (String[])[username, password]
+]
+def serverUrl = 'service:jmx:rmi://' + jmxHost + ':' + jmxPort + '/jndi/rmi://' + jmxHost + ':' + jmxPort + '/jmxrmi';
+def server = JmxFactory.connect(new JmxUrl(serverUrl), env).MBeanServerConnection
+def config = new GroovyMBean(server, 'org.connectopensource.mbeans:type=Configuration');
+config.setPassthruMode();</con:setupScript>
+<con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);
+
+import javax.management.remote.JMXConnectorFactory as JmxFactory
+import javax.management.remote.JMXServiceURL as JmxUrl
+import javax.management.remote.*;
+
+def username = context.findProperty("ASUsername");
+def password = context.findProperty("ASPassword");
+def jmxHost = context.findProperty("JMXHost");
+def jmxPort = context.findProperty("JMXPort");
+
+// use jmx to set passthru mode
+def env = [
+(JMXConnector.CREDENTIALS): (String[])[username, password]
+]
+def serverUrl = 'service:jmx:rmi://' + jmxHost + ':' + jmxPort + '/jndi/rmi://' + jmxHost + ':' + jmxPort + '/jmxrmi';
+def server = JmxFactory.connect(new JmxUrl(serverUrl), env).MBeanServerConnection
+def config = new GroovyMBean(server, 'org.connectopensource.mbeans:type=Configuration');
+config.setStandardMode();</con:tearDownScript>
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2013-01-25T15:28:59Z</con:value>
+		<con:value>2013-08-27T22:30:46Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2013-01-25T15:38:59Z</con:value>
+		<con:value>2013-08-27T22:40:46Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>01/25/2013 15:28:59</con:value>
+		<con:value>08/27/2013 22:30:46</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2013-02-24T00:00:00Z</con:value>
+		<con:value>2013-09-26T00:00:00Z</con:value>
 	</con:property>
 </con:properties>
 <con:reportParameters/>
@@ -1949,8 +2057,44 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
 </con:config>
 </con:testStep>
 <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
-nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot)+'/../', context.findProperty('GatewayPropDir'), log);</con:setupScript>
-<con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);</con:tearDownScript>
+nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot)+'/../', context.findProperty('GatewayPropDir'), log);
+
+import javax.management.remote.JMXConnectorFactory as JmxFactory
+import javax.management.remote.JMXServiceURL as JmxUrl
+import javax.management.remote.*;
+
+def username = context.findProperty("ASUsername");
+def password = context.findProperty("ASPassword");
+def jmxHost = context.findProperty("JMXHost");
+def jmxPort = context.findProperty("JMXPort");
+
+// use jmx to set passthru mode
+def env = [
+(JMXConnector.CREDENTIALS): (String[])[username, password]
+]
+def serverUrl = 'service:jmx:rmi://' + jmxHost + ':' + jmxPort + '/jndi/rmi://' + jmxHost + ':' + jmxPort + '/jmxrmi';
+def server = JmxFactory.connect(new JmxUrl(serverUrl), env).MBeanServerConnection
+def config = new GroovyMBean(server, 'org.connectopensource.mbeans:type=Configuration');
+config.setPassthruMode();</con:setupScript>
+<con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);
+
+import javax.management.remote.JMXConnectorFactory as JmxFactory
+import javax.management.remote.JMXServiceURL as JmxUrl
+import javax.management.remote.*;
+
+def username = context.findProperty("ASUsername");
+def password = context.findProperty("ASPassword");
+def jmxHost = context.findProperty("JMXHost");
+def jmxPort = context.findProperty("JMXPort");
+
+// use jmx to set passthru mode
+def env = [
+(JMXConnector.CREDENTIALS): (String[])[username, password]
+]
+def serverUrl = 'service:jmx:rmi://' + jmxHost + ':' + jmxPort + '/jndi/rmi://' + jmxHost + ':' + jmxPort + '/jmxrmi';
+def server = JmxFactory.connect(new JmxUrl(serverUrl), env).MBeanServerConnection
+def config = new GroovyMBean(server, 'org.connectopensource.mbeans:type=Configuration');
+config.setStandardMode();</con:tearDownScript>
 <con:properties>
 	<con:property>
 		<con:name>LocalHCID</con:name>
@@ -2214,19 +2358,19 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
 	</con:property>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2013-01-25T15:29:00Z</con:value>
+		<con:value>2013-08-27T22:30:47Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2013-01-25T15:39:00Z</con:value>
+		<con:value>2013-08-27T22:40:47Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>01/25/2013 15:29:00</con:value>
+		<con:value>08/27/2013 22:30:47</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2013-02-24T00:00:00Z</con:value>
+		<con:value>2013-09-26T00:00:00Z</con:value>
 	</con:property>
 </con:properties>
 <con:reportParameters/>
@@ -2597,8 +2741,44 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
 </con:config>
 </con:testStep>
 <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
-nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot)+'/../', context.findProperty('GatewayPropDir'), log);</con:setupScript>
-<con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);</con:tearDownScript>
+nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot)+'/../', context.findProperty('GatewayPropDir'), log);
+
+import javax.management.remote.JMXConnectorFactory as JmxFactory
+import javax.management.remote.JMXServiceURL as JmxUrl
+import javax.management.remote.*;
+
+def username = context.findProperty("ASUsername");
+def password = context.findProperty("ASPassword");
+def jmxHost = context.findProperty("JMXHost");
+def jmxPort = context.findProperty("JMXPort");
+
+// use jmx to set passthru mode
+def env = [
+(JMXConnector.CREDENTIALS): (String[])[username, password]
+]
+def serverUrl = 'service:jmx:rmi://' + jmxHost + ':' + jmxPort + '/jndi/rmi://' + jmxHost + ':' + jmxPort + '/jmxrmi';
+def server = JmxFactory.connect(new JmxUrl(serverUrl), env).MBeanServerConnection
+def config = new GroovyMBean(server, 'org.connectopensource.mbeans:type=Configuration');
+config.setPassthruMode();</con:setupScript>
+<con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);
+
+import javax.management.remote.JMXConnectorFactory as JmxFactory
+import javax.management.remote.JMXServiceURL as JmxUrl
+import javax.management.remote.*;
+
+def username = context.findProperty("ASUsername");
+def password = context.findProperty("ASPassword");
+def jmxHost = context.findProperty("JMXHost");
+def jmxPort = context.findProperty("JMXPort");
+
+// use jmx to set passthru mode
+def env = [
+(JMXConnector.CREDENTIALS): (String[])[username, password]
+]
+def serverUrl = 'service:jmx:rmi://' + jmxHost + ':' + jmxPort + '/jndi/rmi://' + jmxHost + ':' + jmxPort + '/jmxrmi';
+def server = JmxFactory.connect(new JmxUrl(serverUrl), env).MBeanServerConnection
+def config = new GroovyMBean(server, 'org.connectopensource.mbeans:type=Configuration');
+config.setStandardMode();</con:tearDownScript>
 <con:properties>
 	<con:property>
 		<con:name>LocalHCID</con:name>
@@ -2866,19 +3046,19 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
 	</con:property>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2013-01-25T15:29:00Z</con:value>
+		<con:value>2013-08-27T22:30:48Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2013-01-25T15:39:00Z</con:value>
+		<con:value>2013-08-27T22:40:48Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>01/25/2013 15:29:00</con:value>
+		<con:value>08/27/2013 22:30:48</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2013-02-24T00:00:00Z</con:value>
+		<con:value>2013-09-26T00:00:00Z</con:value>
 	</con:property>
 </con:properties>
 <con:reportParameters/>
@@ -3349,25 +3529,61 @@ nhinc.FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", dir, "1.1
 }</script>
 </con:config>
 </con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
-nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot)+'/../', context.findProperty('GatewayPropDir'), log);</con:setupScript>
+nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot)+'/../', context.findProperty('GatewayPropDir'), log);
+
+import javax.management.remote.JMXConnectorFactory as JmxFactory
+import javax.management.remote.JMXServiceURL as JmxUrl
+import javax.management.remote.*;
+
+def username = context.findProperty("ASUsername");
+def password = context.findProperty("ASPassword");
+def jmxHost = context.findProperty("JMXHost");
+def jmxPort = context.findProperty("JMXPort");
+
+// use jmx to set passthru mode
+def env = [
+(JMXConnector.CREDENTIALS): (String[])[username, password]
+]
+def serverUrl = 'service:jmx:rmi://' + jmxHost + ':' + jmxPort + '/jndi/rmi://' + jmxHost + ':' + jmxPort + '/jmxrmi';
+def server = JmxFactory.connect(new JmxUrl(serverUrl), env).MBeanServerConnection
+def config = new GroovyMBean(server, 'org.connectopensource.mbeans:type=Configuration');
+config.setPassthruMode();</con:setupScript>
 <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);
-nhinc.FileUtils.restoreFile(dir, "PatientDiscoveryProxyConfig.xml", log);</con:tearDownScript>
+nhinc.FileUtils.restoreFile(dir, "PatientDiscoveryProxyConfig.xml", log);
+
+import javax.management.remote.JMXConnectorFactory as JmxFactory
+import javax.management.remote.JMXServiceURL as JmxUrl
+import javax.management.remote.*;
+
+def username = context.findProperty("ASUsername");
+def password = context.findProperty("ASPassword");
+def jmxHost = context.findProperty("JMXHost");
+def jmxPort = context.findProperty("JMXPort");
+
+// use jmx to set passthru mode
+def env = [
+(JMXConnector.CREDENTIALS): (String[])[username, password]
+]
+def serverUrl = 'service:jmx:rmi://' + jmxHost + ':' + jmxPort + '/jndi/rmi://' + jmxHost + ':' + jmxPort + '/jmxrmi';
+def server = JmxFactory.connect(new JmxUrl(serverUrl), env).MBeanServerConnection
+def config = new GroovyMBean(server, 'org.connectopensource.mbeans:type=Configuration');
+config.setStandardMode();</con:tearDownScript>
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2013-01-25T15:29:01Z</con:value>
+		<con:value>2013-08-27T22:30:48Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2013-01-25T15:39:01Z</con:value>
+		<con:value>2013-08-27T22:40:48Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>01/25/2013 15:29:01</con:value>
+		<con:value>08/27/2013 22:30:48</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2013-02-24T00:00:00Z</con:value>
+		<con:value>2013-09-26T00:00:00Z</con:value>
 	</con:property>
 </con:properties>
 <con:reportParameters/>
@@ -3728,24 +3944,60 @@ nhinc.FileUtils.restoreFile(dir, "PatientDiscoveryProxyConfig.xml", log);</con:t
 </con:config>
 </con:testStep>
 <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
-nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot)+'/../', context.findProperty('GatewayPropDir'), log);</con:setupScript>
-<con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);</con:tearDownScript>
+nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot)+'/../', context.findProperty('GatewayPropDir'), log);
+
+import javax.management.remote.JMXConnectorFactory as JmxFactory
+import javax.management.remote.JMXServiceURL as JmxUrl
+import javax.management.remote.*;
+
+def username = context.findProperty("ASUsername");
+def password = context.findProperty("ASPassword");
+def jmxHost = context.findProperty("JMXHost");
+def jmxPort = context.findProperty("JMXPort");
+
+// use jmx to set passthru mode
+def env = [
+(JMXConnector.CREDENTIALS): (String[])[username, password]
+]
+def serverUrl = 'service:jmx:rmi://' + jmxHost + ':' + jmxPort + '/jndi/rmi://' + jmxHost + ':' + jmxPort + '/jmxrmi';
+def server = JmxFactory.connect(new JmxUrl(serverUrl), env).MBeanServerConnection
+def config = new GroovyMBean(server, 'org.connectopensource.mbeans:type=Configuration');
+config.setPassthruMode();</con:setupScript>
+<con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);
+
+import javax.management.remote.JMXConnectorFactory as JmxFactory
+import javax.management.remote.JMXServiceURL as JmxUrl
+import javax.management.remote.*;
+
+def username = context.findProperty("ASUsername");
+def password = context.findProperty("ASPassword");
+def jmxHost = context.findProperty("JMXHost");
+def jmxPort = context.findProperty("JMXPort");
+
+// use jmx to set passthru mode
+def env = [
+(JMXConnector.CREDENTIALS): (String[])[username, password]
+]
+def serverUrl = 'service:jmx:rmi://' + jmxHost + ':' + jmxPort + '/jndi/rmi://' + jmxHost + ':' + jmxPort + '/jmxrmi';
+def server = JmxFactory.connect(new JmxUrl(serverUrl), env).MBeanServerConnection
+def config = new GroovyMBean(server, 'org.connectopensource.mbeans:type=Configuration');
+config.setStandardMode();</con:tearDownScript>
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2013-01-25T15:29:02Z</con:value>
+		<con:value>2013-08-27T22:30:49Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2013-01-25T15:39:02Z</con:value>
+		<con:value>2013-08-27T22:40:49Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>01/25/2013 15:29:02</con:value>
+		<con:value>08/27/2013 22:30:49</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2013-02-24T00:00:00Z</con:value>
+		<con:value>2013-09-26T00:00:00Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>FullPatientID</con:name>
@@ -4069,8 +4321,44 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
 </con:config>
 </con:testStep>
 <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
-nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot)+'/../', context.findProperty('GatewayPropDir'), log);</con:setupScript>
-<con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);</con:tearDownScript>
+nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot)+'/../', context.findProperty('GatewayPropDir'), log);
+
+import javax.management.remote.JMXConnectorFactory as JmxFactory
+import javax.management.remote.JMXServiceURL as JmxUrl
+import javax.management.remote.*;
+
+def username = context.findProperty("ASUsername");
+def password = context.findProperty("ASPassword");
+def jmxHost = context.findProperty("JMXHost");
+def jmxPort = context.findProperty("JMXPort");
+
+// use jmx to set passthru mode
+def env = [
+(JMXConnector.CREDENTIALS): (String[])[username, password]
+]
+def serverUrl = 'service:jmx:rmi://' + jmxHost + ':' + jmxPort + '/jndi/rmi://' + jmxHost + ':' + jmxPort + '/jmxrmi';
+def server = JmxFactory.connect(new JmxUrl(serverUrl), env).MBeanServerConnection
+def config = new GroovyMBean(server, 'org.connectopensource.mbeans:type=Configuration');
+config.setPassthruMode();</con:setupScript>
+<con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);
+
+import javax.management.remote.JMXConnectorFactory as JmxFactory
+import javax.management.remote.JMXServiceURL as JmxUrl
+import javax.management.remote.*;
+
+def username = context.findProperty("ASUsername");
+def password = context.findProperty("ASPassword");
+def jmxHost = context.findProperty("JMXHost");
+def jmxPort = context.findProperty("JMXPort");
+
+// use jmx to set passthru mode
+def env = [
+(JMXConnector.CREDENTIALS): (String[])[username, password]
+]
+def serverUrl = 'service:jmx:rmi://' + jmxHost + ':' + jmxPort + '/jndi/rmi://' + jmxHost + ':' + jmxPort + '/jmxrmi';
+def server = JmxFactory.connect(new JmxUrl(serverUrl), env).MBeanServerConnection
+def config = new GroovyMBean(server, 'org.connectopensource.mbeans:type=Configuration');
+config.setStandardMode();</con:tearDownScript>
 <con:properties>
 	<con:property>
 		<con:name>CorrectedRemoteHCID</con:name>
@@ -4078,19 +4366,19 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
 	</con:property>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2013-01-25T15:29:03Z</con:value>
+		<con:value>2013-08-27T22:30:50Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2013-01-25T15:39:03Z</con:value>
+		<con:value>2013-08-27T22:40:50Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>01/25/2013 15:29:03</con:value>
+		<con:value>08/27/2013 22:30:50</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2013-02-24T00:00:00Z</con:value>
+		<con:value>2013-09-26T00:00:00Z</con:value>
 	</con:property>
 </con:properties>
 <con:reportParameters/>
@@ -6021,7 +6309,7 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
       </urn:RespondingGateway_SendAlertMessage>
    </soap:Body>
 </soap:Envelope>]]></con:request>
-	<con:credentials>
+	<con:assertion type="Valid HTTP Status Codes" name="Valid HTTP Status Codes"><con:configuration><codes>202</codes></con:configuration></con:assertion><con:credentials>
 		<con:authType>Global HTTP Settings</con:authType>
 	</con:credentials>
 	<con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
@@ -6033,9 +6321,7 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
 </con:testStep>
 <con:testStep name="Delay" type="delay">
 	<con:settings/>
-	<con:config>
-		<delay>15000</delay>
-	</con:config>
+	<con:config><delay>3000</delay></con:config>
 </con:testStep>
 <con:testStep type="groovy" name="Verify Audit Logs">
 	<con:settings/>
@@ -6046,24 +6332,60 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
 }</script></con:config>
 </con:testStep>
 <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
-nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot)+'/../', context.findProperty('GatewayPropDir'), log);</con:setupScript>
-<con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);</con:tearDownScript>
+nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot)+'/../', context.findProperty('GatewayPropDir'), log);
+
+import javax.management.remote.JMXConnectorFactory as JmxFactory
+import javax.management.remote.JMXServiceURL as JmxUrl
+import javax.management.remote.*;
+
+def username = context.findProperty("ASUsername");
+def password = context.findProperty("ASPassword");
+def jmxHost = context.findProperty("JMXHost");
+def jmxPort = context.findProperty("JMXPort");
+
+// use jmx to set passthru mode
+def env = [
+(JMXConnector.CREDENTIALS): (String[])[username, password]
+]
+def serverUrl = 'service:jmx:rmi://' + jmxHost + ':' + jmxPort + '/jndi/rmi://' + jmxHost + ':' + jmxPort + '/jmxrmi';
+def server = JmxFactory.connect(new JmxUrl(serverUrl), env).MBeanServerConnection
+def config = new GroovyMBean(server, 'org.connectopensource.mbeans:type=Configuration');
+config.setPassthruMode();</con:setupScript>
+<con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);
+
+import javax.management.remote.JMXConnectorFactory as JmxFactory
+import javax.management.remote.JMXServiceURL as JmxUrl
+import javax.management.remote.*;
+
+def username = context.findProperty("ASUsername");
+def password = context.findProperty("ASPassword");
+def jmxHost = context.findProperty("JMXHost");
+def jmxPort = context.findProperty("JMXPort");
+
+// use jmx to set passthru mode
+def env = [
+(JMXConnector.CREDENTIALS): (String[])[username, password]
+]
+def serverUrl = 'service:jmx:rmi://' + jmxHost + ':' + jmxPort + '/jndi/rmi://' + jmxHost + ':' + jmxPort + '/jmxrmi';
+def server = JmxFactory.connect(new JmxUrl(serverUrl), env).MBeanServerConnection
+def config = new GroovyMBean(server, 'org.connectopensource.mbeans:type=Configuration');
+config.setStandardMode();</con:tearDownScript>
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2013-01-25T15:29:04Z</con:value>
+		<con:value>2013-08-27T22:30:51Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2013-01-25T15:39:04Z</con:value>
+		<con:value>2013-08-27T22:40:51Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>01/25/2013 15:29:04</con:value>
+		<con:value>08/27/2013 22:30:51</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2013-02-24T00:00:00Z</con:value>
+		<con:value>2013-09-26T00:00:00Z</con:value>
 	</con:property>
 </con:properties>
 </con:testCase>
@@ -6630,24 +6952,60 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
 </con:config>
 </con:testStep>
 <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
-nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot)+'/../', context.findProperty('GatewayPropDir'), log);</con:setupScript>
-<con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);</con:tearDownScript>
+nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot)+'/../', context.findProperty('GatewayPropDir'), log);
+
+import javax.management.remote.JMXConnectorFactory as JmxFactory
+import javax.management.remote.JMXServiceURL as JmxUrl
+import javax.management.remote.*;
+
+def username = context.findProperty("ASUsername");
+def password = context.findProperty("ASPassword");
+def jmxHost = context.findProperty("JMXHost");
+def jmxPort = context.findProperty("JMXPort");
+
+// use jmx to set passthru mode
+def env = [
+(JMXConnector.CREDENTIALS): (String[])[username, password]
+]
+def serverUrl = 'service:jmx:rmi://' + jmxHost + ':' + jmxPort + '/jndi/rmi://' + jmxHost + ':' + jmxPort + '/jmxrmi';
+def server = JmxFactory.connect(new JmxUrl(serverUrl), env).MBeanServerConnection
+def config = new GroovyMBean(server, 'org.connectopensource.mbeans:type=Configuration');
+config.setPassthruMode();</con:setupScript>
+<con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);
+
+import javax.management.remote.JMXConnectorFactory as JmxFactory
+import javax.management.remote.JMXServiceURL as JmxUrl
+import javax.management.remote.*;
+
+def username = context.findProperty("ASUsername");
+def password = context.findProperty("ASPassword");
+def jmxHost = context.findProperty("JMXHost");
+def jmxPort = context.findProperty("JMXPort");
+
+// use jmx to set passthru mode
+def env = [
+(JMXConnector.CREDENTIALS): (String[])[username, password]
+]
+def serverUrl = 'service:jmx:rmi://' + jmxHost + ':' + jmxPort + '/jndi/rmi://' + jmxHost + ':' + jmxPort + '/jmxrmi';
+def server = JmxFactory.connect(new JmxUrl(serverUrl), env).MBeanServerConnection
+def config = new GroovyMBean(server, 'org.connectopensource.mbeans:type=Configuration');
+config.setStandardMode();</con:tearDownScript>
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2013-01-25T15:28:28Z</con:value>
+		<con:value>2013-08-27T21:09:23Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2013-01-25T15:38:28Z</con:value>
+		<con:value>2013-08-27T21:19:23Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>01/25/2013 15:28:28</con:value>
+		<con:value>08/27/2013 21:09:23</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2013-02-24T00:00:00Z</con:value>
+		<con:value>2013-09-26T00:00:00Z</con:value>
 	</con:property>
 </con:properties>
 <con:reportParameters/>
@@ -7020,24 +7378,60 @@ nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.pr
 </con:config>
 </con:testStep>
 <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
-nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot)+'/../', context.findProperty('GatewayPropDir'), log);</con:setupScript>
-<con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);</con:tearDownScript>
+nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot)+'/../', context.findProperty('GatewayPropDir'), log);
+
+import javax.management.remote.JMXConnectorFactory as JmxFactory
+import javax.management.remote.JMXServiceURL as JmxUrl
+import javax.management.remote.*;
+
+def username = context.findProperty("ASUsername");
+def password = context.findProperty("ASPassword");
+def jmxHost = context.findProperty("JMXHost");
+def jmxPort = context.findProperty("JMXPort");
+
+// use jmx to set passthru mode
+def env = [
+(JMXConnector.CREDENTIALS): (String[])[username, password]
+]
+def serverUrl = 'service:jmx:rmi://' + jmxHost + ':' + jmxPort + '/jndi/rmi://' + jmxHost + ':' + jmxPort + '/jmxrmi';
+def server = JmxFactory.connect(new JmxUrl(serverUrl), env).MBeanServerConnection
+def config = new GroovyMBean(server, 'org.connectopensource.mbeans:type=Configuration');
+config.setPassthruMode();</con:setupScript>
+<con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);
+
+import javax.management.remote.JMXConnectorFactory as JmxFactory
+import javax.management.remote.JMXServiceURL as JmxUrl
+import javax.management.remote.*;
+
+def username = context.findProperty("ASUsername");
+def password = context.findProperty("ASPassword");
+def jmxHost = context.findProperty("JMXHost");
+def jmxPort = context.findProperty("JMXPort");
+
+// use jmx to set passthru mode
+def env = [
+(JMXConnector.CREDENTIALS): (String[])[username, password]
+]
+def serverUrl = 'service:jmx:rmi://' + jmxHost + ':' + jmxPort + '/jndi/rmi://' + jmxHost + ':' + jmxPort + '/jmxrmi';
+def server = JmxFactory.connect(new JmxUrl(serverUrl), env).MBeanServerConnection
+def config = new GroovyMBean(server, 'org.connectopensource.mbeans:type=Configuration');
+config.setStandardMode();</con:tearDownScript>
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2013-01-25T15:28:29Z</con:value>
+		<con:value>2013-08-27T21:09:24Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2013-01-25T15:38:29Z</con:value>
+		<con:value>2013-08-27T21:19:24Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>01/25/2013 15:28:29</con:value>
+		<con:value>08/27/2013 21:09:24</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2013-02-24T00:00:00Z</con:value>
+		<con:value>2013-09-26T00:00:00Z</con:value>
 	</con:property>
 </con:properties>
 </con:testCase>
@@ -7543,24 +7937,60 @@ nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.pr
 </con:config>
 </con:testStep>
 <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
-nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot)+'/../', context.findProperty('GatewayPropDir'), log);</con:setupScript>
-<con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);</con:tearDownScript>
+nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot)+'/../', context.findProperty('GatewayPropDir'), log);
+
+import javax.management.remote.JMXConnectorFactory as JmxFactory
+import javax.management.remote.JMXServiceURL as JmxUrl
+import javax.management.remote.*;
+
+def username = context.findProperty("ASUsername");
+def password = context.findProperty("ASPassword");
+def jmxHost = context.findProperty("JMXHost");
+def jmxPort = context.findProperty("JMXPort");
+
+// use jmx to set passthru mode
+def env = [
+(JMXConnector.CREDENTIALS): (String[])[username, password]
+]
+def serverUrl = 'service:jmx:rmi://' + jmxHost + ':' + jmxPort + '/jndi/rmi://' + jmxHost + ':' + jmxPort + '/jmxrmi';
+def server = JmxFactory.connect(new JmxUrl(serverUrl), env).MBeanServerConnection
+def config = new GroovyMBean(server, 'org.connectopensource.mbeans:type=Configuration');
+config.setPassthruMode();</con:setupScript>
+<con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);
+
+import javax.management.remote.JMXConnectorFactory as JmxFactory
+import javax.management.remote.JMXServiceURL as JmxUrl
+import javax.management.remote.*;
+
+def username = context.findProperty("ASUsername");
+def password = context.findProperty("ASPassword");
+def jmxHost = context.findProperty("JMXHost");
+def jmxPort = context.findProperty("JMXPort");
+
+// use jmx to set passthru mode
+def env = [
+(JMXConnector.CREDENTIALS): (String[])[username, password]
+]
+def serverUrl = 'service:jmx:rmi://' + jmxHost + ':' + jmxPort + '/jndi/rmi://' + jmxHost + ':' + jmxPort + '/jmxrmi';
+def server = JmxFactory.connect(new JmxUrl(serverUrl), env).MBeanServerConnection
+def config = new GroovyMBean(server, 'org.connectopensource.mbeans:type=Configuration');
+config.setStandardMode();</con:tearDownScript>
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2013-01-25T15:28:30Z</con:value>
+		<con:value>2013-08-27T21:09:25Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2013-01-25T15:38:30Z</con:value>
+		<con:value>2013-08-27T21:19:25Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>01/25/2013 15:28:30</con:value>
+		<con:value>08/27/2013 21:09:25</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2013-02-24T00:00:00Z</con:value>
+		<con:value>2013-09-26T00:00:00Z</con:value>
 	</con:property>
 </con:properties>
 <con:reportParameters/>
@@ -7910,8 +8340,44 @@ nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.pr
 </con:config>
 </con:testStep>
 <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
-nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot)+'/../', context.findProperty('GatewayPropDir'), log);</con:setupScript>
-<con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);</con:tearDownScript>
+nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot)+'/../', context.findProperty('GatewayPropDir'), log);
+
+import javax.management.remote.JMXConnectorFactory as JmxFactory
+import javax.management.remote.JMXServiceURL as JmxUrl
+import javax.management.remote.*;
+
+def username = context.findProperty("ASUsername");
+def password = context.findProperty("ASPassword");
+def jmxHost = context.findProperty("JMXHost");
+def jmxPort = context.findProperty("JMXPort");
+
+// use jmx to set passthru mode
+def env = [
+(JMXConnector.CREDENTIALS): (String[])[username, password]
+]
+def serverUrl = 'service:jmx:rmi://' + jmxHost + ':' + jmxPort + '/jndi/rmi://' + jmxHost + ':' + jmxPort + '/jmxrmi';
+def server = JmxFactory.connect(new JmxUrl(serverUrl), env).MBeanServerConnection
+def config = new GroovyMBean(server, 'org.connectopensource.mbeans:type=Configuration');
+config.setPassthruMode();</con:setupScript>
+<con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);
+
+import javax.management.remote.JMXConnectorFactory as JmxFactory
+import javax.management.remote.JMXServiceURL as JmxUrl
+import javax.management.remote.*;
+
+def username = context.findProperty("ASUsername");
+def password = context.findProperty("ASPassword");
+def jmxHost = context.findProperty("JMXHost");
+def jmxPort = context.findProperty("JMXPort");
+
+// use jmx to set passthru mode
+def env = [
+(JMXConnector.CREDENTIALS): (String[])[username, password]
+]
+def serverUrl = 'service:jmx:rmi://' + jmxHost + ':' + jmxPort + '/jndi/rmi://' + jmxHost + ':' + jmxPort + '/jmxrmi';
+def server = JmxFactory.connect(new JmxUrl(serverUrl), env).MBeanServerConnection
+def config = new GroovyMBean(server, 'org.connectopensource.mbeans:type=Configuration');
+config.setStandardMode();</con:tearDownScript>
 <con:properties>
 	<con:property>
 		<con:name>LocalHCID</con:name>
@@ -8175,19 +8641,19 @@ nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.pr
 	</con:property>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2013-01-25T15:28:31Z</con:value>
+		<con:value>2013-08-27T21:09:26Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2013-01-25T15:38:31Z</con:value>
+		<con:value>2013-08-27T21:19:26Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>01/25/2013 15:28:31</con:value>
+		<con:value>08/27/2013 21:09:26</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2013-02-24T00:00:00Z</con:value>
+		<con:value>2013-09-26T00:00:00Z</con:value>
 	</con:property>
 </con:properties>
 <con:reportParameters/>
@@ -8559,8 +9025,44 @@ nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.pr
 </con:config>
 </con:testStep>
 <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
-nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot)+'/../', context.findProperty('GatewayPropDir'), log);</con:setupScript>
-<con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);</con:tearDownScript>
+nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot)+'/../', context.findProperty('GatewayPropDir'), log);
+
+import javax.management.remote.JMXConnectorFactory as JmxFactory
+import javax.management.remote.JMXServiceURL as JmxUrl
+import javax.management.remote.*;
+
+def username = context.findProperty("ASUsername");
+def password = context.findProperty("ASPassword");
+def jmxHost = context.findProperty("JMXHost");
+def jmxPort = context.findProperty("JMXPort");
+
+// use jmx to set passthru mode
+def env = [
+(JMXConnector.CREDENTIALS): (String[])[username, password]
+]
+def serverUrl = 'service:jmx:rmi://' + jmxHost + ':' + jmxPort + '/jndi/rmi://' + jmxHost + ':' + jmxPort + '/jmxrmi';
+def server = JmxFactory.connect(new JmxUrl(serverUrl), env).MBeanServerConnection
+def config = new GroovyMBean(server, 'org.connectopensource.mbeans:type=Configuration');
+config.setPassthruMode();</con:setupScript>
+<con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);
+
+import javax.management.remote.JMXConnectorFactory as JmxFactory
+import javax.management.remote.JMXServiceURL as JmxUrl
+import javax.management.remote.*;
+
+def username = context.findProperty("ASUsername");
+def password = context.findProperty("ASPassword");
+def jmxHost = context.findProperty("JMXHost");
+def jmxPort = context.findProperty("JMXPort");
+
+// use jmx to set passthru mode
+def env = [
+(JMXConnector.CREDENTIALS): (String[])[username, password]
+]
+def serverUrl = 'service:jmx:rmi://' + jmxHost + ':' + jmxPort + '/jndi/rmi://' + jmxHost + ':' + jmxPort + '/jmxrmi';
+def server = JmxFactory.connect(new JmxUrl(serverUrl), env).MBeanServerConnection
+def config = new GroovyMBean(server, 'org.connectopensource.mbeans:type=Configuration');
+config.setStandardMode();</con:tearDownScript>
 <con:properties>
 	<con:property>
 		<con:name>LocalHCID</con:name>
@@ -8828,19 +9330,19 @@ nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.pr
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2013-01-25T15:38:32Z</con:value>
+		<con:value>2013-08-27T21:19:27Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>01/25/2013 15:28:32</con:value>
+		<con:value>08/27/2013 21:09:27</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2013-02-24T00:00:00Z</con:value>
+		<con:value>2013-09-26T00:00:00Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2013-01-25T15:28:32Z</con:value>
+		<con:value>2013-08-27T21:09:27Z</con:value>
 	</con:property>
 </con:properties>
 <con:reportParameters/>
@@ -9186,7 +9688,7 @@ nhinc.FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", dir, "1.1
 </con:request>
 </con:config>
 </con:testStep>
-<con:testStep type="mockresponse" name="Mock Response"><con:settings/><con:config xsi:type="con:MockResponseStep" startStep="Patient Discovery" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>AdapterPatientDiscoveryBindingSoap</con:interface><con:operation>RespondingGateway_PRPA_IN201305UV02</con:operation><con:path>/MockPDAdapter</con:path><con:port>1720</con:port><con:response><con:settings/><con:responseContent><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:hl7-org:v3">
+<con:testStep type="mockresponse" name="Mock Response"><con:settings/><con:config xsi:type="con:MockResponseStep" startStep="Clear Audit Logs" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:interface>AdapterPatientDiscoveryBindingSoap</con:interface><con:operation>RespondingGateway_PRPA_IN201305UV02</con:operation><con:path>/MockPDAdapter</con:path><con:port>1720</con:port><con:response><con:settings/><con:responseContent><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:hl7-org:v3">
    <soap:Header/>
    <soap:Body>
    <PRPA_IN201306UV02 xmlns="urn:hl7-org:v3" xmlns:ns2="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:ns3="http://www.w3.org/2005/08/addressing" xmlns:ns4="urn:gov:hhs:fha:nhinc:common:patientcorrelationfacade" ITSVersion="XML_1.0">
@@ -9312,25 +9814,61 @@ nhinc.FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", dir, "1.1
 }</script>
 </con:config>
 </con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
-nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot)+'/../', context.findProperty('GatewayPropDir'), log);</con:setupScript>
+nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot)+'/../', context.findProperty('GatewayPropDir'), log);
+
+import javax.management.remote.JMXConnectorFactory as JmxFactory
+import javax.management.remote.JMXServiceURL as JmxUrl
+import javax.management.remote.*;
+
+def username = context.findProperty("ASUsername");
+def password = context.findProperty("ASPassword");
+def jmxHost = context.findProperty("JMXHost");
+def jmxPort = context.findProperty("JMXPort");
+
+// use jmx to set passthru mode
+def env = [
+(JMXConnector.CREDENTIALS): (String[])[username, password]
+]
+def serverUrl = 'service:jmx:rmi://' + jmxHost + ':' + jmxPort + '/jndi/rmi://' + jmxHost + ':' + jmxPort + '/jmxrmi';
+def server = JmxFactory.connect(new JmxUrl(serverUrl), env).MBeanServerConnection
+def config = new GroovyMBean(server, 'org.connectopensource.mbeans:type=Configuration');
+config.setPassthruMode();</con:setupScript>
 <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);
-nhinc.FileUtils.restoreFile(dir, "PatientDiscoveryProxyConfig.xml", log);</con:tearDownScript>
+nhinc.FileUtils.restoreFile(dir, "PatientDiscoveryProxyConfig.xml", log);\
+
+import javax.management.remote.JMXConnectorFactory as JmxFactory
+import javax.management.remote.JMXServiceURL as JmxUrl
+import javax.management.remote.*;
+
+def username = context.findProperty("ASUsername");
+def password = context.findProperty("ASPassword");
+def jmxHost = context.findProperty("JMXHost");
+def jmxPort = context.findProperty("JMXPort");
+
+// use jmx to set passthru mode
+def env = [
+(JMXConnector.CREDENTIALS): (String[])[username, password]
+]
+def serverUrl = 'service:jmx:rmi://' + jmxHost + ':' + jmxPort + '/jndi/rmi://' + jmxHost + ':' + jmxPort + '/jmxrmi';
+def server = JmxFactory.connect(new JmxUrl(serverUrl), env).MBeanServerConnection
+def config = new GroovyMBean(server, 'org.connectopensource.mbeans:type=Configuration');
+config.setStandardMode();</con:tearDownScript>
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2013-01-25T15:28:32Z</con:value>
+		<con:value>2013-08-27T21:09:28Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2013-01-25T15:38:32Z</con:value>
+		<con:value>2013-08-27T21:19:28Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>01/25/2013 15:28:32</con:value>
+		<con:value>08/27/2013 21:09:28</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2013-02-24T00:00:00Z</con:value>
+		<con:value>2013-09-26T00:00:00Z</con:value>
 	</con:property>
 </con:properties>
 <con:reportParameters/>
@@ -9690,24 +10228,60 @@ nhinc.FileUtils.restoreFile(dir, "PatientDiscoveryProxyConfig.xml", log);</con:t
 </con:config>
 </con:testStep>
 <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
-nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot)+'/../', context.findProperty('GatewayPropDir'), log);</con:setupScript>
-<con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);</con:tearDownScript>
+nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot)+'/../', context.findProperty('GatewayPropDir'), log);
+
+import javax.management.remote.JMXConnectorFactory as JmxFactory
+import javax.management.remote.JMXServiceURL as JmxUrl
+import javax.management.remote.*;
+
+def username = context.findProperty("ASUsername");
+def password = context.findProperty("ASPassword");
+def jmxHost = context.findProperty("JMXHost");
+def jmxPort = context.findProperty("JMXPort");
+
+// use jmx to set passthru mode
+def env = [
+(JMXConnector.CREDENTIALS): (String[])[username, password]
+]
+def serverUrl = 'service:jmx:rmi://' + jmxHost + ':' + jmxPort + '/jndi/rmi://' + jmxHost + ':' + jmxPort + '/jmxrmi';
+def server = JmxFactory.connect(new JmxUrl(serverUrl), env).MBeanServerConnection
+def config = new GroovyMBean(server, 'org.connectopensource.mbeans:type=Configuration');
+config.setPassthruMode();</con:setupScript>
+<con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);
+
+import javax.management.remote.JMXConnectorFactory as JmxFactory
+import javax.management.remote.JMXServiceURL as JmxUrl
+import javax.management.remote.*;
+
+def username = context.findProperty("ASUsername");
+def password = context.findProperty("ASPassword");
+def jmxHost = context.findProperty("JMXHost");
+def jmxPort = context.findProperty("JMXPort");
+
+// use jmx to set passthru mode
+def env = [
+(JMXConnector.CREDENTIALS): (String[])[username, password]
+]
+def serverUrl = 'service:jmx:rmi://' + jmxHost + ':' + jmxPort + '/jndi/rmi://' + jmxHost + ':' + jmxPort + '/jmxrmi';
+def server = JmxFactory.connect(new JmxUrl(serverUrl), env).MBeanServerConnection
+def config = new GroovyMBean(server, 'org.connectopensource.mbeans:type=Configuration');
+config.setStandardMode();</con:tearDownScript>
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2013-01-25T15:28:34Z</con:value>
+		<con:value>2013-08-27T21:09:29Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2013-01-25T15:38:34Z</con:value>
+		<con:value>2013-08-27T21:19:29Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>01/25/2013 15:28:34</con:value>
+		<con:value>08/27/2013 21:09:29</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2013-02-24T00:00:00Z</con:value>
+		<con:value>2013-09-26T00:00:00Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>FullPatientID</con:name>
@@ -10031,8 +10605,44 @@ nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.pr
 </con:config>
 </con:testStep>
 <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
-nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot)+'/../', context.findProperty('GatewayPropDir'), log);</con:setupScript>
-<con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);</con:tearDownScript>
+nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot)+'/../', context.findProperty('GatewayPropDir'), log);
+
+import javax.management.remote.JMXConnectorFactory as JmxFactory
+import javax.management.remote.JMXServiceURL as JmxUrl
+import javax.management.remote.*;
+
+def username = context.findProperty("ASUsername");
+def password = context.findProperty("ASPassword");
+def jmxHost = context.findProperty("JMXHost");
+def jmxPort = context.findProperty("JMXPort");
+
+// use jmx to set passthru mode
+def env = [
+(JMXConnector.CREDENTIALS): (String[])[username, password]
+]
+def serverUrl = 'service:jmx:rmi://' + jmxHost + ':' + jmxPort + '/jndi/rmi://' + jmxHost + ':' + jmxPort + '/jmxrmi';
+def server = JmxFactory.connect(new JmxUrl(serverUrl), env).MBeanServerConnection
+def config = new GroovyMBean(server, 'org.connectopensource.mbeans:type=Configuration');
+config.setPassthruMode();</con:setupScript>
+<con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);
+
+import javax.management.remote.JMXConnectorFactory as JmxFactory
+import javax.management.remote.JMXServiceURL as JmxUrl
+import javax.management.remote.*;
+
+def username = context.findProperty("ASUsername");
+def password = context.findProperty("ASPassword");
+def jmxHost = context.findProperty("JMXHost");
+def jmxPort = context.findProperty("JMXPort");
+
+// use jmx to set passthru mode
+def env = [
+(JMXConnector.CREDENTIALS): (String[])[username, password]
+]
+def serverUrl = 'service:jmx:rmi://' + jmxHost + ':' + jmxPort + '/jndi/rmi://' + jmxHost + ':' + jmxPort + '/jmxrmi';
+def server = JmxFactory.connect(new JmxUrl(serverUrl), env).MBeanServerConnection
+def config = new GroovyMBean(server, 'org.connectopensource.mbeans:type=Configuration');
+config.setStandardMode();</con:tearDownScript>
 <con:properties>
 	<con:property>
 		<con:name>CorrectedRemoteHCID</con:name>
@@ -10040,19 +10650,19 @@ nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.pr
 	</con:property>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2013-01-25T15:28:35Z</con:value>
+		<con:value>2013-08-27T21:09:30Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2013-01-25T15:38:35Z</con:value>
+		<con:value>2013-08-27T21:19:30Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>01/25/2013 15:28:35</con:value>
+		<con:value>08/27/2013 21:09:30</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2013-02-24T00:00:00Z</con:value>
+		<con:value>2013-09-26T00:00:00Z</con:value>
 	</con:property>
 </con:properties>
 <con:reportParameters/>
@@ -11994,9 +12604,7 @@ nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.pr
 </con:testStep>
 <con:testStep name="Delay" type="delay">
 	<con:settings/>
-	<con:config>
-		<delay>15000</delay>
-	</con:config>
+	<con:config><delay>3000</delay></con:config>
 </con:testStep>
 <con:testStep type="groovy" name="Verify Audit Logs">
 	<con:settings/>
@@ -12007,25 +12615,60 @@ nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.pr
 }</script></con:config>
 </con:testStep>
 <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
-nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot)+'/../', context.findProperty('GatewayPropDir'), log);</con:setupScript>
+nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot)+'/../', context.findProperty('GatewayPropDir'), log);
+
+import javax.management.remote.JMXConnectorFactory as JmxFactory
+import javax.management.remote.JMXServiceURL as JmxUrl
+import javax.management.remote.*;
+
+def username = context.findProperty("ASUsername");
+def password = context.findProperty("ASPassword");
+def jmxHost = context.findProperty("JMXHost");
+def jmxPort = context.findProperty("JMXPort");
+
+// use jmx to set passthru mode
+def env = [
+(JMXConnector.CREDENTIALS): (String[])[username, password]
+]
+def serverUrl = 'service:jmx:rmi://' + jmxHost + ':' + jmxPort + '/jndi/rmi://' + jmxHost + ':' + jmxPort + '/jmxrmi';
+def server = JmxFactory.connect(new JmxUrl(serverUrl), env).MBeanServerConnection
+def config = new GroovyMBean(server, 'org.connectopensource.mbeans:type=Configuration');
+config.setPassthruMode();</con:setupScript>
 <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);
-</con:tearDownScript>
+
+import javax.management.remote.JMXConnectorFactory as JmxFactory
+import javax.management.remote.JMXServiceURL as JmxUrl
+import javax.management.remote.*;
+
+def username = context.findProperty("ASUsername");
+def password = context.findProperty("ASPassword");
+def jmxHost = context.findProperty("JMXHost");
+def jmxPort = context.findProperty("JMXPort");
+
+// use jmx to set passthru mode
+def env = [
+(JMXConnector.CREDENTIALS): (String[])[username, password]
+]
+def serverUrl = 'service:jmx:rmi://' + jmxHost + ':' + jmxPort + '/jndi/rmi://' + jmxHost + ':' + jmxPort + '/jmxrmi';
+def server = JmxFactory.connect(new JmxUrl(serverUrl), env).MBeanServerConnection
+def config = new GroovyMBean(server, 'org.connectopensource.mbeans:type=Configuration');
+config.setStandardMode();</con:tearDownScript>
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2013-01-25T15:28:35Z</con:value>
+		<con:value>2013-08-27T21:09:31Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2013-01-25T15:38:35Z</con:value>
+		<con:value>2013-08-27T21:19:31Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>01/25/2013 15:28:35</con:value>
+		<con:value>08/27/2013 21:09:31</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2013-02-24T00:00:00Z</con:value>
+		<con:value>2013-09-26T00:00:00Z</con:value>
 	</con:property>
 </con:properties>
 <con:reportParameters/>
@@ -12341,7 +12984,7 @@ nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.pr
 		<con:name>ZipCode</con:name>
 		<con:value>12345</con:value>
 	</con:property>
-</con:properties>
+<con:property><con:name>ASUsername</con:name><con:value>admin</con:value></con:property><con:property><con:name>ASPassword</con:name><con:value>adminadmin</con:value></con:property><con:property><con:name>JMXHost</con:name><con:value>localhost</con:value></con:property><con:property><con:name>JMXPort</con:name><con:value>8686</con:value></con:property></con:properties>
 <con:afterLoadScript>def propertiesFilename = project.path[0..(project.path.size()-4)] + 'properties'
 def propertiesFile = new File(propertiesFilename)
 if (propertiesFile.exists()) {
