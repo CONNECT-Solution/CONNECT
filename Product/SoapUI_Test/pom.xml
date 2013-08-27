@@ -20,6 +20,10 @@
         <db.password>nhincpass</db.password>
         <db.port>3306</db.port>
         <db.user>nhincuser</db.user>
+        <as.username>admin</as.username>
+        <as.password>adminadmin</as.password>
+        <jmx.host>localhost</jmx.host>
+        <jmx.port>8686</jmx.port>
         <mysql.root.password>NHIE-Gateway</mysql.root.password>
     </properties>
     <modules>
