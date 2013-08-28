@@ -62,6 +62,8 @@ public class PatientDiscoveryDeferredResp10WebServices extends AbstractWebServic
     /** The Constant DEFAULT_OUTBOUND_PASSTHRU_IMPL_CLASS_NAME. */
     public static final String DEFAULT_OUTBOUND_PASSTHRU_IMPL_CLASS_NAME = "gov.hhs.fha.nhinc.patientdiscovery.outbound.deferred.response.PassthroughOutboundPatientDiscoveryDeferredResponse";
 
+    private String serviceName = "PatientDiscoveryDeferredResponse";
+    
     /**
      * @param sc
      */
@@ -211,4 +213,7 @@ public class PatientDiscoveryDeferredResp10WebServices extends AbstractWebServic
         return DEFAULT_OUTBOUND_PASSTHRU_IMPL_CLASS_NAME;
     }
 
+    public String getServiceName() {
+        return this.serviceName;
+    }
 }

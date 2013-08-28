@@ -44,6 +44,8 @@ public class DocumentRetrieve20WebServices extends AbstractDRWebServicesMXBean {
 
     /** The Constant DEFAULT_OUTBOUND_STANDARD_IMPL_CLASS_NAME. */
     public static final String DEFAULT_OUTBOUND_PASSTHRU_IMPL_CLASS_NAME = "gov.hhs.fha.nhinc.docretrieve._20.outbound.PassthroughOutboundDocRetrieve";
+    
+    public String serviceName = "RetrieveDocuments";
 
     /**
      * Instantiates a new document retrieve30 web services.
@@ -52,6 +54,10 @@ public class DocumentRetrieve20WebServices extends AbstractDRWebServicesMXBean {
      */
     public DocumentRetrieve20WebServices(ServletContext sc) {
         super(sc);
+    }
+    
+    public String getServiceName() {
+        return this.serviceName;
     }
 
     /*

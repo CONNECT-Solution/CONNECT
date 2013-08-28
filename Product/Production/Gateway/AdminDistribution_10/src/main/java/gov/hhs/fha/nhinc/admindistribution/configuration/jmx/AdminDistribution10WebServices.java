@@ -50,6 +50,8 @@ public class AdminDistribution10WebServices extends AbstractAdminDistributionWeb
     /** The Constant ENTITY_SECURED_AD_BEAN_NAME. */
     private static final String ENTITY_SECURED_AD_BEAN_NAME = "EntityAdministrativeDistributionSecuredBean";
 
+    private String serviceName = "AdminDistribution";
+    
     /**
      * Instantiates a new admin distribution10 web services.
      *
@@ -153,6 +155,11 @@ public class AdminDistribution10WebServices extends AbstractAdminDistributionWeb
         
         entityADSecured.setOutboundAdminDistribution(outboundAD);
         entityADUnsecured.setOutboundAdminDistribution(outboundAD);
+    }
+    
+    
+    public String getServiceName() {
+        return this.serviceName;
     }
 
 }

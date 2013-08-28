@@ -50,6 +50,7 @@ public class DocumentSubmission11WebServices extends AbstractDSWebServicesMXBean
     /** The Constant ENTITY_SECURED_DS_BEAN_NAME. */
     private static final String ENTITY_SECURED_DS_BEAN_NAME = "entityXDRSecured";
     
+    private String serviceName = "DocumentSubmission";
     /**
      * Instantiates a new document submission20 web services.
      * 
@@ -151,5 +152,9 @@ public class DocumentSubmission11WebServices extends AbstractDSWebServicesMXBean
 
         entityDSSecured.setOutboundDocSubmission(outboundDS);
         entityDSUnsecured.setOutboundDocSubmission(outboundDS);
+    }
+    
+    public String getServiceName() {
+        return this.serviceName;
     }
 }

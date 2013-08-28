@@ -50,6 +50,8 @@ public class DocumentSubmissionDefResponse11WebServices extends AbstractDSDeferr
     /** The Constant ENTITY_SECURED_DS_BEAN_NAME. */
     private static final String ENTITY_SECURED_DS_BEAN_NAME = "entityXDRDeferredResponseSecured";
 
+    private String serviceName = "DocumentSubmissionDeferredResponse";
+    
     /**
      * Instantiates a new document submission def request20 web services.
      * 
@@ -154,5 +156,9 @@ public class DocumentSubmissionDefResponse11WebServices extends AbstractDSDeferr
         
         entityDSSecured.setOutboundDocSubmissionResponse(outboundDS);
         entityDSUnsecured.setOutboundDocSubmissionResponse(outboundDS);
+    }
+    
+    public String getServiceName() {
+        return this.serviceName;
     }
 }

@@ -40,6 +40,7 @@ import javax.servlet.ServletContext;
  */
 public class PatientDiscovery10WebServices extends AbstractPDWebServicesMXBean {
 
+    private String serviceName = "PatientDiscovery";
     /**
      * Instantiates a new patient discovery10 web services.
      * 
@@ -128,6 +129,10 @@ public class PatientDiscovery10WebServices extends AbstractPDWebServicesMXBean {
         outboundPD = retrieveDependency(OutboundPatientDiscovery.class, className);
 
         entityPD.setOutboundPatientDiscovery(outboundPD);
+    }
+    
+    public String getServiceName() {
+        return this.serviceName;
     }
 
 }

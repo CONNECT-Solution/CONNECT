@@ -72,5 +72,21 @@ public interface IConfiguration {
      * @throws InstantiationException 
      */
     public void setStandardMode() throws InstantiationException, IllegalAccessException, ClassNotFoundException;
+    
+    public boolean isPassthruMode(String serviceName, String direction);
+    
+    public boolean isStandardMode(String serviceName, String direction);
+    
+    public void setStandardMode(String serviceName, String direction) throws InstantiationException, IllegalAccessException, ClassNotFoundException;
+    
+    public void setPassthruMode(String serviceName, String direction) throws InstantiationException, IllegalAccessException, ClassNotFoundException;
+    
+    public String getServiceName();
+    
+    public void setServiceName(String serviceName);
+    
+    public String getDirection();
+    
+    public void setDirection(String direction);
 
 }

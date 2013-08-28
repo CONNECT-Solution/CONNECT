@@ -41,6 +41,7 @@ import javax.servlet.ServletContext;
  */
 public class DocumentQuery30WebServices extends AbstractDQWebServicesMXBean {
 
+   private String serviceName = "QueryForDocuments";
     /**
      * Instantiates a new document query30 web services.
      * 
@@ -172,6 +173,10 @@ public class DocumentQuery30WebServices extends AbstractDQWebServicesMXBean {
     @Override
     protected String getOutboundPassthruClassName() {
         return DEFAULT_OUTBOUND_PASSTHRU_IMPL_CLASS_NAME;
+    }
+    
+    public String getServiceName() {
+        return this.serviceName;
     }
 
 }
