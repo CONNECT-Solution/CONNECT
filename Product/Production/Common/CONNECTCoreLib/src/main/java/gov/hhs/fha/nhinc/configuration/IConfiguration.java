@@ -29,64 +29,96 @@ package gov.hhs.fha.nhinc.configuration;
 // TODO: Auto-generated Javadoc
 /**
  * The Interface IConfiguration.
- *
+ * 
  * @author msw
  */
 public interface IConfiguration {
-    
+
     /**
      * Gets a property.
-     *
+     * 
      * @param propertyFileName the property file name
      * @param key the property key
      * @return the property value
      */
     public String getProperty(String propertyFileName, String key);
-    
+
     /**
      * Sets a property value.
-     *
+     * 
      * @param propertyFileName the property file name
      * @param key the property key
      * @param value the property value
      */
     public void setProperty(String propertyFileName, String key, String value);
-    
+
     /**
      * Persist configuration.
      */
     public void persistConfiguration();
-    
+
     /**
      * Sets the gateway in passthru orchestration mode.
-     * @throws ClassNotFoundException 
-     * @throws IllegalAccessException 
-     * @throws InstantiationException 
+     * 
+     * @throws ClassNotFoundException
+     * @throws IllegalAccessException
+     * @throws InstantiationException
      */
     public void setPassthruMode() throws InstantiationException, IllegalAccessException, ClassNotFoundException;
-    
+
     /**
      * Sets the gateway in standard orchestration mode.
-     * @throws ClassNotFoundException 
-     * @throws IllegalAccessException 
-     * @throws InstantiationException 
+     * 
+     * @throws ClassNotFoundException
+     * @throws IllegalAccessException
+     * @throws InstantiationException
      */
     public void setStandardMode() throws InstantiationException, IllegalAccessException, ClassNotFoundException;
-    
-    public boolean isPassthruMode(String serviceName, String direction);
-    
-    public boolean isStandardMode(String serviceName, String direction);
-    
-    public void setStandardMode(String serviceName, String direction) throws InstantiationException, IllegalAccessException, ClassNotFoundException;
-    
-    public void setPassthruMode(String serviceName, String direction) throws InstantiationException, IllegalAccessException, ClassNotFoundException;
-    
+
+    /*
+     * Sets the gateway in Standard Mode for Specific Service in Specific Direction which is required for Testing
+     * Purposes
+     * 
+     * @throws ClassNotFoundException
+     * 
+     * @throws IllegalAccessException
+     * 
+     * @throws InstantiationException
+     */
+    public void setStandardMode(String serviceName, String direction) throws InstantiationException,
+            IllegalAccessException, ClassNotFoundException;
+
+    /*
+     * Sets the gateway in Passthru Mode for Specific Service in Specific Direction which is required for Testing
+     * Purposes
+     * 
+     * @throws ClassNotFoundException
+     * 
+     * @throws IllegalAccessException
+     * 
+     * @throws InstantiationException
+     */
+    public void setPassthruMode(String serviceName, String direction) throws InstantiationException,
+            IllegalAccessException, ClassNotFoundException;
+
+    /*
+     * Get the Service Name
+     */
     public String getServiceName();
-    
+
+    /*
+     * Set the input Parameter
+     */
     public void setServiceName(String serviceName);
-    
+
+    /*
+     * Get the Direction
+     */
+    /*
+     * Set the Direction Parameter
+     */
     public String getDirection();
-    
+
     public void setDirection(String direction);
 
 }
