@@ -26,32 +26,35 @@
  */
 package gov.hhs.fha.nhinc.configuration.jmx;
 
+import gov.hhs.fha.nhinc.configuration.IConfiguration.directionEnum;
+import gov.hhs.fha.nhinc.configuration.IConfiguration.serviceEnum;
+
 import java.util.HashSet;
 import java.util.Set;
 
 /**
  * The Singleton Class PassthruMXBeanRegistry.
- *
+ * 
  * @author msw
  */
 public class PassthruMXBeanRegistry {
-    
+
     /** The instance. */
     private static PassthruMXBeanRegistry instance;
-    
+
     /**
      * Package level constructor instantiates a new passthru mx bean registry.
      */
     PassthruMXBeanRegistry() {
         registeredBeans = new HashSet<WebServicesMXBean>();
     }
-    
+
     /** The registered beans. */
     Set<WebServicesMXBean> registeredBeans = null;
-    
+
     /**
      * Gets the single instance of PassthruMXBeanRegistry.
-     *
+     * 
      * @return single instance of PassthruMXBeanRegistry
      */
     public static PassthruMXBeanRegistry getInstance() {
@@ -63,16 +66,16 @@ public class PassthruMXBeanRegistry {
 
     /**
      * Register web service mx bean.
-     *
+     * 
      * @param bean the bean
      */
     public void registerWebServiceMXBean(WebServicesMXBean bean) {
         registeredBeans.add(bean);
     }
-    
+
     /**
      * Sets the passthru mode.
-     *
+     * 
      * @throws InstantiationException the instantiation exception
      * @throws IllegalAccessException the illegal access exception
      * @throws ClassNotFoundException the class not found exception
@@ -83,10 +86,10 @@ public class PassthruMXBeanRegistry {
             b.configureOutboundPassthru();
         }
     }
-    
+
     /**
      * Sets the standard mode.
-     *
+     * 
      * @throws InstantiationException the instantiation exception
      * @throws IllegalAccessException the illegal access exception
      * @throws ClassNotFoundException the class not found exception
@@ -95,6 +98,42 @@ public class PassthruMXBeanRegistry {
         for (WebServicesMXBean b : registeredBeans) {
             b.configureInboundStd();
             b.configureOutboundStd();
+        }
+    }
+
+    /**
+     * @param serviceName
+     * @param direction
+     */
+    public void setPassthruMode(serviceEnum serviceName, directionEnum direction) throws InstantiationException,
+            IllegalAccessException, ClassNotFoundException {
+        for (WebServicesMXBean b : registeredBeans) {
+            if (direction.toString().equals("Inbound") && b.getServiceName().equals(serviceName)) {
+                b.configureInboundPassthru();
+            }
+            if (direction.toString().equals("Outbound") && b.getServiceName().equals(serviceName)) {
+                b.configureOutboundPassthru();
+            }
+        }
+    }
+
+    /**
+     * @param serviceName
+     * @param direction
+     * @throws ClassNotFoundException
+     * @throws IllegalAccessException
+     * @throws InstantiationException
+     */
+    public void setStandardMode(serviceEnum serviceName, directionEnum direction) throws InstantiationException,
+            IllegalAccessException, ClassNotFoundException {
+
+        for (WebServicesMXBean b : registeredBeans) {
+            if (direction.toString().equals("Inbound") && b.getServiceName().equals(serviceName)) {
+                b.configureInboundStd();
+            }
+            if (direction.toString().equals("Outbound") && b.getServiceName().equals(serviceName)) {
+                b.configureOutboundStd();
+            }
         }
     }
 }
