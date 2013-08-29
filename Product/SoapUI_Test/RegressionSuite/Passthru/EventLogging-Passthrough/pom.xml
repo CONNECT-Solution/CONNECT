@@ -72,6 +72,10 @@
                             <value>DBPass=${db.password}</value>
                             <value>DBPort=${db.port}</value>
                             <value>DBUser=${db.user}</value>
+                            <value>ASUsername=${as.username}</value>
+                            <value>ASPassword=${as.password}</value>
+                            <value>JMXHost=${jmx.host}</value>
+                            <value>JMXPort=${jmx.port}</value>                            
                         </projectProperties>
                     </configuration>
                 <executions>

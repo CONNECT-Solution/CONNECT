@@ -623,38 +623,38 @@
 			</con:request>
 		</con:config>
 	</con:testStep><con:testStep type="groovy" name="Verify Event Logs"><con:settings/><con:config><script>context.withSql('eventdb') {sql ->
-	assert 12 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable'))[0]
+	assert 8 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable'))[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_INBOUND_MESSAGE"')[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_INBOUND_MESSAGE"')[0]
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_INBOUND_PROCESSING"')[0]
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_INBOUND_PROCESSING"')[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_DELEGATION_TO_ADAPTER"')[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_DELEGATION_TO_ADAPTER"')[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_OUTBOUND_MESSAGE"')[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_OUTBOUND_MESSAGE"')[0]
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_OUTBOUND_PROCESSING"')[0]
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_OUTBOUND_PROCESSING"')[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_INVOCATION_TO_NWHIN"')[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_INVOCATION_TO_NWHIN"')[0]
 }</script></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
-nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot)+'/../', context.findProperty('GatewayPropDir'), log);</con:setupScript>
-<con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);</con:tearDownScript>
+nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot)+'/../', context.findProperty('GatewayPropDir'), log);
+def config = context.getConfiguration();
+config.setPassthruMode();</con:setupScript>
+<con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);
+def config = context.getConfiguration();
+config.setStandardMode();</con:tearDownScript>
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2013-03-20T21:22:40Z</con:value>
+		<con:value>2013-08-28T19:49:57Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2013-03-20T21:32:40Z</con:value>
+		<con:value>2013-08-28T19:59:57Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>03/20/2013 21:22:40</con:value>
+		<con:value>08/28/2013 19:49:57</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2013-04-19T00:00:00Z</con:value>
+		<con:value>2013-09-27T00:00:00Z</con:value>
 	</con:property>
 </con:properties>
 <con:reportParameters/>
@@ -1019,38 +1019,38 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
 </con:config>
 </con:testStep>
 <con:testStep type="groovy" name="Verify Event Logs"><con:settings/><con:config><script>context.withSql('eventdb') {sql ->
-	assert 12 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable'))[0]
+	assert 8 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable'))[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_INBOUND_MESSAGE"')[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_INBOUND_MESSAGE"')[0]
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_INBOUND_PROCESSING"')[0]
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_INBOUND_PROCESSING"')[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_DELEGATION_TO_ADAPTER"')[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_DELEGATION_TO_ADAPTER"')[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_OUTBOUND_MESSAGE"')[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_OUTBOUND_MESSAGE"')[0]
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_OUTBOUND_PROCESSING"')[0]
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_OUTBOUND_PROCESSING"')[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_INVOCATION_TO_NWHIN"')[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_INVOCATION_TO_NWHIN"')[0]
 }</script></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
-nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot)+'/../', context.findProperty('GatewayPropDir'), log);</con:setupScript>
-<con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);</con:tearDownScript>
+nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot)+'/../', context.findProperty('GatewayPropDir'), log);
+def config = context.getConfiguration();
+config.setPassthruMode();</con:setupScript>
+<con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);
+def config = context.getConfiguration();
+config.setStandardMode();</con:tearDownScript>
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2013-03-20T21:22:41Z</con:value>
+		<con:value>2013-08-28T19:49:59Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2013-03-20T21:32:41Z</con:value>
+		<con:value>2013-08-28T19:59:59Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>03/20/2013 21:22:41</con:value>
+		<con:value>08/28/2013 19:49:59</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2013-04-19T00:00:00Z</con:value>
+		<con:value>2013-09-27T00:00:00Z</con:value>
 	</con:property>
 </con:properties>
 </con:testCase>
@@ -1535,38 +1535,38 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
 </con:config>
 </con:testStep>
 <con:testStep type="groovy" name="Verify Event Logs"><con:settings/><con:config><script>context.withSql('eventdb') {sql ->
-	assert 12 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable'))[0]
+	assert 8 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable'))[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_INBOUND_MESSAGE"')[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_INBOUND_MESSAGE"')[0]
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_INBOUND_PROCESSING"')[0]
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_INBOUND_PROCESSING"')[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_DELEGATION_TO_ADAPTER"')[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_DELEGATION_TO_ADAPTER"')[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_OUTBOUND_MESSAGE"')[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_OUTBOUND_MESSAGE"')[0]
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_OUTBOUND_PROCESSING"')[0]
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_OUTBOUND_PROCESSING"')[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_INVOCATION_TO_NWHIN"')[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_INVOCATION_TO_NWHIN"')[0]
 }</script></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
-nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot)+'/../', context.findProperty('GatewayPropDir'), log);</con:setupScript>
-<con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);</con:tearDownScript>
+nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot)+'/../', context.findProperty('GatewayPropDir'), log);
+def config = context.getConfiguration();
+config.setPassthruMode();</con:setupScript>
+<con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);
+def config = context.getConfiguration();
+config.setStandardMode();</con:tearDownScript>
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2013-03-20T21:22:42Z</con:value>
+		<con:value>2013-08-28T19:50:01Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2013-03-20T21:32:42Z</con:value>
+		<con:value>2013-08-28T20:00:01Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>03/20/2013 21:22:42</con:value>
+		<con:value>08/28/2013 19:50:01</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2013-04-19T00:00:00Z</con:value>
+		<con:value>2013-09-27T00:00:00Z</con:value>
 	</con:property>
 </con:properties>
 <con:reportParameters/>
@@ -1889,22 +1889,22 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
 </con:config>
 </con:testStep>
 <con:testStep type="groovy" name="Verify Event Logs"><con:settings/><con:config><script>context.withSql('eventdb') {sql ->
-	assert 12 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable'))[0]
+	assert 8 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable'))[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_INBOUND_MESSAGE"')[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_INBOUND_MESSAGE"')[0]
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_INBOUND_PROCESSING"')[0]
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_INBOUND_PROCESSING"')[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_DELEGATION_TO_ADAPTER"')[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_DELEGATION_TO_ADAPTER"')[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_OUTBOUND_MESSAGE"')[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_OUTBOUND_MESSAGE"')[0]
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_OUTBOUND_PROCESSING"')[0]
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_OUTBOUND_PROCESSING"')[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_INVOCATION_TO_NWHIN"')[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_INVOCATION_TO_NWHIN"')[0]
 }</script></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
-nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot)+'/../', context.findProperty('GatewayPropDir'), log);</con:setupScript>
-<con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);</con:tearDownScript>
+nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot)+'/../', context.findProperty('GatewayPropDir'), log);
+def config = context.getConfiguration();
+config.setPassthruMode();</con:setupScript>
+<con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);def config = context.getConfiguration();
+def config = context.getConfiguration();
+config.setStandardMode();</con:tearDownScript>
 <con:properties>
 	<con:property>
 		<con:name>LocalHCID</con:name>
@@ -2168,19 +2168,19 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
 	</con:property>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2013-03-20T21:22:43Z</con:value>
+		<con:value>2013-08-28T19:50:03Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2013-03-20T21:32:43Z</con:value>
+		<con:value>2013-08-28T20:00:03Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>03/20/2013 21:22:43</con:value>
+		<con:value>08/28/2013 19:50:03</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2013-04-19T00:00:00Z</con:value>
+		<con:value>2013-09-27T00:00:00Z</con:value>
 	</con:property>
 </con:properties>
 <con:reportParameters/>
@@ -2531,22 +2531,22 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
 </con:config>
 </con:testStep>
 <con:testStep type="groovy" name="Verify Event Logs"><con:settings/><con:config><script>context.withSql('eventdb') {sql ->
-	assert 12 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable'))[0]
+	assert 8 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable'))[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_INBOUND_MESSAGE"')[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_INBOUND_MESSAGE"')[0]
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_INBOUND_PROCESSING"')[0]
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_INBOUND_PROCESSING"')[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_DELEGATION_TO_ADAPTER"')[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_DELEGATION_TO_ADAPTER"')[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_OUTBOUND_MESSAGE"')[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_OUTBOUND_MESSAGE"')[0]
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_OUTBOUND_PROCESSING"')[0]
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_OUTBOUND_PROCESSING"')[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_INVOCATION_TO_NWHIN"')[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_INVOCATION_TO_NWHIN"')[0]
 }</script></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
-nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot)+'/../', context.findProperty('GatewayPropDir'), log);</con:setupScript>
-<con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);</con:tearDownScript>
+nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot)+'/../', context.findProperty('GatewayPropDir'), log);
+def config = context.getConfiguration();
+config.setPassthruMode();</con:setupScript>
+<con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);
+def config = context.getConfiguration();
+config.setStandardMode();</con:tearDownScript>
 <con:properties>
 	<con:property>
 		<con:name>LocalHCID</con:name>
@@ -2814,19 +2814,19 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
 	</con:property>
 <con:property>
 	<con:name>startDate</con:name>
-	<con:value>2013-03-20T21:22:45Z</con:value>
+	<con:value>2013-08-28T19:50:04Z</con:value>
 </con:property>
 <con:property>
 	<con:name>endDate</con:name>
-	<con:value>2013-03-20T21:32:45Z</con:value>
+	<con:value>2013-08-28T20:00:04Z</con:value>
 </con:property>
 <con:property>
 	<con:name>sigDate</con:name>
-	<con:value>03/20/2013 21:22:45</con:value>
+	<con:value>08/28/2013 19:50:04</con:value>
 </con:property>
 <con:property>
 	<con:name>expireDate</con:name>
-	<con:value>2013-04-19T00:00:00Z</con:value>
+	<con:value>2013-09-27T00:00:00Z</con:value>
 </con:property>
 </con:properties>
 <con:reportParameters/>
@@ -3264,46 +3264,46 @@ nhinc.FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", dir, "1.1
 <con:testStep type="groovy" name="Verify Event Logs">
 	<con:settings/>
 	<con:config><script>context.withSql('eventdb') {sql ->
-	assert 12 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable'))[0]
+	assert 8 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable'))[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_INBOUND_MESSAGE"')[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_INBOUND_MESSAGE"')[0]
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_INBOUND_PROCESSING"')[0]
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_INBOUND_PROCESSING"')[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_DELEGATION_TO_ADAPTER"')[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_DELEGATION_TO_ADAPTER"')[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_OUTBOUND_MESSAGE"')[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_OUTBOUND_MESSAGE"')[0]
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_OUTBOUND_PROCESSING"')[0]
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_OUTBOUND_PROCESSING"')[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_INVOCATION_TO_NWHIN"')[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_INVOCATION_TO_NWHIN"')[0]
 }</script></con:config>
 </con:testStep>
 <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
-nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot)+'/../', context.findProperty('GatewayPropDir'), log);</con:setupScript>
+nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot)+'/../', context.findProperty('GatewayPropDir'), log);
+def config = context.getConfiguration();
+config.setPassthruMode();</con:setupScript>
 <con:tearDownScript>def dir = context.findProperty('GatewayPropDir');
 def alias = 'adapterpatientdiscovery';
 def aliasName= 'adapterpatientdiscoverywsunsecured';
 def replaceAlias = 'adapterpatientdiscoverywssecured';
 
 nhinc.FileUtils.updateSpringConfig(dir, "PatientDiscoveryProxyConfig.xml", alias, aliasName, replaceAlias, log);
-nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);</con:tearDownScript>
+nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);
+def config = context.getConfiguration();
+config.setStandardMode();</con:tearDownScript>
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2013-03-20T21:22:47Z</con:value>
+		<con:value>2013-08-28T19:50:06Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2013-03-20T21:32:47Z</con:value>
+		<con:value>2013-08-28T20:00:06Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>03/20/2013 21:22:47</con:value>
+		<con:value>08/28/2013 19:50:06</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2013-04-19T00:00:00Z</con:value>
+		<con:value>2013-09-27T00:00:00Z</con:value>
 	</con:property>
 </con:properties>
 <con:reportParameters/>
@@ -3639,38 +3639,38 @@ nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log
 </con:testStep>
 
 <con:testStep type="groovy" name="Verify Event Logs"><con:settings/><con:config><script>context.withSql('eventdb') {sql ->
-	assert 12 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable'))[0]
+	assert 8 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable'))[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_INBOUND_MESSAGE"')[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_INBOUND_MESSAGE"')[0]
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_INBOUND_PROCESSING"')[0]
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_INBOUND_PROCESSING"')[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_DELEGATION_TO_ADAPTER"')[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_DELEGATION_TO_ADAPTER"')[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_OUTBOUND_MESSAGE"')[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_OUTBOUND_MESSAGE"')[0]
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_OUTBOUND_PROCESSING"')[0]
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_OUTBOUND_PROCESSING"')[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_INVOCATION_TO_NWHIN"')[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_INVOCATION_TO_NWHIN"')[0]
 }</script></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
-nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot)+'/../', context.findProperty('GatewayPropDir'), log);</con:setupScript>
-<con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);</con:tearDownScript>
+nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot)+'/../', context.findProperty('GatewayPropDir'), log);
+def config = context.getConfiguration();
+config.setPassthruMode();</con:setupScript>
+<con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);
+def config = context.getConfiguration();
+config.setPassthruMode();</con:tearDownScript>
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2013-03-20T21:22:49Z</con:value>
+		<con:value>2013-08-28T19:50:08Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2013-03-20T21:32:49Z</con:value>
+		<con:value>2013-08-28T20:00:08Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>03/20/2013 21:22:49</con:value>
+		<con:value>08/28/2013 19:50:08</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2013-04-19T00:00:00Z</con:value>
+		<con:value>2013-09-27T00:00:00Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>FullPatientID</con:name>
@@ -3972,17 +3972,13 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
 </con:config>
 </con:testStep>
 <con:testStep type="groovy" name="Verify Event Logs"><con:settings/><con:config><script>context.withSql('eventdb') {sql ->
-	assert 12 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable'))[0]
+	assert 8 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable'))[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_INBOUND_MESSAGE"')[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_INBOUND_MESSAGE"')[0]
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_INBOUND_PROCESSING"')[0]
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_INBOUND_PROCESSING"')[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_DELEGATION_TO_ADAPTER"')[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_DELEGATION_TO_ADAPTER"')[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_OUTBOUND_MESSAGE"')[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_OUTBOUND_MESSAGE"')[0]
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_OUTBOUND_PROCESSING"')[0]
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_OUTBOUND_PROCESSING"')[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_INVOCATION_TO_NWHIN"')[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_INVOCATION_TO_NWHIN"')[0]
 }</script></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
@@ -3995,19 +3991,19 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
 	</con:property>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2013-03-20T21:22:50Z</con:value>
+		<con:value>2013-08-28T19:50:10Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2013-03-20T21:32:50Z</con:value>
+		<con:value>2013-08-28T20:00:10Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>03/20/2013 21:22:50</con:value>
+		<con:value>08/28/2013 19:50:10</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2013-04-19T00:00:00Z</con:value>
+		<con:value>2013-09-27T00:00:00Z</con:value>
 	</con:property>
 </con:properties>
 <con:reportParameters/>
@@ -5893,7 +5889,7 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
       </urn:RespondingGateway_SendAlertMessage>
    </soap:Body>
 </soap:Envelope>]]></con:request>
-		<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+		<con:assertion type="Valid HTTP Status Codes" name="Valid HTTP Status Codes"><con:configuration><codes>202</codes></con:configuration></con:assertion><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
 		<con:jmsPropertyConfig/>
 		<con:wsaConfig mustUnderstand="NONE" version="200508"/>
 		<con:wsrmConfig version="1.2"/>
@@ -5902,41 +5898,41 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
 </con:testStep>
 <con:testStep name="Delay" type="delay">
 	<con:settings/>
-	<con:config><delay>1000</delay></con:config>
+	<con:config><delay>3000</delay></con:config>
 </con:testStep>
 <con:testStep type="groovy" name="Verify Event Logs"><con:settings/><con:config><script>context.withSql('eventdb') {sql ->
-	assert 12 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable'))[0]
+	assert 8 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable'))[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_INBOUND_MESSAGE"')[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_INBOUND_MESSAGE"')[0]
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_INBOUND_PROCESSING"')[0]
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_INBOUND_PROCESSING"')[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_DELEGATION_TO_ADAPTER"')[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_DELEGATION_TO_ADAPTER"')[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_OUTBOUND_MESSAGE"')[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_OUTBOUND_MESSAGE"')[0]
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_OUTBOUND_PROCESSING"')[0]
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_OUTBOUND_PROCESSING"')[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_INVOCATION_TO_NWHIN"')[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_INVOCATION_TO_NWHIN"')[0]
 }</script></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
-nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot)+'/../', context.findProperty('GatewayPropDir'), log);</con:setupScript>
-<con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);</con:tearDownScript>
+nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot)+'/../', context.findProperty('GatewayPropDir'), log);
+def config = context.getConfiguration();
+config.setPassthruMode();</con:setupScript>
+<con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);
+def config = context.getConfiguration();
+config.setStandardMode();</con:tearDownScript>
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2013-03-20T21:22:51Z</con:value>
+		<con:value>2013-08-28T19:50:11Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2013-03-20T21:32:51Z</con:value>
+		<con:value>2013-08-28T20:00:11Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>03/20/2013 21:22:51</con:value>
+		<con:value>08/28/2013 19:50:11</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2013-04-19T00:00:00Z</con:value>
+		<con:value>2013-09-27T00:00:00Z</con:value>
 	</con:property>
 </con:properties>
 </con:testCase>
@@ -6480,38 +6476,38 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
 	</con:config>
 </con:testStep>
 <con:testStep type="groovy" name="Verify Event Logs"><con:settings/><con:config><script>context.withSql('eventdb') {sql ->
-	assert 12 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable'))[0]
+	assert 8 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable'))[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_INBOUND_MESSAGE"')[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_INBOUND_MESSAGE"')[0]
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_INBOUND_PROCESSING"')[0]
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_INBOUND_PROCESSING"')[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_DELEGATION_TO_ADAPTER"')[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_DELEGATION_TO_ADAPTER"')[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_OUTBOUND_MESSAGE"')[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_OUTBOUND_MESSAGE"')[0]
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_OUTBOUND_PROCESSING"')[0]
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_OUTBOUND_PROCESSING"')[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_INVOCATION_TO_NWHIN"')[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_INVOCATION_TO_NWHIN"')[0]
 }</script></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
-nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot)+'/../', context.findProperty('GatewayPropDir'), log);</con:setupScript>
-<con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);</con:tearDownScript>
+nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot)+'/../', context.findProperty('GatewayPropDir'), log);
+def config = context.getConfiguration();
+config.setPassthruMode();</con:setupScript>
+<con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);
+def config = context.getConfiguration();
+config.setStandardMode();</con:tearDownScript>
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2013-03-20T21:34:11Z</con:value>
+		<con:value>2013-08-28T19:50:15Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2013-03-20T21:44:11Z</con:value>
+		<con:value>2013-08-28T20:00:15Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>03/20/2013 21:34:11</con:value>
+		<con:value>08/28/2013 19:50:15</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2013-04-19T00:00:00Z</con:value>
+		<con:value>2013-09-27T00:00:00Z</con:value>
 	</con:property>
 </con:properties>
 <con:reportParameters/>
@@ -6862,38 +6858,38 @@ nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.pr
 </con:config>
 </con:testStep>
 <con:testStep type="groovy" name="Verify Event Logs"><con:settings/><con:config><script>context.withSql('eventdb') {sql ->
-	assert 12 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable'))[0]
+	assert 8 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable'))[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_INBOUND_MESSAGE"')[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_INBOUND_MESSAGE"')[0]
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_INBOUND_PROCESSING"')[0]
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_INBOUND_PROCESSING"')[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_DELEGATION_TO_ADAPTER"')[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_DELEGATION_TO_ADAPTER"')[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_OUTBOUND_MESSAGE"')[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_OUTBOUND_MESSAGE"')[0]
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_OUTBOUND_PROCESSING"')[0]
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_OUTBOUND_PROCESSING"')[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_INVOCATION_TO_NWHIN"')[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_INVOCATION_TO_NWHIN"')[0]
 }</script></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
-nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot)+'/../', context.findProperty('GatewayPropDir'), log);</con:setupScript>
-<con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);</con:tearDownScript>
+nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot)+'/../', context.findProperty('GatewayPropDir'), log);
+def config = context.getConfiguration();
+config.setPassthruMode();</con:setupScript>
+<con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);
+def config = context.getConfiguration();
+config.setStandardMode();</con:tearDownScript>
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2013-03-20T21:34:13Z</con:value>
+		<con:value>2013-08-28T19:50:17Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2013-03-20T21:44:13Z</con:value>
+		<con:value>2013-08-28T20:00:17Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>03/20/2013 21:34:13</con:value>
+		<con:value>08/28/2013 19:50:17</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2013-04-19T00:00:00Z</con:value>
+		<con:value>2013-09-27T00:00:00Z</con:value>
 	</con:property>
 </con:properties>
 </con:testCase>
@@ -7377,38 +7373,38 @@ nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.pr
 </con:config>
 </con:testStep>
 <con:testStep type="groovy" name="Verify Event Logs"><con:settings/><con:config><script>context.withSql('eventdb') {sql ->
-	assert 12 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable'))[0]
+	assert 8 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable'))[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_INBOUND_MESSAGE"')[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_INBOUND_MESSAGE"')[0]
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_INBOUND_PROCESSING"')[0]
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_INBOUND_PROCESSING"')[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_DELEGATION_TO_ADAPTER"')[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_DELEGATION_TO_ADAPTER"')[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_OUTBOUND_MESSAGE"')[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_OUTBOUND_MESSAGE"')[0]
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_OUTBOUND_PROCESSING"')[0]
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_OUTBOUND_PROCESSING"')[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_INVOCATION_TO_NWHIN"')[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_INVOCATION_TO_NWHIN"')[0]
 }</script></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
-nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot)+'/../', context.findProperty('GatewayPropDir'), log);</con:setupScript>
-<con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);</con:tearDownScript>
+nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot)+'/../', context.findProperty('GatewayPropDir'), log);
+def config = context.getConfiguration();
+config.setPassthruMode();</con:setupScript>
+<con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);
+def config = context.getConfiguration();
+config.setStandardMode();</con:tearDownScript>
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2013-03-20T21:34:14Z</con:value>
+		<con:value>2013-08-28T19:50:19Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2013-03-20T21:44:14Z</con:value>
+		<con:value>2013-08-28T20:00:19Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>03/20/2013 21:34:14</con:value>
+		<con:value>08/28/2013 19:50:19</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2013-04-19T00:00:00Z</con:value>
+		<con:value>2013-09-27T00:00:00Z</con:value>
 	</con:property>
 </con:properties>
 <con:reportParameters/>
@@ -7736,22 +7732,22 @@ nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.pr
 </con:config>
 </con:testStep>
 <con:testStep type="groovy" name="Verify Event Logs"><con:settings/><con:config><script>context.withSql('eventdb') {sql ->
-	assert 12 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable'))[0]
+	assert 8 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable'))[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_INBOUND_MESSAGE"')[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_INBOUND_MESSAGE"')[0]
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_INBOUND_PROCESSING"')[0]
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_INBOUND_PROCESSING"')[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_DELEGATION_TO_ADAPTER"')[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_DELEGATION_TO_ADAPTER"')[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_OUTBOUND_MESSAGE"')[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_OUTBOUND_MESSAGE"')[0]
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_OUTBOUND_PROCESSING"')[0]
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_OUTBOUND_PROCESSING"')[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_INVOCATION_TO_NWHIN"')[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_INVOCATION_TO_NWHIN"')[0]
 }</script></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
-nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot)+'/../', context.findProperty('GatewayPropDir'), log);</con:setupScript>
-<con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);</con:tearDownScript>
+nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot)+'/../', context.findProperty('GatewayPropDir'), log);
+def config = context.getConfiguration();
+config.setPassthruMode();</con:setupScript>
+<con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);
+def config = context.getConfiguration();
+config.setStandardMode();</con:tearDownScript>
 <con:properties>
 	<con:property>
 		<con:name>LocalHCID</con:name>
@@ -8015,19 +8011,19 @@ nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.pr
 	</con:property>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2013-03-20T21:34:15Z</con:value>
+		<con:value>2013-08-28T19:50:21Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2013-03-20T21:44:15Z</con:value>
+		<con:value>2013-08-28T20:00:21Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>03/20/2013 21:34:15</con:value>
+		<con:value>08/28/2013 19:50:21</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2013-04-19T00:00:00Z</con:value>
+		<con:value>2013-09-27T00:00:00Z</con:value>
 	</con:property>
 </con:properties>
 <con:reportParameters/>
@@ -8379,22 +8375,22 @@ nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.pr
 </con:config>
 </con:testStep>
 <con:testStep type="groovy" name="Verify Event Logs"><con:settings/><con:config><script>context.withSql('eventdb') {sql ->
-	assert 12 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable'))[0]
+	assert 8 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable'))[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_INBOUND_MESSAGE"')[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_INBOUND_MESSAGE"')[0]
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_INBOUND_PROCESSING"')[0]
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_INBOUND_PROCESSING"')[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_DELEGATION_TO_ADAPTER"')[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_DELEGATION_TO_ADAPTER"')[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_OUTBOUND_MESSAGE"')[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_OUTBOUND_MESSAGE"')[0]
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_OUTBOUND_PROCESSING"')[0]
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_OUTBOUND_PROCESSING"')[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_INVOCATION_TO_NWHIN"')[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_INVOCATION_TO_NWHIN"')[0]
 }</script></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
-nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot)+'/../', context.findProperty('GatewayPropDir'), log);</con:setupScript>
-<con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);</con:tearDownScript>
+nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot)+'/../', context.findProperty('GatewayPropDir'), log);
+def config = context.getConfiguration();
+config.setPassthruMode();</con:setupScript>
+<con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);
+def config = context.getConfiguration();
+config.setStandardMode();</con:tearDownScript>
 <con:properties>
 	<con:property>
 		<con:name>LocalHCID</con:name>
@@ -8662,17 +8658,17 @@ nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.pr
 	</con:property>
 <con:property>
 	<con:name>endDate</con:name>
-	<con:value>2013-03-20T21:44:17Z</con:value>
+	<con:value>2013-08-28T20:00:23Z</con:value>
 </con:property>
 <con:property>
 	<con:name>sigDate</con:name>
-	<con:value>03/20/2013 21:34:17</con:value>
+	<con:value>08/28/2013 19:50:23</con:value>
 </con:property>
 <con:property>
 	<con:name>expireDate</con:name>
-	<con:value>2013-04-19T00:00:00Z</con:value>
+	<con:value>2013-09-27T00:00:00Z</con:value>
 </con:property>
-<con:property><con:name>startDate</con:name><con:value>2013-03-20T21:34:17Z</con:value></con:property></con:properties>
+<con:property><con:name>startDate</con:name><con:value>2013-08-28T19:50:23Z</con:value></con:property></con:properties>
 <con:reportParameters/>
 </con:testCase>
 
@@ -9108,46 +9104,46 @@ nhinc.FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", dir, "1.1
 <con:testStep type="groovy" name="Verify Event Logs">
 	<con:settings/>
 	<con:config><script>context.withSql('eventdb') {sql ->
-	assert 12 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable'))[0]
+	assert 8 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable'))[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_INBOUND_MESSAGE"')[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_INBOUND_MESSAGE"')[0]
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_INBOUND_PROCESSING"')[0]
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_INBOUND_PROCESSING"')[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_DELEGATION_TO_ADAPTER"')[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_DELEGATION_TO_ADAPTER"')[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_OUTBOUND_MESSAGE"')[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_OUTBOUND_MESSAGE"')[0]
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_OUTBOUND_PROCESSING"')[0]
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_OUTBOUND_PROCESSING"')[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_INVOCATION_TO_NWHIN"')[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_INVOCATION_TO_NWHIN"')[0]
 }</script></con:config>
 </con:testStep>
 <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
-nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot)+'/../', context.findProperty('GatewayPropDir'), log);</con:setupScript>
+nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot)+'/../', context.findProperty('GatewayPropDir'), log);
+def config = context.getConfiguration();
+config.setPassthruMode();</con:setupScript>
 <con:tearDownScript>def dir = context.findProperty('GatewayPropDir');
 def alias = 'adapterpatientdiscovery';
 def aliasName= 'adapterpatientdiscoverywsunsecured';
 def replaceAlias = 'adapterpatientdiscoverywssecured';
 
 nhinc.FileUtils.updateSpringConfig(dir, "PatientDiscoveryProxyConfig.xml", alias, aliasName, replaceAlias, log);
-nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);</con:tearDownScript>
+nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);
+def config = context.getConfiguration();
+config.setStandardMode();</con:tearDownScript>
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2013-03-20T21:34:22Z</con:value>
+		<con:value>2013-08-28T19:50:25Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2013-03-20T21:44:22Z</con:value>
+		<con:value>2013-08-28T20:00:25Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>03/20/2013 21:34:22</con:value>
+		<con:value>08/28/2013 19:50:25</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2013-04-19T00:00:00Z</con:value>
+		<con:value>2013-09-27T00:00:00Z</con:value>
 	</con:property>
 </con:properties>
 <con:reportParameters/>
@@ -9482,38 +9478,38 @@ nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log
 </con:testStep>
 
 <con:testStep type="groovy" name="Verify Event Logs"><con:settings/><con:config><script>context.withSql('eventdb') {sql ->
-	assert 12 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable'))[0]
+	assert 8 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable'))[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_INBOUND_MESSAGE"')[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_INBOUND_MESSAGE"')[0]
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_INBOUND_PROCESSING"')[0]
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_INBOUND_PROCESSING"')[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_DELEGATION_TO_ADAPTER"')[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_DELEGATION_TO_ADAPTER"')[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_OUTBOUND_MESSAGE"')[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_OUTBOUND_MESSAGE"')[0]
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_OUTBOUND_PROCESSING"')[0]
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_OUTBOUND_PROCESSING"')[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_INVOCATION_TO_NWHIN"')[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_INVOCATION_TO_NWHIN"')[0]
 }</script></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
-nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot)+'/../', context.findProperty('GatewayPropDir'), log);</con:setupScript>
-<con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);</con:tearDownScript>
+nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot)+'/../', context.findProperty('GatewayPropDir'), log);
+def config = context.getConfiguration();
+config.setPassthruMode();</con:setupScript>
+<con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);
+def config = context.getConfiguration();
+config.setStandardMode();</con:tearDownScript>
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2013-03-20T21:34:24Z</con:value>
+		<con:value>2013-08-28T19:50:26Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2013-03-20T21:44:24Z</con:value>
+		<con:value>2013-08-28T20:00:26Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>03/20/2013 21:34:24</con:value>
+		<con:value>08/28/2013 19:50:26</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2013-04-19T00:00:00Z</con:value>
+		<con:value>2013-09-27T00:00:00Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>FullPatientID</con:name>
@@ -9815,22 +9811,22 @@ nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.pr
 </con:config>
 </con:testStep>
 <con:testStep type="groovy" name="Verify Event Logs"><con:settings/><con:config><script>context.withSql('eventdb') {sql ->
-	assert 12 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable'))[0]
+	assert 8 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable'))[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_INBOUND_MESSAGE"')[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_INBOUND_MESSAGE"')[0]
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_INBOUND_PROCESSING"')[0]
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_INBOUND_PROCESSING"')[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_DELEGATION_TO_ADAPTER"')[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_DELEGATION_TO_ADAPTER"')[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_OUTBOUND_MESSAGE"')[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_OUTBOUND_MESSAGE"')[0]
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_OUTBOUND_PROCESSING"')[0]
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_OUTBOUND_PROCESSING"')[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_INVOCATION_TO_NWHIN"')[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_INVOCATION_TO_NWHIN"')[0]
 }</script></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
-nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot)+'/../', context.findProperty('GatewayPropDir'), log);</con:setupScript>
-<con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);</con:tearDownScript>
+nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot)+'/../', context.findProperty('GatewayPropDir'), log);
+def config = context.getConfiguration();
+config.setPassthruMode();</con:setupScript>
+<con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);
+def config = context.getConfiguration();
+config.setStandardMode();</con:tearDownScript>
 <con:properties>
 	<con:property>
 		<con:name>CorrectedRemoteHCID</con:name>
@@ -9838,19 +9834,19 @@ nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.pr
 	</con:property>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2013-03-20T21:34:25Z</con:value>
+		<con:value>2013-08-28T19:50:29Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2013-03-20T21:44:25Z</con:value>
+		<con:value>2013-08-28T20:00:29Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>03/20/2013 21:34:25</con:value>
+		<con:value>08/28/2013 19:50:29</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2013-04-19T00:00:00Z</con:value>
+		<con:value>2013-09-27T00:00:00Z</con:value>
 	</con:property>
 </con:properties>
 <con:reportParameters/>
@@ -11744,42 +11740,42 @@ nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.pr
 </con:testStep>
 <con:testStep name="Delay" type="delay">
 	<con:settings/>
-	<con:config><delay>1000</delay></con:config>
+	<con:config><delay>3000</delay></con:config>
 </con:testStep>
 <con:testStep type="groovy" name="Verify Event Logs"><con:settings/><con:config><script>context.withSql('eventdb') {sql ->
-	assert 12 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable'))[0]
+	assert 8 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable'))[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_INBOUND_MESSAGE"')[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_INBOUND_MESSAGE"')[0]
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_INBOUND_PROCESSING"')[0]
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_INBOUND_PROCESSING"')[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_DELEGATION_TO_ADAPTER"')[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_DELEGATION_TO_ADAPTER"')[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_OUTBOUND_MESSAGE"')[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_OUTBOUND_MESSAGE"')[0]
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_OUTBOUND_PROCESSING"')[0]
-	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_OUTBOUND_PROCESSING"')[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_INVOCATION_TO_NWHIN"')[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_INVOCATION_TO_NWHIN"')[0]
 }</script></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
-nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot)+'/../', context.findProperty('GatewayPropDir'), log);</con:setupScript>
+nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot)+'/../', context.findProperty('GatewayPropDir'), log);
+def config = context.getConfiguration();
+config.setPassthruMode();</con:setupScript>
 <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);
+def config = context.getConfiguration();
+config.setStandardMode();
 </con:tearDownScript>
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2013-03-20T21:34:26Z</con:value>
+		<con:value>2013-08-28T19:50:31Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2013-03-20T21:44:26Z</con:value>
+		<con:value>2013-08-28T20:00:31Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>03/20/2013 21:34:26</con:value>
+		<con:value>08/28/2013 19:50:31</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2013-04-19T00:00:00Z</con:value>
+		<con:value>2013-09-27T00:00:00Z</con:value>
 	</con:property>
 </con:properties>
 <con:reportParameters/>
@@ -11837,7 +11833,7 @@ nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.pr
 <con:setupScript/>
 <con:tearDownScript/>
 <con:reportParameters/>
-</con:testSuite><con:properties><con:property><con:name>AAMappingDB</con:name><con:value>assigningauthoritydb</con:value></con:property><con:property><con:name>AAMappingTable</con:name><con:value>aa_to_home_community_mapping</con:value></con:property><con:property><con:name>AsyncMsgDB</con:name><con:value>asyncmsgs</con:value></con:property><con:property><con:name>AsyncMsgTable</con:name><con:value>asyncmsgrepo</con:value></con:property><con:property><con:name>AuditRepoDB</con:name><con:value>auditrepo</con:value></con:property><con:property><con:name>AuditRepoTable</con:name><con:value>auditrepository</con:value></con:property><con:property><con:name>BirthTime</con:name><con:value>19630804</con:value></con:property><con:property><con:name>City</con:name><con:value>Melbourne</con:value></con:property><con:property><con:name>Country</con:name><con:value>US</con:value></con:property><con:property><con:name>DBHost</con:name><con:value>localhost</con:value></con:property><con:property><con:name>DBPass</con:name><con:value>nhincpass</con:value></con:property><con:property><con:name>DBPort</con:name><con:value>3306</con:value></con:property><con:property><con:name>DBUser</con:name><con:value>nhincuser</con:value></con:property><con:property><con:name>DeferredPatientDiscoveryReqMessageID</con:name><con:value>uuid:6666666666.66666.666.66</con:value></con:property><con:property><con:name>DOB</con:name><con:value>19800516</con:value></con:property><con:property><con:name>DQDocID</con:name><con:value>1.123401.11111</con:value></con:property><con:property><con:name>DQPatientID</con:name><con:value>D123401</con:value></con:property><con:property><con:name>DRDocID</con:name><con:value>1.123407.777777</con:value></con:property><con:property><con:name>DRRepoID</con:name><con:value>1</con:value></con:property><con:property><con:name>DynamicDQDocID</con:name><con:value>103.8.9284320.020.3590.75^1266324032288</con:value></con:property><con:property><con:name>Endpoint-DocQuery</con:name><con:value>http://localhost:8080/Gateway/DocumentQuery/2_0/EntityService/EntityDocQueryUnsecured</con:value></con:property><con:property><con:name>Endpoint-DocRetrieve</con:name><con:value>http://localhost:8080/Gateway/DocumentRetrieve/2_0/EntityService/EntityDocRetrieve</con:value></con:property><con:property><con:name>Endpoint-DSDeferredResp</con:name><con:value>http://localhost:8080/Gateway/DocumentSubmission/1_1/EntityService/EntityDocSubmissionDeferredResponseUnsecured</con:value></con:property><con:property><con:name>Endpoint-EntityAdminDist</con:name><con:value>http://localhost:8080/Gateway/AdminDistribution/1_0/AdministrativeDistribution_Service</con:value></con:property><con:property><con:name>Endpoint-EntityXDRRequest</con:name><con:value>http://localhost:8080/Gateway/DocumentSubmission/1_1/EntityService/EntityDocSubmissionDeferredRequestUnsecured</con:value></con:property><con:property><con:name>Endpoint-Notify</con:name><con:value>http://localhost:8080/Gateway/HIEM/2_0/EntityNotificationConsumer</con:value></con:property><con:property><con:name>Endpoint-PatientDiscovery</con:name><con:value>http://localhost:8080/Gateway/PatientDiscovery/1_0/EntityPatientDiscovery</con:value></con:property><con:property><con:name>Endpoint-PatientDiscoveryAsyncReq</con:name><con:value>http://localhost:8080/Gateway/PatientDiscovery/1_0/EntityService/EntityPatientDiscoveryDeferredRequestUnsecured</con:value></con:property><con:property><con:name>Endpoint-PatientDiscoveryAsyncResp</con:name><con:value>http://localhost:8080/Gateway/PatientDiscovery/1_0/EntityService/EntityPatientDiscoveryDeferredResponseUnsecured</con:value></con:property><con:property><con:name>Endpoint-Subscribe</con:name><con:value>http://localhost:8080/Gateway/HIEM/2_0/EntityNotificationProducer</con:value></con:property><con:property><con:name>Endpoint-Unsubscribe</con:name><con:value>http://localhost:8080/Gateway/HIEM/2_0/EntitySubscriptionManager</con:value></con:property><con:property><con:name>Endpoint-XDREntity</con:name><con:value>http://localhost:8080/Gateway/DocumentSubmission/1_1/EntityService/EntityDocSubmissionUnsecured</con:value></con:property><con:property><con:name>EventLoggingTable</con:name><con:value>event</con:value></con:property><con:property><con:name>ExpirationDate</con:name><con:value>20100520</con:value></con:property><con:property><con:name>FamilyName</con:name><con:value>Younger</con:value></con:property><con:property><con:name>GatewayPropDir</con:name><con:value/></con:property><con:property><con:name>Gender</con:name><con:value>M</con:value></con:property><con:property><con:name>GivenName</con:name><con:value>Gallow</con:value></con:property><con:property><con:name>LocalAA</con:name><con:value>1.1</con:value></con:property><con:property><con:name>LocalHCDescription</con:name><con:value>InternalTest1</con:value></con:property><con:property><con:name>LocalHCID</con:name><con:value>1.1</con:value></con:property><con:property><con:name>LocalPatientID</con:name><con:value>D123401</con:value></con:property><con:property><con:name>NotificationEndpoint</con:name><con:value>https://localhost:8181/Gateway/HIEM/2_0/NhinService/NotificationConsumerService/HiemNotify</con:value></con:property><con:property><con:name>NotifySubscriptionID</con:name><con:value>f2064549-c802-41be-bb0d-6319c6437072</con:value></con:property><con:property><con:name>NotifySubscriptionManagerEndpointAddress</con:name><con:value>https://localhost:8181/Gateway/HIEM/2_0/NhinService/SubscriptionManagerService/HiemUnsubscribe</con:value></con:property><con:property><con:name>PatientCorrelationDB</con:name><con:value>patientcorrelationdb</con:value></con:property><con:property><con:name>PatientCorrelationTable</con:name><con:value>correlatedidentifiers</con:value></con:property><con:property><con:name>project.name</con:name><con:value>EntityValidation</con:value></con:property><con:property><con:name>PurposeOfDisclosure</con:name><con:value>Mental</con:value></con:property><con:property><con:name>RemoteAA</con:name><con:value>2.2</con:value></con:property><con:property><con:name>RemoteHCDescription</con:name><con:value>InternalTest2</con:value></con:property><con:property><con:name>RemoteHCID</con:name><con:value>2.2</con:value></con:property><con:property><con:name>RemotePatientID</con:name><con:value>D123401</con:value></con:property><con:property><con:name>SSN</con:name><con:value>123456789</con:value></con:property><con:property><con:name>State</con:name><con:value>FL</con:value></con:property><con:property><con:name>StreetAddress</con:name><con:value>123 Johnson Rd</con:value></con:property><con:property><con:name>SubjectID</con:name><con:value>1111</con:value></con:property><con:property><con:name>SubscribePatientID</con:name><con:value>D123401</con:value></con:property><con:property><con:name>SubscriptionDB</con:name><con:value>subscriptionrepository</con:value></con:property><con:property><con:name>SubscriptionEndpoint</con:name><con:value>https://localhost:8181/Gateway/HIEM/2_0/NhinService/NotificationProducerService/HiemSubscription</con:value></con:property><con:property><con:name>SubscriptionManagerEndpointAddress</con:name><con:value>https://localhost:8181/Gateway/HIEM/2_0/NhinService/SubscriptionManagerService/HiemUnsubscribe</con:value></con:property><con:property><con:name>SubscriptionTable</con:name><con:value>subscription</con:value></con:property><con:property><con:name>UniquePatientId</con:name><con:value>1111^^^&amp;amp;1.1&amp;amp;ISO</con:value></con:property><con:property><con:name>UnSubscriptionID</con:name><con:value>664f3c6e-ea88-4dae-a88e-b58661d8c253</con:value></con:property><con:property><con:name>ZipCode</con:name><con:value>12345</con:value></con:property></con:properties><con:afterLoadScript>def propertiesFilename = project.path[0..(project.path.size()-4)] + 'properties'
+</con:testSuite><con:properties><con:property><con:name>AAMappingDB</con:name><con:value>assigningauthoritydb</con:value></con:property><con:property><con:name>AAMappingTable</con:name><con:value>aa_to_home_community_mapping</con:value></con:property><con:property><con:name>AsyncMsgDB</con:name><con:value>asyncmsgs</con:value></con:property><con:property><con:name>AsyncMsgTable</con:name><con:value>asyncmsgrepo</con:value></con:property><con:property><con:name>AuditRepoDB</con:name><con:value>auditrepo</con:value></con:property><con:property><con:name>AuditRepoTable</con:name><con:value>auditrepository</con:value></con:property><con:property><con:name>BirthTime</con:name><con:value>19630804</con:value></con:property><con:property><con:name>City</con:name><con:value>Melbourne</con:value></con:property><con:property><con:name>Country</con:name><con:value>US</con:value></con:property><con:property><con:name>DBHost</con:name><con:value>localhost</con:value></con:property><con:property><con:name>DBPass</con:name><con:value>nhincpass</con:value></con:property><con:property><con:name>DBPort</con:name><con:value>3306</con:value></con:property><con:property><con:name>DBUser</con:name><con:value>nhincuser</con:value></con:property><con:property><con:name>DeferredPatientDiscoveryReqMessageID</con:name><con:value>uuid:6666666666.66666.666.66</con:value></con:property><con:property><con:name>DOB</con:name><con:value>19800516</con:value></con:property><con:property><con:name>DQDocID</con:name><con:value>1.123401.11111</con:value></con:property><con:property><con:name>DQPatientID</con:name><con:value>D123401</con:value></con:property><con:property><con:name>DRDocID</con:name><con:value>1.123407.777777</con:value></con:property><con:property><con:name>DRRepoID</con:name><con:value>1</con:value></con:property><con:property><con:name>DynamicDQDocID</con:name><con:value>103.8.9284320.020.3590.75^1266324032288</con:value></con:property><con:property><con:name>Endpoint-DocQuery</con:name><con:value>http://localhost:8080/Gateway/DocumentQuery/2_0/EntityService/EntityDocQueryUnsecured</con:value></con:property><con:property><con:name>Endpoint-DocRetrieve</con:name><con:value>http://localhost:8080/Gateway/DocumentRetrieve/2_0/EntityService/EntityDocRetrieve</con:value></con:property><con:property><con:name>Endpoint-DSDeferredResp</con:name><con:value>http://localhost:8080/Gateway/DocumentSubmission/1_1/EntityService/EntityDocSubmissionDeferredResponseUnsecured</con:value></con:property><con:property><con:name>Endpoint-EntityAdminDist</con:name><con:value>http://localhost:8080/Gateway/AdminDistribution/1_0/AdministrativeDistribution_Service</con:value></con:property><con:property><con:name>Endpoint-EntityXDRRequest</con:name><con:value>http://localhost:8080/Gateway/DocumentSubmission/1_1/EntityService/EntityDocSubmissionDeferredRequestUnsecured</con:value></con:property><con:property><con:name>Endpoint-Notify</con:name><con:value>http://localhost:8080/Gateway/HIEM/2_0/EntityNotificationConsumer</con:value></con:property><con:property><con:name>Endpoint-PatientDiscovery</con:name><con:value>http://localhost:8080/Gateway/PatientDiscovery/1_0/EntityPatientDiscovery</con:value></con:property><con:property><con:name>Endpoint-PatientDiscoveryAsyncReq</con:name><con:value>http://localhost:8080/Gateway/PatientDiscovery/1_0/EntityService/EntityPatientDiscoveryDeferredRequestUnsecured</con:value></con:property><con:property><con:name>Endpoint-PatientDiscoveryAsyncResp</con:name><con:value>http://localhost:8080/Gateway/PatientDiscovery/1_0/EntityService/EntityPatientDiscoveryDeferredResponseUnsecured</con:value></con:property><con:property><con:name>Endpoint-Subscribe</con:name><con:value>http://localhost:8080/Gateway/HIEM/2_0/EntityNotificationProducer</con:value></con:property><con:property><con:name>Endpoint-Unsubscribe</con:name><con:value>http://localhost:8080/Gateway/HIEM/2_0/EntitySubscriptionManager</con:value></con:property><con:property><con:name>Endpoint-XDREntity</con:name><con:value>http://localhost:8080/Gateway/DocumentSubmission/1_1/EntityService/EntityDocSubmissionUnsecured</con:value></con:property><con:property><con:name>EventLoggingTable</con:name><con:value>event</con:value></con:property><con:property><con:name>ExpirationDate</con:name><con:value>20100520</con:value></con:property><con:property><con:name>FamilyName</con:name><con:value>Younger</con:value></con:property><con:property><con:name>GatewayPropDir</con:name><con:value/></con:property><con:property><con:name>Gender</con:name><con:value>M</con:value></con:property><con:property><con:name>GivenName</con:name><con:value>Gallow</con:value></con:property><con:property><con:name>LocalAA</con:name><con:value>1.1</con:value></con:property><con:property><con:name>LocalHCDescription</con:name><con:value>InternalTest1</con:value></con:property><con:property><con:name>LocalHCID</con:name><con:value>1.1</con:value></con:property><con:property><con:name>LocalPatientID</con:name><con:value>D123401</con:value></con:property><con:property><con:name>NotificationEndpoint</con:name><con:value>https://localhost:8181/Gateway/HIEM/2_0/NhinService/NotificationConsumerService/HiemNotify</con:value></con:property><con:property><con:name>NotifySubscriptionID</con:name><con:value>f2064549-c802-41be-bb0d-6319c6437072</con:value></con:property><con:property><con:name>NotifySubscriptionManagerEndpointAddress</con:name><con:value>https://localhost:8181/Gateway/HIEM/2_0/NhinService/SubscriptionManagerService/HiemUnsubscribe</con:value></con:property><con:property><con:name>PatientCorrelationDB</con:name><con:value>patientcorrelationdb</con:value></con:property><con:property><con:name>PatientCorrelationTable</con:name><con:value>correlatedidentifiers</con:value></con:property><con:property><con:name>project.name</con:name><con:value>EntityValidation</con:value></con:property><con:property><con:name>PurposeOfDisclosure</con:name><con:value>Mental</con:value></con:property><con:property><con:name>RemoteAA</con:name><con:value>2.2</con:value></con:property><con:property><con:name>RemoteHCDescription</con:name><con:value>InternalTest2</con:value></con:property><con:property><con:name>RemoteHCID</con:name><con:value>2.2</con:value></con:property><con:property><con:name>RemotePatientID</con:name><con:value>D123401</con:value></con:property><con:property><con:name>SSN</con:name><con:value>123456789</con:value></con:property><con:property><con:name>State</con:name><con:value>FL</con:value></con:property><con:property><con:name>StreetAddress</con:name><con:value>123 Johnson Rd</con:value></con:property><con:property><con:name>SubjectID</con:name><con:value>1111</con:value></con:property><con:property><con:name>SubscribePatientID</con:name><con:value>D123401</con:value></con:property><con:property><con:name>SubscriptionDB</con:name><con:value>subscriptionrepository</con:value></con:property><con:property><con:name>SubscriptionEndpoint</con:name><con:value>https://localhost:8181/Gateway/HIEM/2_0/NhinService/NotificationProducerService/HiemSubscription</con:value></con:property><con:property><con:name>SubscriptionManagerEndpointAddress</con:name><con:value>https://localhost:8181/Gateway/HIEM/2_0/NhinService/SubscriptionManagerService/HiemUnsubscribe</con:value></con:property><con:property><con:name>SubscriptionTable</con:name><con:value>subscription</con:value></con:property><con:property><con:name>UniquePatientId</con:name><con:value>1111^^^&amp;amp;1.1&amp;amp;ISO</con:value></con:property><con:property><con:name>UnSubscriptionID</con:name><con:value>664f3c6e-ea88-4dae-a88e-b58661d8c253</con:value></con:property><con:property><con:name>ZipCode</con:name><con:value>12345</con:value></con:property><con:property><con:name>ASUsername</con:name><con:value>admin</con:value></con:property><con:property><con:name>ASPassword</con:name><con:value>adminadmin</con:value></con:property><con:property><con:name>JMXHost</con:name><con:value>localhost</con:value></con:property><con:property><con:name>JMXPort</con:name><con:value>8686</con:value></con:property></con:properties><con:afterLoadScript>def propertiesFilename = project.path[0..(project.path.size()-4)] + 'properties'
 def propertiesFile = new File(propertiesFilename)
 if (propertiesFile.exists()) {
 	def props = new Properties()
@@ -11895,4 +11891,24 @@ block(sql)
 } finally {
 sql.close()
 }
+}
+
+import javax.management.remote.JMXConnectorFactory as JmxFactory
+import javax.management.remote.JMXServiceURL as JmxUrl
+import javax.management.remote.*;
+
+com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext.metaClass.getConfiguration = { ->
+  def username = delegate.findProperty("ASUsername");
+  def password = delegate.findProperty("ASPassword");
+  def jmxHost = delegate.findProperty("JMXHost");
+  def jmxPort = delegate.findProperty("JMXPort");
+
+  // use jmx to set passthru mode
+  def env = [
+    (JMXConnector.CREDENTIALS): (String[])[username, password]
+  ]
+  def serverUrl = 'service:jmx:rmi://' + jmxHost + ':' + jmxPort + '/jndi/rmi://' + jmxHost + ':' + jmxPort + '/jmxrmi';
+  def server = JmxFactory.connect(new JmxUrl(serverUrl), env).MBeanServerConnection
+  def config = new GroovyMBean(server, 'org.connectopensource.mbeans:type=Configuration');
+  return config;
 }</con:afterLoadScript><con:wssContainer/><con:sensitiveInformation/></con:soapui-project>
