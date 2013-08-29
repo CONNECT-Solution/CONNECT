@@ -108,9 +108,12 @@ public class PassthruMXBeanRegistry {
     public void setPassthruMode(serviceEnum serviceName, directionEnum direction) throws InstantiationException,
             IllegalAccessException, ClassNotFoundException {
         for (WebServicesMXBean b : registeredBeans) {
+            if (direction.toString().equals("Inbound") && b.getServiceName().equals(serviceName)) {
                 b.configureInboundPassthru();
+            }
+            if (direction.toString().equals("Outbound") && b.getServiceName().equals(serviceName)) {
                 b.configureOutboundPassthru();
-
+            }
         }
     }
 
@@ -125,8 +128,12 @@ public class PassthruMXBeanRegistry {
             IllegalAccessException, ClassNotFoundException {
 
         for (WebServicesMXBean b : registeredBeans) {
+            if (direction.toString().equals("Inbound") && b.getServiceName().equals(serviceName)) {
                 b.configureInboundStd();
+            }
+            if (direction.toString().equals("Outbound") && b.getServiceName().equals(serviceName)) {
                 b.configureOutboundStd();
-    }
+            }
+        }
     }
 }

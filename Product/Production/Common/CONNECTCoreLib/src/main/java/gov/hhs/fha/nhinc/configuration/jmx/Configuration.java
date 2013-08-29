@@ -36,17 +36,13 @@ import org.apache.log4j.Logger;
  * 
  * @author msw
  */
-public class Configuration implements ConfigurationMBean {
+public class Configuration implements ConfigurationMXBean {
 
     /** The Constant LOG. */
     private static final Logger LOG = Logger.getLogger(Configuration.class);
 
     /** The Constant ERROR_ACCESSING_PROPERTY_FILE. */
     private static final String ERROR_ACCESSING_PROPERTY_FILE = "Error accessing property file: ";
-    
-    private directionEnum direction;
-    
-    private serviceEnum serviceName;
 
     /**
      * Instantiates a new configuration.
@@ -54,7 +50,6 @@ public class Configuration implements ConfigurationMBean {
     public Configuration() {
 
     }
-
 
     /*
      * (non-Javadoc)
@@ -140,9 +135,8 @@ public class Configuration implements ConfigurationMBean {
     @Override
     public void setPassthruMode(serviceEnum serviceName, directionEnum direction) throws InstantiationException,
             IllegalAccessException, ClassNotFoundException {
-        
-            PassthruMXBeanRegistry registry = PassthruMXBeanRegistry.getInstance();
-            registry.setPassthruMode(serviceName, direction);
+        PassthruMXBeanRegistry registry = PassthruMXBeanRegistry.getInstance();
+        registry.setPassthruMode(serviceName, direction);
 
     }
 
@@ -154,47 +148,8 @@ public class Configuration implements ConfigurationMBean {
     @Override
     public void setStandardMode(serviceEnum serviceName, directionEnum direction) throws InstantiationException,
             IllegalAccessException, ClassNotFoundException {
-            PassthruMXBeanRegistry registry = PassthruMXBeanRegistry.getInstance();
-            registry.setStandardMode(serviceName, direction);
-
-    }
-
-
-    /* (non-Javadoc)
-     * @see gov.hhs.fha.nhinc.configuration.IConfiguration#getDirection()
-     */
-    @Override
-    public directionEnum getDirection() {
-        return this.direction;
-    }
-
-
-    /* (non-Javadoc)
-     * @see gov.hhs.fha.nhinc.configuration.IConfiguration#setDirection(gov.hhs.fha.nhinc.configuration.IConfiguration.directionEnum)
-     */
-    @Override
-    public void setDirection(directionEnum direction) {
-        this.direction = direction; 
-        
-    }
-
-
-    /* (non-Javadoc)
-     * @see gov.hhs.fha.nhinc.configuration.IConfiguration#getServiceName()
-     */
-    @Override
-    public serviceEnum getServiceName() {
-        return this.serviceName;
-    }
-
-
-    /* (non-Javadoc)
-     * @see gov.hhs.fha.nhinc.configuration.IConfiguration#setServiceName(gov.hhs.fha.nhinc.configuration.IConfiguration.serviceEnum)
-     */
-    @Override
-    public void setServiceName(serviceEnum serviceName) {
-        this.serviceName = serviceName;
-        
+        PassthruMXBeanRegistry registry = PassthruMXBeanRegistry.getInstance();
+        registry.setStandardMode(serviceName, direction);
     }
 
 }

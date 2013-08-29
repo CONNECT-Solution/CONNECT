@@ -26,6 +26,8 @@
  */
 package gov.hhs.fha.nhinc.configuration;
 
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants.NHIN_SERVICE_NAMES;
+
 // TODO: Auto-generated Javadoc
 /**
  * The Interface IConfiguration.
@@ -74,25 +76,17 @@ public interface IConfiguration {
      * @throws InstantiationException
      */
     public void setStandardMode() throws InstantiationException, IllegalAccessException, ClassNotFoundException;
-    
+
     /*
      * Set the Direction Parameter
      */
     public enum directionEnum {
-        Outbound, Inbound
+        Outbound, Inbound;
     };
-    
-    public directionEnum getDirection();  
-    
-    public void setDirection(final directionEnum direction);
-    
-    public enum serviceEnum {PatientDiscoveryDeferredRequest,PatientDiscoveryDeferredResponse,PatientDiscovery,
-                             DocumentSubmissionDeferredRequest,DocumentSubmissionDeferredResponse,DocumentSubmission,
-                             QueryForDocuments,RetrieveDocuments,AdminDistribution};
-    
-    public serviceEnum getServiceName();
-    
-    public void setServiceName(final serviceEnum serviceName);
+
+    public enum serviceEnum {
+        PatientDiscoveryDeferredRequest, PatientDiscoveryDeferredResponse, PatientDiscovery, DocumentSubmissionDeferredRequest, DocumentSubmissionDeferredResponse, DocumentSubmission, QueryForDocuments, RetrieveDocuments, AdminDistribution
+    };
 
     /*
      * Sets the gateway in Standard Mode for Specific Service in Specific Direction which is required for Testing
@@ -120,5 +114,4 @@ public interface IConfiguration {
     public void setPassthruMode(serviceEnum serviceName, directionEnum direction) throws InstantiationException,
             IllegalAccessException, ClassNotFoundException;
 
-    
 }
