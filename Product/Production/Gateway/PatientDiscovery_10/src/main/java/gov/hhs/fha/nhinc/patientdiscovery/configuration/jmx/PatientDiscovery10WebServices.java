@@ -26,6 +26,7 @@
  */
 package gov.hhs.fha.nhinc.patientdiscovery.configuration.jmx;
 
+import gov.hhs.fha.nhinc.configuration.IConfiguration.serviceEnum;
 import gov.hhs.fha.nhinc.patientdiscovery._10.gateway.ws.EntityPatientDiscoveryUnsecured;
 import gov.hhs.fha.nhinc.patientdiscovery._10.gateway.ws.NhinPatientDiscovery;
 import gov.hhs.fha.nhinc.patientdiscovery.inbound.InboundPatientDiscovery;
@@ -40,7 +41,7 @@ import javax.servlet.ServletContext;
  */
 public class PatientDiscovery10WebServices extends AbstractPDWebServicesMXBean {
 
-    private String serviceName = "PatientDiscovery";
+    private final serviceEnum serviceName = serviceEnum.PatientDiscovery;
     /**
      * Instantiates a new patient discovery10 web services.
      * 
@@ -131,7 +132,7 @@ public class PatientDiscovery10WebServices extends AbstractPDWebServicesMXBean {
         entityPD.setOutboundPatientDiscovery(outboundPD);
     }
     
-    public String getServiceName() {
+    public serviceEnum getServiceName() {
         return this.serviceName;
     }
 

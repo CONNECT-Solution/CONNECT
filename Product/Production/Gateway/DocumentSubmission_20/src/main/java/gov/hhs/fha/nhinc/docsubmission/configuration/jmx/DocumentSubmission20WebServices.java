@@ -26,6 +26,7 @@
  */
 package gov.hhs.fha.nhinc.docsubmission.configuration.jmx;
 
+import gov.hhs.fha.nhinc.configuration.IConfiguration.serviceEnum;
 import gov.hhs.fha.nhinc.docsubmission._20.entity.EntityDocSubmissionSecured_g1;
 import gov.hhs.fha.nhinc.docsubmission._20.entity.EntityDocSubmissionUnsecured_g1;
 import gov.hhs.fha.nhinc.docsubmission._20.nhin.NhinXDR_g1;
@@ -50,7 +51,7 @@ public class DocumentSubmission20WebServices extends AbstractDSWebServicesMXBean
     /** The Constant ENTITY_SECURED_DS_BEAN_NAME. */
     private static final String ENTITY_SECURED_DS_BEAN_NAME = "entityXDRSecured_g1";
     
-    private String serviceName = "DocumentSubmission";
+    private final serviceEnum serviceName = serviceEnum.DocumentSubmission;
     /**
      * Instantiates a new document submission20 web services.
      * 
@@ -154,7 +155,7 @@ public class DocumentSubmission20WebServices extends AbstractDSWebServicesMXBean
         entityDSUnsecured.setOutboundDocSubmission(outboundDS);
     }
     
-    public String getServiceName() {
+    public serviceEnum getServiceName() {
         return this.serviceName;
     }
 }

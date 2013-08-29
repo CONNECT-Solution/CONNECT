@@ -74,6 +74,25 @@ public interface IConfiguration {
      * @throws InstantiationException
      */
     public void setStandardMode() throws InstantiationException, IllegalAccessException, ClassNotFoundException;
+    
+    /*
+     * Set the Direction Parameter
+     */
+    public enum directionEnum {
+        Outbound, Inbound
+    };
+    
+    public directionEnum getDirection();  
+    
+    public void setDirection(final directionEnum direction);
+    
+    public enum serviceEnum {PatientDiscoveryDeferredRequest,PatientDiscoveryDeferredResponse,PatientDiscovery,
+                             DocumentSubmissionDeferredRequest,DocumentSubmissionDeferredResponse,DocumentSubmission,
+                             QueryForDocuments,RetrieveDocuments,AdminDistribution};
+    
+    public serviceEnum getServiceName();
+    
+    public void setServiceName(final serviceEnum serviceName);
 
     /*
      * Sets the gateway in Standard Mode for Specific Service in Specific Direction which is required for Testing
@@ -85,7 +104,7 @@ public interface IConfiguration {
      * 
      * @throws InstantiationException
      */
-    public void setStandardMode(String serviceName, String direction) throws InstantiationException,
+    public void setStandardMode(serviceEnum serviceName, directionEnum direction) throws InstantiationException,
             IllegalAccessException, ClassNotFoundException;
 
     /*
@@ -98,27 +117,8 @@ public interface IConfiguration {
      * 
      * @throws InstantiationException
      */
-    public void setPassthruMode(String serviceName, String direction) throws InstantiationException,
+    public void setPassthruMode(serviceEnum serviceName, directionEnum direction) throws InstantiationException,
             IllegalAccessException, ClassNotFoundException;
 
-    /*
-     * Get the Service Name
-     */
-    public String getServiceName();
-
-    /*
-     * Set the input Parameter
-     */
-    public void setServiceName(String serviceName);
-
-    /*
-     * Get the Direction
-     */
-    /*
-     * Set the Direction Parameter
-     */
-    public String getDirection();
-
-    public void setDirection(String direction);
-
+    
 }

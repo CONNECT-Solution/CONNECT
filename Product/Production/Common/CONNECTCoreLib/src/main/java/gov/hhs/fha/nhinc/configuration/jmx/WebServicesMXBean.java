@@ -113,9 +113,6 @@ public interface WebServicesMXBean {
      */
     public boolean isOutboundPassthru();
 
-    /**
-     * @return
-     */
-    public String getServiceName();
+    
 
 }

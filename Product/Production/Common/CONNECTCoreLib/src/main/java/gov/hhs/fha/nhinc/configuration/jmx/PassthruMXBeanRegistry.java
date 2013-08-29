@@ -26,6 +26,9 @@
  */
 package gov.hhs.fha.nhinc.configuration.jmx;
 
+import gov.hhs.fha.nhinc.configuration.IConfiguration.directionEnum;
+import gov.hhs.fha.nhinc.configuration.IConfiguration.serviceEnum;
+
 import java.util.HashSet;
 import java.util.Set;
 
@@ -102,15 +105,11 @@ public class PassthruMXBeanRegistry {
      * @param serviceName
      * @param direction
      */
-    public void setPassthruMode(String serviceName, String direction) throws InstantiationException,
+    public void setPassthruMode(serviceEnum serviceName, directionEnum direction) throws InstantiationException,
             IllegalAccessException, ClassNotFoundException {
         for (WebServicesMXBean b : registeredBeans) {
-            if (direction.equals("Inbound") && (b.getServiceName().equals(serviceName))) {
                 b.configureInboundPassthru();
-            }
-            if (direction.equals("Outbound") && (b.getServiceName().equals(serviceName))) {
                 b.configureOutboundPassthru();
-            }
 
         }
     }
@@ -122,16 +121,12 @@ public class PassthruMXBeanRegistry {
      * @throws IllegalAccessException
      * @throws InstantiationException
      */
-    public void setStandardMode(String serviceName, String direction) throws InstantiationException,
+    public void setStandardMode(serviceEnum serviceName, directionEnum direction) throws InstantiationException,
             IllegalAccessException, ClassNotFoundException {
 
         for (WebServicesMXBean b : registeredBeans) {
-            if (direction.equals("Inbound") && (b.getServiceName().equals(serviceName))) {
                 b.configureInboundStd();
-            }
-            if (direction.equals("Outbound") && (b.getServiceName().equals(serviceName))) {
                 b.configureOutboundStd();
-            }
-        }
+    }
     }
 }

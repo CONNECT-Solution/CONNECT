@@ -26,6 +26,7 @@
  */
 package gov.hhs.fha.nhinc.docquery.configuration.jmx;
 
+import gov.hhs.fha.nhinc.configuration.IConfiguration.serviceEnum;
 import gov.hhs.fha.nhinc.docquery._30.entity.EntityDocQuerySecured;
 import gov.hhs.fha.nhinc.docquery._30.entity.EntityDocQueryUnsecured;
 import gov.hhs.fha.nhinc.docquery._30.nhin.DocQuery;
@@ -41,7 +42,7 @@ import javax.servlet.ServletContext;
  */
 public class DocumentQuery30WebServices extends AbstractDQWebServicesMXBean {
 
-   private String serviceName = "QueryForDocuments";
+    private final serviceEnum serviceName = serviceEnum.QueryForDocuments;
     /**
      * Instantiates a new document query30 web services.
      * 
@@ -175,7 +176,7 @@ public class DocumentQuery30WebServices extends AbstractDQWebServicesMXBean {
         return DEFAULT_OUTBOUND_PASSTHRU_IMPL_CLASS_NAME;
     }
     
-    public String getServiceName() {
+    public serviceEnum getServiceName() {
         return this.serviceName;
     }
 
