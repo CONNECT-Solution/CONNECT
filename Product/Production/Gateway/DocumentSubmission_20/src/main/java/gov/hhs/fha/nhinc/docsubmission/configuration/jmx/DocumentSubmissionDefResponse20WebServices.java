@@ -26,6 +26,7 @@
  */
 package gov.hhs.fha.nhinc.docsubmission.configuration.jmx;
 
+import gov.hhs.fha.nhinc.configuration.IConfiguration.serviceEnum;
 import gov.hhs.fha.nhinc.docsubmission._20.entity.deferred.response.EntityDocSubmissionDeferredResponseSecured_g1;
 import gov.hhs.fha.nhinc.docsubmission._20.entity.deferred.response.EntityDocSubmissionDeferredResponseUnsecured_g1;
 import gov.hhs.fha.nhinc.docsubmission._20.nhin.deferred.response.NhinXDRResponse20;
@@ -50,6 +51,8 @@ public class DocumentSubmissionDefResponse20WebServices extends AbstractDSDeferr
     /** The Constant ENTITY_SECURED_DS_BEAN_NAME. */
     private static final String ENTITY_SECURED_DS_BEAN_NAME = "entityXDRDeferredResponseSecured_g1";
 
+    private final serviceEnum serviceName = serviceEnum.DocumentSubmissionDeferredResponse;
+    
     /**
      * Instantiates a new document submission def request20 web services.
      * 
@@ -154,5 +157,9 @@ public class DocumentSubmissionDefResponse20WebServices extends AbstractDSDeferr
         
         entityDSSecured.setOutboundDocSubmissionResponse(outboundDS);
         entityDSUnsecured.setOutboundDocSubmissionResponse(outboundDS);
+    }
+    
+    public serviceEnum getServiceName() {
+        return this.serviceName;
     }
 }

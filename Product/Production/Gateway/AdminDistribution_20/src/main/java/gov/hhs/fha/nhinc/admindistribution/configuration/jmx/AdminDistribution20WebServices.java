@@ -31,6 +31,7 @@ import gov.hhs.fha.nhinc.admindistribution._20.entity.EntityAdministrativeDistri
 import gov.hhs.fha.nhinc.admindistribution._20.nhin.NhinAdministrativeDistribution_g1;
 import gov.hhs.fha.nhinc.admindistribution.inbound.InboundAdminDistribution;
 import gov.hhs.fha.nhinc.admindistribution.outbound.OutboundAdminDistribution;
+import gov.hhs.fha.nhinc.configuration.IConfiguration.serviceEnum;
 
 import javax.servlet.ServletContext;
 
@@ -50,6 +51,7 @@ public class AdminDistribution20WebServices extends AbstractAdminDistributionWeb
     /** The Constant ENTITY_SECURED_AD_BEAN_NAME. */
     private static final String ENTITY_SECURED_AD_BEAN_NAME = "EntityAdministrativeDistributionSecuredBean_g1";
     
+    private final serviceEnum serviceName = serviceEnum.AdminDistribution; 
     /**
      * Instantiates a new admin distribution20 web services.
      *
@@ -136,6 +138,10 @@ public class AdminDistribution20WebServices extends AbstractAdminDistributionWeb
         
         entityADSecured.setOutboundAdminDistribution(outboundAdminDistribution);
         entityADUnsecured.setOutboundAdminDistribution(outboundAdminDistribution);
+    }
+    
+    public serviceEnum getServiceName() {
+        return this.serviceName;
     }
 
 }

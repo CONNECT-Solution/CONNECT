@@ -26,6 +26,7 @@
  */
 package gov.hhs.fha.nhinc.docretrieve.configuration.jmx;
 
+import gov.hhs.fha.nhinc.configuration.IConfiguration.serviceEnum;
 import gov.hhs.fha.nhinc.docretrieve._20.entity.EntityDocRetrieve;
 import gov.hhs.fha.nhinc.docretrieve._20.entity.EntityDocRetrieveSecured;
 import gov.hhs.fha.nhinc.docretrieve._20.inbound.DocRetrieve;
@@ -44,6 +45,8 @@ public class DocumentRetrieve20WebServices extends AbstractDRWebServicesMXBean {
 
     /** The Constant DEFAULT_OUTBOUND_STANDARD_IMPL_CLASS_NAME. */
     public static final String DEFAULT_OUTBOUND_PASSTHRU_IMPL_CLASS_NAME = "gov.hhs.fha.nhinc.docretrieve._20.outbound.PassthroughOutboundDocRetrieve";
+    
+    private final serviceEnum serviceName = serviceEnum.RetrieveDocuments;
 
     /**
      * Instantiates a new document retrieve30 web services.
@@ -53,6 +56,7 @@ public class DocumentRetrieve20WebServices extends AbstractDRWebServicesMXBean {
     public DocumentRetrieve20WebServices(ServletContext sc) {
         super(sc);
     }
+    
 
     /*
      * (non-Javadoc)
@@ -125,6 +129,10 @@ public class DocumentRetrieve20WebServices extends AbstractDRWebServicesMXBean {
 
         entityDocRetrieve.setOutboundDocRetrieve(outboundDocRetrieve);
         entityDocRetrieveSecured.setOutboundDocRetrieve(outboundDocRetrieve);
+    }
+
+    public serviceEnum getServiceName() {
+        return this.serviceName;
     }
 
 }

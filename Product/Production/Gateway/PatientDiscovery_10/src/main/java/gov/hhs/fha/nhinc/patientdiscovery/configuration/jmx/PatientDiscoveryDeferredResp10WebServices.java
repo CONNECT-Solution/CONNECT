@@ -27,6 +27,7 @@
 package gov.hhs.fha.nhinc.patientdiscovery.configuration.jmx;
 
 import gov.hhs.fha.nhinc.configuration.jmx.AbstractWebServicesMXBean;
+import gov.hhs.fha.nhinc.configuration.IConfiguration.serviceEnum;
 import gov.hhs.fha.nhinc.patientdiscovery._10.gateway.ws.EntityPatientDiscoveryDeferredResponseSecured;
 import gov.hhs.fha.nhinc.patientdiscovery._10.gateway.ws.EntityPatientDiscoveryDeferredResponseUnsecured;
 import gov.hhs.fha.nhinc.patientdiscovery._10.gateway.ws.NhinPatientDiscoveryDeferredResponse;
@@ -62,6 +63,8 @@ public class PatientDiscoveryDeferredResp10WebServices extends AbstractWebServic
     /** The Constant DEFAULT_OUTBOUND_PASSTHRU_IMPL_CLASS_NAME. */
     public static final String DEFAULT_OUTBOUND_PASSTHRU_IMPL_CLASS_NAME = "gov.hhs.fha.nhinc.patientdiscovery.outbound.deferred.response.PassthroughOutboundPatientDiscoveryDeferredResponse";
 
+    private final serviceEnum serviceName = serviceEnum.PatientDiscoveryDeferredResponse;
+    
     /**
      * @param sc
      */
@@ -211,4 +214,7 @@ public class PatientDiscoveryDeferredResp10WebServices extends AbstractWebServic
         return DEFAULT_OUTBOUND_PASSTHRU_IMPL_CLASS_NAME;
     }
 
+    public serviceEnum getServiceName() {
+        return this.serviceName;
+    }
 }

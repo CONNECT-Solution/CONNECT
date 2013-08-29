@@ -33,6 +33,6 @@ import gov.hhs.fha.nhinc.configuration.IConfiguration;
  *
  * @author msw
  */
-public interface ConfigurationMBean extends IConfiguration {
+public interface ConfigurationMXBean extends IConfiguration {
 
 }
