@@ -291,7 +291,8 @@ public class HomeCommunityMapTest {
     public void testGetLocalHomeCommunityId() {
         String localCommunityId = "1.1";
 
-        String retrievedId = HomeCommunityMap.getLocalHomeCommunityId();
+        //shrikkanths added this from later CONNECT commit.
+        String retrievedId = HomeCommunityMap.formatHomeCommunityId(HomeCommunityMap.getLocalHomeCommunityId());
         assertEquals(localCommunityId, retrievedId);
     }
 }
