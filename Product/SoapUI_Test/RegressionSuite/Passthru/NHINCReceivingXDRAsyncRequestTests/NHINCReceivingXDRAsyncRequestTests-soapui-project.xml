@@ -2277,26 +2277,30 @@ declare namespace adapter='urn:gov:hhs:fha:nhinc:common:nhinccommonadapter';
 				</con:config>
 			</con:testStep>
 			
-			<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
+			<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);
+def config = context.getConfiguration();
+config.setPassthruMode("DocumentSubmissionDeferredRequest", "Outbound");</con:setupScript><con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2013-07-16T14:57:59Z</con:value>
+					<con:value>2013-09-03T19:45:40Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2013-07-16T15:07:59Z</con:value>
+					<con:value>2013-09-03T19:55:40Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>07/16/2013 14:57:59</con:value>
+					<con:value>09/03/2013 19:45:40</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2013-08-15T00:00:00Z</con:value>
+					<con:value>2013-10-03T00:00:00Z</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
-			<con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);</con:tearDownScript>
+			<con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);
+def config = context.getConfiguration();
+config.setStandardMode("DocumentSubmissionDeferredRequest", "Outbound");</con:tearDownScript>
 		</con:testCase>
 		<con:testCase failOnError="true" failTestCaseOnErrors="true" id="0312d13c-2f1e-44e4-8b14-e5cfafd2b56f" keepSession="false" maxResults="0" name="PolicyCheckPermit" searchProperties="true">
 			<con:settings/>
@@ -4270,26 +4274,30 @@ declare namespace adapter='urn:gov:hhs:fha:nhinc:common:nhinccommonadapter';
 				</con:config>
 			</con:testStep>
 			
-			<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
+			<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);
+def config = context.getConfiguration();
+config.setPassthruMode("DocumentSubmissionDeferredRequest", "Outbound");</con:setupScript><con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2013-07-16T14:58:34Z</con:value>
+					<con:value>2013-09-03T19:45:47Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2013-07-16T15:08:34Z</con:value>
+					<con:value>2013-09-03T19:55:47Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>07/16/2013 14:58:34</con:value>
+					<con:value>09/03/2013 19:45:47</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2013-08-15T00:00:00Z</con:value>
+					<con:value>2013-10-03T00:00:00Z</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
-			<con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);</con:tearDownScript>
+			<con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);
+def config = context.getConfiguration();
+config.setStandardMode("DocumentSubmissionDeferredRequest", "Outbound");</con:tearDownScript>
 		</con:testCase>
 		<con:testCase failOnError="true" failTestCaseOnErrors="true" id="9034ee29-5dcd-40b5-bb2e-1aa24f86ab7d" keepSession="false" maxResults="0" name="AuditForNHINCXDRRequest" searchProperties="true">
 			<con:settings/>
@@ -4795,34 +4803,38 @@ def count = context.withSql('AuditDB') { sql ->
 //log.info "Count: " + count;
 assert (count > 0);</script></con:config></con:testStep>
 			
-			<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
+			<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);
+def config = context.getConfiguration();
+config.setPassthruMode("DocumentSubmissionDeferredRequest", "Outbound");</con:setupScript><con:properties>
 				<con:property>
 					<con:name>FullPatientID</con:name>
 					<con:value>XDR Request1^^^&amp;amp;1.1&amp;amp;ISO</con:value>
 				</con:property>
 				<con:property>
 					<con:name>XDRUserId</con:name>
-					<con:value>XDR Request Inbound UserTue Jul 16 15:03:39 UTC 2013</con:value>
+					<con:value>XDR Request Inbound UserTue Sep 03 19:50:53 UTC 2013</con:value>
 				</con:property>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2013-07-16T14:58:39Z</con:value>
+					<con:value>2013-09-03T19:45:53Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2013-07-16T15:08:39Z</con:value>
+					<con:value>2013-09-03T19:55:53Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>07/16/2013 14:58:39</con:value>
+					<con:value>09/03/2013 19:45:53</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2013-08-15T00:00:00Z</con:value>
+					<con:value>2013-10-03T00:00:00Z</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
-			<con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);</con:tearDownScript>
+			<con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);
+def config = context.getConfiguration();
+config.setStandardMode("DocumentSubmissionDeferredRequest", "Outbound");</con:tearDownScript>
 		</con:testCase>
 		<con:properties/>
 		<con:reportParameters/>
@@ -4843,7 +4855,7 @@ assert (count > 0);</script></con:config></con:testStep>
 		<con:property><con:name>GatewayPropDir</con:name><con:value>c:\glassfish3\glassfish\domains\domain1\config\nhin</con:value></con:property>
 		
 		<con:property><con:name>LocalAA</con:name><con:value>1.1</con:value></con:property><con:property><con:name>LocalHCDescription</con:name><con:value>XDRAsyncTest1</con:value></con:property>
-	<con:property><con:name>LocalHCID</con:name><con:value>1.1</con:value></con:property><con:property><con:name>MockHost</con:name><con:value>localhost</con:value></con:property><con:property><con:name>NHINGatewayConfigDir</con:name><con:value>C:/Sun/AppServer/domains/domain1/config/nhin</con:value></con:property><con:property><con:name>NHINGatewayHost</con:name><con:value>localhost</con:value></con:property><con:property><con:name>PatientId</con:name><con:value>XDR Request1</con:value></con:property><con:property><con:name>RemoteAA</con:name><con:value>2.2</con:value></con:property><con:property><con:name>RemoteHCDescription</con:name><con:value>XDRAsyncTest2</con:value></con:property><con:property><con:name>RemoteHCID</con:name><con:value>2.2</con:value></con:property><con:property><con:name>UserID</con:name><con:value>XDR Request Inbound User</con:value></con:property></con:properties>
+	<con:property><con:name>LocalHCID</con:name><con:value>1.1</con:value></con:property><con:property><con:name>MockHost</con:name><con:value>localhost</con:value></con:property><con:property><con:name>NHINGatewayConfigDir</con:name><con:value>C:/Sun/AppServer/domains/domain1/config/nhin</con:value></con:property><con:property><con:name>NHINGatewayHost</con:name><con:value>localhost</con:value></con:property><con:property><con:name>PatientId</con:name><con:value>XDR Request1</con:value></con:property><con:property><con:name>RemoteAA</con:name><con:value>2.2</con:value></con:property><con:property><con:name>RemoteHCDescription</con:name><con:value>XDRAsyncTest2</con:value></con:property><con:property><con:name>RemoteHCID</con:name><con:value>2.2</con:value></con:property><con:property><con:name>UserID</con:name><con:value>XDR Request Inbound User</con:value></con:property><con:property><con:name>ASUsername</con:name><con:value>admin</con:value></con:property><con:property><con:name>ASPassword</con:name><con:value>adminadmin</con:value></con:property><con:property><con:name>JMXHost</con:name><con:value>localhost</con:value></con:property><con:property><con:name>JMXPort</con:name><con:value>8686</con:value></con:property></con:properties>
 	<con:afterLoadScript>def propertiesFile = new File(new File(project.path).parent, 'NHINCReceivingXDRAsyncRequestTests-soapui-project.properties')
 if (propertiesFile.exists()) {
 	def props = new Properties()
@@ -4899,6 +4911,26 @@ com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext.metaClass.withSql = { d
   } finally {
     sql.close()
   }
+}
+
+import javax.management.remote.JMXConnectorFactory as JmxFactory
+import javax.management.remote.JMXServiceURL as JmxUrl
+import javax.management.remote.*;
+
+com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext.metaClass.getConfiguration = { ->
+  def username = delegate.findProperty("ASUsername");
+  def password = delegate.findProperty("ASPassword");
+  def jmxHost = delegate.findProperty("JMXHost");
+  def jmxPort = delegate.findProperty("JMXPort");
+
+  // use jmx to set passthru mode
+  def env = [
+    (JMXConnector.CREDENTIALS): (String[])[username, password]
+  ]
+  def serverUrl = 'service:jmx:rmi://' + jmxHost + ':' + jmxPort + '/jndi/rmi://' + jmxHost + ':' + jmxPort + '/jmxrmi';
+  def server = JmxFactory.connect(new JmxUrl(serverUrl), env).MBeanServerConnection
+  def config = new GroovyMBean(server, 'org.connectopensource.mbeans:type=Configuration');
+  return config;
 }</con:afterLoadScript>
 	<con:wssContainer/>
 	<con:databaseConnectionContainer/>
