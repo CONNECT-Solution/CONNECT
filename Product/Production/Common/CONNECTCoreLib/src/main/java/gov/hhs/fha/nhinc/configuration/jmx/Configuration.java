@@ -44,6 +44,10 @@ public class Configuration implements ConfigurationMXBean {
     /** The Constant ERROR_ACCESSING_PROPERTY_FILE. */
     private static final String ERROR_ACCESSING_PROPERTY_FILE = "Error accessing property file: ";
 
+    private serviceEnum serviceName;
+    
+    private directionEnum direction;
+    
     /**
      * Instantiates a new configuration.
      */
@@ -137,7 +141,7 @@ public class Configuration implements ConfigurationMXBean {
             IllegalAccessException, ClassNotFoundException {
         PassthruMXBeanRegistry registry = PassthruMXBeanRegistry.getInstance();
         registry.setPassthruMode(serviceName, direction);
-
+        
     }
 
     /*
@@ -150,6 +154,40 @@ public class Configuration implements ConfigurationMXBean {
             IllegalAccessException, ClassNotFoundException {
         PassthruMXBeanRegistry registry = PassthruMXBeanRegistry.getInstance();
         registry.setStandardMode(serviceName, direction);
+    }
+    
+    public void isInboundPassthru(serviceEnum serviceName, directionEnum dircetion) {
+        PassthruMXBeanRegistry registry = PassthruMXBeanRegistry.getInstance();
+        registry.isInboundPassthru(serviceName,direction);
+    }
+    
+    public void isOutboundPassthru(serviceEnum serviceName, directionEnum dircetion) {
+        PassthruMXBeanRegistry registry = PassthruMXBeanRegistry.getInstance();
+        registry.isOutboundPassthru(serviceName,direction);
+    }
+    
+    public boolean isStandard(String Standard) {
+        boolean mode = false;
+        if (Standard.equals("Standard")) {
+        mode= true;
+        }
+        return mode;
+    }
+
+    /* (non-Javadoc)
+     * @see gov.hhs.fha.nhinc.configuration.IConfiguration#getServiceName()
+     */
+    @Override
+    public serviceEnum getServiceName() {
+        return serviceName;
+    }
+
+    /* (non-Javadoc)
+     * @see gov.hhs.fha.nhinc.configuration.IConfiguration#getDirection()
+     */
+    @Override
+    public directionEnum getDirection() {
+        return direction;
     }
 
 }
