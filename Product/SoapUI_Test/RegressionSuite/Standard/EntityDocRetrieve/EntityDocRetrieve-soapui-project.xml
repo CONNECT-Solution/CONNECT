@@ -3849,10 +3849,11 @@ This document and the information contained herein is provided on an "AS IS" bas
 			
 			
 			
-			<con:testStep type="groovy" name="copy uddiConnectionInfo"><con:settings/><con:config><script>def sourceDir =  (new com.eviware.soapui.support.GroovyUtils(context)).projectPath;
+			<con:testStep type="groovy" name="copy uddiConnectionInfo"><con:settings/><con:config><script>//def sourceDir =  (new com.eviware.soapui.support.GroovyUtils(context)).projectPath;
 def sourceFile = "uddiConnectionInfo_FANOUT.xml";
 def destDir = context.findProperty( "GatewayPropDir" );
 def destFile = "uddiConnectionInfo.xml";
+def sourceDir = context.expand('${projectDir}')
 
 nhinc.FileUtils.copyFile(sourceDir, sourceFile, destDir, destFile, log);</script></con:config></con:testStep><con:testStep name="Set uddiConnectionInfo" type="groovy">
 				<con:settings/>
@@ -4137,19 +4138,19 @@ count(//ns16:RetrieveDocumentSetResponse[1]/ns16:DocumentResponse)</path><conten
 			</con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2013-07-16T22:11:31Z</con:value>
+					<con:value>2013-09-03T18:18:44Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2013-07-16T22:21:31Z</con:value>
+					<con:value>2013-09-03T18:28:44Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>07/16/2013 22:11:31</con:value>
+					<con:value>09/03/2013 18:18:44</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2013-08-15T00:00:00Z</con:value>
+					<con:value>2013-10-03T00:00:00Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>CorrectedRemoteHCID1</con:name>
@@ -4168,7 +4169,8 @@ count(//ns16:RetrieveDocumentSetResponse[1]/ns16:DocumentResponse)</path><conten
 			
 			
 			
-			<con:testStep type="groovy" name="copy uddiConnectionInfo"><con:settings/><con:config><script>def sourceDir =  (new com.eviware.soapui.support.GroovyUtils(context)).projectPath;
+			<con:testStep type="groovy" name="copy uddiConnectionInfo"><con:settings/><con:config><script>//def sourceDir =  (new com.eviware.soapui.support.GroovyUtils(context)).projectPath;
+def sourceDir = context.expand('${projectDir}')
 def sourceFile = "uddiConnectionInfo_FANOUT.xml";
 def destDir = context.findProperty( "GatewayPropDir" );
 def destFile = "uddiConnectionInfo.xml";
@@ -4458,19 +4460,19 @@ count(//ns11:RetrieveDocumentSetResponse[1]/ns12:RegistryResponse[1]/ns12:Regist
 			</con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2013-07-16T22:11:33Z</con:value>
+					<con:value>2013-09-03T18:18:47Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2013-07-16T22:21:33Z</con:value>
+					<con:value>2013-09-03T18:28:47Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>07/16/2013 22:11:33</con:value>
+					<con:value>09/03/2013 18:18:47</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2013-08-15T00:00:00Z</con:value>
+					<con:value>2013-10-03T00:00:00Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>CorrectedRemoteHCID1</con:name>
@@ -4506,7 +4508,7 @@ count(//ns11:RetrieveDocumentSetResponse[1]/ns12:RegistryResponse[1]/ns12:Regist
 		
 		
 		
-	<con:property><con:name>Host2</con:name><con:value>localhost</con:value></con:property><con:property><con:name>Host3</con:name><con:value>localhost</con:value></con:property><con:property><con:name>LocalAA</con:name><con:value>1.1</con:value></con:property><con:property><con:name>LocalHCDescription</con:name><con:value>InternalTest</con:value></con:property><con:property><con:name>LocalHCID</con:name><con:value>1.1</con:value></con:property><con:property><con:name>LocalPatientID</con:name><con:value>D123401</con:value></con:property><con:property><con:name>RemoteAA1</con:name><con:value>2.2</con:value></con:property><con:property><con:name>RemoteAA2</con:name><con:value>3.3</con:value></con:property><con:property><con:name>RemoteHCDescription1</con:name><con:value>InternalTest2</con:value></con:property><con:property><con:name>RemoteHCDescription2</con:name><con:value>InternalTest3</con:value></con:property><con:property><con:name>RemoteHCID1</con:name><con:value>2.2</con:value></con:property><con:property><con:name>RemoteHCID2</con:name><con:value>3.3</con:value></con:property><con:property><con:name>GatewayPropDir</con:name><con:value>D:\app\glassfish3\glassfish\domains\domain1\config\nhin</con:value></con:property></con:properties>
+	<con:property><con:name>Host2</con:name><con:value>localhost</con:value></con:property><con:property><con:name>Host3</con:name><con:value>localhost</con:value></con:property><con:property><con:name>LocalAA</con:name><con:value>1.1</con:value></con:property><con:property><con:name>LocalHCDescription</con:name><con:value>InternalTest</con:value></con:property><con:property><con:name>LocalHCID</con:name><con:value>1.1</con:value></con:property><con:property><con:name>LocalPatientID</con:name><con:value>D123401</con:value></con:property><con:property><con:name>RemoteAA1</con:name><con:value>2.2</con:value></con:property><con:property><con:name>RemoteAA2</con:name><con:value>3.3</con:value></con:property><con:property><con:name>RemoteHCDescription1</con:name><con:value>InternalTest2</con:value></con:property><con:property><con:name>RemoteHCDescription2</con:name><con:value>InternalTest3</con:value></con:property><con:property><con:name>RemoteHCID1</con:name><con:value>2.2</con:value></con:property><con:property><con:name>RemoteHCID2</con:name><con:value>3.3</con:value></con:property><con:property><con:name>GatewayPropDir</con:name><con:value>c:\glassfish3\glassfish\domains\domain1\config\nhin</con:value></con:property></con:properties>
 	<con:afterLoadScript>def propertiesFilename = project.path[0..(project.path.size()-4)] + 'properties'
 def propertiesFile = new File(propertiesFilename)
 if (propertiesFile.exists()) {
