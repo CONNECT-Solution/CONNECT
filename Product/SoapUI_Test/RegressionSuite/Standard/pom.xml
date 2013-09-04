@@ -23,6 +23,7 @@
         <modules>
             <module>Admin-Distribution-Standard</module>
             <module>AuditLogging-Standard</module>
+            <module>EntityDocRetrieve</module>
             <module>EntitySendingXDRAsyncReqTests</module>
             <module>EntitySendingXDRAsyncResponseTests</module>
             <module>EntityXDRTests</module>
