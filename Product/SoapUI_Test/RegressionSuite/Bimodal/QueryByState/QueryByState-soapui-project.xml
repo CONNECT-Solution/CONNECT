@@ -4,7 +4,7 @@
 	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhinccomponentconnectionmanager}NhincComponentConnectionManagerBindingSoap" definition="../../../target/wsdl/NhincComponentConnectionManager.wsdl" name="NhincComponentConnectionManagerBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 		<con:settings/>
 		
-		<con:endpoints>
+		<con:definitionCache/><con:endpoints>
 			<con:endpoint>http://localhost:8080/CONNECTCommon/NhincComponentConnectionManager</con:endpoint>
 			<con:endpoint>http://localhost:${NhincHttpPort}/NhinConnect/NhincComponentConnectionManager</con:endpoint>
 		</con:endpoints>
@@ -78,7 +78,8 @@ def testCase = testRunner.getTestCase()
 def testSuite = testCase.getTestSuite()
 def project = testSuite.getProject()
 def projectPropFullFile = project.getPath()
-def projectPropPath = groovyUtils.projectPath
+//def projectPropPath = groovyUtils.projectPath
+def projectPropPath = context.expand('${projectDir}')
 
 def sourceDir = projectPropPath;
 def sourceFile = "QBS-internalConnectionInfo.xml";
@@ -98,7 +99,8 @@ def testCase = testRunner.getTestCase()
 def testSuite = testCase.getTestSuite()
 def project = testSuite.getProject()
 def projectPropFullFile = project.getPath()
-def projectPropPath = groovyUtils.projectPath
+//def projectPropPath = groovyUtils.projectPath
+def projectPropPath = context.expand('${projectDir}')
 
 def sourceDir = projectPropPath;
 def sourceFile = "QBS-uddiConnectionInfo.xml";
@@ -252,7 +254,8 @@ def testCase = testRunner.getTestCase()
 def testSuite = testCase.getTestSuite()
 def project = testSuite.getProject()
 def projectPropFullFile = project.getPath()
-def projectPropPath = groovyUtils.projectPath
+//def projectPropPath = groovyUtils.projectPath
+def projectPropPath = context.expand('${projectDir}')
 
 def sourceDir = projectPropPath;
 def sourceFile = "QBS-internalConnectionInfo.xml";
@@ -272,7 +275,8 @@ def testCase = testRunner.getTestCase()
 def testSuite = testCase.getTestSuite()
 def project = testSuite.getProject()
 def projectPropFullFile = project.getPath()
-def projectPropPath = groovyUtils.projectPath
+//def projectPropPath = groovyUtils.projectPath
+def projectPropPath = context.expand('${projectDir}')
 
 def sourceDir = projectPropPath;
 def sourceFile = "QBS-uddiConnectionInfo.xml";
@@ -440,7 +444,8 @@ def testCase = testRunner.getTestCase()
 def testSuite = testCase.getTestSuite()
 def project = testSuite.getProject()
 def projectPropFullFile = project.getPath()
-def projectPropPath = groovyUtils.projectPath
+//def projectPropPath = groovyUtils.projectPath
+def projectPropPath = context.expand('${projectDir}')
 
 def sourceDir = projectPropPath;
 def sourceFile = "QBS-internalConnectionInfo.xml";
@@ -460,7 +465,8 @@ def testCase = testRunner.getTestCase()
 def testSuite = testCase.getTestSuite()
 def project = testSuite.getProject()
 def projectPropFullFile = project.getPath()
-def projectPropPath = groovyUtils.projectPath
+//def projectPropPath = groovyUtils.projectPath
+def projectPropPath = context.expand('${projectDir}')
 
 def sourceDir = projectPropPath;
 def sourceFile = "QBS-uddiConnectionInfo.xml";
@@ -569,7 +575,8 @@ def testCase = testRunner.getTestCase()
 def testSuite = testCase.getTestSuite()
 def project = testSuite.getProject()
 def projectPropFullFile = project.getPath()
-def projectPropPath = groovyUtils.projectPath
+//def projectPropPath = groovyUtils.projectPath
+def projectPropPath = context.expand('${projectDir}')
 
 def sourceDir = projectPropPath;
 def sourceFile = "QBS-internalConnectionInfo.xml";
@@ -589,7 +596,8 @@ def testCase = testRunner.getTestCase()
 def testSuite = testCase.getTestSuite()
 def project = testSuite.getProject()
 def projectPropFullFile = project.getPath()
-def projectPropPath = groovyUtils.projectPath
+//def projectPropPath = groovyUtils.projectPath
+def projectPropPath = context.expand('${projectDir}')
 
 def sourceDir = projectPropPath;
 def sourceFile = "QBS-uddiConnectionInfo.xml";
@@ -716,7 +724,8 @@ def testCase = testRunner.getTestCase()
 def testSuite = testCase.getTestSuite()
 def project = testSuite.getProject()
 def projectPropFullFile = project.getPath()
-def projectPropPath = groovyUtils.projectPath
+//def projectPropPath = groovyUtils.projectPath
+def projectPropPath = context.expand('${projectDir}')
 
 def sourceDir = projectPropPath;
 def sourceFile = "QBS-internalConnectionInfo.xml";
@@ -736,7 +745,8 @@ def testCase = testRunner.getTestCase()
 def testSuite = testCase.getTestSuite()
 def project = testSuite.getProject()
 def projectPropFullFile = project.getPath()
-def projectPropPath = groovyUtils.projectPath
+//def projectPropPath = groovyUtils.projectPath
+def projectPropPath = context.expand('${projectDir}')
 
 def sourceDir = projectPropPath;
 def sourceFile = "QBS-uddiConnectionInfo.xml";
@@ -848,7 +858,8 @@ def testCase = testRunner.getTestCase()
 def testSuite = testCase.getTestSuite()
 def project = testSuite.getProject()
 def projectPropFullFile = project.getPath()
-def projectPropPath = groovyUtils.projectPath
+//def projectPropPath = groovyUtils.projectPath
+def projectPropPath = context.expand('${projectDir}')
 
 def sourceDir = projectPropPath;
 def sourceFile = "QBS-internalConnectionInfo.xml";
@@ -868,7 +879,8 @@ def testCase = testRunner.getTestCase()
 def testSuite = testCase.getTestSuite()
 def project = testSuite.getProject()
 def projectPropFullFile = project.getPath()
-def projectPropPath = groovyUtils.projectPath
+//def projectPropPath = groovyUtils.projectPath
+def projectPropPath = context.expand('${projectDir}')
 
 def sourceDir = projectPropPath;
 def sourceFile = "QBS-uddiConnectionInfo.xml";
@@ -991,7 +1003,8 @@ def testCase = testRunner.getTestCase()
 def testSuite = testCase.getTestSuite()
 def project = testSuite.getProject()
 def projectPropFullFile = project.getPath()
-def projectPropPath = groovyUtils.projectPath
+//def projectPropPath = groovyUtils.projectPath
+def projectPropPath = context.expand('${projectDir}')
 
 def sourceDir = projectPropPath;
 def sourceFile = "QBS-internalConnectionInfo.xml";
@@ -1011,7 +1024,8 @@ def testCase = testRunner.getTestCase()
 def testSuite = testCase.getTestSuite()
 def project = testSuite.getProject()
 def projectPropFullFile = project.getPath()
-def projectPropPath = groovyUtils.projectPath
+//def projectPropPath = groovyUtils.projectPath
+def projectPropPath = context.expand('${projectDir}')
 
 def sourceDir = projectPropPath;
 def sourceFile = "QBS-uddiConnectionInfo.xml";
@@ -1118,7 +1132,8 @@ def testCase = testRunner.getTestCase()
 def testSuite = testCase.getTestSuite()
 def project = testSuite.getProject()
 def projectPropFullFile = project.getPath()
-def projectPropPath = groovyUtils.projectPath
+//def projectPropPath = groovyUtils.projectPath
+def projectPropPath = context.expand('${projectDir}')
 
 def sourceDir = projectPropPath;
 def sourceFile = "QBS-internalConnectionInfo.xml";
@@ -1138,7 +1153,8 @@ def testCase = testRunner.getTestCase()
 def testSuite = testCase.getTestSuite()
 def project = testSuite.getProject()
 def projectPropFullFile = project.getPath()
-def projectPropPath = groovyUtils.projectPath
+//def projectPropPath = groovyUtils.projectPath
+def projectPropPath = context.expand('${projectDir}')
 
 def sourceDir = projectPropPath;
 def sourceFile = "QBS-uddiConnectionInfo.xml";
@@ -1263,7 +1279,8 @@ def testCase = testRunner.getTestCase()
 def testSuite = testCase.getTestSuite()
 def project = testSuite.getProject()
 def projectPropFullFile = project.getPath()
-def projectPropPath = groovyUtils.projectPath
+//def projectPropPath = groovyUtils.projectPath
+def projectPropPath = context.expand('${projectDir}')
 
 def sourceDir = projectPropPath;
 def sourceFile = "QBS-internalConnectionInfo.xml";
@@ -1283,7 +1300,8 @@ def testCase = testRunner.getTestCase()
 def testSuite = testCase.getTestSuite()
 def project = testSuite.getProject()
 def projectPropFullFile = project.getPath()
-def projectPropPath = groovyUtils.projectPath
+//def projectPropPath = groovyUtils.projectPath
+def projectPropPath = context.expand('${projectDir}')
 
 def sourceDir = projectPropPath;
 def sourceFile = "QBS-uddiConnectionInfo.xml";

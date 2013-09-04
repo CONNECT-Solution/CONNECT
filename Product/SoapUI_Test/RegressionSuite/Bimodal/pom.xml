@@ -35,7 +35,6 @@
             <module>DocQuerytestsforUDDI</module>
             <module>DocRegistryAndRepository</module>
             <module>DocumentRetrieveXDSErrorValidation</module>
-            <module>EntityDocRetrieve</module>
             <module>EntityPolicyEngineTest</module>
             <module>GW-406-949</module>
             <!--module>Gateway-2085</module-->
