@@ -84,10 +84,20 @@ public interface IConfiguration {
     public enum serviceEnum {
         PatientDiscoveryDeferredRequest, PatientDiscoveryDeferredResponse, PatientDiscovery, DocumentSubmissionDeferredRequest, DocumentSubmissionDeferredResponse, DocumentSubmission, QueryForDocuments, RetrieveDocuments, AdminDistribution
     };
-
-    public serviceEnum getServiceName();
     
-    public directionEnum getDirection();
+    /* 
+     * Return Specific Service /Direction is in Passthru Mode
+     * 
+     */
+    public boolean isPassthru(serviceEnum serviceName, directionEnum direction);
+    
+    /* 
+     * Return Specific Service /Direction is in Standard Mode
+     * 
+     */
+    
+    public boolean isStandard(serviceEnum serviceName, directionEnum direction);
+
     /*
      * Sets the gateway in Standard Mode for Specific Service in Specific Direction which is required for Testing
      * Purposes

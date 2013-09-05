@@ -24,24 +24,24 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
  */
-package gov.hhs.fha.nhinc.docretrieve.configuration.jmx;
+package gov.hhs.fha.nhinc.docquery.configuration.jmx;
 
-import static org.junit.Assert.*;
-
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 import gov.hhs.fha.nhinc.configuration.IConfiguration.directionEnum;
 import gov.hhs.fha.nhinc.configuration.IConfiguration.serviceEnum;
 import gov.hhs.fha.nhinc.configuration.jmx.PassthruMXBeanRegistry;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+
 
 import org.junit.Test;
 
 /**
  * @author achidambaram
- * 
+ *
  */
 public class PassthruMXBeanRegistryTest {
-
     @Test
     public void testGetInstance() {
         PassthruMXBeanRegistry registry = PassthruMXBeanRegistry.getInstance();
@@ -51,13 +51,13 @@ public class PassthruMXBeanRegistryTest {
     @Test
     public void testSetOutboundPassthruMode() {
         PassthruMXBeanRegistry registry = PassthruMXBeanRegistry.getInstance();
-        serviceEnum serviceName = serviceEnum.RetrieveDocuments;
+        serviceEnum serviceName = serviceEnum.QueryForDocuments;
         directionEnum direction = directionEnum.Outbound;
         boolean status = true;
-        DocumentRetrieve20WebServices docretrieve20 = mock(DocumentRetrieve20WebServices.class);
-        when(docretrieve20.getServiceName()).thenReturn(serviceEnum.RetrieveDocuments);
-        when(docretrieve20.isOutboundPassthru()).thenReturn(status);
-        registry.registerWebServiceMXBean(docretrieve20);
+        DocumentQuery20WebServices docquery20 = mock(DocumentQuery20WebServices.class);
+        when(docquery20.getServiceName()).thenReturn(serviceEnum.QueryForDocuments);
+        when(docquery20.isOutboundPassthru()).thenReturn(status);
+        registry.registerWebServiceMXBean(docquery20);
         boolean passthru = registry.isPassthru(serviceName, direction);
         assertEquals(true, passthru);
     }
@@ -65,13 +65,13 @@ public class PassthruMXBeanRegistryTest {
     @Test
     public void testSetInboundPassthruMode() {
         PassthruMXBeanRegistry registry = PassthruMXBeanRegistry.getInstance();
-        serviceEnum serviceName = serviceEnum.RetrieveDocuments;
+        serviceEnum serviceName = serviceEnum.QueryForDocuments;
         directionEnum direction = directionEnum.Inbound;
         boolean status = true;
-        DocumentRetrieve20WebServices docretrieve20 = mock(DocumentRetrieve20WebServices.class);
-        when(docretrieve20.getServiceName()).thenReturn(serviceEnum.RetrieveDocuments);
-        when(docretrieve20.isInboundPassthru()).thenReturn(status);
-        registry.registerWebServiceMXBean(docretrieve20);
+        DocumentQuery20WebServices docquery20 = mock(DocumentQuery20WebServices.class);
+        when(docquery20.getServiceName()).thenReturn(serviceEnum.QueryForDocuments);
+        when(docquery20.isInboundPassthru()).thenReturn(status);
+        registry.registerWebServiceMXBean(docquery20);
         boolean passthru = registry.isPassthru(serviceName, direction);
         assertEquals(true, passthru);
     }
@@ -79,12 +79,14 @@ public class PassthruMXBeanRegistryTest {
     @Test
     public void testSetStandardMode() {
         PassthruMXBeanRegistry registry = PassthruMXBeanRegistry.getInstance();
-        serviceEnum serviceName = serviceEnum.RetrieveDocuments;
+        serviceEnum serviceName = serviceEnum.QueryForDocuments;
         directionEnum direction = directionEnum.Outbound;
-        DocumentRetrieve20WebServices docretrieve20 = mock(DocumentRetrieve20WebServices.class);
-        when(docretrieve20.getServiceName()).thenReturn(serviceEnum.RetrieveDocuments);
-        registry.registerWebServiceMXBean(docretrieve20);
+        DocumentQuery20WebServices docquery20 = mock(DocumentQuery20WebServices.class);
+        when(docquery20.getServiceName()).thenReturn(serviceEnum.QueryForDocuments);
+        registry.registerWebServiceMXBean(docquery20);
         boolean standard = registry.isStandard(serviceName, direction);
         assertEquals(true, standard);
     }
+
+
 }
