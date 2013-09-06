@@ -2400,7 +2400,7 @@ assert (count == 4);</script></con:config></con:testStep><con:setupScript>nhinc.
       <con:settings/>
       <con:testStep name="Copy uddiConnectionInfo" type="groovy">
         <con:settings/>
-        <con:config><script>def sourceDir = (new com.eviware.soapui.support.GroovyUtils(context)).projectPath;
+        <con:config><script>def sourceDir = context.expand('${projectDir}');
 
 nhinc.FileUtils.copyFile(sourceDir, "uddiConnectionInfo_AD_multitarget.xml", context.findProperty("GatewayPropDir"), "uddiConnectionInfo.xml", log);</script></con:config>
       </con:testStep>
