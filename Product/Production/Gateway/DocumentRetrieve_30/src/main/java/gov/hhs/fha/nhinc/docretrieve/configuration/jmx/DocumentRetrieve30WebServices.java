@@ -120,8 +120,38 @@ public class DocumentRetrieve30WebServices extends AbstractDRWebServicesMXBean {
     /**
      * @return the serviceName
      */
+    @Override
     public serviceEnum getServiceName() {
         return serviceName;
     }
+    
+    /* (non-Javadoc)
+     * @see gov.hhs.fha.nhinc.configuration.jmx.WebServicesMXBean#isInboundStandard()
+     */
+    @Override
+    public boolean isInboundStandard() {
+        boolean isStandard = false;
+        DocRetrieve docRetrieve = retrieveBean(DocRetrieve.class, getNhinBeanName());
+        InboundDocRetrieve inboundDocRetrieve = docRetrieve.getInboundDocRetrieve();
+        if (DEFAULT_INBOUND_STANDARD_IMPL_CLASS_NAME.equals(inboundDocRetrieve.getClass().getName())) {
+            isStandard = true;
+        }
+        return isStandard;
+    }
+
+    /* (non-Javadoc)
+     * @see gov.hhs.fha.nhinc.configuration.jmx.WebServicesMXBean#isOutboundStandard()
+     */
+    @Override
+    public boolean isOutboundStandard() {
+        boolean isStandard = false;
+        EntityDocRetrieve entityDocRetrieve = retrieveBean(EntityDocRetrieve.class, getEntityUnsecuredBeanName());
+        OutboundDocRetrieve outboundDocRetrieve = entityDocRetrieve.getOutboundDocRetrieve();
+        if (DEFAULT_OUTBOUND_STANDARD_IMPL_CLASS_NAME.equals(outboundDocRetrieve.getClass().getName())) {
+            isStandard = true;
+        }
+        return isStandard;
+    }
+
     
 }

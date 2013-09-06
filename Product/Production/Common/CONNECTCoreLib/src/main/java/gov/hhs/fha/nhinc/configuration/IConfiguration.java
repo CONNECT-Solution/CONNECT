@@ -26,9 +26,6 @@
  */
 package gov.hhs.fha.nhinc.configuration;
 
-import gov.hhs.fha.nhinc.nhinclib.NhincConstants.NHIN_SERVICE_NAMES;
-
-// TODO: Auto-generated Javadoc
 /**
  * The Interface IConfiguration.
  * 
@@ -87,6 +84,19 @@ public interface IConfiguration {
     public enum serviceEnum {
         PatientDiscoveryDeferredRequest, PatientDiscoveryDeferredResponse, PatientDiscovery, DocumentSubmissionDeferredRequest, DocumentSubmissionDeferredResponse, DocumentSubmission, QueryForDocuments, RetrieveDocuments, AdminDistribution
     };
+    
+    /* 
+     * Return Specific Service /Direction is in Passthru Mode
+     * 
+     */
+    public boolean isPassthru(serviceEnum serviceName, directionEnum direction);
+    
+    /* 
+     * Return Specific Service /Direction is in Standard Mode
+     * 
+     */
+    
+    public boolean isStandard(serviceEnum serviceName, directionEnum direction);
 
     /*
      * Sets the gateway in Standard Mode for Specific Service in Specific Direction which is required for Testing
