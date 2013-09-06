@@ -43,7 +43,7 @@ public class Configuration implements ConfigurationMXBean {
 
     /** The Constant ERROR_ACCESSING_PROPERTY_FILE. */
     private static final String ERROR_ACCESSING_PROPERTY_FILE = "Error accessing property file: ";
-
+    
     /**
      * Instantiates a new configuration.
      */
@@ -137,7 +137,7 @@ public class Configuration implements ConfigurationMXBean {
             IllegalAccessException, ClassNotFoundException {
         PassthruMXBeanRegistry registry = PassthruMXBeanRegistry.getInstance();
         registry.setPassthruMode(serviceName, direction);
-
+        
     }
 
     /*
@@ -151,5 +151,20 @@ public class Configuration implements ConfigurationMXBean {
         PassthruMXBeanRegistry registry = PassthruMXBeanRegistry.getInstance();
         registry.setStandardMode(serviceName, direction);
     }
-
+    
+    @Override
+    public boolean isPassthru(serviceEnum serviceName, directionEnum direction) {
+        boolean passthruMode = false;
+        PassthruMXBeanRegistry registry = PassthruMXBeanRegistry.getInstance();
+        passthruMode = registry.isPassthru(serviceName,direction);
+        return passthruMode;
+    }
+    
+    @Override
+    public boolean isStandard(serviceEnum serviceName, directionEnum direction) {
+        boolean standardMode = false;
+        PassthruMXBeanRegistry registry = PassthruMXBeanRegistry.getInstance();
+        standardMode = registry.isStandard(serviceName,direction);
+        return standardMode;
+    }
 }

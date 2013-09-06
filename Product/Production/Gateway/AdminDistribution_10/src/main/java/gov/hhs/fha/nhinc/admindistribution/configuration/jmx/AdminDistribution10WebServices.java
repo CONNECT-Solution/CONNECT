@@ -37,7 +37,7 @@ import javax.servlet.ServletContext;
 
 /**
  * The Class AdminDistribution10WebServices.
- *
+ * 
  * @author msw
  */
 public class AdminDistribution10WebServices extends AbstractAdminDistributionWebServicesMXBean {
@@ -52,10 +52,10 @@ public class AdminDistribution10WebServices extends AbstractAdminDistributionWeb
     private static final String ENTITY_SECURED_AD_BEAN_NAME = "EntityAdministrativeDistributionSecuredBean";
 
     private final serviceEnum serviceName = serviceEnum.AdminDistribution;
-    
+
     /**
      * Instantiates a new admin distribution10 web services.
-     *
+     * 
      * @param sc the sc
      */
     public AdminDistribution10WebServices(ServletContext sc) {
@@ -153,14 +153,46 @@ public class AdminDistribution10WebServices extends AbstractAdminDistributionWeb
                 getEntityUnsecuredBeanName());
         EntityAdministrativeDistributionSecured entityADSecured = retrieveBean(
                 EntityAdministrativeDistributionSecured.class, getEntitySecuredBeanName());
-        
+
         entityADSecured.setOutboundAdminDistribution(outboundAD);
         entityADUnsecured.setOutboundAdminDistribution(outboundAD);
     }
-    
-    
+
+    @Override
     public serviceEnum getServiceName() {
         return this.serviceName;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see gov.hhs.fha.nhinc.configuration.jmx.WebServicesMXBean#isOutboundStandard()
+     */
+    @Override
+    public boolean isOutboundStandard() {
+        boolean isStandard = false;
+        EntityAdministrativeDistribution entityAD = retrieveBean(EntityAdministrativeDistribution.class,
+                getEntityUnsecuredBeanName());
+        OutboundAdminDistribution outboundAD = entityAD.getOutboundAdminDistribution();
+        if (DEFAULT_OUTBOUND_STANDARD_IMPL_CLASS_NAME.equals(outboundAD.getClass().getName())) {
+            isStandard = true;
+        }
+        return isStandard;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see gov.hhs.fha.nhinc.configuration.jmx.WebServicesMXBean#isInboundStandard()
+     */
+    public boolean isInboundStandard() {
+        boolean isStandard = false;
+        NhinAdministrativeDistribution nhinAD = retrieveBean(NhinAdministrativeDistribution.class, getNhinBeanName());
+        InboundAdminDistribution inboundAD = nhinAD.getInboundAdminDistribution();
+        if (DEFAULT_INBOUND_STANDARD_IMPL_CLASS_NAME.equals(inboundAD.getClass().getName())) {
+            isStandard = true;
+        }
+        return isStandard;
     }
 
 }

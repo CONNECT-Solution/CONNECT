@@ -117,4 +117,11 @@ public interface WebServicesMXBean {
 
     public serviceEnum getServiceName();
 
+    /**
+     * 
+     */
+    public boolean isInboundStandard();
+    
+    public boolean isOutboundStandard();
+
 }

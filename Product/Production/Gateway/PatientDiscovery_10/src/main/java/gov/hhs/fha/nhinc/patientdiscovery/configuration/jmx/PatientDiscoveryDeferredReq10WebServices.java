@@ -213,8 +213,45 @@ public class PatientDiscoveryDeferredReq10WebServices extends AbstractWebService
         return DEFAULT_OUTBOUND_PASSTHRU_IMPL_CLASS_NAME;
     }
     
+    @Override
     public serviceEnum getServiceName() {
         return this.serviceName;
     }
+    
+    
+    /*
+     * (non-Javadoc)
+     * 
+     * @see gov.hhs.fha.nhinc.configuration.jmx.WebServicesMXBean#isInboundStandard()
+     */
+    @Override
+    public boolean isOutboundStandard() {
+        boolean isStandard = false;
+        NhinPatientDiscoveryDeferredRequest nhinPD = retrieveBean(NhinPatientDiscoveryDeferredRequest.class,
+                getNhinBeanName());
+        InboundPatientDiscoveryDeferredRequest inboundPatientDiscovery = nhinPD.getInboundPatientDiscovery();
+        if (DEFAULT_OUTBOUND_STANDARD_IMPL_CLASS_NAME.equals(inboundPatientDiscovery.getClass().getName())) {
+            isStandard = true;
+        }
+        return isStandard;
+    }
+    
+    /*
+     * (non-Javadoc)
+     * 
+     * @see gov.hhs.fha.nhinc.configuration.jmx.WebServicesMXBean#isInboundStandard()
+     */
+    @Override
+    public boolean isInboundStandard() {
+        boolean isStandard = false;
+        NhinPatientDiscoveryDeferredRequest nhinPD = retrieveBean(NhinPatientDiscoveryDeferredRequest.class,
+                getNhinBeanName());
+        InboundPatientDiscoveryDeferredRequest inboundPatientDiscovery = nhinPD.getInboundPatientDiscovery();
+        if (DEFAULT_INBOUND_STANDARD_IMPL_CLASS_NAME.equals(inboundPatientDiscovery.getClass().getName())) {
+            isStandard = true;
+        }
+        return isStandard;
+    }
+
 
 }
