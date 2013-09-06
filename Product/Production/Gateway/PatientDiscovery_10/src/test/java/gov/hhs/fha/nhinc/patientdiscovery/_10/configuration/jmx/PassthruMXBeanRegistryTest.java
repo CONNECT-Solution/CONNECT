@@ -80,12 +80,28 @@ public class PassthruMXBeanRegistryTest {
     }
 
     @Test
-    public void testSetStandardMode() {
+    public void testSetOutboundStandardMode() {
         PassthruMXBeanRegistry registry = PassthruMXBeanRegistry.getInstance();
         serviceEnum serviceName = serviceEnum.PatientDiscovery;
         directionEnum direction = directionEnum.Outbound;
+        boolean status = true;
         PatientDiscovery10WebServices patientDiscovery10 = mock(PatientDiscovery10WebServices.class);
         when(patientDiscovery10.getServiceName()).thenReturn(serviceEnum.PatientDiscovery);
+        when(patientDiscovery10.isOutboundStandard()).thenReturn(status);
+        registry.registerWebServiceMXBean(patientDiscovery10);
+        boolean standard = registry.isStandard(serviceName, direction);
+        assertEquals(true, standard);
+    }
+    
+    @Test
+    public void testSetInboundStandardMode() {
+        PassthruMXBeanRegistry registry = PassthruMXBeanRegistry.getInstance();
+        serviceEnum serviceName = serviceEnum.PatientDiscovery;
+        directionEnum direction = directionEnum.Inbound;
+        boolean status = true;
+        PatientDiscovery10WebServices patientDiscovery10 = mock(PatientDiscovery10WebServices.class);
+        when(patientDiscovery10.getServiceName()).thenReturn(serviceEnum.PatientDiscovery);
+        when(patientDiscovery10.isInboundStandard()).thenReturn(status);
         registry.registerWebServiceMXBean(patientDiscovery10);
         boolean standard = registry.isStandard(serviceName, direction);
         assertEquals(true, standard);
@@ -120,12 +136,28 @@ public class PassthruMXBeanRegistryTest {
     }
 
     @Test
-    public void testPDDeferredReqSetStandardMode() {
+    public void testPDDeferredReqSetOutboundStandardMode() {
         PassthruMXBeanRegistry registry = PassthruMXBeanRegistry.getInstance();
         serviceEnum serviceName = serviceEnum.PatientDiscoveryDeferredRequest;
         directionEnum direction = directionEnum.Outbound;
+        boolean status = true;
         PatientDiscoveryDeferredReq10WebServices pdDeferredReq = mock(PatientDiscoveryDeferredReq10WebServices.class);
         when(pdDeferredReq.getServiceName()).thenReturn(serviceEnum.PatientDiscoveryDeferredRequest);
+        when(pdDeferredReq.isOutboundStandard()).thenReturn(status);
+        registry.registerWebServiceMXBean(pdDeferredReq);
+        boolean standard = registry.isStandard(serviceName, direction);
+        assertEquals(true, standard);
+    }
+    
+    @Test
+    public void testPDDeferredReqSetInboundStandardMode() {
+        PassthruMXBeanRegistry registry = PassthruMXBeanRegistry.getInstance();
+        serviceEnum serviceName = serviceEnum.PatientDiscoveryDeferredRequest;
+        directionEnum direction = directionEnum.Inbound;
+        boolean status = true;
+        PatientDiscoveryDeferredReq10WebServices pdDeferredReq = mock(PatientDiscoveryDeferredReq10WebServices.class);
+        when(pdDeferredReq.getServiceName()).thenReturn(serviceEnum.PatientDiscoveryDeferredRequest);
+        when(pdDeferredReq.isInboundStandard()).thenReturn(status);
         registry.registerWebServiceMXBean(pdDeferredReq);
         boolean standard = registry.isStandard(serviceName, direction);
         assertEquals(true, standard);
@@ -160,12 +192,28 @@ public class PassthruMXBeanRegistryTest {
     }
 
     @Test
-    public void testPDDeferredRespSetStandardMode() {
+    public void testPDDeferredRespSetOutboundStandardMode() {
         PassthruMXBeanRegistry registry = PassthruMXBeanRegistry.getInstance();
         serviceEnum serviceName = serviceEnum.PatientDiscoveryDeferredResponse;
         directionEnum direction = directionEnum.Outbound;
+        boolean status = true;
         PatientDiscoveryDeferredResp10WebServices pdDeferredResp = mock(PatientDiscoveryDeferredResp10WebServices.class);
         when(pdDeferredResp.getServiceName()).thenReturn(serviceEnum.PatientDiscoveryDeferredResponse);
+        when(pdDeferredResp.isOutboundStandard()).thenReturn(status);
+        registry.registerWebServiceMXBean(pdDeferredResp);
+        boolean standard = registry.isStandard(serviceName, direction);
+        assertEquals(true, standard);
+    }
+    
+    @Test
+    public void testPDDeferredRespSetInboundStandardMode() {
+        PassthruMXBeanRegistry registry = PassthruMXBeanRegistry.getInstance();
+        serviceEnum serviceName = serviceEnum.PatientDiscoveryDeferredResponse;
+        directionEnum direction = directionEnum.Inbound;
+        boolean status = true;
+        PatientDiscoveryDeferredResp10WebServices pdDeferredResp = mock(PatientDiscoveryDeferredResp10WebServices.class);
+        when(pdDeferredResp.getServiceName()).thenReturn(serviceEnum.PatientDiscoveryDeferredResponse);
+        when(pdDeferredResp.isInboundStandard()).thenReturn(status);
         registry.registerWebServiceMXBean(pdDeferredResp);
         boolean standard = registry.isStandard(serviceName, direction);
         assertEquals(true, standard);

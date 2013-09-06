@@ -50,7 +50,7 @@ public class PassthruMXBeanRegistry {
     }
 
     /** The registered beans. */
-    public Set<WebServicesMXBean> registeredBeans = null;
+    protected Set<WebServicesMXBean> registeredBeans = null;
 
     /**
      * Gets the single instance of PassthruMXBeanRegistry.
@@ -159,7 +159,12 @@ public class PassthruMXBeanRegistry {
     public boolean isStandard(serviceEnum serviceName, directionEnum direction) {
         boolean standardMode = false;
         for (WebServicesMXBean b : registeredBeans) {
-            if ((direction.toString().equals("Outbound") && (b.getServiceName().equals(serviceName)))) {
+            if ((b.isOutboundStandard())
+                    && (direction.toString().equals("Outbound") && (b.getServiceName().equals(serviceName)))) {
+                standardMode = true;
+            }
+            if ((b.isInboundStandard())
+                    && (direction.toString().equals("Inbound") && (b.getServiceName().equals(serviceName)))) {
                 standardMode = true;
             }
         }

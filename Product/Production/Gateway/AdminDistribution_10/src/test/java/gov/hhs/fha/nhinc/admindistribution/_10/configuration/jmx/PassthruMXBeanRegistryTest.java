@@ -78,12 +78,28 @@ public class PassthruMXBeanRegistryTest {
     }
 
     @Test
-    public void testSetStandardMode() {
+    public void testSetOutboundStandardMode() {
         PassthruMXBeanRegistry registry = PassthruMXBeanRegistry.getInstance();
         serviceEnum serviceName = serviceEnum.AdminDistribution;
         directionEnum direction = directionEnum.Outbound;
+        boolean status = true;
         AdminDistribution10WebServices adminDist10 = mock(AdminDistribution10WebServices.class);
         when(adminDist10.getServiceName()).thenReturn(serviceEnum.AdminDistribution);
+        when(adminDist10.isOutboundStandard()).thenReturn(status);
+        registry.registerWebServiceMXBean(adminDist10);
+        boolean standard = registry.isStandard(serviceName, direction);
+        assertEquals(true, standard);
+    }
+    
+    @Test
+    public void testSetInboundStandardMode() {
+        PassthruMXBeanRegistry registry = PassthruMXBeanRegistry.getInstance();
+        serviceEnum serviceName = serviceEnum.AdminDistribution;
+        directionEnum direction = directionEnum.Inbound;
+        boolean status = true;
+        AdminDistribution10WebServices adminDist10 = mock(AdminDistribution10WebServices.class);
+        when(adminDist10.getServiceName()).thenReturn(serviceEnum.AdminDistribution);
+        when(adminDist10.isInboundStandard()).thenReturn(status);
         registry.registerWebServiceMXBean(adminDist10);
         boolean standard = registry.isStandard(serviceName, direction);
         assertEquals(true, standard);

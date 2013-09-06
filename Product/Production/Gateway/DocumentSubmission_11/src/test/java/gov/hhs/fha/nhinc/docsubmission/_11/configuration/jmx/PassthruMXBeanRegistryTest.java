@@ -79,12 +79,28 @@ public class PassthruMXBeanRegistryTest {
     }
 
     @Test
-    public void testSetStandardMode() {
+    public void testSetOutboundStandardMode() {
         PassthruMXBeanRegistry registry = PassthruMXBeanRegistry.getInstance();
         serviceEnum serviceName = serviceEnum.DocumentSubmission;
         directionEnum direction = directionEnum.Outbound;
+        boolean status = true;
         DocumentSubmission11WebServices docSubmission11 = mock(DocumentSubmission11WebServices.class);
         when(docSubmission11.getServiceName()).thenReturn(serviceEnum.DocumentSubmission);
+        when(docSubmission11.isOutboundStandard()).thenReturn(status);
+        registry.registerWebServiceMXBean(docSubmission11);
+        boolean standard = registry.isStandard(serviceName, direction);
+        assertEquals(true, standard);
+    }
+    
+    @Test
+    public void testSetInboundStandardMode() {
+        PassthruMXBeanRegistry registry = PassthruMXBeanRegistry.getInstance();
+        serviceEnum serviceName = serviceEnum.DocumentSubmission;
+        directionEnum direction = directionEnum.Inbound;
+        boolean status = true;
+        DocumentSubmission11WebServices docSubmission11 = mock(DocumentSubmission11WebServices.class);
+        when(docSubmission11.getServiceName()).thenReturn(serviceEnum.DocumentSubmission);
+        when(docSubmission11.isInboundStandard()).thenReturn(status);
         registry.registerWebServiceMXBean(docSubmission11);
         boolean standard = registry.isStandard(serviceName, direction);
         assertEquals(true, standard);
@@ -119,12 +135,28 @@ public class PassthruMXBeanRegistryTest {
     }
 
     @Test
-    public void testPDDeferredReqSetStandardMode() {
+    public void testPDDeferredReqSetOutboundStandardMode() {
         PassthruMXBeanRegistry registry = PassthruMXBeanRegistry.getInstance();
         serviceEnum serviceName = serviceEnum.DocumentSubmissionDeferredRequest;
         directionEnum direction = directionEnum.Outbound;
+        boolean status = true;
         DocumentSubmissionDefRequest11WebServices docSubmissionDeferredReq = mock(DocumentSubmissionDefRequest11WebServices.class);
-        when(docSubmissionDeferredReq.getServiceName()).thenReturn(serviceEnum.PatientDiscoveryDeferredRequest);
+        when(docSubmissionDeferredReq.isOutboundStandard()).thenReturn(status);
+        when(docSubmissionDeferredReq.getServiceName()).thenReturn(serviceEnum.DocumentSubmissionDeferredRequest);
+        registry.registerWebServiceMXBean(docSubmissionDeferredReq);
+        boolean standard = registry.isStandard(serviceName, direction);
+        assertEquals(true, standard);
+    }
+    
+    @Test
+    public void testPDDeferredReqSetInboundStandardMode() {
+        PassthruMXBeanRegistry registry = PassthruMXBeanRegistry.getInstance();
+        serviceEnum serviceName = serviceEnum.DocumentSubmissionDeferredRequest;
+        directionEnum direction = directionEnum.Inbound;
+        boolean status = true;
+        DocumentSubmissionDefRequest11WebServices docSubmissionDeferredReq = mock(DocumentSubmissionDefRequest11WebServices.class);
+        when(docSubmissionDeferredReq.isInboundStandard()).thenReturn(status);
+        when(docSubmissionDeferredReq.getServiceName()).thenReturn(serviceEnum.DocumentSubmissionDeferredRequest);
         registry.registerWebServiceMXBean(docSubmissionDeferredReq);
         boolean standard = registry.isStandard(serviceName, direction);
         assertEquals(true, standard);
@@ -159,12 +191,28 @@ public class PassthruMXBeanRegistryTest {
     }
 
     @Test
-    public void testPDDeferredRespSetStandardMode() {
+    public void testPDDeferredRespSetOutboundStandardMode() {
         PassthruMXBeanRegistry registry = PassthruMXBeanRegistry.getInstance();
         serviceEnum serviceName = serviceEnum.DocumentSubmissionDeferredResponse;
         directionEnum direction = directionEnum.Outbound;
+        boolean status = true;
         DocumentSubmissionDefResponse11WebServices docSubmisisonDeferredResp = mock(DocumentSubmissionDefResponse11WebServices.class);
         when(docSubmisisonDeferredResp.getServiceName()).thenReturn(serviceEnum.DocumentSubmissionDeferredResponse);
+        when(docSubmisisonDeferredResp.isOutboundStandard()).thenReturn(status);
+        registry.registerWebServiceMXBean(docSubmisisonDeferredResp);
+        boolean standard = registry.isStandard(serviceName, direction);
+        assertEquals(true, standard);
+    }
+    
+    @Test
+    public void testPDDeferredRespSetInboundStandardMode() {
+        PassthruMXBeanRegistry registry = PassthruMXBeanRegistry.getInstance();
+        serviceEnum serviceName = serviceEnum.DocumentSubmissionDeferredResponse;
+        directionEnum direction = directionEnum.Inbound;
+        boolean status = true;
+        DocumentSubmissionDefResponse11WebServices docSubmisisonDeferredResp = mock(DocumentSubmissionDefResponse11WebServices.class);
+        when(docSubmisisonDeferredResp.getServiceName()).thenReturn(serviceEnum.DocumentSubmissionDeferredResponse);
+        when(docSubmisisonDeferredResp.isInboundStandard()).thenReturn(status);
         registry.registerWebServiceMXBean(docSubmisisonDeferredResp);
         boolean standard = registry.isStandard(serviceName, direction);
         assertEquals(true, standard);

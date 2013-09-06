@@ -77,12 +77,28 @@ public class PassthruMXBeanRegistryTest {
     }
 
     @Test
-    public void testSetStandardMode() {
+    public void testSetOutboundStandardMode() {
         PassthruMXBeanRegistry registry = PassthruMXBeanRegistry.getInstance();
         serviceEnum serviceName = serviceEnum.RetrieveDocuments;
         directionEnum direction = directionEnum.Outbound;
+        boolean status = true;
         DocumentRetrieve20WebServices docretrieve20 = mock(DocumentRetrieve20WebServices.class);
         when(docretrieve20.getServiceName()).thenReturn(serviceEnum.RetrieveDocuments);
+        when(docretrieve20.isOutboundStandard()).thenReturn(status);
+        registry.registerWebServiceMXBean(docretrieve20);
+        boolean standard = registry.isStandard(serviceName, direction);
+        assertEquals(true, standard);
+    }
+    
+    @Test
+    public void testSetInboundStandardMode() {
+        PassthruMXBeanRegistry registry = PassthruMXBeanRegistry.getInstance();
+        serviceEnum serviceName = serviceEnum.RetrieveDocuments;
+        directionEnum direction = directionEnum.Inbound;
+        boolean status = true;
+        DocumentRetrieve20WebServices docretrieve20 = mock(DocumentRetrieve20WebServices.class);
+        when(docretrieve20.getServiceName()).thenReturn(serviceEnum.RetrieveDocuments);
+        when(docretrieve20.isInboundStandard()).thenReturn(status);
         registry.registerWebServiceMXBean(docretrieve20);
         boolean standard = registry.isStandard(serviceName, direction);
         assertEquals(true, standard);

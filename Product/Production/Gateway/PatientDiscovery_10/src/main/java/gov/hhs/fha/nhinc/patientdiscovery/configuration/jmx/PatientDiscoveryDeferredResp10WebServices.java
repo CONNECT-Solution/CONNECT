@@ -214,7 +214,42 @@ public class PatientDiscoveryDeferredResp10WebServices extends AbstractWebServic
         return DEFAULT_OUTBOUND_PASSTHRU_IMPL_CLASS_NAME;
     }
 
+    @Override
     public serviceEnum getServiceName() {
         return this.serviceName;
+    }
+    
+    /*
+     * (non-Javadoc)
+     * 
+     * @see gov.hhs.fha.nhinc.configuration.jmx.WebServicesMXBean#isOutboundPassthru()
+     */
+    @Override
+    public boolean isOutboundStandard() {
+        boolean isStandard = false;
+        EntityPatientDiscoveryDeferredResponseUnsecured entityPD = retrieveBean(
+                EntityPatientDiscoveryDeferredResponseUnsecured.class, getEntityUnsecuredBeanName());
+        OutboundPatientDiscoveryDeferredResponse outboundPatientDiscovery = entityPD.getOutboundPatientDiscovery();
+        if (DEFAULT_OUTBOUND_STANDARD_IMPL_CLASS_NAME.equals(outboundPatientDiscovery.getClass().getName())) {
+            isStandard = true;
+        }
+        return isStandard;
+    }
+    
+    /*
+     * (non-Javadoc)
+     * 
+     * @see gov.hhs.fha.nhinc.configuration.jmx.WebServicesMXBean#isOutboundPassthru()
+     */
+    @Override
+    public boolean isInboundStandard() {
+        boolean isStandard = false;
+        EntityPatientDiscoveryDeferredResponseUnsecured entityPD = retrieveBean(
+                EntityPatientDiscoveryDeferredResponseUnsecured.class, getEntityUnsecuredBeanName());
+        OutboundPatientDiscoveryDeferredResponse outboundPatientDiscovery = entityPD.getOutboundPatientDiscovery();
+        if (DEFAULT_INBOUND_STANDARD_IMPL_CLASS_NAME.equals(outboundPatientDiscovery.getClass().getName())) {
+            isStandard = true;
+        }
+        return isStandard;
     }
 }
