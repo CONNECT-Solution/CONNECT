@@ -45,10 +45,10 @@ public interface TransactionStore {
     public boolean insertIntoTransactionRepo(TransactionRepo transactionRepo);
 
     /**
-     * Gets the transaction id.
+     * Gets the transaction id. Returns null if no transaction id matches the input.
      * 
      * @param messageId the message id
-     * @return the transaction id
+     * @return the transaction id or null
      */
     public String getTransactionId(String messageId);
 }

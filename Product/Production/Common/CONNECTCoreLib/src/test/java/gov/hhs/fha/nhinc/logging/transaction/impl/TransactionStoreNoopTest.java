@@ -49,7 +49,7 @@ public class TransactionStoreNoopTest {
         TransactionStoreNoop store = new TransactionStoreNoop();
 
         String messageId = UUID.randomUUID().toString();
-        assertEquals(StringUtils.EMPTY, store.getTransactionId(messageId));
+        assertEquals(null, store.getTransactionId(messageId));
 
         String transactionId = UUID.randomUUID().toString();
         TransactionRepo transactionRepo = new TransactionRepo();
@@ -57,7 +57,7 @@ public class TransactionStoreNoopTest {
         transactionRepo.setTransactionId(transactionId);
         assert (store.insertIntoTransactionRepo(transactionRepo));
 
-        assertEquals(StringUtils.EMPTY, store.getTransactionId(messageId));
+        assertEquals(null, store.getTransactionId(messageId));
     }
     
     /**

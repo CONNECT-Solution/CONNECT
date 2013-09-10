@@ -49,13 +49,13 @@ public class TransactionStoreNoop implements TransactionStore {
     }
 
     /**
-     * No operation implementation returns an empty transaction id.
+     * No operation implementation returns null.
      * 
      * @see gov.hhs.fha.nhinc.logging.transaction.TransactionStore#getTransactionId(java.lang.String)
      */
     @Override
     public String getTransactionId(String messageId) {
-        return StringUtils.EMPTY;
+        return null;
     }
 
 }
