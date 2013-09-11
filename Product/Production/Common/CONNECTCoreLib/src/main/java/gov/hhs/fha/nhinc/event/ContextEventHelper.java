@@ -29,7 +29,8 @@
 package gov.hhs.fha.nhinc.event;
 
 import gov.hhs.fha.nhinc.async.AsyncMessageIdExtractor;
-import gov.hhs.fha.nhinc.logging.transaction.dao.TransactionDAO;
+import gov.hhs.fha.nhinc.logging.transaction.TransactionStore;
+import gov.hhs.fha.nhinc.logging.transaction.factory.TransactionStoreFactory;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 
 import java.util.List;
@@ -57,7 +58,8 @@ public class ContextEventHelper {
         }
 
         if ((transactionId == null) && (messageId != null)) {
-            transactionId = TransactionDAO.getInstance().getTransactionId(messageId);
+            TransactionStore store = new TransactionStoreFactory().getTransactionStore();
+            transactionId = store.getTransactionId(messageId);
         }
 
         return transactionId;

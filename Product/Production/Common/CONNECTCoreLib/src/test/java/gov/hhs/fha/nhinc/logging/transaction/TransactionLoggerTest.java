@@ -33,7 +33,6 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import gov.hhs.fha.nhinc.logging.transaction.dao.TransactionDAO;
 import gov.hhs.fha.nhinc.logging.transaction.model.TransactionRepo;
 
 import org.apache.log4j.MDC;
@@ -67,56 +66,56 @@ public class TransactionLoggerTest {
     
     @Test
     public void logTransaction() {        
-        TransactionDAO transactionDAO = mock(TransactionDAO.class);
+        TransactionStore transactionStore = mock(TransactionStore.class);
 
-        TransactionLogger transactionLogger = new TransactionLogger(transactionDAO);
+        TransactionLogger transactionLogger = new TransactionLogger(transactionStore);
 
-        when(transactionDAO.insertIntoTransactionRepo(any(TransactionRepo.class))).thenReturn(true);
+        when(transactionStore.insertIntoTransactionRepo(any(TransactionRepo.class))).thenReturn(true);
 
         transactionLogger.logTransaction(transactionId, messageId);
 
-        verifyLog(transactionDAO, messageId, transactionId);
+        verifyLog(transactionStore, messageId, transactionId);
     }
 
     @Test
     public void logTransactionWithNullIds() {
-        TransactionDAO transactionDAO = mock(TransactionDAO.class);
+        TransactionStore transactionStore = mock(TransactionStore.class);
 
-        TransactionLogger transactionLogger = new TransactionLogger(transactionDAO);
+        TransactionLogger transactionLogger = new TransactionLogger(transactionStore);
 
         transactionLogger.logTransaction(null, "messageId");
-        verifyNothingLogged(transactionDAO);
+        verifyNothingLogged(transactionStore);
 
         transactionLogger.logTransaction("transactionId", null);
-        verifyNothingLogged(transactionDAO);
+        verifyNothingLogged(transactionStore);
 
         transactionLogger.logTransaction(null, null);
-        verifyNothingLogged(transactionDAO);
+        verifyNothingLogged(transactionStore);
     }
 
     @Test
     public void logRelatedTransaction() {  
-        TransactionDAO transactionDAO = mock(TransactionDAO.class);
+        TransactionStore transactionStore = mock(TransactionStore.class);
 
-        TransactionLogger transactionLogger = new TransactionLogger(transactionDAO);
+        TransactionLogger transactionLogger = new TransactionLogger(transactionStore);
 
-        when(transactionDAO.getTransactionId(relatedMessageId)).thenReturn(transactionId);
-        when(transactionDAO.insertIntoTransactionRepo(any(TransactionRepo.class))).thenReturn(true);
+        when(transactionStore.getTransactionId(relatedMessageId)).thenReturn(transactionId);
+        when(transactionStore.insertIntoTransactionRepo(any(TransactionRepo.class))).thenReturn(true);
         
         transactionLogger.logTransactionFromRelatedMessageId(relatedMessageId, messageId);
-        verifyLog(transactionDAO, messageId, transactionId);
+        verifyLog(transactionStore, messageId, transactionId);
     }
     
     @Test
     public void logNoRelatedTransaction() {        
-        TransactionDAO transactionDAO = mock(TransactionDAO.class);
+        TransactionStore transactionStore = mock(TransactionStore.class);
 
-        TransactionLogger transactionLogger = new TransactionLogger(transactionDAO);
+        TransactionLogger transactionLogger = new TransactionLogger(transactionStore);
 
-        when(transactionDAO.getTransactionId(relatedMessageId)).thenReturn(null);
+        when(transactionStore.getTransactionId(relatedMessageId)).thenReturn(null);
         
         transactionLogger.logTransactionFromRelatedMessageId(relatedMessageId, messageId);
-        verifyNothingLogged(transactionDAO);
+        verifyNothingLogged(transactionStore);
     }
     
     private void clearMDC() {
@@ -124,9 +123,9 @@ public class TransactionLoggerTest {
         MDC.remove(TRANSACTION_ID_MDC_KEY);
     }
     
-    private void verifyLog(TransactionDAO transactionDAO, String messageId, String transactionId) {
+    private void verifyLog(TransactionStore transactionStore, String messageId, String transactionId) {
         ArgumentCaptor<TransactionRepo> transRepoArgCaptor = ArgumentCaptor.forClass(TransactionRepo.class);
-        verify(transactionDAO).insertIntoTransactionRepo(transRepoArgCaptor.capture());
+        verify(transactionStore).insertIntoTransactionRepo(transRepoArgCaptor.capture());
         
         assertEquals(messageId, transRepoArgCaptor.getValue().getMessageId());
         assertEquals(transactionId, transRepoArgCaptor.getValue().getTransactionId());
@@ -135,8 +134,8 @@ public class TransactionLoggerTest {
         assertEquals(transactionId, MDC.get(TRANSACTION_ID_MDC_KEY)); 
     }
 
-    private void verifyNothingLogged(TransactionDAO transactionDAO) {
-        verify(transactionDAO, never()).insertIntoTransactionRepo(any(TransactionRepo.class));
+    private void verifyNothingLogged(TransactionStore transactionStore) {
+        verify(transactionStore, never()).insertIntoTransactionRepo(any(TransactionRepo.class));
         assertNull(MDC.get(MESSAGE_ID_MDC_KEY));
         assertNull(MDC.get(TRANSACTION_ID_MDC_KEY));
     }

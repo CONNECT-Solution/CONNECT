@@ -27,6 +27,7 @@
 package gov.hhs.fha.nhinc.logging.transaction;
 
 import gov.hhs.fha.nhinc.logging.transaction.dao.TransactionDAO;
+import gov.hhs.fha.nhinc.logging.transaction.factory.TransactionStoreFactory;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 
 import java.util.HashSet;
@@ -63,7 +64,9 @@ public class TransactionHandler implements SOAPHandler<SOAPMessageContext> {
     private static final String MESSAGE_ID = "MessageID";
     private static final String RELATESTO_ID = "RelatesTo";
     
-   
+    private TransactionLogger transactionLogger = null;
+    private TransactionStore transactionStore = null;
+
     /*
      * (non-Javadoc)
      * 
@@ -73,7 +76,7 @@ public class TransactionHandler implements SOAPHandler<SOAPMessageContext> {
     public boolean handleMessage(SOAPMessageContext context) {
 
         LOG.debug("TransactionHandler handleMessage() START ");
-        
+
         String messageId = null;
         String transactionId = null;
         String currentWSA = null;
@@ -86,15 +89,15 @@ public class TransactionHandler implements SOAPHandler<SOAPMessageContext> {
             SOAPHeader soapHeader = soapEnvelope.getHeader();
             SOAPElement messageIdElement = null;
             SOAPElement messageId05Element = getFirstChild(soapHeader, WSA_NS_2005, MESSAGE_ID);
-            
+
             if (messageId05Element != null) {
-            	messageIdElement = messageId05Element;
-            	currentWSA = WSA_NS_2005;
+                messageIdElement = messageId05Element;
+                currentWSA = WSA_NS_2005;
             } else {
-            	messageIdElement = getFirstChild(soapHeader, WSA_NS_2004, MESSAGE_ID);
-            	currentWSA = WSA_NS_2004;
+                messageIdElement = getFirstChild(soapHeader, WSA_NS_2004, MESSAGE_ID);
+                currentWSA = WSA_NS_2004;
             }
-            
+
             LOG.debug("TransactionHandler handleMessage() WSA namespace = " + currentWSA);
 
             if (messageIdElement != null) {
@@ -108,7 +111,7 @@ public class TransactionHandler implements SOAPHandler<SOAPMessageContext> {
 
                 // Checks if the repeatable RelatesTo value in the message has a transactionID
                 if (NullChecker.isNullish(transactionId)) {
-                   
+
                     LOG.debug("TransactionHandler.handleMessage() Looking up on RelatesTo");
                     Iterator<SOAPElement> iter = getAllChildren(soapHeader, currentWSA, RELATESTO_ID);
                     transactionId = iterateThroughRelatesTo(iter, messageId);
@@ -135,7 +138,19 @@ public class TransactionHandler implements SOAPHandler<SOAPMessageContext> {
      * @param transactionId The transactionId fromthe SOAPHeader
      */
     protected void createTransactionRecord(String messageId, String transactionId) {
-        new TransactionLogger().createTransactionRecord(messageId, transactionId);
+        getTransactionLogger().createTransactionRecord(messageId, transactionId);
+    }
+    
+    /**
+     * Gets the transaction logger.
+     *
+     * @return the transaction logger
+     */
+    protected TransactionLogger getTransactionLogger() {
+        if (transactionLogger == null) {
+            transactionLogger = new TransactionLogger();
+        }
+        return transactionLogger;
     }
 
     /**
@@ -145,7 +160,19 @@ public class TransactionHandler implements SOAPHandler<SOAPMessageContext> {
      * @return transactionId The transactionId from the DAO lookup
      */
     protected String getTransactionId(String id) {
-        return TransactionDAO.getInstance().getTransactionId(id);
+        return getTransactionStore().getTransactionId(id);
+    }
+    
+    /**
+     * Gets the transaction store.
+     *
+     * @return the transaction store
+     */
+    protected TransactionStore getTransactionStore() {
+        if (transactionStore == null) {
+            transactionStore = new TransactionStoreFactory().getTransactionStore();
+        }
+        return transactionStore;
     }
 
     /**
@@ -155,10 +182,10 @@ public class TransactionHandler implements SOAPHandler<SOAPMessageContext> {
      * @param messageId The messageId for the message
      */
     protected void enableMdcLogging(String transactionId, String messageId) {
-        new TransactionLogger().enableMdcLogging(transactionId, messageId);
+        getTransactionLogger().enableMdcLogging(transactionId, messageId);
     }
 
-    private String checkTransactionIdFromMessage(SOAPElement transactionIdElement, String messageId){
+    private String checkTransactionIdFromMessage(SOAPElement transactionIdElement, String messageId) {
         String transactionId = null;
         if (transactionIdElement != null) {
             transactionId = transactionIdElement.getTextContent();
@@ -167,14 +194,14 @@ public class TransactionHandler implements SOAPHandler<SOAPMessageContext> {
                 createTransactionRecord(messageId, transactionId);
             } // else transactionId is already persisted
         }
-        
+
         return transactionId;
     }
-    
-    private String iterateThroughRelatesTo(Iterator<SOAPElement> iter, String messageId){
+
+    private String iterateThroughRelatesTo(Iterator<SOAPElement> iter, String messageId) {
         String relatesToId = null;
         String transactionId = null;
-        
+
         if (iter != null) {
             int count = 0;
             StringBuffer relatesBuffer = new StringBuffer();
@@ -184,14 +211,14 @@ public class TransactionHandler implements SOAPHandler<SOAPMessageContext> {
                     relatesToId = relatesToIdElement.getTextContent();
                     LOG.debug("TransactionHandler.handleMessage() RelatesTo: " + relatesToId);
                     transactionId = getTransactionId(relatesToId);
-                    
-                    if (NullChecker.isNotNullish(transactionId)) {    
-                        createTransactionRecord(messageId, transactionId);    
-                        if (count > 0) {    
+
+                    if (NullChecker.isNotNullish(transactionId)) {
+                        createTransactionRecord(messageId, transactionId);
+                        if (count > 0) {
                             relatesBuffer.append(", ");
-                        }    
-                        relatesBuffer.append(transactionId); 
-                        count++;    
+                        }
+                        relatesBuffer.append(transactionId);
+                        count++;
                     } // else transactionId is already persisted
                 }
             }
@@ -199,10 +226,10 @@ public class TransactionHandler implements SOAPHandler<SOAPMessageContext> {
                 transactionId = relatesBuffer.toString();
             }
         }
-        
+
         return transactionId;
     }
-    
+
     private SOAPElement getFirstChild(SOAPHeader header, String ns, String name) {
         QName qname = new QName(ns, name);
         return getFirstChild(header, qname);

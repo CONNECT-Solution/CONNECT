@@ -24,36 +24,73 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.logging.transaction.impl;
+package gov.hhs.fha.nhinc.logging.transaction.factory;
 
 import gov.hhs.fha.nhinc.logging.transaction.TransactionStore;
-import gov.hhs.fha.nhinc.logging.transaction.model.TransactionRepo;
+import gov.hhs.fha.nhinc.proxy.ComponentProxyObjectFactory;
+
+import org.springframework.beans.factory.FactoryBean;
 
 /**
- * No operation implementation of the TransactionStore interface.
- * 
+ * A factory for creating TransactionStore objects.
+ *
  * @author msw
  */
-public class TransactionStoreNoop implements TransactionStore {
+public class TransactionStoreFactory extends ComponentProxyObjectFactory implements FactoryBean<TransactionStore> {
+
+    /** The Constant CONFIG_FILE_NAME. */
+    private static final String CONFIG_FILE_NAME = "TransactionLoggingProxyConfig.xml";
+    
+    /** The Constant BEAN_NAME_TRANSACTION_LOGGING. */
+    private static final String BEAN_NAME_TRANSACTION_LOGGING = "transactionstore";
 
     /**
-     * No operation implementation returns true to act as if it has persisted a mapping.
+     * Gets the transaction store.
+     *
+     * @return the transaction store
+     */
+    public TransactionStore getTransactionStore() {
+        return getBean(BEAN_NAME_TRANSACTION_LOGGING, TransactionStore.class);
+    }
+
+    /*
+     * (non-Javadoc)
      * 
-     * @see gov.hhs.fha.nhinc.logging.transaction.TransactionStore#insertIntoTransactionRepo(gov.hhs.fha.nhinc.logging.transaction.model.TransactionRepo)
+     * @see org.springframework.beans.factory.FactoryBean#getObject()
      */
     @Override
-    public boolean insertIntoTransactionRepo(TransactionRepo transactionRepo) {
+    public TransactionStore getObject() throws Exception {
+        return getTransactionStore();
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.springframework.beans.factory.FactoryBean#getObjectType()
+     */
+    @Override
+    public Class<?> getObjectType() {
+        return TransactionStore.class;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see org.springframework.beans.factory.FactoryBean#isSingleton()
+     */
+    @Override
+    public boolean isSingleton() {
         return true;
     }
 
-    /**
-     * No operation implementation returns null.
+    /*
+     * (non-Javadoc)
      * 
-     * @see gov.hhs.fha.nhinc.logging.transaction.TransactionStore#getTransactionId(java.lang.String)
+     * @see gov.hhs.fha.nhinc.proxy.ComponentProxyObjectFactory#getConfigFileName()
      */
     @Override
-    public String getTransactionId(String messageId) {
-        return null;
+    protected String getConfigFileName() {
+        return CONFIG_FILE_NAME;
     }
 
 }
