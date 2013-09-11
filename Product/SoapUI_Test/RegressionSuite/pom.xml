@@ -21,8 +21,9 @@
                 </property>
             </activation>
             <modules>
-		        <module>startEmbedded</module>
+	        <module>startEmbedded</module>
                 <module>Bimodal</module>
+                <module>NewFeature</module>
                 <module>Passthru</module>
                 <module>Standard</module>
                 <module>stopEmbedded</module>
