@@ -860,7 +860,18 @@ public class FileUtils {
      */
     public static void copyFolder(File src, File dest, Logger log)
         throws IOException {
-        org.apache.commons.io.FileUtils.copyDirectory(src, dest);
+        //loop the through source folder list and copy the files/folders to the
+        //destination folder
+        for (File fileName : src.listFiles()) {
+            if (fileName.isDirectory()) {
+                //Don't copy the backup folder
+                if (!fileName.getName().equals(TEMP_DIR)) {
+                    org.apache.commons.io.FileUtils.copyDirectoryToDirectory(fileName, dest);
+                }
+            } else {
+                org.apache.commons.io.FileUtils.copyFileToDirectory(fileName, dest);
+            }
+        }
     }
 
     /**
