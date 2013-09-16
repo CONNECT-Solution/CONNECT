@@ -27,6 +27,8 @@
 package gov.hhs.fha.nhinc.logging.transaction.impl;
 
 import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
 
 import gov.hhs.fha.nhinc.logging.transaction.TransactionStore;
@@ -40,7 +42,7 @@ import gov.hhs.fha.nhinc.logging.transaction.model.TransactionRepo;
 public class TransactionStoreInmemory implements TransactionStore {
     
     /** The map. */
-    Map<String,String> map = null;
+    Map<String,List<String>> map = null;
     
     /**
      * Instantiates a new transaction store inmemory.
@@ -54,8 +56,8 @@ public class TransactionStoreInmemory implements TransactionStore {
      *
      * @return the map
      */
-    protected Map<String,String> getMap() {
-        return new HashMap<String,String>();
+    protected Map<String,List<String>> getMap() {
+        return new HashMap<String,List<String>>();
     }
 
     /* (non-Javadoc)
@@ -65,7 +67,21 @@ public class TransactionStoreInmemory implements TransactionStore {
     public boolean insertIntoTransactionRepo(TransactionRepo transactionRepo) {
         boolean inserted = false;
         if (transactionRepo != null && map != null) {
-            map.put(transactionRepo.getMessageId(), transactionRepo.getTransactionId());
+        	String messageId = transactionRepo.getMessageId();
+        	String transactionId = transactionRepo.getTransactionId();
+        	List<String> transactionIds = null;
+        	
+        	if (map.containsKey(messageId)) {
+        		transactionIds = map.get(messageId);
+        	} else {
+        		transactionIds = new LinkedList<String>();
+        	}
+        	
+        	if (!transactionIds.contains(transactionId)) {
+        		transactionIds.add(transactionId);
+        	}
+        
+            map.put(messageId, transactionIds);
             inserted = true;
         }
         return inserted;
@@ -78,7 +94,10 @@ public class TransactionStoreInmemory implements TransactionStore {
     public String getTransactionId(String messageId) {
         String transactionId = null;
         if (map != null) {
-            transactionId = map.get(messageId);
+        	List<String> transactionIds = map.get(messageId);
+        	if (transactionIds != null) {
+        		transactionId = transactionIds.get(0);	
+        	}
         }
         return transactionId;
     }

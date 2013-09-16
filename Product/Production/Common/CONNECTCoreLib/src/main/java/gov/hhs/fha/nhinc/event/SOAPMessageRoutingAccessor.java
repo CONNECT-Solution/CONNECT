@@ -30,7 +30,6 @@ package gov.hhs.fha.nhinc.event;
 
 import gov.hhs.fha.nhinc.async.AsyncMessageIdExtractor;
 import gov.hhs.fha.nhinc.logging.transaction.TransactionStore;
-import gov.hhs.fha.nhinc.logging.transaction.dao.TransactionDAO;
 import gov.hhs.fha.nhinc.logging.transaction.factory.TransactionStoreFactory;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
@@ -44,63 +43,74 @@ import org.apache.cxf.jaxws.context.WebServiceContextImpl;
 
 public class SOAPMessageRoutingAccessor implements MessageRoutingAccessor {
 
-    private WebServiceContext context;
-    private AsyncMessageIdExtractor extractor = new AsyncMessageIdExtractor();
+	private WebServiceContext context;
+	private AsyncMessageIdExtractor extractor;
+	private TransactionStoreFactory transactionStoreFactory;
 
-    public SOAPMessageRoutingAccessor() {
-        this.context = new WebServiceContextImpl();
-    }
+	public SOAPMessageRoutingAccessor() {
+		this.context = new WebServiceContextImpl();
+		this.extractor = new AsyncMessageIdExtractor();
+		this.transactionStoreFactory = new TransactionStoreFactory();
+	}
 
-    public SOAPMessageRoutingAccessor(WebServiceContext context) {
-        this.context = context;
-    }
+	SOAPMessageRoutingAccessor(WebServiceContext context,
+			AsyncMessageIdExtractor extractor,
+			TransactionStoreFactory transactionStoreFactory) {
+		this.context = context;
+		this.extractor = extractor;
+		this.transactionStoreFactory = transactionStoreFactory;
+	}
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see gov.hhs.fha.nhinc.event.HeaderEvent#getMessageId()
-     */
-    @Override
-    public String getMessageId() {
-        return extractor.getMessageId(context);
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see gov.hhs.fha.nhinc.event.HeaderEvent#getMessageId()
+	 */
+	@Override
+	public String getMessageId() {
+		return extractor.getMessageId(context);
+	}
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see gov.hhs.fha.nhinc.event.HeaderEvent#getTransactionId()
-     */
-    @Override
-    public String getTransactionId() {
-        String messageId = extractor.getMessageId(context);
-        String transactionId = null;
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see gov.hhs.fha.nhinc.event.HeaderEvent#getTransactionId()
+	 */
+	@Override
+	public String getTransactionId() {
+		String messageId = extractor.getMessageId(context);
+		String transactionId = null;
 
-        List<String> transactionIdList = extractor.getAsyncRelatesTo(context);
-        if (NullChecker.isNotNullish(transactionIdList)) {
-            transactionId = transactionIdList.get(0);
-        }
+		List<String> transactionIdList = extractor.getAsyncRelatesTo(context);
+		if (NullChecker.isNotNullish(transactionIdList)) {
+			TransactionStore store = transactionStoreFactory
+					.getTransactionStore();
+			transactionId = store.getTransactionId(transactionIdList.get(0));
+		}
 
-        if ((transactionId == null) && (messageId != null)) {
-            TransactionStore store = new TransactionStoreFactory().getTransactionStore();
-            transactionId = store.getTransactionId(messageId);
-        }
+		if ((transactionId == null) && (messageId != null)) {
+			TransactionStore store = transactionStoreFactory
+					.getTransactionStore();
+			transactionId = store.getTransactionId(messageId);
+		}
 
-        return transactionId;
-    }
+		return transactionId;
+	}
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see gov.hhs.fha.nhinc.event.HeaderEvent#buildResponseMsgIdList()
-     */
-    @SuppressWarnings("unchecked")
-    @Override
-    public List<String> getResponseMsgIdList() {
-        MessageContext mContext = context.getMessageContext();
-        if (mContext == null) {
-            return null;
-        }
-        return (List<String>) mContext.get(NhincConstants.RESPONSE_MESSAGE_ID_LIST_KEY);
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see gov.hhs.fha.nhinc.event.HeaderEvent#buildResponseMsgIdList()
+	 */
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<String> getResponseMsgIdList() {
+		MessageContext mContext = context.getMessageContext();
+		if (mContext == null) {
+			return null;
+		}
+		return (List<String>) mContext
+				.get(NhincConstants.RESPONSE_MESSAGE_ID_LIST_KEY);
+	}
 
 }

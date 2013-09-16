@@ -39,22 +39,22 @@ public class TransactionLogger {
 
     private static final Logger LOG = Logger.getLogger(TransactionLogger.class);
 
-    TransactionStore transactionStore = null;
+    TransactionStoreFactory transactionStoreFactory = null;
 
     /**
      * Constructor.
      */
     public TransactionLogger() {
-        transactionStore = new TransactionStoreFactory().getTransactionStore();
+        transactionStoreFactory = new TransactionStoreFactory();
     }
 
     /**
-     * Constructor with dependency injection.
+     * Gets the TransactionStore.
      * 
-     * @param transactionDAO
+     * @return The TransactionStore.
      */
-    public TransactionLogger(TransactionStore transactionStore) {
-        this.transactionStore = transactionStore;
+    protected TransactionStore getTransactionStore() {
+    	return transactionStoreFactory.getTransactionStore();
     }
 
     /**
@@ -77,7 +77,7 @@ public class TransactionLogger {
      * @param messageId The message id to be logged
      */
     public void logTransactionFromRelatedMessageId(String relatedMessageId, String messageId) {
-        String transactionId = transactionStore.getTransactionId(relatedMessageId);
+        String transactionId = getTransactionStore().getTransactionId(relatedMessageId);
         logTransaction(transactionId, messageId);
     }
 
@@ -111,7 +111,7 @@ public class TransactionLogger {
             transRepo.setTransactionId(transactionId);
             transRepo.setTime(this.createTimestamp());
 
-            if (transactionStore.insertIntoTransactionRepo(transRepo)) {
+            if (getTransactionStore().insertIntoTransactionRepo(transRepo)) {
                 newId = transRepo.getId();
                 LOG.info("New Transaction Log Id = " + newId);
             } else {

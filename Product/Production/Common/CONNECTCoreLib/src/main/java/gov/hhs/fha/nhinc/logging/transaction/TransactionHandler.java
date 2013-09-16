@@ -65,7 +65,7 @@ public class TransactionHandler implements SOAPHandler<SOAPMessageContext> {
     private static final String RELATESTO_ID = "RelatesTo";
     
     private TransactionLogger transactionLogger = null;
-    private TransactionStore transactionStore = null;
+    private TransactionStoreFactory transactionStoreFactory = null;
 
     /*
      * (non-Javadoc)
@@ -169,10 +169,10 @@ public class TransactionHandler implements SOAPHandler<SOAPMessageContext> {
      * @return the transaction store
      */
     protected TransactionStore getTransactionStore() {
-        if (transactionStore == null) {
-            transactionStore = new TransactionStoreFactory().getTransactionStore();
+        if (transactionStoreFactory == null) {
+            transactionStoreFactory = new TransactionStoreFactory();
         }
-        return transactionStore;
+        return transactionStoreFactory.getTransactionStore();
     }
 
     /**

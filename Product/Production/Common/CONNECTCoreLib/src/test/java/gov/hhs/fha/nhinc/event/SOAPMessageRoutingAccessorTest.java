@@ -28,22 +28,54 @@
  */
 package gov.hhs.fha.nhinc.event;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
+import static org.mockito.Matchers.any;
+import static org.mockito.Matchers.eq;
 
+import gov.hhs.fha.nhinc.async.AsyncMessageIdExtractor;
+import gov.hhs.fha.nhinc.logging.transaction.TransactionStore;
+import gov.hhs.fha.nhinc.logging.transaction.factory.TransactionStoreFactory;
+
+import java.util.Collections;
 import java.util.List;
+import java.util.UUID;
 
 import javax.xml.ws.WebServiceContext;
 
 import org.junit.Test;
 
 public class SOAPMessageRoutingAccessorTest {
+	
+	private static final String MESSAGE_ID = UUID.randomUUID().toString();
+	private static final String RELATES_TO = UUID.randomUUID().toString();
+	private static final String TRANSACTION_ID = UUID.randomUUID().toString();
 
     @Test
     public void nullMessageContext() {
         WebServiceContext context = mock(WebServiceContext.class);
-        SOAPMessageRoutingAccessor accessor = new SOAPMessageRoutingAccessor(context);
+        AsyncMessageIdExtractor extractor = mock(AsyncMessageIdExtractor.class);
+        TransactionStoreFactory factory = mock(TransactionStoreFactory.class);
+        SOAPMessageRoutingAccessor accessor = new SOAPMessageRoutingAccessor(context, extractor, factory);
         List<String> msgIdList = accessor.getResponseMsgIdList();
         assertNull(msgIdList);
+    }
+    
+    @Test
+    public void testWithRelatesTo() {
+        WebServiceContext context = mock(WebServiceContext.class);
+        AsyncMessageIdExtractor extractor = mock(AsyncMessageIdExtractor.class);
+        TransactionStoreFactory factory = mock(TransactionStoreFactory.class);
+        SOAPMessageRoutingAccessor accessor = new SOAPMessageRoutingAccessor(context, extractor, factory);
+        
+        TransactionStore store = mock(TransactionStore.class);
+        when(extractor.getMessageId(any(WebServiceContext.class))).thenReturn(MESSAGE_ID);
+        when(extractor.getAsyncRelatesTo(any(WebServiceContext.class))).thenReturn(Collections.singletonList(RELATES_TO));
+        when(factory.getTransactionStore()).thenReturn(store);
+        when(store.getTransactionId(eq(RELATES_TO))).thenReturn(TRANSACTION_ID);
+        
+        assertEquals(TRANSACTION_ID, accessor.getTransactionId());
     }
 }

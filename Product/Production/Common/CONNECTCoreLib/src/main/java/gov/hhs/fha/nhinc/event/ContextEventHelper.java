@@ -43,6 +43,7 @@ public class ContextEventHelper {
 
     private AsyncMessageIdExtractor extractor = new AsyncMessageIdExtractor();
     private WebServiceContextImpl context = new WebServiceContextImpl();
+    private TransactionStoreFactory factory = new TransactionStoreFactory();
 
     public String getMessageId() {
         return extractor.getMessageId(context);
@@ -51,14 +52,14 @@ public class ContextEventHelper {
     public String getTransactionId() {
         String transactionId = null;
         String messageId = getMessageId();
-
+        TransactionStore store = factory.getTransactionStore();
+        
         List<String> transactionIdList = extractor.getAsyncRelatesTo(context);
         if (NullChecker.isNotNullish(transactionIdList)) {
-            transactionId = transactionIdList.get(0);
+            transactionId = store.getTransactionId(transactionIdList.get(0));
         }
 
         if ((transactionId == null) && (messageId != null)) {
-            TransactionStore store = new TransactionStoreFactory().getTransactionStore();
             transactionId = store.getTransactionId(messageId);
         }
 
@@ -68,13 +69,17 @@ public class ContextEventHelper {
     void setAsyncMessageIdExtractor(AsyncMessageIdExtractor extractor) {
         this.extractor = extractor;
     }
-
-    WebServiceContext getContext() {
-        return context;
+    
+    void setTransactionStoreFacotyr(TransactionStoreFactory factory) {
+    	this.factory = factory;
     }
 
-    AsyncMessageIdExtractor getExtractor() {
-        return extractor;
-    }
+	WebServiceContext getContext() {
+		return context;
+	}
+
+	AsyncMessageIdExtractor getExtractor() {
+		return extractor;
+	}
 
 }
