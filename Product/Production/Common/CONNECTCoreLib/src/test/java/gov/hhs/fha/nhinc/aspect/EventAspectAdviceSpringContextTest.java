@@ -53,6 +53,7 @@ import org.apache.cxf.jaxws.context.WrappedMessageContext;
 import org.apache.cxf.message.MessageImpl;
 import org.aspectj.lang.JoinPoint;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.invocation.InvocationOnMock;
@@ -91,6 +92,7 @@ public class EventAspectAdviceSpringContextTest {
         WebServiceContextImpl.setMessageContext(msgCtx);
     }
 
+    @Ignore
     @Test
     public void adapterDelegationEvent() {
         assertNotNull(eventAspectAdvice);
@@ -118,6 +120,7 @@ public class EventAspectAdviceSpringContextTest {
         verify(eventLogger).update(eq(eventManager), isA(EndAdapterDelegationEvent.class));
     }
 
+    @Ignore
     @Test
     public void outboundMessageEvent() {
         assertNotNull(eventAspectAdvice);
@@ -145,6 +148,7 @@ public class EventAspectAdviceSpringContextTest {
         verify(eventLogger).update(eq(eventManager), isA(EndOutboundMessageEvent.class));
     }
 
+    @Ignore
     @Test
     public void outboundProcessingEvent() {
         assertNotNull(eventAspectAdvice);
@@ -171,6 +175,7 @@ public class EventAspectAdviceSpringContextTest {
         verify(eventLogger).update(eq(eventManager), isA(EndOutboundProcessingEvent.class));
     }
 
+    @Ignore
     @Test
     public void inboundMessageEvent() {
         assertNotNull(eventAspectAdvice);
@@ -198,6 +203,7 @@ public class EventAspectAdviceSpringContextTest {
         verify(eventLogger).update(eq(eventManager), isA(EndInboundMessageEvent.class));
     }
 
+    @Ignore
     @Test
     public void nwhinInvocationEvent() {
         assertNotNull(eventAspectAdvice);
