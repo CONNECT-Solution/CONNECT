@@ -26,10 +26,10 @@
  */
 package gov.hhs.fha.nhinc.logging.transaction;
 
-import java.sql.Timestamp;
-
-import gov.hhs.fha.nhinc.logging.transaction.dao.TransactionDAO;
+import gov.hhs.fha.nhinc.logging.transaction.factory.TransactionStoreFactory;
 import gov.hhs.fha.nhinc.logging.transaction.model.TransactionRepo;
+
+import java.sql.Timestamp;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
@@ -39,22 +39,22 @@ public class TransactionLogger {
 
     private static final Logger LOG = Logger.getLogger(TransactionLogger.class);
 
-    TransactionDAO transactionDAO = null;
+    TransactionStoreFactory transactionStoreFactory = null;
 
     /**
      * Constructor.
      */
     public TransactionLogger() {
-        transactionDAO = TransactionDAO.getInstance();
+        transactionStoreFactory = new TransactionStoreFactory();
     }
 
     /**
-     * Constructor with dependency injection.
+     * Gets the TransactionStore.
      * 
-     * @param transactionDAO
+     * @return The TransactionStore.
      */
-    public TransactionLogger(TransactionDAO transactionDAO) {
-        this.transactionDAO = transactionDAO;
+    protected TransactionStore getTransactionStore() {
+    	return transactionStoreFactory.getTransactionStore();
     }
 
     /**
@@ -77,7 +77,7 @@ public class TransactionLogger {
      * @param messageId The message id to be logged
      */
     public void logTransactionFromRelatedMessageId(String relatedMessageId, String messageId) {
-        String transactionId = transactionDAO.getTransactionId(relatedMessageId);
+        String transactionId = getTransactionStore().getTransactionId(relatedMessageId);
         logTransaction(transactionId, messageId);
     }
 
@@ -111,7 +111,7 @@ public class TransactionLogger {
             transRepo.setTransactionId(transactionId);
             transRepo.setTime(this.createTimestamp());
 
-            if (transactionDAO.insertIntoTransactionRepo(transRepo)) {
+            if (getTransactionStore().insertIntoTransactionRepo(transRepo)) {
                 newId = transRepo.getId();
                 LOG.info("New Transaction Log Id = " + newId);
             } else {

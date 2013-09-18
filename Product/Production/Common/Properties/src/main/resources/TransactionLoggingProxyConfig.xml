@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
+
+<!-- 
+	The beans available in this file must be identified in the "description" element for the Spring configuration application. Beans are listed between braces 
+	in the description separated with a comma like the following sample: {somebean,anotherbean}
+-->
+	<description>Beans included in this file: {transactionstore}</description>
+	
+	<alias alias="transactionstore" name="transactionstoredatabase" />
+
+	<!-- No-op Implementation -->
+	<bean lazy-init="true" class="gov.hhs.fha.nhinc.logging.transaction.impl.TransactionStoreNoop" id="transactionstorenoop" name="transactionstorenoop"> 
+		<meta key="impltype" value="noop"/>
+	</bean> 
+
+	<!-- Database Implementation -->
+    <bean lazy-init="true" class="gov.hhs.fha.nhinc.logging.transaction.impl.TransactionStoreDatabase" id="transactionstoredatabase" name="transactionstoredatabase"> 
+		<meta key="impltype" value="database"/>
+		<meta key="default" value="true"/>
+	</bean> 
+
+	<!-- In-memory Implementation -->
+	<bean lazy-init="true" class="gov.hhs.fha.nhinc.logging.transaction.impl.TransactionStoreInmemory" id="transactionstoreinmemory" name="transactionstoreinmemory"> 
+		<meta key="impltype" value="inmemory"/>
+	</bean> 
+
+</beans>
