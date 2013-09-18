@@ -72,6 +72,9 @@ public class CONNECTSamlAssertionValidator extends SamlAssertionValidator {
     /** The Constant EXCHANGE_AUTH_FRWK_VALIDATOR_SUITE. */
     private static final String EXCHANGE_AUTH_FRWK_VALIDATOR_SUITE = "exchange-authorization-framework-validator-suite";
 
+    /** The Constants RESOURCE_REQUIRED. */
+    private static final String RESOURCE_REQUIRED = "Resource required";
+
     /** The property accessor. */
     private PropertyAccessor propertyAccessor;
 
@@ -120,7 +123,11 @@ public class CONNECTSamlAssertionValidator extends SamlAssertionValidator {
                 }
             } catch (ValidationException e) {
                 LOG.error("Saml Validation error: " + e.getMessage(), e);
-                throw new WSSecurityException(WSSecurityException.FAILURE, "invalidSAMLsecurity");
+                if (RESOURCE_REQUIRED.equals(e.getMessage())) {
+                    LOG.warn("Ignoring ValidationException for required resource.");
+                } else {
+                    throw new WSSecurityException(WSSecurityException.FAILURE, "invalidSAMLsecurity");
+                }
             }
         }
     }

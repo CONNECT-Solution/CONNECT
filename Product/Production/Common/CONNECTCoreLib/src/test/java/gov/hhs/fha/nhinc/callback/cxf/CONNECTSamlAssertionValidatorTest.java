@@ -13,9 +13,11 @@ import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 
+import java.io.InputStream;
 import java.security.PublicKey;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 import javax.xml.namespace.QName;
@@ -28,265 +30,328 @@ import org.apache.ws.security.saml.ext.AssertionWrapper;
 import org.apache.ws.security.validate.Credential;
 import org.joda.time.DateTime;
 import org.junit.Test;
+import org.opensaml.Configuration;
+import org.opensaml.DefaultBootstrap;
 import org.opensaml.common.SAMLVersion;
 import org.opensaml.saml1.core.Statement;
+import org.opensaml.saml2.core.Action;
+import org.opensaml.saml2.core.AuthzDecisionStatement;
+import org.opensaml.saml2.core.DecisionTypeEnumeration;
+import org.opensaml.saml2.core.Evidence;
 import org.opensaml.saml2.core.NameID;
 import org.opensaml.saml2.core.Subject;
+import org.opensaml.saml2.metadata.EntitiesDescriptor;
+import org.opensaml.xml.ConfigurationException;
+import org.opensaml.xml.io.Unmarshaller;
+import org.opensaml.xml.io.UnmarshallerFactory;
+import org.opensaml.xml.io.UnmarshallingException;
+import org.opensaml.xml.parse.BasicParserPool;
+import org.opensaml.xml.parse.XMLParserException;
 import org.opensaml.xml.validation.Validator;
 import org.opensaml.xml.validation.ValidatorSuite;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 
 public class CONNECTSamlAssertionValidatorTest {
 
-	@Test
-	public void testValidateAssertionSaml1() throws WSSecurityException {
-		org.opensaml.saml1.core.Assertion saml1Assertion = mock(org.opensaml.saml1.core.Assertion.class);
-		AssertionWrapper assertion = new AssertionWrapper(saml1Assertion);
-		QName assertionQName = new QName(
-				"urn:oasis:names:tc:SAML:1.0:assertion", "Assertion", "saml1");
+    @Test
+    public void testValidateAssertionSaml1() throws WSSecurityException {
+        org.opensaml.saml1.core.Assertion saml1Assertion = mock(org.opensaml.saml1.core.Assertion.class);
+        AssertionWrapper assertion = new AssertionWrapper(saml1Assertion);
+        QName assertionQName = new QName("urn:oasis:names:tc:SAML:1.0:assertion", "Assertion", "saml1");
 
-		when(saml1Assertion.getElementQName()).thenReturn(assertionQName);
-		when(saml1Assertion.getMajorVersion()).thenReturn(1);
-		when(saml1Assertion.getMinorVersion()).thenReturn(0);
-		when(saml1Assertion.getID()).thenReturn("Assertion_ID");
-		when(saml1Assertion.getIssuer()).thenReturn("Issuer");
-		DateTime dateTime = new DateTime();
-		when(saml1Assertion.getIssueInstant()).thenReturn(dateTime);
-		Statement statement = mock(Statement.class);
-		List<Statement> statementList = new ArrayList<Statement>();
-		statementList.add(statement);
-		when(saml1Assertion.getStatements()).thenReturn(statementList);
+        when(saml1Assertion.getElementQName()).thenReturn(assertionQName);
+        when(saml1Assertion.getMajorVersion()).thenReturn(1);
+        when(saml1Assertion.getMinorVersion()).thenReturn(0);
+        when(saml1Assertion.getID()).thenReturn("Assertion_ID");
+        when(saml1Assertion.getIssuer()).thenReturn("Issuer");
+        DateTime dateTime = new DateTime();
+        when(saml1Assertion.getIssueInstant()).thenReturn(dateTime);
+        Statement statement = mock(Statement.class);
+        List<Statement> statementList = new ArrayList<Statement>();
+        statementList.add(statement);
+        when(saml1Assertion.getStatements()).thenReturn(statementList);
 
-		CONNECTSamlAssertionValidator validator = new CONNECTSamlAssertionValidator();
+        CONNECTSamlAssertionValidator validator = new CONNECTSamlAssertionValidator();
 
-		validator.validateAssertion(assertion);
+        validator.validateAssertion(assertion);
 
-		verify(saml1Assertion, times(2)).getOrderedChildren();
-	}
+        verify(saml1Assertion, times(2)).getOrderedChildren();
+    }
 
-	@Test(expected = WSSecurityException.class)
-	public void testValidateAssertionSaml1_ValidationFails()
-			throws WSSecurityException {
-		org.opensaml.saml1.core.Assertion saml1Assertion = mock(org.opensaml.saml1.core.Assertion.class);
-		AssertionWrapper assertion = new AssertionWrapper(saml1Assertion);
-		QName assertionQName = new QName(
-				"urn:oasis:names:tc:SAML:1.0:assertion", "Assertion", "saml1");
+    @Test(expected = WSSecurityException.class)
+    public void testValidateAssertionSaml1_ValidationFails() throws WSSecurityException {
+        org.opensaml.saml1.core.Assertion saml1Assertion = mock(org.opensaml.saml1.core.Assertion.class);
+        AssertionWrapper assertion = new AssertionWrapper(saml1Assertion);
+        QName assertionQName = new QName("urn:oasis:names:tc:SAML:1.0:assertion", "Assertion", "saml1");
 
-		when(saml1Assertion.getElementQName()).thenReturn(assertionQName);
-		when(saml1Assertion.getMajorVersion()).thenReturn(1);
-		when(saml1Assertion.getMinorVersion()).thenReturn(0);
-		when(saml1Assertion.getID()).thenReturn(null);
+        when(saml1Assertion.getElementQName()).thenReturn(assertionQName);
+        when(saml1Assertion.getMajorVersion()).thenReturn(1);
+        when(saml1Assertion.getMinorVersion()).thenReturn(0);
+        when(saml1Assertion.getID()).thenReturn(null);
 
-		CONNECTSamlAssertionValidator validator = new CONNECTSamlAssertionValidator();
+        CONNECTSamlAssertionValidator validator = new CONNECTSamlAssertionValidator();
 
-		validator.validateAssertion(assertion);
-	}
+        validator.validateAssertion(assertion);
+    }
 
-	@Test
-	public void testValidateAssertionSaml2() throws WSSecurityException {
-		org.opensaml.saml2.core.Assertion saml2Assertion = mock(org.opensaml.saml2.core.Assertion.class);
-		AssertionWrapper assertion = new AssertionWrapper(saml2Assertion);
-		QName assertionQName = new QName(
-				"urn:oasis:names:tc:SAML:2.0:assertion", "Assertion", "saml2");
+    @Test
+    public void testValidateAssertionSaml2() throws WSSecurityException {
+        org.opensaml.saml2.core.Assertion saml2Assertion = mock(org.opensaml.saml2.core.Assertion.class);
+        AssertionWrapper assertion = new AssertionWrapper(saml2Assertion);
+        QName assertionQName = new QName("urn:oasis:names:tc:SAML:2.0:assertion", "Assertion", "saml2");
 
-		when(saml2Assertion.getElementQName()).thenReturn(assertionQName);
-		org.opensaml.saml2.core.Issuer issuer = mock(org.opensaml.saml2.core.Issuer.class);
-		when(issuer.getFormat()).thenReturn(NhincConstants.AUTH_FRWK_NAME_ID_FORMAT_X509);
-		when(saml2Assertion.getIssuer()).thenReturn(issuer);
-		when(issuer.getValue()).thenReturn(NhincConstants.SAML_DEFAULT_ISSUER_NAME);
-		when(saml2Assertion.getVersion()).thenReturn(SAMLVersion.VERSION_20);
-		when(saml2Assertion.getID()).thenReturn("Assertion_ID");
-		DateTime dateTime = new DateTime();
-		when(saml2Assertion.getIssueInstant()).thenReturn(dateTime);
-		Subject subject = mock(Subject.class);
-		when(saml2Assertion.getSubject()).thenReturn(subject);
-		NameID name = mock(NameID.class);
-		when(subject.getNameID()).thenReturn(name);
-		when(name.getFormat()).thenReturn(NhincConstants.AUTH_FRWK_NAME_ID_FORMAT_X509);
-		when(name.getValue()).thenReturn(NhincConstants.SAML_DEFAULT_ISSUER_NAME);
+        when(saml2Assertion.getElementQName()).thenReturn(assertionQName);
+        org.opensaml.saml2.core.Issuer issuer = mock(org.opensaml.saml2.core.Issuer.class);
+        when(issuer.getFormat()).thenReturn(NhincConstants.AUTH_FRWK_NAME_ID_FORMAT_X509);
+        when(saml2Assertion.getIssuer()).thenReturn(issuer);
+        when(issuer.getValue()).thenReturn(NhincConstants.SAML_DEFAULT_ISSUER_NAME);
+        when(saml2Assertion.getVersion()).thenReturn(SAMLVersion.VERSION_20);
+        when(saml2Assertion.getID()).thenReturn("Assertion_ID");
+        DateTime dateTime = new DateTime();
+        when(saml2Assertion.getIssueInstant()).thenReturn(dateTime);
+        Subject subject = mock(Subject.class);
+        when(saml2Assertion.getSubject()).thenReturn(subject);
+        NameID name = mock(NameID.class);
+        when(subject.getNameID()).thenReturn(name);
+        when(name.getFormat()).thenReturn(NhincConstants.AUTH_FRWK_NAME_ID_FORMAT_X509);
+        when(name.getValue()).thenReturn(NhincConstants.SAML_DEFAULT_ISSUER_NAME);
 
-		CONNECTSamlAssertionValidator validator = new CONNECTSamlAssertionValidator() {
-			@Override
-			protected Collection<ValidatorSuite> getSaml2SpecValidators() {
-				return getSaml2DefaultAssertionSpecValidators();
-			}
-		};
+        CONNECTSamlAssertionValidator validator = new CONNECTSamlAssertionValidator() {
+            @Override
+            protected Collection<ValidatorSuite> getSaml2SpecValidators() {
+                return getSaml2DefaultAssertionSpecValidators();
+            }
+        };
 
-		validator.validateAssertion(assertion);
+        validator.validateAssertion(assertion);
 
-		verify(saml2Assertion, times(3)).getOrderedChildren();
-	}
+        verify(saml2Assertion, times(3)).getOrderedChildren();
+    }
 
-	@Test(expected = WSSecurityException.class)
-	public void testValidateAssertionSaml2_ValidationFails()
-			throws WSSecurityException {
-		org.opensaml.saml2.core.Assertion saml2Assertion = mock(org.opensaml.saml2.core.Assertion.class);
-		AssertionWrapper assertion = new AssertionWrapper(saml2Assertion);
-		QName assertionQName = new QName(
-				"urn:oasis:names:tc:SAML:2.0:assertion", "Assertion", "saml2");
+    @Test
+    public void testValidateAssertionSaml2_blankResource() throws WSSecurityException, XMLParserException, UnmarshallingException, ConfigurationException {
 
-		when(saml2Assertion.getElementQName()).thenReturn(assertionQName);
-		when(saml2Assertion.getIssuer()).thenReturn(null);
+        /*
+         * when(saml2Assertion.getElementQName()).thenReturn(assertionQName); org.opensaml.saml2.core.Issuer issuer =
+         * mock(org.opensaml.saml2.core.Issuer.class);
+         * when(issuer.getFormat()).thenReturn(NhincConstants.AUTH_FRWK_NAME_ID_FORMAT_X509);
+         * when(saml2Assertion.getIssuer()).thenReturn(issuer);
+         * when(issuer.getValue()).thenReturn(NhincConstants.SAML_DEFAULT_ISSUER_NAME);
+         * when(saml2Assertion.getVersion()).thenReturn(SAMLVersion.VERSION_20);
+         * when(saml2Assertion.getID()).thenReturn("Assertion_ID"); DateTime dateTime = new DateTime();
+         * when(saml2Assertion.getIssueInstant()).thenReturn(dateTime); Subject subject = mock(Subject.class);
+         * when(saml2Assertion.getSubject()).thenReturn(subject); NameID name = mock(NameID.class);
+         * when(subject.getNameID()).thenReturn(name);
+         * when(name.getFormat()).thenReturn(NhincConstants.AUTH_FRWK_NAME_ID_FORMAT_X509);
+         * when(name.getValue()).thenReturn(NhincConstants.SAML_DEFAULT_ISSUER_NAME); AuthzDecisionStatement authd =
+         * mock(AuthzDecisionStatement.class);
+         * when(saml2Assertion.getAuthzDecisionStatements()).thenReturn(Collections.singletonList(authd));
+         * when(authd.getDecision()).thenReturn(DecisionTypeEnumeration.PERMIT);
+         * when(authd.getResource()).thenReturn(""); Action action = mock(Action.class);
+         * when(authd.getActions()).thenReturn(Collections.singletonList(action));
+         * when(action.getNamespace()).thenReturn("urn:oasis:names:tc:SAML:1.0:action:rwedc");
+         * when(action.getAction()).thenReturn("Execute"); Evidence evidence = mock(Evidence.class);
+         * when(authd.getEvidence()).thenReturn(evidence); org.opensaml.saml2.core.Assertion authdAssertion =
+         * mock(org.opensaml.saml2.core.Assertion.class);
+         * when(evidence.getAssertions()).thenReturn(Collections.singletonList(authdAssertion));
+         * when(authdAssertion.getIssuer()).thenReturn(issuer);
+         */
 
-		CONNECTSamlAssertionValidator validator = new CONNECTSamlAssertionValidator() {
-			@Override
-			protected Collection<ValidatorSuite> getSaml2SpecValidators() {
-				return getSaml2DefaultAssertionSpecValidators();
-			}
-		};
+        String inCommonMDFile = "authFrameworkAssertion.xml";
 
-		validator.validateAssertion(assertion);
-	}
+        // Initialize the library
+        DefaultBootstrap.bootstrap(); 
+        
+        // Get parser pool manager
+        BasicParserPool ppMgr = new BasicParserPool();
+        ppMgr.setNamespaceAware(true);
 
-	@Test
-	@SuppressWarnings("rawtypes")
-	public void testGetSaml2AllowNoSubjectAssertionSpecValidator() {
-		CONNECTSamlAssertionValidator connectValidator = new CONNECTSamlAssertionValidator();
-		ValidatorSuite specValidators = connectValidator
-				.getSaml2AllowNoSubjectAssertionSpecValidator();
-		QName qName = new QName("urn:oasis:names:tc:SAML:2.0:assertion",
-				"Assertion", "saml2");
-		List<Validator> validatorList = specValidators.getValidators(qName);
+        // Parse metadata file
+        InputStream in = CONNECTSamlAssertionValidatorTest.class.getResourceAsStream(inCommonMDFile);
+        Document inCommonMDDoc = ppMgr.parse(in);
+        Element metadataRoot = inCommonMDDoc.getDocumentElement();
 
-		assertNotNull(specValidators);
-		assertEquals(validatorList.size(), 1);
-	}
+        // Get apropriate unmarshaller
+        UnmarshallerFactory unmarshallerFactory = Configuration.getUnmarshallerFactory();
+        Unmarshaller unmarshaller = unmarshallerFactory.getUnmarshaller(new QName("urn:oasis:names:tc:SAML:2.0:assertion", "Assertion"));
 
-	@Test
-	public void testGetSaml2SpecValidator() throws PropertyAccessException {
-		PropertyAccessor propAccessor = mock(PropertyAccessor.class);
-		CONNECTSamlAssertionValidator connectValidator = new CONNECTSamlAssertionValidator(
-				propAccessor) {
-			@Override
-			protected Collection<ValidatorSuite> getSaml2DefaultAssertionSpecValidators() {
-				return null;
-			}
-		};
+        // Unmarshall using the document root element, an EntitiesDescriptor in this case
+        org.opensaml.saml2.core.Assertion saml2Assertion = (org.opensaml.saml2.core.Assertion) unmarshaller.unmarshall(metadataRoot);
+        
+        AssertionWrapper assertion = new AssertionWrapper(saml2Assertion);
 
-		when(
-				propAccessor.getPropertyBoolean(
-						NhincConstants.GATEWAY_PROPERTY_FILE,
-						"allowNoSubjectAssertion")).thenReturn(true, false);
+        CONNECTSamlAssertionValidator validator = new CONNECTSamlAssertionValidator() {
+            @Override
+            protected Collection<ValidatorSuite> getSaml2SpecValidators() {
+                return getSaml2DefaultAssertionSpecValidators();
+            }
+        };
 
-		Collection<ValidatorSuite> validators = connectValidator.getSaml2SpecValidators();
-		ValidatorSuite validator = null;
-		for (ValidatorSuite v : validators) {
-		    if ("saml2-core-spec-validator-allow-no-subject-assertion".equals(v.getId())) {
-		        validator = v;
-		    }
-		}
-		assertNotNull(validator);
-		validators = connectValidator.getSaml2SpecValidators();
-		assertNull(validators);
-	}
+        validator.validateAssertion(assertion);
+    }
 
-	@Test
-	public void testValidate() throws WSSecurityException {
-		final List<Boolean> checkedSignedAssertion = new ArrayList<Boolean>();
-		Credential credential = new Credential();
-		final String SECRET_KEY = "secret";
-		credential.setSecretKey(SECRET_KEY.getBytes());
-		RequestData data = mock(RequestData.class);
-		AssertionWrapper assertion = mock(AssertionWrapper.class);
-		credential.setAssertion(assertion);
+    @Test(expected = WSSecurityException.class)
+    public void testValidateAssertionSaml2_ValidationFails() throws WSSecurityException {
+        org.opensaml.saml2.core.Assertion saml2Assertion = mock(org.opensaml.saml2.core.Assertion.class);
+        AssertionWrapper assertion = new AssertionWrapper(saml2Assertion);
+        QName assertionQName = new QName("urn:oasis:names:tc:SAML:2.0:assertion", "Assertion", "saml2");
 
-		List<String> methods = new ArrayList<String>();
-		final String METHOD_NAME = "urn:oasis:names:tc:SAML:" + "TESTING"
-				+ ":cm:holder-of-key";
-		methods.add(METHOD_NAME);
+        when(saml2Assertion.getElementQName()).thenReturn(assertionQName);
+        when(saml2Assertion.getIssuer()).thenReturn(null);
 
-		SAMLKeyInfo keyInfo = mock(SAMLKeyInfo.class);
-		org.opensaml.saml2.core.Assertion saml2Assertion = mock(org.opensaml.saml2.core.Assertion.class);
-		org.opensaml.saml2.core.Conditions conditions = mock(org.opensaml.saml2.core.Conditions.class);
-		DateTime testDate = new DateTime();
+        CONNECTSamlAssertionValidator validator = new CONNECTSamlAssertionValidator() {
+            @Override
+            protected Collection<ValidatorSuite> getSaml2SpecValidators() {
+                return getSaml2DefaultAssertionSpecValidators();
+            }
+        };
 
-		// For validate() calls
-		when(assertion.getConfirmationMethods()).thenReturn(methods);
-		when(assertion.getSubjectKeyInfo()).thenReturn(keyInfo);
-		when(assertion.isSigned()).thenReturn(true);
-		// For checkConditions() calls
-		when(assertion.getSamlVersion()).thenReturn(SAMLVersion.VERSION_20);
-		when(assertion.getSaml2()).thenReturn(saml2Assertion, saml2Assertion,
-				saml2Assertion, null);
-		when(saml2Assertion.getConditions()).thenReturn(conditions);
-		when(conditions.getNotOnOrAfter()).thenReturn(testDate.plusDays(1));
-		when(conditions.getNotBefore()).thenReturn(testDate.minusSeconds(5));
+        validator.validateAssertion(assertion);
+    }
 
-		CONNECTSamlAssertionValidator validator = new CONNECTSamlAssertionValidator() {
-			@Override
-			protected void checkSignedAssertion(AssertionWrapper assertion,
-					RequestData data) throws WSSecurityException {
-				checkedSignedAssertion.add(true);
-			}
-		};
+    @Test
+    @SuppressWarnings("rawtypes")
+    public void testGetSaml2AllowNoSubjectAssertionSpecValidator() {
+        CONNECTSamlAssertionValidator connectValidator = new CONNECTSamlAssertionValidator();
+        ValidatorSuite specValidators = connectValidator.getSaml2AllowNoSubjectAssertionSpecValidator();
+        QName qName = new QName("urn:oasis:names:tc:SAML:2.0:assertion", "Assertion", "saml2");
+        List<Validator> validatorList = specValidators.getValidators(qName);
 
-		Credential resultCredential = validator.validate(credential, data);
+        assertNotNull(specValidators);
+        assertEquals(validatorList.size(), 1);
+    }
 
-		assertFalse(checkedSignedAssertion.isEmpty());
-		assertTrue(checkedSignedAssertion.get(0).booleanValue());
-		String resultSecretKey = new String(resultCredential.getSecretKey());
-		assertEquals(resultSecretKey, SECRET_KEY);
+    @Test
+    public void testGetSaml2SpecValidator() throws PropertyAccessException {
+        PropertyAccessor propAccessor = mock(PropertyAccessor.class);
+        CONNECTSamlAssertionValidator connectValidator = new CONNECTSamlAssertionValidator(propAccessor) {
+            @Override
+            protected Collection<ValidatorSuite> getSaml2DefaultAssertionSpecValidators() {
+                return null;
+            }
+        };
 
-	}
+        when(propAccessor.getPropertyBoolean(NhincConstants.GATEWAY_PROPERTY_FILE, "allowNoSubjectAssertion"))
+                .thenReturn(true, false);
 
-	@Test
-	public void testCheckSignedAssertion_HappyPath() throws WSSecurityException {
-		AssertionWrapper assertion = mock(AssertionWrapper.class);
-		RequestData data = mock(RequestData.class);
+        Collection<ValidatorSuite> validators = connectValidator.getSaml2SpecValidators();
+        ValidatorSuite validator = null;
+        for (ValidatorSuite v : validators) {
+            if ("saml2-core-spec-validator-allow-no-subject-assertion".equals(v.getId())) {
+                validator = v;
+            }
+        }
+        assertNotNull(validator);
+        validators = connectValidator.getSaml2SpecValidators();
+        assertNull(validators);
+    }
 
-		SAMLKeyInfo keyInfo = mock(SAMLKeyInfo.class);
-		PublicKey publicKey = mock(PublicKey.class);
-		Crypto crypto = mock(Crypto.class);
+    @Test
+    public void testValidate() throws WSSecurityException {
+        final List<Boolean> checkedSignedAssertion = new ArrayList<Boolean>();
+        Credential credential = new Credential();
+        final String SECRET_KEY = "secret";
+        credential.setSecretKey(SECRET_KEY.getBytes());
+        RequestData data = mock(RequestData.class);
+        AssertionWrapper assertion = mock(AssertionWrapper.class);
+        credential.setAssertion(assertion);
 
-		when(assertion.getSignatureKeyInfo()).thenReturn(keyInfo);
-		when(keyInfo.getPublicKey()).thenReturn(publicKey);
-		when(data.getSigCrypto()).thenReturn(crypto);
-		when(crypto.verifyTrust(publicKey)).thenReturn(true);
+        List<String> methods = new ArrayList<String>();
+        final String METHOD_NAME = "urn:oasis:names:tc:SAML:" + "TESTING" + ":cm:holder-of-key";
+        methods.add(METHOD_NAME);
 
-		CONNECTSamlAssertionValidator validator = new CONNECTSamlAssertionValidator();
+        SAMLKeyInfo keyInfo = mock(SAMLKeyInfo.class);
+        org.opensaml.saml2.core.Assertion saml2Assertion = mock(org.opensaml.saml2.core.Assertion.class);
+        org.opensaml.saml2.core.Conditions conditions = mock(org.opensaml.saml2.core.Conditions.class);
+        DateTime testDate = new DateTime();
 
-		validator.checkSignedAssertion(assertion, data);
+        // For validate() calls
+        when(assertion.getConfirmationMethods()).thenReturn(methods);
+        when(assertion.getSubjectKeyInfo()).thenReturn(keyInfo);
+        when(assertion.isSigned()).thenReturn(true);
+        // For checkConditions() calls
+        when(assertion.getSamlVersion()).thenReturn(SAMLVersion.VERSION_20);
+        when(assertion.getSaml2()).thenReturn(saml2Assertion, saml2Assertion, saml2Assertion, null);
+        when(saml2Assertion.getConditions()).thenReturn(conditions);
+        when(conditions.getNotOnOrAfter()).thenReturn(testDate.plusDays(1));
+        when(conditions.getNotBefore()).thenReturn(testDate.minusSeconds(5));
 
-		assertNotNull(assertion.getSignatureKeyInfo().getPublicKey());
-		assertNull(assertion.getSignatureKeyInfo().getCerts());
-	}
+        CONNECTSamlAssertionValidator validator = new CONNECTSamlAssertionValidator() {
+            @Override
+            protected void checkSignedAssertion(AssertionWrapper assertion, RequestData data)
+                    throws WSSecurityException {
+                checkedSignedAssertion.add(true);
+            }
+        };
 
-	@Test
-	public void testCheckSignedAssertion_ChainCertError()
-			throws WSSecurityException {
-		AssertionWrapper assertion = mock(AssertionWrapper.class);
-		RequestData data = mock(RequestData.class);
+        Credential resultCredential = validator.validate(credential, data);
 
-		SAMLKeyInfo keyInfo = mock(SAMLKeyInfo.class);
-		PublicKey publicKey = mock(PublicKey.class);
-		Crypto crypto = mock(Crypto.class);
+        assertFalse(checkedSignedAssertion.isEmpty());
+        assertTrue(checkedSignedAssertion.get(0).booleanValue());
+        String resultSecretKey = new String(resultCredential.getSecretKey());
+        assertEquals(resultSecretKey, SECRET_KEY);
 
-		when(assertion.getSignatureKeyInfo()).thenReturn(keyInfo);
-		when(keyInfo.getPublicKey()).thenReturn(publicKey);
-		when(data.getSigCrypto()).thenReturn(crypto);
+    }
 
-		// Return false here for Chain Cert Error
-		when(crypto.verifyTrust(publicKey)).thenReturn(false);
+    @Test
+    public void testCheckSignedAssertion_HappyPath() throws WSSecurityException {
+        AssertionWrapper assertion = mock(AssertionWrapper.class);
+        RequestData data = mock(RequestData.class);
 
-		CONNECTSamlAssertionValidator validator = new CONNECTSamlAssertionValidator();
+        SAMLKeyInfo keyInfo = mock(SAMLKeyInfo.class);
+        PublicKey publicKey = mock(PublicKey.class);
+        Crypto crypto = mock(Crypto.class);
 
-		validator.checkSignedAssertion(assertion, data);
+        when(assertion.getSignatureKeyInfo()).thenReturn(keyInfo);
+        when(keyInfo.getPublicKey()).thenReturn(publicKey);
+        when(data.getSigCrypto()).thenReturn(crypto);
+        when(crypto.verifyTrust(publicKey)).thenReturn(true);
 
-		assertNotNull(assertion.getSignatureKeyInfo().getPublicKey());
-		assertNull(assertion.getSignatureKeyInfo().getCerts());
-	}
+        CONNECTSamlAssertionValidator validator = new CONNECTSamlAssertionValidator();
 
-	@Test(expected = WSSecurityException.class)
-	public void testCheckSignedAssertion_Exception() throws WSSecurityException {
-		AssertionWrapper assertion = mock(AssertionWrapper.class);
-		RequestData data = mock(RequestData.class);
+        validator.checkSignedAssertion(assertion, data);
 
-		SAMLKeyInfo keyInfo = mock(SAMLKeyInfo.class);
+        assertNotNull(assertion.getSignatureKeyInfo().getPublicKey());
+        assertNull(assertion.getSignatureKeyInfo().getCerts());
+    }
 
-		when(assertion.getSignatureKeyInfo()).thenReturn(keyInfo);
+    @Test
+    public void testCheckSignedAssertion_ChainCertError() throws WSSecurityException {
+        AssertionWrapper assertion = mock(AssertionWrapper.class);
+        RequestData data = mock(RequestData.class);
 
-		CONNECTSamlAssertionValidator validator = new CONNECTSamlAssertionValidator();
+        SAMLKeyInfo keyInfo = mock(SAMLKeyInfo.class);
+        PublicKey publicKey = mock(PublicKey.class);
+        Crypto crypto = mock(Crypto.class);
 
-		validator.checkSignedAssertion(assertion, data);
-	}
+        when(assertion.getSignatureKeyInfo()).thenReturn(keyInfo);
+        when(keyInfo.getPublicKey()).thenReturn(publicKey);
+        when(data.getSigCrypto()).thenReturn(crypto);
+
+        // Return false here for Chain Cert Error
+        when(crypto.verifyTrust(publicKey)).thenReturn(false);
+
+        CONNECTSamlAssertionValidator validator = new CONNECTSamlAssertionValidator();
+
+        validator.checkSignedAssertion(assertion, data);
+
+        assertNotNull(assertion.getSignatureKeyInfo().getPublicKey());
+        assertNull(assertion.getSignatureKeyInfo().getCerts());
+    }
+
+    @Test(expected = WSSecurityException.class)
+    public void testCheckSignedAssertion_Exception() throws WSSecurityException {
+        AssertionWrapper assertion = mock(AssertionWrapper.class);
+        RequestData data = mock(RequestData.class);
+
+        SAMLKeyInfo keyInfo = mock(SAMLKeyInfo.class);
+
+        when(assertion.getSignatureKeyInfo()).thenReturn(keyInfo);
+
+        CONNECTSamlAssertionValidator validator = new CONNECTSamlAssertionValidator();
+
+        validator.checkSignedAssertion(assertion, data);
+    }
 
 }
