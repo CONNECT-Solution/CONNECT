@@ -32,13 +32,14 @@
             <module>CONN-470</module>
             <module>CONN-478</module>
             <module>ConnectionManagerTest</module>
-            <module>DocQuerytestsforUDDI</module>
+            <!--module>DocQueryErrorCodes</module-->
+            <!--module>DocQuerytestsforUDDI</module-->
             <module>DocRegistryAndRepository</module>
             <module>DocumentRetrieveXDSErrorValidation</module>
-            <module>EntityPolicyEngineTest</module>
+            <!--module>EntityPolicyEngineTest</module-->
             <module>GW-406-949</module>
             <!--module>Gateway-2085</module-->
-            <module>NHINCPatientDiscoveryMAA</module>
+            <!--module>NHINCPatientDiscoveryMAA</module-->
             <module>QueryByState</module>
             <module>XDRAdapterTests</module>
         </modules>
