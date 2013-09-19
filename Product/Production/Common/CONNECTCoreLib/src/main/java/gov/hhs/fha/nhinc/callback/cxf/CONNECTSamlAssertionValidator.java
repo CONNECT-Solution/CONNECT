@@ -39,6 +39,7 @@ import java.util.List;
 
 import javax.xml.namespace.QName;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.apache.ws.security.WSSecurityException;
 import org.apache.ws.security.handler.RequestData;
@@ -47,6 +48,7 @@ import org.apache.ws.security.saml.ext.AssertionWrapper;
 import org.apache.ws.security.saml.ext.OpenSAMLUtil;
 import org.apache.ws.security.validate.Credential;
 import org.apache.ws.security.validate.SamlAssertionValidator;
+import org.opensaml.saml2.core.AuthzDecisionStatement;
 import org.opensaml.xml.validation.ValidationException;
 import org.opensaml.xml.validation.ValidatorSuite;
 
@@ -71,6 +73,9 @@ public class CONNECTSamlAssertionValidator extends SamlAssertionValidator {
 
     /** The Constant EXCHANGE_AUTH_FRWK_VALIDATOR_SUITE. */
     private static final String EXCHANGE_AUTH_FRWK_VALIDATOR_SUITE = "exchange-authorization-framework-validator-suite";
+
+    /** The Constant TEMP_RESOURCE_FOR_VALIDATION. */
+    private static final String TEMP_RESOURCE_FOR_VALIDATION = "TEMPORARY_RESOURCE_FOR_VALIDATION";
 
     /** The property accessor. */
     private PropertyAccessor propertyAccessor;
@@ -113,6 +118,12 @@ public class CONNECTSamlAssertionValidator extends SamlAssertionValidator {
             List<ValidatorSuite> validators = new LinkedList<ValidatorSuite>();
             validators.add(org.opensaml.Configuration.getValidatorSuite("saml2-core-schema-validator"));
             validators.addAll(getSaml2SpecValidators());
+            
+            for (AuthzDecisionStatement auth : assertion.getSaml2().getAuthzDecisionStatements()) {
+                if (StringUtils.isBlank(auth.getResource())) {
+                    auth.setResource(TEMP_RESOURCE_FOR_VALIDATION);
+                }
+            }
 
             try {
                 for (ValidatorSuite v : validators) {
@@ -121,6 +132,12 @@ public class CONNECTSamlAssertionValidator extends SamlAssertionValidator {
             } catch (ValidationException e) {
                 LOG.error("Saml Validation error: " + e.getMessage(), e);
                 throw new WSSecurityException(WSSecurityException.FAILURE, "invalidSAMLsecurity");
+            }
+            
+            for (AuthzDecisionStatement auth : assertion.getSaml2().getAuthzDecisionStatements()) {
+                if (StringUtils.equals(auth.getResource(), TEMP_RESOURCE_FOR_VALIDATION)) {
+                    auth.setResource(StringUtils.EMPTY);
+                }
             }
         }
     }
