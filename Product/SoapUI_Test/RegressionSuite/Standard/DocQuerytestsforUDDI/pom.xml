@@ -3,12 +3,12 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>org.connectopensource</groupId>
-        <artifactId>Bimodal</artifactId>
+        <artifactId>Standard</artifactId>
         <version>4.3.0-SNAPSHOT</version>
     </parent>
-    <artifactId>EntityPolicyEngineTest</artifactId>
+    <artifactId>DocQuerytestsforUDDI</artifactId>
     <packaging>jar</packaging>
-    <name>Maven 3 soapUI EntityPolicyEngineTest</name>
+    <name>Maven 3 soapUI DocQuerytestsforUDDI</name>
     <properties>
     </properties>
     <pluginRepositories>
@@ -76,13 +76,13 @@
                     </configuration>
                 <executions>
                     <execution>
-                        <id>EntityPolicyEngineTest-soapui-project</id>
+                        <id>DocQuerytestsforUDDI-soapui-project</id>
                         <phase>integration-test</phase>
                         <goals>
                             <goal>test</goal>
                         </goals>
                         <configuration>
-                            <projectFile>${basedir}/EntityPolicyEngineTest-soapui-project.xml</projectFile>
+                            <projectFile>${basedir}/DocQuerytestsforUDDI-soapui-project.xml</projectFile>
                             <outputFolder>${project.build.directory}/soapui/output</outputFolder>
                         </configuration>
                     </execution>
