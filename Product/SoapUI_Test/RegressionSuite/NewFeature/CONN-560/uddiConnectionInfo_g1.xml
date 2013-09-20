@@ -10,7 +10,7 @@
                 <name xml:lang="en">DocSubmission</name>
                 <bindingTemplates>
                     <bindingTemplate bindingKey="uddi:testnhincnode:DocSubmission" serviceKey="uddi:testnhincnode:DocSubmission">
-                        <accessPoint useType="endPoint">https://localhost:8181/Gateway/DocumentSubmission/1_1/DocumentRepositoryXDR_Service</accessPoint>
+                        <accessPoint useType="endPoint">https://localhost:8181/Gateway/DocumentSubmission/2_0/DocumentRepositoryXDR_Service</accessPoint>
                         <categoryBag>
                             <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="2.0"/>
                         </categoryBag>
@@ -24,7 +24,7 @@
                 <name xml:lang="en">DocSubmissionDeferredReq</name>
                 <bindingTemplates>
                     <bindingTemplate bindingKey="uddi:testnhincnode:DocSubmissionDeferredReq" serviceKey="uddi:testnhincnode:DocSubmissionDeferredReq">
-                        <accessPoint useType="endPoint">https://localhost:8181/Gateway/DocumentSubmission/1_1/NhinService/XDRRequest_Service</accessPoint>
+                        <accessPoint useType="endPoint">https://localhost:8181/Gateway/DocumentSubmission/2_0/NhinService/XDRRequest_Service</accessPoint>
                         <categoryBag>
                             <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="2.0"/>
                         </categoryBag>
@@ -38,7 +38,7 @@
                 <name xml:lang="en">DocSubmissionDeferredResp</name>
                 <bindingTemplates>
                     <bindingTemplate bindingKey="uddi:testnhincnode:DocSubmissionDeferredResp" serviceKey="uddi:testnhincnode:DocSubmissionDeferredResp">
-                        <accessPoint useType="endPoint">https://localhost:8181/Gateway/DocumentSubmission/1_1/NhinService/XDRResponse_Service</accessPoint>
+                        <accessPoint useType="endPoint">https://localhost:8181/Gateway/DocumentSubmission/2_0/NhinService/XDRResponse_Service</accessPoint>
                         <categoryBag>
                             <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="2.0"/>
                         </categoryBag>
@@ -71,7 +71,7 @@
                 <name xml:lang="en">DocSubmission</name>
                 <bindingTemplates>
                     <bindingTemplate bindingKey="uddi:testnhincnode:DocSubmission" serviceKey="uddi:testnhincnode:DocSubmission">
-                        <accessPoint useType="endPoint">https://localhost:8181/Gateway/DocumentSubmission/1_1/DocumentRepositoryXDR_Service</accessPoint>
+                        <accessPoint useType="endPoint">https://localhost:8181/Gateway/DocumentSubmission/2_0/DocumentRepositoryXDR_Service</accessPoint>
                         <categoryBag>
                             <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="2.0"/>
                         </categoryBag>
@@ -85,7 +85,7 @@
                 <name xml:lang="en">DocSubmissionDeferredReq</name>
                 <bindingTemplates>
                     <bindingTemplate bindingKey="uddi:testnhincnode:DocSubmissionDeferredReq" serviceKey="uddi:testnhincnode:DocSubmissionDeferredReq">
-                        <accessPoint useType="endPoint">https://localhost:8181/Gateway/DocumentSubmission/1_1/NhinService/XDRRequest_Service</accessPoint>
+                        <accessPoint useType="endPoint">https://localhost:8181/Gateway/DocumentSubmission/2_0/NhinService/XDRRequest_Service</accessPoint>
                         <categoryBag>
                             <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="2.0"/>
                         </categoryBag>
@@ -99,7 +99,7 @@
                 <name xml:lang="en">DocSubmissionDeferredResp</name>
                 <bindingTemplates>
                     <bindingTemplate bindingKey="uddi:testnhincnode:DocSubmissionDeferredResp" serviceKey="uddi:testnhincnode:DocSubmissionDeferredResp">
-                        <accessPoint useType="endPoint">https://localhost:8181/Gateway/DocumentSubmission/1_1/NhinService/XDRResponse_Service</accessPoint>
+                        <accessPoint useType="endPoint">https://localhost:8181/Gateway/DocumentSubmission/2_0/NhinService/XDRResponse_Service</accessPoint>
                         <categoryBag>
                             <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="2.0"/>
                         </categoryBag>
@@ -109,7 +109,7 @@
                     <keyedReference tModelKey="uddi:nhin:standard-servicenames" keyName="DocSubmissionDeferredResp" keyValue="DocSubmissionDeferredResp"/>
                 </categoryBag>
             </businessService>
-
+	</businessServices>
         <identifierBag>
             <keyedReference tModelKey="uddi:nhin:nhie:homecommunityid" keyName="" keyValue="urn:oid:2.2"/>
         </identifierBag>
