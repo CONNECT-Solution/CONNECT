@@ -109,6 +109,7 @@
                     <keyedReference tModelKey="uddi:nhin:standard-servicenames" keyName="DocSubmissionDeferredResp" keyValue="DocSubmissionDeferredResp"/>
                 </categoryBag>
             </businessService>
+	</businessServices>
 
         <identifierBag>
             <keyedReference tModelKey="uddi:nhin:nhie:homecommunityid" keyName="" keyValue="urn:oid:2.2"/>
