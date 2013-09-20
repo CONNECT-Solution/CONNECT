@@ -21,6 +21,7 @@
                 </property>
             </activation>
         <modules>
+            <module>CONN-560</module>
             <module>ValidateConnectionManagerForAllServices</module>
         </modules>
 	</profile>
