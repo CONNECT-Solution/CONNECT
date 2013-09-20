@@ -12,12 +12,21 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:jaxws="http://cxf.apache.org/jaxws"
     xmlns:soap="http://cxf.apache.org/bindings/soap" xmlns:aop="http://www.springframework.org/schema/aop"
+    xmlns:cxf="http://cxf.apache.org/core"
+    xmlns:p="http://cxf.apache.org/policy"
     xsi:schemaLocation="
 http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 http://cxf.apache.org/bindings/soap http://cxf.apache.org/schemas/configuration/soap.xsd
-http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd ">
+http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd
+http://cxf.apache.org/policy http://cxf.apache.org/schemas/policy.xsd
+http://cxf.apache.org/core http://cxf.apache.org/schemas/core.xsd ">
 
     <!-- Patient Discovery -->
+    <cxf:bus>
+        <cxf:features>
+            <p:policies ignoreUnknownAssertions="true"/>
+        </cxf:features>
+    </cxf:bus>
 
     <!-- Nhin services -->
     
@@ -33,6 +42,7 @@ http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd ">
                     class="gov.hhs.fha.nhinc.callback.cxf.CONNECTSamlAssertionValidator" />
             </entry>
         </jaxws:properties>
+
         <jaxws:inInterceptors>
             <ref bean="securityConfigInInterceptor" />
         </jaxws:inInterceptors>
@@ -56,6 +66,7 @@ http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd ">
                 <bean class="gov.hhs.fha.nhinc.callback.cxf.CONNECTSamlAssertionValidator" />
             </entry>            
         </jaxws:properties>
+        
         <jaxws:inInterceptors>
             <ref bean="securityConfigInInterceptor" />
         </jaxws:inInterceptors>
@@ -94,6 +105,7 @@ http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd ">
                     class="gov.hhs.fha.nhinc.callback.cxf.CONNECTSamlAssertionValidator" />
             </entry>
         </jaxws:properties>
+
         <jaxws:inInterceptors>
             <ref bean="securityConfigInInterceptor" />
         </jaxws:inInterceptors>
@@ -119,6 +131,7 @@ http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd ">
                 <bean class="gov.hhs.fha.nhinc.callback.cxf.CONNECTSamlAssertionValidator" />
             </entry>            
         </jaxws:properties>
+
         <jaxws:inInterceptors>
             <ref bean="securityConfigInInterceptor" />
         </jaxws:inInterceptors>
@@ -158,6 +171,7 @@ http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd ">
                     class="gov.hhs.fha.nhinc.callback.cxf.CONNECTSamlAssertionValidator" />
             </entry>
         </jaxws:properties>
+
         <jaxws:inInterceptors>
             <ref bean="securityConfigInInterceptor" />
         </jaxws:inInterceptors>
@@ -184,6 +198,7 @@ http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd ">
                 <bean class="gov.hhs.fha.nhinc.callback.cxf.CONNECTSamlAssertionValidator" />
             </entry>            
         </jaxws:properties>
+
         <jaxws:inInterceptors>
             <ref bean="securityConfigInInterceptor" />
         </jaxws:inInterceptors>

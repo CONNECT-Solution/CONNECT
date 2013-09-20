@@ -13,14 +13,23 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:jaxws="http://cxf.apache.org/jaxws"
     xmlns:soap="http://cxf.apache.org/bindings/soap" xmlns:aop="http://www.springframework.org/schema/aop"
     xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:cxf="http://cxf.apache.org/core"
+    xmlns:p="http://cxf.apache.org/policy"
     xsi:schemaLocation="
     http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
 http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 http://cxf.apache.org/bindings/soap http://cxf.apache.org/schemas/configuration/soap.xsd
-http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd ">
+http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd
+http://cxf.apache.org/policy http://cxf.apache.org/schemas/policy.xsd
+http://cxf.apache.org/core http://cxf.apache.org/schemas/core.xsd ">
 
     <import resource="classpath:CONNECT-interceptor-beans.xml" />
     <context:property-placeholder/>
+    <cxf:bus>
+        <cxf:features>
+            <p:policies ignoreUnknownAssertions="true"/>
+        </cxf:features>
+    </cxf:bus>
 
     <!-- Audit Services -->
     <jaxws:endpoint xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentauditrepository" id="AuditRepositoryManagerUnsecured"
@@ -41,9 +50,11 @@ http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd ">
                 <bean class="gov.hhs.fha.nhinc.callback.cxf.CONNECTSamlAssertionValidator" />
             </entry>            
         </jaxws:properties>
+        
     </jaxws:endpoint>
     
-    <!-- Patient Correlation Services -->
+    <!-- Patient Correlation Services -->  
+    
     <jaxws:endpoint xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentpatientcorrelation" id="PatientCorrelationUnsecured"
         address="/GatewayService/PatientCorrelationServiceUnsecured" serviceName="tns:PatientCorrelationService"
         endpointName="tns:PatientCorrelationPort" implementor="gov.hhs.fha.nhinc.patientcorrelation.nhinc.PatientCorrelationServiceUnsecured"
@@ -62,6 +73,7 @@ http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd ">
                 <bean class="gov.hhs.fha.nhinc.callback.cxf.CONNECTSamlAssertionValidator" />
             </entry>            
         </jaxws:properties>
+        
     </jaxws:endpoint>
 
     <bean id="SOAPHeaderHandler" class="gov.hhs.fha.nhinc.callback.SOAPHeaderHandler" />
