@@ -27,7 +27,7 @@ http://cxf.apache.org/core http://cxf.apache.org/schemas/core.xsd ">
     <context:property-placeholder/>
     <cxf:bus>
         <cxf:features>
-            <p:policies ignoreUnknownAssertions="true"/>
+            <p:policies />
         </cxf:features>
     </cxf:bus>
 
