@@ -25,7 +25,7 @@ http://cxf.apache.org/core http://cxf.apache.org/schemas/core.xsd">
     <!-- Document Retrieve -->
      <cxf:bus>
         <cxf:features>
-            <p:policies ignoreUnknownAssertions="true"/>
+            <p:policies />
         </cxf:features>
     </cxf:bus>
 
@@ -49,9 +49,6 @@ http://cxf.apache.org/core http://cxf.apache.org/schemas/core.xsd">
                 <bean class="gov.hhs.fha.nhinc.callback.cxf.CONNECTSamlAssertionValidator" />
             </entry>            
         </jaxws:properties>
-        <jaxws:features>
-            <wsa:addressing  xmlns:wsa="http://cxf.apache.org/ws/addressing"/>
-        </jaxws:features>
     </jaxws:endpoint>
 
     <bean id="SOAPHeaderHandler" class="gov.hhs.fha.nhinc.callback.SOAPHeaderHandler" />
