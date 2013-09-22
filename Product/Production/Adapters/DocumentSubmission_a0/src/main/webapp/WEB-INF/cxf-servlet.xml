@@ -45,9 +45,6 @@ http://cxf.apache.org/core http://cxf.apache.org/schemas/core.xsd">
                 <bean class="gov.hhs.fha.nhinc.callback.cxf.CONNECTSamlAssertionValidator" />
             </entry>            
         </jaxws:properties>
-        <jaxws:features>
-            <wsa:addressing  xmlns:wsa="http://cxf.apache.org/ws/addressing"/>
-        </jaxws:features>
         <jaxws:inInterceptors>
             <ref bean="timestampInInterceptor" />
         </jaxws:inInterceptors>
@@ -83,9 +80,6 @@ http://cxf.apache.org/core http://cxf.apache.org/schemas/core.xsd">
                 <bean class="gov.hhs.fha.nhinc.callback.cxf.CONNECTSamlAssertionValidator" />
             </entry>            
         </jaxws:properties>
-        <jaxws:features>
-            <wsa:addressing  xmlns:wsa="http://cxf.apache.org/ws/addressing"/>
-        </jaxws:features>
         <jaxws:inInterceptors>
             <ref bean="timestampInInterceptor" />
         </jaxws:inInterceptors>
@@ -118,9 +112,6 @@ http://cxf.apache.org/core http://cxf.apache.org/schemas/core.xsd">
                 <bean class="gov.hhs.fha.nhinc.callback.cxf.CONNECTSamlAssertionValidator" />
             </entry>            
         </jaxws:properties>
-        <jaxws:features>
-            <wsa:addressing  xmlns:wsa="http://cxf.apache.org/ws/addressing"/>
-        </jaxws:features>
         <jaxws:inInterceptors>
             <ref bean="timestampInInterceptor" />
         </jaxws:inInterceptors>
@@ -166,9 +157,6 @@ http://cxf.apache.org/core http://cxf.apache.org/schemas/core.xsd">
                 <bean class="gov.hhs.fha.nhinc.callback.cxf.CONNECTSamlAssertionValidator" />
             </entry>            
         </jaxws:properties>
-        <jaxws:features>
-            <wsa:addressing  xmlns:wsa="http://cxf.apache.org/ws/addressing"/>
-        </jaxws:features>
         <jaxws:inInterceptors>
             <ref bean="timestampInInterceptor" />
         </jaxws:inInterceptors>
@@ -201,10 +189,6 @@ http://cxf.apache.org/core http://cxf.apache.org/schemas/core.xsd">
                 <bean class="gov.hhs.fha.nhinc.callback.cxf.CONNECTSamlAssertionValidator" />
             </entry>            
         </jaxws:properties>
-        <jaxws:features>
-            <wsa:addressing  xmlns:wsa="http://cxf.apache.org/ws/addressing"/>
-        </jaxws:features>
-        
     </jaxws:endpoint>
     
     <jaxws:endpoint xmlns:tns="urn:gov:hhs:fha:nhinc:adapterxdrresponse" id="AdapterXDRResponse"

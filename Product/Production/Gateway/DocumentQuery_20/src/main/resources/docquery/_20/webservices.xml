@@ -71,10 +71,6 @@ http://cxf.apache.org/core http://cxf.apache.org/schemas/core.xsd ">
             </entry>            
         </jaxws:properties>
         
-        <jaxws:features>
-            <wsa:addressing  xmlns:wsa="http://cxf.apache.org/ws/addressing"/>
-        </jaxws:features>
-
         <jaxws:inInterceptors>
             <ref bean="securityConfigInInterceptor" />
         </jaxws:inInterceptors>
