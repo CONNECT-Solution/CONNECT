@@ -38,6 +38,7 @@ import org.apache.cxf.configuration.jsse.TLSClientParameters;
 import org.apache.cxf.endpoint.Client;
 import org.apache.cxf.frontend.ClientProxy;
 import org.apache.cxf.transport.http.HTTPConduit;
+import org.junit.Ignore;
 import org.junit.Test;
 
 /**
@@ -46,6 +47,7 @@ import org.junit.Test;
  */
 public class TLSClientServiceEndpointDecoratorTest {
 
+    @Ignore
     @Test
     public void testTLSConfiguration() {
         CONNECTClient<TestServicePortType> client = createClient();

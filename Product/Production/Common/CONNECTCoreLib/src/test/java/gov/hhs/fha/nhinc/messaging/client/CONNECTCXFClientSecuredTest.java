@@ -42,6 +42,7 @@ import gov.hhs.fha.nhinc.messaging.service.port.TestServicePortType;
 
 import org.apache.cxf.endpoint.Client;
 import org.apache.cxf.frontend.ClientProxy;
+import org.junit.Ignore;
 import org.junit.Test;
 
 /**
@@ -85,6 +86,7 @@ public class CONNECTCXFClientSecuredTest {
         assertEquals(numOutInterceptors, cxfClient2.getOutInterceptors().size());
     }
 
+    @Ignore
     @Test
     public void securedClientConfiguration() {
         String url = "url";
@@ -111,6 +113,7 @@ public class CONNECTCXFClientSecuredTest {
         securityTest.verifyWsSecurityProperties(client);
     }
     
+    @Ignore
     @Test
     public void testEnableMtom() {
         String url = "url";
