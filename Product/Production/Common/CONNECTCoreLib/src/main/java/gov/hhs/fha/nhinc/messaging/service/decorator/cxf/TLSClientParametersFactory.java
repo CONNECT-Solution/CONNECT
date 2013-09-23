@@ -35,6 +35,8 @@ import java.security.NoSuchAlgorithmException;
 import java.security.UnrecoverableKeyException;
 
 import javax.net.ssl.KeyManagerFactory;
+import javax.net.ssl.SSLContext;
+import javax.net.ssl.SSLSocketFactory;
 import javax.net.ssl.TrustManagerFactory;
 
 import org.apache.cxf.configuration.jsse.TLSClientParameters;
@@ -83,9 +85,23 @@ public class TLSClientParametersFactory {
 
     public TLSClientParameters getTLSClientParameters() {
         TLSClientParameters tlsCP = new TLSClientParameters();
+        SSLContext context = null;
+        try {
+            context = SSLContext.getDefault();
+        } catch (NoSuchAlgorithmException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        SSLSocketFactory factory = context.getSocketFactory();
+        if (factory != null) {
+            tlsCP.setSSLSocketFactory(factory);
+        } else {
+            //tlsCP.setKeyManagers(keyFactory.getKeyManagers());
+            //tlsCP.setTrustManagers(trustFactory.getTrustManagers());
+            throw new RuntimeException("Couldn't get the SSLSocketFactory.");
+        }
         tlsCP.setDisableCNCheck(true);
-        tlsCP.setKeyManagers(keyFactory.getKeyManagers());
-        tlsCP.setTrustManagers(trustFactory.getTrustManagers());
+        
         return tlsCP;
     }
 
