@@ -27,7 +27,7 @@
             <module>DocQueryErrorCodesPassthru</module>
             <module>DocQueryRetrieveSelfTest</module>
             <module>DocQueryXDSErrors</module>
-            <!--module>EventLogging-Passthrough</module-->
+            <module>EventLogging-Passthrough</module>
             <module>NHINCReceivingXDRAsyncRequestTests</module>
             <module>NHINCReceivingXDRAsyncResponseTests</module>
         </modules>
