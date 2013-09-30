@@ -23,8 +23,11 @@
         <modules>
             <module>Admin-Distribution-Standard</module>
             <module>AuditLogging-Standard</module>
-            <module>DocQuerytestsforUDDI</module>
             <module>DocQueryErrorCodesStandard</module>
+			<module>DocQueryFanoutTestTarget</module>
+			<module>DocQueryOnDemand</module>
+			<module>DocQuerytestsforUDDI</module>
+			<module>EntityDocQuery</module>
             <module>EntityDocRetrieve</module>
             <module>EntityPolicyEngineTest</module>
             <module>EntitySendingXDRAsyncReqTests</module>
