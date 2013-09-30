@@ -3959,23 +3959,23 @@ declare namespace ns12='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
 <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);
 context.setGatewayStandard(false);
 log.info ("Setting the gateway to Passthrough");</con:setupScript><con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);
-def config = context.getConfiguration();
-config.setStandardMode();</con:tearDownScript><con:properties>
+context.setGatewayStandard(true);
+log.info ("Setting the gateway to Standard");</con:tearDownScript><con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2013-09-26T21:49:35Z</con:value>
+		<con:value>2013-09-30T18:38:47Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2013-09-26T21:59:35Z</con:value>
+		<con:value>2013-09-30T18:48:47Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>09/26/2013 21:49:35</con:value>
+		<con:value>09/30/2013 18:38:47</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2013-10-26T00:00:00Z</con:value>
+		<con:value>2013-10-30T00:00:00Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>FullPatientID</con:name>
@@ -4309,23 +4309,23 @@ declare namespace ns12='urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0';
 <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);
 context.setGatewayStandard(false);
 log.info ("Setting the gateway to Passthrough");</con:setupScript><con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);
-def config = context.getConfiguration();
-config.setStandardMode();</con:tearDownScript><con:properties>
+context.setGatewayStandard(true);
+log.info ("Setting the gateway to Standard");</con:tearDownScript><con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2013-09-26T21:49:36Z</con:value>
+		<con:value>2013-09-30T18:38:49Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2013-09-26T21:59:36Z</con:value>
+		<con:value>2013-09-30T18:48:49Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>09/26/2013 21:49:36</con:value>
+		<con:value>09/30/2013 18:38:49</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2013-10-26T00:00:00Z</con:value>
+		<con:value>2013-10-30T00:00:00Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>FullPatientID</con:name>

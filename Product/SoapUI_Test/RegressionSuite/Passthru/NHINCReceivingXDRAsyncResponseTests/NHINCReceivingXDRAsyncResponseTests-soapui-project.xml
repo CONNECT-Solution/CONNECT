@@ -6315,24 +6315,23 @@ nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log)
 context.setGatewayStandard(false,"DocumentSubmissionDeferredResponse", "Outbound");</con:setupScript><con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2013-09-27T16:09:17Z</con:value>
+					<con:value>2013-09-30T18:41:02Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2013-09-27T16:19:17Z</con:value>
+					<con:value>2013-09-30T18:51:02Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>09/27/2013 16:09:17</con:value>
+					<con:value>09/30/2013 18:41:02</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2013-10-27T00:00:00Z</con:value>
+					<con:value>2013-10-30T00:00:00Z</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
 			<con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);
-context.setGatewayStandard(true,"DocumentSubmissionDeferredResponse", "Outbound");
 context.setGatewayStandard(true);</con:tearDownScript>
 		</con:testCase>
 		<con:testCase failOnError="true" failTestCaseOnErrors="true" id="9e67f5fb-7df1-4b41-a7d8-15eb1f2ae876" keepSession="false" maxResults="0" name="PolicyCheckDeny" searchProperties="true">
@@ -8104,19 +8103,19 @@ nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log)
 context.setGatewayStandard(false,"DocumentSubmissionDeferredResponse", "Outbound");</con:setupScript><con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2013-09-27T16:09:23Z</con:value>
+					<con:value>2013-09-30T18:41:05Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2013-09-27T16:19:23Z</con:value>
+					<con:value>2013-09-30T18:51:05Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>09/27/2013 16:09:23</con:value>
+					<con:value>09/30/2013 18:41:05</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2013-10-27T00:00:00Z</con:value>
+					<con:value>2013-10-30T00:00:00Z</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
@@ -8504,19 +8503,19 @@ nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log)
 context.setGatewayStandard(false,"DocumentSubmissionDeferredResponse", "Outbound");</con:setupScript><con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2013-09-27T16:09:27Z</con:value>
+					<con:value>2013-09-30T18:41:08Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2013-09-27T16:19:27Z</con:value>
+					<con:value>2013-09-30T18:51:08Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>09/27/2013 16:09:27</con:value>
+					<con:value>09/30/2013 18:41:08</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2013-10-27T00:00:00Z</con:value>
+					<con:value>2013-10-30T00:00:00Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>FullPatientID</con:name>
@@ -8524,7 +8523,7 @@ context.setGatewayStandard(false,"DocumentSubmissionDeferredResponse", "Outbound
 				</con:property>
 				<con:property>
 					<con:name>XDRUserId</con:name>
-					<con:value>XDR Request Inbound UserFri Sep 27 16:14:27 UTC 2013</con:value>
+					<con:value>XDR Request Inbound UserMon Sep 30 18:46:08 UTC 2013</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
@@ -8547,8 +8546,7 @@ context.setGatewayStandard(true);</con:tearDownScript>
 		
 		
 		
-		<con:property><con:name>Endpoint-AuditLogQuery</con:name><con:value>http://localhost:8080/CONNECTAdapter/EntityAuditQuery</con:value></con:property><con:property><con:name>Endpoint-EntityXDRRequest</con:name><con:value>http://localhost:8080/Gateway/DocumentSubmission/1_1/EntityService/EntityDocSubmissionDeferredRequestUnsecured</con:value></con:property><con:property><con:name>Endpoint-NhhincXDRResponse</con:name><con:value>http://localhost:8080/CONNECTMsgProxyWeb/EntityService/PassthruDocSubmissionDeferredResponseUnsecured</con:value></con:property><con:property><con:name>Endpoint-NhincProxyXDRRequest</con:name><con:value>http://localhost:8080/Gateway/DocumentSubmission/1_1/EntityService/PassthruDocSubmissionDeferredRequestUnsecured</con:value></con:property><con:property><con:name>Endpoint-NhincXDRResponse</con:name><con:value>http://localhost:8080/Gateway/DocumentSubmission/1_1/EntityService/PassthruDocSubmissionDeferredResponseUnsecured</con:value></con:property><con:property><con:name>GatewayPropDir</con:name><con:value>c:glassfish3glassfishdomainsdomain1config
-hin</con:value></con:property><con:property><con:name>LocalAA</con:name><con:value>1.1</con:value></con:property>
+		<con:property><con:name>Endpoint-AuditLogQuery</con:name><con:value>http://localhost:8080/CONNECTAdapter/EntityAuditQuery</con:value></con:property><con:property><con:name>Endpoint-EntityXDRRequest</con:name><con:value>http://localhost:8080/Gateway/DocumentSubmission/1_1/EntityService/EntityDocSubmissionDeferredRequestUnsecured</con:value></con:property><con:property><con:name>Endpoint-NhhincXDRResponse</con:name><con:value>http://localhost:8080/CONNECTMsgProxyWeb/EntityService/PassthruDocSubmissionDeferredResponseUnsecured</con:value></con:property><con:property><con:name>Endpoint-NhincProxyXDRRequest</con:name><con:value>http://localhost:8080/Gateway/DocumentSubmission/1_1/EntityService/PassthruDocSubmissionDeferredRequestUnsecured</con:value></con:property><con:property><con:name>Endpoint-NhincXDRResponse</con:name><con:value>http://localhost:8080/Gateway/DocumentSubmission/1_1/EntityService/PassthruDocSubmissionDeferredResponseUnsecured</con:value></con:property><con:property><con:name>GatewayPropDir</con:name><con:value>D:\app\glassfish3\glassfish\domains\domain1\config\nhin</con:value></con:property><con:property><con:name>LocalAA</con:name><con:value>1.1</con:value></con:property>
 		
 		
 		
