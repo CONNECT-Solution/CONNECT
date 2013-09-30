@@ -5932,25 +5932,7 @@ assert request["//add:MessageID/text()"] == response["//add:RelatesTo/text()"];<
 testCase.getTestSuite().getProject().setPropertyValue("TransactionID_2", "urn:uuid:".concat(((Math.random()*100000000).intValue()).toString()));</con:setupScript><con:properties><con:property><con:name>startDate</con:name><con:value>2013-09-17T14:07:48Z</con:value></con:property><con:property><con:name>endDate</con:name><con:value>2013-09-17T14:17:48Z</con:value></con:property><con:property><con:name>sigDate</con:name><con:value>09/17/2013 14:07:48</con:value></con:property><con:property><con:name>expireDate</con:name><con:value>2013-10-17T00:00:00Z</con:value></con:property></con:properties></con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="DQ Fanout Test" searchProperties="true" id="9c89ad49-8371-40d8-803c-dcb2d4ca5b54"><con:settings/><con:testStep name="update config" type="groovy">
 		<con:settings/>
 		<con:config><script>nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'), "gateway.properties", "documentQueryQuerySelf", "false", log);</script></con:config>
-</con:testStep><con:testStep name="backup uddiConnectionInfo" type="groovy">
-				<con:settings/>
-				<con:config><script>
-def sourceDir = context.findProperty('GatewayPropDir');
-def sourceFile = "uddiConnectionInfo.xml";
-def destDir = context.findProperty('GatewayPropDir')
-def destFile = "uddiConnectionInfo.xml.BACKUP";
-
-log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
-
-nhinc.FileUtils.copyFile(sourceDir, sourceFile, destDir, destFile, log);
-
-
-
-
-
-
-					</script></con:config>
-			</con:testStep><con:testStep name="replace uddiConnectionInfo" type="groovy">
+</con:testStep><con:testStep name="replace uddiConnectionInfo" type="groovy">
 				<con:settings/>
 				<con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
 def project = testRunner.getTestCase().getTestSuite().getProject()
@@ -6316,16 +6298,7 @@ testRunner.testCase.testSuite.setPropertyValue("TransactionID", "urn:uuid:".conc
 		assert 28 == sql.firstRow('select count(*) from ' + context.findProperty('EventDBTable'))[0]
 		}</script></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
 </con:setupScript><con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);
-def sourceDir = context.findProperty('GatewayPropDir');
-def sourceFile = "uddiConnectionInfo.xml.BACKUP";
-def destDir = context.findProperty('GatewayPropDir')
-def destFile = "uddiConnectionInfo.xml";
-
-log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
-
-nhinc.FileUtils.copyFile(sourceDir, sourceFile, destDir, destFile, log);
-
-new File(sourceDir + "/" + sourceFile).delete();</con:tearDownScript><con:properties><con:property><con:name>startDate</con:name><con:value>2013-09-17T14:07:51Z</con:value></con:property><con:property><con:name>endDate</con:name><con:value>2013-09-17T14:17:51Z</con:value></con:property><con:property><con:name>sigDate</con:name><con:value>09/17/2013 14:07:51</con:value></con:property><con:property><con:name>expireDate</con:name><con:value>2013-10-17T00:00:00Z</con:value></con:property></con:properties></con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="HIEM" searchProperties="true" id="de4fb969-9d5c-4f37-b3ba-4bf11375fd99" disabled="true">
+</con:tearDownScript><con:properties><con:property><con:name>startDate</con:name><con:value>2013-09-17T14:07:51Z</con:value></con:property><con:property><con:name>endDate</con:name><con:value>2013-09-17T14:17:51Z</con:value></con:property><con:property><con:name>sigDate</con:name><con:value>09/17/2013 14:07:51</con:value></con:property><con:property><con:name>expireDate</con:name><con:value>2013-10-17T00:00:00Z</con:value></con:property></con:properties></con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="HIEM" searchProperties="true" id="de4fb969-9d5c-4f37-b3ba-4bf11375fd99" disabled="true">
 	<con:settings/>
 
 	<con:testStep type="groovy" name="Create MessageIDs"><con:settings/><con:config><script>def SubMessageID = 'urn:uuid:' + (int)(Math.random()*10000000);
@@ -6957,25 +6930,7 @@ testRunner.testCase.testSuite.project.setPropertyValue( "NotifySubscriptionID", 
 </con:testCase><con:properties><con:property><con:name>Endpoint-DocQuery</con:name><con:value>http://localhost:8080/Gateway/DocumentQuery/2_0/EntityService/EntityDocQueryUnsecured</con:value></con:property><con:property><con:name>Endpoint-DocRetrieve</con:name><con:value>http://localhost:8080/Gateway/DocumentRetrieve/2_0/EntityService/EntityDocRetrieve</con:value></con:property><con:property><con:name>Endpoint-DSDeferredResp</con:name><con:value>http://localhost:8080/Gateway/DocumentSubmission/2_0/EntityService/EntityDocSubmissionDeferredResponseUnsecured</con:value></con:property><con:property><con:name>Endpoint-EntityAdminDist</con:name><con:value>http://localhost:8080/Gateway/AdminDistribution/1_0/AdministrativeDistribution_Service</con:value></con:property><con:property><con:name>Endpoint-EntityXDRRequest</con:name><con:value>http://localhost:8080/Gateway/DocumentSubmission/1_1/EntityService/EntityDocSubmissionDeferredRequestUnsecured</con:value></con:property><con:property><con:name>Endpoint-PatientDiscovery</con:name><con:value>http://localhost:8080/Gateway/PatientDiscovery/1_0/EntityPatientDiscovery</con:value></con:property><con:property><con:name>Endpoint-PatientDiscoveryAsyncReq</con:name><con:value>http://localhost:8080/Gateway/PatientDiscovery/1_0/EntityService/EntityPatientDiscoveryDeferredRequestUnsecured</con:value></con:property><con:property><con:name>Endpoint-PatientDiscoveryAsyncResp</con:name><con:value>http://localhost:8080/Gateway/PatientDiscovery/1_0/EntityService/EntityPatientDiscoveryDeferredResponseUnsecured</con:value></con:property><con:property><con:name>Endpoint-XDREntity</con:name><con:value>http://localhost:8080/Gateway/DocumentSubmission/1_1/EntityService/EntityDocSubmissionUnsecured</con:value></con:property><con:property><con:name>MessageID_PD</con:name><con:value>urn:uuid:9348810</con:value></con:property><con:property><con:name>MessageID_DQ</con:name><con:value>urn:uuid:620271</con:value></con:property><con:property><con:name>MessageID_DR</con:name><con:value>urn:uuid:2070941</con:value></con:property><con:property><con:name>TransactionID</con:name><con:value>urn:uuid:93441374</con:value></con:property><con:property><con:name>MessageID_DSDefReq1</con:name><con:value>urn:uuid:2893560</con:value></con:property><con:property><con:name>MessageID_DSDefResp1</con:name><con:value>urn:uuid:2716280</con:value></con:property><con:property><con:name>MessageID_PDDefReq1</con:name><con:value>urn:uuid:4697905</con:value></con:property><con:property><con:name>MessageID_PDDefResp1</con:name><con:value>urn:uuid:4341228</con:value></con:property><con:property><con:name>MessageID_DS</con:name><con:value>urn:uuid:1201076</con:value></con:property><con:property><con:name>MessageID_AD</con:name><con:value>urn:uuid:1939165</con:value></con:property><con:property><con:name>MessageID_PDDefReq2</con:name><con:value>urn:uuid:1306462</con:value></con:property><con:property><con:name>TransactionID2</con:name><con:value>urn:uuid:23007925</con:value></con:property><con:property><con:name>MessageID_DSDefReq2</con:name><con:value>urn:uuid:9296954</con:value></con:property><con:property><con:name>MessageID_Sub</con:name><con:value>urn:uuid:3091088</con:value></con:property><con:property><con:name>MessageID_Notify</con:name><con:value>urn:uuid:2401781</con:value></con:property></con:properties><con:setupScript/></con:testSuite><con:testSuite name="Entity Noop"><con:settings/><con:runType>SEQUENTIAL</con:runType><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="DQ Fanout Test" searchProperties="true" id="b3fd67b4-b067-4b6a-a369-9a2a3f22942b"><con:settings/><con:testStep name="update config" type="groovy">
 		<con:settings/>
 		<con:config><script>nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'), "gateway.properties", "documentQueryQuerySelf", "false", log);</script></con:config>
-</con:testStep><con:testStep name="backup uddiConnectionInfo" type="groovy">
-				<con:settings/>
-				<con:config><script>
-def sourceDir = context.findProperty('GatewayPropDir');
-def sourceFile = "uddiConnectionInfo.xml";
-def destDir = context.findProperty('GatewayPropDir')
-def destFile = "uddiConnectionInfo.xml.BACKUP";
-
-log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
-
-nhinc.FileUtils.copyFile(sourceDir, sourceFile, destDir, destFile, log);
-
-
-
-
-
-
-					</script></con:config>
-			</con:testStep><con:testStep name="replace uddiConnectionInfo" type="groovy">
+</con:testStep><con:testStep name="replace uddiConnectionInfo" type="groovy">
 				<con:settings/>
 				<con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
 def project = testRunner.getTestCase().getTestSuite().getProject()
@@ -7341,16 +7296,7 @@ testRunner.testCase.testSuite.setPropertyValue("TransactionID", "urn:uuid:".conc
 		}</script></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
 nhinc.FileUtils.updateSpringConfig(context.findProperty('GatewayPropDir'), "TransactionLoggingProxyConfig.xml", "transactionstore", "transactionstoredatabase", "transactionstorenoop", log);
 </con:setupScript><con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);
-def sourceDir = context.findProperty('GatewayPropDir');
-def sourceFile = "uddiConnectionInfo.xml.BACKUP";
-def destDir = context.findProperty('GatewayPropDir')
-def destFile = "uddiConnectionInfo.xml";
-
-log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
-
-nhinc.FileUtils.copyFile(sourceDir, sourceFile, destDir, destFile, log);
-
-new File(sourceDir + "/" + sourceFile).delete();</con:tearDownScript><con:properties><con:property><con:name>startDate</con:name><con:value>2013-09-11T20:13:13Z</con:value></con:property><con:property><con:name>endDate</con:name><con:value>2013-09-11T20:23:13Z</con:value></con:property><con:property><con:name>sigDate</con:name><con:value>09/11/2013 20:13:13</con:value></con:property><con:property><con:name>expireDate</con:name><con:value>2013-10-11T00:00:00Z</con:value></con:property></con:properties></con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="PD-QD-RD" searchProperties="true" id="3fe92a6d-79f2-456e-a8a2-18ca175135fc">
+</con:tearDownScript><con:properties><con:property><con:name>startDate</con:name><con:value>2013-09-11T20:13:13Z</con:value></con:property><con:property><con:name>endDate</con:name><con:value>2013-09-11T20:23:13Z</con:value></con:property><con:property><con:name>sigDate</con:name><con:value>09/11/2013 20:13:13</con:value></con:property><con:property><con:name>expireDate</con:name><con:value>2013-10-11T00:00:00Z</con:value></con:property></con:properties></con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="PD-QD-RD" searchProperties="true" id="3fe92a6d-79f2-456e-a8a2-18ca175135fc">
 	<con:settings/>
 	<con:testStep type="groovy" name="Create MessageIDs"><con:settings/><con:config><script>def MessageID_PD = 'urn:uuid:' + (int)(Math.random()*10000000);
 def MessageID_DQ = 'urn:uuid:' + (int)(Math.random()*10000000);
@@ -19263,25 +19209,7 @@ nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log)
 nhinc.FileUtils.updateSpringConfig(context.findProperty('GatewayPropDir'), "TransactionLoggingProxyConfig.xml", "transactionstore", "transactionstoredatabase", "transactionstoreinmemory", log);</con:setupScript><con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);</con:tearDownScript><con:properties><con:property><con:name>startDate</con:name><con:value>2013-09-11T20:13:09Z</con:value></con:property><con:property><con:name>endDate</con:name><con:value>2013-09-11T20:23:09Z</con:value></con:property><con:property><con:name>sigDate</con:name><con:value>09/11/2013 20:13:09</con:value></con:property><con:property><con:name>expireDate</con:name><con:value>2013-10-11T00:00:00Z</con:value></con:property></con:properties></con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="DQ Fanout Test" searchProperties="true" id="5fd09091-22c8-47dd-b40f-e0d24786c939"><con:settings/><con:testStep name="update config" type="groovy">
 		<con:settings/>
 		<con:config><script>nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'), "gateway.properties", "documentQueryQuerySelf", "false", log);</script></con:config>
-</con:testStep><con:testStep name="backup uddiConnectionInfo" type="groovy">
-				<con:settings/>
-				<con:config><script>
-def sourceDir = context.findProperty('GatewayPropDir');
-def sourceFile = "uddiConnectionInfo.xml";
-def destDir = context.findProperty('GatewayPropDir');
-def destFile = "uddiConnectionInfo.xml.BACKUP";
-
-log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
-
-nhinc.FileUtils.copyFile(sourceDir, sourceFile, destDir, destFile, log);
-
-
-
-
-
-
-					</script></con:config>
-			</con:testStep><con:testStep name="replace uddiConnectionInfo" type="groovy">
+</con:testStep><con:testStep name="replace uddiConnectionInfo" type="groovy">
 				<con:settings/>
 				<con:config><script>def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
 def project = testRunner.getTestCase().getTestSuite().getProject()
@@ -19648,16 +19576,7 @@ testRunner.testCase.testSuite.setPropertyValue("TransactionID", "urn:uuid:".conc
 		}</script></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
 nhinc.FileUtils.updateSpringConfig(context.findProperty('GatewayPropDir'), "TransactionLoggingProxyConfig.xml", "transactionstore", "transactionstoredatabase", "transactionstoreinmemory", log);
 </con:setupScript><con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);
-def sourceDir = context.findProperty('GatewayPropDir');
-def sourceFile = "uddiConnectionInfo.xml.BACKUP";
-def destDir = context.findProperty('GatewayPropDir')
-def destFile = "uddiConnectionInfo.xml";
-
-log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
-
-nhinc.FileUtils.copyFile(sourceDir, sourceFile, destDir, destFile, log);
-
-new File(sourceDir + "/" + sourceFile).delete();</con:tearDownScript><con:properties><con:property><con:name>startDate</con:name><con:value>2013-09-11T20:13:13Z</con:value></con:property><con:property><con:name>endDate</con:name><con:value>2013-09-11T20:23:13Z</con:value></con:property><con:property><con:name>sigDate</con:name><con:value>09/11/2013 20:13:13</con:value></con:property><con:property><con:name>expireDate</con:name><con:value>2013-10-11T00:00:00Z</con:value></con:property></con:properties></con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="HIEM" searchProperties="true" disabled="true">
+</con:tearDownScript><con:properties><con:property><con:name>startDate</con:name><con:value>2013-09-11T20:13:13Z</con:value></con:property><con:property><con:name>endDate</con:name><con:value>2013-09-11T20:23:13Z</con:value></con:property><con:property><con:name>sigDate</con:name><con:value>09/11/2013 20:13:13</con:value></con:property><con:property><con:name>expireDate</con:name><con:value>2013-10-11T00:00:00Z</con:value></con:property></con:properties></con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="HIEM" searchProperties="true" disabled="true">
 	<con:settings/>
 
 	<con:testStep type="groovy" name="Create MessageIDs"><con:settings/><con:config><script>def SubMessageID = 'urn:uuid:' + (int)(Math.random()*10000000);
