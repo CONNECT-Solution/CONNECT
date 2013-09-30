@@ -41205,19 +41205,19 @@ StaticMifToXsd.xsl version 2.0</xs:documentation>
 			<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2012-12-12T23:24:43Z</con:value>
+					<con:value>2013-09-27T05:00:46Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2012-12-12T23:34:43Z</con:value>
+					<con:value>2013-09-27T05:10:46Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>12/12/2012 23:24:43</con:value>
+					<con:value>09/27/2013 05:00:46</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2013-01-11T00:00:00Z</con:value>
+					<con:value>2013-10-27T00:00:00Z</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
@@ -41898,19 +41898,19 @@ count(//ns4:AdhocQueryResponse[1]/ns2:RegistryObjectList[1]/ns2:ExtrinsicObject)
 			<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2012-12-12T23:24:44Z</con:value>
+					<con:value>2013-09-27T05:00:46Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2012-12-12T23:34:44Z</con:value>
+					<con:value>2013-09-27T05:10:46Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>12/12/2012 23:24:44</con:value>
+					<con:value>09/27/2013 05:00:46</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2013-01-11T00:00:00Z</con:value>
+					<con:value>2013-10-27T00:00:00Z</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
@@ -42222,31 +42222,29 @@ count(//ns4:AdhocQueryResponse[1]/ns2:RegistryObjectList[1]/ns2:ExtrinsicObject)
 				</con:config>
 			</con:testStep>
 			<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);
-
-def config = context.getConfiguration();
-config.setPassthruMode();</con:setupScript><con:properties>
+context.setGatewayStandard(false);
+</con:setupScript><con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2013-09-18T22:04:28Z</con:value>
+					<con:value>2013-09-27T05:00:49Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2013-09-18T22:14:28Z</con:value>
+					<con:value>2013-09-27T05:10:49Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>09/18/2013 22:04:28</con:value>
+					<con:value>09/27/2013 05:00:49</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2013-10-18T00:00:00Z</con:value>
+					<con:value>2013-10-27T00:00:00Z</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
 			<con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);
-
-def config = context.getConfiguration();
-config.setStandardMode();</con:tearDownScript>
+context.setGatewayStandard(true);
+</con:tearDownScript>
 		</con:testCase>
 		<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="DocumentQueryTest" searchProperties="true" id="a5eb4c51-6e96-4753-a3d2-407f60eb7c20">
 			<con:settings/>
@@ -42921,31 +42919,29 @@ count(//ns4:AdhocQueryResponse[1]/ns2:RegistryObjectList[1]/ns2:ExtrinsicObject)
 				</con:config>
 			</con:testStep>
 			<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);
-
-def config = context.getConfiguration();
-config.setPassthruMode();</con:setupScript><con:properties>
+context.setGatewayStandard(false);
+</con:setupScript><con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2013-09-18T22:04:29Z</con:value>
+					<con:value>2013-09-27T05:00:49Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2013-09-18T22:14:29Z</con:value>
+					<con:value>2013-09-27T05:10:49Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>09/18/2013 22:04:29</con:value>
+					<con:value>09/27/2013 05:00:49</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2013-10-18T00:00:00Z</con:value>
+					<con:value>2013-10-27T00:00:00Z</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
 			<con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);
-
-def config = context.getConfiguration();
-config.setStandardMode();</con:tearDownScript>
+context.setGatewayStandard(true);
+</con:tearDownScript>
 		</con:testCase>
 		<con:properties/>
 		<con:reportParameters/>
@@ -42966,7 +42962,7 @@ config.setStandardMode();</con:tearDownScript>
 		
 		
 		
-	<con:property><con:name>EventCodeTable</con:name><con:value>eventcode</con:value></con:property><con:property><con:name>EventCol</con:name><con:value>EventCode</con:value></con:property><con:property><con:name>EventCol1</con:name><con:value>EventCodeScheme</con:value></con:property><con:property><con:name>EventVal</con:name><con:value>'ProvideAndRegisterTestEventCodeValue'</con:value></con:property><con:property><con:name>EventVal1</con:name><con:value>'DocQueryTestEventCodeValue'</con:value></con:property><con:property><con:name>EventVal2</con:name><con:value>'SNM3'</con:value></con:property><con:property><con:name>GatewayPropDir</con:name><con:value>D:\glassfish3\glassfish\domains\domain1\config\nhin</con:value></con:property><con:property><con:name>ASUsername</con:name><con:value>admin</con:value></con:property><con:property><con:name>ASPassword</con:name><con:value>adminadmin</con:value></con:property><con:property><con:name>JMXHost</con:name><con:value>localhost</con:value></con:property><con:property><con:name>JMXPort</con:name><con:value>8686</con:value></con:property></con:properties>
+	<con:property><con:name>EventCodeTable</con:name><con:value>eventcode</con:value></con:property><con:property><con:name>EventCol</con:name><con:value>EventCode</con:value></con:property><con:property><con:name>EventCol1</con:name><con:value>EventCodeScheme</con:value></con:property><con:property><con:name>EventVal</con:name><con:value>'ProvideAndRegisterTestEventCodeValue'</con:value></con:property><con:property><con:name>EventVal1</con:name><con:value>'DocQueryTestEventCodeValue'</con:value></con:property><con:property><con:name>EventVal2</con:name><con:value>'SNM3'</con:value></con:property><con:property><con:name>GatewayPropDir</con:name><con:value>c:\glassfish3\glassfish\domains\domain1\config\nhin</con:value></con:property><con:property><con:name>ASUsername</con:name><con:value>admin</con:value></con:property><con:property><con:name>ASPassword</con:name><con:value>adminadmin</con:value></con:property><con:property><con:name>JMXHost</con:name><con:value>localhost</con:value></con:property><con:property><con:name>JMXPort</con:name><con:value>8686</con:value></con:property></con:properties>
 	<con:afterLoadScript>def propertiesFilename = project.path[0..(project.path.size()-4)] + 'properties'
 def propertiesFile = new File(propertiesFilename)
 if (propertiesFile.exists()) {
@@ -43032,21 +43028,83 @@ import javax.management.remote.JMXConnectorFactory as JmxFactory
 import javax.management.remote.JMXServiceURL as JmxUrl
 import javax.management.remote.*;
 
-com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext.metaClass.getConfiguration = { ->
+com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext.metaClass.setGatewayStandard = { standard ->
   def username = delegate.findProperty("ASUsername");
   def password = delegate.findProperty("ASPassword");
   def jmxHost = delegate.findProperty("JMXHost");
   def jmxPort = delegate.findProperty("JMXPort");
-
+  log.info "Value of the Param Name -->"+name;
   // use jmx to set passthru mode
   def env = [
     (JMXConnector.CREDENTIALS): (String[])[username, password]
-  ]
-  def serverUrl = 'service:jmx:rmi://' + jmxHost + ':' + jmxPort + '/jndi/rmi://' + jmxHost + ':' + jmxPort + '/jmxrmi';
-  def server = JmxFactory.connect(new JmxUrl(serverUrl), env).MBeanServerConnection
-  def config = new GroovyMBean(server, 'org.connectopensource.mbeans:type=Configuration');
-  return config;
-}</con:afterLoadScript>
+  ];
+  def serverUrl = 'service:jmx:rmi://' + jmxHost + ':' + jmxPort + '/jndi/rmi://' + jmxHost + ':' + jmxPort + 
+'/jmxrmi';
+  log.info "Standard valud-->"+standard
+  def server = JmxFactory.connect(new JmxUrl(serverUrl), env);
+  def config = new GroovyMBean(server.MBeanServerConnection, 'org.connectopensource.mbeans:type=Configuration');
+  //set the Gateway to Standard Mode
+    if (standard){
+  	config.setStandardMode();
+  	log.info "Inside STD"
+  }
+  else{
+  	log.info "Inside PASS"
+     config.setPassthruMode();	
+  }
+  server.close();
+  return true;
+}
+
+com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext.metaClass.isStandard = { serviceName, direction ->
+  def username = delegate.findProperty("ASUsername");
+  def password = delegate.findProperty("ASPassword");
+  def jmxHost = delegate.findProperty("JMXHost");
+  def jmxPort = delegate.findProperty("JMXPort");
+  log.info "Value of the Param Name -->"+name;
+  // use jmx to set passthru mode
+  def env = [
+    (JMXConnector.CREDENTIALS): (String[])[username, password]
+  ];
+  def serverUrl = 'service:jmx:rmi://' + jmxHost + ':' + jmxPort + '/jndi/rmi://' + jmxHost + ':' + jmxPort + 
+'/jmxrmi';
+   
+  def server = JmxFactory.connect(new JmxUrl(serverUrl), env);
+  def config = new GroovyMBean(server.MBeanServerConnection, 'org.connectopensource.mbeans:type=Configuration');
+  //set the Gateway to Standard Mode
+  def isStandard = config.isStandard(serviceName, direction);
+  server.close();
+  return isStandard;
+}
+
+com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext.metaClass.setGatewayStandard = { standard, serviceName, direction ->
+  def username = delegate.findProperty("ASUsername");
+  def password = delegate.findProperty("ASPassword");
+  def jmxHost = delegate.findProperty("JMXHost");
+  def jmxPort = delegate.findProperty("JMXPort");
+  log.info "Value of the Param Name -->"+name;
+  // use jmx to set passthru mode
+  def env = [
+    (JMXConnector.CREDENTIALS): (String[])[username, password]
+  ];
+  def serverUrl = 'service:jmx:rmi://' + jmxHost + ':' + jmxPort + '/jndi/rmi://' + jmxHost + ':' + jmxPort + 
+'/jmxrmi';
+  log.info "Standard valud-->"+standard
+  def server = JmxFactory.connect(new JmxUrl(serverUrl), env);
+  def config = new GroovyMBean(server.MBeanServerConnection, 'org.connectopensource.mbeans:type=Configuration');
+  //set the Gateway to Standard Mode
+    if (standard){
+  	config.setStandardMode(serviceName, direction);
+  	log.info "Inside STD"
+  }
+  else{
+  	log.info "Inside PASS"
+     config.setPassthruMode(serviceName, direction);	
+  }
+  server.close();
+  return true;
+}
+</con:afterLoadScript>
 	<con:wssContainer/>
 	<con:databaseConnectionContainer/>
 	<con:reporting>

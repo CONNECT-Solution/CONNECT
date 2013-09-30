@@ -1574,14 +1574,14 @@ declare namespace ns5='urn:gov:hhs:fha:nhinc:common:connectionmanagerinfo';
 			</con:testStep>
 			
 			<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);
-
-def config = context.getConfiguration();
-config.setPassthruMode();</con:setupScript><con:properties/>
+log.info "Before"
+context.setGatewayStandard(false);
+log.info "After"
+</con:setupScript><con:properties/>
 			<con:reportParameters/>
 			<con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);
-
-def config = context.getConfiguration();
-config.setStandardMode();</con:tearDownScript>
+context.setGatewayStandard(true);
+</con:tearDownScript>
 		</con:testCase>
 		<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="UDDI file - by Region" searchProperties="true" id="319ed84a-cb19-4d47-bbd0-e4fb1836625d">
 			<con:settings/>
@@ -1770,14 +1770,12 @@ FileUtils.copyFile(sourceDir, sourceFile, destDir, destFile, log);</script></con
 			</con:testStep>
 			
 			<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);
-
-def config = context.getConfiguration();
-config.setPassthruMode();</con:setupScript><con:properties/>
+context.setGatewayStandard(false);
+</con:setupScript><con:properties/>
 			<con:reportParameters/>
 			<con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);
-
-def config = context.getConfiguration();
-config.setStandardMode();</con:tearDownScript>
+context.setGatewayStandard(true);
+</con:tearDownScript>
 		</con:testCase>
 		<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="UDDI file - by region + HCID in the same tag" searchProperties="true" id="14474708-9758-4d99-bd1d-46b0376f8818">
 			<con:settings/>
@@ -1907,14 +1905,12 @@ FileUtils.copyFile(sourceDir, sourceFile, destDir, destFile, log);</script></con
 			</con:testStep>
 			
 			<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);
-
-def config = context.getConfiguration();
-config.setPassthruMode();</con:setupScript><con:properties/>
+context.setGatewayStandard(false);
+</con:setupScript><con:properties/>
 			<con:reportParameters/>
 			<con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);
-
-def config = context.getConfiguration();
-config.setStandardMode();</con:tearDownScript>
+context.setGatewayStandard(true);
+</con:tearDownScript>
 		</con:testCase>
 		<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="UDDI file - by region + HCID in a different tag" searchProperties="true" id="97c56787-78c9-4198-838f-1731544f61f4">
 			<con:settings/>
@@ -2062,14 +2058,12 @@ FileUtils.copyFile(sourceDir, sourceFile, destDir, destFile, log);</script></con
 			</con:testStep>
 			
 			<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);
-
-def config = context.getConfiguration();
-config.setPassthruMode();</con:setupScript><con:properties/>
+context.setGatewayStandard(false);
+</con:setupScript><con:properties/>
 			<con:reportParameters/>
 			<con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);
-
-def config = context.getConfiguration();
-config.setStandardMode();</con:tearDownScript>
+context.setGatewayStandard(true);
+</con:tearDownScript>
 		</con:testCase>
 		<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="InternalConnectionInfo file - by HCID" searchProperties="true" id="03c42ec8-11cb-40a0-b713-f05a4ff66ebb">
 			<con:settings/>
@@ -2202,14 +2196,12 @@ FileUtils.copyFile(sourceDir, sourceFile, destDir, destFile, log);</script></con
 			</con:testStep>
 			
 			<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);
-
-def config = context.getConfiguration();
-config.setPassthruMode();</con:setupScript><con:properties/>
+context.setGatewayStandard(false);
+</con:setupScript><con:properties/>
 			<con:reportParameters/>
 			<con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);
-
-def config = context.getConfiguration();
-config.setStandardMode();</con:tearDownScript>
+context.setGatewayStandard(true);
+</con:tearDownScript>
 		</con:testCase>
 		<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="InternalConnectionInfo file - by Region" searchProperties="true" id="157fca40-2396-4827-8dda-055f1bea44ef">
 			<con:settings/>
@@ -2353,14 +2345,12 @@ FileUtils.copyFile(sourceDir, sourceFile, destDir, destFile, log);</script></con
 			</con:testStep>
 			
 			<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);
-
-def config = context.getConfiguration();
-config.setPassthruMode();</con:setupScript><con:properties/>
+context.setGatewayStandard(false);
+</con:setupScript><con:properties/>
 			<con:reportParameters/>
 			<con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);
-
-def config = context.getConfiguration();
-config.setStandardMode();</con:tearDownScript>
+context.setGatewayStandard(true);
+</con:tearDownScript>
 		</con:testCase>
 		<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="InternalConnectionInfo file - by Region + HCID in the same tag" searchProperties="true" id="11878905-abde-4d8e-a740-d36503c02043">
 			<con:settings/>
@@ -2488,14 +2478,12 @@ FileUtils.copyFile(sourceDir, sourceFile, destDir, destFile, log);</script></con
 			</con:testStep>
 			
 			<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);
-
-def config = context.getConfiguration();
-config.setPassthruMode();</con:setupScript><con:properties/>
+context.setGatewayStandard(false);
+</con:setupScript><con:properties/>
 			<con:reportParameters/>
 			<con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);
-
-def config = context.getConfiguration();
-config.setStandardMode();</con:tearDownScript>
+context.setGatewayStandard(true);
+</con:tearDownScript>
 		</con:testCase>
 		<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="InternalConnectionInfo file - by Region + HCID in a different tag" searchProperties="true" id="ef8738b4-111c-4cb3-8529-d56f1970db60">
 			<con:settings/>
@@ -2641,14 +2629,12 @@ FileUtils.copyFile(sourceDir, sourceFile, destDir, destFile, log);</script></con
 			</con:testStep>
 			
 			<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);
-
-def config = context.getConfiguration();
-config.setPassthruMode();</con:setupScript><con:properties/>
+context.setGatewayStandard(false);
+</con:setupScript><con:properties/>
 			<con:reportParameters/>
 			<con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);
-
-def config = context.getConfiguration();
-config.setStandardMode();</con:tearDownScript>
+context.setGatewayStandard(true);
+</con:tearDownScript>
 		</con:testCase>
 		<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="ICI and UDDI" searchProperties="true" id="a11d7c54-b3f1-455b-ace5-858aeefb126e">
 			<con:settings/>
@@ -2774,14 +2760,12 @@ FileUtils.copyFile(sourceDir, sourceFile, destDir, destFile, log);</script></con
 			</con:testStep>
 			
 			<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);
-
-def config = context.getConfiguration();
-config.setPassthruMode();</con:setupScript><con:properties/>
+context.setGatewayStandard(false);
+</con:setupScript><con:properties/>
 			<con:reportParameters/>
 			<con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);
-
-def config = context.getConfiguration();
-config.setStandardMode();</con:tearDownScript>
+context.setGatewayStandard(true);
+</con:tearDownScript>
 		</con:testCase>
 		<con:properties/>
 		<con:reportParameters/>
@@ -2819,7 +2803,7 @@ config.setStandardMode();</con:tearDownScript>
 			<con:name>NHINGatewayConfigDir</con:name>
 			<con:value>C:/Sun/AppServer/domains/domain1/config/nhin</con:value>
 		</con:property>
-	<con:property><con:name>GatewayPropDir</con:name><con:value>D:\glassfish3\glassfish\domains\domain1\config\nhin</con:value></con:property><con:property><con:name>ASUsername</con:name><con:value>admin</con:value></con:property><con:property><con:name>ASPassword</con:name><con:value>adminadmin</con:value></con:property><con:property><con:name>JMXHost</con:name><con:value>localhost</con:value></con:property><con:property><con:name>JMXPort</con:name><con:value>8686</con:value></con:property></con:properties>
+	<con:property><con:name>GatewayPropDir</con:name><con:value>c:\glassfish3\glassfish\domains\domain1\config\nhin</con:value></con:property><con:property><con:name>ASUsername</con:name><con:value>admin</con:value></con:property><con:property><con:name>ASPassword</con:name><con:value>adminadmin</con:value></con:property><con:property><con:name>JMXHost</con:name><con:value>localhost</con:value></con:property><con:property><con:name>JMXPort</con:name><con:value>8686</con:value></con:property></con:properties>
 	<con:afterLoadScript>def propertiesFile = new File(new File(project.path).parent, 'QueryByState-soapui-project.properties')
 if (propertiesFile.exists()) {
 	def props = new Properties()
@@ -2840,22 +2824,83 @@ import javax.management.remote.JMXConnectorFactory as JmxFactory
 import javax.management.remote.JMXServiceURL as JmxUrl
 import javax.management.remote.*;
 
-com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext.metaClass.getConfiguration = { ->
+com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext.metaClass.setGatewayStandard = { standard ->
   def username = delegate.findProperty("ASUsername");
   def password = delegate.findProperty("ASPassword");
   def jmxHost = delegate.findProperty("JMXHost");
   def jmxPort = delegate.findProperty("JMXPort");
-
+  log.info "Value of the Param Name -->"+standard;
   // use jmx to set passthru mode
   def env = [
     (JMXConnector.CREDENTIALS): (String[])[username, password]
-  ]
+  ];
   def serverUrl = 'service:jmx:rmi://' + jmxHost + ':' + jmxPort + '/jndi/rmi://' + jmxHost + ':' + jmxPort + 
 '/jmxrmi';
-  def server = JmxFactory.connect(new JmxUrl(serverUrl), env).MBeanServerConnection
-  def config = new GroovyMBean(server, 'org.connectopensource.mbeans:type=Configuration');
-  return config;
-}</con:afterLoadScript>
+  log.info "Standard value-->"+standard
+  def server = JmxFactory.connect(new JmxUrl(serverUrl), env);
+  def config = new GroovyMBean(server.MBeanServerConnection, 'org.connectopensource.mbeans:type=Configuration');
+  //set the Gateway to Standard Mode
+    if (standard){
+  	config.setStandardMode();
+  	log.info "Inside STD"
+  }
+  else{
+  	log.info "Inside PASS"
+     config.setPassthruMode();	
+  }
+  server.close();
+  return true;
+}
+
+com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext.metaClass.isStandard = { serviceName, direction ->
+  def username = delegate.findProperty("ASUsername");
+  def password = delegate.findProperty("ASPassword");
+  def jmxHost = delegate.findProperty("JMXHost");
+  def jmxPort = delegate.findProperty("JMXPort");
+  log.info "Value of the Param Name -->"+name;
+  // use jmx to set passthru mode
+  def env = [
+    (JMXConnector.CREDENTIALS): (String[])[username, password]
+  ];
+  def serverUrl = 'service:jmx:rmi://' + jmxHost + ':' + jmxPort + '/jndi/rmi://' + jmxHost + ':' + jmxPort + 
+'/jmxrmi';
+   
+  def server = JmxFactory.connect(new JmxUrl(serverUrl), env);
+  def config = new GroovyMBean(server.MBeanServerConnection, 'org.connectopensource.mbeans:type=Configuration');
+  //set the Gateway to Standard Mode
+  def isStandard = config.isStandard(serviceName, direction);
+  server.close();
+  return isStandard;
+}
+
+com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext.metaClass.setGatewayStandard = { standard, serviceName, direction ->
+  def username = delegate.findProperty("ASUsername");
+  def password = delegate.findProperty("ASPassword");
+  def jmxHost = delegate.findProperty("JMXHost");
+  def jmxPort = delegate.findProperty("JMXPort");
+  log.info "Value of the Param Name -->"+name;
+  // use jmx to set passthru mode
+  def env = [
+    (JMXConnector.CREDENTIALS): (String[])[username, password]
+  ];
+  def serverUrl = 'service:jmx:rmi://' + jmxHost + ':' + jmxPort + '/jndi/rmi://' + jmxHost + ':' + jmxPort + 
+'/jmxrmi';
+  log.info "Standard value-->"+standard
+  def server = JmxFactory.connect(new JmxUrl(serverUrl), env);
+  def config = new GroovyMBean(server.MBeanServerConnection, 'org.connectopensource.mbeans:type=Configuration');
+  //set the Gateway to Standard Mode
+    if (standard){
+  	config.setStandardMode(serviceName, direction);
+  	log.info "Inside STD"
+  }
+  else{
+  	log.info "Inside PASS"
+     config.setPassthruMode(serviceName, direction);	
+  }
+  server.close();
+  return true;
+}
+</con:afterLoadScript>
 	<con:wssContainer/>
 	<con:databaseConnectionContainer/>
 	<con:reporting>

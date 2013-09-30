@@ -3652,34 +3652,7 @@ This document and the information contained herein is provided on an "AS IS" bas
 	<con:testCase failOnError="true" failTestCaseOnErrors="true" id="801f7f15-5164-41c3-907f-9c0a9db42262" keepSession="false" maxResults="0" name="DQ EventCode Entry having same Document when there are multiple slots" searchProperties="true">
 	<con:settings/>
 
-	<con:testStep type="groovy" name="Check Passthru"><con:settings/><con:config><script>import nhinc.FileUtils;
-def dir = context.findProperty('GatewayPropDir');
-def file = "gateway.properties";
-def passthruProp = "docquery.30.inboundDocQuery";
-
-def passthruValue = FileUtils.readProperty(dir, file, passthruProp, log);
-log.info "Passthrough property value = ${passthruValue}";
-def config = context.getConfiguration();
-def sMode = config.isPassthru("QueryForDocuments","Inbound");
-log.info("Mode is " + sMode);
-if(passthruValue != null){
-	testRunner.testCase.setPropertyValue("PassThruOn", "true");
-	log.info(testRunner.testCase.getPropertyValue("PassThruOn"))
-	FileUtils.backupFile(dir, "PolicyEngineProxyConfig.xml", log);
-	//Updating PolicyEngine for passthrough
-	def alias = 'adapterpep';
-	def aliasName = 'adapterpepjava';
-	def replaceName = 'adapterpepnoopdeny';
 	
-	FileUtils.updateSpringConfig(dir, "PolicyEngineProxyConfig.xml", alias,
-		aliasName, replaceName, log);
-	
-	testRunner.gotoStepByName("clear EventCode Table; Add EventCodes");
-	
-} else {
-	testRunner.testCase.setPropertyValue("PassThruOn", "false");
-}
-</script></con:config></con:testStep>
 <con:testStep name="update config" type="groovy">
 		<con:settings/>
 		<con:config><script>nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'), "gateway.properties", "documentQueryQuerySelf", "false", log);</script></con:config>
@@ -3723,30 +3696,10 @@ if(passthruValue != null){
 
 <con:testStep name="clear EventCode Table; Add EventCodes" type="groovy">
 	<con:settings/>
-	<con:config>
-		<script>context.withSql('docrepositoryDB') { sql -> 
+	<con:config><script>context.withSql('docrepositoryDB') { sql -> 
 		def table = context.findProperty('EventCodeTable')
 
 		sql.execute('delete from ' + table)
-		def passThruOn = context.findProperty('PassThruOn').toBoolean();
-		log.info("passThru: " + passThruOn);
-        if(passThruOn){
-		def eventCodeIdPT1 = context.findProperty("eventcodeidpt1" )
-		def documentIdPT1 = context.findProperty("documentidpt1")
-		def eventCodePT1 = context.findProperty("EventCodept1")
-		def eventCodeSchemePT1 = context.findProperty("EventCodeSchemept1")
-		def eventCodeDisplayNamePT1 = context.findProperty("EventCodeDiplayNamept1")
-		def eventCodeIdPT2 = context.findProperty( "eventcodeidpt2" )
-		def documentIdPT2 = context.findProperty("documentidpt2")
-		def eventCodePT2 = context.findProperty("EventCodept2")
-		def eventCodeSchemePT2 = context.findProperty("EventCodeSchemept2")
-		def eventCodeDisplayNamePT2 = context.findProperty("EventCodeDiplayNamept2")
-		def insertSql = "insert into " + table + " (eventcodeid, documentid, EventCode, EventCodeScheme, EventCodeDisplayName) " + 
-		"values (?, ?, ?, ?, ?)"
-		sql.executeUpdate(insertSql, [eventCodeIdPT1, documentIdPT1, eventCodePT1, eventCodeSchemePT1, eventCodeDisplayNamePT1])
-		sql.executeUpdate(insertSql, [eventCodeIdPT2, documentIdPT2, eventCodePT2, eventCodeSchemePT2, eventCodeDisplayNamePT2])
-		}
-		else {
 		def eventCodeId1 = context.findProperty("eventcodeid1" )
 		def documentId1 = context.findProperty("documentid1")
 		def eventCode1 = context.findProperty("EventCode1")
@@ -3762,9 +3715,7 @@ if(passthruValue != null){
 		"values (?, ?, ?, ?, ?)"
 		sql.executeUpdate(insertSql, [eventCodeId1, documentId1, eventCode1, eventCodeScheme1, eventCodeDisplayName1])
 		sql.executeUpdate(insertSql, [eventCodeId2, documentId2, eventCode2, eventCodeScheme2, eventCodeDisplayName2])
-		}
-		}</script>
-</con:config>
+}</script></con:config>
 </con:testStep>
 
 <con:testStep name="Document Query" type="request">
@@ -4051,13 +4002,7 @@ if(passthruValue != null){
 				holder.namespaces["ns1"] = "urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0";
 				holder.namespaces["ns3"] = "urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0";
 
-				def passThruOn = context.findProperty('PassThruOn').toBoolean();
-				def documentID = null;
-				if(passThruOn){
-					documentID = context.findProperty('DQPTDocID');
-				}else {
-					documentID = context.findProperty('DQDocID')
-				}
+				documentID = context.findProperty('DQDocID')
 
 				log.info("Doc ID used: " + documentID);
 				def msgDocID = holder["//ns1:AdhocQueryResponse[1]/ns3:RegistryObjectList[1]/ns3:ExtrinsicObject[1]/ns3:ExternalIdentifier[@identificationScheme='urn:uuid:2e82c1f6-a085-4c72-9da3-8640a32e42ab']/@value"];
@@ -4073,25 +4018,23 @@ if(passthruValue != null){
 nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);</con:setupScript>
 <con:tearDownScript>def dir = context.findProperty('GatewayPropDir');
 nhinc.FileUtils.restoreConfiguration(dir, log);
-if(context.findProperty("PassThruOn").toBoolean()){
-	nhinc.FileUtils.restoreFile(dir, "PolicyEngineProxyConfig.xml", log);
-}</con:tearDownScript>
+</con:tearDownScript>
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2013-09-17T20:03:47Z</con:value>
+		<con:value>2013-09-27T16:17:05Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2013-09-17T20:13:47Z</con:value>
+		<con:value>2013-09-27T16:27:05Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>09/17/2013 20:03:47</con:value>
+		<con:value>09/27/2013 16:17:05</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2013-10-17T00:00:00Z</con:value>
+		<con:value>2013-10-27T00:00:00Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>FullPatientID</con:name>
@@ -4105,31 +4048,7 @@ if(context.findProperty("PassThruOn").toBoolean()){
 <con:testCase failOnError="true" failTestCaseOnErrors="true" id="801f7f15-5164-41c3-907f-9c0a9db42262" keepSession="false" maxResults="0" name="DQ EventCode Entry one Slot having Document when there are multiple slots" searchProperties="true">
 	<con:settings/>
 
-	<con:testStep type="groovy" name="Check Passthru"><con:settings/><con:config><script>import nhinc.FileUtils;
-def dir = context.findProperty('GatewayPropDir');
-def file = "gateway.properties";
-def passthruProp = "docquery.30.inboundDocQuery";
-
-def passthruValue = FileUtils.readProperty(dir, file, passthruProp, log);
-log.info "Passthrough property value = ${passthruValue}";
-
-if(passthruValue != null){
-	testRunner.testCase.setPropertyValue("PassThruOn", "true");
-	FileUtils.backupFile(dir, "PolicyEngineProxyConfig.xml", log);
-	//Updating PolicyEngine for passthrough
-	def alias = 'adapterpep';
-	def aliasName = 'adapterpepjava';
-	def replaceName = 'adapterpepnoopdeny';
 	
-	FileUtils.updateSpringConfig(dir, "PolicyEngineProxyConfig.xml", alias,
-		aliasName, replaceName, log);
-	
-	testRunner.gotoStepByName("clear EventCode Table; Add EventCodes");
-	
-} else {
-	testRunner.testCase.setPropertyValue("PassThruOn", "false");
-}
-</script></con:config></con:testStep>
 <con:testStep name="update config" type="groovy">
 		<con:settings/>
 		<con:config><script>nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'), "gateway.properties", "documentQueryQuerySelf", "false", log);</script></con:config>
@@ -4173,24 +4092,10 @@ if(passthruValue != null){
 
 <con:testStep name="clear EventCode Table; Add EventCodes" type="groovy">
 	<con:settings/>
-	<con:config>
-		<script>context.withSql('docrepositoryDB') { sql -> 
+	<con:config><script>context.withSql('docrepositoryDB') { sql -> 
 		def table = context.findProperty('EventCodeTable')
 
 		sql.execute('delete from ' + table)
-		def passThruOn = context.findProperty('PassThruOn').toBoolean();
-		
-        if(passThruOn){
-		def eventCodeIdPT1 = context.findProperty("eventcodeidpt1" )
-		def documentIdPT1 = context.findProperty("documentidpt1")
-		def eventCodePT1 = context.findProperty("EventCodept1")
-		def eventCodeSchemePT1 = context.findProperty("EventCodeSchemept1")
-		def eventCodeDisplayNamePT1 = context.findProperty("EventCodeDiplayNamept1")
-		def insertSql = "insert into " + table + " (eventcodeid, documentid, EventCode, EventCodeScheme, EventCodeDisplayName) " + 
-		"values (?, ?, ?, ?, ?)"
-		sql.executeUpdate(insertSql, [eventCodeIdPT1, documentIdPT1, eventCodePT1, eventCodeSchemePT1, eventCodeDisplayNamePT1])
-		}
-		else {
 		def eventCodeId1 = context.findProperty( "eventcodeid1" )
 		def documentId1 = context.findProperty("documentid1")
 		def eventCode1 = context.findProperty("EventCode1")
@@ -4199,9 +4104,7 @@ if(passthruValue != null){
 		def insertSql = "insert into " + table + " (eventcodeid, documentid, EventCode, EventCodeScheme, EventCodeDisplayName) " + 
 		"values (?, ?, ?, ?, ?)"
 		sql.executeUpdate(insertSql, [eventCodeId1, documentId1, eventCode1, eventCodeScheme1, eventCodeDisplayName1])
-		}
-		}</script>
-</con:config>
+}</script></con:config>
 </con:testStep>
 
 <con:testStep name="Document Query" type="request">
@@ -4500,25 +4403,23 @@ if(passthruValue != null){
 nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);</con:setupScript>
 <con:tearDownScript>def dir = context.findProperty('GatewayPropDir');
 nhinc.FileUtils.restoreConfiguration(dir, log);
-if(context.findProperty("PassThruOn").toBoolean()){
-	nhinc.FileUtils.restoreFile(dir, "PolicyEngineProxyConfig.xml", log);
-}</con:tearDownScript>
+</con:tearDownScript>
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2013-09-17T20:03:48Z</con:value>
+		<con:value>2013-09-27T16:17:06Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2013-09-17T20:13:48Z</con:value>
+		<con:value>2013-09-27T16:27:06Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>09/17/2013 20:03:48</con:value>
+		<con:value>09/27/2013 16:17:06</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2013-10-17T00:00:00Z</con:value>
+		<con:value>2013-10-27T00:00:00Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>FullPatientID</con:name>
@@ -4533,31 +4434,7 @@ if(context.findProperty("PassThruOn").toBoolean()){
 <con:testCase failOnError="true" failTestCaseOnErrors="true" id="801f7f15-5164-41c3-907f-9c0a9db42262" keepSession="false" maxResults="0" name="DQ EventCode Entry found when there is single slot with comma separated Values" searchProperties="true">
 	<con:settings/>
 
-	<con:testStep type="groovy" name="Check Passthru"><con:settings/><con:config><script>import nhinc.FileUtils;
-def dir = context.findProperty('GatewayPropDir');
-def file = "gateway.properties";
-def passthruProp = "docquery.30.inboundDocQuery";
-
-def passthruValue = FileUtils.readProperty(dir, file, passthruProp, log);
-log.info "Passthrough property value = ${passthruValue}";
-
-if(passthruValue != null){
-	testRunner.testCase.setPropertyValue("PassThruOn", "true");
-	FileUtils.backupFile(dir, "PolicyEngineProxyConfig.xml", log);
-	//Updating PolicyEngine for passthrough
-	def alias = 'adapterpep';
-	def aliasName = 'adapterpepjava';
-	def replaceName = 'adapterpepnoopdeny';
 	
-	FileUtils.updateSpringConfig(dir, "PolicyEngineProxyConfig.xml", alias,
-		aliasName, replaceName, log);
-	
-	testRunner.gotoStepByName("clear EventCode Table; Add EventCodes");
-	
-} else {
-	testRunner.testCase.setPropertyValue("PassThruOn", "false");
-}
-</script></con:config></con:testStep>
 <con:testStep name="update config" type="groovy">
 		<con:settings/>
 		<con:config><script>nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'), "gateway.properties", "documentQueryQuerySelf", "false", log);</script></con:config>
@@ -4601,25 +4478,10 @@ if(passthruValue != null){
 
 <con:testStep name="clear EventCode Table; Add EventCodes" type="groovy">
 	<con:settings/>
-	<con:config>
-		<script>context.withSql('docrepositoryDB') { sql -> 
+	<con:config><script>context.withSql('docrepositoryDB') { sql -> 
 		def table = context.findProperty('EventCodeTable')
 
 		sql.execute('delete from ' + table)
-		
-		def passThruOn = context.findProperty('PassThruOn').toBoolean();
-		
-		if(passThruOn){
-		def eventCodeIdPT1 = context.findProperty("eventcodeidpt1" )
-		def documentIdPT1 = context.findProperty("documentidpt1")
-		def eventCodePT1 = context.findProperty("EventCodept1")
-		def eventCodeSchemePT1 = context.findProperty("EventCodeSchemept1")
-		def eventCodeDisplayNamePT1 = context.findProperty("EventCodeDiplayNamept1")
-		def insertSql = "insert into " + table + " (eventcodeid, documentid, EventCode, EventCodeScheme, EventCodeDisplayName) " + 
-		"values (?, ?, ?, ?, ?)"
-		sql.executeUpdate(insertSql, [eventCodeIdPT1, documentIdPT1, eventCodePT1, eventCodeSchemePT1, eventCodeDisplayNamePT1])
-		}
-        else {
 		def eventCodeId1 = context.findProperty( "eventcodeid1" )
 		def documentId1 = context.findProperty("documentid1")
 		def eventCode1 = context.findProperty("EventCode1")
@@ -4628,9 +4490,7 @@ if(passthruValue != null){
 		def insertSql = "insert into " + table + " (eventcodeid, documentid, EventCode, EventCodeScheme, EventCodeDisplayName) " + 
 		"values (?, ?, ?, ?, ?)"
 		sql.executeUpdate(insertSql, [eventCodeId1, documentId1, eventCode1, eventCodeScheme1, eventCodeDisplayName1])
-		}
-		}</script>
-</con:config>
+}</script></con:config>
 </con:testStep>
 <con:testStep name="Document Query" type="request">
 	<con:settings/>
@@ -4911,13 +4771,7 @@ if(passthruValue != null){
 				holder.namespaces["ns1"] = "urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0";
 				holder.namespaces["ns3"] = "urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0";
 
-				def passThruOn = context.findProperty('PassThruOn').toBoolean();
-				def documentID = null;
-				if(passThruOn){
-					documentID = context.findProperty('DQPTDocID');
-				}else {
-					documentID = context.findProperty('DQDocID')
-				}
+				documentID = context.findProperty('DQDocID')
 
 				log.info("Doc ID used: " + documentID);
 				def msgDocID = holder["//ns1:AdhocQueryResponse[1]/ns3:RegistryObjectList[1]/ns3:ExtrinsicObject[1]/ns3:ExternalIdentifier[@identificationScheme='urn:uuid:2e82c1f6-a085-4c72-9da3-8640a32e42ab']/@value"];
@@ -4933,25 +4787,23 @@ if(passthruValue != null){
 nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);</con:setupScript>
 <con:tearDownScript>def dir = context.findProperty('GatewayPropDir');
 nhinc.FileUtils.restoreConfiguration(dir, log);
-if(context.findProperty("PassThruOn").toBoolean()){
-	nhinc.FileUtils.restoreFile(dir, "PolicyEngineProxyConfig.xml", log);
-}</con:tearDownScript>
+</con:tearDownScript>
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2013-09-17T20:03:50Z</con:value>
+		<con:value>2013-09-27T16:17:08Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2013-09-17T20:13:50Z</con:value>
+		<con:value>2013-09-27T16:27:08Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>09/17/2013 20:03:50</con:value>
+		<con:value>09/27/2013 16:17:08</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2013-10-17T00:00:00Z</con:value>
+		<con:value>2013-10-27T00:00:00Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>FullPatientID</con:name>
@@ -4964,31 +4816,7 @@ if(context.findProperty("PassThruOn").toBoolean()){
 <con:testCase failOnError="true" failTestCaseOnErrors="true" id="801f7f15-5164-41c3-907f-9c0a9db42262" keepSession="false" maxResults="0" name="DQ EventCode Entry found when there is single slot with multiple ValueList" searchProperties="true">
 	<con:settings/>
 
-	<con:testStep type="groovy" name="Check Passthru"><con:settings/><con:config><script>import nhinc.FileUtils;
-def dir = context.findProperty('GatewayPropDir');
-def file = "gateway.properties";
-def passthruProp = "docquery.30.inboundDocQuery";
-
-def passthruValue = FileUtils.readProperty(dir, file, passthruProp, log);
-log.info "Passthrough property value = ${passthruValue}";
-
-if(passthruValue != null){
-	testRunner.testCase.setPropertyValue("PassThruOn", "true");
-	FileUtils.backupFile(dir, "PolicyEngineProxyConfig.xml", log);
-	//Updating PolicyEngine for passthrough
-	def alias = 'adapterpep';
-	def aliasName = 'adapterpepjava';
-	def replaceName = 'adapterpepnoopdeny';
 	
-	FileUtils.updateSpringConfig(dir, "PolicyEngineProxyConfig.xml", alias,
-		aliasName, replaceName, log);
-	
-	testRunner.gotoStepByName("clear EventCode Table; Add EventCodes");
-	
-} else {
-	testRunner.testCase.setPropertyValue("PassThruOn", "false");
-}
-</script></con:config></con:testStep>
 <con:testStep name="update config" type="groovy">
 		<con:settings/>
 		<con:config><script>nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'), "gateway.properties", "documentQueryQuerySelf", "false", log);</script></con:config>
@@ -5032,25 +4860,10 @@ if(passthruValue != null){
 
 <con:testStep name="clear EventCode Table; Add EventCodes" type="groovy">
 	<con:settings/>
-	<con:config>
-		<script>context.withSql('docrepositoryDB') { sql -> 
+	<con:config><script>context.withSql('docrepositoryDB') { sql -> 
 		def table = context.findProperty('EventCodeTable')
 
 		sql.execute('delete from ' + table)
-		
-		def passThruOn = context.findProperty('PassThruOn').toBoolean();
-		
-        if(passThruOn){
-		def eventCodeIdPT1 = context.findProperty("eventcodeidpt1" )
-		def documentIdPT1 = context.findProperty("documentidpt1")
-		def eventCodePT1 = context.findProperty("EventCodept1")
-		def eventCodeSchemePT1 = context.findProperty("EventCodeSchemept1")
-		def eventCodeDisplayNamePT1 = context.findProperty("EventCodeDiplayNamept1")
-		def insertSql = "insert into " + table + " (eventcodeid, documentid, EventCode, EventCodeScheme, EventCodeDisplayName) " + 
-		"values (?, ?, ?, ?, ?)"
-		sql.executeUpdate(insertSql, [eventCodeIdPT1, documentIdPT1, eventCodePT1, eventCodeSchemePT1, eventCodeDisplayNamePT1])
-		}
-		else {
 		def eventCodeId1 = context.findProperty( "eventcodeid1" )
 		def documentId1 = context.findProperty("documentid1")
 		def eventCode1 = context.findProperty("EventCode1")
@@ -5059,9 +4872,7 @@ if(passthruValue != null){
 		def insertSql = "insert into " + table + " (eventcodeid, documentid, EventCode, EventCodeScheme, EventCodeDisplayName) " + 
 		"values (?, ?, ?, ?, ?)"
 		sql.executeUpdate(insertSql, [eventCodeId1, documentId1, eventCode1, eventCodeScheme1, eventCodeDisplayName1])
-		}
-		}</script>
-</con:config>
+}</script></con:config>
 </con:testStep>
 <con:testStep name="Document Query" type="request">
 	<con:settings/>
@@ -5343,13 +5154,7 @@ if(passthruValue != null){
 				holder.namespaces["ns1"] = "urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0";
 				holder.namespaces["ns3"] = "urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0";
 
-				def passThruOn = context.findProperty('PassThruOn').toBoolean();
-				def documentID = null;
-				if(passThruOn){
-					documentID = context.findProperty('DQPTDocID');
-				}else {
-					documentID = context.findProperty('DQDocID')
-				}
+				documentID = context.findProperty('DQDocID')
 
 				log.info("Doc ID used: " + documentID);
 				def msgDocID = holder["//ns1:AdhocQueryResponse[1]/ns3:RegistryObjectList[1]/ns3:ExtrinsicObject[1]/ns3:ExternalIdentifier[@identificationScheme='urn:uuid:2e82c1f6-a085-4c72-9da3-8640a32e42ab']/@value"];
@@ -5365,25 +5170,23 @@ if(passthruValue != null){
 nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);</con:setupScript>
 <con:tearDownScript>def dir = context.findProperty('GatewayPropDir');
 nhinc.FileUtils.restoreConfiguration(dir, log);
-if(context.findProperty("PassThruOn").toBoolean()){
-	nhinc.FileUtils.restoreFile(dir, "PolicyEngineProxyConfig.xml", log);
-}</con:tearDownScript>
+</con:tearDownScript>
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2013-09-17T20:03:51Z</con:value>
+		<con:value>2013-09-27T16:17:09Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2013-09-17T20:13:51Z</con:value>
+		<con:value>2013-09-27T16:27:09Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>09/17/2013 20:03:51</con:value>
+		<con:value>09/27/2013 16:17:09</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2013-10-17T00:00:00Z</con:value>
+		<con:value>2013-10-27T00:00:00Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>FullPatientID</con:name>
@@ -5397,31 +5200,7 @@ if(context.findProperty("PassThruOn").toBoolean()){
 <con:testCase failOnError="true" failTestCaseOnErrors="true" id="801f7f15-5164-41c3-907f-9c0a9db42262" keepSession="false" maxResults="0" name="DQ EventCode Entry having same document for multiple slot with multiple ValueList" searchProperties="true">
 	<con:settings/>
 
-	<con:testStep type="groovy" name="Check Passthru"><con:settings/><con:config><script>import nhinc.FileUtils;
-def dir = context.findProperty('GatewayPropDir');
-def file = "gateway.properties";
-def passthruProp = "docquery.30.inboundDocQuery";
-
-def passthruValue = FileUtils.readProperty(dir, file, passthruProp, log);
-log.info "Passthrough property value = ${passthruValue}";
-
-if(passthruValue != null){
-	testRunner.testCase.setPropertyValue("PassThruOn", "true");
-	FileUtils.backupFile(dir, "PolicyEngineProxyConfig.xml", log);
-	//Updating PolicyEngine for passthrough
-	def alias = 'adapterpep';
-	def aliasName = 'adapterpepjava';
-	def replaceName = 'adapterpepnoopdeny';
 	
-	FileUtils.updateSpringConfig(dir, "PolicyEngineProxyConfig.xml", alias,
-		aliasName, replaceName, log);
-	
-	testRunner.gotoStepByName("clear EventCode Table; Add EventCodes");
-	
-} else {
-	testRunner.testCase.setPropertyValue("PassThruOn", "false");
-}
-</script></con:config></con:testStep>
 <con:testStep name="update config" type="groovy">
 		<con:settings/>
 		<con:config><script>nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'), "gateway.properties", "documentQueryQuerySelf", "false", log);</script></con:config>
@@ -5448,42 +5227,10 @@ if(passthruValue != null){
 
 <con:testStep name="clear EventCode Table; Add EventCodes" type="groovy">
 	<con:settings/>
-	<con:config>
-		<script>context.withSql('docrepositoryDB') { sql -> 
+	<con:config><script>context.withSql('docrepositoryDB') { sql -> 
 		def table = context.findProperty('EventCodeTable')
         
 		sql.execute('delete from ' + table)
-		def passThruOn = context.findProperty('PassThruOn').toBoolean();
-		
-		if (passThruOn ) {
-		def eventCodeIdPT1 = context.findProperty( "eventcodeidpt1" )
-		def documentIdPT1 = context.findProperty("documentidpt1")
-		def eventCodePT1 = context.findProperty("EventCodept1")
-		def eventCodeSchemePT1 = context.findProperty("EventCodeSchemept1")
-		def eventCodeDisplayNamePT1 = context.findProperty("EventCodeDiplayNamept1")
-		def eventCodeIdPT2 = context.findProperty( "eventcodeidpt2" )
-		def documentIdPT2 = context.findProperty("documentidpt2")
-		def eventCodePT2 = context.findProperty("EventCodept2")
-		def eventCodeSchemePT2 = context.findProperty("EventCodeSchemept2")
-		def eventCodeDisplayNamePT2 = context.findProperty("EventCodeDiplayNamept2")
-		def eventCodeIdPT3 = context.findProperty( "eventcodeidpt3" )
-		def documentIdPT3 = context.findProperty("documentidpt3")
-		def eventCodePT3 = context.findProperty("EventCodept3")
-		def eventCodeSchemePT3 = context.findProperty("EventCodeSchemept3")
-		def eventCodeDisplayNamePT3 = context.findProperty("EventCodeDiplayNamept3")
-		def eventCodeIdPT4 = context.findProperty( "eventcodeidpt4" )
-		def documentIdPT4 = context.findProperty("documentidpt4")
-		def eventCodePT4 = context.findProperty("EventCodept4")
-		def eventCodeSchemePT4 = context.findProperty("EventCodeSchemept4")
-		def eventCodeDisplayNamePT4 = context.findProperty("EventCodeDiplayNamept4")
-		def insertSql = "insert into " + table + " (eventcodeid, documentid, EventCode, EventCodeScheme, EventCodeDisplayName) " + 
-		"values (?, ?, ?, ?, ?)"
-		sql.executeUpdate(insertSql, [eventCodeIdPT1, documentIdPT1, eventCodePT1, eventCodeSchemePT1, eventCodeDisplayNamePT1])
-		sql.executeUpdate(insertSql, [eventCodeIdPT2, documentIdPT2, eventCodePT2, eventCodeSchemePT2, eventCodeDisplayNamePT2])
-		sql.executeUpdate(insertSql, [eventCodeIdPT3, documentIdPT3, eventCodePT3, eventCodeSchemePT3, eventCodeDisplayNamePT3])
-		sql.executeUpdate(insertSql, [eventCodeIdPT4, documentIdPT4, eventCodePT4, eventCodeSchemePT4, eventCodeDisplayNamePT4])
-        }
-		else {
 		def eventCodeId1 = context.findProperty( "eventcodeid1" )
 		def documentId1 = context.findProperty("documentid1")
 		def eventCode1 = context.findProperty("EventCode1")
@@ -5510,9 +5257,7 @@ if(passthruValue != null){
 		sql.executeUpdate(insertSql, [eventCodeId2, documentId2, eventCode2, eventCodeScheme2, eventCodeDisplayName2])
 		sql.executeUpdate(insertSql, [eventCodeId3, documentId3, eventCode3, eventCodeScheme3, eventCodeDisplayName3])
 		sql.executeUpdate(insertSql, [eventCodeId4, documentId4, eventCode4, eventCodeScheme4, eventCodeDisplayName4])
-		}
-		}</script>
-</con:config>
+}</script></con:config>
 </con:testStep>
 
 <con:testStep name="Document Query" type="request">
@@ -5805,13 +5550,7 @@ if(passthruValue != null){
 				holder.namespaces["ns1"] = "urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0";
 				holder.namespaces["ns3"] = "urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0";
 
-				def passThruOn = context.findProperty('PassThruOn').toBoolean();
-				def documentID = null;
-				if(passThruOn){
-					documentID = context.findProperty('DQPTDocID');
-				}else {
-					documentID = context.findProperty('DQDocID')
-				}
+				documentID = context.findProperty('DQDocID')
 
 				log.info("Doc ID used: " + documentID);
 				def msgDocID = holder["//ns1:AdhocQueryResponse[1]/ns3:RegistryObjectList[1]/ns3:ExtrinsicObject[1]/ns3:ExternalIdentifier[@identificationScheme='urn:uuid:2e82c1f6-a085-4c72-9da3-8640a32e42ab']/@value"];
@@ -5827,25 +5566,23 @@ if(passthruValue != null){
 nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);</con:setupScript>
 <con:tearDownScript>def dir = context.findProperty('GatewayPropDir');
 nhinc.FileUtils.restoreConfiguration(dir, log);
-if(context.findProperty("PassThruOn").toBoolean()){
-	nhinc.FileUtils.restoreFile(dir, "PolicyEngineProxyConfig.xml", log);
-}</con:tearDownScript>
+</con:tearDownScript>
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2013-09-17T20:03:52Z</con:value>
+		<con:value>2013-09-27T16:17:11Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2013-09-17T20:13:52Z</con:value>
+		<con:value>2013-09-27T16:27:11Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>09/17/2013 20:03:52</con:value>
+		<con:value>09/27/2013 16:17:11</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2013-10-17T00:00:00Z</con:value>
+		<con:value>2013-10-27T00:00:00Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>FullPatientID</con:name>
@@ -5858,31 +5595,7 @@ if(context.findProperty("PassThruOn").toBoolean()){
 <con:testCase failOnError="true" failTestCaseOnErrors="true" id="801f7f15-5164-41c3-907f-9c0a9db42262" keepSession="false" maxResults="0" name="DQ EventCode Entry one not having same document for multiple slot with multiple ValueList" searchProperties="true">
 	<con:settings/>
 
-	<con:testStep type="groovy" name="Check Passthru"><con:settings/><con:config><script>import nhinc.FileUtils;
-def dir = context.findProperty('GatewayPropDir');
-def file = "gateway.properties";
-def passthruProp = "docquery.30.inboundDocQuery";
-
-def passthruValue = FileUtils.readProperty(dir, file, passthruProp, log);
-log.info "Passthrough property value = ${passthruValue}";
-
-if(passthruValue != null){
-	testRunner.testCase.setPropertyValue("PassThruOn", "true");
-	FileUtils.backupFile(dir, "PolicyEngineProxyConfig.xml", log);
-	//Updating PolicyEngine for passthrough
-	def alias = 'adapterpep';
-	def aliasName = 'adapterpepjava';
-	def replaceName = 'adapterpepnoopdeny';
 	
-	FileUtils.updateSpringConfig(dir, "PolicyEngineProxyConfig.xml", alias,
-		aliasName, replaceName, log);
-	
-	testRunner.gotoStepByName("clear EventCode Table; Add EventCodes");
-	
-} else {
-	testRunner.testCase.setPropertyValue("PassThruOn", "false");
-}
-</script></con:config></con:testStep>
 <con:testStep name="update config" type="groovy">
 		<con:settings/>
 		<con:config><script>nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'), "gateway.properties", "documentQueryQuerySelf", "false", log);</script></con:config>
@@ -5909,36 +5622,10 @@ if(passthruValue != null){
 
 <con:testStep name="clear EventCode Table; Add EventCodes" type="groovy">
 	<con:settings/>
-	<con:config>
-		<script>context.withSql('docrepositoryDB') { sql -> 
+	<con:config><script>context.withSql('docrepositoryDB') { sql -> 
 		def table = context.findProperty('EventCodeTable')
 
 		sql.execute('delete from ' + table)
-		def passThruOn = context.findProperty('PassThruOn').toBoolean();
-		
-        if (passThruOn ) {
-		def eventCodeIdPT1 = context.findProperty( "eventcodeidpt1" )
-		def documentIdPT1 = context.findProperty("documentidpt1")
-		def eventCodePT1 = context.findProperty("EventCodept1")
-		def eventCodeSchemePT1 = context.findProperty("EventCodeSchemept1")
-		def eventCodeDisplayNamePT1 = context.findProperty("EventCodeDiplayNamept1")
-		def eventCodeIdPT3 = context.findProperty( "eventcodeidpt3" )
-		def documentIdPT3 = context.findProperty("documentidpt3")
-		def eventCodePT3 = context.findProperty("EventCodept3")
-		def eventCodeSchemePT3 = context.findProperty("EventCodeSchemept3")
-		def eventCodeDisplayNamePT3 = context.findProperty("EventCodeDiplayNamept3")
-		def eventCodeIdPT4 = context.findProperty( "eventcodeidpt4" )
-		def documentIdPT4 = context.findProperty("documentidpt4")
-		def eventCodePT4 = context.findProperty("EventCodept4")
-		def eventCodeSchemePT4 = context.findProperty("EventCodeSchemept4")
-		def eventCodeDisplayNamePT4 = context.findProperty("EventCodeDiplayNamept4")
-		def insertSql = "insert into " + table + " (eventcodeid, documentid, EventCode, EventCodeScheme, EventCodeDisplayName) " + 
-		"values (?, ?, ?, ?, ?)"
-		sql.executeUpdate(insertSql, [eventCodeIdPT1, documentIdPT1, eventCodePT1, eventCodeSchemePT1, eventCodeDisplayNamePT1])
-		sql.executeUpdate(insertSql, [eventCodeIdPT3, documentIdPT3, eventCodePT3, eventCodeSchemePT3, eventCodeDisplayNamePT3])
-		sql.executeUpdate(insertSql, [eventCodeIdPT4, documentIdPT4, eventCodePT4, eventCodeSchemePT4, eventCodeDisplayNamePT4])
-        }
-		else {
 		def eventCodeId1 = context.findProperty( "eventcodeid1" )
 		def documentId1 = context.findProperty("documentid1")
 		def eventCode1 = context.findProperty("EventCode1")
@@ -5959,9 +5646,7 @@ if(passthruValue != null){
 		sql.executeUpdate(insertSql, [eventCodeId1, documentId1, eventCode1, eventCodeScheme1, eventCodeDisplayName1])
 		sql.executeUpdate(insertSql, [eventCodeId3, documentId3, eventCode3, eventCodeScheme3, eventCodeDisplayName3])
 		sql.executeUpdate(insertSql, [eventCodeId4, documentId4, eventCode4, eventCodeScheme4, eventCodeDisplayName4])
-		}
-		}</script>
-</con:config>
+}</script></con:config>
 </con:testStep>
 
 <con:testStep name="Document Query" type="request">
@@ -6266,25 +5951,23 @@ if(passthruValue != null){
 nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);</con:setupScript>
 <con:tearDownScript>def dir = context.findProperty('GatewayPropDir');
 nhinc.FileUtils.restoreConfiguration(dir, log);
-if(context.findProperty("PassThruOn").toBoolean()){
-	nhinc.FileUtils.restoreFile(dir, "PolicyEngineProxyConfig.xml", log);
-}</con:tearDownScript>
+</con:tearDownScript>
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2013-09-17T20:03:54Z</con:value>
+		<con:value>2013-09-27T16:17:12Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2013-09-17T20:13:54Z</con:value>
+		<con:value>2013-09-27T16:27:12Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>09/17/2013 20:03:54</con:value>
+		<con:value>09/27/2013 16:17:12</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2013-10-17T00:00:00Z</con:value>
+		<con:value>2013-10-27T00:00:00Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>FullPatientID</con:name>
@@ -6306,70 +5989,22 @@ if(context.findProperty("PassThruOn").toBoolean()){
 	<con:testStep type="groovy" name="Check Passthru"><con:settings/><con:config><script>import nhinc.FileUtils;
 def dir = context.findProperty('GatewayPropDir');
 def file = "gateway.properties";
-def passthruProp = "docquery.30.inboundDocQuery";
-
-def config = context.getConfiguration();
-def passthruValue = config.isPassthru("QueryForDocuments", "Inbound");
-log.info "Passthrough property value = " + passthruValue;
-
-if (!passthruValue){
-	testRunner.testCase.setPropertyValue("PassThruOn", "true");
-	log.info(testRunner.testCase.getPropertyValue("PassThruOn"))
-	FileUtils.backupFile(dir, "PolicyEngineProxyConfig.xml", log);
-	//Updating PolicyEngine for passthrough
-	def alias = 'adapterpep';
-	def aliasName = 'adapterpepjava';
-	def replaceName = 'adapterpepnoopdeny';
+testRunner.testCase.setPropertyValue("PassThruOn", "true");
+log.info(testRunner.testCase.getPropertyValue("PassThruOn"))
+FileUtils.backupFile(dir, "PolicyEngineProxyConfig.xml", log);
+//Updating PolicyEngine for passthrough
+def alias = 'adapterpep';
+def aliasName = 'adapterpepjava';
+def replaceName = 'adapterpepnoopdeny';
 	
-	FileUtils.updateSpringConfig(dir, "PolicyEngineProxyConfig.xml", alias,
-		aliasName, replaceName, log);
-	
-	testRunner.gotoStepByName("clear EventCode Table; Add EventCodes");
-	
-} else {
-	testRunner.testCase.setPropertyValue("PassThruOn", "false");
-}
+FileUtils.updateSpringConfig(dir, "PolicyEngineProxyConfig.xml", alias,
+	aliasName, replaceName, log);
 </script></con:config></con:testStep>
-<con:testStep name="update config" type="groovy">
-		<con:settings/>
-		<con:config><script>nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'), "gateway.properties", "documentQueryQuerySelf", "false", log);</script></con:config>
-</con:testStep>
 
-<con:testStep name="Clear Correlation Table &amp; Add Correlation" type="groovy">
-	<con:settings/>
-	<con:config>
-		<script>context.withSql('PatientCorrelationDB') { sql -> 
-		def table = context.findProperty('PatientCorrelationTable')
 
-		sql.execute('delete from ' + table)
 
-		def localAA = context.findProperty( "LocalAA" )
-		def localPatientID = context.findProperty("LocalPatientID")
-		def remoteAA = context.findProperty( "RemoteAA" )
-		def remotePatientID = context.findProperty("RemotePatientID")
-		def insertSql = "insert into " + table + " (correlationId, PatientAssigningAuthorityId, PatientId, CorrelatedPatientAssignAuthId, CorrelatedPatientId) " + 
-		"values (1, ?, ?, ?, ?)"
-		sql.executeUpdate(insertSql, [localAA, localPatientID, remoteAA, remotePatientID])
-		}</script>
-</con:config>
-</con:testStep>
 
-<con:testStep name="Clear AA Mapping Table &amp; Add Mapping" type="groovy">
-	<con:settings/>
-	<con:config>
-		<script>context.withSql('AAMappingDB') { sql -> 
-		def table = context.findProperty('AAMappingTable')
 
-		sql.execute('delete from ' + table)
-
-		def remoteAA = context.findProperty( "RemoteAA" )
-		def remoteHCID = context.findProperty("RemoteHCID")
-		def insertSql = "insert into " + table + " (id, assigningauthorityid, homecommunityid) " + 
-		"values (1, ?, ?)"
-		sql.executeUpdate(insertSql, [remoteAA, remoteHCID])
-		}</script>
-</con:config>
-</con:testStep>
 
 <con:testStep name="clear EventCode Table; Add EventCodes" type="groovy">
 	<con:settings/>
@@ -6377,13 +6012,6 @@ if (!passthruValue){
 		def table = context.findProperty('EventCodeTable')
 
 		sql.execute('delete from ' + table)
-//		def passThruOn = context.findProperty('PassThruOn').toBoolean();
-//		log.info("passThru: " + passThruOn);
-		def config = context.getConfiguration();
-		def passThruOn = config.isPassthru("QueryForDocuments", "Inbound");
-		log.info("passThru: " + passThruOn);
-
-        if(passThruOn){
 		def eventCodeIdPT1 = context.findProperty("eventcodeidpt1" )
 		def documentIdPT1 = context.findProperty("documentidpt1")
 		def eventCodePT1 = context.findProperty("EventCodept1")
@@ -6398,25 +6026,7 @@ if (!passthruValue){
 		"values (?, ?, ?, ?, ?)"
 		sql.executeUpdate(insertSql, [eventCodeIdPT1, documentIdPT1, eventCodePT1, eventCodeSchemePT1, eventCodeDisplayNamePT1])
 		sql.executeUpdate(insertSql, [eventCodeIdPT2, documentIdPT2, eventCodePT2, eventCodeSchemePT2, eventCodeDisplayNamePT2])
-		}
-		else {
-		def eventCodeId1 = context.findProperty("eventcodeid1" )
-		def documentId1 = context.findProperty("documentid1")
-		def eventCode1 = context.findProperty("EventCode1")
-		def eventCodeScheme1 = context.findProperty("EventCodeScheme1")
-		def eventCodeDisplayName1 = context.findProperty("EventCodeDiplayName1")
-		def eventCodeId2 = context.findProperty( "eventcodeid2" )
-		def documentId2 = context.findProperty("documentid2")
-		def eventCode2 = context.findProperty("EventCode2")
-		def eventCodeScheme2 = context.findProperty("EventCodeScheme2")
-		def eventCodeDisplayName2 = context.findProperty("EventCodeDiplayName2")
-		
-		def insertSql = "insert into " + table + " (eventcodeid, documentid, EventCode, EventCodeScheme, EventCodeDisplayName) " + 
-		"values (?, ?, ?, ?, ?)"
-		sql.executeUpdate(insertSql, [eventCodeId1, documentId1, eventCode1, eventCodeScheme1, eventCodeDisplayName1])
-		sql.executeUpdate(insertSql, [eventCodeId2, documentId2, eventCode2, eventCodeScheme2, eventCodeDisplayName2])
-		}
-		}</script></con:config>
+}</script></con:config>
 </con:testStep>
 
 <con:testStep name="Document Query" type="request">
@@ -6717,38 +6327,34 @@ if (!passthruValue){
 </con:config>
 </con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
 nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);
-def config = context.getConfiguration();
-config.setPassthruMode();
+context.setGatewayStandard(false);
 </con:setupScript>
 <con:tearDownScript>def dir = context.findProperty('GatewayPropDir');
 nhinc.FileUtils.restoreConfiguration(dir, log);
-if(context.findProperty("PassThruOn").toBoolean()){
-	nhinc.FileUtils.restoreFile(dir, "PolicyEngineProxyConfig.xml", log);
-}
-def config = context.getConfiguration();
-config.setStandardMode();</con:tearDownScript>
+context.setGatewayStandard(true);
+</con:tearDownScript>
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2013-09-17T19:20:25Z</con:value>
+		<con:value>2013-09-27T16:17:14Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2013-09-17T19:30:25Z</con:value>
+		<con:value>2013-09-27T16:27:14Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>09/17/2013 19:20:25</con:value>
+		<con:value>09/27/2013 16:17:14</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2013-10-17T00:00:00Z</con:value>
+		<con:value>2013-10-27T00:00:00Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>FullPatientID</con:name>
 		<con:value>'D123401^^^&amp;amp;1.1&amp;amp;ISO'</con:value>
 	</con:property>
-<con:property><con:name>PassThruOn</con:name><con:value>false</con:value></con:property></con:properties>
+<con:property><con:name>PassThruOn</con:name><con:value>true</con:value></con:property></con:properties>
 <con:reportParameters/>
 </con:testCase>
 
@@ -6759,69 +6365,21 @@ config.setStandardMode();</con:tearDownScript>
 	<con:testStep type="groovy" name="Check Passthru"><con:settings/><con:config><script>import nhinc.FileUtils;
 def dir = context.findProperty('GatewayPropDir');
 def file = "gateway.properties";
-def passthruProp = "docquery.30.inboundDocQuery";
-
-def config = context.getConfiguration();
-def passthruValue = config.isPassthru("QueryForDocuments", "Inbound");
-log.info "Passthrough property value = " + passthruValue;
-
-if (!passthruValue){
-	testRunner.testCase.setPropertyValue("PassThruOn", "true");
-	FileUtils.backupFile(dir, "PolicyEngineProxyConfig.xml", log);
-	//Updating PolicyEngine for passthrough
-	def alias = 'adapterpep';
-	def aliasName = 'adapterpepjava';
-	def replaceName = 'adapterpepnoopdeny';
+testRunner.testCase.setPropertyValue("PassThruOn", "true");
+FileUtils.backupFile(dir, "PolicyEngineProxyConfig.xml", log);
+//Updating PolicyEngine for passthrough
+def alias = 'adapterpep';
+def aliasName = 'adapterpepjava';
+def replaceName = 'adapterpepnoopdeny';
 	
-	FileUtils.updateSpringConfig(dir, "PolicyEngineProxyConfig.xml", alias,
-		aliasName, replaceName, log);
-	
-	testRunner.gotoStepByName("clear EventCode Table; Add EventCodes");
-	
-} else {
-	testRunner.testCase.setPropertyValue("PassThruOn", "false");
-}
+FileUtils.updateSpringConfig(dir, "PolicyEngineProxyConfig.xml", alias,
+	aliasName, replaceName, log);
 </script></con:config></con:testStep>
-<con:testStep name="update config" type="groovy">
-		<con:settings/>
-		<con:config><script>nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'), "gateway.properties", "documentQueryQuerySelf", "false", log);</script></con:config>
-</con:testStep>
 
-<con:testStep name="Clear Correlation Table &amp; Add Correlation" type="groovy">
-	<con:settings/>
-	<con:config>
-		<script>context.withSql('PatientCorrelationDB') { sql -> 
-		def table = context.findProperty('PatientCorrelationTable')
 
-		sql.execute('delete from ' + table)
 
-		def localAA = context.findProperty( "LocalAA" )
-		def localPatientID = context.findProperty("LocalPatientID")
-		def remoteAA = context.findProperty( "RemoteAA" )
-		def remotePatientID = context.findProperty("RemotePatientID")
-		def insertSql = "insert into " + table + " (correlationId, PatientAssigningAuthorityId, PatientId, CorrelatedPatientAssignAuthId, CorrelatedPatientId) " + 
-		"values (1, ?, ?, ?, ?)"
-		sql.executeUpdate(insertSql, [localAA, localPatientID, remoteAA, remotePatientID])
-		}</script>
-</con:config>
-</con:testStep>
 
-<con:testStep name="Clear AA Mapping Table &amp; Add Mapping" type="groovy">
-	<con:settings/>
-	<con:config>
-		<script>context.withSql('AAMappingDB') { sql -> 
-		def table = context.findProperty('AAMappingTable')
 
-		sql.execute('delete from ' + table)
-
-		def remoteAA = context.findProperty( "RemoteAA" )
-		def remoteHCID = context.findProperty("RemoteHCID")
-		def insertSql = "insert into " + table + " (id, assigningauthorityid, homecommunityid) " + 
-		"values (1, ?, ?)"
-		sql.executeUpdate(insertSql, [remoteAA, remoteHCID])
-		}</script>
-</con:config>
-</con:testStep>
 
 <con:testStep name="clear EventCode Table; Add EventCodes" type="groovy">
 	<con:settings/>
@@ -6829,11 +6387,6 @@ if (!passthruValue){
 		def table = context.findProperty('EventCodeTable')
 
 		sql.execute('delete from ' + table)
-		def config = context.getConfiguration();
-		def passThruOn = config.isPassthru("QueryForDocuments", "Inbound");
-		log.info("passThru: " + passThruOn);
-		
-        if(passThruOn){
 		def eventCodeIdPT1 = context.findProperty("eventcodeidpt1" )
 		def documentIdPT1 = context.findProperty("documentidpt1")
 		def eventCodePT1 = context.findProperty("EventCodept1")
@@ -6842,18 +6395,7 @@ if (!passthruValue){
 		def insertSql = "insert into " + table + " (eventcodeid, documentid, EventCode, EventCodeScheme, EventCodeDisplayName) " + 
 		"values (?, ?, ?, ?, ?)"
 		sql.executeUpdate(insertSql, [eventCodeIdPT1, documentIdPT1, eventCodePT1, eventCodeSchemePT1, eventCodeDisplayNamePT1])
-		}
-		else {
-		def eventCodeId1 = context.findProperty( "eventcodeid1" )
-		def documentId1 = context.findProperty("documentid1")
-		def eventCode1 = context.findProperty("EventCode1")
-		def eventCodeScheme1 = context.findProperty("EventCodeScheme1")
-		def eventCodeDisplayName1 = context.findProperty("EventCodeDiplayName1")
-		def insertSql = "insert into " + table + " (eventcodeid, documentid, EventCode, EventCodeScheme, EventCodeDisplayName) " + 
-		"values (?, ?, ?, ?, ?)"
-		sql.executeUpdate(insertSql, [eventCodeId1, documentId1, eventCode1, eventCodeScheme1, eventCodeDisplayName1])
-		}
-		}</script></con:config>
+}</script></con:config>
 </con:testStep>
 
 <con:testStep name="Document Query" type="request">
@@ -7150,38 +6692,34 @@ if (!passthruValue){
 </con:config>
 </con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
 nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);
-def config = context.getConfiguration();
-config.setPassthruMode();
+context.setGatewayStandard(false);
 </con:setupScript>
 <con:tearDownScript>def dir = context.findProperty('GatewayPropDir');
 nhinc.FileUtils.restoreConfiguration(dir, log);
-if(context.findProperty("PassThruOn").toBoolean()){
-	nhinc.FileUtils.restoreFile(dir, "PolicyEngineProxyConfig.xml", log);
-}
-def config = context.getConfiguration();
-config.setStandardMode();</con:tearDownScript>
+context.setGatewayStandard(true);
+</con:tearDownScript>
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2013-09-17T19:20:27Z</con:value>
+		<con:value>2013-09-27T16:17:15Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2013-09-17T19:30:27Z</con:value>
+		<con:value>2013-09-27T16:27:15Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>09/17/2013 19:20:27</con:value>
+		<con:value>09/27/2013 16:17:15</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2013-10-17T00:00:00Z</con:value>
+		<con:value>2013-10-27T00:00:00Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>FullPatientID</con:name>
 		<con:value>'D123401^^^&amp;amp;1.1&amp;amp;ISO'</con:value>
 	</con:property>
-<con:property><con:name>PassThruOn</con:name><con:value>false</con:value></con:property></con:properties>
+<con:property><con:name>PassThruOn</con:name><con:value>true</con:value></con:property></con:properties>
 <con:reportParameters/>
 </con:testCase>
 
@@ -7193,69 +6731,21 @@ config.setStandardMode();</con:tearDownScript>
 	<con:testStep type="groovy" name="Check Passthru"><con:settings/><con:config><script>import nhinc.FileUtils;
 def dir = context.findProperty('GatewayPropDir');
 def file = "gateway.properties";
-def passthruProp = "docquery.30.inboundDocQuery";
-
-def config = context.getConfiguration();
-def passthruValue = config.isPassthru("QueryForDocuments", "Inbound");
-log.info "Passthrough property value = " + passthruValue;
-
-if (!passthruValue){
-	testRunner.testCase.setPropertyValue("PassThruOn", "true");
-	FileUtils.backupFile(dir, "PolicyEngineProxyConfig.xml", log);
-	//Updating PolicyEngine for passthrough
-	def alias = 'adapterpep';
-	def aliasName = 'adapterpepjava';
-	def replaceName = 'adapterpepnoopdeny';
+testRunner.testCase.setPropertyValue("PassThruOn", "true");
+FileUtils.backupFile(dir, "PolicyEngineProxyConfig.xml", log);
+//Updating PolicyEngine for passthrough
+def alias = 'adapterpep';
+def aliasName = 'adapterpepjava';
+def replaceName = 'adapterpepnoopdeny';
 	
-	FileUtils.updateSpringConfig(dir, "PolicyEngineProxyConfig.xml", alias,
-		aliasName, replaceName, log);
-	
-	testRunner.gotoStepByName("clear EventCode Table; Add EventCodes");
-	
-} else {
-	testRunner.testCase.setPropertyValue("PassThruOn", "false");
-}
+FileUtils.updateSpringConfig(dir, "PolicyEngineProxyConfig.xml", alias,
+	aliasName, replaceName, log);
 </script></con:config></con:testStep>
-<con:testStep name="update config" type="groovy">
-		<con:settings/>
-		<con:config><script>nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'), "gateway.properties", "documentQueryQuerySelf", "false", log);</script></con:config>
-</con:testStep>
 
-<con:testStep name="Clear Correlation Table &amp; Add Correlation" type="groovy">
-	<con:settings/>
-	<con:config>
-		<script>context.withSql('PatientCorrelationDB') { sql -> 
-		def table = context.findProperty('PatientCorrelationTable')
 
-		sql.execute('delete from ' + table)
 
-		def localAA = context.findProperty( "LocalAA" )
-		def localPatientID = context.findProperty("LocalPatientID")
-		def remoteAA = context.findProperty( "RemoteAA" )
-		def remotePatientID = context.findProperty("RemotePatientID")
-		def insertSql = "insert into " + table + " (correlationId, PatientAssigningAuthorityId, PatientId, CorrelatedPatientAssignAuthId, CorrelatedPatientId) " + 
-		"values (1, ?, ?, ?, ?)"
-		sql.executeUpdate(insertSql, [localAA, localPatientID, remoteAA, remotePatientID])
-		}</script>
-</con:config>
-</con:testStep>
 
-<con:testStep name="Clear AA Mapping Table &amp; Add Mapping" type="groovy">
-	<con:settings/>
-	<con:config>
-		<script>context.withSql('AAMappingDB') { sql -> 
-		def table = context.findProperty('AAMappingTable')
 
-		sql.execute('delete from ' + table)
-
-		def remoteAA = context.findProperty( "RemoteAA" )
-		def remoteHCID = context.findProperty("RemoteHCID")
-		def insertSql = "insert into " + table + " (id, assigningauthorityid, homecommunityid) " + 
-		"values (1, ?, ?)"
-		sql.executeUpdate(insertSql, [remoteAA, remoteHCID])
-		}</script>
-</con:config>
-</con:testStep>
 
 <con:testStep name="clear EventCode Table; Add EventCodes" type="groovy">
 	<con:settings/>
@@ -7263,12 +6753,6 @@ if (!passthruValue){
 		def table = context.findProperty('EventCodeTable')
 
 		sql.execute('delete from ' + table)
-		
-		def config = context.getConfiguration();
-		def passThruOn = config.isPassthru("QueryForDocuments", "Inbound");
-		log.info("passThru: " + passThruOn);
-		
-		if(passThruOn){
 		def eventCodeIdPT1 = context.findProperty("eventcodeidpt1" )
 		def documentIdPT1 = context.findProperty("documentidpt1")
 		def eventCodePT1 = context.findProperty("EventCodept1")
@@ -7277,18 +6761,7 @@ if (!passthruValue){
 		def insertSql = "insert into " + table + " (eventcodeid, documentid, EventCode, EventCodeScheme, EventCodeDisplayName) " + 
 		"values (?, ?, ?, ?, ?)"
 		sql.executeUpdate(insertSql, [eventCodeIdPT1, documentIdPT1, eventCodePT1, eventCodeSchemePT1, eventCodeDisplayNamePT1])
-		}
-        else {
-		def eventCodeId1 = context.findProperty( "eventcodeid1" )
-		def documentId1 = context.findProperty("documentid1")
-		def eventCode1 = context.findProperty("EventCode1")
-		def eventCodeScheme1 = context.findProperty("EventCodeScheme1")
-		def eventCodeDisplayName1 = context.findProperty("EventCodeDiplayName1")
-		def insertSql = "insert into " + table + " (eventcodeid, documentid, EventCode, EventCodeScheme, EventCodeDisplayName) " + 
-		"values (?, ?, ?, ?, ?)"
-		sql.executeUpdate(insertSql, [eventCodeId1, documentId1, eventCode1, eventCodeScheme1, eventCodeDisplayName1])
-		}
-		}</script></con:config>
+}</script></con:config>
 </con:testStep>
 <con:testStep name="Document Query" type="request">
 	<con:settings/>
@@ -7583,37 +7056,34 @@ if (!passthruValue){
 </con:config>
 </con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
 nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);
-def config = context.getConfiguration();
-config.setPassthruMode();</con:setupScript>
+context.setGatewayStandard(false);
+</con:setupScript>
 <con:tearDownScript>def dir = context.findProperty('GatewayPropDir');
 nhinc.FileUtils.restoreConfiguration(dir, log);
-if(context.findProperty("PassThruOn").toBoolean()){
-	nhinc.FileUtils.restoreFile(dir, "PolicyEngineProxyConfig.xml", log);
-}
-def config = context.getConfiguration();
-config.setStandardMode();</con:tearDownScript>
+context.setGatewayStandard(true);
+</con:tearDownScript>
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2013-09-17T19:20:28Z</con:value>
+		<con:value>2013-09-27T16:17:16Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2013-09-17T19:30:28Z</con:value>
+		<con:value>2013-09-27T16:27:16Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>09/17/2013 19:20:28</con:value>
+		<con:value>09/27/2013 16:17:16</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2013-10-17T00:00:00Z</con:value>
+		<con:value>2013-10-27T00:00:00Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>FullPatientID</con:name>
 		<con:value>'D123401^^^&amp;amp;1.1&amp;amp;ISO'</con:value>
 	</con:property>
-<con:property><con:name>PassThruOn</con:name><con:value>false</con:value></con:property></con:properties>
+<con:property><con:name>PassThruOn</con:name><con:value>true</con:value></con:property></con:properties>
 <con:reportParameters/>
 </con:testCase>
 
@@ -7623,69 +7093,21 @@ config.setStandardMode();</con:tearDownScript>
 	<con:testStep type="groovy" name="Check Passthru"><con:settings/><con:config><script>import nhinc.FileUtils;
 def dir = context.findProperty('GatewayPropDir');
 def file = "gateway.properties";
-def passthruProp = "docquery.30.inboundDocQuery";
-
-def config = context.getConfiguration();
-def passthruValue = config.isPassthru("QueryForDocuments", "Inbound");
-log.info "Passthrough property value = " + passthruValue;
-
-if (!passthruValue){
-	testRunner.testCase.setPropertyValue("PassThruOn", "true");
-	FileUtils.backupFile(dir, "PolicyEngineProxyConfig.xml", log);
-	//Updating PolicyEngine for passthrough
-	def alias = 'adapterpep';
-	def aliasName = 'adapterpepjava';
-	def replaceName = 'adapterpepnoopdeny';
+testRunner.testCase.setPropertyValue("PassThruOn", "true");
+FileUtils.backupFile(dir, "PolicyEngineProxyConfig.xml", log);
+//Updating PolicyEngine for passthrough
+def alias = 'adapterpep';
+def aliasName = 'adapterpepjava';
+def replaceName = 'adapterpepnoopdeny';
 	
-	FileUtils.updateSpringConfig(dir, "PolicyEngineProxyConfig.xml", alias,
-		aliasName, replaceName, log);
-	
-	testRunner.gotoStepByName("clear EventCode Table; Add EventCodes");
-	
-} else {
-	testRunner.testCase.setPropertyValue("PassThruOn", "false");
-}
+FileUtils.updateSpringConfig(dir, "PolicyEngineProxyConfig.xml", alias,
+	aliasName, replaceName, log);
 </script></con:config></con:testStep>
-<con:testStep name="update config" type="groovy">
-		<con:settings/>
-		<con:config><script>nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'), "gateway.properties", "documentQueryQuerySelf", "false", log);</script></con:config>
-</con:testStep>
 
-<con:testStep name="Clear Correlation Table &amp; Add Correlation" type="groovy">
-	<con:settings/>
-	<con:config>
-		<script>context.withSql('PatientCorrelationDB') { sql -> 
-		def table = context.findProperty('PatientCorrelationTable')
 
-		sql.execute('delete from ' + table)
 
-		def localAA = context.findProperty( "LocalAA" )
-		def localPatientID = context.findProperty("LocalPatientID")
-		def remoteAA = context.findProperty( "RemoteAA" )
-		def remotePatientID = context.findProperty("RemotePatientID")
-		def insertSql = "insert into " + table + " (correlationId, PatientAssigningAuthorityId, PatientId, CorrelatedPatientAssignAuthId, CorrelatedPatientId) " + 
-		"values (1, ?, ?, ?, ?)"
-		sql.executeUpdate(insertSql, [localAA, localPatientID, remoteAA, remotePatientID])
-		}</script>
-</con:config>
-</con:testStep>
 
-<con:testStep name="Clear AA Mapping Table &amp; Add Mapping" type="groovy">
-	<con:settings/>
-	<con:config>
-		<script>context.withSql('AAMappingDB') { sql -> 
-		def table = context.findProperty('AAMappingTable')
 
-		sql.execute('delete from ' + table)
-
-		def remoteAA = context.findProperty( "RemoteAA" )
-		def remoteHCID = context.findProperty("RemoteHCID")
-		def insertSql = "insert into " + table + " (id, assigningauthorityid, homecommunityid) " + 
-		"values (1, ?, ?)"
-		sql.executeUpdate(insertSql, [remoteAA, remoteHCID])
-		}</script>
-</con:config>
-</con:testStep>
 
 <con:testStep name="clear EventCode Table; Add EventCodes" type="groovy">
 	<con:settings/>
@@ -7693,12 +7115,6 @@ if (!passthruValue){
 		def table = context.findProperty('EventCodeTable')
 
 		sql.execute('delete from ' + table)
-		
-		def config = context.getConfiguration();
-		def passThruOn = config.isPassthru("QueryForDocuments", "Outbound");
-		log.info("passThru: " + passThruOn);
-		
-        if(passThruOn){
 		def eventCodeIdPT1 = context.findProperty("eventcodeidpt1" )
 		def documentIdPT1 = context.findProperty("documentidpt1")
 		def eventCodePT1 = context.findProperty("EventCodept1")
@@ -7707,18 +7123,7 @@ if (!passthruValue){
 		def insertSql = "insert into " + table + " (eventcodeid, documentid, EventCode, EventCodeScheme, EventCodeDisplayName) " + 
 		"values (?, ?, ?, ?, ?)"
 		sql.executeUpdate(insertSql, [eventCodeIdPT1, documentIdPT1, eventCodePT1, eventCodeSchemePT1, eventCodeDisplayNamePT1])
-		}
-		else {
-		def eventCodeId1 = context.findProperty( "eventcodeid1" )
-		def documentId1 = context.findProperty("documentid1")
-		def eventCode1 = context.findProperty("EventCode1")
-		def eventCodeScheme1 = context.findProperty("EventCodeScheme1")
-		def eventCodeDisplayName1 = context.findProperty("EventCodeDiplayName1")
-		def insertSql = "insert into " + table + " (eventcodeid, documentid, EventCode, EventCodeScheme, EventCodeDisplayName) " + 
-		"values (?, ?, ?, ?, ?)"
-		sql.executeUpdate(insertSql, [eventCodeId1, documentId1, eventCode1, eventCodeScheme1, eventCodeDisplayName1])
-		}
-		}</script></con:config>
+}</script></con:config>
 </con:testStep>
 <con:testStep name="Document Query" type="request">
 	<con:settings/>
@@ -8014,37 +7419,34 @@ if (!passthruValue){
 </con:config>
 </con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
 nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);
-def config = context.getConfiguration();
-config.setPassthruMode();</con:setupScript>
+context.setGatewayStandard(false);
+</con:setupScript>
 <con:tearDownScript>def dir = context.findProperty('GatewayPropDir');
 nhinc.FileUtils.restoreConfiguration(dir, log);
-if(context.findProperty("PassThruOn").toBoolean()){
-	nhinc.FileUtils.restoreFile(dir, "PolicyEngineProxyConfig.xml", log);
-}
-def config = context.getConfiguration();
-config.setStandardMode();</con:tearDownScript>
+context.setGatewayStandard(true);
+</con:tearDownScript>
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2013-09-17T19:20:29Z</con:value>
+		<con:value>2013-09-27T16:17:19Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2013-09-17T19:30:29Z</con:value>
+		<con:value>2013-09-27T16:27:19Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>09/17/2013 19:20:29</con:value>
+		<con:value>09/27/2013 16:17:19</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2013-10-17T00:00:00Z</con:value>
+		<con:value>2013-10-27T00:00:00Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>FullPatientID</con:name>
 		<con:value>'D123401^^^&amp;amp;1.1&amp;amp;ISO'</con:value>
 	</con:property>
-<con:property><con:name>PassThruOn</con:name><con:value>false</con:value></con:property></con:properties>
+<con:property><con:name>PassThruOn</con:name><con:value>true</con:value></con:property></con:properties>
 <con:reportParameters/>
 </con:testCase>
 
@@ -8055,52 +7457,21 @@ config.setStandardMode();</con:tearDownScript>
 	<con:testStep type="groovy" name="Check Passthru"><con:settings/><con:config><script>import nhinc.FileUtils;
 def dir = context.findProperty('GatewayPropDir');
 def file = "gateway.properties";
-def passthruProp = "docquery.30.inboundDocQuery";
-
-def config = context.getConfiguration();
-def passthruValue = config.isPassthru("QueryForDocuments", "Inbound");
-log.info "Passthrough property value = " + passthruValue;
-
-if (!passthruValue){
-	testRunner.testCase.setPropertyValue("PassThruOn", "true");
-	FileUtils.backupFile(dir, "PolicyEngineProxyConfig.xml", log);
-	//Updating PolicyEngine for passthrough
-	def alias = 'adapterpep';
-	def aliasName = 'adapterpepjava';
-	def replaceName = 'adapterpepnoopdeny';
+testRunner.testCase.setPropertyValue("PassThruOn", "true");
+FileUtils.backupFile(dir, "PolicyEngineProxyConfig.xml", log);
+//Updating PolicyEngine for passthrough
+def alias = 'adapterpep';
+def aliasName = 'adapterpepjava';
+def replaceName = 'adapterpepnoopdeny';
 	
-	FileUtils.updateSpringConfig(dir, "PolicyEngineProxyConfig.xml", alias,
-		aliasName, replaceName, log);
-	
-	testRunner.gotoStepByName("clear EventCode Table; Add EventCodes");
-	
-} else {
-	testRunner.testCase.setPropertyValue("PassThruOn", "false");
-}
+FileUtils.updateSpringConfig(dir, "PolicyEngineProxyConfig.xml", alias,
+	aliasName, replaceName, log);
 </script></con:config></con:testStep>
-<con:testStep name="update config" type="groovy">
-		<con:settings/>
-		<con:config><script>nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'), "gateway.properties", "documentQueryQuerySelf", "false", log);</script></con:config>
-</con:testStep>
 
 
 
-<con:testStep name="Clear AA Mapping Table &amp; Add Mapping" type="groovy">
-	<con:settings/>
-	<con:config>
-		<script>context.withSql('AAMappingDB') { sql -> 
-		def table = context.findProperty('AAMappingTable')
 
-		sql.execute('delete from ' + table)
 
-		def remoteAA = context.findProperty( "RemoteAA" )
-		def remoteHCID = context.findProperty("RemoteHCID")
-		def insertSql = "insert into " + table + " (id, assigningauthorityid, homecommunityid) " + 
-		"values (1, ?, ?)"
-		sql.executeUpdate(insertSql, [remoteAA, remoteHCID])
-		}</script>
-</con:config>
-</con:testStep>
 
 <con:testStep name="clear EventCode Table; Add EventCodes" type="groovy">
 	<con:settings/>
@@ -8108,11 +7479,6 @@ if (!passthruValue){
 		def table = context.findProperty('EventCodeTable')
         
 		sql.execute('delete from ' + table)
-		def config = context.getConfiguration();
-		def passThruOn = config.isPassthru("QueryForDocuments", "Inbound");
-		log.info("passThru: " + passThruOn);
-		
-		if (passThruOn ) {
 		def eventCodeIdPT1 = context.findProperty( "eventcodeidpt1" )
 		def documentIdPT1 = context.findProperty("documentidpt1")
 		def eventCodePT1 = context.findProperty("EventCodept1")
@@ -8139,36 +7505,7 @@ if (!passthruValue){
 		sql.executeUpdate(insertSql, [eventCodeIdPT2, documentIdPT2, eventCodePT2, eventCodeSchemePT2, eventCodeDisplayNamePT2])
 		sql.executeUpdate(insertSql, [eventCodeIdPT3, documentIdPT3, eventCodePT3, eventCodeSchemePT3, eventCodeDisplayNamePT3])
 		sql.executeUpdate(insertSql, [eventCodeIdPT4, documentIdPT4, eventCodePT4, eventCodeSchemePT4, eventCodeDisplayNamePT4])
-        }
-		else {
-		def eventCodeId1 = context.findProperty( "eventcodeid1" )
-		def documentId1 = context.findProperty("documentid1")
-		def eventCode1 = context.findProperty("EventCode1")
-		def eventCodeScheme1 = context.findProperty("EventCodeScheme1")
-		def eventCodeDisplayName1 = context.findProperty("EventCodeDiplayName1")
-		def eventCodeId2 = context.findProperty( "eventcodeid2" )
-		def documentId2 = context.findProperty("documentid2")
-		def eventCode2 = context.findProperty("EventCode2")
-		def eventCodeScheme2 = context.findProperty("EventCodeScheme2")
-		def eventCodeDisplayName2 = context.findProperty("EventCodeDiplayName2")
-		def eventCodeId3 = context.findProperty( "eventcodeid3" )
-		def documentId3 = context.findProperty("documentid3")
-		def eventCode3 = context.findProperty("EventCode3")
-		def eventCodeScheme3 = context.findProperty("EventCodeScheme3")
-		def eventCodeDisplayName3 = context.findProperty("EventCodeDiplayName3")
-		def eventCodeId4 = context.findProperty( "eventcodeid4" )
-		def documentId4 = context.findProperty("documentid4")
-		def eventCode4 = context.findProperty("EventCode4")
-		def eventCodeScheme4 = context.findProperty("EventCodeScheme4")
-		def eventCodeDisplayName4 = context.findProperty("EventCodeDiplayName4")
-		def insertSql = "insert into " + table + " (eventcodeid, documentid, EventCode, EventCodeScheme, EventCodeDisplayName) " + 
-		"values (?, ?, ?, ?, ?)"
-		sql.executeUpdate(insertSql, [eventCodeId1, documentId1, eventCode1, eventCodeScheme1, eventCodeDisplayName1])
-		sql.executeUpdate(insertSql, [eventCodeId2, documentId2, eventCode2, eventCodeScheme2, eventCodeDisplayName2])
-		sql.executeUpdate(insertSql, [eventCodeId3, documentId3, eventCode3, eventCodeScheme3, eventCodeDisplayName3])
-		sql.executeUpdate(insertSql, [eventCodeId4, documentId4, eventCode4, eventCodeScheme4, eventCodeDisplayName4])
-		}
-		}</script></con:config>
+}</script></con:config>
 </con:testStep>
 
 <con:testStep name="Document Query" type="request">
@@ -8461,7 +7798,6 @@ if (!passthruValue){
 				holder.namespaces["ns1"] = "urn:oasis:names:tc:ebxml-regrep:xsd:query:3.0";
 				holder.namespaces["ns3"] = "urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0";
 
-				def passThruOn = context.findProperty('PassThruOn').toBoolean();
 				documentID = context.findProperty('DQPTDocID');
 
 				log.info("Doc ID used: " + documentID);
@@ -8476,39 +7812,34 @@ if (!passthruValue){
 </con:config>
 </con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
 nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);
-def config = context.getConfiguration();
-config.setPassthruMode();
+context.setGatewayStandard(false);
 </con:setupScript>
 <con:tearDownScript>def dir = context.findProperty('GatewayPropDir');
 nhinc.FileUtils.restoreConfiguration(dir, log);
-if(context.findProperty("PassThruOn").toBoolean()){
-	nhinc.FileUtils.restoreFile(dir, "PolicyEngineProxyConfig.xml", log);
-}
-def config = context.getConfiguration();
-config.setStandardMode();
+context.setGatewayStandard(true);
 </con:tearDownScript>
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2013-09-17T19:20:30Z</con:value>
+		<con:value>2013-09-27T16:17:20Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2013-09-17T19:30:30Z</con:value>
+		<con:value>2013-09-27T16:27:20Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>09/17/2013 19:20:30</con:value>
+		<con:value>09/27/2013 16:17:20</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2013-10-17T00:00:00Z</con:value>
+		<con:value>2013-10-27T00:00:00Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>FullPatientID</con:name>
 		<con:value>'D123401^^^&amp;amp;1.1&amp;amp;ISO'</con:value>
 	</con:property>
-<con:property><con:name>PassThruOn</con:name><con:value>false</con:value></con:property></con:properties>
+<con:property><con:name>PassThruOn</con:name><con:value>true</con:value></con:property></con:properties>
 <con:reportParameters/>
 </con:testCase>
 
@@ -8518,52 +7849,21 @@ config.setStandardMode();
 	<con:testStep type="groovy" name="Check Passthru"><con:settings/><con:config><script>import nhinc.FileUtils;
 def dir = context.findProperty('GatewayPropDir');
 def file = "gateway.properties";
-def passthruProp = "docquery.30.inboundDocQuery";
-
-def config = context.getConfiguration();
-def passthruValue = config.isPassthru("QueryForDocuments", "Inbound");
-log.info "Passthrough property value = " + passthruValue;
-
-if (!passthruValue){
-	testRunner.testCase.setPropertyValue("PassThruOn", "true");
-	FileUtils.backupFile(dir, "PolicyEngineProxyConfig.xml", log);
-	//Updating PolicyEngine for passthrough
-	def alias = 'adapterpep';
-	def aliasName = 'adapterpepjava';
-	def replaceName = 'adapterpepnoopdeny';
+testRunner.testCase.setPropertyValue("PassThruOn", "true");
+FileUtils.backupFile(dir, "PolicyEngineProxyConfig.xml", log);
+//Updating PolicyEngine for passthrough
+def alias = 'adapterpep';
+def aliasName = 'adapterpepjava';
+def replaceName = 'adapterpepnoopdeny';
 	
-	FileUtils.updateSpringConfig(dir, "PolicyEngineProxyConfig.xml", alias,
-		aliasName, replaceName, log);
-	
-	testRunner.gotoStepByName("clear EventCode Table; Add EventCodes");
-	
-} else {
-	testRunner.testCase.setPropertyValue("PassThruOn", "false");
-}
+FileUtils.updateSpringConfig(dir, "PolicyEngineProxyConfig.xml", alias,
+	aliasName, replaceName, log);
 </script></con:config></con:testStep>
-<con:testStep name="update config" type="groovy">
-		<con:settings/>
-		<con:config><script>nhinc.FileUtils.updateProperty(context.findProperty('GatewayPropDir'), "gateway.properties", "documentQueryQuerySelf", "false", log);</script></con:config>
-</con:testStep>
 
 
 
-<con:testStep name="Clear AA Mapping Table &amp; Add Mapping" type="groovy">
-	<con:settings/>
-	<con:config>
-		<script>context.withSql('AAMappingDB') { sql -> 
-		def table = context.findProperty('AAMappingTable')
 
-		sql.execute('delete from ' + table)
 
-		def remoteAA = context.findProperty( "RemoteAA" )
-		def remoteHCID = context.findProperty("RemoteHCID")
-		def insertSql = "insert into " + table + " (id, assigningauthorityid, homecommunityid) " + 
-		"values (1, ?, ?)"
-		sql.executeUpdate(insertSql, [remoteAA, remoteHCID])
-		}</script>
-</con:config>
-</con:testStep>
 
 <con:testStep name="clear EventCode Table; Add EventCodes" type="groovy">
 	<con:settings/>
@@ -8571,11 +7871,6 @@ if (!passthruValue){
 		def table = context.findProperty('EventCodeTable')
 
 		sql.execute('delete from ' + table)
-		def config = context.getConfiguration();
-		def passThruOn = config.isPassthru("QueryForDocuments", "Inbound");
-		log.info("passThru: " + passThruOn);
-		
-        if (passThruOn ) {
 		def eventCodeIdPT1 = context.findProperty( "eventcodeidpt1" )
 		def documentIdPT1 = context.findProperty("documentidpt1")
 		def eventCodePT1 = context.findProperty("EventCodept1")
@@ -8596,30 +7891,7 @@ if (!passthruValue){
 		sql.executeUpdate(insertSql, [eventCodeIdPT1, documentIdPT1, eventCodePT1, eventCodeSchemePT1, eventCodeDisplayNamePT1])
 		sql.executeUpdate(insertSql, [eventCodeIdPT3, documentIdPT3, eventCodePT3, eventCodeSchemePT3, eventCodeDisplayNamePT3])
 		sql.executeUpdate(insertSql, [eventCodeIdPT4, documentIdPT4, eventCodePT4, eventCodeSchemePT4, eventCodeDisplayNamePT4])
-        }
-		else {
-		def eventCodeId1 = context.findProperty( "eventcodeid1" )
-		def documentId1 = context.findProperty("documentid1")
-		def eventCode1 = context.findProperty("EventCode1")
-		def eventCodeScheme1 = context.findProperty("EventCodeScheme1")
-		def eventCodeDisplayName1 = context.findProperty("EventCodeDiplayName1")
-		def eventCodeId3 = context.findProperty( "eventcodeid3" )
-		def documentId3 = context.findProperty("documentid3")
-		def eventCode3 = context.findProperty("EventCode3")
-		def eventCodeScheme3 = context.findProperty("EventCodeScheme3")
-		def eventCodeDisplayName3 = context.findProperty("EventCodeDiplayName3")
-		def eventCodeId4 = context.findProperty( "eventcodeid4" )
-		def documentId4 = context.findProperty("documentid4")
-		def eventCode4 = context.findProperty("EventCode4")
-		def eventCodeScheme4 = context.findProperty("EventCodeScheme4")
-		def eventCodeDisplayName4 = context.findProperty("EventCodeDiplayName4")
-		def insertSql = "insert into " + table + " (eventcodeid, documentid, EventCode, EventCodeScheme, EventCodeDisplayName) " + 
-		"values (?, ?, ?, ?, ?)"
-		sql.executeUpdate(insertSql, [eventCodeId1, documentId1, eventCode1, eventCodeScheme1, eventCodeDisplayName1])
-		sql.executeUpdate(insertSql, [eventCodeId3, documentId3, eventCode3, eventCodeScheme3, eventCodeDisplayName3])
-		sql.executeUpdate(insertSql, [eventCodeId4, documentId4, eventCode4, eventCodeScheme4, eventCodeDisplayName4])
-		}
-		}</script></con:config>
+}</script></con:config>
 </con:testStep>
 
 <con:testStep name="Document Query" type="request">
@@ -8921,28 +8193,29 @@ if (!passthruValue){
 </con:request>
 </con:config>
 </con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
-nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);</con:setupScript>
+nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);
+context.setGatewayStandard(false);
+</con:setupScript>
 <con:tearDownScript>def dir = context.findProperty('GatewayPropDir');
 nhinc.FileUtils.restoreConfiguration(dir, log);
-if(context.findProperty("PassThruOn").toBoolean()){
-	nhinc.FileUtils.restoreFile(dir, "PolicyEngineProxyConfig.xml", log);
-}</con:tearDownScript>
+context.setGatewayStandard(true);
+</con:tearDownScript>
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2013-09-17T19:20:31Z</con:value>
+		<con:value>2013-09-27T16:17:20Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2013-09-17T19:30:31Z</con:value>
+		<con:value>2013-09-27T16:27:20Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>09/17/2013 19:20:31</con:value>
+		<con:value>09/27/2013 16:17:20</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2013-10-17T00:00:00Z</con:value>
+		<con:value>2013-10-27T00:00:00Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>FullPatientID</con:name>
@@ -8958,16 +8231,14 @@ if(context.findProperty("PassThruOn").toBoolean()){
 	
 	
 	
-	<con:property><con:name>AAMappingDB</con:name><con:value>assigningauthoritydb</con:value></con:property><con:property><con:name>AAMappingTable</con:name><con:value>aa_to_home_community_mapping</con:value></con:property><con:property><con:name>DBHost</con:name><con:value>localhost</con:value></con:property><con:property><con:name>DBPass</con:name><con:value>nhincpass</con:value></con:property>
+	<con:property><con:name>AAMappingDB</con:name><con:value>assigningauthoritydb</con:value></con:property><con:property><con:name>AAMappingTable</con:name><con:value>aa_to_home_community_mapping</con:value></con:property><con:property><con:name>ASPassword</con:name><con:value>adminadmin</con:value></con:property><con:property><con:name>ASUsername</con:name><con:value>admin</con:value></con:property>
 	
-	<con:property><con:name>DBPort</con:name><con:value>3306</con:value></con:property><con:property><con:name>DBUser</con:name><con:value>nhincuser</con:value></con:property>
+	<con:property><con:name>DBHost</con:name><con:value>localhost</con:value></con:property>
 	
-	<con:property><con:name>DQDocID</con:name><con:value>1.123401.66666</con:value></con:property><con:property><con:name>DQPTDocID</con:name><con:value>1.123401.11111</con:value></con:property><con:property><con:name>DQPatientID</con:name><con:value>D123401</con:value></con:property><con:property><con:name>Endpoint-DocQuery</con:name><con:value>http://localhost:8080/Gateway/DocumentQuery/2_0/EntityService/EntityDocQueryUnsecured</con:value></con:property><con:property><con:name>GatewayPropDir</con:name><con:value>c:\glassfish3\glassfish\domains\domain1\config\nhin</con:value></con:property><con:property><con:name>LocalAA</con:name><con:value>1.1</con:value></con:property><con:property><con:name>LocalHCDescription</con:name><con:value>InternalTest1</con:value></con:property><con:property><con:name>LocalHCID</con:name><con:value>1.1</con:value></con:property><con:property><con:name>LocalPatientID</con:name><con:value>D123401</con:value></con:property><con:property><con:name>MockHost</con:name><con:value>localhost</con:value></con:property><con:property><con:name>NHINGatewayHost</con:name><con:value>localhost</con:value></con:property><con:property><con:name>PatientCorrelationDB</con:name><con:value>patientcorrelationdb</con:value></con:property><con:property><con:name>PatientCorrelationTable</con:name><con:value>correlatedidentifiers</con:value></con:property><con:property><con:name>Region1</con:name><con:value>US-VA</con:value></con:property>
-	
-	
-	<con:property><con:name>docrepositoryDB</con:name><con:value>docrepository</con:value></con:property><con:property><con:name>EventCodeTable</con:name><con:value>eventcode</con:value></con:property>
+	<con:property><con:name>DBPass</con:name><con:value>nhincpass</con:value></con:property><con:property><con:name>DBPort</con:name><con:value>3306</con:value></con:property><con:property><con:name>DBUser</con:name><con:value>nhincuser</con:value></con:property><con:property><con:name>docrepositoryDB</con:name><con:value>docrepository</con:value></con:property><con:property><con:name>documentid1</con:name><con:value>41</con:value></con:property><con:property><con:name>documentid2</con:name><con:value>41</con:value></con:property><con:property><con:name>documentid3</con:name><con:value>41</con:value></con:property><con:property><con:name>documentid4</con:name><con:value>41</con:value></con:property><con:property><con:name>documentidpt1</con:name><con:value>36</con:value></con:property><con:property><con:name>documentidpt2</con:name><con:value>36</con:value></con:property><con:property><con:name>documentidpt3</con:name><con:value>36</con:value></con:property><con:property><con:name>documentidpt4</con:name><con:value>36</con:value></con:property><con:property><con:name>DQDocID</con:name><con:value>1.123401.66666</con:value></con:property><con:property><con:name>DQPatientID</con:name><con:value>D123401</con:value></con:property>
 	
 	
+	<con:property><con:name>DQPTDocID</con:name><con:value>1.123401.11111</con:value></con:property>
 	
 	
 	
@@ -8976,49 +8247,51 @@ if(context.findProperty("PassThruOn").toBoolean()){
 	
 	
 	
-	<con:property><con:name>Region2</con:name><con:value>US-FL</con:value></con:property><con:property><con:name>Region3</con:name><con:value>US-GA</con:value></con:property>
-	
-	<con:property><con:name>Region4</con:name><con:value>US-MA</con:value></con:property><con:property><con:name>RemoteAA</con:name><con:value>2.2</con:value></con:property><con:property><con:name>RemoteHCDescription</con:name><con:value>InternalTest2</con:value></con:property><con:property><con:name>RemoteHCID</con:name><con:value>2.2</con:value></con:property>
 	
 	
+	<con:property><con:name>Endpoint-DocQuery</con:name><con:value>http://localhost:8080/Gateway/DocumentQuery/2_0/EntityService/EntityDocQueryUnsecured</con:value></con:property>
+	
+	<con:property><con:name>EventCode1</con:name><con:value>T-32000</con:value></con:property><con:property><con:name>EventCode2</con:name><con:value>T-32001</con:value></con:property><con:property><con:name>EventCode3</con:name><con:value>T-40000</con:value></con:property><con:property><con:name>EventCode4</con:name><con:value>T-41000</con:value></con:property>
 	
 	
 	
-	<con:property><con:name>RemotePatientID</con:name><con:value>D123401</con:value></con:property><con:property><con:name>testAA</con:name><con:value>8.8</con:value></con:property>
 	
 	
-	<con:property><con:name>eventcodeid1</con:name><con:value>1</con:value></con:property><con:property><con:name>documentid1</con:name><con:value>41</con:value></con:property>
-	<con:property><con:name>EventCode1</con:name><con:value>T-32000</con:value></con:property><con:property><con:name>EventCodeScheme1</con:name><con:value>SNM3</con:value></con:property>
-	<con:property><con:name>EventCodeDisplayName1</con:name><con:value>Display</con:value></con:property>
-	
-	<con:property><con:name>eventcodeid2</con:name><con:value>2</con:value></con:property><con:property><con:name>documentid2</con:name><con:value>41</con:value></con:property>
-	<con:property><con:name>EventCode2</con:name><con:value>T-32001</con:value></con:property><con:property><con:name>EventCodeScheme2</con:name><con:value>SNM3</con:value></con:property>
-	<con:property><con:name>EventCodeDisplayName2</con:name><con:value>Display</con:value></con:property>
-	
-	<con:property><con:name>eventcodeid3</con:name><con:value>3</con:value></con:property><con:property><con:name>documentid3</con:name><con:value>41</con:value></con:property>
-	<con:property><con:name>EventCode3</con:name><con:value>T-40000</con:value></con:property><con:property><con:name>EventCodeScheme3</con:name><con:value>SNM3</con:value></con:property>
-	<con:property><con:name>EventCodeDisplayName3</con:name><con:value>Display</con:value></con:property>
-	
-	<con:property><con:name>eventcodeid4</con:name><con:value>4</con:value></con:property><con:property><con:name>documentid4</con:name><con:value>41</con:value></con:property>
-	<con:property><con:name>EventCode4</con:name><con:value>T-41000</con:value></con:property><con:property><con:name>EventCodeScheme4</con:name><con:value>SNM3</con:value></con:property>
-	<con:property><con:name>EventCodeDisplayName4</con:name><con:value>Display</con:value></con:property>
 	
 	
-	<con:property><con:name>eventcodeidpt1</con:name><con:value>1</con:value></con:property><con:property><con:name>documentidpt1</con:name><con:value>36</con:value></con:property>
-	<con:property><con:name>EventCodept1</con:name><con:value>T-32000</con:value></con:property><con:property><con:name>EventCodeSchemept1</con:name><con:value>SNM3</con:value></con:property>
-	<con:property><con:name>EventCodeDisplayNamept1</con:name><con:value>Display</con:value></con:property>
 	
-	<con:property><con:name>eventcodeidpt2</con:name><con:value>2</con:value></con:property><con:property><con:name>documentidpt2</con:name><con:value>36</con:value></con:property>
-	<con:property><con:name>EventCodept2</con:name><con:value>T-32001</con:value></con:property><con:property><con:name>EventCodeSchemept2</con:name><con:value>SNM3</con:value></con:property>
-	<con:property><con:name>EventCodeDisplayNamept2</con:name><con:value>Display</con:value></con:property>
 	
-	<con:property><con:name>eventcodeidpt3</con:name><con:value>3</con:value></con:property><con:property><con:name>documentidpt3</con:name><con:value>36</con:value></con:property>
-	<con:property><con:name>EventCodept3</con:name><con:value>T-40000</con:value></con:property><con:property><con:name>EventCodeSchemept3</con:name><con:value>SNM3</con:value></con:property>
-	<con:property><con:name>EventCodeDisplayNamept3</con:name><con:value>Display</con:value></con:property>
+	<con:property><con:name>EventCodeDisplayName1</con:name><con:value>Display</con:value></con:property><con:property><con:name>EventCodeDisplayName2</con:name><con:value>Display</con:value></con:property><con:property><con:name>EventCodeDisplayName3</con:name><con:value>Display</con:value></con:property><con:property><con:name>EventCodeDisplayName4</con:name><con:value>Display</con:value></con:property><con:property><con:name>EventCodeDisplayNamept1</con:name><con:value>Display</con:value></con:property><con:property><con:name>EventCodeDisplayNamept2</con:name><con:value>Display</con:value></con:property><con:property><con:name>EventCodeDisplayNamept3</con:name><con:value>Display</con:value></con:property>
 	
-	<con:property><con:name>eventcodeidpt4</con:name><con:value>4</con:value></con:property><con:property><con:name>documentidpt4</con:name><con:value>36</con:value></con:property>
-	<con:property><con:name>EventCodept4</con:name><con:value>T-41000</con:value></con:property><con:property><con:name>EventCodeSchemept4</con:name><con:value>SNM3</con:value></con:property>
-	<con:property><con:name>EventCodeDisplayNamept4</con:name><con:value>Display</con:value></con:property><con:property><con:name>ASUsername</con:name><con:value>admin</con:value></con:property><con:property><con:name>ASPassword</con:name><con:value>adminadmin</con:value></con:property><con:property><con:name>JMXHost</con:name><con:value>localhost</con:value></con:property><con:property><con:name>JMXPort</con:name><con:value>8686</con:value></con:property></con:properties>
+	
+	<con:property><con:name>EventCodeDisplayNamept4</con:name><con:value>Display</con:value></con:property><con:property><con:name>eventcodeid1</con:name><con:value>1</con:value></con:property><con:property><con:name>eventcodeid2</con:name><con:value>2</con:value></con:property><con:property><con:name>eventcodeid3</con:name><con:value>3</con:value></con:property>
+	
+	
+	
+	<con:property><con:name>eventcodeid4</con:name><con:value>4</con:value></con:property><con:property><con:name>eventcodeidpt1</con:name><con:value>1</con:value></con:property><con:property><con:name>eventcodeidpt2</con:name><con:value>2</con:value></con:property><con:property><con:name>eventcodeidpt3</con:name><con:value>3</con:value></con:property>
+	<con:property><con:name>eventcodeidpt4</con:name><con:value>4</con:value></con:property>
+	
+	
+	<con:property><con:name>EventCodept1</con:name><con:value>T-32000</con:value></con:property><con:property><con:name>EventCodept2</con:name><con:value>T-32001</con:value></con:property><con:property><con:name>EventCodept3</con:name><con:value>T-40000</con:value></con:property><con:property><con:name>EventCodept4</con:name><con:value>T-41000</con:value></con:property>
+	<con:property><con:name>EventCodeScheme1</con:name><con:value>SNM3</con:value></con:property><con:property><con:name>EventCodeScheme2</con:name><con:value>SNM3</con:value></con:property>
+	
+	
+	
+	
+	<con:property><con:name>EventCodeScheme3</con:name><con:value>SNM3</con:value></con:property><con:property><con:name>EventCodeScheme4</con:name><con:value>SNM3</con:value></con:property><con:property><con:name>EventCodeSchemept1</con:name><con:value>SNM3</con:value></con:property><con:property><con:name>EventCodeSchemept2</con:name><con:value>SNM3</con:value></con:property><con:property><con:name>EventCodeSchemept3</con:name><con:value>SNM3</con:value></con:property><con:property><con:name>EventCodeSchemept4</con:name><con:value>SNM3</con:value></con:property>
+	
+	
+	<con:property><con:name>EventCodeTable</con:name><con:value>eventcode</con:value></con:property>
+	<con:property><con:name>GatewayPropDir</con:name><con:value>c:\glassfish3\glassfish\domains\domain1\config\nhin</con:value></con:property><con:property><con:name>JMXHost</con:name><con:value>localhost</con:value></con:property><con:property><con:name>JMXPort</con:name><con:value>8686</con:value></con:property><con:property><con:name>LocalAA</con:name><con:value>1.1</con:value></con:property>
+	<con:property><con:name>LocalHCDescription</con:name><con:value>InternalTest1</con:value></con:property>
+	
+	
+	
+	<con:property><con:name>LocalHCID</con:name><con:value>1.1</con:value></con:property><con:property><con:name>LocalPatientID</con:name><con:value>D123401</con:value></con:property><con:property><con:name>MockHost</con:name><con:value>localhost</con:value></con:property><con:property><con:name>NHINGatewayHost</con:name><con:value>localhost</con:value></con:property>
+	
+	
+	<con:property><con:name>PatientCorrelationDB</con:name><con:value>patientcorrelationdb</con:value></con:property><con:property><con:name>PatientCorrelationTable</con:name><con:value>correlatedidentifiers</con:value></con:property><con:property><con:name>Region1</con:name><con:value>US-VA</con:value></con:property>
+	<con:property><con:name>Region2</con:name><con:value>US-FL</con:value></con:property><con:property><con:name>Region3</con:name><con:value>US-GA</con:value></con:property><con:property><con:name>Region4</con:name><con:value>US-MA</con:value></con:property><con:property><con:name>RemoteAA</con:name><con:value>2.2</con:value></con:property><con:property><con:name>RemoteHCDescription</con:name><con:value>InternalTest2</con:value></con:property><con:property><con:name>RemoteHCID</con:name><con:value>2.2</con:value></con:property><con:property><con:name>RemotePatientID</con:name><con:value>D123401</con:value></con:property><con:property><con:name>testAA</con:name><con:value>8.8</con:value></con:property></con:properties>
 <con:afterLoadScript>def propertiesFile = new File(new File(project.path).parent, 'DQEntryCodeValueList.properties')
 	if (propertiesFile.exists()) {
 	def props = new Properties()
@@ -9080,21 +8353,81 @@ import javax.management.remote.JMXConnectorFactory as JmxFactory
 import javax.management.remote.JMXServiceURL as JmxUrl
 import javax.management.remote.*;
 
-com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext.metaClass.getConfiguration = { ->
+com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext.metaClass.setGatewayStandard = { standard ->
   def username = delegate.findProperty("ASUsername");
   def password = delegate.findProperty("ASPassword");
   def jmxHost = delegate.findProperty("JMXHost");
   def jmxPort = delegate.findProperty("JMXPort");
-log.info("test1");
+  log.info "Value of the Param Name -->"+name;
   // use jmx to set passthru mode
   def env = [
     (JMXConnector.CREDENTIALS): (String[])[username, password]
-  ]
+  ];
   def serverUrl = 'service:jmx:rmi://' + jmxHost + ':' + jmxPort + '/jndi/rmi://' + jmxHost + ':' + jmxPort + 
 '/jmxrmi';
-  def server = JmxFactory.connect(new JmxUrl(serverUrl), env).MBeanServerConnection
-  def config = new GroovyMBean(server, 'org.connectopensource.mbeans:type=Configuration');
-  return config;
+  log.info "Standard value-->"+standard
+  def server = JmxFactory.connect(new JmxUrl(serverUrl), env);
+  def config = new GroovyMBean(server.MBeanServerConnection, 'org.connectopensource.mbeans:type=Configuration');
+  //set the Gateway to Standard Mode
+    if (standard){
+  	config.setStandardMode();
+  	log.info "Inside STD"
+  }
+  else{
+  	log.info "Inside PASS"
+     config.setPassthruMode();	
+  }
+  server.close();
+  return true;
+}
+
+com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext.metaClass.isStandard = { serviceName, direction ->
+  def username = delegate.findProperty("ASUsername");
+  def password = delegate.findProperty("ASPassword");
+  def jmxHost = delegate.findProperty("JMXHost");
+  def jmxPort = delegate.findProperty("JMXPort");
+  log.info "Value of the Param Name -->"+name;
+  // use jmx to set passthru mode
+  def env = [
+    (JMXConnector.CREDENTIALS): (String[])[username, password]
+  ];
+  def serverUrl = 'service:jmx:rmi://' + jmxHost + ':' + jmxPort + '/jndi/rmi://' + jmxHost + ':' + jmxPort + 
+'/jmxrmi';
+   
+  def server = JmxFactory.connect(new JmxUrl(serverUrl), env);
+  def config = new GroovyMBean(server.MBeanServerConnection, 'org.connectopensource.mbeans:type=Configuration');
+  //set the Gateway to Standard Mode
+  def isStandard = config.isStandard(serviceName, direction);
+  server.close();
+  return isStandard;
+}
+
+com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext.metaClass.setGatewayStandard = { standard, serviceName, direction ->
+  def username = delegate.findProperty("ASUsername");
+  def password = delegate.findProperty("ASPassword");
+  def jmxHost = delegate.findProperty("JMXHost");
+  def jmxPort = delegate.findProperty("JMXPort");
+  log.info "Value of the Param Name -->"+name;
+  // use jmx to set passthru mode
+  def env = [
+    (JMXConnector.CREDENTIALS): (String[])[username, password]
+  ];
+  def serverUrl = 'service:jmx:rmi://' + jmxHost + ':' + jmxPort + '/jndi/rmi://' + jmxHost + ':' + jmxPort + 
+'/jmxrmi';
+  log.info "Standard value-->"+standard
+  def server = JmxFactory.connect(new JmxUrl(serverUrl), env);
+  def config = new GroovyMBean(server.MBeanServerConnection, 'org.connectopensource.mbeans:type=Configuration');
+  //set the Gateway to Standard Mode
+    if (standard){
+  	config.setStandardMode(serviceName, direction);
+  	log.info "Inside STD"
+  }
+  else{
+  	log.info "Inside PASS"
+     config.setPassthruMode(serviceName, direction);	
+  }
+  server.close();
+  return true;
 }
 </con:afterLoadScript>
 <con:wssContainer/>
