@@ -3983,19 +3983,19 @@ count(//ns6:AdhocQueryResponse[1]/ns3:RegistryObjectList[1]/ns3:ExtrinsicObject)
       </con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2013-09-27T22:03:43Z</con:value>
+          <con:value>2013-10-01T01:00:38Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2013-09-27T22:13:43Z</con:value>
+          <con:value>2013-10-01T01:10:38Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>09/27/2013 22:03:43</con:value>
+          <con:value>10/01/2013 01:00:38</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2013-10-27T00:00:00Z</con:value>
+          <con:value>2013-10-31T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>FullPatientID</con:name>
@@ -4366,19 +4366,19 @@ count(//ns9:AdhocQueryResponse[1]/ns7:RegistryErrorList[1]/ns7:RegistryError)</p
       </con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2013-09-27T21:56:20Z</con:value>
+          <con:value>2013-10-01T01:00:40Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2013-09-27T22:06:20Z</con:value>
+          <con:value>2013-10-01T01:10:40Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>09/27/2013 21:56:20</con:value>
+          <con:value>10/01/2013 01:00:40</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2013-10-27T00:00:00Z</con:value>
+          <con:value>2013-10-31T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>FullPatientID</con:name>
@@ -4726,19 +4726,19 @@ count(//ns6:AdhocQueryResponse[1]/ns3:RegistryObjectList[1]/ns3:ExtrinsicObject)
       </con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2013-09-27T21:56:22Z</con:value>
+          <con:value>2013-10-01T01:00:42Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2013-09-27T22:06:22Z</con:value>
+          <con:value>2013-10-01T01:10:42Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>09/27/2013 21:56:22</con:value>
+          <con:value>10/01/2013 01:00:42</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2013-10-27T00:00:00Z</con:value>
+          <con:value>2013-10-31T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>FullPatientID</con:name>
@@ -5095,19 +5095,19 @@ count(//ns6:AdhocQueryResponse[1]/ns3:RegistryObjectList[1]/ns3:ExtrinsicObject)
       </con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2013-09-27T21:56:25Z</con:value>
+          <con:value>2013-10-01T01:00:44Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2013-09-27T22:06:25Z</con:value>
+          <con:value>2013-10-01T01:10:44Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>09/27/2013 21:56:25</con:value>
+          <con:value>10/01/2013 01:00:44</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2013-10-27T00:00:00Z</con:value>
+          <con:value>2013-10-31T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>FullPatientID</con:name>
@@ -5142,6 +5142,23 @@ context.testCase.setPropertyValue('FullPatientID', "'${dqPatientID}^^^&amp;amp;$
       </con:testStep>
       
 	  
+      <con:testStep type="groovy" name="Clear Correlation Table &amp; Add Correlation"><con:settings/><con:config><script>context.withSql('PatientCorrelationDB') { sql ->
+  def table = context.findProperty('PatientCorrelationTable')
+  
+  sql.execute('delete from ' + table)
+
+  def localAA = context.findProperty( "LocalAA" )
+  def localPatientID = context.findProperty("LocalPatientID")
+  def remoteAA1 = context.findProperty( "RemoteAA1" )
+  def remoteAA2 = context.findProperty( "RemoteAA2" )
+  def remotePatientID1 = context.findProperty("RemotePatientID1")
+  def remotePatientID2 = context.findProperty("RemotePatientID2")
+  def insertSql = "insert into " + table + " (correlationId, PatientAssigningAuthorityId, PatientId, CorrelatedPatientAssignAuthId, CorrelatedPatientId) " +
+                   "values (?, ?, ?, ?, ?)"
+  sql.executeUpdate(insertSql, [1, localAA, localPatientID, remoteAA1, remotePatientID1])
+  sql.executeUpdate(insertSql, [2, localAA, localPatientID, remoteAA2, remotePatientID2])
+}</script></con:config></con:testStep>
+      
       <con:testStep name="Clear AA Mapping Table &amp; Add Mapping" type="groovy">
         <con:settings/>
         <con:config>
@@ -5175,9 +5192,7 @@ def docQueryURL2 = "https://" + Host2 + ":8181/Gateway/DocumentQuery/2_0/NhinSer
 
 nhinc.FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocation, HCID2, "QueryForDocuments", docQueryURL1, "2.0", log)
 nhinc.FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocation, HCID3, "QueryForDocuments", docQueryURL2, "2.0", log)</script></con:config>
-      </con:testStep>
-      
-      <con:testStep name="Document Query" type="request">
+      </con:testStep><con:testStep name="Document Query" type="request">
         <con:settings/>
         <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
           <con:interface>EntityDocQueryBindingSoap</con:interface>
@@ -5452,19 +5467,19 @@ count(//ns6:AdhocQueryResponse[1]/ns3:RegistryObjectList[1]/ns3:ExtrinsicObject)
       </con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2013-09-27T21:56:27Z</con:value>
+          <con:value>2013-10-01T13:10:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2013-09-27T22:06:27Z</con:value>
+          <con:value>2013-10-01T13:20:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>09/27/2013 21:56:27</con:value>
+          <con:value>10/01/2013 13:10:00</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2013-10-27T00:00:00Z</con:value>
+          <con:value>2013-10-31T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>FullPatientID</con:name>
@@ -5506,7 +5521,7 @@ count(//ns6:AdhocQueryResponse[1]/ns3:RegistryObjectList[1]/ns3:ExtrinsicObject)
     
     
     
-  <con:property><con:name>RemoteHCID1</con:name><con:value>2.2</con:value></con:property><con:property><con:name>RemoteHCID2</con:name><con:value>3.3</con:value></con:property><con:property><con:name>RemotePatientID1</con:name><con:value>D123401</con:value></con:property><con:property><con:name>RemotePatientID2</con:name><con:value>D123402</con:value></con:property><con:property><con:name>DQStableDocs</con:name><con:value>urn:uuid:7edca82f-054d-47f2-a032-9b2a5b5186c1</con:value></con:property><con:property><con:name>DQDynamicDocs</con:name><con:value>urn:uuid:34268e47-fdf5-41a6-ba33-82133c465248</con:value></con:property><con:property><con:name>GatewayPropDir</con:name><con:value>c:\glassfish3\glassfish\domains\domain1\config\nhin</con:value></con:property></con:properties>
+  <con:property><con:name>RemoteHCID1</con:name><con:value>2.2</con:value></con:property><con:property><con:name>RemoteHCID2</con:name><con:value>3.3</con:value></con:property><con:property><con:name>RemotePatientID1</con:name><con:value>D123401</con:value></con:property><con:property><con:name>RemotePatientID2</con:name><con:value>D123402</con:value></con:property><con:property><con:name>DQStableDocs</con:name><con:value>urn:uuid:7edca82f-054d-47f2-a032-9b2a5b5186c1</con:value></con:property><con:property><con:name>DQDynamicDocs</con:name><con:value>urn:uuid:34268e47-fdf5-41a6-ba33-82133c465248</con:value></con:property><con:property><con:name>GatewayPropDir</con:name><con:value>C:\glassfish3\glassfish\domains\domain1\config\nhin</con:value></con:property></con:properties>
   <con:afterLoadScript>def propertiesFilename = project.path[0..(project.path.size()-4)] + 'properties'
 def propertiesFile = new File(propertiesFilename)
 if (propertiesFile.exists()) {
