@@ -48758,7 +48758,7 @@ def localHCID = context.findProperty("LocalHCID");
 
 def AdapterDQURL = "http://" + mockHost + ":7782/MockDQResp";
 
-nhinc.FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", destConfigFileLocation, localHCID, "adapterdocquery", AdapterDQURL, "LEVEL_a0", log);</script></con:config></con:testStep><con:testStep name="Document Query fanout" type="request">
+nhinc.FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", destConfigFileLocation, localHCID, "adapterdocquery", AdapterDQURL, "LEVEL_a0", log);</script></con:config></con:testStep><con:testStep type="delay" name="Delay"><con:settings/><con:config><delay>30000</delay></con:config></con:testStep><con:testStep name="Document Query fanout" type="request">
         <con:settings/>
         <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
           <con:interface>EntityDocQueryBindingSoap</con:interface>
@@ -49143,7 +49143,7 @@ def localHCID = context.findProperty("LocalHCID");
 
 def AdapterDQURL = "http://" + mockHost + ":7784/MockDQResp";
 
-nhinc.FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", destConfigFileLocation, localHCID, "adapterdocquery", AdapterDQURL, "LEVEL_a0", log);</script></con:config></con:testStep><con:testStep name="Document Query fanout" type="request">
+nhinc.FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", destConfigFileLocation, localHCID, "adapterdocquery", AdapterDQURL, "LEVEL_a0", log);</script></con:config></con:testStep><con:testStep type="delay" name="Delay"><con:settings/><con:config><delay>30000</delay></con:config></con:testStep><con:testStep name="Document Query fanout" type="request">
         <con:settings/>
         <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
           <con:interface>EntityDocQueryBindingSoap</con:interface>

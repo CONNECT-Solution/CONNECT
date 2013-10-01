@@ -22,6 +22,8 @@
             </activation>
             <modules>
 	        <module>startEmbedded</module>
+			    <module>DocQueryFanoutTestTarget</module>
+				<module>EntityDocQuery</module>
                 <module>Bimodal</module>
                 <module>NewFeature</module>
                 <module>Passthru</module>
