@@ -9146,25 +9146,23 @@ nhinc.FileUtils.copyFile(context.expand(context.testCase.testSuite.project.resou
 nhinc.FileUtils.copyFile(context.expand(context.testCase.testSuite.project.resourceRoot), "internalConnectionInfo_g1.xml", context.findProperty('GatewayPropDir'), "internalConnectionInfo.xml", log);</con:setupScript>
 <con:tearDownScript>def dir = context.findProperty('GatewayPropDir');
 nhinc.FileUtils.restoreConfiguration(dir, log);
-if(context.findProperty("PassThruOn").toBoolean()){
-	nhinc.FileUtils.restoreFile(dir, "PolicyEngineProxyConfig.xml", log);
-}</con:tearDownScript>
+</con:tearDownScript>
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2013-09-16T19:17:31Z</con:value>
+		<con:value>2013-09-27T03:20:35Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2013-09-16T19:27:31Z</con:value>
+		<con:value>2013-09-27T03:30:35Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>09/16/2013 19:17:31</con:value>
+		<con:value>09/27/2013 03:20:35</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2013-10-16T00:00:00Z</con:value>
+		<con:value>2013-10-27T00:00:00Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>FullPatientID</con:name>
@@ -9701,25 +9699,23 @@ nhinc.FileUtils.copyFile(context.expand(context.testCase.testSuite.project.resou
 nhinc.FileUtils.copyFile(context.expand(context.testCase.testSuite.project.resourceRoot), "internalConnectionInfo_g1.xml", context.findProperty('GatewayPropDir'), "internalConnectionInfo.xml", log);</con:setupScript>
 <con:tearDownScript>def dir = context.findProperty('GatewayPropDir');
 nhinc.FileUtils.restoreConfiguration(dir, log);
-if(context.findProperty("PassThruOn").toBoolean()){
-	nhinc.FileUtils.restoreFile(dir, "PolicyEngineProxyConfig.xml", log);
-}</con:tearDownScript>
+</con:tearDownScript>
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2013-09-16T19:17:32Z</con:value>
+		<con:value>2013-09-27T03:20:37Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2013-09-16T19:27:32Z</con:value>
+		<con:value>2013-09-27T03:30:37Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>09/16/2013 19:17:32</con:value>
+		<con:value>09/27/2013 03:20:37</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2013-10-16T00:00:00Z</con:value>
+		<con:value>2013-10-27T00:00:00Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>FullPatientID</con:name>
@@ -10277,25 +10273,23 @@ nhinc.FileUtils.copyFile(context.expand(context.testCase.testSuite.project.resou
 nhinc.FileUtils.copyFile(context.expand(context.testCase.testSuite.project.resourceRoot), "internalConnectionInfo_g0.xml", context.findProperty('GatewayPropDir'), "internalConnectionInfo.xml", log);</con:setupScript>
 <con:tearDownScript>def dir = context.findProperty('GatewayPropDir');
 nhinc.FileUtils.restoreConfiguration(dir, log);
-if(context.findProperty("PassThruOn").toBoolean()){
-	nhinc.FileUtils.restoreFile(dir, "PolicyEngineProxyConfig.xml", log);
-}</con:tearDownScript>
+</con:tearDownScript>
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2013-09-16T19:17:34Z</con:value>
+		<con:value>2013-09-27T03:20:38Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2013-09-16T19:27:34Z</con:value>
+		<con:value>2013-09-27T03:30:38Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>09/16/2013 19:17:34</con:value>
+		<con:value>09/27/2013 03:20:38</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2013-10-16T00:00:00Z</con:value>
+		<con:value>2013-10-27T00:00:00Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>FullPatientID</con:name>
@@ -10832,25 +10826,23 @@ nhinc.FileUtils.copyFile(context.expand(context.testCase.testSuite.project.resou
 nhinc.FileUtils.copyFile(context.expand(context.testCase.testSuite.project.resourceRoot), "internalConnectionInfo_g0.xml", context.findProperty('GatewayPropDir'), "internalConnectionInfo.xml", log);</con:setupScript>
 <con:tearDownScript>def dir = context.findProperty('GatewayPropDir');
 nhinc.FileUtils.restoreConfiguration(dir, log);
-if(context.findProperty("PassThruOn").toBoolean()){
-	nhinc.FileUtils.restoreFile(dir, "PolicyEngineProxyConfig.xml", log);
-}</con:tearDownScript>
+</con:tearDownScript>
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2013-09-16T19:17:36Z</con:value>
+		<con:value>2013-09-27T03:20:40Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2013-09-16T19:27:36Z</con:value>
+		<con:value>2013-09-27T03:30:40Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>09/16/2013 19:17:36</con:value>
+		<con:value>09/27/2013 03:20:40</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2013-10-16T00:00:00Z</con:value>
+		<con:value>2013-10-27T00:00:00Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>FullPatientID</con:name>
@@ -11408,25 +11400,23 @@ nhinc.FileUtils.copyFile(context.expand(context.testCase.testSuite.project.resou
 nhinc.FileUtils.copyFile(context.expand(context.testCase.testSuite.project.resourceRoot), "internalConnectionInfo_g1only.xml", context.findProperty('GatewayPropDir'), "internalConnectionInfo.xml", log);</con:setupScript>
 <con:tearDownScript>def dir = context.findProperty('GatewayPropDir');
 nhinc.FileUtils.restoreConfiguration(dir, log);
-if(context.findProperty("PassThruOn").toBoolean()){
-	nhinc.FileUtils.restoreFile(dir, "PolicyEngineProxyConfig.xml", log);
-}</con:tearDownScript>
+</con:tearDownScript>
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2013-09-16T19:17:38Z</con:value>
+		<con:value>2013-09-27T03:20:41Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2013-09-16T19:27:38Z</con:value>
+		<con:value>2013-09-27T03:30:41Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>09/16/2013 19:17:38</con:value>
+		<con:value>09/27/2013 03:20:41</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2013-10-16T00:00:00Z</con:value>
+		<con:value>2013-10-27T00:00:00Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>FullPatientID</con:name>
@@ -11963,25 +11953,23 @@ nhinc.FileUtils.copyFile(context.expand(context.testCase.testSuite.project.resou
 nhinc.FileUtils.copyFile(context.expand(context.testCase.testSuite.project.resourceRoot), "internalConnectionInfo_g1only.xml", context.findProperty('GatewayPropDir'), "internalConnectionInfo.xml", log);</con:setupScript>
 <con:tearDownScript>def dir = context.findProperty('GatewayPropDir');
 nhinc.FileUtils.restoreConfiguration(dir, log);
-if(context.findProperty("PassThruOn").toBoolean()){
-	nhinc.FileUtils.restoreFile(dir, "PolicyEngineProxyConfig.xml", log);
-}</con:tearDownScript>
+</con:tearDownScript>
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2013-09-16T19:17:39Z</con:value>
+		<con:value>2013-09-27T03:20:43Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2013-09-16T19:27:39Z</con:value>
+		<con:value>2013-09-27T03:30:43Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>09/16/2013 19:17:39</con:value>
+		<con:value>09/27/2013 03:20:43</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2013-10-16T00:00:00Z</con:value>
+		<con:value>2013-10-27T00:00:00Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>FullPatientID</con:name>
@@ -12539,25 +12527,23 @@ nhinc.FileUtils.copyFile(context.expand(context.testCase.testSuite.project.resou
 nhinc.FileUtils.copyFile(context.expand(context.testCase.testSuite.project.resourceRoot), "internalConnectionInfo_g0.xml", context.findProperty('GatewayPropDir'), "internalConnectionInfo.xml", log);</con:setupScript>
 <con:tearDownScript>def dir = context.findProperty('GatewayPropDir');
 nhinc.FileUtils.restoreConfiguration(dir, log);
-if(context.findProperty("PassThruOn").toBoolean()){
-	nhinc.FileUtils.restoreFile(dir, "PolicyEngineProxyConfig.xml", log);
-}</con:tearDownScript>
+</con:tearDownScript>
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2013-09-16T19:17:41Z</con:value>
+		<con:value>2013-09-27T03:20:44Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2013-09-16T19:27:41Z</con:value>
+		<con:value>2013-09-27T03:30:44Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>09/16/2013 19:17:41</con:value>
+		<con:value>09/27/2013 03:20:44</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2013-10-16T00:00:00Z</con:value>
+		<con:value>2013-10-27T00:00:00Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>FullPatientID</con:name>
@@ -13121,25 +13107,23 @@ nhinc.FileUtils.copyFile(context.expand(context.testCase.testSuite.project.resou
 nhinc.FileUtils.copyFile(context.expand(context.testCase.testSuite.project.resourceRoot), "internalConnectionInfo_g1only.xml", context.findProperty('GatewayPropDir'), "internalConnectionInfo.xml", log);</con:setupScript>
 <con:tearDownScript>def dir = context.findProperty('GatewayPropDir');
 nhinc.FileUtils.restoreConfiguration(dir, log);
-if(context.findProperty("PassThruOn").toBoolean()){
-	nhinc.FileUtils.restoreFile(dir, "PolicyEngineProxyConfig.xml", log);
-}</con:tearDownScript>
+</con:tearDownScript>
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2013-09-16T19:17:43Z</con:value>
+		<con:value>2013-09-27T03:20:46Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2013-09-16T19:27:43Z</con:value>
+		<con:value>2013-09-27T03:30:46Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>09/16/2013 19:17:43</con:value>
+		<con:value>09/27/2013 03:20:46</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2013-10-16T00:00:00Z</con:value>
+		<con:value>2013-10-27T00:00:00Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>FullPatientID</con:name>
@@ -13703,25 +13687,23 @@ nhinc.FileUtils.copyFile(context.expand(context.testCase.testSuite.project.resou
 nhinc.FileUtils.copyFile(context.expand(context.testCase.testSuite.project.resourceRoot), "internalConnectionInfo_g1only.xml", context.findProperty('GatewayPropDir'), "internalConnectionInfo.xml", log);</con:setupScript>
 <con:tearDownScript>def dir = context.findProperty('GatewayPropDir');
 nhinc.FileUtils.restoreConfiguration(dir, log);
-if(context.findProperty("PassThruOn").toBoolean()){
-	nhinc.FileUtils.restoreFile(dir, "PolicyEngineProxyConfig.xml", log);
-}</con:tearDownScript>
+</con:tearDownScript>
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2013-09-16T19:17:44Z</con:value>
+		<con:value>2013-09-27T03:20:48Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2013-09-16T19:27:44Z</con:value>
+		<con:value>2013-09-27T03:30:48Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>09/16/2013 19:17:44</con:value>
+		<con:value>09/27/2013 03:20:48</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2013-10-16T00:00:00Z</con:value>
+		<con:value>2013-10-27T00:00:00Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>FullPatientID</con:name>
@@ -14285,25 +14267,23 @@ nhinc.FileUtils.copyFile(context.expand(context.testCase.testSuite.project.resou
 nhinc.FileUtils.copyFile(context.expand(context.testCase.testSuite.project.resourceRoot), "internalConnectionInfo_g0.xml", context.findProperty('GatewayPropDir'), "internalConnectionInfo.xml", log);</con:setupScript>
 <con:tearDownScript>def dir = context.findProperty('GatewayPropDir');
 nhinc.FileUtils.restoreConfiguration(dir, log);
-if(context.findProperty("PassThruOn").toBoolean()){
-	nhinc.FileUtils.restoreFile(dir, "PolicyEngineProxyConfig.xml", log);
-}</con:tearDownScript>
+</con:tearDownScript>
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2013-09-16T19:17:46Z</con:value>
+		<con:value>2013-09-27T03:20:49Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2013-09-16T19:27:46Z</con:value>
+		<con:value>2013-09-27T03:30:49Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>09/16/2013 19:17:46</con:value>
+		<con:value>09/27/2013 03:20:49</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2013-10-16T00:00:00Z</con:value>
+		<con:value>2013-10-27T00:00:00Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>FullPatientID</con:name>
@@ -14865,33 +14845,28 @@ declare namespace c='urn:gov:hhs:fha:nhinc:common:nhinccommon';
 s:Envelope/s:Body/a:RespondingGateway_CrossGatewayQueryRequest/a:assertion/c:implementsSpecVersion</path><content>2.0</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
 nhinc.FileUtils.copyFile(context.expand(context.testCase.testSuite.project.resourceRoot), "uddiConnectionInfo_g1.xml", context.findProperty('GatewayPropDir'), "uddiConnectionInfo.xml", log);
 nhinc.FileUtils.copyFile(context.expand(context.testCase.testSuite.project.resourceRoot), "internalConnectionInfo_g1.xml", context.findProperty('GatewayPropDir'), "internalConnectionInfo.xml", log);
-
-def config = context.getConfiguration();
-config.setPassthruMode();</con:setupScript>
+context.setGatewayStandard(false);
+</con:setupScript>
 <con:tearDownScript>def dir = context.findProperty('GatewayPropDir');
 nhinc.FileUtils.restoreConfiguration(dir, log);
-if(context.findProperty("PassThruOn").toBoolean()){
-	nhinc.FileUtils.restoreFile(dir, "PolicyEngineProxyConfig.xml", log);
-}
-
-def config = context.getConfiguration();
-config.setStandardMode();</con:tearDownScript>
+context.setGatewayStandard(true);
+</con:tearDownScript>
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2013-09-16T19:17:48Z</con:value>
+		<con:value>2013-09-27T03:20:51Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2013-09-16T19:27:48Z</con:value>
+		<con:value>2013-09-27T03:30:51Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>09/16/2013 19:17:48</con:value>
+		<con:value>09/27/2013 03:20:51</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2013-10-16T00:00:00Z</con:value>
+		<con:value>2013-10-27T00:00:00Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>FullPatientID</con:name>
@@ -15426,33 +15401,28 @@ declare namespace c='urn:gov:hhs:fha:nhinc:common:nhinccommon';
 s:Envelope/s:Body/a:RespondingGateway_CrossGatewayQueryRequest/a:assertion/c:implementsSpecVersion</path><content>3.0</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
 nhinc.FileUtils.copyFile(context.expand(context.testCase.testSuite.project.resourceRoot), "uddiConnectionInfo_g1.xml", context.findProperty('GatewayPropDir'), "uddiConnectionInfo.xml", log);
 nhinc.FileUtils.copyFile(context.expand(context.testCase.testSuite.project.resourceRoot), "internalConnectionInfo_g1.xml", context.findProperty('GatewayPropDir'), "internalConnectionInfo.xml", log);
-
-def config = context.getConfiguration();
-config.setPassthruMode();</con:setupScript>
+context.setGatewayStandard(false);
+</con:setupScript>
 <con:tearDownScript>def dir = context.findProperty('GatewayPropDir');
 nhinc.FileUtils.restoreConfiguration(dir, log);
-if(context.findProperty("PassThruOn").toBoolean()){
-	nhinc.FileUtils.restoreFile(dir, "PolicyEngineProxyConfig.xml", log);
-}
-
-def config = context.getConfiguration();
-config.setStandardMode();</con:tearDownScript>
+context.setGatewayStandard(true);
+</con:tearDownScript>
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2013-09-16T19:17:49Z</con:value>
+		<con:value>2013-09-27T03:20:53Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2013-09-16T19:27:49Z</con:value>
+		<con:value>2013-09-27T03:30:53Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>09/16/2013 19:17:49</con:value>
+		<con:value>09/27/2013 03:20:53</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2013-10-16T00:00:00Z</con:value>
+		<con:value>2013-10-27T00:00:00Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>FullPatientID</con:name>
@@ -16008,33 +15978,28 @@ declare namespace c='urn:gov:hhs:fha:nhinc:common:nhinccommon';
 s:Envelope/s:Body/a:RespondingGateway_CrossGatewayQueryRequest/a:assertion/c:implementsSpecVersion</path><content>2.0</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
 nhinc.FileUtils.copyFile(context.expand(context.testCase.testSuite.project.resourceRoot), "uddiConnectionInfo_g1.xml", context.findProperty('GatewayPropDir'), "uddiConnectionInfo.xml", log);
 nhinc.FileUtils.copyFile(context.expand(context.testCase.testSuite.project.resourceRoot), "internalConnectionInfo_g0.xml", context.findProperty('GatewayPropDir'), "internalConnectionInfo.xml", log);
-
-def config = context.getConfiguration();
-config.setPassthruMode();</con:setupScript>
+context.setGatewayStandard(false);
+</con:setupScript>
 <con:tearDownScript>def dir = context.findProperty('GatewayPropDir');
 nhinc.FileUtils.restoreConfiguration(dir, log);
-if(context.findProperty("PassThruOn").toBoolean()){
-	nhinc.FileUtils.restoreFile(dir, "PolicyEngineProxyConfig.xml", log);
-}
-
-def config = context.getConfiguration();
-config.setStandardMode();</con:tearDownScript>
+context.setGatewayStandard(true);
+</con:tearDownScript>
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2013-09-16T19:17:50Z</con:value>
+		<con:value>2013-09-27T03:20:54Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2013-09-16T19:27:50Z</con:value>
+		<con:value>2013-09-27T03:30:54Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>09/16/2013 19:17:50</con:value>
+		<con:value>09/27/2013 03:20:54</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2013-10-16T00:00:00Z</con:value>
+		<con:value>2013-10-27T00:00:00Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>FullPatientID</con:name>
@@ -16569,33 +16534,28 @@ declare namespace c='urn:gov:hhs:fha:nhinc:common:nhinccommon';
 s:Envelope/s:Body/a:RespondingGateway_CrossGatewayQueryRequest/a:assertion/c:implementsSpecVersion</path><content>3.0</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
 nhinc.FileUtils.copyFile(context.expand(context.testCase.testSuite.project.resourceRoot), "uddiConnectionInfo_g1.xml", context.findProperty('GatewayPropDir'), "uddiConnectionInfo.xml", log);
 nhinc.FileUtils.copyFile(context.expand(context.testCase.testSuite.project.resourceRoot), "internalConnectionInfo_g0.xml", context.findProperty('GatewayPropDir'), "internalConnectionInfo.xml", log);
-
-def config = context.getConfiguration();
-config.setPassthruMode();</con:setupScript>
+context.setGatewayStandard(false);
+</con:setupScript>
 <con:tearDownScript>def dir = context.findProperty('GatewayPropDir');
 nhinc.FileUtils.restoreConfiguration(dir, log);
-if(context.findProperty("PassThruOn").toBoolean()){
-	nhinc.FileUtils.restoreFile(dir, "PolicyEngineProxyConfig.xml", log);
-}
-
-def config = context.getConfiguration();
-config.setStandardMode();</con:tearDownScript>
+context.setGatewayStandard(true);
+</con:tearDownScript>
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2013-09-16T19:17:51Z</con:value>
+		<con:value>2013-09-27T03:20:56Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2013-09-16T19:27:51Z</con:value>
+		<con:value>2013-09-27T03:30:56Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>09/16/2013 19:17:51</con:value>
+		<con:value>09/27/2013 03:20:56</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2013-10-16T00:00:00Z</con:value>
+		<con:value>2013-10-27T00:00:00Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>FullPatientID</con:name>
@@ -17151,33 +17111,28 @@ declare namespace c='urn:gov:hhs:fha:nhinc:common:nhinccommon';
 s:Envelope/s:Body/a:RespondingGateway_CrossGatewayQueryRequest/a:assertion/c:implementsSpecVersion</path><content>2.0</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
 nhinc.FileUtils.copyFile(context.expand(context.testCase.testSuite.project.resourceRoot), "uddiConnectionInfo_g1.xml", context.findProperty('GatewayPropDir'), "uddiConnectionInfo.xml", log);
 nhinc.FileUtils.copyFile(context.expand(context.testCase.testSuite.project.resourceRoot), "internalConnectionInfo_g1only.xml", context.findProperty('GatewayPropDir'), "internalConnectionInfo.xml", log);
-
-def config = context.getConfiguration();
-config.setPassthruMode();</con:setupScript>
+context.setGatewayStandard(false);
+</con:setupScript>
 <con:tearDownScript>def dir = context.findProperty('GatewayPropDir');
 nhinc.FileUtils.restoreConfiguration(dir, log);
-if(context.findProperty("PassThruOn").toBoolean()){
-	nhinc.FileUtils.restoreFile(dir, "PolicyEngineProxyConfig.xml", log);
-}
-
-def config = context.getConfiguration();
-config.setStandardMode();</con:tearDownScript>
+context.setGatewayStandard(true);
+</con:tearDownScript>
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2013-09-16T19:17:53Z</con:value>
+		<con:value>2013-09-27T03:20:57Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2013-09-16T19:27:53Z</con:value>
+		<con:value>2013-09-27T03:30:57Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>09/16/2013 19:17:53</con:value>
+		<con:value>09/27/2013 03:20:57</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2013-10-16T00:00:00Z</con:value>
+		<con:value>2013-10-27T00:00:00Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>FullPatientID</con:name>
@@ -17712,33 +17667,28 @@ declare namespace c='urn:gov:hhs:fha:nhinc:common:nhinccommon';
 s:Envelope/s:Body/a:RespondingGateway_CrossGatewayQueryRequest/a:assertion/c:implementsSpecVersion</path><content>3.0</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
 nhinc.FileUtils.copyFile(context.expand(context.testCase.testSuite.project.resourceRoot), "uddiConnectionInfo_g1.xml", context.findProperty('GatewayPropDir'), "uddiConnectionInfo.xml", log);
 nhinc.FileUtils.copyFile(context.expand(context.testCase.testSuite.project.resourceRoot), "internalConnectionInfo_g1only.xml", context.findProperty('GatewayPropDir'), "internalConnectionInfo.xml", log);
-
-def config = context.getConfiguration();
-config.setPassthruMode();</con:setupScript>
+context.setGatewayStandard(false);
+</con:setupScript>
 <con:tearDownScript>def dir = context.findProperty('GatewayPropDir');
 nhinc.FileUtils.restoreConfiguration(dir, log);
-if(context.findProperty("PassThruOn").toBoolean()){
-	nhinc.FileUtils.restoreFile(dir, "PolicyEngineProxyConfig.xml", log);
-}
-
-def config = context.getConfiguration();
-config.setStandardMode();</con:tearDownScript>
+context.setGatewayStandard(true);
+</con:tearDownScript>
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2013-09-16T19:17:54Z</con:value>
+		<con:value>2013-09-27T03:20:59Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2013-09-16T19:27:54Z</con:value>
+		<con:value>2013-09-27T03:30:59Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>09/16/2013 19:17:54</con:value>
+		<con:value>09/27/2013 03:20:59</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2013-10-16T00:00:00Z</con:value>
+		<con:value>2013-10-27T00:00:00Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>FullPatientID</con:name>
@@ -18294,33 +18244,28 @@ declare namespace c='urn:gov:hhs:fha:nhinc:common:nhinccommon';
 s:Envelope/s:Body/a:RespondingGateway_CrossGatewayQueryRequest/a:assertion/c:implementsSpecVersion</path><content>2.0</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
 nhinc.FileUtils.copyFile(context.expand(context.testCase.testSuite.project.resourceRoot), "uddiConnectionInfo_g0.xml", context.findProperty('GatewayPropDir'), "uddiConnectionInfo.xml", log);
 nhinc.FileUtils.copyFile(context.expand(context.testCase.testSuite.project.resourceRoot), "internalConnectionInfo_g0.xml", context.findProperty('GatewayPropDir'), "internalConnectionInfo.xml", log);
-
-def config = context.getConfiguration();
-config.setPassthruMode();</con:setupScript>
+context.setGatewayStandard(false);
+</con:setupScript>
 <con:tearDownScript>def dir = context.findProperty('GatewayPropDir');
 nhinc.FileUtils.restoreConfiguration(dir, log);
-if(context.findProperty("PassThruOn").toBoolean()){
-	nhinc.FileUtils.restoreFile(dir, "PolicyEngineProxyConfig.xml", log);
-}
-
-def config = context.getConfiguration();
-config.setStandardMode();</con:tearDownScript>
+context.setGatewayStandard(true);
+</con:tearDownScript>
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2013-09-16T19:17:55Z</con:value>
+		<con:value>2013-09-27T03:21:01Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2013-09-16T19:27:55Z</con:value>
+		<con:value>2013-09-27T03:31:01Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>09/16/2013 19:17:55</con:value>
+		<con:value>09/27/2013 03:21:01</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2013-10-16T00:00:00Z</con:value>
+		<con:value>2013-10-27T00:00:00Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>FullPatientID</con:name>
@@ -18882,33 +18827,28 @@ declare namespace c='urn:gov:hhs:fha:nhinc:common:nhinccommon';
 s:Envelope/s:Body/a:RespondingGateway_CrossGatewayQueryRequest/a:assertion/c:implementsSpecVersion</path><content>2.0</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
 nhinc.FileUtils.copyFile(context.expand(context.testCase.testSuite.project.resourceRoot), "uddiConnectionInfo_g0.xml", context.findProperty('GatewayPropDir'), "uddiConnectionInfo.xml", log);
 nhinc.FileUtils.copyFile(context.expand(context.testCase.testSuite.project.resourceRoot), "internalConnectionInfo_g1only.xml", context.findProperty('GatewayPropDir'), "internalConnectionInfo.xml", log);
-
-def config = context.getConfiguration();
-config.setPassthruMode();</con:setupScript>
+context.setGatewayStandard(false);
+</con:setupScript>
 <con:tearDownScript>def dir = context.findProperty('GatewayPropDir');
 nhinc.FileUtils.restoreConfiguration(dir, log);
-if(context.findProperty("PassThruOn").toBoolean()){
-	nhinc.FileUtils.restoreFile(dir, "PolicyEngineProxyConfig.xml", log);
-}
-
-def config = context.getConfiguration();
-config.setStandardMode();</con:tearDownScript>
+context.setGatewayStandard(true);
+</con:tearDownScript>
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2013-09-16T19:17:56Z</con:value>
+		<con:value>2013-09-27T03:21:02Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2013-09-16T19:27:56Z</con:value>
+		<con:value>2013-09-27T03:31:02Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>09/16/2013 19:17:56</con:value>
+		<con:value>09/27/2013 03:21:02</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2013-10-16T00:00:00Z</con:value>
+		<con:value>2013-10-27T00:00:00Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>FullPatientID</con:name>
@@ -19470,33 +19410,28 @@ declare namespace c='urn:gov:hhs:fha:nhinc:common:nhinccommon';
 s:Envelope/s:Body/a:RespondingGateway_CrossGatewayQueryRequest/a:assertion/c:implementsSpecVersion</path><content>3.0</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
 nhinc.FileUtils.copyFile(context.expand(context.testCase.testSuite.project.resourceRoot), "uddiConnectionInfo_g1only.xml", context.findProperty('GatewayPropDir'), "uddiConnectionInfo.xml", log);
 nhinc.FileUtils.copyFile(context.expand(context.testCase.testSuite.project.resourceRoot), "internalConnectionInfo_g1only.xml", context.findProperty('GatewayPropDir'), "internalConnectionInfo.xml", log);
-
-def config = context.getConfiguration();
-config.setPassthruMode();</con:setupScript>
+context.setGatewayStandard(false);
+</con:setupScript>
 <con:tearDownScript>def dir = context.findProperty('GatewayPropDir');
 nhinc.FileUtils.restoreConfiguration(dir, log);
-if(context.findProperty("PassThruOn").toBoolean()){
-	nhinc.FileUtils.restoreFile(dir, "PolicyEngineProxyConfig.xml", log);
-}
-
-def config = context.getConfiguration();
-config.setStandardMode();</con:tearDownScript>
+context.setGatewayStandard(true);
+</con:tearDownScript>
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2013-09-16T19:17:58Z</con:value>
+		<con:value>2013-09-27T03:21:04Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2013-09-16T19:27:58Z</con:value>
+		<con:value>2013-09-27T03:31:04Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>09/16/2013 19:17:58</con:value>
+		<con:value>09/27/2013 03:21:04</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2013-10-16T00:00:00Z</con:value>
+		<con:value>2013-10-27T00:00:00Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>FullPatientID</con:name>
@@ -20058,33 +19993,28 @@ declare namespace c='urn:gov:hhs:fha:nhinc:common:nhinccommon';
 s:Envelope/s:Body/a:RespondingGateway_CrossGatewayQueryRequest/a:assertion/c:implementsSpecVersion</path><content>3.0</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
 nhinc.FileUtils.copyFile(context.expand(context.testCase.testSuite.project.resourceRoot), "uddiConnectionInfo_g1only.xml", context.findProperty('GatewayPropDir'), "uddiConnectionInfo.xml", log);
 nhinc.FileUtils.copyFile(context.expand(context.testCase.testSuite.project.resourceRoot), "internalConnectionInfo_g0.xml", context.findProperty('GatewayPropDir'), "internalConnectionInfo.xml", log);
-
-def config = context.getConfiguration();
-config.setPassthruMode();</con:setupScript>
+context.setGatewayStandard(false);
+</con:setupScript>
 <con:tearDownScript>def dir = context.findProperty('GatewayPropDir');
 nhinc.FileUtils.restoreConfiguration(dir, log);
-if(context.findProperty("PassThruOn").toBoolean()){
-	nhinc.FileUtils.restoreFile(dir, "PolicyEngineProxyConfig.xml", log);
-}
-
-def config = context.getConfiguration();
-config.setStandardMode();</con:tearDownScript>
+context.setGatewayStandard(true);
+</con:tearDownScript>
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2013-09-16T19:17:59Z</con:value>
+		<con:value>2013-09-27T03:21:05Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2013-09-16T19:27:59Z</con:value>
+		<con:value>2013-09-27T03:31:05Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>09/16/2013 19:17:59</con:value>
+		<con:value>09/27/2013 03:21:05</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2013-10-16T00:00:00Z</con:value>
+		<con:value>2013-10-27T00:00:00Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>FullPatientID</con:name>
@@ -20361,22 +20291,83 @@ import javax.management.remote.JMXConnectorFactory as JmxFactory
 import javax.management.remote.JMXServiceURL as JmxUrl
 import javax.management.remote.*;
 
-com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext.metaClass.getConfiguration = { ->
+com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext.metaClass.setGatewayStandard = { standard ->
   def username = delegate.findProperty("ASUsername");
   def password = delegate.findProperty("ASPassword");
   def jmxHost = delegate.findProperty("JMXHost");
   def jmxPort = delegate.findProperty("JMXPort");
-
+  log.info "Value of the Param Name -->"+name;
   // use jmx to set passthru mode
   def env = [
     (JMXConnector.CREDENTIALS): (String[])[username, password]
-  ]
+  ];
   def serverUrl = 'service:jmx:rmi://' + jmxHost + ':' + jmxPort + '/jndi/rmi://' + jmxHost + ':' + jmxPort + 
 '/jmxrmi';
-  def server = JmxFactory.connect(new JmxUrl(serverUrl), env).MBeanServerConnection
-  def config = new GroovyMBean(server, 'org.connectopensource.mbeans:type=Configuration');
-  return config;
-}</con:afterLoadScript>
+  log.info "Standard valud-->"+standard
+  def server = JmxFactory.connect(new JmxUrl(serverUrl), env);
+  def config = new GroovyMBean(server.MBeanServerConnection, 'org.connectopensource.mbeans:type=Configuration');
+  //set the Gateway to Standard Mode
+    if (standard){
+  	config.setStandardMode();
+  	log.info "Inside STD"
+  }
+  else{
+  	log.info "Inside PASS"
+     config.setPassthruMode();	
+  }
+  server.close();
+  return true;
+}
+
+com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext.metaClass.isStandard = { serviceName, direction ->
+  def username = delegate.findProperty("ASUsername");
+  def password = delegate.findProperty("ASPassword");
+  def jmxHost = delegate.findProperty("JMXHost");
+  def jmxPort = delegate.findProperty("JMXPort");
+  log.info "Value of the Param Name -->"+name;
+  // use jmx to set passthru mode
+  def env = [
+    (JMXConnector.CREDENTIALS): (String[])[username, password]
+  ];
+  def serverUrl = 'service:jmx:rmi://' + jmxHost + ':' + jmxPort + '/jndi/rmi://' + jmxHost + ':' + jmxPort + 
+'/jmxrmi';
+   
+  def server = JmxFactory.connect(new JmxUrl(serverUrl), env);
+  def config = new GroovyMBean(server.MBeanServerConnection, 'org.connectopensource.mbeans:type=Configuration');
+  //set the Gateway to Standard Mode
+  def isStandard = config.isStandard(serviceName, direction);
+  server.close();
+  return isStandard;
+}
+
+com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext.metaClass.setGatewayStandard = { standard, serviceName, direction ->
+  def username = delegate.findProperty("ASUsername");
+  def password = delegate.findProperty("ASPassword");
+  def jmxHost = delegate.findProperty("JMXHost");
+  def jmxPort = delegate.findProperty("JMXPort");
+  log.info "Value of the Param Name -->"+name;
+  // use jmx to set passthru mode
+  def env = [
+    (JMXConnector.CREDENTIALS): (String[])[username, password]
+  ];
+  def serverUrl = 'service:jmx:rmi://' + jmxHost + ':' + jmxPort + '/jndi/rmi://' + jmxHost + ':' + jmxPort + 
+'/jmxrmi';
+  log.info "Standard valud-->"+standard
+  def server = JmxFactory.connect(new JmxUrl(serverUrl), env);
+  def config = new GroovyMBean(server.MBeanServerConnection, 'org.connectopensource.mbeans:type=Configuration');
+  //set the Gateway to Standard Mode
+    if (standard){
+  	config.setStandardMode(serviceName, direction);
+  	log.info "Inside STD"
+  }
+  else{
+  	log.info "Inside PASS"
+     config.setPassthruMode(serviceName, direction);	
+  }
+  server.close();
+  return true;
+}
+</con:afterLoadScript>
 <con:wssContainer/>
 <con:databaseConnectionContainer/>
 <con:reporting>
