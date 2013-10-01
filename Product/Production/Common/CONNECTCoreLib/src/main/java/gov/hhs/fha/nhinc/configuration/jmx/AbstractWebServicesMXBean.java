@@ -28,6 +28,7 @@ package gov.hhs.fha.nhinc.configuration.jmx;
 
 import javax.servlet.ServletContext;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
@@ -210,6 +211,22 @@ public abstract class AbstractWebServicesMXBean implements WebServicesMXBean {
     @Override
     public void configureOutboundStd() throws InstantiationException, IllegalAccessException, ClassNotFoundException {
         configureOutboundImpl(getOutboundStandardClassName());
+    }
+    
+    /**
+     * Compares the class name of an object vs the class name passed in.
+     * 
+     * @param clazz the Object
+     * @param className the class name
+     * 
+     * @return true if the clazz object class name and className match.
+     */
+    protected boolean compareClassName(Object clazz, String className) {
+    	boolean matches = false;
+    	if (clazz != null && clazz.getClass() != null && StringUtils.startsWith(clazz.getClass().getName(), className)) {
+    		matches = true;
+    	}
+    	return matches;
     }
 
 }
