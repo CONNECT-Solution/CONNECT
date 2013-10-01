@@ -228,7 +228,7 @@ public class PatientDiscoveryDeferredReq10WebServices extends AbstractWebService
     public boolean isOutboundStandard() {
         boolean isStandard = false;
         EntityPatientDiscoveryDeferredRequestUnsecured entityPD = retrieveBean(EntityPatientDiscoveryDeferredRequestUnsecured.class,
-                getEntitySecuredBeanName());
+                getEntityUnsecuredBeanName());
         OutboundPatientDiscoveryDeferredRequest outboundPatientDiscovery = entityPD.getOutboundPatientDiscovery();
         if (compareClassName(outboundPatientDiscovery, DEFAULT_OUTBOUND_STANDARD_IMPL_CLASS_NAME)) {
             isStandard = true;
