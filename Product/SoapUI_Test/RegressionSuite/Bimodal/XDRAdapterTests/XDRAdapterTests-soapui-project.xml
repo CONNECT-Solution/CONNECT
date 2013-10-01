@@ -5658,24 +5658,23 @@ This document and the information contained herein is provided on an "AS IS" bas
 			<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2013-03-19T17:31:09Z</con:value>
+					<con:value>2013-09-27T05:14:54Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2013-03-19T17:41:09Z</con:value>
+					<con:value>2013-09-27T05:24:54Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>03/19/2013 17:31:09</con:value>
+					<con:value>09/27/2013 05:14:54</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2013-04-18T00:00:00Z</con:value>
+					<con:value>2013-10-27T00:00:00Z</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
-			<con:tearDownScript>import nhinc.FileUtils;
-FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
+			<con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);</con:tearDownScript>
 		</con:testCase>
 		<con:testCase failOnError="true" failTestCaseOnErrors="true" id="c10d34ef-1d48-4356-a6f5-ff50fb09c49a" keepSession="false" maxResults="0" name="Success - Multiple Documents" searchProperties="true">
 			<con:settings/>
@@ -6194,19 +6193,19 @@ FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
 			<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2013-03-19T17:31:12Z</con:value>
+					<con:value>2013-09-27T05:14:54Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2013-03-19T17:41:12Z</con:value>
+					<con:value>2013-09-27T05:24:54Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>03/19/2013 17:31:12</con:value>
+					<con:value>09/27/2013 05:14:54</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2013-04-18T00:00:00Z</con:value>
+					<con:value>2013-10-27T00:00:00Z</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
@@ -6690,19 +6689,19 @@ FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
 			<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2013-03-19T17:31:12Z</con:value>
+					<con:value>2013-09-27T05:14:54Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2013-03-19T17:41:12Z</con:value>
+					<con:value>2013-09-27T05:24:54Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>03/19/2013 17:31:12</con:value>
+					<con:value>09/27/2013 05:14:54</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2013-04-18T00:00:00Z</con:value>
+					<con:value>2013-10-27T00:00:00Z</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
@@ -7251,19 +7250,19 @@ FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
 			<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2013-03-19T17:31:12Z</con:value>
+					<con:value>2013-09-27T05:14:55Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2013-03-19T17:41:12Z</con:value>
+					<con:value>2013-09-27T05:24:55Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>03/19/2013 17:31:12</con:value>
+					<con:value>09/27/2013 05:14:55</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2013-04-18T00:00:00Z</con:value>
+					<con:value>2013-10-27T00:00:00Z</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
@@ -7746,19 +7745,19 @@ FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
 			<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2013-03-19T17:31:12Z</con:value>
+					<con:value>2013-09-27T05:14:55Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2013-03-19T17:41:12Z</con:value>
+					<con:value>2013-09-27T05:24:55Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>03/19/2013 17:31:12</con:value>
+					<con:value>09/27/2013 05:14:55</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2013-04-18T00:00:00Z</con:value>
+					<con:value>2013-10-27T00:00:00Z</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
@@ -8031,19 +8030,19 @@ FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
 			<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2013-03-19T17:31:13Z</con:value>
+					<con:value>2013-09-27T05:14:55Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2013-03-19T17:41:13Z</con:value>
+					<con:value>2013-09-27T05:24:55Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>03/19/2013 17:31:13</con:value>
+					<con:value>09/27/2013 05:14:55</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2013-04-18T00:00:00Z</con:value>
+					<con:value>2013-10-27T00:00:00Z</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
@@ -8549,19 +8548,19 @@ FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
 			<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2013-03-19T17:31:13Z</con:value>
+					<con:value>2013-09-27T05:14:56Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2013-03-19T17:41:13Z</con:value>
+					<con:value>2013-09-27T05:24:56Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>03/19/2013 17:31:13</con:value>
+					<con:value>09/27/2013 05:14:56</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2013-04-18T00:00:00Z</con:value>
+					<con:value>2013-10-27T00:00:00Z</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
@@ -9022,32 +9021,29 @@ FileUtils.restoreToMasterConfiguration(context, log);</con:tearDownScript>
 				</con:config>
 			</con:testStep>
 			<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);
-
-def config = context.getConfiguration();
-config.setPassthruMode();</con:setupScript><con:properties>
+context.setGatewayStandard(false);
+</con:setupScript><con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2013-09-18T22:07:28Z</con:value>
+					<con:value>2013-09-27T05:14:56Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2013-09-18T22:17:28Z</con:value>
+					<con:value>2013-09-27T05:24:56Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>09/18/2013 22:07:28</con:value>
+					<con:value>09/27/2013 05:14:56</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2013-10-18T00:00:00Z</con:value>
+					<con:value>2013-10-27T00:00:00Z</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
-			<con:tearDownScript>import nhinc.FileUtils;
-FileUtils.restoreToMasterConfiguration(context, log);
-
-def config = context.getConfiguration();
-config.setStandardMode();</con:tearDownScript>
+			<con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);
+context.setGatewayStandard(true);
+</con:tearDownScript>
 		</con:testCase>
 		<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Success - Multiple Documents" searchProperties="true" id="d1fae703-6c52-4550-9cc0-842b1f5f4070">
 			<con:settings/>
@@ -9564,31 +9560,29 @@ config.setStandardMode();</con:tearDownScript>
 				</con:config>
 			</con:testStep>
 			<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);
-
-def config = context.getConfiguration();
-config.setPassthruMode();</con:setupScript><con:properties>
+context.setGatewayStandard(false);
+</con:setupScript><con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2013-09-18T22:07:29Z</con:value>
+					<con:value>2013-09-27T05:14:56Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2013-09-18T22:17:29Z</con:value>
+					<con:value>2013-09-27T05:24:56Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>09/18/2013 22:07:29</con:value>
+					<con:value>09/27/2013 05:14:56</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2013-10-18T00:00:00Z</con:value>
+					<con:value>2013-10-27T00:00:00Z</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
 			<con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);
-
-def config = context.getConfiguration();
-config.setStandardMode();</con:tearDownScript>
+context.setGatewayStandard(true);
+</con:tearDownScript>
 		</con:testCase>
 		<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Failure - XDSUnknownPatientId" searchProperties="true" id="200c84d1-2fbc-478d-8acb-6f2519d19466">
 			<con:settings/>
@@ -10066,31 +10060,29 @@ config.setStandardMode();</con:tearDownScript>
 				</con:config>
 			</con:testStep>
 			<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);
-
-def config = context.getConfiguration();
-config.setPassthruMode();</con:setupScript><con:properties>
+context.setGatewayStandard(false);
+</con:setupScript><con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2013-09-18T22:07:29Z</con:value>
+					<con:value>2013-09-27T05:14:57Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2013-09-18T22:17:29Z</con:value>
+					<con:value>2013-09-27T05:24:57Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>09/18/2013 22:07:29</con:value>
+					<con:value>09/27/2013 05:14:57</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2013-10-18T00:00:00Z</con:value>
+					<con:value>2013-10-27T00:00:00Z</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
 			<con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);
-
-def config = context.getConfiguration();
-config.setStandardMode();</con:tearDownScript>
+context.setGatewayStandard(true);
+</con:tearDownScript>
 		</con:testCase>
 		<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Failure - XDSPatientIdDoesNotMatch" searchProperties="true" id="429fd5c6-4295-4149-996f-042eb1a66c90">
 			<con:settings/>
@@ -10633,31 +10625,29 @@ config.setStandardMode();</con:tearDownScript>
 				</con:config>
 			</con:testStep>
 			<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);
-
-def config = context.getConfiguration();
-config.setPassthruMode();</con:setupScript><con:properties>
+context.setGatewayStandard(false);
+</con:setupScript><con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2013-09-18T22:07:30Z</con:value>
+					<con:value>2013-09-27T05:14:57Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2013-09-18T22:17:30Z</con:value>
+					<con:value>2013-09-27T05:24:57Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>09/18/2013 22:07:30</con:value>
+					<con:value>09/27/2013 05:14:57</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2013-10-18T00:00:00Z</con:value>
+					<con:value>2013-10-27T00:00:00Z</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
 			<con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);
-
-def config = context.getConfiguration();
-config.setStandardMode();</con:tearDownScript>
+context.setGatewayStandard(true);
+</con:tearDownScript>
 		</con:testCase>
 		<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Failure - XDSMissingDocumentMetadata" searchProperties="true" id="09a1f902-c817-45e3-b46f-593bf657cefe">
 			<con:settings/>
@@ -11134,31 +11124,29 @@ config.setStandardMode();</con:tearDownScript>
 				</con:config>
 			</con:testStep>
 			<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);
-
-def config = context.getConfiguration();
-config.setPassthruMode();</con:setupScript><con:properties>
+context.setGatewayStandard(false);
+</con:setupScript><con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2013-09-18T22:07:30Z</con:value>
+					<con:value>2013-09-27T05:14:57Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2013-09-18T22:17:30Z</con:value>
+					<con:value>2013-09-27T05:24:57Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>09/18/2013 22:07:30</con:value>
+					<con:value>09/27/2013 05:14:57</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2013-10-18T00:00:00Z</con:value>
+					<con:value>2013-10-27T00:00:00Z</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
 			<con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);
-
-def config = context.getConfiguration();
-config.setStandardMode();</con:tearDownScript>
+context.setGatewayStandard(true);
+</con:tearDownScript>
 		</con:testCase>
 		<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Failure - XDSMissingDocument" searchProperties="true" id="c0262553-c147-4779-a2ba-767f20086595">
 			<con:settings/>
@@ -11425,31 +11413,29 @@ config.setStandardMode();</con:tearDownScript>
 				</con:config>
 			</con:testStep>
 			<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);
-
-def config = context.getConfiguration();
-config.setPassthruMode();</con:setupScript><con:properties>
+context.setGatewayStandard(false);
+</con:setupScript><con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2013-09-18T22:07:30Z</con:value>
+					<con:value>2013-09-27T05:14:58Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2013-09-18T22:17:30Z</con:value>
+					<con:value>2013-09-27T05:24:58Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>09/18/2013 22:07:30</con:value>
+					<con:value>09/27/2013 05:14:58</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2013-10-18T00:00:00Z</con:value>
+					<con:value>2013-10-27T00:00:00Z</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
 			<con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);
-
-def config = context.getConfiguration();
-config.setStandardMode();</con:tearDownScript>
+context.setGatewayStandard(true);
+</con:tearDownScript>
 		</con:testCase>
 		<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Multiple Failure Messages" searchProperties="true" id="2248ed58-95f1-41b3-899c-a6fb8d119e48">
 			<con:settings/>
@@ -11949,31 +11935,29 @@ config.setStandardMode();</con:tearDownScript>
 				</con:config>
 			</con:testStep>
 			<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);
-
-def config = context.getConfiguration();
-config.setPassthruMode();</con:setupScript><con:properties>
+context.setGatewayStandard(false);
+</con:setupScript><con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2013-09-18T22:07:31Z</con:value>
+					<con:value>2013-09-27T05:14:58Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2013-09-18T22:17:31Z</con:value>
+					<con:value>2013-09-27T05:24:58Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>09/18/2013 22:07:31</con:value>
+					<con:value>09/27/2013 05:14:58</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2013-10-18T00:00:00Z</con:value>
+					<con:value>2013-10-27T00:00:00Z</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
 			<con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"), log);
-
-def config = context.getConfiguration();
-config.setStandardMode();</con:tearDownScript>
+context.setGatewayStandard(true);
+</con:tearDownScript>
 		</con:testCase>
 		<con:properties/>
 		<con:reportParameters/>
@@ -12079,7 +12063,7 @@ config.setStandardMode();</con:tearDownScript>
 			<con:name>UnknownPatientId</con:name>
 			<con:value>1111</con:value>
 		</con:property>
-	<con:property><con:name>GatewayPropDir</con:name><con:value>D:\glassfish3\glassfish\domains\domain1\config\nhin</con:value></con:property><con:property><con:name>ASUsername</con:name><con:value>admin</con:value></con:property><con:property><con:name>ASPassword</con:name><con:value>adminadmin</con:value></con:property><con:property><con:name>JMXHost</con:name><con:value>localhost</con:value></con:property><con:property><con:name>JMXPort</con:name><con:value>8686</con:value></con:property></con:properties>
+	<con:property><con:name>GatewayPropDir</con:name><con:value>c:\glassfish3\glassfish\domains\domain1\config\nhin</con:value></con:property><con:property><con:name>ASUsername</con:name><con:value>admin</con:value></con:property><con:property><con:name>ASPassword</con:name><con:value>adminadmin</con:value></con:property><con:property><con:name>JMXHost</con:name><con:value>localhost</con:value></con:property><con:property><con:name>JMXPort</con:name><con:value>8686</con:value></con:property></con:properties>
 	<con:afterLoadScript>def propertiesFile = new File(new File(project.path).parent, 'XDRAdapterTests-soapui-project.properties')
 if (propertiesFile.exists()) {
 	def props = new Properties()
@@ -12128,22 +12112,83 @@ import javax.management.remote.JMXConnectorFactory as JmxFactory
 import javax.management.remote.JMXServiceURL as JmxUrl
 import javax.management.remote.*;
 
-com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext.metaClass.getConfiguration = { ->
+com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext.metaClass.setGatewayStandard = { standard ->
   def username = delegate.findProperty("ASUsername");
   def password = delegate.findProperty("ASPassword");
   def jmxHost = delegate.findProperty("JMXHost");
   def jmxPort = delegate.findProperty("JMXPort");
-
+  log.info "Value of the Param Name -->"+name;
   // use jmx to set passthru mode
   def env = [
     (JMXConnector.CREDENTIALS): (String[])[username, password]
-  ]
+  ];
   def serverUrl = 'service:jmx:rmi://' + jmxHost + ':' + jmxPort + '/jndi/rmi://' + jmxHost + ':' + jmxPort + 
 '/jmxrmi';
-  def server = JmxFactory.connect(new JmxUrl(serverUrl), env).MBeanServerConnection
-  def config = new GroovyMBean(server, 'org.connectopensource.mbeans:type=Configuration');
-  return config;
-}</con:afterLoadScript>
+  log.info "Standard valud-->"+standard
+  def server = JmxFactory.connect(new JmxUrl(serverUrl), env);
+  def config = new GroovyMBean(server.MBeanServerConnection, 'org.connectopensource.mbeans:type=Configuration');
+  //set the Gateway to Standard Mode
+    if (standard){
+  	config.setStandardMode();
+  	log.info "Inside STD"
+  }
+  else{
+  	log.info "Inside PASS"
+     config.setPassthruMode();	
+  }
+  server.close();
+  return true;
+}
+
+com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext.metaClass.isStandard = { serviceName, direction ->
+  def username = delegate.findProperty("ASUsername");
+  def password = delegate.findProperty("ASPassword");
+  def jmxHost = delegate.findProperty("JMXHost");
+  def jmxPort = delegate.findProperty("JMXPort");
+  log.info "Value of the Param Name -->"+name;
+  // use jmx to set passthru mode
+  def env = [
+    (JMXConnector.CREDENTIALS): (String[])[username, password]
+  ];
+  def serverUrl = 'service:jmx:rmi://' + jmxHost + ':' + jmxPort + '/jndi/rmi://' + jmxHost + ':' + jmxPort + 
+'/jmxrmi';
+   
+  def server = JmxFactory.connect(new JmxUrl(serverUrl), env);
+  def config = new GroovyMBean(server.MBeanServerConnection, 'org.connectopensource.mbeans:type=Configuration');
+  //set the Gateway to Standard Mode
+  def isStandard = config.isStandard(serviceName, direction);
+  server.close();
+  return isStandard;
+}
+
+com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext.metaClass.setGatewayStandard = { standard, serviceName, direction ->
+  def username = delegate.findProperty("ASUsername");
+  def password = delegate.findProperty("ASPassword");
+  def jmxHost = delegate.findProperty("JMXHost");
+  def jmxPort = delegate.findProperty("JMXPort");
+  log.info "Value of the Param Name -->"+name;
+  // use jmx to set passthru mode
+  def env = [
+    (JMXConnector.CREDENTIALS): (String[])[username, password]
+  ];
+  def serverUrl = 'service:jmx:rmi://' + jmxHost + ':' + jmxPort + '/jndi/rmi://' + jmxHost + ':' + jmxPort + 
+'/jmxrmi';
+  log.info "Standard valud-->"+standard
+  def server = JmxFactory.connect(new JmxUrl(serverUrl), env);
+  def config = new GroovyMBean(server.MBeanServerConnection, 'org.connectopensource.mbeans:type=Configuration');
+  //set the Gateway to Standard Mode
+    if (standard){
+  	config.setStandardMode(serviceName, direction);
+  	log.info "Inside STD"
+  }
+  else{
+  	log.info "Inside PASS"
+     config.setPassthruMode(serviceName, direction);	
+  }
+  server.close();
+  return true;
+}
+</con:afterLoadScript>
 	<con:wssContainer/>
 	<con:databaseConnectionContainer/>
 	<con:reporting>
