@@ -3,7 +3,7 @@
 	<con:settings/>
 	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:entitydocquery}EntityDocQueryBindingSoap" definition="../../../target/wsdl/EntityDocQuery.wsdl" name="EntityDocQueryBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 		<con:settings/>
-		<con:endpoints>
+		<con:definitionCache/><con:endpoints>
 			<con:endpoint>http://localhost:${HttpDefaultPort}/Gateway/DocumentQuery/2_0/EntityService/EntityDocQueryUnsecured</con:endpoint>
 		</con:endpoints>
 		<con:operation action="urn:gov:hhs:fha:nhinc:entitydocquery:RespondingGateway_CrossGatewayQueryRequest" anonymous="optional" bindingOperationName="RespondingGateway_CrossGatewayQuery" inputName="RespondingGateway_CrossGatewayQueryRequest" isOneWay="false" name="RespondingGateway_CrossGatewayQuery" outputName="RespondingGateway_CrossGatewayQueryResponse" receivesAttachments="false" sendsAttachments="false" type="Request-Response">
@@ -12,7 +12,7 @@
 	</con:interface>
 	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:entitydocquery}EntityDocQueryBindingSoap" definition="../../../target/wsdl/EntityDocQuery.wsdl" name="EntityDocQueryBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 		<con:settings/>
-		<con:endpoints>
+		<con:definitionCache/><con:endpoints>
 			<con:endpoint>http://localhost:${HttpDefaultPort}/Gateway/DocumentQuery/3_0/EntityService/EntityDocQueryUnsecured</con:endpoint>
 		</con:endpoints>
 		<con:operation action="urn:gov:hhs:fha:nhinc:entitydocquery:RespondingGateway_CrossGatewayQueryRequest" anonymous="optional" bindingOperationName="RespondingGateway_CrossGatewayQuery" inputName="RespondingGateway_CrossGatewayQueryRequest" isOneWay="false" name="RespondingGateway_CrossGatewayQuery" outputName="RespondingGateway_CrossGatewayQueryResponse" receivesAttachments="false" sendsAttachments="false" type="Request-Response">
@@ -27,7 +27,9 @@
 
 			<con:testStep name="Copy uddiConnectionInfo" type="groovy">
 				<con:settings/>
-				<con:config><script>def sourceDir =  (new com.eviware.soapui.support.GroovyUtils(context)).projectPath;
+				<con:config><script>
+				//def sourceDir =  (new com.eviware.soapui.support.GroovyUtils(context)).projectPath;
+def sourceDir = context.expand('${projectDir}')
 def sourceFile = "UDDIcopy-uddiConnectionInfo.xml";
 def destDir = context.findProperty( "GatewayPropDir" );
 def destFile = "uddiConnectionInfo.xml";
@@ -398,19 +400,19 @@ nhinc.FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFil
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2013-03-19T18:43:49Z</con:value>
+		<con:value>2013-09-26T16:24:48Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2013-03-19T18:53:49Z</con:value>
+		<con:value>2013-09-26T16:34:48Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>03/19/2013 18:43:49</con:value>
+		<con:value>09/26/2013 16:24:48</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2013-04-18T00:00:00Z</con:value>
+		<con:value>2013-10-26T00:00:00Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>FullPatientID</con:name>
@@ -425,7 +427,9 @@ nhinc.FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFil
 
 	<con:testStep name="Copy uddiConnectionInfo" type="groovy">
 		<con:settings/>
-		<con:config><script>def sourceDir =  (new com.eviware.soapui.support.GroovyUtils(context)).projectPath;
+		<con:config><script>
+		//def sourceDir =  (new com.eviware.soapui.support.GroovyUtils(context)).projectPath;
+		def sourceDir = context.expand('${projectDir}')
 def sourceFile = "UDDIcopy-uddiConnectionInfo.xml";
 def destDir = context.findProperty( "GatewayPropDir" );
 def destFile = "uddiConnectionInfo.xml";
@@ -819,19 +823,19 @@ nhinc.FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFil
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2013-03-19T18:43:50Z</con:value>
+		<con:value>2013-09-26T16:24:49Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2013-03-19T18:53:50Z</con:value>
+		<con:value>2013-09-26T16:34:49Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>03/19/2013 18:43:50</con:value>
+		<con:value>09/26/2013 16:24:49</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2013-04-18T00:00:00Z</con:value>
+		<con:value>2013-10-26T00:00:00Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>FullPatientID</con:name>
@@ -846,7 +850,9 @@ nhinc.FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFil
 
 			<con:testStep name="Copy uddiConnectionInfo" type="groovy">
 				<con:settings/>
-				<con:config><script>def sourceDir =  (new com.eviware.soapui.support.GroovyUtils(context)).projectPath;
+				<con:config><script>
+//def sourceDir =  (new com.eviware.soapui.support.GroovyUtils(context)).projectPath;
+def sourceDir = context.expand('${projectDir}')
 def sourceFile = "UDDIcopy-uddiConnectionInfo.xml";
 def destDir = context.findProperty( "GatewayPropDir" );
 def destFile = "uddiConnectionInfo.xml";
@@ -1195,19 +1201,19 @@ nhinc.FileUtils.updateProperty(destConfigFileLocation, "gateway.properties", "do
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2013-03-19T18:43:53Z</con:value>
+		<con:value>2013-09-26T16:24:51Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2013-03-19T18:53:53Z</con:value>
+		<con:value>2013-09-26T16:34:51Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>03/19/2013 18:43:53</con:value>
+		<con:value>09/26/2013 16:24:51</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2013-04-18T00:00:00Z</con:value>
+		<con:value>2013-10-26T00:00:00Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>FullPatientID</con:name>
@@ -1221,7 +1227,9 @@ nhinc.FileUtils.updateProperty(destConfigFileLocation, "gateway.properties", "do
 
 			<con:testStep name="Copy uddiConnectionInfo" type="groovy">
 				<con:settings/>
-				<con:config><script>def sourceDir =  (new com.eviware.soapui.support.GroovyUtils(context)).projectPath;
+				<con:config><script>
+				//def sourceDir =  (new com.eviware.soapui.support.GroovyUtils(context)).projectPath;
+				def sourceDir = context.expand('${projectDir}')
 def sourceFile = "UDDIcopy-uddiConnectionInfo.xml";
 def destDir = context.findProperty( "GatewayPropDir" );
 def destFile = "uddiConnectionInfo.xml";
@@ -1593,19 +1601,19 @@ nhinc.FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFil
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2013-03-19T18:43:53Z</con:value>
+		<con:value>2013-09-26T16:24:52Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2013-03-19T18:53:53Z</con:value>
+		<con:value>2013-09-26T16:34:52Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>03/19/2013 18:43:53</con:value>
+		<con:value>09/26/2013 16:24:52</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2013-04-18T00:00:00Z</con:value>
+		<con:value>2013-10-26T00:00:00Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>FullPatientID</con:name>
@@ -1620,7 +1628,9 @@ nhinc.FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFil
 
 	<con:testStep name="Copy uddiConnectionInfo" type="groovy">
 		<con:settings/>
-		<con:config><script>def sourceDir =  (new com.eviware.soapui.support.GroovyUtils(context)).projectPath;
+		<con:config><script>
+		//def sourceDir =  (new com.eviware.soapui.support.GroovyUtils(context)).projectPath;
+		def sourceDir = context.expand('${projectDir}')
 def sourceFile = "UDDIcopy-uddiConnectionInfo.xml";
 def destDir = context.findProperty( "GatewayPropDir" );
 def destFile = "uddiConnectionInfo.xml";
@@ -1989,19 +1999,19 @@ nhinc.FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFil
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2013-03-19T18:43:50Z</con:value>
+		<con:value>2013-09-26T16:24:53Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2013-03-19T18:53:50Z</con:value>
+		<con:value>2013-09-26T16:34:53Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>03/19/2013 18:43:50</con:value>
+		<con:value>09/26/2013 16:24:53</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2013-04-18T00:00:00Z</con:value>
+		<con:value>2013-10-26T00:00:00Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>FullPatientID</con:name>
@@ -2017,7 +2027,9 @@ nhinc.FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFil
 
 	<con:testStep name="Copy uddiConnectionInfo" type="groovy">
 		<con:settings/>
-		<con:config><script>def sourceDir =  (new com.eviware.soapui.support.GroovyUtils(context)).projectPath;
+		<con:config><script>
+		//def sourceDir =  (new com.eviware.soapui.support.GroovyUtils(context)).projectPath;
+		def sourceDir = context.expand('${projectDir}')
 def sourceFile = "UDDIcopy-uddiConnectionInfo.xml";
 def destDir = context.findProperty( "GatewayPropDir" );
 def destFile = "uddiConnectionInfo.xml";
@@ -2392,19 +2404,19 @@ nhinc.FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFil
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2013-03-19T18:43:50Z</con:value>
+		<con:value>2013-09-26T16:24:55Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2013-03-19T18:53:50Z</con:value>
+		<con:value>2013-09-26T16:34:55Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>03/19/2013 18:43:50</con:value>
+		<con:value>09/26/2013 16:24:55</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2013-04-18T00:00:00Z</con:value>
+		<con:value>2013-10-26T00:00:00Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>FullPatientID</con:name>
@@ -2421,7 +2433,8 @@ nhinc.FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFil
 
 	<con:testStep name="Copy uddiConnectionInfo" type="groovy">
 		<con:settings/>
-		<con:config><script>def sourceDir =  (new com.eviware.soapui.support.GroovyUtils(context)).projectPath;
+		<con:config><script>//def sourceDir =  (new com.eviware.soapui.support.GroovyUtils(context)).projectPath;
+		def sourceDir = context.expand('${projectDir}')
 def sourceFile = "uddiConnectionInfoMixSpecVersion.xml";
 def destDir = context.findProperty( "GatewayPropDir" );
 def destFile = "uddiConnectionInfo.xml";
@@ -2776,19 +2789,19 @@ nhinc.FileUtils.updateProperty(destConfigFileLocation, "gateway.properties", "do
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2013-03-19T18:43:50Z</con:value>
+		<con:value>2013-09-26T16:24:56Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2013-03-19T18:53:50Z</con:value>
+		<con:value>2013-09-26T16:34:56Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>03/19/2013 18:43:50</con:value>
+		<con:value>09/26/2013 16:24:56</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2013-04-18T00:00:00Z</con:value>
+		<con:value>2013-10-26T00:00:00Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>FullPatientID</con:name>
@@ -2805,7 +2818,8 @@ nhinc.FileUtils.updateProperty(destConfigFileLocation, "gateway.properties", "do
 
 	<con:testStep name="Copy uddiConnectionInfo" type="groovy">
 		<con:settings/>
-		<con:config><script>def sourceDir =  (new com.eviware.soapui.support.GroovyUtils(context)).projectPath;
+		<con:config><script>//def sourceDir =  (new com.eviware.soapui.support.GroovyUtils(context)).projectPath;
+		def sourceDir = context.expand('${projectDir}')
 def sourceFile = "UDDIcopy-uddiConnectionInfo.xml";
 def destDir = context.findProperty( "GatewayPropDir" );
 def destFile = "uddiConnectionInfo.xml";
@@ -3172,19 +3186,19 @@ nhinc.FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFil
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2013-03-19T18:43:50Z</con:value>
+		<con:value>2013-09-26T16:24:58Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2013-03-19T18:53:50Z</con:value>
+		<con:value>2013-09-26T16:34:58Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>03/19/2013 18:43:50</con:value>
+		<con:value>09/26/2013 16:24:58</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2013-04-18T00:00:00Z</con:value>
+		<con:value>2013-10-26T00:00:00Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>FullPatientID</con:name>
@@ -3201,7 +3215,8 @@ nhinc.FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFil
 
 	<con:testStep name="Copy uddiConnectionInfo" type="groovy">
 		<con:settings/>
-		<con:config><script>def sourceDir =  (new com.eviware.soapui.support.GroovyUtils(context)).projectPath;
+		<con:config><script>//def sourceDir =  (new com.eviware.soapui.support.GroovyUtils(context)).projectPath;
+		def sourceDir = context.expand('${projectDir}')
 def sourceFile = "UDDIcopy-uddiConnectionInfo.xml";
 def destDir = context.findProperty( "GatewayPropDir" );
 def destFile = "uddiConnectionInfo.xml";
@@ -3567,19 +3582,19 @@ nhinc.FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFil
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2013-03-19T18:43:50Z</con:value>
+		<con:value>2013-09-26T16:24:59Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2013-03-19T18:53:50Z</con:value>
+		<con:value>2013-09-26T16:34:59Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>03/19/2013 18:43:50</con:value>
+		<con:value>09/26/2013 16:24:59</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2013-04-18T00:00:00Z</con:value>
+		<con:value>2013-10-26T00:00:00Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>FullPatientID</con:name>
@@ -3595,7 +3610,8 @@ nhinc.FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFil
 
 	<con:testStep name="Copy uddiConnectionInfo" type="groovy">
 		<con:settings/>
-		<con:config><script>def sourceDir =  (new com.eviware.soapui.support.GroovyUtils(context)).projectPath;
+		<con:config><script>//def sourceDir =  (new com.eviware.soapui.support.GroovyUtils(context)).projectPath;
+		def sourceDir = context.expand('${projectDir}')
 def sourceFile = "uddiConnectionInfoMixSpecVersion.xml";
 def destDir = context.findProperty( "GatewayPropDir" );
 def destFile = "uddiConnectionInfo.xml";
@@ -3955,19 +3971,19 @@ nhinc.FileUtils.updateProperty(destConfigFileLocation, "gateway.properties", "do
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2013-03-19T18:43:50Z</con:value>
+		<con:value>2013-09-26T16:25:01Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2013-03-19T18:53:50Z</con:value>
+		<con:value>2013-09-26T16:35:01Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>03/19/2013 18:43:50</con:value>
+		<con:value>09/26/2013 16:25:01</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2013-04-18T00:00:00Z</con:value>
+		<con:value>2013-10-26T00:00:00Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>FullPatientID</con:name>
@@ -3978,7 +3994,7 @@ nhinc.FileUtils.updateProperty(destConfigFileLocation, "gateway.properties", "do
 <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);</con:tearDownScript>
 </con:testCase>
 
-</con:testSuite>
+<con:properties/></con:testSuite>
 <con:properties>
 	
 	
@@ -3987,7 +4003,7 @@ nhinc.FileUtils.updateProperty(destConfigFileLocation, "gateway.properties", "do
 	
 	<con:property><con:name>DBPort</con:name><con:value>3306</con:value></con:property><con:property><con:name>DBUser</con:name><con:value>nhincuser</con:value></con:property>
 	
-	<con:property><con:name>DQDocID</con:name><con:value>1.123401.11111</con:value></con:property><con:property><con:name>DQPatientID</con:name><con:value>D123401</con:value></con:property><con:property><con:name>Endpoint-DocQuery_a0</con:name><con:value>http://localhost:8080/Gateway/DocumentQuery/2_0/EntityService/EntityDocQueryUnsecured</con:value></con:property><con:property><con:name>Endpoint-DocQuery_a1</con:name><con:value>http://localhost:8080/Gateway/DocumentQuery/3_0/EntityService/EntityDocQueryUnsecured</con:value></con:property><con:property><con:name>GatewayPropDir</con:name><con:value/></con:property><con:property><con:name>LocalAA</con:name><con:value>1.1</con:value></con:property><con:property><con:name>LocalHCDescription</con:name><con:value>InternalTest1</con:value></con:property><con:property><con:name>LocalHCID</con:name><con:value>1.1</con:value></con:property><con:property><con:name>LocalPatientID</con:name><con:value>D123401</con:value></con:property><con:property><con:name>MockHost</con:name><con:value>localhost</con:value></con:property><con:property><con:name>NHINGatewayHost</con:name><con:value>localhost</con:value></con:property><con:property><con:name>PatientCorrelationDB</con:name><con:value>patientcorrelationdb</con:value></con:property><con:property><con:name>PatientCorrelationTable</con:name><con:value>correlatedidentifiers</con:value></con:property><con:property><con:name>Region1</con:name><con:value>US-VA</con:value></con:property>
+	<con:property><con:name>DQDocID</con:name><con:value>1.123401.11111</con:value></con:property><con:property><con:name>DQPatientID</con:name><con:value>D123401</con:value></con:property><con:property><con:name>Endpoint-DocQuery_a0</con:name><con:value>http://localhost:8080/Gateway/DocumentQuery/2_0/EntityService/EntityDocQueryUnsecured</con:value></con:property><con:property><con:name>Endpoint-DocQuery_a1</con:name><con:value>http://localhost:8080/Gateway/DocumentQuery/3_0/EntityService/EntityDocQueryUnsecured</con:value></con:property><con:property><con:name>GatewayPropDir</con:name><con:value>C:\glassfish3\glassfish\domains\domain1\config\nhin</con:value></con:property><con:property><con:name>LocalAA</con:name><con:value>1.1</con:value></con:property><con:property><con:name>LocalHCDescription</con:name><con:value>InternalTest1</con:value></con:property><con:property><con:name>LocalHCID</con:name><con:value>1.1</con:value></con:property><con:property><con:name>LocalPatientID</con:name><con:value>D123401</con:value></con:property><con:property><con:name>MockHost</con:name><con:value>localhost</con:value></con:property><con:property><con:name>NHINGatewayHost</con:name><con:value>localhost</con:value></con:property><con:property><con:name>PatientCorrelationDB</con:name><con:value>patientcorrelationdb</con:value></con:property><con:property><con:name>PatientCorrelationTable</con:name><con:value>correlatedidentifiers</con:value></con:property><con:property><con:name>Region1</con:name><con:value>US-VA</con:value></con:property>
 	
 	
 	
