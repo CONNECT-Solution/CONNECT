@@ -70,7 +70,7 @@ public class AdminDistribution20WebServices extends AbstractAdminDistributionWeb
         boolean isPassthru = false;
         NhinAdministrativeDistribution_g1 nhinAD = retrieveBean(NhinAdministrativeDistribution_g1.class, getNhinBeanName());
         InboundAdminDistribution inboundAD = nhinAD.getInboundAdminDistribution();
-        if (DEFAULT_INBOUND_PASSTHRU_IMPL_CLASS_NAME.equals(inboundAD.getClass().getName())) {
+        if (compareClassName(inboundAD, DEFAULT_INBOUND_PASSTHRU_IMPL_CLASS_NAME)) {
             isPassthru = true;
         }
         return isPassthru;
@@ -84,7 +84,7 @@ public class AdminDistribution20WebServices extends AbstractAdminDistributionWeb
         boolean isPassthru = false;
         EntityAdministrativeDistribution_g1 entityAD = retrieveBean(EntityAdministrativeDistribution_g1.class, getEntityUnsecuredBeanName());
         OutboundAdminDistribution outboundAD = entityAD.getOutboundAdminDistribution();
-        if (DEFAULT_OUTBOUND_PASSTHRU_IMPL_CLASS_NAME.equals(outboundAD.getClass().getName())) {
+        if (compareClassName(outboundAD, DEFAULT_OUTBOUND_PASSTHRU_IMPL_CLASS_NAME)) {
             isPassthru = true;
         }
         return isPassthru;
@@ -154,7 +154,7 @@ public class AdminDistribution20WebServices extends AbstractAdminDistributionWeb
         boolean isPassthru = false;
         EntityAdministrativeDistribution_g1 entityAD = retrieveBean(EntityAdministrativeDistribution_g1.class, getEntityUnsecuredBeanName());
         OutboundAdminDistribution outboundAD = entityAD.getOutboundAdminDistribution();
-        if (DEFAULT_OUTBOUND_STANDARD_IMPL_CLASS_NAME.equals(outboundAD.getClass().getName())) {
+        if (compareClassName(outboundAD, DEFAULT_OUTBOUND_STANDARD_IMPL_CLASS_NAME)) {
             isPassthru = true;
         }
         return isPassthru;
@@ -168,7 +168,7 @@ public class AdminDistribution20WebServices extends AbstractAdminDistributionWeb
         boolean isStandard = false;
         NhinAdministrativeDistribution_g1 nhinAD = retrieveBean(NhinAdministrativeDistribution_g1.class, getNhinBeanName());
         InboundAdminDistribution inboundAD = nhinAD.getInboundAdminDistribution();
-        if (DEFAULT_INBOUND_STANDARD_IMPL_CLASS_NAME.equals(inboundAD.getClass().getName())) {
+        if (compareClassName(inboundAD, DEFAULT_INBOUND_STANDARD_IMPL_CLASS_NAME)) {
             isStandard = true;
         }
         return isStandard;

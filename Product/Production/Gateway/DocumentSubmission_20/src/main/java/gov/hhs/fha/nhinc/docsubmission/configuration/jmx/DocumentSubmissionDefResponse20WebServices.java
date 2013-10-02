@@ -72,7 +72,7 @@ public class DocumentSubmissionDefResponse20WebServices extends AbstractDSDeferr
         boolean isPassthru = false;
         NhinXDRResponse20 nhinDS = retrieveBean(NhinXDRResponse20.class, getNhinBeanName());
         InboundDocSubmissionDeferredResponse outboundDS = nhinDS.getInboundDocSubmission();
-        if (DEFAULT_INBOUND_PASSTHRU_IMPL_CLASS_NAME.equals(outboundDS.getClass().getName())) {
+        if (compareClassName(outboundDS, DEFAULT_INBOUND_PASSTHRU_IMPL_CLASS_NAME)) {
             isPassthru = true;
         }
         return isPassthru;
@@ -89,7 +89,7 @@ public class DocumentSubmissionDefResponse20WebServices extends AbstractDSDeferr
         EntityDocSubmissionDeferredResponseUnsecured_g1 entityDS = retrieveBean(
                 EntityDocSubmissionDeferredResponseUnsecured_g1.class, getEntityUnsecuredBeanName());
         OutboundDocSubmissionDeferredResponse outboundDS = entityDS.getOutboundDocSubmission();
-        if (DEFAULT_OUTBOUND_PASSTHRU_IMPL_CLASS_NAME.equals(outboundDS.getClass().getName())) {
+        if (compareClassName(outboundDS, DEFAULT_OUTBOUND_PASSTHRU_IMPL_CLASS_NAME)) {
             isPassthru = true;
         }
         return isPassthru;
@@ -173,7 +173,7 @@ public class DocumentSubmissionDefResponse20WebServices extends AbstractDSDeferr
         boolean isStandard = false;
         NhinXDRResponse20 nhinDS = retrieveBean(NhinXDRResponse20.class, getNhinBeanName());
         InboundDocSubmissionDeferredResponse outboundDS = nhinDS.getInboundDocSubmission();
-        if (DEFAULT_INBOUND_STANDARD_IMPL_CLASS_NAME.equals(outboundDS.getClass().getName())) {
+        if (compareClassName(outboundDS, DEFAULT_INBOUND_STANDARD_IMPL_CLASS_NAME)) {
             isStandard = true;
         }
         return isStandard;
@@ -190,7 +190,7 @@ public class DocumentSubmissionDefResponse20WebServices extends AbstractDSDeferr
         EntityDocSubmissionDeferredResponseUnsecured_g1 entityDS = retrieveBean(
                 EntityDocSubmissionDeferredResponseUnsecured_g1.class, getEntityUnsecuredBeanName());
         OutboundDocSubmissionDeferredResponse outboundDS = entityDS.getOutboundDocSubmission();
-        if (DEFAULT_OUTBOUND_STANDARD_IMPL_CLASS_NAME.equals(outboundDS.getClass().getName())) {
+        if (compareClassName(outboundDS, DEFAULT_OUTBOUND_STANDARD_IMPL_CLASS_NAME)) {
             isStandard = true;
         }
         return isStandard;

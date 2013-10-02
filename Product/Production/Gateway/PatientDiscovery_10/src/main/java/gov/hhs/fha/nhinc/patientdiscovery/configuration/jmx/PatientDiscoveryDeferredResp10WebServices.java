@@ -121,7 +121,7 @@ public class PatientDiscoveryDeferredResp10WebServices extends AbstractWebServic
         NhinPatientDiscoveryDeferredResponse nhinPD = retrieveBean(NhinPatientDiscoveryDeferredResponse.class,
                 getNhinBeanName());
         InboundPatientDiscoveryDeferredResponse inboundPatientDiscovery = nhinPD.getInboundPatientDiscovery();
-        if (DEFAULT_INBOUND_PASSTHRU_IMPL_CLASS_NAME.equals(inboundPatientDiscovery.getClass().getName())) {
+        if (compareClassName(inboundPatientDiscovery, DEFAULT_INBOUND_PASSTHRU_IMPL_CLASS_NAME)) {
             isPassthru = true;
         }
         return isPassthru;
@@ -138,7 +138,7 @@ public class PatientDiscoveryDeferredResp10WebServices extends AbstractWebServic
         EntityPatientDiscoveryDeferredResponseUnsecured entityPD = retrieveBean(
                 EntityPatientDiscoveryDeferredResponseUnsecured.class, getEntityUnsecuredBeanName());
         OutboundPatientDiscoveryDeferredResponse outboundPatientDiscovery = entityPD.getOutboundPatientDiscovery();
-        if (DEFAULT_INBOUND_PASSTHRU_IMPL_CLASS_NAME.equals(outboundPatientDiscovery.getClass().getName())) {
+        if (compareClassName(outboundPatientDiscovery, DEFAULT_OUTBOUND_PASSTHRU_IMPL_CLASS_NAME)) {
             isPassthru = true;
         }
         return isPassthru;
@@ -230,7 +230,7 @@ public class PatientDiscoveryDeferredResp10WebServices extends AbstractWebServic
         EntityPatientDiscoveryDeferredResponseUnsecured entityPD = retrieveBean(
                 EntityPatientDiscoveryDeferredResponseUnsecured.class, getEntityUnsecuredBeanName());
         OutboundPatientDiscoveryDeferredResponse outboundPatientDiscovery = entityPD.getOutboundPatientDiscovery();
-        if (DEFAULT_OUTBOUND_STANDARD_IMPL_CLASS_NAME.equals(outboundPatientDiscovery.getClass().getName())) {
+        if (compareClassName(outboundPatientDiscovery, DEFAULT_OUTBOUND_STANDARD_IMPL_CLASS_NAME)) {
             isStandard = true;
         }
         return isStandard;
@@ -244,10 +244,10 @@ public class PatientDiscoveryDeferredResp10WebServices extends AbstractWebServic
     @Override
     public boolean isInboundStandard() {
         boolean isStandard = false;
-        EntityPatientDiscoveryDeferredResponseUnsecured entityPD = retrieveBean(
-                EntityPatientDiscoveryDeferredResponseUnsecured.class, getEntityUnsecuredBeanName());
-        OutboundPatientDiscoveryDeferredResponse outboundPatientDiscovery = entityPD.getOutboundPatientDiscovery();
-        if (DEFAULT_INBOUND_STANDARD_IMPL_CLASS_NAME.equals(outboundPatientDiscovery.getClass().getName())) {
+        NhinPatientDiscoveryDeferredResponse nhinPD = retrieveBean(
+        		NhinPatientDiscoveryDeferredResponse.class, getNhinBeanName());
+        InboundPatientDiscoveryDeferredResponse inboundPatientDiscovery = nhinPD.getInboundPatientDiscovery();
+        if (compareClassName(inboundPatientDiscovery, DEFAULT_INBOUND_STANDARD_IMPL_CLASS_NAME)) {
             isStandard = true;
         }
         return isStandard;

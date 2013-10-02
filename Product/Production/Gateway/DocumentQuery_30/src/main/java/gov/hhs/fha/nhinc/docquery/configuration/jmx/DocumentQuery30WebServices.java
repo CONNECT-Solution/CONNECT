@@ -113,7 +113,7 @@ public class DocumentQuery30WebServices extends AbstractDQWebServicesMXBean {
         boolean isPassthru = false;
         DocQuery docQuery = retrieveBean(DocQuery.class, getNhinBeanName());
         InboundDocQuery inboundDocQuery = docQuery.getInboundDocQuery();
-        if (DEFAULT_INBOUND_PASSTHRU_IMPL_CLASS_NAME.equals(inboundDocQuery.getClass().getName())) {
+        if (compareClassName(inboundDocQuery, DEFAULT_INBOUND_PASSTHRU_IMPL_CLASS_NAME)) {
             isPassthru = true;
         }
         return isPassthru;
@@ -130,7 +130,7 @@ public class DocumentQuery30WebServices extends AbstractDQWebServicesMXBean {
         EntityDocQueryUnsecured entityDocQuery = retrieveBean(EntityDocQueryUnsecured.class,
                 getEntityUnsecuredBeanName());
         OutboundDocQuery outboundDocQuery = entityDocQuery.getOutboundDocQuery();
-        if (DEFAULT_OUTBOUND_PASSTHRU_IMPL_CLASS_NAME.equals(outboundDocQuery.getClass().getName())) {
+        if (compareClassName(outboundDocQuery, DEFAULT_OUTBOUND_PASSTHRU_IMPL_CLASS_NAME)) {
             isPassthru = true;
         }
         return isPassthru;
@@ -192,7 +192,7 @@ public class DocumentQuery30WebServices extends AbstractDQWebServicesMXBean {
         EntityDocQueryUnsecured entityDocQuery = retrieveBean(EntityDocQueryUnsecured.class,
                 getEntityUnsecuredBeanName());
         OutboundDocQuery outboundDocQuery = entityDocQuery.getOutboundDocQuery();
-        if (DEFAULT_OUTBOUND_PASSTHRU_IMPL_CLASS_NAME.equals(outboundDocQuery.getClass().getName())) {
+        if (compareClassName(outboundDocQuery, DEFAULT_OUTBOUND_STANDARD_IMPL_CLASS_NAME)) {
             isStandard = true;
         }
         return isStandard;
@@ -208,7 +208,7 @@ public class DocumentQuery30WebServices extends AbstractDQWebServicesMXBean {
         boolean isStandard = false;
         DocQuery docQuery = retrieveBean(DocQuery.class, getNhinBeanName());
         InboundDocQuery inboundDocQuery = docQuery.getInboundDocQuery();
-        if (DEFAULT_INBOUND_STANDARD_IMPL_CLASS_NAME.equals(inboundDocQuery.getClass().getName())) {
+        if (compareClassName(inboundDocQuery, DEFAULT_INBOUND_STANDARD_IMPL_CLASS_NAME)) {
             isStandard = true;
         }
         return isStandard;
