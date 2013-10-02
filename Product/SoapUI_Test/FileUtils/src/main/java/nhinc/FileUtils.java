@@ -869,7 +869,7 @@ public class FileUtils {
                     org.apache.commons.io.FileUtils.copyDirectoryToDirectory(fileName, dest);
                 }
             } else {
-                org.apache.commons.io.FileUtils.copyFileToDirectory(fileName, dest);
+                org.apache.commons.io.FileUtils.copyFileToDirectory(fileName, dest, false);
             }
         }
     }
