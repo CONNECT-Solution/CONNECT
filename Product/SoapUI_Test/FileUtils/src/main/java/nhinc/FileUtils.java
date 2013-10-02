@@ -136,24 +136,10 @@ public class FileUtils {
             + destinationFile);
 
         if (sourceFile.exists()) {
-
             try {
-
-                InputStream in = new FileInputStream(sourceFile);
-                OutputStream out = new FileOutputStream(destinationFile);
-
-                byte[] buf = new byte[1024];
-                int len;
-
-                while ((len = in.read(buf)) > 0) {
-                    out.write(buf, 0, len);
-                }
-
-                in.close();
-                out.close();
+                org.apache.commons.io.FileUtils.copyFile(sourceFile, destinationFile, false);
                 log.info("File " + sourceFileName + " copied to "
                     + destinationFileName + ".");
-
             } catch (FileNotFoundException ex) {
                 log.error(ex.getMessage() + " in the specified directory.");
             } catch (IOException e) {
