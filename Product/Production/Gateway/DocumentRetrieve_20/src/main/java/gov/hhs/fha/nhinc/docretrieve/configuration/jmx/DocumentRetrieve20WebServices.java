@@ -68,7 +68,7 @@ public class DocumentRetrieve20WebServices extends AbstractDRWebServicesMXBean {
         boolean isPassthru = false;
         DocRetrieve docRetrieve = retrieveBean(DocRetrieve.class, getNhinBeanName());
         InboundDocRetrieve inboundDocRetrieve = docRetrieve.getInboundDocRetrieve();
-        if (DEFAULT_INBOUND_PASSTHRU_IMPL_CLASS_NAME.equals(inboundDocRetrieve.getClass().getName())) {
+        if (compareClassName(inboundDocRetrieve, DEFAULT_INBOUND_PASSTHRU_IMPL_CLASS_NAME)) {
             isPassthru = true;
         }
         return isPassthru;
@@ -84,7 +84,7 @@ public class DocumentRetrieve20WebServices extends AbstractDRWebServicesMXBean {
         boolean isPassthru = false;
         EntityDocRetrieve entityDocRetrieve = retrieveBean(EntityDocRetrieve.class, getEntityUnsecuredBeanName());
         OutboundDocRetrieve outboundDocRetrieve = entityDocRetrieve.getOutboundDocRetrieve();
-        if (DEFAULT_OUTBOUND_PASSTHRU_IMPL_CLASS_NAME.equals(outboundDocRetrieve.getClass().getName())) {
+        if (compareClassName(outboundDocRetrieve, DEFAULT_OUTBOUND_PASSTHRU_IMPL_CLASS_NAME)) {
             isPassthru = true;
         }
         return isPassthru;
@@ -146,7 +146,7 @@ public class DocumentRetrieve20WebServices extends AbstractDRWebServicesMXBean {
         boolean isStandard = false;
         DocRetrieve docRetrieve = retrieveBean(DocRetrieve.class, getNhinBeanName());
         InboundDocRetrieve inboundDocRetrieve = docRetrieve.getInboundDocRetrieve();
-        if (DEFAULT_INBOUND_STANDARD_IMPL_CLASS_NAME.equals(inboundDocRetrieve.getClass().getName())) {
+        if (compareClassName(inboundDocRetrieve, DEFAULT_INBOUND_STANDARD_IMPL_CLASS_NAME)) {
             isStandard = true;
         }
         return isStandard;
@@ -162,7 +162,7 @@ public class DocumentRetrieve20WebServices extends AbstractDRWebServicesMXBean {
         boolean isStandard = false;
         EntityDocRetrieve entityDocRetrieve = retrieveBean(EntityDocRetrieve.class, getEntityUnsecuredBeanName());
         OutboundDocRetrieve outboundDocRetrieve = entityDocRetrieve.getOutboundDocRetrieve();
-        if (DEFAULT_OUTBOUND_STANDARD_IMPL_CLASS_NAME.equals(outboundDocRetrieve.getClass().getName())) {
+        if (compareClassName(outboundDocRetrieve, DEFAULT_OUTBOUND_STANDARD_IMPL_CLASS_NAME)) {
             isStandard = true;
         }
         return isStandard;

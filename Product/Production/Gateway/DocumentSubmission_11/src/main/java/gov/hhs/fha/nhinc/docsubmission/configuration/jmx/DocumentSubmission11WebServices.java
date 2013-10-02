@@ -101,7 +101,7 @@ public class DocumentSubmission11WebServices extends AbstractDSWebServicesMXBean
         boolean isPassthru = false;
         NhinXDR nhinDS = retrieveBean(NhinXDR.class, getNhinBeanName());
         InboundDocSubmission inboundDS = nhinDS.getInboundDocSubmission();
-        if (DEFAULT_INBOUND_PASSTHRU_IMPL_CLASS_NAME.equals(inboundDS.getClass().getName())) {
+        if (compareClassName(inboundDS, DEFAULT_INBOUND_PASSTHRU_IMPL_CLASS_NAME)) {
             isPassthru = true;
         }
         return isPassthru;
@@ -117,7 +117,7 @@ public class DocumentSubmission11WebServices extends AbstractDSWebServicesMXBean
         boolean isPassthru = false;
         EntityDocSubmissionUnsecured entityDS = retrieveBean(EntityDocSubmissionUnsecured.class, getEntityUnsecuredBeanName());
         OutboundDocSubmission outboundDS = entityDS.getOutboundDocSubmission();
-        if (DEFAULT_OUTBOUND_PASSTHRU_IMPL_CLASS_NAME.equals(outboundDS.getClass().getName())) {
+        if (compareClassName(outboundDS, DEFAULT_OUTBOUND_PASSTHRU_IMPL_CLASS_NAME)) {
             isPassthru = true;
         }
         return isPassthru;
@@ -170,7 +170,7 @@ public class DocumentSubmission11WebServices extends AbstractDSWebServicesMXBean
         boolean isStandard = false;
         NhinXDR nhinDS = retrieveBean(NhinXDR.class, getNhinBeanName());
         InboundDocSubmission inboundDS = nhinDS.getInboundDocSubmission();
-        if (DEFAULT_INBOUND_STANDARD_IMPL_CLASS_NAME.equals(inboundDS.getClass().getName())) {
+        if (compareClassName(inboundDS, DEFAULT_INBOUND_STANDARD_IMPL_CLASS_NAME)) {
             isStandard = true;
         }
         return isStandard;
@@ -186,7 +186,7 @@ public class DocumentSubmission11WebServices extends AbstractDSWebServicesMXBean
         boolean isStandard = false;
         EntityDocSubmissionUnsecured entityDS = retrieveBean(EntityDocSubmissionUnsecured.class, getEntityUnsecuredBeanName());
         OutboundDocSubmission outboundDS = entityDS.getOutboundDocSubmission();
-        if (DEFAULT_OUTBOUND_STANDARD_IMPL_CLASS_NAME.equals(outboundDS.getClass().getName())) {
+        if (compareClassName(outboundDS, DEFAULT_OUTBOUND_STANDARD_IMPL_CLASS_NAME)) {
             isStandard = true;
         }
         return isStandard;

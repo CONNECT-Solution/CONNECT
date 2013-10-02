@@ -61,7 +61,7 @@ public class PatientDiscovery10WebServices extends AbstractPDWebServicesMXBean {
         boolean isPassthru = false;
         NhinPatientDiscovery nhinPD = retrieveBean(NhinPatientDiscovery.class, getNhinBeanName());
         InboundPatientDiscovery inboundPatientDiscovery = nhinPD.getInboundPatientDiscovery();
-        if (DEFAULT_INBOUND_PASSTHRU_IMPL_CLASS_NAME.equals(inboundPatientDiscovery.getClass().getName())) {
+        if (compareClassName(inboundPatientDiscovery, DEFAULT_INBOUND_PASSTHRU_IMPL_CLASS_NAME)) {
             isPassthru = true;
         }
         return isPassthru;
@@ -78,7 +78,7 @@ public class PatientDiscovery10WebServices extends AbstractPDWebServicesMXBean {
         EntityPatientDiscoveryUnsecured entityPD = retrieveBean(EntityPatientDiscoveryUnsecured.class,
                 getEntityUnsecuredBeanName());
         OutboundPatientDiscovery outboundPatientDiscovery = entityPD.getOutboundPatientDiscovery();
-        if (DEFAULT_INBOUND_PASSTHRU_IMPL_CLASS_NAME.equals(outboundPatientDiscovery.getClass().getName())) {
+        if (compareClassName(outboundPatientDiscovery, DEFAULT_OUTBOUND_PASSTHRU_IMPL_CLASS_NAME)) {
             isPassthru = true;
         }
         return isPassthru;
@@ -143,7 +143,7 @@ public class PatientDiscovery10WebServices extends AbstractPDWebServicesMXBean {
         EntityPatientDiscoveryUnsecured entityPD = retrieveBean(EntityPatientDiscoveryUnsecured.class,
                 getEntityUnsecuredBeanName());
         OutboundPatientDiscovery outboundPatientDiscovery = entityPD.getOutboundPatientDiscovery();
-        if (DEFAULT_OUTBOUND_STANDARD_IMPL_CLASS_NAME.equals(outboundPatientDiscovery.getClass().getName())) {
+        if (compareClassName(outboundPatientDiscovery, DEFAULT_OUTBOUND_STANDARD_IMPL_CLASS_NAME)) {
             isStandard = true;
         }
         return isStandard;
@@ -152,10 +152,10 @@ public class PatientDiscovery10WebServices extends AbstractPDWebServicesMXBean {
     @Override
     public boolean isInboundStandard() {
         boolean isStandard = false;
-        EntityPatientDiscoveryUnsecured entityPD = retrieveBean(EntityPatientDiscoveryUnsecured.class,
-                getEntityUnsecuredBeanName());
-        OutboundPatientDiscovery outboundPatientDiscovery = entityPD.getOutboundPatientDiscovery();
-        if (DEFAULT_INBOUND_STANDARD_IMPL_CLASS_NAME.equals(outboundPatientDiscovery.getClass().getName())) {
+        NhinPatientDiscovery nhinPD = retrieveBean(NhinPatientDiscovery.class,
+                getNhinBeanName());
+        InboundPatientDiscovery inboundPatientDiscovery = nhinPD.getInboundPatientDiscovery();
+        if (compareClassName(inboundPatientDiscovery, DEFAULT_INBOUND_STANDARD_IMPL_CLASS_NAME)) {
             isStandard = true;
         }
         return isStandard;

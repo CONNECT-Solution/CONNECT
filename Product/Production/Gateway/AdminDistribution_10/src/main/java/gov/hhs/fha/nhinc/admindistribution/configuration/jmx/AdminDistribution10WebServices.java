@@ -72,7 +72,7 @@ public class AdminDistribution10WebServices extends AbstractAdminDistributionWeb
         boolean isPassthru = false;
         NhinAdministrativeDistribution nhinAD = retrieveBean(NhinAdministrativeDistribution.class, getNhinBeanName());
         InboundAdminDistribution inboundAD = nhinAD.getInboundAdminDistribution();
-        if (DEFAULT_INBOUND_PASSTHRU_IMPL_CLASS_NAME.equals(inboundAD.getClass().getName())) {
+        if (compareClassName(inboundAD, DEFAULT_INBOUND_PASSTHRU_IMPL_CLASS_NAME)) {
             isPassthru = true;
         }
         return isPassthru;
@@ -89,7 +89,7 @@ public class AdminDistribution10WebServices extends AbstractAdminDistributionWeb
         EntityAdministrativeDistribution entityAD = retrieveBean(EntityAdministrativeDistribution.class,
                 getEntityUnsecuredBeanName());
         OutboundAdminDistribution outboundAD = entityAD.getOutboundAdminDistribution();
-        if (DEFAULT_OUTBOUND_PASSTHRU_IMPL_CLASS_NAME.equals(outboundAD.getClass().getName())) {
+        if (compareClassName(outboundAD, DEFAULT_OUTBOUND_PASSTHRU_IMPL_CLASS_NAME)) {
             isPassthru = true;
         }
         return isPassthru;
@@ -174,7 +174,7 @@ public class AdminDistribution10WebServices extends AbstractAdminDistributionWeb
         EntityAdministrativeDistribution entityAD = retrieveBean(EntityAdministrativeDistribution.class,
                 getEntityUnsecuredBeanName());
         OutboundAdminDistribution outboundAD = entityAD.getOutboundAdminDistribution();
-        if (DEFAULT_OUTBOUND_STANDARD_IMPL_CLASS_NAME.equals(outboundAD.getClass().getName())) {
+        if (compareClassName(outboundAD, DEFAULT_OUTBOUND_STANDARD_IMPL_CLASS_NAME)) {
             isStandard = true;
         }
         return isStandard;
@@ -189,7 +189,7 @@ public class AdminDistribution10WebServices extends AbstractAdminDistributionWeb
         boolean isStandard = false;
         NhinAdministrativeDistribution nhinAD = retrieveBean(NhinAdministrativeDistribution.class, getNhinBeanName());
         InboundAdminDistribution inboundAD = nhinAD.getInboundAdminDistribution();
-        if (DEFAULT_INBOUND_STANDARD_IMPL_CLASS_NAME.equals(inboundAD.getClass().getName())) {
+        if (compareClassName(inboundAD, DEFAULT_INBOUND_STANDARD_IMPL_CLASS_NAME)) {
             isStandard = true;
         }
         return isStandard;

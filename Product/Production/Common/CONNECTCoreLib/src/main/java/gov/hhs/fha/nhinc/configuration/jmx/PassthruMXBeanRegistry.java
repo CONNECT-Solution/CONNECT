@@ -144,12 +144,12 @@ public class PassthruMXBeanRegistry {
     public boolean isPassthru(serviceEnum serviceName, directionEnum direction) {
         boolean passthruMode = false;
         for (WebServicesMXBean b : registeredBeans) {
-            if ((b.isInboundPassthru())
-                    && (direction.toString().equals("Inbound") && (b.getServiceName().equals(serviceName)))) {
+            if (direction.toString().equals("Inbound") && b.getServiceName().equals(serviceName)
+                    && b.isInboundPassthru()) {
                 passthruMode = true;
             }
-            if ((b.isOutboundPassthru())
-                    && (direction.toString().equals("Outbound") && (b.getServiceName().equals(serviceName)))) {
+            if (direction.toString().equals("Outbound") && b.getServiceName().equals(serviceName)
+                    && b.isOutboundPassthru()) {
                 passthruMode = true;
             }
         }
@@ -159,16 +159,15 @@ public class PassthruMXBeanRegistry {
     public boolean isStandard(serviceEnum serviceName, directionEnum direction) {
         boolean standardMode = false;
         for (WebServicesMXBean b : registeredBeans) {
-            if ((b.isOutboundStandard())
-                    && (direction.toString().equals("Outbound") && (b.getServiceName().equals(serviceName)))) {
+            if (direction.toString().equals("Outbound") && b.getServiceName().equals(serviceName)
+                    && b.isOutboundStandard()) {
                 standardMode = true;
             }
-            if ((b.isInboundStandard())
-                    && (direction.toString().equals("Inbound") && (b.getServiceName().equals(serviceName)))) {
+            if (direction.toString().equals("Inbound") && b.getServiceName().equals(serviceName)
+                    && b.isInboundStandard()) {
                 standardMode = true;
             }
         }
         return standardMode;
     }
-
 }
