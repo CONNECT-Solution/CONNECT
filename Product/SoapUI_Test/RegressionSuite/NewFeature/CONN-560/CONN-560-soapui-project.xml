@@ -10963,29 +10963,7 @@ This document and the information contained herein is provided on an "AS IS" bas
 		<con:runType>SEQUENTIAL</con:runType>
 		<con:testCase failOnError="true" failTestCaseOnErrors="true" id="53f821fb-e99b-4318-a86d-66e62b517650" keepSession="false" maxResults="0" name="Document Submission Deferred Req" searchProperties="true">
 			<con:settings/>
-			<con:testStep type="groovy" name="Check Passthru"><con:settings/><con:config><script>import nhinc.FileUtils;
-def dir = context.findProperty('GatewayPropDir');
-def file = "gateway.properties";
-def passthruProp = "docsubmission.inboundDocSubmissionRequest";
-
-def passthruValue = FileUtils.readProperty(dir, file, passthruProp, log);
-log.info "Passthrough property value = ${passthruValue}";
-
-if(passthruValue != null){
-	testRunner.testCase.setPropertyValue("PassThruOn", "true");
-	FileUtils.backupFile(dir, "PolicyEngineProxyConfig.xml", log);
-	//Updating PolicyEngine for passthrough
-	def alias = 'adapterpolicyengineorchestrator';
-	def aliasName = 'adapterpolicyengineorchestratorsamljava';
-	def replaceName = 'adapterpolicyengineorchestratornoopdeny';
-	
-	FileUtils.updateSpringConfig(dir, "PolicyEngineProxyConfig.xml", alias,
-		aliasName, replaceName, log);
-	
-} else {
-	testRunner.testCase.setPropertyValue("PassThruOn", "false");
-}
-</script></con:config></con:testStep>
+			
 	<con:testStep name="Doc Submission Deferred Req" type="request">
 				<con:settings/>
 				<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
@@ -11469,25 +11447,23 @@ assert request["//add:MessageID/text()"] == response["//add:RelatesTo/text()"];<
 nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);</con:setupScript>
 <con:tearDownScript>def dir = context.findProperty('GatewayPropDir');
 nhinc.FileUtils.restoreConfiguration(dir, log);
-if(context.findProperty("PassThruOn").toBoolean()){
-	nhinc.FileUtils.restoreFile(dir, "PolicyEngineProxyConfig.xml", log);
-}</con:tearDownScript>
+</con:tearDownScript>
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2013-09-19T14:40:16Z</con:value>
+		<con:value>2013-10-03T15:54:24Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2013-09-19T14:50:16Z</con:value>
+		<con:value>2013-10-03T16:04:24Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>09/19/2013 14:40:16</con:value>
+		<con:value>10/03/2013 15:54:24</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2013-10-19T00:00:00Z</con:value>
+		<con:value>2013-11-02T00:00:00Z</con:value>
 	</con:property>
 <con:property><con:name>PassThruOn</con:name><con:value>false</con:value></con:property></con:properties>
 <con:reportParameters/>
@@ -11508,29 +11484,7 @@ if(context.findProperty("PassThruOn").toBoolean()){
 
 <con:testCase failOnError="true" failTestCaseOnErrors="true" id="dc3b8bf1-91e1-4aeb-b865-8b5c6b388a4f" keepSession="false" maxResults="0" name="Document Submission Deferred Resp" searchProperties="true">
 	<con:settings/>
-	<con:testStep type="groovy" name="Check Passthru"><con:settings/><con:config><script>import nhinc.FileUtils;
-def dir = context.findProperty('GatewayPropDir');
-def file = "gateway.properties";
-def passthruProp = "docsubmission.inboundDocSubmissionResponse";
-
-def passthruValue = FileUtils.readProperty(dir, file, passthruProp, log);
-log.info "Passthrough property value = ${passthruValue}";
-
-if(passthruValue != null){
-	testRunner.testCase.setPropertyValue("PassThruOn", "true");
-	FileUtils.backupFile(dir, "PolicyEngineProxyConfig.xml", log);
-	//Updating PolicyEngine for passthrough
-	def alias = 'adapterpolicyengineorchestrator';
-	def aliasName = 'adapterpolicyengineorchestratorsamljava';
-	def replaceName = 'adapterpolicyengineorchestratornoopdeny';
 	
-	FileUtils.updateSpringConfig(dir, "PolicyEngineProxyConfig.xml", alias,
-		aliasName, replaceName, log);
-	
-} else {
-	testRunner.testCase.setPropertyValue("PassThruOn", "false");
-}
-</script></con:config></con:testStep>
 <con:testStep name="Doc Submission Deferred Resp" type="request">
 		<con:settings/>
 		<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
@@ -11876,47 +11830,25 @@ if(context.findProperty("PassThruOn").toBoolean()){
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2013-09-19T14:40:17Z</con:value>
+		<con:value>2013-10-03T15:54:24Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2013-09-19T14:50:17Z</con:value>
+		<con:value>2013-10-03T16:04:24Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>09/19/2013 14:40:17</con:value>
+		<con:value>10/03/2013 15:54:24</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2013-10-19T00:00:00Z</con:value>
+		<con:value>2013-11-02T00:00:00Z</con:value>
 	</con:property>
 <con:property><con:name>PassThruOn</con:name><con:value>false</con:value></con:property></con:properties>
 </con:testCase>
 <con:testCase failOnError="true" failTestCaseOnErrors="true" id="fa57d83c-8474-4625-9186-b3902fdda4ab" keepSession="false" maxResults="0" name="Document Submission" searchProperties="true">
 	<con:settings/>
-	<con:testStep type="groovy" name="Check Passthru"><con:settings/><con:config><script>import nhinc.FileUtils;
-def dir = context.findProperty('GatewayPropDir');
-def file = "gateway.properties";
-def passthruProp = "docsubmission.inboundDocSubmission";
-
-def passthruValue = FileUtils.readProperty(dir, file, passthruProp, log);
-log.info "Passthrough property value = ${passthruValue}";
-
-if(passthruValue != null){
-	testRunner.testCase.setPropertyValue("PassThruOn", "true");
-	FileUtils.backupFile(dir, "PolicyEngineProxyConfig.xml", log);
-	//Updating PolicyEngine for passthrough
-	def alias = 'adapterpolicyengineorchestrator';
-	def aliasName = 'adapterpolicyengineorchestratorsamljava';
-	def replaceName = 'adapterpolicyengineorchestratornoopdeny';
 	
-	FileUtils.updateSpringConfig(dir, "PolicyEngineProxyConfig.xml", alias,
-		aliasName, replaceName, log);
-	
-} else {
-	testRunner.testCase.setPropertyValue("PassThruOn", "false");
-}
-</script></con:config></con:testStep>
 <con:testStep name="Doc Submission" type="request">
 		<con:settings/>
 		<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
@@ -12396,25 +12328,23 @@ if(passthruValue != null){
 nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);</con:setupScript>
 <con:tearDownScript>def dir = context.findProperty('GatewayPropDir');
 nhinc.FileUtils.restoreConfiguration(dir, log);
-if(context.findProperty("PassThruOn").toBoolean()){
-	nhinc.FileUtils.restoreFile(dir, "PolicyEngineProxyConfig.xml", log);
-}</con:tearDownScript>
+</con:tearDownScript>
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2013-09-19T14:40:18Z</con:value>
+		<con:value>2013-10-03T15:54:25Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2013-09-19T14:50:18Z</con:value>
+		<con:value>2013-10-03T16:04:25Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>09/19/2013 14:40:18</con:value>
+		<con:value>10/03/2013 15:54:25</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2013-10-19T00:00:00Z</con:value>
+		<con:value>2013-11-02T00:00:00Z</con:value>
 	</con:property>
 <con:property><con:name>PassThruOn</con:name><con:value>false</con:value></con:property></con:properties>
 <con:reportParameters/>
@@ -12438,29 +12368,7 @@ if(context.findProperty("PassThruOn").toBoolean()){
 	<con:runType>SEQUENTIAL</con:runType>
 	<con:testCase failOnError="true" failTestCaseOnErrors="true" id="0c38fd36-469a-44e4-829a-93b26dce8709" keepSession="false" maxResults="0" name="Document Submission Deferred Req" searchProperties="true">
 		<con:settings/>
-		<con:testStep type="groovy" name="Check Passthru"><con:settings/><con:config><script>import nhinc.FileUtils;
-def dir = context.findProperty('GatewayPropDir');
-def file = "gateway.properties";
-def passthruProp = "docsubmission.inboundDocSubmissionRequest";
-
-def passthruValue = FileUtils.readProperty(dir, file, passthruProp, log);
-log.info "Passthrough property value = ${passthruValue}";
-
-if(passthruValue != null){
-	testRunner.testCase.setPropertyValue("PassThruOn", "true");
-	FileUtils.backupFile(dir, "PolicyEngineProxyConfig.xml", log);
-	//Updating PolicyEngine for passthrough
-	def alias = 'adapterpolicyengineorchestrator';
-	def aliasName = 'adapterpolicyengineorchestratorsamljava';
-	def replaceName = 'adapterpolicyengineorchestratornoopdeny';
-	
-	FileUtils.updateSpringConfig(dir, "PolicyEngineProxyConfig.xml", alias,
-		aliasName, replaceName, log);
-	
-} else {
-	testRunner.testCase.setPropertyValue("PassThruOn", "false");
-}
-</script></con:config></con:testStep>
+		
 <con:testStep name="Doc Submission Deferred Req" type="request">
 			<con:settings/>
 			<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
@@ -12944,54 +12852,30 @@ assert request["//add:MessageID/text()"] == response["//add:RelatesTo/text()"];<
 nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);</con:setupScript>
 <con:tearDownScript>def dir = context.findProperty('GatewayPropDir');
 nhinc.FileUtils.restoreConfiguration(dir, log);
-if(context.findProperty("PassThruOn").toBoolean()){
-	nhinc.FileUtils.restoreFile(dir, "PolicyEngineProxyConfig.xml", log);
-}</con:tearDownScript>
+</con:tearDownScript>
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2013-09-19T14:40:19Z</con:value>
+		<con:value>2013-10-03T15:54:26Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2013-09-19T14:50:19Z</con:value>
+		<con:value>2013-10-03T16:04:26Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>09/19/2013 14:40:19</con:value>
+		<con:value>10/03/2013 15:54:26</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2013-10-19T00:00:00Z</con:value>
+		<con:value>2013-11-02T00:00:00Z</con:value>
 	</con:property>
 <con:property><con:name>PassThruOn</con:name><con:value>false</con:value></con:property></con:properties>
 <con:reportParameters/>
 </con:testCase>
 <con:testCase failOnError="true" failTestCaseOnErrors="true" id="2622180a-2230-4df7-8f36-e1c9ad29bba8" keepSession="false" maxResults="0" name="Document Submission Deferred Resp" searchProperties="true">
 	<con:settings/>
-	<con:testStep type="groovy" name="Check Passthru"><con:settings/><con:config><script>import nhinc.FileUtils;
-def dir = context.findProperty('GatewayPropDir');
-def file = "gateway.properties";
-def passthruProp = "docsubmission.inboundDocSubmissionResponse";
-
-def passthruValue = FileUtils.readProperty(dir, file, passthruProp, log);
-log.info "Passthrough property value = ${passthruValue}";
-
-if(passthruValue != null){
-	testRunner.testCase.setPropertyValue("PassThruOn", "true");
-	FileUtils.backupFile(dir, "PolicyEngineProxyConfig.xml", log);
-	//Updating PolicyEngine for passthrough
-	def alias = 'adapterpolicyengineorchestrator';
-	def aliasName = 'adapterpolicyengineorchestratorsamljava';
-	def replaceName = 'adapterpolicyengineorchestratornoopdeny';
 	
-	FileUtils.updateSpringConfig(dir, "PolicyEngineProxyConfig.xml", alias,
-		aliasName, replaceName, log);
-	
-} else {
-	testRunner.testCase.setPropertyValue("PassThruOn", "false");
-}
-</script></con:config></con:testStep>
 <con:testStep name="Doc Submission Deferred Resp" type="request">
 		<con:settings/>
 		<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
@@ -13336,53 +13220,29 @@ if(passthruValue != null){
 nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);</con:setupScript>
 <con:tearDownScript>def dir = context.findProperty('GatewayPropDir');
 nhinc.FileUtils.restoreConfiguration(dir, log);
-if(context.findProperty("PassThruOn").toBoolean()){
-	nhinc.FileUtils.restoreFile(dir, "PolicyEngineProxyConfig.xml", log);
-}</con:tearDownScript>
+</con:tearDownScript>
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2013-09-19T14:40:20Z</con:value>
+		<con:value>2013-10-03T15:54:26Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2013-09-19T14:50:20Z</con:value>
+		<con:value>2013-10-03T16:04:26Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>09/19/2013 14:40:20</con:value>
+		<con:value>10/03/2013 15:54:26</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2013-10-19T00:00:00Z</con:value>
+		<con:value>2013-11-02T00:00:00Z</con:value>
 	</con:property>
 <con:property><con:name>PassThruOn</con:name><con:value>false</con:value></con:property></con:properties>
 </con:testCase>
 <con:testCase failOnError="true" failTestCaseOnErrors="true" id="6d469896-2c35-4890-ae94-1750cd08214e" keepSession="false" maxResults="0" name="Document Submission" searchProperties="true">
 	<con:settings/>
-	<con:testStep type="groovy" name="Check Passthru"><con:settings/><con:config><script>import nhinc.FileUtils;
-def dir = context.findProperty('GatewayPropDir');
-def file = "gateway.properties";
-def passthruProp = "docsubmission.inboundDocSubmission";
-
-def passthruValue = FileUtils.readProperty(dir, file, passthruProp, log);
-log.info "Passthrough property value = ${passthruValue}";
-
-if(passthruValue != null){
-	testRunner.testCase.setPropertyValue("PassThruOn", "true");
-	FileUtils.backupFile(dir, "PolicyEngineProxyConfig.xml", log);
-	//Updating PolicyEngine for passthrough
-	def alias = 'adapterpolicyengineorchestrator';
-	def aliasName = 'adapterpolicyengineorchestratorsamljava';
-	def replaceName = 'adapterpolicyengineorchestratornoopdeny';
 	
-	FileUtils.updateSpringConfig(dir, "PolicyEngineProxyConfig.xml", alias,
-		aliasName, replaceName, log);
-	
-} else {
-	testRunner.testCase.setPropertyValue("PassThruOn", "false");
-}
-</script></con:config></con:testStep>
 <con:testStep name="Doc Submission" type="request">
 		<con:settings/>
 		<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
@@ -13861,25 +13721,23 @@ if(passthruValue != null){
 nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);</con:setupScript>
 <con:tearDownScript>def dir = context.findProperty('GatewayPropDir');
 nhinc.FileUtils.restoreConfiguration(dir, log);
-if(context.findProperty("PassThruOn").toBoolean()){
-	nhinc.FileUtils.restoreFile(dir, "PolicyEngineProxyConfig.xml", log);
-}</con:tearDownScript>
+</con:tearDownScript>
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2013-09-19T14:40:20Z</con:value>
+		<con:value>2013-10-03T15:54:27Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2013-09-19T14:50:20Z</con:value>
+		<con:value>2013-10-03T16:04:27Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>09/19/2013 14:40:20</con:value>
+		<con:value>10/03/2013 15:54:27</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2013-10-19T00:00:00Z</con:value>
+		<con:value>2013-11-02T00:00:00Z</con:value>
 	</con:property>
 <con:property><con:name>PassThruOn</con:name><con:value>false</con:value></con:property></con:properties>
 <con:reportParameters/>
@@ -13910,29 +13768,7 @@ if(context.findProperty("PassThruOn").toBoolean()){
 	<con:runType>SEQUENTIAL</con:runType>
 	<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Document Submission Deferred Req" searchProperties="true" id="1ba43019-f8d8-4b2e-a69c-df975041f334">
 		<con:settings/>
-		<con:testStep type="groovy" name="Check Passthru"><con:settings/><con:config><script>import nhinc.FileUtils;
-def dir = context.findProperty('GatewayPropDir');
-def file = "gateway.properties";
-def passthruProp = "docsubmission.inboundDocSubmissionRequest";
-
-def passthruValue = FileUtils.readProperty(dir, file, passthruProp, log);
-log.info "Passthrough property value = ${passthruValue}";
-
-if(passthruValue != null){
-	testRunner.testCase.setPropertyValue("PassThruOn", "true");
-	FileUtils.backupFile(dir, "PolicyEngineProxyConfig.xml", log);
-	//Updating PolicyEngine for passthrough
-	def alias = 'adapterpolicyengineorchestrator';
-	def aliasName = 'adapterpolicyengineorchestratorsamljava';
-	def replaceName = 'adapterpolicyengineorchestratornoopdeny';
-	
-	FileUtils.updateSpringConfig(dir, "PolicyEngineProxyConfig.xml", alias,
-		aliasName, replaceName, log);
-	
-} else {
-	testRunner.testCase.setPropertyValue("PassThruOn", "false");
-}
-</script></con:config></con:testStep>
+		
 <con:testStep name="Doc Submission Deferred Req" type="request">
 			<con:settings/>
 			<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
@@ -14414,60 +14250,33 @@ assert request["//add:MessageID/text()"] == response["//add:RelatesTo/text()"];<
 	</con:config>
 </con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
 nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);
-def config = context.getConfiguration();
-config.setPassthruMode();</con:setupScript>
+context.setGatewayStandard(false);</con:setupScript>
 <con:tearDownScript>def dir = context.findProperty('GatewayPropDir');
 nhinc.FileUtils.restoreConfiguration(dir, log);
-if(context.findProperty("PassThruOn").toBoolean()){
-	nhinc.FileUtils.restoreFile(dir, "PolicyEngineProxyConfig.xml", log);
-}
-def config = context.getConfiguration();
-config.setStandardMode();</con:tearDownScript>
+context.setGatewayStandard(true);</con:tearDownScript>
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2013-09-19T14:40:20Z</con:value>
+		<con:value>2013-10-03T15:54:27Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2013-09-19T14:50:20Z</con:value>
+		<con:value>2013-10-03T16:04:27Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>09/19/2013 14:40:20</con:value>
+		<con:value>10/03/2013 15:54:27</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2013-10-19T00:00:00Z</con:value>
+		<con:value>2013-11-02T00:00:00Z</con:value>
 	</con:property>
-<con:property><con:name>PassThruOn</con:name><con:value>false</con:value></con:property></con:properties>
+<con:property><con:name>PassThruOn</con:name><con:value>true</con:value></con:property></con:properties>
 <con:reportParameters/>
 </con:testCase>
 <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Document Submission Deferred Resp" searchProperties="true" id="82222849-6565-41a9-a5cb-04ca682ea67c">
 	<con:settings/>
-	<con:testStep type="groovy" name="Check Passthru"><con:settings/><con:config><script>import nhinc.FileUtils;
-def dir = context.findProperty('GatewayPropDir');
-def file = "gateway.properties";
-def passthruProp = "docsubmission.inboundDocSubmissionResponse";
-
-def passthruValue = FileUtils.readProperty(dir, file, passthruProp, log);
-log.info "Passthrough property value = ${passthruValue}";
-
-if(passthruValue != null){
-	testRunner.testCase.setPropertyValue("PassThruOn", "true");
-	FileUtils.backupFile(dir, "PolicyEngineProxyConfig.xml", log);
-	//Updating PolicyEngine for passthrough
-	def alias = 'adapterpolicyengineorchestrator';
-	def aliasName = 'adapterpolicyengineorchestratorsamljava';
-	def replaceName = 'adapterpolicyengineorchestratornoopdeny';
 	
-	FileUtils.updateSpringConfig(dir, "PolicyEngineProxyConfig.xml", alias,
-		aliasName, replaceName, log);
-	
-} else {
-	testRunner.testCase.setPropertyValue("PassThruOn", "false");
-}
-</script></con:config></con:testStep>
 <con:testStep name="Doc Submission Deferred Resp" type="request">
 		<con:settings/>
 		<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
@@ -14810,59 +14619,32 @@ if(passthruValue != null){
 </con:config>
 </con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
 nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);
-def config = context.getConfiguration();
-config.setPassthruMode();</con:setupScript>
+context.setGatewayStandard(false);</con:setupScript>
 <con:tearDownScript>def dir = context.findProperty('GatewayPropDir');
 nhinc.FileUtils.restoreConfiguration(dir, log);
-if(context.findProperty("PassThruOn").toBoolean()){
-	nhinc.FileUtils.restoreFile(dir, "PolicyEngineProxyConfig.xml", log);
-}
-def config = context.getConfiguration();
-config.setStandardMode();</con:tearDownScript>
+context.setGatewayStandard(true);</con:tearDownScript>
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2013-09-19T14:40:21Z</con:value>
+		<con:value>2013-10-03T15:54:28Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2013-09-19T14:50:21Z</con:value>
+		<con:value>2013-10-03T16:04:28Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>09/19/2013 14:40:21</con:value>
+		<con:value>10/03/2013 15:54:28</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2013-10-19T00:00:00Z</con:value>
+		<con:value>2013-11-02T00:00:00Z</con:value>
 	</con:property>
-<con:property><con:name>PassThruOn</con:name><con:value>false</con:value></con:property></con:properties>
+<con:property><con:name>PassThruOn</con:name><con:value>true</con:value></con:property></con:properties>
 </con:testCase>
 <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Document Submission" searchProperties="true" id="8842f78f-3453-49f3-8b62-bd420b9f7644">
 	<con:settings/>
-	<con:testStep type="groovy" name="Check Passthru"><con:settings/><con:config><script>import nhinc.FileUtils;
-def dir = context.findProperty('GatewayPropDir');
-def file = "gateway.properties";
-def passthruProp = "docsubmission.inboundDocSubmission";
-
-def passthruValue = FileUtils.readProperty(dir, file, passthruProp, log);
-log.info "Passthrough property value = ${passthruValue}";
-
-if(passthruValue != null){
-	testRunner.testCase.setPropertyValue("PassThruOn", "true");
-	FileUtils.backupFile(dir, "PolicyEngineProxyConfig.xml", log);
-	//Updating PolicyEngine for passthrough
-	def alias = 'adapterpolicyengineorchestrator';
-	def aliasName = 'adapterpolicyengineorchestratorsamljava';
-	def replaceName = 'adapterpolicyengineorchestratornoopdeny';
 	
-	FileUtils.updateSpringConfig(dir, "PolicyEngineProxyConfig.xml", alias,
-		aliasName, replaceName, log);
-	
-} else {
-	testRunner.testCase.setPropertyValue("PassThruOn", "false");
-}
-</script></con:config></con:testStep>
 <con:testStep name="Doc Submission" type="request">
 		<con:settings/>
 		<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
@@ -15339,33 +15121,28 @@ if(passthruValue != null){
 </con:config>
 </con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
 nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);
-def config = context.getConfiguration();
-config.setPassthruMode();</con:setupScript>
+context.setGatewayStandard(false);</con:setupScript>
 <con:tearDownScript>def dir = context.findProperty('GatewayPropDir');
 nhinc.FileUtils.restoreConfiguration(dir, log);
-if(context.findProperty("PassThruOn").toBoolean()){
-	nhinc.FileUtils.restoreFile(dir, "PolicyEngineProxyConfig.xml", log);
-}
-def config = context.getConfiguration();
-config.setStandardMode();</con:tearDownScript>
+context.setGatewayStandard(true);</con:tearDownScript>
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2013-09-19T14:40:21Z</con:value>
+		<con:value>2013-10-03T15:54:29Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2013-09-19T14:50:21Z</con:value>
+		<con:value>2013-10-03T16:04:29Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>09/19/2013 14:40:21</con:value>
+		<con:value>10/03/2013 15:54:29</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2013-10-19T00:00:00Z</con:value>
+		<con:value>2013-11-02T00:00:00Z</con:value>
 	</con:property>
-<con:property><con:name>PassThruOn</con:name><con:value>false</con:value></con:property></con:properties>
+<con:property><con:name>PassThruOn</con:name><con:value>true</con:value></con:property></con:properties>
 <con:reportParameters/>
 </con:testCase>
 
@@ -15393,29 +15170,7 @@ config.setStandardMode();</con:tearDownScript>
 		<con:runType>SEQUENTIAL</con:runType>
 		<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Document Submission Deferred Req" searchProperties="true" id="f496e4ee-76d8-4c08-a20d-807f24bc0a51">
 			<con:settings/>
-			<con:testStep type="groovy" name="Check Passthru"><con:settings/><con:config><script>import nhinc.FileUtils;
-def dir = context.findProperty('GatewayPropDir');
-def file = "gateway.properties";
-def passthruProp = "docsubmission.inboundDocSubmissionRequest";
-
-def passthruValue = FileUtils.readProperty(dir, file, passthruProp, log);
-log.info "Passthrough property value = ${passthruValue}";
-
-if(passthruValue != null){
-	testRunner.testCase.setPropertyValue("PassThruOn", "true");
-	FileUtils.backupFile(dir, "PolicyEngineProxyConfig.xml", log);
-	//Updating PolicyEngine for passthrough
-	def alias = 'adapterpolicyengineorchestrator';
-	def aliasName = 'adapterpolicyengineorchestratorsamljava';
-	def replaceName = 'adapterpolicyengineorchestratornoopdeny';
-	
-	FileUtils.updateSpringConfig(dir, "PolicyEngineProxyConfig.xml", alias,
-		aliasName, replaceName, log);
-	
-} else {
-	testRunner.testCase.setPropertyValue("PassThruOn", "false");
-}
-</script></con:config></con:testStep>
+			
 	<con:testStep name="Doc Submission Deferred Req" type="request">
 				<con:settings/>
 				<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
@@ -15897,33 +15652,28 @@ assert request["//add:MessageID/text()"] == response["//add:RelatesTo/text()"];<
 		</con:config>
 	</con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
 nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);
-def config = context.getConfiguration();
-config.setPassthruMode();</con:setupScript>
+context.setGatewayStandard(false);</con:setupScript>
 <con:tearDownScript>def dir = context.findProperty('GatewayPropDir');
 nhinc.FileUtils.restoreConfiguration(dir, log);
-if(context.findProperty("PassThruOn").toBoolean()){
-	nhinc.FileUtils.restoreFile(dir, "PolicyEngineProxyConfig.xml", log);
-}
-def config = context.getConfiguration();
-config.setStandardMode();</con:tearDownScript>
+context.setGatewayStandard(true);</con:tearDownScript>
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2013-09-19T14:40:21Z</con:value>
+		<con:value>2013-10-03T15:54:29Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2013-09-19T14:50:21Z</con:value>
+		<con:value>2013-10-03T16:04:29Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>09/19/2013 14:40:21</con:value>
+		<con:value>10/03/2013 15:54:29</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2013-10-19T00:00:00Z</con:value>
+		<con:value>2013-11-02T00:00:00Z</con:value>
 	</con:property>
-<con:property><con:name>PassThruOn</con:name><con:value>false</con:value></con:property></con:properties>
+<con:property><con:name>PassThruOn</con:name><con:value>true</con:value></con:property></con:properties>
 <con:reportParameters/>
 </con:testCase>
 
@@ -15942,29 +15692,7 @@ config.setStandardMode();</con:tearDownScript>
 
 <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Document Submission Deferred Resp" searchProperties="true" id="f941bad6-34df-4aab-befd-68e672715762">
 	<con:settings/>
-	<con:testStep type="groovy" name="Check Passthru"><con:settings/><con:config><script>import nhinc.FileUtils;
-def dir = context.findProperty('GatewayPropDir');
-def file = "gateway.properties";
-def passthruProp = "docsubmission.inboundDocSubmissionResponse";
-
-def passthruValue = FileUtils.readProperty(dir, file, passthruProp, log);
-log.info "Passthrough property value = ${passthruValue}";
-
-if(passthruValue != null){
-	testRunner.testCase.setPropertyValue("PassThruOn", "true");
-	FileUtils.backupFile(dir, "PolicyEngineProxyConfig.xml", log);
-	//Updating PolicyEngine for passthrough
-	def alias = 'adapterpolicyengineorchestrator';
-	def aliasName = 'adapterpolicyengineorchestratorsamljava';
-	def replaceName = 'adapterpolicyengineorchestratornoopdeny';
 	
-	FileUtils.updateSpringConfig(dir, "PolicyEngineProxyConfig.xml", alias,
-		aliasName, replaceName, log);
-	
-} else {
-	testRunner.testCase.setPropertyValue("PassThruOn", "false");
-}
-</script></con:config></con:testStep>
 <con:testStep name="Doc Submission Deferred Resp" type="request">
 		<con:settings/>
 		<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
@@ -16302,59 +16030,32 @@ if(passthruValue != null){
 </con:config>
 </con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
 nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);
-def config = context.getConfiguration();
-config.setPassthruMode();</con:setupScript>
+context.setGatewayStandard(false);</con:setupScript>
 <con:tearDownScript>def dir = context.findProperty('GatewayPropDir');
 nhinc.FileUtils.restoreConfiguration(dir, log);
-if(context.findProperty("PassThruOn").toBoolean()){
-	nhinc.FileUtils.restoreFile(dir, "PolicyEngineProxyConfig.xml", log);
-}
-def config = context.getConfiguration();
-config.setStandardMode();</con:tearDownScript>
+context.setGatewayStandard(true);</con:tearDownScript>
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2013-09-19T14:40:22Z</con:value>
+		<con:value>2013-10-03T15:54:30Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2013-09-19T14:50:22Z</con:value>
+		<con:value>2013-10-03T16:04:30Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>09/19/2013 14:40:22</con:value>
+		<con:value>10/03/2013 15:54:30</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2013-10-19T00:00:00Z</con:value>
+		<con:value>2013-11-02T00:00:00Z</con:value>
 	</con:property>
-<con:property><con:name>PassThruOn</con:name><con:value>false</con:value></con:property></con:properties>
+<con:property><con:name>PassThruOn</con:name><con:value>true</con:value></con:property></con:properties>
 </con:testCase>
 <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Document Submission" searchProperties="true" id="24ec19a7-688d-41bd-844a-b64a24e11282">
 	<con:settings/>
-	<con:testStep type="groovy" name="Check Passthru"><con:settings/><con:config><script>import nhinc.FileUtils;
-def dir = context.findProperty('GatewayPropDir');
-def file = "gateway.properties";
-def passthruProp = "docsubmission.inboundDocSubmission";
-
-def passthruValue = FileUtils.readProperty(dir, file, passthruProp, log);
-log.info "Passthrough property value = ${passthruValue}";
-
-if(passthruValue != null){
-	testRunner.testCase.setPropertyValue("PassThruOn", "true");
-	FileUtils.backupFile(dir, "PolicyEngineProxyConfig.xml", log);
-	//Updating PolicyEngine for passthrough
-	def alias = 'adapterpolicyengineorchestrator';
-	def aliasName = 'adapterpolicyengineorchestratorsamljava';
-	def replaceName = 'adapterpolicyengineorchestratornoopdeny';
 	
-	FileUtils.updateSpringConfig(dir, "PolicyEngineProxyConfig.xml", alias,
-		aliasName, replaceName, log);
-	
-} else {
-	testRunner.testCase.setPropertyValue("PassThruOn", "false");
-}
-</script></con:config></con:testStep>
 <con:testStep name="Doc Submission" type="request">
 		<con:settings/>
 		<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
@@ -16832,33 +16533,28 @@ if(passthruValue != null){
 </con:config>
 </con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
 nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);
-def config = context.getConfiguration();
-config.setPassthruMode();</con:setupScript>
+context.setGatewayStandard(false);</con:setupScript>
 <con:tearDownScript>def dir = context.findProperty('GatewayPropDir');
 nhinc.FileUtils.restoreConfiguration(dir, log);
-if(context.findProperty("PassThruOn").toBoolean()){
-	nhinc.FileUtils.restoreFile(dir, "PolicyEngineProxyConfig.xml", log);
-}
-def config = context.getConfiguration();
-config.setStandardMode();</con:tearDownScript>
+context.setGatewayStandard(true);</con:tearDownScript>
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2013-09-19T14:40:22Z</con:value>
+		<con:value>2013-10-03T15:54:30Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2013-09-19T14:50:22Z</con:value>
+		<con:value>2013-10-03T16:04:30Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>09/19/2013 14:40:22</con:value>
+		<con:value>10/03/2013 15:54:30</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2013-10-19T00:00:00Z</con:value>
+		<con:value>2013-11-02T00:00:00Z</con:value>
 	</con:property>
-<con:property><con:name>PassThruOn</con:name><con:value>false</con:value></con:property></con:properties>
+<con:property><con:name>PassThruOn</con:name><con:value>true</con:value></con:property></con:properties>
 <con:reportParameters/>
 </con:testCase>
 
@@ -17085,7 +16781,86 @@ com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext.metaClass.getConfigurat
   def server = JmxFactory.connect(new JmxUrl(serverUrl), env).MBeanServerConnection
   def config = new GroovyMBean(server, 'org.connectopensource.mbeans:type=Configuration');
   return config;
-}</con:afterLoadScript>
+}
+
+com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext.metaClass.setGatewayStandard = { standard ->
+  def username = delegate.findProperty("ASUsername");
+  def password = delegate.findProperty("ASPassword");
+  def jmxHost = delegate.findProperty("JMXHost");
+  def jmxPort = delegate.findProperty("JMXPort");
+  log.info "Value of the Param Name -->"+name;
+  // use jmx to set passthru mode
+  def env = [
+    (JMXConnector.CREDENTIALS): (String[])[username, password]
+  ];
+  def serverUrl = 'service:jmx:rmi://' + jmxHost + ':' + jmxPort + '/jndi/rmi://' + jmxHost + ':' + jmxPort + 
+'/jmxrmi';
+  log.info "Standard valud-->"+standard
+  def server = JmxFactory.connect(new JmxUrl(serverUrl), env);
+  def config = new GroovyMBean(server.MBeanServerConnection, 'org.connectopensource.mbeans:type=Configuration');
+  //set the Gateway to Standard Mode
+    if (standard){
+  	config.setStandardMode();
+  	log.info "Inside STD"
+  }
+  else{
+  	log.info "Inside PASS"
+     config.setPassthruMode();	
+  }
+  server.close();
+  return true;
+}
+
+com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext.metaClass.isStandard = { serviceName, direction ->
+  def username = delegate.findProperty("ASUsername");
+  def password = delegate.findProperty("ASPassword");
+  def jmxHost = delegate.findProperty("JMXHost");
+  def jmxPort = delegate.findProperty("JMXPort");
+  log.info "Value of the Param Name -->"+name;
+  // use jmx to set passthru mode
+  def env = [
+    (JMXConnector.CREDENTIALS): (String[])[username, password]
+  ];
+  def serverUrl = 'service:jmx:rmi://' + jmxHost + ':' + jmxPort + '/jndi/rmi://' + jmxHost + ':' + jmxPort + 
+'/jmxrmi';
+   
+  def server = JmxFactory.connect(new JmxUrl(serverUrl), env);
+  def config = new GroovyMBean(server.MBeanServerConnection, 'org.connectopensource.mbeans:type=Configuration');
+  //set the Gateway to Standard Mode
+  def isStandard = config.isStandard(serviceName, direction);
+  server.close();
+  return isStandard;
+}
+
+com.eviware.soapui.impl.wsdl.testcase.WsdlTestRunContext.metaClass.setGatewayStandard = { standard, serviceName, direction ->
+  def username = delegate.findProperty("ASUsername");
+  def password = delegate.findProperty("ASPassword");
+  def jmxHost = delegate.findProperty("JMXHost");
+  def jmxPort = delegate.findProperty("JMXPort");
+  log.info "Value of the Param Name -->"+name;
+  // use jmx to set passthru mode
+  def env = [
+    (JMXConnector.CREDENTIALS): (String[])[username, password]
+  ];
+  def serverUrl = 'service:jmx:rmi://' + jmxHost + ':' + jmxPort + '/jndi/rmi://' + jmxHost + ':' + jmxPort + 
+'/jmxrmi';
+  log.info "Standard valud-->"+standard
+  def server = JmxFactory.connect(new JmxUrl(serverUrl), env);
+  def config = new GroovyMBean(server.MBeanServerConnection, 'org.connectopensource.mbeans:type=Configuration');
+  //set the Gateway to Standard Mode
+    if (standard){
+  	config.setStandardMode(serviceName, direction);
+  	log.info "Inside STD"
+  }
+  else{
+  	log.info "Inside PASS"
+     config.setPassthruMode(serviceName, direction);	
+  }
+  server.close();
+  return true;
+}
+
+</con:afterLoadScript>
 <con:wssContainer/>
 <con:databaseConnectionContainer/>
 <con:reporting>
