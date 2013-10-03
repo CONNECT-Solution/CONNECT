@@ -364,22 +364,23 @@ public class OpenSAMLAssertionExtractorImpl implements SAMLExtractorDOM {
         targetEvidenceAssertion.setVersion(saml2EvidenceAssertion.getVersion().toString());
 
         // Translate Evidence Attribute Statement
-        AttributeStatement saml2EvidenceAttributeStatement = saml2EvidenceAssertion.getAttributeStatements().get(0);
-        List<Attribute> saml2EvidenceAttributes = saml2EvidenceAttributeStatement.getAttributes();
+        for (AttributeStatement saml2EvidenceAttributeStatement : saml2EvidenceAssertion.getAttributeStatements()) {
+            List<Attribute> saml2EvidenceAttributes = saml2EvidenceAttributeStatement.getAttributes();
 
-        for (Attribute saml2EvidenceAttribute : saml2EvidenceAttributes) {
-            if (saml2EvidenceAttribute.getName().equals(ACCESS_CONSENT_POLICY_ATTRIBUTE_NAME)
-                    && saml2EvidenceAttribute.getAttributeValues().size() > 0) {
-                XMLObject xmlObject = saml2EvidenceAttribute.getAttributeValues().get(0);
-                String accessConsent = xmlObject.getDOM().getTextContent();
+            for (Attribute saml2EvidenceAttribute : saml2EvidenceAttributes) {
+                if (saml2EvidenceAttribute.getName().equals(ACCESS_CONSENT_POLICY_ATTRIBUTE_NAME)
+                        && saml2EvidenceAttribute.getAttributeValues().size() > 0) {
+                    XMLObject xmlObject = saml2EvidenceAttribute.getAttributeValues().get(0);
+                    String accessConsent = xmlObject.getDOM().getTextContent();
 
-                targetEvidenceAssertion.getAccessConsentPolicy().add(accessConsent);
-            } else if (saml2EvidenceAttribute.getName().equals(INSTANCE_ACCESS_CONSENT_POLICY_ATTRIBUTE_NAME)
-                    && saml2EvidenceAttribute.getAttributeValues().size() > 0) {
-                XMLObject xmlObject = saml2EvidenceAttribute.getAttributeValues().get(0);
-                String instanceAccessConsent = xmlObject.getDOM().getTextContent();
+                    targetEvidenceAssertion.getAccessConsentPolicy().add(accessConsent);
+                } else if (saml2EvidenceAttribute.getName().equals(INSTANCE_ACCESS_CONSENT_POLICY_ATTRIBUTE_NAME)
+                        && saml2EvidenceAttribute.getAttributeValues().size() > 0) {
+                    XMLObject xmlObject = saml2EvidenceAttribute.getAttributeValues().get(0);
+                    String instanceAccessConsent = xmlObject.getDOM().getTextContent();
 
-                targetEvidenceAssertion.getInstanceAccessConsentPolicy().add(instanceAccessConsent);
+                    targetEvidenceAssertion.getInstanceAccessConsentPolicy().add(instanceAccessConsent);
+                }
             }
         }
 
