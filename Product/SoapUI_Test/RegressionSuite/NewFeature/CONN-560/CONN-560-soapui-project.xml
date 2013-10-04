@@ -10964,7 +10964,24 @@ This document and the information contained herein is provided on an "AS IS" bas
 		<con:testCase failOnError="true" failTestCaseOnErrors="true" id="53f821fb-e99b-4318-a86d-66e62b517650" keepSession="false" maxResults="0" name="Document Submission Deferred Req" searchProperties="true">
 			<con:settings/>
 			
-	<con:testStep name="Doc Submission Deferred Req" type="request">
+	<con:testStep type="groovy" name="Copy uddiConnectionInfo"><con:settings/><con:config><script>import nhinc.FileUtils;
+def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
+def testCase = testRunner.getTestCase()
+def testSuite = testCase.getTestSuite()
+def project = testSuite.getProject()
+def projectPropFullFile = project.getPath()
+//def projectPropPath = groovyUtils.projectPath
+def projectPropPath = context.expand('${projectDir}')
+
+def sourceDir = projectPropPath;
+def sourceFile = "uddiConnectionInfo_g0.xml";
+//def destDir = context.findProperty( "NHINGatewayConfigDir" );
+def destDir = context.findProperty("GatewayPropDir");
+def destFile = "uddiConnectionInfo.xml";
+
+log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
+
+FileUtils.copyFile(sourceDir, sourceFile, destDir, destFile, log);</script></con:config></con:testStep><con:testStep name="Doc Submission Deferred Req" type="request">
 				<con:settings/>
 				<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 					<con:interface>EntityXDRAsyncRequest_Binding</con:interface>
@@ -11451,19 +11468,19 @@ nhinc.FileUtils.restoreConfiguration(dir, log);
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2013-10-03T15:54:24Z</con:value>
+		<con:value>2013-10-04T14:18:58Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2013-10-03T16:04:24Z</con:value>
+		<con:value>2013-10-04T14:28:58Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>10/03/2013 15:54:24</con:value>
+		<con:value>10/04/2013 14:18:58</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2013-11-02T00:00:00Z</con:value>
+		<con:value>2013-11-03T00:00:00Z</con:value>
 	</con:property>
 <con:property><con:name>PassThruOn</con:name><con:value>false</con:value></con:property></con:properties>
 <con:reportParameters/>
@@ -11485,7 +11502,24 @@ nhinc.FileUtils.restoreConfiguration(dir, log);
 <con:testCase failOnError="true" failTestCaseOnErrors="true" id="dc3b8bf1-91e1-4aeb-b865-8b5c6b388a4f" keepSession="false" maxResults="0" name="Document Submission Deferred Resp" searchProperties="true">
 	<con:settings/>
 	
-<con:testStep name="Doc Submission Deferred Resp" type="request">
+<con:testStep type="groovy" name="Groovy Script"><con:settings/><con:config><script>import nhinc.FileUtils;
+def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
+def testCase = testRunner.getTestCase()
+def testSuite = testCase.getTestSuite()
+def project = testSuite.getProject()
+def projectPropFullFile = project.getPath()
+//def projectPropPath = groovyUtils.projectPath
+def projectPropPath = context.expand('${projectDir}')
+
+def sourceDir = projectPropPath;
+def sourceFile = "uddiConnectionInfo_g0.xml";
+//def destDir = context.findProperty( "NHINGatewayConfigDir" );
+def destDir = context.findProperty("GatewayPropDir");
+def destFile = "uddiConnectionInfo.xml";
+
+log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
+
+FileUtils.copyFile(sourceDir, sourceFile, destDir, destFile, log);</script></con:config></con:testStep><con:testStep name="Doc Submission Deferred Resp" type="request">
 		<con:settings/>
 		<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 			<con:interface>EntityXDRAsyncResponse_Binding</con:interface>
@@ -11830,26 +11864,43 @@ if(context.findProperty("PassThruOn").toBoolean()){
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2013-10-03T15:54:24Z</con:value>
+		<con:value>2013-10-04T14:19:00Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2013-10-03T16:04:24Z</con:value>
+		<con:value>2013-10-04T14:29:00Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>10/03/2013 15:54:24</con:value>
+		<con:value>10/04/2013 14:19:00</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2013-11-02T00:00:00Z</con:value>
+		<con:value>2013-11-03T00:00:00Z</con:value>
 	</con:property>
 <con:property><con:name>PassThruOn</con:name><con:value>false</con:value></con:property></con:properties>
 </con:testCase>
 <con:testCase failOnError="true" failTestCaseOnErrors="true" id="fa57d83c-8474-4625-9186-b3902fdda4ab" keepSession="false" maxResults="0" name="Document Submission" searchProperties="true">
 	<con:settings/>
 	
-<con:testStep name="Doc Submission" type="request">
+<con:testStep type="groovy" name="Copy uddiConnectionInfo"><con:settings/><con:config><script>import nhinc.FileUtils;
+def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
+def testCase = testRunner.getTestCase()
+def testSuite = testCase.getTestSuite()
+def project = testSuite.getProject()
+def projectPropFullFile = project.getPath()
+//def projectPropPath = groovyUtils.projectPath
+def projectPropPath = context.expand('${projectDir}')
+
+def sourceDir = projectPropPath;
+def sourceFile = "uddiConnectionInfo_g0.xml";
+//def destDir = context.findProperty( "NHINGatewayConfigDir" );
+def destDir = context.findProperty("GatewayPropDir");
+def destFile = "uddiConnectionInfo.xml";
+
+log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
+
+FileUtils.copyFile(sourceDir, sourceFile, destDir, destFile, log);</script></con:config></con:testStep><con:testStep name="Doc Submission" type="request">
 		<con:settings/>
 		<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 			<con:interface>EntityXDR_Binding</con:interface>
@@ -12332,19 +12383,19 @@ nhinc.FileUtils.restoreConfiguration(dir, log);
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2013-10-03T15:54:25Z</con:value>
+		<con:value>2013-10-04T14:19:01Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2013-10-03T16:04:25Z</con:value>
+		<con:value>2013-10-04T14:29:01Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>10/03/2013 15:54:25</con:value>
+		<con:value>10/04/2013 14:19:01</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2013-11-02T00:00:00Z</con:value>
+		<con:value>2013-11-03T00:00:00Z</con:value>
 	</con:property>
 <con:property><con:name>PassThruOn</con:name><con:value>false</con:value></con:property></con:properties>
 <con:reportParameters/>
@@ -12369,7 +12420,24 @@ nhinc.FileUtils.restoreConfiguration(dir, log);
 	<con:testCase failOnError="true" failTestCaseOnErrors="true" id="0c38fd36-469a-44e4-829a-93b26dce8709" keepSession="false" maxResults="0" name="Document Submission Deferred Req" searchProperties="true">
 		<con:settings/>
 		
-<con:testStep name="Doc Submission Deferred Req" type="request">
+<con:testStep type="groovy" name="Copy uddiConnectionInfo"><con:settings/><con:config><script>import nhinc.FileUtils;
+def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
+def testCase = testRunner.getTestCase()
+def testSuite = testCase.getTestSuite()
+def project = testSuite.getProject()
+def projectPropFullFile = project.getPath()
+//def projectPropPath = groovyUtils.projectPath
+def projectPropPath = context.expand('${projectDir}')
+
+def sourceDir = projectPropPath;
+def sourceFile = "uddiConnectionInfo_g1.xml";
+//def destDir = context.findProperty( "NHINGatewayConfigDir" );
+def destDir = context.findProperty("GatewayPropDir");
+def destFile = "uddiConnectionInfo.xml";
+
+log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
+
+FileUtils.copyFile(sourceDir, sourceFile, destDir, destFile, log);</script></con:config></con:testStep><con:testStep name="Doc Submission Deferred Req" type="request">
 			<con:settings/>
 			<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 				<con:interface>EntityXDRAsyncRequest_Binding</con:interface>
@@ -12856,19 +12924,19 @@ nhinc.FileUtils.restoreConfiguration(dir, log);
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2013-10-03T15:54:26Z</con:value>
+		<con:value>2013-10-04T14:19:04Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2013-10-03T16:04:26Z</con:value>
+		<con:value>2013-10-04T14:29:04Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>10/03/2013 15:54:26</con:value>
+		<con:value>10/04/2013 14:19:04</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2013-11-02T00:00:00Z</con:value>
+		<con:value>2013-11-03T00:00:00Z</con:value>
 	</con:property>
 <con:property><con:name>PassThruOn</con:name><con:value>false</con:value></con:property></con:properties>
 <con:reportParameters/>
@@ -12876,7 +12944,24 @@ nhinc.FileUtils.restoreConfiguration(dir, log);
 <con:testCase failOnError="true" failTestCaseOnErrors="true" id="2622180a-2230-4df7-8f36-e1c9ad29bba8" keepSession="false" maxResults="0" name="Document Submission Deferred Resp" searchProperties="true">
 	<con:settings/>
 	
-<con:testStep name="Doc Submission Deferred Resp" type="request">
+<con:testStep type="groovy" name="Copy uddiConnectionInfo"><con:settings/><con:config><script>import nhinc.FileUtils;
+def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
+def testCase = testRunner.getTestCase()
+def testSuite = testCase.getTestSuite()
+def project = testSuite.getProject()
+def projectPropFullFile = project.getPath()
+//def projectPropPath = groovyUtils.projectPath
+def projectPropPath = context.expand('${projectDir}')
+
+def sourceDir = projectPropPath;
+def sourceFile = "uddiConnectionInfo_g1.xml";
+//def destDir = context.findProperty( "NHINGatewayConfigDir" );
+def destDir = context.findProperty("GatewayPropDir");
+def destFile = "uddiConnectionInfo.xml";
+
+log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
+
+FileUtils.copyFile(sourceDir, sourceFile, destDir, destFile, log);</script></con:config></con:testStep><con:testStep name="Doc Submission Deferred Resp" type="request">
 		<con:settings/>
 		<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 			<con:interface>EntityXDRAsyncResponse_Binding</con:interface>
@@ -13224,26 +13309,43 @@ nhinc.FileUtils.restoreConfiguration(dir, log);
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2013-10-03T15:54:26Z</con:value>
+		<con:value>2013-10-04T14:19:06Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2013-10-03T16:04:26Z</con:value>
+		<con:value>2013-10-04T14:29:06Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>10/03/2013 15:54:26</con:value>
+		<con:value>10/04/2013 14:19:06</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2013-11-02T00:00:00Z</con:value>
+		<con:value>2013-11-03T00:00:00Z</con:value>
 	</con:property>
 <con:property><con:name>PassThruOn</con:name><con:value>false</con:value></con:property></con:properties>
 </con:testCase>
 <con:testCase failOnError="true" failTestCaseOnErrors="true" id="6d469896-2c35-4890-ae94-1750cd08214e" keepSession="false" maxResults="0" name="Document Submission" searchProperties="true">
 	<con:settings/>
 	
-<con:testStep name="Doc Submission" type="request">
+<con:testStep type="groovy" name="Copy uddiConnectionInfo"><con:settings/><con:config><script>import nhinc.FileUtils;
+def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
+def testCase = testRunner.getTestCase()
+def testSuite = testCase.getTestSuite()
+def project = testSuite.getProject()
+def projectPropFullFile = project.getPath()
+//def projectPropPath = groovyUtils.projectPath
+def projectPropPath = context.expand('${projectDir}')
+
+def sourceDir = projectPropPath;
+def sourceFile = "uddiConnectionInfo_g1.xml";
+//def destDir = context.findProperty( "NHINGatewayConfigDir" );
+def destDir = context.findProperty("GatewayPropDir");
+def destFile = "uddiConnectionInfo.xml";
+
+log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
+
+FileUtils.copyFile(sourceDir, sourceFile, destDir, destFile, log);</script></con:config></con:testStep><con:testStep name="Doc Submission" type="request">
 		<con:settings/>
 		<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 			<con:interface>EntityXDR_Binding</con:interface>
@@ -13725,19 +13827,19 @@ nhinc.FileUtils.restoreConfiguration(dir, log);
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2013-10-03T15:54:27Z</con:value>
+		<con:value>2013-10-04T14:19:08Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2013-10-03T16:04:27Z</con:value>
+		<con:value>2013-10-04T14:29:08Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>10/03/2013 15:54:27</con:value>
+		<con:value>10/04/2013 14:19:08</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2013-11-02T00:00:00Z</con:value>
+		<con:value>2013-11-03T00:00:00Z</con:value>
 	</con:property>
 <con:property><con:name>PassThruOn</con:name><con:value>false</con:value></con:property></con:properties>
 <con:reportParameters/>
@@ -13769,7 +13871,24 @@ nhinc.FileUtils.restoreConfiguration(dir, log);
 	<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Document Submission Deferred Req" searchProperties="true" id="1ba43019-f8d8-4b2e-a69c-df975041f334">
 		<con:settings/>
 		
-<con:testStep name="Doc Submission Deferred Req" type="request">
+<con:testStep type="groovy" name="Copy uddiConnectionInfo"><con:settings/><con:config><script>import nhinc.FileUtils;
+def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
+def testCase = testRunner.getTestCase()
+def testSuite = testCase.getTestSuite()
+def project = testSuite.getProject()
+def projectPropFullFile = project.getPath()
+//def projectPropPath = groovyUtils.projectPath
+def projectPropPath = context.expand('${projectDir}')
+
+def sourceDir = projectPropPath;
+def sourceFile = "uddiConnectionInfo_g0.xml";
+//def destDir = context.findProperty( "NHINGatewayConfigDir" );
+def destDir = context.findProperty("GatewayPropDir");
+def destFile = "uddiConnectionInfo.xml";
+
+log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
+
+FileUtils.copyFile(sourceDir, sourceFile, destDir, destFile, log);</script></con:config></con:testStep><con:testStep name="Doc Submission Deferred Req" type="request">
 			<con:settings/>
 			<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 				<con:interface>EntityXDRAsyncRequest_Binding</con:interface>
@@ -14257,19 +14376,19 @@ context.setGatewayStandard(true);</con:tearDownScript>
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2013-10-03T15:54:27Z</con:value>
+		<con:value>2013-10-04T14:19:09Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2013-10-03T16:04:27Z</con:value>
+		<con:value>2013-10-04T14:29:09Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>10/03/2013 15:54:27</con:value>
+		<con:value>10/04/2013 14:19:09</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2013-11-02T00:00:00Z</con:value>
+		<con:value>2013-11-03T00:00:00Z</con:value>
 	</con:property>
 <con:property><con:name>PassThruOn</con:name><con:value>true</con:value></con:property></con:properties>
 <con:reportParameters/>
@@ -14277,7 +14396,24 @@ context.setGatewayStandard(true);</con:tearDownScript>
 <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Document Submission Deferred Resp" searchProperties="true" id="82222849-6565-41a9-a5cb-04ca682ea67c">
 	<con:settings/>
 	
-<con:testStep name="Doc Submission Deferred Resp" type="request">
+<con:testStep type="groovy" name="Copy uddiConnectionInfo"><con:settings/><con:config><script>import nhinc.FileUtils;
+def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
+def testCase = testRunner.getTestCase()
+def testSuite = testCase.getTestSuite()
+def project = testSuite.getProject()
+def projectPropFullFile = project.getPath()
+//def projectPropPath = groovyUtils.projectPath
+def projectPropPath = context.expand('${projectDir}')
+
+def sourceDir = projectPropPath;
+def sourceFile = "uddiConnectionInfo_g0.xml";
+//def destDir = context.findProperty( "NHINGatewayConfigDir" );
+def destDir = context.findProperty("GatewayPropDir");
+def destFile = "uddiConnectionInfo.xml";
+
+log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
+
+FileUtils.copyFile(sourceDir, sourceFile, destDir, destFile, log);</script></con:config></con:testStep><con:testStep name="Doc Submission Deferred Resp" type="request">
 		<con:settings/>
 		<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 			<con:interface>EntityXDRAsyncResponse_Binding</con:interface>
@@ -14626,26 +14762,43 @@ context.setGatewayStandard(true);</con:tearDownScript>
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2013-10-03T15:54:28Z</con:value>
+		<con:value>2013-10-04T14:19:11Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2013-10-03T16:04:28Z</con:value>
+		<con:value>2013-10-04T14:29:11Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>10/03/2013 15:54:28</con:value>
+		<con:value>10/04/2013 14:19:11</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2013-11-02T00:00:00Z</con:value>
+		<con:value>2013-11-03T00:00:00Z</con:value>
 	</con:property>
 <con:property><con:name>PassThruOn</con:name><con:value>true</con:value></con:property></con:properties>
 </con:testCase>
 <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Document Submission" searchProperties="true" id="8842f78f-3453-49f3-8b62-bd420b9f7644">
 	<con:settings/>
 	
-<con:testStep name="Doc Submission" type="request">
+<con:testStep type="groovy" name="Copy uddiConnectionInfo"><con:settings/><con:config><script>import nhinc.FileUtils;
+def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
+def testCase = testRunner.getTestCase()
+def testSuite = testCase.getTestSuite()
+def project = testSuite.getProject()
+def projectPropFullFile = project.getPath()
+//def projectPropPath = groovyUtils.projectPath
+def projectPropPath = context.expand('${projectDir}')
+
+def sourceDir = projectPropPath;
+def sourceFile = "uddiConnectionInfo_g0.xml";
+//def destDir = context.findProperty( "NHINGatewayConfigDir" );
+def destDir = context.findProperty("GatewayPropDir");
+def destFile = "uddiConnectionInfo.xml";
+
+log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
+
+FileUtils.copyFile(sourceDir, sourceFile, destDir, destFile, log);</script></con:config></con:testStep><con:testStep name="Doc Submission" type="request">
 		<con:settings/>
 		<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 			<con:interface>EntityXDR_Binding</con:interface>
@@ -15128,19 +15281,19 @@ context.setGatewayStandard(true);</con:tearDownScript>
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2013-10-03T15:54:29Z</con:value>
+		<con:value>2013-10-04T14:19:13Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2013-10-03T16:04:29Z</con:value>
+		<con:value>2013-10-04T14:29:13Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>10/03/2013 15:54:29</con:value>
+		<con:value>10/04/2013 14:19:13</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2013-11-02T00:00:00Z</con:value>
+		<con:value>2013-11-03T00:00:00Z</con:value>
 	</con:property>
 <con:property><con:name>PassThruOn</con:name><con:value>true</con:value></con:property></con:properties>
 <con:reportParameters/>
@@ -15171,7 +15324,24 @@ context.setGatewayStandard(true);</con:tearDownScript>
 		<con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Document Submission Deferred Req" searchProperties="true" id="f496e4ee-76d8-4c08-a20d-807f24bc0a51">
 			<con:settings/>
 			
-	<con:testStep name="Doc Submission Deferred Req" type="request">
+	<con:testStep type="groovy" name="Copy uddiConnectionInfo"><con:settings/><con:config><script>import nhinc.FileUtils;
+def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
+def testCase = testRunner.getTestCase()
+def testSuite = testCase.getTestSuite()
+def project = testSuite.getProject()
+def projectPropFullFile = project.getPath()
+//def projectPropPath = groovyUtils.projectPath
+def projectPropPath = context.expand('${projectDir}')
+
+def sourceDir = projectPropPath;
+def sourceFile = "uddiConnectionInfo_g1.xml";
+//def destDir = context.findProperty( "NHINGatewayConfigDir" );
+def destDir = context.findProperty("GatewayPropDir");
+def destFile = "uddiConnectionInfo.xml";
+
+log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
+
+FileUtils.copyFile(sourceDir, sourceFile, destDir, destFile, log);</script></con:config></con:testStep><con:testStep name="Doc Submission Deferred Req" type="request">
 				<con:settings/>
 				<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 					<con:interface>EntityXDRAsyncRequest_Binding</con:interface>
@@ -15659,19 +15829,19 @@ context.setGatewayStandard(true);</con:tearDownScript>
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2013-10-03T15:54:29Z</con:value>
+		<con:value>2013-10-04T14:19:15Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2013-10-03T16:04:29Z</con:value>
+		<con:value>2013-10-04T14:29:15Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>10/03/2013 15:54:29</con:value>
+		<con:value>10/04/2013 14:19:15</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2013-11-02T00:00:00Z</con:value>
+		<con:value>2013-11-03T00:00:00Z</con:value>
 	</con:property>
 <con:property><con:name>PassThruOn</con:name><con:value>true</con:value></con:property></con:properties>
 <con:reportParameters/>
@@ -15693,7 +15863,24 @@ context.setGatewayStandard(true);</con:tearDownScript>
 <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Document Submission Deferred Resp" searchProperties="true" id="f941bad6-34df-4aab-befd-68e672715762">
 	<con:settings/>
 	
-<con:testStep name="Doc Submission Deferred Resp" type="request">
+<con:testStep type="groovy" name="Copy uddiConnectionInfo"><con:settings/><con:config><script>import nhinc.FileUtils;
+def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
+def testCase = testRunner.getTestCase()
+def testSuite = testCase.getTestSuite()
+def project = testSuite.getProject()
+def projectPropFullFile = project.getPath()
+//def projectPropPath = groovyUtils.projectPath
+def projectPropPath = context.expand('${projectDir}')
+
+def sourceDir = projectPropPath;
+def sourceFile = "uddiConnectionInfo_g1.xml";
+//def destDir = context.findProperty( "NHINGatewayConfigDir" );
+def destDir = context.findProperty("GatewayPropDir");
+def destFile = "uddiConnectionInfo.xml";
+
+log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
+
+FileUtils.copyFile(sourceDir, sourceFile, destDir, destFile, log);</script></con:config></con:testStep><con:testStep name="Doc Submission Deferred Resp" type="request">
 		<con:settings/>
 		<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 			<con:interface>EntityXDRAsyncResponse_Binding</con:interface>
@@ -16037,26 +16224,43 @@ context.setGatewayStandard(true);</con:tearDownScript>
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2013-10-03T15:54:30Z</con:value>
+		<con:value>2013-10-04T14:19:17Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2013-10-03T16:04:30Z</con:value>
+		<con:value>2013-10-04T14:29:17Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>10/03/2013 15:54:30</con:value>
+		<con:value>10/04/2013 14:19:17</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2013-11-02T00:00:00Z</con:value>
+		<con:value>2013-11-03T00:00:00Z</con:value>
 	</con:property>
 <con:property><con:name>PassThruOn</con:name><con:value>true</con:value></con:property></con:properties>
 </con:testCase>
 <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Document Submission" searchProperties="true" id="24ec19a7-688d-41bd-844a-b64a24e11282">
 	<con:settings/>
 	
-<con:testStep name="Doc Submission" type="request">
+<con:testStep type="groovy" name="Copy uddiConnectionInfo"><con:settings/><con:config><script>import nhinc.FileUtils;
+def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
+def testCase = testRunner.getTestCase()
+def testSuite = testCase.getTestSuite()
+def project = testSuite.getProject()
+def projectPropFullFile = project.getPath()
+//def projectPropPath = groovyUtils.projectPath
+def projectPropPath = context.expand('${projectDir}')
+
+def sourceDir = projectPropPath;
+def sourceFile = "uddiConnectionInfo_g1.xml";
+//def destDir = context.findProperty( "NHINGatewayConfigDir" );
+def destDir = context.findProperty("GatewayPropDir");
+def destFile = "uddiConnectionInfo.xml";
+
+log.info(sourceDir +'; ' + sourceFile  +'; ' + destDir +'; ' + destFile );
+
+FileUtils.copyFile(sourceDir, sourceFile, destDir, destFile, log);</script></con:config></con:testStep><con:testStep name="Doc Submission" type="request">
 		<con:settings/>
 		<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 			<con:interface>EntityXDR_Binding</con:interface>
@@ -16540,19 +16744,19 @@ context.setGatewayStandard(true);</con:tearDownScript>
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2013-10-03T15:54:30Z</con:value>
+		<con:value>2013-10-04T14:19:18Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2013-10-03T16:04:30Z</con:value>
+		<con:value>2013-10-04T14:29:18Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>10/03/2013 15:54:30</con:value>
+		<con:value>10/04/2013 14:19:18</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2013-11-02T00:00:00Z</con:value>
+		<con:value>2013-11-03T00:00:00Z</con:value>
 	</con:property>
 <con:property><con:name>PassThruOn</con:name><con:value>true</con:value></con:property></con:properties>
 <con:reportParameters/>
@@ -16670,7 +16874,7 @@ context.setGatewayStandard(true);</con:tearDownScript>
 	
 	
 	
-	<con:property><con:name>DynamicDQDocID</con:name><con:value>103.8.9284320.020.3590.75^1266324032288</con:value></con:property><con:property><con:name>ExpirationDate</con:name><con:value>20100520</con:value></con:property><con:property><con:name>FamilyName</con:name><con:value>Younger</con:value></con:property><con:property><con:name>GatewayPropDir</con:name><con:value/></con:property><con:property><con:name>Gender</con:name><con:value>M</con:value></con:property><con:property><con:name>GivenName</con:name><con:value>Gallow</con:value></con:property><con:property><con:name>LocalAA</con:name><con:value>1.1</con:value></con:property><con:property><con:name>LocalHCDescription</con:name><con:value>InternalTest1</con:value></con:property><con:property><con:name>LocalHCID</con:name><con:value>urn:oid:1.1</con:value></con:property><con:property><con:name>LocalPatientID</con:name><con:value>D123401</con:value></con:property><con:property><con:name>NotificationEndpoint</con:name><con:value>https://localhost:8181/Gateway/HIEM/2_0/NhinService/NotificationConsumerService/HiemNotify</con:value></con:property>
+	<con:property><con:name>DynamicDQDocID</con:name><con:value>103.8.9284320.020.3590.75^1266324032288</con:value></con:property><con:property><con:name>ExpirationDate</con:name><con:value>20100520</con:value></con:property><con:property><con:name>FamilyName</con:name><con:value>Younger</con:value></con:property><con:property><con:name>GatewayPropDir</con:name><con:value>c:\glassfish3\glassfish\domains\domain1\config\nhin</con:value></con:property><con:property><con:name>Gender</con:name><con:value>M</con:value></con:property><con:property><con:name>GivenName</con:name><con:value>Gallow</con:value></con:property><con:property><con:name>LocalAA</con:name><con:value>1.1</con:value></con:property><con:property><con:name>LocalHCDescription</con:name><con:value>InternalTest1</con:value></con:property><con:property><con:name>LocalHCID</con:name><con:value>urn:oid:1.1</con:value></con:property><con:property><con:name>LocalPatientID</con:name><con:value>D123401</con:value></con:property><con:property><con:name>NotificationEndpoint</con:name><con:value>https://localhost:8181/Gateway/HIEM/2_0/NhinService/NotificationConsumerService/HiemNotify</con:value></con:property>
 
 
 	
