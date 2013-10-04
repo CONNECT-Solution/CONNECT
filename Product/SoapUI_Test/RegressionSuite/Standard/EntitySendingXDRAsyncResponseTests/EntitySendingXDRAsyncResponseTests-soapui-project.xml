@@ -8477,6 +8477,9 @@ This document and the information contained herein is provided on an "AS IS" bas
     <con:testCase failOnError="true" failTestCaseOnErrors="true" id="47023b4b-42b8-4864-8301-82fb58510648" keepSession="false" maxResults="0" name="PolicyCheckPermit" searchProperties="true">
       <con:description>Disabled the mock permit step because that is the default in the gateway; and SoapUI now seems to be sending only one response per mock step and then shutting down the mock. This results in a failure becaue the PE is unavailable. This test case now checks the positive case.</con:description><con:settings/>
       
+      <con:testStep type="delay" name="Delay"><con:settings/><con:config><delay>30000</delay></con:config></con:testStep>
+      
+      
       <con:testStep name="EntityXDRresponse - Request" type="request">
         <con:settings/>
         <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
@@ -8700,10 +8703,7 @@ This document and the information contained herein is provided on an "AS IS" bas
             <con:wsrmConfig version="1.2"/>
           </con:request>
         </con:config>
-      </con:testStep>
-      
-      
-      <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);
+      </con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);
 def alias = 'adapterpolicyengineorchestrator';
 def dir = context.findProperty('GatewayPropDir');
 def aliasName = 'adapterpolicyengineorchestratorsamljava';
@@ -8712,15 +8712,15 @@ nhinc.FileUtils.updateSpringConfig(dir, "PolicyEngineProxyConfig.xml", alias,
 		aliasName, replaceName, log);</con:setupScript><con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2013-10-03T17:12:29Z</con:value>
+          <con:value>2013-10-03T20:04:46Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2013-10-03T19:17:29Z</con:value>
+          <con:value>2013-10-03T22:09:46Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>10/03/2013 17:12:29</con:value>
+          <con:value>10/03/2013 20:04:46</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
@@ -8740,6 +8740,7 @@ def LocalHCID = context.findProperty( "LocalHCID" );
 
 nhinc.FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", destConfigFileLocation, LocalHCID, "policyengineservice", mockPEURL, "LEVEL_a0", log)</script></con:config>
       </con:testStep>
+      <con:testStep type="delay" name="Delay"><con:settings/><con:config><delay>30000</delay></con:config></con:testStep>
       <con:testStep name="EntityXDRresponse - Request" type="request">
         <con:settings/>
         <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
@@ -9010,6 +9011,7 @@ nhinc.FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", destConfi
           </con:request>
         </con:config>
       </con:testStep>
+      
       <con:testStep name="Policy Engine Mock" type="mockresponse" disabled="true">
         <con:settings/>
         <con:config startStep="EntityXDRresponse - Request" xsi:type="con:MockResponseStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
@@ -10489,9 +10491,7 @@ declare namespace adapter='urn:gov:hhs:fha:nhinc:common:nhinccommonadapter';
             </con:configuration>
           </con:assertion>
         </con:config>
-      </con:testStep>
-      
-      <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);
+      </con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);
 def alias = 'adapterpolicyengineorchestrator';
 def dir = context.findProperty('GatewayPropDir');
 def aliasName = 'adapterpolicyengineorchestratorsamljava';
@@ -10500,15 +10500,15 @@ nhinc.FileUtils.updateSpringConfig(dir, "PolicyEngineProxyConfig.xml", alias,
 		aliasName, replaceName, log);</con:setupScript><con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2013-10-03T17:12:32Z</con:value>
+          <con:value>2013-10-03T20:04:59Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2013-10-03T19:17:32Z</con:value>
+          <con:value>2013-10-03T22:09:59Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>10/03/2013 17:12:32</con:value>
+          <con:value>10/03/2013 20:04:59</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
@@ -10543,7 +10543,7 @@ context.testCase.setPropertyValue('FullPatientID', "${PatientID}^^^&amp;amp;${lo
         </con:config>
       </con:testStep>
       
-      <con:testStep name="EntityXDRresponse - Request" type="request">
+      <con:testStep type="delay" name="Delay"><con:settings/><con:config><delay>30000</delay></con:config></con:testStep><con:testStep name="EntityXDRresponse - Request" type="request">
         <con:settings/>
         <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
           <con:interface>EntityXDRAsyncResponse_Binding</con:interface>
@@ -10773,15 +10773,15 @@ context.testCase.setPropertyValue('FullPatientID', "${PatientID}^^^&amp;amp;${lo
 assert (count > 0);</script></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2013-10-03T17:12:33Z</con:value>
+          <con:value>2013-10-03T20:05:07Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2013-10-03T19:17:33Z</con:value>
+          <con:value>2013-10-03T22:10:07Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>10/03/2013 17:12:33</con:value>
+          <con:value>10/03/2013 20:05:07</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
@@ -10789,7 +10789,7 @@ assert (count > 0);</script></con:config></con:testStep><con:setupScript>nhinc.F
         </con:property>
         <con:property>
           <con:name>XDRUserId</con:name>
-          <con:value>XDR Request Inbound UserThu Oct 03 17:17:33 UTC 2013</con:value>
+          <con:value>XDR Request Inbound UserThu Oct 03 20:10:07 UTC 2013</con:value>
         </con:property>
         <con:property>
           <con:name>FullPatientID</con:name>

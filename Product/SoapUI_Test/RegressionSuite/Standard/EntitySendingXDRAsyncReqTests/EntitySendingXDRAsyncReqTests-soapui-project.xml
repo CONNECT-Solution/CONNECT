@@ -8491,6 +8491,9 @@ def LocalHCID = context.findProperty( "LocalHCID" );
 
 FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", destConfigFileLocation, LocalHCID, "policyengineservice", mockPEURL, "LEVEL_a0", log)</script></con:config>
       </con:testStep>
+      <con:testStep type="delay" name="Delay"><con:settings/><con:config><delay>30000</delay></con:config></con:testStep>
+      
+      
       <con:testStep name="EntityXDRAsyncRequest" type="request">
         <con:settings/>
         <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
@@ -8969,10 +8972,7 @@ FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", destConfigFileL
             <con:wsrmConfig version="1.2"/>
           </con:request>
         </con:config>
-      </con:testStep>
-      
-      
-      <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);
+      </con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);
 def alias = 'adapterpolicyengineorchestrator';
 def dir = context.findProperty('GatewayPropDir');
 def aliasName = 'adapterpolicyengineorchestratorsamljava';
@@ -8981,15 +8981,15 @@ nhinc.FileUtils.updateSpringConfig(dir, "PolicyEngineProxyConfig.xml", alias,
 		aliasName, replaceName, log);</con:setupScript><con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2013-10-03T17:09:24Z</con:value>
+          <con:value>2013-10-03T20:03:19Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2013-10-03T17:19:24Z</con:value>
+          <con:value>2013-10-03T20:13:19Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>10/03/2013 17:09:24</con:value>
+          <con:value>10/03/2013 20:03:19</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
@@ -9014,6 +9014,7 @@ def LocalHCID = context.findProperty( "LocalHCID" );
 
 FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", destConfigFileLocation, LocalHCID, "policyengineservice", mockPEURL, "LEVEL_a0", log)</script></con:config>
       </con:testStep>
+      <con:testStep type="delay" name="Delay"><con:settings/><con:config><delay>30000</delay></con:config></con:testStep>
       <con:testStep name="EntityXDRAsyncRequest" type="request">
         <con:settings/>
         <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
@@ -9481,6 +9482,7 @@ FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", destConfigFileL
           </con:request>
         </con:config>
       </con:testStep>
+      
       <con:testStep name="Policy Engine Mock" type="mockresponse" disabled="true">
         <con:settings/>
         <con:config startStep="EntityXDRAsyncRequest" xsi:type="con:MockResponseStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
@@ -10960,26 +10962,24 @@ declare namespace adapter='urn:gov:hhs:fha:nhinc:common:nhinccommonadapter';
             </con:configuration>
           </con:assertion>
         </con:config>
-      </con:testStep>
-      
-      <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);
+      </con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);
 def alias = 'adapterpolicyengineorchestrator';
 def dir = context.findProperty('GatewayPropDir');
 def aliasName = 'adapterpolicyengineorchestratorsamljava';
-def replaceName = 'adapterpolicyengineorchestratornoopdeny';	
+def replaceName = 'adapterpolicyengineorchestratornoopdeny';
 nhinc.FileUtils.updateSpringConfig(dir, "PolicyEngineProxyConfig.xml", alias,
 		aliasName, replaceName, log);</con:setupScript><con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2013-10-03T17:09:28Z</con:value>
+          <con:value>2013-10-03T20:04:18Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2013-10-03T17:19:28Z</con:value>
+          <con:value>2013-10-03T20:14:18Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>10/03/2013 17:09:28</con:value>
+          <con:value>10/03/2013 20:04:18</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
@@ -11015,7 +11015,7 @@ context.testCase.setPropertyValue('XDRUserId',"${UserID}${nowDate}");</script>
         </con:config>
       </con:testStep>
       
-      <con:testStep name="EntityXDRAsyncRequest" type="request">
+      <con:testStep type="delay" name="Delay"><con:settings/><con:config><delay>30000</delay></con:config></con:testStep><con:testStep name="EntityXDRAsyncRequest" type="request">
         <con:settings/>
         <con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
           <con:interface>EntityXDRAsyncRequest_Binding</con:interface>
@@ -11493,15 +11493,15 @@ context.testCase.setPropertyValue('XDRUserId',"${UserID}${nowDate}");</script>
 assert (count > 0);</script></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);</con:setupScript><con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2013-10-03T17:09:29Z</con:value>
+          <con:value>2013-10-03T20:04:31Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2013-10-03T17:19:29Z</con:value>
+          <con:value>2013-10-03T20:14:31Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>10/03/2013 17:09:29</con:value>
+          <con:value>10/03/2013 20:04:31</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
@@ -11513,7 +11513,7 @@ assert (count > 0);</script></con:config></con:testStep><con:setupScript>nhinc.F
         </con:property>
         <con:property>
           <con:name>XDRUserId</con:name>
-          <con:value>XDR Request Inbound UserThu Oct 03 17:14:29 UTC 2013</con:value>
+          <con:value>XDR Request Inbound UserThu Oct 03 20:09:32 UTC 2013</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
