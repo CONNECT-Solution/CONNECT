@@ -4548,7 +4548,7 @@ This is because the test is designed to hit the mock step on the inbound side.</
 		<con:runType>SEQUENTIAL</con:runType>
 		<con:testCase failOnError="true" failTestCaseOnErrors="true" id="fdb42956-4a19-4f9c-a87c-26e594bc6e7a" keepSession="false" maxResults="0" name="PolicyCheckPermit" searchProperties="true">
 			<con:settings/>
-			<con:testStep name="Set PolicyEngine Mock" type="groovy">
+			<con:testStep name="Set PolicyEngine Mock" type="groovy" disabled="true">
 				<con:settings/>
 				<con:config><script>def destConfigFileLocation = context.findProperty("GatewayPropDir");
 def mockHost = context.findProperty("mockHost");
@@ -4557,6 +4557,7 @@ def LocalHCID = context.findProperty( "LocalHCID" );
 
 nhinc.FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", destConfigFileLocation, LocalHCID, "policyengineservice", mockPEURL, "LEVEL_a0", log)</script></con:config>
 			</con:testStep>
+			<con:testStep type="delay" name="Delay"><con:settings/><con:config><delay>30000</delay></con:config></con:testStep>
 			<con:testStep name="XDRAsyncResponse" type="request">
 				<con:settings/>
 				<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
@@ -4829,7 +4830,8 @@ nhinc.FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", destConfi
 					</con:request>
 				</con:config>
 			</con:testStep>
-			<con:testStep name="Policy Engine Mock" type="mockresponse">
+			
+			<con:testStep name="Policy Engine Mock" type="mockresponse" disabled="true">
 				<con:settings/>
 				<con:config startStep="Set PolicyEngine Mock" xsi:type="con:MockResponseStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 					<con:interface>AdapterPolicyEngineBindingSoap</con:interface>
@@ -6308,26 +6310,30 @@ declare namespace adapter='urn:gov:hhs:fha:nhinc:common:nhinccommonadapter';
 						</con:configuration>
 					</con:assertion>
 				</con:config>
-			</con:testStep>
-			
-			<con:setupScript>context.setGatewayStandard(true);
+			</con:testStep><con:setupScript>context.setGatewayStandard(true);
 nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);
+def alias = 'adapterpolicyengineorchestrator';
+def dir = context.findProperty('GatewayPropDir');
+def aliasName = 'adapterpolicyengineorchestratorsamljava';
+def replaceName = 'adapterpolicyengineorchestratornoop';
+nhinc.FileUtils.updateSpringConfig(dir, "PolicyEngineProxyConfig.xml", alias,
+		aliasName, replaceName, log);
 context.setGatewayStandard(false,"DocumentSubmissionDeferredResponse", "Outbound");</con:setupScript><con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2013-09-30T18:41:02Z</con:value>
+					<con:value>2013-10-04T15:47:08Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2013-09-30T18:51:02Z</con:value>
+					<con:value>2013-10-04T15:57:08Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>09/30/2013 18:41:02</con:value>
+					<con:value>10/04/2013 15:47:08</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2013-10-30T00:00:00Z</con:value>
+					<con:value>2013-11-03T00:00:00Z</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
@@ -6336,7 +6342,7 @@ context.setGatewayStandard(true);</con:tearDownScript>
 		</con:testCase>
 		<con:testCase failOnError="true" failTestCaseOnErrors="true" id="9e67f5fb-7df1-4b41-a7d8-15eb1f2ae876" keepSession="false" maxResults="0" name="PolicyCheckDeny" searchProperties="true">
 			<con:settings/>
-			<con:testStep name="Set PolicyEngine Mock" type="groovy">
+			<con:testStep name="Set PolicyEngine Mock" type="groovy" disabled="true">
 				<con:settings/>
 				<con:config><script>def destConfigFileLocation = context.findProperty("GatewayPropDir");
 def mockHost = context.findProperty("mockHost");
@@ -6345,6 +6351,7 @@ def LocalHCID = context.findProperty( "LocalHCID" );
 
 nhinc.FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", destConfigFileLocation, LocalHCID, "policyengineservice", mockPEURL, "LEVEL_a0", log)</script></con:config>
 			</con:testStep>
+			<con:testStep type="delay" name="Delay"><con:settings/><con:config><delay>30000</delay></con:config></con:testStep>
 			<con:testStep name="XDRAsyncResponse" type="request">
 				<con:settings/>
 				<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
@@ -6617,7 +6624,8 @@ nhinc.FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", destConfi
 					</con:request>
 				</con:config>
 			</con:testStep>
-			<con:testStep name="Policy Engine Mock" type="mockresponse">
+			
+			<con:testStep name="Policy Engine Mock" type="mockresponse" disabled="true">
 				<con:settings/>
 				<con:config startStep="XDRAsyncResponse" xsi:type="con:MockResponseStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 					<con:interface>AdapterPolicyEngineBindingSoap</con:interface>
@@ -8096,26 +8104,30 @@ declare namespace adapter='urn:gov:hhs:fha:nhinc:common:nhinccommonadapter';
 						</con:configuration>
 					</con:assertion>
 				</con:config>
-			</con:testStep>
-			
-			<con:setupScript>context.setGatewayStandard(true);
+			</con:testStep><con:setupScript>context.setGatewayStandard(true);
 nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);
+def alias = 'adapterpolicyengineorchestrator';
+def dir = context.findProperty('GatewayPropDir');
+def aliasName = 'adapterpolicyengineorchestratorsamljava';
+def replaceName = 'adapterpolicyengineorchestratornoopdeny';
+nhinc.FileUtils.updateSpringConfig(dir, "PolicyEngineProxyConfig.xml", alias,
+		aliasName, replaceName, log);
 context.setGatewayStandard(false,"DocumentSubmissionDeferredResponse", "Outbound");</con:setupScript><con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2013-09-30T18:41:05Z</con:value>
+					<con:value>2013-10-04T15:47:39Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2013-09-30T18:51:05Z</con:value>
+					<con:value>2013-10-04T15:57:39Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>09/30/2013 18:41:05</con:value>
+					<con:value>10/04/2013 15:47:39</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2013-10-30T00:00:00Z</con:value>
+					<con:value>2013-11-03T00:00:00Z</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
@@ -8149,7 +8161,7 @@ context.testCase.setPropertyValue('XDRUserId',"${UserID}${nowDate}");</script>
 				</con:config>
 			</con:testStep>
 			
-			<con:testStep name="XDRAsyncResponse" type="request">
+			<con:testStep type="delay" name="Delay"><con:settings/><con:config><delay>30000</delay></con:config></con:testStep><con:testStep name="XDRAsyncResponse" type="request">
 				<con:settings/>
 				<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 					<con:interface>EntityXDRAsyncResponse_Binding</con:interface>
@@ -8503,19 +8515,19 @@ nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log)
 context.setGatewayStandard(false,"DocumentSubmissionDeferredResponse", "Outbound");</con:setupScript><con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
-					<con:value>2013-09-30T18:41:08Z</con:value>
+					<con:value>2013-10-04T15:48:10Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>endDate</con:name>
-					<con:value>2013-09-30T18:51:08Z</con:value>
+					<con:value>2013-10-04T15:58:10Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>sigDate</con:name>
-					<con:value>09/30/2013 18:41:08</con:value>
+					<con:value>10/04/2013 15:48:10</con:value>
 				</con:property>
 				<con:property>
 					<con:name>expireDate</con:name>
-					<con:value>2013-10-30T00:00:00Z</con:value>
+					<con:value>2013-11-03T00:00:00Z</con:value>
 				</con:property>
 				<con:property>
 					<con:name>FullPatientID</con:name>
@@ -8523,7 +8535,7 @@ context.setGatewayStandard(false,"DocumentSubmissionDeferredResponse", "Outbound
 				</con:property>
 				<con:property>
 					<con:name>XDRUserId</con:name>
-					<con:value>XDR Request Inbound UserMon Sep 30 18:46:08 UTC 2013</con:value>
+					<con:value>XDR Request Inbound UserFri Oct 04 15:53:10 UTC 2013</con:value>
 				</con:property>
 			</con:properties>
 			<con:reportParameters/>
@@ -8546,7 +8558,8 @@ context.setGatewayStandard(true);</con:tearDownScript>
 		
 		
 		
-		<con:property><con:name>Endpoint-AuditLogQuery</con:name><con:value>http://localhost:8080/CONNECTAdapter/EntityAuditQuery</con:value></con:property><con:property><con:name>Endpoint-EntityXDRRequest</con:name><con:value>http://localhost:8080/Gateway/DocumentSubmission/1_1/EntityService/EntityDocSubmissionDeferredRequestUnsecured</con:value></con:property><con:property><con:name>Endpoint-NhhincXDRResponse</con:name><con:value>http://localhost:8080/CONNECTMsgProxyWeb/EntityService/PassthruDocSubmissionDeferredResponseUnsecured</con:value></con:property><con:property><con:name>Endpoint-NhincProxyXDRRequest</con:name><con:value>http://localhost:8080/Gateway/DocumentSubmission/1_1/EntityService/PassthruDocSubmissionDeferredRequestUnsecured</con:value></con:property><con:property><con:name>Endpoint-NhincXDRResponse</con:name><con:value>http://localhost:8080/Gateway/DocumentSubmission/1_1/EntityService/PassthruDocSubmissionDeferredResponseUnsecured</con:value></con:property><con:property><con:name>GatewayPropDir</con:name><con:value>D:\app\glassfish3\glassfish\domains\domain1\config\nhin</con:value></con:property><con:property><con:name>LocalAA</con:name><con:value>1.1</con:value></con:property>
+		<con:property><con:name>Endpoint-AuditLogQuery</con:name><con:value>http://localhost:8080/CONNECTAdapter/EntityAuditQuery</con:value></con:property><con:property><con:name>Endpoint-EntityXDRRequest</con:name><con:value>http://localhost:8080/Gateway/DocumentSubmission/1_1/EntityService/EntityDocSubmissionDeferredRequestUnsecured</con:value></con:property><con:property><con:name>Endpoint-NhhincXDRResponse</con:name><con:value>http://localhost:8080/CONNECTMsgProxyWeb/EntityService/PassthruDocSubmissionDeferredResponseUnsecured</con:value></con:property><con:property><con:name>Endpoint-NhincProxyXDRRequest</con:name><con:value>http://localhost:8080/Gateway/DocumentSubmission/1_1/EntityService/PassthruDocSubmissionDeferredRequestUnsecured</con:value></con:property><con:property><con:name>Endpoint-NhincXDRResponse</con:name><con:value>http://localhost:8080/Gateway/DocumentSubmission/1_1/EntityService/PassthruDocSubmissionDeferredResponseUnsecured</con:value></con:property><con:property><con:name>GatewayPropDir</con:name><con:value>c:glassfish3glassfishdomainsdomain1config
+hin</con:value></con:property><con:property><con:name>LocalAA</con:name><con:value>1.1</con:value></con:property>
 		
 		
 		
