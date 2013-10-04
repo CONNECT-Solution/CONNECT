@@ -28,8 +28,8 @@
             <module>DocQueryRetrieveSelfTest</module>
             <module>DocQueryXDSErrors</module>
             <module>EventLogging-Passthrough</module>
-            <module>NHINCReceivingXDRAsyncRequestTests</module>
-            <module>NHINCReceivingXDRAsyncResponseTests</module>
+            <!--module>NHINCReceivingXDRAsyncRequestTests</module>
+            <module>NHINCReceivingXDRAsyncResponseTests</module-->
         </modules>
 	</profile>
     </profiles>
