@@ -24,14 +24,14 @@
             <module>Admin-Distribution-Standard</module>
             <module>AuditLogging-Standard</module>
             <module>DocQueryErrorCodesStandard</module>
-			<module>DocQueryFanoutTestTarget</module>
-			<module>DocQueryOnDemand</module>
-			<module>DocQuerytestsforUDDI</module>
-			<module>EntityDocQuery</module>
+            <module>DocQueryFanoutTestTarget</module>
+            <module>DocQueryOnDemand</module>
+            <module>DocQuerytestsforUDDI</module>
+            <module>EntityDocQuery</module>
             <module>EntityDocRetrieve</module>
             <module>EntityPolicyEngineTest</module>
-            <module>EntitySendingXDRAsyncReqTests</module>
-            <module>EntitySendingXDRAsyncResponseTests</module>
+            <!--module>EntitySendingXDRAsyncReqTests</module>
+            <module>EntitySendingXDRAsyncResponseTests</module-->
             <module>EntityXDRTests</module>
             <module>EventLogging-Standard</module>
             <module>Fanout-Test</module>
