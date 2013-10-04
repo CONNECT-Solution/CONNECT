@@ -8480,7 +8480,7 @@ This is because the test is designed to hit the mock step on the inbound side.</
 		<con:runType>SEQUENTIAL</con:runType>
 		<con:testCase failOnError="true" failTestCaseOnErrors="true" id="efe18e9c-abde-4520-992e-154eca409f45" keepSession="false" maxResults="0" name="PolicyCheckDeny" searchProperties="true">
 			<con:settings/>
-			<con:testStep name="Set PolicyEngine Mock" type="groovy">
+			<con:testStep name="Set PolicyEngine Mock" type="groovy" disabled="true">
 				<con:settings/>
 				<con:config><script>def destConfigFileLocation = context.findProperty("GatewayPropDir");
 def NHINGatewayHost = context.findProperty("NHINGatewayHost");
@@ -8490,6 +8490,7 @@ def LocalHCID = context.findProperty( "LocalHCID" );
 
 nhinc.FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", destConfigFileLocation, LocalHCID, "policyengineservice", mockPEURL, "LEVEL_a0", log)</script></con:config>
 			</con:testStep>
+			<con:testStep type="delay" name="Delay"><con:settings/><con:config><delay>30000</delay></con:config></con:testStep>
 			<con:testStep name="XDRAsyncRequest" type="request">
 				<con:settings/>
 				<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
@@ -8966,7 +8967,8 @@ nhinc.FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", destConfi
 					</con:request>
 				</con:config>
 			</con:testStep>
-			<con:testStep name="Policy Engine Mock" type="mockresponse">
+			
+			<con:testStep name="Policy Engine Mock" type="mockresponse" disabled="true">
 				<con:settings/>
 				<con:config startStep="XDRAsyncRequest" xsi:type="con:MockResponseStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 					<con:interface>AdapterPolicyEngineBindingSoap</con:interface>
@@ -10445,10 +10447,14 @@ declare namespace adapter='urn:gov:hhs:fha:nhinc:common:nhinccommonadapter';
 						</con:configuration>
 					</con:assertion>
 				</con:config>
-			</con:testStep>
-			
-			<con:setupScript>context.setGatewayStandard(true);
+			</con:testStep><con:setupScript>context.setGatewayStandard(true);
 nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);
+def alias = 'adapterpolicyengineorchestrator';
+def dir = context.findProperty('GatewayPropDir');
+def aliasName = 'adapterpolicyengineorchestratorsamljava';
+def replaceName = 'adapterpolicyengineorchestratornoopdeny';
+nhinc.FileUtils.updateSpringConfig(dir, "PolicyEngineProxyConfig.xml", alias,
+		aliasName, replaceName, log);
 context.setGatewayStandard(false,"DocumentSubmissionDeferredRequest", "Outbound");</con:setupScript><con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
@@ -10473,7 +10479,7 @@ context.setGatewayStandard(true);</con:tearDownScript>
 		</con:testCase>
 		<con:testCase failOnError="true" failTestCaseOnErrors="true" id="0312d13c-2f1e-44e4-8b14-e5cfafd2b56f" keepSession="false" maxResults="0" name="PolicyCheckPermit" searchProperties="true">
 			<con:settings/>
-			<con:testStep name="Set PolicyEngine Mock" type="groovy">
+			<con:testStep name="Set PolicyEngine Mock" type="groovy" disabled="true">
 				<con:settings/>
 				<con:config><script>import nhinc.FileUtils;
 def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context );
@@ -10486,6 +10492,7 @@ def LocalHCID = context.findProperty( "LocalHCID" );
 
 FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", destConfigFileLocation, LocalHCID, "policyengineservice", mockPEURL, "LEVEL_a0", log)</script></con:config>
 			</con:testStep>
+			<con:testStep type="delay" name="Delay"><con:settings/><con:config><delay>30000</delay></con:config></con:testStep>
 			<con:testStep name="XDRAsyncRequest" type="request">
 				<con:settings/>
 				<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
@@ -10962,7 +10969,8 @@ FileUtils.createOrUpdateConnection("internalConnectionInfo.xml", destConfigFileL
 					</con:request>
 				</con:config>
 			</con:testStep>
-			<con:testStep name="Policy Engine Mock" type="mockresponse">
+			
+			<con:testStep name="Policy Engine Mock" type="mockresponse" disabled="true">
 				<con:settings/>
 				<con:config startStep="XDRAsyncRequest" xsi:type="con:MockResponseStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 					<con:interface>AdapterPolicyEngineBindingSoap</con:interface>
@@ -12441,10 +12449,14 @@ declare namespace adapter='urn:gov:hhs:fha:nhinc:common:nhinccommonadapter';
 						</con:configuration>
 					</con:assertion>
 				</con:config>
-			</con:testStep>
-			
-			<con:setupScript>context.setGatewayStandard(true);
+			</con:testStep><con:setupScript>context.setGatewayStandard(true);
 nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);
+def alias = 'adapterpolicyengineorchestrator';
+def dir = context.findProperty('GatewayPropDir');
+def aliasName = 'adapterpolicyengineorchestratorsamljava';
+def replaceName = 'adapterpolicyengineorchestratornoop';
+nhinc.FileUtils.updateSpringConfig(dir, "PolicyEngineProxyConfig.xml", alias,
+		aliasName, replaceName, log);
 context.setGatewayStandard(false,"DocumentSubmissionDeferredRequest", "Outbound");</con:setupScript><con:properties>
 				<con:property>
 					<con:name>startDate</con:name>
@@ -12489,7 +12501,7 @@ def UserID = context.findProperty( "UserID" );
 def nowDate = new Date();
 context.testCase.setPropertyValue('XDRUserId',"${UserID}${nowDate}");</script></con:config>
 			</con:testStep>
-			<con:testStep name="XDRAsyncRequest" type="request">
+			<con:testStep type="delay" name="Delay"><con:settings/><con:config><delay>30000</delay></con:config></con:testStep><con:testStep name="XDRAsyncRequest" type="request">
 				<con:settings/>
 				<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 					<con:interface>EntityXDRAsyncRequest_Binding</con:interface>
@@ -12964,14 +12976,14 @@ context.testCase.setPropertyValue('XDRUserId',"${UserID}${nowDate}");</script></
 						<con:wsrmConfig version="1.2"/>
 					</con:request>
 				</con:config>
-			</con:testStep><con:testStep name="verify audit events" type="groovy"><con:settings/><con:config><script>import nhinc.FileUtils;
+			</con:testStep>
+			
+			<con:testStep name="verify audit events" type="groovy"><con:settings/><con:config><script>import nhinc.FileUtils;
 def count = context.withSql('AuditDB') { sql -> 
 	sql.firstRow('select count(*) from ' + context.findProperty('AuditTable')).'count(*)'
 }
 //log.info "Count: " + count;
-assert (count > 0);</script></con:config></con:testStep>
-			
-			<con:setupScript>context.setGatewayStandard(true);
+assert (count > 0);</script></con:config></con:testStep><con:setupScript>context.setGatewayStandard(true);
 nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"), log);
 context.setGatewayStandard(false,"DocumentSubmissionDeferredRequest", "Outbound");</con:setupScript><con:properties>
 				<con:property>
