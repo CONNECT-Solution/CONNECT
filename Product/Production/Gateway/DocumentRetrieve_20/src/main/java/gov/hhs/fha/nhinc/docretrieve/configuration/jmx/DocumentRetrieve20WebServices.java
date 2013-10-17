@@ -30,10 +30,8 @@ import gov.hhs.fha.nhinc.configuration.IConfiguration.serviceEnum;
 import gov.hhs.fha.nhinc.docretrieve._20.entity.EntityDocRetrieve;
 import gov.hhs.fha.nhinc.docretrieve._20.entity.EntityDocRetrieveSecured;
 import gov.hhs.fha.nhinc.docretrieve._20.inbound.DocRetrieve;
-import gov.hhs.fha.nhinc.docretrieve.configuration.jmx.AbstractDRWebServicesMXBean;
 import gov.hhs.fha.nhinc.docretrieve.inbound.InboundDocRetrieve;
 import gov.hhs.fha.nhinc.docretrieve.outbound.OutboundDocRetrieve;
-
 import javax.servlet.ServletContext;
 
 /**
@@ -167,6 +165,4 @@ public class DocumentRetrieve20WebServices extends AbstractDRWebServicesMXBean {
         }
         return isStandard;
     }
-
-
 }
