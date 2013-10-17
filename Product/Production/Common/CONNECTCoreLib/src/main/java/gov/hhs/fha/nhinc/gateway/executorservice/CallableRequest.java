@@ -28,6 +28,11 @@ package gov.hhs.fha.nhinc.gateway.executorservice;
 
 import java.util.concurrent.Callable;
 
+import javax.xml.ws.WebServiceContext;
+import javax.xml.ws.handler.MessageContext;
+
+import org.apache.cxf.jaxws.context.WebServiceContextImpl;
+
 /**
  * CallableRequest is basically what is executed (i.e. the Runnable) Uses generics for Target (which represents the
  * object that contains url to call) Request (which represents the object to send in the request, such as an
@@ -44,12 +49,15 @@ public class CallableRequest<Target, Request, Response> implements Callable<Resp
     private Request request = null;
     private ResponseProcessor processor = null;
     private WebServiceClient client = null;
+    private MessageContext context = null;
 
     public CallableRequest(Target t, Request r, ResponseProcessor p, WebServiceClient c) {
         this.target = t;
         this.request = r;
         this.processor = p;
         this.client = c;
+        WebServiceContext wsContext = new WebServiceContextImpl();
+        context = wsContext.getMessageContext();
     }
 
     public Request getRequest() {
@@ -68,6 +76,8 @@ public class CallableRequest<Target, Request, Response> implements Callable<Resp
      */
     @Override
     public Response call() throws Exception {
+        WebServiceContextImpl.setMessageContext(context);
+
         Response response = null;
         try {
             if (request != null) {
