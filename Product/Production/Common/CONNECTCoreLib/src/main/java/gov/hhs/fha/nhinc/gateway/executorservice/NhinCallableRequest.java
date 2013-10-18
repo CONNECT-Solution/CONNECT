@@ -32,6 +32,10 @@ import gov.hhs.fha.nhinc.orchestration.OutboundResponseProcessor;
 
 import java.util.concurrent.Callable;
 
+import javax.xml.ws.WebServiceContext;
+import javax.xml.ws.handler.MessageContext;
+
+import org.apache.cxf.jaxws.context.WebServiceContextImpl;
 import org.apache.log4j.Logger;
 
 import com.google.common.base.Preconditions;
@@ -50,6 +54,7 @@ public class NhinCallableRequest<Response extends OutboundOrchestratableMessage>
     private OutboundDelegate client = null;
     private OutboundResponseProcessor processor;
     private OutboundOrchestratableMessage entityRequest = null;
+    private MessageContext context = null;
     private static final Logger LOG = Logger.getLogger(NhinCallableRequest.class);
 
     public NhinCallableRequest(OutboundOrchestratableMessage orch) {
@@ -57,6 +62,8 @@ public class NhinCallableRequest<Response extends OutboundOrchestratableMessage>
         this.client = orch.getDelegate();
         this.processor = orch.getResponseProcessor().get();
         this.entityRequest = orch;
+        WebServiceContext wsContext = new WebServiceContextImpl();
+        context = wsContext.getMessageContext();
     }
 
     /**
@@ -66,6 +73,8 @@ public class NhinCallableRequest<Response extends OutboundOrchestratableMessage>
      */
     @Override
     public Response call() {
+        WebServiceContextImpl.setMessageContext(context);
+
         Response response = null;
         try {
             if (client != null) {

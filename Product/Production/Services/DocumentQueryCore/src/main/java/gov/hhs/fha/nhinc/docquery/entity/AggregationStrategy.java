@@ -38,6 +38,10 @@ import java.util.concurrent.Executor;
 import java.util.concurrent.ExecutorCompletionService;
 import java.util.concurrent.Executors;
 
+import javax.xml.ws.WebServiceContext;
+import javax.xml.ws.handler.MessageContext;
+
+import org.apache.cxf.jaxws.context.WebServiceContextImpl;
 import org.apache.log4j.Logger;
 
 /**
@@ -82,13 +86,17 @@ public class AggregationStrategy {
     class CallableAggregation implements Callable<OutboundOrchestratable> {
         
         private OutboundOrchestratable orchestrable;
+        private MessageContext mContext;
         
         public CallableAggregation(OutboundOrchestratable context) {
             this.orchestrable = context;
+            WebServiceContext wsContext = new WebServiceContextImpl();
+            mContext = wsContext.getMessageContext();
         }
 
         @Override
         public OutboundOrchestratable call() throws Exception {
+            WebServiceContextImpl.setMessageContext(mContext);
             return orchestrable.getDelegate().process(orchestrable);
         }
         
