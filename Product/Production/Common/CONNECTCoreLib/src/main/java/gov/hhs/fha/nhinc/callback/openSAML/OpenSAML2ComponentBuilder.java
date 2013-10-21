@@ -848,6 +848,8 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
     Attribute createPurposeOfUseAttribute(String purposeCode, String purposeSystem, String purposeSystemName,
             String purposeDisplay, String attributeName) {
         Map<QName, String> purposeOfUseAttributes = new HashMap<QName, String>();
+        
+        purposeOfUseAttributes.put(new QName("type"), "hl7:CE");
 
         if (purposeCode != null) {
             purposeOfUseAttributes.put(new QName(SamlConstants.CE_CODE_ID), purposeCode);
@@ -863,6 +865,7 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
 
         if (purposeDisplay != null) {
             purposeOfUseAttributes.put(new QName(SamlConstants.CE_DISPLAYNAME_ID), purposeDisplay);
+            
         }
 
         Object attributeValue = OpenSAML2ComponentBuilder.getInstance().createAttributeValue("urn:hl7-org:v3",
