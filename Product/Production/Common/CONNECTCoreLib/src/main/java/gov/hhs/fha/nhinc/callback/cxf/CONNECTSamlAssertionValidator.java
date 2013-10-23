@@ -128,26 +128,24 @@ public class CONNECTSamlAssertionValidator extends SamlAssertionValidator {
             }
 
             Issuer issuer = assertion.getSaml2().getIssuer();
-            String attributeNotRequired = null;
             if (issuer.getFormat().equals("urn:oasis:names:tc:SAML:1.1:nameid-format:entity")) {
                 if (!StringUtils.isBlank(issuer.getSPProvidedID())) {
-                    attributeNotRequired = issuer.getSPProvidedID();
+                    throw new WSSecurityException("SOAP header element Security/Assertion/Issuer/@Format = " + ""
+                            + "urn:oasis:names:tc:SAML:1.1:nameid-format:entity" + "" + "and"
+                            + "Security/Assertion/Issuer/@" + issuer.getSPProvidedID() + "" + " " + "is present.");
                 }
                 if (!StringUtils.isBlank(issuer.getNameQualifier())) {
-                    attributeNotRequired = issuer.getNameQualifier();
+                    throw new WSSecurityException("SOAP header element Security/Assertion/Issuer/@Format = " + ""
+                            + "urn:oasis:names:tc:SAML:1.1:nameid-format:entity" + "" + "and"
+                            + "Security/Assertion/Issuer/@" + issuer.getNameQualifier() + "" + " " + "is present.");
                 }
 
                 if (!StringUtils.isBlank(issuer.getSPNameQualifier())) {
-                    attributeNotRequired = issuer.getSPNameQualifier();
+                    throw new WSSecurityException("SOAP header element Security/Assertion/Issuer/@Format = " + ""
+                            + "urn:oasis:names:tc:SAML:1.1:nameid-format:entity" + "" + "and"
+                            + "Security/Assertion/Issuer/@" + issuer.getSPNameQualifier() + "" + " " + "is present.");
 
                 }
-            }
-            if (NullChecker.isNotNullish(attributeNotRequired)) {
-
-                throw new WSSecurityException("SOAP header element Security/Assertion/Issuer/@Format = " + ""
-                        + "urn:oasis:names:tc:SAML:1.1:nameid-format:entity" + "" + "and"
-                        + "Security/Assertion/Issuer/@" +attributeNotRequired + ""+ " " +"is present.");
-
             }
 
             try {
