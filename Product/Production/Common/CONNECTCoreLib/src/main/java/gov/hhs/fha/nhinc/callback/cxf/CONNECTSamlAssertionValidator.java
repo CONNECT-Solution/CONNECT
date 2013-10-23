@@ -27,6 +27,7 @@
 package gov.hhs.fha.nhinc.callback.cxf;
 
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 
 import java.security.PublicKey;
@@ -49,6 +50,7 @@ import org.apache.ws.security.saml.ext.OpenSAMLUtil;
 import org.apache.ws.security.validate.Credential;
 import org.apache.ws.security.validate.SamlAssertionValidator;
 import org.opensaml.saml2.core.AuthzDecisionStatement;
+import org.opensaml.saml2.core.Issuer;
 import org.opensaml.xml.validation.ValidationException;
 import org.opensaml.xml.validation.ValidatorSuite;
 
@@ -118,11 +120,34 @@ public class CONNECTSamlAssertionValidator extends SamlAssertionValidator {
             List<ValidatorSuite> validators = new LinkedList<ValidatorSuite>();
             validators.add(org.opensaml.Configuration.getValidatorSuite("saml2-core-schema-validator"));
             validators.addAll(getSaml2SpecValidators());
-            
+
             for (AuthzDecisionStatement auth : assertion.getSaml2().getAuthzDecisionStatements()) {
                 if (StringUtils.isBlank(auth.getResource())) {
                     auth.setResource(TEMP_RESOURCE_FOR_VALIDATION);
                 }
+            }
+
+            Issuer issuer = assertion.getSaml2().getIssuer();
+            String attributeNotRequired = null;
+            if (issuer.getFormat().equals("urn:oasis:names:tc:SAML:1.1:nameid-format:entity")) {
+                if (!StringUtils.isBlank(issuer.getSPProvidedID())) {
+                    attributeNotRequired = issuer.getSPProvidedID();
+                }
+                if (!StringUtils.isBlank(issuer.getNameQualifier())) {
+                    attributeNotRequired = issuer.getNameQualifier();
+                }
+
+                if (!StringUtils.isBlank(issuer.getSPNameQualifier())) {
+                    attributeNotRequired = issuer.getSPNameQualifier();
+
+                }
+            }
+            if (NullChecker.isNotNullish(attributeNotRequired)) {
+
+                throw new WSSecurityException("SOAP header element Security/Assertion/Issuer/@Format = " + ""
+                        + "urn:oasis:names:tc:SAML:1.1:nameid-format:entity" + "" + "and"
+                        + "Security/Assertion/Issuer/@" +attributeNotRequired + ""+ " " +"is present.");
+
             }
 
             try {
@@ -133,7 +158,7 @@ public class CONNECTSamlAssertionValidator extends SamlAssertionValidator {
                 LOG.error("Saml Validation error: " + e.getMessage(), e);
                 throw new WSSecurityException(WSSecurityException.FAILURE, "invalidSAMLsecurity");
             }
-            
+
             for (AuthzDecisionStatement auth : assertion.getSaml2().getAuthzDecisionStatements()) {
                 if (StringUtils.equals(auth.getResource(), TEMP_RESOURCE_FOR_VALIDATION)) {
                     auth.setResource(StringUtils.EMPTY);
@@ -184,7 +209,7 @@ public class CONNECTSamlAssertionValidator extends SamlAssertionValidator {
 
     /**
      * Gets the saml2 allow no subject assertion spec validators.
-     *
+     * 
      * @return the saml2 allow no subject assertion spec validators
      */
     protected Collection<ValidatorSuite> getSaml2AllowNoSubjectAssertionSpecValidators() {
@@ -216,8 +241,7 @@ public class CONNECTSamlAssertionValidator extends SamlAssertionValidator {
      */
     protected Collection<ValidatorSuite> getSaml2DefaultAssertionSpecValidators() {
         Collection<ValidatorSuite> suites = new HashSet<ValidatorSuite>();
-        suites.add(org.opensaml.Configuration
-                .getValidatorSuite("saml2-core-spec-validator"));
+        suites.add(org.opensaml.Configuration.getValidatorSuite("saml2-core-spec-validator"));
         suites.add(getExchangeAuthFrameworkValidatorSuite());
         return suites;
     }

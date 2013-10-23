@@ -159,6 +159,16 @@ public class SamlTokenCreator {
                     }
                 }
             }
+            
+            if(assertion.getSamlIssuer()!= null) {
+                if(NullChecker.isNotNullish(assertion.getSamlIssuer().getIssuer())) {
+                    requestContext.put(NhincConstants.ASSERTION_ISSUER_PROP, assertion.getSamlIssuer().getIssuer());
+                }
+                if(NullChecker.isNotNullish(assertion.getSamlIssuer().getIssuerFormat())) {
+                     requestContext.put(NhincConstants.ASSERTION_ISSUER_FORMAT_PROP, assertion.getSamlIssuer()
+                        .getIssuerFormat());
+            }
+            }
             if (assertion.getSamlAuthnStatement() != null) {
                 if (NullChecker.isNotNullish(assertion.getSamlAuthnStatement().getAuthInstant())) {
                     requestContext.put(NhincConstants.AUTHN_INSTANT_PROP, assertion.getSamlAuthnStatement()

@@ -195,10 +195,34 @@ public class CONNECTSamlAssertionValidatorTest {
     public void testValidateAssertionSaml2_ValidationFails() throws WSSecurityException {
         org.opensaml.saml2.core.Assertion saml2Assertion = mock(org.opensaml.saml2.core.Assertion.class);
         AssertionWrapper assertion = new AssertionWrapper(saml2Assertion);
+        org.opensaml.saml2.core.Issuer issuer = mock(org.opensaml.saml2.core.Issuer.class);
         QName assertionQName = new QName("urn:oasis:names:tc:SAML:2.0:assertion", "Assertion", "saml2");
 
         when(saml2Assertion.getElementQName()).thenReturn(assertionQName);
-        when(saml2Assertion.getIssuer()).thenReturn(null);
+        when(saml2Assertion.getIssuer()).thenReturn(issuer);
+        when(saml2Assertion.getIssuer().getFormat()).thenReturn("urn:oasis:names:tc:SAML:1.1:nameid-format:X509SubjectName");
+
+        CONNECTSamlAssertionValidator validator = new CONNECTSamlAssertionValidator() {
+            @Override
+            protected Collection<ValidatorSuite> getSaml2SpecValidators() {
+                return getSaml2DefaultAssertionSpecValidators();
+            }
+        };
+
+        validator.validateAssertion(assertion);
+    }
+    
+    @Test(expected = WSSecurityException.class)
+    public void ValidateAssertionSaml2WhenSPProviderID() throws WSSecurityException {
+        org.opensaml.saml2.core.Assertion saml2Assertion = mock(org.opensaml.saml2.core.Assertion.class);
+        AssertionWrapper assertion = new AssertionWrapper(saml2Assertion);
+        org.opensaml.saml2.core.Issuer issuer = mock(org.opensaml.saml2.core.Issuer.class);
+        QName assertionQName = new QName("urn:oasis:names:tc:SAML:2.0:assertion", "Assertion", "saml2");
+
+        when(saml2Assertion.getElementQName()).thenReturn(assertionQName);
+        when(saml2Assertion.getIssuer()).thenReturn(issuer);
+        when(saml2Assertion.getIssuer().getSPProvidedID()).thenReturn("SPProvidedID");
+        when(saml2Assertion.getIssuer().getFormat()).thenReturn("urn:oasis:names:tc:SAML:1.1:nameid-format:entity");
 
         CONNECTSamlAssertionValidator validator = new CONNECTSamlAssertionValidator() {
             @Override
