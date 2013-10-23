@@ -132,18 +132,18 @@ public class CONNECTSamlAssertionValidator extends SamlAssertionValidator {
                 if (!StringUtils.isBlank(issuer.getSPProvidedID())) {
                     throw new WSSecurityException("SOAP header element Security/Assertion/Issuer/@Format = " + ""
                             + "urn:oasis:names:tc:SAML:1.1:nameid-format:entity" + "" + "and"
-                            + "Security/Assertion/Issuer/@" + issuer.getSPProvidedID() + "" + " " + "is present.");
+                            + "Security/Assertion/Issuer/@SPProvidedID" + " " + "is present.");
                 }
                 if (!StringUtils.isBlank(issuer.getNameQualifier())) {
                     throw new WSSecurityException("SOAP header element Security/Assertion/Issuer/@Format = " + ""
                             + "urn:oasis:names:tc:SAML:1.1:nameid-format:entity" + "" + "and"
-                            + "Security/Assertion/Issuer/@" + issuer.getNameQualifier() + "" + " " + "is present.");
+                            + "Security/Assertion/Issuer/@NameQualifier" + " " + "is present.");
                 }
 
                 if (!StringUtils.isBlank(issuer.getSPNameQualifier())) {
                     throw new WSSecurityException("SOAP header element Security/Assertion/Issuer/@Format = " + ""
                             + "urn:oasis:names:tc:SAML:1.1:nameid-format:entity" + "" + "and"
-                            + "Security/Assertion/Issuer/@" + issuer.getSPNameQualifier() + "" + " " + "is present.");
+                            + "Security/Assertion/Issuer/@SPNameQualifier" + " " + "is present.");
 
                 }
             }
