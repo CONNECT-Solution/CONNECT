@@ -40,7 +40,7 @@ import java.util.Set;
 import org.apache.log4j.Logger;
 
 /**
- *
+ * 
  * @author Jon Hoppesch
  */
 public class SamlTokenCreator {
@@ -50,7 +50,7 @@ public class SamlTokenCreator {
     /**
      * This method will populate a Map with information from the assertion that is used within the SAML Token. This Map
      * can be used to set up the requestContext prior to sending a message on the Nhin.
-     *
+     * 
      * @param assertion The assertion object that contains information required by the SAML Token.
      * @param url The URL to the destination service.
      * @param action The specified Action for this message.
@@ -93,7 +93,7 @@ public class SamlTokenCreator {
                     }
                     if (NullChecker.isNotNullish(userInfo.getRoleCoded().getCodeSystemName())) {
                         requestContext.put(NhincConstants.USER_SYST_NAME_PROP, userInfo.getRoleCoded()
-                            .getCodeSystemName());
+                                .getCodeSystemName());
                     }
                     if (NullChecker.isNotNullish(userInfo.getRoleCoded().getDisplayName())) {
                         requestContext.put(NhincConstants.USER_DISPLAY_PROP, userInfo.getRoleCoded().getDisplayName());
@@ -107,7 +107,7 @@ public class SamlTokenCreator {
                     }
                     if (NullChecker.isNotNullish(userInfo.getPersonName().getSecondNameOrInitials())) {
                         requestContext.put(NhincConstants.USER_MIDDLE_PROP, userInfo.getPersonName()
-                            .getSecondNameOrInitials());
+                                .getSecondNameOrInitials());
                     }
                     if (NullChecker.isNotNullish(userInfo.getPersonName().getFamilyName())) {
                         requestContext.put(NhincConstants.USER_LAST_PROP, userInfo.getPersonName().getFamilyName());
@@ -122,19 +122,19 @@ public class SamlTokenCreator {
                 if (assertion.getPurposeOfDisclosureCoded() != null) {
                     if (NullChecker.isNotNullish(assertion.getPurposeOfDisclosureCoded().getCode())) {
                         requestContext.put(NhincConstants.PURPOSE_CODE_PROP, assertion.getPurposeOfDisclosureCoded()
-                            .getCode());
+                                .getCode());
                     }
                     if (NullChecker.isNotNullish(assertion.getPurposeOfDisclosureCoded().getCodeSystem())) {
                         requestContext.put(NhincConstants.PURPOSE_SYST_PROP, assertion.getPurposeOfDisclosureCoded()
-                            .getCodeSystem());
+                                .getCodeSystem());
                     }
                     if (NullChecker.isNotNullish(assertion.getPurposeOfDisclosureCoded().getCodeSystemName())) {
                         requestContext.put(NhincConstants.PURPOSE_SYST_NAME_PROP, assertion
-                            .getPurposeOfDisclosureCoded().getCodeSystemName());
+                                .getPurposeOfDisclosureCoded().getCodeSystemName());
                     }
                     if (NullChecker.isNotNullish(assertion.getPurposeOfDisclosureCoded().getDisplayName())) {
                         requestContext.put(NhincConstants.PURPOSE_DISPLAY_PROP, assertion.getPurposeOfDisclosureCoded()
-                            .getDisplayName());
+                                .getDisplayName());
                     }
                 } else {
                     LOG.error("Error: samlSendOperation input assertion purpose coded is null");
@@ -159,26 +159,36 @@ public class SamlTokenCreator {
                     }
                 }
             }
+
+            if (assertion.getSamlIssuer() != null) {
+                if (NullChecker.isNotNullish(assertion.getSamlIssuer().getIssuer())) {
+                    requestContext.put(NhincConstants.ASSERTION_ISSUER_PROP, assertion.getSamlIssuer().getIssuer());
+                }
+                if (NullChecker.isNotNullish(assertion.getSamlIssuer().getIssuerFormat())) {
+                    requestContext.put(NhincConstants.ASSERTION_ISSUER_FORMAT_PROP, assertion.getSamlIssuer()
+                            .getIssuerFormat());
+                }
+            }
             if (assertion.getSamlAuthnStatement() != null) {
                 if (NullChecker.isNotNullish(assertion.getSamlAuthnStatement().getAuthInstant())) {
                     requestContext.put(NhincConstants.AUTHN_INSTANT_PROP, assertion.getSamlAuthnStatement()
-                        .getAuthInstant());
+                            .getAuthInstant());
                 }
                 if (NullChecker.isNotNullish(assertion.getSamlAuthnStatement().getSessionIndex())) {
                     requestContext.put(NhincConstants.AUTHN_SESSION_INDEX_PROP, assertion.getSamlAuthnStatement()
-                        .getSessionIndex());
+                            .getSessionIndex());
                 }
                 if (NullChecker.isNotNullish(assertion.getSamlAuthnStatement().getAuthContextClassRef())) {
                     requestContext.put(NhincConstants.AUTHN_CONTEXT_CLASS_PROP, assertion.getSamlAuthnStatement()
-                        .getAuthContextClassRef());
+                            .getAuthContextClassRef());
                 }
                 if (NullChecker.isNotNullish(assertion.getSamlAuthnStatement().getSubjectLocalityAddress())) {
                     requestContext.put(NhincConstants.SUBJECT_LOCALITY_ADDR_PROP, assertion.getSamlAuthnStatement()
-                        .getSubjectLocalityAddress());
+                            .getSubjectLocalityAddress());
                 }
                 if (NullChecker.isNotNullish(assertion.getSamlAuthnStatement().getSubjectLocalityDNSName())) {
                     requestContext.put(NhincConstants.SUBJECT_LOCALITY_DNS_PROP, assertion.getSamlAuthnStatement()
-                        .getSubjectLocalityDNSName());
+                            .getSubjectLocalityDNSName());
                 }
             } else {
                 LOG.error("Error: samlSendOperation input assertion AuthnStatement is null");
@@ -187,73 +197,73 @@ public class SamlTokenCreator {
                 requestContext.put(NhincConstants.AUTHZ_STATEMENT_EXISTS_PROP, "true");
                 if (NullChecker.isNotNullish(assertion.getSamlAuthzDecisionStatement().getAction())) {
                     requestContext.put(NhincConstants.ACTION_PROP, assertion.getSamlAuthzDecisionStatement()
-                        .getAction());
+                            .getAction());
                 }
                 if (NullChecker.isNotNullish(assertion.getSamlAuthzDecisionStatement().getResource())) {
                     requestContext.put(NhincConstants.RESOURCE_PROP, assertion.getSamlAuthzDecisionStatement()
-                        .getResource());
+                            .getResource());
                 }
                 if (NullChecker.isNotNullish(assertion.getSamlAuthzDecisionStatement().getDecision())) {
                     requestContext.put(NhincConstants.AUTHZ_DECISION_PROP, assertion.getSamlAuthzDecisionStatement()
-                        .getDecision());
+                            .getDecision());
                 }
                 if (assertion.getSamlAuthzDecisionStatement().getEvidence() != null
-                    && assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion() != null) {
+                        && assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion() != null) {
                     if (NullChecker.isNotNullish(assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion()
-                        .getId())) {
+                            .getId())) {
                         requestContext.put(NhincConstants.EVIDENCE_ID_PROP, assertion.getSamlAuthzDecisionStatement()
-                            .getEvidence().getAssertion().getId());
+                                .getEvidence().getAssertion().getId());
                     }
                     if (NullChecker.isNotNullish(assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion()
-                        .getIssueInstant())) {
+                            .getIssueInstant())) {
                         requestContext.put(NhincConstants.EVIDENCE_INSTANT_PROP, assertion
-                            .getSamlAuthzDecisionStatement().getEvidence().getAssertion().getIssueInstant());
+                                .getSamlAuthzDecisionStatement().getEvidence().getAssertion().getIssueInstant());
                     }
                     if (NullChecker.isNotNullish(assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion()
-                        .getVersion())) {
+                            .getVersion())) {
                         requestContext.put(NhincConstants.EVIDENCE_VERSION_PROP, assertion
-                            .getSamlAuthzDecisionStatement().getEvidence().getAssertion().getVersion());
+                                .getSamlAuthzDecisionStatement().getEvidence().getAssertion().getVersion());
                     }
                     if (NullChecker.isNotNullish(assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion()
-                        .getIssuer())) {
+                            .getIssuer())) {
                         requestContext.put(NhincConstants.EVIDENCE_ISSUER_PROP, assertion
-                            .getSamlAuthzDecisionStatement().getEvidence().getAssertion().getIssuer());
+                                .getSamlAuthzDecisionStatement().getEvidence().getAssertion().getIssuer());
                     }
                     if (NullChecker.isNotNullish(assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion()
-                        .getIssuerFormat())) {
+                            .getIssuerFormat())) {
                         requestContext.put(NhincConstants.EVIDENCE_ISSUER_FORMAT_PROP, assertion
-                            .getSamlAuthzDecisionStatement().getEvidence().getAssertion().getIssuerFormat());
+                                .getSamlAuthzDecisionStatement().getEvidence().getAssertion().getIssuerFormat());
                     }
                     if (!assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion()
-                        .getAccessConsentPolicy().isEmpty()) {
+                            .getAccessConsentPolicy().isEmpty()) {
                         requestContext.put(NhincConstants.EVIDENCE_ACCESS_CONSENT_PROP, assertion
-                            .getSamlAuthzDecisionStatement().getEvidence().getAssertion().getAccessConsentPolicy());
+                                .getSamlAuthzDecisionStatement().getEvidence().getAssertion().getAccessConsentPolicy());
                     }
                     if (!assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion()
-                        .getInstanceAccessConsentPolicy().isEmpty()) {
+                            .getInstanceAccessConsentPolicy().isEmpty()) {
                         requestContext.put(NhincConstants.EVIDENCE_INST_ACCESS_CONSENT_PROP, assertion
-                            .getSamlAuthzDecisionStatement().getEvidence().getAssertion()
-                            .getInstanceAccessConsentPolicy());
+                                .getSamlAuthzDecisionStatement().getEvidence().getAssertion()
+                                .getInstanceAccessConsentPolicy());
                     }
 
                     if (NullChecker.isNotNullish(assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion()
-                        .getSubject())) {
+                            .getSubject())) {
                         requestContext.put(NhincConstants.EVIDENCE_SUBJECT_PROP, assertion
-                            .getSamlAuthzDecisionStatement().getEvidence().getAssertion().getSubject());
+                                .getSamlAuthzDecisionStatement().getEvidence().getAssertion().getSubject());
                     }
 
                     if (assertion.getSamlAuthzDecisionStatement().getEvidence().getAssertion().getConditions() != null) {
                         if (NullChecker.isNotNullish(assertion.getSamlAuthzDecisionStatement().getEvidence()
-                            .getAssertion().getConditions().getNotBefore())) {
+                                .getAssertion().getConditions().getNotBefore())) {
                             requestContext.put(NhincConstants.EVIDENCE_CONDITION_NOT_BEFORE_PROP, assertion
-                                .getSamlAuthzDecisionStatement().getEvidence().getAssertion().getConditions()
-                                .getNotBefore());
+                                    .getSamlAuthzDecisionStatement().getEvidence().getAssertion().getConditions()
+                                    .getNotBefore());
                         }
                         if (NullChecker.isNotNullish(assertion.getSamlAuthzDecisionStatement().getEvidence()
-                            .getAssertion().getConditions().getNotOnOrAfter())) {
+                                .getAssertion().getConditions().getNotOnOrAfter())) {
                             requestContext.put(NhincConstants.EVIDENCE_CONDITION_NOT_AFTER_PROP, assertion
-                                .getSamlAuthzDecisionStatement().getEvidence().getAssertion().getConditions()
-                                .getNotOnOrAfter());
+                                    .getSamlAuthzDecisionStatement().getEvidence().getAssertion().getConditions()
+                                    .getNotOnOrAfter());
                         }
                     } else {
                         LOG.error("Error: samlSendOperation input assertion AuthzDecisionStatement Evidence Conditions is null");
@@ -272,7 +282,7 @@ public class SamlTokenCreator {
                 }
                 if (NullChecker.isNotNullish(assertion.getSamlIssuer().getIssuerFormat())) {
                     requestContext.put(NhincConstants.ASSERTION_ISSUER_FORMAT_PROP, assertion.getSamlIssuer()
-                        .getIssuerFormat());
+                            .getIssuerFormat());
                 }
             } else {
                 LOG.debug("samlSendOperation input assertion Saml Issuer is null");
