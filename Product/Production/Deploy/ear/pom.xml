@@ -227,6 +227,10 @@
                     <version>5</version>
                     <defaultLibBundleDir>lib</defaultLibBundleDir>
                     <skinnyWars>true</skinnyWars>
+                    <packagingExcludes>
+                    lib/Properties-*.jar
+                    </packagingExcludes>
+
                     <!-- this causes all archives to be exploded on server 
                         SLOW!!! <includeLibInApplicationXml>true</includeLibInApplicationXml> -->
                 </configuration>
