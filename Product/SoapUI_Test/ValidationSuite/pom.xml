@@ -194,6 +194,25 @@
                                     </artifactItems>
                                 </configuration>
                             </execution>
+                            <execution>
+                                <id>copy-Connect-Properties-jar-to-lib</id>
+                                <phase>validate</phase>
+                                <goals>
+                                    <goal>copy</goal>
+                                </goals>
+                                <configuration>
+                                    <outputDirectory>${project.build.directory}/domain1/lib/</outputDirectory>
+                                    <silent>true</silent>
+                                    <artifactItems>
+                                        <artifactItem>
+                                            <groupId>org.connectopensource</groupId>
+                                            <artifactId>Properties</artifactId>
+                                            <version>${project.version}</version>
+                                            <type>jar</type>
+                                        </artifactItem>
+                                    </artifactItems>
+                                </configuration>
+                            </execution>
                         </executions>
                     </plugin>
                     <plugin>
