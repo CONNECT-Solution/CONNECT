@@ -46525,6 +46525,10 @@ context.withSql('PatientCorrelationDB') { sql ->
 
 context.withSql('AAMappingDB') { sql -> 
   sql.execute('delete from ' + context.findProperty('AAMappingTable'))
+}
+
+context.withSql('eventdb') { sql -> 
+  sql.execute('delete from event')
 }</script></con:config>
       </con:testStep>
       <con:testStep name="copy uddiConnectionInfo" type="groovy">
@@ -46842,10 +46846,16 @@ exists( //ns3:PRPA_IN201306UV02/ns3:controlActProcess)</path>
             <con:wsrmConfig version="1.2"/>
           </con:request>
         </con:config>
-      </con:testStep><con:testStep name="count correlations" type="groovy">
+      </con:testStep><con:testStep name="count events" type="groovy">
         <con:settings/>
         <con:config><script>context.withSql('PatientCorrelationDB') { sql -> 
-  assert 9 == sql.firstRow('select count(*) from ' + context.findProperty('PatientCorrelationTable'))[0]
+  results = sql.firstRow('select count(*) from ' + context.findProperty('PatientCorrelationTable'))[0]
+  assert 9 == results
+}
+
+context.withSql('eventdb') { sql -> 
+  results = sql.firstRow('select count(*) from event')[0]
+  assert ((results == 83) || (results == 84))
 }</script></con:config>
       </con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
 testCase.getTestSuite().getProject().getMockServiceByName("mockMPI_happy_path").start();
@@ -50512,8 +50522,7 @@ context.root = Math.random()</con:script><con:responseContent><![CDATA[<S:Envelo
 //ns:AdhocQuery[1]/ns:Slot/ns:ValueList/ns:Value/text()</con:query><con:match>'D123401^^^&amp;5.5&amp;ISO'</con:match><con:response>XDSStoredQueryParamNumber error</con:response></con:query><con:query><con:name>XDSRegistryError error</con:name><con:query>declare namespace ns='urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0';
 //ns:AdhocQuery[1]/ns:Slot/ns:ValueList/ns:Value/text()</con:query><con:match>'D123401^^^&amp;2.2&amp;ISO'</con:match><con:response>XDSRegistryError error</con:response></con:query><con:query><con:name>XDSStoredQueryMissingParam error</con:name><con:query>declare namespace ns='urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0';
 //ns:AdhocQuery[1]/ns:Slot/ns:ValueList/ns:Value/text()</con:query><con:match>'D123401^^^&amp;6.6&amp;ISO'</con:match><con:response>XDSStoredQueryMissingParam error</con:response></con:query><con:query><con:name>correct doc</con:name><con:query>declare namespace ns='urn:oasis:names:tc:ebxml-regrep:xsd:rim:3.0';
-//ns:AdhocQuery[1]/ns:Slot/ns:ValueList/ns:Value/text()</con:query><con:match>'D123401^^^&amp;7.7&amp;ISO'</con:match><con:response>correct doc</con:response></con:query></con:dispatchConfig></con:mockOperation><con:properties/></con:mockService><con:mockService bindToHostOnly="false" docroot="" host="localhost" name="mockMPI_happy_path" path="/MockMPIResp" port="7783"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.mock.WsdlMockService@require-soap-action">false</con:setting></con:settings><con:mockOperation interface="AdapterMpiPortTypeBinding" name="FindCandidates" operation="FindCandidates"><con:settings/><con:dispatchStyle>QUERY_MATCH</con:dispatchStyle><con:defaultResponse>Gallow</con:defaultResponse><con:response encoding="UTF-8" name="Gallow"><con:settings/><con:script>context.patientid = Math.random()
-context.root = Math.random()</con:script><con:responseContent><![CDATA[<S:Envelope xmlns:S="http://www.w3.org/2003/05/soap-envelope" xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:wsse11="http://docs.oasis-open.org/wss/oasis-wss-wssecurity-secext-1.1.xsd">
+//ns:AdhocQuery[1]/ns:Slot/ns:ValueList/ns:Value/text()</con:query><con:match>'D123401^^^&amp;7.7&amp;ISO'</con:match><con:response>correct doc</con:response></con:query></con:dispatchConfig></con:mockOperation><con:properties/></con:mockService><con:mockService bindToHostOnly="false" docroot="" host="localhost" name="mockMPI_happy_path" path="/MockMPIResp" port="7783"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.mock.WsdlMockService@require-soap-action">false</con:setting></con:settings><con:mockOperation interface="AdapterMpiPortTypeBinding" name="FindCandidates" operation="FindCandidates"><con:settings/><con:dispatchStyle>SEQUENCE</con:dispatchStyle><con:defaultResponse>Gallow 1</con:defaultResponse><con:response encoding="UTF-8" name="Gallow 1"><con:settings/><con:script/><con:responseContent><![CDATA[<S:Envelope xmlns:S="http://www.w3.org/2003/05/soap-envelope" xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:wsse11="http://docs.oasis-open.org/wss/oasis-wss-wssecurity-secext-1.1.xsd">
    <S:Body>
       <PRPA_IN201306UV02 ITSVersion="XML_1.0" xmlns="urn:hl7-org:v3" xmlns:ns2="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:ns3="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:ns4="urn:gov:hhs:fha:nhinc:common:patientcorrelationfacade">
          <id extension="3b839b4e:133af7051a3:-7fbd" root="1.1"/>
@@ -50555,7 +50564,7 @@ context.root = Math.random()</con:script><con:responseContent><![CDATA[<S:Envelo
                   <statusCode code="active"/>
                   <subject1 typeCode="SBJ">
                      <patient classCode="PAT">
-                        <id extension="${patientid}" root="${root}"/>
+                        <id extension="gallow1" root="56781"/>
                         <statusCode code="SD"/>
                         <patientPerson determinerCode="INSTANCE" classCode="PSN">
                            <name>
@@ -50631,7 +50640,7 @@ context.root = Math.random()</con:script><con:responseContent><![CDATA[<S:Envelo
          </controlActProcess>
       </PRPA_IN201306UV02>
    </S:Body>
-</S:Envelope>]]></con:responseContent><con:wsaConfig action="urn:gov:hhs:fha:nhinc:adaptercomponentmpi/AdapterComponentMpiPortType/FindCandidatesResponse" mustUnderstand="NONE" version="200508"/></con:response><con:response encoding="UTF-8" name="MAA"><con:settings/><con:responseContent><![CDATA[<S:Envelope xmlns:S="http://www.w3.org/2003/05/soap-envelope">
+</S:Envelope>]]></con:responseContent><con:wsaConfig action="urn:gov:hhs:fha:nhinc:adaptercomponentmpi/AdapterComponentMpiPortType/FindCandidatesResponse" mustUnderstand="NONE" version="200508"/></con:response><con:response encoding="UTF-8" name="MAA"><con:settings/><con:script/><con:responseContent><![CDATA[<S:Envelope xmlns:S="http://www.w3.org/2003/05/soap-envelope">
    <S:Body>
       <ns3:PRPA_IN201306UV02 ITSVersion="XML_1.0" xmlns="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:ns2="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:ns3="urn:hl7-org:v3" xmlns:ns4="urn:gov:hhs:fha:nhinc:common:patientcorrelationfacade">
          <ns3:id extension="2dec1e:133c34b2251:-7d95" root="1.1"/>
@@ -50801,7 +50810,715 @@ context.root = Math.random()</con:script><con:responseContent><![CDATA[<S:Envelo
          </ns3:controlActProcess>
       </ns3:PRPA_IN201306UV02>
    </S:Body>
-</S:Envelope>]]></con:responseContent><con:wsaConfig action="urn:gov:hhs:fha:nhinc:adaptercomponentmpi/AdapterComponentMpiPortType/FindCandidatesResponse" mustUnderstand="NONE" version="200508"/></con:response><con:dispatchConfig xsi:type="con:MockOperationQueryMatchDispatch" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:query><con:name>MAA</con:name><con:query>declare namespace ns3='urn:hl7-org:v3';
+</S:Envelope>]]></con:responseContent><con:wsaConfig action="urn:gov:hhs:fha:nhinc:adaptermpi/AdapterMpiPortType/FindCandidatesResponse" mustUnderstand="NONE" version="200508"/></con:response><con:response encoding="UTF-8" name="Gallow 3"><con:settings/><con:script/><con:responseContent><![CDATA[<S:Envelope xmlns:S="http://www.w3.org/2003/05/soap-envelope" xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:wsse11="http://docs.oasis-open.org/wss/oasis-wss-wssecurity-secext-1.1.xsd">
+   <S:Body>
+      <PRPA_IN201306UV02 ITSVersion="XML_1.0" xmlns="urn:hl7-org:v3" xmlns:ns2="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:ns3="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:ns4="urn:gov:hhs:fha:nhinc:common:patientcorrelationfacade">
+         <id extension="3b839b4e:133af7051a3:-7fbd" root="1.1"/>
+         <creationTime value="2011111725448"/>
+         <interactionId extension="PRPA_IN201306UV02" root="2.16.840.1.113883.1.6"/>
+         <processingCode code="P"/>
+         <processingModeCode code="T"/>
+         <acceptAckCode code="NE"/>
+         <receiver typeCode="RCV">
+            <device determinerCode="INSTANCE" classCode="DEV">
+               <id root="1.2.345.678.999"/>
+               <asAgent classCode="AGNT">
+                  <representedOrganization determinerCode="INSTANCE" classCode="ORG">
+                     <id root="2.2"/>
+                  </representedOrganization>
+               </asAgent>
+            </device>
+         </receiver>
+         <sender typeCode="SND">
+            <device determinerCode="INSTANCE" classCode="DEV">
+               <id root="1.2.345.678.999"/>
+               <asAgent classCode="AGNT">
+                  <representedOrganization determinerCode="INSTANCE" classCode="ORG">
+                     <id root="1.1"/>
+                  </representedOrganization>
+               </asAgent>
+            </device>
+         </sender>
+         <acknowledgement>
+            <typeId extension="PRPA_IN201305UV02" root="2.16.840.1.113883.1.6"/>
+            <typeCode code="AA"/>
+            <targetMessage xsi:nil="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"/>
+         </acknowledgement>
+         <controlActProcess moodCode="EVN" classCode="CACT">
+            <code codeSystem="2.16.840.1.113883.1.6" code="PRPA_TE201306UV"/>
+            <subject typeCode="SUBJ">
+               <registrationEvent moodCode="EVN" classCode="REG">
+                  <id nullFlavor="NA"/>
+                  <statusCode code="active"/>
+                  <subject1 typeCode="SBJ">
+                     <patient classCode="PAT">
+                        <id extension="gallow3" root="56783"/>
+                        <statusCode code="SD"/>
+                        <patientPerson determinerCode="INSTANCE" classCode="PSN">
+                           <name>
+                              <family partType="FAM">Younger</family>
+                              <given partType="GIV">Gallow</given>
+                           </name>
+                           <telecom value="tel:+1-888-555-1234"/>
+                           <administrativeGenderCode code="M"/>
+                           <birthTime value="19630804"/>
+                           <addr>
+                              <city>LEESBURG</city>
+                              <state>VA</state>
+                              <postalCode>20176</postalCode>
+                           </addr>
+                           <asOtherIDs classCode="SD">
+                              <id extension="999123401" root="2.16.840.1.113883.4.1"/>
+                              <scopingOrganization determinerCode="INSTANCE" classCode="ORG">
+                                 <id root="2.16.840.1.113883.4.1"/>
+                              </scopingOrganization>
+                           </asOtherIDs>
+                        </patientPerson>
+                        <providerOrganization determinerCode="INSTANCE" classCode="ORG">
+                           <id root="1.1"/>
+                           <contactParty xsi:nil="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"/>
+                        </providerOrganization>
+                        <subjectOf1>
+                           <queryMatchObservation moodCode="EVN" classCode="CASE">
+                              <code code="IHE_PDQ"/>
+                              <value xsi:type="INT" value="100" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"/>
+                           </queryMatchObservation>
+                        </subjectOf1>
+                     </patient>
+                  </subject1>
+                  <custodian typeCode="CST">
+                     <assignedEntity classCode="ASSIGNED">
+                        <id root="1.1"/>
+                        <code codeSystem="1.3.6.1.4.1.19376.1.2.27.2" code="NotHealthDataLocator"/>
+                     </assignedEntity>
+                  </custodian>
+               </registrationEvent>
+            </subject>
+            <queryAck>
+               <queryId extension="-abd3453dcd24wkkks545" root="2.2"/>
+               <queryResponseCode code="OK"/>
+            </queryAck>
+            <queryByParameter>
+               <queryId extension="-abd3453dcd24wkkks545" root="2.2"/>
+               <statusCode code="new"/>
+               <responseModalityCode code="R"/>
+               <responsePriorityCode code="I"/>
+               <parameterList>
+                  <livingSubjectAdministrativeGender>
+                     <value code="M"/>
+                     <semanticsText representation="TXT"/>
+                  </livingSubjectAdministrativeGender>
+                  <livingSubjectBirthTime>
+                     <value value="19630804"/>
+                     <semanticsText representation="TXT"/>
+                  </livingSubjectBirthTime>
+                  <livingSubjectId>
+                     <value extension="1111" root="2.2"/>
+                     <semanticsText representation="TXT"/>
+                  </livingSubjectId>
+                  <livingSubjectName>
+                     <value>
+                        <family partType="FAM">Younger</family>
+                        <given partType="GIV">Gallow</given>
+                     </value>
+                     <semanticsText representation="TXT"/>
+                  </livingSubjectName>
+               </parameterList>
+            </queryByParameter>
+         </controlActProcess>
+      </PRPA_IN201306UV02>
+   </S:Body>
+</S:Envelope>]]></con:responseContent><con:wsaConfig action="urn:gov:hhs:fha:nhinc:adaptermpi/AdapterMpiPortType/FindCandidatesResponse" mustUnderstand="NONE" version="200508"/></con:response><con:response encoding="UTF-8" name="Gallow 4"><con:settings/><con:script/><con:responseContent><![CDATA[<S:Envelope xmlns:S="http://www.w3.org/2003/05/soap-envelope" xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:wsse11="http://docs.oasis-open.org/wss/oasis-wss-wssecurity-secext-1.1.xsd">
+   <S:Body>
+      <PRPA_IN201306UV02 ITSVersion="XML_1.0" xmlns="urn:hl7-org:v3" xmlns:ns2="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:ns3="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:ns4="urn:gov:hhs:fha:nhinc:common:patientcorrelationfacade">
+         <id extension="3b839b4e:133af7051a3:-7fbd" root="1.1"/>
+         <creationTime value="2011111725448"/>
+         <interactionId extension="PRPA_IN201306UV02" root="2.16.840.1.113883.1.6"/>
+         <processingCode code="P"/>
+         <processingModeCode code="T"/>
+         <acceptAckCode code="NE"/>
+         <receiver typeCode="RCV">
+            <device determinerCode="INSTANCE" classCode="DEV">
+               <id root="1.2.345.678.999"/>
+               <asAgent classCode="AGNT">
+                  <representedOrganization determinerCode="INSTANCE" classCode="ORG">
+                     <id root="2.2"/>
+                  </representedOrganization>
+               </asAgent>
+            </device>
+         </receiver>
+         <sender typeCode="SND">
+            <device determinerCode="INSTANCE" classCode="DEV">
+               <id root="1.2.345.678.999"/>
+               <asAgent classCode="AGNT">
+                  <representedOrganization determinerCode="INSTANCE" classCode="ORG">
+                     <id root="1.1"/>
+                  </representedOrganization>
+               </asAgent>
+            </device>
+         </sender>
+         <acknowledgement>
+            <typeId extension="PRPA_IN201305UV02" root="2.16.840.1.113883.1.6"/>
+            <typeCode code="AA"/>
+            <targetMessage xsi:nil="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"/>
+         </acknowledgement>
+         <controlActProcess moodCode="EVN" classCode="CACT">
+            <code codeSystem="2.16.840.1.113883.1.6" code="PRPA_TE201306UV"/>
+            <subject typeCode="SUBJ">
+               <registrationEvent moodCode="EVN" classCode="REG">
+                  <id nullFlavor="NA"/>
+                  <statusCode code="active"/>
+                  <subject1 typeCode="SBJ">
+                     <patient classCode="PAT">
+                        <id extension="gallow4" root="56784"/>
+                        <statusCode code="SD"/>
+                        <patientPerson determinerCode="INSTANCE" classCode="PSN">
+                           <name>
+                              <family partType="FAM">Younger</family>
+                              <given partType="GIV">Gallow</given>
+                           </name>
+                           <telecom value="tel:+1-888-555-1234"/>
+                           <administrativeGenderCode code="M"/>
+                           <birthTime value="19630804"/>
+                           <addr>
+                              <city>LEESBURG</city>
+                              <state>VA</state>
+                              <postalCode>20176</postalCode>
+                           </addr>
+                           <asOtherIDs classCode="SD">
+                              <id extension="999123401" root="2.16.840.1.113883.4.1"/>
+                              <scopingOrganization determinerCode="INSTANCE" classCode="ORG">
+                                 <id root="2.16.840.1.113883.4.1"/>
+                              </scopingOrganization>
+                           </asOtherIDs>
+                        </patientPerson>
+                        <providerOrganization determinerCode="INSTANCE" classCode="ORG">
+                           <id root="1.1"/>
+                           <contactParty xsi:nil="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"/>
+                        </providerOrganization>
+                        <subjectOf1>
+                           <queryMatchObservation moodCode="EVN" classCode="CASE">
+                              <code code="IHE_PDQ"/>
+                              <value xsi:type="INT" value="100" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"/>
+                           </queryMatchObservation>
+                        </subjectOf1>
+                     </patient>
+                  </subject1>
+                  <custodian typeCode="CST">
+                     <assignedEntity classCode="ASSIGNED">
+                        <id root="1.1"/>
+                        <code codeSystem="1.3.6.1.4.1.19376.1.2.27.2" code="NotHealthDataLocator"/>
+                     </assignedEntity>
+                  </custodian>
+               </registrationEvent>
+            </subject>
+            <queryAck>
+               <queryId extension="-abd3453dcd24wkkks545" root="2.2"/>
+               <queryResponseCode code="OK"/>
+            </queryAck>
+            <queryByParameter>
+               <queryId extension="-abd3453dcd24wkkks545" root="2.2"/>
+               <statusCode code="new"/>
+               <responseModalityCode code="R"/>
+               <responsePriorityCode code="I"/>
+               <parameterList>
+                  <livingSubjectAdministrativeGender>
+                     <value code="M"/>
+                     <semanticsText representation="TXT"/>
+                  </livingSubjectAdministrativeGender>
+                  <livingSubjectBirthTime>
+                     <value value="19630804"/>
+                     <semanticsText representation="TXT"/>
+                  </livingSubjectBirthTime>
+                  <livingSubjectId>
+                     <value extension="1111" root="2.2"/>
+                     <semanticsText representation="TXT"/>
+                  </livingSubjectId>
+                  <livingSubjectName>
+                     <value>
+                        <family partType="FAM">Younger</family>
+                        <given partType="GIV">Gallow</given>
+                     </value>
+                     <semanticsText representation="TXT"/>
+                  </livingSubjectName>
+               </parameterList>
+            </queryByParameter>
+         </controlActProcess>
+      </PRPA_IN201306UV02>
+   </S:Body>
+</S:Envelope>]]></con:responseContent><con:wsaConfig action="urn:gov:hhs:fha:nhinc:adaptermpi/AdapterMpiPortType/FindCandidatesResponse" mustUnderstand="NONE" version="200508"/></con:response><con:response encoding="UTF-8" name="Gallow 5"><con:settings/><con:script/><con:responseContent><![CDATA[<S:Envelope xmlns:S="http://www.w3.org/2003/05/soap-envelope" xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:wsse11="http://docs.oasis-open.org/wss/oasis-wss-wssecurity-secext-1.1.xsd">
+   <S:Body>
+      <PRPA_IN201306UV02 ITSVersion="XML_1.0" xmlns="urn:hl7-org:v3" xmlns:ns2="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:ns3="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:ns4="urn:gov:hhs:fha:nhinc:common:patientcorrelationfacade">
+         <id extension="3b839b4e:133af7051a3:-7fbd" root="1.1"/>
+         <creationTime value="2011111725448"/>
+         <interactionId extension="PRPA_IN201306UV02" root="2.16.840.1.113883.1.6"/>
+         <processingCode code="P"/>
+         <processingModeCode code="T"/>
+         <acceptAckCode code="NE"/>
+         <receiver typeCode="RCV">
+            <device determinerCode="INSTANCE" classCode="DEV">
+               <id root="1.2.345.678.999"/>
+               <asAgent classCode="AGNT">
+                  <representedOrganization determinerCode="INSTANCE" classCode="ORG">
+                     <id root="2.2"/>
+                  </representedOrganization>
+               </asAgent>
+            </device>
+         </receiver>
+         <sender typeCode="SND">
+            <device determinerCode="INSTANCE" classCode="DEV">
+               <id root="1.2.345.678.999"/>
+               <asAgent classCode="AGNT">
+                  <representedOrganization determinerCode="INSTANCE" classCode="ORG">
+                     <id root="1.1"/>
+                  </representedOrganization>
+               </asAgent>
+            </device>
+         </sender>
+         <acknowledgement>
+            <typeId extension="PRPA_IN201305UV02" root="2.16.840.1.113883.1.6"/>
+            <typeCode code="AA"/>
+            <targetMessage xsi:nil="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"/>
+         </acknowledgement>
+         <controlActProcess moodCode="EVN" classCode="CACT">
+            <code codeSystem="2.16.840.1.113883.1.6" code="PRPA_TE201306UV"/>
+            <subject typeCode="SUBJ">
+               <registrationEvent moodCode="EVN" classCode="REG">
+                  <id nullFlavor="NA"/>
+                  <statusCode code="active"/>
+                  <subject1 typeCode="SBJ">
+                     <patient classCode="PAT">
+                        <id extension="gallow5" root="56785"/>
+                        <statusCode code="SD"/>
+                        <patientPerson determinerCode="INSTANCE" classCode="PSN">
+                           <name>
+                              <family partType="FAM">Younger</family>
+                              <given partType="GIV">Gallow</given>
+                           </name>
+                           <telecom value="tel:+1-888-555-1234"/>
+                           <administrativeGenderCode code="M"/>
+                           <birthTime value="19630804"/>
+                           <addr>
+                              <city>LEESBURG</city>
+                              <state>VA</state>
+                              <postalCode>20176</postalCode>
+                           </addr>
+                           <asOtherIDs classCode="SD">
+                              <id extension="999123401" root="2.16.840.1.113883.4.1"/>
+                              <scopingOrganization determinerCode="INSTANCE" classCode="ORG">
+                                 <id root="2.16.840.1.113883.4.1"/>
+                              </scopingOrganization>
+                           </asOtherIDs>
+                        </patientPerson>
+                        <providerOrganization determinerCode="INSTANCE" classCode="ORG">
+                           <id root="1.1"/>
+                           <contactParty xsi:nil="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"/>
+                        </providerOrganization>
+                        <subjectOf1>
+                           <queryMatchObservation moodCode="EVN" classCode="CASE">
+                              <code code="IHE_PDQ"/>
+                              <value xsi:type="INT" value="100" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"/>
+                           </queryMatchObservation>
+                        </subjectOf1>
+                     </patient>
+                  </subject1>
+                  <custodian typeCode="CST">
+                     <assignedEntity classCode="ASSIGNED">
+                        <id root="1.1"/>
+                        <code codeSystem="1.3.6.1.4.1.19376.1.2.27.2" code="NotHealthDataLocator"/>
+                     </assignedEntity>
+                  </custodian>
+               </registrationEvent>
+            </subject>
+            <queryAck>
+               <queryId extension="-abd3453dcd24wkkks545" root="2.2"/>
+               <queryResponseCode code="OK"/>
+            </queryAck>
+            <queryByParameter>
+               <queryId extension="-abd3453dcd24wkkks545" root="2.2"/>
+               <statusCode code="new"/>
+               <responseModalityCode code="R"/>
+               <responsePriorityCode code="I"/>
+               <parameterList>
+                  <livingSubjectAdministrativeGender>
+                     <value code="M"/>
+                     <semanticsText representation="TXT"/>
+                  </livingSubjectAdministrativeGender>
+                  <livingSubjectBirthTime>
+                     <value value="19630804"/>
+                     <semanticsText representation="TXT"/>
+                  </livingSubjectBirthTime>
+                  <livingSubjectId>
+                     <value extension="1111" root="2.2"/>
+                     <semanticsText representation="TXT"/>
+                  </livingSubjectId>
+                  <livingSubjectName>
+                     <value>
+                        <family partType="FAM">Younger</family>
+                        <given partType="GIV">Gallow</given>
+                     </value>
+                     <semanticsText representation="TXT"/>
+                  </livingSubjectName>
+               </parameterList>
+            </queryByParameter>
+         </controlActProcess>
+      </PRPA_IN201306UV02>
+   </S:Body>
+</S:Envelope>]]></con:responseContent><con:wsaConfig action="urn:gov:hhs:fha:nhinc:adaptermpi/AdapterMpiPortType/FindCandidatesResponse" mustUnderstand="NONE" version="200508"/></con:response><con:response encoding="UTF-8" name="Gallow 6"><con:settings/><con:script/><con:responseContent><![CDATA[<S:Envelope xmlns:S="http://www.w3.org/2003/05/soap-envelope" xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:wsse11="http://docs.oasis-open.org/wss/oasis-wss-wssecurity-secext-1.1.xsd">
+   <S:Body>
+      <PRPA_IN201306UV02 ITSVersion="XML_1.0" xmlns="urn:hl7-org:v3" xmlns:ns2="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:ns3="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:ns4="urn:gov:hhs:fha:nhinc:common:patientcorrelationfacade">
+         <id extension="3b839b4e:133af7051a3:-7fbd" root="1.1"/>
+         <creationTime value="2011111725448"/>
+         <interactionId extension="PRPA_IN201306UV02" root="2.16.840.1.113883.1.6"/>
+         <processingCode code="P"/>
+         <processingModeCode code="T"/>
+         <acceptAckCode code="NE"/>
+         <receiver typeCode="RCV">
+            <device determinerCode="INSTANCE" classCode="DEV">
+               <id root="1.2.345.678.999"/>
+               <asAgent classCode="AGNT">
+                  <representedOrganization determinerCode="INSTANCE" classCode="ORG">
+                     <id root="2.2"/>
+                  </representedOrganization>
+               </asAgent>
+            </device>
+         </receiver>
+         <sender typeCode="SND">
+            <device determinerCode="INSTANCE" classCode="DEV">
+               <id root="1.2.345.678.999"/>
+               <asAgent classCode="AGNT">
+                  <representedOrganization determinerCode="INSTANCE" classCode="ORG">
+                     <id root="1.1"/>
+                  </representedOrganization>
+               </asAgent>
+            </device>
+         </sender>
+         <acknowledgement>
+            <typeId extension="PRPA_IN201305UV02" root="2.16.840.1.113883.1.6"/>
+            <typeCode code="AA"/>
+            <targetMessage xsi:nil="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"/>
+         </acknowledgement>
+         <controlActProcess moodCode="EVN" classCode="CACT">
+            <code codeSystem="2.16.840.1.113883.1.6" code="PRPA_TE201306UV"/>
+            <subject typeCode="SUBJ">
+               <registrationEvent moodCode="EVN" classCode="REG">
+                  <id nullFlavor="NA"/>
+                  <statusCode code="active"/>
+                  <subject1 typeCode="SBJ">
+                     <patient classCode="PAT">
+                        <id extension="gallow6" root="56786"/>
+                        <statusCode code="SD"/>
+                        <patientPerson determinerCode="INSTANCE" classCode="PSN">
+                           <name>
+                              <family partType="FAM">Younger</family>
+                              <given partType="GIV">Gallow</given>
+                           </name>
+                           <telecom value="tel:+1-888-555-1234"/>
+                           <administrativeGenderCode code="M"/>
+                           <birthTime value="19630804"/>
+                           <addr>
+                              <city>LEESBURG</city>
+                              <state>VA</state>
+                              <postalCode>20176</postalCode>
+                           </addr>
+                           <asOtherIDs classCode="SD">
+                              <id extension="999123401" root="2.16.840.1.113883.4.1"/>
+                              <scopingOrganization determinerCode="INSTANCE" classCode="ORG">
+                                 <id root="2.16.840.1.113883.4.1"/>
+                              </scopingOrganization>
+                           </asOtherIDs>
+                        </patientPerson>
+                        <providerOrganization determinerCode="INSTANCE" classCode="ORG">
+                           <id root="1.1"/>
+                           <contactParty xsi:nil="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"/>
+                        </providerOrganization>
+                        <subjectOf1>
+                           <queryMatchObservation moodCode="EVN" classCode="CASE">
+                              <code code="IHE_PDQ"/>
+                              <value xsi:type="INT" value="100" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"/>
+                           </queryMatchObservation>
+                        </subjectOf1>
+                     </patient>
+                  </subject1>
+                  <custodian typeCode="CST">
+                     <assignedEntity classCode="ASSIGNED">
+                        <id root="1.1"/>
+                        <code codeSystem="1.3.6.1.4.1.19376.1.2.27.2" code="NotHealthDataLocator"/>
+                     </assignedEntity>
+                  </custodian>
+               </registrationEvent>
+            </subject>
+            <queryAck>
+               <queryId extension="-abd3453dcd24wkkks545" root="2.2"/>
+               <queryResponseCode code="OK"/>
+            </queryAck>
+            <queryByParameter>
+               <queryId extension="-abd3453dcd24wkkks545" root="2.2"/>
+               <statusCode code="new"/>
+               <responseModalityCode code="R"/>
+               <responsePriorityCode code="I"/>
+               <parameterList>
+                  <livingSubjectAdministrativeGender>
+                     <value code="M"/>
+                     <semanticsText representation="TXT"/>
+                  </livingSubjectAdministrativeGender>
+                  <livingSubjectBirthTime>
+                     <value value="19630804"/>
+                     <semanticsText representation="TXT"/>
+                  </livingSubjectBirthTime>
+                  <livingSubjectId>
+                     <value extension="1111" root="2.2"/>
+                     <semanticsText representation="TXT"/>
+                  </livingSubjectId>
+                  <livingSubjectName>
+                     <value>
+                        <family partType="FAM">Younger</family>
+                        <given partType="GIV">Gallow</given>
+                     </value>
+                     <semanticsText representation="TXT"/>
+                  </livingSubjectName>
+               </parameterList>
+            </queryByParameter>
+         </controlActProcess>
+      </PRPA_IN201306UV02>
+   </S:Body>
+</S:Envelope>]]></con:responseContent><con:wsaConfig action="urn:gov:hhs:fha:nhinc:adaptermpi/AdapterMpiPortType/FindCandidatesResponse" mustUnderstand="NONE" version="200508"/></con:response><con:response encoding="UTF-8" name="Gallow 7"><con:settings/><con:script/><con:responseContent><![CDATA[<S:Envelope xmlns:S="http://www.w3.org/2003/05/soap-envelope" xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:wsse11="http://docs.oasis-open.org/wss/oasis-wss-wssecurity-secext-1.1.xsd">
+   <S:Body>
+      <PRPA_IN201306UV02 ITSVersion="XML_1.0" xmlns="urn:hl7-org:v3" xmlns:ns2="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:ns3="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:ns4="urn:gov:hhs:fha:nhinc:common:patientcorrelationfacade">
+         <id extension="3b839b4e:133af7051a3:-7fbd" root="1.1"/>
+         <creationTime value="2011111725448"/>
+         <interactionId extension="PRPA_IN201306UV02" root="2.16.840.1.113883.1.6"/>
+         <processingCode code="P"/>
+         <processingModeCode code="T"/>
+         <acceptAckCode code="NE"/>
+         <receiver typeCode="RCV">
+            <device determinerCode="INSTANCE" classCode="DEV">
+               <id root="1.2.345.678.999"/>
+               <asAgent classCode="AGNT">
+                  <representedOrganization determinerCode="INSTANCE" classCode="ORG">
+                     <id root="2.2"/>
+                  </representedOrganization>
+               </asAgent>
+            </device>
+         </receiver>
+         <sender typeCode="SND">
+            <device determinerCode="INSTANCE" classCode="DEV">
+               <id root="1.2.345.678.999"/>
+               <asAgent classCode="AGNT">
+                  <representedOrganization determinerCode="INSTANCE" classCode="ORG">
+                     <id root="1.1"/>
+                  </representedOrganization>
+               </asAgent>
+            </device>
+         </sender>
+         <acknowledgement>
+            <typeId extension="PRPA_IN201305UV02" root="2.16.840.1.113883.1.6"/>
+            <typeCode code="AA"/>
+            <targetMessage xsi:nil="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"/>
+         </acknowledgement>
+         <controlActProcess moodCode="EVN" classCode="CACT">
+            <code codeSystem="2.16.840.1.113883.1.6" code="PRPA_TE201306UV"/>
+            <subject typeCode="SUBJ">
+               <registrationEvent moodCode="EVN" classCode="REG">
+                  <id nullFlavor="NA"/>
+                  <statusCode code="active"/>
+                  <subject1 typeCode="SBJ">
+                     <patient classCode="PAT">
+                        <id extension="gallow7" root="56787"/>
+                        <statusCode code="SD"/>
+                        <patientPerson determinerCode="INSTANCE" classCode="PSN">
+                           <name>
+                              <family partType="FAM">Younger</family>
+                              <given partType="GIV">Gallow</given>
+                           </name>
+                           <telecom value="tel:+1-888-555-1234"/>
+                           <administrativeGenderCode code="M"/>
+                           <birthTime value="19630804"/>
+                           <addr>
+                              <city>LEESBURG</city>
+                              <state>VA</state>
+                              <postalCode>20176</postalCode>
+                           </addr>
+                           <asOtherIDs classCode="SD">
+                              <id extension="999123401" root="2.16.840.1.113883.4.1"/>
+                              <scopingOrganization determinerCode="INSTANCE" classCode="ORG">
+                                 <id root="2.16.840.1.113883.4.1"/>
+                              </scopingOrganization>
+                           </asOtherIDs>
+                        </patientPerson>
+                        <providerOrganization determinerCode="INSTANCE" classCode="ORG">
+                           <id root="1.1"/>
+                           <contactParty xsi:nil="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"/>
+                        </providerOrganization>
+                        <subjectOf1>
+                           <queryMatchObservation moodCode="EVN" classCode="CASE">
+                              <code code="IHE_PDQ"/>
+                              <value xsi:type="INT" value="100" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"/>
+                           </queryMatchObservation>
+                        </subjectOf1>
+                     </patient>
+                  </subject1>
+                  <custodian typeCode="CST">
+                     <assignedEntity classCode="ASSIGNED">
+                        <id root="1.1"/>
+                        <code codeSystem="1.3.6.1.4.1.19376.1.2.27.2" code="NotHealthDataLocator"/>
+                     </assignedEntity>
+                  </custodian>
+               </registrationEvent>
+            </subject>
+            <queryAck>
+               <queryId extension="-abd3453dcd24wkkks545" root="2.2"/>
+               <queryResponseCode code="OK"/>
+            </queryAck>
+            <queryByParameter>
+               <queryId extension="-abd3453dcd24wkkks545" root="2.2"/>
+               <statusCode code="new"/>
+               <responseModalityCode code="R"/>
+               <responsePriorityCode code="I"/>
+               <parameterList>
+                  <livingSubjectAdministrativeGender>
+                     <value code="M"/>
+                     <semanticsText representation="TXT"/>
+                  </livingSubjectAdministrativeGender>
+                  <livingSubjectBirthTime>
+                     <value value="19630804"/>
+                     <semanticsText representation="TXT"/>
+                  </livingSubjectBirthTime>
+                  <livingSubjectId>
+                     <value extension="1111" root="2.2"/>
+                     <semanticsText representation="TXT"/>
+                  </livingSubjectId>
+                  <livingSubjectName>
+                     <value>
+                        <family partType="FAM">Younger</family>
+                        <given partType="GIV">Gallow</given>
+                     </value>
+                     <semanticsText representation="TXT"/>
+                  </livingSubjectName>
+               </parameterList>
+            </queryByParameter>
+         </controlActProcess>
+      </PRPA_IN201306UV02>
+   </S:Body>
+</S:Envelope>]]></con:responseContent><con:wsaConfig action="urn:gov:hhs:fha:nhinc:adaptermpi/AdapterMpiPortType/FindCandidatesResponse" mustUnderstand="NONE" version="200508"/></con:response><con:response encoding="UTF-8" name="Gallow 8"><con:settings/><con:script/><con:responseContent><![CDATA[<S:Envelope xmlns:S="http://www.w3.org/2003/05/soap-envelope" xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:wsse11="http://docs.oasis-open.org/wss/oasis-wss-wssecurity-secext-1.1.xsd">
+   <S:Body>
+      <PRPA_IN201306UV02 ITSVersion="XML_1.0" xmlns="urn:hl7-org:v3" xmlns:ns2="urn:gov:hhs:fha:nhinc:common:nhinccommon" xmlns:ns3="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:ns4="urn:gov:hhs:fha:nhinc:common:patientcorrelationfacade">
+         <id extension="3b839b4e:133af7051a3:-7fbd" root="1.1"/>
+         <creationTime value="2011111725448"/>
+         <interactionId extension="PRPA_IN201306UV02" root="2.16.840.1.113883.1.6"/>
+         <processingCode code="P"/>
+         <processingModeCode code="T"/>
+         <acceptAckCode code="NE"/>
+         <receiver typeCode="RCV">
+            <device determinerCode="INSTANCE" classCode="DEV">
+               <id root="1.2.345.678.999"/>
+               <asAgent classCode="AGNT">
+                  <representedOrganization determinerCode="INSTANCE" classCode="ORG">
+                     <id root="2.2"/>
+                  </representedOrganization>
+               </asAgent>
+            </device>
+         </receiver>
+         <sender typeCode="SND">
+            <device determinerCode="INSTANCE" classCode="DEV">
+               <id root="1.2.345.678.999"/>
+               <asAgent classCode="AGNT">
+                  <representedOrganization determinerCode="INSTANCE" classCode="ORG">
+                     <id root="1.1"/>
+                  </representedOrganization>
+               </asAgent>
+            </device>
+         </sender>
+         <acknowledgement>
+            <typeId extension="PRPA_IN201305UV02" root="2.16.840.1.113883.1.6"/>
+            <typeCode code="AA"/>
+            <targetMessage xsi:nil="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"/>
+         </acknowledgement>
+         <controlActProcess moodCode="EVN" classCode="CACT">
+            <code codeSystem="2.16.840.1.113883.1.6" code="PRPA_TE201306UV"/>
+            <subject typeCode="SUBJ">
+               <registrationEvent moodCode="EVN" classCode="REG">
+                  <id nullFlavor="NA"/>
+                  <statusCode code="active"/>
+                  <subject1 typeCode="SBJ">
+                     <patient classCode="PAT">
+                        <id extension="gallow8" root="56788"/>
+                        <statusCode code="SD"/>
+                        <patientPerson determinerCode="INSTANCE" classCode="PSN">
+                           <name>
+                              <family partType="FAM">Younger</family>
+                              <given partType="GIV">Gallow</given>
+                           </name>
+                           <telecom value="tel:+1-888-555-1234"/>
+                           <administrativeGenderCode code="M"/>
+                           <birthTime value="19630804"/>
+                           <addr>
+                              <city>LEESBURG</city>
+                              <state>VA</state>
+                              <postalCode>20176</postalCode>
+                           </addr>
+                           <asOtherIDs classCode="SD">
+                              <id extension="999123401" root="2.16.840.1.113883.4.1"/>
+                              <scopingOrganization determinerCode="INSTANCE" classCode="ORG">
+                                 <id root="2.16.840.1.113883.4.1"/>
+                              </scopingOrganization>
+                           </asOtherIDs>
+                        </patientPerson>
+                        <providerOrganization determinerCode="INSTANCE" classCode="ORG">
+                           <id root="1.1"/>
+                           <contactParty xsi:nil="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"/>
+                        </providerOrganization>
+                        <subjectOf1>
+                           <queryMatchObservation moodCode="EVN" classCode="CASE">
+                              <code code="IHE_PDQ"/>
+                              <value xsi:type="INT" value="100" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"/>
+                           </queryMatchObservation>
+                        </subjectOf1>
+                     </patient>
+                  </subject1>
+                  <custodian typeCode="CST">
+                     <assignedEntity classCode="ASSIGNED">
+                        <id root="1.1"/>
+                        <code codeSystem="1.3.6.1.4.1.19376.1.2.27.2" code="NotHealthDataLocator"/>
+                     </assignedEntity>
+                  </custodian>
+               </registrationEvent>
+            </subject>
+            <queryAck>
+               <queryId extension="-abd3453dcd24wkkks545" root="2.2"/>
+               <queryResponseCode code="OK"/>
+            </queryAck>
+            <queryByParameter>
+               <queryId extension="-abd3453dcd24wkkks545" root="2.2"/>
+               <statusCode code="new"/>
+               <responseModalityCode code="R"/>
+               <responsePriorityCode code="I"/>
+               <parameterList>
+                  <livingSubjectAdministrativeGender>
+                     <value code="M"/>
+                     <semanticsText representation="TXT"/>
+                  </livingSubjectAdministrativeGender>
+                  <livingSubjectBirthTime>
+                     <value value="19630804"/>
+                     <semanticsText representation="TXT"/>
+                  </livingSubjectBirthTime>
+                  <livingSubjectId>
+                     <value extension="1111" root="2.2"/>
+                     <semanticsText representation="TXT"/>
+                  </livingSubjectId>
+                  <livingSubjectName>
+                     <value>
+                        <family partType="FAM">Younger</family>
+                        <given partType="GIV">Gallow</given>
+                     </value>
+                     <semanticsText representation="TXT"/>
+                  </livingSubjectName>
+               </parameterList>
+            </queryByParameter>
+         </controlActProcess>
+      </PRPA_IN201306UV02>
+   </S:Body>
+</S:Envelope>]]></con:responseContent><con:wsaConfig action="urn:gov:hhs:fha:nhinc:adaptermpi/AdapterMpiPortType/FindCandidatesResponse" mustUnderstand="NONE" version="200508"/></con:response><con:response name="MAA"><con:responseContent/></con:response><con:response name="MAA"><con:responseContent/></con:response><con:dispatchConfig xsi:type="con:MockOperationQueryMatchDispatch" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:query><con:name>MAA</con:name><con:query>declare namespace ns3='urn:hl7-org:v3';
 
 //ns3:PRPA_IN201305UV02[1]/ns3:receiver[1]/ns3:device[1]/ns3:asAgent[1]/ns3:representedOrganization[1]/ns3:id[1]/@root</con:query><con:match>3.3</con:match><con:response>MAA</con:response></con:query></con:dispatchConfig></con:mockOperation><con:properties/></con:mockService><con:mockService bindToHostOnly="false" docroot="" host="localhost" name="mockDQ_happy_path" path="/MockDQResp" port="7782"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.mock.WsdlMockService@require-soap-action">false</con:setting></con:settings><con:mockOperation interface="AdapterDocQueryBindingSoap" name="RespondingGateway_CrossGatewayQuery" operation="RespondingGateway_CrossGatewayQuery"><con:settings/><con:dispatchStyle>SEQUENCE</con:dispatchStyle><con:defaultResponse>correct doc</con:defaultResponse><con:response encoding="UTF-8" name="correct doc"><con:settings/><con:responseContent><![CDATA[<S:Envelope xmlns:S="http://www.w3.org/2003/05/soap-envelope">
    <S:Body>
