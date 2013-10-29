@@ -32,6 +32,7 @@ import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.uddi.api_v3.BusinessDetail;
@@ -65,7 +66,8 @@ public class UDDIAccessor {
     private void loadProperties() throws UDDIAccessorException {
         if (!m_bPropsLoaded) {
             try {
-                String sValue = PropertyAccessor.getInstance().getProperty(GATEWAY_PROPFILE_NAME, UDDI_BUSINESSES_TO_IGNORE);
+                String sValue = PropertyAccessor.getInstance().getProperty(GATEWAY_PROPFILE_NAME,
+                        UDDI_BUSINESSES_TO_IGNORE);
                 if ((sValue != null) && (sValue.length() > 0)) {
                     String saBusiness[] = sValue.split(";");
                     if ((saBusiness != null) && (saBusiness.length > 0)) {
@@ -104,7 +106,7 @@ public class UDDIAccessor {
     }
 
     private void removeIgnoredBusinesses(BusinessList businessList) {
-        ArrayList<String> ignoredKeyList = new ArrayList<String>();
+        ArrayList<BusinessInfo> ignoredKeyList = new ArrayList<BusinessInfo>();
         if ((businessList != null) && (businessList.getBusinessInfos() != null)
                 && (businessList.getBusinessInfos().getBusinessInfo() != null)
                 && (businessList.getBusinessInfos().getBusinessInfo().size() > 0)) {
@@ -112,10 +114,9 @@ public class UDDIAccessor {
                 String sKey = extractBusinessKey(oBusInfo);
 
                 if (m_hBusinessToIgnore.contains(sKey)) {
-                    ignoredKeyList.add(sKey);
+                    ignoredKeyList.add(oBusInfo);
                 }
             }
-
             businessList.getBusinessInfos().getBusinessInfo().removeAll(ignoredKeyList);
         }
     }
