@@ -171,7 +171,7 @@ public class Patient implements java.io.Serializable {
                 result += "|" + personName.toString();
             }
 
-            result.replaceFirst("|", "");
+            result = result.replaceFirst("|", "");
         }
         return result;
     }
