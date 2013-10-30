@@ -32,7 +32,6 @@ import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 
 import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.uddi.api_v3.BusinessDetail;
