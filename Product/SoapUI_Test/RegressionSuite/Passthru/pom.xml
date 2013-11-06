@@ -24,12 +24,12 @@
             <module>Admin-Distribution-Passthrough</module>
             <module>AuditLogging-Passthrough</module>
             <module>DocQueryAdditionalStoredQueries</module>
-            <module>DocQueryErrorCodesPassthru</module>
+            <!--module>DocQueryErrorCodesPassthru</module-->
             <module>DocQueryRetrieveSelfTest</module>
             <module>DocQueryXDSErrors</module>
             <module>EventLogging-Passthrough</module>
-            <module>NHINCReceivingXDRAsyncRequestTests</module>
-            <module>NHINCReceivingXDRAsyncResponseTests</module>
+            <!--module>NHINCReceivingXDRAsyncRequestTests</module>
+            <module>NHINCReceivingXDRAsyncResponseTests</module-->
         </modules>
 	</profile>
     </profiles>

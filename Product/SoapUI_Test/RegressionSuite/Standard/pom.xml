@@ -30,8 +30,8 @@
             <module>EntityDocQuery</module>
             <module>EntityDocRetrieve</module>
             <module>EntityPolicyEngineTest</module>
-            <module>EntitySendingXDRAsyncReqTests</module>
-            <module>EntitySendingXDRAsyncResponseTests</module>
+            <!--module>EntitySendingXDRAsyncReqTests</module>
+            <module>EntitySendingXDRAsyncResponseTests</module-->
             <module>EntityXDRTests</module>
             <module>EventLogging-Standard</module>
             <module>Fanout-Test</module>
@@ -40,7 +40,7 @@
             <module>PatientCorrelation</module>
             <module>PatientDiscoveryDB</module>
             <module>PatientDiscoveryInternalErrorMessageIdTest</module>
-            <module>TransactionIDTest</module>
+            <!--module>TransactionIDTest</module-->
             <module>XDRAsyncRequestInbound-Tests</module>
             <module>XDRAsyncRequestOutbound-Tests</module>
         </modules>
