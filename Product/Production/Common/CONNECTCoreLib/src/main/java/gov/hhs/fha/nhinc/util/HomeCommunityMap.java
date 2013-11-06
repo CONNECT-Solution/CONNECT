@@ -75,15 +75,14 @@ public class HomeCommunityMap {
      */
     public String getHomeCommunityName(String sHomeCommunityId) {
         String sHomeCommunityName = "";
-        ConnectionManagerCacheHelper helper = getConnectionManagerCacheHelper();
+        
         try {
             ConnectionManagerCache connectionManagerCache = getConnectionManagerCache();
 
             BusinessEntity oEntity = connectionManagerCache.getBusinessEntity(sHomeCommunityId);
             if ((oEntity != null) && (oEntity.getName() != null) && (oEntity.getName().size() > 0)
-                    && (oEntity.getName().get(0) != null) && (oEntity.getName().get(0).getValue().length() > 0)
-                    && (oEntity.getBusinessKey().length() > 0)) {
-                sHomeCommunityName = helper.getCommunityId(oEntity);
+                    && (oEntity.getName().get(0) != null) && (oEntity.getName().get(0).getValue().length() > 0)) {
+                sHomeCommunityName = oEntity.getName().get(0).getValue();
             }
         } catch (Exception e) {
             LOG.warn("Failed to retrieve textual name for home community ID: " + sHomeCommunityId, e);
