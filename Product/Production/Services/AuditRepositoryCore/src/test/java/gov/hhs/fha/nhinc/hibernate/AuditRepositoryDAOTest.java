@@ -76,17 +76,6 @@ public class AuditRepositoryDAOTest {
     }
 
     /**
-     * Test of queryAuditRepository method, of class AuditRepositoryDAO.
-     */
-    @Test
-    public void testQueryAuditRepository() {
-        String query = "select * from auditRepository";
-        List result = auditDao.queryAuditRepository(query);
-        assertNotNull(result);
-        System.out.println("getAuditRepository number of records : " + result.size());
-    }
-
-    /**
      * Test of insertAuditRepository method, of class AuditRepositoryDAO.
      */
     @Test

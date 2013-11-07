@@ -28,15 +28,15 @@ package gov.hhs.fha.nhinc.patientcorrelation.nhinc.dao;
 
 import gov.hhs.fha.nhinc.patientcorrelation.nhinc.model.CorrelatedIdentifiers;
 import gov.hhs.fha.nhinc.patientcorrelation.nhinc.persistence.HibernateUtil;
-
 import org.apache.log4j.Logger;
 import org.hibernate.HibernateException;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 
 /**
- * 
+ *
  * @author rayj
  */
 public class Storer {
@@ -128,16 +128,22 @@ public class Storer {
         LOG.debug("-- Begin CorrelatedIdentifiersDao.removePatientCorrelation() ---");
         Session sess = null;
         Transaction trans = null;
-        boolean result = false;
-        String param1 = correlatedIdentifers.getPatientAssigningAuthorityId();
-        String param2 = correlatedIdentifers.getPatientId();
-        String param3 = correlatedIdentifers.getCorrelatedPatientAssigningAuthorityId();
-        String param4 = correlatedIdentifers.getCorrelatedPatientId();
-        String sql = "delete from correlatedidentifiers where ((PatientAssigningAuthorityId='" + param1
-                + "' and PatientId='" + param2 + "' and CorrelatedPatientAssignAuthId='" + param3
-                + "' and CorrelatedPatientId='" + param4 + "') or (PatientAssigningAuthorityId='" + param3
-                + "' and PatientId='" + param4 + "' and CorrelatedPatientAssignAuthId='" + param1
-                + "' and CorrelatedPatientId='" + param2 + "'))";
+        
+        String deleteCorrelatedIdentifiersSQL = "delete from correlatedidentifiers "
+            + "where ((PatientAssigningAuthorityId = :patientAssigningAuthority "
+            + "and PatientId= :patientId "
+            + "and CorrelatedPatientAssignAuthId= :correlatedPatientAssignAuthId "
+            + "and CorrelatedPatientId= :correlatedPatientId) "
+            + "or (PatientAssigningAuthorityId= :correlatedPatientAssignAuthId "
+            + "and PatientId= :correlatedPatientId "
+            + "and CorrelatedPatientAssignAuthId= :patientAssigningAuthority "
+            + "and CorrelatedPatientId= :patientId))";
+
+        //get the SQL bind values
+        String paramPatientAssigningAuthority = correlatedIdentifers.getPatientAssigningAuthorityId();
+        String paramPatientId = correlatedIdentifers.getPatientId();
+        String paramCorrelatedPatientAssignAuthId = correlatedIdentifers.getCorrelatedPatientAssigningAuthorityId();
+        String paramCorrelatedPatientId = correlatedIdentifers.getCorrelatedPatientId();
         try {
             SessionFactory fact = HibernateUtil.getSessionFactory();
             if (fact != null) {
@@ -145,10 +151,17 @@ public class Storer {
                 sess = fact.openSession();
                 if (sess != null) {
                     trans = sess.beginTransaction();
-                    int rowsDeleted = sess.createSQLQuery(sql).executeUpdate();
+                    Query query = sess.createSQLQuery(deleteCorrelatedIdentifiersSQL);
+                    query.setString("patientAssigningAuthority", paramPatientAssigningAuthority);
+                    query.setString("patientId", paramPatientId);
+                    query.setString("correlatedPatientAssignAuthId", paramCorrelatedPatientAssignAuthId);
+                    query.setString("correlatedPatientId", paramCorrelatedPatientId);
+                    //delete the rows
+                    int rowsDeleted = query.executeUpdate();
+                    //commit the trasaction
                     trans.commit();
                     if (rowsDeleted != 0) {
-                        result = true;
+                        LOG.debug("Total Rows Deleted from table correlatedidentifiers -->" + rowsDeleted);
                     }
                 } else {
                     LOG.error("Unable to create session...");
