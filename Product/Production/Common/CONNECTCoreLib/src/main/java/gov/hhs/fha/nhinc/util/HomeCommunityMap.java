@@ -57,6 +57,7 @@ import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 public class HomeCommunityMap {
 
     private static final Logger LOG = Logger.getLogger(HomeCommunityMap.class);
+    private static PropertyAccessor propertyAccessor = PropertyAccessor.getInstance();
 
     protected ConnectionManagerCache getConnectionManagerCache() {
         return ConnectionManagerCache.getInstance();
@@ -252,7 +253,7 @@ public class HomeCommunityMap {
         String sHomeCommunity = null;
 
         try {
-            sHomeCommunity = PropertyAccessor.getInstance().getProperty(NhincConstants.GATEWAY_PROPERTY_FILE,
+            sHomeCommunity = propertyAccessor.getProperty(NhincConstants.GATEWAY_PROPERTY_FILE,
                     NhincConstants.HOME_COMMUNITY_ID_PROPERTY);
         } catch (PropertyAccessException ex) {
             LOG.error(ex.getMessage());
@@ -260,6 +261,7 @@ public class HomeCommunityMap {
 
         return sHomeCommunity;
     }
+    
     /**
      * Returns the home community id by with 'urn:oid:' prefix if it doesn't exists.
      *
@@ -275,4 +277,13 @@ public class HomeCommunityMap {
         }
         return communityId;
     }
+    
+    /**
+     * Used for injecting mock property accessor for Unit testing.
+     * @param propAccessor
+     */
+    protected static void setPropertyAccessor(PropertyAccessor propAccessor){
+        propertyAccessor = propAccessor;
+    }
+    
 }
