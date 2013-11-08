@@ -34,6 +34,8 @@ import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.common.nhinccommon.UserType;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCacheHelper;
+import gov.hhs.fha.nhinc.properties.PropertyAccessException;
+import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType.DocumentRequest;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
@@ -62,16 +64,17 @@ public class HomeCommunityMapTest {
     };
     final ConnectionManagerCache mockConnectionManager = context.mock(ConnectionManagerCache.class);
     final ConnectionManagerCacheHelper mockConnectionManagerHelper = context.mock(ConnectionManagerCacheHelper.class);
+    final PropertyAccessor mockPropertyAccessor = context.mock(PropertyAccessor.class);
 
     public HomeCommunityMapTest() {
     }
 
-    protected BusinessEntity createBusinessEntity() {
+    protected BusinessEntity createBusinessEntity(String orgName) {
         BusinessEntity bEntity = new BusinessEntity();
 
         bEntity.setBusinessKey("businessKey");
         Name name = new Name();
-        name.setValue("123");
+        name.setValue(orgName);
         bEntity.getName().add(name);
 
         return bEntity;
@@ -79,11 +82,11 @@ public class HomeCommunityMapTest {
 
     @Test
     public void testGetHomeCommunityName() {
-
-        try {
+        
+        final String homeCommunityName = "DoD";
+        
+        try {            
             String homeCommunityId = "1.1";
-            String homeCommunityName = "DoD";
-
             HomeCommunityMap homeMap = new HomeCommunityMap() {
                 @Override
                 protected ConnectionManagerCache getConnectionManagerCache() {
@@ -99,9 +102,7 @@ public class HomeCommunityMapTest {
             context.checking(new Expectations() {
                 {
                     exactly(1).of(mockConnectionManager).getBusinessEntity(with(any(String.class)));
-                    will(returnValue(createBusinessEntity()));
-                    exactly(1).of(mockConnectionManagerHelper).getCommunityId(with(any(BusinessEntity.class)));
-                    will(returnValue("DoD"));
+                    will(returnValue(createBusinessEntity(homeCommunityName)));
                 }
             });
 
@@ -288,8 +289,17 @@ public class HomeCommunityMapTest {
     }
 
     @Test
-    public void testGetLocalHomeCommunityId() {
-        String localCommunityId = "1.1";
+    public void testGetLocalHomeCommunityId() throws PropertyAccessException {
+        final String localCommunityId = "1.1";
+        
+        HomeCommunityMap.setPropertyAccessor(mockPropertyAccessor);
+        
+        context.checking(new Expectations() {
+            {
+                exactly(1).of(mockPropertyAccessor).getProperty(with(any(String.class)), with(any(String.class)));
+                will(returnValue(localCommunityId));
+            }
+        });
 
         String retrievedId = HomeCommunityMap.formatHomeCommunityId(HomeCommunityMap.getLocalHomeCommunityId());
         assertEquals(localCommunityId, retrievedId);

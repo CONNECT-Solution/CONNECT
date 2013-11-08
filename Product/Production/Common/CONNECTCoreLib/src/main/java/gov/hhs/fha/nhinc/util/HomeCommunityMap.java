@@ -57,6 +57,7 @@ import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 public class HomeCommunityMap {
 
     private static final Logger LOG = Logger.getLogger(HomeCommunityMap.class);
+    private static PropertyAccessor propertyAccessor = PropertyAccessor.getInstance();
 
     protected ConnectionManagerCache getConnectionManagerCache() {
         return ConnectionManagerCache.getInstance();
@@ -75,15 +76,14 @@ public class HomeCommunityMap {
      */
     public String getHomeCommunityName(String sHomeCommunityId) {
         String sHomeCommunityName = "";
-        ConnectionManagerCacheHelper helper = getConnectionManagerCacheHelper();
+        
         try {
             ConnectionManagerCache connectionManagerCache = getConnectionManagerCache();
 
             BusinessEntity oEntity = connectionManagerCache.getBusinessEntity(sHomeCommunityId);
             if ((oEntity != null) && (oEntity.getName() != null) && (oEntity.getName().size() > 0)
-                    && (oEntity.getName().get(0) != null) && (oEntity.getName().get(0).getValue().length() > 0)
-                    && (oEntity.getBusinessKey().length() > 0)) {
-                sHomeCommunityName = helper.getCommunityId(oEntity);
+                    && (oEntity.getName().get(0) != null) && (oEntity.getName().get(0).getValue().length() > 0)) {
+                sHomeCommunityName = oEntity.getName().get(0).getValue();
             }
         } catch (Exception e) {
             LOG.warn("Failed to retrieve textual name for home community ID: " + sHomeCommunityId, e);
@@ -253,7 +253,7 @@ public class HomeCommunityMap {
         String sHomeCommunity = null;
 
         try {
-            sHomeCommunity = PropertyAccessor.getInstance().getProperty(NhincConstants.GATEWAY_PROPERTY_FILE,
+            sHomeCommunity = propertyAccessor.getProperty(NhincConstants.GATEWAY_PROPERTY_FILE,
                     NhincConstants.HOME_COMMUNITY_ID_PROPERTY);
         } catch (PropertyAccessException ex) {
             LOG.error(ex.getMessage());
@@ -261,6 +261,7 @@ public class HomeCommunityMap {
 
         return sHomeCommunity;
     }
+    
     /**
      * Returns the home community id by with 'urn:oid:' prefix if it doesn't exists.
      *
@@ -276,4 +277,13 @@ public class HomeCommunityMap {
         }
         return communityId;
     }
+    
+    /**
+     * Used for injecting mock property accessor for Unit testing.
+     * @param propAccessor
+     */
+    protected static void setPropertyAccessor(PropertyAccessor propAccessor){
+        propertyAccessor = propAccessor;
+    }
+    
 }
