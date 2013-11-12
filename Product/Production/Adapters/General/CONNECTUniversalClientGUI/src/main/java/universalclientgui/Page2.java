@@ -588,7 +588,7 @@ public class Page2 extends AbstractPageBean {
                                                         && idxId.getRoot() != null) {
                                                     if (SSA_OID.equals(idxId.getRoot())) {
                                                         resultPatientSSN = idxId.getExtension();
-                                                        LOG.debug(resultPatientSSN + " found with SSA Authority: "
+                                                        LOG.debug("Patient SSN found with SSA Authority: "
                                                                 + idxId.getRoot());
                                                     }
                                                 }

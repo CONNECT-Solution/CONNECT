@@ -450,7 +450,7 @@ public class HL7DbParser201306 {
             II ssn = new II();
             ssn.setExtension(patient.getSsn());
             ssn.setRoot("2.16.840.1.113883.4.1");
-            LOG.info("Setting Patient SSN in 201306: " + patient.getSsn());
+            LOG.info("Setting Patient SSN in 201306 --> Patient SSN is not null." );
             otherIds.getId().add(ssn);
 
             COCTMT150002UV01Organization scopingOrg = new COCTMT150002UV01Organization();

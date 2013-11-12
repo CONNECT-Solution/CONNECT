@@ -26,14 +26,18 @@
  */
 package gov.hhs.fha.nhinc.mpi.adapter.component.hl7parsers;
 
+import gov.hhs.fha.nhinc.patientdb.model.Address;
+import gov.hhs.fha.nhinc.patientdb.model.Identifier;
+import gov.hhs.fha.nhinc.patientdb.model.Patient;
+import gov.hhs.fha.nhinc.patientdb.model.Personname;
+import gov.hhs.fha.nhinc.patientdb.model.Phonenumber;
+import gov.hhs.fha.nhinc.util.format.UTCDateUtil;
 import java.io.Serializable;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-
 import javax.xml.bind.JAXBElement;
-
 import org.apache.log4j.Logger;
 import org.hl7.v3.ADExplicit;
 import org.hl7.v3.AdxpExplicitCity;
@@ -59,13 +63,6 @@ import org.hl7.v3.PRPAMT201306UV02PatientTelecom;
 import org.hl7.v3.PRPAMT201306UV02QueryByParameter;
 import org.hl7.v3.TELExplicit;
 
-import gov.hhs.fha.nhinc.patientdb.model.Address;
-import gov.hhs.fha.nhinc.patientdb.model.Identifier;
-import gov.hhs.fha.nhinc.patientdb.model.Patient;
-import gov.hhs.fha.nhinc.patientdb.model.Personname;
-import gov.hhs.fha.nhinc.patientdb.model.Phonenumber;
-import gov.hhs.fha.nhinc.util.format.UTCDateUtil;
-
 /**
  *
  * @author richard.ettema
@@ -73,7 +70,6 @@ import gov.hhs.fha.nhinc.util.format.UTCDateUtil;
 public class HL7DbParser201305 {
 
     private static final Logger LOG = Logger.getLogger(HL7DbParser201305.class);
-
     /**
      * Social Security Number Root Identifier.
      */
@@ -81,6 +77,7 @@ public class HL7DbParser201305 {
 
     /**
      * Method to extract Gender Code from a PRPAMT201306UV02ParameterList.
+     *
      * @param params the Paramater list from which to extract a Gender Code
      * @return The Gender Code is returned
      */
@@ -91,10 +88,10 @@ public class HL7DbParser201305 {
 
         // Extract the gender from the query parameters - Assume only one was specified
         if (params.getLivingSubjectAdministrativeGender() != null
-                && params.getLivingSubjectAdministrativeGender().size() > 0
-                && params.getLivingSubjectAdministrativeGender().get(0) != null) {
+            && params.getLivingSubjectAdministrativeGender().size() > 0
+            && params.getLivingSubjectAdministrativeGender().get(0) != null) {
             PRPAMT201306UV02LivingSubjectAdministrativeGender gender = params.getLivingSubjectAdministrativeGender()
-                    .get(0);
+                .get(0);
 
             if (gender.getValue() != null && gender.getValue().size() > 0 && gender.getValue().get(0) != null) {
                 CE administrativeGenderCode = gender.getValue().get(0);
@@ -114,6 +111,7 @@ public class HL7DbParser201305 {
 
     /**
      * Method to extract birthdate from a PRPAMT201306UV02ParameterList.
+     *
      * @param params the parameterList from which to extract the birthdate
      * @return a Timestamp object containing the birthdate.
      */
@@ -126,21 +124,21 @@ public class HL7DbParser201305 {
         try {
             // Extract the birth time from the query parameters - Assume only one was specified
             if (params.getLivingSubjectBirthTime() != null && params.getLivingSubjectBirthTime().size() > 0
-                    && params.getLivingSubjectBirthTime().get(0) != null) {
+                && params.getLivingSubjectBirthTime().get(0) != null) {
                 PRPAMT201306UV02LivingSubjectBirthTime birthTime = params.getLivingSubjectBirthTime().get(0);
 
                 if (birthTime.getValue() != null && birthTime.getValue().size() > 0
-                        && birthTime.getValue().get(0) != null) {
+                    && birthTime.getValue().get(0) != null) {
                     IVLTSExplicit birthday = birthTime.getValue().get(0);
                     LOG.info("Found birthTime in query parameters = " + birthday.getValue());
                     UTCDateUtil utcDateUtil = new UTCDateUtil();
                     // Check date string length
                     if (birthday.getValue().length() == dateOnlyLength) {
                         birthDate = new Timestamp(utcDateUtil.parseDate(birthday.getValue(),
-                                UTCDateUtil.DATE_ONLY_FORMAT, null).getTime());
+                            UTCDateUtil.DATE_ONLY_FORMAT, null).getTime());
                     } else if (birthday.getValue().length() > dateOnlyLength) {
                         birthDate = new Timestamp(utcDateUtil.parseDate(birthday.getValue(),
-                                UTCDateUtil.DATE_FORMAT_UTC, null).getTime());
+                            UTCDateUtil.DATE_FORMAT_UTC, null).getTime());
                     } else {
                         LOG.info("message does not contain a valid formatted birthtime");
                     }
@@ -161,6 +159,7 @@ public class HL7DbParser201305 {
 
     /**
      * Method to extract a list of Person names from a PRPAMT201306UV02ParameterList.
+     *
      * @param params the ParamaterList from which to extract names.
      * @return a list of names from the ParamaterList.
      */
@@ -171,7 +170,7 @@ public class HL7DbParser201305 {
 
         // Extract the person names from the query parameters
         if (params.getLivingSubjectName() != null && params.getLivingSubjectName().size() > 0
-                && params.getLivingSubjectName().get(0) != null) {
+            && params.getLivingSubjectName().get(0) != null) {
 
             for (PRPAMT201306UV02LivingSubjectName name : params.getLivingSubjectName()) {
                 if (name.getValue() != null && name.getValue().size() > 0 && name.getValue().get(0) != null) {
@@ -295,6 +294,7 @@ public class HL7DbParser201305 {
 
     /**
      * Method to extract a list of Person Identifiers from a PRPAMT201306UV02ParameterList.
+     *
      * @param params the PRPAMT201306UV02ParameterList from which to extract a list of Person Identifiers
      * @return a List of Identifiers.
      */
@@ -304,22 +304,22 @@ public class HL7DbParser201305 {
         List<Identifier> ids = new ArrayList<Identifier>();
 
         if (params.getLivingSubjectId() != null && params.getLivingSubjectId().size() > 0
-                && params.getLivingSubjectId().get(0) != null) {
+            && params.getLivingSubjectId().get(0) != null) {
 
             for (PRPAMT201306UV02LivingSubjectId livingSubjectId : params.getLivingSubjectId()) {
                 if (livingSubjectId.getValue() != null && livingSubjectId.getValue().size() > 0
-                        && livingSubjectId.getValue().get(0) != null) {
+                    && livingSubjectId.getValue().get(0) != null) {
                     II subjectId = livingSubjectId.getValue().get(0);
 
                     if (subjectId.getExtension() != null && subjectId.getExtension().length() > 0
-                            && subjectId.getRoot() != null && subjectId.getRoot().length() > 0) {
+                        && subjectId.getRoot() != null && subjectId.getRoot().length() > 0) {
                         // Ignore SSN identifiers
                         if (!subjectId.getRoot().equals(SSN_ROOT_IDENTIFIER)) {
                             Identifier id = new Identifier();
                             id.setId(subjectId.getExtension());
                             id.setOrganizationId(subjectId.getRoot());
                             LOG.info("Created id from patient identifier [organization=" + id.getOrganizationId()
-                                    + "][id=" + id.getId() + "]");
+                                + "][id=" + id.getId() + "]");
                             ids.add(id);
                         }
                     } else {
@@ -339,6 +339,7 @@ public class HL7DbParser201305 {
 
     /**
      * Method to extract a Social Security Number from a PRPAMT201306UV02ParameterList.
+     *
      * @param params the PRPAMT201306UV02ParameterList from which to extract a SSN
      * @return a Social Security Number from the PRPAMT201306UV02ParameterList
      */
@@ -348,22 +349,22 @@ public class HL7DbParser201305 {
         String ssn = null;
 
         if (params.getLivingSubjectId() != null && params.getLivingSubjectId().size() > 0
-                && params.getLivingSubjectId().get(0) != null) {
+            && params.getLivingSubjectId().get(0) != null) {
 
             for (PRPAMT201306UV02LivingSubjectId livingSubjectId : params.getLivingSubjectId()) {
                 if (livingSubjectId.getValue() != null && livingSubjectId.getValue().size() > 0
-                        && livingSubjectId.getValue().get(0) != null) {
+                    && livingSubjectId.getValue().get(0) != null) {
                     II subjectId = livingSubjectId.getValue().get(0);
 
                     if (subjectId.getExtension() != null && subjectId.getExtension().length() > 0
-                            && subjectId.getRoot() != null && subjectId.getRoot().length() > 0) {
+                        && subjectId.getRoot() != null && subjectId.getRoot().length() > 0) {
                         // Look for first SSN identifier
                         if (subjectId.getRoot().equals(SSN_ROOT_IDENTIFIER)) {
                             Identifier ssnId = new Identifier();
                             ssnId.setId(subjectId.getExtension());
                             ssnId.setOrganizationId(subjectId.getRoot());
                             LOG.info("Created id from ssn identifier [organization=" + ssnId.getOrganizationId()
-                                    + "][id=" + ssnId.getId() + "]");
+                                + "][id=" + ssnId.getId() + "]");
                             ssn = ssnId.getId();
                         }
                     } else {
@@ -383,6 +384,7 @@ public class HL7DbParser201305 {
 
     /**
      * Method to extract a list of Addresses from a PRPAMT201306UV02ParameterList.
+     *
      * @param params the PRPAMT201306UV02ParameterList from which to extract the Addresses
      * @return a list of Addresses from PRPAMT201306UV02ParameterList.
      */
@@ -392,11 +394,11 @@ public class HL7DbParser201305 {
         List<Address> addresses = new ArrayList<Address>();
 
         if (params.getPatientAddress() != null && params.getPatientAddress().size() > 0
-                && params.getPatientAddress().get(0) != null) {
+            && params.getPatientAddress().get(0) != null) {
 
             for (PRPAMT201306UV02PatientAddress patientAddress : params.getPatientAddress()) {
                 if (patientAddress.getValue() != null && patientAddress.getValue().size() > 0
-                        && patientAddress.getValue().get(0) != null) {
+                    && patientAddress.getValue().get(0) != null) {
                     ADExplicit adExplicit = patientAddress.getValue().get(0);
 
                     List<Serializable> choice = adExplicit.getContent();
@@ -488,6 +490,7 @@ public class HL7DbParser201305 {
 
     /**
      * Method to extract a list of Phone Numbers from a PRPAMT201306UV02ParameterList.
+     *
      * @param params the PRPAMT201306UV02ParameterList from which to extract Phone Numbers.
      * @return a List of Phone Numbers from the PRPAMT201306UV02ParameterList
      */
@@ -500,12 +503,12 @@ public class HL7DbParser201305 {
 
         // Extract the telecom (phone number) from the query parameters - Assume only one was specified
         if (params.getPatientTelecom() != null && params.getPatientTelecom().size() > 0
-                && params.getPatientTelecom().get(0) != null) {
+            && params.getPatientTelecom().get(0) != null) {
 
             int count = 0;
             for (PRPAMT201306UV02PatientTelecom patientTelecom : params.getPatientTelecom()) {
                 if (patientTelecom.getValue() != null && patientTelecom.getValue().size() > 0
-                        && patientTelecom.getValue().get(0) != null) {
+                    && patientTelecom.getValue().get(0) != null) {
                     TELExplicit telecomValue = patientTelecom.getValue().get(0);
                     LOG.info("Found patientTelecom in query parameters = " + telecomValue.getValue());
                     String telecom = telecomValue.getValue();
@@ -513,7 +516,7 @@ public class HL7DbParser201305 {
                         if (!telecom.startsWith("tel:")) {
                             // telecom is not valid without tel: prefix
                             LOG.info("Found patientTelecom [" + telecom
-                                    + "] in query parameters is not in the correct uri format");
+                                + "] in query parameters is not in the correct uri format");
                             telecom = null;
                         } else {
                             phonenumber = new Phonenumber();
@@ -536,6 +539,7 @@ public class HL7DbParser201305 {
 
     /**
      * Method to extract a PRPAMT201306UV02ParameterList object from a PRPAIN201305UV02 message.
+     *
      * @param message the PRPAIN201305UV02 message from which to extract the PRPAMT201306UV02ParameterList
      * @return PRPAMT201306UV02ParameterList
      */
@@ -555,9 +559,9 @@ public class HL7DbParser201305 {
         }
 
         if (controlActProcess.getQueryByParameter() != null
-                && controlActProcess.getQueryByParameter().getValue() != null) {
+            && controlActProcess.getQueryByParameter().getValue() != null) {
             PRPAMT201306UV02QueryByParameter queryParams = controlActProcess
-                    .getQueryByParameter().getValue();
+                .getQueryByParameter().getValue();
 
             if (queryParams.getParameterList() != null) {
                 queryParamList = queryParams.getParameterList();
@@ -571,6 +575,7 @@ public class HL7DbParser201305 {
 
     /**
      * Method to extract the Patient from a PRPAIN201305UV02 message.
+     *
      * @param message the incoming message which contains the patient to be extracted.
      * @return a Patient from the PRPAIN201305UV02 object
      */
@@ -586,6 +591,7 @@ public class HL7DbParser201305 {
 
     /**
      * Method to extract the Patient from a PRPAMT201306UV02ParameterList message.
+     *
      * @param params the incoming message which contains the patient to be extracted.
      * @return a Patient from the PRPAMT201306UV02ParameterList object
      */
@@ -611,7 +617,6 @@ public class HL7DbParser201305 {
 
             mpiDbPatient.setPhonenumbers(extractTelecoms(params));
 
-            LOG.debug("mpiDbPatient is " + mpiDbPatient.toString());
         } else {
             LOG.trace("QueryParams empty or null...");
             mpiDbPatient = null;

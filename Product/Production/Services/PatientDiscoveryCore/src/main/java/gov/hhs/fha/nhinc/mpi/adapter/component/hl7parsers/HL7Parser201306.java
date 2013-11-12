@@ -42,7 +42,6 @@ import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.TimeZone;
 import javax.xml.bind.JAXBElement;
-
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
 import org.hl7.v3.ADExplicit;
@@ -447,7 +446,7 @@ public class HL7Parser201306 {
             II ssn = new II();
             ssn.setExtension(patient.getSSN());
             ssn.setRoot("2.16.840.1.113883.4.1");
-            LOG.info("Setting Patient SSN in 201306: " + patient.getSSN());
+            LOG.info("Setting Patient SSN in 201306 --> Patient SSN is not null.");
             otherIds.getId().add(ssn);
 
             COCTMT150002UV01Organization scopingOrg = new COCTMT150002UV01Organization();

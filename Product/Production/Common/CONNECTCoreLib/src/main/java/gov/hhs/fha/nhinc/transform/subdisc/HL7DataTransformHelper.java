@@ -56,11 +56,11 @@ public class HL7DataTransformHelper {
     public static II IIFactory(String root, String extension, String assigningAuthorityName) {
         II ii = new II();
         if (NullChecker.isNotNullish(root)) {
-            LOG.debug("Setting root attribute of II to " + root);
+            LOG.debug("Setting root attribute of II --> root value is not null");
             ii.setRoot(HomeCommunityMap.formatHomeCommunityId(root));
         }
         if (NullChecker.isNotNullish(extension)) {
-            LOG.debug("Setting extension attribute of II to " + extension);
+            LOG.debug("Setting extension attribute of II --> Extension value is not null.");
             ii.setExtension(extension);
         }
         if (NullChecker.isNotNullish(assigningAuthorityName)) {
@@ -91,7 +91,7 @@ public class HL7DataTransformHelper {
         CE ce = new CE();
 
         if (NullChecker.isNotNullish(code)) {
-            LOG.debug("Setting the code attribute of CE " + code);
+            LOG.debug("Setting the code attribute of CE --> code is not null");
             ce.setCode(code);
         }
 
@@ -289,7 +289,6 @@ public class HL7DataTransformHelper {
 
     public static PNExplicit createPNExplicit(String firstName, String lastName) {
         LOG.debug("begin CreatePNExplicit");
-        LOG.debug("firstName = " + firstName + "; lastName = " + lastName);
         org.hl7.v3.ObjectFactory factory = new org.hl7.v3.ObjectFactory();
         PNExplicit name = (PNExplicit) (factory.createPNExplicit());
         List namelist = name.getContent();
@@ -298,7 +297,7 @@ public class HL7DataTransformHelper {
             EnExplicitFamily familyName = new EnExplicitFamily();
             familyName.setPartType("FAM");
             familyName.setContent(lastName);
-            LOG.info("Setting Patient Lastname: " + lastName);
+            LOG.info("Setting Patient Lastname --> lastName is not null");
             namelist.add(factory.createPNExplicitFamily(familyName));
         }
 
@@ -306,7 +305,7 @@ public class HL7DataTransformHelper {
             EnExplicitGiven givenName = new EnExplicitGiven();
             givenName.setPartType("GIV");
             givenName.setContent(firstName);
-            LOG.info("Setting Patient Firstname: " + firstName);
+            LOG.info("Setting Patient Firstname --> firstName is not null");
             namelist.add(factory.createPNExplicitGiven(givenName));
         }
 
