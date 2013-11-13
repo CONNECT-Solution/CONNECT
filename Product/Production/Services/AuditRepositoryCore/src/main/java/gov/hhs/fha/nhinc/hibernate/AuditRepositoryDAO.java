@@ -68,38 +68,6 @@ public class AuditRepositoryDAO {
 
     /**
      * 
-     * @param query
-     * @param whereClause
-     * @return List<AuditRepositoryRecord>
-     */
-    public List queryAuditRepository(String query) {
-        LOG.debug("AuditRepositoryDAO.getData() Begin");
-
-        Session session = null;
-
-        List<AuditRepositoryRecord> queryList = null;
-        try {
-            SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
-            session = sessionFactory.openSession();
-            LOG.info("Getting Record");
-            queryList = session.createSQLQuery(query).addEntity("auditrepository", AuditRepositoryRecord.class).list();
-        } catch (Exception e) {
-            e.printStackTrace();
-            LOG.error("Exception in AuditLog.get() occured due to :" + e.getMessage());
-        } finally {
-            // Actual contact insertion will happen at this step
-            if (session != null) {
-                session.flush();
-                session.close();
-            }
-        }
-
-        LOG.debug("AuditRepositoryDAO.getData() end");
-        return queryList;
-    }
-
-    /**
-     * 
      * @param auditList
      * @return boolean
      */
