@@ -4,11 +4,9 @@
 package gov.hhs.fha.nhinc.callback.cxf;
 
 import java.io.IOException;
-
 import javax.security.auth.callback.Callback;
 import javax.security.auth.callback.CallbackHandler;
 import javax.security.auth.callback.UnsupportedCallbackException;
-
 import org.apache.log4j.Logger;
 import org.apache.ws.security.WSPasswordCallback;
 
@@ -44,6 +42,7 @@ public class CXFPasswordCallbackHandler implements CallbackHandler {
      * @throws IOException exception encountered in executing callbacks
      * @throws UnsupportedCallbackException exception encountered in executing callbacks
      */
+    @Override
     public final void handle(final Callback[] callbacks) throws IOException, UnsupportedCallbackException {
         LOG.trace("Executing CXFPasswordCallbackHandler.handle() ... ");
         
