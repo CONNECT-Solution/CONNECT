@@ -30,6 +30,7 @@ import static org.junit.Assert.assertEquals;
 
 import javax.xml.ws.BindingProvider;
 
+import org.apache.cxf.transports.http.configuration.HTTPClientPolicy;
 import org.apache.cxf.ws.addressing.JAXWSAConstants;
 import org.apache.cxf.ws.addressing.impl.AddressingPropertiesImpl;
 import org.junit.Test;
@@ -137,11 +138,14 @@ public class WsAddressingServiceEndpointDecoratorTest {
 
         AddressingPropertiesImpl addressingProps = (AddressingPropertiesImpl) bindingProviderPort.getRequestContext()
                 .get(JAXWSAConstants.CLIENT_ADDRESSING_PROPERTIES);
+        HTTPClientPolicy httpClientPolicy = (HTTPClientPolicy) bindingProviderPort.getRequestContext().get(
+                HTTPClientPolicy.class.getName());
 
         assertEquals(wsAddressingTo, addressingProps.getTo().getValue());
         assertEquals(wsAddressingAction, addressingProps.getAction().getValue());
         assertEquals(messageId, addressingProps.getMessageID().getValue());
         assertEquals(relatesTo, addressingProps.getRelatesTo().getValue());
+        assertEquals("application/soap+xml; charset=UTF-8", httpClientPolicy.getContentType());
     }
 
     private CONNECTClient<TestServicePortType> createClient(String wsAddressingTo, String wsAddressingAction,

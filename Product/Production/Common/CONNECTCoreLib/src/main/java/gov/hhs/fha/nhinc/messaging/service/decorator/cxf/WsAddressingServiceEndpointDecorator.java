@@ -130,7 +130,7 @@ public class WsAddressingServiceEndpointDecorator<T> extends ServiceEndpointDeco
     }
 
     private String removeActionFromContentType(String contentType) {
-        String[] contentTypeValues = contentType.split(";");
+        String[] contentTypeValues = contentType.split("(?<=;)");
 
         String newContentType = "";
         for (int i = 0; i < contentTypeValues.length; i++) {
