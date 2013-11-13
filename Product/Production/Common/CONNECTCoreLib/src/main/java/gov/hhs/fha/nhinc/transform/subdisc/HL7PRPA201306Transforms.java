@@ -302,7 +302,7 @@ public class HL7PRPA201306Transforms {
         controlActProcess.setMoodCode(XActMoodIntentEvent.EVN);
         controlActProcess.setClassCode(ActClassControlAct.CACT);
         controlActProcess
-            .setCode(HL7DataTransformHelper.CDFactory("PRPA_TE201306UV", HL7Constants.INTERACTION_ID_ROOT));
+            .setCode(HL7DataTransformHelper.CDFactory("PRPA_TE201306UV02", HL7Constants.INTERACTION_ID_ROOT));
 
         if (patient != null && NullChecker.isNotNullish(patient.getId()) && patient.getId().get(0) != null
             && NullChecker.isNotNullish(patient.getId().get(0).getExtension())
@@ -333,7 +333,7 @@ public class HL7PRPA201306Transforms {
         controlActProcess.setMoodCode(XActMoodIntentEvent.EVN);
 
         controlActProcess
-            .setCode(HL7DataTransformHelper.CDFactory("PRPA_TE201306UV", HL7Constants.INTERACTION_ID_ROOT));
+            .setCode(HL7DataTransformHelper.CDFactory("PRPA_TE201306UV02", HL7Constants.INTERACTION_ID_ROOT));
         LOG.trace("Add the Subject");
         controlActProcess.getSubject().add(createSubjectWithNoRegistrationEvent());
         LOG.trace("Add the Query Ack");
