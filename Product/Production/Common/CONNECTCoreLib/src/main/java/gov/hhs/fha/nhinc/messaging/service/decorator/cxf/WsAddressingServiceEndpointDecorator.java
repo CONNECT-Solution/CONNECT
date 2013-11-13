@@ -27,7 +27,6 @@
 
 package gov.hhs.fha.nhinc.messaging.service.decorator.cxf;
 
-
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.messaging.service.ServiceEndpoint;
 import gov.hhs.fha.nhinc.messaging.service.decorator.ServiceEndpointDecorator;
@@ -63,7 +62,9 @@ public class WsAddressingServiceEndpointDecorator<T> extends ServiceEndpointDeco
         super(decoratoredEndpoint);
 
         this.bindingProviderPort = (BindingProvider) decoratedEndpoint.getPort();
-        this.assertion = assertion;
+        if (assertion != null) {
+            this.assertion = assertion;
+        }
 
         maps = new AddressingPropertiesImpl();
 
@@ -75,15 +76,14 @@ public class WsAddressingServiceEndpointDecorator<T> extends ServiceEndpointDeco
         action.setValue(wsAddressingAction);
         maps.getMustUnderstand().add(Names.WSA_ACTION_QNAME);
         maps.setAction(action);
-        
-        
+
         EndpointReferenceType replyTo = new EndpointReferenceType();
         AttributedURIType replyToAddress = new AttributedURIType();
         replyToAddress.setValue("http://www.w3.org/2005/08/addressing/anonymous");
         replyTo.setAddress(replyToAddress);
         maps.getMustUnderstand().add(Names.WSA_REPLYTO_QNAME);
         maps.setReplyTo(replyTo);
-        
+
         setContentTypeInHTTPHeader();
     }
 
@@ -92,9 +92,11 @@ public class WsAddressingServiceEndpointDecorator<T> extends ServiceEndpointDeco
         super.configure();
 
         String sRelatesTo = null;
-        for (String s : assertion.getRelatesToList()) {
-            sRelatesTo = s;
-            break;
+        if (assertion != null) {
+            for (String s : assertion.getRelatesToList()) {
+                sRelatesTo = s;
+                break;
+            }
         }
         String sMessageId = getMessageId();
 
@@ -144,7 +146,7 @@ public class WsAddressingServiceEndpointDecorator<T> extends ServiceEndpointDeco
 
     /**
      * This method retrieves the message identifier stored in the assertion If the message ID is null or empty, this
-     * method will generate a new UUID to use for the message ID. 
+     * method will generate a new UUID to use for the message ID.
      * 
      * @return The message identifier
      */
