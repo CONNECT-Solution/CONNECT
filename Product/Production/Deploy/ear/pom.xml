@@ -85,6 +85,12 @@
             <version>${project.parent.version}</version>
             <type>pom</type>
         </dependency>
+		<dependency>
+            <groupId>org.connectopensource</groupId>
+            <artifactId>hieos-dependencies</artifactId>
+            <version>${project.parent.version}</version>
+            <type>pom</type>
+        </dependency>
 
     </dependencies>
     <build>
@@ -223,6 +229,18 @@
                             <contextRoot>/CONNECTUniversalClientGUI</contextRoot>
                             <excluded>${gui.excluded}</excluded>
                         </webModule>
+						<webModule>
+                            <groupId>org.connectopensource</groupId>
+                            <artifactId>AdapterDocRegistry2Soap12Web</artifactId>
+                            <contextRoot>/AdapterDocRegistry2Soap12Web</contextRoot>
+                            <excluded>${hieos.excluded}</excluded>
+                        </webModule>
+						<webModule>
+                            <groupId>org.connectopensource</groupId>
+                            <artifactId>AdapterDocRepository2Soap12Web</artifactId>
+                            <contextRoot>/AdapterDocRepository2Soap12Web</contextRoot>
+                            <excluded>${hieos.excluded}</excluded>
+                        </webModule>
                     </modules>
                     <version>5</version>
                     <defaultLibBundleDir>lib</defaultLibBundleDir>
@@ -315,6 +333,15 @@
                 <direct.excluded>false</direct.excluded>
             </properties>
 
+        </profile>
+		<profile>
+            <id>HIEOS</id>
+            <activation>
+                <activeByDefault>false</activeByDefault>
+            </activation>
+            <properties>
+                <hieos.excluded>false</hieos.excluded>
+            </properties>
         </profile>
     </profiles>
 </project>
