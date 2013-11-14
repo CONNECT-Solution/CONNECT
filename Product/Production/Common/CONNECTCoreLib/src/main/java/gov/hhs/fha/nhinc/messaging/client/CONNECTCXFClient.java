@@ -19,16 +19,16 @@ public abstract class CONNECTCXFClient<T> extends CONNECTBaseClient<T> {
 
     protected ServiceEndpoint<T> serviceEndpoint = null;
 
-    CONNECTCXFClient(ServicePortDescriptor<T> portDescriptor, String url, AssertionType assertion) {
+    protected CONNECTCXFClient(ServicePortDescriptor<T> portDescriptor, String url, AssertionType assertion) {
         this(portDescriptor, url, assertion, new CXFServicePortBuilder<T>(portDescriptor));
     }
 
-    CONNECTCXFClient(ServicePortDescriptor<T> portDescriptor, String url, AssertionType assertion,
+    protected CONNECTCXFClient(ServicePortDescriptor<T> portDescriptor, String url, AssertionType assertion,
             ServicePortBuilder<T> portBuilder) {
         serviceEndpoint = super.configureBasePort(portBuilder.createPort(), url);
     }
 
-    CONNECTCXFClient(ServicePortDescriptor<T> portDescriptor, String url, AssertionType assertion,
+    protected CONNECTCXFClient(ServicePortDescriptor<T> portDescriptor, String url, AssertionType assertion,
             ServicePortBuilder<T> portBuilder, String subscriptionId) {
         serviceEndpoint = super.configureBasePort(portBuilder.createPort(), subscriptionId);
     }
