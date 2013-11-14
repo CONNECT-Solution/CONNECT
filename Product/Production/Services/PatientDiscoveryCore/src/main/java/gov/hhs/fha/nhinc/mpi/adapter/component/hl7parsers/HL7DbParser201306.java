@@ -187,7 +187,7 @@ public class HL7DbParser201306 {
         controlActProcess.setMoodCode(XActMoodIntentEvent.EVN);
         controlActProcess.setClassCode(ActClassControlAct.CACT);
         CD code = new CD();
-        code.setCode("PRPA_TE201306UV");
+        code.setCode("PRPA_TE201306UV02");
         code.setCodeSystem("2.16.840.1.113883.1.6");
         controlActProcess.setCode(code);
 
