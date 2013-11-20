@@ -149,19 +149,19 @@ public class AdapterPatientDiscoveryDeferredReqQueueOrchImpl {
 
         if (targets != null) {
             urlInfoList = getTargetEndpoints(targets);
+
+            if (NullChecker.isNotNullish(urlInfoList) && urlInfoList.get(0) != null
+                    && NullChecker.isNotNullish(urlInfoList.get(0).getUrl())) {
+
+                EntityPatientDiscoveryDeferredResponseProxyObjectFactory patientDiscoveryFactory = new EntityPatientDiscoveryDeferredResponseProxyObjectFactory();
+                EntityPatientDiscoveryDeferredResponseProxy proxy = patientDiscoveryFactory.getNhincPatientDiscoveryProxy();
+
+                resp = proxy.processPatientDiscoveryAsyncResp(respMsg, assertion, targets);
+            } else {
+                LOG.error("Failed to send response to the Nhin as no target endpoints can be found.");
+            }
         }
-
-        if (NullChecker.isNotNullish(urlInfoList) && urlInfoList.get(0) != null
-                && NullChecker.isNotNullish(urlInfoList.get(0).getUrl())) {
-
-            EntityPatientDiscoveryDeferredResponseProxyObjectFactory patientDiscoveryFactory = new EntityPatientDiscoveryDeferredResponseProxyObjectFactory();
-            EntityPatientDiscoveryDeferredResponseProxy proxy = patientDiscoveryFactory.getNhincPatientDiscoveryProxy();
-
-            resp = proxy.processPatientDiscoveryAsyncResp(respMsg, assertion, targets);
-        } else {
-            LOG.error("Failed to send response to the Nhin as no target endpoints can be found.");
-        }
-
+        
         return resp;
     }
 

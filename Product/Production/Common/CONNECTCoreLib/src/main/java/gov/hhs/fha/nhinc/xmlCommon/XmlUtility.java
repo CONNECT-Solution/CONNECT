@@ -194,15 +194,17 @@ public class XmlUtility {
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         DocumentBuilder builder = null;
         Document document = null;
+        Element docElement = null;
+        
         try {
             builder = factory.newDocumentBuilder();
             document = builder.newDocument();
+            docElement = document.createElement("init");
         } catch (ParserConfigurationException e) {
             LOG.error("Error creating dom document builder", e);
         }
 
-        return document.createElement("init");
-
+        return docElement;
     }
 
     private static Element convertXmlToElementWorker(String xml) throws Exception {

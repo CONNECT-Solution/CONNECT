@@ -182,7 +182,8 @@ public class AdhocQueryTransformHelper {
 
         if (event != null && InboundOutboundChecker.isOutbound(event.getDirection())) {
             request.setAction(ActionHelper.actionFactory(ACTIONVALUEOUT));
-            if ((assertion.getUniquePatientId() != null) && (assertion.getUniquePatientId().size() > 0)) {
+            if ((assertion != null) && (assertion.getUniquePatientId() != null)
+                    && (assertion.getUniquePatientId().size() > 0)) {
                 aaId = PatientIdFormatUtil.parseCommunityId(assertion.getUniquePatientId().get(0));
                 sStrippedPatientId = PatientIdFormatUtil.parsePatientId(assertion.getUniquePatientId().get(0));
 

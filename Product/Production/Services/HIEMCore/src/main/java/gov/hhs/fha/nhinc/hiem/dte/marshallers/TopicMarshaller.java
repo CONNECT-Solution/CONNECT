@@ -60,16 +60,18 @@ public class TopicMarshaller {
     private Element convertStringToElement(String xml) {
         javax.xml.parsers.DocumentBuilderFactory dbf;
         org.w3c.dom.Document doc = null;
-
+        Element docElement = null;
+        
         try {
             dbf = javax.xml.parsers.DocumentBuilderFactory.newInstance();
             dbf.setNamespaceAware(true);
 
             doc = dbf.newDocumentBuilder().parse(new InputSource(new StringReader(xml)));
+            docElement = doc.getDocumentElement();
         } catch (Exception ex) {
 
         }
 
-        return doc.getDocumentElement();
+        return docElement;
     }
 }
