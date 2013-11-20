@@ -40,7 +40,7 @@ import org.w3c.dom.Node;
 public class ConcreteDialectRootTopicExtractor implements IRootTopicExtractionStrategy {
 
     public String extractRootTopicFromTopicExpressionNode(Node topicExpression) throws SubscriptionRepositoryException {
-        String rootTopic = null;
+        String rootTopic = "";
         String topicValue = XmlUtility.getNodeValue(topicExpression);
 
         String[] topicParts = topicValue.split("/");
@@ -48,9 +48,7 @@ public class ConcreteDialectRootTopicExtractor implements IRootTopicExtractionSt
         for (String topicPart : topicParts) {
             String cleanedTopicPart = RootTopicExtractorHelper.ReplaceNamespacePrefixesWithNamespaces(topicPart,
                     topicExpression);
-            if (NullChecker.isNullish(rootTopic)) {
-                rootTopic = "";
-            } else {
+            if (NullChecker.isNotNullish(rootTopic)) {
                 rootTopic = rootTopic.concat("/");
             }
             rootTopic = rootTopic.concat(cleanedTopicPart);

@@ -100,21 +100,22 @@ public class HiemUnsubscribeImpl {
         try {
             childSubscriptions = repo.retrieveByParentSubscriptionReference(subscriptionItem
                     .getSubscriptionReferenceXML());
+            
+            if (NullChecker.isNotNullish(childSubscriptions)) {
+                LOG.debug("send unsubscribe(s) to child");
+                for (HiemSubscriptionItem childSubscription : childSubscriptions) {
+                    unsubscribeToChild(unsubscribeRequest, childSubscription, assertion);
+                }
+            } else if (isForwardUnsubscribeToAdapter()) {
+                LOG.debug("forward unsubscribe to adapter");
+                forwardUnsubscribeToAdapter(unsubscribeRequest, soapHeaderElements, assertion);
+            }
         } catch (SubscriptionRepositoryException ex) {
             LOG.warn("failed to check for child subscription", ex);
         }
 
-        if (NullChecker.isNotNullish(childSubscriptions)) {
-            LOG.debug("send unsubscribe(s) to child");
-            for (HiemSubscriptionItem childSubscription : childSubscriptions) {
-                unsubscribeToChild(unsubscribeRequest, childSubscription, assertion);
-            }
-        } else if (isForwardUnsubscribeToAdapter()) {
-            LOG.debug("forward unsubscribe to adapter");
-            forwardUnsubscribeToAdapter(unsubscribeRequest, soapHeaderElements, assertion);
-        }
-
         removeFromLocalRepo(repo, subscriptionItem);
+
         LOG.debug("Exiting HiemUnsubscribeImpl.unsubscribe");
 
         return new UnsubscribeResponse();
@@ -163,7 +164,7 @@ public class HiemUnsubscribeImpl {
     private boolean isForwardUnsubscribeToAdapter() {
         boolean forward = false;
         ConfigurationManager config = new ConfigurationManager();
-        String mode = null;
+        String mode = "";
         try {
             mode = config.getAdapterSubscriptionMode();
         } catch (ConfigurationException ex) {

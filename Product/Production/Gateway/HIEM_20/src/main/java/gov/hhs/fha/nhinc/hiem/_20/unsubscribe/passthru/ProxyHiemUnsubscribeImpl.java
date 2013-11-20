@@ -76,7 +76,7 @@ public class ProxyHiemUnsubscribeImpl {
     public UnsubscribeResponse unsubscribe(
             gov.hhs.fha.nhinc.common.nhinccommonproxy.UnsubscribeRequestSecuredType unsubscribeRequest,
             WebServiceContext context) throws UnableToDestroySubscriptionFault {
-        UnsubscribeResponse response = null;
+        UnsubscribeResponse response = new UnsubscribeResponse();
         LOG.debug("Entering ProxyHiemUnsubscribeImpl.unsubscribe...");
         Unsubscribe unsubscribe = unsubscribeRequest.getUnsubscribe();
         NhinTargetSystemType target = unsubscribeRequest.getNhinTargetSystem();
@@ -90,11 +90,10 @@ public class ProxyHiemUnsubscribeImpl {
             response = proxy
                     .unsubscribe(unsubscribe, soapHeaderElements, assertion, target, getSubscriptionId(context));
         } catch (UnableToDestroySubscriptionFault e) {
-            LOG.error("error occurred", e);
-            response = new UnsubscribeResponse();
+            LOG.error("Error occurred: " + e.getMessage(), e);
             response.getAny().add(e);
         } catch (Exception e) {
-            LOG.error("exception occured: " + e.getMessage());
+            LOG.error("Exception occurred: " + e.getMessage(), e);
             response.getAny().add(e);
         }
         LOG.debug("Exiting ProxyHiemUnsubscribeImpl.unsubscribe...");

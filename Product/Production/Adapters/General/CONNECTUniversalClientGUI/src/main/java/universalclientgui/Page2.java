@@ -709,8 +709,10 @@ public class Page2 extends AbstractPageBean {
 
         SearchData searchData = (SearchData) getBean("SearchData");
 
-        searchData.setPatientID(foundPatient.getPatientId());
-
+        if (foundPatient != null) {
+            searchData.setPatientID(foundPatient.getPatientId());
+        }
+        
         return null;
     }
 

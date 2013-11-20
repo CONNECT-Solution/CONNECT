@@ -84,6 +84,7 @@ public class Util {
 
     public static org.w3c.dom.Element marshalPayload(String contents) {
         org.w3c.dom.Document doc = null;
+        Element docElement = null;
 
         try {
             JAXBContextHandler oHandler = new JAXBContextHandler();
@@ -100,11 +101,13 @@ public class Util {
 
             marshaller.marshal(payload, doc);
             LOG.info(doc.getNodeValue());
+			
+            docElement = doc.getDocumentElement();
         } catch (Exception ex) {
             LOG.error(ex.getMessage(), ex);
         }
-        return doc.getDocumentElement();
 
+        return docElement;
     }
 
     public static org.w3c.dom.Element marshalTopic(String topic, String dialect) {

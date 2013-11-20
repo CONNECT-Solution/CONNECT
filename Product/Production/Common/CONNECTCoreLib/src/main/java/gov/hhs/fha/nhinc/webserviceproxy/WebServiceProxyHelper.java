@@ -392,7 +392,7 @@ public class WebServiceProxyHelper {
             int iRetryDelay, Method oMethod) throws Exception {
         Object oResponse = null;
         int i = 1;
-        Exception eCatchExp = null;
+        Exception eCatchExp = new Exception();
         String sExceptionText = getExceptionText();
         while (i <= iRetryCount) {
             try {
