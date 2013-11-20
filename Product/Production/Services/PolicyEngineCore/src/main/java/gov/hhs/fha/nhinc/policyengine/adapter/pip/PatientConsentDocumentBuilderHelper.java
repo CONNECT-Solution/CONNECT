@@ -1015,7 +1015,7 @@ public class PatientConsentDocumentBuilderHelper {
         return intStr;
     }
 
-    protected synchronized String getOidFromProperty(String sPropertyName) {
+    /*protected synchronized String getOidFromProperty(String sPropertyName) {
         String sUniqueId = "";
         try {
             Properties tempProp = new Properties();
@@ -1040,7 +1040,7 @@ public class PatientConsentDocumentBuilderHelper {
             LOG.debug("Generated unique id: " + sUniqueId);
         }
         return sUniqueId;
-    }
+    }*/
 
     private String extractAddressFromPatInfo(PolicyPatientInfoType patInfo) {
         StringBuffer sAddr = new StringBuffer();

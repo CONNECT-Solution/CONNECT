@@ -95,7 +95,7 @@ public class PatientConsentDocumentBuilderHelperTest {
                     return propertiesPath;
                 }
 
-                @Override
+                /*@Override
                 protected synchronized String getOidFromProperty(String sPropertyName) {
                     if ("documentuniqueid".equals(sPropertyName)) {
                         return documentUniqueId;
@@ -104,7 +104,7 @@ public class PatientConsentDocumentBuilderHelperTest {
                     } else {
                         throw new IllegalArgumentException("Unexpected property key");
                     }
-                }
+                }*/
             };
 
             String targetObject = ""; // If not empty/null, creates an association to this document id
@@ -220,7 +220,7 @@ public class PatientConsentDocumentBuilderHelperTest {
                     return propertiesPath;
                 }
 
-                @Override
+                /*@Override
                 protected synchronized String getOidFromProperty(String sPropertyName) {
                     if ("documentuniqueid".equals(sPropertyName)) {
                         return documentUniqueId;
@@ -229,7 +229,7 @@ public class PatientConsentDocumentBuilderHelperTest {
                     } else {
                         throw new IllegalArgumentException("Unexpected property key");
                     }
-                }
+                }*/
             };
 
             String targetObject = ""; // If not empty/null, creates an association to this document id
@@ -317,7 +317,7 @@ public class PatientConsentDocumentBuilderHelperTest {
                     return propertiesPath;
                 }
 
-                @Override
+                /*@Override
                 protected synchronized String getOidFromProperty(String sPropertyName) {
                     if ("documentuniqueid".equals(sPropertyName)) {
                         return documentUniqueId;
@@ -326,7 +326,7 @@ public class PatientConsentDocumentBuilderHelperTest {
                     } else {
                         throw new IllegalArgumentException("Unexpected property key");
                     }
-                }
+                }*/
             };
 
             String targetObject = ""; // If not empty/null, creates an association to this document id

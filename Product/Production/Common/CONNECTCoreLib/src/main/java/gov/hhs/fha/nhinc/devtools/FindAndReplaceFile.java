@@ -159,7 +159,7 @@ public class FindAndReplaceFile {
      *
      * @param args
      */
-    public static void main(String[] args) {
+/*    public static void main(String[] args) {
         if (args.length != 2) {
             printUsage();
             System.exit(-1);
@@ -182,5 +182,5 @@ public class FindAndReplaceFile {
             t.printStackTrace();
             System.exit(-1);
         }
-    }
+    }*/
 }

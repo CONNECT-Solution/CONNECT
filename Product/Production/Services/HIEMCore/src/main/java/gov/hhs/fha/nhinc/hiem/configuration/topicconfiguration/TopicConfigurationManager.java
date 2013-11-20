@@ -147,7 +147,7 @@ public class TopicConfigurationManager {
 
         try {
             sTopicConfigXml = StringUtil.readTextFile(m_sInternalXMLFileDir);
-            File fInternalFile = new File(m_sInternalXMLFileDir);
+//            File fInternalFile = new File(m_sInternalXMLFileDir);
         } catch (Exception e) {
             String sErrorMessage = "Failed to read from file: '" + m_sInternalXMLFileDir + "'.  Error: "
                     + e.getMessage();
