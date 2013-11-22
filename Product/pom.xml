@@ -36,6 +36,17 @@
                 <groupId>org.apache.cxf</groupId>
                 <artifactId>cxf-bundle</artifactId>
                 <version>${cxf.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>org.apache.santuario</groupId>
+                        <artifactId>xmlsec</artifactId>
+                    </exclusion>
+                </exclusions> 
+            </dependency>
+            <dependency>
+                <groupId>org.apache.santuario</groupId>
+                <artifactId>xmlsec</artifactId>
+                <version>1.5.5</version>
             </dependency>
             <dependency>
                 <groupId>log4j</groupId>
