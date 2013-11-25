@@ -82,6 +82,11 @@ public class ExecutorServiceHelper {
             // get large job percentage
             String largejobSizePercentStr = propertyAccessor.getProperty(NhincConstants.GATEWAY_PROPERTY_FILE,
                     NhincConstants.LARGEJOB_SIZE_PERCENT);
+            
+            if (largejobSizePercentStr.length() > 3) {
+                largejobSizePercentStr = largejobSizePercentStr.substring(0, 3);
+            }
+            
             largejobSizePercent = Double.parseDouble(largejobSizePercentStr);
         } catch (Exception e) {
             LOG.error("ExecutorServiceHelper exception loading config properties so using default values");
