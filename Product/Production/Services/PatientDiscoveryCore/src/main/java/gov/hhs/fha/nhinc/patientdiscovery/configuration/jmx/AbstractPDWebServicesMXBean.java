@@ -132,17 +132,6 @@ public abstract class AbstractPDWebServicesMXBean extends AbstractWebServicesMXB
     /*
      * (non-Javadoc)
      * 
-     * @see gov.hhs.fha.nhinc.configuration.jmx.WebServicesMXBean#configureInboundImpl(java.lang.String)
-     */
-    @Override
-    public void configureInboundImpl(String className) throws InstantiationException, IllegalAccessException,
-            ClassNotFoundException {
-        configureInboundImpl(className);
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
      * @see gov.hhs.fha.nhinc.configuration.jmx.WebServicesMXBean#configureInboundStd()
      */
     @Override
@@ -159,17 +148,6 @@ public abstract class AbstractPDWebServicesMXBean extends AbstractWebServicesMXB
     public void configureInboundPassthru() throws InstantiationException, IllegalAccessException,
             ClassNotFoundException {
         configureInboundImpl(DEFAULT_INBOUND_PASSTHRU_IMPL_CLASS_NAME);
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see gov.hhs.fha.nhinc.configuration.jmx.WebServicesMXBean#configureOutboundImpl(java.lang.String)
-     */
-    @Override
-    public void configureOutboundImpl(String className) throws InstantiationException, IllegalAccessException,
-            ClassNotFoundException {
-        configureOutboundImpl(className);
     }
 
     /*

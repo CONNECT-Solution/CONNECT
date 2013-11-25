@@ -42,7 +42,8 @@ public class UDDIUpdateManager implements gov.hhs.fha.nhinc.nhinccomponentuddiup
     public UDDIUpdateManager() {
 
         try {
-            UDDITimer.startTimer();
+            UDDITimer timer = UDDITimer.getInstance();
+            timer.startTimer();
         } catch (Exception e) {
             String sErrorMessage = "Failed to start UDDIUpdateManager's timer.  Error: " + e.getMessage();
             LOG.error(sErrorMessage, e);

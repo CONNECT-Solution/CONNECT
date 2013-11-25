@@ -38,8 +38,7 @@ import org.apache.log4j.Logger;
 public class DeferredQueueTimer extends Thread {
 
     private static final Logger LOG = Logger.getLogger(DeferredQueueTimer.class);
-    private static DeferredQueueTimer m_oTheOneAndOnlyTimer = null;
-    private static boolean m_bRunnable = false;
+    private boolean m_bRunnable = false;
     private static final String GATEWAY_PROPERTY_FILE = "gateway";
     private static final String DEFERRED_QUEUE_REFRESH_DURATION_PROPERTY = "DeferredQueueRefreshDuration";
     private static final int DEFERRED_QUEUE_REFRESH_DURATION_DEFAULT = 600; // (10 minutes)
@@ -48,41 +47,44 @@ public class DeferredQueueTimer extends Thread {
     /**
      * Default constructor
      */
-    private DeferredQueueTimer() {
+    protected DeferredQueueTimer() {
     }
 
     /**
-     * This method is used to crete an instance of the DeferredQueueTimer. There should only be exactly one instance of
+     * Get an instance
+     */
+    public static DeferredQueueTimer getInstance() {
+        return InstanceHolder.instance;
+    }
+
+    /**
+     * This method is used to create an instance of the DeferredQueueTimer. There should only be exactly one instance of
      * this running at any time. If it exists, it simply returns the one that exists. If it does not exist, then it will
      * create it, start the timer, and return a handle to it.
      * 
      * @throws DeferredQueueException
      */
-    public static void startTimer() throws DeferredQueueException {
+    public void startTimer() throws DeferredQueueException {
         m_bRunnable = true;
 
-        if (m_oTheOneAndOnlyTimer == null) {
-            m_oTheOneAndOnlyTimer = new DeferredQueueTimer();
-            try {
-                m_oTheOneAndOnlyTimer.initialize();
-                m_oTheOneAndOnlyTimer.setDaemon(true);
-                m_oTheOneAndOnlyTimer.start();
-            } catch (Exception e) {
-                m_oTheOneAndOnlyTimer = null;
-                String sErrorMessage = "Failed to start the Deferred Queue Update Manager timer.  Error: "
-                        + e.getMessage();
-                LOG.error(sErrorMessage, e);
-                throw new DeferredQueueException(sErrorMessage, e);
-            }
-
-            LOG.info("DeferredQueueManager timer has just been started now.");
+        try {
+            InstanceHolder.instance.initialize();
+            InstanceHolder.instance.setDaemon(true);
+            InstanceHolder.instance.start();
+        } catch (Exception e) {
+            String sErrorMessage = "Failed to start the Deferred Queue Update Manager timer.  Error: " + e.getMessage();
+            LOG.error(sErrorMessage, e);
+            throw new DeferredQueueException(sErrorMessage, e);
         }
+
+        LOG.info("DeferredQueueManager timer has just been started now.");
+
     }
 
     /**
      * Stop the instance of the DeferredQueueTimer.
      */
-    public static void stopTimer() {
+    public void stopTimer() {
         m_bRunnable = false;
     }
 
@@ -123,26 +125,12 @@ public class DeferredQueueTimer extends Thread {
             }
         }
     }
-
+    
     /**
-     * Main method used to test this class. This one really should not be run under unit test scenarios because it
-     * requires access to the deferred queue.
-     * 
-     * @param args
+     * This is a snazzy synchronization solution that uses java classloading model to achieve multithreading.
+     *
      */
-    public static void main(String[] args) {
-        System.out.println("Starting test.");
-        LOG.debug("Log: Starting test.");
-
-        try {
-            DeferredQueueTimer.startTimer();
-            Thread.sleep(70000); // 1 minutes 10 seconds
-        } catch (Exception e) {
-            System.out.println("An unexpected exception occurred: " + e.getMessage());
-            e.printStackTrace();
-            System.exit(-1);
-        }
-
-        System.out.println("End of test.");
+    private static class InstanceHolder {
+        private static final DeferredQueueTimer instance = new DeferredQueueTimer();
     }
 }

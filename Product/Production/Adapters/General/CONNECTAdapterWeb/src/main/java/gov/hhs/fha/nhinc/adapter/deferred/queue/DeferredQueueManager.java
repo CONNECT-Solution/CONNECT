@@ -59,7 +59,8 @@ public class DeferredQueueManager implements gov.hhs.fha.nhinc.deferredqueuemana
     public DeferredQueueManager() {
 
         try {
-            DeferredQueueTimer.startTimer();
+            DeferredQueueTimer timer = DeferredQueueTimer.getInstance();
+            timer.startTimer();
         } catch (Exception e) {
             String sErrorMessage = "Failed to start DeferredQueueManager's timer.  Error: " + e.getMessage();
             LOG.error(sErrorMessage, e);

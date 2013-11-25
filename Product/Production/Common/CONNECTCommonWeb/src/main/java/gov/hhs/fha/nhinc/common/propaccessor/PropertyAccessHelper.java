@@ -343,14 +343,9 @@ public class PropertyAccessHelper {
 
             PropertyFileManager.writePropertyFile(sPropertyFile, oPropsToStore);
         } else {
-            int iCount = 0;
-            if ((part1 != null) && (part1.getProperties() != null) && (part1.getProperties().getProperty() != null)) {
-                iCount = part1.getProperties().getProperty().size();
-            }
             String sErrorMessage = "Failed to write property file.  There must be both a valid "
                     + "file name without the '.properties' extension and at least "
-                    + "one property to write. PropertyFile:" + part1.getPropertyFile() + ", PropertiesCount = "
-                    + iCount;
+                    + "one property to write.";
             throw new PropertyAccessException(sErrorMessage);
         }
 
