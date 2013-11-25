@@ -163,6 +163,15 @@ By advancing the adoption of interoperable health IT systems and health informat
                             <groupId>org.codehaus.mojo</groupId>
                             <artifactId>findbugs-maven-plugin</artifactId>
                             <version>2.5.2</version>
+			    <configuration>
+			        <plugins>
+                                    <plugin>
+                                        <groupId>com.h3xstream.findsecbugs</groupId>
+                                        <artifactId>plugin</artifactId>
+                                        <version>1.1.0</version>
+                                    </plugin>
+                                </plugins>
+                            </configuration>
                         </plugin>
                     </reportPlugins>
                 </configuration>
