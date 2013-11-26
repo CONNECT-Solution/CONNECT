@@ -67,7 +67,7 @@ import org.hl7.v3.XParticipationAuthorPerformer;
 public class PatientDiscovery201305Processor implements PatientDiscoveryProcessor {
 
     private static final Logger LOG = Logger.getLogger(PatientDiscovery201305Processor.class);
-    
+
     private MessageGeneratorUtils msgUtils = MessageGeneratorUtils.getInstance();
 
     /*
@@ -77,7 +77,8 @@ public class PatientDiscovery201305Processor implements PatientDiscoveryProcesso
      * gov.hhs.fha.nhinc.common.nhinccommon.AssertionType)
      */
     @Override
-    public PRPAIN201306UV02 process201305(PRPAIN201305UV02 request, AssertionType assertion) throws PatientDiscoveryException {
+    public PRPAIN201306UV02 process201305(PRPAIN201305UV02 request, AssertionType assertion)
+            throws PatientDiscoveryException {
         PRPAIN201306UV02 response = new PRPAIN201306UV02();
 
         // Set the sender and receiver OID for the response
@@ -248,11 +249,13 @@ public class PatientDiscovery201305Processor implements PatientDiscoveryProcesso
         LOG.debug("End storeLocalMapping");
     }
 
-    protected PRPAIN201306UV02 queryMpi(PRPAIN201305UV02 query, AssertionType assertion) throws PatientDiscoveryException {
+    protected PRPAIN201306UV02 queryMpi(PRPAIN201305UV02 query, AssertionType assertion)
+            throws PatientDiscoveryException {
         return queryMpiForPatients(query, assertion);
     }
 
-    public PRPAIN201306UV02 queryMpiForPatients(PRPAIN201305UV02 query, AssertionType assertion) throws PatientDiscoveryException {
+    public PRPAIN201306UV02 queryMpiForPatients(PRPAIN201305UV02 query, AssertionType assertion)
+            throws PatientDiscoveryException {
         PRPAIN201306UV02 queryResults = new PRPAIN201306UV02();
 
         if (query != null) {
@@ -615,7 +618,10 @@ public class PatientDiscovery201305Processor implements PatientDiscoveryProcesso
 
         authorOrPerformer.setAssignedDevice(assignedDeviceJAXBElement);
 
-        response.getControlActProcess().getAuthorOrPerformer().add(authorOrPerformer);
+        if (response != null && response.getControlActProcess() != null
+                && response.getControlActProcess().getAuthorOrPerformer() != null) {
+            response.getControlActProcess().getAuthorOrPerformer().add(authorOrPerformer);
+        }
         return response;
     }
 

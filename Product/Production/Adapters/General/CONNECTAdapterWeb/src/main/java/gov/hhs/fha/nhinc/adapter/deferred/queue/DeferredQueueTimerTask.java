@@ -56,7 +56,8 @@ public class DeferredQueueTimerTask {
             ex.printStackTrace(new PrintWriter(stackTrace));
             String sValue = stackTrace.toString();
             if (sValue.indexOf("EJBClassLoader") >= 0) {
-                DeferredQueueTimer.stopTimer();
+                DeferredQueueTimer timer = DeferredQueueTimer.getInstance();
+                timer.stopTimer();
             }
         }
     }

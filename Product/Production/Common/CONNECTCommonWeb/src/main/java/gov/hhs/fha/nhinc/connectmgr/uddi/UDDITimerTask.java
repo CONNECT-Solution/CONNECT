@@ -64,7 +64,8 @@ public class UDDITimerTask {
             ex.printStackTrace(new PrintWriter(stackTrace));
             String sValue = stackTrace.toString();
             if (sValue.indexOf("EJBClassLoader") >= 0) {
-                UDDITimer.stopTimer();
+                UDDITimer timer = UDDITimer.getInstance();
+                timer.stopTimer();
             }
         }
     }

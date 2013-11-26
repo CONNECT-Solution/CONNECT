@@ -74,7 +74,6 @@ public class FileUtils {
                 log.info("unable to find source file " + fileName);
             }
 
-            log.info("read file contents (" + filecontents.length() + ")");
             return filecontents;
 
         } catch (IOException e) {

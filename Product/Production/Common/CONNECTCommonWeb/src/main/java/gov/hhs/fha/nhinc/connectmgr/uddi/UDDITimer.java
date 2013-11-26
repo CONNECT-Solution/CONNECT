@@ -38,20 +38,26 @@ import org.apache.log4j.Logger;
  */
 public class UDDITimer extends Thread {
     private static final Logger LOG = Logger.getLogger(UDDITimer.class);
-    private static UDDITimer m_oTheOneAndOnlyTimer = null;
-    private static boolean m_bRunnable = false;
+    private boolean m_bRunnable = false;
     private static final String GATEWAY_PROPERTY_FILE = "gateway";
     private static final String UDDI_REFRESH_DURATION_PROPERTY = "UDDIRefreshDuration";
     private static final int UDDI_REFRESH_DURATION_DEFAULT = 1800; // (30 minutes)
-    
+
     private int m_iDurationSeconds = UDDI_REFRESH_DURATION_DEFAULT;
 
     /**
      * Default constructor
      */
-    private UDDITimer() {
+    protected UDDITimer() {
     }
 
+    /**
+     * Get an instance
+     */
+    protected static UDDITimer getInstance() {
+        return InstanceHolder.instance;
+    }
+    
     /**
      * This method is used to crete an instance of the UDDITimer. There should only be exactly one instance of this
      * running at any time. If it exists, it simply returns the one that exists. If it does not exist, then it will
@@ -59,27 +65,23 @@ public class UDDITimer extends Thread {
      * 
      * @throws UDDIAccessorException
      */
-    public static void startTimer() throws UDDIAccessorException {
+    public void startTimer() throws UDDIAccessorException {
         m_bRunnable = true;
 
-        if (m_oTheOneAndOnlyTimer == null) {
-            m_oTheOneAndOnlyTimer = new UDDITimer();
-            try {
-                m_oTheOneAndOnlyTimer.initialize();
-                m_oTheOneAndOnlyTimer.setDaemon(true);
-                m_oTheOneAndOnlyTimer.start();
-            } catch (Exception e) {
-                m_oTheOneAndOnlyTimer = null;
-                String sErrorMessage = "Failed to start the UDDI Update Manager timer.  Error: " + e.getMessage();
-                LOG.error(sErrorMessage, e);
-                throw new UDDIAccessorException(sErrorMessage, e);
-            }
-
-            LOG.info("UDDIUpdateManager timer has just been started now.");
+        try {
+            InstanceHolder.instance.initialize();
+            InstanceHolder.instance.setDaemon(true);
+            InstanceHolder.instance.start();
+        } catch (Exception e) {
+            String sErrorMessage = "Failed to start the UDDI Update Manager timer.  Error: " + e.getMessage();
+            LOG.error(sErrorMessage, e);
+            throw new UDDIAccessorException(sErrorMessage, e);
         }
+
+        LOG.info("UDDIUpdateManager timer has just been started now.");
     }
 
-    public static void stopTimer() {
+    public void stopTimer() {
         m_bRunnable = false;
     }
 
@@ -89,7 +91,8 @@ public class UDDITimer extends Thread {
     private void initialize() throws UDDIAccessorException {
 
         try {
-            String sDuration = PropertyAccessor.getInstance().getProperty(GATEWAY_PROPERTY_FILE, UDDI_REFRESH_DURATION_PROPERTY);
+            String sDuration = PropertyAccessor.getInstance().getProperty(GATEWAY_PROPERTY_FILE,
+                    UDDI_REFRESH_DURATION_PROPERTY);
             if ((sDuration != null) && (sDuration.length() > 0)) {
                 m_iDurationSeconds = Integer.parseInt(sDuration);
             }
@@ -117,25 +120,9 @@ public class UDDITimer extends Thread {
     }
 
     /**
-     * Main method used to test this class. This one really should not be run under unit test scenarios because it
-     * requires access to the UDDI server.
-     * 
-     * @param args
+     * Snazzy solution to potential singleton multithreading issues.
      */
-    public static void main(String[] args) {
-        System.out.println("Starting test.");
-        LOG.debug("Log: Starting test.");
-
-        try {
-            UDDITimer.startTimer();
-            Thread.sleep(70000); // 1 minutes 10 seconds
-        } catch (Exception e) {
-            System.out.println("An unexpected exception occurred: " + e.getMessage());
-            e.printStackTrace();
-            System.exit(-1);
-        }
-
-        System.out.println("End of test.");
-
+    public static class InstanceHolder {
+        private static final UDDITimer instance = new UDDITimer();
     }
 }
