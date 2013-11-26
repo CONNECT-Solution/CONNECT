@@ -81,6 +81,7 @@ Available service profiles which can be excluded from the generated ear (use val
 * Document Retrieve (DR)
 * Direct(Direct)
 * CONNECTUniversalClientGUI, CONNECTConsumerPreferencesProfileGUI, CONNECTDeferredQueueManagerGUI (GUI)
+* AdapterDocRegistry2Soap12Web, AdapterDocRepository2Soap12Web (HIEOS)
 
 After CONNECT has been built from the clone directory, you can alter the composition of the CONNECT.ear at any time by turning off any combination of the available profiles as a comma-separated list
 
