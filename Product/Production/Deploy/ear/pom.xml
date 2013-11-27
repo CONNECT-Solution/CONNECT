@@ -85,6 +85,7 @@
             <version>${project.parent.version}</version>
             <type>pom</type>
         </dependency>
+		
 
     </dependencies>
     <build>
@@ -315,6 +316,57 @@
                 <direct.excluded>false</direct.excluded>
             </properties>
 
+        </profile>
+		<profile>
+            <id>HIEOS</id>
+            <activation>
+                <activeByDefault>false</activeByDefault>
+            </activation>
+			<dependencies>
+			    <dependency>
+                   <groupId>org.connectopensource</groupId>
+                   <artifactId>hieos-dependencies</artifactId>
+                   <version>${project.parent.version}</version>
+                   <type>pom</type>
+                </dependency>
+			</dependencies>
+            <build>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.maven.plugins</groupId>
+                    <artifactId>maven-ear-plugin</artifactId>
+                    <configuration>
+                    <modules>
+                        <webModule>
+                            <groupId>org.connectopensource</groupId>
+                            <artifactId>AdapterDocRegistry2Soap12Web</artifactId>
+                            <contextRoot>/AdapterDocRegistry2Soap12Web</contextRoot>
+                            <excluded>${hieos.excluded}</excluded>
+                        </webModule>
+						<webModule>
+                            <groupId>org.connectopensource</groupId>
+                            <artifactId>AdapterDocRepository2Soap12Web</artifactId>
+                            <contextRoot>/AdapterDocRepository2Soap12Web</contextRoot>
+                            <excluded>${hieos.excluded}</excluded>
+                        </webModule>
+                    </modules>
+                    <version>5</version>
+                    <defaultLibBundleDir>lib</defaultLibBundleDir>
+                    <skinnyWars>true</skinnyWars>
+                    <packagingExcludes>
+                    lib/Properties-*.jar
+                    </packagingExcludes>
+
+                    <!-- this causes all archives to be exploded on server 
+                        SLOW!!! <includeLibInApplicationXml>true</includeLibInApplicationXml> -->
+                </configuration>
+            </plugin>
+        </plugins>
+        <finalName>${project.artifactId}</finalName>
+    </build>					
+            <properties>
+                <hieos.excluded>false</hieos.excluded>
+            </properties>
         </profile>
     </profiles>
 </project>
