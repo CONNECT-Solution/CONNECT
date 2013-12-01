@@ -47,6 +47,18 @@ http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd http://www.s
         <jaxws:properties>          
             <entry key="mtom-enabled" value="true" />
         </jaxws:properties>
+		<jaxws:inInterceptors>
+			<bean class="org.apache.cxf.ws.security.wss4j.WSS4JInInterceptor">
+				<constructor-arg>
+					<map>
+						<entry key="action" value="UsernameToken" />
+						<entry key="passwordType" value="PasswordDigest" />
+						<entry key="passwordCallbackClass"
+							value="gov.hhs.fha.nhinc.callback.cxf.CXFDigestPasswordCallbackHandler" />
+					</map>
+				</constructor-arg>
+			</bean>
+		</jaxws:inInterceptors> 
     </jaxws:endpoint>
 
     <jaxws:endpoint xmlns:edrs="urn:gov:hhs:fha:nhinc:entitydocretrievesecured" id="EntityDocRetrieveSecured_a1"
