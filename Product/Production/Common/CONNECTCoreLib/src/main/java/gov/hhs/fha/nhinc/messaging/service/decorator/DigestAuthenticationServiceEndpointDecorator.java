@@ -48,14 +48,15 @@ public class DigestAuthenticationServiceEndpointDecorator<T> extends ServiceEndp
 	private static final Logger LOG = Logger.getLogger(DigestAuthenticationServiceEndpointDecorator.class);
 	
 	/** 
+	 * This is the key to the (Java) system property that contains the username for securing the 
+	 * communication between the end point and Connect 
+	 * **/
+	public static final String WEB_SERVICE_USER_SYSTEM_PROPERTY = "exchange.gateway.web.service.user";
+	/** 
 	 * This is the key to the (Java) system property that contains the password for securing the 
 	 * communication between the end point and Connect 
 	 * **/
 	public static final String WEB_SERVICE_PASSWORD_SYSTEM_PROPERTY = "exchange.gateway.web.service.password";
-	/** 
-	 * The user name used for web service calls between the end point and Connect
-	 */
-	public static final String WEB_SERVICE_USER = "ExchangeGatewayUser"; 
 	
     public DigestAuthenticationServiceEndpointDecorator(ServiceEndpoint<T> decoratedEndpoint) {
         super(decoratedEndpoint);
@@ -72,10 +73,18 @@ public class DigestAuthenticationServiceEndpointDecorator<T> extends ServiceEndp
     public void configure() {
 		super.configure();
 		
+		final String webserviceUser = System.getProperty(WEB_SERVICE_USER_SYSTEM_PROPERTY);
 		final String webservicePassword = System.getProperty(WEB_SERVICE_PASSWORD_SYSTEM_PROPERTY);
-		if (StringUtils.isBlank(webservicePassword)){
-			LOG.warn(String.format("The web service system property (%s) was not configured. There will be no security header in the web service request"
-					, WEB_SERVICE_PASSWORD_SYSTEM_PROPERTY)); 
+		
+		if (StringUtils.isBlank(webserviceUser)){
+			LOG.warn(String.format("The WebService user system property (%s) was not configured. There will be no security header in the web service request"
+					, WEB_SERVICE_USER_SYSTEM_PROPERTY));
+			return;
+		}
+    	
+    	if (StringUtils.isBlank(webservicePassword)){
+			LOG.warn(String.format("The WebService password system property (%s) was not configured. There will be no security header in the web service request"
+					, WEB_SERVICE_PASSWORD_SYSTEM_PROPERTY));
 			return;
 		}
 		
@@ -84,7 +93,7 @@ public class DigestAuthenticationServiceEndpointDecorator<T> extends ServiceEndp
 		
 		final Map<String, Object> outProps = new HashMap<String, Object>();
 		outProps.put(WSHandlerConstants.ACTION, WSHandlerConstants.USERNAME_TOKEN);
-		outProps.put(WSHandlerConstants.USER, WEB_SERVICE_USER);
+		outProps.put(WSHandlerConstants.USER, webserviceUser);
 		outProps.put(WSHandlerConstants.PASSWORD_TYPE, WSConstants.PW_DIGEST);
 		
 		final Map<String, Object> requestContext = ((BindingProvider) getPort()).getRequestContext();

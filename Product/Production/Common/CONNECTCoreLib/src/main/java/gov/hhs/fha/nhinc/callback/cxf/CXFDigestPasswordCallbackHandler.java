@@ -30,12 +30,26 @@ public class CXFDigestPasswordCallbackHandler implements CallbackHandler {
     	
     	final WSPasswordCallback pc = (WSPasswordCallback) callbacks[0];
     	
+    	final String webserviceUser = System.getProperty(DigestAuthenticationServiceEndpointDecorator.WEB_SERVICE_USER_SYSTEM_PROPERTY);
     	final String webservicePassword = System.getProperty(DigestAuthenticationServiceEndpointDecorator.WEB_SERVICE_PASSWORD_SYSTEM_PROPERTY);
-		if (StringUtils.isBlank(webservicePassword)){
-			LOG.warn(String.format("The web service system property (%s) was not configured. This is likely to mean the web service call will fail"
+		
+    	if (StringUtils.isBlank(webserviceUser)){
+			LOG.warn(String.format("The WebService user system property (%s) was not configured. This is likely to mean the web service call will fail"
+					, DigestAuthenticationServiceEndpointDecorator.WEB_SERVICE_USER_SYSTEM_PROPERTY));
+			return;
+		}
+    	
+    	if (StringUtils.isBlank(webservicePassword)){
+			LOG.warn(String.format("The WebService password system property (%s) was not configured. This is likely to mean the web service call will fail"
 					, DigestAuthenticationServiceEndpointDecorator.WEB_SERVICE_PASSWORD_SYSTEM_PROPERTY));
 			return;
 		}
+    	
+    	final String userInWebServiceCall = pc.getIdentifier();
+    	
+    	if (!userInWebServiceCall.equals(webserviceUser)){
+    		throw new SecurityException(String.format("The user in the web service call (%s) does not match the user configured with the system property (%s)", userInWebServiceCall, webserviceUser));
+    	}
 		
     	pc.setPassword(webservicePassword);
     }
