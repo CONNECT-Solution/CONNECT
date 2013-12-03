@@ -251,10 +251,20 @@ public class LargeFileUtils {
         InputStream is = dh.getInputStream();
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
 
-        int read = 0;
-        byte[] bytes = new byte[1024];
-        while ((read = is.read(bytes)) != -1) {
-            baos.write(bytes, 0, read);
+        try {
+            int read = 0;
+            byte[] bytes = new byte[1024];
+            while ((read = is.read(bytes)) != -1) {
+                baos.write(bytes, 0, read);
+            }
+        } finally {
+            if (is != null) {
+                try {
+                    is.close();
+                } catch (Exception e) {
+                    LOG.error("Could not close input stream : " + e.getMessage());
+                }
+            }
         }
 
         return baos.toByteArray();
