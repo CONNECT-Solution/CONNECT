@@ -72,7 +72,7 @@ http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd ">
         <jaxws:handlers>
             <ref bean="TransactionHandler"/>
         </jaxws:handlers>
-        <jaxws:inInterceptors>
+		<jaxws:inInterceptors>
 			<bean class="org.apache.cxf.ws.security.wss4j.WSS4JInInterceptor">
 				<constructor-arg>
 					<map>
@@ -140,7 +140,7 @@ http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd ">
         </jaxws:handlers>
     </jaxws:endpoint>
 
-    <jaxws:endpoint
+    <!--jaxws:endpoint
         xmlns:tns="urn:gov:hhs:fha:nhinc:entitypatientdiscoveryasyncreq"
         id="EntityPatientDiscoveryAsyncReq"
         address="/EntityService/EntityPatientDiscoveryDeferredRequestUnsecured"
@@ -149,7 +149,7 @@ http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd ">
         <jaxws:handlers>
             <ref bean="TransactionHandler" />
         </jaxws:handlers>
-    </jaxws:endpoint>
+    </jaxws:endpoint-->
 
     
     <!-- Patient Discovery Deferred Response -->
@@ -205,7 +205,7 @@ http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd ">
         </jaxws:handlers>
     </jaxws:endpoint>
   
-    <jaxws:endpoint
+    <!--jaxws:endpoint
         xmlns:tns="urn:gov:hhs:fha:nhinc:entitypatientdiscoveryasyncresp"
         id="EntityPatientDiscoveryAsyncResp"
         address="/EntityService/EntityPatientDiscoveryDeferredResponseUnsecured"
@@ -215,6 +215,6 @@ http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd ">
         <jaxws:handlers>
             <ref bean="TransactionHandler" />
         </jaxws:handlers>
-    </jaxws:endpoint>
+    </jaxws:endpoint-->
 
 </beans>

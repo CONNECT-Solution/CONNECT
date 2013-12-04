@@ -48,7 +48,7 @@
     </jaxws:endpoint>
 
     <!-- Entity services -->
-    <jaxws:endpoint xmlns:eds="urn:gov:hhs:fha:nhinc:nhincentityxdr" id="EntityDocSubmissionUnsecured"
+    <!--jaxws:endpoint xmlns:eds="urn:gov:hhs:fha:nhinc:nhincentityxdr" id="EntityDocSubmissionUnsecured"
         address="/EntityService/EntityDocSubmissionUnsecured" serviceName="eds:EntityXDR_Service"
         endpointName="eds:EntityXDR_Port" implementor="#entityXDRUnsecured"
         wsdlLocation="classpath:wsdl/EntityXDR.wsdl">
@@ -58,7 +58,7 @@
         <jaxws:properties>
             <entry key="mtom-enabled" value="true" />
         </jaxws:properties>
-    </jaxws:endpoint>
+    </jaxws:endpoint-->
     
     <jaxws:endpoint xmlns:edss="urn:gov:hhs:fha:nhinc:nhincentityxdrsecured" id="EntityDocSubmissionSecured"
         address="/EntityService/EntityDocSubmissionSecured" serviceName="edss:EntityXDRSecured_Service"
@@ -120,7 +120,7 @@
 
     <!-- Entity services -->
 
-    <jaxws:endpoint xmlns:tns="urn:gov:hhs:fha:nhinc:nhincentityxdr:async:request" id="EntityDocSubmissionDeferredRequestUnsecured"
+    <!--jaxws:endpoint xmlns:tns="urn:gov:hhs:fha:nhinc:nhincentityxdr:async:request" id="EntityDocSubmissionDeferredRequestUnsecured"
         address="/EntityService/EntityDocSubmissionDeferredRequestUnsecured" serviceName="tns:EntityXDRAsyncRequest_Service"
         endpointName="tns:EntityXDRAsyncRequest_Port"
         implementor="#entityXDRDeferredRequestUnsecured"
@@ -131,7 +131,7 @@
         <jaxws:properties>
             <entry key="mtom-enabled" value="true" />
         </jaxws:properties>
-    </jaxws:endpoint>
+    </jaxws:endpoint-->
 
     <jaxws:endpoint xmlns:tns="urn:gov:hhs:fha:nhinc:nhincentityxdrsecured:async:request" id="EntityDocSubmissionDeferredRequestSecured"
         address="/EntityService/EntityDocSubmissionDeferredRequestSecured" serviceName="tns:EntityXDRSecuredAsyncRequest_Service"
@@ -188,7 +188,7 @@
 
     <!-- Entity services -->
     
-    <jaxws:endpoint xmlns:tns="urn:gov:hhs:fha:nhinc:nhincentityxdr:async:response" id="EntityDocSubmissionDeferredResponseUnsecured"
+    <!--jaxws:endpoint xmlns:tns="urn:gov:hhs:fha:nhinc:nhincentityxdr:async:response" id="EntityDocSubmissionDeferredResponseUnsecured"
         address="/EntityService/EntityDocSubmissionDeferredResponseUnsecured" serviceName="tns:EntityXDRAsyncResponse_Service"
         endpointName="tns:EntityXDRAsyncResponse_Port"
         implementor="#entityXDRDeferredResponseUnsecured"
@@ -196,7 +196,7 @@
         <jaxws:handlers>
             <ref bean="TransactionHandler" />
         </jaxws:handlers>
-    </jaxws:endpoint>
+    </jaxws:endpoint-->
 
     <jaxws:endpoint xmlns:tns="urn:gov:hhs:fha:nhinc:nhincentityxdrsecured:async:response" id="EntityDocSubmissionDeferredResponseSecured"
         address="/EntityService/EntityDocSubmissionDeferredResponseSecured" serviceName="tns:EntityXDRSecuredAsyncResponse_Service"

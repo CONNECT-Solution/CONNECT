@@ -46,7 +46,7 @@ http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
 
     <!-- Entity services -->
 
-    <jaxws:endpoint xmlns:eds="urn:gov:hhs:fha:nhinc:nhincentityxdr" id="EntityDocSubmissionUnsecured_g1"
+    <!--jaxws:endpoint xmlns:eds="urn:gov:hhs:fha:nhinc:nhincentityxdr" id="EntityDocSubmissionUnsecured_g1"
         address="/EntityService/EntityDocSubmissionUnsecured" serviceName="eds:EntityXDR_Service" endpointName="eds:EntityXDR_Port"
         implementor="#entityXDRUnsecured_g1" wsdlLocation="classpath:wsdl/EntityXDR.wsdl">
         <jaxws:handlers>
@@ -55,7 +55,7 @@ http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd">
         <jaxws:properties>
             <entry key="mtom-enabled" value="true" />
         </jaxws:properties>
-    </jaxws:endpoint>
+    </jaxws:endpoint-->
 
      <jaxws:endpoint xmlns:edss="urn:gov:hhs:fha:nhinc:nhincentityxdrsecured" id="EntityDocSubmissionSecured_g1"
         address="/EntityService/EntityDocSubmissionSecured" serviceName="edss:EntityXDRSecured_Service" endpointName="edss:EntityXDRSecured_Port"
