@@ -219,7 +219,7 @@ public class LargeFileUtils {
             throw new IOException ("Could not get URL for : " + file.getAbsolutePath());
         }
         
-        return new DataHandler(file.toURI().toURL());
+        return new DataHandler(fileURL);
     }
 
     /**
