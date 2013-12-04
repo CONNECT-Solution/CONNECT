@@ -121,10 +121,19 @@ public class NotificationImpl {
 
         Writer output = null;
         f.createNewFile();
-        output = new BufferedWriter(new FileWriter(f));
-        output.write(fileContents);
-        output.close();
-
+		
+	    try {
+            output = new BufferedWriter(new FileWriter(f));
+            output.write(fileContents);
+        } finally {
+            if (output != null) {
+                try {
+                    output.close();
+                } catch (Exception e) {
+                    LOG.error("Failed to close file : " + fileName + " : " + e.getMessage());
+                }
+            }
+        }
     }
 
     private static String generateUID() {

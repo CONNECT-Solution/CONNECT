@@ -1015,33 +1015,6 @@ public class PatientConsentDocumentBuilderHelper {
         return intStr;
     }
 
-    /*protected synchronized String getOidFromProperty(String sPropertyName) {
-        String sUniqueId = "";
-        try {
-            Properties tempProp = new Properties();
-            InputStream propsInFile = new FileInputStream(sPropertyFile);
-            tempProp.load(propsInFile);
-            propsInFile.close();
-            sUniqueId = tempProp.getProperty(sPropertyName);
-            String sFirstPart = sUniqueId.substring(0, sUniqueId.lastIndexOf("."));
-            String sDotString = sUniqueId.substring(sUniqueId.lastIndexOf("."));
-            sDotString = sDotString.substring(1);
-            int iSUniqueId = Integer.parseInt(sDotString);
-            iSUniqueId = iSUniqueId + 1;
-            String sNewId = sFirstPart + "." + iSUniqueId;
-            tempProp.setProperty(sPropertyName, sNewId);
-            OutputStream propsOutFile = new FileOutputStream(sPropertyFile);
-            tempProp.store(propsOutFile, "Update property file with new sequence");
-            propsOutFile.close();
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-        if (LOG.isDebugEnabled()) {
-            LOG.debug("Generated unique id: " + sUniqueId);
-        }
-        return sUniqueId;
-    }*/
-
     private String extractAddressFromPatInfo(PolicyPatientInfoType patInfo) {
         StringBuffer sAddr = new StringBuffer();
         if (patInfo != null) {

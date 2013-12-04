@@ -37,6 +37,7 @@ import gov.hhs.fha.nhinc.transform.marshallers.JAXBContextHandler;
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.sql.Blob;
+import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -261,18 +262,26 @@ public class AuditRepositoryOrchImpl {
             auditMessageType = new AuditMessageType();
             blobMessage = eachRecord.getMessage();
             if (blobMessage != null) {
-                auditMessageType = unMarshallBlobToAuditMess(blobMessage);
-                ActiveParticipant act = (ActiveParticipant) auditMessageType.getActiveParticipant().get(0);
-                response.getFindAuditEventsReturn().add(auditMessageType);
-
-                if (auditMessageType.getAuditSourceIdentification().size() > 0
-                        && auditMessageType.getAuditSourceIdentification().get(0) != null
-                        && auditMessageType.getAuditSourceIdentification().get(0).getAuditSourceID() != null
-                        && auditMessageType.getAuditSourceIdentification().get(0).getAuditSourceID().length() > 0) {
-                    String tempCommunity = auditMessageType.getAuditSourceIdentification().get(0).getAuditSourceID();
-                    if (!auditResType.getCommunities().contains(tempCommunity)) {
-                        auditResType.getCommunities().add(tempCommunity);
-                        LOG.debug("Adding community " + tempCommunity);
+                try {
+                    auditMessageType = unMarshallBlobToAuditMess(blobMessage);
+                    ActiveParticipant act = (ActiveParticipant) auditMessageType.getActiveParticipant().get(0);
+                    response.getFindAuditEventsReturn().add(auditMessageType);
+    
+                    if (auditMessageType.getAuditSourceIdentification().size() > 0
+                            && auditMessageType.getAuditSourceIdentification().get(0) != null
+                            && auditMessageType.getAuditSourceIdentification().get(0).getAuditSourceID() != null
+                            && auditMessageType.getAuditSourceIdentification().get(0).getAuditSourceID().length() > 0) {
+                        String tempCommunity = auditMessageType.getAuditSourceIdentification().get(0).getAuditSourceID();
+                        if (!auditResType.getCommunities().contains(tempCommunity)) {
+                            auditResType.getCommunities().add(tempCommunity);
+                            LOG.debug("Adding community " + tempCommunity);
+                        }
+                    }
+                } finally {
+                    try {
+                        blobMessage.free();
+                    } catch (SQLException e) {
+                        LOG.error("Could not free Blob: " + e.getMessage());
                     }
                 }
             }

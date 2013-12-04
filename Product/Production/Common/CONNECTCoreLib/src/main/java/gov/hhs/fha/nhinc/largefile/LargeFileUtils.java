@@ -42,6 +42,7 @@ import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.net.URL;
 
 import javax.activation.DataHandler;
 
@@ -206,10 +207,19 @@ public class LargeFileUtils {
                             + file.getAbsolutePath());
         }
 
-        FileInputStream fis = new FileInputStream(file);
-        StreamDataSource sds = new StreamDataSource("application/octect-stream", fis);
+        URI fileURI = file.toURI();
+        URL fileURL = null;
+        
+        if (fileURI != null) {
+            fileURL = fileURI.toURL();
+        }
 
-        return new DataHandler(sds);
+        // Not nested to cover the cases where a) URI is null b) URI is not null, but URL is null
+        if (fileURL == null) {
+            throw new IOException ("Could not get URL for : " + file.getAbsolutePath());
+        }
+        
+        return new DataHandler(fileURL);
     }
 
     /**
@@ -251,10 +261,20 @@ public class LargeFileUtils {
         InputStream is = dh.getInputStream();
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
 
-        int read = 0;
-        byte[] bytes = new byte[1024];
-        while ((read = is.read(bytes)) != -1) {
-            baos.write(bytes, 0, read);
+        try {
+            int read = 0;
+            byte[] bytes = new byte[1024];
+            while ((read = is.read(bytes)) != -1) {
+                baos.write(bytes, 0, read);
+            }
+        } finally {
+            if (is != null) {
+                try {
+                    is.close();
+                } catch (Exception e) {
+                    LOG.error("Could not close input stream : " + e.getMessage());
+                }
+            }
         }
 
         return baos.toByteArray();
