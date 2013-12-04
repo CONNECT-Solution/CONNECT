@@ -206,10 +206,7 @@ public class LargeFileUtils {
                             + file.getAbsolutePath());
         }
 
-        FileInputStream fis = new FileInputStream(file);
-        StreamDataSource sds = new StreamDataSource("application/octet-stream", fis);
-
-        return new DataHandler(sds);
+        return new DataHandler(file.toURI().toURL());
     }
 
     /**
