@@ -42,6 +42,7 @@ import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.net.URL;
 
 import javax.activation.DataHandler;
 
@@ -206,6 +207,18 @@ public class LargeFileUtils {
                             + file.getAbsolutePath());
         }
 
+        URI fileURI = file.toURI();
+        URL fileURL = null;
+        
+        if (fileURI != null) {
+            fileURL = fileURI.toURL();
+        }
+
+        // Not nested to cover the cases where a) URI is null b) URI is not null, but URL is null
+        if (fileURL == null) {
+            throw new IOException ("Could not get URL for : " + file.getAbsolutePath());
+        }
+        
         return new DataHandler(file.toURI().toURL());
     }
 
