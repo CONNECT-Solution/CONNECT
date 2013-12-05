@@ -78,7 +78,7 @@ CREATE TABLE nhincuser.document (
   DocumentUri varchar2(128) default NULL,
   RawData BLOB,
   Persistent number(11) NOT NULL,
-  OnDemand number(1,0) NOT NULL default 0,
+  OnDemand number(1,0) default 0 NOT NULL,
   NewDocumentUniqueId varchar(128) default NULL,
   NewRepositoryUniqueId varchar(128) default NULL,
   PRIMARY KEY  (documentid)
