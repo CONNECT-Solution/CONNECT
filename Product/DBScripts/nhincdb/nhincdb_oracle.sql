@@ -1,6 +1,7 @@
 -- create application user
 CREATE USER nhincuser IDENTIFIED BY nhincpass;
-GRANT ALL PRIVILEGES to nhincuser;
+GRANT CONNECT, RESOURCE to nhincuser;
+ALTER USER nhincuser QUOTA 100M ON SYSTEM;
 
 CREATE TABLE nhincuser.aa_to_home_community_mapping (
   id number(10) NOT NULL,
@@ -77,11 +78,13 @@ CREATE TABLE nhincuser.document (
   DocumentUri varchar2(128) default NULL,
   RawData BLOB,
   Persistent number(11) NOT NULL,
-  OnDemand tinyint(1) NOT NULL default 0 COMMENT 'Indicate whether document is dynamic (true or 1) or static (false or 0).',
+  OnDemand number(1,0) default 0 NOT NULL,
   NewDocumentUniqueId varchar(128) default NULL,
   NewRepositoryUniqueId varchar(128) default NULL,
   PRIMARY KEY  (documentid)
 );
+
+COMMENT ON COLUMN "NHINCUSER"."DOCUMENT"."ONDEMAND" IS 'Indicate whether document is dynamic (true or 1) or static (false or 0).';
 
 CREATE TABLE nhincuser.eventcode (
   eventcodeid number(11) NOT NULL,
