@@ -8,14 +8,16 @@ import ihe.iti.xds_b._2007.DocumentRepositoryPortType;
 
 /**
  * @author achidambaram
- *
+ * 
  */
 public class AdapterComponentDocSubmissionPortDescriptor extends
- SOAP12ServicePortDescriptor<DocumentRepositoryPortType> {
-    
+        SOAP12ServicePortDescriptor<DocumentRepositoryPortType> {
+
     private static final String WS_ADDRESSING_ACTION = "urn:ihe:iti:2007:ProvideAndRegisterDocumentSet-b";
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor#getWSAddressingAction()
      */
     @Override
@@ -23,7 +25,9 @@ public class AdapterComponentDocSubmissionPortDescriptor extends
         return WS_ADDRESSING_ACTION;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor#getPortClass()
      */
     @Override
