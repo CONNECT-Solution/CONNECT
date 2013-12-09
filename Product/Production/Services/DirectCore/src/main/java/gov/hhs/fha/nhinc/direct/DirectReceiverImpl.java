@@ -32,8 +32,10 @@ import gov.hhs.fha.nhinc.direct.event.DirectEventType;
 import gov.hhs.fha.nhinc.mail.MailSender;
 
 import java.util.Collection;
+import java.util.Collections;
 
 import javax.mail.MessagingException;
+import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
 import org.apache.commons.lang.StringUtils;
@@ -61,9 +63,6 @@ public class DirectReceiverImpl extends DirectAdapter implements DirectReceiver 
      * Header name to determine if dispositions are being requested by the sending STA.
      */
     public static final String DISPOSITION_NOTIFICATION_OPTIONS_HEADER_NAME = "Disposition-Notification-Options";
-
-    /** The dispatch mdn producer. */
-    private ReliableDispatchedNotificationProducer dispatchProducer = null;
 
     /** The Constant LOG. */
     private static final Logger LOG = Logger.getLogger(DirectAdapter.class);
@@ -119,7 +118,7 @@ public class DirectReceiverImpl extends DirectAdapter implements DirectReceiver 
             getDirectEventLogger().log(DirectEventType.END_INBOUND_MDN, message);
         } else {
             try {
-                sendMdnDispatched(result);
+                sendMdnDispatched(processedEnvelope.getMessage());
             } catch (MessagingException e) {
                 throw new DirectException("Error sending MDN dispatched.", e, message);
             }
@@ -133,44 +132,25 @@ public class DirectReceiverImpl extends DirectAdapter implements DirectReceiver 
      * @param message the message
      * @throws MessagingException the messaging exception
      */
-    private void sendMdnDispatched(MessageProcessResult result) throws MessagingException {
-        if (result == null || result.getProcessedMessage() == null || result.getProcessedMessage().getMessage() == null) {
-            throw new MessagingException("Unable to get processed message.");
+    private void sendMdnDispatched(Message message) throws MessagingException {
+        if (message == null) {
+            throw new MessagingException("Message is null.");
         }
+
         // check request message for disposition request.
-        MessageEnvelope envelope = result.getProcessedMessage();
-        Message processedMessage = envelope.getMessage();
-        String[] headers = processedMessage.getHeader(DISPOSITION_NOTIFICATION_OPTIONS_HEADER_NAME);
-        if (headers != null) {
-            for (String header : headers) {
-                if (checkHeaderForDispatchedRequest(header)) {
-                    Message STAMessasge = new Message(processedMessage);
-                    IncomingMessage incomingMessage = new IncomingMessage(STAMessasge);
-                    if (getSmtpAgent() != null) {
-                        incomingMessage.setAgent(getSmtpAgent().getAgent());
-                        Collection<NotificationMessage> messages = dispatchProducer.produce(incomingMessage);
-                        sendMdns(messages);
-                    }
+        String[] dispositions = message.getHeader(DISPOSITION_NOTIFICATION_OPTIONS_HEADER_NAME);
+        if (dispositions != null) {
+            for (String disposition : dispositions) {
+                if (X_DIRECT_FINAL_DESTINATION_DELIVERY_HEADER_VALUE.equalsIgnoreCase(disposition)) {
+                    NotificationSettings settings = new NotificationSettings();
+                    ReliableDispatchedNotificationProducer prod = new ReliableDispatchedNotificationProducer(settings);
+                    Collection<InternetAddress> recipients = Collections.singleton((InternetAddress) message
+                            .getSender());
+                    Collection<NotificationMessage> messages = prod.produce(message, recipients);
+                    sendMdns(messages);
                 }
             }
         }
-    }
-
-    /**
-     * 
-     * @param header
-     * @return
-     */
-    private boolean checkHeaderForDispatchedRequest(String header) {
-        boolean dispatchRequested = false;
-        String[] parts = StringUtils.split(header, "=");
-        if (parts != null && parts.length == 2) {
-            if (StringUtils.contains(parts[0], X_DIRECT_FINAL_DESTINATION_DELIVERY_HEADER_VALUE)
-                    && StringUtils.contains(parts[1], "true")) {
-                dispatchRequested = true;
-            }
-        }
-        return dispatchRequested;
     }
 
     /**
