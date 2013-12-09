@@ -32,13 +32,19 @@ import gov.hhs.fha.nhinc.direct.event.DirectEventType;
 import gov.hhs.fha.nhinc.mail.MailSender;
 
 import java.util.Collection;
+import java.util.Collections;
 
+import javax.mail.MessagingException;
+import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
 import org.apache.log4j.Logger;
 import org.nhindirect.gateway.smtp.MessageProcessResult;
+import org.nhindirect.gateway.smtp.NotificationSettings;
+import org.nhindirect.gateway.smtp.ReliableDispatchedNotificationProducer;
 import org.nhindirect.gateway.smtp.SmtpAgent;
 import org.nhindirect.stagent.MessageEnvelope;
+import org.nhindirect.stagent.mail.Message;
 import org.nhindirect.stagent.mail.notifications.NotificationMessage;
 
 /**
@@ -46,9 +52,22 @@ import org.nhindirect.stagent.mail.notifications.NotificationMessage;
  */
 public class DirectReceiverImpl extends DirectAdapter implements DirectReceiver {
 
-    private static final Logger LOG = Logger.getLogger(DirectAdapter.class);
-    
     /**
+     * Header value meaning that the sending STA is requesting dispositions.
+     */
+    public static final String X_DIRECT_FINAL_DESTINATION_DELIVERY_HEADER_VALUE = "X-DIRECT-FINAL-DESTINATION-DELIVERY";
+
+    /**
+     * Header name to determine if dispositions are being requested by the sending STA.
+     */
+    public static final String DISPOSITION_NOTIFICATION_OPTIONS_HEADER_NAME = "Disposition-Notification-Options";
+
+    /** The Constant LOG. */
+    private static final Logger LOG = Logger.getLogger(DirectAdapter.class);
+
+    /**
+     * Instantiates a new direct receiver impl.
+     * 
      * @param externalMailSender used to send mail.
      * @param smtpAgent used to process direct messages.
      * @param directEventLogger used to log direct events.
@@ -62,31 +81,76 @@ public class DirectReceiverImpl extends DirectAdapter implements DirectReceiver 
      */
     @Override
     public void receiveInbound(MimeMessage message) {
-        
+
         MessageProcessResult result = process(message);
         MessageEnvelope processedEnvelope = result.getProcessedMessage();
         boolean isMdn = DirectAdapterUtils.isMdn(processedEnvelope);
         if (isMdn) {
             getDirectEventLogger().log(DirectEventType.BEGIN_INBOUND_MDN, message);
         } else {
-            getDirectEventLogger().log(DirectEventType.BEGIN_INBOUND_DIRECT, message);            
+            getDirectEventLogger().log(DirectEventType.BEGIN_INBOUND_DIRECT, message);
         }
 
-        sendMdn(result);
-        
+        sendMdnProcessed(result);
+
         DirectEdgeProxy proxy = getDirectEdgeProxy();
         proxy.provideAndRegisterDocumentSetB(processedEnvelope.getMessage());
-        
+
         if (isMdn) {
             getDirectEventLogger().log(DirectEventType.END_INBOUND_MDN, message);
         } else {
-            getDirectEventLogger().log(DirectEventType.END_INBOUND_DIRECT, message);            
+            try {
+                sendMdnDispatched(processedEnvelope.getMessage());
+            } catch (MessagingException e) {
+                throw new DirectException("Error sending MDN dispatched.", e, message);
+            }
+            getDirectEventLogger().log(DirectEventType.END_INBOUND_DIRECT, message);
         }
     }
-    
-    private void sendMdn(MessageProcessResult result) {
 
+    /**
+     * Send mdn dispatched.
+     * 
+     * @param message the message
+     * @throws MessagingException the messaging exception
+     */
+    private void sendMdnDispatched(Message message) throws MessagingException {
+        if (message == null) {
+            throw new MessagingException("Message is null.");
+        }
+
+        // check request message for disposition request.
+        String[] dispositions = message.getHeader(DISPOSITION_NOTIFICATION_OPTIONS_HEADER_NAME);
+        if (dispositions != null) {
+            for (String disposition : dispositions) {
+                if (X_DIRECT_FINAL_DESTINATION_DELIVERY_HEADER_VALUE.equalsIgnoreCase(disposition)) {
+                    NotificationSettings settings = new NotificationSettings();
+                    ReliableDispatchedNotificationProducer prod = new ReliableDispatchedNotificationProducer(settings);
+                    Collection<InternetAddress> recipients = Collections.singleton((InternetAddress) message
+                            .getSender());
+                    Collection<NotificationMessage> messages = prod.produce(message, recipients);
+                    sendMdns(messages);
+                }
+            }
+        }
+    }
+
+    /**
+     * Send mdn processed.
+     * 
+     * @param result the result
+     */
+    private void sendMdnProcessed(MessageProcessResult result) {
         Collection<NotificationMessage> mdnMessages = DirectAdapterUtils.getMdnMessages(result);
+        sendMdns(mdnMessages);
+    }
+
+    /**
+     * Send mdns.
+     * 
+     * @param mdnMessages the mdn messages
+     */
+    private void sendMdns(Collection<NotificationMessage> mdnMessages) {
         if (mdnMessages != null) {
             for (NotificationMessage mdnMessage : mdnMessages) {
                 getDirectEventLogger().log(DirectEventType.BEGIN_OUTBOUND_MDN, mdnMessage);
@@ -101,6 +165,5 @@ public class DirectReceiverImpl extends DirectAdapter implements DirectReceiver 
             }
         }
     }
-    
 
 }
