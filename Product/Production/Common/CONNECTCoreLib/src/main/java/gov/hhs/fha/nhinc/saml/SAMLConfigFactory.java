@@ -27,6 +27,7 @@
 package gov.hhs.fha.nhinc.saml;
 
 import gov.hhs.fha.nhinc.properties.PropertyAccessorFileUtilities;
+import gov.hhs.fha.nhinc.util.PasswordUtil;
 
 import java.util.Properties;
 
@@ -35,8 +36,8 @@ import java.util.Properties;
  *
  */
 public class SAMLConfigFactory {
-
     private static final String SAML_PROPERTIES_FILENAME = "saml";
+
     private static SAMLConfigFactory INSTANCE = null;
     private Properties configuration = null;
 
@@ -46,6 +47,12 @@ public class SAMLConfigFactory {
 
     SAMLConfigFactory(PropertyAccessorFileUtilities propFileUtilities) {
         configuration = propFileUtilities.loadPropertyFile(SAML_PROPERTIES_FILENAME);
+
+        // If the key password is in the configuration, replace it with the decoded version
+        if (configuration != null && configuration.containsKey("org.apache.ws.security.saml.issuer.key.password")) {
+            configuration.setProperty("org.apache.ws.security.saml.issuer.key.password",
+                    PasswordUtil.decode(configuration.getProperty("org.apache.ws.security.saml.issuer.key.password")));
+        }
     }
 
     /**

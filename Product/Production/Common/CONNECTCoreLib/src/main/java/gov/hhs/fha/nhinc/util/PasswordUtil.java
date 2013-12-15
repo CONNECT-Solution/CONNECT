@@ -24,14 +24,28 @@
  * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
-package gov.hhs.fha.nhinc.callback.cxf;
+package gov.hhs.fha.nhinc.util;
 
-import static org.mockito.Mockito.mock;
+/**
+ * @author cmay
+ *
+ */
+public class PasswordUtil {
 
-import org.junit.Test;
-
-public class CryptoManagerTest {
-
-//    private CryptoManager cryptoManager = new CryptoManager();
-
+    /**
+     * Decodes a password.
+     *
+     * @param password a String to be decoded.
+     * @return A String with the decoded password.
+     */
+    public static String decode (String password) {
+        String decoded = null;
+        
+        if (password != null) {
+            // Insert decoding algorithm here
+            decoded = password;
+        }
+        
+        return decoded;
+    }
 }
