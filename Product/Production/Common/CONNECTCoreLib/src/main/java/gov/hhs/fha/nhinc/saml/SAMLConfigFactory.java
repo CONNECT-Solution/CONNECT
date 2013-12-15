@@ -36,7 +36,7 @@ import java.util.Properties;
  *
  */
 public class SAMLConfigFactory {
-    
+
     private static final String SAML_PROPERTIES_FILENAME = "saml";
 
     private static SAMLConfigFactory INSTANCE = null;
