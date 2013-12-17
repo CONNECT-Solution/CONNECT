@@ -4,7 +4,7 @@
     <parent>
         <groupId>org.connectopensource</groupId>
         <artifactId>CONNECTSolution</artifactId>
-        <version>4.3.0-SNAPSHOT</version>
+        <version>CONNECT_sprint_121</version>
     </parent>
     <artifactId>Product</artifactId>
     <packaging>pom</packaging>
@@ -400,7 +400,7 @@
                         <dependency>
                             <groupId>org.connectopensource</groupId>
                             <artifactId>build-tools</artifactId>
-                            <version>4.3.0-SNAPSHOT</version>
+                            <version>CONNECT_sprint_121</version>
                         </dependency>
                     </dependencies>
                 </plugin>
@@ -439,7 +439,7 @@
                         <dependency>
                             <groupId>org.connectopensource</groupId>
                             <artifactId>build-tools</artifactId>
-                            <version>4.3.0-SNAPSHOT</version>
+                            <version>CONNECT_sprint_121</version>
                         </dependency>
                     </dependencies>
                     <configuration>
