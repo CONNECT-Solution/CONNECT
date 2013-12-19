@@ -69,9 +69,9 @@ public class DirectReceiverImpl extends DirectAdapter implements DirectReceiver 
      */
     private static final Logger LOG = Logger.getLogger(DirectAdapter.class);
     /**
-     * SupressMDNEdgeNotification system property
+     * SuppressMDNEdgeNotification system property
      */
-    public static final String SUPRESS_MDN_EDGE_NOTIFICATION = "org.connectopensource.supressmdnedgenotification";
+    public static final String SUPPRESS_MDN_EDGE_NOTIFICATION = "org.connectopensource.suppressmdnedgenotification";
 
     /**
      * Instantiates a new direct receiver impl.
@@ -122,7 +122,7 @@ public class DirectReceiverImpl extends DirectAdapter implements DirectReceiver 
 
         //Only send the message to edge client 
         //1. if its a not a mdn (or)
-        //2. if its a mdn and SupressMDNEdgeNotification flag is false
+        //2. if its a mdn and SuppressMDNEdgeNotification flag is false
        if ((isEdgeMDNNotificationEnabled() && isMdn) || (!isMdn)) {
             DirectEdgeProxy proxy = getDirectEdgeProxy();
             proxy.provideAndRegisterDocumentSetB(processedEnvelope.getMessage());
@@ -224,9 +224,9 @@ public class DirectReceiverImpl extends DirectAdapter implements DirectReceiver 
      * @return true or false
      */
     protected boolean isEdgeMDNNotificationEnabled() {
-        //read the system property SupressMDNEdgeNotification
-        String mdnNotificationSuppressed = System.getProperty(SUPRESS_MDN_EDGE_NOTIFICATION);
-        //if SupressMDNEdgeNotification is false
+        //read the system property SuppressMDNEdgeNotification
+        String mdnNotificationSuppressed = System.getProperty(SUPPRESS_MDN_EDGE_NOTIFICATION);
+        //if SuppressMDNEdgeNotification is false
         if (mdnNotificationSuppressed != null && mdnNotificationSuppressed.equals("false")) {
             return true;
         }

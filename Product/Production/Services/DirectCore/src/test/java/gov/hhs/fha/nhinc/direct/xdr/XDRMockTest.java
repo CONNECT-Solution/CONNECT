@@ -58,7 +58,7 @@ public class XDRMockTest extends AbstractDirectMailClientTest {
     @Test
     public void testWithPlainMimeAttachment() throws MessagingException, UserException, MailClientException {
         //should not receive any mdn in the edge client by default 
-        System.setProperty(DirectReceiverImpl.SUPRESS_MDN_EDGE_NOTIFICATION, "true");
+        System.setProperty(DirectReceiverImpl.SUPPRESS_MDN_EDGE_NOTIFICATION, "true");
         testWithPlainMimeAttachment(0);
     }
 
@@ -70,10 +70,10 @@ public class XDRMockTest extends AbstractDirectMailClientTest {
      * @throws MailClientException on a failure
      */
     @Test
-    public void testWithPlainMimeAttachmentWithSupressNotificationDisabled() throws MessagingException, UserException, MailClientException {
-        //test with supressmdnedgenotification false. Should receive a mdn from the sending end.
+    public void testWithPlainMimeAttachmentWithSuppressNotificationDisabled() throws MessagingException, UserException, MailClientException {
+        //test with suppressmdnedgenotification false. Should receive a mdn from the sending end.
         //set the system property
-        System.setProperty(DirectReceiverImpl.SUPRESS_MDN_EDGE_NOTIFICATION, "false");
+        System.setProperty(DirectReceiverImpl.SUPPRESS_MDN_EDGE_NOTIFICATION, "false");
         // ...there are 2 MDNs right now because of a quirk in greenmail.
         testWithPlainMimeAttachment(2);
     }
@@ -128,10 +128,10 @@ public class XDRMockTest extends AbstractDirectMailClientTest {
      * @throws MailClientException on failure
      */
     @Test
-    public void testWithXdmAttachmentWithSupressNotificationDisabled() throws MessagingException, UserException, IOException, MailClientException {
-        //test with supressmdnedgenotification false. Should receive a mdn from the sending end.
+    public void testWithXdmAttachmentWithSuppressNotificationDisabled() throws MessagingException, UserException, IOException, MailClientException {
+        //test with suppressmdnedgenotification false. Should receive a mdn from the sending end.
         //set the system property
-        System.setProperty(DirectReceiverImpl.SUPRESS_MDN_EDGE_NOTIFICATION, "false");
+        System.setProperty(DirectReceiverImpl.SUPPRESS_MDN_EDGE_NOTIFICATION, "false");
         // ...there are 2 MDNs right now because of a quirk in greenmail.
         testWithXdmAttachment(2);
     }
@@ -210,7 +210,7 @@ public class XDRMockTest extends AbstractDirectMailClientTest {
     public void testWithXdmAttachmentWithXDREdge() throws MessagingException, UserException, IOException,
         MailClientException {
         //set the system property
-        System.setProperty(DirectReceiverImpl.SUPRESS_MDN_EDGE_NOTIFICATION, "false");
+        System.setProperty(DirectReceiverImpl.SUPPRESS_MDN_EDGE_NOTIFICATION, "false");
 
         Session session = Session.getInstance(recipMailServerProps);
 
