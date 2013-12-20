@@ -124,7 +124,7 @@ public class DirectReceiverImplTest {
                 Collections.singleton(new NotificationMessage("to", "from", new Notification(new Disposition(
                         NotificationType.Dispatched)))));
         runTestOnMessage(message);
-
+        
         verify(directEventLogger).log(eq(DirectEventType.BEGIN_INBOUND_DIRECT), any(MimeMessage.class));
         verify(directEventLogger, times(2)).log(eq(DirectEventType.BEGIN_OUTBOUND_MDN), any(MimeMessage.class));
         verify(directEventLogger, times(2)).log(eq(DirectEventType.END_OUTBOUND_MDN), any(MimeMessage.class));
