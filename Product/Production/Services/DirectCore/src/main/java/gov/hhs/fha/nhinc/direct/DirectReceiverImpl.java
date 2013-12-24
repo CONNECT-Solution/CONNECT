@@ -56,21 +56,26 @@ public class DirectReceiverImpl extends DirectAdapter implements DirectReceiver 
      * Header value meaning that the sending STA is requesting dispositions.
      */
     public static final String X_DIRECT_FINAL_DESTINATION_DELIVERY_HEADER_VALUE = "X-DIRECT-FINAL-DESTINATION-DELIVERY";
-
     /**
      * Header name to determine if dispositions are being requested by the sending STA.
      */
     public static final String DISPOSITION_NOTIFICATION_OPTIONS_HEADER_NAME = "Disposition-Notification-Options";
-
-    /** The dispatch mdn producer. */
+    /**
+     * The dispatch mdn producer.
+     */
     private ReliableDispatchedNotificationProducer dispatchProducer = null;
-
-    /** The Constant LOG. */
+    /**
+     * The Constant LOG.
+     */
     private static final Logger LOG = Logger.getLogger(DirectAdapter.class);
+    /**
+     * SuppressMDNEdgeNotification system property
+     */
+    public static final String SUPPRESS_MDN_EDGE_NOTIFICATION = "org.connectopensource.suppressmdnedgenotification";
 
     /**
      * Instantiates a new direct receiver impl.
-     * 
+     *
      * @param externalMailSender used to send mail.
      * @param smtpAgent used to process direct messages.
      * @param directEventLogger used to log direct events.
@@ -90,7 +95,7 @@ public class DirectReceiverImpl extends DirectAdapter implements DirectReceiver 
      * @param producer the producer
      */
     public DirectReceiverImpl(MailSender externalMailSender, SmtpAgent smtpAgent, DirectEventLogger directEventLogger,
-            ReliableDispatchedNotificationProducer producer) {
+        ReliableDispatchedNotificationProducer producer) {
         super(externalMailSender, smtpAgent, directEventLogger);
         dispatchProducer = producer;
     }
@@ -110,12 +115,21 @@ public class DirectReceiverImpl extends DirectAdapter implements DirectReceiver 
             getDirectEventLogger().log(DirectEventType.BEGIN_INBOUND_DIRECT, message);
         }
 
-        sendMdnProcessed(result);
+        //send the MDN processed back to the receiver if the message is not a mdn
+        if (!isMdn) {
+            sendMdnProcessed(result);
+        }
 
-        DirectEdgeProxy proxy = getDirectEdgeProxy();
-        proxy.provideAndRegisterDocumentSetB(processedEnvelope.getMessage());
-
+        //Only send the message to edge client 
+        //1. if its a not a mdn (or)
+        //2. if its a mdn and SuppressMDNEdgeNotification flag is false
+       if ((isEdgeMDNNotificationEnabled() && isMdn) || (!isMdn)) {
+            DirectEdgeProxy proxy = getDirectEdgeProxy();
+            proxy.provideAndRegisterDocumentSetB(processedEnvelope.getMessage());
+        }
+        
         if (isMdn) {
+            LOG.info("MDN Processed notification sent to the edge client.");
             getDirectEventLogger().log(DirectEventType.END_INBOUND_MDN, message);
         } else {
             try {
@@ -129,7 +143,7 @@ public class DirectReceiverImpl extends DirectAdapter implements DirectReceiver 
 
     /**
      * Send mdn dispatched.
-     * 
+     *
      * @param message the message
      * @throws MessagingException the messaging exception
      */
@@ -157,7 +171,7 @@ public class DirectReceiverImpl extends DirectAdapter implements DirectReceiver 
     }
 
     /**
-     * 
+     *
      * @param header
      * @return
      */
@@ -166,7 +180,7 @@ public class DirectReceiverImpl extends DirectAdapter implements DirectReceiver 
         String[] parts = StringUtils.split(header, "=");
         if (parts != null && parts.length == 2) {
             if (StringUtils.contains(parts[0], X_DIRECT_FINAL_DESTINATION_DELIVERY_HEADER_VALUE)
-                    && StringUtils.contains(parts[1], "true")) {
+                && StringUtils.contains(parts[1], "true")) {
                 dispatchRequested = true;
             }
         }
@@ -175,7 +189,7 @@ public class DirectReceiverImpl extends DirectAdapter implements DirectReceiver 
 
     /**
      * Send mdn processed.
-     * 
+     *
      * @param result the result
      */
     private void sendMdnProcessed(MessageProcessResult result) {
@@ -185,7 +199,7 @@ public class DirectReceiverImpl extends DirectAdapter implements DirectReceiver 
 
     /**
      * Send mdns.
-     * 
+     *
      * @param mdnMessages the mdn messages
      */
     private void sendMdns(Collection<NotificationMessage> mdnMessages) {
@@ -204,4 +218,18 @@ public class DirectReceiverImpl extends DirectAdapter implements DirectReceiver 
         }
     }
 
+    /**
+     * Returns true if the Edge MDN notification is enabled else false.
+     *
+     * @return true or false
+     */
+    protected boolean isEdgeMDNNotificationEnabled() {
+        //read the system property SuppressMDNEdgeNotification
+        String mdnNotificationSuppressed = System.getProperty(SUPPRESS_MDN_EDGE_NOTIFICATION);
+        //if SuppressMDNEdgeNotification is false
+        if (mdnNotificationSuppressed != null && mdnNotificationSuppressed.equals("false")) {
+            return true;
+        }
+        return false;
+    }
 }
