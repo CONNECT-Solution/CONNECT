@@ -199,6 +199,18 @@
                             <excluded>${direct.excluded}</excluded>
                         </webModule>
                         <webModule>
+                            <groupId>org.nhind</groupId>
+                            <artifactId>config-ui</artifactId>
+                            <contextRoot>/config-ui</contextRoot>
+                            <excluded>${direct.excluded}</excluded>
+                        </webModule>
+                        <webModule>
+                            <groupId>org.nhind</groupId>
+                            <artifactId>config-service</artifactId>
+                            <contextRoot>/config-service</contextRoot>
+                            <excluded>${direct.excluded}</excluded>
+                        </webModule>
+                        <webModule>
                             <groupId>org.connectopensource</groupId>
                             <artifactId>HIEM_20</artifactId>
                             <contextRoot>/Gateway/HIEM/2_0</contextRoot>
