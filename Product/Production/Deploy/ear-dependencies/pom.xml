@@ -212,6 +212,20 @@
             <type>war</type>
             <optional>true</optional>
         </dependency>
+        <dependency>
+            <groupId>org.nhind</groupId>
+            <artifactId>config-service</artifactId>
+            <version>1.6-SNAPSHOT</version>
+            <type>war</type>
+            <optional>true</optional>
+        </dependency>
+        <dependency>
+            <groupId>org.nhind</groupId>
+            <artifactId>config-ui</artifactId>
+            <version>1.4-SNAPSHOT</version>
+            <type>war</type>
+            <optional>true</optional>
+        </dependency>
         <!-- Shared JARs - In order for the SKINNY WARs to work you must 
             include each dependency in the EAR manually and the JARS will be magically 
             removed from the WAR's WEB-INF/lib -->
