@@ -118,7 +118,8 @@ public class XDRMockTest extends AbstractDirectMailClientTest {
      */
     @Test
     public void testWithXdmAttachment() throws MessagingException, UserException, IOException, MailClientException {
-        //should not receive any mdn in the edge client by default         
+        //should not receive any mdn in the edge client by default
+        System.setProperty(DirectReceiverImpl.SUPPRESS_MDN_EDGE_NOTIFICATION, "true");
         testWithXdmAttachment(0);
     }
 
