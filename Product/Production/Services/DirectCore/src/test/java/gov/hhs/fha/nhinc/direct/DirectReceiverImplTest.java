@@ -26,28 +26,25 @@
  */
 package gov.hhs.fha.nhinc.direct;
 
-import static org.junit.Assert.fail;
-import static org.mockito.Matchers.any;
-import static org.mockito.Matchers.eq;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
 import gov.hhs.fha.nhinc.direct.edge.proxy.DirectEdgeProxy;
 import gov.hhs.fha.nhinc.direct.event.DirectEventLogger;
 import gov.hhs.fha.nhinc.direct.event.DirectEventType;
 import gov.hhs.fha.nhinc.mail.MailSender;
-
 import java.util.Collections;
-
 import javax.mail.Address;
 import javax.mail.Message.RecipientType;
 import javax.mail.MessagingException;
 import javax.mail.Session;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
-
+import static org.junit.Assert.fail;
 import org.junit.Test;
+import static org.mockito.Matchers.any;
+import static org.mockito.Matchers.eq;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 import org.nhindirect.gateway.smtp.MessageProcessResult;
 import org.nhindirect.gateway.smtp.ReliableDispatchedNotificationProducer;
 import org.nhindirect.gateway.smtp.SmtpAgent;
@@ -63,35 +60,43 @@ import org.nhindirect.stagent.mail.notifications.NotificationType;
 
 /**
  * The Class DirectReceiverImplTest.
- * 
+ *
  * @author msw
  */
 public class DirectReceiverImplTest {
 
-    /** The external mail sender. */
+    /**
+     * The external mail sender.
+     */
     private final MailSender externalMailSender = mock(MailSender.class);
-
-    /** The direct event logger. */
+    /**
+     * The direct event logger.
+     */
     private final DirectEventLogger directEventLogger = mock(DirectEventLogger.class);
-
-    /** The stmp agent. */
+    /**
+     * The stmp agent.
+     */
     private final SmtpAgent smtpAgent = mock(SmtpAgent.class);
-
-    /** The producer. */
+    /**
+     * The producer.
+     */
     private final ReliableDispatchedNotificationProducer producer = mock(ReliableDispatchedNotificationProducer.class);
-
-    /** The result. */
+    /**
+     * The result.
+     */
     private final MessageProcessResult result = mock(MessageProcessResult.class);
-
-    /** The envelope. */
+    /**
+     * The envelope.
+     */
     private final MessageEnvelope envelope = mock(MessageEnvelope.class);
-
-    /** The proxy. */
+    /**
+     * The proxy.
+     */
     private final DirectEdgeProxy proxy = mock(DirectEdgeProxy.class);
 
     /**
      * Test message with no dispatched MDN requested.
-     * 
+     *
      * @throws MessagingException the messaging exception
      */
     // @Test
@@ -99,19 +104,19 @@ public class DirectReceiverImplTest {
         Message message = getMessage();
 
         setCommonExpectations(message);
-        runTestOnMessage(message);
+        runTestOnMessage(message, false);
 
         verify(directEventLogger).log(eq(DirectEventType.BEGIN_INBOUND_DIRECT), any(MimeMessage.class));
         verify(directEventLogger).log(eq(DirectEventType.BEGIN_OUTBOUND_MDN), any(MimeMessage.class));
         verify(directEventLogger).log(eq(DirectEventType.END_OUTBOUND_MDN), any(MimeMessage.class));
         verify(directEventLogger).log(eq(DirectEventType.END_INBOUND_DIRECT), any(MimeMessage.class));
         verify(smtpAgent, times(2)).processMessage(any(Message.class), any(NHINDAddressCollection.class),
-                any(NHINDAddress.class));
+            any(NHINDAddress.class));
     }
 
     /**
      * Test message with dispatch MDN requested.
-     * 
+     *
      * @throws MessagingException the messaging exception
      */
     @Test
@@ -121,39 +126,67 @@ public class DirectReceiverImplTest {
 
         setCommonExpectations(message);
         when(producer.produce(any(IncomingMessage.class))).thenReturn(
-                Collections.singleton(new NotificationMessage("to", "from", new Notification(new Disposition(
-                        NotificationType.Dispatched)))));
-        runTestOnMessage(message);
+            Collections.singleton(new NotificationMessage("to", "from", new Notification(new Disposition(
+            NotificationType.Dispatched)))));
+        runTestOnMessage(message, false);
 
         verify(directEventLogger).log(eq(DirectEventType.BEGIN_INBOUND_DIRECT), any(MimeMessage.class));
         verify(directEventLogger, times(2)).log(eq(DirectEventType.BEGIN_OUTBOUND_MDN), any(MimeMessage.class));
         verify(directEventLogger, times(2)).log(eq(DirectEventType.END_OUTBOUND_MDN), any(MimeMessage.class));
         verify(directEventLogger).log(eq(DirectEventType.END_INBOUND_DIRECT), any(MimeMessage.class));
         verify(smtpAgent, times(3)).processMessage(any(Message.class), any(NHINDAddressCollection.class),
-                any(NHINDAddress.class));
+            any(NHINDAddress.class));
+    }
+
+    /**
+     * Test message with dispatch MDN requested.
+     *
+     * @throws MessagingException the messaging exception
+     */
+    @Test
+    public void testNotificationTOEdgeFailed() throws MessagingException {
+        Message message = getMessage();
+        addDispatchRequest(message);
+        setCommonExpectations(message);
+
+        when(producer.produce(any(IncomingMessage.class))).thenReturn(
+            Collections.singleton(new NotificationMessage("to", "from", new Notification(new Disposition(
+            NotificationType.Dispatched)))));
+
+        runTestOnMessage(message, true);
+
+        setCommonExpectations(message);
+        verify(directEventLogger).log(eq(DirectEventType.BEGIN_INBOUND_DIRECT), any(MimeMessage.class));
+        verify(directEventLogger).log(eq(DirectEventType.BEGIN_OUTBOUND_MDN), any(MimeMessage.class));
+        verify(directEventLogger).log(eq(DirectEventType.END_OUTBOUND_MDN), any(MimeMessage.class));
+        verify(directEventLogger).log(eq(DirectEventType.END_INBOUND_DIRECT), any(MimeMessage.class));
+        verify(smtpAgent, times(2)).processMessage(any(Message.class), any(NHINDAddressCollection.class),
+            any(NHINDAddress.class));
+        verify(directEventLogger).log(eq(DirectEventType.DIRECT_ERROR), any(MimeMessage.class), any(String.class));
+
     }
 
     /**
      * Sets the common expectations.
-     * 
+     *
      * @param message the new common expectations
      * @throws MessagingException the messaging exception
      */
     private void setCommonExpectations(Message message) throws MessagingException {
         when(smtpAgent.processMessage(eq(message), any(NHINDAddressCollection.class), any(NHINDAddress.class)))
-                .thenReturn(result);
+            .thenReturn(result);
         when(smtpAgent.processMessage(any(Message.class), any(NHINDAddressCollection.class), any(NHINDAddress.class)))
-                .thenReturn(result);
+            .thenReturn(result);
         when(result.getProcessedMessage()).thenReturn(envelope);
         when(envelope.getMessage()).thenReturn(message);
         when(result.getNotificationMessages()).thenReturn(
-                Collections.singleton(new NotificationMessage("to", "from", new Notification(new Disposition(
-                        NotificationType.Processed)))));
+            Collections.singleton(new NotificationMessage("to", "from", new Notification(new Disposition(
+            NotificationType.Processed)))));
     }
 
     /**
      * Adds the dispatch request.
-     * 
+     *
      * @param message the messag
      * @throws MessagingException the messaging exception
      */
@@ -164,12 +197,16 @@ public class DirectReceiverImplTest {
 
     /**
      * Run test on message.
-     * 
+     *
      * @param message the message
      */
-    private void runTestOnMessage(MimeMessage message) {
+    private void runTestOnMessage(MimeMessage message, boolean mockErrorCondition) {
         DirectReceiverImpl impl = getDirectReceiverImpl();
         if (impl != null) {
+            if (mockErrorCondition) {
+                DirectException directException = mock(DirectException.class);
+                when(proxy.provideAndRegisterDocumentSetB(any(MimeMessage.class))).thenThrow(directException);
+            }
             impl.receiveInbound(message);
         } else {
             fail("Class under test: DirectReceiverImpl was null.");
@@ -178,7 +215,7 @@ public class DirectReceiverImplTest {
 
     /**
      * Gets the message.
-     * 
+     *
      * @return the message
      * @throws MessagingException the messaging exception
      */
@@ -195,7 +232,7 @@ public class DirectReceiverImplTest {
 
     /**
      * Gets the direct receiver impl.
-     * 
+     *
      * @return the direct receiver impl
      */
     private DirectReceiverImpl getDirectReceiverImpl() {
@@ -211,5 +248,4 @@ public class DirectReceiverImplTest {
             }
         };
     }
-
 }
