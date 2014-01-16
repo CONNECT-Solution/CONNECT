@@ -27,10 +27,11 @@
             <optional>false</optional>
         </dependency>
 
+        <!-- Modified Direct projects -->
         <dependency>
             <groupId>org.nhind</groupId>
             <artifactId>config-ui</artifactId>
-            <version>1.4-SNAPSHOT</version>
+            <version>1.4-CONNECT-SNAPSHOT</version>
             <type>war</type>
             <optional>false</optional>
             <exclusions>
@@ -83,7 +84,7 @@
         <dependency>
             <groupId>org.nhind</groupId>
             <artifactId>config-service</artifactId>
-            <version>1.6-SNAPSHOT</version>
+            <version>1.6-CONNECT-SNAPSHOT</version>
             <type>war</type>
             <optional>false</optional>
             <exclusions>
@@ -113,7 +114,40 @@
                 </exclusion>
             </exclusions>
         </dependency>
+        <dependency>
+            <groupId>org.nhind</groupId>
+            <artifactId>config-store</artifactId>
+            <version>1.5-CONNECT-SNAPSHOT</version>
+            <optional>false</optional>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.nhind</groupId>
+                    <artifactId>direct-policy</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.hibernate</groupId>
+                    <artifactId>hibernate</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>javax.transaction</groupId>
+                    <artifactId>jta</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.hibernate</groupId>
+                    <artifactId>hibernate</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>commons-io</groupId>
+                    <artifactId>commons-io</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>javax.xml.bind</groupId>
+                    <artifactId>jaxb-api</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
 
+        <!-- Unmodified Direct projects -->
         <dependency>
             <groupId>org.nhind</groupId>
             <artifactId>agent</artifactId>
@@ -171,38 +205,6 @@
                 <exclusion>
                     <groupId>org.nhind</groupId>
                     <artifactId>config-store</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <dependency>
-            <groupId>org.nhind</groupId>
-            <artifactId>config-store</artifactId>
-            <version>1.4</version>
-            <optional>false</optional>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.nhind</groupId>
-                    <artifactId>direct-policy</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.hibernate</groupId>
-                    <artifactId>hibernate</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>javax.transaction</groupId>
-                    <artifactId>jta</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.hibernate</groupId>
-                    <artifactId>hibernate</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>commons-io</groupId>
-                    <artifactId>commons-io</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>javax.xml.bind</groupId>
-                    <artifactId>jaxb-api</artifactId>
                 </exclusion>
             </exclusions>
         </dependency>
@@ -303,6 +305,12 @@
             <artifactId>hibernate-annotations</artifactId>
             <version>3.3.1.GA</version>
             <optional>false</optional>
+            <exclusions>
+                <exclusion>
+                    <groupId>cglib</groupId>
+                    <artifactId>cglib</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.hibernate</groupId>
@@ -319,6 +327,18 @@
                 <exclusion>
                     <groupId>javax.transaction</groupId>
                     <artifactId>jta</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>cglib</groupId>
+                    <artifactId>cglib</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>asm</groupId>
+                    <artifactId>asm</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>asm</groupId>
+                    <artifactId>asm-attrs</artifactId>
                 </exclusion>
             </exclusions>
         </dependency>
@@ -374,19 +394,19 @@
         <dependency>
             <groupId>org.springframework.security</groupId>
             <artifactId>spring-security-acl</artifactId>
-            <version>3.0.5.RELEASE</version>
+            <version>3.0.7.RELEASE</version>
             <optional>false</optional>
         </dependency>
         <dependency>
             <groupId>org.springframework.security</groupId>
             <artifactId>spring-security-config</artifactId>
-            <version>3.0.5.RELEASE</version>
+            <version>3.0.7.RELEASE</version>
             <optional>false</optional>
         </dependency>
         <dependency>
             <groupId>org.springframework.security</groupId>
             <artifactId>spring-security-core</artifactId>
-            <version>3.0.5.RELEASE</version>
+            <version>3.0.7.RELEASE</version>
             <optional>false</optional>
             <exclusions>
                 <exclusion>
@@ -402,20 +422,20 @@
         <dependency>
             <groupId>org.springframework.security</groupId>
             <artifactId>spring-security-taglibs</artifactId>
-            <version>3.0.5.RELEASE</version>
+            <version>3.0.7.RELEASE</version>
             <optional>false</optional>
         </dependency>
         <dependency>
             <groupId>org.springframework.security</groupId>
             <artifactId>spring-security-web</artifactId>
-            <version>3.0.5.RELEASE</version>
+            <version>3.0.7.RELEASE</version>
             <optional>false</optional>
         </dependency>
 
         <dependency>
             <groupId>cglib</groupId>
-            <artifactId>cglib</artifactId>
-            <version>2.1_3</version>
+            <artifactId>cglib-nodep</artifactId>
+            <version>2.2</version>
             <optional>false</optional>
         </dependency>
 
