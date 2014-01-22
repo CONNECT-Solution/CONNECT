@@ -837,7 +837,7 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
 
         Object attributeValue = createHL7Attribute("PurposeForUse", purposeCode, purposeSystem, purposeSystemName,
                 purposeDisplay);
-        return OpenSAML2ComponentBuilder.getInstance().createAttribute(null, "PurposeForUse", null,
+        return OpenSAML2ComponentBuilder.getInstance().createAttribute(null, SamlConstants.PURPOSE_ROLE_ATTR, null,
                 Arrays.asList(attributeValue));
     }
 
