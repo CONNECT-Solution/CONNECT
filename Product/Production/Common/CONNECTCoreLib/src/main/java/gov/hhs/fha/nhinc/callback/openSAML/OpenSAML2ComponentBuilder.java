@@ -693,14 +693,15 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
 
         if (displayName != null) {
             userRoleAttributes.put(new QName(SamlConstants.CE_DISPLAYNAME_ID), displayName);
-        }        
-        userRoleAttributes.put(new QName(SamlConstants.HL7_NAMESPACE_URI, SamlConstants.HL7_LOCAL_PART, SamlConstants.HL7_PREFIX), SamlConstants.HL7_KEY_VALUE);        
+        }
+        userRoleAttributes.put(new QName(SamlConstants.HL7_NAMESPACE_URI, SamlConstants.HL7_LOCAL_PART,
+                SamlConstants.HL7_PREFIX), SamlConstants.HL7_KEY_VALUE);
 
         XSAny attributeValue = createAttributeValue("urn:hl7-org:v3", name, "hl7", userRoleAttributes);
         return attributeValue;
 
     }
-    
+
     /**
      * Creates the patient id attribute.
      * 

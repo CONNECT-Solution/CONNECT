@@ -94,10 +94,10 @@ public class SamlConstants {
     public static final String HOME_COM_ID_ATTR = "urn:nhin:names:saml:homeCommunityId";
     public static final String USER_ROLE_ATTR = "urn:oasis:names:tc:xacml:2.0:subject:role";
     public static final String PURPOSE_ROLE_ATTR = "urn:oasis:names:tc:xspa:1.0:subject:purposeofuse";
-    public static final String HL7_NAMESPACE_URI="http://www.w3.org/2001/XMLSchema-instance";
-    public static final String HL7_LOCAL_PART="type";
-    public static final String HL7_PREFIX="xsi";
-    public static final String HL7_KEY_VALUE="hl7:CE";    
+    public static final String HL7_NAMESPACE_URI = "http://www.w3.org/2001/XMLSchema-instance";
+    public static final String HL7_LOCAL_PART = "type";
+    public static final String HL7_PREFIX = "xsi";
+    public static final String HL7_KEY_VALUE = "hl7:CE";
     public static final String PATIENT_ID_ATTR = "urn:oasis:names:tc:xacml:2.0:resource:resource-id";
     public static final String ATTRIBUTE_NAME_NPI = "urn:oasis:names:tc:xspa:2.0:subject:npi";
     public static final String ACCESS_CONSENT_ATTR = "AccessConsentPolicy";
