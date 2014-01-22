@@ -49,6 +49,10 @@
                 </exclusion>
                 <exclusion>
                     <groupId>cglib</groupId>
+                    <artifactId>cglib</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>cglib</groupId>
                     <artifactId>cglib-nodep</artifactId>
                 </exclusion>
                 <exclusion>
@@ -106,6 +110,10 @@
                 </exclusion>
                 <exclusion>
                     <groupId>cglib</groupId>
+                    <artifactId>cglib</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>cglib</groupId>
                     <artifactId>cglib-nodep</artifactId>
                 </exclusion>
                 <exclusion>
@@ -133,16 +141,8 @@
                     <artifactId>direct-policy</artifactId>
                 </exclusion>
                 <exclusion>
-                    <groupId>org.hibernate</groupId>
-                    <artifactId>hibernate</artifactId>
-                </exclusion>
-                <exclusion>
                     <groupId>javax.transaction</groupId>
                     <artifactId>jta</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.hibernate</groupId>
-                    <artifactId>hibernate</artifactId>
                 </exclusion>
                 <exclusion>
                     <groupId>commons-io</groupId>
@@ -363,6 +363,12 @@
             <artifactId>hibernate-entitymanager</artifactId>
             <version>3.3.2.GA</version>
             <optional>false</optional>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.hibernate</groupId>
+                    <artifactId>hibernate</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.hibernate</groupId>
