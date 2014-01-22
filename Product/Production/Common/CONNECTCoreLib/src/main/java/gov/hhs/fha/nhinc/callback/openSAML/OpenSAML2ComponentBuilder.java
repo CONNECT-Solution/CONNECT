@@ -695,10 +695,12 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
             userRoleAttributes.put(new QName(SamlConstants.CE_DISPLAYNAME_ID), displayName);
         }
 
-        userRoleAttributes.put(new QName("type"), "hl7:CE");
+        // userRoleAttributes.put(new QName("type"), "hl7:CE");
+        userRoleAttributes.put(new QName("http://www.w3.org/2001/XMLSchema-instance", "type", "xsi"), "hl7:CE");
 
         XSAny attributeValue = createAttributeValue("urn:hl7-org:v3", name, "hl7", userRoleAttributes);
         return attributeValue;
+
     }
 
     /**
@@ -816,8 +818,10 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
      */
     public Attribute createPurposeOfUseAttribute(String purposeCode, String purposeSystem, String purposeSystemName,
             String purposeDisplay) {
-        return createPurposeOfUseAttribute(purposeCode, purposeSystem, purposeSystemName, purposeDisplay,
-                "PurposeOfUse");
+        Object attributeValue = createHL7Attribute("PurposeOfUse", purposeCode, purposeSystem, purposeSystemName,
+                purposeDisplay);
+        return OpenSAML2ComponentBuilder.getInstance().createAttribute(null, SamlConstants.PURPOSE_ROLE_ATTR, null,
+                Arrays.asList(attributeValue));
     }
 
     /**
@@ -831,49 +835,11 @@ public class OpenSAML2ComponentBuilder implements SAMLCompontentBuilder {
      */
     Attribute createPurposeForUseAttribute(String purposeCode, String purposeSystem, String purposeSystemName,
             String purposeDisplay) {
-        return createPurposeOfUseAttribute(purposeCode, purposeSystem, purposeSystemName, purposeDisplay,
-                "PurposeForUse");
-    }
 
-    /**
-     * Creates the purpose of use attribute.
-     * 
-     * @param purposeCode the purpose code
-     * @param purposeSystem the purpose system
-     * @param purposeSystemName the purpose system name
-     * @param purposeDisplay the purpose display
-     * @param attributeName the attribute name
-     * @return the attribute
-     */
-    Attribute createPurposeOfUseAttribute(String purposeCode, String purposeSystem, String purposeSystemName,
-            String purposeDisplay, String attributeName) {
-        Map<QName, String> purposeOfUseAttributes = new HashMap<QName, String>();
-        
-        purposeOfUseAttributes.put(new QName("type"), "hl7:CE");
-
-        if (purposeCode != null) {
-            purposeOfUseAttributes.put(new QName(SamlConstants.CE_CODE_ID), purposeCode);
-        }
-
-        if (purposeSystem != null) {
-            purposeOfUseAttributes.put(new QName(SamlConstants.CE_CODESYS_ID), purposeSystem);
-        }
-
-        if (purposeSystemName != null) {
-            purposeOfUseAttributes.put(new QName(SamlConstants.CE_CODESYSNAME_ID), purposeSystemName);
-        }
-
-        if (purposeDisplay != null) {
-            purposeOfUseAttributes.put(new QName(SamlConstants.CE_DISPLAYNAME_ID), purposeDisplay);
-            
-        }
-
-        Object attributeValue = OpenSAML2ComponentBuilder.getInstance().createAttributeValue("urn:hl7-org:v3",
-                attributeName, "hl7", purposeOfUseAttributes);
-
-        return OpenSAML2ComponentBuilder.getInstance().createAttribute(null, SamlConstants.PURPOSE_ROLE_ATTR, null,
+        Object attributeValue = createHL7Attribute("PurposeForUse", purposeCode, purposeSystem, purposeSystemName,
+                purposeDisplay);
+        return OpenSAML2ComponentBuilder.getInstance().createAttribute(null, SamlConstants.PURPOSE_FOR_ROLE_ATTR, null,
                 Arrays.asList(attributeValue));
-
     }
 
     /**

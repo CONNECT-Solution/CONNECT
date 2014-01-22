@@ -29,32 +29,98 @@
 package gov.hhs.fha.nhinc.callback.openSAML;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
 
+import org.opensaml.saml2.core.Attribute;
+import org.opensaml.saml2.core.AttributeValue;
+
+import java.util.List;
 import java.util.UUID;
 
-import org.junit.Test;
+import javax.xml.namespace.QName;
 
+import org.junit.Test;
 import org.opensaml.saml2.core.Assertion;
+import org.opensaml.xml.XMLObject;
+import org.opensaml.xml.schema.XSAny;
+import org.opensaml.xml.schema.XSString;
+import org.opensaml.xml.util.AttributeMap;
+import org.w3c.dom.Element;
 
 /**
  * @author achidamb
- *
+ * 
  */
 public class OpenSAML2ComponentBuilderTest {
-       
+
     @Test
-    public void generateEvAssertionWithoutUnderScore() {        
-       String uuid = "2345";
-       Assertion assertion=  (Assertion) OpenSAML2ComponentBuilder.getInstance().createAssertion(uuid);
-       assertEquals(uuid , assertion.getID());
-    }
-    
-    @Test
-    public void generateEvAssertionWithUnderScore() {       
-        String uuid = "_".concat(String.valueOf(UUID.randomUUID()));;
-        Assertion assertion=  (Assertion) OpenSAML2ComponentBuilder.getInstance().createAssertion(uuid);
+    public void generateEvAssertionWithoutUnderScore() {
+        String uuid = "2345";
+        Assertion assertion = (Assertion) OpenSAML2ComponentBuilder.getInstance().createAssertion(uuid);
         assertEquals(uuid, assertion.getID());
     }
-    
-   
+
+    @Test
+    public void generateEvAssertionWithUnderScore() {
+        String uuid = "_".concat(String.valueOf(UUID.randomUUID()));
+        ;
+        Assertion assertion = (Assertion) OpenSAML2ComponentBuilder.getInstance().createAssertion(uuid);
+        assertEquals(uuid, assertion.getID());
+    }
+
+    /**
+     * Test namespace uri for purpose use.
+     */
+    @Test
+    public void testNamespaceUriForPurposeUse() {
+        boolean foundType = false;
+        String purposeCode = "purposeCode";
+        String purposeSystem = "purposeSystem";
+        String purposeSystemName = "purposeSystemName";
+        String purposeDisplay = "purposeDisplay";
+        Attribute attribute = OpenSAML2ComponentBuilder.getInstance().createPurposeOfUseAttribute(purposeCode,
+                purposeSystem, purposeSystemName, purposeDisplay);
+        List<XMLObject> attributeValue = attribute.getAttributeValues();
+        for (XMLObject value : attributeValue) {
+            for (XMLObject valueElement : value.getOrderedChildren()) {
+                if (valueElement instanceof XSAny) {
+                    XSAny role = (XSAny) valueElement;
+                    AttributeMap map = role.getUnknownAttributes();
+
+                    assertNotNull(map.get(new QName("http://www.w3.org/2001/XMLSchema-instance", "type", "xsi")));
+                    foundType = true;
+                }
+            }
+        }
+        assertFalse(!foundType);
+    }
+
+    /**
+     * Test namespace uri for role.
+     */
+    @Test
+    public void testNamespaceUriForRole() {
+        boolean foundType = false;
+        String userCode = "12345";
+        String userSystem = "1.2.34.56";
+        String userSystemName = "CANCER-Research";
+        String userDisplay = "Public Health";
+        Attribute attribute = OpenSAML2ComponentBuilder.getInstance().createUserRoleAttribute(userCode, userSystem,
+                userSystemName, userDisplay);
+        List<XMLObject> attributeValue = attribute.getAttributeValues();
+        for (XMLObject value : attributeValue) {
+            for (XMLObject valueElement : value.getOrderedChildren()) {
+                if (valueElement instanceof XSAny) {
+                    XSAny role = (XSAny) valueElement;
+                    AttributeMap map = role.getUnknownAttributes();
+
+                    assertNotNull(map.get(new QName("http://www.w3.org/2001/XMLSchema-instance", "type", "xsi")));
+                    foundType = true;
+                }
+            }
+        }
+        assertFalse(!foundType);
+    }
+
 }
