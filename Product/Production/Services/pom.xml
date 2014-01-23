@@ -24,7 +24,6 @@
         <module>DocumentQueryCore</module>
         <module>AdminDistributionCore</module>
         <module>SharedEngineCore</module>
-        <module>DirectCore</module>
     </modules>
     <properties>
         <skip.unpack>false</skip.unpack>
@@ -54,4 +53,15 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
+    <profiles>
+        <profile>
+            <id>Direct</id>
+            <activation>
+                <activeByDefault>false</activeByDefault>
+            </activation>
+            <modules>
+                <module>DirectCore</module>
+            </modules>
+        </profile>
+    </profiles>
 </project>

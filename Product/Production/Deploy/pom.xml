@@ -13,7 +13,6 @@
     <modules>
         <module>ear-dependencies</module>
         <module>ad-dependencies</module>
-        <module>direct-dependencies</module>
         <module>dq-dependencies</module>
         <module>dr-dependencies</module>
         <module>ds-dependencies</module>
@@ -49,6 +48,15 @@
        </plugins>
     </reporting> 
     <profiles>
+        <profile>
+            <id>Direct</id>
+            <activation>
+                <activeByDefault>false</activeByDefault>
+            </activation>
+            <modules>
+                <module>direct-dependencies</module>
+            </modules>
+        </profile>
         <profile>
             <id>wasce</id>
             <modules>
