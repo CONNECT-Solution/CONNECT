@@ -21,6 +21,7 @@ import java.security.cert.CertificateExpiredException;
 import java.security.cert.CertificateNotYetValidException;
 import java.security.cert.X509Certificate;
 import java.security.interfaces.RSAPublicKey;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
@@ -46,10 +47,11 @@ import org.opensaml.saml2.core.Evidence;
 import org.opensaml.saml2.core.Issuer;
 import org.opensaml.saml2.core.Subject;
 import org.w3c.dom.Element;
+import org.joda.time.DateTime;
 
 /**
  * @author bhumphrey
- *
+ * 
  */
 public class HOKSAMLAssertionBuilderTest extends AbstractSuppressRootLoggerTest {
 
@@ -68,223 +70,225 @@ public class HOKSAMLAssertionBuilderTest extends AbstractSuppressRootLoggerTest 
     }
 
     /*
-     * KeyStore keyStore = KeyStore.getInstance(KeyStore.getDefaultType()); 54
-     * InputStream is = null; 55 try { 56 is = new ClassPathResource(
-     * "/org/springframework/ws/soap/security/xwss/test-keystore.jks"
-     * ).getInputStream(); 57 keyStore.load(is, "password".toCharArray()); 58 }
-     * 59 finally { 60 if (is != null) { 61 is.close(); 62 } 63 } 64 certificate
-     * = (X509Certificate) keyStore.getCertificate("alias");
+     * KeyStore keyStore = KeyStore.getInstance(KeyStore.getDefaultType()); 54 InputStream is = null; 55 try { 56 is =
+     * new ClassPathResource( "/org/springframework/ws/soap/security/xwss/test-keystore.jks" ).getInputStream(); 57
+     * keyStore.load(is, "password".toCharArray()); 58 } 59 finally { 60 if (is != null) { 61 is.close(); 62 } 63 } 64
+     * certificate = (X509Certificate) keyStore.getCertificate("alias");
      */
     /**
-     *
+     * 
      * @throws Exception
      */
     @Test
     public void testBuild() throws Exception {
-        SAMLAssertionBuilder builder = new HOKSAMLAssertionBuilder(
-            new CertificateManager() {
-                @Override
-                public RSAPublicKey getDefaultPublicKey() {
-                    return publicKey;
+        SAMLAssertionBuilder builder = new HOKSAMLAssertionBuilder(new CertificateManager() {
+            @Override
+            public RSAPublicKey getDefaultPublicKey() {
+                return publicKey;
 
-                }
+            }
 
-                @Override
-                public PrivateKey getDefaultPrivateKey() throws Exception {
+            @Override
+            public PrivateKey getDefaultPrivateKey() throws Exception {
 
-                    return privateKey;
-                }
+                return privateKey;
+            }
 
-                @Override
-                public KeyStore getKeyStore() {
-                    return null;
-                }
+            @Override
+            public KeyStore getKeyStore() {
+                return null;
+            }
 
-                @Override
-                public KeyStore getTrustStore() {
-                    return null;
-                }
+            @Override
+            public KeyStore getTrustStore() {
+                return null;
+            }
 
-                @Override
-                public X509Certificate getDefaultCertificate()
-                    throws Exception {
-                    return new X509Certificate() {
-                        @Override
-                        public boolean hasUnsupportedCriticalExtension() {
+            @Override
+            public X509Certificate getDefaultCertificate() throws Exception {
+                return new X509Certificate() {
+                    @Override
+                    public boolean hasUnsupportedCriticalExtension() {
 
-                            return false;
-                        }
+                        return false;
+                    }
 
-                        @Override
-                        public Set<String> getNonCriticalExtensionOIDs() {
+                    @Override
+                    public Set<String> getNonCriticalExtensionOIDs() {
 
-                            return Collections.EMPTY_SET;
-                        }
+                        return Collections.EMPTY_SET;
+                    }
 
-                        @Override
-                        public byte[] getExtensionValue(String oid) {
+                    @Override
+                    public byte[] getExtensionValue(String oid) {
 
-                            return new byte[1];
-                        }
+                        return new byte[1];
+                    }
 
-                        @Override
-                        public Set<String> getCriticalExtensionOIDs() {
+                    @Override
+                    public Set<String> getCriticalExtensionOIDs() {
 
-                            return Collections.EMPTY_SET;
-                        }
+                        return Collections.EMPTY_SET;
+                    }
 
-                        @Override
-                        public void verify(PublicKey key, String sigProvider)
-                            throws CertificateException,
-                            NoSuchAlgorithmException,
-                            InvalidKeyException,
-                            NoSuchProviderException, SignatureException {
-                        }
+                    @Override
+                    public void verify(PublicKey key, String sigProvider) throws CertificateException,
+                            NoSuchAlgorithmException, InvalidKeyException, NoSuchProviderException, SignatureException {
+                    }
 
-                        @Override
-                        public void verify(PublicKey key)
-                            throws CertificateException,
-                            NoSuchAlgorithmException,
-                            InvalidKeyException,
-                            NoSuchProviderException, SignatureException {
-                        }
+                    @Override
+                    public void verify(PublicKey key) throws CertificateException, NoSuchAlgorithmException,
+                            InvalidKeyException, NoSuchProviderException, SignatureException {
+                    }
 
-                        @Override
-                        public String toString() {
+                    @Override
+                    public String toString() {
 
-                            return null;
-                        }
+                        return null;
+                    }
 
-                        @Override
-                        public PublicKey getPublicKey() {
+                    @Override
+                    public PublicKey getPublicKey() {
 
-                            return publicKey;
-                        }
+                        return publicKey;
+                    }
 
-                        @Override
-                        public byte[] getEncoded()
-                            throws CertificateEncodingException {
+                    @Override
+                    public byte[] getEncoded() throws CertificateEncodingException {
 
-                            return new byte[1];
-                        }
+                        return new byte[1];
+                    }
 
-                        @Override
-                        public int getVersion() {
+                    @Override
+                    public int getVersion() {
 
-                            return 0;
-                        }
+                        return 0;
+                    }
 
-                        @Override
-                        public byte[] getTBSCertificate()
-                            throws CertificateEncodingException {
+                    @Override
+                    public byte[] getTBSCertificate() throws CertificateEncodingException {
 
-                            return new byte[1];
-                        }
+                        return new byte[1];
+                    }
 
-                        @Override
-                        public boolean[] getSubjectUniqueID() {
+                    @Override
+                    public boolean[] getSubjectUniqueID() {
 
-                            return new boolean[1];
-                        }
+                        return new boolean[1];
+                    }
 
-                        @Override
-                        public Principal getSubjectDN() {
+                    @Override
+                    public Principal getSubjectDN() {
 
-                            return null;
-                        }
+                        return null;
+                    }
 
-                        @Override
-                        public byte[] getSignature() {
+                    @Override
+                    public byte[] getSignature() {
 
-                            return new byte[1];
-                        }
+                        return new byte[1];
+                    }
 
-                        @Override
-                        public byte[] getSigAlgParams() {
+                    @Override
+                    public byte[] getSigAlgParams() {
 
-                            return new byte[1];
-                        }
+                        return new byte[1];
+                    }
 
-                        @Override
-                        public String getSigAlgOID() {
+                    @Override
+                    public String getSigAlgOID() {
 
-                            return null;
-                        }
+                        return null;
+                    }
 
-                        @Override
-                        public String getSigAlgName() {
+                    @Override
+                    public String getSigAlgName() {
 
-                            return null;
-                        }
+                        return null;
+                    }
 
-                        @Override
-                        public BigInteger getSerialNumber() {
+                    @Override
+                    public BigInteger getSerialNumber() {
 
-                            return null;
-                        }
+                        return null;
+                    }
 
-                        @Override
-                        public Date getNotBefore() {
+                    @Override
+                    public Date getNotBefore() {
 
-                            return null;
-                        }
+                        return null;
+                    }
 
-                        @Override
-                        public Date getNotAfter() {
+                    @Override
+                    public Date getNotAfter() {
 
-                            return null;
-                        }
+                        return null;
+                    }
 
-                        @Override
-                        public boolean[] getKeyUsage() {
+                    @Override
+                    public boolean[] getKeyUsage() {
 
-                            return new boolean[1];
-                        }
+                        return new boolean[1];
+                    }
 
-                        @Override
-                        public boolean[] getIssuerUniqueID() {
+                    @Override
+                    public boolean[] getIssuerUniqueID() {
 
-                            return new boolean[1];
-                        }
+                        return new boolean[1];
+                    }
 
-                        @Override
-                        public Principal getIssuerDN() {
+                    @Override
+                    public Principal getIssuerDN() {
 
-                            return null;
-                        }
+                        return null;
+                    }
 
-                        @Override
-                        public int getBasicConstraints() {
+                    @Override
+                    public int getBasicConstraints() {
 
-                            return 0;
-                        }
+                        return 0;
+                    }
 
-                        @Override
-                        public void checkValidity(Date date)
-                            throws CertificateExpiredException,
+                    @Override
+                    public void checkValidity(Date date) throws CertificateExpiredException,
                             CertificateNotYetValidException {
-                        }
+                    }
 
-                        @Override
-                        public void checkValidity()
-                            throws CertificateExpiredException,
-                            CertificateNotYetValidException {
-                        }
-                    };
+                    @Override
+                    public void checkValidity() throws CertificateExpiredException, CertificateNotYetValidException {
+                    }
+                };
 
-                }
-            });
+            }
+        });
         Element assertion = builder.build(getProperties());
         assertNotNull(assertion);
     }
 
     @Test
     public void testCreateAuthenicationStatement() {
-        List<AuthnStatement> authnStatement = HOKSAMLAssertionBuilder
-            .createAuthenicationStatements(getProperties());
+        List<AuthnStatement> authnStatement = HOKSAMLAssertionBuilder.createAuthenicationStatements(getProperties());
         assertNotNull(authnStatement);
 
         assertFalse(authnStatement.isEmpty());
+    }
+
+    @Test
+    public void testBuildEvidence() {
+        HOKSAMLAssertionBuilder builder = new HOKSAMLAssertionBuilder();
+        String evAssertionID = "_45678fdgrt543sweqt";
+        String format = null;
+        DateTime beginValidTime = null;
+        DateTime endValidTime = null;
+        DateTime issueInstant = null;
+        String issuer = null;
+        Subject subject = mock(Subject.class);
+        AttributeStatement e = mock(AttributeStatement.class);
+        List<AttributeStatement> statements = new ArrayList<AttributeStatement>();
+        statements.add(0, e);
+        Evidence evidence1 = builder.buildEvidence(evAssertionID, issueInstant, format, beginValidTime, endValidTime,
+                issuer, statements, subject);
+        assertTrue(evidence1.getAssertions().get(0).getID().startsWith("_"));
     }
 
     @Test
@@ -295,41 +299,37 @@ public class HOKSAMLAssertionBuilderTest extends AbstractSuppressRootLoggerTest 
 
         when(callbackProps.getAuthenicationStatementExists()).thenReturn(true);
 
-        List<AuthzDecisionStatement> statementList = HOKSAMLAssertionBuilder
-            .createAuthenicationDecsionStatements(callbackProps, subject);
+        List<AuthzDecisionStatement> statementList = HOKSAMLAssertionBuilder.createAuthenicationDecsionStatements(
+                callbackProps, subject);
 
         assertFalse(statementList.isEmpty());
         AuthzDecisionStatement statement = statementList.get(0);
         assertEquals(statement.getDecision(), DecisionTypeEnumeration.PERMIT);
 
         Action action = statement.getActions().get(0);
-        assertEquals(action.getAction(),
-            SAMLAssertionBuilder.AUTHZ_DECISION_ACTION_EXECUTE);
+        assertEquals(action.getAction(), SAMLAssertionBuilder.AUTHZ_DECISION_ACTION_EXECUTE);
 
         Evidence evidence = statement.getEvidence();
         Assertion assertion = evidence.getAssertions().get(0);
         assertTrue(assertion.getID().startsWith("_"));
 
         assertTrue(beforeCreation.isBefore(assertion.getIssueInstant())
-            || beforeCreation.isEqual(assertion.getIssueInstant()));
+                || beforeCreation.isEqual(assertion.getIssueInstant()));
 
         Issuer issuer = assertion.getIssuer();
         assertEquals(issuer.getFormat(), SAMLAssertionBuilder.X509_NAME_ID);
 
         Conditions conditions = assertion.getConditions();
         assertTrue(beforeCreation.isBefore(conditions.getNotBefore())
-            || beforeCreation.isEqual(conditions.getNotBefore()));
+                || beforeCreation.isEqual(conditions.getNotBefore()));
         assertTrue(beforeCreation.isBefore(conditions.getNotOnOrAfter())
-            || beforeCreation.isEqual(conditions.getNotOnOrAfter()));
+                || beforeCreation.isEqual(conditions.getNotOnOrAfter()));
 
-        List<AttributeStatement> attributeStatement = assertion
-            .getAttributeStatements();
+        List<AttributeStatement> attributeStatement = assertion.getAttributeStatements();
         assertEquals(attributeStatement.get(0).getAttributes().size(), 2);
 
-        Attribute firstAttribute = attributeStatement.get(0).getAttributes()
-            .get(0);
-        Attribute secondAttribute = attributeStatement.get(0).getAttributes()
-            .get(1);
+        Attribute firstAttribute = attributeStatement.get(0).getAttributes().get(0);
+        Attribute secondAttribute = attributeStatement.get(0).getAttributes().get(1);
         assertEquals(firstAttribute.getName(), "AccessConsentPolicy");
         assertEquals(secondAttribute.getName(), "InstanceAccessConsentPolicy");
     }
@@ -526,7 +526,7 @@ public class HOKSAMLAssertionBuilderTest extends AbstractSuppressRootLoggerTest 
                 // TODO Auto-generated method stub
                 return "orgId";
             }
-            
+
         };
     }
 }
