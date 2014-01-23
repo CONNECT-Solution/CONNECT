@@ -20,6 +20,7 @@
         <module>HIEM_20</module>
         <module>PatientDiscovery_10</module>
         <module>CONNECTGatewayWeb</module>
+        <module>Direct</module>
     </modules>
     <properties>
         <skip.unpack>false</skip.unpack>
@@ -106,15 +107,4 @@
             <scope>test</scope>
         </dependency>  
     </dependencies>
-    <profiles>
-        <profile>
-            <id>Direct</id>
-            <activation>
-                <activeByDefault>false</activeByDefault>
-            </activation>
-            <modules>
-                <module>Direct</module>
-            </modules>
-        </profile>
-    </profiles>
 </project>
