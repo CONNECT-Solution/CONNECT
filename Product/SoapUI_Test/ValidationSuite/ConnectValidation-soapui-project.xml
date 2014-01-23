@@ -2832,7 +2832,7 @@ context.withSql('PatientCorrelationDB') { sql ->
 		assert pdCorrelations == sql.firstRow('select count(*) from ' + context.findProperty('PatientCorrelationTable'))[0]
 		}</script></con:config>
 </con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
-nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);</con:setupScript>
+//nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);</con:setupScript>
 <con:tearDownScript>def dir = context.findProperty('GatewayPropDir');
 nhinc.FileUtils.restoreConfiguration(dir, log);
 if(context.findProperty("PassThruOn").toBoolean()){
