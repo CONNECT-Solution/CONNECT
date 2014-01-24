@@ -231,10 +231,14 @@ Then open your browser and view [file:///tmp/fullsite/index.html]
 Contributing
 ------------
 1. Fork it.
-2. Create a branch (`git checkout -b my_feature`)
-3. Commit your changes (`git commit -am "Added new feature"`)
-4. Push to the branch (`git push origin my_feature`)
-5. Open a [Pull Request][]
+2. Clone the repo (`git clone --recursive <REPO_URL>/CONNECT.git`)
+3. If you already have the repo and need to update to the latest, use:
+    - `git pull`
+    - `git submodule update --init --recursive`
+4. Create a branch (`git checkout -b my_feature`)
+5. Commit your changes (`git commit -am "Added new feature"`)
+6. Push to the branch (`git push origin my_feature`)
+7. Open a [Pull Request][]
 
 [Pull Request]: https://github.com/CONNECT-Solution/CONNECT/pulls
 [Download Maven]: http://maventest.apache.org/download.html

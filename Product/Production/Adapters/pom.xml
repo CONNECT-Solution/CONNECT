@@ -48,4 +48,18 @@
             <artifactId>slf4j-api</artifactId>
         </dependency>
     </dependencies>
+    <profiles>
+        <profile>
+            <id>Direct</id>
+            <activation>
+                <activeByDefault>false</activeByDefault>
+            </activation>
+            <modules>
+                <module>Direct/java/config/config-store</module>
+                <module>Direct/java/config/config-service-jar</module>
+                <module>Direct/java/config/config-service</module>
+                <module>Direct/java/config/config-ui</module>
+            </modules>
+        </profile>
+    </profiles>
 </project>
