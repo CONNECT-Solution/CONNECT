@@ -286,6 +286,56 @@
             <properties>
                 <direct.excluded>false</direct.excluded>
             </properties>
+
+            <!-- direct -->
+            <dependencies>
+                <dependency>
+                    <groupId>org.connectopensource</groupId>
+                    <artifactId>direct-dependencies</artifactId>
+                    <version>${project.parent.version}</version>
+                    <type>pom</type>
+                </dependency>
+            </dependencies>
+
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-ear-plugin</artifactId>
+                        <configuration>
+                            <modules combine.children="append">
+                                <webModule>
+                                    <groupId>org.nhind</groupId>
+                                    <artifactId>config-service</artifactId>
+                                    <contextRoot>/config-service</contextRoot>
+                                    <excluded>${direct.excluded}</excluded>
+                                </webModule>
+                                <webModule>
+                                    <groupId>org.nhind</groupId>
+                                    <artifactId>config-ui</artifactId>
+                                    <contextRoot>/config-ui</contextRoot>
+                                    <excluded>${direct.excluded}</excluded>
+                                </webModule>
+                                <webModule>
+                                    <groupId>org.connectopensource</groupId>
+                                    <artifactId>Direct</artifactId>
+                                    <contextRoot>/Direct</contextRoot>
+                                    <excluded>${direct.excluded}</excluded>
+                                </webModule>
+                            </modules>
+                            <version>5</version>
+                            <defaultLibBundleDir>lib</defaultLibBundleDir>
+                            <skinnyWars>true</skinnyWars>
+                            <packagingExcludes>
+                                lib/Properties-*.jar
+                            </packagingExcludes>
+
+                            <!-- this causes all archives to be exploded on server SLOW!!! <includeLibInApplicationXml>true</includeLibInApplicationXml> -->
+                        </configuration>
+                    </plugin>
+                </plugins>
+                <finalName>${project.artifactId}</finalName>
+            </build>
         </profile>
     </profiles>
 </project>
