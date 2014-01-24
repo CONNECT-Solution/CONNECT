@@ -37853,19 +37853,19 @@ nhinc.FileUtils.restoreConfiguration(dir, log);
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2014-01-23T23:24:38Z</con:value>
+		<con:value>2014-01-24T12:46:56Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2014-01-23T23:34:38Z</con:value>
+		<con:value>2014-01-24T12:56:56Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>01/23/2014 23:24:38</con:value>
+		<con:value>01/24/2014 12:46:56</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2014-02-22T00:00:00Z</con:value>
+		<con:value>2014-02-23T00:00:00Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>FullPatientID</con:name>
@@ -38328,19 +38328,19 @@ context.setGatewayStandard(true);
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2014-01-23T23:26:35Z</con:value>
+		<con:value>2014-01-24T12:46:46Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2014-01-23T23:36:35Z</con:value>
+		<con:value>2014-01-24T12:56:46Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>01/23/2014 23:26:35</con:value>
+		<con:value>01/24/2014 12:46:46</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2014-02-22T00:00:00Z</con:value>
+		<con:value>2014-02-23T00:00:00Z</con:value>
 	</con:property>
 <con:property><con:name>PassThruOn</con:name><con:value>true</con:value></con:property></con:properties>
 <con:reportParameters/>
@@ -38399,7 +38399,7 @@ context.setGatewayStandard(true);
 
 
 	<con:property><con:name>DOB</con:name><con:value>19800516</con:value></con:property>
-	<con:property><con:name>DQDocID</con:name><con:value>1.123401.66666</con:value></con:property>
+	<con:property><con:name>DQDocID</con:name><con:value>1.123401.55555</con:value></con:property>
 
 
 	
@@ -38446,7 +38446,7 @@ context.setGatewayStandard(true);
 	
 	
 	
-	<con:property><con:name>DynamicDQDocID</con:name><con:value>103.8.9284320.020.3590.75^1266324032288</con:value></con:property><con:property><con:name>ExpirationDate</con:name><con:value>20100520</con:value></con:property><con:property><con:name>FamilyName</con:name><con:value>Younger</con:value></con:property><con:property><con:name>GatewayPropDir</con:name><con:value/></con:property><con:property><con:name>Gender</con:name><con:value>M</con:value></con:property><con:property><con:name>GivenName</con:name><con:value>Gallow</con:value></con:property><con:property><con:name>LocalAA</con:name><con:value>1.1</con:value></con:property><con:property><con:name>LocalHCDescription</con:name><con:value>InternalTest1</con:value></con:property><con:property><con:name>LocalHCID</con:name><con:value>1.1</con:value></con:property><con:property><con:name>LocalPatientID</con:name><con:value>D123401</con:value></con:property><con:property><con:name>NotificationEndpoint</con:name><con:value>https://localhost:8181/Gateway/HIEM/2_0/NhinService/NotificationConsumerService/HiemNotify</con:value></con:property>
+	<con:property><con:name>DynamicDQDocID</con:name><con:value>103.8.9284320.020.3590.75^1266324032288</con:value></con:property><con:property><con:name>ExpirationDate</con:name><con:value>20100520</con:value></con:property><con:property><con:name>FamilyName</con:name><con:value>Younger</con:value></con:property><con:property><con:name>GatewayPropDir</con:name><con:value>C:/glassfish3/glassfish/domains/domain1/config/nhin</con:value></con:property><con:property><con:name>Gender</con:name><con:value>M</con:value></con:property><con:property><con:name>GivenName</con:name><con:value>Gallow</con:value></con:property><con:property><con:name>LocalAA</con:name><con:value>1.1</con:value></con:property><con:property><con:name>LocalHCDescription</con:name><con:value>InternalTest1</con:value></con:property><con:property><con:name>LocalHCID</con:name><con:value>1.1</con:value></con:property><con:property><con:name>LocalPatientID</con:name><con:value>D123401</con:value></con:property><con:property><con:name>NotificationEndpoint</con:name><con:value>https://localhost:8181/Gateway/HIEM/2_0/NhinService/NotificationConsumerService/HiemNotify</con:value></con:property>
 
 
 	
