@@ -22,7 +22,7 @@
     <servlet>
         <servlet-name>init</servlet-name>
         <servlet-class>gov.hhs.fha.nhinc.direct.servlet.InitServlet</servlet-class>
-        <load-on-startup>1</load-on-startup>
+        <load-on-startup>2</load-on-startup>
     </servlet>
     
     <servlet>
