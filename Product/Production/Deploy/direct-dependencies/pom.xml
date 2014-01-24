@@ -162,6 +162,12 @@
                 </exclusion>
             </exclusions>
         </dependency>
+        <dependency>
+            <groupId>org.nhind</groupId>
+            <artifactId>config-service-jar</artifactId>
+            <version>1.6-CONNECT-SNAPSHOT</version>
+            <optional>false</optional>
+        </dependency>
 
         <!-- Unmodified Direct projects -->
         <dependency>
@@ -185,30 +191,6 @@
                 <exclusion>
                     <groupId>commons-io</groupId>
                     <artifactId>commons-io</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <dependency>
-            <groupId>org.nhind</groupId>
-            <artifactId>config-service-jar</artifactId>
-            <version>1.5.1</version>
-            <optional>false</optional>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.nhind</groupId>
-                    <artifactId>agent</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.nhind</groupId>
-                    <artifactId>config-store</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>cglib</groupId>
-                    <artifactId>cglib-nodep</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>javax.xml.bind</groupId>
-                    <artifactId>jaxb-api</artifactId>
                 </exclusion>
             </exclusions>
         </dependency>
@@ -491,12 +473,12 @@
             <version>1.5.3</version>
             <optional>false</optional>
         </dependency>
-        <dependency>
+        <!--dependency>
             <groupId>net.sf.ehcache</groupId>
             <artifactId>ehcache</artifactId>
             <version>1.2.3</version>
             <optional>false</optional>
-        </dependency>
+        </dependency-->
         <dependency>
             <groupId>org.tuckey</groupId>
             <artifactId>urlrewritefilter</artifactId>
