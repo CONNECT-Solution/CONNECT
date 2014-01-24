@@ -191,6 +191,10 @@
                     <groupId>commons-io</groupId>
                     <artifactId>commons-io</artifactId>
                 </exclusion>
+                <exclusion>
+                    <groupId>bouncycastle</groupId>
+                    <artifactId>bcprov-jdk15</artifactId>
+                </exclusion>
             </exclusions>
         </dependency>
         <dependency>
@@ -242,6 +246,10 @@
                 <exclusion>
                     <groupId>commons-io</groupId>
                     <artifactId>commons-io</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>bouncycastle</groupId>
+                    <artifactId>bcprov-jdk15</artifactId>
                 </exclusion>
             </exclusions>
         </dependency>
@@ -306,6 +314,10 @@
                 <exclusion>
                     <groupId>cglib</groupId>
                     <artifactId>cglib</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.hibernate</groupId>
+                    <artifactId>ejb3-persistence</artifactId>
                 </exclusion>
             </exclusions>
         </dependency>
