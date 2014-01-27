@@ -578,6 +578,7 @@
       <resource-ref ref="jdbc/perfrepo_datasource"/>
       <resource-ref ref="jdbc/transrepo_datasource"/>
       <resource-ref ref="jdbc/eventdb_datasource"/>
+      <resource-ref ref="jdbc/configdb_datasource"/>
     </server>
   </servers>
   <property name="administrative.domain.name" value="domain1"/>
