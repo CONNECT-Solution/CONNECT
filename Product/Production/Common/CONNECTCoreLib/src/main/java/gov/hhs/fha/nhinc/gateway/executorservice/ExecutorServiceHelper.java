@@ -86,8 +86,8 @@ public class ExecutorServiceHelper {
             // convert to a decimal percent; throws exception for illegal Integer values
             largejobSizePercent = (double)(new Integer(largejobSizePercentStr)) / 100.0;
             
-            if (largejobSizePercent < 0 || largejobSizePercent > 1) {
-                throw new NumberFormatException("largejobSizePercentString must be between 0 and 100");
+            if (largejobSizePercent <= 0 || largejobSizePercent >= 1) {
+                throw new NumberFormatException("largejobSizePercentString must be between 0 and 100, exclusive");
             }
         } catch (Exception e) {
             LOG.error("ExecutorServiceHelper exception loading config properties so using default values");
