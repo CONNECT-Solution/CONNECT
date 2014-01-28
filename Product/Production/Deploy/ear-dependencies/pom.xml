@@ -167,19 +167,6 @@
         </dependency>
         <dependency>
             <groupId>org.connectopensource</groupId>
-            <artifactId>HIEM_20</artifactId>
-            <version>${project.parent.version}</version>
-            <type>war</type>
-            <optional>true</optional>
-        </dependency>
-        <dependency>
-            <groupId>org.connectopensource</groupId>
-            <artifactId>HIEMCore</artifactId>
-            <version>${project.parent.version}</version>
-            <optional>true</optional>
-        </dependency>
-        <dependency>
-            <groupId>org.connectopensource</groupId>
             <artifactId>CONNECTConsumerPreferencesProfileGUI</artifactId>
             <version>${project.parent.version}</version>
             <type>war</type>

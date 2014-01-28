@@ -17,7 +17,6 @@
         <dq.excluded>true</dq.excluded>
         <dr.excluded>true</dr.excluded>
         <ds.excluded>true</ds.excluded>
-        <hiem.excluded>true</hiem.excluded>
         <gui.excluded>true</gui.excluded>
         <pd.excluded>true</pd.excluded>
         <direct.excluded>true</direct.excluded>
@@ -47,13 +46,6 @@
         <dependency>
             <groupId>org.connectopensource</groupId>
             <artifactId>ad-dependencies</artifactId>
-            <version>${project.parent.version}</version>
-            <type>pom</type>
-        </dependency>
-        <!-- Hiem -->
-        <dependency>
-            <groupId>org.connectopensource</groupId>
-            <artifactId>hiem-dependencies</artifactId>
             <version>${project.parent.version}</version>
             <type>pom</type>
         </dependency>
@@ -200,12 +192,6 @@
                         </webModule>
                         <webModule>
                             <groupId>org.connectopensource</groupId>
-                            <artifactId>HIEM_20</artifactId>
-                            <contextRoot>/Gateway/HIEM/2_0</contextRoot>
-                            <excluded>${hiem.excluded}</excluded>
-                        </webModule>
-                        <webModule>
-                            <groupId>org.connectopensource</groupId>
                             <artifactId>CONNECTConsumerPreferencesProfileGUI</artifactId>
                             <contextRoot>/CONNECTConsumerPreferencesProfileGUI</contextRoot>
                             <excluded>${gui.excluded}</excluded>
@@ -281,15 +267,6 @@
             </activation>
             <properties>
                 <ds.excluded>false</ds.excluded>
-            </properties>
-        </profile>
-        <profile>
-            <id>HIEM</id>
-            <activation>
-                <activeByDefault>false</activeByDefault>
-            </activation>
-            <properties>
-                <hiem.excluded>false</hiem.excluded>
             </properties>
         </profile>
         <profile>
