@@ -27,11 +27,9 @@
 
 package gov.hhs.fha.nhinc.properties;
 
-import gov.hhs.fha.nhinc.util.StringUtil;
+import gov.hhs.fha.nhinc.util.StreamUtils;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Properties;
 
@@ -42,8 +40,7 @@ import org.apache.log4j.Logger;
  * 
  */
 public class PropertyAccessorFileUtilities {
-	private static final Logger LOG = Logger
-			.getLogger(PropertyAccessorFileUtilities.class);
+	private static final Logger LOG = Logger.getLogger(PropertyAccessorFileUtilities.class);
 	private String propertyFileDirAbsolutePath = "";
 
 	/**
@@ -55,16 +52,14 @@ public class PropertyAccessorFileUtilities {
 	}
 
 	protected void checkPropertyFileDir() {
-		propertyFileDirAbsolutePath = System
-				.getProperty("nhinc.properties.dir");
+		propertyFileDirAbsolutePath = System.getProperty("nhinc.properties.dir");
 
 		if (propertyFileDirAbsolutePath == null) {
 			LOG.error("Unable to determine the path to the configuration files.  "
 					+ "Please make sure that the runtime nhinc.properties.dir system property is set to the absolute location "
 					+ "of your CONNECT configuration files.");	
 		} else {
-			propertyFileDirAbsolutePath = 
-					addFileSeparatorSuffix(propertyFileDirAbsolutePath);
+			propertyFileDirAbsolutePath = addFileSeparatorSuffix(propertyFileDirAbsolutePath);
 		}
 	}
 
@@ -103,8 +98,7 @@ public class PropertyAccessorFileUtilities {
 	 *         file does not exists, an empty Properties is returned.
 	 */
 	public Properties loadPropertyFile(String propertyFilename) {
-		return loadPropertyFile(new File(
-				getPropertyFileLocation(propertyFilename)));
+		return loadPropertyFile(new File(getPropertyFileLocation(propertyFilename)));
 	}
 
 	/**
@@ -118,34 +112,25 @@ public class PropertyAccessorFileUtilities {
 	public Properties loadPropertyFile(File propertyFile) {
 		Properties properties = new Properties();
 		InputStreamReader propFile = null;
+
 		try {
-			propFile = new InputStreamReader(new FileInputStream(propertyFile),
-					StringUtil.UTF8_CHARSET);
+            propFile = StreamUtils.openInputStream(propertyFile);
+
 			properties.load(propFile);
 		} catch (Exception e) {
 			LOG.error("Failed to load property file " + propertyFile);
 		} finally {
-			closeFileSilently(propFile);
+			StreamUtils.closeFileSilently(propFile);
 		}
 
 		return properties;
-	}
-
-	private void closeFileSilently(InputStreamReader reader) {
-		try {
-			if (reader != null) {
-				reader.close();
-			}
-		} catch (IOException ioe) {
-			LOG.warn("Failed to close file.");
-		}
 	}
 
 	private String addFileSeparatorSuffix(String dirPath) {
 		if (dirPath != null && !dirPath.endsWith(File.separator)) {
 			dirPath = dirPath + File.separator;
 		}
+
 		return dirPath;
 	}
-
 }

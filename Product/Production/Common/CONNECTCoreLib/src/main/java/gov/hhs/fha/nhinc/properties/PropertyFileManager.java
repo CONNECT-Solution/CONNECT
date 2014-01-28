@@ -26,11 +26,12 @@
  */
 package gov.hhs.fha.nhinc.properties;
 
-import gov.hhs.fha.nhinc.util.StringUtil;
+import gov.hhs.fha.nhinc.util.StreamUtils;
+
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.OutputStreamWriter;
 import java.util.Properties;
+
 import org.apache.log4j.Logger;
 
 /**
@@ -65,21 +66,14 @@ public class PropertyFileManager {
         String sErrorMessage = "";
         
         try {
-            fwPropFile = new OutputStreamWriter(new FileOutputStream(sPropFile), StringUtil.UTF8_CHARSET);
+            fwPropFile = StreamUtils.openOutputStream(sPropertyFile);
             
             oProps.store(fwPropFile, "");
         } catch (Exception e) {
             sErrorMessage = "Failed to store property file: " + sPropFile + ".  Error: " + e.getMessage();
             eError = e;
         } finally {
-            if (fwPropFile != null) {
-                try {
-                    fwPropFile.close();
-                } catch (Exception e) {
-                    sErrorMessage = "Failed to close property file: " + sPropFile + ".  Error: " + e.getMessage();
-                    eError = e;
-                }
-            }
+            StreamUtils.closeWriterSilently(fwPropFile);
         }
         
         if (eError != null) {
@@ -97,7 +91,7 @@ public class PropertyFileManager {
     public static void deletePropertyFile(String sPropertyFile) throws PropertyAccessException {
         String sPropFile = PropertyAccessor.getInstance().getPropertyFileLocation(sPropertyFile);
         File fPropFile = new File(sPropFile);
-        
+
         try {
             if (fPropFile.exists()) {
                 boolean fileDeleted = fPropFile.delete();
@@ -106,6 +100,5 @@ public class PropertyFileManager {
         } catch (Exception e) {
             throw new PropertyAccessException("Failed to delete file: " + sPropFile + ".  Error: " + e.getMessage(), e);
         }
-        
     }
 }

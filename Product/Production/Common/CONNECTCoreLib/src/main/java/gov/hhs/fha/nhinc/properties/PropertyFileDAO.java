@@ -27,6 +27,7 @@
 package gov.hhs.fha.nhinc.properties;
 
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
+import gov.hhs.fha.nhinc.util.StreamUtils;
 import gov.hhs.fha.nhinc.util.StringUtil;
 
 import java.io.File;
@@ -72,27 +73,18 @@ public class PropertyFileDAO {
     public void loadPropertyFile(File propertyFile, String propertyFileName) throws PropertyAccessException {                       
         Properties properties = new Properties();
         InputStreamReader propFile = null;
+
         try {           
-            if (!propertyFile.exists()) {
-                throw new PropertyAccessException("Failed to open property file:'" + propertyFile + "'.  "
-                        + "File does not exist.");
-            }
-            propFile = new InputStreamReader(new FileInputStream(propertyFile),StringUtil.UTF8_CHARSET);
+            propFile = StreamUtils.openInputStream(propertyFile);
+
             properties.load(propFile);
-            
+
             propertyFilesHashmap.put(propertyFileName, properties);
-           
         } catch (Exception e) {
             String sMessage = "Failed to load property file.  Error: " + e.getMessage();
             throw new PropertyAccessException(sMessage, e);
         } finally {
-            if (propFile != null) {
-                try {
-                    propFile.close();
-                } catch (Exception e1) {
-                    LOG.error("Failed to close property file: '" + propertyFile + "'", e1);
-                }
-            }
+            StreamUtils.closeFileSilently(propFile);
         }
     }
     

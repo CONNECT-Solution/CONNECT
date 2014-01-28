@@ -27,9 +27,11 @@
 package gov.hhs.fha.nhinc.direct;
 
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import gov.hhs.fha.nhinc.util.StreamUtils;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType.Document;
 
 import java.io.IOException;
+import java.io.InputStream;
 
 import javax.activation.DataHandler;
 import javax.activation.DataSource;
@@ -208,14 +210,26 @@ public class MimeMessageBuilder {
 
     private MimeBodyPart createAttachmentFromSOAPRequest(Document data, String name) throws MessagingException,
             IOException {
-        DataSource source = new ByteArrayDataSource(data.getValue().getInputStream(), "application/octet-stream");
-        DataHandler dhnew = new DataHandler(source);
-        MimeBodyPart bodypart = new MimeBodyPart();
-        bodypart.setDataHandler(dhnew);
-        bodypart.setHeader("Content-Type", "application/octet-stream");
-        bodypart.setDisposition(Part.ATTACHMENT);
-        bodypart.setFileName(name);
+
+        InputStream is = null;
+        DataSource source = null;
+        DataHandler dhnew = null;
+        MimeBodyPart bodypart = null;
+
+        try {
+            is = data.getValue().getInputStream();
+            source = new ByteArrayDataSource(is, "application/octet-stream");
+            dhnew = new DataHandler(source);
+            bodypart = new MimeBodyPart();
+
+            bodypart.setDataHandler(dhnew);
+            bodypart.setHeader("Content-Type", "application/octet-stream");
+            bodypart.setDisposition(Part.ATTACHMENT);
+            bodypart.setFileName(name);
+        } finally {
+            StreamUtils.closeStreamSilently(is);
+        }
+
         return (MimeBodyPart) bodypart;
     }
-
 }
