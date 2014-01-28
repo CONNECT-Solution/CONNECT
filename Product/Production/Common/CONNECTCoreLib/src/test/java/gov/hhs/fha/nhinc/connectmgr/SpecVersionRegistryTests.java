@@ -13,7 +13,7 @@ import org.junit.runners.Suite.SuiteClasses;
  */
 @RunWith(Suite.class)
 @SuiteClasses({ UddiSpecVersionRegistryTest.class, ADSpecVersionRegistryTest.class, PDSpecVersionRegistryTest.class, 
-    DSSpecVersionRegistryTest.class, DQSpecVersionRegistryTest.class, DRSpecVersionRegistryTest.class, HIEMSpecVersionRegistryTest.class })
+    DSSpecVersionRegistryTest.class, DQSpecVersionRegistryTest.class, DRSpecVersionRegistryTest.class })
 public class SpecVersionRegistryTests {
 
 }
