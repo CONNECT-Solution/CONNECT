@@ -149,7 +149,7 @@ public class PropertyFileDAO {
                 } catch (Exception e) {
                     String errorMsg = "Failed to convert string value: '" + propertyValue + "' to a long.  Error: "
                             + e.getMessage();
-                    LOG.error(errorMsg, e);
+                    LOG.error("Unable to read the property..");
                     throw new PropertyAccessException(errorMsg, e);
                 }
             }

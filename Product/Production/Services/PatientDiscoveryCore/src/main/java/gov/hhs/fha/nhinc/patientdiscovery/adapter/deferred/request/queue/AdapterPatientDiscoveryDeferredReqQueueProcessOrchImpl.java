@@ -98,9 +98,9 @@ public class AdapterPatientDiscoveryDeferredReqQueueProcessOrchImpl {
                 LOG.info("messageId: is null");
             }
 
-            LOG.info("AsyncMsgRecord - messageId: " + asyncMsgRecord.getMessageId());
-            LOG.info("AsyncMsgRecord - serviceName: " + asyncMsgRecord.getServiceName());
-            LOG.info("AsyncMsgRecord - creationTime: " + asyncMsgRecord.getCreationTime());
+            LOG.debug("AsyncMsgRecord - messageId Found");
+            LOG.debug("AsyncMsgRecord - serviceName Found");
+            LOG.debug("AsyncMsgRecord - creationTime Found");
 
             AdapterPatientDiscoveryAsyncReqQueueProxyJavaImpl adapterPDAsyncReqQueueProxyJavaImpl = new AdapterPatientDiscoveryAsyncReqQueueProxyJavaImpl();
 

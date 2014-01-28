@@ -108,7 +108,7 @@ public class XACMLSerializer {
         } catch (Exception e) {
             String sErrorMessage = "Failed to deserialize the XACML consent string: " + sConsentXACML + "  Error: "
                     + e.getMessage();
-            LOG.error(sErrorMessage, e);
+            LOG.error("Failed to deserialize the XACML consent string...");
             throw new AdapterPIPException(sErrorMessage, e);
         }
 

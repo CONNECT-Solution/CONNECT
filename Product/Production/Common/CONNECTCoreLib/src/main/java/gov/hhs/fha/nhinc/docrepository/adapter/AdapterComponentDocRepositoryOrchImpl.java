@@ -232,7 +232,7 @@ public class AdapterComponentDocRepositoryOrchImpl {
                     // --------------------
                     if (NullChecker.isNotNullish(doc.getDocumentUniqueId())) {
                         oDocResponse.setDocumentUniqueId(doc.getDocumentUniqueId());
-                        LOG.info("Document unique id: " + doc.getDocumentUniqueId());
+                        LOG.debug("Document unique id found ");
                         bHasData = true;
                     }
 
@@ -240,7 +240,7 @@ public class AdapterComponentDocRepositoryOrchImpl {
                     // ----------
                     if (NullChecker.isNotNullish(doc.getMimeType())) {
                         oDocResponse.setMimeType(doc.getMimeType());
-                        LOG.info("Mime type: " + doc.getMimeType());
+                        LOG.debug("Mime type Identified ");
                         bHasData = true;
                     }
 
@@ -285,7 +285,7 @@ public class AdapterComponentDocRepositoryOrchImpl {
         if ((doc.getRawData() != null) && (doc.getRawData().length > 0)) {
             try {
                 String url = StringUtil.convertToStringUTF8(doc.getRawData());
-                LOG.info("Raw Data: " + url);
+                LOG.debug("Raw Data not null");
                 URI uri = new URI(url);
                 File sourceFile = new File(uri);
                 try {                    
