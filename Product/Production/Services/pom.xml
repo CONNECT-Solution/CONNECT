@@ -18,7 +18,6 @@
         <module>PolicyEngineCore</module>
         <module>RedactionEngineCore</module>
         <module>PatientDiscoveryCore</module>
-        <module>HIEMCore</module>
         <module>DocumentSubmissionCore</module>
         <module>DocumentRetrieveCore</module>
         <module>DocumentQueryCore</module>

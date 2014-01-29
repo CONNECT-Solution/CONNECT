@@ -352,11 +352,6 @@
             <artifactId>DocumentSubmissionWebervices</artifactId>
             <version>4.0.4</version>
         </dependency>
-          <dependency>
-            <groupId>org.connectopensource</groupId>
-            <artifactId>HIEMWebservices</artifactId>
-            <version>4.0.4</version>
-        </dependency>
          <dependency>
             <groupId>org.connectopensource</groupId>
             <artifactId>PatientCorrelationWebservices</artifactId>

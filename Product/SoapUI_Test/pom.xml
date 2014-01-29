@@ -91,7 +91,7 @@
                                     <type>jar</type>
                                 </artifactItem>
                             </artifactItems>
-                            <includes>gateway.properties,adapter.properties,PCConfiguration.xml,internalConnectionInfo.xml,hiemTopicConfiguration.xml,XDSUniqueIds.properties</includes>
+                            <includes>gateway.properties,adapter.properties,PCConfiguration.xml,internalConnectionInfo.xml,XDSUniqueIds.properties</includes>
                             <outputDirectory>${project.build.directory}/test-classes/</outputDirectory>
                         </configuration>
                     </execution>
@@ -176,11 +176,6 @@
                                 <artifactItem>
                                     <groupId>org.connectopensource</groupId>
                                     <artifactId>DocumentSubmissionWebervices</artifactId>
-                                    <version>4.0.4</version>
-                                </artifactItem>
-                                <artifactItem>
-                                    <groupId>org.connectopensource</groupId>
-                                    <artifactId>HIEMWebservices</artifactId>
                                     <version>4.0.4</version>
                                 </artifactItem>
                                 <artifactItem>
