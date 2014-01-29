@@ -92,8 +92,6 @@ public class TLSClientParametersFactory {
             if (factory != null) {
                 tlsCP.setSSLSocketFactory(factory);
             } else {
-                //tlsCP.setKeyManagers(keyFactory.getKeyManagers());
-                //tlsCP.setTrustManagers(trustFactory.getTrustManagers());
                 throw new RuntimeException("Couldn't get the SSLSocketFactory.");
             }
             tlsCP.setDisableCNCheck(true);
