@@ -690,7 +690,7 @@ public class ConnectionManagerCache implements ConnectionManager {
     public String getDefaultEndpointURLByServiceName(String sHomeCommunityId, String sUniformServiceName)
         throws ConnectionManagerException {
         ConnectionManagerCacheHelper helper = new ConnectionManagerCacheHelper();
-        LOG.trace("begin getEndpointURLByServiceName: " + sHomeCommunityId + " / " + sUniformServiceName);
+        LOG.trace("begin getEndpointURLByServiceName");
 
         String sEndpointURL = "";
         BusinessEntity oEntity = getBusinessEntityByHCID(sHomeCommunityId);
@@ -718,8 +718,7 @@ public class ConnectionManagerCache implements ConnectionManager {
             highestSpec.toString());
         // we have no info on which binding template/endpoint "version" to use so just take the first.
         if (bindingTemplate == null || bindingTemplate.getAccessPoint() == null) {
-            LOG.error("No binding templates found for home community: " + sHomeCommunityId + " and service name: "
-                + sUniformServiceName);
+            LOG.error("No binding templates found for home community");
             return sEndpointURL;
         }
 

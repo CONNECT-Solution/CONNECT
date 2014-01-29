@@ -630,8 +630,7 @@ public class Page2 extends AbstractPageBean {
                         LOG.error("No subject data found in the MPI candidate");
                     }
                 } else {
-                    LOG.error("No MPI candidates where found matching " + firstName + " " + lastName + " org: " + orgId
-                            + " assigning authority: " + assigningAuthId);
+                    LOG.error("No MPI candidates where found matching for the given firstName, lastName, Org Id, Assigning Authority");
                 }
                 if (getPatientSearchDataList().isEmpty()) {
                     this.patientInfo.setText("No MPI candidates where found matching " + firstName + " " + lastName

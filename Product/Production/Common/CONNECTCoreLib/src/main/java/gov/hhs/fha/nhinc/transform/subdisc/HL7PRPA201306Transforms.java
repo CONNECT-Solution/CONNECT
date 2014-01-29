@@ -214,7 +214,7 @@ public class HL7PRPA201306Transforms {
             String sHomeCommunityId = PropertyAccessor.getInstance().getProperty(NhincConstants.GATEWAY_PROPERTY_FILE,
                 NhincConstants.HOME_COMMUNITY_ID_PROPERTY);
             if (sHomeCommunityId != null) {
-                LOG.info("Retrieve local home community id: " + sHomeCommunityId);
+                LOG.info("Retrieving local home community id");
                 // If the property is set, then use this instead of from sending request
                 if (!sHomeCommunityId.isEmpty()) {
                     senderOID = sHomeCommunityId;

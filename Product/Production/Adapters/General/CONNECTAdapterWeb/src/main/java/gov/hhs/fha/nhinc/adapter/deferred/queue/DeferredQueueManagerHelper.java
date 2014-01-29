@@ -270,7 +270,7 @@ public class DeferredQueueManagerHelper {
             if (queueRecords.get(0).getStatus().equals(AsyncMsgRecordDao.QUEUE_STATUS_REQRCVDACK)) {
                 result = forceProcessOnRequest(queueRecords.get(0));
             } else {
-                LOG.warn("Queue record cannot be processed with status of [" + queueRecords.get(0).getStatus() + "]");
+                LOG.warn("Queue record cannot be processed..");
             }
         } else {
             LOG.warn("Queue record not found for message id [" + messageId + "]");
@@ -305,7 +305,7 @@ public class DeferredQueueManagerHelper {
             }
 
         } else {
-            LOG.warn("Service Name " + queueRecord.getServiceName() + " processing not implemented.");
+            LOG.warn("Service processing not implemented, Please check the Service Name.");
         }
 
         LOG.debug("End: DeferredQueueManagerHelper.forceProcessOnRequest method - processing deferred request by record.");

@@ -105,11 +105,9 @@ public class XACMLSerializer {
             if (oJAXBElementConsentXACML.getValue() instanceof PolicyType) {
                 oConsentXACML = (PolicyType) oJAXBElementConsentXACML.getValue();
             }
-        } catch (Exception e) {
-            String sErrorMessage = "Failed to deserialize the XACML consent string: " + sConsentXACML + "  Error: "
-                    + e.getMessage();
-            LOG.error(sErrorMessage, e);
-            throw new AdapterPIPException(sErrorMessage, e);
+        } catch (Exception e) {            
+            LOG.error("Failed to deserialize the XACML consent string...", e);
+            throw new AdapterPIPException("Failed to deserialize the XACML consent string...", e);
         }
 
         return oConsentXACML;

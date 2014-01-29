@@ -165,8 +165,7 @@ public class PropertyFileRefreshHandler {
         try {
             refreshDurationMillisec = Integer.parseInt(cacheRefreshDuration.trim());
         } catch (Exception e1) {
-            LOG.warn("Invalid CacheRefreshValue found in the property file: " + cacheRefreshDuration
-                    + "'.  Treating this property file as 'refresh never'.");
+            LOG.warn("Invalid CacheRefreshValue found in the property file. Treating this property file as 'refresh never'.");
         }
 
         return refreshDurationMillisec;
