@@ -30,12 +30,11 @@ import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import gov.hhs.fha.nhinc.docrepository.adapter.model.EventCode;
+import gov.hhs.fha.nhinc.docrepository.adapter.model.EventCodeParam;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import gov.hhs.fha.nhinc.docrepository.adapter.model.EventCode;
-import gov.hhs.fha.nhinc.docrepository.adapter.model.EventCodeParam;
 
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.SlotType1;
 
@@ -46,76 +45,89 @@ import org.hibernate.Transaction;
 import org.junit.Before;
 import org.junit.Test;
 
+/**
+ * The Class EventCodeDaoTest.
+ * 
+ * @author unknown, msw
+ */
 public class EventCodeDaoTest {
 
-	private final Session session = mock(Session.class);
-	private Transaction transaction;
-	private EventCodeDao eventCodeDao;
-	private SessionFactory sessionFactory;
+    /** The session. */
+    private final Session session = mock(Session.class);
 
-	@Before
-	public void setUp() {
-		transaction = mock(Transaction.class);
-		sessionFactory = mock(SessionFactory.class);
+    /** The transaction. */
+    private Transaction transaction;
 
-		eventCodeDao = new EventCodeDao() {
-			@Override
-			protected Session getSession(SessionFactory sessionFactory) {
-				return session;
-			}
+    /** The event code dao. */
+    private EventCodeDao eventCodeDao;
 
-			@Override
-			protected SessionFactory getSessionFactory() {
-				return sessionFactory;
-			}
-			
-			@Override
-            protected String toSql(Session session, Criteria criteria) {
-                String sql = null;
-			    return sql;
+    /** The session factory. */
+    private SessionFactory sessionFactory;
+
+    /**
+     * Sets the up.
+     */
+    @Before
+    public void setUp() {
+        transaction = mock(Transaction.class);
+        sessionFactory = mock(SessionFactory.class);
+
+        eventCodeDao = new EventCodeDao() {
+            @Override
+            protected Session getSession(SessionFactory sessionFactory) {
+                return session;
             }
-			
-			protected List<Long> getDocumentIds(List<EventCode> eventCodes) {
-			    List<Long> DocumentIds = new ArrayList<Long>();
-			    return DocumentIds;
-			}
-			
-		};
 
-		when(session.beginTransaction()).thenReturn(transaction);
-	}
+            @Override
+            protected SessionFactory getSessionFactory() {
+                return sessionFactory;
+            }
 
-	@Test
-	public void testDelete() {
-		EventCode eventCode = new EventCode();
+            protected List<Long> getDocumentIds(List<EventCode> eventCodes) {
+                List<Long> DocumentIds = new ArrayList<Long>();
+                return DocumentIds;
+            }
 
-		eventCodeDao.delete(eventCode);
+        };
 
-		verify(session).delete(eventCode);
-	}
+        when(session.beginTransaction()).thenReturn(transaction);
+    }
 
-	@Test
-	public void testEventCodeQuery() {
-		List<EventCode> eventCodeList = new ArrayList<EventCode>();
-		EventCode eventCode = new EventCode();
-		final long EVENT_CODE_ID = 12345;
-		eventCode.setEventCodeId(EVENT_CODE_ID);
-		eventCodeList.add(eventCode);
-		EventCodeParam eventCodeParam = new EventCodeParam();
-		eventCodeParam.setEventCode("Event Code");
-		eventCodeParam.setEventCodeScheme("Event Code Scheme");
-		List<SlotType1> slots = null;
-		Criteria criteria = mock(Criteria.class);
+    /**
+     * Test delete.
+     */
+    @Test
+    public void testDelete() {
+        EventCode eventCode = new EventCode();
 
-		when(session.createCriteria(EventCode.class)).thenReturn(criteria);
-		when(criteria.list()).thenReturn(eventCodeList);
+        eventCodeDao.delete(eventCode);
 
-		List<EventCode> resultEventCodes = eventCodeDao
-				.eventCodeQuery(slots);
+        verify(session).delete(eventCode);
+    }
 
-		assertEquals(resultEventCodes.size(), 1);
-		assertEquals(resultEventCodes.get(0).getEventCodeId(),
-				(Long) EVENT_CODE_ID);
+    /**
+     * Test event code query.
+     */
+    @Test
+    public void testEventCodeQuery() {
+        List<EventCode> eventCodeList = new ArrayList<EventCode>();
+        EventCode eventCode = new EventCode();
+        final long EVENT_CODE_ID = 12345;
+        eventCode.setEventCodeId(EVENT_CODE_ID);
+        eventCodeList.add(eventCode);
+        EventCodeParam eventCodeParam = new EventCodeParam();
+        eventCodeParam.setEventCode("Event Code");
+        eventCodeParam.setEventCodeScheme("Event Code Scheme");
+        List<SlotType1> slots = null;
+        Criteria criteria = mock(Criteria.class);
 
-	}
+        when(session.createCriteria(EventCode.class)).thenReturn(criteria);
+        when(criteria.list()).thenReturn(eventCodeList);
+
+        List<EventCode> resultEventCodes = eventCodeDao.eventCodeQuery(slots);
+
+        assertEquals(resultEventCodes.size(), 1);
+        assertEquals(resultEventCodes.get(0).getEventCodeId(), (Long) EVENT_CODE_ID);
+
+    }
 }
