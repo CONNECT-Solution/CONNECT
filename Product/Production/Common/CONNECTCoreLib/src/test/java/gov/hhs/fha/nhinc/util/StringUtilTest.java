@@ -59,20 +59,6 @@ public class StringUtilTest {
     }
 
     /**
-     * Test of readTextFile method, of class StringUtil.
-     */
-    // @Test
-    // public void testReadTextFile() throws Exception {
-    // System.out.println("readTextFile");
-    // String sFileName = "";
-    // String expResult = "";
-    // String result = StringUtil.readTextFile(sFileName);
-    // assertEquals(expResult, result);
-    // // TODO review the generated test code and remove the default call to fail.
-    // fail("The test case is a prototype.");
-    // }
-
-    /**
      * Test of extractStringFromTokens method, of class StringUtil.
      */
     @Test
