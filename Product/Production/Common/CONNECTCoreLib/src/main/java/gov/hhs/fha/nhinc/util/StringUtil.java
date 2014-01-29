@@ -26,7 +26,7 @@
  */
 package gov.hhs.fha.nhinc.util;
 
-import java.io.FileInputStream;
+import java.io.File;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.util.StringTokenizer;
@@ -51,11 +51,12 @@ public class StringUtil {
         InputStreamReader frTextFile = null;
 
         try {
+            frTextFile = StreamUtils.openInputStream(new File(sFileName));
 
-            frTextFile = new InputStreamReader(new FileInputStream(sFileName), StringUtil.UTF8_CHARSET);
             char caBuf[] = new char[1024];
             int iLen = 0;
             StringBuffer sbText = new StringBuffer();
+
             while ((iLen = frTextFile.read(caBuf, 0, 1024)) != -1) {
                 sbText.append(caBuf, 0, iLen);
             }
@@ -65,12 +66,7 @@ public class StringUtil {
             String sErrorMessage = "Failed to read text file: " + sFileName + ". Error: " + e.getMessage();
             throw new UtilException(sErrorMessage, e);
         } finally {
-            if (frTextFile != null) {
-                try {
-                    frTextFile.close();
-                } catch (Exception e) {
-                }
-            }
+            StreamUtils.closeFileSilently(frTextFile);
         }
 
         return sText;
@@ -110,7 +106,6 @@ public class StringUtil {
         } else {
             return "[CDATA[]]";
         }
-
     }
 
     /**
@@ -126,7 +121,6 @@ public class StringUtil {
         } else {
             return sText;
         }
-
     }
 
     /**
