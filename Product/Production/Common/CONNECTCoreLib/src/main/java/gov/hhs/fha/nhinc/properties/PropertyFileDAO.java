@@ -146,15 +146,12 @@ public class PropertyFileDAO {
             if (NullChecker.isNotNullish(propertyValue)) {
                 try {
                     return Long.parseLong(propertyValue.trim());
-                } catch (Exception e) {
-                    String errorMsg = "Failed to convert string value: '" + propertyValue + "' to a long.  Error: "
-                            + e.getMessage();
-                    LOG.error("Unable to read the property..");
-                    throw new PropertyAccessException(errorMsg, e);
+                } catch (Exception e) {                    
+                    LOG.error("Unable to read the property..", e);
+                    throw new PropertyAccessException("Unable to read the property..", e);
                 }
             }
         } 
-
         throw new PropertyAccessException("Could not find the property: " + propertyName + " in the file:" + propertyFileName);
     }
     
@@ -165,7 +162,6 @@ public class PropertyFileDAO {
         if (properties != null) {
             setPropNames = properties.stringPropertyNames();
         }
-
         return setPropNames;
     }
     
