@@ -1,37 +1,34 @@
 /*
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services. 
- * All rights reserved. 
+ * Copyright (c) 2009-2013, United States Government, as represented by the Secretary of Health and Human Services.
+ * All rights reserved.
  *
- * Redistribution and use in source and binary forms, with or without 
- * modification, are permitted provided that the following conditions are met: 
- *     * Redistributions of source code must retain the above 
- *       copyright notice, this list of conditions and the following disclaimer. 
- *     * Redistributions in binary form must reproduce the above copyright 
- *       notice, this list of conditions and the following disclaimer in the documentation 
- *       and/or other materials provided with the distribution. 
- *     * Neither the name of the United States Government nor the 
- *       names of its contributors may be used to endorse or promote products 
- *       derived from this software without specific prior written permission. 
+ * Redistribution and use in source and binary forms, with or without
+ * modification, are permitted provided that the following conditions are met:
+ *     * Redistributions of source code must retain the above
+ *       copyright notice, this list of conditions and the following disclaimer.
+ *     * Redistributions in binary form must reproduce the above copyright
+ *       notice, this list of conditions and the following disclaimer in the documentation
+ *       and/or other materials provided with the distribution.
+ *     * Neither the name of the United States Government nor the
+ *       names of its contributors may be used to endorse or promote products
+ *       derived from this software without specific prior written permission.
  *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
- * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
- * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
- * DISCLAIMED. IN NO EVENT SHALL THE UNITED STATES GOVERNMENT BE LIABLE FOR ANY 
- * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES 
- * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; 
- * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND 
- * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT 
- * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
- * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE. 
+ * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ * ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+ * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+ * DISCLAIMED. IN NO EVENT SHALL THE UNITED STATES GOVERNMENT BE LIABLE FOR ANY
+ * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+ * (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+ * LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+ * ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+ * (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+ * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 package gov.hhs.fha.nhinc.docrepository.adapter.dao;
 
 import gov.hhs.fha.nhinc.docrepository.adapter.model.EventCode;
-import gov.hhs.fha.nhinc.docrepository.adapter.model.EventCodeParam;
 import gov.hhs.fha.nhinc.docrepository.adapter.persistence.HibernateUtil;
-import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 
-import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -40,14 +37,10 @@ import java.util.List;
 import java.util.Map.Entry;
 import java.util.Set;
 
-import javax.swing.text.html.HTMLDocument.Iterator;
-
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.SlotType1;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.ValueListType;
 
-import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
-
 import org.hibernate.Criteria;
 import org.hibernate.Hibernate;
 import org.hibernate.Session;
@@ -60,29 +53,36 @@ import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Projections;
 import org.hibernate.criterion.Restrictions;
 import org.hibernate.criterion.Subqueries;
-import org.hibernate.engine.SessionFactoryImplementor;
-import org.hibernate.impl.CriteriaImpl;
-import org.hibernate.impl.SessionImpl;
-import org.hibernate.loader.OuterJoinLoader;
-import org.hibernate.loader.criteria.CriteriaLoader;
-import org.hibernate.persister.entity.OuterJoinLoadable;
 import org.hibernate.type.Type;
 
-import com.sun.xml.xsom.impl.scd.Iterators.Map;
-
 /**
- * Data access object class for EventCode data
+ * Data access object class for EventCode data.
  * 
- * @author Neil Webb
+ * @author Neil Webb, msw
  */
 public class EventCodeDao {
+
+    /** The Constant LOG. */
     private static final Logger LOG = Logger.getLogger(EventCodeDao.class);
+
+    /** The Constant EBXML_EVENT_CODE_LIST. */
     private static final String EBXML_EVENT_CODE_LIST = "$XDSDocumentEntryEventCodeList";
 
+    /**
+     * Gets the session factory.
+     * 
+     * @return the session factory
+     */
     protected SessionFactory getSessionFactory() {
         return HibernateUtil.getSessionFactory();
     }
 
+    /**
+     * Gets the session.
+     * 
+     * @param sessionFactory the session factory
+     * @return the session
+     */
     protected Session getSession(SessionFactory sessionFactory) {
         Session session = null;
         if (sessionFactory != null) {
@@ -130,13 +130,17 @@ public class EventCodeDao {
         }
     }
 
-
+    /**
+     * Event code query.
+     * 
+     * @param slots the slots
+     * @return the list
+     */
     @SuppressWarnings("unchecked")
     public List<EventCode> eventCodeQuery(List<SlotType1> slots) {
         List<EventCode> eventCodes = null;
         List<String> eventCodesList = new ArrayList<String>();
         List<String> eventCodeSchemeList = new ArrayList<String>();
-        String sql = null;
         Session sess = null;
         try {
             SessionFactory fact = getSessionFactory();
@@ -179,7 +183,8 @@ public class EventCodeDao {
                                                 orCondition.add(andCondition);
                                                 eventCodesList.add(innereventCode);
                                                 eventCodeSchemeList.add(innereventCodeScheme);
-                                                hashMap.put((innereventCode+"^^"+innereventCodeScheme), Integer.toString(eventCodeSlotSize));
+                                                hashMap.put((innereventCode + "^^" + innereventCodeScheme),
+                                                        Integer.toString(eventCodeSlotSize));
                                             }
                                         } else {
                                             String eventCode = getEventCode(classCodes.get(j), "eventCode");
@@ -188,7 +193,8 @@ public class EventCodeDao {
                                                     Restrictions.eq("eventCodeScheme", eventCodeScheme)));
                                             eventCodesList.add(eventCode);
                                             eventCodeSchemeList.add(eventCodeScheme);
-                                            hashMap.put((eventCode+"^^"+eventCodeScheme), Integer.toString(eventCodeSlotSize));
+                                            hashMap.put((eventCode + "^^" + eventCodeScheme),
+                                                    Integer.toString(eventCodeSlotSize));
                                         }
                                     }
                                 }
@@ -203,7 +209,6 @@ public class EventCodeDao {
 
                     criteria.add(Subqueries.propertyIn("document", subCriteria));
                     criteria.addOrder(Order.asc("document"));
-                    sql = toSql(sess, criteria);
                     eventCodes = criteria.list();
                     List<Long> DocumentIds = new ArrayList<Long>();
                     DocumentIds = getDocumentIds(eventCodes);
@@ -240,7 +245,13 @@ public class EventCodeDao {
         }
         return eventCodes;
     }
-    
+
+    /**
+     * Gets the document ids.
+     * 
+     * @param eventCodes the event codes
+     * @return the document ids
+     */
     protected List<Long> getDocumentIds(List<EventCode> eventCodes) {
         List<Long> DocumentIds = new ArrayList<Long>();
         for (int i = 0; i < eventCodes.size(); i++) {
@@ -248,7 +259,13 @@ public class EventCodeDao {
         }
         return DocumentIds;
     }
-    
+
+    /**
+     * Gets the unique document ids.
+     * 
+     * @param DocumentIds the document ids
+     * @return the unique document ids
+     */
     private List<Long> getUniqueDocumentIds(List<Long> DocumentIds) {
         Set<Long> uniqueDocumentRef = new HashSet<Long>(DocumentIds);
         DocumentIds.clear();
@@ -257,9 +274,11 @@ public class EventCodeDao {
     }
 
     /**
-     * @param documentNotPresent
-     * @param eventCodes
-     * @return
+     * Result event codes list.
+     * 
+     * @param documentNotPresent the document not present
+     * @param eventCodes the event codes
+     * @return the list
      */
     private List<EventCode> resultEventCodesList(List<Long> documentNotPresent, List<EventCode> eventCodes) {
 
@@ -276,10 +295,13 @@ public class EventCodeDao {
     }
 
     /**
-     * @param eventCodes
-     * @param eventCodeSlotSize
-     * @param hashMap
-     * @return
+     * Document in all slots.
+     * 
+     * @param eventCodes the event codes
+     * @param eventCodeSlotSize the event code slot size
+     * @param hashMap the hash map
+     * @param documentId the document id
+     * @return true, if successful
      */
     private boolean documentInAllSlots(List<EventCode> eventCodes, int eventCodeSlotSize,
             HashMap<String, String> hashMap, Long documentId) {
@@ -296,6 +318,15 @@ public class EventCodeDao {
         return slotsPresent;
     }
 
+    /**
+     * Find document id.
+     * 
+     * @param hashMap the hash map
+     * @param documentId the document id
+     * @param eventCodes the event codes
+     * @param slotIndex the slot index
+     * @return true, if successful
+     */
     protected boolean findDocumentId(HashMap<String, String> hashMap, Long documentId, List<EventCode> eventCodes,
             int slotIndex) {
         java.util.Iterator<Entry<String, String>> entries = hashMap.entrySet().iterator();
@@ -305,8 +336,9 @@ public class EventCodeDao {
             String key = (String) entry.getKey();
             String value = (String) entry.getValue();
             for (int j = 0; j < eventCodes.size(); j++) {
-                if ((slotIndex == Integer.parseInt(value)) && ((eventCodes.get(j).getEventCode()+"^^"
-                  +eventCodes.get(j).getEventCodeScheme()).equals(key))) {
+                if ((slotIndex == Integer.parseInt(value))
+                        && ((eventCodes.get(j).getEventCode() + "^^" + eventCodes.get(j).getEventCodeScheme())
+                                .equals(key))) {
                     Long extractedDocumentid = eventCodes.get(j).getDocument().getDocumentid();
                     if (extractedDocumentid.equals(documentId)) {
                         doucmentPresent = true;
@@ -318,6 +350,14 @@ public class EventCodeDao {
         return doucmentPresent;
     }
 
+    /**
+     * Event code found.
+     * 
+     * @param eventCodesList the event codes list
+     * @param eventCode the event code
+     * @param eventCodes the event codes
+     * @return true, if successful
+     */
     protected boolean eventCodeFound(List<String> eventCodesList, String eventCode, List<EventCode> eventCodes) {
         boolean contains = false;
         for (int i = 0; i < eventCodesList.size(); i++) {
@@ -329,24 +369,13 @@ public class EventCodeDao {
 
     }
 
-    protected String toSql(Session session, Criteria criteria) {
-        String sql = null;
-        try {
-            CriteriaImpl c = (CriteriaImpl) criteria;
-            SessionImpl s = (SessionImpl) c.getSession();
-            SessionFactoryImplementor factory = (SessionFactoryImplementor) s.getSessionFactory();
-            String[] implementors = factory.getImplementors(c.getEntityOrClassName());
-            CriteriaLoader loader = new CriteriaLoader((OuterJoinLoadable) factory.getEntityPersister(implementors[0]),
-                    factory, c, implementors[0], s.getEnabledFilters());
-            Field f = OuterJoinLoader.class.getDeclaredField("sql");
-            f.setAccessible(true);
-            sql = (String) f.get(loader);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-        return sql;
-    }
-
+    /**
+     * Gets the event code.
+     * 
+     * @param eventCodeParam the event code param
+     * @param paramName the param name
+     * @return the event code
+     */
     private String getEventCode(String eventCodeParam, String paramName) {
         String[] eventCodeList = null;
         String separate = "\\^\\^";
@@ -358,6 +387,12 @@ public class EventCodeDao {
         }
     }
 
+    /**
+     * Parses the param formatted string.
+     * 
+     * @param paramFormattedString the param formatted string
+     * @param resultCollection the result collection
+     */
     public void parseParamFormattedString(String paramFormattedString, List<String> resultCollection) {
         if ((paramFormattedString != null) && (resultCollection != null)) {
             if (paramFormattedString.startsWith("(")) {
