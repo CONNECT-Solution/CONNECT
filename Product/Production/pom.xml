@@ -17,7 +17,6 @@
         <module>Adapters</module>
         <module>Gateway</module>
         <module>Deploy</module>
-        <module>Utilities</module>
     </modules>
     <dependencies>
         <dependency>
