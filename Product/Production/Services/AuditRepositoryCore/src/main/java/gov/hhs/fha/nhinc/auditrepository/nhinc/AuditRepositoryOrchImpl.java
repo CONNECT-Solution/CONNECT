@@ -33,16 +33,15 @@ import gov.hhs.fha.nhinc.common.nhinccommonadapter.FindCommunitiesAndAuditEvents
 import gov.hhs.fha.nhinc.hibernate.AuditRepositoryDAO;
 import gov.hhs.fha.nhinc.hibernate.AuditRepositoryRecord;
 import gov.hhs.fha.nhinc.transform.marshallers.JAXBContextHandler;
+import gov.hhs.fha.nhinc.util.StreamUtils;
 
 import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.sql.Blob;
 import java.sql.SQLException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Locale;
 
@@ -264,7 +263,6 @@ public class AuditRepositoryOrchImpl {
             if (blobMessage != null) {
                 try {
                     auditMessageType = unMarshallBlobToAuditMess(blobMessage);
-                    ActiveParticipant act = (ActiveParticipant) auditMessageType.getActiveParticipant().get(0);
                     response.getFindAuditEventsReturn().add(auditMessageType);
     
                     if (auditMessageType.getAuditSourceIdentification().size() > 0
@@ -301,9 +299,10 @@ public class AuditRepositoryOrchImpl {
     private AuditMessageType unMarshallBlobToAuditMess(Blob auditBlob) {
         LOG.debug("AuditRepositoryOrchImpl.unMarshallBlobToAuditMess -- Begin");
         AuditMessageType auditMessageType = null;
+        InputStream in = null;
         try {
             if (auditBlob != null && ((int) auditBlob.length()) > 0) {
-                InputStream in = auditBlob.getBinaryStream();
+                in = auditBlob.getBinaryStream();
                 JAXBContextHandler oHandler = new JAXBContextHandler();
                 JAXBContext jc = oHandler.getJAXBContext("com.services.nhinc.schema.auditmessage");
                 Unmarshaller unmarshaller = jc.createUnmarshaller();
@@ -313,7 +312,10 @@ public class AuditRepositoryOrchImpl {
         } catch (Exception e) {
             LOG.error("Blob to Audit Message Conversion Error : " + e.getMessage());
             e.printStackTrace();
+        } finally {
+           StreamUtils.closeStreamSilently(in);
         }
+        
         LOG.debug("AuditRepositoryOrchImpl.unMarshallBlobToAuditMess -- End");
         return auditMessageType;
     }
@@ -331,20 +333,6 @@ public class AuditRepositoryOrchImpl {
         Date eventDate = cal.getTime();
         LOG.info("eventDate -> " + eventDate);
         return eventDate;
-    }
-
-    /**
-     * This method converts an XMLGregorianCalendar date to java.util.Date
-     * 
-     * @param xmlCalDate
-     * @return String
-     */
-    private String convertXMLGregorianCalendarToString(XMLGregorianCalendar xmlCalDate) {
-        GregorianCalendar calDate = xmlCalDate.toGregorianCalendar();
-        Date eventDate = calDate.getTime();
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        String strDate = sdf.format(eventDate);
-        return strDate;
     }
 
 }
