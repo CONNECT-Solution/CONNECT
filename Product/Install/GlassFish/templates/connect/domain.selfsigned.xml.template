@@ -300,6 +300,7 @@
         <jvm-options>-DSERVER_KEY_ALIAS=gateway</jvm-options>
         <jvm-options>-DCLIENT_KEY_ALIAS=gateway</jvm-options>
         <jvm-options>-Dcom.sun.grizzly.writeTimeout=30000</jvm-options>
+		<jvm-options>-Dorg.connectopensource.enablejmx=true</jvm-options>
       </java-config>
       <thread-pools>
         <thread-pool name="thread-pool-1" max-thread-pool-size="200"></thread-pool>
