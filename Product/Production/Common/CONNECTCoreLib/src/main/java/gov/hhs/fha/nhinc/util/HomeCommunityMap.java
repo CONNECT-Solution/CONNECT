@@ -86,7 +86,7 @@ public class HomeCommunityMap {
                 sHomeCommunityName = oEntity.getName().get(0).getValue();
             }
         } catch (Exception e) {
-            LOG.warn("Failed to retrieve textual name for home community ID: " + sHomeCommunityId, e);
+            LOG.warn("Failed to retrieve textual name for home community ID ", e);
         }
 
         return sHomeCommunityName;
