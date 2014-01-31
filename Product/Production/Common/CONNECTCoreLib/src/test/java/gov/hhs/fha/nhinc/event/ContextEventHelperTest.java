@@ -36,6 +36,8 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 import gov.hhs.fha.nhinc.async.AsyncMessageIdExtractor;
 import gov.hhs.fha.nhinc.event.ContextEventHelper;
+import gov.hhs.fha.nhinc.logging.transaction.TransactionStore;
+import gov.hhs.fha.nhinc.logging.transaction.factory.TransactionStoreFactory;
 
 import javax.xml.ws.WebServiceContext;
 
@@ -70,12 +72,18 @@ public class ContextEventHelperTest {
 
     @Test
     public void getsTransactionIdFromContext() {
-        AsyncMessageIdExtractor mockExtractor = mock(AsyncMessageIdExtractor.class);
+        final AsyncMessageIdExtractor mockExtractor = mock(AsyncMessageIdExtractor.class);
+        final TransactionStoreFactory mockFactory = mock(TransactionStoreFactory.class);
+        TransactionStore store = mock(TransactionStore.class);
+        
         when(mockExtractor.getAsyncRelatesTo(any(WebServiceContext.class))).thenReturn(
-                ImmutableList.of("transactionId"));
+                ImmutableList.of("relatesto"));
+        when(mockFactory.getTransactionStore()).thenReturn(store);
+        when(store.getTransactionId("relatesto")).thenReturn("transactionId");
 
         ContextEventHelper helper = new ContextEventHelper();
         helper.setAsyncMessageIdExtractor(mockExtractor);
+        helper.setTransactionStoreFacotyr(mockFactory);
 
         String transactionId = helper.getTransactionId();
         assertEquals("transactionId", transactionId);

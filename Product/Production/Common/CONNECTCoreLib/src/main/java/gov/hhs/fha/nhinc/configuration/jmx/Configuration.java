@@ -36,11 +36,11 @@ import org.apache.log4j.Logger;
  * 
  * @author msw
  */
-public class Configuration implements ConfigurationMBean {
+public class Configuration implements ConfigurationMXBean {
 
     /** The Constant LOG. */
     private static final Logger LOG = Logger.getLogger(Configuration.class);
-    
+
     /** The Constant ERROR_ACCESSING_PROPERTY_FILE. */
     private static final String ERROR_ACCESSING_PROPERTY_FILE = "Error accessing property file: ";
     
@@ -51,7 +51,9 @@ public class Configuration implements ConfigurationMBean {
 
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see gov.hhs.fha.nhinc.configuration.IConfiguration#getProperty(java.lang.String, java.lang.String)
      */
     @Override
@@ -65,8 +67,11 @@ public class Configuration implements ConfigurationMBean {
         return value;
     }
 
-    /* (non-Javadoc)
-     * @see gov.hhs.fha.nhinc.configuration.IConfiguration#setProperty(java.lang.String, java.lang.String, java.lang.String)
+    /*
+     * (non-Javadoc)
+     * 
+     * @see gov.hhs.fha.nhinc.configuration.IConfiguration#setProperty(java.lang.String, java.lang.String,
+     * java.lang.String)
      */
     @Override
     public void setProperty(String propertyFileName, String key, String value) {
@@ -86,10 +91,10 @@ public class Configuration implements ConfigurationMBean {
     public void persistConfiguration() {
         throw new RuntimeException("Method not implemented");
     }
-    
+
     /**
      * Generate property access error msg.
-     *
+     * 
      * @param file the name of the file
      * @return the error message string
      */
@@ -100,7 +105,9 @@ public class Configuration implements ConfigurationMBean {
         return sb.toString();
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see gov.hhs.fha.nhinc.configuration.IConfiguration#setPassthruMode()
      */
     @Override
@@ -109,12 +116,55 @@ public class Configuration implements ConfigurationMBean {
         registry.setPassthruMode();
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see gov.hhs.fha.nhinc.configuration.IConfiguration#setStandardMode()
      */
     @Override
     public void setStandardMode() throws InstantiationException, IllegalAccessException, ClassNotFoundException {
         PassthruMXBeanRegistry registry = PassthruMXBeanRegistry.getInstance();
         registry.setStandardMode();
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see gov.hhs.fha.nhinc.configuration.IConfiguration#setStandardMode(java.lang.String, java.lang.String)
+     */
+    @Override
+    public void setPassthruMode(serviceEnum serviceName, directionEnum direction) throws InstantiationException,
+            IllegalAccessException, ClassNotFoundException {
+        PassthruMXBeanRegistry registry = PassthruMXBeanRegistry.getInstance();
+        registry.setPassthruMode(serviceName, direction);
+        
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see gov.hhs.fha.nhinc.configuration.IConfiguration#setPassthruMode(java.lang.String, java.lang.String)
+     */
+    @Override
+    public void setStandardMode(serviceEnum serviceName, directionEnum direction) throws InstantiationException,
+            IllegalAccessException, ClassNotFoundException {
+        PassthruMXBeanRegistry registry = PassthruMXBeanRegistry.getInstance();
+        registry.setStandardMode(serviceName, direction);
+    }
+    
+    @Override
+    public boolean isPassthru(serviceEnum serviceName, directionEnum direction) {
+        boolean passthruMode = false;
+        PassthruMXBeanRegistry registry = PassthruMXBeanRegistry.getInstance();
+        passthruMode = registry.isPassthru(serviceName,direction);
+        return passthruMode;
+    }
+    
+    @Override
+    public boolean isStandard(serviceEnum serviceName, directionEnum direction) {
+        boolean standardMode = false;
+        PassthruMXBeanRegistry registry = PassthruMXBeanRegistry.getInstance();
+        standardMode = registry.isStandard(serviceName,direction);
+        return standardMode;
     }
 }

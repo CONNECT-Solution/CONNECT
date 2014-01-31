@@ -26,6 +26,7 @@
  */
 package gov.hhs.fha.nhinc.docsubmission.configuration.jmx;
 
+import gov.hhs.fha.nhinc.configuration.IConfiguration.serviceEnum;
 import gov.hhs.fha.nhinc.docsubmission._11.entity.deferred.response.EntityDocSubmissionDeferredResponseSecured;
 import gov.hhs.fha.nhinc.docsubmission._11.entity.deferred.response.EntityDocSubmissionDeferredResponseUnsecured;
 import gov.hhs.fha.nhinc.docsubmission._11.nhin.deferred.response.NhinXDRResponse;
@@ -50,6 +51,8 @@ public class DocumentSubmissionDefResponse11WebServices extends AbstractDSDeferr
     /** The Constant ENTITY_SECURED_DS_BEAN_NAME. */
     private static final String ENTITY_SECURED_DS_BEAN_NAME = "entityXDRDeferredResponseSecured";
 
+    private final serviceEnum serviceName = serviceEnum.DocumentSubmissionDeferredResponse;
+    
     /**
      * Instantiates a new document submission def request20 web services.
      * 
@@ -90,6 +93,39 @@ public class DocumentSubmissionDefResponse11WebServices extends AbstractDSDeferr
             isPassthru = true;
         }
         return isPassthru;
+    }
+    
+    /*
+     * (non-Javadoc)
+     * 
+     * @see gov.hhs.fha.nhinc.configuration.jmx.WebServicesMXBean#isInboundStandard()
+     */
+    @Override
+    public boolean isInboundStandard() {
+        boolean isStandard = false;
+        NhinXDRResponse nhinDS = retrieveBean(NhinXDRResponse.class, getNhinBeanName());
+        InboundDocSubmissionDeferredResponse outboundDS = nhinDS.getInboundDocSubmission();
+        if (DEFAULT_INBOUND_STANDARD_IMPL_CLASS_NAME.equals(outboundDS.getClass().getName())) {
+            isStandard = true;
+        }
+        return isStandard;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see gov.hhs.fha.nhinc.configuration.jmx.WebServicesMXBean#isOutboundStandard()
+     */
+    @Override
+    public boolean isOutboundStandard() {
+        boolean isStandard = false;
+        EntityDocSubmissionDeferredResponseUnsecured entityDS = retrieveBean(
+                EntityDocSubmissionDeferredResponseUnsecured.class, getEntityUnsecuredBeanName());
+        OutboundDocSubmissionDeferredResponse outboundDS = entityDS.getOutboundDocSubmission();
+        if (DEFAULT_OUTBOUND_STANDARD_IMPL_CLASS_NAME.equals(outboundDS.getClass().getName())) {
+            isStandard = true;
+        }
+        return isStandard;
     }
 
     /*
@@ -154,5 +190,9 @@ public class DocumentSubmissionDefResponse11WebServices extends AbstractDSDeferr
         
         entityDSSecured.setOutboundDocSubmissionResponse(outboundDS);
         entityDSUnsecured.setOutboundDocSubmissionResponse(outboundDS);
+    }
+    
+    public serviceEnum getServiceName() {
+        return this.serviceName;
     }
 }
