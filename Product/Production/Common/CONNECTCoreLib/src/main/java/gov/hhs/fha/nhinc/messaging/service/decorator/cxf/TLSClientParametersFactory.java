@@ -103,10 +103,10 @@ public class TLSClientParametersFactory {
         return tlsCP;
     }
 
-    private char[] getKeystorePassword() {
+    private char[] getKeystorePassword() throws UnrecoverableKeyException {
         String keystorePassword = System.getProperty("javax.net.ssl.keyStorePassword");
-        if (keystorePassword == null) {
-            keystorePassword = "";
+        if (keystorePassword == null || keystorePassword.isEmpty()) {
+            throw new UnrecoverableKeyException("Password for key is null or empty.");
         }
 
         return keystorePassword.toCharArray();
