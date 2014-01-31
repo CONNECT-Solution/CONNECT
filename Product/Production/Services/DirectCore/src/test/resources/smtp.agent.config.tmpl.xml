@@ -40,10 +40,10 @@
    </Domains>
    <PublicCertStore type="Keystore" file="{jks.keystore.path}directkeystore.jks" filePass="connectisawesome" privKeyPass="connectisawesome"/>
    <PrivateCertStore type="Keystore" file="{jks.keystore.path}directkeystore.jks" filePass="connectisawesome" privKeyPass="connectisawesome"/>
-   <RawMessageSettings saveFolder="RawMsgFolder"/>
-   <OutgoingMessagesSettings saveFolder="OutgoingMsgFolder"/>
-   <IncomingMessagesSettings saveFolder="IncomingMsgFolder"/>
-   <BadMessagesSettings saveFolder="BadMsgFolder"/>  
+   <RawMessageSettings saveFolder="target/RawMsgFolder"/>
+   <OutgoingMessagesSettings saveFolder="target/OutgoingMsgFolder"/>
+   <IncomingMessagesSettings saveFolder="target/IncomingMsgFolder"/>
+   <BadMessagesSettings saveFolder="target/BadMsgFolder"/>  
    <MDNSettings autoResponse="true" productName="NHIN Direct Security Agent">
        <Text><![CDATA[This is a CDATA subject]]></Text>
    </MDNSettings>
