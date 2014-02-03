@@ -1287,7 +1287,7 @@
 			
         </businessServices>
         <identifierBag>
-            <keyedReference tModelKey="uddi:nhin:nhie:homecommunityid" keyName="" keyValue="1.1"/>
+            <keyedReference tModelKey="uddi:nhin:nhie:homecommunityid" keyName="" keyValue="urn:oid:1.1"/>
         </identifierBag>
         <categoryBag>
 			<keyedReference tModelKey="uddi:uddi.org:ubr:categorization:iso3166" keyName="New York" keyValue="US-NY"/>

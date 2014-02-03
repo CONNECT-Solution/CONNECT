@@ -32,18 +32,19 @@ import gov.hhs.fha.nhinc.orchestration.CONNECTOutboundOrchestrator;
 import gov.hhs.fha.nhinc.orchestration.NhinAggregator;
 import gov.hhs.fha.nhinc.orchestration.Orchestratable;
 import gov.hhs.fha.nhinc.orchestration.OutboundOrchestratable;
+import gov.hhs.fha.nhinc.util.HomeCommunityMap;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType.DocumentRequest;
 
 /**
- * 
+ *
  * @author mweaver
  */
 public class OutboundStandardDocRetrieveOrchestrator extends CONNECTOutboundOrchestrator {
 
     /**
      * Processes the doc retrieve message by processing each individual request and aggregating the responses.
-     * 
+     *
      * @param message
      */
     @Override
@@ -55,7 +56,7 @@ public class OutboundStandardDocRetrieveOrchestrator extends CONNECTOutboundOrch
             rdRequest.getDocumentRequest().add(docRequest);
 
             OutboundDocRetrieveOrchestratable newMessage = rdMessage.create(rdMessage.getPolicyTransformer(),
-                    rdMessage.getAuditTransformer(), rdMessage.getNhinDelegate(), rdMessage.getAggregator());
+                rdMessage.getAuditTransformer(), rdMessage.getNhinDelegate(), rdMessage.getAggregator());
             newMessage.setRequest(rdRequest);
             newMessage.setAssertion(message.getAssertion());
             newMessage.setTarget(buildHomeCommunity(docRequest.getHomeCommunityId(), rdMessage.getTarget().getUseSpecVersion()));
@@ -63,7 +64,7 @@ public class OutboundStandardDocRetrieveOrchestrator extends CONNECTOutboundOrch
             // Process and aggregate
             NhinAggregator agg = rdMessage.getAggregator();
             agg.aggregate((OutboundOrchestratable) message,
-                    (OutboundOrchestratable) super.processEnabledMessage(newMessage));
+                (OutboundOrchestratable) super.processEnabledMessage(newMessage));
         }
         return message;
     }
@@ -71,10 +72,10 @@ public class OutboundStandardDocRetrieveOrchestrator extends CONNECTOutboundOrch
     private NhinTargetSystemType buildHomeCommunity(String homeCommunityId, String guidance) {
         NhinTargetSystemType nhinTargetSystem = new NhinTargetSystemType();
         HomeCommunityType homeCommunity = new HomeCommunityType();
-        homeCommunity.setHomeCommunityId(homeCommunityId);
+        //set the prefix for the homecommunity ID if its not present
+        homeCommunity.setHomeCommunityId(HomeCommunityMap.getHomeCommunityIdWithPrefix(homeCommunityId));
         nhinTargetSystem.setHomeCommunity(homeCommunity);
         nhinTargetSystem.setUseSpecVersion(guidance);
         return nhinTargetSystem;
     }
-
 }

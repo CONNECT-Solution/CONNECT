@@ -270,7 +270,7 @@ public class HL7Parser201306 {
         COCTMT090003UV01AssignedEntity assignedEntity = new COCTMT090003UV01AssignedEntity();
         assignedEntity.setClassCode(HL7Constants.ASSIGNED_DEVICE_CLASS_CODE);
         II id = new II();
-        id.setRoot(HomeCommunityMap.getLocalHomeCommunityId());
+        id.setRoot(HomeCommunityMap.formatHomeCommunityId(HomeCommunityMap.getLocalHomeCommunityId()));
         assignedEntity.getId().add(id);
         CE ce = new CE();
         ce.setCode("NotHealthDataLocator");
@@ -346,7 +346,7 @@ public class HL7Parser201306 {
         if (patient.getIdentifiers() != null && patient.getIdentifiers().size() > 0
             && patient.getIdentifiers().get(0).getOrganizationId() != null
             && patient.getIdentifiers().get(0).getOrganizationId().length() > 0) {
-            id.setRoot(patient.getIdentifiers().get(0).getOrganizationId());
+            id.setRoot(HomeCommunityMap.formatHomeCommunityId(patient.getIdentifiers().get(0).getOrganizationId()));
         }
         org.getId().add(id);
 
@@ -368,7 +368,7 @@ public class HL7Parser201306 {
             if (patient.getIdentifiers().get(0).getOrganizationId() != null
                 && patient.getIdentifiers().get(0).getOrganizationId().length() > 0) {
                 LOG.info("Setting Patient Id root in 201306: " + patient.getIdentifiers().get(0).getOrganizationId());
-                id.setRoot(patient.getIdentifiers().get(0).getOrganizationId());
+                id.setRoot(HomeCommunityMap.formatHomeCommunityId(patient.getIdentifiers().get(0).getOrganizationId()));
             }
 
             if (patient.getIdentifiers().get(0).getId() != null
@@ -678,7 +678,7 @@ public class HL7Parser201306 {
             if (!StringUtils.isBlank(add.getCountry())) {
                 AdxpExplicitCountry country = new AdxpExplicitCountry();
                 country.setContent(add.getCountry());
-                
+
                 addrlist.add(factory.createADExplicitCountry(country));
             }
         }
