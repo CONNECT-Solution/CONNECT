@@ -39,6 +39,7 @@ import gov.hhs.fha.nhinc.event.error.MessageProcessingFailedEvent;
 
 import org.json.JSONException;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.skyscreamer.jsonassert.JSONAssert;
 
@@ -51,6 +52,7 @@ public class ErrorEventBuilderTest {
         builder = new ErrorEventBuilder();
     }
 
+    @Ignore
     @Test
     public void eventWithoutThrowable() throws JSONException {
         EventDirector director = new EventDirector();

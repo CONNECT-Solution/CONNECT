@@ -27,6 +27,7 @@
 package gov.hhs.fha.nhinc.patientdiscovery.configuration.jmx;
 
 import gov.hhs.fha.nhinc.configuration.jmx.AbstractWebServicesMXBean;
+import gov.hhs.fha.nhinc.configuration.IConfiguration.serviceEnum;
 import gov.hhs.fha.nhinc.patientdiscovery._10.gateway.ws.EntityPatientDiscoveryDeferredRequestSecured;
 import gov.hhs.fha.nhinc.patientdiscovery._10.gateway.ws.EntityPatientDiscoveryDeferredRequestUnsecured;
 import gov.hhs.fha.nhinc.patientdiscovery._10.gateway.ws.NhinPatientDiscoveryDeferredRequest;
@@ -62,6 +63,7 @@ public class PatientDiscoveryDeferredReq10WebServices extends AbstractWebService
     /** The Constant DEFAULT_OUTBOUND_PASSTHRU_IMPL_CLASS_NAME. */
     public static final String DEFAULT_OUTBOUND_PASSTHRU_IMPL_CLASS_NAME = "gov.hhs.fha.nhinc.patientdiscovery.outbound.deferred.request.PassthroughOutboundPatientDiscoveryDeferredRequest";
 
+    private final serviceEnum serviceName = serviceEnum.PatientDiscoveryDeferredRequest;
     /**
      * @param sc
      */
@@ -210,5 +212,46 @@ public class PatientDiscoveryDeferredReq10WebServices extends AbstractWebService
     protected String getOutboundPassthruClassName() {
         return DEFAULT_OUTBOUND_PASSTHRU_IMPL_CLASS_NAME;
     }
+    
+    @Override
+    public serviceEnum getServiceName() {
+        return this.serviceName;
+    }
+    
+    
+    /*
+     * (non-Javadoc)
+     * 
+     * @see gov.hhs.fha.nhinc.configuration.jmx.WebServicesMXBean#isInboundStandard()
+     */
+    @Override
+    public boolean isOutboundStandard() {
+        boolean isStandard = false;
+        NhinPatientDiscoveryDeferredRequest nhinPD = retrieveBean(NhinPatientDiscoveryDeferredRequest.class,
+                getNhinBeanName());
+        InboundPatientDiscoveryDeferredRequest inboundPatientDiscovery = nhinPD.getInboundPatientDiscovery();
+        if (DEFAULT_OUTBOUND_STANDARD_IMPL_CLASS_NAME.equals(inboundPatientDiscovery.getClass().getName())) {
+            isStandard = true;
+        }
+        return isStandard;
+    }
+    
+    /*
+     * (non-Javadoc)
+     * 
+     * @see gov.hhs.fha.nhinc.configuration.jmx.WebServicesMXBean#isInboundStandard()
+     */
+    @Override
+    public boolean isInboundStandard() {
+        boolean isStandard = false;
+        NhinPatientDiscoveryDeferredRequest nhinPD = retrieveBean(NhinPatientDiscoveryDeferredRequest.class,
+                getNhinBeanName());
+        InboundPatientDiscoveryDeferredRequest inboundPatientDiscovery = nhinPD.getInboundPatientDiscovery();
+        if (DEFAULT_INBOUND_STANDARD_IMPL_CLASS_NAME.equals(inboundPatientDiscovery.getClass().getName())) {
+            isStandard = true;
+        }
+        return isStandard;
+    }
+
 
 }

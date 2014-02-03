@@ -39,8 +39,12 @@ import javax.xml.soap.SOAPPart;
 import javax.xml.ws.handler.soap.SOAPMessageContext;
 
 import org.apache.log4j.MDC;
-import org.jmock.Expectations;
-import org.jmock.Mockery;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.eq;
+import static org.mockito.Mockito.any;
 import org.junit.Test;
 
 /**
@@ -50,35 +54,43 @@ import org.junit.Test;
  */
 public class TransactionHandlerTest {
 
-    private Mockery context = new Mockery();
     private final String MESSAGE_ID = "urn:uuid:AAA-AAA-AAA-AAA";
     private final String TRANSACTION_ID = "urn:uuid:BBB-BBB-BBB-BBB";
     private final String RELATESTO_ID = "urn:uuid:CCC-CCC-CCC-CCC";
     private final String WSA_NS = "http://www.w3.org/2005/08/addressing";
     private final String TRANS_NS = "http://connectopensource.org/transaction/";
+    
+    private TransactionLogger transactionLogger = null;
+    private TransactionStore transactionStore = null;
    
     /**
      * Test of TransactionHandler.handleMessage() with transaction and message elements in the soap message.
      */
     @Test
     public void testHandleMessage_transaction_element_in_message() {
+        
+        transactionLogger = mock(TransactionLogger.class);
+        transactionStore = mock(TransactionStore.class);
 
         final TransactionHandler transHandler = new TransactionHandler() {
-          
+            
             @Override
-            protected void createTransactionRecord(String messageId, String transactionId) {
-                assertEquals(messageId, MESSAGE_ID);
-                assertEquals(transactionId, TRANSACTION_ID);
+            protected TransactionLogger getTransactionLogger() {
+                return transactionLogger;
             }
-
+            
             @Override
-            protected String getTransactionId(String id) {
-                return null;
+            protected TransactionStore getTransactionStore() {
+                return transactionStore;
             }
         };
 
+        when(transactionStore.getTransactionId(MESSAGE_ID)).thenReturn(null);
+
         runHandleMessage(true, true, false, transHandler);
-        assertEquals(MDC.get("transaction-id"), TRANSACTION_ID);
+        
+        verify(transactionLogger).createTransactionRecord(MESSAGE_ID, TRANSACTION_ID);
+        verify(transactionLogger).enableMdcLogging(eq(TRANSACTION_ID), eq(MESSAGE_ID));
     }
 
     /**
@@ -88,22 +100,28 @@ public class TransactionHandlerTest {
     @Test
     public void testHandleMessage_transaction_in_database() {
 
-        final TransactionHandler transHandler = new TransactionHandler() {
+        transactionLogger = mock(TransactionLogger.class);
+        transactionStore = mock(TransactionStore.class);
         
-            @Override
-            protected void createTransactionRecord(String messageId, String transactionId) {
-                assertEquals(messageId, MESSAGE_ID);
-                assertEquals(transactionId, TRANSACTION_ID);
-            }
+        final TransactionHandler transHandler = new TransactionHandler() {
 
             @Override
-            protected String getTransactionId(String id) {
-                return TRANSACTION_ID;
+            protected TransactionLogger getTransactionLogger() {
+                return transactionLogger;
+            }
+            
+            @Override
+            protected TransactionStore getTransactionStore() {
+                return transactionStore;
             }
         };
-
+        
+        when(transactionStore.getTransactionId(MESSAGE_ID)).thenReturn(TRANSACTION_ID);
+        
         runHandleMessage(true, false, false, transHandler);
-        assertEquals(MDC.get("transaction-id"), TRANSACTION_ID);
+        
+        verify(transactionLogger, never()).createTransactionRecord(MESSAGE_ID, TRANSACTION_ID);
+        verify(transactionLogger).enableMdcLogging(eq(TRANSACTION_ID), eq(MESSAGE_ID));
     }
 
     /**
@@ -113,22 +131,28 @@ public class TransactionHandlerTest {
     @Test
     public void testHandleMessage_no_transaction_in_message_or_database() {
 
+        transactionLogger = mock(TransactionLogger.class);
+        transactionStore = mock(TransactionStore.class);
+        
         final TransactionHandler transHandler = new TransactionHandler() {
          
-
             @Override
-            protected void createTransactionRecord(String messageId, String transactionId) {
-                assertEquals(1, 2);
+            protected TransactionLogger getTransactionLogger() {
+                return transactionLogger;
             }
-
+            
             @Override
-            protected String getTransactionId(String id) {
-                return null;
+            protected TransactionStore getTransactionStore() {
+                return transactionStore;
             }
         };
 
+        when(transactionStore.getTransactionId(MESSAGE_ID)).thenReturn(null);
+        
         runHandleMessage(true, false, false, transHandler);
-        assertNull(MDC.get("transaction-id"));
+        
+        verify(transactionLogger, never()).createTransactionRecord(MESSAGE_ID, MESSAGE_ID);
+        verify(transactionLogger).enableMdcLogging(eq((String) null), eq(MESSAGE_ID));
     }
 
     /**
@@ -138,23 +162,28 @@ public class TransactionHandlerTest {
     @Test
     public void testHandleMessage_relatesTo_with_transaction() {
 
+        transactionLogger = mock(TransactionLogger.class);
+        transactionStore = mock(TransactionStore.class);
+        
         final TransactionHandler transHandler = new TransactionHandler() {
           
             @Override
-            protected void createTransactionRecord(String messageId, String transactionId) {
-                assertEquals(messageId, MESSAGE_ID);
-                assertEquals(transactionId, TRANSACTION_ID);
+            protected TransactionLogger getTransactionLogger() {
+                return transactionLogger;
             }
-
+            
             @Override
-            protected String getTransactionId(String id) {
-                assertEquals(id, RELATESTO_ID);
-                return TRANSACTION_ID;
+            protected TransactionStore getTransactionStore() {
+                return transactionStore;
             }
         };
+        
+        when(transactionStore.getTransactionId(RELATESTO_ID)).thenReturn(TRANSACTION_ID);
 
         runHandleMessage(true, false, true, transHandler);
-        assertEquals(MDC.get("transaction-id"), TRANSACTION_ID);
+        
+        verify(transactionLogger).createTransactionRecord(MESSAGE_ID, TRANSACTION_ID);
+        verify(transactionLogger).enableMdcLogging(eq(TRANSACTION_ID), eq(MESSAGE_ID));
     }
 
     /**
@@ -164,30 +193,29 @@ public class TransactionHandlerTest {
     @Test
     public void testHandleMessage_relatesTo_with_no_transaction() {
 
-        final TransactionHandler transHandler = new TransactionHandler() {
-            private int counter = 0;
-
+        transactionLogger = mock(TransactionLogger.class);
+        transactionStore = mock(TransactionStore.class);
         
+        final TransactionHandler transHandler = new TransactionHandler() {
 
             @Override
-            protected void createTransactionRecord(String messageId, String transactionId) {
-                assertEquals(1, 2);
+            protected TransactionLogger getTransactionLogger() {
+                return transactionLogger;
             }
-
+            
             @Override
-            protected String getTransactionId(String id) {
-                if (counter == 0)
-                    assertEquals(id, RELATESTO_ID);
-                else if (counter == 1) {
-                    assertEquals(id, MESSAGE_ID);
-                }
-                counter++;
-                return null;
+            protected TransactionStore getTransactionStore() {
+                return transactionStore;
             }
         };
 
+        when(transactionStore.getTransactionId(MESSAGE_ID)).thenReturn(null);
+        when(transactionStore.getTransactionId(RELATESTO_ID)).thenReturn(null);
+        
         runHandleMessage(true, false, true, transHandler);
-        assertNull(MDC.get("transaction-id"));
+        
+        verify(transactionLogger, never()).createTransactionRecord(any(String.class), any(String.class));
+        verify(transactionLogger).enableMdcLogging(eq((String) null), eq(MESSAGE_ID));
     }
 
     /**
@@ -196,23 +224,26 @@ public class TransactionHandlerTest {
     @Test
     public void testHandleMessage_with_no_messageId() {
 
+        transactionLogger = mock(TransactionLogger.class);
+        transactionStore = mock(TransactionStore.class);
+        
         final TransactionHandler transHandler = new TransactionHandler() {
-      
-
+            
             @Override
-            protected void createTransactionRecord(String messageId, String transactionId) {
-                assertEquals(1, 2);
+            protected TransactionLogger getTransactionLogger() {
+                return transactionLogger;
             }
-
+            
             @Override
-            protected String getTransactionId(String id) {
-                assertEquals(1, 2);
-                return null;
+            protected TransactionStore getTransactionStore() {
+                return transactionStore;
             }
         };
 
         runHandleMessage(false, true, false, transHandler);
-        assertNull(MDC.get("transaction-id"));
+        verify(transactionStore, never()).getTransactionId(any(String.class));
+        verify(transactionLogger, never()).createTransactionRecord(any(String.class), any(String.class));
+        verify(transactionLogger, never()).enableMdcLogging(any(String.class), any(String.class));
     }
 
     /**
@@ -229,7 +260,7 @@ public class TransactionHandlerTest {
 
         MDC.remove("transaction-id");
 
-        final SOAPMessageContext mockSoapContext = context.mock(SOAPMessageContext.class);
+        final SOAPMessageContext mockSoapContext = mock(SOAPMessageContext.class);
 
         try {
             final SOAPMessage soapMessage = MessageFactory.newInstance().createMessage();
@@ -257,15 +288,9 @@ public class TransactionHandlerTest {
                 headerElementTransID.addTextNode(RELATESTO_ID);
             }
 
-            context.checking(new Expectations() {
-                {
-                    oneOf(mockSoapContext).getMessage();
-                    will(returnValue(soapMessage));
-                }
-            });
+            when(mockSoapContext.getMessage()).thenReturn(soapMessage);
 
             transactionHandler.handleMessage(mockSoapContext);
-            context.assertIsSatisfied();
 
         } catch (SOAPException e) {
             // TODO Auto-generated catch block

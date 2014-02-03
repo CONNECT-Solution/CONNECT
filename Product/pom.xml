@@ -4,7 +4,7 @@
     <parent>
         <groupId>org.connectopensource</groupId>
         <artifactId>CONNECTSolution</artifactId>
-        <version>4.2.1-SNAPSHOT</version>
+        <version>4.3.0-SNAPSHOT</version>
     </parent>
     <artifactId>Product</artifactId>
     <packaging>pom</packaging>
@@ -289,82 +289,82 @@
         <dependency>
             <groupId>org.connectopensource</groupId>
             <artifactId>AdapterAuthenticationWebservices</artifactId>
-            <version>4.0.3</version>
+            <version>4.0.4</version>
         </dependency>
         <dependency>
             <groupId>org.connectopensource</groupId>
             <artifactId>AdminDistributionWebservices</artifactId>
-            <version>4.0.3</version>
+            <version>4.0.4</version>
         </dependency>
         <dependency>
             <groupId>org.connectopensource</groupId>
             <artifactId>AuditRepositoryWebservices</artifactId>
-            <version>4.0.3</version>
+            <version>4.0.4</version>
         </dependency>
         <dependency>
             <groupId>org.connectopensource</groupId>
             <artifactId>ComponentWebservices</artifactId>
-            <version>4.0.3</version>
+            <version>4.0.4</version>
         </dependency>
         <dependency>
             <groupId>org.connectopensource</groupId>
             <artifactId>ConnectionManagerWebservices</artifactId>
-            <version>4.0.3</version>
+            <version>4.0.4</version>
         </dependency>
          <dependency>
             <groupId>org.connectopensource</groupId>
             <artifactId>DirectWebservices</artifactId>
-            <version>4.0.3</version>
+            <version>4.0.4</version>
         </dependency>
          <dependency>
             <groupId>org.connectopensource</groupId>
             <artifactId>DocRegistryWebservices</artifactId>
-            <version>4.0.3</version>
+            <version>4.0.4</version>
         </dependency>
         <dependency>
             <groupId>org.connectopensource</groupId>
             <artifactId>DocRepositoryWebservices</artifactId>
-            <version>4.0.3</version>
+            <version>4.0.4</version>
         </dependency>
           <dependency>
             <groupId>org.connectopensource</groupId>
             <artifactId>DocumentQueryWebservices</artifactId>
-            <version>4.0.3</version>
+            <version>4.0.4</version>
         </dependency>
         <dependency>
             <groupId>org.connectopensource</groupId>
             <artifactId>DocumentRetrieveWebservices</artifactId>
-            <version>4.0.3</version>
+            <version>4.0.4</version>
         </dependency>
           <dependency>
             <groupId>org.connectopensource</groupId>
             <artifactId>DocumentSubmissionWebervices</artifactId>
-            <version>4.0.3</version>
+            <version>4.0.4</version>
         </dependency>
           <dependency>
             <groupId>org.connectopensource</groupId>
             <artifactId>HIEMWebservices</artifactId>
-            <version>4.0.3</version>
+            <version>4.0.4</version>
         </dependency>
          <dependency>
             <groupId>org.connectopensource</groupId>
             <artifactId>PatientCorrelationWebservices</artifactId>
-            <version>4.0.3</version>
+            <version>4.0.4</version>
         </dependency>
         <dependency>
             <groupId>org.connectopensource</groupId>
             <artifactId>PatientDiscoveryWebservices</artifactId>
-            <version>4.0.3</version>
+            <version>4.0.4</version>
         </dependency>
         <dependency>
             <groupId>org.connectopensource</groupId>
             <artifactId>PolicyEngineWebservices</artifactId>
-            <version>4.0.3</version>
+            <version>4.0.4</version>
         </dependency>
         <dependency>
             <groupId>org.connectopensource</groupId>
             <artifactId>RedactionEngineWebservices</artifactId>
-            <version>4.0.3</version>
+            <version>4.0.4</version>
         </dependency>
         </dependencies>
     </dependencyManagement>
@@ -389,7 +389,7 @@
                         <dependency>
                             <groupId>org.connectopensource</groupId>
                             <artifactId>build-tools</artifactId>
-                            <version>4.2.1-SNAPSHOT</version>
+                            <version>4.3.0-SNAPSHOT</version>
                         </dependency>
                     </dependencies>
                 </plugin>
@@ -428,7 +428,7 @@
                         <dependency>
                             <groupId>org.connectopensource</groupId>
                             <artifactId>build-tools</artifactId>
-                            <version>4.2.1-SNAPSHOT</version>
+                            <version>4.3.0-SNAPSHOT</version>
                         </dependency>
                     </dependencies>
                 </plugin>

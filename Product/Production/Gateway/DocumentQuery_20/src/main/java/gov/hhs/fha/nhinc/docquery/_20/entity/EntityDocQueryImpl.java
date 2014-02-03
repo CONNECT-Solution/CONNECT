@@ -57,7 +57,7 @@ public class EntityDocQueryImpl extends BaseService {
     }
 
     /**
-     * Sends the request to the Nwhin. This method is invoked by the secured outbound interface and the assertion object
+     * Sends  the request  to the Nwhin. This method is invoked by the secured  outbound interface and the assertion object
      * is read from the webservice context.
      * 
      * @param request
