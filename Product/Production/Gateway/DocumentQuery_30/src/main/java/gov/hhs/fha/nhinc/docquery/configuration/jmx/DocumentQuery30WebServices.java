@@ -26,6 +26,7 @@
  */
 package gov.hhs.fha.nhinc.docquery.configuration.jmx;
 
+import gov.hhs.fha.nhinc.configuration.IConfiguration.serviceEnum;
 import gov.hhs.fha.nhinc.docquery._30.entity.EntityDocQuerySecured;
 import gov.hhs.fha.nhinc.docquery._30.entity.EntityDocQueryUnsecured;
 import gov.hhs.fha.nhinc.docquery._30.nhin.DocQuery;
@@ -41,6 +42,7 @@ import javax.servlet.ServletContext;
  */
 public class DocumentQuery30WebServices extends AbstractDQWebServicesMXBean {
 
+    private final serviceEnum serviceName = serviceEnum.QueryForDocuments;
     /**
      * Instantiates a new document query30 web services.
      * 
@@ -172,6 +174,44 @@ public class DocumentQuery30WebServices extends AbstractDQWebServicesMXBean {
     @Override
     protected String getOutboundPassthruClassName() {
         return DEFAULT_OUTBOUND_PASSTHRU_IMPL_CLASS_NAME;
+    }
+    
+    @Override
+    public serviceEnum getServiceName() {
+        return this.serviceName;
+    }
+    
+    /*
+     * (non-Javadoc)
+     * 
+     * @see gov.hhs.fha.nhinc.configuration.jmx.WebServicesMXBean#isOutboundStandard()
+     */
+    @Override
+    public boolean isOutboundStandard() {
+        boolean isStandard = false;
+        EntityDocQueryUnsecured entityDocQuery = retrieveBean(EntityDocQueryUnsecured.class,
+                getEntityUnsecuredBeanName());
+        OutboundDocQuery outboundDocQuery = entityDocQuery.getOutboundDocQuery();
+        if (DEFAULT_OUTBOUND_PASSTHRU_IMPL_CLASS_NAME.equals(outboundDocQuery.getClass().getName())) {
+            isStandard = true;
+        }
+        return isStandard;
+    }
+    
+    /*
+     * (non-Javadoc)
+     * 
+     * @see gov.hhs.fha.nhinc.configuration.jmx.WebServicesMXBean#isInboundPassthru()
+     */
+    @Override
+    public boolean isInboundStandard() {
+        boolean isStandard = false;
+        DocQuery docQuery = retrieveBean(DocQuery.class, getNhinBeanName());
+        InboundDocQuery inboundDocQuery = docQuery.getInboundDocQuery();
+        if (DEFAULT_INBOUND_STANDARD_IMPL_CLASS_NAME.equals(inboundDocQuery.getClass().getName())) {
+            isStandard = true;
+        }
+        return isStandard;
     }
 
 }

@@ -26,6 +26,7 @@
  */
 package gov.hhs.fha.nhinc.docretrieve.configuration.jmx;
 
+import gov.hhs.fha.nhinc.configuration.IConfiguration.serviceEnum;
 import gov.hhs.fha.nhinc.docretrieve._30.entity.EntityDocRetrieve;
 import gov.hhs.fha.nhinc.docretrieve._30.entity.EntityDocRetrieveSecured;
 import gov.hhs.fha.nhinc.docretrieve.inbound.DocRetrieve;
@@ -44,6 +45,7 @@ public class DocumentRetrieve30WebServices extends AbstractDRWebServicesMXBean {
     /** The Constant DEFAULT_OUTBOUND_STANDARD_IMPL_CLASS_NAME. */
     public static final String DEFAULT_OUTBOUND_PASSTHRU_IMPL_CLASS_NAME = "gov.hhs.fha.nhinc.docretrieve.outbound.PassthroughOutboundDocRetrieve";
 
+    private serviceEnum serviceName = serviceEnum.RetrieveDocuments;
     /**
      * Instantiates a new document retrieve30 web services.
      *
@@ -115,4 +117,41 @@ public class DocumentRetrieve30WebServices extends AbstractDRWebServicesMXBean {
         entityDocRetrieveSecured.setOutboundDocRetrieve(outboundDocRetrieve);
     }
 
+    /**
+     * @return the serviceName
+     */
+    @Override
+    public serviceEnum getServiceName() {
+        return serviceName;
+    }
+    
+    /* (non-Javadoc)
+     * @see gov.hhs.fha.nhinc.configuration.jmx.WebServicesMXBean#isInboundStandard()
+     */
+    @Override
+    public boolean isInboundStandard() {
+        boolean isStandard = false;
+        DocRetrieve docRetrieve = retrieveBean(DocRetrieve.class, getNhinBeanName());
+        InboundDocRetrieve inboundDocRetrieve = docRetrieve.getInboundDocRetrieve();
+        if (DEFAULT_INBOUND_STANDARD_IMPL_CLASS_NAME.equals(inboundDocRetrieve.getClass().getName())) {
+            isStandard = true;
+        }
+        return isStandard;
+    }
+
+    /* (non-Javadoc)
+     * @see gov.hhs.fha.nhinc.configuration.jmx.WebServicesMXBean#isOutboundStandard()
+     */
+    @Override
+    public boolean isOutboundStandard() {
+        boolean isStandard = false;
+        EntityDocRetrieve entityDocRetrieve = retrieveBean(EntityDocRetrieve.class, getEntityUnsecuredBeanName());
+        OutboundDocRetrieve outboundDocRetrieve = entityDocRetrieve.getOutboundDocRetrieve();
+        if (DEFAULT_OUTBOUND_STANDARD_IMPL_CLASS_NAME.equals(outboundDocRetrieve.getClass().getName())) {
+            isStandard = true;
+        }
+        return isStandard;
+    }
+
+    
 }

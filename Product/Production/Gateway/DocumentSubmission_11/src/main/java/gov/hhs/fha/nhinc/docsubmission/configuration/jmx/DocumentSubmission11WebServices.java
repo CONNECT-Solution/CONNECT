@@ -26,6 +26,7 @@
  */
 package gov.hhs.fha.nhinc.docsubmission.configuration.jmx;
 
+import gov.hhs.fha.nhinc.configuration.IConfiguration.serviceEnum;
 import gov.hhs.fha.nhinc.docsubmission._11.entity.EntityDocSubmissionSecured;
 import gov.hhs.fha.nhinc.docsubmission._11.entity.EntityDocSubmissionUnsecured;
 import gov.hhs.fha.nhinc.docsubmission._11.nhin.NhinXDR;
@@ -50,6 +51,7 @@ public class DocumentSubmission11WebServices extends AbstractDSWebServicesMXBean
     /** The Constant ENTITY_SECURED_DS_BEAN_NAME. */
     private static final String ENTITY_SECURED_DS_BEAN_NAME = "entityXDRSecured";
     
+    private final serviceEnum serviceName = serviceEnum.DocumentSubmission;
     /**
      * Instantiates a new document submission20 web services.
      * 
@@ -151,5 +153,42 @@ public class DocumentSubmission11WebServices extends AbstractDSWebServicesMXBean
 
         entityDSSecured.setOutboundDocSubmission(outboundDS);
         entityDSUnsecured.setOutboundDocSubmission(outboundDS);
+    }
+    
+    @Override
+    public serviceEnum getServiceName() {
+        return this.serviceName;
+    }
+    
+    /*
+     * (non-Javadoc)
+     * 
+     * @see gov.hhs.fha.nhinc.configuration.jmx.WebServicesMXBean#isInboundStandard()
+     */
+    @Override
+    public boolean isInboundStandard() {
+        boolean isStandard = false;
+        NhinXDR nhinDS = retrieveBean(NhinXDR.class, getNhinBeanName());
+        InboundDocSubmission inboundDS = nhinDS.getInboundDocSubmission();
+        if (DEFAULT_INBOUND_STANDARD_IMPL_CLASS_NAME.equals(inboundDS.getClass().getName())) {
+            isStandard = true;
+        }
+        return isStandard;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see gov.hhs.fha.nhinc.configuration.jmx.WebServicesMXBean#isOutboundStandard()
+     */
+    @Override
+    public boolean isOutboundStandard() {
+        boolean isStandard = false;
+        EntityDocSubmissionUnsecured entityDS = retrieveBean(EntityDocSubmissionUnsecured.class, getEntityUnsecuredBeanName());
+        OutboundDocSubmission outboundDS = entityDS.getOutboundDocSubmission();
+        if (DEFAULT_OUTBOUND_STANDARD_IMPL_CLASS_NAME.equals(outboundDS.getClass().getName())) {
+            isStandard = true;
+        }
+        return isStandard;
     }
 }

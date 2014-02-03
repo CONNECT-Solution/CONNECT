@@ -119,8 +119,8 @@ public class HL7DbParser201306 {
             id.setRoot(PropertyAccessor.getInstance().getProperty(PROPERTY_FILE, PROPERTY_NAME));
         } catch (PropertyAccessException e) {
             LOG.error(
-                    "PropertyAccessException - Default Assigning Authority property not defined in adapter.properties",
-                    e);
+                "PropertyAccessException - Default Assigning Authority property not defined in adapter.properties",
+                e);
             // CONNECT environment corrupt; return error response
             // return BuildMessageForError(<ERROR_CODE>, query);
         }
@@ -133,12 +133,12 @@ public class HL7DbParser201306 {
             GregorianCalendar today = new GregorianCalendar(TimeZone.getTimeZone("GMT"));
 
             timestamp =
-                    String.valueOf(today.get(GregorianCalendar.YEAR))
-                            + String.valueOf(today.get(GregorianCalendar.MONTH) + 1)
-                            + String.valueOf(today.get(GregorianCalendar.DAY_OF_MONTH))
-                            + String.valueOf(today.get(GregorianCalendar.HOUR_OF_DAY))
-                            + String.valueOf(today.get(GregorianCalendar.MINUTE))
-                            + String.valueOf(today.get(GregorianCalendar.SECOND));
+                String.valueOf(today.get(GregorianCalendar.YEAR))
+                + String.valueOf(today.get(GregorianCalendar.MONTH) + 1)
+                + String.valueOf(today.get(GregorianCalendar.DAY_OF_MONTH))
+                + String.valueOf(today.get(GregorianCalendar.HOUR_OF_DAY))
+                + String.valueOf(today.get(GregorianCalendar.MINUTE))
+                + String.valueOf(today.get(GregorianCalendar.SECOND));
         } catch (Exception e) {
             LOG.error("Exception when creating XMLGregorian Date");
             LOG.error(" message: " + e.getMessage());
@@ -180,9 +180,9 @@ public class HL7DbParser201306 {
     }
 
     private static PRPAIN201306UV02MFMIMT700711UV01ControlActProcess createControlActProcess(List<Patient> patients,
-            PRPAIN201305UV02 query) {
+        PRPAIN201305UV02 query) {
         PRPAIN201306UV02MFMIMT700711UV01ControlActProcess controlActProcess =
-                new PRPAIN201306UV02MFMIMT700711UV01ControlActProcess();
+            new PRPAIN201306UV02MFMIMT700711UV01ControlActProcess();
 
         controlActProcess.setMoodCode(XActMoodIntentEvent.EVN);
         controlActProcess.setClassCode(ActClassControlAct.CACT);
@@ -202,7 +202,7 @@ public class HL7DbParser201306 {
 
         // Add in query parameters
         if (query.getControlActProcess() != null && query.getControlActProcess().getQueryByParameter() != null
-                && query.getControlActProcess().getQueryByParameter().getValue() != null) {
+            && query.getControlActProcess().getQueryByParameter().getValue() != null) {
             controlActProcess.setQueryByParameter(query.getControlActProcess().getQueryByParameter());
         }
 
@@ -218,8 +218,8 @@ public class HL7DbParser201306 {
         MFMIMT700711UV01QueryAck result = new MFMIMT700711UV01QueryAck();
 
         if (query.getControlActProcess() != null && query.getControlActProcess().getQueryByParameter() != null
-                && query.getControlActProcess().getQueryByParameter().getValue() != null
-                && query.getControlActProcess().getQueryByParameter().getValue().getQueryId() != null) {
+            && query.getControlActProcess().getQueryByParameter().getValue() != null
+            && query.getControlActProcess().getQueryByParameter().getValue().getQueryId() != null) {
             result.setQueryId(query.getControlActProcess().getQueryByParameter().getValue().getQueryId());
         }
 
@@ -242,7 +242,7 @@ public class HL7DbParser201306 {
 
     private static PRPAIN201306UV02MFMIMT700711UV01RegistrationEvent createRegEvent(Patient patient) {
         PRPAIN201306UV02MFMIMT700711UV01RegistrationEvent regEvent =
-                new PRPAIN201306UV02MFMIMT700711UV01RegistrationEvent();
+            new PRPAIN201306UV02MFMIMT700711UV01RegistrationEvent();
         regEvent.getMoodCode().add("EVN");
         regEvent.getClassCode().add("REG");
         II id = new II();
@@ -347,9 +347,9 @@ public class HL7DbParser201306 {
         II id = new II();
 
         if (patient.getIdentifiers() != null && patient.getIdentifiers().size() > 0
-                && patient.getIdentifiers().get(0).getOrganizationId() != null
-                && patient.getIdentifiers().get(0).getOrganizationId().length() > 0) {
-            id.setRoot(patient.getIdentifiers().get(0).getOrganizationId());
+            && patient.getIdentifiers().get(0).getOrganizationId() != null
+            && patient.getIdentifiers().get(0).getOrganizationId().length() > 0) {
+            id.setRoot(HomeCommunityMap.formatHomeCommunityId(patient.getIdentifiers().get(0).getOrganizationId()));
         }
         org.getId().add(id);
 
@@ -357,7 +357,7 @@ public class HL7DbParser201306 {
 
         javax.xml.namespace.QName xmlqname = new javax.xml.namespace.QName("urn:hl7-org:v3", "providerOrganization");
         JAXBElement<COCTMT150003UV03Organization> result =
-                new JAXBElement<COCTMT150003UV03Organization>(xmlqname, COCTMT150003UV03Organization.class, org);
+            new JAXBElement<COCTMT150003UV03Organization>(xmlqname, COCTMT150003UV03Organization.class, org);
 
         return result;
     }
@@ -366,16 +366,16 @@ public class HL7DbParser201306 {
         II id = new II();
 
         if (patient.getIdentifiers() != null && patient.getIdentifiers().size() > 0
-                && patient.getIdentifiers().get(0) != null) {
+            && patient.getIdentifiers().get(0) != null) {
 
             if (patient.getIdentifiers().get(0).getOrganizationId() != null
-                    && patient.getIdentifiers().get(0).getOrganizationId().length() > 0) {
+                && patient.getIdentifiers().get(0).getOrganizationId().length() > 0) {
                 LOG.info("Setting Patient Id root in 201306: " + patient.getIdentifiers().get(0).getOrganizationId());
-                id.setRoot(patient.getIdentifiers().get(0).getOrganizationId());
+                id.setRoot(HomeCommunityMap.formatHomeCommunityId(patient.getIdentifiers().get(0).getOrganizationId()));
             }
 
             if (patient.getIdentifiers().get(0).getId() != null
-                    && patient.getIdentifiers().get(0).getId().length() > 0) {
+                && patient.getIdentifiers().get(0).getId().length() > 0) {
                 LOG.info("Setting Patient Id extension in 201306: " + patient.getIdentifiers().get(0).getId());
                 id.setExtension(patient.getIdentifiers().get(0).getId());
             }
@@ -435,7 +435,7 @@ public class HL7DbParser201306 {
 
         javax.xml.namespace.QName xmlqname = new javax.xml.namespace.QName("urn:hl7-org:v3", "patientPerson");
         JAXBElement<PRPAMT201310UV02Person> result =
-                new JAXBElement<PRPAMT201310UV02Person>(xmlqname, PRPAMT201310UV02Person.class, person);
+            new JAXBElement<PRPAMT201310UV02Person>(xmlqname, PRPAMT201310UV02Person.class, person);
 
         return result;
     }
@@ -527,25 +527,25 @@ public class HL7DbParser201306 {
         receiver.setTypeCode(CommunicationFunctionType.RCV);
 
         if (querySender.getDevice() != null && NullChecker.isNotNullish(querySender.getDevice().getId())
-                && querySender.getDevice().getId().get(0) != null
-                && NullChecker.isNotNullish(querySender.getDevice().getId().get(0).getRoot())) {
+            && querySender.getDevice().getId().get(0) != null
+            && NullChecker.isNotNullish(querySender.getDevice().getId().get(0).getRoot())) {
             app = querySender.getDevice().getId().get(0).getRoot();
         }
 
         if (querySender.getDevice() != null
-                && querySender.getDevice().getAsAgent() != null
-                && querySender.getDevice().getAsAgent().getValue() != null
-                && querySender.getDevice().getAsAgent().getValue().getRepresentedOrganization() != null
-                && querySender.getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue() != null
-                && NullChecker.isNotNullish(querySender.getDevice().getAsAgent().getValue()
-                        .getRepresentedOrganization().getValue().getId())
-                && querySender.getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId().get(
-                        0) != null
-                && NullChecker.isNotNullish(querySender.getDevice().getAsAgent().getValue()
-                        .getRepresentedOrganization().getValue().getId().get(0).getRoot())) {
+            && querySender.getDevice().getAsAgent() != null
+            && querySender.getDevice().getAsAgent().getValue() != null
+            && querySender.getDevice().getAsAgent().getValue().getRepresentedOrganization() != null
+            && querySender.getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue() != null
+            && NullChecker.isNotNullish(querySender.getDevice().getAsAgent().getValue()
+            .getRepresentedOrganization().getValue().getId())
+            && querySender.getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId().get(
+            0) != null
+            && NullChecker.isNotNullish(querySender.getDevice().getAsAgent().getValue()
+            .getRepresentedOrganization().getValue().getId().get(0).getRoot())) {
             oid =
-                    querySender.getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId()
-                            .get(0).getRoot();
+                querySender.getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId()
+                .get(0).getRoot();
         }
 
         MCCIMT000300UV01Device receiverDevice = new MCCIMT000300UV01Device();
@@ -562,15 +562,15 @@ public class HL7DbParser201306 {
         org.getId().add(id);
 
         javax.xml.namespace.QName xmlqnameorg =
-                new javax.xml.namespace.QName("urn:hl7-org:v3", "representedOrganization");
+            new javax.xml.namespace.QName("urn:hl7-org:v3", "representedOrganization");
         JAXBElement<MCCIMT000300UV01Organization> orgElem =
-                new JAXBElement<MCCIMT000300UV01Organization>(xmlqnameorg, MCCIMT000300UV01Organization.class, org);
+            new JAXBElement<MCCIMT000300UV01Organization>(xmlqnameorg, MCCIMT000300UV01Organization.class, org);
         agent.setRepresentedOrganization(orgElem);
         agent.getClassCode().add(HL7Constants.AGENT_CLASS_CODE);
 
         javax.xml.namespace.QName xmlqnameagent = new javax.xml.namespace.QName("urn:hl7-org:v3", "asAgent");
         JAXBElement<MCCIMT000300UV01Agent> agentElem =
-                new JAXBElement<MCCIMT000300UV01Agent>(xmlqnameagent, MCCIMT000300UV01Agent.class, agent);
+            new JAXBElement<MCCIMT000300UV01Agent>(xmlqnameagent, MCCIMT000300UV01Agent.class, agent);
 
         receiverDevice.setAsAgent(agentElem);
 
@@ -587,25 +587,25 @@ public class HL7DbParser201306 {
         sender.setTypeCode(CommunicationFunctionType.SND);
 
         if (queryReceiver.getDevice() != null && NullChecker.isNotNullish(queryReceiver.getDevice().getId())
-                && queryReceiver.getDevice().getId().get(0) != null
-                && NullChecker.isNotNullish(queryReceiver.getDevice().getId().get(0).getRoot())) {
+            && queryReceiver.getDevice().getId().get(0) != null
+            && NullChecker.isNotNullish(queryReceiver.getDevice().getId().get(0).getRoot())) {
             app = queryReceiver.getDevice().getId().get(0).getRoot();
         }
 
         if (queryReceiver.getDevice() != null
-                && queryReceiver.getDevice().getAsAgent() != null
-                && queryReceiver.getDevice().getAsAgent().getValue() != null
-                && queryReceiver.getDevice().getAsAgent().getValue().getRepresentedOrganization() != null
-                && queryReceiver.getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue() != null
-                && NullChecker.isNotNullish(queryReceiver.getDevice().getAsAgent().getValue()
-                        .getRepresentedOrganization().getValue().getId())
-                && queryReceiver.getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId()
-                        .get(0) != null
-                && NullChecker.isNotNullish(queryReceiver.getDevice().getAsAgent().getValue()
-                        .getRepresentedOrganization().getValue().getId().get(0).getRoot())) {
+            && queryReceiver.getDevice().getAsAgent() != null
+            && queryReceiver.getDevice().getAsAgent().getValue() != null
+            && queryReceiver.getDevice().getAsAgent().getValue().getRepresentedOrganization() != null
+            && queryReceiver.getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue() != null
+            && NullChecker.isNotNullish(queryReceiver.getDevice().getAsAgent().getValue()
+            .getRepresentedOrganization().getValue().getId())
+            && queryReceiver.getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId()
+            .get(0) != null
+            && NullChecker.isNotNullish(queryReceiver.getDevice().getAsAgent().getValue()
+            .getRepresentedOrganization().getValue().getId().get(0).getRoot())) {
             oid =
-                    queryReceiver.getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId()
-                            .get(0).getRoot();
+                queryReceiver.getDevice().getAsAgent().getValue().getRepresentedOrganization().getValue().getId()
+                .get(0).getRoot();
         }
 
         MCCIMT000300UV01Device senderDevice = new MCCIMT000300UV01Device();
@@ -622,15 +622,15 @@ public class HL7DbParser201306 {
         org.getId().add(id);
 
         javax.xml.namespace.QName xmlqnameorg =
-                new javax.xml.namespace.QName("urn:hl7-org:v3", "representedOrganization");
+            new javax.xml.namespace.QName("urn:hl7-org:v3", "representedOrganization");
         JAXBElement<MCCIMT000300UV01Organization> orgElem =
-                new JAXBElement<MCCIMT000300UV01Organization>(xmlqnameorg, MCCIMT000300UV01Organization.class, org);
+            new JAXBElement<MCCIMT000300UV01Organization>(xmlqnameorg, MCCIMT000300UV01Organization.class, org);
         agent.setRepresentedOrganization(orgElem);
         agent.getClassCode().add(HL7Constants.AGENT_CLASS_CODE);
 
         javax.xml.namespace.QName xmlqnameagent = new javax.xml.namespace.QName("urn:hl7-org:v3", "asAgent");
         JAXBElement<MCCIMT000300UV01Agent> agentElem =
-                new JAXBElement<MCCIMT000300UV01Agent>(xmlqnameagent, MCCIMT000300UV01Agent.class, agent);
+            new JAXBElement<MCCIMT000300UV01Agent>(xmlqnameagent, MCCIMT000300UV01Agent.class, agent);
 
         senderDevice.setAsAgent(agentElem);
 

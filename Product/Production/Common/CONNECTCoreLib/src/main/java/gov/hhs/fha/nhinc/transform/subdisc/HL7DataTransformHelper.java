@@ -27,6 +27,7 @@
 package gov.hhs.fha.nhinc.transform.subdisc;
 
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
+import gov.hhs.fha.nhinc.util.HomeCommunityMap;
 import java.io.Serializable;
 import java.util.GregorianCalendar;
 import java.util.Iterator;
@@ -56,7 +57,7 @@ public class HL7DataTransformHelper {
         II ii = new II();
         if (NullChecker.isNotNullish(root)) {
             LOG.debug("Setting root attribute of II to " + root);
-            ii.setRoot(root);
+            ii.setRoot(HomeCommunityMap.formatHomeCommunityId(root));
         }
         if (NullChecker.isNotNullish(extension)) {
             LOG.debug("Setting extension attribute of II to " + extension);

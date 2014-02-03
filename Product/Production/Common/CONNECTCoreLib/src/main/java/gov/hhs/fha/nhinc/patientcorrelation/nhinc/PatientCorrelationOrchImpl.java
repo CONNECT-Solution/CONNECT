@@ -37,6 +37,7 @@ import gov.hhs.fha.nhinc.patientcorrelation.nhinc.model.QualifiedPatientIdentifi
 import gov.hhs.fha.nhinc.patientcorrelation.nhinc.parsers.PRPAIN201301UV.PRPAIN201301UVParser;
 import gov.hhs.fha.nhinc.patientcorrelation.nhinc.parsers.PRPAIN201309UV.PRPAIN201309UVParser;
 import gov.hhs.fha.nhinc.patientcorrelation.nhinc.parsers.PRPAIN201309UV.PixRetrieveResponseBuilder;
+import gov.hhs.fha.nhinc.util.HomeCommunityMap;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -196,7 +197,7 @@ public class PatientCorrelationOrchImpl implements PatientCorrelationOrch {
 
     private static II iiFactory(QualifiedPatientIdentifier qualifiedPatientIdentifier) {
         II ii = new II();
-        ii.setRoot(qualifiedPatientIdentifier.getAssigningAuthorityId());
+        ii.setRoot(HomeCommunityMap.formatHomeCommunityId(qualifiedPatientIdentifier.getAssigningAuthorityId()));
         ii.setExtension(qualifiedPatientIdentifier.getPatientId());
         return ii;
     }

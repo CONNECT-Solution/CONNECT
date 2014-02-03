@@ -33,7 +33,7 @@ import javax.servlet.ServletContext;
 
 import gov.hhs.fha.nhinc.configuration.jmx.AbstractPassthruRegistryEnabledServlet;
 import gov.hhs.fha.nhinc.configuration.jmx.WebServicesMXBean;
-import gov.hhs.fha.nhinc.docretrieve.configuraton.jmx.DocumentRetrieve20WebServices;
+import gov.hhs.fha.nhinc.docretrieve.configuration.jmx.DocumentRetrieve20WebServices;
 
 /**
  * The Class InitServlet.

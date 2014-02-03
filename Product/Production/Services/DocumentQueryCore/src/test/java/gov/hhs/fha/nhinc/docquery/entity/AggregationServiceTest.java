@@ -27,6 +27,13 @@
 package gov.hhs.fha.nhinc.docquery.entity;
 
 import static org.junit.Assert.assertEquals;
+import static org.mockito.Mockito.mock;
+
+import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
+import gov.hhs.fha.nhinc.docquery.outbound.StandardOutboundDocQueryHelper;
+import gov.hhs.fha.nhinc.logging.transaction.TransactionLogger;
+import gov.hhs.fha.nhinc.patientcorrelation.nhinc.parsers.PRPAIN201309UV.PixRetrieveBuilder;
+import gov.hhs.fha.nhinc.patientcorrelation.nhinc.proxy.PatientCorrelationProxyObjectFactory;
 
 import java.util.Set;
 
@@ -55,7 +62,11 @@ public class AggregationServiceTest {
         idArray[0] = id1;
         idArray[1] = id2;
         
-        AggregationService service = new AggregationService();
+        TransactionLogger transactionLogger = mock(TransactionLogger.class);
+        
+        AggregationService service = new AggregationService(ConnectionManagerCache.getInstance(),
+                new PatientCorrelationProxyObjectFactory(), new PixRetrieveBuilder(), new StandardOutboundDocQueryHelper(),
+                transactionLogger);
         Set<II> idSet = service.removeDuplicates(java.util.Arrays.asList(idArray));
         
         assertEquals(1, idSet.size());

@@ -27,6 +27,7 @@
 
 package gov.hhs.fha.nhinc.messaging.service.decorator.cxf;
 
+
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.messaging.service.ServiceEndpoint;
 import gov.hhs.fha.nhinc.messaging.service.decorator.ServiceEndpointDecorator;
@@ -39,9 +40,11 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.cxf.transports.http.configuration.HTTPClientPolicy;
 import org.apache.cxf.ws.addressing.AttributedURIType;
 import org.apache.cxf.ws.addressing.JAXWSAConstants;
+import org.apache.cxf.ws.addressing.Names;
 import org.apache.cxf.ws.addressing.RelatesToType;
 import org.apache.cxf.ws.addressing.impl.AddressingPropertiesImpl;
 import org.apache.log4j.Logger;
+import org.apache.cxf.ws.addressing.EndpointReferenceType;
 
 /**
  * @author akong and young weezy
@@ -70,8 +73,17 @@ public class WsAddressingServiceEndpointDecorator<T> extends ServiceEndpointDeco
 
         AttributedURIType action = new AttributedURIType();
         action.setValue(wsAddressingAction);
+        maps.getMustUnderstand().add(Names.WSA_ACTION_QNAME);
         maps.setAction(action);
-
+        
+        
+        EndpointReferenceType replyTo = new EndpointReferenceType();
+        AttributedURIType replyToAddress = new AttributedURIType();
+        replyToAddress.setValue("http://www.w3.org/2005/08/addressing/anonymous");
+        replyTo.setAddress(replyToAddress);
+        maps.getMustUnderstand().add(Names.WSA_REPLYTO_QNAME);
+        maps.setReplyTo(replyTo);
+        
         setContentTypeInHTTPHeader();
     }
 

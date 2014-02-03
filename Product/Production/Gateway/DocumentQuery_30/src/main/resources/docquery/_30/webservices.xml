@@ -8,12 +8,21 @@
     the License. -->
 <beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xmlns:soap="http://cxf.apache.org/bindings/soap" xmlns:aop="http://www.springframework.org/schema/aop" xmlns:jaxws="http://cxf.apache.org/jaxws"
+     xmlns:cxf="http://cxf.apache.org/core"
+    xmlns:p="http://cxf.apache.org/policy"
     xsi:schemaLocation="
 http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 http://cxf.apache.org/bindings/soap http://cxf.apache.org/schemas/configuration/soap.xsd
-http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
+http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd
+http://cxf.apache.org/policy http://cxf.apache.org/schemas/policy.xsd
+http://cxf.apache.org/core http://cxf.apache.org/schemas/core.xsd ">
 
     <!-- Document Query -->
+    <cxf:bus>
+        <cxf:features>
+            <p:policies />
+        </cxf:features>
+    </cxf:bus>
 
     <!-- Nhin services -->
 
@@ -28,6 +37,8 @@ http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd http://www.s
                 <bean class="gov.hhs.fha.nhinc.callback.cxf.CONNECTSamlAssertionValidator" />
             </entry>
         </jaxws:properties>
+        
+
         <jaxws:inInterceptors>
             <ref bean="securityConfigInInterceptor" />
         </jaxws:inInterceptors>
@@ -59,6 +70,7 @@ http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd http://www.s
                 <bean class="gov.hhs.fha.nhinc.callback.cxf.CONNECTSamlAssertionValidator" />
             </entry>            
         </jaxws:properties>
+        
         <jaxws:inInterceptors>
             <ref bean="securityConfigInInterceptor" />
         </jaxws:inInterceptors>

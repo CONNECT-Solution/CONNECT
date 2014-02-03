@@ -26,6 +26,8 @@
  */
 package gov.hhs.fha.nhinc.configuration.jmx;
 
+import gov.hhs.fha.nhinc.configuration.IConfiguration.serviceEnum;
+
 /**
  * The JMX MXBean Interface WebServicesMXBean. This interface is used to expose the management of WebServices
  * implementataions for the purposes of switching between standard and passthru orchestration implementations, as well
@@ -112,5 +114,14 @@ public interface WebServicesMXBean {
      * @return true, if outbound is in passthru mode
      */
     public boolean isOutboundPassthru();
+
+    public serviceEnum getServiceName();
+
+    /**
+     * 
+     */
+    public boolean isInboundStandard();
+    
+    public boolean isOutboundStandard();
 
 }

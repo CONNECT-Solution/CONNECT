@@ -26,6 +26,7 @@
  */
 package gov.hhs.fha.nhinc.patientdiscovery.configuration.jmx;
 
+import gov.hhs.fha.nhinc.configuration.IConfiguration.serviceEnum;
 import gov.hhs.fha.nhinc.patientdiscovery._10.gateway.ws.EntityPatientDiscoveryUnsecured;
 import gov.hhs.fha.nhinc.patientdiscovery._10.gateway.ws.NhinPatientDiscovery;
 import gov.hhs.fha.nhinc.patientdiscovery.inbound.InboundPatientDiscovery;
@@ -40,6 +41,7 @@ import javax.servlet.ServletContext;
  */
 public class PatientDiscovery10WebServices extends AbstractPDWebServicesMXBean {
 
+    private final serviceEnum serviceName = serviceEnum.PatientDiscovery;
     /**
      * Instantiates a new patient discovery10 web services.
      * 
@@ -128,6 +130,35 @@ public class PatientDiscovery10WebServices extends AbstractPDWebServicesMXBean {
         outboundPD = retrieveDependency(OutboundPatientDiscovery.class, className);
 
         entityPD.setOutboundPatientDiscovery(outboundPD);
+    }
+    
+    @Override
+    public serviceEnum getServiceName() {
+        return this.serviceName;
+    }
+    
+    @Override
+    public boolean isOutboundStandard() {
+        boolean isStandard = false;
+        EntityPatientDiscoveryUnsecured entityPD = retrieveBean(EntityPatientDiscoveryUnsecured.class,
+                getEntityUnsecuredBeanName());
+        OutboundPatientDiscovery outboundPatientDiscovery = entityPD.getOutboundPatientDiscovery();
+        if (DEFAULT_OUTBOUND_STANDARD_IMPL_CLASS_NAME.equals(outboundPatientDiscovery.getClass().getName())) {
+            isStandard = true;
+        }
+        return isStandard;
+    }
+    
+    @Override
+    public boolean isInboundStandard() {
+        boolean isStandard = false;
+        EntityPatientDiscoveryUnsecured entityPD = retrieveBean(EntityPatientDiscoveryUnsecured.class,
+                getEntityUnsecuredBeanName());
+        OutboundPatientDiscovery outboundPatientDiscovery = entityPD.getOutboundPatientDiscovery();
+        if (DEFAULT_INBOUND_STANDARD_IMPL_CLASS_NAME.equals(outboundPatientDiscovery.getClass().getName())) {
+            isStandard = true;
+        }
+        return isStandard;
     }
 
 }

@@ -205,16 +205,16 @@ Alternatively, any of these properties can be set in your maven settings.xml fil
 ###Run the Validation Suite via SoapUI
 The Validation Suite can be run with SoapUI. First, follow the instructions "Setting up SoapUI" below.
 
-Set the property "GatewayPropDir" in MsgProxyValidation-soapui-project.properties and EntityValidation-soapui-project.properties in the Validation Suite directory. This should be set to the gateway configuration directory. For GlassFish this is <GlassFish home>/domains/domain1/config/nhin; there is an equivalent in WebSphere
+Set the property "GatewayPropDir" in ConnectValidation-soapui-project.properties in the Validation Suite directory. This should be set to the gateway configuration directory. For GlassFish this is <GlassFish home>/domains/domain1/config/nhin; there is an equivalent in WebSphere
 
-Run the Validation Suite project files MsgProxyValidation-soapui-project.xml and EntityValidation-soapui-project.xml via SoapUI's command line runner testrunner.sh (or testrunner.bat in Windows).
+Run the Validation Suite project file ConnectValidation-soapui-project.xml via SoapUI's command line runner testrunner.sh (or testrunner.bat in Windows).
 
 ##Setting up SoapUI
 Install SoapUI v4.5.1.
 
-Copy the MySQL jdbc driver mysql-connector-java-5.1.10.jar from the Maven repository directory .m2/repository/mysql/mysql-connector-java/5.1.10 to <SoapUI home>/bin/ext.
+Copy the MySQL jdbc driver mysql-connector-java-5.1.10.jar from the Maven repository directory .m2/repository/mysql/mysql-connector-java/5.1.10 to {$SoapUI_home}/bin/ext.
 
-Copy the file FileUtils-4.0.0-SNAPSHOT.jar (or similarly named) to <SoapUI home>/bin/ext.
+Copy the file FileUtils-4.0.0-SNAPSHOT.jar (or similarly named) to {$SoapUI_home}/bin/ext.
 
 
 Documentation
