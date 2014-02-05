@@ -293,7 +293,7 @@ public class SamlTokenCreator {
 
         // This will be overwrite any value that is available in
         // assertion.getSamlAuthzDecisionStatement().getResource()
-        if (NullChecker.isNotNullish(url)) {
+        if (url != null) {
             requestContext.put(NhincConstants.RESOURCE_PROP, url);
         }
 
