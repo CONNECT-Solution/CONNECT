@@ -111,9 +111,6 @@ public class CXFSAMLCallbackHandler implements CallbackHandler {
             boolean isInbound = (Boolean) message.get(Message.INBOUND_MESSAGE);
             if(!isInbound){
                 resource = (String) message.get(Message.ENDPOINT_ADDRESS);
-                if(resource == null){
-                    resource = "";
-                }
             }
         } catch(Exception e){
             LOG.warn(e.getMessage());
