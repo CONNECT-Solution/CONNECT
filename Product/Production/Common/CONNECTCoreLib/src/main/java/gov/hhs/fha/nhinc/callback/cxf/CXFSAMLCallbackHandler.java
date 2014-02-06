@@ -70,7 +70,7 @@ public class CXFSAMLCallbackHandler implements CallbackHandler {
                     SamlTokenCreator creator = new SamlTokenCreator();
 
                     CallbackProperties properties = new CallbackMapProperties(addMessageProperties(
-                            creator.createRequestContext(custAssertion, null, null), message));
+                            creator.createRequestContext(custAssertion, getResource(message), null), message));
 
                     oSAMLCallback.setAssertionElement(builder.build(properties));
                 } catch (Exception e) {
@@ -103,6 +103,19 @@ public class CXFSAMLCallbackHandler implements CallbackHandler {
     
     protected Message getCurrentMessage(){
     	return PhaseInterceptorChain.getCurrentMessage();
+    }
+    
+    protected String getResource(Message message){
+        String resource = null;
+        try {
+            boolean isInbound = (Boolean) message.get(Message.INBOUND_MESSAGE);
+            if(!isInbound){
+                resource = (String) message.get(Message.ENDPOINT_ADDRESS);
+            }
+        } catch(Exception e){
+            LOG.warn(e.getMessage());
+        }
+        return resource;
     }
 }
 
