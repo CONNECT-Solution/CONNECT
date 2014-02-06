@@ -26,7 +26,6 @@
  */
 package gov.hhs.fha.nhinc.logging.transaction;
 
-import gov.hhs.fha.nhinc.logging.transaction.dao.TransactionDAO;
 import gov.hhs.fha.nhinc.logging.transaction.factory.TransactionStoreFactory;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 
@@ -64,9 +63,20 @@ public class TransactionHandler implements SOAPHandler<SOAPMessageContext> {
     private static final String MESSAGE_ID = "MessageID";
     private static final String RELATESTO_ID = "RelatesTo";
     
-    private TransactionLogger transactionLogger = null;
-    private TransactionStoreFactory transactionStoreFactory = null;
+    private TransactionLogger transactionLogger;
+    private TransactionStore transactionStore;
+    
+    public TransactionHandler(){
+        this.transactionLogger = new TransactionLogger();
+        this.transactionStore = new TransactionStoreFactory().getTransactionStore();
+    };
 
+    public TransactionHandler(TransactionLogger transactionLogger, 
+            TransactionStore transactionStore){
+        this.transactionLogger = transactionLogger;
+        this.transactionStore = transactionStore;
+    }
+    
     /*
      * (non-Javadoc)
      * 
@@ -138,20 +148,9 @@ public class TransactionHandler implements SOAPHandler<SOAPMessageContext> {
      * @param transactionId The transactionId fromthe SOAPHeader
      */
     protected void createTransactionRecord(String messageId, String transactionId) {
-        getTransactionLogger().createTransactionRecord(messageId, transactionId);
+        transactionLogger.createTransactionRecord(messageId, transactionId);
     }
     
-    /**
-     * Gets the transaction logger.
-     *
-     * @return the transaction logger
-     */
-    protected TransactionLogger getTransactionLogger() {
-        if (transactionLogger == null) {
-            transactionLogger = new TransactionLogger();
-        }
-        return transactionLogger;
-    }
 
     /**
      * Looks up transaction ID using the TransactionDAO.
@@ -160,19 +159,7 @@ public class TransactionHandler implements SOAPHandler<SOAPMessageContext> {
      * @return transactionId The transactionId from the DAO lookup
      */
     protected String getTransactionId(String id) {
-        return getTransactionStore().getTransactionId(id);
-    }
-    
-    /**
-     * Gets the transaction store.
-     *
-     * @return the transaction store
-     */
-    protected TransactionStore getTransactionStore() {
-        if (transactionStoreFactory == null) {
-            transactionStoreFactory = new TransactionStoreFactory();
-        }
-        return transactionStoreFactory.getTransactionStore();
+        return transactionStore.getTransactionId(id);
     }
 
     /**
@@ -182,7 +169,7 @@ public class TransactionHandler implements SOAPHandler<SOAPMessageContext> {
      * @param messageId The messageId for the message
      */
     protected void enableMdcLogging(String transactionId, String messageId) {
-        getTransactionLogger().enableMdcLogging(transactionId, messageId);
+        transactionLogger.enableMdcLogging(transactionId, messageId);
     }
 
     private String checkTransactionIdFromMessage(SOAPElement transactionIdElement, String messageId) {
