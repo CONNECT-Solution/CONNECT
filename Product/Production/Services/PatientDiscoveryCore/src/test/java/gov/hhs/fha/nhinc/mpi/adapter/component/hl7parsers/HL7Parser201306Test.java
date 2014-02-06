@@ -27,6 +27,8 @@
 package gov.hhs.fha.nhinc.mpi.adapter.component.hl7parsers;
 
 import static org.junit.Assert.assertEquals;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 import java.io.Serializable;
 import java.util.Iterator;
@@ -34,6 +36,8 @@ import java.util.List;
 
 import javax.xml.bind.JAXBElement;
 
+import org.hibernate.Session;
+import org.hibernate.Transaction;
 import org.hl7.v3.EnExplicitFamily;
 import org.hl7.v3.EnExplicitGiven;
 import org.hl7.v3.EnExplicitPrefix;
@@ -46,7 +50,6 @@ import org.hl7.v3.PRPAMT201310UV02Person;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 import gov.hhs.fha.nhinc.mpi.adapter.component.TestHelper;
@@ -56,15 +59,22 @@ import gov.hhs.fha.nhinc.mpilib.Patient;
 import gov.hhs.fha.nhinc.mpilib.Patients;
 import gov.hhs.fha.nhinc.mpilib.PersonName;
 import gov.hhs.fha.nhinc.mpilib.PhoneNumber;
+import gov.hhs.fha.nhinc.properties.PropertyAccessException;
+import gov.hhs.fha.nhinc.properties.PropertyAccessor;
+import gov.hhs.fha.nhinc.util.HomeCommunityMap;
+
+import org.mockito.Mockito;
 
 /**
- *
+ * 
  * @author dunnek
  */
 public class HL7Parser201306Test {
+    private PropertyAccessor accessor;
 
-    //CHECKSTYLE:OFF
+    // CHECKSTYLE:OFF
     private static class PatientName {
+
         public String FirstName = "";
         public String LastName = "";
         public String MiddleName = "";
@@ -78,23 +88,25 @@ public class HL7Parser201306Test {
     public HL7Parser201306Test() {
     }
 
-    @BeforeClass
-    public static void setUpClass() throws Exception {
+    @Before
+    public void setUp() throws PropertyAccessException {
+        String localCommunityId = "1.1";
+        accessor = mock(PropertyAccessor.class);
+        HomeCommunityMap.setPropertyAccessor(accessor);
+
+        when(accessor.getProperty(Mockito.anyString(), Mockito.anyString())).thenReturn(localCommunityId);
+
     }
 
     @AfterClass
     public static void tearDownClass() throws Exception {
     }
 
-    @Before
-    public void setUp() {
-    }
-
     @After
     public void tearDown() {
     }
 
-    //CHECKSTYLE:ON
+    // CHECKSTYLE:ON
     /**
      * Test of BuildMessageFromMpiPatient method, of class HL7Parser201306.
      */

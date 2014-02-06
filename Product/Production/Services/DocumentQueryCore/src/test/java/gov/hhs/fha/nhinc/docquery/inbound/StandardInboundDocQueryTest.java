@@ -36,18 +36,23 @@ import gov.hhs.fha.nhinc.docquery.adapter.proxy.AdapterDocQueryProxy;
 import gov.hhs.fha.nhinc.docquery.adapter.proxy.AdapterDocQueryProxyObjectFactory;
 import gov.hhs.fha.nhinc.document.DocumentConstants;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import gov.hhs.fha.nhinc.properties.PropertyAccessException;
+import gov.hhs.fha.nhinc.properties.PropertyAccessor;
+import gov.hhs.fha.nhinc.util.HomeCommunityMap;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
 
 import org.junit.Test;
+import org.mockito.Mockito;
 
 /**
  * @author akong
  * 
  */
 public class StandardInboundDocQueryTest extends InboundDocQueryTest {
-    
+
     private static final int NUM_TIMES_TO_INVOKE_ADAPTER_AUDIT = 1;
+    private PropertyAccessor accessor;
 
     @Test
     public void hasInboundProcessingEvent() throws Exception {
@@ -55,29 +60,35 @@ public class StandardInboundDocQueryTest extends InboundDocQueryTest {
     }
 
     @Test
-    public void standardInboundDocQueryOrgHcid() {
-        standardInboundDocQueryHomeHcid(SENDING_HCID_ORG, SENDING_HCID_ORG_FORMATTED);        
+    public void standardInboundDocQueryOrgHcid() throws PropertyAccessException {
+        standardInboundDocQueryHomeHcid(SENDING_HCID_ORG, SENDING_HCID_ORG_FORMATTED);
     }
-    
-    @Test    
-    public void standardInboundDocQueryHomeHcid() {        
-        standardInboundDocQueryHomeHcid(SENDING_HCID_HOME, SENDING_HCID_HOME_FORMATTED);        
-    }    
 
-    private void standardInboundDocQueryHomeHcid(String sendingHcid, String sendingHcidFormatted) {
+    @Test
+    public void standardInboundDocQueryHomeHcid() throws PropertyAccessException {
+        standardInboundDocQueryHomeHcid(SENDING_HCID_HOME, SENDING_HCID_HOME_FORMATTED);
+    }
+
+    private void standardInboundDocQueryHomeHcid(String sendingHcid, String sendingHcidFormatted)
+            throws PropertyAccessException {
 
         AssertionType mockAssertion = getMockAssertion(sendingHcid);
 
         StandardInboundDocQuery standardDocQuery = new StandardInboundDocQuery(policyChecker,
                 getMockAdapterFactory(mockAssertion), mockAuditLogger);
 
+        String localCommunityId = "1.2";
+        accessor = mock(PropertyAccessor.class);
+        HomeCommunityMap.setPropertyAccessor(accessor);
+
+        when(accessor.getProperty(Mockito.anyString(), Mockito.anyString())).thenReturn(localCommunityId);
         when(policyChecker.checkIncomingPolicy(request, mockAssertion)).thenReturn(true);
 
         verifyInboundDocQuery(mockAssertion, sendingHcidFormatted, standardDocQuery, NUM_TIMES_TO_INVOKE_ADAPTER_AUDIT);
     }
-    
+
     @Test
-    public void failedPolicy() {
+    public void failedPolicy() throws PropertyAccessException {
         AdhocQueryRequest request = new AdhocQueryRequest();
         AssertionType assertion = new AssertionType();
 
@@ -90,6 +101,12 @@ public class StandardInboundDocQueryTest extends InboundDocQueryTest {
 
         when(policyChecker.checkIncomingPolicy(request, assertion)).thenReturn(false);
 
+        String localCommunityId = "1.2";
+        accessor = mock(PropertyAccessor.class);
+        HomeCommunityMap.setPropertyAccessor(accessor);
+
+        when(accessor.getProperty(Mockito.anyString(), Mockito.anyString())).thenReturn(localCommunityId);
+
         StandardInboundDocQuery standardDocQuery = new StandardInboundDocQuery(policyChecker, mockAdapterFactory,
                 mockAuditLogger);
         AdhocQueryResponse actualResponse = standardDocQuery.respondingGatewayCrossGatewayQuery(request, assertion);
@@ -101,5 +118,5 @@ public class StandardInboundDocQueryTest extends InboundDocQueryTest {
                 .getRegistryError().get(0).getSeverity());
 
     }
-    
+
 }
