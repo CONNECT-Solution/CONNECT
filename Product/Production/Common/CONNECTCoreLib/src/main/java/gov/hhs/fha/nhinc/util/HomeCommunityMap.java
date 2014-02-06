@@ -251,17 +251,25 @@ public class HomeCommunityMap {
      */
     public static String getLocalHomeCommunityId() {
         String sHomeCommunity = null;
-
+        sHomeCommunity = getHomeCommunityFromPropFile();
+        return sHomeCommunity;
+    }
+    
+    /**
+     * @return
+     */
+    protected static String getHomeCommunityFromPropFile() {
+        String sHomeCommunity = null;
         try {
             sHomeCommunity = propertyAccessor.getProperty(NhincConstants.GATEWAY_PROPERTY_FILE,
                     NhincConstants.HOME_COMMUNITY_ID_PROPERTY);
         } catch (PropertyAccessException ex) {
             LOG.error(ex.getMessage());
         }
-
         return sHomeCommunity;
     }
-    
+
+
     /**
      * Returns the home community id by with 'urn:oid:' prefix if it doesn't exists.
      *
@@ -282,7 +290,7 @@ public class HomeCommunityMap {
      * Used for injecting mock property accessor for Unit testing.
      * @param propAccessor
      */
-    protected static void setPropertyAccessor(PropertyAccessor propAccessor){
+    public static void setPropertyAccessor(PropertyAccessor propAccessor){
         propertyAccessor = propAccessor;
     }
     

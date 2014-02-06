@@ -46,13 +46,17 @@ import org.jmock.Expectations;
 import org.jmock.Mockery;
 import org.jmock.integration.junit4.JUnit4Mockery;
 import org.jmock.lib.legacy.ClassImposteriser;
+import org.junit.Before;
 import org.junit.Test;
+import org.mockito.Mockito;
 import org.uddi.api_v3.BusinessEntity;
 import org.uddi.api_v3.Name;
 import static org.junit.Assert.*;
+import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.mock;
 
 /**
- *
+ * 
  * @author Arthur Kong
  */
 public class HomeCommunityMapTest {
@@ -64,7 +68,11 @@ public class HomeCommunityMapTest {
     };
     final ConnectionManagerCache mockConnectionManager = context.mock(ConnectionManagerCache.class);
     final ConnectionManagerCacheHelper mockConnectionManagerHelper = context.mock(ConnectionManagerCacheHelper.class);
-    final PropertyAccessor mockPropertyAccessor = context.mock(PropertyAccessor.class);
+
+    @Before
+    public void Setup() {
+
+    }
 
     public HomeCommunityMapTest() {
     }
@@ -82,10 +90,10 @@ public class HomeCommunityMapTest {
 
     @Test
     public void testGetHomeCommunityName() {
-        
+
         final String homeCommunityName = "DoD";
-        
-        try {            
+
+        try {
             String homeCommunityId = "1.1";
             HomeCommunityMap homeMap = new HomeCommunityMap() {
                 @Override
@@ -290,16 +298,14 @@ public class HomeCommunityMapTest {
 
     @Test
     public void testGetLocalHomeCommunityId() throws PropertyAccessException {
+
         final String localCommunityId = "1.1";
-        
-        HomeCommunityMap.setPropertyAccessor(mockPropertyAccessor);
-        
-        context.checking(new Expectations() {
-            {
-                exactly(1).of(mockPropertyAccessor).getProperty(with(any(String.class)), with(any(String.class)));
-                will(returnValue(localCommunityId));
-            }
-        });
+
+        PropertyAccessor accessor = mock(PropertyAccessor.class);
+
+        HomeCommunityMap.setPropertyAccessor(accessor);
+
+        when(accessor.getProperty(Mockito.anyString(), Mockito.anyString())).thenReturn(localCommunityId);
 
         String retrievedId = HomeCommunityMap.formatHomeCommunityId(HomeCommunityMap.getLocalHomeCommunityId());
         assertEquals(localCommunityId, retrievedId);

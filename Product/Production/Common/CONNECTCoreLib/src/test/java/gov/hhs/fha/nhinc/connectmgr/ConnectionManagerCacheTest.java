@@ -38,21 +38,31 @@ import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.connectmgr.persistance.dao.InternalConnectionInfoDAOFileImpl;
 import gov.hhs.fha.nhinc.connectmgr.persistance.dao.UddiConnectionInfoDAOFileImpl;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants.ADAPTER_API_LEVEL;
+import gov.hhs.fha.nhinc.properties.PropertyAccessor;
+import gov.hhs.fha.nhinc.util.HomeCommunityMap;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.uddi.api_v3.BusinessEntity;
 import org.w3._2005._08.addressing.AttributedURIType;
 import org.w3._2005._08.addressing.EndpointReferenceType;
+
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 /**
  * 
  * @author Arthur Kong, msw
  */
 public class ConnectionManagerCacheTest extends BaseConnctionManagerCache {
+
+    @Before
+    public void setUp() {
+    }
 
     protected ConnectionManagerCache createConnectionManager_Empty() throws ConnectionManagerException {
         return new ConnectionManagerCache() {
@@ -83,6 +93,7 @@ public class ConnectionManagerCacheTest extends BaseConnctionManagerCache {
     }
 
     protected ConnectionManagerCache createConnectionManager() throws ConnectionManagerException {
+
         return new ConnectionManagerCache() {
             @Override
             protected UddiConnectionInfoDAOFileImpl getUddiConnectionManagerDAO() {
@@ -93,6 +104,13 @@ public class ConnectionManagerCacheTest extends BaseConnctionManagerCache {
             protected InternalConnectionInfoDAOFileImpl getInternalConnectionManagerDAO() {
                 return createInternalConnectionInfoDAO("/config/ConnectionManagerCacheTest/internalConnectionInfoTest.xml");
             }
+
+            @Override
+            protected String getHomeCommunityFromPropFile() {
+                String homeCommunityId = "urn:oid:1.1";
+                return homeCommunityId;
+            }
+
         };
     }
 
@@ -456,6 +474,7 @@ public class ConnectionManagerCacheTest extends BaseConnctionManagerCache {
 
     @Test
     public void testGetAdapterEndpointURL() throws ConnectionManagerException {
+
         ConnectionManagerCache connectionManager = createConnectionManager();
 
         String url = connectionManager.getAdapterEndpointURL(QUERY_FOR_DOCUMENTS_NAME, ADAPTER_API_LEVEL.LEVEL_a0);
