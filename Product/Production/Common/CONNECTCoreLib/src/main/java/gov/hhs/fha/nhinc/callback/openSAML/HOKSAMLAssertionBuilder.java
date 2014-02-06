@@ -173,7 +173,7 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
                 userName = certificate.getSubjectDN().getName();
             }
         }
-        String x509Name = "UID=" + userName;
+        String x509Name = formatUID(userName);
         return createSubject(x509Name, certificate, publicKey);
     }
 
@@ -191,9 +191,29 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
             evidenceSubject = userName;
         }
 
-        String x509Name = "UID=" + evidenceSubject;
+        String x509Name = formatUID(evidenceSubject);
 
         return createSubject(x509Name, certificate, publicKey);
+    }
+    
+    /**
+     * 
+     * @param value
+     * @return String
+     */
+    private static String formatUID(String value) 
+    {
+        String newValue = null;
+        if(NullChecker.isNotNullish(value))
+        {
+            if(value.startsWith("UID=") || value.startsWith("CN="))
+            {
+                newValue = value;
+            } else {
+                newValue = "UID="+ value;
+            }            
+        }
+        return newValue;
     }
 
     static Subject createSubject(String x509Name, X509Certificate certificate, PublicKey publicKey) throws Exception {
