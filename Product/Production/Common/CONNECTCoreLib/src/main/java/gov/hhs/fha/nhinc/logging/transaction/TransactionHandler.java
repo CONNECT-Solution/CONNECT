@@ -69,7 +69,7 @@ public class TransactionHandler implements SOAPHandler<SOAPMessageContext> {
     public TransactionHandler(){
         this.transactionLogger = new TransactionLogger();
         this.transactionStore = new TransactionStoreFactory().getTransactionStore();
-    };
+    }
 
     public TransactionHandler(TransactionLogger transactionLogger, 
             TransactionStore transactionStore){
