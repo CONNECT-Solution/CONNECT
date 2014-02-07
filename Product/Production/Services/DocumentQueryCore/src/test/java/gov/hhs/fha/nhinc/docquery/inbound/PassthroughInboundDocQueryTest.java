@@ -26,43 +26,59 @@
  */
 package gov.hhs.fha.nhinc.docquery.inbound;
 
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.properties.PropertyAccessException;
+import gov.hhs.fha.nhinc.properties.PropertyAccessor;
+import gov.hhs.fha.nhinc.util.HomeCommunityMap;
 
+import org.junit.Before;
 import org.junit.Test;
+import org.mockito.Mockito;
+import org.mockito.stubbing.OngoingStubbing;
 
 /**
  * @author akong
  * 
  */
 public class PassthroughInboundDocQueryTest extends InboundDocQueryTest {
-    
+
     private static final int NUM_TIMES_TO_INVOKE_ADAPTER_AUDIT = 0;
-    
+    private PropertyAccessor accessor;
+
     @Test
     public void hasInboundProcessingEvent() throws Exception {
         hasInboundProcessingEvent(PassthroughInboundDocQuery.class);
     }
 
     @Test
-    public void passthroughInboundDocQueryOrgHcid() {
-        passthroughInboundDocQueryHomeHcid(SENDING_HCID_ORG, SENDING_HCID_ORG_FORMATTED);        
+    public void passthroughInboundDocQueryOrgHcid() throws PropertyAccessException {
+        passthroughInboundDocQueryHomeHcid(SENDING_HCID_ORG, SENDING_HCID_ORG_FORMATTED);
     }
-    
-    @Test    
-    public void passthroughInboundDocQueryHomeHcid() {        
-        passthroughInboundDocQueryHomeHcid(SENDING_HCID_HOME, SENDING_HCID_HOME_FORMATTED);        
-    }    
 
-    private void passthroughInboundDocQueryHomeHcid(String sendingHcid, String sendingHcidFormatted) {
+    @Test
+    public void passthroughInboundDocQueryHomeHcid() throws PropertyAccessException {
+        passthroughInboundDocQueryHomeHcid(SENDING_HCID_HOME, SENDING_HCID_HOME_FORMATTED);
+    }
+
+    private void passthroughInboundDocQueryHomeHcid(String sendingHcid, String sendingHcidFormatted)
+            throws PropertyAccessException {
 
         AssertionType mockAssertion = getMockAssertion(sendingHcid);
 
         PassthroughInboundDocQuery passthroughDocQuery = new PassthroughInboundDocQuery(
                 getMockAdapterFactory(mockAssertion), mockAuditLogger);
 
+        String localCommunityId = "7.2";
+        accessor = mock(PropertyAccessor.class);
+        HomeCommunityMap.setPropertyAccessor(accessor);
+
+        when(accessor.getProperty(Mockito.anyString(), Mockito.anyString())).thenReturn(localCommunityId);
+
         verifyInboundDocQuery(mockAssertion, sendingHcidFormatted, passthroughDocQuery,
                 NUM_TIMES_TO_INVOKE_ADAPTER_AUDIT);
 
-    }    
+    }
 
 }

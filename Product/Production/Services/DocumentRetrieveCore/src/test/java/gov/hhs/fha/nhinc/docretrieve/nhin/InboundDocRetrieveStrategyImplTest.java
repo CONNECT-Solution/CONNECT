@@ -2,6 +2,7 @@ package gov.hhs.fha.nhinc.docretrieve.nhin;
 
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
 import gov.hhs.fha.nhinc.auditrepository.AuditRepositoryDocumentRetrieveLogger;
 import gov.hhs.fha.nhinc.common.auditlog.DocRetrieveMessageType;
@@ -11,15 +12,18 @@ import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.orchestration.AuditTransformer;
 import gov.hhs.fha.nhinc.orchestration.InboundDelegate;
 import gov.hhs.fha.nhinc.orchestration.PolicyTransformer;
+import gov.hhs.fha.nhinc.properties.PropertyAccessException;
+import gov.hhs.fha.nhinc.properties.PropertyAccessor;
+import gov.hhs.fha.nhinc.util.HomeCommunityMap;
 
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.eq;
-import static org.mockito.Matchers.isA;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.anyString;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.Mockito;
 
 /**
  * @author achidambaram
@@ -32,6 +36,7 @@ public class InboundDocRetrieveStrategyImplTest {
     private AuditTransformer at;
     private InboundDelegate d;
     private AuditRepositoryDocumentRetrieveLogger auditLog;
+    private PropertyAccessor accessor;
 
     @Before
     public void setup() {
@@ -40,6 +45,7 @@ public class InboundDocRetrieveStrategyImplTest {
         at = mock(AuditTransformer.class);
         d = mock(InboundDelegate.class);
         auditLog = mock(AuditRepositoryDocumentRetrieveLogger.class);
+
     }
 
     @Test
@@ -67,7 +73,7 @@ public class InboundDocRetrieveStrategyImplTest {
     }
 
     @Test
-    public void testExceuteMethodForStandard() {
+    public void testExceuteMethodForStandard() throws PropertyAccessException {
 
         InboundStandardDocRetrieveOrchestratable standard = new InboundStandardDocRetrieveOrchestratable(pt, at, d);
 
@@ -77,6 +83,12 @@ public class InboundDocRetrieveStrategyImplTest {
                 return new RetrieveDocumentSetResponseType();
             }
         };
+
+        String localCommunityId = "1.1";
+        accessor = mock(PropertyAccessor.class);
+        HomeCommunityMap.setPropertyAccessor(accessor);
+
+        when(accessor.getProperty(Mockito.anyString(), Mockito.anyString())).thenReturn(localCommunityId);
 
         inboundDocRetrieve.execute(standard);
         verify(auditLog).logDocRetrieve(any(DocRetrieveMessageType.class),

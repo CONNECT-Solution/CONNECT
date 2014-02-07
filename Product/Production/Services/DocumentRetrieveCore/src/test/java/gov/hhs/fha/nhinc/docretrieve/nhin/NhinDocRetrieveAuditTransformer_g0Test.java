@@ -26,7 +26,6 @@
  */
 package gov.hhs.fha.nhinc.docretrieve.nhin;
 
-import static org.junit.Assert.assertNotNull;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.*;
 import static org.mockito.Mockito.mock;
@@ -35,31 +34,42 @@ import static org.mockito.Mockito.when;
 import gov.hhs.fha.nhinc.auditrepository.AuditRepositoryDocumentRetrieveLogger;
 import gov.hhs.fha.nhinc.common.auditlog.DocRetrieveMessageType;
 import gov.hhs.fha.nhinc.common.auditlog.DocRetrieveResponseMessageType;
-import gov.hhs.fha.nhinc.common.auditlog.LogEventRequestType;
+import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
+import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import gov.hhs.fha.nhinc.properties.PropertyAccessException;
+import gov.hhs.fha.nhinc.properties.PropertyAccessor;
+import gov.hhs.fha.nhinc.util.HomeCommunityMap;
 
 import org.junit.Test;
+import org.mockito.Mockito;
 
 /**
  * 
  * @author mweaver
  */
 public class NhinDocRetrieveAuditTransformer_g0Test {
-    
-    
+
+    private PropertyAccessor accessor;
+
     /**
      * Test of transformRequest method, of class NhinDocRetrieveAuditTransformer_g0.
+     * 
+     * @throws PropertyAccessException
      */
     @Test
-    public void testTransformRequest() {
+    public void testTransformRequest() throws PropertyAccessException {
         AuditRepositoryDocumentRetrieveLogger mockLogger = mock(AuditRepositoryDocumentRetrieveLogger.class);
         InboundDocRetrieveAuditTransformer_g0 transform = new InboundDocRetrieveAuditTransformer_g0(mockLogger);
         InboundDocRetrieveOrchestratable mockMessage = mock(InboundDocRetrieveOrchestratable.class);
-        
-        
-       transform.transformRequest(mockMessage);
+        String localCommunityId = "1.1";
+        accessor = mock(PropertyAccessor.class);
+        HomeCommunityMap.setPropertyAccessor(accessor);
 
-        
+        when(accessor.getProperty(Mockito.anyString(), Mockito.anyString())).thenReturn(localCommunityId);
+
+        transform.transformRequest(mockMessage);
+
         verify(mockMessage).getAssertion();
         verify(mockMessage).getRequest();
         verify(mockLogger).logDocRetrieve(any(DocRetrieveMessageType.class),
@@ -68,23 +78,32 @@ public class NhinDocRetrieveAuditTransformer_g0Test {
 
     }
 
-     /**
+    /**
      * Test of transformResponse method, of class NhinDocRetrieveAuditTransformer_g0.
+     * 
+     * @throws PropertyAccessException
      */
-     @Test
-     public void testTransformResponse() {
-         AuditRepositoryDocumentRetrieveLogger mockLogger = mock(AuditRepositoryDocumentRetrieveLogger.class);
-         InboundDocRetrieveAuditTransformer_g0 transform = new InboundDocRetrieveAuditTransformer_g0(mockLogger);
-         InboundDocRetrieveOrchestratable mockMessage = mock(InboundDocRetrieveOrchestratable.class);
-         
-         transform.transformResponse(mockMessage);
-         
-         verify(mockMessage).getAssertion();
-         verify(mockMessage).getResponse();
-         verify(mockLogger).logDocRetrieveResult(any(DocRetrieveResponseMessageType.class),
-                 eq(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION), eq(NhincConstants.AUDIT_LOG_NHIN_INTERFACE),
-                 any(String.class));
-         
-     }
+    @Test
+    public void testTransformResponse() throws PropertyAccessException {
+        AssertionType assertion = mock(AssertionType.class);
+        AuditRepositoryDocumentRetrieveLogger mockLogger = mock(AuditRepositoryDocumentRetrieveLogger.class);
+        InboundDocRetrieveAuditTransformer_g0 transform = new InboundDocRetrieveAuditTransformer_g0(mockLogger);
+        InboundDocRetrieveOrchestratable mockMessage = mock(InboundDocRetrieveOrchestratable.class);
+
+        String localCommunityId = "1.1";
+        HomeCommunityType homeCommunity = new HomeCommunityType();
+        homeCommunity.setHomeCommunityId(localCommunityId);
+
+        when(assertion.getHomeCommunity()).thenReturn(homeCommunity);
+
+        transform.transformResponse(mockMessage);
+
+        verify(mockMessage).getAssertion();
+        verify(mockMessage).getResponse();
+        verify(mockLogger).logDocRetrieveResult(any(DocRetrieveResponseMessageType.class),
+                eq(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION), eq(NhincConstants.AUDIT_LOG_NHIN_INTERFACE),
+                any(String.class));
+
+    }
 
 }

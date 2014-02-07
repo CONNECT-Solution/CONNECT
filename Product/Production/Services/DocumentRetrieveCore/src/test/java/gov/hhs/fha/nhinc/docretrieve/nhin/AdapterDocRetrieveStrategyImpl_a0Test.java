@@ -31,15 +31,21 @@ import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyZeroInteractions;
+import static org.mockito.Mockito.when;
 import gov.hhs.fha.nhinc.auditrepository.AuditRepositoryDocumentRetrieveLogger;
 import gov.hhs.fha.nhinc.common.auditlog.DocRetrieveMessageType;
 import gov.hhs.fha.nhinc.common.auditlog.DocRetrieveResponseMessageType;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.docretrieve.adapter.proxy.AdapterDocRetrieveProxy;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import gov.hhs.fha.nhinc.properties.PropertyAccessException;
+import gov.hhs.fha.nhinc.properties.PropertyAccessor;
+import gov.hhs.fha.nhinc.util.HomeCommunityMap;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
 
+import org.junit.Before;
 import org.junit.Test;
+import org.mockito.Mockito;
 
 /**
  * 
@@ -47,11 +53,25 @@ import org.junit.Test;
  */
 public class AdapterDocRetrieveStrategyImpl_a0Test {
 
+    private PropertyAccessor accessor;
+
     /**
      * Test of execute method, of class AdapterDocRetrieveStrategyImpl_a0.
+     * 
+     * 
      */
+
+    @Before
+    public void setUp() throws PropertyAccessException {
+        String localCommunityId = "1.1";
+        accessor = mock(PropertyAccessor.class);
+        HomeCommunityMap.setPropertyAccessor(accessor);
+
+        when(accessor.getProperty(Mockito.anyString(), Mockito.anyString())).thenReturn(localCommunityId);
+    }
+
     @Test
-    public void testExecute() {
+    public void testExecute() throws PropertyAccessException {
         InboundDocRetrieveOrchestratable message = mock(InboundDocRetrieveOrchestratable.class);
         AdapterDocRetrieveProxy adapterProxy = mock(AdapterDocRetrieveProxy.class);
         AuditRepositoryDocumentRetrieveLogger logger = mock(AuditRepositoryDocumentRetrieveLogger.class);
@@ -61,15 +81,14 @@ public class AdapterDocRetrieveStrategyImpl_a0Test {
         verify(logger).logDocRetrieveResult(any(DocRetrieveResponseMessageType.class),
                 eq(NhincConstants.AUDIT_LOG_INBOUND_DIRECTION), eq(NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE),
                 any(String.class));
-        
+
         verify(adapterProxy).retrieveDocumentSet(any(RetrieveDocumentSetRequestType.class), any(AssertionType.class));
 
-        
         verify(logger).logDocRetrieve(any(DocRetrieveMessageType.class),
                 eq(NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION), eq(NhincConstants.AUDIT_LOG_ADAPTER_INTERFACE),
                 any(String.class));
     }
-    
+
     @Test
     public void testExecuteNull() {
         InboundDocRetrieveOrchestratable message = null;
