@@ -57,14 +57,16 @@ public class HomeCommunityMap {
 
     private static final Logger LOG = Logger.getLogger(HomeCommunityMap.class);
     private ConnectionManagerCache connection;
-    private static PropertyAccessor accessor = PropertyAccessor.getInstance();
+    private static PropertyAccessor propertyAccessor;
 
     public HomeCommunityMap() {
         this.connection = ConnectionManagerCache.getInstance();
+        propertyAccessor = PropertyAccessor.getInstance();
     }
 
-    public HomeCommunityMap(ConnectionManagerCache connection) {
+    public HomeCommunityMap(ConnectionManagerCache connection, PropertyAccessor accessor) {
         this.connection = connection;
+        propertyAccessor = accessor;
         
     }
 
@@ -259,10 +261,10 @@ public class HomeCommunityMap {
     /**
      * @return
      */
-    protected static String getHomeCommunityFromPropFile() {
+    private static String getHomeCommunityFromPropFile() {
         String sHomeCommunity = null;
         try {
-            sHomeCommunity = accessor.getProperty(NhincConstants.GATEWAY_PROPERTY_FILE,
+            sHomeCommunity = propertyAccessor.getProperty(NhincConstants.GATEWAY_PROPERTY_FILE,
                     NhincConstants.HOME_COMMUNITY_ID_PROPERTY);
         } catch (PropertyAccessException ex) {
             LOG.error(ex.getMessage());
@@ -284,15 +286,6 @@ public class HomeCommunityMap {
             }
         }
         return communityId;
-    }
-
-    /**
-     * Used for injecting mock property accessor for Unit testing.
-     * 
-     * @param propAccessor
-     */
-    public static void setPropertyAccessor(PropertyAccessor propAccessor) {
-        accessor = propAccessor;
     }
 
 }

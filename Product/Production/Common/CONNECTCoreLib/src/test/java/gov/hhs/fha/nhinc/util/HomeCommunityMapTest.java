@@ -70,7 +70,7 @@ public class HomeCommunityMapTest {
 
     @Before
     public void Setup() {
-        map = new HomeCommunityMap(connection);
+        map = new HomeCommunityMap(connection,accessor);
     }
 
     public HomeCommunityMapTest() {
@@ -295,7 +295,6 @@ public class HomeCommunityMapTest {
 
         final String localCommunityId = "1.1";
 
-        HomeCommunityMap.setPropertyAccessor(accessor);
         when(accessor.getProperty(Mockito.anyString(), Mockito.anyString())).thenReturn(localCommunityId);
 
         String retrievedId = HomeCommunityMap.formatHomeCommunityId(HomeCommunityMap.getLocalHomeCommunityId());
