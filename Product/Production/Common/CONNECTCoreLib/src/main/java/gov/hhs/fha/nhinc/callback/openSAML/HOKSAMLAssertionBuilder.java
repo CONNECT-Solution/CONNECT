@@ -170,7 +170,7 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
             throws Exception {
         String x509Name = properties.getUsername();
 
-        if (NullChecker.isNullish(x509Name) || checkDistinguishedName(x509Name)) {
+        if (NullChecker.isNullish(x509Name) || !checkDistinguishedName(x509Name)) {
             if (null != certificate && null != certificate.getSubjectDN()) {
                 x509Name = certificate.getSubjectDN().getName();
             }
@@ -204,7 +204,7 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
         if (NullChecker.isNullish(evidenceSubject)) {
             String userName = properties.getUsername();
 
-            if (NullChecker.isNullish(userName) || checkDistinguishedName(userName)) {
+            if (NullChecker.isNullish(userName) || !checkDistinguishedName(userName)) {
                 if (null != certificate && null != certificate.getSubjectDN()) {
                     userName = certificate.getSubjectDN().getName();
                 }
