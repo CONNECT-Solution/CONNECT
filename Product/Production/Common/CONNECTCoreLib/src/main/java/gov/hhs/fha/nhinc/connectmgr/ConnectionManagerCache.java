@@ -60,6 +60,7 @@ import org.uddi.api_v3.KeyedReference;
 public class ConnectionManagerCache implements ConnectionManager {
 
     private static final Logger LOG = Logger.getLogger(ConnectionManagerCache.class);
+    private PropertyAccessor accessor;
     private static String UDDI_SPEC_VERSION_KEY = "uddi:nhin:versionofservice";
     private static final String HOME_COMMUNITY_PREFIX = "urn:oid:";
     // Hash maps for the UDDI connection information. This hash map is keyed by home community ID.
@@ -80,7 +81,12 @@ public class ConnectionManagerCache implements ConnectionManager {
     // -------------------------------------------------------
     private static String INTERNAL_CONNECTION_API_LEVEL_KEY = "CONNECT:adapter:apilevel";
 
-    protected ConnectionManagerCache() {
+    public ConnectionManagerCache() {
+        this.accessor = PropertyAccessor.getInstance();
+    }
+
+    public ConnectionManagerCache(PropertyAccessor accessor) {
+        this.accessor = accessor;
     }
 
     private static class SingletonHolder {
@@ -142,7 +148,7 @@ public class ConnectionManagerCache implements ConnectionManager {
      * 
      * @throws gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException
      */
-    private void checkLoaded() throws ConnectionManagerException {
+    protected void checkLoaded() throws ConnectionManagerException {
         if (!m_bInternalLoaded) {
             forceRefreshInternalConnectCache();
         }
@@ -679,7 +685,7 @@ public class ConnectionManagerCache implements ConnectionManager {
     protected String getHomeCommunityFromPropFile() {
         String sHomeCommunityId = null;
         try {
-            sHomeCommunityId = PropertyAccessor.getInstance().getProperty(NhincConstants.GATEWAY_PROPERTY_FILE,
+            sHomeCommunityId = accessor.getProperty(NhincConstants.GATEWAY_PROPERTY_FILE,
                     NhincConstants.HOME_COMMUNITY_ID_PROPERTY);
         } catch (PropertyAccessException ex) {
             LOG.error("Error: Failed to retrieve " + NhincConstants.HOME_COMMUNITY_ID_PROPERTY

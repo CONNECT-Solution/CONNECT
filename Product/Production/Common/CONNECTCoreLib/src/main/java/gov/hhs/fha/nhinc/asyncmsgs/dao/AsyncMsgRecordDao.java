@@ -53,6 +53,9 @@ import org.hibernate.criterion.Restrictions;
 public class AsyncMsgRecordDao {
 
     private static final Logger LOG = Logger.getLogger(AsyncMsgRecordDao.class);
+
+    private PropertyAccessor accessor;
+
     public static final String QUEUE_DIRECTION_INBOUND = "INBOUND";
     public static final String QUEUE_DIRECTION_OUTBOUND = "OUTBOUND";
     public static final String QUEUE_RESPONSE_TYPE_AUTO = "AUTO";
@@ -73,6 +76,14 @@ public class AsyncMsgRecordDao {
     public static final String QUEUE_STATUS_RSPSENT = "RSPSENT";
     public static final String QUEUE_STATUS_RSPSENTACK = "RSPSENTACK";
     public static final String QUEUE_STATUS_RSPSENTERR = "RSPSENTERR";
+
+    public AsyncMsgRecordDao() {
+        this.accessor = PropertyAccessor.getInstance();
+    }
+
+    public AsyncMsgRecordDao(PropertyAccessor accessor) {
+        this.accessor = accessor;
+    }
 
     /**
      * Query by Message Id. This should return only one record.
@@ -606,7 +617,7 @@ public class AsyncMsgRecordDao {
     protected String getUnitsFromPropFile() {
         String units = null;
         try {
-            units = PropertyAccessor.getInstance().getProperty(NhincConstants.GATEWAY_PROPERTY_FILE,
+            units = accessor.getProperty(NhincConstants.GATEWAY_PROPERTY_FILE,
                     NhincConstants.ASYNC_DB_REC_EXP_VAL_UNITS_PROP);
         } catch (PropertyAccessException ex) {
             LOG.error("Error: Failed to retrieve " + NhincConstants.ASYNC_DB_REC_EXP_VAL_UNITS_PROP
@@ -622,7 +633,7 @@ public class AsyncMsgRecordDao {
     protected long getValueFromPropFile() {
         long value = 0;
         try {
-            value = PropertyAccessor.getInstance().getPropertyLong(NhincConstants.GATEWAY_PROPERTY_FILE,
+            value = accessor.getPropertyLong(NhincConstants.GATEWAY_PROPERTY_FILE,
                     NhincConstants.ASYNC_DB_REC_EXP_VAL_PROP);
         } catch (PropertyAccessException ex) {
             LOG.error("Error: Failed to retrieve " + NhincConstants.ASYNC_DB_REC_EXP_VAL_PROP + " from property file: "

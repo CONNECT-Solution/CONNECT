@@ -7,13 +7,18 @@ package gov.hhs.fha.nhinc.asyncmsgs.dao;
 import gov.hhs.fha.nhinc.asyncmsgs.model.AsyncMsgRecord;
 import gov.hhs.fha.nhinc.common.deferredqueuemanager.QueryDeferredQueueRequestType;
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
+import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
+import java.util.TimeZone;
+
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
+
 import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -39,11 +44,13 @@ public class AsyncMsgRecordDaoTest {
     private final Session session = mock(Session.class);
     private Transaction transaction;
     private AsyncMsgRecordDao asyncMsgRecordDao;
+    private PropertyAccessor accessor;
 
     @Before
     public void setUp() {
         transaction = mock(Transaction.class);
-        asyncMsgRecordDao = new AsyncMsgRecordDao() {
+        accessor = mock(PropertyAccessor.class);
+        asyncMsgRecordDao = new AsyncMsgRecordDao(accessor) {
             @Override
             protected Session getSession() {
                 return session;
@@ -375,6 +382,9 @@ public class AsyncMsgRecordDaoTest {
      */
     @Test
     public void testCheckExpiration() throws PropertyAccessException {
+
+        Query query = mock(Query.class);
+
         System.out.println("checkExpiration");
 
         AsyncMsgRecord asyncMsgRecord1 = new AsyncMsgRecord();
@@ -389,22 +399,17 @@ public class AsyncMsgRecordDaoTest {
         final List<AsyncMsgRecord> asyncMsgRecords = new ArrayList<AsyncMsgRecord>();
         asyncMsgRecords.add(asyncMsgRecord1);
         asyncMsgRecords.add(asyncMsgRecord2);
-        AsyncMsgRecordDao asyncMsgRecordDao = new AsyncMsgRecordDao() {
+        when(accessor.getProperty(Mockito.anyString(), Mockito.anyString())).thenReturn("days");
+        when(accessor.getPropertyLong(Mockito.anyString(), Mockito.anyString())).thenReturn((long) 30);
+
+        when(session.getNamedQuery("queryForExpired")).thenReturn(query);
+        when(query.setParameter("creationTime", Calendar.getInstance(TimeZone.getTimeZone("GMT")))).thenReturn(query);
+        when(query.list()).thenReturn(asyncMsgRecords);
+
+        asyncMsgRecordDao = new AsyncMsgRecordDao(accessor) {
             @Override
             protected Session getSession() {
                 return session;
-            }
-
-            @Override
-            protected String getUnitsFromPropFile() {
-                String asyncDbRecExpUnits = "days";
-                return asyncDbRecExpUnits;
-            }
-
-            @Override
-            protected long getValueFromPropFile() {
-                long value = 30;
-                return value;
             }
 
             @Override
@@ -417,6 +422,7 @@ public class AsyncMsgRecordDaoTest {
                 // do nothing
             }
         };
+
         asyncMsgRecordDao.checkExpiration();
         // verify if the rows are updated
         // loop through and verify if each record saved
