@@ -69,13 +69,6 @@ public class HomeCommunityMap {
         
     }
 
-    /*
-     * protected ConnectionManagerCache getConnectionManagerCache() { return ConnectionManagerCache.getInstance(); }
-     * 
-     * 
-     * protected ConnectionManagerCacheHelper getConnectionManagerCacheHelper() { return new
-     * ConnectionManagerCacheHelper(); }
-     */
 
     /**
      * This method retrieves the name of the home community baased on the home community Id.
