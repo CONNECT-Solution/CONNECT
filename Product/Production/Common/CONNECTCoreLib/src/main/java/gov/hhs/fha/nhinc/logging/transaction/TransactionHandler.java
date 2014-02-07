@@ -26,7 +26,6 @@
  */
 package gov.hhs.fha.nhinc.logging.transaction;
 
-import gov.hhs.fha.nhinc.logging.transaction.dao.TransactionDAO;
 import gov.hhs.fha.nhinc.logging.transaction.factory.TransactionStoreFactory;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 
@@ -64,9 +63,17 @@ public class TransactionHandler implements SOAPHandler<SOAPMessageContext> {
     private static final String MESSAGE_ID = "MessageID";
     private static final String RELATESTO_ID = "RelatesTo";
     
-    private TransactionLogger transactionLogger = null;
-    private TransactionStoreFactory transactionStoreFactory = null;
+    private TransactionLogger transactionLogger;
+    private TransactionStore transactionStore;
+    
+    public TransactionHandler() {}
 
+    public TransactionHandler(TransactionLogger transactionLogger, 
+            TransactionStore transactionStore){
+        this.transactionLogger = transactionLogger;
+        this.transactionStore = transactionStore;
+    }
+    
     /*
      * (non-Javadoc)
      * 
@@ -141,17 +148,6 @@ public class TransactionHandler implements SOAPHandler<SOAPMessageContext> {
         getTransactionLogger().createTransactionRecord(messageId, transactionId);
     }
     
-    /**
-     * Gets the transaction logger.
-     *
-     * @return the transaction logger
-     */
-    protected TransactionLogger getTransactionLogger() {
-        if (transactionLogger == null) {
-            transactionLogger = new TransactionLogger();
-        }
-        return transactionLogger;
-    }
 
     /**
      * Looks up transaction ID using the TransactionDAO.
@@ -161,18 +157,6 @@ public class TransactionHandler implements SOAPHandler<SOAPMessageContext> {
      */
     protected String getTransactionId(String id) {
         return getTransactionStore().getTransactionId(id);
-    }
-    
-    /**
-     * Gets the transaction store.
-     *
-     * @return the transaction store
-     */
-    protected TransactionStore getTransactionStore() {
-        if (transactionStoreFactory == null) {
-            transactionStoreFactory = new TransactionStoreFactory();
-        }
-        return transactionStoreFactory.getTransactionStore();
     }
 
     /**
@@ -229,7 +213,7 @@ public class TransactionHandler implements SOAPHandler<SOAPMessageContext> {
 
         return transactionId;
     }
-
+    
     private SOAPElement getFirstChild(SOAPHeader header, String ns, String name) {
         QName qname = new QName(ns, name);
         return getFirstChild(header, qname);
@@ -286,6 +270,20 @@ public class TransactionHandler implements SOAPHandler<SOAPMessageContext> {
         Set<QName> headers = new HashSet<QName>();
         headers.add(TRANSACTION_QNAME);
         return headers;
+    }
+    
+    private TransactionStore getTransactionStore(){
+        if(transactionStore == null){
+            transactionStore = new TransactionStoreFactory().getTransactionStore();
+        }
+        return transactionStore;
+    }
+    
+    private TransactionLogger getTransactionLogger(){
+        if(transactionLogger == null){
+            transactionLogger = new TransactionLogger();
+        }
+        return transactionLogger;
     }
 
 }

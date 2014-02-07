@@ -26,9 +26,6 @@
  */
 package gov.hhs.fha.nhinc.logging.transaction;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
-
 import javax.xml.soap.MessageFactory;
 import javax.xml.soap.SOAPEnvelope;
 import javax.xml.soap.SOAPException;
@@ -39,6 +36,7 @@ import javax.xml.soap.SOAPPart;
 import javax.xml.ws.handler.soap.SOAPMessageContext;
 
 import org.apache.log4j.MDC;
+import org.junit.Before;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 import static org.mockito.Mockito.verify;
@@ -63,28 +61,23 @@ public class TransactionHandlerTest {
     private TransactionLogger transactionLogger = null;
     private TransactionStore transactionStore = null;
    
+    private TransactionHandler transHandler;
+    
+    @Before
+    public void setup(){
+        transactionLogger = mock(TransactionLogger.class);
+        transactionStore = mock(TransactionStore.class);
+
+        transHandler = 
+                new TransactionHandler(transactionLogger, transactionStore);
+    }
+    
     /**
      * Test of TransactionHandler.handleMessage() with transaction and message elements in the soap message.
      */
     @Test
     public void testHandleMessage_transaction_element_in_message() {
         
-        transactionLogger = mock(TransactionLogger.class);
-        transactionStore = mock(TransactionStore.class);
-
-        final TransactionHandler transHandler = new TransactionHandler() {
-            
-            @Override
-            protected TransactionLogger getTransactionLogger() {
-                return transactionLogger;
-            }
-            
-            @Override
-            protected TransactionStore getTransactionStore() {
-                return transactionStore;
-            }
-        };
-
         when(transactionStore.getTransactionId(MESSAGE_ID)).thenReturn(null);
 
         runHandleMessage(true, true, false, transHandler);
@@ -100,22 +93,6 @@ public class TransactionHandlerTest {
     @Test
     public void testHandleMessage_transaction_in_database() {
 
-        transactionLogger = mock(TransactionLogger.class);
-        transactionStore = mock(TransactionStore.class);
-        
-        final TransactionHandler transHandler = new TransactionHandler() {
-
-            @Override
-            protected TransactionLogger getTransactionLogger() {
-                return transactionLogger;
-            }
-            
-            @Override
-            protected TransactionStore getTransactionStore() {
-                return transactionStore;
-            }
-        };
-        
         when(transactionStore.getTransactionId(MESSAGE_ID)).thenReturn(TRANSACTION_ID);
         
         runHandleMessage(true, false, false, transHandler);
@@ -130,22 +107,6 @@ public class TransactionHandlerTest {
      */
     @Test
     public void testHandleMessage_no_transaction_in_message_or_database() {
-
-        transactionLogger = mock(TransactionLogger.class);
-        transactionStore = mock(TransactionStore.class);
-        
-        final TransactionHandler transHandler = new TransactionHandler() {
-         
-            @Override
-            protected TransactionLogger getTransactionLogger() {
-                return transactionLogger;
-            }
-            
-            @Override
-            protected TransactionStore getTransactionStore() {
-                return transactionStore;
-            }
-        };
 
         when(transactionStore.getTransactionId(MESSAGE_ID)).thenReturn(null);
         
@@ -162,22 +123,6 @@ public class TransactionHandlerTest {
     @Test
     public void testHandleMessage_relatesTo_with_transaction() {
 
-        transactionLogger = mock(TransactionLogger.class);
-        transactionStore = mock(TransactionStore.class);
-        
-        final TransactionHandler transHandler = new TransactionHandler() {
-          
-            @Override
-            protected TransactionLogger getTransactionLogger() {
-                return transactionLogger;
-            }
-            
-            @Override
-            protected TransactionStore getTransactionStore() {
-                return transactionStore;
-            }
-        };
-        
         when(transactionStore.getTransactionId(RELATESTO_ID)).thenReturn(TRANSACTION_ID);
 
         runHandleMessage(true, false, true, transHandler);
@@ -193,22 +138,6 @@ public class TransactionHandlerTest {
     @Test
     public void testHandleMessage_relatesTo_with_no_transaction() {
 
-        transactionLogger = mock(TransactionLogger.class);
-        transactionStore = mock(TransactionStore.class);
-        
-        final TransactionHandler transHandler = new TransactionHandler() {
-
-            @Override
-            protected TransactionLogger getTransactionLogger() {
-                return transactionLogger;
-            }
-            
-            @Override
-            protected TransactionStore getTransactionStore() {
-                return transactionStore;
-            }
-        };
-
         when(transactionStore.getTransactionId(MESSAGE_ID)).thenReturn(null);
         when(transactionStore.getTransactionId(RELATESTO_ID)).thenReturn(null);
         
@@ -223,22 +152,6 @@ public class TransactionHandlerTest {
      */
     @Test
     public void testHandleMessage_with_no_messageId() {
-
-        transactionLogger = mock(TransactionLogger.class);
-        transactionStore = mock(TransactionStore.class);
-        
-        final TransactionHandler transHandler = new TransactionHandler() {
-            
-            @Override
-            protected TransactionLogger getTransactionLogger() {
-                return transactionLogger;
-            }
-            
-            @Override
-            protected TransactionStore getTransactionStore() {
-                return transactionStore;
-            }
-        };
 
         runHandleMessage(false, true, false, transHandler);
         verify(transactionStore, never()).getTransactionId(any(String.class));
