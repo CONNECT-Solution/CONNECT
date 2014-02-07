@@ -15,6 +15,8 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
+import javax.naming.Name;
+import javax.naming.ldap.LdapName;
 import org.apache.log4j.Logger;
 import org.joda.time.DateTime;
 import org.opensaml.Configuration;
@@ -166,33 +168,52 @@ public class HOKSAMLAssertionBuilder extends SAMLAssertionBuilder {
      */
     static Subject createSubject(CallbackProperties properties, X509Certificate certificate, PublicKey publicKey)
             throws Exception {
-        String userName = properties.getUsername();
+        String x509Name = properties.getUsername();
 
-        if (NullChecker.isNullish(userName)) {
+        if (NullChecker.isNullish(x509Name) || checkDistinguishedName(x509Name)) {
             if (null != certificate && null != certificate.getSubjectDN()) {
-                userName = certificate.getSubjectDN().getName();
+                x509Name = certificate.getSubjectDN().getName();
             }
-        }
-        String x509Name = formatUID(userName);
+        }        
         return createSubject(x509Name, certificate, publicKey);
     }
 
+    /**
+     * 
+     * @param userName
+     * @return boolean
+     */
+    private static boolean checkDistinguishedName(String userName)
+    {
+        boolean isValid = true;
+        try
+        {
+            Name name = new LdapName(userName);
+        } catch(Exception e)
+        {
+            LOG.warn("Not a Valid Distinguished Name, setting the value from Certificate..");
+            isValid = false;
+        }
+        return isValid;
+    }
+    
     static Subject createEvidenceSubject(CallbackProperties properties, X509Certificate certificate, PublicKey publicKey)
             throws Exception {
         String evidenceSubject = properties.getEvidenceSubject();
+        String x509Name = null;
         if (NullChecker.isNullish(evidenceSubject)) {
             String userName = properties.getUsername();
 
-            if (NullChecker.isNullish(properties.getUsername())) {
+            if (NullChecker.isNullish(userName) || checkDistinguishedName(userName)) {
                 if (null != certificate && null != certificate.getSubjectDN()) {
                     userName = certificate.getSubjectDN().getName();
                 }
             }
-            evidenceSubject = userName;
+            x509Name = userName;
+        } else
+        {
+            x509Name = evidenceSubject;
         }
-
-        String x509Name = formatUID(evidenceSubject);
-
         return createSubject(x509Name, certificate, publicKey);
     }
     
