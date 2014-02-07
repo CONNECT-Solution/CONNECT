@@ -26,6 +26,7 @@
  */
 package gov.hhs.fha.nhinc.direct.event;
 
+import gov.hhs.fha.nhinc.direct.DirectBaseTest;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
@@ -43,7 +44,7 @@ import org.junit.Test;
 /**
  * Test {@link DirectEvent}.
  */
-public class DirectEventTest {
+public class DirectEventTest extends DirectBaseTest {
 
     private static final String MSG_ID = "123456789";
     private static final String ERROR_MSG = "Something wicked this way comes.";

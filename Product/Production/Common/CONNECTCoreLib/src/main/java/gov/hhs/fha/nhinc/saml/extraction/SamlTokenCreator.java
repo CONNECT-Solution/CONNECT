@@ -199,10 +199,6 @@ public class SamlTokenCreator {
                     requestContext.put(NhincConstants.ACTION_PROP, assertion.getSamlAuthzDecisionStatement()
                             .getAction());
                 }
-                if (NullChecker.isNotNullish(assertion.getSamlAuthzDecisionStatement().getResource())) {
-                    requestContext.put(NhincConstants.RESOURCE_PROP, assertion.getSamlAuthzDecisionStatement()
-                            .getResource());
-                }
                 if (NullChecker.isNotNullish(assertion.getSamlAuthzDecisionStatement().getDecision())) {
                     requestContext.put(NhincConstants.AUTHZ_DECISION_PROP, assertion.getSamlAuthzDecisionStatement()
                             .getDecision());
@@ -293,9 +289,7 @@ public class SamlTokenCreator {
 
         // This will be overwrite any value that is available in
         // assertion.getSamlAuthzDecisionStatement().getResource()
-        if (NullChecker.isNotNullish(url)) {
-            requestContext.put(NhincConstants.RESOURCE_PROP, url);
-        }
+        requestContext.put(NhincConstants.RESOURCE_PROP, url);
 
         // This will be overwrite any value that is available in
         // assertion.getSamlAuthzDecisionStatement().getAction()

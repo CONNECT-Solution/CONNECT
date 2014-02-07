@@ -2,10 +2,8 @@ package gov.hhs.fha.nhinc.saml.extraction;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertThat;
 
-import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -15,12 +13,9 @@ import java.util.Set;
 
 import org.apache.log4j.Appender;
 import org.apache.log4j.spi.LoggingEvent;
-import org.hl7.v3.CE;
-import org.hl7.v3.RespondingGatewayPRPAIN201305UV02RequestType;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.ArgumentCaptor;
-import static org.mockito.Mockito.when;
 import org.apache.log4j.Logger;
 
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
@@ -37,7 +32,6 @@ import gov.hhs.fha.nhinc.common.nhinccommon.UserType;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.nullValue;
 
 /**
  * @author achidambaram
@@ -46,6 +40,8 @@ import static org.hamcrest.CoreMatchers.nullValue;
 public class SamlTokenCreatorTest {
    
     private Appender appenderMock;
+    private final String RESOURCE_URL = "http://CONNECT/Endpoint";
+    
     @Before
     public void setupAppender() {
       appenderMock = mock(Appender.class);
@@ -54,10 +50,9 @@ public class SamlTokenCreatorTest {
     @Test
     public void CreateRequestContext() {
     SamlTokenCreator token = new SamlTokenCreator();
-    String url = null;
     String action = null;
     Map<String, Object> expectedrequestContext = new HashMap<String, Object>();
-    expectedrequestContext = token.createRequestContext(createAssertionInfo(),url,action);
+    expectedrequestContext = token.createRequestContext(createAssertionInfo(),RESOURCE_URL,action);
     System.out.println(expectedrequestContext);
     testUserName(expectedrequestContext);
     testUserHomeCommunityId(expectedrequestContext);
@@ -231,8 +226,7 @@ public class SamlTokenCreatorTest {
     
     private void testauthzResource(Map<String,Object>expectedrequestContext) {
         String resource = "resource";
-        assertEquals(testHashmapValues(expectedrequestContext, resource), createAssertionInfo()
-                .getSamlAuthzDecisionStatement().getResource());
+        assertEquals(testHashmapValues(expectedrequestContext, resource), RESOURCE_URL);
     }
     
     private void testauthzAction(Map<String,Object>expectedrequestContext) {
