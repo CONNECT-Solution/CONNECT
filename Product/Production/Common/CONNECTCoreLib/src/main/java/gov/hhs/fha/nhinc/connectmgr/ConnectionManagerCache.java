@@ -148,7 +148,7 @@ public class ConnectionManagerCache implements ConnectionManager {
      * 
      * @throws gov.hhs.fha.nhinc.connectmgr.ConnectionManagerException
      */
-    protected void checkLoaded() throws ConnectionManagerException {
+    private void checkLoaded() throws ConnectionManagerException {
         if (!m_bInternalLoaded) {
             forceRefreshInternalConnectCache();
         }

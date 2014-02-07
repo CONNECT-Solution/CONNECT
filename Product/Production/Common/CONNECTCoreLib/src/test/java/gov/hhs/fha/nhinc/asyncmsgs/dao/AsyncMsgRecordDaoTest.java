@@ -10,11 +10,9 @@ import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
-import java.util.TimeZone;
 
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
@@ -383,8 +381,6 @@ public class AsyncMsgRecordDaoTest {
     @Test
     public void testCheckExpiration() throws PropertyAccessException {
 
-        Query query = mock(Query.class);
-
         System.out.println("checkExpiration");
 
         AsyncMsgRecord asyncMsgRecord1 = new AsyncMsgRecord();
@@ -401,10 +397,6 @@ public class AsyncMsgRecordDaoTest {
         asyncMsgRecords.add(asyncMsgRecord2);
         when(accessor.getProperty(Mockito.anyString(), Mockito.anyString())).thenReturn("days");
         when(accessor.getPropertyLong(Mockito.anyString(), Mockito.anyString())).thenReturn((long) 30);
-
-        when(session.getNamedQuery("queryForExpired")).thenReturn(query);
-        when(query.setParameter("creationTime", Calendar.getInstance(TimeZone.getTimeZone("GMT")))).thenReturn(query);
-        when(query.list()).thenReturn(asyncMsgRecords);
 
         asyncMsgRecordDao = new AsyncMsgRecordDao(accessor) {
             @Override

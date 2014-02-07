@@ -64,10 +64,6 @@ public class ConnectionManagerCacheTest extends BaseConnctionManagerCache {
 
     private PropertyAccessor accessor;
 
-    @Before
-    public void setUp() {
-    }
-
     protected ConnectionManagerCache createConnectionManager_Empty() throws ConnectionManagerException {
         return new ConnectionManagerCache() {
             @Override

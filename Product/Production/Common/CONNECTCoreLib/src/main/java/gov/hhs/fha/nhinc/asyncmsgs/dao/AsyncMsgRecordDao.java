@@ -614,7 +614,7 @@ public class AsyncMsgRecordDao {
     /**
      * @return
      */
-    protected String getUnitsFromPropFile() {
+    private String getUnitsFromPropFile() {
         String units = null;
         try {
             units = accessor.getProperty(NhincConstants.GATEWAY_PROPERTY_FILE,
@@ -630,7 +630,7 @@ public class AsyncMsgRecordDao {
     /**
      * @return
      */
-    protected long getValueFromPropFile() {
+    private long getValueFromPropFile() {
         long value = 0;
         try {
             value = accessor.getPropertyLong(NhincConstants.GATEWAY_PROPERTY_FILE,
