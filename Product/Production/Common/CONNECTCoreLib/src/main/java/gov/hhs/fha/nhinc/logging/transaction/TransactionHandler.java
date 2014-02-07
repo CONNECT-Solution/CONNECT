@@ -66,10 +66,7 @@ public class TransactionHandler implements SOAPHandler<SOAPMessageContext> {
     private TransactionLogger transactionLogger;
     private TransactionStore transactionStore;
     
-    public TransactionHandler(){
-        this.transactionLogger = new TransactionLogger();
-        this.transactionStore = new TransactionStoreFactory().getTransactionStore();
-    }
+    public TransactionHandler() {}
 
     public TransactionHandler(TransactionLogger transactionLogger, 
             TransactionStore transactionStore){
@@ -148,7 +145,7 @@ public class TransactionHandler implements SOAPHandler<SOAPMessageContext> {
      * @param transactionId The transactionId fromthe SOAPHeader
      */
     protected void createTransactionRecord(String messageId, String transactionId) {
-        transactionLogger.createTransactionRecord(messageId, transactionId);
+        getTransactionLogger().createTransactionRecord(messageId, transactionId);
     }
     
 
@@ -159,7 +156,7 @@ public class TransactionHandler implements SOAPHandler<SOAPMessageContext> {
      * @return transactionId The transactionId from the DAO lookup
      */
     protected String getTransactionId(String id) {
-        return transactionStore.getTransactionId(id);
+        return getTransactionStore().getTransactionId(id);
     }
 
     /**
@@ -169,7 +166,7 @@ public class TransactionHandler implements SOAPHandler<SOAPMessageContext> {
      * @param messageId The messageId for the message
      */
     protected void enableMdcLogging(String transactionId, String messageId) {
-        transactionLogger.enableMdcLogging(transactionId, messageId);
+        getTransactionLogger().enableMdcLogging(transactionId, messageId);
     }
 
     private String checkTransactionIdFromMessage(SOAPElement transactionIdElement, String messageId) {
@@ -216,7 +213,7 @@ public class TransactionHandler implements SOAPHandler<SOAPMessageContext> {
 
         return transactionId;
     }
-
+    
     private SOAPElement getFirstChild(SOAPHeader header, String ns, String name) {
         QName qname = new QName(ns, name);
         return getFirstChild(header, qname);
@@ -273,6 +270,20 @@ public class TransactionHandler implements SOAPHandler<SOAPMessageContext> {
         Set<QName> headers = new HashSet<QName>();
         headers.add(TRANSACTION_QNAME);
         return headers;
+    }
+    
+    private TransactionStore getTransactionStore(){
+        if(transactionStore == null){
+            transactionStore = new TransactionStoreFactory().getTransactionStore();
+        }
+        return transactionStore;
+    }
+    
+    private TransactionLogger getTransactionLogger(){
+        if(transactionLogger == null){
+            transactionLogger = new TransactionLogger();
+        }
+        return transactionLogger;
     }
 
 }
