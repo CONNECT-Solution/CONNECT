@@ -56,19 +56,8 @@ import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 public class HomeCommunityMap {
 
     private static final Logger LOG = Logger.getLogger(HomeCommunityMap.class);
-    private ConnectionManagerCache connection;
-    private static PropertyAccessor propertyAccessor;
-
-    public HomeCommunityMap() {
-        this.connection = ConnectionManagerCache.getInstance();
-        propertyAccessor = PropertyAccessor.getInstance();
-    }
-
-    public HomeCommunityMap(ConnectionManagerCache connection, PropertyAccessor accessor) {
-        this.connection = connection;
-        propertyAccessor = accessor;
-        
-    }
+    private static ConnectionManagerCache connection = ConnectionManagerCache.getInstance();
+    private static PropertyAccessor propertyAccessor = PropertyAccessor.getInstance();
 
 
     /**
@@ -77,7 +66,7 @@ public class HomeCommunityMap {
      * @param sHomeCommunityId The home community ID to be looked up.
      * @return The textual name of the home community.
      */
-    public String getHomeCommunityName(String sHomeCommunityId) {
+    public static String getHomeCommunityName(String sHomeCommunityId) {
         String sHomeCommunityName = "";
 
         try {
@@ -286,6 +275,14 @@ public class HomeCommunityMap {
             }
         }
         return communityId;
+    }
+    
+    protected static void setPropertyAccessor(PropertyAccessor propAccessor) {
+        propertyAccessor = propAccessor;
+    }
+    
+    protected static void setConnectionManager(ConnectionManagerCache connectionManager) {
+        connection = connectionManager;
     }
 
 }

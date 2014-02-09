@@ -64,14 +64,7 @@ public class HomeCommunityMapTest {
 
     ConnectionManagerCache connection = mock(ConnectionManagerCache.class);
 
-    ConnectionManagerCacheHelper helper = mock(ConnectionManagerCacheHelper.class);
     PropertyAccessor accessor = mock(PropertyAccessor.class);
-    HomeCommunityMap map;
-
-    @Before
-    public void Setup() {
-        map = new HomeCommunityMap(connection,accessor);
-    }
 
     public HomeCommunityMapTest() {
     }
@@ -94,10 +87,12 @@ public class HomeCommunityMapTest {
 
         try {
             String homeCommunityId = "1.1";
+            
+            HomeCommunityMap.setConnectionManager(connection);
 
             when(connection.getBusinessEntity(Mockito.anyString())).thenReturn(createBusinessEntity(homeCommunityName));
 
-            String foundName = map.getHomeCommunityName(homeCommunityId);
+            String foundName = HomeCommunityMap.getHomeCommunityName(homeCommunityId);
             assertEquals(homeCommunityName, foundName);
 
         } catch (Exception e) {
@@ -111,10 +106,12 @@ public class HomeCommunityMapTest {
 
         try {
             String homeCommunityId = "123456";
+            
+            HomeCommunityMap.setConnectionManager(connection);
 
             when(connection.getBusinessEntity(Mockito.anyString())).thenReturn(null);
 
-            String foundName = map.getHomeCommunityName(homeCommunityId);
+            String foundName = HomeCommunityMap.getHomeCommunityName(homeCommunityId);
             assertEquals("", foundName);
         } catch (Exception e) {
             e.printStackTrace();
@@ -294,6 +291,7 @@ public class HomeCommunityMapTest {
     public void testGetLocalHomeCommunityId() throws PropertyAccessException {
 
         final String localCommunityId = "1.1";
+        HomeCommunityMap.setPropertyAccessor(accessor);
 
         when(accessor.getProperty(Mockito.anyString(), Mockito.anyString())).thenReturn(localCommunityId);
 
