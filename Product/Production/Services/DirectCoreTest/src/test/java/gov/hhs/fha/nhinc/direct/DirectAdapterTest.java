@@ -69,10 +69,12 @@ import org.nhindirect.stagent.mail.Message;
 
 import com.google.common.collect.ImmutableList;
 import com.icegreen.greenmail.user.UserException;
+import org.junit.Ignore;
 
 /**
  * Test {@link DirectMailClient}.
  */
+@Ignore
 public class DirectAdapterTest extends AbstractDirectMailClientTest {
 
     private static int eventIndex = 0;    

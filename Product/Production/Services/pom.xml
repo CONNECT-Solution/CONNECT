@@ -25,6 +25,19 @@
         <module>SharedEngineCore</module>
         <module>DirectCore</module>
     </modules>
+    
+    <profiles>
+    	<profile>
+    		<id>DirectTest</id>
+    		<modules>
+    			<module>DirectCoreTest</module>
+    		</modules>
+    		<activation>
+      			<activeByDefault>false</activeByDefault>
+    		</activation>
+    	</profile>
+    </profiles>
+    
     <properties>
         <skip.unpack>false</skip.unpack>
         <skip.source>false</skip.source>
