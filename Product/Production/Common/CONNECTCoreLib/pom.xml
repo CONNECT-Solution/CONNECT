@@ -19,6 +19,7 @@
             <groupId>org.connectopensource</groupId>
             <artifactId>Properties</artifactId>
             <version>${project.parent.version}</version>
+            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.connectopensource</groupId>
@@ -108,18 +109,6 @@
                     <groupId>xalan</groupId>
                 </exclusion>
             </exclusions>
-        </dependency>
-        <dependency>
-            <groupId>com.icegreen</groupId>
-            <artifactId>greenmail</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>commons-io</groupId>
-            <artifactId>commons-io</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>javax.mail</groupId>
-            <artifactId>mail</artifactId>
         </dependency>
         <dependency>
             <groupId>xmlunit</groupId>

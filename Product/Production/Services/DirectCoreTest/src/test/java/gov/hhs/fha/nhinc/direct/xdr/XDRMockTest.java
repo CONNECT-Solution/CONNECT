@@ -49,6 +49,7 @@ import com.icegreen.greenmail.user.UserException;
 /**
  * Test Direct Client with XDR edge clients.
  */
+@Ignore
 public class XDRMockTest extends AbstractDirectMailClientTest {
 
     /**
