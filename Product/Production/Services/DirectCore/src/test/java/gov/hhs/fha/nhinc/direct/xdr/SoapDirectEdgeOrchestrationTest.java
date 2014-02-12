@@ -26,57 +26,119 @@
  */
 package gov.hhs.fha.nhinc.direct.xdr;
 
-import static org.mockito.Matchers.any;
-import static org.mockito.Matchers.anyString;
+import gov.hhs.fha.nhinc.direct.DirectAdapterFactory;
+import gov.hhs.fha.nhinc.direct.DirectSender;
+import gov.hhs.fha.nhinc.direct.addressparsing.FromAddressParser;
+import gov.hhs.fha.nhinc.direct.addressparsing.FromAddressParserFactory;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 import gov.hhs.fha.nhinc.direct.addressparsing.ToAddressParser;
+import gov.hhs.fha.nhinc.direct.addressparsing.ToAddressParserFactory;
+import gov.hhs.fha.nhinc.direct.xdr.audit.SoapEdgeAuditor;
+import gov.hhs.fha.nhinc.direct.xdr.audit.SoapEdgeAuditorFactory;
+import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
 
-import java.util.Collections;
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.mail.Address;
+import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
-import org.junit.Before;
 import org.junit.Test;
+import static org.mockito.Matchers.anyString;
+import static org.mockito.Matchers.eq;
 import org.nhindirect.xd.common.DirectDocuments;
 import org.nhindirect.xd.transform.XdsDirectDocumentsTransformer;
-import org.nhindirect.xd.transform.exception.TransformationException;
 
 public class SoapDirectEdgeOrchestrationTest {
-    private SoapDirectEdgeOrchestration orch;
-    private XdsDirectDocumentsTransformer mockDocTransformer;
-    private ToAddressParser mockToParser;
-    private ProvideAndRegisterDocumentSetRequestType mockRequest;
-    private SoapEdgeContext mockContext;
-
-    @Before
-    public void before() {
-        orch = new SoapDirectEdgeOrchestration();
-        mockDocTransformer = mock(XdsDirectDocumentsTransformer.class);
-        mockToParser = mock(ToAddressParser.class);
-        mockRequest = mock(ProvideAndRegisterDocumentSetRequestType.class);
-        mockContext = mock(SoapEdgeContext.class);
+    
+    private final XdsDirectDocumentsTransformer mockDocTransformer =
+            mock(XdsDirectDocumentsTransformer.class);
+    private final ProvideAndRegisterDocumentSetRequestType mockRequest =
+            mock(ProvideAndRegisterDocumentSetRequestType.class);
+    private final SoapEdgeContext mockContext = mock(SoapEdgeContext.class);
+    
+    private final SoapEdgeAuditorFactory mockAuditorFactory = 
+            mock(SoapEdgeAuditorFactory.class);
+    private final ToAddressParserFactory mockToParserFactory = 
+            mock(ToAddressParserFactory.class);
+    private final FromAddressParserFactory mockFromParserFactory =
+            mock(FromAddressParserFactory.class);
+    private final DirectAdapterFactory mockAdapterFactory = 
+            mock(DirectAdapterFactory.class);
+    
+    private final ToAddressParser mockToParser = mock(ToAddressParser.class);
+    private final FromAddressParser mockFromParser = mock(FromAddressParser.class);
+    private final SoapEdgeAuditor mockAuditor = mock(SoapEdgeAuditor.class);
+    private final DirectSender mockSender = mock(DirectSender.class);
+    
+    private static final String TO_ADDRESS_VALUE = "To Address";
+    private static final String FROM_ADDRESS_VALUE = "From Address";
+    private static final String MESSAGE_ID = "12345";
+   
+    @Test
+    public void testNotNull(){
+        SoapDirectEdgeOrchestration orch = new SoapDirectEdgeOrchestration();
+        assertNotNull(orch);
     }
-
-    @Test(expected = TransformationException.class)
-    public void sendMessageNullToAddresses() throws TransformationException {
-        sendWithToParserResult(null);
-    }
-
-    @Test(expected = TransformationException.class)
-    public void sendMessageEmptyToAddresses() throws TransformationException {
-        Set<Address> emptyAddresses = Collections.emptySet();
-        sendWithToParserResult(emptyAddresses);
-    }
-
-    private void sendWithToParserResult(Set<Address> addresses) throws TransformationException {
-        when(mockToParser.parse(anyString(), any(DirectDocuments.class))).thenReturn(addresses);
-
-        orch.setDocumentsTransformer(mockDocTransformer);
-        orch.setToAddressParser(mockToParser);
-
-        orch.sendMessage(mockRequest, mockContext);
+    
+    @Test
+    public void testOrchestrate() throws Exception{
+        SoapDirectEdgeOrchestration orch = 
+                new SoapDirectEdgeOrchestration(mockAuditorFactory,
+                mockToParserFactory, mockFromParserFactory,
+                mockAdapterFactory, mockDocTransformer);
+        
+        when(mockAuditorFactory.getAuditor()).thenReturn(mockAuditor);
+        
+        final DirectDocuments documents = new DirectDocuments();
+        when(mockDocTransformer.transform(mockRequest)).thenReturn(documents);
+        
+        when(mockContext.getDirectTo()).thenReturn(TO_ADDRESS_VALUE);
+        when(mockContext.getDirectFrom()).thenReturn(FROM_ADDRESS_VALUE);
+        when(mockContext.getMessageId()).thenReturn(MESSAGE_ID);
+               
+        Address toAddress = mock(Address.class);
+        Set<Address> toAddresses = new HashSet<Address>();
+        toAddresses.add(toAddress);
+        Address[] addressArray = toAddresses.toArray(new Address[0]);
+        
+        Address fromAddress = mock(Address.class);
+        
+        when(mockToParserFactory.getToParser()).thenReturn(mockToParser);
+        when(mockFromParserFactory.getFromParser()).thenReturn(mockFromParser);
+        
+        when(mockToParser.parse(TO_ADDRESS_VALUE, documents)).thenReturn(toAddresses);
+        when(mockFromParser.parse(FROM_ADDRESS_VALUE, documents)).thenReturn(fromAddress);
+        
+        when(mockAdapterFactory.getDirectSender()).thenReturn(mockSender);
+        
+        RegistryResponseType response = 
+                orch.orchestrate(mockRequest, mockContext);
+        
+        verify(mockAuditor).audit(SoapEdgeAuditor.PRINCIPAL, 
+                SoapEdgeAuditor.REQUESTRECIEVED_CATEGORY, 
+                SoapEdgeAuditor.REQUESTRECIEVED_MESSAGE,
+                mockContext);
+        
+        verify(mockToParser).parse(TO_ADDRESS_VALUE, documents);
+        verify(mockFromParser).parse(FROM_ADDRESS_VALUE, documents);
+        
+        verify(mockSender).sendOutboundDirect(fromAddress, 
+                addressArray, documents,
+                MESSAGE_ID);
+        
+        verify(mockAuditor).audit(SoapEdgeAuditor.PRINCIPAL, 
+                SoapEdgeAuditor.RESPONSERETURNED_CATEGORY, 
+                SoapEdgeAuditor.RESPONSERETURNED_MESSAGE,
+                mockContext);
+        
+        assertNotNull(response);
+        assertEquals(response.getStatus(), 
+                NhincConstants.NHINC_ADHOC_QUERY_SUCCESS_RESPONSE);
     }
 }
