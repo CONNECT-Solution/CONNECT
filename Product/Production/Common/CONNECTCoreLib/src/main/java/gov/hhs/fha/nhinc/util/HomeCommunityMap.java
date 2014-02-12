@@ -39,7 +39,6 @@ import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.common.nhinccommon.UserType;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
-import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCacheHelper;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
@@ -48,39 +47,31 @@ import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 /**
  * This class is used to map a home community ID to the textual name of the home community. The information is stored in
  * a properties file so that it can be tweaked and changed without having to recompile...
- *
+ * 
  * Added getCommunityIdFromXXX() methods for use in audit logging.
- *
+ * 
  * @author Les Westberg
  * @author venkat.keesara
  */
 public class HomeCommunityMap {
 
     private static final Logger LOG = Logger.getLogger(HomeCommunityMap.class);
+    private static ConnectionManagerCache connection = ConnectionManagerCache.getInstance();
     private static PropertyAccessor propertyAccessor = PropertyAccessor.getInstance();
 
-    protected ConnectionManagerCache getConnectionManagerCache() {
-        return ConnectionManagerCache.getInstance();
-    }
-
-
-	protected ConnectionManagerCacheHelper getConnectionManagerCacheHelper() {
-		return new ConnectionManagerCacheHelper();
-	}
 
     /**
      * This method retrieves the name of the home community baased on the home community Id.
-     *
+     * 
      * @param sHomeCommunityId The home community ID to be looked up.
      * @return The textual name of the home community.
      */
-    public String getHomeCommunityName(String sHomeCommunityId) {
+    public static String getHomeCommunityName(String sHomeCommunityId) {
         String sHomeCommunityName = "";
-        
-        try {
-            ConnectionManagerCache connectionManagerCache = getConnectionManagerCache();
 
-            BusinessEntity oEntity = connectionManagerCache.getBusinessEntity(sHomeCommunityId);
+        try {
+
+            BusinessEntity oEntity = connection.getBusinessEntity(sHomeCommunityId);
             if ((oEntity != null) && (oEntity.getName() != null) && (oEntity.getName().size() > 0)
                     && (oEntity.getName().get(0) != null) && (oEntity.getName().get(0).getValue().length() > 0)) {
                 sHomeCommunityName = oEntity.getName().get(0).getValue();
@@ -94,7 +85,7 @@ public class HomeCommunityMap {
 
     /**
      * This method retrieves the first home community id from the target home communities list.
-     *
+     * 
      * @param target
      * @return The home community OID string
      */
@@ -110,7 +101,7 @@ public class HomeCommunityMap {
 
     /**
      * This method retrieves the home community id from the target home system.
-     *
+     * 
      * @param target
      * @return The home community OID string
      */
@@ -127,7 +118,7 @@ public class HomeCommunityMap {
     /**
      * This method retrieves the home community id from the user info found in saml assertion. If not defined in the
      * user info, retrieve the id from the homeCommunityId property of the assertion.
-     *
+     * 
      * @param assertion
      * @return The home community OID string
      */
@@ -144,32 +135,33 @@ public class HomeCommunityMap {
                 }
             }
         }
-        
-        if (communityId == null){
-        	communityId = getHomeCommunityIdFromAssertion(assertion);
+
+        if (communityId == null) {
+            communityId = getHomeCommunityIdFromAssertion(assertion);
         }
         return formatHomeCommunityId(communityId);
     }
-    
+
     /**
-     * This method retrieves the home community id from the homeCommunityId property of
-     * the assertion.
+     * This method retrieves the home community id from the homeCommunityId property of the assertion.
+     * 
      * @param assertion
      * @return
      */
-    public static String getHomeCommunityIdFromAssertion(AssertionType assertion){
-    	String homeCommunity = null;
-    	try{
-    	 	 homeCommunity = assertion.getHomeCommunity().getHomeCommunityId();
-    	}catch (NullPointerException ex){
-    		LOG.warn("Could not obtain HCID from HomeCommunity in assertion.", ex);
-    	}
-    	return homeCommunity;
+    public static String getHomeCommunityIdFromAssertion(AssertionType assertion) {
+        String homeCommunity = null;
+        try {
+            if (NullChecker.isNotNullish(assertion.getHomeCommunity().getHomeCommunityId()))
+                homeCommunity = assertion.getHomeCommunity().getHomeCommunityId();
+        } catch (NullPointerException ex) {
+            LOG.warn("Could not obtain HCID from HomeCommunity in assertion.", ex);
+        }
+        return homeCommunity;
     }
 
     /**
      * This method retrieves the community id from the deferred query document request.
-     *
+     * 
      * @param body
      * @return The home community OID string
      */
@@ -183,7 +175,7 @@ public class HomeCommunityMap {
 
     /**
      * This method retrieves the community id from the deferred query document response.
-     *
+     * 
      * @param body
      * @return The home community OID string
      */
@@ -200,7 +192,7 @@ public class HomeCommunityMap {
 
     /**
      * This method retrieves the home community id from the retrieve document request.
-     *
+     * 
      * @param body
      * @return The home community OID string
      */
@@ -215,7 +207,7 @@ public class HomeCommunityMap {
 
     /**
      * This method retrieves the home community id from the deferred retrieve document response.
-     *
+     * 
      * @param body
      * @return The home community OID string
      */
@@ -230,7 +222,7 @@ public class HomeCommunityMap {
 
     /**
      * Formats the home community id by parsing out the 'urn:oid:' prefix if it exists.
-     *
+     * 
      * @param communityId the community id string to format
      * @return the formatted community id
      */
@@ -246,25 +238,32 @@ public class HomeCommunityMap {
 
     /**
      * Return this gateway's home community id.
-     *
+     * 
      * @return
      */
     public static String getLocalHomeCommunityId() {
         String sHomeCommunity = null;
+        sHomeCommunity = getHomeCommunityFromPropFile();
+        return sHomeCommunity;
+    }
 
+    /**
+     * @return
+     */
+    private static String getHomeCommunityFromPropFile() {
+        String sHomeCommunity = null;
         try {
             sHomeCommunity = propertyAccessor.getProperty(NhincConstants.GATEWAY_PROPERTY_FILE,
                     NhincConstants.HOME_COMMUNITY_ID_PROPERTY);
         } catch (PropertyAccessException ex) {
             LOG.error(ex.getMessage());
         }
-
         return sHomeCommunity;
     }
-    
+
     /**
      * Returns the home community id by with 'urn:oid:' prefix if it doesn't exists.
-     *
+     * 
      * @param communityId the community id string to format
      * @return the formatted community id
      */
@@ -272,18 +271,18 @@ public class HomeCommunityMap {
         if (communityId != null) {
             LOG.debug("communityId prior to adding urn:oid" + communityId);
             if (!communityId.startsWith("urn:oid:")) {
-                communityId = "urn:oid:"+communityId;
+                communityId = "urn:oid:" + communityId;
             }
         }
         return communityId;
     }
     
-    /**
-     * Used for injecting mock property accessor for Unit testing.
-     * @param propAccessor
-     */
-    protected static void setPropertyAccessor(PropertyAccessor propAccessor){
+    protected static void setPropertyAccessor(PropertyAccessor propAccessor) {
         propertyAccessor = propAccessor;
     }
     
+    protected static void setConnectionManager(ConnectionManagerCache connectionManager) {
+        connection = connectionManager;
+    }
+
 }

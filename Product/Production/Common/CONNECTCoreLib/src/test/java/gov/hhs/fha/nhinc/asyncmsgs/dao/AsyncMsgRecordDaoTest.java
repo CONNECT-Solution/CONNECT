@@ -7,12 +7,16 @@ package gov.hhs.fha.nhinc.asyncmsgs.dao;
 import gov.hhs.fha.nhinc.asyncmsgs.model.AsyncMsgRecord;
 import gov.hhs.fha.nhinc.common.deferredqueuemanager.QueryDeferredQueueRequestType;
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
+import gov.hhs.fha.nhinc.properties.PropertyAccessor;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
+
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
+
 import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -27,21 +31,24 @@ import static org.mockito.Mockito.when;
 
 /**
  * Unit test class for AsyncMsgRecordDao
- *
+ * 
  * @author nsubramanyan
  */
 public class AsyncMsgRecordDaoTest {
 
     public AsyncMsgRecordDaoTest() {
     }
+
     private final Session session = mock(Session.class);
     private Transaction transaction;
     private AsyncMsgRecordDao asyncMsgRecordDao;
+    private PropertyAccessor accessor;
 
     @Before
     public void setUp() {
         transaction = mock(Transaction.class);
-        asyncMsgRecordDao = new AsyncMsgRecordDao() {
+        accessor = mock(PropertyAccessor.class);
+        asyncMsgRecordDao = new AsyncMsgRecordDao(accessor) {
             @Override
             protected Session getSession() {
                 return session;
@@ -56,8 +63,8 @@ public class AsyncMsgRecordDaoTest {
     @Test
     public void testQueryByMessageIdAndDirection() {
         System.out.println("queryByMessageIdAndDirection");
-        //insert two AsyncMsgRecord records with MessageID and Direction
-        //Row 1
+        // insert two AsyncMsgRecord records with MessageID and Direction
+        // Row 1
         AsyncMsgRecord asyncMsgRecord1 = new AsyncMsgRecord();
         final String MESSAGEID_1 = "111";
         asyncMsgRecord1.setMessageId(MESSAGEID_1);
@@ -65,13 +72,13 @@ public class AsyncMsgRecordDaoTest {
         asyncMsgRecord1.setDirection(DIRECTION_1);
         final String COMMUNITYID_1 = "1.1";
         asyncMsgRecord1.setCommunityId(COMMUNITYID_1);
-        //Row 2
+        // Row 2
         AsyncMsgRecord asyncMsgRecord2 = new AsyncMsgRecord();
         asyncMsgRecord2.setMessageId(MESSAGEID_1);
         asyncMsgRecord2.setDirection(DIRECTION_1);
         final String COMMUNITYID_2 = "2.2";
         asyncMsgRecord2.setCommunityId(COMMUNITYID_2);
-        //create the asyncMsgRecord list
+        // create the asyncMsgRecord list
         List<AsyncMsgRecord> asyncRecords = new ArrayList<AsyncMsgRecord>();
         asyncRecords.add(asyncMsgRecord1);
         asyncRecords.add(asyncMsgRecord2);
@@ -80,9 +87,9 @@ public class AsyncMsgRecordDaoTest {
         when(session.getNamedQuery(Mockito.anyString())).thenReturn(query);
         when(query.list()).thenReturn(asyncRecords);
 
-        //Criteria criteria = mock(Criteria.class);
-        //when(session.createCriteria(AsyncMsgRecord.class)).thenReturn(criteria);
-        //when(session.createQuery(Mockito.anyString())).thenReturn(query);
+        // Criteria criteria = mock(Criteria.class);
+        // when(session.createCriteria(AsyncMsgRecord.class)).thenReturn(criteria);
+        // when(session.createQuery(Mockito.anyString())).thenReturn(query);
         List<AsyncMsgRecord> resultRows = asyncMsgRecordDao.queryByMessageIdAndDirection(MESSAGEID_1, DIRECTION_1);
         assertEquals(resultRows.size(), 2);
         assertEquals(resultRows.get(0).getCommunityId(), COMMUNITYID_1);
@@ -95,21 +102,21 @@ public class AsyncMsgRecordDaoTest {
     @Test
     public void testQueryByMessageIdAndServiceName() {
         System.out.println("queryByMessageIdAndServiceName");
-        //insert a AsyncMsgRecord record with MessageID and Service Name
+        // insert a AsyncMsgRecord record with MessageID and Service Name
         AsyncMsgRecord asyncMsgRecord = new AsyncMsgRecord();
         final String MESSAGEID = "111";
         asyncMsgRecord.setMessageId(MESSAGEID);
         final String SERVICE_NAME = "PatientDiscovery";
         asyncMsgRecord.setDirection(SERVICE_NAME);
-        //create the asyncMsgRecord list
+        // create the asyncMsgRecord list
         List<AsyncMsgRecord> asyncRecords = new ArrayList<AsyncMsgRecord>();
         asyncRecords.add(asyncMsgRecord);
 
-        //crete the Query for Named Query used in the service
+        // crete the Query for Named Query used in the service
         Query query = mock(Query.class);
         when(session.getNamedQuery(Mockito.anyString())).thenReturn(query);
         when(query.list()).thenReturn(asyncRecords);
-        //test the service
+        // test the service
         List resultRows = asyncMsgRecordDao.queryByMessageIdAndServiceName(MESSAGEID, SERVICE_NAME);
         assertEquals(resultRows.size(), 1);
     }
@@ -120,37 +127,37 @@ public class AsyncMsgRecordDaoTest {
     @Test
     public void testQueryByTime() {
         System.out.println("queryByTime");
-        //create the asyncMsgRecord list
+        // create the asyncMsgRecord list
         List<AsyncMsgRecord> asyncRecords = new ArrayList<AsyncMsgRecord>();
 
-        //create 4 records 
-        //row 1
+        // create 4 records
+        // row 1
         AsyncMsgRecord asyncMsgRecord = new AsyncMsgRecord();
         asyncMsgRecord.setMessageId("1.1");
         asyncMsgRecord.setDirection("Sevice1");
         asyncMsgRecord.setCreationTime(new Date());
         asyncRecords.add(asyncMsgRecord);
-        //row2
+        // row2
         asyncMsgRecord = new AsyncMsgRecord();
         asyncMsgRecord.setMessageId("2.1");
         asyncMsgRecord.setDirection("Sevice2");
         asyncMsgRecord.setCreationTime(new Date());
         asyncRecords.add(asyncMsgRecord);
-        //row3
+        // row3
         asyncMsgRecord = new AsyncMsgRecord();
         asyncMsgRecord.setMessageId("3.1");
         asyncMsgRecord.setDirection("Sevice3");
         asyncMsgRecord.setCreationTime(new Date());
         asyncRecords.add(asyncMsgRecord);
-        //row4
+        // row4
         asyncMsgRecord = new AsyncMsgRecord();
         asyncMsgRecord.setMessageId("4.1");
         asyncMsgRecord.setDirection("Sevice4");
         asyncMsgRecord.setCreationTime(new Date());
         asyncRecords.add(asyncMsgRecord);
-        //pass this timestamp value to the service
+        // pass this timestamp value to the service
         Date timestamp = new Date();
-        //crete the Query for Named Query used in the service
+        // crete the Query for Named Query used in the service
         Query query = mock(Query.class);
         when(session.getNamedQuery(Mockito.anyString())).thenReturn(query);
         when(query.list()).thenReturn(asyncRecords);
@@ -165,37 +172,37 @@ public class AsyncMsgRecordDaoTest {
     @Test
     public void testQueryForExpired() {
         System.out.println("queryForExpired");
-        //create the asyncMsgRecord list
+        // create the asyncMsgRecord list
         List<AsyncMsgRecord> asyncRecords = new ArrayList<AsyncMsgRecord>();
 
-        //create 4 records 
-        //row 1
+        // create 4 records
+        // row 1
         AsyncMsgRecord asyncMsgRecord = new AsyncMsgRecord();
         asyncMsgRecord.setMessageId("1.1");
         asyncMsgRecord.setDirection("Sevice1");
         asyncMsgRecord.setCreationTime(new Date());
         asyncRecords.add(asyncMsgRecord);
-        //row2
+        // row2
         asyncMsgRecord = new AsyncMsgRecord();
         asyncMsgRecord.setMessageId("2.1");
         asyncMsgRecord.setDirection("Sevice2");
         asyncMsgRecord.setCreationTime(new Date());
         asyncRecords.add(asyncMsgRecord);
-        //row3
+        // row3
         asyncMsgRecord = new AsyncMsgRecord();
         asyncMsgRecord.setMessageId("3.1");
         asyncMsgRecord.setDirection("Sevice3");
         asyncMsgRecord.setCreationTime(new Date());
         asyncRecords.add(asyncMsgRecord);
-        //row4
+        // row4
         asyncMsgRecord = new AsyncMsgRecord();
         asyncMsgRecord.setMessageId("4.1");
         asyncMsgRecord.setDirection("Sevice4");
         asyncMsgRecord.setCreationTime(new Date());
         asyncRecords.add(asyncMsgRecord);
-        //pass this timestamp value to the service
+        // pass this timestamp value to the service
         Date timestamp = new Date();
-        //crete the Query for Named Query used in the service
+        // crete the Query for Named Query used in the service
         Query query = mock(Query.class);
         when(session.getNamedQuery(Mockito.anyString())).thenReturn(query);
         when(query.list()).thenReturn(asyncRecords);
@@ -210,30 +217,30 @@ public class AsyncMsgRecordDaoTest {
     @Test
     public void testQueryForDeferredQueueProcessing() {
         System.out.println("queryForDeferredQueueProcessing");
-        //create the asyncMsgRecord list
+        // create the asyncMsgRecord list
         List<AsyncMsgRecord> asyncRecords = new ArrayList<AsyncMsgRecord>();
 
-        //create 3 records 
-        //row 1
+        // create 3 records
+        // row 1
         AsyncMsgRecord asyncMsgRecord = new AsyncMsgRecord();
         asyncMsgRecord.setMessageId("1.1");
         asyncMsgRecord.setDirection("Sevice1");
         asyncMsgRecord.setCreationTime(new Date());
         asyncRecords.add(asyncMsgRecord);
-        //row2
+        // row2
         asyncMsgRecord = new AsyncMsgRecord();
         asyncMsgRecord.setMessageId("2.1");
         asyncMsgRecord.setDirection("Sevice2");
         asyncMsgRecord.setCreationTime(new Date());
         asyncRecords.add(asyncMsgRecord);
-        //row3
+        // row3
         asyncMsgRecord = new AsyncMsgRecord();
         asyncMsgRecord.setMessageId("3.1");
         asyncMsgRecord.setDirection("Sevice3");
         asyncMsgRecord.setCreationTime(new Date());
         asyncRecords.add(asyncMsgRecord);
 
-        //crete the Query for Named Query used in the service
+        // crete the Query for Named Query used in the service
         Query query = mock(Query.class);
         when(session.getNamedQuery(Mockito.anyString())).thenReturn(query);
         when(query.list()).thenReturn(asyncRecords);
@@ -248,24 +255,24 @@ public class AsyncMsgRecordDaoTest {
     @Test
     public void testQueryForDeferredQueueSelected() {
         System.out.println("queryForDeferredQueueSelected");
-        //create the asyncMsgRecord list
+        // create the asyncMsgRecord list
         List<AsyncMsgRecord> asyncRecords = new ArrayList<AsyncMsgRecord>();
 
-        //create 3 records 
-        //row 1
+        // create 3 records
+        // row 1
         AsyncMsgRecord asyncMsgRecord = new AsyncMsgRecord();
         asyncMsgRecord.setMessageId("1.1");
         asyncMsgRecord.setDirection("Sevice1");
         asyncMsgRecord.setCreationTime(new Date());
         asyncRecords.add(asyncMsgRecord);
-        //row2
+        // row2
         asyncMsgRecord = new AsyncMsgRecord();
         asyncMsgRecord.setMessageId("2.1");
         asyncMsgRecord.setDirection("Sevice2");
         asyncMsgRecord.setCreationTime(new Date());
         asyncRecords.add(asyncMsgRecord);
 
-        //crete the Query object for the Named Query used in the service
+        // crete the Query object for the Named Query used in the service
         Query query = mock(Query.class);
         when(session.getNamedQuery(Mockito.anyString())).thenReturn(query);
         when(query.list()).thenReturn(asyncRecords);
@@ -290,10 +297,10 @@ public class AsyncMsgRecordDaoTest {
 
         QueryDeferredQueueRequestType queryCriteria1 = new QueryDeferredQueueRequestType();
 
-        //crete the Query object for the Named Query used in the service
+        // crete the Query object for the Named Query used in the service
         Query query = mock(Query.class);
         when(session.getNamedQuery(Mockito.anyString())).thenReturn(query);
-        //create the asyncMsgRecord list
+        // create the asyncMsgRecord list
         List<AsyncMsgRecord> asyncRecords = new ArrayList<AsyncMsgRecord>();
         AsyncMsgRecord asyncMsgRecord1 = new AsyncMsgRecord();
         AsyncMsgRecord asyncMsgRecord2 = new AsyncMsgRecord();
@@ -306,7 +313,7 @@ public class AsyncMsgRecordDaoTest {
 
         List<AsyncMsgRecord> result = asyncMsgRecordDao.queryByCriteria(queryCriteria);
         assertEquals(asyncRecords, result);
-        //pass no values
+        // pass no values
         result = asyncMsgRecordDao.queryByCriteria(queryCriteria1);
         assertNull(result);
     }
@@ -351,7 +358,7 @@ public class AsyncMsgRecordDaoTest {
         asyncMsgRecords.add(asyncMsgRecord1);
         asyncMsgRecords.add(asyncMsgRecord2);
         asyncMsgRecordDao.save(asyncMsgRecords);
-        //loop through and verify if each record saved 
+        // loop through and verify if each record saved
         for (int i = 0; i < asyncMsgRecords.size(); i++) {
             verify(session).saveOrUpdate(asyncMsgRecords.get(i));
         }
@@ -373,12 +380,13 @@ public class AsyncMsgRecordDaoTest {
      */
     @Test
     public void testCheckExpiration() throws PropertyAccessException {
+
         System.out.println("checkExpiration");
 
         AsyncMsgRecord asyncMsgRecord1 = new AsyncMsgRecord();
         asyncMsgRecord1.setCommunityId("1.1");
         asyncMsgRecord1.setDuration(Long.valueOf(0));
-        asyncMsgRecord1.setStatus(asyncMsgRecordDao.QUEUE_STATUS_EXPIRED);
+        asyncMsgRecord1.setStatus(AsyncMsgRecordDao.QUEUE_STATUS_EXPIRED);
         AsyncMsgRecord asyncMsgRecord2 = new AsyncMsgRecord();
         asyncMsgRecord2.setCommunityId("2.2");
         asyncMsgRecord2.setDuration(Long.valueOf(0));
@@ -387,7 +395,10 @@ public class AsyncMsgRecordDaoTest {
         final List<AsyncMsgRecord> asyncMsgRecords = new ArrayList<AsyncMsgRecord>();
         asyncMsgRecords.add(asyncMsgRecord1);
         asyncMsgRecords.add(asyncMsgRecord2);
-        AsyncMsgRecordDao asyncMsgRecordDao = new AsyncMsgRecordDao() {
+        when(accessor.getProperty(Mockito.anyString(), Mockito.anyString())).thenReturn("days");
+        when(accessor.getPropertyLong(Mockito.anyString(), Mockito.anyString())).thenReturn((long) 30);
+
+        asyncMsgRecordDao = new AsyncMsgRecordDao(accessor) {
             @Override
             protected Session getSession() {
                 return session;
@@ -400,12 +411,13 @@ public class AsyncMsgRecordDaoTest {
 
             @Override
             public void save(List<AsyncMsgRecord> asyncMsgRecs) {
-                //do nothing
+                // do nothing
             }
         };
+
         asyncMsgRecordDao.checkExpiration();
-        //verify if the rows are updated
-        //loop through and verify if each record saved 
+        // verify if the rows are updated
+        // loop through and verify if each record saved
         for (int i = 0; i < asyncMsgRecords.size(); i++) {
             verify(session).saveOrUpdate(asyncMsgRecords.get(i));
         }

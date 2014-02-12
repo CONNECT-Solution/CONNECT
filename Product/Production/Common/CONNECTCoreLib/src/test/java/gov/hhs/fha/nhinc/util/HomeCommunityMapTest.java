@@ -33,7 +33,6 @@ import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunityType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.common.nhinccommon.UserType;
 import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCache;
-import gov.hhs.fha.nhinc.connectmgr.ConnectionManagerCacheHelper;
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
@@ -42,29 +41,23 @@ import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType.DocumentResponse;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
 import oasis.names.tc.ebxml_regrep.xsd.rim._3.AdhocQueryType;
-import org.jmock.Expectations;
-import org.jmock.Mockery;
-import org.jmock.integration.junit4.JUnit4Mockery;
-import org.jmock.lib.legacy.ClassImposteriser;
 import org.junit.Test;
+import org.mockito.Mockito;
 import org.uddi.api_v3.BusinessEntity;
 import org.uddi.api_v3.Name;
 import static org.junit.Assert.*;
+import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.mock;
 
 /**
- *
+ * 
  * @author Arthur Kong
  */
 public class HomeCommunityMapTest {
 
-    Mockery context = new JUnit4Mockery() {
-        {
-            setImposteriser(ClassImposteriser.INSTANCE);
-        }
-    };
-    final ConnectionManagerCache mockConnectionManager = context.mock(ConnectionManagerCache.class);
-    final ConnectionManagerCacheHelper mockConnectionManagerHelper = context.mock(ConnectionManagerCacheHelper.class);
-    final PropertyAccessor mockPropertyAccessor = context.mock(PropertyAccessor.class);
+    ConnectionManagerCache connection = mock(ConnectionManagerCache.class);
+
+    PropertyAccessor accessor = mock(PropertyAccessor.class);
 
     public HomeCommunityMapTest() {
     }
@@ -82,42 +75,36 @@ public class HomeCommunityMapTest {
 
     @Test
     public void testGetHomeCommunityName() {
-        
+
         final String homeCommunityName = "DoD";
-        
-        try {            
+
+        try {
             String homeCommunityId = "1.1";
-            HomeCommunityMap homeMap = new HomeCommunityMap() {
-                @Override
-                protected ConnectionManagerCache getConnectionManagerCache() {
-                    return mockConnectionManager;
-                }
+            
+            HomeCommunityMap.setConnectionManager(connection);
 
-                @Override
-                protected ConnectionManagerCacheHelper getConnectionManagerCacheHelper() {
-                    return mockConnectionManagerHelper;
-                }
-            };
+            when(connection.getBusinessEntity(Mockito.anyString())).thenReturn(createBusinessEntity(homeCommunityName));
 
-            context.checking(new Expectations() {
-                {
-                    exactly(1).of(mockConnectionManager).getBusinessEntity(with(any(String.class)));
-                    will(returnValue(createBusinessEntity(homeCommunityName)));
-                }
-            });
-
-            String foundName = homeMap.getHomeCommunityName(homeCommunityId);
+            String foundName = HomeCommunityMap.getHomeCommunityName(homeCommunityId);
             assertEquals(homeCommunityName, foundName);
 
-            context.checking(new Expectations() {
-                {
-                    exactly(1).of(mockConnectionManager).getBusinessEntity(with(any(String.class)));
-                    will(returnValue(null));
-                }
-            });
+        } catch (Exception e) {
+            e.printStackTrace();
+            fail("Error running testGetHomeCommunityName test: " + e.getMessage());
+        }
+    }
 
-            homeCommunityId = "123456";
-            foundName = homeMap.getHomeCommunityName(homeCommunityId);
+    @Test
+    public void testGetHomeCommunityNameNull() {
+
+        try {
+            String homeCommunityId = "123456";
+            
+            HomeCommunityMap.setConnectionManager(connection);
+
+            when(connection.getBusinessEntity(Mockito.anyString())).thenReturn(null);
+
+            String foundName = HomeCommunityMap.getHomeCommunityName(homeCommunityId);
             assertEquals("", foundName);
         } catch (Exception e) {
             e.printStackTrace();
@@ -165,8 +152,7 @@ public class HomeCommunityMapTest {
         assertEquals("1.1", communityId);
     }
 
-    @Test
-    public void testGetCommunityIdFromAssertion() {
+    public void testGetCommunityIdFromAssertionNull() {
         String communityId = HomeCommunityMap.getCommunityIdFromAssertion(null);
         assertEquals(null, communityId);
 
@@ -188,6 +174,12 @@ public class HomeCommunityMapTest {
         communityId = HomeCommunityMap.getCommunityIdFromAssertion(assertion);
         assertEquals(null, communityId);
 
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void testGetCommunityIdFromAssertion() {
+        String communityId = null;
+        AssertionType assertion = new AssertionType();
         assertion.getUserInfo().getOrg().setHomeCommunityId("1.1");
         communityId = HomeCommunityMap.getCommunityIdFromAssertion(assertion);
         assertEquals("1.1", communityId);
@@ -290,16 +282,11 @@ public class HomeCommunityMapTest {
 
     @Test
     public void testGetLocalHomeCommunityId() throws PropertyAccessException {
+
         final String localCommunityId = "1.1";
-        
-        HomeCommunityMap.setPropertyAccessor(mockPropertyAccessor);
-        
-        context.checking(new Expectations() {
-            {
-                exactly(1).of(mockPropertyAccessor).getProperty(with(any(String.class)), with(any(String.class)));
-                will(returnValue(localCommunityId));
-            }
-        });
+        HomeCommunityMap.setPropertyAccessor(accessor);
+
+        when(accessor.getProperty(Mockito.anyString(), Mockito.anyString())).thenReturn(localCommunityId);
 
         String retrievedId = HomeCommunityMap.formatHomeCommunityId(HomeCommunityMap.getLocalHomeCommunityId());
         assertEquals(localCommunityId, retrievedId);
