@@ -49,52 +49,52 @@ import org.nhindirect.xd.transform.parse.ParserHL7;
 
 public class SmtpOnlyToAddresParser implements ToAddressParser {
 
-	private static final Logger LOG = Logger
-			.getLogger(SmtpOnlyToAddresParser.class);
+    private static final Logger LOG = Logger
+            .getLogger(SmtpOnlyToAddresParser.class);
+    RoutingResolver resolver = null;
 
-	RoutingResolver resolver = null;
+    @Override
+    public Set<Address> parse(String addresses, DirectDocuments documents) {
+        Set<Address> addressTo = new HashSet<Address>();
 
-	@Override
-	public Set<Address> parse(String addresses, DirectDocuments documents) {
-	    Set<Address> addressTo = new HashSet<Address>();
+        // Get endpoints (first check direct:to header, then go to
+        // intendedRecipients)
+        List<String> forwards = new ArrayList<String>();
+        if (StringUtils.isNotBlank(addresses)) {
+            try {
+                forwards = Arrays.asList((new URI(addresses)
+                        .getSchemeSpecificPart()));
+            } catch (URISyntaxException e) {
+                LOG.error(
+                        "Unable to parse Direct To header, attempting to parse XDR intended recipients.",
+                        e);
+            }
+        } else {
+            if (null != documents && null != documents.getSubmissionSet()) {
+                forwards = ParserHL7.parseDirectRecipients(documents);
+            }
+        }
 
-		// Get endpoints (first check direct:to header, then go to
-		// intendedRecipients)
-		List<String> forwards = new ArrayList<String>();
-		if (StringUtils.isNotBlank(addresses)) {
-			try {
-				forwards = Arrays.asList((new URI(addresses)
-						.getSchemeSpecificPart()));
-			} catch (URISyntaxException e) {
-				LOG.error(
-						"Unable to parse Direct To header, attempting to parse XDR intended recipients.",
-						e);
-			}
-		} else {
-			forwards = ParserHL7.parseDirectRecipients(documents);
-		}
+        if (forwards.size() > 0 && getResolver().hasSmtpEndpoints(forwards)) {
 
-		if (getResolver().hasSmtpEndpoints(forwards)) {
+            for (String recipient : getResolver().getSmtpEndpoints(forwards)) {
+                try {
+                    addressTo.add(new InternetAddress(recipient));
+                } catch (AddressException e) {
+                    LOG.error("Unable to convert " + recipient + " to an InternetAdress.", e);
+                }
+            }
+        } else {
+            throw new DirectException("There were no SMTP endpoints provided.");
+        }
+        return addressTo;
+    }
 
-			for (String recipient : getResolver().getSmtpEndpoints(forwards)) {
-				try {
-					addressTo.add(new InternetAddress(recipient));
-				} catch (AddressException e) {
-					LOG.error("Unable to convert " + recipient + " to an InternetAdress.", e);
-				}
-			}
-		} else {
-			throw new DirectException("There were no SMTP endpoints provided.");
-		}
-		return addressTo;
-	}
+    private RoutingResolver getResolver() {
+        if (resolver == null) {
+            resolver = new RoutingResolverImpl();
+        }
 
-	private RoutingResolver getResolver() {
-		if (resolver == null) {
-			resolver = new RoutingResolverImpl();
-		}
-
-		return resolver;
-	}
-
+        return resolver;
+    }
 }

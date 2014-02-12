@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009 - 2013, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -29,14 +29,26 @@ package gov.hhs.fha.nhinc.direct;
 import static gov.hhs.fha.nhinc.direct.DirectUnitTestUtil.getMailServerProps;
 import static gov.hhs.fha.nhinc.direct.DirectUnitTestUtil.getMimeMessageBuilder;
 import static gov.hhs.fha.nhinc.direct.DirectUnitTestUtil.RECIP_AT_RESPONDING_GW;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.fail;
+import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
 
 import java.io.IOException;
+import javax.mail.Address;
 
 import javax.mail.Session;
-
+import javax.mail.internet.MimeBodyPart;
+import javax.mail.internet.MimeMessage;
+import org.junit.After;
+import org.junit.AfterClass;
+import org.junit.Before;
+import org.junit.BeforeClass;
+import static org.junit.Assert.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.any;
+import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.verify;
 import org.junit.Test;
+import org.mockito.Mock;
+import org.nhindirect.xd.common.DirectDocuments;
 
 /**
  * Test {@link MimeMessageBuilder}.
@@ -47,6 +59,22 @@ public class MimeMessageBuilderTest extends DirectBaseTest {
      * Java mail session.
      */
     private final Session session = Session.getInstance(getMailServerProps(RECIP_AT_RESPONDING_GW, 3456, 3143));
+    
+    @BeforeClass
+    public static void setUpClass() throws Exception {
+    }
+
+    @AfterClass
+    public static void tearDownClass() throws Exception {
+    }
+
+    @Before
+    public void setUp() throws Exception {
+    }
+
+    @After
+    public void tearDown() throws Exception {
+    }
     
     /**
      * Test that we can build a message with all of the properties of the mime message set.
@@ -146,4 +174,70 @@ public class MimeMessageBuilderTest extends DirectBaseTest {
         return builder;
     }
 
+    /**
+     * Test of subject method, of class MimeMessageBuilder.
+     */
+    @Test
+    public void testSubject() {        
+        String str = "Any String...";
+        MimeMessageBuilder instance = new MimeMessageBuilder(null, null, null);
+        MimeMessageBuilder result = instance.subject(str);
+        assertTrue(result instanceof MimeMessageBuilder);
+    }
+    
+    /**
+     * Test of text method, of class MimeMessageBuilder.
+     */
+    @Test
+    public void testText() {        
+        String str = "Any String...";
+        MimeMessageBuilder instance = new MimeMessageBuilder(null, null, null);
+        MimeMessageBuilder result = instance.text(str);
+        assertTrue(result instanceof MimeMessageBuilder);
+    }
+    
+    /**
+     * Test of documents method, of class MimeMessageBuilder.
+     */
+    @Test
+    public void testDocuments() {
+        DirectDocuments directDocuments = null;
+        MimeMessageBuilder instance = new MimeMessageBuilder(null, null, null);
+        MimeMessageBuilder result = instance.documents(directDocuments);
+        assertTrue(result instanceof MimeMessageBuilder);
+    }
+
+    /**
+     * Test of messageId method, of class MimeMessageBuilder.
+     */
+    @Test
+    public void testMessageId() {
+        String str = "Any String...";
+        MimeMessageBuilder instance = new MimeMessageBuilder(null, null, null);        
+        MimeMessageBuilder result = instance.messageId(str);
+        assertTrue(result instanceof MimeMessageBuilder);
+    }
+
+    /**
+     * Test of attachment method, of class MimeMessageBuilder.
+     */
+    @Test
+    public void testAttachment() {
+        System.out.println("attachment");
+        ProvideAndRegisterDocumentSetRequestType.Document doc = null;
+        MimeMessageBuilder instance = new MimeMessageBuilder(null, null, null);                
+        MimeMessageBuilder result = instance.attachment(doc);
+        assertTrue(result instanceof MimeMessageBuilder);
+    }
+
+    /**
+     * Test of attachmentName method, of class MimeMessageBuilder.
+     */
+    @Test
+    public void testAttachmentName() {
+        String str = "Any String...";
+        MimeMessageBuilder instance = new MimeMessageBuilder(null, null, null);                        
+        MimeMessageBuilder result = instance.attachmentName(str);
+        assertTrue(result instanceof MimeMessageBuilder);
+    }
 }
