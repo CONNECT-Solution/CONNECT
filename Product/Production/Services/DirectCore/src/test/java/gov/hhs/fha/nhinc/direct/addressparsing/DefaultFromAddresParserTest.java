@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2013, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -27,56 +27,52 @@
 package gov.hhs.fha.nhinc.direct.addressparsing;
 
 import gov.hhs.fha.nhinc.direct.DirectException;
-
-import java.net.URI;
-import java.net.URISyntaxException;
-
-import javax.mail.Address;
-import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
-
-import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Logger;
+import org.junit.Test;
+import static org.junit.Assert.*;
 import org.nhindirect.xd.common.DirectDocuments;
-import org.nhindirect.xd.transform.parse.ParserHL7;
 
-public class DefaultFromAddresParser implements FromAddressParser {
+/**
+ *
+ * @author svalluripalli
+ */
+public class DefaultFromAddresParserTest {
 
-    private static final Logger LOG = Logger
-            .getLogger(DefaultFromAddresParser.class);
+    /**
+     * Test of parse method, of class DefaultFromAddresParser.
+     */
+    @Test
+    public void testParse_Positive1() {
+        String addresses = "test@connectopensource.org";
+        DirectDocuments oDocuments = null;
+        DefaultFromAddresParser instance = new DefaultFromAddresParser();
+        InternetAddress result = (InternetAddress) instance.parse(addresses, oDocuments);
+        assertEquals(addresses, result.getAddress());
+    }
 
-    @Override
-    public Address parse(String addresses, DirectDocuments documents) {
-        Address address = null;
-        String replyEmail = null;
+    @Test
+    public void testParse_Positive2() {
+        String addresses = null;
+        DefaultFromAddresParser instance = new DefaultFromAddresParser();
+        DirectDocuments oDocuments = new DirectDocuments();
+        DirectDocuments.SubmissionSet oSubmissionSet = new DirectDocuments.SubmissionSet();
+        oSubmissionSet.setAuthorTelecommunication("^^^test@connectopensource.org");
+        oDocuments.setSubmissionSet(oSubmissionSet);
+        InternetAddress result = (InternetAddress) instance.parse(addresses, oDocuments);
+        assertEquals("test@connectopensource.org", result.getAddress());
+    }
 
-        // Get a reply address (first check direct:from header, then
-        // go to authorPerson)
-        if (StringUtils.isNotBlank(addresses)) {
-            try {
-                replyEmail = (new URI(addresses)).getSchemeSpecificPart();
-            } catch (URISyntaxException e) {
-                LOG.error(
-                        "Unable to parse Direct From header, attempting to parse XDR author telecom.",
-                        e);
-            }
-        } else {
-            if (null != documents && null != documents.getSubmissionSet()) {
-                replyEmail = documents.getSubmissionSet()
-                        .getAuthorTelecommunication();
-                replyEmail = ParserHL7.parseXTN(replyEmail);
-            }
-        }
-
+    @Test
+    public void testParse_Negative() throws Exception {
+        String addresses = null;
+        InternetAddress result = null;
+        DirectDocuments oDirectDocuments = null;
+        DefaultFromAddresParser instance = new DefaultFromAddresParser();
         try {
-            if (replyEmail != null) {
-                address = new InternetAddress(replyEmail);
-            }
-        } catch (AddressException e) {
-            String errorMesssage = "Unable to create InternetAddress from direct from address.";
-            throw new DirectException(errorMesssage, e);
+            result = (InternetAddress) instance.parse(addresses, oDirectDocuments);
+        } catch (DirectException exp) {
+            assertNotNull(exp.getMessage());
         }
-
-        return address;
+        assertNull(result);
     }
 }
