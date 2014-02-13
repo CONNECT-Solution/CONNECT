@@ -27,8 +27,6 @@
 package gov.hhs.fha.nhinc.direct.addressparsing;
 
 import gov.hhs.fha.nhinc.direct.DirectException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Set;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -44,38 +42,19 @@ import org.nhindirect.xd.common.DirectDocuments.SubmissionSet;
  * @author svalluripalli
  */
 public class SmtpOnlyToAddresParserTest {
-    
-    public SmtpOnlyToAddresParserTest() {
-    }
-    
-    @BeforeClass
-    public static void setUpClass() {
-    }
-    
-    @AfterClass
-    public static void tearDownClass() {
-    }
-    
-    @Before
-    public void setUp() {
-    }
-    
-    @After
-    public void tearDown() {
-    }
 
     /**
      * Test of parse method, of class SmtpOnlyToAddresParser.
      */
     @Test
-    public void testParseHappy1() {        
+    public void testParseHappy1() {
         String addresses = "test@connectopensource.org";
         DirectDocuments documents = null;
-        SmtpOnlyToAddresParser instance = new SmtpOnlyToAddresParser();        
+        SmtpOnlyToAddresParser instance = new SmtpOnlyToAddresParser();
         Set result = instance.parse(addresses, documents);
         assertNotNull(result);
     }
-    
+
     @Test
     public void testParseHappy2() {
         String addresses = null;
@@ -84,25 +63,23 @@ public class SmtpOnlyToAddresParserTest {
         String intendentRcpt = "||^^^vlewis@lewistower.com";
         oSubmissionSet.getIntendedRecipient().add(intendentRcpt);
         documents.setSubmissionSet(oSubmissionSet);
-        SmtpOnlyToAddresParser instance = new SmtpOnlyToAddresParser();        
+        SmtpOnlyToAddresParser instance = new SmtpOnlyToAddresParser();
         Set result = instance.parse(addresses, documents);
         assertNotNull(result);
     }
-    
-    @Test(expected=NullPointerException.class)
+
+    @Test(expected = NullPointerException.class)
     public void testParseFailure() {
         String addresses = null;
         DirectDocuments documents = null;
         Set result = null;
-        SmtpOnlyToAddresParser instance = new SmtpOnlyToAddresParser();        
-        try{
-                    result = instance.parse(addresses, documents);
-        } catch(DirectException e)
-        {
+        SmtpOnlyToAddresParser instance = new SmtpOnlyToAddresParser();
+        try {
+            result = instance.parse(addresses, documents);
+        } catch (DirectException e) {
             System.out.println(e.getMessage());
             assertEquals(e.getMessage(), "There were no SMTP endpoints provided.");
         }
         assertTrue(result.isEmpty());
     }
-    
 }

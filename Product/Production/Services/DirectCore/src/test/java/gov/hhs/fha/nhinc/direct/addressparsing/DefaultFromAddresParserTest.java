@@ -28,10 +28,6 @@ package gov.hhs.fha.nhinc.direct.addressparsing;
 
 import gov.hhs.fha.nhinc.direct.DirectException;
 import javax.mail.internet.InternetAddress;
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import org.nhindirect.xd.common.DirectDocuments;
@@ -42,31 +38,11 @@ import org.nhindirect.xd.common.DirectDocuments;
  */
 public class DefaultFromAddresParserTest {
 
-    public DefaultFromAddresParserTest() {
-    }
-
-    @BeforeClass
-    public static void setUpClass() {
-    }
-
-    @AfterClass
-    public static void tearDownClass() {
-    }
-
-    @Before
-    public void setUp() {
-    }
-
-    @After
-    public void tearDown() {
-    }
-
     /**
      * Test of parse method, of class DefaultFromAddresParser.
      */
     @Test
     public void testParse_Positive1() {
-        System.out.println("parse");
         String addresses = "test@connectopensource.org";
         DirectDocuments oDocuments = null;
         DefaultFromAddresParser instance = new DefaultFromAddresParser();
@@ -76,7 +52,6 @@ public class DefaultFromAddresParserTest {
 
     @Test
     public void testParse_Positive2() {
-        System.out.println("parse");
         String addresses = null;
         DefaultFromAddresParser instance = new DefaultFromAddresParser();
         DirectDocuments oDocuments = new DirectDocuments();
@@ -89,15 +64,13 @@ public class DefaultFromAddresParserTest {
 
     @Test
     public void testParse_Negative() throws Exception {
-        System.out.println("parse");
         String addresses = null;
         InternetAddress result = null;
         DirectDocuments oDirectDocuments = null;
         DefaultFromAddresParser instance = new DefaultFromAddresParser();
-        try{
+        try {
             result = (InternetAddress) instance.parse(addresses, oDirectDocuments);
-        }catch(DirectException exp)
-        {
+        } catch (DirectException exp) {
             assertNotNull(exp.getMessage());
         }
         assertNull(result);

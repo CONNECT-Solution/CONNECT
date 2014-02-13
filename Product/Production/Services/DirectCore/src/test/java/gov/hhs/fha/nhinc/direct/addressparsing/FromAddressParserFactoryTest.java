@@ -26,10 +26,6 @@
  */
 package gov.hhs.fha.nhinc.direct.addressparsing;
 
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -38,25 +34,6 @@ import static org.junit.Assert.*;
  * @author svalluripalli
  */
 public class FromAddressParserFactoryTest {
-    
-    public FromAddressParserFactoryTest() {
-    }
-    
-    @BeforeClass
-    public static void setUpClass() {
-    }
-    
-    @AfterClass
-    public static void tearDownClass() {
-    }
-    
-    @Before
-    public void setUp() {
-    }
-    
-    @After
-    public void tearDown() {
-    }
 
     /**
      * Test of getFromParser method, of class FromAddressParserFactory.
@@ -65,7 +42,7 @@ public class FromAddressParserFactoryTest {
     public void testGetFromParserHappy() {
         System.out.println("getFromParser");
         FromAddressParserFactory instance = new FromAddressParserFactory();
-        FromAddressParser result = instance.getFromParser();        
+        FromAddressParser result = instance.getFromParser();
         assertNotNull(result);
         assertTrue(result instanceof FromAddressParser);
     }

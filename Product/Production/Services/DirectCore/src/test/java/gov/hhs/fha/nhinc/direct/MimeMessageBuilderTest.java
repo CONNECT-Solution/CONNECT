@@ -30,24 +30,31 @@ import static gov.hhs.fha.nhinc.direct.DirectUnitTestUtil.getMailServerProps;
 import static gov.hhs.fha.nhinc.direct.DirectUnitTestUtil.getMimeMessageBuilder;
 import static gov.hhs.fha.nhinc.direct.DirectUnitTestUtil.RECIP_AT_RESPONDING_GW;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
+import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType.Document;
+import java.io.ByteArrayInputStream;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.StringWriter;
+import java.util.HashSet;
+import java.util.Set;
+import javax.activation.DataHandler;
 import javax.mail.Address;
+import javax.mail.BodyPart;
+import javax.mail.MessagingException;
+import javax.mail.Multipart;
 
 import javax.mail.Session;
 import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
+import javax.mail.internet.MimeMultipart;
+import org.apache.commons.io.IOUtils;
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.any;
 import static org.mockito.Mockito.when;
-import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.any;
+import static org.mockito.Mockito.anyString;
 import org.junit.Test;
-import org.mockito.Mock;
 import org.nhindirect.xd.common.DirectDocuments;
 
 /**
@@ -59,34 +66,22 @@ public class MimeMessageBuilderTest extends DirectBaseTest {
      * Java mail session.
      */
     private final Session session = Session.getInstance(getMailServerProps(RECIP_AT_RESPONDING_GW, 3456, 3143));
-    
-    @BeforeClass
-    public static void setUpClass() throws Exception {
-    }
 
-    @AfterClass
-    public static void tearDownClass() throws Exception {
-    }
-
-    @Before
-    public void setUp() throws Exception {
-    }
-
-    @After
-    public void tearDown() throws Exception {
-    }
-    
     /**
-     * Test that we can build a message with all of the properties of the mime message set.
+     * Test that we can build a message with all of the properties of the mime
+     * message set.
+     *
      * @throws IOException is a possible error.
      */
     @Test
     public void canBuildMessage() throws IOException {
         assertNotNull(getBuilder().build());
     }
-    
+
     /**
-     * Test that we can build a message with all of the properties of the mime message set.
+     * Test that we can build a message with all of the properties of the mime
+     * message set.
+     *
      * @throws IOException is a possible error.
      */
     @Test
@@ -96,64 +91,70 @@ public class MimeMessageBuilderTest extends DirectBaseTest {
 
     /**
      * Throw an exception when the text of the message is missing.
+     *
      * @throws IOException is a possible error.
      */
     @Test(expected = DirectException.class)
     public void willThrowExceptionWhenTextIsMissing() throws IOException {
         MimeMessageBuilder testBuilder = getBuilder().text(null);
-        testBuilder.build();        
+        testBuilder.build();
     }
-    
+
     /**
      * Allow message to be built if the subject is missing.
+     *
      * @throws IOException is a possible error.
      */
     @Test
     public void canBuildMesageWithoutSubject() throws IOException {
         MimeMessageBuilder testBuilder = getBuilder().subject(null);
-        testBuilder.build();        
+        testBuilder.build();
     }
 
     /**
      * Throw an exception when the attachment of the message is missing.
+     *
      * @throws IOException is a possible error.
      */
     @Test(expected = DirectException.class)
     public void willThrowExceptionWhenAttachmentIsMissing() throws IOException {
         MimeMessageBuilder testBuilder = getBuilder().documents(null).messageId(null).attachment(null);
-        testBuilder.build();        
+        testBuilder.build();
     }
 
     /**
      * Throw an exception when the attachment name of the message is missing.
+     *
      * @throws IOException is a possible error.
      */
     @Test(expected = DirectException.class)
     public void willThrowExceptionWhenAttachmentNameIsMissing() throws IOException {
         MimeMessageBuilder testBuilder = getBuilder().documents(null).messageId(null).attachmentName(null);
-        testBuilder.build();        
+        testBuilder.build();
     }
-    
+
     /**
      * Throw an exception when the direct documents are missing.
+     *
      * @throws IOException is a possible error.
      */
     @Test(expected = DirectException.class)
     public void willThrowExceptionWhenDocumentsAreMissing() throws IOException {
         MimeMessageBuilder testBuilder = getBuilder().attachment(null).attachmentName(null).documents(null);
-        testBuilder.build();        
+        testBuilder.build();
     }
-    
+
     /**
      * Throw an exception when the direct documents messageId is missing.
+     *
      * @throws IOException is a possible error.
      */
     @Test(expected = DirectException.class)
     public void willThrowExceptionWhenMessageIdIsMissing() throws IOException {
         MimeMessageBuilder testBuilder = getBuilder().attachment(null).attachmentName(null).messageId(null);
-        testBuilder.build();        
-    } 
-    
+        testBuilder.build();
+    }
+
     /**
      * Test that we can build a mime message with mock direct docs.
      */
@@ -178,24 +179,24 @@ public class MimeMessageBuilderTest extends DirectBaseTest {
      * Test of subject method, of class MimeMessageBuilder.
      */
     @Test
-    public void testSubject() {        
+    public void testSubject() {
         String str = "Any String...";
         MimeMessageBuilder instance = new MimeMessageBuilder(null, null, null);
         MimeMessageBuilder result = instance.subject(str);
         assertTrue(result instanceof MimeMessageBuilder);
     }
-    
+
     /**
      * Test of text method, of class MimeMessageBuilder.
      */
     @Test
-    public void testText() {        
+    public void testText() {
         String str = "Any String...";
         MimeMessageBuilder instance = new MimeMessageBuilder(null, null, null);
         MimeMessageBuilder result = instance.text(str);
         assertTrue(result instanceof MimeMessageBuilder);
     }
-    
+
     /**
      * Test of documents method, of class MimeMessageBuilder.
      */
@@ -213,7 +214,7 @@ public class MimeMessageBuilderTest extends DirectBaseTest {
     @Test
     public void testMessageId() {
         String str = "Any String...";
-        MimeMessageBuilder instance = new MimeMessageBuilder(null, null, null);        
+        MimeMessageBuilder instance = new MimeMessageBuilder(null, null, null);
         MimeMessageBuilder result = instance.messageId(str);
         assertTrue(result instanceof MimeMessageBuilder);
     }
@@ -225,7 +226,7 @@ public class MimeMessageBuilderTest extends DirectBaseTest {
     public void testAttachment() {
         System.out.println("attachment");
         ProvideAndRegisterDocumentSetRequestType.Document doc = null;
-        MimeMessageBuilder instance = new MimeMessageBuilder(null, null, null);                
+        MimeMessageBuilder instance = new MimeMessageBuilder(null, null, null);
         MimeMessageBuilder result = instance.attachment(doc);
         assertTrue(result instanceof MimeMessageBuilder);
     }
@@ -236,8 +237,37 @@ public class MimeMessageBuilderTest extends DirectBaseTest {
     @Test
     public void testAttachmentName() {
         String str = "Any String...";
-        MimeMessageBuilder instance = new MimeMessageBuilder(null, null, null);                        
+        MimeMessageBuilder instance = new MimeMessageBuilder(null, null, null);
         MimeMessageBuilder result = instance.attachmentName(str);
         assertTrue(result instanceof MimeMessageBuilder);
+    }
+    
+    @Test
+    public void testBuild_Happy() throws IOException, MessagingException
+    {
+            Address mockFromAddress = mock(Address.class);
+            Document mockDoc = mock(Document.class);            
+            Address mockAddress1 = mock(Address.class);            
+            Set<Address> toAddresses = new HashSet<Address>();
+            toAddresses.add(mockAddress1);            
+            Address[] mockReciepients = toAddresses.toArray(new Address[0]);            
+            MimeMessageBuilder instance = new MimeMessageBuilder(session, mockFromAddress, mockReciepients);
+            instance.attachmentName("test"); 
+            instance.attachment(mockDoc);
+            instance.text("Some text...");
+            final String someText = "This is a test steam...";
+            InputStream obj = new ByteArrayInputStream(someText.getBytes());
+            DataHandler mockDataHandler = mock(DataHandler.class);            
+            when(mockDoc.getValue()).thenReturn(mockDataHandler);
+            when(mockDataHandler.getInputStream()).thenReturn(obj);
+            MimeMessage result = instance.build();
+            Multipart multipart = (Multipart) result.getContent();
+            MimeBodyPart oBodyPart = (MimeBodyPart) multipart.getBodyPart(1);
+            InputStream inputStream = oBodyPart.getDataHandler().getInputStream();
+            StringWriter writer = new StringWriter();
+            IOUtils.copy(inputStream, writer, null);
+            String theString = writer.toString();
+            assertEquals(theString, someText);
+            assertNotNull(result);
     }
 }
