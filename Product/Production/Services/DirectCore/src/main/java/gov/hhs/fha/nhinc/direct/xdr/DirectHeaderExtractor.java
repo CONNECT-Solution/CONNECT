@@ -91,9 +91,6 @@ public class DirectHeaderExtractor {
         }
         Message msg = wMsgContext.getWrappedMessage();
 
-        if (msg == null) {
-            throw new DirectException("Could not obtain message.");
-        }
         Node node = msg.getContent(org.w3c.dom.Node.class);
 
         if (node == null) {

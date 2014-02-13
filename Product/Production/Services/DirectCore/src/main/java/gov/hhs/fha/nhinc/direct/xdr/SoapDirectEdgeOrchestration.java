@@ -51,11 +51,33 @@ import org.nhindirect.xd.transform.impl.DefaultXdsDirectDocumentsTransformer;
 
 public class SoapDirectEdgeOrchestration {
 
-    private XdsDirectDocumentsTransformer xdsDirectDocumentsTransformer = new DefaultXdsDirectDocumentsTransformer();
     private DirectSender directSender;
-    private SoapEdgeAuditor auditor = new SoapEdgeAuditorFactory().getAuditor();
-    private ToAddressParser toParser = new ToAddressParserFactory().getToParser();
+    private SoapEdgeAuditorFactory auditorFactory;
+    private ToAddressParserFactory toParserFactory;
+    private FromAddressParserFactory fromParserFactory;
+    private DirectAdapterFactory adapterFactory;
+    private XdsDirectDocumentsTransformer docTransformer;
 
+    public SoapDirectEdgeOrchestration(){
+        this.auditorFactory = new SoapEdgeAuditorFactory();
+        this.toParserFactory = new ToAddressParserFactory();
+        this.fromParserFactory = new FromAddressParserFactory();
+        this.adapterFactory = new DirectAdapterFactory();
+        this.docTransformer = new DefaultXdsDirectDocumentsTransformer();
+    }
+    
+    public SoapDirectEdgeOrchestration(SoapEdgeAuditorFactory auditorFactory,
+            ToAddressParserFactory toParserFactory, 
+            FromAddressParserFactory fromParserFactory,
+            DirectAdapterFactory adapterFactory,
+            XdsDirectDocumentsTransformer docTransformer){
+        this.auditorFactory = auditorFactory;
+        this.toParserFactory = toParserFactory;
+        this.fromParserFactory = fromParserFactory;
+        this.adapterFactory = adapterFactory;
+        this.docTransformer = docTransformer;
+    }
+    
     /**
      * Handle an incoming ProvideAndRegisterDocumentSetRequestType object and transform to XDM.
      * 
@@ -70,6 +92,7 @@ public class SoapDirectEdgeOrchestration {
             throws Exception {
         RegistryResponseType resp = null;
 
+        SoapEdgeAuditor auditor = auditorFactory.getAuditor();
         auditor.audit(SoapEdgeAuditor.PRINCIPAL, SoapEdgeAuditor.REQUESTRECIEVED_CATEGORY,
                 SoapEdgeAuditor.REQUESTRECIEVED_MESSAGE, context);
 
@@ -89,14 +112,16 @@ public class SoapDirectEdgeOrchestration {
      */
     protected RegistryResponseType sendMessage(ProvideAndRegisterDocumentSetRequestType prdst, SoapEdgeContext context)
             throws TransformationException {
-        DirectDocuments documents = xdsDirectDocumentsTransformer.transform(prdst);
+        DirectDocuments documents = docTransformer.transform(prdst);
 
+        ToAddressParser toParser = toParserFactory.getToParser();
+        
         Set<Address> addressTo = toParser.parse(context.getDirectTo(), documents);
         if (CollectionUtils.isEmpty(addressTo)) {
             throw new TransformationException("No 'To' addresses in soap context.", null);
         }
 
-        FromAddressParser fromParser = new FromAddressParserFactory().getFromParser();
+        FromAddressParser fromParser = fromParserFactory.getFromParser();
         Address addressFrom = fromParser.parse(context.getDirectFrom(), documents);
 
         getDirectSender().sendOutboundDirect(addressFrom, addressTo.toArray(new Address[0]), documents,
@@ -105,21 +130,13 @@ public class SoapDirectEdgeOrchestration {
         return new XDCommonResponseHelper().createSuccess();
     }
 
-    protected void setDocumentsTransformer(XdsDirectDocumentsTransformer docTransformer) {
-        xdsDirectDocumentsTransformer = docTransformer;
-    }
-
-    public void setToAddressParser(ToAddressParser toParser) {
-        this.toParser = toParser;
-    }
-
     /**
      * We do this initialization lazily because the spring configuration is an external dependency we don't set up in
      * the unit test.
      */
     private synchronized DirectSender getDirectSender() {
         if (directSender == null) {
-            directSender = new DirectAdapterFactory().getDirectSender();
+            directSender = adapterFactory.getDirectSender();
         }
         return directSender;
     }
