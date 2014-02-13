@@ -33,7 +33,7 @@ import javax.mail.Session;
 /**
  * Base class for Mail Client 
  */
-public class AbstractMailClient implements MailClient {
+public abstract class AbstractMailClient implements MailClient {
 
     private final Session mailSession;
 
