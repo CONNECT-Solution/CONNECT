@@ -144,7 +144,7 @@ public class ImapMailReceiver extends AbstractMailClient implements MailReceiver
         return numberOfMsgsInFolder < maxNumberOfMsgsToHandle ? numberOfMsgsInFolder : maxNumberOfMsgsToHandle;
     }
     
-    private Folder getInbox(Store store) throws MailClientException {
+    protected Folder getInbox(Store store) throws MailClientException {
         Folder inbox = null;
         try {
             store.connect();
