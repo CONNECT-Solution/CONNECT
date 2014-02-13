@@ -60,7 +60,7 @@ public class SmtpOnlyToAddresParser implements ToAddressParser {
         // Get endpoints (first check direct:to header, then go to
         // intendedRecipients)
         List<String> forwards = new ArrayList<String>();
-        if (StringUtils.isNotBlank(addresses)) {
+        if (null != addresses && StringUtils.isNotBlank(addresses)) {
             try {
                 forwards = Arrays.asList((new URI(addresses)
                         .getSchemeSpecificPart()));

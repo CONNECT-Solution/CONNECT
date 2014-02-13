@@ -26,14 +26,14 @@
  */
 package gov.hhs.fha.nhinc.direct.addressparsing;
 
+import gov.hhs.fha.nhinc.direct.DirectBaseTest;
 import gov.hhs.fha.nhinc.direct.DirectException;
+import java.util.ArrayList;
 import java.util.Set;
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 import org.nhindirect.xd.common.DirectDocuments;
 import org.nhindirect.xd.common.DirectDocuments.SubmissionSet;
 
@@ -41,7 +41,7 @@ import org.nhindirect.xd.common.DirectDocuments.SubmissionSet;
  *
  * @author svalluripalli
  */
-public class SmtpOnlyToAddresParserTest {
+public class SmtpOnlyToAddresParserTest extends DirectBaseTest {
 
     /**
      * Test of parse method, of class SmtpOnlyToAddresParser.
@@ -68,18 +68,24 @@ public class SmtpOnlyToAddresParserTest {
         assertNotNull(result);
     }
 
-    @Test(expected = NullPointerException.class)
+    @Test(expected = DirectException.class)
     public void testParseFailure() {
         String addresses = null;
-        DirectDocuments documents = null;
+        DirectDocuments documents = mock(DirectDocuments.class);
+        SubmissionSet submissionSet = mock(SubmissionSet.class);
         Set result = null;
         SmtpOnlyToAddresParser instance = new SmtpOnlyToAddresParser();
+
+        when(documents.getSubmissionSet()).thenReturn(submissionSet);
+        when(submissionSet.getIntendedRecipient()).thenReturn(new ArrayList<String>());
+
         try {
             result = instance.parse(addresses, documents);
         } catch (DirectException e) {
             System.out.println(e.getMessage());
             assertEquals(e.getMessage(), "There were no SMTP endpoints provided.");
+            throw e;
         }
-        assertTrue(result.isEmpty());
+
     }
 }
