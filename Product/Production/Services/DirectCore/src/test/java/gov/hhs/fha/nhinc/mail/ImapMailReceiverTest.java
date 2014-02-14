@@ -16,8 +16,12 @@ import javax.mail.Message;
 import javax.mail.internet.MimeMessage;
 
 import java.util.Properties;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import org.junit.Test;
+import static org.mockito.Matchers.anyString;
+import static org.mockito.Mockito.times;
 
 /**
  * @author achidambaram
@@ -25,12 +29,12 @@ import org.junit.Test;
  */
 public class ImapMailReceiverTest {
 
-    Folder mockFolder = mock(Folder.class);
-    Store mockStore = mock(Store.class);
-    Properties properties = mock(Properties.class);
-    MessageHandler handler = mock(MessageHandler.class);
-    MimeMessage message = mock(MimeMessage.class);
-    Message messageNotMIme = mock(Message.class);
+    private final Folder mockFolder = mock(Folder.class);
+    private final Store mockStore = mock(Store.class);
+    private final Properties properties = mock(Properties.class);
+    private final MessageHandler handler = mock(MessageHandler.class);
+    private final MimeMessage message = mock(MimeMessage.class);
+    private final Message messageNotMIme = mock(Message.class);
 
     @Test
     public void testHandleMessages() throws MailClientException, MessagingException {
@@ -38,18 +42,45 @@ public class ImapMailReceiverTest {
         int result = 0;
         when(properties.getProperty("connect.delete.unhandled.msgs")).thenReturn("false");
         when(properties.getProperty("connect.max.msgs.in.batch", "25")).thenReturn("30");
-        when(mockStore.getFolder("INBOX")).thenReturn(mockFolder);
+        when(mockStore.getFolder(MailUtils.FOLDER_NAME_INBOX)).thenReturn(mockFolder);
         when(mockFolder.getMessageCount()).thenReturn(1);
         when(mockFolder.getMessages(1, 1)).thenReturn(msgs);
         when(handler.handleMessage(message)).thenReturn(true);
-        ImapMailReceiver receiver = new ImapMailReceiver(properties) {
+        ImapMailReceiver receiver = new ImapMailReceiver(properties) {           
             @Override
-            protected Folder getInbox(Store store) {
-                return mockFolder;
+            Store getImapsStore() {
+                return mockStore;
             }
         };
         result = receiver.handleMessages(handler);
+        
+        verify(mockStore, times(1)).connect();
+        verify(mockStore).getFolder(MailUtils.FOLDER_NAME_INBOX);
+        verify(mockFolder).open(Folder.READ_WRITE);
+        
         assertEquals(result, 1);
+    }
+    
+    @Test(expected = MailClientException.class)
+    public void testHandleMessageExceptionOnStoreConnect() throws MessagingException, MailClientException{
+        when(properties.getProperty("connect.delete.unhandled.msgs")).thenReturn("false");
+        when(properties.getProperty("connect.max.msgs.in.batch", "25")).thenReturn("30");
+        
+        when(mockStore.getFolder(anyString())).thenThrow(new MessagingException());
+        
+        ImapMailReceiver receiver = new ImapMailReceiver(properties) {           
+            @Override
+            Store getImapsStore() {
+                return mockStore;
+            }
+        };
+        
+        try {
+            receiver.handleMessages(handler);
+        } catch (MailClientException ex) {
+            verify(mockStore, times(1)).close();
+            throw ex;
+        }      
     }
 
     @Test

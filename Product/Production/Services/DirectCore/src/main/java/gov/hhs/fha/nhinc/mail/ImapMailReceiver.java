@@ -157,7 +157,7 @@ public class ImapMailReceiver extends AbstractMailClient implements MailReceiver
         return inbox;
     }
     
-    private Store getImapsStore() throws MailClientException {
+    Store getImapsStore() throws MailClientException {
         try {
             return getMailSession().getStore("imaps");
         } catch (NoSuchProviderException e) {
