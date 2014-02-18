@@ -26,7 +26,7 @@ public class DirectXDRWebServiceImplTest extends DirectBaseTest {
      * Test of provideAndRegisterDocumentSet method, of class DirectXDRWebServiceImpl.
      */
     @Test(expected=DirectException.class)
-    public void testProvideAndRegisterDocumentSet_Failure() throws Exception {
+    public void testProvideAndRegisterDocumentSet_Failure1() throws Exception {
         WebServiceContext mockWSContext = mock(WebServiceContext.class);
         DirectHeaderExtractor mockExtractor = mock(DirectHeaderExtractor.class);
         SoapEdgeContext mockSoap = mock(SoapEdgeContext.class);
@@ -42,7 +42,7 @@ public class DirectXDRWebServiceImplTest extends DirectBaseTest {
      * Test of provideAndRegisterDocumentSet method, of class DirectXDRWebServiceImpl.
      */
     @Test(expected=DirectException.class)
-    public void testProvideAndRegisterDocumentSet_Happy() throws Exception {
+    public void testProvideAndRegisterDocumentSet_Failure2() throws Exception {
         WebServiceContext mockWSContext = mock(WebServiceContext.class);
         DirectHeaderExtractor mockExtractor = mock(DirectHeaderExtractor.class);
         SoapEdgeContext mockSoap = mock(SoapEdgeContext.class);
