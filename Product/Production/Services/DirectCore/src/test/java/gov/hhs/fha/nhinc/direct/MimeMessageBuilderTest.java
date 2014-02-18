@@ -40,20 +40,16 @@ import java.util.HashSet;
 import java.util.Set;
 import javax.activation.DataHandler;
 import javax.mail.Address;
-import javax.mail.BodyPart;
 import javax.mail.MessagingException;
 import javax.mail.Multipart;
 
 import javax.mail.Session;
 import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
-import javax.mail.internet.MimeMultipart;
 import org.apache.commons.io.IOUtils;
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
-import static org.mockito.Mockito.any;
-import static org.mockito.Mockito.anyString;
 import org.junit.Test;
 import org.nhindirect.xd.common.DirectDocuments;
 
