@@ -34,16 +34,13 @@ import java.util.Set;
 import javax.mail.Address;
 import javax.mail.internet.MimeMessage;
 import org.junit.After;
-import org.junit.AfterClass;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 import static org.mockito.Mockito.verify;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.nhindirect.gateway.smtp.MessageProcessResult;
 import org.nhindirect.gateway.smtp.SmtpAgent;
 import org.nhindirect.xd.common.DirectDocuments;
 
@@ -51,7 +48,7 @@ import org.nhindirect.xd.common.DirectDocuments;
  *
  * @author svalluripalli
  */
-public class DirectSenderImplTest extends DirectBaseTest{
+public class DirectSenderImplTest extends DirectBaseTest {
 
     @Mock
     private MailSender mockMailSender;
@@ -59,29 +56,20 @@ public class DirectSenderImplTest extends DirectBaseTest{
     private SmtpAgent mockSmtpAgent;
     @Mock
     private MimeMessage mockMessage;
-        
     private DirectSenderImpl oDirectSenderImpl;
     private final DirectEventLogger testLogger = DirectEventLogger.getInstance();
 
-    @BeforeClass
-    public static void setUpClass() throws Exception {
-    }
-
-    @AfterClass
-    public static void tearDownClass() throws Exception {
-    }
     @Before
     public void setUp() {
         MockitoAnnotations.initMocks(this);
-        oDirectSenderImpl = new DirectSenderImpl(mockMailSender, mockSmtpAgent, testLogger){
-           @Override
-           protected MailSender getExternalMailSender()
-            {
+        oDirectSenderImpl = new DirectSenderImpl(mockMailSender, mockSmtpAgent, testLogger) {
+            @Override
+            protected MailSender getExternalMailSender() {
                 return mockMailSender;
-            }                        
+            }
         };
     }
-    
+
     @After
     public void tearDown() {
         oDirectSenderImpl = null;
@@ -90,12 +78,12 @@ public class DirectSenderImplTest extends DirectBaseTest{
     /**
      * Test of sendOutboundDirect method, of class DirectSenderImpl.
      */
-    @Test (expected=DirectException.class)
-    public void testSendOutboundDirect_MimeMessage() throws MailClientException {        
+    @Test(expected = DirectException.class)
+    public void testSendOutboundDirect_MimeMessage() throws MailClientException {
         Address mockAddress = mock(Address.class);
         Set<Address> sAddress = new HashSet<Address>();
         sAddress.add(mockAddress);
-        Address[] recipients = sAddress.toArray(new Address[0]);               
+        Address[] recipients = sAddress.toArray(new Address[0]);
         oDirectSenderImpl.sendOutboundDirect(mockMessage);
         verify(mockMailSender).send(recipients, mockMessage);
     }
@@ -103,14 +91,14 @@ public class DirectSenderImplTest extends DirectBaseTest{
     /**
      * Test of sendOutboundDirect method, of class DirectSenderImpl.
      */
-    @Test (expected=DirectException.class)
+    @Test(expected = DirectException.class)
     public void testSendOutboundDirect_4args() {
         System.out.println("sendOutboundDirect");
         Address sender = mock(Address.class);
-        Address mockAddress1 = mock(Address.class);            
+        Address mockAddress1 = mock(Address.class);
         Set<Address> toAddresses = new HashSet<Address>();
-        toAddresses.add(mockAddress1);            
-        Address[] recipients = toAddresses.toArray(new Address[0]); 
+        toAddresses.add(mockAddress1);
+        Address[] recipients = toAddresses.toArray(new Address[0]);
         DirectDocuments documents = mock(DirectDocuments.class);
         MimeMessageBuilder mockMMBuilder = mock(MimeMessageBuilder.class);
         String messageId = "";
