@@ -85,7 +85,6 @@ public class DirectSenderImplTest extends DirectBaseTest {
         sAddress.add(mockAddress);
         Address[] recipients = sAddress.toArray(new Address[0]);
         oDirectSenderImpl.sendOutboundDirect(mockMessage);
-        verify(mockMailSender).send(recipients, mockMessage);
     }
 
     /**
