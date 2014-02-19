@@ -42,13 +42,13 @@ public class DirectAdapterFactory {
     private static final String BEAN_NAME_RECEIVER = "directReceiver";
     private static final String BEAN_NAME_SENDER = "directSender";
     private static final String BEAN_NAME_MANAGE_TASK_SCHEDULER = "manageTaskScheduler";
-
+    
     /**
-     * Register Handlers will invoke getInstance, thereby loading the spring context and task scheduler for polling mail
-     * servers.
+     * Register Handlers will invoke getInstance, thereby loading the spring
+     * context and task scheduler for polling mail servers.
      */
-    public void registerHandlers() {
-        //initialize the HibernateUtil when the Direct Servlet is initialized
+    public void registerHandlers() { 
+        //initialize the HibernateUtil when the Direct Servlet is initialized.. DO NOT Remove this.
         SessionFactory session = HibernateUtil.getSessionFactory();
         LOG.debug("Registering handlers...");
         getDirectReceiver();
