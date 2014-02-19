@@ -26,8 +26,9 @@
  */
 package gov.hhs.fha.nhinc.direct.edge.proxy;
 
+import gov.hhs.fha.nhinc.direct.DirectBaseTest;
+import gov.hhs.fha.nhinc.direct.DirectException;
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.mock;
@@ -47,14 +48,13 @@ import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
 
 import org.apache.commons.io.IOUtils;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
 /**
  * @author mweaver
- * 
+ *
  */
-public class DirectEdgeProxySoapImplTest {
+public class DirectEdgeProxySoapImplTest extends DirectBaseTest {
 
     private static final String ENDPOINT_URL = "http://localhost:8080/DirectEdgeProxySoapImpl";
 
@@ -69,61 +69,53 @@ public class DirectEdgeProxySoapImplTest {
     @Before
     public void setUp() {
 
-        if (factory == null) {
-            factory = new DirectEdgeProxyObjectFactory() {
-                @Override
-                public DirectEdgeProxy getDirectEdgeProxy() {
-                    return new DirectEdgeProxySoapImpl(mockWebServiceProxyHelper);
-                }
-            };
-        }
+        factory = new DirectEdgeProxyObjectFactory() {
+            @Override
+            public DirectEdgeProxy getDirectEdgeProxy() {
+                return new DirectEdgeProxySoapImpl(mockWebServiceProxyHelper);
+            }
+        };
 
-        if (objectUnderTest == null) {
-            objectUnderTest = factory.getDirectEdgeProxy();
-        }
+        objectUnderTest = factory.getDirectEdgeProxy();
+
     }
 
     /**
-     * Tests if the instance is actually a soap impl as opposed to a java, smtp, etc.
+     * Tests if the instance is actually a soap impl as opposed to a java, smtp,
+     * etc.
      */
     @Test
     public void testIsSoapEdge() {
-        if (!(objectUnderTest instanceof DirectEdgeProxySoapImpl)) {
-            fail("objectUnderTest is not an instance of DirectEdgeProxySoapImpl.");
-        }
+        assert (objectUnderTest instanceof DirectEdgeProxySoapImpl);
     }
 
     /**
-     * This test requires a mock or otherwise endpoint stood up at the url defined for the directedgesoap entry in
-     * internalConnectionInfo.xml.
-     * 
+     * This test requires a mock or otherwise endpoint stood up at the url
+     * defined for the directedgesoap entry in internalConnectionInfo.xml.
+     *
      * @throws MessagingException on failure.
      */
-    @Test
-    @Ignore
-    public void testSend() throws MessagingException {
+    @Test(expected = DirectException.class)
+    public void testSendWithNoURL() throws MessagingException {
         MimeMessage message = new MimeMessage(null, IOUtils.toInputStream(DirectUnitTestUtil
                 .getFileAsString("Example_A.txt")));
         RegistryResponseType resp = objectUnderTest.provideAndRegisterDocumentSetB(message);
-
-        assertTrue(resp.getStatus().contains("Success"));
     }
 
     /**
-     * Tests the DirectEdgeProxySoapImpl class with a mocked up CONNECTClient. This test will ensure that the
-     * transformation from XDM to XDR was successful.
-     * 
+     * Tests the DirectEdgeProxySoapImpl class with a mocked up CONNECTClient.
+     * This test will ensure that the transformation from XDM to XDR was
+     * successful.
+     *
      * @throws Exception on failure.
      */
     @SuppressWarnings("unchecked")
     @Test
-    @Ignore
     public void testSendWithMockedObjects() throws Exception {
         mockClient = mock(CONNECTClient.class);
-        when(
-                mockClient.invokePort(eq(DocumentRepositoryPortType.class),
-                        eq("documentRepositoryProvideAndRegisterDocumentSetB"),
-                        any(ProvideAndRegisterDocumentSetRequestType.class))).thenReturn(getSuccessResponse());
+        when(mockClient.invokePort(eq(DocumentRepositoryPortType.class),
+                eq("documentRepositoryProvideAndRegisterDocumentSetB"),
+                any(ProvideAndRegisterDocumentSetRequestType.class))).thenReturn(getSuccessResponse());
         when(mockWebServiceProxyHelper.getAdapterEndPointFromConnectionManager(any(String.class))).thenReturn(
                 ENDPOINT_URL);
 
@@ -136,7 +128,8 @@ public class DirectEdgeProxySoapImplTest {
     }
 
     /**
-     * @return an instance of DirectEdgeProxySoapImpl with a mocked up CONNECTClient.
+     * @return an instance of DirectEdgeProxySoapImpl with a mocked up
+     * CONNECTClient.
      */
     private DirectEdgeProxySoapImpl getProxyWithMockClient() {
         return new DirectEdgeProxySoapImpl(mockWebServiceProxyHelper) {
