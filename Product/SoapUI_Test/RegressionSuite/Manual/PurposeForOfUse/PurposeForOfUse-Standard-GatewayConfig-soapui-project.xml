@@ -6706,9 +6706,9 @@ Because this is a g0 test suite, all spec versions are 2010. Messages to 2010 sp
 <con:testStep type="manualTestStep" name="Manual TestStep - Verify logs"><con:description>Verify purposeofuse type attribute field within saml attribute statement Nhin Interface .   
 1. Check the content Type in Nhin Outbound and Inbound Message   
 A) Search the log file and look for https://localhost:8181/Gateway/PatientDiscovery/1_0/NhinService/NhinPatientDiscoveryAsyncResp (replace the localhost with server ip address if its different) Outbound Message, Inbound Message
-B) Look for purposeofuse within request and  should populate as shown "hl7:PurposeOfUse xmlns:hl7="urn:hl7-org:v3" code="PUBLICHEALTHKIERAN" codeSystem="2.16.840.1.113883.3.18.7.1" codeSystemName="nhin-purpose" displayName="Use or disclosure of Psychotherapy Notes" type="hl7:CE""  
+B) Look for purposeofuse within request and  should populate as shown "hl7:PurposeOfUse xmlns:hl7="urn:hl7-org:v3" code="PUBLICHEALTHKIERAN" codeSystem="2.16.840.1.113883.3.18.7.1" codeSystemName="nhin-purpose" displayName="Use or disclosure of Psychotherapy Notes" type="CE""  
 
-</con:description><con:settings/><con:config xsi:type="con:ManualTestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:expectedResult>Result should display the following  "hl7:PurposeOfUse xmlns:hl7="urn:hl7-org:v3" code="PUBLICHEALTHKIERAN" codeSystem="2.16.840.1.113883.3.18.7.1" codeSystemName="nhin-purpose" displayName="Use or disclosure of Psychotherapy Notes" type="hl7:CE""
+</con:description><con:settings/><con:config xsi:type="con:ManualTestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:expectedResult>Result should display the following  "hl7:PurposeOfUse xmlns:hl7="urn:hl7-org:v3" code="PUBLICHEALTHKIERAN" codeSystem="2.16.840.1.113883.3.18.7.1" codeSystemName="nhin-purpose" displayName="Use or disclosure of Psychotherapy Notes" type="CE""
 </con:expectedResult></con:config></con:testStep><con:setupScript/>
 <con:tearDownScript/>
 <con:properties>
