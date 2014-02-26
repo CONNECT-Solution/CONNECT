@@ -116,23 +116,6 @@ CREATE TABLE nhincuser.correlatedidentifiers (
   PRIMARY KEY  (correlationId)
 );
 
-CREATE TABLE nhincuser.subscription (
-    id varchar2(128) NOT NULL,
-    Subscriptionid varchar2(128),
-    SubscribeXML BLOB,
-    SubscriptionReferenceXML BLOB,
-    RootTopic BLOB,
-    ParentSubscriptionId varchar2(128),
-    ParentSubscriptionReferenceXML BLOB,
-    Consumer varchar2(128),
-    Producer varchar2(128),
-    PatientId varchar2(128),
-    PatientAssigningAuthority varchar2(128),
-    Targets BLOB,
-    CreationDate DATE,
-  PRIMARY KEY(id)
-);
-
 CREATE TABLE nhincuser.asyncmsgrepo (
     Id number(10) NOT NULL,
     MessageId varchar2(100) NOT NULL,
