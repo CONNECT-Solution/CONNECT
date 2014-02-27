@@ -35,6 +35,7 @@ import static org.junit.Assert.assertNotNull;
 import org.opensaml.saml2.core.Attribute;
 import org.opensaml.saml2.core.AttributeValue;
 
+import java.util.Iterator;
 import java.util.List;
 import java.util.UUID;
 
@@ -64,7 +65,6 @@ public class OpenSAML2ComponentBuilderTest {
     @Test
     public void generateEvAssertionWithUnderScore() {
         String uuid = "_".concat(String.valueOf(UUID.randomUUID()));
-        ;
         Assertion assertion = (Assertion) OpenSAML2ComponentBuilder.getInstance().createAssertion(uuid);
         assertEquals(uuid, assertion.getID());
     }
@@ -79,6 +79,7 @@ public class OpenSAML2ComponentBuilderTest {
         String purposeSystem = "purposeSystem";
         String purposeSystemName = "purposeSystemName";
         String purposeDisplay = "purposeDisplay";
+        String type = "CE";
         Attribute attribute = OpenSAML2ComponentBuilder.getInstance().createPurposeOfUseAttribute(purposeCode,
                 purposeSystem, purposeSystemName, purposeDisplay);
         List<XMLObject> attributeValue = attribute.getAttributeValues();
@@ -87,8 +88,8 @@ public class OpenSAML2ComponentBuilderTest {
                 if (valueElement instanceof XSAny) {
                     XSAny role = (XSAny) valueElement;
                     AttributeMap map = role.getUnknownAttributes();
-
-                    assertNotNull(map.get(new QName("http://www.w3.org/2001/XMLSchema-instance", "type", "xsi")));
+                    assertNotNull(map.get(new QName("http://www.w3.org/2001/XMLSchema-instance", "type", "xsi")));  
+                    assertEquals(type, map.get(new QName("http://www.w3.org/2001/XMLSchema-instance", "type", "xsi")));                    
                     foundType = true;
                 }
             }
@@ -106,6 +107,7 @@ public class OpenSAML2ComponentBuilderTest {
         String userSystem = "1.2.34.56";
         String userSystemName = "CANCER-Research";
         String userDisplay = "Public Health";
+        String type = "CE";
         Attribute attribute = OpenSAML2ComponentBuilder.getInstance().createUserRoleAttribute(userCode, userSystem,
                 userSystemName, userDisplay);
         List<XMLObject> attributeValue = attribute.getAttributeValues();
@@ -114,8 +116,8 @@ public class OpenSAML2ComponentBuilderTest {
                 if (valueElement instanceof XSAny) {
                     XSAny role = (XSAny) valueElement;
                     AttributeMap map = role.getUnknownAttributes();
-
                     assertNotNull(map.get(new QName("http://www.w3.org/2001/XMLSchema-instance", "type", "xsi")));
+                    assertEquals(type, map.get(new QName("http://www.w3.org/2001/XMLSchema-instance", "type", "xsi")));                     
                     foundType = true;
                 }
             }
