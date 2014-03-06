@@ -27,11 +27,15 @@
 package gov.hhs.fha.nhinc.docretrieve._20;
 
 import static org.junit.Assert.assertNotNull;
+import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
+import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
+import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunityType;
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayCrossGatewayRetrieveRequestType;
 import gov.hhs.fha.nhinc.docretrieve._20.entity.EntityDocRetrieve;
 import gov.hhs.fha.nhinc.docretrieve._20.entity.EntityDocRetrieveSecured;
 import gov.hhs.fha.nhinc.docretrieve._20.inbound.DocRetrieve;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType;
+import ihe.iti.xds_b._2007.RetrieveDocumentSetRequestType.DocumentRequest;
 import ihe.iti.xds_b._2007.RetrieveDocumentSetResponseType;
 
 import org.junit.Test;
@@ -82,8 +86,12 @@ public class DocRetrieveSpringContextTest {
         assertNotNull(outboundDocRetrieveSecured);
         
         RetrieveDocumentSetRequestType request = new RetrieveDocumentSetRequestType();
+        DocumentRequest document = new DocumentRequest();
+        document.setHomeCommunityId("2.2");
+        request.getDocumentRequest().add(document);
         RetrieveDocumentSetResponseType response = outboundDocRetrieveSecured.respondingGatewayCrossGatewayRetrieve(request);
         
         assertNotNull(response);
     }
+    
 }
