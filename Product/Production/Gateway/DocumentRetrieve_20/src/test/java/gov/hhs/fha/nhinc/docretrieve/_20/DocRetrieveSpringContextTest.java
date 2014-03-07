@@ -27,9 +27,6 @@
 package gov.hhs.fha.nhinc.docretrieve._20;
 
 import static org.junit.Assert.assertNotNull;
-import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
-import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
-import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunityType;
 import gov.hhs.fha.nhinc.common.nhinccommonentity.RespondingGatewayCrossGatewayRetrieveRequestType;
 import gov.hhs.fha.nhinc.docretrieve._20.entity.EntityDocRetrieve;
 import gov.hhs.fha.nhinc.docretrieve._20.entity.EntityDocRetrieveSecured;
@@ -88,6 +85,7 @@ public class DocRetrieveSpringContextTest {
         RetrieveDocumentSetRequestType request = new RetrieveDocumentSetRequestType();
         DocumentRequest document = new DocumentRequest();
         document.setHomeCommunityId("2.2");
+        document.setRepositoryUniqueId("1");
         request.getDocumentRequest().add(document);
         RetrieveDocumentSetResponseType response = outboundDocRetrieveSecured.respondingGatewayCrossGatewayRetrieve(request);
         

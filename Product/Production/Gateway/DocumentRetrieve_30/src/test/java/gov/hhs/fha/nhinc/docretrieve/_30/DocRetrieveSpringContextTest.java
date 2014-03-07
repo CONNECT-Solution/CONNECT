@@ -85,6 +85,7 @@ public class DocRetrieveSpringContextTest {
         RetrieveDocumentSetRequestType request = new RetrieveDocumentSetRequestType();
         DocumentRequest document = new DocumentRequest();
         document.setHomeCommunityId("2.2");
+        document.setRepositoryUniqueId("1");
         request.getDocumentRequest().add(document);
         RetrieveDocumentSetResponseType response = outboundDocRetrieveSecured.respondingGatewayCrossGatewayRetrieve(request);
         
