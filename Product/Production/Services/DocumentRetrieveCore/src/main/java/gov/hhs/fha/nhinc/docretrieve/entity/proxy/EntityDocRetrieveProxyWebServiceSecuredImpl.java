@@ -81,7 +81,7 @@ public class EntityDocRetrieveProxyWebServiceSecuredImpl implements EntityDocRet
 
             try {
                 LOG.debug("invoke port");
-                response = (RetrieveDocumentSetResponseType) client.invokePort(EntityDocRetrieveSecuredPortType.class, "provideAndRegisterDocumentSetb", message);
+                response = (RetrieveDocumentSetResponseType) client.invokePort(EntityDocRetrieveSecuredPortType.class, "respondingGatewayCrossGatewayRetrieve", message.getRetrieveDocumentSetRequest());
             } catch (Exception ex) {
                 LOG.error("Failed to call the web service (" + serviceName + ").  An unexpected exception occurred.  "
                         + "Exception: " + ex.getMessage(), ex);
