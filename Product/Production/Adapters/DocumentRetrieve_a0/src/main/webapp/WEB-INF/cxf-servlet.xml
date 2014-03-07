@@ -34,8 +34,7 @@ http://cxf.apache.org/core http://cxf.apache.org/schemas/core.xsd">
         address="/AdapterDocRetrieve" serviceName="adr:AdapterDocRetrieve" endpointName="adr:AdapterDocRetrievePortSoap"
         implementor="gov.hhs.fha.nhinc.docretrieve.adapter.AdapterDocRetrieve" wsdlLocation="classpath:wsdl/AdapterDocRetrieve.wsdl">
         <jaxws:properties>          
-            <entry key="mtom-enabled" value="true" />
-            <entry key="ws-security.enable.timestamp.cache" value="false" /> 
+            <entry key="mtom-enabled" value="true" /> 
         </jaxws:properties>
     </jaxws:endpoint>
 

@@ -54,9 +54,6 @@ http://cxf.apache.org/core http://cxf.apache.org/schemas/core.xsd ">
         address="/EntityService/EntityDocQueryUnsecured" serviceName="edq:EntityDocQuery" endpointName="edq:EntityDocQueryPortSoap"
         implementorClass="gov.hhs.fha.nhinc.docquery._20.entity.EntityDocQueryUnsecured" implementor="#entityDQUnsecured"
         wsdlLocation="classpath:wsdl/EntityDocQuery.wsdl">
-        <jaxws:properties>
-            <entry key="ws-security.enable.timestamp.cache" value="false" />
-        </jaxws:properties>
         <jaxws:handlers>
             <ref bean="TransactionHandler" />
         </jaxws:handlers>

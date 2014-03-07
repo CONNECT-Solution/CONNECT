@@ -29,9 +29,6 @@ http://cxf.apache.org/core http://cxf.apache.org/schemas/core.xsd ">
     <jaxws:endpoint xmlns:adq="urn:gov:hhs:fha:nhinc:adapterdocquery" id="AdapterDocQuery" address="/AdapterDocQueryUnsecured"
         serviceName="adq:AdapterDocQuery" endpointName="adq:AdapterDocQueryPortSoap" implementor="gov.hhs.fha.nhinc.docquery.adapter.AdapterDocQueryUnsecured"
         wsdlLocation="classpath:wsdl/AdapterDocQuery.wsdl">
-        <jaxws:properties>
-            <entry key="ws-security.enable.timestamp.cache" value="false" />
-        </jaxws:properties>
     </jaxws:endpoint>
 
     <jaxws:endpoint xmlns:adqs="urn:gov:hhs:fha:nhinc:adapterdocquerysecured" id="AdapterDocQuerySecured"

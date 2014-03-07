@@ -73,9 +73,6 @@ http://cxf.apache.org/core http://cxf.apache.org/schemas/core.xsd ">
     <jaxws:endpoint xmlns:tns="urn:gov:hhs:fha:nhinc:entitypatientdiscovery" id="EntityPatientDiscovery"
         address="/EntityPatientDiscovery" serviceName="tns:EntityPatientDiscovery" endpointName="tns:EntityPatientDiscoveryPortSoap"
         implementor="#entityPDUnsecured" wsdlLocation="classpath:wsdl/EntityPatientDiscovery.wsdl">
-        <jaxws:properties>
-            <entry key="ws-security.enable.timestamp.cache" value="false" />
-        </jaxws:properties>
         <jaxws:handlers>
             <ref bean="TransactionHandler" />
         </jaxws:handlers>
@@ -137,9 +134,6 @@ http://cxf.apache.org/core http://cxf.apache.org/schemas/core.xsd ">
         address="/EntityService/EntityPatientDiscoveryDeferredRequestUnsecured" serviceName="tns:EntityPatientDiscoveryAsyncReq"
         endpointName="tns:EntityPatientDiscoveryAsyncReqPortSoap" implementor="#entityPDReqUnsecured"
         wsdlLocation="classpath:wsdl/EntityPatientDiscoveryAsyncReq.wsdl">
-        <jaxws:properties>
-            <entry key="ws-security.enable.timestamp.cache" value="false" />
-        </jaxws:properties>
         <jaxws:handlers>
             <ref bean="TransactionHandler" />
         </jaxws:handlers>
@@ -199,9 +193,6 @@ http://cxf.apache.org/core http://cxf.apache.org/schemas/core.xsd ">
         address="/EntityService/EntityPatientDiscoveryDeferredResponseUnsecured" serviceName="tns:EntityPatientDiscoveryAsyncResp"
         endpointName="tns:EntityPatientDiscoveryAsyncRespPortSoap" implementor="#entityPDRespUnsecured"
         wsdlLocation="classpath:wsdl/EntityPatientDiscoveryAsyncResp.wsdl">
-        <jaxws:properties>
-            <entry key="ws-security.enable.timestamp.cache" value="false" />
-        </jaxws:properties>
         <jaxws:handlers>
             <ref bean="TransactionHandler" />
         </jaxws:handlers>

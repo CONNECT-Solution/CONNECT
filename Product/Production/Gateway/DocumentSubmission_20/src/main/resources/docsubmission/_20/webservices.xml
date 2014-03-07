@@ -65,7 +65,6 @@ http://cxf.apache.org/core http://cxf.apache.org/schemas/core.xsd ">
         </jaxws:handlers>
         <jaxws:properties>
             <entry key="mtom-enabled" value="true" />
-            <entry key="ws-security.enable.timestamp.cache" value="false" />
         </jaxws:properties>
     </jaxws:endpoint>
 
@@ -141,7 +140,6 @@ http://cxf.apache.org/core http://cxf.apache.org/schemas/core.xsd ">
         </jaxws:handlers>
         <jaxws:properties>
             <entry key="mtom-enabled" value="true" />
-            <entry key="ws-security.enable.timestamp.cache" value="false" />
         </jaxws:properties>
     </jaxws:endpoint>
 
@@ -207,9 +205,6 @@ http://cxf.apache.org/core http://cxf.apache.org/schemas/core.xsd ">
         address="/EntityService/EntityDocSubmissionDeferredResponseUnsecured" serviceName="tns:EntityXDRAsyncResponse_Service"
         endpointName="tns:EntityXDRAsyncResponse_Port" implementor="#entityXDRDeferredResponseUnsecured_g1"
         wsdlLocation="classpath:wsdl/EntityXDRResponse.wsdl">
-        <jaxws:properties>
-            <entry key="ws-security.enable.timestamp.cache" value="false" />
-        </jaxws:properties>
         <jaxws:handlers>
             <ref bean="TransactionHandler" />
         </jaxws:handlers>

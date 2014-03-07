@@ -30,9 +30,6 @@ http://cxf.apache.org/core http://cxf.apache.org/schemas/core.xsd">
     <jaxws:endpoint xmlns:tns="urn:gov:hhs:fha:nhinc:adaptermpimanager" id="AdapterMpiManagerService"
         address="/AdapterMpiManagerService" serviceName="tns:AdapterMpiManagerService" endpointName="tns:AdapterMpiManagerPortTypeBindingPort"
         implementor="gov.hhs.fha.nhinc.adaptermpimanager.MpiManager" wsdlLocation="classpath:wsdl/AdapterMpiManager.wsdl">
-        <jaxws:properties>
-            <entry key="ws-security.enable.timestamp.cache" value="false" />
-        </jaxws:properties>
     </jaxws:endpoint>
 
     <!-- Adapter MPI -->
@@ -40,9 +37,6 @@ http://cxf.apache.org/core http://cxf.apache.org/schemas/core.xsd">
     <jaxws:endpoint xmlns:tns="urn:gov:hhs:fha:nhinc:adaptermpi" id="AdapterMpiService" address="/AdapterMpiService"
         serviceName="tns:AdapterMpiService" endpointName="tns:AdapterMpiPort" implementor="gov.hhs.fha.nhinc.mpi.adapter.AdapterMpi"
         wsdlLocation="classpath:wsdl/AdapterMpi.wsdl">
-        <jaxws:properties>
-            <entry key="ws-security.enable.timestamp.cache" value="false" />
-        </jaxws:properties>
     </jaxws:endpoint>
 
     <jaxws:endpoint xmlns:tns="urn:gov:hhs:fha:nhinc:adaptermpi" id="AdapterMpiSecuredService" address="/AdapterMpiSecuredService"
@@ -66,9 +60,6 @@ http://cxf.apache.org/core http://cxf.apache.org/schemas/core.xsd">
     <jaxws:endpoint xmlns:tns="urn:gov:hhs:fha:nhinc:adaptercomponentmpi" id="AdapterComponentMpiService"
         address="/AdapterComponentMpiService" serviceName="tns:AdapterComponentMpiService" endpointName="tns:AdapterComponentMpiPort"
         implementor="gov.hhs.fha.nhinc.mpi.adapter.component.AdapterComponentMpi" wsdlLocation="classpath:wsdl/AdapterComponentMpi.wsdl">
-        <jaxws:properties>
-            <entry key="ws-security.enable.timestamp.cache" value="false" />
-        </jaxws:properties>
     </jaxws:endpoint>
 
     <jaxws:endpoint xmlns:tns="urn:gov:hhs:fha:nhinc:adaptercomponentmpi" id="AdapterComponentMpiSecuredService"
@@ -92,9 +83,6 @@ http://cxf.apache.org/core http://cxf.apache.org/schemas/core.xsd">
     <jaxws:endpoint xmlns:tns="urn:gov:hhs:fha:nhinc:adapterpatientdiscovery" id="AdapterPatientDiscovery"
         address="/AdapterPatientDiscovery" serviceName="tns:AdapterPatientDiscovery" endpointName="tns:AdapterPatientDiscoveryPortSoap"
         implementor="gov.hhs.fha.nhinc.patientdiscovery.adapter.AdapterPatientDiscovery" wsdlLocation="classpath:wsdl/AdapterPatientDiscovery.wsdl">
-        <jaxws:properties>
-            <entry key="ws-security.enable.timestamp.cache" value="false" />
-        </jaxws:properties>
     </jaxws:endpoint>
 
     <jaxws:endpoint xmlns:tns="urn:gov:hhs:fha:nhinc:adapterpatientdiscoverysecured" id="AdapterPatientDiscoverySecured"
@@ -120,9 +108,6 @@ http://cxf.apache.org/core http://cxf.apache.org/schemas/core.xsd">
         endpointName="tns:AdapterPatientDiscoveryAsyncReqPortSoap"
         implementor="gov.hhs.fha.nhinc.patientdiscovery.adapter.deferred.request.AdapterPatientDiscoveryDeferredRequestUnsecured"
         wsdlLocation="classpath:wsdl/AdapterPatientDiscoveryAsyncReq.wsdl">
-        <jaxws:properties>
-            <entry key="ws-security.enable.timestamp.cache" value="false" />
-        </jaxws:properties>
     </jaxws:endpoint>
 
     <jaxws:endpoint xmlns:tns="urn:gov:hhs:fha:nhinc:adapterpatientdiscoverysecuredasyncreq" id="AdapterPatientDiscoverySecuredAsyncReq"
@@ -151,9 +136,6 @@ http://cxf.apache.org/core http://cxf.apache.org/schemas/core.xsd">
         endpointName="tns:AdapterPatientDiscoveryAsyncRespPortSoap"
         implementor="gov.hhs.fha.nhinc.patientdiscovery.adapter.deferred.response.AdapterPatientDiscoveryDeferredResponseUnsecured"
         wsdlLocation="classpath:wsdl/AdapterPatientDiscoveryAsyncResp.wsdl">
-        <jaxws:properties>
-            <entry key="ws-security.enable.timestamp.cache" value="false" />
-        </jaxws:properties>
     </jaxws:endpoint>
 
     <jaxws:endpoint xmlns:tns="urn:gov:hhs:fha:nhinc:adapterpatientdiscoverysecuredasyncresp" id="AdapterPatientDiscoverySecuredAsyncResp"
@@ -181,9 +163,6 @@ http://cxf.apache.org/core http://cxf.apache.org/schemas/core.xsd">
         endpointName="tns:AdapterPatientDiscoveryDeferredReqQueueProcessPort"
         implementor="gov.hhs.fha.nhinc.patientdiscovery.adapter.deferred.request.queue.AdapterPatientDiscoveryDeferredReqQueueProcess"
         wsdlLocation="classpath:wsdl/AdapterPatientDiscoveryDeferredReqQueueProcess.wsdl">
-        <jaxws:properties>
-            <entry key="ws-security.enable.timestamp.cache" value="false" />
-        </jaxws:properties>
     </jaxws:endpoint>
 
     <!-- Adapter Patient Discovery Request Error -->
@@ -193,9 +172,6 @@ http://cxf.apache.org/core http://cxf.apache.org/schemas/core.xsd">
         endpointName="tns:AdapterPatientDiscoveryAsyncReqErrorPortSoap"
         implementor="gov.hhs.fha.nhinc.patientdiscovery.adapter.deferred.request.error.AdapterPatientDiscoveryDeferredRequestErrorUnsecured"
         wsdlLocation="classpath:wsdl/AdapterPatientDiscoveryAsyncReqError.wsdl">
-        <jaxws:properties>
-            <entry key="ws-security.enable.timestamp.cache" value="false" />
-        </jaxws:properties>
     </jaxws:endpoint>
 
     <jaxws:endpoint xmlns:tns="urn:gov:hhs:fha:nhinc:adapterpatientdiscoverysecuredasyncreqerror" id="AdapterPatientDiscoverySecuredAsyncReqError"

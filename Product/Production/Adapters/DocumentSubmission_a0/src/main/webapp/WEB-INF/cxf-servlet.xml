@@ -56,7 +56,6 @@ http://cxf.apache.org/core http://cxf.apache.org/schemas/core.xsd">
         implementor="gov.hhs.fha.nhinc.docsubmission.adapter.AdapterDocSubmissionUnsecured" wsdlLocation="classpath:wsdl/AdapterXDR.wsdl">
         <jaxws:properties>
             <entry key="mtom-enabled" value="true" />
-            <entry key="ws-security.enable.timestamp.cache" value="false" />
         </jaxws:properties>
     </jaxws:endpoint>
 
@@ -91,9 +90,6 @@ http://cxf.apache.org/core http://cxf.apache.org/schemas/core.xsd">
         address="/AdapterComponentDocSubmissionUnsecured" serviceName="tns:AdapterComponentXDR_Service" endpointName="tns:AdapterComponentXDR_Port"
         implementor="gov.hhs.fha.nhinc.docsubmission.adapter.component.AdapterComponentDocSubmissionUnsecured"
         wsdlLocation="classpath:wsdl/AdapterComponentXDR.wsdl">
-        <jaxws:properties>
-            <entry key="ws-security.enable.timestamp.cache" value="false" />
-        </jaxws:properties>
     </jaxws:endpoint>
 
     <!-- Adapter Document Submission Deferred Request -->
@@ -129,7 +125,6 @@ http://cxf.apache.org/core http://cxf.apache.org/schemas/core.xsd">
         wsdlLocation="classpath:wsdl/AdapterXDRRequest.wsdl">
         <jaxws:properties>
             <entry key="mtom-enabled" value="true" />
-            <entry key="ws-security.enable.timestamp.cache" value="false" />
         </jaxws:properties>
     </jaxws:endpoint>
 
@@ -141,7 +136,6 @@ http://cxf.apache.org/core http://cxf.apache.org/schemas/core.xsd">
         wsdlLocation="classpath:wsdl/AdapterComponentXDRRequest.wsdl">
         <jaxws:properties>
             <entry key="mtom-enabled" value="true" />
-            <entry key="ws-security.enable.timestamp.cache" value="false" />
         </jaxws:properties>
     </jaxws:endpoint>
 
@@ -177,7 +171,6 @@ http://cxf.apache.org/core http://cxf.apache.org/schemas/core.xsd">
         wsdlLocation="classpath:wsdl/AdapterXDRRequestError.wsdl">
         <jaxws:properties>
             <entry key="mtom-enabled" value="true" />
-            <entry key="ws-security.enable.timestamp.cache" value="false" />
         </jaxws:properties>
     </jaxws:endpoint>
 
@@ -203,9 +196,6 @@ http://cxf.apache.org/core http://cxf.apache.org/schemas/core.xsd">
         address="/AdapterService/AdapterDocSubmissionDeferredResponse" serviceName="tns:AdapterXDRResponse_Service"
         endpointName="tns:AdapterXDRResponse_Port" implementor="gov.hhs.fha.nhinc.docsubmission.adapter.deferred.response.AdapterXDRResponse"
         wsdlLocation="classpath:wsdl/AdapterXDRResponse.wsdl">
-        <jaxws:properties>
-            <entry key="ws-security.enable.timestamp.cache" value="false" />
-        </jaxws:properties>
     </jaxws:endpoint>
 
     <!-- Adapter Document Submission Deferred Response Component -->
@@ -214,9 +204,6 @@ http://cxf.apache.org/core http://cxf.apache.org/schemas/core.xsd">
         address="/AdapterComponentXDRResponse_Service" serviceName="tns:AdapterComponentXDRResponse_Service"
         endpointName="tns:AdapterComponentXDRResponse_Port" implementor="gov.hhs.fha.nhinc.docsubmission.adapter.component.deferred.response.AdapterComponentXDRResponse"
         wsdlLocation="classpath:wsdl/AdapterComponentXDRResponse.wsdl">
-        <jaxws:properties>
-            <entry key="ws-security.enable.timestamp.cache" value="false" />
-        </jaxws:properties>
     </jaxws:endpoint>
 
 </beans>

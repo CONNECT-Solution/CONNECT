@@ -30,9 +30,6 @@ http://cxf.apache.org/core http://cxf.apache.org/schemas/core.xsd ">
         address="/GatewayService/AuditRepositoryManagerService" serviceName="tns:AuditRepositoryManagerService"
         endpointName="tns:AuditRepositoryManagerPort" implementor="gov.hhs.fha.nhinc.auditrepository.nhinc.AuditRepositoryUnsecured"
         wsdlLocation="classpath:wsdl/NhincComponentAuditRepository.wsdl">
-        <jaxws:properties>
-            <entry key="ws-security.enable.timestamp.cache" value="false" />
-        </jaxws:properties>
     </jaxws:endpoint>
 
     <jaxws:endpoint xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentauditrepository" id="AuditRepositoryManagerSecured"
@@ -57,9 +54,6 @@ http://cxf.apache.org/core http://cxf.apache.org/schemas/core.xsd ">
         address="/GatewayService/PatientCorrelationServiceUnsecured" serviceName="tns:PatientCorrelationService"
         endpointName="tns:PatientCorrelationPort" implementor="gov.hhs.fha.nhinc.patientcorrelation.nhinc.PatientCorrelationServiceUnsecured"
         wsdlLocation="classpath:wsdl/NhincComponentPatientCorrelation.wsdl">
-        <jaxws:properties>
-            <entry key="ws-security.enable.timestamp.cache" value="false" />
-        </jaxws:properties>
     </jaxws:endpoint>
 
     <jaxws:endpoint xmlns:tns="urn:gov:hhs:fha:nhinc:nhinccomponentpatientcorrelation" id="PatientCorrelationSecured"

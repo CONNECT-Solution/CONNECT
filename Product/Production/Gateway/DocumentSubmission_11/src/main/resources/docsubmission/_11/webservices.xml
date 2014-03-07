@@ -66,7 +66,6 @@
         </jaxws:handlers>
         <jaxws:properties>
             <entry key="mtom-enabled" value="true" />
-            <entry key="ws-security.enable.timestamp.cache" value="false" />
         </jaxws:properties>
     </jaxws:endpoint>
 
@@ -141,7 +140,6 @@
         </jaxws:handlers>
         <jaxws:properties>
             <entry key="mtom-enabled" value="true" />
-            <entry key="ws-security.enable.timestamp.cache" value="false" />
         </jaxws:properties>
     </jaxws:endpoint>
 
@@ -205,9 +203,6 @@
     <jaxws:endpoint xmlns:tns="urn:gov:hhs:fha:nhinc:nhincentityxdr:async:response" id="EntityDocSubmissionDeferredResponseUnsecured"
         address="/EntityService/EntityDocSubmissionDeferredResponseUnsecured" serviceName="tns:EntityXDRAsyncResponse_Service"
         endpointName="tns:EntityXDRAsyncResponse_Port" implementor="#entityXDRDeferredResponseUnsecured" wsdlLocation="classpath:wsdl/EntityXDRResponse.wsdl">
-        <jaxws:properties>
-            <entry key="ws-security.enable.timestamp.cache" value="false" />
-        </jaxws:properties>
         <jaxws:handlers>
             <ref bean="TransactionHandler" />
         </jaxws:handlers>
