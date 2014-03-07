@@ -1,20 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Licensed to the Apache Software Foundation (ASF) under one or more contributor 
-	license agreements. See the NOTICE file distributed with this work for additional 
-	information regarding copyright ownership. The ASF licenses this file to 
-	you under the Apache License, Version 2.0 (the "License"); you may not use 
-	this file except in compliance with the License. You may obtain a copy of 
-	the License at http://www.apache.org/licenses/LICENSE-2.0 Unless required 
-	by applicable law or agreed to in writing, software distributed under the 
-	License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS 
-	OF ANY KIND, either express or implied. See the License for the specific 
-	language governing permissions and limitations under the License. -->
-<beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:jaxws="http://cxf.apache.org/jaxws"
-	xmlns:soap="http://cxf.apache.org/bindings/soap" xmlns:context="http://www.springframework.org/schema/context"
-    xmlns:cxf="http://cxf.apache.org/core"
-    xmlns:p="http://cxf.apache.org/policy"
-	xsi:schemaLocation="
+<!-- Licensed to the Apache Software Foundation (ASF) under one or more contributor license agreements. See the NOTICE file 
+    distributed with this work for additional information regarding copyright ownership. The ASF licenses this file to you under 
+    the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may 
+    obtain a copy of the License at http://www.apache.org/licenses/LICENSE-2.0 Unless required by applicable law or agreed to 
+    in writing, software distributed under the License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF 
+    ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under 
+    the License. -->
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:jaxws="http://cxf.apache.org/jaxws" xmlns:soap="http://cxf.apache.org/bindings/soap" xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:cxf="http://cxf.apache.org/core" xmlns:p="http://cxf.apache.org/policy"
+    xsi:schemaLocation="
     http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
 http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 http://cxf.apache.org/bindings/soap http://cxf.apache.org/schemas/configuration/soap.xsd
@@ -22,196 +17,204 @@ http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd
 http://cxf.apache.org/policy http://cxf.apache.org/schemas/policy.xsd
 http://cxf.apache.org/core http://cxf.apache.org/schemas/core.xsd">
 
-	<import resource="classpath:CONNECT-interceptor-beans.xml" />
-    <context:property-placeholder/>
+    <import resource="classpath:CONNECT-interceptor-beans.xml" />
+    <context:property-placeholder />
     <cxf:bus>
         <cxf:features>
             <p:policies />
         </cxf:features>
     </cxf:bus>
 
-	<!-- MPI Manager -->
+    <!-- MPI Manager -->
 
-	<jaxws:endpoint xmlns:tns="urn:gov:hhs:fha:nhinc:adaptermpimanager"
-		id="AdapterMpiManagerService" address="/AdapterMpiManagerService"
-		serviceName="tns:AdapterMpiManagerService" endpointName="tns:AdapterMpiManagerPortTypeBindingPort"
-		implementor="gov.hhs.fha.nhinc.adaptermpimanager.MpiManager"
-		wsdlLocation="classpath:wsdl/AdapterMpiManager.wsdl">
-	</jaxws:endpoint>
+    <jaxws:endpoint xmlns:tns="urn:gov:hhs:fha:nhinc:adaptermpimanager" id="AdapterMpiManagerService"
+        address="/AdapterMpiManagerService" serviceName="tns:AdapterMpiManagerService" endpointName="tns:AdapterMpiManagerPortTypeBindingPort"
+        implementor="gov.hhs.fha.nhinc.adaptermpimanager.MpiManager" wsdlLocation="classpath:wsdl/AdapterMpiManager.wsdl">
+        <jaxws:properties>
+            <entry key="ws-security.enable.timestamp.cache" value="false" />
+        </jaxws:properties>
+    </jaxws:endpoint>
 
-	<!-- Adapter MPI -->
+    <!-- Adapter MPI -->
 
-	<jaxws:endpoint xmlns:tns="urn:gov:hhs:fha:nhinc:adaptermpi"
-		id="AdapterMpiService" address="/AdapterMpiService" serviceName="tns:AdapterMpiService"
-		endpointName="tns:AdapterMpiPort" implementor="gov.hhs.fha.nhinc.mpi.adapter.AdapterMpi"
-		wsdlLocation="classpath:wsdl/AdapterMpi.wsdl">
-	</jaxws:endpoint>
+    <jaxws:endpoint xmlns:tns="urn:gov:hhs:fha:nhinc:adaptermpi" id="AdapterMpiService" address="/AdapterMpiService"
+        serviceName="tns:AdapterMpiService" endpointName="tns:AdapterMpiPort" implementor="gov.hhs.fha.nhinc.mpi.adapter.AdapterMpi"
+        wsdlLocation="classpath:wsdl/AdapterMpi.wsdl">
+        <jaxws:properties>
+            <entry key="ws-security.enable.timestamp.cache" value="false" />
+        </jaxws:properties>
+    </jaxws:endpoint>
 
-	<jaxws:endpoint xmlns:tns="urn:gov:hhs:fha:nhinc:adaptermpi"
-		id="AdapterMpiSecuredService" address="/AdapterMpiSecuredService"
-		serviceName="tns:AdapterMpiSecuredService" endpointName="tns:AdapterMpiSecuredPortType"
-		implementor="gov.hhs.fha.nhinc.mpi.adapter.AdapterMpiSecured"
-		wsdlLocation="classpath:wsdl/AdapterMpiSecured.wsdl">
-		<jaxws:properties>
-			<entry key="ws-security.signature.properties" value="file:///${nhinc.properties.dir}/signature.properties" />
-			<entry key="ws-security.encryption.properties" value="file:///${nhinc.properties.dir}/truststore.properties" />
+    <jaxws:endpoint xmlns:tns="urn:gov:hhs:fha:nhinc:adaptermpi" id="AdapterMpiSecuredService" address="/AdapterMpiSecuredService"
+        serviceName="tns:AdapterMpiSecuredService" endpointName="tns:AdapterMpiSecuredPortType" implementor="gov.hhs.fha.nhinc.mpi.adapter.AdapterMpiSecured"
+        wsdlLocation="classpath:wsdl/AdapterMpiSecured.wsdl">
+        <jaxws:properties>
+            <entry key="ws-security.signature.properties" value="file:///${nhinc.properties.dir}/signature.properties" />
+            <entry key="ws-security.encryption.properties" value="file:///${nhinc.properties.dir}/truststore.properties" />
             <entry key="ws-security.saml2.validator">
                 <bean class="gov.hhs.fha.nhinc.callback.cxf.CONNECTSamlAssertionValidator" />
-            </entry>			
-		</jaxws:properties>
-		<jaxws:handlers>
-			<ref bean="SOAPHeaderHandler" />
-		</jaxws:handlers>
-	</jaxws:endpoint>
+            </entry>
+            <entry key="ws-security.enable.timestamp.cache" value="false" />
+        </jaxws:properties>
+        <jaxws:handlers>
+            <ref bean="SOAPHeaderHandler" />
+        </jaxws:handlers>
+    </jaxws:endpoint>
 
-	<!-- Adapter Component MPI -->
+    <!-- Adapter Component MPI -->
 
-	<jaxws:endpoint xmlns:tns="urn:gov:hhs:fha:nhinc:adaptercomponentmpi"
-		id="AdapterComponentMpiService" address="/AdapterComponentMpiService"
-		serviceName="tns:AdapterComponentMpiService" endpointName="tns:AdapterComponentMpiPort"
-		implementor="gov.hhs.fha.nhinc.mpi.adapter.component.AdapterComponentMpi"
-		wsdlLocation="classpath:wsdl/AdapterComponentMpi.wsdl">
-	</jaxws:endpoint>
+    <jaxws:endpoint xmlns:tns="urn:gov:hhs:fha:nhinc:adaptercomponentmpi" id="AdapterComponentMpiService"
+        address="/AdapterComponentMpiService" serviceName="tns:AdapterComponentMpiService" endpointName="tns:AdapterComponentMpiPort"
+        implementor="gov.hhs.fha.nhinc.mpi.adapter.component.AdapterComponentMpi" wsdlLocation="classpath:wsdl/AdapterComponentMpi.wsdl">
+        <jaxws:properties>
+            <entry key="ws-security.enable.timestamp.cache" value="false" />
+        </jaxws:properties>
+    </jaxws:endpoint>
 
-	<jaxws:endpoint xmlns:tns="urn:gov:hhs:fha:nhinc:adaptercomponentmpi"
-		id="AdapterComponentMpiSecuredService" address="/AdapterComponentMpiSecuredService"
-		serviceName="tns:AdapterComponentMpiSecuredService" endpointName="tns:AdapterComponentMpiSecuredPort"
-		implementor="gov.hhs.fha.nhinc.mpi.adapter.component.AdapterComponentMpiSecured"
-		wsdlLocation="classpath:wsdl/AdapterComponentSecuredMpi.wsdl">
-		<jaxws:properties>
-			<entry key="ws-security.signature.properties" value="file:///${nhinc.properties.dir}/signature.properties" />
-			<entry key="ws-security.encryption.properties" value="file:///${nhinc.properties.dir}/truststore.properties" />
+    <jaxws:endpoint xmlns:tns="urn:gov:hhs:fha:nhinc:adaptercomponentmpi" id="AdapterComponentMpiSecuredService"
+        address="/AdapterComponentMpiSecuredService" serviceName="tns:AdapterComponentMpiSecuredService" endpointName="tns:AdapterComponentMpiSecuredPort"
+        implementor="gov.hhs.fha.nhinc.mpi.adapter.component.AdapterComponentMpiSecured" wsdlLocation="classpath:wsdl/AdapterComponentSecuredMpi.wsdl">
+        <jaxws:properties>
+            <entry key="ws-security.signature.properties" value="file:///${nhinc.properties.dir}/signature.properties" />
+            <entry key="ws-security.encryption.properties" value="file:///${nhinc.properties.dir}/truststore.properties" />
             <entry key="ws-security.saml2.validator">
                 <bean class="gov.hhs.fha.nhinc.callback.cxf.CONNECTSamlAssertionValidator" />
-            </entry>			
-		</jaxws:properties>
-		<jaxws:handlers>
-			<ref bean="SOAPHeaderHandler" />
-		</jaxws:handlers>
-	</jaxws:endpoint>
+            </entry>
+            <entry key="ws-security.enable.timestamp.cache" value="false" />
+        </jaxws:properties>
+        <jaxws:handlers>
+            <ref bean="SOAPHeaderHandler" />
+        </jaxws:handlers>
+    </jaxws:endpoint>
 
-	<!-- Adapter Patient Discovery -->
+    <!-- Adapter Patient Discovery -->
 
-	<jaxws:endpoint xmlns:tns="urn:gov:hhs:fha:nhinc:adapterpatientdiscovery"
-		id="AdapterPatientDiscovery" address="/AdapterPatientDiscovery"
-		serviceName="tns:AdapterPatientDiscovery" endpointName="tns:AdapterPatientDiscoveryPortSoap"
-		implementor="gov.hhs.fha.nhinc.patientdiscovery.adapter.AdapterPatientDiscovery"
-		wsdlLocation="classpath:wsdl/AdapterPatientDiscovery.wsdl">
-	</jaxws:endpoint>
+    <jaxws:endpoint xmlns:tns="urn:gov:hhs:fha:nhinc:adapterpatientdiscovery" id="AdapterPatientDiscovery"
+        address="/AdapterPatientDiscovery" serviceName="tns:AdapterPatientDiscovery" endpointName="tns:AdapterPatientDiscoveryPortSoap"
+        implementor="gov.hhs.fha.nhinc.patientdiscovery.adapter.AdapterPatientDiscovery" wsdlLocation="classpath:wsdl/AdapterPatientDiscovery.wsdl">
+        <jaxws:properties>
+            <entry key="ws-security.enable.timestamp.cache" value="false" />
+        </jaxws:properties>
+    </jaxws:endpoint>
 
-	<jaxws:endpoint xmlns:tns="urn:gov:hhs:fha:nhinc:adapterpatientdiscoverysecured"
-		id="AdapterPatientDiscoverySecured" address="/AdapterPatientDiscoverySecured"
-		serviceName="tns:AdapterPatientDiscoverySecured" endpointName="tns:AdapterPatientDiscoverySecuredPortSoap"
-		implementor="gov.hhs.fha.nhinc.patientdiscovery.adapter.AdapterPatientDiscoverySecured"
-		wsdlLocation="classpath:wsdl/AdapterPatientDiscoverySecured.wsdl">
-		<jaxws:properties>
-			<entry key="ws-security.signature.properties" value="file:///${nhinc.properties.dir}/signature.properties" />
-			<entry key="ws-security.encryption.properties" value="file:///${nhinc.properties.dir}/truststore.properties" />
+    <jaxws:endpoint xmlns:tns="urn:gov:hhs:fha:nhinc:adapterpatientdiscoverysecured" id="AdapterPatientDiscoverySecured"
+        address="/AdapterPatientDiscoverySecured" serviceName="tns:AdapterPatientDiscoverySecured" endpointName="tns:AdapterPatientDiscoverySecuredPortSoap"
+        implementor="gov.hhs.fha.nhinc.patientdiscovery.adapter.AdapterPatientDiscoverySecured" wsdlLocation="classpath:wsdl/AdapterPatientDiscoverySecured.wsdl">
+        <jaxws:properties>
+            <entry key="ws-security.signature.properties" value="file:///${nhinc.properties.dir}/signature.properties" />
+            <entry key="ws-security.encryption.properties" value="file:///${nhinc.properties.dir}/truststore.properties" />
             <entry key="ws-security.saml2.validator">
                 <bean class="gov.hhs.fha.nhinc.callback.cxf.CONNECTSamlAssertionValidator" />
-            </entry>			
-		</jaxws:properties>
-		<jaxws:handlers>
-			<ref bean="SOAPHeaderHandler" />
-		</jaxws:handlers>
-	</jaxws:endpoint>
+            </entry>
+            <entry key="ws-security.enable.timestamp.cache" value="false" />
+        </jaxws:properties>
+        <jaxws:handlers>
+            <ref bean="SOAPHeaderHandler" />
+        </jaxws:handlers>
+    </jaxws:endpoint>
 
-	<!-- Adapter Patient Discovery Request -->
+    <!-- Adapter Patient Discovery Request -->
 
-	<jaxws:endpoint xmlns:tns="urn:gov:hhs:fha:nhinc:adapterpatientdiscoveryasyncreq"
-		id="AdapterPatientDiscoveryAsyncReq" address="/AdapterPatientDiscoveryDeferredRequestUnsecured"
-		serviceName="tns:AdapterPatientDiscoveryAsyncReq" endpointName="tns:AdapterPatientDiscoveryAsyncReqPortSoap"
-		implementor="gov.hhs.fha.nhinc.patientdiscovery.adapter.deferred.request.AdapterPatientDiscoveryDeferredRequestUnsecured"
-		wsdlLocation="classpath:wsdl/AdapterPatientDiscoveryAsyncReq.wsdl">
-	</jaxws:endpoint>
+    <jaxws:endpoint xmlns:tns="urn:gov:hhs:fha:nhinc:adapterpatientdiscoveryasyncreq" id="AdapterPatientDiscoveryAsyncReq"
+        address="/AdapterPatientDiscoveryDeferredRequestUnsecured" serviceName="tns:AdapterPatientDiscoveryAsyncReq"
+        endpointName="tns:AdapterPatientDiscoveryAsyncReqPortSoap"
+        implementor="gov.hhs.fha.nhinc.patientdiscovery.adapter.deferred.request.AdapterPatientDiscoveryDeferredRequestUnsecured"
+        wsdlLocation="classpath:wsdl/AdapterPatientDiscoveryAsyncReq.wsdl">
+        <jaxws:properties>
+            <entry key="ws-security.enable.timestamp.cache" value="false" />
+        </jaxws:properties>
+    </jaxws:endpoint>
 
-	<jaxws:endpoint
-		xmlns:tns="urn:gov:hhs:fha:nhinc:adapterpatientdiscoverysecuredasyncreq"
-		id="AdapterPatientDiscoverySecuredAsyncReq" address="/AdapterPatientDiscoveryDeferredRequestSecured"
-		serviceName="tns:AdapterPatientDiscoverySecuredAsyncReq" endpointName="tns:AdapterPatientDiscoverySecuredAsyncReqPortSoap"
-		implementor="gov.hhs.fha.nhinc.patientdiscovery.adapter.deferred.request.AdapterPatientDiscoveryDeferredRequestSecured"
-		wsdlLocation="classpath:wsdl/AdapterPatientDiscoverySecuredAsyncReq.wsdl">
-		<jaxws:properties>
-			<entry key="ws-security.signature.properties" value="file:///${nhinc.properties.dir}/signature.properties" />
-			<entry key="ws-security.encryption.properties" value="file:///${nhinc.properties.dir}/truststore.properties" />
+    <jaxws:endpoint xmlns:tns="urn:gov:hhs:fha:nhinc:adapterpatientdiscoverysecuredasyncreq" id="AdapterPatientDiscoverySecuredAsyncReq"
+        address="/AdapterPatientDiscoveryDeferredRequestSecured" serviceName="tns:AdapterPatientDiscoverySecuredAsyncReq"
+        endpointName="tns:AdapterPatientDiscoverySecuredAsyncReqPortSoap"
+        implementor="gov.hhs.fha.nhinc.patientdiscovery.adapter.deferred.request.AdapterPatientDiscoveryDeferredRequestSecured"
+        wsdlLocation="classpath:wsdl/AdapterPatientDiscoverySecuredAsyncReq.wsdl">
+        <jaxws:properties>
+            <entry key="ws-security.signature.properties" value="file:///${nhinc.properties.dir}/signature.properties" />
+            <entry key="ws-security.encryption.properties" value="file:///${nhinc.properties.dir}/truststore.properties" />
             <entry key="ws-security.saml2.validator">
                 <bean class="gov.hhs.fha.nhinc.callback.cxf.CONNECTSamlAssertionValidator" />
-            </entry>			
-		</jaxws:properties>
-		<jaxws:handlers>
-			<ref bean="SOAPHeaderHandler" />
-		</jaxws:handlers>
-	</jaxws:endpoint>
+            </entry>
+            <entry key="ws-security.enable.timestamp.cache" value="false" />
+        </jaxws:properties>
+        <jaxws:handlers>
+            <ref bean="SOAPHeaderHandler" />
+        </jaxws:handlers>
+    </jaxws:endpoint>
 
 
-	<!-- Adapter Patient Discovery Response -->
+    <!-- Adapter Patient Discovery Response -->
 
-	<jaxws:endpoint
-		xmlns:tns="urn:gov:hhs:fha:nhinc:adapterpatientdiscoveryasyncresp" id="AdapterPatientDiscoveryAsyncResp"
-		address="/AdapterPatientDiscoveryDeferredResponseUnsecured"
-		serviceName="tns:AdapterPatientDiscoveryAsyncResp" endpointName="tns:AdapterPatientDiscoveryAsyncRespPortSoap"
-		implementor="gov.hhs.fha.nhinc.patientdiscovery.adapter.deferred.response.AdapterPatientDiscoveryDeferredResponseUnsecured"
-		wsdlLocation="classpath:wsdl/AdapterPatientDiscoveryAsyncResp.wsdl">
-	</jaxws:endpoint>
+    <jaxws:endpoint xmlns:tns="urn:gov:hhs:fha:nhinc:adapterpatientdiscoveryasyncresp" id="AdapterPatientDiscoveryAsyncResp"
+        address="/AdapterPatientDiscoveryDeferredResponseUnsecured" serviceName="tns:AdapterPatientDiscoveryAsyncResp"
+        endpointName="tns:AdapterPatientDiscoveryAsyncRespPortSoap"
+        implementor="gov.hhs.fha.nhinc.patientdiscovery.adapter.deferred.response.AdapterPatientDiscoveryDeferredResponseUnsecured"
+        wsdlLocation="classpath:wsdl/AdapterPatientDiscoveryAsyncResp.wsdl">
+        <jaxws:properties>
+            <entry key="ws-security.enable.timestamp.cache" value="false" />
+        </jaxws:properties>
+    </jaxws:endpoint>
 
-	<jaxws:endpoint
-		xmlns:tns="urn:gov:hhs:fha:nhinc:adapterpatientdiscoverysecuredasyncresp"
-		id="AdapterPatientDiscoverySecuredAsyncResp" address="/AdapterPatientDiscoveryDeferredResponseSecured"
-		serviceName="tns:AdapterPatientDiscoverySecuredAsyncResp"
-		endpointName="tns:AdapterPatientDiscoverySecuredAsyncRespPortSoap"
-		implementor="gov.hhs.fha.nhinc.patientdiscovery.adapter.deferred.response.AdapterPatientDiscoveryDeferredResponseSecured"
-		wsdlLocation="classpath:wsdl/AdapterPatientDiscoverySecuredAsyncResp.wsdl">
-		<jaxws:properties>
-			<entry key="ws-security.signature.properties" value="file:///${nhinc.properties.dir}/signature.properties" />
-			<entry key="ws-security.encryption.properties" value="file:///${nhinc.properties.dir}/truststore.properties" />
+    <jaxws:endpoint xmlns:tns="urn:gov:hhs:fha:nhinc:adapterpatientdiscoverysecuredasyncresp" id="AdapterPatientDiscoverySecuredAsyncResp"
+        address="/AdapterPatientDiscoveryDeferredResponseSecured" serviceName="tns:AdapterPatientDiscoverySecuredAsyncResp"
+        endpointName="tns:AdapterPatientDiscoverySecuredAsyncRespPortSoap"
+        implementor="gov.hhs.fha.nhinc.patientdiscovery.adapter.deferred.response.AdapterPatientDiscoveryDeferredResponseSecured"
+        wsdlLocation="classpath:wsdl/AdapterPatientDiscoverySecuredAsyncResp.wsdl">
+        <jaxws:properties>
+            <entry key="ws-security.signature.properties" value="file:///${nhinc.properties.dir}/signature.properties" />
+            <entry key="ws-security.encryption.properties" value="file:///${nhinc.properties.dir}/truststore.properties" />
             <entry key="ws-security.saml2.validator">
                 <bean class="gov.hhs.fha.nhinc.callback.cxf.CONNECTSamlAssertionValidator" />
-            </entry>			
-		</jaxws:properties>
-		<jaxws:handlers>
-			<ref bean="SOAPHeaderHandler" />
-		</jaxws:handlers>
-	</jaxws:endpoint>
+            </entry>
+            <entry key="ws-security.enable.timestamp.cache" value="false" />
+        </jaxws:properties>
+        <jaxws:handlers>
+            <ref bean="SOAPHeaderHandler" />
+        </jaxws:handlers>
+    </jaxws:endpoint>
 
-	<!-- Adapter Patient Discovery Request Queue -->
+    <!-- Adapter Patient Discovery Request Queue -->
 
-	<jaxws:endpoint
-		xmlns:tns="urn:gov:hhs:fha:nhinc:adapterpatientdiscoveryreqqueueprocess"
-		id="AdapterPatientDiscoveryDeferredReqQueueProcess" address="/AdapterPatientDiscoveryDeferredReqQueueProcess"
-		serviceName="tns:AdapterPatientDiscoveryDeferredReqQueueProcess"
-		endpointName="tns:AdapterPatientDiscoveryDeferredReqQueueProcessPort"
-		implementor="gov.hhs.fha.nhinc.patientdiscovery.adapter.deferred.request.queue.AdapterPatientDiscoveryDeferredReqQueueProcess"
-		wsdlLocation="classpath:wsdl/AdapterPatientDiscoveryDeferredReqQueueProcess.wsdl">
-	</jaxws:endpoint>
+    <jaxws:endpoint xmlns:tns="urn:gov:hhs:fha:nhinc:adapterpatientdiscoveryreqqueueprocess" id="AdapterPatientDiscoveryDeferredReqQueueProcess"
+        address="/AdapterPatientDiscoveryDeferredReqQueueProcess" serviceName="tns:AdapterPatientDiscoveryDeferredReqQueueProcess"
+        endpointName="tns:AdapterPatientDiscoveryDeferredReqQueueProcessPort"
+        implementor="gov.hhs.fha.nhinc.patientdiscovery.adapter.deferred.request.queue.AdapterPatientDiscoveryDeferredReqQueueProcess"
+        wsdlLocation="classpath:wsdl/AdapterPatientDiscoveryDeferredReqQueueProcess.wsdl">
+        <jaxws:properties>
+            <entry key="ws-security.enable.timestamp.cache" value="false" />
+        </jaxws:properties>
+    </jaxws:endpoint>
 
-	<!-- Adapter Patient Discovery Request Error -->
+    <!-- Adapter Patient Discovery Request Error -->
 
-	<jaxws:endpoint
-		xmlns:tns="urn:gov:hhs:fha:nhinc:adapterpatientdiscoveryasyncreqerror"
-		id="AdapterPatientDiscoveryAsyncReqError" address="/AdapterPatientDiscoveryDeferredRequestErrorUnsecured"
-		serviceName="tns:AdapterPatientDiscoveryAsyncReqError" endpointName="tns:AdapterPatientDiscoveryAsyncReqErrorPortSoap"
-		implementor="gov.hhs.fha.nhinc.patientdiscovery.adapter.deferred.request.error.AdapterPatientDiscoveryDeferredRequestErrorUnsecured"
-		wsdlLocation="classpath:wsdl/AdapterPatientDiscoveryAsyncReqError.wsdl">
-	</jaxws:endpoint>
+    <jaxws:endpoint xmlns:tns="urn:gov:hhs:fha:nhinc:adapterpatientdiscoveryasyncreqerror" id="AdapterPatientDiscoveryAsyncReqError"
+        address="/AdapterPatientDiscoveryDeferredRequestErrorUnsecured" serviceName="tns:AdapterPatientDiscoveryAsyncReqError"
+        endpointName="tns:AdapterPatientDiscoveryAsyncReqErrorPortSoap"
+        implementor="gov.hhs.fha.nhinc.patientdiscovery.adapter.deferred.request.error.AdapterPatientDiscoveryDeferredRequestErrorUnsecured"
+        wsdlLocation="classpath:wsdl/AdapterPatientDiscoveryAsyncReqError.wsdl">
+        <jaxws:properties>
+            <entry key="ws-security.enable.timestamp.cache" value="false" />
+        </jaxws:properties>
+    </jaxws:endpoint>
 
-	<jaxws:endpoint
-		xmlns:tns="urn:gov:hhs:fha:nhinc:adapterpatientdiscoverysecuredasyncreqerror"
-		id="AdapterPatientDiscoverySecuredAsyncReqError" address="/AdapterPatientDiscoveryDeferredRequestErrorSecured"
-		serviceName="tns:AdapterPatientDiscoverySecuredAsyncReqError"
-		endpointName="tns:AdapterPatientDiscoverySecuredAsyncReqErrorPortSoap"
-		implementor="gov.hhs.fha.nhinc.patientdiscovery.adapter.deferred.request.error.AdapterPatientDiscoveryDeferredRequestErrorSecured"
-		wsdlLocation="classpath:wsdl/AdapterPatientDiscoverySecuredAsyncReqError.wsdl">
-		<jaxws:properties>
-			<entry key="ws-security.signature.properties" value="file:///${nhinc.properties.dir}/signature.properties" />
-			<entry key="ws-security.encryption.properties" value="file:///${nhinc.properties.dir}/truststore.properties" />
+    <jaxws:endpoint xmlns:tns="urn:gov:hhs:fha:nhinc:adapterpatientdiscoverysecuredasyncreqerror" id="AdapterPatientDiscoverySecuredAsyncReqError"
+        address="/AdapterPatientDiscoveryDeferredRequestErrorSecured" serviceName="tns:AdapterPatientDiscoverySecuredAsyncReqError"
+        endpointName="tns:AdapterPatientDiscoverySecuredAsyncReqErrorPortSoap"
+        implementor="gov.hhs.fha.nhinc.patientdiscovery.adapter.deferred.request.error.AdapterPatientDiscoveryDeferredRequestErrorSecured"
+        wsdlLocation="classpath:wsdl/AdapterPatientDiscoverySecuredAsyncReqError.wsdl">
+        <jaxws:properties>
+            <entry key="ws-security.signature.properties" value="file:///${nhinc.properties.dir}/signature.properties" />
+            <entry key="ws-security.encryption.properties" value="file:///${nhinc.properties.dir}/truststore.properties" />
             <entry key="ws-security.saml2.validator">
                 <bean class="gov.hhs.fha.nhinc.callback.cxf.CONNECTSamlAssertionValidator" />
-            </entry>			
-		</jaxws:properties>
-		<jaxws:handlers>
-			<ref bean="SOAPHeaderHandler" />
-		</jaxws:handlers>
-	</jaxws:endpoint>
+            </entry>
+            <entry key="ws-security.enable.timestamp.cache" value="false" />
+        </jaxws:properties>
+        <jaxws:handlers>
+            <ref bean="SOAPHeaderHandler" />
+        </jaxws:handlers>
+    </jaxws:endpoint>
 
-	<bean id="SOAPHeaderHandler" class="gov.hhs.fha.nhinc.callback.SOAPHeaderHandler" />
+    <bean id="SOAPHeaderHandler" class="gov.hhs.fha.nhinc.callback.SOAPHeaderHandler" />
 </beans>

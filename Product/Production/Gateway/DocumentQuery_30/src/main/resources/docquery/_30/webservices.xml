@@ -8,8 +8,7 @@
     the License. -->
 <beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xmlns:soap="http://cxf.apache.org/bindings/soap" xmlns:aop="http://www.springframework.org/schema/aop" xmlns:jaxws="http://cxf.apache.org/jaxws"
-     xmlns:cxf="http://cxf.apache.org/core"
-    xmlns:p="http://cxf.apache.org/policy"
+    xmlns:cxf="http://cxf.apache.org/core" xmlns:p="http://cxf.apache.org/policy"
     xsi:schemaLocation="
 http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 http://cxf.apache.org/bindings/soap http://cxf.apache.org/schemas/configuration/soap.xsd
@@ -36,8 +35,9 @@ http://cxf.apache.org/core http://cxf.apache.org/schemas/core.xsd ">
             <entry key="ws-security.saml2.validator">
                 <bean class="gov.hhs.fha.nhinc.callback.cxf.CONNECTSamlAssertionValidator" />
             </entry>
+            <entry key="ws-security.enable.timestamp.cache" value="false" />
         </jaxws:properties>
-        
+
 
         <jaxws:inInterceptors>
             <ref bean="securityConfigInInterceptor" />
@@ -54,6 +54,9 @@ http://cxf.apache.org/core http://cxf.apache.org/schemas/core.xsd ">
         address="/EntityService/EntityDocQueryUnsecured" serviceName="edq:EntityDocQuery" endpointName="edq:EntityDocQueryPortSoap"
         implementorClass="gov.hhs.fha.nhinc.docquery._30.entity.EntityDocQueryUnsecured" implementor="#entityDQUnsecured"
         wsdlLocation="classpath:wsdl/EntityDocQuery.wsdl">
+        <jaxws:properties>
+            <entry key="ws-security.enable.timestamp.cache" value="false" />
+        </jaxws:properties>
         <jaxws:handlers>
             <ref bean="TransactionHandler" />
         </jaxws:handlers>
@@ -68,9 +71,10 @@ http://cxf.apache.org/core http://cxf.apache.org/schemas/core.xsd ">
             <entry key="ws-security.encryption.properties" value="file:///${nhinc.properties.dir}/truststore.properties" />
             <entry key="ws-security.saml2.validator">
                 <bean class="gov.hhs.fha.nhinc.callback.cxf.CONNECTSamlAssertionValidator" />
-            </entry>            
+            </entry>
+            <entry key="ws-security.enable.timestamp.cache" value="false" />
         </jaxws:properties>
-        
+
         <jaxws:inInterceptors>
             <ref bean="securityConfigInInterceptor" />
         </jaxws:inInterceptors>

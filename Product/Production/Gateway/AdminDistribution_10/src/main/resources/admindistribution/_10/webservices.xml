@@ -7,8 +7,7 @@
     ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under 
     the License. -->
 <beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xmlns:jaxws="http://cxf.apache.org/jaxws" xmlns:soap="http://cxf.apache.org/bindings/soap"
-    xmlns:cxf="http://cxf.apache.org/core"
+    xmlns:jaxws="http://cxf.apache.org/jaxws" xmlns:soap="http://cxf.apache.org/bindings/soap" xmlns:cxf="http://cxf.apache.org/core"
     xmlns:p="http://cxf.apache.org/policy"
     xsi:schemaLocation="
 http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
@@ -28,8 +27,8 @@ http://cxf.apache.org/core http://cxf.apache.org/schemas/core.xsd">
 
     <jaxws:endpoint xmlns:tns="urn:gov:hhs:fha:nhinc:nhinadmindistribution" id="NhinAdministrativeDistribution"
         address="/NhinService/NhinAdminDist" serviceName="tns:RespondingGateway_AdministrativeDistribution"
-        endpointName="tns:RespondingGateway_AdministrativeDistribution_PortType"
-        implementor="#NhinAdministrativeDistributionBean" wsdlLocation="classpath:wsdl/NhinAdminDist.wsdl">
+        endpointName="tns:RespondingGateway_AdministrativeDistribution_PortType" implementor="#NhinAdministrativeDistributionBean"
+        wsdlLocation="classpath:wsdl/NhinAdminDist.wsdl">
         <jaxws:properties>
             <entry key="ws-security.signature.properties" value="file:///${nhinc.properties.dir}/signature.properties" />
             <entry key="ws-security.encryption.properties" value="file:///${nhinc.properties.dir}/truststore.properties" />
@@ -40,8 +39,9 @@ http://cxf.apache.org/core http://cxf.apache.org/schemas/core.xsd">
                 <bean class="gov.hhs.fha.nhinc.callback.cxf.largefile.TimestampValidator" />
             </entry>
             <entry key="mtom-enabled" value="true" />
+            <entry key="ws-security.enable.timestamp.cache" value="false" />
         </jaxws:properties>
-        
+
         <jaxws:inInterceptors>
             <ref bean="timestampInInterceptor" />
             <ref bean="securityConfigInInterceptor" />
@@ -59,8 +59,8 @@ http://cxf.apache.org/core http://cxf.apache.org/schemas/core.xsd">
 
     <jaxws:endpoint xmlns:tns="urn:gov:hhs:fha:nhinc:entityadmindistribution" id="EntityAdministrativeDistributionSecured"
         address="/AdministrativeDistributionSecured_Service" serviceName="tns:AdministrativeDistributionSecured_Service"
-        endpointName="tns:AdministrativeDistributionSecured_PortType"
-        implementor="#EntityAdministrativeDistributionSecuredBean" wsdlLocation="classpath:wsdl/EntityAdminDistSecured.wsdl">
+        endpointName="tns:AdministrativeDistributionSecured_PortType" implementor="#EntityAdministrativeDistributionSecuredBean"
+        wsdlLocation="classpath:wsdl/EntityAdminDistSecured.wsdl">
         <jaxws:properties>
             <entry key="ws-security.signature.properties" value="file:///${nhinc.properties.dir}/signature.properties" />
             <entry key="ws-security.encryption.properties" value="file:///${nhinc.properties.dir}/truststore.properties" />
@@ -70,7 +70,8 @@ http://cxf.apache.org/core http://cxf.apache.org/schemas/core.xsd">
             </entry>
             <entry key="ws-security.saml2.validator">
                 <bean class="gov.hhs.fha.nhinc.callback.cxf.CONNECTSamlAssertionValidator" />
-            </entry>            
+            </entry>
+            <entry key="ws-security.enable.timestamp.cache" value="false" />
         </jaxws:properties>
 
         <jaxws:inInterceptors>
@@ -87,14 +88,14 @@ http://cxf.apache.org/core http://cxf.apache.org/schemas/core.xsd">
 
     <jaxws:endpoint xmlns:tns="urn:gov:hhs:fha:nhinc:entityadmindistribution" id="EntityAdministrativeDistribution"
         address="/AdministrativeDistribution_Service" serviceName="tns:AdministrativeDistribution_Service" endpointName="tns:AdministrativeDistribution_PortType"
-        implementor="#EntityAdministrativeDistributionBean"
-        wsdlLocation="classpath:wsdl/EntityAdminDist.wsdl">
+        implementor="#EntityAdministrativeDistributionBean" wsdlLocation="classpath:wsdl/EntityAdminDist.wsdl">
         <jaxws:handlers>
             <ref bean="TransactionHandler" />
         </jaxws:handlers>
         <jaxws:properties>
             <entry key="mtom-enabled" value="true" />
+            <entry key="ws-security.enable.timestamp.cache" value="false" />
         </jaxws:properties>
     </jaxws:endpoint>
-    
+
 </beans>
