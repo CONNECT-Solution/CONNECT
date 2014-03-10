@@ -28,6 +28,7 @@ package gov.hhs.fha.nhinc.policyengine.adapter.pip;
 
 import gov.hhs.fha.nhinc.transform.marshallers.JAXBContextHandler;
 import gov.hhs.fha.nhinc.util.JAXBUnmarshallingUtil;
+import gov.hhs.fha.nhinc.util.StreamUtils;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -112,13 +113,7 @@ public class XACMLSerializer {
             LOG.error("Failed to deserialize the XACML consent string...", e);
             throw new AdapterPIPException("Failed to deserialize the XACML consent string...", e);
         } finally {
-            if (is != null) {
-                try {
-                    is.close();
-                } catch (IOException e) {
-                    LOG.error("Couldn't close input stream", e);
-                }
-            }
+            StreamUtils.closeStreamSilently(is);
         }
 
         return oConsentXACML;

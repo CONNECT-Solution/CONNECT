@@ -36,6 +36,7 @@ import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunityType;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.patientdiscovery.adapter.deferred.request.queue.proxy.AdapterPatientDiscoveryAsyncReqQueueProxyJavaImpl;
 import gov.hhs.fha.nhinc.util.JAXBUnmarshallingUtil;
+import gov.hhs.fha.nhinc.util.StreamUtils;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -170,13 +171,7 @@ public class AdapterPatientDiscoveryDeferredReqQueueProcessOrchImpl {
             LOG.error("Exception during Blob conversion :" + e.getMessage());
             e.printStackTrace();
         } finally {
-            if (is != null) { 
-                try {
-                    is.close();
-                } catch (IOException e) {
-                    LOG.error("Couldn't close input stream", e);
-                }
-            }
+            StreamUtils.closeStreamSilently(is);
         }
         return respondingGatewayPRPAIN201305UV02RequestType;
     }
