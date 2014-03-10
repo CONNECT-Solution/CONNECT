@@ -7,8 +7,7 @@
     ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under 
     the License. -->
 <beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xmlns:jaxws="http://cxf.apache.org/jaxws" xmlns:soap="http://cxf.apache.org/bindings/soap"
-    xmlns:cxf="http://cxf.apache.org/core"
+    xmlns:jaxws="http://cxf.apache.org/jaxws" xmlns:soap="http://cxf.apache.org/bindings/soap" xmlns:cxf="http://cxf.apache.org/core"
     xmlns:p="http://cxf.apache.org/policy"
     xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 http://cxf.apache.org/bindings/soap http://cxf.apache.org/schemas/configuration/soap.xsd
@@ -18,7 +17,7 @@ http://cxf.apache.org/core http://cxf.apache.org/schemas/core.xsd ">
 
 
     <!-- Document Submission -->
-    
+
     <cxf:bus>
         <cxf:features>
             <p:policies />
@@ -28,8 +27,8 @@ http://cxf.apache.org/core http://cxf.apache.org/schemas/core.xsd ">
     <!-- Nhin Services -->
 
     <jaxws:endpoint xmlns:nds="urn:ihe:iti:xdr:2007" id="NhinDocSubmission_g1" address="/DocumentRepositoryXDR_Service"
-        serviceName="nds:DocumentRepositoryXDR_Service" endpointName="nds:DocumentRepositoryXDR_Port_Soap"
-        implementor="#nhinXDR_g1" wsdlLocation="classpath:wsdl/NhinXDR20.wsdl">
+        serviceName="nds:DocumentRepositoryXDR_Service" endpointName="nds:DocumentRepositoryXDR_Port_Soap" implementor="#nhinXDR_g1"
+        wsdlLocation="classpath:wsdl/NhinXDR20.wsdl">
         <jaxws:properties>
             <entry key="ws-security.signature.properties" value="file:///${nhinc.properties.dir}/signature.properties" />
             <entry key="ws-security.encryption.properties" value="file:///${nhinc.properties.dir}/truststore.properties" />
@@ -38,8 +37,9 @@ http://cxf.apache.org/core http://cxf.apache.org/schemas/core.xsd ">
             </entry>
             <entry key="ws-security.timestamp.validator">
                 <bean class="gov.hhs.fha.nhinc.callback.cxf.largefile.TimestampValidator" />
-            </entry>           
+            </entry>
             <entry key="mtom-enabled" value="true" />
+            <entry key="ws-security.enable.timestamp.cache" value="false" />
         </jaxws:properties>
 
         <jaxws:inInterceptors>
@@ -68,7 +68,7 @@ http://cxf.apache.org/core http://cxf.apache.org/schemas/core.xsd ">
         </jaxws:properties>
     </jaxws:endpoint>
 
-     <jaxws:endpoint xmlns:edss="urn:gov:hhs:fha:nhinc:nhincentityxdrsecured" id="EntityDocSubmissionSecured_g1"
+    <jaxws:endpoint xmlns:edss="urn:gov:hhs:fha:nhinc:nhincentityxdrsecured" id="EntityDocSubmissionSecured_g1"
         address="/EntityService/EntityDocSubmissionSecured" serviceName="edss:EntityXDRSecured_Service" endpointName="edss:EntityXDRSecured_Port"
         implementor="#entityXDRSecured_g1" wsdlLocation="classpath:wsdl/EntityXDRSecured.wsdl">
         <jaxws:properties>
@@ -80,7 +80,8 @@ http://cxf.apache.org/core http://cxf.apache.org/schemas/core.xsd ">
             </entry>
             <entry key="ws-security.saml2.validator">
                 <bean class="gov.hhs.fha.nhinc.callback.cxf.CONNECTSamlAssertionValidator" />
-            </entry>            
+            </entry>
+            <entry key="ws-security.enable.timestamp.cache" value="false" />
         </jaxws:properties>
 
         <jaxws:inInterceptors>
@@ -95,14 +96,14 @@ http://cxf.apache.org/core http://cxf.apache.org/schemas/core.xsd ">
         </jaxws:handlers>
     </jaxws:endpoint>
 
-   
+
     <!-- Document Submission Deferred Request -->
 
     <!-- Nhin services -->
 
     <jaxws:endpoint xmlns:tns="urn:ihe:iti:xdr:2007" id="NhinXDRRequest20" address="/NhinService/XDRRequest_Service"
-        serviceName="tns:XDRDeferredRequest20_Service" endpointName="tns:XDRDeferredRequest20_Port_Soap"
-        implementor="#nhinXDRDeferredRequest_g1" wsdlLocation="classpath:wsdl/NhinXDRDeferredRequest20.wsdl">
+        serviceName="tns:XDRDeferredRequest20_Service" endpointName="tns:XDRDeferredRequest20_Port_Soap" implementor="#nhinXDRDeferredRequest_g1"
+        wsdlLocation="classpath:wsdl/NhinXDRDeferredRequest20.wsdl">
         <jaxws:properties>
             <entry key="ws-security.signature.properties" value="file:///${nhinc.properties.dir}/signature.properties" />
             <entry key="ws-security.encryption.properties" value="file:///${nhinc.properties.dir}/truststore.properties" />
@@ -113,8 +114,9 @@ http://cxf.apache.org/core http://cxf.apache.org/schemas/core.xsd ">
                 <bean class="gov.hhs.fha.nhinc.callback.cxf.largefile.TimestampValidator" />
             </entry>
             <entry key="mtom-enabled" value="true" />
+            <entry key="ws-security.enable.timestamp.cache" value="false" />
         </jaxws:properties>
-        
+
         <jaxws:inInterceptors>
             <ref bean="timestampInInterceptor" />
             <ref bean="securityConfigInInterceptor" />
@@ -132,8 +134,7 @@ http://cxf.apache.org/core http://cxf.apache.org/schemas/core.xsd ">
 
     <jaxws:endpoint xmlns:tns="urn:gov:hhs:fha:nhinc:nhincentityxdr:async:request" id="EntityDocSubmissionDeferredRequestUnsecured_g1"
         address="/EntityService/EntityDocSubmissionDeferredRequestUnsecured" serviceName="tns:EntityXDRAsyncRequest_Service"
-        endpointName="tns:EntityXDRAsyncRequest_Port"
-        implementor="#entityXDRDeferredRequestUnsecured_g1" wsdlLocation="classpath:wsdl/EntityXDRRequest.wsdl">
+        endpointName="tns:EntityXDRAsyncRequest_Port" implementor="#entityXDRDeferredRequestUnsecured_g1" wsdlLocation="classpath:wsdl/EntityXDRRequest.wsdl">
         <jaxws:handlers>
             <ref bean="TransactionHandler" />
         </jaxws:handlers>
@@ -145,8 +146,8 @@ http://cxf.apache.org/core http://cxf.apache.org/schemas/core.xsd ">
 
     <jaxws:endpoint xmlns:tns="urn:gov:hhs:fha:nhinc:nhincentityxdrsecured:async:request" id="EntityDocSubmissionDeferredRequestSecured_g1"
         address="/EntityService/EntityDocSubmissionDeferredRequestSecured" serviceName="tns:EntityXDRSecuredAsyncRequest_Service"
-        endpointName="tns:EntityXDRSecuredAsyncRequest_Port"
-        implementor="#entityXDRDeferredRequestSecured_g1" wsdlLocation="classpath:wsdl/EntityXDRSecuredRequest.wsdl">
+        endpointName="tns:EntityXDRSecuredAsyncRequest_Port" implementor="#entityXDRDeferredRequestSecured_g1"
+        wsdlLocation="classpath:wsdl/EntityXDRSecuredRequest.wsdl">
         <jaxws:properties>
             <entry key="ws-security.signature.properties" value="file:///${nhinc.properties.dir}/signature.properties" />
             <entry key="ws-security.encryption.properties" value="file:///${nhinc.properties.dir}/truststore.properties" />
@@ -156,9 +157,10 @@ http://cxf.apache.org/core http://cxf.apache.org/schemas/core.xsd ">
             </entry>
             <entry key="ws-security.saml2.validator">
                 <bean class="gov.hhs.fha.nhinc.callback.cxf.CONNECTSamlAssertionValidator" />
-            </entry>            
+            </entry>
+            <entry key="ws-security.enable.timestamp.cache" value="false" />
         </jaxws:properties>
-        
+
         <jaxws:inInterceptors>
             <ref bean="timestampInInterceptor" />
             <ref bean="securityConfigInInterceptor" />
@@ -177,16 +179,17 @@ http://cxf.apache.org/core http://cxf.apache.org/schemas/core.xsd ">
     <!-- Nhin services -->
 
     <jaxws:endpoint xmlns:tns="urn:ihe:iti:xdr:2007" id="NhinXDRResponse20" address="/NhinService/XDRResponse_Service"
-        serviceName="tns:XDRDeferredResponse20_Service" endpointName="tns:XDRDeferredResponse20_Port_Soap"
-        implementor="#nhinXDRDeferredResponse_g1" wsdlLocation="classpath:wsdl/NhinXDRDeferredResponse20.wsdl">
+        serviceName="tns:XDRDeferredResponse20_Service" endpointName="tns:XDRDeferredResponse20_Port_Soap" implementor="#nhinXDRDeferredResponse_g1"
+        wsdlLocation="classpath:wsdl/NhinXDRDeferredResponse20.wsdl">
         <jaxws:properties>
             <entry key="ws-security.signature.properties" value="file:///${nhinc.properties.dir}/signature.properties" />
             <entry key="ws-security.encryption.properties" value="file:///${nhinc.properties.dir}/truststore.properties" />
             <entry key="ws-security.saml2.validator">
                 <bean class="gov.hhs.fha.nhinc.callback.cxf.CONNECTSamlAssertionValidator" />
             </entry>
+            <entry key="ws-security.enable.timestamp.cache" value="false" />
         </jaxws:properties>
-        
+
         <jaxws:inInterceptors>
             <ref bean="securityConfigInInterceptor" />
         </jaxws:inInterceptors>
@@ -200,8 +203,8 @@ http://cxf.apache.org/core http://cxf.apache.org/schemas/core.xsd ">
 
     <jaxws:endpoint xmlns:tns="urn:gov:hhs:fha:nhinc:nhincentityxdr:async:response" id="EntityDocSubmissionDeferredResponseUnsecured_g1"
         address="/EntityService/EntityDocSubmissionDeferredResponseUnsecured" serviceName="tns:EntityXDRAsyncResponse_Service"
-        endpointName="tns:EntityXDRAsyncResponse_Port"
-        implementor="#entityXDRDeferredResponseUnsecured_g1" wsdlLocation="classpath:wsdl/EntityXDRResponse.wsdl">
+        endpointName="tns:EntityXDRAsyncResponse_Port" implementor="#entityXDRDeferredResponseUnsecured_g1"
+        wsdlLocation="classpath:wsdl/EntityXDRResponse.wsdl">
         <jaxws:handlers>
             <ref bean="TransactionHandler" />
         </jaxws:handlers>
@@ -210,16 +213,17 @@ http://cxf.apache.org/core http://cxf.apache.org/schemas/core.xsd ">
 
     <jaxws:endpoint xmlns:tns="urn:gov:hhs:fha:nhinc:nhincentityxdrsecured:async:response" id="EntityDocSubmissionDeferredResponseSecured_g1"
         address="/EntityService/EntityDocSubmissionDeferredResponseSecured" serviceName="tns:EntityXDRSecuredAsyncResponse_Service"
-        endpointName="tns:EntityXDRSecuredAsyncResponse_Port"
-        implementor="#entityXDRDeferredResponseSecured_g1" wsdlLocation="classpath:wsdl/EntityXDRSecuredResponse.wsdl">
+        endpointName="tns:EntityXDRSecuredAsyncResponse_Port" implementor="#entityXDRDeferredResponseSecured_g1"
+        wsdlLocation="classpath:wsdl/EntityXDRSecuredResponse.wsdl">
         <jaxws:properties>
             <entry key="ws-security.signature.properties" value="file:///${nhinc.properties.dir}/signature.properties" />
             <entry key="ws-security.encryption.properties" value="file:///${nhinc.properties.dir}/truststore.properties" />
             <entry key="ws-security.saml2.validator">
                 <bean class="gov.hhs.fha.nhinc.callback.cxf.CONNECTSamlAssertionValidator" />
-            </entry>            
+            </entry>
+            <entry key="ws-security.enable.timestamp.cache" value="false" />
         </jaxws:properties>
-  
+
         <jaxws:inInterceptors>
             <ref bean="securityConfigInInterceptor" />
         </jaxws:inInterceptors>

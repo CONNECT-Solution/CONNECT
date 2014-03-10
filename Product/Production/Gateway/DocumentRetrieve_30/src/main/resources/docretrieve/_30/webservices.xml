@@ -35,6 +35,7 @@ http://cxf.apache.org/core http://cxf.apache.org/schemas/core.xsd">
                 <bean class="gov.hhs.fha.nhinc.callback.cxf.CONNECTSamlAssertionValidator" />
             </entry>
             <entry key="mtom-enabled" value="true" />
+            <entry key="ws-security.enable.timestamp.cache" value="false" /> 
         </jaxws:properties>
 
         <jaxws:inInterceptors>
@@ -55,7 +56,7 @@ http://cxf.apache.org/core http://cxf.apache.org/schemas/core.xsd">
             <ref bean="TransactionHandler"/>
         </jaxws:handlers>
         <jaxws:properties>          
-            <entry key="mtom-enabled" value="true" />
+            <entry key="mtom-enabled" value="true" /> 
         </jaxws:properties>
     </jaxws:endpoint>
 
@@ -69,7 +70,8 @@ http://cxf.apache.org/core http://cxf.apache.org/schemas/core.xsd">
             <entry key="mtom-enabled" value="true" />
             <entry key="ws-security.saml2.validator">
                 <bean class="gov.hhs.fha.nhinc.callback.cxf.CONNECTSamlAssertionValidator" />
-            </entry>            
+            </entry> 
+            <entry key="ws-security.enable.timestamp.cache" value="false" />            
         </jaxws:properties>
 
         <jaxws:inInterceptors>

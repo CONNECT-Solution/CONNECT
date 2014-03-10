@@ -7,10 +7,8 @@
     ANY KIND, either express or implied. See the License for the specific language governing permissions and limitations under 
     the License. -->
 <beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xmlns:jaxws="http://cxf.apache.org/jaxws" xmlns:soap="http://cxf.apache.org/bindings/soap"
-    xmlns:context="http://www.springframework.org/schema/context"
-    xmlns:cxf="http://cxf.apache.org/core"
-    xmlns:p="http://cxf.apache.org/policy"
+    xmlns:jaxws="http://cxf.apache.org/jaxws" xmlns:soap="http://cxf.apache.org/bindings/soap" xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:cxf="http://cxf.apache.org/core" xmlns:p="http://cxf.apache.org/policy"
     xsi:schemaLocation="
     http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
 http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
@@ -20,7 +18,7 @@ http://cxf.apache.org/policy http://cxf.apache.org/schemas/policy.xsd
 http://cxf.apache.org/core http://cxf.apache.org/schemas/core.xsd ">
 
     <import resource="classpath:CONNECT-interceptor-beans.xml" />
-    <context:property-placeholder/>
+    <context:property-placeholder />
     <cxf:bus>
         <cxf:features>
             <p:policies />
@@ -28,9 +26,9 @@ http://cxf.apache.org/core http://cxf.apache.org/schemas/core.xsd ">
     </cxf:bus>
 
     <!-- Adapter services -->
-    <jaxws:endpoint xmlns:adq="urn:gov:hhs:fha:nhinc:adapterdocquery" id="AdapterDocQuery"
-        address="/AdapterDocQueryUnsecured" serviceName="adq:AdapterDocQuery" endpointName="adq:AdapterDocQueryPortSoap"
-        implementor="gov.hhs.fha.nhinc.docquery.adapter.AdapterDocQueryUnsecured" wsdlLocation="classpath:wsdl/AdapterDocQuery.wsdl">
+    <jaxws:endpoint xmlns:adq="urn:gov:hhs:fha:nhinc:adapterdocquery" id="AdapterDocQuery" address="/AdapterDocQueryUnsecured"
+        serviceName="adq:AdapterDocQuery" endpointName="adq:AdapterDocQueryPortSoap" implementor="gov.hhs.fha.nhinc.docquery.adapter.AdapterDocQueryUnsecured"
+        wsdlLocation="classpath:wsdl/AdapterDocQuery.wsdl">
     </jaxws:endpoint>
 
     <jaxws:endpoint xmlns:adqs="urn:gov:hhs:fha:nhinc:adapterdocquerysecured" id="AdapterDocQuerySecured"
@@ -41,7 +39,8 @@ http://cxf.apache.org/core http://cxf.apache.org/schemas/core.xsd ">
             <entry key="ws-security.encryption.properties" value="file:///${nhinc.properties.dir}/truststore.properties" />
             <entry key="ws-security.saml2.validator">
                 <bean class="gov.hhs.fha.nhinc.callback.cxf.CONNECTSamlAssertionValidator" />
-            </entry>            
+            </entry>
+            <entry key="ws-security.enable.timestamp.cache" value="false" />
         </jaxws:properties>
     </jaxws:endpoint>
 
