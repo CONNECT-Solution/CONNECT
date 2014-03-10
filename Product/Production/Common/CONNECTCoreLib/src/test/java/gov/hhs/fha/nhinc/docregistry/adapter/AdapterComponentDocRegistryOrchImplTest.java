@@ -93,12 +93,14 @@ public class AdapterComponentDocRegistryOrchImplTest {
             public List<Document> documentQuery(DocumentQueryParams params) {
 
                 ArrayList<Document> docs = new ArrayList<Document>();
-                if (params.getOnDemand()) {
+                if (params.getOnDemand() == null || (params.getOnDemand() != null && params.getOnDemand())) {
                     Document onDemandDoc = new Document();
                     onDemandDoc.setDocumentUniqueId("12345.11111");
 
                     docs.add(onDemandDoc);
-                } else {
+                } 
+                
+                if (params.getOnDemand() == null || !params.getOnDemand()) {
                     Document stableDoc = new Document();
                     stableDoc.setDocumentUniqueId("12345.22222");
 
