@@ -37,6 +37,9 @@ import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.patientdiscovery.adapter.deferred.request.queue.proxy.AdapterPatientDiscoveryAsyncReqQueueProxyJavaImpl;
 import gov.hhs.fha.nhinc.util.JAXBUnmarshallingUtil;
 
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.sql.Blob;
 import java.util.ArrayList;
 import java.util.List;
@@ -147,16 +150,18 @@ public class AdapterPatientDiscoveryDeferredReqQueueProcessOrchImpl {
             Blob msgData) {
         LOG.debug("Begin AdapterPatientDiscoveryDeferredReqQueueProcessOrchImpl.extractRespondingGatewayPRPAIN201305UV02RequestType()..");
         RespondingGatewayPRPAIN201305UV02RequestType respondingGatewayPRPAIN201305UV02RequestType = new RespondingGatewayPRPAIN201305UV02RequestType();
+        InputStream is = null;
         try {
             byte[] msgBytes = null;
             if (msgData != null) {
                 JAXBUnmarshallingUtil util = new JAXBUnmarshallingUtil();
                 msgBytes = msgData.getBytes(1, (int) msgData.length());
+                is = new ByteArrayInputStream(msgBytes);
                 
                 JAXBContext context = JAXBContext.newInstance("org.hl7.v3");
                 Unmarshaller u = context.createUnmarshaller();
                 JAXBElement<RespondingGatewayPRPAIN201305UV02RequestType> root = (JAXBElement<RespondingGatewayPRPAIN201305UV02RequestType>) u
-                        .unmarshal(util.getSafeStreamReaderFromBytes(msgBytes));
+                        .unmarshal(util.getSafeStreamReaderFromInputStream(is));
 
                 respondingGatewayPRPAIN201305UV02RequestType = root.getValue();
                 LOG.debug("End AdapterPatientDiscoveryDeferredReqQueueProcessOrchImpl.extractRespondingGatewayPRPAIN201305UV02RequestType()..");
@@ -164,6 +169,14 @@ public class AdapterPatientDiscoveryDeferredReqQueueProcessOrchImpl {
         } catch (Exception e) {
             LOG.error("Exception during Blob conversion :" + e.getMessage());
             e.printStackTrace();
+        } finally {
+            if (is != null) { 
+                try {
+                    is.close();
+                } catch (IOException e) {
+                    LOG.error("Couldn't close input stream", e);
+                }
+            }
         }
         return respondingGatewayPRPAIN201305UV02RequestType;
     }

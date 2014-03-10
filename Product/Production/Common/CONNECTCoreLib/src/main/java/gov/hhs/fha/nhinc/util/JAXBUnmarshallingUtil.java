@@ -26,7 +26,6 @@
  */
 package gov.hhs.fha.nhinc.util;
 
-import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 
 import javax.xml.stream.XMLInputFactory;
@@ -45,17 +44,6 @@ public class JAXBUnmarshallingUtil {
      */
     public JAXBUnmarshallingUtil() {
         
-    }
-    
-    /**
-     * Gets the safe stream reader from bytes.
-     *
-     * @param bytes the bytes
-     * @return the safe stream reader from bytes
-     * @throws XMLStreamException the xML stream exception
-     */
-    public XMLStreamReader getSafeStreamReaderFromBytes(byte[] bytes) throws XMLStreamException {
-        return getSafeStreamReaderFromInputStream(new ByteArrayInputStream(bytes));
     }
     
     /**

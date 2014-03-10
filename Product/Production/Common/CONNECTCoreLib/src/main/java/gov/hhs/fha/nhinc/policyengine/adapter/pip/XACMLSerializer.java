@@ -29,6 +29,9 @@ package gov.hhs.fha.nhinc.policyengine.adapter.pip;
 import gov.hhs.fha.nhinc.transform.marshallers.JAXBContextHandler;
 import gov.hhs.fha.nhinc.util.JAXBUnmarshallingUtil;
 
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.io.StringReader;
 import java.io.StringWriter;
 import javax.xml.bind.JAXBContext;
@@ -91,21 +94,31 @@ public class XACMLSerializer {
      */
     public PolicyType deserializeConsentXACMLDoc(String sConsentXACML) throws AdapterPIPException {
         PolicyType oConsentXACML = null;
+        InputStream is = null;
 
         try {
             JAXBContextHandler oHandler = new JAXBContextHandler();
             JAXBContext oJaxbContext = oHandler.getJAXBContext("oasis.names.tc.xacml._2_0.policy.schema.os");
             Unmarshaller oUnmarshaller = oJaxbContext.createUnmarshaller();
 
+            is = new ByteArrayInputStream(sConsentXACML.getBytes());
             JAXBUnmarshallingUtil util = new JAXBUnmarshallingUtil();
 
-            JAXBElement oJAXBElementConsentXACML = (JAXBElement) oUnmarshaller.unmarshal(util.getSafeStreamReaderFromBytes(sConsentXACML.getBytes()));
+            JAXBElement oJAXBElementConsentXACML = (JAXBElement) oUnmarshaller.unmarshal(util.getSafeStreamReaderFromInputStream(is));
             if (oJAXBElementConsentXACML.getValue() instanceof PolicyType) {
                 oConsentXACML = (PolicyType) oJAXBElementConsentXACML.getValue();
             }
         } catch (Exception e) {            
             LOG.error("Failed to deserialize the XACML consent string...", e);
             throw new AdapterPIPException("Failed to deserialize the XACML consent string...", e);
+        } finally {
+            if (is != null) {
+                try {
+                    is.close();
+                } catch (IOException e) {
+                    LOG.error("Couldn't close input stream", e);
+                }
+            }
         }
 
         return oConsentXACML;
