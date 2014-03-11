@@ -221,7 +221,19 @@ public class AdapterComponentDocRegistryOrchImpl {
             DocumentService service = getDocumentService();
 
             List<Document> docs = new ArrayList<Document>();
-            docs = service.documentQuery(params);
+            Boolean isOnDemand = params.getOnDemand();
+            if (isOnDemand == null || !isOnDemand) {
+                params.setOnDemandParams(Boolean.FALSE);
+                docs.addAll(service.documentQuery(params));
+            }
+            
+            if (isOnDemand == null || (isOnDemand != null && isOnDemand)) {
+                params.setCreationTimeFrom(null);
+                params.setCreationTimeTo(null);
+                params.setOnDemandParams(Boolean.TRUE);
+                docs.addAll(service.documentQuery(params));
+            }
+            
             
             LOG.debug("registryStoredQuery- docs.size: " + docs.size());
             loadResponseMessage(response, docs);
