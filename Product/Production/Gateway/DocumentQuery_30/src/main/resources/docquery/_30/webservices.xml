@@ -81,7 +81,7 @@ http://cxf.apache.org/core http://cxf.apache.org/schemas/core.xsd ">
 
     <jaxws:endpoint xmlns:edq="urn:gov:hhs:fha:nhinc:entitydocquery" id="EntityDocQueryUnsecuredProxy"
         address="/EntityService/EntityDocQueryUnsecuredProxy" serviceName="edq:EntityDocQuery" endpointName="edq:EntityDocQueryPortSoap"
-        implementorClass="gov.hhs.fha.nhinc.docquery._30.entity.EntityDocQueryUnsecuredProxy" implementor="#entityDQUnsecuredProxy"
+        implementorClass="gov.hhs.fha.nhinc.docquery._30.entity.EntityDocQueryUnsecuredProxy" implementor="#entityDQUnsecured"
         wsdlLocation="classpath:wsdl/EntityDocQuery.wsdl">
         <jaxws:handlers>
             <ref bean="TransactionHandler" />
