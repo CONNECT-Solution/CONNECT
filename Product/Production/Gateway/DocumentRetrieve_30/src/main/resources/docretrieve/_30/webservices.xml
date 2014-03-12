@@ -62,8 +62,8 @@ http://cxf.apache.org/core http://cxf.apache.org/schemas/core.xsd">
     
     <!--  EntityUnSecured Interface to make Proxy Calls to SecuredInterface -->
     <jaxws:endpoint xmlns:edr="urn:gov:hhs:fha:nhinc:entitydocretrieve" id="EntityDocRetrieveUnsecuredProxy_a1"
-        address="/EntityService/EntityDocRetrieveUnsecuredProxy" serviceName="edr:EntityDocRetrieve" endpointName="edr:EntityDocRetrievePortSoap"
-        implementor="#entityDocRetrieveUnsecured" wsdlLocation="classpath:/wsdl/EntityDocRetrieve.wsdl">
+        address="/EntityServiceProxy/EntityDocRetrieveUnsecured" serviceName="edr:EntityDocRetrieve" endpointName="edr:EntityDocRetrievePortSoap"
+        implementor="gov.hhs.fha.nhinc.docretrieve._30.entity.EntityDocRetrieveUnSecuredProxy" wsdlLocation="classpath:/wsdl/EntityDocRetrieve.wsdl">
         <jaxws:handlers>
             <ref bean="TransactionHandler"/>
         </jaxws:handlers>
