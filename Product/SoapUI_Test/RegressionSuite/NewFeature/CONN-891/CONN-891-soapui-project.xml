@@ -89,7 +89,7 @@ if(passthruValue != null){
 		</con:settings>
 		<con:encoding>UTF-8</con:encoding>
 		
-		<con:endpoint>http://localhost:8080/Gateway/DocumentRetrieve/3_0/EntityService/EntityDocRetrieveProxy</con:endpoint><con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:ihe:iti:xds-b:2007" xmlns:urn2="urn:gov:hhs:fha:nhinc:common:nhinccommon">
+		<con:endpoint>http://localhost:8080/Gateway/DocumentRetrieve/3_0/EntityServiceProxy/EntityDocRetrieveUnsecured</con:endpoint><con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:ihe:iti:xds-b:2007" xmlns:urn2="urn:gov:hhs:fha:nhinc:common:nhinccommon">
    <soap:Header/>
    <soap:Body testSuite="Entity_g1" testCase="Document Retrieve">
       <urn:RespondingGateway_CrossGatewayRetrieveRequest>
@@ -456,7 +456,7 @@ if(passthruValue != null){
 		</con:settings>
 		<con:encoding>UTF-8</con:encoding>
 		
-		<con:endpoint>http://localhost:8080/Gateway/DocumentRetrieve/2_0/EntityService/EntityDocRetrieveProxy</con:endpoint><con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:ihe:iti:xds-b:2007" xmlns:urn2="urn:gov:hhs:fha:nhinc:common:nhinccommon">
+		<con:endpoint>http://localhost:8080/Gateway/DocumentRetrieve/2_0/EntityServiceProxy/EntityDocRetrieveUnsecured</con:endpoint><con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:ihe:iti:xds-b:2007" xmlns:urn2="urn:gov:hhs:fha:nhinc:common:nhinccommon">
    <soap:Header/>
    <soap:Body testSuite="Entity_g0" testCase="Document Retrieve">
       <urn:RespondingGateway_CrossGatewayRetrieveRequest>
