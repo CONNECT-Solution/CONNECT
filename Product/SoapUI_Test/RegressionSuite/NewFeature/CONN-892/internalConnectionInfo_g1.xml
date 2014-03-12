@@ -449,9 +449,9 @@
                 <name xml:lang="en">entitydocquerysecured</name>
                 <bindingTemplates>
                     <bindingTemplate bindingKey="uddi:nhincnode:entitydocquerysecured" serviceKey="uddi:nhincnode:entitydocquerysecured">
-                        <accessPoint useType="endPoint">https://localhost:8181/Gateway/DocumentQuery/2_0/EntityService/EntityDocQuerySecured</accessPoint>
+                        <accessPoint useType="endPoint">https://localhost:8181/Gateway/DocumentQuery/3_0/EntityService/EntityDocQuerySecured</accessPoint>
                         <categoryBag>
-                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="2.0"/>
+                            <keyedReference tModelKey="uddi:nhin:versionofservice" keyName="" keyValue="3.0"/>
                         </categoryBag>
                     </bindingTemplate>
                 </bindingTemplates>
