@@ -40,6 +40,9 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
+import java.io.IOException;
+import javax.xml.parsers.ParserConfigurationException;
+import org.xml.sax.SAXException;
 
 /**
  *
@@ -77,6 +80,10 @@ public class ConfigurationManager {
 
         try {
             DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+            
+            final String FEATURE = "http://xml.org/sax/features/external-general-entities";
+            dbf.setFeature(FEATURE, false);
+            
             DocumentBuilder db = dbf.newDocumentBuilder();
             Document doc = db.parse(file);
             doc.getDocumentElement().normalize();
@@ -84,9 +91,12 @@ public class ConfigurationManager {
             NodeList nodeLst = doc.getElementsByTagName("RoutingInformation");
             result.setRoutingInfo(loadRoutingInfo(nodeLst));
 
-        } catch (Exception e) {
+        } catch (IOException e) {
             LOG.error("unable to load FTAConfiguration file", e);
-            e.printStackTrace();
+        } catch (ParserConfigurationException e) {
+            LOG.error("unable to load FTAConfiguration file", e);
+        } catch (SAXException e) {
+            LOG.error("unable to load FTAConfiguration file", e);
         }
 
         return result;
@@ -97,7 +107,7 @@ public class ConfigurationManager {
         Node channels = list.item(0);
 
         LOG.debug("loading " + channels.getChildNodes().getLength() + " channels");
-        ;
+
         for (int s = 0; s < channels.getChildNodes().getLength(); s++) {
             Node node = channels.getChildNodes().item(s);
             if (node.getNodeType() == Node.ELEMENT_NODE) {

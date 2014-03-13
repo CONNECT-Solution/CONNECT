@@ -27,13 +27,18 @@
 package gov.hhs.fha.nhinc.policyengine.adapter.pip;
 
 import gov.hhs.fha.nhinc.transform.marshallers.JAXBContextHandler;
+import gov.hhs.fha.nhinc.util.JAXBUnmarshallingUtil;
+import gov.hhs.fha.nhinc.util.StreamUtils;
+import java.io.ByteArrayInputStream;
 import org.hl7.v3.POCDMT000040ClinicalDocument;
 import java.io.StringReader;
 import java.io.StringWriter;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBElement;
+import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
+import javax.xml.stream.XMLStreamException;
 
 import org.apache.log4j.Logger;
 
@@ -90,23 +95,33 @@ public class CdaPdfSerializer {
      */
     public POCDMT000040ClinicalDocument deserialize(String sCda) throws AdapterPIPException {
         POCDMT000040ClinicalDocument oCda = null;
+        ByteArrayInputStream baInStrm = null;
 
         try {
+            JAXBUnmarshallingUtil util = new JAXBUnmarshallingUtil();
             JAXBContextHandler oHandler = new JAXBContextHandler();
             JAXBContext oJaxbContext = oHandler.getJAXBContext("org.hl7.v3");
             Unmarshaller oUnmarshaller = oJaxbContext.createUnmarshaller();
 
-            StringReader srXML = new StringReader(sCda);
+            baInStrm = new ByteArrayInputStream(sCda.getBytes());
 
-            JAXBElement oJAXBElementConsent = (JAXBElement) oUnmarshaller.unmarshal(srXML);
+            JAXBElement oJAXBElementConsent = 
+                    (JAXBElement) oUnmarshaller.unmarshal(util.getSafeStreamReaderFromInputStream(baInStrm));
             if (oJAXBElementConsent.getValue() instanceof POCDMT000040ClinicalDocument) {
                 oCda = (POCDMT000040ClinicalDocument) oJAXBElementConsent.getValue();
             }
-        } catch (Exception e) {
+        } catch (JAXBException e) {
             String sErrorMessage = "Failed to deserialize the clinical document string: " + sCda + "  Error: "
                     + e.getMessage();
             LOG.error(sErrorMessage, e);
             throw new AdapterPIPException(sErrorMessage, e);
+        } catch (XMLStreamException e) {
+            String sErrorMessage = "Failed to deserialize the clinical document string: " + sCda + "  Error: "
+                    + e.getMessage();
+            LOG.error(sErrorMessage, e);
+            throw new AdapterPIPException(sErrorMessage, e);
+        } finally {
+            StreamUtils.closeStreamSilently(baInStrm);
         }
 
         return oCda;

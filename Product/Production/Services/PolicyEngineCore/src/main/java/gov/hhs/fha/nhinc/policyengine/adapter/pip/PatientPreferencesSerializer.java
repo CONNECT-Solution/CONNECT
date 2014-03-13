@@ -28,12 +28,16 @@ package gov.hhs.fha.nhinc.policyengine.adapter.pip;
 
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.PatientPreferencesType;
 import gov.hhs.fha.nhinc.transform.marshallers.JAXBContextHandler;
+import gov.hhs.fha.nhinc.util.JAXBUnmarshallingUtil;
+import java.io.ByteArrayInputStream;
 import java.io.StringReader;
 import java.io.StringWriter;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBElement;
+import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
+import javax.xml.stream.XMLStreamException;
 
 import org.apache.log4j.Logger;
 
@@ -90,19 +94,27 @@ public class PatientPreferencesSerializer {
      */
     public PatientPreferencesType deserialize(String sPtPref) throws AdapterPIPException {
         PatientPreferencesType oPtPref = null;
-
+        ByteArrayInputStream baIsStrm = null;
+        
         try {
+            JAXBUnmarshallingUtil util = new JAXBUnmarshallingUtil();
             JAXBContextHandler oHandler = new JAXBContextHandler();
             JAXBContext oJaxbContext = oHandler.getJAXBContext("gov.hhs.fha.nhinc.common.nhinccommonadapter");
             Unmarshaller oUnmarshaller = oJaxbContext.createUnmarshaller();
 
-            StringReader srXML = new StringReader(sPtPref);
+            baIsStrm = new ByteArrayInputStream(sPtPref.getBytes());
 
-            JAXBElement oJAXBElementConsent = (JAXBElement) oUnmarshaller.unmarshal(srXML);
+            JAXBElement oJAXBElementConsent = 
+                    (JAXBElement) oUnmarshaller.unmarshal(util.getSafeStreamReaderFromInputStream(baIsStrm));
             if (oJAXBElementConsent.getValue() instanceof PatientPreferencesType) {
                 oPtPref = (PatientPreferencesType) oJAXBElementConsent.getValue();
             }
-        } catch (Exception e) {
+        } catch (JAXBException e) {
+            String sErrorMessage = "Failed to deserialize the patient preferences string: " + sPtPref + "  Error: "
+                    + e.getMessage();
+            LOG.error(sErrorMessage, e);
+            throw new AdapterPIPException(sErrorMessage, e);
+        } catch (XMLStreamException e) {
             String sErrorMessage = "Failed to deserialize the patient preferences string: " + sPtPref + "  Error: "
                     + e.getMessage();
             LOG.error(sErrorMessage, e);

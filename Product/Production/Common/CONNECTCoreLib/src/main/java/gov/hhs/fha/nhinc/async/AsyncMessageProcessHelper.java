@@ -53,9 +53,13 @@ import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.transform.marshallers.JAXBContextHandler;
 import gov.hhs.fha.nhinc.transform.subdisc.HL7AckTransforms;
+import gov.hhs.fha.nhinc.util.JAXBUnmarshallingUtil;
+import gov.hhs.fha.nhinc.util.StreamUtils;
 import gov.hhs.fha.nhinc.util.StringUtil;
 import java.io.IOException;
+import java.util.logging.Level;
 import javax.xml.bind.JAXBException;
+import javax.xml.stream.XMLStreamException;
 
 /**
  * This class provides methods to manage the async message record during its lifecycle.
@@ -190,7 +194,6 @@ public class AsyncMessageProcessHelper {
             // Success if we got this far
             result = true;
         } catch (Exception e) {
-            e.printStackTrace();
             LOG.error("ERROR: Failed to update the async request.", e);
         }
 
@@ -287,27 +290,35 @@ public class AsyncMessageProcessHelper {
      */
     public AssertionType copyAssertionTypeObject(AssertionType orig) {
         AssertionType copy = null;
-
+        ByteArrayOutputStream baOutStrm = null;
+        ByteArrayInputStream baInStrm = null;
+        
         try {
+            JAXBUnmarshallingUtil util = new JAXBUnmarshallingUtil();
             JAXBContextHandler oHandler = new JAXBContextHandler();
             JAXBContext jc = oHandler.getJAXBContext("gov.hhs.fha.nhinc.common.nhinccommon");
             Marshaller marshaller = jc.createMarshaller();
-            // marshaller.setProperty("jaxb.formatted.output", new Boolean(true));
-            ByteArrayOutputStream baOutStrm = new ByteArrayOutputStream();
-            baOutStrm.reset();
+            
+            baOutStrm = new ByteArrayOutputStream();
             gov.hhs.fha.nhinc.common.nhinccommon.ObjectFactory factory = new gov.hhs.fha.nhinc.common.nhinccommon.ObjectFactory();
             JAXBElement<AssertionType> oJaxbElement = factory.createAssertion(orig);
-            baOutStrm.close();
+            
             marshaller.marshal(oJaxbElement, baOutStrm);
             byte[] buffer = baOutStrm.toByteArray();
 
             Unmarshaller unmarshaller = jc.createUnmarshaller();
-            ByteArrayInputStream baInStrm = new ByteArrayInputStream(buffer);
-            JAXBElement<AssertionType> oJaxbElementCopy = (JAXBElement<AssertionType>) unmarshaller.unmarshal(baInStrm);
+            baInStrm = new ByteArrayInputStream(buffer);
+            JAXBElement<AssertionType> oJaxbElementCopy = 
+                    (JAXBElement<AssertionType>) unmarshaller.unmarshal(util.getSafeStreamReaderFromInputStream(baInStrm));
             copy = oJaxbElementCopy.getValue();
-            // asyncMessage = Hibernate.createBlob(buffer);
-        } catch (Exception e) {
+            
+        } catch (JAXBException e) {
             LOG.error("Exception during copyAssertionTypeObject conversion :" + e, e);
+        } catch (XMLStreamException e) {
+            LOG.error("Exception during copyAssertionTypeObject conversion :" + e, e);
+        } finally {
+            StreamUtils.closeReaderSilently(baOutStrm);
+            StreamUtils.closeStreamSilently(baInStrm);
         }
 
         return copy;
