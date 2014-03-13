@@ -81,16 +81,6 @@ public class PolicyEngineTransformer {
                 .transformFindAuditEventsToCheckPolicy(transformFindAuditEventsToCheckPolicyRequest);
     }
 
-    public CheckPolicyRequestType transformSubscribeToCheckPolicy(
-            SubscribeEventType transformSubscribeToCheckPolicyRequest) {
-        return SubscribeTransformHelper.transformSubscribeToCheckPolicy(transformSubscribeToCheckPolicyRequest);
-    }
-
-    public CheckPolicyRequestType transformUnsubscribeToCheckPolicy(
-            UnsubscribeEventType transformUnsubscribeToCheckPolicyRequest) {
-        return UnsubscribeTransformHelper.transformUnsubscribeToCheckPolicy(transformUnsubscribeToCheckPolicyRequest);
-    }
-
     public CheckPolicyRequestType transformNotifyToCheckPolicy(NotifyEventType transformNotifyToCheckPolicyRequest) {
         return NotifyTransformHelper.transformNotifyToCheckPolicy(transformNotifyToCheckPolicyRequest);
     }

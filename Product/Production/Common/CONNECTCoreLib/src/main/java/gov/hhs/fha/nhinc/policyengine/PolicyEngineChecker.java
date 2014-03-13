@@ -89,26 +89,6 @@ public class PolicyEngineChecker implements DocumentRetrievePolicyEngineChecker 
     }
 
     /**
-     * This method will create the generic Policy Check Request Message from a subscribe request
-     * 
-     * @param request Policy check request message for the subscribe
-     * @return A generic policy check request message that can be passed to the Policy Engine
-     */
-    public CheckPolicyRequestType checkPolicySubscribe(SubscribeEventType checkPolicySubscribeRequest) {
-        return policyTransformer.transformSubscribeToCheckPolicy(checkPolicySubscribeRequest);
-    }
-
-    /**
-     * This method will create the generic Policy Check Request Message from an unsubscribe request.
-     * 
-     * @param request Policy check request message for the unsubscribe
-     * @return A generic policy check request message that can be passed to the Policy Engine
-     */
-    public CheckPolicyRequestType checkPolicyUnsubscribe(UnsubscribeEventType request) {
-        return policyTransformer.transformUnsubscribeToCheckPolicy(request);
-    }
-
-    /**
      * This method will create the generic Policy Check Request Message from a notify request
      * 
      * @param request Policy check request message for the notify request
