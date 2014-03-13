@@ -26,12 +26,21 @@
  */
 package gov.hhs.fha.nhinc.xmlCommon;
 
+import java.io.StringWriter;
+
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 
 import javax.xml.namespace.NamespaceContext;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerConfigurationException;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.TransformerFactoryConfigurationError;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
 import javax.xml.xpath.XPathExpressionException;
 
 import org.apache.log4j.Logger;
@@ -70,13 +79,15 @@ public class XmlUtility {
         return (DOMImplementationLS) document.getImplementation();
     }
 
-    public static String serializeElement(Element element) throws LSException, IllegalAccessException, DOMException,
-            InstantiationException, ClassNotFoundException, ClassCastException {
+    public static String serializeElement(Element element) throws TransformerFactoryConfigurationError, TransformerException {
         String serializedElement = null;
         if (element != null) {
-            DOMImplementationLS domImplLS = getDOMImplementationLS(element);
-            LSSerializer serializer = domImplLS.createLSSerializer();
-            serializedElement = serializer.writeToString(element);
+            StringWriter output = new StringWriter();
+
+            Transformer transformer = TransformerFactory.newInstance().newTransformer();
+            transformer.transform(new DOMSource(element), new StreamResult(output));
+            
+            serializedElement = output.toString();
         }
         return serializedElement;
     }
