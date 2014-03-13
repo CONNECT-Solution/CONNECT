@@ -27,8 +27,11 @@
 package gov.hhs.fha.nhinc.transform.marshallers;
 
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
+import gov.hhs.fha.nhinc.util.JAXBUnmarshallingUtil;
+import gov.hhs.fha.nhinc.util.StreamUtils;
 import gov.hhs.fha.nhinc.xmlCommon.XmlUtility;
 
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.StringReader;
 import java.io.StringWriter;
@@ -134,6 +137,7 @@ public class Marshaller {
         } else if (contextPath == null) {
             LOG.warn("no contextPath supplied");
         } else {
+            ByteArrayInputStream is = null;
             try {
                 LOG.debug("desializing element");
                 String serializedElement = XmlUtility.serializeElement(element);
@@ -143,16 +147,18 @@ public class Marshaller {
                 JAXBContext jc = oHandler.getJAXBContext(contextPath);
                 LOG.debug("get instance of unmarshaller");
                 javax.xml.bind.Unmarshaller unmarshaller = jc.createUnmarshaller();
-                LOG.debug("init stringReader");
-                StringReader stringReader = new StringReader(serializedElement);
+                is = new ByteArrayInputStream(serializedElement.getBytes());
                 LOG.debug("Calling unmarshal");
-                unmarshalledObject = unmarshaller.unmarshal(stringReader);
+                JAXBUnmarshallingUtil util = new JAXBUnmarshallingUtil();
+                unmarshalledObject = unmarshaller.unmarshal(util.getSafeStreamReaderFromInputStream(is));
                 LOG.debug("end unmarshal");
             } catch (Exception e) {
                 // "java.security.PrivilegedActionException: java.lang.ClassNotFoundException: com.sun.xml.bind.v2.ContextFactory"
                 // use jaxb element
                 LOG.error("Failed to unmarshall: " + e.getMessage(), e);
                 unmarshalledObject = null;
+            } finally {
+                StreamUtils.closeStreamSilently(is);
             }
         }
 
