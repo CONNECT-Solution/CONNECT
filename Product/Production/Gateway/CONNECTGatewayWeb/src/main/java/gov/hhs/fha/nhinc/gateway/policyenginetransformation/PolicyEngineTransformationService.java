@@ -30,7 +30,6 @@ import gov.hhs.fha.nhinc.common.eventcommon.SubjectAddedEventType;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyRequestType;
 import gov.hhs.fha.nhinc.transform.policy.PolicyEngineTransformer;
 
-import javax.jws.WebService;
 import javax.xml.ws.BindingType;
 
 /**
@@ -44,8 +43,7 @@ public class PolicyEngineTransformationService implements gov.hhs.fha.nhinc.nhin
             gov.hhs.fha.nhinc.common.eventcommon.AdhocQueryRequestEventType transformAdhocQueryToCheckPolicyRequest) {
         return new PolicyEngineTransformer().transformAdhocQueryToCheckPolicy(transformAdhocQueryToCheckPolicyRequest);
     }
-
-    
+ 
     public gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyRequestType transformSubjectRevisedToCheckPolicy(
             gov.hhs.fha.nhinc.common.eventcommon.SubjectRevisedEventType transformSubjectRevisedToCheckPolicyRequest
         ) {
@@ -72,17 +70,6 @@ public class PolicyEngineTransformationService implements gov.hhs.fha.nhinc.nhin
             gov.hhs.fha.nhinc.common.eventcommon.FindAuditEventsEventType transformFindAuditEventsToCheckPolicyRequest) {
         return new PolicyEngineTransformer()
                 .transformFindAuditEventsToCheckPolicy(transformFindAuditEventsToCheckPolicyRequest);
-    }
-
-    public gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyRequestType transformSubscribeToCheckPolicy(
-            gov.hhs.fha.nhinc.common.eventcommon.SubscribeEventType transformSubscribeToCheckPolicyRequest) {
-        return new PolicyEngineTransformer().transformSubscribeToCheckPolicy(transformSubscribeToCheckPolicyRequest);
-    }
-
-    public gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyRequestType transformUnsubscribeToCheckPolicy(
-            gov.hhs.fha.nhinc.common.eventcommon.UnsubscribeEventType transformUnsubscribeToCheckPolicyRequest) {
-        return new PolicyEngineTransformer()
-                .transformUnsubscribeToCheckPolicy(transformUnsubscribeToCheckPolicyRequest);
     }
 
     public gov.hhs.fha.nhinc.common.nhinccommonadapter.CheckPolicyRequestType transformNotifyToCheckPolicy(
