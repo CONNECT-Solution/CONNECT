@@ -29,6 +29,7 @@ package gov.hhs.fha.nhinc.policyengine.adapter.pip;
 import gov.hhs.fha.nhinc.common.nhinccommonadapter.PatientPreferencesType;
 import gov.hhs.fha.nhinc.transform.marshallers.JAXBContextHandler;
 import gov.hhs.fha.nhinc.util.JAXBUnmarshallingUtil;
+import gov.hhs.fha.nhinc.util.StreamUtils;
 import java.io.ByteArrayInputStream;
 import java.io.StringReader;
 import java.io.StringWriter;
@@ -119,6 +120,8 @@ public class PatientPreferencesSerializer {
                     + e.getMessage();
             LOG.error(sErrorMessage, e);
             throw new AdapterPIPException(sErrorMessage, e);
+        } finally {
+            StreamUtils.closeStreamSilently(baIsStrm);
         }
 
         return oPtPref;
