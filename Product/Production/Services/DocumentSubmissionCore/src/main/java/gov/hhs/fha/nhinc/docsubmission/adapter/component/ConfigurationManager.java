@@ -96,11 +96,11 @@ public class ConfigurationManager {
             result.setRoutingInfo(loadRoutingInfo(nodeLst));
 
         } catch (IOException e) {
-            LOG.error("unable to load FTAConfiguration file", e);
+            LOG.error("unable to load XDRConfiguration file", e);
         } catch (ParserConfigurationException e) {
-            LOG.error("unable to load FTAConfiguration file", e);
+            LOG.error("unable to load XDRConfiguration file", e);
         } catch (SAXException e) {
-            LOG.error("unable to load FTAConfiguration file", e);
+            LOG.error("unable to load XDRConfiguration file", e);
         }
 
         return result;
