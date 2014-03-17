@@ -218,16 +218,6 @@ public class PixRetrieveBuilder {
         return queryByParameterElement;
     }
 
-    private static II getII(String assignAuth, String root, String ext) {
-        II val = new II();
-
-        val.setAssigningAuthorityName(assignAuth);
-        val.setExtension(ext);
-        val.setRoot(root);
-
-        return val;
-    }
-
     private static PRPAMT201307UV02PatientIdentifier createPatientIdentifier(
             QualifiedSubjectIdentifierType qualifiedSubjectIdentifier) {
         PRPAMT201307UV02PatientIdentifier patientIdentifier = new PRPAMT201307UV02PatientIdentifier();

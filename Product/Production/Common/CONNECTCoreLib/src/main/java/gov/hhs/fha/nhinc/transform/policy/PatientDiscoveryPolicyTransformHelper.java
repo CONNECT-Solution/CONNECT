@@ -514,18 +514,6 @@ public class PatientDiscoveryPolicyTransformHelper {
 
     /**
      *
-     * log4j info messages are logged here
-     *
-     * @param infoMessage
-     */
-    private void addInfoLog(String infoMessage) {
-
-        LOG.info(infoMessage);
-
-    }
-
-    /**
-     *
      * log4j error messages are logged here
      *
      * @param errorMessage

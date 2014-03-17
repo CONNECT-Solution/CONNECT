@@ -75,11 +75,10 @@ import org.hl7.v3.SCExplicit;
  * @author Les Westberg
  */
 public class CdaPdfExtractor {
+    
     private static final String HL7_DATE_ONLY_FORMAT = "yyyyMMdd";
-    private static final SimpleDateFormat oHL7DateOnlyFormatter = new SimpleDateFormat(HL7_DATE_ONLY_FORMAT);
     private static final String HL7_DATE_TIME_FORMAT = "yyyyMMddHHmmssZ";
-    private static final SimpleDateFormat oHL7DateTimeFormatter = new SimpleDateFormat(HL7_DATE_TIME_FORMAT);
-
+    
     /**
      * Create a CE from the given data.
      * 

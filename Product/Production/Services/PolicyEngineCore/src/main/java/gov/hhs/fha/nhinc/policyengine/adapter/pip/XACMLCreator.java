@@ -293,38 +293,6 @@ public class XACMLCreator {
     }
 
     /**
-     * This formats a string that represents the patient ID in the format of:
-     * 
-     * <nhin:PatientId root="1.1" extension="11111" />
-     * 
-     * @param oPtPref The patient preference information.
-     * @return
-     */
-    private String createNhinPatientId(PatientPreferencesType oPtPref) {
-        String sPatientId = "";
-        StringBuffer sbPatientId = new StringBuffer();
-
-        // Make sure we have an assigning authority or a patient ID.
-        // -----------------------------------------------------------
-        if (((oPtPref.getAssigningAuthority() != null) && (oPtPref.getAssigningAuthority().trim().length() > 0))
-                || ((oPtPref.getPatientId() != null) && (oPtPref.getPatientId().trim().length() > 0))) {
-            sbPatientId.append("<" + XACMLConstants.NHIN_PATIENT_ID_TAG + " " + XACMLConstants.NHIN_PATIENT_ID_TAG_ROOT
-                    + "=\"");
-            if (oPtPref.getAssigningAuthority() != null) {
-                sbPatientId.append(oPtPref.getAssigningAuthority().trim());
-            }
-            sbPatientId.append("\" " + XACMLConstants.NHIN_PATIENT_ID_TAG_EXTENSION + "=\"");
-            if (oPtPref.getPatientId() != null) {
-                sbPatientId.append(oPtPref.getPatientId().trim());
-            }
-            sbPatientId.append("\" />");
-            sPatientId = sbPatientId.toString();
-        }
-
-        return sPatientId;
-    }
-
-    /**
      * This method creates an date formatted according to XML default from a HL7 date/time format.
      * 
      * @param sHL7DateTime The date or date-time in HL7 format.

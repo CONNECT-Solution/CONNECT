@@ -74,7 +74,6 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 
 import org.w3c.dom.Document;
@@ -336,59 +335,6 @@ public class XSPAXACMLAuthzDecisionQueryHandler implements RequestHandler {
             obligation.setFulfillOn(permitAccess ? PERMIT : DENY);
             obligations = PolicyFactory.getInstance().createObligations();
             obligations.addObligation(obligation);
-        } catch (Exception e) {
-            throw new XACMLException("Error: failed to create obligations");
-        }
-        return obligations;
-    }
-
-    private Obligations createObligations(Map advices) throws XACMLException {
-        return null;
-    }
-
-    private Obligations createObligations(String filter) throws XACMLException {
-        Obligations obligations = null;
-        try {
-            Obligation obligation = PolicyFactory.getInstance().createObligation();
-            obligation.setObligationId(new URI("obligation-0"));
-            obligation.setFulfillOn("Permit");
-            List list = new ArrayList();
-            Document doc = XMLUtils.newDocument();
-            Element elem = doc.createElementNS(XACMLConstants.XACML_NS_URI, "xacml:AttributeAssignment");
-            elem.setAttribute("AttributeId", "a-120");
-            elem.setAttribute("DataType", "f-120");
-            list.add(elem);
-            obligation.setAttributeAssignments(list);
-
-            obligations = PolicyFactory.getInstance().createObligations();
-            obligations.addObligation(obligation);
-        } catch (Exception e) {
-            throw new XACMLException("Error: failed to create obligations");
-        }
-        return obligations;
-    }
-
-    private Obligations createSampleObligations(Map advices) throws XACMLException {
-        Obligations obligations = null;
-        try {
-            Obligation obligation1 = PolicyFactory.getInstance().createObligation();
-            obligation1.setObligationId(new URI("obligation-10"));
-            obligation1.setFulfillOn("Permit");
-
-            Obligation obligation2 = PolicyFactory.getInstance().createObligation();
-            obligation2.setObligationId(new URI("obligation-20"));
-            obligation2.setFulfillOn("Permit");
-            List list = new ArrayList();
-            Document doc = XMLUtils.newDocument();
-            Element elem = doc.createElementNS(XACMLConstants.XACML_NS_URI, "xacml:AttributeAssignment");
-            elem.setAttribute("AttributeId", "a-120");
-            elem.setAttribute("DataType", "f-120");
-            list.add(elem);
-            obligation2.setAttributeAssignments(list);
-
-            obligations = PolicyFactory.getInstance().createObligations();
-            obligations.addObligation(obligation1);
-            obligations.addObligation(obligation2);
         } catch (Exception e) {
             throw new XACMLException("Error: failed to create obligations");
         }
