@@ -56,6 +56,7 @@ public class JAXBUnmarshallingUtil {
     public XMLStreamReader getSafeStreamReaderFromInputStream(InputStream stream) throws XMLStreamException {
         XMLInputFactory xif = XMLInputFactory.newFactory();
         xif.setProperty(XMLInputFactory.IS_SUPPORTING_EXTERNAL_ENTITIES, false);
+        xif.setProperty(XMLInputFactory.SUPPORT_DTD, false);
         XMLStreamReader xsr = xif.createXMLStreamReader(stream);
         
         return xsr; 
