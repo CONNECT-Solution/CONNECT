@@ -76,14 +76,14 @@ public class Storer {
             if (trans != null) {
                 try {
                     trans.commit();
-                } catch (Throwable t) {
+                } catch (HibernateException t) {
                     LOG.error("Failed to commit transaction: " + t.getMessage(), t);
                 }
             }
             if (sess != null) {
                 try {
                     sess.close();
-                } catch (Throwable t) {
+                } catch (HibernateException t) {
                     LOG.error("Failed to close session: " + t.getMessage(), t);
                 }
             }
@@ -109,14 +109,14 @@ public class Storer {
             if (trans != null) {
                 try {
                     trans.commit();
-                } catch (Throwable t) {
+                } catch (HibernateException t) {
                     LOG.error("Failed to commit transaction: " + t.getMessage(), t);
                 }
             }
             if (sess != null) {
                 try {
                     sess.close();
-                } catch (Throwable t) {
+                } catch (HibernateException t) {
                     LOG.error("Failed to close session: " + t.getMessage(), t);
                 }
             }
@@ -147,7 +147,7 @@ public class Storer {
         try {
             SessionFactory fact = HibernateUtil.getSessionFactory();
             if (fact != null) {
-                System.out.println("Factory Created...");
+                LOG.trace("Factory Created...");
                 sess = fact.openSession();
                 if (sess != null) {
                     trans = sess.beginTransaction();
@@ -169,20 +169,20 @@ public class Storer {
             } else {
                 LOG.error("Unable to create Factory...");
             }
-        } catch (HibernateException exp) {
-            exp.printStackTrace();
+        } catch (HibernateException e) {
+            LOG.error(e, e);
         } finally {
             if (trans != null && trans.isActive()) {
                 try {
                     trans.rollback();
-                } catch (Throwable t) {
+                } catch (HibernateException t) {
                     LOG.error("Failed to commit transaction: " + t.getMessage(), t);
                 }
             }
             if (sess != null) {
                 try {
                     sess.close();
-                } catch (Throwable t) {
+                } catch (HibernateException t) {
                     LOG.error("Failed to close session: " + t.getMessage(), t);
                 }
             }

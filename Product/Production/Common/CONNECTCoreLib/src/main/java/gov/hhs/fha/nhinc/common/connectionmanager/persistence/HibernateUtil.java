@@ -27,10 +27,12 @@
 package gov.hhs.fha.nhinc.common.connectionmanager.persistence;
 
 import gov.hhs.fha.nhinc.properties.HibernateAccessor;
+import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 import org.apache.log4j.Logger;
 import java.io.File;
+import org.hibernate.HibernateException;
 
 /**
  * This class will be used as a Utility Class to access the Data Object using Hibernate SessionFactory
@@ -46,9 +48,9 @@ public class HibernateUtil {
         try {
             // Create the SessionFactory from hibernate.cfg.xml
             sessionFactory = new Configuration().configure(getConfigFile()).buildSessionFactory();
-        } catch (Throwable ex) {
+        } catch (HibernateException ex) {
             // Make sure you log the exception, as it might be swallowed
-            System.err.println("Initial SessionFactory creation failed." + ex);
+            LOG.error("Initial SessionFactory creation failed." + ex, ex);
             throw new ExceptionInInitializerError(ex);
         }
     }
@@ -67,7 +69,7 @@ public class HibernateUtil {
 
         try {
             result = HibernateAccessor.getInstance().getHibernateFile(HIBERNATE_ASSIGNING_AUTHORITY);
-        } catch (Exception ex) {
+        } catch (PropertyAccessException ex) {
             LOG.error("Unable to load " + HIBERNATE_ASSIGNING_AUTHORITY + " " + ex.getMessage(), ex);
         }
 

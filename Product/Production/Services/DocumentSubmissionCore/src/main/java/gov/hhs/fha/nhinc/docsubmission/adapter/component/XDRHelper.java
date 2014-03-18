@@ -43,6 +43,7 @@ import org.apache.log4j.Logger;
 
 import gov.hhs.fha.nhinc.docsubmission.adapter.component.routing.RoutingObjectFactory;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
+import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import gov.hhs.fha.nhinc.properties.PropertyAccessor;
 
 /**
@@ -265,7 +266,7 @@ public class XDRHelper {
 
         try {
             checkIds = PropertyAccessor.getInstance().getPropertyBoolean("adapter", "XDR.CheckPatientIdsMatch");
-        } catch (Exception ex) {
+        } catch (PropertyAccessException ex) {
             LOG.error("Unable to load XDR.CheckPatientIdsMatch");
         }
 
@@ -275,9 +276,9 @@ public class XDRHelper {
     protected boolean isSupportedMimeType(String mimeType) {
         String[] mimeArray = getSupportedMimeTypes();
         boolean result = false;
-
-        for (int x = 0; x < mimeArray.length; x++) {
-            if (mimeArray[x].equalsIgnoreCase(mimeType)) {
+        
+        for (String mimeArrayValue : mimeArray) {
+            if (mimeArrayValue.equalsIgnoreCase(mimeType)) {
                 result = true;
                 break;
             }
@@ -293,8 +294,8 @@ public class XDRHelper {
             String list = PropertyAccessor.getInstance().getProperty("adapter", "XDR.SupportedMimeTypes");
             mimeArray = list.split(";");
 
-        } catch (Exception ex) {
-
+        } catch (PropertyAccessException ex) {
+            LOG.error(ex, ex);
         }
 
         return mimeArray;
@@ -333,8 +334,6 @@ public class XDRHelper {
             if (object.getIdentifiable().get(x).getDeclaredType().equals(RegistryPackageType.class)) {
                 RegistryPackageType registryPackage = (RegistryPackageType) object.getIdentifiable().get(x).getValue();
 
-                System.out.println(registryPackage.getSlot().size());
-
                 for (int y = 0; y < registryPackage.getExternalIdentifier().size(); y++) {
                     String test = registryPackage.getExternalIdentifier().get(y).getName().getLocalizedString().get(0)
                             .getValue();
@@ -356,12 +355,9 @@ public class XDRHelper {
         RegistryObjectListType object = body.getSubmitObjectsRequest().getRegistryObjectList();
 
         for (int x = 0; x < object.getIdentifiable().size(); x++) {
-            System.out.println(object.getIdentifiable().get(x).getName());
-
+            
             if (object.getIdentifiable().get(x).getDeclaredType().equals(ExtrinsicObjectType.class)) {
                 ExtrinsicObjectType extObj = (ExtrinsicObjectType) object.getIdentifiable().get(x).getValue();
-
-                System.out.println(extObj.getSlot().size());
 
                 SlotType1 slot = getNamedSlotItem(extObj.getSlot(), "sourcePatientId");
 
