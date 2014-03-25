@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<con:soapui-project abortOnError="false" name="DocumentRetrieve" resourceRoot="${projectDir}" runType="SEQUENTIAL" soapui-version="4.5.1" activeEnvironment="Default" xmlns:con="http://eviware.com/soapui/config">
+<con:soapui-project abortOnError="false" name="DocumentRetrieve" resourceRoot="${projectDir}" runType="SEQUENTIAL" soapui-version="4.6.0" activeEnvironment="Default" xmlns:con="http://eviware.com/soapui/config">
 	<con:settings/>
 	
 
@@ -67,8 +67,7 @@
 		</con:settings>
 		<con:encoding>UTF-8</con:encoding>
 		
-		<con:endpoint>http://localhost:8080/Gateway/DocumentRetrieve/3_0/EntityService/EntityDocRetrieve</con:endpoint><con:request><![CDATA[
-			<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:ihe:iti:xds-b:2007" xmlns:urn2="urn:gov:hhs:fha:nhinc:common:nhinccommon">
+		<con:endpoint>http://localhost:8080/Gateway/DocumentRetrieve/3_0/EntityService/EntityDocRetrieve</con:endpoint><con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:gov:hhs:fha:nhinc:common:nhinccommonentity" xmlns:urn1="urn:ihe:iti:xds-b:2007" xmlns:urn2="urn:gov:hhs:fha:nhinc:common:nhinccommon">
    <soap:Header/>
    <soap:Body testSuite="Entity_g1" testCase="Document Retrieve">
       <urn:RespondingGateway_CrossGatewayRetrieveRequest>
@@ -354,7 +353,7 @@
 
 (AdapterDocRetrieve)
 3. Change the "Adapter Interface" in DocumentRetrieveProxyConfig.xml to adapterdocretrievewsunsecured and Check the content Type in AD Adapter Outbound Message
-  A) Search the log file and look for http://localhost:8080/Adapter/DocumentRetrieve/A_0/AdapterDocRetrieven (replace the localhost with server ip address if its different) Outbound Message, Inbound Message
+  A) Search the log file and look for http://localhost:8080/Adapter/DocumentRetrieve/A_0/AdapterDocRetrieve (replace the localhost with server ip address if its different) Outbound Message, Inbound Message
   B) Should be able to see the following in the content type --> Content-Type: multipart/related; type="application/xop+xml" and Content-Type: application/xop+xml;
 </con:description><con:settings/><con:config xsi:type="con:ManualTestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:expectedResult>Should be able to see the following in the content type --> Content-Type: multipart/related; type="application/xop+xml" and Content-Type: application/xop+xml;</con:expectedResult></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
 nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);</con:setupScript>
@@ -370,19 +369,19 @@ if(context.findProperty("PassThruOn").toBoolean()){
 	</con:property>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2013-02-27T01:08:13Z</con:value>
+		<con:value>2014-03-25T16:05:57Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2013-02-27T01:18:13Z</con:value>
+		<con:value>2014-03-25T16:15:57Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>02/27/2013 01:08:13</con:value>
+		<con:value>03/25/2014 16:05:57</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2013-03-29T00:00:00Z</con:value>
+		<con:value>2014-04-24T00:00:00Z</con:value>
 	</con:property>
 <con:property><con:name>PassThruOn</con:name><con:value>false</con:value></con:property></con:properties>
 <con:reportParameters/>
@@ -713,7 +712,7 @@ if(context.findProperty("PassThruOn").toBoolean()){
 
 (AdapterDocRetrieve)
 3. Change the "Adapter Interface" in DocumentRetrieveProxyConfig.xm to adapterdocretrievewsunsecured and Check the content Type in AD Adapter Outbound Message
-  A) Search the log file and look for http://localhost:8080/Adapter/DocumentRetrieve/A_0/AdapterDocRetrieven (replace the localhost with server ip address if its different) Outbound Message
+  A) Search the log file and look for http://localhost:8080/Adapter/DocumentRetrieve/A_0/AdapterDocRetrieve (replace the localhost with server ip address if its different) Outbound Message
 </con:description><con:settings/><con:config xsi:type="con:ManualTestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:expectedResult>Should be able to see the following in the content type --> Content-Type: multipart/related; type="application/xop+xml" and Content-Type: application/xop+xml;</con:expectedResult></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
 nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);</con:setupScript>
 <con:tearDownScript>def dir = context.findProperty('GatewayPropDir');
@@ -728,19 +727,19 @@ if(context.findProperty("PassThruOn").toBoolean()){
 	</con:property>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2013-02-27T01:13:59Z</con:value>
+		<con:value>2014-03-25T16:07:18Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2013-02-27T01:23:59Z</con:value>
+		<con:value>2014-03-25T16:17:18Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>02/27/2013 01:13:59</con:value>
+		<con:value>03/25/2014 16:07:18</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2013-03-29T00:00:00Z</con:value>
+		<con:value>2014-04-24T00:00:00Z</con:value>
 	</con:property>
 <con:property><con:name>PassThruOn</con:name><con:value>false</con:value></con:property></con:properties>
 <con:reportParameters/>
@@ -856,7 +855,7 @@ if(context.findProperty("PassThruOn").toBoolean()){
 	
 	
 	
-	<con:property><con:name>DynamicDQDocID</con:name><con:value>103.8.9284320.020.3590.75^1266324032288</con:value></con:property><con:property><con:name>ExpirationDate</con:name><con:value>20100520</con:value></con:property><con:property><con:name>FamilyName</con:name><con:value>Younger</con:value></con:property><con:property><con:name>GatewayPropDir</con:name><con:value/></con:property><con:property><con:name>Gender</con:name><con:value>M</con:value></con:property><con:property><con:name>GivenName</con:name><con:value>Gallow</con:value></con:property><con:property><con:name>LocalAA</con:name><con:value>1.1</con:value></con:property><con:property><con:name>LocalHCDescription</con:name><con:value>InternalTest1</con:value></con:property><con:property><con:name>LocalHCID</con:name><con:value>1.1</con:value></con:property><con:property><con:name>LocalPatientID</con:name><con:value>D123401</con:value></con:property><con:property><con:name>NotificationEndpoint</con:name><con:value>https://localhost:8181/Gateway/HIEM/2_0/NhinService/NotificationConsumerService/HiemNotify</con:value></con:property>
+	<con:property><con:name>DynamicDQDocID</con:name><con:value>103.8.9284320.020.3590.75^1266324032288</con:value></con:property><con:property><con:name>ExpirationDate</con:name><con:value>20100520</con:value></con:property><con:property><con:name>FamilyName</con:name><con:value>Younger</con:value></con:property><con:property><con:name>GatewayPropDir</con:name><con:value>C:\glassfish3\glassfish\domains\domain1\config\nhin</con:value></con:property><con:property><con:name>Gender</con:name><con:value>M</con:value></con:property><con:property><con:name>GivenName</con:name><con:value>Gallow</con:value></con:property><con:property><con:name>LocalAA</con:name><con:value>1.1</con:value></con:property><con:property><con:name>LocalHCDescription</con:name><con:value>InternalTest1</con:value></con:property><con:property><con:name>LocalHCID</con:name><con:value>1.1</con:value></con:property><con:property><con:name>LocalPatientID</con:name><con:value>D123401</con:value></con:property><con:property><con:name>NotificationEndpoint</con:name><con:value>https://localhost:8181/Gateway/HIEM/2_0/NhinService/NotificationConsumerService/HiemNotify</con:value></con:property>
 
 
 	
