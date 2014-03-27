@@ -4,7 +4,7 @@
   <con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:entityadmindistribution}AdministrativeDistribution_Binding_Soap12" definition="../../../target/wsdl/EntityAdminDist.wsdl" name="AdministrativeDistribution_Binding_Soap12" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <con:settings/>
     
-    <con:definitionCache/><con:endpoints>
+    <con:endpoints>
       <con:endpoint>${#Project#Endpoint-EntityAdminDist}</con:endpoint>
     <con:endpoint>http://localhost:${HttpDefaultPort}/NhinConnect/AdministrativeDistribution</con:endpoint></con:endpoints>
     <con:operation action="urn:oasis:names:tc:emergency:EDXL:DE:1.0:SendAlertMessage" anonymous="optional" bindingOperationName="SendAlertMessage" inputName="" isOneWay="false" name="SendAlertMessage" sendsAttachments="false" type="One-Way">
@@ -16,7 +16,7 @@
   <con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:adapterpolicyengine}AdapterPolicyEngineBindingSoap" definition="../../../target/wsdl/AdapterPolicyEngine.wsdl" name="AdapterPolicyEngineBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <con:settings/>
     
-    <con:definitionCache/><con:endpoints>
+    <con:endpoints>
       <con:endpoint>http://localhost:${HttpDefaultPort}/NhinConnect/AdapterPolicyEngine</con:endpoint>
     </con:endpoints>
     <con:operation action="urn:CheckPolicy" anonymous="optional" bindingOperationName="CheckPolicy" inputName="CheckPolicyRequest" isOneWay="false" name="CheckPolicy" outputName="CheckPolicyResponse" receivesAttachments="false" sendsAttachments="false" type="Request-Response">
@@ -27,7 +27,7 @@
   <con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:nhincadmindistribution}NhincAdminDist_Binding_Soap12" definition="../../../target/wsdl/NhinAdminDist.wsdl" name="NhincAdminDist_Binding_Soap12" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <con:settings/>
     
-    <con:definitionCache/><con:endpoints>
+    <con:endpoints>
       <con:endpoint>${#Project#Endpoint-NhincProxyAdminDist}</con:endpoint>
     <con:endpoint>http://localhost:${HttpDefaultPort}/NhinConnect/NhincAdminDistService</con:endpoint></con:endpoints>
     <con:operation action="urn:oasis:names:tc:emergency:EDXL:DE:1.0:SendAlertMessage" anonymous="optional" bindingOperationName="SendAlertMessage" inputName="" isOneWay="false" name="SendAlertMessage" sendsAttachments="false" type="One-Way">
@@ -477,23 +477,23 @@ context.setGatewayStandard(false);
 log.info("Setting the gateway to Passthrough");</con:setupScript><con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2013-09-27T17:37:15Z</con:value>
+          <con:value>2014-03-27T18:54:15Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2013-09-27T17:47:15Z</con:value>
+          <con:value>2014-03-27T19:04:15Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>09/27/2013 17:37:15</con:value>
+          <con:value>03/27/2014 18:54:15</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2013-10-27T00:00:00Z</con:value>
+          <con:value>2014-04-26T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>UserId</con:name>
-          <con:value>admindistFri Sep 27 17:42:15 UTC 20131</con:value>
+          <con:value>admindistThu Mar 27 18:59:15 UTC 20141</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -928,23 +928,23 @@ log.info ("Setting the gateway to Passthrough");
 </con:setupScript><con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2013-09-27T17:38:15Z</con:value>
+          <con:value>2014-03-27T18:55:16Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2013-09-27T17:48:15Z</con:value>
+          <con:value>2014-03-27T19:05:16Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>09/27/2013 17:38:15</con:value>
+          <con:value>03/27/2014 18:55:16</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2013-10-27T00:00:00Z</con:value>
+          <con:value>2014-04-26T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>UserId</con:name>
-          <con:value>admindistFri Sep 27 17:43:15 UTC 20131</con:value>
+          <con:value>admindistThu Mar 27 19:00:16 UTC 20141</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -1390,23 +1390,23 @@ log.info ("Setting the gateway to Passthrough");
 </con:setupScript><con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2013-09-26T23:43:47Z</con:value>
+          <con:value>2014-03-27T18:56:17Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2013-09-26T23:53:47Z</con:value>
+          <con:value>2014-03-27T19:06:17Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>09/26/2013 23:43:47</con:value>
+          <con:value>03/27/2014 18:56:17</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2013-10-26T00:00:00Z</con:value>
+          <con:value>2014-04-26T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>UserId</con:name>
-          <con:value>admindistThu Sep 26 23:48:47 UTC 20131</con:value>
+          <con:value>admindistThu Mar 27 19:01:18 UTC 20141</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -1884,23 +1884,23 @@ log.info ("Setting the gateway to Passthrough");
 </con:setupScript><con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2013-09-26T23:44:18Z</con:value>
+          <con:value>2014-03-27T18:57:19Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2013-09-26T23:54:18Z</con:value>
+          <con:value>2014-03-27T19:07:19Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>09/26/2013 23:44:18</con:value>
+          <con:value>03/27/2014 18:57:19</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2013-10-26T00:00:00Z</con:value>
+          <con:value>2014-04-26T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>UserId</con:name>
-          <con:value>admindistThu Sep 26 23:49:18 UTC 20131</con:value>
+          <con:value>admindistThu Mar 27 19:02:19 UTC 20141</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -2296,23 +2296,23 @@ context.setGatewayStandard(false);
 log.info ("Setting the gateway to Passthrough");</con:setupScript><con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2013-09-26T23:44:48Z</con:value>
+          <con:value>2014-03-27T18:57:50Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2013-09-26T23:54:48Z</con:value>
+          <con:value>2014-03-27T19:07:50Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>09/26/2013 23:44:48</con:value>
+          <con:value>03/27/2014 18:57:50</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2013-10-26T00:00:00Z</con:value>
+          <con:value>2014-04-26T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>UserId</con:name>
-          <con:value>admindistThu Sep 26 23:49:48 UTC 20131</con:value>
+          <con:value>admindistThu Mar 27 19:02:50 UTC 20141</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -2711,23 +2711,23 @@ context.setGatewayStandard(false);
 log.info ("Setting the gateway to Passthrough");</con:setupScript><con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2013-09-26T23:45:19Z</con:value>
+          <con:value>2014-03-27T18:58:21Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2013-09-26T23:55:19Z</con:value>
+          <con:value>2014-03-27T19:08:21Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>09/26/2013 23:45:19</con:value>
+          <con:value>03/27/2014 18:58:21</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2013-10-26T00:00:00Z</con:value>
+          <con:value>2014-04-26T00:00:00Z</con:value>
         </con:property>
         <con:property>
           <con:name>UserId</con:name>
-          <con:value>admindistThu Sep 26 23:50:19 UTC 20131</con:value>
+          <con:value>admindistThu Mar 27 19:03:21 UTC 20141</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -3160,19 +3160,19 @@ log.info ("Setting the gateway to Passthrough");
 </con:setupScript><con:properties>
         <con:property>
           <con:name>startDate</con:name>
-          <con:value>2013-09-26T23:45:50Z</con:value>
+          <con:value>2014-03-27T18:59:22Z</con:value>
         </con:property>
         <con:property>
           <con:name>endDate</con:name>
-          <con:value>2013-09-26T23:55:50Z</con:value>
+          <con:value>2014-03-27T19:09:22Z</con:value>
         </con:property>
         <con:property>
           <con:name>sigDate</con:name>
-          <con:value>09/26/2013 23:45:50</con:value>
+          <con:value>03/27/2014 18:59:22</con:value>
         </con:property>
         <con:property>
           <con:name>expireDate</con:name>
-          <con:value>2013-10-26T00:00:00Z</con:value>
+          <con:value>2014-04-26T00:00:00Z</con:value>
         </con:property>
       </con:properties>
       <con:reportParameters/>
@@ -3203,7 +3203,7 @@ log.info ("Setting the gateway to Standard");</con:tearDownScript></con:testCase
     
     
     
-  <con:property><con:name>LocalAA</con:name><con:value>1.1</con:value></con:property><con:property><con:name>LocalHCDescription</con:name><con:value>InternalTest1</con:value></con:property><con:property><con:name>LocalHCID</con:name><con:value>1.1</con:value></con:property><con:property><con:name>LocalPatientID</con:name><con:value>D123401</con:value></con:property><con:property><con:name>mockHost</con:name><con:value>localhost</con:value></con:property><con:property><con:name>RemoteAA</con:name><con:value>2.2</con:value></con:property><con:property><con:name>RemoteHCDescription</con:name><con:value>InternalTest2</con:value></con:property><con:property><con:name>RemoteHCID</con:name><con:value>2.2</con:value></con:property><con:property><con:name>RemotePatientID</con:name><con:value>D123401</con:value></con:property><con:property><con:name>GatewayPropDir</con:name><con:value/></con:property><con:property><con:name>RemoteHCID2</con:name><con:value>3.3</con:value></con:property><con:property><con:name>ASUsername</con:name><con:value>admin</con:value></con:property><con:property><con:name>ASPassword</con:name><con:value>adminadmin</con:value></con:property><con:property><con:name>JMXHost</con:name><con:value>localhost</con:value></con:property><con:property><con:name>JMXPort</con:name><con:value>8686</con:value></con:property></con:properties>
+  <con:property><con:name>LocalAA</con:name><con:value>1.1</con:value></con:property><con:property><con:name>LocalHCDescription</con:name><con:value>InternalTest1</con:value></con:property><con:property><con:name>LocalHCID</con:name><con:value>1.1</con:value></con:property><con:property><con:name>LocalPatientID</con:name><con:value>D123401</con:value></con:property><con:property><con:name>mockHost</con:name><con:value>localhost</con:value></con:property><con:property><con:name>RemoteAA</con:name><con:value>2.2</con:value></con:property><con:property><con:name>RemoteHCDescription</con:name><con:value>InternalTest2</con:value></con:property><con:property><con:name>RemoteHCID</con:name><con:value>2.2</con:value></con:property><con:property><con:name>RemotePatientID</con:name><con:value>D123401</con:value></con:property><con:property><con:name>GatewayPropDir</con:name><con:value>C:\glassfish3\glassfish\domains\domain1\config\nhin</con:value></con:property><con:property><con:name>RemoteHCID2</con:name><con:value>3.3</con:value></con:property><con:property><con:name>ASUsername</con:name><con:value>admin</con:value></con:property><con:property><con:name>ASPassword</con:name><con:value>adminadmin</con:value></con:property><con:property><con:name>JMXHost</con:name><con:value>localhost</con:value></con:property><con:property><con:name>JMXPort</con:name><con:value>8686</con:value></con:property></con:properties>
   <con:afterLoadScript>def propertiesFilename = project.path[0..(project.path.size()-4)] + 'properties'
 def propertiesFile = new File(propertiesFilename)
 log.info "file: " + propertiesFilename
