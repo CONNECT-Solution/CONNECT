@@ -38093,11 +38093,7 @@ assert request["//add:MessageID/text()"] == response["//add:RelatesTo/text()"];<
   A) Search the log file and look for https://localhost:8181/Gateway/DocumentSubmission/2_0/NhinService/XDRRequest_Service (replace the localhost with server ip address if its different) Outbound Message, Inbound Message
   B) Look for Soap Header and within Soap Header RelatesTo should not be there.
   
-</con:description><con:settings/><con:config xsi:type="con:ManualTestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:expectedResult>RelatesTo does not exists within the Soap Header;</con:expectedResult></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);  
-nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);</con:setupScript>
-<con:tearDownScript>def dir = context.findProperty('GatewayPropDir');
-nhinc.FileUtils.restoreConfiguration(dir, log); 
-</con:tearDownScript>
+</con:description><con:settings/><con:config xsi:type="con:ManualTestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:expectedResult>RelatesTo does not exists within the Soap Header;</con:expectedResult></con:config></con:testStep>
 	<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
 nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);</con:setupScript>
 <con:tearDownScript>def dir = context.findProperty('GatewayPropDir');
@@ -38505,12 +38501,7 @@ if(passthruValue != null){
   A) Search the log file and look for https://localhost:8181/Gateway/DocumentSubmission/2_0/NhinService/XDRResponse_Service (replace the localhost with server ip address if its different) Outbound Message, Inbound Message
   B) Look for Soap Header and within Soap Header RelatesTo should not be there. 
   
-</con:description><con:settings/><con:config xsi:type="con:ManualTestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:expectedResult>RelatesTo does not exists within the Soap Header;</con:expectedResult></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);  
-nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);</con:setupScript>
-<con:tearDownScript>def dir = context.findProperty('GatewayPropDir');
-</con:tearDownScript>
-  
-
+</con:description><con:settings/><con:config xsi:type="con:ManualTestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:expectedResult>RelatesTo does not exists within the Soap Header;</con:expectedResult></con:config></con:testStep>
 <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
 nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);</con:setupScript>
 <con:tearDownScript>def dir = context.findProperty('GatewayPropDir');
@@ -39044,12 +39035,7 @@ if(passthruValue != null){
   A) Search the log file and look for https://localhost:8181/Gateway/DocumentSubmission/2_0/DocumentRepositoryXDR_Service (replace the localhost with server ip address if its different) Outbound Message, Inbound Message
  B) Look for Soap Header and within Soap Header RelatesTo should not be there. 
   
-</con:description><con:settings/><con:config xsi:type="con:ManualTestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:expectedResult>RelatesTo does not exists within the Soap Header;</con:expectedResult></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);  
-nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);</con:setupScript>
-<con:tearDownScript>def dir = context.findProperty('GatewayPropDir');
-</con:tearDownScript>
-  
-
+</con:description><con:settings/><con:config xsi:type="con:ManualTestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:expectedResult>RelatesTo does not exists within the Soap Header;</con:expectedResult></con:config></con:testStep>
 <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
 nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);</con:setupScript>
 <con:tearDownScript>def dir = context.findProperty('GatewayPropDir');
@@ -39426,13 +39412,7 @@ assert request["//add:MessageID/text()"] == response["//add:RelatesTo/text()"];<
   A) Search the log file and look for https://localhost:8181/Gateway/PatientDiscovery/1_0/NhinService/NhinPatientDiscoveryAsyncReq (replace the localhost with server ip address if its different) Outbound Message, Inbound Message
  B) Look for Soap Header and within Soap Header RelatesTo should not be there. 
   
-</con:description><con:settings/><con:config xsi:type="con:ManualTestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:expectedResult>RelatesTo does not exists within the Soap Header;</con:expectedResult></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);  
-nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);</con:setupScript>
-<con:tearDownScript>def dir = context.findProperty('GatewayPropDir');
-</con:tearDownScript>
-  
-
-<con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
+</con:description><con:settings/><con:config xsi:type="con:ManualTestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:expectedResult>RelatesTo does not exists within the Soap Header;</con:expectedResult></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
 nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);</con:setupScript>
 <con:tearDownScript>def dir = context.findProperty('GatewayPropDir');
 nhinc.FileUtils.restoreConfiguration(dir, log);
@@ -39834,12 +39814,7 @@ if(passthruValue != null){
   A) Search the log file and look for https://localhost:8181/Gateway/PatientDiscovery/1_0/NhinService/NhinPatientDiscoveryAsyncResp (replace the localhost with server ip address if its different) Outbound Message, Inbound Message
   B) Look for Soap Header and within Soap Header RelatesTo should not be there. 
   
-</con:description><con:settings/><con:config xsi:type="con:ManualTestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:expectedResult>RelatesTo does not exists within the Soap Header;</con:expectedResult></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);  
-nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);</con:setupScript>
-<con:tearDownScript>def dir = context.findProperty('GatewayPropDir');
-</con:tearDownScript>
-  
-
+</con:description><con:settings/><con:config xsi:type="con:ManualTestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:expectedResult>RelatesTo does not exists within the Soap Header;</con:expectedResult></con:config></con:testStep>
 <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
 nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);</con:setupScript>
 <con:tearDownScript>def dir = context.findProperty('GatewayPropDir');
@@ -40377,12 +40352,7 @@ context.withSql('PatientCorrelationDB') { sql ->
   A) Search the log file and look for https://localhost:8181/Gateway/PatientDiscovery/1_0/NhinService/NhinPatientDiscovery (replace the localhost with server ip address if its different) Outbound Message, Inbound Message
   B) Look for Soap Header and within Soap Header RelatesTo should not be there. 
   
-</con:description><con:settings/><con:config xsi:type="con:ManualTestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:expectedResult>RelatesTo does not exists within the Soap Header;</con:expectedResult></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);  
-nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);</con:setupScript>
-<con:tearDownScript>def dir = context.findProperty('GatewayPropDir');
-</con:tearDownScript>
-  
-
+</con:description><con:settings/><con:config xsi:type="con:ManualTestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:expectedResult>RelatesTo does not exists within the Soap Header;</con:expectedResult></con:config></con:testStep>
 <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
 //nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);</con:setupScript>
 <con:tearDownScript>def dir = context.findProperty('GatewayPropDir');
@@ -40777,12 +40747,7 @@ if(passthruValue != null){
   A) Search the log file and look for https://localhost:8181/Gateway/DocumentQuery/3_0/NhinService/RespondingGateway_Query_Service/DocQuery (replace the localhost with server ip address if its different) Outbound Message, Inbound Message
   B) Look for Soap Header and within Soap Header RelatesTo should not be there. 
   
-</con:description><con:settings/><con:config xsi:type="con:ManualTestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:expectedResult>RelatesTo does not exists within the Soap Header;</con:expectedResult></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);  
-nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);</con:setupScript>
-<con:tearDownScript>def dir = context.findProperty('GatewayPropDir');
-</con:tearDownScript>
-  
-
+</con:description><con:settings/><con:config xsi:type="con:ManualTestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:expectedResult>RelatesTo does not exists within the Soap Header;</con:expectedResult></con:config></con:testStep>
 <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
 nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);</con:setupScript>
 <con:tearDownScript>def dir = context.findProperty('GatewayPropDir');
@@ -41133,12 +41098,7 @@ if(passthruValue != null){
   A) Search the log file and look for https://localhost:8181/Gateway/DocumentRetrieve/3_0/NhinService/RespondingGateway_Retrieve_Service/DocRetrieve (replace the localhost with server ip address if its different) Outbound Message, Inbound Message
   B) Look for Soap Header and within Soap Header RelatesTo should not be there. 
   
-</con:description><con:settings/><con:config xsi:type="con:ManualTestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:expectedResult>RelatesTo does not exists within the Soap Header;</con:expectedResult></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);  
-nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);</con:setupScript>
-<con:tearDownScript>def dir = context.findProperty('GatewayPropDir');
-</con:tearDownScript>
-  
-
+</con:description><con:settings/><con:config xsi:type="con:ManualTestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:expectedResult>RelatesTo does not exists within the Soap Header;</con:expectedResult></con:config></con:testStep>
 <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
 nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);</con:setupScript>
 <con:tearDownScript>def dir = context.findProperty('GatewayPropDir');
@@ -41556,10 +41516,7 @@ if(passthruValue != null){
 1. Check the content Type in Nhin Outbound and Inbound Message
   A) Search the log file and look for https://localhost:8181/Gateway/AdminDistribution/2_0/NhinService/NhinAdminDist (replace the localhost with server ip address if its different) Outbound Message, Inbound Message
   B) Look for Soap Header and within Soap Header RelatesTo should not be there. 
-</con:description><con:settings/><con:config xsi:type="con:ManualTestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:expectedResult>RelatesTo does not exists within the Soap Header;</con:expectedResult></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);  
-nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);</con:setupScript>
-<con:tearDownScript>def dir = context.findProperty('GatewayPropDir');
-</con:tearDownScript>
+</con:description><con:settings/><con:config xsi:type="con:ManualTestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:expectedResult>RelatesTo does not exists within the Soap Header;</con:expectedResult></con:config></con:testStep>
 <con:setupScript>
 nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
 nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);</con:setupScript>
@@ -42106,12 +42063,7 @@ assert request["//add:MessageID/text()"] == response["//add:RelatesTo/text()"];<
   A) Search the log file and look for https://localhost:8181/Gateway/DocumentSubmission/1_1/NhinService/XDRRequest_Service (replace the localhost with server ip address if its different) Outbound Message, Inbound Message
   B) Look for Soap Header and within Soap Header RelatesTo should not be there. 
   
-</con:description><con:settings/><con:config xsi:type="con:ManualTestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:expectedResult>RelatesTo does not exists within the Soap Header;</con:expectedResult></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);  
-nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);</con:setupScript>
-<con:tearDownScript>def dir = context.findProperty('GatewayPropDir');
-</con:tearDownScript>
-  
-
+</con:description><con:settings/><con:config xsi:type="con:ManualTestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:expectedResult>RelatesTo does not exists within the Soap Header;</con:expectedResult></con:config></con:testStep>
 <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
 nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);</con:setupScript>
 <con:tearDownScript>def dir = context.findProperty('GatewayPropDir');
@@ -42510,12 +42462,7 @@ if(passthruValue != null){
   A) Search the log file and look for https://localhost:8181/Gateway/DocumentSubmission/1_1/NhinService/XDRResponse_Service (replace the localhost with server ip address if its different) Outbound Message, Inbound Message
   B) Look for Soap Header and within Soap Header RelatesTo should not be there. 
   
-</con:description><con:settings/><con:config xsi:type="con:ManualTestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:expectedResult>RelatesTo does not exists within the Soap Header;</con:expectedResult></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);  
-nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);</con:setupScript>
-<con:tearDownScript>def dir = context.findProperty('GatewayPropDir');
-</con:tearDownScript>
-  
-
+</con:description><con:settings/><con:config xsi:type="con:ManualTestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:expectedResult>RelatesTo does not exists within the Soap Header;</con:expectedResult></con:config></con:testStep>
 <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
 nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);</con:setupScript>
 <con:tearDownScript>def dir = context.findProperty('GatewayPropDir');
@@ -43048,12 +42995,7 @@ if(passthruValue != null){
   A) Search the log file and look for https://localhost:8181/Gateway/DocumentSubmission/1_1/DocumentRepositoryXDR_Service (replace the localhost with server ip address if its different) Outbound Message, Inbound Message
   B) Look for Soap Header and within Soap Header RelatesTo should not be there. 
   
-</con:description><con:settings/><con:config xsi:type="con:ManualTestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:expectedResult>RelatesTo does not exists within the Soap Header;</con:expectedResult></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);  
-nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);</con:setupScript>
-<con:tearDownScript>def dir = context.findProperty('GatewayPropDir');
-</con:tearDownScript>
-  
-
+</con:description><con:settings/><con:config xsi:type="con:ManualTestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:expectedResult>RelatesTo does not exists within the Soap Header;</con:expectedResult></con:config></con:testStep>
 <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
 nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);</con:setupScript>
 <con:tearDownScript>def dir = context.findProperty('GatewayPropDir');
@@ -43435,12 +43377,7 @@ assert request["//add:MessageID/text()"] == response["//add:RelatesTo/text()"];<
   A) Search the log file and look for https://localhost:8181/Gateway/PatientDiscovery/1_0/NhinService/NhinPatientDiscoveryAsyncReq (replace the localhost with server ip address if its different) Outbound Message, Inbound Message
   B) Look for Soap Header and within Soap Header RelatesTo should not be there. 
   
-</con:description><con:settings/><con:config xsi:type="con:ManualTestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:expectedResult>RelatesTo does not exists within the Soap Header;</con:expectedResult></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);  
-nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);</con:setupScript>
-<con:tearDownScript>def dir = context.findProperty('GatewayPropDir');
-</con:tearDownScript>
-  
-
+</con:description><con:settings/><con:config xsi:type="con:ManualTestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:expectedResult>RelatesTo does not exists within the Soap Header;</con:expectedResult></con:config></con:testStep>
 <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
 nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);</con:setupScript>
 <con:tearDownScript>def dir = context.findProperty('GatewayPropDir');
@@ -43826,12 +43763,7 @@ if(passthruValue != null){
   A) Search the log file and look for https://localhost:8181/Gateway/PatientDiscovery/1_0/NhinService/NhinPatientDiscoveryAsyncResp (replace the localhost with server ip address if its different) Outbound Message, Inbound Message
   B) Look for Soap Header and within Soap Header RelatesTo should not be there.
   
-</con:description><con:settings/><con:config xsi:type="con:ManualTestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:expectedResult>RelatesTo does not exists within the Soap Header;</con:expectedResult></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);  
-nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);</con:setupScript>
-<con:tearDownScript>def dir = context.findProperty('GatewayPropDir');
-</con:tearDownScript>
-  
-
+</con:description><con:settings/><con:config xsi:type="con:ManualTestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:expectedResult>RelatesTo does not exists within the Soap Header;</con:expectedResult></con:config></con:testStep>
 <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
 nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);</con:setupScript>
 <con:tearDownScript>def dir = context.findProperty('GatewayPropDir');
@@ -44352,12 +44284,7 @@ context.withSql('PatientCorrelationDB') { sql ->
   A) Search the log file and look for https://localhost:8181/Gateway/PatientDiscovery/1_0/NhinService/NhinPatientDiscovery (replace the localhost with server ip address if its different) Outbound Message, Inbound Message
   B) Look for Soap Header and within Soap Header RelatesTo should not be there. 
   
-</con:description><con:settings/><con:config xsi:type="con:ManualTestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:expectedResult>RelatesTo does not exists within the Soap Header;</con:expectedResult></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);  
-nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);</con:setupScript>
-<con:tearDownScript>def dir = context.findProperty('GatewayPropDir');
-</con:tearDownScript>
-  
-
+</con:description><con:settings/><con:config xsi:type="con:ManualTestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:expectedResult>RelatesTo does not exists within the Soap Header;</con:expectedResult></con:config></con:testStep>
 <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
 nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);</con:setupScript>
 <con:tearDownScript>def dir = context.findProperty('GatewayPropDir');
@@ -44734,12 +44661,7 @@ if(passthruValue != null){
   A) Search the log file and look for https://localhost:8181/Gateway/DocumentQuery/2_0/NhinService/RespondingGateway_Query_Service/DocQuery (replace the localhost with server ip address if its different) Outbound Message, Inbound Message
   B) Look for Soap Header and within Soap Header RelatesTo should not be there. 
   
-</con:description><con:settings/><con:config xsi:type="con:ManualTestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:expectedResult>RelatesTo does not exists within the Soap Header;</con:expectedResult></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);  
-nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);</con:setupScript>
-<con:tearDownScript>def dir = context.findProperty('GatewayPropDir');
-</con:tearDownScript>
-  
-
+</con:description><con:settings/><con:config xsi:type="con:ManualTestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:expectedResult>RelatesTo does not exists within the Soap Header;</con:expectedResult></con:config></con:testStep>
 <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
 nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);</con:setupScript>
 <con:tearDownScript>def dir = context.findProperty('GatewayPropDir');
@@ -45074,12 +44996,7 @@ if(passthruValue != null){
   A) Search the log file and look for https://localhost:8181/Gateway/DocumentRetrieve/2_0/NhinService/RespondingGateway_Retrieve_Service/DocRetrieve (replace the localhost with server ip address if its different) Outbound Message, Inbound Message
   B) Look for Soap Header and within Soap Header RelatesTo should not be there. 
   
-</con:description><con:settings/><con:config xsi:type="con:ManualTestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:expectedResult>RelatesTo does not exists within the Soap Header;</con:expectedResult></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);  
-nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);</con:setupScript>
-<con:tearDownScript>def dir = context.findProperty('GatewayPropDir');
-</con:tearDownScript>
-  
-
+</con:description><con:settings/><con:config xsi:type="con:ManualTestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:expectedResult>RelatesTo does not exists within the Soap Header;</con:expectedResult></con:config></con:testStep>
 <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
 nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);</con:setupScript>
 <con:tearDownScript>def dir = context.findProperty('GatewayPropDir');
@@ -45500,10 +45417,7 @@ if(passthruValue != null){
   A) Search the log file and look for https://localhost:8181/Gateway/AdminDistribution/1_0/NhinService/NhinAdminDist (replace the localhost with server ip address if its different) Outbound Message, Inbound Message
   B) Look for Soap Header and within Soap Header RelatesTo should not be there. 
   
-</con:description><con:settings/><con:config xsi:type="con:ManualTestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:expectedResult>RelatesTo does not exists within the Soap Header;</con:expectedResult></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);  
-nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);</con:setupScript>
-<con:tearDownScript>def dir = context.findProperty('GatewayPropDir');
-</con:tearDownScript>
+</con:description><con:settings/><con:config xsi:type="con:ManualTestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:expectedResult>RelatesTo does not exists within the Soap Header;</con:expectedResult></con:config></con:testStep>
 <con:setupScript>
 nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
 nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);</con:setupScript>
