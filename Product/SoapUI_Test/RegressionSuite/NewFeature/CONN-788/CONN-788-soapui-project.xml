@@ -12,7 +12,7 @@
 	
 	
 	
-	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:entitypatientdiscovery}EntityPatientDiscoveryBindingSoap" definition="${projectDir}/../target/wsdl/EntityPatientDiscovery.wsdl" name="EntityPatientDiscoveryBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<con:interface anonymous="optional" bindingName="{urn:gov:hhs:fha:nhinc:entitypatientdiscovery}EntityPatientDiscoveryBindingSoap" definition="../../../target/wsdl/EntityPatientDiscovery.wsdl" name="EntityPatientDiscoveryBindingSoap" soapVersion="1_2" type="wsdl" wsaVersion="NONE" xsi:type="con:WsdlInterface" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 		<con:settings/>
 
 		<con:endpoints>
@@ -28,7 +28,7 @@
 
 
 	
-	<con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="AdapterPatientDiscoveryBindingSoap" type="wsdl" bindingName="{urn:gov:hhs:fha:nhinc:adapterpatientdiscovery}AdapterPatientDiscoveryBindingSoap" soapVersion="1_2" anonymous="optional" definition="${projectDir}/../target/wsdl/AdapterPatientDiscovery.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:endpoints><con:endpoint>https://localhost:${HttpsDefaultPort}/Adapter/PatientDiscovery/A_0/AdapterPatientDiscovery</con:endpoint></con:endpoints><con:operation isOneWay="false" action="urn:RespondingGateway_PRPA_IN201305UV02" name="RespondingGateway_PRPA_IN201305UV02" bindingOperationName="RespondingGateway_PRPA_IN201305UV02" type="Request-Response" outputName="RespondingGateway_PRPA_IN201306UV02Response" inputName="RespondingGateway_PRPA_IN201305UV02Request" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation></con:interface><con:testSuite name="g1">
+	<con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="AdapterPatientDiscoveryBindingSoap" type="wsdl" bindingName="{urn:gov:hhs:fha:nhinc:adapterpatientdiscovery}AdapterPatientDiscoveryBindingSoap" soapVersion="1_2" anonymous="optional" definition="../../../target/wsdl/AdapterPatientDiscovery.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:endpoints><con:endpoint>https://localhost:${HttpsDefaultPort}/Adapter/PatientDiscovery/A_0/AdapterPatientDiscovery</con:endpoint></con:endpoints><con:operation isOneWay="false" action="urn:RespondingGateway_PRPA_IN201305UV02" name="RespondingGateway_PRPA_IN201305UV02" bindingOperationName="RespondingGateway_PRPA_IN201305UV02" type="Request-Response" outputName="RespondingGateway_PRPA_IN201306UV02Response" inputName="RespondingGateway_PRPA_IN201305UV02Request" receivesAttachments="false" sendsAttachments="false"><con:settings/></con:operation></con:interface><con:testSuite name="g1">
 		<con:settings/>
 		<con:runType>SEQUENTIAL</con:runType>
 		
@@ -529,19 +529,19 @@ if(context.findProperty("PassThruOn").toBoolean()){
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2014-02-12T16:42:16Z</con:value>
+		<con:value>2014-04-01T16:41:40Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2014-02-12T16:52:16Z</con:value>
+		<con:value>2014-04-01T16:51:40Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>02/12/2014 16:42:16</con:value>
+		<con:value>04/01/2014 16:41:40</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2014-03-14T00:00:00Z</con:value>
+		<con:value>2014-05-01T00:00:00Z</con:value>
 	</con:property>
 <con:property><con:name>PassThruOn</con:name><con:value>false</con:value></con:property></con:properties>
 <con:reportParameters/>
@@ -1031,19 +1031,19 @@ if(context.findProperty("PassThruOn").toBoolean()){
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2014-02-12T16:42:30Z</con:value>
+		<con:value>2014-04-01T16:41:44Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2014-02-12T16:52:30Z</con:value>
+		<con:value>2014-04-01T16:51:44Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>02/12/2014 16:42:30</con:value>
+		<con:value>04/01/2014 16:41:44</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2014-03-14T00:00:00Z</con:value>
+		<con:value>2014-05-01T00:00:00Z</con:value>
 	</con:property>
 <con:property><con:name>PassThruOn</con:name><con:value>false</con:value></con:property></con:properties>
 <con:reportParameters/>
@@ -1526,19 +1526,19 @@ if(context.findProperty("PassThruOn").toBoolean()){
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2014-02-12T16:42:39Z</con:value>
+		<con:value>2014-04-01T16:41:47Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2014-02-12T16:52:39Z</con:value>
+		<con:value>2014-04-01T16:51:47Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>02/12/2014 16:42:39</con:value>
+		<con:value>04/01/2014 16:41:47</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2014-03-14T00:00:00Z</con:value>
+		<con:value>2014-05-01T00:00:00Z</con:value>
 	</con:property>
 <con:property><con:name>PassThruOn</con:name><con:value>false</con:value></con:property></con:properties>
 <con:reportParameters/>
