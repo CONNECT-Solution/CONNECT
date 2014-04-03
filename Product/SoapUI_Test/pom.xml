@@ -48,7 +48,7 @@
                     <version>3.1.2.2</version>
                     <configuration>
                         <goalPrefix>embedded-glassfish</goalPrefix>
-                        <name>CONNECT</name>
+                        <name>CONNECT-GF</name>
                         <app>${ear.path}</app>
                         <autoDelete>true</autoDelete>
                         <port>${port}</port>

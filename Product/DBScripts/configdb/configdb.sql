@@ -9,7 +9,7 @@ CREATE TABLE configdb.domain (
     id SERIAL PRIMARY KEY,
     domainName VARCHAR(255),
     createTime DATETIME,
-    postmasterAddressId BIGINT,
+    postmasterAddressId BIGINT REFERENCES configdb.address(id),
     status SMALLINT DEFAULT 0,
     updateTime DATETIME
 );
