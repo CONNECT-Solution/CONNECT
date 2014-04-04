@@ -304,19 +304,11 @@ FileUtils.createOrUpdateConnection(uddiFileName, destConfigFileLocation, HCID2, 
    </soap:Body>
 </soap:Envelope>]]></con:request>
 			<con:assertion type="SOAP Response"/>
-			<con:assertion type="Schema Compliance">
+			<con:assertion type="Schema Compliance" disabled="true">
 				<con:configuration/>
 			</con:assertion>
 			<con:assertion type="SOAP Fault Assertion"/>
-			<con:assertion name="Check for existance of [ns3:controlActProcess]" type="XPath Match">
-				<con:configuration>
-					<path>declare namespace ns3='urn:hl7-org:v3';
-				exists( //ns3:PRPA_IN201306UV02/ns3:controlActProcess)</path>
-					<content>true</content>
-					<allowWildcards>false</allowWildcards>
-					<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
-				</con:configuration>
-			</con:assertion>
+			
 
 
 			<con:assertion type="XPath Match" name="Check for Correct Receiver">
@@ -327,16 +319,20 @@ FileUtils.createOrUpdateConnection(uddiFileName, destConfigFileLocation, HCID2, 
 				<con:configuration><path>declare namespace ns3='urn:hl7-org:v3';
 //ns3:PRPA_IN201306UV02/ns3:sender/ns3:device/ns3:id/@root</path><content>${#Project#LocalAA}</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration>
 			</con:assertion>
-			<con:assertion name="Check for existance of Error" type="XPath Match">
+			<con:assertion name="Check for existance of [ns3:controlActProcess]" type="XPath Match">
 				<con:configuration>
 					<path>declare namespace ns3='urn:hl7-org:v3';
-exists( //ns3:PRPA_IN201306UV02/ns3:controlActProcess/ns3:reasonOf/ns3:detectedIssueEvent)</path>
+				exists( //ns3:PRPA_IN201306UV02/ns3:controlActProcess)</path>
 					<content>true</content>
 					<allowWildcards>false</allowWildcards>
 					<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
 				</con:configuration>
+			</con:assertion><con:assertion name="Check for Existence of detectedIssueEvent" type="XPath Match">
+				<con:configuration><path>declare namespace ns3='urn:hl7-org:v3';
+exists( //ns3:PRPA_IN201306UV02/ns3:controlActProcess/ns3:reasonOf/ns3:detectedIssueEvent)</path><content>true</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration>
 			</con:assertion>
-			<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+			<con:assertion type="XPath Match" name="Check for Correct Error"><con:configuration><path>declare namespace ns3='urn:hl7-org:v3';
+//ns3:PRPA_IN201306UV02/ns3:controlActProcess/ns3:reasonOf/ns3:detectedIssueEvent/ns3:mitigatedBy/ns3:detectedIssueManagement/ns3:text</path><content>AnswerNotAvailable</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
 			<con:jmsPropertyConfig/>
 			<con:wsaConfig mustUnderstand="NONE" version="200508"/>
 			<con:wsrmConfig version="1.2"/>
@@ -347,15 +343,15 @@ exists( //ns3:PRPA_IN201306UV02/ns3:controlActProcess/ns3:reasonOf/ns3:detectedI
 <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"),log);</con:setupScript><con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"),log);</con:tearDownScript><con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2014-04-03T20:34:40Z</con:value>
+		<con:value>2014-04-03T22:53:25Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2014-04-03T20:44:40Z</con:value>
+		<con:value>2014-04-03T23:03:25Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>04/03/2014 20:34:40</con:value>
+		<con:value>04/03/2014 22:53:25</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
@@ -648,14 +644,14 @@ nhinc.FileUtils.createOrUpdateConnection(uddiFileName, destConfigFileLocation, H
    </soap:Body>
 </soap:Envelope>]]></con:request>
 				<con:assertion type="SOAP Response"/>
-				<con:assertion type="SOAP Fault Assertion"/>
-				<con:assertion name="Verify Receiver" type="XPath Match">
+				<con:assertion type="Schema Compliance" name="Schema Compliance"><con:configuration><definition/></con:configuration></con:assertion><con:assertion type="SOAP Fault Assertion"/>
+				<con:assertion name="Check for Correct Receiver" type="XPath Match">
 					<con:configuration><path>declare namespace ns3='urn:hl7-org:v3';
-							//ns3:MCCI_IN000002UV01[1]/ns3:receiver[1]/ns3:device[1]/ns3:asAgent[1]/ns3:representedOrganization[1]/ns3:id[1]/@root</path><content>${#Project#LocalAA}</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration>
+//ns3:MCCI_IN000002UV01[1]/ns3:receiver[1]/ns3:device[1]/ns3:asAgent[1]/ns3:representedOrganization[1]/ns3:id[1]/@root</path><content>${#Project#LocalAA}</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration>
 				</con:assertion>
-				<con:assertion name="Verify Sender" type="XPath Match">
+				<con:assertion name="Check for Correct Sender" type="XPath Match">
 					<con:configuration><path>declare namespace ns3='urn:hl7-org:v3';
-							//ns3:MCCI_IN000002UV01[1]/ns3:sender[1]/ns3:device[1]/ns3:asAgent[1]/ns3:representedOrganization[1]/ns3:id[1]/@root</path><content>${#Project#LocalAA}</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration>
+//ns3:MCCI_IN000002UV01[1]/ns3:sender[1]/ns3:device[1]/ns3:asAgent[1]/ns3:representedOrganization[1]/ns3:id[1]/@root</path><content>${#Project#LocalAA}</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration>
 				</con:assertion>
 				
 				<con:assertion name="Verify RelatesTo" type="XPath Match">
@@ -667,16 +663,17 @@ nhinc.FileUtils.createOrUpdateConnection(uddiFileName, destConfigFileLocation, H
 						<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
 					</con:configuration>
 				</con:assertion>
-				<con:assertion name="Verify Error" type="XPath Match">
+				<con:assertion name="Check for Correct Error" type="XPath Match">
 					<con:configuration><path>declare namespace ns3='urn:hl7-org:v3';
-//ns3:MCCI_IN000002UV01[1]/ns3:acknowledgement/ns3:acknowledgementDetail/ns3:code/@displayName</path><content>AnswerNotAvailable</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration>
-				</con:assertion><con:assertion type="Schema Compliance" name="Schema Compliance"><con:configuration><definition/></con:configuration></con:assertion><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+//ns3:MCCI_IN000002UV01[1]/ns3:acknowledgement/ns3:acknowledgementDetail/ns3:code/@displayName</path><content>Internal system error</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration>
+				</con:assertion><con:assertion type="XPath Match" name="Check for Correct Acknowledgement typeCode"><con:configuration><path>declare namespace ns3='urn:hl7-org:v3';
+//ns3:MCCI_IN000002UV01[1]/ns3:acknowledgement[1]/ns3:typeCode[1]/@code</path><content>CE</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
 				<con:jmsPropertyConfig/>
 				<con:wsaConfig action="urn:gov:hhs:fha:nhinc:entitypatientdiscoveryasyncreq:ProcessPatientDiscoveryAsyncReqAsyncRequest" addDefaultTo="true" messageID="uuid:6666666666.66666.666.66" mustUnderstand="NONE" version="200508"/>
 				<con:wsrmConfig version="1.2"/>
 			</con:request>
 		</con:config>
-	</con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"),log);</con:setupScript><con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"),log);</con:tearDownScript><con:properties><con:property><con:name>startDate</con:name><con:value>2014-04-03T20:36:53Z</con:value></con:property><con:property><con:name>endDate</con:name><con:value>2014-04-03T20:46:53Z</con:value></con:property><con:property><con:name>sigDate</con:name><con:value>04/03/2014 20:36:53</con:value></con:property><con:property><con:name>expireDate</con:name><con:value>2014-05-03T00:00:00Z</con:value></con:property></con:properties></con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="PD Deferred Response" searchProperties="true" id="2a1cb79a-a1bc-454c-8ebb-bde2d50155e9"><con:settings/><con:testStep type="groovy" name="Update uddiConnectionInfo">
+	</con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"),log);</con:setupScript><con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"),log);</con:tearDownScript><con:properties><con:property><con:name>startDate</con:name><con:value>2014-04-03T22:53:28Z</con:value></con:property><con:property><con:name>endDate</con:name><con:value>2014-04-03T23:03:28Z</con:value></con:property><con:property><con:name>sigDate</con:name><con:value>04/03/2014 22:53:28</con:value></con:property><con:property><con:name>expireDate</con:name><con:value>2014-05-03T00:00:00Z</con:value></con:property></con:properties></con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="PD Deferred Response" searchProperties="true" id="2a1cb79a-a1bc-454c-8ebb-bde2d50155e9"><con:settings/><con:testStep type="groovy" name="Update uddiConnectionInfo">
 				<con:settings/>
 				<con:config><script>import nhinc.FileUtils;
 
@@ -1003,25 +1000,26 @@ nhinc.FileUtils.createOrUpdateConnection(uddiFileName, destConfigFileLocation, H
    </soap:Body>
 </soap:Envelope>]]></con:request>
 		<con:assertion type="SOAP Response"/>
-		<con:assertion type="SOAP Fault Assertion"/>
-		<con:assertion name="Match content of [typeCode/@code]" type="XPath Match">
-			<con:configuration><path>declare namespace ns2='urn:hl7-org:v3';//ns2:MCCI_IN000002UV01[1]/ns2:acknowledgement[1]/ns2:typeCode[1]/@code</path><content>CE</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration>
-		</con:assertion>
-
-		<con:assertion name="Match content of [acknowledgementDetail/text/text()]" type="XPath Match">
-			<con:configuration><path>declare namespace ns2='urn:hl7-org:v3';//ns2:MCCI_IN000002UV01[1]/ns2:acknowledgement[1]/ns2:acknowledgementDetail[1]/ns2:text/text()</path><content>AnswerNotAvailable
-</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration>
-		</con:assertion>
 		<con:assertion name="Schema Compliance" type="Schema Compliance">
 			<con:configuration><definition/></con:configuration>
+		</con:assertion><con:assertion type="SOAP Fault Assertion"/>
+		<con:assertion type="XPath Match" name="Check for Correct Receiver"><con:configuration><path>declare namespace ns3='urn:hl7-org:v3';
+//ns3:MCCI_IN000002UV01[1]/ns3:receiver[1]/ns3:device[1]/ns3:asAgent[1]/ns3:representedOrganization[1]/ns3:id[1]/@root</path><content>${#Project#LocalAA}</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion><con:assertion type="XPath Match" name="Check for Correct Sender"><con:configuration><path>declare namespace ns3='urn:hl7-org:v3';
+//ns3:MCCI_IN000002UV01[1]/ns3:sender[1]/ns3:device[1]/ns3:asAgent[1]/ns3:representedOrganization[1]/ns3:id[1]/@root</path><content>${#Project#RemoteAA}</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion><con:assertion type="XPath Match" name="Check for Correct Error"><con:configuration><path>declare namespace ns3='urn:hl7-org:v3';
+//ns3:MCCI_IN000002UV01[1]/ns3:acknowledgement/ns3:acknowledgementDetail/ns3:code/@displayName</path><content>Internal system error</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration></con:assertion><con:assertion name="Check for Correct Acknowledgement typeCode" type="XPath Match">
+			<con:configuration><path>declare namespace ns3='urn:hl7-org:v3';
+//ns3:MCCI_IN000002UV01[1]/ns3:acknowledgement[1]/ns3:typeCode[1]/@code</path><content>CE</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration>
 		</con:assertion>
+
+		
+		
 		<con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
 		<con:jmsPropertyConfig/>
 		<con:wsaConfig mustUnderstand="NONE" version="200508"/>
 		<con:wsrmConfig version="1.2"/>
 	</con:request>
 </con:config>
-</con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"),log);</con:setupScript><con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"),log);</con:tearDownScript><con:properties><con:property><con:name>startDate</con:name><con:value>2014-04-03T18:45:37Z</con:value></con:property><con:property><con:name>endDate</con:name><con:value>2014-04-03T18:55:37Z</con:value></con:property><con:property><con:name>sigDate</con:name><con:value>04/03/2014 18:45:37</con:value></con:property><con:property><con:name>expireDate</con:name><con:value>2014-05-03T00:00:00Z</con:value></con:property></con:properties></con:testCase><con:properties/>
+</con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"),log);</con:setupScript><con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"),log);</con:tearDownScript><con:properties><con:property><con:name>startDate</con:name><con:value>2014-04-03T22:53:32Z</con:value></con:property><con:property><con:name>endDate</con:name><con:value>2014-04-03T23:03:32Z</con:value></con:property><con:property><con:name>sigDate</con:name><con:value>04/03/2014 22:53:32</con:value></con:property><con:property><con:name>expireDate</con:name><con:value>2014-05-03T00:00:00Z</con:value></con:property></con:properties></con:testCase><con:properties/>
 </con:testSuite>
 <con:properties>
 	
@@ -1044,7 +1042,7 @@ nhinc.FileUtils.createOrUpdateConnection(uddiFileName, destConfigFileLocation, H
 	
 	
 	
-	<con:property><con:name>Endpoint-PatientDiscoveryAsyncReq</con:name><con:value>http://localhost:8080/Gateway/PatientDiscovery/1_0/EntityService/EntityPatientDiscoveryDeferredRequestUnsecured</con:value></con:property><con:property><con:name>Endpoint-PatientDiscoveryAsyncResp</con:name><con:value>http://localhost:8080/Gateway/PatientDiscovery/1_0/EntityService/EntityPatientDiscoveryDeferredResponseUnsecured</con:value></con:property><con:property><con:name>ExpirationDate</con:name><con:value>20100520</con:value></con:property><con:property><con:name>FamilyName</con:name><con:value>Younger</con:value></con:property><con:property><con:name>GatewayPropDir</con:name><con:value/></con:property><con:property><con:name>Gender</con:name><con:value>M</con:value></con:property><con:property><con:name>GivenName</con:name><con:value>Gallow</con:value></con:property><con:property><con:name>Host2</con:name><con:value>localhost</con:value></con:property><con:property><con:name>LocalAA</con:name><con:value>1.1</con:value></con:property>
+	<con:property><con:name>Endpoint-PatientDiscoveryAsyncReq</con:name><con:value>http://localhost:8080/Gateway/PatientDiscovery/1_0/EntityService/EntityPatientDiscoveryDeferredRequestUnsecured</con:value></con:property><con:property><con:name>Endpoint-PatientDiscoveryAsyncResp</con:name><con:value>http://localhost:8080/Gateway/PatientDiscovery/1_0/EntityService/EntityPatientDiscoveryDeferredResponseUnsecured</con:value></con:property><con:property><con:name>ExpirationDate</con:name><con:value>20100520</con:value></con:property><con:property><con:name>FamilyName</con:name><con:value>Younger</con:value></con:property><con:property><con:name>GatewayPropDir</con:name><con:value>C:\\glassfish3\\glassfish\\domains\\domain1\\config\\nhin</con:value></con:property><con:property><con:name>Gender</con:name><con:value>M</con:value></con:property><con:property><con:name>GivenName</con:name><con:value>Gallow</con:value></con:property><con:property><con:name>Host2</con:name><con:value>localhost</con:value></con:property><con:property><con:name>LocalAA</con:name><con:value>1.1</con:value></con:property>
 	
 	
 	<con:property><con:name>LocalHCDescription</con:name><con:value>InternalTest1</con:value></con:property><con:property><con:name>LocalHCID</con:name><con:value>urn:oid:1.1</con:value></con:property>
