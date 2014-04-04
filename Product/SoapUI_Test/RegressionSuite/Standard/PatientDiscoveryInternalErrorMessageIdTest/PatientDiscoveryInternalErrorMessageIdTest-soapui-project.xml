@@ -24,7 +24,7 @@
 		<con:settings/>
 
 		<con:endpoints>
-		<con:endpoint>http://localhost:8080/Gateway/PatientDiscovery/1_0/EntityService/EntityPatientDiscoveryDeferredResponseUnsecured</con:endpoint></con:endpoints>
+		<con:endpoint>${#Project#Endpoint-PatientDiscoveryAsyncResp}</con:endpoint></con:endpoints>
 		<con:operation action="" bindingOperationName="ProcessPatientDiscoveryAsyncResp" inputName="ProcessPatientDiscoveryAsyncRespAsyncRequest" isOneWay="false" name="ProcessPatientDiscoveryAsyncResp" outputName="ProcessPatientDiscoveryAsyncRespAsyncResponse" receivesAttachments="false" sendsAttachments="false" type="Request-Response" anonymous="optional">
 			<con:settings/>
 		</con:operation>
@@ -39,11 +39,15 @@
 				<con:config><script>import nhinc.FileUtils;
 
 def destConfigFileLocation = context.findProperty("GatewayPropDir");
-def HCID2 = context.findProperty( "RemoteHCID" );
+def HCID2 = context.findProperty( "RemoteAA" );
 def Host = context.findProperty("Host2");
 def patientDiscoveryURL = "https://" + Host + ":8181/Gateway/PatientDiscovery/1_0/NhinService/INCORRECT_ENDPOINT";
 
-FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocation, HCID2, "PatientDiscovery", patientDiscoveryURL, "2.0", log)</script></con:config>
+def uddiFileName = "uddiConnectionInfo.xml";
+def serviceName = "PatientDiscovery";
+def serviceVersion = "1.0";
+
+FileUtils.createOrUpdateConnection(uddiFileName, destConfigFileLocation, HCID2, serviceName, patientDiscoveryURL, serviceVersion, log)</script></con:config>
 			</con:testStep>
 			
 		<con:testStep name="Patient Discovery" type="request">
@@ -124,6 +128,7 @@ FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocat
             </urn:controlActProcess>
          </urn:PRPA_IN201305UV02>
          <urn:assertion>
+            <urn1:nationalProviderId>1234567890</urn1:nationalProviderId>         
             <urn1:address>
                <urn1:addressType>
                   <urn1:code>W</urn1:code>
@@ -299,7 +304,7 @@ FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocat
    </soap:Body>
 </soap:Envelope>]]></con:request>
 			<con:assertion type="SOAP Response"/>
-			<con:assertion disabled="true" type="Schema Compliance">
+			<con:assertion type="Schema Compliance">
 				<con:configuration/>
 			</con:assertion>
 			<con:assertion type="SOAP Fault Assertion"/>
@@ -315,22 +320,12 @@ FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocat
 
 
 			<con:assertion type="XPath Match" name="Check for Correct Receiver">
-				<con:configuration>
-					<path>declare namespace ns3='urn:hl7-org:v3';
-//ns3:PRPA_IN201306UV02/ns3:receiver/ns3:device/ns3:id/@root</path>
-					<content>${#Project#LocalHCID}</content>
-					<allowWildcards>false</allowWildcards>
-					<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
-				</con:configuration>
+				<con:configuration><path>declare namespace ns3='urn:hl7-org:v3';
+//ns3:PRPA_IN201306UV02/ns3:receiver/ns3:device/ns3:id/@root</path><content>${#Project#LocalAA}</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration>
 			</con:assertion>
 			<con:assertion type="XPath Match" name="Check for Correct Sender">
-				<con:configuration>
-					<path>declare namespace ns3='urn:hl7-org:v3';
-//ns3:PRPA_IN201306UV02/ns3:sender/ns3:device/ns3:id/@root</path>
-					<content>${#Project#LocalHCID}</content>
-					<allowWildcards>false</allowWildcards>
-					<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
-				</con:configuration>
+				<con:configuration><path>declare namespace ns3='urn:hl7-org:v3';
+//ns3:PRPA_IN201306UV02/ns3:sender/ns3:device/ns3:id/@root</path><content>${#Project#LocalAA}</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration>
 			</con:assertion>
 			<con:assertion name="Check for existance of Error" type="XPath Match">
 				<con:configuration>
@@ -352,31 +347,37 @@ exists( //ns3:PRPA_IN201306UV02/ns3:controlActProcess/ns3:reasonOf/ns3:detectedI
 <con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"),log);</con:setupScript><con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"),log);</con:tearDownScript><con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2013-03-19T17:34:45Z</con:value>
+		<con:value>2014-04-03T20:34:40Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2013-03-19T17:44:45Z</con:value>
+		<con:value>2014-04-03T20:44:40Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>03/19/2013 17:34:45</con:value>
+		<con:value>04/03/2014 20:34:40</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2013-04-18T00:00:00Z</con:value>
+		<con:value>2014-05-03T00:00:00Z</con:value>
 	</con:property>
 </con:properties>
 <con:reportParameters/>
 </con:testCase>
 <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="PD Deferred Request" searchProperties="true" id="baaf870f-ea28-451c-a346-7acf4ced7238"><con:settings/><con:testStep type="groovy" name="Update uddiConnectionInfo">
 				<con:settings/>
-				<con:config><script>def destConfigFileLocation = context.findProperty("GatewayPropDir");
-def HCID2 = context.findProperty("RemoteHCID");
+				<con:config><script>import nhinc.FileUtils;
+
+def destConfigFileLocation = context.findProperty("GatewayPropDir");
+def HCID2 = context.findProperty("RemoteAA");
 def Host = context.findProperty("Host2");
 def patientDiscoveryDefURL = "https://" + Host + ":8181/Gateway/PatientDiscovery/1_0/NhinService/INCORRECT_ENDPOINT";
 
-nhinc.FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocation, HCID2, "PatientDiscoveryDeferredReq", patientDiscoveryDefURL, "2.0", log)</script></con:config>
+def uddiFileName = "uddiConnectionInfo.xml";
+def serviceName = "PatientDiscoveryDeferredReq";
+def serviceVersion = "1.0";
+
+nhinc.FileUtils.createOrUpdateConnection(uddiFileName, destConfigFileLocation, HCID2, serviceName, patientDiscoveryDefURL, serviceVersion, log)</script></con:config>
 			</con:testStep><con:testStep name="Patient Discovery Deferred Req" type="request">
 		<con:settings/>
 		<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
@@ -453,6 +454,7 @@ nhinc.FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFil
             </urn:controlActProcess>
          </urn:PRPA_IN201305UV02>
          <urn:assertion>
+            <urn1:nationalProviderId>1234567890</urn1:nationalProviderId>         
             <urn1:address>
                <urn1:addressType>
                   <urn1:code>W</urn1:code>
@@ -583,6 +585,14 @@ nhinc.FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFil
                </urn1:roleCoded>
             </urn1:userInfo>
             <urn1:authorized>authorized</urn1:authorized>
+            <urn1:purposeOfDisclosureCoded>
+               <urn1:code>PUBLICHEALTHKIERAN</urn1:code>
+               <urn1:codeSystem>2.16.840.1.113883.3.18.7.1</urn1:codeSystem>
+               <urn1:codeSystemName>nhin-purpose</urn1:codeSystemName>
+               <urn1:codeSystemVersion>1.0</urn1:codeSystemVersion>
+               <urn1:displayName>Use or disclosure of Psychotherapy Notes</urn1:displayName>
+               <urn1:originalText>Use or disclosure of Psychotherapy Notes</urn1:originalText>
+            </urn1:purposeOfDisclosureCoded>
             <!--Optional:-->
             <urn1:samlAuthnStatement>
                <urn1:authInstant>2009-04-16T13:15:39Z</urn1:authInstant>
@@ -641,11 +651,11 @@ nhinc.FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFil
 				<con:assertion type="SOAP Fault Assertion"/>
 				<con:assertion name="Verify Receiver" type="XPath Match">
 					<con:configuration><path>declare namespace ns3='urn:hl7-org:v3';
-							//ns3:MCCI_IN000002UV01[1]/ns3:receiver[1]/ns3:device[1]/ns3:asAgent[1]/ns3:representedOrganization[1]/ns3:id[1]/@root</path><content>${#Project#LocalHCID}</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration>
+							//ns3:MCCI_IN000002UV01[1]/ns3:receiver[1]/ns3:device[1]/ns3:asAgent[1]/ns3:representedOrganization[1]/ns3:id[1]/@root</path><content>${#Project#LocalAA}</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration>
 				</con:assertion>
 				<con:assertion name="Verify Sender" type="XPath Match">
 					<con:configuration><path>declare namespace ns3='urn:hl7-org:v3';
-							//ns3:MCCI_IN000002UV01[1]/ns3:sender[1]/ns3:device[1]/ns3:asAgent[1]/ns3:representedOrganization[1]/ns3:id[1]/@root</path><content>${#Project#LocalHCID}</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration>
+							//ns3:MCCI_IN000002UV01[1]/ns3:sender[1]/ns3:device[1]/ns3:asAgent[1]/ns3:representedOrganization[1]/ns3:id[1]/@root</path><content>${#Project#LocalAA}</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration>
 				</con:assertion>
 				
 				<con:assertion name="Verify RelatesTo" type="XPath Match">
@@ -659,21 +669,27 @@ nhinc.FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFil
 				</con:assertion>
 				<con:assertion name="Verify Error" type="XPath Match">
 					<con:configuration><path>declare namespace ns3='urn:hl7-org:v3';
-//ns3:MCCI_IN000002UV01[1]/ns3:acknowledgement/ns3:acknowledgementDetail/ns3:code/@displayName</path><content>Internal error</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences></con:configuration>
-				</con:assertion><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+//ns3:MCCI_IN000002UV01[1]/ns3:acknowledgement/ns3:acknowledgementDetail/ns3:code/@displayName</path><content>AnswerNotAvailable</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration>
+				</con:assertion><con:assertion type="Schema Compliance" name="Schema Compliance"><con:configuration><definition/></con:configuration></con:assertion><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
 				<con:jmsPropertyConfig/>
 				<con:wsaConfig action="urn:gov:hhs:fha:nhinc:entitypatientdiscoveryasyncreq:ProcessPatientDiscoveryAsyncReqAsyncRequest" addDefaultTo="true" messageID="uuid:6666666666.66666.666.66" mustUnderstand="NONE" version="200508"/>
 				<con:wsrmConfig version="1.2"/>
 			</con:request>
 		</con:config>
-	</con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"),log);</con:setupScript><con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"),log);</con:tearDownScript><con:properties><con:property><con:name>startDate</con:name><con:value>2013-03-19T17:34:46Z</con:value></con:property><con:property><con:name>endDate</con:name><con:value>2013-03-19T17:44:46Z</con:value></con:property><con:property><con:name>sigDate</con:name><con:value>03/19/2013 17:34:46</con:value></con:property><con:property><con:name>expireDate</con:name><con:value>2013-04-18T00:00:00Z</con:value></con:property></con:properties></con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="PD Deferred Response" searchProperties="true" id="2a1cb79a-a1bc-454c-8ebb-bde2d50155e9" disabled="true"><con:settings/><con:testStep type="groovy" name="Update uddiConnectionInfo">
+	</con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"),log);</con:setupScript><con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"),log);</con:tearDownScript><con:properties><con:property><con:name>startDate</con:name><con:value>2014-04-03T20:36:53Z</con:value></con:property><con:property><con:name>endDate</con:name><con:value>2014-04-03T20:46:53Z</con:value></con:property><con:property><con:name>sigDate</con:name><con:value>04/03/2014 20:36:53</con:value></con:property><con:property><con:name>expireDate</con:name><con:value>2014-05-03T00:00:00Z</con:value></con:property></con:properties></con:testCase><con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="PD Deferred Response" searchProperties="true" id="2a1cb79a-a1bc-454c-8ebb-bde2d50155e9"><con:settings/><con:testStep type="groovy" name="Update uddiConnectionInfo">
 				<con:settings/>
-				<con:config><script>def destConfigFileLocation = context.findProperty("GatewayPropDir");
-def HCID2 = context.findProperty("RemoteHCID");
+				<con:config><script>import nhinc.FileUtils;
+
+def destConfigFileLocation = context.findProperty("GatewayPropDir");
+def HCID2 = context.findProperty("RemoteAA");
 def Host = context.findProperty("Host2");
 def patientDiscoveryDefURL = "https://" + Host + ":8181/Gateway/PatientDiscovery/1_0/NhinService/INCORRECT_ENDPOINT";
 
-nhinc.FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFileLocation, HCID2, "PatientDiscoveryDeferredResp", patientDiscoveryDefURL, "2.0", log)</script></con:config>
+def uddiFileName = "uddiConnectionInfo.xml";
+def serviceName = "PatientDiscoveryDeferredResp";
+def serviceVersion = "2.0";
+
+nhinc.FileUtils.createOrUpdateConnection(uddiFileName, destConfigFileLocation, HCID2, serviceName, patientDiscoveryDefURL, serviceVersion, log)</script></con:config>
 			</con:testStep><con:testStep name="Patient Discovery Deferred Resp" type="request">
 		<con:settings/>
 		<con:config xsi:type="con:RequestStep" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
@@ -684,9 +700,8 @@ nhinc.FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFil
 					<con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
 		</con:settings>
 		<con:encoding>UTF-8</con:encoding>
-		<con:endpoint>http://localhost:8080/Gateway/PatientDiscovery/1_0/EntityService/EntityPatientDiscoveryDeferredResponseUnsecured</con:endpoint>
-		<con:request><![CDATA[
-			<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:hl7-org:v3" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
+		<con:endpoint>${#Project#Endpoint-PatientDiscoveryAsyncResp}</con:endpoint>
+		<con:request><![CDATA[<soap:Envelope xmlns:soap="http://www.w3.org/2003/05/soap-envelope" xmlns:urn="urn:hl7-org:v3" xmlns:urn1="urn:gov:hhs:fha:nhinc:common:nhinccommon">
    <soap:Header/>
    <soap:Body testSuite="Entity_g1" testCase="Patient Discovery Deferred Resp">
       <urn:RespondingGateway_PRPA_IN201306UV02Request>
@@ -703,7 +718,7 @@ nhinc.FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFil
                   <urn:id root="1.2.345.678.999"/>
                   <urn:asAgent classCode="AGNT">
                      <urn:representedOrganization classCode="ORG" determinerCode="INSTANCE">
-                        <urn:id root="1.1"/>
+                        <urn:id root="${#Project#RemoteHCID}"/>
                      </urn:representedOrganization>
                   </urn:asAgent>
                </urn:device>
@@ -713,7 +728,7 @@ nhinc.FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFil
                   <urn:id root="1.2.345.678.999"/>
                   <urn:asAgent classCode="AGNT">
                      <urn:representedOrganization classCode="ORG" determinerCode="INSTANCE">
-                        <urn:id root="1.1"/>
+                        <urn:id root="${#Project#LocalHCID}"/>
                      </urn:representedOrganization>
                   </urn:asAgent>
                </urn:device>
@@ -796,6 +811,7 @@ nhinc.FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFil
             </urn:controlActProcess>
          </urn:PRPA_IN201306UV02>
          <urn:assertion>
+            <urn1:nationalProviderId>1234567890</urn1:nationalProviderId>         
             <urn1:address>
                <urn1:addressType>
                   <urn1:code>W</urn1:code>
@@ -926,6 +942,14 @@ nhinc.FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFil
                </urn1:roleCoded>
             </urn1:userInfo>
             <urn1:authorized>authorized</urn1:authorized>
+            <urn1:purposeOfDisclosureCoded>
+               <urn1:code>PUBLICHEALTHKIERAN</urn1:code>
+               <urn1:codeSystem>2.16.840.1.113883.3.18.7.1</urn1:codeSystem>
+               <urn1:codeSystemName>nhin-purpose</urn1:codeSystemName>
+               <urn1:codeSystemVersion>1.0</urn1:codeSystemVersion>
+               <urn1:displayName>Use or disclosure of Psychotherapy Notes</urn1:displayName>
+               <urn1:originalText>Use or disclosure of Psychotherapy Notes</urn1:originalText>
+            </urn1:purposeOfDisclosureCoded>
             <urn1:samlAuthnStatement>
                <urn1:authInstant>2009-04-16T13:15:39Z</urn1:authInstant>
                <urn1:sessionIndex>987</urn1:sessionIndex>
@@ -981,21 +1005,12 @@ nhinc.FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFil
 		<con:assertion type="SOAP Response"/>
 		<con:assertion type="SOAP Fault Assertion"/>
 		<con:assertion name="Match content of [typeCode/@code]" type="XPath Match">
-			<con:configuration>
-				<path>declare namespace ns2='urn:hl7-org:v3';//ns2:MCCI_IN000002UV01[1]/ns2:acknowledgement[1]/ns2:typeCode[1]/@code</path>
-				<content>CA</content>
-				<allowWildcards>false</allowWildcards>
-				<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
-			</con:configuration>
+			<con:configuration><path>declare namespace ns2='urn:hl7-org:v3';//ns2:MCCI_IN000002UV01[1]/ns2:acknowledgement[1]/ns2:typeCode[1]/@code</path><content>CE</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration>
 		</con:assertion>
 
 		<con:assertion name="Match content of [acknowledgementDetail/text/text()]" type="XPath Match">
-			<con:configuration>
-				<path>declare namespace ns2='urn:hl7-org:v3';//ns2:MCCI_IN000002UV01[1]/ns2:acknowledgement[1]/ns2:acknowledgementDetail[1]/ns2:text/text()</path>
-				<content>Success</content>
-				<allowWildcards>false</allowWildcards>
-				<ignoreNamspaceDifferences>false</ignoreNamspaceDifferences>
-			</con:configuration>
+			<con:configuration><path>declare namespace ns2='urn:hl7-org:v3';//ns2:MCCI_IN000002UV01[1]/ns2:acknowledgement[1]/ns2:acknowledgementDetail[1]/ns2:text/text()</path><content>AnswerNotAvailable
+</content><allowWildcards>false</allowWildcards><ignoreNamspaceDifferences>false</ignoreNamspaceDifferences><ignoreComments>false</ignoreComments></con:configuration>
 		</con:assertion>
 		<con:assertion name="Schema Compliance" type="Schema Compliance">
 			<con:configuration><definition/></con:configuration>
@@ -1006,44 +1021,44 @@ nhinc.FileUtils.createOrUpdateConnection("uddiConnectionInfo.xml", destConfigFil
 		<con:wsrmConfig version="1.2"/>
 	</con:request>
 </con:config>
-</con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"),log);</con:setupScript><con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"),log);</con:tearDownScript><con:properties><con:property><con:name>startDate</con:name><con:value>2012-11-30T13:51:13Z</con:value></con:property><con:property><con:name>endDate</con:name><con:value>2012-11-30T14:01:13Z</con:value></con:property><con:property><con:name>sigDate</con:name><con:value>11/30/2012 13:51:13</con:value></con:property><con:property><con:name>expireDate</con:name><con:value>2012-12-30T00:00:00Z</con:value></con:property></con:properties></con:testCase><con:properties/>
+</con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty("GatewayPropDir"),log);</con:setupScript><con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty("GatewayPropDir"),log);</con:tearDownScript><con:properties><con:property><con:name>startDate</con:name><con:value>2014-04-03T18:45:37Z</con:value></con:property><con:property><con:name>endDate</con:name><con:value>2014-04-03T18:55:37Z</con:value></con:property><con:property><con:name>sigDate</con:name><con:value>04/03/2014 18:45:37</con:value></con:property><con:property><con:name>expireDate</con:name><con:value>2014-05-03T00:00:00Z</con:value></con:property></con:properties></con:testCase><con:properties/>
 </con:testSuite>
 <con:properties>
 	
-	<con:property><con:name>AAMappingDB</con:name><con:value>assigningauthoritydb</con:value></con:property><con:property><con:name>AAMappingTable</con:name><con:value>aa_to_home_community_mapping</con:value></con:property>
-	
-	
-	
-	<con:property><con:name>BirthTime</con:name><con:value>19630804</con:value></con:property><con:property><con:name>City</con:name><con:value>Melbourne</con:value></con:property><con:property><con:name>Country</con:name><con:value>US</con:value></con:property>
 	
 	
 	
 	
-	<con:property><con:name>DBHost</con:name><con:value>localhost</con:value></con:property><con:property><con:name>DBPass</con:name><con:value>nhincpass</con:value></con:property>
-	<con:property><con:name>DBPort</con:name><con:value>3306</con:value></con:property><con:property><con:name>DBUser</con:name><con:value>nhincuser</con:value></con:property><con:property><con:name>DOB</con:name><con:value>19800516</con:value></con:property>
-	
-	<con:property><con:name>Endpoint-PatientDiscovery</con:name><con:value>http://localhost:8080/Gateway/PatientDiscovery/1_0/EntityPatientDiscovery</con:value></con:property><con:property><con:name>Endpoint-PatientDiscoveryAsyncReq</con:name><con:value>http://localhost:8080/Gateway/PatientDiscovery/1_0/EntityService/EntityPatientDiscoveryDeferredRequestUnsecured</con:value></con:property><con:property><con:name>ExpirationDate</con:name><con:value>20100520</con:value></con:property>
+	<con:property><con:name>BirthTime</con:name><con:value>19630804</con:value></con:property><con:property><con:name>City</con:name><con:value>Melbourne</con:value></con:property>
 	
 	
 	
 	
 	
-	<con:property><con:name>FamilyName</con:name><con:value>Younger</con:value></con:property><con:property><con:name>GatewayPropDir</con:name><con:value>c:/glassfish3/glassfish/domains/domain1/config/nhin</con:value></con:property><con:property><con:name>Gender</con:name><con:value>M</con:value></con:property>
-	<con:property><con:name>GivenName</con:name><con:value>Gallow</con:value></con:property><con:property><con:name>Host2</con:name><con:value>localhost</con:value></con:property><con:property><con:name>LocalAA</con:name><con:value>1.1</con:value></con:property>
 	
-	<con:property><con:name>LocalHCDescription</con:name><con:value>InternalTest1</con:value></con:property>
-	<con:property><con:name>LocalHCID</con:name><con:value>1.1</con:value></con:property><con:property><con:name>LocalPatientID</con:name><con:value>D123401</con:value></con:property><con:property><con:name>PatientCorrelationDB</con:name><con:value>patientcorrelationdb</con:value></con:property>
 	
-	<con:property><con:name>PatientCorrelationTable</con:name><con:value>correlatedidentifiers</con:value></con:property>
+	<con:property><con:name>Country</con:name><con:value>US</con:value></con:property><con:property><con:name>DOB</con:name><con:value>19800516</con:value></con:property><con:property><con:name>Endpoint-PatientDiscovery</con:name><con:value>http://localhost:8080/Gateway/PatientDiscovery/1_0/EntityPatientDiscovery</con:value></con:property>
 	
 	
 	
 	
-	<con:property><con:name>PurposeOfDisclosure</con:name><con:value>Mental</con:value></con:property><con:property><con:name>RemoteAA</con:name><con:value>2.2</con:value></con:property><con:property><con:name>RemoteHCDescription</con:name><con:value>InternalTest2</con:value></con:property><con:property><con:name>RemoteHCID</con:name><con:value>2.2</con:value></con:property><con:property><con:name>RemotePatientID</con:name><con:value>D123401</con:value></con:property>
 	
-	<con:property><con:name>SSN</con:name><con:value>123456789</con:value></con:property><con:property><con:name>State</con:name><con:value>FL</con:value></con:property>
-	<con:property><con:name>StreetAddress</con:name><con:value>123 Johnson Rd</con:value></con:property><con:property><con:name>SubjectID</con:name><con:value>1111</con:value></con:property><con:property><con:name>UniquePatientId</con:name><con:value>1111^^^&amp;amp;1.1&amp;amp;ISO</con:value></con:property><con:property><con:name>ZipCode</con:name><con:value>12345</con:value></con:property>
-</con:properties>
+	
+	<con:property><con:name>Endpoint-PatientDiscoveryAsyncReq</con:name><con:value>http://localhost:8080/Gateway/PatientDiscovery/1_0/EntityService/EntityPatientDiscoveryDeferredRequestUnsecured</con:value></con:property><con:property><con:name>Endpoint-PatientDiscoveryAsyncResp</con:name><con:value>http://localhost:8080/Gateway/PatientDiscovery/1_0/EntityService/EntityPatientDiscoveryDeferredResponseUnsecured</con:value></con:property><con:property><con:name>ExpirationDate</con:name><con:value>20100520</con:value></con:property><con:property><con:name>FamilyName</con:name><con:value>Younger</con:value></con:property><con:property><con:name>GatewayPropDir</con:name><con:value/></con:property><con:property><con:name>Gender</con:name><con:value>M</con:value></con:property><con:property><con:name>GivenName</con:name><con:value>Gallow</con:value></con:property><con:property><con:name>Host2</con:name><con:value>localhost</con:value></con:property><con:property><con:name>LocalAA</con:name><con:value>1.1</con:value></con:property>
+	
+	
+	<con:property><con:name>LocalHCDescription</con:name><con:value>InternalTest1</con:value></con:property><con:property><con:name>LocalHCID</con:name><con:value>urn:oid:1.1</con:value></con:property>
+	
+	<con:property><con:name>LocalPatientID</con:name><con:value>D123401</con:value></con:property><con:property><con:name>PatientCorrelationDB</con:name><con:value>patientcorrelationdb</con:value></con:property>
+	
+	
+	
+	
+	<con:property><con:name>PatientCorrelationTable</con:name><con:value>correlatedidentifiers</con:value></con:property><con:property><con:name>PurposeOfDisclosure</con:name><con:value>Mental</con:value></con:property><con:property><con:name>RemoteAA</con:name><con:value>2.2</con:value></con:property><con:property><con:name>RemoteHCDescription</con:name><con:value>InternalTest2</con:value></con:property>
+	
+	<con:property><con:name>RemoteHCID</con:name><con:value>urn:oid:2.2</con:value></con:property><con:property><con:name>RemotePatientID</con:name><con:value>D123401</con:value></con:property><con:property><con:name>SSN</con:name><con:value>123456789</con:value></con:property>
+	<con:property><con:name>State</con:name><con:value>FL</con:value></con:property><con:property><con:name>StreetAddress</con:name><con:value>123 Johnson Rd</con:value></con:property><con:property><con:name>SubjectID</con:name><con:value>1111</con:value></con:property>
+<con:property><con:name>UniquePatientId</con:name><con:value>1111^^^&amp;amp;1.1&amp;amp;ISO</con:value></con:property><con:property><con:name>ZipCode</con:name><con:value>12345</con:value></con:property></con:properties>
 <con:afterLoadScript>def propertiesFilename = project.path[0..(project.path.size()-4)] + 'properties'
 	def propertiesFile = new File(propertiesFilename)
 	if (propertiesFile.exists()) {
