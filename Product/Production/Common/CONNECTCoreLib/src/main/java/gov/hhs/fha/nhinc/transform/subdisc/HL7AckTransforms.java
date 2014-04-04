@@ -264,19 +264,19 @@ public class HL7AckTransforms {
             ceCode.setCode("INTERR");
             ceCode.setCodeSystem("2.16.840.1.113883.5.1100");
             ceCode.setCodeSystemName("AcknowledgementDetailCode");
-            ceCode.setDisplayName("Internal error");
+            ceCode.setDisplayName("Internal system error");
             ackDetail.setCode(ceCode);
         } else {
             // Set the acknowledge detail type code as an info
             ackDetail.setTypeCode(AcknowledgementDetailType.fromValue(ACK_DETAIL_TYPE_CODE_INFO));
         }
 
-            // Set the acknowledge message text
-            EDExplicit msg = new EDExplicit();
+        // Set the acknowledge message text
+        EDExplicit msg = new EDExplicit();
 
-            LOG.debug("Setting ack message text: " + msgText);
-            msg.getContent().add(msgText);
-            ackDetail.setText(msg);
+        LOG.debug("Setting ack message text: " + msgText);
+        msg.getContent().add(msgText);
+        ackDetail.setText(msg);
 
         return ackDetail;
     }
