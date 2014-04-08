@@ -27,68 +27,7 @@
         </dependency>
 
         <!-- Modified Direct projects -->
-        <dependency>
-            <groupId>org.nhind</groupId>
-            <artifactId>config-ui</artifactId>
-            <version>1.4-CONNECT-SNAPSHOT</version>
-            <type>war</type>
-            <optional>false</optional>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.nhind</groupId>
-                    <artifactId>config-service-client</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.nhind</groupId>
-                    <artifactId>config-service-jar</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.nhind</groupId>
-                    <artifactId>config-store</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>cglib</groupId>
-                    <artifactId>cglib</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>cglib</groupId>
-                    <artifactId>cglib-nodep</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>commons-fileupload</groupId>
-                    <artifactId>commons-fileupload</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>javax.xml.bind</groupId>
-                    <artifactId>jaxb-api</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>com.sun.xml.bind</groupId>
-                    <artifactId>jaxb-impl</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.slf4j</groupId>
-                    <artifactId>slf4j-api</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.springframework.security</groupId>
-                    <artifactId>spring-security-core</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.aspectj</groupId>
-                    <artifactId>aspectjrt</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.aspectj</groupId>
-                    <artifactId>aspectjweaver</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.hibernate</groupId>
-                    <artifactId>hibernate</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <dependency>
+        <!--dependency>
             <groupId>org.nhind</groupId>
             <artifactId>config-service</artifactId>
             <version>1.6-CONNECT-SNAPSHOT</version>
@@ -166,7 +105,7 @@
             <artifactId>config-service-jar</artifactId>
             <version>1.6-CONNECT-SNAPSHOT</version>
             <optional>false</optional>
-        </dependency>
+        </dependency-->
 
         <!-- Unmodified Direct projects -->
         <dependency>
