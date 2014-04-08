@@ -202,7 +202,6 @@
         <jvm-options>-Dlog4j.configuration=file:${com.sun.aas.instanceRoot}/config/log4j.properties</jvm-options>
         <jvm-options>-Dwsdl.path=file:${com.sun.aas.instanceRoot}/config/nhin/wsdl/</jvm-options>
         <jvm-options>-Dnhinc.properties.dir=${com.sun.aas.instanceRoot}/config/nhin</jvm-options>
-	<jvm-options>-Dorg.connectopensource.enablejmx=true</jvm-options>
         <jvm-options>-Dorg.connectopensource.suppressmdnedgenotification=true</jvm-options>
       </java-config>
       <thread-pools>
