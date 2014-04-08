@@ -28,82 +28,16 @@
 
         <!-- Modified Direct projects -->
         <!--dependency>
-            <groupId>org.nhind</groupId>
-            <artifactId>config-service</artifactId>
-            <version>1.6-CONNECT-SNAPSHOT</version>
+            <groupId>org.connectopensource</groupId>
+            <artifactId>DirectConfigService</artifactId>
+            <version>4.4.0-SNAPSHOT</version>
             <type>war</type>
             <optional>false</optional>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.nhind</groupId>
-                    <artifactId>agent</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.nhind</groupId>
-                    <artifactId>config-service-jar</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.nhind</groupId>
-                    <artifactId>config-store</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>cglib</groupId>
-                    <artifactId>cglib</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>cglib</groupId>
-                    <artifactId>cglib-nodep</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>log4j</groupId>
-                    <artifactId>log4j</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>mysql</groupId>
-                    <artifactId>mysql-connector-java</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.hibernate</groupId>
-                    <artifactId>hibernate</artifactId>
-                </exclusion>
-            </exclusions>
         </dependency>
         <dependency>
-            <groupId>org.nhind</groupId>
-            <artifactId>config-store</artifactId>
-            <version>1.5-CONNECT-SNAPSHOT</version>
-            <optional>false</optional>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.nhind</groupId>
-                    <artifactId>direct-policy</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>javax.transaction</groupId>
-                    <artifactId>jta</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>commons-io</groupId>
-                    <artifactId>commons-io</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>javax.xml.bind</groupId>
-                    <artifactId>jaxb-api</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.hibernate</groupId>
-                    <artifactId>hibernate</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.hibernate</groupId>
-                    <artifactId>hibernate-entitymanager</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <dependency>
-            <groupId>org.nhind</groupId>
-            <artifactId>config-service-jar</artifactId>
-            <version>1.6-CONNECT-SNAPSHOT</version>
+            <groupId>org.connectopensource</groupId>
+            <artifactId>DirectConfigStoreEJB</artifactId>
+            <version>4.4.0-SNAPSHOT</version>
             <optional>false</optional>
         </dependency-->
 
@@ -133,18 +67,6 @@
                 <exclusion>
                     <groupId>bouncycastle</groupId>
                     <artifactId>bcprov-jdk15</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
-        <dependency>
-            <groupId>org.nhind</groupId>
-            <artifactId>config-service-client</artifactId>
-            <version>1.4</version>
-            <optional>false</optional>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.nhind</groupId>
-                    <artifactId>config-store</artifactId>
                 </exclusion>
             </exclusions>
         </dependency>

@@ -305,9 +305,9 @@
                         <configuration>
                             <modules combine.children="append">
                                 <!--webModule>
-                                    <groupId>org.nhind</groupId>
-                                    <artifactId>config-service</artifactId>
-                                    <contextRoot>/config-service</contextRoot>
+                                    <groupId>org.connectopensource</groupId>
+                                    <artifactId>DirectConfigService</artifactId>
+                                    <contextRoot>/DirectConfigService</contextRoot>
                                     <excluded>${direct.excluded}</excluded>
                                 </webModule-->
                                 <webModule>
