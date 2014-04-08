@@ -304,18 +304,12 @@
                         <artifactId>maven-ear-plugin</artifactId>
                         <configuration>
                             <modules combine.children="append">
-                                <webModule>
-                                    <groupId>org.nhind</groupId>
-                                    <artifactId>config-service</artifactId>
-                                    <contextRoot>/config-service</contextRoot>
+                                <!--webModule>
+                                    <groupId>org.connectopensource</groupId>
+                                    <artifactId>DirectConfigService</artifactId>
+                                    <contextRoot>/DirectConfigService</contextRoot>
                                     <excluded>${direct.excluded}</excluded>
-                                </webModule>
-                                <webModule>
-                                    <groupId>org.nhind</groupId>
-                                    <artifactId>config-ui</artifactId>
-                                    <contextRoot>/config-ui</contextRoot>
-                                    <excluded>${direct.excluded}</excluded>
-                                </webModule>
+                                </webModule-->
                                 <webModule>
                                     <groupId>org.connectopensource</groupId>
                                     <artifactId>Direct</artifactId>
