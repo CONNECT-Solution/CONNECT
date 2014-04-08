@@ -209,6 +209,23 @@
     </jdbc-connection-pool>
     <jdbc-resource pool-name="eventdb_pool" jndi-name="jdbc/eventdb_datasource" enabled="true" object-type="user"/>
 
+    <jdbc-connection-pool connection-validation-method="auto-commit"
+           datasource-classname="com.mysql.jdbc.jdbc2.optional.MysqlDataSource"
+           res-type="javax.sql.DataSource"
+           wrap-jdbc-objects="false"
+           name="configdb_pool"
+           min-pool-size="1"
+           max-pool-size="10">
+      <property name="URL" value="jdbc:mysql://localhost/configdb" />
+      <property name="driverClass" value="com.mysql.jdbc.Driver" />
+      <property name="portNumber" value="3306" />
+      <property name="databaseName" value="configdb" />
+      <property name="User" value="nhincuser" />
+      <property name="Password" value="nhincpass" />
+      <property name="serverName" value="localhost" />
+    </jdbc-connection-pool>
+    <jdbc-resource pool-name="configdb_pool" jndi-name="jdbc/configdb_datasource" enabled="true" object-type="user"/>
+
   </resources>
   <configs>
     <config name="server-config">
@@ -561,6 +578,7 @@
       <resource-ref ref="jdbc/perfrepo_datasource"/>
       <resource-ref ref="jdbc/transrepo_datasource"/>
       <resource-ref ref="jdbc/eventdb_datasource"/>
+      <resource-ref ref="jdbc/configdb_datasource"/>
     </server>
   </servers>
   <property name="administrative.domain.name" value="domain1"/>
