@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2014, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -26,6 +26,7 @@
  */
 package gov.hhs.fha.nhinc.patientdiscovery.inbound.deferred.response;
 
+import gov.hhs.fha.nhinc.aspect.InboundProcessingEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.generic.GenericFactory;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
@@ -36,6 +37,8 @@ import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryAuditLogger;
 import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryAuditor;
 import gov.hhs.fha.nhinc.patientdiscovery.PolicyChecker;
 import gov.hhs.fha.nhinc.patientdiscovery.adapter.deferred.response.proxy.AdapterPatientDiscoveryDeferredRespProxy;
+import gov.hhs.fha.nhinc.patientdiscovery.aspect.MCCIIN000002UV01EventDescriptionBuilder;
+import gov.hhs.fha.nhinc.patientdiscovery.aspect.PRPAIN201306UV02EventDescriptionBuilder;
 import gov.hhs.fha.nhinc.patientdiscovery.response.ResponseFactory;
 import gov.hhs.fha.nhinc.patientdiscovery.response.ResponseFactory.ResponseModeType;
 import gov.hhs.fha.nhinc.patientdiscovery.response.ResponseMode;
@@ -82,14 +85,13 @@ public class StandardInboundPatientDiscoveryDeferredResponse extends AbstractInb
             PolicyChecker<RespondingGatewayPRPAIN201306UV02RequestType, PRPAIN201306UV02> policyChecker,
             ResponseFactory responseFactory, PatientDiscovery201306Processor msgProcessor,
             GenericFactory<AdapterPatientDiscoveryDeferredRespProxy> proxyFactory,
-            PDDeferredCorrelationDao pdCorrelationDao,
-            PatientDiscoveryAuditor auditLogger) {
+            PDDeferredCorrelationDao pdCorrelationDao, PatientDiscoveryAuditor auditLogger) {
         super(proxyFactory);
         this.policyChecker = policyChecker;
         this.responseFactory = responseFactory;
         this.msgProcessor = msgProcessor;
         this.pdCorrelationDao = pdCorrelationDao;
-        this.auditLogger = auditLogger;    
+        this.auditLogger = auditLogger;
     }
 
     /*
@@ -100,10 +102,11 @@ public class StandardInboundPatientDiscoveryDeferredResponse extends AbstractInb
      * process(org.hl7.v3.PRPAIN201306UV02, gov.hhs.fha.nhinc.common.nhinccommon.AssertionType)
      */
     @Override
+    @InboundProcessingEvent(beforeBuilder = PRPAIN201306UV02EventDescriptionBuilder.class, afterReturningBuilder = MCCIIN000002UV01EventDescriptionBuilder.class, serviceType = "Patient Discovery Deferred Response", version = "1.0")
     MCCIIN000002UV01 process(PRPAIN201306UV02 request, AssertionType assertion) {
         MCCIIN000002UV01 response = new MCCIIN000002UV01();
         String ackMsg = "";
-        
+
         auditRequestToAdapter(request, assertion);
 
         if (isPolicyValid(request, assertion)) {
@@ -121,7 +124,7 @@ public class StandardInboundPatientDiscoveryDeferredResponse extends AbstractInb
             LOG.warn(ackMsg);
             response = HL7AckTransforms.createAckErrorFrom201306(request, ackMsg);
         }
-        
+
         auditResponseFromAdapter(response, assertion);
 
         return response;
@@ -143,7 +146,7 @@ public class StandardInboundPatientDiscoveryDeferredResponse extends AbstractInb
         RespondingGatewayPRPAIN201306UV02RequestType gatewayRequest = new RespondingGatewayPRPAIN201306UV02RequestType();
         gatewayRequest.setPRPAIN201306UV02(request);
         gatewayRequest.setAssertion(assertion);
-        
+
         return policyChecker.checkOutgoingPolicy(gatewayRequest);
     }
 
@@ -172,7 +175,7 @@ public class StandardInboundPatientDiscoveryDeferredResponse extends AbstractInb
             respProcessor.processResponse(request, assertion, patientId);
         }
     }
-    
+
     protected void auditRequestToAdapter(PRPAIN201306UV02 request, AssertionType assertion) {
         getAuditLogger().auditAdapterDeferred201306(request, assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION);
     }

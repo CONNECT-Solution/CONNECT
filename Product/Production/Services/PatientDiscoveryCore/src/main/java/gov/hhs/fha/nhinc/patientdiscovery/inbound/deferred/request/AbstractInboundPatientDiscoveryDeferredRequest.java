@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2014, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -26,14 +26,11 @@
  */
 package gov.hhs.fha.nhinc.patientdiscovery.inbound.deferred.request;
 
-import gov.hhs.fha.nhinc.aspect.InboundProcessingEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryAuditor;
 import gov.hhs.fha.nhinc.patientdiscovery.adapter.deferred.request.proxy.AdapterPatientDiscoveryDeferredReqProxy;
 import gov.hhs.fha.nhinc.patientdiscovery.adapter.deferred.request.proxy.AdapterPatientDiscoveryDeferredReqProxyObjectFactory;
-import gov.hhs.fha.nhinc.patientdiscovery.aspect.MCCIIN000002UV01EventDescriptionBuilder;
-import gov.hhs.fha.nhinc.patientdiscovery.aspect.PRPAIN201305UV02EventDescriptionBuilder;
 
 import org.hl7.v3.MCCIIN000002UV01;
 import org.hl7.v3.PRPAIN201305UV02;
@@ -41,26 +38,22 @@ import org.hl7.v3.PRPAIN201305UV02;
 public abstract class AbstractInboundPatientDiscoveryDeferredRequest implements InboundPatientDiscoveryDeferredRequest {
 
     private final AdapterPatientDiscoveryDeferredReqProxyObjectFactory adapterFactory;
-    
+
     public AbstractInboundPatientDiscoveryDeferredRequest(AdapterPatientDiscoveryDeferredReqProxyObjectFactory factory) {
         adapterFactory = factory;
     }
-    
+
     abstract MCCIIN000002UV01 process(PRPAIN201305UV02 request, AssertionType assertion);
-    
+
     abstract PatientDiscoveryAuditor getAuditLogger();
 
     /**
-     * Processes the PD Deferred request message.  This call will audit the message and send it to the Nhin.
+     * Processes the PD Deferred request message. This call will audit the message and send it to the Nhin.
      * 
      * @param request
      * @param assertion
      * @return MCCIIN000002UV01
      */
-    @InboundProcessingEvent(beforeBuilder = PRPAIN201305UV02EventDescriptionBuilder.class,
-            afterReturningBuilder = MCCIIN000002UV01EventDescriptionBuilder.class, 
-            serviceType = "Patient Discovery Deferred Request",
-            version = "1.0")
     public MCCIIN000002UV01 respondingGatewayPRPAIN201305UV02(PRPAIN201305UV02 request, AssertionType assertion) {
         auditRequestFromNhin(request, assertion);
 
@@ -70,7 +63,7 @@ public abstract class AbstractInboundPatientDiscoveryDeferredRequest implements 
 
         return response;
     }
-    
+
     protected MCCIIN000002UV01 sendToAdapter(PRPAIN201305UV02 request, AssertionType assertion) {
         AdapterPatientDiscoveryDeferredReqProxy proxy = adapterFactory.getAdapterPatientDiscoveryDeferredReqProxy();
         return proxy.processPatientDiscoveryAsyncReq(request, assertion);

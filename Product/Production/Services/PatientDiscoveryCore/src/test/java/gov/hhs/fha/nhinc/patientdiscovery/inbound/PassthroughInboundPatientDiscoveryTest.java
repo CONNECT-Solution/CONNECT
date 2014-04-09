@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2014, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -26,27 +26,20 @@
  */
 package gov.hhs.fha.nhinc.patientdiscovery.inbound;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertSame;
-import static org.mockito.Matchers.eq;
 import static org.mockito.Matchers.any;
+import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.inOrder;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import gov.hhs.fha.nhinc.aspect.InboundProcessingEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryAuditLogger;
 import gov.hhs.fha.nhinc.patientdiscovery.PatientDiscoveryException;
 import gov.hhs.fha.nhinc.patientdiscovery.adapter.proxy.AdapterPatientDiscoveryProxy;
 import gov.hhs.fha.nhinc.patientdiscovery.adapter.proxy.AdapterPatientDiscoveryProxyObjectFactory;
-import gov.hhs.fha.nhinc.patientdiscovery.aspect.PRPAIN201305UV02EventDescriptionBuilder;
-import gov.hhs.fha.nhinc.patientdiscovery.aspect.PRPAIN201306UV02EventDescriptionBuilder;
-
-import java.lang.reflect.Method;
 
 import org.hl7.v3.PRPAIN201305UV02;
 import org.hl7.v3.PRPAIN201306UV02;
@@ -59,18 +52,15 @@ import org.mockito.InOrder;
  */
 public class PassthroughInboundPatientDiscoveryTest {
 
-    /*@Test
-    public void hasInboundProcessingEvent() throws Exception {
-        Class<PassthroughInboundPatientDiscovery> clazz = PassthroughInboundPatientDiscovery.class;
-        Method method = clazz.getMethod("respondingGatewayPRPAIN201305UV02", PRPAIN201305UV02.class,
-                AssertionType.class);
-        InboundProcessingEvent annotation = method.getAnnotation(InboundProcessingEvent.class);
-        assertNotNull(annotation);
-        assertEquals(PRPAIN201305UV02EventDescriptionBuilder.class, annotation.beforeBuilder());
-        assertEquals(PRPAIN201306UV02EventDescriptionBuilder.class, annotation.afterReturningBuilder());
-        assertEquals("Patient Discovery", annotation.serviceType());
-        assertEquals("1.0", annotation.version());
-    }*/
+    /*
+     * @Test public void hasInboundProcessingEvent() throws Exception { Class<PassthroughInboundPatientDiscovery> clazz
+     * = PassthroughInboundPatientDiscovery.class; Method method = clazz.getMethod("respondingGatewayPRPAIN201305UV02",
+     * PRPAIN201305UV02.class, AssertionType.class); InboundProcessingEvent annotation =
+     * method.getAnnotation(InboundProcessingEvent.class); assertNotNull(annotation);
+     * assertEquals(PRPAIN201305UV02EventDescriptionBuilder.class, annotation.beforeBuilder());
+     * assertEquals(PRPAIN201306UV02EventDescriptionBuilder.class, annotation.afterReturningBuilder());
+     * assertEquals("Patient Discovery", annotation.serviceType()); assertEquals("1.0", annotation.version()); }
+     */
 
     @Test
     public void passthroughInboundPatientDiscovery() throws PatientDiscoveryException {

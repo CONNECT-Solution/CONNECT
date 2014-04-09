@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2014, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -55,19 +55,6 @@ import org.junit.Test;
  * 
  */
 public class PassthroughInboundPatientDiscoveryDeferredRequestTest {
-
-    @Test
-    public void hasInboundProcessingEvent() throws Exception {
-        Class<PassthroughInboundPatientDiscoveryDeferredRequest> clazz = PassthroughInboundPatientDiscoveryDeferredRequest.class;
-        Method method = clazz.getMethod("respondingGatewayPRPAIN201305UV02", PRPAIN201305UV02.class,
-                AssertionType.class);
-        InboundProcessingEvent annotation = method.getAnnotation(InboundProcessingEvent.class);
-        assertNotNull(annotation);
-        assertEquals(PRPAIN201305UV02EventDescriptionBuilder.class, annotation.beforeBuilder());
-        assertEquals(MCCIIN000002UV01EventDescriptionBuilder.class, annotation.afterReturningBuilder());
-        assertEquals("Patient Discovery Deferred Request", annotation.serviceType());
-        assertEquals("1.0", annotation.version());
-    }
 
     @Test
     public void passthroughInboundPatientDiscoveryRequest() {

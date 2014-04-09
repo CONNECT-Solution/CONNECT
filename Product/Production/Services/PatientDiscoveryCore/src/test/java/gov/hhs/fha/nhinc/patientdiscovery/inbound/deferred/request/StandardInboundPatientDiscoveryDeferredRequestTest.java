@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2012, United States Government, as represented by the Secretary of Health and Human Services.
+ * Copyright (c) 2009-2014, United States Government, as represented by the Secretary of Health and Human Services.
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -62,7 +62,7 @@ public class StandardInboundPatientDiscoveryDeferredRequestTest {
     @Test
     public void hasInboundProcessingEvent() throws Exception {
         Class<StandardInboundPatientDiscoveryDeferredRequest> clazz = StandardInboundPatientDiscoveryDeferredRequest.class;
-        Method method = clazz.getMethod("respondingGatewayPRPAIN201305UV02", PRPAIN201305UV02.class,
+        Method method = clazz.getDeclaredMethod("process", PRPAIN201305UV02.class,
                 AssertionType.class);
         InboundProcessingEvent annotation = method.getAnnotation(InboundProcessingEvent.class);
         assertNotNull(annotation);
