@@ -4,7 +4,7 @@ CREATE USER nhincuser IDENTIFIED BY 'nhincpass';
 -- begin assigning authority
 CREATE DATABASE assigningauthoritydb;
 
-CREATE TABLE assigningauthoritydb.aa_to_home_community_mapping (
+CREATE TABLE IF NOT EXISTS assigningauthoritydb.aa_to_home_community_mapping (
   id int(10) unsigned NOT NULL auto_increment,
   assigningauthorityid varchar(64) NOT NULL,
   homecommunityid varchar(64) NOT NULL,
@@ -17,7 +17,7 @@ GRANT SELECT,INSERT,UPDATE,DELETE ON assigningauthoritydb.* to nhincuser;
 -- begin auditrepo
 CREATE DATABASE auditrepo;
 
-CREATE TABLE auditrepo.auditrepository
+CREATE TABLE IF NOT EXISTS auditrepo.auditrepository
 (
     id BIGINT NOT NULL AUTO_INCREMENT,
     audit_timestamp DATETIME,
@@ -45,7 +45,7 @@ CREATE DATABASE configdb;
 -- Table `configdb`.`domain`
 -- -----------------------------------------------------
 
-CREATE TABLE configdb.domain (
+CREATE TABLE IF NOT EXISTS configdb.domain (
     id SERIAL PRIMARY KEY,
     domainName VARCHAR(255),
     createTime DATETIME,
@@ -58,7 +58,7 @@ CREATE TABLE configdb.domain (
 -- Table `configdb`.`address`
 -- -----------------------------------------------------
 
-CREATE TABLE configdb.address (
+CREATE TABLE IF NOT EXISTS configdb.address (
     id SERIAL PRIMARY KEY,
     displayName VARCHAR(100),
     eMailAddress VARCHAR(255),
@@ -74,7 +74,7 @@ CREATE TABLE configdb.address (
 -- Table `configdb`.`anchor`
 -- -----------------------------------------------------
 
-CREATE TABLE configdb.anchor (
+CREATE TABLE IF NOT EXISTS configdb.anchor (
     id SERIAL PRIMARY KEY,
     owner VARCHAR(255),
     thumbprint VARCHAR(64),
@@ -92,7 +92,7 @@ CREATE TABLE configdb.anchor (
 -- Table `configdb`.`certificate`
 -- -----------------------------------------------------
 
-CREATE TABLE configdb.certificate (
+CREATE TABLE IF NOT EXISTS configdb.certificate (
     id SERIAL PRIMARY KEY,
     owner VARCHAR(255),
     thumbprint VARCHAR(64),
@@ -108,7 +108,7 @@ CREATE TABLE configdb.certificate (
 -- Table `configdb`.`certpolicy`
 -- -----------------------------------------------------
 
-CREATE TABLE configdb.certpolicy (
+CREATE TABLE IF NOT EXISTS configdb.certpolicy (
     id SERIAL PRIMARY KEY,
     createTime DATETIME NOT NULL,
     lexicon INTEGER NOT NULL,
@@ -120,7 +120,7 @@ CREATE TABLE configdb.certpolicy (
 -- Table `configdb`.`certpolicygroup`
 -- -----------------------------------------------------
 
-CREATE TABLE configdb.certpolicygroup (
+CREATE TABLE IF NOT EXISTS configdb.certpolicygroup (
     id SERIAL PRIMARY KEY,
     createTime DATETIME NOT NULL,
     policyGroupName VARCHAR(255)
@@ -130,7 +130,7 @@ CREATE TABLE configdb.certpolicygroup (
 -- Table `configdb`.`certpolicygroupdomainreltn`
 -- -----------------------------------------------------
 
-CREATE TABLE configdb.certpolicygroupdomainreltn (
+CREATE TABLE IF NOT EXISTS configdb.certpolicygroupdomainreltn (
     id SERIAL PRIMARY KEY,
     policy_group_id BIGINT NOT NULL REFERENCES configdb.domain(id),
     domain_id BIGINT NOT NULL REFERENCES configdb.certpolicygroup(id)
@@ -140,7 +140,7 @@ CREATE TABLE configdb.certpolicygroupdomainreltn (
 -- Table `configdb`.`certpolicygroupreltn`
 -- -----------------------------------------------------
 
-CREATE TABLE configdb.certpolicygroupreltn (
+CREATE TABLE IF NOT EXISTS configdb.certpolicygroupreltn (
     id SERIAL PRIMARY KEY,
     incoming SMALLINT,
     outgoing SMALLINT,
@@ -153,7 +153,7 @@ CREATE TABLE configdb.certpolicygroupreltn (
 -- Table `configdb`.`dnsrecord`
 -- -----------------------------------------------------
 
-CREATE TABLE configdb.dnsrecord (
+CREATE TABLE IF NOT EXISTS configdb.dnsrecord (
     id SERIAL PRIMARY KEY,
     createTime DATETIME,
     data BLOB(8192),
@@ -167,7 +167,7 @@ CREATE TABLE configdb.dnsrecord (
 -- Table `configdb`.`setting`
 -- -----------------------------------------------------
 
-CREATE TABLE configdb.setting (
+CREATE TABLE IF NOT EXISTS configdb.setting (
     id SERIAL PRIMARY KEY,
     name VARCHAR(255),
     status INTEGER,
@@ -180,7 +180,7 @@ CREATE TABLE configdb.setting (
 -- Table `configdb`.`trustbundle`
 -- -----------------------------------------------------
 
-CREATE TABLE configdb.trustbundle (
+CREATE TABLE IF NOT EXISTS configdb.trustbundle (
     id SERIAL PRIMARY KEY,
     bundleName VARCHAR(255) NOT NULL,
     bundleURL VARCHAR(255) NOT NULL,
@@ -197,7 +197,7 @@ CREATE TABLE configdb.trustbundle (
 -- Table `configdb`.`trustbundleanchor`
 -- -----------------------------------------------------
 
-CREATE TABLE configdb.trustbundleanchor (
+CREATE TABLE IF NOT EXISTS configdb.trustbundleanchor (
     id SERIAL PRIMARY KEY,
     anchorData BLOB(4096) NOT NULL,
     thumbprint VARCHAR(255) NOT NULL,
@@ -210,7 +210,7 @@ CREATE TABLE configdb.trustbundleanchor (
 -- Table `configdb`.`trustbundledomainreltn`
 -- -----------------------------------------------------
 
-CREATE TABLE configdb.trustbundledomainreltn (
+CREATE TABLE IF NOT EXISTS configdb.trustbundledomainreltn (
     id SERIAL PRIMARY KEY,
     forIncoming SMALLINT,
     forOutgoing SMALLINT,
@@ -224,7 +224,7 @@ GRANT SELECT,INSERT,UPDATE,DELETE ON configdb.* to nhincuser;
 -- begin docrepository
 CREATE DATABASE docrepository;
 
-CREATE TABLE docrepository.document (
+CREATE TABLE IF NOT EXISTS docrepository.document (
   documentid int(11) NOT NULL,
   DocumentUniqueId varchar(64) NOT NULL,
   DocumentTitle varchar(128) default NULL,
@@ -281,7 +281,7 @@ CREATE TABLE docrepository.document (
   PRIMARY KEY  (documentid)
 );
 
-CREATE TABLE docrepository.eventcode (
+CREATE TABLE IF NOT EXISTS docrepository.eventcode (
   eventcodeid int(11) NOT NULL,
   documentid int(11) NOT NULL COMMENT 'Foreign key to document table',
   EventCode varchar(64) default NULL,
@@ -296,7 +296,7 @@ GRANT SELECT,INSERT,UPDATE,DELETE ON docrepository.* to nhincuser;
 -- begin patientcorrelationdb
 CREATE DATABASE patientcorrelationdb;
 
-CREATE TABLE patientcorrelationdb.correlatedidentifiers (
+CREATE TABLE IF NOT EXISTS patientcorrelationdb.correlatedidentifiers (
   correlationId int(10) unsigned NOT NULL auto_increment,
   PatientAssigningAuthorityId varchar(64) NOT NULL,
   PatientId varchar(128) NOT NULL,
@@ -306,7 +306,7 @@ CREATE TABLE patientcorrelationdb.correlatedidentifiers (
   PRIMARY KEY  (correlationId)
 );
 
-CREATE TABLE patientcorrelationdb.pddeferredcorrelation (
+CREATE TABLE IF NOT EXISTS patientcorrelationdb.pddeferredcorrelation (
   Id INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
   MessageId VARCHAR(100) NOT NULL,
   AssigningAuthorityId varchar(64) NOT NULL,
@@ -345,7 +345,7 @@ GRANT SELECT,INSERT,UPDATE,DELETE ON asyncmsgs.* to nhincuser;
 -- begin logging
 CREATE DATABASE logging;
 
-CREATE TABLE logging.log (
+CREATE TABLE IF NOT EXISTS logging.log (
     dt timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     context varchar(100) DEFAULT NULL,
     logLevel varchar(10) DEFAULT NULL,
@@ -359,7 +359,7 @@ GRANT SELECT,INSERT,UPDATE,DELETE ON logging.* to nhincuser;
 -- begin patientdb
 CREATE DATABASE patientdb;
 
-CREATE TABLE patientdb.patient (
+CREATE TABLE IF NOT EXISTS patientdb.patient (
   patientId BIGINT NOT NULL AUTO_INCREMENT,
   dateOfBirth DATE NULL,
   gender CHAR(2) NULL,
@@ -368,7 +368,7 @@ CREATE TABLE patientdb.patient (
   UNIQUE INDEX patientId_UNIQUE (patientId ASC) )
 COMMENT = 'Patient Repository';
 
-CREATE TABLE patientdb.identifier (
+CREATE TABLE IF NOT EXISTS patientdb.identifier (
   identifierId BIGINT NOT NULL AUTO_INCREMENT,
   patientId BIGINT NOT NULL,
   id VARCHAR(64) NULL,
@@ -383,7 +383,7 @@ CREATE TABLE patientdb.identifier (
     ON UPDATE NO ACTION)
 COMMENT = 'Identifier definitions';
 
-CREATE TABLE patientdb.personname (
+CREATE TABLE IF NOT EXISTS patientdb.personname (
   personnameId BIGINT NOT NULL AUTO_INCREMENT,
   patientId BIGINT NOT NULL,
   prefix VARCHAR(64) NULL,
@@ -401,7 +401,7 @@ CREATE TABLE patientdb.personname (
     ON UPDATE NO ACTION)
 COMMENT = 'Person Names';
 
-CREATE TABLE patientdb.address (
+CREATE TABLE IF NOT EXISTS patientdb.address (
   addressId BIGINT NOT NULL AUTO_INCREMENT,
   patientId BIGINT NOT NULL,
   street1 VARCHAR(128) NULL,
@@ -419,7 +419,7 @@ CREATE TABLE patientdb.address (
     ON UPDATE NO ACTION)
 COMMENT = 'Addresses';
 
-CREATE TABLE patientdb.phonenumber (
+CREATE TABLE IF NOT EXISTS patientdb.phonenumber (
   phonenumberId BIGINT NOT NULL AUTO_INCREMENT,
   patientId BIGINT NOT NULL,
   value VARCHAR(64) NULL,
@@ -440,7 +440,7 @@ GRANT SELECT,INSERT,UPDATE,DELETE ON patientdb.* to nhincuser;
 
 CREATE DATABASE transrepo;
 
-CREATE TABLE transrepo.transactionrepository (
+CREATE TABLE IF NOT EXISTS transrepo.transactionrepository (
     id BIGINT NOT NULL AUTO_INCREMENT,
     transactionId VARCHAR(100) NOT NULL,
     messageId VARCHAR(100) NOT NULL,
@@ -457,7 +457,7 @@ GRANT SELECT,INSERT,UPDATE,DELETE ON transrepo.* to nhincuser;
 
 CREATE DATABASE eventdb;
 
-CREATE TABLE eventdb.event (
+CREATE TABLE IF NOT EXISTS eventdb.event (
   id BIGINT NOT NULL AUTO_INCREMENT,
   name VARCHAR(100) NOT NULL,
   description longtext,

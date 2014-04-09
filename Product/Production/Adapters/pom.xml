@@ -48,15 +48,15 @@
             <artifactId>slf4j-api</artifactId>
         </dependency>
     </dependencies>
-    <profiles>
+    <!--profiles>
         <profile>
             <id>Direct</id>
             <activation>
                 <activeByDefault>false</activeByDefault>
             </activation>
             <modules>
-                <!--module>Direct</module-->
+                <module>Direct</module>
             </modules>
         </profile>
-    </profiles>
+    </profiles-->
 </project>
