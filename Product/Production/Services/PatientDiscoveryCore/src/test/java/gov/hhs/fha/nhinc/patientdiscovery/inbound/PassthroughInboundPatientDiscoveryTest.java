@@ -59,7 +59,7 @@ import org.mockito.InOrder;
  */
 public class PassthroughInboundPatientDiscoveryTest {
 
-    @Test
+    /*@Test
     public void hasInboundProcessingEvent() throws Exception {
         Class<PassthroughInboundPatientDiscovery> clazz = PassthroughInboundPatientDiscovery.class;
         Method method = clazz.getMethod("respondingGatewayPRPAIN201305UV02", PRPAIN201305UV02.class,
@@ -70,7 +70,7 @@ public class PassthroughInboundPatientDiscoveryTest {
         assertEquals(PRPAIN201306UV02EventDescriptionBuilder.class, annotation.afterReturningBuilder());
         assertEquals("Patient Discovery", annotation.serviceType());
         assertEquals("1.0", annotation.version());
-    }
+    }*/
 
     @Test
     public void passthroughInboundPatientDiscovery() throws PatientDiscoveryException {
