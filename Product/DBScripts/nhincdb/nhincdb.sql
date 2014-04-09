@@ -468,6 +468,7 @@ CREATE TABLE eventdb.event (
 COMMENT = 'Event Logging';
 
 GRANT SELECT,INSERT,UPDATE,DELETE ON eventdb.* to nhincuser;
+
 GRANT SELECT,INSERT,UPDATE,DELETE ON *.* TO 'nhincuser'@'localhost' IDENTIFIED BY 'nhincpass' WITH GRANT OPTION;
 GRANT SELECT,INSERT,UPDATE,DELETE ON *.* TO 'nhincuser'@'127.0.0.1' IDENTIFIED BY 'nhincpass' WITH GRANT OPTION;
 -- end eventdb
