@@ -5,6 +5,14 @@
     <context-param>
         <param-name>configService</param-name>
         <param-value>http://localhost:8080/config-service/ConfigurationService</param-value>
+		<param-name>contextConfigLocation</param-name>
+        <param-value>
+      classpath:CONNECT-interceptor-beans.xml 
+      classpath:CONNECT-context.xml
+      classpath:eventlogging.xml
+      classpath:/direct/_10/applicationContext.xml
+      classpath:/direct/_10/webservices.xml
+      </param-value>
     </context-param>
 
     <!-- Uncomment if using 'syslog' audit method -->
