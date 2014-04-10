@@ -15,6 +15,7 @@
         <module>DocumentRetrieve_a0</module>
         <module>DocumentSubmission_a0</module>
         <module>PatientDiscovery_a0</module>
+        <!--module>Direct</module-->
     </modules>
     <properties>
         <skip.unpack>false</skip.unpack>
