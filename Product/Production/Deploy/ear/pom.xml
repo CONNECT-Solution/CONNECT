@@ -28,13 +28,6 @@
             <version>${project.parent.version}</version>
             <type>pom</type>
         </dependency>
-        <!-- direct -->
-        <dependency>
-            <groupId>org.connectopensource</groupId>
-            <artifactId>direct-dependencies</artifactId>
-            <version>${project.parent.version}</version>
-            <type>pom</type>
-        </dependency>
         <!-- PD -->
         <dependency>
             <groupId>org.connectopensource</groupId>
