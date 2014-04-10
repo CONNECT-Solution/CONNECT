@@ -93,6 +93,19 @@ public class StandardInboundPatientDiscoveryDeferredResponse extends AbstractInb
         this.pdCorrelationDao = pdCorrelationDao;
         this.auditLogger = auditLogger;
     }
+    
+    @Override
+    @InboundProcessingEvent(beforeBuilder = PRPAIN201306UV02EventDescriptionBuilder.class, afterReturningBuilder = MCCIIN000002UV01EventDescriptionBuilder.class, serviceType = "Patient Discovery Deferred Response", version = "1.0")
+    public MCCIIN000002UV01 respondingGatewayDeferredPRPAIN201306UV02(PRPAIN201306UV02 request, AssertionType assertion) {
+        auditRequestFromNhin(request, assertion);
+
+        MCCIIN000002UV01 response = process(request, assertion);
+
+        auditResponseToNhin(response, assertion);
+
+        return response;
+    }
+
 
     /*
      * (non-Javadoc)
@@ -102,7 +115,6 @@ public class StandardInboundPatientDiscoveryDeferredResponse extends AbstractInb
      * process(org.hl7.v3.PRPAIN201306UV02, gov.hhs.fha.nhinc.common.nhinccommon.AssertionType)
      */
     @Override
-    @InboundProcessingEvent(beforeBuilder = PRPAIN201306UV02EventDescriptionBuilder.class, afterReturningBuilder = MCCIIN000002UV01EventDescriptionBuilder.class, serviceType = "Patient Discovery Deferred Response", version = "1.0")
     MCCIIN000002UV01 process(PRPAIN201306UV02 request, AssertionType assertion) {
         MCCIIN000002UV01 response = new MCCIIN000002UV01();
         String ackMsg = "";

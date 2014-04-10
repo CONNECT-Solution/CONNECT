@@ -50,13 +50,13 @@ public abstract class AbstractInboundPatientDiscovery implements InboundPatientD
     @Override
     public PRPAIN201306UV02 respondingGatewayPRPAIN201305UV02(PRPAIN201305UV02 body, AssertionType assertion)
             throws PatientDiscoveryException {
-        auditRequestFromNhin(body, assertion);
+          auditRequestFromNhin(body, assertion);
 
-        PRPAIN201306UV02 response = process(body, assertion);
+          PRPAIN201306UV02 response = process(body, assertion);
 
-        auditResponseToNhin(response, assertion);
+          auditResponseToNhin(response, assertion);
 
-        return response;
+          return response;
     }
 
     protected void auditRequestFromNhin(PRPAIN201305UV02 body, AssertionType assertion) {

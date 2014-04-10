@@ -80,9 +80,20 @@ public class StandardInboundPatientDiscoveryDeferredRequest extends AbstractInbo
         this.proxyErrorFactory = proxyErrorFactory;
         this.auditLogger = auditLogger;
     }
-
+    
     @Override
     @InboundProcessingEvent(beforeBuilder = PRPAIN201305UV02EventDescriptionBuilder.class, afterReturningBuilder = MCCIIN000002UV01EventDescriptionBuilder.class, serviceType = "Patient Discovery Deferred Request", version = "1.0")
+    public MCCIIN000002UV01 respondingGatewayPRPAIN201305UV02(PRPAIN201305UV02 request, AssertionType assertion) {
+        auditRequestFromNhin(request, assertion);
+
+        MCCIIN000002UV01 response = process(request, assertion);
+
+        auditResponseToNhin(response, assertion);
+
+        return response;
+    }
+
+    @Override
     MCCIIN000002UV01 process(PRPAIN201305UV02 request, AssertionType assertion) {
         MCCIIN000002UV01 response = null;
 

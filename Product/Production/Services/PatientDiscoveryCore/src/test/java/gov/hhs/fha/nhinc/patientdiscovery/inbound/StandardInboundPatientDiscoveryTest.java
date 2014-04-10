@@ -57,7 +57,7 @@ public class StandardInboundPatientDiscoveryTest {
     @Test
     public void hasInboundProcessingEvent() throws Exception {
         Class<StandardInboundPatientDiscovery> clazz = StandardInboundPatientDiscovery.class;
-        Method method = clazz.asSubclass(AbstractInboundPatientDiscovery.class).getDeclaredMethod("process",
+        Method method = clazz.getDeclaredMethod("respondingGatewayPRPAIN201305UV02",
                 PRPAIN201305UV02.class, AssertionType.class);
         InboundProcessingEvent annotation = method.getAnnotation(InboundProcessingEvent.class);
         assertNotNull(annotation);

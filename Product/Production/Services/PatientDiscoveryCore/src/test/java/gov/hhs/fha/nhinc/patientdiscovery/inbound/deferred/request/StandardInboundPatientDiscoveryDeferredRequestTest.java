@@ -62,7 +62,7 @@ public class StandardInboundPatientDiscoveryDeferredRequestTest {
     @Test
     public void hasInboundProcessingEvent() throws Exception {
         Class<StandardInboundPatientDiscoveryDeferredRequest> clazz = StandardInboundPatientDiscoveryDeferredRequest.class;
-        Method method = clazz.getDeclaredMethod("process", PRPAIN201305UV02.class,
+        Method method = clazz.getDeclaredMethod("respondingGatewayPRPAIN201305UV02", PRPAIN201305UV02.class,
                 AssertionType.class);
         InboundProcessingEvent annotation = method.getAnnotation(InboundProcessingEvent.class);
         assertNotNull(annotation);

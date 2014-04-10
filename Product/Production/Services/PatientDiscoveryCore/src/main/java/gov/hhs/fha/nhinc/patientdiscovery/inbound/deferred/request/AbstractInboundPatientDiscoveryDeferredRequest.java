@@ -69,11 +69,11 @@ public abstract class AbstractInboundPatientDiscoveryDeferredRequest implements 
         return proxy.processPatientDiscoveryAsyncReq(request, assertion);
     }
 
-    private void auditRequestFromNhin(PRPAIN201305UV02 request, AssertionType assertion) {
+    protected void auditRequestFromNhin(PRPAIN201305UV02 request, AssertionType assertion) {
         getAuditLogger().auditNhinDeferred201305(request, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION);
     }
 
-    private void auditResponseToNhin(MCCIIN000002UV01 response, AssertionType assertion) {
+    protected void auditResponseToNhin(MCCIIN000002UV01 response, AssertionType assertion) {
         getAuditLogger().auditAck(response, assertion, NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION,
                 NhincConstants.AUDIT_LOG_NHIN_INTERFACE);
     }

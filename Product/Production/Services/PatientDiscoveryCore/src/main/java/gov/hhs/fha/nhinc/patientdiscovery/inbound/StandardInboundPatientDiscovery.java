@@ -66,9 +66,22 @@ public class StandardInboundPatientDiscovery extends AbstractInboundPatientDisco
         this.patientDiscoveryProcessor = patientDiscoveryProcessor;
         this.auditLogger = auditLogger;
     }
-
+    
     @Override
     @InboundProcessingEvent(beforeBuilder = PRPAIN201305UV02EventDescriptionBuilder.class, afterReturningBuilder = PRPAIN201306UV02EventDescriptionBuilder.class, serviceType = "Patient Discovery", version = "1.0")
+    public PRPAIN201306UV02 respondingGatewayPRPAIN201305UV02(PRPAIN201305UV02 body, AssertionType assertion)
+            throws PatientDiscoveryException {
+        auditRequestFromNhin(body, assertion);
+
+        PRPAIN201306UV02 response = process(body, assertion);
+
+        auditResponseToNhin(response, assertion);
+
+        return response;
+    }
+
+    @Override
+    //@InboundProcessingEvent(beforeBuilder = PRPAIN201305UV02EventDescriptionBuilder.class, afterReturningBuilder = PRPAIN201306UV02EventDescriptionBuilder.class, serviceType = "Patient Discovery", version = "1.0")
     PRPAIN201306UV02 process(PRPAIN201305UV02 body, AssertionType assertion) throws PatientDiscoveryException {
         auditRequestToAdapter(body, assertion);
 

@@ -52,16 +52,6 @@ import org.mockito.InOrder;
  */
 public class PassthroughInboundPatientDiscoveryTest {
 
-    /*
-     * @Test public void hasInboundProcessingEvent() throws Exception { Class<PassthroughInboundPatientDiscovery> clazz
-     * = PassthroughInboundPatientDiscovery.class; Method method = clazz.getMethod("respondingGatewayPRPAIN201305UV02",
-     * PRPAIN201305UV02.class, AssertionType.class); InboundProcessingEvent annotation =
-     * method.getAnnotation(InboundProcessingEvent.class); assertNotNull(annotation);
-     * assertEquals(PRPAIN201305UV02EventDescriptionBuilder.class, annotation.beforeBuilder());
-     * assertEquals(PRPAIN201306UV02EventDescriptionBuilder.class, annotation.afterReturningBuilder());
-     * assertEquals("Patient Discovery", annotation.serviceType()); assertEquals("1.0", annotation.version()); }
-     */
-
     @Test
     public void passthroughInboundPatientDiscovery() throws PatientDiscoveryException {
         PRPAIN201305UV02 request = new PRPAIN201305UV02();
