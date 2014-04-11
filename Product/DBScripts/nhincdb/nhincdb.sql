@@ -45,177 +45,127 @@ CREATE DATABASE configdb;
 -- Table `configdb`.`domain`
 -- -----------------------------------------------------
 
-CREATE TABLE IF NOT EXISTS configdb.domain (
+CREATE TABLE configdb.domain (
     id SERIAL PRIMARY KEY,
-    domainName VARCHAR(255),
-    createTime DATETIME,
-    postmasterAddressId BIGINT REFERENCES configdb.address(id),
-    status SMALLINT DEFAULT 0,
+    domainName VARCHAR(255) NOT NULL,
+    status BOOLEAN NOT NULL DEFAULT TRUE,
+    createTime DATETIME NOT NULL,
     updateTime DATETIME
 );
+
+-- -----------------------------------------------------
+-- Table `configdb`.`endpointType`
+-- -----------------------------------------------------
+
+CREATE TABLE configdb.endpointType (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(4) NOT NULL
+);
+
+INSERT INTO configdb.endpointType (name) VALUES ('SMTP'), ('XDR'), ('XDM');
 
 -- -----------------------------------------------------
 -- Table `configdb`.`address`
 -- -----------------------------------------------------
 
-CREATE TABLE IF NOT EXISTS configdb.address (
+CREATE TABLE configdb.address (
     id SERIAL PRIMARY KEY,
+    domainId BIGINT NOT NULL REFERENCES configdb.domain(id),
+    eMailAddress VARCHAR(255) NOT NULL,
     displayName VARCHAR(100),
-    eMailAddress VARCHAR(255),
     endpoint VARCHAR(255),
-    status SMALLINT DEFAULT 0,
-    type VARCHAR(64),
-    createTime DATETIME,
-    updateTime DATETIME,
-    domainId BIGINT NOT NULL REFERENCES configdb.domain(id)
+    type BIGINT REFERENCES configdb.endpointType(id),
+    status BOOLEAN NOT NULL DEFAULT TRUE,
+    createTime DATETIME NOT NULL,
+    updateTime DATETIME
 );
 
 -- -----------------------------------------------------
 -- Table `configdb`.`anchor`
 -- -----------------------------------------------------
 
-CREATE TABLE IF NOT EXISTS configdb.anchor (
+CREATE TABLE configdb.anchor (
     id SERIAL PRIMARY KEY,
-    owner VARCHAR(255),
-    thumbprint VARCHAR(64),
-    certificateId BIGINT,
-    createTime DATETIME,
-    certificateData MEDIUMBLOB,
-    validStartDate DATETIME,
-    validEndDate DATETIME,
-    forIncoming SMALLINT DEFAULT 1,
-    forOutgoing SMALLINT DEFAULT 1,
-    status SMALLINT DEFAULT 0
+    certificateId BIGINT NOT NULL COMMENT '?',
+    owner VARCHAR(255) NOT NULL COMMENT 'Subject CN',
+    thumbprint VARCHAR(64) NOT NULL,
+    certificateData BLOB(4096) NOT NULL,
+    validStartDate DATETIME NOT NULL,
+    validEndDate DATETIME NOT NULL,
+    forIncoming BOOLEAN NOT NULL DEFAULT TRUE,
+    forOutgoing BOOLEAN NOT NULL DEFAULT TRUE,
+    status BOOLEAN NOT NULL DEFAULT TRUE,
+    createTime DATETIME NOT NULL
 );
 
 -- -----------------------------------------------------
 -- Table `configdb`.`certificate`
 -- -----------------------------------------------------
 
-CREATE TABLE IF NOT EXISTS configdb.certificate (
+CREATE TABLE configdb.certificate (
     id SERIAL PRIMARY KEY,
-    owner VARCHAR(255),
-    thumbprint VARCHAR(64),
-    createTime DATETIME,
-    certificateData MEDIUMBLOB,
-    validStartDate DATETIME,
-    validEndDate DATETIME,
-    status SMALLINT DEFAULT 0,
-    privateKey SMALLINT
-);
-
--- -----------------------------------------------------
--- Table `configdb`.`certpolicy`
--- -----------------------------------------------------
-
-CREATE TABLE IF NOT EXISTS configdb.certpolicy (
-    id SERIAL PRIMARY KEY,
-    createTime DATETIME NOT NULL,
-    lexicon INTEGER NOT NULL,
-    data BLOB(204800) NOT NULL,
-    policyName VARCHAR(255)
-);
-
--- -----------------------------------------------------
--- Table `configdb`.`certpolicygroup`
--- -----------------------------------------------------
-
-CREATE TABLE IF NOT EXISTS configdb.certpolicygroup (
-    id SERIAL PRIMARY KEY,
-    createTime DATETIME NOT NULL,
-    policyGroupName VARCHAR(255)
-);
-
--- -----------------------------------------------------
--- Table `configdb`.`certpolicygroupdomainreltn`
--- -----------------------------------------------------
-
-CREATE TABLE IF NOT EXISTS configdb.certpolicygroupdomainreltn (
-    id SERIAL PRIMARY KEY,
-    policy_group_id BIGINT NOT NULL REFERENCES configdb.domain(id),
-    domain_id BIGINT NOT NULL REFERENCES configdb.certpolicygroup(id)
-);
-
--- -----------------------------------------------------
--- Table `configdb`.`certpolicygroupreltn`
--- -----------------------------------------------------
-
-CREATE TABLE IF NOT EXISTS configdb.certpolicygroupreltn (
-    id SERIAL PRIMARY KEY,
-    incoming SMALLINT,
-    outgoing SMALLINT,
-    policyUse INTEGER NOT NULL,
-    certPolicyId BIGINT NOT NULL REFERENCES configdb.certpolicy(id),
-    certPolicyGroupId BIGINT NOT NULL REFERENCES configdb.certpolicygroup(id)
-);
-
--- -----------------------------------------------------
--- Table `configdb`.`dnsrecord`
--- -----------------------------------------------------
-
-CREATE TABLE IF NOT EXISTS configdb.dnsrecord (
-    id SERIAL PRIMARY KEY,
-    createTime DATETIME,
-    data BLOB(8192),
-    dclass INTEGER,
-    name VARCHAR(255),
-    ttl BIGINT,
-    type INTEGER
+    owner VARCHAR(255) NOT NULL COMMENT 'Subject CN',
+    thumbprint VARCHAR(64) NOT NULL,
+    certificateData BLOB(4096) NOT NULL,
+    validStartDate DATETIME NOT NULL,
+    validEndDate DATETIME NOT NULL,
+    privateKey SMALLINT,
+    status BOOLEAN NOT NULL DEFAULT TRUE,
+    createTime DATETIME NOT NULL
 );
 
 -- -----------------------------------------------------
 -- Table `configdb`.`setting`
 -- -----------------------------------------------------
 
-CREATE TABLE IF NOT EXISTS configdb.setting (
+CREATE TABLE configdb.setting (
     id SERIAL PRIMARY KEY,
     name VARCHAR(255),
-    status INTEGER,
-    createTime DATETIME,
-    updateTime DATETIME,
-    value VARCHAR(4096)
+    value VARCHAR(4096),
+    createTime DATETIME NOT NULL,
+    updateTime DATETIME
 );
 
 -- -----------------------------------------------------
 -- Table `configdb`.`trustbundle`
 -- -----------------------------------------------------
 
-CREATE TABLE IF NOT EXISTS configdb.trustbundle (
+CREATE TABLE configdb.trustbundle (
     id SERIAL PRIMARY KEY,
     bundleName VARCHAR(255) NOT NULL,
     bundleURL VARCHAR(255) NOT NULL,
     getCheckSum VARCHAR(255) NOT NULL,
-    createTime DATETIME NOT NULL,
     lastRefreshAttempt DATETIME,
-    lastRefreshError INTEGER,
     lastSuccessfulRefresh DATETIME,
     refreshInterval INTEGER,
-    signingCertificateData BLOB(4096)
+    lastRefreshError INTEGER COMMENT 'enum value for refresh status message',
+    signingCertificateData BLOB(4096),
+    createTime DATETIME NOT NULL
 );
 
 -- -----------------------------------------------------
 -- Table `configdb`.`trustbundleanchor`
 -- -----------------------------------------------------
 
-CREATE TABLE IF NOT EXISTS configdb.trustbundleanchor (
+CREATE TABLE configdb.trustbundleanchor (
     id SERIAL PRIMARY KEY,
+    trustbundleId BIGINT NOT NULL REFERENCES configdb.trustbundle(id),
     anchorData BLOB(4096) NOT NULL,
-    thumbprint VARCHAR(255) NOT NULL,
-    validEndDate DATETIME NOT NULL,
+    thumbprint VARCHAR(64) NOT NULL,
     validStartDate DATETIME NOT NULL,
-    trustbundleId BIGINT NOT NULL REFERENCES configdb.trustbundle(id)
+    validEndDate DATETIME NOT NULL
 );
 
 -- -----------------------------------------------------
 -- Table `configdb`.`trustbundledomainreltn`
 -- -----------------------------------------------------
 
-CREATE TABLE IF NOT EXISTS configdb.trustbundledomainreltn (
+CREATE TABLE configdb.trustbundledomainreltn (
     id SERIAL PRIMARY KEY,
-    forIncoming SMALLINT,
-    forOutgoing SMALLINT,
     domain_id BIGINT NOT NULL REFERENCES configdb.domain (id),
-    trust_bundle_id BIGINT NOT NULL REFERENCES configdb.trustbundle(id)
+    trust_bundle_id BIGINT NOT NULL REFERENCES configdb.trustbundle(id),
+    forIncoming BOOLEAN NOT NULL DEFAULT TRUE,
+    forOutgoing BOOLEAN NOT NULL DEFAULT TRUE
 );
 
 GRANT SELECT,INSERT,UPDATE,DELETE ON configdb.* to nhincuser;
