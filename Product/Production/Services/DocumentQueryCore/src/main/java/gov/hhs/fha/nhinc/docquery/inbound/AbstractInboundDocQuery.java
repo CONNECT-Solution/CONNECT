@@ -57,9 +57,6 @@ public abstract class AbstractInboundDocQuery implements InboundDocQuery {
      * @param assertion
      * @return <code>AdhocQueryResponse</code>
      */   
-    @InboundProcessingEvent(beforeBuilder = AdhocQueryRequestDescriptionBuilder.class,
-            afterReturningBuilder = AdhocQueryResponseDescriptionBuilder.class, serviceType = "Document Query",
-            version = "")
     public AdhocQueryResponse respondingGatewayCrossGatewayQuery(AdhocQueryRequest msg, AssertionType assertion) {
         String senderHcid = null;
         if (msg != null) {
@@ -75,7 +72,7 @@ public abstract class AbstractInboundDocQuery implements InboundDocQuery {
         return resp;
     }
 
-    private AcknowledgementType auditRequestFromNhin(AdhocQueryRequest msg, AssertionType assertion,
+    protected AcknowledgementType auditRequestFromNhin(AdhocQueryRequest msg, AssertionType assertion,
             String requestCommunityID) {
         AcknowledgementType ack = auditLogger
                 .auditDQRequest(msg, assertion, NhincConstants.AUDIT_LOG_INBOUND_DIRECTION,
@@ -84,7 +81,7 @@ public abstract class AbstractInboundDocQuery implements InboundDocQuery {
         return ack;
     }
 
-    private AcknowledgementType auditResponseToNhin(AdhocQueryResponse msg, AssertionType assertion,
+    protected AcknowledgementType auditResponseToNhin(AdhocQueryResponse msg, AssertionType assertion,
             String requestCommunityID) {
         AcknowledgementType ack = auditLogger.auditDQResponse(msg, assertion,
                 NhincConstants.AUDIT_LOG_OUTBOUND_DIRECTION, NhincConstants.AUDIT_LOG_NHIN_INTERFACE,

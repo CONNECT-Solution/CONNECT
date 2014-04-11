@@ -59,19 +59,6 @@ import org.mockito.ArgumentCaptor;
 public class PassthroughOutboundDocQueryTest {
 
     @Test
-    public void hasBeginOutboundProcessingEvent() throws Exception {
-        Class<PassthroughOutboundDocQuery> clazz = PassthroughOutboundDocQuery.class;
-        Method method = clazz.getMethod("respondingGatewayCrossGatewayQuery", AdhocQueryRequest.class,
-                AssertionType.class, NhinTargetCommunitiesType.class);
-        OutboundProcessingEvent annotation = method.getAnnotation(OutboundProcessingEvent.class);
-        assertNotNull(annotation);
-        assertEquals(AdhocQueryRequestDescriptionBuilder.class, annotation.beforeBuilder());
-        assertEquals(AdhocQueryResponseDescriptionBuilder.class, annotation.afterReturningBuilder());
-        assertEquals("Document Query", annotation.serviceType());
-        assertEquals("", annotation.version());
-    }
-
-    @Test
     public void passthroughOutboundDocQuery() {
         OutboundDocQueryDelegate mockDelegate = mock(OutboundDocQueryDelegate.class);
 
