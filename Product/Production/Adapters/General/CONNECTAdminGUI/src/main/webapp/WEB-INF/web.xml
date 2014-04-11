@@ -4,7 +4,7 @@
 	http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
     id="WebApp_ID" version="2.5">
 
-    <display-name>CA Health Information Home Portal</display-name>
+    <display-name>CONNECT Administration GUI</display-name>
 
     <!-- Change to "Production" when you are ready to deploy -->
     <context-param>
@@ -14,7 +14,7 @@
 
     <!-- Welcome page -->
     <welcome-file-list>
-        <welcome-file>index.xhtml</welcome-file>
+        <welcome-file>Index.xhtml</welcome-file>
     </welcome-file-list>
 
     <!-- Error page -->
