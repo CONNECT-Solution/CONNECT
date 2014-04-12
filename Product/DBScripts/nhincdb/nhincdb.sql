@@ -45,7 +45,7 @@ CREATE DATABASE configdb;
 -- Table `configdb`.`domain`
 -- -----------------------------------------------------
 
-CREATE TABLE configdb.domain (
+CREATE TABLE IF NOT EXISTS configdb.domain (
     id SERIAL PRIMARY KEY,
     domainName VARCHAR(255) NOT NULL,
     status BOOLEAN NOT NULL DEFAULT TRUE,
@@ -57,7 +57,7 @@ CREATE TABLE configdb.domain (
 -- Table `configdb`.`endpointType`
 -- -----------------------------------------------------
 
-CREATE TABLE configdb.endpointType (
+CREATE TABLE IF NOT EXISTS configdb.endpointType (
     id SERIAL PRIMARY KEY,
     name VARCHAR(4) NOT NULL
 );
@@ -68,23 +68,37 @@ INSERT INTO configdb.endpointType (name) VALUES ('SMTP'), ('XDR'), ('XDM');
 -- Table `configdb`.`address`
 -- -----------------------------------------------------
 
-CREATE TABLE configdb.address (
+CREATE TABLE IF NOT EXISTS configdb.address (
     id SERIAL PRIMARY KEY,
-    domainId BIGINT NOT NULL REFERENCES configdb.domain(id),
     eMailAddress VARCHAR(255) NOT NULL,
     displayName VARCHAR(100),
     endpoint VARCHAR(255),
-    type BIGINT REFERENCES configdb.endpointType(id),
     status BOOLEAN NOT NULL DEFAULT TRUE,
     createTime DATETIME NOT NULL,
-    updateTime DATETIME
+    updateTime DATETIME,
+
+    domainId BIGINT UNSIGNED NOT NULL,
+    INDEX fk_domainId (domainId ASC),
+    CONSTRAINT fk_domainId
+        FOREIGN KEY (domainId)
+        REFERENCES configdb.domain(id)
+        ON DELETE NO ACTION
+        ON UPDATE NO ACTION,
+
+    type BIGINT UNSIGNED,
+    INDEX fk_type (type ASC),
+    CONSTRAINT fk_type
+        FOREIGN KEY (type)
+        REFERENCES configdb.endpointType(id)
+        ON DELETE NO ACTION
+        ON UPDATE NO ACTION
 );
 
 -- -----------------------------------------------------
 -- Table `configdb`.`anchor`
 -- -----------------------------------------------------
 
-CREATE TABLE configdb.anchor (
+CREATE TABLE IF NOT EXISTS configdb.anchor (
     id SERIAL PRIMARY KEY,
     certificateId BIGINT NOT NULL COMMENT '?',
     owner VARCHAR(255) NOT NULL COMMENT 'Subject CN',
@@ -102,7 +116,7 @@ CREATE TABLE configdb.anchor (
 -- Table `configdb`.`certificate`
 -- -----------------------------------------------------
 
-CREATE TABLE configdb.certificate (
+CREATE TABLE IF NOT EXISTS configdb.certificate (
     id SERIAL PRIMARY KEY,
     owner VARCHAR(255) NOT NULL COMMENT 'Subject CN',
     thumbprint VARCHAR(64) NOT NULL,
@@ -118,7 +132,7 @@ CREATE TABLE configdb.certificate (
 -- Table `configdb`.`setting`
 -- -----------------------------------------------------
 
-CREATE TABLE configdb.setting (
+CREATE TABLE IF NOT EXISTS configdb.setting (
     id SERIAL PRIMARY KEY,
     name VARCHAR(255),
     value VARCHAR(4096),
@@ -130,7 +144,7 @@ CREATE TABLE configdb.setting (
 -- Table `configdb`.`trustbundle`
 -- -----------------------------------------------------
 
-CREATE TABLE configdb.trustbundle (
+CREATE TABLE IF NOT EXISTS configdb.trustbundle (
     id SERIAL PRIMARY KEY,
     bundleName VARCHAR(255) NOT NULL,
     bundleURL VARCHAR(255) NOT NULL,
@@ -147,25 +161,46 @@ CREATE TABLE configdb.trustbundle (
 -- Table `configdb`.`trustbundleanchor`
 -- -----------------------------------------------------
 
-CREATE TABLE configdb.trustbundleanchor (
+CREATE TABLE IF NOT EXISTS configdb.trustbundleanchor (
     id SERIAL PRIMARY KEY,
-    trustbundleId BIGINT NOT NULL REFERENCES configdb.trustbundle(id),
     anchorData BLOB(4096) NOT NULL,
     thumbprint VARCHAR(64) NOT NULL,
     validStartDate DATETIME NOT NULL,
-    validEndDate DATETIME NOT NULL
+    validEndDate DATETIME NOT NULL,
+
+    trustbundleId BIGINT UNSIGNED NOT NULL,
+    INDEX fk_trustbundleId (trustbundleId ASC),
+    CONSTRAINT fk_trustbundleId
+        FOREIGN KEY (trustbundleId)
+        REFERENCES configdb.trustbundle(id)
+        ON DELETE NO ACTION
+        ON UPDATE NO ACTION
 );
 
 -- -----------------------------------------------------
 -- Table `configdb`.`trustbundledomainreltn`
 -- -----------------------------------------------------
 
-CREATE TABLE configdb.trustbundledomainreltn (
+CREATE TABLE IF NOT EXISTS configdb.trustbundledomainreltn (
     id SERIAL PRIMARY KEY,
-    domain_id BIGINT NOT NULL REFERENCES configdb.domain (id),
-    trust_bundle_id BIGINT NOT NULL REFERENCES configdb.trustbundle(id),
     forIncoming BOOLEAN NOT NULL DEFAULT TRUE,
-    forOutgoing BOOLEAN NOT NULL DEFAULT TRUE
+    forOutgoing BOOLEAN NOT NULL DEFAULT TRUE,
+
+    domain_id BIGINT UNSIGNED NOT NULL REFERENCES configdb.domain (id),
+    INDEX fk_domain_id (domain_id ASC),
+    CONSTRAINT fk_domain_id
+        FOREIGN KEY (domain_id)
+        REFERENCES configdb.domain(id)
+        ON DELETE NO ACTION
+        ON UPDATE NO ACTION,
+
+    trust_bundle_id BIGINT UNSIGNED NOT NULL REFERENCES configdb.trustbundle(id),
+    INDEX fk_trust_bundle_id (trust_bundle_id ASC),
+    CONSTRAINT fk_trust_bundle_id
+        FOREIGN KEY (trust_bundle_id)
+        REFERENCES configdb.trustbundle(id)
+        ON DELETE NO ACTION
+        ON UPDATE NO ACTION
 );
 
 GRANT SELECT,INSERT,UPDATE,DELETE ON configdb.* to nhincuser;
