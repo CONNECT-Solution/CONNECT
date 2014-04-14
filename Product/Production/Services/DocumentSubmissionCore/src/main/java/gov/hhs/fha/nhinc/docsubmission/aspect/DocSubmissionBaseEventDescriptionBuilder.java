@@ -26,7 +26,7 @@
  */
 package gov.hhs.fha.nhinc.docsubmission.aspect;
 
-import gov.hhs.fha.nhinc.event.AssertionEventDescriptionBuilder;
+import gov.hhs.fha.nhinc.event.TargetEventDescriptionBuilder;
 import gov.hhs.fha.nhinc.event.builder.AssertionDescriptionExtractor;
 import ihe.iti.xds_b._2007.ProvideAndRegisterDocumentSetRequestType;
 import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
@@ -35,7 +35,7 @@ import oasis.names.tc.ebxml_regrep.xsd.rs._3.RegistryResponseType;
  * @author akong
  * 
  */
-public class DocSubmissionBaseEventDescriptionBuilder extends AssertionEventDescriptionBuilder {
+public class DocSubmissionBaseEventDescriptionBuilder extends TargetEventDescriptionBuilder {
 
     private final ProvideAndRegisterDocumentSetDescriptionExtractor REQUEST_EXTRACTOR;
     private final RegistryResponseDescriptionExtractor RESPONSE_EXTRACTOR;
@@ -75,16 +75,6 @@ public class DocSubmissionBaseEventDescriptionBuilder extends AssertionEventDesc
     @Override
     public void buildStatuses() {
         setStatuses(RESPONSE_EXTRACTOR.getStatuses(response));
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see gov.hhs.fha.nhinc.event.EventDescriptionBuilder#buildRespondingHCIDs()
-     */
-    @Override
-    public void buildRespondingHCIDs() {
-        // Leave blank since we are the responding hcid.
     }
 
     /*
