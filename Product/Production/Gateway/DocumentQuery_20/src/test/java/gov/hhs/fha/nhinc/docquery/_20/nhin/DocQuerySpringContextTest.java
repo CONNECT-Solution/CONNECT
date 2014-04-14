@@ -63,7 +63,7 @@ public class DocQuerySpringContextTest {
     EntityDocQuerySecured outboundDocQuerySecured;
     
     @Autowired
-    StandardOutboundDocQuery stdoutboundDocQuery;
+    StandardOutboundDocQuery stdOutboundDocQuery;
     
     @Autowired
     PassthroughOutboundDocQuery ptOutboundDocQuery;

@@ -26,11 +26,14 @@
  */
 package gov.hhs.fha.nhinc.docsubmission.inbound.deferred.response;
 
+import gov.hhs.fha.nhinc.aspect.InboundProcessingEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.docsubmission.MessageGeneratorUtils;
 import gov.hhs.fha.nhinc.docsubmission.XDRAuditLogger;
 import gov.hhs.fha.nhinc.docsubmission.XDRPolicyChecker;
 import gov.hhs.fha.nhinc.docsubmission.adapter.deferred.response.proxy.AdapterDocSubmissionDeferredResponseProxyObjectFactory;
+import gov.hhs.fha.nhinc.docsubmission.aspect.DeferredResponseDescriptionBuilder;
+import gov.hhs.fha.nhinc.docsubmission.aspect.DocSubmissionArgTransformerBuilder;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
 import gov.hhs.fha.nhinc.properties.PropertyAccessException;
@@ -73,6 +76,21 @@ public class StandardInboundDocSubmissionDeferredResponse extends AbstractInboun
         super(adapterFactory, auditLogger);
         this.policyChecker = policyChecker;
         this.propertyAccessor = propertyAccessor;  
+    }
+    
+    @Override
+    @InboundProcessingEvent(beforeBuilder = DeferredResponseDescriptionBuilder.class,
+            afterReturningBuilder = DocSubmissionArgTransformerBuilder.class,
+            serviceType = "Document Submission Deferred Response", version = "")
+    public XDRAcknowledgementType provideAndRegisterDocumentSetBResponse(RegistryResponseType body,
+            AssertionType assertion) {
+        auditRequestFromNhin(body, assertion);
+
+        XDRAcknowledgementType response = processDocSubmissionResponse(body, assertion);
+
+        auditResponseToNhin(response, assertion);
+
+        return response;
     }
 
     @Override

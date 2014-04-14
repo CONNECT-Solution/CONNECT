@@ -26,13 +26,10 @@
  */
 package gov.hhs.fha.nhinc.docsubmission.outbound.deferred.response;
 
-import gov.hhs.fha.nhinc.aspect.OutboundProcessingEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.docsubmission.MessageGeneratorUtils;
-import gov.hhs.fha.nhinc.docsubmission.aspect.DeferredResponseDescriptionBuilder;
-import gov.hhs.fha.nhinc.docsubmission.aspect.DocSubmissionArgTransformerBuilder;
 import gov.hhs.fha.nhinc.docsubmission.entity.deferred.response.OutboundDocSubmissionDeferredResponseDelegate;
 import gov.hhs.fha.nhinc.docsubmission.entity.deferred.response.OutboundDocSubmissionDeferredResponseOrchestratable;
 import gov.hhs.fha.nhinc.docsubmission.nhin.deferred.response.proxy11.NhinDocSubmissionDeferredResponseProxy;
@@ -48,9 +45,6 @@ public class PassthroughOutboundDocSubmissionDeferredResponse implements Outboun
         
     }
 
-    @OutboundProcessingEvent(beforeBuilder = DeferredResponseDescriptionBuilder.class,
-            afterReturningBuilder = DocSubmissionArgTransformerBuilder.class,
-            serviceType = "Document Submission Deferred Response", version = "")
     public XDRAcknowledgementType provideAndRegisterDocumentSetBAsyncResponse(RegistryResponseType body,
             AssertionType assertion, NhinTargetCommunitiesType targets) {
 

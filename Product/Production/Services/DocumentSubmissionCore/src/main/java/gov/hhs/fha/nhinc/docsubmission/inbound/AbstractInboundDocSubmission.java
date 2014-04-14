@@ -50,9 +50,6 @@ public abstract class AbstractInboundDocSubmission implements InboundDocSubmissi
         this.auditLogger = auditLogger;
     }
 
-    @InboundProcessingEvent(beforeBuilder = DocSubmissionBaseEventDescriptionBuilder.class,
-            afterReturningBuilder = DocSubmissionBaseEventDescriptionBuilder.class, serviceType = "Document Submission",
-            version = "")
     public RegistryResponseType documentRepositoryProvideAndRegisterDocumentSetB(
             ProvideAndRegisterDocumentSetRequestType body, AssertionType assertion) {
 

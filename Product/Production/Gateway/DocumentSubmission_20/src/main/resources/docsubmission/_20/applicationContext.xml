@@ -24,6 +24,8 @@ http://www.springframework.org/schema/aop http://www.springframework.org/schema/
         </property>
     </bean>
 
+    <!--  DocSubmission -->
+    
     <bean id="nhinXDR_g1" class="gov.hhs.fha.nhinc.docsubmission._20.nhin.NhinXDR_g1">
         <property name="inboundDocSubmission">
             <bean class="${docsubmission.inboundDocSubmission}" />
@@ -41,6 +43,24 @@ http://www.springframework.org/schema/aop http://www.springframework.org/schema/
             <bean class="${docsubmission.outboundDocSubmission}" />
         </property>
     </bean>
+    
+    <bean id="stdDSOutbound"
+      class="gov.hhs.fha.nhinc.docsubmission.outbound.StandardOutboundDocSubmission">
+    </bean>
+    
+    <bean id="ptDSOutbound"
+      class="gov.hhs.fha.nhinc.docsubmission.outbound.PassthroughOutboundDocSubmission">
+    </bean>
+    
+    <bean id="stdDSInbound"
+      class="gov.hhs.fha.nhinc.docsubmission.inbound.StandardInboundDocSubmission">
+    </bean>
+    
+    <bean id="ptDSInbound"
+      class="gov.hhs.fha.nhinc.docsubmission.inbound.PassthroughInboundDocSubmission">
+    </bean>
+    
+    <!--  DocSubmission Deferred Request -->
     
     <bean id="nhinXDRDeferredRequest_g1" class="gov.hhs.fha.nhinc.docsubmission._20.nhin.deferred.request.NhinXDRRequest20">
         <property name="inboundDocSubmissionRequest">
@@ -61,7 +81,25 @@ http://www.springframework.org/schema/aop http://www.springframework.org/schema/
             <bean class="${docsubmission.outboundDocSubmissionRequest}" />
         </property>
     </bean>
+    
+    <bean id="stdDSReqOutbound"
+      class="gov.hhs.fha.nhinc.docsubmission.outbound.deferred.request.StandardOutboundDocSubmissionDeferredRequest">
+    </bean>
+    
+    <bean id="ptDSReqOutbound"
+      class="gov.hhs.fha.nhinc.docsubmission.outbound.deferred.request.PassthroughOutboundDocSubmissionDeferredRequest">
+    </bean>
+    
+    <bean id="stdDSReqInbound"
+      class="gov.hhs.fha.nhinc.docsubmission.inbound.deferred.request.StandardInboundDocSubmissionDeferredRequest">
+    </bean>
+    
+    <bean id="ptDSReqInbound"
+      class="gov.hhs.fha.nhinc.docsubmission.inbound.deferred.request.PassthroughInboundDocSubmissionDeferredRequest">
+    </bean>
 
+    <!-- DocSubmission Deferred Response -->
+    
     <bean id="nhinXDRDeferredResponse_g1" class="gov.hhs.fha.nhinc.docsubmission._20.nhin.deferred.response.NhinXDRResponse20">
         <property name="inboundDocSubmissionResponse">
             <bean class="${docsubmission.inboundDocSubmissionResponse}" />
@@ -80,6 +118,22 @@ http://www.springframework.org/schema/aop http://www.springframework.org/schema/
         <property name="outboundDocSubmissionResponse">
             <bean class="${docsubmission.outboundDocSubmissionResponse}" />
         </property>
+    </bean>
+    
+    <bean id="stdDSRespOutbound"
+      class="gov.hhs.fha.nhinc.docsubmission.outbound.deferred.response.StandardOutboundDocSubmissionDeferredResponse">
+    </bean>
+    
+    <bean id="ptDSRespOutbound"
+      class="gov.hhs.fha.nhinc.docsubmission.outbound.deferred.response.PassthroughOutboundDocSubmissionDeferredResponse">
+    </bean>
+    
+    <bean id="stdDSRespInbound"
+      class="gov.hhs.fha.nhinc.docsubmission.inbound.deferred.response.StandardInboundDocSubmissionDeferredResponse">
+    </bean>
+    
+    <bean id="ptDSRespInbound"
+      class="gov.hhs.fha.nhinc.docsubmission.inbound.deferred.response.PassthroughInboundDocSubmissionDeferredResponse">
     </bean>
    
 </beans>
