@@ -31,14 +31,12 @@ import org.hl7.v3.PRPAIN201306UV02;
 
 import com.google.common.base.Optional;
 import java.util.ArrayList;
-import org.apache.log4j.Logger;
 
 public class PRPAIN201306UV02EventDescriptionBuilder extends AssertionEventDescriptionBuilder {
 
     private static final PRPAIN201306UV02HCIDExtractor HCID_EXTRACTOR = new PRPAIN201306UV02HCIDExtractor();
     private static final PRPAIN201306UV02StatusExtractor STATUS_EXTRACTOR = new PRPAIN201306UV02StatusExtractor();
-    private static final Logger LOG = Logger.getLogger(PRPAIN201306UV02EventDescriptionBuilder.class);
-
+    
     private Optional<PRPAIN201306UV02> body = Optional.absent();
 
     @Override

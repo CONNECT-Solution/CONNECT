@@ -20,7 +20,7 @@ public abstract class TargetEventDescriptionBuilder extends AssertionEventDescri
     private final TargetDescriptionExtractor targetExtractor = new TargetDescriptionExtractor();
     
     @Override
-    public void buildRespondingHCIDs() {
+    public final void buildRespondingHCIDs() {
         if(target.isPresent()){
             setRespondingHCIDs(targetExtractor.getResponders(target.get()));
         }else {
