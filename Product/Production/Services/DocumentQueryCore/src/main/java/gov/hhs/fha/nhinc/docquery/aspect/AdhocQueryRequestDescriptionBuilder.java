@@ -28,20 +28,15 @@
  */
 package gov.hhs.fha.nhinc.docquery.aspect;
 
-import gov.hhs.fha.nhinc.event.AssertionEventDescriptionBuilder;
-
-import java.util.Arrays;
 
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
 
-import org.apache.log4j.Logger;
-
 import com.google.common.base.Optional;
 import com.google.common.collect.ImmutableList;
+import gov.hhs.fha.nhinc.event.TargetEventDescriptionBuilder;
 
-public class AdhocQueryRequestDescriptionBuilder extends AssertionEventDescriptionBuilder {
+public class AdhocQueryRequestDescriptionBuilder extends TargetEventDescriptionBuilder {
 
-    private static final Logger LOG = Logger.getLogger(AdhocQueryRequestDescriptionBuilder.class);
     private Optional<AdhocQueryRequest> request;
 
     public AdhocQueryRequestDescriptionBuilder() {
@@ -57,11 +52,6 @@ public class AdhocQueryRequestDescriptionBuilder extends AssertionEventDescripti
     public void buildStatuses() {
         // status not a relevant field for requests
 
-    }
-
-    @Override
-    public void buildRespondingHCIDs() {
-        // responding HCID not relevant for request object
     }
 
     @Override
@@ -84,13 +74,9 @@ public class AdhocQueryRequestDescriptionBuilder extends AssertionEventDescripti
 
     @Override
     public void setArguments(Object... arguments) {
-        Optional<AdhocQueryRequest> request = extractRequest(arguments);
-        if (!request.isPresent()) {
-            LOG.warn("Unexpected argument list: " + Arrays.toString(arguments));
-        } else {
-            this.request = request;
-            extractAssertion(arguments);
-        }
+        extractRequest(arguments);
+        extractAssertion(arguments);
+        extractTarget(arguments);
     }
 
     @Override
@@ -102,10 +88,10 @@ public class AdhocQueryRequestDescriptionBuilder extends AssertionEventDescripti
         return request;
     }
 
-    private Optional<AdhocQueryRequest> extractRequest(Object[] arguments) {
+    private void extractRequest(Object[] arguments) {
         if (arguments != null && arguments.length > 0 && arguments[0] instanceof AdhocQueryRequest) {
-            return Optional.of((AdhocQueryRequest) arguments[0]);
+            request = Optional.of((AdhocQueryRequest) arguments[0]);
         }
-        return Optional.absent();
+        request = Optional.absent();
     }
 }
