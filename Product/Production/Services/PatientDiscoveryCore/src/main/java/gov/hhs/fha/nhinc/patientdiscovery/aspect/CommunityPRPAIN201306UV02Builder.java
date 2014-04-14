@@ -38,6 +38,9 @@ import org.hl7.v3.RespondingGatewayPRPAIN201306UV02ResponseType;
 
 import com.google.common.base.Function;
 import com.google.common.base.Optional;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
 
 public class CommunityPRPAIN201306UV02Builder extends AssertionEventDescriptionBuilder {
 
@@ -52,12 +55,12 @@ public class CommunityPRPAIN201306UV02Builder extends AssertionEventDescriptionB
 
     @Override
     public void buildStatuses() {
-        setStatuses(applyExtractor(statusExtractor));
+        setStatuses(new ArrayList<String>(applyExtractor(statusExtractor)));
     }
 
     @Override
     public void buildRespondingHCIDs() {
-        setRespondingHCIDs(applyExtractor(hcidExtractor));
+        setRespondingHCIDs(new ArrayList<String>(applyExtractor(hcidExtractor)));
     }
 
     @Override
@@ -97,11 +100,11 @@ public class CommunityPRPAIN201306UV02Builder extends AssertionEventDescriptionB
         this.statusExtractor = statusExtractor;
     }
 
-    private List<String> applyExtractor(Function<PRPAIN201306UV02, List<String>> function) {
+    private Set<String> applyExtractor(Function<PRPAIN201306UV02, Set<String>> function) {
         if (!response.isPresent()) {
-            return Collections.emptyList();
+            return Collections.EMPTY_SET;
         }
-        List<String> result = new ArrayList<String>();
+        Set<String> result = new HashSet<String>();
         for (PRPAIN201306UV02 item : unwrap(response.get())) {
             result.addAll(function.apply(item));
         }
