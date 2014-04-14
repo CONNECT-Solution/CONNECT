@@ -40,13 +40,15 @@ import org.hl7.v3.PRPAIN201306UV02;
 import com.google.common.base.Function;
 import com.google.common.base.Optional;
 import com.google.common.collect.Lists;
+import java.util.HashSet;
+import java.util.Set;
 
-class PRPAIN201306UV02StatusExtractor implements Function<PRPAIN201306UV02, List<String>> {
+class PRPAIN201306UV02StatusExtractor implements Function<PRPAIN201306UV02, Set<String>> {
     private static final PRPAIN201306UV02StatusExtractor.StatusFunction STATUS_FUNCTION = new StatusFunction();
 
     @Override
-    public List<String> apply(PRPAIN201306UV02 input) {
-        List<String> statuses = new ArrayList<String>();
+    public Set<String> apply(PRPAIN201306UV02 input) {
+        Set<String> statuses = new HashSet<String>();
 
         for (MCCIMT000300UV01Acknowledgement acknowledgement : input.getAcknowledgement()) {
             List<Optional<String>> tmp = Lists.transform(acknowledgement.getAcknowledgementDetail(), STATUS_FUNCTION);
