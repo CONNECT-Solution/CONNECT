@@ -4,9 +4,23 @@
 
     <context-param>
         <param-name>configService</param-name>
-        <param-value>http://localhost:8080/config-service/ConfigurationService</param-value>
+        <param-value>http://localhost:8081/config-service/ConfigurationService</param-value>
     </context-param>
 
+	<listener>
+        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+    </listener>
+	
+	<context-param>
+        <param-name>contextConfigLocation</param-name>
+        <param-value>
+            classpath:CONNECT-interceptor-beans.xml 
+            classpath:CONNECT-context.xml
+            classpath:eventlogging.xml
+            classpath:/direct/_10/applicationContext.xml
+            classpath:/direct/_10/webservices.xml
+        </param-value>
+    </context-param>
     <!-- Uncomment if using 'syslog' audit method -->
     <!--     
     <context-param>
@@ -22,7 +36,7 @@
     <servlet>
         <servlet-name>init</servlet-name>
         <servlet-class>gov.hhs.fha.nhinc.direct.servlet.InitServlet</servlet-class>
-        <load-on-startup>2</load-on-startup>
+        <load-on-startup>1</load-on-startup>
     </servlet>
     
     <servlet>
