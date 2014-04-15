@@ -32,9 +32,9 @@ import javax.jws.WebService;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.nhindirect.config.store.Domain;
-import org.nhindirect.config.store.EntityStatus;
-import org.nhindirect.config.store.dao.DomainDao;
+import gov.hhs.fha.nhinc.directconfig.entity.Domain;
+import gov.hhs.fha.nhinc.directconfig.entity.EntityStatus;
+import gov.hhs.fha.nhinc.directconfig.entity.dao.DomainDao;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
@@ -57,7 +57,7 @@ public class DomainServiceImpl implements DomainService {
     /*
      * (non-Javadoc)
      * 
-     * @see org.nhindirect.config.service.DomainService#addDomain(org.nhindirect.config.store.Domain)
+     * @see org.nhindirect.config.service.DomainService#addDomain(gov.hhs.fha.nhinc.directconfig.entity.Domain)
      */
     public void addDomain(Domain domain) throws ConfigurationServiceException {
         if (log.isDebugEnabled())
@@ -72,7 +72,7 @@ public class DomainServiceImpl implements DomainService {
     /*
      * (non-Javadoc)
      * 
-     * @see org.nhindirect.config.service.DomainService#updateDomain(org.nhindirect.config.store.Domain)
+     * @see org.nhindirect.config.service.DomainService#updateDomain(gov.hhs.fha.nhinc.directconfig.entity.Domain)
      */
     public void updateDomain(Domain domain) throws ConfigurationServiceException {
         if (log.isDebugEnabled())
@@ -99,7 +99,7 @@ public class DomainServiceImpl implements DomainService {
     /*
      * (non-Javadoc)
      * 
-     * @see org.nhindirect.config.service.DomainService#getDomains(java.util.Collection, org.nhindirect.config.store.EntityStatus)
+     * @see org.nhindirect.config.service.DomainService#getDomains(java.util.Collection, gov.hhs.fha.nhinc.directconfig.entity.EntityStatus)
      */
     public Collection<Domain> getDomains(Collection<String> domainNames, EntityStatus status)
             throws ConfigurationServiceException {
@@ -164,7 +164,7 @@ public class DomainServiceImpl implements DomainService {
     /*
      * (non-Javadoc)
      * 
-     * @see org.nhindirect.config.service.DomainService#searchDomain(java.lang.String, org.nhindirect.config.store.EntityStatus)
+     * @see org.nhindirect.config.service.DomainService#searchDomain(java.lang.String, gov.hhs.fha.nhinc.directconfig.entity.EntityStatus)
      */
     public Collection<Domain> searchDomain(String domain, EntityStatus status) {
         if (log.isDebugEnabled())

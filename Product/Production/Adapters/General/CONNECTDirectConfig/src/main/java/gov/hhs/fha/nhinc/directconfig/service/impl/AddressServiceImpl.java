@@ -33,9 +33,9 @@ import javax.jws.WebService;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.nhindirect.config.store.Address;
-import org.nhindirect.config.store.EntityStatus;
-import org.nhindirect.config.store.dao.AddressDao;
+import gov.hhs.fha.nhinc.directconfig.entity.Address;
+import gov.hhs.fha.nhinc.directconfig.entity.EntityStatus;
+import gov.hhs.fha.nhinc.directconfig.entity.dao.AddressDao;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
@@ -68,7 +68,7 @@ public class AddressServiceImpl implements AddressService {
     /*
      * (non-Javadoc)
      * 
-     * @see org.nhindirect.config.service.AddressService#updateAddress(org.nhindirect.config.store.Address)
+     * @see org.nhindirect.config.service.AddressService#updateAddress(gov.hhs.fha.nhinc.directconfig.entity.Address)
      */
     public void updateAddress(Address address) throws ConfigurationServiceException {
         // TODO Auto-generated method stub
@@ -88,7 +88,7 @@ public class AddressServiceImpl implements AddressService {
     /*
      * (non-Javadoc)
      * 
-     * @see org.nhindirect.config.service.AddressService#getAddress(java.util.Collection, org.nhindirect.config.store.EntityStatus)
+     * @see org.nhindirect.config.service.AddressService#getAddress(java.util.Collection, gov.hhs.fha.nhinc.directconfig.entity.EntityStatus)
      */
     public Collection<Address> getAddress(Collection<String> addressNames, EntityStatus status)
             throws ConfigurationServiceException {

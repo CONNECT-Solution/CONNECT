@@ -31,8 +31,8 @@ import javax.jws.WebService;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.nhindirect.config.store.Setting;
-import org.nhindirect.config.store.dao.SettingDao;
+import gov.hhs.fha.nhinc.directconfig.entity.Setting;
+import gov.hhs.fha.nhinc.directconfig.entity.dao.SettingDao;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**

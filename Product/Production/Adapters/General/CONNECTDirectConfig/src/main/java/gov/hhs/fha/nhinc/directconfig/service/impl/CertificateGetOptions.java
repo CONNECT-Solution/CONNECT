@@ -21,7 +21,7 @@ THE POSSIBILITY OF SUCH DAMAGE.
 
 package gov.hhs.fha.nhinc.directconfig.service.impl;
 
-import org.nhindirect.config.store.EntityStatus;
+import gov.hhs.fha.nhinc.directconfig.entity.EntityStatus;
 
 /**
  * A set of options relating to a Certificate.

@@ -40,15 +40,15 @@ import javax.xml.ws.FaultAction;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import org.nhindirect.config.store.Address;
-import org.nhindirect.config.store.Anchor;
-import org.nhindirect.config.store.BundleRefreshError;
-import org.nhindirect.config.store.Certificate;
-import org.nhindirect.config.store.Domain;
-import org.nhindirect.config.store.EntityStatus;
-import org.nhindirect.config.store.Setting;
-import org.nhindirect.config.store.TrustBundle;
-import org.nhindirect.config.store.TrustBundleDomainReltn;
+import gov.hhs.fha.nhinc.directconfig.entity.Address;
+import gov.hhs.fha.nhinc.directconfig.entity.Anchor;
+import gov.hhs.fha.nhinc.directconfig.entity.BundleRefreshError;
+import gov.hhs.fha.nhinc.directconfig.entity.Certificate;
+import gov.hhs.fha.nhinc.directconfig.entity.Domain;
+import gov.hhs.fha.nhinc.directconfig.entity.EntityStatus;
+import gov.hhs.fha.nhinc.directconfig.entity.Setting;
+import gov.hhs.fha.nhinc.directconfig.entity.TrustBundle;
+import gov.hhs.fha.nhinc.directconfig.entity.TrustBundleDomainReltn;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
@@ -94,7 +94,7 @@ public class ConfigurationServiceImpl implements ConfigurationService {
     /*
      * (non-Javadoc)
      * 
-     * @see org.nhindirect.config.service.AddressService#updateAddress(org.nhindirect.config.store.Address)
+     * @see org.nhindirect.config.service.AddressService#updateAddress(gov.hhs.fha.nhinc.directconfig.entity.Address)
      */
     @Override
     @FaultAction(className = ConfigurationFault.class)
@@ -116,7 +116,7 @@ public class ConfigurationServiceImpl implements ConfigurationService {
     /*
      * (non-Javadoc)
      * 
-     * @see org.nhindirect.config.service.AddressService#getAddress(java.util.List, org.nhindirect.config.store.EntityStatus)
+     * @see org.nhindirect.config.service.AddressService#getAddress(java.util.List, gov.hhs.fha.nhinc.directconfig.entity.EntityStatus)
      */
     @Override
     @FaultAction(className = ConfigurationFault.class)
@@ -152,7 +152,7 @@ public class ConfigurationServiceImpl implements ConfigurationService {
     /*
      * (non-Javadoc)
      * 
-     * @see org.nhindirect.config.service.DomainService#addDomain(org.nhindirect.config.store.Domain)
+     * @see org.nhindirect.config.service.DomainService#addDomain(gov.hhs.fha.nhinc.directconfig.entity.Domain)
      */
     @Override
     @FaultAction(className = ConfigurationFault.class)
@@ -163,7 +163,7 @@ public class ConfigurationServiceImpl implements ConfigurationService {
     /*
      * (non-Javadoc)
      * 
-     * @see org.nhindirect.config.service.DomainService#updateDomain(org.nhindirect.config.store.Domain)
+     * @see org.nhindirect.config.service.DomainService#updateDomain(gov.hhs.fha.nhinc.directconfig.entity.Domain)
      */
     @Override
     @FaultAction(className = ConfigurationFault.class)
@@ -185,7 +185,7 @@ public class ConfigurationServiceImpl implements ConfigurationService {
     /*
      * (non-Javadoc)
      * 
-     * @see org.nhindirect.config.service.DomainService#getDomains(java.util.Collection, org.nhindirect.config.store.EntityStatus)
+     * @see org.nhindirect.config.service.DomainService#getDomains(java.util.Collection, gov.hhs.fha.nhinc.directconfig.entity.EntityStatus)
      */
     @Override
     @FaultAction(className = ConfigurationFault.class)
@@ -232,7 +232,7 @@ public class ConfigurationServiceImpl implements ConfigurationService {
     /*
      * (non-Javadoc)
      * 
-     * @see org.nhindirect.config.service.DomainService#searchDomain(java.lang.String, org.nhindirect.config.store.EntityStatus)
+     * @see org.nhindirect.config.service.DomainService#searchDomain(java.lang.String, gov.hhs.fha.nhinc.directconfig.entity.EntityStatus)
      */
     @Override
     @FaultAction(className = ConfigurationFault.class)
@@ -265,7 +265,7 @@ public class ConfigurationServiceImpl implements ConfigurationService {
     /*
      * (non-Javadoc)
      * 
-     * @see org.nhindirect.config.service.CertificateService#setCertificateStatus(java.util.Collection, org.nhindirect.config.store.EntityStatus)
+     * @see org.nhindirect.config.service.CertificateService#setCertificateStatus(java.util.Collection, gov.hhs.fha.nhinc.directconfig.entity.EntityStatus)
      */
     @Override
     @FaultAction(className = ConfigurationFault.class)
@@ -277,7 +277,7 @@ public class ConfigurationServiceImpl implements ConfigurationService {
     /*
      * (non-Javadoc)
      * 
-     * @see org.nhindirect.config.service.CertificateService#setCertificateStatusForOwner(java.lang.String, org.nhindirect.config.store.EntityStatus)
+     * @see org.nhindirect.config.service.CertificateService#setCertificateStatusForOwner(java.lang.String, gov.hhs.fha.nhinc.directconfig.entity.EntityStatus)
      */
     @Override
     @FaultAction(className = ConfigurationFault.class)
@@ -333,7 +333,7 @@ public class ConfigurationServiceImpl implements ConfigurationService {
     /*
      * (non-Javadoc)
      * 
-     * @see org.nhindirect.config.service.AnchorService#setAnchorStatusForOwner(java.lang.String, org.nhindirect.config.store.EntityStatus)
+     * @see org.nhindirect.config.service.AnchorService#setAnchorStatusForOwner(java.lang.String, gov.hhs.fha.nhinc.directconfig.entity.EntityStatus)
      */
     @Override
     @FaultAction(className = ConfigurationFault.class)

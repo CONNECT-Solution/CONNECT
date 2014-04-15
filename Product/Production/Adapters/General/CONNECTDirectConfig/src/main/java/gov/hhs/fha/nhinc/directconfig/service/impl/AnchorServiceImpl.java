@@ -33,9 +33,9 @@ import javax.jws.WebService;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.nhindirect.config.store.Anchor;
-import org.nhindirect.config.store.EntityStatus;
-import org.nhindirect.config.store.dao.AnchorDao;
+import gov.hhs.fha.nhinc.directconfig.entity.Anchor;
+import gov.hhs.fha.nhinc.directconfig.entity.EntityStatus;
+import gov.hhs.fha.nhinc.directconfig.entity.dao.AnchorDao;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
@@ -160,7 +160,7 @@ public class AnchorServiceImpl implements AnchorService {
     /*
      * (non-Javadoc)
      * 
-     * @see org.nhindirect.config.service.AnchorService#setAnchorStatusForOwner(java.lang.String, org.nhindirect.config.store.EntityStatus)
+     * @see org.nhindirect.config.service.AnchorService#setAnchorStatusForOwner(java.lang.String, gov.hhs.fha.nhinc.directconfig.entity.EntityStatus)
      */
     public void setAnchorStatusForOwner(String owner, EntityStatus status) throws ConfigurationServiceException 
     {

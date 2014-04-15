@@ -34,9 +34,9 @@ import javax.jws.WebService;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.nhindirect.config.model.utils.CertUtils;
-import org.nhindirect.config.store.Certificate;
-import org.nhindirect.config.store.EntityStatus;
-import org.nhindirect.config.store.dao.CertificateDao;
+import gov.hhs.fha.nhinc.directconfig.entity.Certificate;
+import gov.hhs.fha.nhinc.directconfig.entity.EntityStatus;
+import gov.hhs.fha.nhinc.directconfig.entity.dao.CertificateDao;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
@@ -139,7 +139,7 @@ public class CertificateServiceImpl implements CertificateService {
     /*
      * (non-Javadoc)
      * 
-     * @see org.nhindirect.config.service.CertificateService#setCertificateStatus(java.util.Collection, org.nhindirect.config.store.EntityStatus)
+     * @see org.nhindirect.config.service.CertificateService#setCertificateStatus(java.util.Collection, gov.hhs.fha.nhinc.directconfig.entity.EntityStatus)
      */
     public void setCertificateStatus(Collection<Long> certificateIDs, EntityStatus status)
             throws ConfigurationServiceException {
@@ -151,7 +151,7 @@ public class CertificateServiceImpl implements CertificateService {
     /*
      * (non-Javadoc)
      * 
-     * @see org.nhindirect.config.service.CertificateService#setCertificateStatusForOwner(java.lang.String, org.nhindirect.config.store.EntityStatus)
+     * @see org.nhindirect.config.service.CertificateService#setCertificateStatusForOwner(java.lang.String, gov.hhs.fha.nhinc.directconfig.entity.EntityStatus)
      */
     public void setCertificateStatusForOwner(String owner, EntityStatus status) throws ConfigurationServiceException {
         
@@ -196,7 +196,7 @@ public class CertificateServiceImpl implements CertificateService {
     /*
      * (non-Javadoc)
      * 
-     * @see org.nhindirect.config.service.CertificateService#contains(org.nhindirect.config.store.Certificate)
+     * @see org.nhindirect.config.service.CertificateService#contains(gov.hhs.fha.nhinc.directconfig.entity.Certificate)
      */
     public boolean contains(Certificate cert) 
     {
