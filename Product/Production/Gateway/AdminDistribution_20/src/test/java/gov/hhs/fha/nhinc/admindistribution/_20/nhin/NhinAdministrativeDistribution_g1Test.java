@@ -49,7 +49,7 @@ public class NhinAdministrativeDistribution_g1Test {
         InboundMessageEvent annotation = method.getAnnotation(InboundMessageEvent.class);
         assertNotNull(annotation);
         assertEquals(EDXLDistributionEventDescriptionBuilder.class, annotation.beforeBuilder());
-        assertEquals(DefaultEventDescriptionBuilder.class, annotation.afterReturningBuilder());
+        assertEquals(EDXLDistributionEventDescriptionBuilder.class, annotation.afterReturningBuilder());
         assertEquals("Admin Distribution", annotation.serviceType());
         assertEquals("2.0", annotation.version());
     }

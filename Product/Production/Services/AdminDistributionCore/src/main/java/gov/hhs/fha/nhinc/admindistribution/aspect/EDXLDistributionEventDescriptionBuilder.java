@@ -26,20 +26,20 @@
  */
 package gov.hhs.fha.nhinc.admindistribution.aspect;
 
-import gov.hhs.fha.nhinc.event.AssertionEventDescriptionBuilder;
 import oasis.names.tc.emergency.edxl.de._1.EDXLDistribution;
 
 import com.google.common.collect.ImmutableList;
+import gov.hhs.fha.nhinc.event.TargetEventDescriptionBuilder;
 
 /**
  * @author zmelnick
  * 
  */
-public class EDXLDistributionEventDescriptionBuilder extends AssertionEventDescriptionBuilder {
+public class EDXLDistributionEventDescriptionBuilder extends TargetEventDescriptionBuilder {
 
     private EDXLDistributionPayloadSizeExtractor payloadSizeExtractor = new EDXLDistributionPayloadSizeExtractor();
 
-    EDXLDistribution alertMessage;
+    private EDXLDistribution alertMessage;
 
     /*
      * (non-Javadoc)
@@ -65,16 +65,6 @@ public class EDXLDistributionEventDescriptionBuilder extends AssertionEventDescr
             return;
         }
         setStatuses(ImmutableList.of(alertMessage.getDistributionStatus().toString()));
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see gov.hhs.fha.nhinc.event.EventDescriptionBuilder#buildRespondingHCIDs()
-     */
-    @Override
-    public void buildRespondingHCIDs() {
-        // leave blank since there is never a responder
     }
 
     /*

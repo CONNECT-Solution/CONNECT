@@ -148,10 +148,6 @@ public class AdhocQueryResponseDescriptionBuilderTest extends BaseDescriptionBui
         assertEquals("payloadType", eventDescription.getPayloadTypes().get(1));
         assertEquals(2, eventDescription.getPayloadSizes().size());
         assertEquals("" + 12345, eventDescription.getPayloadSizes().get(0));
-        assertEquals("" + 12345, eventDescription.getPayloadSizes().get(1));
-        assertEquals(2, eventDescription.getRespondingHCIDs().size());
-        assertEquals("home", eventDescription.getRespondingHCIDs().get(0));
-        assertEquals("home", eventDescription.getRespondingHCIDs().get(1));
     }
 
     @Test

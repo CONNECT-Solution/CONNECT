@@ -91,7 +91,8 @@ public class AdhocQueryRequestDescriptionBuilder extends TargetEventDescriptionB
     private void extractRequest(Object[] arguments) {
         if (arguments != null && arguments.length > 0 && arguments[0] instanceof AdhocQueryRequest) {
             request = Optional.of((AdhocQueryRequest) arguments[0]);
+        }else {
+            request = Optional.absent();
         }
-        request = Optional.absent();
     }
 }
