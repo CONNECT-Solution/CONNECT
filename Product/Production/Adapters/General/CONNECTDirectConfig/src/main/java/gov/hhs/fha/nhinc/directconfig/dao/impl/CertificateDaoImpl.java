@@ -49,8 +49,7 @@ import org.springframework.transaction.annotation.Transactional;
  * @author ppyette
  */
 @Repository
-public class CertificateDaoImpl implements CertificateDao
-{
+public class CertificateDaoImpl implements CertificateDao {
     @PersistenceContext
     @Autowired
     private EntityManager entityManager;
@@ -64,42 +63,33 @@ public class CertificateDaoImpl implements CertificateDao
      */
     @SuppressWarnings({ "unchecked", "rawtypes" })
     @Transactional(readOnly = true)
-    public Certificate load(String owner, String thumbprint)
-    {
-
+    public Certificate load(String owner, String thumbprint) {
         log.debug("Enter");
 
         List<Certificate> result = null;
         Query select = null;
-        if (owner == null && thumbprint == null)
-        {
-        	select = entityManager.createQuery("SELECT c from Certificate c");
-        }
-        else if (owner != null && thumbprint == null)
-        {
-        	select = entityManager.createQuery("SELECT c from Certificate c WHERE UPPER(c.owner) = ?1");
-        	select.setParameter(1, owner.toUpperCase(Locale.getDefault()));
-        }
-        else if (owner == null && thumbprint != null)
-        {
-        	select = entityManager.createQuery("SELECT c from Certificate c WHERE c.thumbprint = ?1");
-        	select.setParameter(1, thumbprint);
-        }
-        else
-        {
-        	select = entityManager.createQuery("SELECT c from Certificate c WHERE c.thumbprint = ?1 and UPPER(c.owner) = ?2");
-        	select.setParameter(1, thumbprint);
-        	select.setParameter(2, owner.toUpperCase(Locale.getDefault()));
+        
+        if (owner == null && thumbprint == null) {
+            select = entityManager.createQuery("SELECT c from Certificate c");
+        } else if (owner != null && thumbprint == null) {
+            select = entityManager.createQuery("SELECT c from Certificate c WHERE UPPER(c.owner) = ?1");
+            select.setParameter(1, owner.toUpperCase(Locale.getDefault()));
+        } else if (owner == null && thumbprint != null) {
+            select = entityManager.createQuery("SELECT c from Certificate c WHERE c.thumbprint = ?1");
+            select.setParameter(1, thumbprint);
+        } else {
+            select = entityManager.createQuery("SELECT c from Certificate c WHERE c.thumbprint = ?1 and UPPER(c.owner) = ?2");
+            select.setParameter(1, thumbprint);
+            select.setParameter(2, owner.toUpperCase(Locale.getDefault()));
         }
 
         List rs = select.getResultList();
         if ((rs.size() != 0) && (rs.get(0) instanceof Certificate)) {
             result = (List<Certificate>) rs;
+        } else {
+            return null;
         }
-        else
-        	return null;
-
-
+        
         log.debug("Exit");
 
         return result.iterator().next();
@@ -112,42 +102,38 @@ public class CertificateDaoImpl implements CertificateDao
      */
     @SuppressWarnings({ "unchecked", "rawtypes" })
     @Transactional(readOnly = true)
-    public List<Certificate> list(List<Long> idList)
-    {
-
+    public List<Certificate> list(List<Long> idList) {
         log.debug("Enter");
 
-        if (idList == null || idList.size() == 0)
-        	return Collections.emptyList();
-
+        if (idList == null || idList.size() == 0) {
+            return Collections.emptyList();
+        }
+        
         List<Certificate> result = Collections.emptyList();
 
         Query select = null;
         StringBuffer ids = new StringBuffer("(");
-        for (Long id : idList)
-        {
-            if (ids.length() > 1)
-            {
-            	ids.append(", ");
+        for (Long id : idList) {
+            if (ids.length() > 1) {
+                ids.append(", ");
             }
+            
             ids.append(id);
         }
+        
         ids.append(")");
         String query = "SELECT c from Certificate c WHERE c.id IN " + ids.toString();
 
         select = entityManager.createQuery(query);
 
-		List rs = select.getResultList();
-        if (rs != null && (rs.size() != 0) && (rs.get(0) instanceof Certificate))
-        {
+        List rs = select.getResultList();
+        if (rs != null && (rs.size() != 0) && (rs.get(0) instanceof Certificate)) {
             result = (List<Certificate>) rs;
         }
-
 
         log.debug("Exit");
 
         return result;
-
     }
 
     /*
@@ -157,21 +143,16 @@ public class CertificateDaoImpl implements CertificateDao
      */
     @SuppressWarnings({ "unchecked", "rawtypes" })
     @Transactional(readOnly = true)
-    public List<Certificate> list(String owner)
-    {
-
+    public List<Certificate> list(String owner) {
         log.debug("Enter");
 
         List<Certificate> result = Collections.emptyList();
         Query select = null;
-        if (owner == null)
-        {
-        	select = entityManager.createQuery("SELECT c from Certificate c");
-        }
-        else if (owner != null)
-        {
-        	select = entityManager.createQuery("SELECT c from Certificate c WHERE UPPER(c.owner) = ?1");
-        	select.setParameter(1, owner.toUpperCase(Locale.getDefault()));
+        if (owner == null) {
+            select = entityManager.createQuery("SELECT c from Certificate c");
+        } else if (owner != null) {
+            select = entityManager.createQuery("SELECT c from Certificate c WHERE UPPER(c.owner) = ?1");
+            select.setParameter(1, owner.toUpperCase(Locale.getDefault()));
         }
 
         List rs = select.getResultList();
@@ -179,11 +160,9 @@ public class CertificateDaoImpl implements CertificateDao
             result = (List<Certificate>) rs;
         }
 
-
         log.debug("Exit");
 
         return result;
-
     }
 
     /*
@@ -192,9 +171,8 @@ public class CertificateDaoImpl implements CertificateDao
      * @see gov.hhs.fha.nhinc.directconfig.dao.CertificateDao#save(gov.hhs.fha.nhinc.directconfig.entity.Certificate)
      */
     @Transactional(readOnly = false)
-    public void save(Certificate cert)
-    {
-    	save(Arrays.asList(cert));
+    public void save(Certificate cert) {
+        save(Arrays.asList(cert));
     }
 
     /*
@@ -203,69 +181,56 @@ public class CertificateDaoImpl implements CertificateDao
      * @see gov.hhs.fha.nhinc.directconfig.dao.CertificateDao#save(java.util.List)
      */
     @Transactional(readOnly = false)
-    public void save(List<Certificate> certList)
-    {
-
+    public void save(List<Certificate> certList) {
         log.debug("Enter");
 
-        if (certList != null && certList.size() > 0)
-        {
-        	for (Certificate cert : certList)
-        	{
-        		cert.setCreateTime(Calendar.getInstance());
+        if (certList != null && certList.size() > 0) {
+            for (Certificate cert : certList) {
+                cert.setCreateTime(Calendar.getInstance());
 
-	        	try
-	        	{
-	        		CertContainer container = null;
-	        		X509Certificate xcert = null;
-	        		try
-	        		{
-	        			container = cert.toCredential();
-	        			xcert = container.getCert();
-	        		}
-	        		catch (CertificateException e)
-	        		{
-	        			// probably not a certificate but an IPKIX URL
-	        		}
+                try {
+                    CertContainer container = null;
+                    X509Certificate xcert = null;
+                    
+                    try {
+                        container = cert.toCredential();
+                        xcert = container.getCert();
+                    } catch (CertificateException e) {
+                        // probably not a certificate but an IPKIX URL
+                    }
 
-	        		if (cert.getValidStartDate() == null && xcert != null)
-	        		{
-	        			Calendar startDate = Calendar.getInstance();
-	        			startDate.setTime(xcert.getNotBefore());
-	        			cert.setValidStartDate(startDate);
-	        		}
-	        		if (cert.getValidEndDate() == null && xcert != null)
-	        		{
-	        			Calendar endDate = Calendar.getInstance();
-	        			endDate.setTime(xcert.getNotAfter());
-	        			cert.setValidEndDate(endDate);
-	        		}
+                    if (cert.getValidStartDate() == null && xcert != null) {
+                        Calendar startDate = Calendar.getInstance();
+                        startDate.setTime(xcert.getNotBefore());
+                        cert.setValidStartDate(startDate);
+                    }
+                    
+                    if (cert.getValidEndDate() == null && xcert != null) {
+                        Calendar endDate = Calendar.getInstance();
+                        endDate.setTime(xcert.getNotAfter());
+                        cert.setValidEndDate(endDate);
+                    }
 
-	        		if (cert.getStatus() == null)
-	        			cert.setStatus(EntityStatus.NEW);
+                    if (cert.getStatus() == null) {
+                        cert.setStatus(EntityStatus.NEW);
+                    }
+                    
+                    cert.setPrivateKey(container != null && container.getKey() != null);
+                } catch (CertificateException e) {
+                
+                }
 
-	        		cert.setPrivateKey(container != null && container.getKey() != null);
-	        	}
-	        	catch (CertificateException e)
-	        	{
+                log.debug("Calling JPA to persist the Certificate");
 
-	        	}
+                entityManager.persist(cert);
 
+                log.debug("Returned from JPA: Certificate ID=" + cert.getId());
+            }
 
-
-	        		log.debug("Calling JPA to persist the Certificate");
-
-	        	entityManager.persist(cert);
-
-	                log.debug("Returned from JPA: Certificate ID=" + cert.getId());
-
-        	}
             entityManager.flush();
         }
 
-
         log.debug("Exit");
-
     }
 
     /*
@@ -274,21 +239,19 @@ public class CertificateDaoImpl implements CertificateDao
      * @see gov.hhs.fha.nhinc.directconfig.dao.CertificateDao#setStatus(java.util.List, gov.hhs.fha.nhinc.directconfig.entity.EntityStatus)
      */
     @Transactional(readOnly = false)
-    public void setStatus(List<Long> certificateIDs, EntityStatus status)
-    {
-
+    public void setStatus(List<Long> certificateIDs, EntityStatus status) {
         log.debug("Enter");
 
         List<Certificate> certs = this.list(certificateIDs);
-        if (certs == null || certs.size() == 0)
-        	return;
-
-        for (Certificate cert : certs)
-        {
-        	cert.setStatus(status);
-        		entityManager.merge(cert);
+        
+        if (certs == null || certs.size() == 0) {
+            return;
         }
-
+        
+        for (Certificate cert : certs) {
+            cert.setStatus(status);
+            entityManager.merge(cert);
+        }
 
         log.debug("Exit");
     }
@@ -299,21 +262,19 @@ public class CertificateDaoImpl implements CertificateDao
      * @see gov.hhs.fha.nhinc.directconfig.dao.CertificateDao#setStatus(java.lang.String, gov.hhs.fha.nhinc.directconfig.entity.EntityStatus)
      */
     @Transactional(readOnly = false)
-    public void setStatus(String owner, EntityStatus status)
-    {
-
+    public void setStatus(String owner, EntityStatus status) {
         log.debug("Enter");
 
         List<Certificate> certs = list(owner);
-        if (certs == null || certs.size() == 0)
-        	return;
-
-        for (Certificate cert : certs)
-        {
-        	cert.setStatus(status);
-        		entityManager.merge(cert);
+        
+        if (certs == null || certs.size() == 0) {
+            return;
         }
-
+        
+        for (Certificate cert : certs) {
+            cert.setStatus(status);
+            entityManager.merge(cert);
+        }
 
         log.debug("Exit");
     }
@@ -324,64 +285,53 @@ public class CertificateDaoImpl implements CertificateDao
      * @see gov.hhs.fha.nhinc.directconfig.dao.CertificateDao#delete(java.util.List)
      */
     @Transactional(readOnly = false)
-    public void delete(List<Long> idList)
-    {
-
+    public void delete(List<Long> idList) {
         log.debug("Enter");
 
-        if (idList != null && idList.size() > 0)
-        {
-	        StringBuffer ids = new StringBuffer("(");
-	        for (Long id : idList)
-	        {
-	            if (ids.length() > 1)
-	            {
-	            	ids.append(", ");
-	            }
-	            ids.append(id);
-	        }
-	        ids.append(")");
-	        String query = "DELETE FROM Certificate c WHERE c.id IN " + ids.toString();
+        if (idList != null && idList.size() > 0) {
+            StringBuffer ids = new StringBuffer("(");
+            
+            for (Long id : idList) {
+                if (ids.length() > 1) {
+                    ids.append(", ");
+                }
+                
+                ids.append(id);
+            }
+            
+            ids.append(")");
+            String query = "DELETE FROM Certificate c WHERE c.id IN " + ids.toString();
 
-	        int count = 0;
-	        Query delete = entityManager.createQuery(query);
-	        count = delete.executeUpdate();
+            int count = 0;
+            Query delete = entityManager.createQuery(query);
+            count = delete.executeUpdate();
 
-
-	            log.debug("Exit: " + count + " certificate records deleted");
+            log.debug("Exit: " + count + " certificate records deleted");
         }
 
-
         log.debug("Exit");
-
     }
 
-	/*
+    /*
      * (non-Javadoc)
      *
      * @see gov.hhs.fha.nhinc.directconfig.dao.CertificateDao#delete(java.lang.String)
      */
     @Transactional(readOnly = false)
-    public void delete(String owner)
-    {
-
+    public void delete(String owner) {
         log.debug("Enter");
 
-        if (owner == null)
-        	return;
-
+        if (owner == null) {
+            return;
+        }
+        
         int count = 0;
-        if (owner != null)
-        {
+        if (owner != null) {
             Query delete = entityManager.createQuery("DELETE FROM Certificate c WHERE UPPER(c.owner) = ?1");
             delete.setParameter(1, owner.toUpperCase(Locale.getDefault()));
             count = delete.executeUpdate();
         }
 
-
-            log.debug("Exit: " + count + " certificate records deleted");
+        log.debug("Exit: " + count + " certificate records deleted");
     }
-
-
-
 }

@@ -26,8 +26,7 @@ import org.springframework.transaction.annotation.Transactional;
  * @author Greg Meyer
  */
 @Repository
-public class SettingDaoImpl implements SettingDao
-{
+public class SettingDaoImpl implements SettingDao {
     @PersistenceContext
     @Autowired
     private EntityManager entityManager;
@@ -38,83 +37,72 @@ public class SettingDaoImpl implements SettingDao
      * {@inheritDoc}
      */
     @Transactional(readOnly = false)
-	public void add(String name, String value)
-	{
-
+    public void add(String name, String value) {
         log.debug("Enter");
 
-        if (name == null || name.isEmpty() || value == null)
-        	return;
-
+        if (name == null || name.isEmpty() || value == null) {
+            return;
+        }
+        
         // make sure this setting doesn't already exist
-        if (this.getByNames(Arrays.asList(name)).size() > 0)
-        	throw new ConfigurationStoreException("Setting " + name + " already exists.");
-
+        if (this.getByNames(Arrays.asList(name)).size() > 0) {
+            throw new ConfigurationStoreException("Setting " + name + " already exists.");
+        }
+        
         Setting setting = new Setting();
+        
         setting.setName(name);
         setting.setValue(value);
         setting.setCreateTime(Calendar.getInstance());
         setting.setUpdateTime(setting.getCreateTime());
 
-
-            log.debug("Calling JPA to persist the setting");
+        log.debug("Calling JPA to persist the setting");
 
         entityManager.persist(setting);
         entityManager.flush();
 
-
-
-            log.debug("Returned from JPA: Setting ID=" + setting.getId());
-
+        log.debug("Returned from JPA: Setting ID=" + setting.getId());
 
         log.debug("Exit");
-
-	}
+    }
 
     /**
      * {@inheritDoc}
      */
     @Transactional(readOnly = false)
-	public void delete(Collection<String> names)
-	{
-
+    public void delete(Collection<String> names) {
         log.debug("Enter");
 
-        if (names != null && names.size() > 0)
-        {
-	        StringBuffer queryNames = new StringBuffer("(");
-	        for (String name : names)
-	        {
-	            if (queryNames.length() > 1)
-	            {
-	            	queryNames.append(", ");
-	            }
-	            queryNames.append("'").append(name.toUpperCase(Locale.getDefault())).append("'");
-	        }
-	        queryNames.append(")");
-	        String query = "DELETE FROM Setting s WHERE UPPER(s.name) IN " + queryNames.toString();
+        if (names != null && names.size() > 0) {
+            StringBuffer queryNames = new StringBuffer("(");
+            
+            for (String name : names) {
+                if (queryNames.length() > 1) {
+                    queryNames.append(", ");
+                }
+                
+                queryNames.append("'").append(name.toUpperCase(Locale.getDefault())).append("'");
+            }
+            
+            queryNames.append(")");
+            String query = "DELETE FROM Setting s WHERE UPPER(s.name) IN " + queryNames.toString();
 
-	        int count = 0;
-	        Query delete = entityManager.createQuery(query);
-	        count = delete.executeUpdate();
+            int count = 0;
+            Query delete = entityManager.createQuery(query);
+            count = delete.executeUpdate();
 
-
-	            log.debug("Exit: " + count + " setting records deleted");
+            log.debug("Exit: " + count + " setting records deleted");
         }
 
-
         log.debug("Exit");
-
-	}
+    }
 
     /**
      * {@inheritDoc}
      */
     @SuppressWarnings("unchecked")
     @Transactional(readOnly = true)
-	public Collection<Setting> getAll()
-	{
-
+    public Collection<Setting> getAll() {
         log.debug("Enter");
 
         List<Setting> result = Collections.emptyList();
@@ -122,83 +110,78 @@ public class SettingDaoImpl implements SettingDao
         Query select = null;
         select = entityManager.createQuery("SELECT s from Setting s");
 
-
         @SuppressWarnings("rawtypes")
-		List rs = select.getResultList();
-        if (rs != null && (rs.size() != 0) && (rs.get(0) instanceof Setting))
-        {
+        List rs = select.getResultList();
+
+        if (rs != null && (rs.size() != 0) && (rs.get(0) instanceof Setting)) {
             result = (List<Setting>) rs;
         }
 
-
         log.debug("Exit");
         return result;
-	}
+    }
 
     /**
      * {@inheritDoc}
      */
     @SuppressWarnings("unchecked")
     @Transactional(readOnly = true)
-	public Collection<Setting> getByNames(Collection<String> names)
-	{
-
+    public Collection<Setting> getByNames(Collection<String> names) {
         log.debug("Enter");
 
         if (names == null || names.size() == 0)
-        	return getAll();
+            return getAll();
 
         List<Setting> result = Collections.emptyList();
 
         Query select = null;
         StringBuffer nameList = new StringBuffer("(");
-        for (String name : names)
-        {
-            if (nameList.length() > 1)
-            {
+        
+        for (String name : names) {
+            if (nameList.length() > 1) {
                 nameList.append(", ");
             }
+            
             nameList.append("'").append(name.toUpperCase(Locale.getDefault())).append("'");
         }
+        
         nameList.append(")");
         String query = "SELECT s from Setting s WHERE UPPER(s.name) IN " + nameList.toString();
 
         select = entityManager.createQuery(query);
+        
         @SuppressWarnings("rawtypes")
-		List rs = select.getResultList();
+        List rs = select.getResultList();
+        
         if (rs != null && (rs.size() != 0) && (rs.get(0) instanceof Setting))
         {
             result = (List<Setting>) rs;
         }
 
-
         log.debug("Exit");
 
         return result;
-	}
+    }
 
     /**
      * {@inheritDoc}
      */
     @Transactional(readOnly = false)
-	public void update(String name, String value)
-	{
-
+    public void update(String name, String value) {
         log.debug("Enter");
 
-        if (name == null || name.isEmpty())
-        	return;
-
+        if (name == null || name.isEmpty()) {
+            return;
+        }
+        
         Collection<Setting> settings = getByNames(Arrays.asList(name));
 
-        for (Setting setting : settings)
-        {
-        	setting.setValue(value);
-        	setting.setUpdateTime(Calendar.getInstance());
-        	entityManager.merge(setting);
+        for (Setting setting : settings) {
+            setting.setValue(value);
+            setting.setUpdateTime(Calendar.getInstance());
+            entityManager.merge(setting);
         }
 
-
         log.debug("Exit");
-	}
+    }
 }

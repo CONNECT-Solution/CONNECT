@@ -24,7 +24,6 @@ package gov.hhs.fha.nhinc.directconfig.dao.impl;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 
@@ -53,7 +52,6 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Repository
 public class DomainDaoImpl implements DomainDao {
-
     @PersistenceContext
     @Autowired
     private EntityManager entityManager;
@@ -70,11 +68,10 @@ public class DomainDaoImpl implements DomainDao {
      */
     @Transactional(readOnly = true)
     public int count() {
-
         log.debug("Enter");
         Long result = (Long) entityManager.createQuery("select count(d) from Domain d").getSingleResult();
 
-            log.debug("Exit: " + result.intValue());
+        log.debug("Exit: " + result.intValue());
         return result.intValue();
     }
 
@@ -85,24 +82,22 @@ public class DomainDaoImpl implements DomainDao {
      */
     @Transactional(readOnly = false)
     public void add(Domain item) {
-
         log.debug("Enter");
 
-        if (item.getDomainName() == null || item.getDomainName().isEmpty())
-        	throw new ConfigurationStoreException("Domain name cannot be empty or null");
-
+        if (item.getDomainName() == null || item.getDomainName().isEmpty()) {
+            throw new ConfigurationStoreException("Domain name cannot be empty or null");
+        }
+        
         // Save and clear Address information until the Domain is saved.
         // This is really something that JPA should be doing, but doesn't seem
         // to work.
         if (item != null) {
-            String pm = item.getPostMasterEmail();
             Collection<Address> addresses = item.getAddresses();
 
             item.setAddresses(null);
 
             item.setCreateTime(Calendar.getInstance());
             item.setUpdateTime(item.getCreateTime());
-
 
             log.debug("Calling JPA to persist the Domain");
 
@@ -119,15 +114,12 @@ public class DomainDaoImpl implements DomainDao {
             }
 
             if (needUpdate) {
-
-                    log.debug("Updating the domain with Address info");
+                log.debug("Updating the domain with Address info");
                 update(item);
             }
 
-
-                log.debug("Returned from JPA: Domain ID=" + item.getId());
+            log.debug("Returned from JPA: Domain ID=" + item.getId());
         }
-
 
         log.debug("Exit");
     }
@@ -139,7 +131,6 @@ public class DomainDaoImpl implements DomainDao {
      */
     @Transactional(readOnly = false)
     public void update(Domain item) {
-
         log.debug("Enter");
 
         if (item != null) {
@@ -155,7 +146,6 @@ public class DomainDaoImpl implements DomainDao {
             log.debug("Calling JPA to perform update...");
             entityManager.merge(item);
         }
-
 
         log.debug("Exit");
     }
@@ -183,11 +173,11 @@ public class DomainDaoImpl implements DomainDao {
         final Domain domain = getDomainByName(name);
 
         if (domain != null) {
-        	disassociateTrustBundlesFromDomain(domain.getId());
+            disassociateTrustBundlesFromDomain(domain.getId());
 
-	        entityManager.remove(domain);
+            entityManager.remove(domain);
         } else  {
-        	log.warn("No domain matching the name: " + name + " found.  Unable to delete.");
+            log.warn("No domain matching the name: " + name + " found.  Unable to delete.");
         }
 
         log.debug("Exit");
@@ -205,9 +195,9 @@ public class DomainDaoImpl implements DomainDao {
         final Domain domain = getDomain(anId);
 
         if (domain != null) {
-        	disassociateTrustBundlesFromDomain(domain.getId());
+            disassociateTrustBundlesFromDomain(domain.getId());
 
-        	entityManager.remove(domain);
+            entityManager.remove(domain);
         } else  {
            log.warn("No domain matching the id: " + anId + " found.  Unable to delete.");
         }
@@ -222,7 +212,6 @@ public class DomainDaoImpl implements DomainDao {
      */
     @Transactional(readOnly = true)
     public Domain getDomainByName(String name) {
-
         log.debug("Enter");
 
         Domain result = null;
@@ -230,10 +219,11 @@ public class DomainDaoImpl implements DomainDao {
         if (name != null) {
             Query select = entityManager.createQuery("SELECT DISTINCT d from Domain d WHERE UPPER(d.domainName) = ?1");
             Query paramQuery = select.setParameter(1, name.toUpperCase(Locale.getDefault()));
-            if (paramQuery.getResultList().size() > 0)
-            	result = (Domain) paramQuery.getSingleResult();
-        }
 
+            if (paramQuery.getResultList().size() > 0) {
+                result = (Domain) paramQuery.getSingleResult();
+            }
+        }
 
         log.debug("Exit");
         return result;
@@ -250,19 +240,22 @@ public class DomainDaoImpl implements DomainDao {
     @SuppressWarnings("unchecked")
     @Transactional(readOnly = true)
     public List<Domain> getDomains(List<String> names, EntityStatus status) {
-
         log.debug("Enter");
 
         List<Domain> result = null;
         Query select = null;
+        
         if (names != null) {
             StringBuffer nameList = new StringBuffer("(");
+            
             for (String aName : names) {
                 if (nameList.length() > 1) {
                     nameList.append(", ");
                 }
+                
                 nameList.append("'").append(aName.toUpperCase(Locale.getDefault())).append("'");
             }
+            
             nameList.append(")");
             String query = "SELECT d from Domain d WHERE UPPER(d.domainName) IN " + nameList.toString();
 
@@ -283,13 +276,12 @@ public class DomainDaoImpl implements DomainDao {
         }
 
         @SuppressWarnings("rawtypes")
-		List rs = select.getResultList();
+        List rs = select.getResultList();
         if ((rs.size() != 0) && (rs.get(0) instanceof Domain)) {
             result = (List<Domain>) rs;
         } else {
             result = new ArrayList<Domain>();
         }
-
 
         log.debug("Exit");
         return result;
@@ -305,11 +297,11 @@ public class DomainDaoImpl implements DomainDao {
     @SuppressWarnings("unchecked")
     @Transactional(readOnly = true)
     public List<Domain> listDomains(String name, int count) {
-
         log.debug("Enter");
 
         List<Domain> result = null;
         Query select = null;
+        
         if (name != null) {
             select = entityManager.createQuery("SELECT d from Domain d WHERE UPPER(d.domainName) = ?1");
             select.setParameter(1, name.toUpperCase(Locale.getDefault()));
@@ -323,33 +315,13 @@ public class DomainDaoImpl implements DomainDao {
         }
 
         @SuppressWarnings("rawtypes")
-		List rs = select.getResultList();
+        List rs = select.getResultList();
         if ((rs.size() != 0) && (rs.get(0) instanceof Domain)) {
             result = (List<Domain>) rs;
         }
 
-
         log.debug("Exit");
         return result;
-    }
-
-    /**
-     * Get the value of entityManager.
-     *
-     * @return the value of entityManager.
-     */
-    public EntityManager getEntityManager() {
-        return entityManager;
-    }
-
-    /**
-     * Set the value of entityManager.
-     *
-     * @param entityManager
-     *            The vale of entityManager.
-     */
-    public void setEntityManager(EntityManager entityManager) {
-        this.entityManager = entityManager;
     }
 
     /*
@@ -395,7 +367,6 @@ public class DomainDaoImpl implements DomainDao {
             result = new ArrayList<Domain>();
         }
 
-
         log.debug("Exit");
         return result;
     }
@@ -407,14 +378,12 @@ public class DomainDaoImpl implements DomainDao {
      */
     @Transactional(readOnly = true)
     public Domain getDomain(Long id) {
-
         log.debug("Enter");
 
         Domain result = null;
         if ((id != null) && (id.longValue() > 0)) {
             result = entityManager.find(Domain.class, id);
         }
-
 
         log.debug("Exit");
         return result;
@@ -428,11 +397,9 @@ public class DomainDaoImpl implements DomainDao {
         addressDao = aDao;
     }
 
-	protected void disassociateTrustBundlesFromDomain(long domainId) throws ConfigurationStoreException
-	{
-		final TrustBundleDaoImpl dao = new TrustBundleDaoImpl();
-		dao.setEntityManager(this.entityManager);
-		dao.setDomainDao(this);
-		dao.disassociateTrustBundlesFromDomain(domainId);
-	}
+    protected void disassociateTrustBundlesFromDomain(long domainId) throws ConfigurationStoreException {
+        final TrustBundleDaoImpl dao = new TrustBundleDaoImpl();
+        
+        dao.disassociateTrustBundlesFromDomain(domainId);
+    }
 }
