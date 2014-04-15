@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns:tns="urn:gov:hhs:fha:nhinc:direct"
+           elementFormDefault="unqualified"
+           targetNamespace="urn:gov:hhs:fha:nhinc:direct"
+           version="1.0">
+   <xs:element name="sendOutboundDirect" type="tns:sendOutboundDirect"/>
+   <xs:element name="sendOutboundDirectResponse" type="tns:sendOutboundDirectResponse"/>
+   <xs:complexType name="sendOutboundDirect">
+      <xs:sequence>
+         <xs:element minOccurs="0" name="arg0" type="tns:mimeMessage"/>
+         <xs:element minOccurs="0" name="arg1" type="tns:address1"/>
+         <xs:element maxOccurs="unbounded" minOccurs="0" name="arg2" type="tns:address1"/>
+         <xs:element minOccurs="0" name="arg3" type="tns:directDocuments"/>
+         <xs:element minOccurs="0" name="arg4" type="xs:string"/>
+      </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="mimeMessage">
+      <xs:complexContent>
+         <xs:extension base="tns:message1">
+            <xs:sequence>
+               <xs:element minOccurs="0" name="contentID" type="xs:string"/>
+               <xs:element maxOccurs="unbounded" minOccurs="0" name="contentLanguage" nillable="true"
+                           type="xs:string"/>
+               <xs:element minOccurs="0" name="contentMD5" type="xs:string"/>
+               <xs:element minOccurs="0" name="dataHandler" type="xs:base64Binary"/>
+               <xs:element minOccurs="0" name="description" type="xs:string"/>
+               <xs:element minOccurs="0" name="disposition" type="xs:string"/>
+               <xs:element minOccurs="0" name="fileName" type="xs:string"/>
+               <xs:element minOccurs="0" name="sender" type="tns:address1"/>
+            </xs:sequence>
+         </xs:extension>
+      </xs:complexContent>
+   </xs:complexType>
+   <xs:complexType abstract="true" name="message1">
+      <xs:sequence>
+         <xs:element maxOccurs="unbounded" minOccurs="0" name="replyTo" nillable="true"
+                     type="tns:address1"/>
+         <xs:element minOccurs="0" name="sentDate" type="xs:dateTime"/>
+         <xs:element minOccurs="0" name="subject" type="xs:string"/>
+      </xs:sequence>
+   </xs:complexType>
+   <xs:complexType abstract="true" name="address1">
+       <xs:sequence>
+           <xs:element minOccurs="0" name="atype" type="xs:string"/>
+       </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="directDocuments">
+      <xs:sequence>
+         <xs:element maxOccurs="unbounded" minOccurs="0" name="documents" nillable="true"
+                     type="tns:directDocument2"/>
+         <xs:element minOccurs="0" name="submissionSet" type="tns:submissionSet"/>
+      </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="directDocument2">
+      <xs:sequence>
+         <xs:element minOccurs="0" name="data" type="xs:base64Binary"/>
+         <xs:element minOccurs="0" name="metadata" type="tns:metadata"/>
+      </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="metadata">
+      <xs:sequence>
+         <xs:element maxOccurs="unbounded" minOccurs="0" name="authorInstitution" nillable="true"
+                     type="xs:string"/>
+         <xs:element minOccurs="0" name="authorPerson" type="xs:string"/>
+         <xs:element minOccurs="0" name="authorRole" type="xs:string"/>
+         <xs:element minOccurs="0" name="authorSpecialty" type="xs:string"/>
+         <xs:element minOccurs="0" name="classCode" type="xs:string"/>
+         <xs:element minOccurs="0" name="classCode_localized" type="xs:string"/>
+         <xs:element minOccurs="0" name="confidentialityCode" type="xs:string"/>
+         <xs:element minOccurs="0" name="confidentialityCode_localized" type="xs:string"/>
+         <xs:element minOccurs="0" name="creationTime" type="xs:dateTime"/>
+         <xs:element minOccurs="0" name="description" type="xs:string"/>
+         <xs:element minOccurs="0" name="formatCode" type="xs:string"/>
+         <xs:element minOccurs="0" name="formatCode_localized" type="xs:string"/>
+         <xs:element minOccurs="0" name="hash" type="xs:string"/>
+         <xs:element minOccurs="0" name="healthcareFacilityTypeCode" type="xs:string"/>
+         <xs:element minOccurs="0" name="healthcareFacilityTypeCode_localized" type="xs:string"/>
+         <xs:element minOccurs="0" name="id" type="xs:string"/>
+         <xs:element minOccurs="0" name="languageCode" type="xs:string"/>
+         <xs:element minOccurs="0" name="loinc" type="xs:string"/>
+         <xs:element minOccurs="0" name="loinc_localized" type="xs:string"/>
+         <xs:element minOccurs="0" name="mimeType" type="xs:string"/>
+         <xs:element minOccurs="0" name="patientId" type="xs:string"/>
+         <xs:element minOccurs="0" name="practiceSettingCode" type="xs:string"/>
+         <xs:element minOccurs="0" name="practiceSettingCode_localized" type="xs:string"/>
+         <xs:element minOccurs="0" name="serviceStartTime" type="xs:dateTime"/>
+         <xs:element minOccurs="0" name="serviceStopTime" type="xs:dateTime"/>
+         <xs:element minOccurs="0" name="size" type="xs:long"/>
+         <xs:element minOccurs="0" name="sourcePatient" type="tns:simplePerson"/>
+         <xs:element minOccurs="0" name="submissionSetStatus" type="xs:string"/>
+         <xs:element minOccurs="0" name="URI" type="xs:string"/>
+         <xs:element minOccurs="0" name="uniqueId" type="xs:string"/>
+      </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="simplePerson">
+      <xs:sequence>
+         <xs:element minOccurs="0" name="age" type="xs:string"/>
+         <xs:element minOccurs="0" name="ageUnits" type="xs:string"/>
+         <xs:element minOccurs="0" name="birthDateTime" type="xs:string"/>
+         <xs:element minOccurs="0" name="city" type="xs:string"/>
+         <xs:element minOccurs="0" name="country" type="xs:string"/>
+         <xs:element minOccurs="0" name="county" type="xs:string"/>
+         <xs:element minOccurs="0" name="department" type="xs:string"/>
+         <xs:element minOccurs="0" name="email" type="xs:string"/>
+         <xs:element minOccurs="0" name="ethnicityCode" type="xs:string"/>
+         <xs:element minOccurs="0" name="ethnicityCodeName" type="xs:string"/>
+         <xs:element minOccurs="0" name="ethnicityCodeSystem" type="xs:string"/>
+         <xs:element minOccurs="0" name="firstName" type="xs:string"/>
+         <xs:element minOccurs="0" name="genderCode" type="xs:string"/>
+         <xs:element minOccurs="0" name="genderCodeSystem" type="xs:string"/>
+         <xs:element minOccurs="0" name="languageCode" type="xs:string"/>
+         <xs:element minOccurs="0" name="lastName" type="xs:string"/>
+         <xs:element minOccurs="0" name="localId" type="xs:string"/>
+         <xs:element minOccurs="0" name="localOrg" type="xs:string"/>
+         <xs:element minOccurs="0" name="middleName" type="xs:string"/>
+         <xs:element minOccurs="0" name="npi" type="xs:string"/>
+         <xs:element name="otherOrgIds">
+            <xs:complexType>
+               <xs:sequence>
+                  <xs:element maxOccurs="unbounded" minOccurs="0" name="entry">
+                     <xs:complexType>
+                        <xs:sequence>
+                           <xs:element minOccurs="0" name="key" type="xs:string"/>
+                           <xs:element minOccurs="0" name="value" type="xs:string"/>
+                        </xs:sequence>
+                     </xs:complexType>
+                  </xs:element>
+               </xs:sequence>
+            </xs:complexType>
+         </xs:element>
+         <xs:element minOccurs="0" name="patientEuid" type="xs:string"/>
+         <xs:element minOccurs="0" name="pcpName" type="xs:string"/>
+         <xs:element minOccurs="0" name="pcpOid" type="xs:string"/>
+         <xs:element minOccurs="0" name="phoneExt" type="xs:string"/>
+         <xs:element minOccurs="0" name="SSN" type="xs:string"/>
+         <xs:element minOccurs="0" name="ssn1" type="xs:string"/>
+         <xs:element minOccurs="0" name="state" type="xs:string"/>
+         <xs:element minOccurs="0" name="streetAddress1" type="xs:string"/>
+         <xs:element minOccurs="0" name="streetAddress2" type="xs:string"/>
+         <xs:element minOccurs="0" name="suffix" type="xs:string"/>
+         <xs:element minOccurs="0" name="systemCode" type="xs:string"/>
+         <xs:element minOccurs="0" name="systemName" type="xs:string"/>
+         <xs:element minOccurs="0" name="telephone" type="xs:string"/>
+         <xs:element minOccurs="0" name="title" type="xs:string"/>
+         <xs:element minOccurs="0" name="zipCode" type="xs:string"/>
+      </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="submissionSet">
+      <xs:sequence>
+         <xs:element maxOccurs="unbounded" minOccurs="0" name="authorInstitution" nillable="true"
+                     type="xs:string"/>
+         <xs:element minOccurs="0" name="authorPerson" type="xs:string"/>
+         <xs:element minOccurs="0" name="authorRole" type="xs:string"/>
+         <xs:element minOccurs="0" name="authorSpecialty" type="xs:string"/>
+         <xs:element minOccurs="0" name="authorTelecommunication" type="xs:string"/>
+         <xs:element minOccurs="0" name="contentTypeCode" type="xs:string"/>
+         <xs:element minOccurs="0" name="contentTypeCode_localized" type="xs:string"/>
+         <xs:element minOccurs="0" name="description" type="xs:string"/>
+         <xs:element minOccurs="0" name="id" type="xs:string"/>
+         <xs:element maxOccurs="unbounded" minOccurs="0" name="intendedRecipient" nillable="true"
+                     type="xs:string"/>
+         <xs:element minOccurs="0" name="name" type="xs:string"/>
+         <xs:element minOccurs="0" name="patientId" type="xs:string"/>
+         <xs:element minOccurs="0" name="sourceId" type="xs:string"/>
+         <xs:element minOccurs="0" name="submissionTime" type="xs:dateTime"/>
+         <xs:element minOccurs="0" name="uniqueId" type="xs:string"/>
+      </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="sendOutboundDirectResponse">
+      <xs:sequence/>
+   </xs:complexType>
+</xs:schema>

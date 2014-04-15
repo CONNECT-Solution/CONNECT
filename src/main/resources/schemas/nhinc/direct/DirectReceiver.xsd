@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns:tns="urn:gov:hhs:fha:nhinc:direct"
+           elementFormDefault="unqualified"
+           targetNamespace="urn:gov:hhs:fha:nhinc:direct"
+           version="1.0">
+   <xs:element name="receiveInbound" type="tns:receiveInbound"/>
+   <xs:element name="receiveInboundResponse" type="tns:receiveInboundResponse"/>
+   <xs:complexType name="receiveInbound">
+      <xs:sequence>
+         <xs:element minOccurs="0" name="arg0" type="tns:mimeMessage1"/>
+      </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="mimeMessage1">
+      <xs:complexContent>
+         <xs:extension base="tns:message">
+            <xs:sequence>
+               <xs:element minOccurs="0" name="contentID" type="xs:string"/>
+               <xs:element maxOccurs="unbounded" minOccurs="0" name="contentLanguage" nillable="true"
+                           type="xs:string"/>
+               <xs:element minOccurs="0" name="contentMD5" type="xs:string"/>
+               <xs:element minOccurs="0" name="dataHandler" type="xs:base64Binary"/>
+               <xs:element minOccurs="0" name="description" type="xs:string"/>
+               <xs:element minOccurs="0" name="disposition" type="xs:string"/>
+               <xs:element minOccurs="0" name="fileName" type="xs:string"/>
+               <xs:element minOccurs="0" name="sender" type="tns:address"/>
+            </xs:sequence>
+         </xs:extension>
+      </xs:complexContent>
+   </xs:complexType>
+   <xs:complexType abstract="true" name="message">
+      <xs:sequence>
+         <xs:element maxOccurs="unbounded" minOccurs="0" name="replyTo" nillable="true"
+                     type="tns:address"/>
+         <xs:element minOccurs="0" name="sentDate" type="xs:dateTime"/>
+         <xs:element minOccurs="0" name="subject" type="xs:string"/>
+      </xs:sequence>
+   </xs:complexType>
+   <xs:complexType abstract="true" name="address">
+       <xs:sequence>
+           <xs:element minOccurs="0" name="atype" type="xs:string"/>
+       </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="receiveInboundResponse">
+      <xs:sequence/>
+   </xs:complexType>
+</xs:schema>
+
