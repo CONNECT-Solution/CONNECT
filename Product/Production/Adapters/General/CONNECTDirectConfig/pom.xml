@@ -8,7 +8,7 @@
     <artifactId>CONNECTDirectConfig</artifactId>
     <packaging>war</packaging>
     <name>${project.artifactId}</name>
-    
+
     <dependencies>
         <dependency>
             <groupId>javax</groupId>
@@ -19,6 +19,25 @@
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>bouncycastle</groupId>
+            <artifactId>bcprov-jdk15</artifactId>
+            <version>140</version>
+        </dependency>
+
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>1.4</version>
+        </dependency>
+
+        <!-- Needed for custom crypto classes -->
+        <dependency>
+            <groupId>org.nhind</groupId>
+            <artifactId>direct-common</artifactId>
+            <version>1.2.1</version>
         </dependency>
     </dependencies>
     <!--build>
