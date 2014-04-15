@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:tx="http://www.springframework.org/schema/tx" xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:jaxws="http://cxf.apache.org/jaxws" xmlns:util="http://www.springframework.org/schema/util"
+    xsi:schemaLocation="
+	http://www.springframework.org/schema/beans    http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://www.springframework.org/schema/context  http://www.springframework.org/schema/context/spring-context-3.0.xsd 
+    http://www.springframework.org/schema/tx       http://www.springframework.org/schema/tx/spring-tx.xsd
+	http://cxf.apache.org/jaxws                    http://cxf.apache.org/schemas/jaxws.xsd
+    http://camel.apache.org/schema/spring          http://camel.apache.org/schema/spring/camel-spring.xsd
+    http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd"
+    default-autowire="byName">
+
+    <import resource="classpath:META-INF/cxf/cxf.xml" />
+    <import resource="classpath:META-INF/cxf/cxf-extension-soap.xml" />
+    <import resource="classpath:META-INF/cxf/cxf-servlet.xml" />
+
+    <context:annotation-config />
+    <context:component-scan base-package="org.nhindirect.config" />
+    <tx:annotation-driven transaction-manager="transactionManager" />
+
+    <context:property-placeholder location="classpath:properties/config.properties" />
+
+    <jaxws:endpoint id="configurationService" address="/ConfigurationService">
+        <jaxws:implementor>
+            <bean id="configurationServiceImpl" class="org.nhindirect.config.service.impl.ConfigurationServiceImpl">
+                <property name="domainSvc" ref="domainSvc" />
+                <property name="addressSvc" ref="addressSvc" />
+                <property name="anchorSvc" ref="anchorSvc" />
+                <property name="certSvc" ref="certSvc" />
+                <property name="settingSvc" ref="settingSvc" />
+                <property name="DNSSvc" ref="dnsSvc" />
+                <property name="trustBundleSvc" ref="trustBundleSvc" />
+                <property name="certificatePolicySvc" ref="certificatePolicySvc" />
+            </bean>
+
+        </jaxws:implementor>
+    </jaxws:endpoint>
+
+    <!-- <jaxws:endpoint id="addressService" implementor="org.nhindirect.config.service.ws.AddressServiceWS" address="/AddressService" 
+        /> -->
+
+    <!-- Service Implementations -->
+    <bean id="domainSvc" class="org.nhindirect.config.service.impl.DomainServiceImpl">
+        <property name="dao" ref="domainDao" />
+    </bean>
+    <bean id="addressSvc" class="org.nhindirect.config.service.impl.AddressServiceImpl">
+        <property name="dao" ref="addressDao" />
+    </bean>
+    <bean id="anchorSvc" class="org.nhindirect.config.service.impl.AnchorServiceImpl">
+        <property name="dao" ref="anchorDao" />
+    </bean>
+    <bean id="certSvc" class="org.nhindirect.config.service.impl.CertificateServiceImpl">
+        <property name="dao" ref="certificateDao" />
+    </bean>
+    <bean id="settingSvc" class="org.nhindirect.config.service.impl.SettingServiceImpl">
+        <property name="dao" ref="settingDao" />
+    </bean>
+    <bean id="dnsSvc" class="org.nhindirect.config.service.impl.DNSServiceImpl">
+        <property name="dao" ref="dnsDao" />
+    </bean>
+    <bean id="trustBundleSvc" class="org.nhindirect.config.service.impl.TrustBundleServiceImpl">
+        <property name="dao" ref="trustBundleDao" />
+    </bean>
+    <bean id="certificatePolicySvc" class="org.nhindirect.config.service.impl.CertificatePolicyServiceImpl">
+        <property name="dao" ref="certPolicyDao" />
+    </bean>
+
+    <!-- DAO's -->
+    <bean id="domainDao" class="org.nhindirect.config.store.dao.impl.DomainDaoImpl" />
+    <bean id="addressDao" class="org.nhindirect.config.store.dao.impl.AddressDaoImpl" />
+    <bean id="anchorDao" class="org.nhindirect.config.store.dao.impl.AnchorDaoImpl" />
+    <bean id="certificateDao" class="org.nhindirect.config.store.dao.impl.CertificateDaoImpl" />
+    <bean id="settingDao" class="org.nhindirect.config.store.dao.impl.SettingDaoImpl" />
+    <bean id="dnsDao" class="org.nhindirect.config.store.dao.impl.DNSDaoImpl" />
+    <bean id="trustBundleDao" class="org.nhindirect.config.store.dao.impl.TrustBundleDaoImpl" />
+    <bean id="certPolicyDao" class="org.nhindirect.config.store.dao.impl.CertPolicyDaoImpl" />
+
+    <!-- Exception translation bean post processor -->
+    <bean class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor" />
+
+    <!-- SWAP JPA IMPLEMENTATION WITH THE APPROPROATE DB CONFIGURATION -->
+
+    <!-- POSTRESS JPA CONFIGURATION TEMPLATE <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean"> 
+        <property name="jpaVendorAdapter"> <bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter"> <property 
+        name="showSql" value="true" /> <property name="generateDdl" value="true" /> <property name="databasePlatform" value="org.hibernate.dialect.PostgreSQLDialect" 
+        /> </bean> </property> <property name="persistenceUnitName" value="config-store" /> </bean> <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" 
+        destroy-method="close"> <property name="driverClassName" value="org.postgresql.Driver" /> <property name="url" value="jdbc:postgresql:nhindconfig" 
+        /> <property name="username" value="nhind" /> <property name="password" value="nhind" /> </bean> -->
+    <!-- END POSTGRESS JPA CONFIGURATION -->
+
+    <!-- ORACLE JPA CONFIGURATION TEMPLATE <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean"> 
+        <property name="jpaVendorAdapter"> <bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter"> <property 
+        name="showSql" value="false" /> <property name="generateDdl" value="true" /> <property name="databasePlatform" value="org.hibernate.dialect.Oracle10gDialect" 
+        /> </bean> </property> <property name="dataSource" ref="dataSource"/> <property name="persistenceUnitName" value="config-store" 
+        /> </bean> <bean id="dataSource" class="oracle.ucp.jdbc.PoolDataSourceFactory" factory-method="getPoolDataSource"> <property 
+        name="URL" value="jdbc:oracle:thin:msg/msg@vmhealthedb01:1521/hedev1"/> <property name="connectionFactoryClassName" value="oracle.jdbc.driver.OracleDriver"/> 
+        <property name="initialPoolSize" value="4"/> <property name="minPoolSize" value="2"/> <property name="maxPoolSize" value="100"/> 
+        <property name="validateConnectionOnBorrow" value="false"/> <property name="fastConnectionFailoverEnabled" value="false"/> 
+        <property name="ONSConfiguration" value=""/> <property name="inactiveConnectionTimeout" value="1200"/> <property name="abandonedConnectionTimeout" 
+        value="1800"/> <property name="connectionWaitTimeout" value="60"/> <property name="timeoutCheckInterval" value="120"/> </bean> -->
+    <!-- END ORACLE JPA CONFIGURATION -->
+
+    <!-- MySQL JPA CONFIGURATION TEMPLATE <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean"> 
+        <property name="jpaVendorAdapter"> <bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter"> <property 
+        name="showSql" value="false" /> <property name="generateDdl" value="true" /> <property name="databasePlatform" value="org.hibernate.dialect.MySQL5Dialect" 
+        /> </bean> </property> <property name="dataSource" ref="dataSource"/> <property name="persistenceUnitName" value="config-store" 
+        /> </bean> <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close"> <property name="url" 
+        value="jdbc:mysql://synapsefs01:3306/nhind"/> <property name="driverClassName" value="com.mysql.jdbc.Driver"/> <property 
+        name="username" value="root" /> <property name="password" value="1kingpuff" /> </bean> -->
+    <!-- END MySQL JPA CONFIGURATION -->
+
+
+    <!-- EMBEDDED DERBY JPA CONFIGURATION FOR A WORKING OUT OF THE BOX CONFIGURATION WITH NO PREREQUISITES OF SETTING UP 
+        AN EXTERNAL DATABASE. REMOVE THIS SECTION AND REPLACE WITH REAL JPA CONFIGURATION (SEE ABOVE SECTION) FOR PRODUCTION -->
+    <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+        <property name="jpaVendorAdapter">
+            <bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
+                <property name="showSql" value="true" />
+                <property name="generateDdl" value="true" />
+                <property name="databasePlatform" value="org.hibernate.dialect.DerbyDialect" />
+            </bean>
+        </property>
+        <property name="dataSource" ref="dataSource" />
+        <property name="persistenceUnitName" value="config-store" />
+    </bean>
+    <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+        <property name="driverClassName" value="org.apache.derby.jdbc.EmbeddedDriver" />
+        <property name="url" value="jdbc:derby:nhindconfig;create=true" />
+        <property name="username" value="nhind" />
+        <property name="password" value="nhind" />
+    </bean>
+
+    <!-- END DERBY JPA CONFIGURATION -->
+
+
+
+    <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager" />
+
+    <!-- Camel Context for cache update and trust bundle processors -->
+    <bean id="bundleRefreshProcessor" class="org.nhindirect.config.processor.impl.DefaultBundleRefreshProcessorImpl">
+        <property name="dao" ref="trustBundleDao" />
+    </bean>
+
+    <bean id="bundleCacheUpdateProcessor" class="org.nhindirect.config.processor.impl.DefaultBundleCacheUpdateProcessorImpl">
+        <property name="dao" ref="trustBundleDao" />
+        <property name="refreshProcessor" ref="bundleRefreshProcessor" />
+    </bean>
+
+    <camelContext id="web-camel-context" xmlns="http://camel.apache.org/schema/spring">
+        <template id="bundleRefresh" defaultEndpoint="seda:refresh-start" />
+
+        <route id="refreshBundle">
+            <from uri="seda:refresh-start" />
+            <bean ref="bundleRefreshProcessor" />
+        </route>
+
+        <route id="cache-refresher">
+            <from uri="timer://cache-refresh?period=1h" />
+            <bean ref="bundleCacheUpdateProcessor" />
+        </route>
+
+    </camelContext>
+
+    <!-- Protection manager for private keys stored in the certificate table. Passphrases are set as the contructor parameters 
+        using the Bootstrapped manager -->
+    <bean id="keyStoreProtectionManager" class="org.nhindirect.common.crypto.impl.BootstrappedKeyStoreProtectionManager">
+        <constructor-arg index="0" value="${certstore.protection.keyStorePassPhrase}" />
+        <constructor-arg index="1" value="${certstore.protection.privateKeyPassPhrase}" />
+    </bean>
+
+    <!-- Servlet filter config for BasicAuth. Using a DirectProject RI implementation instead of container security -->
+
+    <bean id="BasicAuthStore" class="org.nhindirect.common.rest.auth.impl.BootstrapBasicAuthCredentialStore">
+        <property name="credentialsAsProperties">
+            <util:properties location="classpath:properties/basicAuthCredentials.properties" />
+        </property>
+    </bean>
+
+
+    <bean id="AuthValidator" class="org.nhindirect.common.rest.auth.impl.HashableBasicAuthValidator">
+        <property name="authStore" ref="BasicAuthStore" />
+        <property name="hashType" value="SHA256" />
+    </bean>
+
+
+    <bean id="DirectBasicAuthFilter" class="org.nhindirect.common.rest.auth.impl.BasicAuthFilter">
+        <property name="basicAuthValidator" ref="AuthValidator" />
+    </bean>
+
+</beans>
