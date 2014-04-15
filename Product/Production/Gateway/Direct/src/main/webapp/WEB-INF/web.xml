@@ -7,6 +7,20 @@
         <param-value>http://localhost:8081/config-service/ConfigurationService</param-value>
     </context-param>
 
+	<listener>
+        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+    </listener>
+	
+	<context-param>
+        <param-name>contextConfigLocation</param-name>
+        <param-value>
+            classpath:CONNECT-interceptor-beans.xml 
+            classpath:CONNECT-context.xml
+            classpath:eventlogging.xml
+            classpath:/direct/_10/applicationContext.xml
+            classpath:/direct/_10/webservices.xml
+        </param-value>
+    </context-param>
     <!-- Uncomment if using 'syslog' audit method -->
     <!--     
     <context-param>
