@@ -1,0 +1,427 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="description" content="" />
+<meta name="author" content="" />
+<!--<link rel="shortcut icon" href="http://getbootstrap.com/assets/ico/favicon.ico">-->
+
+<title>Gateway Administrative Console</title>
+
+<!-- Bootstrap core CSS -->
+<link href="resources/css/bootstrap.css" rel="stylesheet" />
+
+<!-- Custom styles for this template -->
+<link href="resources/css/dashboard.css" rel="stylesheet" />
+
+<!-- Just for debugging purposes. Don't actually copy this line! -->
+<!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+
+<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!--[if lt IE 9]>
+	<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+	<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+
+<!--<style type="text/css" id="holderjs-style"></style>-->
+
+</head>
+
+<body>
+
+<div class="container-fluid" style="height:100%;">
+	<div class="row" style="height:100%;">
+	
+		<!-- BEGIN: LEFT COLUMN - SIDEBAR NAVIGATION -->
+		<div class="col-xs-2 sidebar">
+			<h1 class="page-header">Gateway Administrative Console</h1>
+			
+			<h2 class="section-header">Gateway Status</h2>
+			<ul class="nav nav-sidebar sidebar-orange">
+				<li><a href="#dash" class="active"><i class="glyphicon glyphicon-dashboard"></i> Server Dashboard</a></li>
+				<li><a href="#stats"><i class="glyphicon glyphicon-stats"></i> Performance Statistics</a></li>
+				<li><a href="#remotes"><i class="glyphicon glyphicon-list"></i> Remote Gateway List</a></li>
+			</ul>
+			
+			<h2 class="section-header">CONNECT Configuration</h2>
+			<ul class="nav nav-sidebar sidebar-purple">
+				<li><a href=""><i class="glyphicon glyphicon-cog"></i> Screen 1</a></li>
+				<li><a href=""><i class="glyphicon glyphicon-cog"></i> Screen 2</a></li>
+				<li><a href=""><i class="glyphicon glyphicon-cog"></i> Screen 3</a></li>
+			</ul>
+			
+			<h2 class="section-header">Direct Configuration</h2>
+			<ul class="nav nav-sidebar sidebar-purple">
+				<li><a href=""><i class="glyphicon glyphicon-cog"></i> Screen 1</a></li>
+				<li><a href=""><i class="glyphicon glyphicon-cog"></i> Screen 2</a></li>
+				<li><a href=""><i class="glyphicon glyphicon-cog"></i> Screen 3</a></li>
+			</ul>
+			
+			<h2 class="section-header">Account Management</h2>
+			<ul class="nav nav-sidebar sidebar-purple">
+				<li><a href=""><i class="glyphicon glyphicon-user"></i> User Accounts</a></li>
+				<li><a href=""><i class="glyphicon glyphicon-lock"></i> Certificate Management</a></li>
+			</ul>
+			
+			<h2 class="section-header">Activity Logs</h2>
+			<ul class="nav nav-sidebar sidebar-blue">
+				<li><a href="logs.xhtml#event"><i class="glyphicon glyphicon-list-alt"></i> Event Logs</a></li>
+				<li><a href="logs.xhtml#audit"><i class="glyphicon glyphicon-list-alt"></i> Audit Logs</a></li>
+				<li><a href="logs.xhtml#system"><i class="glyphicon glyphicon-list-alt"></i> System Logs</a></li>
+			</ul>
+		</div>
+		<!-- END: LEFT COLUMN - SIDEBAR NAVIGATION -->
+		
+		<!-- BEGIN: RIGHT COLUMN - Primary content is located here -->
+		<div class="col-xs-10 main">
+
+			<!-- BEGIN: UTILITY NAVIGATION -->
+			<div class="navbar" role="navigation">
+				<!--
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+						<span class="sr-only">Toggle navigation</span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+					<a class="navbar-brand" href="#">Project name</a>
+				</div>
+				-->
+				<div class="nav-utility"> <!-- ORIGINALLY:  class="navbar-collapse collapse" -->
+					<ul class="nav navbar-nav">
+						<li><a href="#" title="User Profile">Logged in as <strong>John Doe</strong></a></li>
+						<li><a href="#" title="Settings"><i class="glyphicon glyphicon-wrench"></i></a></li>
+						<li><a href="#" title="Send a Message"><i class="glyphicon glyphicon-envelope"></i></a></li>
+						<li><a href="#" title="Help"><i class="glyphicon glyphicon-question-sign"></i></a></li>
+					</ul>
+					<form class="navbar-form navbar-right">
+						<i class="glyphicon glyphicon-search"></i><input class="form-control" placeholder="Enter Search Query..." type="text" />
+					</form>
+				</div>
+			</div>
+			<!-- END: UTILITY NAVIGATION -->
+
+			<!-- BEGIN: MAIN CONTENT SECTION -->
+			<div class="main-content">
+				<h1 class="section-header">Gateway Status</h1>
+				
+				<!-- BEGIN: MAIN CONTENT - TAB BAR NAVIGATION -->
+				<div class="nav-section-tabs tabs-orange" id="nav-section-tabs">
+					<div class="navbar" role="navigation">
+						<ul class="nav nav-tabs">
+							<li class="active"><a href="#dash" data-toggle="tab" title="Server Dashboard">Server Dashboard</a></li>
+							<li><a href="#stats" data-toggle="tab" title="Performance Statistics">Performance Statistics</a></li>
+							<li><a href="#remotes" data-toggle="tab" title="Remote Gateway List">Remote Gateway List</a></li>
+						</ul>
+					</div>
+				</div>
+				<!-- END: MAIN CONTENT - TAB BAR NAVIGATION -->
+				
+				<!-- BEGIN: MAIN CONTENT - TAB PANES - All the data/information is contained here -->
+				<div class="tab-content">
+					<!-- BEGIN: TAB PANE - GATEWAY STATUS DASHBOARD -->
+					<div class="tab-pane active" id="dash">
+						<div class="content-block">
+							<!-- BEGIN: GATEWAY STATUS - ROW 1 -->
+							<div class="row">
+								<div class="col-xs-3">
+									<div class="kpi-block">
+										<h2 class="subsection-header">Server Uptime</h2>
+										<div class="kpi-value-a">10 days</div>
+										<div class="kpi-value-b">18:35:07.288</div>
+										<div class="kpi-footer"><a href="#">VIEW HISTORY <i class="glyphicon glyphicon-chevron-right"></i></a></div>
+									</div>
+								</div>
+								<div class="col-xs-3">
+									<div class="kpi-block">
+										<h2 class="subsection-header">Memory Usage</h2>
+										<div class="kpi-value-a">65.9 MB</div>
+										<div class="kpi-value-b"><i class="caret-kpi-up"></i> 17%</div>
+										<div class="kpi-footer"><a href="#">VIEW HISTORY <i class="glyphicon glyphicon-chevron-right"></i></a></div>
+									</div>
+								</div>
+								<div class="col-xs-3">
+									<div class="kpi-block">
+										<h2 class="subsection-header">CPU Usage</h2>
+										<div class="kpi-value-a">30%</div>
+										<div class="kpi-value-b"><i class="caret-kpi-down"></i> 2.2%</div>
+										<div class="kpi-footer"><a href="#">VIEW HISTORY <i class="glyphicon glyphicon-chevron-right"></i></a></div>
+									</div>
+								</div>
+								<div class="col-xs-3">
+									<div class="kpi-block">
+										<h2 class="subsection-header">Disk I/O</h2>
+										<div class="kpi-value-a">0.77 GB</div>
+										<div class="kpi-value-b"><i class="caret-kpi-down"></i> 8%</div>
+										<div class="kpi-footer"><a href="#">VIEW HISTORY <i class="glyphicon glyphicon-chevron-right"></i></a></div>
+									</div>
+								</div>
+							</div>
+							<!-- END: GATEWAY STATUS - ROW 1 -->
+							<!-- BEGIN: GATEWAY STATUS - ROW 2 -->
+							<div class="row">
+								<div class="col-xs-3">
+									<div class="kpi-block">
+										<h2 class="subsection-header">OS version</h2>
+										<div class="kpi-value-a">CGIX</div>
+										<div class="kpi-value-b">2.77.1026</div>
+										<div class="kpi-footer"><a href="#">VIEW HISTORY <i class="glyphicon glyphicon-chevron-right"></i></a></div>
+									</div>
+								</div>
+								<div class="col-xs-3">
+									<div class="kpi-block">
+										<h2 class="subsection-header">App Server Version</h2>
+										<div class="kpi-value-a">J2EE</div>
+										<div class="kpi-value-b">1.4</div>
+										<div class="kpi-footer"><a href="#">VIEW HISTORY <i class="glyphicon glyphicon-chevron-right"></i></a></div>
+									</div>
+								</div>
+								<div class="col-xs-3">
+									<div class="kpi-block">
+										<h2 class="subsection-header">JDK Version</h2>
+										<div class="kpi-value-a">JDK</div>
+										<div class="kpi-value-b">1.7.0_45-b18</div>
+										<div class="kpi-footer"><a href="#">VIEW HISTORY <i class="glyphicon glyphicon-chevron-right"></i></a></div>
+									</div>
+								</div>
+								<div class="col-xs-3">
+									<div class="kpi-block">
+										<h2 class="subsection-header">&lt;Title&gt;</h2>
+										<div class="kpi-value-a">&nbsp;</div>
+										<div class="kpi-value-b">&nbsp;</div>
+										<div class="kpi-footer"><a href="#">VIEW HISTORY <i class="glyphicon glyphicon-chevron-right"></i></a></div>
+									</div>
+								</div>
+							</div>
+							<!-- END: GATEWAY STATUS - ROW 2 -->
+						</div>
+					</div>
+					<!-- END: TAB PANE - GATEWAY STATUS DASHBOARD -->
+					
+					<!-- BEGIN: TAB PANE - PERFORMANCE STATISTICS -->
+					<div class="tab-pane" id="stats">
+						<div class="content-block">
+							<h2 class="subsection-header">CONNECT Performance Statistics</h2>
+							<div class="chart-block">
+								<div id="chart-stats-connect" style="width:100%;margin:0 auto;height:200px;"></div>
+							</div>
+						</div>
+						<div class="content-block">
+							<h2 class="subsection-header">Direct Performance Statistics</h2>
+						</div>
+					</div>
+					<!-- END: TAB PANE - PERFORMANCE STATISTICS -->
+					
+					<!-- BEGIN: TAB PANE - REMOTE GATEWAYS -->
+					<div class="tab-pane" id="remotes">
+						<div class="content-block">
+							<h2 class="subsection-header">Remote Gateway List</h2>
+							<div class="table-responsive">
+								<table class="table table-striped table-remotegateways">
+									<colgroup valign="middle" span="1" width="14%" class="hcid"></colgroup>
+									<colgroup valign="middle" span="6"></colgroup>
+									<colgroup valign="middle" span="1" width="14%" class="total"></colgroup>
+									<thead>
+										<tr>
+											<th>HCID</th>
+											<th>PD</th>
+											<th>DQ</th>
+											<th>DR</th>
+											<th>DS</th>
+											<th>AD</th>
+											<th>Direct</th>
+											<th>TOTAL</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr>
+											<td>gateway-1001</td>
+											<td>123</td>
+											<td>456</td>
+											<td>789</td>
+											<td>1000</td>
+											<td>123</td>
+											<td>456</td>
+											<td>2947</td>
+										</tr>
+										<tr>
+											<td>gateway-1002</td>
+											<td>123</td>
+											<td>456</td>
+											<td>789</td>
+											<td>1000</td>
+											<td>123</td>
+											<td>456</td>
+											<td>2947</td>
+										</tr>
+										<tr>
+											<td>gateway-1003</td>
+											<td>123</td>
+											<td>456</td>
+											<td>789</td>
+											<td>1000</td>
+											<td>123</td>
+											<td>456</td>
+											<td>2947</td>
+										</tr>
+										<tr>
+											<td>gateway-1004</td>
+											<td>123</td>
+											<td>456</td>
+											<td>789</td>
+											<td>1000</td>
+											<td>123</td>
+											<td>456</td>
+											<td>2947</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+					<!-- END: TAB PANE - REMOTE GATEWAYS -->
+				</div>
+				<!-- END: MAIN CONTENT - TAB PANES - All the data/information is contained here -->
+				
+			</div>
+			<!-- END: MAIN CONTENT SECTION -->
+
+		</div>
+		<!-- END: RIGHT COLUMN - Primary content is located here -->
+		
+	</div> <!-- Close the ROW -->
+</div> <!-- Close the CONTAINER -->
+
+
+
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="resources/js/jquery-1.10.2.min.js"></script>
+<script src="resources/js/bootstrap.min.js"></script>
+<!--<script src="Dashboard%20Template%20for%20Bootstrap_files/docs.js"></script>-->
+  
+
+<script>
+// FUNCTION TO SHOW THE CORRECT TABBED CONTENT IF NAVIGATING FROM DIFFERENT PAGE
+$(document).ready(function() {
+	var hash = window.location.hash;
+	if (hash != "") {
+		$('#nav-section-tabs a[href="' + hash + '"]').tab('show');
+		var showActivebar = $('.sidebar a[href='+hash+']'); // FIND SIDEBAR LINK TO MATCH SELECTED TAB
+		$('.sidebar a').not(showActivebar).removeClass('active'); // REMOVE ACTIVE CLASS OF OTHER LINKS AS NEEDED
+		$(showActivebar).addClass('active'); // ADD ACTIVE CLASS TO NEWLY SELECTED LINK
+	}
+	else
+		$('#nav-section-tabs a:first').tab('show');
+});
+
+// FUNCTION FOR SIDEBAR NAV - TOGGLE ACTIVE CLASS and CHANGE SELECTED TAB IN MAIN CONTENT AREA
+$('.sidebar a').click(function () {
+	var showActivebar = $(this); // STORE ID OF SELECTED SIDEBAR LINK
+	$('.sidebar a').not(showActivebar).removeClass('active'); // REMOVE ACTIVE CLASS OF OTHER LINKS AS NEEDED
+	$(showActivebar).addClass('active'); // ADD ACTIVE CLASS TO NEWLY SELECTED LINK
+	
+	var url = $(this).attr('href'); // CATCH HREF FROM SIDEBAR LINK
+	//if (url.match('#')) {
+		//var tid = url.split('#')[1];
+		//console.log(url);
+		$('.nav-tabs a[href='+url+']').tab('show') ; // CHANGE TAB TO MATCH SELECTED SIDEBAR LINK
+		//window.scrollTo(0, 0);
+	//}
+});
+// FUNCTION FOR TABBED NAV IN MAIN CONTENT AREA - CHANGE SELECTED SIDEBAR LINK
+$('.nav-tabs a').click(function () {
+	var url = $(this).attr('href'); // CATCH HREF FROM SELECTED TAB
+	var showActivebar = $('.sidebar a[href='+url+']'); // FIND SIDEBAR LINK TO MATCH SELECTED TAB
+	$('.sidebar a').not(showActivebar).removeClass('active'); // REMOVE ACTIVE CLASS OF OTHER LINKS AS NEEDED
+	$(showActivebar).addClass('active'); // ADD ACTIVE CLASS TO NEWLY SELECTED LINK
+});
+</script>
+
+<script src="http://code.highcharts.com/highcharts.js"></script>
+<script src="http://code.highcharts.com/modules/exporting.js"></script>
+<script>
+$(function () {
+	$('#chart-stats-connect').highcharts({
+		chart: {
+			//spacingBottom:0
+		},
+		title: {
+			text: null,
+			x: -20 //center
+		},
+		subtitle: {
+			text: null,
+			x: -20
+		},
+		credits:{
+			enabled:false
+		},
+		exporting:{
+			enabled:false
+		},
+		xAxis: {
+			categories: ['Jan 7', 'Jan 8', 'Jan 9', 'Jan 10', 'Jan 11', 'Jan 12',
+				'Jan 13', 'Jan 14', 'Jan 15', 'Jan 16', 'Jan 17', 'Jan 18']
+		},
+		yAxis: {
+			title: {
+				text: null
+			},
+			min:-5,
+			startOnTick: false,
+			allowDecimals: false,
+			tickInterval:5,
+			plotLines: [{
+				value: 0,
+				width: 1,
+				color: '#808080'
+			}]
+		},
+		tooltip: {
+			valueSuffix: '',
+			shared: true
+		},
+		legend: {
+			layout: 'horizontal',
+			align: 'center',
+			verticalAlign: 'bottom',
+			borderWidth: 0,
+			itemMarginTop:5
+		},
+		series: [{
+			name: 'Inbound Messages',
+			data: [8, 8, 11, 16, 19, 23, 26, 28, 24, 19, 15, 11]
+		}, {
+			name: 'Outbound Messages',
+			data: [2, 2, 6, 11, 17, 25, 22, 24, 20, 14, 9, 3]
+		}, {
+			name: 'Failed Messages',
+			data: [3, 1, 4, 8, 14, 17, 19, 18, 14, 9, 4, 1]
+		}, {
+			name: 'Requests Failed Due to Authentication Failure',
+			data: [1, 0, 5, 8, 11, 14, 16, 16, 13, 5, 6, 4]
+		}],
+		plotOptions: {
+			line: {
+				marker: {
+					fillColor:'#ffffff',
+					lineColor: null,
+					lineWidth:3,
+					radius:7,
+					symbol:'circle'
+				}
+			}
+		}
+	});
+});
+</script>
+
+</body>
+</html>

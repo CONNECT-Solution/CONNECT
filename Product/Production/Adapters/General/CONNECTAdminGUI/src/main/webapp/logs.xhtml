@@ -1,0 +1,334 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+<meta charset="utf-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="description" content="" />
+<meta name="author" content="" />
+<!--<link rel="shortcut icon" href="http://getbootstrap.com/assets/ico/favicon.ico">-->
+
+<title>Gateway Administrative Console</title>
+
+<!-- Bootstrap core CSS -->
+<link href="resources/css/bootstrap.css" rel="stylesheet" />
+
+<!-- Custom styles for this template -->
+<link href="resources/css/dashboard.css" rel="stylesheet" />
+
+<!-- Just for debugging purposes. Don't actually copy this line! -->
+<!--[if lt IE 9]><script src="../../assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+
+<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!--[if lt IE 9]>
+	<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+	<script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<![endif]-->
+
+<!--<style type="text/css" id="holderjs-style"></style>-->
+
+</head>
+
+<body>
+
+<div class="container-fluid" style="height:100%;">
+	<div class="row" style="height:100%;">
+	
+		<!-- BEGIN: LEFT COLUMN - SIDEBAR NAVIGATION -->
+		<div class="col-xs-2 sidebar">
+			<h1 class="page-header">Gateway Administrative Console</h1>
+			
+			<h2 class="section-header">Activity Logs</h2>
+			<ul class="nav nav-sidebar sidebar-blue">
+				<li><a href="#event" class="active"><i class="glyphicon glyphicon-list-alt"></i> Event Logs</a></li>
+				<li><a href="#audit"><i class="glyphicon glyphicon-list-alt"></i> Audit Logs</a></li>
+				<li><a href="#system"><i class="glyphicon glyphicon-list-alt"></i> System Logs</a></li>
+			</ul>
+
+			<h2 class="section-header">Gateway Status</h2>
+			<ul class="nav nav-sidebar sidebar-orange">
+				<li><a href="status.xhtml#dash"><i class="glyphicon glyphicon-dashboard"></i> Server Dashboard</a></li>
+				<li><a href="status.xhtml#stats"><i class="glyphicon glyphicon-stats"></i> Performance Statistics</a></li>
+				<li><a href="status.xhtml#remotes"><i class="glyphicon glyphicon-list"></i> Remote Gateway List</a></li>
+			</ul>
+			
+			<h2 class="section-header">CONNECT Configuration</h2>
+			<ul class="nav nav-sidebar sidebar-purple">
+				<li><a href=""><i class="glyphicon glyphicon-cog"></i> Screen 1</a></li>
+				<li><a href=""><i class="glyphicon glyphicon-cog"></i> Screen 2</a></li>
+				<li><a href=""><i class="glyphicon glyphicon-cog"></i> Screen 3</a></li>
+			</ul>
+			
+			<h2 class="section-header">Direct Configuration</h2>
+			<ul class="nav nav-sidebar sidebar-purple">
+				<li><a href=""><i class="glyphicon glyphicon-cog"></i> Screen 1</a></li>
+				<li><a href=""><i class="glyphicon glyphicon-cog"></i> Screen 2</a></li>
+				<li><a href=""><i class="glyphicon glyphicon-cog"></i> Screen 3</a></li>
+			</ul>
+			
+			<h2 class="section-header">Account Management</h2>
+			<ul class="nav nav-sidebar sidebar-purple">
+				<li><a href=""><i class="glyphicon glyphicon-user"></i> User Accounts</a></li>
+				<li><a href=""><i class="glyphicon glyphicon-lock"></i> Certificate Management</a></li>
+			</ul>
+
+		</div>
+		<!-- END: LEFT COLUMN - SIDEBAR NAVIGATION -->
+		
+		<!-- BEGIN: RIGHT COLUMN - Primary content is located here -->
+		<div class="col-xs-10 main">
+
+			<!-- BEGIN: UTILITY NAVIGATION -->
+			<div class="navbar" role="navigation">
+				<!--
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+						<span class="sr-only">Toggle navigation</span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+					<a class="navbar-brand" href="#">Project name</a>
+				</div>
+				-->
+				<div class="nav-utility"> <!-- ORIGINALLY:  class="navbar-collapse collapse" -->
+					<ul class="nav navbar-nav">
+						<li><a href="#" title="User Profile">Logged in as <strong>John Doe</strong></a></li>
+						<li><a href="#" title="Settings"><i class="glyphicon glyphicon-wrench"></i></a></li>
+						<li><a href="#" title="Send a Message"><i class="glyphicon glyphicon-envelope"></i></a></li>
+						<li><a href="#" title="Help"><i class="glyphicon glyphicon-question-sign"></i></a></li>
+					</ul>
+					<form class="navbar-form navbar-right">
+						<i class="glyphicon glyphicon-search"></i><input class="form-control" placeholder="Enter Search Query..." type="text" />
+					</form>
+				</div>
+			</div>
+			<!-- END: UTILITY NAVIGATION -->
+
+			<!-- BEGIN: MAIN CONTENT SECTION -->
+			<div class="main-content">
+				<h1 class="section-header">Gateway Status</h1>
+				
+				<!-- BEGIN: MAIN CONTENT - TAB BAR NAVIGATION -->
+				<div class="nav-section-tabs tabs-blue" id="nav-section-tabs">
+					<div class="navbar" role="navigation">
+						<ul class="nav nav-tabs">
+							<li class="active"><a href="#event" data-toggle="tab" title="Event Logs">Event Logs</a></li>
+							<li><a href="#audit" data-toggle="tab" title="Audit Logs">Audit Logs</a></li>
+							<li><a href="#system" data-toggle="tab" title="System Logs">System Logs</a></li>
+						</ul>
+					</div>
+				</div>
+				<!-- END: MAIN CONTENT - TAB BAR NAVIGATION -->
+				
+				<!-- BEGIN: MAIN CONTENT - TAB PANES - All the data/information is contained here -->
+				<div class="tab-content">
+					<!-- BEGIN: TAB PANE - EVENT LOGS -->
+					<div class="tab-pane active" id="event">
+						<div class="content-block">
+							<h2 class="subsection-header">Event Logs</h2>
+							<div class="table-responsive">
+								<table class="table table-striped table-remotegateways">
+									<colgroup valign="middle" span="1" width="14%" class="hcid"></colgroup>
+									<colgroup valign="middle" span="6"></colgroup>
+									<colgroup valign="middle" span="1" width="14%" class="total"></colgroup>
+									<thead>
+										<tr>
+											<th>HCID</th>
+											<th>PD</th>
+											<th>DQ</th>
+											<th>DR</th>
+											<th>DS</th>
+											<th>AD</th>
+											<th>Direct</th>
+											<th>TOTAL</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr>
+											<td>gateway-1001</td>
+											<td>123</td>
+											<td>456</td>
+											<td>789</td>
+											<td>1000</td>
+											<td>123</td>
+											<td>456</td>
+											<td>2947</td>
+										</tr>
+										<tr>
+											<td>gateway-1002</td>
+											<td>123</td>
+											<td>456</td>
+											<td>789</td>
+											<td>1000</td>
+											<td>123</td>
+											<td>456</td>
+											<td>2947</td>
+										</tr>
+										<tr>
+											<td>gateway-1003</td>
+											<td>123</td>
+											<td>456</td>
+											<td>789</td>
+											<td>1000</td>
+											<td>123</td>
+											<td>456</td>
+											<td>2947</td>
+										</tr>
+										<tr>
+											<td>gateway-1004</td>
+											<td>123</td>
+											<td>456</td>
+											<td>789</td>
+											<td>1000</td>
+											<td>123</td>
+											<td>456</td>
+											<td>2947</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+					<!-- END: TAB PANE - EVENT LOGS -->
+					
+					<!-- BEGIN: TAB PANE - AUDIT LOGS -->
+					<div class="tab-pane" id="audit">
+						<div class="content-block">
+							<h2 class="subsection-header">Audit Logs</h2>
+							
+						</div>
+					</div>
+					<!-- END: TAB PANE - AUDIT LOGS -->
+					
+					<!-- BEGIN: TAB PANE - SYSTEM LOGS -->
+					<div class="tab-pane" id="system">
+						<div class="content-block">
+							<h2 class="subsection-header">System Logs</h2>
+							<div class="table-responsive">
+								<table class="table table-striped table-remotegateways">
+									<colgroup valign="middle" span="1" width="14%" class="hcid"></colgroup>
+									<colgroup valign="middle" span="6"></colgroup>
+									<colgroup valign="middle" span="1" width="14%" class="total"></colgroup>
+									<thead>
+										<tr>
+											<th>HCID</th>
+											<th>PD</th>
+											<th>DQ</th>
+											<th>DR</th>
+											<th>DS</th>
+											<th>AD</th>
+											<th>Direct</th>
+											<th>TOTAL</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr>
+											<td>gateway-1001</td>
+											<td>123</td>
+											<td>456</td>
+											<td>789</td>
+											<td>1000</td>
+											<td>123</td>
+											<td>456</td>
+											<td>2947</td>
+										</tr>
+										<tr>
+											<td>gateway-1002</td>
+											<td>123</td>
+											<td>456</td>
+											<td>789</td>
+											<td>1000</td>
+											<td>123</td>
+											<td>456</td>
+											<td>2947</td>
+										</tr>
+										<tr>
+											<td>gateway-1003</td>
+											<td>123</td>
+											<td>456</td>
+											<td>789</td>
+											<td>1000</td>
+											<td>123</td>
+											<td>456</td>
+											<td>2947</td>
+										</tr>
+										<tr>
+											<td>gateway-1004</td>
+											<td>123</td>
+											<td>456</td>
+											<td>789</td>
+											<td>1000</td>
+											<td>123</td>
+											<td>456</td>
+											<td>2947</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+					<!-- END: TAB PANE - SYSTEM LOGS -->
+				</div>
+				<!-- END: MAIN CONTENT - TAB PANES - All the data/information is contained here -->
+				
+			</div>
+			<!-- END: MAIN CONTENT SECTION -->
+
+		</div>
+		<!-- END: RIGHT COLUMN - Primary content is located here -->
+		
+	</div> <!-- Close the ROW -->
+</div> <!-- Close the CONTAINER -->
+
+
+
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="resources/js/jquery-1.10.2.min.js"></script>
+<script src="resources/js/bootstrap.min.js"></script>
+<!--<script src="Dashboard%20Template%20for%20Bootstrap_files/docs.js"></script>-->
+  
+
+<script>
+// FUNCTION TO SHOW THE CORRECT TABBED CONTENT IF NAVIGATING FROM DIFFERENT PAGE
+$(document).ready(function() {
+	var hash = window.location.hash;
+	if (hash != "") {
+		$('#nav-section-tabs a[href="' + hash + '"]').tab('show');
+		var showActivebar = $('.sidebar a[href='+hash+']'); // FIND SIDEBAR LINK TO MATCH SELECTED TAB
+		$('.sidebar a').not(showActivebar).removeClass('active'); // REMOVE ACTIVE CLASS OF OTHER LINKS AS NEEDED
+		$(showActivebar).addClass('active'); // ADD ACTIVE CLASS TO NEWLY SELECTED LINK
+	}
+	else
+		$('#nav-section-tabs a:first').tab('show');
+});
+
+// FUNCTION FOR SIDEBAR NAV - TOGGLE ACTIVE CLASS and CHANGE SELECTED TAB IN MAIN CONTENT AREA
+$('.sidebar a').click(function () {
+	var showActivebar = $(this); // STORE ID OF SELECTED SIDEBAR LINK
+	$('.sidebar a').not(showActivebar).removeClass('active'); // REMOVE ACTIVE CLASS OF OTHER LINKS AS NEEDED
+	$(showActivebar).addClass('active'); // ADD ACTIVE CLASS TO NEWLY SELECTED LINK
+	
+	var url = $(this).attr('href'); // CATCH HREF FROM SIDEBAR LINK
+	//if (url.match('#')) {
+		//var tid = url.split('#')[1];
+		//console.log(url);
+		$('.nav-tabs a[href='+url+']').tab('show') ; // CHANGE TAB TO MATCH SELECTED SIDEBAR LINK
+		//window.scrollTo(0, 0);
+	//}
+});
+// FUNCTION FOR TABBED NAV IN MAIN CONTENT AREA - CHANGE SELECTED SIDEBAR LINK
+$('.nav-tabs a').click(function () {
+	var url = $(this).attr('href'); // CATCH HREF FROM SELECTED TAB
+	var showActivebar = $('.sidebar a[href='+url+']'); // FIND SIDEBAR LINK TO MATCH SELECTED TAB
+	$('.sidebar a').not(showActivebar).removeClass('active'); // REMOVE ACTIVE CLASS OF OTHER LINKS AS NEEDED
+	$(showActivebar).addClass('active'); // ADD ACTIVE CLASS TO NEWLY SELECTED LINK
+});
+</script>
+
+</body>
+</html>
