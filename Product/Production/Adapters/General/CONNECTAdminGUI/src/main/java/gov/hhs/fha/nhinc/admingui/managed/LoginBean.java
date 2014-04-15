@@ -9,25 +9,34 @@
  */
 package gov.hhs.fha.nhinc.admingui.managed;
 
+/*import gov.hhs.fha.nhinc.admingui.jee.jsf.UserAuthorizationListener;
+import gov.hhs.fha.nhinc.admingui.model.Login;
+import gov.hhs.fha.nhinc.admingui.services.LoginService;
+import gov.hhs.fha.nhinc.admingui.services.exception.UserLoginException;*/
+
 import gov.hhs.fha.nhinc.admingui.jee.jsf.UserAuthorizationListener;
 import gov.hhs.fha.nhinc.admingui.model.Login;
 import gov.hhs.fha.nhinc.admingui.services.LoginService;
 import gov.hhs.fha.nhinc.admingui.services.exception.UserLoginException;
+import gov.hhs.fha.nhinc.admingui.user.bo.UserBo;
 
-import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
 /**
  * The Class LoginBean.
  * 
  * @author sadusumilli
  */
-@ManagedBean(name = "loginbean")
+@ManagedBean
 @SessionScoped
+@Component
 public class LoginBean {
 
     /** The user name. */
@@ -43,8 +52,19 @@ public class LoginBean {
     private FacesMessage msg;
 
     /** The login service. */
-    @EJB
+    @Autowired
     private LoginService loginService;
+
+    @Autowired
+    private UserBo userBo;
+
+    public void setUserBo(UserBo userBo) {
+        this.userBo = userBo;
+    }
+
+    public String printMsgFromSpring() {
+        return userBo.getMessage();
+    }
 
     /**
      * Gets the msg.
@@ -160,7 +180,7 @@ public class LoginBean {
      * 
      * @return the logged in user
      */
-    public String getLoggedInUser() {
+    /*public String getLoggedInUser() {
         String userName = null;
         FacesContext facesContext = FacesContext.getCurrentInstance();
         HttpSession session = (HttpSession) facesContext.getExternalContext().getSession(false);
@@ -169,7 +189,7 @@ public class LoginBean {
             userName = login.getUserName();
         }
         return userName;
-    }
+    }*/
 
     /**
      * Login.

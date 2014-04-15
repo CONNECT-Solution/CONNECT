@@ -1,19 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<faces-config xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_2_1.xsd"
-    version="2.1">
-    <lifecycle>
-        <phase-listener>gov.hhs.fha.nhinc.admingui.jee.jsf.UserAuthorizationListener</phase-listener>
-    </lifecycle>
+<faces-config xmlns="http://java.sun.com/xml/ns/javaee"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-facesconfig_2_1.xsd"
+	version="2.1">
 
-    <navigation-rule>
-        <from-view-id>/*</from-view-id>
-        <navigation-case>
-            <from-outcome>Login</from-outcome>
-            <to-view-id>/Login.xhtml</to-view-id>
-            <redirect />
-        </navigation-case>
-    </navigation-rule>
+	<application>
+		<el-resolver>org.springframework.web.jsf.el.SpringBeanFacesELResolver</el-resolver>
+	</application>
+
+	<!-- managed-bean>
+		<managed-bean-name>user</managed-bean-name>
+		<managed-bean-class>com.mkyong.UserBean</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+		<managed-property>
+			<property-name>userBo</property-name>
+			<value>#{userBo}</value>
+		</managed-property>
+	</managed-bean> -->
 
 </faces-config>
