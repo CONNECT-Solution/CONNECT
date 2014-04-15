@@ -9,33 +9,39 @@
  */
 package gov.hhs.fha.nhinc.admingui.services.persistence.jpa.entity;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
+import javax.persistence.Table;
 
 /**
  * The Class UserLogin.
  * 
  * @author msw
  */
-@NamedQueries({ @NamedQuery(name = "findByUserName", query = "SELECT u FROM UserLogin u WHERE u.userName = :userName") })
+// @NamedQueries({ @NamedQuery(name = "findByUserName", query =
+// "SELECT u FROM UserLogin u WHERE u.userName = :userName") })
 @Entity
+@Table(name = "USERLOGIN")
 public class UserLogin {
 
     /** The id. */
     @Id
+    @Column(name = "ID")
     @GeneratedValue
     private long id;
 
     /** The user name. */
+    @Column(name = "USERNAME")
     private String userName;
 
     /** The salt. */
+    @Column(name = "SALT")
     private String salt;
 
     /** The sha1. */
+    @Column(name = "SHA1")
     private String sha1;
 
     /**
