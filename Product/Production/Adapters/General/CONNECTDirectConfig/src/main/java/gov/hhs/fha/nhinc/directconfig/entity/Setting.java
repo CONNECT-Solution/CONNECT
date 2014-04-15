@@ -34,14 +34,12 @@ import javax.persistence.TemporalType;
  * The JPA settings class.  This tables holds various configuration settings such as how the configuration service should behave or settings
  * for a gateway.  This structure is made up of simple name value pairs.
  */
-public class Setting
-{
+public class Setting {
     private String name;
     private String value;
     private long id;
     private Calendar createTime;
     private Calendar updateTime;
-    private EntityStatus status = EntityStatus.NEW;
 
     /**
      * Get the name of the setting.
@@ -103,26 +101,6 @@ public class Setting
      */
     public void setId(long id) {
         this.id = id;
-    }
-
-    /**
-     * Get the value of status.
-     *
-     * @return the value of status.
-     */
-    @Enumerated
-    public EntityStatus getStatus() {
-        return status;
-    }
-
-    /**
-     * Set the value of status.
-     *
-     * @param status
-     *            The value of status.
-     */
-    public void setStatus(EntityStatus status) {
-        this.status = status;
     }
 
     /**

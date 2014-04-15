@@ -14,17 +14,6 @@ CREATE TABLE IF NOT EXISTS configdb.domain (
 );
 
 -- -----------------------------------------------------
--- Table `configdb`.`endpointType`
--- -----------------------------------------------------
-
-CREATE TABLE IF NOT EXISTS configdb.endpointType (
-    id SERIAL PRIMARY KEY,
-    name VARCHAR(4) NOT NULL
-);
-
-INSERT INTO configdb.endpointType (name) VALUES ('SMTP'), ('XDR'), ('XDM');
-
--- -----------------------------------------------------
 -- Table `configdb`.`address`
 -- -----------------------------------------------------
 
@@ -33,6 +22,7 @@ CREATE TABLE IF NOT EXISTS configdb.address (
     eMailAddress VARCHAR(255) NOT NULL,
     displayName VARCHAR(100),
     endpoint VARCHAR(255),
+    type VARCHAR(4),
     status BOOLEAN NOT NULL DEFAULT TRUE,
     createTime DATETIME NOT NULL,
     updateTime DATETIME,
@@ -42,14 +32,6 @@ CREATE TABLE IF NOT EXISTS configdb.address (
     CONSTRAINT fk_domainId
         FOREIGN KEY (domainId)
         REFERENCES configdb.domain(id)
-        ON DELETE NO ACTION
-        ON UPDATE NO ACTION,
-
-    type BIGINT UNSIGNED,
-    INDEX fk_type (type ASC),
-    CONSTRAINT fk_type
-        FOREIGN KEY (type)
-        REFERENCES configdb.endpointType(id)
         ON DELETE NO ACTION
         ON UPDATE NO ACTION
 );
