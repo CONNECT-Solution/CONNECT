@@ -22,13 +22,12 @@ THE POSSIBILITY OF SUCH DAMAGE.
 
 package gov.hhs.fha.nhinc.directconfig.service;
 
-import gov.hhs.fha.nhinc.directconfig.service.impl.CertificateGetOptions;
-
 import java.util.Collection;
 
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
 
+import gov.hhs.fha.nhinc.directconfig.service.impl.CertificateGetOptions;
 import gov.hhs.fha.nhinc.directconfig.entity.Certificate;
 import gov.hhs.fha.nhinc.directconfig.entity.EntityStatus;
 

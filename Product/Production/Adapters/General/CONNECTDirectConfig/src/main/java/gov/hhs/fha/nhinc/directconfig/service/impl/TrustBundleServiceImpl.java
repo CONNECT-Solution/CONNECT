@@ -21,9 +21,6 @@ THE POSSIBILITY OF SUCH DAMAGE.
 
 package gov.hhs.fha.nhinc.directconfig.service.impl;
 
-import gov.hhs.fha.nhinc.directconfig.service.ConfigurationServiceException;
-import gov.hhs.fha.nhinc.directconfig.service.TrustBundleService;
-
 import java.security.cert.X509Certificate;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -35,13 +32,15 @@ import javax.jws.WebService;
 import org.apache.camel.ProducerTemplate;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import gov.hhs.fha.nhinc.directconfig.service.ConfigurationServiceException;
+import gov.hhs.fha.nhinc.directconfig.service.TrustBundleService;
 import gov.hhs.fha.nhinc.directconfig.entity.BundleRefreshError;
 import gov.hhs.fha.nhinc.directconfig.entity.Certificate;
 import gov.hhs.fha.nhinc.directconfig.entity.CertificateException;
 import gov.hhs.fha.nhinc.directconfig.entity.TrustBundle;
 import gov.hhs.fha.nhinc.directconfig.entity.TrustBundleAnchor;
 import gov.hhs.fha.nhinc.directconfig.entity.TrustBundleDomainReltn;
-import gov.hhs.fha.nhinc.directconfig.entity.dao.TrustBundleDao;
+import gov.hhs.fha.nhinc.directconfig.dao.TrustBundleDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 
@@ -50,7 +49,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
  * @author Greg Meyer
  * @since 1.3
  */
-@WebService(endpointInterface = "org.nhindirect.config.service.TrustBundleService")
+@WebService(endpointInterface = "gov.hhs.fha.nhinc.directconfig.service.TrustBundleService")
 public class TrustBundleServiceImpl implements TrustBundleService
 {
     private static final Log log = LogFactory.getLog(TrustBundleServiceImpl.class);

@@ -1,13 +1,12 @@
 
 package gov.hhs.fha.nhinc.directconfig.service.jaxws;
 
-import gov.hhs.fha.nhinc.directconfig.service.impl.CertificateGetOptions;
-
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
+import gov.hhs.fha.nhinc.directconfig.service.impl.CertificateGetOptions;
 
 @XmlRootElement(name = "listCertificates", namespace = "http://nhind.org/config")
 @XmlAccessorType(XmlAccessType.FIELD)

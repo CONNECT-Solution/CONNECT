@@ -21,9 +21,6 @@ THE POSSIBILITY OF SUCH DAMAGE.
 
 package gov.hhs.fha.nhinc.directconfig.service.impl;
 
-import gov.hhs.fha.nhinc.directconfig.service.AddressService;
-import gov.hhs.fha.nhinc.directconfig.service.ConfigurationServiceException;
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -33,15 +30,17 @@ import javax.jws.WebService;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import gov.hhs.fha.nhinc.directconfig.service.AddressService;
+import gov.hhs.fha.nhinc.directconfig.service.ConfigurationServiceException;
 import gov.hhs.fha.nhinc.directconfig.entity.Address;
 import gov.hhs.fha.nhinc.directconfig.entity.EntityStatus;
-import gov.hhs.fha.nhinc.directconfig.entity.dao.AddressDao;
+import gov.hhs.fha.nhinc.directconfig.dao.AddressDao;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * Service class for methods related to an Address object.
  */
-@WebService(endpointInterface = "org.nhindirect.config.service.AddressService")
+@WebService(endpointInterface = "gov.hhs.fha.nhinc.directconfig.service.AddressService")
 public class AddressServiceImpl implements AddressService {
 
     private static final Log log = LogFactory.getLog(AddressServiceImpl.class);
@@ -58,7 +57,7 @@ public class AddressServiceImpl implements AddressService {
     /*
      * (non-Javadoc)
      * 
-     * @see org.nhindirect.config.service.AddressService#addAddress(java.util.Collection)
+     * @see gov.hhs.fha.nhinc.directconfig.service.AddressService#addAddress(java.util.Collection)
      */
     public void addAddress(Collection<Address> address) throws ConfigurationServiceException {
         // TODO Auto-generated method stub
@@ -68,7 +67,7 @@ public class AddressServiceImpl implements AddressService {
     /*
      * (non-Javadoc)
      * 
-     * @see org.nhindirect.config.service.AddressService#updateAddress(gov.hhs.fha.nhinc.directconfig.entity.Address)
+     * @see gov.hhs.fha.nhinc.directconfig.service.AddressService#updateAddress(gov.hhs.fha.nhinc.directconfig.entity.Address)
      */
     public void updateAddress(Address address) throws ConfigurationServiceException {
         // TODO Auto-generated method stub
@@ -78,7 +77,7 @@ public class AddressServiceImpl implements AddressService {
     /*
      * (non-Javadoc)
      * 
-     * @see org.nhindirect.config.service.AddressService#getAddressCount()
+     * @see gov.hhs.fha.nhinc.directconfig.service.AddressService#getAddressCount()
      */
     public int getAddressCount() throws ConfigurationServiceException {
         // TODO Auto-generated method stub
@@ -88,7 +87,7 @@ public class AddressServiceImpl implements AddressService {
     /*
      * (non-Javadoc)
      * 
-     * @see org.nhindirect.config.service.AddressService#getAddress(java.util.Collection, gov.hhs.fha.nhinc.directconfig.entity.EntityStatus)
+     * @see gov.hhs.fha.nhinc.directconfig.service.AddressService#getAddress(java.util.Collection, gov.hhs.fha.nhinc.directconfig.entity.EntityStatus)
      */
     public Collection<Address> getAddress(Collection<String> addressNames, EntityStatus status)
             throws ConfigurationServiceException {
@@ -102,7 +101,7 @@ public class AddressServiceImpl implements AddressService {
     /*
      * (non-Javadoc)
      * 
-     * @see org.nhindirect.config.service.AddressService#removeAddress(java.lang.String)
+     * @see gov.hhs.fha.nhinc.directconfig.service.AddressService#removeAddress(java.lang.String)
      */
     public void removeAddress(String addressName) throws ConfigurationServiceException {
         if(addressName == null)
@@ -114,7 +113,7 @@ public class AddressServiceImpl implements AddressService {
     /*
      * (non-Javadoc)
      * 
-     * @see org.nhindirect.config.service.AddressService#listAddresss(java.lang.String, int)
+     * @see gov.hhs.fha.nhinc.directconfig.service.AddressService#listAddresss(java.lang.String, int)
      */
     public Collection<Address> listAddresss(String lastAddressName, int maxResults)
             throws ConfigurationServiceException {

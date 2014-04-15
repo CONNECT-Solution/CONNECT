@@ -21,9 +21,6 @@ THE POSSIBILITY OF SUCH DAMAGE.
 
 package gov.hhs.fha.nhinc.directconfig.service.impl;
 
-import gov.hhs.fha.nhinc.directconfig.service.ConfigurationServiceException;
-import gov.hhs.fha.nhinc.directconfig.service.DomainService;
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -32,15 +29,17 @@ import javax.jws.WebService;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import gov.hhs.fha.nhinc.directconfig.service.ConfigurationServiceException;
+import gov.hhs.fha.nhinc.directconfig.service.DomainService;
 import gov.hhs.fha.nhinc.directconfig.entity.Domain;
 import gov.hhs.fha.nhinc.directconfig.entity.EntityStatus;
-import gov.hhs.fha.nhinc.directconfig.entity.dao.DomainDao;
+import gov.hhs.fha.nhinc.directconfig.dao.DomainDao;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * Service class for methods related to a Domain object.
  */
-@WebService(endpointInterface = "org.nhindirect.config.service.DomainService")
+@WebService(endpointInterface = "gov.hhs.fha.nhinc.directconfig.service.DomainService")
 public class DomainServiceImpl implements DomainService {
 
     private static final Log log = LogFactory.getLog(DomainServiceImpl.class);
@@ -57,7 +56,7 @@ public class DomainServiceImpl implements DomainService {
     /*
      * (non-Javadoc)
      * 
-     * @see org.nhindirect.config.service.DomainService#addDomain(gov.hhs.fha.nhinc.directconfig.entity.Domain)
+     * @see gov.hhs.fha.nhinc.directconfig.service.DomainService#addDomain(gov.hhs.fha.nhinc.directconfig.entity.Domain)
      */
     public void addDomain(Domain domain) throws ConfigurationServiceException {
         if (log.isDebugEnabled())
@@ -72,7 +71,7 @@ public class DomainServiceImpl implements DomainService {
     /*
      * (non-Javadoc)
      * 
-     * @see org.nhindirect.config.service.DomainService#updateDomain(gov.hhs.fha.nhinc.directconfig.entity.Domain)
+     * @see gov.hhs.fha.nhinc.directconfig.service.DomainService#updateDomain(gov.hhs.fha.nhinc.directconfig.entity.Domain)
      */
     public void updateDomain(Domain domain) throws ConfigurationServiceException {
         if (log.isDebugEnabled())
@@ -90,7 +89,7 @@ public class DomainServiceImpl implements DomainService {
     /*
      * (non-Javadoc)
      * 
-     * @see org.nhindirect.config.service.DomainService#getDomainCount()
+     * @see gov.hhs.fha.nhinc.directconfig.service.DomainService#getDomainCount()
      */
     public int getDomainCount() throws ConfigurationServiceException {
         return dao.count();
@@ -99,7 +98,7 @@ public class DomainServiceImpl implements DomainService {
     /*
      * (non-Javadoc)
      * 
-     * @see org.nhindirect.config.service.DomainService#getDomains(java.util.Collection, gov.hhs.fha.nhinc.directconfig.entity.EntityStatus)
+     * @see gov.hhs.fha.nhinc.directconfig.service.DomainService#getDomains(java.util.Collection, gov.hhs.fha.nhinc.directconfig.entity.EntityStatus)
      */
     public Collection<Domain> getDomains(Collection<String> domainNames, EntityStatus status)
             throws ConfigurationServiceException {
@@ -110,7 +109,7 @@ public class DomainServiceImpl implements DomainService {
     /*
      * (non-Javadoc)
      * 
-     * @see org.nhindirect.config.service.DomainService#removeDomain(java.lang.String)
+     * @see gov.hhs.fha.nhinc.directconfig.service.DomainService#removeDomain(java.lang.String)
      */
     public void removeDomain(String domainName) throws ConfigurationServiceException {
         if (log.isDebugEnabled())
@@ -126,7 +125,7 @@ public class DomainServiceImpl implements DomainService {
     /*
      * (non-Javadoc)
      * 
-     * @see org.nhindirect.config.service.DomainService#removeDomainById(java.lang.Long)
+     * @see gov.hhs.fha.nhinc.directconfig.service.DomainService#removeDomainById(java.lang.Long)
      */
     public void removeDomainById(Long domainId) throws ConfigurationServiceException {
         if (log.isDebugEnabled())
@@ -142,7 +141,7 @@ public class DomainServiceImpl implements DomainService {
     /*
      * (non-Javadoc)
      * 
-     * @see org.nhindirect.config.service.DomainService#listDomains(java.lang.String, int)
+     * @see gov.hhs.fha.nhinc.directconfig.service.DomainService#listDomains(java.lang.String, int)
      */
     public Collection<Domain> listDomains(String lastDomainName, int maxResults) throws ConfigurationServiceException {
         if (log.isDebugEnabled())
@@ -164,7 +163,7 @@ public class DomainServiceImpl implements DomainService {
     /*
      * (non-Javadoc)
      * 
-     * @see org.nhindirect.config.service.DomainService#searchDomain(java.lang.String, gov.hhs.fha.nhinc.directconfig.entity.EntityStatus)
+     * @see gov.hhs.fha.nhinc.directconfig.service.DomainService#searchDomain(java.lang.String, gov.hhs.fha.nhinc.directconfig.entity.EntityStatus)
      */
     public Collection<Domain> searchDomain(String domain, EntityStatus status) {
         if (log.isDebugEnabled())
@@ -186,7 +185,7 @@ public class DomainServiceImpl implements DomainService {
     /*
      * (non-Javadoc)
      * 
-     * @see org.nhindirect.config.service.DomainService#getDomain(java.lang.Long)
+     * @see gov.hhs.fha.nhinc.directconfig.service.DomainService#getDomain(java.lang.Long)
      */
     public Domain getDomain(Long id) {
         if (log.isDebugEnabled())

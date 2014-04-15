@@ -21,9 +21,6 @@ THE POSSIBILITY OF SUCH DAMAGE.
 
 package gov.hhs.fha.nhinc.directconfig.service.impl;
 
-import gov.hhs.fha.nhinc.directconfig.service.AnchorService;
-import gov.hhs.fha.nhinc.directconfig.service.ConfigurationServiceException;
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -33,15 +30,17 @@ import javax.jws.WebService;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import gov.hhs.fha.nhinc.directconfig.service.AnchorService;
+import gov.hhs.fha.nhinc.directconfig.service.ConfigurationServiceException;
 import gov.hhs.fha.nhinc.directconfig.entity.Anchor;
 import gov.hhs.fha.nhinc.directconfig.entity.EntityStatus;
-import gov.hhs.fha.nhinc.directconfig.entity.dao.AnchorDao;
+import gov.hhs.fha.nhinc.directconfig.dao.AnchorDao;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * Service class for methods related to an Anchor object.
  */
-@WebService(endpointInterface = "org.nhindirect.config.service.AnchorService")
+@WebService(endpointInterface = "gov.hhs.fha.nhinc.directconfig.service.AnchorService")
 public class AnchorServiceImpl implements AnchorService {
 
     @SuppressWarnings("unused")
@@ -52,7 +51,7 @@ public class AnchorServiceImpl implements AnchorService {
     /*
      * (non-Javadoc)
      * 
-     * @see org.nhindirect.config.service.AnchorService#addAnchors(java.util.Collection
+     * @see gov.hhs.fha.nhinc.directconfig.service.AnchorService#addAnchors(java.util.Collection
      * )
      */
     public void addAnchors(Collection<Anchor> anchors) throws ConfigurationServiceException
@@ -66,7 +65,7 @@ public class AnchorServiceImpl implements AnchorService {
     /*
      * (non-Javadoc)
      * 
-     * @see org.nhindirect.config.service.AnchorService#getAnchor(java.lang.String, java.lang.String, org.nhindirect.config.service.impl.CertificateGetOptions)
+     * @see gov.hhs.fha.nhinc.directconfig.service.AnchorService#getAnchor(java.lang.String, java.lang.String, gov.hhs.fha.nhinc.directconfig.service.impl.CertificateGetOptions)
      */
     public Anchor getAnchor(String owner, String thumbprint, CertificateGetOptions options)
             throws ConfigurationServiceException 
@@ -89,7 +88,7 @@ public class AnchorServiceImpl implements AnchorService {
     /*
      * (non-Javadoc)
      * 
-     * @see org.nhindirect.config.service.AnchorService#getAnchors(java.util.Collection, org.nhindirect.config.service.impl.CertificateGetOptions)
+     * @see gov.hhs.fha.nhinc.directconfig.service.AnchorService#getAnchors(java.util.Collection, gov.hhs.fha.nhinc.directconfig.service.impl.CertificateGetOptions)
      */
     public Collection<Anchor> getAnchors(Collection<Long> anchorIds, CertificateGetOptions options)
             throws ConfigurationServiceException 
@@ -104,7 +103,7 @@ public class AnchorServiceImpl implements AnchorService {
     /*
      * (non-Javadoc)
      * 
-     * @see org.nhindirect.config.service.AnchorService#getAnchorsForOwner(java.lang.String, org.nhindirect.config.service.impl.CertificateGetOptions)
+     * @see gov.hhs.fha.nhinc.directconfig.service.AnchorService#getAnchorsForOwner(java.lang.String, gov.hhs.fha.nhinc.directconfig.service.impl.CertificateGetOptions)
      */
     public Collection<Anchor> getAnchorsForOwner(String owner, CertificateGetOptions options)
             throws ConfigurationServiceException 
@@ -118,7 +117,7 @@ public class AnchorServiceImpl implements AnchorService {
     /*
      * (non-Javadoc)
      * 
-     * @see org.nhindirect.config.service.AnchorService#getIncomingAnchors(java.lang.String, org.nhindirect.config.service.impl.CertificateGetOptions)
+     * @see gov.hhs.fha.nhinc.directconfig.service.AnchorService#getIncomingAnchors(java.lang.String, gov.hhs.fha.nhinc.directconfig.service.impl.CertificateGetOptions)
      */
     public Collection<Anchor> getIncomingAnchors(String owner, CertificateGetOptions options)
             throws ConfigurationServiceException 
@@ -139,7 +138,7 @@ public class AnchorServiceImpl implements AnchorService {
     /*
      * (non-Javadoc)
      * 
-     * @see org.nhindirect.config.service.AnchorService#getOutgoingAnchors(java.lang.String, org.nhindirect.config.service.impl.CertificateGetOptions)
+     * @see gov.hhs.fha.nhinc.directconfig.service.AnchorService#getOutgoingAnchors(java.lang.String, gov.hhs.fha.nhinc.directconfig.service.impl.CertificateGetOptions)
      */
     public Collection<Anchor> getOutgoingAnchors(String owner, CertificateGetOptions options)
             throws ConfigurationServiceException 
@@ -160,7 +159,7 @@ public class AnchorServiceImpl implements AnchorService {
     /*
      * (non-Javadoc)
      * 
-     * @see org.nhindirect.config.service.AnchorService#setAnchorStatusForOwner(java.lang.String, gov.hhs.fha.nhinc.directconfig.entity.EntityStatus)
+     * @see gov.hhs.fha.nhinc.directconfig.service.AnchorService#setAnchorStatusForOwner(java.lang.String, gov.hhs.fha.nhinc.directconfig.entity.EntityStatus)
      */
     public void setAnchorStatusForOwner(String owner, EntityStatus status) throws ConfigurationServiceException 
     {
@@ -170,7 +169,7 @@ public class AnchorServiceImpl implements AnchorService {
     /*
      * (non-Javadoc)
      * 
-     * @see org.nhindirect.config.service.AnchorService#listAnchors(java.lang.Long, int, org.nhindirect.config.service.impl.CertificateGetOptions)
+     * @see gov.hhs.fha.nhinc.directconfig.service.AnchorService#listAnchors(java.lang.Long, int, gov.hhs.fha.nhinc.directconfig.service.impl.CertificateGetOptions)
      */
     public Collection<Anchor> listAnchors(Long lastAnchorID, int maxResults, CertificateGetOptions options)
             throws ConfigurationServiceException 
@@ -182,7 +181,7 @@ public class AnchorServiceImpl implements AnchorService {
     /*
      * (non-Javadoc)
      * 
-     * @see org.nhindirect.config.service.AnchorService#removeAnchors(java.util.Collection)
+     * @see gov.hhs.fha.nhinc.directconfig.service.AnchorService#removeAnchors(java.util.Collection)
      */
     public void removeAnchors(Collection<Long> anchorIds) throws ConfigurationServiceException 
     {
@@ -197,7 +196,7 @@ public class AnchorServiceImpl implements AnchorService {
     /*
      * (non-Javadoc)
      * 
-     * @see org.nhindirect.config.service.AnchorService#removeAnchorsForOwner(java.lang.String)
+     * @see gov.hhs.fha.nhinc.directconfig.service.AnchorService#removeAnchorsForOwner(java.lang.String)
      */
     public void removeAnchorsForOwner(String owner) throws ConfigurationServiceException 
     {
