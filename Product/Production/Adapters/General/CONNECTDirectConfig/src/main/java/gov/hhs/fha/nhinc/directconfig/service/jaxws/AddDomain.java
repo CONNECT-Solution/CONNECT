@@ -6,7 +6,7 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
-import org.nhindirect.config.store.Domain;
+import gov.hhs.fha.nhinc.directconfig.entity.Domain;
 
 @XmlRootElement(name = "addDomain", namespace = "http://nhind.org/config")
 @XmlAccessorType(XmlAccessType.FIELD)

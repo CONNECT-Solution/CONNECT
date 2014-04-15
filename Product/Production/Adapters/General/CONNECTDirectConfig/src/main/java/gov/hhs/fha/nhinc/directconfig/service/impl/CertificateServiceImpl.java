@@ -44,7 +44,7 @@ import org.springframework.beans.factory.annotation.Autowired;
  */
 @WebService(endpointInterface = "org.nhindirect.config.service.CertificateService")
 public class CertificateServiceImpl implements CertificateService {
-	
+    
     private static final Log log = LogFactory.getLog(CertificateServiceImpl.class);
 
     private CertificateDao dao;
@@ -80,27 +80,27 @@ public class CertificateServiceImpl implements CertificateService {
      */
     public void addCertificates(Collection<Certificate> certs) throws ConfigurationServiceException {
         
-    	if (certs != null && certs.size() > 0)
-    		for (Certificate cert : certs)
-    		{
-    			if ((cert.getOwner() == null || cert.getOwner().isEmpty()) && cert.getData() != null)
-    			{
-    				// get the owner from the certificate information
-    				// first transform into a certificate
-    				CertUtils.CertContainer cont = CertUtils.toCertContainer(cert.getData());
-    				if (cont != null && cont.getCert() != null)
-    				{
-   					
-    					// now get the owner info from the cert
-    					String theOwner = CertUtils.getOwner(cont.getCert());
+        if (certs != null && certs.size() > 0)
+            for (Certificate cert : certs)
+            {
+                if ((cert.getOwner() == null || cert.getOwner().isEmpty()) && cert.getData() != null)
+                {
+                    // get the owner from the certificate information
+                    // first transform into a certificate
+                    CertUtils.CertContainer cont = CertUtils.toCertContainer(cert.getData());
+                    if (cont != null && cont.getCert() != null)
+                    {
+                       
+                        // now get the owner info from the cert
+                        String theOwner = CertUtils.getOwner(cont.getCert());
 
-    					if (theOwner != null && !theOwner.isEmpty())
-    						cert.setOwner(theOwner);
-    				}
-    				
-    			}
-    			dao.save(cert);
-    		}
+                        if (theOwner != null && !theOwner.isEmpty())
+                            cert.setOwner(theOwner);
+                    }
+                    
+                }
+                dao.save(cert);
+            }
     }
 
     /*
@@ -122,7 +122,7 @@ public class CertificateServiceImpl implements CertificateService {
     public Collection<Certificate> getCertificates(Collection<Long> certIds, CertificateGetOptions options)
             throws ConfigurationServiceException {
 
-    	return dao.list(new ArrayList<Long>(certIds));
+        return dao.list(new ArrayList<Long>(certIds));
     }
 
     /*
@@ -133,7 +133,7 @@ public class CertificateServiceImpl implements CertificateService {
     public Collection<Certificate> getCertificatesForOwner(String owner, CertificateGetOptions options)
             throws ConfigurationServiceException {
 
-    	return dao.list(owner);
+        return dao.list(owner);
     }
 
     /*
@@ -144,7 +144,7 @@ public class CertificateServiceImpl implements CertificateService {
     public void setCertificateStatus(Collection<Long> certificateIDs, EntityStatus status)
             throws ConfigurationServiceException {
        
-    	dao.setStatus(new ArrayList<Long>(certificateIDs), status);
+        dao.setStatus(new ArrayList<Long>(certificateIDs), status);
 
     }
 
@@ -154,7 +154,7 @@ public class CertificateServiceImpl implements CertificateService {
      * @see org.nhindirect.config.service.CertificateService#setCertificateStatusForOwner(java.lang.String, org.nhindirect.config.store.EntityStatus)
      */
     public void setCertificateStatusForOwner(String owner, EntityStatus status) throws ConfigurationServiceException {
-    	
+        
         dao.setStatus(owner, status);
 
     }
@@ -166,7 +166,7 @@ public class CertificateServiceImpl implements CertificateService {
      */
     public void removeCertificates(Collection<Long> certificateIds) throws ConfigurationServiceException {
         
-    	dao.delete(new ArrayList<Long>(certificateIds));
+        dao.delete(new ArrayList<Long>(certificateIds));
 
     }
 
@@ -177,7 +177,7 @@ public class CertificateServiceImpl implements CertificateService {
      */
     public void removeCertificatesForOwner(String owner) throws ConfigurationServiceException {
         
-    	dao.delete(owner);
+        dao.delete(owner);
 
     }
 
@@ -189,8 +189,8 @@ public class CertificateServiceImpl implements CertificateService {
     public Collection<Certificate> listCertificates(long lastCertificateID, int maxResults,
             CertificateGetOptions options) throws ConfigurationServiceException {
       
-    	// just return all for now
-    	return dao.list((String)null);
+        // just return all for now
+        return dao.list((String)null);
     }
 
     /*

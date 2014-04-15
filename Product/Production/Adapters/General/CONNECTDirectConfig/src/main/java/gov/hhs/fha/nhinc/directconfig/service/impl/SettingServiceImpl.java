@@ -45,7 +45,7 @@ public class SettingServiceImpl implements SettingService
     private static final Log log = LogFactory.getLog(SettingServiceImpl.class);
 
     private SettingDao dao;
-	
+    
     /**
      * Initialization method.
      */
@@ -54,75 +54,75 @@ public class SettingServiceImpl implements SettingService
     }
 
     
-	/* 
-	 * (non-Javadoc)
-	 * 
-	 * @see org.nhindirect.config.service.SettingService#addSetting(java.lang.String, java.lang.String)
-	 */
-	public void addSetting(String name, String value)
-			throws ConfigurationServiceException {
-		
-		dao.add(name, value);
-	}
+    /* 
+     * (non-Javadoc)
+     * 
+     * @see org.nhindirect.config.service.SettingService#addSetting(java.lang.String, java.lang.String)
+     */
+    public void addSetting(String name, String value)
+            throws ConfigurationServiceException {
+        
+        dao.add(name, value);
+    }
 
 
-	/* 
-	 * (non-Javadoc)
-	 * 
-	 * @see org.nhindirect.config.service.SettingService#deleteSetting(java.util.Collection)
-	 */
-	public void deleteSetting(Collection<String> names) throws ConfigurationServiceException {
-		
-		dao.delete(names);		
-	}
+    /* 
+     * (non-Javadoc)
+     * 
+     * @see org.nhindirect.config.service.SettingService#deleteSetting(java.util.Collection)
+     */
+    public void deleteSetting(Collection<String> names) throws ConfigurationServiceException {
+        
+        dao.delete(names);        
+    }
 
 
-	/* 
-	 * (non-Javadoc)
-	 * 
-	 * @see org.nhindirect.config.service.SettingService#getAllSettings()
-	 */
-	public Collection<Setting> getAllSettings()
-			throws ConfigurationServiceException {
-		
-		return dao.getAll();
-	}
+    /* 
+     * (non-Javadoc)
+     * 
+     * @see org.nhindirect.config.service.SettingService#getAllSettings()
+     */
+    public Collection<Setting> getAllSettings()
+            throws ConfigurationServiceException {
+        
+        return dao.getAll();
+    }
 
 
-	/* 
-	 * (non-Javadoc)
-	 * 
-	 * @see org.nhindirect.config.service.SettingService#getSettingByName(java.lang.String)
-	 */
-	public Setting getSettingByName(String name)
-			throws ConfigurationServiceException {
-	
-		Collection<Setting> settings = dao.getByNames(Arrays.asList(name));
-		
-		if (settings == null || settings.size() == 0)
-			return null;
-		
-		return settings.iterator().next();
-	}
+    /* 
+     * (non-Javadoc)
+     * 
+     * @see org.nhindirect.config.service.SettingService#getSettingByName(java.lang.String)
+     */
+    public Setting getSettingByName(String name)
+            throws ConfigurationServiceException {
+    
+        Collection<Setting> settings = dao.getByNames(Arrays.asList(name));
+        
+        if (settings == null || settings.size() == 0)
+            return null;
+        
+        return settings.iterator().next();
+    }
 
 
-	/* 
-	 * (non-Javadoc)
-	 * 
-	 * @see org.nhindirect.config.service.SettingService#getSettingsByNames(java.util.Collection)
-	 */
-	public Collection<Setting> getSettingsByNames(Collection<String> names)
-			throws ConfigurationServiceException {
+    /* 
+     * (non-Javadoc)
+     * 
+     * @see org.nhindirect.config.service.SettingService#getSettingsByNames(java.util.Collection)
+     */
+    public Collection<Setting> getSettingsByNames(Collection<String> names)
+            throws ConfigurationServiceException {
 
-		return dao.getByNames(names);
-	}
+        return dao.getByNames(names);
+    }
 
 
-	public void updateSetting(String name, String value)
-			throws ConfigurationServiceException {
-		
-		dao.update(name, value);	
-	}
+    public void updateSetting(String name, String value)
+            throws ConfigurationServiceException {
+        
+        dao.update(name, value);    
+    }
 
     /**
      * Set the value of the AnchorDao object.

@@ -23,12 +23,10 @@ package gov.hhs.fha.nhinc.directconfig.service.impl;
 
 import gov.hhs.fha.nhinc.directconfig.service.AddressService;
 import gov.hhs.fha.nhinc.directconfig.service.AnchorService;
-import gov.hhs.fha.nhinc.directconfig.service.CertificatePolicyService;
 import gov.hhs.fha.nhinc.directconfig.service.CertificateService;
 import gov.hhs.fha.nhinc.directconfig.service.ConfigurationFault;
 import gov.hhs.fha.nhinc.directconfig.service.ConfigurationService;
 import gov.hhs.fha.nhinc.directconfig.service.ConfigurationServiceException;
-import gov.hhs.fha.nhinc.directconfig.service.DNSService;
 import gov.hhs.fha.nhinc.directconfig.service.DomainService;
 import gov.hhs.fha.nhinc.directconfig.service.SettingService;
 import gov.hhs.fha.nhinc.directconfig.service.TrustBundleService;
@@ -45,18 +43,12 @@ import org.apache.commons.logging.LogFactory;
 import org.nhindirect.config.store.Address;
 import org.nhindirect.config.store.Anchor;
 import org.nhindirect.config.store.BundleRefreshError;
-import org.nhindirect.config.store.CertPolicy;
-import org.nhindirect.config.store.CertPolicyGroup;
-import org.nhindirect.config.store.CertPolicyGroupDomainReltn;
-import org.nhindirect.config.store.CertPolicyUse;
 import org.nhindirect.config.store.Certificate;
-import org.nhindirect.config.store.DNSRecord;
 import org.nhindirect.config.store.Domain;
 import org.nhindirect.config.store.EntityStatus;
 import org.nhindirect.config.store.Setting;
 import org.nhindirect.config.store.TrustBundle;
 import org.nhindirect.config.store.TrustBundleDomainReltn;
-import org.nhindirect.policy.PolicyLexicon;
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**
@@ -67,7 +59,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 public class ConfigurationServiceImpl implements ConfigurationService {
 
 
-	private static Log log = LogFactory.getLog(ConfigurationServiceImpl.class);
+    private static Log log = LogFactory.getLog(ConfigurationServiceImpl.class);
 
     private DomainService domainSvc;
 
@@ -79,12 +71,8 @@ public class ConfigurationServiceImpl implements ConfigurationService {
 
     private SettingService settingSvc;
     
-    private DNSService dnsSvc;
-    
     private TrustBundleService trustBundleSvc;
   
-    private CertificatePolicyService certPolicySvc;
-    
     /**
      * Initialization method.
      */
@@ -476,26 +464,6 @@ public class ConfigurationServiceImpl implements ConfigurationService {
     }    
     
     /**
-     * Get the DNSService object.
-     * 
-     * @return the DNSService object.
-     */
-    public DNSService getDNSSvc() {
-        return dnsSvc;
-    }
-
-    /**
-     * Set the DNSService object.
-     * 
-     * @param anchorSvc
-     *            The DNSService object.
-     */
-    @Autowired
-    public void setDNSSvc(DNSService dnsSvc) {
-        this.dnsSvc = dnsSvc;
-    }       
-    
-    /**
      * Get the TrustBundleService object.
      * 
      * @return the TrustBundleService object.
@@ -513,26 +481,6 @@ public class ConfigurationServiceImpl implements ConfigurationService {
     @Autowired
     public void setTrustBundleSvc(TrustBundleService trustBundleSvc) {
         this.trustBundleSvc = trustBundleSvc;
-    }   
-    
-    /**
-     * Get the CertificatePolicyService object.
-     * 
-     * @return the CertificatePolicyService object.
-     */
-    public CertificatePolicyService getCertificatePolicySvc() {
-        return certPolicySvc;
-    }
-
-    /**
-     * Set the CertificatePolicyService object.
-     * 
-     * @param certPolicySvc
-     *            The CertificatePolicyService object.
-     */
-    @Autowired
-    public void setCertificatePolicySvc(CertificatePolicyService certPolicySvc) {
-        this.certPolicySvc = certPolicySvc;
     }   
     
     /*
@@ -660,472 +608,213 @@ public class ConfigurationServiceImpl implements ConfigurationService {
      */
     @Override
     @FaultAction(className = ConfigurationFault.class)
-	public void addSetting(String name, String value)
-			throws ConfigurationServiceException {
-    	settingSvc.addSetting(name, value);
-		
-	}
+    public void addSetting(String name, String value)
+            throws ConfigurationServiceException {
+        settingSvc.addSetting(name, value);
+        
+    }
 
     /**
      * {@inheritDoc}
      */
-	@Override
-	@FaultAction(className = ConfigurationFault.class)
-	public Collection<Setting> getAllSettings()
-			throws ConfigurationServiceException {
-		return settingSvc.getAllSettings();
-	}
+    @Override
+    @FaultAction(className = ConfigurationFault.class)
+    public Collection<Setting> getAllSettings()
+            throws ConfigurationServiceException {
+        return settingSvc.getAllSettings();
+    }
 
     /**
      * {@inheritDoc}
      */
-	@Override
-	@FaultAction(className = ConfigurationFault.class)
-	public Setting getSettingByName(String name)
-			throws ConfigurationServiceException {
-		return settingSvc.getSettingByName(name);
-	}
+    @Override
+    @FaultAction(className = ConfigurationFault.class)
+    public Setting getSettingByName(String name)
+            throws ConfigurationServiceException {
+        return settingSvc.getSettingByName(name);
+    }
 
     /**
      * {@inheritDoc}
      */
-	@Override
-	@FaultAction(className = ConfigurationFault.class)
-	public Collection<Setting> getSettingsByNames(Collection<String> names)
-			throws ConfigurationServiceException {
-		return settingSvc.getSettingsByNames(names);
-	}
+    @Override
+    @FaultAction(className = ConfigurationFault.class)
+    public Collection<Setting> getSettingsByNames(Collection<String> names)
+            throws ConfigurationServiceException {
+        return settingSvc.getSettingsByNames(names);
+    }
 
     /**
      * {@inheritDoc}
      */
-	@Override
-	@FaultAction(className = ConfigurationFault.class)
-	public void updateSetting(String name, String value)
-			throws ConfigurationServiceException {
-		settingSvc.updateSetting(name, value);
-		
-	}
+    @Override
+    @FaultAction(className = ConfigurationFault.class)
+    public void updateSetting(String name, String value)
+            throws ConfigurationServiceException {
+        settingSvc.updateSetting(name, value);
+        
+    }
 
     /**
      * {@inheritDoc}
      */
-	@Override
-	@FaultAction(className = ConfigurationFault.class)
-	public void deleteSetting(Collection<String> names) throws ConfigurationServiceException {
-		settingSvc.deleteSetting(names);
-		
-	}
+    @Override
+    @FaultAction(className = ConfigurationFault.class)
+    public void deleteSetting(Collection<String> names) throws ConfigurationServiceException {
+        settingSvc.deleteSetting(names);
+        
+    }
 
     /**
      * {@inheritDoc}
      */
-	@Override
-	@FaultAction(className = ConfigurationFault.class)
-	public void addDNS(Collection<DNSRecord> records)
-			throws ConfigurationServiceException 
-	{
-		dnsSvc.addDNS(records);
-	}
+    @Override
+    @FaultAction(className = ConfigurationFault.class)
+    public Collection<TrustBundle> getTrustBundles(boolean fetchAnchors)
+            throws ConfigurationServiceException 
+    {
+        return trustBundleSvc.getTrustBundles(fetchAnchors);
+    }
 
     /**
      * {@inheritDoc}
      */
-	@Override
-	@FaultAction(className = ConfigurationFault.class)
-	public Collection<DNSRecord> getDNSByName(String name)
-			throws ConfigurationServiceException 
-	{
-		return dnsSvc.getDNSByName(name);
-	}
+    @Override
+    @FaultAction(className = ConfigurationFault.class)
+    public TrustBundle getTrustBundleByName(String bundleName)
+            throws ConfigurationServiceException 
+    {
+        return trustBundleSvc.getTrustBundleByName(bundleName);
+    }
 
     /**
      * {@inheritDoc}
      */
-	@Override
-	@FaultAction(className = ConfigurationFault.class)
-	public Collection<DNSRecord> getDNSByNameAndType(String name, int type)
-			throws ConfigurationServiceException 
-	{
-		return dnsSvc.getDNSByNameAndType(name, type);
-	}
+    @Override
+    @FaultAction(className = ConfigurationFault.class)
+    public TrustBundle getTrustBundleById(long id)
+            throws ConfigurationServiceException 
+    {
+        return trustBundleSvc.getTrustBundleById(id);
+    }
 
     /**
      * {@inheritDoc}
      */
-	@Override
-	@FaultAction(className = ConfigurationFault.class)
-	public DNSRecord getDNSByRecordId(long recordId)
-			throws ConfigurationServiceException 
-	{
-		return dnsSvc.getDNSByRecordId(recordId);
-	}
+    @Override
+    @FaultAction(className = ConfigurationFault.class)
+    public void addTrustBundle(TrustBundle bundle)
+            throws ConfigurationServiceException 
+    {
+        trustBundleSvc.addTrustBundle(bundle);    
+    }
 
     /**
      * {@inheritDoc}
      */
-	@Override
-	@FaultAction(className = ConfigurationFault.class)
-	public Collection<DNSRecord> getDNSByRecordIds(long[] recordIds)
-			throws ConfigurationServiceException 
-	{
-		return dnsSvc.getDNSByRecordIds(recordIds);
-	}
-
-    /**
-     * {@inheritDoc}
-     */
-	@Override
-	@FaultAction(className = ConfigurationFault.class)
-	public Collection<DNSRecord> getDNSByType(int type)
-			throws ConfigurationServiceException 
-	{
-		return dnsSvc.getDNSByType(type);
-	}
-
-    /**
-     * {@inheritDoc}
-     */
-	@Override
-	@FaultAction(className = ConfigurationFault.class)
-	public int getDNSCount() throws ConfigurationServiceException 
-	{
-		return dnsSvc.getDNSCount();
-	}
-
-    /**
-     * {@inheritDoc}
-     */
-	@Override
-	@FaultAction(className = ConfigurationFault.class)
-	public void removeDNS(Collection<DNSRecord> records)
-			throws ConfigurationServiceException 
-	{
-		dnsSvc.removeDNS(records);
-	}
-
-	@Override
-	public void removeDNSByRecordId(long recordId)
-			throws ConfigurationServiceException 
-	{
-		dnsSvc.removeDNSByRecordId(recordId);
-	}
-
-    /**
-     * {@inheritDoc}
-     */
-	@Override
-	@FaultAction(className = ConfigurationFault.class)
-	public void removeDNSByRecordIds(long[] recordIds)
-			throws ConfigurationServiceException 
-	{
-		dnsSvc.removeDNSByRecordIds(recordIds);
-		
-	}
-
-    /**
-     * {@inheritDoc}
-     */
-	@Override
-	@FaultAction(className = ConfigurationFault.class)
-	public void updateDNS(long recordId, DNSRecord record)
-			throws ConfigurationServiceException 
-	{
-		dnsSvc.updateDNS(recordId, record);
-	}
-
-    /**
-     * {@inheritDoc}
-     */
-	@Override
-	@FaultAction(className = ConfigurationFault.class)
-	public Collection<TrustBundle> getTrustBundles(boolean fetchAnchors)
-			throws ConfigurationServiceException 
-	{
-		return trustBundleSvc.getTrustBundles(fetchAnchors);
-	}
-
-    /**
-     * {@inheritDoc}
-     */
-	@Override
-	@FaultAction(className = ConfigurationFault.class)
-	public TrustBundle getTrustBundleByName(String bundleName)
-			throws ConfigurationServiceException 
-	{
-		return trustBundleSvc.getTrustBundleByName(bundleName);
-	}
-
-    /**
-     * {@inheritDoc}
-     */
-	@Override
-	@FaultAction(className = ConfigurationFault.class)
-	public TrustBundle getTrustBundleById(long id)
-			throws ConfigurationServiceException 
-	{
-		return trustBundleSvc.getTrustBundleById(id);
-	}
-
-    /**
-     * {@inheritDoc}
-     */
-	@Override
-	@FaultAction(className = ConfigurationFault.class)
-	public void addTrustBundle(TrustBundle bundle)
-			throws ConfigurationServiceException 
-	{
-		trustBundleSvc.addTrustBundle(bundle);	
-	}
-
-    /**
-     * {@inheritDoc}
-     */
-	@Override
-	@FaultAction(className = ConfigurationFault.class)
-	public void refreshTrustBundle(long id)
-			throws ConfigurationServiceException 
-	{
-		trustBundleSvc.refreshTrustBundle(id);	
-	}
+    @Override
+    @FaultAction(className = ConfigurationFault.class)
+    public void refreshTrustBundle(long id)
+            throws ConfigurationServiceException 
+    {
+        trustBundleSvc.refreshTrustBundle(id);    
+    }
 
 
     /**
      * {@inheritDoc}
      */
-	@Override
-	@FaultAction(className = ConfigurationFault.class)
-	public void updateLastUpdateError(long trustBundleId, Calendar attemptTime,
-			BundleRefreshError error) throws ConfigurationServiceException 
-	{
-		trustBundleSvc.updateLastUpdateError(trustBundleId, attemptTime, error);
-	}
+    @Override
+    @FaultAction(className = ConfigurationFault.class)
+    public void updateLastUpdateError(long trustBundleId, Calendar attemptTime,
+            BundleRefreshError error) throws ConfigurationServiceException 
+    {
+        trustBundleSvc.updateLastUpdateError(trustBundleId, attemptTime, error);
+    }
 
     /**
      * {@inheritDoc}
      */
-	@Override
-	@FaultAction(className = ConfigurationFault.class)
-	public void deleteTrustBundles(long[] trustBundleIds)
-			throws ConfigurationServiceException 
-	{
-		trustBundleSvc.deleteTrustBundles(trustBundleIds);
-	}
+    @Override
+    @FaultAction(className = ConfigurationFault.class)
+    public void deleteTrustBundles(long[] trustBundleIds)
+            throws ConfigurationServiceException 
+    {
+        trustBundleSvc.deleteTrustBundles(trustBundleIds);
+    }
 
     /**
      * {@inheritDoc}
      */
-	@Override
-	@FaultAction(className = ConfigurationFault.class)
-	public void updateTrustBundleSigningCertificate(long trustBundleId,
-			Certificate signingCert) throws ConfigurationServiceException 
-	{
-		trustBundleSvc.updateTrustBundleSigningCertificate(trustBundleId, signingCert);
-	}
+    @Override
+    @FaultAction(className = ConfigurationFault.class)
+    public void updateTrustBundleSigningCertificate(long trustBundleId,
+            Certificate signingCert) throws ConfigurationServiceException 
+    {
+        trustBundleSvc.updateTrustBundleSigningCertificate(trustBundleId, signingCert);
+    }
 
-	@Override
-	@FaultAction(className = ConfigurationFault.class)
-	public void updateTrustBundleAttributes(long trustBundleId, String bundleName, String bundleUrl, Certificate signingCert,
-			 int refreshInterval) throws ConfigurationServiceException
-	{
-		trustBundleSvc.updateTrustBundleAttributes(trustBundleId, bundleName, bundleUrl, signingCert, refreshInterval);
-	}
-	
+    @Override
+    @FaultAction(className = ConfigurationFault.class)
+    public void updateTrustBundleAttributes(long trustBundleId, String bundleName, String bundleUrl, Certificate signingCert,
+             int refreshInterval) throws ConfigurationServiceException
+    {
+        trustBundleSvc.updateTrustBundleAttributes(trustBundleId, bundleName, bundleUrl, signingCert, refreshInterval);
+    }
+    
     /**
      * {@inheritDoc}
      */
-	@Override
-	@FaultAction(className = ConfigurationFault.class)
-	public void associateTrustBundleToDomain(long domainId, long trustBundleId, boolean incoming,
-    		boolean outgoing)
-			throws ConfigurationServiceException 
-	{
-		trustBundleSvc.associateTrustBundleToDomain(domainId, trustBundleId, incoming, outgoing);
-	}
-
-    /**
-     * {@inheritDoc}
-     */
-	@Override
-	@FaultAction(className = ConfigurationFault.class)
-	public void disassociateTrustBundleFromDomain(long domainId,
-			long trustBundleId) throws ConfigurationServiceException 
-	{
-		trustBundleSvc.disassociateTrustBundleFromDomain(domainId, trustBundleId);	
-	}
+    @Override
+    @FaultAction(className = ConfigurationFault.class)
+    public void associateTrustBundleToDomain(long domainId, long trustBundleId, boolean incoming,
+            boolean outgoing)
+            throws ConfigurationServiceException 
+    {
+        trustBundleSvc.associateTrustBundleToDomain(domainId, trustBundleId, incoming, outgoing);
+    }
 
     /**
      * {@inheritDoc}
      */
-	@Override
-	@FaultAction(className = ConfigurationFault.class)
-	public void disassociateTrustBundlesFromDomain(long domainId)
-			throws ConfigurationServiceException 
-	{
-		trustBundleSvc.disassociateTrustBundlesFromDomain(domainId);	
-	}
+    @Override
+    @FaultAction(className = ConfigurationFault.class)
+    public void disassociateTrustBundleFromDomain(long domainId,
+            long trustBundleId) throws ConfigurationServiceException 
+    {
+        trustBundleSvc.disassociateTrustBundleFromDomain(domainId, trustBundleId);    
+    }
 
     /**
      * {@inheritDoc}
      */
-	@Override
-	@FaultAction(className = ConfigurationFault.class)
-	public void disassociateTrustBundleFromDomains(long trustBundleId)
-			throws ConfigurationServiceException 
-	{
-		trustBundleSvc.disassociateTrustBundleFromDomains(trustBundleId);	
-	}
+    @Override
+    @FaultAction(className = ConfigurationFault.class)
+    public void disassociateTrustBundlesFromDomain(long domainId)
+            throws ConfigurationServiceException 
+    {
+        trustBundleSvc.disassociateTrustBundlesFromDomain(domainId);    
+    }
 
     /**
      * {@inheritDoc}
      */
-	@Override
-	@FaultAction(className = ConfigurationFault.class)
-	public Collection<TrustBundleDomainReltn> getTrustBundlesByDomain(long domainId,
-			boolean fetchAnchors) throws ConfigurationServiceException 
-	{
-		return trustBundleSvc.getTrustBundlesByDomain(domainId, fetchAnchors);
-	}   
-	
-	@Override
-	@FaultAction(className = ConfigurationFault.class)
-	public Collection<CertPolicy> getPolicies() throws ConfigurationServiceException 
-	{
-		return certPolicySvc.getPolicies();
-	}
+    @Override
+    @FaultAction(className = ConfigurationFault.class)
+    public void disassociateTrustBundleFromDomains(long trustBundleId)
+            throws ConfigurationServiceException 
+    {
+        trustBundleSvc.disassociateTrustBundleFromDomains(trustBundleId);    
+    }
 
-	@Override
-	@FaultAction(className = ConfigurationFault.class)
-	public CertPolicy getPolicyByName(String policyName) throws ConfigurationServiceException 
-	{
-		return certPolicySvc.getPolicyByName(policyName);
-	}
-
-	@Override
-	@FaultAction(className = ConfigurationFault.class)
-	public CertPolicy getPolicyById(long id) throws ConfigurationServiceException 
-	{
-		return certPolicySvc.getPolicyById(id);
-	}
-
-	@Override
-	@FaultAction(className = ConfigurationFault.class)
-	public void addPolicy(CertPolicy policy) throws ConfigurationServiceException 
-	{
-		certPolicySvc.addPolicy(policy);
-	}
-
-	@Override
-	@FaultAction(className = ConfigurationFault.class)
-	public void deletePolicies(long[] policyIds) throws ConfigurationServiceException 
-	{
-		certPolicySvc.deletePolicies(policyIds);
-	}
-
-	@Override
-	@FaultAction(className = ConfigurationFault.class)
-	public void updatePolicyAttributes(long id, String policyName,
-			PolicyLexicon lexicon, byte[] policyData) throws ConfigurationServiceException 
-	{
-		certPolicySvc.updatePolicyAttributes(id, policyName, lexicon, policyData);
-	}
-
-	@Override
-	@FaultAction(className = ConfigurationFault.class)
-	public Collection<CertPolicyGroup> getPolicyGroups() throws ConfigurationServiceException 
-	{
-		return certPolicySvc.getPolicyGroups();
-	}
-
-	@Override
-	@FaultAction(className = ConfigurationFault.class)
-	public CertPolicyGroup getPolicyGroupByName(String policyGroupName) throws ConfigurationServiceException 
-	{
-		return certPolicySvc.getPolicyGroupByName(policyGroupName);
-	}
-
-	@Override
-	@FaultAction(className = ConfigurationFault.class)
-	public CertPolicyGroup getPolicyGroupById(long id) throws ConfigurationServiceException 
-	{
-		return certPolicySvc.getPolicyGroupById(id);
-	}
-
-	@Override
-	@FaultAction(className = ConfigurationFault.class)
-	public void addPolicyGroup(CertPolicyGroup group) throws ConfigurationServiceException 
-	{
-		certPolicySvc.addPolicyGroup(group);
-	}
-
-	@Override
-	@FaultAction(className = ConfigurationFault.class)
-	public void deletePolicyGroups(long[] groupIds) throws ConfigurationServiceException 
-	{
-		certPolicySvc.deletePolicyGroups(groupIds);
-	}
-
-	@Override
-	@FaultAction(className = ConfigurationFault.class)
-	public void updateGroupAttributes(long id, String groupName) throws ConfigurationServiceException 
-	{	
-		certPolicySvc.updateGroupAttributes(id, groupName);
-	}
-
-	@Override
-	@FaultAction(className = ConfigurationFault.class)
-	public void addPolicyUseToGroup(long groupId, long policyId, CertPolicyUse policyUse,
-			boolean incoming, boolean outgoing) throws ConfigurationServiceException 
-	{	
-		certPolicySvc.addPolicyUseToGroup(groupId, policyId, policyUse, incoming, outgoing);
-	}
-
-	@Override
-	@FaultAction(className = ConfigurationFault.class)
-	public void removePolicyUseFromGroup(long policyGroupReltnId) throws ConfigurationServiceException 
-	{
-		certPolicySvc.removePolicyUseFromGroup(policyGroupReltnId);
-	}
-
-	@Override
-	@FaultAction(className = ConfigurationFault.class)
-	public void associatePolicyGroupToDomain(long domainId,long policyGroupId) throws ConfigurationServiceException 
-	{	
-		certPolicySvc.associatePolicyGroupToDomain(domainId, policyGroupId);
-	}
-
-	@Override
-	@FaultAction(className = ConfigurationFault.class)
-	public void disassociatePolicyGroupFromDomain(long domainId, long policyGroupId) throws ConfigurationServiceException 
-	{
-		certPolicySvc.disassociatePolicyGroupFromDomain(domainId, policyGroupId);
-	}
-
-	@Override
-	@FaultAction(className = ConfigurationFault.class)
-	public void disassociatePolicyGroupsFromDomain(long domainId) throws ConfigurationServiceException 
-	{	
-		certPolicySvc.disassociatePolicyGroupsFromDomain(domainId);
-	}
-
-	@Override
-	@FaultAction(className = ConfigurationFault.class)
-	public void disassociatePolicyGroupFromDomains(long policyGroupId) throws ConfigurationServiceException 
-	{
-		certPolicySvc.disassociatePolicyGroupFromDomains(policyGroupId);
-	}
-
-	@Override
-	@FaultAction(className = ConfigurationFault.class)
-	public Collection<CertPolicyGroupDomainReltn> getPolicyGroupDomainReltns() throws ConfigurationServiceException
-	{
-		return certPolicySvc.getPolicyGroupDomainReltns();
-	}
-	
-	@Override
-	@FaultAction(className = ConfigurationFault.class)
-	public Collection<CertPolicyGroupDomainReltn> getPolicyGroupsByDomain(long domainId) throws ConfigurationServiceException 
-	{
-		return certPolicySvc.getPolicyGroupsByDomain(domainId);
-	}   
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    @FaultAction(className = ConfigurationFault.class)
+    public Collection<TrustBundleDomainReltn> getTrustBundlesByDomain(long domainId,
+            boolean fetchAnchors) throws ConfigurationServiceException 
+    {
+        return trustBundleSvc.getTrustBundlesByDomain(domainId, fetchAnchors);
+    }   
 }

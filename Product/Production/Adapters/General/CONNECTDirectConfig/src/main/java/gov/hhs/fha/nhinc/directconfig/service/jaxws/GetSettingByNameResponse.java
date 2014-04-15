@@ -6,7 +6,7 @@ import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
-import org.nhindirect.config.store.Setting;
+import gov.hhs.fha.nhinc.directconfig.entity.Setting;
 
 @XmlRootElement(name = "getSettingByNameResponse", namespace = "http://nhind.org/config")
 @XmlAccessorType(XmlAccessType.FIELD)

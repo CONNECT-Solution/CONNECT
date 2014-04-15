@@ -29,8 +29,8 @@ import javax.xml.ws.WebFault;
 @WebFault()
 public class ConfigurationFault extends Exception {
 
-	private static final long serialVersionUID = 2249137159766485463L;
-	
+    private static final long serialVersionUID = 2249137159766485463L;
+    
     private String message = "";
 
     private ConfigurationError error = ConfigurationError.Unknown;

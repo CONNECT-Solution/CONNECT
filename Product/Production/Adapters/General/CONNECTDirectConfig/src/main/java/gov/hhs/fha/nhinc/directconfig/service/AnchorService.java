@@ -28,8 +28,8 @@ import java.util.Collection;
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
 
-import org.nhindirect.config.store.Anchor;
-import org.nhindirect.config.store.EntityStatus;
+import gov.hhs.fha.nhinc.directconfig.entity.Anchor;
+import gov.hhs.fha.nhinc.directconfig.entity.EntityStatus;
 
 /**
  * Service class for methods related to an Anchor object.

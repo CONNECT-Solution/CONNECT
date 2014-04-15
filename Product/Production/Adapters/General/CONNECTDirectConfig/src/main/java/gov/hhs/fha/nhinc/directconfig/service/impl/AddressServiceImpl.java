@@ -49,8 +49,8 @@ public class AddressServiceImpl implements AddressService {
     private AddressDao dao;
 
     /**
-	 * Initialization method.
-	 */
+     * Initialization method.
+     */
     public void init() {
         log.info("AddressService initialized");
     }
@@ -106,7 +106,7 @@ public class AddressServiceImpl implements AddressService {
      */
     public void removeAddress(String addressName) throws ConfigurationServiceException {
         if(addressName == null)
-        	return;
+            return;
         
         dao.delete(addressName);
     }

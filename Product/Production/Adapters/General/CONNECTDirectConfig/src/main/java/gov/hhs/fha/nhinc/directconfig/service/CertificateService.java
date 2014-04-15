@@ -29,8 +29,8 @@ import java.util.Collection;
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
 
-import org.nhindirect.config.store.Certificate;
-import org.nhindirect.config.store.EntityStatus;
+import gov.hhs.fha.nhinc.directconfig.entity.Certificate;
+import gov.hhs.fha.nhinc.directconfig.entity.EntityStatus;
 
 /**
  * Service class for methods related to a Certificate object.

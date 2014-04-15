@@ -57,9 +57,9 @@ public class AnchorServiceImpl implements AnchorService {
      */
     public void addAnchors(Collection<Anchor> anchors) throws ConfigurationServiceException
     {
-    	if (anchors != null && anchors.size() > 0)
-    		for (Anchor anchor : anchors)
-    			dao.add(anchor);
+        if (anchors != null && anchors.size() > 0)
+            for (Anchor anchor : anchors)
+                dao.add(anchor);
 
     }
 
@@ -70,20 +70,20 @@ public class AnchorServiceImpl implements AnchorService {
      */
     public Anchor getAnchor(String owner, String thumbprint, CertificateGetOptions options)
             throws ConfigurationServiceException 
-    {    	
-    	List<String> owners = new ArrayList<String>();
-    	owners.add(owner);
-    	
-    	List<Anchor> anchors = dao.list(owners);
-    	
-    	if (anchors == null || anchors.size() == 0)
-    		return null;
-    	
-    	for (Anchor anchor : anchors)
-    		if (anchor.getThumbprint().equalsIgnoreCase(thumbprint))
-    			return anchor;
-    	
-    	return null;
+    {        
+        List<String> owners = new ArrayList<String>();
+        owners.add(owner);
+        
+        List<Anchor> anchors = dao.list(owners);
+        
+        if (anchors == null || anchors.size() == 0)
+            return null;
+        
+        for (Anchor anchor : anchors)
+            if (anchor.getThumbprint().equalsIgnoreCase(thumbprint))
+                return anchor;
+        
+        return null;
     }
 
     /*
@@ -93,12 +93,12 @@ public class AnchorServiceImpl implements AnchorService {
      */
     public Collection<Anchor> getAnchors(Collection<Long> anchorIds, CertificateGetOptions options)
             throws ConfigurationServiceException 
-    {    	
-    	if (anchorIds == null || anchorIds.size() == 0)
-    		return Collections.emptyList();
-    	
-    	List<Long> ids = new ArrayList<Long>(anchorIds);   	    	
-    	return dao.listByIds(ids);
+    {        
+        if (anchorIds == null || anchorIds.size() == 0)
+            return Collections.emptyList();
+        
+        List<Long> ids = new ArrayList<Long>(anchorIds);               
+        return dao.listByIds(ids);
     }
 
     /*
@@ -109,10 +109,10 @@ public class AnchorServiceImpl implements AnchorService {
     public Collection<Anchor> getAnchorsForOwner(String owner, CertificateGetOptions options)
             throws ConfigurationServiceException 
     {
-    	List<String> owners = new ArrayList<String>();
-    	owners.add(owner);
-    	
-    	return dao.list(owners);    	    	
+        List<String> owners = new ArrayList<String>();
+        owners.add(owner);
+        
+        return dao.list(owners);                
     }
 
     /*
@@ -122,16 +122,16 @@ public class AnchorServiceImpl implements AnchorService {
      */
     public Collection<Anchor> getIncomingAnchors(String owner, CertificateGetOptions options)
             throws ConfigurationServiceException 
-    {    	
+    {        
         Collection<Anchor> anchors = getAnchorsForOwner(owner, options);
         
         if (anchors == null || anchors.size() == 0)
-        	return Collections.emptyList();
+            return Collections.emptyList();
 
         Collection<Anchor> retList = new ArrayList<Anchor>();
         for (Anchor anchor : anchors)
-        	if (anchor.isIncoming())
-        		retList.add(anchor);
+            if (anchor.isIncoming())
+                retList.add(anchor);
         
         return retList;
     }
@@ -147,12 +147,12 @@ public class AnchorServiceImpl implements AnchorService {
         Collection<Anchor> anchors = getAnchorsForOwner(owner, options);
         
         if (anchors == null || anchors.size() == 0)
-        	return Collections.emptyList();
+            return Collections.emptyList();
 
         Collection<Anchor> retList = new ArrayList<Anchor>();
         for (Anchor anchor : anchors)
-        	if (anchor.isOutgoing())
-        		retList.add(anchor);
+            if (anchor.isOutgoing())
+                retList.add(anchor);
         
         return retList;
     }
@@ -164,7 +164,7 @@ public class AnchorServiceImpl implements AnchorService {
      */
     public void setAnchorStatusForOwner(String owner, EntityStatus status) throws ConfigurationServiceException 
     {
-        dao.setStatus(owner, status);    	
+        dao.setStatus(owner, status);        
     }
 
     /*
@@ -175,8 +175,8 @@ public class AnchorServiceImpl implements AnchorService {
     public Collection<Anchor> listAnchors(Long lastAnchorID, int maxResults, CertificateGetOptions options)
             throws ConfigurationServiceException 
     {
-    	// just get all for now
-    	return dao.listAll();
+        // just get all for now
+        return dao.listAll();
     }
 
     /*
@@ -186,12 +186,12 @@ public class AnchorServiceImpl implements AnchorService {
      */
     public void removeAnchors(Collection<Long> anchorIds) throws ConfigurationServiceException 
     {
-    	if (anchorIds == null || anchorIds.size() == 0)
-    		return;
-    	
-    	List<Long> ids = new ArrayList<Long>(anchorIds);
-    	
-   		dao.delete(ids);
+        if (anchorIds == null || anchorIds.size() == 0)
+            return;
+        
+        List<Long> ids = new ArrayList<Long>(anchorIds);
+        
+           dao.delete(ids);
     }
 
     /*
@@ -201,7 +201,7 @@ public class AnchorServiceImpl implements AnchorService {
      */
     public void removeAnchorsForOwner(String owner) throws ConfigurationServiceException 
     {
-    	dao.delete(owner);
+        dao.delete(owner);
     }
 
     /**
