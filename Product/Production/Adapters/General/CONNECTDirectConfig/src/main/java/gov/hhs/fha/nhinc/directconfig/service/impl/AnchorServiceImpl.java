@@ -46,6 +46,7 @@ public class AnchorServiceImpl implements AnchorService {
     @SuppressWarnings("unused")
     private static final Log log = LogFactory.getLog(AnchorServiceImpl.class);
 
+    @Autowired
     private AnchorDao dao;
 
     /*
@@ -201,26 +202,6 @@ public class AnchorServiceImpl implements AnchorService {
     public void removeAnchorsForOwner(String owner) throws ConfigurationServiceException 
     {
         dao.delete(owner);
-    }
-
-    /**
-     * Set the value of the AnchorDao object.
-     * 
-     * @param dao
-     *            the value of the AnchorDao object.
-     */
-    @Autowired
-    public void setDao(AnchorDao dao) {
-        this.dao = dao;
-    }
-
-    /**
-     * Return the value of the AnchorDao object.
-     * 
-     * @return the value of the AnchorDao object.
-     */
-    public AnchorDao getDao() {
-        return dao;
     }
 
 }

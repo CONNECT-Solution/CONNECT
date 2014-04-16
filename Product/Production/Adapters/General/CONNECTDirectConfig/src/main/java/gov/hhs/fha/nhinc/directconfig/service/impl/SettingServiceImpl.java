@@ -43,6 +43,7 @@ public class SettingServiceImpl implements SettingService
 
     private static final Log log = LogFactory.getLog(SettingServiceImpl.class);
 
+    @Autowired
     private SettingDao dao;
     
     /**
@@ -132,14 +133,5 @@ public class SettingServiceImpl implements SettingService
     @Autowired
     public void setDao(SettingDao dao) {
         this.dao = dao;
-    }
-
-    /**
-     * Return the value of the AnchorDao object.
-     * 
-     * @return the value of the AnchorDao object.
-     */
-    public SettingDao getDao() {
-        return dao;
     }
 }

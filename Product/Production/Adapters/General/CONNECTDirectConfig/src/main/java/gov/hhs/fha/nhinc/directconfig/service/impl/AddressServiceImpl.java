@@ -46,6 +46,7 @@ public class AddressServiceImpl implements AddressService {
 
     private static final Log log = LogFactory.getLog(AddressServiceImpl.class);
 
+    @Autowired
     private AddressDao dao;
 
     /**
@@ -67,13 +68,15 @@ public class AddressServiceImpl implements AddressService {
         for (Address item : address) {
             dao.add(item);
         }
-        
+
     }
 
     /*
      * (non-Javadoc)
      * 
-     * @see gov.hhs.fha.nhinc.directconfig.service.AddressService#updateAddress(gov.hhs.fha.nhinc.directconfig.entity.Address)
+     * @see
+     * gov.hhs.fha.nhinc.directconfig.service.AddressService#updateAddress(gov.hhs.fha.nhinc.directconfig.entity.Address
+     * )
      */
     public void updateAddress(Address address) throws ConfigurationServiceException {
         if (address == null) {
@@ -95,7 +98,8 @@ public class AddressServiceImpl implements AddressService {
     /*
      * (non-Javadoc)
      * 
-     * @see gov.hhs.fha.nhinc.directconfig.service.AddressService#getAddress(java.util.Collection, gov.hhs.fha.nhinc.directconfig.entity.EntityStatus)
+     * @see gov.hhs.fha.nhinc.directconfig.service.AddressService#getAddress(java.util.Collection,
+     * gov.hhs.fha.nhinc.directconfig.entity.EntityStatus)
      */
     public Collection<Address> getAddress(Collection<String> addressNames, EntityStatus status)
             throws ConfigurationServiceException {
@@ -112,9 +116,8 @@ public class AddressServiceImpl implements AddressService {
      * @see gov.hhs.fha.nhinc.directconfig.service.AddressService#removeAddress(java.lang.String)
      */
     public void removeAddress(String addressName) throws ConfigurationServiceException {
-        if(addressName == null)
+        if (addressName == null)
             return;
-        
         dao.delete(addressName);
     }
 
@@ -129,17 +132,6 @@ public class AddressServiceImpl implements AddressService {
         if (!(StringUtils.isEmpty(lastAddressName)) && maxResults > 0)
             addressList = dao.listAddresses(lastAddressName, maxResults);
         return addressList;
-    }
-
-    /**
-     * Set the value of the AddressDao object.
-     * 
-     * @param dao
-     *            The value of the AddressDao object.
-     */
-    @Autowired
-    public void setDao(AddressDao dao) {
-        this.dao = dao;
     }
 
 }

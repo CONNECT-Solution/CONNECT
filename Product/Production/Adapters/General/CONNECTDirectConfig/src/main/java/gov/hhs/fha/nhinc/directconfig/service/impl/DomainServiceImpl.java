@@ -44,6 +44,7 @@ public class DomainServiceImpl implements DomainService {
 
     private static final Log log = LogFactory.getLog(DomainServiceImpl.class);
 
+    @Autowired
     private DomainDao dao;
 
     /**
@@ -202,17 +203,6 @@ public class DomainServiceImpl implements DomainService {
         }
 
         return result;
-    }
-
-    /**
-     * Set the value of the DomainDao object.
-     * 
-     * @param aDao
-     *            The value of the DomainDao object.
-     */
-    @Autowired
-    public void setDao(DomainDao aDao) {
-        dao = aDao;
     }
 
 }
