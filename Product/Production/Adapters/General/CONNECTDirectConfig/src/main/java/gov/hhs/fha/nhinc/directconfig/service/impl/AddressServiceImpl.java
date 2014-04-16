@@ -28,6 +28,7 @@ import java.util.List;
 
 import javax.jws.WebService;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import gov.hhs.fha.nhinc.directconfig.service.AddressService;
@@ -60,8 +61,13 @@ public class AddressServiceImpl implements AddressService {
      * @see gov.hhs.fha.nhinc.directconfig.service.AddressService#addAddress(java.util.Collection)
      */
     public void addAddress(Collection<Address> address) throws ConfigurationServiceException {
-        // TODO Auto-generated method stub
-
+        if (address == null || address.isEmpty()) {
+            return;
+        }
+        for (Address item : address) {
+            dao.add(item);
+        }
+        
     }
 
     /*
@@ -70,7 +76,10 @@ public class AddressServiceImpl implements AddressService {
      * @see gov.hhs.fha.nhinc.directconfig.service.AddressService#updateAddress(gov.hhs.fha.nhinc.directconfig.entity.Address)
      */
     public void updateAddress(Address address) throws ConfigurationServiceException {
-        // TODO Auto-generated method stub
+        if (address == null) {
+            return;
+        }
+        dao.update(address);
 
     }
 
@@ -80,8 +89,7 @@ public class AddressServiceImpl implements AddressService {
      * @see gov.hhs.fha.nhinc.directconfig.service.AddressService#getAddressCount()
      */
     public int getAddressCount() throws ConfigurationServiceException {
-        // TODO Auto-generated method stub
-        return 0;
+        return dao.count();
     }
 
     /*
@@ -117,8 +125,10 @@ public class AddressServiceImpl implements AddressService {
      */
     public Collection<Address> listAddresss(String lastAddressName, int maxResults)
             throws ConfigurationServiceException {
-        // TODO Auto-generated method stub
-        return null;
+        List<Address> addressList = new ArrayList<Address>();
+        if (!(StringUtils.isEmpty(lastAddressName)) && maxResults > 0)
+            addressList = dao.listAddresses(lastAddressName, maxResults);
+        return addressList;
     }
 
     /**
