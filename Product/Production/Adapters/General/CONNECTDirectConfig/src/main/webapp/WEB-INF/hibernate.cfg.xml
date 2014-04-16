@@ -1,0 +1,17 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-configuration PUBLIC
+"-//Hibernate/Hibernate Configuration DTD//EN"
+"http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+ 
+<hibernate-configuration>
+    <session-factory>
+        <mapping class="gov.hhs.fha.nhinc.directconfig.entity.Address" />
+        <mapping class="gov.hhs.fha.nhinc.directconfig.entity.Anchor" />
+        <mapping class="gov.hhs.fha.nhinc.directconfig.entity.Certificate" />
+        <mapping class="gov.hhs.fha.nhinc.directconfig.entity.Domain" />
+        <mapping class="gov.hhs.fha.nhinc.directconfig.entity.Setting" />
+        <mapping class="gov.hhs.fha.nhinc.directconfig.entity.TrustBundle" />
+        <mapping class="gov.hhs.fha.nhinc.directconfig.entity.TrustBundleAnchor" />
+        <mapping class="gov.hhs.fha.nhinc.directconfig.entity.TrustBundleDomainReltn" />
+    </session-factory>
+</hibernate-configuration>
