@@ -58,6 +58,7 @@ public class TrustBundleServiceImpl implements TrustBundleService
 
     protected ProducerTemplate template;
     
+    @Autowired
     private TrustBundleDao dao;
 
     /**
@@ -271,30 +272,6 @@ public class TrustBundleServiceImpl implements TrustBundleService
         return bundles;
         
     }
-            
-    /**
-     * Set the value of the TrustBundlDao object.
-     * 
-     * @param dao
-     *            the value of the TrustBundlDao object.
-     */
-    @Autowired
-    public void setDao(TrustBundleDao dao) 
-    {
-        this.dao = dao;
-    }
-
-    /**
-     * Return the value of the TrustBundlDao object.
-     * 
-     * @return the value of the TrustBundlDao object.
-     */
-    ///CLOVER:OFF
-    public TrustBundleDao getDao() 
-    {
-        return dao;
-    }
-    ///CLOVER:ON
     
     /**
      * Sets the camel {@link ProducerTemplate} object for bundle refresh operations.

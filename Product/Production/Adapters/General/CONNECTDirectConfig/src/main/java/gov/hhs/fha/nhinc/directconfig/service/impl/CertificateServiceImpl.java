@@ -61,6 +61,7 @@ public class CertificateServiceImpl implements CertificateService {
     
     private static final Log log = LogFactory.getLog(CertificateServiceImpl.class);
 
+    @Autowired
     private CertificateDao dao;
 
     static
@@ -69,16 +70,6 @@ public class CertificateServiceImpl implements CertificateService {
         Security.addProvider(new org.bouncycastle.jce.provider.BouncyCastleProvider());
     }
     
-    /**
-     * Set the value of the CertificateDao object.
-     * 
-     * @param aDao
-     *            The value of the CertificateDao object.
-     */
-    @Autowired
-    public void setDao(CertificateDao aDao) {
-        dao = aDao;
-    }
 
     /**
      * Initialization method.
