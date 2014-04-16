@@ -26,9 +26,9 @@
  */
 package gov.hhs.fha.nhinc.docretrieve.configuration.jmx;
 
-import javax.servlet.ServletContext;
-
 import gov.hhs.fha.nhinc.configuration.jmx.AbstractWebServicesMXBean;
+
+import javax.servlet.ServletContext;
 
 /**
  * The Class AbstractDRWebServicesMXBean. This class does not implement
@@ -38,6 +38,20 @@ import gov.hhs.fha.nhinc.configuration.jmx.AbstractWebServicesMXBean;
  * @author msw
  */
 public abstract class AbstractDRWebServicesMXBean extends AbstractWebServicesMXBean {
+
+	
+   /** The Constant Standard_OutboundOrch_DR_BEAN_NAME. */
+    private static final String StdOutbound_DR_Bean_Name = "stdDROutbound";
+
+    /** The Constant Passthrough_OutboundOrch_DR_BEAN_NAME. */
+    private static final String PtOutbound_DR_Bean_Name = "ptDROutbound";
+
+    /** The Constant Standard_InboundOrch_DR_BEAN_NAME. */
+    private static final String StdInbound_DR_Bean_Name = "stdDRInbound";
+
+    /** The Constant Passthrough_InboundOrch_DR_BEAN_NAME. */
+    private static final String PtInbound_DR_Bean_Name = "ptDRInbound";
+	
 
     /** The Constant NHIN_DR_BEAN_NAME. */
     private static final String NHIN_DR_BEAN_NAME = "inboundDocRetrieve";
@@ -54,6 +68,9 @@ public abstract class AbstractDRWebServicesMXBean extends AbstractWebServicesMXB
     /** The Constant DEFAULT_INBOUND_PASSTHRU_IMPL_CLASS_NAME. */
     public static final String DEFAULT_INBOUND_PASSTHRU_IMPL_CLASS_NAME = "gov.hhs.fha.nhinc.docretrieve.inbound.PassthroughInboundDocRetrieve";
 
+    /** The Constant DEFAULT_OUTBOUND_PASSTHRU_IMPL_CLASS_NAME. */
+    public static final String DEFAULT_OUTBOUND_PASSTHRU_IMPL_CLASS_NAME = "gov.hhs.fha.nhinc.docretrieve.inbound.PassthroughOutboundDocRetrieve";
+    
     /** The Constant DEFAULT_OUTBOUND_STANDARD_IMPL_CLASS_NAME. */
     public static final String DEFAULT_OUTBOUND_STANDARD_IMPL_CLASS_NAME = "gov.hhs.fha.nhinc.docretrieve.outbound.StandardOutboundDocRetrieve";
 
@@ -65,6 +82,47 @@ public abstract class AbstractDRWebServicesMXBean extends AbstractWebServicesMXB
     public AbstractDRWebServicesMXBean(ServletContext sc) {
         super(sc);
     }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see gov.hhs.fha.nhinc.configuration.jmx.AbstractWebServicesMXBean#getStandardOutboundBeanName()
+     */
+    @Override
+    protected String getStandardOutboundBeanName() {
+        return StdOutbound_DR_Bean_Name;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see gov.hhs.fha.nhinc.configuration.jmx.AbstractWebServicesMXBean#getPassthroughOutboundBeanName()
+     */
+    @Override
+    protected String getPassthroughOutboundBeanName() {
+        return PtOutbound_DR_Bean_Name;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see gov.hhs.fha.nhinc.configuration.jmx.AbstractWebServicesMXBean#getStandardInboundBeanName()
+     */
+    @Override
+    protected String getStandardInboundBeanName() {
+        return StdInbound_DR_Bean_Name;
+    }
+
+    /*
+     * (non-Javadoc)
+     * 
+     * @see gov.hhs.fha.nhinc.configuration.jmx.AbstractWebServicesMXBean#getPassthroughInboundBeanName()
+     */
+    @Override
+    protected String getPassthroughInboundBeanName() {
+        return PtInbound_DR_Bean_Name;
+    }
+	
 
     /*
      * (non-Javadoc)
@@ -96,34 +154,6 @@ public abstract class AbstractDRWebServicesMXBean extends AbstractWebServicesMXB
         return ENTITY_SECURED_DR_BEAN_NAME;
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see gov.hhs.fha.nhinc.configuration.jmx.AbstractWebServicesMXBean#getInboundStandardClassName()
-     */
-    @Override
-    protected String getInboundStandardClassName() {
-        return DEFAULT_INBOUND_STANDARD_IMPL_CLASS_NAME;
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see gov.hhs.fha.nhinc.configuration.jmx.AbstractWebServicesMXBean#getInboundPassthruClassName()
-     */
-    @Override
-    protected String getInboundPassthruClassName() {
-        return DEFAULT_INBOUND_PASSTHRU_IMPL_CLASS_NAME;
-    }
-
-    /*
-     * (non-Javadoc)
-     * 
-     * @see gov.hhs.fha.nhinc.configuration.jmx.AbstractWebServicesMXBean#getOutboundStandardClassName()
-     */
-    @Override
-    protected String getOutboundStandardClassName() {
-        return DEFAULT_OUTBOUND_STANDARD_IMPL_CLASS_NAME;
-    }
-
+    
+   
 }
