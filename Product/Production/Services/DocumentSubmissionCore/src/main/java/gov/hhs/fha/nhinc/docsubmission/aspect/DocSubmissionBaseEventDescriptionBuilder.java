@@ -116,6 +116,7 @@ public class DocSubmissionBaseEventDescriptionBuilder extends TargetEventDescrip
     public void setArguments(Object... arguments) {
         extractAssertion(arguments);
         extractRequest(arguments);
+        extractTarget(arguments);
     }
 
     private void extractRequest(Object[] arguments) {

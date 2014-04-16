@@ -28,6 +28,8 @@
 package gov.hhs.fha.nhinc.event;
 
 import com.google.common.base.Optional;
+import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
+import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunityType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.event.builder.TargetDescriptionExtractor;
 
@@ -55,9 +57,25 @@ public abstract class TargetEventDescriptionBuilder extends AssertionEventDescri
                 if (arguments[i] instanceof NhinTargetSystemType) {
                     target = Optional.of((NhinTargetSystemType) arguments[i]);
                     return;
+                }else if(arguments[i] instanceof NhinTargetCommunitiesType){
+                    NhinTargetCommunitiesType communities = (NhinTargetCommunitiesType) arguments[i];
+                    if(communities != null && communities.getNhinTargetCommunity() != null
+                        && !communities.getNhinTargetCommunity().isEmpty()
+                        && communities.getNhinTargetCommunity().get(0) != null
+                        && communities.getNhinTargetCommunity().get(0).getHomeCommunity() != null){
+                        target = Optional.of(convertToTargetSystem(communities.getNhinTargetCommunity().get(0)));
+                        return;
+                    }
                 }
             }
         }
         target = Optional.absent();
+    }
+    
+    private NhinTargetSystemType convertToTargetSystem(NhinTargetCommunityType communityType){
+        NhinTargetSystemType targetSystem = new NhinTargetSystemType();
+        targetSystem.setHomeCommunity(communityType.getHomeCommunity());
+        
+        return targetSystem;
     }
 }

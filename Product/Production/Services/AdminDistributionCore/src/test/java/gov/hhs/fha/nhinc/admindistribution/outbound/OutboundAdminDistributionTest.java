@@ -52,7 +52,7 @@ public class OutboundAdminDistributionTest {
             OutboundProcessingEvent annotation = method.getAnnotation(OutboundProcessingEvent.class);
             assertNotNull(annotation);
             assertEquals(ADRequestTransformingBuilder.class, annotation.beforeBuilder());
-            assertEquals(DefaultEventDescriptionBuilder.class, annotation.afterReturningBuilder());
+            assertEquals(ADRequestTransformingBuilder.class, annotation.afterReturningBuilder());
             assertEquals("Admin Distribution", annotation.serviceType());
             assertEquals("", annotation.version());
         }

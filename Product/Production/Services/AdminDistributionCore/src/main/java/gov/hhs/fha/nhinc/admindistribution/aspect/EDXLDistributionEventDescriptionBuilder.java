@@ -106,6 +106,7 @@ public class EDXLDistributionEventDescriptionBuilder extends TargetEventDescript
     public void setArguments(Object... arguements) {
         extractAssertion(arguements);
         extractAlertMessage(arguements);
+        extractTarget(arguements);
     }
 
     private void extractAlertMessage(Object... arguments) {

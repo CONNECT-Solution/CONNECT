@@ -66,7 +66,7 @@ public class PassthroughOutboundAdminDistribution implements OutboundAdminDistri
      */
     @Override
     @OutboundProcessingEvent(beforeBuilder = ADRequestTransformingBuilder.class,
-            afterReturningBuilder = DefaultEventDescriptionBuilder.class, serviceType = "Admin Distribution",
+            afterReturningBuilder = ADRequestTransformingBuilder.class, serviceType = "Admin Distribution",
             version = "")
     public void sendAlertMessage(RespondingGatewaySendAlertMessageSecuredType message, AssertionType assertion,
             NhinTargetCommunitiesType target) {
@@ -84,7 +84,7 @@ public class PassthroughOutboundAdminDistribution implements OutboundAdminDistri
      */
     @Override
     @OutboundProcessingEvent(beforeBuilder = ADRequestTransformingBuilder.class,
-            afterReturningBuilder = DefaultEventDescriptionBuilder.class, serviceType = "Admin Distribution",
+            afterReturningBuilder = ADRequestTransformingBuilder.class, serviceType = "Admin Distribution",
             version = "")
     public void sendAlertMessage(RespondingGatewaySendAlertMessageType request, AssertionType assertion,
             NhinTargetCommunitiesType targetCommunities) {
