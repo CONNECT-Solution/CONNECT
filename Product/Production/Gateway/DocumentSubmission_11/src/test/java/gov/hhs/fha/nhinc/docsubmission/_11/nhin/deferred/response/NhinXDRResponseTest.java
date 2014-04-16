@@ -29,7 +29,7 @@ package gov.hhs.fha.nhinc.docsubmission._11.nhin.deferred.response;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import gov.hhs.fha.nhinc.aspect.InboundMessageEvent;
-import gov.hhs.fha.nhinc.docsubmission.aspect.RegistryResponseTypeHolderBuilder;
+import gov.hhs.fha.nhinc.docsubmission.aspect.DeferredResponseDescriptionBuilder;
 
 import java.lang.reflect.Method;
 
@@ -48,8 +48,8 @@ public class NhinXDRResponseTest {
         Method method = clazz.getMethod("provideAndRegisterDocumentSetBDeferredResponse", RegistryResponseType.class);
         InboundMessageEvent annotation = method.getAnnotation(InboundMessageEvent.class);
         assertNotNull(annotation);
-        assertEquals(RegistryResponseTypeHolderBuilder.class, annotation.beforeBuilder());
-        assertEquals(RegistryResponseTypeHolderBuilder.class, annotation.afterReturningBuilder());
+        assertEquals(DeferredResponseDescriptionBuilder.class, annotation.beforeBuilder());
+        assertEquals(DeferredResponseDescriptionBuilder.class, annotation.afterReturningBuilder());
         assertEquals("Document Submission Deferred Response", annotation.serviceType());
         assertEquals("1.1", annotation.version());
     }
