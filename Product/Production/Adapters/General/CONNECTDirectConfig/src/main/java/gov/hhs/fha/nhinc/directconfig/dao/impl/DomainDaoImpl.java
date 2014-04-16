@@ -35,9 +35,9 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import gov.hhs.fha.nhinc.directconfig.entity.Address;
-import gov.hhs.fha.nhinc.directconfig.entity.ConfigurationStoreException;
 import gov.hhs.fha.nhinc.directconfig.entity.Domain;
-import gov.hhs.fha.nhinc.directconfig.entity.EntityStatus;
+import gov.hhs.fha.nhinc.directconfig.entity.helpers.EntityStatus;
+import gov.hhs.fha.nhinc.directconfig.exception.ConfigurationStoreException;
 import gov.hhs.fha.nhinc.directconfig.dao.AddressDao;
 import gov.hhs.fha.nhinc.directconfig.dao.DomainDao;
 

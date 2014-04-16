@@ -23,7 +23,6 @@ package gov.hhs.fha.nhinc.directconfig.dao.impl;
 
 import java.security.cert.X509Certificate;
 import java.util.Calendar;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -37,10 +36,12 @@ import javax.persistence.Query;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+
 import gov.hhs.fha.nhinc.directconfig.entity.Anchor;
-import gov.hhs.fha.nhinc.directconfig.entity.CertificateException;
-import gov.hhs.fha.nhinc.directconfig.entity.EntityStatus;
+import gov.hhs.fha.nhinc.directconfig.entity.helpers.EntityStatus;
+import gov.hhs.fha.nhinc.directconfig.exception.CertificateException;
 import gov.hhs.fha.nhinc.directconfig.dao.AnchorDao;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;

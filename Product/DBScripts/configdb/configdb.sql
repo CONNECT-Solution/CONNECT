@@ -65,7 +65,7 @@ CREATE TABLE IF NOT EXISTS configdb.certificate (
     certificateData BLOB(4096) NOT NULL,
     validStartDate DATETIME NOT NULL,
     validEndDate DATETIME NOT NULL,
-    privateKey SMALLINT,
+    privateKey BOOLEAN NOT NULL DEFAULT FALSE,
     status BOOLEAN NOT NULL DEFAULT TRUE,
     createTime DATETIME NOT NULL
 );
@@ -90,7 +90,7 @@ CREATE TABLE IF NOT EXISTS configdb.trustbundle (
     id SERIAL PRIMARY KEY,
     bundleName VARCHAR(255) NOT NULL,
     bundleURL VARCHAR(255) NOT NULL,
-    getCheckSum VARCHAR(255) NOT NULL,
+    getChecksum VARCHAR(255) NOT NULL,
     lastRefreshAttempt DATETIME,
     lastSuccessfulRefresh DATETIME,
     refreshInterval INTEGER,

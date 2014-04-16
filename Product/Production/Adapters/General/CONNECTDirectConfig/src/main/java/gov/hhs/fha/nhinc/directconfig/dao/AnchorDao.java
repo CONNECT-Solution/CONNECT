@@ -24,7 +24,7 @@ package gov.hhs.fha.nhinc.directconfig.dao;
 import java.util.List;
 
 import gov.hhs.fha.nhinc.directconfig.entity.Anchor;
-import gov.hhs.fha.nhinc.directconfig.entity.EntityStatus;
+import gov.hhs.fha.nhinc.directconfig.entity.helpers.EntityStatus;
 
 /**
  * Anchor data access methods.

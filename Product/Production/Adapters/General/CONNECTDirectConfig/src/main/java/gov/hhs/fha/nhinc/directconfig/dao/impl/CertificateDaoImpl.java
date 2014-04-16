@@ -34,11 +34,13 @@ import javax.persistence.Query;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+
 import gov.hhs.fha.nhinc.directconfig.entity.Certificate;
-import gov.hhs.fha.nhinc.directconfig.entity.CertificateException;
-import gov.hhs.fha.nhinc.directconfig.entity.EntityStatus;
 import gov.hhs.fha.nhinc.directconfig.entity.Certificate.CertContainer;
+import gov.hhs.fha.nhinc.directconfig.entity.helpers.EntityStatus;
+import gov.hhs.fha.nhinc.directconfig.exception.CertificateException;
 import gov.hhs.fha.nhinc.directconfig.dao.CertificateDao;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;

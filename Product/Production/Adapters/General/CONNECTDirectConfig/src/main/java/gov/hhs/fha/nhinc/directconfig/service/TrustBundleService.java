@@ -27,10 +27,10 @@ import java.util.Collection;
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
 
-import gov.hhs.fha.nhinc.directconfig.entity.BundleRefreshError;
 import gov.hhs.fha.nhinc.directconfig.entity.Certificate;
 import gov.hhs.fha.nhinc.directconfig.entity.TrustBundle;
 import gov.hhs.fha.nhinc.directconfig.entity.TrustBundleDomainReltn;
+import gov.hhs.fha.nhinc.directconfig.entity.helpers.BundleRefreshError;
 
 /**
  * Web service interface for trust bundle operations.

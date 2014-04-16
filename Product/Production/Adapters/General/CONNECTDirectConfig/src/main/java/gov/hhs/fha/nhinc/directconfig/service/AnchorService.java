@@ -28,7 +28,7 @@ import javax.jws.WebParam;
 
 import gov.hhs.fha.nhinc.directconfig.service.impl.CertificateGetOptions;
 import gov.hhs.fha.nhinc.directconfig.entity.Anchor;
-import gov.hhs.fha.nhinc.directconfig.entity.EntityStatus;
+import gov.hhs.fha.nhinc.directconfig.entity.helpers.EntityStatus;
 
 /**
  * Service class for methods related to an Anchor object.

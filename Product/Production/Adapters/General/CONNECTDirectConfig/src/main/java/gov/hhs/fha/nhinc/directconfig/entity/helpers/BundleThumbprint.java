@@ -3,7 +3,6 @@ Copyright (c) 2010, NHIN Direct Project
 All rights reserved.
 
 Authors:
-   Umesh Madan     umeshma@microsoft.com
    Greg Meyer      gm2552@cerner.com
 
 Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
@@ -20,53 +19,46 @@ STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
 THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-package gov.hhs.fha.nhinc.directconfig.entity;
+package gov.hhs.fha.nhinc.directconfig.entity.helpers;
+
+import gov.hhs.fha.nhinc.directconfig.exception.CertificateException;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.security.cert.CertificateEncodingException;
-import java.security.cert.X509Certificate;
 import java.util.Arrays;
 
 /**
- * NOTE: This is a copy of the original Thumbprint class from the agent code
- * base. Copied to this package as a quick fix to a visibility issue.
- *
- * An X509Certificate thumb print. Thumb print is essentially a SHA-1 digest of
- * the certificates der encoding.
- *
+ * An bundle thumb print. Thumb print is essentially a SHA-1 digest of
+ * the raw binary bundle file.
  * @author Greg Meyer
+ * @since 1.2
  */
-public class Thumbprint {
+public class BundleThumbprint {
     private final byte[] digest;
     private final String digestString;
 
     /**
-     * Creates a thumbprint of an X509Certificate.
+     * Creates a thumbprint of a byte array.
      *
-     * @param cert
-     *            The certificate to convert.
-     * @return A thumbprint of the certificate.
+     * @param bytes
+     *            The byte array to convert to a thumbprint.
+     * @return A thumbprint of the byte array.
      * @throws CertificateException
      */
-    public static Thumbprint toThumbprint(X509Certificate cert) throws CertificateException {
-        if (cert == null) {
+    public static BundleThumbprint toThumbprint(byte[] bytes) throws NoSuchAlgorithmException {
+        if (bytes == null) {
             throw new IllegalArgumentException();
         }
         
-        try {
-            final Thumbprint retVal = new Thumbprint(cert);
-            return retVal;
-        } catch (Throwable e) {
-            throw new CertificateException(e);
-        }
+        final BundleThumbprint retVal = new BundleThumbprint(bytes);
+        
+        return retVal;
     }
 
-    private Thumbprint (X509Certificate cert) throws NoSuchAlgorithmException, CertificateEncodingException {
+    private BundleThumbprint (byte[] bytes) throws NoSuchAlgorithmException {
         final MessageDigest md = MessageDigest.getInstance("SHA-1");
-        byte[] der = cert.getEncoded();
 
-        md.update(der);
+        md.update(bytes);
         digest = md.digest();
 
         digestString = createStringRep();
@@ -95,24 +87,24 @@ public class Thumbprint {
         return buf.toString();
     }
 
+    @Override
     /**
      * {@inheritDoc}
      */
-    @Override
     public String toString() {
         return digestString;
     }
 
+    @Override
     /**
      * {@inheritDoc}
      */
-    @Override
     public boolean equals(Object obj) {
         if (!(obj instanceof Thumbprint)) {
             return false;
         }
         
-        final Thumbprint compareTo = (Thumbprint)obj;
+        final BundleThumbprint compareTo = (BundleThumbprint)obj;
 
         // deep compare
         return Arrays.equals(compareTo.digest, digest);

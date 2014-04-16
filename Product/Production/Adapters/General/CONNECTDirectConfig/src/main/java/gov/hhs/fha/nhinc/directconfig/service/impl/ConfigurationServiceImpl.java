@@ -29,6 +29,7 @@ import javax.xml.ws.FaultAction;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+
 import gov.hhs.fha.nhinc.directconfig.service.AddressService;
 import gov.hhs.fha.nhinc.directconfig.service.AnchorService;
 import gov.hhs.fha.nhinc.directconfig.service.CertificateService;
@@ -38,16 +39,16 @@ import gov.hhs.fha.nhinc.directconfig.service.ConfigurationServiceException;
 import gov.hhs.fha.nhinc.directconfig.service.DomainService;
 import gov.hhs.fha.nhinc.directconfig.service.SettingService;
 import gov.hhs.fha.nhinc.directconfig.service.TrustBundleService;
-
 import gov.hhs.fha.nhinc.directconfig.entity.Address;
 import gov.hhs.fha.nhinc.directconfig.entity.Anchor;
-import gov.hhs.fha.nhinc.directconfig.entity.BundleRefreshError;
 import gov.hhs.fha.nhinc.directconfig.entity.Certificate;
 import gov.hhs.fha.nhinc.directconfig.entity.Domain;
-import gov.hhs.fha.nhinc.directconfig.entity.EntityStatus;
 import gov.hhs.fha.nhinc.directconfig.entity.Setting;
 import gov.hhs.fha.nhinc.directconfig.entity.TrustBundle;
 import gov.hhs.fha.nhinc.directconfig.entity.TrustBundleDomainReltn;
+import gov.hhs.fha.nhinc.directconfig.entity.helpers.BundleRefreshError;
+import gov.hhs.fha.nhinc.directconfig.entity.helpers.EntityStatus;
+
 import org.springframework.beans.factory.annotation.Autowired;
 
 /**

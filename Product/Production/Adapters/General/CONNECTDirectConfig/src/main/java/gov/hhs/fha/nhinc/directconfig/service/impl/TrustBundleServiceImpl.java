@@ -32,15 +32,17 @@ import javax.jws.WebService;
 import org.apache.camel.ProducerTemplate;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+
 import gov.hhs.fha.nhinc.directconfig.service.ConfigurationServiceException;
 import gov.hhs.fha.nhinc.directconfig.service.TrustBundleService;
-import gov.hhs.fha.nhinc.directconfig.entity.BundleRefreshError;
 import gov.hhs.fha.nhinc.directconfig.entity.Certificate;
-import gov.hhs.fha.nhinc.directconfig.entity.CertificateException;
 import gov.hhs.fha.nhinc.directconfig.entity.TrustBundle;
 import gov.hhs.fha.nhinc.directconfig.entity.TrustBundleAnchor;
 import gov.hhs.fha.nhinc.directconfig.entity.TrustBundleDomainReltn;
+import gov.hhs.fha.nhinc.directconfig.entity.helpers.BundleRefreshError;
+import gov.hhs.fha.nhinc.directconfig.exception.CertificateException;
 import gov.hhs.fha.nhinc.directconfig.dao.TrustBundleDao;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 

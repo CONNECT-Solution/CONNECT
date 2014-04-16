@@ -27,7 +27,7 @@ import javax.jws.WebMethod;
 import javax.jws.WebParam;
 
 import gov.hhs.fha.nhinc.directconfig.entity.Domain;
-import gov.hhs.fha.nhinc.directconfig.entity.EntityStatus;
+import gov.hhs.fha.nhinc.directconfig.entity.helpers.EntityStatus;
 
 /**
  * Service class for methods related to a Domain object.

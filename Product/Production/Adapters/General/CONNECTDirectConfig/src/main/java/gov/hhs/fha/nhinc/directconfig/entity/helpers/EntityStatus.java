@@ -17,53 +17,33 @@ BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUEN
 GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT,
 STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF
 THE POSSIBILITY OF SUCH DAMAGE.
- */
+*/
 
-package gov.hhs.fha.nhinc.directconfig.entity;
+package gov.hhs.fha.nhinc.directconfig.entity.helpers;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
- * Generic Certificate exception class.
+ * Enumeration of entity statuses.
  */
-public class CertificateException extends Exception {
-
-    private static final long serialVersionUID = 2654383604537012173L;
-
-    /**
-     * Default constructor.
-     */
-    public CertificateException() {
-    }
+public enum EntityStatus {
+    NEW,
+    ENABLED,
+    DISABLED;
 
     /**
-     * Construct an exception with given message.
+     * Return a list of enumeration values.
      *
-     * @param message
-     *            The message.
+     * @return a list of enumeration values.
      */
-    public CertificateException(String message) {
-        super(message);
-    }
+    public static List<String> getEntityStatusList() {
+        List<String> result = new ArrayList<String>();
 
-    /**
-     * Construct an exception from a Throwable.
-     *
-     * @param e
-     *            The Throwable.
-     */
-    public CertificateException(Throwable e) {
-        super(e);
-    }
+        for (EntityStatus status : EntityStatus.values()) {
+            result.add(status.toString());
+        }
 
-    /**
-     * Construct an exception with given message from a Throwable.
-     *
-     * @param message
-     *            The message.
-     * @param e
-     *            The Throwable.
-     */
-    public CertificateException(String message, Throwable e) {
-        super(message, e);
+        return result;
     }
-
 }

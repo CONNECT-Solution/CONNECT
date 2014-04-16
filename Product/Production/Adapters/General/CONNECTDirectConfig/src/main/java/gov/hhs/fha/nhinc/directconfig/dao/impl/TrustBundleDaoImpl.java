@@ -22,7 +22,6 @@ THE POSSIBILITY OF SUCH DAMAGE.
 package gov.hhs.fha.nhinc.directconfig.dao.impl;
 
 import java.security.cert.X509Certificate;
-
 import java.util.Calendar;
 import java.util.Collection;
 import java.util.Collections;
@@ -35,14 +34,16 @@ import javax.persistence.Query;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import gov.hhs.fha.nhinc.directconfig.entity.BundleRefreshError;
-import gov.hhs.fha.nhinc.directconfig.entity.ConfigurationStoreException;
+
 import gov.hhs.fha.nhinc.directconfig.entity.Domain;
 import gov.hhs.fha.nhinc.directconfig.entity.TrustBundle;
 import gov.hhs.fha.nhinc.directconfig.entity.TrustBundleAnchor;
 import gov.hhs.fha.nhinc.directconfig.entity.TrustBundleDomainReltn;
+import gov.hhs.fha.nhinc.directconfig.entity.helpers.BundleRefreshError;
+import gov.hhs.fha.nhinc.directconfig.exception.ConfigurationStoreException;
 import gov.hhs.fha.nhinc.directconfig.dao.DomainDao;
 import gov.hhs.fha.nhinc.directconfig.dao.TrustBundleDao;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;

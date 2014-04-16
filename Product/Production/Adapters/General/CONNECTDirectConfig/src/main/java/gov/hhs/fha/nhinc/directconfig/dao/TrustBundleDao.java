@@ -25,11 +25,11 @@ import java.security.cert.X509Certificate;
 import java.util.Calendar;
 import java.util.Collection;
 
-import gov.hhs.fha.nhinc.directconfig.entity.BundleRefreshError;
-import gov.hhs.fha.nhinc.directconfig.entity.ConfigurationStoreException;
 import gov.hhs.fha.nhinc.directconfig.entity.TrustBundle;
 import gov.hhs.fha.nhinc.directconfig.entity.TrustBundleAnchor;
 import gov.hhs.fha.nhinc.directconfig.entity.TrustBundleDomainReltn;
+import gov.hhs.fha.nhinc.directconfig.entity.helpers.BundleRefreshError;
+import gov.hhs.fha.nhinc.directconfig.exception.ConfigurationStoreException;
 
 /**
  * DAO interface for trust bundle
