@@ -34,33 +34,36 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Column;
 import javax.persistence.OneToMany;
-import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
-import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
 
-
-@Entity
-@Table(name = "domain")
 /**
  * The JPA Domain class
  */
-@XmlRootElement
+@Entity
 public class Domain {
 
-    private String domainName;
-
-    private Calendar createTime;
-
-    private Calendar updateTime;
-
-    private Collection<Address> addresses;
-
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(nullable = false)
     private Long id;
 
+    @Column(nullable = false)
+    private String domainName;
+
+    @Column(nullable = false)
+    @Temporal(TemporalType.TIMESTAMP)
+    private Calendar createTime;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    private Calendar updateTime;
+
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER, mappedBy = "domainId")
+    private Collection<Address> addresses;
+
+    @Column(nullable = false)
+    @Enumerated
     private EntityStatus status = EntityStatus.NEW;
 
     /**
@@ -87,14 +90,7 @@ public class Domain {
      *
      * @return the value of id.
      */
-    @Column(name = "id", nullable = false)
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @XmlAttribute
     public Long getId() {
-        if (id == null) {
-            setId(new Long(0L));
-        }
         return id;
     }
 
@@ -113,7 +109,6 @@ public class Domain {
      *
      * @return the value of domainName.
      */
-    @Column(name = "domainName", unique = true)
     public String getDomainName() {
         return domainName;
     }
@@ -123,7 +118,6 @@ public class Domain {
      *
      * @return the value of createTime.
      */
-    @Temporal(TemporalType.TIMESTAMP)
     public Calendar getCreateTime() {
         return createTime;
     }
@@ -133,7 +127,6 @@ public class Domain {
      *
      * @return the value of updateTime.
      */
-    @Temporal(TemporalType.TIMESTAMP)
     public Calendar getUpdateTime() {
         return updateTime;
     }
@@ -143,9 +136,6 @@ public class Domain {
      *
      * @return the value of status.
      */
-    @Column(name = "status")
-    @Enumerated
-    @XmlAttribute
     public EntityStatus getStatus() {
         return status;
     }
@@ -177,7 +167,6 @@ public class Domain {
      *            The value of updateTime.
      */
     public void setUpdateTime(Calendar timestamp) {
-
         updateTime = timestamp;
     }
 
@@ -207,8 +196,6 @@ public class Domain {
      *
      * @return a collection of addresses.
      */
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER, mappedBy = "domain")
-    @XmlElement(name = "address")
     public Collection<Address> getAddresses() {
         if (addresses == null) {
             addresses = new ArrayList<Address>();
@@ -232,7 +219,6 @@ public class Domain {
      *
      * @return true if the Domain is valid, false otherwise.
      */
-    @Transient
     public boolean isValid() {
         boolean result = false;
 

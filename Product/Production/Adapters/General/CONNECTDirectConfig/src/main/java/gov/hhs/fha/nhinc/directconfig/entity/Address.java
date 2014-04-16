@@ -29,32 +29,40 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.xml.bind.annotation.XmlAttribute;
 
-@Entity
-@Table(name = "address")
 /**
  * The JPA Address class
  */
+@Entity
 public class Address {
 
-    private String emailAddress;
-
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(nullable = false)
     private Long id;
 
+    @Column(nullable = false)
+    private String emailAddress;
+
+    @Column(length = 100)
     private String displayName;
 
     private String endpoint;
 
+    @Column(updatable = false, nullable = false)
+    @Temporal(TemporalType.TIMESTAMP)
     private Calendar createTime;
 
+    @Temporal(TemporalType.TIMESTAMP)
     private Calendar updateTime;
 
+    @Column(nullable = false)
+    @Enumerated
     private EntityStatus status;
 
+    @Column(length = 4)
     private String type;
 
     /**
@@ -86,7 +94,6 @@ public class Address {
      *
      * @return the value of emailAddress.
      */
-    @Column(name = "emailaddress", length = 400)
     public String getEmailAddress() {
         return emailAddress;
     }
@@ -106,14 +113,7 @@ public class Address {
      *
      * @return the value of id.
      */
-    @Column(name = "id", nullable = false)
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @XmlAttribute
     public Long getId() {
-        if (id == null) {
-            setId(new Long(0L));
-        }
         return id;
     }
 
@@ -132,7 +132,6 @@ public class Address {
      *
      * @return the value of displayName.
      */
-    @Column(name = "displayname", length = 100)
     public String getDisplayName() {
         return displayName;
     }
@@ -150,9 +149,8 @@ public class Address {
     /**
      * Get the value of endpoint.
      *
-     * @return the value of entpoint.
+     * @return the value of endpoint.
      */
-    @Column(name = "endpoint", length = 255)
     public String getEndpoint() {
         return endpoint;
     }
@@ -172,7 +170,6 @@ public class Address {
      *
      * @return the value of createTime.
      */
-    @Temporal(TemporalType.TIMESTAMP)
     public Calendar getCreateTime() {
         return createTime;
     }
@@ -192,7 +189,6 @@ public class Address {
      *
      * @return the value of updateTime.
      */
-    @Temporal(TemporalType.TIMESTAMP)
     public Calendar getUpdateTime() {
         return updateTime;
     }
@@ -212,8 +208,6 @@ public class Address {
      *
      * @return the value of status.
      */
-    @Column(name = "status")
-    @Enumerated
     public EntityStatus getStatus() {
         return status;
     }
@@ -233,7 +227,6 @@ public class Address {
      *
      * @return the value of type.
      */
-    @Column(name = "type", length = 64)
     public String getType() {
         return type;
     }

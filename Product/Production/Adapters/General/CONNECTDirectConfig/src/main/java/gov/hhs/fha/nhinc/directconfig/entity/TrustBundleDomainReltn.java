@@ -29,7 +29,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.Table;
 
 /**
  * JPA entity object for a trust bundle to domain relationship
@@ -37,22 +36,28 @@ import javax.persistence.Table;
  * @since 1.2
  */
 @Entity
-@Table(name = "trustbundledomainreltn")
-public class TrustBundleDomainReltn
-{
-    private long id;
+public class TrustBundleDomainReltn {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(nullable = false)
+    private Long id;
+
+    @JoinColumn(name = "domain_id", referencedColumnName = "id", nullable = false)
+    @ManyToOne(optional = false, fetch = FetchType.EAGER)
     private Domain domain;
 
+    @JoinColumn(name = "trust_bundle_id", referencedColumnName = "id", nullable = false)
+    @ManyToOne(optional = false,  fetch = FetchType.EAGER)
     private TrustBundle trustBundle;
 
+    @Column(name = "forIncoming", nullable = false)
     private boolean incoming;
 
+    @Column(name = "forOutgoing", nullable = false)
     private boolean outgoing;
 
-    public TrustBundleDomainReltn()
-    {
-
+    public TrustBundleDomainReltn() {
     }
 
     /**
@@ -60,11 +65,7 @@ public class TrustBundleDomainReltn
      *
      * @return the value of id.
      */
-    @Column(name = "id", nullable = false)
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    public long getId()
-    {
+    public long getId() {
         return id;
     }
 
@@ -74,8 +75,7 @@ public class TrustBundleDomainReltn
     * @param id
     *            The value of id.
     */
-   public void setId(long id)
-   {
+   public void setId(long id) {
        this.id = id;
    }
 
@@ -84,10 +84,7 @@ public class TrustBundleDomainReltn
     *
     * @return The value of the trust bundle.
     */
-   @ManyToOne(optional = false, fetch = FetchType.EAGER)
-   @JoinColumn(name = "trust_bundle_id")
-   public TrustBundle getTrustBundle()
-   {
+   public TrustBundle getTrustBundle() {
        return trustBundle;
    }
 
@@ -96,8 +93,7 @@ public class TrustBundleDomainReltn
     *
     * @param bundle The value of the trust bundle.
     */
-   public void setTrustBundle(TrustBundle bundle)
-   {
+   public void setTrustBundle(TrustBundle bundle) {
        this.trustBundle = bundle;
    }
 
@@ -107,10 +103,7 @@ public class TrustBundleDomainReltn
     *
     * @return The value of the domain.
     */
-   @ManyToOne(optional = false, fetch = FetchType.EAGER)
-   @JoinColumn(name = "domain_id")
-   public Domain getDomain()
-   {
+   public Domain getDomain() {
        return domain;
    }
 
@@ -119,8 +112,7 @@ public class TrustBundleDomainReltn
     *
     * @param bundle The value of the domain.
     */
-   public void setDomain(Domain domain)
-   {
+   public void setDomain(Domain domain) {
        this.domain = domain;
    }
 
@@ -129,9 +121,7 @@ public class TrustBundleDomainReltn
     *
     * @return the value of incoming.
     */
-   @Column(name = "forIncoming")
-   public boolean isIncoming()
-   {
+   public boolean isIncoming() {
        return incoming;
    }
 
@@ -141,8 +131,7 @@ public class TrustBundleDomainReltn
     * @param incoming
     *            The value of incoming.
     */
-   public void setIncoming(boolean incoming)
-   {
+   public void setIncoming(boolean incoming) {
        this.incoming = incoming;
    }
 
@@ -151,7 +140,6 @@ public class TrustBundleDomainReltn
     *
     * @return the value of outgoing.
     */
-   @Column(name = "forOutgoing")
    public boolean isOutgoing() {
        return outgoing;
    }

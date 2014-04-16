@@ -20,25 +20,33 @@ import java.util.Calendar;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-@Entity
-@Table(name = "setting")
 /**
  * The JPA settings class.  This tables holds various configuration settings such as how the configuration service should behave or settings
  * for a gateway.  This structure is made up of simple name value pairs.
  */
+@Entity
 public class Setting {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(nullable = false)
+    private Long id;
+
     private String name;
+
+    @Column(length = 4096)
     private String value;
-    private long id;
+
+    @Column(nullable = false)
+    @Temporal(TemporalType.TIMESTAMP)
     private Calendar createTime;
+
+    @Temporal(TemporalType.TIMESTAMP)
     private Calendar updateTime;
 
     /**
@@ -46,7 +54,6 @@ public class Setting {
      *
      * @return the name of the setting.
      */
-    @Column(name = "name")
     public String getName() {
         return name;
     }
@@ -66,7 +73,6 @@ public class Setting {
      *
      * @return the value of the setting.
      */
-    @Column(name = "value", length=4096)
     public String getValue() {
         return value;
     }
@@ -86,9 +92,6 @@ public class Setting {
      *
      * @return the value of id.
      */
-    @Id
-    @Column(name = "id", nullable = false)
-    @GeneratedValue(strategy = GenerationType.AUTO)
     public long getId() {
         return id;
     }
@@ -108,7 +111,6 @@ public class Setting {
      *
      * @return the value of createTime.
      */
-    @Temporal(TemporalType.TIMESTAMP)
     public Calendar getCreateTime() {
         return createTime;
     }
@@ -128,7 +130,6 @@ public class Setting {
      *
      * @return the value of updateTime.
      */
-    @Temporal(TemporalType.TIMESTAMP)
     public Calendar getUpdateTime() {
         return updateTime;
     }

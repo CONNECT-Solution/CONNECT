@@ -38,7 +38,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.OneToMany;
-import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
@@ -48,23 +47,42 @@ import javax.persistence.TemporalType;
  * @since 1.2
  */
 @Entity
-@Table(name = "trustbundle")
-public class TrustBundle
-{
-    private long id;
+public class TrustBundle {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id", nullable = false)
+    private Long id;
+    
+    @Column(nullable = false)
     private String bundleName;
+
+    @Column(nullable = false, unique = true)
     private String bundleURL;
+    
+    @Lob
     private byte[] signingCertificateData;
-    private Collection<TrustBundleAnchor> trustBundleAnchors;
+    
     private int refreshInterval;
+
+    @Temporal(TemporalType.TIMESTAMP)
     private Calendar lastRefreshAttempt;
+    
     private BundleRefreshError lastRefreshError;
+    
+    @Temporal(TemporalType.TIMESTAMP)
     private Calendar lastSuccessfulRefresh;
+    
+    @Temporal(TemporalType.TIMESTAMP)
     private Calendar createTime;
+    
+    @Column(nullable = false)
     private String checkSum;
 
-    public TrustBundle()
-    {
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY, mappedBy = "trustBundle")
+    private Collection<TrustBundleAnchor> trustBundleAnchors;
+
+    public TrustBundle() {
         refreshInterval = 0;
         checkSum = "";
     }
@@ -74,11 +92,7 @@ public class TrustBundle
      *
      * @return the value of id.
      */
-    @Id
-    @Column(name = "id", nullable = false)
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    public long getId()
-    {
+    public long getId() {
         return id;
     }
 
@@ -88,8 +102,7 @@ public class TrustBundle
      * @param id
      *            The value of id.
      */
-    public void setId(long id)
-    {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -99,9 +112,7 @@ public class TrustBundle
      *
      * @return the value of the bundle name
      */
-    @Column(name = "bundleName", unique = true, nullable = false)
-    public String getBundleName()
-    {
+    public String getBundleName() {
         return bundleName;
     }
 
@@ -111,8 +122,7 @@ public class TrustBundle
      * @param bundleName
      *            The value of the bundleName
      */
-    public void setBundleName(String bundleName)
-    {
+    public void setBundleName(String bundleName) {
         this.bundleName = bundleName;
     }
 
@@ -121,9 +131,7 @@ public class TrustBundle
      *
      * @return the value of the bundle URL
      */
-    @Column(name = "bundleURL", nullable = false)
-    public String getBundleURL()
-    {
+    public String getBundleURL() {
         return bundleURL;
     }
 
@@ -133,8 +141,7 @@ public class TrustBundle
      * @param bundleURL
      *            The value of the bundle URL
      */
-    public void setBundleURL(String bundleURL)
-    {
+    public void setBundleURL(String bundleURL) {
         this.bundleURL = bundleURL;
     }
 
@@ -144,10 +151,7 @@ public class TrustBundle
      *
      * @return the value of the signing certificate
      */
-    @Column(name = "signingCertificateData", length=4096)
-    @Lob
-    public byte[] getSigningCertificateData()
-    {
+    public byte[] getSigningCertificateData() {
         return signingCertificateData;
     }
 
@@ -157,8 +161,7 @@ public class TrustBundle
      * @param signingCertificateData
      *            The value of the signing certificate
      */
-    public void setSigningCertificateData(byte[] signingCertificateData) throws CertificateException
-    {
+    public void setSigningCertificateData(byte[] signingCertificateData) throws CertificateException {
         this.signingCertificateData = signingCertificateData;
     }
 
@@ -167,9 +170,7 @@ public class TrustBundle
      *
      * @return the value of the bundle refresh interval
      */
-    @Column(name = "refreshInterval")
-    public int getRefreshInterval()
-    {
+    public int getRefreshInterval() {
         return refreshInterval;
     }
 
@@ -179,8 +180,7 @@ public class TrustBundle
      * @param refreshInterval
      *            The value of the bundle refresh interval
      */
-    public void setRefreshInterval(int refreshInterval)
-    {
+    public void setRefreshInterval(int refreshInterval) {
         this.refreshInterval = refreshInterval;
     }
 
@@ -189,10 +189,7 @@ public class TrustBundle
      *
      * @return the value of createTime.
      */
-    @Column(name = "createTime", nullable = false)
-    @Temporal(TemporalType.TIMESTAMP)
-    public Calendar getCreateTime()
-    {
+    public Calendar getCreateTime() {
         return createTime;
     }
 
@@ -202,8 +199,7 @@ public class TrustBundle
      * @param timestamp
      *            The value of createTime.
      */
-    public void setCreateTime(Calendar timestamp)
-    {
+    public void setCreateTime(Calendar timestamp) {
         createTime = timestamp;
     }
 
@@ -213,10 +209,7 @@ public class TrustBundle
      *
      * @return the value of the last successful refresh date time.
      */
-    @Column(name = "lastSuccessfulRefresh")
-    @Temporal(TemporalType.TIMESTAMP)
-    public Calendar getLastSuccessfulRefresh()
-    {
+    public Calendar getLastSuccessfulRefresh() {
         return lastSuccessfulRefresh;
     }
 
@@ -226,8 +219,7 @@ public class TrustBundle
      * @param lastSuccessfulRefresh
      *            The value of the last successful refresh date time
      */
-    public void setLastSuccessfulRefresh(Calendar lastSuccessfulRefresh)
-    {
+    public void setLastSuccessfulRefresh(Calendar lastSuccessfulRefresh) {
         this.lastSuccessfulRefresh = lastSuccessfulRefresh;
     }
 
@@ -238,10 +230,7 @@ public class TrustBundle
      *
      * @return the value of the last refresh attempt date time
      */
-    @Column(name = "lastRefreshAttempt")
-    @Temporal(TemporalType.TIMESTAMP)
-    public Calendar getLastRefreshAttempt()
-    {
+    public Calendar getLastRefreshAttempt() {
         return lastRefreshAttempt;
     }
 
@@ -251,8 +240,7 @@ public class TrustBundle
      * @param lastRefreshAttempt
      *            The value of the last refresh attempt date time.
      */
-    public void setLastRefreshAttempt(Calendar lastRefreshAttempt)
-    {
+    public void setLastRefreshAttempt(Calendar lastRefreshAttempt) {
         this.lastRefreshAttempt = lastRefreshAttempt;
     }
 
@@ -261,10 +249,7 @@ public class TrustBundle
      *
      * @return the value of the last refresh error.
      */
-    @Column(name = "lastRefreshError")
-    @Enumerated
-    public BundleRefreshError getLastRefreshError()
-    {
+    public BundleRefreshError getLastRefreshError() {
         return lastRefreshError;
     }
 
@@ -274,8 +259,7 @@ public class TrustBundle
      * @param lastRefreshError
      *            The value of the last refresh error.
      */
-    public void setLastRefreshError(BundleRefreshError lastRefreshError)
-    {
+    public void setLastRefreshError(BundleRefreshError lastRefreshError) {
         this.lastRefreshError = lastRefreshError;
     }
 
@@ -284,13 +268,11 @@ public class TrustBundle
      *
      * @return collection of trust anchors contained within the bundle
      */
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY, mappedBy = "trustBundle")
-    public Collection<TrustBundleAnchor> getTrustBundleAnchors()
-    {
-        if (trustBundleAnchors == null)
-        {
+    public Collection<TrustBundleAnchor> getTrustBundleAnchors() {
+        if (trustBundleAnchors == null) {
             trustBundleAnchors = new ArrayList<TrustBundleAnchor>();
         }
+        
         return trustBundleAnchors;
     }
 
@@ -300,8 +282,7 @@ public class TrustBundle
      * @param trustBundleAnchors
      *            The value of the collection of trust anchors contained within the bundle
      */
-    public void setTrustBundleAnchors(Collection<TrustBundleAnchor> trustBundleAnchors)
-    {
+    public void setTrustBundleAnchors(Collection<TrustBundleAnchor> trustBundleAnchors) {
         this.trustBundleAnchors = trustBundleAnchors;
     }
 
@@ -310,9 +291,7 @@ public class TrustBundle
      *
      * @return collection of the bundle check sum.
      */
-    @Column(name = "getCheckSum", nullable = false)
-    public String getCheckSum()
-    {
+    public String getCheckSum() {
         return checkSum;
     }
 
@@ -322,8 +301,7 @@ public class TrustBundle
      * @param checkSum
      *            The value of the bundle check sum.
      */
-    public void setCheckSum(String checkSum)
-    {
+    public void setCheckSum(String checkSum) {
         this.checkSum = checkSum;
     }
 
@@ -332,18 +310,16 @@ public class TrustBundle
      * @return The signing data as an X509 certificate
      * @throws CertificateException
      */
-    public X509Certificate toSigningCertificate() throws CertificateException
-    {
+    public X509Certificate toSigningCertificate() throws CertificateException {
         X509Certificate cert = null;
-        try
-        {
+        
+        try {
             validate();
+            
             ByteArrayInputStream bais = new ByteArrayInputStream(signingCertificateData);
             cert = (X509Certificate) CertificateFactory.getInstance("X.509").generateCertificate(bais);
             bais.close();
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             throw new CertificateException("Data cannot be converted to a valid X.509 Certificate", e);
         }
 
@@ -354,16 +330,13 @@ public class TrustBundle
      * Validates that the bundle has valid and complete data
      * @throws CertificateException
      */
-    public void validate() throws CertificateException
-    {
-        if (!hasData())
-        {
+    public void validate() throws CertificateException {
+        if (!hasData()) {
             throw new CertificateException("Invalid Certificate: no certificate data exists");
         }
     }
 
-    private boolean hasData()
-    {
+    private boolean hasData() {
         return ((signingCertificateData != null) && (!signingCertificateData.equals(Certificate.NULL_CERT))) ? true : false;
     }
 }

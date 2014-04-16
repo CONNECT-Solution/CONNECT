@@ -33,27 +33,53 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Lob;
-import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-@Entity
-@Table(name = "anchor")
 /**
- * The JPA Domain class
+ * The JPA Anchor class
  */
+@Entity
 public class Anchor {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(nullable = false)
+    private Long id;
+
+    @Column(nullable = false)
     private String owner;
+    
+    @Column(nullable = false, length = 64)
     private String thumbprint;
+    
+    @Column(nullable = false)
     private long certificateId;
+    
+    @Lob
+    @Column(nullable = false)
     private byte[] certificateData;
-    private long id;
+    
+    @Column(nullable = false)
+    @Temporal(TemporalType.TIMESTAMP)
     private Calendar createTime;
+    
+    @Column(nullable = false)
+    @Temporal(TemporalType.TIMESTAMP)
     private Calendar validStartDate;
+    
+    @Column(nullable = false)
+    @Temporal(TemporalType.TIMESTAMP)
     private Calendar validEndDate;
+    
+    @Column(nullable = false)
+    @Enumerated
     private EntityStatus status;
+    
+    @Column(nullable = false)
     private boolean incoming;
+    
+    @Column(nullable = false)
     private boolean outgoing;
 
     /**
@@ -101,8 +127,6 @@ public class Anchor {
      *
      * @return the value of certificateData.
      */
-    @Column(name = "certificateData", length=4096)
-    @Lob
     public byte[] getData() {
         return certificateData;
     }
@@ -116,6 +140,7 @@ public class Anchor {
      */
     public void setData(byte[] data) throws CertificateException {
         certificateData = data;
+
         if (data == Certificate.NULL_CERT) {
             setThumbprint("");
         } else {
@@ -128,9 +153,6 @@ public class Anchor {
      *
      * @return the value of id.
      */
-    @Id
-    @Column(name = "id", nullable = false)
-    @GeneratedValue(strategy = GenerationType.AUTO)
     public long getId() {
         return id;
     }
@@ -150,7 +172,6 @@ public class Anchor {
      *
      * @return the value of createTime.
      */
-    @Temporal(TemporalType.TIMESTAMP)
     public Calendar getCreateTime() {
         return createTime;
     }
@@ -170,7 +191,6 @@ public class Anchor {
      *
      * @return the value of validStartDate.
      */
-    @Temporal(TemporalType.TIMESTAMP)
     public Calendar getValidStartDate() {
         return validStartDate;
     }
@@ -190,7 +210,6 @@ public class Anchor {
      *
      * @return the value of validEndDate.
      */
-    @Temporal(TemporalType.TIMESTAMP)
     public Calendar getValidEndDate() {
         return validEndDate;
     }
@@ -210,7 +229,6 @@ public class Anchor {
      *
      * @return the value of status.
      */
-    @Enumerated
     public EntityStatus getStatus() {
         return status;
     }
@@ -230,7 +248,6 @@ public class Anchor {
      *
      * @return the value of incoming.
      */
-    @Column(name = "forIncoming")
     public boolean isIncoming() {
         return incoming;
     }
@@ -250,7 +267,6 @@ public class Anchor {
      *
      * @return the value of outgoing.
      */
-    @Column(name = "forOutgoing")
     public boolean isOutgoing() {
         return outgoing;
     }
@@ -286,6 +302,7 @@ public class Anchor {
 
     private X509Certificate loadCertFromData() throws CertificateException {
         X509Certificate cert = null;
+        
         try {
             validate();
             ByteArrayInputStream bais = new ByteArrayInputStream(certificateData);
@@ -302,6 +319,7 @@ public class Anchor {
 
     public X509Certificate toCertificate() throws CertificateException {
         X509Certificate cert = null;
+
         try {
             validate();
             ByteArrayInputStream bais = new ByteArrayInputStream(certificateData);
@@ -313,8 +331,6 @@ public class Anchor {
 
         return cert;
     }
-
-
 
     private boolean hasData() {
         return ((certificateData != null) && (!certificateData.equals(Certificate.NULL_CERT))) ? true : false;
@@ -330,5 +346,4 @@ public class Anchor {
             throw new CertificateException("Invalid Certificate: no certificate data exists");
         }
     }
-
 }

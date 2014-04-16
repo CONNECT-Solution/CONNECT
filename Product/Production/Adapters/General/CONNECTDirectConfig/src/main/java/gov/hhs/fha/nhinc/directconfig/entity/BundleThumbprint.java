@@ -31,8 +31,7 @@ import java.util.Arrays;
  * @author Greg Meyer
  * @since 1.2
  */
-public class BundleThumbprint
-{
+public class BundleThumbprint {
     private final byte[] digest;
     private final String digestString;
 
@@ -44,18 +43,17 @@ public class BundleThumbprint
      * @return A thumbprint of the byte array.
      * @throws CertificateException
      */
-    public static BundleThumbprint toThumbprint(byte[] bytes) throws NoSuchAlgorithmException
-    {
-        if (bytes == null)
+    public static BundleThumbprint toThumbprint(byte[] bytes) throws NoSuchAlgorithmException {
+        if (bytes == null) {
             throw new IllegalArgumentException();
-
+        }
+        
         final BundleThumbprint retVal = new BundleThumbprint(bytes);
+        
         return retVal;
-
     }
 
-    private BundleThumbprint (byte[] bytes) throws NoSuchAlgorithmException
-    {
+    private BundleThumbprint (byte[] bytes) throws NoSuchAlgorithmException {
         final MessageDigest md = MessageDigest.getInstance("SHA-1");
 
         md.update(bytes);
@@ -69,20 +67,17 @@ public class BundleThumbprint
      *
      * @return The certificates digest.
      */
-    public byte[] getDigest()
-    {
+    public byte[] getDigest() {
         return digest.clone();
     }
 
-    private String createStringRep()
-    {
+    private String createStringRep() {
         final char[] hexDigits = {'0', '1', '2', '3', '4', '5', '6', '7',
             '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'};
 
         final StringBuffer buf = new StringBuffer(digest.length * 2);
 
-        for (byte bt : digest)
-        {
+        for (byte bt : digest) {
             buf.append(hexDigits[(bt & 0xf0) >> 4]);
             buf.append(hexDigits[bt & 0x0f]);
         }
@@ -94,8 +89,7 @@ public class BundleThumbprint
     /**
      * {@inheritDoc}
      */
-    public String toString()
-    {
+    public String toString() {
         return digestString;
     }
 
@@ -103,11 +97,11 @@ public class BundleThumbprint
     /**
      * {@inheritDoc}
      */
-    public boolean equals(Object obj)
-    {
-        if (!(obj instanceof Thumbprint))
+    public boolean equals(Object obj) {
+        if (!(obj instanceof Thumbprint)) {
             return false;
-
+        }
+        
         final BundleThumbprint compareTo = (BundleThumbprint)obj;
 
         // deep compare

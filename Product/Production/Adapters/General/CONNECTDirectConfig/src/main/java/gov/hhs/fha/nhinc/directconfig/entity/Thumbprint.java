@@ -37,8 +37,7 @@ import java.util.Arrays;
  *
  * @author Greg Meyer
  */
-public class Thumbprint
-{
+public class Thumbprint {
     private final byte[] digest;
     private final String digestString;
 
@@ -50,26 +49,20 @@ public class Thumbprint
      * @return A thumbprint of the certificate.
      * @throws CertificateException
      */
-    public static Thumbprint toThumbprint(X509Certificate cert) throws CertificateException
-    {
-        if (cert == null)
+    public static Thumbprint toThumbprint(X509Certificate cert) throws CertificateException {
+        if (cert == null) {
             throw new IllegalArgumentException();
-
-        try
-        {
+        }
+        
+        try {
             final Thumbprint retVal = new Thumbprint(cert);
             return retVal;
-        }
-        catch (Throwable e)
-        {
+        } catch (Throwable e) {
             throw new CertificateException(e);
         }
-
-
     }
 
-    private Thumbprint (X509Certificate cert) throws NoSuchAlgorithmException, CertificateEncodingException
-    {
+    private Thumbprint (X509Certificate cert) throws NoSuchAlgorithmException, CertificateEncodingException {
         final MessageDigest md = MessageDigest.getInstance("SHA-1");
         byte[] der = cert.getEncoded();
 
@@ -84,20 +77,17 @@ public class Thumbprint
      *
      * @return The certificates digest.
      */
-    public byte[] getDigest()
-    {
+    public byte[] getDigest() {
         return digest.clone();
     }
 
-    private String createStringRep()
-    {
+    private String createStringRep() {
         final char[] hexDigits = {'0', '1', '2', '3', '4', '5', '6', '7',
             '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'};
 
         final StringBuffer buf = new StringBuffer(digest.length * 2);
 
-        for (byte bt : digest)
-        {
+        for (byte bt : digest) {
             buf.append(hexDigits[(bt & 0xf0) >> 4]);
             buf.append(hexDigits[bt & 0x0f]);
         }
@@ -105,24 +95,23 @@ public class Thumbprint
         return buf.toString();
     }
 
-    @Override
     /**
      * {@inheritDoc}
      */
-    public String toString()
-    {
+    @Override
+    public String toString() {
         return digestString;
     }
 
-    @Override
     /**
      * {@inheritDoc}
      */
-    public boolean equals(Object obj)
-    {
-        if (!(obj instanceof Thumbprint))
+    @Override
+    public boolean equals(Object obj) {
+        if (!(obj instanceof Thumbprint)) {
             return false;
-
+        }
+        
         final Thumbprint compareTo = (Thumbprint)obj;
 
         // deep compare

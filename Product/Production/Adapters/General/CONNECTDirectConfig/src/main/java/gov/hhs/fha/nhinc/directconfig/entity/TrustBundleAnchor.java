@@ -36,10 +36,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
-import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  * JPA entity object for a trust bundle anchor
@@ -47,14 +45,30 @@ import javax.xml.bind.annotation.XmlTransient;
  * @since 1.2
  */
 @Entity
-@Table(name = "trustbundleanchor")
-public class TrustBundleAnchor
-{
-    private long id;
+public class TrustBundleAnchor {
+    
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(nullable = false)
+    private Long id;
+
+    @JoinColumn(name = "trustBundleId", referencedColumnName = "id", nullable = false)
+    @ManyToOne(optional = false, fetch = FetchType.EAGER)
     private TrustBundle trustBundle;
+    
+    @Lob
+    @Column(length = 4096, nullable = false)
     private byte[] anchorData;
+    
+    @Column(nullable = false, length = 64)
     private String thumbprint;
+    
+    @Column(nullable = false)
+    @Temporal(TemporalType.TIMESTAMP)
     private Calendar validStartDate;
+    
+    @Column(nullable = false)
+    @Temporal(TemporalType.TIMESTAMP)
     private Calendar validEndDate;
 
     /**
@@ -62,11 +76,7 @@ public class TrustBundleAnchor
      *
      * @return the value of id.
      */
-    @Id
-    @Column(name = "id", nullable = false)
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    public long getId()
-    {
+    public long getId() {
         return id;
     }
 
@@ -76,8 +86,7 @@ public class TrustBundleAnchor
      * @param id
      *            The value of id.
      */
-    public void setId(long id)
-    {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -86,9 +95,7 @@ public class TrustBundleAnchor
      *
      * @return the value of thumbprint.
      */
-    @Column(name = "thumbprint", nullable = false)
-    public String getThumbprint()
-    {
+    public String getThumbprint() {
         return thumbprint;
     }
 
@@ -98,8 +105,7 @@ public class TrustBundleAnchor
      * @param thumbprint
      *            The value of thumbprint.
      */
-    public void setThumbprint(String thumbprint)
-    {
+    public void setThumbprint(String thumbprint) {
         this.thumbprint = thumbprint;
     }
 
@@ -108,11 +114,7 @@ public class TrustBundleAnchor
      *
      * @return the value of trust bundle.
      */
-    @ManyToOne(optional = false, fetch = FetchType.EAGER)
-    @JoinColumn(name = "trustBundleId")
-    @XmlTransient
-    public TrustBundle getTrustBundle()
-    {
+    public TrustBundle getTrustBundle() {
         return trustBundle;
     }
 
@@ -133,10 +135,7 @@ public class TrustBundleAnchor
      *
      * @return the value of anchorData Data.
      */
-    @Column(name = "anchorData", length=4096, nullable = false)
-    @Lob
-    public byte[] getData()
-    {
+    public byte[] getData() {
         return anchorData;
     }
 
@@ -147,15 +146,12 @@ public class TrustBundleAnchor
      *            The value of anchorData.
      * @throws CertificateException
      */
-    public void setData(byte[] data) throws CertificateException
-    {
+    public void setData(byte[] data) throws CertificateException {
         anchorData = data;
-        if (data == Certificate.NULL_CERT)
-        {
+        
+        if (data == Certificate.NULL_CERT) {
             setThumbprint("");
-        }
-        else
-        {
+        } else {
             loadCertFromData();
         }
     }
@@ -165,10 +161,7 @@ public class TrustBundleAnchor
      *
      * @return the value of validStartDate.
      */
-    @Column(name = "validStartDate", nullable = false)
-    @Temporal(TemporalType.TIMESTAMP)
-    public Calendar getValidStartDate()
-    {
+    public Calendar getValidStartDate() {
         return validStartDate;
     }
 
@@ -178,8 +171,7 @@ public class TrustBundleAnchor
      * @param validStartDate
      *            The value of validStartDate.
      */
-    public void setValidStartDate(Calendar validStartDate)
-    {
+    public void setValidStartDate(Calendar validStartDate) {
         this.validStartDate = validStartDate;
     }
 
@@ -188,10 +180,7 @@ public class TrustBundleAnchor
      *
      * @return the value of validEndDate.
      */
-    @Column(name = "validEndDate", nullable = false)
-    @Temporal(TemporalType.TIMESTAMP)
-    public Calendar getValidEndDate()
-    {
+    public Calendar getValidEndDate() {
         return validEndDate;
     }
 
@@ -205,22 +194,26 @@ public class TrustBundleAnchor
         this.validEndDate = validEndDate;
     }
 
-    private X509Certificate loadCertFromData() throws CertificateException
-    {
+    private X509Certificate loadCertFromData() throws CertificateException {
         X509Certificate cert = null;
+        
         try {
             validate();
+        
             final ByteArrayInputStream bais = new ByteArrayInputStream(anchorData);
+
             cert = (X509Certificate) CertificateFactory.getInstance("X.509").generateCertificate(bais);
             setThumbprint(Thumbprint.toThumbprint(cert).toString());
 
             final Calendar calEndTime = Calendar.getInstance(Locale.getDefault());
             calEndTime.setTime(cert.getNotAfter());
+            
             final Calendar calStartTime = Calendar.getInstance(Locale.getDefault());
             calStartTime.setTime(cert.getNotBefore());
 
-            this.setValidEndDate(calEndTime);
             this.setValidStartDate(calStartTime);
+            this.setValidEndDate(calEndTime);
+            
             bais.close();
         } catch (Exception e) {
             setData(Certificate.NULL_CERT);
@@ -235,38 +228,33 @@ public class TrustBundleAnchor
      * @return The anchor data as an X509 certificate
      * @throws CertificateException
      */
-    public X509Certificate toCertificate() throws CertificateException
-    {
+    public X509Certificate toCertificate() throws CertificateException {
         X509Certificate cert = null;
-        try
-        {
+        
+        try {
             validate();
+            
             final ByteArrayInputStream bais = new ByteArrayInputStream(anchorData);
             cert = (X509Certificate) CertificateFactory.getInstance("X.509").generateCertificate(bais);
             bais.close();
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             throw new CertificateException("Data cannot be converted to a valid X.509 Certificate", e);
         }
 
         return cert;
     }
 
-    private boolean hasData()
-    {
+    private boolean hasData() {
         return ((anchorData != null) && (!anchorData.equals(Certificate.NULL_CERT))) ? true : false;
     }
 
     /**
-     * Validate the Anchor for the existance of data.
+     * Validate the Anchor for the existence of data.
      *
      * @throws CertificateException
      */
-    public void validate() throws CertificateException
-    {
-        if (!hasData())
-        {
+    public void validate() throws CertificateException {
+        if (!hasData()) {
             throw new CertificateException("Invalid Certificate: no certificate data exists");
         }
     }
