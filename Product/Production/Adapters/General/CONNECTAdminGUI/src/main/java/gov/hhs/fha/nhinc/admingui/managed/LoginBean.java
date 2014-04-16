@@ -148,7 +148,8 @@ public class LoginBean {
         System.out.println("Login password details from NewFile page" + password);
         if (login()) {
             this.isCorrect = true;
-            return "PatientSearch";
+            //return "PatientSearch";
+            return "Dashboard";
         } else {
             this.isCorrect = false;
             msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "User details are not valid...!!!", userName);
