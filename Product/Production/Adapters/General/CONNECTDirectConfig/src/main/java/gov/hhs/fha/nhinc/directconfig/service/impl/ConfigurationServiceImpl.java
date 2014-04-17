@@ -39,6 +39,7 @@ import gov.hhs.fha.nhinc.directconfig.service.ConfigurationServiceException;
 import gov.hhs.fha.nhinc.directconfig.service.DomainService;
 import gov.hhs.fha.nhinc.directconfig.service.SettingService;
 import gov.hhs.fha.nhinc.directconfig.service.TrustBundleService;
+import gov.hhs.fha.nhinc.directconfig.service.helpers.CertificateGetOptions;
 import gov.hhs.fha.nhinc.directconfig.entity.Address;
 import gov.hhs.fha.nhinc.directconfig.entity.Anchor;
 import gov.hhs.fha.nhinc.directconfig.entity.Certificate;
@@ -50,6 +51,7 @@ import gov.hhs.fha.nhinc.directconfig.entity.helpers.BundleRefreshError;
 import gov.hhs.fha.nhinc.directconfig.entity.helpers.EntityStatus;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 /**
  * Implements the single Service Endpoint Interface. Delegates everything to the
@@ -57,7 +59,7 @@ import org.springframework.beans.factory.annotation.Autowired;
  */
 //
 //@WebService(endpointInterface = "gov.hhs.fha.nhinc.directconfig.service.ConfigurationService")
-@org.springframework.stereotype.Service
+@Service
 @WebService(endpointInterface="gov.hhs.fha.nhinc.directconfig.service.ConfigurationService", 
 targetNamespace="http://nhind.org/config", 
 serviceName="ConfigurationService", 

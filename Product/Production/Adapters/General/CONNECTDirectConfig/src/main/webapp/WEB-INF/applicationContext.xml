@@ -43,26 +43,28 @@
     <!--bean class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor" /-->
 
     <!-- Camel Context for cache update and trust bundle processors -->
-    <bean id="bundleRefreshProcessor" class="gov.hhs.fha.nhinc.directconfig.processor.impl.DefaultBundleRefreshProcessorImpl">
+    <!--bean id="bundleRefreshProcessor" class="gov.hhs.fha.nhinc.directconfig.processor.impl.DefaultBundleRefreshProcessorImpl">
         <property name="dao" ref="trustBundleDao" />
     </bean>
 
     <bean id="bundleCacheUpdateProcessor" class="gov.hhs.fha.nhinc.directconfig.processor.impl.DefaultBundleCacheUpdateProcessorImpl">
         <property name="dao" ref="trustBundleDao" />
         <property name="refreshProcessor" ref="bundleRefreshProcessor" />
-    </bean>
+    </bean-->
 
     <camelContext id="web-camel-context" xmlns="http://camel.apache.org/schema/spring">
-        <template id="bundleRefresh" defaultEndpoint="seda:refresh-start" />
+        <!--template id="bundleRefresh" defaultEndpoint="seda:refresh-start" /-->
 
-        <route id="refreshBundle">
+        <!--route id="refreshBundle">
             <from uri="seda:refresh-start" />
             <bean ref="bundleRefreshProcessor" />
-        </route>
+        </route-->
 
-        <route id="cache-refresher">
+        <!--route id="cache-refresher">
             <from uri="timer://cache-refresh?period=1h" />
             <bean ref="bundleCacheUpdateProcessor" />
-        </route>
+        </route-->
+        
+        <contextScan/>
     </camelContext>
 </beans>

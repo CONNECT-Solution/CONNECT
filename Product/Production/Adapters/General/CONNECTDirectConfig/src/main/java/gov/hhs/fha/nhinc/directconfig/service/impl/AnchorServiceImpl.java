@@ -33,16 +33,18 @@ import org.apache.commons.logging.LogFactory;
 
 import gov.hhs.fha.nhinc.directconfig.service.AnchorService;
 import gov.hhs.fha.nhinc.directconfig.service.ConfigurationServiceException;
+import gov.hhs.fha.nhinc.directconfig.service.helpers.CertificateGetOptions;
 import gov.hhs.fha.nhinc.directconfig.entity.Anchor;
 import gov.hhs.fha.nhinc.directconfig.entity.helpers.EntityStatus;
 import gov.hhs.fha.nhinc.directconfig.dao.AnchorDao;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 /**
  * Service class for methods related to an Anchor object.
  */
-@org.springframework.stereotype.Service
+@Service
 @WebService(endpointInterface = "gov.hhs.fha.nhinc.directconfig.service.AnchorService")
 public class AnchorServiceImpl extends org.springframework.web.context.support.SpringBeanAutowiringSupport implements AnchorService {
 

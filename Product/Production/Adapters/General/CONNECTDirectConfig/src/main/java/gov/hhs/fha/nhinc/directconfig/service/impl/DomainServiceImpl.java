@@ -37,11 +37,12 @@ import gov.hhs.fha.nhinc.directconfig.entity.helpers.EntityStatus;
 import gov.hhs.fha.nhinc.directconfig.dao.DomainDao;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 /**
  * Service class for methods related to a Domain object.
  */
-@org.springframework.stereotype.Service
+@Service
 @WebService(endpointInterface = "gov.hhs.fha.nhinc.directconfig.service.DomainService")
 public class DomainServiceImpl extends org.springframework.web.context.support.SpringBeanAutowiringSupport implements DomainService {
 

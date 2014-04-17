@@ -26,7 +26,7 @@ import java.util.Collection;
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
 
-import gov.hhs.fha.nhinc.directconfig.service.impl.CertificateGetOptions;
+import gov.hhs.fha.nhinc.directconfig.service.helpers.CertificateGetOptions;
 import gov.hhs.fha.nhinc.directconfig.entity.Anchor;
 import gov.hhs.fha.nhinc.directconfig.entity.helpers.EntityStatus;
 

@@ -29,12 +29,12 @@
     </servlet-mapping>
     <!--servlet-mapping> <servlet-name>ConfigREST</servlet-name> <url-pattern>/api/*</url-pattern> </servlet-mapping -->
 
-    <filter>
+    <!--filter>
         <filter-name>DirectBasicAuthFilter</filter-name>
         <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
     </filter>
     <filter-mapping>
         <filter-name>DirectBasicAuthFilter</filter-name>
         <url-pattern>/api/*</url-pattern>
-    </filter-mapping>
+    </filter-mapping-->
 </web-app>

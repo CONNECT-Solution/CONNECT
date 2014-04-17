@@ -19,7 +19,7 @@ STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
 THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package gov.hhs.fha.nhinc.directconfig.service.impl;
+package gov.hhs.fha.nhinc.directconfig.service.helpers;
 
 import gov.hhs.fha.nhinc.directconfig.entity.helpers.EntityStatus;
 

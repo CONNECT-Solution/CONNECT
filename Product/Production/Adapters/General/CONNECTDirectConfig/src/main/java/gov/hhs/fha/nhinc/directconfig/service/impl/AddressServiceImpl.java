@@ -39,11 +39,12 @@ import gov.hhs.fha.nhinc.directconfig.entity.helpers.EntityStatus;
 import gov.hhs.fha.nhinc.directconfig.dao.AddressDao;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 /**
  * Service class for methods related to an Address object.
  */
-@org.springframework.stereotype.Service
+@Service
 @WebService(endpointInterface = "gov.hhs.fha.nhinc.directconfig.service.AddressService")
 public class AddressServiceImpl extends org.springframework.web.context.support.SpringBeanAutowiringSupport implements AddressService {
 

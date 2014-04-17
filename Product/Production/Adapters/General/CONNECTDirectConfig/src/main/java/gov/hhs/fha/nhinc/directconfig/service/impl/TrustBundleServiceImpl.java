@@ -45,18 +45,21 @@ import gov.hhs.fha.nhinc.directconfig.dao.TrustBundleDao;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Service;
 
 /**
  * Implementation of the TrustBundleService
  * @author Greg Meyer
  * @since 1.3
  */
-@org.springframework.stereotype.Service
+@Service
 @WebService(endpointInterface = "gov.hhs.fha.nhinc.directconfig.service.TrustBundleService")
 public class TrustBundleServiceImpl extends org.springframework.web.context.support.SpringBeanAutowiringSupport implements TrustBundleService
 {
     private static final Log log = LogFactory.getLog(TrustBundleServiceImpl.class);
 
+    @Autowired
+//    @Qualifier("bundleRefresh")
     protected ProducerTemplate template;
     
     @Autowired
@@ -272,17 +275,5 @@ public class TrustBundleServiceImpl extends org.springframework.web.context.supp
         
         return bundles;
         
-    }
-    
-    /**
-     * Sets the camel {@link ProducerTemplate} object for bundle refresh operations.
-     * @param template
-     */
-    @Autowired
-    @Qualifier("bundleRefresh")
-    public void setTemplate(ProducerTemplate template) 
-    {
-        this.template = template;
-    }
-    
+    }    
 }

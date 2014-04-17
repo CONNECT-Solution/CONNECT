@@ -28,16 +28,19 @@ import javax.jws.WebService;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+
 import gov.hhs.fha.nhinc.directconfig.service.ConfigurationServiceException;
 import gov.hhs.fha.nhinc.directconfig.service.SettingService;
 import gov.hhs.fha.nhinc.directconfig.entity.Setting;
 import gov.hhs.fha.nhinc.directconfig.dao.SettingDao;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 /**
  * Service class for methods related to a Service object.
  */
-@org.springframework.stereotype.Service
+@Service
 @WebService(endpointInterface = "gov.hhs.fha.nhinc.directconfig.service.SettingService")
 public class SettingServiceImpl extends org.springframework.web.context.support.SpringBeanAutowiringSupport implements SettingService
 {

@@ -27,9 +27,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Locale;
 
-import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
-import javax.persistence.PersistenceContext;
 import org.hibernate.Query;
 
 import org.apache.commons.logging.Log;
@@ -46,7 +44,6 @@ import gov.hhs.fha.nhinc.directconfig.dao.DomainDao;
 import gov.hhs.fha.nhinc.directconfig.dao.TrustBundleDao;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
