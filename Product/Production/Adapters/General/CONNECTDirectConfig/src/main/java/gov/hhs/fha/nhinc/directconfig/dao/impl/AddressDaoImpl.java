@@ -32,6 +32,7 @@ import javax.persistence.PersistenceContext;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hibernate.SessionFactory;
+import org.hibernate.Query;
 
 import gov.hhs.fha.nhinc.directconfig.entity.Address;
 import gov.hhs.fha.nhinc.directconfig.entity.Domain;
@@ -65,7 +66,7 @@ public class AddressDaoImpl implements AddressDao {
     @Transactional(readOnly = true)
     public int count() {
         log.debug("Enter");
-        Long result = (Long) sessionFactory.getCurrentSession().createQuery("select count(d) from Address a").getSingleResult();
+        Long result = (Long) sessionFactory.getCurrentSession().createQuery("select count(d) from Address a").uniqueResult();
 
         log.debug("Exit: " + result.intValue());
         return result.intValue();
@@ -167,7 +168,7 @@ public class AddressDaoImpl implements AddressDao {
 
         if (name != null) {
             Query select = sessionFactory.getCurrentSession().createQuery("SELECT DISTINCT a from Address a d WHERE UPPER(a.emailAddress) = ?1");
-            result = (Address) select.setParameter(1, name.toUpperCase(Locale.getDefault())).getSingleResult();
+            result = (Address) select.setParameter(1, name.toUpperCase(Locale.getDefault())).uniqueResult();
         }
 
         log.debug("Exit");
@@ -216,7 +217,7 @@ public class AddressDaoImpl implements AddressDao {
         }
 
         @SuppressWarnings("rawtypes")
-        List rs = select.getResultList();
+        List rs = select.list();
         if ((rs.size() != 0) && (rs.get(0) instanceof Address)) {
             result = (List<Address>) rs;
         } else {
@@ -261,7 +262,7 @@ public class AddressDaoImpl implements AddressDao {
         }
 
         @SuppressWarnings("rawtypes")
-        List rs = select.getResultList();
+        List rs = select.list();
         if ((rs.size() != 0) && (rs.get(0) instanceof Address)) {
             result = (List<Address>) rs;
         } else {

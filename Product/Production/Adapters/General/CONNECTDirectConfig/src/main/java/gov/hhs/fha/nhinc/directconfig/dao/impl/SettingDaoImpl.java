@@ -115,7 +115,7 @@ public class SettingDaoImpl implements SettingDao {
         select = sessionFactory.getCurrentSession().createQuery("SELECT s from Setting s");
 
         @SuppressWarnings("rawtypes")
-        List rs = select.getResultList();
+        List rs = select.list();
 
         if (rs != null && (rs.size() != 0) && (rs.get(0) instanceof Setting)) {
             result = (List<Setting>) rs;
@@ -155,7 +155,7 @@ public class SettingDaoImpl implements SettingDao {
         select = sessionFactory.getCurrentSession().createQuery(query);
         
         @SuppressWarnings("rawtypes")
-        List rs = select.getResultList();
+        List rs = select.list();
         
         if (rs != null && (rs.size() != 0) && (rs.get(0) instanceof Setting))
         {

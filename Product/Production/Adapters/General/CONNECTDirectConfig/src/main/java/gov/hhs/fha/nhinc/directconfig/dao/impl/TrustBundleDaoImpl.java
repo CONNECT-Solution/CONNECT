@@ -87,7 +87,7 @@ public class TrustBundleDaoImpl implements TrustBundleDao {
         try {
             Query select = sessionFactory.getCurrentSession().createQuery("SELECT tb from TrustBundle tb");
 
-            rs = select.getResultList();
+            rs = select.list();
             if (rs.size() == 0)
                 return Collections.emptyList();
         } catch (Exception e) {
@@ -116,7 +116,7 @@ public class TrustBundleDaoImpl implements TrustBundleDao {
             Query select = sessionFactory.getCurrentSession().createQuery("SELECT tb from TrustBundle tb WHERE UPPER(tb.bundleName) = ?1");
             select.setParameter(1, bundleName.toUpperCase(Locale.getDefault()));
 
-            TrustBundle rs = (TrustBundle)select.getSingleResult();
+            TrustBundle rs = (TrustBundle)select.uniqueResult();
 
             // make sure the anchors are loaded
             if (!rs.getTrustBundleAnchors().isEmpty()) {
@@ -143,7 +143,7 @@ public class TrustBundleDaoImpl implements TrustBundleDao {
             Query select = sessionFactory.getCurrentSession().createQuery("SELECT tb from TrustBundle tb WHERE tb.id = ?1");
             select.setParameter(1, id);
 
-            TrustBundle rs = (TrustBundle)select.getSingleResult();
+            TrustBundle rs = (TrustBundle)select.uniqueResult();
 
             // make sure the anchors are loaded
             if (!rs.getTrustBundleAnchors().isEmpty()) {
@@ -404,7 +404,7 @@ public class TrustBundleDaoImpl implements TrustBundleDao {
             select.setParameter(1, domain);
             select.setParameter(2, trustBundle);
 
-            final TrustBundleDomainReltn reltn = (TrustBundleDomainReltn)select.getSingleResult();
+            final TrustBundleDomainReltn reltn = (TrustBundleDomainReltn)select.uniqueResult();
 
             sessionFactory.getCurrentSession().remove(reltn);
             sessionFactory.getCurrentSession().flush();
@@ -486,7 +486,7 @@ public class TrustBundleDaoImpl implements TrustBundleDao {
             final Query select = sessionFactory.getCurrentSession().createQuery("SELECT tbd from TrustBundleDomainReltn tbd where tbd.domain = ?1");
             select.setParameter(1, domain);
 
-            retVal = (Collection<TrustBundleDomainReltn>)select.getResultList();
+            retVal = (Collection<TrustBundleDomainReltn>)select.list();
             
             if (retVal.size() == 0) {
                 return Collections.emptyList();

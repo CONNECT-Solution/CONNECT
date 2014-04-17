@@ -87,7 +87,7 @@ public class CertificateDaoImpl implements CertificateDao {
             select.setParameter(2, owner.toUpperCase(Locale.getDefault()));
         }
 
-        List rs = select.getResultList();
+        List rs = select.list();
         if ((rs.size() != 0) && (rs.get(0) instanceof Certificate)) {
             result = (List<Certificate>) rs;
         } else {
@@ -130,7 +130,7 @@ public class CertificateDaoImpl implements CertificateDao {
 
         select = sessionFactory.getCurrentSession().createQuery(query);
 
-        List rs = select.getResultList();
+        List rs = select.list();
         if (rs != null && (rs.size() != 0) && (rs.get(0) instanceof Certificate)) {
             result = (List<Certificate>) rs;
         }
@@ -159,7 +159,7 @@ public class CertificateDaoImpl implements CertificateDao {
             select.setParameter(1, owner.toUpperCase(Locale.getDefault()));
         }
 
-        List rs = select.getResultList();
+        List rs = select.list();
         if ((rs.size() != 0) && (rs.get(0) instanceof Certificate)) {
             result = (List<Certificate>) rs;
         }

@@ -71,7 +71,7 @@ public class DomainDaoImpl implements DomainDao {
     @Transactional(readOnly = true)
     public int count() {
         log.debug("Enter");
-        Long result = (Long) sessionFactory.getCurrentSession().createQuery("select count(d) from Domain d").getSingleResult();
+        Long result = (Long) sessionFactory.getCurrentSession().createQuery("select count(d) from Domain d").uniqueResult();
 
         log.debug("Exit: " + result.intValue());
         return result.intValue();
@@ -222,8 +222,8 @@ public class DomainDaoImpl implements DomainDao {
             Query select = sessionFactory.getCurrentSession().createQuery("SELECT DISTINCT d from Domain d WHERE UPPER(d.domainName) = ?1");
             Query paramQuery = select.setParameter(1, name.toUpperCase(Locale.getDefault()));
 
-            if (paramQuery.getResultList().size() > 0) {
-                result = (Domain) paramQuery.getSingleResult();
+            if (paramQuery.list().size() > 0) {
+                result = (Domain) paramQuery.uniqueResult();
             }
         }
 
@@ -278,7 +278,7 @@ public class DomainDaoImpl implements DomainDao {
         }
 
         @SuppressWarnings("rawtypes")
-        List rs = select.getResultList();
+        List rs = select.list();
         if ((rs.size() != 0) && (rs.get(0) instanceof Domain)) {
             result = (List<Domain>) rs;
         } else {
@@ -317,7 +317,7 @@ public class DomainDaoImpl implements DomainDao {
         }
 
         @SuppressWarnings("rawtypes")
-        List rs = select.getResultList();
+        List rs = select.list();
         if ((rs.size() != 0) && (rs.get(0) instanceof Domain)) {
             result = (List<Domain>) rs;
         }
@@ -364,7 +364,7 @@ public class DomainDaoImpl implements DomainDao {
 
         }
 
-        result = (List<Domain>) select.getResultList();
+        result = (List<Domain>) select.list();
         if (result == null) {
             result = new ArrayList<Domain>();
         }

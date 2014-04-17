@@ -95,7 +95,7 @@ public class AnchorDaoImpl implements AnchorDao {
         select = sessionFactory.getCurrentSession().createQuery("SELECT a from Anchor a");
 
         @SuppressWarnings("rawtypes")
-        List rs = select.getResultList();
+        List rs = select.list();
         if (rs != null && (rs.size() != 0) && (rs.get(0) instanceof Anchor)) {
             result = (List<Anchor>) rs;
         }
@@ -134,7 +134,7 @@ public class AnchorDaoImpl implements AnchorDao {
 
         select = sessionFactory.getCurrentSession().createQuery(query);
         @SuppressWarnings("rawtypes")
-        List rs = select.getResultList();
+        List rs = select.list();
         if (rs != null && (rs.size() != 0) && (rs.get(0) instanceof Anchor)) {
             result = (List<Anchor>) rs;
         }
@@ -244,7 +244,7 @@ public class AnchorDaoImpl implements AnchorDao {
 
         select = sessionFactory.getCurrentSession().createQuery(query);
         @SuppressWarnings("rawtypes")
-        List rs = select.getResultList();
+        List rs = select.list();
         if (rs != null && (rs.size() != 0) && (rs.get(0) instanceof Anchor)) {
             result = (List<Anchor>) rs;
         }
