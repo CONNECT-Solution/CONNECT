@@ -49,6 +49,7 @@ import gov.hhs.fha.nhinc.docrepository.adapter.model.EventCode;
 import gov.hhs.fha.nhinc.docrepository.adapter.model.EventCodeParam;
 import gov.hhs.fha.nhinc.docrepository.adapter.service.DocumentService;
 import gov.hhs.fha.nhinc.document.DocumentConstants;
+import gov.hhs.fha.nhinc.properties.PropertyAccessException;
 import gov.hhs.fha.nhinc.util.StringUtil;
 import gov.hhs.fha.nhinc.util.format.PatientIdFormatUtil;
 
@@ -1059,10 +1060,12 @@ public class AdapterComponentDocRegistryOrchImpl {
     protected String retrieveHomeCommunityId() {
         String homeCommunityId = null;
         try {
-            homeCommunityId = "urn:oid:"
-                    + PropertyAccessor.getInstance().getProperty(PROPERTY_FILE_NAME_GATEWAY,
+            homeCommunityId = PropertyAccessor.getInstance().getProperty(PROPERTY_FILE_NAME_GATEWAY,
                             PROPERTY_FILE_KEY_HOME_COMMUNITY);
-        } catch (Throwable t) {
+            if(homeCommunityId != null && !homeCommunityId.startsWith(NhincConstants.HCID_PREFIX)){
+                homeCommunityId = NhincConstants.HCID_PREFIX + homeCommunityId;
+            }
+        } catch (PropertyAccessException t) {
             LOG.error("Error retrieving the home community id: " + t.getMessage(), t);
         }
         return homeCommunityId;
