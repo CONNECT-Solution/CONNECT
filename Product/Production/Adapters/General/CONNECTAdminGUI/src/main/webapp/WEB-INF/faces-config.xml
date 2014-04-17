@@ -8,15 +8,19 @@
 	<application>
 		<el-resolver>org.springframework.web.jsf.el.SpringBeanFacesELResolver</el-resolver>
 	</application>
-
-	<!-- managed-bean>
-		<managed-bean-name>user</managed-bean-name>
-		<managed-bean-class>com.mkyong.UserBean</managed-bean-class>
-		<managed-bean-scope>session</managed-bean-scope>
-		<managed-property>
-			<property-name>userBo</property-name>
-			<value>#{userBo}</value>
-		</managed-property>
-	</managed-bean> -->
-
+    <navigation-rule>
+        <from-view-id>/*</from-view-id>
+        <navigation-case>
+            <from-outcome>Login</from-outcome>
+            <to-view-id>/Login.xhtml</to-view-id>
+            <redirect />
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/Login.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>status</from-outcome>
+            <to-view-id>/status.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
 </faces-config>

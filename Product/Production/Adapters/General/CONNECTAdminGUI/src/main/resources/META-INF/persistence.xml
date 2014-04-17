@@ -10,7 +10,7 @@
                       value="org.eclipse.persistence.platform.database.MySQLPlatform"/>
             <property name="eclipselink.logging.level" value="FINEST"/>
             <!-- turn off DDL generation after the model is stable -->            
-            <property name="eclipselink.ddl-generation" value="create-tables"/>
+            <!--<property name="eclipselink.ddl-generation" value="create-tables"/> -->
             <property name="eclipselink.ddl-generation.output-mode" value="database"/>
         </properties>
     </persistence-unit>
