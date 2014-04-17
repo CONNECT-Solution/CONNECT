@@ -293,7 +293,8 @@ public class NhincConstants {
     public static final String POLICYENGINE_INBOUND_DIRECTION = "Inbound";
     public static final String POLICYENGINE_OUTBOUND_DIRECTION = "Outbound";
     public static final String POLICY_PERMIT = "Permit";
-    
+    // Redaction Engine Constants 	
+    public static final String REDACTION_ENGINE_SERVICE_NAME = "adapterredactionengine";
     // Adapter Component MPI constants
     public static final String ADAPTER_MPI_SERVICE_NAME = "mpi";
     public static final String ADAPTER_MPI_SECURED_SERVICE_NAME = "mpisecured";
