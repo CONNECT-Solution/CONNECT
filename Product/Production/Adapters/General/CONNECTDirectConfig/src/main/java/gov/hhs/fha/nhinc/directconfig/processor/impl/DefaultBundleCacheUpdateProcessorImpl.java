@@ -27,6 +27,8 @@ import java.util.Collection;
 import org.apache.camel.Handler;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+
 import gov.hhs.fha.nhinc.directconfig.processor.BundleCacheUpdateProcessor;
 import gov.hhs.fha.nhinc.directconfig.processor.BundleRefreshProcessor;
 import gov.hhs.fha.nhinc.directconfig.entity.TrustBundle;
@@ -50,6 +52,7 @@ public class DefaultBundleCacheUpdateProcessorImpl implements BundleCacheUpdateP
     /**
      * The trust bundle dao
      */
+    @Autowired
 	protected TrustBundleDao dao;
 
 	/**
@@ -64,16 +67,7 @@ public class DefaultBundleCacheUpdateProcessorImpl implements BundleCacheUpdateP
 	{
 		
 	}
-	
-	/**
-	 * Sets the trust bundle dao used to get the last refresh date/time.
-	 * @param dao
-	 */
-	public void setDao(TrustBundleDao dao)
-	{
-		this.dao = dao;
-	}
-	
+		
 	/**
 	 * Sets the {@link BundleRefreshProcessor} used to refresh a bundle the bundle's refresh interval
 	 * has been exceeded.
