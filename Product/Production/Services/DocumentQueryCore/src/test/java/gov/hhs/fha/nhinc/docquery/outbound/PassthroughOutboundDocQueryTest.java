@@ -27,23 +27,17 @@
 package gov.hhs.fha.nhinc.docquery.outbound;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertSame;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import gov.hhs.fha.nhinc.aspect.OutboundProcessingEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunitiesType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetCommunityType;
-import gov.hhs.fha.nhinc.docquery.aspect.AdhocQueryRequestDescriptionBuilder;
-import gov.hhs.fha.nhinc.docquery.aspect.AdhocQueryResponseDescriptionBuilder;
 import gov.hhs.fha.nhinc.docquery.entity.OutboundDocQueryDelegate;
 import gov.hhs.fha.nhinc.docquery.entity.OutboundDocQueryOrchestratable;
-
-import java.lang.reflect.Method;
 
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryRequest;
 import oasis.names.tc.ebxml_regrep.xsd.query._3.AdhocQueryResponse;
@@ -57,19 +51,6 @@ import org.mockito.ArgumentCaptor;
  * 
  */
 public class PassthroughOutboundDocQueryTest {
-
-    @Test
-    public void hasBeginOutboundProcessingEvent() throws Exception {
-        Class<PassthroughOutboundDocQuery> clazz = PassthroughOutboundDocQuery.class;
-        Method method = clazz.getMethod("respondingGatewayCrossGatewayQuery", AdhocQueryRequest.class,
-                AssertionType.class, NhinTargetCommunitiesType.class);
-        OutboundProcessingEvent annotation = method.getAnnotation(OutboundProcessingEvent.class);
-        assertNotNull(annotation);
-        assertEquals(AdhocQueryRequestDescriptionBuilder.class, annotation.beforeBuilder());
-        assertEquals(AdhocQueryResponseDescriptionBuilder.class, annotation.afterReturningBuilder());
-        assertEquals("Document Query", annotation.serviceType());
-        assertEquals("", annotation.version());
-    }
 
     @Test
     public void passthroughOutboundDocQuery() {

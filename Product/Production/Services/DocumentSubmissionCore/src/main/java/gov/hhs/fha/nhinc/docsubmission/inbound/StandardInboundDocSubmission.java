@@ -28,12 +28,14 @@ package gov.hhs.fha.nhinc.docsubmission.inbound;
 
 import org.apache.log4j.Logger;
 
+import gov.hhs.fha.nhinc.aspect.InboundProcessingEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.docsubmission.DocSubmissionUtils;
 import gov.hhs.fha.nhinc.docsubmission.MessageGeneratorUtils;
 import gov.hhs.fha.nhinc.docsubmission.XDRAuditLogger;
 import gov.hhs.fha.nhinc.docsubmission.XDRPolicyChecker;
 import gov.hhs.fha.nhinc.docsubmission.adapter.proxy.AdapterDocSubmissionProxyObjectFactory;
+import gov.hhs.fha.nhinc.docsubmission.aspect.DocSubmissionBaseEventDescriptionBuilder;
 import gov.hhs.fha.nhinc.largefile.LargePayloadException;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import gov.hhs.fha.nhinc.nhinclib.NullChecker;
@@ -76,6 +78,24 @@ public class StandardInboundDocSubmission extends AbstractInboundDocSubmission {
         this.policyChecker = policyChecker;
         this.propertyAccessor = propertyAccessor;
     }
+    
+    
+    @Override
+    @InboundProcessingEvent(beforeBuilder = DocSubmissionBaseEventDescriptionBuilder.class,
+            afterReturningBuilder = DocSubmissionBaseEventDescriptionBuilder.class, serviceType = "Document Submission",
+            version = "")
+    public RegistryResponseType documentRepositoryProvideAndRegisterDocumentSetB(
+            ProvideAndRegisterDocumentSetRequestType body, AssertionType assertion) {
+
+        auditRequestFromNhin(body, assertion);
+        
+        RegistryResponseType response = processDocSubmission(body, assertion);
+
+        auditResponseToNhin(response, assertion);
+
+        return response;
+    }
+    
 
     @Override
     RegistryResponseType processDocSubmission(ProvideAndRegisterDocumentSetRequestType body, AssertionType assertion) {

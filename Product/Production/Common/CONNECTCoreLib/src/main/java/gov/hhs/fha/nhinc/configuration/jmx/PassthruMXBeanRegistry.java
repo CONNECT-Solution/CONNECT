@@ -82,8 +82,8 @@ public class PassthruMXBeanRegistry {
      */
     public void setPassthruMode() throws InstantiationException, IllegalAccessException, ClassNotFoundException {
         for (WebServicesMXBean b : registeredBeans) {
-            b.configureInboundPassthru();
-            b.configureOutboundPassthru();
+            b.configureInboundPtImpl();
+            b.configureOutboundPtImpl();
         }
     }
 
@@ -96,8 +96,8 @@ public class PassthruMXBeanRegistry {
      */
     public void setStandardMode() throws InstantiationException, IllegalAccessException, ClassNotFoundException {
         for (WebServicesMXBean b : registeredBeans) {
-            b.configureInboundStd();
-            b.configureOutboundStd();
+            b.configureInboundStdImpl();
+            b.configureOutboundStdImpl();
         }
     }
 
@@ -109,10 +109,10 @@ public class PassthruMXBeanRegistry {
             IllegalAccessException, ClassNotFoundException {
         for (WebServicesMXBean b : registeredBeans) {
             if (direction.toString().equals("Inbound") && b.getServiceName().equals(serviceName)) {
-                b.configureInboundPassthru();
+                b.configureInboundPtImpl();
             }
             if (direction.toString().equals("Outbound") && b.getServiceName().equals(serviceName)) {
-                b.configureOutboundPassthru();
+                b.configureOutboundPtImpl();
             }
         }
     }
@@ -129,10 +129,10 @@ public class PassthruMXBeanRegistry {
 
         for (WebServicesMXBean b : registeredBeans) {
             if (direction.toString().equals("Inbound") && b.getServiceName().equals(serviceName)) {
-                b.configureInboundStd();
+                b.configureInboundStdImpl();
             }
             if (direction.toString().equals("Outbound") && b.getServiceName().equals(serviceName)) {
-                b.configureOutboundStd();
+                b.configureOutboundStdImpl();
             }
         }
     }

@@ -50,9 +50,6 @@ public abstract class AbstractInboundDocSubmissionDeferredResponse implements In
         this.auditLogger = auditLogger;
     }
     
-    @InboundProcessingEvent(beforeBuilder = DeferredResponseDescriptionBuilder.class,
-            afterReturningBuilder = DocSubmissionArgTransformerBuilder.class,
-            serviceType = "Document Submission Deferred Response", version = "")
     public XDRAcknowledgementType provideAndRegisterDocumentSetBResponse(RegistryResponseType body,
             AssertionType assertion) {
         auditRequestFromNhin(body, assertion);

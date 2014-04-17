@@ -45,7 +45,7 @@ public class OutboundAdminDistributionTest {
 
     @Test
     public void hasEventAnnotation() throws Exception {
-        Class<?>[] classes = { PassthroughOutboundAdminDistribution.class, StandardOutboundAdminDistribution.class };
+        Class<?>[] classes = { StandardOutboundAdminDistribution.class };
         for (Class<?> clazz : classes) {
             Method method = clazz.getMethod("sendAlertMessage", RespondingGatewaySendAlertMessageSecuredType.class,
                     AssertionType.class, NhinTargetCommunitiesType.class);

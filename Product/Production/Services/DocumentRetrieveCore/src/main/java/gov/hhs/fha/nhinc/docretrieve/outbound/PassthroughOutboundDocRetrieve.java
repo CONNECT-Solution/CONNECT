@@ -77,7 +77,6 @@ public class PassthroughOutboundDocRetrieve extends AbstractOutboundDocRetrieve 
      * ._2007.RetrieveDocumentSetRequestType, gov.hhs.fha.nhinc.common.nhinccommon.AssertionType)
      */
     @Override
-    @OutboundProcessingEvent(beforeBuilder = RetrieveDocumentSetRequestTypeDescriptionBuilder.class, afterReturningBuilder = RetrieveDocumentSetResponseTypeDescriptionBuilder.class, serviceType = "Retrieve Document", version = "")
     public RetrieveDocumentSetResponseType respondingGatewayCrossGatewayRetrieve(
             RetrieveDocumentSetRequestType request, AssertionType assertion, NhinTargetCommunitiesType targets,
             ADAPTER_API_LEVEL entityAPILevel) {

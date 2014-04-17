@@ -15,8 +15,35 @@
             <artifactId>DocumentQueryCore</artifactId>
             <version>${project.parent.version}</version>
         </dependency>
-        
-       
+		<dependency>
+                <groupId>org.hibernate</groupId>
+                <artifactId>hibernate</artifactId>
+                <version>3.2.5.ga</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>antlr</groupId>
+                        <artifactId>antlr</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>asm</groupId>
+                        <artifactId>asm</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>asm</groupId>
+                        <artifactId>asm-attrs</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <!-- exclude and use <artifactId>cglib-nodep</artifactId> 
+                            to include the asm it needs in a private package space. -->
+                        <groupId>cglib</groupId>
+                        <artifactId>cglib</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>net.sf.ehcache</groupId>
+                        <artifactId>ehcache</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
     </dependencies>
     <build>
         <finalName>${project.artifactId}</finalName>

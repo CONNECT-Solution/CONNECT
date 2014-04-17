@@ -51,10 +51,6 @@ public abstract class AbstractInboundDocSubmissionDeferredRequest implements Inb
         this.auditLogger = auditLogger;
     }
     
-    @InboundProcessingEvent(beforeBuilder = DocSubmissionBaseEventDescriptionBuilder.class,
-            afterReturningBuilder = DocSubmissionArgTransformerBuilder.class, 
-            serviceType = "Document Submission Deferred Request",
-            version = "")
     public XDRAcknowledgementType provideAndRegisterDocumentSetBRequest(ProvideAndRegisterDocumentSetRequestType body,
             AssertionType assertion) {
 
