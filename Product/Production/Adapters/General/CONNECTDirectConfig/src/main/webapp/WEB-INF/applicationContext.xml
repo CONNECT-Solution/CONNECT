@@ -21,10 +21,8 @@
 
     <context:component-scan base-package="gov.hhs.fha.nhinc.directconfig" />
     
-    <tx:annotation-driven />
-    
     <bean id="sessionFactory" class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
-        <property name="dataSource" ref="dataSource"></property>
+        <property name="dataSource" ref="dataSource" />
         <property name="configLocation">
             <value>/WEB-INF/hibernate.cfg.xml</value>
         </property>
@@ -33,6 +31,7 @@
         </property>
     </bean>
     
+    <tx:annotation-driven />    
     <bean id="transactionManager" class="org.springframework.orm.hibernate3.HibernateTransactionManager">
         <property name="sessionFactory" ref="sessionFactory" />
     </bean>

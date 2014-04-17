@@ -32,10 +32,11 @@ import java.util.Locale;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
+import org.hibernate.Query;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.hibernate.SessionFactory;
 
 import gov.hhs.fha.nhinc.directconfig.entity.Anchor;
 import gov.hhs.fha.nhinc.directconfig.entity.helpers.EntityStatus;
@@ -44,6 +45,7 @@ import gov.hhs.fha.nhinc.directconfig.dao.AnchorDao;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
@@ -51,12 +53,12 @@ import org.springframework.transaction.annotation.Transactional;
  *
  * @author ppyette
  */
-@Repository
+//@Repository
+@Service
 public class AnchorDaoImpl implements AnchorDao {
 
-    @PersistenceContext
     @Autowired
-    private EntityManager entityManager;
+    protected SessionFactory sessionFactory;
 
     private static final Log log = LogFactory.getLog(AnchorDaoImpl.class);
 
@@ -90,7 +92,7 @@ public class AnchorDaoImpl implements AnchorDao {
         List<Anchor> result = Collections.emptyList();
 
         Query select = null;
-        select = entityManager.createQuery("SELECT a from Anchor a");
+        select = sessionFactory.getCurrentSession().createQuery("SELECT a from Anchor a");
 
         @SuppressWarnings("rawtypes")
         List rs = select.getResultList();
@@ -130,7 +132,7 @@ public class AnchorDaoImpl implements AnchorDao {
         nameList.append(")");
         String query = "SELECT a from Anchor a WHERE UPPER(a.owner) IN " + nameList.toString();
 
-        select = entityManager.createQuery(query);
+        select = sessionFactory.getCurrentSession().createQuery(query);
         @SuppressWarnings("rawtypes")
         List rs = select.getResultList();
         if (rs != null && (rs.size() != 0) && (rs.get(0) instanceof Anchor)) {
@@ -179,8 +181,8 @@ public class AnchorDaoImpl implements AnchorDao {
 
             log.debug("Calling JPA to persist the Anchor");
 
-            entityManager.persist(anchor);
-            entityManager.flush();
+            sessionFactory.getCurrentSession().persist(anchor);
+            sessionFactory.getCurrentSession().flush();
 
             log.debug("Returned from JPA: Anchor ID=" + anchor.getId());
         }
@@ -240,7 +242,7 @@ public class AnchorDaoImpl implements AnchorDao {
         ids.append(")");
         String query = "SELECT a from Anchor a WHERE a.id IN " + ids.toString();
 
-        select = entityManager.createQuery(query);
+        select = sessionFactory.getCurrentSession().createQuery(query);
         @SuppressWarnings("rawtypes")
         List rs = select.getResultList();
         if (rs != null && (rs.size() != 0) && (rs.get(0) instanceof Anchor)) {
@@ -268,7 +270,7 @@ public class AnchorDaoImpl implements AnchorDao {
         
         for (Anchor anchor : anchors) {
             anchor.setStatus(status);
-            entityManager.merge(anchor);
+            sessionFactory.getCurrentSession().merge(anchor);
         }
 
         log.debug("Exit");
@@ -296,7 +298,7 @@ public class AnchorDaoImpl implements AnchorDao {
         
         for (Anchor anchor : anchors) {
             anchor.setStatus(status);
-            entityManager.merge(anchor);
+            sessionFactory.getCurrentSession().merge(anchor);
         }
 
         log.debug("Exit");
@@ -327,7 +329,7 @@ public class AnchorDaoImpl implements AnchorDao {
             String query = "DELETE FROM Anchor a WHERE a.id IN " + ids.toString();
 
             int count = 0;
-            Query delete = entityManager.createQuery(query);
+            Query delete = sessionFactory.getCurrentSession().createQuery(query);
             count = delete.executeUpdate();
 
             log.debug("Exit: " + count + " anchor records deleted");
@@ -352,7 +354,7 @@ public class AnchorDaoImpl implements AnchorDao {
         int count = 0;
         
         if (owner != null) {
-            Query delete = entityManager.createQuery("DELETE FROM Anchor a WHERE UPPER(a.owner) = ?1");
+            Query delete = sessionFactory.getCurrentSession().createQuery("DELETE FROM Anchor a WHERE UPPER(a.owner) = ?1");
             delete.setParameter(1, owner.toUpperCase(Locale.getDefault()));
             count = delete.executeUpdate();
         }

@@ -30,10 +30,11 @@ import java.util.Locale;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
+import org.hibernate.Query;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.hibernate.SessionFactory;
 
 import gov.hhs.fha.nhinc.directconfig.entity.Domain;
 import gov.hhs.fha.nhinc.directconfig.entity.TrustBundle;
@@ -46,6 +47,7 @@ import gov.hhs.fha.nhinc.directconfig.dao.TrustBundleDao;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
@@ -53,16 +55,16 @@ import org.springframework.transaction.annotation.Transactional;
  * @author Greg Meyer
  * @since 1.2
  */
-@Repository
+//@Repository
+@Service
 public class TrustBundleDaoImpl implements TrustBundleDao {
     private static final Log log = LogFactory.getLog(TrustBundleDaoImpl.class);
 
     /*
      * Provided by Spring application context.
      */
-    @PersistenceContext
     @Autowired
-    protected EntityManager entityManager;
+    protected SessionFactory sessionFactory;
 
     @Autowired
     protected DomainDao domainDao;
@@ -83,7 +85,7 @@ public class TrustBundleDaoImpl implements TrustBundleDao {
         Collection<TrustBundle> rs;
 
         try {
-            Query select = entityManager.createQuery("SELECT tb from TrustBundle tb");
+            Query select = sessionFactory.getCurrentSession().createQuery("SELECT tb from TrustBundle tb");
 
             rs = select.getResultList();
             if (rs.size() == 0)
@@ -111,7 +113,7 @@ public class TrustBundleDaoImpl implements TrustBundleDao {
     @Transactional(readOnly = true)
     public TrustBundle getTrustBundleByName(String bundleName) throws ConfigurationStoreException {
         try {
-            Query select = entityManager.createQuery("SELECT tb from TrustBundle tb WHERE UPPER(tb.bundleName) = ?1");
+            Query select = sessionFactory.getCurrentSession().createQuery("SELECT tb from TrustBundle tb WHERE UPPER(tb.bundleName) = ?1");
             select.setParameter(1, bundleName.toUpperCase(Locale.getDefault()));
 
             TrustBundle rs = (TrustBundle)select.getSingleResult();
@@ -138,7 +140,7 @@ public class TrustBundleDaoImpl implements TrustBundleDao {
     @Transactional(readOnly = true)
     public TrustBundle getTrustBundleById(long id) throws ConfigurationStoreException {
         try {
-            Query select = entityManager.createQuery("SELECT tb from TrustBundle tb WHERE tb.id = ?1");
+            Query select = sessionFactory.getCurrentSession().createQuery("SELECT tb from TrustBundle tb WHERE tb.id = ?1");
             select.setParameter(1, id);
 
             TrustBundle rs = (TrustBundle)select.getSingleResult();
@@ -173,8 +175,8 @@ public class TrustBundleDaoImpl implements TrustBundleDao {
             
             bundle.setCreateTime(Calendar.getInstance(Locale.getDefault()));
 
-            entityManager.persist(bundle);
-            entityManager.flush();
+            sessionFactory.getCurrentSession().persist(bundle);
+            sessionFactory.getCurrentSession().flush();
         } catch (ConfigurationStoreException cse) {
             throw cse;
         } catch (Exception e) {
@@ -199,7 +201,7 @@ public class TrustBundleDaoImpl implements TrustBundleDao {
             }
             
             // blow away all the existing bundles
-            final Query delete = entityManager.createQuery("DELETE from TrustBundleAnchor tba where tba.trustBundle = ?1");
+            final Query delete = sessionFactory.getCurrentSession().createQuery("DELETE from TrustBundleAnchor tba where tba.trustBundle = ?1");
             delete.setParameter(1, existingBundle);
             delete.executeUpdate();
 
@@ -209,8 +211,8 @@ public class TrustBundleDaoImpl implements TrustBundleDao {
             existingBundle.setLastRefreshAttempt(attemptTime);
             existingBundle.setLastSuccessfulRefresh(Calendar.getInstance(Locale.getDefault()));
 
-            entityManager.persist(existingBundle);
-            entityManager.flush();
+            sessionFactory.getCurrentSession().persist(existingBundle);
+            sessionFactory.getCurrentSession().flush();
         } catch (ConfigurationStoreException cse) {
             throw cse;
         } catch (Exception e) {
@@ -236,8 +238,8 @@ public class TrustBundleDaoImpl implements TrustBundleDao {
             existingBundle.setLastRefreshAttempt(attemptTime);
             existingBundle.setLastRefreshError(error);
 
-            entityManager.persist(existingBundle);
-            entityManager.flush();
+            sessionFactory.getCurrentSession().persist(existingBundle);
+            sessionFactory.getCurrentSession().flush();
         } catch (ConfigurationStoreException cse) {
             throw cse;
         } catch (Exception e) {
@@ -261,8 +263,8 @@ public class TrustBundleDaoImpl implements TrustBundleDao {
 
                 this.disassociateTrustBundleFromDomains(id);
 
-                entityManager.remove(bundle);
-                entityManager.flush();
+                sessionFactory.getCurrentSession().remove(bundle);
+                sessionFactory.getCurrentSession().flush();
             } catch (ConfigurationStoreException e) {
                 log.warn(e.getMessage(), e);
             }
@@ -290,8 +292,8 @@ public class TrustBundleDaoImpl implements TrustBundleDao {
                 existingBundle.setSigningCertificateData(signingCert.getEncoded());
             }
 
-            entityManager.persist(existingBundle);
-            entityManager.flush();
+            sessionFactory.getCurrentSession().persist(existingBundle);
+            sessionFactory.getCurrentSession().flush();
         } catch (ConfigurationStoreException cse) {
             throw cse;
         } catch (Exception e) {
@@ -330,8 +332,8 @@ public class TrustBundleDaoImpl implements TrustBundleDao {
                 existingBundle.setBundleURL(bundleUrl);
             }
             
-            entityManager.persist(existingBundle);
-            entityManager.flush();
+            sessionFactory.getCurrentSession().persist(existingBundle);
+            sessionFactory.getCurrentSession().flush();
         } catch (ConfigurationStoreException cse) {
             throw cse;
         } catch (Exception e) {
@@ -368,8 +370,8 @@ public class TrustBundleDaoImpl implements TrustBundleDao {
             domainTrustBundleAssoc.setIncoming(incoming);
             domainTrustBundleAssoc.setOutgoing(outgoing);
 
-            entityManager.persist(domainTrustBundleAssoc);
-            entityManager.flush();
+            sessionFactory.getCurrentSession().persist(domainTrustBundleAssoc);
+            sessionFactory.getCurrentSession().flush();
         } catch (Exception e) {
             throw new ConfigurationStoreException("Failed to associate trust bundle to domain.", e);
         }
@@ -396,7 +398,7 @@ public class TrustBundleDaoImpl implements TrustBundleDao {
         }
         
         try {
-            final Query select = entityManager.createQuery("SELECT tbd from TrustBundleDomainReltn tbd where tbd.domain  = ?1 " +
+            final Query select = sessionFactory.getCurrentSession().createQuery("SELECT tbd from TrustBundleDomainReltn tbd where tbd.domain  = ?1 " +
                     " and tbd.trustBundle = ?2 ");
 
             select.setParameter(1, domain);
@@ -404,8 +406,8 @@ public class TrustBundleDaoImpl implements TrustBundleDao {
 
             final TrustBundleDomainReltn reltn = (TrustBundleDomainReltn)select.getSingleResult();
 
-            entityManager.remove(reltn);
-            entityManager.flush();
+            sessionFactory.getCurrentSession().remove(reltn);
+            sessionFactory.getCurrentSession().flush();
         } catch (NoResultException e) {
             throw new ConfigurationStoreException("Association between domain id " + domainId + " and trust bundle id"
                      + trustBundleId + " does not exist", e);
@@ -428,12 +430,12 @@ public class TrustBundleDaoImpl implements TrustBundleDao {
         }
         
         try {
-            final Query delete = entityManager.createQuery("DELETE from TrustBundleDomainReltn tbd where tbd.domain  = ?1");
+            final Query delete = sessionFactory.getCurrentSession().createQuery("DELETE from TrustBundleDomainReltn tbd where tbd.domain  = ?1");
 
             delete.setParameter(1, domain);
             delete.executeUpdate();
 
-            entityManager.flush();
+            sessionFactory.getCurrentSession().flush();
         } catch (Exception e) {
             throw new ConfigurationStoreException("Failed to dissaccociate trust bundle from domain id ." + domainId, e);
         }
@@ -453,12 +455,12 @@ public class TrustBundleDaoImpl implements TrustBundleDao {
         }
         
         try {
-            final Query delete = entityManager.createQuery("DELETE from TrustBundleDomainReltn tbd where tbd.trustBundle  = ?1");
+            final Query delete = sessionFactory.getCurrentSession().createQuery("DELETE from TrustBundleDomainReltn tbd where tbd.trustBundle  = ?1");
 
             delete.setParameter(1, trustBundle);
             delete.executeUpdate();
 
-            entityManager.flush();
+            sessionFactory.getCurrentSession().flush();
         } catch (Exception e) {
             throw new ConfigurationStoreException("Failed to dissaccociate domains from trust bundle id ." + trustBundleId, e);
         }
@@ -481,7 +483,7 @@ public class TrustBundleDaoImpl implements TrustBundleDao {
         Collection<TrustBundleDomainReltn> retVal = null;
         
         try {
-            final Query select = entityManager.createQuery("SELECT tbd from TrustBundleDomainReltn tbd where tbd.domain = ?1");
+            final Query select = sessionFactory.getCurrentSession().createQuery("SELECT tbd from TrustBundleDomainReltn tbd where tbd.domain = ?1");
             select.setParameter(1, domain);
 
             retVal = (Collection<TrustBundleDomainReltn>)select.getResultList();

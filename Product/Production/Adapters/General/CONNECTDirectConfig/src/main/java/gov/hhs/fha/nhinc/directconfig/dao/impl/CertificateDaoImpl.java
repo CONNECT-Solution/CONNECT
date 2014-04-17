@@ -30,10 +30,11 @@ import java.util.Locale;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
+import org.hibernate.Query;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.hibernate.SessionFactory;
 
 import gov.hhs.fha.nhinc.directconfig.entity.Certificate;
 import gov.hhs.fha.nhinc.directconfig.entity.Certificate.CertContainer;
@@ -43,6 +44,7 @@ import gov.hhs.fha.nhinc.directconfig.dao.CertificateDao;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
@@ -50,11 +52,11 @@ import org.springframework.transaction.annotation.Transactional;
  *
  * @author ppyette
  */
-@Repository
+//@Repository
+@Service
 public class CertificateDaoImpl implements CertificateDao {
-    @PersistenceContext
     @Autowired
-    private EntityManager entityManager;
+    protected SessionFactory sessionFactory;
 
     private static final Log log = LogFactory.getLog(CertificateDaoImpl.class);
 
@@ -72,15 +74,15 @@ public class CertificateDaoImpl implements CertificateDao {
         Query select = null;
         
         if (owner == null && thumbprint == null) {
-            select = entityManager.createQuery("SELECT c from Certificate c");
+            select = sessionFactory.getCurrentSession().createQuery("SELECT c from Certificate c");
         } else if (owner != null && thumbprint == null) {
-            select = entityManager.createQuery("SELECT c from Certificate c WHERE UPPER(c.owner) = ?1");
+            select = sessionFactory.getCurrentSession().createQuery("SELECT c from Certificate c WHERE UPPER(c.owner) = ?1");
             select.setParameter(1, owner.toUpperCase(Locale.getDefault()));
         } else if (owner == null && thumbprint != null) {
-            select = entityManager.createQuery("SELECT c from Certificate c WHERE c.thumbprint = ?1");
+            select = sessionFactory.getCurrentSession().createQuery("SELECT c from Certificate c WHERE c.thumbprint = ?1");
             select.setParameter(1, thumbprint);
         } else {
-            select = entityManager.createQuery("SELECT c from Certificate c WHERE c.thumbprint = ?1 and UPPER(c.owner) = ?2");
+            select = sessionFactory.getCurrentSession().createQuery("SELECT c from Certificate c WHERE c.thumbprint = ?1 and UPPER(c.owner) = ?2");
             select.setParameter(1, thumbprint);
             select.setParameter(2, owner.toUpperCase(Locale.getDefault()));
         }
@@ -126,7 +128,7 @@ public class CertificateDaoImpl implements CertificateDao {
         ids.append(")");
         String query = "SELECT c from Certificate c WHERE c.id IN " + ids.toString();
 
-        select = entityManager.createQuery(query);
+        select = sessionFactory.getCurrentSession().createQuery(query);
 
         List rs = select.getResultList();
         if (rs != null && (rs.size() != 0) && (rs.get(0) instanceof Certificate)) {
@@ -151,9 +153,9 @@ public class CertificateDaoImpl implements CertificateDao {
         List<Certificate> result = Collections.emptyList();
         Query select = null;
         if (owner == null) {
-            select = entityManager.createQuery("SELECT c from Certificate c");
+            select = sessionFactory.getCurrentSession().createQuery("SELECT c from Certificate c");
         } else if (owner != null) {
-            select = entityManager.createQuery("SELECT c from Certificate c WHERE UPPER(c.owner) = ?1");
+            select = sessionFactory.getCurrentSession().createQuery("SELECT c from Certificate c WHERE UPPER(c.owner) = ?1");
             select.setParameter(1, owner.toUpperCase(Locale.getDefault()));
         }
 
@@ -224,12 +226,12 @@ public class CertificateDaoImpl implements CertificateDao {
 
                 log.debug("Calling JPA to persist the Certificate");
 
-                entityManager.persist(cert);
+                sessionFactory.getCurrentSession().persist(cert);
 
                 log.debug("Returned from JPA: Certificate ID=" + cert.getId());
             }
 
-            entityManager.flush();
+            sessionFactory.getCurrentSession().flush();
         }
 
         log.debug("Exit");
@@ -252,7 +254,7 @@ public class CertificateDaoImpl implements CertificateDao {
         
         for (Certificate cert : certs) {
             cert.setStatus(status);
-            entityManager.merge(cert);
+            sessionFactory.getCurrentSession().merge(cert);
         }
 
         log.debug("Exit");
@@ -275,7 +277,7 @@ public class CertificateDaoImpl implements CertificateDao {
         
         for (Certificate cert : certs) {
             cert.setStatus(status);
-            entityManager.merge(cert);
+            sessionFactory.getCurrentSession().merge(cert);
         }
 
         log.debug("Exit");
@@ -305,7 +307,7 @@ public class CertificateDaoImpl implements CertificateDao {
             String query = "DELETE FROM Certificate c WHERE c.id IN " + ids.toString();
 
             int count = 0;
-            Query delete = entityManager.createQuery(query);
+            Query delete = sessionFactory.getCurrentSession().createQuery(query);
             count = delete.executeUpdate();
 
             log.debug("Exit: " + count + " certificate records deleted");
@@ -329,7 +331,7 @@ public class CertificateDaoImpl implements CertificateDao {
         
         int count = 0;
         if (owner != null) {
-            Query delete = entityManager.createQuery("DELETE FROM Certificate c WHERE UPPER(c.owner) = ?1");
+            Query delete = sessionFactory.getCurrentSession().createQuery("DELETE FROM Certificate c WHERE UPPER(c.owner) = ?1");
             delete.setParameter(1, owner.toUpperCase(Locale.getDefault()));
             count = delete.executeUpdate();
         }

@@ -29,10 +29,11 @@ import java.util.Locale;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
+import org.hibernate.Query;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.hibernate.SessionFactory;
 
 import gov.hhs.fha.nhinc.directconfig.entity.Address;
 import gov.hhs.fha.nhinc.directconfig.entity.Domain;
@@ -43,6 +44,7 @@ import gov.hhs.fha.nhinc.directconfig.dao.DomainDao;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
@@ -50,14 +52,14 @@ import org.springframework.transaction.annotation.Transactional;
  *
  * @author ppyette
  */
-@Repository
+//@Repository
+@Service
 public class DomainDaoImpl implements DomainDao {
-    @PersistenceContext
     @Autowired
-    private EntityManager entityManager;
+    protected SessionFactory sessionFactory;
 
     @Autowired
-    private AddressDao addressDao;
+    protected AddressDao addressDao;
 
     private static final Log log = LogFactory.getLog(DomainDaoImpl.class);
 
@@ -69,7 +71,7 @@ public class DomainDaoImpl implements DomainDao {
     @Transactional(readOnly = true)
     public int count() {
         log.debug("Enter");
-        Long result = (Long) entityManager.createQuery("select count(d) from Domain d").getSingleResult();
+        Long result = (Long) sessionFactory.getCurrentSession().createQuery("select count(d) from Domain d").getSingleResult();
 
         log.debug("Exit: " + result.intValue());
         return result.intValue();
@@ -101,8 +103,8 @@ public class DomainDaoImpl implements DomainDao {
 
             log.debug("Calling JPA to persist the Domain");
 
-            entityManager.persist(item);
-            entityManager.flush();
+            sessionFactory.getCurrentSession().persist(item);
+            sessionFactory.getCurrentSession().flush();
 
             log.debug("Persisted the bare Domain");
 
@@ -144,7 +146,7 @@ public class DomainDaoImpl implements DomainDao {
             }
 
             log.debug("Calling JPA to perform update...");
-            entityManager.merge(item);
+            sessionFactory.getCurrentSession().merge(item);
         }
 
         log.debug("Exit");
@@ -175,7 +177,7 @@ public class DomainDaoImpl implements DomainDao {
         if (domain != null) {
             disassociateTrustBundlesFromDomain(domain.getId());
 
-            entityManager.remove(domain);
+            sessionFactory.getCurrentSession().remove(domain);
         } else  {
             log.warn("No domain matching the name: " + name + " found.  Unable to delete.");
         }
@@ -197,7 +199,7 @@ public class DomainDaoImpl implements DomainDao {
         if (domain != null) {
             disassociateTrustBundlesFromDomain(domain.getId());
 
-            entityManager.remove(domain);
+            sessionFactory.getCurrentSession().remove(domain);
         } else  {
            log.warn("No domain matching the id: " + anId + " found.  Unable to delete.");
         }
@@ -217,7 +219,7 @@ public class DomainDaoImpl implements DomainDao {
         Domain result = null;
 
         if (name != null) {
-            Query select = entityManager.createQuery("SELECT DISTINCT d from Domain d WHERE UPPER(d.domainName) = ?1");
+            Query select = sessionFactory.getCurrentSession().createQuery("SELECT DISTINCT d from Domain d WHERE UPPER(d.domainName) = ?1");
             Query paramQuery = select.setParameter(1, name.toUpperCase(Locale.getDefault()));
 
             if (paramQuery.getResultList().size() > 0) {
@@ -260,17 +262,17 @@ public class DomainDaoImpl implements DomainDao {
             String query = "SELECT d from Domain d WHERE UPPER(d.domainName) IN " + nameList.toString();
 
             if (status != null) {
-                select = entityManager.createQuery(query + " AND d.status = ?1");
+                select = sessionFactory.getCurrentSession().createQuery(query + " AND d.status = ?1");
                 select.setParameter(1, status);
             } else {
-                select = entityManager.createQuery(query);
+                select = sessionFactory.getCurrentSession().createQuery(query);
             }
         } else {
             if (status != null) {
-                select = entityManager.createQuery("SELECT d from Domain d WHERE d.status = ?1");
+                select = sessionFactory.getCurrentSession().createQuery("SELECT d from Domain d WHERE d.status = ?1");
                 select.setParameter(1, status);
             } else {
-                select = entityManager.createQuery("SELECT d from Domain d");
+                select = sessionFactory.getCurrentSession().createQuery("SELECT d from Domain d");
             }
 
         }
@@ -303,10 +305,10 @@ public class DomainDaoImpl implements DomainDao {
         Query select = null;
         
         if (name != null) {
-            select = entityManager.createQuery("SELECT d from Domain d WHERE UPPER(d.domainName) = ?1");
+            select = sessionFactory.getCurrentSession().createQuery("SELECT d from Domain d WHERE UPPER(d.domainName) = ?1");
             select.setParameter(1, name.toUpperCase(Locale.getDefault()));
         } else {
-            select = entityManager.createQuery("SELECT d from Domain d");
+            select = sessionFactory.getCurrentSession().createQuery("SELECT d from Domain d");
         }
 
         // assuming that a count of zero really means no limit
@@ -344,20 +346,20 @@ public class DomainDaoImpl implements DomainDao {
             query.append("SELECT d from Domain d WHERE UPPER(d.domainName) LIKE ?1 ");
             if (status != null) {
                 query.append("AND d.status = ?2");
-                select = entityManager.createQuery(query.toString());
+                select = sessionFactory.getCurrentSession().createQuery(query.toString());
                 select.setParameter(1, search);
                 select.setParameter(2, status);
             } else {
-                select = entityManager.createQuery(query.toString());
+                select = sessionFactory.getCurrentSession().createQuery(query.toString());
                 select.setParameter(1, search);
             }
         } else {
             if (status != null) {
                 query.append("SELECT d from Domain d WHERE d.status LIKE ?1");
-                select = entityManager.createQuery(query.toString());
+                select = sessionFactory.getCurrentSession().createQuery(query.toString());
                 select.setParameter(1, status);
             } else {
-                select = entityManager.createQuery("SELECT d from Domain d");
+                select = sessionFactory.getCurrentSession().createQuery("SELECT d from Domain d");
             }
 
         }
@@ -382,7 +384,7 @@ public class DomainDaoImpl implements DomainDao {
 
         Domain result = null;
         if ((id != null) && (id.longValue() > 0)) {
-            result = entityManager.find(Domain.class, id);
+            result = sessionFactory.getCurrentSession().find(Domain.class, id);
         }
 
         log.debug("Exit");

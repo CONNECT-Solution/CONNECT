@@ -9,10 +9,11 @@ import java.util.Locale;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
+import org.hibernate.Query;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.hibernate.SessionFactory;
 
 import gov.hhs.fha.nhinc.directconfig.entity.Setting;
 import gov.hhs.fha.nhinc.directconfig.exception.ConfigurationStoreException;
@@ -20,6 +21,7 @@ import gov.hhs.fha.nhinc.directconfig.dao.SettingDao;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
@@ -27,11 +29,11 @@ import org.springframework.transaction.annotation.Transactional;
  *
  * @author Greg Meyer
  */
-@Repository
+//@Repository
+@Service
 public class SettingDaoImpl implements SettingDao {
-    @PersistenceContext
     @Autowired
-    private EntityManager entityManager;
+    protected SessionFactory sessionFactory;
 
     private static final Log log = LogFactory.getLog(SettingDaoImpl.class);
 
@@ -60,8 +62,8 @@ public class SettingDaoImpl implements SettingDao {
 
         log.debug("Calling JPA to persist the setting");
 
-        entityManager.persist(setting);
-        entityManager.flush();
+        sessionFactory.getCurrentSession().persist(setting);
+        sessionFactory.getCurrentSession().flush();
 
         log.debug("Returned from JPA: Setting ID=" + setting.getId());
 
@@ -90,7 +92,7 @@ public class SettingDaoImpl implements SettingDao {
             String query = "DELETE FROM Setting s WHERE UPPER(s.name) IN " + queryNames.toString();
 
             int count = 0;
-            Query delete = entityManager.createQuery(query);
+            Query delete = sessionFactory.getCurrentSession().createQuery(query);
             count = delete.executeUpdate();
 
             log.debug("Exit: " + count + " setting records deleted");
@@ -110,7 +112,7 @@ public class SettingDaoImpl implements SettingDao {
         List<Setting> result = Collections.emptyList();
 
         Query select = null;
-        select = entityManager.createQuery("SELECT s from Setting s");
+        select = sessionFactory.getCurrentSession().createQuery("SELECT s from Setting s");
 
         @SuppressWarnings("rawtypes")
         List rs = select.getResultList();
@@ -150,7 +152,7 @@ public class SettingDaoImpl implements SettingDao {
         nameList.append(")");
         String query = "SELECT s from Setting s WHERE UPPER(s.name) IN " + nameList.toString();
 
-        select = entityManager.createQuery(query);
+        select = sessionFactory.getCurrentSession().createQuery(query);
         
         @SuppressWarnings("rawtypes")
         List rs = select.getResultList();
@@ -181,7 +183,7 @@ public class SettingDaoImpl implements SettingDao {
         for (Setting setting : settings) {
             setting.setValue(value);
             setting.setUpdateTime(Calendar.getInstance());
-            entityManager.merge(setting);
+            sessionFactory.getCurrentSession().merge(setting);
         }
 
         log.debug("Exit");

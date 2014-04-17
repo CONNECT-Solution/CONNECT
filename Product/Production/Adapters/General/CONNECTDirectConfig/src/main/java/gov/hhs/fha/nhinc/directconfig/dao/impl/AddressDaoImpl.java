@@ -28,10 +28,10 @@ import java.util.Locale;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.hibernate.SessionFactory;
 
 import gov.hhs.fha.nhinc.directconfig.entity.Address;
 import gov.hhs.fha.nhinc.directconfig.entity.Domain;
@@ -40,6 +40,7 @@ import gov.hhs.fha.nhinc.directconfig.dao.AddressDao;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
@@ -47,12 +48,12 @@ import org.springframework.transaction.annotation.Transactional;
  *
  * @author ppyette
  */
-@Repository
+//@Repository
+@Service
 public class AddressDaoImpl implements AddressDao {
 
-    @PersistenceContext
     @Autowired
-    private EntityManager entityManager;
+    protected SessionFactory sessionFactory;
 
     private static final Log log = LogFactory.getLog(AddressDaoImpl.class);
 
@@ -64,7 +65,7 @@ public class AddressDaoImpl implements AddressDao {
     @Transactional(readOnly = true)
     public int count() {
         log.debug("Enter");
-        Long result = (Long) entityManager.createQuery("select count(d) from Address a").getSingleResult();
+        Long result = (Long) sessionFactory.getCurrentSession().createQuery("select count(d) from Address a").getSingleResult();
 
         log.debug("Exit: " + result.intValue());
         return result.intValue();
@@ -82,7 +83,7 @@ public class AddressDaoImpl implements AddressDao {
         if (item != null) {
             item.setCreateTime(Calendar.getInstance());
             item.setUpdateTime(item.getCreateTime());
-            entityManager.persist(item);
+            sessionFactory.getCurrentSession().persist(item);
         }
 
         log.debug("Exit");
@@ -98,7 +99,7 @@ public class AddressDaoImpl implements AddressDao {
         log.debug("Enter");
 
         if (item != null) {
-            Address inDb = entityManager.find(Address.class, item.getId());
+            Address inDb = sessionFactory.getCurrentSession().find(Address.class, item.getId());
             
             inDb.setDisplayName(item.getDisplayName());
             inDb.setEndpoint(item.getEndpoint());
@@ -107,7 +108,7 @@ public class AddressDaoImpl implements AddressDao {
             inDb.setStatus(item.getStatus());
             inDb.setUpdateTime(Calendar.getInstance());
             
-            entityManager.merge(inDb);
+            sessionFactory.getCurrentSession().merge(inDb);
         }
 
         log.debug("Exit");
@@ -134,7 +135,7 @@ public class AddressDaoImpl implements AddressDao {
 
         int count = 0;
         if (name != null) {
-            Query delete = entityManager.createQuery("DELETE FROM Address a WHERE UPPER(a.emailAddress) = ?1");
+            Query delete = sessionFactory.getCurrentSession().createQuery("DELETE FROM Address a WHERE UPPER(a.emailAddress) = ?1");
             delete.setParameter(1, name.toUpperCase(Locale.getDefault()));
             count = delete.executeUpdate();
         }
@@ -165,7 +166,7 @@ public class AddressDaoImpl implements AddressDao {
         Address result = null;
 
         if (name != null) {
-            Query select = entityManager.createQuery("SELECT DISTINCT a from Address a d WHERE UPPER(a.emailAddress) = ?1");
+            Query select = sessionFactory.getCurrentSession().createQuery("SELECT DISTINCT a from Address a d WHERE UPPER(a.emailAddress) = ?1");
             result = (Address) select.setParameter(1, name.toUpperCase(Locale.getDefault())).getSingleResult();
         }
 
@@ -200,17 +201,17 @@ public class AddressDaoImpl implements AddressDao {
             String query = "SELECT a from Address a WHERE UPPER(a.emailAddress) IN " + nameList.toString();
 
             if (status != null) {
-                select = entityManager.createQuery(query + " AND a.status = ?1");
+                select = sessionFactory.getCurrentSession().createQuery(query + " AND a.status = ?1");
                 select.setParameter(1, status);
             } else {
-                select = entityManager.createQuery(query);
+                select = sessionFactory.getCurrentSession().createQuery(query);
             }
         } else {
             if (status != null) {
-                select = entityManager.createQuery("SELECT a from Address a WHERE a.status = ?1");
+                select = sessionFactory.getCurrentSession().createQuery("SELECT a from Address a WHERE a.status = ?1");
                 select.setParameter(1, status);
             } else {
-                select = entityManager.createQuery("SELECT a from Address a");
+                select = sessionFactory.getCurrentSession().createQuery("SELECT a from Address a");
             }
         }
 
@@ -243,19 +244,19 @@ public class AddressDaoImpl implements AddressDao {
             String query = "SELECT a from Address a WHERE a.domain = ?1";
 
             if (status != null) {
-                select = entityManager.createQuery(query + " AND a.status = ?2");
+                select = sessionFactory.getCurrentSession().createQuery(query + " AND a.status = ?2");
                 select.setParameter(1, domain);
                 select.setParameter(2, status);
             } else {
-                select = entityManager.createQuery(query);
+                select = sessionFactory.getCurrentSession().createQuery(query);
                 select.setParameter(1, domain);
             }
         } else {
             if (status != null) {
-                select = entityManager.createQuery("SELECT a from Address a WHERE a.status = ?1");
+                select = sessionFactory.getCurrentSession().createQuery("SELECT a from Address a WHERE a.status = ?1");
                 select.setParameter(1, status);
             } else {
-                select = entityManager.createQuery("SELECT a from Address a");
+                select = sessionFactory.getCurrentSession().createQuery("SELECT a from Address a");
             }
         }
 
