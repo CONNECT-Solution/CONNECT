@@ -177,7 +177,7 @@ public class DomainDaoImpl implements DomainDao {
         if (domain != null) {
             disassociateTrustBundlesFromDomain(domain.getId());
 
-            sessionFactory.getCurrentSession().remove(domain);
+            sessionFactory.getCurrentSession().delete(domain);
         } else  {
             log.warn("No domain matching the name: " + name + " found.  Unable to delete.");
         }
@@ -199,7 +199,7 @@ public class DomainDaoImpl implements DomainDao {
         if (domain != null) {
             disassociateTrustBundlesFromDomain(domain.getId());
 
-            sessionFactory.getCurrentSession().remove(domain);
+            sessionFactory.getCurrentSession().delete(domain);
         } else  {
            log.warn("No domain matching the id: " + anId + " found.  Unable to delete.");
         }
@@ -384,7 +384,7 @@ public class DomainDaoImpl implements DomainDao {
 
         Domain result = null;
         if ((id != null) && (id.longValue() > 0)) {
-            result = sessionFactory.getCurrentSession().find(Domain.class, id);
+            result = (Domain)sessionFactory.getCurrentSession().get(Domain.class, id);
         }
 
         log.debug("Exit");

@@ -100,7 +100,7 @@ public class AddressDaoImpl implements AddressDao {
         log.debug("Enter");
 
         if (item != null) {
-            Address inDb = sessionFactory.getCurrentSession().find(Address.class, item.getId());
+            Address inDb = (Address)sessionFactory.getCurrentSession().get(Address.class, item.getId());
             
             inDb.setDisplayName(item.getDisplayName());
             inDb.setEndpoint(item.getEndpoint());

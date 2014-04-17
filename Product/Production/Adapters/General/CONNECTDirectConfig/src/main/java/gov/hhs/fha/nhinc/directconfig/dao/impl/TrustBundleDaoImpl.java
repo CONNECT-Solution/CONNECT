@@ -263,7 +263,7 @@ public class TrustBundleDaoImpl implements TrustBundleDao {
 
                 this.disassociateTrustBundleFromDomains(id);
 
-                sessionFactory.getCurrentSession().remove(bundle);
+                sessionFactory.getCurrentSession().delete(bundle);
                 sessionFactory.getCurrentSession().flush();
             } catch (ConfigurationStoreException e) {
                 log.warn(e.getMessage(), e);
@@ -406,7 +406,7 @@ public class TrustBundleDaoImpl implements TrustBundleDao {
 
             final TrustBundleDomainReltn reltn = (TrustBundleDomainReltn)select.uniqueResult();
 
-            sessionFactory.getCurrentSession().remove(reltn);
+            sessionFactory.getCurrentSession().delete(reltn);
             sessionFactory.getCurrentSession().flush();
         } catch (NoResultException e) {
             throw new ConfigurationStoreException("Association between domain id " + domainId + " and trust bundle id"
