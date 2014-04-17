@@ -107,34 +107,6 @@ public class RetrieveDocumentSetResponseTypeDescriptionBuilderTest extends BaseD
     }
 
     @Test
-    public void keepDupHCIDList() {
-        RetrieveDocumentSetResponseType response = new RetrieveDocumentSetResponseType();
-        addStatus(response, DocumentConstants.XDS_RETRIEVE_RESPONSE_STATUS_SUCCESS);
-        addDocumentResponse(response, "homeCommunityId");
-        addDocumentResponse(response, "homeCommunityId");
-
-        RetrieveDocumentSetResponseTypeDescriptionBuilder builder = new RetrieveDocumentSetResponseTypeDescriptionBuilder();
-        builder.setReturnValue(response);
-        EventDescription eventDescription = getEventDescription(builder);
-        assertEquals(2, eventDescription.getRespondingHCIDs().size());
-        assertEquals("homeCommunityId", eventDescription.getRespondingHCIDs().get(0));
-        assertEquals("homeCommunityId", eventDescription.getRespondingHCIDs().get(1));
-    }
-
-    @Test
-    public void nullHCIDBecomesEmpty() {
-        RetrieveDocumentSetResponseType response = new RetrieveDocumentSetResponseType();
-        addStatus(response, DocumentConstants.XDS_RETRIEVE_RESPONSE_STATUS_SUCCESS);
-        addDocumentResponse(response, null);
-
-        RetrieveDocumentSetResponseTypeDescriptionBuilder builder = new RetrieveDocumentSetResponseTypeDescriptionBuilder();
-        builder.setReturnValue(response);
-        EventDescription eventDescription = getEventDescription(builder);
-        assertEquals(1, eventDescription.getRespondingHCIDs().size());
-        assertEquals("", eventDescription.getRespondingHCIDs().get(0));
-    }
-
-    @Test
     public void keepDupErrorList() {
         RetrieveDocumentSetResponseType response = new RetrieveDocumentSetResponseType();
         addStatus(response, DocumentConstants.XDS_RETRIEVE_RESPONSE_STATUS_FAILURE);

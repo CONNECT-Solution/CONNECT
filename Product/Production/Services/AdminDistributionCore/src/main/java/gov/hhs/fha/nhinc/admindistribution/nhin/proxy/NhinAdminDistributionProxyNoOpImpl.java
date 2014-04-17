@@ -30,7 +30,6 @@ import gov.hhs.fha.nhinc.admindistribution.aspect.EDXLDistributionEventDescripti
 import gov.hhs.fha.nhinc.aspect.NwhinInvocationEvent;
 import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
-import gov.hhs.fha.nhinc.event.DefaultEventDescriptionBuilder;
 import gov.hhs.fha.nhinc.nhinclib.NhincConstants;
 import oasis.names.tc.emergency.edxl.de._1.EDXLDistribution;
 
@@ -56,7 +55,7 @@ public class NhinAdminDistributionProxyNoOpImpl implements NhinAdminDistribution
      *            gateway apiLevel (g0/g1).
      */
     @NwhinInvocationEvent(beforeBuilder = EDXLDistributionEventDescriptionBuilder.class,
-            afterReturningBuilder = DefaultEventDescriptionBuilder.class, serviceType = "Admin Distribution",
+            afterReturningBuilder = EDXLDistributionEventDescriptionBuilder.class, serviceType = "Admin Distribution",
             version = "")
     public void sendAlertMessage(EDXLDistribution body, AssertionType assertion, NhinTargetSystemType target,
             NhincConstants.GATEWAY_API_LEVEL apiLevel) {

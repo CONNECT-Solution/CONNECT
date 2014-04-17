@@ -72,7 +72,7 @@ public class StandardOutboundAdminDistribution implements OutboundAdminDistribut
      */
     @Override
     @OutboundProcessingEvent(beforeBuilder = ADRequestTransformingBuilder.class,
-            afterReturningBuilder = DefaultEventDescriptionBuilder.class, serviceType = "Admin Distribution",
+            afterReturningBuilder = ADRequestTransformingBuilder.class, serviceType = "Admin Distribution",
             version = "")
     public void sendAlertMessage(RespondingGatewaySendAlertMessageSecuredType message, AssertionType assertion,
             NhinTargetCommunitiesType target) {
@@ -92,7 +92,7 @@ public class StandardOutboundAdminDistribution implements OutboundAdminDistribut
      */
     @Override
     @OutboundProcessingEvent(beforeBuilder = ADRequestTransformingBuilder.class,
-            afterReturningBuilder = DefaultEventDescriptionBuilder.class, serviceType = "Admin Distribution",
+            afterReturningBuilder = ADRequestTransformingBuilder.class, serviceType = "Admin Distribution",
             version = "")
     public void sendAlertMessage(RespondingGatewaySendAlertMessageType message, AssertionType assertion,
             NhinTargetCommunitiesType target) {

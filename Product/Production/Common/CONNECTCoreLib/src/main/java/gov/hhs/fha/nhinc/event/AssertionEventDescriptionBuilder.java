@@ -45,12 +45,7 @@ public abstract class AssertionEventDescriptionBuilder extends BaseEventDescript
 
     private AssertionDescriptionExtractor assertionExtractor = new AssertionDescriptionExtractor();
     private Optional<AssertionType> assertion = Optional.absent();
-    private WebServiceContext context;
     private static final Logger LOG = Logger.getLogger(AssertionEventDescriptionBuilder.class);
-
-    public AssertionEventDescriptionBuilder() {
-        context = new WebServiceContextImpl();
-    }
 
     @Override
     public final void buildNPI() {
@@ -86,7 +81,7 @@ public abstract class AssertionEventDescriptionBuilder extends BaseEventDescript
         try {
             if (assertion == null || !assertion.isPresent()) {
                 AssertionType contextAssertion
-                        = SAML2AssertionExtractor.getInstance().extractSamlAssertion(context);
+                        = SAML2AssertionExtractor.getInstance().extractSamlAssertion(getContext());
                 if (contextAssertion != null) {
                     assertion = Optional.of(contextAssertion);
                     return;
@@ -115,5 +110,9 @@ public abstract class AssertionEventDescriptionBuilder extends BaseEventDescript
      */
     public final void setAssertionExtractor(AssertionDescriptionExtractor assertionExtractor) {
         this.assertionExtractor = assertionExtractor;
+    }
+    
+    protected WebServiceContext getContext(){
+        return new WebServiceContextImpl();
     }
 }

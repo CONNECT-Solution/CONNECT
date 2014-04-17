@@ -29,7 +29,6 @@ package gov.hhs.fha.nhinc.docsubmission._20.nhin.deferred.response;
 import gov.hhs.fha.nhinc.aspect.InboundMessageEvent;
 import gov.hhs.fha.nhinc.docsubmission.aspect.RegistryResponseTypeHolderBuilder;
 import gov.hhs.fha.nhinc.docsubmission.inbound.deferred.response.InboundDocSubmissionDeferredResponse;
-import gov.hhs.fha.nhinc.event.DefaultEventDescriptionBuilder;
 
 import javax.annotation.Resource;
 import javax.xml.ws.BindingType;
@@ -47,7 +46,7 @@ public class NhinXDRResponse20 implements ihe.iti.xdr._2007.XDRDeferredResponse2
 
     @Override
     @InboundMessageEvent(beforeBuilder = RegistryResponseTypeHolderBuilder.class,
-            afterReturningBuilder = DefaultEventDescriptionBuilder.class,
+            afterReturningBuilder = RegistryResponseTypeHolderBuilder.class,
             serviceType = "Document Submission Deferred Response", version = "2.0")
     public void provideAndRegisterDocumentSetBDeferredResponse(javax.xml.ws.Holder<RegistryResponseType> body) {
         body.value = new NhinDocSubmissionDeferredResponseImpl20(inboundDocSubmissionResponse)
