@@ -1062,7 +1062,7 @@ public class AdapterComponentDocRegistryOrchImpl {
         try {
             homeCommunityId = PropertyAccessor.getInstance().getProperty(PROPERTY_FILE_NAME_GATEWAY,
                             PROPERTY_FILE_KEY_HOME_COMMUNITY);
-            if(!homeCommunityId.startsWith(NhincConstants.HCID_PREFIX)){
+            if(homeCommunityId != null && !homeCommunityId.startsWith(NhincConstants.HCID_PREFIX)){
                 homeCommunityId = NhincConstants.HCID_PREFIX + homeCommunityId;
             }
         } catch (PropertyAccessException t) {
