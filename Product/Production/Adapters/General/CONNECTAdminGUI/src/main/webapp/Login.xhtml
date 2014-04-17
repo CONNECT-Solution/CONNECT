@@ -22,11 +22,11 @@
         <h:form class="form-signin" role="form">
             <h:messages for="signin"/>
             <h2 class="form-signin-heading">Please sign in</h2>
-            <h:inputText value="#{loginbean.userName}" class="form-control" required="true" />
-            <h:inputSecret value="#{loginbean.password}" class="form-control" required="true" />
+            <h:inputText value="#{loginBean.userName}" class="form-control" required="true" />
+            <h:inputSecret value="#{loginBean.password}" class="form-control" required="true" />
             <label class="checkbox"> <input type="checkbox" value="remember-me"> Remember me </input>
             </label>
-            <h:commandButton id="signin" action="#{loginbean.invokePatient()}" value="Sign in" class="btn btn-lg btn-primary btn-block"/>
+            <h:commandButton id="signin" action="#{loginBean.invokePatient()}" value="Sign in" class="btn btn-lg btn-primary btn-block"/>
         </h:form>
 
     </div>
