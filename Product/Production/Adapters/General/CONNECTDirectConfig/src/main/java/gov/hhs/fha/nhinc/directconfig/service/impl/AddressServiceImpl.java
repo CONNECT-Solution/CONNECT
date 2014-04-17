@@ -43,8 +43,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 /**
  * Service class for methods related to an Address object.
  */
+@org.springframework.stereotype.Service
 @WebService(endpointInterface = "gov.hhs.fha.nhinc.directconfig.service.AddressService")
-public class AddressServiceImpl implements AddressService {
+public class AddressServiceImpl extends org.springframework.web.context.support.SpringBeanAutowiringSupport implements AddressService {
 
     private static final Log log = LogFactory.getLog(AddressServiceImpl.class);
 

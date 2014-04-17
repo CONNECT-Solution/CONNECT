@@ -37,8 +37,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 /**
  * Service class for methods related to a Service object.
  */
+@org.springframework.stereotype.Service
 @WebService(endpointInterface = "gov.hhs.fha.nhinc.directconfig.service.SettingService")
-public class SettingServiceImpl implements SettingService
+public class SettingServiceImpl extends org.springframework.web.context.support.SpringBeanAutowiringSupport implements SettingService
 {
 
     private static final Log log = LogFactory.getLog(SettingServiceImpl.class);

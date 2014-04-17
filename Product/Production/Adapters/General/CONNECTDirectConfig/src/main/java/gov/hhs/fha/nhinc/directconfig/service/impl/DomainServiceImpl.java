@@ -41,8 +41,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 /**
  * Service class for methods related to a Domain object.
  */
+@org.springframework.stereotype.Service
 @WebService(endpointInterface = "gov.hhs.fha.nhinc.directconfig.service.DomainService")
-public class DomainServiceImpl implements DomainService {
+public class DomainServiceImpl extends org.springframework.web.context.support.SpringBeanAutowiringSupport implements DomainService {
 
     private static final Log log = LogFactory.getLog(DomainServiceImpl.class);
 

@@ -42,8 +42,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 /**
  * Service class for methods related to an Anchor object.
  */
+@org.springframework.stereotype.Service
 @WebService(endpointInterface = "gov.hhs.fha.nhinc.directconfig.service.AnchorService")
-public class AnchorServiceImpl implements AnchorService {
+public class AnchorServiceImpl extends org.springframework.web.context.support.SpringBeanAutowiringSupport implements AnchorService {
 
     @SuppressWarnings("unused")
     private static final Log log = LogFactory.getLog(AnchorServiceImpl.class);

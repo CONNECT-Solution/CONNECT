@@ -38,41 +38,7 @@
 
     <jee:jndi-lookup id="dataSource" jndi-name="jdbc/configdb_datasource" />
 
-    <jaxws:endpoint id="configurationService" address="/ConfigurationService">
-        <jaxws:implementor>
-            <bean id="configurationServiceImpl" class="gov.hhs.fha.nhinc.directconfig.service.impl.ConfigurationServiceImpl">
-                <property name="domainSvc" ref="domainSvc" />
-                <property name="addressSvc" ref="addressSvc" />
-                <property name="anchorSvc" ref="anchorSvc" />
-                <property name="certSvc" ref="certSvc" />
-                <property name="settingSvc" ref="settingSvc" />
-                <property name="trustBundleSvc" ref="trustBundleSvc" />
-            </bean>
-        </jaxws:implementor>
-    </jaxws:endpoint>
-
-    <!--context:property-placeholder location="classpath:properties/config.properties" /-->
-
-    <!-- Service Implementations -->
-    <bean id="domainSvc" class="gov.hhs.fha.nhinc.directconfig.service.impl.DomainServiceImpl">
-        <property name="dao" ref="domainDao" />
-    </bean>
-    <bean id="addressSvc" class="gov.hhs.fha.nhinc.directconfig.service.impl.AddressServiceImpl">
-        <property name="dao" ref="addressDao" />
-    </bean>
-    <bean id="anchorSvc" class="gov.hhs.fha.nhinc.directconfig.service.impl.AnchorServiceImpl">
-        <property name="dao" ref="anchorDao" />
-    </bean>
-    <bean id="certSvc" class="gov.hhs.fha.nhinc.directconfig.service.impl.CertificateServiceImpl">
-        <property name="dao" ref="certificateDao" />
-    </bean>
-    <bean id="settingSvc" class="gov.hhs.fha.nhinc.directconfig.service.impl.SettingServiceImpl">
-        <property name="dao" ref="settingDao" />
-    </bean>
-    <bean id="trustBundleSvc" class="gov.hhs.fha.nhinc.directconfig.service.impl.TrustBundleServiceImpl">
-        <property name="dao" ref="trustBundleDao" />
-    </bean>
-
+    
     <!-- Exception translation bean post processor -->
     <!--bean class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor" /-->
 

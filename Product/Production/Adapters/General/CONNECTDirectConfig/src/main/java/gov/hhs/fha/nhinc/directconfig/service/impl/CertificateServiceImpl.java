@@ -53,8 +53,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 /**
  * Service class for methods related to a Certificate object.
  */
+@org.springframework.stereotype.Service
 @WebService(endpointInterface = "gov.hhs.fha.nhinc.directconfig.service.CertificateService")
-public class CertificateServiceImpl implements CertificateService {
+public class CertificateServiceImpl extends org.springframework.web.context.support.SpringBeanAutowiringSupport implements CertificateService {
 
     private static final int RFC822Name_TYPE = 1; // name type constant for Subject Alternative name email address
     private static final int DNSName_TYPE = 2; // name type constant for Subject Alternative name domain name    

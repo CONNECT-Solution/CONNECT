@@ -55,8 +55,15 @@ import org.springframework.beans.factory.annotation.Autowired;
  * Implements the single Service Endpoint Interface. Delegates everything to the
  * individual service implementations.
  */
-@WebService(endpointInterface = "gov.hhs.fha.nhinc.directconfig.service.ConfigurationService")
-public class ConfigurationServiceImpl implements ConfigurationService {
+//
+//@WebService(endpointInterface = "gov.hhs.fha.nhinc.directconfig.service.ConfigurationService")
+@org.springframework.stereotype.Service
+@WebService(endpointInterface="gov.hhs.fha.nhinc.directconfig.service.ConfigurationService", 
+targetNamespace="http://nhind.org/config", 
+serviceName="ConfigurationService", 
+portName="ConfigurationService", 
+wsdlLocation="wsdl/ConfigurationService.wsdl")
+public class ConfigurationServiceImpl extends org.springframework.web.context.support.SpringBeanAutowiringSupport implements ConfigurationService {
 
 
     private static Log log = LogFactory.getLog(ConfigurationServiceImpl.class);

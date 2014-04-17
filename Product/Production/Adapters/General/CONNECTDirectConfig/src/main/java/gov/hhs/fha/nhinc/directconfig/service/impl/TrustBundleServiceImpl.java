@@ -51,8 +51,9 @@ import org.springframework.beans.factory.annotation.Qualifier;
  * @author Greg Meyer
  * @since 1.3
  */
+@org.springframework.stereotype.Service
 @WebService(endpointInterface = "gov.hhs.fha.nhinc.directconfig.service.TrustBundleService")
-public class TrustBundleServiceImpl implements TrustBundleService
+public class TrustBundleServiceImpl extends org.springframework.web.context.support.SpringBeanAutowiringSupport implements TrustBundleService
 {
     private static final Log log = LogFactory.getLog(TrustBundleServiceImpl.class);
 
