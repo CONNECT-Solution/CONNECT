@@ -35,9 +35,7 @@ import gov.hhs.fha.nhinc.common.nhinccommon.AssertionType;
 import gov.hhs.fha.nhinc.common.nhinccommon.HomeCommunityType;
 import gov.hhs.fha.nhinc.common.nhinccommon.NhinTargetSystemType;
 import gov.hhs.fha.nhinc.docsubmission.DocSubmissionUtils;
-import gov.hhs.fha.nhinc.docsubmission.aspect.DocSubmissionArgTransformerBuilder;
 import gov.hhs.fha.nhinc.docsubmission.aspect.DocSubmissionBaseEventDescriptionBuilder;
-import gov.hhs.fha.nhinc.docsubmission.nhin.deferred.request.proxy11.NhinDocSubmissionDeferredRequestProxyWebServiceSecuredImpl;
 import gov.hhs.fha.nhinc.messaging.client.CONNECTClient;
 import gov.hhs.fha.nhinc.messaging.service.port.ServicePortDescriptor;
 import ihe.iti.xdr._2007.XDRDeferredRequestPortType;
@@ -74,7 +72,7 @@ public class NhinDocSubmissionDeferredRequestProxyWebServiceSecuredImplTest {
         NwhinInvocationEvent annotation = method.getAnnotation(NwhinInvocationEvent.class);
         assertNotNull(annotation);
         assertEquals(DocSubmissionBaseEventDescriptionBuilder.class, annotation.beforeBuilder());
-        assertEquals(DocSubmissionArgTransformerBuilder.class, annotation.afterReturningBuilder());
+        assertEquals(DocSubmissionBaseEventDescriptionBuilder.class, annotation.afterReturningBuilder());
         assertEquals("Document Submission Deferred Request", annotation.serviceType());
         assertEquals("", annotation.version());
     }

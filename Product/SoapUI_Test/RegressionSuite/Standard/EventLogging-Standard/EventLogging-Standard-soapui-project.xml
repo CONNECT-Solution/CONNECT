@@ -584,25 +584,52 @@
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_OUTBOUND_PROCESSING"')[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_INVOCATION_TO_NWHIN"')[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_INVOCATION_TO_NWHIN"')[0]
-}</script></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
+}</script></con:config></con:testStep><con:testStep type="groovy" name="Verify HCIDs in Events"><con:settings/><con:config><script>import groovy.json.*
+
+context.withSql('eventdb') {sql ->
+	def nwhin_begin = sql.firstRow('select description from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_INVOCATION_TO_NWHIN"') 
+	def nwhin_end = sql.firstRow('select description from ' + context.findProperty('EventLoggingTable') + ' where name="END_INVOCATION_TO_NWHIN"')
+	def inbound_begin = sql.firstRow('select description from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_INBOUND_MESSAGE"')
+	def inbound_end = sql.firstRow('select description from ' + context.findProperty('EventLoggingTable') + ' where name="END_INBOUND_MESSAGE"')
+
+	evaluateDescription(nwhin_begin.toString(), "BEGIN_INVOCATION_TO_NWHIN")
+	evaluateDescription(nwhin_end.toString(), "END_INVOCATION_TO_NWHIN")
+	evaluateDescription(inbound_begin.toString(), "BEGIN_INBOUND_MESSAGE")
+	evaluateDescription(inbound_end.toString(), "END_INBOUND_MESSAGE")
+}
+
+public evaluateDescription(String description, String name){
+	def slurper = new JsonSlurper()
+	def json_string = description.replaceFirst("description=","\"description\":")
+
+	def result = slurper.parseText(json_string);
+
+	assert result.description.responding_hcids.size() == 1
+	assert result.description.responding_hcids[0] != null
+	log.info "${name}, Responding HCID: " + result.description.responding_hcids[0]
+	
+	assert result.description.initiating_hcid != null
+	log.info "${name}, Initiator HCID: " + result.description.initiating_hcid
+}
+</script></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
 nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);</con:setupScript>
 <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);</con:tearDownScript>
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2014-03-31T14:10:13Z</con:value>
+		<con:value>2014-04-17T14:18:22Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2014-03-31T14:20:13Z</con:value>
+		<con:value>2014-04-17T14:28:22Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>03/31/2014 14:10:13</con:value>
+		<con:value>04/17/2014 14:18:22</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2014-04-30T00:00:00Z</con:value>
+		<con:value>2014-05-17T00:00:00Z</con:value>
 	</con:property>
 </con:properties>
 <con:reportParameters/>
@@ -980,25 +1007,52 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_OUTBOUND_PROCESSING"')[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_INVOCATION_TO_NWHIN"')[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_INVOCATION_TO_NWHIN"')[0]
-}</script></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
+}</script></con:config></con:testStep><con:testStep type="groovy" name="Verify HCIDs in Events"><con:settings/><con:config><script>import groovy.json.*
+
+context.withSql('eventdb') {sql ->
+	def nwhin_begin = sql.firstRow('select description from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_INVOCATION_TO_NWHIN"') 
+	def nwhin_end = sql.firstRow('select description from ' + context.findProperty('EventLoggingTable') + ' where name="END_INVOCATION_TO_NWHIN"')
+	def inbound_begin = sql.firstRow('select description from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_INBOUND_MESSAGE"')
+	def inbound_end = sql.firstRow('select description from ' + context.findProperty('EventLoggingTable') + ' where name="END_INBOUND_MESSAGE"')
+
+	evaluateDescription(nwhin_begin.toString(), "BEGIN_INVOCATION_TO_NWHIN")
+	evaluateDescription(nwhin_end.toString(), "END_INVOCATION_TO_NWHIN")
+	evaluateDescription(inbound_begin.toString(), "BEGIN_INBOUND_MESSAGE")
+	evaluateDescription(inbound_end.toString(), "END_INBOUND_MESSAGE")
+}
+
+public evaluateDescription(String description, String name){
+	def slurper = new JsonSlurper()
+	def json_string = description.replaceFirst("description=","\"description\":")
+
+	def result = slurper.parseText(json_string);
+
+	assert result.description.responding_hcids.size() == 1
+	assert result.description.responding_hcids[0] != null
+	log.info "${name}, Responding HCID: " + result.description.responding_hcids[0]
+	
+	assert result.description.initiating_hcid != null
+	log.info "${name}, Initiator HCID: " + result.description.initiating_hcid
+}
+</script></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
 nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);</con:setupScript>
 <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);</con:tearDownScript>
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2014-03-31T14:10:14Z</con:value>
+		<con:value>2014-04-17T14:18:26Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2014-03-31T14:20:14Z</con:value>
+		<con:value>2014-04-17T14:28:26Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>03/31/2014 14:10:14</con:value>
+		<con:value>04/17/2014 14:18:26</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2014-04-30T00:00:00Z</con:value>
+		<con:value>2014-05-17T00:00:00Z</con:value>
 	</con:property>
 </con:properties>
 </con:testCase>
@@ -1496,25 +1550,52 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_OUTBOUND_PROCESSING"')[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_INVOCATION_TO_NWHIN"')[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_INVOCATION_TO_NWHIN"')[0]
-}</script></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
+}</script></con:config></con:testStep><con:testStep type="groovy" name="Verify HCIDs in Events"><con:settings/><con:config><script>import groovy.json.*
+
+context.withSql('eventdb') {sql ->
+	def nwhin_begin = sql.firstRow('select description from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_INVOCATION_TO_NWHIN"') 
+	def nwhin_end = sql.firstRow('select description from ' + context.findProperty('EventLoggingTable') + ' where name="END_INVOCATION_TO_NWHIN"')
+	def inbound_begin = sql.firstRow('select description from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_INBOUND_MESSAGE"')
+	def inbound_end = sql.firstRow('select description from ' + context.findProperty('EventLoggingTable') + ' where name="END_INBOUND_MESSAGE"')
+
+	evaluateDescription(nwhin_begin.toString(), "BEGIN_INVOCATION_TO_NWHIN")
+	evaluateDescription(nwhin_end.toString(), "END_INVOCATION_TO_NWHIN")
+	evaluateDescription(inbound_begin.toString(), "BEGIN_INBOUND_MESSAGE")
+	evaluateDescription(inbound_end.toString(), "END_INBOUND_MESSAGE")
+}
+
+public evaluateDescription(String description, String name){
+	def slurper = new JsonSlurper()
+	def json_string = description.replaceFirst("description=","\"description\":")
+
+	def result = slurper.parseText(json_string);
+
+	assert result.description.responding_hcids.size() == 1
+	assert result.description.responding_hcids[0] != null
+	log.info "${name}, Responding HCID: " + result.description.responding_hcids[0]
+	
+	assert result.description.initiating_hcid != null
+	log.info "${name}, Initiator HCID: " + result.description.initiating_hcid
+}
+</script></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
 nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);</con:setupScript>
 <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);</con:tearDownScript>
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2014-03-31T14:10:16Z</con:value>
+		<con:value>2014-04-17T14:18:28Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2014-03-31T14:20:16Z</con:value>
+		<con:value>2014-04-17T14:28:28Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>03/31/2014 14:10:16</con:value>
+		<con:value>04/17/2014 14:18:28</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2014-04-30T00:00:00Z</con:value>
+		<con:value>2014-05-17T00:00:00Z</con:value>
 	</con:property>
 </con:properties>
 <con:reportParameters/>
@@ -1859,7 +1940,34 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_OUTBOUND_PROCESSING"')[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_INVOCATION_TO_NWHIN"')[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_INVOCATION_TO_NWHIN"')[0]
-}</script></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
+}</script></con:config></con:testStep><con:testStep type="groovy" name="Verify HCIDs in Events"><con:settings/><con:config><script>import groovy.json.*
+
+context.withSql('eventdb') {sql ->
+	def nwhin_begin = sql.firstRow('select description from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_INVOCATION_TO_NWHIN"') 
+	def nwhin_end = sql.firstRow('select description from ' + context.findProperty('EventLoggingTable') + ' where name="END_INVOCATION_TO_NWHIN"')
+	def inbound_begin = sql.firstRow('select description from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_INBOUND_MESSAGE"')
+	def inbound_end = sql.firstRow('select description from ' + context.findProperty('EventLoggingTable') + ' where name="END_INBOUND_MESSAGE"')
+
+	evaluateDescription(nwhin_begin.toString(), "BEGIN_INVOCATION_TO_NWHIN")
+	evaluateDescription(nwhin_end.toString(), "END_INVOCATION_TO_NWHIN")
+	evaluateDescription(inbound_begin.toString(), "BEGIN_INBOUND_MESSAGE")
+	evaluateDescription(inbound_end.toString(), "END_INBOUND_MESSAGE")
+}
+
+public evaluateDescription(String description, String name){
+	def slurper = new JsonSlurper()
+	def json_string = description.replaceFirst("description=","\"description\":")
+
+	def result = slurper.parseText(json_string);
+
+	assert result.description.responding_hcids.size() == 1
+	assert result.description.responding_hcids[0] != null
+	log.info "${name}, Responding HCID: " + result.description.responding_hcids[0]
+	
+	assert result.description.initiating_hcid != null
+	log.info "${name}, Initiator HCID: " + result.description.initiating_hcid
+}
+</script></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
 nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);</con:setupScript>
 <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);</con:tearDownScript>
 <con:properties>
@@ -2125,19 +2233,19 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
 	</con:property>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2014-03-31T14:10:17Z</con:value>
+		<con:value>2014-04-17T14:18:34Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2014-03-31T14:20:17Z</con:value>
+		<con:value>2014-04-17T14:28:34Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>03/31/2014 14:10:17</con:value>
+		<con:value>04/17/2014 14:18:34</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2014-04-30T00:00:00Z</con:value>
+		<con:value>2014-05-17T00:00:00Z</con:value>
 	</con:property>
 </con:properties>
 <con:reportParameters/>
@@ -2505,7 +2613,34 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_OUTBOUND_PROCESSING"')[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_INVOCATION_TO_NWHIN"')[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_INVOCATION_TO_NWHIN"')[0]
-}</script></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
+}</script></con:config></con:testStep><con:testStep type="groovy" name="Verify HCIDs in Events"><con:settings/><con:config><script>import groovy.json.*
+
+context.withSql('eventdb') {sql ->
+	def nwhin_begin = sql.firstRow('select description from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_INVOCATION_TO_NWHIN"') 
+	def nwhin_end = sql.firstRow('select description from ' + context.findProperty('EventLoggingTable') + ' where name="END_INVOCATION_TO_NWHIN"')
+	def inbound_begin = sql.firstRow('select description from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_INBOUND_MESSAGE"')
+	def inbound_end = sql.firstRow('select description from ' + context.findProperty('EventLoggingTable') + ' where name="END_INBOUND_MESSAGE"')
+
+	evaluateDescription(nwhin_begin.toString(), "BEGIN_INVOCATION_TO_NWHIN")
+	evaluateDescription(nwhin_end.toString(), "END_INVOCATION_TO_NWHIN")
+	evaluateDescription(inbound_begin.toString(), "BEGIN_INBOUND_MESSAGE")
+	evaluateDescription(inbound_end.toString(), "END_INBOUND_MESSAGE")
+}
+
+public evaluateDescription(String description, String name){
+	def slurper = new JsonSlurper()
+	def json_string = description.replaceFirst("description=","\"description\":")
+
+	def result = slurper.parseText(json_string);
+
+	assert result.description.responding_hcids.size() == 1
+	assert result.description.responding_hcids[0] != null
+	log.info "${name}, Responding HCID: " + result.description.responding_hcids[0]
+	
+	assert result.description.initiating_hcid != null
+	log.info "${name}, Initiator HCID: " + result.description.initiating_hcid
+}
+</script></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
 nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);</con:setupScript>
 <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);</con:tearDownScript>
 <con:properties>
@@ -2775,19 +2910,19 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
 	</con:property>
 <con:property>
 	<con:name>startDate</con:name>
-	<con:value>2014-03-31T14:10:19Z</con:value>
+	<con:value>2014-04-17T14:18:44Z</con:value>
 </con:property>
 <con:property>
 	<con:name>endDate</con:name>
-	<con:value>2014-03-31T14:20:19Z</con:value>
+	<con:value>2014-04-17T14:28:44Z</con:value>
 </con:property>
 <con:property>
 	<con:name>sigDate</con:name>
-	<con:value>03/31/2014 14:10:19</con:value>
+	<con:value>04/17/2014 14:18:44</con:value>
 </con:property>
 <con:property>
 	<con:name>expireDate</con:name>
-	<con:value>2014-04-30T00:00:00Z</con:value>
+	<con:value>2014-05-17T00:00:00Z</con:value>
 </con:property>
 </con:properties>
 <con:reportParameters/>
@@ -3121,25 +3256,52 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_OUTBOUND_PROCESSING"')[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_INVOCATION_TO_NWHIN"')[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_INVOCATION_TO_NWHIN"')[0]
-}</script></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
+}</script></con:config></con:testStep><con:testStep type="groovy" name="Verify HCIDs in Events"><con:settings/><con:config><script>import groovy.json.*
+
+context.withSql('eventdb') {sql ->
+	def nwhin_begin = sql.firstRow('select description from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_INVOCATION_TO_NWHIN"') 
+	def nwhin_end = sql.firstRow('select description from ' + context.findProperty('EventLoggingTable') + ' where name="END_INVOCATION_TO_NWHIN"')
+	def inbound_begin = sql.firstRow('select description from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_INBOUND_MESSAGE"')
+	def inbound_end = sql.firstRow('select description from ' + context.findProperty('EventLoggingTable') + ' where name="END_INBOUND_MESSAGE"')
+
+	evaluateDescription(nwhin_begin.toString(), "BEGIN_INVOCATION_TO_NWHIN")
+	evaluateDescription(nwhin_end.toString(), "END_INVOCATION_TO_NWHIN")
+	evaluateDescription(inbound_begin.toString(), "BEGIN_INBOUND_MESSAGE")
+	evaluateDescription(inbound_end.toString(), "END_INBOUND_MESSAGE")
+}
+
+public evaluateDescription(String description, String name){
+	def slurper = new JsonSlurper()
+	def json_string = description.replaceFirst("description=","\"description\":")
+
+	def result = slurper.parseText(json_string);
+
+	assert result.description.responding_hcids.size() == 1
+	assert result.description.responding_hcids[0] != null
+	log.info "${name}, Responding HCID: " + result.description.responding_hcids[0]
+	
+	assert result.description.initiating_hcid != null
+	log.info "${name}, Initiator HCID: " + result.description.initiating_hcid
+}
+</script></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
 nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);</con:setupScript>
 <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);</con:tearDownScript>
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2014-03-31T14:10:21Z</con:value>
+		<con:value>2014-04-17T14:18:49Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2014-03-31T14:20:21Z</con:value>
+		<con:value>2014-04-17T14:28:49Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>03/31/2014 14:10:21</con:value>
+		<con:value>04/17/2014 14:18:49</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2014-04-30T00:00:00Z</con:value>
+		<con:value>2014-05-17T00:00:00Z</con:value>
 	</con:property>
 </con:properties>
 <con:reportParameters/>
@@ -3489,25 +3651,52 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_OUTBOUND_PROCESSING"')[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_INVOCATION_TO_NWHIN"')[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_INVOCATION_TO_NWHIN"')[0]
-}</script></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
+}</script></con:config></con:testStep><con:testStep type="groovy" name="Verify HCIDs in Events"><con:settings/><con:config><script>import groovy.json.*
+
+context.withSql('eventdb') {sql ->
+	def nwhin_begin = sql.firstRow('select description from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_INVOCATION_TO_NWHIN"') 
+	def nwhin_end = sql.firstRow('select description from ' + context.findProperty('EventLoggingTable') + ' where name="END_INVOCATION_TO_NWHIN"')
+	def inbound_begin = sql.firstRow('select description from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_INBOUND_MESSAGE"')
+	def inbound_end = sql.firstRow('select description from ' + context.findProperty('EventLoggingTable') + ' where name="END_INBOUND_MESSAGE"')
+
+	evaluateDescription(nwhin_begin.toString(), "BEGIN_INVOCATION_TO_NWHIN")
+	evaluateDescription(nwhin_end.toString(), "END_INVOCATION_TO_NWHIN")
+	evaluateDescription(inbound_begin.toString(), "BEGIN_INBOUND_MESSAGE")
+	evaluateDescription(inbound_end.toString(), "END_INBOUND_MESSAGE")
+}
+
+public evaluateDescription(String description, String name){
+	def slurper = new JsonSlurper()
+	def json_string = description.replaceFirst("description=","\"description\":")
+
+	def result = slurper.parseText(json_string);
+
+	assert result.description.responding_hcids.size() == 1
+	assert result.description.responding_hcids[0] != null
+	log.info "${name}, Responding HCID: " + result.description.responding_hcids[0]
+	
+	assert result.description.initiating_hcid != null
+	log.info "${name}, Initiator HCID: " + result.description.initiating_hcid
+}
+</script></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
 nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);</con:setupScript>
 <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);</con:tearDownScript>
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2014-03-31T14:10:23Z</con:value>
+		<con:value>2014-04-17T14:19:05Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2014-03-31T14:20:23Z</con:value>
+		<con:value>2014-04-17T14:29:05Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>03/31/2014 14:10:23</con:value>
+		<con:value>04/17/2014 14:19:05</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2014-04-30T00:00:00Z</con:value>
+		<con:value>2014-05-17T00:00:00Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>FullPatientID</con:name>
@@ -3822,7 +4011,34 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_OUTBOUND_PROCESSING"')[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_INVOCATION_TO_NWHIN"')[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_INVOCATION_TO_NWHIN"')[0]
-}</script></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
+}</script></con:config></con:testStep><con:testStep type="groovy" name="Verify HCIDs in Events"><con:settings/><con:config><script>import groovy.json.*
+
+context.withSql('eventdb') {sql ->
+	def nwhin_begin = sql.firstRow('select description from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_INVOCATION_TO_NWHIN"') 
+	def nwhin_end = sql.firstRow('select description from ' + context.findProperty('EventLoggingTable') + ' where name="END_INVOCATION_TO_NWHIN"')
+	def inbound_begin = sql.firstRow('select description from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_INBOUND_MESSAGE"')
+	def inbound_end = sql.firstRow('select description from ' + context.findProperty('EventLoggingTable') + ' where name="END_INBOUND_MESSAGE"')
+
+	evaluateDescription(nwhin_begin.toString(), "BEGIN_INVOCATION_TO_NWHIN")
+	evaluateDescription(nwhin_end.toString(), "END_INVOCATION_TO_NWHIN")
+	evaluateDescription(inbound_begin.toString(), "BEGIN_INBOUND_MESSAGE")
+	evaluateDescription(inbound_end.toString(), "END_INBOUND_MESSAGE")
+}
+
+public evaluateDescription(String description, String name){
+	def slurper = new JsonSlurper()
+	def json_string = description.replaceFirst("description=","\"description\":")
+
+	def result = slurper.parseText(json_string);
+
+	assert result.description.responding_hcids.size() == 1
+	assert result.description.responding_hcids[0] != null
+	log.info "${name}, Responding HCID: " + result.description.responding_hcids[0]
+	
+	assert result.description.initiating_hcid != null
+	log.info "${name}, Initiator HCID: " + result.description.initiating_hcid
+}
+</script></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
 nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);</con:setupScript>
 <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);</con:tearDownScript>
 <con:properties>
@@ -3832,19 +4048,19 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
 	</con:property>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2014-03-31T14:10:24Z</con:value>
+		<con:value>2014-04-17T14:19:18Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2014-03-31T14:20:24Z</con:value>
+		<con:value>2014-04-17T14:29:18Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>03/31/2014 14:10:24</con:value>
+		<con:value>04/17/2014 14:19:18</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2014-04-30T00:00:00Z</con:value>
+		<con:value>2014-05-17T00:00:00Z</con:value>
 	</con:property>
 </con:properties>
 <con:reportParameters/>
@@ -4226,25 +4442,52 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_OUTBOUND_PROCESSING"')[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_INVOCATION_TO_NWHIN"')[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_INVOCATION_TO_NWHIN"')[0]
-}</script></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
+}</script></con:config></con:testStep><con:testStep type="groovy" name="Verify HCIDs in Events"><con:settings/><con:config><script>import groovy.json.*
+
+context.withSql('eventdb') {sql ->
+	def nwhin_begin = sql.firstRow('select description from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_INVOCATION_TO_NWHIN"') 
+	def nwhin_end = sql.firstRow('select description from ' + context.findProperty('EventLoggingTable') + ' where name="END_INVOCATION_TO_NWHIN"')
+	def inbound_begin = sql.firstRow('select description from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_INBOUND_MESSAGE"')
+	def inbound_end = sql.firstRow('select description from ' + context.findProperty('EventLoggingTable') + ' where name="END_INBOUND_MESSAGE"')
+
+	evaluateDescription(nwhin_begin.toString(), "BEGIN_INVOCATION_TO_NWHIN")
+	evaluateDescription(nwhin_end.toString(), "END_INVOCATION_TO_NWHIN")
+	evaluateDescription(inbound_begin.toString(), "BEGIN_INBOUND_MESSAGE")
+	evaluateDescription(inbound_end.toString(), "END_INBOUND_MESSAGE")
+}
+
+public evaluateDescription(String description, String name){
+	def slurper = new JsonSlurper()
+	def json_string = description.replaceFirst("description=","\"description\":")
+
+	def result = slurper.parseText(json_string);
+
+	assert result.description.responding_hcids.size() == 1
+	assert result.description.responding_hcids[0] != null
+	log.info "${name}, Responding HCID: " + result.description.responding_hcids[0]
+	
+	assert result.description.initiating_hcid != null
+	log.info "${name}, Initiator HCID: " + result.description.initiating_hcid
+}
+</script></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
 nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);</con:setupScript>
 <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);</con:tearDownScript>
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2014-03-31T14:10:25Z</con:value>
+		<con:value>2014-04-17T14:27:18Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2014-03-31T14:20:25Z</con:value>
+		<con:value>2014-04-17T14:37:18Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>03/31/2014 14:10:25</con:value>
+		<con:value>04/17/2014 14:27:18</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2014-04-30T00:00:00Z</con:value>
+		<con:value>2014-05-17T00:00:00Z</con:value>
 	</con:property>
 </con:properties>
 </con:testCase>
@@ -4801,25 +5044,52 @@ nhinc.FileUtils.setG1ConnectionInfo(context.expand(context.testCase.testSuite.pr
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_OUTBOUND_PROCESSING"')[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_INVOCATION_TO_NWHIN"')[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_INVOCATION_TO_NWHIN"')[0]
-}</script></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
+}</script></con:config></con:testStep><con:testStep type="groovy" name="Verify HCIDs in Events"><con:settings/><con:config><script>import groovy.json.*
+
+context.withSql('eventdb') {sql ->
+	def nwhin_begin = sql.firstRow('select description from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_INVOCATION_TO_NWHIN"') 
+	def nwhin_end = sql.firstRow('select description from ' + context.findProperty('EventLoggingTable') + ' where name="END_INVOCATION_TO_NWHIN"')
+	def inbound_begin = sql.firstRow('select description from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_INBOUND_MESSAGE"')
+	def inbound_end = sql.firstRow('select description from ' + context.findProperty('EventLoggingTable') + ' where name="END_INBOUND_MESSAGE"')
+
+	evaluateDescription(nwhin_begin.toString(), "BEGIN_INVOCATION_TO_NWHIN")
+	evaluateDescription(nwhin_end.toString(), "END_INVOCATION_TO_NWHIN")
+	evaluateDescription(inbound_begin.toString(), "BEGIN_INBOUND_MESSAGE")
+	evaluateDescription(inbound_end.toString(), "END_INBOUND_MESSAGE")
+}
+
+public evaluateDescription(String description, String name){
+	def slurper = new JsonSlurper()
+	def json_string = description.replaceFirst("description=","\"description\":")
+
+	def result = slurper.parseText(json_string);
+
+	assert result.description.responding_hcids.size() == 1
+	assert result.description.responding_hcids[0] != null
+	log.info "${name}, Responding HCID: " + result.description.responding_hcids[0]
+	
+	assert result.description.initiating_hcid != null
+	log.info "${name}, Initiator HCID: " + result.description.initiating_hcid
+}
+</script></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
 nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);</con:setupScript>
 <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);</con:tearDownScript>
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2013-10-02T18:24:38Z</con:value>
+		<con:value>2014-04-17T14:16:06Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2013-10-02T18:34:38Z</con:value>
+		<con:value>2014-04-17T14:26:06Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>10/02/2013 18:24:38</con:value>
+		<con:value>04/17/2014 14:16:06</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2013-11-01T00:00:00Z</con:value>
+		<con:value>2014-05-17T00:00:00Z</con:value>
 	</con:property>
 </con:properties>
 <con:reportParameters/>
@@ -5183,25 +5453,52 @@ nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.pr
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_OUTBOUND_PROCESSING"')[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_INVOCATION_TO_NWHIN"')[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_INVOCATION_TO_NWHIN"')[0]
-}</script></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
+}</script></con:config></con:testStep><con:testStep type="groovy" name="Verify HCIDs in Events"><con:settings/><con:config><script>import groovy.json.*
+
+context.withSql('eventdb') {sql ->
+	def nwhin_begin = sql.firstRow('select description from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_INVOCATION_TO_NWHIN"') 
+	def nwhin_end = sql.firstRow('select description from ' + context.findProperty('EventLoggingTable') + ' where name="END_INVOCATION_TO_NWHIN"')
+	def inbound_begin = sql.firstRow('select description from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_INBOUND_MESSAGE"')
+	def inbound_end = sql.firstRow('select description from ' + context.findProperty('EventLoggingTable') + ' where name="END_INBOUND_MESSAGE"')
+
+	evaluateDescription(nwhin_begin.toString(), "BEGIN_INVOCATION_TO_NWHIN")
+	evaluateDescription(nwhin_end.toString(), "END_INVOCATION_TO_NWHIN")
+	evaluateDescription(inbound_begin.toString(), "BEGIN_INBOUND_MESSAGE")
+	evaluateDescription(inbound_end.toString(), "END_INBOUND_MESSAGE")
+}
+
+public evaluateDescription(String description, String name){
+	def slurper = new JsonSlurper()
+	def json_string = description.replaceFirst("description=","\"description\":")
+
+	def result = slurper.parseText(json_string);
+
+	assert result.description.responding_hcids.size() == 1
+	assert result.description.responding_hcids[0] != null
+	log.info "${name}, Responding HCID: " + result.description.responding_hcids[0]
+	
+	assert result.description.initiating_hcid != null
+	log.info "${name}, Initiator HCID: " + result.description.initiating_hcid
+}
+</script></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
 nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);</con:setupScript>
 <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);</con:tearDownScript>
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2013-07-22T03:20:34Z</con:value>
+		<con:value>2014-04-17T13:40:26Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2013-07-22T03:30:34Z</con:value>
+		<con:value>2014-04-17T13:50:26Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>07/22/2013 03:20:34</con:value>
+		<con:value>04/17/2014 13:40:26</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2013-08-21T00:00:00Z</con:value>
+		<con:value>2014-05-17T00:00:00Z</con:value>
 	</con:property>
 </con:properties>
 </con:testCase>
@@ -5698,25 +5995,52 @@ nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.pr
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_OUTBOUND_PROCESSING"')[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_INVOCATION_TO_NWHIN"')[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_INVOCATION_TO_NWHIN"')[0]
-}</script></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
+}</script></con:config></con:testStep><con:testStep type="groovy" name="Verify HCIDs in Events"><con:settings/><con:config><script>import groovy.json.*
+
+context.withSql('eventdb') {sql ->
+	def nwhin_begin = sql.firstRow('select description from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_INVOCATION_TO_NWHIN"') 
+	def nwhin_end = sql.firstRow('select description from ' + context.findProperty('EventLoggingTable') + ' where name="END_INVOCATION_TO_NWHIN"')
+	def inbound_begin = sql.firstRow('select description from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_INBOUND_MESSAGE"')
+	def inbound_end = sql.firstRow('select description from ' + context.findProperty('EventLoggingTable') + ' where name="END_INBOUND_MESSAGE"')
+
+	evaluateDescription(nwhin_begin.toString(), "BEGIN_INVOCATION_TO_NWHIN")
+	evaluateDescription(nwhin_end.toString(), "END_INVOCATION_TO_NWHIN")
+	evaluateDescription(inbound_begin.toString(), "BEGIN_INBOUND_MESSAGE")
+	evaluateDescription(inbound_end.toString(), "END_INBOUND_MESSAGE")
+}
+
+public evaluateDescription(String description, String name){
+	def slurper = new JsonSlurper()
+	def json_string = description.replaceFirst("description=","\"description\":")
+
+	def result = slurper.parseText(json_string);
+
+	assert result.description.responding_hcids.size() == 1
+	assert result.description.responding_hcids[0] != null
+	log.info "${name}, Responding HCID: " + result.description.responding_hcids[0]
+	
+	assert result.description.initiating_hcid != null
+	log.info "${name}, Initiator HCID: " + result.description.initiating_hcid
+}
+</script></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
 nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);</con:setupScript>
 <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);</con:tearDownScript>
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2013-07-22T03:20:35Z</con:value>
+		<con:value>2014-04-17T13:40:35Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2013-07-22T03:30:35Z</con:value>
+		<con:value>2014-04-17T13:50:35Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>07/22/2013 03:20:35</con:value>
+		<con:value>04/17/2014 13:40:35</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2013-08-21T00:00:00Z</con:value>
+		<con:value>2014-05-17T00:00:00Z</con:value>
 	</con:property>
 </con:properties>
 <con:reportParameters/>
@@ -6066,7 +6390,34 @@ nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.pr
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_OUTBOUND_PROCESSING"')[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_INVOCATION_TO_NWHIN"')[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_INVOCATION_TO_NWHIN"')[0]
-}</script></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
+}</script></con:config></con:testStep><con:testStep type="groovy" name="Verify HCIDs in Events"><con:settings/><con:config><script>import groovy.json.*
+
+context.withSql('eventdb') {sql ->
+	def nwhin_begin = sql.firstRow('select description from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_INVOCATION_TO_NWHIN"') 
+	def nwhin_end = sql.firstRow('select description from ' + context.findProperty('EventLoggingTable') + ' where name="END_INVOCATION_TO_NWHIN"')
+	def inbound_begin = sql.firstRow('select description from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_INBOUND_MESSAGE"')
+	def inbound_end = sql.firstRow('select description from ' + context.findProperty('EventLoggingTable') + ' where name="END_INBOUND_MESSAGE"')
+
+	evaluateDescription(nwhin_begin.toString(), "BEGIN_INVOCATION_TO_NWHIN")
+	evaluateDescription(nwhin_end.toString(), "END_INVOCATION_TO_NWHIN")
+	evaluateDescription(inbound_begin.toString(), "BEGIN_INBOUND_MESSAGE")
+	evaluateDescription(inbound_end.toString(), "END_INBOUND_MESSAGE")
+}
+
+public evaluateDescription(String description, String name){
+	def slurper = new JsonSlurper()
+	def json_string = description.replaceFirst("description=","\"description\":")
+
+	def result = slurper.parseText(json_string);
+
+	assert result.description.responding_hcids.size() == 1
+	assert result.description.responding_hcids[0] != null
+	log.info "${name}, Responding HCID: " + result.description.responding_hcids[0]
+	
+	assert result.description.initiating_hcid != null
+	log.info "${name}, Initiator HCID: " + result.description.initiating_hcid
+}
+</script></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
 nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);</con:setupScript>
 <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);</con:tearDownScript>
 <con:properties>
@@ -6332,19 +6683,19 @@ nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.pr
 	</con:property>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2013-07-22T03:20:37Z</con:value>
+		<con:value>2014-04-17T13:40:46Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2013-07-22T03:30:37Z</con:value>
+		<con:value>2014-04-17T13:50:46Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>07/22/2013 03:20:37</con:value>
+		<con:value>04/17/2014 13:40:46</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2013-08-21T00:00:00Z</con:value>
+		<con:value>2014-05-17T00:00:00Z</con:value>
 	</con:property>
 </con:properties>
 <con:reportParameters/>
@@ -6713,7 +7064,34 @@ nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.pr
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_OUTBOUND_PROCESSING"')[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_INVOCATION_TO_NWHIN"')[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_INVOCATION_TO_NWHIN"')[0]
-}</script></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
+}</script></con:config></con:testStep><con:testStep type="groovy" name="Verify HCIDs in Events"><con:settings/><con:config><script>import groovy.json.*
+
+context.withSql('eventdb') {sql ->
+	def nwhin_begin = sql.firstRow('select description from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_INVOCATION_TO_NWHIN"') 
+	def nwhin_end = sql.firstRow('select description from ' + context.findProperty('EventLoggingTable') + ' where name="END_INVOCATION_TO_NWHIN"')
+	def inbound_begin = sql.firstRow('select description from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_INBOUND_MESSAGE"')
+	def inbound_end = sql.firstRow('select description from ' + context.findProperty('EventLoggingTable') + ' where name="END_INBOUND_MESSAGE"')
+
+	evaluateDescription(nwhin_begin.toString(), "BEGIN_INVOCATION_TO_NWHIN")
+	evaluateDescription(nwhin_end.toString(), "END_INVOCATION_TO_NWHIN")
+	evaluateDescription(inbound_begin.toString(), "BEGIN_INBOUND_MESSAGE")
+	evaluateDescription(inbound_end.toString(), "END_INBOUND_MESSAGE")
+}
+
+public evaluateDescription(String description, String name){
+	def slurper = new JsonSlurper()
+	def json_string = description.replaceFirst("description=","\"description\":")
+
+	def result = slurper.parseText(json_string);
+
+	assert result.description.responding_hcids.size() == 1
+	assert result.description.responding_hcids[0] != null
+	log.info "${name}, Responding HCID: " + result.description.responding_hcids[0]
+	
+	assert result.description.initiating_hcid != null
+	log.info "${name}, Initiator HCID: " + result.description.initiating_hcid
+}
+</script></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
 nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);</con:setupScript>
 <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);</con:tearDownScript>
 <con:properties>
@@ -6983,17 +7361,17 @@ nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.pr
 	</con:property>
 <con:property>
 	<con:name>endDate</con:name>
-	<con:value>2013-07-22T03:30:38Z</con:value>
+	<con:value>2014-04-17T13:50:55Z</con:value>
 </con:property>
 <con:property>
 	<con:name>sigDate</con:name>
-	<con:value>07/22/2013 03:20:38</con:value>
+	<con:value>04/17/2014 13:40:55</con:value>
 </con:property>
 <con:property>
 	<con:name>expireDate</con:name>
-	<con:value>2013-08-21T00:00:00Z</con:value>
+	<con:value>2014-05-17T00:00:00Z</con:value>
 </con:property>
-<con:property><con:name>startDate</con:name><con:value>2013-07-22T03:20:38Z</con:value></con:property></con:properties>
+<con:property><con:name>startDate</con:name><con:value>2014-04-17T13:40:55Z</con:value></con:property></con:properties>
 <con:reportParameters/>
 </con:testCase>
 <con:testCase failOnError="true" failTestCaseOnErrors="true" keepSession="false" maxResults="0" name="Patient Discovery" searchProperties="true" id="a2f144ec-2c70-4d77-a7ea-81f9a550fee7">
@@ -7326,25 +7704,52 @@ nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.pr
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_OUTBOUND_PROCESSING"')[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_INVOCATION_TO_NWHIN"')[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_INVOCATION_TO_NWHIN"')[0]
-}</script></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
+}</script></con:config></con:testStep><con:testStep type="groovy" name="Verify HCIDs in Events"><con:settings/><con:config><script>import groovy.json.*
+
+context.withSql('eventdb') {sql ->
+	def nwhin_begin = sql.firstRow('select description from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_INVOCATION_TO_NWHIN"') 
+	def nwhin_end = sql.firstRow('select description from ' + context.findProperty('EventLoggingTable') + ' where name="END_INVOCATION_TO_NWHIN"')
+	def inbound_begin = sql.firstRow('select description from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_INBOUND_MESSAGE"')
+	def inbound_end = sql.firstRow('select description from ' + context.findProperty('EventLoggingTable') + ' where name="END_INBOUND_MESSAGE"')
+
+	evaluateDescription(nwhin_begin.toString(), "BEGIN_INVOCATION_TO_NWHIN")
+	evaluateDescription(nwhin_end.toString(), "END_INVOCATION_TO_NWHIN")
+	evaluateDescription(inbound_begin.toString(), "BEGIN_INBOUND_MESSAGE")
+	evaluateDescription(inbound_end.toString(), "END_INBOUND_MESSAGE")
+}
+
+public evaluateDescription(String description, String name){
+	def slurper = new JsonSlurper()
+	def json_string = description.replaceFirst("description=","\"description\":")
+
+	def result = slurper.parseText(json_string);
+
+	assert result.description.responding_hcids.size() == 1
+	assert result.description.responding_hcids[0] != null
+	log.info "${name}, Responding HCID: " + result.description.responding_hcids[0]
+	
+	assert result.description.initiating_hcid != null
+	log.info "${name}, Initiator HCID: " + result.description.initiating_hcid
+}
+</script></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
 nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);</con:setupScript>
 <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);</con:tearDownScript>
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2013-07-22T03:20:39Z</con:value>
+		<con:value>2014-04-17T13:41:03Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2013-07-22T03:30:39Z</con:value>
+		<con:value>2014-04-17T13:51:03Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>07/22/2013 03:20:39</con:value>
+		<con:value>04/17/2014 13:41:03</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2013-08-21T00:00:00Z</con:value>
+		<con:value>2014-05-17T00:00:00Z</con:value>
 	</con:property>
 </con:properties>
 <con:reportParameters/>
@@ -7693,25 +8098,52 @@ nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.pr
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_OUTBOUND_PROCESSING"')[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_INVOCATION_TO_NWHIN"')[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_INVOCATION_TO_NWHIN"')[0]
-}</script></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
+}</script></con:config></con:testStep><con:testStep type="groovy" name="Verify HCIDs in Events"><con:settings/><con:config><script>import groovy.json.*
+
+context.withSql('eventdb') {sql ->
+	def nwhin_begin = sql.firstRow('select description from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_INVOCATION_TO_NWHIN"') 
+	def nwhin_end = sql.firstRow('select description from ' + context.findProperty('EventLoggingTable') + ' where name="END_INVOCATION_TO_NWHIN"')
+	def inbound_begin = sql.firstRow('select description from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_INBOUND_MESSAGE"')
+	def inbound_end = sql.firstRow('select description from ' + context.findProperty('EventLoggingTable') + ' where name="END_INBOUND_MESSAGE"')
+
+	evaluateDescription(nwhin_begin.toString(), "BEGIN_INVOCATION_TO_NWHIN")
+	evaluateDescription(nwhin_end.toString(), "END_INVOCATION_TO_NWHIN")
+	evaluateDescription(inbound_begin.toString(), "BEGIN_INBOUND_MESSAGE")
+	evaluateDescription(inbound_end.toString(), "END_INBOUND_MESSAGE")
+}
+
+public evaluateDescription(String description, String name){
+	def slurper = new JsonSlurper()
+	def json_string = description.replaceFirst("description=","\"description\":")
+
+	def result = slurper.parseText(json_string);
+
+	assert result.description.responding_hcids.size() == 1
+	assert result.description.responding_hcids[0] != null
+	log.info "${name}, Responding HCID: " + result.description.responding_hcids[0]
+	
+	assert result.description.initiating_hcid != null
+	log.info "${name}, Initiator HCID: " + result.description.initiating_hcid
+}
+</script></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
 nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);</con:setupScript>
 <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);</con:tearDownScript>
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2013-07-22T03:20:41Z</con:value>
+		<con:value>2014-04-17T13:41:13Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2013-07-22T03:30:41Z</con:value>
+		<con:value>2014-04-17T13:51:13Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>07/22/2013 03:20:41</con:value>
+		<con:value>04/17/2014 13:41:13</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2013-08-21T00:00:00Z</con:value>
+		<con:value>2014-05-17T00:00:00Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>FullPatientID</con:name>
@@ -8026,7 +8458,34 @@ nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.pr
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_OUTBOUND_PROCESSING"')[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_INVOCATION_TO_NWHIN"')[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_INVOCATION_TO_NWHIN"')[0]
-}</script></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
+}</script></con:config></con:testStep><con:testStep type="groovy" name="Verify HCIDs in Events"><con:settings/><con:config><script>import groovy.json.*
+
+context.withSql('eventdb') {sql ->
+	def nwhin_begin = sql.firstRow('select description from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_INVOCATION_TO_NWHIN"') 
+	def nwhin_end = sql.firstRow('select description from ' + context.findProperty('EventLoggingTable') + ' where name="END_INVOCATION_TO_NWHIN"')
+	def inbound_begin = sql.firstRow('select description from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_INBOUND_MESSAGE"')
+	def inbound_end = sql.firstRow('select description from ' + context.findProperty('EventLoggingTable') + ' where name="END_INBOUND_MESSAGE"')
+
+	evaluateDescription(nwhin_begin.toString(), "BEGIN_INVOCATION_TO_NWHIN")
+	evaluateDescription(nwhin_end.toString(), "END_INVOCATION_TO_NWHIN")
+	evaluateDescription(inbound_begin.toString(), "BEGIN_INBOUND_MESSAGE")
+	evaluateDescription(inbound_end.toString(), "END_INBOUND_MESSAGE")
+}
+
+public evaluateDescription(String description, String name){
+	def slurper = new JsonSlurper()
+	def json_string = description.replaceFirst("description=","\"description\":")
+
+	def result = slurper.parseText(json_string);
+
+	assert result.description.responding_hcids.size() == 1
+	assert result.description.responding_hcids[0] != null
+	log.info "${name}, Responding HCID: " + result.description.responding_hcids[0]
+	
+	assert result.description.initiating_hcid != null
+	log.info "${name}, Initiator HCID: " + result.description.initiating_hcid
+}
+</script></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
 nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);</con:setupScript>
 <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);</con:tearDownScript>
 <con:properties>
@@ -8036,19 +8495,19 @@ nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.pr
 	</con:property>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2013-07-22T03:20:43Z</con:value>
+		<con:value>2014-04-17T13:41:25Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2013-07-22T03:30:43Z</con:value>
+		<con:value>2014-04-17T13:51:25Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>07/22/2013 03:20:43</con:value>
+		<con:value>04/17/2014 13:41:25</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2013-08-21T00:00:00Z</con:value>
+		<con:value>2014-05-17T00:00:00Z</con:value>
 	</con:property>
 </con:properties>
 <con:reportParameters/>
@@ -8432,26 +8891,53 @@ nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.pr
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_OUTBOUND_PROCESSING"')[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_INVOCATION_TO_NWHIN"')[0]
 	assert 1 == sql.firstRow('select count(*) from ' + context.findProperty('EventLoggingTable') + ' where name="END_INVOCATION_TO_NWHIN"')[0]
-}</script></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
+}</script></con:config></con:testStep><con:testStep type="groovy" name="Verify HCIDs in Events"><con:settings/><con:config><script>import groovy.json.*
+
+context.withSql('eventdb') {sql ->
+	def nwhin_begin = sql.firstRow('select description from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_INVOCATION_TO_NWHIN"') 
+	def nwhin_end = sql.firstRow('select description from ' + context.findProperty('EventLoggingTable') + ' where name="END_INVOCATION_TO_NWHIN"')
+	def inbound_begin = sql.firstRow('select description from ' + context.findProperty('EventLoggingTable') + ' where name="BEGIN_INBOUND_MESSAGE"')
+	def inbound_end = sql.firstRow('select description from ' + context.findProperty('EventLoggingTable') + ' where name="END_INBOUND_MESSAGE"')
+
+	evaluateDescription(nwhin_begin.toString(), "BEGIN_INVOCATION_TO_NWHIN")
+	evaluateDescription(nwhin_end.toString(), "END_INVOCATION_TO_NWHIN")
+	evaluateDescription(inbound_begin.toString(), "BEGIN_INBOUND_MESSAGE")
+	evaluateDescription(inbound_end.toString(), "END_INBOUND_MESSAGE")
+}
+
+public evaluateDescription(String description, String name){
+	def slurper = new JsonSlurper()
+	def json_string = description.replaceFirst("description=","\"description\":")
+
+	def result = slurper.parseText(json_string);
+
+	assert result.description.responding_hcids.size() == 1
+	assert result.description.responding_hcids[0] != null
+	log.info "${name}, Responding HCID: " + result.description.responding_hcids[0]
+	
+	assert result.description.initiating_hcid != null
+	log.info "${name}, Initiator HCID: " + result.description.initiating_hcid
+}
+</script></con:config></con:testStep><con:setupScript>nhinc.FileUtils.backupConfiguration(context.findProperty('GatewayPropDir'), log);
 nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.project.resourceRoot), context.findProperty('GatewayPropDir'), log);</con:setupScript>
 <con:tearDownScript>nhinc.FileUtils.restoreConfiguration(context.findProperty('GatewayPropDir'), log);
 </con:tearDownScript>
 <con:properties>
 	<con:property>
 		<con:name>startDate</con:name>
-		<con:value>2013-07-22T03:20:44Z</con:value>
+		<con:value>2014-04-17T13:41:34Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>endDate</con:name>
-		<con:value>2013-07-22T03:30:44Z</con:value>
+		<con:value>2014-04-17T13:51:34Z</con:value>
 	</con:property>
 	<con:property>
 		<con:name>sigDate</con:name>
-		<con:value>07/22/2013 03:20:44</con:value>
+		<con:value>04/17/2014 13:41:34</con:value>
 	</con:property>
 	<con:property>
 		<con:name>expireDate</con:name>
-		<con:value>2013-08-21T00:00:00Z</con:value>
+		<con:value>2014-05-17T00:00:00Z</con:value>
 	</con:property>
 </con:properties>
 <con:reportParameters/>
@@ -8509,7 +8995,7 @@ nhinc.FileUtils.setG0ConnectionInfo(context.expand(context.testCase.testSuite.pr
 <con:setupScript/>
 <con:tearDownScript/>
 <con:reportParameters/>
-</con:testSuite><con:properties><con:property><con:name>AAMappingDB</con:name><con:value>assigningauthoritydb</con:value></con:property><con:property><con:name>AAMappingTable</con:name><con:value>aa_to_home_community_mapping</con:value></con:property><con:property><con:name>AsyncMsgDB</con:name><con:value>asyncmsgs</con:value></con:property><con:property><con:name>AsyncMsgTable</con:name><con:value>asyncmsgrepo</con:value></con:property><con:property><con:name>AuditRepoDB</con:name><con:value>auditrepo</con:value></con:property><con:property><con:name>AuditRepoTable</con:name><con:value>auditrepository</con:value></con:property><con:property><con:name>BirthTime</con:name><con:value>19630804</con:value></con:property><con:property><con:name>City</con:name><con:value>Melbourne</con:value></con:property><con:property><con:name>Country</con:name><con:value>US</con:value></con:property><con:property><con:name>DBHost</con:name><con:value>localhost</con:value></con:property><con:property><con:name>DBPass</con:name><con:value>nhincpass</con:value></con:property><con:property><con:name>DBPort</con:name><con:value>3306</con:value></con:property><con:property><con:name>DBUser</con:name><con:value>nhincuser</con:value></con:property><con:property><con:name>DeferredPatientDiscoveryReqMessageID</con:name><con:value>uuid:6666666666.66666.666.66</con:value></con:property><con:property><con:name>DOB</con:name><con:value>19800516</con:value></con:property><con:property><con:name>DQDocID</con:name><con:value>1.123401.55555</con:value></con:property><con:property><con:name>DQPatientID</con:name><con:value>D123401</con:value></con:property><con:property><con:name>DRDocID</con:name><con:value>1.123407.777777</con:value></con:property><con:property><con:name>DRRepoID</con:name><con:value>1</con:value></con:property><con:property><con:name>DynamicDQDocID</con:name><con:value>103.8.9284320.020.3590.75^1266324032288</con:value></con:property><con:property><con:name>Endpoint-DocQuery</con:name><con:value>http://localhost:8080/Gateway/DocumentQuery/2_0/EntityService/EntityDocQueryUnsecured</con:value></con:property><con:property><con:name>Endpoint-DocRetrieve</con:name><con:value>http://localhost:8080/Gateway/DocumentRetrieve/2_0/EntityService/EntityDocRetrieve</con:value></con:property><con:property><con:name>Endpoint-DSDeferredResp</con:name><con:value>http://localhost:8080/Gateway/DocumentSubmission/1_1/EntityService/EntityDocSubmissionDeferredResponseUnsecured</con:value></con:property><con:property><con:name>Endpoint-EntityAdminDist</con:name><con:value>http://localhost:8080/Gateway/AdminDistribution/1_0/AdministrativeDistribution_Service</con:value></con:property><con:property><con:name>Endpoint-EntityXDRRequest</con:name><con:value>http://localhost:8080/Gateway/DocumentSubmission/1_1/EntityService/EntityDocSubmissionDeferredRequestUnsecured</con:value></con:property><con:property><con:name>Endpoint-Notify</con:name><con:value>http://localhost:8080/Gateway/HIEM/2_0/EntityNotificationConsumer</con:value></con:property><con:property><con:name>Endpoint-PatientDiscovery</con:name><con:value>http://localhost:8080/Gateway/PatientDiscovery/1_0/EntityPatientDiscovery</con:value></con:property><con:property><con:name>Endpoint-PatientDiscoveryAsyncReq</con:name><con:value>http://localhost:8080/Gateway/PatientDiscovery/1_0/EntityService/EntityPatientDiscoveryDeferredRequestUnsecured</con:value></con:property><con:property><con:name>Endpoint-PatientDiscoveryAsyncResp</con:name><con:value>http://localhost:8080/Gateway/PatientDiscovery/1_0/EntityService/EntityPatientDiscoveryDeferredResponseUnsecured</con:value></con:property><con:property><con:name>Endpoint-Subscribe</con:name><con:value>http://localhost:8080/Gateway/HIEM/2_0/EntityNotificationProducer</con:value></con:property><con:property><con:name>Endpoint-Unsubscribe</con:name><con:value>http://localhost:8080/Gateway/HIEM/2_0/EntitySubscriptionManager</con:value></con:property><con:property><con:name>Endpoint-XDREntity</con:name><con:value>http://localhost:8080/Gateway/DocumentSubmission/1_1/EntityService/EntityDocSubmissionUnsecured</con:value></con:property><con:property><con:name>EventLoggingTable</con:name><con:value>event</con:value></con:property><con:property><con:name>ExpirationDate</con:name><con:value>20100520</con:value></con:property><con:property><con:name>FamilyName</con:name><con:value>Younger</con:value></con:property><con:property><con:name>GatewayPropDir</con:name><con:value>C:\glassfish3\glassfish\domains\domain1\config\nhin</con:value></con:property><con:property><con:name>Gender</con:name><con:value>M</con:value></con:property><con:property><con:name>GivenName</con:name><con:value>Gallow</con:value></con:property><con:property><con:name>LocalAA</con:name><con:value>1.1</con:value></con:property><con:property><con:name>LocalHCDescription</con:name><con:value>InternalTest1</con:value></con:property><con:property><con:name>LocalHCID</con:name><con:value>1.1</con:value></con:property><con:property><con:name>LocalPatientID</con:name><con:value>D123401</con:value></con:property><con:property><con:name>NotificationEndpoint</con:name><con:value>https://localhost:8181/Gateway/HIEM/2_0/NhinService/NotificationConsumerService/HiemNotify</con:value></con:property><con:property><con:name>NotifySubscriptionID</con:name><con:value>f2064549-c802-41be-bb0d-6319c6437072</con:value></con:property><con:property><con:name>NotifySubscriptionManagerEndpointAddress</con:name><con:value>https://localhost:8181/Gateway/HIEM/2_0/NhinService/SubscriptionManagerService/HiemUnsubscribe</con:value></con:property><con:property><con:name>PatientCorrelationDB</con:name><con:value>patientcorrelationdb</con:value></con:property><con:property><con:name>PatientCorrelationTable</con:name><con:value>correlatedidentifiers</con:value></con:property><con:property><con:name>project.name</con:name><con:value>EntityValidation</con:value></con:property><con:property><con:name>PurposeOfDisclosure</con:name><con:value>Mental</con:value></con:property><con:property><con:name>RemoteAA</con:name><con:value>2.2</con:value></con:property><con:property><con:name>RemoteHCDescription</con:name><con:value>InternalTest2</con:value></con:property><con:property><con:name>RemoteHCID</con:name><con:value>2.2</con:value></con:property><con:property><con:name>RemotePatientID</con:name><con:value>D123401</con:value></con:property><con:property><con:name>SSN</con:name><con:value>123456789</con:value></con:property><con:property><con:name>State</con:name><con:value>FL</con:value></con:property><con:property><con:name>StreetAddress</con:name><con:value>123 Johnson Rd</con:value></con:property><con:property><con:name>SubjectID</con:name><con:value>1111</con:value></con:property><con:property><con:name>SubscribePatientID</con:name><con:value>D123401</con:value></con:property><con:property><con:name>SubscriptionDB</con:name><con:value>subscriptionrepository</con:value></con:property><con:property><con:name>SubscriptionEndpoint</con:name><con:value>https://localhost:8181/Gateway/HIEM/2_0/NhinService/NotificationProducerService/HiemSubscription</con:value></con:property><con:property><con:name>SubscriptionManagerEndpointAddress</con:name><con:value>https://localhost:8181/Gateway/HIEM/2_0/NhinService/SubscriptionManagerService/HiemUnsubscribe</con:value></con:property><con:property><con:name>SubscriptionTable</con:name><con:value>subscription</con:value></con:property><con:property><con:name>UniquePatientId</con:name><con:value>1111^^^&amp;amp;1.1&amp;amp;ISO</con:value></con:property><con:property><con:name>UnSubscriptionID</con:name><con:value>664f3c6e-ea88-4dae-a88e-b58661d8c253</con:value></con:property><con:property><con:name>ZipCode</con:name><con:value>12345</con:value></con:property></con:properties><con:afterLoadScript>def propertiesFilename = project.path[0..(project.path.size()-4)] + 'properties'
+</con:testSuite><con:properties><con:property><con:name>AAMappingDB</con:name><con:value>assigningauthoritydb</con:value></con:property><con:property><con:name>AAMappingTable</con:name><con:value>aa_to_home_community_mapping</con:value></con:property><con:property><con:name>AsyncMsgDB</con:name><con:value>asyncmsgs</con:value></con:property><con:property><con:name>AsyncMsgTable</con:name><con:value>asyncmsgrepo</con:value></con:property><con:property><con:name>AuditRepoDB</con:name><con:value>auditrepo</con:value></con:property><con:property><con:name>AuditRepoTable</con:name><con:value>auditrepository</con:value></con:property><con:property><con:name>BirthTime</con:name><con:value>19630804</con:value></con:property><con:property><con:name>City</con:name><con:value>Melbourne</con:value></con:property><con:property><con:name>Country</con:name><con:value>US</con:value></con:property><con:property><con:name>DBHost</con:name><con:value>localhost</con:value></con:property><con:property><con:name>DBPass</con:name><con:value>nhincpass</con:value></con:property><con:property><con:name>DBPort</con:name><con:value>3306</con:value></con:property><con:property><con:name>DBUser</con:name><con:value>nhincuser</con:value></con:property><con:property><con:name>DeferredPatientDiscoveryReqMessageID</con:name><con:value>uuid:6666666666.66666.666.66</con:value></con:property><con:property><con:name>DOB</con:name><con:value>19800516</con:value></con:property><con:property><con:name>DQDocID</con:name><con:value>1.123401.55555</con:value></con:property><con:property><con:name>DQPatientID</con:name><con:value>D123401</con:value></con:property><con:property><con:name>DRDocID</con:name><con:value>1.123407.777777</con:value></con:property><con:property><con:name>DRRepoID</con:name><con:value>1</con:value></con:property><con:property><con:name>DynamicDQDocID</con:name><con:value>103.8.9284320.020.3590.75^1266324032288</con:value></con:property><con:property><con:name>Endpoint-DocQuery</con:name><con:value>http://localhost:8080/Gateway/DocumentQuery/2_0/EntityService/EntityDocQueryUnsecured</con:value></con:property><con:property><con:name>Endpoint-DocRetrieve</con:name><con:value>http://localhost:8080/Gateway/DocumentRetrieve/2_0/EntityService/EntityDocRetrieve</con:value></con:property><con:property><con:name>Endpoint-DSDeferredResp</con:name><con:value>http://localhost:8080/Gateway/DocumentSubmission/1_1/EntityService/EntityDocSubmissionDeferredResponseUnsecured</con:value></con:property><con:property><con:name>Endpoint-EntityAdminDist</con:name><con:value>http://localhost:8080/Gateway/AdminDistribution/1_0/AdministrativeDistribution_Service</con:value></con:property><con:property><con:name>Endpoint-EntityXDRRequest</con:name><con:value>http://localhost:8080/Gateway/DocumentSubmission/1_1/EntityService/EntityDocSubmissionDeferredRequestUnsecured</con:value></con:property><con:property><con:name>Endpoint-Notify</con:name><con:value>http://localhost:8080/Gateway/HIEM/2_0/EntityNotificationConsumer</con:value></con:property><con:property><con:name>Endpoint-PatientDiscovery</con:name><con:value>http://localhost:8080/Gateway/PatientDiscovery/1_0/EntityPatientDiscovery</con:value></con:property><con:property><con:name>Endpoint-PatientDiscoveryAsyncReq</con:name><con:value>http://localhost:8080/Gateway/PatientDiscovery/1_0/EntityService/EntityPatientDiscoveryDeferredRequestUnsecured</con:value></con:property><con:property><con:name>Endpoint-PatientDiscoveryAsyncResp</con:name><con:value>http://localhost:8080/Gateway/PatientDiscovery/1_0/EntityService/EntityPatientDiscoveryDeferredResponseUnsecured</con:value></con:property><con:property><con:name>Endpoint-Subscribe</con:name><con:value>http://localhost:8080/Gateway/HIEM/2_0/EntityNotificationProducer</con:value></con:property><con:property><con:name>Endpoint-Unsubscribe</con:name><con:value>http://localhost:8080/Gateway/HIEM/2_0/EntitySubscriptionManager</con:value></con:property><con:property><con:name>Endpoint-XDREntity</con:name><con:value>http://localhost:8080/Gateway/DocumentSubmission/1_1/EntityService/EntityDocSubmissionUnsecured</con:value></con:property><con:property><con:name>EventLoggingTable</con:name><con:value>event</con:value></con:property><con:property><con:name>ExpirationDate</con:name><con:value>20100520</con:value></con:property><con:property><con:name>FamilyName</con:name><con:value>Younger</con:value></con:property><con:property><con:name>GatewayPropDir</con:name><con:value/></con:property><con:property><con:name>Gender</con:name><con:value>M</con:value></con:property><con:property><con:name>GivenName</con:name><con:value>Gallow</con:value></con:property><con:property><con:name>LocalAA</con:name><con:value>1.1</con:value></con:property><con:property><con:name>LocalHCDescription</con:name><con:value>InternalTest1</con:value></con:property><con:property><con:name>LocalHCID</con:name><con:value>1.1</con:value></con:property><con:property><con:name>LocalPatientID</con:name><con:value>D123401</con:value></con:property><con:property><con:name>NotificationEndpoint</con:name><con:value>https://localhost:8181/Gateway/HIEM/2_0/NhinService/NotificationConsumerService/HiemNotify</con:value></con:property><con:property><con:name>NotifySubscriptionID</con:name><con:value>f2064549-c802-41be-bb0d-6319c6437072</con:value></con:property><con:property><con:name>NotifySubscriptionManagerEndpointAddress</con:name><con:value>https://localhost:8181/Gateway/HIEM/2_0/NhinService/SubscriptionManagerService/HiemUnsubscribe</con:value></con:property><con:property><con:name>PatientCorrelationDB</con:name><con:value>patientcorrelationdb</con:value></con:property><con:property><con:name>PatientCorrelationTable</con:name><con:value>correlatedidentifiers</con:value></con:property><con:property><con:name>project.name</con:name><con:value>EntityValidation</con:value></con:property><con:property><con:name>PurposeOfDisclosure</con:name><con:value>Mental</con:value></con:property><con:property><con:name>RemoteAA</con:name><con:value>2.2</con:value></con:property><con:property><con:name>RemoteHCDescription</con:name><con:value>InternalTest2</con:value></con:property><con:property><con:name>RemoteHCID</con:name><con:value>urn:oid:2.2</con:value></con:property><con:property><con:name>RemotePatientID</con:name><con:value>D123401</con:value></con:property><con:property><con:name>SSN</con:name><con:value>123456789</con:value></con:property><con:property><con:name>State</con:name><con:value>FL</con:value></con:property><con:property><con:name>StreetAddress</con:name><con:value>123 Johnson Rd</con:value></con:property><con:property><con:name>SubjectID</con:name><con:value>1111</con:value></con:property><con:property><con:name>SubscribePatientID</con:name><con:value>D123401</con:value></con:property><con:property><con:name>SubscriptionDB</con:name><con:value>subscriptionrepository</con:value></con:property><con:property><con:name>SubscriptionEndpoint</con:name><con:value>https://localhost:8181/Gateway/HIEM/2_0/NhinService/NotificationProducerService/HiemSubscription</con:value></con:property><con:property><con:name>SubscriptionManagerEndpointAddress</con:name><con:value>https://localhost:8181/Gateway/HIEM/2_0/NhinService/SubscriptionManagerService/HiemUnsubscribe</con:value></con:property><con:property><con:name>SubscriptionTable</con:name><con:value>subscription</con:value></con:property><con:property><con:name>UniquePatientId</con:name><con:value>1111^^^&amp;amp;1.1&amp;amp;ISO</con:value></con:property><con:property><con:name>UnSubscriptionID</con:name><con:value>664f3c6e-ea88-4dae-a88e-b58661d8c253</con:value></con:property><con:property><con:name>ZipCode</con:name><con:value>12345</con:value></con:property></con:properties><con:afterLoadScript>def propertiesFilename = project.path[0..(project.path.size()-4)] + 'properties'
 def propertiesFile = new File(propertiesFilename)
 if (propertiesFile.exists()) {
 	def props = new Properties()
