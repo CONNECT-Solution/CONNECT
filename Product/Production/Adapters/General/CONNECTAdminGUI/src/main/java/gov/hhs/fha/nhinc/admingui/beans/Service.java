@@ -12,26 +12,25 @@ import javax.faces.bean.SessionScoped;
  *
  * @author sadusumilli
  */
-@SessionScoped
+
 public class Service {
 	    
-        private Organization organization;
-	private int inboudvalue;
+        private int inboundvalue;
 	private int outboundvalue;
         private int inoutboundvalue;
-	private String servicename; // like pd, dq, dr, ds etc..
+	private String servicename; 
 	
-	public int getInboudvalue() {
-		return inboudvalue;
+	public int getInboundvalue() {
+		return inboundvalue;
 	}
-	public void setInboudvalue(int inboudvalue) {
-		this.inboudvalue = inboudvalue;
+	public void setInboundvalue(int inboundvalue) {
+		this.inboundvalue = inboundvalue;
 	}
         
-        public int getInoutboudvalue() {
+        public int getInoutboundvalue() {
 		return inoutboundvalue;
 	}
-	public void setInoutboudvalue(int inoutboundvalue) {
+	public void setInoutboundvalue(int inoutboundvalue) {
 		this.inoutboundvalue = inoutboundvalue;
 	}
         
@@ -47,12 +46,5 @@ public class Service {
 	public void setServicename(String servicename) {
 		this.servicename = servicename;
 	}
-        
-        public void setOrganization(Organization organization) {
-            this.organization = organization;
-        }
-        
-        public Organization getOrganization() {
-            return organization;
-        }
 }
+       

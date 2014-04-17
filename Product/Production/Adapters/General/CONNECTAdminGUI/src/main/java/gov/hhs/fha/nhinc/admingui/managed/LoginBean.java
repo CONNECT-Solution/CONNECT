@@ -149,7 +149,7 @@ public class LoginBean {
         if (login()) {
             this.isCorrect = true;
             //return "PatientSearch";
-            return "Dashboard";
+            return "status";
         } else {
             this.isCorrect = false;
             msg = new FacesMessage(FacesMessage.SEVERITY_ERROR, "User details are not valid...!!!", userName);

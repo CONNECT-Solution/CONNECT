@@ -1,5 +1,5 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 
@@ -262,48 +262,42 @@
                                         var="organization" styleClass="table table-striped table-remotegateways">
                                         <h:column>
                                             <f:facet name="header">HCID</f:facet>
-                                            <h:outputText value="#{organization.HCID}" />
+                                            <h:outputText value="#{organization.hcidName}" />
                                         </h:column>
 
                                         <h:column>
                                             <f:facet name="header">PD</f:facet>
-                                            <h:outputText value="#{organization.PDCount}" />
+                                            <h:outputText value="#{organization.PD.inoutboundvalue}" />
                                         </h:column>
 
                                         <h:column>
-                                            <f:facet name="header">DQ
-                                            </f:facet>
-                                            <h:outputText value="#{organization.DQCount}" />
+                                            <f:facet name="header">DQ</f:facet>
+                                            <h:outputText value="#{organization.DQ.inoutboundvalue}" />
                                         </h:column>
 
                                         <h:column>
-                                            <f:facet name="header">DR
-                                            </f:facet>
-                                            <h:outputText value="#{organization.DRCount}" />
+                                            <f:facet name="header">DR</f:facet>
+                                            <h:outputText value="#{organization.DR.inoutboundvalue}" />
                                         </h:column>
 
                                         <h:column>
-                                            <f:facet name="header">DS
-                                            </f:facet>
-                                            <h:outputText value="#{organization.DSCount}" />
+                                            <f:facet name="header">DS</f:facet>
+                                            <h:outputText value="#{organization.DS.inoutboundvalue}" />
                                         </h:column>
 
                                         <h:column>
-                                            <f:facet name="header">AD
-                                            </f:facet>
-                                            <h:outputText value="#{organization.ADCount}" />
+                                            <f:facet name="header">AD</f:facet>
+                                            <h:outputText value="#{organization.AD.inoutboundvalue}" />
                                         </h:column>
 
                                         <h:column>
-                                            <f:facet name="header">Direct
-                                            </f:facet>
-                                            <h:outputText value="#{organization.directCount}" />
+                                            <f:facet name="header">Direct</f:facet>
+                                            <h:outputText value="#{organization.direct.inoutboundvalue}" />
                                         </h:column>
 
                                         <h:column>
-                                            <f:facet name="header">Total
-                                            </f:facet>
-                                            <h:outputText value="#{organization.totalCount}" />
+                                            <f:facet name="header">Total</f:facet>
+                                            <h:outputText value="#{organization.totalInOutBoundValue}" />
                                         </h:column>
 
                                     </h:dataTable>

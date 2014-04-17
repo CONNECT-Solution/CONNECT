@@ -19,8 +19,8 @@
     <navigation-rule>
         <from-view-id>/Login.xhtml</from-view-id>
         <navigation-case>
-            <from-outcome>Dashboard</from-outcome>
-            <to-view-id>/Dashboard.xhtml</to-view-id>
+            <from-outcome>status</from-outcome>
+            <to-view-id>/status.xhtml</to-view-id>
         </navigation-case>
     </navigation-rule>
 </faces-config>

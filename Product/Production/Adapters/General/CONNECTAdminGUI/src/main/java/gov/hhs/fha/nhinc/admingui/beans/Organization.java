@@ -3,10 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package gov.hhs.fha.nhinc.admingui.beans;
 
 import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
 import javax.faces.bean.SessionScoped;
 
 /**
@@ -15,188 +16,74 @@ import javax.faces.bean.SessionScoped;
  */
 @SessionScoped
 public class Organization {
-	
-        private String hcidName;
-    
-	private Service[] services;
-        
-        private Service service1;
-        private Service service2;
-        private Service service3;
-        private Service service4;
-        private Service service5;
-        
-        private String service1Name;
-        private int service1InOutBoundValue;
-        
-        private String service2Name;
-        private int service2InOutBoundValue;
-        
-        private String service3Name;
-        private int service3InOutBoundValue;
-        
-        private String service4Name;
-        private int service4InOutBoundValue;
-        
-        private String service5Name;
-        private int service5InOutBoundValue;
-        
-        private int totalInOutBoundValue;
-        
-        public void setService1(Service service) {
-            service1 = service;
-        }
-        
-        public Service getService1() {
-            return service1;
-        }
-        
-        public void setService2(Service service) {
-            service2 = service;
-        }
-        
-        public Service getService2() {
-            return service2;
-        }
-        
-        public void setService3(Service service) {
-            service3 = service;
-        }
-        
-        public Service getService3() {
-            return service3;
-        }
-        
-        public void setService4(Service service) {
-            service4 = service;
-        }
-        
-        public Service getService4() {
-            return service4;
-        }
 
-	public Service[] getServices() {
-		return services;
-	}
+    private String hcidName;
 
-	public void setServices(Service[] services) {
-            this.setServices(services);
-	}
+    public enum servicesEnum {PD, DQ, DR, DS, AD, Direct};
+    private Map<servicesEnum, Service> serviceMap = null;
 
-        public void setHcidName(String hcidName) {
-            this.hcidName = hcidName;
-                
-        }
+    public Organization() {
         
-        public String getHcidName() {
-            return this.hcidName;
-        }
-  
+        serviceMap = new HashMap();
+        Service PDService = new Service();
+        Service DQService = new Service();
+        Service DRService = new Service();
+        Service DSService = new Service();
+        Service ADService = new Service();
+        Service DirectService = new Service();
+
+        serviceMap.put(servicesEnum.PD, PDService);
+        serviceMap.put(servicesEnum.DQ, DQService);
+        serviceMap.put(servicesEnum.DR, DRService);
+        serviceMap.put(servicesEnum.DS, DSService);
+        serviceMap.put(servicesEnum.AD, ADService);
+        serviceMap.put(servicesEnum.Direct, DirectService);
+
+    } 
    
+    private Service[] services;
+    private Service PD;
+    private Service DQ; 
+    private Service DR; 
+    private Service DS; 
+    private Service AD; 
+    private Service Direct; 
 
-    /**
-     * @param service1Name the service1Name to set
-     */
-    public void setService1Name(String service1Name) {
-        this.service1Name = service1Name;
+    private String PDName; 
+    private int pdInOutBoundValue; 
+
+    private String DQName; 
+    private int dqInOutBoundValue;
+
+    private String DRName; 
+    private int drInOutBoundValue;
+
+    private String DSName; 
+    private int dsInOutBoundValue;
+
+    private String ADName; 
+    private int adInOutBoundValue;
+    
+    private String DirectName;
+    private int directInOutBoundValue;
+
+    private int totalInOutBoundValue;
+
+    public Service[] getServices() {
+        return services;
     }
 
-    /**
-     * @return the service1InOutBoundValue
-     */
-    public int getService1InOutBoundValue() {
-        return service1InOutBoundValue;
+    public void setServices(Service[] services) {
+        this.setServices(services);
     }
 
-    /**
-     * @param service1InOutBoundValue the service1InOutBoundValue to set
-     */
-    public void setService1InOutBoundValue(int service1InOutBoundValue) {
-        this.service1InOutBoundValue = service1InOutBoundValue;
+    public void setHcidName(String hcidName) {
+        this.hcidName = hcidName;
+
     }
 
-    /**
-     * @return the service2Name
-     */
-    public String getService2Name() {
-        return service2Name;
-    }
-
-    /**
-     * @param service2Name the service2Name to set
-     */
-    public void setService2Name(String service2Name) {
-        this.service2Name = service2Name;
-    }
-
-    /**
-     * @return the service2InOutBoundValue
-     */
-    public int getService2InOutBoundValue() {
-        return service2InOutBoundValue;
-    }
-
-    /**
-     * @param service2InOutBoundValue the service2InOutBoundValue to set
-     */
-    public void setService2InOutBoundValue(int service2InOutBoundValue) {
-        this.service2InOutBoundValue = service2InOutBoundValue;
-    }
-
-    /**
-     * @return the service3Name
-     */
-    public String getService3Name() {
-        return service3Name;
-    }
-
-    /**
-     * @param service3Name the service3Name to set
-     */
-    public void setService3Name(String service3Name) {
-        this.service3Name = service3Name;
-    }
-
-    /**
-     * @return the service3InOutBoundValue
-     */
-    public int getService3InOutBoundValue() {
-        return service3InOutBoundValue;
-    }
-
-    /**
-     * @param service3InOutBoundValue the service3InOutBoundValue to set
-     */
-    public void setService3InOutBoundValue(int service3InOutBoundValue) {
-        this.service3InOutBoundValue = service3InOutBoundValue;
-    }
-
-    /**
-     * @return the service4Name
-     */
-    public String getService4Name() {
-        return service4Name;
-    }
-
-    /**
-     * @param service4Name the service4Name to set
-     */
-    public void setService4Name(String service4Name) {
-        this.service4Name = service4Name;
-    }
-
-    /**
-     * @return the service4InOutBoundValue
-     */
-    public int getService4InOutBoundValue() {
-        return service4InOutBoundValue;
-    }
-
-    /**
-     * @param service4InOutBoundValue the service4InOutBoundValue to set
-     */
-    public void setService4InOutBoundValue(int service4InOutBoundValue) {
-        this.service4InOutBoundValue = service4InOutBoundValue;
+    public String getHcidName() {
+        return this.hcidName;
     }
 
     /**
@@ -212,53 +99,271 @@ public class Organization {
     public void setTotalInOutBoundValue(int totalInOutBoundValue) {
         this.totalInOutBoundValue = totalInOutBoundValue;
     }
-
     /**
-     * @return the service5Name
+     * @return the Direct
      */
-    public String getService5Name() {
-        return service5Name;
+    public Service getDirect() {
+        return Direct;
     }
 
     /**
-     * @param service5Name the service5Name to set
+     * @param Direct the Direct to set
      */
-    public void setService5Name(String service5Name) {
-        this.service5Name = service5Name;
+    public void setDirect(Service Direct) {
+        this.Direct = Direct;
     }
 
     /**
-     * @return the service5InOutBoundValue
+     * @return the PD
      */
-    public int getService5InOutBoundValue() {
-        return service5InOutBoundValue;
+    public Service getPD() {
+        return PD;
     }
 
     /**
-     * @param service5InOutBoundValue the service5InOutBoundValue to set
+     * @param PD the PD to set
      */
-    public void setService5InOutBoundValue(int service5InOutBoundValue) {
-        this.service5InOutBoundValue = service5InOutBoundValue;
+    public void setPD(Service PD) {
+        this.PD = PD;
     }
 
     /**
-     * @return the service5
+     * @return the DQ
      */
-    public Service getService5() {
-        return service5;
+    public Service getDQ() {
+        return DQ;
     }
 
     /**
-     * @param service5 the service5 to set
+     * @param DQ the DQ to set
      */
-    public void setService5(Service service5) {
-        this.service5 = service5;
+    public void setDQ(Service DQ) {
+        this.DQ = DQ;
     }
 
     /**
-     * @return the service1Name
+     * @return the DR
      */
-    public String getService1Name() {
-        return service1Name;
+    public Service getDR() {
+        return DR;
+    }
+
+    /**
+     * @param DR the DR to set
+     */
+    public void setDR(Service DR) {
+        this.DR = DR;
+    }
+
+    /**
+     * @return the DS
+     */
+    public Service getDS() {
+        return DS;
+    }
+
+    /**
+     * @param DS the DS to set
+     */
+    public void setDS(Service DS) {
+        this.DS = DS;
+    }
+
+    /**
+     * @return the AD
+     */
+    public Service getAD() {
+        return AD;
+    }
+
+    /**
+     * @param AD the AD to set
+     */
+    public void setAD(Service AD) {
+        this.AD = AD;
+    }
+
+    /**
+     * @return the PDName
+     */
+    public String getPDName() {
+        return PDName;
+    }
+
+    /**
+     * @param PDName the PDName to set
+     */
+    public void setPDName(String PDName) {
+        this.PDName = PDName;
+    }
+
+    /**
+     * @return the pdInOutBoundValue
+     */
+    public int getPdInOutBoundValue() {
+        return pdInOutBoundValue;
+    }
+
+    /**
+     * @param pdInOutBoundValue the pdInOutBoundValue to set
+     */
+    public void setPdInOutBoundValue(int pdInOutBoundValue) {
+        this.pdInOutBoundValue = pdInOutBoundValue;
+    }
+
+    /**
+     * @return the DQName
+     */
+    public String getDQName() {
+        return DQName;
+    }
+
+    /**
+     * @param DQName the DQName to set
+     */
+    public void setDQName(String DQName) {
+        this.DQName = DQName;
+    }
+
+    /**
+     * @return the dqInOutBoundValue
+     */
+    public int getDqInOutBoundValue() {
+        return dqInOutBoundValue;
+    }
+
+    /**
+     * @param dqInOutBoundValue the dqInOutBoundValue to set
+     */
+    public void setDqInOutBoundValue(int dqInOutBoundValue) {
+        this.dqInOutBoundValue = dqInOutBoundValue;
+    }
+
+    /**
+     * @return the DRName
+     */
+    public String getDRName() {
+        return DRName;
+    }
+
+    /**
+     * @param DRName the DRName to set
+     */
+    public void setDRName(String DRName) {
+        this.DRName = DRName;
+    }
+
+    /**
+     * @return the drInOutBoundValue
+     */
+    public int getDrInOutBoundValue() {
+        return drInOutBoundValue;
+    }
+
+    /**
+     * @param drInOutBoundValue the drInOutBoundValue to set
+     */
+    public void setDrInOutBoundValue(int drInOutBoundValue) {
+        this.drInOutBoundValue = drInOutBoundValue;
+    }
+
+    /**
+     * @return the DSName
+     */
+    public String getDSName() {
+        return DSName;
+    }
+
+    /**
+     * @param DSName the DSName to set
+     */
+    public void setDSName(String DSName) {
+        this.DSName = DSName;
+    }
+
+    /**
+     * @return the dsInOutBoundValue
+     */
+    public int getDsInOutBoundValue() {
+        return dsInOutBoundValue;
+    }
+
+    /**
+     * @param dsInOutBoundValue the dsInOutBoundValue to set
+     */
+    public void setDsInOutBoundValue(int dsInOutBoundValue) {
+        this.dsInOutBoundValue = dsInOutBoundValue;
+    }
+
+    /**
+     * @return the ADName
+     */
+    public String getADName() {
+        return ADName;
+    }
+
+    /**
+     * @param ADName the ADName to set
+     */
+    public void setADName(String ADName) {
+        this.ADName = ADName;
+    }
+
+    /**
+     * @return the DirectName
+     */
+    public String getDirectName() {
+        return DirectName;
+    }
+
+    /**
+     * @param DirectName the DirectName to set
+     */
+    public void setDirectName(String DirectName) {
+        this.DirectName = DirectName;
+    }
+
+    /**
+     * @return the directInOutBoundValue
+     */
+    public int getDirectInOutBoundValue() {
+        return directInOutBoundValue;
+    }
+
+    /**
+     * @param directInOutBoundValue the directInOutBoundValue to set
+     */
+    public void setDirectInOutBoundValue(int directInOutBoundValue) {
+        this.directInOutBoundValue = directInOutBoundValue;
+    }
+
+    /**
+     * @return the adInOutBoundValue
+     */
+    public int getAdInOutBoundValue() {
+        return adInOutBoundValue;
+    }
+
+    /**
+     * @param adInOutBoundValue the adInOutBoundValue to set
+     */
+    public void setAdInOutBoundValue(int adInOutBoundValue) {
+        this.adInOutBoundValue = adInOutBoundValue;
+    }
+
+    /**
+     * @return the serviceMap
+     */
+    public Map<servicesEnum, Service> getServiceMap() {
+        return serviceMap;
+    }
+
+    /**
+     * @param serviceMap the serviceMap to set
+     */
+    public void setServiceMap(Map<servicesEnum, Service> serviceMap) {
+        this.serviceMap = serviceMap;
     }
 }
+
+
