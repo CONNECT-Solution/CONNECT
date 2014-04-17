@@ -7,8 +7,9 @@ CREATE DATABASE configdb;
 
 CREATE TABLE IF NOT EXISTS configdb.domain (
     id SERIAL PRIMARY KEY,
+    postmasterAddressId BIGINT,
     domainName VARCHAR(255) NOT NULL,
-    status BOOLEAN NOT NULL DEFAULT TRUE,
+    status INTEGER DEFAULT 0,
     createTime DATETIME NOT NULL,
     updateTime DATETIME
 );
@@ -23,7 +24,7 @@ CREATE TABLE IF NOT EXISTS configdb.address (
     displayName VARCHAR(100),
     endpoint VARCHAR(255),
     type VARCHAR(4),
-    status BOOLEAN NOT NULL DEFAULT TRUE,
+    status INTEGER DEFAULT 0,
     createTime DATETIME NOT NULL,
     updateTime DATETIME,
 
@@ -50,7 +51,7 @@ CREATE TABLE IF NOT EXISTS configdb.anchor (
     validEndDate DATETIME NOT NULL,
     forIncoming BOOLEAN NOT NULL DEFAULT TRUE,
     forOutgoing BOOLEAN NOT NULL DEFAULT TRUE,
-    status BOOLEAN NOT NULL DEFAULT TRUE,
+    status INTEGER DEFAULT 0,
     createTime DATETIME NOT NULL
 );
 
@@ -66,7 +67,7 @@ CREATE TABLE IF NOT EXISTS configdb.certificate (
     validStartDate DATETIME NOT NULL,
     validEndDate DATETIME NOT NULL,
     privateKey BOOLEAN NOT NULL DEFAULT FALSE,
-    status BOOLEAN NOT NULL DEFAULT TRUE,
+    status INTEGER DEFAULT 0,
     createTime DATETIME NOT NULL
 );
 
@@ -78,6 +79,7 @@ CREATE TABLE IF NOT EXISTS configdb.setting (
     id SERIAL PRIMARY KEY,
     name VARCHAR(255),
     value VARCHAR(4096),
+    status INTEGER DEFAULT 0,
     createTime DATETIME NOT NULL,
     updateTime DATETIME
 );

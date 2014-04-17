@@ -5,22 +5,33 @@
        xmlns:context="http://www.springframework.org/schema/context"
        xmlns:jaxws="http://cxf.apache.org/jaxws"
        xmlns:util="http://www.springframework.org/schema/util"
+       xmlns:jee="http://www.springframework.org/schema/jee"
        xsi:schemaLocation="
         http://www.springframework.org/schema/beans    http://www.springframework.org/schema/beans/spring-beans.xsd
         http://www.springframework.org/schema/context  http://www.springframework.org/schema/context/spring-context-3.0.xsd 
         http://www.springframework.org/schema/tx       http://www.springframework.org/schema/tx/spring-tx.xsd
         http://cxf.apache.org/jaxws                    http://cxf.apache.org/schemas/jaxws.xsd
         http://camel.apache.org/schema/spring          http://camel.apache.org/schema/spring/camel-spring.xsd
-        http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd"
+        http://www.springframework.org/schema/util     http://www.springframework.org/schema/util/spring-util-3.0.xsd
+        http://www.springframework.org/schema/jee      http://www.springframework.org/schema/jee/spring-jee-3.0.xsd"
     default-autowire="byName">
 
     <import resource="classpath:META-INF/cxf/cxf.xml" />
-    <import resource="classpath:META-INF/cxf/cxf-extension-soap.xml" />
     <import resource="classpath:META-INF/cxf/cxf-servlet.xml" />
 
     <context:component-scan base-package="gov.hhs.fha.nhinc.directconfig" />
     
     <tx:annotation-driven />
+    
+    <bean id="sessionFactory" class="org.springframework.orm.hibernate3.LocalSessionFactoryBean">
+        <property name="dataSource" ref="dataSource"></property>
+        <property name="configLocation">
+            <value>/WEB-INF/hibernate.cfg.xml</value>
+        </property>
+        <property name="configurationClass">
+            <value>org.hibernate.cfg.AnnotationConfiguration</value>
+        </property>
+    </bean>
     
     <bean id="transactionManager" class="org.springframework.orm.hibernate3.HibernateTransactionManager">
         <property name="sessionFactory" ref="sessionFactory" />
@@ -30,56 +41,48 @@
 
     <jaxws:endpoint id="configurationService" address="/ConfigurationService">
         <jaxws:implementor>
-            <bean id="configurationServiceImpl" class="org.nhindirect.config.service.impl.ConfigurationServiceImpl">
+            <bean id="configurationServiceImpl" class="gov.hhs.fha.nhinc.directconfig.service.impl.ConfigurationServiceImpl">
                 <property name="domainSvc" ref="domainSvc" />
                 <property name="addressSvc" ref="addressSvc" />
                 <property name="anchorSvc" ref="anchorSvc" />
                 <property name="certSvc" ref="certSvc" />
                 <property name="settingSvc" ref="settingSvc" />
-                <property name="DNSSvc" ref="dnsSvc" />
                 <property name="trustBundleSvc" ref="trustBundleSvc" />
-                <property name="certificatePolicySvc" ref="certificatePolicySvc" />
             </bean>
         </jaxws:implementor>
     </jaxws:endpoint>
 
-    <context:property-placeholder location="classpath:properties/config.properties" />
+    <!--context:property-placeholder location="classpath:properties/config.properties" /-->
 
     <!-- Service Implementations -->
-    <bean id="domainSvc" class="org.nhindirect.config.service.impl.DomainServiceImpl">
+    <bean id="domainSvc" class="gov.hhs.fha.nhinc.directconfig.service.impl.DomainServiceImpl">
         <property name="dao" ref="domainDao" />
     </bean>
-    <bean id="addressSvc" class="org.nhindirect.config.service.impl.AddressServiceImpl">
+    <bean id="addressSvc" class="gov.hhs.fha.nhinc.directconfig.service.impl.AddressServiceImpl">
         <property name="dao" ref="addressDao" />
     </bean>
-    <bean id="anchorSvc" class="org.nhindirect.config.service.impl.AnchorServiceImpl">
+    <bean id="anchorSvc" class="gov.hhs.fha.nhinc.directconfig.service.impl.AnchorServiceImpl">
         <property name="dao" ref="anchorDao" />
     </bean>
-    <bean id="certSvc" class="org.nhindirect.config.service.impl.CertificateServiceImpl">
+    <bean id="certSvc" class="gov.hhs.fha.nhinc.directconfig.service.impl.CertificateServiceImpl">
         <property name="dao" ref="certificateDao" />
     </bean>
-    <bean id="settingSvc" class="org.nhindirect.config.service.impl.SettingServiceImpl">
+    <bean id="settingSvc" class="gov.hhs.fha.nhinc.directconfig.service.impl.SettingServiceImpl">
         <property name="dao" ref="settingDao" />
     </bean>
-    <bean id="dnsSvc" class="org.nhindirect.config.service.impl.DNSServiceImpl">
-        <property name="dao" ref="dnsDao" />
-    </bean>
-    <bean id="trustBundleSvc" class="org.nhindirect.config.service.impl.TrustBundleServiceImpl">
+    <bean id="trustBundleSvc" class="gov.hhs.fha.nhinc.directconfig.service.impl.TrustBundleServiceImpl">
         <property name="dao" ref="trustBundleDao" />
-    </bean>
-    <bean id="certificatePolicySvc" class="org.nhindirect.config.service.impl.CertificatePolicyServiceImpl">
-        <property name="dao" ref="certPolicyDao" />
     </bean>
 
     <!-- Exception translation bean post processor -->
     <!--bean class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor" /-->
 
     <!-- Camel Context for cache update and trust bundle processors -->
-    <bean id="bundleRefreshProcessor" class="org.nhindirect.config.processor.impl.DefaultBundleRefreshProcessorImpl">
+    <bean id="bundleRefreshProcessor" class="gov.hhs.fha.nhinc.directconfig.processor.impl.DefaultBundleRefreshProcessorImpl">
         <property name="dao" ref="trustBundleDao" />
     </bean>
 
-    <bean id="bundleCacheUpdateProcessor" class="org.nhindirect.config.processor.impl.DefaultBundleCacheUpdateProcessorImpl">
+    <bean id="bundleCacheUpdateProcessor" class="gov.hhs.fha.nhinc.directconfig.processor.impl.DefaultBundleCacheUpdateProcessorImpl">
         <property name="dao" ref="trustBundleDao" />
         <property name="refreshProcessor" ref="bundleRefreshProcessor" />
     </bean>
@@ -97,28 +100,4 @@
             <bean ref="bundleCacheUpdateProcessor" />
         </route>
     </camelContext>
-
-    <!-- Protection manager for private keys stored in the certificate table. Passphrases are set as the contructor parameters 
-        using the Bootstrapped manager -->
-    <bean id="keyStoreProtectionManager" class="org.nhindirect.common.crypto.impl.BootstrappedKeyStoreProtectionManager">
-        <constructor-arg index="0" value="${certstore.protection.keyStorePassPhrase}" />
-        <constructor-arg index="1" value="${certstore.protection.privateKeyPassPhrase}" />
-    </bean>
-
-    <!-- Servlet filter config for BasicAuth. Using a DirectProject RI implementation instead of container security -->
-
-    <bean id="BasicAuthStore" class="org.nhindirect.common.rest.auth.impl.BootstrapBasicAuthCredentialStore">
-        <property name="credentialsAsProperties">
-            <util:properties location="classpath:properties/basicAuthCredentials.properties" />
-        </property>
-    </bean>
-
-    <bean id="AuthValidator" class="org.nhindirect.common.rest.auth.impl.HashableBasicAuthValidator">
-        <property name="authStore" ref="BasicAuthStore" />
-        <property name="hashType" value="SHA256" />
-    </bean>
-
-    <bean id="DirectBasicAuthFilter" class="org.nhindirect.common.rest.auth.impl.BasicAuthFilter">
-        <property name="basicAuthValidator" ref="AuthValidator" />
-    </bean>
 </beans>
