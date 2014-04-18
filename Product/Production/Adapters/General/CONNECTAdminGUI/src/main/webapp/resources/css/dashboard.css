@@ -12,9 +12,10 @@ body {
 
 /* -- SIDEBAR STYLES ---------------------------------------------------------*/
 .sidebar {
-	height:100%;
+	height:auto;
 	padding-left:0px;
 	padding-right:0px;
+	padding-bottom:30px;
 	background:#10253f;
 }
 .sidebar h1.page-header {
@@ -35,6 +36,9 @@ body {
 	text-transform:uppercase;
 	border-bottom:1px solid #283b53;
 }
+.sidebar h2.section-header a {
+	color:#808080;
+}
 .sidebar ul.nav li {
 	background:#10253f;
 }
@@ -48,12 +52,12 @@ body {
 	background:#0c1c2f;
 	color:#ffffff;
 }
-.sidebar ul.nav li a.active {
+.sidebar ul.nav li.active, .sidebar ul.nav li.active a {
 	background:#0c1c2f;
 	color:#ffffff;
 	font-weight:bold;
 }
-.sidebar ul.nav.sidebar-orange li a.active:before {
+.sidebar ul.nav.sidebar-orange li.active a:before {
 	content:"";
 	position:absolute;
 	top:0;
@@ -62,7 +66,7 @@ body {
 	height:100%;
 	background:#e46c0a;
 }
-.sidebar ul.nav.sidebar-purple li a.active:before {
+.sidebar ul.nav.sidebar-purple li.active a:before {
 	content:"";
 	position:absolute;
 	top:0;
@@ -71,7 +75,7 @@ body {
 	height:100%;
 	background:#8064a2;
 }
-.sidebar ul.nav.sidebar-blue li a.active:before {
+.sidebar ul.nav.sidebar-blue li.active a:before {
 	content:"";
 	position:absolute;
 	top:0;
@@ -284,21 +288,51 @@ body {
 	padding:15px;
 	background:#ffffff;
 }
-.main-content .table-remotegateways th {
-	font-size:14px;
+
+.table-button-row {
+	padding-bottom:10px;
+	text-align:right;
 }
-.main-content .table-remotegateways td {
-	font-size:17px;
-}
+
 .main-content .table-remotegateways {
 	margin-bottom:5px;
 	border-bottom: 2px solid #ddd;
 }
+.main-content .table-remotegateways th {
+	font-size:14px;
+}
+.main-content .table-remotegateways td {
+	border-left: 1px solid #ddd;
+	font-size:17px;
+}
 .main-content .table-remotegateways td:first-child {
+	border-left:none;
 	font-weight:bold;
 }
 .main-content .table-remotegateways td:first-child +td+td+td+td+td+td+td {
 	font-weight:bold;
+}
+
+.main-content .table-logs {
+	margin-bottom:5px;
+	border-bottom: 2px solid #ddd;
+}
+.main-content .table-logs th {
+	font-size:14px;
+	white-space:nowrap;
+}
+.main-content .table-logs td {
+	font-size:17px;
+}
+.main-content .table-logs td:first-child {
+	font-weight:bold;
+	white-space:nowrap;
+}
+.main-content .table-logs td:first-child +td, .main-content .table-logs td:first-child +td+td, .main-content .table-logs td:first-child +td+td+td+td {
+	white-space:nowrap;
+}
+.main-content .table-logs td:first-child +td, .main-content .table-logs td:first-child +td+td, .main-content .table-logs td:first-child +td+td+td {
+	border-left: 1px solid #ddd;
 }
 
 
@@ -375,7 +409,7 @@ body {
 		line-height:30px;
 	}
 	.nav-section-tabs ul.nav li a {
-		padding:0px 15px;
+		padding:10px 15px;
 		font-size:14px;
 	}
 	.main h2.subsection-header {
@@ -387,7 +421,7 @@ body {
 		width:120px;
 	}
 	.nav-section-tabs ul.nav li a {
-		padding:5px 13px;
+		padding:7px 13px;
 		font-size:13px;
 	}
 }
@@ -737,7 +771,8 @@ table.table-documents td .document-detail {
 }
 .navbar-nav > li > a {
   padding:0px 15px !important; /* 15px */
-  line-height:50px; /*  */
+  height:50px; /*  */
+  line-height:50px;
 }
 
 /* Redeclare since we override the float above */
