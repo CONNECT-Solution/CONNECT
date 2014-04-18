@@ -8,6 +8,7 @@ import javax.jws.WebParam;
 import gov.hhs.fha.nhinc.directconfig.entity.CertPolicy;
 import gov.hhs.fha.nhinc.directconfig.entity.CertPolicyGroup;
 import gov.hhs.fha.nhinc.directconfig.entity.CertPolicyGroupDomainReltn;
+import gov.hhs.fha.nhinc.directconfig.service.ConfigurationServiceException;
 import gov.hhs.fha.nhinc.directconfig.entity.helpers.CertPolicyUse;
 import org.nhindirect.policy.PolicyLexicon;
 

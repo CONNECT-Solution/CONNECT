@@ -19,7 +19,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.context.support.SpringBeanAutowiringSupport;
 
 @Service
-@WebService(endpointInterface = "org.nhindirect.config.service.CertificatePolicyServiceImpl")
+@WebService(endpointInterface = "gov.hhs.fha.nhinc.directconfig.service.CertificatePolicyServiceImpl")
 public class CertificatePolicyServiceImpl extends SpringBeanAutowiringSupport implements CertificatePolicyService
 {
     private static final Log log = LogFactory.getLog(CertificatePolicyServiceImpl.class);

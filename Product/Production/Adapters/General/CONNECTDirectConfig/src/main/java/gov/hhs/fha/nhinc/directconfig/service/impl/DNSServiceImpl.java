@@ -27,6 +27,7 @@ import javax.jws.WebService;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+
 import gov.hhs.fha.nhinc.directconfig.service.ConfigurationServiceException;
 import gov.hhs.fha.nhinc.directconfig.service.DNSService;
 import gov.hhs.fha.nhinc.directconfig.entity.DNSRecord;
@@ -41,7 +42,7 @@ import org.springframework.web.context.support.SpringBeanAutowiringSupport;
  * @since 1.1
  */
 @Service
-@WebService(endpointInterface = "org.nhindirect.config.service.DNSService")
+@WebService(endpointInterface = "gov.hhs.fha.nhinc.directconfig.service.DNSService")
 public class DNSServiceImpl extends SpringBeanAutowiringSupport implements DNSService
 {
 	private static final Log log = LogFactory.getLog(DNSServiceImpl.class);
