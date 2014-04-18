@@ -18,26 +18,23 @@ package gov.hhs.fha.nhinc.directconfig.dao.impl;
 
 import gov.hhs.fha.nhinc.directconfig.dao.DNSDao;
 import gov.hhs.fha.nhinc.directconfig.entity.DNSRecord;
-import gov.hhs.fha.nhinc.directconfig.exception.ConfigurationStoreException;
+//import gov.hhs.fha.nhinc.directconfig.exception.ConfigurationStoreException;
 
-import java.util.ArrayList;
-import java.util.Calendar;
+//import java.util.ArrayList;
+//import java.util.Calendar;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
-import java.util.Locale;
-
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
+//import java.util.Locale;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hibernate.SessionFactory;
-import org.hibernate.Query;
+//import org.hibernate.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
-import org.xbill.DNS.Type;
+//import org.xbill.DNS.Type;
 
 /**
  * JPA implementation of the DNSDao interface.
@@ -58,47 +55,46 @@ public class DNSDaoImpl implements DNSDao {
     @Transactional(readOnly = false)
 	public void add(Collection<DNSRecord> records) 
     {
-        if (log.isDebugEnabled())
-            log.debug("add() Enter");
+        log.debug("add() no-op");
         
-        try
-        {
-	        if (records != null && records.size() > 0)
-	        {	
-		        for (DNSRecord record : records)
-		        {
-		            // ensure record doesn't already exist or we are not adding a record with type ANY
-		        	
-		        	if(record.getType() == Type.ANY)
-		        		throw new ConfigurationStoreException("Cannot add records with type ANY.");        	
-		        	else
-		        	{
-		        		Collection<DNSRecord> checkRecs = get(record.getName(), record.getType());
-		        		if (checkRecs.contains(record))
-		        			throw new ConfigurationStoreException("Record name " + record.getName() + " and type " + record.getType() + 
-		        					" already exists with same rdata.");
-		        	}
-		        		
-		        	        	
-		        	record.setCreateTime(Calendar.getInstance());
-		            
-		        	if (log.isDebugEnabled())
-		                log.debug("Persisting DNS record\r\n\tName: "  + record.getName() + "\r\n\tType: " + record.getType());
-		        	sessionFactory.getCurrentSession().persist(record);
-		        }
-		
-		    	if (log.isDebugEnabled())
-		    		log.debug("Flushing " + records.size() + " added records.");
-		    	
-		        sessionFactory.getCurrentSession().flush();
-	        }
-
-        }
-        finally
-        {
-        	if (log.isDebugEnabled())
-        		log.debug("add() Exit");
-        }
+//        try
+//        {
+//	        if (records != null && records.size() > 0)
+//	        {	
+//		        for (DNSRecord record : records)
+//		        {
+//		            // ensure record doesn't already exist or we are not adding a record with type ANY
+//		        	
+//		        	if(record.getType() == Type.ANY)
+//		        		throw new ConfigurationStoreException("Cannot add records with type ANY.");        	
+//		        	else
+//		        	{
+//		        		Collection<DNSRecord> checkRecs = get(record.getName(), record.getType());
+//		        		if (checkRecs.contains(record))
+//		        			throw new ConfigurationStoreException("Record name " + record.getName() + " and type " + record.getType() + 
+//		        					" already exists with same rdata.");
+//		        	}
+//		        		
+//		        	        	
+//		        	record.setCreateTime(Calendar.getInstance());
+//		            
+//		        	if (log.isDebugEnabled())
+//		                log.debug("Persisting DNS record\r\n\tName: "  + record.getName() + "\r\n\tType: " + record.getType());
+//		        	sessionFactory.getCurrentSession().persist(record);
+//		        }
+//		
+//		    	if (log.isDebugEnabled())
+//		    		log.debug("Flushing " + records.size() + " added records.");
+//		    	
+//		        sessionFactory.getCurrentSession().flush();
+//	        }
+//
+//        }
+//        finally
+//        {
+//        	if (log.isDebugEnabled())
+//        		log.debug("add() Exit");
+//        }
 	}
 
     /**
@@ -108,15 +104,16 @@ public class DNSDaoImpl implements DNSDao {
     @Transactional(readOnly = true)	
 	public int count() 
 	{
-        if (log.isDebugEnabled())
-        	log.debug("count() Enter");
+      	log.debug("count() no-op");
         
-        Long result = (Long) sessionFactory.getCurrentSession().createQuery("select count(d) from DNSRecord d").uniqueResult();
-        
-        if (log.isDebugEnabled())
-            log.debug("count() Exit: " + result.intValue());
-        
-        return result.intValue();
+//        Long result = (Long) sessionFactory.getCurrentSession().createQuery("select count(d) from DNSRecord d").uniqueResult();
+//        
+//        if (log.isDebugEnabled())
+//            log.debug("count() Exit: " + result.intValue());
+//        
+//        return result.intValue();
+      	
+      	return 0;
 	}
 
     /**
@@ -127,31 +124,31 @@ public class DNSDaoImpl implements DNSDao {
     @Transactional(readOnly = true)	
 	public Collection<DNSRecord> get(int type) 
 	{
-        if (log.isDebugEnabled())
-            log.debug("get(int) Enter");
-
+        log.debug("get(int) no-op");
         
-        List<DNSRecord> result = Collections.emptyList();
-
-        Query select = null;
-        if (type != Type.ANY)
-        {
-        	select = sessionFactory.getCurrentSession().createQuery("SELECT d from DNSRecord d WHERE d.type = ?1");
-            select.setParameter(1, type);
-        }
-        else
-        	select = sessionFactory.getCurrentSession().createQuery("SELECT d from DNSRecord d");
+//        List<DNSRecord> result = Collections.emptyList();
+//
+//        Query select = null;
+//        if (type != Type.ANY)
+//        {
+//        	select = sessionFactory.getCurrentSession().createQuery("SELECT d from DNSRecord d WHERE d.type = ?1");
+//            select.setParameter(1, type);
+//        }
+//        else
+//        	select = sessionFactory.getCurrentSession().createQuery("SELECT d from DNSRecord d");
+//        
+//        @SuppressWarnings("rawtypes")
+//		List rs = select.list();
+//        if (rs != null && (rs.size() != 0) && (rs.get(0) instanceof DNSRecord)) 
+//        {
+//            result = (List<DNSRecord>) rs;
+//        }
+//
+//        if (log.isDebugEnabled())
+//            log.debug("get(int) Exit");
+//        return result;
         
-        @SuppressWarnings("rawtypes")
-		List rs = select.list();
-        if (rs != null && (rs.size() != 0) && (rs.get(0) instanceof DNSRecord)) 
-        {
-            result = (List<DNSRecord>) rs;
-        }
-
-        if (log.isDebugEnabled())
-            log.debug("get(int) Exit");
-        return result;
+        return Collections.emptyList();
 	}
 
     /**
@@ -160,17 +157,18 @@ public class DNSDaoImpl implements DNSDao {
 	@Override
 	public DNSRecord get(long recordId) 
 	{
-        if (log.isDebugEnabled())
-            log.debug("get(long) Enter");
+        log.debug("get(long) no-op");
         
-        Collection<DNSRecord> recs =  get(new long[] {recordId});
-        if (recs == null || recs.isEmpty())
-        	return null;
-        
-        if (log.isDebugEnabled())
-            log.debug("get(long) Exit");
-        
-        return recs.iterator().next();
+//        Collection<DNSRecord> recs =  get(new long[] {recordId});
+//        if (recs == null || recs.isEmpty())
+//        	return null;
+//        
+//        if (log.isDebugEnabled())
+//            log.debug("get(long) Exit");
+//        
+//        return recs.iterator().next();
+
+        return new DNSRecord ();
 	}
 
     /**
@@ -181,39 +179,40 @@ public class DNSDaoImpl implements DNSDao {
     @Transactional(readOnly = true)	
 	public Collection<DNSRecord> get(long[] recordIds) 
 	{
-        if (log.isDebugEnabled())
-            log.debug("get(long[]) Enter");
+          log.debug("get(long[]) no-op");
         
-        List<DNSRecord> result = Collections.emptyList();
-        
-        if (recordIds != null && recordIds.length > 0)
-        {
-	        Query select = null;
-	        StringBuffer idList = new StringBuffer("(");
-	        for (long id : recordIds) 
-	        {
-	            if (idList.length() > 1) 
-	            {
-	            	idList.append(", ");
-	            }
-	            idList.append(id);
-	        }
-	        idList.append(")");
-	        String query = "SELECT d from DNSRecord d WHERE d.id IN " + idList.toString();
-	 
-	        select = sessionFactory.getCurrentSession().createQuery(query);
-	        @SuppressWarnings("rawtypes")
-			List rs = select.list();
-	        if (rs != null && (rs.size() != 0) && (rs.get(0) instanceof DNSRecord)) 
-	        {
-	            result = (List<DNSRecord>) rs;
-	        }
-        }
-        
-        if (log.isDebugEnabled())
-            log.debug("get(long[]) Exit");
-        
-        return result;       
+//        List<DNSRecord> result = Collections.emptyList();
+//        
+//        if (recordIds != null && recordIds.length > 0)
+//        {
+//	        Query select = null;
+//	        StringBuffer idList = new StringBuffer("(");
+//	        for (long id : recordIds) 
+//	        {
+//	            if (idList.length() > 1) 
+//	            {
+//	            	idList.append(", ");
+//	            }
+//	            idList.append(id);
+//	        }
+//	        idList.append(")");
+//	        String query = "SELECT d from DNSRecord d WHERE d.id IN " + idList.toString();
+//	 
+//	        select = sessionFactory.getCurrentSession().createQuery(query);
+//	        @SuppressWarnings("rawtypes")
+//			List rs = select.list();
+//	        if (rs != null && (rs.size() != 0) && (rs.get(0) instanceof DNSRecord)) 
+//	        {
+//	            result = (List<DNSRecord>) rs;
+//	        }
+//        }
+//        
+//        if (log.isDebugEnabled())
+//            log.debug("get(long[]) Exit");
+//        
+//        return result;       
+
+        return Collections.emptyList();
 	}
 
     /**
@@ -224,33 +223,32 @@ public class DNSDaoImpl implements DNSDao {
     @Transactional(readOnly = true)	
 	public Collection<DNSRecord> get(String name, int type) 
 	{
-        if (log.isDebugEnabled())
-            log.debug("get(String, int) Enter");
+        log.debug("get(String, int) no-op");
         
         List<DNSRecord> result = Collections.emptyList();
         
-        Query select = null;
-        if (type == Type.ANY)
-        {
-        	select = sessionFactory.getCurrentSession().createQuery("SELECT d from DNSRecord d WHERE UPPER(d.name) = ?1");
-            select.setParameter(1, name.toUpperCase(Locale.getDefault()));
-        }
-        else
-        {
-        	select = sessionFactory.getCurrentSession().createQuery("SELECT d from DNSRecord d WHERE UPPER(d.name) = ?1 and d.type = ?2");
-            select.setParameter(1, name.toUpperCase(Locale.getDefault()));
-            select.setParameter(2, type);
-        }
-        
-        @SuppressWarnings("rawtypes")
-		List rs = select.list();
-        if (rs != null && (rs.size() != 0) && (rs.get(0) instanceof DNSRecord)) 
-        {
-            result = (List<DNSRecord>) rs;
-        }        
-        
-        if (log.isDebugEnabled())
-            log.debug("get(String, int) Exit");
+//        Query select = null;
+//        if (type == Type.ANY)
+//        {
+//        	select = sessionFactory.getCurrentSession().createQuery("SELECT d from DNSRecord d WHERE UPPER(d.name) = ?1");
+//            select.setParameter(1, name.toUpperCase(Locale.getDefault()));
+//        }
+//        else
+//        {
+//        	select = sessionFactory.getCurrentSession().createQuery("SELECT d from DNSRecord d WHERE UPPER(d.name) = ?1 and d.type = ?2");
+//            select.setParameter(1, name.toUpperCase(Locale.getDefault()));
+//            select.setParameter(2, type);
+//        }
+//        
+//        @SuppressWarnings("rawtypes")
+//		List rs = select.list();
+//        if (rs != null && (rs.size() != 0) && (rs.get(0) instanceof DNSRecord)) 
+//        {
+//            result = (List<DNSRecord>) rs;
+//        }        
+//        
+//        if (log.isDebugEnabled())
+//            log.debug("get(String, int) Exit");
         
         return result;
 	}
@@ -261,15 +259,16 @@ public class DNSDaoImpl implements DNSDao {
 	@Override
 	public Collection<DNSRecord> get(String name) 	
 	{
-        if (log.isDebugEnabled())
-            log.debug("get(String) Enter");
+        log.debug("get(String) Enter");
         
-        Collection<DNSRecord> retVal = get(name, Type.ANY);
-        
-        if (log.isDebugEnabled())
-            log.debug("get(String) Exit");
-        
-        return  retVal;
+//        Collection<DNSRecord> retVal = get(name, Type.ANY);
+//        
+//        if (log.isDebugEnabled())
+//            log.debug("get(String) Exit");
+//        
+//        return  retVal;
+
+        return Collections.emptyList();
 	}
 
     /**
@@ -279,35 +278,33 @@ public class DNSDaoImpl implements DNSDao {
     @Transactional(readOnly = false)
 	public void remove(Collection<DNSRecord> records) 
 	{
-        if (log.isDebugEnabled())
-            log.debug("remove(Collection<DNSRecord>) Enter");
-		
-        
-        if (records != null && records.size() > 0)
-        {
-            Collection<DNSRecord> toDelete = new ArrayList<DNSRecord>();
-            
-            // get the records out of the DAO
-            for (DNSRecord record : records)
-            	toDelete.addAll(get(record.getName(), record.getType()));
+        log.debug("remove(Collection<DNSRecord>) no-op");
 
-            // delete all qualifying records
-            if (toDelete.size() > 0)
-            	for (DNSRecord record : toDelete)
-                    sessionFactory.getCurrentSession().delete(record);
-            
-            if (log.isDebugEnabled())
-            {
-                if (toDelete.size() == 0)
-                	log.debug("No DNS records qualified for deletion.");
-                else
-                	log.debug(toDelete.size() + " DNS records deleted");
-            }
-            sessionFactory.getCurrentSession().flush();
-        }
-        
-        if (log.isDebugEnabled())
-            log.debug("remove(Collection<DNSRecord>) Exit");
+//        if (records != null && records.size() > 0)
+//        {
+//            Collection<DNSRecord> toDelete = new ArrayList<DNSRecord>();
+//            
+//            // get the records out of the DAO
+//            for (DNSRecord record : records)
+//            	toDelete.addAll(get(record.getName(), record.getType()));
+//
+//            // delete all qualifying records
+//            if (toDelete.size() > 0)
+//            	for (DNSRecord record : toDelete)
+//                    sessionFactory.getCurrentSession().delete(record);
+//            
+//            if (log.isDebugEnabled())
+//            {
+//                if (toDelete.size() == 0)
+//                	log.debug("No DNS records qualified for deletion.");
+//                else
+//                	log.debug(toDelete.size() + " DNS records deleted");
+//            }
+//            sessionFactory.getCurrentSession().flush();
+//        }
+//        
+//        if (log.isDebugEnabled())
+//            log.debug("remove(Collection<DNSRecord>) Exit");
 	}
 
     /**
@@ -317,13 +314,12 @@ public class DNSDaoImpl implements DNSDao {
     @Transactional(readOnly = false)
 	public void remove(long recordId) 
 	{
-        if (log.isDebugEnabled())
-            log.debug("remove(long) Enter");
+        log.debug("remove(long) no-op");
         
-        remove(new long[] {recordId});
-        
-        if (log.isDebugEnabled())
-            log.debug("remove(long) Exit");        
+//        remove(new long[] {recordId});
+//        
+//        if (log.isDebugEnabled())
+//            log.debug("remove(long) Exit");        
 	}
 
     /**
@@ -333,42 +329,41 @@ public class DNSDaoImpl implements DNSDao {
     @Transactional(readOnly = false)
 	public void remove(long[] recordIds) 
 	{
-        if (log.isDebugEnabled())
-            log.debug("remove(long[]) Enter");
-     
-        if (recordIds != null && recordIds.length > 0)
-        {
-		
-	        StringBuffer ids = new StringBuffer("(");
-	        for (long id : recordIds) 
-	        {
-	            if (ids.length() > 1) 
-	            {
-	            	ids.append(", ");
-	            }
-	            ids.append(id);
-	        }
-	        ids.append(")");
-	        String query = "DELETE FROM DNSRecord d WHERE d.id IN " + ids.toString();
-	        
-	        int count = 0;
-	        Query delete = sessionFactory.getCurrentSession().createQuery(query);
-	        count = delete.executeUpdate();
-	
-	        if (log.isDebugEnabled())
-	        {
-	        	if (count == 0)
-	        		log.debug("No DNS records qualified for deletion.");
-	        	else
-	        		log.debug(count + " DNS records deleted");
-	        }
-	        
-	        sessionFactory.getCurrentSession().flush();
-        }        
-        
-        if (log.isDebugEnabled())
-            log.debug("remove(long[]) Exit");      
-		
+        log.debug("remove(long[]) no-op");
+
+//        if (recordIds != null && recordIds.length > 0)
+//        {
+//		
+//	        StringBuffer ids = new StringBuffer("(");
+//	        for (long id : recordIds) 
+//	        {
+//	            if (ids.length() > 1) 
+//	            {
+//	            	ids.append(", ");
+//	            }
+//	            ids.append(id);
+//	        }
+//	        ids.append(")");
+//	        String query = "DELETE FROM DNSRecord d WHERE d.id IN " + ids.toString();
+//	        
+//	        int count = 0;
+//	        Query delete = sessionFactory.getCurrentSession().createQuery(query);
+//	        count = delete.executeUpdate();
+//	
+//	        if (log.isDebugEnabled())
+//	        {
+//	        	if (count == 0)
+//	        		log.debug("No DNS records qualified for deletion.");
+//	        	else
+//	        		log.debug(count + " DNS records deleted");
+//	        }
+//	        
+//	        sessionFactory.getCurrentSession().flush();
+//        }        
+//        
+//        if (log.isDebugEnabled())
+//            log.debug("remove(long[]) Exit");      
+//		
 	}
 
     /**
@@ -378,36 +373,35 @@ public class DNSDaoImpl implements DNSDao {
     @Transactional(readOnly = false)
 	public void update(long id, DNSRecord record) 
 	{
-        if (log.isDebugEnabled())
-            log.debug("remove(long id, DNSRecord record) Enter");
+        log.debug("update(long id, DNSRecord record) no-op");
         
-        try
-        {
-        	// get the record
-        	if (record.getType() == Type.ANY)
-        		throw new ConfigurationStoreException("Record type for update cannot be ANY");
-		
-        	DNSRecord toUpdate = get(id);
-        	if (toUpdate == null)
-        		throw new ConfigurationStoreException("Record with id " + id + " does not exist.");
-        	
-        	toUpdate.setType(record.getType());
-        	toUpdate.setName(record.getName());
-        	toUpdate.setTtl(record.getTtl());
-        	toUpdate.setDclass(record.getDclass());
-        	toUpdate.setData(record.getData());
-        	
-        	sessionFactory.getCurrentSession().merge(toUpdate);
-        	sessionFactory.getCurrentSession().flush();
-        	
-            if (log.isDebugEnabled())
-                log.debug("1 DNS record updated.");
-        }
-        finally
-        {	       
-	        if (log.isDebugEnabled())
-	            log.debug("remove(long id, DNSRecord record) Exit");
-        }
+//        try
+//        {
+//        	// get the record
+//        	if (record.getType() == Type.ANY)
+//        		throw new ConfigurationStoreException("Record type for update cannot be ANY");
+//		
+//        	DNSRecord toUpdate = get(id);
+//        	if (toUpdate == null)
+//        		throw new ConfigurationStoreException("Record with id " + id + " does not exist.");
+//        	
+//        	toUpdate.setType(record.getType());
+//        	toUpdate.setName(record.getName());
+//        	toUpdate.setTtl(record.getTtl());
+//        	toUpdate.setDclass(record.getDclass());
+//        	toUpdate.setData(record.getData());
+//        	
+//        	sessionFactory.getCurrentSession().merge(toUpdate);
+//        	sessionFactory.getCurrentSession().flush();
+//        	
+//            if (log.isDebugEnabled())
+//                log.debug("1 DNS record updated.");
+//        }
+//        finally
+//        {	       
+//	        if (log.isDebugEnabled())
+//	            log.debug("remove(long id, DNSRecord record) Exit");
+//        }
 	}    
 }
 
