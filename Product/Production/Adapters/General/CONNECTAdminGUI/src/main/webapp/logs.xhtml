@@ -1,5 +1,5 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 
@@ -350,19 +350,18 @@ $(document).ready(function() {
 });
 
 // FUNCTION FOR SIDEBAR NAV - TOGGLE ACTIVE CLASS and CHANGE SELECTED TAB IN MAIN CONTENT AREA
-$('.sidebar li').click(function (e) {
-	e.preventDefault();
+$('.sidebar li').click(function () {
 	var showActivebar = $(this); // STORE ID OF SELECTED SIDEBAR LINK LI
 	$('.sidebar li').not(showActivebar).removeClass('active'); // REMOVE ACTIVE CLASS OF OTHER LINK LI'S AS NEEDED
 	$(showActivebar).addClass('active'); // ADD ACTIVE CLASS TO NEWLY SELECTED LINK LI
-	
+
 	var url = $(this).find('a').attr('href'); // CATCH HREF FROM SIDEBAR LINK
-	//if (url.match('#')) {
+	if (url.match('#')) {
 		//var tid = url.split('#')[1];
 		//console.log(url);
 		$('.nav-tabs a[href='+url+']').tab('show') ; // CHANGE TAB TO MATCH SELECTED SIDEBAR LINK
-		//window.scrollTo(0, 0);
-	//}
+		window.scrollTo(0, 0);
+	}
 });
 // FUNCTION FOR TABBED NAV IN MAIN CONTENT AREA - CHANGE SELECTED SIDEBAR LINK
 $('.nav-tabs a').click(function () {
@@ -378,7 +377,7 @@ $('.sidebar h2.section-header').click(function () {
 	var activeLink = $(this).next('ul').children('.active').attr('id');
 
 	$(this).find('i').toggleClass('glyphicon-plus glyphicon-minus');
-    $(this).next('ul').slideToggle();
+    $(this).next('ul').slideToggle(800);
 	if ($(targetMenu).is(":visible"))
 		$(activeLink).addClass("active");
 });

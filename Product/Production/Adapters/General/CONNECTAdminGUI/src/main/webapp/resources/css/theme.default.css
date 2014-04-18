@@ -73,8 +73,8 @@ Default Theme
 .tablesorter-default tbody > tr:hover > td,
 .tablesorter-default tbody > tr.even:hover > td,
 .tablesorter-default tbody > tr.odd:hover > td {
-	background: #eee;
-	color: #000;
+	background: #eeeeee;
+	color: #000000;
 }
 
 /* table processing indicator */
