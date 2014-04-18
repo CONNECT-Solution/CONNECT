@@ -70,12 +70,7 @@ public class AddressServiceImpl extends SpringBeanAutowiringSupport implements A
      * @see gov.hhs.fha.nhinc.directconfig.service.AddressService#addAddress(java.util.Collection)
      */
     public void addAddress(Collection<Address> address) throws ConfigurationServiceException {
-        if (address == null || address.isEmpty()) {
-            return;
-        }
-        for (Address item : address) {
-            dao.add(item);
-        }
+        
 
     }
 
@@ -87,10 +82,7 @@ public class AddressServiceImpl extends SpringBeanAutowiringSupport implements A
      * )
      */
     public void updateAddress(Address address) throws ConfigurationServiceException {
-        if (address == null) {
-            return;
-        }
-        dao.update(address);
+        
 
     }
 
@@ -100,7 +92,7 @@ public class AddressServiceImpl extends SpringBeanAutowiringSupport implements A
      * @see gov.hhs.fha.nhinc.directconfig.service.AddressService#getAddressCount()
      */
     public int getAddressCount() throws ConfigurationServiceException {
-        return dao.count();
+        return 0;
     }
 
     /*
@@ -136,10 +128,7 @@ public class AddressServiceImpl extends SpringBeanAutowiringSupport implements A
      */
     public Collection<Address> listAddresss(String lastAddressName, int maxResults)
             throws ConfigurationServiceException {
-        List<Address> addressList = new ArrayList<Address>();
-        if (!(StringUtils.isEmpty(lastAddressName)) && maxResults > 0)
-            addressList = dao.listAddresses(lastAddressName, maxResults);
-        return addressList;
+        return null;
     }
 
 }
