@@ -134,8 +134,8 @@ public class DNSDaoImpl implements DNSDao {
 //        Query select = null;
 //        if (type != Type.ANY)
 //        {
-//        	select = sessionFactory.getCurrentSession().createQuery("SELECT d from DNSRecord d WHERE d.type = ?1");
-//            select.setParameter(1, type);
+//        	select = sessionFactory.getCurrentSession().createQuery("SELECT d from DNSRecord d WHERE d.type = ?");
+//            select.setParameter(0, type);
 //        }
 //        else
 //        	select = sessionFactory.getCurrentSession().createQuery("SELECT d from DNSRecord d");
@@ -233,14 +233,14 @@ public class DNSDaoImpl implements DNSDao {
 //        Query select = null;
 //        if (type == Type.ANY)
 //        {
-//        	select = sessionFactory.getCurrentSession().createQuery("SELECT d from DNSRecord d WHERE UPPER(d.name) = ?1");
-//            select.setParameter(1, name.toUpperCase(Locale.getDefault()));
+//        	select = sessionFactory.getCurrentSession().createQuery("SELECT d from DNSRecord d WHERE UPPER(d.name) = ?");
+//            select.setParameter(0, name.toUpperCase(Locale.getDefault()));
 //        }
 //        else
 //        {
-//        	select = sessionFactory.getCurrentSession().createQuery("SELECT d from DNSRecord d WHERE UPPER(d.name) = ?1 and d.type = ?2");
-//            select.setParameter(1, name.toUpperCase(Locale.getDefault()));
-//            select.setParameter(2, type);
+//        	select = sessionFactory.getCurrentSession().createQuery("SELECT d from DNSRecord d WHERE UPPER(d.name) = ? and d.type = ?");
+//            select.setParameter(0, name.toUpperCase(Locale.getDefault()));
+//            select.setParameter(1, type);
 //        }
 //        
 //        @SuppressWarnings("rawtypes")

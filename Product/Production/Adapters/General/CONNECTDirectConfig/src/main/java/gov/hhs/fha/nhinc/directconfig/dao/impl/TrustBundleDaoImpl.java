@@ -110,8 +110,8 @@ public class TrustBundleDaoImpl implements TrustBundleDao {
     @Transactional(readOnly = true)
     public TrustBundle getTrustBundleByName(String bundleName) throws ConfigurationStoreException {
         try {
-            Query select = sessionFactory.getCurrentSession().createQuery("SELECT tb from TrustBundle tb WHERE UPPER(tb.bundleName) = ?1");
-            select.setParameter(1, bundleName.toUpperCase(Locale.getDefault()));
+            Query select = sessionFactory.getCurrentSession().createQuery("SELECT tb from TrustBundle tb WHERE UPPER(tb.bundleName) = ?");
+            select.setParameter(0, bundleName.toUpperCase(Locale.getDefault()));
 
             TrustBundle rs = (TrustBundle)select.uniqueResult();
 
@@ -137,8 +137,8 @@ public class TrustBundleDaoImpl implements TrustBundleDao {
     @Transactional(readOnly = true)
     public TrustBundle getTrustBundleById(long id) throws ConfigurationStoreException {
         try {
-            Query select = sessionFactory.getCurrentSession().createQuery("SELECT tb from TrustBundle tb WHERE tb.id = ?1");
-            select.setParameter(1, id);
+            Query select = sessionFactory.getCurrentSession().createQuery("SELECT tb from TrustBundle tb WHERE tb.id = ?");
+            select.setParameter(0, id);
 
             TrustBundle rs = (TrustBundle)select.uniqueResult();
 
@@ -198,8 +198,8 @@ public class TrustBundleDaoImpl implements TrustBundleDao {
             }
             
             // blow away all the existing bundles
-            final Query delete = sessionFactory.getCurrentSession().createQuery("DELETE from TrustBundleAnchor tba where tba.trustBundle = ?1");
-            delete.setParameter(1, existingBundle);
+            final Query delete = sessionFactory.getCurrentSession().createQuery("DELETE from TrustBundleAnchor tba where tba.trustBundle = ?");
+            delete.setParameter(0, existingBundle);
             delete.executeUpdate();
 
             // now update the bundle
@@ -395,14 +395,15 @@ public class TrustBundleDaoImpl implements TrustBundleDao {
         }
         
         try {
-            final Query select = sessionFactory.getCurrentSession().createQuery("SELECT tbd from TrustBundleDomainReltn tbd where tbd.domain  = ?1 " +
-                    " and tbd.trustBundle = ?2 ");
+            final Query select = sessionFactory.getCurrentSession().createQuery("SELECT tbd from TrustBundleDomainReltn tbd where tbd.domain  = ? " +
+                    " and tbd.trustBundle = ?");
 
-            select.setParameter(1, domain);
-            select.setParameter(2, trustBundle);
+            select.setParameter(0, domain);
+            select.setParameter(1, trustBundle);
 
             final TrustBundleDomainReltn reltn = (TrustBundleDomainReltn)select.uniqueResult();
 
+            sessionFactory.getCurrentSession().merge(reltn);
             sessionFactory.getCurrentSession().delete(reltn);
             sessionFactory.getCurrentSession().flush();
         } catch (NoResultException e) {
@@ -427,9 +428,9 @@ public class TrustBundleDaoImpl implements TrustBundleDao {
         }
         
         try {
-            final Query delete = sessionFactory.getCurrentSession().createQuery("DELETE from TrustBundleDomainReltn tbd where tbd.domain  = ?1");
+            final Query delete = sessionFactory.getCurrentSession().createQuery("DELETE from TrustBundleDomainReltn tbd where tbd.domain  = ?");
 
-            delete.setParameter(1, domain);
+            delete.setParameter(0, domain);
             delete.executeUpdate();
 
             sessionFactory.getCurrentSession().flush();
@@ -452,9 +453,9 @@ public class TrustBundleDaoImpl implements TrustBundleDao {
         }
         
         try {
-            final Query delete = sessionFactory.getCurrentSession().createQuery("DELETE from TrustBundleDomainReltn tbd where tbd.trustBundle  = ?1");
+            final Query delete = sessionFactory.getCurrentSession().createQuery("DELETE from TrustBundleDomainReltn tbd where tbd.trustBundle  = ?");
 
-            delete.setParameter(1, trustBundle);
+            delete.setParameter(0, trustBundle);
             delete.executeUpdate();
 
             sessionFactory.getCurrentSession().flush();
@@ -480,8 +481,8 @@ public class TrustBundleDaoImpl implements TrustBundleDao {
         Collection<TrustBundleDomainReltn> retVal = null;
         
         try {
-            final Query select = sessionFactory.getCurrentSession().createQuery("SELECT tbd from TrustBundleDomainReltn tbd where tbd.domain = ?1");
-            select.setParameter(1, domain);
+            final Query select = sessionFactory.getCurrentSession().createQuery("SELECT tbd from TrustBundleDomainReltn tbd where tbd.domain = ?");
+            select.setParameter(0, domain);
 
             retVal = (Collection<TrustBundleDomainReltn>)select.list();
             

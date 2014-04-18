@@ -71,8 +71,8 @@ public class CertPolicyDaoImpl implements CertPolicyDao
 	{
 //        try
 //        {
-//            final Query select = sessionFactory.getCurrentSession().createQuery("SELECT cp from CertPolicy cp WHERE UPPER(cp.policyName) = ?1");
-//            select.setParameter(1, policyName.toUpperCase(Locale.getDefault()));
+//            final Query select = sessionFactory.getCurrentSession().createQuery("SELECT cp from CertPolicy cp WHERE UPPER(cp.policyName) = ?");
+//            select.setParameter(0, policyName.toUpperCase(Locale.getDefault()));
 //            
 //            final CertPolicy rs = (CertPolicy)select.uniqueResult();
 //            
@@ -96,8 +96,8 @@ public class CertPolicyDaoImpl implements CertPolicyDao
 	{
 //        try
 //        {
-//            final Query select = sessionFactory.getCurrentSession().createQuery("SELECT cp from CertPolicy cp WHERE cp.id = ?1");
-//            select.setParameter(1, id);
+//            final Query select = sessionFactory.getCurrentSession().createQuery("SELECT cp from CertPolicy cp WHERE cp.id = ?");
+//            select.setParameter(0, id);
 //            
 //            final CertPolicy rs = (CertPolicy)select.uniqueResult();
 //            
@@ -182,9 +182,9 @@ public class CertPolicyDaoImpl implements CertPolicyDao
 //		
 //		try
 //		{
-//			final Query delete = sessionFactory.getCurrentSession().createQuery("DELETE from CertPolicyGroupReltn cpr where cpr.certPolicy  = ?1");
+//			final Query delete = sessionFactory.getCurrentSession().createQuery("DELETE from CertPolicyGroupReltn cpr where cpr.certPolicy  = ?");
 //	        
-//	        delete.setParameter(1, policy);
+//	        delete.setParameter(0, policy);
 //	        delete.executeUpdate();
 //	        
 //	        sessionFactory.getCurrentSession().flush();
@@ -265,8 +265,8 @@ public class CertPolicyDaoImpl implements CertPolicyDao
 	{
 //        try
 //        {
-//            final Query select = sessionFactory.getCurrentSession().createQuery("SELECT cpg from CertPolicyGroup cpg WHERE UPPER(cpg.policyGroupName) = ?1");
-//            select.setParameter(1, policyGroupName.toUpperCase(Locale.getDefault()));
+//            final Query select = sessionFactory.getCurrentSession().createQuery("SELECT cpg from CertPolicyGroup cpg WHERE UPPER(cpg.policyGroupName) = ?");
+//            select.setParameter(0, policyGroupName.toUpperCase(Locale.getDefault()));
 //            
 //            final CertPolicyGroup rs = (CertPolicyGroup)select.uniqueResult();
 //            
@@ -293,8 +293,8 @@ public class CertPolicyDaoImpl implements CertPolicyDao
 	{
 //        try
 //        {
-//            final Query select = sessionFactory.getCurrentSession().createQuery("SELECT cpg from CertPolicyGroup cpg WHERE cpg.id = ?1");
-//            select.setParameter(1, id);
+//            final Query select = sessionFactory.getCurrentSession().createQuery("SELECT cpg from CertPolicyGroup cpg WHERE cpg.id = ?");
+//            select.setParameter(0, id);
 //            
 //            final CertPolicyGroup rs = (CertPolicyGroup)select.uniqueResult();
 //            
@@ -439,8 +439,8 @@ public class CertPolicyDaoImpl implements CertPolicyDao
 	{
 //        try
 //        {
-//            final Query select = sessionFactory.getCurrentSession().createQuery("DELETE from CertPolicyGroupReltn cpr WHERE cpr.id = ?1");
-//            select.setParameter(1, policyGroupReltnId);
+//            final Query select = sessionFactory.getCurrentSession().createQuery("DELETE from CertPolicyGroupReltn cpr WHERE cpr.id = ?");
+//            select.setParameter(0, policyGroupReltnId);
 //
 //            select.executeUpdate();
 //			sessionFactory.getCurrentSession().flush();
@@ -502,11 +502,11 @@ public class CertPolicyDaoImpl implements CertPolicyDao
 //		
 //		try
 //		{
-//			final Query select = sessionFactory.getCurrentSession().createQuery("SELECT cpr from CertPolicyGroupDomainReltn cpr where cpr.domain  = ?1 " +
-//	        		" and cpr.certPolicyGroup = ?2 ");
+//			final Query select = sessionFactory.getCurrentSession().createQuery("SELECT cpr from CertPolicyGroupDomainReltn cpr where cpr.domain  = ? " +
+//	        		" and cpr.certPolicyGroup = ? ");
 //	        
-//	        select.setParameter(1, domain);
-//	        select.setParameter(2, policyGroup);
+//	        select.setParameter(0, domain);
+//	        select.setParameter(1, policyGroup);
 //            
 //	        final CertPolicyGroupDomainReltn reltn = (CertPolicyGroupDomainReltn)select.uniqueResult();
 //	        
@@ -535,9 +535,9 @@ public class CertPolicyDaoImpl implements CertPolicyDao
 //		
 //		try
 //		{
-//			final Query delete = sessionFactory.getCurrentSession().createQuery("DELETE from CertPolicyGroupDomainReltn cpr where cpr.domain  = ?1");
+//			final Query delete = sessionFactory.getCurrentSession().createQuery("DELETE from CertPolicyGroupDomainReltn cpr where cpr.domain  = ?");
 //	        
-//	        delete.setParameter(1, domain);
+//	        delete.setParameter(0, domain);
 //	        delete.executeUpdate();
 //	        
 //	        sessionFactory.getCurrentSession().flush();
@@ -560,9 +560,9 @@ public class CertPolicyDaoImpl implements CertPolicyDao
 //		
 //		try
 //		{
-//			final Query delete = sessionFactory.getCurrentSession().createQuery("DELETE from CertPolicyGroupDomainReltn cpr where cpr.certPolicyGroup  = ?1");
+//			final Query delete = sessionFactory.getCurrentSession().createQuery("DELETE from CertPolicyGroupDomainReltn cpr where cpr.certPolicyGroup  = ?");
 //	        
-//	        delete.setParameter(1, policyGroup);
+//	        delete.setParameter(0, policyGroup);
 //	        delete.executeUpdate();
 //	        
 //	        sessionFactory.getCurrentSession().flush();
@@ -616,8 +616,8 @@ public class CertPolicyDaoImpl implements CertPolicyDao
 //		Collection<CertPolicyGroupDomainReltn> retVal = null;
 //        try
 //        {
-//	        final Query select = sessionFactory.getCurrentSession().createQuery("SELECT cpr from CertPolicyGroupDomainReltn cpr where cpr.domain = ?1");
-//	        select.setParameter(1, domain);
+//	        final Query select = sessionFactory.getCurrentSession().createQuery("SELECT cpr from CertPolicyGroupDomainReltn cpr where cpr.domain = ?");
+//	        select.setParameter(0, domain);
 //	        
 //	        retVal = (Collection<CertPolicyGroupDomainReltn>)select.list();
 //	        if (retVal.size() == 0)

@@ -72,15 +72,15 @@ public class CertificateDaoImpl implements CertificateDao {
         if (owner == null && thumbprint == null) {
             select = sessionFactory.getCurrentSession().createQuery("SELECT c from Certificate c");
         } else if (owner != null && thumbprint == null) {
-            select = sessionFactory.getCurrentSession().createQuery("SELECT c from Certificate c WHERE UPPER(c.owner) = ?1");
-            select.setParameter(1, owner.toUpperCase(Locale.getDefault()));
+            select = sessionFactory.getCurrentSession().createQuery("SELECT c from Certificate c WHERE UPPER(c.owner) = ?");
+            select.setParameter(0, owner.toUpperCase(Locale.getDefault()));
         } else if (owner == null && thumbprint != null) {
-            select = sessionFactory.getCurrentSession().createQuery("SELECT c from Certificate c WHERE c.thumbprint = ?1");
-            select.setParameter(1, thumbprint);
+            select = sessionFactory.getCurrentSession().createQuery("SELECT c from Certificate c WHERE c.thumbprint = ?");
+            select.setParameter(0, thumbprint);
         } else {
-            select = sessionFactory.getCurrentSession().createQuery("SELECT c from Certificate c WHERE c.thumbprint = ?1 and UPPER(c.owner) = ?2");
-            select.setParameter(1, thumbprint);
-            select.setParameter(2, owner.toUpperCase(Locale.getDefault()));
+            select = sessionFactory.getCurrentSession().createQuery("SELECT c from Certificate c WHERE c.thumbprint = ? and UPPER(c.owner) = ?");
+            select.setParameter(0, thumbprint);
+            select.setParameter(1, owner.toUpperCase(Locale.getDefault()));
         }
 
         List rs = select.list();
@@ -151,8 +151,8 @@ public class CertificateDaoImpl implements CertificateDao {
         if (owner == null) {
             select = sessionFactory.getCurrentSession().createQuery("SELECT c from Certificate c");
         } else if (owner != null) {
-            select = sessionFactory.getCurrentSession().createQuery("SELECT c from Certificate c WHERE UPPER(c.owner) = ?1");
-            select.setParameter(1, owner.toUpperCase(Locale.getDefault()));
+            select = sessionFactory.getCurrentSession().createQuery("SELECT c from Certificate c WHERE UPPER(c.owner) = ?");
+            select.setParameter(0, owner.toUpperCase(Locale.getDefault()));
         }
 
         List rs = select.list();
@@ -327,8 +327,8 @@ public class CertificateDaoImpl implements CertificateDao {
         
         int count = 0;
         if (owner != null) {
-            Query delete = sessionFactory.getCurrentSession().createQuery("DELETE FROM Certificate c WHERE UPPER(c.owner) = ?1");
-            delete.setParameter(1, owner.toUpperCase(Locale.getDefault()));
+            Query delete = sessionFactory.getCurrentSession().createQuery("DELETE FROM Certificate c WHERE UPPER(c.owner) = ?");
+            delete.setParameter(0, owner.toUpperCase(Locale.getDefault()));
             count = delete.executeUpdate();
         }
 

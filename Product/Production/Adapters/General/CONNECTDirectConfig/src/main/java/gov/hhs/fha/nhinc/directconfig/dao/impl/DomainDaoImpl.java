@@ -215,8 +215,8 @@ public class DomainDaoImpl implements DomainDao {
         Domain result = null;
 
         if (name != null) {
-            Query select = sessionFactory.getCurrentSession().createQuery("SELECT DISTINCT d from Domain d WHERE UPPER(d.domainName) = ?1");
-            Query paramQuery = select.setParameter(1, name.toUpperCase(Locale.getDefault()));
+            Query select = sessionFactory.getCurrentSession().createQuery("SELECT DISTINCT d from Domain d WHERE UPPER(d.domainName) = ?");
+            Query paramQuery = select.setParameter(0, name.toUpperCase(Locale.getDefault()));
 
             if (paramQuery.list().size() > 0) {
                 result = (Domain) paramQuery.uniqueResult();
@@ -258,15 +258,15 @@ public class DomainDaoImpl implements DomainDao {
             String query = "SELECT d from Domain d WHERE UPPER(d.domainName) IN " + nameList.toString();
 
             if (status != null) {
-                select = sessionFactory.getCurrentSession().createQuery(query + " AND d.status = ?1");
-                select.setParameter(1, status);
+                select = sessionFactory.getCurrentSession().createQuery(query + " AND d.status = ?");
+                select.setParameter(0, status);
             } else {
                 select = sessionFactory.getCurrentSession().createQuery(query);
             }
         } else {
             if (status != null) {
-                select = sessionFactory.getCurrentSession().createQuery("SELECT d from Domain d WHERE d.status = ?1");
-                select.setParameter(1, status);
+                select = sessionFactory.getCurrentSession().createQuery("SELECT d from Domain d WHERE d.status = ?");
+                select.setParameter(0, status);
             } else {
                 select = sessionFactory.getCurrentSession().createQuery("SELECT d from Domain d");
             }
@@ -301,8 +301,8 @@ public class DomainDaoImpl implements DomainDao {
         Query select = null;
         
         if (name != null) {
-            select = sessionFactory.getCurrentSession().createQuery("SELECT d from Domain d WHERE UPPER(d.domainName) = ?1");
-            select.setParameter(1, name.toUpperCase(Locale.getDefault()));
+            select = sessionFactory.getCurrentSession().createQuery("SELECT d from Domain d WHERE UPPER(d.domainName) = ?");
+            select.setParameter(0, name.toUpperCase(Locale.getDefault()));
         } else {
             select = sessionFactory.getCurrentSession().createQuery("SELECT d from Domain d");
         }
@@ -339,21 +339,21 @@ public class DomainDaoImpl implements DomainDao {
         if (name != null) {
             String search = name.replace('*', '%').toUpperCase(Locale.getDefault());
             search.replace('?', '_');
-            query.append("SELECT d from Domain d WHERE UPPER(d.domainName) LIKE ?1 ");
+            query.append("SELECT d from Domain d WHERE UPPER(d.domainName) LIKE ? ");
             if (status != null) {
-                query.append("AND d.status = ?2");
+                query.append("AND d.status = ?");
                 select = sessionFactory.getCurrentSession().createQuery(query.toString());
-                select.setParameter(1, search);
-                select.setParameter(2, status);
+                select.setParameter(0, search);
+                select.setParameter(1, status);
             } else {
                 select = sessionFactory.getCurrentSession().createQuery(query.toString());
-                select.setParameter(1, search);
+                select.setParameter(0, search);
             }
         } else {
             if (status != null) {
-                query.append("SELECT d from Domain d WHERE d.status LIKE ?1");
+                query.append("SELECT d from Domain d WHERE d.status LIKE ?");
                 select = sessionFactory.getCurrentSession().createQuery(query.toString());
-                select.setParameter(1, status);
+                select.setParameter(0, status);
             } else {
                 select = sessionFactory.getCurrentSession().createQuery("SELECT d from Domain d");
             }

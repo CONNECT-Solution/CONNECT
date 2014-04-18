@@ -350,8 +350,8 @@ public class AnchorDaoImpl implements AnchorDao {
         int count = 0;
         
         if (owner != null) {
-            Query delete = sessionFactory.getCurrentSession().createQuery("DELETE FROM Anchor a WHERE UPPER(a.owner) = ?1");
-            delete.setParameter(1, owner.toUpperCase(Locale.getDefault()));
+            Query delete = sessionFactory.getCurrentSession().createQuery("DELETE FROM Anchor a WHERE UPPER(a.owner) = ?");
+            delete.setParameter(0, owner.toUpperCase(Locale.getDefault()));
             count = delete.executeUpdate();
         }
         

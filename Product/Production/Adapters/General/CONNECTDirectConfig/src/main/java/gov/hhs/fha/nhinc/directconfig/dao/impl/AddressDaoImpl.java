@@ -131,8 +131,8 @@ public class AddressDaoImpl implements AddressDao {
 
         int count = 0;
         if (name != null) {
-            Query delete = sessionFactory.getCurrentSession().createQuery("DELETE FROM Address a WHERE UPPER(a.emailAddress) = ?1");
-            delete.setParameter(1, name.toUpperCase(Locale.getDefault()));
+            Query delete = sessionFactory.getCurrentSession().createQuery("DELETE FROM Address a WHERE UPPER(a.emailAddress) = ?");
+            delete.setParameter(0, name.toUpperCase(Locale.getDefault()));
             count = delete.executeUpdate();
         }
 
@@ -162,8 +162,8 @@ public class AddressDaoImpl implements AddressDao {
         Address result = null;
 
         if (name != null) {
-            Query select = sessionFactory.getCurrentSession().createQuery("SELECT DISTINCT a from Address a d WHERE UPPER(a.emailAddress) = ?1");
-            result = (Address) select.setParameter(1, name.toUpperCase(Locale.getDefault())).uniqueResult();
+            Query select = sessionFactory.getCurrentSession().createQuery("SELECT DISTINCT a from Address a d WHERE UPPER(a.emailAddress) = ?");
+            result = (Address) select.setParameter(0, name.toUpperCase(Locale.getDefault())).uniqueResult();
         }
 
         log.debug("Exit");
@@ -197,15 +197,15 @@ public class AddressDaoImpl implements AddressDao {
             String query = "SELECT a from Address a WHERE UPPER(a.emailAddress) IN " + nameList.toString();
 
             if (status != null) {
-                select = sessionFactory.getCurrentSession().createQuery(query + " AND a.status = ?1");
-                select.setParameter(1, status);
+                select = sessionFactory.getCurrentSession().createQuery(query + " AND a.status = ?");
+                select.setParameter(0, status);
             } else {
                 select = sessionFactory.getCurrentSession().createQuery(query);
             }
         } else {
             if (status != null) {
-                select = sessionFactory.getCurrentSession().createQuery("SELECT a from Address a WHERE a.status = ?1");
-                select.setParameter(1, status);
+                select = sessionFactory.getCurrentSession().createQuery("SELECT a from Address a WHERE a.status = ?");
+                select.setParameter(0, status);
             } else {
                 select = sessionFactory.getCurrentSession().createQuery("SELECT a from Address a");
             }
@@ -237,20 +237,20 @@ public class AddressDaoImpl implements AddressDao {
         Query select = null;
         
         if (domain != null) {
-            String query = "SELECT a from Address a WHERE a.domain = ?1";
+            String query = "SELECT a from Address a WHERE a.domain = ?";
 
             if (status != null) {
-                select = sessionFactory.getCurrentSession().createQuery(query + " AND a.status = ?2");
-                select.setParameter(1, domain);
-                select.setParameter(2, status);
+                select = sessionFactory.getCurrentSession().createQuery(query + " AND a.status = ?");
+                select.setParameter(0, domain);
+                select.setParameter(1, status);
             } else {
                 select = sessionFactory.getCurrentSession().createQuery(query);
-                select.setParameter(1, domain);
+                select.setParameter(0, domain);
             }
         } else {
             if (status != null) {
-                select = sessionFactory.getCurrentSession().createQuery("SELECT a from Address a WHERE a.status = ?1");
-                select.setParameter(1, status);
+                select = sessionFactory.getCurrentSession().createQuery("SELECT a from Address a WHERE a.status = ?");
+                select.setParameter(0, status);
             } else {
                 select = sessionFactory.getCurrentSession().createQuery("SELECT a from Address a");
             }
