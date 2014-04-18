@@ -1,5 +1,6 @@
 # import.sql
 # connect hihportaldb;
+CREATE DATABASE IF NOT EXISTS hihportaldb;
 CREATE TABLE IF NOT EXISTS hihportaldb.UserLogin ( id BIGINT NOT NULL AUTO_INCREMENT, salt varchar(100) NOT NULL, sha1 varchar(100) NOT NULL, userName varchar(100) NOT NULL, PRIMARY KEY (id), UNIQUE(username));
 delete from hihportaldb.UserLogin;
 insert into hihportaldb.UserLogin (id, salt, sha1, userName) values (1, "ABCD", "TxMu4SPUdek0XU5NovS9U2llt3Q=", "Matt");
