@@ -49,7 +49,6 @@ import org.springframework.transaction.annotation.Transactional;
  *
  * @author ppyette
  */
-//@Repository
 @Service
 public class CertificateDaoImpl implements CertificateDao {
     @Autowired

@@ -2,10 +2,12 @@ package gov.hhs.fha.nhinc.directconfig.service.impl;
 
 import java.util.Collection;
 
+import javax.annotation.PostConstruct;
 import javax.jws.WebService;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+
 import gov.hhs.fha.nhinc.directconfig.service.CertificatePolicyService;
 import gov.hhs.fha.nhinc.directconfig.service.ConfigurationServiceException;
 import gov.hhs.fha.nhinc.directconfig.entity.CertPolicy;
@@ -13,13 +15,14 @@ import gov.hhs.fha.nhinc.directconfig.entity.CertPolicyGroup;
 import gov.hhs.fha.nhinc.directconfig.entity.CertPolicyGroupDomainReltn;
 import gov.hhs.fha.nhinc.directconfig.entity.helpers.CertPolicyUse;
 import gov.hhs.fha.nhinc.directconfig.dao.CertPolicyDao;
+
 import org.nhindirect.policy.PolicyLexicon;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.context.support.SpringBeanAutowiringSupport;
 
 @Service
-@WebService(endpointInterface = "gov.hhs.fha.nhinc.directconfig.service.CertificatePolicyServiceImpl")
+@WebService(endpointInterface = "gov.hhs.fha.nhinc.directconfig.service.CertificatePolicyService")
 public class CertificatePolicyServiceImpl extends SpringBeanAutowiringSupport implements CertificatePolicyService
 {
     private static final Log log = LogFactory.getLog(CertificatePolicyServiceImpl.class);
@@ -30,37 +33,13 @@ public class CertificatePolicyServiceImpl extends SpringBeanAutowiringSupport im
     /**
 	 * Initialization method.
 	 */
-    ///CLOVER:OFF
+    @PostConstruct
     public void init() 
     {
+        SpringBeanAutowiringSupport.processInjectionBasedOnCurrentContext(this);
         log.info("CertificatePolicyServiceImpl initialized");
     }
-    ///CLOVER:ON
     
-	/**
-     * Set the value of the CertPolicyDao object.
-     * 
-     * @param dao
-     *            the value of the CertPolicyDao object.
-     */
-    @Autowired
-    public void setDao(CertPolicyDao dao) 
-    {
-        this.dao = dao;
-    }
-
-    /**
-     * Return the value of the CertPolicyDao object.
-     * 
-     * @return the value of the CertPolicyDao object.
-     */
-    ///CLOVER:OFF
-    public CertPolicyDao getDao() 
-    {
-        return dao;
-    }
-    ///CLOVER:ON
-
 	@Override
 	public Collection<CertPolicy> getPolicies() throws ConfigurationServiceException 
 	{

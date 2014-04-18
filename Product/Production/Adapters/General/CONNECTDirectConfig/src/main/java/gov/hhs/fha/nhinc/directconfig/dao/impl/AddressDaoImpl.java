@@ -45,7 +45,6 @@ import org.springframework.transaction.annotation.Transactional;
  *
  * @author ppyette
  */
-//@Repository
 @Service
 public class AddressDaoImpl implements AddressDao {
 

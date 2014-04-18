@@ -52,7 +52,7 @@ public class Anchor {
     private String thumbprint;
     private long certificateId;
     private byte[] certificateData;
-    private long id;
+    private Long id;
     private Calendar createTime;
     private Calendar validStartDate;
     private Calendar validEndDate;
@@ -135,7 +135,7 @@ public class Anchor {
     @Id
     @Column(name = "id", nullable = false)
     @GeneratedValue(strategy = GenerationType.AUTO)
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
@@ -145,7 +145,7 @@ public class Anchor {
      * @param id
      *            The value of id.
      */
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

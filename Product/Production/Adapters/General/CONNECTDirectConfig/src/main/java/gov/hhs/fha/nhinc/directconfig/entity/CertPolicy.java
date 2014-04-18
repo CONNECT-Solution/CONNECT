@@ -20,7 +20,7 @@ import org.nhindirect.policy.PolicyLexicon;
 @Table(name = "certpolicy")
 public class CertPolicy 
 {
-    private long id;
+    private Long id;
     private String policyName;
     private PolicyLexicon lexicon;
     private byte[] policyData;
@@ -39,7 +39,7 @@ public class CertPolicy
     @Id
     @Column(name = "id", nullable = false)
     @GeneratedValue(strategy = GenerationType.AUTO)
-    public long getId() 
+    public Long getId() 
     {
         return id;
     }
@@ -50,7 +50,7 @@ public class CertPolicy
      * @param id
      *            The value of id.
      */
-    public void setId(long id) 
+    public void setId(Long id) 
     {
         this.id = id;
     } 

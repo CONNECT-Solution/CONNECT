@@ -147,5 +147,64 @@ CREATE TABLE IF NOT EXISTS configdb.trustbundledomainreltn (
         ON UPDATE NO ACTION
 );
 
+-- -----------------------------------------------------
+-- Table `configdb`.`certpolicy`
+-- -----------------------------------------------------
+
+CREATE TABLE IF NOT EXISTS configdb.certpolicy (
+    id SERIAL PRIMARY KEY,
+    createTime DATETIME NOT NULL,
+    lexicon INTEGER NOT NULL,
+    data BLOB(204800) NOT NULL,
+    policyName VARCHAR(255)
+);
+
+-- -----------------------------------------------------
+-- Table `configdb`.`certpolicygroup`
+-- -----------------------------------------------------
+
+CREATE TABLE IF NOT EXISTS configdb.certpolicygroup (
+    id SERIAL PRIMARY KEY,
+    createTime DATETIME NOT NULL,
+    policyGroupName VARCHAR(255)
+);
+
+-- -----------------------------------------------------
+-- Table `configdb`.`certpolicygroupdomainreltn`
+-- -----------------------------------------------------
+
+CREATE TABLE IF NOT EXISTS configdb.certpolicygroupdomainreltn (
+    id SERIAL PRIMARY KEY,
+    policy_group_id BIGINT NOT NULL REFERENCES configdb.certpolicygroup(id),
+    domain_id BIGINT NOT NULL REFERENCES configdb.domain(id)
+);
+
+-- -----------------------------------------------------
+-- Table `configdb`.`certpolicygroupreltn`
+-- -----------------------------------------------------
+
+CREATE TABLE IF NOT EXISTS configdb.certpolicygroupreltn (
+    id SERIAL PRIMARY KEY,
+    incoming SMALLINT,
+    outgoing SMALLINT,
+    policyUse INTEGER NOT NULL,
+    certPolicyId BIGINT NOT NULL REFERENCES configdb.certpolicy(id),
+    certPolicyGroupId BIGINT NOT NULL REFERENCES configdb.certpolicygroup(id)
+);
+
+-- -----------------------------------------------------
+-- Table `configdb`.`dnsrecord`
+-- -----------------------------------------------------
+
+CREATE TABLE IF NOT EXISTS configdb.dnsrecord (
+    id SERIAL PRIMARY KEY,
+    createTime DATETIME NOT NULL,
+    data BLOB(8192),
+    dclass INTEGER,
+    name VARCHAR(255),
+    ttl BIGINT,
+    type INTEGER
+);
+
 GRANT SELECT,INSERT,UPDATE,DELETE ON configdb.* to nhincuser;
 -- end configdb

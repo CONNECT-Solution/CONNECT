@@ -14,7 +14,7 @@ import javax.persistence.Table;
 @Table(name = "certpolicygroupdomainreltn")
 public class CertPolicyGroupDomainReltn 
 {
-    private long id;
+    private Long id;
     
     private Domain domain;
     
@@ -33,7 +33,7 @@ public class CertPolicyGroupDomainReltn
     @Column(name = "id", nullable = false)
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    public long getId() 
+    public Long getId() 
     {
         return id;
     }
@@ -44,7 +44,7 @@ public class CertPolicyGroupDomainReltn
     * @param id
     *            The value of id.
     */
-   public void setId(long id) 
+   public void setId(Long id) 
    {
        this.id = id;
    }   

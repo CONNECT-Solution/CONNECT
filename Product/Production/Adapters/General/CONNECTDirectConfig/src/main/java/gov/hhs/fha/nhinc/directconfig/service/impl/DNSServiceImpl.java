@@ -23,6 +23,7 @@ package gov.hhs.fha.nhinc.directconfig.service.impl;
 
 import java.util.Collection;
 
+import javax.annotation.PostConstruct;
 import javax.jws.WebService;
 
 import org.apache.commons.logging.Log;
@@ -32,6 +33,7 @@ import gov.hhs.fha.nhinc.directconfig.service.ConfigurationServiceException;
 import gov.hhs.fha.nhinc.directconfig.service.DNSService;
 import gov.hhs.fha.nhinc.directconfig.entity.DNSRecord;
 import gov.hhs.fha.nhinc.directconfig.dao.DNSDao;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.context.support.SpringBeanAutowiringSupport;
@@ -53,8 +55,10 @@ public class DNSServiceImpl extends SpringBeanAutowiringSupport implements DNSSe
     /**
      * Initialization method.
      */
+    @PostConstruct
     public void init() 
     {
+        SpringBeanAutowiringSupport.processInjectionBasedOnCurrentContext(this);
         log.info("DNSService initialized");
     }    
     

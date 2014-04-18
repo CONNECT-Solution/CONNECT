@@ -50,7 +50,6 @@ import org.springframework.transaction.annotation.Transactional;
  *
  * @author ppyette
  */
-//@Repository
 @Service
 public class AnchorDaoImpl implements AnchorDao {
 

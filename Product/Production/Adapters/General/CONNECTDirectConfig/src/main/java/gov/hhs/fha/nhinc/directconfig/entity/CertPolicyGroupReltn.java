@@ -19,7 +19,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @Table(name = "certpolicygroupreltn")
 public class CertPolicyGroupReltn 
 {
-    private long id;
+    private Long id;
     private CertPolicyGroup policyGroup;
     private CertPolicy policy;
     private CertPolicyUse policyUse;
@@ -39,7 +39,7 @@ public class CertPolicyGroupReltn
     @Id
     @Column(name = "id", nullable = false)
     @GeneratedValue(strategy = GenerationType.AUTO)
-    public long getId() 
+    public Long getId() 
     {
         return id;
     }
@@ -50,7 +50,7 @@ public class CertPolicyGroupReltn
      * @param id
      *            The value of id.
      */
-    public void setId(long id) 
+    public void setId(Long id) 
     {
         this.id = id;
     } 

@@ -20,6 +20,7 @@ import gov.hhs.fha.nhinc.directconfig.dao.DNSDao;
 import gov.hhs.fha.nhinc.directconfig.entity.DNSRecord;
 //import gov.hhs.fha.nhinc.directconfig.exception.ConfigurationStoreException;
 
+
 //import java.util.ArrayList;
 //import java.util.Calendar;
 import java.util.Collection;
@@ -27,12 +28,13 @@ import java.util.Collections;
 import java.util.List;
 //import java.util.Locale;
 
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.hibernate.SessionFactory;
 //import org.hibernate.Query;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 //import org.xbill.DNS.Type;
 
@@ -41,7 +43,8 @@ import org.springframework.transaction.annotation.Transactional;
  * @author Greg Meyer
  * @since 1.1
  */
-@Repository
+//@Repository
+@Service
 public class DNSDaoImpl implements DNSDao {
     @Autowired
     protected SessionFactory sessionFactory;
@@ -120,7 +123,7 @@ public class DNSDaoImpl implements DNSDao {
      * {@inheritDoc}}
      */
 	@Override
-    @SuppressWarnings("unchecked")
+//    @SuppressWarnings("unchecked")
     @Transactional(readOnly = true)	
 	public Collection<DNSRecord> get(int type) 
 	{
@@ -175,7 +178,7 @@ public class DNSDaoImpl implements DNSDao {
      * {@inheritDoc}}
      */	
 	@Override
-    @SuppressWarnings("unchecked")	
+//    @SuppressWarnings("unchecked")	
     @Transactional(readOnly = true)	
 	public Collection<DNSRecord> get(long[] recordIds) 
 	{
@@ -219,7 +222,7 @@ public class DNSDaoImpl implements DNSDao {
      * {@inheritDoc}}
      */	
 	@Override
-    @SuppressWarnings("unchecked")	
+//    @SuppressWarnings("unchecked")	
     @Transactional(readOnly = true)	
 	public Collection<DNSRecord> get(String name, int type) 
 	{

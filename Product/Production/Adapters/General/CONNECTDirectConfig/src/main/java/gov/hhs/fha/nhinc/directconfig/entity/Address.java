@@ -157,9 +157,6 @@ public class Address {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @XmlAttribute
     public Long getId() {
-        if (id == null) {
-            setId(new Long(0L));
-        }
         return id;
     }
 

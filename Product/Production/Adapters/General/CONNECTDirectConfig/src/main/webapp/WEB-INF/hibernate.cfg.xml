@@ -8,6 +8,11 @@
         <mapping class="gov.hhs.fha.nhinc.directconfig.entity.Address" />
         <mapping class="gov.hhs.fha.nhinc.directconfig.entity.Anchor" />
         <mapping class="gov.hhs.fha.nhinc.directconfig.entity.Certificate" />
+        <mapping class="gov.hhs.fha.nhinc.directconfig.entity.CertPolicy" />
+        <mapping class="gov.hhs.fha.nhinc.directconfig.entity.CertPolicyGroup" />
+        <mapping class="gov.hhs.fha.nhinc.directconfig.entity.CertPolicyGroupDomainReltn" />
+        <mapping class="gov.hhs.fha.nhinc.directconfig.entity.CertPolicyGroupReltn" />
+        <mapping class="gov.hhs.fha.nhinc.directconfig.entity.DNSRecord" />
         <mapping class="gov.hhs.fha.nhinc.directconfig.entity.Domain" />
         <mapping class="gov.hhs.fha.nhinc.directconfig.entity.Setting" />
         <mapping class="gov.hhs.fha.nhinc.directconfig.entity.TrustBundle" />

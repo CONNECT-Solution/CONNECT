@@ -5,28 +5,28 @@ import gov.hhs.fha.nhinc.directconfig.dao.DomainDao;
 import gov.hhs.fha.nhinc.directconfig.entity.CertPolicy;
 import gov.hhs.fha.nhinc.directconfig.entity.CertPolicyGroup;
 import gov.hhs.fha.nhinc.directconfig.entity.CertPolicyGroupDomainReltn;
-import gov.hhs.fha.nhinc.directconfig.entity.CertPolicyGroupReltn;
-import gov.hhs.fha.nhinc.directconfig.entity.Domain;
+//import gov.hhs.fha.nhinc.directconfig.entity.CertPolicyGroupReltn;
+//import gov.hhs.fha.nhinc.directconfig.entity.Domain;
 import gov.hhs.fha.nhinc.directconfig.entity.helpers.CertPolicyUse;
 import gov.hhs.fha.nhinc.directconfig.exception.ConfigurationStoreException;
 
-import java.util.Calendar;
+//import java.util.Calendar;
 import java.util.Collection;
 import java.util.Collections;
-import java.util.Locale;
+//import java.util.Locale;
 
-import javax.persistence.NoResultException;
+//import javax.persistence.NoResultException;
 
-import org.apache.commons.logging.Log;
-import org.apache.commons.logging.LogFactory;
+//import org.apache.commons.logging.Log;
+//import org.apache.commons.logging.LogFactory;
 import org.hibernate.SessionFactory;
-import org.hibernate.Query;
+//import org.hibernate.Query;
 import org.nhindirect.policy.PolicyLexicon;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-@Repository
+@Service
 public class CertPolicyDaoImpl implements CertPolicyDao
 {
     @Autowired
@@ -35,14 +35,14 @@ public class CertPolicyDaoImpl implements CertPolicyDao
     @Autowired
     protected DomainDao domainDao;	
     
-    private static final Log log = LogFactory.getLog(CertPolicyDaoImpl.class);
+    //private static final Log log = LogFactory.getLog(CertPolicyDaoImpl.class);
     
     public CertPolicyDaoImpl()
     {
     	
     }
     
-	@SuppressWarnings("unchecked")
+	//@SuppressWarnings("unchecked")
 	@Override
     @Transactional(readOnly = true)
 	public Collection<CertPolicy> getPolicies() throws ConfigurationStoreException 
@@ -573,7 +573,7 @@ public class CertPolicyDaoImpl implements CertPolicyDao
 //		}
 	}
 
-	@SuppressWarnings("unchecked")
+	//@SuppressWarnings("unchecked")
 	@Override
     @Transactional(readOnly = true)	
 	public Collection<CertPolicyGroupDomainReltn> getPolicyGroupDomainReltns() throws ConfigurationStoreException
@@ -603,7 +603,7 @@ public class CertPolicyDaoImpl implements CertPolicyDao
 		return Collections.emptyList();
 	}
 	
-	@SuppressWarnings("unchecked")
+	//@SuppressWarnings("unchecked")
 	@Override
     @Transactional(readOnly = true)	
 	public Collection<CertPolicyGroupDomainReltn> getPolicyGroupsByDomain(long domainId) throws ConfigurationStoreException 

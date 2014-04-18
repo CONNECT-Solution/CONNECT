@@ -44,7 +44,6 @@ import gov.hhs.fha.nhinc.directconfig.exception.CertificateException;
 import gov.hhs.fha.nhinc.directconfig.dao.TrustBundleDao;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.web.context.support.SpringBeanAutowiringSupport;
 

@@ -30,10 +30,9 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 import org.bouncycastle.util.Arrays;
+
 import gov.hhs.fha.nhinc.directconfig.entity.helpers.DNSRecordUtils;
 
-@Entity
-@Table(name = "dnsrecord")
 /**
  * The JPA Domain class representing a DNS record.  This is a generic DNS record that can represent (in theory) any
  * DNS record type.
@@ -41,9 +40,11 @@ import gov.hhs.fha.nhinc.directconfig.entity.helpers.DNSRecordUtils;
  * @author Greg Meyer
  * @since 1.1
  */
+@Entity
+@Table(name = "dnsrecord")
 public class DNSRecord 
 {
-    private long id;
+    private Long id;
     private String name;
     private int type;
     private int dclass;
@@ -58,7 +59,7 @@ public class DNSRecord
     @Id
     @Column(name = "id", nullable = false)
     @GeneratedValue(strategy = GenerationType.AUTO)    
-    public long getId() 
+    public Long getId() 
     {
         return id;
     }
@@ -67,7 +68,7 @@ public class DNSRecord
      * Sets the internal id of the record.
      * @param id  The internal id of the record.
      */
-    public void setId(long id) 
+    public void setId(Long id) 
     {
         this.id = id;  
     }
