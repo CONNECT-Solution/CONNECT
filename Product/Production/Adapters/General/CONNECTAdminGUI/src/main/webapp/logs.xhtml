@@ -47,18 +47,18 @@
 				<div class="pull-right"><a href="#"><i class="glyphicon glyphicon-minus"></i></a></div>
 			</h2>
 			<ul class="nav nav-sidebar sidebar-blue" id="sidebar-logs">
-				<li class="active"><a href="#event"><i class="glyphicon glyphicon-list-alt glyph"></i> Event Logs</a></li>
-				<li><a href="#audit"><i class="glyphicon glyphicon-list-alt"></i> Audit Logs</a></li>
-				<li><a href="#system"><i class="glyphicon glyphicon-list-alt"></i> System Logs</a></li>
+				<li class="active"><a href="#tab_event"><i class="glyphicon glyphicon-list-alt glyph"></i> Event Logs</a></li>
+				<li><a href="#tab_audit"><i class="glyphicon glyphicon-list-alt"></i> Audit Logs</a></li>
+				<li><a href="#tab_system"><i class="glyphicon glyphicon-list-alt"></i> System Logs</a></li>
 			</ul>
 
 			<h2 class="section-header">Gateway Status
 				<div class="pull-right"><a href="#"><i class="glyphicon glyphicon-minus"></i></a></div>
 			</h2>
 			<ul class="nav nav-sidebar sidebar-orange">
-				<li><a href="status.xhtml#dash"><i class="glyphicon glyphicon-dashboard"></i> Server Dashboard</a></li>
-				<li><a href="status.xhtml#stats"><i class="glyphicon glyphicon-stats"></i> Performance Statistics</a></li>
-				<li><a href="status.xhtml#remotes"><i class="glyphicon glyphicon-list"></i> Remote Gateway List</a></li>
+				<li><a href="status.xhtml#tab_dash"><i class="glyphicon glyphicon-dashboard"></i> Server Dashboard</a></li>
+				<li><a href="status.xhtml#tab_stats"><i class="glyphicon glyphicon-stats"></i> Performance Statistics</a></li>
+				<li><a href="status.xhtml#tab_remotes"><i class="glyphicon glyphicon-list"></i> Remote Gateway List</a></li>
 			</ul>
 			
 			<h2 class="section-header">CONNECT Configuration
@@ -339,8 +339,9 @@ $(document).ready(function(){
 // FUNCTION TO SHOW THE CORRECT TABBED CONTENT IF NAVIGATING FROM DIFFERENT PAGE
 $(document).ready(function() {
 	var hash = window.location.hash;
+	var prefix = "tab_"; // USING PREFIX TO PREVENT BROWSER AUTOMATIC SCROLL TO THIS ELEMENT
 	if (hash != "") {
-		$('#nav-section-tabs a[href="' + hash + '"]').tab('show');
+		$('#nav-section-tabs a[href="' + hash.replace(prefix,"") + '"]').tab('show'); // REMOVE PREFIX and CHANGE TO CORRECT TAB
 		var showActivebar = $('.sidebar a[href='+hash+']'); // FIND SIDEBAR LINK TO MATCH SELECTED TAB
 		$('.sidebar li').not(showActivebar).removeClass('active'); // REMOVE ACTIVE CLASS OF OTHER LINK LI'S AS NEEDED
 		$(showActivebar).parent().addClass('active'); // ADD ACTIVE CLASS TO NEWLY SELECTED LINK
@@ -356,16 +357,17 @@ $('.sidebar li').click(function () {
 	$(showActivebar).addClass('active'); // ADD ACTIVE CLASS TO NEWLY SELECTED LINK LI
 
 	var url = $(this).find('a').attr('href'); // CATCH HREF FROM SIDEBAR LINK
+	var prefix = "tab_"; // USING PREFIX TO PREVENT BROWSER AUTOMATIC SCROLL TO THIS ELEMENT
 	if (url.match('#')) {
 		//var tid = url.split('#')[1];
 		//console.log(url);
-		$('.nav-tabs a[href='+url+']').tab('show') ; // CHANGE TAB TO MATCH SELECTED SIDEBAR LINK
-		window.scrollTo(0, 0); // HOPEFULLY KEEPS PAGE AT TOP
+		$('.nav-tabs a[href='+url.replace(prefix,"")+']').tab('show') ; // REMOVE PREFIX and CHANGE TAB TO MATCH SELECTED SIDEBAR LINK
+		//window.scrollTo(0, 0);
 	}
 });
 // FUNCTION FOR TABBED NAV IN MAIN CONTENT AREA - CHANGE SELECTED SIDEBAR LINK
 $('.nav-tabs a').click(function () {
-	var url = $(this).attr('href'); // CATCH HREF FROM SELECTED TAB
+	var url = $(this).attr('href').replace("#","#tab_"); // CATCH HREF FROM SELECTED TAB and ADD PREFIX TO FIND CORRECT SIDEBAR LINK
 	var showActivebar = $('.sidebar a[href='+url+']'); // FIND SIDEBAR LINK TO MATCH SELECTED TAB
 	$('.sidebar li').not(showActivebar).removeClass('active'); // REMOVE ACTIVE CLASS OF OTHER LINK LI'S AS NEEDED
 	$(showActivebar).parent().addClass('active'); // ADD ACTIVE CLASS TO NEWLY SELECTED LINK LI
@@ -377,7 +379,7 @@ $('.sidebar h2.section-header').click(function () {
 	var activeLink = $(this).next('ul').children('.active').attr('id');
 
 	$(this).find('i').toggleClass('glyphicon-plus glyphicon-minus');
-    $(this).next('ul').slideToggle(800);
+    $(this).next('ul').slideToggle(400);
 	if ($(targetMenu).is(":visible"))
 		$(activeLink).addClass("active");
 });

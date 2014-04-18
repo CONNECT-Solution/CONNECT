@@ -47,10 +47,19 @@
 					<div class="pull-right"><a href="#"><i class="glyphicon glyphicon-minus"></i></a></div>
 				</h2>
                 <ul class="nav nav-sidebar sidebar-orange">
-                    <li class="active"><a href="#dash"><i class="glyphicon glyphicon-dashboard"></i> Server
+                    <li class="active"><a href="#tab_dash"><i class="glyphicon glyphicon-dashboard"></i> Server
                             Dashboard</a></li>
-                    <li><a href="#stats"><i class="glyphicon glyphicon-stats"></i> Performance Statistics</a></li>
-                    <li><a href="#remotes"><i class="glyphicon glyphicon-list"></i> Remote Gateway List</a></li>
+                    <li><a href="#tab_stats"><i class="glyphicon glyphicon-stats"></i> Performance Statistics</a></li>
+                    <li><a href="#tab_remotes"><i class="glyphicon glyphicon-list"></i> Remote Gateway List</a></li>
+                </ul>
+
+                <h2 class="section-header">Activity Logs 
+					<div class="pull-right"><a href="#"><i class="glyphicon glyphicon-minus"></i></a></div>
+				</h2>
+                <ul class="nav nav-sidebar sidebar-blue">
+                    <li><a href="logs.xhtml#tab_event"><i class="glyphicon glyphicon-list-alt"></i> Event Logs</a></li>
+                    <li><a href="logs.xhtml#tab_audit"><i class="glyphicon glyphicon-list-alt"></i> Audit Logs</a></li>
+                    <li><a href="logs.xhtml#tab_system"><i class="glyphicon glyphicon-list-alt"></i> System Logs</a></li>
                 </ul>
 
                 <h2 class="section-header">CONNECT Configuration 
@@ -77,15 +86,6 @@
                 <ul class="nav nav-sidebar sidebar-purple">
                     <li><a href=""><i class="glyphicon glyphicon-user"></i> User Accounts</a></li>
                     <li><a href=""><i class="glyphicon glyphicon-lock"></i> Certificate Management</a></li>
-                </ul>
-
-                <h2 class="section-header">Activity Logs 
-					<div class="pull-right"><a href="#"><i class="glyphicon glyphicon-minus"></i></a></div>
-				</h2>
-                <ul class="nav nav-sidebar sidebar-blue">
-                    <li><a href="logs.xhtml#event"><i class="glyphicon glyphicon-list-alt"></i> Event Logs</a></li>
-                    <li><a href="logs.xhtml#audit"><i class="glyphicon glyphicon-list-alt"></i> Audit Logs</a></li>
-                    <li><a href="logs.xhtml#system"><i class="glyphicon glyphicon-list-alt"></i> System Logs</a></li>
                 </ul>
             </div>
             <!-- END: LEFT COLUMN - SIDEBAR NAVIGATION -->
@@ -352,146 +352,148 @@
 	</script>
 
     <script>
-		// FUNCTION TO SHOW THE CORRECT TABBED CONTENT IF NAVIGATING FROM DIFFERENT PAGE
-		$(document).ready(function() {
-			var hash = window.location.hash;
-			if (hash != "") {
-				$('#nav-section-tabs a[href="' + hash + '"]').tab('show');
-				var showActivebar = $('.sidebar a[href=' + hash + ']'); // FIND SIDEBAR LINK TO MATCH SELECTED TAB
-				$('.sidebar li').not(showActivebar).removeClass('active'); // REMOVE ACTIVE CLASS OF OTHER LINK LI'S AS NEEDED
-				$(showActivebar).parent().addClass('active'); // ADD ACTIVE CLASS TO NEWLY SELECTED LINK LI
-			} else
-				$('#nav-section-tabs a:first').tab('show');
-		});
-
-		// FUNCTION FOR SIDEBAR NAV - TOGGLE ACTIVE CLASS and CHANGE SELECTED TAB IN MAIN CONTENT AREA
-		$('.sidebar li').click(function() {
-			var showActivebar = $(this); // STORE ID OF SELECTED SIDEBAR LINK LI
-			$('.sidebar li').not(showActivebar).removeClass('active'); // REMOVE ACTIVE CLASS OF OTHER LINK LI'S AS NEEDED
-			$(showActivebar).addClass('active'); // ADD ACTIVE CLASS TO NEWLY SELECTED LINK LI
-
-			var url = $(this).find('a').attr('href'); // CATCH HREF FROM SIDEBAR LINK
-			if (url.match('#')) {
-				//var tid = url.split('#')[1];
-				//console.log(url);
-				$('.nav-tabs a[href=' + url + ']').tab('show'); // CHANGE TAB TO MATCH SELECTED SIDEBAR LINK
-				window.scrollTo(0, 0);
-			}
-		});
-		// FUNCTION FOR TABBED NAV IN MAIN CONTENT AREA - CHANGE SELECTED SIDEBAR LINK
-		$('.nav-tabs a').click(function() {
-			var url = $(this).attr('href'); // CATCH HREF FROM SELECTED TAB
-			var showActivebar = $('.sidebar a[href=' + url + ']'); // FIND SIDEBAR LINK TO MATCH SELECTED TAB
+	// FUNCTION TO SHOW THE CORRECT TABBED CONTENT IF NAVIGATING FROM DIFFERENT PAGE
+	$(document).ready(function() {
+		var hash = window.location.hash;
+		var prefix = "tab_"; // USING PREFIX TO PREVENT BROWSER AUTOMATIC SCROLL TO THIS ELEMENT
+		if (hash != "") {
+			$('#nav-section-tabs a[href="' + hash.replace(prefix,"") + '"]').tab('show'); // REMOVE PREFIX and CHANGE TO CORRECT TAB
+			var showActivebar = $('.sidebar a[href=' + hash + ']'); // FIND SIDEBAR LINK TO MATCH SELECTED TAB
 			$('.sidebar li').not(showActivebar).removeClass('active'); // REMOVE ACTIVE CLASS OF OTHER LINK LI'S AS NEEDED
 			$(showActivebar).parent().addClass('active'); // ADD ACTIVE CLASS TO NEWLY SELECTED LINK LI
-		});
-		
-		// FUNCTION TO EXPAND/CONTRACT SIDEBAR NAV SECTIONS
-		$('.sidebar h2.section-header').click(function () {
-			var targetMenu = $(this).next('ul').attr('id');
-			var activeLink = $(this).next('ul').children('.active').attr('id');
-		
-			$(this).find('i').toggleClass('glyphicon-plus glyphicon-minus');
-			$(this).next('ul').slideToggle(800);
-			if ($(targetMenu).is(":visible"))
-				$(activeLink).addClass("active");
-		});
+		} else
+			$('#nav-section-tabs a:first').tab('show');
+	});
+
+	// FUNCTION FOR SIDEBAR NAV - TOGGLE ACTIVE CLASS and CHANGE SELECTED TAB IN MAIN CONTENT AREA
+	$('.sidebar li').click(function() {
+		var showActivebar = $(this); // STORE ID OF SELECTED SIDEBAR LINK LI
+		$('.sidebar li').not(showActivebar).removeClass('active'); // REMOVE ACTIVE CLASS OF OTHER LINK LI'S AS NEEDED
+		$(showActivebar).addClass('active'); // ADD ACTIVE CLASS TO NEWLY SELECTED LINK LI
+
+		var url = $(this).find('a').attr('href'); // CATCH HREF FROM SIDEBAR LINK
+		var prefix = "tab_"; // USING PREFIX TO PREVENT BROWSER AUTOMATIC SCROLL TO THIS ELEMENT
+		if (url.match('#')) {
+			//var tid = url.split('#')[1];
+			//console.log(url);
+			$('.nav-tabs a[href=' + url.replace(prefix,"") + ']').tab('show'); // REMOVE PREFIX and CHANGE TAB TO MATCH SELECTED SIDEBAR LINK
+			//window.scrollTo(0, 0);
+		}
+	});
+	// FUNCTION FOR TABBED NAV IN MAIN CONTENT AREA - CHANGE SELECTED SIDEBAR LINK
+	$('.nav-tabs a').click(function() {
+		var url = $(this).attr('href').replace("#","#tab_"); // CATCH HREF FROM SELECTED TAB and ADD PREFIX TO FIND CORRECT SIDEBAR LINK
+		var showActivebar = $('.sidebar a[href=' + url + ']'); // FIND SIDEBAR LINK TO MATCH SELECTED TAB
+		$('.sidebar li').not(showActivebar).removeClass('active'); // REMOVE ACTIVE CLASS OF OTHER LINK LI'S AS NEEDED
+		$(showActivebar).parent().addClass('active'); // ADD ACTIVE CLASS TO NEWLY SELECTED LINK LI
+	});
+	
+	// FUNCTION TO EXPAND/CONTRACT SIDEBAR NAV SECTIONS
+	$('.sidebar h2.section-header').click(function () {
+		var targetMenu = $(this).next('ul').attr('id');
+		var activeLink = $(this).next('ul').children('.active').attr('id');
+	
+		$(this).find('i').toggleClass('glyphicon-plus glyphicon-minus');
+		$(this).next('ul').slideToggle(400);
+		if ($(targetMenu).is(":visible"))
+			$(activeLink).addClass("active");
+	});
 	</script>
 
     <script src="http://code.highcharts.com/highcharts.js"></script>
     <script src="http://code.highcharts.com/modules/exporting.js"></script>
     <script>
-		$(function() {
-			$('#chart-stats-connect').highcharts({
-				chart : {
-				//spacingBottom:0
-				},
+	$(function() {
+		$('#chart-stats-connect').highcharts({
+			chart : {
+			//spacingBottom:0
+			},
+			title : {
+				text : null,
+				x : -20
+			},
+			subtitle : {
+				text : null,
+				x : -20
+			},
+			credits : {
+				enabled : false
+			},
+			exporting : {
+				enabled : false
+			},
+			xAxis : {
+				categories : [ 'Jan 7',
+						'Jan 8', 'Jan 9',
+						'Jan 10', 'Jan 11',
+						'Jan 12', 'Jan 13',
+						'Jan 14', 'Jan 15',
+						'Jan 16', 'Jan 17',
+						'Jan 18' ]
+			},
+			yAxis : {
 				title : {
-					text : null,
-					x : -20
+					text : null
 				},
-				subtitle : {
-					text : null,
-					x : -20
-				},
-				credits : {
-					enabled : false
-				},
-				exporting : {
-					enabled : false
-				},
-				xAxis : {
-					categories : [ 'Jan 7',
-							'Jan 8', 'Jan 9',
-							'Jan 10', 'Jan 11',
-							'Jan 12', 'Jan 13',
-							'Jan 14', 'Jan 15',
-							'Jan 16', 'Jan 17',
-							'Jan 18' ]
-				},
-				yAxis : {
-					title : {
-						text : null
+				min : -5,
+				startOnTick : false,
+				allowDecimals : false,
+				tickInterval : 5,
+				plotLines : [ {
+					value : 0,
+					width : 1,
+					color : '#808080'
+				} ]
+			},
+			tooltip : {
+				valueSuffix : '',
+				shared : true
+			},
+			legend : {
+				layout : 'horizontal',
+				align : 'center',
+				verticalAlign : 'bottom',
+				borderWidth : 0,
+				itemMarginTop : 5
+			},
+			series : [
+					{
+						name : 'Inbound Messages',
+						data : [ 8, 8, 11, 16,
+								19, 23, 26, 28,
+								24, 19, 15, 11 ]
 					},
-					min : -5,
-					startOnTick : false,
-					allowDecimals : false,
-					tickInterval : 5,
-					plotLines : [ {
-						value : 0,
-						width : 1,
-						color : '#808080'
-					} ]
-				},
-				tooltip : {
-					valueSuffix : '',
-					shared : true
-				},
-				legend : {
-					layout : 'horizontal',
-					align : 'center',
-					verticalAlign : 'bottom',
-					borderWidth : 0,
-					itemMarginTop : 5
-				},
-				series : [
-						{
-							name : 'Inbound Messages',
-							data : [ 8, 8, 11, 16,
-									19, 23, 26, 28,
-									24, 19, 15, 11 ]
-						},
-						{
-							name : 'Outbound Messages',
-							data : [ 2, 2, 6, 11,
-									17, 25, 22, 24,
-									20, 14, 9, 3 ]
-						},
-						{
-							name : 'Failed Messages',
-							data : [ 3, 1, 4, 8,
-									14, 17, 19, 18,
-									14, 9, 4, 1 ]
-						},
-						{
-							name : 'Requests Failed Due to Authentication Failure',
-							data : [ 1, 0, 5, 8,
-									11, 14, 16, 16,
-									13, 5, 6, 4 ]
-						} ],
-				plotOptions : {
-					line : {
-						marker : {
-							fillColor : '#ffffff',
-							lineColor : null,
-							lineWidth : 3,
-							radius : 7,
-							symbol : 'circle'
-						}
+					{
+						name : 'Outbound Messages',
+						data : [ 2, 2, 6, 11,
+								17, 25, 22, 24,
+								20, 14, 9, 3 ]
+					},
+					{
+						name : 'Failed Messages',
+						data : [ 3, 1, 4, 8,
+								14, 17, 19, 18,
+								14, 9, 4, 1 ]
+					},
+					{
+						name : 'Requests Failed Due to Authentication Failure',
+						data : [ 1, 0, 5, 8,
+								11, 14, 16, 16,
+								13, 5, 6, 4 ]
+					} ],
+			plotOptions : {
+				line : {
+					marker : {
+						fillColor : '#ffffff',
+						lineColor : null,
+						lineWidth : 3,
+						radius : 7,
+						symbol : 'circle'
 					}
 				}
-			});
+			}
 		});
+	});
 	</script>
 
 </body>
